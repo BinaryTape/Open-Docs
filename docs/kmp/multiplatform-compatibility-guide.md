@@ -15,7 +15,8 @@ Kotlin 的当前稳定版本是 %kotlinVersion%。请注意特定变更的弃用
 
 | Kotlin Multiplatform 插件版本 | Gradle                                | Android Gradle 插件                               | Xcode   |
 |-------------------------------------|---------------------------------------|-----------------------------------------------------|---------|
-| 2.2.21                              | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% | %xcode% |
+| 2.3.0                               | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% | %xcode% |
+| 2.2.21                              | 7.6.3–8.14                            | 7.3.1–8.11.1                                        | 26      |
 | 2.2.20                              | 7.6.3–8.14                            | 7.3.1–8.11.1                                        | 16.4    |
 | 2.2.0-2.2.10                        | 7.6.3–8.14                            | 7.3.1–8.10.0                                        | 16.3    |
 | 2.1.21                              | 7.6.3–8.12.1                          | 7.3.1–8.7.2                                         | 16.3    |
@@ -36,6 +37,31 @@ Kotlin 的当前稳定版本是 %kotlinVersion%。请注意特定变更的弃用
 ## Kotlin 2.0.0 及更高版本
 
 本节涵盖了在 Kotlin 2.0.0−%kotlinVersion% 中结束弃用周期并生效的不兼容变更。
+
+### 迁移到 Google 的 Android 目标插件
+
+**有何变更？**
+
+在 Kotlin 2.3.0 之前，我们通过 `com.android.application` 和 `com.android.library` 插件提供了对 Android 目标的支持。
+这是一个临时解决方案，同时 Google 的 Android 团队开发了一个专门针对 Kotlin Multiplatform 的单独插件。
+
+最初，我们使用 `android` 代码块，但后来过渡到 `androidTarget` 代码块，以便将 `android` 名称保留供新插件使用。
+
+现在，[`com.android.kotlin.multiplatform.library` 插件](https://developer.android.com/kotlin/multiplatform/plugin)已由 Android 团队提供，您可以将它与原始的 `android` 代码块一起使用。
+
+**最佳实践是什么？**
+
+迁移到新的 `com.android.kotlin.multiplatform.library` 插件。将所有出现的 `androidTarget` 代码块重命名为 `android`。
+有关如何迁移的详细说明，请参见 Google 的[迁移指南](https://developer.android.com/kotlin/multiplatform/plugin#migrate)。
+
+**变更何时生效？**
+
+以下是 Kotlin Multiplatform Gradle 插件的弃用周期：
+
+*   1.9.0: 当在 Kotlin Multiplatform 项目中使用 `android` 名称时引入弃用警告
+*   2.1.0: 将此警告升级为错误
+*   2.2.0: 从 Kotlin Multiplatform Gradle 插件中移除 `android` 目标 DSL
+*   2.3.0: 新 Android 插件可用；当在 Kotlin Multiplatform 项目中使用 `androidTarget` 名称时引入弃用警告。
 
 ### 已弃用 bitcode 嵌入
 
@@ -95,26 +121,6 @@ kotlin {
 *   Gradle >8.6: 对于使用 `withJava()` 函数的多平台项目中任何以前的 Kotlin 版本，引入弃用警告。
 *   Gradle 9.0: 将此警告升级为错误。
 *   2.1.20: 使用任何 Gradle 版本时，使用 `withJava()` 函数将引入弃用警告。
-
-### 将 `android` 目标重命名为 `androidTarget`
-
-**有何变更？**
-
-我们继续努力使 Kotlin Multiplatform 更加稳定。朝着这个方向迈出的重要一步是为 Android 目标提供一等支持。将来，此支持将通过由 Google 的 Android 团队开发的单独插件提供。
-
-为了给新的解决方案铺平道路，我们正在当前的 Kotlin DSL 中将 `android` 代码块重命名为 `androidTarget`。这是一个临时变更，旨在为 Google 即将推出的 DSL 释放简短的 `android` 名称。
-
-**最佳实践是什么？**
-
-将所有出现的 `android` 代码块重命名为 `androidTarget`。当用于 Android 目标支持的新插件可用时，请迁移到 Google 的 DSL。这将是在 Kotlin Multiplatform 项目中使用 Android 的首选选项。
-
-**变更何时生效？**
-
-以下是计划的弃用周期：
-
-*   1.9.0: 在 Kotlin Multiplatform 项目中使用 `android` 名称时引入弃用警告
-*   2.1.0: 将此警告升级为错误
-*   2.2.0: 从 Kotlin Multiplatform Gradle 插件中移除 `android` 目标 DSL
 
 ### 声明多个类似目标
 
@@ -184,7 +190,7 @@ kotlin {
         
         sourceSets {
             jvmMain {
-                // Copy the configuration of jvmCommonMain here
+                // 将 jvmCommonMain 的配置复制到此处
             }
         }
     }
@@ -211,13 +217,13 @@ kotlin {
     }
     
     dependencies {
-        project(":shared") // Add dependency on the original project
-        // Copy dependencies of jvmKtorMain here
+        project(":shared") // 添加对原始项目的依赖项
+        // 将 jvmKtorMain 的依赖项复制到此处
     }
     
     kotlin {
         compilerOptions {
-            // Copy compiler options of jvmKtorMain here
+            // 将 jvmKtorMain 的编译器选项复制到此处
         }
     }
     ```
@@ -376,7 +382,7 @@ Kotlin Gradle 插件现在提供了一个内置层级模板。自 Kotlin 1.9.20 
 
 **问题是什么？**
 
-当使用直接集成时，Kotlin 代码中的变更可能不会反映在 Xcode 中的 iOS 应用中。直接集成通过 `embedAndSignAppleFrameworkForXcode` 任务设置，该任务将您的多平台项目中的 iOS framework 连接到 Xcode 中的 iOS 应用。
+Kotlin 代码中的变更可能不会反映在 Xcode 中的 iOS 应用中，当使用直接集成时。直接集成通过 `embedAndSignAppleFrameworkForXcode` 任务设置，该任务将您的多平台项目中的 iOS framework 连接到 Xcode 中的 iOS 应用。
 
 当您将多平台项目中的 Kotlin 版本从 1.9.2x 升级到 2.0.0（或从 2.0.0 降级到 1.9.2x）时，然后更改 Kotlin 文件并尝试构建应用，Xcode 可能会错误地使用 iOS framework 的旧版本。因此，这些变更在 Xcode 中的 iOS 应用中将不可见。
 
@@ -401,11 +407,11 @@ Kotlin Gradle 插件现在提供了一个内置层级模板。自 Kotlin 1.9.20 
 
 本节涵盖了在 Kotlin 1.9.0−1.9.25 中结束弃用周期并生效的不兼容变更。
 
-### 已弃用用于将 Kotlin 源代码集直接添加到 Kotlin 编译项的 API {initial-collapse-state="collapsed" collapsible="true"}
+### 已移除用于将 Kotlin 源代码集直接添加到 Kotlin 编译项的 API {initial-collapse-state="collapsed" collapsible="true"}
 
 **有何变更？**
 
-对 `KotlinCompilation.source` 的访问已弃用。以下代码将产生弃用警告：
+对 `KotlinCompilation.source` 的访问已移除。以下代码不再受支持：
 
 ```kotlin
 kotlin {
@@ -427,7 +433,7 @@ kotlin {
 
 **最佳实践是什么？**
 
-要替换 `KotlinCompilation.source(someSourceSet)`，请从 `KotlinCompilation` 的默认源代码集添加 `dependsOn` 关系到 `someSourceSet`。我们建议使用 `by getting` 直接引用源代码，这样更短且更具可读性。但是，您也可以使用 `KotlinCompilation.defaultSourceSet.dependsOn(someSourceSet)`，这适用于所有情况。
+要替换 `KotlinCompilation.source(someSourceSet)`，请使用 `.srcDir()` 函数直接将您的源代码添加到相应的源代码集。或者，您可以通过从 `KotlinCompilation` 的默认源代码集添加 `dependsOn` 关系到 `someSourceSet` 来创建一个新的源代码集。您还可以使用 [源代码集约定](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.dsl/-kotlin-multiplatform-source-set-conventions/) 直接引用源代码，这些约定对 IDE 友好，并被认为是 H 最可靠的方法。最后，您可以使用 `KotlinCompilation.defaultSourceSet.dependsOn(someSourceSet)`，这适用于所有情况。
 
 您可以通过以下方式之一更改上述代码：
 
@@ -439,19 +445,25 @@ kotlin {
     iosSimulatorArm64()
 
     sourceSets {
-        val commonMain by getting
         val myCustomIntermediateSourceSet by creating {
-            dependsOn(commonMain)
+            // commonMain 源代码集需要通过
+            // .get() 函数访问
+            dependsOn(commonMain.get())
         }
-        
-        // 选项 #1. 更短且更具可读性，尽可能使用。
-        // 通常，默认源代码集的名称
-        // 是目标名称和编译项名称的简单拼接：
-        val jvmMain by getting {
+
+        // 选项 #1. 直接将您的源代码添加到相应的源代码集：
+        commonMain {
+            kotlin.srcDir(layout.projectDirectory.dir("src/commonMain/my-custom-kotlin"))
+        }
+
+        // 选项 #2. 使用默认 Kotlin Multiplatform 目标为其 main 和 test
+        // 源代码集提供的约定：
+        jvmMain {
             dependsOn(myCustomIntermediateSourceSet)
         }
-        
-        // 选项 #2. 通用解决方案，如果您的构建脚本需要更高级的方法，请使用它：
+
+        // 选项 #3. 更通用的解决方案。如果您的构建脚本
+        // 需要更高级的方法，请使用它：
         targets["jvm"].compilations["main"].defaultSourceSet.dependsOn(myCustomIntermediateSourceSet)
     }
 }
@@ -461,9 +473,9 @@ kotlin {
 
 以下是计划的弃用周期：
 
-*   1.9.0: 当使用 `KotlinComplation.source` 时引入弃用警告
+*   1.9.0: 当使用 `KotlinCompilation.source` 时引入弃用警告
 *   1.9.20: 将此警告升级为错误
-*   2.2.0: 从 Kotlin Gradle 插件中移除 `KotlinComplation.source`，尝试使用它将在构建脚本编译项期间导致“未解析引用”错误
+*   2.3.0: 从 Kotlin Gradle 插件中移除 `KotlinCompilation.source`，尝试使用它将在构建脚本编译项期间导致“未解析引用”错误
 
 ### 从 `kotlin-js` Gradle 插件迁移到 `kotlin-multiplatform` Gradle 插件 {initial-collapse-state="collapsed" collapsible="true"}
 

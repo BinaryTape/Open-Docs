@@ -1,4 +1,4 @@
-[//]: # (title: 命令列介面)
+[//]: # (title: CLI)
 
 如果由於某些原因您無法使用 [Gradle](dokka-gradle.md) 或 [Maven](dokka-maven.md) 建置工具，Dokka 提供了命令列介面 (CLI) 執行器來生成文件。
 
@@ -104,7 +104,7 @@ java -jar dokka-cli-%dokkaVersion%.jar dokka-configuration.json
 
 所有其他輸出格式都實現為 [Dokka 外掛程式](dokka-plugins.md)。為了使用它們，您必須將它們放到外掛程式類別路徑中。
 
-例如，如果您想以實驗性的 [GFM](dokka-markdown.md#gfm) 輸出格式生成文件，您需要下載 gfm-plugin 的 JAR（[下載](https://repo1.maven.org/maven2/org/jetbrains/dokka/gfm-plugin/%dokkaVersion%/gfm-plugin-%dokkaVersion%.jar)）並將其傳遞給 `pluginsClasspath` 設定選項。
+例如，如果您想以實驗性的 [GFM](https://github.com/Kotlin/dokka/blob/8e5c63d035ef44a269b8c43430f43f5c8eebfb63/dokka-subprojects/plugin-gfm/README.md) 輸出格式生成文件，您需要下載 gfm-plugin 的 JAR（[下載](https://repo1.maven.org/maven2/org/jetbrains/dokka/gfm-plugin/%dokkaVersion%/gfm-plugin-%dokkaVersion%.jar)）並將其傳遞給 `pluginsClasspath` 設定選項。
 
 透過命令列選項：
 
@@ -130,7 +130,7 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 
 將 GFM 外掛程式傳遞給 `pluginsClasspath` 後，CLI 執行器將生成 GFM 輸出格式的文件。
 
-有關更多資訊，請參閱 [Markdown](dokka-markdown.md) 和 [Javadoc](dokka-javadoc.md#generate-javadoc-documentation) 頁面。
+有關更多資訊，請參閱 [GFM](https://github.com/Kotlin/dokka/blob/8e5c63d035ef44a269b8c43430f43f5c8eebfb63/dokka-subprojects/plugin-gfm/README.md) 和 [Javadoc](dokka-javadoc.md#generate-javadoc-documentation) 頁面。
 
 ## 命令列選項
 
@@ -199,7 +199,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 
 ## JSON 設定
 
-以下是每個設定區塊的一些範例和詳細說明。您也可以在頁面底部找到一個套用[所有設定選項](#complete-configuration)的範例。
+下方是一些設定區塊的範例和詳細說明。您也可以在頁面底部找到一個套用[所有設定選項](#complete-configuration)的範例。
 
 ### 一般設定
 
@@ -309,7 +309,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
     </def>
     <def title="sourceSets">
         <p>
-          Kotlin 
+          Kotlin
           <a href="https://kotlinlang.org/docs/multiplatform-discover-project.html#source-sets">原始碼集</a>的個別和額外設定。
         </p>
         <p>有關可能選項的列表，請參閱<a href="#source-set-configuration">原始碼集設定</a>。</p>
@@ -442,7 +442,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
     </def>
     <def title="skipDeprecated">
         <p>是否文件化使用 <code>@Deprecated</code> 註解的宣告。</p>
-        <p>這可以在專案/模組級別設定。</p>
+        <p>這可以在每個套件的基礎上進行設定。</p>
         <p>預設值：<code>false</code></p>
     </def>
     <def title="jdkVersion">

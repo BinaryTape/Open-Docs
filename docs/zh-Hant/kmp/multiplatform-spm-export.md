@@ -226,8 +226,8 @@
             iosArm64(),
             iosSimulatorArm64()
         ).forEach { iosTarget ->
-            // 與上述範例相同，
-            // 增加了相依性的匯出呼叫
+            // Same as in the example above,
+            // with added export calls for dependencies
             iosTarget.binaries.framework {
                 export(projects.network)
                 export(projects.database)
@@ -237,7 +237,7 @@
             }
         }
     
-        // 將相依性設定為 "api"（而非 "implementation"）以匯出底層模組
+        // Dependencies set as "api" (as opposed to "implementation") to export underlying modules
         sourceSets {
             commonMain.dependencies {
                 api(projects.network)
@@ -251,7 +251,7 @@
 
     ```kotlin
     kotlin {
-        androidTarget {
+        android {
             //...
         }
         

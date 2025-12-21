@@ -29,7 +29,7 @@
 * Savedstate 函式庫 `org.jetbrains.androidx.savedstate:savedstate*:1.4.0`。基於 [Jetpack Savedstate 1.4.0](https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0)
 * WindowManager Core 函式庫 `org.jetbrains.androidx.window:window-core:1.5.1`。基於 [Jetpack WindowManager 1.5.1](https://developer.android.com/jetpack/androidx/releases/window#1.5.1)
 
-## 破壞性變更
+## 破壞性變更與棄用
 
 ### 已棄用的依賴項別名
 
@@ -39,6 +39,27 @@ Compose Multiplatform Gradle 外掛程式支援的依賴項別名 (`compose.ui` 
 
 此變更應能使 Compose Multiplatform 函式庫的依賴項管理更加透明化。
 未來，我們希望能為 Compose Multiplatform 提供一個 BOM (物料清單)，以簡化設定相容版本。
+
+### 已棄用 `PredictiveBackHandler()`
+
+`PredictiveBackHandler()` 函式是在 Compose Multiplatform 中引入的，用於將原生的 Android 返回導覽手勢帶到其他平台。
+隨著 Navigation 3 的發布，舊的實作已被棄用，轉而使用新的 [Navigation Event](https://developer.android.com/jetpack/androidx/releases/navigationevent) 函式庫及其 API。
+具體來說，您現在應該使用新的 `NavigationBackHandler()` 函式，而不是 `PredictiveBackHandler()` 函式，該函式封裝了更通用的 `NavigationEventHandler()` 實作。
+
+最簡單的遷移方式如下：
+
+<compare type="top-bottom">
+    <code-block lang="kotlin" code="         PredictiveBackHandler(enabled = true) { progress -&gt;&#10;            try {&#10;                progress.collect { event -&gt;&#10;                    // Animate the back gesture progress&#10;                }&#10;                // Process the completed back gesture&#10;            } catch(e: Exception) {&#10;                // Process the canceled back gesture&#10;            }&#10;        }"/>
+    <code-block lang="kotlin" code="        // Use an empty state as a stub to satisfy the required argument&#10;        val navState = rememberNavigationEventState(NavigationEventInfo.None)&#10;        NavigationBackHandler(&#10;            state = navState,&#10;            isBackEnabled = true,&#10;            onBackCancelled = {&#10;                // Process the canceled back gesture&#10;            },&#10;            onBackCompleted = {&#10;              // Process the completed back gesture&#10;            }&#10;        )&#10;        LaunchedEffect(navState.transitionState) {&#10;            val transitionState = navState.transitionState&#10;            if (transitionState is NavigationEventTransitionState.InProgress) {&#10;                val progress = transitionState.latestEvent.progress&#10;                // Animate the back gesture progress&#10;            }&#10;        }"/>
+</compare>
+
+其中：
+
+*   `state` 參數是強制性的：`NavigationEventInfo` 旨在儲存關於 UI 狀態的上下文資訊。如果目前沒有要儲存的資訊，您可以使用 `NavigationEventInfo.None` 作為存根。
+*   `onBack` 參數已拆分為 `onBackCancelled` 和 `onBackCompleted`，因此您無需單獨追蹤已取消的手勢。
+*   `NavigationEventState.transitionState` 屬性有助於追蹤實體手勢的進度。
+
+有關實作的詳細資訊，請參閱 [Navigation Event API 參考資料中的 NavigationEventHandler 頁面](https://developer.android.com/reference/kotlin/androidx/navigationevent/NavigationEventHandler)。
 
 ### 網頁平台的最低 Kotlin 版本已提高
 
@@ -59,8 +80,8 @@ Compose Multiplatform 現在支援桌面和 iOS 上原生互操作元素的自�
 這些元素現在可以根據其內容調整其版面配置，
 從而消除了手動計算精確尺寸和預先指定固定尺寸的需求。
 
-* 在桌面版上，`SwingPanel` 會根據嵌入元件的最小、慣用和最大尺寸自動調整其大小。
-* 在 iOS 上，UIKit 互操作檢視現在支援根據檢視的合適尺寸（內在內容尺寸）進行大小調整。
+*   在桌面版上，`SwingPanel` 會根據嵌入元件的最小、慣用和最大尺寸自動調整其大小。
+*   在 iOS 上，UIKit 互操作檢視現在支援根據檢視的合適尺寸（內在內容尺寸）進行大小調整。
   這使得 SwiftUI 檢視（透過 `UIHostingController`）和不依賴於 `NSLayoutConstraints` 的基本 `UIView` 子類別能夠正確地換行。
 
 ### Popup 和 Dialog 屬性的穩定化
@@ -89,21 +110,21 @@ Navigation 3 是一個新的導覽函式庫，專為與 Compose 協同工作而�
 Compose Multiplatform 1.10.0-beta01 為在非 Android 目標上使用新的導覽 API 提供了 Alpha 支援。
 已發布的多平台構件是：
 
-* Navigation 3 UI 函式庫，`org.jetbrains.androidx.navigation3:navigation3-ui`
-* 適用於 Navigation 3 的 ViewModel，`org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-navigation3`
-* 適用於 Navigation 3 的 Material 3 自適應版面配置，`org.jetbrains.compose.material3.adaptive:adaptive-navigation3`
+*   Navigation 3 UI 函式庫，`org.jetbrains.androidx.navigation3:navigation3-ui`
+*   適用於 Navigation 3 的 ViewModel，`org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-navigation3`
+*   適用於 Navigation 3 的 Material 3 自適應版面配置，`org.jetbrains.compose.material3.adaptive:adaptive-navigation3`
 
 您可以在從原始 Android 儲存庫鏡像的 [nav3-recipes](https://github.com/terrakok/nav3-recipes) 範例中找到多平台 Navigation 3 實作的範例。
 
 一些特定平台實作細節：
 
-* 在 iOS 上，您現在可以使用 [EndEdgePanGestureBehavior](https://github.com/JetBrains/compose-multiplatform-core/pull/2519) 選項（預設為 `Disabled`）來管理終點邊緣[平移手勢](https://developer.apple.com/documentation/uikit/handling-pan-gestures)的導覽。
+*   在 iOS 上，您現在可以使用 [EndEdgePanGestureBehavior](https://github.com/JetBrains/compose-multiplatform-core/pull/2519) 選項（預設為 `Disabled`）來管理終點邊緣[平移手勢](https://developer.apple.com/documentation/uikit/handling-pan-gestures)的導覽。
   「終點邊緣」在此指由左至右 (LTR) 介面中的螢幕右側邊緣，以及由右至左 (RTL) 介面中的左側邊緣。
   起始邊緣與終點邊緣相對，並且始終綁定到返回手勢。
-* 在網頁應用程式中，現在桌面瀏覽器中按下 **Esc** 鍵會將使用者返回到上一畫面
+*   在網頁應用程式中，現在桌面瀏覽器中按下 **Esc** 鍵會將使用者返回到上一畫面
   (並關閉對話框、彈出視窗以及某些小工具，例如 Material 3 的 `SearchBar`)，
   就像它在桌面應用程式中已經做的那樣。
-* Compose Multiplatform 1.10 將不會延伸對 [瀏覽器歷史導覽](compose-navigation-routing.md#support-for-browser-navigation-in-web-apps) 和在網址列中使用目標的支援至 Navigation 3。
+*   Compose Multiplatform 1.10 將不會延伸對 [瀏覽器歷史導覽](compose-navigation-routing.md#support-for-browser-navigation-in-web-apps) 和在網址列中使用目標的支援至 Navigation 3。
   這已延後到多平台函式庫的後續版本。
 
 ## iOS

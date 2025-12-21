@@ -1,7 +1,6 @@
 # 代理程式持久性
 
-代理程式持久性 (Agent Persistence) 是 Koog 框架中為 AI 智能體提供檢查點功能的一個特性。
-它允許您在執行期間的特定時間點儲存和恢復智能體的狀態，從而實現以下功能：
+代理程式持久性是 Koog 框架中為 AI 智能體提供檢查點功能的一個特性。它允許您在執行期間的特定時間點儲存和恢復智能體的狀態，從而實現以下功能：
 
 - 從特定時間點恢復智能體執行
 - 回溯到先前的狀態
@@ -22,8 +21,7 @@
 
 ## 先決條件
 
-代理程式持久性功能要求智能體策略中的所有節點都具有唯一的名稱。
-這在功能安裝時強制執行：
+代理程式持久性功能要求智能體策略中的所有節點都具有唯一的名稱。這在功能安裝時強制執行：
 
 <!--- INCLUDE
 /*
@@ -76,8 +74,8 @@ val agent = AIAgent(
 
 代理程式持久性功能有兩個主要設定選項：
 
-- **儲存提供者 (Storage provider)**：用於儲存和擷取檢查點的提供者。
-- **持續性持久化 (Continuous persistence)**：在每個節點執行後自動建立檢查點。
+- **儲存提供者**：用於儲存和擷取檢查點的提供者。
+- **持續性持久化**：在每個節點執行後自動建立檢查點。
 
 ### 儲存提供者
 
@@ -113,13 +111,11 @@ install(Persistence) {
 - `FilePersistenceStorageProvider`：將檢查點持久化到檔案系統。
 - `NoPersistenceStorageProvider`：一個不執行任何操作的實作，不儲存檢查點。這是預設提供者。
 
-您也可以透過實作 `PersistenceStorageProvider` 介面來實作自訂儲存提供者。
-有關更多資訊，請參閱 [自訂儲存提供者](#custom-storage-providers)。
+您也可以透過實作 `PersistenceStorageProvider` 介面來實作自訂儲存提供者。有關更多資訊，請參閱 [自訂儲存提供者](#custom-storage-providers)。
 
 ### 持續性持久化
 
-持續性持久化表示在每個節點執行後自動建立檢查點。
-要啟動持續性持久化，請使用以下程式碼：
+持續性持久化表示在每個節點執行後自動建立檢查點。要啟動持續性持久化，請使用以下程式碼：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -145,8 +141,7 @@ install(Persistence) {
 
 <!--- KNIT example-agent-persistence-04.kt -->
 
-啟用後，智能體將在每個節點執行後自動建立檢查點，
-從而實現細粒度的恢復。
+啟用後，智能體將在每個節點執行後自動建立檢查點，從而實現細粒度的恢復。
 
 ## 基本用法
 
@@ -168,7 +163,7 @@ suspend fun example(context: AIAgentContext) {
     // Create a checkpoint with the current state
     val checkpoint = context.persistence().createCheckpoint(
         agentContext = context,
-        nodeId = "current-node-id",
+        nodePath = context.executionInfo.path(),
         lastInput = inputData,
         lastInputType = inputType,
         checkpointId = context.runId,
@@ -181,6 +176,8 @@ suspend fun example(context: AIAgentContext) {
 ```
 
 <!--- KNIT example-agent-persistence-05.kt -->
+
+檢查點 ID 可以儲存供以後使用。
 
 ### 從檢查點恢復
 
@@ -205,8 +202,7 @@ suspend fun example(context: AIAgentContext, checkpointId: String) {
 
 #### 回溯工具產生的所有副作用
 
-某些工具產生副作用是很常見的。特別是當您在後端執行智能體時，
-某些工具可能會執行資料庫交易。這使得智能體很難回溯時間。
+某些工具產生副作用是很常見的。特別是當您在後端執行智能體時，某些工具可能會執行資料庫交易。這使得智能體很難回溯時間。
 
 想像一下，您有一個 `createUser` 工具，可以在資料庫中建立一個新使用者。而您的智能體在一段時間內發出了多次工具呼叫：
 ```
@@ -218,9 +214,7 @@ tool call: createUser "Daniel"
 tool call: createUser "Maria"
 ```
 
-現在您想要回溯到一個檢查點。僅恢復智能體的狀態（包括訊息歷史和策略圖節點）
-不足以達到檢查點之前的確切世界狀態。您還應該恢復工具呼叫產生的副作用。在我們的範例中，
-這意味著從資料庫中刪除 `Maria` 和 `Daniel`。
+現在您想要回溯到一個檢查點。僅恢復智能體的狀態（包括訊息歷史和策略圖節點）不足以達到檢查點之前的確切世界狀態。您還應該恢復工具呼叫產生的副作用。在我們的範例中，這意味著從資料庫中刪除 `Maria` 和 `Daniel`。
 
 透過 Koog 持久性，您可以透過向 `Persistence` 功能設定提供 `RollbackToolRegistry` 來實現這一點：
 
@@ -283,7 +277,7 @@ suspend fun example(context: AIAgentContext) {
         // 'this' is the checkpoint feature
         createCheckpoint(
             agentContext = ctx,
-            nodeId = "current-node-id",
+            nodePath = ctx.executionInfo.path(),
             lastInput = inputData,
             lastInputType = inputType,
             checkpointId = ctx.runId,
@@ -388,7 +382,7 @@ val customMessageHistory = emptyList<User>()
 fun example(context: AIAgentContext) {
     context.persistence().setExecutionPoint(
         agentContext = context,
-        nodeId = "target-node-id",
+        nodePath = context.executionInfo.path(),
         messageHistory = customMessageHistory,
         input = customInput
     )

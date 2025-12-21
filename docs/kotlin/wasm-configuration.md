@@ -1,6 +1,6 @@
 [//]: # (title: 支持的版本和配置)
 
-<primary-label ref="beta"/> 
+<primary-label ref="beta"/>
 
 本页面详细介绍了 [WebAssembly 提案](https://webassembly.org/roadmap/)、支持的浏览器以及使用 Kotlin/Wasm 进行高效开发的配置建议。
 
@@ -10,61 +10,63 @@ Kotlin/Wasm 依赖于最新的 WebAssembly 提案，例如 [垃圾回收 (WasmGC
 
 为确保这些特性正常运行，请提供一个支持最新提案的环境。请检查您的浏览器版本是否默认支持新的 WasmGC，或者您是否需要对环境进行更改。
 
-### Chrome 
+### Chrome
 
-* **对于版本 119 或更高：**
+*   **对于版本 119 或更高：**
 
-  默认即可使用。
+    默认即可使用。
 
-* **对于旧版本：**
+*   **对于旧版本：**
 
-  > 要在旧版本浏览器中运行应用程序，您需要使用低于 1.9.20 的 Kotlin 版本。
-  >
-  {style="note"}
+    > 要在旧版本浏览器中运行应用程序，您需要使用低于 1.9.20 的 Kotlin 版本。
+    >
+    {style="note"}
 
-  1. 在浏览器中，前往 `chrome://flags/#enable-webassembly-garbage-collection`。
-  2. 启用 **WebAssembly Garbage Collection**。
-  3. 重新启动浏览器。
+    1.  在浏览器中，前往 `chrome://flags/#enable-webassembly-garbage-collection`。
+    2.  启用 **WebAssembly Garbage Collection**。
+    3.  重新启动浏览器。
 
 ### 基于 Chromium 的浏览器
 
 包括 Edge、Brave、Opera 或 Samsung Internet 等基于 Chromium 的浏览器。
 
-* **对于版本 119 或更高：**
+*   **对于版本 119 或更高：**
 
-  默认即可使用。
+    默认即可使用。
 
-* **对于旧版本：**
+*   **对于旧版本：**
 
-   > 要在旧版本浏览器中运行应用程序，您需要使用低于 1.9.20 的 Kotlin 版本。
-   >
-   {style="note"}
+    > 要在旧版本浏览器中运行应用程序，您需要使用低于 1.9.20 的 Kotlin 版本。
+    >
+    {style="note"}
 
-  使用 `--js-flags=--experimental-wasm-gc` 命令行实参运行应用程序。
+    使用 `--js-flags=--experimental-wasm-gc` 命令行实参运行应用程序。
 
 ### Firefox
 
-* **对于版本 120 或更高：**
+*   **对于版本 120 或更高：**
 
-  默认即可使用。
+    默认即可使用。
 
-* **对于版本 119：**
+*   **对于版本 119：**
 
-  1. 在浏览器中，前往 `about:config`。
-  2. 启用 `javascript.options.wasm_gc` 选项。
-  3. 刷新页面。
+    1.  在浏览器中，前往 `about:config`。
+    2.  启用 `javascript.options.wasm_gc` 选项。
+    3.  刷新页面。
 
 ### Safari/WebKit
 
-* **对于版本 18.2 或更高：**
+*   **对于版本 18.2 或更高：**
 
-  默认即可使用。
+    默认即可使用。
 
-* **对于旧版本：**
+*   **对于旧版本：**
 
-   不支持。
+    不支持。
 
-> Safari 18.2 适用于 iOS 18.2、iPadOS 18.2、visionOS 2.2、macOS 15.2、macOS Sonoma 和 macOS Ventura。在 iOS 和 iPadOS 上，Safari 18.2 与操作系统捆绑。要获取它，请将您的设备更新到版本 18.2 或更高。关于更多信息，请参见 [Safari 发行说明](https://developer.apple.com/documentation/safari-release-notes/safari-18_2-release-notes#Overview)。
+> Safari 18.2 适用于 iOS 18.2、iPadOS 18.2、visionOS 2.2、macOS 15.2、macOS Sonoma 和 macOS Ventura。在 iOS 和 iPadOS 上，Safari 18.2 与操作系统捆绑。要获取它，请将您的设备更新到版本 18.2 或更高。
+>
+> 关于更多信息，请参见 [Safari 发行说明](https://developer.apple.com/documentation/safari-release-notes/safari-18_2-release-notes#Overview)。
 >
 {style="note"}
 
@@ -80,15 +82,13 @@ Kotlin/Wasm 的改进基于 [WebAssembly 提案](https://webassembly.org/roadmap
 
 ### 异常处理提案
 
-Kotlin 工具链默认使用 [旧版异常处理提案](https://github.com/WebAssembly/exception-handling/blob/master/proposals/exception-handling/legacy/Exceptions.md)，这允许在更广泛的环境中运行生成的 Wasm 二进制文件。
+Kotlin 工具链支持异常处理提案的 [旧版](https://github.com/WebAssembly/exception-handling/blob/master/proposals/exception-handling/legacy/Exceptions.md) 和 [新版](https://github.com/WebAssembly/exception-handling/blob/main/proposals/exception-handling/Exceptions.md)。这使得 Kotlin 生成的 Wasm 二进制文件能够在更广泛的环境中运行。
 
-自 Kotlin 2.0.0 起，我们已在 Kotlin/Wasm 中引入了对新版本 Wasm [异常处理提案](https://github.com/WebAssembly/exception-handling/blob/main/proposals/exception-handling/Exceptions.md) 的支持。
+[`wasmJs` 目标](wasm-overview.md#kotlin-wasm-and-compose-multiplatform) 默认使用旧版异常处理提案。要为 `wasmJs` 目标启用新的异常处理提案，请使用 `-Xwasm-use-new-exception-proposal` 编译器选项。
 
-此次更新确保了新的异常处理提案符合 Kotlin 的要求，使得能够在仅支持该提案最新版本的虚拟机上使用 Kotlin/Wasm。
+相比之下，[`wasmWasi` 目标](wasm-overview.md#kotlin-wasm-and-wasi) 默认使用新提案，以确保与现代 WebAssembly 运行时更好的兼容性。要切换到旧版提案，请使用 `-Xwasm-use-new-exception-proposal=false` 编译器选项。
 
-新的异常处理提案使用 `-Xwasm-use-new-exception-proposal` 编译器选项激活。默认情况下它是关闭的。
-
-<p>&nbsp;</p>
+对于 `wasmWasi` 目标，采用新的异常处理提案是安全的。面向此环境的应用程序通常在较不多样化的运行时环境（通常运行在单个特定的虚拟机上）中运行，该环境通常由用户控制，从而降低了兼容性问题的风险。
 
 > 了解更多关于项目设置、使用依赖项和我们 [Kotlin/Wasm 示例](https://github.com/Kotlin/kotlin-wasm-examples#readme) 中的其他任务。
 >
@@ -151,6 +151,12 @@ kotlin {
 
 请记住，启用此选项会增加应用程序大小。
 
+### 完全限定名
+
+在 Kotlin/Wasm 目标上，完全限定名 (FQN) 在运行时可用，无需任何额外配置。这意味着 `KClass.qualifiedName` 属性默认是启用的。
+
+使用 FQN 可以提高从 JVM 到 Wasm 目标的代码可移植性，并通过显示完全限定名使运行时错误更具信息性。
+
 ## 数组越界访问和陷阱
 
 在 Kotlin/Wasm 中，使用超出其边界的索引访问数组会触发 WebAssembly 陷阱，而不是常规的 Kotlin 异常。该陷阱会立即停止当前的执行栈。
@@ -209,4 +215,3 @@ if (config.devServer) {
         }
     })
 }
-```

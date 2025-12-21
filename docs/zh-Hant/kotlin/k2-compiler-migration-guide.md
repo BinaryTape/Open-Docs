@@ -466,7 +466,8 @@ class Expanded                                  // Visibility is public by defau
 
 從 Kotlin 2.0.0 開始，Kotlin K2 編譯器預設啟用。
 
-要升級 Kotlin 版本，請在您的 [Gradle](gradle-configure-project.md#apply-the-plugin) 和 [Maven](maven.md#configure-and-enable-the-plugin) 建構腳本中將其更改為 2.0.0 或更高版本。
+要升級 Kotlin 版本，請在您的 [Gradle](gradle-configure-project.md#apply-the-plugin) 和
+[Maven](maven-configure-project.md#enable-and-configure-the-plugin) 建構腳本中將其更改為 2.0.0 或更高版本。
 
 為了在 Android Studio 中獲得最佳體驗，請在您的 IDE 中使用 [K2 模式](#support-in-ides)。IntelliJ IDEA 預設使用 K2 模式，因此您無需更改任何內容。
 
@@ -880,7 +881,7 @@ val dataService: DataService = ...
 dataService.fetchData() // -> ResultContainer<String?>
 ```
 
-以前，然而，當 Java 基本型別陣列匯入到 Kotlin 時，所有 `TYPE_USE` 註解都會丟失，導致平台可空性並可能產生不安全的程式碼：
+以前，然而，當 Java 基本型別陣列匯入到 Kotlin 時，所有 `TYPE_USE` 註解都會丟失，導致平台可空性並可能產生不安全程式碼：
 
 ```java
 interface DataProvider {
@@ -981,12 +982,12 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-57609](https://youtrack.jetbrains.com/issue/KT-57609) | K2：停止依賴對 contravariant 參數使用 @UnsafeVariance                                                      |
 | [KT-57620](https://youtrack.jetbrains.com/issue/KT-57620) | K2：禁止將原始型別解析為被包含的成員                                                                       |
 | [KT-64641](https://youtrack.jetbrains.com/issue/KT-64641) | K2：正確推斷可呼叫參考的型別，該可呼叫參考具有擴展函式參數                                                   |
-| [KT-57011](https://youtrack.com/issue/KT-57011) | 使解構變數的真實型別與指定時的明確型別保持一致                                                             |
+| [KT-57011](https://youtrack.jetbrains.com/issue/KT-57011) | 使解構變數的真實型別與指定時的明確型別保持一致                                                             |
 | [KT-38895](https://youtrack.jetbrains.com/issue/KT-38895) | K2：修復整數文字溢出的不一致行為                                                                           |
 | [KT-54862](https://youtrack.jetbrains.com/issue/KT-54862) | 匿名型別可以從型別引數中的匿名函式中公開                                                                   |
 | [KT-22379](https://youtrack.jetbrains.com/issue/KT-22379) | 帶有 break 的 while 迴圈條件可以產生不健全的智慧型轉型                                                       |
 | [KT-62507](https://youtrack.jetbrains.com/issue/KT-62507) | K2：禁止在 expect/actual 頂層屬性的共同程式碼中進行智慧型轉型                                                |
-| [KT-65750](https://youtrack.jetbrains.com/issue/KT-65750) | 改變返回型別的遞增和加號運算子必須影響智慧型轉型                                                           |
+| [KT-65750](https://youtrack.com/issue/KT-65750) | 改變返回型別的遞增和加號運算子必須影響智慧型轉型                                                           |
 | [KT-65349](https://youtrack.jetbrains.com/issue/KT-65349) | [LC] K2：明確指定變數型別在某些情況下會破壞綁定智慧型轉型，而這在 K1 中是可行的                           |
 
 #### 泛型 {initial-collapse-state="collapsed" collapsible="true"}
@@ -997,7 +998,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-57600](https://youtrack.jetbrains.com/issue/KT-57600)  | 禁止使用原始型別參數覆寫帶有泛型型別參數的 Java 方法                                                                                                |
 | [KT-54663](https://youtrack.jetbrains.com/issue/KT-54663)  | 禁止將可能為空型別參數傳遞給 \`in\` 投影的 DNN 參數                                                                                                 |
 | [KT-54066](https://youtrack.jetbrains.com/issue/KT-54066)  | 棄用型別別名建構函式中的上限違規                                                                                                                    |
-| [KT-49404](https://youtrack.com/issue/KT-49404)  | 修復基於 Java 類別的 contravariant 捕獲型別的型別不健全問題                                                                                         |
+| [KT-49404](https://youtrack.jetbrains.com/issue/KT-49404)  | 修復基於 Java 類別的 contravariant 捕獲型別的型別不健全問題                                                                                         |
 | [KT-61718](https://youtrack.jetbrains.com/issue/KT-61718)  | 禁止自上限和捕獲型別的不健全程式碼                                                                                                                    |
 | [KT-61749](https://youtrack.jetbrains.com/issue/KT-61749)  | 禁止泛型內部類別的泛型外部類別中的不健全邊界違規                                                                                                    |
 | [KT-62923](https://youtrack.jetbrains.com/issue/KT-62923)  | K2：為內部類別的外部父型別的投影引入 PROJECTION_IN_IMMEDIATE_ARGUMENT_TO_SUPERTYPE                                                                  |
@@ -1015,7 +1016,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-58260](https://youtrack.jetbrains.com/issue/KT-58260)  | 使 invoke 慣例與預期的語法糖轉換一致                                                                                                                                                             |
 | [KT-62866](https://youtrack.jetbrains.com/issue/KT-62866)  | K2：改變當伴隨物件優先於靜態範圍時的限定詞解析行為                                                                                                                                               |
 | [KT-57750](https://youtrack.jetbrains.com/issue/KT-57750)  | 當解析型別並具有相同名稱的類別星號匯入時，報告歧義錯誤                                                                                                                                           |
-| [KT-63558](https://youtrack.com/issue/KT-63558)  | K2：遷移 COMPATIBILITY_WARNING 周圍的解析                                                                                                                                                        |
+| [KT-63558](https://youtrack.jetbrains.com/issue/KT-63558)  | K2：遷移 COMPATIBILITY_WARNING 周圍的解析                                                                                                                                                        |
 | [KT-51194](https://youtrack.jetbrains.com/issue/KT-51194)  | 當依賴類別包含在同一依賴關係的兩個不同版本中時，錯誤的負 CONFLICTING_INHERITED_MEMBERS                                                                                                           |
 | [KT-37592](https://youtrack.jetbrains.com/issue/KT-37592)  | 具有接收者的函式型別的屬性 invoke 優於擴展函式 invoke                                                                                                                                            |
 | [KT-51666](https://youtrack.jetbrains.com/issue/KT-51666)  | 合格的 this：引入/優先考慮帶有型別案例的 this                                                                                                                                                   |
@@ -1027,9 +1028,9 @@ actual open class PlatformFileSystem : FileSystem {
 
 | 問題 ID                                                     | 標題                                                                                                                          |
 | :---------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------ |
-| [KT-64474](https://youtrack.jetbrains.com/issue/KT-64474/)* | [將不可存取型別的使用宣告為未指定行為](#forbidden-use-of-inaccessible-generic-types)                                                 |
+| [KT-64474](https://youtrack.jetbrains.com/issue/KT-64474)* | [將不可存取型別的使用宣告為未指定行為](#forbidden-use-of-inaccessible-generic-types)                                                 |
 | [KT-55179](https://youtrack.jetbrains.com/issue/KT-55179)   | 呼叫來自內部內聯函式的私有類別伴隨物件成員時，假負 PRIVATE_CLASS_MEMBER_FROM_INLINE                                                  |
-| [KT-58042](https://youtrack.jetbrains.com/issue/KT-58042)   | 如果等效的 getter 不可見，即使被覆寫的宣告可見，也要使合成屬性不可見                                                                   |
+| [KT-58042](https://youtrack.com/issue/KT-58042)   | 如果等效的 getter 不可見，即使被覆寫的宣告可見，也要使合成屬性不可見                                                                   |
 | [KT-64255](https://youtrack.jetbrains.com/issue/KT-64255)   | 禁止在另一個模組中從派生類別存取內部 setter                                                                                          |
 | [KT-33917](https://youtrack.jetbrains.com/issue/KT-33917)   | 禁止從私有內聯函式公開匿名型別                                                                                                       |
 | [KT-54997](https://youtrack.jetbrains.com/issue/KT-54997)   | 禁止從公共 API 內聯函式隱式存取非公共 API                                                                                            |
@@ -1061,7 +1062,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-50850](https://youtrack.jetbrains.com/issue/KT-50850)  | 父型別的順序定義繼承函式的可空性參數                                                                                     |
 | [KT-53982](https://youtrack.jetbrains.com/issue/KT-53982)  | 在公共簽章中近似局部型別時保留可空性                                                                                     |
 | [KT-62998](https://youtrack.jetbrains.com/issue/KT-62998)  | 禁止將可空值賦值給非空 Java 欄位作為不安全賦值的選擇器                                                                 |
-| [KT-63209](https://youtrack.jetbrains.com/issue/KT-63209)  | 報告缺少錯誤層級可空引數的錯誤，這些引數屬於警告層級 Java 型別                                                           |
+| [KT-63209](https://youtrack.com/issue/KT-63209)  | 報告缺少錯誤層級可空引數的錯誤，這些引數屬於警告層級 Java 型別                                                           |
 
 #### Java 互通性 {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -1160,6 +1161,7 @@ actual open class PlatformFileSystem : FileSystem {
 *   [Lombok](lombok.md)
 *   [`no-arg`](no-arg-plugin.md)
 *   [Parcelize](https://plugins.gradle.org/plugin/org.jetbrains.kotlin.plugin.parcelize)
+*   [Power-assert](power-assert.md)
 *   [SAM with receiver](sam-with-receiver-plugin.md)
 *   [Serialization](serialization.md)
 

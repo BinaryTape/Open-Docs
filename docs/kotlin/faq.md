@@ -32,11 +32,11 @@ Kotlin 可以用于任何类型的开发，无论是服务端、客户端 Web、
 
 ### 我可以将 Kotlin 用于 Android 开发吗？
 
-是的。Kotlin 在 Android 上作为一流语言得到支持。已经有数百个应用程序将 Kotlin 用于 Android，例如 Basecamp、Pinterest 等。欲了解更多信息，请查阅[关于 Android 开发的资源](android-overview.md)。
+是的。Kotlin 在 Android 上作为一流语言得到支持。已经有数百个应用程序将 Kotlin 用于 Android，例如 Basecamp、Pinterest 等。关于 Android 开发的更多信息，请查阅[相关资源](android-overview.md)。
 
 ### 我可以将 Kotlin 用于服务端开发吗？
 
-是的。Kotlin 与 JVM 100% 兼容，因此你可以使用任何现有框架，例如 Spring Boot、vert.x 或 JSF。此外，还有用 Kotlin 编写的特定框架，例如 [Ktor](https://github.com/kotlin/ktor)。欲了解更多信息，请查阅[关于服务端开发的资源](server-overview.md)。
+是的。Kotlin 与 JVM 100% 兼容，因此你可以使用任何现有框架，例如 Spring Boot、vert.x 或 JSF。此外，还有用 Kotlin 编写的特定框架，例如 [Ktor](https://github.com/kotlin/ktor)。关于服务端开发的更多信息，请查阅[相关资源](server-overview.md)。
 
 ### 我可以将 Kotlin 用于 Web 开发吗？
 
@@ -48,7 +48,7 @@ Kotlin 可以用于任何类型的开发，无论是服务端、客户端 Web、
 
 ### 我可以将 Kotlin 用于原生开发吗？
 
-是的。Kotlin/Native 作为 Kotlin 的一部分可用。它将 Kotlin 编译为无需 VM 即可运行的原生代码。你可以在流行的桌面和移动平台甚至一些 IoT 设备上尝试它。欲了解更多信息，请查阅 [Kotlin/Native 文档](native-overview.md)。
+是的。Kotlin/Native 作为 Kotlin 的一部分可用。它将 Kotlin 编译为无需 VM 即可运行的原生代码。你可以在流行的桌面和移动平台甚至一些 IoT 设备上尝试它。关于更多信息，请查阅 [Kotlin/Native 文档](native-overview.md)。
 
 ### 哪些 IDE 支持 Kotlin？
 
@@ -74,15 +74,15 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
 
 ### Kotlin 面向哪些 JVM 版本？
 
-Kotlin 允许你选择用于执行的 JVM 版本。默认情况下，Kotlin/JVM 编译器会生成 Java 8 兼容的字节码。如果你想利用更新版本 Java 中可用的优化，你可以显式指定目标 Java 版本为 9 到 24。请注意，在这种情况下，生成的字节码可能无法在较低版本上运行。从 [Kotlin 1.5](whatsnew15.md#new-default-jvm-target-1-8) 开始，编译器不支持生成与 Java 8 以下版本兼容的字节码。
+Kotlin 允许你选择用于执行的 JVM 版本。默认情况下，Kotlin/JVM 编译器会生成 Java 8 兼容的字节码。如果你想利用更新版本 Java 中可用的优化，你可以显式指定目标 Java 版本为 9 到 25。请注意，在这种情况下，生成的字节码可能无法在较低版本上运行。从 [Kotlin 1.5](whatsnew15.md#new-default-jvm-target-1-8) 开始，编译器不支持生成与 Java 8 以下版本兼容的字节码。
 
 ### Kotlin 难学吗？
 
-Kotlin 的灵感来源于 Java、C#、JavaScript、Scala 和 Groovy 等现有语言。我们努力确保 Kotlin 易于学习，以便人们可以在几天内轻松上手，阅读和编写 Kotlin 代码。学习惯用 Kotlin 并使用其一些更高级的特性可能需要更长的时间，但总的来说它不是一种复杂的语言。欲了解更多信息，请查阅[我们的学习材料](learning-materials-overview.md)。
+Kotlin 的灵感来源于 Java、C#、JavaScript、Scala 和 Groovy 等现有语言。我们努力确保 Kotlin 易于学习，以便人们可以在几天内轻松上手，阅读和编写 Kotlin 代码。学习惯用 Kotlin 并使用其一些更高级的特性可能需要更长的时间，但总的来说它不是一种复杂的语言。关于更多信息，请查阅[我们的学习材料](learning-materials-overview.md)。
 
 ### 哪些公司正在使用 Kotlin？
 
-使用 Kotlin 的公司太多，无法一一列出，但一些更知名且已通过博客文章、GitHub 版本库或演讲公开宣布使用 Kotlin 的公司包括 [Square](https://medium.com/square-corner-blog/square-open-source-loves-kotlin-c57c21710a17)、[Pinterest](https://www.youtube.com/watch?v=mDpnc45WwlI)、[Basecamp](https://signalvnoise.com/svn3/using-kotlin-to-make-android-apis-fun-again/) 和 [Corda](https://corda.net/blog/kotlin/)。
+使用 Kotlin 的公司太多，无法一一列出，但一些更知名且已通过博客文章、GitHub 版本库或演讲公开宣布使用 Kotlin 的公司包括 [Square](https://medium.com/square-corner-blog/square-open-source-loves-kotlin-c57c21710a17)、[Pinterest](https://www.youtube.com/watch?v=mDpnc45WwlI) 和 [Basecamp](https://signalvnoise.com/svn3/using-kotlin-to-make-android-apis-fun-again/)。
 
 ### 谁开发了 Kotlin？
 
@@ -135,4 +135,4 @@ Kotlin 也在世界各地的不同大会上被涵盖。你可以在[网站上找
 
 标志可以[在此](https://resources.jetbrains.com/storage/products/kotlin/docs/kotlin_logos.zip)下载。使用标志时，请遵循存档内 `guidelines.pdf` 中的简单规则和 [Kotlin 品牌使用指南](https://kotlinfoundation.org/guidelines/)。
 
-欲了解更多信息，请查阅[Kotlin 品牌资产](kotlin-brand-assets.md)页面。
+关于更多信息，请查阅[Kotlin 品牌资产](kotlin-brand-assets.md)页面。

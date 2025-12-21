@@ -1,6 +1,6 @@
 [//]: # (title: 使用 C 互通性與 libcurl 建立應用程式 – 教學)
 
-> C 程式庫匯入功能目前為 [Beta](native-c-interop-stability.md) 版。所有由 cinterop 工具從 C 程式庫產生的 Kotlin 宣告
+> C 程式庫匯入功能目前為 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 版。所有由 cinterop 工具從 C 程式庫產生的 Kotlin 宣告
 > 都應具備 `@ExperimentalForeignApi` 註解。
 >
 > Kotlin/Native 隨附的原生平台程式庫（例如 Foundation、UIKit 和 POSIX）
@@ -20,20 +20,20 @@ Kotlin/Native 可以透過 [Kotlin Multiplatform plugin](gradle-configure-projec
 
 ## 開始之前
 
-1. 下載並安裝最新版 [IntelliJ IDEA](https://www.jetbrains.com/idea/)。
-2. 在 IntelliJ IDEA 中，透過選取 **File** | **New** | **Project from Version Control** 並使用此 URL，來複製 (clone) [專案範本](https://github.com/Kotlin/kmp-native-wizard)：
+1.  下載並安裝最新版 [IntelliJ IDEA](https://www.jetbrains.com/idea/)。
+2.  在 IntelliJ IDEA 中，透過選取 **File** | **New** | **Project from Version Control** 並使用此 URL，來複製 (clone) [專案範本](https://github.com/Kotlin/kmp-native-wizard)：
 
-   ```none
-   https://github.com/Kotlin/kmp-native-wizard
-   ```  
+    ```none
+    https://github.com/Kotlin/kmp-native-wizard
+    ```  
 
-3. 探索專案結構：
+3.  探索專案結構：
 
-   ![Native application project structure](native-project-structure.png){width=700}
+    ![Native application project structure](native-project-structure.png){width=700}
 
-   此範本包含一個專案，其中包含您入門所需的檔案和資料夾。重要的是要理解，如果程式碼沒有平台特定要求，則以 Kotlin/Native 撰寫的應用程式可以針對不同的平台。您的程式碼位於 `nativeMain` 目錄中，並有對應的 `nativeTest`。對於本教學，請保持資料夾結構不變。
+    此範本包含一個專案，其中包含您入門所需的檔案和資料夾。重要的是要理解，如果程式碼沒有平台特定要求，則以 Kotlin/Native 撰寫的應用程式可以針對不同的平台。您的程式碼位於 `nativeMain` 目錄中，並有對應的 `nativeTest`。對於本教學，請保持資料夾結構不變。
 
-4. 開啟 `build.gradle.kts` 檔案，這是包含專案設定的建置指令碼。請特別注意建置檔案中的以下內容：
+4.  開啟 `build.gradle.kts` 檔案，這是包含專案設定的建置指令碼。請特別注意建置檔案中的以下內容：
 
     ```kotlin
     kotlin {
@@ -60,10 +60,10 @@ Kotlin/Native 可以透過 [Kotlin Multiplatform plugin](gradle-configure-projec
     
     ```
 
-   * 目標是使用 `macosArm64`、`macosX64`、`linuxArm64`、`linuxX64` 和 `mingwX64` 針對 macOS、Linux 和 Windows 定義的。請參閱 [支援平台](native-target-support.md) 的完整列表。
-   * `binaries {}` 區塊定義了二進位檔的產生方式和應用程式的進入點。
-     這些可以保留為預設值。
-   * C 互通性在建置中配置為一個額外步驟。預設情況下，來自 C 的所有符號都會匯入到 `interop` 套件中。您可能希望在 `.kt` 檔案中匯入整個套件。了解更多關於 [如何配置](gradle-configure-project.md#targeting-multiple-platforms) 的資訊。
+    *   目標是使用 `macosArm64`、`macosX64`、`linuxArm64`、`linuxX64` 和 `mingwX64` 針對 macOS、Linux 和 Windows 定義的。請參閱 [支援平台](native-target-support.md) 的完整列表。
+    *   `binaries {}` 區塊定義了二進位檔的產生方式和應用程式的進入點。
+        這些可以保留為預設值。
+    *   C 互通性在建置中配置為一個額外步驟。預設情況下，來自 C 的所有符號都會匯入到 `interop` 套件中。您可能希望在 `.kt` 檔案中匯入整個套件。了解更多關於 [如何配置](gradle-configure-project.md#targeting-multiple-platforms) 的資訊。
 
 ## 建立定義檔案
 
@@ -79,11 +79,11 @@ Kotlin/Native 有助於使用標準 C 程式庫，開啟了幾乎您可能需要
 
 在此應用程式中，您將需要 libcurl 程式庫來進行一些 HTTP 呼叫。要建立其定義檔案：
 
-1. 選取 `src` 資料夾並透過 **File | New | Directory** 建立一個新目錄。
-2. 將新目錄命名為 **nativeInterop/cinterop**。這是標頭檔位置的預設慣例，
-   儘管如果您使用不同的位置，可以在 `build.gradle.kts` 檔案中覆寫此設定。
-3. 選取此新子資料夾並透過 **File | New | File** 建立一個新的 `libcurl.def` 檔案。
-4. 使用以下程式碼更新您的檔案：
+1.  選取 `src` 資料夾並透過 **File | New | Directory** 建立一個新目錄。
+2.  將新目錄命名為 **nativeInterop/cinterop**。這是標頭檔位置的預設慣例，
+    儘管如果您使用不同的位置，可以在 `build.gradle.kts` 檔案中覆寫此設定。
+3.  選取此新子資料夾並透過 **File | New | File** 建立一個新的 `libcurl.def` 檔案。
+4.  使用以下程式碼更新您的檔案：
 
     ```c
     headers = curl/curl.h
@@ -94,16 +94,16 @@ Kotlin/Native 有助於使用標準 C 程式庫，開啟了幾乎您可能需要
     linkerOpts.linux = -L/usr/lib/x86_64-linux-gnu -lcurl
     ```
 
-   * `headers` 是要為其產生 Kotlin 存根的標頭檔列表。您可以在此處新增多個檔案，
-     每個檔案之間用空格分隔。在本例中，它只有 `curl.h`。引用的檔案需要在指定路徑（在本例中為 `/usr/include/curl`）上可用。
-   * `headerFilter` 顯示了確切包含的內容。在 C 語言中，當一個檔案使用 `#include` 指示詞引用另一個檔案時，所有標頭也會被包含。有時這是不必要的，您可以 [使用 glob 模式](https://en.wikipedia.org/wiki/Glob_(programming)) 加入此參數進行調整。
+    *   `headers` 是要為其產生 Kotlin 存根的標頭檔列表。您可以在此處新增多個檔案，
+        每個檔案之間用空格分隔。在本例中，它只有 `curl.h`。引用的檔案需要在指定路徑（在本例中為 `/usr/include/curl`）上可用。
+    *   `headerFilter` 顯示了確切包含的內容。在 C 語言中，當一個檔案使用 `#include` 指示詞引用另一個檔案時，所有標頭也會被包含。有時這是不必要的，您可以 [使用 glob 模式](https://en.wikipedia.org/wiki/Glob_(programming)) 加入此參數進行調整。
 
-     如果您不想將外部依賴（例如系統 `stdint.h` 標頭）引入互通程式庫，可以使用 `headerFilter`。此外，它可能對程式庫大小最佳化以及解決系統與所提供的 Kotlin/Native 編譯環境之間的潛在衝突很有用。
+        如果您不想將外部依賴（例如系統 `stdint.h` 標頭）引入互通程式庫，可以使用 `headerFilter`。此外，它可能對程式庫大小最佳化以及解決系統與所提供的 Kotlin/Native 編譯環境之間的潛在衝突很有用。
 
-   * 如果需要修改特定平台的行為，您可以使用類似 `compilerOpts.osx` 或 `compilerOpts.linux` 的格式為選項提供平台特定值。在本例中，它們是 macOS（`.osx` 後綴）和 Linux（`.linux` 後綴）。
-     不帶後綴的參數也是可行的（例如 `linkerOpts=`），並適用於所有平台。
+    *   如果需要修改特定平台的行為，您可以使用類似 `compilerOpts.osx` 或 `compilerOpts.linux` 的格式為選項提供平台特定值。在本例中，它們是 macOS（`.osx` 後綴）和 Linux（`.linux` 後綴）。
+        不帶後綴的參數也是可行的（例如 `linkerOpts=`），並適用於所有平台。
 
-   有關可用選項的完整列表，請參閱 [定義檔案](native-definition-file.md#properties)。
+    有關可用選項的完整列表，請參閱 [定義檔案](native-definition-file.md#properties)。
 
 > 您需要系統上擁有 `curl` 程式庫二進位檔才能使範例運作。在 macOS 和 Linux 上，它們通常已包含在內。在 Windows 上，您可以從 [原始碼](https://curl.se/download.html) 建置它（您需要 Microsoft Visual Studio 或
 > Windows SDK 命令列工具）。有關更多詳細資訊，請參閱 [相關部落格文章](https://jonnyzzz.com/blog/2018/10/29/kn-libcurl-windows/)。
@@ -179,20 +179,20 @@ fun main(args: Array<String>) {
 
 ## 編譯並執行應用程式
 
-1. 編譯應用程式。為此，請從任務列表執行 `runDebugExecutableNative` Gradle 工作，或在終端機中使用以下命令：
- 
-   ```bash
-   ./gradlew runDebugExecutableNative
-   ```
+1.  編譯應用程式。為此，請從任務列表執行 `runDebugExecutableNative` Gradle 工作，或在終端機中使用以下命令：
 
-   在本例中，由 cinterop 工具產生的一部分已隱含包含在建置中。
+    ```bash
+    ./gradlew runDebugExecutableNative
+    ```
 
-2. 如果編譯期間沒有錯誤，請點擊 `main()` 函數旁邊側邊欄中的綠色 **Run** 圖示，或
-   使用 <shortcut>Shift + Cmd + R</shortcut>/<shortcut>Shift + F10</shortcut> 快速鍵。
+    在本例中，由 cinterop 工具產生的一部分已隱含包含在建置中。
 
-   IntelliJ IDEA 將開啟 **Run** 分頁並顯示輸出 — 即 [example.com](https://example.com/) 的內容：
+2.  如果編譯期間沒有錯誤，請點擊 `main()` 函數旁邊側邊欄中的綠色 **Run** 圖示，或
+    使用 <shortcut>Shift + Cmd + R</shortcut>/<shortcut>Shift + F10</shortcut> 快速鍵。
 
-   ![Application output with HTML-code](native-output.png){width=700}
+    IntelliJ IDEA 將開啟 **Run** 分頁並顯示輸出 — 即 [example.com](https://example.com/) 的內容：
+
+    ![Application output with HTML-code](native-output.png){width=700}
 
 您可以看到實際輸出，因為 `curl_easy_perform` 呼叫會將結果列印到標準輸出。您可以使用 `curl_easy_setopt` 隱藏此內容。
 

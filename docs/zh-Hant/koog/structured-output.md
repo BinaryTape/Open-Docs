@@ -10,7 +10,7 @@
 
 結構化輸出 API 包含幾個主要組成部分：
 
-1.  **資料結構定義**：使用 `kotlinx.serialization` 和 LLM 特定註解註解的 Kotlin data class。
+1.  **資料結構定義**：使用 kotlinx.serialization 和 LLM 特定註解註解的 Kotlin data class。
 2.  **JSON Schema 產生**：從 Kotlin data class 產生 JSON Schema 的工具。
 3.  **結構化 LLM 請求**：向 LLMs 請求符合定義結構回應的方法。
 4.  **回應處理**：處理和驗證結構化回應。
@@ -262,7 +262,7 @@ val structuredResponse = promptExecutor.executeStructured<WeatherForecast>(
 
 | 名稱           | 資料類型              | 必填 | 預設值       | 描述                                                                                                     |
 |----------------|------------------------|----------|---------------|-----------------------------------------------------------------------------------------------------------------|
-| `prompt`       | Prompt                 | 是       |               | 要執行的提示。更多資訊請參閱 [提示 API](prompt-api.md)。                                   |
+| `prompt`       | Prompt                 | 是       |               | 要執行的提示。更多資訊請參閱 [Prompts](prompts/index.md)。                                |
 | `model`        | LLModel                | 是       |               | 執行提示的主要模型。                                                                           |
 | `examples`     | List&lt;T&gt;                | 否       | `emptyList()` | 可選的範例列表，以幫助模型理解預期的格式。                                     |
 | `fixingParser` | StructureFixingParser? | 否       | `null`        | 可選的解析器，透過使用輔助 LLM 智慧地修正解析錯誤，來處理格式不正確的回應。 |

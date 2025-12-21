@@ -2,11 +2,17 @@
 
 <web-summary>了解如何从 Java 集合迁移到 Kotlin 集合。本指南涵盖 Kotlin 和 Java 中的 List、ArrayList、Map、Set 等数据结构。</web-summary>
 
-_集合_是由可变数量（可能为零）的项组成的组，这些项对解决问题很重要，并且经常对其进行操作。本指南解释并比较了 Java 和 Kotlin 中的集合概念和操作。它将帮助你从 Java 迁移到 Kotlin，并以地道的 Kotlin 方式编写代码。
+_集合_是由可变数量（可能为零）的项组成的组，这些项对解决问题很重要，并且经常对其进行操作。
+本指南解释并比较了 Java 和 Kotlin 中的集合概念和操作。
+它将帮助你从 Java 迁移到 Kotlin，并以地道的 Kotlin 方式编写代码。
 
-本指南的第一部分包含 Java 和 Kotlin 中相同集合操作的快速术语表。它分为[Java 和 Kotlin 中相同的操作](#operations-that-are-the-same-in-java-and-kotlin)和[仅存在于 Kotlin 标准库中的操作](#operations-that-don-t-exist-in-java-s-standard-library)。指南的第二部分从[可变性](#mutability)开始，通过具体案例解释了一些差异。
+本指南的第一部分包含 Java 和 Kotlin 中相同集合操作的快速术语表。
+它分为[相同的操作](#operations-that-are-the-same-in-java-and-kotlin)
+和[仅存在于 Kotlin 标准库中的操作](#operations-that-don-t-exist-in-java-s-standard-library)。
+指南的第二部分从[可变性](#mutability)开始，通过具体案例解释了一些差异。
 
-关于集合的介绍，请参见[集合概述](collections-overview.md)或观看 Kotlin 开发者布道师 Sebastian Aigner 的此[视频](https://www.youtube.com/watch?v=F8jj7e-_jFA)。
+关于集合的介绍，请参见[集合概述](collections-overview.md)或观看
+Kotlin 开发者布道师 Sebastian Aigner 的此[视频](https://www.youtube.com/watch?v=F8jj7e-_jFA)。
 
 > 以下所有示例仅使用 Java 和 Kotlin 标准库 API。
 >
@@ -40,7 +46,7 @@ _集合_是由可变数量（可能为零）的项组成的组，这些项对解
 | 检测 map 是否为空 | `isEmpty()` | 使用[`isNotEmpty()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/is-not-empty.html) 检测 map 是否不为空。 |
 | 移除元素 | `remove(key)`, `remove(key, value)` | 使用[`minusAssign`(`-=`) 操作符](collection-plus-minus.md)：`map -= key`。 |
 | 从 map 中移除所有元素 | `clear()` | |
-| 从 map 中获取流 | `stream()` | |
+| 从 map 中获取流 | `stream()`（针对 entry、key 或 value） | |
 
 ### 仅存在于 List 的操作
 
@@ -59,7 +65,7 @@ _集合_是由可变数量（可能为零）的项组成的组，这些项对解
 | 描述 | Java | Kotlin |
 |-------------|------|--------|
 | 获取集合大小 | `size()` | `count()`, `size` |
-| 扁平化访问嵌套集合元素 | `collectionOfCollections.forEach(flatCollection::addAll)` or `collectionOfCollections.stream().flatMap().collect()` | [`flatten()`](collection-transformations.md#flatten) or [`flatMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/flat-map.html) |
+| 扁平化访问嵌套集合元素 | `collectionOfCollections.forEach(flatCollection::addAll)` 或 `collectionOfCollections.stream().flatMap().collect()` | [`flatten()`](collection-transformations.md#flatten) 或 [`flatMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/flat-map.html) |
 | 将给定函数应用于每个元素 | `stream().map().collect()` | [`map()`](collection-filtering.md) |
 | 将提供的操作按序应用于集合元素并返回累积结果 | `stream().reduce()` | [`reduce()`, `fold()`](collection-aggregate.md#fold-and-reduce) |
 | 按分类器分组元素并计数 | `stream().collect(Collectors.groupingBy(classifier, counting()))` | [`eachCount()`](collection-grouping.md) |
@@ -80,7 +86,7 @@ _集合_是由可变数量（可能为零）的项组成的组，这些项对解
 |-------------|------|--------|
 | 按自然顺序排序 list | `sort(null)` | `sort()` |
 | 按降序排序 list | `sort(comparator)` | `sortDescending()` |
-| 从 list 中移除元素 | `remove(index)`, `remove(element)`| `removeAt(index)`, `remove(element)` or [`collection -= element`](collection-plus-minus.md) |
+| 从 list 中移除元素 | `remove(index)`, `remove(element)`| `removeAt(index)`, `remove(element)` 或 [`collection -= element`](collection-plus-minus.md) |
 | 用特定值填充 list 的所有元素 | `Collections.fill()` | [`fill()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/fill.html) |
 | 从 list 中获取唯一元素 | `stream().distinct().toList()` | [`distinct()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/distinct.html) |
 
@@ -127,9 +133,11 @@ immutableCollection.add("five"); // Fails in runtime with `UnsupportedOperationE
 ```
 {id="immutable-java"}
 
-如果你在 IntelliJ IDEA 中编写最后两段代码，IDE 将警告你正在尝试修改一个不可变对象。这段代码会编译通过，但在运行时会因为 `UnsupportedOperationException` 而失败。你无法通过查看集合的类型来判断它是否可变。
+如果你在 IntelliJ IDEA 中编写最后两段代码，IDE 将警告你正在尝试修改一个不可变对象。
+这段代码会编译通过，但在运行时会因为 `UnsupportedOperationException` 而失败。你无法通过查看集合的类型来判断它是否可变。
 
-与 Java 不同，在 Kotlin 中，你可以根据需要显式声明可变或只读集合。如果你尝试修改一个只读集合，代码将无法编译：
+与 Java 不同，在 Kotlin 中，你可以根据需要显式声明可变或只读集合。
+如果你尝试修改一个只读集合，代码将无法编译：
 
 ```kotlin
 // Kotlin
@@ -144,7 +152,9 @@ val immutableNumbers = listOf("one", "two")
 
 ## 协变
 
-在 Java 中，你不能将一个带有子孙类型的集合传递给一个接受祖先类型集合的函数。例如，如果 `Rectangle` 扩展了 `Shape`，你不能将 `Rectangle` 元素的集合传递给一个接受 `Shape` 元素集合的函数。为了使代码可编译，请使用 `? extends Shape` 类型，这样函数就可以接受 `Shape` 的任何继承者的集合：
+在 Java 中，你不能将一个带有子孙类型的集合传递给一个接受祖先类型集合的函数。
+例如，如果 `Rectangle` 扩展了 `Shape`，你不能将 `Rectangle` 元素的集合传递给一个接受 `Shape` 元素集合的函数。
+为了使代码可编译，请使用 `? extends Shape` 类型，这样函数就可以接受 `Shape` 的任何继承者的集合：
 
 ```java
 // Java
@@ -163,7 +173,10 @@ public void main() {
 ```
 {id="covariance-java"}
 
-在 Kotlin 中，只读集合类型是[协变的](generics.md#variance)。这意味着如果 `Rectangle` 类继承自 `Shape` 类，你可以在任何需要 `List<Shape>` 类型的地方使用 `List<Rectangle>` 类型。换句话说，集合类型与其元素类型具有相同的子类型关系。map 在值类型上是协变的，但在键类型上不是。可变集合不是协变的 —— 这将导致运行时失败。
+在 Kotlin 中，只读集合类型是[协变的](generics.md#variance)。这意味着如果 `Rectangle` 类继承自 `Shape` 类，
+你可以在任何需要 `List<Shape>` 类型的地方使用 `List<Rectangle>` 类型。
+换句话说，集合类型与其元素类型具有相同的子类型关系。map 在值类型上是协变的，但在键类型上不是。
+可变集合不是协变的 —— 这将导致运行时失败。
 
 ```kotlin
 // Kotlin
@@ -186,7 +199,8 @@ fun main() {
 
 ## 区间和数列
 
-在 Kotlin 中，你可以使用[区间](ranges.md)创建间隔。例如，`Version(1, 11)..Version(1, 30)` 包含从 `1.11` 到 `1.30` 的所有版本。你可以使用 `in` 操作符来检测你的版本是否在区间内：`Version(0, 9) in versionRange`。
+在 Kotlin 中，你可以使用[区间](ranges.md)创建间隔。例如，`Version(1, 11)..Version(1, 30)` 包含从 `1.11` 到 `1.30` 的所有版本。
+你可以使用 `in` 操作符来检测你的版本是否在区间内：`Version(0, 9) in versionRange`。
 
 在 Java 中，你需要手动检测 `Version` 是否符合两个边界：
 
@@ -255,7 +269,8 @@ fun main() {
 
 ## 多条件比较
 
-在 Java 中，要根据多个条件比较对象，可以使用 [`Comparator`](https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html) 接口中的 [`comparing()`](https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#comparing-java.util.function.Function-) 和 [`thenComparingX()`](https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing-java.util.Comparator-) 函数。例如，根据姓名和年龄比较人员：
+在 Java 中，要根据多个条件比较对象，可以使用 [`Comparator`](https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html) 接口中的 [`comparing()`](https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#comparing-java.util.function.Function-) 和 [`thenComparingX()`](https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing-java.util.Comparator-) 函数。
+例如，根据姓名和年龄比较人员：
 
 ```java
 class Person implements Comparable<Person> {
@@ -319,7 +334,9 @@ System.out.println(sum); // Prints 145
 ```
 {id="sequences-java"}
 
-在 Kotlin 中，使用 _[序列](sequences.md)_。序列的多步处理在可能的情况下会惰性执行 —— 实际计算只在请求整个处理链的结果时发生。
+在 Kotlin 中，使用 _[序列](sequences.md)_。
+序列的多步处理在可能的情况下会惰性执行 ——
+实际计算只在请求整个处理链的结果时发生。
 
 ```kotlin
 fun main() {
@@ -334,11 +351,13 @@ fun main() {
 ```
 {kotlin-runnable="true" id="sequences-kotlin"}
 
-序列可以减少执行某些过滤操作所需的步骤数。请参见[序列处理示例](sequences.md#sequence-processing-example)，它展示了 `Iterable` 和 `Sequence` 之间的区别。
+序列可以减少执行某些过滤操作所需的步骤数。
+请参见[序列处理示例](sequences.md#sequence-processing-example)，它展示了 `Iterable` 和 `Sequence` 之间的区别。
 
 ## 从 List 中移除元素
 
-在 Java 中，[`remove()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html#remove(int)) 函数接受要移除元素的索引。
+在 Java 中，[`remove()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html#remove(int))
+函数接受要移除元素的索引。
 
 当移除整数元素时，使用 `Integer.valueOf()` 函数作为 `remove()` 函数的实参：
 
@@ -358,7 +377,9 @@ public void remove() {
 ```
 {id="remove-elements-java"}
 
-在 Kotlin 中，元素移除有两种类型：按索引使用 [`removeAt()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/remove-at.html)，按值使用 [`remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/remove.html)。
+在 Kotlin 中，元素移除有两种类型：
+按索引使用 [`removeAt()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/remove-at.html)，
+按值使用 [`remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/remove.html)。
 
 ```kotlin
 fun main() {
@@ -424,7 +445,11 @@ if (deque.size() > 0) {
 ```
 {id="deque-get-first-last-java"}
 
-在 Kotlin 中，有特殊的函数 [`firstOrNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first-or-null.html) 和 [`lastOrNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/last-or-null.html)。使用[`Elvis 操作符`](null-safety.md#elvis-operator)，你可以根据函数的结果立即执行进一步的操作。例如，`firstOrNull()`：
+在 Kotlin 中，有特殊的
+函数 [`firstOrNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first-or-null.html)
+和 [`lastOrNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/last-or-null.html)。
+使用[`Elvis 操作符`](null-safety.md#elvis-operator)，你可以根据函数的结果立即执行进一步的操作。
+例如，`firstOrNull()`：
 
 ```kotlin
 // Kotlin
@@ -505,7 +530,10 @@ fun main() {
 
 ## 过滤元素
 
-在 Java 中，要从集合中过滤元素，你需要使用 [Stream API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html)。Stream API 具有 `intermediate`（中间）和 `terminal`（末端）操作。`filter()` 是一个 `intermediate`（中间）操作，它返回一个流。要接收一个集合作为输出，你需要使用一个 `terminal`（末端）操作，例如 `collect()`。例如，只保留键以 `1` 结尾且值大于 `10` 的那些对：
+在 Java 中，要从集合中过滤元素，你需要使用 [Stream API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html)。
+Stream API 具有 `intermediate`（中间）和 `terminal`（末端）操作。`filter()` 是一个中间操作，它返回一个流。
+要接收一个集合作为输出，你需要使用一个末端操作，例如 `collect()`。
+例如，只保留键以 `1` 结尾且值大于 `10` 的那些对：
 
 ```java
 // Java
@@ -519,7 +547,8 @@ public void filterEndsWith() {
 ```
 {id="filter-elements-java"}
 
-在 Kotlin 中，过滤功能内置于集合中，并且 `filter()` 返回与被过滤集合相同的类型。因此，你只需编写 `filter()` 及其谓词：
+在 Kotlin 中，过滤功能内置于集合中，并且 `filter()` 返回与被过滤集合相同的类型。
+因此，你只需编写 `filter()` 及其谓词：
 
 ```kotlin
 fun main() {
@@ -555,7 +584,8 @@ public void objectIsInstance() {
 ```
 {id="filter-by-type-java"}
 
-在 Kotlin 中，你只需在集合上调用 [`filterIsInstance<NEEDED_TYPE>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter-is-instance.html)，类型转换则由[智能转换](typecasts.md#smart-casts)完成：
+在 Kotlin 中，你只需在集合上调用 [`filterIsInstance<NEEDED_TYPE>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter-is-instance.html)，
+类型转换则由[智能转换](typecasts.md#smart-casts)完成：
 
 ```kotlin
 // Kotlin
@@ -574,7 +604,11 @@ fun main() {
 
 ### 测试谓词
 
-有些任务要求你检测所有、无或任意元素是否满足条件。在 Java 中，你可以通过 [Stream API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html) 函数 [`allMatch()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/Stream.html#allMatch(java.util.function.Predicate))、[`noneMatch()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/Stream.html#noneMatch(java.util.function.Predicate)) 和 [`anyMatch()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/Stream.html#anyMatch(java.util.function.Predicate)) 来执行所有这些检测：
+有些任务要求你检测所有、无或任意元素是否满足条件。
+在 Java 中，你可以通过 [Stream API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html)
+函数 [`allMatch()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/Stream.html#allMatch(java.util.function.Predicate))、
+[`noneMatch()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/Stream.html#noneMatch(java.util.function.Predicate)) 和
+[`anyMatch()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/Stream.html#anyMatch(java.util.function.Predicate)) 来执行所有这些检测：
 
 ```java
 // Java
@@ -587,7 +621,8 @@ public void testPredicates() {
 ```
 {id="test-predicates-java"}
 
-在 Kotlin 中，[扩展函数](extensions.md) `none()`、`any()` 和 `all()` 可用于每个 [Iterable](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/#kotlin.collections.Iterable) 对象：
+在 Kotlin 中，[扩展函数](extensions.md) `none()`、`any()` 和 `all()`
+可用于每个 [Iterable](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/#kotlin.collections.Iterable) 对象：
 
 ```kotlin
 fun main() {
@@ -625,7 +660,8 @@ public void zip() {
 ```
 {id="zip-elements-java"}
 
-如果你想做比简单地将元素对打印到输出更复杂的事情，可以使用 [Records](https://blogs.oracle.com/javamagazine/post/records-come-to-java)。在上面的示例中，record 将是 `record AnimalDescription(String animal, String color) {}`。
+如果你想做比简单地将元素对打印到输出更复杂的事情，可以使用 [Records](https://docs.oracle.com/en/java/javase/17/language/records.html)。
+在上面的示例中，record 将是 `record AnimalDescription(String animal, String color) {}`。
 
 在 Kotlin 中，使用 [`zip()`](collection-transformations.md#zip) 函数来做同样的事情：
 
@@ -638,7 +674,7 @@ fun main() {
 
     println(colors.zip(animals) { color, animal -> 
         "The ${animal.replaceFirstChar { it.uppercase() }} is $color" })
-//end
+//sampleEnd
 }
 ```
 {kotlin-runnable="true" id="zip-elements-kotlin"}
@@ -651,7 +687,8 @@ fun main() {
 
 ### 关联元素
 
-在 Java 中，你可以使用 [Stream API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html) 将元素与特性关联起来：
+在 Java 中，你可以使用 [Stream API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html)
+将元素与特性关联起来：
 
 ```java
 // Java
@@ -672,7 +709,7 @@ fun main() {
     // Kotlin
     val numbers = listOf("one", "two", "three", "four")
     println(numbers.associateWith { it.length })
-//end
+//sampleEnd
 }
 ```
 {kotlin-runnable="true" id="associate-elements-kotlin"}
@@ -681,7 +718,7 @@ fun main() {
 
 *   访问 [Kotlin 心印](koans.md) – 完成练习以学习 Kotlin 语法。每个练习都创建为一个失败的单元测试，你的任务是使其通过。
 *   浏览其他 [Kotlin 惯用法](idioms.md)。
-*   了解如何使用 [Java 到 Kotlin 转换器](mixing-java-kotlin-intellij.md#converting-an-existing-java-file-to-kotlin-with-j2k) 将现有 Java 代码转换为 Kotlin。
+*   了解如何使用 [Java 到 Kotlin 转换器](mixing-java-kotlin-intellij.md#convert-java-files-to-kotlin) 将现有 Java 代码转换为 Kotlin。
 *   探索 [Kotlin 中的集合](collections-overview.md)。
 
 如果你有喜欢的惯用法，我们邀请你通过发送拉取请求来分享。

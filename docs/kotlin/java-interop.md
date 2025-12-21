@@ -180,7 +180,7 @@ val notNull: String = item // 允许，可能在运行时失败
 *   Lombok (`lombok.NonNull`)
 *   RxJava 3 (`io.reactivex.rxjava3.annotations`)
 
-你可以根据来自特定类型的可空性注解信息，指定编译器是否报告可空性不匹配。使用编译器选项 `-Xnullability-annotations=@<package-name>:<report-level>`。在参数中，指定完全限定的可空性注解包名和以下报告级别之一：
+你可以根据来自特定类型的可空性注解信息，指定编译器是否报告可空性不匹配。使用编译器选项 `-Xnullability-annotations=@<package-name>:<report-level>`。在实参中，指定完全限定的可空性注解包名和以下报告级别之一：
 *   `ignore` 忽略可空性不匹配
 *   `warn` 报告警告
 *   `strict` 报告错误。
@@ -594,9 +594,52 @@ fun render(list: List<*>, to: Appendable) {
 
 ### wait()/notify()
 
-`wait()` 和 `notify()` 方法在 `Any` 类型的引用上不可用。通常不建议使用它们，而推荐使用 `java.util.concurrent`。如果你确实需要调用这些方法，可以强制转换为 `java.lang.Object`：
+`wait()` 和 `notify()` 方法在 `Any` 类型的引用上不可用。通常不建议使用它们，而推荐使用 `java.util.concurrent`。
+
+如果你确实需要调用这些方法，可以通过 Java 对象访问它们，并抑制 `PLATFORM_CLASS_MAPPED_TO_KOTLIN` 警告：
 
 ```kotlin
+import java.util.LinkedList
+
+class SimpleBlockingQueue<T>(private val capacity: Int) {
+    private val queue = LinkedList<T>()
+
+    // java.lang.Object is used specifically to access wait() and notify()
+    // In Kotlin, the standard 'Any' type does not expose these methods.
+    @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
+    private val lock = Object()
+
+    fun put(item: T) {
+        synchronized(lock) {
+            while (queue.size >= capacity) {
+                lock.wait()
+            }
+            queue.add(item)
+            println("Produced: $item")
+
+            lock.notifyAll()
+        }
+    }
+
+    fun take(): T {
+        synchronized(lock) {
+            while (queue.isEmpty()) {
+                lock.wait()
+            }
+            val item = queue.removeFirst()
+            println("Consumed: $item")
+
+            lock.notifyAll()
+            return item
+        }
+    }
+}
+```
+
+或者显式转换为 `java.lang.Object` 并抑制 `PLATFORM_CLASS_MAPPED_TO_KOTLIN` 警告：
+
+```kotlin
+@Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
 (foo as java.lang.Object).wait()
 ```
 

@@ -1,6 +1,6 @@
 [//]: # (title: サポートされるバージョンと設定)
 
-<primary-label ref="beta"/> 
+<primary-label ref="beta"/>
 
 このページでは、[WebAssemblyプロポーザル](https://webassembly.org/roadmap/)、サポートされるブラウザ、およびKotlin/Wasmを用いた効率的な開発のための推奨設定について詳しく説明します。
 
@@ -10,7 +10,7 @@ Kotlin/Wasmは、[ガベージコレクション (WasmGC)](#garbage-collection-p
 
 これらの機能が正しく動作することを確認するために、最新のプロポーザルをサポートする環境を提供してください。お使いのブラウザバージョンが新しいWasmGCをデフォルトでサポートしているか、または環境に変更を加える必要があるかを確認してください。
 
-### Chrome 
+### Chrome
 
 *   **バージョン119以降の場合:**
 
@@ -83,15 +83,14 @@ Kotlin 1.9.20以降、Kotlinツールチェインは[Wasmガベージコレク�
 
 ### 例外処理プロポーザル
 
-Kotlinツールチェインは、デフォルトで[レガシー例外処理プロポーザル](https://github.com/WebAssembly/exception-handling/blob/master/proposals/exception-handling/legacy/Exceptions.md)を使用しており、生成されたWasmバイナリをより広範な環境で実行できるようにしています。
+Kotlinツールチェインは、例外処理プロポーザルの[レガシー](https://github.com/WebAssembly/exception-handling/blob/master/proposals/exception-handling/legacy/Exceptions.md)バージョンと[新しい](https://github.com/WebAssembly/exception-handling/blob/main/proposals/exception-handling/Exceptions.md)バージョンの両方をサポートしています。これにより、Kotlinが生成したWasmバイナリをより広範な環境で実行できるようになります。
 
-Kotlin 2.0.0以降、Kotlin/Wasm内でWasm[例外処理プロポーザル](https://github.com/WebAssembly/exception-handling/blob/main/proposals/exception-handling/Exceptions.md)の新しいバージョンのサポートを導入しました。
+[`wasmJs`ターゲット](wasm-overview.md#kotlin-wasm-and-compose-multiplatform)は、デフォルトでレガシー例外処理プロポーザルを使用します。`wasmJs`ターゲットで新しい例外処理プロポーザルを有効にするには、`-Xwasm-use-new-exception-proposal`コンパイラオプションを使用します。
 
-このアップデートにより、新しい例外処理プロポーザルがKotlinの要件に合致し、プロポーザルの最新バージョンのみをサポートする仮想マシンでKotlin/Wasmを使用できるようになります。
+対照的に、[`wasmWasi`ターゲット](wasm-overview.md#kotlin-wasm-and-wasi)はデフォルトで新しいプロポーザルを使用し、最新のWebAssemblyランタイムとのより良い互換性を確保します。レガシープロポーザルに切り替えるには、`-Xwasm-use-new-exception-proposal=false`コンパイラオプションを使用します。
 
-新しい例外処理プロポーザルは、`-Xwasm-use-new-exception-proposal`コンパイラオプションを使用して有効化されます。これはデフォルトで無効になっています。
-
-<p>&nbsp;</p>
+`wasmWasi`ターゲットの場合、新しい例外処理プロポーザルを採用しても安全です。
+この環境をターゲットとするアプリケーションは、通常、多様性の低いランタイム環境 (多くの場合、単一の特定のVM上で実行される) で動作し、これは通常ユーザーによって制御されるため、互換性の問題のリスクが軽減されます。
 
 > プロジェクトのセットアップ、依存関係の使用、およびその他のタスクについては、[Kotlin/Wasmの例](https://github.com/Kotlin/kotlin-wasm-examples#readme)で詳しく学ぶことができます。
 >
@@ -156,6 +155,13 @@ kotlin {
 
 このオプションを有効にすると、アプリケーションサイズが増加することに注意してください。
 
+### 完全修飾名
+
+Kotlin/Wasmターゲットでは、追加の設定なしでランタイムで完全修飾名 (FQNs) を利用できます。
+これは、`KClass.qualifiedName`プロパティがデフォルトで有効になっていることを意味します。
+
+FQNsを使用することで、JVMからWasmターゲットへのコードのポータビリティが向上し、完全修飾名を表示することでランタイムエラーがより情報豊富になります。
+
 ## 配列の範囲外アクセスとトラップ
 
 Kotlin/Wasmでは、配列に範囲外のインデックスでアクセスすると、通常のKotlin例外ではなくWebAssemblyトラップがトリガーされます。トラップは現在の実行スタックを直ちに停止します。
@@ -197,7 +203,7 @@ Kotlin/Wasmは、一般的なWebAssemblyの相互運用性のためにいくつ�
 [モダンブラウザ](#browser-versions)でのアプリケーションの[デバッグ](wasm-debugging.md)は、特別な設定なしで動作します。
 開発用Gradleタスク (`*DevRun`) を実行すると、Kotlinは自動的にソースファイルをブラウザに提供します。
 
-ただし、ソースをデフォルトで提供すると、Kotlinのコンパイルとバンドルが完了する前に、[ブラウザでアプリケーションが繰り返し再読み込みされる](https://youtrack.jetbrains.com/issue/KT-80582/Multiple-reloads-when-using-webpack-dev-server-after-2.2.20-Beta2#focus=Comments-27-12596427.0-0)問題が発生する可能性があります。
+ただし、ソースをデフォルトで提供すると、[Kotlinのコンパイルとバンドルが完了する前にブラウザでアプリケーションが繰り返し再読み込みされる](https://youtrack.jetbrains.com/issue/KT-80582/Multiple-reloads-when-using-webpack-dev-server-after-2.2.20-Beta2#focus=Comments-27-12596427.0-0)問題が発生する可能性があります。
 回避策として、Kotlinのソースファイルを無視し、提供される静的ファイルの監視を無効にするようにwebpack設定を調整します。プロジェクトのルートにある`webpack.config.d`ディレクトリに、以下の内容の`.js`ファイルを追加します。
 
 ```kotlin

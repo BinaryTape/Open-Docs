@@ -24,7 +24,7 @@ Kotlin Gradle 플러그인에는 내장된 기본 [계층 템플릿](#see-the-fu
 
 ```kotlin
 kotlin {
-    androidTarget()
+    android()
     iosArm64()
     iosSimulatorArm64()
 }
@@ -35,7 +35,7 @@ kotlin {
 
 ```groovy
 kotlin {
-    androidTarget()
+    android()
     iosArm64()
     iosSimulatorArm64()
 }
@@ -44,9 +44,9 @@ kotlin {
 </TabItem>
 </Tabs>
 
-코드에서 `androidTarget`, `iosArm64`, `iosSimulatorArm64` 타겟을 선언하면 Kotlin Gradle 플러그인은 템플릿에서 적합한 공유 소스 세트를 찾아 생성해 줍니다. 결과 계층은 다음과 같습니다:
+코드에서 `android`, `iosArm64`, `iosSimulatorArm64` 타겟을 선언하면 Kotlin Gradle 플러그인은 템플릿에서 적합한 공유 소스 세트를 찾아 생성해 줍니다. 결과 계층은 다음과 같습니다:
 
-![An example of using the default hierarchy template](default-hierarchy-example.svg)
+![기본 계층 템플릿 사용 예시](default-hierarchy-example.svg)
 
 색상이 있는 소스 세트는 실제로 프로젝트에 생성되어 존재하며, 기본 템플릿의 회색 소스 세트는 무시됩니다. 예를 들어, 프로젝트에 watchOS 타겟이 없기 때문에 Kotlin Gradle 플러그인은 `watchos` 소스 세트를 생성하지 않았습니다.
 
@@ -61,7 +61,7 @@ Kotlin Gradle 플러그인은 기본 계층 템플릿의 모든 소스 세트에
 
 ```kotlin
 kotlin {
-    androidTarget()
+    android()
     iosArm64()
     iosSimulatorArm64()
 
@@ -69,7 +69,7 @@ kotlin {
         iosMain.dependencies {
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%")
         }
-        // Warning: accessing source set without declaring the target
+        // 경고: 타겟을 선언하지 않고 소스 세트에 접근함
         linuxX64Main { }
     }
 }
@@ -80,7 +80,7 @@ kotlin {
 
 ```groovy
 kotlin {
-    androidTarget()
+    android()
     iosArm64()
     iosSimulatorArm64()
 
@@ -90,7 +90,7 @@ kotlin {
                 implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%'
             }
         }
-        // Warning: accessing source set without declaring the target
+        // 경고: 타겟을 선언하지 않고 소스 세트에 접근함
         linuxX64Main { }
     }
 }
@@ -217,7 +217,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 
 프로젝트가 컴파일될 타겟을 선언하면, 플러그인은 템플릿에서 지정된 타겟을 기반으로 공유 소스 세트를 선택하고 프로젝트에 생성합니다.
 
-![Default hierarchy template](full-template-hierarchy.svg)
+![기본 계층 템플릿](full-template-hierarchy.svg)
 
 > 이 예시는 `Main` 접미사를 생략하고 프로젝트의 프로덕션(production) 부분만 보여줍니다(예: `commonMain` 대신 `common` 사용). 하지만 `*Test` 소스에서도 모든 것이 동일합니다.
 >
@@ -284,7 +284,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 
 결과 계층 구조는 다음과 같습니다.
 
-![Manually configured hierarchical structure](manual-hierarchical-structure.svg)
+![수동으로 구성된 계층 구조](manual-hierarchical-structure.svg)
 
 다음 타겟 조합에 대해 공유 소스 세트를 가질 수 있습니다.
 

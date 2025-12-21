@@ -4,7 +4,7 @@
 
 ## 활성화 방법
 
-`gradle.properties` 파일, 빌드 파일 또는 컴파일러 인수로 바이너리 옵션을 활성화할 수 있습니다.
+바이너리 옵션을 `gradle.properties` 파일, 빌드 파일 또는 컴파일러 인수로 활성화할 수 있습니다.
 
 ### Gradle 속성에서
 
@@ -17,7 +17,7 @@ kotlin.native.binary.latin1Strings=true
 
 ### 빌드 파일에서
 
-`build.gradle.kts` 파일에서 프로젝트의 바이너리 옵션을 설정할 수 있습니다.
+`build.gradle.kts` 파일에서 프로젝트의 바이너리 옵션을 설정할 수 있습니다:
 
 * `binaryOption` 속성을 사용하여 특정 바이너리에 대해 설정할 수 있습니다. 예를 들어:
 
@@ -67,6 +67,17 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td width="170">값</td>
         <td>설명</td>
         <td width="110">상태</td>
+    </tr>
+    <tr>
+        <td><a href="native-objc-interop.md#explicit-parameter-names-in-objective-c-block-types"><code>objcExportBlockExplicitParameterNames</code></a></td>
+        <td>
+            <list>
+                <li><code>true</code> (기본값)</li>
+                <li><code>false</code></li>
+            </list>
+        </td>
+        <td>내보낸 Objective-C 헤더의 함수 타입에 명시적 매개변수 이름을 추가합니다.</td>
+        <td>2.3.0부터 기본값</td>
     </tr>
     <tr>
         <td><a href="whatsnew2220.md#smaller-binary-size-for-release-binaries"><code>smallBinary</code></a></td>
@@ -141,7 +152,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
                 <li><a href="native-memory-manager.md#disable-garbage-collection"><code>noop</code></a></li>
             </list>
         </td>
-        <td>가비지 컬렉션 동작을 제어합니다.
+        <td>가비지 컬렉션 동작을 제어합니다:
             <list>
                 <li><code>pmcs</code>는 병렬 마크 동시 스윕(parallel mark concurrent sweep)을 사용합니다</li>
                 <li><code>stwms</code>는 간단한 스톱-더-월드 마크 앤 스윕(simple stop-the-world mark and sweep)을 사용합니다</li>

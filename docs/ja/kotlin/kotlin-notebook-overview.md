@@ -74,6 +74,14 @@ Kotlin Notebookが汎用的なJupyterフォーマットに準拠しているた�
 
 ![kotlin-notebook-sharing-datalore](kotlin-notebook-sharing-datalore.png){width=700}
 
+あるいは、現在のノートブックを[GitHub Gist](https://gist.github.com/)として素早く共有することもできます。ツールバーの**Create Gist**ボタンをクリックしてください。
+
+![notebook-github-gist](notebook-github-gist.png){width=400}
+
+IntelliJ IDEAは、あなたのノートブックをGitHubアカウントのGistにエクスポートし、ノートブックを共有、表示、ダウンロードするためのURLを提供します。
+
+Gistは、ノートブック内のすべてのコード、出力、MarkdownをJSON形式で保存し、GitHubはそのプレビューをレンダリングできます。
+
 ## 次のステップ
 
 *   [Kotlin Notebookの使用方法と主要機能について学ぶ。](https://www.jetbrains.com/help/idea/kotlin-notebook.html)

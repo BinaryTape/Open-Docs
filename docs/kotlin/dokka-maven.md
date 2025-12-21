@@ -4,7 +4,7 @@
 
 > 与 [Dokka 的 Gradle 插件](dokka-gradle.md)相比，Maven 插件仅具有基本特性，并且
 > 不支持多模块构建。
-> 
+>
 {style="note"}
 
 你可以通过访问我们的 [Maven 示例](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/examples/maven)项目来试用 Dokka，并了解如何为 Maven 项目配置它。
@@ -54,7 +54,7 @@ Maven 插件提供了以下目标：
 
 所有其他输出格式都作为 [Dokka 插件](dokka-plugins.md)实现。为了生成所需格式的文档，你必须将其作为 Dokka 插件添加到配置中。
 
-例如，要使用实验性的 [GFM](dokka-markdown.md#gfm) 格式，你必须添加 `gfm-plugin` 构件：
+例如，要使用实验性的 [GFM](https://github.com/Kotlin/dokka/tree/master/dokka-subprojects/plugin-gfm#readme) 格式，你必须添加 `gfm-plugin` 构件：
 
 ```xml
 <plugin>

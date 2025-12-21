@@ -1,6 +1,6 @@
 [//]: # (title: Kotlin/Native를 Apple 프레임워크로 사용하기 – 튜토리얼)
 
-> Objective-C 라이브러리 임포트는 [베타](native-c-interop-stability.md) 단계에 있습니다.
+> Objective-C 라이브러리 임포트는 [베타](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 단계에 있습니다.
 > cinterop 도구를 통해 Objective-C 라이브러리에서 생성된 모든 Kotlin 선언에는
 > `@ExperimentalForeignApi` 어노테이션이 있어야 합니다.
 >

@@ -29,7 +29,7 @@
 * Savedstateライブラリ `org.jetbrains.androidx.savedstate:savedstate*:1.4.0`。[Jetpack Savedstate 1.4.0](https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0)に基づいています。
 * WindowManager Coreライブラリ `org.jetbrains.androidx.window:window-core:1.5.1`。[Jetpack WindowManager 1.5.1](https://developer.android.com/jetpack/androidx/releases/window#1.5.1)に基づいています。
 
-## 破壊的変更
+## 破壊的変更と非推奨
 
 ### 非推奨の依存関係エイリアス
 
@@ -39,6 +39,27 @@ Compose Multiplatform Gradleプラグイン（`compose.ui`など）によって�
 
 この変更により、Compose Multiplatformライブラリの依存関係管理がもう少し透過的になるはずです。
 将来的には、互換性のあるバージョンの設定を簡素化するために、Compose Multiplatform用のBOMを提供したいと考えています。
+
+### `PredictiveBackHandler()`の非推奨
+
+`PredictiveBackHandler()`関数は、ネイティブAndroidの戻るナビゲーションジェスチャを他のプラットフォームにもたらすためにCompose Multiplatformで導入されました。
+Navigation 3のリリースに伴い、古い実装は新しい[Navigation Event](https://developer.android.com/jetpack/androidx/releases/navigationevent)ライブラリとそのAPIの使用を推奨し、非推奨となりました。
+具体的には、`PredictiveBackHandler()`関数を使用する代わりに、より一般的な`NavigationEventHandler()`実装をラップする新しい`NavigationBackHandler()`関数を使用する必要があります。
+
+最も簡単な移行方法は次のようになります。
+
+<compare type="top-bottom">
+    <code-block lang="kotlin" code="         PredictiveBackHandler(enabled = true) { progress -&gt;&#10;            try {&#10;                progress.collect { event -&gt;&#10;                    // Animate the back gesture progress&#10;                }&#10;                // Process the completed back gesture&#10;            } catch(e: Exception) {&#10;                // Process the canceled back gesture&#10;            }&#10;        }"/>
+    <code-block lang="kotlin" code="        // 必須引数を満たすためのスタブとして空のステートを使用します&#10;        val navState = rememberNavigationEventState(NavigationEventInfo.None)&#10;        NavigationBackHandler(&#10;            state = navState,&#10;            isBackEnabled = true,&#10;            onBackCancelled = {&#10;                // キャンセルされた戻るジェスチャを処理します&#10;            },&#10;            onBackCompleted = {&#10;              // 完了した戻るジェスチャを処理します&#10;            }&#10;        )&#10;        LaunchedEffect(navState.transitionState) {&#10;            val transitionState = navState.transitionState&#10;            if (transitionState is NavigationEventTransitionState.InProgress) {&#10;                val progress = transitionState.latestEvent.progress&#10;                // 戻るジェスチャの進捗をアニメーション化します&#10;            }&#10;        }"/>
+</compare>
+
+ここで：
+
+*   `state`パラメーターは必須です。`NavigationEventInfo`は、UIステートに関するコンテキスト情報を保持するように設計されています。現時点で格納する情報がない場合は、`NavigationEventInfo.None`をスタブとして使用できます。
+*   `onBack`パラメーターは`onBackCancelled`と`onBackCompleted`に分割され、キャンセルされたジェスチャを個別に追跡する必要がなくなりました。
+*   `NavigationEventState.transitionState`プロパティは、物理的なジェスチャの進行状況を追跡するのに役立ちます。
+
+実装の詳細については、[Navigation Event APIリファレンスのNavigationEventHandlerページ](https://developer.android.com/reference/kotlin/androidx/navigationevent/NavigationEventHandler)を参照してください。
 
 ### Webの最小Kotlinバージョンが引き上げられました
 
@@ -55,10 +76,11 @@ Compose Multiplatform Gradleプラグイン（`compose.ui`など）によって�
 
 ### インターロップビューの自動サイズ調整
 
-Compose Multiplatformは、デスクトップとiOSの両方でネイティブのインターロップ要素の自動サイズ調整をサポートするようになりました。これらの要素は、コンテンツに基づいてレイアウトを調整できるようになり、正確なサイズを手動で計算したり、固定寸法を事前に指定したりする必要がなくなります。
+Compose Multiplatformは、デスクトップとiOSの両方でネイティブのインターロップ要素の自動サイズ調整をサポートするようになりました。
+これらの要素は、コンテンツに基づいてレイアウトを調整できるようになり、正確なサイズを手動で計算したり、固定寸法を事前に指定したりする必要がなくなります。
 
-* デスクトップでは、`SwingPanel`は組み込みコンポーネントの最小サイズ、推奨サイズ、最大サイズに基づいて、自動的にサイズを調整します。
-* iOSでは、UIKitインターロップビューがビューの適合サイズ（固有のコンテンツサイズ）に応じたサイズ調整をサポートするようになりました。これにより、SwiftUIビュー（`UIHostingController`経由）や`NSLayoutConstraints`に依存しない基本的な`UIView`サブクラスの適切なラッピングが可能になります。
+*   デスクトップでは、`SwingPanel`は組み込みコンポーネントの最小サイズ、推奨サイズ、最大サイズに基づいて、自動的にサイズを調整します。
+*   iOSでは、UIKitインターロップビューがビューの適合サイズ（固有のコンテンツサイズ）に応じたサイズ調整をサポートするようになりました。これにより、SwiftUIビュー（`UIHostingController`経由）や`NSLayoutConstraints`に依存しない基本的な`UIView`サブクラスの適切なラッピングが可能になります。
 
 ### `Popup`および`Dialog`プロパティの安定版
 
@@ -85,20 +107,20 @@ Navigation 3を使用すると、バックスタックを完全に制御でき�
 Compose Multiplatform 1.10.0-beta01は、Android以外のターゲットで新しいナビゲーションAPIを使用するためのアルファサポートを提供します。
 リリースされたマルチプラットフォームアーティファクトは次のとおりです。
 
-* Navigation 3 UIライブラリ、`org.jetbrains.androidx.navigation3:navigation3-ui`
-* Navigation 3用ViewModel、`org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-navigation3`
-* Navigation 3用Material 3アダプティブレイアウト、`org.jetbrains.compose.material3.adaptive:adaptive-navigation3`
+*   Navigation 3 UIライブラリ、`org.jetbrains.androidx.navigation3:navigation3-ui`
+*   Navigation 3用ViewModel、`org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-navigation3`
+*   Navigation 3用Material 3アダプティブレイアウト、`org.jetbrains.compose.material3.adaptive:adaptive-navigation3`
 
 マルチプラットフォームNavigation 3実装の例は、オリジナルのAndroidリポジトリからミラーリングされた[nav3-recipes](https://github.com/terrakok/nav3-recipes)サンプルで確認できます。
 
 プラットフォーム固有の実装詳細をいくつか示します。
 
-* iOSでは、[EndEdgePanGestureBehavior](https://github.com/JetBrains/compose-multiplatform-core/pull/2519)オプション（デフォルトで`Disabled`）を使用して、端の端からの[パンジェスチャ](https://developer.apple.com/documentation/uikit/handling-pan-gestures)によるナビゲーションを管理できるようになりました。
-  ここで言う「端の端」とは、LTRインターフェースでは画面の右端を指し、RTLインターフェースでは左端を指します。
-  開始端は端の端とは反対で、常に「戻る」ジェスチャに紐付けられています。
-* Webアプリでは、デスクトップブラウザで**Esc**キーを押すと、デスクトップアプリと同様に、ユーザーを前の画面に戻す（およびダイアログ、ポップアップ、Material 3の`SearchBar`のような一部のウィジェットを閉じる）ようになりました。
-* [ブラウザの履歴ナビゲーション](compose-navigation-routing.md#support-for-browser-navigation-in-web-apps)とアドレスバーでのデスティネーションの使用のサポートは、Compose Multiplatform 1.10ではNavigation 3に拡張されません。
-  これはマルチプラットフォームライブラリの今後のバージョンに延期されました。
+*   iOSでは、[EndEdgePanGestureBehavior](https://github.com/JetBrains/compose-multiplatform-core/pull/2519)オプション（デフォルトで`Disabled`）を使用して、端の端からの[パンジェスチャ](https://developer.apple.com/documentation/uikit/handling-pan-gestures)によるナビゲーションを管理できるようになりました。
+    ここで言う「端の端」とは、LTRインターフェースでは画面の右端を指し、RTLインターフェースでは左端を指します。
+    開始端は端の端とは反対で、常に「戻る」ジェスチャに紐付けられています。
+*   Webアプリでは、デスクトップブラウザで**Esc**キーを押すと、デスクトップアプリと同様に、ユーザーを前の画面に戻す（およびダイアログ、ポップアップ、Material 3の`SearchBar`のような一部のウィジェットを閉じる）ようになりました。
+*   [ブラウザの履歴ナビゲーション](compose-navigation-routing.md#support-for-browser-navigation-in-web-apps)とアドレスバーでのデスティネーションの使用のサポートは、Compose Multiplatform 1.10ではNavigation 3に拡張されません。
+    これはマルチプラットフォームライブラリの今後のバージョンに延期されました。
 
 ## iOS
 
@@ -115,12 +137,12 @@ Compose Multiplatformは、ステータスバー、ナビゲーションバー�
 
 ### IME構成の改善
 
-1.9.0で導入されたiOS固有のIMEカスタマイズに続き、このリリースでは`PlatformImeOptions`を使用してテキスト入力ビューを構成するための新しいAPIが追加されました。
+[1.9.0で導入された](whats-new-compose-190.md#ime-options)iOS固有のIMEカスタマイズに続き、このリリースでは`PlatformImeOptions`を使用してテキスト入力ビューを構成するための新しいAPIが追加されました。
 
 これらの新しいAPIにより、フィールドがフォーカスを取得してIMEをトリガーしたときの入力インターフェースのカスタマイズが可能になります。
 
- * `UIResponder.inputView` は、デフォルトのシステムキーボードを置き換えるカスタム入力ビューを指定します。
- * `UIResponder.inputAccessoryView` は、IMEアクティベーション時にシステムキーボードまたはカスタム`inputView`にアタッチするカスタムアクセサリビューを定義します。
+*   `UIResponder.inputView` は、デフォルトのシステムキーボードを置き換えるカスタム入力ビューを指定します。
+*   `UIResponder.inputAccessoryView` は、IMEアクティベーション時にシステムキーボードまたはカスタム`inputView`にアタッチするカスタムアクセサリビューを定義します。
 
 ### インターロップビューのオーバーレイ配置
 <primary-label ref="Experimental"/>
@@ -150,8 +172,8 @@ Compose Hot Reloadプラグインは、Compose Multiplatform Gradleプラグイ�
 
 Compose Hot Reloadプラグインを明示的に宣言しているプロジェクトに対する影響は以下のとおりです。
 
- * Compose Multiplatform Gradleプラグインによって提供されるバージョンを使用するため、宣言を安全に削除できます。
- * 特定のバージョン宣言を保持することを選択した場合、バンドルされたバージョンではなく、そのバージョンが使用されます。
+*   Compose Multiplatform Gradleプラグインによって提供されるバージョンを使用するため、宣言を安全に削除できます。
+*   特定のバージョン宣言を保持することを選択した場合、バンドルされたバージョンではなく、そのバージョンが使用されます。
 
 バンドルされているCompose Hot Reload Gradleプラグインの最小Kotlinバージョンは2.1.20です。
 これより古いKotlinバージョンが検出された場合、ホットリロード機能は無効になります。

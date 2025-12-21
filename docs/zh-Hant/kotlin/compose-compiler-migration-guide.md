@@ -30,6 +30,10 @@ Compose 編譯器由一個 Gradle 外掛程式輔助，該外掛程式可簡化�
  compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
  ```
 
+> 如果您正在使用 AGP 9.0.0 或更新版本，您不再需要 `org-jetbrains-kotlin-android` 外掛程式，因為 AGP 已內建 Kotlin 支援。
+> 
+{style ="note"}
+
 2. 將 Gradle 外掛程式加入根 `build.gradle.kts` 檔案：
 
  ```kotlin

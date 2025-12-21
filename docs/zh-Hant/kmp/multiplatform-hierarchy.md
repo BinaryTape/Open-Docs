@@ -1,6 +1,8 @@
 [//]: # (title: 層級式專案結構)
 
-Kotlin Multiplatform 專案支援層級式原始碼集結構。這表示您可以安排中介原始碼集的層級結構，以便在部分（而非所有）[支援的目標平台](multiplatform-dsl-reference.md#targets)之間共用通用程式碼。使用中介原始碼集有助於您：
+Kotlin Multiplatform 專案支援層級式原始碼集結構。
+這表示您可以安排中介原始碼集的層級結構，以便在部分（而非所有）
+[支援的目標平台](multiplatform-dsl-reference.md#targets)之間共用通用程式碼。使用中介原始碼集有助於您：
 
 *   為某些目標平台提供特定的 API。例如，函式庫可以在中介原始碼集中為 Kotlin/Native 目標平台添加原生特定 API，但不是為 Kotlin/JVM 目標平台。
 *   為某些目標平台使用特定的 API。例如，您可以從 Kotlin Multiplatform 函式庫為形成中介原始碼集的一些目標平台提供的豐富 API 中獲益。
@@ -8,11 +10,15 @@ Kotlin Multiplatform 專案支援層級式原始碼集結構。這表示您可�
 
 Kotlin 工具鏈確保每個原始碼集只能存取適用於該原始碼集編譯的所有目標平台的 API。這可以防止諸如使用 Windows 特定 API 然後將其編譯到 macOS 的情況，導致連結錯誤或執行時的未定義行為。
 
-設定原始碼集層級的建議方式是使用[預設層級範本](#default-hierarchy-template)。該範本涵蓋了最常見的用例。如果您有更進階的專案，可以[手動配置](#manual-configuration)它。這是一種更底層的方法：它更靈活，但需要更多的努力和知識。
+設定原始碼集層級的建議方式是使用[預設層級範本](#default-hierarchy-template)。
+該範本涵蓋了最常見的用例。如果您有更進階的專案，可以[手動配置](#manual-configuration)它。
+這是一種更底層的方法：它更靈活，但需要更多的努力和知識。
 
 ## 預設層級範本
 
-Kotlin Gradle 外掛程式具有內建的預設[層級範本](#see-the-full-hierarchy-template)。它包含了一些常見用例的預定義中介原始碼集。該外掛程式會根據您專案中指定的目標平台自動設定這些原始碼集。
+Kotlin Gradle 外掛程式具有內建的預設[層級範本](#see-the-full-hierarchy-template)。
+它包含了一些常見用例的預定義中介原始碼集。
+該外掛程式會根據您專案中指定的目標平台自動設定這些原始碼集。
 
 考慮專案模組中包含共用程式碼的 `build.gradle(.kts)` 檔案：
 
@@ -21,7 +27,7 @@ Kotlin Gradle 外掛程式具有內建的預設[層級範本](#see-the-full-hier
 
 ```kotlin
 kotlin {
-    androidTarget()
+    android()
     iosArm64()
     iosSimulatorArm64()
 }
@@ -32,7 +38,7 @@ kotlin {
 
 ```groovy
 kotlin {
-    androidTarget()
+    android()
     iosArm64()
     iosSimulatorArm64()
 }
@@ -41,7 +47,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-當您在程式碼中宣告目標平台 `androidTarget`、`iosArm64` 和 `iosSimulatorArm64` 時，Kotlin Gradle 外掛程式會從範本中找到合適的共用原始碼集並為您建立它們。產生的層級結構如下所示：
+當您在程式碼中宣告目標平台 `android`、`iosArm64` 和 `iosSimulatorArm64` 時，Kotlin Gradle 外掛程式會從範本中找到合適的共用原始碼集並為您建立它們。產生的層級結構如下所示：
 
 ![An example of using the default hierarchy template](default-hierarchy-example.svg)
 
@@ -58,7 +64,7 @@ Kotlin Gradle 外掛程式為預設層級範本中的所有原始碼集提供了
 
 ```kotlin
 kotlin {
-    androidTarget()
+    android()
     iosArm64()
     iosSimulatorArm64()
 
@@ -66,7 +72,7 @@ kotlin {
         iosMain.dependencies {
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%")
         }
-        // 警告：未宣告目標平台即存取原始碼集
+        // Warning: accessing source set without declaring the target
         linuxX64Main { }
     }
 }
@@ -77,7 +83,7 @@ kotlin {
 
 ```groovy
 kotlin {
-    androidTarget()
+    android()
     iosArm64()
     iosSimulatorArm64()
 
@@ -87,7 +93,7 @@ kotlin {
                 implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:%coroutinesVersion%'
             }
         }
-        // 警告：未宣告目標平台即存取原始碼集
+        // Warning: accessing source set without declaring the target
         linuxX64Main { }
     }
 }
@@ -96,7 +102,9 @@ kotlin {
 </TabItem>
 </Tabs>
 
-> 在此範例中，`apple` 和 `native` 原始碼集僅編譯到 `iosArm64` 和 `iosSimulatorArm64` 目標平台。儘管名稱如此，它們仍可存取完整的 iOS API。這對於諸如 `native` 之類的原始碼集可能有些反直覺，因為您可能預期此原始碼集中只能存取所有原生目標平台可用的 API。此行為未來可能會改變。
+> 在此範例中，`apple` 和 `native` 原始碼集僅編譯到 `iosArm64` 和 `iosSimulatorArm64` 目標平台。
+> 儘管名稱如此，它們仍可存取完整的 iOS API。
+> 這對於諸如 `native` 之類的原始碼集可能有些反直覺，因為您可能預期此原始碼集中只能存取所有原生目標平台可用的 API。此行為未來可能會改變。
 >
 {style="note"}
 
@@ -113,7 +121,7 @@ kotlin {
     'kotlin.mpp.applyDefaultHierarchyTemplate=false'
 至您的 gradle.properties 檔案來停用預設範本
 
-Learn more about hierarchy templates: https://kotl.in/hierarchy-template
+學習更多有關層級範本的資訊：https://kotl.in/hierarchy-template
 ```
 
 為了解決此問題，請透過以下方式之一配置您的專案：
@@ -147,11 +155,11 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
         iosArm64()
         iosSimulatorArm64()
     
-        // 再次套用預設層級。例如，它將建立 iosMain 原始碼集：
+        // Apply the default hierarchy again. It'll create, for example, the iosMain source set:
         applyDefaultHierarchyTemplate()
     
         sourceSets {
-            // 建立額外的 jvmAndMacos 原始碼集：
+            // Create an additional jvmAndMacos source set:
             val jvmAndMacos by creating {
                 dependsOn(commonMain.get())
             }
@@ -172,11 +180,11 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
         iosArm64()
         iosSimulatorArm64()
     
-        // 再次套用預設層級。例如，它將建立 iosMain 原始碼集：
+        // Apply the default hierarchy again. It'll create, for example, the iosMain source set:
         applyDefaultHierarchyTemplate()
     
         sourceSets {
-            // 建立額外的 jvmAndMacos 原始碼集：
+            // Create an additional jvmAndMacos source set:
             jvmAndMacos {
                 dependsOn(commonMain.get())
             }
@@ -231,7 +239,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 
     <Tabs group="build-script">
     <TabItem title="Kotlin" group-key="kotlin">
-    
+
     ```kotlin
     kotlin {
         linuxX64()
@@ -249,10 +257,10 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
         }
     }
     ```
-    
+
     </TabItem>
     <TabItem title="Groovy" group-key="groovy">
-    
+
     ```groovy
     kotlin {
         linuxX64()
@@ -275,7 +283,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
         }
     }
     ```
-    
+
     </TabItem>
     </Tabs>
 

@@ -15,6 +15,14 @@
         "link": "dokka-gradle"
       },
       {
+        "text": "dokka.dokka-gradle-configuration-options",
+        "link": "dokka-gradle-configuration-options"
+      },
+      {
+        "text": "dokka.dokka-gradle-troubleshooting-md",
+        "link": "dokka-gradle-troubleshooting-md"
+      },
+      {
         "text": "dokka.dokka-migration",
         "link": "dokka-migration"
       },
@@ -35,10 +43,6 @@
       {
         "text": "dokka.dokka-html",
         "link": "dokka-html"
-      },
-      {
-        "text": "dokka.dokka-markdown",
-        "link": "dokka-markdown"
       },
       {
         "text": "dokka.dokka-javadoc",

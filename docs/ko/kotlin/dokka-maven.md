@@ -53,7 +53,7 @@ Maven 플러그인은 다음 목표를 제공합니다:
 
 다른 모든 출력 형식은 [Dokka 플러그인](dokka-plugins.md)으로 구현됩니다. 원하는 형식으로 문서를 생성하려면 해당 플러그인을 Dokka 플러그인으로 구성에 추가해야 합니다.
 
-예를 들어, 실험적인 [GFM](dokka-markdown.md#gfm) 형식을 사용하려면 `gfm-plugin` 아티팩트를 추가해야 합니다:
+예를 들어, 실험적인 [GFM](https://github.com/Kotlin/dokka/tree/master/dokka-subprojects/plugin-gfm#readme) 형식을 사용하려면 `gfm-plugin` 아티팩트를 추가해야 합니다:
 
 ```xml
 <plugin>
@@ -204,22 +204,22 @@ Dokka는 사용자 및 독자의 경험을 맞춤 설정할 수 있는 다양한
 <deflist collapsible="true">
     <def title="skip">
         <p>문서 생성 건너뛰기 여부.</p>
-        <p>기본값: <code>false</code></p>
+        <p>기본값: `false`</p>
     </def>
     <def title="moduleName">
         <p>프로젝트/모듈을 참조하는 데 사용되는 표시 이름입니다. 목차, 탐색, 로깅 등에 사용됩니다.</p>
-        <p>기본값: <code>{project.artifactId}</code></p>
+        <p>기본값: `{project.artifactId}`</p>
     </def>
     <def title="outputDir">
         <p>형식과 관계없이 문서가 생성되는 디렉터리입니다.</p>
-        <p>기본값: <code>{project.basedir}/target/dokka</code></p>
+        <p>기본값: `{project.basedir}/target/dokka`</p>
     </def>
     <def title="failOnWarning">
         <p>
             Dokka가 경고 또는 오류를 내보낸 경우 문서 생성을 실패시킬지 여부. 모든 오류 및 경고가 먼저 내보내질 때까지 프로세스가 기다립니다.
         </p>
-        <p>이 설정은 <code>reportUndocumented</code>와 잘 작동합니다.</p>
-        <p>기본값: <code>false</code></p>
+        <p>이 설정은 `reportUndocumented`와 잘 작동합니다.</p>
+        <p>기본값: `false`</p>
     </def>
     <def title="suppressObviousFunctions">
         <p>명백한 함수를 억제할지 여부.</p>
@@ -227,22 +227,22 @@ Dokka는 사용자 및 독자의 경험을 맞춤 설정할 수 있는 다양한
             다음과 같은 경우 함수는 명백한 것으로 간주됩니다:</p>
             <list>
                 <li>
-                    <code>equals</code>, <code>hashCode</code>, <code>toString</code> 등 <code>kotlin.Any</code>, <code>Kotlin.Enum</code>, <code>java.lang.Object</code> 또는
-                    <code>java.lang.Enum</code>에서 상속된 경우.
+                    `equals`, `hashCode`, `toString` 등 `kotlin.Any`, `Kotlin.Enum`, `java.lang.Object` 또는
+                    `java.lang.Enum`에서 상속된 경우.
                 </li>
                 <li>
-                    컴파일러에 의해 생성된 합성(synthetic) 함수이며, <code>dataClass.componentN</code> 또는 <code>dataClass.copy</code>와 같이 문서가 없는 경우.
+                    컴파일러에 의해 생성된 합성(synthetic) 함수이며, `dataClass.componentN` 또는 `dataClass.copy`와 같이 문서가 없는 경우.
                 </li>
             </list>
-        <p>기본값: <code>true</code></p>
+        <p>기본값: `true`</p>
     </def>
     <def title="suppressInheritedMembers">
         <p>주어진 클래스에서 명시적으로 오버라이드되지 않은 상속된 멤버를 억제할지 여부.</p>
         <p>
-            참고: 이는 <code>equals</code>/<code>hashCode</code>/<code>toString</code>와 같은 함수를 억제할 수 있지만, <code>dataClass.componentN</code> 및
-            <code>dataClass.copy</code>와 같은 합성 함수는 억제할 수 없습니다. 이를 위해서는 <code>suppressObviousFunctions</code>를 사용하세요.
+            참고: 이는 `equals`/`hashCode`/`toString`와 같은 함수를 억제할 수 있지만, `dataClass.componentN` 및
+            `dataClass.copy`와 같은 합성 함수는 억제할 수 없습니다. 이를 위해서는 `suppressObviousFunctions`를 사용하세요.
         </p>
-        <p>기본값: <code>false</code></p>
+        <p>기본값: `false`</p>
     </def>
     <def title="offlineMode">
         <p>네트워크를 통해 원격 파일/링크를 확인할지 여부.</p>
@@ -251,52 +251,52 @@ Dokka는 사용자 및 독자의 경험을 맞춤 설정할 수 있는 다양한
             예를 들어, 표준 라이브러리의 클래스를 클릭 가능하게 만드는 경우입니다.
         </p>
         <p>
-            이 값을 <code>true</code>로 설정하면 특정 경우에 빌드 시간을 크게 단축할 수 있지만,
+            이 값을 `true`로 설정하면 특정 경우에 빌드 시간을 크게 단축할 수 있지만,
             문서 품질과 사용자 경험을 저하시킬 수도 있습니다. 예를 들어, 표준 라이브러리를 포함하여
             종속성에서 클래스/멤버 링크를 확인하지 않는 경우가 있습니다.
         </p>
         <p>
             참고: 가져온 파일을 로컬에 캐시하고 Dokka에 로컬 경로로 제공할 수 있습니다.
-            <code>externalDocumentationLinks</code> 섹션을 참조하세요.
+            `externalDocumentationLinks` 섹션을 참조하세요.
         </p>
-        <p>기본값: <code>false</code></p>
+        <p>기본값: `false`</p>
     </def>
     <def title="sourceDirectories">
         <p>
             분석하고 문서화할 소스 코드 루트입니다.
-            허용되는 입력은 디렉터리와 개별 <code>.kt</code> / <code>.java</code> 파일입니다.
+            허용되는 입력은 디렉터리와 개별 `.kt` / `.java` 파일입니다.
         </p>
-        <p>기본값: <code>{project.compileSourceRoots}</code></p>
+        <p>기본값: `{project.compileSourceRoots}`</p>
     </def>
     <def title="documentedVisibilities">
         <p>문서화되어야 하는 가시성 한정자(visibility modifiers) 집합입니다.</p>
         <p>
-            이는 <code>protected</code>/<code>internal</code>/<code>private</code> 선언을 문서화하거나, <code>public</code> 선언을 제외하고 내부 API만 문서화하려는 경우에 사용할 수 있습니다.
+            이는 `protected`/`internal`/`private` 선언을 문서화하거나, `public` 선언을 제외하고 내부 API만 문서화하려는 경우에 사용할 수 있습니다.
         </p>
         <p>패키지별로 구성할 수 있습니다.</p>
-        <p>기본값: <code>PUBLIC</code></p>
+        <p>기본값: `PUBLIC`</p>
     </def>
     <def title="reportUndocumented">
         <p>
-            <code>documentedVisibilities</code> 및 다른 필터로 필터링된 후 KDoc이 없는 선언, 즉 문서화되지 않은 가시적인 선언에 대해 경고를 발생시킬지 여부입니다.
+            `documentedVisibilities` 및 다른 필터로 필터링된 후 KDoc이 없는 선언, 즉 문서화되지 않은 가시적인 선언에 대해 경고를 발생시킬지 여부입니다.
         </p>
-        <p>이 설정은 <code>failOnWarning</code>과 잘 작동합니다.</p>
+        <p>이 설정은 `failOnWarning`과 잘 작동합니다.</p>
         <p>패키지 레벨에서 재정의할 수 있습니다.</p>
-        <p>기본값: <code>false</code></p>
+        <p>기본값: `false`</p>
     </def>
     <def title="skipDeprecated">
-        <p><code>@Deprecated</code>로 주석된 선언을 문서화할지 여부.</p>
+        <p>`@Deprecated`로 주석된 선언을 문서화할지 여부.</p>
         <p>패키지 레벨에서 재정의할 수 있습니다.</p>
-        <p>기본값: <code>false</code></p>
+        <p>기본값: `false`</p>
     </def>
     <def title="skipEmptyPackages">
         <p>
             다양한 필터가 적용된 후 가시적인 선언이 없는 패키지를 건너뛸지 여부.
         </p>
         <p>
-            예를 들어, <code>skipDeprecated</code>가 <code>true</code>로 설정되어 있고 패키지에 사용 중단된 선언만 포함된 경우, 해당 패키지는 비어 있는 것으로 간주됩니다.
+            예를 들어, `skipDeprecated`가 `true`로 설정되어 있고 패키지에 사용 중단된 선언만 포함된 경우, 해당 패키지는 비어 있는 것으로 간주됩니다.
         </p>
-        <p>기본값: <code>true</code></p>
+        <p>기본값: `true`</p>
     </def>
     <def title="suppressedFiles">
         <p>
@@ -306,7 +306,7 @@ Dokka는 사용자 및 독자의 경험을 맞춤 설정할 수 있는 다양한
     <def title="jdkVersion">
         <p>Java 타입에 대한 외부 문서 링크를 생성할 때 사용할 JDK 버전입니다.</p>
         <p>
-            예를 들어, 일부 public 선언 시그니처에서 <code>java.util.UUID</code>를 사용하고 이 옵션이 <code>8</code>로 설정된 경우, Dokka는 해당 선언에 대해 <a href="https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html">JDK 8 Javadoc</a>으로 외부 문서 링크를 생성합니다.
+            예를 들어, 일부 public 선언 시그니처에서 `java.util.UUID`를 사용하고 이 옵션이 `8`로 설정된 경우, Dokka는 해당 선언에 대해 <a href="https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html">JDK 8 Javadoc</a>으로 외부 문서 링크를 생성합니다.
         </p>
         <p>기본값: JDK 8</p>
     </def>
@@ -322,21 +322,21 @@ Dokka는 사용자 및 독자의 경험을 맞춤 설정할 수 있는 다양한
             분석 및 <a href="https://kotlinlang.org/docs/kotlin-doc.html#sample-identifier">@sample</a> 환경 설정에 사용되는
             <a href="https://kotlinlang.org/docs/compatibility-modes.html">Kotlin API 버전</a>입니다.
         </p>
-        <p>기본적으로 <code>languageVersion</code>에서 추론됩니다.</p>
+        <p>기본적으로 `languageVersion`에서 추론됩니다.</p>
     </def>
     <def title="noStdlibLink">
         <p>
             Kotlin 표준 라이브러리의 API 참조 문서로 연결되는 외부 문서 링크를 생성할지 여부.
         </p>
-        <p>참고: <code>noStdLibLink</code>가 <code>false</code>로 설정된 경우 링크가 <b>생성</b>됩니다.</p>
-        <p>기본값: <code>false</code></p>
+        <p>참고: `noStdLibLink`가 `false`로 설정된 경우 링크가 **생성**됩니다.</p>
+        <p>기본값: `false`</p>
     </def>
     <def title="noJdkLink">
     <anchor name="includes"/>
         <p>JDK의 Javadoc으로 연결되는 외부 문서 링크를 생성할지 여부.</p>
-        <p>JDK Javadoc의 버전은 <code>jdkVersion</code> 옵션에 의해 결정됩니다.</p>
-        <p>참고: <code>noJdkLink</code>가 <code>false</code>로 설정된 경우 링크가 <b>생성</b>됩니다.</p>
-        <p>기본값: <code>false</code></p>
+        <p>JDK Javadoc의 버전은 `jdkVersion` 옵션에 의해 결정됩니다.</p>
+        <p>참고: `noJdkLink`가 `false`로 설정된 경우 링크가 **생성**됩니다.</p>
+        <p>기본값: `false`</p>
     </def>
     <def title="includes">
         <p>
@@ -348,9 +348,9 @@ Dokka는 사용자 및 독자의 경험을 맞춤 설정할 수 있는 다양한
         <p>분석 및 대화형 샘플을 위한 클래스패스입니다.</p>
         <p>
             이는 종속성에서 가져온 일부 타입이 자동으로 해결/인식되지 않는 경우에 유용합니다.
-            이 옵션은 <code>.jar</code> 및 <code>.klib</code> 파일 모두를 허용합니다.
+            이 옵션은 `.jar` 및 `.klib` 파일 모두를 허용합니다.
         </p>
-        <p>기본값: <code>{project.compileClasspathElements}</code></p>
+        <p>기본값: `{project.compileClasspathElements}`</p>
     </def>
     <def title="samples">
         <p>
@@ -403,14 +403,14 @@ Dokka는 사용자 및 독자의 경험을 맞춤 설정할 수 있는 다양한
             URL에 소스 코드 줄 번호를 추가하는 데 사용되는 접미사입니다. 이는 독자들이 파일뿐만 아니라 선언의 특정 줄 번호로 이동하는 데 도움이 됩니다.
         </p>
         <p>
-            숫자 자체는 지정된 접미사에 추가됩니다. 예를 들어, 이 옵션이 <code>#L</code>로 설정되고 줄 번호가 10이면, 결과 URL 접미사는 <code>#L10</code>입니다.
+            숫자 자체는 지정된 접미사에 추가됩니다. 예를 들어, 이 옵션이 ` #L`로 설정되고 줄 번호가 10이면, 결과 URL 접미사는 ` #L10`입니다.
         </p>
         <p>
             인기 서비스에서 사용되는 접미사:</p>
             <list>
-            <li>GitHub: <code>#L</code></li>
-            <li>GitLab: <code>#L</code></li>
-            <li>Bitbucket: <code>#lines-</code></li>
+            <li>GitHub: `#L`</li>
+            <li>GitLab: `#L`</li>
+            <li>Bitbucket: `#lines-`</li>
             </list>
     </def>
 </deflist>
@@ -441,17 +441,17 @@ Dokka는 사용자 및 독자의 경험을 맞춤 설정할 수 있는 다양한
 
 <deflist collapsible="true">
     <def title="url">
-        <p>링크할 문서의 루트 URL입니다. 후행 슬래시(trailing slash)를 <b>포함해야</b> 합니다.</p>
+        <p>링크할 문서의 루트 URL입니다. 후행 슬래시(trailing slash)를 **포함해야** 합니다.</p>
         <p>
-            Dokka는 주어진 URL에 대한 <code>package-list</code>를 자동으로 찾고, 선언을 함께 연결하기 위해 최선을 다합니다.
+            Dokka는 주어진 URL에 대한 `package-list`를 자동으로 찾고, 선언을 함께 연결하기 위해 최선을 다합니다.
         </p>
         <p>
-            자동 해결이 실패하거나 대신 로컬에 캐시된 파일을 사용하려면 <code>packageListUrl</code> 옵션을 설정하는 것을 고려하십시오.
+            자동 해결이 실패하거나 대신 로컬에 캐시된 파일을 사용하려면 `packageListUrl` 옵션을 설정하는 것을 고려하십시오.
         </p>
     </def>
     <def title="packageListUrl">
         <p>
-            <code>package-list</code>의 정확한 위치입니다. 이는 Dokka가 자동으로 해결하는 것에 의존하는 대안입니다.
+            `package-list`의 정확한 위치입니다. 이는 Dokka가 자동으로 해결하는 것에 의존하는 대안입니다.
         </p>
         <p>
             패키지 목록에는 모듈 및 패키지 이름과 같은 문서 및 프로젝트 자체에 대한 정보가 포함됩니다.
@@ -492,30 +492,30 @@ Dokka는 사용자 및 독자의 경험을 맞춤 설정할 수 있는 다양한
 <deflist collapsible="true">
     <def title="matchingRegex">
         <p>패키지를 일치시키는 데 사용되는 정규식입니다.</p>
-        <p>기본값: <code>.*</code></p>
+        <p>기본값: `.*`</p>
  </def>
     <def title="suppress">
         <p>이 패키지가 문서 생성 시 건너뛰어져야 하는지 여부.</p>
-        <p>기본값: <code>false</code></p>
+        <p>기본값: `false`</p>
     </def>
     <def title="documentedVisibilities">
         <p>문서화되어야 하는 가시성 한정자(visibility modifiers) 집합입니다.</p>
         <p>
-            이는 이 패키지 내의 <code>protected</code>/<code>internal</code>/<code>private</code> 선언을 문서화하거나, <code>public</code> 선언을 제외하고 내부 API만 문서화하려는 경우에 사용할 수 있습니다.
+            이는 이 패키지 내의 `protected`/`internal`/`private` 선언을 문서화하거나, `public` 선언을 제외하고 내부 API만 문서화하려는 경우에 사용할 수 있습니다.
         </p>
-        <p>기본값: <code>PUBLIC</code></p>
+        <p>기본값: `PUBLIC`</p>
     </def>
     <def title="skipDeprecated">
-        <p><code>@Deprecated</code>로 주석된 선언을 문서화할지 여부.</p>
+        <p>`@Deprecated`로 주석된 선언을 문서화할지 여부.</p>
         <p>이것은 프로젝트/모듈 수준에서 설정할 수 있습니다.</p>
-        <p>기본값: <code>false</code></p>
+        <p>기본값: `false`</p>
     </def>
     <def title="reportUndocumented">
         <p>
-            <code>documentedVisibilities</code> 및 다른 필터로 필터링된 후 KDoc이 없는 선언, 즉 문서화되지 않은 가시적인 선언에 대해 경고를 발생시킬지 여부입니다.
+            `documentedVisibilities` 및 다른 필터로 필터링된 후 KDoc이 없는 선언, 즉 문서화되지 않은 가시적인 선언에 대해 경고를 발생시킬지 여부입니다.
         </p>
-        <p>이 설정은 <code>failOnWarning</code>과 잘 작동합니다.</p>
-        <p>기본값: <code>false</code></p>
+        <p>이 설정은 `failOnWarning`과 잘 작동합니다.</p>
+        <p>기본값: `false`</p>
     </def>
 </deflist>
 

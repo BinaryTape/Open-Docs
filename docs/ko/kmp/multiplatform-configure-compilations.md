@@ -189,7 +189,7 @@ kotlin {
 
 사용자 지정 컴필레이션은 다른 경우에도 필요합니다. 예를 들어, 최종 아티팩트에서 다른 JVM 버전용 컴필레이션을 결합하고 싶거나, 이미 Gradle에 소스 세트를 설정했으며 멀티플랫폼 프로젝트로 마이그레이션하려는 경우입니다.
 
-> [`androidTarget`](#compilation-for-android)에 대한 사용자 지정 컴필레이션을 생성하려면 [Android Gradle 플러그인](https://developer.android.com/build/build-variants)을 통해 빌드 배리언트를 설정하세요.
+> [`android`](#compilation-for-android)에 대한 사용자 지정 컴필레이션을 생성하려면 [Android Gradle 플러그인](https://developer.android.com/build/build-variants)을 통해 빌드 배리언트를 설정하세요.
 > 
 {style="tip"}
 
@@ -363,7 +363,7 @@ kotlin {
 
 Android 타겟을 위해 기본적으로 생성되는 컴필레이션은 [Android 빌드 배리언트](https://developer.android.com/build/build-variants)에 연결됩니다. 각 빌드 배리언트에 대해 동일한 이름으로 Kotlin 컴필레이션이 생성됩니다.
 
-그런 다음, 각 배리언트에 대해 컴파일되는 [Android 소스 세트](https://developer.android.com/build/build-variants#sourcesets)마다 타겟 이름이 접두어로 붙은 소스 세트 이름으로 Kotlin 소스 세트가 생성됩니다. 예를 들어, `debug`라는 Android 소스 세트와 `androidTarget`이라는 Kotlin 타겟에 대해 `androidDebug`라는 Kotlin 소스 세트가 생성됩니다. 이 Kotlin 소스 세트들은 해당 배리언트의 컴필레이션에 추가됩니다.
+그런 다음, 각 배리언트에 대해 컴파일되는 [Android 소스 세트](https://developer.android.com/build/build-variants#sourcesets)마다 타겟 이름이 접두어로 붙은 소스 세트 이름으로 Kotlin 소스 세트가 생성됩니다. 예를 들어, `android`라는 Kotlin 타겟과 `debug`라는 Android 소스 세트에 대해 `androidDebug`라는 Kotlin 소스 세트가 생성됩니다. 이 Kotlin 소스 세트들은 해당 배리언트의 컴필레이션에 추가됩니다.
 
 기본 소스 세트 `commonMain`은 각 프로덕션(애플리케이션 또는 라이브러리) 배리언트의 컴필레이션에 추가됩니다. `commonTest` 소스 세트도 유사하게 단위 테스트 및 계측 테스트 배리언트의 컴필레이션에 추가됩니다.
 
@@ -371,7 +371,7 @@ Android 타겟을 위해 기본적으로 생성되는 컴필레이션은 [Androi
 
 ```kotlin
 kotlin {
-    androidTarget { /* ... */ }
+    android { /* ... */ }
 }
 
 dependencies {

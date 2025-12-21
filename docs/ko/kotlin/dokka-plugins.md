@@ -1,5 +1,10 @@
 [//]: # (title: Dokka 플러그인)
 
+> 이 가이드는 Dokka Gradle 플러그인 (DGP) v2 모드에 적용됩니다. DGP v1 모드는 더 이상 지원되지 않습니다.
+> v1 모드에서 v2 모드로 업그레이드하려면 [마이그레이션 가이드](dokka-migration.md)를 따르세요.
+>
+{style="note"}
+
 Dokka는 쉽게 확장하고 고도로 사용자 정의할 수 있도록 처음부터 구축되었으며, 이를 통해 커뮤니티는 기본으로 제공되지 않거나 매우 특정한 기능에 대한 플러그인을 구현할 수 있습니다.
 
 Dokka 플러그인은 다른 프로그래밍 언어 소스 지원부터 독특한 출력 형식까지 다양합니다. 자신만의 KDoc 태그나 어노테이션 지원을 추가하고, KDoc 설명에서 발견되는 다양한 DSL을 Dokka가 렌더링하는 방법을 가르치며, Dokka 페이지를 시각적으로 재설계하여 회사 웹사이트에 원활하게 통합하고, 다른 도구와 통합하는 등 훨씬 더 많은 것을 할 수 있습니다.
@@ -17,58 +22,41 @@ Dokka 플러그인은 별도의 아티팩트로 게시되므로, Dokka 플러그
 >
 {style="note"}
 
-프로젝트에 [mathjax 플러그인](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-mathjax)을 적용하는 방법을 살펴보겠습니다.
+[mathjax 플러그인](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-mathjax)을 프로젝트에 적용하는 방법을 살펴보겠습니다.
 
 <tabs group="build-script">
-<tab title="Kotlin" group-key="kotlin">
-
-> 이 지침은 Dokka Gradle 플러그인 v1 구성 및 태스크를 반영합니다. Dokka 2.0.0부터 문서 생성과 관련된 여러 구성 옵션, Gradle 태스크, 단계가 업데이트되었으며, 다음이 포함됩니다.
->
-> * [Dokka 플러그인 구성](dokka-migration.md#configure-dokka-plugins)
-> * [멀티 모듈 프로젝트 작업](dokka-migration.md#share-dokka-configuration-across-modules)
->
-> 자세한 내용과 Dokka Gradle Plugin v2의 전체 변경 사항 목록은 [마이그레이션 가이드](dokka-migration.md)를 참조하세요.
->
-> {style="note"}
-
-Dokka용 Gradle 플러그인은 플러그인을 전역적으로 또는 특정 출력 형식에만 적용할 수 있도록 편리한 의존성 구성을 생성합니다.
+<tab title="Gradle Kotlin DSL" group-key="kotlin">
 
 ```kotlin
+plugins {
+    id("org.jetbrains.dokka") version "%dokkaVersion%"
+}
+
 dependencies {
-    // Is applied universally
-    dokkaPlugin("org.jetbrains.dokka:mathjax-plugin:%dokkaVersion%")
-
-    // Is applied for the single-module dokkaHtml task only
-    dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:%dokkaVersion%")
-
-    // Is applied for HTML format in multi-project builds
-    dokkaHtmlPartialPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:%dokkaVersion%")
+    dokkaPlugin("org.jetbrains.dokka:mathjax-plugin")
 }
 ```
 
-> [다중 프로젝트](dokka-gradle.md#multi-project-builds) 빌드를 문서화할 때는 서브 프로젝트뿐만 아니라 상위 프로젝트에도 Dokka 플러그인을 적용해야 합니다.
+> * 내장 플러그인(예: HTML 및 Javadoc)은 항상 자동으로 적용됩니다. 이 플러그인들을 구성하기만 하면 되며, 의존성을 선언할 필요가 없습니다.
+>
+> * 멀티 모듈 프로젝트([멀티 프로젝트 빌드](dokka-gradle.md#multi-project-configuration))를 문서화할 때는 [서브 프로젝트 간에 Dokka 구성 및 플러그인을 공유](dokka-gradle.md#multi-project-configuration)해야 합니다.
 >
 {style="note"}
 
 </tab>
-<tab title="Groovy" group-key="groovy">
-
-Dokka용 Gradle 플러그인은 Dokka 플러그인을 전역적으로 또는 특정 출력 형식에만 적용할 수 있도록 편리한 의존성 구성을 생성합니다.
+<tab title="Gradle Groovy DSL" group-key="groovy">
 
 ```groovy
+plugins {
+    id 'org.jetbrains.dokka' version '%dokkaVersion%'
+}
+
 dependencies {
-    // Is applied universally
-    dokkaPlugin 'org.jetbrains.dokka:mathjax-plugin:%dokkaVersion%'
-
-    // Is applied for the single-module dokkaHtml task only
-    dokkaHtmlPlugin 'org.jetbrains.dokka:kotlin-as-java-plugin:%dokkaVersion%'
-
-    // Is applied for HTML format in multi-project builds
-    dokkaHtmlPartialPlugin 'org.jetbrains.dokka:kotlin-as-java-plugin:%dokkaVersion%'
+    dokkaPlugin 'org.jetbrains.dokka:mathjax-plugin'
 }
 ```
 
-> [다중 프로젝트](dokka-gradle.md#multi-project-builds) 빌드를 문서화할 때는 서브 프로젝트뿐만 아니라 상위 프로젝트에도 Dokka 플러그인을 적용해야 합니다.
+> [멀티 프로젝트](dokka-gradle.md#multi-project-configuration) 빌드를 문서화할 때는 [서브 프로젝트 간에 Dokka 구성을 공유](dokka-gradle.md#multi-project-configuration)해야 합니다.
 >
 {style="note"}
 
@@ -95,7 +83,7 @@ dependencies {
 </tab>
 <tab title="CLI" group-key="cli">
 
-[CLI](dokka-cli.md) 러너를 [명령줄 옵션](dokka-cli.md#run-with-command-line-options)과 함께 사용하는 경우, Dokka 플러그인은 `.jar` 파일로 `-pluginsClasspath`에 전달되어야 합니다.
+[명령줄 옵션](dokka-cli.md#run-with-command-line-options)과 함께 [CLI](dokka-cli.md) 러너를 사용하는 경우, Dokka 플러그인은 `.jar` 파일로 `-pluginsClasspath`에 전달되어야 합니다.
 
 ```Shell
 java -jar dokka-cli-%dokkaVersion%.jar \
@@ -124,73 +112,39 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 
 Dokka 플러그인은 자체 구성 옵션을 가질 수도 있습니다. 사용 가능한 옵션을 확인하려면 사용 중인 플러그인의 문서를 참조하세요.
 
-[HTML](dokka-html.md) 문서를 생성하는 `DokkaBase` 플러그인을 사용자 정의 이미지(`customAssets` 옵션) 추가, 사용자 정의 스타일시트(`customStyleSheets` 옵션) 추가 및 푸터 메시지(`footerMessage` 옵션) 수정을 통해 구성하는 방법을 살펴보겠습니다.
+내장 HTML 플러그인에 사용자 정의 이미지(`customAssets` 옵션), 사용자 정의 스타일시트(`customStyleSheets` 옵션) 추가 및 푸터 메시지(`footerMessage` 옵션) 수정을 통해 구성하는 방법을 살펴보겠습니다.
 
 <tabs group="build-script">
-<tab title="Kotlin" group-key="kotlin">
+<tab title="Gradle Kotlin DSL" group-key="kotlin">
 
-Gradle의 Kotlin DSL은 타입 안전(type-safe) 플러그인 구성을 허용합니다. 이는 `buildscript` 블록의 클래스패스 의존성에 플러그인의 아티팩트를 추가한 다음 플러그인 및 구성 클래스를 임포트함으로써 달성할 수 있습니다.
+타입 안전한 방식으로 Dokka 플러그인을 구성하려면 `dokka.pluginsConfiguration {}` 블록을 사용하세요.
 
 ```kotlin
-import org.jetbrains.dokka.base.DokkaBase
-import org.jetbrains.dokka.gradle.DokkaTask
-import org.jetbrains.dokka.base.DokkaBaseConfiguration
-
-buildscript {
-    dependencies {
-        classpath("org.jetbrains.dokka:dokka-base:%dokkaVersion%")
-    }
-}
-
-tasks.withType<DokkaTask>().configureEach {
-    pluginConfiguration<DokkaBase, DokkaBaseConfiguration> {
-        customAssets = listOf(file("my-image.png"))
-        customStyleSheets = listOf(file("my-styles.css"))
-        footerMessage = "(c) 2022 MyOrg"
+dokka {
+    pluginsConfiguration.html {
+        customAssets.from("logo.png")
+        customStyleSheets.from("styles.css")
+        footerMessage.set("(c) Your Company")
     }
 }
 ```
 
-또는 JSON을 통해 플러그인을 구성할 수 있습니다. 이 방법을 사용하면 추가적인 의존성이 필요하지 않습니다.
+Dokka 플러그인 구성의 예시는 [Dokka의 버전 관리 플러그인](https://github.com/Kotlin/dokka/tree/master/examples/gradle-v2/versioning-multimodule-example)을 참조하세요.
 
-```kotlin
-import org.jetbrains.dokka.gradle.DokkaTask
-
-tasks.withType<DokkaTask>().configureEach {
-    val dokkaBaseConfiguration = """
-    {
-      "customAssets": ["${file("assets/my-image.png")}"],
-      "customStyleSheets": ["${file("assets/my-styles.css")}"],
-      "footerMessage": "(c) 2022 MyOrg"
-    }
-    """
-    pluginsMapConfiguration.set(
-        mapOf(
-            // fully qualified plugin name to json configuration
-            "org.jetbrains.dokka.base.DokkaBase" to dokkaBaseConfiguration
-        )
-    )
-}
-```
+Dokka는 [사용자 정의 플러그인을 구성](https://github.com/Kotlin/dokka/blob/v2.1.0/examples/gradle-v2/custom-dokka-plugin-example/demo-library/build.gradle.kts)하여 기능을 확장하고 문서 생성 프로세스를 수정할 수 있도록 합니다.
 
 </tab>
-<tab title="Groovy" group-key="groovy">
+<tab title="Gradle Groovy DSL" group-key="groovy">
 
 ```groovy
-import org.jetbrains.dokka.gradle.DokkaTask
-
-tasks.withType(DokkaTask.class) {
-    String dokkaBaseConfiguration = """
-    {
-      "customAssets": ["${file("assets/my-image.png")}"],
-      "customStyleSheets": ["${file("assets/my-styles.css")}"],
-      "footerMessage": "(c) 2022 MyOrg"
+dokka {
+    pluginsConfiguration {
+        html {
+            customAssets.from("logo.png")
+            customStyleSheets.from("styles.css")
+            footerMessage.set("(c) Your Company")
+        }
     }
-    """
-    pluginsMapConfiguration.set(
-            // fully qualified plugin name to json configuration
-            ["org.jetbrains.dokka.base.DokkaBase": dokkaBaseConfiguration]
-    )
 }
 ```
 
@@ -223,7 +177,7 @@ tasks.withType(DokkaTask.class) {
 </tab>
 <tab title="CLI" group-key="cli">
 
-[CLI](dokka-cli.md) 러너를 [명령줄 옵션](dokka-cli.md#run-with-command-line-options)과 함께 사용하는 경우, `fullyQualifiedPluginName=json` 형식의 JSON 구성을 허용하는 `-pluginsConfiguration` 옵션을 사용하십시오.
+[명령줄 옵션](dokka-cli.md#run-with-command-line-options)과 함께 [CLI](dokka-cli.md) 러너를 사용하는 경우, `fullyQualifiedPluginName=json` 형식의 JSON 구성을 허용하는 `-pluginsConfiguration` 옵션을 사용하세요.
 
 여러 플러그인을 구성해야 하는 경우, `^^`로 구분된 여러 값을 전달할 수 있습니다.
 
@@ -259,8 +213,10 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 |------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
 | [Android documentation plugin](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-android-documentation) | Android에서의 문서화 경험을 개선합니다.                                                             |
 | [Versioning plugin](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-versioning)                       | 버전 선택기를 추가하고 애플리케이션/라이브러리의 다양한 버전에 대한 문서를 정리하는 데 도움을 줍니다. |
-| [MermaidJS HTML plugin](https://github.com/glureau/dokka-mermaid)                                                                  | KDoc에 있는 [MermaidJS](https://mermaid-js.github.io/mermaid/#/) 다이어그램 및 시각화를 렌더링합니다.      |
-| [Mathjax HTML plugin](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-mathjax)                        | KDoc에 있는 수학 공식을 예쁘게 출력합니다.                                                                     |
-| [Kotlin as Java plugin](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-kotlin-as-java)              | Kotlin 시그니처를 Java 관점에서 보이는 대로 렌더링합니다.                                                    |
+| [MermaidJS HTML plugin](https://github.com/glureau/dokka-mermaid)                                                                  | KDoc에서 발견되는 [MermaidJS](https://mermaid-js.github.io/mermaid/#/) 다이어그램 및 시각화를 렌더링합니다.      |
+| [Mathjax HTML plugin](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-mathjax)                        | KDoc에서 발견되는 수학 공식을 예쁘게 출력합니다.                                                                     |
+| [Kotlin as Java plugin](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-kotlin-as-java)               | Java 관점에서 보이는 Kotlin 시그니처를 렌더링합니다.                                                    |
+| [GFM plugin](https://github.com/Kotlin/dokka/tree/master/dokka-subprojects/plugin-gfm)                                             | GitHub Flavoured Markdown 형식으로 문서를 생성하는 기능을 추가합니다.                                  |
+| [Jekyll plugin](https://github.com/Kotlin/dokka/tree/master/dokka-subprojects/plugin-jekyll)                                       | Jekyll Flavoured Markdown 형식으로 문서를 생성하는 기능을 추가합니다.                                  |
 
-Dokka 플러그인 개발자이며 이 목록에 플러그인을 추가하고 싶다면 [Slack](dokka-introduction.md#community) 또는 [GitHub](https://github.com/Kotlin/dokka/)를 통해 관리자에게 연락하세요.
+Dokka 플러그인 개발자이며 이 목록에 플러그인을 추가하고 싶다면 [Slack](dokka-introduction.md#community) 또는 [GitHub](https://github.com/Kotlin/dokka/)를 통해 유지 관리자에게 연락하세요.

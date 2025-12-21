@@ -2,9 +2,13 @@
 
 <web-summary>Java 컬렉션에서 Kotlin 컬렉션으로 마이그레이션하는 방법을 알아보세요. 이 가이드에서는 Kotlin 및 Java의 List, ArrayList, Map, Set과 같은 데이터 구조를 다룹니다.</web-summary>
 
-_컬렉션_은 해결하려는 문제에 중요하며 일반적으로 조작되는 가변 개수(0개일 수도 있음)의 항목 그룹입니다. 이 가이드는 Java 및 Kotlin의 컬렉션 개념과 연산을 설명하고 비교합니다. 이를 통해 Java에서 Kotlin으로 마이그레이션하고 코드를 진정한 Kotlin 방식으로 작성하는 데 도움이 될 것입니다.
+_컬렉션_은 해결하려는 문제에 중요하며 일반적으로 조작되는 가변 개수(0개일 수도 있음)의 항목 그룹입니다.
+이 가이드는 Java 및 Kotlin의 컬렉션 개념과 연산을 설명하고 비교합니다.
+이를 통해 Java에서 Kotlin으로 마이그레이션하고 코드를 진정한 Kotlin 방식으로 작성하는 데 도움이 될 것입니다.
 
-이 가이드의 첫 번째 부분에는 Java 및 Kotlin에서 동일한 컬렉션에 대한 연산의 간략한 용어집이 포함되어 있습니다. 이는 [동일한 연산](#operations-that-are-the-same-in-java-and-kotlin)과 [Kotlin에만 있는 연산](#operations-that-don-t-exist-in-java-s-standard-library)으로 나뉩니다. [가변성](#mutability)부터 시작하는 가이드의 두 번째 부분은 특정 사례를 통해 몇 가지 차이점을 설명합니다.
+이 가이드의 첫 번째 부분에는 Java 및 Kotlin에서 동일한 컬렉션에 대한 연산의 간략한 용어집이 포함되어 있습니다.
+이는 [동일한 연산](#operations-that-are-the-same-in-java-and-kotlin)과 [Kotlin에만 있는 연산](#operations-that-don-t-exist-in-java-s-standard-library)으로 나뉩니다.
+[가변성](#mutability)부터 시작하는 가이드의 두 번째 부분은 특정 사례를 통해 몇 가지 차이점을 설명합니다.
 
 컬렉션 소개는 [컬렉션 개요](collections-overview.md)를 참조하거나 Kotlin 개발자 옹호자인 Sebastian Aigner의 [비디오](https://www.youtube.com/watch?v=F8jj7e-_jFA)를 시청하세요.
 
@@ -626,7 +630,7 @@ public void zip() {
 ```
 {id="zip-elements-java"}
 
-출력에 요소 쌍을 단순히 출력하는 것보다 더 복잡한 작업을 수행하려면 [레코드](https://blogs.oracle.com/javamagazine/post/records-come-to-java)를 사용할 수 있습니다. 위 예시에서 레코드는 `record AnimalDescription(String animal, String color) {}`가 됩니다.
+출력에 요소 쌍을 단순히 출력하는 것보다 더 복잡한 작업을 수행하려면 [레코드](https://docs.oracle.com/en/java/javase/17/language/records.html)를 사용할 수 있습니다. 위 예시에서 레코드는 `record AnimalDescription(String animal, String color) {}`가 됩니다.
 
 Kotlin에서는 동일한 작업을 수행하기 위해 [`zip()`](collection-transformations.md#zip) 함수를 사용합니다:
 

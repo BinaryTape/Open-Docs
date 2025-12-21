@@ -6,8 +6,10 @@
 
 [Node.js](https://nodejs.org/en)、[Deno](https://deno.com/)、および[WasmEdge](https://wasmedge.org/) 仮想マシンで実行されるアプリケーションの例を見つけることができます。出力は、標準の WASI API を使用するシンプルなアプリケーションです。
 
-現在、Kotlin/Wasm は Preview 1 としても知られている WASI 0.1 をサポートしています。
-[WASI 0.2 のサポートは、今後のリリースで計画されています。](https://youtrack.jetbrains.com/issue/KT-64568)
+現在、Kotlin/Wasm は Preview 1 としても知られている WASI 0.1 をサポートしています。WASI 0.2 のサポートは、今後のリリースで計画されています。
+[WASI 0.2 のサポートに関する最新情報については、この YouTrack Issue をフォローしてください](https://youtrack.jetbrains.com/issue/KT-64568)。
+
+[`wasmWasi`](wasm-overview.md#kotlin-wasm-and-wasi) ターゲットは、[デフォルトで新しい例外処理プロポーザルを使用](wasm-configuration.md#exception-handling-proposal)しており、最新の WebAssembly ランタイムとの互換性を向上させています。
 
 > Kotlin/Wasm ツールチェーンは、Node.js タスク (`wasmWasiNode*`) をすぐに利用できる形で提供します。
 > Deno や WasmEdge を利用するものなど、プロジェクト内の他のタスクバリアントは、カスタムタスクとして含まれています。
@@ -46,7 +48,7 @@
     >
     {style="tip"}
 
-    ![Kotlin/Wasm and WASI tasks](wasm-wasi-gradle-task.png){width=600}
+    ![Kotlin/Wasm と WASI のタスク](wasm-wasi-gradle-task.png){width=600}
 
 または、`kotlin-wasm-wasi-template` ルートディレクトリからターミナルで以下のいずれかのコマンドを実行します。
 
@@ -60,7 +62,7 @@
 
     ```bash
     ./gradlew wasmWasiDenoRun
-    ```
+  ```
 
 *   WasmEdge でアプリケーションを実行するには:
 
@@ -70,7 +72,7 @@
 
 アプリケーションが正常にビルドされると、ターミナルにメッセージが表示されます。
 
-![Kotlin/Wasm and WASI app](wasm-wasi-app-terminal.png){width=600}
+![Kotlin/Wasm と WASI アプリ](wasm-wasi-app-terminal.png){width=600}
 
 ## アプリケーションをテストする
 
@@ -82,7 +84,7 @@ Gradle ツールウィンドウで、**kotlin-wasm-wasi-example** | **Tasks** | 
 *   **wasmWasiDenoTest**: Deno でアプリケーションをテストします。
 *   **wasmWasiWasmEdgeTest**: WasmEdge でアプリケーションをテストします。
 
-![Kotlin/Wasm and WASI test tasks](wasm-wasi-testing-task.png){width=600}
+![Kotlin/Wasm と WASI のテストタスク](wasm-wasi-testing-task.png){width=600}
 
 または、`kotlin-wasm-wasi-template` ルートディレクトリからターミナルで以下のいずれかのコマンドを実行します。
 
@@ -106,13 +108,13 @@ Gradle ツールウィンドウで、**kotlin-wasm-wasi-example** | **Tasks** | 
 
 ターミナルにテスト結果が表示されます。
 
-![Kotlin/Wasm and WASI test](wasm-wasi-tests-results.png){width=600}
+![Kotlin/Wasm と WASI のテスト](wasm-wasi-tests-results.png){width=600}
 
 ## 次のステップ
 
 Kotlin Slack で Kotlin/Wasm コミュニティに参加しましょう。
 
-<a href="https://slack-chats.kotlinlang.org/c/webassembly"><img src="join-slack-channel.svg" width="500" alt="Join the Kotlin/Wasm community" style="block"/></a>
+<a href="https://slack-chats.kotlinlang.org/c/webassembly"><img src="join-slack-channel.svg" width="500" alt="Kotlin/Wasm コミュニティに参加する" style="block"/></a>
 
 他の Kotlin/Wasm の例を試す:
 

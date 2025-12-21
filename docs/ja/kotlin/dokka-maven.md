@@ -54,7 +54,7 @@ Mavenプラグインによって提供されるゴールは以下の通りです
 
 他のすべての出力フォーマットは[Dokkaプラグイン](dokka-plugins.md)として実装されています。目的のフォーマットでドキュメントを生成するには、それをDokkaプラグインとして設定に追加する必要があります。
 
-例えば、実験的な[GFM](dokka-markdown.md#gfm)フォーマットを使用するには、`gfm-plugin`アーティファクトを追加する必要があります。
+例えば、実験的な[GFM](https://github.com/Kotlin/dokka/tree/master/dokka-subprojects/plugin-gfm#readme)フォーマットを使用するには、`gfm-plugin`アーティファクトを追加する必要があります。
 
 ```xml
 <plugin>
@@ -137,7 +137,7 @@ Mavenのプラグイン設定ブロックはDokkaを設定するために使用�
 <plugin>
     <groupId>org.jetbrains.dokka</groupId>
     <artifactId>dokka-maven-plugin</artifactId>
-    ...
+    <!--  ...  -->
     <configuration>
         <outputDir>${project.basedir}/target/documentation/dokka</outputDir>
     </configuration>
@@ -237,8 +237,8 @@ Dokkaには、あなたと読者のエクスペリエンスを調整するため
                     または<code>java.lang.Enum</code>から継承された関数。
                 </li>
                 <li>
-                    <code>dataClass.componentN</code>や<code>dataClass.copy</code>のように、
                     コンパイラによって生成され（合成された）、ドキュメントがない関数。
+                    例: <code>dataClass.componentN</code>や<code>dataClass.copy</code>。
                 </li>
             </list>
         <p>デフォルト: <code>true</code></p>
@@ -618,4 +618,3 @@ Dokkaには、あなたと読者のエクスペリエンスを調整するため
         </perPackageOptions>
     </configuration>
 </plugin>
-```

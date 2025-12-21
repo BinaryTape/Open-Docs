@@ -2,13 +2,13 @@
 
 Kotlin Multiplatform를 사용하면 여러 플랫폼 간에 코드를 공유할 수 있습니다. 이 글에서는 공유 코드의 제약 사항, 공유 코드와 플랫폼별 코드 부분을 구별하는 방법, 그리고 이 공유 코드가 작동하는 플랫폼을 지정하는 방법을 설명합니다.
 
-또한, 공통 코드(common code), 타겟(targets), 플랫폼별 및 중간 소스 세트(platform-specific and intermediate source sets), 테스트 통합(test integration)과 같은 Kotlin Multiplatform 프로젝트 설정의 핵심 개념을 학습하게 됩니다. 이는 향후 멀티플랫폼 프로젝트를 설정하는 데 도움이 될 것입니다.
+또한, 공통 코드, 타겟, 플랫폼별 및 중간 소스 세트, 테스트 통합과 같은 Kotlin Multiplatform 프로젝트 설정의 핵심 개념을 학습하게 됩니다. 이는 향후 멀티플랫폼 프로젝트를 설정하는 데 도움이 될 것입니다.
 
 여기서 제시하는 모델은 Kotlin에서 사용되는 모델에 비해 단순화되었습니다. 하지만 이 기본적인 모델은 대부분의 경우에 적합할 것입니다.
 
 ## 공통 코드
 
-_공통 코드(Common code)_ 는 여러 플랫폼 간에 공유되는 Kotlin 코드입니다.
+_공통 코드_ 는 여러 플랫폼 간에 공유되는 Kotlin 코드입니다.
 
 간단한 "Hello, World" 예시를 살펴보겠습니다.
 
@@ -20,13 +20,13 @@ fun greeting() {
 
 플랫폼 간에 공유되는 Kotlin 코드는 일반적으로 `commonMain` 디렉터리에 위치합니다. 코드 파일의 위치는 이 코드가 컴파일되는 플랫폼 목록에 영향을 미치므로 중요합니다.
 
-Kotlin 컴파일러(Kotlin compiler)는 소스 코드를 입력으로 받아 플랫폼별 바이너리(platform-specific binaries) 세트를 결과물로 생성합니다. 멀티플랫폼 프로젝트를 컴파일할 때, 동일한 코드에서 여러 바이너리를 생성할 수 있습니다. 예를 들어, 컴파일러는 동일한 Kotlin 파일에서 JVM `.class` 파일과 네이티브 실행 파일(native executable files)을 생성할 수 있습니다.
+Kotlin 컴파일러는 소스 코드를 입력으로 받아 플랫폼별 바이너리 세트를 결과물로 생성합니다. 멀티플랫폼 프로젝트를 컴파일할 때, 동일한 코드에서 여러 바이너리를 생성할 수 있습니다. 예를 들어, 컴파일러는 동일한 Kotlin 파일에서 JVM `.class` 파일과 네이티브 실행 파일을 생성할 수 있습니다.
 
 ![Common code](common-code-diagram.svg){width=700}
 
 모든 Kotlin 코드가 모든 플랫폼으로 컴파일될 수 있는 것은 아닙니다. Kotlin 컴파일러는 공통 코드에서 플랫폼별 함수나 클래스를 사용하는 것을 방지합니다. 왜냐하면 이 코드는 다른 플랫폼으로 컴파일될 수 없기 때문입니다.
 
-예를 들어, 공통 코드에서 `java.io.File` 종속성(dependency)을 사용할 수 없습니다. 이것은 JDK의 일부이지만, 공통 코드는 네이티브 코드(native code)로도 컴파일되며, 네이티브 코드에서는 JDK 클래스를 사용할 수 없기 때문입니다.
+예를 들어, 공통 코드에서 `java.io.File` 종속성을 사용할 수 없습니다. 이것은 JDK의 일부이지만, 공통 코드는 네이티브 코드(native code)로도 컴파일되며, 네이티브 코드에서는 JDK 클래스를 사용할 수 없기 때문입니다.
 
 ![Unresolved Java reference](unresolved-java-reference.png){width=500}
 
@@ -36,9 +36,9 @@ Kotlin 컴파일러(Kotlin compiler)는 소스 코드를 입력으로 받아 플
 
 ## 타겟
 
-타겟(Targets)은 Kotlin이 공통 코드를 컴파일하는 플랫폼을 정의합니다. 예를 들어, JVM, JS, Android, iOS 또는 Linux가 될 수 있습니다. 이전 예시는 공통 코드를 JVM 및 네이티브 타겟으로 컴파일했습니다.
+타겟은 Kotlin이 공통 코드를 컴파일하는 플랫폼을 정의합니다. 예를 들어, JVM, JS, Android, iOS 또는 Linux가 될 수 있습니다. 이전 예시는 공통 코드를 JVM 및 네이티브 타겟으로 컴파일했습니다.
 
-_Kotlin 타겟(Kotlin target)_ 은 컴파일 타겟을 설명하는 식별자(identifier)입니다. 이는 생성된 바이너리의 형식, 사용 가능한 언어 구성(language constructions) 및 허용되는 종속성을 정의합니다.
+_Kotlin 타겟_ 은 컴파일 타겟을 설명하는 식별자(identifier)입니다. 이는 생성된 바이너리의 형식, 사용 가능한 언어 구성 및 허용되는 종속성을 정의합니다.
 
 > 타겟은 플랫폼(platforms)으로도 지칭될 수 있습니다. 지원되는 타겟의 전체 목록은 [여기](multiplatform-dsl-reference.md#targets)에서 확인할 수 있습니다.
 >
@@ -69,7 +69,7 @@ kotlin {
 
 ## 소스 세트
 
-_Kotlin 소스 세트(Kotlin source set)_ 는 자체 타겟, 종속성 및 컴파일러 옵션을 가진 소스 파일의 집합입니다. 이는 멀티플랫폼 프로젝트에서 코드를 공유하는 주요 방법입니다.
+_Kotlin 소스 세트_ 는 자체 타겟, 종속성 및 컴파일러 옵션을 가진 소스 파일의 집합입니다. 이는 멀티플랫폼 프로젝트에서 코드를 공유하는 주요 방법입니다.
 
 멀티플랫폼 프로젝트의 각 소스 세트는 다음을 가집니다.
 
@@ -110,17 +110,17 @@ kotlin {
 
 ```kotlin
 // commonMain/kotlin/common.kt
-// 공통 코드에서는 컴파일되지 않음
+// Doesn't compile in common code
 fun greeting() {
     java.io.File("greeting.txt").writeText("Hello, Multiplatform!")
 }
 ```
 
-해결책으로, Kotlin은 플랫폼별 소스 세트(platform-specific source sets)를 생성하며, 이는 플랫폼 소스 세트(platform source sets)라고도 불립니다. 각 타겟은 해당 타겟만을 위해 컴파일되는 해당 플랫폼 소스 세트를 가집니다. 예를 들어, `jvm` 타겟은 JVM으로만 컴파일되는 해당 `jvmMain` 소스 세트를 가집니다. Kotlin은 이러한 소스 세트에서 플랫폼별 종속성(platform-specific dependencies)을 사용하는 것을 허용합니다. 예를 들어, `jvmMain`에서는 JDK를 사용할 수 있습니다.
+해결책으로, Kotlin은 플랫폼별 소스 세트(platform-specific source sets)를 생성하며, 이는 플랫폼 소스 세트(platform source sets)라고도 불립니다. 각 타겟은 해당 타겟만을 위해 컴파일되는 해당 플랫폼 소스 세트를 가집니다. 예를 들어, `jvm` 타겟은 JVM으로만 컴파일되는 해당 `jvmMain` 소스 세트를 가집니다. Kotlin은 이러한 소스 세트에서 플랫폼별 종속성을 사용하는 것을 허용합니다. 예를 들어, `jvmMain`에서는 JDK를 사용할 수 있습니다.
 
 ```kotlin
 // jvmMain/kotlin/jvm.kt
-// `jvmMain` 소스 세트에서 Java 종속성을 사용할 수 있습니다
+// You can use Java dependencies in the `jvmMain` source set
 fun jvmGreeting() {
     java.io.File("greeting.txt").writeText("Hello, Multiplatform!")
 }
@@ -159,11 +159,11 @@ Kotlin이 `commonMain`과 `jvmMain`을 함께 컴파일하기 때문에, 결과 
 
 ```kotlin
 kotlin {
-    androidTarget()
-    iosArm64()   // 64비트 iPhone 기기
-    macosArm64() // 최신 Apple Silicon 기반 Mac
-    watchosX64() // 최신 64비트 Apple Watch 기기
-    tvosArm64()  // 최신 Apple TV 기기  
+    android()
+    iosArm64()   // 64-bit iPhone devices
+    macosArm64() // Modern Apple Silicon-based Macs
+    watchosX64() // Modern 64-bit Apple Watch devices
+    tvosArm64()  // Modern Apple TV devices  
 }
 ```
 
@@ -173,16 +173,16 @@ kotlin {
 import platform.Foundation.NSUUID
 
 fun randomUuidString(): String {
-    // Apple별 API에 접근하려 합니다
+    // You want to access Apple-specific APIs
     return NSUUID().UUIDString()
 }
 ```
 
-이 함수를 `commonMain`에 추가할 수 없습니다. `commonMain`은 Android를 포함한 모든 선언된 타겟으로 컴파일되지만, `platform.Foundation.NSUUID`는 Android에서는 사용할 수 없는 Apple별 API입니다. `commonMain`에서 `NSUUID`를 참조하려고 하면 Kotlin이 오류를 표시합니다.
+이 함수를 `commonMain`에 추가할 수 없습니다. `commonMain`은 Android를 포함한 모든 선언된 타겟으로 컴파일되지만, `platform.Foundation.NSUUID`는 Android에서는 사용할 수 없는 Apple별 API입니다. Kotlin은 `commonMain`에서 `NSUUID`를 참조하려고 하면 오류를 표시합니다.
 
 이 코드를 각 Apple별 소스 세트인 `iosArm64Main`, `macosArm64Main`, `watchosX64Main`, `tvosArm64Main`에 복사하여 붙여넣을 수도 있습니다. 하지만 이와 같이 코드를 중복하는 것은 오류가 발생하기 쉬우므로 권장되지 않습니다.
 
-이 문제를 해결하기 위해 _중간 소스 세트(intermediate source sets)_ 를 사용할 수 있습니다. 중간 소스 세트는 프로젝트의 모든 타겟은 아니지만 일부 타겟으로 컴파일되는 Kotlin 소스 세트입니다. 중간 소스 세트는 계층적 소스 세트(hierarchical source sets) 또는 단순히 계층(hierarchies)이라고도 불립니다.
+이 문제를 해결하기 위해 _중간 소스 세트_ 를 사용할 수 있습니다. 중간 소스 세트는 프로젝트의 모든 타겟은 아니지만 일부 타겟으로 컴파일되는 Kotlin 소스 세트입니다. 중간 소스 세트는 계층적 소스 세트 또는 단순히 계층(hierarchies)이라고도 불립니다.
 
 Kotlin은 기본적으로 일부 중간 소스 세트를 생성합니다. 이 특정 경우에, 결과 프로젝트 구조는 다음과 같습니다.
 

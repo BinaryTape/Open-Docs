@@ -32,21 +32,21 @@ fun main() {
     //sampleStart
     val items = listOf(1, 2, 3, 4, 5)
     
-    // Lambdas are code blocks enclosed in curly braces.
+    // Lambda 是由花括號包圍的程式碼區塊。
     items.fold(0, { 
-        // When a lambda has parameters, they go first, followed by '->'
+        // 當 Lambda 具有參數時，它們會放在前面，後面接著 '->'
         acc: Int, i: Int -> 
         print("acc = $acc, i = $i, ") 
         val result = acc + i
         println("result = $result")
-        // The last expression in a lambda is considered the return value:
+        // Lambda 中的最後一個表達式被視為回傳值：
         result
     })
     
-    // Parameter types in a lambda are optional if they can be inferred:
+    // 如果 Lambda 中的參數型別可以被推斷，則它們是可選的：
     val joinedToString = items.fold("Elements:", { acc, i -> acc + " " + i })
     
-    // Function references can also be used for higher-order function calls:
+    // 函式參考也可用於高階函式呼叫：
     val product = items.fold(1, Int::times)
     //sampleEnd
     println("joinedToString = $joinedToString")
@@ -63,9 +63,9 @@ Kotlin 使用函式類型（例如 `(Int) -> String`）來處理函式的宣告�
 
 *   所有函式類型都具有包含參數類型的圓括號列表和一個回傳類型：`(A, B) -> C` 表示一種函式類型，它接收 `A` 和 `B` 兩種型別的兩個引數，並回傳 `C` 型別的值。參數類型列表可以為空，如 `() -> A`。[`Unit` 回傳類型](functions.md#unit-returning-functions)不能省略。
 
-*   函式類型可以選擇性地具有一個額外的 *接收者* 類型，它在符號中的點之前指定：類型 `A.(B) -> C` 表示可以在接收者物件 `A` 上呼叫，帶有一個參數 `B` 並回傳 `C` 值的功能。 [帶接收者的函式字面值](#function-literals-with-receiver)通常與這些類型一起使用。
+*   函式類型可以選擇性地具有一個額外的 *接收者* 類型，它在符號中的點之前指定：類型 `A.(B) -> C` 表示可以在接收者物件 `A` 上呼叫，帶有一個參數 `B` 並回傳 `C` 值的功能。[帶接收者的函式字面值](#function-literals-with-receiver)通常與這些類型一起使用。
 
-*   [懸掛函式](coroutines-basics.md#extract-function-refactoring)屬於一種特殊的函式類型，其符號中帶有 `suspend` 修飾符，例如 `suspend () -> Unit` 或 `suspend A.(B) -> C`。
+*   [懸掛函式](coroutines-basics.md)屬於一種特殊的函式類型，其符號中帶有 `suspend` 修飾符，例如 `suspend () -> Unit` 或 `suspend A.(B) -> C`。
 
 函式類型符號可以選擇性地包含函式參數的名稱：`(x: Int, y: Int) -> Point`。這些名稱可用於記錄參數的意義。
 
@@ -158,7 +158,7 @@ fun main() {
     
     println(intPlus.invoke(1, 1))
     println(intPlus(1, 2))
-    println(2.intPlus(3)) // extension-like call
+    println(2.intPlus(3)) // 類似擴充的呼叫
     //sampleEnd
 }
 ```
@@ -180,6 +180,12 @@ max(strings, { a, b -> a.length < b.length })
 
 ```kotlin
 fun compare(a: String, b: String): Boolean = a.length < b.length
+```
+
+你也可以使用 `suspend` 關鍵字來建立一個 _懸掛 Lambda 表達式_。懸掛 Lambda 具有 `suspend () -> Unit` 的函式類型，並且可以呼叫其他懸掛函式：
+
+```kotlin
+val suspendingTask = suspend { doSuspendingWork() }
 ```
 
 ### Lambda 表達式語法
@@ -343,4 +349,3 @@ fun html(init: HTML.() -> Unit): HTML {
 html {       // 帶接收者的 Lambda 從這裡開始
     body()   // 在接收者物件上呼叫方法
 }
-```

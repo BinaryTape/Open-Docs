@@ -1,10 +1,10 @@
 [//]: # (title: Javadoc)
+<primary-label ref="alpha"/>
 
-> Javadoc 输出格式仍处于 Alpha 阶段，因此在使用时可能会发现 bug 并遇到迁移问题。
-> 无法保证与接受 Java 的 Javadoc HTML 作为输入的工具成功集成。
-> **请自行承担使用风险。**
+> 本指南适用于 Dokka Gradle 插件 (DGP) v2 模式。DGP v1 模式已不再受支持。
+> 要从 v1 模式升级到 v2 模式，请遵循 [迁移指南](dokka-migration.md)。
 >
-{style="warning"}
+{style="note"}
 
 Dokka 的 Javadoc 输出格式类似于 Java 的
 [Javadoc HTML 格式](https://docs.oracle.com/en/java/javase/19/docs/api/index.html)。
@@ -21,34 +21,39 @@ Javadoc 输出格式作为 [Dokka 插件](dokka-plugins.md) 实现，并由 Dokk
 
 ## 生成 Javadoc 文档
 
-> 这些说明反映了 Dokka Gradle 插件 v1 的配置和任务。从 Dokka 2.0.0 开始，[用于生成文档的 Gradle 任务已更改](dokka-migration.md#select-documentation-output-format)。
-> 有关更多详情和 Dokka Gradle 插件 v2 中的完整更改列表，请参见 [迁移指南](dokka-migration.md)。
+> Dokka 不支持用于多项目构建或 Kotlin 多平台项目的 Javadoc 格式。
 >
-> Javadoc 格式不支持多平台项目。
->
-{style="warning"}
+{style="tip"}
 
 <tabs group="build-script">
-<tab title="Gradle" group-key="kotlin">
+<tab title="Gradle Kotlin DSL" group-key="kotlin">
 
-[Dokka 的 Gradle 插件](dokka-gradle.md) 内置了 Javadoc 输出格式。你可以使用以下任务：
+[Dokka 的 Gradle 插件](dokka-gradle.md) 内置了 Javadoc 输出格式。
+你需要在项目 `build.gradle.kts` 文件的 `plugins {}` 代码块中应用相应的插件 ID：
 
-| **任务**                | **描述**                                                                                                                                                                                              |
-|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `dokkaJavadoc`          | 为单个项目生成 Javadoc 文档。                                                                                                                                                        |
-| `dokkaJavadocCollector` | 一个 [`Collector`](dokka-gradle.md#collector-tasks) 任务，仅为多项目构建中的父项目创建。它会为每个子项目调用 `dokkaJavadoc` 并将所有输出合并到一个单个虚拟项目。 |
+```kotlin
+plugins {
+    id("org.jetbrains.dokka-javadoc") version "%dokkaVersion%"
+}
+```
 
-`javadoc.jar` 文件可以单独生成。更多信息，请参见 [构建 `javadoc.jar`](dokka-gradle.md#build-javadoc-jar)。
+应用该插件后，你可以运行以下任务：
+
+*   `dokkaGenerate` 用于生成文档，格式为 [所有基于已应用插件的可用格式](dokka-gradle.md#configure-documentation-output-format)。
+*   `dokkaGeneratePublicationJavadoc` 仅用于生成 Javadoc 格式的文档。
+
+`javadoc.jar` 文件可以单独生成。关于 [构建 `javadoc.jar`] 的更多信息，请参见 [构建 `javadoc.jar`](dokka-gradle.md#build-javadoc-jar)。
 
 </tab>
 <tab title="Maven" group-key="groovy">
 
-[Dokka 的 Maven 插件](dokka-maven.md) 内置了 Javadoc 输出格式。你可以使用以下目标生成文档：
+[Dokka 的 Maven 插件](dokka-maven.md) 内置了 Javadoc 输出格式。
+你可以使用以下目标生成文档：
 
-| **目标**           | **描述**                                                              |
-|--------------------|------------------------------------------------------------------------------|
-| `dokka:javadoc`    | 以 Javadoc 格式生成文档                                    |
-| `dokka:javadocJar` | 生成一个 `javadoc.jar` 文件，包含 Javadoc 格式的文档 |
+| **目标**           | **描述**                                               |
+|--------------------|-----------------------------------------------------------------------------------|
+| `dokka:javadoc`    | 以 Javadoc 格式生成文档                                                           |
+| `dokka:javadocJar` | 生成一个包含 Javadoc 格式文档的 `javadoc.jar` 文件 |
 
 </tab>
 <tab title="CLI" group-key="cli">
@@ -58,8 +63,8 @@ Javadoc 输出格式作为 [Dokka 插件](dokka-plugins.md) 实现，并由 Dokk
 
 Javadoc 输出格式有两个依赖项，你需要将其作为附加 JAR 文件提供：
 
-* [kotlin-as-java 插件](https://repo1.maven.org/maven2/org/jetbrains/dokka/kotlin-as-java-plugin/%dokkaVersion%/kotlin-as-java-plugin-%dokkaVersion%.jar)
-* [korte-jvm](https://repo1.maven.org/maven2/com/soywiz/korlibs/korte/korte-jvm/3.3.0/korte-jvm-3.3.0.jar)
+*   [kotlin-as-java 插件](https://repo1.maven.org/maven2/org/jetbrains/dokka/kotlin-as-java-plugin/%dokkaVersion%/kotlin-as-java-plugin-%dokkaVersion%.jar)
+*   [korte-jvm](https://repo1.maven.org/maven2/com/soywiz/korlibs/korte/korte-jvm/3.3.0/korte-jvm-3.3.0.jar)
 
 通过 [命令行选项](dokka-cli.md#run-with-command-line-options)：
 

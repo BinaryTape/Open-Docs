@@ -1,3 +1,4 @@
+[//]: # (title: 基於類別的工具)
 # 基於類別的工具
 
 本節說明專為需要增強靈活性和自訂行為的場景而設計的 API。透過這種方法，您可以完全控制一個工具，包括其參數、中繼資料、執行邏輯，以及如何註冊和呼叫它。
@@ -51,8 +52,13 @@ import ai.koog.agents.core.tools.annotations.LLMDescription
 -->
 ```kotlin
 // 實作一個簡單的計算機工具，可以加兩個數字
-object CalculatorTool : Tool<CalculatorTool.Args, Int>() {
-    
+object CalculatorTool : Tool<CalculatorTool.Args, Int>(
+    argsSerializer = Args.serializer(),
+    resultSerializer = Int.serializer(),
+    name = "calculator",
+    description = "A simple calculator that can add two digits (0-9)."
+) {
+
     // 計算機工具的引數
     @Serializable
     data class Args(
@@ -66,15 +72,6 @@ object CalculatorTool : Tool<CalculatorTool.Args, Int>() {
             require(digit2 in 0..9) { "digit2 must be a single digit (0-9)" }
         }
     }
-
-    // Args 類別的序列化器
-    override val argsSerializer = Args.serializer()
-    override val resultSerializer = Int.serializer()
-    
-    // 工具的名稱，LLM 可見 (預設將從類別名稱衍生)
-    override val name = "calculator"
-    // 工具的描述，LLM 可見。必填
-    override val description = "A simple calculator that can add two digits (0-9)."
 
     // 加兩個數字的函式
     override suspend fun execute(args: Args): Int = args.digit1 + args.digit2
@@ -113,7 +110,11 @@ import kotlinx.serialization.Serializable
 -->
 ```kotlin
 // 建立一個將字串表達式轉換為雙精度浮點數值的工具
-object CastToDoubleTool : SimpleTool<CastToDoubleTool.Args>() {
+object CastToDoubleTool : SimpleTool<CastToDoubleTool.Args>(
+    argsSerializer = Args.serializer(),
+    name = "cast_to_double",
+    description = "casts the passed expression to double or returns 0.0 if the expression is not castable"
+) {
     // 定義工具引數
     @Serializable
     data class Args(
@@ -123,17 +124,11 @@ object CastToDoubleTool : SimpleTool<CastToDoubleTool.Args>() {
         val comment: String
     )
 
-    // Args 類別的序列化器
-    override val argsSerializer = Args.serializer()
-
-    // 工具的描述，LLM 可見
-    override val description = "將傳入的表達式轉換為雙精度浮點數，如果無法轉換則傳回 0.0"
-    
     // 使用提供的引數執行工具的函式
-    override suspend fun doExecute(args: Args): String {
+    override suspend fun execute(args: Args): String {
         return "Result: ${castToDouble(args.expression)}, " + "the comment was: ${args.comment}"
     }
-    
+
     // 將字串表達式轉換為雙精度浮點數值的函式
     private fun castToDouble(expression: String): Double {
         return expression.toDoubleOrNull() ?: 0.0
@@ -161,7 +156,12 @@ import ai.koog.prompt.markdown.markdown
 -->
 ```kotlin
 // 一個編輯檔案的工具
-object EditFile : Tool<EditFile.Args, EditFile.Result>() {
+object EditFile : Tool<EditFile.Args, EditFile.Result>(
+    argsSerializer = Args.serializer(),
+    resultSerializer = Result.serializer(),
+    name = "edit_file",
+    description = "Edits the given file"
+) {
     // 定義工具引數
     @Serializable
     public data class Args(
@@ -202,16 +202,9 @@ object EditFile : Tool<EditFile.Args, EditFile.Result>() {
         override fun toString(): String = textForLLM()
     }
 
-    // args 和 Result 類別的序列化器
-    override val argsSerializer = Args.serializer()
-    override val resultSerializer = Result.serializer()
-
-    // 工具的描述，LLM 可見
-    override val description = "Edits the given file"
-
     // 使用提供的引數執行工具的函式
     override suspend fun execute(args: Args): Result {
-        return TODO("實作檔案編輯")
+        return TODO("Implement file edit")
     }
 }
 ```

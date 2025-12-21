@@ -29,11 +29,11 @@ import java.util.Calendar
 
 fun calendarDemo() {
     val calendar = Calendar.getInstance()
-    if (calendar.firstDayOfWeek == Calendar.SUNDAY) { // getFirstDayOfWeek() 호출
-        calendar.firstDayOfWeek = Calendar.MONDAY // setFirstDayOfWeek() 호출
+    if (calendar.firstDayOfWeek == Calendar.SUNDAY) { // call getFirstDayOfWeek()
+        calendar.firstDayOfWeek = Calendar.MONDAY // call setFirstDayOfWeek()
     }
-    if (!calendar.isLenient) { // isLenient() 호출
-        calendar.isLenient = true // setLenient() 호출
+    if (!calendar.isLenient) { // call isLenient()
+        calendar.isLenient = true // call setLenient()
     }
 }
 ```
@@ -120,7 +120,7 @@ tasks
 >
 {style="note"}
 
-## void를 반환하는 메서드
+## `void`를 반환하는 메서드
 
 Java 메서드가 `void`를 반환하면 Kotlin에서 호출될 때 `Unit`을 반환합니다. 만약 누군가가 그 반환 값을 사용한다면, 값 자체가 미리 알려져 있기 때문에 (즉 `Unit`) Kotlin 컴파일러에 의해 호출 지점에서 할당될 것입니다.
 
@@ -173,7 +173,7 @@ val notNull: String = item // 허용됨, 런타임에 실패할 수 있음
 널 가능성 어노테이션이 있는 Java 타입은 플랫폼 타입이 아닌 실제 널 허용 또는 널 불허 Kotlin 타입으로 표현됩니다. 컴파일러는 다음을 포함하여 여러 종류의 널 가능성 어노테이션을 지원합니다:
 
   * [JetBrains](https://www.jetbrains.com/idea/help/nullable-and-notnull-annotations.html)
-(`org.jetbrains.annotations` 패키지의 `@Nullable` 및 `@NotNull`)
+(`@Nullable` 및 `@NotNull` from the `org.jetbrains.annotations` package)
   * [JSpecify](https://jspecify.dev/) (`org.jspecify.annotations`)
   * Android (`com.android.annotations` 및 `android.support.annotations`)
   * JSR-305 (`javax.annotation`, 자세한 내용은 아래 참조)
@@ -234,7 +234,7 @@ Kotlin 코드에서 `Base<String>`이 가정되는 곳에 `Derived` 인스턴스
 fun takeBaseOfNotNullStrings(x: Base<String>) {}
 
 fun main() {
-    takeBaseOfNotNullStrings(Derived()) // warning: nullability mismatch
+    takeBaseOfNotNullStrings(Derived()) // 경고: 널 가능성 불일치
 }
 ```
 
@@ -253,7 +253,7 @@ public class Base<@NotNull T> {}
 `Base`를 상속할 때 Kotlin은 널 불허 타입 인자 또는 타입 매개변수를 예상합니다. 따라서 다음 Kotlin 코드는 경고를 발생시킵니다:
 
 ```kotlin
-class Derived<K> : Base<K> {} // warning: K has undefined nullability
+class Derived<K> : Base<K> {} // 경고: K의 널 가능성이 정의되지 않음
 ```
 
 상위 바운드 `K : Any`를 지정하여 이를 수정할 수 있습니다.
@@ -300,7 +300,7 @@ public @interface MyNonnull {
 }
 
 @TypeQualifierNickname
-@CheckForNull // 다른 타입 한정자 별칭에 대한 별칭
+@CheckForNull // a nickname to another type qualifier nickname
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MyNullable {
 }
@@ -421,7 +421,7 @@ JSR-305 검사는 다음 옵션(및 조합)과 함께 `-Xjsr305` 컴파일러 �
 
 ## 매핑된 타입
 
-Kotlin은 일부 Java 타입을 특별하게 처리합니다. 이러한 타입은 Java에서 "있는 그대로" 로드되지 않고, 해당하는 Kotlin 타입으로 _매핑_됩니다. 매핑은 컴파일 시점에만 중요하며, 런타임 표현은 변경되지 않습니다. Java의 기본 타입은 해당 Kotlin 타입으로 매핑됩니다 ([플랫폼 타입](#null-safety-and-platform-types)을 염두에 두고):
+Kotlin은 일부 Java 타입을 특별하게 처리합니다. 이러한 타입은 Java에서 "있는 그대로" 로드되지 않고, 해당하는 Kotlin 타입으로 _매핑_됩니다. 매핑은 컴파일 시점에만 중요하며, 런타임 표현은 변경되지 않습니다. Java의 기본 타입은 해당하는 Kotlin 타입으로 매핑됩니다 ([플랫폼 타입](#null-safety-and-platform-types)을 염두에 두고):
 
 | **Java 타입** | **Kotlin 타입**  |
 |---------------|------------------|
@@ -597,15 +597,58 @@ fun render(list: List<*>, to: Appendable) {
 
 Java 타입이 Kotlin으로 임포트될 때, `java.lang.Object` 타입의 모든 참조는 `Any`로 변환됩니다. `Any`는 플랫폼 독립적(platform-specific)이지 않으므로, `toString()`, `hashCode()`, `equals()`만 멤버로 선언합니다. 따라서 `java.lang.Object`의 다른 멤버를 사용 가능하게 하려면 Kotlin은 [확장 함수(extension functions)](extensions.md)를 사용합니다.
 
-### wait()/notify()
+### `wait()` 및 `notify()`
 
-`wait()` 및 `notify()` 메서드는 `Any` 타입의 참조에서 사용할 수 없습니다. 이들은 일반적으로 `java.util.concurrent` 사용을 권장하며 사용이 권장되지 않습니다. 이 메서드를 정말 호출해야 하는 경우 `java.lang.Object`로 캐스트(cast)할 수 있습니다:
+`wait()` 및 `notify()` 메서드는 `Any` 타입의 참조에서 사용할 수 없습니다. 이들은 일반적으로 `java.util.concurrent` 사용을 권장하며 사용이 권장되지 않습니다.
+
+이 메서드를 정말 호출해야 하는 경우, Java 객체를 통해 접근하고 `PLATFORM_CLASS_MAPPED_TO_KOTLIN` 경고를 억제하십시오:
 
 ```kotlin
+import java.util.LinkedList
+
+class SimpleBlockingQueue<T>(private val capacity: Int) {
+    private val queue = LinkedList<T>()
+
+    // wait() 및 notify()에 접근하기 위해 java.lang.Object가 특별히 사용됨
+    // Kotlin에서 표준 'Any' 타입은 이 메서드들을 노출하지 않음
+    @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
+    private val lock = Object()
+
+    fun put(item: T) {
+        synchronized(lock) {
+            while (queue.size >= capacity) {
+                lock.wait()
+            }
+            queue.add(item)
+            println("Produced: $item")
+
+            lock.notifyAll()
+        }
+    }
+
+    fun take(): T {
+        synchronized(lock) {
+            while (queue.isEmpty()) {
+                lock.wait()
+            }
+            val item = queue.removeFirst()
+            println("Consumed: $item")
+
+            lock.notifyAll()
+            return item
+        }
+    }
+}
+```
+
+또는 명시적으로 `java.lang.Object`로 캐스트(cast)하고 `PLATFORM_CLASS_MAPPED_TO_KOTLIN` 경고를 억제하십시오:
+
+```kotlin
+@Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
 (foo as java.lang.Object).wait()
 ```
 
-### getClass()
+### `getClass()`
 
 객체의 Java 클래스를 가져오려면 [클래스 참조(class reference)](reflection.md#class-references)에 있는 `java` 확장 프로퍼티를 사용하십시오:
 
@@ -623,7 +666,55 @@ val fooClass = foo.javaClass
 
 각 기본 타입에 대해 두 개의 다른 Java 클래스가 있으며, Kotlin은 둘 다를 가져오는 방법을 제공합니다. 예를 들어, `Int::class.java`는 기본 타입 자체를 나타내는 클래스 인스턴스를 반환하며, 이는 Java의 `Integer.TYPE`에 해당합니다. 해당 래퍼(wrapper) 타입의 클래스를 얻으려면 `Int::class.javaObjectType`을 사용하십시오. 이는 Java의 `Integer.class`와 동일합니다.
 
-기타 지원되는 경우로는 Kotlin 프로퍼티에 대한 Java 게터/세터 메서드 또는 backing 필드, Java 필드에 대한 `KProperty`, `KFunction`에 대한 Java 메서드 또는 생성자, 그리고 그 반대의 경우도 포함됩니다.
+기타 지원되는 경우로는 Kotlin 프로퍼티에 대한 Java 게터/세터 메서드 또는 backing 필드, Java 필드에 대한 `KProperty`, `KFunction`에 대한 Java 메서드 또는 생성자, 그리고 그 반대의 경우도 포함합니다.
+
+### `clone()`
+
+`clone()`을 오버라이드하려면 클래스가 `kotlin.Cloneable`을 확장해야 합니다:
+
+```kotlin
+class Example : Cloneable {
+    override fun clone(): Any { /* ... */ }
+}
+```
+
+[Effective Java, 3rd Edition](https://www.oracle.com/technetwork/java/effectivejava-136174.html), Item 13: *clone을 신중하게 오버라이드하라*를 잊지 마십시오.
+
+### `finalize()`
+
+`finalize()`를 오버라이드하려면, `override` 키워드 없이 단순히 선언하기만 하면 됩니다:
+
+```kotlin
+class C {
+    protected fun finalize() {
+        // finalization 로직
+    }
+}
+```
+
+Java의 규칙에 따르면 `finalize()`는 `private`이면 안 됩니다.
+
+## Java 클래스로부터 상속
+
+Kotlin 클래스의 슈퍼타입으로는 최대 하나의 Java 클래스(원하는 만큼의 Java 인터페이스)를 사용할 수 있습니다.
+
+## 정적 멤버 접근
+
+Java 클래스의 정적 멤버는 해당 클래스에 대한 "컴패니언 객체"를 형성합니다. 이러한 "컴패니언 객체"를 값으로 전달할 수는 없지만, 다음과 같이 멤버에 명시적으로 접근할 수 있습니다:
+
+```kotlin
+if (Character.isLetter(a)) { /* ... */ }
+```
+
+[매핑](#mapped-types)된 Java 타입의 정적 멤버에 접근하려면 `java.lang.Integer.bitCount(foo)`와 같이 Java 타입의 완전 정규화된 이름(full qualified names)을 사용하십시오.
+
+## Java 리플렉션
+
+Java 리플렉션은 Kotlin 클래스에서 작동하며 그 반대의 경우도 마찬가지입니다. 위에서 언급했듯이, `java.lang.Class`를 통해 Java 리플렉션에 진입하려면 `instance::class.java`, `ClassName::class.java` 또는 `instance.javaClass`를 사용할 수 있습니다. 이러한 목적으로 `ClassName.javaClass`를 사용하지 마십시오. 이는 `ClassName`의 컴패니언 객체 클래스를 참조하며, 이는 `ClassName.Companion::class.java`와 동일하고 `ClassName::class.java`와는 다릅니다.
+
+각 기본 타입에 대해 두 개의 다른 Java 클래스가 있으며, Kotlin은 둘 다를 가져오는 방법을 제공합니다. 예를 들어, `Int::class.java`는 기본 타입 자체를 나타내는 클래스 인스턴스를 반환하며, 이는 Java의 `Integer.TYPE`에 해당합니다. 해당 래퍼(wrapper) 타입의 클래스를 얻으려면 `Int::class.javaObjectType`을 사용하십시오. 이는 Java의 `Integer.class`와 동일합니다.
+
+기타 지원되는 경우로는 Kotlin 프로퍼티에 대한 Java 게터/세터 메서드 또는 backing 필드, Java 필드에 대한 `KProperty`, `KFunction`에 대한 Java 메서드 또는 생성자, 그리고 그 반대의 경우도 포함합니다.
 
 ## SAM 변환
 

@@ -159,7 +159,7 @@ fun jvmGreeting() {
 
 ```kotlin
 kotlin {
-    androidTarget()
+    android()
     iosArm64()   // 64 位元 iPhone 裝置
     macosArm64() // 現代 Apple Silicon 架構的 Mac
     watchosX64() // 現代 64 位元 Apple Watch 裝置

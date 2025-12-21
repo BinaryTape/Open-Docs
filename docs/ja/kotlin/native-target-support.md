@@ -8,7 +8,8 @@
 
 ## ターゲットのティア
 
-Kotlin/Nativeコンパイラは多数の異なるターゲットをサポートしていますが、それらに対するサポートのレベルは異なります。これらのレベルを明確にするために、コンパイラがどれだけ適切にサポートしているかに応じて、ターゲットをいくつかのティアに分類しました。
+Kotlin/Nativeコンパイラは多数の異なるターゲットをサポートしていますが、それらに対するサポートレベルは様々です。
+これらのレベルを明確にするため、コンパイラがどれだけ適切にサポートしているかに応じて、ターゲットをいくつかのティアに分類しました。
 
 ティアの表で使用されている以下の用語にご注意ください。
 
@@ -16,57 +17,57 @@ Kotlin/Nativeコンパイラは多数の異なるターゲットをサポート�
 *   **ターゲットトリプル**は、[コンパイラ](https://clang.llvm.org/docs/CrossCompilation.html#target-triple)で一般的に使用される`<architecture>-<vendor>-<system>-<abi>`構造に基づくターゲット名です。
 *   **テストの実行**は、GradleおよびIDEでのテスト実行に対する「すぐに使える（out-of-the-box）」サポートを示します。
   
-    これは、特定のターゲットに対するネイティブホストでのみ利用可能です。例えば、`macosX64`および`iosX64`のテストは、macOS x86-64ホスト上でのみ実行できます。
+    これは、特定のターゲットに対するネイティブホストでのみ利用可能です。例えば、`macosArm64`および`iosArm64`のテストは、macOS ARM64ホスト上でのみ実行できます。
 
 ### ティア1
 
 *   ターゲットは、コンパイルおよび実行可能であるかCIで定期的にテストされます。
 *   コンパイラのリリース間でのソースおよび[バイナリ互換性](https://youtrack.jetbrains.com/issue/KT-42293)を提供します。
 
-| Gradleターゲット名      | ターゲットトリプル                 | テストの実行 | 説明                                    |
-|-------------------------|-------------------------------|---------------|------------------------------------------------|
-| Apple macOSホストのみ: |                               |               |                                                |
-| `macosArm64`            | `aarch64-apple-macos`         | ✅             | Apple Siliconプラットフォーム上のApple macOS   |
-| `iosSimulatorArm64`     | `aarch64-apple-ios-simulator` | ✅             | Apple Siliconプラットフォーム上のApple iOSシミュレーター |
-| `iosArm64`              | `aarch64-apple-ios`           |               | ARM64プラットフォーム上のApple iOSおよびiPadOS  |
+| Gradleターゲット名      | ターゲットトリプル                 | テストの実行 | 説明                                                   |
+|-------------------------|-------------------------------|---------------|---------------------------------------------------------------|
+| Apple macOSホストのみ: |                               |               |                                                               |
+| `macosArm64`            | `aarch64-apple-macos`         | ✅             | Apple Siliconプラットフォーム上のApple macOS 11.0以降         |
+| `iosSimulatorArm64`     | `aarch64-apple-ios-simulator` | ✅             | Apple Siliconプラットフォーム上のApple iOSシミュレーター 14.0以降 |
+| `iosArm64`              | `aarch64-apple-ios`           |               | ARM64プラットフォーム上のApple iOSおよびiPadOS 14.0以降        |
 
 ### ティア2
 
 *   ターゲットは、コンパイル可能であるかCIで定期的にテストされますが、実行可能であるかの自動テストは行われない場合があります。
 *   コンパイラのリリース間でのソースおよび[バイナリ互換性](https://youtrack.jetbrains.com/issue/KT-42293)を提供するよう最善を尽くしています。
 
-| Gradleターゲット名      | ターゲットトリプル                     | テストの実行 | 説明                                        |
-|-------------------------|-----------------------------------|---------------|----------------------------------------------------|
-| `linuxX64`              | `x86_64-unknown-linux-gnu`        | ✅             | x86_64プラットフォーム上のLinux                    |
-| `linuxArm64`            | `aarch64-unknown-linux-gnu`       |               | ARM64プラットフォーム上のLinux                     |
-| Apple macOSホストのみ: |                                   |               |                                                    |
-| `macosX64`              | `x86_64-apple-macos`              | ✅             | x86_64プラットフォーム上のApple macOS          |
-| `iosX64`                | `x86_64-apple-ios-simulator`      | ✅             | x86-64プラットフォーム上のApple iOSシミュレーター        |
-| `watchosSimulatorArm64` | `aarch64-apple-watchos-simulator` | ✅             | Apple Siliconプラットフォーム上のApple watchOSシミュレーター |
-| `watchosX64`            | `x86_64-apple-watchos-simulator`  | ✅             | x86_64プラットフォーム上のApple watchOS 64ビットシミュレーター |
-| `watchosArm32`          | `armv7k-apple-watchos`            |               | ARM32プラットフォーム上のApple watchOS             |
-| `watchosArm64`          | `arm64_32-apple-watchos`          |               | ILP32を持つARM64プラットフォーム上のApple watchOS        |
-| `tvosSimulatorArm64`    | `aarch64-apple-tvos-simulator`    | ✅             | Apple Siliconプラットフォーム上のApple tvOSシミュレーター    |
-| `tvosX64`               | `x86_64-apple-tvos-simulator`     | ✅             | x86_64プラットフォーム上のApple tvOSシミュレーター       |
-| `tvosArm64`             | `aarch64-apple-tvos`              |               | ARM64プラットフォーム上のApple tvOS                |
+| Gradleターゲット名      | ターゲットトリプル                     | テストの実行 | 説明                                                      |
+|-------------------------|-----------------------------------|---------------|------------------------------------------------------------------|
+| `linuxX64`              | `x86_64-unknown-linux-gnu`        | ✅             | x86_64プラットフォーム上のLinux                                        |
+| `linuxArm64`            | `aarch64-unknown-linux-gnu`       |               | ARM64プラットフォーム上のLinux                                         |
+| Apple macOSホストのみ: |                                   |               |                                                                  |
+| `watchosSimulatorArm64` | `aarch64-apple-watchos-simulator` | ✅             | Apple Siliconプラットフォーム上のApple watchOSシミュレーター 7.0以降 |
+| `watchosArm32`          | `armv7k-apple-watchos`            |               | ARM32プラットフォーム上のApple watchOS 7.0以降                   |
+| `watchosArm64`          | `arm64_32-apple-watchos`          |               | ILP32を持つARM64プラットフォーム上のApple watchOS 7.0以降        |
+| `tvosSimulatorArm64`    | `aarch64-apple-tvos-simulator`    | ✅             | Apple Siliconプラットフォーム上のApple tvOSシミュレーター 14.0以降   |
+| `tvosArm64`             | `aarch64-apple-tvos`              |               | ARM64プラットフォーム上のApple tvOS 14.0以降                     |
 
 ### ティア3
 
 *   ターゲットはCIでテストされることを保証しません。
 *   これらのターゲットに対する変更は非常にまれですが、異なるコンパイラのリリース間でのソースおよびバイナリ互換性を約束することはできません。
 
-| Gradleターゲット名      | ターゲットトリプル                   | テストの実行 | 説明                                                                              |
-|-------------------------|---------------------------------|---------------|------------------------------------------------------------------------------------------|
-| `androidNativeArm32`    | `arm-unknown-linux-androideabi` |               | ARM32プラットフォーム上の[Android NDK](https://developer.android.com/ndk)              |
-| `androidNativeArm64`    | `aarch64-unknown-linux-android` |               | ARM64プラットフォーム上の[Android NDK](https://developer.android.com/ndk)              |
-| `androidNativeX86`      | `i686-unknown-linux-android`    |               | x86プラットフォーム上の[Android NDK](https://developer.android.com/ndk)                |
-| `androidNativeX64`      | `x86_64-unknown-linux-android`  |               | x86_64プラットフォーム上の[Android NDK](https://developer.android.com/ndk)             |
-| `mingwX64`              | `x86_64-pc-windows-gnu`         | ✅             | [MinGW](https://www.mingw-w64.org)互換性レイヤーを使用する64ビットWindows 10以降 |
-| Apple macOSホストのみ: |                                 |               |                                                                                          |
-| `watchosDeviceArm64`    | `aarch64-apple-watchos`         |               | ARM64プラットフォーム上のApple watchOS                                                     |
+| Gradleターゲット名      | ターゲットトリプル                    | テストの実行 | 説明                                                                              |
+|-------------------------|----------------------------------|---------------|------------------------------------------------------------------------------------------|
+| `androidNativeArm32`    | `arm-unknown-linux-androideabi`  |               | ARM32プラットフォーム上の[Android NDK](https://developer.android.com/ndk)              |
+| `androidNativeArm64`    | `aarch64-unknown-linux-android`  |               | ARM64プラットフォーム上の[Android NDK](https://developer.android.com/ndk)              |
+| `androidNativeX86`      | `i686-unknown-linux-android`     |               | x86プラットフォーム上の[Android NDK](https://developer.android.com/ndk)                |
+| `androidNativeX64`      | `x86_64-unknown-linux-android`   |               | x86_64プラットフォーム上の[Android NDK](https://developer.android.com/ndk)             |
+| `mingwX64`              | `x86_64-pc-windows-gnu`          | ✅             | [MinGW](https://www.mingw-w64.org)互換性レイヤーを使用する64ビットWindows 10以降 |
+| Apple macOSホストのみ: |                                  |               |                                                                                          |
+| `watchosDeviceArm64`    | `aarch64-apple-watchos`          |               | ARM64プラットフォーム上のApple watchOS 7.0以降                                           |
+| `macosX64`              | `x86_64-apple-macos`             | ✅             | x86_64プラットフォーム上のApple macOS 11.0以降                                           |
+| `iosX64`                | `x86_64-apple-ios-simulator`     | ✅             | x86-64プラットフォーム上のApple iOSシミュレーター 14.0以降                                   |
+| `watchosX64`            | `x86_64-apple-watchos-simulator` | ✅             | x86_64プラットフォーム上のApple watchOS 7.0以降 64ビットシミュレーター                         |
+| `tvosX64`               | `x86_64-apple-tvos-simulator`    | ✅             | x86_64プラットフォーム上のApple tvOS 14.0以降シミュレーター                                  |
 
 > `linuxArm32Hfp`ターゲットは非推奨であり、将来のリリースで削除される予定です。
->
+> 
 {style="note"}
 
 ### ライブラリ作者向け
@@ -84,8 +85,8 @@ Kotlin/Nativeコンパイラは以下のホストをサポートしています�
 
 | ホストOS                                         | 最終バイナリのビルド                 | `.klib`アーティファクトの生成                               |
 |----------------------------------------------------|--------------------------------------|-----------------------------------------------------------------|
-| Apple Silicon (ARM64)上のmacOS                     | Appleターゲットを含むすべてのサポートされるターゲット | Appleターゲットを含むすべてのサポートされるターゲット |
-| Intelチップ (x86_64)上のmacOS                      | Appleターゲットを含むすべてのサポートされるターゲット | Appleターゲットを含むすべてのサポートされるターゲット |
+| Apple Silicon (ARM64)上のmacOS                     | すべてのサポートされるターゲット | すべてのサポートされるターゲット |
+| Intelチップ (x86_64)上のmacOS                      | すべてのサポートされるターゲット | すべてのサポートされるターゲット |
 | x86_64アーキテクチャのLinux                        | Appleターゲットを除くすべてのサポートされるターゲット | すべてのサポートされるターゲット（Appleターゲットはcinterop依存関係がない場合のみ） |
 | x86_64アーキテクチャのWindows (MinGWツールチェーン) | Appleターゲットを除くすべてのサポートされるターゲット | すべてのサポートされるターゲット（Appleターゲットはcinterop依存関係がない場合のみ） |
 

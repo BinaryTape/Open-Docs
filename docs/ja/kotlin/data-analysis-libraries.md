@@ -137,7 +137,7 @@
     </td>
     <td>
       <list>
-        <li><a href="https://www.jetbrains.com/kotlin-multiplatform/">Kotlin Multiplatform</a> (JVM、JS、Native、および Wasm) で数学的抽象化を扱うためのモジュラーライブラリ</li>
+        <li><a href="https://kotlinlang.org/multiplatform/">Kotlin Multiplatform</a> (JVM、JS、Native、および Wasm) で数学的抽象化を扱うためのモジュラーライブラリ</li>
         <li>代数的構造、数式、ヒストグラム、ストリーミング操作のためのAPI</li>
         <li><a href="https://github.com/eclipse/deeplearning4j/tree/master/nd4j">ND4J</a>、<a href="https://commons.apache.org/proper/commons-math/">Apache Commons Math</a>、および <a href="https://github.com/Kotlin/multik">Multik</a> を含む既存の Java および Kotlin ライブラリの交換可能なラッパー</li>
         <li>Python の <a href="https://numpy.org/">NumPy</a> にインスパイアされているが、型安全性などの追加機能がある</li>

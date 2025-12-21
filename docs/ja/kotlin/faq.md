@@ -88,7 +88,7 @@ Nativeをターゲットとする場合、Kotlinはプラットフォーム固�
 ### KotlinがターゲットとするJVMのバージョンは何ですか？
 
 Kotlinでは、実行するJVMのバージョンを選択できます。デフォルトでは、Kotlin/JVMコンパイラはJava 8互換のバイトコードを生成します。
-より新しいJavaバージョンで利用可能な最適化を利用したい場合は、ターゲットとするJavaバージョンを9から24まで明示的に指定できます。この場合、結果のバイトコードは下位バージョンでは実行できない可能性があることに注意してください。
+より新しいJavaバージョンで利用可能な最適化を利用したい場合は、ターゲットとするJavaバージョンを9から25まで明示的に指定できます。この場合、結果のバイトコードは下位バージョンでは実行できない可能性があることに注意してください。
 [Kotlin 1.5](whatsnew15.md#new-default-jvm-target-1-8)以降、コンパイラはJava 8より前のバージョンと互換性のあるバイトコードの生成をサポートしていません。
 
 ### Kotlinは難しいですか？
@@ -101,7 +101,7 @@ Kotlinは、Java、C#、JavaScript、Scala、Groovyなどの既存の言語か�
 
 Kotlinを使用している企業は多すぎて挙げきれませんが、ブログ投稿、GitHubリポジトリ、講演などを通じてKotlinの利用を公に表明している著名な企業には、
 [Square](https://medium.com/square-corner-blog/square-open-source-loves-kotlin-c57c21710a17)、[Pinterest](https://www.youtube.com/watch?v=mDpnc45WwlI)、
-[Basecamp](https://signalvnoise.com/svn3/using-kotlin-to-make-android-apis-fun-again/)、[Corda](https://corda.net/blog/kotlin/)などがあります。
+[Basecamp](https://signalvnoise.com/svn3/using-kotlin-to-make-android-apis-fun-again/)などがあります。
 
 ### Kotlinを開発しているのは誰ですか？
 

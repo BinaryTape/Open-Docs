@@ -50,38 +50,34 @@ Kotlin은 각 플랫폼에 대한 타겟을 제공하므로, Kotlin에게 해당
 
 각 타겟은 하나 이상의 [컴파일](#compilations)을 가질 수 있습니다. 테스트 및 프로덕션 목적을 위한 기본 컴파일 외에도 [사용자 정의 컴파일을 생성](multiplatform-configure-compilations.md#create-a-custom-compilation)할 수 있습니다.
 
-멀티플랫폼 프로젝트의 타겟은 `kotlin {}` 내부의 해당 블록에 설명되어 있습니다. 예를 들어 `jvm`, `androidTarget`, `iosArm64` 등이 있습니다.
+멀티플랫폼 프로젝트의 타겟은 `kotlin {}` 내부의 해당 블록에 설명되어 있습니다. 예를 들어 `jvm`, `android`, `iosArm64` 등이 있습니다.
 사용 가능한 타겟의 전체 목록은 다음과 같습니다.
 
 <table>
-    
+
 <tr>
 <th>타겟 플랫폼</th>
         <th>타겟</th>
         <th>설명</th>
 </tr>
 
-    
 <tr>
 <td>Kotlin/JVM</td>
         <td><code>jvm</code></td>
         <td></td>
 </tr>
 
-    
 <tr>
 <td rowspan="2">Kotlin/Wasm</td>
         <td><code>wasmJs</code></td>
         <td>프로젝트를 JavaScript 런타임에서 실행할 계획이라면 사용하세요.</td>
 </tr>
 
-    
 <tr>
 <td><code>wasmWasi</code></td>
         <td><a href="https://github.com/WebAssembly/WASI">WASI</a> 시스템 인터페이스 지원이 필요한 경우 사용하세요.</td>
 </tr>
 
-    
 <tr>
 <td>Kotlin/JS</td>
         <td><code>js</code></td>
@@ -95,7 +91,6 @@ Kotlin은 각 플랫폼에 대한 타겟을 제공하므로, Kotlin에게 해당
         </td>
 </tr>
 
-    
 <tr>
 <td>Kotlin/Native</td>
         <td></td>
@@ -104,12 +99,11 @@ Kotlin은 각 플랫폼에 대한 타겟을 제공하므로, Kotlin에게 해당
         </td>
 </tr>
 
-    
 <tr>
 <td>Android 애플리케이션 및 라이브러리</td>
-        <td><code>androidTarget</code></td>
+        <td><code>android</code></td>
         <td>
-            <p>Android Gradle 플러그인(`com.android.application` 또는 `com.android.library`)을 수동으로 적용하세요.</p>
+            <p>Android Gradle 플러그인: <code>com.android.application</code> 또는 <code>com.android.kotlin.multiplatform.library</code>를 수동으로 적용하세요.</p>
             <p>Gradle 서브프로젝트당 하나의 Android 타겟만 생성할 수 있습니다.</p>
         </td>
 </tr>
@@ -436,7 +430,7 @@ Kotlin 멀티플랫폼 Gradle 플러그인에는 Android 타겟의 [빌드 변�
 
 ```kotlin
 kotlin {
-    androidTarget {
+    android {
         publishLibraryVariants("release")
     }
 }
@@ -444,7 +438,7 @@ kotlin {
 
 [Android용 컴파일](multiplatform-configure-compilations.md#compilation-for-android)에 대해 자세히 알아보세요.
 
-> `kotlin {}` 블록 내부의 `androidTarget` 구성은 어떤 Android 프로젝트의 빌드 구성도 대체하지 않습니다. `Android 개발자 문서`에서 Android 프로젝트용 빌드 스크립트 작성에 대해 자세히 알아보세요.
+> `kotlin {}` 블록 내부의 `android` 구성은 어떤 Android 프로젝트의 빌드 구성도 대체하지 않습니다. `Android 개발자 문서`에서 Android 프로젝트용 빌드 스크립트 작성에 대해 자세히 알아보세요.
 >
 {style="note"}
 
@@ -482,7 +476,7 @@ kotlin {
 ```groovy
 kotlin {
     //...
-    sourceSets { 
+    sourceSets {
         commonMain { /* ... */ }
     }
 }
@@ -503,7 +497,7 @@ kotlin {
 ```kotlin
 kotlin {
     //...
-    sourceSets { 
+    sourceSets {
         val myMain by creating { /* ... */ } // 'MyMain'이라는 이름으로 새 소스 세트 생성
     }
 }
@@ -515,7 +509,7 @@ kotlin {
 ```groovy
 kotlin {
     //...
-    sourceSets { 
+    sourceSets {
         myMain { /* ... */ } // 'myMain'이라는 이름으로 소스 세트 생성 또는 구성
     }
 }
@@ -542,9 +536,9 @@ kotlin {
 <TabItem title="Kotlin" group-key="kotlin">
 
 ```kotlin
-kotlin { 
+kotlin {
     //...
-    sourceSets { 
+    sourceSets {
         commonMain {
             kotlin.srcDir("src")
             resources.srcDir("res")
@@ -561,9 +555,9 @@ kotlin {
 <TabItem title="Groovy" group-key="groovy">
 
 ```groovy
-kotlin { 
+kotlin {
     //...
-    sourceSets { 
+    sourceSets {
         commonMain {
             kotlin.srcDir('src')
             resources.srcDir('res')
@@ -574,7 +568,7 @@ kotlin {
         }
     }
 }
-``` 
+```
 
 </TabItem>
 </Tabs>
@@ -723,11 +717,11 @@ kotlin {
                     jvmTarget.set(JvmTarget.JVM_1_8)
                 }
             }
-        
+
             compileKotlinTask // Kotlin 태스크 'compileKotlinJvm' 가져오기
             output // 메인 컴파일 출력 가져오기
         }
-        
+
         compilations["test"].runtimeDependencyFiles // 테스트 런타임 클래스패스 가져오기
     }
 
@@ -990,7 +984,8 @@ kotlin {
 </TabItem>
 </Tabs>
 
-또한, 소스 세트는 서로 의존하며 계층 구조를 형성할 수 있습니다. 이 경우 [`dependsOn()`](#source-set-parameters) 관계가 사용됩니다.
+또한, 소스 세트는 서로 의존하며 계층 구조를 형성할 수 있습니다.
+이 경우 [`dependsOn()`](#source-set-parameters) 관계가 사용됩니다.
 
 ### 최상위에서 의존성 구성
 <primary-label ref="Experimental"/>
@@ -1050,8 +1045,8 @@ kotlin {
 kotlin {
     sourceSets.all {
         languageSettings.apply {
-            languageVersion = "%languageVersion%" // 가능한 값: "1.8", "1.9", "2.0", "2.1"
-            apiVersion = "%apiVersion%" // 가능한 값: "1.8", "1.9", "2.0", "2.1"
+            languageVersion = "%languageVersion%" // 가능한 값: "2.0", "2.1", "2.2", "2.3", "2.4" (EXPERIMENTAL)
+            apiVersion = "%apiVersion%" // 가능한 값: "2.0", "2.1", "2.2", "2.3", "2.4" (EXPERIMENTAL)
             enableLanguageFeature("InlineClasses") // 언어 기능 이름
             optIn("kotlin.ExperimentalUnsignedTypes") // 어노테이션 정규화된 이름
             progressiveMode = true // 기본값은 false
@@ -1067,8 +1062,8 @@ kotlin {
 kotlin {
     sourceSets.all {
         languageSettings {
-            languageVersion = '%languageVersion%' // 가능한 값: '1.8', '1.9', '2.0', '2.1'
-            apiVersion = '%apiVersion%' // 가능한 값: '1.8', '1.9', '2.0', '2.1'
+            languageVersion = '%languageVersion%' // 가능한 값: '2.0', '2.1', '2.2', '2.3', '2.4' (EXPERIMENTAL)
+            apiVersion = '%apiVersion%' // 가능한 값: '2.0', '2.1', '2.2', '2.3', '2.4' (EXPERIMENTAL)
             enableLanguageFeature('InlineClasses') // 언어 기능 이름
             optIn('kotlin.ExperimentalUnsignedTypes') // 어노테이션 정규화된 이름
             progressiveMode = true // 기본값은 false

@@ -12,7 +12,7 @@ Kotlin 1.5.20 修正了在 1.5.0 新功能中發現的問題，同時也包含�
 
 Kotlin 1.5.20 在 JVM 平台上有以下更新：
 * [透過 invokedynamic 進行字串串接](#string-concatenation-via-invokedynamic)
-* [支援 JSpecify nullability 註解](#support-for-jspecify-nullness-annotations)
+* [支援 JSpecify nullness 註解](#support-for-jspecify-nullness-annotations)
 * [支援在包含 Kotlin 和 Java 程式碼的模組中呼叫 Java 的 Lombok 產生方法](#support-for-calling-java-s-lombok-generated-methods-within-modules-that-have-kotlin-and-java-code)
 
 ### 透過 invokedynamic 進行字串串接
@@ -22,9 +22,9 @@ Kotlin 1.5.20 在 JVM 9+ 目標上將字串串接編譯為[動態呼叫](https:/
 
 若要切換回先前版本中使用的透過 [`StringBuilder.append()`](https://docs.oracle.com/javase/9/docs/api/java/lang/StringBuilder.html#append-java.lang.String-) 進行的串接，請新增編譯器選項 `-Xstring-concat=inline`。
 
-瞭解如何在 [Gradle](gradle-compiler-options.md)、[Maven](maven.md#specify-compiler-options) 和[命令列編譯器](compiler-reference.md#compiler-options)中新增編譯器選項。
+瞭解如何在 [Gradle](gradle-compiler-options.md)、[Maven](maven-compile-package.md#specify-compiler-options) 和[命令列編譯器](compiler-reference.md#compiler-options)中新增編譯器選項。
 
-### 支援 JSpecify nullability 註解
+### 支援 JSpecify nullness 註解
 
 Kotlin 編譯器可以讀取各種類型的[nullability 註解](java-interop.md#nullability-annotations)，以將 nullability 資訊從 Java 傳遞給 Kotlin。1.5.20 版本引入了對 [JSpecify 專案](https://jspecify.dev/)的支援，該專案包含了一組標準統一的 Java nullness 註解。
 
@@ -164,7 +164,7 @@ Kotlin/Native 編譯器在 1.5.20 中獲得了多項錯誤修正。您可以在[
 
 ### JS IR 後端遷移指南
 
-新的 [JS IR 後端遷移指南](js-ir-migration.md)指出了您在遷移過程中可能遇到的問題並提供了解決方案。如果您發現任何指南中未涵蓋的問題，請向我們的[問題追蹤器](http://kotl.in/issue)報告。
+新的 JS IR 後端遷移指南指出了您在遷移過程中可能遇到的問題並提供了解決方案。如果您發現任何指南中未涵蓋的問題，請向我們的[問題追蹤器](http://kotl.in/issue)報告。
 
 ## Gradle
 

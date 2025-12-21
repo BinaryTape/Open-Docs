@@ -1,5 +1,5 @@
 [//]: # (title: Lombokコンパイラープラグイン)
-<primary-label ref="experimental-opt-in"/>
+<primary-label ref="alpha"/>
 
 Kotlin Lombokコンパイラープラグインを使用すると、同じJava/Kotlin混在モジュール内でKotlinコードによるJavaのLombok宣言の生成と使用が可能になります。
 別のモジュールからそのような宣言を呼び出す場合、そのモジュールのコンパイルにはこのプラグインを使用する必要はありません。
@@ -162,8 +162,7 @@ kaptとLombokコンパイラープラグインの使用例のテストプロジ�
 
 ## コマンドラインコンパイラー
 
-LombokコンパイラープラグインのJARは、Kotlinコンパイラーのバイナリ配布に含まれています。
-`Xplugin` kotlincオプションを使用して、JARファイルへのパスを指定することでプラグインをアタッチできます。
+LombokコンパイラープラグインのJARは、Kotlinコンパイラーのバイナリ配布に含まれています。`Xplugin` kotlincオプションを使用して、JARファイルへのパスを指定することでプラグインをアタッチできます。
 
 ```bash
 -Xplugin=$KOTLIN_HOME/lib/lombok-compiler-plugin.jar
@@ -172,7 +171,7 @@ LombokコンパイラープラグインのJARは、Kotlinコンパイラーの�
 `lombok.config`ファイルを使用したい場合は、`<PATH_TO_CONFIG_FILE>`を`lombok.config`へのパスに置き換えてください。
 
 ```bash
-# プラグインオプションの形式は「-P plugin:<plugin ID>:<キー>=<値>」です。
+# プラグインオプションの形式は「-P plugin:<plugin id>:<キー>=<値>」です。
 # オプションは複数指定できます。
 
 -P plugin:org.jetbrains.kotlin.lombok:config=<PATH_TO_CONFIG_FILE>

@@ -5,7 +5,7 @@ _[發行日期：2021 年 5 月 5 日](releases.md#release-details)_
 Kotlin 1.5.0 引入了新的語言功能、穩定的基於 IR 的 JVM 編譯器後端、效能改進，
 以及諸如穩定實驗性功能和棄用過時功能等演進性變更。
 
-您也可以在 [發行部落格文章](https://blog.jetbrains.com/kotlin/2021/04/kotlin-1-5-0-released/) 中找到變更的概覽。
+您也可以在 [發行部落格文章](https://blog.jetbrains.com/kotlin/2021/05/kotlin-1-5-0-released/) 中找到變更的概覽。
 
 ## 語言功能
 
@@ -164,7 +164,7 @@ Kotlin/JVM 編譯的預設目標版本現在是 `1.8`。`1.6` 目標已棄用。
 如果您需要為 JVM 1.6 建置，您仍然可以切換到此目標。了解如何操作：
 
 * [在 Gradle 中](gradle-compiler-options.md#attributes-specific-to-jvm)
-* [在 Maven 中](maven.md#attributes-specific-to-jvm)
+* [在 Maven 中](maven-compile-package.md#attributes-specific-to-jvm)
 * [在命令列編譯器中](compiler-reference.md#jvm-target-version)
 
 ### 透過 invokedynamic 的 SAM 配接器
@@ -179,7 +179,7 @@ Kotlin 1.5.0 現在使用動態呼叫 (`invokedynamic`) 來編譯 SAM (單一抽
 
 要回滾到基於匿名類別生成的舊實作方案，請新增編譯器選項 `-Xsam-conversions=class`。
 
-了解如何在 [Gradle](gradle-compiler-options.md)、[Maven](maven.md#specify-compiler-options) 和 [命令列編譯器](compiler-reference.md#compiler-options) 中新增編譯器選項。
+了解如何在 [Gradle](gradle-compiler-options.md)、[Maven](maven-compile-package.md#specify-compiler-options) 和 [命令列編譯器](compiler-reference.md#compiler-options) 中新增編譯器選項。
 
 ### 透過 invokedynamic 的 Lambda 表達式
 
@@ -200,7 +200,7 @@ Kotlin 1.5.0 引入了將純 Kotlin lambda (未轉換為函數式介面實例的
 要試用此功能，請新增 `-Xlambdas=indy` 編譯器選項。如果您能使用
 [這個 YouTrack 票證](https://youtrack.jetbrains.com/issue/KT-45375) 分享您的回饋，我們將不勝感激。
 
-了解如何在 [Gradle](gradle-compiler-options.md)、[Maven](maven.md#specify-compiler-options) 和 [命令列編譯器](compiler-reference.md#compiler-options) 中新增編譯器選項。
+了解如何在 [Gradle](gradle-compiler-options.md)、[Maven](maven-compile-package.md#specify-compiler-options) 和 [命令列編譯器](compiler-reference.md#compiler-options) 中新增編譯器選項。
 
 ### 棄用 @JvmDefault 和舊版 Xjvm-default 模式
 

@@ -31,7 +31,7 @@ val prompt = prompt(
 ```
 <!--- KNIT example-llm-parameters-01.kt -->
 
-プロンプトの作成に関する詳細については、「[プロンプト](prompt-api.md)」を参照してください。
+プロンプトの作成に関する詳細については、「[Prompts](prompts/structured-prompts.md)」を参照してください。
 
 - サブグラフを作成する場合:
 
@@ -72,7 +72,7 @@ val processQuery by subgraphWithTask<String, String>(
 ```
 <!--- KNIT example-llm-parameters-02.kt -->
 
-Koogに存在するサブグラフの種類に関する詳細については、「[事前定義されたサブグラフ](nodes-and-components.md#predefined-subgraphs)」を参照してください。独自のサブグラフの作成と実装に関する詳細については、「[カスタムサブグラフ](custom-subgraphs.md)」を参照してください。
+Koogに存在するサブグラフの種類に関する詳細については、「[Predefined subgraphs](nodes-and-components.md#predefined-subgraphs)」を参照してください。独自のサブグラフの作成と実装に関する詳細については、「[Custom subgraphs](custom-subgraphs.md)」を参照してください。
 
 - LLMライトセッションでプロンプトを更新する場合:
 
@@ -98,11 +98,12 @@ llm.writeSession {
 ```
 <!--- KNIT example-llm-parameters-03.kt -->
 
-セッションに関する詳細については、「[LLM sessions and manual history management](sessions.md)」を参照してください。
+セッションに関する詳細については、「[LLMセッションと手動履歴管理](sessions.md)」を参照してください。
 
 ## LLMパラメータリファレンス
 
-以下の表は、`LLMParams`クラスに含まれており、Koogで既製として利用可能なすべてのLLMプロバイダーでサポートされているLLMパラメータのリファレンスです。一部のプロバイダーに固有のパラメータのリストについては、「[プロバイダー固有のパラメータ](#provider-specific-parameters)」を参照してください。
+以下の表は、`LLMParams`クラスに含まれており、Koogで既製として利用可能なすべてのLLMプロバイダーでサポートされているLLMパラメータのリファレンスです。
+一部のプロバイダーに固有のパラメータのリストについては、「[プロバイダー固有のパラメータ](#provider-specific-parameters)」を参照してください。
 
 | パラメータ             | 型                             | 説明                                                                                                                                                                                      |
 |---------------------|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -110,8 +111,8 @@ llm.writeSession {
 | `maxTokens`           | Integer                        | 応答で生成するトークンの最大数。応答の長さを制御するのに役立ちます。                                                                                                                                  |
 | `numberOfChoices`     | Integer                        | 生成する代替応答の数。0より大きい必要があります。                                                                                                                                                           |
 | `speculation`         | String                         | 結果の速度と精度を高めるように設計された、モデルの動作に影響を与える推測的な設定文字列。特定のモデルのみがサポートしていますが、速度と精度を大幅に向上させる可能性があります。 |
-| `schema`              | Schema                         | モデルの応答フォーマットの構造を定義し、JSONのような構造化された出力を可能にします。詳細については、「[Schema](#schema)」を参照してください。                                                      |
-| `toolChoice`          | ToolChoice                     | 言語モデルのツール呼び出し動作を制御します。詳細については、「[Tool choice](#tool-choice)」を参照してください。                                                                                    |
+| `schema`              | Schema                         | モデルの応答フォーマットの構造を定義し、JSONのような構造化された出力を可能にします。詳細については、「[スキーマ](#schema)」を参照してください。                                                      |
+| `toolChoice`          | ToolChoice                     | 言語モデルのツール呼び出し動作を制御します。詳細については、「[ツール選択](#tool-choice)」を参照してください。                                                                                    |
 | `user`                | String                         | リクエストを行うユーザーの識別子で、追跡目的で使用できます。                                                                                                                                            |
 | `additionalProperties`| Map&lt;String, JsonElement&gt; | 特定のモデルプロバイダーに固有のカスタムパラメータを格納するために使用できる追加プロパティ。                                                                                          |
 
@@ -250,117 +251,125 @@ Koogにおけるプロバイダー固有のパラメータの完全なリファ�
 
 === "OpenAI Chat"
 
-    | パラメータ | 型 | 説明 |
-    |---|---|---|
-    | `audio` | `OpenAIAudioConfig` | オーディオ対応モデルを使用する場合のオーディオ出力設定。詳細については、[OpenAIAudioConfig](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client-base/ai.koog.prompt.executor.clients.openai.base.models/-open-a-i-audio-config/index.html)のAPIドキュメントを参照してください。 |
-    | `frequencyPenalty` | `Double` | 頻繁に出現するトークンにペナルティを課して繰り返しを減らします。`frequencyPenalty`値が高いほど、フレーズの多様性が増し、繰り返しが減少します。-2.0～2.0の範囲の値を取ります。 |
-    | `logprobs` | `Boolean` | `true`の場合、出力トークンのログ確率を含めます。 |
-    | `parallelToolCalls` | `Boolean` | `true`の場合、複数のツール呼び出しを並行して実行できます。 |
-    | `presencePenalty` | `Double` | モデルが出力にすでに含まれているトークンを再利用するのを防ぎます。値が高いほど、新しいトークンやトピックの導入を促します。-2.0～2.0の範囲の値を取ります。 |
-    | `promptCacheKey` | `String` | プロンプトキャッシュ用の安定したキャッシュキー。OpenAIはこれを使用して、類似のリクエストの応答をキャッシュします。 |
-    | `reasoningEffort` | `ReasoningEffort` | モデルが使用する推論のレベルを指定します。詳細および利用可能な値については、[ReasoningEffort](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client-base/ai.koog.prompt.executor.clients.openai.base.models/-reasoning-effort/index.html)のAPIドキュメントを参照してください。 |
-    | `safetyIdentifier` | `String` | OpenAIポリシーに違反するユーザーを検出するために使用できる、安定した一意のユーザー識別子。 |
-    | `serviceTier` | `ServiceTier` | OpenAIの処理層選択。コストよりもパフォーマンスを優先するか、その逆かを指定できます。詳細については、[ServiceTier](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client-base/ai.koog.prompt.executor.clients.openai.base.models/-service-tier/index.html)のAPIドキュメントを参照してください。 |
-    | `stop` | `List<String>` | モデルがこれらのいずれかに遭遇したときに、コンテンツの生成を停止するようモデルに合図する文字列。例えば、モデルが2つの改行を生成したときにコンテンツの生成を停止させるには、停止シーケンスを`stop = listOf("/n/n")`として指定します。 |
-    | `store` | `Boolean` | `true`の場合、プロバイダーは後で取得できるように出力を保存できます。 |
-    | `topLogprobs` | `Integer` | 位置ごとの最も可能性の高い上位トークンの数。0～20の範囲の値を取ります。`logprobs`パラメータが`true`に設定されている必要があります。 |
-    | `topP` | `Double` | nucleus samplingとも呼ばれます。確率値の合計が指定された`topP`値に達するまで、最も高い確率値を持つトークンをサブセットに追加することで、次のトークンのサブセットを作成します。0.0より大きく1.0以下の値を取ります。 |
-    | `webSearchOptions` | `OpenAIWebSearchOptions` | ウェブ検索ツール使用を構成します（サポートされている場合）。詳細については、[OpenAIWebSearchOptions](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client-base/ai.koog.prompt.executor.clients.openai.base.models/-open-a-i-web-search-options/index.html)のAPIドキュメントを参照してください。 |
+    --8<--
+    llm-parameters-snippets.md:heading
+    llm-parameters-snippets.md:audio
+    llm-parameters-snippets.md:frequencyPenalty
+    llm-parameters-snippets.md:logprobs
+    llm-parameters-snippets.md:parallelToolCalls
+    llm-parameters-snippets.md:presencePenalty
+    llm-parameters-snippets.md:promptCacheKey
+    llm-parameters-snippets.md:reasoningEffort
+    llm-parameters-snippets.md:safetyIdentifier
+    llm-parameters-snippets.md:serviceTier
+    llm-parameters-snippets.md:stop
+    llm-parameters-snippets.md:store
+    llm-parameters-snippets.md:topLogprobs
+    llm-parameters-snippets.md:topP
+    llm-parameters-snippets.md:webSearchOptions
+    --8<--
 
 === "OpenAI Responses"
 
-    | パラメータ | 型 | 説明 |
-    |---|---|---|
-    | `background` | `Boolean` | バックグラウンドで応答を実行します。 |
-    | `include` | `List<String>` | 含める追加の出力セクション。詳細については、OpenAIドキュメントの[include](https://platform.openai.com/docs/api-reference/responses/create#responses-create-include)パラメータについて学習してください。 |
-    | `logprobs` | `Boolean` | `true`の場合、出力トークンのログ確率を含めます。 |
-    | `maxToolCalls` | `Int` | この応答で許可される組み込みツール呼び出しの最大総数。`0`以上の値を取ります。 |
-    | `parallelToolCalls` | `Boolean` | `true`の場合、複数のツール呼び出しを並行して実行できます。 |
-    | `promptCacheKey` | `String` | プロンプトキャッシュ用の安定したキャッシュキー。OpenAIはこれを使用して、類似のリクエストの応答をキャッシュします。 |
-    | `reasoning` | `ReasoningConfig` | 推論可能なモデルの推論設定。詳細については、[ReasoningConfig](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client/ai.koog.prompt.executor.clients.openai.models/-reasoning-config/index.html)のAPIドキュメントを参照してください。 |
-    | `safetyIdentifier` | `String` | OpenAIポリシーに違反するユーザーを検出するために使用できる、安定した一意のユーザー識別子。 |
-    | `serviceTier` | `ServiceTier` | OpenAIの処理層選択。コストよりもパフォーマンスを優先するか、その逆かを指定できます。詳細については、[ServiceTier](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client-base/ai.koog.prompt.executor.clients.openai.base.models/-service-tier/index.html)のAPIドキュメントを参照してください。 |
-    | `store` | `Boolean` | `true`の場合、プロバイダーは後で取得できるように出力を保存できます。 |
-    | `topLogprobs` | `Integer` | 位置ごとの最も可能性の高い上位トークンの数。0～20の範囲の値を取ります。`logprobs`パラメータが`true`に設定されている必要があります。 |
-    | `topP` | `Double` | nucleus samplingとも呼ばれます。確率値の合計が指定された`topP`値に達するまで、最も高い確率値を持つトークンをサブセットに追加することで、次のトークンのサブセットを作成します。0.0より大きく1.0以下の値を取ります。 |
-    | `truncation` | `Truncation` | コンテキストウィンドウに近づいた場合の切り詰め戦略。詳細については、[Truncation](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client/ai.koog.prompt.executor.clients.openai.models/-truncation/index.html)のAPIドキュメントを参照してください。 |
+    --8<--
+    llm-parameters-snippets.md:heading
+    llm-parameters-snippets.md:background
+    llm-parameters-snippets.md:include
+    llm-parameters-snippets.md:logprobs
+    llm-parameters-snippets.md:maxToolCalls
+    llm-parameters-snippets.md:parallelToolCalls
+    llm-parameters-snippets.md:promptCacheKey
+    llm-parameters-snippets.md:reasoning
+    llm-parameters-snippets.md:safetyIdentifier
+    llm-parameters-snippets.md:serviceTier
+    llm-parameters-snippets.md:store
+    llm-parameters-snippets.md:topLogprobs
+    llm-parameters-snippets.md:topP
+    llm-parameters-snippets.md:truncation
+    --8<--
 
 === "Google"
 
-    | パラメータ | 型 | 説明 |
-    |---|---|---|
-    | `thinkingConfig` | `ThinkingConfig` | モデルが問題解決と思考生成にどのように取り組むかに関する設定。 |
-    | `topK` | `Int` | 出力を生成する際に考慮する上位トークンの数。1以上の値を取ります。 |
-    | `topP` | `Double` | nucleus samplingとも呼ばれます。確率値の合計が指定された`topP`値に達するまで、最も高い確率値を持つトークンをサブセットに追加することで、次のトークンのサブセットを作成します。0.0より大きく1.0以下の値を取ります。 |
+    --8<--
+    llm-parameters-snippets.md:heading
+    llm-parameters-snippets.md:thinkingConfig
+    llm-parameters-snippets.md:topK
+    llm-parameters-snippets.md:topP
+    --8<--
 
 === "Anthropic"
 
-    | パラメータ | 型 | 説明 |
-    |---|---|---|
-    | `container` | `String` | Anthropicモデルを実行するコンテナを指定します。隔離や特定の環境要件に役立つ場合があります。 |
-    | `mcpServers` | `List<String>` | Anthropicモデルに使用するMCPサーバーのリスト。高度なルーティングやカスタムデプロイメントに使用されます。 |
-    | `serviceTier` | `ServiceTier` | OpenAIの処理層選択。コストよりもパフォーマンスを優先するか、その逆かを指定できます。詳細については、[ServiceTier](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client-base/ai.koog.prompt.executor.clients.openai.base.models/-service-tier/index.html)のAPIドキュメントを参照してください。 |
-    | `stopSequences` | `List<String>` | モデルがこれらのいずれかに遭遇したときに、コンテンツの生成を停止するようモデルに合図する文字列のリスト。 |
-    | `thinking` | `Thinking` | モデルの内部思考プロセスを制御します。高い値は、より熟慮された複雑な推論につながる可能性があります。 |
-    | `topK` | `Int` | 出力を生成する際に考慮する上位トークンの数。1以上の値を取ります。 |
-    | `topP` | `Double` | nucleus samplingとも呼ばれます。確率値の合計が指定された`topP`値に達するまで、最も高い確率値を持つトークンをサブセットに追加することで、次のトークンのサブセットを作成します。0.0より大きく1.0以下の値を取ります。 |
+    --8<--
+    llm-parameters-snippets.md:heading
+    llm-parameters-snippets.md:container
+    llm-parameters-snippets.md:mcpServers
+    llm-parameters-snippets.md:serviceTier
+    llm-parameters-snippets.md:stopSequences
+    llm-parameters-snippets.md:thinking
+    llm-parameters-snippets.md:topK
+    llm-parameters-snippets.md:topP
+    --8<--
 
 === "Mistral"
 
-    | パラメータ | 型 | 説明 |
-    |---|---|---|
-    | `frequencyPenalty` | `Double` | 頻繁に出現するトークンにペナルティを課して繰り返しを減らします。`frequencyPenalty`値が高いほど、フレーズの多様性が増し、繰り返しが減少します。-2.0～2.0の範囲の値を取ります。 |
-    | `parallelToolCalls` | `Boolean` | `true`の場合、複数のツール呼び出しを並行して実行できます。 |
-    | `presencePenalty` | `Double` | モデルが出力にすでに含まれているトークンを再利用するのを防ぎます。値が高いほど、新しいトークンやトピックの導入を促します。-2.0～2.0の範囲の値を取ります。 |
-    | `promptMode` | `String` | プロンプトが処理されるモードを定義します。例: 「chat」または「instruct」。 |
-    | `randomSeed` | `Integer` | 再現可能な出力のためのシード。指定された場合、モデルは複数のリクエストにわたって同じ入力に対して同じ出力を生成しようとします。 |
-    | `safePrompt` | `Boolean` | `true`の場合、モデルは有害または安全でないコンテンツの生成を避けようとします。 |
-    | `stop` | `List<String>` | モデルがこれらのいずれかに遭遇したときに、コンテンツの生成を停止するようモデルに合図する文字列。例えば、モデルが2つの改行を生成したときにコンテンツの生成を停止させるには、停止シーケンスを`stop = listOf("/n/n")`として指定します。 |
-    | `topP` | `Double` | nucleus samplingとも呼ばれます。確率値の合計が指定された`topP`値に達するまで、最も高い確率値を持つトークンをサブセットに追加することで、次のトークンのサブセットを作成します。0.0より大きく1.0以下の値を取ります。 |
+    --8<--
+    llm-parameters-snippets.md:heading
+    llm-parameters-snippets.md:frequencyPenalty
+    llm-parameters-snippets.md:parallelToolCalls
+    llm-parameters-snippets.md:presencePenalty
+    llm-parameters-snippets.md:promptMode
+    llm-parameters-snippets.md:randomSeed
+    llm-parameters-snippets.md:safePrompt
+    llm-parameters-snippets.md:stop
+    llm-parameters-snippets.md:topP
+    --8<--
 
 === "DeepSeek"
 
-    | パラメータ | 型 | 説明 |
-    |---|---|---|
-    | `frequencyPenalty` | `Double` | 頻繁に出現するトークンにペナルティを課して繰り返しを減らします。`frequencyPenalty`値が高いほど、フレーズの多様性が増し、繰り返しが減少します。-2.0～2.0の範囲の値を取ります。 |
-    | `logprobs` | `Boolean` | `true`の場合、出力トークンのログ確率を含めます。 |
-    | `presencePenalty` | `Double` | モデルが出力にすでに含まれているトークンを再利用するのを防ぎます。値が高いほど、新しいトークンやトピックの導入を促します。-2.0～2.0の範囲の値を取ります。 |
-    | `stop` | `List<String>` | モデルがこれらのいずれかに遭遇したときに、コンテンツの生成を停止するようモデルに合図する文字列。例えば、モデルが2つの改行を生成したときにコンテンツの生成を停止させるには、停止シーケンスを`stop = listOf("/n/n")`として指定します。 |
-    | `topLogprobs` | `Integer` | 位置ごとの最も可能性の高い上位トークンの数。0～20の範囲の値を取ります。`logprobs`パラメータが`true`に設定されている必要があります。 |
-    | `topP` | `Double` | nucleus samplingとも呼ばれます。確率値の合計が指定された`topP`値に達するまで、最も高い確率値を持つトークンをサブセットに追加することで、次のトークンのサブセットを作成します。0.0より大きく1.0以下の値を取ります。 |
+    --8<--
+    llm-parameters-snippets.md:heading
+    llm-parameters-snippets.md:frequencyPenalty
+    llm-parameters-snippets.md:logprobs
+    llm-parameters-snippets.md:presencePenalty
+    llm-parameters-snippets.md:stop
+    llm-parameters-snippets.md:topLogprobs
+    llm-parameters-snippets.md:topP
+    --8<--
 
 === "OpenRouter"
 
-    | パラメータ | 型 | 説明 |
-    |---|---|---|
-    | `frequencyPenalty` | `Double` | 頻繁に出現するトークンにペナルティを課して繰り返しを減らします。`frequencyPenalty`値が高いほど、フレーズの多様性が増し、繰り返しが減少します。-2.0～2.0の範囲の値を取ります。 |
-    | `logprobs` | `Boolean` | `true`の場合、出力トークンのログ確率を含めます。 |
-    | `minP` | `Double` | 最も可能性の高いトークンに対する相対確率が定義された`minP`値より低いトークンを除外します。0.0～0.1の範囲の値を取ります。 |
-    | `models` | `List<String>` | リクエストで許可されるモデルのリスト。 |
-    | `presencePenalty` | `Double` | モデルが出力にすでに含まれているトークンを再利用するのを防ぎます。値が高いほど、新しいトークンやトピックの導入を促します。-2.0～2.0の範囲の値を取ります。 |
-    | `provider` | `ProviderPreferences` | モデルプロバイダーのプリファレンス。詳細については、[ProviderPreferences](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openrouter-client/ai.koog.prompt.executor.clients.openrouter.models/-provider-preferences/index.html)のAPIドキュメントを参照してください。 |
-    | `repetitionPenalty` | `Double` | トークンの繰り返しにペナルティを課します。出力に既に出現したトークンの次トークン確率は`repetitionPenalty`の値で割られるため、`repetitionPenalty > 1`の場合、再度出現する可能性が低くなります。0.0より大きく2.0以下の値を取ります。 |
-    | `route` | `String` | リクエストルーティング識別子。 |
-    | `stop` | `List<String>` | モデルがこれらのいずれかに遭遇したときに、コンテンツの生成を停止するようモデルに合図する文字列。例えば、モデルが2つの改行を生成したときにコンテンツの生成を停止させるには、停止シーケンスを`stop = listOf("/n/n")`として指定します。 |
-    | `topA` | `Double` | モデルの信頼度に基づいてサンプリングウィンドウを動的に調整します。モデルが確信している場合（支配的な高確率の次トークンがある場合）、サンプリングウィンドウを少数の上位トークンに限定します。信頼度が低い場合（類似の確率を持つ多くのトークンがある場合）、より多くのトークンをサンプリングウィンドウに保持します。0.0～0.1の範囲の値を取ります（両端を含む）。値が高いほど、動的な適応性が高まります。 |
-    | `topK` | `Int` | 出力を生成する際に考慮する上位トークンの数。1以上の値を取ります。 |
-    | `topLogprobs` | `Integer` | 位置ごとの最も可能性の高い上位トークンの数。0～20の範囲の値を取ります。`logprobs`パラメータが`true`に設定されている必要があります。 |
-    | `topP` | `Double` | nucleus samplingとも呼ばれます。確率値の合計が指定された`topP`値に達するまで、最も高い確率値を持つトークンをサブセットに追加することで、次のトークンのサブセットを作成します。0.0より大きく1.0以下の値を取ります。 |
-    | `transforms` | `List<String>` | コンテキスト変換のリスト。コンテキストがモデルのトークン制限を超えた場合にどのように変換されるかを定義します。デフォルトの変換は`middle-out`で、プロンプトの中央から切り詰めます。変換しない場合は空のリストを使用します。詳細については、OpenRouterドキュメントの[Message Transforms](https://openrouter.ai/docs/features/message-transforms)を参照してください。 |
+    --8<--
+    llm-parameters-snippets.md:heading
+    llm-parameters-snippets.md:frequencyPenalty
+    llm-parameters-snippets.md:logprobs
+    llm-parameters-snippets.md:minP
+    llm-parameters-snippets.md:models
+    llm-parameters-snippets.md:presencePenalty
+    llm-parameters-snippets.md:provider
+    llm-parameters-snippets.md:repetitionPenalty
+    llm-parameters-snippets.md:route
+    llm-parameters-snippets.md:stop
+    llm-parameters-snippets.md:topA
+    llm-parameters-snippets.md:topK
+    llm-parameters-snippets.md:topLogprobs
+    llm-parameters-snippets.md:topP
+    llm-parameters-snippets.md:transforms
+    --8<--
 
 === "Alibaba (DashScope)"
 
-    | パラメータ | 型 | 説明 |
-    |---|---|---|
-    | `enableSearch` | `Boolean` | `true`の場合、モデルが応答を補強するためにウェブ検索を実行できるようにします。 |
-    | `enableThinking` | `Boolean` | `true`の場合、より複雑な推論のためにモデルの内部思考プロセスを有効にします。 |
-    | `frequencyPenalty` | `Double` | 頻繁に出現するトークンにペナルティを課して繰り返しを減らします。`frequencyPenalty`値が高いほど、フレーズの多様性が増し、繰り返しが減少します。-2.0～2.0の範囲の値を取ります。 |
-    | `logprobs` | `Boolean` | `true`の場合、出力トークンのログ確率を含めます。 |
-    | `parallelToolCalls` | `Boolean` | `true`の場合、複数のツール呼び出しを並行して実行できます。 |
-    | `presencePenalty` | `Double` | モデルが出力にすでに含まれているトークンを再利用するのを防ぎます。値が高いほど、新しいトークンやトピックの導入を促します。-2.0～2.0の範囲の値を取ります。 |
-    | `stop` | `List<String>` | モデルがこれらのいずれかに遭遇したときに、コンテンツの生成を停止するようモデルに合図する文字列。例えば、モデルが2つの改行を生成したときにコンテンツの生成を停止させるには、停止シーケンスを`stop = listOf("/n/n")`として指定します。 |
-    | `topLogprobs` | `Integer` | 位置ごとの最も可能性の高い上位トークンの数。0～20の範囲の値を取ります。`logprobs`パラメータが`true`に設定されている必要があります。 |
-    | `topP` | `Double` | nucleus samplingとも呼ばれます。確率値の合計が指定された`topP`値に達するまで、最も高い確率値を持つトークンをサブセットに追加することで、次のトークンのサブセットを作成します。0.0より大きく1.0以下の値を取ります。 |
+    --8<--
+    llm-parameters-snippets.md:heading
+    llm-parameters-snippets.md:enableSearch
+    llm-parameters-snippets.md:enableThinking
+    llm-parameters-snippets.md:frequencyPenalty
+    llm-parameters-snippets.md:logprobs
+    llm-parameters-snippets.md:parallelToolCalls
+    llm-parameters-snippets.md:presencePenalty
+    llm-parameters-snippets.md:stop
+    llm-parameters-snippets.md:topLogprobs
+    llm-parameters-snippets.md:topP
+    --8<--
 
 以下の例は、プロバイダー固有の`OpenRouterParams`クラスを使用して定義されたOpenRouter LLMパラメータを示しています。
 

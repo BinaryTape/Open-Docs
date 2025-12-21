@@ -5,18 +5,14 @@
 <tabs group="build-script">
 <tab title="Gradle Kotlin DSL" group-key="kotlin">
 
-> 이 지침은 Dokka Gradle 플러그인 v1의 구성 및 작업을 반영합니다. Dokka 2.0.0부터는 여러 구성 옵션, Gradle 작업 및 문서 생성 단계가 업데이트되었습니다. 다음이 포함됩니다:
->
-> * [구성 옵션 조정](dokka-migration.md#adjust-configuration-options)
-> * [멀티 모듈 프로젝트 작업](dokka-migration.md#share-dokka-configuration-across-modules)
-> * [업데이트된 작업으로 문서 생성](dokka-migration.md#generate-documentation-with-the-updated-task)
-> * [출력 디렉터리 지정](dokka-migration.md#output-directory)
->
-> Dokka Gradle 플러그인 v2의 변경 사항에 대한 자세한 내용 및 전체 목록은 [마이그레이션 가이드](dokka-migration.md)를 참조하세요.
+> 이 가이드는 Dokka Gradle 플러그인(DGP) v2 모드에 적용됩니다. DGP v1 모드는 더 이상 지원되지 않습니다.
+> v1에서 v2 모드로 업그레이드하려면 [마이그레이션 가이드](dokka-migration.md)를 따르세요.
 >
 {style="note"}
 
-프로젝트의 루트 빌드 스크립트에 Dokka용 Gradle 플러그인을 적용합니다:
+**Gradle Dokka 플러그인 적용**
+
+프로젝트의 루트 빌드 스크립트에 Dokka Gradle 플러그인(DGP)을 적용합니다:
 
 ```kotlin
 plugins {
@@ -24,25 +20,54 @@ plugins {
 }
 ```
 
-[멀티 프로젝트](https://docs.gradle.org/current/userguide/multi_project_builds.html) 빌드를 문서화할 때, 서브프로젝트에도 Gradle 플러그인을 적용해야 합니다:
+**멀티 프로젝트 빌드 문서화**
 
-```kotlin
-subprojects {
-    apply(plugin = "org.jetbrains.dokka")
-}
-```
+[멀티 프로젝트 빌드](https://docs.gradle.org/current/userguide/multi_project_builds.html)를 문서화할 때,
+문서화하려는 모든 서브프로젝트에 플러그인을 적용합니다. 다음 접근 방식 중 하나를 사용하여 서브프로젝트 간에 Dokka 구성을 공유합니다:
+
+* 컨벤션 플러그인
+* 컨벤션 플러그인을 사용하지 않는 경우 각 서브프로젝트에서 직접 구성
+
+멀티 프로젝트 빌드에서 Dokka 구성 공유에 대한 자세한 내용은 [멀티 프로젝트 구성](dokka-gradle.md#multi-project-configuration)을 참조하세요.
+
+**문서 생성**
 
 문서를 생성하려면 다음 Gradle 작업을 실행합니다:
 
-* `dokkaHtml` (싱글 프로젝트 빌드용)
-* `dokkaHtmlMultiModule` (멀티 프로젝트 빌드용)
+```bash
+./gradlew :dokkaGenerate
+```
 
-기본적으로 출력 디렉터리는 `/build/dokka/html` 및 `/build/dokka/htmlMultiModule`로 설정됩니다.
+이 작업은 싱글 및 멀티 프로젝트 빌드 모두에 작동합니다.
 
-Gradle과 함께 Dokka를 사용하는 방법에 대해 자세히 알아보려면 [Gradle](dokka-gradle.md)을 참조하세요.
+집계 프로젝트에서 `dokkaGenerate` 작업을 실행할 때는 작업 앞에 프로젝트 경로(`:`)를 접두사로 붙이세요. 예를 들어:
+
+```bash
+./gradlew :dokkaGenerate
+
+// OR
+
+./gradlew :aggregatingProject:dokkaGenerate
+```
+
+`./gradlew :dokkaGenerate` 또는 `./gradlew :aggregatingProject:dokkaGenerate` 대신 `./gradlew dokkaGenerate`를 실행하지 마세요.
+작업 앞에 프로젝트 경로(`:`)가 없으면 Gradle은 전체 빌드에서 모든 `dokkaGenerate` 작업을 실행하려고 시도하며, 이는 불필요한 작업을 유발할 수 있습니다.
+
+다양한 작업을 사용하여 [HTML](dokka-html.md),
+[Javadoc](dokka-javadoc.md) 또는 [HTML 및 Javadoc](dokka-gradle.md#configure-documentation-output-format) 형식으로 출력을 생성할 수 있습니다.
+
+> Gradle과 함께 Dokka를 사용하는 방법에 대해 자세히 알아보려면 [Gradle](dokka-gradle.md)을 참조하세요.
+{style="tip"}
 
 </tab>
 <tab title="Gradle Groovy DSL" group-key="groovy">
+
+> 이 가이드는 Dokka Gradle 플러그인(DGP) v2 모드에 적용됩니다. DGP v1 모드는 더 이상 지원되지 않습니다.
+> v1에서 v2 모드로 업그레이드하려면 [마이그레이션 가이드](dokka-migration.md)를 따르세요.
+>
+{style="note"}
+
+**Gradle Dokka 플러그인 적용**
 
 프로젝트의 루트 빌드 스크립트에 Dokka용 Gradle 플러그인을 적용합니다:
 
@@ -52,22 +77,44 @@ plugins {
 }
 ```
 
-[멀티 프로젝트](https://docs.gradle.org/current/userguide/multi_project_builds.html) 빌드를 문서화할 때, 서브프로젝트에도 Gradle 플러그인을 적용해야 합니다:
+**멀티 프로젝트 빌드 문서화**
 
-```groovy
-subprojects {
-    apply plugin: 'org.jetbrains.dokka'
-}
-```
+[멀티 프로젝트 빌드](https://docs.gradle.org/current/userguide/multi_project_builds.html)를 문서화할 때,
+문서화하려는 모든 서브프로젝트에 플러그인을 적용해야 합니다. 다음 접근 방식 중 하나를 사용하여 서브프로젝트 간에 Dokka 구성을 공유합니다:
+
+* 컨벤션 플러그인
+* 컨벤션 플러그인을 사용하지 않는 경우 각 서브프로젝트에서 직접 구성
+
+멀티 프로젝트 빌드에서 Dokka 구성 공유에 대한 자세한 내용은 [멀티 프로젝트 구성](dokka-gradle.md#multi-project-configuration)을 참조하세요.
+
+**문서 생성**
 
 문서를 생성하려면 다음 Gradle 작업을 실행합니다:
 
-* `dokkaHtml` (싱글 프로젝트 빌드용)
-* `dokkaHtmlMultiModule` (멀티 프로젝트 빌드용)
+```bash
+./gradlew :dokkaGenerate
+```
 
-기본적으로 출력 디렉터리는 `/build/dokka/html` 및 `/build/dokka/htmlMultiModule`로 설정됩니다.
+이 작업은 싱글 및 멀티 프로젝트 빌드 모두에 작동합니다.
 
-Gradle과 함께 Dokka를 사용하는 방법에 대해 자세히 알아보려면 [Gradle](dokka-gradle.md)을 참조하세요.
+집계 프로젝트에서 `dokkaGenerate` 작업을 실행할 때는 작업 앞에 프로젝트 경로를 접두사로 붙이세요. 예를 들어:
+
+```bash
+./gradlew :dokkaGenerate
+
+// OR
+
+./gradlew :aggregatingProject:dokkaGenerate
+```
+
+`./gradlew :dokkaGenerate` 또는 `./gradlew :aggregatingProject:dokkaGenerate` 대신 `./gradlew dokkaGenerate`를 실행하지 마세요.
+작업 앞에 프로젝트 경로(`:`)가 없으면 Gradle은 전체 빌드에서 모든 `dokkaGenerate` 작업을 실행하려고 시도하며, 이는 불필요한 작업을 유발할 수 있습니다.
+
+다양한 작업을 사용하여 [HTML](dokka-html.md),
+[Javadoc](dokka-javadoc.md) 또는 [HTML 및 Javadoc](dokka-gradle.md#configure-documentation-output-format) 형식으로 출력을 생성할 수 있습니다.
+
+> Gradle과 함께 Dokka를 사용하는 방법에 대해 자세히 알아보려면 [Gradle](dokka-gradle.md)을 참조하세요.
+{style="tip"}
 
 </tab>
 <tab title="Maven" group-key="mvn">

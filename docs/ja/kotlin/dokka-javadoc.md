@@ -1,42 +1,47 @@
 [//]: # (title: Javadoc)
+<primary-label ref="alpha"/>
 
-> Javadoc出力形式はまだアルファ版であるため、使用時にバグが見つかったり、移行に関する問題が発生したりする可能性があります。
-> JavaのJavadoc HTMLを入力として受け入れるツールとの正常な連携は保証されません。
-> **ご自身の責任においてご使用ください。**
+> このガイドは、Dokka Gradleプラグイン (DGP) v2モードに適用されます。DGP v1モードはサポートされなくなりました。
+> v1からv2モードにアップグレードするには、[移行ガイド](dokka-migration.md)に従ってください。
 >
-{style="warning"}
+{style="note"}
 
 DokkaのJavadoc出力形式は、Javaの
-[Javadoc HTML形式](https://docs.oracle.com/en/java/javase/19/docs/api/index.html)を模倣したものです。
+[Javadoc HTML形式](https://docs.oracle.com/en/java/javase/19/docs/api/index.html)の模倣です。
 
 これはJavadocツールによって生成されたHTMLページを視覚的に模倣しようとしますが、直接的な実装や正確なコピーではありません。
 
-![Screenshot of javadoc output format](javadoc-format-example.png){width=706}
+![Screenshot of Javadoc output format](javadoc-format-example.png){width=706}
 
-すべてのKotlinコードとシグネチャは、Javaの視点から見たものとしてレンダリングされます。これは、この形式ではデフォルトでバンドルされ適用される、弊社の
-[Kotlin as Java Dokkaプラグイン](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-kotlin-as-java)によって実現されます。
+すべてのKotlinコードとシグネチャは、Javaの視点から見たものとしてレンダリングされます。これは、弊社の
+[Kotlin as Java Dokkaプラグイン](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-kotlin-as-java)によって実現されます。このプラグインは、この形式でデフォルトでバンドルされ適用されます。
 
 Javadoc出力形式は[Dokkaプラグイン](dokka-plugins.md)として実装されており、Dokkaチームによってメンテナンスされています。
-これはオープンソースであり、ソースコードは[GitHub](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-javadoc)で確認できます。
+これはオープンソースであり、
+ソースコードは[GitHub](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-javadoc)で確認できます。
 
 ## Javadocドキュメントの生成
 
-> これらの手順は、Dokka Gradleプラグイン v1の設定とタスクを反映しています。Dokka 2.0.0以降、[ドキュメント生成のためのGradleタスクが変更されました](dokka-migration.md#select-documentation-output-format)。
-> Dokka Gradleプラグイン v2での変更点の詳細と全リストについては、[移行ガイド](dokka-migration.md)を参照してください。
+> Dokkaは、マルチプロジェクトビルドやKotlin Multiplatformプロジェクトに対してJavadoc形式をサポートしていません。
 >
-> Javadoc形式はマルチプラットフォームプロジェクトをサポートしていません。
->
-{style="warning"}
+{style="tip"}
 
 <tabs group="build-script">
-<tab title="Gradle" group-key="kotlin">
+<tab title="Gradle Kotlin DSL" group-key="kotlin">
 
-[Dokka用Gradleプラグイン](dokka-gradle.md)には、Javadoc出力形式が同梱されています。以下のタスクを使用できます。
+[Dokka用Gradleプラグイン](dokka-gradle.md)には、Javadoc出力形式が同梱されています。
+対応するプラグインIDをプロジェクトの`build.gradle.kts`ファイルの`plugins {}`ブロックに適用する必要があります。
 
-| **タスク**                | **説明**                                                                                                                                                                                              |
-|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `dokkaJavadoc`          | 単一プロジェクトのJavadocドキュメントを生成します。                                                                                                                                                        |
-| `dokkaJavadocCollector` | マルチプロジェクトビルドの親プロジェクト専用に作成された[`Collector`](dokka-gradle.md#collector-tasks)タスクです。すべてのサブプロジェクトに対して`dokkaJavadoc`を呼び出し、すべての出力を1つの仮想プロジェクトにマージします。 |
+```kotlin
+plugins {
+    id("org.jetbrains.dokka-javadoc") version "%dokkaVersion%"
+}
+```
+
+プラグインを適用すると、以下のタスクを実行できます。
+
+*   `dokkaGenerate`：[適用されているプラグインに基づいて、利用可能なすべての形式](dokka-gradle.md#configure-documentation-output-format)でドキュメントを生成します。
+*   `dokkaGeneratePublicationJavadoc`：Javadoc形式でのみドキュメントを生成します。
 
 `javadoc.jar`ファイルは別途生成できます。詳細については、[`javadoc.jar`のビルド](dokka-gradle.md#build-javadoc-jar)を参照してください。
 
@@ -57,8 +62,8 @@ Javadoc出力形式は[Dokkaプラグイン](dokka-plugins.md#apply-dokka-plugin
 
 Javadoc出力形式には、追加のJARファイルとして提供する必要がある2つの依存関係があります。
 
-* [kotlin-as-javaプラグイン](https://repo1.maven.org/maven2/org/jetbrains/dokka/kotlin-as-java-plugin/%dokkaVersion%/kotlin-as-java-plugin-%dokkaVersion%.jar)
-* [korte-jvm](https://repo1.maven.org/maven2/com/soywiz/korlibs/korte/korte-jvm/3.3.0/korte-jvm-3.3.0.jar)
+*   [kotlin-as-java plugin](https://repo1.maven.org/maven2/org/jetbrains/dokka/kotlin-as-java-plugin/%dokkaVersion%/kotlin-as-java-plugin-%dokkaVersion%.jar)
+*   [korte-jvm](https://repo1.maven.org/maven2/com/soywiz/korlibs/korte/korte-jvm/3.3.0/korte-jvm-3.3.0.jar)
 
 [コマンドラインオプション](dokka-cli.md#run-with-command-line-options)を介して:
 

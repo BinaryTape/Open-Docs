@@ -1,6 +1,6 @@
 [//]: # (title: Swift/Objective-C와의 상호 운용성)
 
-> Objective-C 라이브러리 임포트는 [베타](native-c-interop-stability.md) 단계에 있습니다.
+> Objective-C 라이브러리 임포트는 [베타](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 단계에 있습니다.
 > cinterop 도구를 통해 Objective-C 라이브러리에서 생성된 모든 Kotlin 선언은
 > `@ExperimentalForeignApi` 어노테이션을 포함해야 합니다.
 >
@@ -14,16 +14,16 @@ Kotlin/Native는 Objective-C를 통해 Swift와의 간접적인 상호 운용성
 
 유용하다고 생각할 만한 다른 자료:
 
-* Swift 코드에서 Kotlin 선언을 사용하는 방법에 대한 예제 모음인 [Kotlin-Swift interopedia](https://github.com/kotlin-hands-on/kotlin-swift-interopedia).
-* Kotlin의 트레이싱 GC와 Objective-C의 ARC 간의 통합 세부 정보를 다루는 [Swift/Objective-C ARC 통합](native-arc-integration.md) 섹션.
+*   Swift 코드에서 Kotlin 선언을 사용하는 방법에 대한 예제 모음인 [Kotlin-Swift interopedia](https://github.com/kotlin-hands-on/kotlin-swift-interopedia).
+*   Kotlin의 트레이싱 GC와 Objective-C의 ARC 간의 통합 세부 정보를 다루는 [Swift/Objective-C ARC 통합](native-arc-integration.md) 섹션.
 
 ## Kotlin으로 Swift/Objective-C 라이브러리 임포트
 
 Objective-C 프레임워크와 라이브러리는 빌드에 제대로 임포트되면 Kotlin 코드에서 사용할 수 있습니다(시스템 프레임워크는 기본적으로 임포트됨).
 자세한 내용은 다음을 참조하세요:
 
-* [라이브러리 정의 파일 생성 및 구성](native-definition-file.md)
-* [네이티브 라이브러리 컴파일 구성](https://kotlinlang.org/docs/multiplatform/multiplatform-configure-compilations.html#configure-interop-with-native-languages)
+*   [라이브러리 정의 파일 생성 및 구성](native-definition-file.md)
+*   [네이티브 라이브러리 컴파일 구성](https://kotlinlang.org/docs/multiplatform/multiplatform-configure-compilations.html#configure-interop-with-native-languages)
 
 Swift 라이브러리는 `@objc`를 사용하여 API가 Objective-C로 익스포트(export)되는 경우 Kotlin 코드에서 사용할 수 있습니다.
 순수 Swift 모듈은 아직 지원되지 않습니다.
@@ -32,8 +32,8 @@ Swift 라이브러리는 `@objc`를 사용하여 API가 Objective-C로 익스포
 
 Kotlin 모듈은 프레임워크로 컴파일되면 Swift/Objective-C 코드에서 사용할 수 있습니다:
 
-* 바이너리를 선언하는 방법은 [최종 네이티브 바이너리 빌드](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#declare-binaries)를 참조하세요.
-* 예제는 [Kotlin Multiplatform 샘플 프로젝트](https://github.com/Kotlin/kmm-basic-sample)를 확인하세요.
+*   바이너리를 선언하는 방법은 [최종 네이티브 바이너리 빌드](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#declare-binaries)를 참조하세요.
+*   예제는 [Kotlin Multiplatform 샘플 프로젝트](https://github.com/Kotlin/kmm-basic-sample)를 확인하세요.
 
 ### Objective-C 및 Swift에서 Kotlin 선언 숨기기
 
@@ -59,8 +59,8 @@ Swift에서 보이지 않게 됩니다.
 여전히 Swift 코드에서 이러한 선언을 사용하여 Swift 친화적인 API를 생성할 수 있지만, Xcode 자동 완성(autocomplete)에는
 제안되지 않습니다.
 
-* Swift에서 Objective-C 선언을 리파이닝하는 방법에 대한 자세한 내용은 [공식 Apple 문서](https://developer.apple.com/documentation/swift/improving-objective-c-api-declarations-for-swift)를 참조하세요.
-* `@ShouldRefineInSwift` 어노테이션을 사용하는 방법에 대한 예시는 [Kotlin-Swift interopedia](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/ShouldRefineInSwift.md)를 참조하세요.
+*   Swift에서 Objective-C 선언을 리파이닝하는 방법에 대한 자세한 내용은 [공식 Apple 문서](https://developer.apple.com/documentation/swift/improving-objective-c-api-declarations-for-swift)를 참조하세요.
+*   `@ShouldRefineInSwift` 어노테이션을 사용하는 방법에 대한 예시는 [Kotlin-Swift interopedia](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/ShouldRefineInSwift.md)를 참조하세요.
 
 ### 선언 이름 변경
 
@@ -92,8 +92,8 @@ let index = array.index(of: "element")
 
 ```kotlin
 /**
- * 인수의 합계를 출력합니다.
- * 합계가 32비트 정수에 맞지 않는 경우를 적절하게 처리합니다.
+ * Prints the sum of the arguments.
+ * Properly handles the case when the sum doesn't fit in 32-bit integer.
  */
 fun printSum(a: Int, b: Int) = println(a.toLong() + b)
 ```
@@ -102,8 +102,8 @@ fun printSum(a: Int, b: Int) = println(a.toLong() + b)
 
 ```objc
 /**
- * 인수의 합계를 출력합니다.
- * 합계가 32비트 정수에 맞지 않는 경우를 적절하게 처리합니다.
+ * Prints the sum of the arguments.
+ * Properly handles the case when the sum doesn't fit in 32-bit integer.
  */
 + (void)printSumA:(int32_t)a b:(int32_t)b __attribute__((swift_name("printSum(a:b:)")));
 ```
@@ -112,8 +112,8 @@ KDoc 주석은 klib에 임베드되어 klib에서 생성된 Apple 프레임워�
 
 알려진 제한 사항:
 
-* 종속성 문서화는 `-Xexport-kdoc` 옵션으로 컴파일되지 않는 한 내보내기(export)되지 않습니다. 이 컴파일러 옵션으로 컴파일된 라이브러리는 다른 컴파일러 버전과 호환되지 않을 수 있습니다.
-* KDoc 주석은 대부분 그대로 내보내기(export)되지만, `@property`와 같은 많은 KDoc 블록 태그는 지원되지 않습니다.
+*   종속성 문서화는 `-Xexport-kdoc` 옵션으로 컴파일되지 않는 한 내보내기(export)되지 않습니다. 이 컴파일러 옵션으로 컴파일된 라이브러리는 다른 컴파일러 버전과 호환되지 않을 수 있습니다.
+*   KDoc 주석은 대부분 그대로 내보내기(export)되지만, `@property`와 같은 많은 KDoc 블록 태그는 지원되지 않습니다.
 
 필요한 경우, Gradle 빌드 파일의 `binaries {}` 블록에서 klib에 포함된 KDoc 주석이 생성된 Apple 프레임워크로 내보내지는 것을 비활성화할 수 있습니다:
 
@@ -153,7 +153,7 @@ kotlin {
 | Extension              | Extension                        | Category member                  | [note](#extensions-and-category-members)                                           |
 | `companion` member <-  | Class method or property         | Class method or property         |                                                                                    |
 | `null`                 | `nil`                            | `nil`                            |                                                                                    |
-| Singleton              | `shared` or `companion` property | `shared` or `companion` property | [note](#kotlin-singletons)                                                         |
+| `Singleton`            | `shared` or `companion` property | `shared` or `companion` property | [note](#kotlin-singletons)                                                         |
 | Primitive type         | Primitive type / `NSNumber`      |                                  | [note](#primitive-types)                                                           |
 | `Unit` return type     | `Void`                           | `void`                           |                                                                                    |
 | `String`               | `String`                         | `NSString`                       | [note](#strings)                                                                   |
@@ -227,9 +227,9 @@ MyLibraryUtilsKt.foo()
 
 Kotlin-Swift interopedia에서 최상위 Kotlin 선언에 접근하는 예제 모음을 확인하세요:
 
-* [최상위 함수](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/Top-level%20functions.md)
-* [최상위 읽기 전용 프로퍼티](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/functionsandproperties/Top-level%20val%20properties.md)
-* [최상위 변경 가능한 프로퍼티](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/functionsandproperties/Top-level%20mutable%20var%20properties.md)
+*   [최상위 함수](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/Top-level%20functions.md)
+*   [최상위 읽기 전용 프로퍼티](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/functionsandproperties/Top-level%20val%20properties.md)
+*   [최상위 변경 가능한 프로퍼티](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/functionsandproperties/Top-level%20mutable%20var%20properties.md)
 
 ### 메서드 이름 변환
 
@@ -326,8 +326,8 @@ Swift/Objective-C 용어로는 [완료 핸들러](https://developer.apple.com/do
 Swift 5.5부터 Kotlin의 `suspend` 함수는 완료 핸들러(completion handler)를 사용하지 않고도 Swift에서 `async` 함수로 호출할 수 있습니다.
 현재 이 기능은 매우 실험적이며 특정 제한 사항이 있습니다. 자세한 내용은 [이 YouTrack 이슈](https://youtrack.jetbrains.com/issue/KT-47610)를 참조하세요.
 
-* Swift 문서에서 [`async`/`await` 메커니즘](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html)에 대해 자세히 알아보세요.
-* 동일한 기능을 구현하는 서드파티 라이브러리에 대한 예시 및 권장 사항은 [Kotlin-Swift interopedia](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/coroutines/Suspend%20functions.md)를 참조하세요.
+*   Swift 문서에서 [`async`/`await` 메커니즘](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html)에 대해 자세히 알아보세요.
+*   동일한 기능을 구현하는 서드파티 라이브러리에 대한 예시 및 권장 사항은 [Kotlin-Swift interopedia](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/coroutines/Suspend%20functions.md)를 참조하세요.
 
 ### 확장(Extension) 및 카테고리 멤버
 
@@ -343,14 +343,14 @@ Objective-C 카테고리 및 Swift 확장의 멤버는 일반적으로 Kotlin으
 다른 유형에 대한 Kotlin 확장은 추가 수신기(receiver) 매개변수를 가진 [최상위 선언](#top-level-functions-and-properties)으로 처리됩니다.
 이러한 유형에는 다음이 포함됩니다:
 
-* Kotlin `String` 유형
-* Kotlin 컬렉션 유형 및 서브타입
-* Kotlin `interface` 유형
-* Kotlin 원시(primitive) 유형
-* Kotlin `inline` 클래스
-* Kotlin `Any` 유형
-* Kotlin 함수 유형 및 서브타입
-* Objective-C 클래스 및 프로토콜
+*   Kotlin `String` 유형
+*   Kotlin 컬렉션 유형 및 서브타입
+*   Kotlin `interface` 유형
+*   Kotlin 원시(primitive) 유형
+*   Kotlin `inline` 클래스
+*   Kotlin `Any` 유형
+*   Kotlin 함수 유형 및 서브타입
+*   Objective-C 클래스 및 프로토콜
 
 [Kotlin-Swift interopedia에서 예제 모음 보기](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/tree/main/docs/extensions).
 
@@ -389,8 +389,8 @@ MyClass.Companion.shared
 
 Kotlin-Swift interopedia에서 더 많은 예시를 확인하세요:
 
-* [`shared`를 사용하여 Kotlin 객체에 접근하는 방법](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/classesandinterfaces/Objects.md)
-* [Swift에서 Kotlin `companion object`의 멤버에 접근하는 방법](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/classesandinterfaces/Companion%20objects.md).
+*   [`shared`를 사용하여 Kotlin 객체에 접근하는 방법](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/classesandinterfaces/Objects.md)
+*   [Swift에서 Kotlin `companion object`의 멤버에 접근하는 방법](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/classesandinterfaces/Companion%20objects.md).
 
 ### 원시(Primitive) 타입
 
@@ -494,14 +494,8 @@ foo {
 
 #### Objective-C 블록 타입의 명시적 매개변수 이름
 
-내보내기된(exported) Objective-C 헤더의 Kotlin 함수 타입에 명시적 매개변수 이름을 추가할 수 있습니다. 이름이 없으면
-Xcode의 자동 완성 기능은 Objective-C 블록에서 매개변수 이름이 없는 Objective-C 함수 호출을 제안하며, 생성된 블록은 Clang 경고를 유발합니다.
-
-명시적 매개변수 이름을 활성화하려면 `gradle.properties` 파일에 다음 [바이너리 옵션](native-binary-options.md)을 추가하세요:
-
-```none
-kotlin.native.binary.objcExportBlockExplicitParameterNames=true
-```
+Kotlin은 내보내기된(exported) Objective-C 헤더의 함수 타입에 명시적 매개변수 이름을 추가합니다.
+Xcode의 자동 완성 기능은 Objective-C 블록에서 Objective-C 함수를 호출할 때 이러한 이름을 제안합니다.
 
 예를 들어, 다음 Kotlin 코드의 경우:
 
@@ -523,6 +517,14 @@ greetUserBlock:^(NSString *name) {
 > 일반적으로 Swift로부터의 호출에는 영향을 미치지 않습니다.
 >
 {style="note"}
+
+문제가 발생하면 `gradle.properties` 파일에서 다음 [바이너리 옵션](native-binary-options.md)을 사용하여 명시적 매개변수 이름을 비활성화할 수 있습니다:
+
+```none
+kotlin.native.binary.objcExportBlockExplicitParameterNames=false
+```
+
+이러한 문제는 이슈 트래커인 [YouTrack](https://kotl.in/issue)에 보고해 주세요.
 
 ### 제네릭(Generics)
 
@@ -643,6 +645,7 @@ id<ForwardDeclaredProtocol> produceProtocol() {
 fun test() {
     consumeProtocol(produceProtocol() as objcnames.protocols.ForwardDeclaredProtocolProtocol)
 }
+}
 ```
 
 > 해당 실제 클래스에서만 `objcnames.protocols.ForwardDeclaredProtocolProtocol`로 형변환(cast)할 수 있습니다.
@@ -653,7 +656,7 @@ fun test() {
 ## 매핑된 타입 간의 형변환(Casting)
 
 Kotlin 코드를 작성할 때, 객체가 Kotlin 타입에서 동등한 Swift/Objective-C 타입으로(또는 그 반대로) 변환되어야 할 수 있습니다.
-이 경우 일반적인 Kotlin 형변환(cast)을 사용할 수 있습니다. 예를 들면:
+이 경우 일반적인 Kotlin [`as` 형변환(cast)](typecasts.md#unsafe-cast-operator)을 사용할 수 있습니다. 예를 들면:
 
 ```kotlin
 @file:Suppress("CAST_NEVER_SUCCEEDS")
@@ -713,6 +716,6 @@ class ViewController : UIViewController {
 Kotlin 프로그래밍 언어의 일부 기능은 아직 Objective-C 또는 Swift의 해당 기능으로 매핑되지 않았습니다.
 현재, 생성된 프레임워크 헤더에서 다음 기능은 제대로 노출되지 않습니다:
 
-* 인라인(Inline) 클래스(인수는 기본 원시 타입 또는 `id`로 매핑됨)
-* 표준 Kotlin 컬렉션 인터페이스(`List`, `Map`, `Set`) 및 기타 특수 클래스를 구현하는 사용자 지정 클래스
-* Objective-C 클래스의 Kotlin 서브클래스
+*   인라인(Inline) 클래스(인수는 기본 원시 타입 또는 `id`로 매핑됨)
+*   표준 Kotlin 컬렉션 인터페이스(`List`, `Map`, `Set`) 및 기타 특수 클래스를 구현하는 사용자 지정 클래스
+*   Objective-C 클래스의 Kotlin 서브클래스

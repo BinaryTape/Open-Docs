@@ -1,9 +1,11 @@
 [//]: # (title: Kotlin/Native 作為 Apple 框架 – 教學)
 
-> Objective-C 函式庫匯入功能處於 [Beta](native-c-interop-stability.md) 階段。
-> 所有由 cinterop 工具從 Objective-C 函式庫生成的 Kotlin 宣告都應帶有 `@ExperimentalForeignApi` 註解。
+> Objective-C 函式庫匯入功能處於 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 階段。
+> 所有由 cinterop 工具從 Objective-C 函式庫生成的 Kotlin 宣告
+> 都應帶有 `@ExperimentalForeignApi` 註解。
 >
-> Kotlin/Native 隨附的原生平台函式庫（例如 Foundation、UIKit 和 POSIX）僅需針對部分 API 選擇啟用。
+> Kotlin/Native 隨附的原生平台函式庫（例如 Foundation、UIKit 和 POSIX）
+> 僅需針對部分 API 選擇啟用。
 >
 {style="note"}
 
@@ -52,14 +54,14 @@ Kotlin/Native 編譯器可以從 Kotlin 程式碼中為 macOS 和 iOS 生成框�
     class Clazz : Interface {
         fun member(p: Int): ULong? = 42UL
     }
-     
+    
     fun forIntegers(b: Byte, s: UShort, i: Int, l: ULong?) { }
     fun forFloats(f: Float, d: Double?) { }
-     
+    
     fun strings(str: String?) : String {
         return "That is '$str' from C"
     }
-     
+    
     fun acceptFun(f: (String) -> String?) = f("Kotlin/Native rocks!")
     fun supplyFun() : (String) -> String? = { "$it is cool!" }
     ```

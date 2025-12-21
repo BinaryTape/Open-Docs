@@ -68,7 +68,7 @@ Kotlin 语言和工具集被划分为许多组件，例如面向 JVM、JS 和 Na
 
 ### Kotlin 编译器
 
-| **组件**                                                          | **状态**   | **状态始于版本** | **备注** |
+| **组件**                                                          | **状态** | **状态始于版本** | **备注** |
 |---------------------------------------------------------------------|------------|--------------------|--------------|
 | Kotlin/JVM                                                          | Stable     | 1.0.0              |              |
 | Kotlin/Native                                                       | Stable     | 1.9.0              |              |
@@ -84,7 +84,7 @@ Kotlin 语言和工具集被划分为许多组件，例如面向 JVM、JS 和 Na
 | [No-arg](no-arg-plugin.md)                       | Stable       | 1.3.0              |              |
 | [SAM-with-receiver](sam-with-receiver-plugin.md) | Stable       | 1.3.0              |              |
 | [kapt](kapt.md)                                  | Stable       | 1.3.0              |              |
-| [Lombok](lombok.md)                              | Experimental | 1.5.20             |              |
+| [Lombok](lombok.md)                              | Alpha        | 2.3.0              |              |
 | [Power-assert](power-assert.md)                  | Experimental | 2.0.0              |              |
 
 ### Kotlin 库
@@ -111,9 +111,9 @@ Kotlin 语言和工具集被划分为许多组件，例如面向 JVM、JS 和 Na
 | **组件**                                   | **状态** | **状态始于版本** | **备注**                                                                         |
 |--------------------------------------------|------------|--------------------|----------------------------------------------------------------------------------|
 | Kotlin/Native Runtime                      | Stable     | 1.9.20             |                                                                                  |
-| Kotlin/Native 与 C 和 Objective-C 的互操作 | Beta       | 1.3.0              | [C 和 Objective-C 库导入的稳定性](native-c-interop-stability.md)                   |
+| Kotlin/Native 与 C 和 Objective-C 的互操作 | Beta       | 1.3.0              | [C 和 Objective-C 库导入的稳定性](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) |
 | klib binaries                              | Stable     | 1.9.20             | 不包括 cinterop klib，详见下文                                                   |
-| cinterop klib binaries                     | Beta       | 1.3.0              | [C 和 Objective-C 库导入的稳定性](native-c-interop-stability.md)                   |
+| cinterop klib binaries                     | Beta       | 1.3.0              | [C 和 Objective-C 库导入的稳定性](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) |
 | CocoaPods integration                      | Stable     | 1.9.20             |                                                                                  |
 
 关于不同目标平台的支持级别，请参见 [](native-target-support.md)。

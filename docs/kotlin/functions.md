@@ -13,7 +13,7 @@
 // 'x' 是 Int 类型的形参
 // 期望的返回值也是 Int 类型
 fun double(x: Int): Int {
-return 2 * x
+    return 2 * x
 }
 //sampleEnd
 
@@ -51,7 +51,7 @@ fun powerOf(number: Int, exponent: Int): Int { /*...*/ }
 在函数体内部，接收到的实参是只读的（隐式声明为 `val`）：
 
 ```kotlin
-fun powerOf (number: Int, exponent: Int): Int {
+fun powerOf(number: Int, exponent: Int): Int {
     number = 2 // 错误：'val' 不能重新赋值。
 }
 ```
@@ -65,7 +65,8 @@ fun powerOf(
 ) { /*...*/ }
 ```
 
-尾部逗号有助于重构和代码维护：你可以在声明中移动形参，而不必担心哪个会是最后一个。
+尾部逗号有助于重构和代码维护：
+你可以在声明中移动形参，而不必担心哪个会是最后一个。
 
 > Kotlin 函数可以接收其他函数作为形参——并作为实参传递。
 > 有关更多信息，请参见 [](lambdas.md)。
@@ -101,10 +102,10 @@ fun greeting(
     message: String,
 ) { /*...*/ }
 
-fun main () {
+fun main() {
     // 使用 0 作为 'userId' 的默认值
     greeting(message = "Hello!")
-
+    
     // 错误：未为形参 'userId' 传递值
     greeting("Hello!")
 }
@@ -122,7 +123,7 @@ fun greeting(
 )
 { println(userId)
   message() }
-
+    
 // 使用 'userId' 的默认值
 greeting() { println ("Hello!") }
 // 0
@@ -171,16 +172,16 @@ fun read(
 ```kotlin
 fun main() {
 //sampleStart
-fun read(
-    b: Int,
-    print: Unit? = println("No argument passed for 'print'")
-) { println(b) }
-
-// 打印 "No argument passed for 'print'"，然后是 "1"
-read (1)
-// 仅打印 "1"
-read (1, null)
-//sampleEnd
+    fun read(
+        b: Int,
+        print: Unit? = println("No argument passed for 'print'")
+    ) { println(b) }
+    
+    // 打印 "No argument passed for 'print'"，然后是 "1"
+    read(1)
+    // 仅打印 "1"
+    read(1, null)
+    //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="non-constant-default"}
@@ -189,24 +190,24 @@ read (1, null)
 
 ```kotlin
 fun main() {
-//sampleStart
-fun log(
-    level: Int = 0,
-    code:  Int = 1,
-    action: () -> Unit,
-) { println (level)
-    println (code)
-    action() }
-
-// 为 'level' 传递 1，并使用 1 作为 'code' 的默认值
-log(1) { println("Connection established") }
-
-// 使用两个默认值，'level' 为 0，'code' 为 1
-log(action = { println("Connection established") })
-
-// 等同于上一个调用，使用两个默认值
-log { println("Connection established") }
-//sampleEnd   
+    //sampleStart
+    fun log(
+        level: Int = 0,
+        code:  Int = 1,
+        action: () -> Unit,
+    ) { println (level)
+        println (code)
+        action() }
+    
+    // 为 'level' 传递 1，并使用 1 作为 'code' 的默认值
+    log(1) { println("Connection established") }
+    
+    // 使用两个默认值，'level' 为 0，'code' 为 1
+    log(action = { println("Connection established") })
+    
+    // 等同于上一个调用，使用两个默认值
+    log { println("Connection established") }
+    //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="lambda-outside-parentheses"}
@@ -318,25 +319,25 @@ fun double(x: Int) = x * 2
 // 函数类型形参 ('action') 的声明仍然
 // 需要显式返回类型
 fun printHello(name: String?, action: () -> Unit) {
-  if (name != null)
-    println("Hello $name")
-  else
-    println("Hi there!")
+    if (name != null)
+        println("Hello $name")
+    else
+        println("Hi there!")
 
-  action()
+    action()
 }
 
 fun main() {
-  printHello("Kodee") {
-    println("This runs after the greeting.")
-  }
-  // Hello Kodee
-  // This runs after the greeting.
+    printHello("Kodee") {
+        println("This runs after the greeting.")
+    }
+    // Hello Kodee
+    // This runs after the greeting.
 
-  printHello(null) {
-    println("No name provided, but action still runs.")
-  }
-  // No name provided, but action still runs
+    printHello(null) {
+        println("No name provided, but action still runs.")
+    }
+    // No name provided, but action still runs
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="return-unit-implicit"}
@@ -344,31 +345,38 @@ fun main() {
 这等同于以下冗长的声明：
 
 ```kotlin
-//sample Start
+//sampleStart
 fun printHello(name: String?, action: () -> Unit): Unit {
-  if (name != null)
-    println("Hello $name")
-  else
-    println("Hi there!")
+    if (name != null)
+        println("Hello $name")
+    else
+        println("Hi there!")
 
-  action()
-  return Unit
+    action()
+    return Unit
 }
-// sampleEnd
+//sampleEnd
 fun main() {
-  printHello("Kodee") {
-    println("This runs after the greeting.")
-  }
-  // Hello Kodee
-  // This runs after the greeting.
+    printHello("Kodee") {
+        println("This runs after the greeting.")
+    }
+    // Hello Kodee
+    // This runs after the greeting.
 
-  printHello(null) {
-    println("No name provided, but action still runs.")
-  }
-  // No name provided, but action still runs
+    printHello(null) {
+        println("No name provided, but action still runs.")
+    }
+    // No name provided, but action still runs
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="return-unit-explicit"}
+
+如果函数的返回类型是显式指定的，你可以在表达式体内部使用 `return` 语句：
+
+```kotlin
+fun getDisplayNameOrDefault(userId: String?): String =
+    getDisplayName(userId ?: return "default")
+```
 
 ### 可变数量实参 (vararg)
 
@@ -388,18 +396,18 @@ fun <T> asList(vararg ts: T): List<T> {
 
 ```kotlin
 fun <T> asList(vararg ts: T): List<T> {
-  val result = ArrayList<T>()
-  for (t in ts) // ts 是一个 Array
-    result.add(t)
-  return result
+    val result = ArrayList<T>()
+    for (t in ts) // ts 是一个 Array
+        result.add(t)
+    return result
 }
 
 fun main() {
-  //sampleStart
-  val list = asList(1, 2, 3)
-  println(list)
-  // [1, 2, 3]
-  //sampleEnd
+    //sampleStart
+    val list = asList(1, 2, 3)
+    println(list)
+    // [1, 2, 3]
+    //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="varargs-aslist"}
@@ -413,23 +421,22 @@ fun main() {
 
 ```kotlin
 fun <T> asList(vararg ts: T): List<T> {
-  val result = ArrayList<T>()
-  for (t in ts)
-    result.add(t)
-  return result
+    val result = ArrayList<T>()
+    for (t in ts)
+        result.add(t)
+    return result
 }
 
 fun main() {
-  //sampleStart
-  val a = arrayOf(1, 2, 3)
+    //sampleStart
+    val a = arrayOf(1, 2, 3)
 
-  // 函数接收数组 [-1, 0, 1, 2, 3, 4]
-  val list = asList(-1, 0, *a, 4)
+    // 函数接收数组 [-1, 0, 1, 2, 3, 4]
+    list = asList(-1, 0, *a, 4)
 
-  println(list)
-  // [-1, 0, 1, 2, 3, 4]
-
-  //sampleEnd
+    println(list)
+    // [-1, 0, 1, 2, 3, 4]
+    //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="varargs-aslist-with-array"}
@@ -481,31 +488,31 @@ infix fun Int.shl(x: Int): Int { /*...*/ }
 
 ```kotlin
 class MyStringCollection {
-  val items = mutableListOf<String>()
+    val items = mutableListOf<String>()
 
-  infix fun add(s: String) {
-    println("Adding: $s")
-    items += s
-  }
+    infix fun add(s: String) {
+        println("Adding: $s")
+        items += s
+    }
 
-  fun build() {
-      add("first")       // 正确：普通函数调用
-      this add "second"  // 正确：带显式接收者的中缀调用
-      // add "third"     // 编译器错误：需要显式接收者
-  }
+    fun build() {
+        add("first")      // 正确：普通函数调用
+        this add "second" // 正确：带显式接收者的中缀调用
+        // add "third"    // 编译器错误：需要显式接收者
+    }
 
-  fun printAll() = println("Items = $items")
+    fun printAll() = println("Items = $items")
 }
 
 fun main() {
-  val myStrings = MyStringCollection()
-  // 将 "first" 和 "second" 添加到列表中两次
-  myStrings.build()
-
-  myStrings.printAll()
-  // Adding: first
-  // Adding: second
-  // Items = [first, second]
+    val myStrings = MyStringCollection()
+    // 将 "first" 和 "second" 添加到列表中两次
+    myStrings.build()
+      
+    myStrings.printAll()
+    // Adding: first
+    // Adding: second
+    // Items = [first, second]
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="infix-notation-example"}
@@ -651,7 +658,7 @@ private fun findFixPoint(): Double {
 ```
 
 你只能在函数将其自身作为执行的最后操作来调用时，才能对其应用 `tailrec` 修饰符。
-当递归调用之后还有更多代码、在 [`try`/`catch`/`finally` 块](exceptions.md#handle-exceptions-using-try-catch-blocks)内，或在开放函数上时，你不能使用尾递归。
+当递归调用之后还有更多代码、在 [`try`/`catch`/`finally` 块](exceptions.md#handle-exceptions-using-try-catch-blocks)内，或在[开放函数](inheritance.md)上时，你不能使用尾递归。
 
 **另请参阅**：
 * [内联函数](inline-functions.md)

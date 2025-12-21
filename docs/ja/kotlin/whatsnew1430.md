@@ -4,7 +4,7 @@ _[リリース日: 2021年2月3日](releases.md#release-details)_
 
 Kotlin 1.4.30 では、新しい言語機能のプレビュー版が提供され、Kotlin/JVM コンパイラの新しい IR バックエンドがベータ版に昇格し、さまざまなパフォーマンスと機能の改善が導入されています。
 
-新機能については、[こちらのブログ記事](https://blog.jetbrains.com/kotlin/2021/01/kotlin-1-4-30-released/)でも詳しく説明されています。
+新機能については、[こちらのブログ記事](https://blog.jetbrains.com/kotlin/2021/02/kotlin-1-4-30-released/)でも詳しく説明されています。
 
 ## 言語機能
 
@@ -18,7 +18,7 @@ Kotlin 1.4.30 では、これらの機能と改善点をプレビューモード
 これらの言語機能と改善点をプレビューモードで有効にするには、特定のコンパイラオプションを追加してオプトインする必要があります。
 詳細は以下のセクションを参照してください。
 
-新機能のプレビューについては、[こちらのブログ記事](https://blog.jetbrains.com/kotlin/2021/01/new-language-features-preview-in-kotlin-1-4-30)で詳しく説明されています。
+新機能のプレビューについては、[こちらのブログ記事](https://blog.jetbrains.com/kotlin/2021/02/new-language-features-preview-in-kotlin-1-4-30/)で詳しく説明されています。
 
 ### JVM レコードのサポート
 
@@ -205,7 +205,7 @@ IR コンパイラによって生成されたバイナリの利用に関する�
     </configuration>
     ```
 
-JVM IR バックエンドがもたらす変更については、[こちらのブログ記事](https://blog.jetbrains.com/kotlin/2021/01/the-jvm-backend-is-in-beta-let-s-make-it-stable-together)で詳しく説明されています。
+JVM IR バックエンドがもたらす変更については、[こちらのブログ記事](https://blog.jetbrains.com/kotlin/2021/02/the-jvm-backend-is-in-beta-let-s-make-it-stable-together/)で詳しく説明されています。
 
 ## Kotlin/Native
 
@@ -249,7 +249,7 @@ Kotlin/JS の [IR バックエンド](js-ir-compiler.md)では、トップレベ
 
 ### テキストの大文字/小文字変換用ロケール非依存 API
 
-> ロケール非依存 API 機能は[実験的 (Experimental)](components-stability.stabilitäts) です。この機能は、将来廃止または変更される可能性があります。
+> ロケール非依存 API 機能は[実験的 (Experimental)](components-stability.md) です。この機能は、将来廃止または変更される可能性があります。
 > 評価目的でのみ使用してください。
 > この機能に関するフィードバックを [YouTrack](https://youtrack.jetbrains.com/issue/KT-42437) でいただけると幸いです。
 >

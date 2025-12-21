@@ -37,7 +37,7 @@
 fun String.bold(): String = "<b>$this</b>"
 
 fun main() {
-    // "hello" is the receiver
+    // "hello"가 리시버입니다
     println("hello".bold())
     // <b>hello</b>
 }
@@ -58,12 +58,12 @@ fun main() {
 
 확장 함수는 어디에든 정의할 수 있으며, 이를 통해 확장 지향 설계를 만들 수 있습니다. 이러한 설계는 핵심 기능을 유용하지만 필수적이지 않은 기능과 분리하여 코드를 더 쉽게 읽고 유지보수할 수 있도록 합니다.
 
-좋은 예시는 네트워크 요청을 수행하는 데 도움이 되는 Ktor 라이브러리의 [`HttpClient`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client/-http-client/index.html) 클래스입니다. 이 클래스 기능의 핵심은 HTTP 요청에 필요한 모든 정보를 가져오는 단일 함수 `request()`입니다.
+좋은 예시는 네트워크 요청을 수행하는 데 도움이 되는 Ktor 라이브러리의 [`HttpClient`](https://api.ktor.io/ktor-client-core/io.ktor.client/-http-client/index.html) 클래스입니다. 이 클래스 기능의 핵심은 HTTP 요청에 필요한 모든 정보를 가져오는 단일 함수 `request()`입니다.
 
 ```kotlin
 class HttpClient {
     fun request(method: String, url: String, headers: Map<String, String>): HttpResponse {
-        // Network code
+        // 네트워크 코드
     }
 }
 ```
@@ -114,7 +114,7 @@ fun main() {
 
 |---|---|
 ```kotlin
-fun Int.// Write your code here
+fun Int.// 여기에 코드를 작성하세요
 
 fun main() {
     println(1.isPositive())
@@ -146,7 +146,7 @@ fun main() {
 
 |---|---|
 ```kotlin
-fun // Write your code here
+fun // 여기에 코드를 작성하세요
 
 fun main() {
     println("Hello World!".toLowercaseString())

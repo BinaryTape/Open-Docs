@@ -262,7 +262,7 @@ val structuredResponse = promptExecutor.executeStructured<WeatherForecast>(
 
 | 이름           | 데이터 유형             | 필수 | 기본값        | 설명                                                                                                     |
 |----------------|-------------------------|------|---------------|-----------------------------------------------------------------------------------------------------------------|
-| `prompt`       | Prompt                  | 예   |               | 실행할 프롬프트입니다. 자세한 내용은 [프롬프트 API](prompt-api.md)를 참조하세요.                                   |
+| `prompt`       | Prompt                  | 예   |               | 실행할 프롬프트입니다. 자세한 내용은 [프롬프트](prompts/index.md)를 참조하세요.                                   |
 | `model`        | LLModel                 | 예   |               | 프롬프트를 실행할 주 모델입니다.                                                                           |
 | `examples`     | List&lt;T&gt;                 | 아니요 | `emptyList()` | 모델이 예상되는 형식을 이해하는 데 도움이 되는 선택적 예시 목록입니다.                                     |
 | `fixingParser` | StructureFixingParser?  | 아니요 | `null`        | 구문 분석 오류를 지능적으로 수정하기 위해 보조 LLM을 사용하여 형식이 잘못된 응답을 처리하는 선택적 파서입니다. |
@@ -427,7 +427,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 -->
 ```kotlin
-// 참고: import 문은 간결성을 위해 생략되었습니다.
+// Note: Import statements are omitted for brevity
 @Serializable
 @SerialName("SimpleWeatherForecast")
 @LLMDescription("Simple weather forecast for a location")
@@ -443,7 +443,7 @@ data class SimpleWeatherForecast(
 val token = System.getenv("OPENAI_KEY") ?: error("Environment variable OPENAI_KEY is not set")
 
 fun main(): Unit = runBlocking {
-    // 샘플 예측 생성
+    // Create sample forecasts
     val exampleForecasts = listOf(
         SimpleWeatherForecast(
             location = "New York",
@@ -457,13 +457,13 @@ fun main(): Unit = runBlocking {
         )
     )
 
-    // JSON 스키마 생성
+    // Generate JSON Schema
     val forecastStructure = JsonStructure.create<SimpleWeatherForecast>(
         schemaGenerator = BasicJsonSchemaGenerator.Default,
         examples = exampleForecasts
     )
 
-    // 에이전트 전략 정의
+    // Define the agent strategy
     val agentStrategy = strategy("weather-forecast") {
         val setup by nodeLLMRequest()
   
@@ -483,7 +483,7 @@ fun main(): Unit = runBlocking {
         edge(getStructuredForecast forwardTo nodeFinish)
     }
 
-    // 에이전트 구성 및 실행
+    // Configure and run the agent
     val agentConfig = AIAgentConfig(
         prompt = prompt("weather-forecast-prompt") {
             system(
@@ -562,7 +562,7 @@ val openAiStructure = JsonStructure.create<WeatherForecast>(
 
 val promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_KEY"))
 
-// 고급 API는 단순 매개변수 대신 StructuredRequestConfig를 사용합니다.
+// The advanced API uses StructuredRequestConfig instead of simple parameters
 val structuredResponse = promptExecutor.executeStructured(
     prompt = prompt("structured-data") {
         system("You are a weather forecasting assistant.")

@@ -23,7 +23,7 @@ Kotlin Notebook 基於我們的 [Kotlin Kernel for Jupyter Notebooks](https://gi
 
 憑藉這些功能，您可以執行各種任務，從簡單的程式碼試驗到全面的資料專案。
 
-深入探索以下章節，以發現您能用 Kotlin Notebook 實現什麼！
+深入探索以發現您能用 Kotlin Notebook 實現什麼！
 
 <a href="get-started-with-kotlin-notebooks.md"><img src="notebook-get-started-button.svg" width="600" alt="開始使用 Kotlin Notebook" style="block"/></a>
 
@@ -70,6 +70,15 @@ Kotlin Notebook 提供了在儲存格內呼叫 API 並處理像 OpenAPI 這樣�
 您還可以透過與任何筆記本網路檢視器分享 `.ipynb` 筆記本檔案來分發您的工作。一個選項是 [GitHub](https://github.com/)，它原生支援渲染此格式。另一個選項是 [JetBrain 的 Datalore](https://datalore.jetbrains.com/) 平台，它有助於分享、執行和編輯筆記本，並提供排程的筆記本執行等進階功能。
 
 ![kotlin-notebook-sharing-datalore](kotlin-notebook-sharing-datalore.png){width=700}
+
+或者，您可以快速地將目前的筆記本分享為 [GitHub Gist](https://gist.github.com/)。
+點擊工具列上的 **Create Gist** 按鈕。
+
+![notebook-github-gist](notebook-github-gist.png){width=400}
+
+IntelliJ IDEA 會將您的筆記本匯出到您的 GitHub 帳戶中的 Gist，並提供一個 URL 供分享、查看和下載該筆記本。
+
+該 Gist 會以 JSON 格式保留筆記本中的所有程式碼、輸出和 Markdown，GitHub 可以渲染此格式以進行預覽。
 
 ## 接下來
 

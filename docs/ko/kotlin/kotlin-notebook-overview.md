@@ -7,7 +7,7 @@
 
 IntelliJ IDEA 생태계 내에서 코틀린 코드를 개발하고 실험하고, 즉각적인 출력을 확인하며, 코드, 시각 자료 및 텍스트를 통합할 수 있는 원활한 코딩 경험을 준비하세요.
 
-![Kotlin Notebook](data-analysis-notebook.gif){width=700}
+![코틀린 노트북](data-analysis-notebook.gif){width=700}
 
 Kotlin Notebook 플러그인은 개발 프로세스를 향상시키는 [다양한 기능](https://www.jetbrains.com/help/idea/kotlin-notebook.html)을 제공합니다. 예를 들어:
 
@@ -19,7 +19,8 @@ Kotlin Notebook 플러그인은 개발 프로세스를 향상시키는 [다양�
 *   한 줄의 코드로 다양한 라이브러리 가져오기 또는 프로젝트에 새 라이브러리 추가
 *   오류 메시지 및 트레이스백을 통해 디버깅을 위한 통찰력 확보
 
-코틀린 노트북은 [Jupyter Notebook용 코틀린 커널](https://github.com/Kotlin/kotlin-jupyter?tab=readme-ov-file#kotlin-kernel-for-ipythonjupyter)을 기반으로 하여 다른 [코틀린 노트북 솔루션](data-analysis-overview.md#notebooks)과의 통합을 쉽게 만듭니다. 호환성 문제 없이 코틀린 노트북, [Datalore](https://datalore.jetbrains.com/) 및 [코틀린-Jupyter Notebook](https://github.com/Kotlin/kotlin-jupyter) 간에 작업물을 쉽게 공유할 수 있습니다.
+코틀린 노트북은 [Jupyter Notebook용 코틀린 커널](https://github.com/Kotlin/kotlin-jupyter?tab=readme-ov-file#kotlin-kernel-for-ipythonjupyter)을 기반으로 하여 다른 [코틀린 노트북 솔루션](data-analysis-overview.md#notebooks)과의 통합을 쉽게 만듭니다.
+호환성 문제 없이 코틀린 노트북, [Datalore](https://datalore.jetbrains.com/) 및 [코틀린-Jupyter Notebook](https://github.com/Kotlin/kotlin-jupyter) 간에 작업물을 쉽게 공유할 수 있습니다.
 
 이러한 기능을 통해 간단한 코드 실험부터 포괄적인 데이터 프로젝트에 이르기까지 광범위한 작업을 수행할 수 있습니다.
 
@@ -37,9 +38,9 @@ Kotlin Notebook 플러그인은 개발 프로세스를 향상시키는 [다양�
 
 Kotlin DataFrame은 또한 SQL 데이터베이스와의 원활한 연결을 지원하며 CSV, JSON, TXT를 포함한 다양한 파일 형식의 데이터를 IDE에서 직접 읽을 수 있습니다.
 
-오픈소스 코틀린 라이브러리인 [Kandy](https://kotlin.github.io/kandy/welcome.html)를 사용하면 다양한 유형의 차트를 생성할 수 있습니다. Kandy의 관용적이고, 읽기 쉬우며, 타입 안정적인 기능은 데이터를 효과적으로 시각화하고 가치 있는 통찰력을 얻는 데 도움이 됩니다.
+오픈소스 코틀린 라이브러리인 [Kandy](https://kotlin.github.io/kandy/welcome.html)를 사용하면 다양한 유형의 차트를 생성할 수 있습니다. Kandy의 관용적이고, 읽기 쉬우며, 타입 안전적인 기능은 데이터를 효과적으로 시각화하고 가치 있는 통찰력을 얻는 데 도움이 됩니다.
 
-![data-analytics-and-visualization](data-analysis-kandy-example.png){width=700}
+![데이터 분석 및 시각화](data-analysis-kandy-example.png){width=700}
 
 ## 프로토타이핑
 
@@ -47,13 +48,13 @@ Kotlin DataFrame은 또한 SQL 데이터베이스와의 원활한 연결을 지�
 
 코틀린 노트북의 도움으로 아이디어 구상 단계에서 솔루션의 개념을 조기에 테스트할 수 있습니다. 또한 코틀린 노트북은 협업 및 재현 가능한 작업을 모두 지원하여 새로운 아이디어 생성 및 평가를 지원합니다.
 
-![kotlin-notebook-prototyping](kotlin-notebook-prototyping.png){width=700}
+![코틀린 노트북 프로토타이핑](kotlin-notebook-prototyping.png){width=700}
 
 ## 백엔드 개발
 
 코틀린 노트북은 셀 내에서 API를 호출하고 OpenAPI와 같은 프로토콜과 함께 작업할 수 있는 기능을 제공합니다. 외부 서비스 및 API와 상호 작용하는 기능은 노트북 환경 내에서 직접 정보를 검색하고 JSON 파일을 읽는 것과 같은 특정 백엔드 개발 시나리오에 유용합니다.
 
-![kotlin-notebook-backend-development](kotlin-notebook-backend-development.png){width=700}
+![코틀린 노트북 백엔드 개발](kotlin-notebook-backend-development.png){width=700}
 
 ## 코드 문서화
 
@@ -61,7 +62,7 @@ Kotlin DataFrame은 또한 SQL 데이터베이스와의 원활한 연결을 지�
 
 또한 헤더, 목록, 링크, 이미지 등과 같은 다양한 서식 지정 옵션을 지원하는 Markdown 셀에 텍스트를 작성할 수도 있습니다. Markdown 셀을 렌더링하고 서식 지정된 텍스트를 보려면 코드 셀과 마찬가지로 실행하기만 하면 됩니다.
 
-![kotlin-notebook-documenting](kotlin-notebook-documentation.png){width=700}
+![코틀린 노트북 문서화](kotlin-notebook-documentation.png){width=700}
 
 ## 코드 및 출력 공유
 
@@ -69,7 +70,15 @@ Kotlin DataFrame은 또한 SQL 데이터베이스와의 원활한 연결을 지�
 
 또한 `.ipynb` 노트북 파일을 모든 노트북 웹 뷰어와 공유하여 작업물을 배포할 수도 있습니다. 한 가지 옵션은 이 형식을 기본적으로 렌더링하는 [GitHub](https://github.com/)입니다. 다른 옵션은 예약된 노트북 실행과 같은 고급 기능으로 노트북 공유, 실행 및 편집을 용이하게 하는 [JetBrain의 Datalore](https://datalore.jetbrains.com/) 플랫폼입니다.
 
-![kotlin-notebook-sharing-datalore](kotlin-notebook-sharing-datalore.png){width=700}
+![코틀린 노트북 공유 - Datalore](kotlin-notebook-sharing-datalore.png){width=700}
+
+또는 현재 노트북을 [GitHub Gist](https://gist.github.com/)로 빠르게 공유할 수 있습니다. 툴바에서 **Create Gist** 버튼을 클릭하세요.
+
+![노트북 GitHub Gist](notebook-github-gist.png){width=400}
+
+IntelliJ IDEA는 노트북을 GitHub 계정의 Gist로 내보내고, 노트북을 공유, 보고, 다운로드할 수 있는 URL을 제공합니다.
+
+Gist는 노트북의 모든 코드, 출력 및 Markdown을 GitHub가 미리 보기로 렌더링할 수 있는 JSON 형식으로 보존합니다.
 
 ## 다음 단계
 

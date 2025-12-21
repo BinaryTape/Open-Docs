@@ -463,7 +463,7 @@ class Expanded                                  // Visibility is public by defau
 
 Kotlin 2.0.0以降、Kotlin K2コンパイラーはデフォルトで有効になっています。
 
-Kotlinバージョンをアップグレードするには、[Gradle](gradle-configure-project.md#apply-the-plugin)および[Maven](maven.md#configure-and-enable-the-plugin)のビルドスクリプトで、バージョンを2.0.0以降に変更してください。
+Kotlinバージョンをアップグレードするには、[Gradle](gradle-configure-project.md#apply-the-plugin)および[Maven](maven-configure-project.md#enable-and-configure-the-plugin)のビルドスクリプトで、バージョンを2.0.0以降に変更してください。
 
 Android Studioで最高の体験をするには、IDEで[K2モード](#support-in-ides)を使用してください。IntelliJ IDEAはK2モードをデフォルトで使用するため、何も変更する必要はありません。
 
@@ -1155,6 +1155,7 @@ Kotlin Multiplatformを使用している場合、K2コンパイラーはKotlin�
 *   [Lombok](lombok.md)
 *   [`no-arg`](no-arg-plugin.md)
 *   [Parcelize](https://plugins.gradle.org/plugin/org.jetbrains.kotlin.plugin.parcelize)
+*   [Power-assert](power-assert.md)
 *   [SAM with receiver](sam-with-receiver-plugin.md)
 *   [Serialization](serialization.md)
 

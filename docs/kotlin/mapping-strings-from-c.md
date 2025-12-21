@@ -9,7 +9,7 @@
     </p>
 </tldr>
 
-> C 语言库导入处于 [Beta](native-c-interop-stability.md) 阶段。所有通过 cinterop 工具从 C 语言库生成的 Kotlin 声明都应带有 `@ExperimentalForeignApi` 注解。
+> C 语言库导入处于 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 阶段。所有由 cinterop 工具从 C 语言库生成的 Kotlin 声明都应带有 `@ExperimentalForeignApi` 注解。
 >
 > Kotlin/Native 附带的原生平台库（例如 Foundation、UIKit 和 POSIX）仅对某些 API 要求显式选择启用。
 >
@@ -91,7 +91,7 @@ C 语言中的字符串是空终止的，因此在字节序列的末尾会添加
    }
    ```
 
-2. 使用 IntelliJ IDEA 的 [Go to declaration](https://www.jetbrains.com/help/rider/Navigation_and_Search__Go_to_Declaration.html) 命令（<shortcut>Cmd + B</shortcut>/<shortcut>Ctrl + B</shortcut>）导航到以下为 C 语言生成的 API：
+2. 使用 IntelliJ IDEA 的 [Go to declaration](https://www.jetbrains.com/help/rider/Navigation_and_Search__Go_to_Declaration.html) 命令（<shortcut>Cmd + B</shortcut>/<shortcut>Ctrl + B</shortcut>）导航到以下为 C 语言函数生成的 API：
 
    ```kotlin
    fun pass_string(str: kotlinx.cinterop.CValuesRef<kotlinx.cinterop.ByteVarOf<kotlin.Byte> /* from: kotlinx.cinterop.ByteVar */>?)
@@ -138,15 +138,15 @@ fun passStringToC() {
 }
 ```
 
-在这里，`.toKString()` [扩展](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/to-k-string.html)函数将从 `return_string()` 函数返回的 C 字符串转换为 Kotlin 字符串。
+在这里，[.toKString()](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/to-k-string.html) 扩展函数将从 `return_string()` 函数返回的 C 字符串转换为 Kotlin 字符串。
 
 Kotlin 提供了几个扩展函数，用于将 C 语言的 `char *` 字符串转换为 Kotlin 字符串，具体取决于编码：
 
 ```kotlin
-fun CPointer<ByteVarOf<Byte>>.toKString(): String // Standard function for UTF-8 strings
-fun CPointer<ByteVarOf<Byte>>.toKStringFromUtf8(): String // Explicitly converts UTF-8 strings
-fun CPointer<ShortVarOf<Short>>.toKStringFromUtf16(): String // Converts UTF-16 encoded strings
-fun CPointer<IntVarOf<Int>>.toKStringFromUtf32(): String // Converts UTF-32 encoded strings
+fun CPointer<ByteVarOf<Byte>>.toKString(): String // 用于 UTF-8 字符串的标准函数
+fun CPointer<ByteVarOf<Byte>>.toKStringFromUtf8(): String // 显式转换 UTF-8 字符串
+fun CPointer<ShortVarOf<Short>>.toKStringFromUtf16(): String // 转换 UTF-16 编码字符串
+fun CPointer<IntVarOf<Int>>.toKStringFromUtf32(): String // 转换 UTF-32 编码字符串
 ```
 
 ## 从 Kotlin 接收 C 字符串字节
@@ -175,11 +175,11 @@ fun sendString() {
 }
 ```
 
-在这里，首先将一个原生指针传递给 C 函数。`.usePinned()` [扩展](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/use-pinned.html)函数会临时固定字节数组的原生内存地址。C 函数会用数据填充字节数组。另一个扩展函数 `ByteArray.decodeToString()` 则将字节数组转换为 Kotlin 字符串，假设为 UTF-8 编码。 
+在这里，首先将一个原生指针传递给 C 函数。[.usePinned()](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/use-pinned.html) 扩展函数会临时固定字节数组的原生内存地址。C 函数会用数据填充字节数组。另一个扩展函数 `ByteArray.decodeToString()` 则将字节数组转换为 Kotlin 字符串，假设为 UTF-8 编码。 
 
 ## 更新 Kotlin 代码
 
-既然你已经学会了如何在 Kotlin 代码中使用 C 声明，请尝试在你的项目中中使用它们。最终的 `hello.kt` 文件中的代码可能如下所示：
+既然你已经学会了如何在 Kotlin 代码中使用 C 声明，请尝试在你的项目中使用它们。最终的 `hello.kt` 文件中的代码可能如下所示：
  
 ```kotlin
 import interop.*

@@ -123,7 +123,7 @@ kotlin {
 如果您需要編譯生產程式碼和單元測試之外的內容，例如整合測試或效能測試，請建立自訂編譯。
 
 對於自訂編譯，您需要手動設定所有依賴項。自訂編譯的預設原始碼集不依賴於 `commonMain` 和 `commonTest` 原始碼集。
-
+ 
 例如，要為 `jvm` 目標的整合測試建立自訂編譯，請在 `integrationTest` 和 `main` 編譯之間建立 [`associateWith`](https://kotlinlang.org/docs/gradle-configure-project.html#associate-compiler-tasks) 關係：
 
 <Tabs group="build-script">
@@ -135,7 +135,7 @@ kotlin {
         compilations {
             val main by getting
             val integrationTest by creating {
-                // Import main and its classpath as dependencies and establish internal visibility
+                // 匯入 main 及其 classpath 作為依賴項並建立內部可見性
                 associateWith(main)
                 defaultSourceSet {
                     dependencies {
@@ -144,9 +144,9 @@ kotlin {
                     }
                 }
                 
-                // Create a test task to run the tests produced by this compilation:
+                // 建立一個測試任務來執行此編譯產生的測試：
                 testRuns.create("integration") {
-                    // Configure the test task
+                    // 配置測試任務
                     setExecutionSourceFrom(integrationTest)
                 }
             }
@@ -163,7 +163,7 @@ kotlin {
     jvm {
         compilations.create('integrationTest') {
             def main = compilations.main
-            // Import main and its classpath as dependencies and establish internal visibility
+            // 匯入 main 及其 classpath 作為依賴項並建立內部可見性
             associateWith(main)
             defaultSourceSet {
                 dependencies {
@@ -172,9 +172,9 @@ kotlin {
                 }
             }
 
-            // Create a test task to run the tests produced by this compilation
+            // 建立一個測試任務來執行此編譯產生的測試
             testRuns.create('integration') {
-                // Configure the test task
+                // 配置測試任務
                 setExecutionSourceFrom(compilations.integrationTest)
             }
         }
@@ -189,7 +189,7 @@ kotlin {
 
 自訂編譯在其他情況下也是必要的。例如，如果您想在最終構件中合併不同 JVM 版本的編譯，或者您已經在 Gradle 中設定了原始碼集並希望遷移到多平台專案。
 
-> 若要為 [`androidTarget`](#compilation-for-android) 建立自訂編譯，請透過 [Android Gradle plugin](https://developer.android.com/build/build-variants) 設定建構變體。
+> 若要為 [`android`](#compilation-for-android) 建立自訂編譯，請透過 [Android Gradle plugin](https://developer.android.com/build/build-variants) 設定建構變體。
 > 
 {style="tip"}
 
@@ -213,24 +213,24 @@ kotlin {
 <TabItem title="Kotlin" group-key="kotlin">
 
 ```kotlin
-// Shared module's `build.gradle.kts` file
+// 共享模組的 `build.gradle.kts` 檔案
 plugins {
     kotlin("multiplatform") version "%kotlinVersion%"
 }
 
 kotlin {
-    // Specify the JVM target
+    // 指定 JVM 目標
     jvm {
-        // Add the task for JAR generation
+        // 添加 JAR 產生任務
         tasks.named<Jar>(artifactsTaskName).configure {
-            // Configure the task
+            // 配置任務
         }
     }
 
     sourceSets {
         jvmMain {
             dependencies {
-                // Add JVM-specific dependencies
+                // 添加 JVM 特定依賴項
             }
         }
     }
@@ -241,24 +241,24 @@ kotlin {
 <TabItem title="Groovy" group-key="groovy">
 
 ```groovy
-// Shared module's `build.gradle` file
+// 共享模組的 `build.gradle` 檔案
 plugins {
     id 'org.jetbrains.kotlin.multiplatform' version '%kotlinVersion%'
 }
 
 kotlin {
-    // Specify the JVM target
+    // 指定 JVM 目標
     jvm {
-        // Add the task for JAR generation
+        // 添加 JAR 產生任務
         tasks.named<Jar>(artifactsTaskName).configure {
-            // Configure the task
+            // 配置任務
         }
     }
 
     sourceSets {
         jvmMain {
             dependencies {
-                // Add JVM-specific dependencies
+                // 添加 JVM 特定依賴項
             }
         }
     }
@@ -363,7 +363,7 @@ kotlin {
  
 預設為 Android 目標建立的編譯與 [Android 建構變體](https://developer.android.com/build/build-variants) 綁定：對於每個建構變體，會以相同名稱建立一個 Kotlin 編譯。
 
-然後，對於為每個變體編譯的每個 [Android 原始碼集](https://developer.android.com/build/build-variants#sourcesets)，都會建立一個以目標名稱作為前綴的 Kotlin 原始碼集，例如 Android 原始碼集 `debug` 和名為 `androidTarget` 的 Kotlin 目標會對應到 Kotlin 原始碼集 `androidDebug`。這些 Kotlin 原始碼集會相應地添加到變體的編譯中。
+然後，對於為每個變體編譯的每個 [Android 原始碼集](https://developer.android.com/build/build-variants#sourcesets)，都會建立一個以目標名稱作為前綴的 Kotlin 原始碼集，例如 Android 原始碼集 `debug` 和名為 `android` 的 Kotlin 目標會對應到 Kotlin 原始碼集 `androidDebug`。這些 Kotlin 原始碼集會相應地添加到變體的編譯中。
 
 預設原始碼集 `commonMain` 會添加到每個生產 (應用程式或函式庫) 變體的編譯中。`commonTest` 原始碼集也會以類似方式添加到單元測試和儀器化測試變體的編譯中。
 
@@ -371,7 +371,7 @@ kotlin {
 
 ```kotlin
 kotlin {
-    androidTarget { /* ... */ }
+    android { /* ... */ }
 }
 
 dependencies {

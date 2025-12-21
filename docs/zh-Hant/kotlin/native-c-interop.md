@@ -1,6 +1,6 @@
 [//]: # (title: 與 C 的互通性)
 
-> C 函式庫匯入處於 [Beta](native-c-interop-stability.md) 階段。所有由 cinterop 工具從 C 函式庫產生的 Kotlin 宣告都應具備 `@ExperimentalForeignApi` 註解。
+> C 函式庫匯入處於 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 階段。所有由 cinterop 工具從 C 函式庫產生的 Kotlin 宣告都應具備 `@ExperimentalForeignApi` 註解。
 >
 > 隨 Kotlin/Native 附帶的原生平台函式庫（例如 Foundation、UIKit 和 POSIX）僅需針對部分 API 選擇啟用。
 >
@@ -18,9 +18,9 @@
 
 以下是處理需要使用 C 函式庫的專案時的一般工作流程：
 
-1. 建立並設定[定義檔](native-definition-file.md)。它描述了 cinterop 工具應將哪些內容納入 Kotlin [繫結](#bindings)。
-2. 設定您的 Gradle 建置檔，以將 cinterop 納入建置程序。
-3. 編譯並執行專案以產生最終的可執行檔。
+1.  建立並設定[定義檔](native-definition-file.md)。它描述了 cinterop 工具應將哪些內容納入 Kotlin [繫結](#bindings)。
+2.  設定您的 Gradle 建置檔，以將 cinterop 納入建置程序。
+3.  編譯並執行專案以產生最終的可執行檔。
 
 > 如需實際操作體驗，請完成[使用 C 互通性建立應用程式](native-app-with-c-and-libcurl.md)教學課程。
 >

@@ -2,7 +2,7 @@
 
 Kotlin 멀티플랫폼 모듈에 Android 전용 종속성을 추가하는 워크플로는 순수 Android 프로젝트와 동일합니다. Gradle 파일에 종속성을 선언하고 프로젝트를 임포트하면 됩니다. 그 후 Kotlin 코드에서 이 종속성을 사용할 수 있습니다.
 
-Kotlin 멀티플랫폼 프로젝트에서 Android 종속성을 선언할 때는 특정 Android 소스 세트에 추가하는 것을 권장합니다. 이를 위해 프로젝트의 `shared` 디렉터리에 있는 `build.gradle(.kts)` 파일을 업데이트합니다.
+Kotlin 멀티플랫폼 프로젝트에서 Android 종속성을 선언할 때는 특정 Android 소스 세트에 추가하는 것을 권장합니다. 이를 위해 프로젝트의 `shared` 디렉터리에 있는 `build.gradle(.kts)` 파일을 업데이트합니다:
 
 <Tabs group="build-script">
 <TabItem title="Kotlin" group-key="kotlin">
@@ -14,7 +14,7 @@ kotlin {
         androidMain.dependencies {
             implementation("com.example.android:app-magic:12.3")
         }
-    } 
+    }
 }
 ```
 
@@ -37,14 +37,14 @@ kotlin {
 </TabItem>
 </Tabs>
 
-Android 프로젝트에서 최상위 종속성이었던 것을 멀티플랫폼 프로젝트의 특정 소스 세트로 옮기는 것은, 해당 최상위 종속성이 복잡한 구성 이름을 가졌을 경우 어려울 수 있습니다. 예를 들어, Android 프로젝트의 최상위에 있던 `debugImplementation` 종속성을 옮기려면 `androidDebug`라는 이름의 소스 세트에 `implementation` 종속성을 추가해야 합니다. 이와 같은 마이그레이션 문제에 대처하는 데 드는 노력을 최소화하기 위해, `androidTarget {}` 블록 안에 `dependencies {}` 블록을 추가할 수 있습니다.
+Android 프로젝트에서 최상위 종속성이었던 것을 멀티플랫폼 프로젝트의 특정 소스 세트로 옮기는 것은, 해당 최상위 종속성이 복잡한 구성 이름을 가졌을 경우 어려울 수 있습니다. 예를 들어, Android 프로젝트의 최상위에 있던 `debugImplementation` 종속성을 옮기려면 `androidDebug`라는 이름의 소스 세트에 `implementation` 종속성을 추가해야 합니다. 이와 같은 마이그레이션 문제에 대처하는 데 드는 노력을 최소화하기 위해, `android {}` 블록 안에 `dependencies {}` 블록을 추가할 수 있습니다:
 
 <Tabs group="build-script">
 <TabItem title="Kotlin" group-key="kotlin">
 
 ```kotlin
 kotlin {
-    androidTarget {
+    android {
         //...
         dependencies {
             implementation("com.example.android:app-magic:12.3")
@@ -58,7 +58,7 @@ kotlin {
 
 ```groovy
 kotlin {
-    androidTarget {
+    android {
         //...
         dependencies {
             implementation 'com.example.android:app-magic:12.3'

@@ -9,12 +9,12 @@
     </p>
 </tldr>
 
-> Cライブラリのインポートは[ベータ版](native-c-interop-stability.md)です。Cライブラリからcinteropツールによって生成されたすべてのKotlin宣言には、`@ExperimentalForeignApi`アノテーションが必要です。
+> Cライブラリのインポートは[ベータ版](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import)です。cinteropツールによってCライブラリから生成されたすべてのKotlin宣言には、`@ExperimentalForeignApi`アノテーションが必要です。
 >
 > Kotlin/Nativeに同梱されているネイティブプラットフォームライブラリ（Foundation、UIKit、POSIXなど）は、一部のAPIのみオプトインが必要です。
 > {style="note"}
 
-KotlinからどのC関数ポインターが可視であるかを探り、Kotlin/Nativeと[マルチプラットフォーム](gradle-configure-project.md#targeting-multiple-platforms) Gradleビルドの高度なC相互運用関連のユースケースを調べましょう。
+KotlinからどのC関数ポインターが可視であるかを探り、Kotlin/Nativeと[マルチプラットフォーム](gradle-configure-project.md#targeting-multiple-platforms) Gradleビルドにおける高度なC相互運用関連のユースケースを調べましょう。
 
 このチュートリアルでは、以下を行います。
 

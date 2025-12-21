@@ -151,26 +151,26 @@ class Polygon : Shape {
 //sampleStart
 open class Base(val name: String) {
 
-    init { println("기본 클래스 초기화 중") }
+    init { println("Initializing a base class") }
 
-    open val size: Int =
-        name.length.also { println("기본 클래스에서 size 초기화 중: $it") }
+    open val size: Int = 
+        name.length.also { println("Initializing size in the base class: $it") }
 }
 
 class Derived(
     name: String,
     val lastName: String,
-) : Base(name.replaceFirstChar { it.uppercase() }.also { println("기본 클래스 인자: $it") }) {
+) : Base(name.replaceFirstChar { it.uppercase() }.also { println("Argument for the base class: $it") }) {
 
-    init { println("파생 클래스 초기화 중") }
+    init { println("Initializing a derived class") }
 
     override val size: Int =
-        (super.size + lastName.length).also { println("파생 클래스에서 size 초기화 중: $it") }
+        (super.size + lastName.length).also { println("Initializing size in the derived class: $it") }
 }
 //sampleEnd
 
 fun main() {
-    println("파생 클래스(\"hello\", \"world\") 생성 중")
+    println("Constructing the derived class(\"hello\", \"world\")")
     Derived("hello", "world")
 }
 ```
@@ -184,14 +184,14 @@ fun main() {
 
 ```kotlin
 open class Rectangle {
-    open fun draw() { println("직사각형을 그리는 중") }
+    open fun draw() { println("Drawing a rectangle") }
     val borderColor: String get() = "black"
 }
 
 class FilledRectangle : Rectangle() {
     override fun draw() {
         super.draw()
-        println("직사각형을 채우는 중")
+        println("Filling the rectangle")
     }
 
     val fillColor: String get() = super.borderColor
@@ -202,7 +202,7 @@ class FilledRectangle : Rectangle() {
 
 ```kotlin
 open class Rectangle {
-    open fun draw() { println("직사각형을 그리는 중") }
+    open fun draw() { println("Drawing a rectangle") }
     val borderColor: String get() = "black"
 }
 
@@ -214,11 +214,11 @@ class FilledRectangle: Rectangle() {
     }
     
     inner class Filler {
-        fun fill() { println("채우는 중") }
+        fun fill() { println("Filling") }
         fun drawAndFill() {
             super@FilledRectangle.draw() // Rectangle.draw() 호출
             fill()
-            println("색상 ${super@FilledRectangle.borderColor}으로 채워진 직사각형을 그렸습니다") // Rectangle의 borderColor의 get() 구현 사용
+            println("Drawn a filled rectangle with color ${super@FilledRectangle.borderColor}") // Uses Rectangle's implementation of borderColor's get()
         }
     }
 }

@@ -474,7 +474,7 @@ kotlin {
 
 [前述](#how-to-define-options)のとおり、JVM/Androidプロジェクトのコンパイラーオプションは、拡張、ターゲット、コンパイル単位（タスク）の各レベルで定義できます。
 
-デフォルトのJVMコンパイルタスクは、プロダクションコード用が`compileKotlin`、テストコード用が`compileTestKotlin`です。
+プロダクションコード用のデフォルトJVMコンパイルタスクは`compileKotlin`、テストコード用は`compileTestKotlin`です。
 カスタムソースセット用のタスクは、その`compile<Name>Kotlin`パターンに従って命名されます。
 
 `gradlew tasks --all`コマンドをターミナルで実行し、`Other tasks`グループで`compile*Kotlin`というタスク名を検索することで、Androidコンパイルタスクのリストを確認できます。
@@ -574,7 +574,7 @@ Gradleコンパイラーのオプションの全リストを以下に示しま�
 | 名前                      | 説明                                                                                                                                                                                                                                  | 設定可能な値                                                                                         | デフォルト値               |
 |---------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|-----------------------------|
 | `javaParameters`          | メソッドパラメータに対するJava 1.8リフレクションのメタデータを生成します。                                                                                                                                                                               |                                                                                                         | `false`                     |
-| `jvmTarget`               | 生成されるJVMバイトコードのターゲットバージョンです。                                                                                                                                                                                                 | "1.8", "9", "10", ...,  "23", "24"。また、[コンパイラーオプションの型](#types-for-compiler-options)も参照してください。 | "%defaultJvmTargetVersion%" |
+| `jvmTarget`               | 生成されるJVMバイトコードのターゲットバージョンです。                                                                                                                                                                                                 | "1.8", "9", "10", ...,  "24", "25"。また、[コンパイラーオプションの型](#types-for-compiler-options)も参照してください。 | "%defaultJvmTargetVersion%" |
 | `noJdk`                   | Javaランタイムをクラスパスに自動的に含めません。                                                                                                                                                                              |                                                                                                         | `false`                     |
 | `jvmTargetValidationMode` | <list><li>KotlinとJava間の[JVMターゲット互換性](gradle-configure-project.md#check-for-jvm-target-compatibility-of-related-compile-tasks)の検証。</li><li>`KotlinCompile`タイプのタスクのプロパティ。</li></list> | `WARNING`, `ERROR`, `IGNORE`                                                                            | `ERROR`                     |
 | `jvmDefault`              | インターフェースで宣言された関数がJVM上のデフォルトメソッドにどのようにコンパイルされるかを制御します。                                                                                                                                                      | `ENABLE`, `NO_COMPATIBILITY`, `DISABLE`                                                                 | `ENABLE`                    |
@@ -587,8 +587,8 @@ Gradleコンパイラーのオプションの全リストを以下に示しま�
 | `suppressWarnings`    | 警告を生成しません。                                                                                                                            |                                                                           | `false`      |
 | `verbose`             | 詳細なロギング出力を有効にします。[Gradleデバッグログレベルが有効](https://docs.gradle.org/current/userguide/logging.html)の場合のみ機能します。 |                                                                           | `false`      |
 | `freeCompilerArgs`    | 追加のコンパイラー引数のリストです。実験的な`-X`引数もここで使用できます。[追加引数の使用例](#example-of-additional-arguments-usage-via-freecompilerargs)を参照してください。 |                                                                           | `[]`         |
-| `apiVersion`          | バンドルされたライブラリの指定されたバージョンからの宣言の使用を制限します。                                              | "1.8", "1.9", "2.0", "2.1", "2.2" (EXPERIMENTAL)                          |              |
-| `languageVersion`     | 指定されたKotlinバージョンとのソース互換性を提供します。                                                          | "1.8", "1.9", "2.0", "2.1", "2.2" (EXPERIMENTAL)                          |              |
+| `apiVersion`          | バンドルされたライブラリの指定されたバージョンからの宣言の使用を制限します。                                              | "1.9", "2.0", "2.1", "2.2", "2.3", "2.4" (EXPERIMENTAL)                   |              |
+| `languageVersion`     | 指定されたKotlinバージョンとのソース互換性を提供します。                                                          | "1.9", "2.0", "2.1", "2.2", "2.3", "2.4" (EXPERIMENTAL)                   |              |
 
 > 今後のリリースで`freeCompilerArgs`属性は非推奨になる予定です。Kotlin Gradle DSLで何らかのオプションが不足している場合は、
 > [イシューを登録してください](https://youtrack.jetbrains.com/newissue?project=kt)。
@@ -687,6 +687,7 @@ tasks
         compilerOptions.languageVersion =
             org.jetbrains.kotlin.gradle.dsl.KotlinVersion.%gradleLanguageVersion%
     }
+}
 ```
 
 </tab>

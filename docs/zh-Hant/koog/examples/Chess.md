@@ -245,13 +245,9 @@ class ChessGame {
 ```kotlin
 import kotlinx.serialization.Serializable
 
-class Move(val game: ChessGame) : SimpleTool<Move.Args>() {
-    @Serializable
-    data class Args(val notation: String) : ToolArgs
-
-    override val argsSerializer = Args.serializer()
-
-    override val descriptor = ToolDescriptor(
+class Move(val game: ChessGame) : SimpleTool<Move.Args>(
+    argsSerializer = Args.serializer(),
+    descriptor = ToolDescriptor(
         name = "move",
         description = "Moves a piece according to the notation:
 ${game.moveNotation}",
@@ -263,8 +259,11 @@ ${game.moveNotation}",
             )
         )
     )
+) {
+    @Serializable
+    data class Args(val notation: String) : ToolArgs
 
-    override suspend fun doExecute(args: Args): String {
+    override suspend fun execute(args: Args): String {
         game.move(args.notation)
         println(game.getBoard())
         println("-----------------")
@@ -280,7 +279,8 @@ ${game.currentPlayer()} to move! Make the move!"
 1.  **擴展 SimpleTool**：繼承基本的工具功能，具備類型安全引數處理
 2.  **可序列化引數**：使用 Kotlin 序列化定義工具的輸入參數
 3.  **豐富的文件**：`ToolDescriptor` 為 LLM 提供了關於工具目的和參數的詳細資訊
-4.  **執行邏輯**：`doExecute` 方法處理實際走法執行並提供格式化的回饋
+4.  **建構子參數**：將 `argsSerializer` 和 `descriptor` 傳遞給建構子
+5.  **執行邏輯**：`execute` 方法處理實際走法執行並提供格式化的回饋
 
 關鍵設計方面：
 - **上下文注入**：工具接收 `ChessGame` 實例，允許其修改遊戲狀態
@@ -318,7 +318,7 @@ val strategy = strategy<String, String>("chess_strategy") {
     val nodeSendToolResult by nodeLLMSendToolResult("nodeSendToolResult")
     val nodeTrimHistory by nodeTrimHistory<ReceivedToolResult>()
 
-    edge(nodeStart forwardTo nodeCallLLLL)
+    edge(nodeStart forwardTo nodeCallLLM)
     edge(nodeCallLLM forwardTo nodeExecuteTool onToolCall { true })
     edge(nodeCallLLM forwardTo nodeFinish onAssistantMessage { true })
     edge(nodeExecuteTool forwardTo nodeTrimHistory)
@@ -568,7 +568,7 @@ val strategy = strategy<String, String>("chess_strategy") {
     val nodeSendToolResult by nodeLLMSendToolResult("nodeSendToolResult")
     val nodeTrimHistory by nodeTrimHistory<ReceivedToolResult>()
 
-    edge(nodeStart forwardTo nodeCallLLLL)
+    edge(nodeStart forwardTo nodeCallLLM)
     edge(nodeCallLLM forwardTo nodeExecuteTool onToolCall { true })
     edge(nodeCallLLM forwardTo nodeFinish onAssistantMessage { true })
     edge(nodeExecuteTool forwardTo nodeTrimHistory)

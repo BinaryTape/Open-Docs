@@ -1,7 +1,7 @@
 [//]: # (title: Swift 包导出设置)
 
 <tldr>
-   这是一个远程集成方法。它适用于以下情况：<br/>
+   这是一种远程集成方法。它适用于以下情况：<br/>
 
    * 你希望将最终应用程序的代码库与公共代码库分开。
    * 你已经在本地机器上设置了一个面向 iOS 的 Kotlin Multiplatform 项目。
@@ -54,7 +54,7 @@
    kotlin {
        // Other Kotlin Multiplatform targets
        // ...
-       // Name of the module to be imported in the consumer project
+       // 在消费者项目中要导入的模块名称
        val xcframeworkName = "Shared"
        val xcf = XCFramework(xcframeworkName)
    
@@ -66,7 +66,7 @@
            it.binaries.framework {
                baseName = xcframeworkName
                
-               // Specify CFBundleIdentifier to uniquely identify the framework
+               // 指定 CFBundleIdentifier 以唯一标识 framework
                binaryOption("bundleId", "org.example.${xcframeworkName}")
                xcf.add(this)
                isStatic = true
@@ -228,7 +228,8 @@
             iosArm64(),
             iosSimulatorArm64()
         ).forEach { iosTarget ->
-            // 与上面的示例相同，增加了依赖项的导出调用
+            // 与上面的示例相同，
+            // 增加了依赖项的导出调用
             iosTarget.binaries.framework {
                 export(projects.network)
                 export(projects.database)
@@ -252,7 +253,7 @@
 
     ```kotlin
     kotlin {
-        androidTarget {
+        android {
             //...
         }
         

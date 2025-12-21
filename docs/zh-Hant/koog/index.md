@@ -42,23 +42,31 @@ Koog 是一個開源的 JetBrains 框架，用於建立 AI 代理，它採用慣
 
     建立並執行使用自訂策略處理複雜工作流程的代理
 
+-   :material-state-machine:{ .lg .middle } [**規劃型代理**](planner-agents.md)
+
+    ---
+
+    建立並執行迭代地建立並執行計畫的代理
+
 </div>
 
 ## 核心功能
 
 <div class="grid cards" markdown>
 
--   :material-chat-processing-outline:{ .lg .middle } [**提示**](prompt-api.md)
+-   :material-chat-processing-outline:{ .lg .middle } [**提示**](prompts/index.md)
 
     ---
 
-    建立提示、使用 LLM 用戶端或提示執行器執行它們、在 LLM 和提供者之間切換，並透過內建重試處理故障
+    建立提示、使用 LLM 用戶端或提示執行器執行它們、
+    在 LLM 和提供者之間切換，並透過內建重試處理故障
 
 -   :material-wrench:{ .lg .middle } [**工具**](tools-overview.md)
 
     ---
 
-    使用內建、基於註解或基於類別的工具來增強您的代理，這些工具可以存取外部系統和 API
+    使用內建、基於註解或基於類別的工具來增強您的代理，
+    這些工具可以存取外部系統和 API
 
 -   :material-share-variant-outline:{ .lg .middle } [**策略**](predefined-agent-strategies.md)
 

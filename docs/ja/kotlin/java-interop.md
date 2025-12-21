@@ -1,6 +1,6 @@
 [//]: # (title: KotlinからのJavaの呼び出し)
 
-KotlinはJavaとの相互運用性を考慮して設計されています。既存のJavaコードはKotlinから自然な形で呼び出すことができ、KotlinコードもJavaからスムーズに使用できます。このセクションでは、KotlinからJavaコードを呼び出す際の詳細について説明します。
+KotlinはJavaとの相互運用性を念頭に置いて設計されています。既存のJavaコードはKotlinから自然な形で呼び出すことができ、KotlinコードもJavaからかなりスムーズに使用できます。このセクションでは、KotlinからJavaコードを呼び出す際の詳細について説明します。
 
 ほぼすべてのJavaコードは問題なく使用できます。
 
@@ -9,31 +9,31 @@ import java.util.*
 
 fun demo(source: List<Int>) {
     val list = ArrayList<Int>()
-    // 'for'-loops work for Java collections:
+    // 'for'-ループはJavaコレクションでも機能します:
     for (item in source) {
         list.add(item)
     }
-    // Operator conventions work as well:
+    // 演算子規約も機能します:
     for (i in 0..source.size - 1) {
-        list[i] = source[i] // get and set are called
+        list[i] = source[i] // get と set が呼び出されます
     }
 }
 ```
 
 ## ゲッターとセッター
 
-Javaのゲッターとセッターの規約（`get`で始まる引数なしのメソッド、`set`で始まる単一引数のメソッド）に従うメソッドは、Kotlinではプロパティとして表現されます。このようなプロパティは*合成プロパティ*（_synthetic properties_）とも呼ばれます。`Boolean`アクセサメソッド（ゲッターの名前が`is`で始まり、セッターの名前が`set`で始まるもの）は、ゲッターメソッドと同じ名前を持つプロパティとして表現されます。
+ゲッターとセッターのJava規約（`get`で始まる引数なしのメソッド、`set`で始まる単一引数のメソッド）に従うメソッドは、Kotlinではプロパティとして表現されます。このようなプロパティは*合成プロパティ*（_synthetic properties_）とも呼ばれます。`Boolean`アクセサメソッド（ゲッターの名前が`is`で始まり、セッターの名前が`set`で始まるもの）は、ゲッターメソッドと同じ名前を持つプロパティとして表現されます。
 
 ```kotlin
 import java.util.Calendar
 
 fun calendarDemo() {
     val calendar = Calendar.getInstance()
-    if (calendar.firstDayOfWeek == Calendar.SUNDAY) { // call getFirstDayOfWeek()
-        calendar.firstDayOfWeek = Calendar.MONDAY // call setFirstDayOfWeek()
+    if (calendar.firstDayOfWeek == Calendar.SUNDAY) { // getFirstDayOfWeek() を呼び出す
+        calendar.firstDayOfWeek = Calendar.MONDAY // setFirstDayOfWeek() を呼び出す
     }
-    if (!calendar.isLenient) { // call isLenient()
-        calendar.isLenient = true // call setLenient()
+    if (!calendar.isLenient) { // isLenient() を呼び出す
+        calendar.isLenient = true // setLenient() を呼び出す
     }
 }
 ```
@@ -76,9 +76,9 @@ Kotlinでは常に`person.age`と書くことができ、`age`は合成プロパ
 ```kotlin
 val persons = listOf(Person("Jack", 11), Person("Sofie", 12), Person("Peter", 11))
     persons
-         // Call a reference to Java synthetic property:
+         // Java合成プロパティへの参照を呼び出す:
         .sortedBy(Person::age)
-         // Call Java getter via the Kotlin property syntax:
+         // Kotlinプロパティ構文を介してJavaゲッターを呼び出す:
         .forEach { person -> println(person.name) }
 ```
 
@@ -117,7 +117,7 @@ tasks
 </tabs>
 
 > Kotlin 1.9.0より前では、この機能を有効にするには`-language-version 1.9`コンパイラオプションを設定する必要がありました。
-> 
+>
 {style="note"}
 
 ## `void`を返すメソッド
@@ -151,15 +151,15 @@ val item = list[0] // platform type inferred (ordinary Java object)
 プラットフォーム型の変数に対してメソッドを呼び出す場合、Kotlinはコンパイル時にNull許容性エラーを発行しませんが、Nullポインター例外またはKotlinがNullの伝播を防ぐために生成するアサーションによって、実行時に呼び出しが失敗する可能性があります。
 
 ```kotlin
-item.substring(1) // allowed, throws an exception if item == null
+item.substring(1) // 許可されるが、item == null の場合は例外をスローする
 ```
 
 プラットフォーム型は*表記不可能*（non-denotable）であり、言語で明示的に記述することはできません。
 プラットフォーム値がKotlin変数に割り当てられる場合、型推論に頼るか（上記の例の`item`のように、変数は推論されたプラットフォーム型になります）、または期待する型を選択できます（Null許容型と非Null許容型の両方が許可されます）。
 
 ```kotlin
-val nullable: String? = item // allowed, always works
-val notNull: String = item // allowed, may fail at runtime
+val nullable: String? = item // 許可され、常に機能する
+val notNull: String = item // 許可されるが、実行時に失敗する可能性がある
 ```
 
 非Null許容型を選択した場合、コンパイラは代入時にアサーションを出力します。これにより、Kotlinの非Null許容変数がNullを保持することを防ぎます。アサーションは、プラットフォーム値を非Null値を期待するKotlin関数に渡す場合や、その他の場合にも出力されます。
@@ -179,14 +179,14 @@ val notNull: String = item // allowed, may fail at runtime
 Null許容性アノテーションを持つJava型は、プラットフォーム型としてではなく、実際のNull許容または非Null許容Kotlin型として表現されます。コンパイラは、いくつかの種類のNull許容性アノテーションをサポートしています。
 
 *   [JetBrains](https://www.jetbrains.com/idea/help/nullable-and-notnull-annotations.html)
-    (`org.jetbrains.annotations`パッケージの`@Nullable`および`@NotNull`)
-*   [JSpecify](https://jspecify.dev/) (`org.jspecify.annotations`)
-*   Android (`com.android.annotations`および`android.support.annotations`)
-*   JSR-305 (`javax.annotation`、詳細は以下を参照)
-*   FindBugs (`edu.umd.cs.findbugs.annotations`)
-*   Eclipse (`org.eclipse.jdt.annotation`)
-*   Lombok (`lombok.NonNull`)
-*   RxJava 3 (`io.reactivex.rxjava3.annotations`)
+    （`org.jetbrains.annotations`パッケージの`@Nullable`および`@NotNull`）
+*   [JSpecify](https://jspecify.dev/) （`org.jspecify.annotations`）
+*   Android （`com.android.annotations`および`android.support.annotations`）
+*   JSR-305 （`javax.annotation`、詳細は以下を参照）
+*   FindBugs （`edu.umd.cs.findbugs.annotations`）
+*   Eclipse （`org.eclipse.jdt.annotation`）
+*   Lombok （`lombok.NonNull`）
+*   RxJava 3 （`io.reactivex.rxjava3.annotations`）
 
 特定の種類のNull許容性アノテーションからの情報に基づいて、コンパイラがNull許容性の不一致を報告するかどうかを指定できます。コンパイラオプション`-Xnullability-annotations=@<package-name>:<report-level>`を使用します。引数には、完全修飾されたNull許容性アノテーションパッケージと、以下のいずれかのレポートレベルを指定します。
 *   `ignore`: Null許容性の不一致を無視します。
@@ -314,10 +314,10 @@ public @interface MyNullable {
 
 interface A {
     @MyNullable String foo(@MyNonnull String x);
-    // in Kotlin (strict mode): `fun foo(x: String): String?`
+    // Kotlinでの記述 (strictモード): `fun foo(x: String): String?`
 
     String bar(List<@MyNonnull String> x);
-    // in Kotlin (strict mode): `fun bar(x: List<String>!): String!`
+    // Kotlinでの記述 (strictモード): `fun bar(x: List<String>!): String!`
 }
 ```
 
@@ -349,15 +349,13 @@ public @interface NullableApi {
 interface A {
     String foo(String x); // fun foo(x: String?): String?
 
-    @NotNullApi // overriding default from the interface
+    @NotNullApi // インターフェースのデフォルトを上書き
     String bar(String x, @Nullable String y); // fun bar(x: String, y: String?): String
 
-    // The List<String> type argument is seen as nullable because of `@NullableApi`
-    // having the `TYPE_USE` element type:
+    // `@NullableApi`が`TYPE_USE`要素型を持つため、List<String>型引数はnull許容として扱われる:
     String baz(List<String> x); // fun baz(List<String?>?): String?
 
-    // The type of `x` parameter remains platform because there's an explicit
-    // UNKNOWN-marked nullability annotation:
+    // 明示的なUNKNOWNマーク付きnull許容性アノテーションがあるため、`x`パラメータの型はプラットフォーム型のまま:
     String qux(@Nonnull(when = When.UNKNOWN) String x); // fun baz(x: String!): String?
 }
 ```
@@ -371,7 +369,7 @@ interface A {
 
 ```java
 // FILE: test/package-info.java
-@NonNullApi // declaring all types in package 'test' as non-nullable by default
+@NonNullApi // 'test' パッケージ内のすべての型をデフォルトで非null許容として宣言
 package test;
 ```
 
@@ -394,8 +392,8 @@ package test;
 public @interface NonNullApi {
 }
 
-// The types in the class are non-nullable, but only warnings are reported
-// because `@NonNullApi` is annotated `@UnderMigration(status = MigrationStatus.WARN)`
+// `@NonNullApi`が`@UnderMigration(status = MigrationStatus.WARN)`とアノテーションされているため、
+// クラス内の型は非null許容だが、警告のみが報告される
 @NonNullApi
 public class Test {}
 ```
@@ -518,9 +516,9 @@ Javaと同様に、Kotlinのジェネリクスは実行時には保持されま�
 Kotlinでは、スタープロジェクションされた総称型に対してのみ`is`チェックが可能です。
 
 ```kotlin
-if (a is List<Int>) // Error: cannot check if it is really a List of Ints
-// but
-if (a is List<*>) // OK: no guarantees about the contents of the list
+if (a is List<Int>) // エラー: 実際にIntのListであるかチェックできない
+// しかし
+if (a is List<*>) // OK: リストの内容については保証なし
 ```
 
 ## Java配列
@@ -537,7 +535,7 @@ Kotlinはこれらの実装の詳細を隠蔽するため、Javaコードとイ�
 ``` java
 public class JavaArrayExample {
     public void removeIndices(int[] indices) {
-        // code here...
+        // ここにコード...
     }
 }
 ```
@@ -547,15 +545,15 @@ public class JavaArrayExample {
 ```kotlin
 val javaObj = JavaArrayExample()
 val array = intArrayOf(0, 1, 2, 3)
-javaObj.removeIndices(array)  // passes int[] to method
+javaObj.removeIndices(array)  // int[] をメソッドに渡す
 ```
 
 JVMバイトコードにコンパイルされる際、コンパイラは配列へのアクセスを最適化し、オーバーヘッドが発生しないようにします。
 
 ```kotlin
 val array = arrayOf(1, 2, 3, 4)
-array[1] = array[1] * 2 // no actual calls to get() and set() generated
-for (x in array) { // no iterator created
+array[1] = array[1] * 2 // 実際の get() と set() の呼び出しは生成されない
+for (x in array) { // イテレーターは作成されない
     print(x)
 }
 ```
@@ -563,7 +561,7 @@ for (x in array) { // no iterator created
 インデックスでナビゲートする場合でも、オーバーヘッドは発生しません。
 
 ```kotlin
-for (i in array.indices) { // no iterator created
+for (i in array.indices) { // イテレーターは作成されない
     array[i] += 2
 }
 ```
@@ -571,7 +569,7 @@ for (i in array.indices) { // no iterator created
 最後に、`in`チェックにもオーバーヘッドはありません。
 
 ```kotlin
-if (i in array.indices) { // same as (i >= 0 && i < array.size)
+if (i in array.indices) { // (i >= 0 && i < array.size) と同じ
     print(array[i])
 }
 ```
@@ -584,7 +582,7 @@ Javaクラスでは、インデックスに対して可変数の引数（varargs
 public class JavaArrayExample {
 
     public void removeIndicesVarArg(int... indices) {
-        // code here...
+        // ここにコード...
     }
 }
 ```
@@ -609,7 +607,7 @@ Kotlinでは、すべての[例外はアンチェック](exceptions.md)です。
 ```kotlin
 fun render(list: List<*>, to: Appendable) {
     for (item in list) {
-        to.append(item.toString()) // Java would require us to catch IOException here
+        to.append(item.toString()) // Javaではここで IOException をキャッチする必要がある
     }
 }
 ```
@@ -620,11 +618,54 @@ Java型がKotlinにインポートされると、`java.lang.Object`型のすべ�
 `Any`はプラットフォーム固有ではないため、メンバーとして`toString()`、`hashCode()`、`equals()`のみを宣言します。
 したがって、`java.lang.Object`の他のメンバーを利用可能にするために、Kotlinは[拡張関数](extensions.md)を使用します。
 
-### `wait()`/`notify()`
+### `wait()`と`notify()`
 
-`wait()`および`notify()`メソッドは`Any`型の参照では利用できません。これらの使用は一般的に`java.util.concurrent`を優先して推奨されていません。どうしてもこれらのメソッドを呼び出す必要がある場合は、`java.lang.Object`にキャストできます。
+`wait()`および`notify()`メソッドは`Any`型の参照では利用できません。これらの使用は一般的に`java.util.concurrent`を優先して推奨されていません。
+
+どうしてもこれらのメソッドを呼び出す必要がある場合は、Javaオブジェクトを介してアクセスし、`PLATFORM_CLASS_MAPPED_TO_KOTLIN`警告を抑制します。
 
 ```kotlin
+import java.util.LinkedList
+
+class SimpleBlockingQueue<T>(private val capacity: Int) {
+    private val queue = LinkedList<T>()
+
+    // wait() と notify() にアクセスするために java.lang.Object が特別に使用される
+    // Kotlinでは、標準の「Any」型はこれらのメソッドを公開しない。
+    @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
+    private val lock = Object()
+
+    fun put(item: T) {
+        synchronized(lock) {
+            while (queue.size >= capacity) {
+                lock.wait()
+            }
+            queue.add(item)
+            println("Produced: $item")
+
+            lock.notifyAll()
+        }
+    }
+
+    fun take(): T {
+        synchronized(lock) {
+            while (queue.isEmpty()) {
+                lock.wait()
+            }
+            val item = queue.removeFirst()
+            println("Consumed: $item")
+
+            lock.notifyAll()
+            return item
+        }
+    }
+}
+```
+
+または明示的に`java.lang.Object`にキャストし、`PLATFORM_CLASS_MAPPED_TO_KOTLIN`警告を抑制します。
+
+```kotlin
+@Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
 (foo as java.lang.Object).wait()
 ```
 
@@ -661,7 +702,7 @@ class Example : Cloneable {
 ```kotlin
 class C {
     protected fun finalize() {
-        // finalization logic
+        // ファイナライズロジック
     }
 }
 ```
@@ -706,7 +747,7 @@ val runnable = Runnable { println("This runs in a runnable") }
 
 ```kotlin
 val executor = ThreadPoolExecutor()
-// Java signature: void execute(Runnable command)
+// Javaシグネチャ: void execute(Runnable command)
 executor.execute { println("This runs in a thread pool") }
 ```
 

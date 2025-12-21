@@ -22,14 +22,14 @@ Koog 框架提供以下工具实现方法：
 
 [`Tool<Args, Result>`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/index.html) 抽象类是 Koog 中创建工具的基类。它允许您创建接受特定实参类型 (`Args`) 并返回各种类型 (`Result`) 结果的工具。
 
-每个工具都包含以下组件：
+每个工具包含以下组件：
 
 | <div style="width:110px">组件</div> | 描述                                                                                                                                                                                                                                                                                                                                                                                                                          |
 |--------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `Args`                               | 定义工具所需实参的可序列化数据类。                                                                                                                                                                                                                                                                                                                                                                                           |
-| `Result`                             | 工具返回的可序列化结果类型。如果您希望以自定义格式呈现工具结果，请继承 [`ToolResult.TextSerializable`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool-result/-text-serializable/index.html) 类并实现 `textForLLM(): String` 方法                                                                                                          |
+| `Result`                             | 工具返回的可序列化结果类型。如果您希望以自定义格式呈现工具结果，请继承 [ToolResult.TextSerializable](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool-result/-text-serializable/index.html) 类并实现 `textForLLM(): String` 方法                                                                                                          |
 | `argsSerializer`                     | 重写变量，定义工具实参的反序列化方式。另请参见 [argsSerializer](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/args-serializer.html)。                                                                                                                                                                                                                       |
-| `resultSerializer`                   | 重写变量，定义工具结果的反序列化方式。另请参见 [resultSerializer](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/result-serializer.html)。如果您选择继承 [`ToolResult.TextSerializable`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool-result/-text-serializable/index.html)，请考虑使用 `ToolResultUtils.toTextSerializer()` |
+| `resultSerializer`                   | 重写变量，定义工具结果的反序列化方式。另请参见 [resultSerializer](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/result-serializer.html)。如果您选择继承 [ToolResult.TextSerializable](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool-result/-text-serializable/index.html)，请考虑使用 `ToolResultUtils.toTextSerializer()` |
 | `descriptor`                         | 重写变量，指定工具元数据：<br/>- `name`<br/>- `description`<br/>- `requiredParameters`（默认为空）<br/>- `optionalParameters`（默认为空）<br/>另请参见 [descriptor](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/descriptor.html)。                                                                                                                               |
 | `execute()`                          | 实现工具逻辑的函数。它接受 `Args` 类型的实参并返回 `Result` 类型的结果。另请参见 [execute()]()。                                                                                                                                                                                                                                                  |
 
@@ -51,14 +51,19 @@ import ai.koog.agents.core.tools.annotations.LLMDescription
 -->
 ```kotlin
 // 实现一个简单的计算器工具，用于添加两个数字
-object CalculatorTool : Tool<CalculatorTool.Args, Int>() {
-    
+object CalculatorTool : Tool<CalculatorTool.Args, Int>(
+    argsSerializer = Args.serializer(),
+    resultSerializer = Int.serializer(),
+    name = "calculator",
+    description = "A simple calculator that can add two digits (0-9)."
+) {
+
     // 计算器工具的实参
     @Serializable
     data class Args(
-        @property:LLMDescription("The first digit to add (0-9)")
+        @property:LLMDescription("要添加的第一个数字（0-9）")
         val digit1: Int,
-        @property:LLMDescription("The second digit to add (0-9)")
+        @property:LLMDescription("要添加的第二个数字（0-9）")
         val digit2: Int
     ) {
         init {
@@ -66,15 +71,6 @@ object CalculatorTool : Tool<CalculatorTool.Args, Int>() {
             require(digit2 in 0..9) { "digit2 must be a single digit (0-9)" }
         }
     }
-
-    // Args 类的序列化器
-    override val argsSerializer = Args.serializer()
-    override val resultSerializer = Int.serializer()
-    
-    // 工具名称，对 LLM 可见（默认将从类名派生）
-    override val name = "calculator"
-    // 工具描述，对 LLM 可见。必填
-    override val description = "A simple calculator that can add two digits (0-9)."
 
     // 添加两个数字的函数
     override suspend fun execute(args: Args): Int = args.digit1 + args.digit2
@@ -90,7 +86,7 @@ object CalculatorTool : Tool<CalculatorTool.Args, Int>() {
 
 [`SimpleTool<Args>`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-simple-tool/index.html) 抽象类扩展了 `Tool<Args, ToolResult.Text>`，并简化了返回文本结果的工具的创建。
 
-每个简单工具都包含以下组件：
+每个简单工具包含以下组件：
 
 | <div style="width:110px">组件</div> | 描述                                                                                                                                                                                                                                                                                              |
 |--------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -113,27 +109,25 @@ import kotlinx.serialization.Serializable
 -->
 ```kotlin
 // 创建一个将字符串表达式转换为双精度值的工具
-object CastToDoubleTool : SimpleTool<CastToDoubleTool.Args>() {
+object CastToDoubleTool : SimpleTool<CastToDoubleTool.Args>(
+    argsSerializer = Args.serializer(),
+    name = "cast_to_double",
+    description = "casts the passed expression to double or returns 0.0 if the expression is not castable"
+) {
     // 定义工具实参
     @Serializable
     data class Args(
-        @property:LLMDescription("An expression to case to double")
+        @property:LLMDescription("要转换为双精度值的表达式")
         val expression: String,
-        @property:LLMDescription("A comment on how to process the expression")
+        @property:LLMDescription("关于如何处理表达式的注释")
         val comment: String
     )
 
-    // Args 类的序列化器
-    override val argsSerializer = Args.serializer()
-
-    // 工具描述，对 LLM 可见
-    override val description = "casts the passed expression to double or returns 0.0 if the expression is not castable"
-    
     // 使用提供的实参执行工具的函数
-    override suspend fun doExecute(args: Args): String {
+    override suspend fun execute(args: Args): String {
         return "Result: ${castToDouble(args.expression)}, " + "the comment was: ${args.comment}"
     }
-    
+
     // 将字符串表达式转换为双精度值的函数
     private fun castToDouble(expression: String): Double {
         return expression.toDoubleOrNull() ?: 0.0
@@ -161,7 +155,12 @@ import ai.koog.prompt.markdown.markdown
 -->
 ```kotlin
 // 一个编辑文件的工具
-object EditFile : Tool<EditFile.Args, EditFile.Result>() {
+object EditFile : Tool<EditFile.Args, EditFile.Result>(
+    argsSerializer = Args.serializer(),
+    resultSerializer = Result.serializer(),
+    name = "edit_file",
+    description = "Edits the given file"
+) {
     // 定义工具实参
     @Serializable
     public data class Args(
@@ -201,13 +200,6 @@ object EditFile : Tool<EditFile.Args, EditFile.Result>() {
 
         override fun toString(): String = textForLLM()
     }
-
-    // args 和 Result 类的序列化器
-    override val argsSerializer = Args.serializer()
-    override val resultSerializer = Result.serializer()
-
-    // 工具描述，对 LLM 可见
-    override val description = "Edits the given file"
 
     // 使用提供的实参执行工具的函数
     override suspend fun execute(args: Args): Result {

@@ -1,12 +1,13 @@
 [//]: # (title: 参与 Kotlin 抢先体验预览)
 
 <tldr>
-    <p>最新 Kotlin EAP 版本：<strong>%kotlinEapVersion%</strong></p>
+    <p>目前没有可用的预览版本。</p>
+    <!--<p>Latest Kotlin EAP release: <strong>%kotlinEapVersion%</strong></p>  -->
 </tldr>
 
 您可以参与 Kotlin 抢先体验预览 (EAP)，以便在最新 Kotlin 特性发布前进行试用。
 
-在每次语言 (_2.x.0_) 和工具链 (_2.x.20_) 版本发布之前，我们会发布一些 Beta (_Beta_) 和 Release Candidate (_RC_) 构建版本。
+在每次语言版本 (_2.x.0_) 和工具链版本 (_2.x.20_) 发布之前，我们会发布一些 Beta (_Beta_) 和 Release Candidate (_RC_) 构建版本。
 
 如果您发现并向我们的问题跟踪器 [YouTrack](https://kotl.in/issue) 报告 bug，我们将不胜感激。我们很有可能在最终版本发布前修复这些 bug，这意味着您无需等到下一个 Kotlin 版本发布才能解决您的问题。
 
@@ -32,21 +33,21 @@
 
 ## 构建详情
 
-<!-- _No preview versions are currently available._ -->
+目前没有可用的预览版本。
 
-<table>
+<!-- <table>
     <tr>
-        <th>构建信息</th>
-        <th>构建亮点</th>
+        <th>Build info</th>
+        <th>Build highlights</th>
     </tr>
     <tr>
         <td><strong>2.3.0-RC3</strong>
-            <p>发布时间：<strong>December 9, 2025</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC3" target="_blank">在 GitHub 上发布</a></p>
+            <p>Released: <strong>December 9, 2025</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC3" target="_blank">Release on GitHub</a></p>
         </td>
         <td>
-            <p>一个语言版本，包含新特性预览和工具链更新。</p>
-            <p>有关更多详情，请参见 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC3">更新日志</a> 或 <a href="whatsnew-eap.md">Kotlin 2.3.0-RC3 的新特性</a>。</p>
+            <p>A language release with previews of new features and tooling updates.</p>
+            <p>For more details, please refer to the <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC3">changelog</a> or <a href="whatsnew-eap.md">What's new in Kotlin 2.3.0-RC3</a>.</p>
         </td>
     </tr>
-</table>
+</table> -->

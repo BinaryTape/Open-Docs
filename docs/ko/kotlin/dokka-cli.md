@@ -104,7 +104,7 @@ java -jar dokka-cli-%dokkaVersion%.jar dokka-configuration.json
 
 다른 모든 출력 형식은 [Dokka 플러그인](dokka-plugins.md)으로 구현됩니다. 이를 사용하려면 플러그인 클래스패스에 추가해야 합니다.
 
-예를 들어, 실험적인 [GFM](dokka-markdown.md#gfm) 출력 형식으로 문서를 생성하려면 gfm-plugin의 JAR([다운로드](https://repo1.maven.org/maven2/org/jetbrains/dokka/gfm-plugin/%dokkaVersion%/gfm-plugin-%dokkaVersion%.jar))을 다운로드하여 `pluginsClasspath` 구성 옵션에 전달해야 합니다.
+예를 들어, 실험적인 [GFM](https://github.com/Kotlin/dokka/blob/8e5c63d035ef44a269b8c43430f43f5c8eebfb63/dokka-subprojects/plugin-gfm/README.md) 출력 형식으로 문서를 생성하려면 gfm-plugin의 JAR([다운로드](https://repo1.maven.org/maven2/org/jetbrains/dokka/gfm-plugin/%dokkaVersion%/gfm-plugin-%dokkaVersion%.jar))을 다운로드하여 `pluginsClasspath` 구성 옵션에 전달해야 합니다.
 
 명령줄 옵션을 통해:
 
@@ -130,7 +130,7 @@ JSON 구성을 통해:
 
 GFM 플러그인을 `pluginsClasspath`에 전달하면, CLI 러너는 GFM 출력 형식으로 문서를 생성합니다.
 
-더 자세한 정보는 [Markdown](dokka-markdown.md) 및 [Javadoc](dokka-javadoc.md#generate-javadoc-documentation) 페이지를 참조하십시오.
+더 자세한 정보는 [GFM](https://github.com/Kotlin/dokka/blob/8e5c63d035ef44a269b8c43430f43f5c8eebfb63/dokka-subprojects/plugin-gfm/README.md) 및 [Javadoc](dokka-javadoc.md#generate-javadoc-documentation) 페이지를 참조하십시오.
 
 ## 명령줄 옵션
 
@@ -178,9 +178,9 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 | `sourceSetName`              | 소스 세트의 이름.                                                                                                                                                        |
 | `displayName`                | 소스 세트의 표시 이름으로, 내부 및 외부에서 모두 사용됩니다.                                                                                                           |
 | `classpath`                  | 분석 및 대화형 샘플을 위한 클래스패스. 세미콜론으로 구분된 여러 경로를 허용합니다.                                                                                |
-| `src`                        | 분석 및 문서화할 소스 코드 루트. 세미콜론으로 구분된 여러 경로를 허용합니다.                                                                               |
+| `src`                        | 분석 및 문서화할 소스 코드 루트. 세미콜론으로 구분된 여러 경로를 허용합니다. <anchor name="includes-cli"/>                                      |
 | `dependentSourceSets`        | `moduleName/sourceSetName` 형식의 종속 소스 세트 이름. 세미콜론으로 구분된 여러 값을 허용합니다.                                                      |
-| `samples`                    | 샘플 함수를 포함하는 디렉토리 또는 파일 목록. 세미콜론으로 구분된 여러 경로를 허용합니다. <anchor name="includes-cli"/>                                      |
+| `samples`                    | 샘플 함수를 포함하는 디렉토리 또는 파일 목록. 세미콜론으로 구분된 여러 경로를 허용합니다.                                                                       |
 | `includes`                   | [모듈 및 패키지 문서](dokka-module-and-package-docs.md)를 포함하는 Markdown 파일. 세미콜론으로 구분된 여러 경로를 허용합니다.                              |
 | `documentedVisibilities`     | 문서화할 가시성. 세미콜론으로 구분된 여러 값을 허용합니다. 가능한 값: `PUBLIC`, `PRIVATE`, `PROTECTED`, `INTERNAL`, `PACKAGE`.                      |
 | `reportUndocumented`         | 문서화되지 않은 선언을 보고할지 여부.                                                                                                                                   |
@@ -188,7 +188,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 | `skipDeprecated`             | 더 이상 사용되지 않는 선언을 건너뛸지 여부.                                                                                                                                       |
 | `jdkVersion`                 | JDK Javadoc 링크에 사용할 JDK 버전.                                                                                                                             |
 | `languageVersion`            | 분석 및 샘플 설정에 사용되는 언어 버전.                                                                                                                     |
-| `apiVersion`                 | 분석 및 샘플 설정에 사용되는 Kotlin API 버전.                                                                                                                   |
+| `apiVersion`                 | Kotlin API 버전. 분석 및 샘플 설정에 사용됩니다.                                                                                                                   |
 | `noStdlibLink`               | Kotlin 표준 라이브러리에 대한 링크를 생성할지 여부.                                                                                                                      |
 | `noJdkLink`                  | JDK Javadoc에 대한 링크를 생성할지 여부.                                                                                                                                     |
 | `suppressedFiles`            | 억제할 파일 경로. 세미콜론으로 구분된 여러 경로를 허용합니다.                                                                                               |
@@ -789,4 +789,3 @@ Kotlin [소스 세트](https://kotlinlang.org/docs/multiplatform-discover-projec
     "module.md"
   ]
 }
-```

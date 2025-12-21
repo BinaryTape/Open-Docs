@@ -10,7 +10,7 @@
 *   **更少常見錯誤**。根據 [Google 的內部資料](https://medium.com/androiddevelopers/fewer-crashes-and-more-stability-with-kotlin-b606c6a6ac04)，使用 Kotlin 建置的應用程式崩潰可能性降低 20%。
 *   **Jetpack 程式庫中的 Kotlin 支援**。[Jetpack Compose](https://developer.android.com/jetpack/compose) 是 Android 推薦的現代工具包，用於在 Kotlin 中建置原生 UI。
     [KTX extensions](https://developer.android.com/kotlin/ktx) 為現有的 Android 程式庫添加了 Kotlin 語言功能，例如 coroutines、extension functions、lambdas 和 named parameters。
-*   **支援多平台開發**。Kotlin Multiplatform 不僅支援 Android 開發，還支援 [iOS](https://kotlinlang.org/lp/multiplatform/)、後端和 Web 應用程式的開發。
+*   **支援多平台開發**。Kotlin Multiplatform 不僅支援 Android 開發，還支援 [iOS](https://kotlinlang.org/multiplatform/)、後端和 Web 應用程式的開發。
     [一些 Jetpack 程式庫](https://developer.android.com/kotlin/multiplatform) 已經是多平台的了。
     [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 是 JetBrains 基於 Kotlin 和 Jetpack Compose 的宣告式 UI 框架，它使得在 iOS、Android、桌面和 Web 等平台之間共享 UI 成為可能。
 *   **成熟的語言和環境**。自 2011 年創立以來，Kotlin 不僅作為一種語言持續發展，更發展為一個擁有強大工具的完整生態系統。現在，它已無縫整合到 [Android Studio](https://developer.android.com/studio) 中，並被許多公司積極用於開發 Android 應用程式。

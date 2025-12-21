@@ -37,14 +37,14 @@ kotlin {
 </TabItem>
 </Tabs>
 
-如果頂層相依性具有非平凡的配置名稱，將 Android 專案中的頂層相依性移至多平台專案中的特定源集可能會很困難。例如，要從 Android 專案的頂層移動 `debugImplementation` 相依性，您需要將實作相依性新增到名為 `androidDebug` 的源集。為了最大程度地減少處理此類遷移問題所需付出的努力，您可以將 `dependencies {}` 區塊新增到 `androidTarget {}` 區塊內：
+如果頂層相依性具有非平凡的配置名稱，將原為 Android 專案中頂層相依性的項目移至多平台專案中的特定源集可能會很困難。例如，要從 Android 專案的頂層移動 `debugImplementation` 相依性，您需要將實作相依性新增到名為 `androidDebug` 的源集。為了最大限度地減少處理此類遷移問題所需付出的努力，您可以將 `dependencies {}` 區塊新增到 `android {}` 區塊內：
 
 <Tabs group="build-script">
 <TabItem title="Kotlin" group-key="kotlin">
 
 ```kotlin
 kotlin {
-    androidTarget {
+    android {
         //...
         dependencies {
             implementation("com.example.android:app-magic:12.3")
@@ -58,7 +58,7 @@ kotlin {
 
 ```groovy
 kotlin {
-    androidTarget {
+    android {
         //...
         dependencies {
             implementation 'com.example.android:app-magic:12.3'

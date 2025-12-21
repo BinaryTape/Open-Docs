@@ -69,11 +69,22 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td width="110">ステータス</td>
     </tr>
     <tr>
+        <td><a href="native-objc-interop.md#explicit-parameter-names-in-objective-c-block-types"><code>objcExportBlockExplicitParameterNames</code></a></td>
+        <td>
+            <list>
+                <li><code>true (default)</code></li>
+                <li><code>false</code></li>
+            </list>
+        </td>
+        <td>エクスポートされたObjective-Cヘッダーの関数型に明示的なパラメータ名を追加します。</td>
+        <td>2.3.0からデフォルト</td>
+    </tr>
+    <tr>
         <td><a href="whatsnew2220.md#smaller-binary-size-for-release-binaries"><code>smallBinary</code></a></td>
         <td>
             <list>
                 <li><code>true</code></li>
-                <li><code>false</code> (デフォルト)</li>
+                <li><code>false</code> (default)</li>
             </list>
         </td>
         <td>リリースバイナリのサイズを縮小します。</td>
@@ -86,7 +97,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
                 <li><code>yes</code></li>
                 <li><code>strong</code></li>
                 <li><code>all</code></li>
-                <li><code>no</code> (デフォルト)</li>
+                <li><code>no</code> (default)</li>
             </list>
         </td>
         <td>スタックカナリアを有効にします。脆弱な関数には<code>yes</code>、すべての関数には<code>all</code>、より強力なヒューリスティックを使用する場合は<code>strong</code>を使用します。</td>
@@ -96,7 +107,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td><a href="native-memory-manager.md#disable-allocator-paging"><code>pagedAllocator</code></a></td>
         <td>
             <list>
-                <li><code>true</code> (デフォルト)</li>
+                <li><code>true</code> (default)</li>
                 <li><code>false</code></li>
             </list>
         </td>
@@ -108,7 +119,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td>
             <list>
                 <li><code>true</code></li>
-                <li><code>false</code> (デフォルト)</li>
+                <li><code>false</code> (default)</li>
             </list>
         </td>
         <td>アプリケーションのバイナリサイズを削減し、メモリ消費量を調整するために、Latin-1エンコードされた文字列のサポートを制御します。</td>
@@ -117,7 +128,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
     <tr>
         <td><a href="native-memory-manager.md#track-memory-consumption-on-apple-platforms"><code>mmapTag</code></a></td>
         <td><code>UInt</code></td>
-        <td>Appleプラットフォームでのメモリ消費量追跡に必要なメモリータグ付けを制御します。値<code>240</code>-<code>255</code>が利用可能です（デフォルトは<code>246</code>）。<code>0</code>はタグ付けを無効にします。</td>
+        <td>Appleプラットフォームでのメモリ消費量追跡に必要なメモリータグ付けを制御します。値<code>240</code>～<code>255</code>が利用可能です（デフォルトは<code>246</code>）。<code>0</code>はタグ付けを無効にします。</td>
         <td>2.2.0から利用可能</td>
     </tr>
     <tr>
@@ -125,7 +136,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td>
             <list>
                 <li><code>true</code></li>
-                <li><code>false</code> (デフォルト)</li>
+                <li><code>false</code> (default)</li>
             </list>
         </td>
         <td>デフォルトのアロケーターを制御します。<code>true</code>の場合、<code>mmap</code>ではなく<code>malloc</code>メモリアロケーターを使用します。</td>
@@ -135,7 +146,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td><code>gc</code></td>
         <td>
             <list>
-                <li><code>pmcs</code> (デフォルト)</li>
+                <li><code>pmcs</code> (default)</li>
                 <li><code>stwms</code></li>
                 <li><a href="native-memory-manager.md#optimize-gc-performance"><code>cms</code></a></li>
                 <li><a href="native-memory-manager.md#disable-garbage-collection"><code>noop</code></a></li>
@@ -156,7 +167,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td>
             <list>
                 <li><code>true</code></li>
-                <li><code>false</code> (デフォルト)</li>
+                <li><code>false</code> (default)</li>
             </list>
         </td>
         <td>ガベージコレクションのマークフェーズの並列化を無効にします。大規模なヒープではGCの一時停止時間が増加する可能性があります。</td>
@@ -167,7 +178,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td>
             <list>
                 <li><code>true</code></li>
-                <li><code>false</code> (デフォルト)</li>
+                <li><code>false</code> (default)</li>
             </list>
         </td>
         <td>Xcode Instrumentsでのデバッグのために、プロジェクト内のGC関連の一時停止の追跡を有効にします。</td>
@@ -186,7 +197,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td><a href="native-arc-integration.md#deinitializers"><code>objcDisposeOnMain</code></a></td>
         <td>
             <list>
-                <li><code>true</code> (デフォルト)</li>
+                <li><code>true</code> (default)</li>
                 <li><code>false</code></li>
             </list>
         </td>
@@ -198,7 +209,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td>
             <list>
                 <li><code>enabled</code></li>
-                <li><code>disabled</code> (デフォルト)</li>
+                <li><code>disabled</code> (default)</li>
             </list>
         </td>
         <td>
@@ -243,7 +254,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
             <list>
                 <li><code>libbacktrace</code></li>
                 <li><code>coresymbolication</code> (Appleターゲット)</li>
-                <li><code>noop</code> (デフォルト)</li>
+                <li><code>noop</code> (default)</li>
             </list>
         </td>
         <td>

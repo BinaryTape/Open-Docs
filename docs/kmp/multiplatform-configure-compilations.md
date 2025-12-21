@@ -14,7 +14,7 @@ Kotlin 多平台项目使用编译项来生成构件。每个目标平台可以�
 你可以配置构件的生成方式：
 
 *   一次性配置项目中[所有编译项](#configure-all-compilations)。
-*   配置[单个目标平台](##configure-compilations-for-one-target)的编译项，因为一个目标平台可以有多个编译项。
+*   配置[单个目标平台](#configure-compilations-for-one-target)的编译项，因为一个目标平台可以有多个编译项。
 *   配置[特定编译项](#configure-one-compilation)。
 
 关于适用于所有或特定目标平台的[编译参数列表](multiplatform-dsl-reference.md#compilation-parameters)和[编译器选项](https://kotlinlang.org/docs/gradle-compiler-options.html)，请参见相关文档。
@@ -189,7 +189,7 @@ kotlin {
 
 自定义编译项在其他情况下也是必需的。例如，如果你想在最终构件中合并不同 JVM 版本的编译项，或者你已经配置了 Gradle 中的源代码集并希望迁移到多平台项目。
 
-> 要为 [`androidTarget`](#compilation-for-android) 创建自定义编译项，请通过 [Android Gradle plugin](https://developer.android.com/build/build-variants) 设置构建变体。
+> 要为 [`android`](#compilation-for-android) 创建自定义编译项，请通过 [Android Gradle plugin](https://developer.android.com/build/build-variants) 设置构建变体。
 > 
 {style="tip"}
 
@@ -363,7 +363,7 @@ kotlin {
 
 为 Android 目标平台创建的默认编译项与 [Android 构建变体](https://developer.android.com/build/build-variants)绑定：每个构建变体都会创建一个同名的 Kotlin 编译项。
 
-然后，对于为每个变体编译的每个 [Android 源代码集](https://developer.android.com/build/build-variants#sourcesets)，会创建一个以目标平台名称作为前缀的 Kotlin 源代码集，例如 Android 源代码集 `debug` 和名为 `androidTarget` 的 Kotlin 目标平台会创建 Kotlin 源代码集 `androidDebug`。这些 Kotlin 源代码集会相应地添加到变体的编译项中。
+然后，对于为每个变体编译的每个 [Android 源代码集](https://developer.android.com/build/build-variants#sourcesets)，会创建一个以目标平台名称作为前缀的 Kotlin 源代码集，例如 Android 源代码集 `debug` 和名为 `android` 的 Kotlin 目标平台会创建 Kotlin 源代码集 `androidDebug`。这些 Kotlin 源代码集会相应地添加到变体的编译项中。
 
 默认源代码集 `commonMain` 会添加到每个生产环境（应用程序或库）变体的编译项中。`commonTest` 源代码集同样会添加到单元测试和插桩测试变体的编译项中。
 
@@ -371,7 +371,7 @@ kotlin {
 
 ```kotlin
 kotlin {
-    androidTarget { /* ... */ }
+    android { /* ... */ }
 }
 
 dependencies {

@@ -4,11 +4,11 @@
 
 ## 目录
 
-*   [协程](#coroutines-experimental)
-*   [其他语言特性](#other-language-features)
-*   [标准库](#standard-library)
-*   [JVM 后端](#jvm-backend)
-*   [JavaScript 后端](#javascript-backend)
+* [协程](#coroutines-experimental)
+* [其他语言特性](#other-language-features)
+* [标准库](#standard-library)
+* [JVM 后端](#jvm-backend)
+* [JavaScript 后端](#javascript-backend)
 
 ## JavaScript
 
@@ -566,7 +566,7 @@ fun main(args: Array<String>) {
 
     // map.getValue("anotherKey") // <- this will throw NoSuchElementException
 //sampleEnd
-
+    
     println("value is $value")
     println("value2 is $value2")
 }
@@ -642,7 +642,7 @@ JavaScript 后端现在生成更多可静态检测的代码，这对于 JS 代�
 
 ### external 修饰符
 
-如果需要以类型安全的方式从 Kotlin 访问在 JavaScript 中实现的类，可以使用 `external` 修饰符编写 Kotlin 声明。（在 Kotlin 1.0 中，使用 `@native` 注解代替。）与 JVM 目标平台不同，JS 目标平台允许对类和属性使用 external 修饰符。例如，以下是如何声明 DOM `Node` 类：
+如果您需要以类型安全的方式从 Kotlin 访问在 JavaScript 中实现的类，可以使用 `external` 修饰符编写 Kotlin 声明。（在 Kotlin 1.0 中，使用 `@native` 注解代替。）与 JVM 目标平台不同，JS 目标平台允许对类和属性使用 external 修饰符。例如，以下是如何声明 DOM `Node` 类：
 
 ```kotlin
 external class Node {
@@ -674,7 +674,7 @@ external interface JQuery {
 external fun jquery(selector: String): JQuery
 ```
 
-在此示例中，JQuery 将作为名为 `jquery` 的模块导入。或者，它可以用作 `$`-对象，具体取决于 Kotlin 编译器配置使用的模块系统。
+在此示例中，JQuery 将作为名为 `jquery` 的模块导入。或者，它可以用作 $-对象，具体取决于 Kotlin 编译器配置使用的模块系统。
 
 您可以在应用程序中这样使用这些声明：
 
@@ -684,3 +684,4 @@ fun main(args: Array<String>) {
         jquery(".toggle-panel").toggle(300)
     }
 }
+```

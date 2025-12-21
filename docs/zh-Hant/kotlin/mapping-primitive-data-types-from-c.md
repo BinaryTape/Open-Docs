@@ -9,7 +9,7 @@
     </p>
 </tldr>
 
-> C 函式庫匯入功能處於 [Beta](native-c-interop-stability.md) 階段。由 cinterop 工具從 C 函式庫生成的 Kotlin 宣告應具有 `@ExperimentalForeignApi` 註解。
+> C 函式庫匯入功能處於 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 階段。由 cinterop 工具從 C 函式庫生成的所有 Kotlin 宣告應具有 `@ExperimentalForeignApi` 註解。
 >
 > Kotlin/Native 隨附的原生平台函式庫（例如 Foundation、UIKit 和 POSIX）僅需要針對某些 API 選擇加入。
 >
@@ -145,11 +145,11 @@ cinterop 工具會為每組 `.h` 檔案生成一個 Kotlin/Native 函式庫（�
     }
     
     kotlin {
-        macosArm64("native") {    // Apple Silicon macOS
-        // macosX64("native") {   // macOS on x86_64 平台
-        // linuxArm64("native") { // Linux on ARM64 平台
-        // linuxX64("native") {   // Linux on x86_64 平台
-        // mingwX64("native") {   // Windows
+        macosArm64("native") {    // Apple Silicon 上的 macOS
+        // macosX64("native") {   // x86_64 平台上的 macOS
+        // linuxArm64("native") { // ARM64 平台上的 Linux
+        // linuxX64("native") {   // x86_64 平台上的 Linux
+        // mingwX64("native") {   // 在 Windows 上
             compilations.main.cinterops {
                 interop 
             }

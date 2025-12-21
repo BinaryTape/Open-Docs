@@ -15,7 +15,7 @@ Kotlinには、数値を表現するための組み込み型が用意されて�
 > 符号付き整数型に加えて、Kotlinは符号なし整数型も提供しています。
 > 符号なし整数は異なるユースケースを対象としているため、別個に説明します。
 > [](unsigned-integer-types.md)を参照してください。
-> 
+>
 {style="tip"}
 
 明示的な型指定なしに変数を初期化すると、コンパイラは値を表現するのに十分な最小範囲の型を`Int`から自動的に推論します。`Int`の範囲を超えない場合、型は`Int`になります。その範囲を超える場合、型は`Long`になります。`Long`値を明示的に指定するには、値にサフィックス`L`を付加します。
@@ -38,7 +38,7 @@ val oneByte: Byte = 1
 | 型	    | サイズ (ビット) | 有効桁数 (ビット) | 指数部 (ビット) | 10進数の桁数 |
 |----------|-------------|------------------|---------------|----------------|
 | `Float`	 | 32          | 24               | 8             | 6-7            |
-| `Double` | 64          | 53               | 11            | 15-16          |    
+| `Double` | 64          | 53               | 11            | 15-16          |
 
 `Double`および`Float`変数は、小数部を持つ数値でのみ初期化できます。
 小数部と整数部はピリオド (`.`) で区切ります。
@@ -72,14 +72,14 @@ fun main() {
     fun printDouble(x: Double) { print(x) }
 
     val x = 1.0
-    val xInt = 1    
-    val xFloat = 1.0f 
+    val xInt = 1
+    val xFloat = 1.0f
 
     printDouble(x)
-    
-    printDouble(xInt)   
+
+    printDouble(xInt)
     // Argument type mismatch
-    
+
     printDouble(xFloat)
     // Argument type mismatch
 //sampleEnd
@@ -120,7 +120,7 @@ val bigFractional = 1_234_567.7182818284
 
 > 符号なし整数リテラルには特殊なサフィックスもあります。
 > [符号なし整数型のリテラル](unsigned-integer-types.md)について詳しくはこちらをご覧ください。
-> 
+>
 {style="tip"}
 
 ## Java仮想マシンにおける数値のボックス化とキャッシュ
@@ -140,7 +140,7 @@ fun main() {
     val a: Int = 100
     val boxedA: Int? = a
     val anotherBoxedA: Int? = a
-    
+
     println(boxedA === anotherBoxedA) // true
 //sampleEnd
 }
@@ -155,7 +155,7 @@ fun main() {
     val b: Int = 10000
     val boxedB: Int? = b
     val anotherBoxedB: Int? = b
-    
+
     println(boxedB === anotherBoxedB) // false
     println(boxedB == anotherBoxedB) // true
 //sampleEnd
@@ -177,12 +177,12 @@ fun main() {
 //sampleStart
     val byte: Byte = 1
     // OK, literals are checked statically
-    
-    val intAssignedByte: Int = byte 
+
+    val intAssignedByte: Int = byte
     // Initializer type mismatch
-    
+
     val intConvertedByte: Int = byte.toInt()
-    
+
     println(intConvertedByte)
 //sampleEnd
 }
@@ -251,10 +251,10 @@ fun main() {
 fun main() {
 //sampleStart
     val x = 5 / 2
-    println(x == 2.5) 
+    println(x == 2.5)
     // Operator '==' cannot be applied to 'Int' and 'Double'
-    
-    println(x == 2)   
+
+    println(x == 2)
     // true
 //sampleEnd
 }
@@ -269,7 +269,7 @@ fun main() {
     val x = 5L / 2
     println (x == 2)
     // Error, as Long (x) cannot be compared to Int (2)
-    
+
     println(x == 2L)
     // true
 //sampleEnd
@@ -299,15 +299,16 @@ fun main() {
 //sampleStart
     val x = 1
     val xShiftedLeft = (x shl 2)
-    println(xShiftedLeft)  
+    println(xShiftedLeft)
     // 4
-    
+
     val xAnd = x and 0x000FF000
-    println(xAnd)          
+    println(xAnd)
     // 0
 //sampleEnd
 }
 ```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
 ビット演算の完全なリスト:
 
@@ -342,14 +343,14 @@ fun main() {
     //sampleStart
     // Operand statically typed as floating-point number
     println(Double.NaN == Double.NaN)                 // false
-    
+
     // Operand NOT statically typed as floating-point number
     // So NaN is equal to itself
     println(listOf(Double.NaN) == listOf(Double.NaN)) // true
 
     // Operand statically typed as floating-point number
     println(0.0 == -0.0)                              // true
-    
+
     // Operand NOT statically typed as floating-point number
     // So -0.0 is less than 0.0
     println(listOf(0.0) == listOf(-0.0))              // false

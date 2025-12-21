@@ -1,7 +1,7 @@
 [//]: # (title: 與 Swift/Objective-C 的互通性)
 
-> Objective-C 函式庫的匯入功能處於 [Beta](native-c-interop-stability.md) 階段。
-> 所有由 cinterop 工具從 Objective-C 函式庫產生的 Kotlin 宣告
+> Objective-C 函式庫的匯入功能處於 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 階段。
+> 所有由 cinterop 工具從 Objective-C 函式庫產生的 Kotlin 宣告，
 > 都應該具有 `@ExperimentalForeignApi` 註解。
 >
 > 隨 Kotlin/Native 提供的原生平台函式庫（如 Foundation、UIKit 和 POSIX）
@@ -15,7 +15,7 @@ Kotlin/Native 透過 Objective-C 提供與 Swift 的間接互通性。本文檔�
 您可能會發現有用的其他資源：
 
 *   [Kotlin-Swift 互通百科](https://github.com/kotlin-hands-on/kotlin-swift-interopedia)，一個關於如何在 Swift 程式碼中使用 Kotlin 宣告的範例集合。
-*   [與 Swift/Objective-C ARC 整合](native-arc-integration.md) 章節，涵蓋 Kotlin 追蹤式 GC 與 Objective-C ARC 之間整合的細節。
+*   [與 Swift/Objective-C ARC 整合](native-arc-integration.md) 章節，涵蓋 Kotlin 的追蹤式 GC 與 Objective-C 的 ARC 之間整合的細節。
 
 ## 將 Swift/Objective-C 函式庫匯入 Kotlin
 
@@ -186,7 +186,7 @@ Objective-C 不支援框架中的套件。如果 Kotlin 編譯器在同一個框
 ### 初始化器 (Initializers)
 
 Swift/Objective-C 初始化器會作為建構子或名為 `create` 的工廠方法匯入 Kotlin。
-後者發生在 Objective-C 類別或 Swift 擴展中宣告的初始化器，因為 Kotlin 沒有擴展建構子的概念。
+後者發生在 Objective-C 分類或 Swift 擴展中宣告的初始化器，因為 Kotlin 沒有擴展建構子的概念。
 
 > 在將 Swift 初始化器匯入 Kotlin 之前，請不要忘記使用 `@objc` 註解它們。
 >
@@ -313,15 +313,15 @@ Kotlin 的[暫停函數](coroutines-basics.md) (`suspend`) 在產生的 Objectiv
 *   了解更多關於 Swift 文件中的 [`async`/`await` 機制](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html)。
 *   請參閱 [Kotlin-Swift 互通百科](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/coroutines/Suspend%20functions.md) 中的範例和有關實作相同功能的第三方函式庫的建議。
 
-### 擴展與類別成員 (Extensions and category members)
+### 擴展與分類成員 (Extensions and category members)
 
-Objective-C 類別和 Swift 擴展的成員通常會作為擴展匯入 Kotlin。這就是為什麼這些宣告在 Kotlin 中無法覆寫，以及擴展初始化器無法作為 Kotlin 建構子使用的原因。
+Objective-C 分類和 Swift 擴展的成員通常會作為擴展匯入 Kotlin。這就是為什麼這些宣告在 Kotlin 中無法覆寫，以及擴展初始化器無法作為 Kotlin 建構子使用的原因。
 
-> 目前有兩個例外。從 Kotlin 1.8.20 開始，在與 NSView 類別（來自 AppKit 框架）或 UIView 類別（來自 UIKit 框架）相同的標頭中宣告的類別成員會作為這些類別的成員匯入。這意味著您可以覆寫從 NSView 或 UIView 子類別化的方法。
+> 目前有兩個例外。從 Kotlin 1.8.20 開始，在與 NSView 類別（來自 AppKit 框架）或 UIView 類別（來自 UIKit 框架）相同的標頭中宣告的分類成員會作為這些類別的成員匯入。這意味著您可以覆寫從 NSView 或 UIView 子類別化的方法。
 >
 {style="note"}
 
-Kotlin 對「常規」Kotlin 類別的擴展會分別匯入 Swift 和 Objective-C 作為擴展和類別成員。Kotlin 對其他類型的擴展則視為 [頂層宣告](#top-level-functions-and-properties)，並帶有額外的接收者參數。這些類型包括：
+Kotlin 對「常規」Kotlin 類別的擴展會分別匯入 Swift 和 Objective-C 作為擴展和分類成員。Kotlin 對其他類型的擴展則視為 [頂層宣告](#top-level-functions-and-properties)，並帶有額外的接收者參數。這些類型包括：
 
 *   Kotlin `String` 型別
 *   Kotlin 集合型別和子型別
@@ -464,15 +464,8 @@ foo {
 
 #### Objective-C 區塊型別中的明確參數名稱
 
-您可以為 Kotlin 的函數型別新增明確的參數名稱，以便匯出到 Objective-C 標頭。如果沒有它們，
-Xcode 的自動完成會建議呼叫 Objective-C 函數，且 Objective-C 區塊中沒有參數名稱，
-而產生的區塊會觸發 Clang 警告。
-
-要啟用明確的參數名稱，請將以下 [二進位檔選項](native-binary-options.md) 新增到您的 `gradle.properties` 檔案中：
-
-```none
-kotlin.native.binary.objcExportBlockExplicitParameterNames=true
-```
+Kotlin 會為匯出到 Objective-C 標頭的函數型別新增明確的參數名稱。
+Xcode 的自動完成會在 Objective-C 區塊中呼叫 Objective-C 函數時建議這些名稱。
 
 例如，對於以下 Kotlin 程式碼：
 
@@ -494,6 +487,14 @@ greetUserBlock:^(NSString *name) {
 > 通常不影響從 Swift 進行的呼叫。
 >
 {style="note"}
+
+如果您遇到問題，可以在 `gradle.properties` 檔案中使用以下 [二進位檔選項](native-binary-options.md) 停用明確參數名稱：
+
+```none
+kotlin.native.binary.objcExportBlockExplicitParameterNames=false
+```
+
+請在我們的問題追蹤器 [YouTrack](https://kotl.in/issue) 中報告此類問題。
 
 ### 泛型 (Generics)
 

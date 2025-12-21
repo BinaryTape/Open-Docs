@@ -1,20 +1,33 @@
 [//]: # (title: HTML)
 
-HTML 是 Dokka 預設且推薦的輸出格式。它目前處於 Beta 版，並正接近穩定版發佈。
+> 本指南適用於 Dokka Gradle 外掛程式 (DGP) v2 模式。DGP v1 模式已不再支援。
+> 若要從 v1 模式升級到 v2 模式，請遵循[遷移指南](dokka-migration.md)。
+>
+{style="note"}
 
-您可以透過瀏覽 [kotlinx.coroutines](https://kotlinlang.org/api/kotlinx.coroutines/) 的文件來查看輸出範例。
+HTML 是 Dokka 預設且推薦的輸出格式。它支援 Kotlin 多平台、Android 和 Java 專案。此外，您可以使用 HTML 格式為單專案和多專案建構提供文件。
+
+有關 HTML 輸出格式的範例，請查看以下文件：
+* [kotlinx.coroutines](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/)
+* [Bitmovin](https://cdn.bitmovin.com/player/android/3/docs/index.html)
+* [Hexagon](https://hexagontk.com/stable/api/)
+* [Ktor](https://api.ktor.io/)
+* [OkHttp](https://square.github.io/okhttp/5.x/okhttp/okhttp3/)
+* [Gradle](https://docs.gradle.org/current/kotlin-dsl/index.html)
 
 ## 生成 HTML 文件
 
 HTML 作為輸出格式受到所有執行器支援。要生成 HTML 文件，請根據您的建構工具或執行器遵循以下步驟：
 
-*   對於 [Gradle](dokka-gradle.md#generate-documentation)，執行 `dokkaHtml` 或 `dokkaHtmlMultiModule` 任務。
+*   對於 [Gradle](dokka-gradle.md#generate-documentation)，您可以執行以下任務：
+    *   `dokkaGenerate` 以[根據已應用外掛程式的所有可用格式](dokka-gradle.md#configure-documentation-output-format)生成文件。
+        這是大多數使用者推薦的任務。當在 IntelliJ IDEA 中使用此任務時，它會記錄一個可點擊的輸出連結。
+    *   `dokkaGeneratePublicationHtml` 僅以 HTML 格式生成文件。此任務將輸出目錄公開為 `@OutputDirectory`。當您需要在其他 Gradle 任務中取用生成的文件時使用此任務，例如將它們上傳到伺服器、將它們移動到 GitHub Pages 目錄，或將它們打包成 `javadoc.jar`。此任務有意不列在 Gradle 任務組中，因為它不適用於日常使用。
 
-    > 這些指示反映了 Dokka Gradle 外掛程式 v1 的配置和任務。從 Dokka 2.0.0 開始，[用於生成文件的 Gradle 任務已變更](dokka-migration.md#generate-documentation-with-the-updated-task)。
+    > 如果您使用 IntelliJ IDEA，您可能會看到 `dokkaGenerateHtml` Gradle 任務。
+    > 此任務只是 `dokkaGeneratePublicationHtml` 的別名。兩個任務執行完全相同的操作。
     >
-    > 如需更多詳細資訊和 Dokka Gradle 外掛程式 v2 中的完整變更清單，請參閱[遷移指南](dokka-migration.md)。
-    >
-    {style="note"}
+    {style="tip"}
 
 *   對於 [Maven](dokka-maven.md#generate-documentation)，執行 `dokka:dokka` 目標。
 *   對於 [CLI 執行器](dokka-cli.md#generate-documentation)，設定 HTML 依賴項後執行。
@@ -30,82 +43,43 @@ HTML 作為輸出格式受到所有執行器支援。要生成 HTML 文件，請
 
 ## 配置
 
-HTML 格式是 Dokka 的基礎格式，因此可以透過 `DokkaBase` 和 `DokkaBaseConfiguration` 類別進行配置：
+HTML 格式是 Dokka 的基礎格式。您可以使用以下選項進行配置：
 
 <tabs group="build-script">
-<tab title="Kotlin" group-key="kotlin">
-
-透過型別安全 Kotlin DSL：
+<tab title="Gradle Kotlin DSL" group-key="kotlin">
 
 ```kotlin
-import org.jetbrains.dokka.base.DokkaBase
-import org.jetbrains.dokka.gradle.DokkaTask
-import org.jetbrains.dokka.base.DokkaBaseConfiguration
+// build.gradle.kts
 
-buildscript {
-    dependencies {
-        classpath("org.jetbrains.dokka:dokka-base:%dokkaVersion%")
+dokka {
+    pluginsConfiguration.html {
+        customAssets.from("logo.png")
+        customStyleSheets.from("styles.css")
+        footerMessage.set("(c) Your Company")
+        separateInheritedMembers.set(false)
+        templatesDir.set(file("dokka/templates"))
+        mergeImplicitExpectActualDeclarations.set(false)
     }
-}
-
-tasks.withType<DokkaTask>().configureEach {
-    pluginConfiguration<DokkaBase, DokkaBaseConfiguration> {
-        customAssets = listOf(file("my-image.png"))
-        customStyleSheets = listOf(file("my-styles.css"))
-        footerMessage = "(c) 2022 MyOrg"
-        separateInheritedMembers = false
-        templatesDir = file("dokka/templates")
-        mergeImplicitExpectActualDeclarations = false
-    }
-}
-```
-
-透過 JSON：
-
-```kotlin
-import org.jetbrains.dokka.gradle.DokkaTask
-
-tasks.withType<DokkaTask>().configureEach {
-    val dokkaBaseConfiguration = """
-    {
-      "customAssets": ["${file("assets/my-image.png")}"],
-      "customStyleSheets": ["${file("assets/my-styles.css")}"],
-      "footerMessage": "(c) 2022 MyOrg",
-      "separateInheritedMembers": false,
-      "templatesDir": "${file("dokka/templates")}",
-      "mergeImplicitExpectActualDeclarations": false
-    }
-    """
-    pluginsMapConfiguration.set(
-        mapOf(
-            // fully qualified plugin name to json configuration
-            "org.jetbrains.dokka.base.DokkaBase" to dokkaBaseConfiguration
-        )
-    )
 }
 ```
 
 </tab>
-<tab title="Groovy" group-key="groovy">
+<tab title="Gradle Groovy DSL" group-key="groovy">
 
 ```groovy
-import org.jetbrains.dokka.gradle.DokkaTask
+// build.gradle
 
-tasks.withType(DokkaTask.class) {
-    String dokkaBaseConfiguration = """
-    {
-      "customAssets": ["${file("assets/my-image.png")}"],
-      "customStyleSheets": ["${file("assets/my-styles.css")}"],
-      "footerMessage": "(c) 2022 MyOrg"
-      "separateInheritedMembers": false,
-      "templatesDir": "${file("dokka/templates")}",
-      "mergeImplicitExpectActualDeclarations": false
+dokka {
+    pluginsConfiguration {
+        html {
+            customAssets.from("logo.png")
+            customStyleSheets.from("styles.css")
+            footerMessage.set("(c) Your Company")
+            separateInheritedMembers.set(false)
+            templatesDir.set(file("dokka/templates"))
+            mergeImplicitExpectActualDeclarations.set(false)
+        }
     }
-    """
-    pluginsMapConfiguration.set(
-            // fully qualified plugin name to json configuration
-            ["org.jetbrains.dokka.base.DokkaBase": dokkaBaseConfiguration]
-    )
 }
 ```
 
@@ -170,7 +144,7 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 
 ### 配置選項
 
-下表包含所有可能的配置選項及其用途。
+下表包含所有可能的配置選項及其用途：
 
 | **選項**                              | **描述**                                                                                                                                                                                                                                                                               |
 |-----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -206,6 +180,12 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 您可以使用 `customAssets` [配置選項](#configuration) 來提供您自己的圖像以捆綁到文件中。
 
 這些檔案會被複製到 `<output>/images` 目錄。
+
+您可以將 `customAssets` 屬性與檔案集合 ([`FileCollection`](https://docs.gradle.org/8.10/userguide/lazy_configuration.html#working_with_files_in_lazy_properties)) 搭配使用：
+
+```kotlin
+customAssets.from("example.png", "example2.png")
+```
 
 可以透過提供同名檔案來覆寫 Dokka 的圖像和圖示。其中最有用且相關的是 `logo-icon.svg`，這是頁首中使用的圖像。其餘大部分是圖示。
 
@@ -261,7 +241,7 @@ Dokka 使用以下模板：
 
 ```html
 <@template_cmd name="projectName">
-   <span>${projectName}</span>
+    <span>${projectName}</span>
 </@template_cmd>
 ```
 
@@ -273,4 +253,4 @@ Dokka 使用以下模板：
 |-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `<@content/>`   | 主要頁面內容。                                                                                                                                                                                                |
 | `<@resources/>` | 資源，例如腳本和樣式表。                                                                                                                                                                            |
-| `<@version/>`   | 從配置中獲取的模組版本。如果應用了 [版本控制外掛程式](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-versioning) 是被版本導覽器替換。 |
+| `<@version/>`   | 從配置中獲取的子專案版本。如果應用了 [版本控制外掛程式](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-versioning) 是被版本導覽器替換。 |

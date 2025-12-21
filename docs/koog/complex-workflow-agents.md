@@ -41,7 +41,7 @@ dependencies {
 提示执行器管理并运行提示。
 您可以根据计划使用的 LLM 提供商选择提示执行器。
 此外，您可以使用其中一个可用的 LLM 客户端创建自定义提示执行器。
-欲了解更多信息，请参见 [提示执行器](prompt-api.md#running-prompts-with-prompt-executors)。
+欲了解更多信息，请参见 [提示执行器](prompts/prompt-executors.md)。
 
 例如，要提供 OpenAI 提示执行器，您需要调用 `simpleOpenAIExecutor` 函数，并提供与 OpenAI 服务进行身份验证所需的 API 密钥：
 

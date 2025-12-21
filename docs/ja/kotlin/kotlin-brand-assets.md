@@ -7,8 +7,6 @@
 
 [全てのバージョンをダウンロード](https://resources.jetbrains.com/storage/products/kotlin/docs/kotlin_logos.zip){:.typo-float-right.kto-button.kto-button_size_m.kto-button_mode_outline}
 
-![Kotlin logo](kotlin-logo.png){width=700}
-
 ロゴとマークには保護領域があります。他のデザイン要素がその領域内に入らないようにロゴを配置してください。
 保護領域の最小サイズは、マークの高さの半分です。
 
@@ -16,14 +14,34 @@
 
 ロゴの使用に関する以下の制限事項に特に注意してください。
 
-*   マークをテキストから分離しないでください。要素を入れ替えたりしないでください。
-*   ロゴの透明度を変更しないでください。
-*   ロゴをアウトライン化しないでください。
-*   ロゴをサードパーティの色に塗り替えたりしないでください。
-*   テキストを変更しないでください。
-*   複雑な背景の上にロゴを配置したり、明るい背景の前にロゴを置いたりしないでください。
+* マークをテキストから分離しないでください。要素を入れ替えたりしないでください。
+* ロゴの透明度を変更しないでください。
+* ロゴをアウトライン化しないでください。
+* ロゴをサードパーティの色に塗り替えたりしないでください。
+* テキストを変更しないでください。
+* 複雑な背景の上にロゴを配置したり、明るい背景の前にロゴを置いたりしないでください。
 
 [Kotlin ブランド使用ガイドラインを読む](https://kotlinfoundation.org/guidelines/)
+
+## Kotlin エコシステムロゴ
+
+Kotlinのブランドパッケージには、複数の公式Kotlinエコシステムプロジェクト、ライブラリ、フレームワーク、テクノロジーのロゴも含まれています。
+これらのアセットは、Kotlinロゴと同じ視覚的原則に従っており、エコシステム全体で一貫した表現を確保するのに役立ちます。
+
+このパッケージには、以下のロゴが含まれています。
+
+* [Kotlin Foundation](https://kotlinfoundation.org)
+* [Kotlin Notebook](kotlin-notebook-overview.md)
+* [Kotlin Multiplatform (KMP)](https://kotlinlang.org/multiplatform/)
+* [Talking Kotlin](https://www.youtube.com/playlist?list=PLlFc5cFwUnmz1TwkP9SKCHU978dqLTANB)
+* [Compose Multiplatform (CMP)](https://www.jetbrains.com/compose-multiplatform/)
+* [Compose Hot Reload](https://kotlinlang.org/docs/multiplatform/compose-hot-reload.html)
+* [Ktor](https://ktor.io)
+* [Exposed](https://www.jetbrains.com/exposed/)
+
+これらのロゴは、同じダウンロードバンドルに含まれています。
+
+[全てのバージョンをダウンロード](https://resources.jetbrains.com/storage/products/kotlin/docs/kotlin_logos.zip){:.typo-float-right.kto-button.kto-button_size_m.kto-button_mode_outline}
 
 ## Kotlin マスコット
 
@@ -42,9 +60,9 @@ Kodeeはデジタルおよび印刷物で利用できます。この目的のた
 
 Kotlinユーザーグループには、Kotlinを認識でき、言及していることを伝えるために特別にデザインされたロゴを提供しています。
 
-*   公式のKotlinロゴは言語自体に関連付けられています。混乱を招く可能性があるため、他の目的や異なる範囲でこれを使用すべきではありません。その派生形も同様です。
-*   ユーザーグループのロゴは、コミュニティの意見や行動がKotlinチームから独立していることも意味します。
-*   あなたの意見が私たちの意見と一致する必要はなく、私たちはこれが創造的で強力なコミュニティにとって最も有益なモデルであると考えています。
+* 公式のKotlinロゴは言語自体に関連付けられています。混乱を招く可能性があるため、他の目的や異なる範囲でこれを使用すべきではありません。その派生形も同様です。
+* ユーザーグループのロゴは、コミュニティの意見や行動がKotlinチームから独立していることも意味します。
+* あなたの意見が私たちの意見と一致する必要はなく、私たちはこれが創造的で強力なコミュニティにとって最も有益なモデルであると考えています。
 
 [全てのアセットをダウンロード](https://drive.google.com/drive/folders/0B3Zi34svOj1RZ2sxZExhblRJc1k){:.typo-float-right.kto-button.kto-button_size_m.kto-button_mode_outline}
 
@@ -58,15 +76,15 @@ Kotlinユーザーグループには、Kotlinを認識でき、言及してい�
 
 これを行う主な理由は2つあります。
 
-*   第一に、公式に認定されたユーザーグループとして認識されるために、特別なKotlinスタイルのブランド素材を求める多くのリクエストをコミュニティから受けました。
-*   第二に、ユーザーグループおよびコミュニティコンテンツに明確なスタイルを提供し、どのKotlin関連素材が公式チームのもので、どれがコミュニティによって作成されたものかを明確にしたかったためです。
+* 第一に、公式に認定されたユーザーグループとして認識されるために、特別なKotlinスタイルのブランド素材を求める多くのリクエストをコミュニティから受けました。
+* 第二に、ユーザーグループおよびコミュニティコンテンツに明確なスタイルを提供し、どのKotlin関連素材が公式チームのもので、どれがコミュニティによって作成されたものかを明確にしたかったためです。
 
 ### ユーザーグループのロゴを作成する
 
 ユーザーグループのロゴを作成するには：
-1.  Kotlinユーザーグループの[ロゴファイル](https://docs.google.com/drawings/d/1IcJp8Z2jAwEliXrHB-l9RNK_2LrqGTkNuPPtjrW1iIU/edit)をGoogleドライブにコピーします（Googleアカウントにサインインしている必要があります）。
-2.  **Your City** のテキストをユーザーグループの名前に置き換えます。
-3.  画像をダウンロードし、ユーザーグループの素材として使用します。
+1. Kotlinユーザーグループの[ロゴファイル](https://docs.google.com/drawings/d/1IcJp8Z2jAwEliXrHB-l9RNK_2LrqGTkNuPPtjrW1iIU/edit)をGoogleドライブにコピーします（Googleアカウントにサインインしている必要があります）。
+2. **Your City** のテキストをユーザーグループの名前に置き換えます。
+3. 画像をダウンロードし、ユーザーグループの素材として使用します。
 
 ![Belarusian Kotlin User Group sample](kotlin-user-group-avatar.png){width=300}
 
@@ -77,22 +95,24 @@ Kotlinユーザーグループには、Kotlinを認識でき、言及してい�
 ### 様々なプラットフォーム用のグループのプロフィール画像を作成する
 
 グループのプロフィール画像を作成するには：
-1.  Kotlinユーザーグループのプロフィール[画像ファイル](https://docs.google.com/drawings/d/1buhwccmllb7wFS0OIAub0WC4DIuSHRiDpjEQhB4tkPs/edit)をGoogleドライブにコピーします（Googleアカウントにサインインしている必要があります）。
-2.  ユーザーグループの所在地を短縮した名前を追加します（デフォルトのサンプルに従い、最大4つの大文字記号）。
-3.  画像をダウンロードし、Facebook、Twitter、またはその他のプラットフォームのプロフィールに使用します。
+1. Kotlinユーザーグループのプロフィール[画像ファイル](https://docs.google.com/drawings/d/1buhwccmllb7wFS0OIAub0WC4DIuSHRiDpjEQhB4tkPs/edit)をGoogleドライブにコピーします（Googleアカウントにサインインしている必要があります）。
+2. ユーザーグループの所在地を短縮した名前を追加します（デフォルトのサンプルに従い、最大4つの大文字記号）。
+3. 画像をダウンロードし、Facebook、Twitter、またはその他のプラットフォームのプロフィールに使用します。
 
 ### meetup.com のカバー写真を作成する
 
 meetup.com用のグループロゴ入りカバー写真を作成するには：
-1.  [画像ファイル](https://drive.google.com/file/d/1g_0Plf_do6vrXvy1R-Hx430vfV2CPVKN/view)をGoogleドライブにコピーします（Googleアカウントにサインインしている必要があります）。
-2.  画像の右上隅にあるロゴに、ユーザーグループの所在地を短縮した名前を追加します。一般的なパターンをカスタム画像に置き換えたい場合は、背景のパターン画像をクリックし、「画像を置換」を選択してから「コンピューターからアップロード」またはその他のソースを選択します。
-3.  画像をダウンロードし、[meetup.com](https://meetup.com)のプロフィールに使用します。
+1. [画像ファイル](https://drive.google.com/file/d/1g_0Plf_do6vrXvy1R-Hx430vfV2CPVKN/view)をGoogleドライブにコピーします（Googleアカウントにサインインしている必要があります）。
+2. 画像の右上隅にあるロゴに、ユーザーグループの所在地を短縮した名前を追加します。一般的なパターンをカスタム画像に置き換えたい場合は、背景のパターン画像をクリックし、「画像を置換」を選択してから「コンピューターからアップロード」またはその他のソースを選択します。
+3. 画像をダウンロードし、[meetup.com](https://meetup.com)のプロフィールに使用します。
 
 ![User Group examples](kotlin-user-group.png){width=700}
 
 ## Kotlin Night ブランドアセット
 
-JetBrainsはKotlin Nightイベント用のブランディングと素材を提供しています。私たちのチームはイベントプロモーション用のデジタルアセットを準備し、ステッカーやTシャツを含むグッズパックをお届けします。あなたのKotlin Nightを楽しいものにするために、私たちが用意したものをぜひチェックしてください！
+JetBrainsはKotlin Nightイベント用のブランディングと素材を提供しています。
+私たちのチームはイベントプロモーション用のデジタルアセットを準備し、ステッカーやTシャツを含むグッズパックをお届けします。
+あなたのKotlin Nightを楽しいものにするために、私たちが用意したものをぜひチェックしてください！
 
 [全てのアセットをダウンロード](https://drive.google.com/drive/folders/1wTJ-PiO6VvbY6XdACGLsWZ_N8KHI0Nvr){:.typo-float-right.kto-button.kto-button_size_m.kto-button_mode_outline}
 

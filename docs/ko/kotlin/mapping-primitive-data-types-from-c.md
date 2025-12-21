@@ -9,13 +9,13 @@
     </p>
 </tldr>
 
-> C 라이브러리 임포트는 [베타](native-c-interop-stability.md) 단계입니다. cinterop 툴이 C 라이브러리에서 생성하는 모든 Kotlin 선언에는 `@ExperimentalForeignApi` 어노테이션이 있어야 합니다.
+> C 라이브러리 임포트는 [베타](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 단계입니다. cinterop 툴이 C 라이브러리에서 생성하는 모든 Kotlin 선언에는 `@ExperimentalForeignApi` 어노테이션이 있어야 합니다.
 >
 > Kotlin/Native에 포함된 네이티브 플랫폼 라이브러리(Foundation, UIKit, POSIX 등)는 일부 API에 대해서만 옵트인(opt-in)이 필요합니다.
 >
 {style="note"}
 
-어떤 C 데이터 타입이 Kotlin/Native에서 보이는지, 그리고 그 반대의 경우도 살펴보겠습니다. 또한 Kotlin/Native 및 [멀티플랫폼](gradle-configure-project.md#targeting-multiple-platforms) Gradle 빌드의 고급 C interop 관련 사용 사례를 검토해 보겠습니다.
+어떤 C 데이터 타입이 Kotlin/Native에서 보이는지, 그리고 그 반대의 경우도 살펴보고 Kotlin/Native 및 [멀티플랫폼](gradle-configure-project.md#targeting-multiple-platforms) Gradle 빌드의 고급 C interop 관련 사용 사례를 검토해 보겠습니다.
 
 이 튜토리얼에서는 다음을 수행합니다:
 

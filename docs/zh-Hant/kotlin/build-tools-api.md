@@ -4,7 +4,7 @@
 
 <tldr>目前，BTA 僅支援 Kotlin/JVM。</tldr>
 
-Kotlin 2.2.0 引入了實驗性的建置工具 API (Build Tools API, BTA)，簡化了建置系統與 Kotlin 編譯器整合的方式。
+Kotlin 2.2.0 引入了實驗性的建置工具 API (Build tools API, BTA)，簡化了建置系統與 Kotlin 編譯器整合的方式。
 
 以前，在建置系統中加入完整的 Kotlin 支援（例如增量編譯、Kotlin 編譯器外掛、守護行程和 Kotlin 多平台）需要付出巨大的努力。BTA 旨在透過提供建置系統和 Kotlin 編譯器生態系之間的統一 API 來降低這種複雜性。
 
@@ -36,8 +36,8 @@ kotlin.compiler.runViaBuildToolsApi=true
 
 透過 BTA，您現在可以使用與 KGP 使用的版本不同的 Kotlin 編譯器版本。這在以下情況很有用：
 
-* 您想嘗試新的 Kotlin 功能，但尚未更新您的建置指令碼。
-* 您需要最新的外掛修正，但目前想保留在舊的編譯器版本上。
+*   您想嘗試新的 Kotlin 功能，但尚未更新您的建置指令碼。
+*   您需要最新的外掛修正，但目前想保留在舊的編譯器版本上。
 
 以下是如何在您的 `build.gradle.kts` 檔案中設定此項的範例：
 
@@ -67,16 +67,16 @@ kotlin {
 
 BTA 支援：
 
-* 之前三個主要的 Kotlin 編譯器版本。
-* 向前一個主要版本。
+*   之前三個主要的 Kotlin 編譯器版本。
+*   向前一個主要版本。
 
 例如，在 KGP 2.2.0 中，支援的 Kotlin 編譯器版本為：
 
-* 1.9.25
-* 2.0.x
-* 2.1.x
-* 2.2.x
-* 2.3.x
+*   1.9.25
+*   2.0.x
+*   2.1.x
+*   2.2.x
+*   2.3.x
 
 #### 限制
 
@@ -94,6 +94,6 @@ kotlin.compiler.execution.strategy=in-process
 
 ## 與 Maven 整合
 
-BTA 使 [`kotlin-maven-plugin`](maven.md) 能夠支援 [Kotlin 守護行程](kotlin-daemon.md)，這是預設的 [編譯器執行策略](maven.md#configure-kotlin-compiler-execution-strategy)。`kotlin-maven-plugin` 預設使用 BTA，因此無需進行任何配置。
+BTA 使 [`kotlin-maven-plugin`](maven.md) 能夠支援 [Kotlin 守護行程](kotlin-daemon.md)，這是預設的 [編譯器執行策略](maven-compile-package.md#choose-execution-strategy)。`kotlin-maven-plugin` 預設使用 BTA，因此無需進行任何配置。
 
 BTA 使得未來能夠提供更多功能，例如 [增量編譯穩定化](https://youtrack.jetbrains.com/issue/KT-77086)。

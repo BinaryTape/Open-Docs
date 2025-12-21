@@ -157,6 +157,10 @@
             "link": "compose-navigation"
           },
           {
+            "text": "kmp.compose-navigation-3",
+            "link": "compose-navigation-3"
+          },
+          {
             "text": "kmp.compose-navigation-routing",
             "link": "compose-navigation-routing"
           },
@@ -590,10 +594,6 @@
       {
         "text": "kmp.programming-languages-cross-platform",
         "link": "programming-languages-cross-platform"
-      },
-      {
-        "text": "kmp.choosing-web-target",
-        "link": "choosing-web-target"
       }
     ],
     "collapsed": true

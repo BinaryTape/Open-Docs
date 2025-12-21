@@ -4,7 +4,7 @@ _[發佈日期：2021 年 2 月 3 日](releases.md#release-details)_
 
 Kotlin 1.4.30 提供了新語言功能的預覽版本，將 Kotlin/JVM 編譯器的新 IR 後端提升為 Beta 版，並帶來了各種效能和功能改進。
 
-您也可以透過[這篇部落格文章](https://blog.jetbrains.com/kotlin/2021/01/kotlin-1-4-30-released/)了解更多新功能。
+您也可以透過[這篇部落格文章](https://blog.jetbrains.com/kotlin/2021/02/kotlin-1-4-30-released/)了解更多新功能。
 
 ## 語言功能
 
@@ -16,7 +16,7 @@ Kotlin 1.5.0 將會帶來新的語言功能——JVM records 支援、密封介�
 
 若要在預覽模式下啟用這些語言功能和改進，您需要透過新增特定的編譯器選項來選擇啟用。詳情請參閱以下章節。
 
-透過[這篇部落格文章](https://blog.jetbrains.com/kotlin/2021/01/new-language-features-preview-in-kotlin-1-4-30)了解更多關於新功能預覽的資訊。
+透過[這篇部落格文章](https://blog.jetbrains.com/kotlin/2021/02/new-language-features-preview-in-kotlin-1-4-30/)了解更多關於新功能預覽的資訊。
 
 ### JVM records 支援
 
@@ -45,7 +45,7 @@ data class User(val name: String, val age: Int)
 ### 密封介面
 
 > 密封介面為[實驗性](components-stability.md)。它可能隨時被刪除或更改。
-> 需要選擇啟用（詳情請參閱下方），您應該僅將其用於評估目的。我們非常感謝您在 [YouTrack](https://youtrack.com/issue/KT-42433) 上提供回饋。
+> 需要選擇啟用（詳情請參閱下方），您應該僅將它們用於評估目的。我們非常感謝您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-42433) 上提供回饋。
 >
 {style="warning"}
 
@@ -201,7 +201,7 @@ Kotlin 1.4.30 將行內類別提升至 Beta 版，我們計劃在未來版本中
     </configuration>
     ```
 
-透過[這篇部落格文章](https://blog.jetbrains.com/kotlin/2021/01/the-jvm-backend-is-in-beta-let-s-make-it-stable-together)了解更多關於 JVM IR 後端帶來的變更。
+透過[這篇部落格文章](https://blog.jetbrains.com/kotlin/2021/02/the-jvm-backend-is-in-beta-let-s-make-it-stable-together/)了解更多關於 JVM IR 後端帶來的變更。
 
 ## Kotlin/Native
 
@@ -236,7 +236,7 @@ Kotlin/Native 在 1.4.30 中獲得了各種效能改進，從而縮短了編譯�
 
 ### 支援 Gradle 設定快取
 
-從 1.4.30 開始，Kotlin Gradle 插件支援[設定快取](https://docs.gradle.org/current/userguide/configuration_cache.html)功能。它能加速建構過程：一旦您執行命令，Gradle 就會執行設定階段並計算任務圖。Gradle 會快取結果並將其用於後續的建構。
+從 1.4.30 開始，Kotlin Gradle plugin 支援[設定快取](https://docs.gradle.org/current/userguide/configuration_cache.html)功能。它能加速建構過程：一旦您執行命令，Gradle 就會執行設定階段並計算任務圖。Gradle 會快取結果並將其用於後續的建構。
 
 若要開始使用此功能，您可以[使用 Gradle 命令](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage)或[設定基於 IntelliJ 的 IDE](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:ide:intellij)。
 

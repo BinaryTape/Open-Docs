@@ -1,6 +1,6 @@
 [//]: # (title: 使用 C 互操作和 libcurl 创建应用 – 教程)
 
-> C 库的导入处于 [Beta](native-c-interop-stability.md) 阶段。所有通过 cinterop 工具从 C 库生成的 Kotlin 声明都应带有 `@ExperimentalForeignApi` 注解。
+> C 库的导入处于 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 阶段。所有由 cinterop 工具从 C 库生成的 Kotlin 声明都应带有 `@ExperimentalForeignApi` 注解。
 >
 > Kotlin/Native 附带的原生平台库（例如 Foundation、UIKit 和 POSIX）仅需对部分 API 进行 opt-in。
 >
@@ -54,9 +54,9 @@
     
     ```
 
-    *   目标使用 `macosArm64`、`macosX64`、`linuxArm64`、`linuxX64` 和 `mingwX64` 定义，分别对应 macOS、Linux 和 Windows。关于 [支持的平台](native-target-support.md) 的完整 list，请参见。
+    *   目标使用 `macosArm64`、`macosX64`、`linuxArm64`、`linuxX64` 和 `mingwX64` 定义，分别对应 macOS、Linux 和 Windows。关于 [支持的平台](native-target-support.md) 的完整列表，请参见。
     *   `binaries {}` 代码块定义了二进制文件的生成方式和应用程序的入口点。这些可以保留为默认值。
-    *   C 互操作被配置为构建过程中的一个额外步骤。默认情况下，所有来自 C 的符号都会导入到 `interop` 包中。你可能需要在 `.kt` 文件中导入整个包。关于 [如何配置](gradle-configure-project.md#targeting-multiple-platforms) 它，请参阅更多信息。
+    *   C 互操作被配置为构建中的一个额外步骤。默认情况下，所有来自 C 的符号都会导入到 `interop` 包中。你可能需要在 `.kt` 文件中导入整个包。关于 [如何配置](gradle-configure-project.md#targeting-multiple-platforms) 它，请参阅更多信息。
 
 ## 创建定义文件
 
@@ -84,14 +84,14 @@ Kotlin/Native 有助于使用标准 C 库，这打开了一个包含几乎你所
     linkerOpts.linux = -L/usr/lib/x86_64-linux-gnu -lcurl
     ```
 
-    *   `headers` 是用于生成 Kotlin 存根的头文件list。你可以在此处添加多个文件，用空格分隔。在本例中，它只有 `curl.h`。引用的文件需要位于指定的路径上（在本例中，是 `/usr/include/curl`）。
+    *   `headers` 是用于生成 Kotlin 存根的头文件列表。你可以在此处添加多个文件，用空格分隔。在本例中，它只有 `curl.h`。引用的文件需要位于指定的路径上（在本例中，是 `/usr/include/curl`）。
     *   `headerFilter` 显示了具体包含哪些内容。在 C 语言中，当一个文件使用 `#include` 指令引用另一个文件时，所有头文件也会被包含进来。有时这并非必要，你可以 [使用 glob 模式](https://en.wikipedia.org/wiki/Glob_(programming)) 添加此形参以进行调整。
 
         如果你不想将外部依赖项（例如系统 `stdint.h` 头文件）引入互操作库中，可以使用 `headerFilter`。此外，它可能有助于优化库大小，并修复系统与提供的 Kotlin/Native 编译环境之间的潜在冲突。
 
     *   如果需要修改特定平台的行为，你可以使用 `compilerOpts.osx` 或 `compilerOpts.linux` 等格式，为选项提供平台特有的值。在本例中，它们是 macOS（`.osx` 后缀）和 Linux（`.linux` 后缀）。不带后缀的形参也是可能的（例如 `linkerOpts=`），并应用于所有平台。
 
-    关于可用选项的完整 list，请参见 [定义文件](native-definition-file.md#properties)。
+    关于可用选项的完整列表，请参见 [定义文件](native-definition-file.md#properties)。
 
 > 你的系统需要有 `curl` 库的二进制文件才能使示例正常工作。在 macOS 和 Linux 上，它们通常已包含在内。在 Windows 上，你可以从 [源代码](https://curl.se/download.html) 构建它（你需要 Microsoft Visual Studio 或 Windows SDK 命令行工具）。关于更多详细信息，请参见 [相关博客文章](https://jonnyzzz.com/blog/2018/10/29/kn-libcurl-windows/)。或者，你也可以考虑使用 [MinGW/MSYS2](https://www.msys2.org/) 的 `curl` 二进制文件。
 >
@@ -162,7 +162,7 @@ fun main(args: Array<String>) {
 
 ## 编译并运行应用程序
 
-1.  编译应用程序。为此，从任务 list 中运行 `runDebugExecutableNative` Gradle 任务，或在终端中使用以下命令：
+1.  编译应用程序。为此，从任务列表运行 `runDebugExecutableNative` Gradle 任务，或在终端中使用以下命令：
 
     ```bash
     ./gradlew runDebugExecutableNative

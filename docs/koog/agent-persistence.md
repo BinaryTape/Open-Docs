@@ -1,27 +1,27 @@
 # 智能体持久化
 
-智能体持久化是一种特性，它为 Koog 框架中的 AI 智能体提供检查点功能。它允许你在执行期间的特定点保存和恢复智能体的状态，从而实现以下功能：
+智能体持久化是一种**特性**，它为 Koog **framework** 中的 **AI 智能体**提供了**检查点**功能。它允许你在**执行**期间的特定点保存和恢复**智能体**的**状态**，从而实现以下**功能**：
 
-- 从特定点恢复智能体执行
-- 回滚到以前的状态
-- 在会话间持久化智能体状态
+- 从特定点恢复**智能体执行**
+- 回滚到以前的**状态**
+- 在**会话**间持久化**智能体状态**
 
 ## 关键概念
 
 ### 检查点
 
-检查点捕获了智能体在其执行中特定点的完整状态，包括：
+**检查点**捕获了**智能体**在其**执行**中特定点的完整**状态**，包括：
 
-- 消息历史（用户、系统、助手和工具之间的所有交互）
-- 当前正在执行的节点
-- 当前节点的输入数据
-- 创建时间戳
+- 消息历史（用户、系统、助手和 **tool** 之间的所有**交互**）
+- 当前正在**执行**的**节点**
+- 当前**节点**的输入数据
+- **创建时间戳**
 
-检查点通过唯一 ID 标识，并与特定智能体相关联。
+**检查点**通过唯一 ID 标识，并与特定**智能体**相关联。
 
 ## 前提条件
 
-智能体持久化特性要求智能体策略中的所有节点都具有唯一名称。在安装此特性时会强制执行此要求：
+**智能体持久化特性**要求你的**智能体**的 **strategy** 中的所有**节点**都具有唯一名称。在**安装**此**特性**时会强制**执行**此要求：
 
 <!--- INCLUDE
 /*
@@ -38,11 +38,11 @@ require(ctx.strategy.metadata.uniqueNames) {
 
 <!--- KNIT example-agent-persistence-01.kt -->
 
-确保为图中的节点设置唯一名称。
+请确保为你的 **graph** 中的**节点**设置唯一名称。
 
 ## 安装
 
-要使用智能体持久化特性，请将其添加到智能体的配置中：
+要使用**智能体持久化特性**，请将其添加到你的**智能体**的**配置**中：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -72,14 +72,14 @@ val agent = AIAgent(
 
 ## 配置选项
 
-智能体持久化特性有两个主要的配置选项：
+**智能体持久化特性**有两个主要的**配置**选项：
 
-- **存储提供者**：用于保存和检索检查点的提供者。
-- **持续持久化**：在每个节点运行后自动创建检查点。
+- **存储提供者**：用于保存和检索**检查点**的提供者。
+- **持续持久化**：在每个**节点**运行后自动**创建检查点**。
 
 ### 存储提供者
 
-设置将用于保存和检索检查点的存储提供者：
+设置将用于保存和检索**检查点**的**存储提供者**：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -105,17 +105,17 @@ install(Persistence) {
 
 <!--- KNIT example-agent-persistence-03.kt -->
 
-该框架包含以下内置提供者：
+该 **framework** 包含以下内置提供者：
 
-- `InMemoryPersistenceStorageProvider`：将检查点存储在内存中（应用程序重启后会丢失）。
-- `FilePersistenceStorageProvider`：将检查点持久化到文件系统。
-- `NoPersistenceStorageProvider`：一个空操作实现，不存储检查点。这是默认提供者。
+- `InMemoryPersistenceStorageProvider`：将**检查点**存储在内存中（**应用程序**重启后会丢失）。
+- `FilePersistenceStorageProvider`：将**检查点**持久化到文件系统。
+- `NoPersistenceStorageProvider`：一个空**操作符**实现，不存储**检查点**。这是默认提供者。
 
-你也可以通过实现 `PersistenceStorageProvider` 接口来实现自定义存储提供者。关于更多信息，请参见 [自定义存储提供者](#custom-storage-providers)。
+你也可以通过实现 `PersistenceStorageProvider` **接口**来**实现自定义存储提供者**。关于更多信息，请参见 [自定义存储提供者](#custom-storage-providers)。
 
 ### 持续持久化
 
-持续持久化意味着在每个节点运行后自动创建一个检查点。要激活持续持久化，请使用以下代码：
+**持续持久化**意味着在每个**节点**运行后自动**创建检查点**。要激活**持续持久化**，请使用以下**代码块**：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -141,13 +141,13 @@ install(Persistence) {
 
 <!--- KNIT example-agent-persistence-04.kt -->
 
-激活后，智能体将在每个节点执行后自动创建一个检查点，从而实现细粒度恢复。
+激活后，**智能体**将在每个**节点执行**后自动**创建一个检查点**，从而实现**细粒度恢复**。
 
 ## 基本用法
 
 ### 创建检查点
 
-要了解如何在智能体执行的特定点创建检查点，请参见以下代码示例：
+要了解如何在**智能体执行**的特定点**创建检查点**，请参见以下**代码块**：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.context.AIAgentContext
@@ -163,14 +163,14 @@ suspend fun example(context: AIAgentContext) {
     // Create a checkpoint with the current state
     val checkpoint = context.persistence().createCheckpoint(
         agentContext = context,
-        nodeId = "current-node-id",
+        nodePath = context.executionInfo.path(),
         lastInput = inputData,
         lastInputType = inputType,
         checkpointId = context.runId,
         version = 0L
     )
 
-    // 该检查点 ID 可以存储以供将来使用
+    // The checkpoint ID can be stored for later use
     val checkpointId = checkpoint?.checkpointId
 }
 ```
@@ -179,7 +179,7 @@ suspend fun example(context: AIAgentContext) {
 
 ### 从检查点恢复
 
-要从特定检查点恢复智能体的状态，请遵循以下代码示例：
+要从特定**检查点**恢复**智能体**的**状态**，请遵循以下**代码块**：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.context.AIAgentContext
@@ -188,10 +188,10 @@ import ai.koog.agents.snapshot.feature.persistence
 
 ```kotlin
 suspend fun example(context: AIAgentContext, checkpointId: String) {
-    // 回滚到特定检查点
+    // Roll back to a specific checkpoint
     context.persistence().rollbackToCheckpoint(checkpointId, context)
 
-    // 或回滚到最新的检查点
+    // Or roll back to the latest checkpoint
     context.persistence().rollbackToLatestCheckpoint(context)
 }
 ```
@@ -200,9 +200,9 @@ suspend fun example(context: AIAgentContext, checkpointId: String) {
 
 #### 回滚工具产生的所有副作用
 
-某些工具产生副作用是很常见的。具体来说，当你后端运行智能体时，某些工具很可能会执行一些数据库事务。这使得智能体更难“时光倒流”。
+某些 **tool** 产生**副作用**是很常见的。具体来说，当你后端运行**智能体**时，某些 **tool** 很可能会执行一些**数据库事务**。这使得你的**智能体**更难“**时光倒流**”。
 
-想象一下，你有一个名为 `createUser` 的工具，它在数据库中创建一个新用户。并且你的智能体随着时间推移执行了多个工具调用：
+想象一下，你有一个名为 `createUser` 的 **tool**，它在你的**数据库**中**创建**一个新用户。并且你的**智能体**随着时间推移**执行**了多个 **tool** 调用：
 ```
 tool call: createUser "Alex"
 
@@ -212,9 +212,9 @@ tool call: createUser "Daniel"
 tool call: createUser "Maria"
 ```
 
-现在你想回滚到一个检查点。仅仅恢复智能体的状态（包括消息历史和策略图节点）不足以实现检查点之前的确切“世界状态”。你还应该恢复工具调用产生的副作用。在我们的示例中，这意味着从数据库中删除 `Maria` 和 `Daniel`。
+现在你想回滚到一个**检查点**。仅仅恢复**智能体**的**状态**（包括消息历史和 **strategy graph node**）不足以实现**检查点**之前的确切“世界**状态**”。你还应该恢复你的 **tool** 调用产生的**副作用**。在我们的示例中，这意味着从**数据库**中删除 `Maria` 和 `Daniel`。
 
-通过 Koog 持久化，你可以通过向 `Persistence` 特性配置提供一个 `RollbackToolRegistry` 来实现这一点：
+通过 Koog Persistence，你可以通过向 `Persistence` **特性配置**提供一个 `RollbackToolRegistry` 来实现这一点：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -242,8 +242,8 @@ val agent = AIAgent(
 install(Persistence) {
     enableAutomaticPersistence = true
     rollbackToolRegistry = RollbackToolRegistry {
-        // 对于每次 `createUser` 工具调用，当回滚到期望的执行点时，都将以相反的顺序调用 `removeUser`。
-        // 注意：`removeUser` 工具应与 `createUser` 接受完全相同的实参。
+        // 对于每次 `createUser` tool 调用，当回滚到期望的执行点时，都将以相反的顺序调用 `removeUser`。
+        // 注意：`removeUser` tool 应该接受与 `createUser` 完全相同的实参。
         // 开发者有责任确保 `removeUser` 调用回滚 `createUser` 的所有副作用：
         registerRollback(::createUser, ::removeUser)
     }
@@ -254,7 +254,7 @@ install(Persistence) {
 
 ### 使用扩展函数
 
-智能体持久化特性提供了方便的扩展函数来处理检查点：
+**智能体持久化特性**提供了方便的**扩展函数**来处理**检查点**：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.context.AIAgentContext
@@ -266,15 +266,15 @@ import ai.koog.agents.snapshot.feature.withPersistence
 
 ```kotlin
 suspend fun example(context: AIAgentContext) {
-    // 访问检查点特性
+    // Access the checkpoint feature
     val checkpointFeature = context.persistence()
 
-    // 或者使用检查点特性执行操作
+    // Or perform an action with the checkpoint feature
     context.withPersistence { ctx ->
-        // 'this' 是检查点特性
+        // 'this' is the checkpoint feature
         createCheckpoint(
             agentContext = ctx,
-            nodeId = "current-node-id",
+            nodePath = ctx.executionInfo.path(),
             lastInput = inputData,
             lastInputType = inputType,
             checkpointId = ctx.runId,
@@ -289,7 +289,7 @@ suspend fun example(context: AIAgentContext) {
 
 ### 自定义存储提供者
 
-你可以通过实现 `PersistenceStorageProvider` 接口来实现自定义存储提供者：
+你可以通过实现 `PersistenceStorageProvider` **接口**来**实现自定义存储提供者**：
 
 <!--- INCLUDE
 import ai.koog.agents.snapshot.feature.AgentCheckpointData
@@ -320,7 +320,7 @@ class MyCustomStorageProvider<MyFilterType> : PersistenceStorageProvider<MyFilte
 
 <!--- KNIT example-agent-persistence-09.kt -->
 
-要在特性配置中使用自定义提供者，请在智能体中配置智能体持久化特性时，将其设置为存储。
+要在**特性配置**中使用你的**自定义提供者**，请在你的**智能体**中**配置智能体持久化特性**时，将其设置为**存储**。
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -363,7 +363,7 @@ install(Persistence) {
 
 ### 设置执行点
 
-为了进行高级控制，你可以直接设置智能体的执行点：
+为了进行**高级控制**，你可以直接设置**智能体**的**执行点**：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.context.AIAgentContext
@@ -379,7 +379,7 @@ val customMessageHistory = emptyList<User>()
 fun example(context: AIAgentContext) {
     context.persistence().setExecutionPoint(
         agentContext = context,
-        nodeId = "target-node-id",
+        nodePath = context.executionInfo.path(),
         messageHistory = customMessageHistory,
         input = customInput
     )
@@ -389,4 +389,4 @@ fun example(context: AIAgentContext) {
 
 <!--- KNIT example-agent-persistence-11.kt -->
 
-这允许对智能体的状态进行更细粒度的控制，而不仅仅是从检查点恢复。
+这允许对**智能体**的**状态**进行更**细粒度**的**控制**，而不仅仅是从**检查点恢复**。

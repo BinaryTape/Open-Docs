@@ -327,8 +327,8 @@ fun main() {
 >
 > ```kotlin
 > FileWriter("test.txt").use { writer ->
-> writer.write("some text") 
-> // After this block, the .use function automatically calls writer.close(), similar to a finally block
+>     writer.write("some text")
+>     // After this block, the .use function automatically calls writer.close(), similar to a finally block
 > }
 > ```
 >
@@ -577,7 +577,7 @@ fun main() {
     > println("First element in empty list: $firstElement")
     > ```
     >
-{style="note"}
+    {style="note"}
 
 *   [`NumberFormatException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number-format-exception/): 이 예외는 문자열을 숫자 타입으로 변환하려고 시도했지만 문자열이 적절한 형식을 갖추지 못했을 때 발생합니다.
 

@@ -186,6 +186,27 @@ kotlin {
 
 2. 启用 `BigInt` 类型。有关如何启用它，请参见[使用 `BigInt` 类型表示 Kotlin 的 `Long` 类型](#use-bigint-type-to-represent-kotlin-s-long-type)。
 
+### 使用 `BigInt64Array` 类型表示 Kotlin 的 `LongArray` 类型
+<primary-label ref="experimental-general"/>
+
+当编译为 JavaScript 时，Kotlin/JS 可以使用 JavaScript 的内置 `BigInt64Array` 类型来表示 Kotlin 的 `LongArray` 值。
+
+要启用对 `BigInt64Array` 类型的支持，请将以下编译器选项添加到你的 `build.gradle(.kts)` 文件中：
+
+```kotlin
+// build.gradle.kts
+kotlin {
+    js {
+        ...
+        compilerOptions {
+            freeCompilerArgs.add("-Xes-long-as-bigint")
+        }
+    }
+}
+```
+
+此特性是[实验性的](components-stability.md#stability-levels-explained)。请在我们的问题跟踪器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-79284/Use-BigInt64Array-for-LongArray) 中分享你的反馈。
+
 ## JavaScript 中的 Kotlin 类型
 
 请查看 Kotlin 类型如何映射到 JavaScript 类型：
@@ -204,7 +225,7 @@ kotlin {
 | `CharArray`                                                      | `UInt16Array`             | 带有属性 `$type$ == "CharArray"`。                                         |
 | `FloatArray`                                                     | `Float32Array`            |                                                                                       |
 | `DoubleArray`                                                    | `Float64Array`            |                                                                                       |
-| `LongArray`                                                      | `Array<kotlin.Long>`      | 带有属性 `$type$ == "LongArray"`。另请参见 Kotlin 的 `Long` 类型注释。    |
+| `LongArray`                                                      | `BigInt64Array`           |                                                                                       |
 | `BooleanArray`                                                   | `Int8Array`               | 带有属性 `$type$ == "BooleanArray"`。                                      |
 | `List`, `MutableList`                                            | `KtList`, `KtMutableList` | 通过 `KtList.asJsReadonlyArrayView` 或 `KtMutableList.asJsArrayView` 暴露一个 `Array`。 |
 | `Map`, `MutableMap`                                              | `KtMap`, `KtMutableMap`   | 通过 `KtMap.asJsReadonlyMapView` 或 `KtMutableMap.asJsMapView` 暴露一个 ES2015 `Map`。 |

@@ -196,7 +196,7 @@ Kotlin/JVMコンパイルのデフォルトのターゲットバージョンは`
 JVMターゲット1.8以降に移行してください。JVMターゲットバージョンの更新方法については、以下をご覧ください。
 
 *   [Gradle](gradle-compiler-options.md#attributes-specific-to-jvm)
-*   [Maven](maven.md#attributes-specific-to-jvm)
+*   [Maven](maven-compile-package.md#attributes-specific-to-jvm)
 *   [コマンドラインコンパイラ](compiler-reference.md#jvm-target-version)
 
 ## Kotlin/Native

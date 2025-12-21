@@ -533,10 +533,6 @@ fun main() {
 ### 인라인 값 클래스를 사용한 Java 상호 운용성 개선
 <primary-label ref="experimental-general"/>
 
-> IntelliJ IDEA에서 이 기능에 대한 코드 분석, 코드 완성 및 하이라이팅 지원은 현재 [2025.3 EAP 빌드](https://www.jetbrains.com/idea/nextversion/)에서만 사용할 수 있습니다.
->
-{style = "note"}
-
 Kotlin 2.2.0은 새로운 실험적 어노테이션인 [`@JvmExposeBoxed`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-expose-boxed/)를 도입합니다. 이 어노테이션은 [인라인 값 클래스](inline-classes.md)를 Java에서 사용하기 쉽게 만듭니다.
 
 이 기능에 대한 개요는 다음 비디오에서 확인할 수 있습니다:
@@ -1189,10 +1185,8 @@ composeCompiler {
 
 *   Kotlin 2.2.0부터 컴파일러는 [`-language-version=1.6` 또는 `-language-version=1.7`을 더 이상 지원하지 않습니다](compatibility-guide-22.md#drop-support-in-language-version-for-1-6-and-1-7). 1.8보다 오래된 언어 기능 세트는 지원되지 않지만 언어 자체는 Kotlin 1.0과 완전히 하위 호환됩니다.
 
-*   [](ant.md) 빌드 시스템에 대한 지원이 중단됩니다. Ant에 대한 Kotlin 지원은 오랫동안 활발히 개발되지 않았으며, 상대적으로 작은 사용자 기반으로 인해 더 이상 유지보수할 계획이 없습니다.
-
+*   Ant 빌드 시스템에 대한 지원이 중단됩니다. Ant에 대한 Kotlin 지원은 오랫동안 활발히 개발되지 않았으며, 상대적으로 작은 사용자 기반으로 인해 더 이상 유지보수할 계획이 없습니다.
     2.3.0에서는 Ant 지원을 제거할 계획입니다. 그러나 Kotlin은 [기여](contribute.md)에 열려 있습니다. Ant의 외부 유지보수자가 되는 데 관심이 있다면, [이 YouTrack 이슈](https://youtrack.jetbrains.com/issue/KT-75875/)에 "jetbrains-team" 가시성 설정을 사용하여 댓글을 남겨주세요.
-
 *   Kotlin 2.2.0은 Gradle의 [`kotlinOptions{}` 블록의 지원 중단 수준을 오류로 상향](compatibility-guide-22.md#deprecate-kotlinoptions-dsl)합니다.
     대신 `compilerOptions{}` 블록을 사용하세요. 빌드 스크립트 업데이트에 대한 지침은 [`kotlinOptions{}`에서 `compilerOptions{}`로 마이그레이션](gradle-compiler-options.md#migrate-from-kotlinoptions-to-compileroptions)을 참조하세요.
 *   Kotlin 스크립팅은 Kotlin 생태계의 중요한 부분으로 남아 있지만, 더 나은 경험을 제공하기 위해 사용자 지정 스크립팅과 `gradle.kts`, `main.kts` 스크립트와 같은 특정 사용 사례에 중점을 두고 있습니다.

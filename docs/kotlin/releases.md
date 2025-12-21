@@ -2,7 +2,7 @@
 
 <tldr>
     <p>最新 Kotlin 版本：<strong>%kotlinVersion%</strong></p>
-    <p>关于详情，请参见<a href="%kotlinLatestWhatsnew%">Kotlin 2.2.20 新特性</a> <!--and find the bug fix details in the <a href="%kotlinLatestUrl%">changelog</a>-->。</p>
+    <p>关于详情，请参见<a href="%kotlinLatestWhatsnew%">Kotlin 2.3.0 新特性</a> <!--and find the bug fix details in the <a href="%kotlinLatestUrl%">changelog</a>-->。</p>
 </tldr>
 
 自 Kotlin 2.0.0 起，我们发布以下类型的版本：
@@ -30,8 +30,8 @@
 
 以下是即将发布的稳定 Kotlin 版本的近似时间表：
 
-*   **2.3.0**：计划于 2025 年 12 月 – 2026 年 1 月发布
 *   **2.3.20**：计划于 2026 年 3 月 – 4 月发布
+*   **2.4.0**：计划于 2026 年 6 月 – 7 月发布
 
 ## 更新到新 Kotlin 版本
 
@@ -102,7 +102,7 @@ plugins {
 </plugins>
 ```
 
-如果你有项目是用更早的 Kotlin 版本创建的，请检测你是否还需要[更新任何 kotlinx 库的版本](maven.md#dependency-on-a-kotlinx-library)。
+如果你有项目是用更早的 Kotlin 版本创建的，请检测你是否还需要[更新任何 kotlinx 库的版本](maven-configure-project.md#dependency-on-a-kotlinx-library)。
 
 > 关于如何在项目中使用 Maven 的更多信息，请参见 [Maven](maven.md)。
 >
@@ -141,8 +141,18 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
         <th>构建亮点</th>
     </tr>
     <tr>
+        <td><strong>2.3.0</strong>
+            <p>发布时间：<strong>2025 年 12 月 16 日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0" target="_blank">GitHub 发布页</a></p>
+        </td>
+        <td>
+            <p>一个语言版本，包含新的和稳定的语言特性、工具更新、针对不同平台的性能改进以及重要的修复。</p>
+            <p>关于更多详情，请参见<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0">更新日志</a>。</p>
+        </td>
+    </tr> 
+    <tr>
         <td><strong>2.2.21</strong>
-            <p>发布时间：<strong>October 23, 2025</strong></p>
+            <p>发布时间：<strong>2025 年 10 月 23 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.21" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -152,7 +162,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>2.2.20</strong>
-            <p>发布时间：<strong>September 10, 2025</strong></p>
+            <p>发布时间：<strong>2025 年 9 月 10 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -162,7 +172,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>2.2.10</strong>
-            <p>发布时间：<strong>August 14, 2025</strong></p>
+            <p>发布时间：<strong>2025 年 8 月 14 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.10" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -172,7 +182,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>2.2.0</strong>
-            <p>发布时间：<strong>June 23, 2025</strong></p>
+            <p>发布时间：<strong>2025 年 6 月 23 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.0" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -182,7 +192,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr> 
     <tr>
         <td><strong>2.1.21</strong>
-            <p>发布时间：<strong>May 13, 2025</strong></p>
+            <p>发布时间：<strong>2025 年 5 月 13 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.21" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -192,7 +202,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr> 
    <tr>
         <td><strong>2.1.20</strong>
-            <p>发布时间：<strong>March 20, 2025</strong></p>
+            <p>发布时间：<strong>2025 年 3 月 20 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.20" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -202,7 +212,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>2.1.10</strong>
-            <p>发布时间：<strong>January 27, 2025</strong></p>
+            <p>发布时间：<strong>2025 年 1 月 27 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.10" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -212,7 +222,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>2.1.0</strong>
-            <p>发布时间：<strong>November 27, 2024</strong></p>
+            <p>发布时间：<strong>2024 年 11 月 27 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.0" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -222,7 +232,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>2.0.21</strong>
-            <p>发布时间：<strong>October 10, 2024</strong></p>
+            <p>发布时间：<strong>2024 年 10 月 10 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.0.21" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -232,7 +242,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>2.0.20</strong>
-            <p>发布时间：<strong>August 22, 2024</strong></p>
+            <p>发布时间：<strong>2024 年 8 月 22 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.0.20" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -242,7 +252,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>2.0.10</strong>
-            <p>发布时间：<strong>August 6, 2024</strong></p>
+            <p>发布时间：<strong>2024 年 8 月 6 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.0.10" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -252,7 +262,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>2.0.0</strong>
-            <p>发布时间：<strong>May 21, 2024</strong></p>
+            <p>发布时间：<strong>2024 年 5 月 21 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.0.0" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -262,7 +272,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.9.25</strong>
-            <p>发布时间：<strong>July 19, 2024</strong></p>
+            <p>发布时间：<strong>2024 年 7 月 19 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.25" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -272,7 +282,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.9.24</strong>
-            <p>发布时间：<strong>May 7, 2024</strong></p>
+            <p>发布时间：<strong>2024 年 5 月 7 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.24" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -282,7 +292,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.9.23</strong>
-            <p>发布时间：<strong>March 7, 2024</strong></p>
+            <p>发布时间：<strong>2024 年 3 月 7 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.23" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -292,7 +302,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.9.22</strong>
-            <p>发布时间：<strong>December 21, 2023</strong></p>
+            <p>发布时间：<strong>2023 年 12 月 21 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.22" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -302,7 +312,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.9.21</strong>
-            <p>发布时间：<strong>November 23, 2023</strong></p>
+            <p>发布时间：<strong>2023 年 11 月 23 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.21" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -312,7 +322,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.9.20</strong>
-            <p>发布时间：<strong>November 1, 2023</strong></p>
+            <p>发布时间：<strong>2023 年 11 月 1 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.20" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -325,7 +335,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.9.10</strong>
-            <p>发布时间：<strong>August 23, 2023</strong></p>
+            <p>发布时间：<strong>2023 年 8 月 23 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.10" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -336,7 +346,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.9.0</strong>
-            <p>发布时间：<strong>July 6, 2023</strong></p>
+            <p>发布时间：<strong>2023 年 7 月 6 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.0" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -350,7 +360,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.8.22</strong>
-            <p>发布时间：<strong>June 8, 2023</strong></p>
+            <p>发布时间：<strong>2023 年 6 月 8 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.8.22" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -360,7 +370,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.8.21</strong>
-            <p>发布时间：<strong>April 25, 2023</strong></p>
+            <p>发布时间：<strong>2023 年 4 月 25 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.8.21" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -371,7 +381,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.8.20</strong>
-            <p>发布时间：<strong>April 3, 2023</strong></p>
+            <p>发布时间：<strong>2023 年 4 月 3 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.8.20" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -385,7 +395,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.8.10</strong>
-            <p>发布时间：<strong>February 2, 2023</strong></p>
+            <p>发布时间：<strong>2023 年 2 月 2 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.8.10" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -396,7 +406,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.8.0</strong>
-            <p>发布时间：<strong>December 28, 2022</strong></p>
+            <p>发布时间：<strong>2022 年 12 月 28 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.8.0" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -410,7 +420,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.7.21</strong>
-            <p>发布时间：<strong>November 9, 2022</strong></p>
+            <p>发布时间：<strong>2022 年 11 月 9 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.7.21" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -421,7 +431,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.7.20</strong>
-            <p>发布时间：<strong>September 29, 2022</strong></p>
+            <p>发布时间：<strong>2022 年 9 月 29 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.7.20" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -437,7 +447,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.7.10</strong>
-            <p>发布时间：<strong>July 7, 2022</strong></p>
+            <p>发布时间：<strong>2022 年 7 月 7 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.7.10" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -448,7 +458,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.7.0</strong>
-            <p>发布时间：<strong>June 9, 2022</strong></p>
+            <p>发布时间：<strong>2022 年 6 月 9 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.7.0" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -463,7 +473,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.6.21</strong>
-            <p>发布时间：<strong>April 20, 2022</strong></p>
+            <p>发布时间：<strong>2022 年 4 月 20 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.6.21" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -473,7 +483,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.6.20</strong>
-            <p>发布时间：<strong>April 4, 2022</strong></p>
+            <p>发布时间：<strong>2022 年 4 月 4 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.6.20" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -491,7 +501,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.6.10</strong>
-            <p>发布时间：<strong>December 14, 2021</strong></p>
+            <p>发布时间：<strong>2021 年 12 月 14 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.6.10" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -501,7 +511,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.6.0</strong>
-            <p>发布时间：<strong>November 16, 2021</strong></p>
+            <p>发布时间：<strong>2021 年 11 月 16 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.6.0" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -516,7 +526,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.5.32</strong>
-            <p>发布时间：<strong>November 29, 2021</strong></p>
+            <p>发布时间：<strong>2021 年 11 月 29 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.32" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -526,7 +536,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.5.31</strong>
-            <p>发布时间：<strong>September 20, 2021</strong></p>
+            <p>发布时间：<strong>2021 年 9 月 20 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.31" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -536,7 +546,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.5.30</strong>
-            <p>发布时间：<strong>August 23, 2021</strong></p>
+            <p>发布时间：<strong>2021 年 8 月 23 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.30" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -558,7 +568,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.5.21</strong>
-            <p>发布时间：<strong>July 13, 2021</strong></p>
+            <p>发布时间：<strong>2021 年 7 月 13 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.21" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -568,7 +578,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.5.20</strong>
-            <p>发布时间：<strong>June 24, 2021</strong></p>
+            <p>发布时间：<strong>2021 年 6 月 24 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.20" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -589,24 +599,24 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.5.10</strong>
-            <p>发布时间：<strong>May 24, 2021</strong></p>
+            <p>发布时间：<strong>2021 年 5 月 24 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.10" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
             <p>Kotlin 1.5.0 的错误修复版本。</p>
-            <p>关于<a href="https://blog.jetbrains.com/kotlin/2021/04/kotlin-1-5-0-released/" target="_blank">Kotlin 1.5.0</a> 的更多信息。</p>
+            <p>关于<a href="https://blog.jetbrains.com/kotlin/2021/05/kotlin-1-5-0-released/" target="_blank">Kotlin 1.5.0</a> 的更多信息。</p>
         </td>
     </tr>
     <tr>
         <td><strong>1.5.0</strong>
-            <p>发布时间：<strong>May 5, 2021</strong></p>
+            <p>发布时间：<strong>2021 年 5 月 5 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.0" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
             <p>一个特性发布版本，包含新的语言特性、性能改进和演进性变更（例如稳定实验性 API）。</p>
             <p>关于更多信息，请参见：</p>
             <list>
-                <li><a href="https://blog.jetbrains.com/kotlin/2021/04/kotlin-1-5-0-released/" target="_blank">发布博客文章</a></li>
+                <li><a href="https://blog.jetbrains.com/kotlin/2021/05/kotlin-1-5-0-released/" target="_blank">发布博客文章</a></li>
                 <li><a href="whatsnew15.md" target="_blank">Kotlin 1.5.0 新特性</a></li>
                 <li><a href="compatibility-guide-15.md" target="_blank">兼容性指南</a></li>
             </list>
@@ -614,7 +624,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.4.32</strong>
-            <p>发布时间：<strong>March 22, 2021</strong></p>
+            <p>发布时间：<strong>2021 年 3 月 22 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.32" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -624,7 +634,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.4.31</strong>
-            <p>发布时间：<strong>February 25, 2021</strong></p>
+            <p>发布时间：<strong>2021 年 2 月 25 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.31" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -634,7 +644,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.4.30</strong>
-            <p>发布时间：<strong>February 3, 2021</strong></p>
+            <p>发布时间：<strong>2021 年 2 月 3 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.30" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -647,14 +657,14 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
             </list>
             <p>关于更多信息，请参见：</p>
             <list>
-                <li><a href="https://blog.jetbrains.com/kotlin/2021/01/kotlin-1-4-30-released/" target="_blank">发布博客文章</a></li>
+                <li><a href="https://blog.jetbrains.com/kotlin/2021/02/kotlin-1-4-30-released/" target="_blank">发布博客文章</a></li>
                 <li><a href="whatsnew1430.md" target="_blank">Kotlin 1.4.30 新特性</a></li>
             </list>
         </td>
     </tr>
     <tr>
         <td><strong>1.4.21</strong>
-            <p>发布时间：<strong>December 7, 2020</strong></p>
+            <p>发布时间：<strong>2020 年 12 月 7 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.21" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -664,7 +674,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.4.20</strong>
-            <p>发布时间：<strong>November 23, 2020</strong></p>
+            <p>发布时间：<strong>2020 年 11 月 23 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.20" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -683,7 +693,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.4.10</strong>
-            <p>发布时间：<strong>September 7, 2020</strong></p>
+            <p>发布时间：<strong>2020 年 9 月 7 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.10" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -693,7 +703,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.4.0</strong>
-            <p>发布时间：<strong>August 17, 2020</strong></p>
+            <p>发布时间：<strong>2020 年 8 月 17 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.0" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>
@@ -709,7 +719,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
     </tr>
     <tr>
         <td><strong>1.3.72</strong>
-            <p>发布时间：<strong>April 15, 2020</strong></p>
+            <p>发布时间：<strong>2020 年 4 月 15 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.3.72" target="_blank">GitHub 发布页</a></p>
         </td>
         <td>

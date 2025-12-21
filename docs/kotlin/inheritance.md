@@ -44,7 +44,9 @@ class MyView : View {
 
 ## Open 关键字
 
-在 Kotlin 中，`open` 关键字表明一个类或成员（函数或属性）可以在子类中被覆盖。默认情况下，Kotlin 类及其成员是 _final_ 的，这意味着它们不能被继承（对于类而言）或被覆盖（对于成员而言），除非你显式地将它们标记为 `open`：
+在 Kotlin 中，`open` 关键字表明一个类或成员（函数或属性）可以在子类中被覆盖。
+默认情况下，Kotlin 类及其成员是 _`final`_ 的，这意味着它们不能被继承（对于类而言）或被覆盖
+（对于成员而言），除非你显式地将它们标记为 `open`：
 
 ```kotlin
 // 带有 open 关键字的基类，允许被继承
@@ -103,7 +105,7 @@ class Circle() : Shape() {
 }
 ```
 
-`Circle.draw()` 必须使用 `override` 修饰符。如果缺少，编译器会报错。如果函数没有 `open` 修饰符（例如 `Shape.fill()`），则不允许在子类中声明具有相同签名的方法，无论是否使用 `override`。`open` 修饰符添加到 `final` 类（即没有 `open` 修饰符的类）的成员时没有效果。
+`Circle.draw()` 需要使用 `override` 修饰符。如果缺少，编译器会报错。如果函数没有 `open` 修饰符（例如 `Shape.fill()`），则不允许在子类中声明具有相同签名的方法，无论是否使用 `override`。`open` 修饰符添加到 `final` 类（即没有 `open` 修饰符的类）的成员时没有效果。
 
 标记为 `override` 的成员本身是 `open` 的，因此它可以在子类中被覆盖。如果你想禁止再次覆盖，请使用 `final`：
 
@@ -151,26 +153,26 @@ class Polygon : Shape {
 //sampleStart
 open class Base(val name: String) {
 
-    init { println("初始化基类") }
+    init { println("Initializing a base class") }
 
     open val size: Int = 
-        name.length.also { println("在基类中初始化 size: $it") }
+        name.length.also { println("Initializing size in the base class: $it") }
 }
 
 class Derived(
     name: String,
     val lastName: String,
-) : Base(name.replaceFirstChar { it.uppercase() }.also { println("基类的实参: $it") }) {
+) : Base(name.replaceFirstChar { it.uppercase() }.also { println("Argument for the base class: $it") }) {
 
-    init { println("初始化派生类") }
+    init { println("Initializing a derived class") }
 
     override val size: Int =
-        (super.size + lastName.length).also { println("在派生类中初始化 size: $it") }
+        (super.size + lastName.length).also { println("Initializing size in the derived class: $it") }
 }
 //sampleEnd
 
 fun main() {
-    println("构建派生类(\"hello\", \"world\")")
+    println("Constructing the derived class(\"hello\", \"world\")")
     Derived("hello", "world")
 }
 ```
@@ -184,14 +186,14 @@ fun main() {
 
 ```kotlin
 open class Rectangle {
-    open fun draw() { println("绘制矩形") }
+    open fun draw() { println("Drawing a rectangle") }
     val borderColor: String get() = "black"
 }
 
 class FilledRectangle : Rectangle() {
     override fun draw() {
         super.draw()
-        println("填充矩形")
+        println("Filling the rectangle")
     }
 
     val fillColor: String get() = super.borderColor
@@ -202,7 +204,7 @@ class FilledRectangle : Rectangle() {
 
 ```kotlin
 open class Rectangle {
-    open fun draw() { println("绘制矩形") }
+    open fun draw() { println("Drawing a rectangle") }
     val borderColor: String get() = "black"
 }
 
@@ -214,7 +216,7 @@ class FilledRectangle: Rectangle() {
     }
     
     inner class Filler {
-        fun fill() { println("填充") }
+        fun fill() { println("Filling") }
         fun drawAndFill() {
             super@FilledRectangle.draw() // 调用 Rectangle 的 draw() 实现
             fill()

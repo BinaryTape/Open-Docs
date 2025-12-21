@@ -31,7 +31,7 @@ val prompt = prompt(
 ```
 <!--- KNIT example-llm-parameters-01.kt -->
 
-关于 prompt 创建的更多信息，请参见 [提示](prompt-api.md)。
+关于 prompt 创建的更多信息，请参见 [Prompts](prompts/structured-prompts.md)。
 
 - 创建 subgraph 时：
 
@@ -72,7 +72,7 @@ val processQuery by subgraphWithTask<String, String>(
 ```
 <!--- KNIT example-llm-parameters-02.kt -->
 
-关于 Koog 中现有 subgraph 类型的更多信息，请参见 [预定义 subgraph](nodes-and-components.md#predefined-subgraphs)。关于如何创建和实现您自己的 subgraph，请参见 [自定义 subgraph](custom-subgraphs.md)。
+关于 Koog 中现有 subgraph 类型的更多信息，请参见 [Predefined subgraphs](nodes-and-components.md#predefined-subgraphs)。关于如何创建和实现您自己的 subgraph，请参见 [Custom subgraphs](custom-subgraphs.md)。
 
 - 在 LLM 写入会话中更新 prompt 时：
 
@@ -98,23 +98,23 @@ llm.writeSession {
 ```
 <!--- KNIT example-llm-parameters-03.kt -->
 
-关于会话的更多信息，请参见 [LLM 会话和手动历史记录管理](sessions.md)。
+关于会话的更多信息，请参见 [LLM sessions and manual history management](sessions.md)。
 
 ## LLM 参数参考
 
-下表提供了 `LLMParams` 类中包含的 LLM 参数的参考，这些参数受 Koog 默认支持的所有 LLM 提供商支持。
+下表提供了 `LLMParams` 类中包含的 LLM 参数的参考，这些参数受 Koog 开箱即用支持的所有 LLM 提供商支持。
 关于某些提供商特有的参数列表，请参见 [提供商特有的参数](#provider-specific-parameters)。
 
-| 参数                    | 类型                           | 描述                                                                                                                                                                             |
-|-------------------------|--------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `temperature`           | Double                         | 控制输出的随机性。较高的值（例如 0.7–1.0）会生成更多样化和创造性的响应，而较低的值会生成更具确定性和更集中的响应。                                                    |
-| `maxTokens`             | Integer                        | 响应中要生成的最大 token 数量。用于控制响应长度。                                                                                                                                |
-| `numberOfChoices`       | Integer                        | 要生成的备选响应数量。必须大于 0。                                                                                                                                               |
-| `speculation`           | String                         | 一个推测性配置字符串，影响模型行为，旨在提高结果速度和准确性。仅某些模型支持，但可以极大地提高速度和准确性。                                                           |
-| `schema`                | Schema                         | 定义模型响应格式的结构，支持 JSON 等结构化输出。更多信息，请参见 [Schema](#schema)。                                                                                               |
-| `toolChoice`            | ToolChoice                     | 控制语言模型的工具调用行为。更多信息，请参见 [Tool choice](#tool-choice)。                                                                                                       |
-| `user`                  | String                         | 发出请求的用户的标识符，可用于跟踪。                                                                                                                                             |
-| `additionalProperties`  | Map&lt;String, JsonElement&gt; | 可用于存储特定模型提供商的自定义参数的附加属性。                                                                                                                                 |
+| Parameter              | Type                           | Description                                                                                                                                                                                     |
+|------------------------|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `temperature`          | Double                         | 控制输出的随机性。较高的值（例如 0.7–1.0）会生成更多样化和创造性的响应，而较低的值会生成更具确定性和更集中的响应。                                                    |
+| `maxTokens`            | Integer                        | 响应中要生成的最大 token 数量。用于控制响应长度。                                                                                                                                |
+| `numberOfChoices`      | Integer                        | 要生成的备选响应数量。必须大于 0。                                                                                                                                               |
+| `speculation`          | String                         | 一个推测性配置字符串，影响模型行为，旨在提高结果速度和准确性。仅某些模型支持，但可以极大地提高速度和准确性。                                                           |
+| `schema`               | Schema                         | 定义模型响应格式的结构，支持 JSON 等结构化输出。更多信息，请参见 [Schema](#schema)。                                                                                               |
+| `toolChoice`           | ToolChoice                     | 控制语言模型的工具调用行为。更多信息，请参见 [Tool choice](#tool-choice)。                                                                                                       |
+| `user`                 | String                         | 发出请求的用户的标识符，可用于跟踪。                                                                                                                                             |
+| `additionalProperties` | Map&lt;String, JsonElement&gt; | 可用于存储特定模型提供商的自定义参数的附加属性。                                                                                                                                 |
 
 关于每个参数的默认值列表，请参见相应的 LLM 提供商文档：
 
@@ -132,11 +132,11 @@ llm.writeSession {
 `Schema` 接口定义了模型响应格式的结构。
 Koog 支持 JSON schema，如下文各节所述。
 
-### JSON schema
+### JSON schemas
 
-JSON schema 允许您从语言模型请求结构化的 JSON 数据。Koog 支持以下两种 JSON schema 类型：
+JSON schemas 允许您从语言模型请求结构化的 JSON 数据。Koog 支持以下两种 JSON schemas 类型：
 
-1. **基础 JSON Schema** (`LLMParams.Schema.JSON.Basic`)：用于基本的 JSON 处理功能。这种格式主要关注嵌套数据定义，而不涉及高级 JSON Schema 功能。
+1) **基础 JSON Schema** (`LLMParams.Schema.JSON.Basic`)：用于基本的 JSON 处理功能。这种格式主要关注嵌套数据定义，而不涉及高级 JSON Schema 功能。
 
 <!--- INCLUDE
 import ai.koog.prompt.params.LLMParams
@@ -172,7 +172,7 @@ val jsonParams = LLMParams(
 ```
 <!--- KNIT example-llm-parameters-04.kt -->
 
-2. **标准 JSON Schema** (`LLMParams.Schema.JSON.Standard`)：表示符合 [json-schema.org](https://json-schema.org/) 的标准 JSON schema。这种格式是官方 JSON Schema 规范的真子集。请注意，不同 LLM 提供商之间的实现可能有所不同，因为并非所有提供商都支持完整的 JSON schema。
+2) **标准 JSON Schema** (`LLMParams.Schema.JSON.Standard`)：表示符合 [json-schema.org](https://json-schema.org/) 的标准 JSON schema。这种格式是官方 JSON Schema 规范的真子集。请注意，不同 LLM 提供商之间的实现可能有所不同，因为并非所有提供商都支持完整的 JSON schemas。
 
 <!--- INCLUDE
 import ai.koog.prompt.params.LLMParams
@@ -424,7 +424,8 @@ val openAIReasoningEffortParams = OpenAIChatParams(
 ```
 <!--- KNIT example-llm-parameters-09.kt -->
 
-此外，在无状态模式下使用 OpenAI Responses API 时，您会保留推理项的加密历史记录，并在每次对话轮次中将其发送给模型。加密是在 OpenAI 侧完成的，您需要通过将请求中的 `include` 参数设置为 `reasoning.encrypted_content` 来请求加密的推理 token。然后，您可以在后续对话轮次中将加密的推理 token 传回给模型。
+此外，当在无状态模式下使用 OpenAI Responses API 时，您会保留推理项的加密历史记录，并在每次对话轮次中将其发送给模型。加密是在 OpenAI 侧完成的，您需要通过将请求中的 `include` 参数设置为 `reasoning.encrypted_content` 来请求加密的推理 token。
+然后，您可以在后续对话轮次中将加密的推理 token 传回给模型。
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAIResponsesParams

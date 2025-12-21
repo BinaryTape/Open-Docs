@@ -1,6 +1,6 @@
 [//]: # (title: Kotlinコンパイラのオプション)
 
-Kotlinの各リリースには、サポートされているターゲット（JVM、JavaScript、[対応プラットフォーム](native-overview.md#target-platforms)用のネイティブバイナリ）向けのコンパイラが含まれています。
+Kotlinの各リリースには、サポートされているターゲット（JVM、JavaScript、および[対応プラットフォーム](native-overview.md#target-platforms)向けのネイティブバイナリ）向けのコンパイラが含まれています。
 
 これらのコンパイラは、以下によって使用されます。
 *   IDEで、Kotlinプロジェクトの**コンパイル**ボタンまたは**実行**ボタンをクリックしたとき。
@@ -17,7 +17,7 @@ Kotlinコンパイラには、コンパイルプロセスを調整するため�
 コンパイラオプションとその値（_コンパイラ引数_）を設定するには、いくつかの方法があります。
 *   IntelliJ IDEAで、**Settings/Preferences** | **Build, Execution, Deployment** | **Compiler** | **Kotlin Compiler** の**Additional command line parameters**テキストボックスにコンパイラ引数を入力します。
 *   Gradleを使用している場合は、Kotlinコンパイルタスクの`compilerOptions`プロパティにコンパイラ引数を指定します。詳細については、[Gradleコンパイラオプション](gradle-compiler-options.md#how-to-define-options)を参照してください。
-*   Mavenを使用している場合は、Mavenプラグインノードの`<configuration>`要素にコンパイラ引数を指定します。詳細については、[Maven](maven.md#specify-compiler-options)を参照してください。
+*   Mavenを使用している場合は、Mavenプラグインノードの`<configuration>`要素にコンパイラ引数を指定します。詳細については、[Maven](maven-compile-package.md#specify-compiler-options)を参照してください。
 *   コマンドラインコンパイラを実行する場合は、ユーティリティ呼び出しに直接コンパイラ引数を追加するか、[引数ファイル](#argfile)に記述します。
 
   例：
@@ -217,6 +217,53 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 
 コントラクトで`holdsIn`キーワードを使用し、ラムダ内でブール条件が`true`であると想定することを許可します。
 
+### -Xreturn-value-checker
+<primary-label ref="experimental-general"/>
+
+コンパイラが[無視された結果を報告する](unused-return-value-checker.md)方法を設定します。
+
+*   `disable`: 未使用の戻り値チェッカーを無効にします（デフォルト）。
+*   `check`: チェッカーを有効にし、マークされた関数からの無視された結果に対して警告を報告します。
+*   `full`: チェッカーを有効にし、プロジェクト内のすべての関数をマーク済みとして扱い、無視された結果に対して警告を報告します。
+
+### -Xcompiler-plugin-order={plugin.before>plugin.after}
+
+コンパイラプラグインの実行順序を設定します。コンパイラは最初に`plugin.before`を実行し、次に`plugin.after`を実行します。
+
+3つ以上のプラグインに対して、複数の順序付けルールを定義できます。例：
+
+```bash
+kotlinc -Xcompiler-plugin-order=plugin.first>plugin.middle
+kotlinc -Xcompiler-plugin-order=plugin.middle>plugin.last
+```
+
+これにより、以下の実行順序になります。
+
+1. `plugin.first`
+2. `plugin.middle`
+3. `plugin.last`
+
+コンパイラプラグインが存在しない場合、対応するルールは無視されます。
+
+以下のプラグインをそのIDで設定できます。
+
+| コンパイラプラグイン             | プラグインID                                  |
+|-----------------------------|--------------------------------------------|
+| `all-open`, `kotlin-spring` | `org.jetbrains.kotlin.allopen`             |
+| AtomicFU                    | `org.jetbrains.kotlinx.atomicfu`           |
+| Compose                     | `androidx.compose.compiler.plugins.kotlin` |
+| `js-plain-objects`          | `org.jetbrains.kotlinx.jspo`               |
+| `jvm-abi-gen`               | `org.jetbrains.kotlin.jvm.abi`             |
+| kapt                        | `org.jetbrains.kotlin.kapt3`               |
+| Lombok                      | `org.jetbrains.kotlin.lombok`              |
+| `no-arg`, `kotlin-jpa`      | `org.jetbrains.kotlin.noarg`               |
+| Parcelize                   | `org.jetbrains.kotlin.parcelize`           |
+| Power-assert                | `org.jetbrains.kotlin.powerassert`         |
+| SAM with receiver           | `org.jetbrains.kotlin.samWithReceiver`     |
+| Serialization               | `org.jetbrains.kotlinx.serialization`      |
+
+この実行順序は、コンパイラプラグインのバックエンドのみを制御し、フロントエンドは制御しません。
+
 ## Kotlin/JVMコンパイラオプション
 
 Kotlin/JVMコンパイラは、KotlinソースファイルをJavaクラスファイルにコンパイルします。
@@ -247,7 +294,7 @@ KotlinからJVMへのコンパイルのためのコマンドラインツール�
 <primary-label ref="experimental-general"/>
 
 生成されるJVMバイトコードのターゲットバージョンを指定します。クラスパス内のJDKのAPIを指定されたJavaバージョンに制限します。[`-jvm-target version`](#jvm-target-version)を自動的に設定します。
-指定可能な値は`1.8`、`9`、`10`、...、`24`です。
+指定可能な値は`1.8`、`9`、`10`、...、`25`です。
 
 > このオプションは、各JDKディストリビューションに対して[有効である保証はありません](https://youtrack.jetbrains.com/issue/KT-29974)。
 >
@@ -255,7 +302,7 @@ KotlinからJVMへのコンパイルのためのコマンドラインツール�
 
 ### -jvm-target _version_
 
-生成されるJVMバイトコードのターゲットバージョンを指定します。指定可能な値は`1.8`、`9`、`10`、...、`24`です。
+生成されるJVMバイトコードのターゲットバージョンを指定します。指定可能な値は`1.8`、`9`、`10`、...、`25`です。
 デフォルト値は`%defaultJvmTargetVersion%`です。
 
 ### -java-parameters
@@ -325,9 +372,9 @@ KotlinからJSへのコンパイルのためのコマンドラインツールは
 
 コンパイラによって生成されるJSモジュールの種類：
 
-- `umd` - [Universal Module Definition](https://github.com/umdjs/umd)モジュール
+- `umd` - [Universal Module Definition (ユニバーサルモジュール定義)](https://github.com/umdjs/umd)モジュール
 - `commonjs` - [CommonJS](http://www.commonjs.org/)モジュール
-- `amd` - [Asynchronous Module Definition](https://en.wikipedia.org/wiki/Asynchronous_module_definition)モジュール
+- `amd` - [Asynchronous Module Definition (非同期モジュール定義)](https://en.wikipedia.org/wiki/Asynchronous_module_definition)モジュール
 - `plain` - プレーンJSモジュール
 
 異なる種類のJSモジュールとその違いについて詳しく知るには、[この記事](https://www.davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/)を参照してください。

@@ -1,17 +1,18 @@
 [//]: # (title: C의 struct 및 union 타입 매핑 – 튜토리얼)
 
 <tldr>
-    <p>이 튜토리얼은 <strong>Kotlin과 C 매핑</strong> 시리즈의 두 번째 파트입니다. 시작하기 전에 이전 단계를 완료했는지 확인하세요.</p>
-    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="mapping-primitive-data-types-from-c.md">C의 원시 데이터 타입 매핑</a><br/>
-       <img src="icon-2.svg" width="20" alt="Second step"/> <strong>C의 struct 및 union 타입 매핑</strong><br/>
-       <img src="icon-3-todo.svg" width="20" alt="Third step"/> <a href="mapping-function-pointers-from-c.md">함수 포인터 매핑</a><br/>
-       <img src="icon-4-todo.svg" width="20" alt="Fourth step"/> <a href="mapping-strings-from-c.md">C의 문자열 매핑</a><br/>
+    <p>이 튜토리얼은 <strong>Kotlin과 C 매핑</strong> 시리즈의 두 번째 파트입니다. 진행하기 전에 이전 단계를 완료했는지 확인하세요.</p>
+    <p><img src="icon-1-done.svg" width="20" alt="첫 번째 단계"/> <a href="mapping-primitive-data-types-from-c.md">C의 원시 데이터 타입 매핑</a><br/>
+       <img src="icon-2.svg" width="20" alt="두 번째 단계"/> <strong>C의 struct 및 union 타입 매핑</strong><br/>
+       <img src="icon-3-todo.svg" width="20" alt="세 번째 단계"/> <a href="mapping-function-pointers-from-c.md">함수 포인터 매핑</a><br/>
+       <img src="icon-4-todo.svg" width="20" alt="네 번째 단계"/> <a href="mapping-strings-from-c.md">C의 문자열 매핑</a><br/>
     </p>
 </tldr>
 
-> C 라이브러리 임포트 기능은 [베타](native-c-interop-stability.md) 단계입니다. C 라이브러리에서 `cinterop` 도구로 생성된 모든 Kotlin 선언에는 `@ExperimentalForeignApi` 어노테이션이 있어야 합니다.
+> C 라이브러리 임포트 기능은 [베타](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 단계입니다. C 라이브러리에서 `cinterop` 도구로 생성된 모든 Kotlin 선언에는 `@ExperimentalForeignApi` 어노테이션이 있어야 합니다.
 >
-> Kotlin/Native와 함께 제공되는 네이티브 플랫폼 라이브러리(예: Foundation, UIKit, POSIX)는 일부 API에 대해서만 옵트인(opt-in)이 필요합니다.
+> Kotlin/Native와 함께 제공되는 네이티브 플랫폼 라이브러리(예: Foundation, UIKit, POSIX)는
+> 일부 API에 대해서만 옵트인(opt-in)이 필요합니다.
 >
 {style="note"}
 

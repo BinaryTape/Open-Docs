@@ -211,15 +211,15 @@ strategy("complex-workflow") {
 
 使用子图时，请遵循以下最佳实践：
 
-1.  **将复杂工作流分解为子图**：每个子图应具有清晰、集中的职责。
+1. **将复杂工作流分解为子图**：每个子图应具有清晰、集中的职责。
 
-2.  **仅传递必要的上下文**：仅传递后续子图正确运行所需的信息。
+2. **仅传递必要的上下文**：仅传递后续子图正确运行所需的信息。
 
-3.  **记录子图依赖项**：清晰地记录每个子图期望从前一个子图获得什么，以及它向后续子图提供什么。
+3. **记录子图依赖项**：清晰地记录每个子图期望从前一个子图获得什么，以及它向后续子图提供什么。
 
-4.  **独立测试子图**：确保每个子图在集成到策略之前，都能在各种输入下正确运行。
+4. **独立测试子图**：确保每个子图在集成到策略之前，都能在各种输入下正确运行。
 
-5.  **考虑令牌用量**：注意令牌用量，尤其是在子图之间传递大量历史记录时。
+5. **注意令牌用量**：注意令牌用量，尤其是在子图之间传递大量历史记录时。
 
 ## 故障排除
 
@@ -240,7 +240,7 @@ strategy("complex-workflow") {
 ## 示例
 
 以下示例展示了如何在真实世界场景中使用子图创建代理策略。
-该代码示例包含 `researchSubgraph`、`planSubgraph` 和 `executeSubgraph` 三个已定义的子图，其中每个子图在助手流中都具有定义明确且不同的目的。
+该代码示例包含 `researchSubgraph`、`planSubgraph` 和 `executeSubgraph` 三个已定义的子图，其中每个子图在助手流中都具有定义明确且独特的目的。
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
@@ -255,41 +255,41 @@ import ai.koog.prompt.dsl.prompt
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 
-class WebSearchTool: SimpleTool<WebSearchTool.Args>() {
+class WebSearchTool: SimpleTool<WebSearchTool.Args>(
+    argsSerializer = Args.serializer(),
+    name = "web_search",
+    description = "Search on the web"
+) {
     @Serializable
     class Args(val query: String)
 
-    override val argsSerializer: KSerializer<Args> = Args.serializer()
-
-    override val description = "Search on the web"
-
-    override suspend fun doExecute(args: Args): String {
+    override suspend fun execute(args: Args): String {
         return "Searching for ${args.query} on the web..."
     }
 }
 
-class DoAction: SimpleTool<DoAction.Args>() {
+class DoAction: SimpleTool<DoAction.Args>(
+    argsSerializer = Args.serializer(),
+    name = "do_action",
+    description = "Do something"
+) {
     @Serializable
     class Args(val action: String)
 
-    override val argsSerializer: KSerializer<Args> = Args.serializer()
-
-    override val description = "Do something"
-
-    override suspend fun doExecute(args: Args): String {
+    override suspend fun execute(args: Args): String {
         return "Doing action..."
     }
 }
 
-class DoAnotherAction: SimpleTool<DoAnotherAction.Args>() {
+class DoAnotherAction: SimpleTool<DoAnotherAction.Args>(
+    argsSerializer = Args.serializer(),
+    name = "do_another_action",
+    description = "Do something other"
+) {
     @Serializable
     class Args(val action: String)
 
-    override val argsSerializer: KSerializer<Args> = Args.serializer()
-
-    override val description = "Do something other"
-
-    override suspend fun doExecute(args: Args): String {
+    override suspend fun execute(args: Args): String {
         return "Doing another action..."
     }
 }

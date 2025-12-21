@@ -186,6 +186,27 @@ kotlin {
 
 2. `BigInt` 타입을 활성화합니다. 활성화 방법은 [Kotlin의 `Long` 타입을 나타내는 `BigInt` 타입 사용](#use-bigint-type-to-represent-kotlin-s-long-type)에서 확인하세요.
 
+### Kotlin의 `LongArray` 타입을 나타내는 `BigInt64Array` 타입 사용
+<primary-label ref="experimental-general"/>
+
+Kotlin/JS는 JavaScript로 컴파일할 때 Kotlin의 `LongArray` 값을 표현하기 위해 JavaScript의 내장 `BigInt64Array` 타입을 사용할 수 있습니다.
+
+`BigInt64Array` 타입 지원을 활성화하려면 `build.gradle(.kts)` 파일에 다음 컴파일러 옵션을 추가합니다:
+
+```kotlin
+// build.gradle.kts
+kotlin {
+    js {
+        ...
+        compilerOptions {
+            freeCompilerArgs.add("-Xes-long-as-bigint")
+        }
+    }
+}
+```
+
+이 기능은 [실험적](components-stability.md#stability-levels-explained)입니다. 이슈 트래커인 [YouTrack](https://youtrack.jetbrains.com/issue/KT-79284/Use-BigInt64Array-for-LongArray)에 의견을 공유해 주세요.
+
 ## JavaScript의 Kotlin 타입
 
 Kotlin 타입이 JavaScript 타입에 어떻게 매핑되는지 확인하세요:
@@ -204,7 +225,7 @@ Kotlin 타입이 JavaScript 타입에 어떻게 매핑되는지 확인하세요:
 | `CharArray`                                                      | `UInt16Array`             | `'$type$ == "CharArray"` 속성을 가집니다.                                                       |
 | `FloatArray`                                                     | `Float32Array`            |                                                                                                  |
 | `DoubleArray`                                                    | `Float64Array`            |                                                                                                  |
-| `LongArray`                                                      | `Array<kotlin.Long>`      | `'$type$ == "LongArray"` 속성을 가집니다. Kotlin의 Long 타입 설명도 참조하세요.                   |
+| `LongArray`                                                      | `BigInt64Array`           |                                                                                                  |
 | `BooleanArray`                                                   | `Int8Array`               | `'$type$ == "BooleanArray"` 속성을 가집니다.                                                    |
 | `List`, `MutableList`                                            | `KtList`, `KtMutableList` | `KtList.asJsReadonlyArrayView` 또는 `KtMutableList.asJsArrayView`를 통해 `Array`를 노출합니다.     |
 | `Map`, `MutableMap`                                              | `KtMap`, `KtMutableMap`   | `KtMap.asJsReadonlyMapView` 또는 `KtMutableMap.asJsMapView`를 통해 ES2015 `Map`을 노출합니다.      |
@@ -213,7 +234,7 @@ Kotlin 타입이 JavaScript 타입에 어떻게 매핑되는지 확인하세요:
 | `Any`                                                            | `Object`                  |                                                                                                  |
 | `Throwable`                                                      | `Error`                   |                                                                                                  |
 | `enum class Type`                                                | `Type`                    | Enum 엔트리는 정적 클래스 속성(`Type.ENTRY`)으로 노출됩니다.                                       |
-| Nullable `Type?`                                                 | `Type | null | undefined` |                                                                                                  |
+| Nullable `Type?`                                                 | `Type \| null \| undefined` |                                                                                                  |
 | `@JsExport`로 표시된 타입을 제외한 다른 모든 Kotlin 타입         | Not supported             | Kotlin의 [부호 없는 정수 타입](unsigned-integer-types.md)을 포함합니다.                          |
 
 또한 다음 사항을 아는 것이 중요합니다:

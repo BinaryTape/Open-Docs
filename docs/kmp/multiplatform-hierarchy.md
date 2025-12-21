@@ -8,7 +8,7 @@ Kotlin 多平台项目支持分层源代码集结构。这意味着你可以安�
 
 Kotlin 工具链确保每个源代码集只能访问对其编译到的所有目标都可用的 API。这可以防止诸如使用 Windows 特有的 API 然后将其编译到 macOS，从而导致链接错误或运行时未定义行为的情况。
 
-设置源代码集层级结构推荐的方式是使用[默认分层模板](#default-hierarchy-template)。该模板涵盖了最常见的用例。如果你有一个更高级的项目，可以[手动配置](#manual-configuration)它。这是一种更底层的方法：它更灵活，但需要更多的精力和知识。
+设置源代码集层级结构推荐的方式是使用[默认分层模板](#default-hierarchy-template)。该模板涵盖了最常见的用例。如果你有一个更高级的项目，可以[手动配置](#manual-configuration)。这是一种更底层的方法：它更灵活，但需要更多的精力和知识。
 
 ## 默认分层模板
 
@@ -21,7 +21,7 @@ Kotlin Gradle 插件有一个内置的默认[分层模板](#see-the-full-hierarc
 
 ```kotlin
 kotlin {
-    androidTarget()
+    android()
     iosArm64()
     iosSimulatorArm64()
 }
@@ -32,7 +32,7 @@ kotlin {
 
 ```groovy
 kotlin {
-    androidTarget()
+    android()
     iosArm64()
     iosSimulatorArm64()
 }
@@ -41,7 +41,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-当你在代码中声明 `androidTarget`、`iosArm64` 和 `iosSimulatorArm64` 目标时，Kotlin Gradle 插件会从模板中查找合适的共享源代码集并为你创建它们。结果层级结构如下所示：
+当你在代码中声明 `android`、`iosArm64` 和 `iosSimulatorArm64` 目标时，Kotlin Gradle 插件会从模板中查找合适的共享源代码集并为你创建它们。结果层级结构如下所示：
 
 ![使用默认分层模板的示例](default-hierarchy-example.svg)
 
@@ -58,7 +58,7 @@ Kotlin Gradle 插件为默认分层模板中的所有源代码集提供了类型
 
 ```kotlin
 kotlin {
-    androidTarget()
+    android()
     iosArm64()
     iosSimulatorArm64()
 
@@ -77,7 +77,7 @@ kotlin {
 
 ```groovy
 kotlin {
-    androidTarget()
+    android()
     iosArm64()
     iosSimulatorArm64()
 

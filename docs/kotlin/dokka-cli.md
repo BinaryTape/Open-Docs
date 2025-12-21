@@ -6,7 +6,7 @@
 
 ## 开始使用
 
-CLI 运行器作为一个独立的可运行 artifact 发布到 Maven Central。
+CLI 运行器作为一个独立的可运行构件发布到 Maven Central。
 
 您可以在 [Maven Central](https://central.sonatype.com/artifact/org.jetbrains.dokka/dokka-cli) 上找到它，或 [直接下载](https://repo1.maven.org/maven2/org/jetbrains/dokka/dokka-cli/%dokkaVersion%/dokka-cli-%dokkaVersion%.jar)。
 
@@ -104,7 +104,7 @@ java -jar dokka-cli-%dokkaVersion%.jar dokka-configuration.json
 
 所有其他输出格式都实现为 [Dokka 插件](dokka-plugins.md)。要使用它们，您必须将它们放入插件 classpath 中。
 
-例如，如果您想以实验性的 [GFM](dokka-markdown.md#gfm) 输出格式生成文档，您需要下载 gfm-plugin 的 JAR ([下载](https://repo1.maven.org/maven2/org/jetbrains/dokka/gfm-plugin/%dokkaVersion%/gfm-plugin-%dokkaVersion%.jar)) 并将其传递给 `pluginsClasspath` 配置选项。
+例如，如果您想以实验性的 [GFM](https://github.com/Kotlin/dokka/blob/8e5c63d035ef44a269b8c43430f43f5c8eebfb63/dokka-subprojects/plugin-gfm/README.md) 输出格式生成文档，您需要下载 gfm-plugin 的 JAR ([下载](https://repo1.maven.org/maven2/org/jetbrains/dokka/gfm-plugin/%dokkaVersion%/gfm-plugin-%dokkaVersion%.jar)) 并将其传递给 `pluginsClasspath` 配置选项。
 
 通过命令行选项：
 
@@ -130,7 +130,7 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 
 将 GFM 插件传递给 `pluginsClasspath` 后，CLI 运行器将以 GFM 输出格式生成文档。
 
-关于更多信息，请参见 [Markdown](dokka-markdown.md) 和 [Javadoc](dokka-javadoc.md#generate-javadoc-documentation) 页面。
+关于更多信息，请参见 [GFM](https://github.com/Kotlin/dokka/blob/8e5c63d035ef44a269b8c43430f43f5c8eebfb63/dokka-subprojects/plugin-gfm/README.md) 和 [Javadoc](dokka-javadoc.md#generate-javadoc-documentation) 页面。
 
 ## 命令行选项
 
@@ -314,7 +314,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
         <p>有关可能选项的列表，请参见 <a href="#source-set-configuration">源代码集配置</a>。</p>
     </def>
     <def title="sourceLinks">
-        <p>应用于所有源代码集的全局源链接配置。</p>
+        <p>应用于所有源代码集的全局源链接配置。</</p>
         <p>有关可能选项的列表，请参见 <a href="#source-link-configuration">源链接配置</a>。</p>
     </def>
     <def title="perPackageOptions">
@@ -450,14 +450,14 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
     </def>
     <def title="languageVersion">
         <p>
-            用于设置分析和 <a href="https://kotlinlang.org/docs/kotlin-doc.html#sample-identifier">@sample</a>
-            环境的 <a href="https://kotlinlang.org/docs/compatibility-modes.html">Kotlin 语言版本</a>。
+            用于设置分析和 <a href="https://kotlinlang.org/docs/compatibility-modes.html">Kotlin 语言版本</a> 的 <a href="https://kotlinlang.org/docs/kotlin-doc.html#sample-identifier">@sample</a>
+            环境。
         </p>
     </def>
     <def title="apiVersion">
         <p>
-            用于设置分析和 <a href="https://kotlinlang.org/docs/kotlin-doc.html#sample-identifier">@sample</a>
-            环境的 <a href="https://kotlinlang.org/docs/compatibility-modes.html">Kotlin API 版本</a>。
+            用于设置分析和 <a href="https://kotlinlang.org/docs/compatibility-modes.html">Kotlin API 版本</a> 的 <a href="https://kotlinlang.org/docs/kotlin-doc.html#sample-identifier">@sample</a>
+            环境。
         </p>
     </def>
     <def title="noStdlibLink">

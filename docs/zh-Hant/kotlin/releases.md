@@ -2,7 +2,7 @@
 
 <tldr>
     <p>最新 Kotlin 版本：<strong>%kotlinVersion%</strong></p>
-    <p>詳情請參閱<a href="%kotlinLatestWhatsnew%">Kotlin 2.2.20 新功能</a> <!--and find the bug fix details in the <a href="%kotlinLatestUrl%">changelog</a>-->。</p>
+    <p>詳情請參閱<a href="%kotlinLatestWhatsnew%">Kotlin 2.3.0 新功能</a> <!--and find the bug fix details in the <a href="%kotlinLatestUrl%">changelog</a>-->。</p>
 </tldr>
 
 自 Kotlin 2.0.0 起，我們發布以下類型的版本：
@@ -24,15 +24,15 @@
 > 若要接收新 Kotlin 發布版本的通知，請訂閱 [Kotlin 電子報](https://lp.jetbrains.com/subscribe-to-kotlin-news/)、
 > 追蹤 [Kotlin 在 X 平台](https://x.com/kotlin)，
 > 或在 [Kotlin GitHub 儲存庫](https://github.com/JetBrains/kotlin) 上啟用 **Watch | Custom | Releases** 選項。
->
+> 
 {style="note"}
 
 ## 即將推出的 Kotlin 發布版本
 
 以下是即將推出的穩定版 Kotlin 發布版本的大致排程：
 
-*   **2.3.0**：規劃於 2025 年 12 月 – 2026 年 1 月
 *   **2.3.20**：規劃於 2026 年 3 月 – 4 月
+*   **2.4.0**：規劃於 2026 年 6 月 – 7 月
 
 ## 更新至新 Kotlin 版本
 
@@ -47,11 +47,11 @@
 
 ```kotlin
 plugins {
-    // Replace `<...>` with the plugin name appropriate for your target environment
+    // 將 `<...>` 替換為適用於您目標環境的外掛程式名稱
     kotlin("<...>") version "%kotlinVersion%"
-    // For example, if your target environment is JVM:
+    // 例如，如果您的目標環境是 JVM：
     // kotlin("jvm") version "%kotlinVersion%"
-    // If your target is Kotlin Multiplatform:
+    // 如果您的目標是 Kotlin Multiplatform：
     // kotlin("multiplatform") version "%kotlinVersion%"
 }
 ```
@@ -61,11 +61,11 @@ plugins {
 
 ```groovy
 plugins {
-    // Replace `<...>` with the plugin name appropriate for your target environment
+    // 將 `<...>` 替換為適用於您目標環境的外掛程式名稱
     id 'org.jetbrains.kotlin.<...>' version '%kotlinVersion%'
-    // For example, if your target environment is JVM:
+    // 例如，如果您的目標環境是 JVM： 
     // id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
-    // If your target is Kotlin Multiplatform:
+    // 如果您的目標是 Kotlin Multiplatform：
     // id 'org.jetbrains.kotlin.multiplatform' version '%kotlinVersion%'
 }
 ```
@@ -78,7 +78,7 @@ plugins {
 如果您正在移轉到新的語言發布版本，Kotlin 外掛程式的移轉工具將協助您完成此過程。
 
 > 若要深入了解如何在專案中使用 Gradle，請參閱 [設定 Gradle 專案](gradle-configure-project.md)。
->
+> 
 {style="tip"}
 
 ### Maven
@@ -103,7 +103,7 @@ plugins {
 </plugins>
 ```
 
-如果您有使用較早 Kotlin 版本建立的專案，請檢查是否也需要 [更新任何 kotlinx 函式庫的版本](maven.md#dependency-on-a-kotlinx-library)。
+如果您有使用較早 Kotlin 版本建立的專案，請檢查是否也需要 [更新任何 kotlinx 函式庫的版本](maven-configure-project.md#dependency-on-a-kotlinx-library)。
 
 > 若要深入了解如何在專案中使用 Maven，請參閱 [Maven](maven.md)。
 >
@@ -133,7 +133,7 @@ IntelliJ IDEA 2025.3 及更高版本始終啟用 K2 模式。
 下表列出了最新 Kotlin 發布版本的詳情：
 
 > 您也可以嘗試 [Kotlin 的搶先體驗預覽 (EAP) 版本](eap.md#build-details)。
->
+> 
 {style="tip"}
 
 <table>
@@ -141,6 +141,16 @@ IntelliJ IDEA 2025.3 及更高版本始終啟用 K2 模式。
         <th>建置資訊</th>
         <th>建置亮點</th>
     </tr>
+    <tr>
+        <td><strong>2.3.0</strong>
+            <p>發布日期：<strong>2025 年 12 月 16 日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0" target="_blank">在 GitHub 上發布</a></p>
+        </td>
+        <td>
+            <p>一個語言發布版本，包含新語言功能和穩定語言功能、工具更新、針對不同平台的效能改進以及重要修正。</p>
+            <p>詳情請參閱<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0">變更日誌</a>。</p>
+        </td>
+    </tr> 
     <tr>
         <td><strong>2.2.21</strong>
             <p>發布日期：<strong>2025 年 10 月 23 日</strong></p>
@@ -177,10 +187,10 @@ IntelliJ IDEA 2025.3 及更高版本始終啟用 K2 模式。
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.0" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>一個語言發布版本，包含新穩定語言功能、工具更新、針對不同平台的效能改進以及重要修正。</p>
+            <p>一個語言發布版本，包含新語言功能和穩定語言功能、工具更新、針對不同平台的效能改進以及重要修正。</p>
             <p>詳情請參閱<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.0">變更日誌</a>。</p>
         </td>
-    </tr>
+    </tr> 
     <tr>
         <td><strong>2.1.21</strong>
             <p>發布日期：<strong>2025 年 5 月 13 日</strong></p>
@@ -190,7 +200,7 @@ IntelliJ IDEA 2025.3 及更高版本始終啟用 K2 模式。
             <p>Kotlin 2.1.20 的錯誤修正發布版本。</p>
             <p>詳情請參閱<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.21">變更日誌</a>。</p>
         </td>
-    </tr>
+    </tr> 
    <tr>
         <td><strong>2.1.20</strong>
             <p>發布日期：<strong>2025 年 3 月 20 日</strong></p>
@@ -382,7 +392,7 @@ IntelliJ IDEA 2025.3 及更高版本始終啟用 K2 模式。
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.8.20" target="_blank">在 GitHub 上發布</a></p>
         </td>
         <td>
-            <p>一個功能發布版本，包含 Kotlin K2 編譯器更新、stdlib 中的 AutoCloseable 介面和 Base64 編碼、
+            <p>一個功能發布版本，包含 Kotlin K2 編譯器更新、AutoCloseable 介面和 Base64 編碼在 stdlib 中、
                 預設啟用新的 JVM 增量編譯、新的 Kotlin/Wasm 編譯器後端。
             </p>
             <p>深入了解：</p>
@@ -605,7 +615,7 @@ IntelliJ IDEA 2025.3 及更高版本始終啟用 K2 模式。
         </td>
         <td>
             <p>Kotlin 1.5.0 的錯誤修正發布版本。</p>
-            <p>深入了解<a href="https://blog.jetbrains.com/kotlin/2021/04/kotlin-1-5-0-released/" target="_blank">Kotlin 1.5.0</a>。</p>
+            <p>深入了解<a href="https://blog.jetbrains.com/kotlin/2021/05/kotlin-1-5-0-released/" target="_blank">Kotlin 1.5.0</a>。</p>
         </td>
     </tr>
     <tr>
@@ -617,7 +627,7 @@ IntelliJ IDEA 2025.3 及更高版本始終啟用 K2 模式。
             <p>一個功能發布版本，包含新的語言功能、效能改進以及演進性變更，例如穩定化實驗性 API。</p>
             <p>深入了解：</p>
             <list>
-                <li><a href="https://blog.jetbrains.com/kotlin/2021/04/kotlin-1-5-0-released/" target="_blank">發布部落格文章</a></li>
+                <li><a href="https://blog.jetbrains.com/kotlin/2021/05/kotlin-1-5-0-released/" target="_blank">發布部落格文章</a></li>
                 <li><a href="whatsnew15.md" target="_blank">Kotlin 1.5.0 新功能</a></li>
                 <li><a href="compatibility-guide-15.md" target="_blank">相容性指南</a></li>
             </list>
@@ -658,7 +668,7 @@ IntelliJ IDEA 2025.3 及更高版本始終啟用 K2 模式。
             </list>
             <p>深入了解：</p>
             <list>
-                <li><a href="https://blog.jetbrains.com/kotlin/2021/01/kotlin-1-4-30-released/" target="_blank">發布部落格文章</a></li>
+                <li><a href="https://blog.jetbrains.com/kotlin/2021/02/kotlin-1-4-30-released/" target="_blank">發布部落格文章</a></li>
                 <li><a href="whatsnew1430.md" target="_blank">Kotlin 1.4.30 新功能</a></li>
             </list>
         </td>

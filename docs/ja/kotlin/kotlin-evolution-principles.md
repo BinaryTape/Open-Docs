@@ -174,7 +174,7 @@ Kotlin/JVM、JS、Nativeコンパイラ、および各種ライブラリなど�
 積極的にメンテナンスされているコードベースは、完全な非推奨サイクルが完了するのを待つことなく、可能な限り早くバグ修正の恩恵を受けることができます。
 現在、そのようなプロジェクトは`-progressive`オプションを有効にすることで、ツールリリースでもそのような修正を有効にすることができます。
 
-すべてのオプションは、IDE、コマンドライン、ならびに[Gradle](gradle-compiler-options.md)および[Maven](maven.md#specify-compiler-options)で利用できます。
+すべてのオプションは、IDE、コマンドライン、ならびに[Gradle](gradle-compiler-options.md)および[Maven](maven-compile-package.md#specify-compiler-options)で利用できます。
 
 ### バイナリフォーマットの進化
 

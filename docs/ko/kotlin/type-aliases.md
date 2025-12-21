@@ -56,8 +56,6 @@ fun main() {
 
 ## 중첩 타입 별칭
 
-<primary-label ref="beta"/>
-
 Kotlin에서는 타입 별칭을 다른 선언 내부에 정의할 수 있으며, 이때 외부 클래스의 타입 매개변수를 캡처하지 않아야 합니다.
 
 ```kotlin
@@ -97,21 +95,3 @@ class Graph<Node> {
 *   범위는 [중첩 클래스](nested-classes.md)와 동일합니다. 클래스 내부에 정의할 수 있으며, 오버라이드하지 않으므로 같은 이름을 가진 모든 상위 타입 별칭을 숨깁니다.
 *   중첩 타입 별칭은 가시성을 제한하기 위해 `internal` 또는 `private`으로 표시될 수 있습니다.
 *   중첩 타입 별칭은 Kotlin Multiplatform의 [`expect/actual` 선언](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)에서 지원되지 않습니다.
-
-### 중첩 타입 별칭 활성화 방법
-
-프로젝트에서 중첩 타입 별칭을 활성화하려면, 명령줄에서 다음 컴파일러 옵션을 사용하세요.
-
-```bash
--Xnested-type-aliases
-```
-
-또는 Gradle 빌드 파일의 `compilerOptions {}` 블록에 추가하세요.
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xnested-type-aliases")
-    }
-}

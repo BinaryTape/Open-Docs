@@ -23,20 +23,20 @@ Kotlin 1.1의 핵심 새 기능은 *코루틴(coroutines)*으로, `async`/`await
 `async`/`await`를 살펴보겠습니다. 이는 외부 라이브러리인 [kotlinx.coroutines](https://github.com/kotlin/kotlinx.coroutines)에 구현되어 있습니다.
 
 ```kotlin
-// 백그라운드 스레드 풀에서 코드를 실행합니다.
+// runs the code in the background thread pool
 fun asyncOverlay() = async(CommonPool) {
-    // 두 개의 비동기 작업을 시작합니다.
+    // start two async operations
     val original = asyncLoadImage("original")
     val overlay = asyncLoadImage("overlay")
-    // 그리고 두 결과에 오버레이를 적용합니다.
+    // and then apply overlay to both results
     applyOverlay(original.await(), overlay.await())
 }
 
-// UI 컨텍스트에서 새 코루틴을 시작합니다.
+// launches new coroutine in UI context
 launch(UI) {
-    // 비동기 오버레이가 완료될 때까지 기다립니다.
+    // wait for async overlay to complete
     val image = asyncOverlay().await()
-    // 그리고 UI에 표시합니다.
+    // and then show it in UI
     showImage(image)
 }
 ```
@@ -51,14 +51,14 @@ import kotlin.coroutines.experimental.*
 fun main(args: Array<String>) {
     val seq = buildSequence {
       for (i in 1..5) {
-          // i의 제곱을 yield
+          // yield a square of i
           yield(i * i)
       }
-      // 범위를 yield
+      // yield a range
       yieldAll(26..28)
     }
 
-    // 시퀀스를 출력합니다.
+    // print the sequence
     println(seq.toList())
 }
 ```
@@ -684,4 +684,3 @@ fun main(args: Array<String>) {
         jquery(".toggle-panel").toggle(300)
     }
 }
-```

@@ -6,8 +6,9 @@
 
 你可以找到在 [Node.js](https://nodejs.org/en)、[Deno](https://deno.com/) 和 [WasmEdge](https://wasmedge.org/) 虚拟机上运行的应用程序示例。输出是一个使用标准 WASI API 的简单应用程序。
 
-目前，Kotlin/Wasm 支持 WASI 0.1，也称为 Preview 1。
-[WASI 0.2 的支持计划在未来版本中提供](https://youtrack.jetbrains.com/issue/KT-64568)。
+目前，Kotlin/Wasm 支持 WASI 0.1，也称为 Preview 1。WASI 0.2 的支持计划在未来版本中提供。关于 WASI 0.2 支持的更新，请关注此 YouTrack issue：[KT-64568](https://youtrack.jetbrains.com/issue/KT-64568)。
+
+[`wasmWasi`](wasm-overview.md#kotlin-wasm-and-wasi) 目标 [默认使用新的异常处理提案](wasm-configuration.md#exception-handling-proposal)，确保与现代 WebAssembly 运行时有更好的兼容性。
 
 > Kotlin/Wasm 工具链开箱即用地提供了 Node.js 任务 (`wasmWasiNode*`)。
 > 项目中的其他任务变体，例如利用 Deno 或 WasmEdge 的任务，则作为自定义任务包含在内。
@@ -117,7 +118,7 @@
 
 尝试更多 Kotlin/Wasm 示例：
 
-* [Compose image viewer](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/imageviewer)
-* [Jetsnack application](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/jetsnack)
-* [Node.js example](https://github.com/Kotlin/kotlin-wasm-nodejs-template)
-* [Compose example](https://github.com/Kotlin/kotlin-wasm-compose-template)
+* [Compose 图片查看器](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/imageviewer)
+* [Jetsnack 应用程序](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/jetsnack)
+* [Node.js 示例](https://github.com/Kotlin/kotlin-wasm-nodejs-template)
+* [Compose 示例](https://github.com/Kotlin/kotlin-wasm-compose-template)

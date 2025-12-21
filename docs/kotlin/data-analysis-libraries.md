@@ -137,10 +137,10 @@
     </td>
     <td>
       <list>
-        <li>用于在 <a href="https://www.jetbrains.com/kotlin-multiplatform/">Kotlin Multiplatform</a>（JVM、JS、Native 和 Wasm）中处理数学抽象的模块化库</li>
+        <li>用于在 <a href="https://kotlinlang.org/multiplatform/">Kotlin Multiplatform</a>（JVM、JS、Native 和 Wasm）中处理数学抽象的模块化库</li>
         <li>用于代数结构、数学表达式、直方图和流操作的 API</li>
         <li>现有 Java 和 Kotlin 库（包括 <a href="https://github.com/eclipse/deeplearning4j/tree/master/nd4j">ND4J</a>、<a href="https://commons.apache.org/proper/commons-math/">Apache Commons Math</a> 和 <a href="https://github.com/Kotlin/multik">Multik</a>）的可互换包装器</li>
-        <li>受 Python NumPy 启发，但具有类型安全等其他附加特性</li>
+        <li>受 Python <a href="https://numpy.org/">NumPy</a> 启发，但具有类型安全等其他附加特性</li>
       </list>
     </td>
   </tr>
@@ -238,7 +238,7 @@
     </td>
     <td>
       <list>
-        <li>Smile 自然语言处理部分的 Scala 隐式函数的 Kotlin 重写</li>
+        <li>Smile 自然语言处理部分的 <a href="https://www.scala-lang.org/api/current/">Scala</a> 隐式函数的 Kotlin 重写</li>
         <li>Kotlin 扩展函数和接口形式的操作</li>
         <li>句子分割、词干提取、词袋及其他任务</li>
       </list>

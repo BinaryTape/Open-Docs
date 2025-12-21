@@ -60,6 +60,8 @@ IntelliJ IDEA는 Gradle 태스크를 사용하여 코드를 실행하고 **Run**
 ![Gradle run configuration](native-run-config.png){width=503}
 
 > IntelliJ IDEA Ultimate 사용자는 컴파일된 네이티브 실행 파일을 디버깅하고 임포트된 Kotlin/Native 프로젝트에 대한 실행 구성을 자동으로 생성할 수 있는 [Native Debugging Support](https://plugins.jetbrains.com/plugin/12775-native-debugging-support) 플러그인을 설치할 수 있습니다.
+>
+{style="note"}
 
 프로젝트를 자동으로 빌드하도록 [IntelliJ IDEA를 구성](https://www.jetbrains.com/help/idea/compiling-applications.html#auto-build)할 수 있습니다:
 
@@ -164,6 +166,12 @@ IntelliJ IDEA는 Gradle 태스크를 사용하여 코드를 실행하고 **Run**
 
 이 섹션에서는 [Gradle](https://gradle.org)을 사용하여 Kotlin/Native 애플리케이션을 수동으로 만드는 방법을 배웁니다. Gradle은 Kotlin/Native 및 Kotlin Multiplatform 프로젝트의 기본 빌드 시스템이며, Java, Android 및 기타 생태계에서도 일반적으로 사용됩니다.
 
+Kotlin/Native 프로젝트를 빌드할 때, Kotlin Gradle 플러그인(Kotlin Gradle plugin)은 다음 아티팩트(artifacts)를 다운로드합니다:
+*   `konanc`, `cinterop`, `jsinterop`과 같은 다양한 도구를 포함하는 주요 Kotlin/Native 번들입니다. 기본적으로 Kotlin/Native 번들은 [Maven Central](https://repo1.maven.org/maven2/org/jetbrains/kotlin/kotlin-native-prebuilt/) 저장소에서 간단한 Gradle 종속성으로 다운로드됩니다.
+*   `konanc` 자체에 필요한 `llvm`과 같은 종속성(Dependencies)은 JetBrains CDN에서 사용자 지정 로직(custom logic)을 사용하여 다운로드됩니다.
+
+Gradle 빌드 스크립트의 `repositories {}` 블록에서 메인 번들 다운로드 소스를 변경할 수 있습니다.
+
 ### 프로젝트 파일 생성
 
 1.  시작하려면 호환되는 버전의 [Gradle](https://gradle.org/install/)을 설치합니다. [호환성 표](gradle-configure-project.md#apply-the-plugin)를 참조하여 Kotlin Gradle 플러그인(KGP)과 사용 가능한 Gradle 버전 간의 호환성을 확인하십시오.
@@ -179,6 +187,8 @@ IntelliJ IDEA는 Gradle 태스크를 사용하여 코드를 실행하고 **Run**
     }
 
     repositories {
+        // 메인 번들 다운로드 소스를 지정합니다
+        // Maven Central이 기본값으로 사용됩니다
         mavenCentral()
     }
 
@@ -208,6 +218,8 @@ IntelliJ IDEA는 Gradle 태스크를 사용하여 코드를 실행하고 **Run**
     }
 
     repositories {
+        // 메인 번들 다운로드 소스를 지정합니다
+        // Maven Central이 기본값으로 사용됩니다
         mavenCentral()
     }
 
@@ -230,7 +242,7 @@ IntelliJ IDEA는 Gradle 태스크를 사용하여 코드를 실행하고 **Run**
     </tab>
     </tabs>
 
-    `macosArm64`, `iosArm64`, `linuxArm64`, `mingwX64`와 같은 [타겟 이름](native-target-support.md)을 사용하여 코드를 컴파일할 타겟을 정의할 수 있습니다. 이러한 타겟 이름은 선택적으로 플랫폼 이름을 매개변수로 취할 수 있으며, 이 경우 `native`입니다. 플랫폼 이름은 프로젝트에서 소스 경로와 태스크 이름을 생성하는 데 사용됩니다.
+    `macosArm64`, `iosArm64`, `linuxArm64`, `mingwX64`와 같은 다른 [타겟 이름](native-target-support.md)을 사용하여 코드를 컴파일할 타겟을 정의할 수 있습니다. 이러한 타겟 이름은 선택적으로 플랫폼 이름을 매개변수로 취할 수 있으며, 이 경우 `native`입니다. 플랫폼 이름은 프로젝트에서 소스 경로와 태스크 이름을 생성하는 데 사용됩니다.
 
 3.  프로젝트 디렉터리에 빈 `settings.gradle(.kts)` 파일을 만듭니다.
 4.  `src/nativeMain/kotlin` 디렉터리를 만들고 그 안에 다음 내용을 가진 `hello.kt` 파일을 배치합니다.
@@ -284,7 +296,7 @@ IntelliJ IDEA는 Gradle 태스크를 사용하여 코드를 실행하고 **Run**
 1.  Kotlin의 [GitHub 릴리스](%kotlinLatestUrl%) 페이지로 이동하여 **Assets** 섹션으로 스크롤합니다.
 2.  이름에 `kotlin-native`가 포함된 파일을 찾아 운영 체제에 적합한 파일을 다운로드합니다. 예를 들어 `kotlin-native-prebuilt-linux-x86_64-%kotlinVersion%.tar.gz`와 같은 파일입니다.
 3.  아카이브를 원하는 디렉터리에 압축 해제합니다.
-4.  셸 프로필을 열고 컴파일러의 `/bin` 디렉터리 경로를 `PATH` 환경 변수에 추가합니다.
+4.  셸 프로필을 열고 컴파일러의 `/bin` 디렉터리 경로를 `PATH` 환경 변수에 추가합니다:
 
     ```bash
     export PATH="/<path to the compiler>/kotlin-native/bin:$PATH"

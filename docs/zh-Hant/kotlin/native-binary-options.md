@@ -69,6 +69,17 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td width="110">狀態</td>
     </tr>
     <tr>
+        <td><a href="native-objc-interop.md#explicit-parameter-names-in-objective-c-block-types"><code>objcExportBlockExplicitParameterNames</code></a></td>
+        <td>
+            <list>
+                <li><code>true</code> (預設)</li>
+                <li><code>false</code></li>
+            </list>
+        </td>
+        <td>為匯出的 Objective-C 標頭檔中的函式類型新增明確的參數名稱。</td>
+        <td>從 2.3.0 起為預設值</td>
+    </tr>
+    <tr>
         <td><a href="whatsnew2220.md#smaller-binary-size-for-release-binaries"><code>smallBinary</code></a></td>
         <td>
             <list>

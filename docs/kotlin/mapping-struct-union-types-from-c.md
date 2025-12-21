@@ -4,12 +4,12 @@
     <p>这是 **Kotlin 与 C 的映射** 系列教程的第二部分。在继续之前，请确保已完成上一步。</p>
     <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="mapping-primitive-data-types-from-c.md">映射 C 语言中的基本数据类型</a><br/>
        <img src="icon-2.svg" width="20" alt="Second step"/> <strong>映射 C 语言中的结构体和联合体类型</strong><br/>
-       <img src="icon-3-todo.svg" width="20" alt="Third step"/> <a href="mapping-function-pointers-from-c.md">映射函数指针</a><br/>
+       <img src="icon-3-todo.svg" width="20" alt="Third step"/> <a href="mapping-function-pointers-from-c.md">映射 C 语言中的函数指针</a><br/>
        <img src="icon-4-todo.svg" width="20" alt="Fourth step"/> <a href="mapping-strings-from-c.md">映射 C 语言中的字符串</a><br/>
     </p>
 </tldr>
 
-> C 库导入功能处于 [Beta](native-c-interop-stability.md) 阶段。由 cinterop 工具从 C 库生成的所有 Kotlin 声明都应带有 `@ExperimentalForeignApi` 注解。
+> C 库导入功能处于 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 阶段。由 cinterop 工具从 C 库生成的所有 Kotlin 声明都应带有 `@ExperimentalForeignApi` 注解。
 >
 > 随 Kotlin/Native 提供的原生平台库（例如 Foundation、UIKit 和 POSIX）仅对部分 API 需要选择启用。
 > {style="note"}
@@ -80,11 +80,11 @@ void union_by_pointer(MyUnion* u) {}
 
     ```kotlin
     kotlin {
-        macosArm64("native") {    // macOS on Apple Silicon
-        // macosX64("native") {   // macOS on x86_64 platforms
-        // linuxArm64("native") { // Linux on ARM64 platforms 
-        // linuxX64("native") {   // Linux on x86_64 platforms
-        // mingwX64("native") {   // on Windows
+        macosArm64("native") {    // Apple Silicon 上的 macOS
+        // macosX64("native") {   // x86_64 平台上的 macOS
+        // linuxArm64("native") { // ARM64 平台上的 Linux 
+        // linuxX64("native") {   // x86_64 平台上的 Linux
+        // mingwX64("native") {   // Windows 上
             val main by compilations.getting
             val interop by main.cinterops.creating {
                 definitionFile.set(project.file("src/nativeInterop/cinterop/interop.def"))
@@ -102,11 +102,11 @@ void union_by_pointer(MyUnion* u) {}
 
     ```groovy
     kotlin {
-        macosArm64("native") {    // Apple Silicon macOS
-        // macosX64("native") {   // macOS on x86_64 platforms
-        // linuxArm64("native") { // Linux on ARM64 platforms
-        // linuxX64("native") {   // Linux on x86_64 platforms
-        // mingwX64("native") {   // Windows
+        macosArm64("native") {    // Apple Silicon 上的 macOS
+        // macosX64("native") {   // x86_64 平台上的 macOS
+        // linuxArm64("native") { // ARM64 平台上的 Linux
+        // linuxX64("native") {   // x86_64 平台上的 Linux
+        // mingwX64("native") {   // Windows 上
             compilations.main.cinterops {
                 interop {   
                     definitionFile = project.file('src/nativeInterop/cinterop/interop.def')

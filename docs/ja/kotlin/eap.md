@@ -1,7 +1,8 @@
 [//]: # (title: Kotlin早期アクセスプレビューに参加する)
 
 <tldr>
-    <p>最新のKotlin EAPリリース: <strong>%kotlinEapVersion%</strong></p>
+    <p>現在、プレビューバージョンは利用できません。</p>
+    <!--<p>Latest Kotlin EAP release: <strong>%kotlinEapVersion%</strong></p>  -->
 </tldr>
 
 Kotlin早期アクセスプレビュー (EAP) に参加して、Kotlinの最新機能をリリース前に試すことができます。
@@ -32,21 +33,21 @@ Kotlin早期アクセスプレビュー (EAP) に参加して、Kotlinの最新�
 
 ## ビルドの詳細
 
-<!-- _No preview versions are currently available._ -->
+_現在、プレビューバージョンは利用できません。_
 
-<table>
+<!-- <table>
     <tr>
-        <th>ビルド情報</th>
-        <th>ビルドのハイライト</th>
+        <th>Build info</th>
+        <th>Build highlights</th>
     </tr>
     <tr>
         <td><strong>2.3.0-RC3</strong>
-            <p>リリース日: <strong>2025年12月9日</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC3" target="_blank">GitHubでリリース</a></p>
+            <p>Released: <strong>December 9, 2025</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC3" target="_blank">Release on GitHub</a></p>
         </td>
         <td>
-            <p>新機能のプレビューとツール更新を含む言語リリースです。</p>
-            <p>詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC3">変更履歴</a>または<a href="whatsnew-eap.md">Kotlin 2.3.0-RC3の新機能</a>をご参照ください。</p>
+            <p>A language release with previews of new features and tooling updates.</p>
+            <p>For more details, please refer to the <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC3">changelog</a> or <a href="whatsnew-eap.md">What's new in Kotlin 2.3.0-RC3</a>.</p>
         </td>
     </tr>
-</table>
+</table> -->

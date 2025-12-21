@@ -31,7 +31,7 @@ val prompt = prompt(
 ```
 <!--- KNIT example-llm-parameters-01.kt -->
 
-프롬프트 생성에 대한 자세한 내용은 [프롬프트](prompt-api.md)를 참조하세요.
+프롬프트 생성에 대한 자세한 내용은 [프롬프트](prompts/structured-prompts.md)를 참조하세요.
 
 - 서브그래프 생성 시:
 

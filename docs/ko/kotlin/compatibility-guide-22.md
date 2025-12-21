@@ -1,4 +1,4 @@
-[//]: # (title: Kotlin 2.2 호환성 가이드)
+[//]: # (title: Kotlin 2.2.x 호환성 가이드)
 
 _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 업데이트](kotlin-evolution-principles.md)_는 Kotlin 언어 설계의 근본 원칙 중 일부입니다. 전자는 언어 발전을 저해하는 구조는 제거되어야 한다고 말하며, 후자는 코드 마이그레이션을 최대한 원활하게 만들기 위해 이러한 제거가 사전에 잘 공지되어야 한다고 말합니다.
 
@@ -77,7 +77,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### JVM에서 인터페이스 함수에 대한 기본 메서드 생성 변경
 
-> **이슈**: [KTLC-269](https://youtrack.jetbrains.com/issue/KTLC-269)
+> **이슈**: [KTLC-269](https://youtrack.com/issue/KTLC-269)
 >
 > **컴포넌트**: 코어 언어
 >
@@ -91,7 +91,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### 어노테이션 프로퍼티에 대한 필드 대상 어노테이션 금지
 
-> **이슈**: [KTLC-7](https://youtrack.jetbrains.com/issue/KTLC-7)
+> **이슈**: [KTLC-7](https://youtrack.com/issue/KTLC-7)
 >
 > **컴포넌트**: 코어 언어
 >
@@ -107,13 +107,13 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### 타입 별칭에 reified 타입 파라미터 금지
 
-> **이슈**: [KTLC-5](https://youtrack.jetbrains.com/issue/KTLC-5)
+> **이슈**: [KTLC-5](https://youtrack.com/issue/KTLC-5)
 >
 > **컴포넌트**: 코어 언어
 >
 > **비호환 변경 유형**: 소스
 >
-> **간단 요약**: `reified` 변경자는 타입 별칭의 타입 파라미터에서 더 이상 허용되지 않습니다. reified 타입 파라미터는 인라인 함수에서만 유효하므로, 타입 별칭에서 사용해도 효과가 없었습니다. 마이그레이션하려면 `typealias` 선언에서 `reified` 변경자를 제거하십시오.
+> **간단 요약**: `reified` 변경자는 타입 파라미터에서 타입 별칭에서 더 이상 허용되지 않습니다. reified 타입 파라미터는 인라인 함수에서만 유효하므로, 타입 별칭에서 사용해도 효과가 없었습니다. 마이그레이션하려면 `typealias` 선언에서 `reified` 변경자를 제거하십시오.
 >
 > **단계별 지원 중단 주기**:
 >
@@ -122,7 +122,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### `Number` 및 `Comparable`에 대한 인라인 값 클래스의 타입 검사 수정
 
-> **이슈**: [KTLC-21](https://youtrack.jetbrains.com/issue/KTLC-21)
+> **이슈**: [KTLC-21](https://youtrack.com/issue/KTLC-21)
 >
 > **컴포넌트**: Kotlin/JVM
 >
@@ -136,7 +136,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### 간접 종속성에서 접근 불가능한 제네릭 타입 금지
 
-> **이슈**: [KTLC-3](https://youtrack.jetbrains.com/issue/KTLC-3)
+> **이슈**: [KTLC-3](https://youtrack.com/issue/KTLC-3)
 >
 > **컴포넌트**: 코어 언어
 >
@@ -152,7 +152,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### 타입 파라미터 바운드에 대한 가시성 검사 강제
 
-> **이슈**: [KTLC-274](https://youtrack.jetbrains.com/issue/KTLC-274)
+> **이슈**: [KTLC-274](https://youtrack.com/issue/KTLC-274)
 >
 > **컴포넌트**: 코어 언어
 >
@@ -167,7 +167,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### 비공개 인라인 함수에서 비공개 타입 노출 시 오류 보고
 
-> **이슈**: [KT-70916](https://youtrack.jetbrains.com/issue/KT-70916)
+> **이슈**: [KT-70916](https://youtrack.com/issue/KT-70916)
 >
 > **컴포넌트**: 코어 언어
 >
@@ -181,7 +181,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### 파라미터의 기본값으로 사용되는 람다에서 비지역 반환 금지
 
-> **이슈**: [KTLC-286](https://youtrack.jetbrains.com/issue/KTLC-286)
+> **이슈**: [KTLC-286](https://youtrack.com/issue/KTLC-286)
 >
 > **컴포넌트**: 코어 언어
 >
@@ -197,7 +197,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### `kotlin.native.Throws` 지원 중단
 
-> **이슈**: [KT-72137](https://youtrack.jetbrains.com/issue/KT-72137)
+> **이슈**: [KT-72137](https://youtrack.com/issue/KT-72137)
 >
 > **컴포넌트**: Kotlin/Native
 >
@@ -212,7 +212,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### `AbstractDoubleTimeSource` 지원 중단
 
-> **이슈**: [KT-72137](https://youtrack.jetbrains.com/issue/KT-72137)
+> **이슈**: [KT-72137](https://youtrack.com/issue/KT-72137)
 >
 > **컴포넌트**: kotlin-stdlib
 >
@@ -227,9 +227,9 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ## 도구
 
-### 소스를 대체하도록 `KotlinCompileTool`의 `setSource()` 함수 수정
+### `KotlinCompileTool`의 `setSource()` 함수를 소스를 대체하도록 수정
 
-> **이슈**: [KT-59632](https://youtrack.jetbrains.com/issue/KT-59632)
+> **이슈**: [KT-59632](https://youtrack.com/issue/KT-59632)
 >
 > **컴포넌트**: Gradle
 >
@@ -243,7 +243,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### `KotlinCompilationOutput#resourcesDirProvider` 프로퍼티 지원 중단
 
-> **이슈**: [KT-70620](https://youtrack.jetbrains.com/issue/KT-70620)
+> **이슈**: [KT-70620](https://youtrack.com/issue/KT-70620)
 >
 > **컴포넌트**: Gradle
 >
@@ -258,7 +258,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### `BaseKapt.annotationProcessorOptionProviders` 프로퍼티 지원 중단
 
-> **이슈**: [KT-58009](https://youtrack.jetbrains.com/issue/KT-58009)
+> **이슈**: [KT-58009](https://youtrack.com/issue/KT-58009)
 >
 > **컴포넌트**: Gradle
 >
@@ -272,7 +272,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### `kotlin-android-extensions` 플러그인 지원 중단
 
-> **이슈**: [KT-72341](https://youtrack.jetbrains.com/issue/KT-72341/)
+> **이슈**: [KT-72341](https://youtrack.com/issue/KT-72341/)
 >
 > **컴포넌트**: Gradle
 >
@@ -288,7 +288,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### `kotlinOptions` DSL 지원 중단
 
-> **이슈**: [KT-54110](https://youtrack.jetbrains.com/issue/KT-54110)
+> **이슈**: [KT-54110](https://youtrack.com/issue/KT-54110)
 >
 > **컴포넌트**: Gradle
 >
@@ -303,7 +303,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### `kotlin.incremental.useClasspathSnapshot` 프로퍼티 제거
 
-> **이슈**: [KT-62963](https://youtrack.jetbrains.com/issue/KT-62963)
+> **이슈**: [KT-62963](https://youtrack.com/issue/KT-62963)
 >
 > **컴포넌트**: Gradle
 >
@@ -318,7 +318,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### Kotlin 스크립팅 지원 중단
 
-> **이슈**: [KT-71685](https://youtrack.jetbrains.com/issue/KT-71685), [KT-75632](https://youtrack.jetbrains.com/issue/KT-75632/), [KT-76196](https://youtrack.jetbrains.com/issue/KT-76196/).
+> **이슈**: [KT-71685](https://youtrack.com/issue/KT-71685), [KT-75632](https://youtrack.com/issue/KT-75632/), [KT-76196](https://youtrack.com/issue/KT-76196/).
 >
 > **컴포넌트**: 스크립팅
 >
@@ -335,11 +335,11 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 > **단계별 지원 중단 주기**:
 >
 > -   2.1.0: `kotlinc`에서 REPL 사용을 경고와 함께 지원 중단
-> -   2.2.0: `kotlinc`를 통해 REPL을 사용하려면 `-Xrepl` 컴파일러 옵션을 사용하여 옵트인하십시오; JSR-223 지원 중단, 언어 버전 1.9로 전환하여 지원을 복원할 수 있습니다; `KotlinScriptMojo` Maven 플러그인 지원 중단
+> -   2.2.0: `kotlinc`를 통해 REPL을 사용하려면 `-Xrepl` 컴파일러 옵션을 사용하여 옵트인하십시오; JSR-223 지원 중단, 지원은 언어 버전 1.9로 전환하여 복원할 수 있습니다; `KotlinScriptMojo` Maven 플러그인 지원 중단
 
 ### 모호성 해소 분류자 프로퍼티 지원 중단
 
-> **이슈**: [KT-58231](https://youtrack.jetbrains.com/issue/KT-58231)
+> **이슈**: [KT-58231](https://youtrack.com/issue/KT-58231)
 >
 > **컴포넌트**: Gradle
 >
@@ -356,9 +356,9 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 > -   2.1.0: 이 경고를 오류로 격상
 > -   2.2.0: Gradle 프로퍼티 제거
 
-### 공통화(commonization) 파라미터 지원 중단
+### 공통화 파라미터 지원 중단
 
-> **이슈**: [KT-75161](https://youtrack.jetbrains.com/issue/KT-75161)
+> **이슈**: [KT-75161](https://youtrack.com/issue/KT-75161)
 >
 > **컴포넌트**: Gradle
 >
@@ -386,7 +386,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### 레거시 메타데이터 컴파일 지원 중단
 
-> **이슈**: [KT-61817](https://youtrack.jetbrains.com/issue/KT-61817)
+> **이슈**: [KT-61817](https://youtrack.com/issue/KT-61817)
 >
 > **컴포넌트**: Gradle
 >
@@ -404,7 +404,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### `KotlinCompilation.source` API 지원 중단
 
-> **이슈**: [KT-64991](https://youtrack.jetbrains.com/issue/KT-64991)
+> **이슈**: [KT-64991](https://youtrack.com/issue/KT-64991)
 >
 > **컴포넌트**: Gradle
 >
@@ -420,7 +420,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### 타겟 프리셋 API 지원 중단
 
-> **이슈**: [KT-71698](https://youtrack.jetbrains.com/issue/KT-71698)
+> **이슈**: [KT-71698](https://youtrack.com/issue/KT-71698)
 >
 > **컴포넌트**: Gradle
 >
@@ -440,7 +440,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### Apple 타겟 단축키 지원 중단
 
-> **이슈**: [KT-70615](https://youtrack.jetbrains.com/issue/KT-70615)
+> **이슈**: [KT-70615](https://youtrack.com/issue/KT-70615)
 >
 > **컴포넌트**: Gradle
 >
@@ -456,7 +456,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### `publishAllLibraryVariants()` 함수 지원 중단
 
-> **이슈**: [KT-60623](https://youtrack.jetbrains.com/issue/KT-60623)
+> **이슈**: [KT-60623](https://youtrack.com/issue/KT-60623)
 >
 > **컴포넌트**: Gradle
 >
@@ -470,7 +470,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### `android` 타겟 지원 중단
 
-> **이슈**: [KT-71608](https://youtrack.jetbrains.com/issue/KT-71608)
+> **이슈**: [KT-71608](https://youtrack.com/issue/KT-71608)
 >
 > **컴포넌트**: Gradle
 >
@@ -486,7 +486,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### `CInteropProcess`의 `konanVersion` 지원 중단
 
-> **이슈**: [KT-71069](https://youtrack.jetbrains.com/issue/KT-71069)
+> **이슈**: [KT-71069](https://youtrack.com/issue/KT-71069)
 >
 > **컴포넌트**: Gradle
 >
@@ -502,7 +502,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### `CInteropProcess`의 `destinationDir` 지원 중단
 
-> **이슈**: [KT-71068](https://youtrack.jetbrains.com/issue/KT-71068)
+> **이슈**: [KT-71068](https://youtrack.com/issue/KT-71068)
 >
 > **컴포넌트**: Gradle
 >
@@ -518,13 +518,13 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편리한 �
 
 ### `kotlinArtifacts` API 지원 중단
 
-> **이슈**: [KT-74953](https://youtrack.jetbrains.com/issue/KT-74953)
+> **이슈**: [KT-74953](https://youtrack.com/issue/KT-74953)
 >
 > **컴포넌트**: Gradle
 >
 > **비호환 변경 유형**: 소스
 >
-> **간단 요약**: 실험적인 `kotlinArtifacts` API는 더 이상 사용되지 않습니다. Kotlin Gradle 플러그인에서 사용 가능한 현재 DSL을 사용하여 [최종 네이티브 바이너리를 빌드](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)하십시오. 마이그레이션에 충분하지 않다면, [이 YouTrack 이슈](https://youtrack.jetbrains.com/issue/KT-74953)에 코멘트를 남겨주십시오.
+> **간단 요약**: 실험적인 `kotlinArtifacts` API는 더 이상 사용되지 않습니다. Kotlin Gradle 플러그인에서 사용 가능한 현재 DSL을 사용하여 [최종 네이티브 바이너리를 빌드](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)하십시오. 마이그레이션에 충분하지 않다면, [이 YouTrack 이슈](https://youtrack.com/issue/KT-74953)에 코멘트를 남겨주십시오.
 >
 > **단계별 지원 중단 주기**:
 >

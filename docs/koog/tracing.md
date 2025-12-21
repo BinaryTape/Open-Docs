@@ -152,10 +152,16 @@ Tracing
     ├── AgentStartingEvent
     ├── AgentCompletedEvent
     ├── AgentExecutionFailedEvent
-    ├── StrategyStartingEvent
+    ├── AgentClosingEvent
+    ├── GraphStrategyStartingEvent
+    ├── FunctionalStrategyStartingEvent
     ├── StrategyCompletedEvent
     ├── NodeExecutionStartingEvent
     ├── NodeExecutionCompletedEvent
+    ├── NodeExecutionFailedEvent
+    ├── SubgraphExecutionStartingEvent
+    ├── SubgraphExecutionCompletedEvent
+    ├── SubgraphExecutionFailedEvent
     ├── LLMCallStartingEvent
     ├── LLMCallCompletedEvent
     ├── LLMStreamingStartingEvent

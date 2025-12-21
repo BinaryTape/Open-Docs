@@ -6,7 +6,7 @@
 
 本頁面將引導您完成建立具備可自訂工具與組態的基本代理所需步驟。
 
-基本代理會處理單一輸入並提供回應。它在單次工具呼叫的週期內完成其任務並提供回應。此代理可以返回訊息或工具結果。如果代理有提供工具註冊表 (tool registry)，則會返回工具結果。
+基本代理會處理單一輸入並提供回應。它在單次工具呼叫的週期內完成其任務並提供回應。此代理可以返回訊息或工具結果。如果有為代理提供工具註冊表，則會返回工具結果。
 
 如果您的目標是建立一個簡單的代理進行實驗，那麼在建立時，只需提供一個提示執行器 (prompt executor) 和一個 LLM (大型語言模型) 即可。但如果您想要更大的彈性和自訂性，可以傳遞可選參數來配置代理。若要了解更多組態選項，請參閱 [API 參考](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent/-a-i-agent/-a-i-agent.html)。
 
@@ -26,8 +26,6 @@
 ```
 dependencies {
     implementation("ai.koog:koog-agents:$koog_version")
-    // include Ktor client dependency explicitly
-    implementation("io.ktor:ktor-client-cio:$ktor_version")
 }
 ```
 
@@ -89,7 +87,7 @@ val agent = AIAgent(
 
 ### 5. 新增工具
 
-代理使用工具來完成特定任務。您可以根據需要使用內建工具或實作您自己的自訂工具。
+代理使用工具來完成特定任務。您可以使用內建工具或在需要時實作您自己的自訂工具。
 
 若要配置工具，請使用定義代理可用工具的 `toolRegistry` 參數：
 

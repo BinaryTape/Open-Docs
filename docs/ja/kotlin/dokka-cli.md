@@ -16,7 +16,7 @@ CLIランナーは、独立した実行可能なアーティファクトとし�
 java -jar dokka-cli-%dokkaVersion%.jar -help
 ```
 
-また、`-sourceSet`のようなネストされたオプションでも機能します。
+`-sourceSet`のような一部のネストされたオプションでも機能します。
 
 ```Bash
 java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
@@ -28,7 +28,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 
 依存関係を管理するビルドツールがないため、依存関係の`.jar`ファイルを自分で提供する必要があります。
 
-以下は、あらゆる出力形式で必要な依存関係です。
+あらゆる出力形式で必要な依存関係を以下に示します。
 
 | **グループ**             | **アーティファクト**                  | **バージョン**    | **リンク**                                                                                                                                                 |
 |-----------------------|-------------------------------|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -104,7 +104,7 @@ java -jar dokka-cli-%dokkaVersion%.jar dokka-configuration.json
 
 他のすべての出力形式は[Dokkaプラグイン](dokka-plugins.md)として実装されています。これらを使用するには、プラグインのクラスパスに配置する必要があります。
 
-例えば、実験的な[GFM](dokka-markdown.md#gfm)出力形式でドキュメントを生成したい場合、gfm-pluginのJAR（[ダウンロード](https://repo1.maven.org/maven2/org/jetbrains/dokka/gfm-plugin/%dokkaVersion%/gfm-plugin-%dokkaVersion%.jar)）をダウンロードし、`pluginsClasspath`設定オプションに渡す必要があります。
+例えば、実験的な[GFM](https://github.com/Kotlin/dokka/blob/8e5c63d035ef44a269b8c43430f43f5c8eebfb63/dokka-subprojects/plugin-gfm/README.md)出力形式でドキュメントを生成したい場合、gfm-pluginのJAR（[ダウンロード](https://repo1.maven.org/maven2/org/jetbrains/dokka/gfm-plugin/%dokkaVersion%/gfm-plugin-%dokkaVersion%.jar)）をダウンロードし、`pluginsClasspath`設定オプションに渡す必要があります。
 
 コマンドラインオプション経由：
 
@@ -130,7 +130,7 @@ JSON設定経由：
 
 GFMプラグインを`pluginsClasspath`に渡すことで、CLIランナーはGFM出力形式でドキュメントを生成します。
 
-詳細については、[Markdown](dokka-markdown.md)および[Javadoc](dokka-javadoc.md#generate-javadoc-documentation)のページを参照してください。
+詳細については、[GFM](https://github.com/Kotlin/dokka/blob/8e5c63d035ef44a269b8c43430f43f5c8eebfb63/dokka-subprojects/plugin-gfm/README.md)および[Javadoc](dokka-javadoc.md#generate-javadoc-documentation)のページを参照してください。
 
 ## コマンドラインオプション
 
@@ -237,19 +237,19 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 ```
 
 <deflist collapsible="true">
-    <def title="モジュール名">
+    <def title="moduleName">
         <p>モジュールを参照するために使用される表示名です。目次、ナビゲーション、ロギングなどに使用されます。</p>
         <p>デフォルト: <code>root</code></p>
     </def>
-    <def title="モジュールバージョン">
+    <def title="moduleVersion">
         <p>モジュールのバージョン。</p>
         <p>デフォルト: 空</p>
     </def>
-    <def title="出力ディレクトリ">
+    <def title="outputDirectory">
         <p>出力形式に関わらず、ドキュメントが生成されるディレクトリ。</p>
         <p>デフォルト: <code>./dokka</code></p>
     </def>
-    <def title="警告時に失敗">
+    <def title="failOnWarning">
         <p>
             Dokkaが警告またはエラーを出した場合にドキュメント生成を失敗させるかどうか。
             プロセスは、すべてのエラーと警告が最初に出力されるまで待機します。
@@ -257,7 +257,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
         <p>この設定は<code>reportUndocumented</code>と組み合わせてうまく機能します。</p>
         <p>デフォルト: <code>false</code></p>
     </def>
-    <def title="明白な関数を抑制">
+    <def title="suppressObviousFunctions">
         <p>明白な関数を抑制するかどうか。</p>
             関数が明白であると見なされるのは、以下のいずれかの場合です。
             <list>
@@ -272,7 +272,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
             </list>
         <p>デフォルト: <code>true</code></p>
     </def>
-    <def title="継承されたメンバーを抑制">
+    <def title="suppressInheritedMembers">
         <p>特定のクラスで明示的にオーバーライドされていない継承されたメンバーを抑制するかどうか。</p>
         <p>
             注：これは<code>equals</code> / <code>hashCode</code> / <code>toString</code>などの関数を抑制できますが、
@@ -281,7 +281,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
         </p>
         <p>デフォルト: <code>false</code></p>
     </def>
-    <def title="オフラインモード">
+    <def title="offlineMode">
         <anchor name="includes-json"/>
         <p>ネットワーク経由でリモートファイル/リンクを解決するかどうか。</p>
         <p>
@@ -299,7 +299,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
         </p>
         <p>デフォルト: <code>false</code></p>
     </def>
-    <def title="インクルード">
+    <def title="includes">
         <p>
             <a href="dokka-module-and-package-docs.md">モジュールおよびパッケージのドキュメント</a>を
             含むMarkdownファイルのリスト。
@@ -307,26 +307,26 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
         <p>指定されたファイルのコンテンツは解析され、モジュールおよびパッケージの説明としてドキュメントに埋め込まれます。</p>
         <p>これはパッケージごとに設定できます。</p>
     </def>
-    <def title="ソースセット">
+    <def title="sourceSets">
         <p>
           Kotlinの<a href="https://kotlinlang.org/docs/multiplatform-discover-project.html#source-sets">ソースセット</a>の
           個別の追加設定。
         </p>
         <p>利用可能なオプションのリストについては、<a href="#source-set-configuration">ソースセット設定</a>を参照してください。</p>
     </def>
-    <def title="ソースリンク">
+    <def title="sourceLinks">
         <p>すべてのソースセットに適用されるソースリンクのグローバル設定。</p>
         <p>利用可能なオプションのリストについては、<a href="#source-link-configuration">ソースリンク設定</a>を参照してください。</p>
     </def>
-    <def title="パッケージごとのオプション">
-        <p>ソースセットに関わらず、一致したパッケージのグローバル設定。</p>
+    <def title="perPackageOptions">
+        <p>ソースセットに関わらず、一致したパッケージのグローバル設定。</</p>
         <p>利用可能なオプションのリストについては、<a href="#per-package-configuration">パッケージごとの設定</a>を参照してください。</p>
     </def>
-    <def title="外部ドキュメントリンク">
+    <def title="externalDocumentationLinks">
         <p>使用されるソースセットに関わらず、外部ドキュメントリンクのグローバル設定。</p>
         <p>利用可能なオプションのリストについては、<a href="#external-documentation-links-configuration">外部ドキュメントリンク設定</a>を参照してください。</p>
     </def>
-    <def title="プラグインクラスパス">
+    <def title="pluginsClasspath">
         <p>Dokkaプラグインとその依存関係を含むJARファイルのリスト。</p>
     </def>
 </deflist>
@@ -391,17 +391,17 @@ Kotlinの[ソースセット](https://kotlinlang.org/docs/multiplatform-discover
 ```
 
 <deflist collapsible="true">
-    <def title="表示名">
+    <def title="displayName">
         <p>このソースセットを参照するために使用される表示名。</p>
         <p>
             この名前は、外部（例えば、ドキュメント閲覧者からソースセット名が見える）および内部（例えば、<code>reportUndocumented</code>のログメッセージ用）の両方で使用されます。
         </p>
         <p>より良い代替手段がない場合は、プラットフォーム名を使用できます。</p>
     </def>
-    <def title="ソースセットID">
+    <def title="sourceSetID">
         <p>ソースセットの技術的なID。</p>
     </def>
-    <def title="ドキュメント化される可視性">
+    <def title="documentedVisibilities">
         <p>ドキュメント化すべき可視性修飾子のセット。</p>
         <p>
             これは、<code>protected</code>/<code>internal</code>/<code>private</code>宣言をドキュメント化したい場合、
@@ -419,7 +419,7 @@ Kotlinの[ソースセット](https://kotlinlang.org/docs/multiplatform-discover
             </list>
         <p>デフォルト: <code>PUBLIC</code></p>
     </def>
-    <def title="ドキュメント化されていない宣言の報告">
+    <def title="reportUndocumented">
         <p>
             <code>documentedVisibilities</code>やその他のフィルターでフィルタリングされた後、
             可視でドキュメント化されていない宣言、つまりKDocがない宣言について警告を発するかどうか。
@@ -428,7 +428,7 @@ Kotlinの[ソースセット](https://kotlinlang.org/docs/multiplatform-discover
         <p>これはパッケージごとに設定できます。</p>
         <p>デフォルト: <code>false</code></p>
     </def>
-    <def title="空のパッケージをスキップ">
+    <def title="skipEmptyPackages">
         <p>
             様々なフィルターが適用された後、可視な宣言を含まないパッケージをスキップするかどうか。
         </p>
@@ -438,12 +438,12 @@ Kotlinの[ソースセット](https://kotlinlang.org/docs/multiplatform-discover
         </p>
         <p>CLIランナーのデフォルトは<code>false</code>です。</p>
     </def>
-    <def title="非推奨をスキップ">
+    <def title="skipDeprecated">
         <p><code>@Deprecated</code>で注釈された宣言をドキュメント化するかどうか。</p>
         <p>これはパッケージごとに設定できます。</p>
         <p>デフォルト: <code>false</code></p>
     </def>
-    <def title="JDKバージョン">
+    <def title="jdkVersion">
         <p>Java型に対する外部ドキュメントリンクを生成する際に使用するJDKのバージョン。</p>
         <p>
             例えば、何らかの<code>public</code>宣言シグネチャで<code>java.util.UUID</code>を使用し、
@@ -451,39 +451,39 @@ Kotlinの[ソースセット](https://kotlinlang.org/docs/multiplatform-discover
             外部ドキュメントリンクを生成します。
         </p>
     </def>
-    <def title="言語バージョン">
+    <def title="languageVersion">
         <p>
             解析と<a href="https://kotlinlang.org/docs/kotlin-doc.html#sample-identifier">@sample</a>環境の
             設定に使用される<a href="https://kotlinlang.org/docs/compatibility-modes.html">Kotlin言語バージョン</a>。
         </p>
     </def>
-    <def title="APIバージョン">
+    <def title="apiVersion">
         <p>
             解析と<a href="https://kotlinlang.org/docs/kotlin-doc.html#sample-identifier">@sample</a>環境の
             設定に使用される<a href="https://kotlinlang.org/docs/compatibility-modes.html">Kotlin APIバージョン</a>。
         </p>
     </def>
-    <def title="標準ライブラリリンクなし">
+    <def title="noStdlibLink">
         <p>
             Kotlinの標準ライブラリのAPIリファレンスドキュメントに繋がる外部ドキュメントリンクを生成するかどうか。
         </p>
         <p>注: <code>noStdLibLink</code>が<code>false</code>に設定されている場合、リンクは<b>生成されます</b>。</p>
         <p>デフォルト: <code>false</code></p>
     </def>
-    <def title="JDKリンクなし">
+    <def title="noJdkLink">
         <p>JDKのJavadocへの外部ドキュメントリンクを生成するかどうか。</p>
         <p>JDK Javadocのバージョンは、<code>jdkVersion</code>オプションによって決定されます。</p>
         <p>注: <code>noJdkLink</code>が<code>false</code>に設定されている場合、リンクは<b>生成されます</b>。</p>
         <p>デフォルト: <code>false</code></p>
     </def>
-    <def title="インクルード">
+    <def title="includes">
         <p>
             <a href="dokka-module-and-package-docs.md">モジュールおよびパッケージのドキュメント</a>を
             含むMarkdownファイルのリスト。
         </p>
         <p>指定されたファイルのコンテンツは解析され、モジュールおよびパッケージの説明としてドキュメントに埋め込まれます。</p>
     </def>
-    <def title="解析プラットフォーム">
+    <def title="analysisPlatform">
         <p>
             コード解析と<a href="https://kotlinlang.org/docs/kotlin-doc.html#sample-identifier">@sample</a>環境の
             設定に使用されるプラットフォーム。
@@ -497,35 +497,35 @@ Kotlinの[ソースセット](https://kotlinlang.org/docs/multiplatform-discover
                 <li><code>native</code></li>
             </list>
     </def>
-    <def title="ソースルート">
+    <def title="sourceRoots">
         <p>
             解析およびドキュメント化されるソースコードのルート。
             ディレクトリおよび個別の<code>.kt</code> / <code>.java</code>ファイルが受け入れられます。
         </p>
     </def>
-    <def title="クラスパス">
+    <def title="classpath">
         <p>解析およびインタラクティブなサンプル用のクラスパス。</p>
         <p>これは、依存関係から来る一部の型が自動的に解決/認識されない場合に役立ちます。</p>
         <p>このオプションは、<code>.jar</code>ファイルと<code>.klib</code>ファイルの両方を受け入れます。</p>
     </def>
-    <def title="サンプル">
+    <def title="samples">
         <p>
             <a href="https://kotlinlang.org/docs/kotlin-doc.html#sample-identifier">@sample</a> KDocタグを介して参照される
             サンプル関数を含むディレクトリまたはファイルのリスト。
         </p>
     </def>
-    <def title="抑制されるファイル">
+    <def title="suppressedFiles">
         <p>ドキュメント生成時に抑制されるファイル。</p>
     </def>
-    <def title="ソースリンク">
+    <def title="sourceLinks">
         <p>このソースセットにのみ適用されるソースリンクのパラメータセット。</p>
         <p>利用可能なオプションのリストについては、<a href="#source-link-configuration">ソースリンク設定</a>を参照してください。</p>
     </def>
-    <def title="パッケージごとのオプション">
+    <def title="perPackageOptions">
         <p>このソースセット内の、一致したパッケージに固有のパラメータセット。</p>
         <p>利用可能なオプションのリストについては、<a href="#per-package-configuration">パッケージごとの設定</a>を参照してください。</p>
     </def>
-    <def title="外部ドキュメントリンク">
+    <def title="externalDocumentationLinks">
         <p>このソースセットにのみ適用される外部ドキュメントリンクのパラメータセット。</p>
         <p>利用可能なオプションのリストについては、<a href="#external-documentation-links-configuration">外部ドキュメントリンク設定</a>を参照してください。</p>
     </def>
@@ -554,16 +554,16 @@ Kotlinの[ソースセット](https://kotlinlang.org/docs/multiplatform-discover
 ```
 
 <deflist collapsible="true">
-    <def title="ローカルディレクトリ">
+    <def title="localDirectory">
         <p>ローカルソースディレクトリへのパス。</p>
     </def>
-    <def title="リモートURL">
+    <def title="remoteUrl">
         <p>
             GitHub、GitLab、Bitbucketなど、ドキュメント閲覧者がアクセスできるソースコードホスティングサービスのURL。
             このURLは、宣言のソースコードリンクを生成するために使用されます。
         </p>
     </def>
-    <def title="リモート行サフィックス">
+    <def title="remoteLineSuffix">
         <p>
             URLにソースコードの行番号を追加するために使用されるサフィックス。
             これにより、閲覧者はファイルだけでなく、宣言の特定の行番号に移動できます。
@@ -605,19 +605,19 @@ Kotlinの[ソースセット](https://kotlinlang.org/docs/multiplatform-discover
 ```
 
 <deflist collapsible="true">
-    <def title="マッチング正規表現">
+    <def title="matchingRegex">
         <p>パッケージに一致させるために使用される正規表現。</p>
     </def>
-    <def title="抑制">
+    <def title="suppress">
         <p>ドキュメント生成時にこのパッケージをスキップするかどうか。</p>
         <p>デフォルト: <code>false</code></p>
     </def>
-    <def title="非推奨をスキップ">
+    <def title="skipDeprecated">
         <p><code>@Deprecated</code>で注釈された宣言をドキュメント化するかどうか。</p>
         <p>これはプロジェクト/モジュールレベルで設定できます。</p>
         <p>デフォルト: <code>false</code></p>
     </def>
-    <def title="ドキュメント化されていない宣言の報告">
+    <def title="reportUndocumented">
         <p>
             <code>documentedVisibilities</code>やその他のフィルターでフィルタリングされた後、
             可視でドキュメント化されていない宣言、つまりKDocがない宣言について警告を発するかどうか。
@@ -626,8 +626,8 @@ Kotlinの[ソースセット](https://kotlinlang.org/docs/multiplatform-discover
         <p>これはソースセットレベルで設定できます。</p>
         <p>デフォルト: <code>false</code></p>
     </def>
-    <def title="ドキュメント化される可視性">
-        <p>ドキュメント化すべき可視性修飾子のセット。</p>
+    <def title="documentedVisibilities">
+        <p>ドキュメント化すべき可視性修飾子のセット。</</p>
         <p>
             これは、このパッケージ内の<code>protected</code>/<code>internal</code>/<code>private</code>宣言をドキュメント化したい場合、
             あるいは<code>public</code>宣言を除外して内部APIのみをドキュメント化したい場合に使用できます。
@@ -657,7 +657,7 @@ Kotlinの[ソースセット](https://kotlinlang.org/docs/multiplatform-discover
 ```
 
 <deflist collapsible="true">
-    <def title="URL">
+    <def title="url">
         <p>リンク先のドキュメントのルートURL。末尾のスラッシュを<b>含める必要があります</b>。</p>
         <p>
             Dokkaは、指定されたURLの<code>package-list</code>を自動的に見つけ、宣言をリンクするために最善を尽くします。
@@ -667,7 +667,7 @@ Kotlinの[ソースセット](https://kotlinlang.org/docs/multiplatform-discover
             <code>packageListUrl</code>オプションの設定を検討してください。
         </p>
     </def>
-    <def title="パッケージリストURL">
+    <def title="packageListUrl">
         <p>
             <code>package-list</code>の正確な場所。これはDokkaによる自動解決に頼る代替手段です。
         </p>

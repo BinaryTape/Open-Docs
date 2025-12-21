@@ -45,12 +45,12 @@ val toolRegistry = ToolRegistry {}
 
 -->
 ```kotlin
-// Create a mock LLM executor
+// 建立模擬 LLM 執行器
 val mockLLMApi = getMockExecutor(toolRegistry) {
-  // Mock a simple text response
+  // 模擬簡單的文字回應
   mockLLMAnswer("Hello!") onRequestContains "Hello"
 
-  // Mock a default response
+  // 模擬預設回應
   mockLLMAnswer("I don't know how to answer that.").asDefaultResponse
 }
 ```
@@ -69,7 +69,12 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.serializer
 import ai.koog.agents.core.tools.annotations.LLMDescription
 
-public object CreateTool : Tool<CreateTool.Args, String>() {
+public object CreateTool : Tool<CreateTool.Args, String>(
+    argsSerializer = Args.serializer(),
+    resultSerializer = String.serializer(),
+    name = "message",
+    description = "Service tool, used by the agent to talk with user"
+) {
     /**
     * Represents the arguments for the [AskUser] tool
     *
@@ -81,16 +86,15 @@ public object CreateTool : Tool<CreateTool.Args, String>() {
         val message: String
     )
 
-    override val argsSerializer: KSerializer<Args> = Args.serializer()
-    override val resultSerializer: KSerializer<String> = String.serializer()
-
-    override val name = "message"
-    override val description = "Service tool, used by the agent to talk with user"
-
     override suspend fun execute(args: Args): String = args.message
 }
 
-public object SearchTool : Tool<SearchTool.Args, String>() {
+public object SearchTool : Tool<SearchTool.Args, String>(
+    argsSerializer = Args.serializer(),
+    resultSerializer = String.serializer(),
+    name = "message",
+    description = "Service tool, used by the agent to talk with user"
+) {
     /**
     * Represents the arguments for the [AskUser] tool
     *
@@ -101,17 +105,16 @@ public object SearchTool : Tool<SearchTool.Args, String>() {
         @property:LLMDescription("Message from the agent")
         val query: String
     )
-
-    override val argsSerializer: KSerializer<Args> = Args.serializer()
-    override val resultSerializer: KSerializer<String> = String.serializer()
-
-    override val name = "message"
-    override val description = "Service tool, used by the agent to talk with user"
 
     override suspend fun execute(args: Args): String = args.query
 }
 
-public object AnalyzeTool : Tool<AnalyzeTool.Args, String>() {
+public object AnalyzeTool : Tool<AnalyzeTool.Args, String>(
+    argsSerializer = Args.serializer(),
+    resultSerializer = String.serializer(),
+    name = "message",
+    description = "Service tool, used by the agent to talk with user"
+) {
     /**
     * Represents the arguments for the [AskUser] tool
     *
@@ -122,12 +125,6 @@ public object AnalyzeTool : Tool<AnalyzeTool.Args, String>() {
         @property:LLMDescription("Message from the agent")
         val query: String
     )
-
-    override val argsSerializer: KSerializer<Args> = Args.serializer()
-    override val resultSerializer: KSerializer<String> = String.serializer()
-
-    override val name = "message"
-    override val description = "Service tool, used by the agent to talk with user"
 
     override suspend fun execute(args: Args): String = args.query
 }
@@ -141,25 +138,25 @@ val mockLLMApi = getMockExecutor {
 }
 -->
 ```kotlin
-// Mock a tool call response
+// 模擬工具呼叫回應
 mockLLMToolCall(CreateTool, CreateTool.Args("solve")) onRequestEquals "Solve task"
 
-// Mock tool behavior - simplest form without lambda
+// 模擬工具行為 - 最簡單的形式，不使用 lambda
 mockTool(PositiveToneTool) alwaysReturns "The text has a positive tone."
 
-// Using lambda when you need to perform extra actions
+// 當您需要執行額外動作時使用 lambda
 mockTool(NegativeToneTool) alwaysTells {
-  // Perform some extra action
+  // 執行額外動作
   println("Negative tone tool called")
 
-  // Return the result
+  // 返回結果
   "The text has a negative tone."
 }
 
-// Mock tool behavior based on specific arguments
+// 根據特定參數模擬工具行為
 mockTool(AnalyzeTool) returns "Detailed analysis" onArguments AnalyzeTool.Args("analyze deeply")
 
-// Mock tool behavior with conditional argument matching
+// 根據條件式參數匹配模擬工具行為
 mockTool(SearchTool) returns "Found results" onArgumentsMatching { args ->
   args.query.contains("important")
 }
@@ -186,7 +183,7 @@ import ai.koog.prompt.executor.clients.openai.OpenAIModels
 
 val llmModel = OpenAIModels.Chat.GPT4o
 
-// Create the agent with testing enabled
+// 建立啟用測試的代理
 fun main() {
 -->
 <!--- SUFFIX
@@ -237,7 +234,7 @@ fun main() {
 -->
 ```kotlin
 AIAgent(
-    // Constructor arguments
+    // 建構函式參數
     promptExecutor = mockLLMApi,
     toolRegistry = toolRegistry,
     llmModel = llmModel
@@ -246,23 +243,23 @@ AIAgent(
         val firstSubgraph = assertSubgraphByName<String, String>("first")
         val secondSubgraph = assertSubgraphByName<String, String>("second")
 
-        // Assert subgraph connections
+        // 斷言子圖連接
         assertEdges {
             startNode() alwaysGoesTo firstSubgraph
             firstSubgraph alwaysGoesTo secondSubgraph
             secondSubgraph alwaysGoesTo finishNode()
         }
 
-        // Verify the first subgraph
+        // 驗證第一個子圖
         verifySubgraph(firstSubgraph) {
             val start = startNode()
             val finish = finishNode()
 
-            // Assert nodes by name
+            // 斷言節點名稱
             val askLLM = assertNodeByName<String, Message.Response>("callLLM")
             val callTool = assertNodeByName<Message.Tool.Call, ReceivedToolResult>("executeTool")
 
-            // Assert node reachability
+            // 斷言節點可達性
             assertReachable(start, askLLM)
             assertReachable(askLLM, callTool)
         }
@@ -295,7 +292,7 @@ val llmModel = OpenAIModels.Chat.GPT4o
 fun main() {
 
     AIAgent(
-        // Constructor arguments
+        // 建構函式參數
         promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
@@ -314,10 +311,10 @@ fun main() {
 ```kotlin
 assertNodes {
 
-    // Test basic text responses
+    // 測試基本文字回應
     askLLM withInput "Hello" outputs assistantMessage("Hello!")
 
-    // Test tool call responses
+    // 測試工具呼叫回應
     askLLM withInput "Solve task" outputs toolCallMessage(CreateTool, CreateTool.Args("solve"))
 }
 ```
@@ -347,19 +344,18 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import ai.koog.agents.core.tools.annotations.LLMDescription
 
-object SolveTool : SimpleTool<SolveTool.Args>() {
+object SolveTool : SimpleTool<SolveTool.Args>(
+    argsSerializer = Args.serializer(),
+    name = "message",
+    description = "Service tool, used by the agent to talk with user"
+) {
     @Serializable
     data class Args(
         @property:LLMDescription("Message from the agent")
         val message: String
     )
 
-    override val argsSerializer: KSerializer<Args> = Args.serializer()
- 
-    override val name = "message"
-    override val description = "Service tool, used by the agent to talk with user"
-
-    override suspend fun doExecute(args: Args): String {
+    override suspend fun execute(args: Args): String {
         return args.message
     }
 }
@@ -369,7 +365,7 @@ val llmModel = OpenAIModels.Chat.GPT4o
 fun main() {
 
     AIAgent(
-        // Constructor arguments
+        // 建構函式參數
         promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
@@ -387,7 +383,7 @@ fun main() {
 -->
 ```kotlin
 assertNodes {
-    // Test tool runs with specific arguments
+    // 測試帶有特定參數的工具執行
     callTool withInput toolCallMessage(
         SolveTool,
         SolveTool.Args("solve")
@@ -417,7 +413,12 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.serializer
 import ai.koog.agents.core.tools.annotations.LLMDescription
 
-object AnalyzeTool : Tool<AnalyzeTool.Args, String>() {
+object AnalyzeTool : Tool<AnalyzeTool.Args, String>(
+    argsSerializer = Args.serializer(),
+    resultSerializer = String.serializer(),
+    name = "message",
+    description = "Service tool, used by the agent to talk with user"
+) {
 
     @Serializable
     data class Args(
@@ -425,12 +426,6 @@ object AnalyzeTool : Tool<AnalyzeTool.Args, String>() {
         val query: String,
         val depth: Int
     )
-
-    override val argsSerializer: KSerializer<Args> = Args.serializer()
-    override val resultSerializer: KSerializer<String> = String.serializer()
- 
-    override val name = "message"
-    override val description = "Service tool, used by the agent to talk with user"
 
     override suspend fun execute(args: Args): String = args.query
 }
@@ -440,7 +435,7 @@ val llmModel = OpenAIModels.Chat.GPT4o
 fun main() {
 
     AIAgent(
-        // Constructor arguments
+        // 建構函式參數
         promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
@@ -457,10 +452,10 @@ fun main() {
 -->
 ```kotlin
 assertNodes {
-    // Test with different inputs to the same node
+    // 測試對同一節點的不同輸入
     askLLM withInput "Simple query" outputs assistantMessage("Simple response")
 
-    // Test with complex parameters
+    // 測試帶有複雜參數
     askLLM withInput "Complex query with parameters" outputs toolCallMessage(
         AnalyzeTool,
         AnalyzeTool.Args(query = "parameters", depth = 3)
@@ -485,7 +480,12 @@ import ai.koog.prompt.message.Message
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 
-object AnalyzeTool : Tool<AnalyzeTool.Args, AnalyzeTool.Result>() {
+object AnalyzeTool : Tool<AnalyzeTool.Args, AnalyzeTool.Result>(
+    argsSerializer = Args.serializer(),
+    resultSerializer = Result.serializer(),
+    name = "message",
+    description = "Service tool, used by the agent to talk with user"
+) {
     @Serializable
     data class Args(
         val query: String,
@@ -498,12 +498,6 @@ object AnalyzeTool : Tool<AnalyzeTool.Args, AnalyzeTool.Result>() {
         val confidence: Double,
         val metadata: Map<String, String> = mapOf()
     )
-
-    override val argsSerializer: KSerializer<Args> = Args.serializer()
-    override val resultSerializer: KSerializer<Result> = Result.serializer()
- 
-    override val name = "message"
-    override val description = "Service tool, used by the agent to talk with user"
 
     override suspend fun execute(args: Args): Result {
         return Result(
@@ -518,7 +512,7 @@ val llmModel = OpenAIModels.Chat.GPT4o
 fun main() {
 
     AIAgent(
-        // Constructor arguments
+        // 建構函式參數
         promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
@@ -535,7 +529,7 @@ fun main() {
 -->
 ```kotlin
 assertNodes {
-    // Test a complex tool call with a structured result
+    // 測試具有結構化結果的複雜工具呼叫
     callTool withInput toolCallMessage(
         AnalyzeTool,
         AnalyzeTool.Args(query = "complex", depth = 5)
@@ -578,7 +572,7 @@ val llmModel = OpenAIModels.Chat.GPT4o
 fun main() {
 
     AIAgent(
-        // Constructor arguments
+        // 建構函式參數
         promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
@@ -597,10 +591,10 @@ fun main() {
 -->
 ```kotlin
 assertEdges {
-    // Test text message routing
+    // 測試文字訊息路由
     askLLM withOutput assistantMessage("Hello!") goesTo giveFeedback
 
-    // Test tool call routing
+    // 測試工具呼叫路由
     askLLM withOutput toolCallMessage(CreateTool, CreateTool.Args("solve")) goesTo callTool
 }
 ```
@@ -629,7 +623,7 @@ val llmModel = OpenAIModels.Chat.GPT4o
 fun main() {
 
     AIAgent(
-        // Constructor arguments
+        // 建構函式參數
         promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
@@ -648,7 +642,7 @@ fun main() {
 -->
 ```kotlin
 assertEdges {
-    // Different text responses can route to different nodes
+    // 不同的文字回應可以路由到不同的節點
     askLLM withOutput assistantMessage("Need more information") goesTo askForInfo
     askLLM withOutput assistantMessage("Ready to proceed") goesTo processRequest
 }
@@ -675,7 +669,7 @@ val llmModel = OpenAIModels.Chat.GPT4o
 fun main() {
 
     AIAgent(
-        // Constructor arguments
+        // 建構函式參數
         promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
@@ -693,7 +687,7 @@ fun main() {
 -->
 ```kotlin
 assertEdges {
-    // Test routing based on tool result content
+    // 根據工具結果內容測試路由
     callTool withOutput toolResult(
         AnalyzeTool,
         AnalyzeTool.Args(query = "parameters", depth = 3),
@@ -721,7 +715,7 @@ val llmModel = OpenAIModels.Chat.GPT4o
 fun main() {
 
     AIAgent(
-        // Constructor arguments
+        // 建構函式參數
         promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
@@ -740,7 +734,7 @@ fun main() {
 -->
 ```kotlin
 assertEdges {
-    // Route to different nodes based on confidence level
+    // 根據信心水準路由到不同節點
     callTool withOutput toolResult(
         AnalyzeTool,
         AnalyzeTool.Args(query = "parameters", depth = 3),
@@ -775,13 +769,13 @@ assertEdges {
 ```kotlin
 @Test
 fun testToneAgent() = runTest {
-    // Create a list to track tool calls
+    // 建立一個列表來追蹤工具呼叫
     var toolCalls = mutableListOf<String>()
     var result: String? = null
 
-    // Create a tool registry
+    // 建立工具註冊表
     val toolRegistry = ToolRegistry {
-        // A special tool, required with this type of agent
+        // 一個特殊工具，此類代理需要
         tool(SayToUser)
 
         with(ToneTools) {
@@ -789,7 +783,7 @@ fun testToneAgent() = runTest {
         }
     }
 
-    // Create an event handler
+    // 建立事件處理器
     val eventHandler = EventHandler {
         onToolCallStarting { tool, args ->
             println("[DEBUG_LOG] Tool called: tool ${tool.name}, args $args")
@@ -817,19 +811,19 @@ ${it.stackTraceToString()}")
     val neutralResponse = "The text has a neutral tone."
 
     val mockLLMApi = getMockExecutor(toolRegistry, eventHandler) {
-        // Set up LLM responses for different input texts
+        // 為不同的輸入文字設定 LLM 回應
         mockLLMToolCall(NeutralToneTool, ToneTool.Args(defaultText)) onRequestEquals defaultText
         mockLLMToolCall(PositiveToneTool, ToneTool.Args(positiveText)) onRequestEquals positiveText
         mockLLMToolCall(NegativeToneTool, ToneTool.Args(negativeText)) onRequestEquals negativeText
 
-        // Mock the behavior where the LLM responds with just tool responses when the tools return results
+        // 模擬當工具返回結果時，LLM 僅以工具回應來回應的行為
         mockLLMAnswer(positiveResponse) onRequestContains positiveResponse
         mockLLMAnswer(negativeResponse) onRequestContains negativeResponse
         mockLLMAnswer(neutralResponse) onRequestContains neutralResponse
 
         mockLLMAnswer(defaultText).asDefaultResponse
 
-        // Tool mocks
+        // 工具模擬
         mockTool(PositiveToneTool) alwaysTells {
             toolCalls += "Positive tone tool called"
             positiveResponse
@@ -844,10 +838,10 @@ ${it.stackTraceToString()}")
         }
     }
 
-    // Create a strategy
+    // 建立策略
     val strategy = toneStrategy("tone_analysis")
 
-    // Create an agent configuration
+    // 建立代理配置
     val agentConfig = AIAgentConfig(
         prompt = prompt("test-agent") {
             system(
@@ -864,7 +858,7 @@ ${it.stackTraceToString()}")
         maxAgentIterations = 10
     )
 
-    // Create an agent with testing enabled
+    // 建立啟用測試的代理
     val agent = AIAgent(
         promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
@@ -875,17 +869,17 @@ ${it.stackTraceToString()}")
         withTesting()
     }
 
-    // Test the positive text
+    // 測試正面文字
     agent.run(positiveText)
     assertEquals("The text has a positive tone.", result, "Positive tone result should match")
     assertEquals(1, toolCalls.size, "One tool is expected to be called")
 
-    // Test the negative text
+    // 測試負面文字
     agent.run(negativeText)
     assertEquals("The text has a negative tone.", result, "Negative tone result should match")
     assertEquals(2, toolCalls.size, "Two tools are expected to be called")
 
-    //Test the neutral text
+    //測試中性文字
     agent.run(defaultText)
     assertEquals("The text has a neutral tone.", result, "Neutral tone result should match")
     assertEquals(3, toolCalls.size, "Three tools are expected to be called")
@@ -1024,7 +1018,7 @@ fun testMultiSubgraphAgentStructure() = runTest {
 val mockExecutor = getMockExecutor {
     mockTool(myTool) alwaysReturns myResult
 
-    // Or with conditions
+    // 或有條件地
     mockTool(myTool) returns myResult onArguments myArgs
 }
 ```
@@ -1045,7 +1039,7 @@ val llmModel = OpenAIModels.Chat.GPT4o
 
 fun main() {
     AIAgent(
-        // Constructor arguments
+        // 建構函式參數
         promptExecutor = mockLLMApi,
         toolRegistry = toolRegistry,
         llmModel = llmModel
@@ -1060,14 +1054,14 @@ testGraph<Unit, String>("test") {
     val mySubgraph = assertSubgraphByName<Unit, String>("mySubgraph")
 
     verifySubgraph(mySubgraph) {
-        // Get references to nodes
+        // 取得節點的參考
         val nodeA = assertNodeByName<Unit, String>("nodeA")
         val nodeB = assertNodeByName<String, String>("nodeB")
 
-        // Assert reachability
+        // 斷言可達性
         assertReachable(nodeA, nodeB)
 
-        // Assert edge connections
+        // 斷言邊緣連接
         assertEdges {
             nodeA.withOutput("result") goesTo nodeB
         }

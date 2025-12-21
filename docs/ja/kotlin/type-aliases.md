@@ -56,9 +56,7 @@ fun main() {
 
 ## ネストされた型エイリアス
 
-<primary-label ref="beta"/>
-
-Kotlinでは、外側のクラスから型パラメータを捕捉しない限り、他の宣言の内部で型エイリアスを定義できます。
+Kotlinでは、型エイリアスが外側のクラスの型パラメータを捕捉しない限り、他の宣言の内部で定義できます。
 
 ```kotlin
 class Dijkstra {
@@ -72,7 +70,7 @@ class Dijkstra {
 
 ```kotlin
 class Graph<Node> {
-    // Incorrect because captures Node
+    // Nodeを捕捉しているため不適切です
     typealias Path = List<Node>
 }
 ```
@@ -81,7 +79,7 @@ class Graph<Node> {
 
 ```kotlin
 class Graph<Node> {
-    // Correct because Node is a type alias parameter
+    // Nodeが型エイリアスのパラメータであるため適切です
     typealias Path<Node> = List<Node>
 }
 ```
@@ -97,21 +95,3 @@ class Graph<Node> {
 *   それらのスコープは、[ネストされたクラス](nested-classes.md)と同じです。クラスの内部で定義でき、オーバーライドしないため、同じ名前の親の型エイリアスを隠蔽します。
 *   ネストされた型エイリアスは、可視性を制限するために `internal` または `private` としてマークできます。
 *   ネストされた型エイリアスは、Kotlin Multiplatformの[`expect/actual` 宣言](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)ではサポートされていません。
-
-### ネストされた型エイリアスを有効にする方法
-
-プロジェクトでネストされた型エイリアスを有効にするには、コマンドラインで以下のコンパイラオプションを使用します。
-
-```bash
--Xnested-type-aliases
-```
-
-または、Gradleビルドファイルの `compilerOptions {}` ブロックに追加します。
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xnested-type-aliases")
-    }
-}

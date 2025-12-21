@@ -20,7 +20,7 @@ Kotlin 默认将所有异常视为_非受检异常_。
 
 您可以使用 `throw` 关键字手动抛出异常。
 抛出异常表示代码中发生了意外的运行时错误。
-异常是[对象](classes.md#creating-instances-of-classes)，抛出异常会创建异常类的一个实例。
+异常是[对象](classes.md#creating-instances)，抛出异常会创建异常类的一个实例。
 
 您可以在不带任何形参的情况下抛出异常：
 
@@ -33,7 +33,7 @@ throw IllegalArgumentException()
 ```kotlin
 val cause = IllegalStateException("Original cause: illegal state")
 
-// 如果 userInput 为负数，则抛出 IllegalArgumentException 
+// 如果 userInput 为负数，则抛出 IllegalArgumentException
 // 此外，它会显示原始原因，由 cause IllegalStateException 表示
 if (userInput < 0) {
     throw IllegalArgumentException("Input must be non-negative", cause)
@@ -48,11 +48,11 @@ if (userInput < 0) {
 Kotlin 提供了使用前置条件函数自动抛出异常的额外方式。
 前置条件函数包括：
 
-| 前置条件函数             | 用例                   | 抛出的异常                                                                                                 |
-|--------------------------|------------------------|------------------------------------------------------------------------------------------------------------|
-| [`require()`](#require-function) | 检测用户输入有效性     | [`IllegalArgumentException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-argument-exception/)   |
-| [`check()`](#check-function)     | 检测对象或变量状态有效性 | [`IllegalStateException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/)         |
-| [`error()`](#error-function)     | 指示非法状态或条件       | [`IllegalStateException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/)         |
+| 前置条件函数             | 用例                       | 抛出的异常                                                                                                 |
+|--------------------------|----------------------------|------------------------------------------------------------------------------------------------------------|
+| [`require()`](#require-function) | 检测用户输入有效性         | [`IllegalArgumentException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-argument-exception/)   |
+| [`check()`](#check-function)     | 检测对象或变量状态有效性     | [`IllegalStateException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/)         |
+| [`error()`](#error-function)     | 指示非法状态或条件           | [`IllegalStateException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/)         |
 
 这些函数适用于程序流在不满足特定条件时无法继续的情况。
 这能精简您的代码并使这些检测的处理变得高效。
@@ -72,7 +72,7 @@ fun getIndices(count: Int): List<Int> {
 fun main() {
     // This fails with an IllegalArgumentException
     println(getIndices(-1))
-    
+
     // Uncomment the line below to see a working example
     // println(getIndices(3))
     // [1, 2, 3]
@@ -87,7 +87,7 @@ fun main() {
 > ```kotlin
 > fun printNonNullString(str: String?) {
 >     // 空值检测
->     require(str != null) 
+>     require(str != null)
 >     // 成功检测后，'str' 保证为
 >     // 非空的，并自动智能类型转换为非空 String
 >     println(str.length)
@@ -119,7 +119,7 @@ fun main() {
     someState = ""
 
     // 如果取消注释下面这行，程序将因 IllegalStateException 而失败
-    // getStateValue() 
+    // getStateValue()
     someState = "non-empty-state"
 
     // This prints "non-empty-state"
@@ -135,7 +135,7 @@ fun main() {
 > ```kotlin
 > fun printNonNullString(str: String?) {
 >     // 空值检测
->     check(str != null) 
+>     check(str != null)
 >     // 成功检测后，'str' 保证为
 >     // 非空的，并自动智能类型转换为非空 String
 >     println(str.length)
@@ -203,10 +203,10 @@ fun main() {
 
         // If count() completes successfully, its return value is assigned to num
         count()
-        
+
     } catch (e: ArithmeticException) {
-        
-        // If count() throws an exception, the catch block returns -1, 
+
+        // If count() throws an exception, the catch block returns -1,
         // which is assigned to num
         -1
     }
@@ -215,10 +215,10 @@ fun main() {
 
 // Simulates a function that might throw ArithmeticException
 fun count(): Int {
-    
+
     // Change this value to return a different value to num
     val a = 0
-    
+
     return 10 / a
 }
 ```
@@ -294,7 +294,7 @@ finally {
 
 ```kotlin
 fun divideOrNull(a: Int): Int {
-    
+
     // try 代码块始终执行
     // 此处的异常（除以零）会导致立即跳转到 catch 代码块
     try {
@@ -302,7 +302,7 @@ fun divideOrNull(a: Int): Int {
         println("try block: Executing division: $b")
         return b
     }
-    
+
     // catch 代码块由于 ArithmeticException（如果 a == 0 则为除以零）而执行
     catch (e: ArithmeticException) {
         println("catch block: Encountered ArithmeticException $e")
@@ -314,7 +314,7 @@ fun divideOrNull(a: Int): Int {
 }
 
 fun main() {
-    
+
     // 更改此值以获得不同的结果。ArithmeticException 将返回：-1
     divideOrNull(0)
 }
@@ -327,8 +327,8 @@ fun main() {
 >
 > ```kotlin
 > FileWriter("test.txt").use { writer ->
-> writer.write("some text") 
-> // 在此代码块之后，.use 函数会自动调用 writer.close()，类似于 finally 代码块
+>     writer.write("some text")
+>     // 在此代码块之后，.use 函数会自动调用 writer.close()，类似于 finally 代码块
 > }
 > ```
 >
@@ -337,33 +337,33 @@ fun main() {
 如果您的代码需要资源清理而不处理异常，您还可以将 `try` 与 `finally` 代码块一起使用，而无需 `catch` 代码块：
 
 ```kotlin
-class MockResource { 
-    fun use() { 
-        println("Resource being used") 
-        // 模拟资源正在被使用 
+class MockResource {
+    fun use() {
+        println("Resource being used")
+        // 模拟资源正在被使用
         // 如果发生除以零，这将抛出 ArithmeticException
         val result = 100 / 0
-        
+
         // 如果抛出异常，此行将不执行
-        println("Result: $result") 
+        println("Result: $result")
     }
-    
-    fun close() { 
-        println("Resource closed") 
+
+    fun close() {
+        println("Resource closed")
     }
 }
 
-fun main() { 
+fun main() {
     val resource = MockResource()
-//sampleStart 
+//sampleStart
     try {
-        
-        // 尝试使用资源 
+
+        // 尝试使用资源
         resource.use()
-        
+
     } finally {
-        
-        // 确保资源始终关闭，即使发生异常 
+
+        // 确保资源始终关闭，即使发生异常
         resource.close()
     }
 
@@ -430,7 +430,7 @@ fun myFunction(number: Int) {
 }
 
 fun main() {
-    
+
     // 更改此函数中的值以获取不同的异常
     myFunction(1)
 }
@@ -507,7 +507,7 @@ fun fail(message: String): Nothing {
 fun main() {
     // 创建一个 name 为 null 的 Person 实例
     val person = Person(name = null)
-    
+
     val s: String = person.name ?: fail("Name required")
 
     // 此时 's' 保证已初始化
@@ -633,9 +633,9 @@ _堆栈跟踪_是由运行时环境生成的报告，用于调试。
 
 ```kotlin
 fun main() {
-//sampleStart    
+//sampleStart
     throw ArithmeticException("This is an arithmetic exception!")
-//sampleEnd    
+//sampleEnd
 }
 ```
 {kotlin-runnable="true"}

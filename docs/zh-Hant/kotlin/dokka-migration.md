@@ -1,18 +1,24 @@
 [//]: # (title: 遷移至 Dokka Gradle 外掛 v2)
 
+> 此頁面僅與您正在使用 DGPv1 並希望遷移至 DGPv2 有關。從 Dokka 2.1.0 開始，DGP v2 預設為啟用。
+> 如果您正在使用 Dokka 2.1.0 或更高版本，
+> 您可以跳過此頁面，直接前往 [Dokka Gradle 文件](dokka-gradle.md)。
+>
+{style="note"}
+
 Dokka Gradle 外掛（DGP）是一款用於為使用 Gradle 建置的 Kotlin 專案產生全面 API 文件的工具。
 
 DGP 無縫地處理 Kotlin 的 KDoc 註解和 Java 的 Javadoc 註解，以提取資訊並以 [HTML 或 Javadoc](#select-documentation-output-format) 格式建立結構化文件。
 
-從 Dokka 2.0.0 開始，您可以試用 Dokka Gradle 外掛 v2，它是 DGP 的新版本。使用 Dokka 2.0.0，您可以將 Dokka Gradle 外掛以 v1 或 v2 模式使用。
+Dokka Gradle 外掛 v2 模式預設為啟用，並與 Gradle 最佳實踐保持一致：
 
-DGP v2 對 DGP 引入了顯著改進，使其更緊密地與 Gradle 的最佳實踐保持一致：
+*   採用 Gradle 型別，從而帶來更好的效能。
+*   使用直觀的頂層 DSL 配置，而不是低階的基於任務的設定，這簡化了建置腳本及其可讀性。
+*   對於文件聚合採用更具宣告性的方法，這使得多專案文件更易於管理。
+*   使用型別安全的外掛配置，這提高了建置腳本的可靠性和可維護性。
+*   完全支援 Gradle 的[配置快取](https://docs.gradle.org/current/userguide/configuration_cache.html)和[建置快取](https://docs.gradle.org/current/userguide/build_cache.html)，這提高了效能並簡化了建置工作。
 
-* 採用 Gradle 型別，從而帶來更好的效能。
-* 使用直觀的頂層 DSL 配置，而不是低階的基於任務的設定，這簡化了建置腳本及其可讀性。
-* 對於文件聚合採用更具宣告性的方法，這使得多專案文件更易於管理。
-* 使用型別安全的外掛配置，這提高了建置腳本的可靠性和可維護性。
-* 完全支援 Gradle 的[配置快取](https://docs.gradle.org/current/userguide/configuration_cache.html)和[建置快取](https://docs.gradle.org/current/userguide/build_cache.html)，這提高了效能並簡化了建置工作。
+請閱讀本指南，以了解有關從 DGP v1 模式變更和遷移至 v2 模式的更多資訊。
 
 ## 開始之前
 
@@ -30,18 +36,12 @@ DGP v2 對 DGP 引入了顯著改進，使其更緊密地與 Gradle 的最佳實
 
 ### 啟用 DGP v2
 
-> 從 Dokka 2.1.0 開始，DGP v2 預設為啟用。
-> 如果您正在使用或更新到 Dokka 2.1.0 或更高版本，
-> 您可以跳過此步驟，直接前往[遷移您的專案](#migrate-your-project)。
->
-{style="note"}
-
-在您專案的 `build.gradle.kts` 檔案的 `plugins {}` 區塊中，將 Dokka 版本更新為 2.0.0：
+在您專案的 `build.gradle.kts` 檔案的 `plugins {}` 區塊中，將 Dokka 版本更新為 %dokkaVersion%：
 
 ```kotlin
 plugins {
     kotlin("jvm") version "2.1.10"
-    id("org.jetbrains.dokka") version "2.0.0"
+    id("org.jetbrains.dokka") version "%dokkaVersion%"
 }
 ```
 
@@ -79,8 +79,8 @@ org.jetbrains.dokka.experimental.gradle.pluginMode=V2EnabledWithHelpers
 啟用 DGP v2 和遷移輔助工具後，
 將您的專案與 Gradle 同步，以確保 DGP v2 已正確應用：
 
-* 如果您使用 IntelliJ IDEA，請點擊 Gradle 工具視窗中的**重新載入所有 Gradle 專案** ![Reload button](gradle-reload-button.png){width=30}{type="joined"} 按鈕。
-* 如果您使用 Android Studio，請選擇 **File** | **Sync Project with Gradle Files**。
+*   如果您使用 IntelliJ IDEA，請點擊 Gradle 工具視窗中的**重新載入所有 Gradle 專案** ![Reload button](gradle-reload-button.png){width=30}{type="joined"} 按鈕。
+*   如果您使用 Android Studio，請選擇 **File** | **Sync Project with Gradle Files**。
 
 ## 遷移您的專案
 
@@ -88,7 +88,7 @@ org.jetbrains.dokka.experimental.gradle.pluginMode=V2EnabledWithHelpers
 
 ### 調整配置選項
 
-DGP v2 在 [Gradle 配置選項](dokka-gradle.md#configuration-options)中引入了一些變更。在 `build.gradle.kts` 檔案中，根據您的專案設定調整配置選項。
+DGP v2 在 [Gradle 配置選項](dokka-gradle-configuration-options.md)中引入了一些變更。在 `build.gradle.kts` 檔案中，根據您的專案設定調整配置選項。
 
 #### DGP v2 中的頂層 DSL 配置
 
@@ -127,7 +127,7 @@ DGP v2 中的配置：
 由於 Gradle 的 Kotlin DSL 使用型別安全的存取器，`build.gradle.kts` 檔案的語法與常規 `.kt` 檔案（例如用於自訂 Gradle 外掛的檔案）不同。
 
 <tabs group="dokka-configuration">
-<tab title="Gradle 配置檔案" group-key="gradle">
+<tab title="Gradle Kotlin DSL" group-key="kotlin">
 
 ```kotlin
 // build.gradle.kts
@@ -155,7 +155,7 @@ dokka {
 ```
 
 </tab>
-<tab title="Kotlin 檔案" group-key="kotlin">
+<tab title="Kotlin 自訂外掛" group-key="kotlin custom">
 
 ```kotlin
 // CustomPlugin.kt
@@ -261,7 +261,7 @@ DGP v2 中的配置：
 由於 Gradle 的 Kotlin DSL 使用型別安全的存取器，`build.gradle.kts` 檔案的語法與常規 `.kt` 檔案（例如用於自訂 Gradle 外掛的檔案）不同。
 
 <tabs group="dokka-configuration">
-<tab title="Gradle 配置檔案" group-key="gradle">
+<tab title="Gradle Kotlin DSL" group-key="kotlin">
 
 ```kotlin
 // build.gradle.kts
@@ -278,7 +278,7 @@ dokka {
 ```
 
 </tab>
-<tab title="Kotlin 檔案" group-key="kotlin">
+<tab title="Kotlin 自訂外掛" group-key="kotlin custom">
 
 ```kotlin
 // CustomPlugin.kt
@@ -373,7 +373,7 @@ dokka {
 
 #### 自訂資產
 
-使用 [`customAssets`](dokka-html.md#customize-assets) 屬性與檔案集合 [(`FileCollection`)](https://docs.gradle.org/8.10/userguide/lazy_configuration.html#working_with_files_in_lazy_properties)，而不是列表 (`var List<File>`)。
+使用 [`customAssets`](dokka-html.md#customize-assets) 屬性與檔案集合 [(`FileCollection`)](https://docs.gradle.org/8.10/userguide/lazy_configuration.html#working_with_files_in_lazy_properties)，而不是列表 [(`var List<File>`)](https://docs.gradle.org/8.10/userguide/lazy_configuration.html#working_with_files_in_lazy_properties)。
 
 DGP v1 中的配置：
 
@@ -432,7 +432,7 @@ DGP v2 中的配置：
 由於 Gradle 的 Kotlin DSL 使用型別安全的存取器，`build.gradle.kts` 檔案的語法與常規 `.kt` 檔案（例如用於自訂 Gradle 外掛的檔案）不同。
 
 <tabs group="dokka-configuration">
-<tab title="Gradle 配置檔案" group-key="gradle">
+<tab title="Gradle Kotlin DSL" group-key="kotlin">
 
 ```kotlin
 // build.gradle.kts
@@ -446,7 +446,7 @@ dokka {
 ```
 
 </tab>
-<tab title="Kotlin 檔案" group-key="kotlin">
+<tab title="Kotlin 自訂外掛" group-key="kotlin custom">
 
 ```kotlin
 // CustomPlugin.kt
@@ -539,18 +539,18 @@ DPG v2 不再使用 `subprojects {}` 或 `allprojects {}` 來跨模組共用配�
 
 ##### 設定 buildSrc 目錄
 
-1. 在您的專案根目錄中，建立一個 `buildSrc` 目錄，其中包含兩個檔案：
+1.  在您的專案根目錄中，建立一個 `buildSrc` 目錄，其中包含兩個檔案：
 
-   * `settings.gradle.kts`
-   * `build.gradle.kts`
+    *   `settings.gradle.kts`
+    *   `build.gradle.kts`
 
-2. 在 `buildSrc/settings.gradle.kts` 檔案中，新增以下片段：
+2.  在 `buildSrc/settings.gradle.kts` 檔案中，新增以下片段：
 
-   ```kotlin
-   rootProject.name = "buildSrc"
-   ```
+    ```kotlin
+    rootProject.name = "buildSrc"
+    ```
 
-3. 在 `buildSrc/build.gradle.kts` 檔案中，新增以下片段：
+3.  在 `buildSrc/build.gradle.kts` 檔案中，新增以下片段：
 
     ```kotlin
     plugins {
@@ -563,7 +563,7 @@ DPG v2 不再使用 `subprojects {}` 或 `allprojects {}` 來跨模組共用配�
     }
     
     dependencies {
-        implementation("org.jetbrains.dokka:dokka-gradle-plugin:2.0.0")
+        implementation("org.jetbrains.dokka:dokka-gradle-plugin:%dokkaVersion%")
     }   
     ```
 
@@ -571,8 +571,8 @@ DPG v2 不再使用 `subprojects {}` 或 `allprojects {}` 來跨模組共用配�
 
 設定 `buildSrc` 目錄後：
 
-1. 建立一個 `buildSrc/src/main/kotlin/dokka-convention.gradle.kts` 檔案來存放[慣例外掛](https://docs.gradle.org/current/userguide/custom_plugins.html#sec:convention_plugins)。
-2. 在 `dokka-convention.gradle.kts` 檔案中，新增以下片段：
+1.  建立一個 `buildSrc/src/main/kotlin/dokka-convention.gradle.kts` 檔案來存放[慣例外掛](https://docs.gradle.org/current/userguide/custom_plugins.html#sec:convention_plugins)。
+2.  在 `dokka-convention.gradle.kts` 檔案中，新增以下片段：
 
     ```kotlin
     plugins {
@@ -584,8 +584,8 @@ DPG v2 不再使用 `subprojects {}` 或 `allprojects {}` 來跨模組共用配�
     }
     ```
 
-   您需要將所有子專案通用的共用 Dokka [配置](#adjust-configuration-options)新增到 `dokka {}` 區塊中。
-   此外，您無需指定 Dokka 版本。版本已在 `buildSrc/build.gradle.kts` 檔案中設定。
+    您需要將所有子專案通用的共用 Dokka [配置](#adjust-configuration-options)新增到 `dokka {}` 區塊中。
+    此外，您無需指定 Dokka 版本。版本已在 `buildSrc/build.gradle.kts` 檔案中設定。
 
 ##### 將慣例外掛應用於您的模組
 
@@ -602,13 +602,13 @@ plugins {
 如果您已經有慣例外掛，請按照 [Gradle 的文件](https://docs.gradle.org/current/userguide/custom_plugins.html#sec:convention_plugins)建立一個專用的 Dokka 慣例外掛。
 
 然後，請按照步驟[設定 Dokka 慣例外掛](#set-up-the-dokka-convention-plugin)並
-[將其應用於您的模組](#apply-the-convention-plugin-to-your-modules)。
+[將其應用於您的模組](#apply-the-convention-plugin-to-your-subprojects)。
 
 ### 更新多模組專案中的文件聚合
 
 Dokka 可以將多個模組（子專案）的文件聚合到單一輸出或發佈中。
 
-如[解釋](#apply-the-convention-plugin-to-your-modules)所述，在聚合文件之前，請將 Dokka 外掛應用於所有可建立文件的子專案。
+如[解釋](#apply-the-convention-plugin-to-your-subprojects)所述，在聚合文件之前，請將 Dokka 外掛應用於所有可建立文件的子專案。
 
 DGP v2 中的聚合使用 `dependencies {}` 區塊而不是任務，並且可以添加到任何 `build.gradle.kts` 檔案中。
 
@@ -672,7 +672,7 @@ plugins {
 }
 
 dokka {
-    // Overrides the module directory to match the V1 structure
+    // Overrides the subproject directory to match the V1 structure
     modulePath.set("maths")
 }
 ```
@@ -707,25 +707,25 @@ DGP v2 中的任務：
 > Javadoc 輸出格式處於 [Alpha](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained) 階段。
 > 使用它時，您可能會遇到錯誤和遷移問題。不保證能成功與接受 Javadoc 作為輸入的工具整合。請自行承擔風險使用。
 >
-{style="note"}
+{style="warning"}
 
 DGP v2 的預設輸出格式是 HTML。然而，您可以選擇同時產生 HTML、Javadoc 或兩種格式的 API 文件：
 
-1. 將對應的外掛 `id` 放置在您專案的 `build.gradle.kts` 檔案的 `plugins {}` 區塊中：
+1.  將對應的外掛 `id` 放置在您專案的 `build.gradle.kts` 檔案的 `plugins {}` 區塊中：
 
-   ```kotlin
-   plugins {
-       // Generates HTML documentation
-       id("org.jetbrains.dokka") version "2.0.0"
+    ```kotlin
+    plugins {
+        // Generates HTML documentation
+        id("org.jetbrains.dokka") version "%dokkaVersion%"
 
-       // Generates Javadoc documentation
-       id("org.jetbrains.dokka-javadoc") version "2.0.0"
+        // Generates Javadoc documentation
+        id("org.jetbrains.dokka-javadoc") version "%dokkaVersion%"
 
-       // Keeping both plugin IDs generates both formats
-   }
-   ```
+        // Keeping both plugin IDs generates both formats
+    }
+    ```
 
-2. 執行對應的 Gradle 任務。
+2.  執行對應的 Gradle 任務。
 
 以下是與每種格式相對應的外掛 `id` 和 Gradle 任務列表：
 
@@ -740,11 +740,13 @@ DGP v2 的預設輸出格式是 HTML。然而，您可以選擇同時產生 HTML
 >
 {style="tip"}
 
+如果您使用 IntelliJ IDEA，您可能會看到 `dokkaGenerateHtml` Gradle 任務。此任務只是 `dokkaGeneratePublicationHtml` 的別名。兩個任務執行完全相同的操作。
+
 ### 處理棄用和移除
 
-* **輸出格式支援：** DGP v2 僅支援 HTML 和 Javadoc 輸出。Markdown 和 Jekyll 等實驗性格式不再支援。
-* **Collector 任務：** `DokkaCollectorTask` 已被移除。現在，您需要為每個子專案單獨產生文件，
-  然後在必要時[聚合文件](#update-documentation-aggregation-in-multi-module-projects)。
+*   **輸出格式支援：** DGP v2 僅支援 HTML 和 Javadoc 輸出。Markdown 和 Jekyll 等實驗性格式不再支援。
+*   **Collector 任務：** `DokkaCollectorTask` 已被移除。現在，您需要為每個子專案單獨產生文件，
+    然後在必要時[聚合文件](#update-documentation-aggregation-in-multi-module-projects)。
 
 ## 完成遷移
 
@@ -765,8 +767,8 @@ org.jetbrains.dokka.experimental.gradle.pluginMode=V2Enabled
 
 DGP v2 現在支援 Gradle 建置快取和配置快取，從而提高建置效能。
 
-* 若要啟用建置快取，請遵循 [Gradle 建置快取文件](https://docs.gradle.org/current/userguide/build_cache.html#sec:build_cache_enable)中的說明。
-* 若要啟用配置快取，請遵循 [Gradle 配置快取文件](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage:enable )中的說明。
+*   若要啟用建置快取，請遵循 [Gradle 建置快取文件](https://docs.gradle.org/current/userguide/build_cache.html#sec:build_cache_enable)中的說明。
+*   若要啟用配置快取，請遵循 [Gradle 配置快取文件](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage:enable )中的說明。
 
 ## 疑難排解
 
@@ -779,8 +781,8 @@ DGP v2 現在支援 Gradle 建置快取和配置快取，從而提高建置效�
 
 如果您遇到記憶體問題，請嘗試以下變通方法：
 
-* [增加堆積空間](#increase-heap-space)
-* [在 Gradle 流程中執行 Dokka](#run-dokka-within-the-gradle-process)
+*   [增加堆積空間](#increase-heap-space)
+*   [在 Gradle 流程中執行 Dokka](#run-dokka-within-the-gradle-process)
 
 ### 增加堆積空間
 
@@ -836,6 +838,6 @@ DGP v2 現在支援 Gradle 建置快取和配置快取，從而提高建置效�
 
 ## 接下來是什麼
 
-* [探索更多 DGP v2 專案範例](https://github.com/Kotlin/dokka/tree/master/examples/gradle-v2)。
-* [開始使用 Dokka](dokka-get-started.md)。
-* [了解更多關於 Dokka 外掛的資訊](dokka-plugins.md)。
+*   [探索更多 DGP v2 專案範例](https://github.com/Kotlin/dokka/tree/master/examples/gradle-v2)。
+*   [開始使用 Dokka](dokka-get-started.md)。
+*   [了解更多關於 Dokka 外掛的資訊](dokka-plugins.md)。

@@ -262,7 +262,7 @@ val structuredResponse = promptExecutor.executeStructured<WeatherForecast>(
 
 | 名前           | データ型              | 必須 | デフォルト       | 説明                                                                                                  |
 |----------------|------------------------|----------|---------------|-------------------------------------------------------------------------------------------------------|
-| `prompt`       | Prompt                 | はい      |               | 実行するプロンプトです。詳細については、[Prompt API](prompt-api.md) を参照してください。              |
+| `prompt`       | Prompt                 | はい      |               | 実行するプロンプトです。詳細については、[プロンプト](prompts/index.md) を参照してください。              |
 | `model`        | LLModel                | はい      |               | プロンプトを実行するメインモデルです。                                                                |
 | `examples`     | List&lt;T&gt;                | いいえ       | `emptyList()` | モデルが期待される形式を理解するのに役立つ例のオプションリストです。                                  |
 | `fixingParser` | StructureFixingParser? | いいえ       | `null`        | 不正な形式の応答を、補助的な LLM を使用して解析エラーをインテリジェントに修正することで処理するオプションのパーサーです。 |

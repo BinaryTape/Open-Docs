@@ -569,24 +569,24 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 
 | 이름                      | 설명                                                                                                                                                                                                                                  | 가능한 값                                                                                         | 기본값               |
 |---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|-----------------------------|
-| `javaParameters`          | 메서드 매개변수에 대한 Java 1.8 리플렉션용 메타데이터 생성                                                                                                                                                                               |                                                                                                         | false                       |
-| `jvmTarget`               | 생성된 JVM 바이트코드의 타겟 버전                                                                                                                                                                                                 | "1.8", "9", "10", ...,  "23", "24". 또한 [컴파일러 옵션 타입](#types-for-compiler-options) 참조 | "%defaultJvmTargetVersion%" |
-| `noJdk`                   | Java 런타임을 클래스패스에 자동으로 포함하지 않음                                                                                                                                                                              |                                                                                                         | false                       |
+| `javaParameters`          | 메서드 매개변수에 대한 Java 1.8 리플렉션용 메타데이터 생성                                                                                                                                                                               |                                                                                                         | `false`                     |
+| `jvmTarget`               | 생성된 JVM 바이트코드의 타겟 버전                                                                                                                                                                                                 | `"1.8"`, `"9"`, `"10"`, ...,  `"24"`, `"25"`. 또한 [컴파일러 옵션 타입](#types-for-compiler-options) 참조 | `"%defaultJvmTargetVersion%"` |
+| `noJdk`                   | Java 런타임을 클래스패스에 자동으로 포함하지 않음                                                                                                                                                                              |                                                                                                         | `false`                     |
 | `jvmTargetValidationMode` | <list><li>Kotlin과 Java 간의 [JVM 타겟 호환성](gradle-configure-project.md#check-for-jvm-target-compatibility-of-related-compile-tasks) 유효성 검사</li><li>`KotlinCompile` 타입 태스크를 위한 속성.</li></list> | `WARNING`, `ERROR`, `IGNORE`                                                                            | `ERROR`                     |
 | `jvmDefault`              | 인터페이스에 선언된 함수가 JVM의 기본 메서드로 컴파일되는 방식 제어                                                                                                                                                      | `ENABLE`, `NO_COMPATIBILITY`, `DISABLE`                                                                 | `ENABLE`                    |
 
 ### JVM 및 JavaScript 공통 속성
 
-| 이름 | 설명 | 가능한 값                                                |기본값 |
-|------|-------------|----------------------------------------------------------------|--------------|
-| `allWarningsAsErrors` | 경고가 있으면 오류 보고 |                                                                | false |
-| `suppressWarnings` | 경고 생성 안 함 |                                                                | false |
-| `verbose` | 상세 로깅 출력 활성화. [Gradle 디버그 로그 레벨이 활성화된 경우](https://docs.gradle.org/current/userguide/logging.html)에만 작동 |                                                                | false |
-| `freeCompilerArgs` | 추가 컴파일러 인자 목록. 실험적 `-X` 인자도 여기에 사용할 수 있습니다. [추가 인자 사용 예시](#example-of-additional-arguments-usage-via-freecompilerargs) 참조 |                                                                | [] |
-| `apiVersion`      | 번들 라이브러리의 지정된 버전 선언 사용 제한 | "1.8", "1.9", "2.0", "2.1", "2.2" (EXPERIMENTAL) |               |
-| `languageVersion` | 지정된 Kotlin 버전과의 소스 호환성 제공                         | "1.8", "1.9", "2.0", "2.1", "2.2" (EXPERIMENTAL)  |               |
+| 이름                  | 설명                                                                                                                                                              | 가능한 값                                                | 기본값 |
+|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|---------------|
+| `allWarningsAsErrors` | 경고가 있으면 오류 보고 |                                                                | `false`         |
+| `suppressWarnings`    | 경고 생성 안 함 |                                                                | `false`         |
+| `verbose`             | 상세 로깅 출력 활성화. [Gradle 디버그 로그 레벨이 활성화된 경우](https://docs.gradle.org/current/userguide/logging.html)에만 작동 |                                                                | `false`         |
+| `freeCompilerArgs`    | 추가 컴파일러 인자 목록. 실험적 `-X` 인자도 여기에 사용할 수 있습니다. [추가 인자 사용 예시](#example-of-additional-arguments-usage-via-freecompilerargs) 참조 |                                                                | `[]`            |
+| `apiVersion`          | 번들 라이브러리의 지정된 버전 선언 사용 제한 | `"1.9"`, `"2.0"`, `"2.1"`, `"2.2"`, `"2.3"`, `"2.4"` (EXPERIMENTAL) |               |
+| `languageVersion`     | 지정된 Kotlin 버전과의 소스 호환성 제공                         | `"1.9"`, `"2.0"`, `"2.1"`, `"2.2"`, `"2.3"`, `"2.4"` (EXPERIMENTAL)  |               |
 
-> 향후 릴리스에서는 `freeCompilerArgs` 속성을 사용 중단할 예정입니다. Kotlin Gradle DSL에 누락된 옵션이 있다면, [이슈를 제기](https://youtrack.jetbrains.com/newissue?project=kt)해 주십시오.
+> `freeCompilerArgs` 속성은 향후 릴리스에서 사용 중단될 예정입니다. Kotlin Gradle DSL에 누락된 옵션이 있다면, [이슈를 제기](https://youtrack.jetbrains.com/newissue?project=kt)해 주십시오.
 >
 {style="warning"}
 
@@ -604,17 +604,17 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 kotlin {
     compilerOptions {
-        // Kotlin API 버전 및 JVM 타겟 지정
+        // Specifies the version of the Kotlin API and the JVM target
         apiVersion.set(KotlinVersion.%gradleLanguageVersion%)
         jvmTarget.set(JvmTarget.JVM_1_8)
         
-        // 단일 실험적 인자
+        // Single experimental argument
         freeCompilerArgs.add("-Xexport-kdoc")
 
-        // 단일 추가 인자
+        // Single additional argument
         freeCompilerArgs.add("-Xno-param-assertions")
 
-        // 인자 목록
+        // List of arguments
         freeCompilerArgs.addAll(
             listOf(
                 "-Xno-receiver-assertions",
@@ -634,17 +634,17 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 tasks.named('compileKotlin', KotlinCompilationTask) {
     compilerOptions {
-        // Kotlin API 버전 및 JVM 타겟 지정
+        // Specifies the version of the Kotlin API and the JVM target
         apiVersion = KotlinVersion.%gradleLanguageVersion%
         jvmTarget = JvmTarget.JVM_1_8
         
-        // 단일 실험적 인자
+        // Single experimental argument
         freeCompilerArgs.add("-Xexport-kdoc")
         
-        // 단일 추가 인자, 키-값 쌍일 수 있음
+        // Single additional argument, can be a key-value pair
         freeCompilerArgs.add("-Xno-param-assertions")
         
-        // 인자 목록
+        // List of arguments
         freeCompilerArgs.addAll(["-Xno-receiver-assertions", "-Xno-call-assertions"])
     }
 }

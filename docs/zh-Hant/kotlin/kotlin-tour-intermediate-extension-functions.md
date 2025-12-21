@@ -18,9 +18,9 @@
 
 ## 擴展函數
 
-在軟體開發中，您經常需要在不更改原始程式碼的情況下修改程式的行為。例如，在您的專案中，您可能希望為來自第三方函式庫的類別添加額外功能。
+在軟體開發中，您經常需要在不更改原始程式碼的情況下修改程式的行為。例如，您可能希望為來自第三方函式庫的類別添加額外功能。
 
-擴展函數允許您為類別擴展額外功能。您呼叫擴展函數的方式與呼叫類別的成員函數相同，使用一個句點 `.`。
+您可以透過添加 _擴展函數_ 來擴展類別。您呼叫擴展函數的方式與呼叫類別的成員函數相同，使用一個句點 `.`。
 
 在介紹擴展函數的完整語法之前，您需要了解**接收者 (receiver)** 是什麼。
 接收者是函數被呼叫的對象。換句話說，接收者是資訊共享的目標。
@@ -59,7 +59,7 @@ fun main() {
 
 您可以將擴展函數定義在任何位置，這使您能夠建立擴展導向設計。這些設計將核心功能與有用但非必要的功能分開，使您的程式碼更易於閱讀和維護。
 
-一個很好的例子是來自 Ktor 函式庫的 [`HttpClient`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client/-http-client/index.html) 類別，它有助於執行網路請求。其核心功能是單一的 `request()` 函數，它接收 HTTP 請求所需的所有資訊：
+一個很好的例子是來自 Ktor 函式庫的 [`HttpClient`](https://api.ktor.io/ktor-client-core/io.ktor.client/-http-client/index.html) 類別，它有助於執行網路請求。其核心功能是單一的 `request()` 函數，它接收 HTTP 請求所需的所有資訊：
 
 ```kotlin
 class HttpClient {
@@ -78,7 +78,7 @@ fun HttpClient.post(url: String): HttpResponse = request("POST", url, emptyMap()
 ```
 {validate="false"}
 
-這些 `.get()` 和 `.post()` 函數會呼叫 `request()` 函數並帶有正確的 HTTP 方法，因此您不必這麼做。它們簡化了您的程式碼並使其更易於理解：
+這些 `.get()` 和 `.post()` 函數擴展了 `HttpClient` 類別。它們可以直接使用 `HttpClient` 類別中的 `request()` 函數，因為它們是以 `HttpClient` 類別的實例作為接收者來呼叫的。您可以使用這些擴展函數以適當的 HTTP 方法呼叫 `request()` 函數，這將簡化您的程式碼並使其更易於理解：
 
 ```kotlin
 class HttpClient {

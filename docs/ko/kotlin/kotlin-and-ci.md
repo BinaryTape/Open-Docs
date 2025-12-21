@@ -2,17 +2,17 @@
 
 이 페이지에서는 [TeamCity](https://www.jetbrains.com/teamcity/)를 설정하여 Kotlin 프로젝트를 빌드하는 방법을 배웁니다. TeamCity에 대한 더 자세한 정보 및 기본 사항은 설치, 기본 구성 등에 대한 정보를 포함하는 [문서 페이지](https://www.jetbrains.com/teamcity/documentation/)를 확인하십시오.
 
-Kotlin은 다양한 빌드 도구와 함께 작동하므로, Ant, Maven 또는 Gradle과 같은 표준 도구를 사용하는 경우 Kotlin 프로젝트를 설정하는 과정은 이러한 도구와 통합되는 다른 언어 또는 라이브러리와 다르지 않습니다. 약간의 요구 사항과 차이점이 있는 경우는 TeamCity에서도 지원되는 IntelliJ IDEA의 내부 빌드 시스템을 사용할 때입니다.
+Kotlin은 다양한 빌드 도구와 함께 작동하므로, Maven 또는 Gradle과 같은 표준 도구를 사용하는 경우 Kotlin 프로젝트를 설정하는 과정은 이러한 도구와 통합되는 다른 언어 또는 라이브러리와 다르지 않습니다. 약간의 요구 사항과 차이점이 있는 경우는 TeamCity에서도 지원되는 IntelliJ IDEA의 내부 빌드 시스템을 사용할 때입니다.
 
-## Gradle, Maven, Ant
+## Gradle 및 Maven
 
-Ant, Maven 또는 Gradle을 사용하는 경우 설정 과정은 간단합니다. 필요한 것은 빌드 단계를 정의하는 것뿐입니다. 예를 들어, Gradle을 사용하는 경우 러너 유형에 대해 실행해야 하는 단계 이름 및 Gradle 태스크와 같은 필수 매개변수를 정의하기만 하면 됩니다.
+Maven 또는 Gradle을 사용하는 경우, 설정 과정은 간단합니다. 필요한 것은 빌드 단계를 정의하는 것뿐입니다. 예를 들어, Gradle을 사용하는 경우, 러너 유형에 대해 실행해야 하는 단계 이름 및 Gradle 태스크와 같은 필수 매개변수를 정의하기만 하면 됩니다.
 
 <img src="teamcity-gradle.png" alt="Gradle Build Step" width="700"/>
 
 Kotlin에 필요한 모든 종속성이 Gradle 파일에 정의되어 있으므로, Kotlin이 올바르게 실행되도록 특별히 구성할 것은 없습니다.
 
-Ant 또는 Maven을 사용하는 경우에도 동일한 구성이 적용됩니다. 유일한 차이점은 러너 유형이 각각 Ant 또는 Maven이라는 점입니다.
+Maven을 사용하는 경우에도 동일한 구성이 적용됩니다. 유일한 차이점은 러너 유형이 Maven이라는 점입니다.
 
 ## IntelliJ IDEA 빌드 시스템
 

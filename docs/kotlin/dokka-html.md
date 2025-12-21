@@ -1,23 +1,33 @@
 [//]: # (title: HTML)
 
-HTML 是 Dokka 的默认和推荐输出格式。它目前处于 Beta 版，并且正在接近稳定版发布。
+> 本指南适用于 Dokka Gradle 插件 (DGP) v2 模式。DGP v1 模式不再受支持。要从 v1 模式升级到 v2 模式，请遵循[迁移指南](dokka-migration.md)。
+>
+{style="note"}
 
-你可以浏览 [kotlinx.coroutines](https://kotlinlang.org/api/kotlinx.coroutines/) 的文档来查看输出示例。
+HTML 是 Dokka 默认且推荐的输出格式。它支持 Kotlin Multiplatform、Android 和 Java 项目。此外，你可以使用 HTML 格式为单项目和多项目构建生成文档。
+
+有关 HTML 输出格式的示例，请查阅以下文档：
+* [kotlinx.coroutines](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/)
+* [Bitmovin](https://cdn.bitmovin.com/player/android/3/docs/index.html)
+* [Hexagon](https://hexagontk.com/stable/api/)
+* [Ktor](https://api.ktor.io/)
+* [OkHttp](https://square.github.io/okhttp/5.x/okhttp/okhttp3/)
+* [Gradle](https://docs.gradle.org/current/kotlin-dsl/index.html)
 
 ## 生成 HTML 文档
 
-HTML 作为输出格式受到所有运行器的支持。要生成 HTML 文档，请根据你使用的构建工具或运行器执行以下步骤：
+作为输出格式，HTML 受所有运行器支持。要生成 HTML 文档，请根据你使用的构建工具或运行器执行以下步骤：
 
-*   对于 [Gradle](dokka-gradle.md#generate-documentation)，运行 `dokkaHtml` 或 `dokkaHtmlMultiModule` 任务。
+*   对于 [Gradle](dokka-gradle.md#generate-documentation)，你可以运行以下任务：
+    *   `dokkaGenerate` 用于生成 [基于所应用插件的所有可用格式](dokka-gradle.md#configure-documentation-output-format) 的文档。这是大多数用户推荐的任务。在 IntelliJ IDEA 中使用此任务时，它会记录一个可点击的输出链接。
+    *   `dokkaGeneratePublicationHtml` 用于仅生成 HTML 格式的文档。此任务将输出目录暴露为 `@OutputDirectory`。当你需要将生成的文件用于其他 Gradle 任务时，例如上传到服务器、移动到 GitHub Pages 目录，或将其打包成 `javadoc.jar` 时，请使用此任务。此任务故意未列在 Gradle 任务组中，因为它不适用于日常使用。
 
-    > 这些说明反映了 Dokka Gradle 插件 v1 的配置和任务。从 Dokka 2.0.0 开始，[生成文档的 Gradle 任务已更改](dokka-migration.md#generate-documentation-with-the-updated-task)。
+    > 如果你正在使用 IntelliJ IDEA，你可能会看到 `dokkaGenerateHtml` Gradle 任务。此任务只是 `dokkaGeneratePublicationHtml` 的一个别名。这两个任务执行完全相同的操作。
     >
-    > 有关更多详细信息和 Dokka Gradle 插件 v2 中的完整更改列表，请参见[迁移指南](dokka-migration.md)。
-    >
-    {style="note"}
+    {style="tip"}
 
 *   对于 [Maven](dokka-maven.md#generate-documentation)，运行 `dokka:dokka` 目标。
-*   对于 [CLI runner](dokka-cli.md#generate-documentation)，运行并设置 HTML 依赖项。
+*   对于 [CLI 运行器](dokka-cli.md#generate-documentation)，设置 HTML 依赖项并运行。
 
 > 通过此格式生成的 HTML 页面需要托管在 Web 服务器上才能正确渲染所有内容。
 >
@@ -29,82 +39,43 @@ HTML 作为输出格式受到所有运行器的支持。要生成 HTML 文档，
 
 ## 配置
 
-HTML 格式是 Dokka 的基础格式，因此可以通过 `DokkaBase` 和 `DokkaBaseConfiguration` 类进行配置：
+HTML 格式是 Dokka 的基础格式。你可以使用以下选项配置它：
 
 <tabs group="build-script">
-<tab title="Kotlin" group-key="kotlin">
-
-通过类型安全的 Kotlin DSL：
+<tab title="Gradle Kotlin DSL" group-key="kotlin">
 
 ```kotlin
-import org.jetbrains.dokka.base.DokkaBase
-import org.jetbrains.dokka.gradle.DokkaTask
-import org.jetbrains.dokka.base.DokkaBaseConfiguration
+// build.gradle.kts
 
-buildscript {
-    dependencies {
-        classpath("org.jetbrains.dokka:dokka-base:%dokkaVersion%")
+dokka {
+    pluginsConfiguration.html {
+        customAssets.from("logo.png")
+        customStyleSheets.from("styles.css")
+        footerMessage.set("(c) Your Company")
+        separateInheritedMembers.set(false)
+        templatesDir.set(file("dokka/templates"))
+        mergeImplicitExpectActualDeclarations.set(false)
     }
-}
-
-tasks.withType<DokkaTask>().configureEach {
-    pluginConfiguration<DokkaBase, DokkaBaseConfiguration> {
-        customAssets = listOf(file("my-image.png"))
-        customStyleSheets = listOf(file("my-styles.css"))
-        footerMessage = "(c) 2022 MyOrg"
-        separateInheritedMembers = false
-        templatesDir = file("dokka/templates")
-        mergeImplicitExpectActualDeclarations = false
-    }
-}
-```
-
-通过 JSON：
-
-```kotlin
-import org.jetbrains.dokka.gradle.DokkaTask
-
-tasks.withType<DokkaTask>().configureEach {
-    val dokkaBaseConfiguration = """
-    {
-      "customAssets": ["${file("assets/my-image.png")}"],
-      "customStyleSheets": ["${file("assets/my-styles.css")}"],
-      "footerMessage": "(c) 2022 MyOrg",
-      "separateInheritedMembers": false,
-      "templatesDir": "${file("dokka/templates")}",
-      "mergeImplicitExpectActualDeclarations": false
-    }
-    """
-    pluginsMapConfiguration.set(
-        mapOf(
-            // fully qualified plugin name to json configuration
-            "org.jetbrains.dokka.base.DokkaBase" to dokkaBaseConfiguration
-        )
-    )
 }
 ```
 
 </tab>
-<tab title="Groovy" group-key="groovy">
+<tab title="Gradle Groovy DSL" group-key="groovy">
 
 ```groovy
-import org.jetbrains.dokka.gradle.DokkaTask
+// build.gradle
 
-tasks.withType(DokkaTask.class) {
-    String dokkaBaseConfiguration = """
-    {
-      "customAssets": ["${file("assets/my-image.png")}"],
-      "customStyleSheets": ["${file("assets/my-styles.css")}"],
-      "footerMessage": "(c) 2022 MyOrg"
-      "separateInheritedMembers": false,
-      "templatesDir": "${file("dokka/templates")}",
-      "mergeImplicitExpectActualDeclarations": false
+dokka {
+    pluginsConfiguration {
+        html {
+            customAssets.from("logo.png")
+            customStyleSheets.from("styles.css")
+            footerMessage.set("(c) Your Company")
+            separateInheritedMembers.set(false)
+            templatesDir.set(file("dokka/templates"))
+            mergeImplicitExpectActualDeclarations.set(false)
+        }
     }
-    """
-    pluginsMapConfiguration.set(
-            // fully qualified plugin name to json configuration
-            ["org.jetbrains.dokka.base.DokkaBase": dokkaBaseConfiguration]
-    )
 }
 ```
 
@@ -169,18 +140,18 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 
 ### 配置选项
 
-下表包含所有可能的配置选项及其用途。
+下表包含所有可能的配置选项及其用途：
 
 | **选项**                              | **描述**                                                                                                                                                                                                                                                                               |
 |-----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `customAssets`                          | 要与文档捆绑的图像资源路径列表。图像资源可以有任何文件扩展名。有关更多信息，请参阅[自定义资源](#customize-assets)。                                                                                                             |
-| `customStyleSheets`                     | 要与文档捆绑并用于渲染的 `.css` 样式表的路径列表。有关更多信息，请参阅[自定义样式](#customize-styles)。                                                                                                                              |
-| `templatesDir`                          | 包含自定义 HTML 模板的目录路径。有关更多信息，请参阅[模板](#templates)。                                                                                                                                                     |
+| `customAssets`                          | 图像资源路径列表，将与文档捆绑。图像资源可以有任何文件扩展名。有关更多信息，请参见[自定义资源](#customize-assets)。                                                                                                             |
+| `customStyleSheets`                     | `.css` 样式表的路径列表，将与文档捆绑并用于渲染。有关更多信息，请参见[自定义样式](#customize-styles)。                                                                                                                              |
+| `templatesDir`                          | 包含自定义 HTML 模板的目录路径。有关更多信息，请参见[模板](#templates)。                                                                                                                                                     |
 | `footerMessage`                         | 显示在页脚中的文本。                                                                                                                                                                                                                                                             |
 | `separateInheritedMembers`              | 这是一个布尔选项。如果设置为 `true`，Dokka 会单独渲染属性/函数和继承的属性/继承的函数。默认情况下此选项禁用。                                                                                                                          |
 | `mergeImplicitExpectActualDeclarations` | 这是一个布尔选项。如果设置为 `true`，Dokka 会合并那些未声明为 [expect/actual](https://kotlinlang.org/docs/multiplatform-connect-to-apis.html) 但具有相同完全限定名的声明。这对于遗留代码库可能很有用。默认情况下此选项禁用。 |
 
-关于配置 Dokka 插件，请参见[配置 Dokka 插件](dokka-plugins.md#configure-dokka-plugins)。
+关于配置 Dokka 插件的更多信息，请参见[配置 Dokka 插件](dokka-plugins.md#configure-dokka-plugins)。
 
 ## 自定义
 
@@ -205,6 +176,12 @@ Dokka 所有样式表的源代码[在 GitHub 上可用](https://github.com/Kotli
 你可以使用 `customAssets` [配置选项](#configuration)来提供你自己的图片以与文档捆绑。
 
 这些文件会复制到 `<output>/images` 目录。
+
+你可以将 `customAssets` 属性与文件集合（[`FileCollection`](https://docs.gradle.org/8.10/userguide/lazy_configuration.html#working_with_files_in_lazy_properties)）一起使用：
+
+```kotlin
+customAssets.from("example.png", "example2.png")
+```
 
 也可以通过提供同名文件来覆盖 Dokka 的图片和图标。其中最有用和相关的是 `logo-icon.svg`，它是页眉中使用的图片。其余大部分是图标。
 
@@ -246,21 +223,21 @@ Dokka 使用以下模板：
 
 #### 变量
 
-所有模板中都可以使用以下变量：
+以下变量在所有模板中都可用：
 
 | **变量**       | **描述**                                                                                                                                                                                    |
 |--------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `${pageName}`      | 页面名称                                                                                                                                                                                      |
 | `${footerMessage}` | 由 `footerMessage` [配置选项](#configuration)设置的文本                                                                                                                |
-| `${sourceSets}`    | 用于多平台页面的[源代码集](https://kotlinlang.org/docs/multiplatform-discover-project.html#source-sets)的可空 list。每个项都具有 `name`、`platform` 和 `filter` 属性。 |
+| `${sourceSets}`    | 多平台页面的[源代码集](https://kotlinlang.org/docs/multiplatform-discover-project.html#source-sets)的可空 list。每个项都具有 `name`、`platform` 和 `filter` 属性。 |
 | `${projectName}`   | 项目名称。它仅在 `template_cmd` 指令中可用。                                                                                                                         |
 | `${pathToRoot}`    | 从当前页面到根目录的路径。它对于定位资源很有用，并且仅在 `template_cmd` 指令中可用。                                                                 |
 
-变量 `projectName` 和 `pathToRoot` 仅在 `template_cmd` 指令中可用，因为它们需要更多上下文，因此需要由 [MultiModule](dokka-gradle.md#multi-project-builds) 任务在后期阶段解析：
+变量 `projectName` 和 `pathToRoot` 仅在 `template_cmd` 指令中可用，因为它们需要更多上下文，因此需要在后期阶段解析：
 
 ```html
 <@template_cmd name="projectName">
-   <span>${projectName}</span>
+    <span>${projectName}</span>
 </@template_cmd>
 ```
 
@@ -272,4 +249,4 @@ Dokka 使用以下模板：
 |-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `<@content/>`   | 主要页面内容。                                                                                                                                                                                                |
 | `<@resources/>` | 脚本和样式表等资源。                                                                                                                                                                            |
-| `<@version/>`   | 从配置中获取的模块版本。如果应用了[版本化插件](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-versioning)是，它将被版本导航器替换。 |
+| `<@version/>`   | 从配置中获取的子项目版本。如果应用了[版本化插件](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-versioning)，它将被版本导航器替换。 |

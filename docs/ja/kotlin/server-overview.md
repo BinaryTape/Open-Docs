@@ -55,7 +55,7 @@ JetBrainsにおけるライセンス販売および検証プロセス全体を�
 
 [Chess.com](https://www.chess.com/)は、チェスと、このゲームを愛する世界中の何百万人ものプレイヤーに特化したウェブサイトです。Chess.comは、複数のHTTPクライアントのシームレスな構成のためにKtorを使用しています。
 
-[Adobe](https://blog.developer.adobe.com/streamlining-server-side-app-development-with-kotlin-be8cf9d8b61a)のエンジニアは、サーバーサイドアプリ開発にKotlinを、Adobe Experience Platformでのプロトタイプ作成にKtorを使用しています。Adobe Experience Platformは、組織がデータサイエンスや機械学習を適用する前に顧客データを一元化および標準化することを可能にします。
+[Adobe](https://medium.com/adobetech/streamlining-server-side-app-development-with-kotlin-be8cf9d8b61a)のエンジニアは、サーバーサイドアプリ開発にKotlinを、Adobe Experience Platformでのプロトタイプ作成にKtorを使用しています。Adobe Experience Platformは、組織がデータサイエンスや機械学習を適用する前に顧客データを一元化および標準化することを可能にします。
 
 ## 次のステップ
 

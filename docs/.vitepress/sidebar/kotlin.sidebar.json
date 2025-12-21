@@ -15,20 +15,12 @@
     "text": "kotlin.what-s-new-in-kotlin",
     "items": [
       {
-        "text": "kotlin.whatsnew-eap",
-        "link": "whatsnew-eap"
+        "text": "kotlin.whatsnew23",
+        "link": "whatsnew23"
       },
       {
-        "text": "kotlin.whatsnew2220",
-        "link": "whatsnew2220"
-      },
-      {
-        "text": "kotlin.whatsnew22",
-        "link": "whatsnew22"
-      },
-      {
-        "text": "kotlin.compatibility-guide-22",
-        "link": "compatibility-guide-22"
+        "text": "kotlin.compatibility-guide-23",
+        "link": "compatibility-guide-23"
       }
     ],
     "collapsed": true
@@ -170,6 +162,10 @@
           {
             "text": "kotlin.operator-overloading",
             "link": "operator-overloading"
+          },
+          {
+            "text": "kotlin.unused-return-value-checker",
+            "link": "unused-return-value-checker"
           }
         ],
         "collapsed": true
@@ -350,34 +346,8 @@
         "text": "kotlin.web-development",
         "items": [
           {
-            "text": "kotlin.webassembly-wasm",
-            "items": [
-              {
-                "text": "kotlin.wasm-overview",
-                "link": "wasm-overview"
-              },
-              {
-                "text": "kotlin.wasm-get-started",
-                "link": "wasm-get-started"
-              },
-              {
-                "text": "kotlin.wasm-wasi",
-                "link": "wasm-wasi"
-              },
-              {
-                "text": "kotlin.wasm-debugging",
-                "link": "wasm-debugging"
-              },
-              {
-                "text": "kotlin.wasm-js-interop",
-                "link": "wasm-js-interop"
-              },
-              {
-                "text": "kotlin.wasm-configuration",
-                "link": "wasm-configuration"
-              }
-            ],
-            "collapsed": true
+            "text": "kotlin.web-overview",
+            "link": "web-overview"
           },
           {
             "text": "kotlin.kotlin-js",
@@ -421,6 +391,36 @@
               {
                 "text": "kotlin.js-plain-objects",
                 "link": "js-plain-objects"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "kotlin.webassembly-wasm",
+            "items": [
+              {
+                "text": "kotlin.wasm-overview",
+                "link": "wasm-overview"
+              },
+              {
+                "text": "kotlin.wasm-get-started",
+                "link": "wasm-get-started"
+              },
+              {
+                "text": "kotlin.wasm-wasi",
+                "link": "wasm-wasi"
+              },
+              {
+                "text": "kotlin.wasm-debugging",
+                "link": "wasm-debugging"
+              },
+              {
+                "text": "kotlin.wasm-js-interop",
+                "link": "wasm-js-interop"
+              },
+              {
+                "text": "kotlin.wasm-configuration",
+                "link": "wasm-configuration"
               }
             ],
             "collapsed": true
@@ -692,8 +692,8 @@
             "link": "native-definition-file"
           },
           {
-            "text": "kotlin.native-c-interop-stability",
-            "link": "native-c-interop-stability"
+            "text": "kotlin.native-lib-import-stability",
+            "link": "native-lib-import-stability"
           }
         ],
         "collapsed": true
@@ -1032,7 +1032,21 @@
       },
       {
         "text": "kotlin.maven",
-        "link": "maven"
+        "items": [
+          {
+            "text": "kotlin.maven",
+            "link": "maven"
+          },
+          {
+            "text": "kotlin.maven-configure-project",
+            "link": "maven-configure-project"
+          },
+          {
+            "text": "kotlin.maven-compile-package",
+            "link": "maven-compile-package"
+          }
+        ],
+        "collapsed": true
       },
       {
         "text": "kotlin.build-tools-api",
@@ -1265,6 +1279,24 @@
       {
         "text": "kotlin.earlier-kotlin-versions",
         "items": [
+          {
+            "text": "kotlin.kotlin-2-2-x",
+            "items": [
+              {
+                "text": "kotlin.whatsnew2220",
+                "link": "whatsnew2220"
+              },
+              {
+                "text": "kotlin.whatsnew22",
+                "link": "whatsnew22"
+              },
+              {
+                "text": "kotlin.compatibility-guide-22",
+                "link": "compatibility-guide-22"
+              }
+            ],
+            "collapsed": true
+          },
           {
             "text": "kotlin.kotlin-2-1-x",
             "items": [

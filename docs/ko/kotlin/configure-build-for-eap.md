@@ -1,9 +1,9 @@
 [//]: # (title: EAP용 빌드 구성하기)
 
 <tldr>
-    <!-- <p>현재 사용 가능한 프리뷰 버전이 없습니다.</p> -->
-    <p>최신 Kotlin EAP 릴리스: <strong>%kotlinEapVersion%</strong></p>
-    <p><a href="eap.md#build-details">Kotlin EAP 릴리스 세부 정보 살펴보기</a></p>
+    <p>현재 사용 가능한 프리뷰 버전이 없습니다.</p>
+    <!-- <p>Latest Kotlin EAP release: <strong>%kotlinEapVersion%</strong></p>
+    <p><a href="eap.md#build-details">Explore Kotlin EAP release details</a></p> -->
 </tldr>
 
 Kotlin의 EAP 버전을 사용하도록 빌드를 구성하려면 다음을 수행해야 합니다.
@@ -26,7 +26,8 @@ Kotlin EAP 버전은 이전에 릴리스된 버전의 라이브러리와 호환�
 
 ### Kotlin 버전 조정
 
-`build.gradle(.kts)` 내의 `plugins` 블록에서 `KOTLIN-EAP-VERSION`을 실제 EAP 버전(예: `%kotlinEapVersion%`)으로 변경합니다. [사용 가능한 EAP 버전은 여기에 나열되어 있습니다](eap.md#build-details).
+`build.gradle(.kts)` 내의 `plugins` 블록에서 `KOTLIN-EAP-VERSION`을 실제 EAP 버전으로 변경합니다.
+(예: `%kotlinEapVersion%`). [사용 가능한 EAP 버전은 여기에 나열되어 있습니다](eap.md#build-details).
 
 또는 `settings.gradle(.kts)` 파일의 `pluginManagement` 블록에서 EAP 버전을 지정할 수 있습니다. 자세한 내용은 [Gradle 문서](https://docs.gradle.org/current/userguide/plugins.html#sec:plugin_version_management)를 참조하세요.
 
@@ -102,7 +103,8 @@ dependencies {
 
 ## Maven에서 구성
 
-샘플 Maven 프로젝트 정의에서 `KOTLIN-EAP-VERSION`을 실제 버전(예: `%kotlinEapVersion%`)으로 바꿉니다. [사용 가능한 EAP 버전은 여기에 나열되어 있습니다](eap.md#build-details).
+샘플 Maven 프로젝트 정의에서 `KOTLIN-EAP-VERSION`을 실제 버전(예: `%kotlinEapVersion%`)으로 바꿉니다.
+[사용 가능한 EAP 버전은 여기에 나열되어 있습니다](eap.md#build-details).
 
 ```xml
 <project ...>

@@ -241,13 +241,9 @@ class ChessGame {
 ```kotlin
 import kotlinx.serialization.Serializable
 
-class Move(val game: ChessGame) : SimpleTool<Move.Args>() {
-    @Serializable
-    data class Args(val notation: String) : ToolArgs
-
-    override val argsSerializer = Args.serializer()
-
-    override val descriptor = ToolDescriptor(
+class Move(val game: ChessGame) : SimpleTool<Move.Args>(
+    argsSerializer = Args.serializer(),
+    descriptor = ToolDescriptor(
         name = "move",
         description = "Moves a piece according to the notation:
 ${game.moveNotation}",
@@ -259,8 +255,11 @@ ${game.moveNotation}",
             )
         )
     )
+) {
+    @Serializable
+    data class Args(val notation: String) : ToolArgs
 
-    override suspend fun doExecute(args: Args): String {
+    override suspend fun execute(args: Args): String {
         game.move(args.notation)
         println(game.getBoard())
         println("-----------------")
@@ -276,7 +275,8 @@ ${game.currentPlayer()} to move! Make the move!"
 1.  **`SimpleTool`を拡張**: 型安全な引数処理で基本的なツール機能を継承
 2.  **シリアライズ可能な引数**: Kotlinシリアライゼーションを使用してツールの入力パラメータを定義
 3.  **豊富なドキュメント**: `ToolDescriptor`は、ツールの目的とパラメータに関する詳細な情報をLLMに提供
-4.  **実行ロジック**: `doExecute`メソッドは、実際の動きの実行を処理し、フォーマットされたフィードバックを提供
+4.  **コンストラクターパラメーター**: `argsSerializer`と`descriptor`をコンストラクターに渡します
+5.  **実行ロジック**: `execute`メソッドは、実際の動きの実行を処理し、フォーマットされたフィードバックを提供
 
 主要な設計側面:
 

@@ -63,7 +63,7 @@ data class Person(val name: String, val age: Int)
 
 JVM 레코드는 생성된 JVM 바이트코드의 `16` 이상 대상 버전을 요구합니다.
 
-명시적으로 지정하려면 [Gradle](gradle-compiler-options.md#attributes-specific-to-jvm) 또는 [Maven](maven.md#attributes-specific-to-jvm)에서 `jvmTarget` 컴파일러 옵션을 사용하세요.
+명시적으로 지정하려면 [Gradle](gradle-compiler-options.md#attributes-specific-to-jvm) 또는 [Maven](maven-compile-package.md#attributes-specific-to-jvm)에서 `jvmTarget` 컴파일러 옵션을 사용하세요.
 
 ## 코틀린에서 레코드 컴포넌트 어노테이션 지정하기
 

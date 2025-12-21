@@ -46,17 +46,15 @@ fun foo(p: Predicate<Int>) = p(42)
 
 fun main() {
     val f: (Int) -> Boolean = { it > 0 }
-    println(foo(f)) // 輸出 "true"
+    println(foo(f)) // prints "true"
 
     val p: Predicate<Int> = { it > 0 }
-    println(listOf(1, -2).filter(p)) // 輸出 "[1]"
+    println(listOf(1, -2).filter(p)) // prints "[1]"
 }
 ```
 {kotlin-runnable="true"}
 
 ## 巢狀類型別名
-
-<primary-label ref="beta"/>
 
 在 Kotlin 中，您可以在其他宣告內部定義類型別名，只要它們不捕獲其外部類別的類型參數即可：
 
@@ -72,7 +70,7 @@ class Dijkstra {
 
 ```kotlin
 class Graph<Node> {
-    // 錯誤，因為捕獲了 Node
+    // Incorrect because captures Node
     typealias Path = List<Node>
 }
 ```
@@ -81,7 +79,7 @@ class Graph<Node> {
 
 ```kotlin
 class Graph<Node> {
-    // 正確，因為 Node 是類型別名參數
+    // Correct because Node is a type alias parameter
     typealias Path<Node> = List<Node>
 }
 ```
@@ -97,22 +95,3 @@ class Graph<Node> {
 * 它們的作用域與[巢狀類別](nested-classes.md)相同。您可以在類別內部定義它們，並且它們會隱藏任何具有相同名稱的父類型別名，因為它們不進行覆寫。
 * 巢狀類型別名可以標記為 `internal` 或 `private` 來限制其可見性。
 * 巢狀類型別名在 Kotlin 多平台（Multiplatform）的 [`expect/actual` 宣告](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)中不支援。
-
-### 如何啟用巢狀類型別名
-
-若要在專案中啟用巢狀類型別名，請在命令列中使用以下編譯器選項：
-
-```bash
--Xnested-type-aliases
-```
-
-或者將其添加到 Gradle 建構檔案的 `compilerOptions {}` 區塊中：
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xnested-type-aliases")
-    }
-}
-```

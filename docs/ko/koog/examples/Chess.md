@@ -245,13 +245,9 @@ class ChessGame {
 ```kotlin
 import kotlinx.serialization.Serializable
 
-class Move(val game: ChessGame) : SimpleTool<Move.Args>() {
-    @Serializable
-    data class Args(val notation: String) : ToolArgs
-
-    override val argsSerializer = Args.serializer()
-
-    override val descriptor = ToolDescriptor(
+class Move(val game: ChessGame) : SimpleTool<Move.Args>(
+    argsSerializer = Args.serializer(),
+    descriptor = ToolDescriptor(
         name = "move",
         description = "Moves a piece according to the notation:
 ${game.moveNotation}",
@@ -263,8 +259,11 @@ ${game.moveNotation}",
             )
         )
     )
+) {
+    @Serializable
+    data class Args(val notation: String) : ToolArgs
 
-    override suspend fun doExecute(args: Args): String {
+    override suspend fun execute(args: Args): String {
         game.move(args.notation)
         println(game.getBoard())
         println("-----------------")
@@ -280,7 +279,8 @@ ${game.currentPlayer()} to move! Make the move!"
 1.  **SimpleTool 확장**: 타입 안전 인자(argument) 처리와 함께 기본 도구 기능을 상속합니다
 2.  **직렬화 가능한 인자**: Kotlin 직렬화를 사용하여 도구의 입력 매개변수를 정의합니다
 3.  **풍부한 문서화**: `ToolDescriptor`는 도구의 목적과 매개변수에 대한 자세한 정보를 LLM에 제공합니다
-4.  **실행 로직**: `doExecute` 메서드는 실제 수 실행을 처리하고 형식화된 피드백을 제공합니다
+4.  **생성자 매개변수**: `argsSerializer`와 `descriptor`를 생성자에 전달합니다
+5.  **실행 로직**: `execute` 메서드는 실제 수 실행을 처리하고 형식화된 피드백을 제공합니다
 
 주요 설계 측면:
 -   **컨텍스트 주입**: 도구는 `ChessGame` 인스턴스를 받아 게임 상태를 수정할 수 있습니다
@@ -395,6 +395,7 @@ val agent = AIAgent(
 여기에서는 모든 구성 요소를 기능적인 체스 플레이 에이전트로 조립합니다.
 
 **주요 구성:**
+
 -   **모델 선택**: 고품질 체스 플레이를 위해 `OpenAIModels.Chat.O3Mini` 사용
 -   **온도**: 결정론적이고 전략적인 수를 위해 0.0으로 설정
 -   **시스템 프롬프트**: 합법적인 수와 적절한 행동을 강조하는 신중하게 작성된 지침

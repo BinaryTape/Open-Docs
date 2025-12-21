@@ -1,15 +1,15 @@
-[//]: # (title: 从 C 语言映射原生数据类型 – 教程)
+[//]: # (title: 从 C 语言映射原语数据类型 – 教程)
 
 <tldr>
     <p>这是 **Kotlin 与 C 映射**教程系列的第一个部分。</p>
-    <p><img src="icon-1.svg" width="20" alt="第一步"/> **从 C 语言映射原生数据类型**<br/>
+    <p><img src="icon-1.svg" width="20" alt="第一步"/> **从 C 语言映射原语数据类型**<br/>
        <img src="icon-2-todo.svg" width="20" alt="第二步"/> <a href="mapping-struct-union-types-from-c.md">从 C 语言映射结构体与联合体类型</a><br/>
        <img src="icon-3-todo.svg" width="20" alt="第三步"/> <a href="mapping-function-pointers-from-c.md">从 C 语言映射函数指针</a><br/>
        <img src="icon-4-todo.svg" width="20" alt="第四步"/> <a href="mapping-strings-from-c.md">从 C 语言映射字符串</a><br/>
     </p>
 </tldr>
 
-> C 库的导入处于 [Beta](native-c-interop-stability.md) 阶段。所有由 cinterop 工具从 C 库生成的 Kotlin 声明都应带有 `@ExperimentalForeignApi` 注解。
+> C 库的导入处于 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 阶段。所有由 cinterop 工具从 C 库生成的 Kotlin 声明都应带有 `@ExperimentalForeignApi` 注解。
 >
 > Kotlin/Native 附带的原生平台库（例如 Foundation、UIKit 和 POSIX）仅对部分 API 要求选择启用。
 >
@@ -149,7 +149,7 @@ cinterop 工具会为每组 `.h` 文件生成一个 Kotlin/Native 库（一个 `
         // macosX64("native") {   // x86_64 平台上的 macOS
         // linuxArm64("native") { // ARM64 平台上的 Linux
         // linuxX64("native") {   // x86_64 平台上的 Linux
-        // mingwX64("native") {   // 在 Windows 上
+        // mingwX64("native") {   // Windows
             compilations.main.cinterops {
                 interop 
             }

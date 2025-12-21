@@ -195,7 +195,7 @@ val exampleForecasts = listOf(
 
 1.  **提示执行器层**：使用提示执行器进行直接的 LLM 调用
 2.  **Agent LLM 上下文层**：在 Agent 会话中使用，用于对话上下文
-3.  **节点层**：创建具有结构化输出功能的、可重用的 Agent 节点
+3.  **节点层**：创建具有结构化输出能力的、可重用 Agent 节点
 
 ### 第 1 层：提示执行器
 
@@ -262,7 +262,7 @@ val structuredResponse = promptExecutor.executeStructured<WeatherForecast>(
 
 | 名称           | 数据类型              | 必需 | 默认       | 描述                                                                                                     |
 | :------------- | :-------------------- | :--- | :---------- | :------------------------------------------------------------------------------------------------------- |
-| `prompt`       | Prompt                | 是   |             | 要执行的提示。关于提示的更多信息，请参见 [提示 API](prompt-api.md)。                                     |
+| `prompt`       | Prompt                | 是   |             | 要执行的提示。关于提示的更多信息，请参见 [提示](prompts/index.md)。                                     |
 | `model`        | LLModel               | 是   |             | 执行提示的主模型。                                                                                       |
 | `examples`     | List&lt;T&gt;               | 否   | `emptyList()` | 可选的示例 list，用于帮助模型理解预期格式。                                                              |
 | `fixingParser` | StructureFixingParser? | 否   | `null`      | 可选的解析器，它通过使用辅助 LLM 智能修复解析错误来处理格式错误的响应。                                |
@@ -515,7 +515,7 @@ fun main(): Unit = runBlocking {
 
 ### 手动模式创建和配置
 
-你可以不依赖自动模式生成，而是使用 `JsonStructure.create` 显式创建模式，并通过 `StructuredRequest` 类手动配置结构化输出行为。
+你可以不依赖自动模式生成，而是使用 `JsonStructure.create` 显式创建模式，并通过 `StructuredRequestConfig` 类手动配置结构化输出行为。
 
 主要区别在于，你不是传递像 `examples` 和 `fixingParser` 这样的简单形参，而是创建一个 `StructuredRequestConfig` 对象，它允许对以下方面进行细粒度控制：
 
@@ -568,7 +568,7 @@ val structuredResponse = promptExecutor.executeStructured(
         system("你是一个天气预报助手。")
         user("阿姆斯特丹的天气预报是什么？")
     },
-    model = OpenAIModels.CostOptimized.GPT4oMini,
+    model = OpenAIModels.Chat.GPT4oMini,
     config = StructuredRequestConfig(
         byProvider = mapOf(
             LLMProvider.OpenAI to StructuredRequest.Native(openAiStructure),

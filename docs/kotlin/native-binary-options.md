@@ -1,10 +1,10 @@
 [//]: # (title: Kotlin/Native 二进制选项)
 
-本页面列出了有用的 Kotlin/Native 二进制选项，你可以使用它们来配置 Kotlin/Native [最终二进制文件](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)，以及在项目中设置二进制选项的方式。
+本页面列出了有用的 Kotlin/Native 二进制选项，你可以使用它们来配置 Kotlin/Native [最终二进制文件](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)，以及在你的项目中设置二进制选项的方式。
 
 ## 如何启用
 
-你可以在 `gradle.properties` 文件、你的构建文件中启用二进制选项，或者将它们作为编译器实参传递。
+你可以在 `gradle.properties` 文件、你的构建文件或作为编译器实参传递来启用二进制选项。
 
 ### 在 Gradle 属性中
 
@@ -49,7 +49,7 @@ kotlin.native.binary.latin1Strings=true
 
 ### 在命令行编译器中
 
-你可以在执行 [Kotlin/Native 编译器](native-get-started.md#using-the-command-line-compiler)时，在命令行中直接传递 `-Xbinary=$option=$value` 作为二进制选项。例如：
+当执行 [Kotlin/Native 编译器](native-get-started.md#using-the-command-line-compiler)时，你可以在命令行中直接传递 `-Xbinary=$option=$value` 作为二进制选项。例如：
 
 ```bash
 kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
@@ -67,6 +67,17 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td width="170">值</td>
         <td>描述</td>
         <td width="110">状态</td>
+    </tr>
+    <tr>
+        <td><a href="native-objc-interop.md#explicit-parameter-names-in-objective-c-block-types"><code>objcExportBlockExplicitParameterNames</code></a></td>
+        <td>
+            <list>
+                <li><code>true</code> (默认)</li>
+                <li><code>false</code></li>
+            </list>
+        </td>
+        <td>为导出的 Objective-C 头文件中的函数类型添加显式形参名称。</td>
+        <td>自 2.3.0 起默认</td>
     </tr>
     <tr>
         <td><a href="whatsnew2220.md#smaller-binary-size-for-release-binaries"><code>smallBinary</code></a></td>
@@ -89,7 +100,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
                 <li><code>no</code> (默认)</li>
             </list>
         </td>
-        <td>启用栈金丝雀：<code>yes</code> 用于易受攻击的函数，<code>all</code> 用于所有函数，<code>strong</code> 用于更强的启发式方法。</td>
+        <td>启用栈金丝雀：`yes` 用于易受攻击的函数，`all` 用于所有函数，`strong` 用于更强的启发式方法。</td>
         <td>自 2.2.20 起可用</td>
     </tr>
     <tr>
@@ -100,7 +111,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
                 <li><code>false</code></li>
             </list>
         </td>
-        <td>控制分配的（缓冲）分页。当为 <code>false</code> 时，内存分配器会按对象预留内存。</td>
+        <td>控制分配（缓冲）的分页。当为 <code>false</code> 时，内存分配器会按对象预留内存。</td>
         <td>自 2.2.0 起为实验性的</td>
     </tr>
     <tr>

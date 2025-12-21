@@ -186,12 +186,33 @@ kotlin {
 
 2. 啟用 `BigInt` 類型。請參閱 [使用 `BigInt` 類型來表示 Kotlin 的 `Long` 類型](#use-bigint-type-to-represent-kotlin-s-long-type) 中如何啟用它。
 
+### 使用 `BigInt64Array` 類型來表示 Kotlin 的 `LongArray` 類型
+<primary-label ref="experimental-general"/>
+
+當編譯至 JavaScript 時，Kotlin/JS 可以使用 JavaScript 內建的 `BigInt64Array` 類型來表示 Kotlin 的 `LongArray` 值。
+
+為了啟用 `BigInt64Array` 類型的支援，請將以下編譯器選項添加到您的 `build.gradle(.kts)` 檔案中：
+
+```kotlin
+// build.gradle.kts
+kotlin {
+    js {
+        ...
+        compilerOptions {
+            freeCompilerArgs.add("-Xes-long-as-bigint")
+        }
+    }
+}
+```
+
+此功能為 [實驗性](components-stability.md#stability-levels-explained)。請在我們的議題追蹤器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-79284/Use-BigInt64Array-for-LongArray) 上分享您的回饋。
+
 ## JavaScript 中的 Kotlin 類型
 
 請參閱 Kotlin 類型如何映射到 JavaScript 類型：
 
 | Kotlin                                                           | JavaScript                | 備註                                                                           |
-|:-----------------------------------------------------------------|:--------------------------|:-------------------------------------------------------------------------------|
+|------------------------------------------------------------------|---------------------------|--------------------------------------------------------------------------------|
 | `Byte`, `Short`, `Int`, `Float`, `Double`                        | `Number`                  |                                                                                |
 | `Char`                                                           | `Number`                  | 數字代表字元的程式碼。                                                          |
 | `Long`                                                           | `BigInt`                  | 需要配置 [`-Xes-long-as-bigint` 編譯器選項](compiler-reference.md#xes-long-as-bigint)。 |
@@ -204,7 +225,7 @@ kotlin {
 | `CharArray`                                                      | `UInt16Array`             | 帶有 `$type$ == "CharArray"` 屬性。                                           |
 | `FloatArray`                                                     | `Float32Array`            |                                                                                |
 | `DoubleArray`                                                    | `Float64Array`            |                                                                                |
-| `LongArray`                                                      | `Array<kotlin.Long>`      | 帶有 `$type$ == "LongArray"` 屬性。另請參閱 Kotlin 的 Long 類型備註。              |
+| `LongArray`                                                      | `BigInt64Array`           |                                                                                |
 | `BooleanArray`                                                   | `Int8Array`               | 帶有 `$type$ == "BooleanArray"` 屬性。                                         |
 | `List`, `MutableList`                                            | `KtList`, `KtMutableList` | 透過 `KtList.asJsReadonlyArrayView` 或 `KtMutableList.asJsArrayView` 公開 `Array`。 |
 | `Map`, `MutableMap`                                              | `KtMap`, `KtMutableMap`   | 透過 `KtMap.asJsReadonlyMapView` 或 `KtMutableMap.asJsMapView` 公開 ES2015 `Map`。 |
@@ -213,7 +234,7 @@ kotlin {
 | `Any`                                                            | `Object`                  |                                                                                |
 | `Throwable`                                                      | `Error`                   |                                                                                |
 | `enum class Type`                                                | `Type`                    | 列舉項目作為靜態類別屬性 (`Type.ENTRY`) 公開。                                 |
-| Nullable `Type?`                                                 | `Type | null | undefined` |                                                                                |
+| Nullable `Type?`                                                 | `Type` \| `null` \| `undefined` |                                                                                            |
 | 所有其他 Kotlin 類型，除了標記有 `@JsExport` 的 | Not supported             | 包含 Kotlin 的 [無符號整數類型](unsigned-integer-types.md)。                   |
 
 此外，重要的是要知道：
@@ -230,4 +251,3 @@ kotlin {
     ```
 
 *   Kotlin 在 JavaScript 中保留了延遲物件初始化。
-*   Kotlin 不在 JavaScript 中實現頂層屬性的延遲初始化。

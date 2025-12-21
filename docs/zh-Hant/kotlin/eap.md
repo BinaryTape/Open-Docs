@@ -1,10 +1,11 @@
 [//]: # (title: 參與 Kotlin 搶先體驗計畫)
 
 <tldr>
-    <p>最新 Kotlin EAP 版本發布：<strong>%kotlinEapVersion%</strong></p>
+    <p>目前沒有可用的預覽版本。</p>
+    <!--<p>Latest Kotlin EAP release: <strong>%kotlinEapVersion%</strong></p>  -->
 </tldr>
 
-您可以參與 Kotlin 搶先體驗計畫 (EAP)，以在新功能發布前搶先體驗最新的 Kotlin 功能。
+您可以參與 Kotlin 搶先體驗計畫 (EAP)，在新功能發布前搶先體驗最新的 Kotlin 功能。
 
 在每個語言版本 (_2.x.0_) 和工具版本 (_2.x.20_) 發布前，我們會發行一些 Beta (_Beta_) 和 Release Candidate (_RC_) 組建。
 
@@ -24,7 +25,7 @@
 
 ## EAP 如何幫助您提升 Kotlin 開發效率
 
-*   **為穩定版本發布做準備**。如果您正在處理一個複雜的多模組專案，參與 EAP 可能會簡化您採用穩定版本時的體驗。您越早更新到穩定版本，就能越早利用其效能改進和新語言功能。
+*   **為穩定版本做準備**。如果您正在處理一個複雜的多模組專案，參與 EAP 可能會簡化您採用穩定版本時的體驗。您越早更新到穩定版本，就能越早利用其效能改進和新語言功能。
 
     龐大而複雜的專案遷移可能需要一段時間，這不僅是因為其規模，也因為某些特定使用案例可能尚未被 Kotlin 團隊涵蓋。透過參與 EAP 並持續測試新的 Kotlin 版本，您可以就您的特定使用案例向我們提供早期回饋。這將幫助我們解決盡可能多的問題，並確保您可以在穩定版本發布時安全地更新。[查看 Slack 如何從測試 Android、Kotlin 和 Gradle 預發布版本中受益](https://slack.engineering/shadow-jobs/)。
 *   **保持您的函式庫最新**。如果您是函式庫作者，更新到新的 Kotlin 版本極為重要。使用舊版本可能會阻止您的使用者在其專案中更新 Kotlin。使用 EAP 版本可讓您在穩定版本發布後，幾乎立即在您的函式庫中支援最新的 Kotlin 版本，這會讓您的使用者更滿意，您的函式庫也更受歡迎。
@@ -32,21 +33,21 @@
 
 ## 組建詳細資訊
 
-<!-- _目前沒有可用的預覽版本。_ -->
+_目前沒有可用的預覽版本。_
 
-<table>
+<!-- <table>
     <tr>
-        <th>組建資訊</th>
-        <th>組建亮點</th>
+        <th>Build info</th>
+        <th>Build highlights</th>
     </tr>
     <tr>
         <td><strong>2.3.0-RC3</strong>
-            <p>發布：<strong>2025 年 12 月 9 日</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC3" target="_blank">GitHub 發布</a></p>
+            <p>Released: <strong>December 9, 2025</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC3" target="_blank">Release on GitHub</a></p>
         </td>
         <td>
-            <p>一個包含新功能預覽和工具更新的語言版本發布。</p>
-            <p>更多詳情請參閱 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC3">changelog</a> 或 <a href="whatsnew-eap.md">Kotlin 2.3.0-RC3 中的新功能</a>。</p>
+            <p>A language release with previews of new features and tooling updates.</p>
+            <p>For more details, please refer to the <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC3">changelog</a> or <a href="whatsnew-eap.md">What's new in Kotlin 2.3.0-RC3</a>.</p>
         </td>
     </tr>
-</table>
+</table> -->

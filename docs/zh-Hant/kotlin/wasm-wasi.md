@@ -8,6 +8,8 @@
 
 目前，Kotlin/Wasm 支援 WASI 0.1，也稱為 Preview 1。[WASI 0.2 的支援計劃在未來版本中推出](https://youtrack.jetbrains.com/issue/KT-64568)。
 
+[`wasmWasi`](wasm-overview.md#kotlin-wasm-and-wasi) 目標平台預設使用 [新的例外處理提案](wasm-configuration.md#exception-handling-proposal)，確保與現代 WebAssembly 執行環境有更好的相容性。
+
 > Kotlin/Wasm 工具鏈提供開箱即用的 Node.js 任務 (`wasmWasiNode*`)。
 > 專案中的其他任務變體，例如利用 Deno 或 WasmEdge 的那些，都作為自訂任務包含在內。
 >
@@ -35,7 +37,7 @@
    >
    {style="note"}
 
-2. 從 **kotlin-wasm-wasi-example | Tasks | kotlin node**，選擇並執行以下其中一個 Gradle 任務：
+2. 從 **kotlin-wasm-wasi-example** | **Tasks** | **kotlin node**，選擇並執行以下其中一個 Gradle 任務：
 
    * **wasmWasiNodeRun** 以在 Node.js 中執行應用程式。
    * **wasmWasiDenoRun** 以在 Deno 中執行應用程式。
@@ -76,7 +78,7 @@
 
 您也可以測試 Kotlin/Wasm 應用程式是否在各種虛擬機器中正常運作。
 
-在 Gradle 工具視窗中，從 **kotlin-wasm-wasi-example | Tasks | verification** 執行以下其中一個 Gradle 任務：
+在 Gradle 工具視窗中，從 **kotlin-wasm-wasi-example** | **Tasks** | **verification** 執行以下其中一個 Gradle 任務：
 
 * **wasmWasiNodeTest** 以在 Node.js 中測試應用程式。
 * **wasmWasiDenoTest** 以在 Deno 中測試應用程式。

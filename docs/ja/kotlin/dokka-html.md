@@ -1,23 +1,38 @@
 [//]: # (title: HTML)
 
-HTMLはDokkaのデフォルトで推奨される出力形式です。現在ベータ版であり、Stable版のリリースが近づいています。
+> このガイドはDokka Gradleプラグイン (DGP) v2モードに適用されます。DGP v1モードはサポートされなくなりました。
+> v1からv2モードにアップグレードするには、[移行ガイド](dokka-migration.md)に従ってください。
+>
+{style="note"}
 
-[kotlinx.coroutines](https://kotlinlang.org/api/kotlinx.coroutines/)のドキュメントを閲覧することで、出力例を確認できます。
+HTMLはDokkaのデフォルトかつ推奨される出力形式です。
+Kotlin Multiplatform、Android、Javaプロジェクトをサポートします。
+さらに、単一プロジェクトビルドとマルチプロジェクトビルドの両方を文書化するためにHTML形式を使用できます。
+
+HTML出力形式の例については、以下のドキュメントを確認してください。
+* [kotlinx.coroutines](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/)
+* [Bitmovin](https://cdn.bitmovin.com/player/android/3/docs/index.html)
+* [Hexagon](https://hexagontk.com/stable/api/)
+* [Ktor](https://api.ktor.io/)
+* [OkHttp](https://square.github.io/okhttp/5.x/okhttp/okhttp3/)
+* [Gradle](https://docs.gradle.org/current/kotlin-dsl/index.html)
 
 ## HTMLドキュメントの生成
 
 HTMLは出力形式としてすべてのランナーでサポートされています。HTMLドキュメントを生成するには、使用するビルドツールやランナーに応じて、以下の手順に従ってください。
 
-*   [Gradle](dokka-gradle.md#generate-documentation)の場合、`dokkaHtml`または`dokkaHtmlMultiModule`タスクを実行します。
+* [Gradle](dokka-gradle.md#generate-documentation)の場合、以下のタスクを実行できます。
+  * `dokkaGenerate` は、[適用されているプラグインに基づいて利用可能なすべての形式](dokka-gradle.md#configure-documentation-output-format)でドキュメントを生成します。
+      これはほとんどのユーザーに推奨されるタスクです。IntelliJ IDEAでこのタスクを使用すると、出力へのクリック可能なリンクがログに記録されます。
+  * `dokkaGeneratePublicationHtml` は、HTML形式のみでドキュメントを生成します。このタスクは、出力ディレクトリを`@OutputDirectory`として公開します。このタスクは、生成されたファイルを他のGradleタスクで利用する必要がある場合（例: サーバーへのアップロード、GitHub Pagesディレクトリへの移動、`javadoc.jar`へのパッケージ化など）に使用します。このタスクは、日常的な使用を意図していないため、意図的にGradleタスクグループにはリストされていません。
 
-    > これらの手順は、Dokka Gradleプラグイン v1 の設定とタスクを反映しています。Dokka 2.0.0以降、[ドキュメント生成のためのGradleタスクが変更されました](dokka-migration.md#generate-documentation-with-the-updated-task)。
+    > IntelliJ IDEAを使用している場合、`dokkaGenerateHtml` Gradleタスクが表示されることがあります。
+    > このタスクは`dokkaGeneratePublicationHtml`の単なるエイリアスです。両方のタスクはまったく同じ操作を実行します。
     >
-    > 詳細およびDokka Gradle Plugin v2での変更点の全リストについては、[移行ガイド](dokka-migration.md)を参照してください。
-    >
-    {style="note"}
+    {style="tip"}
 
-*   [Maven](dokka-maven.md#generate-documentation)の場合、`dokka:dokka`ゴールを実行します。
-*   [CLIランナー](dokka-cli.md#generate-documentation)の場合、HTMLの依存関係を設定して実行します。
+* [Maven](dokka-maven.md#generate-documentation)の場合、`dokka:dokka`ゴールを実行します。
+* [CLIランナー](dokka-cli.md#generate-documentation)の場合、HTMLの依存関係を設定して実行します。
 
 > この形式で生成されたHTMLページは、すべてを正しくレンダリングするためにWebサーバーでホストする必要があります。
 >
@@ -29,82 +44,43 @@ HTMLは出力形式としてすべてのランナーでサポートされてい�
 
 ## 設定
 
-HTML形式はDokkaの基本フォーマットであるため、`DokkaBase`および`DokkaBaseConfiguration`クラスを通じて設定可能です。
+HTML形式はDokkaの基本フォーマットです。以下のオプションを使用して設定できます。
 
 <tabs group="build-script">
-<tab title="Kotlin" group-key="kotlin">
-
-型安全なKotlin DSLを使用:
+<tab title="Gradle Kotlin DSL" group-key="kotlin">
 
 ```kotlin
-import org.jetbrains.dokka.base.DokkaBase
-import org.jetbrains.dokka.gradle.DokkaTask
-import org.jetbrains.dokka.base.DokkaBaseConfiguration
+// build.gradle.kts
 
-buildscript {
-    dependencies {
-        classpath("org.jetbrains.dokka:dokka-base:%dokkaVersion%")
+dokka {
+    pluginsConfiguration.html {
+        customAssets.from("logo.png")
+        customStyleSheets.from("styles.css")
+        footerMessage.set("(c) Your Company")
+        separateInheritedMembers.set(false)
+        templatesDir.set(file("dokka/templates"))
+        mergeImplicitExpectActualDeclarations.set(false)
     }
-}
-
-tasks.withType<DokkaTask>().configureEach {
-    pluginConfiguration<DokkaBase, DokkaBaseConfiguration> {
-        customAssets = listOf(file("my-image.png"))
-        customStyleSheets = listOf(file("my-styles.css"))
-        footerMessage = "(c) 2022 MyOrg"
-        separateInheritedMembers = false
-        templatesDir = file("dokka/templates")
-        mergeImplicitExpectActualDeclarations = false
-    }
-}
-```
-
-JSONを使用:
-
-```kotlin
-import org.jetbrains.dokka.gradle.DokkaTask
-
-tasks.withType<DokkaTask>().configureEach {
-    val dokkaBaseConfiguration = """
-    {
-      "customAssets": ["${file("assets/my-image.png")}"],
-      "customStyleSheets": ["${file("assets/my-styles.css")}"],
-      "footerMessage": "(c) 2022 MyOrg",
-      "separateInheritedMembers": false,
-      "templatesDir": "${file("dokka/templates")}",
-      "mergeImplicitExpectActualDeclarations": false
-    }
-    """
-    pluginsMapConfiguration.set(
-        mapOf(
-            // 完全修飾プラグイン名からjson設定へ
-            "org.jetbrains.dokka.base.DokkaBase" to dokkaBaseConfiguration
-        )
-    )
 }
 ```
 
 </tab>
-<tab title="Groovy" group-key="groovy">
+<tab title="Gradle Groovy DSL" group-key="groovy">
 
 ```groovy
-import org.jetbrains.dokka.gradle.DokkaTask
+// build.gradle
 
-tasks.withType(DokkaTask.class) {
-    String dokkaBaseConfiguration = """
-    {
-      "customAssets": ["${file("assets/my-image.png")}"],
-      "customStyleSheets": ["${file("assets/my-styles.css")}"],
-      "footerMessage": "(c) 2022 MyOrg"
-      "separateInheritedMembers": false,
-      "templatesDir": "${file("dokka/templates")}",
-      "mergeImplicitExpectActualDeclarations": false
+dokka {
+    pluginsConfiguration {
+        html {
+            customAssets.from("logo.png")
+            customStyleSheets.from("styles.css")
+            footerMessage.set("(c) Your Company")
+            separateInheritedMembers.set(false)
+            templatesDir.set(file("dokka/templates"))
+            mergeImplicitExpectActualDeclarations.set(false)
+        }
     }
-    """
-    pluginsMapConfiguration.set(
-            // 完全修飾プラグイン名からjson設定へ
-            ["org.jetbrains.dokka.base.DokkaBase": dokkaBaseConfiguration]
-    )
 }
 ```
 
@@ -118,9 +94,9 @@ tasks.withType(DokkaTask.class) {
     ...
     <configuration>
         <pluginsConfiguration>
-            <!-- 完全修飾プラグイン名 -->
+            <!-- Fully qualified plugin name -->
             <org.jetbrains.dokka.base.DokkaBase>
-                <!-- オプション名 -->
+                <!-- Options by name -->
                 <customAssets>
                     <asset>${project.basedir}/my-image.png</asset>
                 </customAssets>
@@ -206,6 +182,12 @@ Dokkaのすべてのスタイルシートのソースコードは[GitHubで入�
 
 これらのファイルは`<output>/images`ディレクトリにコピーされます。
 
+`customAssets`プロパティは、ファイルのコレクション ([`FileCollection`](https://docs.gradle.org/8.10/userguide/lazy_configuration.html#working_with_files_in_lazy_properties)) とともに使用できます。
+
+```kotlin
+customAssets.from("example.png", "example2.png")
+```
+
 Dokkaの画像やアイコンは、同じ名前のファイルを提供することで上書きすることが可能です。最も有用で関連性の高いものは`logo-icon.svg`で、これはヘッダーで使用される画像です。残りはほとんどアイコンです。
 
 Dokkaで使用されるすべての画像は[GitHub](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-base/src/main/resources/dokka/images)で確認できます。
@@ -240,7 +222,8 @@ Dokkaは以下のテンプレートを使用します。
 | `includes/page_metadata.ftl`       | `<head>`コンテナ内で使用されるメタデータ。                                                                              |
 | `includes/source_set_selector.ftl` | ヘッダー内の[ソースセット](https://kotlinlang.org/docs/multiplatform-discover-project.html#source-sets)セレクター。 |
 
-ベーステンプレートは`base.ftl`であり、残りのリストされたすべてのテンプレートを含みます。Dokkaのすべてのテンプレートのソースコードは[GitHubで入手可能](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-base/src/main/resources/dokka/templates)です。
+ベーステンプレートは`base.ftl`であり、残りのリストされたすべてのテンプレートを含みます。
+Dokkaのすべてのテンプレートのソースコードは[GitHubで入手可能](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-base/src/main/resources/dokka/templates)です。
 
 `templatesDir` [設定オプション](#configuration)を使用することで、任意のテンプレートを上書きできます。Dokkaは指定されたディレクトリ内で正確なテンプレート名を検索します。ユーザー定義のテンプレートが見つからない場合、デフォルトのテンプレートを使用します。
 
@@ -256,11 +239,11 @@ Dokkaは以下のテンプレートを使用します。
 | `${projectName}`   | プロジェクト名。`template_cmd`ディレクティブ内でのみ利用可能です。                                                                                                                         |
 | `${pathToRoot}`    | 現在のページからのルートへのパス。アセットを見つけるのに役立ち、`template_cmd`ディレクティブ内でのみ利用可能です。                                                                 |
 
-変数`projectName`と`pathToRoot`は、より多くのコンテキストを必要とし、[MultiModule](dokka-gradle.md#multi-project-builds)タスクによって後の段階で解決される必要があるため、`template_cmd`ディレクティブ内でのみ利用可能です。
+変数`projectName`と`pathToRoot`は、より多くのコンテキストを必要とし、後の段階で解決される必要があるため、`template_cmd`ディレクティブ内でのみ利用可能です。
 
 ```html
 <@template_cmd name="projectName">
-   <span>${projectName}</span>
+    <span>${projectName}</span>
 </@template_cmd>
 ```
 

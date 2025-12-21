@@ -41,7 +41,7 @@ dependencies {
 프롬프트 실행기는 프롬프트를 관리하고 실행합니다.
 사용할 LLM 제공자에 따라 프롬프트 실행기를 선택할 수 있습니다.
 또한, 사용 가능한 LLM 클라이언트 중 하나를 사용하여 사용자 지정 프롬프트 실행기를 생성할 수 있습니다.
-더 자세히 알아보려면 [프롬프트 실행기](prompt-api.md#running-prompts-with-prompt-executors)를 참조하세요.
+더 자세히 알아보려면 [프롬프트 실행기](prompts/prompt-executors.md)를 참조하세요.
 
 예를 들어, OpenAI 프롬프트 실행기를 제공하려면 `simpleOpenAIExecutor` 함수를 호출하고 OpenAI 서비스 인증에 필요한 API 키를 제공해야 합니다.
 
@@ -109,9 +109,9 @@ val strategy = strategy<InputType, OutputType>("Simple calculator") {
 -->
 ```kotlin
 val processNode by node<InputType, OutputType> { input ->
-    // Process the input and return an output
-    // You can use llm.writeSession to interact with the LLM
-    // You can call tools using callTool, callToolRaw, etc.
+    // 입력을 처리하고 출력을 반환합니다.
+    // llm.writeSession을 사용하여 LLM과 상호 작용할 수 있습니다.
+    // callTool, callToolRaw 등을 사용하여 도구를 호출할 수 있습니다.
     transformedOutput
 }
 ```
@@ -131,16 +131,16 @@ const val transformedOutput = "transformed-output"
 val strategy = strategy<String, String>("Simple calculator") {
 
     val sourceNode by node<String, String> { input ->
-        // Process the input and return an output
-        // You can use llm.writeSession to interact with the LLM
-        // You can call tools using callTool, callToolRaw, etc.
+        // 입력을 처리하고 출력을 반환합니다.
+        // llm.writeSession을 사용하여 LLM과 상호 작용할 수 있습니다.
+        // callTool, callToolRaw 등을 사용하여 도구를 호출할 수 있습니다.
         transformedOutput
     }
 
     val targetNode by node<String, String> { input ->
-        // Process the input and return an output
-        // You can use llm.writeSession to interact with the LLM
-        // You can call tools using callTool, callToolRaw, etc.
+        // 입력을 처리하고 출력을 반환합니다.
+        // llm.writeSession을 사용하여 LLM과 상호 작용할 수 있습니다.
+        // callTool, callToolRaw 등을 사용하여 도구를 호출할 수 있습니다.
         transformedOutput
     }
 -->
@@ -148,22 +148,22 @@ val strategy = strategy<String, String>("Simple calculator") {
 }
 -->
 ```kotlin
-// Basic edge
+// 기본 엣지
 edge(sourceNode forwardTo targetNode)
 
-// Edge with condition
+// 조건이 있는 엣지
 edge(sourceNode forwardTo targetNode onCondition { output ->
-    // Return true to follow this edge, false to skip it
+    // 이 엣지를 따르려면 true를, 건너뛰려면 false를 반환합니다.
     output.contains("specific text")
 })
 
-// Edge with transformation
+// 변환이 있는 엣지
 edge(sourceNode forwardTo targetNode transformed { output ->
-    // Transform the output before passing it to the target node
+    // 출력을 대상 노드로 전달하기 전에 변환합니다.
     "Modified: $output"
 })
 
-// Combined condition and transformation
+// 결합된 조건 및 변환
 edge(sourceNode forwardTo targetNode onCondition { it.isNotEmpty() } transformed { it.uppercase() })
 ```
 <!--- KNIT example-complex-workflow-agents-05.kt -->
@@ -179,32 +179,32 @@ import ai.koog.agents.core.dsl.extension.*
 -->
 ```kotlin
 val agentStrategy = strategy("Simple calculator") {
-    // Define nodes for the strategy
+    // 전략을 위한 노드를 정의합니다.
     val nodeSendInput by nodeLLMRequest()
     val nodeExecuteTool by nodeExecuteTool()
     val nodeSendToolResult by nodeLLMSendToolResult()
 
-    // Define edges between nodes
-    // Start -> Send input
+    // 노드 간의 엣지를 정의합니다.
+    // 시작 -> 입력 전송
     edge(nodeStart forwardTo nodeSendInput)
 
-    // Send input -> Finish
+    // 입력 전송 -> 완료
     edge(
         (nodeSendInput forwardTo nodeFinish)
                 transformed { it }
                 onAssistantMessage { true }
     )
 
-    // Send input -> Execute tool
+    // 입력 전송 -> 도구 실행
     edge(
         (nodeSendInput forwardTo nodeExecuteTool)
                 onToolCall { true }
     )
 
-    // Execute tool -> Send the tool result
+    // 도구 실행 -> 도구 결과 전송
     edge(nodeExecuteTool forwardTo nodeSendToolResult)
 
-    // Send the tool result -> finish
+    // 도구 결과 전송 -> 완료
     edge(
         (nodeSendToolResult forwardTo nodeFinish)
                 transformed { it }
@@ -227,12 +227,12 @@ import ai.koog.agents.core.agent.config.AIAgentConfig
 ```kotlin
 val agentConfig = AIAgentConfig.withSystemPrompt(
     prompt = """
-        You are a simple calculator assistant.
-        You can add two numbers together using the calculator tool.
-        When the user provides input, extract the numbers they want to add.
-        The input might be in various formats like "add 5 and 7", "5 + 7", or just "5 7".
-        Extract the two numbers and use the calculator tool to add them.
-        Always respond with a clear, friendly message showing the calculation and result.
+        당신은 간단한 계산기 도우미입니다.
+        계산기 도구를 사용하여 두 숫자를 더할 수 있습니다.
+        사용자가 입력을 제공할 때, 더하고 싶은 숫자를 추출합니다.
+        입력은 "5와 7을 더해줘", "5 + 7", 또는 "5 7"과 같은 다양한 형식일 수 있습니다.
+        두 숫자를 추출하고 계산기 도구를 사용하여 더합니다.
+        항상 계산과 결과를 보여주는 명확하고 친근한 메시지로 응답하세요.
         """.trimIndent()
 )
 ```
@@ -249,12 +249,12 @@ val agentConfig = AIAgentConfig(
     prompt = Prompt.build("simple-calculator") {
         system(
             """
-                You are a simple calculator assistant.
-                You can add two numbers together using the calculator tool.
-                When the user provides input, extract the numbers they want to add.
-                The input might be in various formats like "add 5 and 7", "5 + 7", or just "5 7".
-                Extract the two numbers and use the calculator tool to add them.
-                Always respond with a clear, friendly message showing the calculation and result.
+                당신은 간단한 계산기 도우미입니다.
+                계산기 도구를 사용하여 두 숫자를 더할 수 있습니다.
+                사용자가 입력을 제공할 때, 더하고 싶은 숫자를 추출합니다.
+                입력은 "5와 7을 더해줘", "5 + 7", 또는 "5 7"과 같은 다양한 형식일 수 있습니다.
+                두 숫자를 추출하고 계산기 도구를 사용하여 더합니다.
+                항상 계산과 결과를 보여주는 명확하고 친근한 메시지로 응답하세요.
                 """.trimIndent()
         )
     },
@@ -277,16 +277,16 @@ import ai.koog.agents.core.tools.reflect.ToolSet
 import ai.koog.agents.core.tools.reflect.tools
 -->
 ```kotlin
-// Implement a simple calculator tool that can add two numbers
-@LLMDescription("Tools for performing basic arithmetic operations")
+// 두 숫자를 더할 수 있는 간단한 계산기 도구를 구현합니다.
+@LLMDescription("기본 산술 연산을 수행하는 도구")
 class CalculatorTools : ToolSet {
     @Tool
-    @LLMDescription("Add two numbers together and return their sum")
+    @LLMDescription("두 숫자를 함께 더하고 그 합계를 반환합니다.")
     fun add(
-        @LLMDescription("First number to add (integer value)")
+        @LLMDescription("더할 첫 번째 숫자 (정수 값)")
         num1: Int,
 
-        @LLMDescription("Second number to add (integer value)")
+        @LLMDescription("더할 두 번째 숫자 (정수 값)")
         num2: Int
     ): String {
         val sum = num1 + num2
@@ -294,7 +294,7 @@ class CalculatorTools : ToolSet {
     }
 }
 
-// Add the tool to the tool registry
+// 도구를 도구 레지스트리에 추가합니다.
 val toolRegistry = ToolRegistry {
     tools(CalculatorTools())
 }
@@ -330,14 +330,14 @@ val agent = AIAgent(
 )
 -->
 ```kotlin
-// install the EventHandler feature
+// EventHandler 기능을 설치합니다.
 installFeatures = {
     install(EventHandler) {
         onAgentStarting { eventContext: AgentStartingContext ->
-            println("Starting agent: ${eventContext.agent.id}")
+            println("에이전트 시작: ${eventContext.agent.id}")
         }
         onAgentCompleted { eventContext: AgentCompletedContext ->
-            println("Result: ${eventContext.result}")
+            println("결과: ${eventContext.result}")
         }
     }
 }
@@ -369,10 +369,10 @@ val agent = AIAgent(
     installFeatures = {
         install(EventHandler) {
             onAgentStarting { eventContext: AgentStartingContext ->
-                println("Starting agent: ${eventContext.agent.id}")
+                println("에이전트 시작: ${eventContext.agent.id}")
             }
             onAgentCompleted { eventContext: AgentCompletedContext ->
-                println("Result: ${eventContext.result}")
+                println("결과: ${eventContext.result}")
             }
         }
     }
@@ -380,12 +380,12 @@ val agent = AIAgent(
 
 fun main() {
     runBlocking {
-        println("Enter two numbers to add (e.g., 'add 5 and 7' or '5 + 7'):")
+        println("더할 두 숫자를 입력하세요 (예: 'add 5 and 7' 또는 '5 + 7'):")
 
-        // Read the user input and send it to the agent
+        // 사용자 입력을 읽고 에이전트로 전송합니다.
         val userInput = readlnOrNull() ?: ""
         val agentResult = agent.run(userInput)
-        println("The agent returned: $agentResult")
+        println("에이전트가 반환한 내용: $agentResult")
     }
 }
 ```
@@ -425,37 +425,37 @@ import kotlinx.coroutines.runBlocking
 
 -->
 ```kotlin
-// Use the OpenAI executor with an API key from an environment variable
+// 환경 변수의 API 키를 사용하여 OpenAI 실행기를 사용합니다.
 val promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY"))
 
-// Create a simple strategy
+// 간단한 전략을 생성합니다.
 val agentStrategy = strategy("Simple calculator") {
-    // Define nodes for the strategy
+    // 전략을 위한 노드를 정의합니다.
     val nodeSendInput by nodeLLMRequest()
     val nodeExecuteTool by nodeExecuteTool()
     val nodeSendToolResult by nodeLLMSendToolResult()
 
-    // Define edges between nodes
-    // Start -> Send input
+    // 노드 간의 엣지를 정의합니다.
+    // 시작 -> 입력 전송
     edge(nodeStart forwardTo nodeSendInput)
 
-    // Send input -> Finish
+    // 입력 전송 -> 완료
     edge(
         (nodeSendInput forwardTo nodeFinish)
                 transformed { it }
                 onAssistantMessage { true }
     )
 
-    // Send input -> Execute tool
+    // 입력 전송 -> 도구 실행
     edge(
         (nodeSendInput forwardTo nodeExecuteTool)
                 onToolCall { true }
     )
 
-    // Execute tool -> Send the tool result
+    // 도구 실행 -> 도구 결과 전송
     edge(nodeExecuteTool forwardTo nodeSendToolResult)
 
-    // Send the tool result -> finish
+    // 도구 결과 전송 -> 완료
     edge(
         (nodeSendToolResult forwardTo nodeFinish)
                 transformed { it }
@@ -463,17 +463,17 @@ val agentStrategy = strategy("Simple calculator") {
     )
 }
 
-// Configure the agent
+// 에이전트를 구성합니다.
 val agentConfig = AIAgentConfig(
     prompt = Prompt.build("simple-calculator") {
         system(
             """
-                You are a simple calculator assistant.
-                You can add two numbers together using the calculator tool.
-                When the user provides input, extract the numbers they want to add.
-                The input might be in various formats like "add 5 and 7", "5 + 7", or just "5 7".
-                Extract the two numbers and use the calculator tool to add them.
-                Always respond with a clear, friendly message showing the calculation and result.
+                당신은 간단한 계산기 도우미입니다.
+                계산기 도구를 사용하여 두 숫자를 더할 수 있습니다.
+                사용자가 입력을 제공할 때, 더하고 싶은 숫자를 추출합니다.
+                입력은 "5와 7을 더해줘", "5 + 7", 또는 "5 7"과 같은 다양한 형식일 수 있습니다.
+                두 숫자를 추출하고 계산기 도구를 사용하여 더합니다.
+                항상 계산과 결과를 보여주는 명확하고 친근한 메시지로 응답하세요.
                 """.trimIndent()
         )
     },
@@ -481,16 +481,16 @@ val agentConfig = AIAgentConfig(
     maxAgentIterations = 10
 )
 
-// Implement a simple calculator tool that can add two numbers
-@LLMDescription("Tools for performing basic arithmetic operations")
+// 두 숫자를 더할 수 있는 간단한 계산기 도구를 구현합니다.
+@LLMDescription("기본 산술 연산을 수행하는 도구")
 class CalculatorTools : ToolSet {
     @Tool
-    @LLMDescription("Add two numbers together and return their sum")
+    @LLMDescription("두 숫자를 함께 더하고 그 합계를 반환합니다.")
     fun add(
-        @LLMDescription("First number to add (integer value)")
+        @LLMDescription("더할 첫 번째 숫자 (정수 값)")
         num1: Int,
 
-        @LLMDescription("Second number to add (integer value)")
+        @LLMDescription("더할 두 번째 숫자 (정수 값)")
         num2: Int
     ): String {
         val sum = num1 + num2
@@ -498,12 +498,12 @@ class CalculatorTools : ToolSet {
     }
 }
 
-// Add the tool to the tool registry
+// 도구를 도구 레지스트리에 추가합니다.
 val toolRegistry = ToolRegistry {
     tools(CalculatorTools())
 }
 
-// Create the agent
+// 에이전트를 생성합니다.
 val agent = AIAgent(
     promptExecutor = promptExecutor,
     toolRegistry = toolRegistry,
@@ -512,10 +512,10 @@ val agent = AIAgent(
     installFeatures = {
         install(EventHandler) {
             onAgentStarting { eventContext: AgentStartingContext ->
-                println("Starting agent: ${eventContext.agent.id}")
+                println("에이전트 시작: ${eventContext.agent.id}")
             }
             onAgentCompleted { eventContext: AgentCompletedContext ->
-                println("Result: ${eventContext.result}")
+                println("결과: ${eventContext.result}")
             }
         }
     }
@@ -523,12 +523,12 @@ val agent = AIAgent(
 
 fun main() {
     runBlocking {
-        println("Enter two numbers to add (e.g., 'add 5 and 7' or '5 + 7'):")
+        println("더할 두 숫자를 입력하세요 (예: 'add 5 and 7' 또는 '5 + 7'):")
 
-        // Read the user input and send it to the agent
+        // 사용자 입력을 읽고 에이전트로 전송합니다.
         val userInput = readlnOrNull() ?: ""
         val agentResult = agent.run(userInput)
-        println("The agent returned: $agentResult")
+        println("에이전트가 반환한 내용: $agentResult")
     }
 }
 ```

@@ -1,18 +1,24 @@
 `[//]: # (title: Dokka Gradle 플러그인 v2로 마이그레이션)
 
+> 이 페이지는 DGP v1을 사용 중이며 DGP v2로 마이그레이션하려는 경우에만 해당됩니다. Dokka 2.1.0부터 DGP v2는 기본적으로 활성화됩니다.
+> Dokka 2.1.0 이상을 사용 중이라면
+> 이 페이지를 건너뛰고 [Dokka Gradle 문서](dokka-gradle.md)로 바로 이동할 수 있습니다.
+>
+{style="note"}
+
 Dokka Gradle 플러그인(DGP)은 Gradle로 빌드된 Kotlin 프로젝트를 위한 포괄적인 API 문서를 생성하는 도구입니다.
 
 DGP는 Kotlin의 KDoc 주석과 Java의 Javadoc 주석을 모두 원활하게 처리하여 정보를 추출하고 [HTML 또는 Javadoc](#select-documentation-output-format) 형식으로 구조화된 문서를 생성합니다.
 
-Dokka 2.0.0부터 DGP의 새로운 버전인 Dokka Gradle 플러그인 v2를 사용해 볼 수 있습니다. Dokka 2.0.0에서는 Dokka Gradle 플러그인을 v1 또는 v2 모드에서 사용할 수 있습니다.
-
-DGP v2는 Gradle 모범 사례와 더 밀접하게 일치하도록 DGP에 상당한 개선 사항을 도입했습니다.
+Dokka Gradle 플러그인 v2 모드는 기본적으로 활성화되며 Gradle 모범 사례와 일치합니다.
 
 *   Gradle 타입을 채택하여 성능이 향상됩니다.
 *   저수준의 태스크 기반 설정 대신 직관적인 최상위 DSL 구성(top-level DSL configuration)을 사용하여 빌드 스크립트(build scripts)와 가독성을 단순화합니다.
 *   문서 집계에 대한 선언적인 접근 방식을 채택하여 다중 프로젝트 문서 관리를 더 쉽게 만듭니다.
 *   타입 안전(type-safe) 플러그인 구성을 사용하여 빌드 스크립트의 안정성과 유지 보수성을 향상시킵니다.
 *   Gradle [구성 캐시](https://docs.gradle.org/current/userguide/configuration_cache.html) 및 [빌드 캐시](https://docs.gradle.org/current/userguide/build_cache.html)를 완벽하게 지원하여 성능을 향상시키고 빌드 작업을 단순화합니다.
+
+DGP v1에서 v2 모드로의 변경 사항 및 마이그레이션에 대한 자세한 내용은 이 가이드를 읽어보세요.
 
 ## 시작하기 전에
 
@@ -30,17 +36,12 @@ DGP v2는 Gradle 모범 사례와 더 밀접하게 일치하도록 DGP에 상당
 
 ### DGP v2 활성화
 
-> Dokka 2.1.0부터 DGP v2는 기본적으로 활성화됩니다.
-> Dokka 2.1.0 이상을 사용하거나 업데이트하는 경우, 이 단계를 건너뛰고 [프로젝트 마이그레이션](#migrate-your-project)으로 바로 이동할 수 있습니다.
->
-{style="note"}
-
-프로젝트의 `build.gradle.kts` 파일에 있는 `plugins {}` 블록에서 Dokka 버전을 2.0.0으로 업데이트하세요.
+프로젝트의 `build.gradle.kts` 파일에 있는 `plugins {}` 블록에서 Dokka 버전을 `%dokkaVersion%`으로 업데이트하세요.
 
 ```kotlin
 plugins {
     kotlin("jvm") version "2.1.10"
-    id("org.jetbrains.dokka") version "2.0.0"
+    id("org.jetbrains.dokka") version "%dokkaVersion%"
 }
 ```
 
@@ -83,7 +84,7 @@ Dokka Gradle 플러그인을 v2로 업데이트한 후, 프로젝트에 해당�
 
 ### 구성 옵션 조정
 
-DGP v2는 [Gradle 구성 옵션](dokka-gradle.md#configuration-options)에 일부 변경 사항을 도입했습니다. `build.gradle.kts` 파일에서 프로젝트 설정에 따라 구성 옵션을 조정하세요.
+DGP v2는 [Gradle 구성 옵션](dokka-gradle-configuration-options.md)에 일부 변경 사항을 도입했습니다. `build.gradle.kts` 파일에서 프로젝트 설정에 따라 구성 옵션을 조정하세요.
 
 #### DGP v2의 최상위 DSL 구성
 
@@ -122,7 +123,7 @@ DGP v2에서의 구성:
 `build.gradle.kts` 파일의 구문은 Gradle의 Kotlin DSL이 타입 안전(type-safe) 접근자를 사용하기 때문에 일반 `.kt` 파일(예: 사용자 지정 Gradle 플러그인에 사용되는 파일)과 다릅니다.
 
 <tabs group="dokka-configuration">
-<tab title="Gradle 구성 파일" group-key="gradle">
+<tab title="Gradle Kotlin DSL" group-key="kotlin">
 
 ```kotlin
 // build.gradle.kts
@@ -150,7 +151,7 @@ dokka {
 ```
 
 </tab>
-<tab title="Kotlin 파일" group-key="kotlin">
+<tab title="Kotlin 사용자 지정 플러그인" group-key="kotlin custom">
 
 ```kotlin
 // CustomPlugin.kt
@@ -255,7 +256,7 @@ DGP v2에서의 구성:
 `build.gradle.kts` 파일의 구문은 Gradle의 Kotlin DSL이 타입 안전(type-safe) 접근자를 사용하기 때문에 일반 `.kt` 파일(예: 사용자 지정 Gradle 플러그인에 사용되는 파일)과 다릅니다.
 
 <tabs group="dokka-configuration">
-<tab title="Gradle 구성 파일" group-key="gradle">
+<tab title="Gradle Kotlin DSL" group-key="kotlin">
 
 ```kotlin
 // build.gradle.kts
@@ -272,7 +273,7 @@ dokka {
 ```
 
 </tab>
-<tab title="Kotlin 파일" group-key="kotlin">
+<tab title="Kotlin 사용자 지정 플러그인" group-key="kotlin custom">
 
 ```kotlin
 // CustomPlugin.kt
@@ -423,7 +424,7 @@ DGP v2에서의 구성:
 `build.gradle.kts` 파일의 구문은 Gradle의 Kotlin DSL이 타입 안전(type-safe) 접근자를 사용하기 때문에 일반 `.kt` 파일(예: 사용자 지정 Gradle 플러그인에 사용되는 파일)과 다릅니다.
 
 <tabs group="dokka-configuration">
-<tab title="Gradle 구성 파일" group-key="gradle">
+<tab title="Gradle Kotlin DSL" group-key="kotlin">
 
 ```kotlin
 // build.gradle.kts
@@ -437,7 +438,7 @@ dokka {
 ```
 
 </tab>
-<tab title="Kotlin 파일" group-key="kotlin">
+<tab title="Kotlin 사용자 지정 플러그인" group-key="kotlin custom">
 
 ```kotlin
 // CustomPlugin.kt
@@ -547,7 +548,7 @@ Dokka 구성을 공유한 후에는 여러 모듈의 문서를 단일 출력으�
     }
     
     dependencies {
-        implementation("org.jetbrains.dokka:dokka-gradle-plugin:2.0.0")
+        implementation("org.jetbrains.dokka:dokka-gradle-plugin:%dokkaVersion%")
     }   
     ```
 
@@ -584,13 +585,13 @@ plugins {
 
 이미 컨벤션 플러그인을 가지고 있다면, [Gradle 문서](https://docs.gradle.org/current/userguide/custom_plugins.html#sec:convention_plugins)를 따라 전용 Dokka 컨벤션 플러그인을 생성하세요.
 
-그런 다음 [Dokka 컨벤션 플러그인 설정](#set-up-the-dokka-convention-plugin) 및 [모듈 전체에 적용](#apply-the-convention-plugin-to-your-modules)하는 단계를 따르세요.
+그런 다음 [Dokka 컨벤션 플러그인 설정](#set-up-the-dokka-convention-plugin) 및 [모듈 전체에 적용](#apply-the-convention-plugin-to-your-subprojects)하는 단계를 따르세요.
 
 ### 다중 모듈 프로젝트에서 문서 집계 업데이트
 
 Dokka는 여러 모듈(하위 프로젝트)의 문서를 단일 출력 또는 발행물로 집계할 수 있습니다.
 
-[설명된 바와 같이](#apply-the-convention-plugin-to-your-modules), 문서를 집계하기 전에 모든 문서화 가능한 하위 프로젝트에 Dokka 플러그인을 적용하세요.
+[설명된 바와 같이](#apply-the-convention-plugin-to-your-subprojects), 문서를 집계하기 전에 모든 문서화 가능한 하위 프로젝트에 Dokka 플러그인을 적용하세요.
 
 DGP v2의 집계는 태스크 대신 `dependencies {}` 블록을 사용하며, 모든 `build.gradle.kts` 파일에 추가할 수 있습니다.
 
@@ -649,7 +650,7 @@ plugins {
 }
 
 dokka {
-    // Overrides the module directory to match the V1 structure
+    // Overrides the subproject directory to match the V1 structure
     modulePath.set("maths")
 }
 ```
@@ -682,7 +683,7 @@ DGP v2 버전에서 `dokkaGenerate` 태스크 이름은 단일 및 다중 모듈
 
 > Javadoc 출력 형식은 [알파](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained) 버전입니다. 이를 사용할 때 버그를 발견하고 마이그레이션 문제가 발생할 수 있습니다. Javadoc을 입력으로 받아들이는 도구와의 성공적인 통합은 보장되지 않습니다. 자신의 책임 하에 사용하세요.
 >
-{style="note"}
+{style="warning"}
 
 DGP v2의 기본 출력 형식은 HTML입니다. 그러나 API 문서를 HTML, Javadoc 또는 두 가지 형식 모두로 동시에 생성하도록 선택할 수 있습니다.
 
@@ -691,10 +692,10 @@ DGP v2의 기본 출력 형식은 HTML입니다. 그러나 API 문서를 HTML, J
     ```kotlin
     plugins {
         // Generates HTML documentation
-        id("org.jetbrains.dokka") version "2.0.0"
+        id("org.jetbrains.dokka") version "%dokkaVersion%"
 
         // Generates Javadoc documentation
-        id("org.jetbrains.dokka-javadoc") version "2.0.0"
+        id("org.jetbrains.dokka-javadoc") version "%dokkaVersion%"
 
         // Keeping both plugin IDs generates both formats
     }
@@ -704,14 +705,16 @@ DGP v2의 기본 출력 형식은 HTML입니다. 그러나 API 문서를 HTML, J
 
 다음은 각 형식에 해당하는 플러그인 `id` 및 Gradle 태스크 목록입니다.
 
-|             | **HTML**                          | **Javadoc**                          | **모두**                              |
-|:------------|:----------------------------------|:-------------------------------------|:------------------------------------|
-| 플러그인 `id` | `id("org.jetbrains.dokka")`       | `id("org.jetbrains.dokka-javadoc")`  | HTML 및 Javadoc 플러그인 모두 사용     |
-| Gradle 태스크 | `./gradlew :dokkaGeneratePublicationHtml` | `./gradlew :dokkaGeneratePublicationJavadoc` | `./gradlew :dokkaGenerate`          |
+|             | **HTML**                       | **Javadoc**                         | **모두**                          |
+|:------------|:-------------------------------|:------------------------------------|:----------------------------------|
+| 플러그인 `id` | `id("org.jetbrains.dokka")`    | `id("org.jetbrains.dokka-javadoc")` | HTML 및 Javadoc 플러그인 모두 사용 |
+| Gradle 태스크 | `./gradlew :dokkaGeneratePublicationHtml` | `./gradlew :dokkaGeneratePublicationJavadoc` | `./gradlew :dokkaGenerate`        |
 
 > `dokkaGenerate` 태스크는 적용된 플러그인에 따라 사용 가능한 모든 형식으로 문서를 생성합니다. HTML 및 Javadoc 플러그인이 모두 적용된 경우, `dokkaGeneratePublicationHtml` 태스크를 실행하여 HTML만 생성하거나 `dokkaGeneratePublicationJavadoc` 태스크를 실행하여 Javadoc만 생성하도록 선택할 수 있습니다.
 >
 {style="tip"}
+
+IntelliJ IDEA를 사용 중인 경우, `dokkaGenerateHtml` Gradle 태스크를 볼 수 있습니다. 이 태스크는 `dokkaGeneratePublicationHtml`의 별칭일 뿐입니다. 두 태스크 모두 정확히 동일한 작업을 수행합니다.
 
 ### 사용 중단 및 제거 사항 처리
 
@@ -739,68 +742,8 @@ DGP v2는 이제 Gradle 빌드 캐시와 구성 캐시를 지원하여 빌드 �
 *   빌드 캐시를 활성화하려면 [Gradle 빌드 캐시 문서](https://docs.gradle.org/current/userguide/build_cache.html#sec:build_cache_enable)의 지침을 따르세요.
 *   구성 캐시를 활성화하려면 [Gradle 구성 캐시 문서](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage:enable)의 지침을 따르세요.
 
-## 문제 해결
-
-대규모 프로젝트에서 Dokka는 문서를 생성하기 위해 상당한 양의 메모리를 소비할 수 있습니다. 이는 특히 대량의 데이터를 처리할 때 Gradle의 메모리 한도를 초과할 수 있습니다.
-
-Dokka 생성이 메모리 부족으로 실행되면 빌드가 실패하고 Gradle은 `java.lang.OutOfMemoryError: Metaspace`와 같은 예외를 throw할 수 있습니다.
-
-일부 제한 사항은 Gradle에서 비롯되지만, Dokka의 성능을 개선하기 위한 적극적인 노력이 진행 중입니다.
-
-메모리 문제가 발생하는 경우 다음 해결 방법을 시도해 보세요.
-
-*   [힙 공간 늘리기](#increase-heap-space)
-*   [Gradle 프로세스 내에서 Dokka 실행](#run-dokka-within-the-gradle-process)
-
-### 힙 공간 늘리기
-
-메모리 문제를 해결하는 한 가지 방법은 Dokka 생성기 프로세스에 대한 Java 힙 메모리 양을 늘리는 것입니다. `build.gradle.kts` 파일에서 다음 구성 옵션을 조정하세요.
-
-```kotlin
-    dokka {
-        // Dokka generates a new process managed by Gradle
-        dokkaGeneratorIsolation = ProcessIsolation {
-            // Configures heap size
-            maxHeapSize = "4g"
-        }
-    }
-```
-
-이 예시에서는 최대 힙 크기가 4GB(`"4g"`)로 설정됩니다. 빌드에 대한 최적의 설정을 찾기 위해 값을 조정하고 테스트하세요.
-
-Dokka가 Gradle 자체 메모리 사용량보다 훨씬 더 많은 힙 크기를 필요로 한다면, 예를 들어 상당한 수준으로 확장된 힙 크기가 필요하다면, [Dokka의 GitHub 저장소에 이슈를 생성](https://kotl.in/dokka-issues)해 주세요.
-
-> 이 구성을 각 하위 프로젝트에 적용해야 합니다. 모든 하위 프로젝트에 적용되는 컨벤션 플러그인에서 Dokka를 구성하는 것이 좋습니다.
->
-{style="note"}
-
-### Gradle 프로세스 내에서 Dokka 실행
-
-Gradle 빌드와 Dokka 생성이 모두 많은 메모리를 필요로 할 때, 이들은 별도의 프로세스로 실행되어 단일 머신에서 상당한 메모리를 소비할 수 있습니다.
-
-메모리 사용량을 최적화하려면 Dokka를 별도의 프로세스로 실행하는 대신 동일한 Gradle 프로세스 내에서 실행할 수 있습니다. 이렇게 하면 각 프로세스에 대해 별도로 메모리를 할당하는 대신 Gradle에 대한 메모리를 한 번만 구성할 수 있습니다.
-
-Dokka를 동일한 Gradle 프로세스 내에서 실행하려면 `build.gradle.kts` 파일에서 다음 구성 옵션을 조정하세요.
-
-```kotlin
-    dokka {
-        // Runs Dokka in the current Gradle process
-        dokkaGeneratorIsolation = ClassLoaderIsolation()
-    }
-```
-
-[힙 공간 늘리기](#increase-heap-space)와 마찬가지로, 이 구성이 프로젝트에 잘 작동하는지 확인하기 위해 테스트하세요.
-
-Gradle의 JVM 메모리 구성에 대한 자세한 내용은 [Gradle 문서](https://docs.gradle.org/current/userguide/config_gradle.html#sec:configuring_jvm_memory)를 참조하세요.
-
-> Gradle의 Java 옵션을 변경하면 새로운 Gradle 데몬이 시작되며, 이 데몬은 오랫동안 활성 상태를 유지할 수 있습니다. 다른 Gradle 프로세스를 [수동으로 중지](https://docs.gradle.org/current/userguide/gradle_daemon.html#sec:stopping_an_existing_daemon)할 수 있습니다.
->
-> 또한 `ClassLoaderIsolation()` 구성과 관련된 Gradle 이슈가 [메모리 누수를 유발](https://github.com/gradle/gradle/issues/18313)할 수 있습니다.
->
-{style="note"}
-
 ## 다음 단계
 
 *   [더 많은 DGP v2 프로젝트 예시 살펴보기](https://github.com/Kotlin/dokka/tree/master/examples/gradle-v2).
 *   [Dokka 시작하기](dokka-get-started.md).
-*   [Dokka 플러그인에 대해 더 알아보기](dokka-plugins.md).`
+*   [Dokka 플러그인에 대해 더 알아보기](dokka-plugins.md).

@@ -53,7 +53,7 @@ Google Cloud Platform 提供一系列關於將 Kotlin 應用程式部署到 GCP 
 
 [Chess.com](https://www.chess.com/) 是一個致力於西洋棋及其全球數百萬愛好者的網站。Chess.com 使用 Ktor 來實現多個 HTTP 客戶端的無縫配置。
 
-[Adobe](https://blog.developer.adobe.com/streamlining-server-side-app-development-with-kotlin-be8cf9d8b61a) 的工程師使用 Kotlin 進行伺服器端應用程式開發，並在 Adobe Experience Platform 中使用 Ktor 進行原型開發。該平台使組織能夠在應用資料科學和機器學習之前集中並標準化客戶資料。
+[Adobe](https://medium.com/adobetech/streamlining-server-side-app-development-with-kotlin-be8cf9d8b61a) 的工程師使用 Kotlin 進行伺服器端應用程式開發，並在 Adobe Experience Platform 中使用 Ktor 進行原型開發。該平台使組織能夠在應用資料科學和機器學習之前集中並標準化客戶資料。
 
 ## 後續步驟
 

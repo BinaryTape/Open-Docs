@@ -1,4 +1,4 @@
-`[//]: # (title: Kotlin 2.2.0 有哪些新功能)`
+[//]: # (title: Kotlin 2.2.0 有哪些新功能)
 
 _[發佈日期：2025 年 6 月 23 日](releases.md#release-details)_
 
@@ -7,6 +7,381 @@ Kotlin 2.2.0 版本已發佈！以下是主要亮點：
 *   **語言**：預覽版中新的語言功能，包括[上下文參數](#preview-of-context-parameters)。
     一些[以前的實驗性功能現已穩定](#stable-features-guard-conditions-non-local-break-and-continue-and-multi-dollar-interpolation)，
     例如守衛條件、非局部 `break` 和 `continue`，以及字串字面值中的多美元字串插值。
+*   **Kotlin 編譯器**：[統一管理編譯器警告](#kotlin-compiler-unified-management-of-compiler-warnings)。
+*   **Kotlin/JVM**：[介面函數預設方法生成變更](#changes-to-default-method-generation-for-interface-functions)。
+*   **Kotlin/Native**：[LLVM 19 以及用於追蹤和調整記憶體消耗的新功能](#kotlin-native)。
+*   **Kotlin/Wasm**：[Wasm 目標的構建基礎設施從 JavaScript 目標中分離](#build-infrastructure-for-wasm-target-separated-from-javascript-target)，以及[按專案配置 Binaryen](#per-project-binaryen-configuration) 的能力。
+*   **Kotlin/JS**：[@JsPlainObject 介面中 `copy()` 函數的修復](#fix-for-copy-in-jsplainobject-interfaces)。
+*   **Gradle**：[Kotlin Gradle 插件中的二進位相容性驗證](#binary-compatibility-validation-included-in-kotlin-gradle-plugin)。
+*   **標準函式庫**：[穩定的 Base64 和 HexFormat API](#stable-base64-encoding-and-decoding)。
+*   **文件**：我們的[文件問卷調查已開放](https://surveys.jetbrains.com/s3/Kotlin-Docs-2025)，並且[Kotlin 文件已進行顯著改進](#documentation-updates)。
+
+您也可以觀看這段 Kotlin 語言演進團隊討論新功能並回答問題的影片：
+
+<video src="https://www.youtube.com/watch?v=jne3923lWtw" title="What's new in Kotlin 2.2.0"/>
+
+## IDE 支援
+
+支援 2.2.0 的 Kotlin 插件已捆綁在最新版本的 IntelliJ IDEA 和 Android Studio 中。
+您無需更新 IDE 中的 Kotlin 插件。
+您只需[在構建腳本中將 Kotlin 版本](configure-build-for-eap.md#adjust-the-kotlin-version)變更為 2.2.0。
+
+有關詳細資訊，請參閱[更新到新版本](releases.md#update-to-a-new-kotlin-version)。
+
+## 語言
+
+此版本將[守衛條件](#stable-features-guard-conditions-non-local-break-and-continue-and-multi-dollar-interpolation)、
+非局部 `break` 和 `continue`，
+以及多美元字串插值提升為[穩定版](components-stability.md#stability-levels-explained)。
+此外，一些功能，
+例如[上下文參數](#preview-of-context-parameters)和[上下文敏感解析](#preview-of-context-sensitive-resolution)，
+以預覽版形式引入。
+
+### 上下文參數預覽
+<primary-label ref="experimental-general"/>
+
+上下文參數允許函數和屬性宣告在周圍上下文中隱式可用的依賴項。
+
+有了上下文參數，您無需手動傳遞在多個函數呼叫中共享且很少變更的值，例如服務或依賴項。
+
+上下文參數取代了舊版實驗性功能「上下文接收器」。要從上下文接收器遷移到上下文參數，您可以使用 IntelliJ IDEA 中的輔助支援，如[部落格文章](https://blog.jetbrains.com/kotlin/2025/04/update-on-context-parameters/)中所述。
+
+主要區別在於上下文參數並未作為接收器引入函數主體。因此，您需要使用上下文參數的名稱來存取其成員，這與上下文接收器不同，後者上下文是隱式可用的。
+
+Kotlin 中的上下文參數代表了透過簡化依賴注入、改進 DSL 設計和範圍操作來管理依賴項的重大改進。有關更多資訊，請參閱此功能的 [KEEP](https://github.com/Kotlin/KEEP/blob/context-parameters/proposals/context-parameters.md)。
+
+#### 如何宣告上下文參數
+
+您可以使用 `context` 關鍵字宣告屬性和函數的上下文參數，後跟一個參數列表，每個參數的形式為 `name: Type`。以下是一個依賴於 `UserService` 介面的範例：
+
+```kotlin
+// UserService defines the dependency required in the context 
+interface UserService {
+    fun log(message: String)
+    fun findUserById(id: Int): String
+}
+
+// Declares a function with a context parameter
+context(users: UserService)
+fun outputMessage(message: String) {
+    // Uses log from the context
+    users.log("Log: $message")
+}
+
+// Declares a property with a context parameter
+context(users: UserService)
+val firstUser: String
+    // Uses findUserById from the context    
+    get() = users.findUserById(1)
+```
+
+您可以使用 `_` 作為上下文參數名稱。在這種情況下，參數的值可用於解析，但在區塊內部無法透過名稱存取：
+
+```kotlin
+// Uses "_" as context parameter name
+context(_: UserService)
+fun logWelcome() {
+    // Finds the appropriate log function from UserService
+    outputMessage("Welcome!")
+}
+```
+
+#### 如何啟用上下文參數
+
+要在專案中啟用上下文參數，請在命令列中使用以下編譯器選項：
+
+```Bash
+-Xcontext-parameters
+```
+
+或者將其新增到 Gradle 構建檔案的 `compilerOptions {}` 區塊中：
+
+```kotlin
+// build.gradle.kts
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xcontext-parameters")
+    }
+}
+```
+
+> 同時指定 `-Xcontext-receivers` 和 `-Xcontext-parameters` 編譯器選項會導致錯誤。
+>
+{style="warning"}
+
+#### 留下回饋
+
+此功能計畫在未來的 Kotlin 版本中穩定和改進。
+我們感謝您在我們的問題追蹤器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-10468/Context-Parameters-expanding-extension-receivers-to-work-with-scopes) 上提供回饋。
+
+### 上下文敏感解析預覽
+<primary-label ref="experimental-general"/>
+
+Kotlin 2.2.0 引入了上下文敏感解析的預覽實作。
+
+您可以在這段影片中找到此功能的概述：
+
+<video src="https://www.youtube.com/v/aF8RYQrJI8Q" title="Context-sensitive resolution in Kotlin 2.2.0"/>
+
+以前，即使可以從上下文推斷型別，您也必須寫出列舉項目或密封類別成員的完整名稱。
+例如：
+
+```kotlin
+enum class Problem {
+    CONNECTION, AUTHENTICATION, DATABASE, UNKNOWN
+}
+
+fun message(problem: Problem): String = when (problem) {
+    Problem.CONNECTION -> "connection"
+    Problem.AUTHENTICATION -> "authentication"
+    Problem.DATABASE -> "database"
+    Problem.UNKNOWN -> "unknown"
+}
+```
+
+現在，透過上下文敏感解析，您可以在已知預期型別的上下文中省略型別名稱：
+
+```kotlin
+enum class Problem {
+    CONNECTION, AUTHENTICATION, DATABASE, UNKNOWN
+}
+
+// Resolves enum entries based on the known type of problem
+fun message(problem: Problem): String = when (problem) {
+    CONNECTION -> "connection"
+    AUTHENTICATION -> "authentication"
+    DATABASE -> "database"
+    UNKNOWN -> "unknown"
+}
+```
+
+編譯器使用此上下文型別資訊來解析正確的成員。此資訊包括（但不限於）：
+
+*   `when` 表達式的主體
+*   顯式回傳型別
+*   宣告的變數型別
+*   型別檢查 (`is`) 和轉換 (`as`)
+*   密封類別層次結構的已知型別
+*   參數的宣告型別
+
+> 上下文敏感解析不適用於函數、帶有參數的屬性，或帶有接收器的擴充屬性。
+>
+{style="note"}
+
+要在專案中試用上下文敏感解析，請在命令列中使用以下編譯器選項：
+
+```bash
+-Xcontext-sensitive-resolution
+```
+
+或者將其新增到 Gradle 構建檔案的 `compilerOptions {}` 區塊中：
+
+```kotlin
+// build.gradle.kts
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xcontext-sensitive-resolution")
+    }
+}
+```
+
+我們計畫在未來的 Kotlin 版本中穩定和改進此功能，並感謝您在我們的
+問題追蹤器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-16768/Context-sensitive-resolution) 上提供回饋。
+
+### 註解使用站點目標功能的預覽
+<primary-label ref="experimental-general"/>
+
+Kotlin 2.2.0 引入了幾項功能，使註解使用站點目標 (use-site targets) 的使用更加方便。
+
+#### 屬性的 `@all` 後設目標
+<primary-label ref="experimental-general"/>
+
+Kotlin 允許您將註解附加到宣告的特定部分，稱為[使用站點目標](annotations.md#annotation-use-site-targets)。
+然而，單獨註解每個目標既複雜又容易出錯：
+
+```kotlin
+data class User(
+    val username: String,
+
+    @param:Email      // Constructor parameter
+    @field:Email      // Backing field
+    @get:Email        // Getter method
+    @property:Email   // Kotlin property reference
+    val email: String,
+) {
+    @field:Email
+    @get:Email
+    @property:Email
+    val secondaryEmail: String? = null
+}
+```
+
+為了簡化這一點，Kotlin 為屬性引入了新的 `@all` 後設目標。
+此功能指示編譯器將註解應用於屬性的所有相關部分。當您使用它時，
+`@all` 會嘗試將註解應用於：
+
+*   **`param`**：建構子參數，如果在主要建構子中宣告。
+
+*   **`property`**：Kotlin 屬性本身。
+
+*   **`field`**：後端欄位，如果存在。
+
+*   **`get`**：getter 方法。
+
+*   **`setparam`**：setter 方法的參數，如果屬性定義為 `var`。
+
+*   **`RECORD_COMPONENT`**：如果類別是 `@JvmRecord`，則註解會應用於 [Java 記錄組件](#improved-support-for-annotating-jvm-records)。此行為模仿 Java 處理記錄組件上註解的方式。
+
+編譯器只會將註解應用於給定屬性的目標。
+
+在下面的範例中，`@Email` 註解應用於每個屬性的所有相關目標：
+
+```kotlin
+data class User(
+    val username: String,
+
+    // Applies @Email to param, property, field,
+    // get, and setparam (if var)
+    @all:Email val email: String,
+) {
+    // Applies @Email to property, field, and get
+    // (no param since it's not in the constructor)
+    @all:Email val secondaryEmail: String? = null
+}
+```
+
+您可以將 `@all` 後設目標與任何屬性一起使用，無論是在主要建構子內部還是外部。但是，
+您不能將 `@all` 後設目標與[多個註解](https://kotlinlang.org/spec/syntax-and-grammar.html#grammar-rule-annotation)一起使用。
+
+這項新功能簡化了語法、確保了一致性，並改進了與 Java 記錄的互通性。
+
+要在您的專案中啟用 `@all` 後設目標，請在命令列中使用以下編譯器選項：
+
+```Bash
+-Xannotation-target-all
+```
+
+或者將其新增到 Gradle 構建檔案的 `compilerOptions {}` 區塊中：
+
+```kotlin
+// build.gradle.kts
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xannotation-target-all")
+    }
+}
+```
+
+此功能處於預覽階段。請向我們的問題追蹤器 [YouTrack](https://kotl.in/issue) 報告任何問題。
+有關 `@all` 後設目標的更多資訊，請閱讀此 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-target-in-properties.md) 提案。
+
+#### 註解使用站點目標的新預設規則
+<primary-label ref="experimental-general"/>
+
+Kotlin 2.2.0 引入了將註解傳播到參數、欄位和屬性的新預設規則。
+以前，註解預設只應用於 `param`、`property` 或 `field` 中的一個，現在預設值更符合註解的預期。
+
+如果有多個適用目標，則會按以下方式選擇一個或多個：
+
+*   如果建構子參數目標 (`param`) 適用，則使用它。
+*   如果屬性目標 (`property`) 適用，則使用它。
+*   如果欄位目標 (`field`) 適用而 `property` 不適用，則使用 `field`。
+
+如果有多個目標，並且 `param`、`property` 或 `field` 都不適用，則註解會導致錯誤。
+
+要啟用此功能，請將其新增到 Gradle 構建檔案的 `compilerOptions {}` 區塊中：
+
+```kotlin
+// build.gradle.kts
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xannotation-default-target=param-property")
+    }
+}
+```
+
+或者使用編譯器的命令列參數：
+
+```Bash
+-Xannotation-default-target=param-property
+```
+
+如果您想使用舊行為，您可以：
+
+*   在特定情況下，明確定義所需的目標，例如，使用 `@param:Annotation` 而不是 `@Annotation`。
+*   對於整個專案，在您的 Gradle 構建檔案中使用此旗標：
+
+    ```kotlin
+    // build.gradle.kts
+    kotlin {
+        compilerOptions {
+            freeCompilerArgs.add("-Xannotation-default-target=first-only")
+        }
+    }
+    ```
+
+此功能處於預覽階段。請向我們的問題追蹤器 [YouTrack](https://kotl.in/issue) 報告任何問題。
+有關註解使用站點目標新預設規則的更多資訊，請閱讀此 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-target-in-properties.md) 提案。
+
+### 支援巢狀型別別名
+<primary-label ref="beta"/>
+
+Kotlin 2.2.0 新增了在其他宣告內部定義型別別名的支援。
+
+您可以在這段影片中找到此功能的概述：
+
+<video src="https://www.youtube.com/v/1W6d45IOwWk" title="Nested type aliases in Kotlin 2.2.0"/>
+
+以前，您只能在 Kotlin 檔案的頂層宣告[型別別名](type-aliases.md)。這意味著即使是內部或特定領域的型別別名
+也必須存在於使用它們的類別之外。
+
+從 2.2.0 開始，您可以在其他宣告內部定義型別別名，只要它們
+不捕獲其外部類別的型別參數：
+
+```kotlin
+class Dijkstra {
+    typealias VisitedNodes = Set<Node>
+
+    private fun step(visited: VisitedNodes, ...) = ...
+}
+```
+
+巢狀型別別名有一些額外的限制，例如無法提及型別參數。請查閱[文件](type-aliases.md#nested-type-aliases)以了解所有規則。
+
+巢狀型別別名透過改進封裝、減少套件級別的混亂並簡化內部實作，從而實現更清晰、更易於維護的程式碼。
+
+#### 如何啟用巢狀型別別名
+
+要在您的專案中啟用巢狀型別別名，請在命令列中使用以下編譯器選項：
+
+```bash
+-Xnested-type-aliases
+```
+
+或者將其新增到 Gradle 構建檔案的 `compilerOptions {}` 區塊中：
+
+```kotlin
+// build.gradle.kts
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xnested-type-aliases")
+    }
+}
+```
+
+#### 分享您的回饋
+
+巢狀型別別名目前處於 [Beta](components-stability.md#stability-levels-explained) 階段。請向我們的問題追蹤器 [YouTrack](https://kotl.in/issue) 報告
+任何問題。有關此功能的更多資訊，請閱讀此 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/nested-typealias.md) 提案。
+
+### 穩定功能：守衛條件、非局部 `break` 和 `continue`，以及多美元字串插值
+
+在 Kotlin 2.1.0 中，預覽版引入了幾項新的語言功能。
+我們很高興地宣布，以下語言功能在此版本中現已[穩定](components-stability.class#stability-levels-explained)：
+
+*   [帶主體的 `when` 表達式中的守衛條件](control-flow.md#guard-conditions-in-when-expressions)
+*   [非局部 `break` 和 `continue`](inline-functions.md#break-and-continue)
+*   [多美元字串插值：改進字串字面值中的處理](strings.md#multi-dollar-string-interpolation)
 
 [查看 Kotlin 語言設計功能和提案的完整列表](kotlin-language-features-and-proposals.md)。
 
@@ -457,7 +832,7 @@ typealias SomeClass = Any
 
 ### 支援在多平台 `expect` 宣告中使用 `@JsExport`
 
-當在 Kotlin 多平台專案中使用 [`expect/actual` 機制](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)時，
+當在 Kotlin 多平台專案中使用 [`expect/actual` 機制](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)時，
 無法將 `@JsExport` 註解用於常見程式碼中的 `expect` 宣告。
 
 從此版本開始，您可以直接將 `@JsExport` 應用於 `expect` 宣告：
@@ -886,11 +1261,8 @@ composeCompiler {
 
 *   從 Kotlin 2.2.0 開始，編譯器[不再支援 `-language-version=1.6` 或 `-language-version=1.7`](compatibility-guide-22.md#drop-support-in-language-version-for-1-6-and-1-7)。
     1.8 之前的語言功能集不受支援，但語言本身仍完全向後相容於 Kotlin 1.0。
-
-*   支援 [](ant.md) 構建系統的功能已棄用。Kotlin 對 Ant 的支援長期以來一直沒有積極開發，並且由於其相對較小的用戶群，沒有進一步維護的計劃。
-
-    我們計劃在 2.3.0 中移除 Ant 支援。然而，Kotlin 仍然歡迎[貢獻](contribute.md)。如果您有興趣成為 Ant 的外部維護者，請在 [此 YouTrack 問題](https://youtrack.jetbrains.com/issue/KT-75875/)中留下評論並設定為「jetbrains-team」可見性。
-
+*   支援 Ant 構建系統的功能已棄用。Kotlin 對 Ant 的支援長期以來一直沒有積極開發，並且由於其相對較小的用戶群，沒有進一步維護的計劃。
+    我們計劃在 2.3.0 中移除 Ant 支援。
 *   Kotlin 2.2.0 [將 Gradle 中的 `kotlinOptions{}` 區塊的棄用級別提升為錯誤](compatibility-guide-22.md#deprecate-kotlinoptions-dsl)。
     請改用 `compilerOptions{}` 區塊。有關更新構建腳本的指南，請參閱[從 `kotlinOptions{}` 遷移到 `compilerOptions{}`](gradle-compiler-options.md#migrate-from-kotlinoptions-to-compileroptions)。
 *   Kotlin 腳本仍然是 Kotlin 生態系統的重要組成部分，但我們專注於特定用例，例如
@@ -916,7 +1288,7 @@ composeCompiler {
 *   已棄用的 `kotlin-android-extensions` 插件[在 Kotlin 2.2.0 中已移除](compatibility-guide-22.md#deprecate-kotlin-android-extensions-plugin)。
     請改用 `kotlin-parcelize` 插件實現 `Parcelable` 實作生成器，並改用 Android Jetpack 的[視圖綁定](https://developer.android.com/topic/libraries/view-binding)來實現合成視圖。
 *   實驗性 `kotlinArtifacts` API[在 Kotlin 2.2.0 中已棄用](compatibility-guide-22.md#deprecate-kotlinartifacts-api)。
-    請使用 Kotlin Gradle 插件中提供的當前 DSL 來[構建最終的原生二進制檔](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-build-native-binaries.html)。如果不足以進行遷移，請在 [此 YouTrack 問題](https://youtrack.jetbrains.com/issue/KT-74953) 中留言。
+    請使用 Kotlin Gradle 插件中提供的當前 DSL 來[構建最終的原生二進制檔](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)。如果不足以進行遷移，請在 [此 YouTrack 問題](https://youtrack.jetbrains.com/issue/KT-74953) 中留言。
 *   `KotlinCompilation.source` 在 Kotlin 1.9.0 中已棄用，現在已[從 Kotlin Gradle 插件中移除](compatibility-guide-22.md#deprecate-kotlincompilation-source-api)。
 *   實驗性共同化模式的參數[在 Kotlin 2.2.0 中已棄用](compatibility-guide-22.md#deprecate-commonization-parameters)。
     清除共同化快取以刪除無效的編譯構件。
@@ -927,9 +1299,9 @@ composeCompiler {
 
 ## 文件更新
 
-此版本帶來了顯著的文件變更，包括將 Kotlin 多平台文件遷移到 [KMP 入口網站](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)。
+此版本帶來了顯著的文件變更，包括將 Kotlin 多平台文件遷移到 [KMP 入口網站](https://kotlinlang.org/docs/multiplatform/get-started.html)。
 
-此外，我們發布了一份文件問卷調查，創建了新頁面和教學課程，並改造了現有頁面。
+此外，我們創建了新頁面和教學課程，並改造了現有頁面。
 
 ### 新增和改造的教學課程
 
@@ -938,21 +1310,21 @@ composeCompiler {
 *   [](jvm-create-project-with-spring-boot.md) – 學習如何使用 IntelliJ IDEA 的「**新專案**」精靈創建一個使用 Gradle 的 Spring Boot 專案。
 *   [映射 Kotlin 和 C 教學系列](mapping-primitive-data-types-from-c.md) – 學習如何在 Kotlin 和 C 之間映射不同型別和建構。
 *   [使用 C 互通和 libcurl 創建應用程式](native-app-with-c-and-libcurl.md) – 創建一個簡單的 HTTP 用戶端，可以使用 libcurl C 函式庫 natively 執行。
-*   [創建您的 Kotlin 多平台函式庫](https://www.jetbrains.com/help/kotlin-multiplatform-dev/create-kotlin-multiplatform-library.html) – 學習如何使用 IntelliJ IDEA 創建和發布多平台函式庫。
+*   [創建您的 Kotlin 多平台函式庫](https://kotlinlang.org/docs/multiplatform/create-kotlin-multiplatform-library.html) – 學習如何使用 IntelliJ IDEA 創建和發布多平台函式庫。
 *   [使用 Ktor 和 Kotlin 多平台構建全端應用程式](https://ktor.io/docs/full-stack-development-with-kotlin-multiplatform.html) – 此教學課程現在使用 IntelliJ IDEA 而不是 Fleet，以及 Material 3 和最新版本的 Ktor 和 Kotlin。
-*   [在您的 Compose 多平台應用程式中管理本地資源環境](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-resource-environment.html) – 學習如何管理應用程式的資源環境，例如應用程式內主題和語言。
+*   [在您的 Compose 多平台應用程式中管理本地資源環境](https://kotlinlang.org/docs/multiplatform/compose-resource-environment.html) – 學習如何管理應用程式的資源環境，例如應用程式內主題和語言。
 
 ### 新增和改造的頁面
 
 *   [Kotlin 實現 AI 概覽](kotlin-ai-apps-development-overview.md) – 探索 Kotlin 構建 AI 驅動應用程式的能力。
 *   [Dokka 遷移指南](https://kotlinlang.org/docs/dokka-migration.html) – 學習如何遷移到 Dokka Gradle 插件的 v2。
 *   [](metadata-jvm.md) – 探索有關讀取、修改和生成針對 JVM 編譯的 Kotlin 類別中繼資料的指南。
-*   [CocoaPods 整合](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html) – 學習如何設定環境、添加 Pod 依賴項，或透過教學課程和範例專案將 Kotlin 專案用作 CocoaPod 依賴項。
+*   [CocoaPods 整合](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html) – 學習如何設定環境、添加 Pod 依賴項，或透過教學課程和範例專案將 Kotlin 專案用作 CocoaPod 依賴項。
 *   Compose 多平台的新頁面以支援 iOS 穩定版本：
-    *   特別是[導覽](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation.html)和[深層連結](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation-deep-links.html)。
-    *   [在 Compose 中實現佈局](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-layout.html)。
-    *   [本地化字串](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-localize-strings.html)和其他國際化頁面，例如對 RTL 語言的支援。
-*   [Compose 熱重載](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-hot-reload.html) – 學習如何將 Compose 熱重載與您的桌面目標一起使用，以及如何將其添加到現有專案中。
+    *   特別是[導覽](https://kotlinlang.org/docs/multiplatform/compose-navigation.html)和[深層連結](https://kotlinlang.org/docs/multiplatform/compose-navigation-deep-links.html)。
+    *   [在 Compose 中實現佈局](https://kotlinlang.org/docs/multiplatform/compose-layout.html)。
+    *   [本地化字串](https://kotlinlang.org/docs/multiplatform/compose-localize-strings.html)和其他國際化頁面，例如對 RTL 語言的支援。
+*   [Compose 熱重載](https://kotlinlang.org/docs/multiplatform/compose-hot-reload.html) – 學習如何將 Compose 熱重載與您的桌面目標一起使用，以及如何將其添加到現有專案中。
 *   [Exposed 遷移](https://www.jetbrains.com/help/exposed/migrations.html) – 了解 Exposed 提供的用於管理資料庫模式變更的工具。
 
 ## 如何更新到 Kotlin 2.2.0

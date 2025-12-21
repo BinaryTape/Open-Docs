@@ -9,8 +9,7 @@ _反射_ 是一組語言和函式庫功能，允許您在執行時檢查程式�
 
 ## JVM 依賴
 
-在 JVM 平台，Kotlin 編譯器發行版中包含使用反射功能所需的執行時組件，作為一個獨立的成品 `kotlin-reflect.jar`。
-這樣做的目的是為了減少不使用反射功能的應用程式所需的執行時函式庫大小。
+在 JVM 平台，Kotlin 編譯器發行版中包含使用反射功能所需的執行時組件，作為一個獨立的成品 `kotlin-reflect.jar`。這樣做的目的是為了減少不使用反射功能的應用程式所需的執行時函式庫大小。
 
 要在 Gradle 或 Maven 專案中使用反射，請添加對 `kotlin-reflect` 的依賴：
 
@@ -49,7 +48,7 @@ _反射_ 是一組語言和函式庫功能，允許您在執行時檢查程式�
     ```
 
 如果您不使用 Gradle 或 Maven，請確保您的專案類別路徑中包含 `kotlin-reflect.jar`。
-在其他支援的情況（使用命令列編譯器或 Ant 的 IntelliJ IDEA 專案）下，它會被預設添加。在命令列編譯器和 Ant 中，您可以使用 `-no-reflect` 編譯器選項將 `kotlin-reflect.jar` 從類別路徑中排除。
+在其他支援的情況（使用命令列編譯器的 IntelliJ IDEA 專案）下，它會被預設添加。在命令列編譯器中，您可以使用 `-no-reflect` 編譯器選項將 `kotlin-reflect.jar` 從類別路徑中排除。
 
 ## 類別引用
 
@@ -132,7 +131,7 @@ val predicate: (String) -> Boolean = ::isOdd   // refers to isOdd(x: String)
 
 如果您需要使用類別成員或擴充函數，它需要被限定：`String::toCharArray`。
 
-即使您使用對擴充函數的引用來初始化變數，推斷出的函數類型也不會有接收者，但它會有一個額外的參數來接收接收者物件。要獲得帶有接收者的函數類型，請明確指定類型：
+即使您使用對擴充函數的引用來初始化變數，推斷出的函數類型也不會有接收者，但它會有一個額外參數來接收接收者物件。要獲得帶有接收者的函數類型，請明確指定類型：
 
 ```kotlin
 val isEmptyStringList: List<String>.() -> Boolean = List<String>::isEmpty

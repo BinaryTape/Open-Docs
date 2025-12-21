@@ -29,7 +29,7 @@ aside: false
         <misc>
             <cards narrow="false">
                 <title>精選主題</title>
-                <a href="whatsnew2220.md" summary="Web 開發的重要變更，以及其他改進和錯誤修復">Kotlin 2.2.20 的新功能</a>
+                <a href="whatsnew23.md" summary="新的實驗性與穩定功能、效能改進和錯誤修正">Kotlin 2.3.0 的新功能</a>
                 <a href="releases.md" summary="最新的 Kotlin 版本及其更新說明">Kotlin 版本</a>
                 <a href="https://kotlinlang.org/api/latest/jvm/stdlib/" summary="Kotlin 日常工作的基礎要素：IO、檔案、執行緒、集合等等">標準函式庫 API 參考</a>
                 <a href="types-overview.md" summary="Kotlin 類型系統：數字、字串、陣列及其他內建類型">類型概覽</a>

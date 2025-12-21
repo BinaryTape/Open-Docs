@@ -47,18 +47,18 @@ import kotlinx.io.files.Path
 import kotlinx.io.files.SystemFileSystem
 -->
 ```kotlin
-// Defining a logger/file that will be used as a destination of trace messages 
+// 定義一個將用作追蹤訊息目的地的紀錄器/檔案 
 val logger = KotlinLogging.logger { }
 val outputPath = Path("/path/to/trace.log")
 
-// Creating an agent
+// 建立一個代理程式
 val agent = AIAgent(
     promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
     install(Tracing) {
 
-        // Configure message processors to handle trace events
+        // 配置訊息處理器以處理追蹤事件
         addMessageProcessor(TraceFeatureMessageLogWriter(logger))
         addMessageProcessor(TraceFeatureMessageFileWriter(
             outputPath,
@@ -104,12 +104,12 @@ val fileWriter = TraceFeatureMessageFileWriter(
 
 addMessageProcessor(fileWriter)
 
-// Filter for LLM-related events only
+// 僅篩選與 LLM 相關的事件
 fileWriter.setMessageFilter { message ->
     message is LLMCallStartingEvent || message is LLMCallCompletedEvent
 }
 
-// Filter for tool-related events only
+// 僅篩選與工具相關的事件
 fileWriter.setMessageFilter { message -> 
     message is ToolCallStartingEvent ||
            message is ToolCallCompletedEvent ||
@@ -117,7 +117,7 @@ fileWriter.setMessageFilter { message ->
            message is ToolCallFailedEvent
 }
 
-// Filter for node execution events only
+// 僅篩選節點執行事件
 fileWriter.setMessageFilter { message -> 
     message is NodeExecutionStartingEvent || message is NodeExecutionCompletedEvent
 }
@@ -152,10 +152,16 @@ Tracing
     ├── AgentStartingEvent
     ├── AgentCompletedEvent
     ├── AgentExecutionFailedEvent
-    ├── StrategyStartingEvent
+    ├── AgentClosingEvent
+    ├── GraphStrategyStartingEvent
+    ├── FunctionalStrategyStartingEvent
     ├── StrategyCompletedEvent
     ├── NodeExecutionStartingEvent
     ├── NodeExecutionCompletedEvent
+    ├── NodeExecutionFailedEvent
+    ├── SubgraphExecutionStartingEvent
+    ├── SubgraphExecutionCompletedEvent
+    ├── SubgraphExecutionFailedEvent
     ├── LLMCallStartingEvent
     ├── LLMCallCompletedEvent
     ├── LLMStreamingStartingEvent
@@ -182,12 +188,12 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.runBlocking
 -->
 ```kotlin
-// Create a logger
+// 建立一個紀錄器
 val logger = KotlinLogging.logger { }
 
 fun main() {
     runBlocking {
-       // Create an agent with tracing
+       // 建立一個帶有追蹤功能的代理程式
        val agent = AIAgent(
           promptExecutor = simpleOllamaAIExecutor(),
           llmModel = OllamaModels.Meta.LLAMA_3_2,
@@ -197,7 +203,7 @@ fun main() {
           }
        }
 
-       // Run the agent
+       // 執行代理程式
        agent.run("Hello, agent!")
     }
 }
@@ -242,7 +248,7 @@ fun main() {
 }
 -->
 ```kotlin
-// Creating an agent
+// 建立一個代理程式
 val agent = AIAgent(
     promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
@@ -256,9 +262,9 @@ val agent = AIAgent(
         addMessageProcessor(writer)
     }
 }
-// Run the agent
+// 執行代理程式
 agent.run(input)
-// Writer will be automatically closed when the block exits
+// 寫入器將在區塊退出時自動關閉
 ```
 <!--- KNIT example-tracing-04.kt -->
 
@@ -282,7 +288,7 @@ const val input = "What's the weather like in New York?"
 
 fun main() {
     runBlocking {
-        // Creating an agent
+        // 建立一個代理程式
         val agent = AIAgent(
             promptExecutor = simpleOllamaAIExecutor(),
             llmModel = OllamaModels.Meta.LLAMA_3_2,
@@ -306,7 +312,7 @@ install(Tracing) {
     )
     addMessageProcessor(fileWriter)
     
-    // Only trace LLM calls
+    // 僅追蹤 LLM 呼叫
     fileWriter.setMessageFilter { message ->
         message is LLMCallStartingEvent || message is LLMCallCompletedEvent
     }
@@ -339,7 +345,7 @@ fun main() {
 }
 -->
 ```kotlin
-// Creating an agent
+// 建立一個代理程式
 val agent = AIAgent(
     promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
@@ -353,9 +359,9 @@ val agent = AIAgent(
         addMessageProcessor(writer)
     }
 }
-// Run the agent
+// 執行代理程式
 agent.run(input)
-// Writer will be automatically closed when the block exits
+// 寫入器將在區塊退出時自動關閉
 ```
 <!--- KNIT example-tracing-06.kt -->
 
@@ -390,10 +396,10 @@ val clientJob = launch {
     FeatureMessageRemoteClient(connectionConfig = clientConfig, scope = this).use { client ->
         val collectEventsJob = launch {
             client.receivedMessages.consumeAsFlow().collect { event ->
-                // Collect events from server
+                // 從伺服器收集事件
                 agentEvents.add(event as DefinedFeatureEvent)
 
-                // Stop collecting events on agent finished
+                // 在代理程式完成時停止收集事件
                 if (event is AgentCompletedEvent) {
                     cancel()
                 }
@@ -446,7 +452,7 @@ const val input = "What's the weather like in New York?"
 
 fun main() {
     runBlocking {
-        // Creating an agent
+        // 建立一個代理程式
         val agent = AIAgent(
             promptExecutor = simpleOllamaAIExecutor(),
             llmModel = OllamaModels.Meta.LLAMA_3_2,

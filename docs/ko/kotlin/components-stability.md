@@ -1,8 +1,12 @@
 [//]: # (title: Kotlin 컴포넌트의 안정성)
 
-Kotlin 언어와 툴셋은 JVM, JS 및 Native 타겟용 컴파일러, 표준 라이브러리, 다양한 부속 도구 등 여러 컴포넌트로 나뉩니다. 이들 컴포넌트 중 다수는 공식적으로 **안정 (Stable)** 버전으로 출시되었습니다. 이는 [_편안한 업데이트_ 및 _언어 현대성 유지_ 원칙](kotlin-evolution-principles.md)에 따라 하위 호환성 방식으로 발전되었음을 의미합니다.
+Kotlin 언어와 툴셋은 JVM, JS 및 Native 타겟용 컴파일러, 표준 라이브러리, 다양한 부속 도구 등 여러 컴포넌트로 나뉩니다.
+이들 컴포넌트 중 다수는 공식적으로 **안정 (Stable)** 버전으로 출시되었습니다. 이는 [_편안한 업데이트_ 및 _언어 현대성 유지_ 원칙](kotlin-evolution-principles.md)에 따라 하위 호환성 방식으로 발전되었음을 의미합니다.
 
-_피드백 루프 (Feedback Loop)_ 원칙에 따라, 우리는 커뮤니티가 사용해 볼 수 있도록 많은 것을 조기에 출시합니다. 따라서 아직 **안정 (Stable)** 버전으로 출시되지 않은 컴포넌트가 많습니다. 그중 일부는 초기 단계에 있고, 일부는 더 성숙한 단계에 있습니다. 각 컴포넌트가 발전하는 속도와 사용자가 채택 시 감수해야 하는 위험 수준에 따라 **실험적 (Experimental)**, **알파 (Alpha)** 또는 **베타 (Beta)**로 표시합니다.
+_피드백 루프 (Feedback Loop)_ 원칙에 따라, 우리는 커뮤니티가 사용해 볼 수 있도록 많은 것을 조기에 출시합니다.
+따라서 아직 **안정 (Stable)** 버전으로 출시되지 않은 컴포넌트가 많습니다.
+그중 일부는 초기 단계에 있고, 일부는 더 성숙한 단계에 있습니다.
+각 컴포넌트가 발전하는 속도와 사용자가 채택 시 감수해야 하는 위험 수준에 따라 **실험적 (Experimental)**, **알파 (Alpha)** 또는 **베타 (Beta)**로 표시합니다.
 
 ## 안정성 수준 설명
 
@@ -30,7 +34,8 @@ _피드백 루프 (Feedback Loop)_ 원칙에 따라, 우리는 커뮤니티가 �
 
 ## Kotlin 컴포넌트용 GitHub 배지
 
-[Kotlin GitHub 조직](https://github.com/Kotlin)은 다양한 Kotlin 관련 프로젝트를 호스팅합니다. 이 중 일부는 전담으로 개발하고 있으며, 다른 일부는 사이드 프로젝트입니다.
+[Kotlin GitHub 조직](https://github.com/Kotlin)은 다양한 Kotlin 관련 프로젝트를 호스팅합니다.
+이 중 일부는 전담으로 개발하고 있으며, 다른 일부는 사이드 프로젝트입니다.
 
 각 Kotlin 프로젝트에는 안정성 및 지원 상태를 설명하는 두 가지 GitHub 배지가 있습니다:
 
@@ -42,7 +47,7 @@ _피드백 루프 (Feedback Loop)_ 원칙에 따라, 우리는 커뮤니티가 �
     *   ![Stable stability level](https://kotl.in/badges/stable.svg){type="joined"}은 **안정 (Stable)**을 나타냅니다.
 
 *   **지원 (Support)** 상태. 이는 프로젝트를 유지보수하고 사용자가 문제를 해결하도록 돕는 우리의 약속을 보여줍니다.
-    지원 수준은 모든 JetBrains 제품에 대해 통일되어 있습니다.  
+    지원 수준은 모든 JetBrains 제품에 대해 통일되어 있습니다.
     [자세한 내용은 JetBrains 오픈 소스 문서를 참조하십시오](https://github.com/JetBrains#jetbrains-on-github).
 
 ## 하위 컴포넌트의 안정성
@@ -79,7 +84,7 @@ _피드백 루프 (Feedback Loop)_ 원칙에 따라, 우리는 커뮤니티가 �
 | [No-arg](no-arg-plugin.md)                      | 안정 (Stable)    | 1.3.0              |          |
 | [SAM-with-receiver](sam-with-receiver-plugin.md) | 안정 (Stable)    | 1.3.0              |          |
 | [kapt](kapt.md)                                 | 안정 (Stable)    | 1.3.0              |          |
-| [Lombok](lombok.md)                             | 실험적 (Experimental) | 1.5.20             |          |
+| [Lombok](lombok.md)                             | 알파 (Alpha) | 2.3.0              |          |
 | [Power-assert](power-assert.md)                 | 실험적 (Experimental) | 2.0.0              |          |
 
 ### Kotlin 라이브러리
@@ -103,20 +108,20 @@ _피드백 루프 (Feedback Loop)_ 원칙에 따라, 우리는 커뮤니티가 �
 
 ### Kotlin/Native
 
-| **컴포넌트**                                            | **상태**      | **버전 출시 이후 상태** | **설명**                                                                             |
-|:--------------------------------------------------------|:--------------|:-------------------|:-------------------------------------------------------------------------------------|
-| Kotlin/Native 런타임 (Runtime)                             | 안정 (Stable) | 1.9.20             |                                                                                      |
-| C 및 Objective-C와의 Kotlin/Native 상호 운용 (interop)   | 베타 (Beta)  | 1.3.0              | [C 및 Objective-C 라이브러리 임포트의 안정성](native-c-interop-stability.md) |
-| klib 바이너리 (binaries)                                 | 안정 (Stable) | 1.9.20             | cinterop klib 제외, 아래 참조                                                    |
-| cinterop klib 바이너리 (binaries)                        | 베타 (Beta)  | 1.3.0              | [C 및 Objective-C 라이브러리 임포트의 안정성](native-c-interop-stability.md) |
-| CocoaPods 통합 (integration)                             | 안정 (Stable) | 1.9.20             |                                                                                      |
+| **컴포넌트**                                            | **상태**      | **버전 출시 이후 상태** | **설명**                                                                                                                  |
+|:--------------------------------------------------------|:--------------|:-------------------|:-------------------------------------------------------------------------------------------------------------------------------|
+| Kotlin/Native 런타임 (Runtime)                             | 안정 (Stable) | 1.9.20             |                                                                                                                               |
+| C 및 Objective-C와의 Kotlin/Native 상호 운용 (interop)   | 베타 (Beta)  | 1.3.0              | [C 및 Objective-C 라이브러리 임포트의 안정성](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) |
+| klib 바이너리 (binaries)                                 | 안정 (Stable) | 1.9.20             | cinterop klib 제외, 아래 참조                                                                                       |
+| cinterop klib 바이너리 (binaries)                        | 베타 (Beta)  | 1.3.0              | [C 및 Objective-C 라이브러리 임포트의 안정성](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) |
+| CocoaPods 통합 (integration)                             | 안정 (Stable) | 1.9.20             |                                                                                                                               |
 
 다양한 타겟에 대한 지원 수준에 대한 자세한 내용은 [](native-target-support.md)를 참조하십시오.
 
 ### 언어 도구
 
-| **컴포넌트**                                              | **상태**      | **버전 출시 이후 상태** | **설명**                                          |
-|:----------------------------------------------------------|:--------------|:-------------------|:--------------------------------------------------|
+| **컴포넌트**                                              | **상태**          | **버전 출시 이후 상태** | **설명**                                          |
+|:----------------------------------------------------------|:------------------|:-------------------|:--------------------------------------------------|
 | 스크립팅 구문 및 의미 (Scripting syntax and semantics)       | 알파 (Alpha) | 1.2.0              |                                                   |
 | 스크립팅 임베딩 및 확장 API (Scripting embedding and extension API) | 베타 (Beta)  | 1.5.0              |                                                   |
 | 스크립팅 IDE 지원 (Scripting IDE support)                   | 베타 (Beta)  |                    | IntelliJ IDEA 2023.1 이상 버전에서 사용 가능 |

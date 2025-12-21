@@ -1,7 +1,7 @@
 # エージェントの永続化
 
 エージェントの永続化は、KoogフレームワークにおけるAIエージェントにチェックポイント機能を提供する機能です。
-これにより、エージェントの実行中の特定の時点で状態を保存および復元することができ、以下のような機能が可能になります。
+これにより、実行中の特定の時点でエージェントの状態を保存および復元することができ、以下のような機能が可能になります。
 
 - 特定の時点からエージェントの実行を再開する
 - 以前の状態にロールバックする
@@ -167,7 +167,7 @@ suspend fun example(context: AIAgentContext) {
     // 現在の状態を含むチェックポイントを作成します
     val checkpoint = context.persistence().createCheckpoint(
         agentContext = context,
-        nodeId = "current-node-id",
+        nodePath = context.executionInfo.path(),
         lastInput = inputData,
         lastInputType = inputType,
         checkpointId = context.runId,
@@ -281,7 +281,7 @@ suspend fun example(context: AIAgentContext) {
         // 'this' はチェックポイント機能です
         createCheckpoint(
             agentContext = ctx,
-            nodeId = "current-node-id",
+            nodePath = ctx.executionInfo.path(),
             lastInput = inputData,
             lastInputType = inputType,
             checkpointId = ctx.runId,
@@ -385,7 +385,7 @@ val customMessageHistory = emptyList<User>()
 fun example(context: AIAgentContext) {
     context.persistence().setExecutionPoint(
         agentContext = context,
-        nodeId = "target-node-id",
+        nodePath = context.executionInfo.path(),
         messageHistory = customMessageHistory,
         input = customInput
     )

@@ -9,10 +9,11 @@
     </p>
 </tldr>
 
-> C 程式庫匯入功能處於 [Beta](native-c-interop-stability.md) 階段。所有由 cinterop 工具從 C 程式庫生成的 Kotlin 宣告都應該帶有 `@ExperimentalForeignApi` 註解。
+> C 程式庫匯入功能處於 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 階段。所有由 cinterop 工具從 C 程式庫生成的 Kotlin 宣告都應該帶有 `@ExperimentalForeignApi` 註解。
 >
 > 隨 Kotlin/Native 提供的原生平台程式庫 (例如 Foundation、UIKit 和 POSIX) 僅部分 API 需要選擇加入 (opt-in)。
-> {style="note"}
+>
+{style="note"}
 
 讓我們來探討哪些 C 結構和聯集宣告在 Kotlin 中是可見的，並檢視 Kotlin/Native 和 [多平台](gradle-configure-project.md#targeting-multiple-platforms) Gradle 建置中與 C 互通相關的進階使用案例。
 

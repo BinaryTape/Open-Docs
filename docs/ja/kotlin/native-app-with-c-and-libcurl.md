@@ -1,6 +1,6 @@
 [//]: # (title: C interopとlibcurlを使ってアプリを作成する – チュートリアル)
 
-> Cライブラリのインポートは[ベータ版](native-c-interop-stability.md)です。cinteropツールによってCライブラリから生成されるすべてのKotlin宣言には、`@ExperimentalForeignApi`アノテーションが付加されます。
+> Cライブラリのインポートは[ベータ版](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import)です。cinteropツールによってCライブラリから生成されるすべてのKotlin宣言には、`@ExperimentalForeignApi`アノテーションが付加されます。
 >
 > Kotlin/Nativeに同梱されているネイティブプラットフォームライブラリ（Foundation、UIKit、POSIXなど）は、一部のAPIのみオプトインが必要です。
 >

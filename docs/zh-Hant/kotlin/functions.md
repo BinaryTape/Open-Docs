@@ -13,7 +13,7 @@
 // 'x' 是 Int 型別的參數
 // 預期的返回值也是 Int 型別
 fun double(x: Int): Int {
-return 2 * x
+    return 2 * x
 }
 //sampleEnd
 
@@ -51,7 +51,7 @@ fun powerOf(number: Int, exponent: Int): Int { /*...*/ }
 在函數主體內部，接收到的引數是唯讀的（隱式宣告為 `val`）：
 
 ```kotlin
-fun powerOf (number: Int, exponent: Int): Int {
+fun powerOf(number: Int, exponent: Int): Int {
     number = 2 // 錯誤：'val' 無法被重新賦值。
 }
 ```
@@ -103,7 +103,7 @@ fun greeting(
     message: String,
 ) { /*...*/ }
 
-fun main () {
+fun main() {
     // 使用 0 作為 'userId' 的預設值
     greeting(message = "Hello!")
     
@@ -174,16 +174,16 @@ fun read(
 ```kotlin
 fun main() {
 //sampleStart
-fun read(
-    b: Int,
-    print: Unit? = println("沒有為 'print' 傳遞引數")
-) { println(b) }
-
-// 印出 "沒有為 'print' 傳遞引數"，然後印出 "1"
-read (1)
-// 只印出 "1"
-read (1, null)
-//sampleEnd
+    fun read(
+        b: Int,
+        print: Unit? = println("沒有為 'print' 傳遞引數")
+    ) { println(b) }
+    
+    // 印出 "沒有為 'print' 傳遞引數"，然後印出 "1"
+    read(1)
+    // 只印出 "1"
+    read(1, null)
+    //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="non-constant-default"}
@@ -193,24 +193,24 @@ read (1, null)
 
 ```kotlin
 fun main() {
-//sampleStart
-fun log(
-    level: Int = 0,
-    code:  Int = 1,
-    action: () -> Unit,
-) { println (level)
-    println (code)
-    action() }
-
-// 為 'level' 傳遞 1，並使用 'code' 的預設值 1
-log(1) { println("連線已建立") }
-
-// 使用兩個預設值，'level' 為 0，'code' 為 1
-log(action = { println("連線已建立") })
-
-// 等同於前一個呼叫，使用兩個預設值
-log { println("連線已建立") }
-//sampleEnd   
+    //sampleStart
+    fun log(
+        level: Int = 0,
+        code:  Int = 1,
+        action: () -> Unit,
+    ) { println (level)
+        println (code)
+        action() }
+    
+    // 為 'level' 傳遞 1，並使用 'code' 的預設值 1
+    log(1) { println("連線已建立") }
+    
+    // 使用兩個預設值，'level' 為 0，'code' 為 1
+    log(action = { println("連線已建立") })
+    
+    // 等同於前一個呼叫，使用兩個預設值
+    log { println("連線已建立") }
+    //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="lambda-outside-parentheses"}
@@ -330,25 +330,25 @@ fun double(x: Int) = x * 2
 ```kotlin
 // 函數型別參數 ('action') 的宣告仍然需要明確的返回型別
 fun printHello(name: String?, action: () -> Unit) {
-  if (name != null)
-    println("Hello $name")
-  else
-    println("Hi there!")
+    if (name != null)
+        println("Hello $name")
+    else
+        println("Hi there!")
 
-  action()
+    action()
 }
 
 fun main() {
-  printHello("Kodee") {
-    println("這會在問候語之後執行。")
-  }
-  // Hello Kodee
-  // 這會在問候語之後執行。
+    printHello("Kodee") {
+        println("這會在問候語之後執行。")
+    }
+    // Hello Kodee
+    // 這會在問候語之後執行。
 
-  printHello(null) {
-    println("未提供名稱，但動作仍然執行。")
-  }
-  // 未提供名稱，但動作仍然執行
+    printHello(null) {
+        println("未提供名稱，但動作仍然執行。")
+    }
+    // 未提供名稱，但動作仍然執行
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="return-unit-implicit"}
@@ -356,31 +356,38 @@ fun main() {
 這等同於以下冗長的宣告：
 
 ```kotlin
-//sample Start
+//sampleStart
 fun printHello(name: String?, action: () -> Unit): Unit {
-  if (name != null)
-    println("Hello $name")
-  else
-    println("Hi there!")
+    if (name != null)
+        println("Hello $name")
+    else
+        println("Hi there!")
 
-  action()
-  return Unit
+    action()
+    return Unit
 }
-// sampleEnd
+//sampleEnd
 fun main() {
-  printHello("Kodee") {
-    println("這會在問候語之後執行。")
-  }
-  // Hello Kodee
-  // 這會在問候語之後執行。
+    printHello("Kodee") {
+        println("這會在問候語之後執行。")
+    }
+    // Hello Kodee
+    // 這會在問候語之後執行。
 
-  printHello(null) {
-    println("未提供名稱，但動作仍然執行。")
-  }
-  // 未提供名稱，但動作仍然執行
+    printHello(null) {
+        println("未提供名稱，但動作仍然執行。")
+    }
+    // 未提供名稱，但動作仍然執行
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="return-unit-explicit"}
+
+如果函數的返回型別有明確指定，您可以在表達式主體內部使用 `return` 語句：
+
+```kotlin
+fun getDisplayNameOrDefault(userId: String?): String =
+    getDisplayName(userId ?: return "default")
+```
 
 ### 可變數量引數 (varargs)
 
@@ -401,18 +408,18 @@ fun <T> asList(vararg ts: T): List<T> {
 
 ```kotlin
 fun <T> asList(vararg ts: T): List<T> {
-  val result = ArrayList<T>()
-  for (t in ts) // ts 是一個 Array
-    result.add(t)
-  return result
+    val result = ArrayList<T>()
+    for (t in ts) // ts 是一個 Array
+        result.add(t)
+    return result
 }
 
 fun main() {
-  //sampleStart
-  val list = asList(1, 2, 3)
-  println(list)
-  // [1, 2, 3]
-  //sampleEnd
+    //sampleStart
+    val list = asList(1, 2, 3)
+    println(list)
+    // [1, 2, 3]
+    //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="varargs-aslist"}
@@ -427,23 +434,22 @@ fun main() {
 
 ```kotlin
 fun <T> asList(vararg ts: T): List<T> {
-  val result = ArrayList<T>()
-  for (t in ts)
-    result.add(t)
-  return result
+    val result = ArrayList<T>()
+    for (t in ts)
+        result.add(t)
+    return result
 }
 
 fun main() {
-  //sampleStart
-  val a = arrayOf(1, 2, 3)
+    //sampleStart
+    val a = arrayOf(1, 2, 3)
 
-  // 函數接收陣列 [-1, 0, 1, 2, 3, 4]
-  val list = asList(-1, 0, *a, 4)
+    // 函數接收陣列 [-1, 0, 1, 2, 3, 4]
+    val list = asList(-1, 0, *a, 4)
 
-  println(list)
-  // [-1, 0, 1, 2, 3, 4]
-
-  //sampleEnd
+    println(list)
+    // [-1, 0, 1, 2, 3, 4]
+    //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="varargs-aslist-with-array"}
@@ -472,7 +478,7 @@ infix fun Int.shl(x: Int): Int { /*...*/ }
 1 shl 2
 ```
 
-中綴函數必須符合以下要求：
+中 infix 函數必須符合以下要求：
 
 *   它們必須是類別的成員函數或[擴充函數](extensions.md)。
 *   它們必須只有一個參數。
@@ -491,36 +497,36 @@ infix fun Int.shl(x: Int): Int { /*...*/ }
 {style="note"}
 
 請注意，中綴函數總是需要指定接收者和參數。
-當您使用中綴標記法在當前接收者上呼叫方法時，請明確使用 `this`。
+當您使用中 infix 標記法在當前接收者上呼叫方法時，請明確使用 `this`。
 這是為了確保明確的解析所必需的。
 
 ```kotlin
 class MyStringCollection {
-  val items = mutableListOf<String>()
+    val items = mutableListOf<String>()
 
-  infix fun add(s: String) {
-    println("Adding: $s")
-    items += s
-  }
+    infix fun add(s: String) {
+        println("Adding: $s")
+        items += s
+    }
 
-  fun build() {
-      add("first")       // 正確：一般函數呼叫
-      this add "second"  // 正確：帶有明確接收者的中綴呼叫
-      // add "third"     // 編譯器錯誤：需要明確的接收者
-  }
+    fun build() {
+        add("first")      // 正確：一般函數呼叫
+        this add "second" // 正確：帶有明確接收者的中綴呼叫
+        // add "third"    // 編譯器錯誤：需要明確的接收者
+    }
 
-  fun printAll() = println("Items = $items")
+    fun printAll() = println("Items = $items")
 }
 
 fun main() {
-  val myStrings = MyStringCollection()
-  // 將 "first" 和 "second" 兩次添加到列表中
-  myStrings.build()
-  
-  myStrings.printAll()
-  // Adding: first
-  // Adding: second
-  // Items = [first, second]
+    val myStrings = MyStringCollection()
+    // 將 "first" 和 "second" 兩次添加到列表中
+    myStrings.build()
+      
+    myStrings.printAll()
+    // Adding: first
+    // Adding: second
+    // Items = [first, second]
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="infix-notation-example"}

@@ -21,7 +21,7 @@ Markdownファイル内では、モジュール全体および個々のパッケ
 ```text
 # Module kotlin-demo
 
-This content appears under your module name.
+This content appears under your subproject name.
 
 # Package org.jetbrains.kotlin.demo
 
@@ -51,21 +51,21 @@ Gradleを使用したサンプルプロジェクトについては、[Dokka Grad
 <tabs group="build-script">
 <tab title="Gradle" group-key="gradle">
 
-[ソースセット設定](dokka-gradle.md#source-set-configuration)で[includes](dokka-gradle.md#includes)オプションを使用します。
+[一般設定](dokka-gradle-configuration-options.md)で`includes`オプションを使用します。
 
 </tab>
 
 <tab title="Maven" group-key="mvn">
 
-[一般設定](dokka-maven.md#general-configuration)で[includes](dokka-maven.md#includes)オプションを使用します。
+[一般設定](dokka-maven.md#general-configuration)で`includes`オプションを使用します。
 
 </tab>
 
 <tab title="CLI" group-key="cli">
 
-コマンドライン設定を使用している場合は、[ソースセットオプション](dokka-cli.md#source-set-options)で[includes](dokka-cli.md#includes-cli)オプションを使用します。
+コマンドライン設定を使用している場合は、[ソースセットオプション](dokka-cli.md#source-set-options)で`includes`オプションを使用します。
 
-JSON設定を使用している場合は、[一般設定](dokka-cli.md#general-configuration)で[includes](dokka-cli.md#includes-json)オプションを使用します。
+JSON設定を使用している場合は、[一般設定](dokka-cli.md#general-configuration)で`includes`オプションを使用します。
 
 </tab>
 </tabs>

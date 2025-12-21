@@ -30,7 +30,7 @@ Kotlin 非常适合开发服务端应用程序。它允许您编写简洁且富�
 *   [Javalin](https://javalin.io) 是一个非常轻量级的 Kotlin 和 Java Web 框架，支持 WebSockets、HTTP2 和异步请求。
 
 *   持久化的可用选项包括直接 JDBC 访问、JPA，以及通过其 Java 驱动程序使用 NoSQL 数据库。对于 JPA，[kotlin-jpa 编译器插件](no-arg-plugin.md#jpa-support)可使 Kotlin 编译的类适应框架的要求。
-
+    
 > 您可以在 [https://kotlin.link/](https://kotlin.link/resources) 找到更多框架。
 >
 {style="note"}
@@ -53,7 +53,7 @@ Google Cloud Platform 提供了一系列将 Kotlin 应用程序部署到 GCP 的
 
 [Chess.com](https://www.chess.com/) 是一个致力于国际象棋和全球数百万热爱该游戏的玩家的网站。Chess.com 使用 Ktor 实现多个 HTTP 客户端的无缝配置。
 
-[Adobe](https://blog.developer.adobe.com/streamlining-server-side-app-development-with-kotlin-be8cf9d8b61a) 的工程师使用 Kotlin 进行服务端应用开发，并使用 Ktor 在 Adobe Experience Platform 中进行原型开发，该平台使组织能够在应用数据科学和机器学习之前集中和标准化客户数据。
+[Adobe](https://medium.com/adobetech/streamlining-server-side-app-development-with-kotlin-be8cf9d8b61a) 的工程师使用 Kotlin 进行服务端应用开发，并使用 Ktor 在 Adobe Experience Platform 中进行原型开发，该平台使组织能够在应用数据科学和机器学习之前集中和标准化客户数据。
 
 ## 后续步骤
 

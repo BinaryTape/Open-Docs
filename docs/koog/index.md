@@ -42,13 +42,19 @@ Koog 是一个开源的 JetBrains 框架，用于构建 AI 智能体，它采用
 
     创建并运行处理复杂工作流并具备自定义策略的智能体
 
+-   :material-state-machine:{ .lg .middle } [**规划智能体**](planner-agents.md)
+
+    ---
+
+    创建并运行迭代构建和执行计划的智能体
+
 </div>
 
 ## 核心功能
 
 <div class="grid cards" markdown>
 
--   :material-chat-processing-outline:{ .lg .middle } [**提示词**](prompt-api.md)
+-   :material-chat-processing-outline:{ .lg .middle } [**提示词**](prompts/index.md)
 
     ---
 

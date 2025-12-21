@@ -49,7 +49,7 @@ _目標_ 是建置的一部分，負責編譯、測試和打包針對其中一�
 
 每個目標可以有一個或多個[編譯](#compilations)。除了用於測試和生產目的的預設編譯之外，您還可以[建立自訂編譯](multiplatform-configure-compilations.md#create-a-custom-compilation)。
 
-多平台專案的目標在 `kotlin {}` 內部對應的區塊中描述，例如 `jvm`、`androidTarget`、`iosArm64`。
+多平台專案的目標在 `kotlin {}` 內部對應的區塊中描述，例如 `jvm`、`android`、`iosArm64`。
 可用目標的完整列表如下：
 
 <table>
@@ -106,9 +106,9 @@ _目標_ 是建置的一部分，負責編譯、測試和打包針對其中一�
     
 <tr>
 <td>Android 應用程式與函式庫</td>
-        <td><code>androidTarget</code></td>
+        <td><code>android</code></td>
         <td>
-            <p>手動套用 Android Gradle 外掛程式：<code>com.android.application</code> 或 <code>com.android.library</code>。</p>
+            <p>手動套用 Android Gradle 外掛程式：<code>com.android.application</code> 或 <code>com.android.kotlin.multiplatform.library</code>。</p>
             <p>每個 Gradle 子專案只能建立一個 Android 目標。</p>
         </td>
 </tr>
@@ -428,7 +428,7 @@ kotlin {
 
 ### Android 目標
 
-Kotlin 多平台外掛程式具有特定功能，可協助您為 Android 目標配置[建置變體](https://developer.android.com/studio/build/build-variants)：
+Kotlin 多平台 Gradle 外掛程式具有特定功能，可協助您為 Android 目標配置[建置變體](https://developer.android.com/studio/build/build-variants)：
 
 | **名稱**                   | **描述**                                                                                                                       |
 |----------------------------|--------------------------------------------------------------------------------------------------------------------------------|
@@ -436,7 +436,7 @@ Kotlin 多平台外掛程式具有特定功能，可協助您為 Android 目標�
 
 ```kotlin
 kotlin {
-    androidTarget {
+    android {
         publishLibraryVariants("release")
     }
 }
@@ -444,7 +444,7 @@ kotlin {
 
 深入了解[Android 的編譯](multiplatform-configure-compilations.md#compilation-for-android)。
 
-> `kotlin {}` 區塊內的 `androidTarget` 配置不會取代任何 Android 專案的建置配置。
+> `kotlin {}` 區塊內的 `android` 配置不會取代任何 Android 專案的建置配置。
 > 深入了解在 [Android 開發者文件](https://developer.android.com/studio/build)中撰寫 Android 專案的建置指令碼。
 >
 {style="note"}
@@ -1060,8 +1060,8 @@ kotlin {
 kotlin {
     sourceSets.all {
         languageSettings.apply {
-            languageVersion = "%languageVersion%" // possible values: "1.8", "1.9", "2.0", "2.1"
-            apiVersion = "%apiVersion%" // possible values: "1.8", "1.9", "2.0", "2.1"
+            languageVersion = "%languageVersion%" // possible values: "2.0", "2.1", "2.2", "2.3", "2.4" (實驗性)
+            apiVersion = "%apiVersion%" // possible values: "2.0", "2.1", "2.2", "2.3", "2.4" (實驗性)
             enableLanguageFeature("InlineClasses") // language feature name
             optIn("kotlin.ExperimentalUnsignedTypes") // annotation FQ-name
             progressiveMode = true // false by default
@@ -1077,8 +1077,8 @@ kotlin {
 kotlin {
     sourceSets.all {
         languageSettings {
-            languageVersion = '%languageVersion%' // possible values: '1.8', '1.9', '2.0', '2.1'
-            apiVersion = '%apiVersion%' // possible values: '1.8', '1.9', '2.0', '2.1'
+            languageVersion = '%languageVersion%' // possible values: '2.0', '2.1', '2.2', '2.3', '2.4' (實驗性)
+            apiVersion = '%apiVersion%' // possible values: '2.0', '2.1', '2.2', '2.3', '2.4' (實驗性)
             enableLanguageFeature('InlineClasses') // language feature name
             optIn('kotlin.ExperimentalUnsignedTypes') // annotation FQ-name
             progressiveMode = true // false by default

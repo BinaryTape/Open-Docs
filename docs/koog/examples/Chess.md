@@ -141,7 +141,7 @@ class ChessBoard {
 
 `ChessBoard` 类管理 8×8 的棋盘格和棋子位置。关键设计决策包括：
 
-- **内部表示**：使用可变列表的列表进行高效访问和修改
+- **内部表示**：使用 `List` 的可变 `List` 进行高效访问和修改
 - **可视化显示**：`toString()` 方法提供清晰的 ASCII 表示，带有等级数字和文件字母
 - **位置映射**：在国际象棋记法（a1-h8）和内部数组索引之间进行转换
 
@@ -245,13 +245,9 @@ class ChessGame {
 ```kotlin
 import kotlinx.serialization.Serializable
 
-class Move(val game: ChessGame) : SimpleTool<Move.Args>() {
-    @Serializable
-    data class Args(val notation: String) : ToolArgs
-
-    override val argsSerializer = Args.serializer()
-
-    override val descriptor = ToolDescriptor(
+class Move(val game: ChessGame) : SimpleTool<Move.Args>(
+    argsSerializer = Args.serializer(),
+    descriptor = ToolDescriptor(
         name = "move",
         description = "Moves a piece according to the notation:
 ${game.moveNotation}",
@@ -263,8 +259,11 @@ ${game.moveNotation}",
             )
         )
     )
+) {
+    @Serializable
+    data class Args(val notation: String) : ToolArgs
 
-    override suspend fun doExecute(args: Args): String {
+    override suspend fun execute(args: Args): String {
         game.move(args.notation)
         println(game.getBoard())
         println("-----------------")
@@ -280,7 +279,8 @@ ${game.currentPlayer()} to move! Make the move!"
 1. **扩展 SimpleTool**：继承基本工具功能，带类型安全的实参处理
 2. **可序列化实参**：使用 Kotlin 序列化定义工具的输入形参
 3. **丰富文档**：`ToolDescriptor` 为 LLM 提供关于工具目的和形参的详细信息
-4. **执行逻辑**：`doExecute` 方法处理实际的走法执行并提供格式化反馈
+4. **构造函数形参**：将 `argsSerializer` 和 `descriptor` 传递给构造函数
+5. **执行逻辑**：`execute` 方法处理实际的走法执行并提供格式化反馈
 
 关键设计方面：
 - **上下文注入**：工具接收 `ChessGame` 实例，允许其修改游戏状态
@@ -379,12 +379,12 @@ val agent = AIAgent(
     strategy = strategy,
     llmModel = OpenAIModels.Chat.O3Mini,
     systemPrompt = """
-            你是一个下国际象棋的代理。
-            你应该总是在收到“轮到你走了！”消息时提出一步走法。
+            You are an agent who plays chess.
+            You should always propose a move in response to the "Your move!" message.
 
-            不要胡言乱语！！！
-            不要走非法步！！！
-            你只能在投降或将死时发送消息！！！
+            DO NOT HALLUCINATE!!!
+            DO NOT PLAY ILLEGAL MOVES!!!
+            YOU CAN SEND A MESSAGE ONLY IF IT IS A RESIGNATION OR A CHECKMATE!!!
         """.trimMargin(),
     temperature = 0.0,
     toolRegistry = toolRegistry,
@@ -422,7 +422,7 @@ runBlocking {
 }
 ```
 
-    国际象棋游戏开始！
+    Chess Game started!
     8 r n b q k b n r
     7 p p p p p p p p
     6 * * * * * * * *
@@ -474,7 +474,7 @@ runBlocking {
       a b c d e f g h
     -----------------
 
-    执行已中断
+    The execution was interrupted
 
 这个基本代理自主对弈，自动走子。游戏输出显示了 AI 自我对弈时的走法序列和棋盘状态。
 
@@ -607,12 +607,12 @@ val agent = AIAgent(
     strategy = strategy,
     llmModel = OpenAIModels.Chat.O3Mini,
     systemPrompt = """
-            你是一个下国际象棋的代理。
-            你应该总是在收到“轮到你走了！”消息时提出一步走法。
+            You are an agent who plays chess.
+            You should always propose a move in response to the "Your move!" message.
 
-            不要胡言乱语！！！
-            不要走非法步！！！
-            你只能在投降或将死时发送消息！！！
+            DO NOT HALLUCINATE!!!
+            DO NOT PLAY ILLEGAL MOVES!!!
+            YOU CAN SEND A MESSAGE ONLY IF IT IS A RESIGNATION OR A CHECKMATE!!!
         """.trimMargin(),
     temperature = 1.0,
     toolRegistry = toolRegistry,
@@ -649,13 +649,13 @@ runBlocking {
 }
 ```
 
-    国际象棋游戏开始！
-
-    可用的 LLM 选项
-    选项编号 1: [Call(id=call_K46Upz7XoBIG5RchDh7bZE8F, tool=move, content={"notation": "p-e2-e4"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:40.368252Z, totalTokensCount=773, inputTokensCount=315, outputTokensCount=458, additionalInfo={}))]
-    选项编号 2: [Call(id=call_zJ6OhoCHrVHUNnKaxZkOhwoU, tool=move, content={"notation": "p-e2-e4"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:40.368252Z, totalTokensCount=773, inputTokensCount=315, outputTokensCount=458, additionalInfo={}))]
-    选项编号 3: [Call(id=call_nwX6ZMJ3F5AxiNUypYlI4BH4, tool=move, content={"notation": "p-e2-e4"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:40.368252Z, totalTokensCount=773, inputTokensCount=315, outputTokensCount=458, additionalInfo={}))]
-    请选择一个选项。输入一个介于 1 和 3 之间的数字：
+    Chess Game started!
+    
+    Available LLM choices
+    Choice number 1: [Call(id=call_K46Upz7XoBIG5RchDh7bZE8F, tool=move, content={"notation": "p-e2-e4"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:40.368252Z, totalTokensCount=773, inputTokensCount=315, outputTokensCount=458, additionalInfo={}))]
+    Choice number 2: [Call(id=call_zJ6OhoCHrVHUNnKaxZkOhwoU, tool=move, content={"notation": "p-e2-e4"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:40.368252Z, totalTokensCount=773, inputTokensCount=315, outputTokensCount=458, additionalInfo={}))]
+    Choice number 3: [Call(id=call_nwX6ZMJ3F5AxiNUypYlI4BH4, tool=move, content={"notation": "p-e2-e4"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:40.368252Z, totalTokensCount=773, inputTokensCount=315, outputTokensCount=458, additionalInfo={}))]
+    Please choose a choice. Enter a number between 1 and 3: 
     8 r n b q k b n r
     7 p p p p p p p p
     6 * * * * * * * *
@@ -666,12 +666,12 @@ runBlocking {
     1 R N B Q K B N R
       a b c d e f g h
     -----------------
-
-    可用的 LLM 选项
-    选项编号 1: [Call(id=call_2V93GXOcIe0fAjUAIFEk9h5S, tool=move, content={"notation": "p-e7-e5"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:47.949303Z, totalTokensCount=1301, inputTokensCount=341, outputTokensCount=960, additionalInfo={}))]
-    选项编号 2: [Call(id=call_INM59xRzKMFC1w8UAV74l9e1, tool=move, content={"notation": "p-e7-e5"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:47.949303Z, totalTokensCount=1301, inputTokensCount=341, outputTokensCount=960, additionalInfo={}))]
-    选项编号 3: [Call(id=call_r4QoiTwn0F3jizepHH5ia8BU, tool=move, content={"notation": "p-e7-e5"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:47.949303Z, totalTokensCount=1301, inputTokensCount=341, outputTokensCount=960, additionalInfo={}))]
-    请选择一个选项。输入一个介于 1 和 3 之间的数字：
+    
+    Available LLM choices
+    Choice number 1: [Call(id=call_2V93GXOcIe0fAjUAIFEk9h5S, tool=move, content={"notation": "p-e7-e5"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:47.949303Z, totalTokensCount=1301, inputTokensCount=341, outputTokensCount=960, additionalInfo={}))]
+    Choice number 2: [Call(id=call_INM59xRzKMFC1w8UAV74l9e1, tool=move, content={"notation": "p-e7-e5"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:47.949303Z, totalTokensCount=1301, inputTokensCount=341, outputTokensCount=960, additionalInfo={}))]
+    Choice number 3: [Call(id=call_r4QoiTwn0F3jizepHH5ia8BU, tool=move, content={"notation": "p-e7-e5"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:47.949303Z, totalTokensCount=1301, inputTokensCount=341, outputTokensCount=960, additionalInfo={}))]
+    Please choose a choice. Enter a number between 1 and 3: 
     8 r n b q k b n r
     7 p p p p * p p p
     6 * * * * * * * *
@@ -682,12 +682,12 @@ runBlocking {
     1 R N B Q K B N R
       a b c d e f g h
     -----------------
-
-    可用的 LLM 选项
-    选项编号 1: [Call(id=call_f9XTizn41svcrtvnmkCfpSUQ, tool=move, content={"notation": "n-g1-f3"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:55.467712Z, totalTokensCount=917, inputTokensCount=341, outputTokensCount=576, additionalInfo={}))]
-    选项编号 2: [Call(id=call_c0Dfce5RcSbN3cOOm5ESYriK, tool=move, content={"notation": "n-g1-f3"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:55.467712Z, totalTokensCount=917, inputTokensCount=341, outputTokensCount=576, additionalInfo={}))]
-    选项编号 3: [Call(id=call_Lr4Mdro1iolh0fDyAwZsutrW, tool=move, content={"notation": "n-g1-f3"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:55.467712Z, totalTokensCount=917, inputTokensCount=341, outputTokensCount=576, additionalInfo={}))]
-    请选择一个选项。输入一个介于 1 和 3 之间的数字：
+    
+    Available LLM choices
+    Choice number 1: [Call(id=call_f9XTizn41svcrtvnmkCfpSUQ, tool=move, content={"notation": "n-g1-f3"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:55.467712Z, totalTokensCount=917, inputTokensCount=341, outputTokensCount=576, additionalInfo={}))]
+    Choice number 2: [Call(id=call_c0Dfce5RcSbN3cOOm5ESYriK, tool=move, content={"notation": "n-g1-f3"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:55.467712Z, totalTokensCount=917, inputTokensCount=341, outputTokensCount=576, additionalInfo={}))]
+    Choice number 3: [Call(id=call_Lr4Mdro1iolh0fDyAwZsutrW, tool=move, content={"notation": "n-g1-f3"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:55.467712Z, totalTokensCount=917, inputTokensCount=341, outputTokensCount=576, additionalInfo={}))]
+    Please choose a choice. Enter a number between 1 and 3: 
     8 r n b q k b n r
     7 p p p p * p p p
     6 * * * * * * * *
@@ -699,7 +699,7 @@ runBlocking {
       a b c d e f g h
     -----------------
 
-    执行已中断
+    The execution was interrupted
 
 ```kotlin
 import ai.koog.agents.core.feature.choice.nodeLLMSendResultsMultipleChoices
@@ -746,12 +746,12 @@ val agent = AIAgent(
     strategy = strategy,
     llmModel = OpenAIModels.Chat.O3Mini,
     systemPrompt = """
-            你是一个下国际象棋的代理。
-            你应该总是在收到“轮到你走了！”消息时提出一步走法。
+            You are an agent who plays chess.
+            You should always propose a move in response to the "Your move!" message.
 
-            不要胡言乱语！！！
-            不要走非法步！！！
-            你只能在投降或将死时发送消息！！！
+            DO NOT HALLUCINATE!!!
+            DO NOT PLAY ILLEGAL MOVES!!!
+            YOU CAN SEND A MESSAGE ONLY IF IT IS A RESIGNATION OR A CHECKMATE!!!
         """.trimMargin(),
     temperature = 1.0,
     toolRegistry = toolRegistry,
@@ -770,7 +770,7 @@ runBlocking {
 }
 ```
 
-    国际象棋游戏开始！
+    Chess Game started!
     8 r n b q k b n r
     7 p p p p p p p p
     6 * * * * * * * *
@@ -781,12 +781,12 @@ runBlocking {
     1 R N B Q K B N R
       a b c d e f g h
     -----------------
-
-    可用的 LLM 选项
-    选项编号 1: [Call(id=call_gqMIar0z11CyUl5nup3zbutj, tool=move, content={"notation": "p-e7-e5"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:17.313548Z, totalTokensCount=917, inputTokensCount=341, outputTokensCount=576, additionalInfo={}))]
-    选项编号 2: [Call(id=call_6niUGnZPPJILRFODIlJsCKax, tool=move, content={"notation": "p-e7-e5"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:17.313548Z, totalTokensCount=917, inputTokensCount=341, outputTokensCount=576, additionalInfo={}))]
-    选项编号 3: [Call(id=call_q1b8ZmIBph0EoVaU3Ic9A09j, tool=move, content={"notation": "p-e7-e5"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:17.313548Z, totalTokensCount=917, inputTokensCount=341, outputTokensCount=576, additionalInfo={}))]
-    请选择一个选项。输入一个介于 1 和 3 之间的数字：
+    
+    Available LLM choices
+    Choice number 1: [Call(id=call_gqMIar0z11CyUl5nup3zbutj, tool=move, content={"notation": "p-e7-e5"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:17.313548Z, totalTokensCount=917, inputTokensCount=341, outputTokensCount=576, additionalInfo={}))]
+    Choice number 2: [Call(id=call_6niUGnZPPJILRFODIlJsCKax, tool=move, content={"notation": "p-e7-e5"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:17.313548Z, totalTokensCount=917, inputTokensCount=341, outputTokensCount=576, additionalInfo={}))]
+    Choice number 3: [Call(id=call_q1b8ZmIBph0EoVaU3Ic9A09j, tool=move, content={"notation": "p-e7-e5"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:17.313548Z, totalTokensCount=917, inputTokensCount=341, outputTokensCount=576, additionalInfo={}))]
+    Please choose a choice. Enter a number between 1 and 3: 
     8 r n b q k b n r
     7 p p p p * p p p
     6 * * * * * * * *
@@ -797,12 +797,12 @@ runBlocking {
     1 R N B Q K B N R
       a b c d e f g h
     -----------------
-
-    可用的 LLM 选项
-    选项编号 1: [Call(id=call_pdBIX7MVi82MyWwawTm1Q2ef, tool=move, content={"notation": "n-g1-f3"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:24.505344Z, totalTokensCount=1237, inputTokensCount=341, outputTokensCount=896, additionalInfo={}))]
-    选项编号 2: [Call(id=call_oygsPHaiAW5OM6pxhXhtazgp, tool=move, content={"notation": "n-g1-f3"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:24.505344Z, totalTokensCount=1237, inputTokensCount=341, outputTokensCount=896, additionalInfo={}))]
-    选项编号 3: [Call(id=call_GJTEsZ8J8cqOKZW4Tx54RqCh, tool=move, content={"notation": "n-g1-f3"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:24.505344Z, totalTokensCount=1237, inputTokensCount=341, outputTokensCount=896, additionalInfo={}))]
-    请选择一个选项。输入一个介于 1 和 3 之间的数字：
+    
+    Available LLM choices
+    Choice number 1: [Call(id=call_pdBIX7MVi82MyWwawTm1Q2ef, tool=move, content={"notation": "n-g1-f3"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:24.505344Z, totalTokensCount=1237, inputTokensCount=341, outputTokensCount=896, additionalInfo={}))]
+    Choice number 2: [Call(id=call_oygsPHaiAW5OM6pxhXhtazgp, tool=move, content={"notation": "n-g1-f3"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:24.505344Z, totalTokensCount=1237, inputTokensCount=341, outputTokensCount=896, additionalInfo={}))]
+    Choice number 3: [Call(id=call_GJTEsZ8J8cqOKZW4Tx54RqCh, tool=move, content={"notation": "n-g1-f3"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:24.505344Z, totalTokensCount=1237, inputTokensCount=341, outputTokensCount=896, additionalInfo={}))]
+    Please choose a choice. Enter a number between 1 and 3: 
     8 r n b q k b n r
     7 p p p p * p p p
     6 * * * * * * * *
@@ -813,12 +813,12 @@ runBlocking {
     1 R N B Q K B * R
       a b c d e f g h
     -----------------
-
-    可用的 LLM 选项
-    选项编号 1: [Call(id=call_5C7HdlTU4n3KdXcyNogE4rGb, tool=move, content={"notation": "n-g8-f6"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:34.646667Z, totalTokensCount=1621, inputTokensCount=341, outputTokensCount=1280, additionalInfo={}))]
-    选项编号 2: [Call(id=call_EjCcyeMLQ88wMa5yh3vmeJ2w, tool=move, content={"notation": "n-g8-f6"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:34.646667Z, totalTokensCount=1621, inputTokensCount=341, outputTokensCount=1280, additionalInfo={}))]
-    选项编号 3: [Call(id=call_NBMMSwmFIa8M6zvfbPw85NKh, tool=move, content={"notation": "n-g8-f6"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:34.646667Z, totalTokensCount=1621, inputTokensCount=341, outputTokensCount=1280, additionalInfo={}))]
-    请选择一个选项。输入一个介于 1 和 3 之间的数字：
+    
+    Available LLM choices
+    Choice number 1: [Call(id=call_5C7HdlTU4n3KdXcyNogE4rGb, tool=move, content={"notation": "n-g8-f6"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:34.646667Z, totalTokensCount=1621, inputTokensCount=341, outputTokensCount=1280, additionalInfo={}))]
+    Choice number 2: [Call(id=call_EjCcyeMLQ88wMa5yh3vmeJ2w, tool=move, content={"notation": "n-g8-f6"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:34.646667Z, totalTokensCount=1621, inputTokensCount=341, outputTokensCount=1280, additionalInfo={}))]
+    Choice number 3: [Call(id=call_NBMMSwmFIa8M6zvfbPw85NKh, tool=move, content={"notation": "n-g8-f6"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:34.646667Z, totalTokensCount=1621, inputTokensCount=341, outputTokensCount=1280, additionalInfo={}))]
+    Please choose a choice. Enter a number between 1 and 3: 
     8 r n b q k b * r
     7 p p p p * p p p
     6 * * * * * n * *
@@ -830,7 +830,7 @@ runBlocking {
       a b c d e f g h
     -----------------
 
-    执行已中断
+    The execution was interrupted
 
 交互式示例展示了用户如何引导 AI 的决策过程。在输出中，您可以看到：
 

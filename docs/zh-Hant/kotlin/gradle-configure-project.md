@@ -1,4 +1,4 @@
-[//]: # (title: 設定 Gradle 專案)
+[//]: # (title: 配置 Gradle 專案)
 
 要使用 [Gradle](https://docs.gradle.org/current/userguide/userguide.html) 建構 Kotlin 專案，您需要在建構指令碼檔案 `build.gradle(.kts)` 中[新增 Kotlin Gradle 外掛程式](#apply-the-plugin)，並在其中[配置專案的依賴項](#configure-dependencies)。
 
@@ -16,9 +16,9 @@
 
 ```kotlin
 plugins {
-    // Replace `<...>` with the plugin name appropriate for your target environment
+    // 將 `<...>` 替換為適用於您目標環境的外掛程式名稱
     kotlin("<...>") version "%kotlinVersion%"
-    // For example, if your target environment is JVM:
+    // 例如，如果您的目標環境是 JVM：
     // kotlin("jvm") version "%kotlinVersion%"
 }
 ```
@@ -28,9 +28,9 @@ plugins {
 
 ```groovy
 plugins {
-    // Replace `<...>` with the plugin name appropriate for your target environment
+    // 將 `<...>` 替換為適用於您目標環境的外掛程式名稱
     id 'org.jetbrains.kotlin.<...>' version '%kotlinVersion%'
-    // For example, if your target environment is JVM: 
+    // 例如，如果您的目標環境是 JVM：
     // id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
 }
 ```
@@ -44,21 +44,16 @@ plugins {
 
 配置專案時，請檢查 Kotlin Gradle 外掛程式 (KGP) 與可用 Gradle 版本的相容性。下表列出了 Gradle 和 Android Gradle 外掛程式 (AGP) 的最低和最高**完全支援**版本：
 
-| KGP version | Gradle min and max versions | AGP min and max versions |
-|---|---|---|
-| 2.2.20–2.2.21 | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
-| 2.2.0–2.2.10 | 7.6.3–8.14 | 7.3.1–8.10.0 |
-| 2.1.20–2.1.21 | 7.6.3–8.12.1 | 7.3.1–8.7.2 |
-| 2.1.0–2.1.10 | 7.6.3–8.10* | 7.3.1–8.7.2 |
-| 2.0.20–2.0.21 | 6.8.3–8.8* | 7.1.3–8.5 |
-| 2.0.0 | 6.8.3–8.5 | 7.1.3–8.3.1 |
-| 1.9.20–1.9.25 | 6.8.3–8.1.1 | 4.2.2–8.1.0 |
-| 1.9.0–1.9.10 | 6.8.3–7.6.0 | 4.2.2–7.4.0 |
-| 1.8.20–1.8.22 | 6.8.3–7.6.0 | 4.1.3–7.4.0 |
-| 1.8.0–1.8.11 | 6.8.3–7.3.3 | 4.1.3–7.2.1 |
-| 1.7.20–1.7.22 | 6.7.1–7.1.1 | 3.6.4–7.0.4 |
-| 1.7.0–1.7.10 | 6.7.1–7.0.2 | 3.4.3–7.0.2 |
-| 1.6.20–1.6.21 | 6.1.1–7.0.2 | 3.4.3–7.0.2 |
+| KGP version   | Gradle min and max versions           | AGP min and max versions                            |
+|---------------|---------------------------------------|-----------------------------------------------------|
+| 2.3.0         | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
+| 2.2.20–2.2.21 | 7.6.3–8.14                            | 7.3.1–8.11.1                                        |
+| 2.2.0–2.2.10  | 7.6.3–8.14                            | 7.3.1–8.10.0                                        |
+| 2.1.20–2.1.21 | 7.6.3–8.12.1                          | 7.3.1–8.7.2                                         |
+| 2.1.0–2.1.10  | 7.6.3–8.10*                           | 7.3.1–8.7.2                                         |
+| 2.0.20–2.0.21 | 6.8.3–8.8*                            | 7.1.3–8.5                                           |
+| 2.0.0         | 6.8.3–8.5                             | 7.1.3–8.3.1                                         |
+| 1.9.20–1.9.25 | 6.8.3–8.1.1                           | 4.2.2–8.1.0                                         |
 
 > *Kotlin 2.0.20–2.0.21 和 Kotlin 2.1.0–2.1.10 與 Gradle 8.6 或更早版本完全相容。
 > Gradle 8.7–8.10 版本也受支援，但只有一個例外：如果您使用 Kotlin Multiplatform Gradle 外掛程式，
@@ -73,6 +68,17 @@ plugins {
 
 同樣，最大完全支援版本為 %maxGradleVersion%。它沒有棄用的 Gradle 方法和屬性，並支援所有目前的 Gradle 功能。
 
+### 較早的 KGP 版本 {initial-collapse-state="collapsed" collapsible="true"}
+
+| KGP version   | Gradle min and max versions | AGP min and max versions |
+|---|---|---|
+| 1.9.0–1.9.10  | 6.8.3–7.6.0                           | 4.2.2–7.4.0                                         |
+| 1.8.20–1.8.22 | 6.8.3–7.6.0                           | 4.1.3–7.4.0                                         |      
+| 1.8.0–1.8.11  | 6.8.3–7.3.3                           | 4.1.3–7.2.1                                         |   
+| 1.7.20–1.7.22 | 6.7.1–7.1.1                           | 3.6.4–7.0.4                                         |
+| 1.7.0–1.7.10  | 6.7.1–7.0.2                           | 3.4.3–7.0.2                                         |
+| 1.6.20–1.6.21 | 6.1.1–7.0.2                           | 3.4.3–7.0.2                                         |
+
 ### 專案中的 Kotlin Gradle 外掛程式資料
 
 依預設，Kotlin Gradle 外掛程式將專案特定的持久性資料儲存在專案的根目錄中，即 `.kotlin` 目錄。
@@ -84,9 +90,9 @@ plugins {
 
 您可以將屬性新增到專案的 `gradle.properties` 檔案中以配置此行為：
 
-| Gradle property | Description |
-|---|---|
-| `kotlin.project.persistent.dir` | 配置專案層級資料的儲存位置。預設值：`<project-root-directory>/.kotlin` |
+| Gradle property                                     | Description                                                                                                                                       |
+|-----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| `kotlin.project.persistent.dir`                     | 配置專案層級資料的儲存位置。預設值：`<project-root-directory>/.kotlin`                                      |
 | `kotlin.project.persistent.dir.gradle.disableWrite` | 控制是否禁用將 Kotlin 資料寫入 `.gradle` 目錄（為了與舊版 IDEA 相容）。預設值：false |
 
 ## 針對 JVM
@@ -131,10 +137,10 @@ project
 ```
 
 > 請勿將 Java `.java` 檔案儲存在 `src/*/kotlin` 目錄中，因為 `.java` 檔案將不會被編譯。
->
+> 
 > 相反，您可以使用 `src/main/java`。
 >
-{style="warning"}
+{style="warning"} 
 
 如果您不使用預設慣例，則應更新對應的 `sourceSets` 屬性：
 
@@ -245,7 +251,7 @@ plugins {
 ### Gradle Java 工具鏈支援
 
 > Android 使用者的警告。要使用 Gradle 工具鏈支援，請使用 Android Gradle 外掛程式 (AGP) 版本 8.1.0-alpha09 或更高版本。
->
+> 
 > Gradle Java 工具鏈支援[僅從 AGP 7.4.0 開始可用](https://issuetracker.google.com/issues/194113162)。
 > 然而，由於[此問題](https://issuetracker.google.com/issues/260059413)，直到 8.1.0-alpha09 版本，AGP 才將 `targetCompatibility` 設定為與工具鏈的 JDK 相等。
 > 如果您使用低於 8.1.0-alpha09 的版本，您需要透過 `compileOptions` 手動配置 `targetCompatibility`。
@@ -260,7 +266,7 @@ plugins {
 > }
 > ```
 >
-{style="warning"}
+{style="warning"} 
 
 Gradle 6.7 引入了 [Java 工具鏈支援](https://docs.gradle.org/current/userguide/toolchains.html)。
 使用此功能，您可以：
@@ -290,9 +296,9 @@ kotlin {
     jvmToolchain {
         languageVersion.set(JavaLanguageVersion.of(<MAJOR_JDK_VERSION>))
     }
-    // Or shorter:
+    // 或簡寫：
     jvmToolchain(<MAJOR_JDK_VERSION>)
-    // For example:
+    // 例如：
     jvmToolchain(%jvmLTSVersionSupportedByKotlin%)
 }
 ```
@@ -305,9 +311,9 @@ kotlin {
     jvmToolchain {
         languageVersion = JavaLanguageVersion.of(<MAJOR_JDK_VERSION>)
     }
-    // Or shorter:
+    // 或簡寫：
     jvmToolchain(<MAJOR_JDK_VERSION>)
-    // For example:
+    // 例如：
     jvmToolchain(%jvmLTSVersionSupportedByKotlin%)
 }
 ```
@@ -325,7 +331,7 @@ kotlin {
 ```kotlin
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(<MAJOR_JDK_VERSION>))
+        languageVersion.set(JavaLanguageVersion.of(<MAJOR_JDK_VERSION>)) 
     }
 }
 ```
@@ -420,8 +426,8 @@ tasks.withType(UsesKotlinJavaToolchain::class).configureEach { task ->
 ```kotlin
 tasks.withType<UsesKotlinJavaToolchain>().configureEach {
     kotlinJavaToolchain.jdk.use(
-        "/path/to/local/jdk", // Put a path to your JDK
-        JavaVersion.<LOCAL_JDK_VERSION> // For example, JavaVersion.17
+        "/path/to/local/jdk", // 放入您的 JDK 路徑
+        JavaVersion.<LOCAL_JDK_VERSION> // 例如，JavaVersion.17
     )
 }
 ```
@@ -466,16 +472,16 @@ integrationTestCompilation {
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
-
+        
 ```kotlin
-// Add the following three lines if you use a Gradle version less than 7.0
+// 如果您使用的 Gradle 版本低於 7.0，請新增以下三行
 java {
     modularity.inferModulePath.set(true)
 }
 
 tasks.named("compileJava", JavaCompile::class.java) {
     options.compilerArgumentProviders.add(CommandLineArgumentProvider {
-        // Provide compiled Kotlin classes to javac – needed for Java/Kotlin mixed sources to work
+        // 提供已編譯的 Kotlin 類別給 javac – Java/Kotlin 混合原始碼所需
         listOf("--patch-module", "YOUR_MODULE_NAME=${sourceSets["main"].output.asPath}")
     })
 }
@@ -485,7 +491,7 @@ tasks.named("compileJava", JavaCompile::class.java) {
 <tab title="Groovy" group-key="groovy">
 
 ```groovy
-// Add the following three lines if you use a Gradle version less than 7.0
+// 如果您使用的 Gradle 版本低於 7.0，請新增以下三行
 java {
     modularity.inferModulePath = true
 }
@@ -494,7 +500,7 @@ tasks.named("compileJava", JavaCompile.class) {
     options.compilerArgumentProviders.add(new CommandLineArgumentProvider() {
         @Override
         Iterable<String> asArguments() {
-            // Provide compiled Kotlin classes to javac – needed for Java/Kotlin mixed sources to work
+            // 提供已編譯的 Kotlin 類別給 javac – Java/Kotlin 混合原始碼所需
             return ["--patch-module", "YOUR_MODULE_NAME=${sourceSets["main"].output.asPath}"]
         }
     })
@@ -505,7 +511,7 @@ tasks.named("compileJava", JavaCompile.class) {
 </tabs>
 
 > 像往常一樣將 `module-info.java` 放到 `src/main/java` 目錄中。
->
+> 
 > 對於模組，Kotlin 檔案中的套件名稱應與 `module-info.java` 中的套件名稱相同，以避免「package is empty or does not exist」建構失敗。
 >
 {style="note"}
@@ -613,7 +619,7 @@ Kotlin 透過 Kotlin Multiplatform，為 Web 開發提供了兩種方法：
 * 與 JavaScript/TypeScript 程式碼庫共用業務邏輯
 * 使用 Kotlin 建構不可共用的 Web 應用程式
 
-更多資訊請參閱 [為 Kotlin Multiplatform 專案選擇合適的 Web 目標](https://kotlinlang.org/docs/multiplatform/choosing-web-target.html)。
+更多資訊請參閱 [Web 開發](web-overview.md#kotlin-js)。
 
 針對 JavaScript 時，請使用 `kotlin-multiplatform` 外掛程式：
 
@@ -642,7 +648,7 @@ plugins {
 
 ```kotlin
 kotlin {
-    js().browser {  // or js().nodejs
+    js().browser {  // 或 js().nodejs
         /* ... */
     }
 }
@@ -655,7 +661,7 @@ kotlin {
 ### 針對 WebAssembly
 
 如果您想在多個平台之間共用邏輯和 UI，請使用 Kotlin/Wasm。更多資訊請參閱
-[為 Kotlin Multiplatform 專案選擇合適的 Web 目標](https://kotlinlang.org/docs/multiplatform/choosing-web-target.html)。
+[Web 開發](web-overview.md#kotlin-wasm)。
 
 與 JavaScript 一樣，針對 WebAssembly (Wasm) 時，請使用 `kotlin-multiplatform` 外掛程式：
 
@@ -683,14 +689,14 @@ plugins {
 根據您的需求，您可以針對：
 
 * **`wasmJs`**：用於在瀏覽器或 Node.js 中運行
-* **`wasmWasi`**：用於在支援 [WASI (WebAssembly System Interface)](https://wasi.dev/) 的 Wasm 環境中運行，例如 Wasmtime、WasmEdge 等。
+* **`wasmWasi`**：用於在支援 [WASI (WebAssembly 系統介面)](https://wasi.dev/) 的 Wasm 環境中運行，例如 Wasmtime、WasmEdge 等。
 
 配置用於網頁瀏覽器或 Node.js 的 `wasmJs` 目標：
 
 ```kotlin
 kotlin {
     wasmJs {
-        browser { // or nodejs
+        browser { // 或 nodejs
             /* ... */
         }
     }
@@ -756,7 +762,7 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinBasePlugin
 // ...
 
 project.plugins.withType<KotlinBasePlugin>() {
-    // Configure your action here
+    // 在此處配置您的動作
 }
 ```
 
@@ -769,7 +775,7 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinBasePlugin
 // ...
 
 project.plugins.withType(KotlinBasePlugin.class) {
-    // Configure your action here
+    // 在此處配置您的動作
 }
 ```
 
@@ -975,16 +981,17 @@ kotlin.stdlib.jdk.variants.version.alignment=false
 
   </tab>
   </tabs>
-
+  
 * 如果您新增 Kotlin 標準函式庫版本 `%kotlinVersion%` 的依賴項：`implementation("org.jetbrains.kotlin:kotlin-stdlib:%kotlinVersion%")`，
   並且 Kotlin Gradle 外掛程式是舊版本（早於 `1.8.0`），請更新 Kotlin Gradle 外掛程式以符合標準函式庫版本：
 
+  
   <tabs group="build-script">
   <tab title="Kotlin" group-key="kotlin">
 
   ```kotlin
   plugins {
-      // replace `<...>` with the plugin name
+      // 將 `<...>` 替換為外掛程式名稱
       kotlin("<...>") version "%kotlinVersion%"
   }
   ```
@@ -994,7 +1001,7 @@ kotlin.stdlib.jdk.variants.version.alignment=false
 
   ```groovy
   plugins {
-      // replace `<...>` with the plugin name
+      // 將 `<...>` 替換為外掛程式名稱
       id "org.jetbrains.kotlin.<...>" version "%kotlinVersion%"
   }
   ```
@@ -1047,8 +1054,8 @@ Kotlin/Native 目標不需要額外的測試依賴項，並且 `kotlin.test` API
 ```kotlin
 kotlin {
     sourceSets {
-         commonTest.dependencies {
-             implementation(kotlin("test")) // This brings all the platform dependencies automatically
+        commonTest.dependencies {
+            implementation(kotlin("test")) // 這會自動引入所有平台依賴項
         }
     }
 }
@@ -1062,7 +1069,7 @@ kotlin {
     sourceSets {
         commonTest {
             dependencies {
-                implementation kotlin("test") // This brings all the platform dependencies automatically
+                implementation kotlin("test") // 這會自動引入所有平台依賴項
             }
         }
     }
@@ -1251,7 +1258,6 @@ repositories {
     mavenCentral()
 }
 ```
-
 </tab>
 <tab title="Groovy" group-key="groovy">
 
@@ -1260,14 +1266,13 @@ repositories {
     mavenCentral()
 }
 ```
-
 </tab>
 </tabs>
 
 常見的儲存庫有 [Maven Central](https://central.sonatype.com/) 和 [Google 的 Maven 儲存庫](https://maven.google.com/web/index.html)。
 
 > 如果您也使用 Maven 專案，我們建議避免將 `mavenLocal()` 作為儲存庫新增，因為在 Gradle 和 Maven 專案之間切換時可能會遇到問題。如果您必須新增 `mavenLocal()` 儲存庫，請將其新增到 `repositories{}` 區塊中的最後一個儲存庫。如需更多資訊，請參閱 [The case for mavenLocal()](https://docs.gradle.org/current/userguide/declaring_repositories.html#sec:case-for-maven-local)。
->
+> 
 {style="warning"}
 
 如果您需要在多個子專案中宣告相同的儲存庫，請在您的 `settings.gradle(.kts)` 檔案中的 `dependencyResolutionManagement{}` 區塊中集中宣告儲存庫：
@@ -1282,22 +1287,55 @@ dependencyResolutionManagement {
     }
 }
 ```
-
 </tab>
 <tab title="Groovy" group-key="groovy">
 
-```groovy
+```kotlin
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
     }
 }
 ```
-
 </tab>
 </tabs>
 
 子專案中任何宣告的儲存庫都會覆寫集中宣告的儲存庫。有關如何控制此行為以及可用選項的更多資訊，請參閱 [Gradle 的文件](https://docs.gradle.org/current/userguide/declaring_repositories.html#sub:centralized-repository-declaration)。
+
+## 註冊生成的原始碼
+<primary-label ref="experimental-general"/>
+
+註冊生成的原始碼有助於 IDE、第三方外掛程式和其他工具區分生成的程式碼和常規原始碼檔案。
+這有助於像 IDE 這樣的工具在 UI 中以不同方式高亮顯示生成的程式碼，並在導入專案時觸發生成任務。
+使用 [`KotlinSourceSet`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/) 介面來註冊生成的原始碼。
+
+要在 `build.gradle.kts` 檔案中註冊包含 Kotlin 檔案的目錄，請使用 [`SourceDirectorySet`](https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.file/-source-directory-set/index.html) 類型的 [`generatedKotlin`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/generated-kotlin.html) 屬性。例如：
+
+```kotlin
+val generatorTask = project.tasks.register("generator") {
+    val outputDirectory = project.layout.projectDirectory.dir("src/main/kotlinGen")
+    outputs.dir(outputDirectory)
+    doLast {
+        outputDirectory.file("generated.kt").asFile.writeText(
+            // language=kotlin
+            """
+            fun printHello() {
+                println("hello")
+            }
+            """.trimIndent()
+        )
+    }
+}
+
+kotlin.sourceSets.getByName("main").generatedKotlin.srcDir(generatorTask)
+```
+
+此範例建立一個新任務 `generator`，其輸出目錄為 `"src/main/kotlinGen"`。當任務運行時，
+`doLast {}` 任務動作會在輸出目錄中建立一個 `generated.kt` 檔案。最後，該範例將任務的
+輸出註冊為一個生成的原始碼。
+
+如果您正在開發一個 Gradle 外掛程式，您可以使用 [`allKotlinSources`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/all-kotlin-sources.html) 屬性來存取 [`KotlinSourceSet.kotlin`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/kotlin.html) 和 
+`KotlinSourceSet.generatedKotlin` 屬性中所有註冊的原始碼。
 
 ## 接下來是什麼？
 

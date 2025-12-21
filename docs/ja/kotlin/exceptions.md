@@ -1,7 +1,7 @@
 [//]: # (title: 例外)
 
 例外は、プログラムの実行を中断させる可能性のあるランタイムエラーが発生した場合でも、コードをより予測可能に実行するのに役立ちます。
-Kotlinは、すべての例外をデフォルトで_非チェック例外_として扱います。
+Kotlinは、すべての例外をデフォルトで*非チェック例外*として扱います。
 非チェック例外は例外処理プロセスを簡素化します。例外をキャッチできますが、それらを明示的に処理したり[宣言](java-to-kotlin-interop.md#checked-exceptions)したりする必要はありません。
 
 > KotlinがJava、Swift、Objective-Cと連携する際に例外をどのように処理するかについては、
@@ -328,8 +328,8 @@ fun main() {
 >
 > ```kotlin
 > FileWriter("test.txt").use { writer ->
-> writer.write("some text") 
-> // このブロックの後、.use関数は自動的にwriter.close()を呼び出す。これはfinallyブロックに似ている
+>     writer.write("some text")
+>     // このブロックの後、.use関数は自動的にwriter.close()を呼び出す。これはfinallyブロックに似ている
 > }
 > ```
 >
@@ -631,7 +631,7 @@ Kotlinは、`NullPointerException`のような一般的な`RuntimeException`を�
 
 ## スタックトレース
 
-_スタックトレース_は、ランタイム環境によって生成されるレポートで、デバッグに使用されます。
+*スタックトレース*は、ランタイム環境によって生成されるレポートで、デバッグに使用されます。
 これは、プログラム内の特定の時点、特にエラーや例外が発生した箇所に至る関数呼び出しのシーケンスを示します。
 
 JVM環境で例外が発生したためにスタックトレースが自動的に出力される例を見てみましょう。
@@ -659,7 +659,7 @@ Exception in thread "main" java.lang.ArithmeticException: This is an arithmetic 
 *   スレッド: `main`
 *   例外メッセージ: `"This is an arithmetic exception!"`
 
-例外の説明の後、「`at`」で始まる他の各行はスタックトレースです。1行は_スタックトレース要素_または_スタックフレーム_と呼ばれます。
+例外の説明の後、「`at`」で始まる他の各行はスタックトレースです。1行は*スタックトレース要素*または*スタックフレーム*と呼ばれます。
 
 *   `at MainKt.main (Main.kt:3)`: これは、メソッド名 (`MainKt.main`) と、メソッドが呼び出されたソースファイルおよび行番号 (`Main.kt:3`) を示しています。
 *   `at MainKt.main (Main.kt)`: これは、例外が`Main.kt`ファイルの`main()`関数で発生することを示しています。

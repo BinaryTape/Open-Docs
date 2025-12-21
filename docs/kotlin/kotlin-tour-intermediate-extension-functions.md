@@ -59,7 +59,7 @@ fun main() {
 
 你可以在任何地方定义扩展函数，这使你能够创建面向扩展的设计。这些设计将核心功能与有用但非必要的特性分开，使你的代码更易读、更易维护。
 
-一个很好的例子是 Ktor 库中的 [`HttpClient`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client/-http-client/index.html) 类，它有助于执行网络请求。其核心功能是单个 `request()` 函数，它接收 HTTP 请求所需的所有信息：
+一个很好的例子是 Ktor 库中的 [`HttpClient`](https://api.ktor.io/ktor-client-core/io.ktor.client/-http-client/index.html) 类，它有助于执行网络请求。其核心功能是单个 `request()` 函数，它接收 HTTP 请求所需的所有信息：
 
 ```kotlin
 class HttpClient {

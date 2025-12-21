@@ -128,22 +128,20 @@ data class Book(
     val description: String
 )
 
-class BookTool() : SimpleTool<Book>() {
+class BookTool() : SimpleTool<Book>(
+    argsSerializer = Book.serializer(),
+    name = NAME,
+    description = "A tool to parse book information from Markdown"
+) {
     companion object {
         const val NAME = "book"
     }
 
-    override suspend fun doExecute(args: Book): String {
+    override suspend fun execute(args: Book): String {
         println("${args.title} by ${args.author}:
  ${args.description}")
         return "Done"
     }
-
-    override val argsSerializer: KSerializer<Book>
-        get() = Book.serializer()
-
-    override val name = NAME
-    override val description = "A tool to parse book information from Markdown"
 }
 
 val strategy = strategy<Unit, Unit>("strategy-name") {
@@ -200,7 +198,7 @@ val analysisToolRegistry = ToolRegistry {}
 
 -->
 ```kotlin
-// Create a specialized agent service, responsible for creating financial analysis agents.
+// 財務分析エージェントの作成を担当する、専門化されたエージェントサービスを作成します。
 val analysisAgentService = AIAgentService(
     promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
@@ -208,7 +206,7 @@ val analysisAgentService = AIAgentService(
     toolRegistry = analysisToolRegistry
 )
 
-// Create a tool that would run financial analysis agent once called.
+// 呼び出されると財務分析エージェントを実行するツールを作成します。
 val analysisAgentTool = analysisAgentService.createAgentTool(
     agentName = "analyzeTransactions",
     agentDescription = "Performs financial transaction analysis",
@@ -232,14 +230,14 @@ const val apiKey = ""
 
 -->
 ```kotlin
-// Create a coordinator agent that can use specialized agents as tools
+// 専門化されたエージェントをツールとして使用できるコーディネーターエージェントを作成します。
 val coordinatorAgent = AIAgent(
     promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,
     systemPrompt = "You coordinate different specialized services.",
     toolRegistry = ToolRegistry {
         tool(analysisAgentTool)
-        // Add other tools as needed
+        // 必要に応じて他のツールを追加します。
     }
 )
 ```

@@ -13,18 +13,19 @@ Kotlin의 현재 Stable 버전은 %kotlinVersion%입니다. 프로젝트에서 �
 
 프로젝트를 구성할 때, 특정 버전의 Kotlin Multiplatform Gradle 플러그인(프로젝트의 Kotlin 버전과 동일)과 Gradle, Xcode, Android Gradle 플러그인 버전의 호환성을 확인하세요:
 
-| Kotlin Multiplatform plugin version | Gradle                                | Android Gradle plugin                               | Xcode   |
+| Kotlin Multiplatform plugin version | Gradle | Android Gradle plugin | Xcode |
 |-------------------------------------|---------------------------------------|-----------------------------------------------------|---------|
-| 2.2.21                              | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% | %xcode% |
-| 2.2.20                              | 7.6.3–8.14                            | 7.3.1–8.11.1                                        | 16.4    |
-| 2.2.0-2.2.10                        | 7.6.3–8.14                            | 7.3.1–8.10.0                                        | 16.3    |
-| 2.1.21                              | 7.6.3–8.12.1                          | 7.3.1–8.7.2                                         | 16.3    |
-| 2.1.20                              | 7.6.3–8.11                            | 7.4.2–8.7.2                                         | 16.0    |
-| 2.1.0–2.1.10                        | 7.6.3-8.10*                           | 7.4.2–8.7.2                                         | 16.0    |
-| 2.0.21                              | 7.5-8.8*                              | 7.4.2–8.5                                           | 16.0    |
-| 2.0.20                              | 7.5-8.8*                              | 7.4.2–8.5                                           | 15.3    |
-| 2.0.0                               | 7.5-8.5                               | 7.4.2–8.3                                           | 15.3    |
-| 1.9.20                              | 7.5-8.1.1                             | 7.4.2–8.2                                           | 15.0    |
+| 2.3.0 | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% | %xcode% |
+| 2.2.21 | 7.6.3–8.14 | 7.3.1–8.11.1 | 26 |
+| 2.2.20 | 7.6.3–8.14 | 7.3.1–8.11.1 | 16.4 |
+| 2.2.0-2.2.10 | 7.6.3–8.14 | 7.3.1–8.10.0 | 16.3 |
+| 2.1.21 | 7.6.3–8.12.1 | 7.3.1–8.7.2 | 16.3 |
+| 2.1.20 | 7.6.3–8.11 | 7.4.2–8.7.2 | 16.0 |
+| 2.1.0–2.1.10 | 7.6.3-8.10* | 7.4.2–8.7.2 | 16.0 |
+| 2.0.21 | 7.5-8.8* | 7.4.2–8.5 | 16.0 |
+| 2.0.20 | 7.5-8.8* | 7.4.2–8.5 | 15.3 |
+| 2.0.0 | 7.5-8.5 | 7.4.2–8.3 | 15.3 |
+| 1.9.20 | 7.5-8.1.1 | 7.4.2–8.2 | 15.0 |
 
 > *Kotlin 2.0.20–2.0.21 및 Kotlin 2.1.0–2.1.10은 Gradle 8.6까지 완전히 호환됩니다.
 > Gradle 버전 8.7–8.10도 지원되지만, 한 가지 예외가 있습니다. Kotlin Multiplatform Gradle 플러그인을 사용하는 경우, 멀티플랫폼 프로젝트에서 JVM 타겟의 `withJava()` 함수 호출 시 사용 중단 경고가 표시될 수 있습니다.
@@ -35,6 +36,29 @@ Kotlin의 현재 Stable 버전은 %kotlinVersion%입니다. 프로젝트에서 �
 ## Kotlin 2.0.0 및 이후 버전
 
 이 섹션에서는 사용 중단 주기가 끝나고 Kotlin 2.0.0−%kotlinVersion%에 적용되는 호환되지 않는 변경 사항에 대해 다룹니다.
+
+### Android 타겟을 위한 Google 플러그인으로 마이그레이션
+
+**무엇이 변경되었나요?**
+
+Kotlin 2.3.0 이전에는 `com.android.application` 및 `com.android.library` 플러그인을 통해 Android 타겟을 지원했습니다. 이는 Google의 Android 팀이 Kotlin Multiplatform에 맞춰 별도의 플러그인을 개발하는 동안의 임시 해결책이었습니다.
+
+초기에는 `android` 블록을 사용했지만, 나중에 `android` 이름을 새 플러그인이 사용하도록 예약할 수 있도록 `androidTarget` 블록으로 전환했습니다.
+
+이제 Android 팀에서 제공하는 [`com.android.kotlin.multiplatform.library` 플러그인](https://developer.android.com/kotlin/multiplatform/plugin)을 사용할 수 있으며, 이를 원래의 `android` 블록과 함께 사용할 수 있습니다.
+
+**현재의 모범 사례는 무엇인가요?**
+
+새로운 `com.android.kotlin.multiplatform.library` 플러그인으로 마이그레이션하세요. `androidTarget` 블록의 모든 발생을 `android`로 이름을 변경하세요. 마이그레이션 방법에 대한 자세한 지침은 Google의 [마이그레이션 가이드](https://developer.android.com/kotlin/multiplatform/plugin#migrate)를 참조하세요.
+
+**언제부터 변경 사항이 적용되나요?**
+
+Kotlin Multiplatform Gradle 플러그인에 대한 사용 중단 주기는 다음과 같습니다:
+
+*   1.9.0: Kotlin Multiplatform 프로젝트에서 `android` 이름 사용 시 사용 중단 경고가 도입됩니다.
+*   2.1.0: 이 경고가 오류로 상향됩니다.
+*   2.2.0: Kotlin Multiplatform Gradle 플러그인에서 `android` 타겟 DSL이 제거됩니다.
+*   2.3.0: 새 Android 플러그인을 사용할 수 있으며, Kotlin Multiplatform 프로젝트에서 `androidTarget` 이름 사용 시 사용 중단 경고가 도입됩니다.
 
 ### Bitcode 임베딩 사용 중단
 
@@ -94,26 +118,6 @@ Kotlin 2.1.20 및 Gradle 버전 8.7보다 높은 버전에서 [Java test fixture
 *   Gradle >8.6: `withJava()` 함수를 사용하는 멀티플랫폼 프로젝트에서 이전 버전의 Kotlin에 대한 사용 중단 경고가 도입됩니다.
 *   Gradle 9.0: 이 경고가 오류로 상향됩니다.
 *   2.1.20: 어떤 Gradle 버전에서든 `withJava()` 함수 사용 시 사용 중단 경고가 도입됩니다.
-
-### `android` 타겟을 `androidTarget`으로 이름 변경
-
-**무엇이 변경되었나요?**
-
-Kotlin Multiplatform을 더욱 안정화하기 위한 노력을 계속하고 있습니다. 이 방향의 필수적인 단계는 Android 타겟에 대한 일급(first-class) 지원을 제공하는 것입니다. 앞으로 이 지원은 Google의 Android 팀에서 개발한 별도의 플러그인을 통해 제공될 것입니다.
-
-새로운 솔루션의 길을 열기 위해 현재 Kotlin DSL에서 `android` 블록의 이름을 `androidTarget`으로 변경하고 있습니다. 이것은 다가오는 Google의 DSL에 `android`라는 짧은 이름을 할당하기 위해 필요한 임시 변경 사항입니다.
-
-**현재의 모범 사례는 무엇인가요?**
-
-`android` 블록의 모든 발생을 `androidTarget`으로 이름을 변경하세요. Android 타겟 지원을 위한 새로운 플러그인이 제공되면 Google의 DSL로 마이그레이션하세요. 이는 Kotlin Multiplatform 프로젝트에서 Android와 함께 작업하는 데 선호되는 옵션이 될 것입니다.
-
-**언제부터 변경 사항이 적용되나요?**
-
-다음은 계획된 사용 중단 주기입니다:
-
-*   1.9.0: Kotlin Multiplatform 프로젝트에서 `android` 이름 사용 시 사용 중단 경고가 도입됩니다.
-*   2.1.0: 이 경고가 오류로 상향됩니다.
-*   2.2.0: Kotlin Multiplatform Gradle 플러그인에서 `android` 타겟 DSL이 제거됩니다.
 
 ### 여러 유사 타겟 선언
 
@@ -401,11 +405,11 @@ Kotlin Gradle 플러그인은 이제 내장된 계층 구조 템플릿을 제공
 
 이 섹션에서는 사용 중단 주기가 끝나고 Kotlin 1.9.0−1.9.25에 적용되는 호환되지 않는 변경 사항에 대해 다룹니다.
 
-### Kotlin 컴파일에 Kotlin 소스 세트를 직접 추가하기 위한 API 사용 중단 {initial-collapse-state="collapsed" collapsible="true"}
+### Kotlin 컴파일에 Kotlin 소스 세트를 직접 추가하기 위한 API 제거 {initial-collapse-state="collapsed" collapsible="true"}
 
 **무엇이 변경되었나요?**
 
-`KotlinCompilation.source` 접근이 사용 중단되었습니다. 다음 코드와 같은 코드는 사용 중단 경고를 생성합니다:
+`KotlinCompilation.source`에 대한 접근이 제거되었습니다. 다음 코드와 같은 코드는 더 이상 지원되지 않습니다:
 
 ```kotlin
 kotlin {
@@ -427,7 +431,7 @@ kotlin {
 
 **현재의 모범 사례는 무엇인가요?**
 
-`KotlinCompilation.source(someSourceSet)`를 대체하려면 `KotlinCompilation`의 기본 소스 세트에서 `someSourceSet`으로 `dependsOn` 관계를 추가하세요. `by getting`을 사용하여 소스를 직접 참조하는 것을 권장합니다. 이는 더 짧고 읽기 쉽습니다. 그러나 모든 경우에 적용 가능한 `KotlinCompilation.defaultSourceSet.dependsOn(someSourceSet)`도 사용할 수 있습니다.
+`KotlinCompilation.source(someSourceSet)`를 대체하려면, `.srcDir()` 함수를 사용하여 해당 소스를 적절한 소스 세트에 직접 추가하세요. 또는 `KotlinCompilation`의 기본 소스 세트에서 `someSourceSet`으로 `dependsOn` 관계를 추가하여 새 소스 세트를 생성할 수 있습니다. IDE 친화적이며 가장 강력한 접근 방식으로 간주되는 [소스 세트 컨벤션](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.dsl/-kotlin-multiplatform-source-set-conventions/)을 사용하여 소스를 직접 참조할 수도 있습니다. 마지막으로, 모든 경우에 작동하는 `KotlinCompilation.defaultSourceSet.dependsOn(someSourceSet)`를 사용할 수 있습니다.
 
 위 코드를 다음 방법 중 하나로 변경할 수 있습니다:
 
@@ -439,19 +443,22 @@ kotlin {
     iosSimulatorArm64()
 
     sourceSets {
-        val commonMain by getting
         val myCustomIntermediateSourceSet by creating {
-            dependsOn(commonMain)
+            // commonMain 소스 세트는 .get() 함수를 사용하여 접근해야 합니다.
+            dependsOn(commonMain.get())
         }
-        
-        // 옵션 #1. 더 짧고 읽기 쉽습니다. 가능한 경우 사용하세요. 
-        // 일반적으로 기본 소스 세트의 이름은 
-        // 타겟 이름과 컴파일 이름의 간단한 연결입니다:
-        val jvmMain by getting {
+
+        // 옵션 #1. 소스를 해당 소스 세트에 직접 추가합니다:
+        commonMain {
+            kotlin.srcDir(layout.projectDirectory.dir("src/commonMain/my-custom-kotlin"))
+        }
+
+        // 옵션 #2. Kotlin Multiplatform 타겟의 기본 main 및 test 소스 세트에 제공되는 컨벤션을 사용합니다:
+        jvmMain {
             dependsOn(myCustomIntermediateSourceSet)
         }
-        
-        // 옵션 #2. 일반적인 솔루션입니다. 빌드 스크립트에서 더 고급 접근 방식이 필요한 경우 사용하세요:
+
+        // 옵션 #3. 더 일반적인 솔루션입니다. 빌드 스크립트가 더 고급 접근 방식을 필요로 하는 경우 사용하세요:
         targets["jvm"].compilations["main"].defaultSourceSet.dependsOn(myCustomIntermediateSourceSet)
     }
 }
@@ -461,9 +468,9 @@ kotlin {
 
 다음은 계획된 사용 중단 주기입니다:
 
-*   1.9.0: `KotlinComplation.source` 사용 시 사용 중단 경고가 도입됩니다.
+*   1.9.0: `KotlinCompilation.source` 사용 시 사용 중단 경고가 도입됩니다.
 *   1.9.20: 이 경고가 오류로 상향됩니다.
-*   2.2.0: Kotlin Gradle 플러그인에서 `KotlinComplation.source`가 제거되며, 사용 시도 시 빌드 스크립트 컴파일 중 "unresolved reference" 오류가 발생합니다.
+*   2.3.0: Kotlin Gradle 플러그인에서 `KotlinCompilation.source`가 제거되며, 사용 시도 시 빌드 스크립트 컴파일 중 "unresolved reference" 오류가 발생합니다.
 
 ### `kotlin-js` Gradle 플러그인에서 `kotlin-multiplatform` Gradle 플러그인으로 마이그레이션 {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -600,8 +607,8 @@ Kotlin 1.9.0부터 `kotlin-js` Gradle 플러그인은 사용 중단되었습니�
 
 예를 들어, 기본 이름 "jvm"을 가진 `jvm` 타겟을 사용하는 경우:
 
-| 이전          | 현재               |
-|---------------|--------------------|
+| 이전 | 현재 |
+|---|---|
 | `src/main/java` | `src/jvmMain/java` |
 | `src/test/java` | `src/jvmTest/java` |
 
@@ -638,7 +645,7 @@ Kotlin 1.9.0부터 `kotlin-js` Gradle 플러그인은 사용 중단되었습니�
 
 `commonMain` 및 `commonTest` 소스 세트는 일반적으로 각각 `main` 및 `test` 소스 세트 계층 구조의 루트를 나타냅니다. 그러나 이러한 소스 세트의 `dependsOn` 관계를 수동으로 구성하여 이를 재정의할 수 있었습니다.
 
-이러한 구성을 유지하려면 멀티플랫폼 빌드 내부 에 대한 추가적인 노력과 지식이 필요합니다. 또한, `commonMain`이 `main` 소스 세트 계층 구조의 루트인지 확실히 하려면 특정 빌드 스크립트를 읽어야 하므로 코드 가독성과 재사용성이 떨어집니다.
+이러한 구성을 유지하려면 멀티플랫폼 빌드 내부에 대한 추가적인 노력과 지식이 필요합니다. 또한, `commonMain`이 `main` 소스 세트 계층 구조의 루트인지 확실히 하려면 특정 빌드 스크립트를 읽어야 하므로 코드 가독성과 재사용성이 떨어집니다.
 
 따라서 `dependsOn`을 `commonMain` 및 `commonTest`에서 접근하는 것은 이제 사용 중단되었습니다.
 
@@ -709,7 +716,7 @@ JetBrains 팀은 예측 가능한 동작을 위해 Kotlin의 전방 선언(forwa
     이전에는 객체들을 끊김 없이 전달하는 것이 가능했습니다. 이제 전방 선언에 대해 명시적인 `as` 캐스트가 필요합니다:
 
     ```kotlin
-    // Kotlin 코드:
+    // Kotlin code:
     fun test() {
         consumeProtocol(produceProtocol() as objcnames.protocols.ForwardDeclaredProtocolProtocol)
     }
@@ -734,17 +741,17 @@ Kotlin 1.9.20부터 해당 C 및 Objective-C 전방 선언으로의 명시적 �
 
 Kotlin Multiplatform Gradle 플러그인과 Gradle 플러그인인 [Java](https://docs.gradle.org/current/userguide/java_plugin.html), [Java Library](https://docs.gradle.org/current/userguide/java_library_plugin.html), [Application](https://docs.gradle.org/current/userguide/application_plugin.html) 사이의 호환성 문제로 인해, 이제 이 플러그인들을 동일한 프로젝트에 적용할 때 사용 중단 경고가 발생합니다. 이 경고는 멀티플랫폼 프로젝트의 다른 Gradle 플러그인이 Gradle Java 플러그인을 적용할 때도 나타납니다. 예를 들어, [Spring Boot Gradle 플러그인](https://docs.spring.io/spring-boot/gradle-plugin/index.html)은 자동으로 Application 플러그인을 적용합니다.
 
-Kotlin Multiplatform의 프로젝트 모델과 Gradle의 Java 에코시스템 플러그인 사이의 근본적인 호환성 문제로 인해 이 사용 중단 경고를 추가했습니다. Gradle의 Java 에코시스템 플러그인들은 현재 다른 플러그인이 다음을 수행할 수 있다는 점을 고려하지 않습니다:
+Kotlin Multiplatform의 프로젝트 모델과 Gradle의 Java 생태계 플러그인 간의 근본적인 호환성 문제로 인해 이 사용 중단 경고가 추가되었습니다. Gradle의 Java 생태계 플러그인은 현재 다른 플러그인이 다음을 수행할 수 있다는 점을 고려하지 않습니다:
 
-*   Java 에코시스템 플러그인과 다른 방식으로 JVM 타겟을 게시하거나 컴파일합니다.
-*   동일한 프로젝트에 JVM과 Android 같은 두 개의 다른 JVM 타겟을 가집니다.
+*   Java 생태계 플러그인과 다른 방식으로 JVM 타겟을 게시하거나 컴파일합니다.
+*   JVM 및 Android와 같이 동일한 프로젝트에 두 개의 다른 JVM 타겟을 가집니다.
 *   잠재적으로 여러 비-JVM 타겟을 포함하는 복잡한 멀티플랫폼 프로젝트 구조를 가집니다.
 
 안타깝게도 Gradle은 현재 이러한 문제를 해결하기 위한 API를 제공하지 않습니다.
 
-이전에 Kotlin Multiplatform에서는 Java 에코시스템 플러그인 통합을 돕기 위해 일부 해결 방법을 사용했습니다. 그러나 이러한 해결 방법은 호환성 문제를 진정으로 해결한 적이 없으며, Gradle 8.8 출시 이후에는 이러한 해결 방법이 더 이상 불가능합니다. 자세한 내용은 [YouTrack 이슈](https://youtrack.jetbrains.com/issue/KT-66542/Gradle-JVM-target-with-withJava-produces-a-deprecation-warning)를 참조하세요.
+이전에 Kotlin Multiplatform에서는 Java 생태계 플러그인 통합을 돕기 위해 일부 해결 방법을 사용했습니다. 그러나 이러한 해결 방법은 호환성 문제를 진정으로 해결한 적이 없으며, Gradle 8.8 출시 이후에는 이러한 해결 방법이 더 이상 불가능합니다. 자세한 내용은 [YouTrack 이슈](https://youtrack.jetbrains.com/issue/KT-66542/Gradle-JVM-target-with-withJava-produces-a-deprecation-warning)를 참조하세요.
 
-이 호환성 문제를 정확히 어떻게 해결해야 할지는 아직 알 수 없지만, Kotlin Multiplatform 프로젝트에서 Java 소스 컴파일의 일부 형태를 계속 지원하기 위해 노력하고 있습니다. 최소한, Gradle의 [`java-base`](https://docs.gradle.org/current/javadoc/org/gradle/api/plugins/JavaBasePlugin.html) 플러그인을 멀티플랫폼 프로젝트 내에서 Java 소스 컴파일 및 사용을 지원할 것입니다.
+이 호환성 문제를 정확히 어떻게 해결해야 할지는 아직 알 수 없지만, Kotlin Multiplatform 프로젝트에서 Java 소스 컴파일의 일부 형태를 계속 지원하기 위해 노력하고 있습니다. 최소한, 멀티플랫폼 프로젝트 내에서 Java 소스 컴파일 및 Gradle의 [`java-base`](https://docs.gradle.org/current/javadoc/org/gradle/api/plugins/JavaBasePlugin.html) 플러그인 사용을 지원할 것입니다.
 
 **현재의 모범 사례는 무엇인가요?**
 
@@ -869,12 +876,12 @@ Kotlin 컴파일 작업은 더 이상 `sourceCompatibility` 및 `targetCompatibi
 
 **현재의 모범 사례는 무엇인가요?**
 
-| 이전                                                      | 현재                                                                                                   |
-|-----------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
-| `SourceTask.stableSources` 입력은 더 이상 사용할 수 없습니다. | 대신 `sources` 입력을 사용하세요. 또한 `setSource()` 메서드는 여전히 사용할 수 있습니다.              |
-| `sourceFilesExtensions` 입력이 제거되었습니다.            | 컴파일 작업은 여전히 `PatternFilterable` 인터페이스를 구현합니다. Kotlin 소스를 필터링하려면 해당 메서드를 사용하세요. |
-| `Gradle destinationDir: File` 출력이 사용 중단되었습니다.   | 대신 `destinationDirectory: DirectoryProperty` 출력을 사용하세요.                                              |
-| `classpath` 속성이 `KotlinCompile` 작업에서 사용 중단되었습니다. | 모든 컴파일 작업은 이제 컴파일에 필요한 라이브러리 목록에 `libraries` 입력을 사용합니다.              |
+| 이전 | 현재 |
+|---|---|
+| `SourceTask.stableSources` 입력은 더 이상 사용할 수 없습니다. | 대신 `sources` 입력을 사용하세요. 또한 `setSource()` 메서드는 여전히 사용할 수 있습니다. |
+| `sourceFilesExtensions` 입력이 제거되었습니다. | 컴파일 작업은 여전히 `PatternFilterable` 인터페이스를 구현합니다. Kotlin 소스를 필터링하려면 해당 메서드를 사용하세요. |
+| `Gradle destinationDir: File` 출력이 사용 중단되었습니다. | 대신 `destinationDirectory: DirectoryProperty` 출력을 사용하세요. |
+| `classpath` 속성이 `KotlinCompile` 작업에서 사용 중단되었습니다. | 모든 컴파일 작업은 이제 컴파일에 필요한 라이브러리 목록에 `libraries` 입력을 사용합니다. |
 
 **언제부터 변경 사항이 적용되나요?**
 

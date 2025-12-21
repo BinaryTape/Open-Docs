@@ -1,6 +1,6 @@
 [//]: # (title: 例外)
 
-例外狀況能幫助您的程式碼運行更具可預測性，即使在運行時發生可能中斷程式執行的錯誤。Kotlin 預設將所有例外視為 _unchecked_ (非檢查式)。Unchecked 例外簡化了例外處理的過程：您可以捕獲例外，但不需要明確處理或 [宣告](java-to-kotlin-interop.md#checked-exceptions) 它們。
+例外狀況能幫助您的程式碼運行更具可預測性，即使在運行時發生可能中斷程式執行的錯誤。Kotlin 預設將所有例外視為 _unchecked_ (非檢查式)。非檢查式例外簡化了例外處理的過程：您可以捕獲例外，但不需要明確處理或 [宣告](java-to-kotlin-interop.md#checked-exceptions) 它們。
 
 > 欲了解 Kotlin 如何在與 Java、Swift 和 Objective-C 互動時處理例外，請參閱
 > [與 Java、Swift 和 Objective-C 的例外互通性](#exception-interoperability-with-java-swift-and-objective-c) 一節。
@@ -16,7 +16,7 @@
 
 ## 拋出例外
 
-您可以使用 `throw` 關鍵字手動拋出例外。拋出例外表示程式碼中發生了非預期的運行時錯誤。例外是 [物件](classes.md#creating-instances-of-classes)，拋出例外會建立例外類別的一個實例。
+您可以使用 `throw` 關鍵字手動拋出例外。拋出例外表示程式碼中發生了非預期的運行時錯誤。例外是 [物件](classes.md#creating-instances)，拋出例外會建立例外類別的一個實例。
 
 您可以拋出不帶任何參數的例外：
 
@@ -46,7 +46,7 @@ Kotlin 提供了其他方式，可以使用前置條件函式自動拋出例外�
 |--------------------------|--------------------------------------|------------------------------------------------------------------------------------------------------------------|
 | [`require()`](#require-function) | 檢查使用者輸入的有效性             | [`IllegalArgumentException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-argument-exception/)   |
 | [`check()`](#check-function)     | 檢查物件或變數狀態的有效性         | [`IllegalStateException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/)         |
-| [`error()`](#error-function)     | 指示不合法的狀態或條件             | [`IllegalStateException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/)         |
+| [`error()`](#error-function)     | 指示不合法狀態或條件             | [`IllegalStateException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/)         |
 
 這些函式適用於程式流程在特定條件未滿足時無法繼續的情況。這能簡化您的程式碼，並使這些檢查的處理變得高效。
 
@@ -306,11 +306,11 @@ fun main() {
 >
 > ```kotlin
 > FileWriter("test.txt").use { writer ->
-> writer.write("some text") 
-> // After this block, the .use function automatically calls writer.close(), similar to a finally block
+>     writer.write("some text")
+>     // After this block, the .use function automatically calls writer.close(), similar to a finally block
 > }
 > ```
-> 
+>
 {style="note"}
 
 如果您的程式碼需要資源清理而不處理例外，您也可以單獨使用 `try` 與 `finally` 區塊，而無需 `catch` 區塊：
@@ -359,7 +359,7 @@ fun main() {
 
 ## 建立自訂例外
 
-在 Kotlin 中，您可以透過建立擴展內建 `Exception` 類別的類別來定義自訂例外。這使您能夠建立更符合應用程式需求的特定錯誤類型。
+在 Kotlin 中，您可以透過建立擴展內建 `Exception` 類別的類別來定義自訂例外。這使您能夠建立更符合應用程式需求的特定錯誤型別。
 
 要建立一個，您可以定義一個擴展 `Exception` 的類別：
 
@@ -421,26 +421,26 @@ fun main() {
 
 ```kotlin
 //sampleStart
-// 建立一個密封類別作為帳戶相關錯誤的例外繼承結構的基礎
+// Creates a sealed class as the base for an exception hierarchy for account-related errors
 sealed class AccountException(message: String, cause: Throwable? = null):
 Exception(message, cause)
 
-// 建立 AccountException 的子類別
+// Creates a subclass of AccountException
 class InvalidAccountCredentialsException : AccountException("Invalid account credentials detected")
 
-// 建立 AccountException 的子類別，它允許添加自訂訊息和原因
+// Creates a subclass of AccountException, which allows the addition of custom messages and causes
 class APIKeyExpiredException(message: String = "API key expired", cause: Throwable? = null)	: AccountException(message, cause)
 
-// 更改佔位符函式的值以獲得不同的結果
+// Change values of placeholder functions to get different results
 fun areCredentialsValid(): Boolean = true
 fun isAPIKeyExpired(): Boolean = true
 //sampleEnd
 
-// 驗證帳戶憑證和 API 金鑰
+// Validates account credentials and API key
 fun validateAccount() {
     if (!areCredentialsValid()) throw InvalidAccountCredentialsException()
     if (isAPIKeyExpired()) {
-        // 拋出 APIKeyExpiredException 並帶有特定原因的範例
+        // Example of throwing APIKeyExpiredException with a specific cause
         val cause = RuntimeException("API key validation failed due to network error")
         throw APIKeyExpiredException(cause = cause)
     }
@@ -522,14 +522,14 @@ fun main() {
     ```
 
     > 為了避免此例外，請使用更安全的替代方案，例如 [`getOrNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/get-or-null.html) 函式：
-    > 
+    >
     > ```kotlin
     > val myList = listOf(1, 2, 3)
     > // Returns null, instead of IndexOutOfBoundsException
     > val element = myList.getOrNull(3)
     > println("Element at index 3: $element")
     > ```
-    > 
+    >
 {style="note"}
 
 *   [`NoSuchElementException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-no-such-element-exception/)：當存取特定集合中不存在的元素時，會拋出此例外。它在使用預期特定元素的方法（例如 [`first()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first.html) 或 [`last()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/last.html)）時發生。

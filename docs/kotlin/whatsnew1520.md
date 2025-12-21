@@ -22,7 +22,7 @@ Kotlin 1.5.20 在 JVM 9+ 目标平台上将字符串连接编译为[动态调用
 
 要切换回旧版本中通过 [`StringBuilder.append()`](https://docs.oracle.com/javase/9/docs/api/java/lang/StringBuilder.html#append-java.lang.String-) 进行连接的方式，请添加编译器选项 `-Xstring-concat=inline`。
 
-了解如何在 [Gradle](gradle-compiler-options.md)、[Maven](maven.md#specify-compiler-options) 和[命令行编译器](compiler-reference.md#compiler-options)中添加编译器选项。
+了解如何在 [Gradle](gradle-compiler-options.md)、[Maven](maven-compile-package.md#specify-compiler-options) 和[命令行编译器](compiler-reference.md#compiler-options)中添加编译器选项。
 
 ### 支持 JSpecify 可空性注解
 
@@ -173,18 +173,18 @@ Kotlin/Native 编译器在 1.5.20 中收到了多项错误修复。你可以在[
 
 Kotlin 1.5.20 引入了以下可以改善 Gradle 体验的特性：
 
-* [Kapt 中注解处理器类加载器的缓存](#caching-for-annotation-processors-classloaders-in-kapt)
+* [Kapt 中注解处理器 classloaders 的缓存](#caching-for-annotation-processors-classloaders-in-kapt)
 * [弃用 `kotlin.parallel.tasks.in.project` 构建属性](#deprecation-of-the-kotlin-parallel-tasks-in-project-build-property)
 
-### Kapt 中注解处理器类加载器的缓存
+### Kapt 中注解处理器 classloaders 的缓存
 
-> Kapt 中注解处理器类加载器的缓存是[实验性的](components-stability.md)。
+> Kapt 中注解处理器 classloaders 的缓存是[实验性的](components-stability.md)。
 > 它可能随时被废弃或更改。仅供评估目的使用。
 > 我们非常感谢你在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-28901) 上提供反馈。
 >
 {style="warning"}
 
-现在有一个新的实验性特性，可以缓存 [kapt](kapt.md) 中注解处理器的类加载器。
+现在有一个新的实验性特性，可以缓存 [kapt](kapt.md) 中注解处理器的 classloaders。
 此特性可以提高 kapt 在连续 Gradle 运行时的速度。
 
 要启用此特性，请在 `gradle.properties` 文件中使用以下属性：
@@ -242,7 +242,7 @@ fun main() {
     val latinCapitalA = 'A' // has "Lu" general category
     val circledLatinCapitalA = 'Ⓐ' // has "Other_Uppercase" property
     println(latinCapitalA.isUpperCase() && circledLatinCapitalA.isUpperCase())
-//示例结束
+//sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5"}

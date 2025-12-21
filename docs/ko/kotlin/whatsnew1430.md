@@ -4,7 +4,7 @@ _[출시일: 2021년 2월 3일](releases.md#release-details)_
 
 Kotlin 1.4.30은 새로운 언어 기능의 프리뷰 버전을 제공하고, Kotlin/JVM 컴파일러의 새로운 IR 백엔드를 베타로 승격하며, 다양한 성능 및 기능 개선 사항을 포함합니다.
 
-새로운 기능에 대한 자세한 내용은 [이 블로그 게시물](https://blog.jetbrains.com/kotlin/2021/01/kotlin-1-4-30-released/)에서도 확인할 수 있습니다.
+새로운 기능에 대한 자세한 내용은 [이 블로그 게시물](https://blog.jetbrains.com/kotlin/2021/02/kotlin-1-4-30-released/)에서도 확인할 수 있습니다.
 
 ## 언어 기능
 
@@ -16,7 +16,7 @@ Kotlin 1.5.0에서는 JVM 레코드 지원, 봉인된 인터페이스(sealed int
 
 프리뷰 모드에서 이러한 언어 기능 및 개선 사항을 활성화하려면 특정 컴파일러 옵션을 추가하여 옵트인(opt-in)해야 합니다. 자세한 내용은 아래 섹션을 참조하세요.
 
-새로운 기능 프리뷰에 대한 자세한 내용은 [이 블로그 게시물](https://blog.jetbrains.com/kotlin/2021/01/new-language-features-preview-in-kotlin-1-4-30)에서 확인할 수 있습니다.
+새로운 기능 프리뷰에 대한 자세한 내용은 [이 블로그 게시물](https://blog.jetbrains.com/kotlin/2021/02/new-language-features-preview-in-kotlin-1-4-30/)에서 확인할 수 있습니다.
 
 ### JVM 레코드 지원
 
@@ -115,7 +115,7 @@ Kotlin 1.4.30은 [인라인 클래스](inline-classes.md)를 [베타](components
 
     value class Name(private val s: String)
 
-    // JVM 백엔드의 경우
+    // For JVM backends
     @JvmInline
     value class Name(private val s: String)
     ```
@@ -196,7 +196,7 @@ Kotlin/JVM용 [IR 기반 컴파일러 백엔드](whatsnew14.md#unified-backends-
     </configuration>
     ```
 
-JVM IR 백엔드가 가져오는 변경 사항에 대한 자세한 내용은 [이 블로그 게시물](https://blog.jetbrains.com/kotlin/2021/01/the-jvm-backend-is-in-beta-let-s-make-it-stable-together)에서 확인할 수 있습니다.
+JVM IR 백엔드가 가져오는 변경 사항에 대한 자세한 내용은 [이 블로그 게시물](https://blog.jetbrains.com/kotlin/2021/02/the-jvm-backend-is-in-beta-let-s-make-it-stable-together/)에서 확인할 수 있습니다.
 
 ## Kotlin/Native
 
@@ -222,7 +222,7 @@ Xcode 12.2와 함께 제공되는 새로운 라이브러리에 대한 지원이 
 
 Kotlin/JS용 [IR 백엔드](js-ir-compiler.md)는 최상위 속성의 지연 초기화 프로토타입 구현을 받고 있습니다. 이는 애플리케이션 시작 시 모든 최상위 속성을 초기화할 필요성을 줄여주고, 애플리케이션 시작 시간을 크게 개선할 것입니다.
 
-저희는 지연 초기화 작업을 계속할 것이며, 현재 프로토타입을 사용해 보고 이 [YouTrack 티켓](https://youtrack.jetbrains.com/issue/KT-44320)이나 공식 [Kotlin Slack](https://kotlinlang.slack.com)의 `javascript` 채널(초대 받기 [여기](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up))에 의견과 결과를 공유해 주시기를 요청합니다.
+저희는 지연 초기화 작업을 계속할 것이며, 현재 프로토타입을 사용해 보고 이 [YouTrack 티켓](https://youtrack.jetbrains.com/issue/KT-44320)이나 공식 [Kotlin Slack](https://kotlinlang.slack.com)의 [`#javascript`](https://kotlinlang.slack.com/archives/C0B8L3U69) 채널(초대 받기 [여기](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up))에 의견과 결과를 공유해 주시기를 요청합니다.
 
 지연 초기화를 사용하려면 JS IR 컴파일러로 코드를 컴파일할 때 `-Xir-property-lazy-initialization` 컴파일러 옵션을 추가하세요.
 
@@ -245,10 +245,10 @@ Kotlin/JS용 [IR 백엔드](js-ir-compiler.md)는 최상위 속성의 지연 초
 이번 릴리스에서는 문자열 및 문자의 대소문자를 변경하기 위한 실험적인 로케일 독립적 API를 도입합니다. 현재 `toLowerCase()`, `toUpperCase()`, `capitalize()`, `decapitalize()` API 함수는 로케일 민감(locale-sensitive)입니다. 이는 다른 플랫폼 로케일 설정이 코드 동작에 영향을 미칠 수 있음을 의미합니다. 예를 들어, 터키어 로케일에서 "kotlin" 문자열을 `toUpperCase`를 사용하여 변환하면 결과는 "KOTLİN"이지 "KOTLIN"이 아닙니다.
 
 ```kotlin
-// 현재 API
+// current API
 println("Needs to be capitalized".toUpperCase()) // NEEDS TO BE CAPITALIZED
 
-// 새로운 API
+// new API
 println("Needs to be capitalized".uppercase()) // NEEDS TO BE CAPITALIZED
 ```
 
@@ -286,9 +286,9 @@ Kotlin 1.4.30은 다음 대안을 제공합니다:
 현재 UTF-16 코드를 다양한 숫자 유형으로 표현하여 반환하는 `Char`에서 숫자로의 변환 함수는 문자열의 숫자 값을 반환하는 유사한 String-to-Int 변환과 혼동되는 경우가 많습니다:
 
 ```kotlin
-"4".toInt() // 4 반환
-'4'.toInt() // 52 반환
-// 그리고 Char '4'에 대해 숫자 값 4를 반환하는 공통 함수는 없었습니다.
+"4".toInt() // returns 4
+'4'.toInt() // returns 52
+// and there was no common function that would return the numeric value 4 for Char '4'
 ```
 
 이러한 혼동을 피하기 위해 `Char` 변환을 명확하게 명명된 다음 두 가지 함수 세트로 분리하기로 결정했습니다:

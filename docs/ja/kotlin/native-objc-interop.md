@@ -1,6 +1,6 @@
 [//]: # (title: Swift/Objective-C との相互運用)
 
-> Objective-Cライブラリのインポートは[ベータ版](native-c-interop-stability.md)です。
+> Objective-Cライブラリのインポートは[ベータ版](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import)です。
 > Objective-Cライブラリからcinteropツールによって生成されるすべてのKotlin宣言には、
 > `@ExperimentalForeignApi`アノテーションを付与する必要があります。
 >
@@ -256,7 +256,7 @@ Swift/Objective-Cフレームワークにコンパイルする際、`@Throws`ア
 
 Swift/Objective-Cコードから呼び出されたKotlin関数が、`@Throws`で指定されたクラスまたはそのサブクラスのいずれかのインスタンスである例外をスローした場合、その例外は`NSError`として伝播されます。Swift/Objective-Cに到達する他のKotlin例外は未処理と見なされ、プログラムの終了を引き起こします。
 
-`@Throws`なしの`suspend`関数は、`CancellationException`のみを伝播します（`NSError`として）。`@Throws`なしの非`suspend`関数は、Kotlin例外をまったく伝播しません。
+`suspend`関数で`@Throws`なしのものは、`CancellationException`のみを伝播します（`NSError`として）。`suspend`関数ではないもので`@Throws`なしのものは、Kotlin例外をまったく伝播しません。
 
 逆方向の変換はまだ実装されていません。Swift/Objective-Cのエラーをスローするメソッドは、Kotlinに例外をスローするメソッドとしてインポートされません。
 
@@ -453,13 +453,7 @@ foo {
 
 #### Objective-Cブロック型での明示的なパラメータ名
 
-エクスポートされたObjective-Cヘッダーに対して、Kotlinの関数型に明示的なパラメータ名を追加できます。それらがないと、XcodeのオートコンプリートはObjective-Cブロックでパラメータ名のないObjective-C関数の呼び出しを提案し、生成されたブロックはClang警告を引き起こします。
-
-明示的なパラメータ名を有効にするには、以下の[バイナリオプション](native-binary-options.md)を`gradle.properties`ファイルに追加します。
-
-```none
-kotlin.native.binary.objcExportBlockExplicitParameterNames=true
-```
+エクスポートされたObjective-Cヘッダーに対して、Kotlinの関数型に明示的なパラメータ名を追加できます。これにより、XcodeのオートコンプリートはObjective-CブロックでObjective-C関数を呼び出す際にこれらの名前を提案します。
 
 例えば、以下のKotlinコードの場合：
 
@@ -480,6 +474,14 @@ greetUserBlock:^(NSString *name) {
 > このオプションはObjective-C相互運用のみに影響します。これは、Xcodeで生成されたObjective-CコードをObjective-Cから呼び出す場合に適用され、一般的にSwiftからの呼び出しには影響しません。
 >
 {style="note"}
+
+問題が発生した場合、`gradle.properties`ファイルで以下の[バイナリオプション](native-binary-options.md)を使用して明示的なパラメータ名を無効にできます：
+
+```none
+kotlin.native.binary.objcExportBlockExplicitParameterNames=false
+```
+
+このような問題は、課題トラッカーである[YouTrack](https://kotl.in/issue)に報告してください。
 
 ### ジェネリクス
 
@@ -601,7 +603,7 @@ fun test() {
 
 ## マッピングされた型間のキャスト
 
-Kotlinコードを記述する際、オブジェクトをKotlin型から同等のSwift/Objective-C型に（またはその逆に）変換する必要がある場合があります。この場合、例えば以下のように通常のKotlinキャストを使用できます。
+Kotlinコードを記述する際、オブジェクトをKotlin型から同等のSwift/Objective-C型に（またはその逆に）変換する必要がある場合があります。この場合、例えば以下のように、[`as`キャスト](typecasts.md#unsafe-cast-operator)を使用できます。
 
 ```kotlin
 @file:Suppress("CAST_NEVER_SUCCEEDS")

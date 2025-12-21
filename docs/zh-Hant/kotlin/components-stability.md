@@ -82,7 +82,7 @@ Kotlin 語言和工具集被劃分為許多元件，例如 JVM、JS 和 Native �
 | [No-arg](no-arg-plugin.md)                       | Stable       | 1.3.0                    |              |
 | [SAM-with-receiver](sam-with-receiver-plugin.md) | Stable       | 1.3.0                    |              |
 | [kapt](kapt.md)                                  | Stable       | 1.3.0                    |              |
-| [Lombok](lombok.md)                              | Experimental | 1.5.20                   |              |
+| [Lombok](lombok.md)                              | Alpha        | 2.3.0                    |              |
 | [Power-assert](power-assert.md)                  | Experimental | 2.0.0                    |              |
 
 ### Kotlin 函式庫
@@ -106,13 +106,13 @@ Kotlin 語言和工具集被劃分為許多元件，例如 JVM、JS 和 Native �
 
 ### Kotlin/Native
 
-| **元件**                                | **狀態** | **自版本起狀態** | **備註**                                                                   |
-|----------------------------------------------|------------|--------------------------|--------------------------------------------------------------------------------|
-| Kotlin/Native 執行時                        | Stable     | 1.9.20                   |                                                                                |
-| Kotlin/Native 與 C 和 Objective-C 的互通 | Beta       | 1.3.0                    | [C 和 Objective-C 函式庫匯入的穩定性](native-c-interop-stability.md) |
-| klib 二進位檔                                | Stable     | 1.9.20                   | 不包括 cinterop klibs，詳見下文                                        |
-| cinterop klib 二進位檔                       | Beta       | 1.3.0                    | [C 和 Objective-C 函式庫匯入的穩定性](native-c-interop-stability.md) |
-| CocoaPods 整合                        | Stable     | 1.9.20                   |                                                                                |
+| **元件**                                | **狀態** | **自版本起狀態** | **備註**                                                                                                                  |
+|----------------------------------------------|------------|--------------------------|-------------------------------------------------------------------------------------------------------------------------------|
+| Kotlin/Native 執行時                        | Stable     | 1.9.20                   |                                                                                                                               |
+| Kotlin/Native 與 C 和 Objective-C 的互通 | Beta       | 1.3.0                    | [C 和 Objective-C 函式庫匯入的穩定性](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) |
+| klib 二進位檔                                | Stable     | 1.9.20                   | 不包括 cinterop klibs，詳見下文                                                                                       |
+| cinterop klib 二進位檔                       | Beta       | 1.3.0                    | [C 和 Objective-C 函式庫匯入的穩定性](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) |
+| CocoaPods 整合                        | Stable     | 1.9.20                   |                                                                                                                               |
 
 有關不同目標的支援等級的更多資訊，請參閱 [](native-target-support.md)。
 

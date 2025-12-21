@@ -9,7 +9,7 @@
     </p>
 </tldr>
 
-> Cライブラリのインポートは[ベータ版](native-c-interop-stability.md)です。cinteropツールによってCライブラリから生成されるすべてのKotlin宣言には、`@ExperimentalForeignApi`アノテーションを付加する必要があります。
+> Cライブラリのインポートは[ベータ版](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import)です。cinteropツールによってCライブラリから生成されるすべてのKotlin宣言には、`@ExperimentalForeignApi`アノテーションを付加する必要があります。
 >
 > Kotlin/Nativeに同梱されているネイティブプラットフォームライブラリ（Foundation、UIKit、POSIXなど）は、一部のAPIでのみオプトインが必要です。
 >
@@ -50,30 +50,30 @@ void union_by_value(MyUnion u) {}
 void union_by_pointer(MyUnion* u) {}
 ``` 
 
-`interop.def`ファイルには、アプリケーションをIDEでコンパイル、実行、または開くために必要なすべてが提供されています。
+`interop.def`ファイルは、IDEでアプリケーションをコンパイル、実行、または開くために必要なすべてを提供します。
 
 ## Cライブラリの生成されたKotlin APIを検査する
 
 Cのstruct型とunion型がKotlin/Nativeにどのようにマッピングされるかを見て、プロジェクトを更新しましょう。
 
-1.  `src/nativeMain/kotlin`で、[前のチュートリアル](mapping-primitive-data-types-from-c.md)の`hello.kt`ファイルを以下の内容で更新します。
+1. `src/nativeMain/kotlin`で、[前のチュートリアル](mapping-primitive-data-types-from-c.md)の`hello.kt`ファイルを以下の内容で更新します。
 
-    ```kotlin
-    import interop.*
-    import kotlinx.cinterop.ExperimentalForeignApi
+   ```kotlin
+   import interop.*
+   import kotlinx.cinterop.ExperimentalForeignApi
 
-    @OptIn(ExperimentalForeignApi::class)
-    fun main() {
-        println("Hello Kotlin/Native!")
+   @OptIn(ExperimentalForeignApi::class)
+   fun main() {
+       println("Hello Kotlin/Native!")
 
-        struct_by_value(/* fix me*/)
-        struct_by_pointer(/* fix me*/)
-        union_by_value(/* fix me*/)
-        union_by_pointer(/* fix me*/)
-    }
-    ```
+       struct_by_value(/* fix me*/)
+       struct_by_pointer(/* fix me*/)
+       union_by_value(/* fix me*/)
+       union_by_pointer(/* fix me*/)
+   }
+   ```
 
-2.  コンパイラエラーを避けるために、ビルドプロセスに相互運用性を追加します。そのためには、`build.gradle(.kts)`ビルドファイルを以下の内容で更新します。
+2. コンパイラエラーを避けるために、ビルドプロセスに相互運用性を追加します。そのためには、`build.gradle(.kts)`ビルドファイルを以下の内容で更新します。
 
     <tabs group="build-script">
     <tab title="Kotlin" group-key="kotlin">
@@ -123,15 +123,15 @@ Cのstruct型とunion型がKotlin/Nativeにどのようにマッピングされ�
     </tab>
     </tabs> 
 
-3.  IntelliJ IDEAの[宣言へ移動](https://www.jetbrains.com/help/rider/Navigation_and_Search__Go_to_Declaration.html)コマンド（<shortcut>Cmd + B</shortcut>/<shortcut>Ctrl + B</shortcut>）を使用して、C関数、struct、union用に生成された以下のAPIに移動します。
+3. IntelliJ IDEAの[宣言へ移動](https://www.jetbrains.com/help/rider/Navigation_and_Search__Go_to_Declaration.html)コマンド（<shortcut>Cmd + B</shortcut>/<shortcut>Ctrl + B</shortcut>）を使用して、C関数、struct、およびunion用に生成された以下のAPIに移動します。
 
-    ```kotlin
-    fun struct_by_value(s: kotlinx.cinterop.CValue<interop.MyStruct>)
-    fun struct_by_pointer(s: kotlinx.cinterop.CValuesRef<interop.MyStruct>?)
-    
-    fun union_by_value(u: kotlinx.cinterop.CValue<interop.MyUnion>)
-    fun union_by_pointer(u: kotlinx.cinterop.CValuesRef<interop.MyUnion>?)
-    ```
+   ```kotlin
+   fun struct_by_value(s: kotlinx.cinterop.CValue<interop.MyStruct>)
+   fun struct_by_pointer(s: kotlinx.cinterop.CValuesRef<interop.MyStruct>?)
+   
+   fun union_by_value(u: kotlinx.cinterop.CValue<interop.MyUnion>)
+   fun union_by_pointer(u: kotlinx.cinterop.CValuesRef<interop.MyUnion>?)
+   ```
 
 技術的には、Kotlin側ではstruct型とunion型に違いはありません。cinteropツールは、structとunionの両方のC宣言に対してKotlin型を生成します。
 

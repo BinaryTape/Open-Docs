@@ -23,7 +23,7 @@ Koog 的 **流式 API** 允许您以 `Flow<StreamFrame>` 的形式**增量地消
 借助流式处理，您可以：
 
 - 处理到达的数据（提高 UI 响应能力）
-- 即时解析结构化信息（Markdown/JSON 等）
+- 即时解析结构化信息（Markdown/JSON/等）
 - 在对象完成时发出它们
 - 实时触发工具
 
@@ -94,10 +94,10 @@ val mdDefinition = markdownBookDefinition()
 
 llm.writeSession {
     val stream = requestLLMStreaming(mdDefinition)
-    // 直接访问原始字符串块
+    // Access the raw string chunks directly
     stream.collect { chunk ->
-        // 处理到达的每个文本块
-        println("Received chunk: $chunk") // 这些块共同将按照 mdDefinition 模式结构化为文本
+        // Process each chunk of text as it arrives
+        println("Received chunk: $chunk") // The chunks together will be structured as a text following the mdDefinition schema
     }
 }
 ```
@@ -123,10 +123,10 @@ val strategy = strategy<String, String>("strategy_name") {
 llm.writeSession {
     val frames = requestLLMStreaming()
 
-    // 流式传输文本块：
+    // Stream text chunks as they come:
     frames.filterTextOnly().collect { chunk -> print(chunk) }
 
-    // 或者，在流结束时将所有文本收集到一个 String 中：
+    // Or, gather all text into one String after End:
     val fullText = frames.collectText()
     println("
 ---
@@ -189,7 +189,7 @@ handleEvents {
 
 结构化数据方法包括以下关键组件：
 
-1. **MarkdownStructureDefinition**：一个帮助您定义 Markdown 格式结构化数据的 schema 和 examples 的类。
+1. **MarkdownStructureDefinition**：一个帮助您定义 Markdown 格式结构化数据的模式和示例的类。
 2. **markdownStreamingParser**：一个用于创建解析器（该解析器处理 Markdown 数据块流并发出事件）的函数。
 
 以下部分提供了处理结构化数据流的分步说明和代码示例。
@@ -261,15 +261,15 @@ fun parseMarkdownStreamToBooks(markdownStream: Flow<String>): Flow<Book> {
 -->
 ```kotlin
 markdownStreamingParser {
-    // 处理一级标题（级别范围从 1 到 6）
+    // Handle level 1 headings (level ranges from 1 to 6)
     onHeader(1) { headerText -> }
-    // 处理项目符号
+    // Handle bullet points
     onBullet { bulletText -> }
-    // 处理代码块
+    // Handle code blocks
     onCodeBlock { codeBlockContent -> }
-    // 处理匹配正则表达式模式的行
+    // Handle lines matching a regex pattern
     onLineMatching(Regex("pattern")) { line -> }
-    // 处理流的结束
+    // Handle the end of the stream
     onFinishStream { remainingText -> }
 }
 ```
@@ -293,9 +293,9 @@ fun parseMarkdownStreamToBooks(markdownStream: Flow<StreamFrame>): Flow<Book> {
          var currentBookTitle = ""
          val bulletPoints = mutableListOf<String>()
 
-         // 处理在响应流中接收 Markdown 标题的事件
+         // Handle the event of receiving the Markdown header in the response stream
          onHeader(1) { headerText ->
-            // 如果存在上一本书，则发出它
+            // If there was a previous book, emit it
             if (currentBookTitle.isNotEmpty() && bulletPoints.isNotEmpty()) {
                val author = bulletPoints.getOrNull(0) ?: ""
                val description = bulletPoints.getOrNull(1) ?: ""
@@ -306,14 +306,14 @@ fun parseMarkdownStreamToBooks(markdownStream: Flow<StreamFrame>): Flow<Book> {
             bulletPoints.clear()
          }
 
-         // 处理在响应流中接收 Markdown 项目符号列表的事件
+         // Handle the event of receiving the Markdown bullets list in the response stream
          onBullet { bulletText ->
             bulletPoints.add(bulletText)
          }
 
-         // 处理响应流的结束
+         // Handle the end of the response stream
          onFinishStream {
-            // 如果存在，则发出最后一本书
+            // Emit the last book, if present
             if (currentBookTitle.isNotEmpty() && bulletPoints.isNotEmpty()) {
                val author = bulletPoints.getOrNull(0) ?: ""
                val description = bulletPoints.getOrNull(1) ?: ""
@@ -337,16 +337,16 @@ import ai.koog.agents.example.exampleStreamingApi06.parseMarkdownStreamToBooks
 -->
 ```kotlin
 val agentStrategy = strategy<String, List<Book>>("library-assistant") {
-   // 描述包含输出流解析的节点
+   // Describe the node containing the output stream parsing
    val getMdOutput by node<String, List<Book>> { booksDescription ->
       val books = mutableListOf<Book>()
       val mdDefinition = markdownBookDefinition()
 
       llm.writeSession {
          appendPrompt { user(booksDescription) }
-         // 以定义 `mdDefinition` 的形式启动响应流
+         // Initiate the response stream in the form of the definition `mdDefinition`
          val markdownStream = requestLLMStreaming(mdDefinition)
-         // 使用响应流的结果调用解析器并对结果执行操作
+         // Call the parser with the result of the response stream and perform actions with the result
          parseMarkdownStreamToBooks(markdownStream).collect { book ->
             books.add(book)
             println("Parsed Book: ${book.title} by ${book.author}")
@@ -355,7 +355,7 @@ val agentStrategy = strategy<String, List<Book>>("library-assistant") {
 
       books
    }
-   // 描述代理的图，确保节点可访问
+   // Describe the agent's graph making sure the node is accessible
    edge(nodeStart forwardTo getMdOutput)
    edge(getMdOutput forwardTo nodeFinish)
 }
@@ -384,21 +384,19 @@ data class Book(
    val description: String
 )
 
-class BookTool(): SimpleTool<Book>() {
-    
+class BookTool(): SimpleTool<Book>(
+    argsSerializer = Book.serializer(),
+    name = NAME,
+    description = "A tool to parse book information from Markdown"
+) {
+
     companion object { const val NAME = "book" }
 
-    override suspend fun doExecute(args: Book): String {
+    override suspend fun execute(args: Book): String {
         println("${args.title} by ${args.author}:
  ${args.description}")
         return "Done"
     }
-
-    override val argsSerializer: KSerializer<Book>
-        get() = Book.serializer()
-
-    override val name: String = NAME
-    override val description = "一个用于从 Markdown 解析书籍信息的工具"
 }
 ```
 <!--- KNIT example-streaming-api-08.kt -->
@@ -424,14 +422,14 @@ val agentStrategy = strategy<String, Unit>("library-assistant") {
 
          parseMarkdownStreamToBooks(markdownStream).collect { book ->
             callToolRaw(BookTool.NAME, book)
-            /* 其他可能选项：
+            /* Other possible options:
                 callTool(BookTool::class, book)
                 callTool<BookTool>(book)
                 findTool(BookTool::class).execute(book)
             */
          }
 
-         // 我们可以进行并行工具调用
+         // We can make parallel tool calls
          parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(toolClass=BookTool::class).collect {
             println("Tool call result: $it")
          }

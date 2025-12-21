@@ -4,9 +4,10 @@ Kotlin 程式碼通常以專案的形式組織，並在 IDE、文字編輯器或
 如果您想快速了解某個函式的運作方式或找出某個運算式的值，則無需建立新專案
 並建置它。請查看以下三種在不同環境中即時執行 Kotlin 程式碼的便捷方式：
 
-*   [暫存檔](#ide-scratches-and-worksheets) 在 IDE 中。
-*   [Kotlin Playground](#browser-kotlin-playground) 在瀏覽器中。
-*   [ki shell](#command-line-ki-shell) 在命令列中。
+* [暫存檔](#ide-scratches-and-worksheets) 在 IDE 中。
+* [Kotlin Notebook](#ide-kotlin-notebook) 在 IDE 中。
+* [Kotlin Playground](#browser-kotlin-playground) 在瀏覽器中。
+* [ki shell](#command-line-ki-shell) 在命令列中。
 
 ## IDE：暫存檔 {id="ide-scratches-and-worksheets"}
 
@@ -46,13 +47,23 @@ IDE 可以自動從暫存檔執行程式碼。要一停止
 
 ![Scratch select module](scratch-select-module.png){width=700}
 
-### 作為 REPL 執行 
+## IDE: Kotlin Notebook
 
-若要評估暫存檔中的每個特定運算式，請選取 **Use REPL** 來執行。程式碼行
-將按順序執行，並提供每個呼叫的結果。
-您可以稍後在同一檔案中透過其自動生成的 `res*` 名稱（它們顯示在對應的行中）來使用這些結果。
+[Kotlin Notebook](kotlin-notebook-overview.md) 是一個互動式編輯器，可讓您在單一文件中混合程式碼、輸出、視覺效果和 Markdown。
+您可以使用筆記本在稱為 _程式碼單元_ 的部分中編寫和執行程式碼，並立即查看結果。
 
-![Scratch REPL](scratch-repl.png){width=700}
+![Kotlin Notebook](data-analysis-notebook.gif){width=700}
+
+Kotlin Notebook 預設捆綁在 IntelliJ IDEA 中並已啟用。
+
+要開始使用 Kotlin Notebook，請參閱 [開始使用 Kotlin Notebook](get-started-with-kotlin-notebooks.md)。
+
+### 暫存 Kotlin Notebook
+
+您還可以將 Kotlin Notebook 建立為 [暫存檔](https://www.jetbrains.com/help/idea/scratches.html)，這讓您無需建立新專案或
+修改現有專案即可測試小段程式碼。暫存筆記本可從任何專案存取。
+
+[了解如何建立暫存 Kotlin Notebook](kotlin-notebook-create.md#create-a-scratch-kotlin-notebook)。
 
 ## 瀏覽器：Kotlin Playground
 
@@ -153,7 +164,7 @@ ki shell 中可用的命令。
 
 ![ki shell load file](ki-shell-load.png){width=700}
 
-The `ls` command 顯示可用的符號（變數和函式）。
+`ls` 命令顯示可用的符號（變數和函式）。
 
 ### 新增外部依賴項
 

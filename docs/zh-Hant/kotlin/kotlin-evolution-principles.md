@@ -85,7 +85,7 @@ Kotlin 語言功能可具有以下狀態之一：
 
 *   **KEEP 討論**。我們相當確定該功能應新增至語言中。我們的目標是在一份名為 _KEEP_ 的文件中提供動機、使用案例、設計和其他重要細節。我們期望使用者意見回饋的重點是討論 KEEP 中提供的所有資訊。
 
-*   **預覽中**。功能原型已準備就緒，您可以使用特定功能的編譯器選項啟用它。我們尋求您對該功能的體驗回饋，包括它如何輕鬆整合到您的程式碼庫中、它如何與現有程式碼互動，以及任何 IDE 支援問題或建議。該功能的設計可能會顯著改變，或者根據意見回饋被完全撤銷。當功能處於_預覽中_時，它具有[穩定性層級](components-stability.md#stability-levels-explained)。
+*   **預覽中**。功能原型已準備就緒，您可以使用特定功能的編譯器選項啟用它。我們尋求您對該功能的體驗回饋，包括它如何輕鬆整合到您的程式碼庫中、它如何與現有程式碼互動，以及任何 IDE 支援問題或建議。該功能的設計可能會顯著改變，或者根據意見回饋被完全撤銷。當功能處於_預覽中_時，它具有 Experimental 或 Beta [穩定性層級](components-stability.md#stability-levels-explained)。
 
 *   **穩定**。該語言功能現在是 Kotlin 語言中的一等公民 (first-class citizen)。我們保證其向後相容性，並將提供工具支援。
 
@@ -135,7 +135,7 @@ Kotlin 語言功能可具有以下狀態之一：
 
 積極維護的程式碼庫可以從盡快獲得錯誤修復中受益，而無需等待完整的棄用週期完成。目前，此類專案可以啟用 `-progressive` 選項，即使在工具版本中也能啟用此類修復。
 
-所有選項都可以在 IDE、命令列以及 [Gradle](gradle-compiler-options.md) 和 [Maven](maven.md#specify-compiler-options) 中使用。
+所有選項都可以在 IDE、命令列以及 [Gradle](gradle-compiler-options.md) 和 [Maven](maven-compile-package.md#specify-compiler-options) 中使用。
 
 ### 二進位格式的演進
 

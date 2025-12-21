@@ -4,7 +4,7 @@ _[发布日期：2021 年 5 月 5 日](releases.md#release-details)_
 
 Kotlin 1.5.0 引入了新的语言特性、稳定的基于 IR 的 JVM 编译器后端、性能改进以及稳定实验性的特性和弃用过时特性等演进性变更。
 
-您还可以在[发布博客文章](https://blog.jetbrains.com/kotlin/2021/04/kotlin-1-5-0-released/)中找到这些变更的概述。
+您还可以在[发布博客文章](https://blog.jetbrains.com/kotlin/2021/05/kotlin-1-5-0-released/)中找到这些变更的概述。
 
 ## 语言特性
 
@@ -30,7 +30,7 @@ data class User(val name: String, val age: Int)
 
 [了解更多关于在 Kotlin 中使用 JVM record 的信息](jvm-records.md)。
 
-<video src="https://www.youtube.com/v/iyEWXyuuseU" title="Support for JVM Records in Kotlin 1.5.0"/>
+<video src="https://www.youtube.com/v/iyEWXyuuseU" title="Kotlin 1.5.0 中对 JVM Records 的支持"/>
 
 ### 密封接口
 
@@ -59,7 +59,7 @@ class FilledRectangle: Polygon, Fillable
 
 [了解更多关于密封接口的信息](sealed-classes.md)。
 
-<video src="https://www.youtube.com/v/d_Mor21W_60" title="Sealed Interfaces and Sealed Classes Improvements"/>
+<video src="https://www.youtube.com/v/d_Mor21W_60" title="密封接口和密封类改进"/>
 
 ### 包级密封类层级结构
 
@@ -92,7 +92,7 @@ value class Password(val s: String)
 
 [了解更多关于内联类的信息](inline-classes.md)。
 
-<video src="https://www.youtube.com/v/LpqvtgibbsQ" title="From Inline to Value Classes"/>
+<video src="https://www.youtube.com/v/LpqvtgibbsQ" title="从内联类到值类"/>
 
 ## Kotlin/JVM
 
@@ -155,7 +155,7 @@ Kotlin/JVM 编译的默认目标版本现在是 `1.8`。`1.6` 目标已弃用。
 如果您需要针对 JVM 1.6 进行构建，仍可切换到此目标。了解如何操作：
 
 * [在 Gradle 中](gradle-compiler-options.md#attributes-specific-to-jvm)
-* [在 Maven 中](maven.md#attributes-specific-to-jvm)
+* [在 Maven 中](maven-compile-package.md#attributes-specific-to-jvm)
 * [在命令行编译器中](compiler-reference.md#jvm-target-version)
 
 ### 通过 invokedynamic 实现 SAM 适配器
@@ -168,7 +168,7 @@ Kotlin 1.5.0 现在使用动态调用（`invokedynamic`）来编译 SAM（单一
 
 要回滚到基于匿名类生成的旧实现方案，请添加编译器选项 `-Xsam-conversions=class`。
 
-了解如何[在 Gradle](gradle-compiler-options.md)、[Maven](maven.md#specify-compiler-options) 和[命令行编译器](compiler-reference.md#compiler-options)中添加编译器选项。
+了解如何[在 Gradle](gradle-compiler-options.md)、[Maven](maven-compile-package.md#specify-compiler-options) 和[命令行编译器](compiler-reference.md#compiler-options)中添加编译器选项。
 
 ### 通过 invokedynamic 实现 Lambda 表达式
 
@@ -185,7 +185,7 @@ Kotlin 1.5.0 引入了编译纯 Kotlin lambda 表达式（未转换为函数式�
 
 要尝试此特性，请添加 `-Xlambdas=indy` 编译器选项。如果您能在[此 YouTrack 工单](https://youtrack.jetbrains.com/issue/KT-45375)中分享您的反馈，我们将不胜感激。
 
-了解如何[在 Gradle](gradle-compiler-options.md)、[Maven](maven.md#specify-compiler-options) 和[命令行编译器](compiler-reference.md#compiler-options)中添加编译器选项。
+了解如何[在 Gradle](gradle-compiler-options.md)、[Maven](maven-compile-package.md#specify-compiler-options) 和[命令行编译器](compiler-reference.md#compiler-options)中添加编译器选项。
 
 ### @JvmDefault 和旧的 Xjvm-default 模式的弃用
 
@@ -298,7 +298,7 @@ Kotlin/JS Gradle 插件现在为浏览器目标使用 webpack 5，而不是 webp
 
 您可以在[这篇博客文章](https://blog.jetbrains.com/kotlin/2021/04/kotlin-1-5-0-rc-released)中了解更多关于标准库变更的信息。
 
-<video src="https://www.youtube.com/v/MyTkiT2I6-8" title="New Standard Library Features"/>
+<video src="https://www.youtube.com/v/MyTkiT2I6-8" title="新的标准库特性"/>
 
 ### 稳定的无符号整数类型
 
@@ -522,7 +522,7 @@ fun main() {
 ### 简化了多平台项目中的测试依赖项使用
 
 现在您可以使用 `kotlin-test` 依赖项在 `commonTest` 源代码集中添加测试依赖项，Gradle 插件将为每个测试源代码集推断相应的平台依赖项：
-* `kotlin-test-junit` 用于 JVM 源代码集，请参阅[自动选择 Kotlin/JVM 源代码集的测试框架](#automatic-selection-of-a-testing-framework-for-kotlin-jvm-source-sets)
+* `kotlin-test-junit` 用于 JVM 源代码集，请参见[自动选择 Kotlin/JVM 源代码集的测试框架](#automatic-selection-of-a-testing-framework-for-kotlin-jvm-source-sets)
 * `kotlin-test-js` 用于 Kotlin/JS 源代码集
 * `kotlin-test-common` 和 `kotlin-test-annotations-common` 用于公共源代码集
 * Kotlin/Native 源代码集没有额外的构件
@@ -610,7 +610,7 @@ tasks {
   }
   ```
 
-  由于类型擦除，此断言函数在以下示例中仅检测 `value` 是否为 `List` 类型，而不检测它是否为特定 `String` 元素类型的 list：`assertIs<List<String>>(value)`。
+  因为类型擦除，此断言函数在以下示例中仅检测 `value` 是否为 `List` 类型，而不检测它是否为特定 `String` 元素类型的 List：`assertIs<List<String>>(value)`。
 
 * **比较数组、序列和任意可迭代容器的内容**
 
@@ -715,7 +715,7 @@ tasks {
 
 IntelliJ IDEA 和 Android Studio 一旦可用，将建议将 Kotlin 插件更新到 1.5.0。
 
-要将现有项目迁移到 Kotlin 1.5.0，只需将 Kotlin 版本更改为 `1.5.0` 并重新导入您的 Gradle 或 Maven 项目。 [了解如何更新到 Kotlin 1.5.0](releases.md#update-to-a-new-kotlin-version)。
+要将现有项目迁移到 Kotlin 1.5.0，只需将 Kotlin 版本更改为 `1.5.0` 并重新导入您的 Gradle 或 Maven 项目。[了解如何更新到 Kotlin 1.5.0](releases.md#update-to-a-new-kotlin-version)。
 
 要使用 Kotlin 1.5.0 启动新项目，请更新 Kotlin 插件并从 **File** | **New** | **Project** 运行项目向导。
 

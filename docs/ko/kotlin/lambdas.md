@@ -1,11 +1,12 @@
 [//]: # (title: 고차 함수와 람다)
 
 Kotlin 함수는 [일급 객체](https://en.wikipedia.org/wiki/First-class_function)입니다. 즉,
-변수나 데이터 구조에 저장할 수 있으며, 다른 [고차 함수](#higher-order-functions)의 인수로 전달되거나 반환될 수 있습니다.
-함수가 아닌 다른 값에 대해 가능한 모든 연산을 함수에 수행할 수 있습니다.
+변수나 데이터 구조에 저장할 수 있으며, 다른
+[고차 함수](#higher-order-functions)의 인수로 전달되거나 반환될 수 있습니다. 함수가 아닌 다른 값에 대해 가능한 모든 연산을 함수에 수행할 수 있습니다.
 
 이를 위해 Kotlin은 정적 타입 프로그래밍 언어로서 함수를 표현하기 위해 일련의
-[함수 타입](#function-types)을 사용하고, [람다 표현식](#lambda-expressions-and-anonymous-functions)과 같은 특수화된 언어 구조를 제공합니다.
+[함수 타입](#function-types)을 사용하고,
+[람다 표현식](#lambda-expressions-and-anonymous-functions)과 같은 특수화된 언어 구조를 제공합니다.
 
 ## 고차 함수
 
@@ -192,6 +193,13 @@ max(strings, { a, b -> a.length < b.length })
 
 ```kotlin
 fun compare(a: String, b: String): Boolean = a.length < b.length
+```
+
+`suspend` 키워드를 사용하여 *코루틴 람다 표현식 (suspending lambda expression)*을 생성할 수도 있습니다.
+코루틴 람다는 `suspend () -> Unit` 함수 타입을 가지며 다른 코루틴 함수를 호출할 수 있습니다.
+
+```kotlin
+val suspendingTask = suspend { doSuspendingWork() }
 ```
 
 ### 람다 표현식 문법

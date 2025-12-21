@@ -5,11 +5,11 @@
     <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="mapping-primitive-data-types-from-c.md">Cのプリミティブデータ型のマッピング</a><br/>
         <img src="icon-2-done.svg" width="20" alt="Second step"/> <a href="mapping-struct-union-types-from-c.md">Cの構造体と共用体型のマッピング</a><br/>
       <img src="icon-3-done.svg" width="20" alt="Third step"/> <a href="mapping-function-pointers-from-c.md">関数ポインタのマッピング</a><br/>
-      <img src="icon-4.svg" width="20" alt="Fourth step"/> **Cからの文字列のマッピング**<br/>
+      <img src="icon-4.svg" width="20" alt="Fourth step"/> <strong>Cからの文字列のマッピング</strong><br/>
     </p>
 </tldr>
 
-> Cライブラリのインポートは[ベータ版](native-c-interop-stability.md)です。cinteropツールによってCライブラリから生成されたすべてのKotlin宣言には、`@ExperimentalForeignApi`アノテーションが必要です。
+> Cライブラリのインポートは[ベータ版](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import)です。cinteropツールによってCライブラリから生成されたすべてのKotlin宣言には、`@ExperimentalForeignApi`アノテーションが必要です。
 >
 > Kotlin/Nativeに同梱されているネイティブプラットフォームライブラリ（Foundation、UIKit、POSIXなど）では、一部のAPIのみにオプトインが必要です。
 >
@@ -152,7 +152,7 @@ fun CPointer<ShortVarOf<Short>>.toKStringFromUtf16(): String // UTF-16エンコ�
 fun CPointer<IntVarOf<Int>>.toKStringFromUtf32(): String // UTF-32エンコードされた文字列を変換
 ```
 
-## KotlinからC文字列のバイトを受け取る
+## C文字列のバイトをKotlin文字列として受け取る
 
 今回は、`copy_string()` C関数を使用して、C文字列を特定のバッファに書き込みます。これには2つの引数があります。文字列を書き込むメモリ位置へのポインタと、許可されるバッファサイズです。
 

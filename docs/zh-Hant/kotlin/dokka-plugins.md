@@ -1,5 +1,10 @@
 [//]: # (title: Dokka 外掛程式)
 
+> 本指南適用於 Dokka Gradle 外掛程式 (DGP) v2 模式。DGP v1 模式已不再支援。
+> 若要從 v1 模式升級至 v2 模式，請遵循[遷移指南](dokka-migration.md)。
+>
+{style="note"}
+
 Dokka 從頭打造，旨在易於擴展和高度客製化，這使得社群能夠為那些開箱即用功能所欠缺或非常特定的功能實作外掛程式。
 
 Dokka 外掛程式的範圍涵蓋從支援其他程式語言原始碼到各種不尋常的輸出格式。您可以添加對您自己的 KDoc 標籤或註解的支援，教導 Dokka 如何呈現 KDoc 描述中發現的不同 DSLs，視覺上重新設計 Dokka 頁面使其無縫整合到您公司的網站，將其與其他工具整合等等。
@@ -22,55 +27,39 @@ Dokka 外掛程式以獨立構件的形式發布，因此要套用 Dokka 外掛�
 套用到您的專案：
 
 <tabs group="build-script">
-<tab title="Kotlin" group-key="kotlin">
-
-> 這些說明反映了 Dokka Gradle 外掛程式 v1 的配置與任務。從 Dokka 2.0.0 開始，一些配置選項、Gradle 任務以及生成文件的步驟都已更新，其中包括：
->
-> * [配置 Dokka 外掛程式](dokka-migration.md#configure-dokka-plugins)
-> * [處理多模組專案](dokka-migration.md#share-dokka-configuration-across-modules)
->
-> 有關更多詳細資訊以及 Dokka Gradle 外掛程式 v2 中完整的變更列表，請參閱 [遷移指南](dokka-migration.md)。
->
-> {style="note"}
-
-Dokka 的 Gradle 外掛程式會建立便捷的依賴項配置，讓您可以通用地套用外掛程式，或者僅為特定的輸出格式套用。
+<tab title="Gradle Kotlin DSL" group-key="kotlin">
 
 ```kotlin
+plugins {
+    id("org.jetbrains.dokka") version "%dokkaVersion%"
+}
+
 dependencies {
-    // 通用套用
-    dokkaPlugin("org.jetbrains.dokka:mathjax-plugin:%dokkaVersion%")
-
-    // 僅適用於單模組的 dokkaHtml 任務
-    dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:%dokkaVersion%")
-
-    // 適用於多專案建置中的 HTML 格式
-    dokkaHtmlPartialPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:%dokkaVersion%")
+    dokkaPlugin("org.jetbrains.dokka:mathjax-plugin")
 }
 ```
 
-> 在文件化 [多專案](dokka-gradle.md#multi-project-builds) 建置時，您需要在子專案及其父專案中套用 Dokka 外掛程式。
+> * 內建外掛程式（例如 HTML 和 Javadoc）總是會自動套用。您只需配置它們，而無需宣告對它們的依賴項。
+>
+> * 在文件化多模組專案（多專案建置）時，您需要在子專案之間[共用 Dokka 配置與外掛程式](dokka-gradle.md#multi-project-configuration)。
 >
 {style="note"}
 
 </tab>
-<tab title="Groovy" group-key="groovy">
-
-Dokka 的 Gradle 外掛程式會建立便捷的依賴項配置，讓您可以通用地套用 Dokka 外掛程式，或者僅為特定的輸出格式套用。
+<tab title="Gradle Groovy DSL" group-key="groovy">
 
 ```groovy
+plugins {
+    id 'org.jetbrains.dokka' version '%dokkaVersion%'
+}
+
 dependencies {
-    // 通用套用
-    dokkaPlugin 'org.jetbrains.dokka:mathjax-plugin:%dokkaVersion%'
-
-    // 僅適用於單模組的 dokkaHtml 任務
-    dokkaHtmlPlugin 'org.jetbrains.dokka:kotlin-as-java-plugin:%dokkaVersion%'
-
-    // 適用於多專案建置中的 HTML 格式
-    dokkaHtmlPartialPlugin 'org.jetbrains.dokka:kotlin-as-java-plugin:%dokkaVersion%'
+    dokkaPlugin 'org.jetbrains.dokka:mathjax-plugin'
 }
 ```
 
-> 在文件化 [多專案](dokka-gradle.md#multi-project-builds) 建置時，您需要在子專案及其父專案中套用 Dokka 外掛程式。
+> 在文件化[多專案](dokka-gradle.md#multi-project-configuration)建置時，
+> 您需要在子專案之間[共用 Dokka 配置](dokka-gradle.md#multi-project-configuration)。
 >
 {style="note"}
 
@@ -97,7 +86,7 @@ dependencies {
 </tab>
 <tab title="CLI" group-key="cli">
 
-如果您使用帶有 [命令列選項](dokka-cli.md#run-with-command-line-options) 的 [CLI](dokka-cli.md) 執行器，
+如果您使用帶有[命令列選項](dokka-cli.md#run-with-command-line-options)的 [CLI](dokka-cli.md) 執行器，
 Dokka 外掛程式應作為 `.jar` 檔案傳遞給 `-pluginsClasspath`：
 
 ```Shell
@@ -128,74 +117,42 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 
 Dokka 外掛程式也可以有自己的配置選項。要查看哪些選項可用，請查閱您正在使用的外掛程式的文件。
 
-讓我們看看如何配置 `DokkaBase` 外掛程式，該外掛程式負責生成 [HTML](dokka-html.md) 文件，方法是將自訂圖片添加到資產（`customAssets` 選項），添加自訂樣式表（`customStyleSheets` 選項），並修改頁腳訊息（`footerMessage` 選項）：
+讓我們看看如何配置內建的 HTML 外掛程式，方法是將自訂圖片添加到資產（`customAssets` 選項）、
+自訂樣式表（`customStyleSheets` 選項），並修改頁腳訊息（`footerMessage` 選項）：
 
 <tabs group="build-script">
-<tab title="Kotlin" group-key="kotlin">
+<tab title="Gradle Kotlin DSL" group-key="kotlin">
 
-Gradle 的 Kotlin DSL 允許型別安全的外掛程式配置。這可以透過將外掛程式的構件添加到
-`buildscript` 區塊中的類別路徑依賴項，然後導入外掛程式和配置類別來實現：
+若要以型別安全的方式配置 Dokka 外掛程式，請使用 `dokka.pluginsConfiguration {}` 區塊：
 
 ```kotlin
-import org.jetbrains.dokka.base.DokkaBase
-import org.jetbrains.dokka.gradle.DokkaTask
-import org.jetbrains.dokka.base.DokkaBaseConfiguration
-
-buildscript {
-    dependencies {
-        classpath("org.jetbrains.dokka:dokka-base:%dokkaVersion%")
-    }
-}
-
-tasks.withType<DokkaTask>().configureEach {
-    pluginConfiguration<DokkaBase, DokkaBaseConfiguration> {
-        customAssets = listOf(file("my-image.png"))
-        customStyleSheets = listOf(file("my-styles.css"))
-        footerMessage = "(c) 2022 MyOrg"
+dokka {
+    pluginsConfiguration.html {
+        customAssets.from("logo.png")
+        customStyleSheets.from("styles.css")
+        footerMessage.set("(c) Your Company")
     }
 }
 ```
 
-或者，外掛程式可以透過 JSON 進行配置。使用此方法，無需額外依賴項。
+有關 Dokka 外掛程式配置的範例，請參閱
+[Dokka 的版本控制外掛程式](https://github.com/Kotlin/dokka/tree/master/examples/gradle-v2/versioning-multimodule-example)。
 
-```kotlin
-import org.jetbrains.dokka.gradle.DokkaTask
-
-tasks.withType<DokkaTask>().configureEach {
-    val dokkaBaseConfiguration = """
-    {
-      "customAssets": ["${file("assets/my-image.png")}"],
-      "customStyleSheets": ["${file("assets/my-styles.css")}"],
-      "footerMessage": "(c) 2022 MyOrg"
-    }
-    """
-    pluginsMapConfiguration.set(
-        mapOf(
-            // 完全限定的外掛程式名稱到 JSON 配置
-            "org.jetbrains.dokka.base.DokkaBase" to dokkaBaseConfiguration
-        )
-    )
-}
-```
+Dokka 允許您透過[配置自訂外掛程式](https://github.com/Kotlin/dokka/blob/v2.1.0/examples/gradle-v2/custom-dokka-plugin-example/demo-library/build.gradle.kts)
+來擴展其功能並修改文件生成過程。
 
 </tab>
-<tab title="Groovy" group-key="groovy">
+<tab title="Gradle Groovy DSL" group-key="groovy">
 
 ```groovy
-import org.jetbrains.dokka.gradle.DokkaTask
-
-tasks.withType(DokkaTask.class) {
-    String dokkaBaseConfiguration = """
-    {
-      "customAssets": ["${file("assets/my-image.png")}"],
-      "customStyleSheets": ["${file("assets/my-styles.css")}"],
-      "footerMessage": "(c) 2022 MyOrg"
+dokka {
+    pluginsConfiguration {
+        html {
+            customAssets.from("logo.png")
+            customStyleSheets.from("styles.css")
+            footerMessage.set("(c) Your Company")
+        }
     }
-    """
-    pluginsMapConfiguration.set(
-            // 完全限定的外掛程式名稱到 JSON 配置
-            ["org.jetbrains.dokka.base.DokkaBase": dokkaBaseConfiguration]
-    )
 }
 ```
 
@@ -228,7 +185,7 @@ tasks.withType(DokkaTask.class) {
 </tab>
 <tab title="CLI" group-key="cli">
 
-如果您使用帶有 [命令列選項](dokka-cli.md#run-with-command-line-options) 的 [CLI](dokka-cli.md) 執行器，
+如果您使用帶有[命令列選項](dokka-cli.md#run-with-command-line-options)的 [CLI](dokka-cli.md) 執行器，
 請使用 `-pluginsConfiguration` 選項，它接受形式為 `fullyQualifiedPluginName=json` 的 JSON 配置。
 
 如果您需要配置多個外掛程式，可以傳遞多個值，以 `^^` 分隔。
@@ -269,5 +226,7 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 | [MermaidJS HTML 外掛程式](https://github.com/glureau/dokka-mermaid) | 呈現 KDocs 中找到的 [MermaidJS](https://mermaid-js.github.io/mermaid/#/) 圖表和視覺化內容 |
 | [Mathjax HTML 外掛程式](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-mathjax) | 美化 KDocs 中找到的數學公式 |
 | [Kotlin 作為 Java 外掛程式](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-kotlin-as-java) | 從 Java 的視角呈現 Kotlin 簽章 |
+| [GFM 外掛程式](https://github.com/Kotlin/dokka/tree/master/dokka-subprojects/plugin-gfm) | 新增以 GitHub Flavoured Markdown 格式生成文件的能力 |
+| [Jekyll 外掛程式](https://github.com/Kotlin/dokka/tree/master/dokka-subprojects/plugin-jekyll) | 新增以 Jekyll Flavoured Markdown 格式生成文件的能力 |
 
 如果您是 Dokka 外掛程式作者，並希望將您的外掛程式添加到此列表，請透過 [Slack](dokka-introduction.md#community) 或 [GitHub](https://github.com/Kotlin/dokka/) 與維護者聯繫。

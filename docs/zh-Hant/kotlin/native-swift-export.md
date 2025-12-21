@@ -83,7 +83,7 @@ Swift 匯出目前僅適用於使用[直接整合](https://kotlinlang.org/docs/m
 
 其他已知問題：
 
-*   當模組在 Gradle 座標中具有相同名稱時，Swift 匯出會中斷，例如 SQLDelight 的 `Runtime` 模組和 Compose 的 `Runtime` 模組 ([KT-80185](https://youtrack.jetbrains.com/issue/KT-80185))。
+*   當模組在 Gradle 座標中具有相同名稱時，Swift 匯出會中斷，例如 SQLDelight 的 Runtime 模組和 Compose Runtime 模組 ([KT-80185](https://youtrack.jetbrains.com/issue/KT-80185))。
 *   繼承自 `List`、`Set` 或 `Map` 的型別在匯出過程中會被忽略 ([KT-80416](https://youtrack.jetbrains.com/issue/KT-80416))。
 *   `List`、`Set` 或 `Map` 的繼承者無法在 Swift 端實例化 ([KT-80417](https://youtrack.jetbrains.com/issue/KT-80417))。
 *   匯出到 Swift 時，Kotlin 泛型型別參數會被型別擦除為其上限。
@@ -116,6 +116,7 @@ Swift 匯出目前僅適用於使用[直接整合](https://kotlinlang.org/docs/m
 |:-----------------------|:-------------------------------|:-----------------------|
 | `class`                | `class`                        | [備註](#classes)        |
 | `object`               | `class` with `shared` property | [備註](#objects)        |
+| `enum class`           | `enum`                         | [備註](#enums)          |
 | `typealias`            | `typealias`                    | [備註](#type-aliases)   |
 | Function               | Function                       | [備註](#functions)      |
 | Property               | Property                       | [備註](#properties)     |
@@ -206,6 +207,30 @@ typealias MyInt = Int
 public typealias MyInt = Swift.Int32
 ```
 
+#### 列舉 (Enums)
+
+Kotlin 的 `enum class` 宣告會被匯出為常規的原生 Swift `enum` 型別：
+
+```kotlin
+// Kotlin
+enum class Color(val rgb: Int) {
+    RED(0xFF0000),
+    GREEN(0x00FF00),
+    BLUE(0x0000FF)
+}
+
+val color = Color.RED
+```
+
+```swift
+// Swift
+public enum Color: Swift.CaseIterable, Swift.LosslessStringConvertible, Swift.RawRepresentable {
+    case RED, GREEN, BLUE
+
+    public var rgb: Swift.Int32 { get }
+}
+```
+
 #### 函式 (Functions)
 
 Swift 匯出支援簡單的頂層函式和方法：
@@ -228,7 +253,7 @@ public func baz() -> Swift.Int64 {
 }
 ```
 
-也支援擴充函式。擴充函式的接收器參數會移到普通參數的第一個位置：
+對於 Kotlin 的擴充函式，接收器參數會移到普通 Swift 參數的第一個位置：
 
 ```kotlin
 // Kotlin
@@ -240,7 +265,21 @@ fun Int.foo(): Unit = TODO()
 func foo(_ receiver: Int32) {}
 ```
 
-不支援帶有 `suspend`、`inline` 和 `operator` 關鍵字的函式。
+Kotlin 帶有 [`vararg`](functions.md#variable-number-of-arguments-varargs) 的函式會映射到 Swift 的可變參數函式參數：
+
+```kotlin
+// Kotlin
+fun log(vararg messages: String)
+```
+
+```swift
+// Swift
+public func log(messages: Swift.String...)
+```
+
+> 目前對帶有 `suspend`、`inline` 和 `operator` 關鍵字的函式支援有限。泛型型別通常不支援。
+>
+{style="note"}
 
 #### 屬性 (Properties)
 

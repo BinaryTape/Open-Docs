@@ -7,7 +7,7 @@ _集合_ 是數量可變（可能為零）的項目群組，這些項目對於�
 它將幫助您從 Java 遷移到 Kotlin，並以純正的 Kotlin 方式編寫程式碼。
 
 本指南的第一部分包含了 Java 與 Kotlin 中相同集合操作的快速詞彙表。
-它分為[在 Java 和 Kotlin 中相同的操作](#operations-that-are-the-same-in-java-and-kotlin)和[僅存在於 Kotlin 的標準函式庫中的操作](#operations-that-don-t-exist-in-java-s-standard-library)。
+它分為[相同的操作](#operations-that-are-the-same-in-java-and-kotlin)和[僅存在於 Kotlin 的標準函式庫中的操作](#operations-that-don-t-exist-in-java-s-standard-library)。
 本指南的第二部分從[可變性](#mutability)開始，透過具體案例解釋了一些差異。
 
 有關集合的介紹，請參閱[集合概述](collections-overview.md)或觀看 Kotlin 開發者推廣者 Sebastian Aigner 的這段[影片](https://www.youtube.com/watch?v=F8jj7e-_jFA)。
@@ -644,7 +644,7 @@ public void zip() {
 ```
 {id="zip-elements-java"}
 
-如果您想做比單純將元素配對列印到輸出更複雜的事情，可以使用 [Records](https://blogs.oracle.com/javamagazine/post/records-come-to-java)。
+如果您想做比單純將元素配對列印到輸出更複雜的事情，可以使用 [Records](https://docs.oracle.com/en/java/javase/17/language/records.html)。
 在上面的範例中，record 會是 `record AnimalDescription(String animal, String color) {}`。
 
 在 Kotlin 中，使用 [`zip()`](collection-transformations.md#zip) 函數執行相同的操作：

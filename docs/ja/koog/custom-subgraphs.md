@@ -25,7 +25,7 @@
             name = "subgraph-name",
             toolSelectionStrategy = ToolSelectionStrategy.ALL
         ) {
-            // Define nodes and edges for this subgraph
+            // このサブグラフのノードとエッジを定義します
         }
     }
     ```
@@ -55,7 +55,7 @@
            name = "subgraph-name", 
            tools = listOf(firstTool, secondTool)
        ) {
-            // Define nodes and edges for this subgraph
+            // このサブグラフのノードとエッジを定義します
         }
     }
     ```
@@ -82,7 +82,7 @@ strategy<String, String>("my-strategy") {
    val mySubgraph by subgraph<String, String>(
       tools = listOf(firstTool, secondTool)
    ) {
-        // Define nodes and edges for this subgraph
+        // このサブグラフのノードとエッジを定義します
         val sendInput by nodeLLMRequest()
         val executeToolCall by nodeExecuteTool()
         val sendToolResult by nodeLLMSendToolResult()
@@ -114,7 +114,7 @@ strategy<String, String>("my-strategy") {
     val mySubgraph by subgraph<String, String>(
        tools = listOf(AskUser)
      ) {
-        // Subgraph definition
+        // サブグラフの定義
      }
     ```
     <!--- KNIT example-custom-subgraphs-04.kt -->
@@ -134,7 +134,7 @@ strategy<String, String>("my-strategy") {
     val mySubgraph by subgraph<String, String>(
         tools = listOf(toolRegistry.getTool("AskUser"))
     ) {
-        // Subgraph definition
+        // サブグラフの定義
     }
     ```
     <!--- KNIT example-custom-subgraphs-05.kt -->
@@ -151,7 +151,7 @@ strategy<String, String>("my-strategy") {
     }
     -->
     ```kotlin
-    // Make a set of tools
+    // ツールのセットを作成する
     this.llm.writeSession {
         tools = tools.filter { it.name in listOf("first_tool_name", "second_tool_name") }
     }
@@ -181,24 +181,24 @@ val str =
 strategy("complex-workflow") {
    val inputProcessing by subgraph<String, A>(
    ) {
-      // Process the initial input
+      // 初期入力を処理する
    }
 
    val reasoning by subgraph<A, B>(
    ) {
-      // Perform reasoning based on the processed input
+      // 処理された入力に基づいて推論を実行する
    }
 
    val toolRun by subgraph<B, C>(
-      // Optional subset of tools from the tool registry
+      // (オプション) ツールレジストリからのツールのサブセット
       tools = listOf(firstTool, secondTool)
    ) {
-      // Run tools based on the reasoning
+      // 推論に基づいてツールを実行する
    }
 
    val responseGeneration by subgraph<C, String>(
    ) {
-      // Generate a response based on the tool results
+      // ツール結果に基づいて応答を生成する
    }
 
    nodeStart then inputProcessing then reasoning then toolRun then responseGeneration then nodeFinish
@@ -255,49 +255,49 @@ import ai.koog.prompt.dsl.prompt
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 
-class WebSearchTool: SimpleTool<WebSearchTool.Args>() {
+class WebSearchTool: SimpleTool<WebSearchTool.Args>(
+    argsSerializer = Args.serializer(),
+    name = "web_search",
+    description = "Search on the web"
+) {
     @Serializable
     class Args(val query: String)
 
-    override val argsSerializer: KSerializer<Args> = Args.serializer()
-
-    override val description = "Search on the web"
-
-    override suspend fun doExecute(args: Args): String {
+    override suspend fun execute(args: Args): String {
         return "Searching for ${args.query} on the web..."
     }
 }
 
-class DoAction: SimpleTool<DoAction.Args>() {
+class DoAction: SimpleTool<DoAction.Args>(
+    argsSerializer = Args.serializer(),
+    name = "do_action",
+    description = "Do something"
+) {
     @Serializable
     class Args(val action: String)
 
-    override val argsSerializer: KSerializer<Args> = Args.serializer()
-
-    override val description = "Do something"
-
-    override suspend fun doExecute(args: Args): String {
+    override suspend fun execute(args: Args): String {
         return "Doing action..."
     }
 }
 
-class DoAnotherAction: SimpleTool<DoAnotherAction.Args>() {
+class DoAnotherAction: SimpleTool<DoAnotherAction.Args>(
+    argsSerializer = Args.serializer(),
+    name = "do_another_action",
+    description = "Do something other"
+) {
     @Serializable
     class Args(val action: String)
 
-    override val argsSerializer: KSerializer<Args> = Args.serializer()
-
-    override val description = "Do something other"
-
-    override suspend fun doExecute(args: Args): String {
+    override suspend fun execute(args: Args): String {
         return "Doing another action..."
     }
 }
 -->
 ```kotlin
-// Define the agent strategy
+// エージェント戦略を定義します
 val strategy = strategy<String, String>("assistant") {
-    // A subgraph that includes a tool call
+    // ツール呼び出しを含むサブグラフ
 
     val researchSubgraph by subgraph<String, String>(
         "research_subgraph",

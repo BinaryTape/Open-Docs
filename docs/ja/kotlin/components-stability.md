@@ -77,7 +77,7 @@ _Experimental_、_Alpha_、_Beta_を総称して**プレ安定版**レベルと�
 | [No-arg](no-arg-plugin.md)                       | Stable       | 1.3.0                    |              |
 | [SAM-with-receiver](sam-with-receiver-plugin.md) | Stable       | 1.3.0                    |              |
 | [kapt](kapt.md)                                  | Stable       | 1.3.0                    |              |
-| [Lombok](lombok.md)                              | Experimental | 1.5.20                   |              |
+| [Lombok](lombok.md)                              | Alpha        | 2.3.0                    |              |
 | [Power-assert](power-assert.md)                  | Experimental | 2.0.0                    |              |
 
 ### Kotlin libraries
@@ -104,9 +104,9 @@ _Experimental_、_Alpha_、_Beta_を総称して**プレ安定版**レベルと�
 | **コンポーネント**                               | **ステータス** | **バージョンからのステータス** | **コメント**                                                 |
 |----------------------------------------------|------------|--------------------------|--------------------------------------------------------------|
 | Kotlin/Native Runtime                        | Stable     | 1.9.20                   |                                                              |
-| Kotlin/Native interop with C and Objective-C | Beta       | 1.3.0                    | [CおよびObjective-Cライブラリインポートの安定性](native-c-interop-stability.md) |
+| Kotlin/Native interop with C and Objective-C | Beta       | 1.3.0                    | [CおよびObjective-Cライブラリインポートの安定性](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) |
 | klib binaries                                | Stable     | 1.9.20                   | cinterop klibsは含まれません。以下を参照してください             |
-| cinterop klib binaries                       | Beta       | 1.3.0                    | [CおよびObjective-Cライブラリインポートの安定性](native-c-interop-stability.md) |
+| cinterop klib binaries                       | Beta       | 1.3.0                    | [CおよびObjective-Cライブラリインポートの安定性](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) |
 | CocoaPods integration                        | Stable     | 1.9.20                   |                                                              |
 
 異なるターゲットのサポートレベルに関する詳細については、[](native-target-support.md)を参照してください。

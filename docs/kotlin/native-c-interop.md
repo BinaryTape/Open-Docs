@@ -1,6 +1,6 @@
 [//]: # (title: 与 C 的互操作)
 
-> C 库导入目前处于 [Beta](native-c-interop-stability.md) 阶段。所有通过 cinterop 工具从 C 库生成的 Kotlin 声明都应带有 `@ExperimentalForeignApi` 注解。
+> C 库导入目前处于 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 阶段。所有通过 cinterop 工具从 C 库生成的 Kotlin 声明都应带有 `@ExperimentalForeignApi` 注解。
 >
 > Kotlin/Native 随附的原生平台库（例如 Foundation、UIKit 和 POSIX）仅对某些 API 要求显式选择启用。
 >

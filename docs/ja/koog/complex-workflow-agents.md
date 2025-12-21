@@ -41,7 +41,7 @@ dependencies {
 プロンプトエグゼキュータは、プロンプトを管理し実行します。
 使用する予定のLLMプロバイダーに基づいてプロンプトエグゼキュータを選択できます。
 また、利用可能なLLMクライアントのいずれかを使用してカスタムプロンプトエグゼキュータを作成することもできます。
-詳細については、「[プロンプトエグゼキュータ](prompt-api.md#running-prompts-with-prompt-executors)」を参照してください。
+詳細については、「[プロンプトエグゼキュータ](prompts/prompt-executors.md)」を参照してください。
 
 たとえば、OpenAIプロンプトエグゼキュータを提供するには、`simpleOpenAIExecutor` 関数を呼び出し、OpenAIサービスでの認証に必要なAPIキーを渡す必要があります。
 
@@ -83,7 +83,7 @@ val multiExecutor = DefaultMultiLLMPromptExecutor(openAIClient, anthropicClient,
 
 ### 3. 戦略の定義
 
-戦略は、ノードとエッジを使用してエージェントのワークフローを定義します。`strategy` 関数ジェネリックパラメータで任意の入出力型を指定できます。これらは `AIAgent` の入出力型にもなります。入出力のデフォルト型は `String` です。
+戦略は、ノードとエッジを使用してエージェントのワークフローを定義します。`strategy` 関数のジェネリックパラメータで任意の入出力型を指定できます。これらは `AIAgent` の入出力型にもなります。入出力のデフォルト型は `String` です。
 
 !!! tip
     戦略の詳細については、「[カスタム戦略グラフ](custom-strategy-graphs.md)」を参照してください。
@@ -108,9 +108,9 @@ val strategy = strategy<InputType, OutputType>("Simple calculator") {
 -->
 ```kotlin
 val processNode by node<InputType, OutputType> { input ->
-    // 入力を処理して出力を返す
-    // llm.writeSession を使用してLLMと対話できます
-    // callTool、callToolRaw などを使用してツールを呼び出すことができます
+    // Process the input and return an output
+    // You can use llm.writeSession to interact with the LLM
+    // You can call tools using callTool, callToolRaw, etc.
     transformedOutput
 }
 ```
@@ -382,7 +382,7 @@ fun main() {
     runBlocking {
         println("Enter two numbers to add (e.g., 'add 5 and 7' or '5 + 7'):")
 
-        // Read the user input and send it to the agent
+        // ユーザー入力を読み取り、エージェントに送信します
         val userInput = readlnOrNull() ?: ""
         val agentResult = agent.run(userInput)
         println("The agent returned: $agentResult")

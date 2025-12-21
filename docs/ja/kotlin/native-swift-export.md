@@ -111,32 +111,33 @@ Swift export は現在、iOS フレームワークを Xcode プロジェクト�
 
 ## マッピング
 
-以下の表は、Kotlin の概念が Swift にどのようにマッピングされるかを示しています。
+以下の表は、Kotlin の概念が Swift にどのようにマッピングされるかを示します。
 
-| Kotlin         | Swift                        | 注                      |
-| :------------- | :--------------------------- | :---------------------- |
-| `class`        | `class`                      | [注](#classes)          |
-| `object`       | `class` with `shared` property | [注](#objects)          |
-| `typealias`    | `typealias`                  | [注](#type-aliases)     |
-| 関数           | 関数                         | [注](#functions)        |
-| プロパティ     | プロパティ                   | [注](#properties)       |
-| コンストラクタ | イニシャライザ               | [注](#constructors)     |
-| パッケージ     | ネストされた enum            | [注](#packages)         |
-| `Boolean`      | `Bool`                       |                         |
-| `Char`         | `Unicode.UTF16.CodeUnit`     |                         |
-| `Byte`         | `Int8`                       |                         |
-| `Short`        | `Int16`                      |                         |
-| `Int`          | `Int32`                      |                         |
-| `Long`         | `Int64`                      |                         |
-| `UByte`        | `UInt8`                      |                         |
-| `UShort`       | `UInt16`                     |                         |
-| `UInt`         | `UInt32`                     |                         |
-| `ULong`        | `UInt64`                     |                         |
-| `Float`        | `Float`                      |                         |
-| `Double`       | `Double`                     |                         |
-| `Any`          | `KotlinBase` クラス          |                         |
-| `Unit`         | `Void`                       |                         |
-| `Nothing`      | `Never`                      | [注](#kotlin-nothing)   |
+| Kotlin                 | Swift                          | Notes                   |
+| :--------------------- | :----------------------------- | :---------------------- |
+| `class`                | `class`                        | [注](#classes)          |
+| `object`               | `class` with `shared` property | [注](#objects)          |
+| `enum class`           | `enum`                         | [注](#enums)            |
+| `typealias`            | `typealias`                    | [注](#type-aliases)     |
+| 関数                   | 関数                           | [注](#functions)        |
+| プロパティ             | プロパティ                     | [注](#properties)       |
+| コンストラクタ         | イニシャライザ                 | [注](#constructors)     |
+| パッケージ             | ネストされた enum              | [注](#packages)         |
+| `Boolean`              | `Bool`                         |                         |
+| `Char`                 | `Unicode.UTF16.CodeUnit`       |                         |
+| `Byte`                 | `Int8`                         |                         |
+| `Short`                | `Int16`                        |                         |
+| `Int`                  | `Int32`                        |                         |
+| `Long`                 | `Int64`                        |                         |
+| `UByte`                | `UInt8`                        |                         |
+| `UShort`               | `UInt16`                       |                         |
+| `UInt`                 | `UInt32`                       |                         |
+| `ULong`                | `UInt64`                       |                         |
+| `Float`                | `Float`                        |                         |
+| `Double`               | `Double`                       |                         |
+| `Any`                  | `KotlinBase` class             |                         |
+| `Unit`                 | `Void`                         |                         |
+| `Nothing`              | `Never`                        | [注](#kotlin-nothing)   |
 
 ### 宣言
 
@@ -208,6 +209,30 @@ typealias MyInt = Int
 public typealias MyInt = Swift.Int32
 ```
 
+#### 列挙型 (Enums)
+
+Kotlin の `enum class` 宣言は、通常のネイティブ Swift `enum` 型としてエクスポートされます。
+
+```kotlin
+// Kotlin
+enum class Color(val rgb: Int) {
+    RED(0xFF0000),
+    GREEN(0x00FF00),
+    BLUE(0x0000FF)
+}
+
+val color = Color.RED
+```
+
+```swift
+// Swift
+public enum Color: Swift.CaseIterable, Swift.LosslessStringConvertible, Swift.RawRepresentable {
+    case RED, GREEN, BLUE
+
+    public var rgb: Swift.Int32 { get }
+}
+```
+
 #### 関数
 
 Swift export は、単純なトップレベル関数とメソッドをサポートします。
@@ -230,7 +255,7 @@ public func baz() -> Swift.Int64 {
 }
 ```
 
-拡張関数もサポートされます。拡張関数のレシーバーパラメータは、通常のパラメータの最初の位置に移動されます。
+Kotlin の拡張関数 (extension functions) の場合、レシーバーパラメータは最初の位置に通常の Swift パラメータとして配置されます。
 
 ```kotlin
 // Kotlin
@@ -242,7 +267,21 @@ fun Int.foo(): Unit = TODO()
 func foo(_ receiver: Int32) {}
 ```
 
-`suspend`、`inline`、`operator` キーワードを持つ関数はサポートされていません。
+Kotlin の [`vararg`](functions.md#variable-number-of-arguments-varargs) を持つ関数は、Swift の可変長引数（variadic function parameters）にマッピングされます。
+
+```kotlin
+// Kotlin
+fun log(vararg messages: String)
+```
+
+```swift
+// Swift
+public func log(messages: Swift.String...)
+```
+
+> `suspend`、`inline`、`operator` キーワードを持つ関数のサポートは現在制限されています。ジェネリック型は一般的にサポートされていません。
+>
+{style="note"}
 
 #### プロパティ
 

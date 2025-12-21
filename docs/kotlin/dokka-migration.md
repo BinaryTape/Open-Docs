@@ -1,18 +1,24 @@
 [//]: # (title: 迁移到 Dokka Gradle 插件 v2)
 
+> 仅当您使用 DGPv1 并希望迁移到 DGPv2 时，此页面才适用。从 Dokka 2.1.0 开始，DGP v2 默认启用。
+> 如果您正在使用 Dokka 2.1.0 或更高版本，
+> 您可以跳过此页面，直接前往 [Dokka Gradle 文档](dokka-gradle.md)。
+>
+{style="note"}
+
 Dokka Gradle 插件 (DGP) 是一个用于为使用 Gradle 构建的 Kotlin 项目生成全面 API 文档的工具。
 
 DGP 无缝处理 Kotlin 的 KDoc 注释和 Java 的 Javadoc 注释，以提取信息并创建 [HTML 或 Javadoc](#select-documentation-output-format) 格式的结构化文档。
 
-从 Dokka 2.0.0 开始，您可以尝试 Dokka Gradle 插件 v2，这是 DGP 的新版本。使用 Dokka 2.0.0，您可以在 v1 或 v2 模式下使用 Dokka Gradle 插件。
-
-DGP v2 对 DGP 引入了重大改进，使其更紧密地与 Gradle 最佳实践对齐：
+Dokka Gradle 插件 v2 模式默认启用，并与 Gradle 最佳实践对齐：
 
 *   采用 Gradle 类型，从而带来更好的性能。
 *   使用直观的顶层 DSL 配置，而不是低层级的基于任务的设置，这简化了构建脚本及其可读性。
 *   对文档聚合采取更声明式的方法，这使得多项目文档更易于管理。
 *   使用类型安全的插件配置，这提高了构建脚本的可靠性和可维护性。
 *   全面支持 Gradle [配置缓存](https://docs.gradle.org/current/userguide/configuration_cache.html)和 [构建缓存](https://docs.gradle.org/current/userguide/build_cache.html)，这提高了性能并简化了构建工作。
+
+请阅读本指南，了解有关从 DGP v1 模式迁移到 v2 模式的更多信息。
 
 ## 开始之前
 
@@ -30,18 +36,12 @@ DGP v2 对 DGP 引入了重大改进，使其更紧密地与 Gradle 最佳实践
 
 ### 启用 DGP v2
 
-> 从 Dokka 2.1.0 开始，DGP v2 默认启用。
-> 如果您正在使用或更新到 Dokka 2.1.0 或更高版本，
-> 您可以跳过此步骤，直接前往[迁移您的项目](#migrate-your-project)。
->
-{style="note"}
-
-在您项目的 `build.gradle.kts` 文件的 `plugins {}` 代码块中，将 Dokka 版本更新到 2.0.0：
+在您项目的 `build.gradle.kts` 文件的 `plugins {}` 代码块中，将 Dokka 版本更新到 %dokkaVersion%：
 
 ```kotlin
 plugins {
     kotlin("jvm") version "2.1.10"
-    id("org.jetbrains.dokka") version "2.0.0"
+    id("org.jetbrains.dokka") version "%dokkaVersion%"
 }
 ```
 
@@ -84,7 +84,7 @@ org.jetbrains.dokka.experimental.gradle.pluginMode=V2EnabledWithHelpers
 
 ### 调整配置选项
 
-DGP v2 在 [Gradle 配置选项](dokka-gradle.md#configuration-options)中引入了一些变化。在 `build.gradle.kts` 文件中，根据您的项目设置调整配置选项。
+DGP v2 在 [Gradle 配置选项](dokka-gradle-configuration-options.md)中引入了一些变化。在 `build.gradle.kts` 文件中，根据您的项目设置调整配置选项。
 
 #### DGP v2 中的顶层 DSL 配置
 
@@ -502,7 +502,7 @@ dokka {
 
 有关 DGP v2 配置的示例，请参见 [Dokka 的版本控制插件](https://github.com/Kotlin/dokka/tree/master/examples/gradle-v2/versioning-multimodule-example)。
 
-Dokka 2.0.0 允许您通过[配置自定义插件](https://github.com/Kotlin/dokka/blob/ae3840edb4e4afd7b3e3768a5fddfe8ec0e08f31/examples/gradle-v2/custom-dokka-plugin-example/demo-library/build.gradle.kts)来扩展其功能。自定义插件实现了对文档生成过程的额外处理或修改。
+DGP v2 允许您通过[配置自定义插件](https://github.com/Kotlin/dokka/blob/ae3840edb4e4afd7b3e3768a5fddfe8ec0e08f31/examples/gradle-v2/custom-dokka-plugin-example/demo-library/build.gradle.kts)来扩展其功能。自定义插件实现了对文档生成过程的额外处理或修改。
 
 ### 在模块间共享 Dokka 配置
 
@@ -548,7 +548,7 @@ DGP v2 不再使用 `subprojects {}` 或 `allprojects {}` 在模块间共享配�
     }
     
     dependencies {
-        implementation("org.jetbrains.dokka:dokka-gradle-plugin:2.0.0")
+        implementation("org.jetbrains.dokka:dokka-gradle-plugin:%dokkaVersion%")
     }   
     ```
 
@@ -585,13 +585,13 @@ plugins {
 
 如果您已拥有约定插件，请遵循 [Gradle 的文档](https://docs.gradle.org/current/userguide/custom_plugins.html#sec:convention_plugins)创建一个专用的 Dokka 约定插件。
 
-然后，请遵循[设置 Dokka 约定插件](#set-up-the-dokka-convention-plugin)和[将约定插件应用于您的模块](#apply-the-convention-plugin-to-your-modules)的步骤。
+然后，请遵循[设置 Dokka 约定插件](#set-up-the-dokka-convention-plugin)和[将约定插件应用于您的模块](#apply-the-convention-plugin-to-your-subprojects)的步骤。
 
 ### 更新多模块项目中的文档聚合
 
 Dokka 可以将多个模块（子项目）的文档聚合成一个单一输出或发布。
 
-如[解释过](#apply-the-convention-plugin-to-your-modules)，在聚合文档之前，请将 Dokka 插件应用于所有可文档化的子项目。
+如[解释过](#apply-the-convention-plugin-to-your-subprojects)，在聚合文档之前，请将 Dokka 插件应用于所有可文档化的子项目。
 
 DGP v2 中的聚合使用 `dependencies {}` 代码块而不是任务，并且可以添加到任何 `build.gradle.kts` 文件中。
 
@@ -640,7 +640,7 @@ turbo-lib/build/dokka/html/turbo-lib/maths/
 
 #### 恢复 DGP v1 的目录行为
 
-如果您的项目依赖于 DGP v1 中使用的目录结构，您可以通过手动指定模块目录来恢复此行为。将以下配置添加到每个子项目的 `build.gradle.kts` 文件中：
+如果您的项目依赖于 DGP v1 中使用的目录结构，您可以通过手动指定子项目目录来恢复此行为。将以下配置添加到每个子项目的 `build.gradle.kts` 文件中：
 
 ```kotlin
 // /turbo-lib/maths/build.gradle.kts 文件
@@ -683,7 +683,7 @@ DGP v2 中的任务：
 
 > Javadoc 输出格式处于 [Alpha 阶段](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained)。您在使用它时可能会发现错误并遇到迁移问题。不保证与接受 Javadoc 作为输入的工具成功集成。请自行承担风险使用。
 >
-{style="note"}
+{style="warning"}
 
 DGP v2 的默认输出格式是 HTML。但是，您可以选择同时以 HTML、Javadoc 或两者兼有的格式生成 API 文档：
 
@@ -692,10 +692,10 @@ DGP v2 的默认输出格式是 HTML。但是，您可以选择同时以 HTML、
     ```kotlin
     plugins {
         // 生成 HTML 文档
-        id("org.jetbrains.dokka") version "2.0.0"
+        id("org.jetbrains.dokka") version "%dokkaVersion%"
 
         // 生成 Javadoc 文档
-        id("org.jetbrains.dokka-javadoc") version "2.0.0"
+        id("org.jetbrains.dokka-javadoc") version "%dokkaVersion%"
 
         // 同时保留这两个插件 ID 会生成两种格式
     }
@@ -714,9 +714,11 @@ DGP v2 的默认输出格式是 HTML。但是，您可以选择同时以 HTML、
 >
 {style="tip"}
 
+如果您正在使用 IntelliJ IDEA，您可能会看到 `dokkaGenerateHtml` Gradle 任务。此任务仅仅是 `dokkaGeneratePublicationHtml` 的别名。这两个任务执行完全相同的操作。
+
 ### 处理弃用和移除
 
-*   **输出格式支持：** Dokka 2.0.0 仅支持 HTML 和 Javadoc 输出。Markdown 和 Jekyll 等实验性格式不再支持。
+*   **输出格式支持：** DGP v2 仅支持 HTML 和 Javadoc 输出。Markdown 和 Jekyll 等实验性格式不再支持。
 *   **收集器任务：** `DokkaCollectorTask` 已被移除。现在，您需要分别为每个子项目生成文档，然后[聚合文档](#update-documentation-aggregation-in-multi-module-projects)（如果需要）。
 
 ## 完成迁移
@@ -739,66 +741,6 @@ DGP v2 现在支持 Gradle 构建缓存和配置缓存，从而提高了构建�
 
 *   要启用构建缓存，请遵循 [Gradle 构建缓存文档](https://docs.gradle.org/current/userguide/build_cache.html#sec:build_cache_enable)中的说明。
 *   要启用配置缓存，请遵循 [Gradle 配置缓存文档](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage:enable )中的说明。
-
-## 故障排除
-
-在大型项目中，Dokka 在生成文档时会消耗大量内存。这可能会超出 Gradle 的内存限制，尤其是在处理大量数据时。
-
-当 Dokka 生成内存不足时，构建会失败，Gradle 可能会抛出 `java.lang.OutOfMemoryError: Metaspace` 等异常。
-
-目前正在积极努力提高 Dokka 的性能，尽管一些限制源于 Gradle。
-
-如果您遇到内存问题，请尝试以下变通方法：
-
-*   [增加堆空间](#increase-heap-space)
-*   [在 Gradle 进程中运行 Dokka](#run-dokka-within-the-gradle-process)
-
-### 增加堆空间
-
-解决内存问题的一种方法是增加 Dokka 生成器进程的 Java 堆内存量。在 `build.gradle.kts` 文件中，调整以下配置选项：
-
-```kotlin
-    dokka {
-        // Dokka 会生成一个由 Gradle 管理的新进程
-        dokkaGeneratorIsolation = ProcessIsolation {
-            // 配置堆大小
-            maxHeapSize = "4g"
-        }
-    }
-```
-
-在此示例中，最大堆大小设置为 4 GB (`"4g"`)。调整并测试该值，以找到适合您构建的最佳设置。
-
-如果您发现 Dokka 需要显着增大的堆大小，例如，明显高于 Gradle 自身的内存使用量，请[在 Dokka 的 GitHub 版本库上创建 issue](https://kotl.in/dokka-issues)。
-
-> 您必须将此配置应用于每个子项目。建议您将 Dokka 配置在应用于所有子项目的约定插件中。
->
-{style="note"}
-
-### 在 Gradle 进程中运行 Dokka
-
-当 Gradle 构建和 Dokka 生成都需要大量内存时，它们可能作为单独的进程运行，在单台机器上消耗大量内存。
-
-为了优化内存使用，您可以在同一个 Gradle 进程中运行 Dokka，而不是作为单独的进程。这允许您一次性配置 Gradle 的内存，而不是为每个进程单独分配。
-
-要在同一个 Gradle 进程中运行 Dokka，请在 `build.gradle.kts` 文件中调整以下配置选项：
-
-```kotlin
-    dokka {
-        // 在当前 Gradle 进程中运行 Dokka
-        dokkaGeneratorIsolation = ClassLoaderIsolation()
-    }
-```
-
-与[增加堆空间](#increase-heap-space)一样，测试此配置以确认其在您的项目中运行良好。
-
-有关配置 Gradle JVM 内存的更多详细信息，请参见 [Gradle 文档](https://docs.gradle.org/current/userguide/config_gradle.html#sec:configuring_jvm_memory)。
-
-> 更改 Gradle 的 Java 选项会启动一个新的 Gradle 守护进程，该进程可能会长时间保持活动状态。您可以[手动停止任何其他 Gradle 进程](https://docs.gradle.org/current/userguide/gradle_daemon.html#sec:stopping_an_existing_daemon)。
->
-> 此外，`ClassLoaderIsolation()` 配置的 Gradle 问题可能[会导致内存泄漏](https://github.com/gradle/gradle/issues/18313)。
->
-{style="note"}
 
 ## 接下来
 

@@ -1,6 +1,6 @@
 [//]: # (title: Compose 컴파일러 마이그레이션 가이드)
 
-Compose 컴파일러는 Gradle 플러그인에 의해 보완되며, 이는 설정을 간소화하고 컴파일러 옵션에 더 쉽게 접근할 수 있도록 합니다.
+Compose 컴파일러는 Gradle 플러그인으로 보완되며, 이 플러그인은 설정을 간소화하고 컴파일러 옵션에 더 쉽게 접근할 수 있도록 합니다.
 Android Gradle 플러그인(AGP)과 함께 적용될 때, 이 Compose 컴파일러 플러그인은 AGP가 자동으로 제공하는 Compose 컴파일러의 좌표를 재정의합니다.
 
 Compose 컴파일러는 Kotlin 2.0.0부터 Kotlin 리포지토리에 병합되었습니다.
@@ -29,6 +29,10 @@ Android 모듈의 경우:
  org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
  compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
  ```
+
+> AGP 9.0.0 이상을 사용하는 경우, AGP에 Kotlin 지원 기능이 내장되어 있으므로 더 이상 `org-jetbrains-kotlin-android` 플러그인이 필요하지 않습니다.
+> 
+{style ="note"}
 
 2.  루트 `build.gradle.kts` 파일에 Gradle 플러그인을 추가합니다:
 

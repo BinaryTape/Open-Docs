@@ -116,6 +116,7 @@ Swift export 当前仅适用于使用[直接集成](https://kotlinlang.org/docs/
 | :--------------------- | :----------------------------- | :---------------------- |
 | `class`                | `class`                        | [备注](#classes)        |
 | `object`               | `class` with `shared` property | [备注](#objects)        |
+| `enum class`           | `enum`                         | [备注](#enums)          |
 | `typealias`            | `typealias`                    | [备注](#type-aliases)   |
 | Function               | Function                       | [备注](#functions)      |
 | Property               | Property                       | [备注](#properties)     |
@@ -206,6 +207,30 @@ typealias MyInt = Int
 public typealias MyInt = Swift.Int32
 ```
 
+#### 枚举
+
+Kotlin `enum class` 声明被导出为常规的 Swift 原生 `enum` 类型：
+
+```kotlin
+// Kotlin
+enum class Color(val rgb: Int) {
+    RED(0xFF0000),
+    GREEN(0x00FF00),
+    BLUE(0x0000FF)
+}
+
+val color = Color.RED
+```
+
+```swift
+// Swift
+public enum Color: Swift.CaseIterable, Swift.LosslessStringConvertible, Swift.RawRepresentable {
+    case RED, GREEN, BLUE
+
+    public var rgb: Swift.Int32 { get }
+}
+```
+
 #### 函数
 
 Swift export 支持简单的顶层函数和方法：
@@ -228,7 +253,7 @@ public func baz() -> Swift.Int64 {
 }
 ```
 
-也支持扩展函数。扩展函数的接收者形参被移到普通形参中的第一个位置：
+对于 Kotlin 的扩展函数，接收者形参会被移到普通 Swift 形参中的第一个位置：
 
 ```kotlin
 // Kotlin
@@ -240,7 +265,22 @@ fun Int.foo(): Unit = TODO()
 func foo(_ receiver: Int32) {}
 ```
 
-不支持带有 `suspend`、`inline` 和 `operator` 关键字的函数。
+Kotlin 带有 [`vararg`](functions.md#variable-number-of-arguments-varargs) 的函数会被映射到 Swift 的可变参数函数形参：
+
+```kotlin
+// Kotlin
+fun log(vararg messages: String)
+```
+
+```swift
+// Swift
+public func log(messages: Swift.String...)
+```
+
+> 对带有 `suspend`、`inline` 和 `operator` 关键字的函数的支持目前是有限的。
+> 泛型类型通常不受支持。
+>
+{style="note"}
 
 #### 属性
 

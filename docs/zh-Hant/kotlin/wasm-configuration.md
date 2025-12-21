@@ -84,15 +84,13 @@ Kotlin/Wasm 的改進基於 [WebAssembly 提案](https://webassembly.org/roadmap
 
 ### 異常處理提案
 
-Kotlin 工具鏈預設使用 [舊版異常處理提案](https://github.com/WebAssembly/exception-handling/blob/master/proposals/exception-handling/legacy/Exceptions.md)，這允許在更廣泛的環境中執行所產生的 Wasm 二進位檔。
+Kotlin 工具鏈同時支援 [舊版](https://github.com/WebAssembly/exception-handling/blob/master/proposals/exception-handling/legacy/Exceptions.md) 和 [新版](https://github.com/WebAssembly/exception-handling/blob/main/proposals/exception-handling/Exceptions.md) 的異常處理提案。這使得 Kotlin 產生的 Wasm 二進位檔能夠在更廣泛的環境中執行。
 
-自 Kotlin 2.0.0 起，我們已在 Kotlin/Wasm 中引入對新版 Wasm [異常處理提案](https://github.com/WebAssembly/exception-handling/blob/main/proposals/exception-handling/Exceptions.md) 的支援。
+[`wasmJs` 目標](wasm-overview.md#kotlin-wasm-and-compose-multiplatform) 預設使用舊版異常處理提案。若要為 `wasmJs` 目標啟用新的異常處理提案，請使用 `-Xwasm-use-new-exception-proposal` 編譯器選項。
 
-此更新確保新的異常處理提案符合 Kotlin 的要求，使 Kotlin/Wasm 能夠在僅支援最新版本提案的虛擬機器上使用。
+相較之下，[`wasmWasi` 目標](wasm-overview.md#kotlin-wasm-and-wasi) 預設使用新版提案，確保與現代 WebAssembly 執行環境有更好的相容性。若要切換回舊版提案，請使用 `-Xwasm-use-new-exception-proposal=false` 編譯器選項。
 
-新的異常處理提案透過 `-Xwasm-use-new-exception-proposal` 編譯器選項啟用。它預設為關閉。
-
-<p>&nbsp;</p>
+對於 `wasmWasi` 目標，採用新的異常處理提案是安全的。針對此環境的應用程式通常在較不多元的執行環境中執行（通常在單一特定虛擬機器上執行），且通常由使用者控制，這降低了相容性問題的風險。
 
 > 透過我們的 [Kotlin/Wasm 範例](https://github.com/Kotlin/kotlin-wasm-examples#readme)，了解更多關於專案設定、使用依賴項及其他任務的資訊。
 >
@@ -157,6 +155,12 @@ kotlin {
 
 請記住，啟用此選項會增加應用程式大小。
 
+### 完整限定名稱
+
+在 Kotlin/Wasm 目標上，完整限定名稱 (FQNs) 在執行時無需任何額外組態即可使用。這表示 `KClass.qualifiedName` 屬性預設為啟用。
+
+使用 FQNs 提高了程式碼從 JVM 到 Wasm 目標的可攜性，並透過顯示完整的限定名稱，使執行時錯誤更具資訊性。
+
 ## 陣列越界存取與陷阱
 
 在 Kotlin/Wasm 中，以超出其界限的索引存取陣列會觸發 WebAssembly 陷阱，而非常規的 Kotlin 異常。此陷阱會立即停止目前的執行堆疊。
@@ -201,7 +205,7 @@ Kotlin/Wasm 提供了多個用於一般 WebAssembly 互通性的實驗性註解�
 然而，預設提供原始碼可能會導致 [在 Kotlin 編譯和綑綁完成之前，應用程式在瀏覽器中重複重新載入](https://youtrack.jetbrains.com/issue/KT-80582/Multiple-reloads-when-using-webpack-dev-server-after-2.2.20-Beta2#focus=Comments-27-12596427.0-0)。
 作為一個權宜之計，請調整您的 webpack 設定以忽略 Kotlin 原始碼檔案，並停用對提供靜態檔案的監控。在專案根目錄的 `webpack.config.d` 資料夾中新增一個包含以下內容的 `.js` 檔案：
 
-```kotlin
+```Javascript
 config.watchOptions = config.watchOptions || {
     ignored: ["**/*.kt", "**/node_modules"]
 }
@@ -218,4 +222,3 @@ if (config.devServer) {
         }
     })
 }
-```

@@ -137,7 +137,7 @@
     </td>
     <td>
       <list>
-        <li><a href="https://www.jetbrains.com/kotlin-multiplatform/">Kotlin Multiplatform</a> (JVM, JS, Native, Wasm)에서 수학적 추상화 작업을 위한 모듈식 라이브러리</li>
+        <li><a href="https://kotlinlang.org/multiplatform/">Kotlin Multiplatform</a> (JVM, JS, Native, Wasm)에서 수학적 추상화 작업을 위한 모듈식 라이브러리</li>
         <li>대수 구조, 수학 표현식, 히스토그램 및 스트리밍 연산을 위한 API</li>
         <li><a href="https://github.com/eclipse/deeplearning4j/tree/master/nd4j">ND4J</a>, <a href="https://commons.apache.org/proper/commons-math/">Apache Commons Math</a>, <a href="https://github.com/Kotlin/multik">Multik</a>을 포함한 기존 Java 및 Kotlin 라이브러리 위에 있는 교체 가능한 래퍼</li>
         <li>Python의 <a href="https://numpy.org/">NumPy</a>에서 영감을 받았지만 타입 안전성 등 다른 추가 기능 포함</li>
@@ -326,7 +326,7 @@ Kotlin은 Java와 최고 수준의 상호 운용성을 제공하므로, Kotlin �
     </td>
     <td>
       <list>
-        <li>과학 차트를 위한 <a href="https://openjfx.io/">JavaFX</a> 라이브러리</li>
+        <li><a href="https://openjfx.io/">JavaFX</a> 라이브러리 for scientific charts</li>
         <li>로그 차트, 히트맵, 힘 기반 그래프와 같은 복합 차트</li>
       </list>
     </td>

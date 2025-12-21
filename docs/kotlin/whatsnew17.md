@@ -181,7 +181,7 @@ Kotlin 1.7.0 推出一个新编译器选项 `-Xjdk-release`。此选项类似于
 >
 {style="note"}
 
-请将您的反馈留在[此 YouTrack 工单](https://youtrack.jetbrains.com/issue/KT-29974/Add-a-compiler-option-Xjdk-release-similar-to-javac-s-release-to)中。
+请将您的反馈留在[此 YouTrack 工单](https://youtrack.com/issue/KT-29974/Add-a-compiler-option-Xjdk-release-similar-to-javac-s-release-to)中。
 
 ### 稳定的对函数式接口构造函数的**可调用引用**
 
@@ -196,7 +196,7 @@ Kotlin/JVM 编译的默认目标版本是 `1.8`。`1.6` 目标已移除。
 请迁移到 JVM 目标 1.8 或更高版本。了解如何更新 JVM 目标版本以用于：
 
 * [Gradle](gradle-compiler-options.md#attributes-specific-to-jvm)
-* [Maven](maven.md#attributes-specific-to-jvm)
+* [Maven](maven-compile-package.md#attributes-specific-to-jvm)
 * [命令行编译器](compiler-reference.md#jvm-target-version)
 
 ## Kotlin/Native
@@ -799,7 +799,7 @@ sourceSets {
 
 我们已完成了几个编译器选项的弃用周期：
 
-* `kotlinOptions.jdkHome` 编译器选项在 1.5.30 中弃用，并已在当前版本中移除。如果 Gradle 构建包含此选项，现在会失败。我们鼓励您使用自 Kotlin 1.5.30 以来一直支持的 [Java toolchains](whatsnew1530.md#support-for-java-toolchains)。
+* `kotlinOptions.jdkHome` 编译器选项在 1.5.30 中弃用，并已在当前版本中移除。如果 Gradle 构建包含此选项，现在会失败。我们鼓励您使用自 Kotlin 1.5.30 以来一直支持的 [Java 工具链](whatsnew1530.md#support-for-java-toolchains)。
 * 已弃用的 `noStdlib` 编译器选项也已移除。Gradle 插件使用
   `kotlin.stdlib.default.dependency=true` 属性来控制 Kotlin 标准库是否存在。
 

@@ -46,19 +46,14 @@ plugins {
 
 | KGP 版本      | Gradle 最低和最高版本           | AGP 最低和最高版本                                |
 |---------------|-----------------------------------|-----------------------------------------------------|
-| 2.2.20–2.2.21 | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
+| 2.3.0         | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
+| 2.2.20–2.2.21 | 7.6.3–8.14                        | 7.3.1–8.11.1                                        |
 | 2.2.0–2.2.10  | 7.6.3–8.14                        | 7.3.1–8.10.0                                        |
 | 2.1.20–2.1.21 | 7.6.3–8.12.1                      | 7.3.1–8.7.2                                         |
 | 2.1.0–2.1.10  | 7.6.3–8.10*                       | 7.3.1–8.7.2                                         |
 | 2.0.20–2.0.21 | 6.8.3–8.8*                        | 7.1.3–8.5                                           |
 | 2.0.0         | 6.8.3–8.5                         | 7.1.3–8.3.1                                         |
 | 1.9.20–1.9.25 | 6.8.3–8.1.1                       | 4.2.2–8.1.0                                         |
-| 1.9.0–1.9.10  | 6.8.3–7.6.0                       | 4.2.2–7.4.0                                         |
-| 1.8.20–1.8.22 | 6.8.3–7.6.0                       | 4.1.3–7.4.0                                         |      
-| 1.8.0–1.8.11  | 6.8.3–7.3.3                       | 4.1.3–7.2.1                                         |   
-| 1.7.20–1.7.22 | 6.7.1–7.1.1                       | 3.6.4–7.0.4                                         |
-| 1.7.0–1.7.10  | 6.7.1–7.0.2                       | 3.4.3–7.0.2                                         |
-| 1.6.20–1.6.21 | 6.1.1–7.0.2                       | 3.4.3–7.0.2                                         |
 
 > *Kotlin 2.0.20–2.0.21 和 Kotlin 2.1.0–2.1.10 完全兼容 Gradle 最高 8.6 版本。
 > Gradle 8.7–8.10 版本也受支持，只有一个例外：如果你使用 Kotlin 多平台 Gradle 插件，
@@ -73,9 +68,20 @@ plugins {
 
 同样，完全支持的最高版本是 %maxGradleVersion%。它不包含弃用的 Gradle 方法和属性，并支持所有当前的 Gradle 特性。
 
+### 早期 KGP 版本 {initial-collapse-state="collapsed" collapsible="true"}
+
+| KGP 版本      | Gradle 最低和最高版本           | AGP 最低和最高版本                                |
+|---------------|-----------------------------------|-----------------------------------------------------|
+| 1.9.0–1.9.10  | 6.8.3–7.6.0                       | 4.2.2–7.4.0                                         |
+| 1.8.20–1.8.22 | 6.8.3–7.6.0                       | 4.1.3–7.4.0                                         |      
+| 1.8.0–1.8.11  | 6.8.3–7.3.3                       | 4.1.3–7.2.1                                         |   
+| 1.7.20–1.7.22 | 6.7.1–7.1.1                       | 3.6.4–7.0.4                                         |
+| 1.7.0–1.7.10  | 6.7.1–7.0.2                       | 3.4.3–7.0.2                                         |
+| 1.6.20–1.6.21 | 6.1.1–7.0.2                       | 3.4.3–7.0.2                                         |
+
 ### 项目中的 Kotlin Gradle 插件数据
 
-默认情况下，Kotlin Gradle 插件将持久化的项目特有数据存储在项目的根目录下的 `.kotlin` 目录中。
+默认情况下，Kotlin Gradle 插件将持久化的项目特有数据存储在项目的根目录下，位于 `.kotlin` 目录中。
 
 > 不要将 `.kotlin` 目录提交到版本控制中。
 > 例如，如果你正在使用 Git，请将 `.kotlin` 添加到你项目的 `.gitignore` 文件中。
@@ -519,7 +525,7 @@ tasks.named("compileJava", JavaCompile.class) {
 
 #### 禁用 artifact 在编译任务中的使用
 
-在某些罕见场景中，你可能会遇到由循环依赖错误导致的构建失败。例如，当你拥有多个编译项，其中一个编译项可以看到另一个编译项的所有内部声明，并且生成的构件依赖于这两个编译任务的输出时：
+在某些罕见场景中，你可能会遇到由循环依赖错误导致的构建失败。例如，当你拥有多个编译项，其中一个编译项可以看到另一个编译项的所有内部声明，并且生成的 artifact 依赖于这两个编译任务的输出时：
 
 ```none
 FAILURE: Build failed with an exception.
@@ -533,12 +539,12 @@ Circular dependency between the following tasks:
 ```
 
 为了解决这个循环依赖错误，我们添加了一个 Gradle 属性：`archivesTaskOutputAsFriendModule`。
-此属性控制编译任务中构件输入的使用，并确定是否因此创建任务依赖。
+此属性控制编译任务中 artifact 输入的使用，并确定是否因此创建任务依赖。
 
 默认情况下，此属性设置为 `true` 以跟踪任务依赖。如果你遇到循环依赖错误，
-你可以禁用构件在编译任务中的使用，从而移除任务依赖并避免循环依赖错误。
+你可以禁用 artifact 在编译任务中的使用，从而移除任务依赖并避免循环依赖错误。
 
-要禁用构件在编译任务中的使用，请将以下内容添加到你的 `gradle.properties` 文件中：
+要禁用 artifact 在编译任务中的使用，请将以下内容添加到你的 `gradle.properties` 文件中：
 
 ```kotlin
 kotlin.build.archivesTaskOutputAsFriendModule=false
@@ -611,7 +617,7 @@ Kotlin 通过 Kotlin Multiplatform 为 Web 开发提供两种方法：
 * 共享业务逻辑与 JavaScript/TypeScript 代码库
 * 使用 Kotlin 构建不可共享的 Web 应用
 
-请使用 Kotlin/JS。关于更多信息，请参见[为 Kotlin Multiplatform 项目选择正确的 Web 目标](https://kotlinlang.org/docs/multiplatform/choosing-web-target.html)。
+请使用 Kotlin/JS。关于更多信息，请参见 [Web 开发](web-overview.md#kotlin-js)。
 
 面向 JavaScript 时，请使用 `kotlin-multiplatform` 插件：
 
@@ -653,7 +659,7 @@ kotlin {
 ### 面向 WebAssembly
 
 如果你想跨多个平台共享逻辑和 UI，请使用 Kotlin/Wasm。关于更多信息，
-请参见[为 Kotlin Multiplatform 项目选择正确的 Web 目标](https://kotlinlang.org/docs/multiplatform/choosing-web-target.html)。
+请参见 [Web 开发](web-overview.md#kotlin-wasm)。
 
 与 JavaScript 一样，当面向 WebAssembly (Wasm) 时，请使用 `kotlin-multiplatform` 插件：
 
@@ -901,7 +907,7 @@ kotlin.stdlib.default.dependency=false
 从 Kotlin 标准库 1.9.20 版本开始，Gradle 会使用标准库中包含的元数据来自动对齐传递性 `kotlin-stdlib-jdk7` 和 `kotlin-stdlib-jdk8` 依赖项。
 
 如果你添加了对 1.8.0 – 1.9.10 之间任何 Kotlin 标准库版本的依赖项，例如：`implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.0")`，
-那么 Kotlin Gradle 插件会将此 Kotlin 版本用于传递性 `kotlin-stdlib-jdk7` 和 `kotlin-stdlib-jdk8` 依赖项。这避免了不同标准库版本中的类重复。[了解更多关于将 `kotlin-stdlib-jdk7` 和 `kotlin-stdlib-jdk8` 合并到 `kotlin-stdlib`](whatsnew18.md#updated-jvm-compilation-target)。
+那么 Kotlin Gradle Plugin 会将此 Kotlin 版本用于传递性 `kotlin-stdlib-jdk7` 和 `kotlin-stdlib-jdk8` 依赖项。这避免了不同标准库版本中的类重复。[了解更多关于将 `kotlin-stdlib-jdk7` 和 `kotlin-stdlib-jdk8` 合并到 `kotlin-stdlib`](whatsnew18.md#updated-jvm-compilation-target)。
 你可以在 `gradle.properties` 文件中添加 `kotlin.stdlib.jdk.variants.version.alignment` Gradle 属性来禁用此行为：
 
 ```none
@@ -1295,6 +1301,41 @@ dependencyResolutionManagement {
 </tabs>
 
 子项目中声明的任何版本库都会覆盖集中声明的版本库。关于如何控制此行为以及有哪些可用选项的更多信息，请参见 [Gradle 的文档](https://docs.gradle.org/current/userguide/declaring_repositories.html#sub:centralized-repository-declaration)。
+
+## 注册生成源
+<primary-label ref="experimental-general"/>
+
+注册生成源以帮助 IDE、第三方插件和其他工具区分生成代码和常规源文件。
+这有助于 IDE 等工具在 UI 中以不同方式高亮生成代码，并在导入项目时触发生成任务。
+使用 [`KotlinSourceSet`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/) 接口来注册生成源。
+
+要注册包含 Kotlin 文件的目录，请在你的 `build.gradle.kts` 文件中使用 [`generatedKotlin`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/generated-kotlin.html) 属性与 [`SourceDirectorySet`](https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.file/-source-directory-set/index.html) 类型。例如：
+
+```kotlin
+val generatorTask = project.tasks.register("generator") {
+    val outputDirectory = project.layout.projectDirectory.dir("src/main/kotlinGen")
+    outputs.dir(outputDirectory)
+    doLast {
+        outputDirectory.file("generated.kt").asFile.writeText(
+            // language=kotlin
+            """
+            fun printHello() {
+                println("hello")
+            }
+            """.trimIndent()
+        )
+    }
+}
+
+kotlin.sourceSets.getByName("main").generatedKotlin.srcDir(generatorTask)
+```
+
+此示例创建了一个新任务 `generator`，其输出目录为 `"src/main/kotlinGen"`。当任务运行时，
+`doLast {}` 任务操作会在输出目录中创建一个 `generated.kt` 文件。最后，该示例将任务的
+输出注册为生成源。
+
+如果你正在开发 Gradle 插件，你可以使用 [`allKotlinSources`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/all-kotlin-sources.html) 属性来访问在 [`KotlinSourceSet.kotlin`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/kotlin.html) 和 
+`KotlinSourceSet.generatedKotlin` 属性中注册的所有源。
 
 ## 下一步是什么？
 

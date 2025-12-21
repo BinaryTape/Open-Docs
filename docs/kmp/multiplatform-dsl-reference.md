@@ -41,7 +41,7 @@ plugins {
 | `targets`            | 列出项目的所有目标平台。                                                                                                                   |
 | `sourceSets`         | 配置项目的预定义和声明自定义 [源代码集](#source-sets)。                                                                                   |
 | `compilerOptions`    | 指定通用的扩展级别 [编译器选项](#compiler-options)，它们用作所有目标平台和共享源代码集的默认值。                                              |
-| `dependencies`       | 配置 [顶层公共依赖项](#configure-dependencies-at-the-top-level)。 (实验性的)                                                              |
+| `dependencies`       | 配置 [公共依赖项](#configure-dependencies-at-the-top-level)。 (实验性的)                                                              |
 
 ## 目标平台
 
@@ -49,7 +49,7 @@ _目标平台_ 是构建的一部分，负责编译、测试和打包面向受�
 
 每个目标平台可以有一个或多个[编译项](#compilations)。除了用于测试和生产目的的默认编译项外，还可以[创建自定义编译项](multiplatform-configure-compilations.md#create-a-custom-compilation)。
 
-多平台项目的目标平台在 `kotlin {}` 内部的相应代码块中描述，例如 `jvm`、`androidTarget`、`iosArm64`。
+多平台项目的目标平台在 `kotlin {}` 内部的相应代码块中描述，例如 `jvm`、`android`、`iosArm64`。
 可用目标平台的完整列表如下：
 
 <table>
@@ -106,9 +106,9 @@ _目标平台_ 是构建的一部分，负责编译、测试和打包面向受�
     
 <tr>
 <td>Android 应用程序和库</td>
-        <td><code>androidTarget</code></td>
+        <td><code>android</code></td>
         <td>
-            <p>手动应用 Android Gradle 插件：<code>com.android.application</code> 或 <code>com.android.library</code>。</p>
+            <p>手动应用 Android Gradle 插件：<code>com.android.application</code> 或 <code>com.android.kotlin.multiplatform.library</code>。</p>
             <p>每个 Gradle 子项目只能创建一个 Android 目标。</p>
         </td>
 </tr>
@@ -264,31 +264,31 @@ kotlin {
 ```kotlin
 binaries {
     executable("my_executable", listOf(RELEASE)) {
-        // Build a binary on the basis of the test compilation.
+        // 构建一个基于测试编译项的二进制文件。
         compilation = compilations["test"]
 
-        // Custom command line options for the linker.
+        // 链接器的自定义命令行选项。
         linkerOpts = mutableListOf("-L/lib/search/path", "-L/another/search/path", "-lmylib")
 
-        // Base name for the output file.
+        // 输出文件的基础名称。
         baseName = "foo"
 
-        // Custom entry point function.
+        // 自定义入口函数。
         entryPoint = "org.example.main"
 
-        // Accessing the output file.
+        // 访问输出文件。
         println("Executable path: ${outputFile.absolutePath}")
 
-        // Accessing the link task.
+        // 访问链接任务。
         linkTask.dependsOn(additionalPreprocessingTask)
 
-        // Accessing the run task.
-        // Note that the runTask is null for non-host platforms.
+        // 访问运行任务。
+        // 请注意，对于非主机平台，runTask 为 null。
         runTask?.dependsOn(prepareForRun)
     }
 
     framework("my_framework" listOf(RELEASE)) {
-        // Include a static library instead of a dynamic one into the framework.
+        // 将静态库而非动态库包含到 framework 中。
         isStatic = true
     }
 }
@@ -300,31 +300,31 @@ binaries {
 ```groovy
 binaries {
     executable('my_executable', [RELEASE]) {
-        // Build a binary on the basis of the test compilation.
+        // 构建一个基于测试编译项的二进制文件。
         compilation = compilations.test
 
-        // Custom command line options for the linker.
+        // 链接器的自定义命令行选项。
         linkerOpts = ['-L/lib/search/path', '-L/another/search/path', '-lmylib']
 
-        // Base name for the output file.
+        // 输出文件的基础名称。
         baseName = 'foo'
 
-        // Custom entry point function.
+        // 自定义入口函数。
         entryPoint = 'org.example.main'
 
-        // Accessing the output file.
+        // 访问输出文件。
         println("Executable path: ${outputFile.absolutePath}")
 
-        // Accessing the link task.
+        // 访问链接任务。
         linkTask.dependsOn(additionalPreprocessingTask)
 
-        // Accessing the run task.
-        // Note that the runTask is null for non-host platforms.
+        // 访问运行任务。
+        // 请注意，对于非主机平台，runTask 为 null。
         runTask?.dependsOn(prepareForRun)
     }
 
     framework('my_framework' [RELEASE]) {
-        // Include a static library instead of a dynamic one into the framework.
+        // 将静态库而非动态库包含到 framework 中。
         isStatic = true
     }
 }
@@ -354,26 +354,26 @@ binaries {
 
 ```kotlin
 kotlin {
-    linuxX64 { // Replace with a target you need.
+    linuxX64 { // 请使用你的目标平台。
         compilations.getByName("main") {
             val myInterop by cinterops.creating {
-                // Definition file describing the native API.
-                // The default path is src/nativeInterop/cinterop/<interop-name>.def
+                // 描述原生 API 的定义文件。
+                // 默认路径是 src/nativeInterop/cinterop/<interop-name>.def
                 definitionFile.set(project.file("def-file.def"))
 
-                // Package to place the Kotlin API generated.
+                // 用于放置生成的 Kotlin API 的包。
                 packageName("org.sample")
 
-                // Options to be passed to compiler by cinterop tool.
+                // cinterop 工具要传递给编译器的选项。
                 compilerOpts("-Ipath/to/headers")
 
-                // Directories for header search (an analogue of the -I<path> compiler option).
+                // 查找头文件的目录（类似于 -I<path> 编译器选项）。
                 includeDirs.allHeaders("path1", "path2")
 
-                // A shortcut for includeDirs.allHeaders.
+                // includeDirs.allHeaders 的快捷方式。
                 includeDirs("include/directory", "another/directory")
 
-                // Header files to be included in the bindings.
+                // 要包含在绑定中的头文件。
                 header("path/to/header.h")
                 headers("path/to/header1.h", "path/to/header2.h")
             }
@@ -389,27 +389,27 @@ kotlin {
 
 ```groovy
 kotlin {
-    linuxX64 { // Replace with a target you need.
+    linuxX64 { // 请使用你的目标平台。
         compilations.main {
             cinterops {
                 myInterop {
-                    // Definition file describing the native API.
-                    // The default path is src/nativeInterop/cinterop/<interop-name>.def
+                    // 描述原生 API 的定义文件。
+                    // 默认路径是 src/nativeInterop/cinterop/<interop-name>.def
                     definitionFile = project.file("def-file.def")
 
-                    // Package to place the Kotlin API generated.
+                    // 用于放置生成的 Kotlin API 的包。
                     packageName 'org.sample'
 
-                    // Options to be passed to compiler by cinterop tool.
+                    // cinterop 工具要传递给编译器的选项。
                     compilerOpts '-Ipath/to/headers'
 
-                    // Directories for header search (an analogue of the -I<path> compiler option).
+                    // 查找头文件的目录（类似于 -I<path> 编译器选项）。
                     includeDirs.allHeaders("path1", "path2")
 
-                    // A shortcut for includeDirs.allHeaders.
+                    // includeDirs.allHeaders 的快捷方式。
                     includeDirs("include/directory", "another/directory")
 
-                    // Header files to be included in the bindings.
+                    // 要包含在绑定中的头文件。
                     header("path/to/header.h")
                     headers("path/to/header1.h", "path/to/header2.h")
                 }
@@ -428,7 +428,7 @@ kotlin {
 
 ### Android 目标平台
 
-Kotlin Multiplatform 插件有一个特定函数，可帮助配置 Android 目标平台的 [构建变体](https://developer.android.com/studio/build/build-variants)：
+Kotlin Multiplatform Gradle 插件有一个特定函数，可帮助你配置 Android 目标平台的 [构建变体](https://developer.android.com/studio/build/build-variants)：
 
 | **名称**                      | **描述**                                                                                                   |
 |-------------------------------|------------------------------------------------------------------------------------------------------------|
@@ -436,7 +436,7 @@ Kotlin Multiplatform 插件有一个特定函数，可帮助配置 Android 目�
 
 ```kotlin
 kotlin {
-    androidTarget {
+    android {
         publishLibraryVariants("release")
     }
 }
@@ -444,14 +444,14 @@ kotlin {
 
 关于 [Android 编译](multiplatform-configure-compilations.md#compilation-for-android) 的更多信息。
 
-> `androidTarget` 配置不会替换 `kotlin {}` 代码块内部任何 Android 项目的构建配置。
+> `kotlin {}` 代码块内部的 `android` 配置不会替换任何 Android 项目的构建配置。
 > 有关为 Android 项目编写构建脚本的更多信息，请参见 [Android 开发者文档](https://developer.android.com/studio/build)。
 >
 {style="note"}
 
 ## 源代码集
 
-`sourceSets {}` 代码块描述项目的源代码集。源代码集包含参与编译的 Kotlin 源文件，以及它们的资源和依赖项。
+`sourceSets {}` 代码块描述项目的源代码集。源代码集包含共同参与编译的 Kotlin 源文件，以及它们的资源和依赖项。
 
 多平台项目包含为其目标平台[预定义](#predefined-source-sets)的源代码集；
 开发者还可以根据需要创建[自定义](#custom-source-sets)源代码集。
@@ -509,7 +509,7 @@ kotlin {
 kotlin {
     //...
     sourceSets { 
-        val myMain by creating { /* ... */ } // create a new source set by the name 'MyMain'
+        val myMain by creating { /* ... */ } // 创建一个名为 'MyMain' 的新源代码集
     }
 }
 ```
@@ -521,7 +521,7 @@ kotlin {
 kotlin {
     //...
     sourceSets { 
-        myMain { /* ... */ } // create or configure a source set by the name 'myMain' 
+        myMain { /* ... */ } // 创建或配置一个名为 'myMain' 的源代码集
     }
 }
 ```
@@ -610,10 +610,10 @@ kotlin {
 kotlin {
     jvm {
         val main by compilations.getting {
-            output // get the main compilation output
+            output // 获取 main 编译项输出
         }
 
-        compilations["test"].runtimeDependencyFiles // get the test runtime classpath
+        compilations["test"].runtimeDependencyFiles // 获取测试运行时类路径
     }
 }
 ```
@@ -624,8 +624,8 @@ kotlin {
 ```groovy
 kotlin {
     jvm {
-        compilations.main.output // get the main compilation output
-        compilations.test.runtimeDependencyFiles // get the test runtime classpath
+        compilations.main.output // 获取 main 编译项输出
+        compilations.test.runtimeDependencyFiles // 获取测试运行时类路径
     }
 }
 ```
@@ -647,7 +647,7 @@ kotlin {
         compilations {
             val main by getting
             val integrationTest by creating {
-                // Import main and its classpath as dependencies and establish internal visibility
+                // 将 main 及其类路径作为依赖项导入，并建立内部可见性
                 associateWith(main)
                 defaultSourceSet {
                     dependencies {
@@ -656,9 +656,9 @@ kotlin {
                     }
                 }
 
-                // Create a test task to run the tests produced by this compilation
+                // 创建一个测试任务来运行此编译项生成的测试
                 testRuns.create("integration") {
-                    // Configure the test task
+                    // 配置测试任务
                     setExecutionSourceFrom(integrationTest)
                 }
             }
@@ -675,7 +675,7 @@ kotlin {
     jvm {
         compilations.create('integrationTest') {
             def main = compilations.main
-            // Import main and its classpath as dependencies and establish internal visibility
+            // 将 main 及其类路径作为依赖项导入，并建立内部可见性
             associateWith(main)
             defaultSourceSet {
                 dependencies {
@@ -684,9 +684,9 @@ kotlin {
                 }
             }
 
-            // Create a test task to run the tests produced by this compilation
+            // 创建一个测试任务来运行此编译项生成的测试
             testRuns.create('integration') {
-                // Configure the test task
+                // 配置测试任务
                 setExecutionSourceFrom(compilations.integrationTest)
             }
         }
@@ -727,19 +727,19 @@ kotlin {
         val main by compilations.getting {
             compileTaskProvider.configure {
                 compilerOptions {
-                    // Set up the Kotlin compiler options for the 'main' compilation:
+                    // 为 'main' 编译项设置 Kotlin 编译器选项：
                     jvmTarget.set(JvmTarget.JVM_1_8)
                 }
             }
         
-            compileKotlinTask // get the Kotlin task 'compileKotlinJvm' 
-            output // get the main compilation output
+            compileKotlinTask // 获取 Kotlin 任务 'compileKotlinJvm' 
+            output // 获取 main 编译项输出
         }
         
-        compilations["test"].runtimeDependencyFiles // get the test runtime classpath
+        compilations["test"].runtimeDependencyFiles // 获取测试运行时类路径
     }
 
-    // Configure all compilations of all targets:
+    // 配置所有目标平台的所有编译项：
     compilerOptions {
         allWarningsAsErrors.set(true)
     }
@@ -754,19 +754,18 @@ kotlin {
     jvm {
         compilations.main {
             compileTaskProvider.configure {
-                compilerOptions {
-                    // Setup the Kotlin compiler options for the 'main' compilation:
-                    jvmTarget = JvmTarget.JVM_1_8
+                // 为 'main' 编译项设置 Kotlin 编译器选项：
+                jvmTarget = JvmTarget.JVM_1_8
                 }
             }
         }
 
-        compilations.main.compileKotlinTask // get the Kotlin task 'compileKotlinJvm' 
-        compilations.main.output // get the main compilation output
-        compilations.test.runtimeDependencyFiles // get the test runtime classpath
+        compilations.main.compileKotlinTask // 获取 Kotlin 任务 'compileKotlinJvm' 
+        compilations.main.output // 获取 main 编译项输出
+        compilations.test.runtimeDependencyFiles // 获取测试运行时类路径
     }
 
-    // Configure all compilations of all targets:
+    // 配置所有目标平台的所有编译项：
     compilerOptions {
         allWarningsAsErrors = true
     }
@@ -807,7 +806,7 @@ kotlin {
 
 ```kotlin
 kotlin {
-    // Configures all compilations of all targets
+    // 配置所有目标平台的所有编译项
     compilerOptions {
         allWarningsAsErrors.set(true)
     }
@@ -819,7 +818,7 @@ kotlin {
 
 ```groovy
 kotlin {
-    // Configures all compilations of all targets:
+    // 配置所有目标平台的所有编译项：
     compilerOptions {
         allWarningsAsErrors = true
     }
@@ -839,7 +838,7 @@ kotlin {
 ```kotlin
 kotlin {
     jvm {
-        // Configures all compilations of the JVM target
+        // 配置 JVM 目标平台的所有编译项
         compilerOptions {
             allWarningsAsErrors.set(true)
         }
@@ -853,7 +852,7 @@ kotlin {
 ```groovy
 kotlin {
     jvm {
-        // Configures all compilations of the JVM target
+        // 配置 JVM 目标平台的所有编译项
         compilerOptions {
             allWarningsAsErrors = true
         }
@@ -903,7 +902,7 @@ kotlin {
     jvm {
         compilations.named(KotlinCompilation.MAIN_COMPILATION_NAME) {
             compileTaskProvider.configure {
-                // Configures the 'main' compilation:
+                // 配置 'main' 编译项：
                 compilerOptions {
                     allWarningsAsErrors.set(true)
                 }
@@ -921,7 +920,7 @@ kotlin {
     jvm {
         compilations.named(KotlinCompilation.MAIN_COMPILATION_NAME) {
             compileTaskProvider.configure {
-                // Configures the 'main' compilation:
+                // 配置 'main' 编译项：
                 compilerOptions {
                     allWarningsAsErrors = true
                 }
@@ -936,7 +935,8 @@ kotlin {
 
 ### 从 `kotlinOptions {}` 迁移到 `compilerOptions {}` {collapsible="true"}
 
-在 Kotlin 2.2.0 之前，可以使用 `kotlinOptions {}` 代码块配置编译器选项。由于 `kotlinOptions {}` 代码块在 Kotlin 2.2.0 中已弃用，因此需要在构建脚本中使用 `compilerOptions {}` 代码块。
+在 Kotlin 2.2.0 之前，可以使用 `kotlinOptions {}` 代码块配置编译器选项。由于 `kotlinOptions {}`
+代码块在 Kotlin 2.2.0 中已弃用，因此需要在构建脚本中使用 `compilerOptions {}` 代码块。
 更多信息请参见 [从 `kotlinOptions{}` 迁移到 `compilerOptions{}`](https://kotlinlang.org/docs/gradle-compiler-options.html#migrate-from-kotlinoptions-to-compileroptions)。
 
 ## 依赖项
@@ -1003,7 +1003,7 @@ kotlin {
 在这种情况下，使用 [`dependsOn()`](#source-set-parameters) 关系。
 
 ### 配置顶层公共依赖项
-<secondary-label ref="Experimental"/>
+<primary-label ref="Experimental"/>
 
 可以使用顶层 `dependencies {}` 代码块配置公共依赖项。在此处声明的依赖项，其行为如同被添加到了 `commonMain` 或 `commonTest` 源代码集。
 
@@ -1060,11 +1060,11 @@ kotlin {
 kotlin {
     sourceSets.all {
         languageSettings.apply {
-            languageVersion = "%languageVersion%" // possible values: "1.8", "1.9", "2.0", "2.1"
-            apiVersion = "%apiVersion%" // possible values: "1.8", "1.9", "2.0", "2.1"
-            enableLanguageFeature("InlineClasses") // language feature name
-            optIn("kotlin.ExperimentalUnsignedTypes") // annotation FQ-name
-            progressiveMode = true // false by default
+            languageVersion = "%languageVersion%" // 可能值："2.0", "2.1", "2.2", "2.3", "2.4" (实验性的)
+            apiVersion = "%apiVersion%" // 可能值："2.0", "2.1", "2.2", "2.3", "2.4" (实验性的)
+            enableLanguageFeature("InlineClasses") // 语言特性名称
+            optIn("kotlin.ExperimentalUnsignedTypes") // 注解完全限定名
+            progressiveMode = true // 默认为 false
         }
     }
 }
@@ -1077,11 +1077,11 @@ kotlin {
 kotlin {
     sourceSets.all {
         languageSettings {
-            languageVersion = '%languageVersion%' // possible values: '1.8', '1.9', '2.0', '2.1'
-            apiVersion = '%apiVersion%' // possible values: '1.8', '1.9', '2.0', '2.1'
-            enableLanguageFeature('InlineClasses') // language feature name
-            optIn('kotlin.ExperimentalUnsignedTypes') // annotation FQ-name
-            progressiveMode = true // false by default
+            languageVersion = '%languageVersion%' // 可能值：'2.0', '2.1', '2.2', '2.3', '2.4' (实验性的)
+            apiVersion = '%apiVersion%' // 可能值：'2.0', '2.1', '2.2', '2.3', '2.4' (实验性的)
+            enableLanguageFeature('InlineClasses') // 语言特性名称
+            optIn('kotlin.ExperimentalUnsignedTypes') // 注解完全限定名
+            progressiveMode = true // 默认为 false
         }
     }
 }

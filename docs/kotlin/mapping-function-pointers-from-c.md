@@ -9,7 +9,7 @@
     </p>
 </tldr>
 
-> C 库导入处于 [Beta](native-c-interop-stability.md) 阶段。所有由 cinterop 工具从 C 库生成的 Kotlin 声明都应具有 `@ExperimentalForeignApi` 注解。
+> C 库导入处于 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 阶段。所有由 cinterop 工具从 C 库生成的 Kotlin 声明都应具有 `@ExperimentalForeignApi` 注解。
 >
 > 随 Kotlin/Native 附带的原生平台库（例如 Foundation、UIKit 和 POSIX）仅对部分 API 需要显式选择启用 (opt-in)。
 >
@@ -19,8 +19,8 @@
 
 在本教程中，你将：
 
-* [学习如何将 Kotlin 函数作为 C 函数指针传递](#pass-kotlin-function-as-a-c-function-pointer)
-* [在 Kotlin 中使用 C 函数指针](#use-the-c-function-pointer-from-kotlin)
+*   [学习如何将 Kotlin 函数作为 C 函数指针传递](#pass-kotlin-function-as-a-c-function-pointer)
+*   [在 Kotlin 中使用 C 函数指针](#use-the-c-function-pointer-from-kotlin)
 
 ## 从 C 映射函数指针类型
 
@@ -53,7 +53,7 @@ MyFun supply_fun() {
 
 让我们看看 C 函数指针是如何映射到 Kotlin/Native 的，并更新你的项目：
 
-1. 在 `src/nativeMain/kotlin` 中，使用以下内容更新[上一教程](mapping-struct-union-types-from-c.md)中的 `hello.kt` 文件：
+1.  在 `src/nativeMain/kotlin` 中，使用以下内容更新[上一教程](mapping-struct-union-types-from-c.md)中的 `hello.kt` 文件：
 
    ```kotlin
    import interop.*
@@ -68,7 +68,7 @@ MyFun supply_fun() {
    }
    ```
 
-2. 使用 IntelliJ IDEA 的 [转到声明](https://www.jetbrains.com/help/rider/Navigation_and_Search__Go_to_Declaration.html) 命令 (<shortcut>Cmd + B</shortcut>/<shortcut>Ctrl + B</shortcut>) 导航到以下生成的 C 函数 API：
+2.  使用 IntelliJ IDEA 的 [转到声明](https://www.jetbrains.com/help/rider/Navigation_and_Search__Go_to_Declaration.html) 命令 (<shortcut>Cmd + B</shortcut>/<shortcut>Ctrl + B</shortcut>) 导航到以下生成的 C 函数 API：
 
    ```kotlin
    fun myFun(i: kotlin.Int): kotlin.Int

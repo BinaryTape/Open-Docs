@@ -6,15 +6,17 @@
 
 _[發布日期：2022 年 6 月 9 日](releases.md#release-details)_
 
-Kotlin 1.7.0 已發布。它發布了新 Kotlin/JVM K2 編譯器的 Alpha 版本，穩定化了語言功能，並為 JVM、JS 和 Native 平台帶來了效能改進。
+Kotlin 1.7.0 已發布。它揭示了新 Kotlin/JVM K2 編譯器的 Alpha 版本，穩定化了語言
+功能，並為 JVM、JS 和 Native 平台帶來了效能改進。
 
 以下是此版本中主要更新的列表：
 
-* [新的 Kotlin K2 編譯器現在處於 Alpha 階段](#new-kotlin-k2-compiler-for-the-jvm-in-alpha)，它提供了顯著的效能改進。它僅適用於 JVM，並且不支援任何編譯器插件，包括 kapt。
+* [新的 Kotlin K2 編譯器現在處於 Alpha 階段](#new-kotlin-k2-compiler-for-the-jvm-in-alpha)，它提供了顯著的
+  效能改進。它僅適用於 JVM，並且不支援任何編譯器插件，包括 kapt。
 * [Gradle 中增量編譯的新方法](#a-new-approach-to-incremental-compilation)。增量編譯現在也支援在依賴的非 Kotlin 模組中進行的變更，並且與 Gradle 相容。
 * 我們已穩定化[選擇性啟用要求註解](#stable-opt-in-requirements)、[明確非空類型](#stable-definitely-non-nullable-types)和[建立器推斷](#stable-builder-inference)。
 * [現在有型別引數的底線運算子](#underscore-operator-for-type-arguments)。您可以使用它在指定其他類型時自動推斷引數的類型。
-* [此版本允許委託實作至行內類別的行內值](#allow-implementation-by-delegegation-to-an-inlined-value-of-an-inline-class)。您現在可以建立輕量級包裝器，在大多數情況下它們不會分配記憶體。
+* [此版本允許委託實作至行內類別的行內值](#allow-implementation-by-delegation-to-an-inlined-value-of-an-inline-class)。您現在可以建立輕量級包裝器，在大多數情況下它們不會分配記憶體。
 
 您也可以在此影片中找到這些變更的簡短概覽：
 
@@ -50,7 +52,7 @@ Kotlin 1.7.0 已發布。它發布了新 Kotlin/JVM K2 編譯器的 Alpha 版本
 -Xuse-k2
 ```
 
-此外，K2 編譯器[包含許多錯誤修正](https://youtrack.jetbrains.com/issues/KT?q=tag:%20FIR-preview-qa%20%23Resolved)。請注意，即使此列表中**狀態：開放**的議題實際上也已在 K2 中修復。
+此外，K2 編譯器[包含許多錯誤修正](https://youtrack.com/issues/KT?q=tag:%20FIR-preview-qa%20%23Resolved)。請注意，即使此列表中**狀態：開放**的議題實際上也已在 K2 中修復。
 
 接下來的 Kotlin 版本將改進 K2 編譯器的穩定性並提供更多功能，敬請期待！
 
@@ -198,7 +200,7 @@ Kotlin/JVM 編譯的預設目標版本是 `1.8`。`1.6` 目標已移除。
 請遷移到 JVM 目標 1.8 或更高版本。了解如何更新 JVM 目標版本適用於：
 
 * [Gradle](gradle-compiler-options.md#attributes-specific-to-jvm)
-* [Maven](maven.md#attributes-specific-to-jvm)
+* [Maven](maven-compile-package.md#attributes-specific-to-jvm)
 * [命令列編譯器](compiler-reference.md#jvm-target-version)
 
 ## Kotlin/Native
@@ -217,7 +219,7 @@ Kotlin 1.7.0 包含了對 Objective-C 和 Swift 互通性的變更，並穩定�
 
 > 新的 Kotlin/Native 記憶體管理器處於 [Alpha](components-stability.md) 階段。
 > 它可能在未來發生不相容的變更並需要手動遷移。
-> 我們非常感謝您在 [YouTrack](https://youtrack.com/issue/KT-48525) 中提供回饋。
+> 我們非常感謝您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-48525) 中提供回饋。
 >
 {style="note"}
 
@@ -225,7 +227,7 @@ Kotlin 1.7.0 包含了對 Objective-C 和 Swift 互通性的變更，並穩定�
 
 此外，我們特別優化了偵錯二進位檔，確保在記憶體管理器的實作程式碼中使用了適當的優化等級和連結時優化。這有助於我們在基準測試中將偵錯二進位檔的執行時間提高了約 30%。
 
-嘗試在您的專案中使用新的記憶體管理器，看看它是如何運作的，並在 [YouTrack](https://youtrack.com/issue/KT-48525) 中與我們分享您的回饋。
+嘗試在您的專案中使用新的記憶體管理器，看看它是如何運作的，並在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-48525) 中與我們分享您的回饋。
 
 ### 與 JVM 和 JS IR 後端的統一編譯器插件 ABI
 
@@ -235,7 +237,7 @@ Kotlin 1.7.0 包含了對 Objective-C 和 Swift 互通性的變更，並穩定�
 
 > 此功能可能需要插件開發人員對其現有插件採取遷移步驟。
 >
-> 了解如何在此 [YouTrack 議題](https://youtrack.com/issue/KT-48595)中準備您的插件以進行更新。
+> 了解如何在此 [YouTrack 議題](https://youtrack.jetbrains.com/issue/KT-48595)中準備您的插件以進行更新。
 >
 {style="warning"}
 
@@ -305,7 +307,7 @@ Kotlin/JS 正在對 [JS IR 編譯器後端](js-ir-compiler.md)進行進一步改
 
 * Kotlin/JS 的增量編譯效能已顯著改進。構建 JS 專案所需時間更少。現在，在許多情況下，增量重建的效能應該與舊版後端大致相同。
 * Kotlin/JS 最終捆綁包所需空間更少，因為我們顯著縮小了最終構件的大小。我們測量了某些大型專案的生產捆綁包大小比舊版後端減少了高達 20%。
-* 介面的類型檢查已數量級地改進。
+* 介面的型別檢查已數量級地改進。
 * Kotlin 產生更高品質的 JS 程式碼。
 
 ### 使用 IR 時成員名稱的最小化
@@ -414,7 +416,7 @@ fun main() {
 }
 ```
 
-我們非常感謝您對此 [YouTrack 議題](https://youtrack.com/issue/KT-34021)的回饋。
+我們非常感謝您對此 [YouTrack 議題](https://youtrack.jetbrains.com/issue/KT-34021)的回饋。
 
 ### 擴展對先前語言和 API 版本的支援
 
@@ -602,7 +604,7 @@ fun dateReplace() {
 ### 增量編譯的新方法
 
 > 增量編譯的新方法是[實驗性](components-stability.md)的。它可能隨時被移除或更改。
-> 需要選擇性啟用 (請參閱下面的詳細資訊)。我們鼓勵您僅將其用於評估目的，我們非常感謝您在 [YouTrack](https://youtrack.com/issues/KT) 中提供回饋。
+> 需要選擇性啟用 (請參閱下面的詳細資訊)。我們鼓勵您僅將其用於評估目的，我們非常感謝您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 中提供回饋。
 >
 {style="warning"}
 
@@ -622,14 +624,14 @@ kotlin.incremental.useClasspathSnapshot=true
 
 在[這篇部落格文章](https://blog.jetbrains.com/kotlin/2022/07/a-new-approach-to-incremental-compilation-in-kotlin/)中了解增量編譯新方法的底層實作方式。
 
-我們的計劃是穩定化這項技術並新增對其他後端（例如 JS）和建置系統的支援。我們非常感謝您在 [YouTrack](https://youtrack.com/issues/KT) 中報告您在此編譯方案中遇到的任何問題或奇怪行為。謝謝！
+我們的計劃是穩定化這項技術並新增對其他後端（例如 JS）和建置系統的支援。我們非常感謝您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 中報告您在此編譯方案中遇到的任何問題或奇怪行為。謝謝！
 
 Kotlin 團隊非常感謝 [Ivan Gavrilovic](https://github.com/gavra0)、[Hung Nguyen](https://github.com/hungvietnguyen)、[Cédric Champeau](https://github.com/melix) 和其他外部貢獻者的幫助。
 
 ### 追蹤編譯器效能的新建置報告
 
 > Kotlin 建置報告是[實驗性](components-stability.md)的。它們可能隨時被移除或更改。
-> 需要選擇性啟用 (請參閱詳細資訊)。僅將它們用於評估目的。我們感謝您在 [YouTrack](https://youtrack.com/issues/KT) 中提供對它們的回饋。
+> 需要選擇性啟用 (請參閱詳細資訊)。僅將它們用於評估目的。我們感謝您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 中提供對它們的回饋。
 >
 {style="warning"}
 
@@ -668,7 +670,7 @@ kotlin.build.report.output=file
 
 ### Gradle 和 Android Gradle 插件的最低支援版本變更
 
-從 Kotlin 1.7.0 開始，最低支援的 Gradle 版本是 6.7.1。我們不得不[提高版本](https://youtrack.com/issue/KT-49733/Bump-minimal-supported-Gradle-version-to-6-7-1)以支援 [Gradle 插件變體](#support-for-gradle-plugin-variants)和新的 Gradle API。未來，由於 Gradle 插件變體功能，我們不應該再像以前那樣頻繁地提高最低支援版本。
+從 Kotlin 1.7.0 開始，最低支援的 Gradle 版本是 6.7.1。我們不得不[提高版本](https://youtrack.jetbrains.com/issue/KT-49733/Bump-minimal-supported-Gradle-version-to-6-7-1)以支援 [Gradle 插件變體](#support-for-gradle-plugin-variants)和新的 Gradle API。未來，由於 Gradle 插件變體功能，我們不應該再像以前那樣頻繁地提高最低支援版本。
 
 此外，最低支援的 Android Gradle 插件版本現在是 3.6.4。
 
@@ -693,7 +695,7 @@ Gradle 7.0 為 Gradle 插件作者引入了一項新功能 — [帶變體的插�
 >
 {style="note"}
 
-請在[此 YouTrack 議題](https://youtrack.com/issue/KT-49227/Support-Gradle-plugins-variants)中留下您的回饋。
+請在[此 YouTrack 議題](https://youtrack.jetbrains.com/issue/KT-49227/Support-Gradle-plugins-variants)中留下您的回饋。
 
 ### Kotlin Gradle 插件 API 中的更新
 
@@ -707,7 +709,8 @@ Kotlin Gradle 插件 API 構件收到了一些改進：
       // 在此處配置您的動作
   }
   ```
-  您可以[在此 YouTrack 議題](https://youtrack.com/issue/KT-48008/Consider-offering-a-KotlinBasePlugin)中留下關於 `KotlinBasePlugin` 的回饋。
+  您可以留下關於 `KotlinBasePlugin` 的回饋
+  在[此 YouTrack 議題](https://youtrack.jetbrains.com/issue/KT-48008/Consider-offering-a-KotlinBasePlugin)。
 
 * 我們為 Android Gradle 插件奠定了基礎，以便在自身內部配置 Kotlin 編譯，這意味著您無需將 Kotlin Android Gradle 插件新增到您的建置中。
   請關注 [Android Gradle 插件發布公告](https://developer.android.com/studio/releases/gradle-plugin)以了解新增的支援並嘗試一下！
@@ -734,7 +737,7 @@ plugins {
 * 棄用的 `Gradle destinationDir: File` 輸出已替換為 `destinationDirectory: DirectoryProperty` 輸出。
 * Kotlin/Native `AbstractNativeCompile` 任務現在繼承 `AbstractKotlinCompileTool` 基底類別。這是將 Kotlin/Native 建置工具整合到所有其他工具的初步步驟。
 
-請在[此 YouTrack 議題](https://youtrack.com/issue/KT-32805)中留下您的回饋。
+請在[此 YouTrack 議題](https://youtrack.jetbrains.com/issue/KT-32805)中留下您的回饋。
 
 ### kapt 中每個註解處理器產生檔案的新統計資料
 
@@ -771,7 +774,7 @@ plugins {
 [INFO] org.mapstruct.ap.MappingProcessor: total sources: 2, sources per round: 2, 0, 0
 ```
 
-請在[此 YouTrack 議題](https://youtrack.com/issue/KT-51132/KAPT-Support-reporting-the-number-of-generated-files-by-each-ann)中留下您的回饋。
+請在[此 YouTrack 議題](https://youtrack.jetbrains.com/issue/KT-51132/KAPT-Support-reporting-the-number-of-generated-files-by-each-ann)中留下您的回饋。
 
 ### kotlin.compiler.execution.strategy 系統屬性的棄用
 
@@ -818,7 +821,7 @@ sourceSets {
 
 在 Kotlin 1.4.0 中，`kotlin2js` 和 `kotlin-dce-plugin` 插件被棄用，它們已在此版本中移除。請改用新的 `org.jetbrains.kotlin.js` 插件而不是 `kotlin2js`。無用程式碼移除 (DCE) 只有在 Kotlin/JS Gradle 插件正確配置時才會運作。
 
-在 Kotlin 1.6.0 中，我們將 `KotlinGradleSubplugin` 類別的棄用等級變更為 `ERROR`。開發人員使用此類別編寫編譯器插件。在此版本中，[此類別已移除](https://youtrack.com/issue/KT-48831/)。請改用 `KotlinCompilerPluginSupportPlugin` 類別。
+在 Kotlin 1.6.0 中，我們將 `KotlinGradleSubplugin` 類別的棄用等級變更為 `ERROR`。開發人員使用此類別編寫編譯器插件。在此版本中，[此類別已移除](https://youtrack.jetbrains.com/issue/KT-48831/)。請改用 `KotlinCompilerPluginSupportPlugin` 類別。
 
 > 最佳實踐是在整個專案中使用 1.7.0 及更高版本的 Kotlin 插件。
 >
@@ -826,7 +829,7 @@ sourceSets {
 
 #### 移除棄用的協程 DSL 選項和屬性
 
-我們移除了棄用的 `kotlin.experimental.coroutines` Gradle DSL 選項和 `gradle.properties` 中使用的 `kotlin.coroutines` 屬性。現在您只需使用[暫停函數](coroutines-basics.md#extract-function-refactoring)或[將 `kotlinx.coroutines` 依賴項新增](gradle-configure-project.md#set-a-dependency-on-a-kotlinx-library)到您的建置腳本中即可。
+我們移除了棄用的 `kotlin.experimental.coroutines` Gradle DSL 選項和 `kotlin.coroutines` 屬性在 `gradle.properties` 中的使用。現在您只需使用[暫停函數](coroutines-basics.md#extract-function-refactoring)或[將 `kotlinx.coroutines` 依賴項新增](gradle-configure-project.md#set-a-dependency-on-a-kotlinx-library)到您的建置腳本中即可。
 
 在[協程指南](coroutines-guide.md)中了解有關協程的更多資訊。
 

@@ -9,7 +9,7 @@
     </p>
 </tldr>
 
-> C 函式庫匯入功能目前為 [Beta 版](native-c-interop-stability.md)。cinterop 工具從 C 函式庫產生的所有 Kotlin 宣告都應帶有 `@ExperimentalForeignApi` 註解。
+> C 函式庫匯入功能目前為 [Beta 版](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import)。cinterop 工具從 C 函式庫產生的所有 Kotlin 宣告都應帶有 `@ExperimentalForeignApi` 註解。
 >
 > Kotlin/Native 隨附的原生平台函式庫（例如 Foundation、UIKit 和 POSIX）僅需針對部分 API 選擇啟用 (opt-in)。
 >

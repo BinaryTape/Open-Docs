@@ -65,7 +65,7 @@ fun main(args: Array<String>) {
 
 執行上面的程式碼以查看結果。隨意編輯它並再次執行！
 
-有關更多資訊，請參閱[協程文件](coroutines-overview.md)和[教程](coroutines-and-channels.md)。
+有關更多資訊，請參閱[協程文件](coroutines-overview.md)和[教學](coroutines-and-channels.md)。
 
 請注意，協程目前被視為一個 **實驗性功能**，這意味著 Kotlin 團隊不承諾在 1.1 最終版本發布後支援此功能的向後相容性。
 
@@ -674,7 +674,7 @@ external interface JQuery {
 external fun jquery(selector: String): JQuery
 ```
 
-在這種情況下，JQuery 將作為名為 `jquery` 的模組導入。或者，它可以作為一個 $-object 使用，這取決於 Kotlin 編譯器配置為使用的模組系統。
+在這種情況下，JQuery 將作為名為 `jquery` 的模組導入。或者，它可以作為一個 $-物件 使用，這取決於 Kotlin 編譯器配置為使用的模組系統。
 
 您可以在應用程式中這樣使用這些宣告：
 

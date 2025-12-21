@@ -41,13 +41,52 @@
           {
             "text": "koog.complex-workflow-agents",
             "link": "complex-workflow-agents"
+          },
+          {
+            "text": "koog.planner-agents",
+            "link": "planner-agents"
           }
         ],
         "collapsed": true
       },
       {
         "text": "koog.prompts",
-        "link": "prompt-api"
+        "items": [
+          {
+            "text": "koog._0"
+          },
+          {
+            "text": "koog.structured-prompts",
+            "link": "prompts/structured-prompts"
+          },
+          {
+            "text": "koog.multimodal-inputs",
+            "link": "prompts/multimodal-inputs"
+          },
+          {
+            "text": "koog.running-prompts",
+            "items": [
+              {
+                "text": "koog.llm-clients",
+                "link": "prompts/llm-clients"
+              },
+              {
+                "text": "koog.prompt-executors",
+                "link": "prompts/prompt-executors"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "koog.handling-failures",
+            "link": "prompts/handling-failures"
+          },
+          {
+            "text": "koog.llm-response-caching",
+            "link": "prompts/llm-response-caching"
+          }
+        ],
+        "collapsed": true
       },
       {
         "text": "koog.tools",
@@ -134,6 +173,10 @@
           }
         ],
         "collapsed": true
+      },
+      {
+        "text": "koog.agent-client-protocol",
+        "link": "agent-client-protocol"
       },
       {
         "text": "koog.llm-parameters",

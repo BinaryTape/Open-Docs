@@ -7,8 +7,6 @@
 
 [모든 버전 다운로드](https://resources.jetbrains.com/storage/products/kotlin/docs/kotlin_logos.zip){:.typo-float-right.kto-button.kto-button_size_m.kto-button_mode_outline}
 
-![Kotlin 로고](kotlin-logo.png){width=700}
-
 저희 로고와 마크는 보호 영역을 가집니다. 다른 디자인 요소가 해당 영역 안으로 들어오지 않도록 로고를 배치해 주십시오.
 보호 영역의 최소 크기는 마크 높이의 절반입니다.
 
@@ -24,6 +22,26 @@
 *   복잡한 배경에 로고를 배치하지 마십시오. 밝은 배경 앞에 로고를 두지 마십시오.
 
 [Kotlin 브랜드 사용 지침 읽기](https://kotlinfoundation.org/guidelines/).
+
+## Kotlin 에코시스템 로고
+
+Kotlin 브랜드 패키지에는 여러 공식 Kotlin 에코시스템 프로젝트, 라이브러리, 프레임워크 및 기술에 대한 로고도 포함되어 있습니다.
+이러한 자산은 Kotlin 로고와 동일한 시각적 원칙을 따르며 에코시스템 전반에 걸쳐 일관된 표현을 보장하는 데 도움이 됩니다.
+
+패키지에는 다음 로고가 포함되어 있습니다:
+
+*   [Kotlin Foundation](https://kotlinfoundation.org)
+*   [Kotlin Notebook](kotlin-notebook-overview.md)
+*   [Kotlin Multiplatform (KMP)](https://kotlinlang.org/multiplatform/)
+*   [Talking Kotlin](https://www.youtube.com/playlist?list=PLlFc5cFwUnmz1TwkP9SKCHU978dqLTANB)
+*   [Compose Multiplatform (CMP)](https://www.jetbrains.com/compose-multiplatform/)
+*   [Compose Hot Reload](https://kotlinlang.org/docs/multiplatform/compose-hot-reload.html)
+*   [Ktor](https://ktor.io)
+*   [Exposed](https://www.jetbrains.com/exposed/)
+
+이 로고들은 동일한 다운로드 번들에서 찾을 수 있습니다:
+
+[모든 버전 다운로드](https://resources.jetbrains.com/storage/products/kotlin/docs/kotlin_logos.zip){:.typo-float-right.kto-button.kto-button_size_m.kto-button_mode_outline}
 
 ## Kotlin 마스코트
 
@@ -64,10 +82,10 @@ Kotlin 마스코트 자산을 준비했으니 다운로드하여 살펴보세요
 *   첫째, 공식적으로 전념하는 사용자 그룹으로 인정받는 데 도움이 되는 특별한 Kotlin 스타일의 브랜드 자료를 요청하는 커뮤니티의 많은 요청을 받았습니다.
 *   둘째, Kotlin 관련 자료 중 어떤 것이 공식 팀에서 나온 것이고 어떤 것이 커뮤니티에서 만든 것인지 명확히 하기 위해 사용자 그룹 및 커뮤니티 콘텐츠에 대한 독특한 스타일을 제공하고자 했습니다.
 
-### 사용자 그룹 로고 만들기
+### 사용자 그룹의 로고 만들기
 
 사용자 그룹의 로고를 만들려면:
-1.  Kotlin 사용자 그룹 [로고 파일](https://docs.google.com/drawings/d/1IcJp8Z2jAwEliXrHB-l9RNK_2LrqGTkNuPPTjrW1iIU/edit)을 Google 드라이브로 복사하십시오 (Google 계정에 로그인해야 합니다).
+1.  Kotlin 사용자 그룹 [로고 파일](https://docs.google.com/drawings/d/1IcJp8Z2jAwEliXrHB-l9RNK_2LrqGTkNuPPtjrW1iIU/edit)을 Google 드라이브로 복사하십시오 (Google 계정에 로그인해야 합니다).
 2.  **Your City** 텍스트를 사용자 그룹의 이름으로 대체하십시오.
 3.  사진을 다운로드하여 사용자 그룹 자료에 사용하십시오.
 

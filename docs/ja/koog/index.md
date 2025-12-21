@@ -43,13 +43,19 @@ Koogは、JVMおよびKotlin開発者向けに特別に設計された、イデ�
 
     カスタム戦略で複雑なワークフローを処理するエージェントを作成して実行します
 
+-   :material-state-machine:{ .lg .middle } [**プランナーエージェント**](planner-agents.md)
+
+    ---
+
+    計画を反復的に構築し実行するエージェントを作成して実行します
+
 </div>
 
 ## コア機能
 
 <div class="grid cards" markdown>
 
--   :material-chat-processing-outline:{ .lg .middle } [**プロンプト**](prompt-api.md)
+-   :material-chat-processing-outline:{ .lg .middle } [**プロンプト**](prompts/index.md)
 
     ---
 

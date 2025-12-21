@@ -1,6 +1,6 @@
 # 개요
 
- 에이전트는 특정 작업을 수행하거나 외부 시스템에 접근하기 위해 도구를 사용합니다.
+에이전트는 특정 작업을 수행하거나 외부 시스템에 접근하기 위해 도구를 사용합니다.
 
 ## 도구 워크플로
 
@@ -17,7 +17,7 @@ Koog 프레임워크에는 세 가지 유형의 도구가 있습니다:
 
 -   에이전트-사용자 상호 작용 및 대화 관리를 위한 기능을 제공하는 내장 도구입니다. 자세한 내용은 [내장 도구](built-in-tools.md)를 참조하세요.
 -   함수를 LLM에 도구로 노출할 수 있는 어노테이션 기반 커스텀 도구입니다. 자세한 내용은 [어노테이션 기반 도구](annotation-based-tools.md)를 참조하세요.
--   도구 매개변수, 메타데이터, 실행 로직, 그리고 등록되고 호출되는 방식을 제어할 수 있는 커스텀 도구입니다. 자세한 내용은 [클래스 기반 도구](class-based-tools.md)를 참조하세요.
+-   도구 매개변수, 메타데이터, 실행 로직, 그리고 등록되고 호출되는 방식을 제어할 수 있는 커스텀 도구입니다. 자세한 내용은 [클래스 기반 도구](class-based-tools.md).
 
 ### 도구 레지스트리
 
@@ -128,22 +128,20 @@ data class Book(
     val description: String
 )
 
-class BookTool() : SimpleTool<Book>() {
+class BookTool() : SimpleTool<Book>(
+    argsSerializer = Book.serializer(),
+    name = NAME,
+    description = "A tool to parse book information from Markdown"
+) {
     companion object {
         const val NAME = "book"
     }
 
-    override suspend fun doExecute(args: Book): String {
+    override suspend fun execute(args: Book): String {
         println("${args.title} by ${args.author}:
  ${args.description}")
         return "Done"
     }
-
-    override val argsSerializer: KSerializer<Book>
-        get() = Book.serializer()
-
-    override val name = NAME
-    override val description = "A tool to parse book information from Markdown"
 }
 
 val strategy = strategy<Unit, Unit>("strategy-name") {

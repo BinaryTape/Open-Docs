@@ -29,7 +29,7 @@ aside: false
         <misc>
             <cards narrow="false">
                 <title>주요 토픽</title>
-                <a href="whatsnew2220.md" summary="웹 개발을 위한 주요 변경 사항과 기타 개선 사항 및 버그 수정">Kotlin 2.2.20의 새로운 기능</a>
+                <a href="whatsnew23.md" summary="새로운 실험적 및 안정화 기능, 성능 개선 사항 및 버그 수정">Kotlin 2.3.0의 새로운 기능</a>
                 <a href="releases.md" summary="최신 Kotlin 릴리스 및 업데이트 방법">Kotlin 릴리스</a>
                 <a href="https://kotlinlang.org/api/latest/jvm/stdlib/" summary="Kotlin을 사용한 일상 작업의 필수 요소: IO, 파일, 스레딩, 컬렉션 등">표준 라이브러리 API 참조</a>
                 <a href="types-overview.md" summary="Kotlin 타입 시스템: 숫자, 문자열, 배열 및 기타 내장 타입">타입 개요</a>

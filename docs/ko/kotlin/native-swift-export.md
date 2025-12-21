@@ -116,6 +116,7 @@ Swift export는 현재 iOS 프레임워크를 Xcode 프로젝트에 연결하기
 |------------------------|--------------------------------|-------------------------|
 | `class`                | `class`                        | [참고](#classes)        |
 | `object`               | `class` with `shared` property | [참고](#objects)        |
+| `enum class`           | `enum`                         | [참고](#enums)          |
 | `typealias`            | `typealias`                    | [참고](#type-aliases)   |
 | Function               | Function                       | [참고](#functions)      |
 | Property               | Property                       | [참고](#properties)     |
@@ -206,6 +207,30 @@ typealias MyInt = Int
 public typealias MyInt = Swift.Int32
 ```
 
+#### 열거형 (Enums)
+
+Kotlin의 `enum class` 선언은 일반 네이티브 Swift `enum` 타입으로 내보내집니다:
+
+```kotlin
+// Kotlin
+enum class Color(val rgb: Int) {
+    RED(0xFF0000),
+    GREEN(0x00FF00),
+    BLUE(0x0000FF)
+}
+
+val color = Color.RED
+```
+
+```swift
+// Swift
+public enum Color: Swift.CaseIterable, Swift.LosslessStringConvertible, Swift.RawRepresentable {
+    case RED, GREEN, BLUE
+
+    public var rgb: Swift.Int32 { get }
+}
+```
+
 #### 함수
 
 Swift export는 간단한 최상위 함수와 메서드를 지원합니다:
@@ -228,7 +253,7 @@ public func baz() -> Swift.Int64 {
 }
 ```
 
-확장 함수도 지원됩니다. 확장 함수의 리시버(receiver) 파라미터는 일반 파라미터의 첫 번째 위치로 이동됩니다:
+Kotlin의 확장 함수의 경우, 리시버(receiver) 파라미터는 일반 Swift 파라미터의 첫 번째 위치로 이동됩니다:
 
 ```kotlin
 // Kotlin
@@ -240,7 +265,21 @@ fun Int.foo(): Unit = TODO()
 func foo(_ receiver: Int32) {}
 ```
 
-`suspend`, `inline`, `operator` 키워드가 있는 함수는 지원되지 않습니다.
+Kotlin의 [`vararg`](functions.md#variable-number-of-arguments-varargs)를 사용하는 함수는 Swift의 가변 인자 함수 파라미터로 매핑됩니다:
+
+```kotlin
+// Kotlin
+fun log(vararg messages: String)
+```
+
+```swift
+// Swift
+public func log(messages: Swift.String...)
+```
+
+> `suspend`, `inline`, `operator` 키워드가 있는 함수에 대한 지원은 현재 제한적입니다. 제네릭 타입은 일반적으로 지원되지 않습니다.
+>
+{style="note"}
 
 #### 프로퍼티
 

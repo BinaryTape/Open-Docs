@@ -137,7 +137,7 @@
     </td>
     <td>
       <list>
-        <li>模組化函式庫，用於在 <a href="https://www.jetbrains.com/kotlin-multiplatform/">Kotlin Multiplatform</a>（JVM、JS、Native 和 Wasm）中處理數學抽象</li>
+        <li>模組化函式庫，用於在 <a href="https://kotlinlang.org/multiplatform/">Kotlin Multiplatform</a>（JVM、JS、Native 和 Wasm）中處理數學抽象</li>
         <li>用於代數結構、數學表達式、直方圖和串流操作的 API</li>
         <li>現有 Java 和 Kotlin 函式庫的可互換封裝器，包括 <a href="https://github.com/eclipse/deeplearning4j/tree/master/nd4j">ND4J</a>、<a href="https://commons.apache.org/proper/commons-math/">Apache Commons Math</a> 和 <a href="https://github.com/Kotlin/multik">Multik</a></li>
         <li>受 Python 的 <a href="https://numpy.org/">NumPy</a> 啟發，但具有型別安全等其他附加功能</li>

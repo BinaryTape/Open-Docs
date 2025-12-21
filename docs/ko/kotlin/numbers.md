@@ -2,8 +2,8 @@
 
 ## 정수 타입
 
-Kotlin은 숫자를 나타내는 내장 타입을 제공합니다.
-정수 타입은 크기와 값 범위가 다른 네 가지 타입이 있습니다.
+Kotlin은 숫자를 나타내는 내장 타입을 제공합니다.  
+정수 숫자의 경우, 크기와 값 범위가 다른 네 가지 타입이 있습니다.
 
 | 타입	    | 크기 (비트) | 최솟값                                       | 최댓값                                       |
 |----------|-------------|----------------------------------------------|------------------------------------------------|
@@ -15,12 +15,12 @@ Kotlin은 숫자를 나타내는 내장 타입을 제공합니다.
 > 부호 있는 정수 타입 외에도 Kotlin은 부호 없는 정수 타입을 제공합니다.
 > 부호 없는 정수는 다른 용도에 맞춰져 있으므로 별도로 다룹니다.
 > [](unsigned-integer-types.md)를 참조하세요.
->
+> 
 {style="tip"}
 
-변수를 명시적인 타입 지정 없이 초기화하면 컴파일러는 값을 나타내기에 충분한 가장 작은 범위를 가진 타입을 `Int`부터 추론합니다. 값이 `Int`의 범위를 초과하지 않으면 타입은 `Int`가 됩니다.
-범위를 초과하면 `Long` 타입이 됩니다. `Long` 값을 명시적으로 지정하려면 값에 접미사 `L`을 추가합니다.
-`Byte` 또는 `Short` 타입을 사용하려면 선언에서 명시적으로 지정해야 합니다.
+변수를 명시적인 타입 지정 없이 초기화하면 컴파일러는 값을 나타내기에 충분한 가장 작은 범위를 가진 타입을 `Int`부터 자동으로 추론합니다. 값이 `Int`의 범위를 초과하지 않으면 타입은 `Int`가 됩니다.
+범위를 초과하면 타입은 `Long`이 됩니다. `Long` 값을 명시적으로 지정하려면 값에 접미사 `L`을 추가하세요.
+`Byte` 또는 `Short` 타입을 사용하려면 선언에서 명시적으로 지정해야 합니다. 
 명시적 타입 지정은 컴파일러가 지정된 타입의 범위를 값이 초과하지 않는지 확인하도록 트리거합니다.
 
 ```kotlin
@@ -40,7 +40,7 @@ val oneByte: Byte = 1
 | 타입	    | 크기 (비트) | 유효 비트 | 지수 비트 | 10진수 자릿수 |
 |----------|-------------|------------------|---------------|----------------|
 | `Float`	 | 32          | 24               | 8             | 6-7            |
-| `Double` | 64          | 53               | 11            | 15-16          |
+| `Double` | 64          | 53               | 11            | 15-16          |    
 
 `Double` 및 `Float` 변수는 소수 부분이 있는 숫자로만 초기화할 수 있습니다.
 소수 부분은 마침표(`.`)로 정수 부분과 구분합니다.
@@ -57,7 +57,7 @@ val oneDouble = 1.0    // Double
 ```
 {validate="false"}
 
-값에 대해 `Float` 타입을 명시적으로 지정하려면 접미사 `f` 또는 `F`를 추가합니다.
+값에 대해 `Float` 타입을 명시적으로 지정하려면 접미사 `f` 또는 `F`를 추가하세요.
 이 방식으로 제공된 값이 7자리 이상의 10진수 자릿수를 포함하면 반올림됩니다.
 
 ```kotlin
@@ -120,17 +120,17 @@ val bytes = 0b11010010_01101001_10010100_10010010
 val bigFractional = 1_234_567.7182818284
 ```
 
-> 부호 없는 정수 리터럴에는 특별한 접미사도 있습니다.
+> 부호 없는 정수 리터럴에는 특별한 접미사도 있습니다.  
 > [부호 없는 정수 타입의 리터럴](unsigned-integer-types.md)에 대해 자세히 알아보세요.
->
+> 
 {style="tip"}
 
 ## Java Virtual Machine에서 숫자의 박싱 및 캐싱
 
 JVM이 숫자를 저장하는 방식은 작은 (바이트 크기의) 숫자에 대해 기본적으로 사용되는 캐시 때문에 코드가 직관적이지 않게 동작할 수 있습니다.
 
-JVM은 숫자를 `int`, `double` 등과 같은 기본 타입(primitive types)으로 저장합니다.
-[제네릭 타입](generics.md)을 사용하거나 `Int?`와 같은 널 허용(nullable) 숫자 참조를 생성하면 숫자는 `Integer` 또는 `Double`과 같은 Java 클래스로 박싱됩니다.
+JVM은 숫자를 `int`, `double` 등과 같은 기본 타입으로 저장합니다.
+[제네릭 타입](generics.md)을 사용하거나 `Int?`와 같은 널 허용 숫자 참조를 생성하면 숫자는 `Integer` 또는 `Double`과 같은 Java 클래스로 박싱됩니다.
 
 JVM은 `Integer` 및 `−128`에서 `127` 사이의 숫자를 나타내는 다른 객체에 [메모리 최적화 기법](https://docs.oracle.com/javase/specs/jls/se22/html/jls-5.html#jls-5.1.7)을 적용합니다.
 이러한 객체에 대한 모든 널 허용 참조는 동일한 캐시된 객체를 참조합니다.
@@ -310,6 +310,7 @@ fun main() {
 //sampleEnd
 }
 ```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
 비트 연산의 전체 목록:
 
@@ -342,18 +343,18 @@ fun main() {
 ```kotlin
 fun main() {
     //sampleStart
-    // Operand statically typed as floating-point number
+    // 피연산자가 부동 소수점 타입으로 정적으로 지정된 경우
     println(Double.NaN == Double.NaN)                 // false
     
-    // Operand NOT statically typed as floating-point number
-    // So NaN is equal to itself
+    // 피연산자가 부동 소수점 타입으로 정적으로 지정되지 않은 경우
+    // 따라서 NaN은 자신과 동일하게 간주됩니다.
     println(listOf(Double.NaN) == listOf(Double.NaN)) // true
 
-    // Operand statically typed as floating-point number
+    // 피연산자가 부동 소수점 타입으로 정적으로 지정된 경우
     println(0.0 == -0.0)                              // true
     
-    // Operand NOT statically typed as floating-point number
-    // So -0.0 is less than 0.0
+    // 피연산자가 부동 소수점 타입으로 정적으로 지정되지 않은 경우
+    // 따라서 -0.0은 0.0보다 작은 것으로 간주됩니다.
     println(listOf(0.0) == listOf(-0.0))              // false
 
     println(listOf(Double.NaN, Double.POSITIVE_INFINITY, 0.0, -0.0).sorted())

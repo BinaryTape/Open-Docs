@@ -65,7 +65,7 @@ open class Outer {
     private val a = 1
     protected open val b = 2
     internal open val c = 3
-    val d = 4  // 預設為 public
+    val d = 4  // public by default
     
     protected class Nested {
         public val e: Int = 5
@@ -115,4 +115,3 @@ class C private constructor(a: Int) { ... }
 * 一個 IntelliJ IDEA 模組。
 * 一個 Maven 專案。
 * 一個 Gradle 來源集（例外是 `test` 來源集可以存取 `main` 的內部宣告）。
-* 一組使用一次 `<kotlinc>` Ant 任務呼叫編譯的檔案。

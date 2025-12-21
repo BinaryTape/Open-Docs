@@ -5,7 +5,7 @@ _[リリース日: 2021年5月5日](releases.md#release-details)_
 Kotlin 1.5.0では、新しい言語機能、安定版のIRベースJVMコンパイラーバックエンド、パフォーマンス改善、
 そして実験的機能の安定化や非推奨化といった進化的な変更が導入されています。
 
-変更点の概要については、[リリースブログ記事](https://blog.jetbrains.com/kotlin/2021/04/kotlin-1-5-0-released/)でも確認できます。
+変更点の概要については、[リリースブログ記事](https://blog.jetbrains.com/kotlin/2021/05/kotlin-1-5-0-released/)でも確認できます。
 
 ## 言語機能
 
@@ -162,7 +162,7 @@ Kotlin/JVMコンパイルのデフォルトターゲットバージョンが`1.8
 JVM 1.6用のビルドが必要な場合は、このターゲットに切り替えることができます。方法については以下をご覧ください。
 
 * [Gradleの場合](gradle-compiler-options.md#attributes-specific-to-jvm)
-* [Mavenの場合](maven.md#attributes-specific-to-jvm)
+* [Mavenの場合](maven-compile-package.md#attributes-specific-to-jvm)
 * [コマンドラインコンパイラーの場合](compiler-reference.md#jvm-target-version)
 
 ### invokedynamic経由のSAMアダプター
@@ -176,7 +176,7 @@ Kotlin 1.5.0では、SAM (Single Abstract Method) 変換のコンパイルに動
 
 匿名クラス生成に基づく古い実装スキームに戻すには、コンパイラーオプション`-Xsam-conversions=class`を追加します。
 
-コンパイラーオプションの追加方法については、[Gradle](gradle-compiler-options.md)、[Maven](maven.md#specify-compiler-options)、
+コンパイラーオプションの追加方法については、[Gradle](gradle-compiler-options.md)、[Maven](maven-compile-package.md#specify-compiler-options)、
 および[コマンドラインコンパイラー](compiler-reference.md#compiler-options)をご覧ください。
 
 ### invokedynamic経由のラムダ
@@ -195,9 +195,9 @@ Kotlin 1.5.0では、純粋なKotlinラムダ（関数型インターフェー�
 * 実験的な[`reflect`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.jvm/reflect.html) APIは、`LambdaMetafactory`で作成されたラムダをサポートしていません。
 
 この機能を試すには、コンパイラーオプション`-Xlambdas=indy`を追加してください。
-[このYouTrackチケット](https://youtrack.com/issue/KT-45375)を使用して、フィードバックを共有していただけると幸いです。
+[このYouTrackチケット](https://youtrack.jetbrains.com/issue/KT-45375)を使用して、フィードバックを共有していただけると幸いです。
 
-コンパイラーオプションの追加方法については、[Gradle](gradle-compiler-options.md)、[Maven](maven.md#specify-compiler-options)、
+コンパイラーオプションの追加方法については、[Gradle](gradle-compiler-options.md)、[Maven](maven-compile-package.md#specify-compiler-options)、
 および[コマンドラインコンパイラー](compiler-reference.md#compiler-options)をご覧ください。
 
 ### @JvmDefaultおよび古いXjvm-defaultモードの非推奨化
@@ -303,7 +303,7 @@ Kotlin/JSコンパイラーのIRベースのバックエンドに取り組むと
 [KVision](https://kvision.io/)、[fritz2](https://www.fritz2.dev/)、[doodle](https://github.com/nacular/doodle)などです。
 プロジェクトでこれらを使用している場合は、すでにIRバックエンドでビルドを行い、その利点を確認できます。
 
-独自のライブラリを作成している場合は、[「both」モードでコンパイルします](js-ir-compiler.md#authoring-libraries-for-the-ir-compiler-with-backwards-compatibility)。
+独自のライブラリを作成している場合は、'both'モードでコンパイルします。
 これにより、クライアントも新しいコンパイラーでそれを使用できるようになります。
 
 ## Kotlinマルチプラットフォーム
@@ -327,7 +327,7 @@ Gradleプラグインによって自動的に行われるようになりまし�
 * [新しいコレクション関数 firstNotNullOf()](#new-collections-function-firstnotnullof)
 * [String?.toBoolean()の厳格版](#strict-version-of-string-toboolean)
 
-標準ライブラリの変更点の詳細については、[こちらのブログ記事](https://blog.jetbrains.com/kotlin/2021/04/kotlin-1-5-0-rc-released/)をご覧ください。
+標準ライブラリの変更点の詳細については、[こちらのブログ記事](https://blog.jetbrains.com/kotlin/2021/04/kotlin-1-5-0-rc-released)をご覧ください。
 
 <video src="https://www.youtube.com/v/MyTkiT2I6-8" title="New Standard Library Features"/>
 
@@ -457,7 +457,7 @@ fun main() {
 * 特定の時間単位への`Long`での変換のための新しいAPIが追加されました。これは、`Double`値で操作する古いAPIに代わるもので、古いAPIは現在非推奨です。
   例えば、[`Duration.inWholeMinutes`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/in-whole-minutes.html)は、期間の値を`Long`として返し、`Duration.inMinutes`に代わります。
 * 数値から`Duration`を構築するための新しいコンパニオン関数が追加されました。例えば、[`Duration.seconds(Int)`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/seconds.html)は、秒の整数値を表す`Duration`オブジェクトを作成します。
-  `Int.seconds`のような古い拡張プロパティは現在非推奨です。
+  古い拡張プロパティは現在非推奨です。
 
 ```kotlin
 import kotlin.time.Duration

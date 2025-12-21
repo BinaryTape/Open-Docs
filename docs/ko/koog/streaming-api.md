@@ -49,7 +49,7 @@ val strategy = strategy<String, String>("strategy_name") {
 -->
 ```kotlin
 llm.writeSession {
-    appendPrompt { user("Tell me a joke, then call a tool with JSON args.") }
+    appendPrompt { user("농담 하나 해주고 JSON 인수로 도구를 호출해줘.") }
 
     val stream = requestLLMStreaming() // Flow<StreamFrame>
 
@@ -70,7 +70,7 @@ llm.writeSession {
 ```
 <!--- KNIT example-streaming-api-01.kt -->
 
-원시 문자열 스트림과 직접 작업하여 출력을 파싱할 수 있다는 점에 유의해야 합니다.
+출력을 원시 문자열 스트림과 직접 작업하여 파싱할 수 있다는 점에 유의해야 합니다.
 이 접근 방식은 파싱 프로세스에 대한 더 많은 유연성과 제어 기능을 제공합니다.
 
 다음은 출력 구조의 마크다운 정의가 포함된 원시 문자열 스트림입니다.
@@ -165,7 +165,7 @@ handleEvents {
         }
     }
     onLLMStreamingFailed { context -> 
-        println("❌ Error: ${context.error}")
+        println("❌ 오류: ${context.error}")
     }
     onLLMStreamingCompleted {
         println("🏁 완료")
@@ -388,21 +388,19 @@ data class Book(
    val description: String
 )
 
-class BookTool(): SimpleTool<Book>() {
-    
+class BookTool(): SimpleTool<Book>(
+    argsSerializer = Book.serializer(),
+    name = NAME,
+    description = "A tool to parse book information from Markdown"
+) {
+
     companion object { const val NAME = "book" }
 
-    override suspend fun doExecute(args: Book): String {
+    override suspend fun execute(args: Book): String {
         println("${args.title} (저자: ${args.author}):
  ${args.description}")
         return "Done"
     }
-
-    override val argsSerializer: KSerializer<Book>
-        get() = Book.serializer()
-
-    override val name: String = NAME
-    override val description: String = "A tool to parse book information from Markdown"
 }
 ```
 <!--- KNIT example-streaming-api-08.kt -->

@@ -15,7 +15,8 @@
 
 | Kotlin Multiplatform プラグインバージョン | Gradle                                | Android Gradle プラグイン                               | Xcode   |
 |-------------------------------------|---------------------------------------|-----------------------------------------------------|---------|
-| 2.2.21                              | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% | %xcode% |
+| 2.3.0                               | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% | %xcode% |
+| 2.2.21                              | 7.6.3–8.14                            | 7.3.1–8.11.1                                        | 26      |
 | 2.2.20                              | 7.6.3–8.14                            | 7.3.1–8.11.1                                        | 16.4    |
 | 2.2.0-2.2.10                        | 7.6.3–8.14                            | 7.3.1–8.10.0                                        | 16.3    |
 | 2.1.21                              | 7.6.3–8.12.1                          | 7.3.1–8.7.2                                         | 16.3    |
@@ -35,6 +36,29 @@
 ## Kotlin 2.0.0 以降
 
 このセクションでは、Kotlin 2.0.0−%kotlinVersion% で非推奨サイクルを終了し、有効になる非互換の変更点について説明します。
+
+### Android ターゲット向け Google プラグインへの移行
+
+**変更点**
+
+Kotlin 2.3.0 より前は、`com.android.application` および `com.android.library` プラグインを通じて Android ターゲットのサポートを提供していました。これは、Google の Android チームが Kotlin Multiplatform に合わせた別のプラグインを開発する間の一時的な解決策でした。
+
+当初は `android` ブロックを使用していましたが、後に新しいプラグインが `android` 名を使用できるように、`androidTarget` ブロックに移行しました。
+
+現在、Android チームから [`com.android.kotlin.multiplatform.library` プラグイン](https://developer.android.com/kotlin/multiplatform/plugin)が提供されており、元の `android` ブロックで使用できるようになりました。
+
+**現在の推奨プラクティス**
+
+新しい `com.android.kotlin.multiplatform.library` プラグインに移行してください。`androidTarget` ブロックのすべての出現箇所を `android` に変更してください。移行方法の詳細については、Google の[移行ガイド](https://developer.android.com/kotlin/multiplatform/plugin#migrate)を参照してください。
+
+**変更の適用時期**
+
+Kotlin Multiplatform Gradle プラグインの非推奨サイクルは以下の通りです。
+
+*   1.9.0: Kotlin Multiplatform プロジェクトで `android` 名が使用された場合に非推奨警告を導入します。
+*   2.1.0: この警告をエラーに格上げします。
+*   2.2.0: Kotlin Multiplatform Gradle プラグインから `android` ターゲット DSL を削除します。
+*   2.3.0: 新しい Android プラグインが利用可能になり、Kotlin Multiplatform プロジェクトで `androidTarget` 名が使用された場合に非推奨警告を導入します。
 
 ### ビットコード埋め込みの非推奨化
 
@@ -81,7 +105,7 @@ Kotlin 2.1.20 以降、ビルドスクリプトから `withJava()` 関数を削�
 
 プロジェクトが [Application](https://docs.gradle.org/current/userguide/application_plugin.html) Gradle Java プラグインを使用している場合、[新しい実験的な DSL](https://kotlinlang.org/docs/whatsnew2120.html#kotlin-multiplatform-new-dsl-to-replace-gradle-s-application-plugin)への移行をお勧めします。Gradle 8.7 以降、Application プラグインは Kotlin Multiplatform Gradle プラグインでは動作しなくなります。
 
-マルチプラットフォームプロジェクトで Kotlin Multiplatform Gradle プラグインと他の Gradle Java プラグインの両方を使用したい場合は、[Kotlin Multiplatform Gradle プラグインと Gradle Java プラグインの非推奨の互換性](multiplatform-compatibility-guide.md#deprecated-compatibility-with-kotlin-multiplatform-gradle-plugin-and-gradle-java-plugins)を参照してください。
+マルチプラットフォームプロジェクトで Kotlin Multiplatform Gradle プラグインと他の Gradle プラグインを Java で使用したい場合は、[Kotlin Multiplatform Gradle プラグインと Gradle Java プラグインの非推奨の互換性](multiplatform-compatibility-guide.md#deprecated-compatibility-with-kotlin-multiplatform-gradle-plugin-and-gradle-java-plugins)を参照してください。
 
 Kotlin 2.1.20 と Gradle バージョン 8.7 より高いバージョンで [Java test fixtures](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures) Gradle プラグインを使用すると、このプラグインは動作しません。代わりに、この問題が解決されている[Kotlin 2.1.21](https://kotlinlang.org/docs/releases.html#release-details)にアップグレードしてください。
 
@@ -94,26 +118,6 @@ Kotlin 2.1.20 と Gradle バージョン 8.7 より高いバージョンで [Jav
 *   Gradle >8.6: `withJava()` 関数を使用するマルチプラットフォームプロジェクトで、以前の Kotlin バージョンに対する非推奨警告を導入します。
 *   Gradle 9.0: この警告をエラーに格上げします。
 *   2.1.20: どの Gradle バージョンでも `withJava()` 関数を使用すると、非推奨警告を導入します。
-
-### `android` ターゲットから `androidTarget` への名称変更
-
-**変更点**
-
-Kotlin Multiplatform をより安定させるための取り組みを続けています。この方向性における重要なステップは、Android ターゲットに対するファーストクラスのサポートを提供することです。将来的には、このサポートは Google の Android チームによって開発される別のプラグインを通じて提供される予定です。
-
-新しいソリューションへの道を開くため、現在の Kotlin DSL で `android` ブロックを `androidTarget` に変更します。これは、Google から提供される今後の DSL のために短い `android` 名を空けるために必要な一時的な変更です。
-
-**現在の推奨プラクティス**
-
-`android` ブロックのすべての出現箇所を `androidTarget` に変更してください。Android ターゲットサポートの新しいプラグインが利用可能になったら、Google の DSL に移行してください。これは、Kotlin Multiplatform プロジェクトで Android を操作するための推奨オプションとなります。
-
-**変更の適用時期**
-
-計画されている非推奨サイクルは以下の通りです。
-
-*   1.9.0: Kotlin Multiplatform プロジェクトで `android` 名が使用された場合に非推奨警告を導入します。
-*   2.1.0: この警告をエラーに格上げします。
-*   2.2.0: Kotlin Multiplatform Gradle プラグインから `android` ターゲット DSL を削除します。
 
 ### 類似する複数のターゲットの宣言
 
@@ -232,7 +236,7 @@ kotlin {
 計画されている非推奨サイクルは以下の通りです。
 
 *   1.9.20: Kotlin Multiplatform プロジェクトで複数の類似するターゲットが使用された場合に非推奨警告を導入します。
-*   2.1.0: そのようなケースではエラーを報告します（Kotlin/JS ターゲットを除く）。この例外の詳細については、[YouTrack](https://youtrack.jetbrains.com/issue/KT-47038/KJS-MPP-Split-JS-target-into-JsBrowser-and-JsNode)の課題を参照してください。
+*   2.1.0: そのようなケースではエラーを報告します（Kotlin/JS ターゲットを除く）。この例外の詳細については、[YouTrack](https://youtrack.com/issue/KT-47038/KJS-MPP-Split-JS-target-into-JsBrowser-and-JsNode)の課題を参照してください。
 
 ### レガシーモードで公開されたマルチプラットフォームライブラリのサポート非推奨化
 
@@ -400,11 +404,11 @@ Kotlin Gradle プラグインは現在、組み込みの階層テンプレート
 
 このセクションでは、Kotlin 1.9.0−1.9.25 で非推奨サイクルを終了し、有効になる非互換の変更点について説明します。
 
-### Kotlin コンパイルに直接 Kotlin ソースセットを追加するための API の非推奨化 {initial-collapse-state="collapsed" collapsible="true"}
+### Kotlin コンパイルに直接 Kotlin ソースセットを追加するための API の削除 {initial-collapse-state="collapsed" collapsible="true"}
 
 **変更点**
 
-`KotlinCompilation.source` へのアクセスが非推奨になりました。次のようなコードは非推奨警告を生成します。
+`KotlinCompilation.source` へのアクセスは削除されました。次のようなコードはサポートされなくなりました。
 
 ```kotlin
 kotlin {
@@ -426,7 +430,7 @@ kotlin {
 
 **現在の推奨プラクティス**
 
-`KotlinCompilation.source(someSourceSet)` を置き換えるには、`KotlinCompilation` のデフォルトソースセットから `someSourceSet` への `dependsOn` 関係を追加します。より短く読みやすい `by getting` を使用して、ソースを直接参照することをお勧めします。ただし、すべてのケースで適用できる `KotlinCompilation.defaultSourceSet.dependsOn(someSourceSet)` を使用することもできます。
+`KotlinCompilation.source(someSourceSet)` を置き換えるには、`.srcDir()` 関数を使用して、ソースを適切なソースセットに直接追加します。または、`KotlinCompilation` のデフォルトソースセットから `someSourceSet` への `dependsOn` 関係を追加することで、新しいソースセットを作成できます。また、IDE に優しく、最も堅牢なアプローチと見なされている[ソースセットの規約](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.dsl/-kotlin-multiplatform-source-set-conventions/)を使用して、ソースを直接参照することもできます。最後に、すべてのケースで機能する `KotlinCompilation.defaultSourceSet.dependsOn(someSourceSet)` を使用することもできます。
 
 上記のコードは以下のいずれかの方法で変更できます。
 
@@ -438,18 +442,27 @@ kotlin {
     iosSimulatorArm64()
 
     sourceSets {
-        val commonMain by getting
         val myCustomIntermediateSourceSet by creating {
-            dependsOn(commonMain)
+            // The commonMain source set needs to be accessed with the 
+            // .get() function
+            dependsOn(commonMain.get())
         }
-        
-        // オプション #1. より短く読みやすいので、可能な場合に使用します。
-        // 通常、デフォルトのソースセット名は、ターゲット名とコンパイル名を単純に連結したものです。
-        val jvmMain by getting {
+
+        // Option #1. Add your sources directly to the appropriate source
+        // set:
+        commonMain {
+            kotlin.srcDir(layout.projectDirectory.dir("src/commonMain/my-custom-kotlin"))
+        }
+
+        // Option #2. Use the conventions provided with default
+        // Kotlin Multiplatform targets for their main and test
+        // source sets:
+        jvmMain {
             dependsOn(myCustomIntermediateSourceSet)
         }
-        
-        // オプション #2. より高度なアプローチを必要とするビルドスクリプトの場合に使用する汎用ソリューション:
+
+        // Option #3. A more generic solution. Use it if your build script 
+        // requires a more advanced approach:
         targets["jvm"].compilations["main"].defaultSourceSet.dependsOn(myCustomIntermediateSourceSet)
     }
 }
@@ -459,9 +472,9 @@ kotlin {
 
 計画されている非推奨サイクルは以下の通りです。
 
-*   1.9.0: `KotlinComplation.source` が使用された場合に非推奨警告を導入します。
+*   1.9.0: `KotlinCompilation.source` が使用された場合に非推奨警告を導入します。
 *   1.9.20: この警告をエラーに格上げします。
-*   2.2.0: Kotlin Gradle プラグインから `KotlinComplation.source` を削除します。これを使用しようとすると、ビルドスクリプトのコンパイル中に「未解決の参照」エラーが発生します。
+*   2.3.0: Kotlin Gradle プラグインから `KotlinCompilation.source` を削除します。これを使用しようとすると、ビルドスクリプトのコンパイル中に「未解決の参照」エラーが発生します。
 
 ### `kotlin-js` Gradle プラグインから `kotlin-multiplatform` Gradle プラグインへの移行 {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -523,7 +536,7 @@ Kotlin 1.9.0以降、`kotlin-js` Gradle プラグインは非推奨になりま�
         >
         {style="note"}
 
-    上記のコードは以下のいずれかの方法で変更できます。
+    `build.gradle.kts` ファイル内のコードは以下のいずれかの方法で変更できます。
 
     <Tabs>
     <TabItem title="kotlin-js">
@@ -560,7 +573,7 @@ Kotlin 1.9.0以降、`kotlin-js` Gradle プラグインは非推奨になりま�
             // ...
         }
         
-        // オプション #1. sourceSets {} ブロックで依存関係を宣言する:
+        // Option #1. sourceSets {} ブロックで依存関係を宣言する:
         sourceSets {
             val jsMain by getting {
                 dependencies {
@@ -572,7 +585,7 @@ Kotlin 1.9.0以降、`kotlin-js` Gradle プラグインは非推奨になりま�
     }
     
     dependencies {
-        // オプション #2. 依存関係の宣言に js プレフィックスを追加する:
+        // Option #2. 依存関係の宣言に js プレフィックスを追加する:
         add("jsTestImplementation", kotlin("test"))
     }
     ```

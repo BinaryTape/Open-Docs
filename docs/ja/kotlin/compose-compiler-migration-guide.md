@@ -30,6 +30,10 @@ Android モジュールの場合：
     compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
     ```
 
+> AGP 9.0.0 以降を使用している場合、AGP には Kotlin の組み込みサポートがあるため、`org-jetbrains-kotlin-android` プラグインは不要になります。
+>
+{style ="note"}
+
 2.  Gradle プラグインをルートの `build.gradle.kts` ファイルに追加します。
 
     ```kotlin

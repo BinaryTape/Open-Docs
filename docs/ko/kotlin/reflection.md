@@ -46,7 +46,7 @@ Gradle 또는 Maven 프로젝트에서 리플렉션을 사용하려면 `kotlin-r
     </dependencies>
     ```
 
-Gradle 또는 Maven을 사용하지 않는 경우, 프로젝트의 클래스패스에 `kotlin-reflect.jar`가 있는지 확인하세요. 그 외 지원되는 경우(명령줄 컴파일러 또는 Ant를 사용하는 IntelliJ IDEA 프로젝트)에는 기본적으로 추가됩니다. 명령줄 컴파일러 및 Ant에서는 `-no-reflect` 컴파일러 옵션을 사용하여 클래스패스에서 `kotlin-reflect.jar`를 제외할 수 있습니다.
+Gradle 또는 Maven을 사용하지 않는 경우, 프로젝트의 클래스패스에 `kotlin-reflect.jar`가 있는지 확인하세요. 그 외 지원되는 경우(명령줄 컴파일러를 사용하는 IntelliJ IDEA 프로젝트)에는 기본적으로 추가됩니다. 명령줄 컴파일러에서는 `-no-reflect` 컴파일러 옵션을 사용하여 클래스패스에서 `kotlin-reflect.jar`를 제외할 수 있습니다.
 
 ## 클래스 참조
 
@@ -103,7 +103,7 @@ fun main() {
 
 여기서 `::isOdd`는 `(Int) -> Boolean` 함수 타입의 값입니다.
 
-함수 참조는 매개변수 개수에 따라 [`KFunction<out R>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-function/index.html) 서브타입 중 하나에 속합니다. 예를 들어, `KFunction3<T1, T2, T3, R>`입니다.
+함수 참조는 매개변수 개수에 따라 [`KFunction<out R>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-function/index.html) 서브타입 중 하나에 속합니다. 예를 들어, `KFunction3<T1, T2, T3, R>`.
 
 `::`는 예상 타입이 컨텍스트에서 알려진 경우 오버로드된 함수와 함께 사용될 수 있습니다. 예를 들어:
 
@@ -213,7 +213,7 @@ fun main() {
     class A(val p: Int)
     val prop = A::p
     println(prop.get(A(1)))
-//sampleEnd
+//End
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
@@ -334,3 +334,4 @@ class Outer {
 
 val o = Outer()
 val boundInnerCtor = o::Inner
+```

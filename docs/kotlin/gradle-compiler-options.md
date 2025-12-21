@@ -190,7 +190,7 @@ plugins {
 }
 
 kotlin {
-    // Extension level
+    // 扩展级别
     compilerOptions {
         jvmTarget = JvmTarget.fromTarget("%jvmLTSVersionSupportedByKotlin%")
         languageVersion = KotlinVersion.fromVersion("%languageVersion%")
@@ -198,7 +198,7 @@ kotlin {
     }
 }
 
-// Example of overriding at compilation unit level
+// 在编译单元级别覆盖的示例
 tasks.named<KotlinJvmCompile>("compileKotlin"){
     compilerOptions {
         apiVersion = KotlinVersion.fromVersion("%apiVersion%")
@@ -218,7 +218,7 @@ plugins {
 }
 
 kotlin {
-  // Extension level
+  // 扩展级别
     compilerOptions {
         jvmTarget = JvmTarget.fromTarget("%jvmLTSVersionSupportedByKotlin%")
         languageVersion = KotlinVersion.fromVersion("%languageVersion%")
@@ -226,7 +226,7 @@ kotlin {
     }
 }
 
-// Example of overriding at compilation unit level
+// 在编译单元级别覆盖的示例
 tasks.named("compileKotlin", KotlinJvmCompile).configure {
     compilerOptions {
         apiVersion = KotlinVersion.fromVersion("%apiVersion%")
@@ -411,7 +411,7 @@ kotlin {
     | `-Xjvm-default=all`               | `jvmDefault.set(JvmDefaultMode.NO_COMPATIBILITY)` |
     | `-Xjvm-default=disable`           | `jvmDefault.set(JvmDefaultMode.DISABLE)`          |
 
-例如，如果您有以下代码：
+例如，如果您有：
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -571,7 +571,7 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 | 名称 | 描述 | 可能值 | 默认值 |
 |---|---|---|---|
 | `javaParameters` | 为 Java 1.8 方法形参的反射生成元数据 | | false |
-| `jvmTarget` | 生成的 JVM 字节码的目标版本 | "1.8", "9", "10", ..., "23", "24"。另外，关于[编译器选项的类型](#types-for-compiler-options)请参见相关内容 | "%defaultJvmTargetVersion%" |
+| `jvmTarget` | 生成的 JVM 字节码的目标版本 | "1.8", "9", "10", ..., "24", 25". 另外，关于[编译器选项的类型](#types-for-compiler-options)请参见相关内容 | "%defaultJvmTargetVersion%" |
 | `noJdk` | 不要自动将 Java 运行时包含到类路径中 | | false |
 | `jvmTargetValidationMode` | <list><li>Kotlin 和 Java 之间 [JVM 目标平台兼容性](gradle-configure-project.md#check-for-jvm-target-compatibility-of-related-compile-tasks)的验证</li><li>`KotlinCompile` 类型任务的属性。</li></list> | `WARNING`, `ERROR`, `IGNORE` | `ERROR` |
 | `jvmDefault` | 控制在接口中声明的函数如何在 JVM 上编译为默认方法 | `ENABLE`, `NO_COMPATIBILITY`, `DISABLE` | `ENABLE` |
@@ -583,9 +583,9 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 | `allWarningsAsErrors` | 如果有任何警告则报告错误 | | false |
 | `suppressWarnings` | 不生成警告 | | false |
 | `verbose` | 启用详细日志输出。仅当[启用 Gradle 调试日志级别](https://docs.gradle.org/current/userguide/logging.html)时有效 | | false |
-| `freeCompilerArgs` | 额外的编译器实参列表。您也可以在此处使用实验性的 `-X` 实参。关于示例请参见[通过 freeCompilerArgs 使用额外实参的示例](#example-of-additional-arguments-usage-via-freeCompilerArgs) | | [] |
-| `apiVersion` | 将声明的使用限制为来自指定版本捆绑库中的声明 | "1.8", "1.9", "2.0", "2.1", "2.2" (EXPERIMENTAL) | |
-| `languageVersion` | 提供与指定版本 Kotlin 的源代码兼容性 | "1.8", "1.9", "2.0", "2.1", "2.2" (EXPERIMENTAL) | |
+| `freeCompilerArgs` | 额外的编译器实参列表。您也可以在此处使用实验性的 `-X` 实参。关于示例请参见[通过 freeCompilerArgs 使用额外实参的示例](#example-of-additional-arguments-usage-via-freecompilerargs) | | [] |
+| `apiVersion` | 将声明的使用限制为来自指定版本捆绑库中的声明 | "1.9", "2.0", "2.1", "2.2", "2.3", "2.4" (EXPERIMENTAL) | |
+| `languageVersion` | 提供与指定版本 Kotlin 的源代码兼容性 | "1.9", "2.0", "2.1", "2.2", "2.3", "2.4" (EXPERIMENTAL) | |
 
 > 我们将在未来版本中弃用 `freeCompilerArgs` 属性。如果您发现 Kotlin Gradle DSL 中缺少某些选项，请[提交一个问题](https://youtrack.jetbrains.com/newissue?project=kt)。
 >
@@ -604,17 +604,17 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 kotlin {
     compilerOptions {
-        // Specifies the version of the Kotlin API and the JVM target
+        // 指定 Kotlin API 版本和 JVM 目标平台
         apiVersion.set(KotlinVersion.%gradleLanguageVersion%)
         jvmTarget.set(JvmTarget.JVM_1_8)
         
-        // Single experimental argument
+        // 单个实验性实参
         freeCompilerArgs.add("-Xexport-kdoc")
 
-        // Single additional argument
+        // 单个额外实参
         freeCompilerArgs.add("-Xno-param-assertions")
 
-        // List of arguments
+        // 实参列表
         freeCompilerArgs.addAll(
             listOf(
                 "-Xno-receiver-assertions",
@@ -634,17 +634,17 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 tasks.named('compileKotlin', KotlinCompilationTask) {
     compilerOptions {
-        // Specifies the version of the Kotlin API and the JVM target
+        // 指定 Kotlin API 版本和 JVM 目标平台
         apiVersion = KotlinVersion.%gradleLanguageVersion%
         jvmTarget = JvmTarget.JVM_1_8
         
-        // Single experimental argument
+        // 单个实验性实参
         freeCompilerArgs.add("-Xexport-kdoc")
         
-        // Single additional argument, can be a key-value pair
+        // 单个额外实参，可以是键值对
         freeCompilerArgs.add("-Xno-param-assertions")
         
-        // List of arguments
+        // 实参列表
         freeCompilerArgs.addAll(["-Xno-receiver-assertions", "-Xno-call-assertions"])
     }
 }
@@ -694,7 +694,7 @@ tasks
 | 名称 | 描述 | 可能值 | 默认值 |
 |---|---|---|---|
 | `friendModulesDisabled` | 禁用内部声明导出 | | `false` |
-| `main` | 指定在执行时是否应调用 `main` 函数 | `JsMainFunctionExecutionMode.CALL`, `JsMainFunctionExecutionMode.NO_CALL` | `JsMainFunctionExecutionMode.CALL` |
+| `main` | 指定 `main` 函数是否应在执行时调用 | `JsMainFunctionExecutionMode.CALL`, `JsMainFunctionExecutionMode.NO_CALL` | `JsMainFunctionExecutionMode.CALL` |
 | `moduleKind` | 编译器生成的 JS 模块类型 | `JsModuleKind.MODULE_AMD`, `JsModuleKind.MODULE_PLAIN`, `JsModuleKind.MODULE_ES`, `JsModuleKind.MODULE_COMMONJS`, `JsModuleKind.MODULE_UMD` | `null` |
 | `sourceMap` | 生成源映射 | | `false` |
 | `sourceMapEmbedSources` | 将源文件嵌入到源映射中 | `JsSourceMapEmbedMode.SOURCE_MAP_SOURCE_CONTENT_INLINING`, `JsSourceMapEmbedMode.SOURCE_MAP_SOURCE_CONTENT_NEVER`, `JsSourceMapEmbedMode.SOURCE_MAP_SOURCE_CONTENT_ALWAYS` | `null` |

@@ -46,19 +46,14 @@ plugins {
 
 | KGP 버전      | Gradle 최소 및 최대 버전          | AGP 최소 및 최대 버전                               |
 |---------------|-----------------------------------|-----------------------------------------------------|
-| 2.2.20–2.2.21 | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
+| 2.3.0         | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
+| 2.2.20–2.2.21 | 7.6.3–8.14                        | 7.3.1–8.11.1                                        |
 | 2.2.0–2.2.10  | 7.6.3–8.14                        | 7.3.1–8.10.0                                        |
 | 2.1.20–2.1.21 | 7.6.3–8.12.1                      | 7.3.1–8.7.2                                         |
 | 2.1.0–2.1.10  | 7.6.3–8.10*                       | 7.3.1–8.7.2                                         |
 | 2.0.20–2.0.21 | 6.8.3–8.8*                        | 7.1.3–8.5                                           |
 | 2.0.0         | 6.8.3–8.5                         | 7.1.3–8.3.1                                         |
 | 1.9.20–1.9.25 | 6.8.3–8.1.1                       | 4.2.2–8.1.0                                         |
-| 1.9.0–1.9.10  | 6.8.3–7.6.0                       | 4.2.2–7.4.0                                         |
-| 1.8.20–1.8.22 | 6.8.3–7.6.0                       | 4.1.3–7.4.0                                         |      
-| 1.8.0–1.8.11  | 6.8.3–7.3.3                       | 4.1.3–7.2.1                                         |   
-| 1.7.20–1.7.22 | 6.7.1–7.1.1                       | 3.6.4–7.0.4                                         |
-| 1.7.0–1.7.10  | 6.7.1–7.0.2                       | 3.4.3–7.0.2                                         |
-| 1.6.20–1.6.21 | 6.1.1–7.0.2                       | 3.4.3–7.0.2                                         |
 
 > *Kotlin 2.0.20–2.0.21 및 Kotlin 2.1.0–2.1.10은 Gradle 8.6까지 완벽하게 호환됩니다.
 > Gradle 버전 8.7–8.10도 지원되지만, 한 가지 예외가 있습니다: Kotlin Multiplatform Gradle 플러그인을 사용하는 경우,
@@ -73,6 +68,17 @@ plugins {
 
 유사하게, 최대 완전 지원 버전은 %maxGradleVersion%입니다. 이 버전은 더 이상 사용되지 않는(deprecated) Gradle 메서드 및 속성이 없으며, 모든 현재 Gradle 기능을 지원합니다.
 
+### 이전 KGP 버전 {initial-collapse-state="collapsed" collapsible="true"}
+
+| KGP 버전      | Gradle 최소 및 최대 버전          | AGP 최소 및 최대 버전                               |
+|---------------|-----------------------------------|-----------------------------------------------------|
+| 1.9.0–1.9.10  | 6.8.3–7.6.0                       | 4.2.2–7.4.0                                         |
+| 1.8.20–1.8.22 | 6.8.3–7.6.0                       | 4.1.3–7.4.0                                         |      
+| 1.8.0–1.8.11  | 6.8.3–7.3.3                       | 4.1.3–7.2.1                                         |   
+| 1.7.20–1.7.22 | 6.7.1–7.1.1                       | 3.6.4–7.0.4                                         |
+| 1.7.0–1.7.10  | 6.7.1–7.0.2                       | 3.4.3–7.0.2                                         |
+| 1.6.20–1.6.21 | 6.1.1–7.0.2                       | 3.4.3–7.0.2                                         |
+
 ### 프로젝트 내 Kotlin Gradle 플러그인 데이터
 
 기본적으로 Kotlin Gradle 플러그인은 프로젝트 루트의 `.kotlin` 디렉터리에 영구적인 프로젝트별 데이터를 저장합니다.
@@ -84,9 +90,9 @@ plugins {
 
 이 동작을 구성하기 위해 프로젝트의 `gradle.properties` 파일에 추가할 수 있는 속성들이 있습니다:
 
-| Gradle 속성                                 | 설명                                                                                                                                              |
-|---------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
-| `kotlin.project.persistent.dir`             | 프로젝트 레벨 데이터가 저장되는 위치를 구성합니다. 기본값: `<project-root-directory>/.kotlin`                                                  |
+| Gradle 속성                                     | 설명                                                                                                                                              |
+|-------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| `kotlin.project.persistent.dir`                 | 프로젝트 레벨 데이터가 저장되는 위치를 구성합니다. 기본값: `<project-root-directory>/.kotlin`                                                  |
 | `kotlin.project.persistent.dir.gradle.disableWrite` | Kotlin 데이터를 `.gradle` 디렉터리에 쓰는 것을 비활성화할지 여부를 제어합니다 (이전 IDEA 버전과의 하위 호환성을 위해). 기본값: false |
 
 ## JVM 타겟팅하기
@@ -609,7 +615,7 @@ Kotlin은 Kotlin Multiplatform을 통해 웹 개발을 위한 두 가지 접근 
 *   JavaScript/TypeScript 코드베이스와 비즈니스 로직 공유
 *   Kotlin으로 공유 불가능한 웹 앱 구축
 
-더 자세한 내용은 [Kotlin Multiplatform 프로젝트를 위한 올바른 웹 타겟 선택](https://kotlinlang.org/docs/multiplatform/choosing-web-target.html)을 참조하세요.
+더 자세한 내용은 [웹 개발](web-overview.md#kotlin-js)을 참조하세요.
 
 JavaScript를 타겟팅할 때 `kotlin-multiplatform` 플러그인을 사용하세요:
 
@@ -651,7 +657,7 @@ kotlin {
 ### WebAssembly 타겟팅하기
 
 여러 플랫폼에서 로직과 UI를 모두 공유하고 싶다면 Kotlin/Wasm을 사용하세요. 더 자세한 내용은
-[Kotlin Multiplatform 프로젝트를 위한 올바른 웹 타겟 선택](https://kotlinlang.org/docs/multiplatform/choosing-web-target.html)을 참조하세요.
+[웹 개발](web-overview.md#kotlin-wasm)을 참조하세요.
 
 JavaScript와 마찬가지로, WebAssembly (Wasm)를 타겟팅할 때 `kotlin-multiplatform` 플러그인을 사용하세요:
 
@@ -673,6 +679,7 @@ plugins {
 }
 ```
 
+</tab>
 </tab>
 </tabs>
 
@@ -1283,10 +1290,42 @@ dependencyResolutionManagement {
 
 서브프로젝트에 선언된 모든 저장소는 중앙에서 선언된 저장소를 재정의합니다. 이 동작을 제어하는 방법과 사용 가능한 옵션에 대한 자세한 내용은 [Gradle 문서](https://docs.gradle.org/current/userguide/declaring_repositories.html#sub:centralized-repository-declaration)를 참조하세요.
 
+## 생성된 소스 등록하기
+<primary-label ref="experimental-general"/>
+
+IDE, 서드파티 플러그인 및 기타 도구가 생성된 코드와 일반 소스 파일을 구별하는 데 도움이 되도록 생성된 소스를 등록하세요.
+이렇게 하면 IDE와 같은 도구가 UI에서 생성된 코드를 다르게 강조 표시하고 프로젝트 가져오기 시 생성 태스크를 트리거하는 데 도움이 됩니다.
+생성된 소스를 등록하려면 [`KotlinSourceSet`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/) 인터페이스를 사용하세요.
+
+Kotlin 파일이 포함된 디렉터리를 등록하려면 `build.gradle.kts` 파일에서 [`SourceDirectorySet`](https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.api.file/-source-directory-set/index.html) 유형의 [`generatedKotlin`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/generated-kotlin.html) 속성을 사용하세요. 예를 들어:
+
+```kotlin
+val generatorTask = project.tasks.register("generator") {
+    val outputDirectory = project.layout.projectDirectory.dir("src/main/kotlinGen")
+    outputs.dir(outputDirectory)
+    doLast {
+        outputDirectory.file("generated.kt").asFile.writeText(
+            // language=kotlin
+            """
+            fun printHello() {
+                println("hello")
+            }
+            """.trimIndent()
+        )
+    }
+}
+
+kotlin.sourceSets.getByName("main").generatedKotlin.srcDir(generatorTask)
+```
+
+이 예시는 `"src/main/kotlinGen"`을 출력 디렉터리로 하는 새로운 태스크 `generator`를 생성합니다. 태스크가 실행될 때, `doLast {}` 태스크 액션은 출력 디렉터리에 `generated.kt` 파일을 생성합니다. 마지막으로, 이 예시는 태스크의 출력을 생성된 소스로 등록합니다.
+
+Gradle 플러그인을 개발 중이라면, [`KotlinSourceSet.kotlin`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/kotlin.html) 및 `KotlinSourceSet.generatedKotlin` 속성에 등록된 모든 소스에 접근하기 위해 [`allKotlinSources`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/all-kotlin-sources.html) 속성을 사용할 수 있습니다.
+
 ## 다음 단계
 
 자세히 알아보세요:
-* [컴파일러 옵션 및 전달 방법](gradle-compiler-options.md)
-* [증분 컴파일, 캐시 지원, 빌드 보고서, Kotlin 데몬](gradle-compilation-and-caches.md)
-* [Gradle 기본 사항 및 세부 사항](https://docs.gradle.org/current/userguide/userguide.html)
-* [Gradle 플러그인 변형 지원](gradle-plugin-variants.md)
+* [컴파일러 옵션 및 전달 방법](gradle-compiler-options.md).
+* [증분 컴파일, 캐시 지원, 빌드 보고서, Kotlin 데몬](gradle-compilation-and-caches.md).
+* [Gradle 기본 사항 및 세부 사항](https://docs.gradle.org/current/userguide/userguide.html).
+* [Gradle 플러그인 변형 지원](gradle-plugin-variants.md).

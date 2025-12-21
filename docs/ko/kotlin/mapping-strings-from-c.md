@@ -4,12 +4,12 @@
     <p>이 문서는 **Kotlin과 C 매핑** 튜토리얼 시리즈의 마지막 부분입니다. 시작하기 전에 이전 단계를 완료했는지 확인하세요.</p>
     <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="mapping-primitive-data-types-from-c.md">C로부터 기본 자료형 매핑하기</a><br/>
         <img src="icon-2-done.svg" width="20" alt="Second step"/> <a href="mapping-struct-union-types-from-c.md">C로부터 구조체 및 유니온 타입 매핑하기</a><br/>
-      <img src="icon-3-done.svg" width="20" alt="Third step"/> <a href="mapping-function-pointers-from-c.md">함수 포인터 매핑하기</a><br/>
+      <img src="icon-3-done.svg" width="20" alt="Third step"/> <a href="mapping-function-pointers-from-c.md">C로부터 함수 포인터 매핑하기</a><br/>
       <img src="icon-4.svg" width="20" alt="Fourth step"/> <strong>C 문자열 매핑하기</strong><br/>
     </p>
 </tldr>
 
-> C 라이브러리 임포트는 [베타(Beta)](native-c-interop-stability.md) 단계에 있습니다. `cinterop` 도구가 C 라이브러리에서 생성하는 모든 Kotlin 선언에는 `@ExperimentalForeignApi` 어노테이션이 있어야 합니다.
+> C 라이브러리 임포트는 [베타(Beta)](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 단계에 있습니다. `cinterop` 도구가 C 라이브러리에서 생성하는 모든 Kotlin 선언에는 `@ExperimentalForeignApi` 어노테이션이 있어야 합니다.
 >
 > Kotlin/Native와 함께 제공되는 네이티브 플랫폼 라이브러리(예: Foundation, UIKit, POSIX)는 일부 API에 대해서만 옵트인(opt-in)이 필요합니다.
 >
@@ -21,7 +21,7 @@
 
 *   [Kotlin 문자열을 C로 전달하기](#pass-kotlin-strings-to-c)
 *   [Kotlin에서 C 문자열 읽기](#read-c-strings-in-kotlin)
-*   [C 문자열 바이트를 Kotlin 문자열로 받기](#receive-c-string-bytes-from-kotlin)
+*   [Kotlin 문자열로 C 문자열 바이트 받기](#receive-c-string-bytes-from-kotlin)
 
 ## C 문자열 작업
 
@@ -103,7 +103,7 @@ C 문자열 선언이 Kotlin/Native로 어떻게 매핑되는지 살펴보겠습
 이 선언들은 간단합니다. Kotlin에서 C의 `char *` 포인터는 파라미터의 경우 `str: CValuesRef<ByteVarOf>?`로, 반환 타입의 경우 `CPointer<ByteVarOf>?`로 매핑됩니다. Kotlin은 `char` 타입을 `kotlin.Byte`로 나타내는데, 이는 일반적으로 8비트 부호 있는 값이기 때문입니다.
 
 생성된 Kotlin 선언에서 `str`은 `CValuesRef<ByteVarOf<Byte>>?`로 정의됩니다.
-이 타입은 널 허용(nullable)이므로, 인자 값으로 `null`을 전달할 수 있습니다.
+이 타입은 널 허용(nullable)이므로, 인자 값으로 `null`을 전달할 수 있습니다. 
 
 ## Kotlin 문자열을 C로 전달하기
 
@@ -151,7 +151,7 @@ fun CPointer<ShortVarOf<Short>>.toKStringFromUtf16(): String // UTF-16 인코딩
 fun CPointer<IntVarOf<Int>>.toKStringFromUtf32(): String // UTF-32 인코딩 문자열을 변환합니다
 ```
 
-## C 문자열 바이트를 Kotlin 문자열로 받기
+## Kotlin 문자열로 C 문자열 바이트 받기
 
 이번에는 `copy_string()` C 함수를 사용하여 주어진 버퍼에 C 문자열을 씁니다. 이 함수는 두 가지 인자를 받습니다: 문자열이 기록될 메모리 위치에 대한 포인터와 허용된 버퍼 크기입니다.
 
@@ -177,7 +177,7 @@ fun sendString() {
 }
 ```
 
-여기서 네이티브 포인터가 먼저 C 함수로 전달됩니다. [`.usePinned()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/use-pinned.html) 확장 함수는 바이트 배열의 네이티브 메모리 주소를 일시적으로 고정(pin)합니다. C 함수는 바이트 배열에 데이터를 채웁니다. 또 다른 확장 함수인 `ByteArray.decodeToString()`은 UTF-8 인코딩을 가정하여 바이트 배열을 Kotlin 문자열로 변환합니다.
+여기서 네이티브 포인터가 먼저 C 함수로 전달됩니다. [`.usePinned()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/use-pinned.html) 확장 함수는 바이트 배열의 네이티브 메모리 주소를 일시적으로 고정(pin)합니다. C 함수는 바이트 배열에 데이터를 채웁니다. 또 다른 확장 함수인 `ByteArray.decodeToString()`은 UTF-8 인코딩을 가정하여 바이트 배열을 Kotlin 문자열로 변환합니다. 
 
 ## Kotlin 코드 업데이트
 

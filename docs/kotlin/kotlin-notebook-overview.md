@@ -79,6 +79,15 @@ Kotlin Notebook 提供了在单元格内调用 API 和使用 OpenAPI 等协议�
 
 ![kotlin-notebook-sharing-datalore](kotlin-notebook-sharing-datalore.png){width=700}
 
+此外，您可以将当前 Notebook 快速共享为 [GitHub Gist](https://gist.github.com/)。
+点击工具栏上的 **Create Gist** 按钮。
+
+![notebook-github-gist](notebook-github-gist.png){width=400}
+
+IntelliJ IDEA 会将您的 Notebook 导出到您的 GitHub 账户上的 Gist，并提供一个 URL 以便共享、查看和下载该 Notebook。
+
+该 Gist 保留了您 Notebook 中的所有代码、输出和 Markdown，以 JSON 格式存储，GitHub 可以将其渲染以供预览。
+
 ## 接下来
 
 *   [了解 Kotlin Notebook 的用法和关键特性。](https://www.jetbrains.com/help/idea/kotlin-notebook.html)

@@ -43,13 +43,19 @@ Koog는 특히 JVM 및 Kotlin 개발자를 위해 설계된, 관용적이고 타
 
     사용자 지정 전략으로 복잡한 워크플로를 처리하는 에이전트 생성 및 실행
 
+-   :material-state-machine:{ .lg .middle } [**플래너 에이전트**](planner-agents.md)
+
+    ---
+
+    계획을 반복적으로 빌드하고 실행하는 에이전트 생성 및 실행
+
 </div>
 
 ## 핵심 기능
 
 <div class="grid cards" markdown>
 
--   :material-chat-processing-outline:{ .lg .middle } [**프롬프트**](prompt-api.md)
+-   :material-chat-processing-outline:{ .lg .middle } [**프롬프트**](prompts/index.md)
 
     ---
 

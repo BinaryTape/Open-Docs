@@ -74,7 +74,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
 
 ### Kotlin 目標支援哪些 JVM 版本？
 
-Kotlin 讓您可以選擇用於執行的 JVM 版本。預設情況下，Kotlin/JVM 編譯器會產生與 Java 8 相容的位元組碼。如果您想利用 Java 新版本中可用的優化，可以明確指定目標 Java 版本從 9 到 24。請注意，在這種情況下，所產生的位元組碼可能無法在較低版本上執行。從 [Kotlin 1.5](whatsnew15.md#new-default-jvm-target-1-8) 開始，編譯器不支援產生與 Java 8 以下版本相容的位元組碼。
+Kotlin 讓您可以選擇用於執行的 JVM 版本。預設情況下，Kotlin/JVM 編譯器會產生與 Java 8 相容的位元組碼。如果您想利用 Java 新版本中可用的優化，可以明確指定目標 Java 版本從 9 到 25。請注意，在這種情況下，所產生的位元組碼可能無法在較低版本上執行。從 [Kotlin 1.5](whatsnew15.md#new-default-jvm-target-1-8) 開始，編譯器不支援產生與 Java 8 以下版本相容的位元組碼。
 
 ### Kotlin 難學嗎？
 
@@ -82,7 +82,7 @@ Kotlin 受現有語言啟發，例如 Java、C#、JavaScript、Scala 和 Groovy�
  
 ### 哪些公司正在使用 Kotlin？
  
-使用 Kotlin 的公司不勝枚舉，但一些已透過部落格文章、GitHub 儲存庫或演講公開聲明使用 Kotlin 的知名公司包括 [Square](https://medium.com/square-corner-blog/square-open-source-loves-kotlin-c57c21710a17)、[Pinterest](https://www.youtube.com/watch?v=mDpnc45WwlI)、[Basecamp](https://signalvnoise.com/svn3/using-kotlin-to-make-android-apis-fun-again/) 和 [Corda](https://corda.net/blog/kotlin/)。
+使用 Kotlin 的公司不勝枚舉，但一些已透過部落格文章、GitHub 儲存庫或演講公開聲明使用 Kotlin 的知名公司包括 [Square](https://medium.com/square-corner-blog/square-open-source-loves-kotlin-c57c21710a17)、[Pinterest](https://www.youtube.com/watch?v=mDpnc45WwlI) 和 [Basecamp](https://signalvnoise.com/svn3/using-kotlin-to-make-android-apis-fun-again/)。
  
 ### 誰開發了 Kotlin？
 

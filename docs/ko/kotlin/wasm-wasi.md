@@ -4,10 +4,11 @@
 
 이 튜토리얼에서는 다양한 WebAssembly 가상 머신에서 [WebAssembly System Interface (WASI)](https://wasi.dev/)를 사용하여 간단한 [Kotlin/Wasm](wasm-overview.md) 애플리케이션을 실행하는 방법을 보여줍니다.
 
-[Node.js](https://nodejs.org/en), [Deno](https://deno.com/), [WasmEdge](https://wasmedge.org/) 가상 머신에서 실행되는 애플리케이션 예시를 찾을 수 있습니다. 결과물은 표준 WASI API를 사용하는 간단한 애플리케이션입니다.
+[Node.js](https://nodejs.org/en), [Deno](https://deno.com/), 그리고 [WasmEdge](https://wasmedge.org/) 가상 머신에서 실행되는 애플리케이션 예시를 찾을 수 있습니다. 결과물은 표준 WASI API를 사용하는 간단한 애플리케이션입니다.
 
-현재 Kotlin/Wasm은 Preview 1으로도 알려진 WASI 0.1을 지원합니다.
-[WASI 0.2 지원은 향후 릴리스에서 예정되어 있습니다](https://youtrack.jetbrains.com/issue/KT-64568).
+현재 Kotlin/Wasm은 Preview 1으로도 알려진 WASI 0.1을 지원합니다. WASI 0.2 지원은 향후 릴리스에서 예정되어 있습니다. [WASI 0.2 지원에 대한 업데이트는 이 YouTrack 이슈를 팔로우하세요](https://youtrack.jetbrains.com/issue/KT-64568).
+
+[`wasmWasi`](wasm-overview.md#kotlin-wasm-and-wasi) 타겟은 [기본적으로 새로운 예외 처리 제안을 사용](wasm-configuration.md#exception-handling-proposal)하여 최신 WebAssembly 런타임과의 더 나은 호환성을 보장합니다.
 
 > Kotlin/Wasm 툴체인은 Node.js 태스크(`wasmWasiNode*`)를 기본적으로 제공합니다.
 > Deno 또는 WasmEdge를 활용하는 다른 태스크 변형은 프로젝트에 사용자 지정 태스크로 포함되어 있습니다.

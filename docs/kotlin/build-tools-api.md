@@ -11,7 +11,7 @@ Kotlin 2.2.0 引入了实验性的构建工具 API (BTA)，它简化了构建系
 BTA 定义了一个单一入口点，构建系统可以实现该入口点。这消除了深度集成内部编译器细节的必要性。
 
 > BTA 本身尚未公开可用，无法直接用于您自己的构建工具集成。
-> 如果您对该提案感兴趣或想分享反馈，请参阅 [KEEP](https://github.com/Kotlin/KEEP/issues/421)。
+> 如果您对该提案感兴趣或想分享反馈，请参见 [KEEP](https://github.com/Kotlin/KEEP/issues/421)。
 > 关注其实现状态请访问 [YouTrack](https://youtrack.jetbrains.com/issue/KT-76255)。
 > 
 {style="warning"}
@@ -20,7 +20,7 @@ BTA 定义了一个单一入口点，构建系统可以实现该入口点。这�
 
 Kotlin Gradle 插件 (KGP) 对 BTA 具有实验性支持，您需要选择启用才能使用它。
 
-> 我们非常感谢您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-56574) 上分享 KGP 的使用体验反馈。
+> 我们非常感谢您在 [YouTrack](https://youtrack.com/issue/KT-56574) 上分享 KGP 的使用体验反馈。
 > 
 {style="note"}
 
@@ -94,6 +94,6 @@ kotlin.compiler.execution.strategy=in-process
 
 ## 与 Maven 集成
 
-BTA 使得 [`kotlin-maven-plugin`](maven.md) 能够支持 [Kotlin 守护进程](kotlin-daemon.md)，这是默认的 [编译器执行策略](maven.md#configure-kotlin-compiler-execution-strategy)。`kotlin-maven-plugin` 默认使用 BTA，因此无需进行任何配置。
+BTA 使得 [`kotlin-maven-plugin`](maven.md) 能够支持 [Kotlin 守护进程](kotlin-daemon.md)，这是默认的[编译器执行策略](maven-compile-package.md#choose-execution-strategy)。`kotlin-maven-plugin` 默认使用 BTA，因此无需进行任何配置。
 
-BTA 将使得将来能够提供更多特性，例如[增量编译稳定性](https://youtrack.jetbrains.com/issue/KT-77086)。
+BTA 将使得将来能够提供更多特性，例如 [增量编译稳定性](https://youtrack.jetbrains.com/issue/KT-77086)。

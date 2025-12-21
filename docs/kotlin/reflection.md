@@ -1,19 +1,19 @@
 [//]: # (title: 反射)
 
-_反射_ 是一组语言和库**特性**，允许你在**运行时**探查程序的结构。
+_反射_ 是一组语言和库**特性**，允许你在**运行时****探查**程序的结构。
 **函数**和属性在 Kotlin 中是**头等公民**，而**探查**它们的能力（**例如**，在**运行时**获知属性或**函数**的名称或类型）在使用**函数式**或**反应式**风格时至关重要。
 
 > Kotlin/JS 提供对反射**特性**的有限支持。[了解更多关于 Kotlin/JS 中的反射信息](js-reflection.md)。
 >
 {style="note"}
 
-## JVM 依赖项
+## JVM **依赖项**
 
-在 JVM 平台，Kotlin 编译器分发版包含使用反射**特性**所需的**运行时**组件，作为一个独立的 `artifact`，即 `kotlin-reflect.jar`。这样做是为了减小不使用反射**特性**的**应用程序**的**运行时**库所需的大小。
+在 JVM 平台，Kotlin 编译器分发版包含使用反射**特性**所需的**运行时**组件，作为一个独立的 artifact，即 `kotlin-reflect.jar`。这样做是为了减小不使用反射**特性**的**应用程序**的**运行时**库所需的大小。
 
 要在 Gradle 或 Maven **项目**中使用反射，添加对 `kotlin-reflect` 的**依赖项**：
 
-* 在 Gradle 中：
+*   在 Gradle 中：
 
     <tabs group="build-script">
     <tab title="Kotlin" group-key="kotlin">
@@ -26,7 +26,7 @@ _反射_ 是一组语言和库**特性**，允许你在**运行时**探查程序
 
     </tab>
     <tab title="Groovy" group-key="groovy">
-    
+
     ```groovy
     dependencies {
         implementation "org.jetbrains.kotlin:kotlin-reflect:%kotlinVersion%"
@@ -36,8 +36,8 @@ _反射_ 是一组语言和库**特性**，允许你在**运行时**探查程序
     </tab>
     </tabs>
 
-* 在 Maven 中：
-    
+*   在 Maven 中：
+
     ```xml
     <dependencies>
         <dependency>
@@ -47,7 +47,7 @@ _反射_ 是一组语言和库**特性**，允许你在**运行时**探查程序
     </dependencies>
     ```
 
-如果你不使用 Gradle 或 Maven，请确保你的**项目**的 classpath 中包含 `kotlin-reflect.jar`。在其他受支持的情况下（使用命令行编译器或 Ant 的 IntelliJ IDEA **项目**），它是默认添加的。在命令行编译器和 Ant 中，你可以使用 `-no-reflect` 编译器选项将 `kotlin-reflect.jar` 从 classpath 中排除。
+如果你不使用 Gradle 或 Maven，请确保你的**项目**的 classpath 中包含 `kotlin-reflect.jar`。在其他受支持的情况下（使用命令行编译器或 Ant 的 IntelliJ IDEA **项目**），它是默认添加的。在命令行编译器中，你可以使用 `-no-reflect` 编译器选项将 `kotlin-reflect.jar` 从 classpath 中排除。
 
 ## 类引用
 
@@ -106,14 +106,14 @@ fun main() {
 
 **函数**引用属于 [`KFunction<out R>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-function/index.html) 子类型之一，具体取决于**形参**数量。**例如**，`KFunction3<T1, T2, T3, R>`。
 
-当上下文已知预期类型时，`::` 可以用于**重载函数**。**例如**：
+当上下文已知预期类型时，`::` 可以用于**重载****函数**。**例如**：
 
 ```kotlin
 fun main() {
 //sampleStart
     fun isOdd(x: Int) = x % 2 != 0
     fun isOdd(s: String) = s == "brillig" || s == "slithy" || s == "tove"
-    
+
     val numbers = listOf(1, 2, 3)
     println(numbers.filter(::isOdd)) // refers to isOdd(x: Int)
 //sampleEnd
@@ -127,7 +127,7 @@ fun main() {
 val predicate: (String) -> Boolean = ::isOdd   // refers to isOdd(x: String)
 ```
 
-如果你需要使用类的成员或**扩展函数**，它需要被限定：`String::toCharArray`。
+如果你需要使用类的成员或**扩展函数**，它需要被**限定**：`String::toCharArray`。
 
 即使你使用**扩展函数**的引用来初始化变量，推断的**函数类型**将没有**接收者**，但它将有一个额外的**形参**接受一个**接收者**对象。要改为拥有带**接收者**的**函数类型**，请**显式**指定类型：
 
@@ -135,7 +135,7 @@ val predicate: (String) -> Boolean = ::isOdd   // refers to isOdd(x: String)
 val isEmptyStringList: List<String>.() -> Boolean = List<String>::isEmpty
 ```
 
-#### 示例：**函数**组合
+#### **示例**：**函数**组合
 
 考虑以下**函数**：
 
@@ -157,10 +157,10 @@ fun isOdd(x: Int) = x % 2 != 0
 fun main() {
 //sampleStart
     fun length(s: String) = s.length
-    
+
     val oddLength = compose(::isOdd, ::length)
     val strings = listOf("a", "ab", "abc")
-    
+
     println(strings.filter(oddLength))
 //sampleEnd
 }
@@ -176,7 +176,7 @@ val x = 1
 
 fun main() {
     println(::x.get())
-    println(::x.name) 
+    println(::x.name)
 }
 ```
 
@@ -206,7 +206,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-要访问类的成员属性，请按如下方式限定它：
+要访问类的成员属性，请按如下方式**限定**它：
 
 ```kotlin
 fun main() {
@@ -238,9 +238,9 @@ fun main() {
 
 ```kotlin
 import kotlin.reflect.jvm.*
- 
+
 class A(val p: Int)
- 
+
 fun main() {
     println(A::p.javaGetter) // prints "public final int A.getP()"
     println(A::p.javaField)  // prints "private final int A.p"
@@ -256,7 +256,7 @@ fun getKClass(o: Any): KClass<Any> = o.javaClass.kotlin
 ### **构造函数**引用
 
 **构造函数**可以像**方法**和属性一样被引用。只要程序预期一个**函数类型**对象，并且该对象接受与**构造函数**相同的**形参**并返回适当类型的对象，你就可以使用它们。
-通过使用 `::` **操作符**并添加类名来引用**构造函数**。考虑以下**函数**，它预期一个没有**形参**且返回类型为 `Foo` 的**函数形参**：
+通过使用 `::` **操作符**并添加类名来引用**构造函数**。考虑以下**函数**，它预期一个没有**形参**且返回类型为 `Foo` 的**函数****形参**：
 
 ```kotlin
 class Foo
@@ -272,7 +272,8 @@ fun function(factory: () -> Foo) {
 function(::Foo)
 ```
 
-对**构造函数**的可调用引用被类型化为 [`KFunction<out R>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-function/index.html) 子类型之一，具体取决于**形参**数量。
+对**构造函数**的可调用引用被类型化为
+[`KFunction<out R>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-function/index.html) 子类型之一，具体取决于**形参**数量。
 
 ### 绑定**函数**与属性引用
 
@@ -283,7 +284,7 @@ fun main() {
 //sampleStart
     val numberRegex = "\\d+".toRegex()
     println(numberRegex.matches("29"))
-     
+
     val isNumber = numberRegex::matches
     println(isNumber("29"))
 //sampleEnd

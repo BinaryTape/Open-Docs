@@ -106,7 +106,7 @@ Javaには、可変（mutable）コレクションがあります。
 
 ```java
 // Java
-// このリストは可変です！
+// This list is mutable!
 public List<Customer> getCustomers() { ... }
 ```
 {id="mutability-java"}
@@ -125,7 +125,7 @@ numbers.add("five"); // 実行時に `UnsupportedOperationException` で失敗�
 ```java
 // Java
 List<String> numbers = new LinkedList<>();
-// このリストは不変です！
+// This list is immutable!
 List<String> immutableCollection = Collections.unmodifiableList(numbers);
 immutableCollection.add("five"); // 実行時に `UnsupportedOperationException` で失敗します
 ```
@@ -262,7 +262,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="ranges-kotlin"}
 
-いずれかの境界を除外する必要がある場合（例えば、バージョンが最小バージョン以上（`>=`）かつ最大バージョン未満（`<`）であるかを確認する場合）は、これらの包括的なレンジは役に立ちません。
+境界のいずれかを除外する必要がある場合（例えば、バージョンが最小バージョン以上（`>=`）かつ最大バージョン未満（`<`）であるかを確認する場合）は、これらの包括的なレンジは役に立ちません。
 
 ## 複数の基準による比較
 
@@ -347,8 +347,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="sequences-kotlin"}
 
-シーケンスを使用すると、一部のフィルタリング操作を実行するために必要なステップ数を削減できる場合があります。
-`Iterable`と`Sequence`の違いを示す[シーケンス処理の例](sequences.md#sequence-processing-example)を参照してください。
+シーケンスを使用すると、一部のフィルタリング操作を実行するために必要なステップ数を削減できる場合があります。[Iterable](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/#kotlin.collections.Iterable)と`Sequence`の違いを示す[シーケンス処理の例](sequences.md#sequence-processing-example)を参照してください。
 
 ## リストからの要素の削除
 
@@ -647,7 +646,7 @@ public void zip() {
 ```
 {id="zip-elements-java"}
 
-単に要素のペアを出力するよりも複雑なことをしたい場合は、[Records](https://blogs.oracle.com/javamagazine/post/records-come-to-java)を使用できます。
+単に要素のペアを出力するよりも複雑なことをしたい場合は、[Records](https://docs.oracle.com/en/java/javase/17/language/records.html)を使用できます。
 上記の例では、レコードは`record AnimalDescription(String animal, String color) {}`となります。
 
 Kotlinでは、[`zip()`](collection-transformations.md#zip)関数を使用して同じことを行います。

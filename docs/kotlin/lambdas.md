@@ -124,7 +124,7 @@ val intFunction: (Int) -> Int = IntTransformer()
 如果存在足够的信息，编译器可以推断变量的函数类型：
 
 ```kotlin
-val a = { i: Int -> i + 1 } // The inferred type is (Int) -> Int
+val a = { i: Int -> i + 1 } // 推断类型是 (Int) -> Int
 ```
 
 带接收者和不带接收者的*非字面量*函数类型值是可互换的，因此接收者可以代替第一个形参，反之亦然。例如，类型为 `(A, B) -> C` 的值可以
@@ -195,6 +195,13 @@ max(strings, { a, b -> a.length < b.length })
 
 ```kotlin
 fun compare(a: String, b: String): Boolean = a.length < b.length
+```
+
+你还可以使用 `suspend` 关键字创建*挂起 lambda 表达式*。
+挂起 lambda 具有函数类型 `suspend () -> Unit`，并且可以调用其他挂起函数：
+
+```kotlin
+val suspendingTask = suspend { doSuspendingWork() }
 ```
 
 ### lambda 表达式语法
@@ -372,3 +379,4 @@ fun html(init: HTML.() -> Unit): HTML {
 html {       // 带接收者的 lambda 从此处开始
     body()   // 在接收者对象上调用方法
 }
+```

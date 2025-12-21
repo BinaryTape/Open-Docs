@@ -163,6 +163,7 @@ fun runProcessor(): Processor? {
     return processor
 }
 ```
+{kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-k2-inline-functions" validate="false"}
 
 #### 함수 타입 프로퍼티
 
@@ -242,7 +243,7 @@ fun main() {
     testString()
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-k2-exception-handling" validate="false"}
+{kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-k2-exception-handling"}
 
 #### 증가 및 감소 연산자
 
@@ -475,13 +476,13 @@ kotlin.build.report.output=file
 
 다음 값과 그 조합을 출력에 사용할 수 있습니다:
 
-| 옵션        | 설명                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `file`      | 빌드 리포트를 사람이 읽을 수 있는 형식으로 로컬 파일에 저장합니다. 기본적으로 `${project_folder}/build/reports/kotlin-build/${project_name}-timestamp.txt`에 저장됩니다.                                                                                                                                                                                                                                                                                                                                 |
-| `single_file` | 빌드 리포트를 객체 형식으로 지정된 로컬 파일에 저장합니다.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `build_scan`| 빌드 리포트를 [빌드 스캔](https://scans.gradle.com/)의 `custom values` 섹션에 저장합니다. Gradle Enterprise 플러그인은 커스텀 값의 개수와 길이를 제한한다는 점에 유의하세요. 대규모 프로젝트에서는 일부 값이 손실될 수 있습니다.                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `http`      | HTTP(S)를 사용하여 빌드 리포트를 게시합니다. POST 메서드는 JSON 형식으로 메트릭을 전송합니다. 전송된 데이터의 현재 버전은 [Kotlin 리포지토리](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/report/data/GradleCompileStatisticsData.kt)에서 확인할 수 있습니다. HTTP 엔드포인트 샘플은 [이 블로그 게시물](https://blog.jetbrains.com/kotlin/2022/06/introducing-kotlin-build-reports/?_gl=1*1a7pghy*_ga*MTcxMjc1NzE5Ny4xNjY1NDAzNjkz*_ga_9J976DJZ68*MTcxNTA3NjA2NS4zNzcuMS4xNzE1MDc2MDc5LjQ2LjAuMA..&_ga=2.265800911.1124071296.1714976764-1712757197.1665403693#enable_build_reports)에서 찾을 수 있습니다. |
-| `json`      | 빌드 리포트를 JSON 형식으로 로컬 파일에 저장합니다. `kotlin.build.report.json.directory`에서 빌드 리포트 위치를 설정하세요. 기본적으로 이름은 `${project_name}-build-<date-time>-<index>.json`입니다.                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| 옵션 | 설명 |
+|---|---|
+| `file` | 빌드 리포트를 사람이 읽을 수 있는 형식으로 로컬 파일에 저장합니다. 기본적으로 `${project_folder}/build/reports/kotlin-build/${project_name}-timestamp.txt`에 저장됩니다. |
+| `single_file` | 빌드 리포트를 객체 형식으로 지정된 로컬 파일에 저장합니다. |
+| `build_scan` | 빌드 리포트를 [빌드 스캔](https://scans.gradle.com/)의 `custom values` 섹션에 저장합니다. Gradle Enterprise 플러그인은 커스텀 값의 개수와 길이를 제한한다는 점에 유의하세요. 대규모 프로젝트에서는 일부 값이 손실될 수 있습니다. |
+| `http` | HTTP(S)를 사용하여 빌드 리포트를 게시합니다. POST 메서드는 JSON 형식으로 메트릭을 전송합니다. 전송된 데이터의 현재 버전은 [Kotlin 리포지토리](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/report/data/GradleCompileStatisticsData.kt)에서 확인할 수 있습니다. HTTP 엔드포인트 샘플은 [이 블로그 게시물](https://blog.jetbrains.com/kotlin/2022/06/introducing-kotlin-build-reports/?_gl=1*1a7pghy*_ga*MTcxMjc1NzE5Ny4xNjY1NDAzNjkz*_ga_9J976DJZ68*MTcxNTA3NjA2NS4zNzcuMS4xNzE1MDc2MDc5LjQ2LjAuMA..&_ga=2.265800911.1124071296.1714976764-1712757197.1665403693#enable_build_reports)에서 찾을 수 있습니다. |
+| `json` | 빌드 리포트를 JSON 형식으로 로컬 파일에 저장합니다. `kotlin.build.report.json.directory`에서 빌드 리포트 위치를 설정하세요. 기본적으로 이름은 `${project_name}-build-<date-time>-<index>.json`입니다. |
 
 빌드 리포트로 가능한 것에 대한 자세한 내용은 [빌드 리포트](gradle-compilation-and-caches.md#build-reports)를 참조하세요.
 
@@ -894,7 +895,7 @@ Kotlin 2.0.0에서는 Java 프리미티브 배열에 대한 null 안전성이 �
 *   명시적인 null 허용성 검사 없이 `@Nullable` Java 프리미티브 배열을 사용하거나, non-nullable 프리미티브 배열을 예상하는 Java 메서드에 `null`을 전달하려고 시도하는 모든 코드는 이제 컴파일에 실패할 것입니다.
 *   `@NotNull` 프리미티브 배열을 null 허용성 검사와 함께 사용하면 이제 "불필요한 안전 호출" 또는 "null과의 비교는 항상 거짓" 경고가 발생합니다.
 
-자세한 내용은 [YouTrack의 해당 이슈](https://youtrack.jetbrains.com/issue/KT-54521)를 참조하세요.
+자세한 내용은 [YouTrack의 해당 이슈](https://youtrack.jetbrains.com/issue/KT-54521)를 참조하세요。
 
 ### 예상 클래스의 추상 멤버에 대한 엄격한 규칙
 
@@ -958,177 +959,177 @@ actual open class PlatformFileSystem : FileSystem {
 
 #### 타입 추론 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 이슈 ID                                                   | 제목                                                                                                               |
-|:----------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------|
-| [KT-64189](https://youtrack.jetbrains.com/issue/KT-64189) | 타입이 명시적으로 Normal인 경우 프로퍼티 참조의 컴파일된 함수 시그니처에 잘못된 타입                                    |
-| [KT-47986](https://youtrack.jetbrains.com/issue/KT-47986) | 빌더 추론 컨텍스트에서 타입 변수가 상한으로 암묵적으로 추론되는 것을 금지                                              |
-| [KT-59275](https://youtrack.jetbrains.com/issue/KT-59275) | K2: 배열 리터럴의 제네릭 어노테이션 호출에 명시적 타입 인자 요구                                                       |
-| [KT-53752](https://youtrack.jetbrains.com/issue/KT-53752) | 교차 타입에 대한 서브타이핑 검사 누락                                                                                   |
-| [KT-59138](https://youtrack.jetbrains.com/issue/KT-59138) | Kotlin에서 Java 타입 매개변수 기반 타입의 기본 표현 변경                                                               |
-| [KT-57178](https://youtrack.jetbrains.com/issue/KT-57178) | 접두사 증가의 추론된 타입을 inc() 연산자의 반환 타입 대신 게터의 반환 타입으로 변경                                     |
-| [KT-57609](https://youtrack.jetbrains.com/issue/KT-57609) | K2: 반공변 매개변수에 @UnsafeVariance 사용에 의존하지 않음                                                            |
-| [KT-57620](https://youtrack.jetbrains.com/issue/KT-57620) | K2: 원시 타입에 대한 포함된 멤버로의 해석 금지                                                                          |
-| [KT-64641](https://youtrack.jetbrains.com/issue/KT-64641) | K2: 확장 함수 매개변수를 가진 호출 가능 참조의 타입이 올바르게 추론됨                                                   |
-| [KT-57011](https://youtrack.jetbrains.com/issue/KT-57011) | 구조 분해 변수의 실제 타입을 지정된 경우 명시적 타입과 일관되게 만듭니다.                                                |
-| [KT-38895](https://youtrack.jetbrains.com/issue/KT-38895) | K2: 정수 리터럴 오버플로에 대한 일관성 없는 동작 수정                                                                   |
-| [KT-54862](https://youtrack.jetbrains.com/issue/KT-54862) | 익명 타입이 타입 인자에서 익명 함수로부터 노출될 수 있음                                                               |
-| [KT-22379](https://youtrack.jetbrains.com/issue/KT-22379) | break가 있는 while 루프의 조건이 잘못된 스마트 캐스트를 생성할 수 있음                                                 |
-| [KT-62507](https://youtrack.jetbrains.com/issue/KT-62507) | K2: expect/actual 최상위 프로퍼티에 대한 공통 코드에서의 스마트 캐스트 금지                                           |
-| [KT-65750](https://youtrack.jetbrains.com/issue/KT-65750) | 반환 타입을 변경하는 증가 및 더하기 연산자는 스마트 캐스트에 영향을 주어야 합니다.                                        |
-| [KT-65349](https://youtrack.jetbrains.com/issue/KT-65349) | [LC] K2: 변수 타입을 명시적으로 지정하면 K1에서 작동했던 일부 바운드 스마트 캐스트가 중단됩니다.                         |
+| 이슈 ID | 제목 |
+|:---|:---|
+| [KT-64189](https://youtrack.jetbrains.com/issue/KT-64189) | 타입이 명시적으로 Normal인 경우 프로퍼티 참조의 컴파일된 함수 시그니처에 잘못된 타입 |
+| [KT-47986](https://youtrack.jetbrains.com/issue/KT-47986) | 빌더 추론 컨텍스트에서 타입 변수가 상한으로 암묵적으로 추론되는 것을 금지 |
+| [KT-59275](https://youtrack.jetbrains.com/issue/KT-59275) | K2: 배열 리터럴의 제네릭 어노테이션 호출에 명시적 타입 인자 요구 |
+| [KT-53752](https://youtrack.jetbrains.com/issue/KT-53752) | 교차 타입에 대한 서브타이핑 검사 누락 |
+| [KT-59138](https://youtrack.jetbrains.com/issue/KT-59138) | Kotlin에서 Java 타입 매개변수 기반 타입의 기본 표현 변경 |
+| [KT-57178](https://youtrack.jetbrains.com/issue/KT-57178) | 접두사 증가의 추론된 타입을 inc() 연산자의 반환 타입 대신 게터의 반환 타입으로 변경 |
+| [KT-57609](https://youtrack.jetbrains.com/issue/KT-57609) | K2: 반공변 매개변수에 @UnsafeVariance 사용에 의존하지 않음 |
+| [KT-57620](https://youtrack.jetbrains.com/issue/KT-57620) | K2: 원시 타입에 대한 포함된 멤버로의 해석 금지 |
+| [KT-64641](https://youtrack.jetbrains.com/issue/KT-64641) | K2: 확장 함수 매개변수를 가진 호출 가능 참조의 타입이 올바르게 추론됨 |
+| [KT-57011](https://youtrack.jetbrains.com/issue/KT-57011) | 구조 분해 변수의 실제 타입을 지정된 경우 명시적 타입과 일관되게 만듭니다. |
+| [KT-38895](https://youtrack.jetbrains.com/issue/KT-38895) | K2: 정수 리터럴 오버플로에 대한 일관성 없는 동작 수정 |
+| [KT-54862](https://youtrack.jetbrains.com/issue/KT-54862) | 익명 타입이 타입 인자에서 익명 함수로부터 노출될 수 있음 |
+| [KT-22379](https://youtrack.jetbrains.com/issue/KT-22379) | break가 있는 while 루프의 조건이 잘못된 스마트 캐스트를 생성할 수 있음 |
+| [KT-62507](https://youtrack.jetbrains.com/issue/KT-62507) | K2: expect/actual 최상위 프로퍼티에 대한 공통 코드에서의 스마트 캐스트 금지 |
+| [KT-65750](https://youtrack.jetbrains.com/issue/KT-65750) | 반환 타입을 변경하는 증가 및 더하기 연산자는 스마트 캐스트에 영향을 주어야 합니다. |
+| [KT-65349](https://youtrack.jetbrains.com/issue/KT-65349) | [LC] K2: 변수 타입을 명시적으로 지정하면 K1에서 작동했던 일부 바운드 스마트 캐스트가 중단됩니다. |
 
 #### 제네릭 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 이슈 ID                                                   | 제목                                                                                                                                  |
-|:----------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------|
-| [KT-54309](https://youtrack.jetbrains.com/issue/KT-54309)* | [예상 수신자(projected receiver)에 대한 합성 세터 사용 중단](#deprecated-synthetics-setter-on-a-projected-receiver)                     |
-| [KT-57600](https://youtrack.jetbrains.com/issue/KT-57600)  | 제네릭 타입 매개변수를 가진 원시 타입 매개변수의 Java 메서드 오버라이드 금지                                                            |
-| [KT-54663](https://youtrack.jetbrains.com/issue/KT-54663)  | null 가능 타입 매개변수를 \`in\` 예상 DNN 매개변수에 전달하는 것을 금지                                                                 |
-| [KT-54066](https://youtrack.jetbrains.com/issue/KT-54066)  | 타입 별칭 생성자에서 상한 위반 사용 중단                                                                                                |
-| [KT-49404](https://youtrack.jetbrains.com/issue/KT-49404)  | Java 클래스 기반의 반공변 캡처 타입에 대한 타입 불건전성 수정                                                                           |
-| [KT-61718](https://youtrack.jetbrains.com/issue/KT-61718)  | 자체 상한과 캡처된 타입을 사용한 불건전한 코드 금지                                                                                     |
-| [KT-61749](https://youtrack.jetbrains.com/issue/KT-61749)  | 제네릭 외부 클래스의 제네릭 내부 클래스에서 잘못된 바운드 위반 금지                                                                   |
-| [KT-62923](https://youtrack.jetbrains.com/issue/KT-62923)  | K2: 내부 클래스의 외부 슈퍼 타입 프로젝션에 PROJECTION_IN_IMMEDIATE_ARGUMENT_TO_SUPERTYPE 도입                                      |
-| [KT-63243](https://youtrack.jetbrains.com/issue/KT-63243)  | 다른 슈퍼타입의 추가 특수화된 구현을 가진 프리미티브 컬렉션으로부터 상속 시 MANY_IMPL_MEMBER_NOT_IMPLEMENTED 보고                     |
-| [KT-60305](https://youtrack.jetbrains.com/issue/KT-60305)  | K2: 확장된 타입에 분산 한정자를 가진 타입 별칭에 대한 생성자 호출 및 상속 금지                                                        |
-| [KT-64965](https://youtrack.jetbrains.com/issue/KT-64965)  | K2: 자체 상한을 가진 캡처된 타입의 부적절한 처리로 인한 타입 홀(type hole) 수정                                                       |
-| [KT-64966](https://youtrack.jetbrains.com/issue/KT-64966)  | 제네릭 매개변수에 잘못된 타입을 가진 제네릭 위임 생성자 호출 금지                                                                     |
-| [KT-65712](https://youtrack.jetbrains.com/issue/KT-65712)  | 상한이 캡처된 타입일 때 상한 위반 누락 보고                                                                                             |
+| 이슈 ID | 제목 |
+|:---|:---|
+| [KT-54309](https://youtrack.jetbrains.com/issue/KT-54309)* | [예상 수신자(projected receiver)에 대한 합성 세터 사용 중단](#deprecated-synthetics-setter-on-a-projected-receiver) |
+| [KT-57600](https://youtrack.jetbrains.com/issue/KT-57600) | 제네릭 타입 매개변수를 가진 원시 타입 매개변수의 Java 메서드 오버라이드 금지 |
+| [KT-54663](https://youtrack.jetbrains.com/issue/KT-54663) | null 가능 타입 매개변수를 \`in\` 예상 DNN 매개변수에 전달하는 것을 금지 |
+| [KT-54066](https://youtrack.jetbrains.com/issue/KT-54066) | 타입 별칭 생성자에서 상한 위반 사용 중단 |
+| [KT-49404](https://youtrack.jetbrains.com/issue/KT-49404) | Java 클래스 기반의 반공변 캡처 타입에 대한 타입 불건전성 수정 |
+| [KT-61718](https://youtrack.jetbrains.com/issue/KT-61718) | 자체 상한과 캡처된 타입을 사용한 불건전한 코드 금지 |
+| [KT-61749](https://youtrack.jetbrains.com/issue/KT-61749) | 제네릭 외부 클래스의 제네릭 내부 클래스에서 잘못된 바운드 위반 금지 |
+| [KT-62923](https://youtrack.jetbrains.com/issue/KT-62923) | K2: 내부 클래스의 외부 슈퍼 타입 프로젝션에 PROJECTION_IN_IMMEDIATE_ARGUMENT_TO_SUPERTYPE 도입 |
+| [KT-63243](https://youtrack.jetbrains.com/issue/KT-63243) | 다른 슈퍼타입의 추가 특수화된 구현을 가진 프리미티브 컬렉션으로부터 상속 시 MANY_IMPL_MEMBER_NOT_IMPLEMENTED 보고 |
+| [KT-60305](https://youtrack.jetbrains.com/issue/KT-60305) | K2: 확장된 타입에 분산 한정자를 가진 타입 별칭에 대한 생성자 호출 및 상속 금지 |
+| [KT-64965](https://youtrack.jetbrains.com/issue/KT-64965) | K2: 자체 상한을 가진 캡처된 타입의 부적절한 처리로 인한 타입 홀(type hole) 수정 |
+| [KT-64966](https://youtrack.jetbrains.com/issue/KT-64966) | 제네릭 매개변수에 잘못된 타입을 가진 제네릭 위임 생성자 호출 금지 |
+| [KT-65712](https://youtrack.jetbrains.com/issue/KT-65712) | 상한이 캡처된 타입일 때 상한 위반 누락 보고 |
 
 #### 해석 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 이슈 ID                                                   | 제목                                                                                                                                                            |
-|:----------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 이슈 ID | 제목 |
+|:---|:---|
 | [KT-55017](https://youtrack.jetbrains.com/issue/KT-55017)* | [기반 클래스의 Java 필드와 오버로드 해석 시 파생 클래스에서 Kotlin 프로퍼티 선택](#consistent-resolution-order-of-kotlin-properties-and-java-fields-with-the-same-name) |
-| [KT-58260](https://youtrack.jetbrains.com/issue/KT-58260)  | invoke 컨벤션이 예상된 디슈가링(desugaring)과 일관되게 작동하도록 함                                                                                               |
-| [KT-62866](https://youtrack.jetbrains.com/issue/KT-62866)  | K2: 컴패니언 객체가 정적 스코프보다 선호될 때 한정자 해석 동작 변경                                                                                             |
-| [KT-57750](https://youtrack.jetbrains.com/issue/KT-57750)  | 타입 해석 및 동일 이름 클래스가 스타 임포트될 때 모호성 오류 보고                                                                                             |
-| [KT-63558](https://youtrack.jetbrains.com/issue/KT-63558)  | K2: COMPATIBILITY_WARNING 주변 해석 마이그레이션                                                                                                            |
-| [KT-51194](https://youtrack.jetbrains.com/issue/KT-51194)  | 동일한 종속성의 두 가지 다른 버전에 종속성 클래스가 포함될 때 CONFLICTING_INHERITED_MEMBERS의 잘못된 음성                                                      |
-| [KT-37592](https://youtrack.jetbrains.com/issue/KT-37592)  | 수신자를 가진 함수 타입의 프로퍼티 invoke가 확장 함수 invoke보다 선호됨                                                                                       |
-| [KT-51666](https://youtrack.jetbrains.com/issue/KT-51666)  | 한정된 this: 타입 케이스로 한정된 this 도입/우선순위 부여                                                                                                     |
-| [KT-54166](https://youtrack.jetbrains.com/issue/KT-54166)  | 클래스패스에서 FQ 이름 충돌 시 지정되지 않은 동작 확인                                                                                                   |
-| [KT-64431](https://youtrack.jetbrains.com/issue/KT-64431)  | K2: 임포트에서 타입 별칭을 한정자로 사용하는 것을 금지                                                                                                   |
-| [KT-56520](https://youtrack.jetbrains.com/issue/KT-56520)  | K1/K2: 하위 수준에서 모호성을 가진 타입 참조에 대한 해석 타워의 잘못된 작동                                                                                |
+| [KT-58260](https://youtrack.jetbrains.com/issue/KT-58260) | invoke 컨벤션이 예상된 디슈가링(desugaring)과 일관되게 작동하도록 함 |
+| [KT-62866](https://youtrack.jetbrains.com/issue/KT-62866) | K2: 컴패니언 객체가 정적 스코프보다 선호될 때 한정자 해석 동작 변경 |
+| [KT-57750](https://youtrack.jetbrains.com/issue/KT-57750) | 타입 해석 및 동일 이름 클래스가 스타 임포트될 때 모호성 오류 보고 |
+| [KT-63558](https://youtrack.jetbrains.com/issue/KT-63558) | K2: COMPATIBILITY_WARNING 주변 해석 마이그레이션 |
+| [KT-51194](https://youtrack.jetbrains.com/issue/KT-51194) | 동일한 종속성의 두 가지 다른 버전에 종속성 클래스가 포함될 때 CONFLICTING_INHERITED_MEMBERS의 잘못된 음성 |
+| [KT-37592](https://youtrack.jetbrains.com/issue/KT-37592) | 수신자를 가진 함수 타입의 프로퍼티 invoke가 확장 함수 invoke보다 선호됨 |
+| [KT-51666](https://youtrack.jetbrains.com/issue/KT-51666) | 한정된 this: 타입 케이스로 한정된 this 도입/우선순위 부여 |
+| [KT-54166](https://youtrack.jetbrains.com/issue/KT-54166) | 클래스패스에서 FQ 이름 충돌 시 지정되지 않은 동작 확인 |
+| [KT-64431](https://youtrack.jetbrains.com/issue/KT-64431) | K2: 임포트에서 타입 별칭을 한정자로 사용하는 것을 금지 |
+| [KT-56520](https://youtrack.jetbrains.com/issue/KT-56520) | K1/K2: 하위 수준에서 모호성을 가진 타입 참조에 대한 해석 타워의 잘못된 작동 |
 
 #### 가시성 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 이슈 ID                                                     | 제목                                                                                                                           |
-|:------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------|
-| [KT-64474](https://youtrack.jetbrains.com/issue/KT-64474/)* | [접근 불가능한 타입의 사용을 지정되지 않은 동작으로 선언](#forbidden-use-of-inaccessible-generic-types)                          |
-| [KT-55179](https://youtrack.com/issue/KT-55179)   | 내부 인라인 함수에서 private 클래스 컴패니언 객체 멤버 호출 시 PRIVATE_CLASS_MEMBER_FROM_INLINE의 잘못된 음성                  |
-| [KT-58042](https://youtrack.com/issue/KT-58042)   | 오버라이드된 선언이 가시적일 때도 동등한 게터가 가시적이지 않으면 합성 프로퍼티를 비가시적으로 만듭니다.                         |
-| [KT-64255](https://youtrack.com/issue/KT-64255)   | 다른 모듈의 파생 클래스에서 내부 세터에 접근하는 것을 금지                                                                     |
-| [KT-33917](https://youtrack.com/issue/KT-33917)   | private 인라인 함수에서 익명 타입을 노출하는 것을 금지                                                                         |
-| [KT-54997](https://youtrack.com/issue/KT-54997)   | public-API 인라인 함수에서 암시적 비공개-API 접근을 금지                                                                       |
-| [KT-56310](https://youtrack.com/issue/KT-56310)   | 스마트 캐스트는 protected 멤버의 가시성에 영향을 미치지 않아야 합니다.                                                       |
-| [KT-65494](https://youtrack.com/issue/KT-65494)   | public 인라인 함수에서 간과된 private 연산자 함수에 접근하는 것을 금지                                                       |
-| [KT-65004](https://youtrack.com/issue/KT-65004)   | K1: protected val을 오버라이드하는 var의 세터가 public으로 생성됩니다.                                                       |
-| [KT-64972](https://youtrack.com/issue/KT-64972)   | Kotlin/Native의 링크 타임에서 private 멤버에 의한 오버라이드 금지                                                          |
+| 이슈 ID | 제목 |
+|:---|:---|
+| [KT-64474](https://youtrack.jetbrains.com/issue/KT-64474/)* | [접근 불가능한 타입의 사용을 지정되지 않은 동작으로 선언](#forbidden-use-of-inaccessible-generic-types) |
+| [KT-55179](https://youtrack.jetbrains.com/issue/KT-55179) | 내부 인라인 함수에서 private 클래스 컴패니언 객체 멤버 호출 시 PRIVATE_CLASS_MEMBER_FROM_INLINE의 잘못된 음성 |
+| [KT-58042](https://youtrack.jetbrains.com/issue/KT-58042) | 오버라이드된 선언이 가시적일 때도 동등한 게터가 가시적이지 않으면 합성 프로퍼티를 비가시적으로 만듭니다. |
+| [KT-64255](https://youtrack.jetbrains.com/issue/KT-64255) | 다른 모듈의 파생 클래스에서 내부 세터에 접근하는 것을 금지 |
+| [KT-33917](https://youtrack.jetbrains.com/issue/KT-33917) | private 인라인 함수에서 익명 타입을 노출하는 것을 금지 |
+| [KT-54997](https://youtrack.jetbrains.com/issue/KT-54997) | public-API 인라인 함수에서 암시적 비공개-API 접근을 금지 |
+| [KT-56310](https://youtrack.jetbrains.com/issue/KT-56310) | 스마트 캐스트는 protected 멤버의 가시성에 영향을 미치지 않아야 합니다. |
+| [KT-65494](https://youtrack.jetbrains.com/issue/KT-65494) | public 인라인 함수에서 간과된 private 연산자 함수에 접근하는 것을 금지 |
+| [KT-65004](https://youtrack.jetbrains.com/issue/KT-65004) | K1: protected val을 오버라이드하는 var의 세터가 public으로 생성됩니다. |
+| [KT-64972](https://youtrack.jetbrains.com/issue/KT-64972) | Kotlin/Native의 링크 타임에서 private 멤버에 의한 오버라이드 금지 |
 
 #### 어노테이션 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 이슈 ID                                                   | 제목                                                                                         |
-|:----------------------------------------------------------|:---------------------------------------------------------------------------------------------|
-| [KT-58723](https://youtrack.jetbrains.com/issue/KT-58723) | EXPRESSION 타겟이 없는 경우 어노테이션으로 문을 어노테이션하는 것을 금지                     |
-| [KT-49930](https://youtrack.jetbrains.com/issue/KT-49930) | \`REPEATED_ANNOTATION\` 검사 중 괄호 표현식 무시                                           |
-| [KT-57422](https://youtrack.jetbrains.com/issue/KT-57422) | K2: 프로퍼티 게터에 use-site 'get' 대상 어노테이션 금지                                    |
-| [KT-46483](https://youtrack.jetbrains.com/issue/KT-46483) | where 절에서 타입 매개변수에 어노테이션을 다는 것을 금지                                     |
-| [KT-64299](https://youtrack.jetbrains.com/issue/KT-64299) | 컴패니언 객체의 어노테이션 해석을 위해 컴패니언 스코프가 무시됩니다.                           |
-| [KT-64654](https://youtrack.jetbrains.com/issue/KT-64654) | K2: 사용자 정의 및 컴파일러 필수 어노테이션 간의 모호성 도입                               |
-| [KT-64527](https://youtrack.jetbrains.com/issue/KT-64527) | enum 값에 대한 어노테이션은 enum 값 클래스로 복사되지 않아야 합니다.                         |
+| 이슈 ID | 제목 |
+|:---|:---|
+| [KT-58723](https://youtrack.jetbrains.com/issue/KT-58723) | EXPRESSION 타겟이 없는 경우 어노테이션으로 문을 어노테이션하는 것을 금지 |
+| [KT-49930](https://youtrack.jetbrains.com/issue/KT-49930) | \`REPEATED_ANNOTATION\` 검사 중 괄호 표현식 무시 |
+| [KT-57422](https://youtrack.jetbrains.com/issue/KT-57422) | K2: 프로퍼티 게터에 use-site 'get' 대상 어노테이션 금지 |
+| [KT-46483](https://youtrack.jetbrains.com/issue/KT-46483) | where 절에서 타입 매개변수에 어노테이션을 다는 것을 금지 |
+| [KT-64299](https://youtrack.jetbrains.com/issue/KT-64299) | 컴패니언 객체의 어노테이션 해석을 위해 컴패니언 스코프가 무시됩니다. |
+| [KT-64654](https://youtrack.jetbrains.com/issue/KT-64654) | K2: 사용자 정의 및 컴파일러 필수 어노테이션 간의 모호성 도입 |
+| [KT-64527](https://youtrack.jetbrains.com/issue/KT-64527) | enum 값에 대한 어노테이션은 enum 값 클래스로 복사되지 않아야 합니다. |
 | [KT-63389](https://youtrack.jetbrains.com/issue/KT-63389) | K2: \`()?\`로 래핑된 타입의 호환되지 않는 어노테이션에 대해 \`WRONG_ANNOTATION_TARGET\`이 보고됩니다. |
-| [KT-63388](https://youtrack.jetbrains.com/issue/KT-63388) | K2: catch 매개변수 타입의 어노테이션에 대해 \`WRONG_ANNOTATION_TARGET\`이 보고됩니다.        |
+| [KT-63388](https://youtrack.jetbrains.com/issue/KT-63388) | K2: catch 매개변수 타입의 어노테이션에 대해 \`WRONG_ANNOTATION_TARGET\`이 보고됩니다. |
 
 #### Null 안전성 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 이슈 ID                                                   | 제목                                                                                                        |
-|:----------------------------------------------------------|:------------------------------------------------------------------------------------------------------------|
+| 이슈 ID | 제목 |
+|:---|:---|
 | [KT-54521](https://youtrack.jetbrains.com/issue/KT-54521)* | [Java에서 Nullable로 어노테이션된 배열 타입의 안전하지 않은 사용 중단](#improved-null-safety-for-java-primitive-arrays) |
-| [KT-41034](https://youtrack.jetbrains.com/issue/KT-41034)  | K2: 안전 호출과 컨벤션 연산자의 조합에 대한 평가 의미론 변경                                                  |
-| [KT-50850](https://youtrack.jetbrains.com/issue/KT-50850)  | 슈퍼타입의 순서가 상속된 함수의 null 허용성 매개변수를 정의합니다.                                            |
-| [KT-53982](https://youtrack.jetbrains.com/issue/KT-53982)  | public 시그니처에서 지역 타입을 근사화할 때 null 허용성 유지                                                   |
-| [KT-62998](https://youtrack.jetbrains.com/issue/KT-62998)  | 안전하지 않은 할당의 셀렉터로 null 허용 타입을 non-null Java 필드에 할당하는 것을 금지                         |
-| [KT-63209](https://youtrack.jetbrains.com/issue/KT-63209)  | 경고 수준 Java 타입의 오류 수준 null 허용 인자에 대한 누락된 오류 보고                                           |
+| [KT-41034](https://youtrack.jetbrains.com/issue/KT-41034) | K2: 안전 호출과 컨벤션 연산자의 조합에 대한 평가 의미론 변경 |
+| [KT-50850](https://youtrack.jetbrains.com/issue/KT-50850) | 슈퍼타입의 순서가 상속된 함수의 null 허용성 매개변수를 정의합니다. |
+| [KT-53982](https://youtrack.jetbrains.com/issue/KT-53982) | public 시그니처에서 지역 타입을 근사화할 때 null 허용성 유지 |
+| [KT-62998](https://youtrack.jetbrains.com/issue/KT-62998) | 안전하지 않은 할당의 셀렉터로 null 허용 타입을 non-null Java 필드에 할당하는 것을 금지 |
+| [KT-63209](https://youtrack.jetbrains.com/issue/KT-63209) | 경고 수준 Java 타입의 오류 수준 null 허용 인자에 대한 누락된 오류 보고 |
 
 #### Java 상호 운용성 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 이슈 ID                                                  | 제목                                                                                     |
-|:----------------------------------------------------------|:-----------------------------------------------------------------------------------------|
-| [KT-53061](https://youtrack.jetbrains.com/issue/KT-53061) | 소스에서 동일한 FQ 이름(Fully Qualified Name)을 가진 Java 및 Kotlin 클래스 금지        |
-| [KT-49882](https://youtrack.jetbrains.com/issue/KT-49882) | Java 컬렉션에서 상속된 클래스는 슈퍼타입의 순서에 따라 일관성 없는 동작을 보입니다.        |
-| [KT-66324](https://youtrack.jetbrains.com/issue/KT-66324) | K2: Kotlin private 클래스에서 Java 클래스 상속 시 지정되지 않은 동작                   |
+| 이슈 ID | 제목 |
+|:---|:---|
+| [KT-53061](https://youtrack.jetbrains.com/issue/KT-53061) | 소스에서 동일한 FQ 이름(Fully Qualified Name)을 가진 Java 및 Kotlin 클래스 금지 |
+| [KT-49882](https://youtrack.jetbrains.com/issue/KT-49882) | Java 컬렉션에서 상속된 클래스는 슈퍼타입의 순서에 따라 일관성 없는 동작을 보입니다. |
+| [KT-66324](https://youtrack.jetbrains.com/issue/KT-66324) | K2: Kotlin private 클래스에서 Java 클래스 상속 시 지정되지 않은 동작 |
 | [KT-66220](https://youtrack.jetbrains.com/issue/KT-66220) | Java vararg 메서드를 인라인 함수에 전달하면 런타임에 단순히 배열 대신 배열의 배열이 생성됩니다. |
-| [KT-66204](https://youtrack.jetbrains.com/issue/KT-66204) | K-J-K 계층 구조에서 내부 멤버 오버라이드 허용                                          |
+| [KT-66204](https://youtrack.jetbrains.com/issue/KT-66204) | K-J-K 계층 구조에서 내부 멤버 오버라이드 허용 |
 
 #### 프로퍼티 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 이슈 ID                                                   | 제목                                                                                                                |
-|:----------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------|
+| 이슈 ID | 제목 |
+|:---|:---|
 | [KT-57555](https://youtrack.jetbrains.com/issue/KT-57555)* | [[LC] 백킹 필드가 있는 open 프로퍼티의 지연 초기화 금지](#immediate-initialization-of-open-properties-with-backing-fields) |
-| [KT-58589](https://youtrack.jetbrains.com/issue/KT-58589)  | 기본 생성자가 없거나 클래스가 로컬일 때 누락된 MUST_BE_INITIALIZED 사용 중단                 |
-| [KT-64295](https://youtrack.jetbrains.com/issue/KT-64295)  | 프로퍼티에 대한 잠재적인 invoke 호출의 경우 재귀적 해석 금지                                   |
-| [KT-57290](https://youtrack.jetbrains.com/issue/KT-57290)  | 기반 클래스가 다른 모듈에서 온 경우 보이지 않는 파생 클래스에서 기반 클래스 프로퍼티에 대한 스마트 캐스트 사용 중단 |
-| [KT-62661](https://youtrack.jetbrains.com/issue/KT-62661)  | K2: 데이터 클래스 프로퍼티에 대한 OPT_IN_USAGE_ERROR 누락                                   |
+| [KT-58589](https://youtrack.jetbrains.com/issue/KT-58589) | 기본 생성자가 없거나 클래스가 로컬일 때 누락된 MUST_BE_INITIALIZED 사용 중단 |
+| [KT-64295](https://youtrack.jetbrains.com/issue/KT-64295) | 프로퍼티에 대한 잠재적인 invoke 호출의 경우 재귀적 해석 금지 |
+| [KT-57290](https://youtrack.jetbrains.com/issue/KT-57290) | 기반 클래스가 다른 모듈에서 온 경우 보이지 않는 파생 클래스에서 기반 클래스 프로퍼티에 대한 스마트 캐스트 사용 중단 |
+| [KT-62661](https://youtrack.jetbrains.com/issue/KT-62661) | K2: 데이터 클래스 프로퍼티에 대한 OPT_IN_USAGE_ERROR 누락 |
 
 #### 제어 흐름 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 이슈 ID                                                   | 제목                                                                   |
-|:----------------------------------------------------------|:-----------------------------------------------------------------------|
-| [KT-56408](https://youtrack.jetbrains.com/issue/KT-56408) | K1과 K2 간 클래스 초기화 블록에서 CFA의 불일치 규칙                    |
-| [KT-57871](https://youtrack.jetbrains.com/issue/KT-57871) | 괄호 안의 else 분기가 없는 if 조건문에 대한 K1/K2 불일치             |
+| 이슈 ID | 제목 |
+|:---|:---|
+| [KT-56408](https://youtrack.jetbrains.com/issue/KT-56408) | K1과 K2 간 클래스 초기화 블록에서 CFA의 불일치 규칙 |
+| [KT-57871](https://youtrack.jetbrains.com/issue/KT-57871) | 괄호 안의 else 분기가 없는 if 조건문에 대한 K1/K2 불일치 |
 | [KT-42995](https://youtrack.jetbrains.com/issue/KT-42995) | 스코프 함수 내 초기화를 가진 try/catch 블록에서 "VAL_REASSIGNMENT"의 잘못된 음성 |
-| [KT-65724](https://youtrack.jetbrains.com/issue/KT-65724) | try 블록에서 catch 및 finally 블록으로 데이터 흐름 정보 전파           |
+| [KT-65724](https://youtrack.jetbrains.com/issue/KT-65724) | try 블록에서 catch 및 finally 블록으로 데이터 흐름 정보 전파 |
 
 #### Enum 클래스 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 이슈 ID                                                   | 제목                                                                 |
-|:----------------------------------------------------------|:---------------------------------------------------------------------|
+| 이슈 ID | 제목 |
+|:---|:---|
 | [KT-57608](https://youtrack.jetbrains.com/issue/KT-57608) | enum 엔트리 초기화 중 enum 클래스의 컴패니언 객체에 접근하는 것을 금지 |
-| [KT-34372](https://youtrack.jetbrains.com/issue/KT-34372) | enum 클래스의 가상 인라인 메서드에 대한 누락된 오류 보고             |
-| [KT-52802](https://youtrack.jetbrains.com/issue/KT-52802) | 프로퍼티/필드와 enum 엔트리 간의 모호성 해석 보고                      |
-| [KT-47310](https://youtrack.jetbrains.com/issue/KT-47310) | 컴패니언 프로퍼티가 enum 엔트리보다 선호될 때 한정자 해석 동작 변경    |
+| [KT-34372](https://youtrack.jetbrains.com/issue/KT-34372) | enum 클래스의 가상 인라인 메서드에 대한 누락된 오류 보고 |
+| [KT-52802](https://youtrack.jetbrains.com/issue/KT-52802) | 프로퍼티/필드와 enum 엔트리 간의 모호성 해석 보고 |
+| [KT-47310](https://youtrack.jetbrains.com/issue/KT-47310) | 컴패니언 프로퍼티가 enum 엔트리보다 선호될 때 한정자 해석 동작 변경 |
 
 #### 함수형 (SAM) 인터페이스 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 이슈 ID                                                   | 제목                                                                        |
-|:----------------------------------------------------------|:----------------------------------------------------------------------------|
-| [KT-52628](https://youtrack.jetbrains.com/issue/KT-52628) | 어노테이션 없이 OptIn을 요구하는 SAM 생성자 사용 중단                      |
+| 이슈 ID | 제목 |
+|:---|:---|
+| [KT-52628](https://youtrack.jetbrains.com/issue/KT-52628) | 어노테이션 없이 OptIn을 요구하는 SAM 생성자 사용 중단 |
 | [KT-57014](https://youtrack.jetbrains.com/issue/KT-57014) | JDK 함수 인터페이스의 SAM 생성자에 대해 람다에서 잘못된 null 허용성을 가진 값 반환 금지 |
-| [KT-64342](https://youtrack.jetbrains.com/issue/KT-64342) | 호출 가능 참조의 매개변수 타입 SAM 변환은 CCE를 발생시킵니다.               |
+| [KT-64342](https://youtrack.jetbrains.com/issue/KT-64342) | 호출 가능 참조의 매개변수 타입 SAM 변환은 CCE를 발생시킵니다. |
 
 #### 컴패니언 객체 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 이슈 ID                                                  | 제목                                                                 |
-|:----------------------------------------------------------|:---------------------------------------------------------------------|
+| 이슈 ID | 제목 |
+|:---|:---|
 | [KT-54316](https://youtrack.jetbrains.com/issue/KT-54316) | 컴패니언 객체 멤버에 대한 호출 외부 참조는 유효하지 않은 시그니처를 가집니다. |
-| [KT-47313](https://youtrack.jetbrains.com/issue/KT-47313) | V가 컴패니언을 가질 때 (V)::foo 참조 해석 변경                         |
+| [KT-47313](https://youtrack.jetbrains.com/issue/KT-47313) | V가 컴패니언을 가질 때 (V)::foo 참조 해석 변경 |
 
 #### 기타 {initial-collapse-state="collapsed" collapsible="true"}
 
-| 이슈 ID                                                   | 제목                                                                                                                              |
-|:----------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------|
-| [KT-59739](https://youtrack.jetbrains.com/issue/KT-59739)* | K2/MPP는 실제 구현이 있는 경우 공통 코드의 상속자에 대해 ABSTRACT_MEMBER_NOT_IMPLEMENTED를 보고합니다.                             |
-| [KT-49015](https://youtrack.jetbrains.com/issue/KT-49015)  | 한정된 this: 잠재적인 레이블 충돌 시 동작 변경                                                                                    |
-| [KT-56545](https://youtrack.jetbrains.com/issue/KT-56545)  | Java 서브클래스에서 우발적인 충돌 오버로드가 발생할 경우 JVM 백엔드에서 잘못된 함수 맹글링(mangling) 수정                         |
-| [KT-62019](https://youtrack.jetbrains.com/issue/KT-62019)  | [LC 이슈] 문 위치에서 suspend로 표시된 익명 함수 선언 금지                                                                        |
-| [KT-55111](https://youtrack.jetbrains.com/issue/KT-55111)  | OptIn: 마커 아래에서 기본 인자(기본값을 가진 매개변수)를 가진 생성자 호출 금지                                                      |
-| [KT-61182](https://youtrack.jetbrains.com/issue/KT-61182)  | 변수에 대한 표현식 + invoke 해석에 Unit 변환이 우발적으로 허용됩니다.                                                             |
-| [KT-55199](https://youtrack.jetbrains.com/issue/KT-55199)  | 적응형 호출 가능 참조를 KFunction으로 승격하는 것을 금지                                                                         |
-| [KT-65776](https://youtrack.jetbrains.com/issue/KT-65776)  | [LC] K2는 \`false && ...\` 및 \`false \|\| ...\`를 깨뜨립니다.                                                             |
-| [KT-65682](https://youtrack.jetbrains.com/issue/KT-65682)  | [LC] \`header\`/\`impl\` 키워드 사용 중단                                                                                          |
-| [KT-45375](https://youtrack.jetbrains.com/issue/KT-45375)  | 기본적으로 invokedynamic + LambdaMetafactory를 통해 모든 Kotlin 람다 생성                                                         |
+| 이슈 ID | 제목 |
+|:---|:---|
+| [KT-59739](https://youtrack.jetbrains.com/issue/KT-59739)* | K2/MPP는 실제 구현이 있는 경우 공통 코드의 상속자에 대해 ABSTRACT_MEMBER_NOT_IMPLEMENTED를 보고합니다. |
+| [KT-49015](https://youtrack.jetbrains.com/issue/KT-49015) | 한정된 this: 잠재적인 레이블 충돌 시 동작 변경 |
+| [KT-56545](https://youtrack.jetbrains.com/issue/KT-56545) | Java 서브클래스에서 우발적인 충돌 오버로드가 발생할 경우 JVM 백엔드에서 잘못된 함수 맹글링(mangling) 수정 |
+| [KT-62019](https://youtrack.jetbrains.com/issue/KT-62019) | [LC 이슈] 문 위치에서 suspend로 표시된 익명 함수 선언 금지 |
+| [KT-55111](https://youtrack.jetbrains.com/issue/KT-55111) | OptIn: 마커 아래에서 기본 인자(기본값을 가진 매개변수)를 가진 생성자 호출 금지 |
+| [KT-61182](https://youtrack.jetbrains.com/issue/KT-61182) | 변수에 대한 표현식 + invoke 해석에 Unit 변환이 우발적으로 허용됩니다. |
+| [KT-55199](https://youtrack.jetbrains.com/issue/KT-55199) | 적응형 호출 가능 참조를 KFunction으로 승격하는 것을 금지 |
+| [KT-65776](https://youtrack.jetbrains.com/issue/KT-65776) | [LC] K2는 \`false && ...\` 및 \`false \|\| ...\`를 깨뜨립니다. |
+| [KT-65682](https://youtrack.jetbrains.com/issue/KT-65682) | [LC] \`header\`/\`impl\` 키워드 사용 중단 |
+| [KT-45375](https://youtrack.jetbrains.com/issue/KT-45375) | 기본적으로 invokedynamic + LambdaMetafactory를 통해 모든 Kotlin 람다 생성 |
 
 ## Kotlin 릴리스와의 호환성
 
 다음 Kotlin 릴리스는 새로운 K2 컴파일러를 지원합니다:
 
-| Kotlin 릴리스     | 안정성 수준 |
-|-------------------|-------------|
-| 2.0.0–%kotlinVersion% | 안정적      |
-| 1.9.20–1.9.25     | 베타        |
-| 1.9.0–1.9.10      | JVM은 베타  |
-| 1.7.0–1.8.22      | 알파        |
+| Kotlin 릴리스 | 안정성 수준 |
+|:---|:---|
+| 2.0.0–%kotlinVersion% | 안정적 |
+| 1.9.20–1.9.25 | 베타 |
+| 1.9.0–1.9.10 | JVM은 베타 |
+| 1.7.0–1.8.22 | 알파 |
 
 ## Kotlin 라이브러리와의 호환성
 
@@ -1148,6 +1149,7 @@ Kotlin Multiplatform으로 작업하는 경우, K2 컴파일러는 Kotlin 버전
 *   [Lombok](lombok.md)
 *   [`no-arg`](no-arg-plugin.md)
 *   [Parcelize](https://plugins.gradle.org/plugin/org.jetbrains.kotlin.plugin.parcelize)
+*   [Power-assert](power-assert.md)
 *   [SAM with receiver](sam-with-receiver-plugin.md)
 *   [Serialization](serialization.md)
 

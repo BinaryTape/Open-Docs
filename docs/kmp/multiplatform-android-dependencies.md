@@ -37,14 +37,14 @@ kotlin {
 </TabItem>
 </Tabs>
 
-如果顶层依赖项具有非简单的配置名称，将 Android 项目中的顶层依赖项移动到多平台项目中的特定源代码集可能会很困难。例如，要从 Android 项目的顶层移动 `debugImplementation` 依赖项，您需要将 `implementation` 依赖项添加到名为 `androidDebug` 的源代码集。为了最大程度地减少处理此类迁移问题所需的工作量，您可以将 `dependencies {}` 代码块添加到 `androidTarget {}` 代码块内：
+如果顶层依赖项具有非简单的配置名称，将 Android 项目中的顶层依赖项移动到多平台项目中的特定源代码集可能会很困难。例如，要从 Android 项目的顶层移动 `debugImplementation` 依赖项，您需要将 `implementation` 依赖项添加到名为 `androidDebug` 的源代码集。为了最大程度地减少处理此类迁移问题所需的工作量，您可以将 `dependencies {}` 代码块添加到 `android {}` 代码块内：
 
 <Tabs group="build-script">
 <TabItem title="Kotlin" group-key="kotlin">
 
 ```kotlin
 kotlin {
-    androidTarget {
+    android {
         //...
         dependencies {
             implementation("com.example.android:app-magic:12.3")
@@ -58,10 +58,11 @@ kotlin {
 
 ```groovy
 kotlin {
-    androidTarget {
+    android {
         //...
         dependencies {
             implementation 'com.example.android:app-magic:12.3'
+            }
         }
     }
 }

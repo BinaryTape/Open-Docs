@@ -56,14 +56,14 @@ data class Person(val name: String, val age: Int)
 *   該類別不能顯式繼承任何其他類別（包括 `Any`），因為所有 JVM 記錄都隱式繼承 `java.lang.Record`。然而，該類別可以實作介面。
 *   該類別不能宣告任何帶有支援欄位的屬性 – 除非它們是從相應的主要建構函式參數初始化的。
 *   該類別不能宣告任何帶有支援欄位的可變屬性。
-*   該類別不能是局部（local）的。
+*   該類別不能是局部的。
 *   該類別的主要建構函式必須與類別本身具有相同的可見性。
 
 ### 啟用 JVM 記錄
 
 JVM 記錄需要生成的 JVM 位元組碼目標版本為 `16` 或更高。
 
-若要顯式指定它，請在 [Gradle](gradle-compiler-options.md#attributes-specific-to-jvm) 或 [Maven](maven.md#attributes-specific-to-jvm) 中使用 `jvmTarget` 編譯器選項。
+若要顯式指定它，請在 [Gradle](gradle-compiler-options.md#attributes-specific-to-jvm) 或 [Maven](maven-compile-package.md#attributes-specific-to-jvm) 中使用 `jvmTarget` 編譯器選項。
 
 ## 在 Kotlin 中註解記錄元件
 

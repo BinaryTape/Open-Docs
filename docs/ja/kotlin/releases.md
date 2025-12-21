@@ -2,7 +2,7 @@
 
 <tldr>
     <p>最新のKotlinバージョン: <strong>%kotlinVersion%</strong></p>
-    <p>詳細については<a href="%kotlinLatestWhatsnew%">Kotlin 2.2.20 の新機能</a>を参照してください<!--and find the bug fix details in the <a href="%kotlinLatestUrl%">changelog</a>-->。</p>
+    <p>詳細については<a href="%kotlinLatestWhatsnew%">Kotlin 2.3.0 の新機能</a>を参照してください<!--and find the bug fix details in the <a href="%kotlinLatestUrl%">changelog</a>-->。</p>
 </tldr>
 
 Kotlin 2.0.0以降、以下の種類のリリースを提供しています。
@@ -28,8 +28,8 @@ Kotlin 2.0.0以降、以下の種類のリリースを提供しています。
 
 今後の安定版Kotlinリリースの概算スケジュールは以下の通りです:
 
-*   **2.3.0**: 2025年12月～2026年1月に予定
 *   **2.3.20**: 2026年3月～4月に予定
+*   **2.4.0**: 2026年6月～7月に予定
 
 ## 新しいKotlinバージョンへのアップデート
 
@@ -100,7 +100,7 @@ Kotlin %kotlinVersion% に更新するには、`pom.xml` ファイルのバー�
 </plugins>
 ```
 
-以前のKotlinバージョンで作成されたプロジェクトがある場合、[kotlinxライブラリのバージョンを更新](maven.md#dependency-on-a-kotlinx-library)する必要があるか確認してください。
+以前のKotlinバージョンで作成されたプロジェクトがある場合、[kotlinxライブラリのバージョンを更新](maven-configure-project.md#dependency-on-a-kotlinx-library)する必要があるか確認してください。
 
 > プロジェクトでMavenを操作する方法の詳細については、[Maven](maven.md)を参照してください。
 >
@@ -138,6 +138,16 @@ K2モードの詳細については、[こちらのブログ](https://blog.jetbr
         <th>ビルド情報</th>
         <th>ビルドのハイライト</th>
     </tr>
+    <tr>
+        <td><strong>2.3.0</strong>
+            <p>リリース日: <strong>2025年12月16日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0" target="_blank">GitHubでのリリース</a></p>
+        </td>
+        <td>
+            <p>新しい安定した言語機能、ツールアップデート、さまざまなプラットフォーム向けのパフォーマンス改善、および重要な修正を含む言語リリースです。</p>
+            <p>詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0">変更ログ</a>を参照してください。</p>
+        </td>
+    </tr> 
     <tr>
         <td><strong>2.2.21</strong>
             <p>リリース日: <strong>2025年10月23日</strong></p>
@@ -495,7 +505,7 @@ K2モードの詳細については、[こちらのブログ](https://blog.jetbr
         </td>
         <td>
             <p>Kotlin 1.6.0 のバグ修正リリースです。</p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.6.10" target="_blank">Kotlin 1.6.0</a> の詳細については、こちらをご覧ください。</p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.6.0" target="_blank">Kotlin 1.6.0</a> の詳細については、こちらをご覧ください。</p>
         </td>
     </tr>
     <tr>
@@ -593,7 +603,7 @@ K2モードの詳細については、[こちらのブログ](https://blog.jetbr
         </td>
         <td>
             <p>Kotlin 1.5.0 のバグ修正リリースです。</p>
-            <p><a href="https://blog.jetbrains.com/kotlin/2021/04/kotlin-1-5-0-released/" target="_blank">Kotlin 1.5.0</a> の詳細については、こちらをご覧ください。</p>
+            <p><a href="https://blog.jetbrains.com/kotlin/2021/05/kotlin-1-5-0-released/" target="_blank">Kotlin 1.5.0</a> の詳細については、こちらをご覧ください。</p>
         </td>
     </tr>
     <tr>
@@ -605,7 +615,7 @@ K2モードの詳細については、[こちらのブログ](https://blog.jetbr
             <p>新しい言語機能、パフォーマンス改善、実験的なAPIの安定化といった進化的な変更を含む機能リリースです。</p>
             <p>詳細はこちら:</p>
             <list>
-                <li><a href="https://blog.jetbrains.com/kotlin/2021/04/kotlin-1-5-0-released/" target="_blank">リリースブログ投稿</a></li>
+                <li><a href="https://blog.jetbrains.com/kotlin/2021/05/kotlin-1-5-0-released/" target="_blank">リリースブログ投稿</a></li>
                 <li><a href="whatsnew15.md" target="_blank">Kotlin 1.5.0 の新機能</a></li>
                 <li><a href="compatibility-guide-15.md" target="_blank">互換性ガイド</a></li>
             </list>
@@ -646,7 +656,7 @@ K2モードの詳細については、[こちらのブログ](https://blog.jetbr
             </list>
             <p>詳細はこちら:</p>
             <list>
-                <li><a href="https://blog.jetbrains.com/kotlin/2021/01/kotlin-1-4-30-released/" target="_blank">リリースブログ投稿</a></li>
+                <li><a href="https://blog.jetbrains.com/kotlin/2021/02/kotlin-1-4-30-released/" target="_blank">リリースブログ投稿</a></li>
                 <li><a href="whatsnew1430.md" target="_blank">Kotlin 1.4.30 の新機能</a></li>
             </list>
         </td>

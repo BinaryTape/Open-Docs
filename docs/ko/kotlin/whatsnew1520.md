@@ -22,7 +22,7 @@ Kotlin 1.5.20은 JVM 9 이상 대상에서 문자열 연결을 [동적 호출](h
 
 이전 버전에서 사용된 [`StringBuilder.append()`](https://docs.oracle.com/javase/9/docs/api/java/lang/StringBuilder.html#append-java.lang.String-)를 통한 연결로 되돌아가려면, 컴파일러 옵션 `-Xstring-concat=inline`을 추가하세요.
 
-[Gradle](gradle-compiler-options.md), [Maven](maven.md#specify-compiler-options), 및 [명령줄 컴파일러](compiler-reference.md#compiler-options)에서 컴파일러 옵션을 추가하는 방법을 알아보세요.
+[Gradle](gradle-compiler-options.md), [Maven](maven-compile-package.md#specify-compiler-options), 및 [명령줄 컴파일러](compiler-reference.md#compiler-options)에서 컴파일러 옵션을 추가하는 방법을 알아보세요.
 
 ### JSpecify 널 가능성(nullness) 어노테이션 지원
 
@@ -86,7 +86,7 @@ Kotlin/Native 1.5.20은 새로운 기능의 미리 보기와 툴링 개선 사�
 
 * [생성된 Objective-C 헤더로 KDoc 주석 옵트인(opt-in) 내보내기](#opt-in-export-of-kdoc-comments-to-generated-objective-c-headers)
 * [컴파일러 버그 수정](#compiler-bug-fixes)
-* [단일 배열 내에서 `Array.copyInto()`의 성능 향상](#improved-performance-of-array-copyinto-inside-one-array)
+* [단일 배열 내에서 Array.copyInto()의 성능 향상](#improved-performance-of-array-copyinto-inside-one-array)
 
 ### 생성된 Objective-C 헤더로 KDoc 주석 옵트인(opt-in) 내보내기
 
@@ -208,8 +208,8 @@ kapt.include.compile.classpath=false
 ## 표준 라이브러리
 
 Kotlin 1.5.20은 문자와 함께 작동하는 여러 함수의 플랫폼별 구현을 변경하여, 그 결과 플랫폼 전반에 걸쳐 통합을 가져옵니다:
-* [Kotlin/Native 및 Kotlin/JS에서 `Char.digitToInt()`의 모든 유니코드 숫자 지원](#support-for-all-unicode-digits-in-char-digittoint-in-kotlin-native-and-kotlin-js).
-* [플랫폼 전반에 걸쳐 `Char.isLowerCase()/isUpperCase()` 구현 통합](#unification-of-char-islowercase-isuppercase-implementations-across-platforms).
+* [Kotlin/Native 및 Kotlin/JS에서 Char.digitToInt()의 모든 유니코드 숫자 지원](#support-for-all-unicode-digits-in-char-digittoint-in-kotlin-native-and-kotlin-js).
+* [플랫폼 전반에 걸쳐 Char.isLowerCase()/isUpperCase() 구현 통합](#unification-of-char-islowercase-isuppercase-implementations-across-platforms).
 
 ### Kotlin/Native 및 Kotlin/JS에서 Char.digitToInt()의 모든 유니코드 숫자 지원
 
@@ -240,7 +240,7 @@ fun main() {
     val latinCapitalA = 'A' // has "Lu" general category
     val circledLatinCapitalA = 'Ⓐ' // has "Other_Uppercase" property
     println(latinCapitalA.isUpperCase() && circledLatinCapitalA.isUpperCase())
-//sampleEnd
+//end
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5"}

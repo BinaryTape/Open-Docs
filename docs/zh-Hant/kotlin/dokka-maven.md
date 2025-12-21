@@ -53,13 +53,22 @@ Maven 外掛程式提供以下目標：
 
 所有其他輸出格式都實作為 [Dokka 外掛程式](dokka-plugins.md)。為了產生所需格式的說明文件，您必須將其新增為 Dokka 外掛程式到設定中。
 
-例如，要使用實驗性的 [GFM](dokka-markdown.md#gfm) 格式，您必須新增 `gfm-plugin` artifact：
+例如，要使用實驗性的 [GFM](https://github.com/Kotlin/dokka/tree/master/dokka-subprojects/plugin-gfm#readme) 格式，您必須新增 `gfm-plugin` artifact：
 
 ```xml
 <plugin>
     <groupId>org.jetbrains.dokka</groupId>
-    <artifactId>gfm-plugin</artifactId>
-    <version>%dokkaVersion%</version>
+    <artifactId>dokka-maven-plugin</artifactId>
+    ...
+    <configuration>
+        <dokkaPlugins>
+            <plugin>
+                <groupId>org.jetbrains.dokka</groupId>
+                <artifactId>gfm-plugin</artifactId>
+                <version>%dokkaVersion%</version>
+            </plugin>
+        </dokkaPlugins>
+    </configuration>
 </plugin>
 ```
 
@@ -277,7 +286,7 @@ Dokka 擁有多種設定選項，可自訂您和讀者的體驗。
     </def>
     <def title="skipDeprecated">
         <p>是否文件化使用 <code>@Deprecated</code> 註解的宣告。</p>
-        <p>這可以在專案/模組層級覆寫。</p>
+        <p>這可以在套件層級覆寫。</p>
         <p>預設值：<code>false</code></p>
     </def>
     <def title="skipEmptyPackages">

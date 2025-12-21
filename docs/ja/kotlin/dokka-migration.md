@@ -1,18 +1,24 @@
 [//]: # (title: Dokka Gradleプラグインv2への移行)
 
+> このページは、DGPv1を使用しており、DGPv2に移行したい場合にのみ関連します。Dokka 2.1.0以降、DGP v2はデフォルトで有効になります。
+> Dokka 2.1.0以降を使用している場合、
+> このページをスキップして、[Dokka Gradleドキュメント](dokka-gradle.md)に直接進むことができます。
+>
+{style="note"}
+
 Dokka Gradleプラグイン（DGP）は、GradleでビルドされたKotlinプロジェクト向けに包括的なAPIドキュメントを生成するためのツールです。
 
 DGPは、KotlinのKDocコメントとJavaのJavadocコメントの両方をスムーズに処理し、情報を抽出し、[HTMLまたはJavadoc](#select-documentation-output-format)形式で構造化されたドキュメントを作成します。
 
-Dokka 2.0.0以降、DGPの新バージョンであるDokka Gradleプラグインv2を試すことができます。Dokka 2.0.0では、Dokka Gradleプラグインをv1またはv2モードのいずれかで使用できます。
-
-DGP v2はDGPに大幅な改善をもたらし、Gradleのベストプラクティスにより密接に準拠しています。
+Dokka Gradleプラグインv2モードはデフォルトで有効になっており、Gradleのベストプラクティスに準拠しています。
 
 *   Gradleの型を採用し、パフォーマンスが向上します。
 *   低レベルのタスクベースのセットアップではなく、直感的なトップレベルDSL設定を使用することで、ビルドスクリプトとその可読性を簡素化します。
 *   ドキュメントの集約に対してより宣言的なアプローチを採用し、マルチプロジェクトのドキュメントを管理しやすくします。
 *   型安全なプラグイン設定を使用することで、ビルドスクリプトの信頼性と保守性が向上します。
 *   Gradleの[設定キャッシュ](https://docs.gradle.org/current/userguide/configuration_cache.html)と[ビルドキャッシュ](https://docs.gradle.org/current/userguide/build_cache.html)に完全に対応し、パフォーマンスが向上し、ビルド作業が簡素化されます。
+
+DGP v1からv2モードへの変更と移行に関する詳細については、このガイドをお読みください。
 
 ## 開始する前に
 
@@ -30,17 +36,12 @@ DGP v2はDGPに大幅な改善をもたらし、Gradleのベストプラクテ�
 
 ### DGP v2を有効にする
 
-> Dokka 2.1.0以降、DGP v2はデフォルトで有効になります。
-> Dokka 2.1.0以降を使用している場合、または更新する場合は、この手順をスキップして[プロジェクトを移行する](#migrate-your-project)に直接進むことができます。
->
-{style="note"}
-
-プロジェクトの`build.gradle.kts`ファイルの`plugins {}`ブロックで、Dokkaのバージョンを2.0.0に更新します。
+プロジェクトの`build.gradle.kts`ファイルの`plugins {}`ブロックで、Dokkaのバージョンを`%dokkaVersion%`に更新します。
 
 ```kotlin
 plugins {
     kotlin("jvm") version "2.1.10"
-    id("org.jetbrains.dokka") version "2.0.0"
+    id("org.jetbrains.dokka") version "%dokkaVersion%"
 }
 ```
 
@@ -83,7 +84,7 @@ Dokka Gradleプラグインをv2に更新したら、プロジェクトに適用
 
 ### 設定オプションを調整する
 
-DGP v2は、[Gradle設定オプション](dokka-gradle.md#configuration-options)にいくつかの変更を導入します。`build.gradle.kts`ファイルで、プロジェクトのセットアップに合わせて設定オプションを調整してください。
+DGP v2は、[Gradle設定オプション](dokka-gradle-configuration-options.md)にいくつかの変更を導入します。`build.gradle.kts`ファイルで、プロジェクトのセットアップに合わせて設定オプションを調整してください。
 
 #### DGP v2におけるトップレベルDSL設定
 
@@ -122,7 +123,7 @@ DGP v2での設定:
 `build.gradle.kts`ファイルの構文は、GradleのKotlin DSLが型安全なアクセサーを使用しているため、通常の`.kt`ファイル（カスタムGradleプラグインなどで使用されるものなど）とは異なります。
 
 <tabs group="dokka-configuration">
-<tab title="Gradle設定ファイル" group-key="gradle">
+<tab title="Gradle設定ファイル" group-key="kotlin">
 
 ```kotlin
 // build.gradle.kts
@@ -150,7 +151,7 @@ dokka {
 ```
 
 </tab>
-<tab title="Kotlinファイル" group-key="kotlin">
+<tab title="Kotlinファイル" group-key="kotlin custom">
 
 ```kotlin
 // CustomPlugin.kt
@@ -255,7 +256,7 @@ DGP v2での設定:
 `build.gradle.kts`ファイルの構文は、GradleのKotlin DSLが型安全なアクセサーを使用しているため、通常の`.kt`ファイル（カスタムGradleプラグインなどで使用されるものなど）とは異なります。
 
 <tabs group="dokka-configuration">
-<tab title="Gradle設定ファイル" group-key="gradle">
+<tab title="Gradle設定ファイル" group-key="kotlin">
 
 ```kotlin
 // build.gradle.kts
@@ -272,7 +273,7 @@ dokka {
 ```
 
 </tab>
-<tab title="Kotlinファイル" group-key="kotlin">
+<tab title="Kotlinファイル" group-key="kotlin custom">
 
 ```kotlin
 // CustomPlugin.kt
@@ -423,7 +424,7 @@ DGP v2での設定:
 `build.gradle.kts`ファイルの構文は、GradleのKotlin DSLが型安全なアクセサーを使用しているため、通常の`.kt`ファイル（カスタムGradleプラグインなどで使用されるものなど）とは異なります。
 
 <tabs group="dokka-configuration">
-<tab title="Gradle設定ファイル" group-key="gradle">
+<tab title="Gradle設定ファイル" group-key="kotlin">
 
 ```kotlin
 // build.gradle.kts
@@ -437,7 +438,7 @@ dokka {
 ```
 
 </tab>
-<tab title="Kotlinファイル" group-key="kotlin">
+<tab title="Kotlinファイル" group-key="kotlin custom">
 
 ```kotlin
 // CustomPlugin.kt
@@ -517,9 +518,9 @@ Dokka設定を共有した後、複数のモジュールからのドキュメン
 
 #### 規約プラグインを使用しないマルチモジュールプロジェクト
 
-プロジェクトが規約プラグインを使用していない場合でも、各モジュールを直接設定することでDokka設定を共有できます。これには、各モジュールの`build.gradle.kts`ファイルで共有設定を手動でセットアップすることが含まれます。このアプローチは集中度が低いですが、規約プラグインのような追加のセットアップの必要がありません。
+プロジェクトが規約プラグインを使用していない場合でも、各サブプロジェクトを直接設定することでDokka設定を共有できます。これには、各サブプロジェクトの`build.gradle.kts`ファイルで共有設定を手動でセットアップすることが含まれます。このアプローチは集中度が低いですが、規約プラグインのような追加のセットアップの必要がありません。
 
-それ以外の場合、プロジェクトが規約プラグインを使用している場合は、`buildSrc`ディレクトリに規約プラグインを作成し、そのプラグインをモジュール（サブプロジェクト）に適用することで、マルチモジュールプロジェクトでDokka設定を共有することもできます。
+それ以外の場合、プロジェクトが規約プラグインを使用している場合は、`buildSrc`ディレクトリに規約プラグインを作成し、そのプラグインをサブプロジェクトに適用することで、マルチモジュールプロジェクトでDokka設定を共有することもできます。
 
 ##### buildSrcディレクトリをセットアップする
 
@@ -547,7 +548,7 @@ Dokka設定を共有した後、複数のモジュールからのドキュメン
     }
     
     dependencies {
-        implementation("org.jetbrains.dokka:dokka-gradle-plugin:2.0.0")
+        implementation("org.jetbrains.dokka:dokka-gradle-plugin:%dokkaVersion%")
     }   
     ```
 
@@ -571,9 +572,9 @@ Dokka設定を共有した後、複数のモジュールからのドキュメン
     `dokka {}`ブロック内に、すべてのサブプロジェクトに共通の共有Dokka[設定](#adjust-configuration-options)を追加する必要があります。
     また、Dokkaのバージョンを指定する必要はありません。バージョンは`buildSrc/build.gradle.kts`ファイルですでに設定されています。
 
-##### 規約プラグインをモジュールに適用する
+##### 規約プラグインをサブプロジェクトに適用する
 
-各サブプロジェクトの`build.gradle.kts`ファイルにDokka規約プラグインを追加して、モジュール（サブプロジェクト）全体に適用します。
+各サブプロジェクトの`build.gradle.kts`ファイルにDokka規約プラグインを追加して、サブプロジェクト全体に適用します。
 
 ```kotlin
 plugins {
@@ -585,13 +586,13 @@ plugins {
 
 既存の規約プラグインがある場合は、[Gradleのドキュメント](https://docs.gradle.org/current/userguide/custom_plugins.html#sec:convention_plugins)に従って専用のDokka規約プラグインを作成してください。
 
-その後、[Dokka規約プラグインをセットアップする](#set-up-the-dokka-convention-plugin)と[モジュール全体に適用する](#apply-the-convention-plugin-to-your-modules)の手順に従ってください。
+その後、[Dokka規約プラグインをセットアップする](#set-up-the-dokka-convention-plugin)と[サブプロジェクト全体に適用する](#apply-the-convention-plugin-to-your-subprojects)の手順に従ってください。
 
 ### マルチモジュールプロジェクトでのドキュメント集約を更新する
 
-Dokkaは、複数のモジュール（サブプロジェクト）からのドキュメントを単一の出力またはパブリケーションに集約できます。
+Dokkaは、複数のサブプロジェクトからのドキュメントを単一の出力またはパブリケーションに集約できます。
 
-[説明した](#apply-the-convention-plugin-to-your-modules)ように、ドキュメントを集約する前に、すべてのドキュメント化可能なサブプロジェクトにDokkaプラグインを適用します。
+[説明した](#apply-the-convention-plugin-to-your-subprojects)ように、ドキュメントを集約する前に、すべてのドキュメント化可能なサブプロジェクトにDokkaプラグインを適用します。
 
 DGP v2での集約は、タスクの代わりに`dependencies {}`ブロックを使用し、任意の`build.gradle.kts`ファイルに追加できます。
 
@@ -616,7 +617,7 @@ dependencies {
 
 ### 集約されたドキュメントのディレクトリを変更する
 
-DGPがモジュールを集約すると、各サブプロジェクトは集約されたドキュメント内に独自のサブディレクトリを持ちます。
+DGPがサブプロジェクトを集約すると、各サブプロジェクトは集約されたドキュメント内に独自のサブディレクトリを持ちます。
 
 DGP v2では、集約メカニズムがGradleの慣例により密接に準拠するように更新されました。DGP v2は、任意の場所でドキュメントを集約する際の競合を防ぐために、サブプロジェクトの完全なディレクトリを保持するようになりました。
 
@@ -640,7 +641,7 @@ turbo-lib/build/dokka/html/turbo-lib/maths/
 
 #### DGP v1のディレクトリ動作に戻す
 
-プロジェクトがDGP v1で使用されていたディレクトリ構造に依存している場合、モジュールディレクトリを手動で指定することでこの動作を元に戻すことができます。各サブプロジェクトの`build.gradle.kts`ファイルに以下の設定を追加します:
+プロジェクトがDGP v1で使用されていたディレクトリ構造に依存している場合、サブプロジェクトディレクトリを手動で指定することでこの動作を元に戻すことができます。各サブプロジェクトの`build.gradle.kts`ファイルに以下の設定を追加します:
 
 ```kotlin
 // /turbo-lib/maths/build.gradle.kts
@@ -650,7 +651,7 @@ plugins {
 }
 
 dokka {
-    // モジュールディレクトリをV1構造に一致させるためにオーバーライドします
+    // Overrides the subproject directory to match the V1 structure
     modulePath.set("maths")
 }
 ```
@@ -684,7 +685,7 @@ DGP v2バージョンでは、`dokkaGenerate`タスク名はシングルモジ�
 > Javadoc出力形式は[アルファ版](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained)です。
 > 使用中にバグや移行の問題が発生する可能性があります。Javadocを入力として受け入れるツールとの統合が成功することは保証されていません。自己責任でご使用ください。
 >
-{style="note"}
+{style="warning"}
 
 DGP v2のデフォルト出力形式はHTMLです。ただし、APIドキュメントをHTML、Javadoc、または両方の形式で同時に生成することもできます。
 
@@ -693,10 +694,10 @@ DGP v2のデフォルト出力形式はHTMLです。ただし、APIドキュメ�
     ```kotlin
     plugins {
         // Generates HTML documentation
-        id("org.jetbrains.dokka") version "2.0.0"
+        id("org.jetbrains.dokka") version "%dokkaVersion%"
 
         // Generates Javadoc documentation
-        id("org.jetbrains.dokka-javadoc") version "2.0.0"
+        id("org.jetbrains.dokka-javadoc") version "%dokkaVersion%"
 
         // Keeping both plugin IDs generates both formats
     }
@@ -715,9 +716,11 @@ DGP v2のデフォルト出力形式はHTMLです。ただし、APIドキュメ�
 >
 {style="tip"}
 
+IntelliJ IDEAを使用している場合、`dokkaGenerateHtml` Gradleタスクが表示されることがあります。このタスクは単に`dokkaGeneratePublicationHtml`のエイリアスです。両方のタスクはまったく同じ操作を実行します。
+
 ### 非推奨および削除された項目への対応
 
-*   **出力形式のサポート:** Dokka 2.0.0はHTMLとJavadoc出力のみをサポートしています。MarkdownやJekyllのような実験的な形式はサポートされなくなりました。
+*   **出力形式のサポート:** DGP v2はHTMLとJavadoc出力のみをサポートしています。MarkdownやJekyllのような実験的な形式はサポートされなくなりました。
 *   **コレクタータスク:** `DokkaCollectorTask`は削除されました。これからは、各サブプロジェクトのドキュメントを個別に生成し、必要に応じて[ドキュメントを集約](#update-documentation-aggregation-in-multi-module-projects)する必要があります。
 
 ## 移行を完了する
@@ -743,7 +746,7 @@ DGP v2はGradleのビルドキャッシュと設定キャッシュをサポー�
 
 ## トラブルシューティング
 
-大規模なプロジェクトでは、Dokkaはドキュメントを生成するためにかなりの量のメモリを消費する可能性があります。これは、特に大量のデータを処理する場合に、Gradleのメモリ制限を超える可能性があります。
+大規模なプロジェクトでは、Dokkaがドキュメント生成のためにかなりの量のメモリを消費することがあります。これは、特に大量のデータを処理する場合に、Gradleのメモリ制限を超える可能性があります。
 
 Dokkaの生成がメモリ不足になると、ビルドは失敗し、Gradleは`java.lang.OutOfMemoryError: Metaspace`のような例外をスローすることがあります。
 

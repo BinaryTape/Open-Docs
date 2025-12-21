@@ -13,7 +13,7 @@
 // 'x'는 Int 타입의 매개변수입니다.
 // 예상되는 반환 값 또한 Int 타입입니다.
 fun double(x: Int): Int {
-return 2 * x
+    return 2 * x
 }
 //sampleEnd
 
@@ -51,7 +51,7 @@ fun powerOf(number: Int, exponent: Int): Int { /*...*/ }
 함수 본문 내부에서, 받은 인자들은 읽기 전용입니다 (묵시적으로 `val`로 선언됨):
 
 ```kotlin
-fun powerOf (number: Int, exponent: Int): Int {
+fun powerOf(number: Int, exponent: Int): Int {
     number = 2 // 오류: 'val'은 재할당될 수 없습니다.
 }
 ```
@@ -65,9 +65,11 @@ fun powerOf(
 ) { /*...*/ }
 ```
 
-후행 쉼표는 리팩토링 및 코드 유지보수에 도움이 됩니다: 선언 내에서 매개변수를 이동시킬 때 어떤 매개변수가 마지막이 될지에 대해 걱정할 필요가 없습니다.
+후행 쉼표는 리팩토링 및 코드 유지보수에 도움이 됩니다:
+선언 내에서 매개변수를 이동시킬 때 어떤 매개변수가 마지막이 될지에 대해 걱정할 필요가 없습니다.
 
-> 코틀린 함수는 다른 함수를 매개변수로 받을 수 있으며 — 인자로 전달될 수도 있습니다. 더 자세한 내용은 [](lambdas.md)를 참조하십시오.
+> 코틀린 함수는 다른 함수를 매개변수로 받을 수 있으며 — 인자로 전달될 수도 있습니다.
+> 더 자세한 내용은 [](lambdas.md)를 참조하십시오.
 > 
 {style="note"}
 
@@ -77,7 +79,8 @@ fun powerOf(
 코틀린은 해당 매개변수에 해당하는 인자를 제공하지 않고 함수를 호출할 때 기본값을 사용합니다.
 기본값을 가진 매개변수들은 _선택적 매개변수(optional parameters)_라고도 알려져 있습니다.
 
-선택적 매개변수는 합리적인 기본값으로 매개변수를 생략할 수 있도록 하기 위해 여러 버전의 함수를 선언할 필요가 없으므로, 오버로드(overloads)의 필요성을 줄여줍니다.
+선택적 매개변수는 합리적인 기본값으로 매개변수를 생략할 수 있도록 하기 위해 여러 버전의 함수를 선언할 필요가 없으므로,
+오버로드(overloads)의 필요성을 줄여줍니다.
 
 매개변수 선언에 `=`를 추가하여 기본값을 설정합니다:
 
@@ -91,7 +94,8 @@ fun read(
 ) { /*...*/ }
 ```
 
-기본값을 **가진** 매개변수를 기본값이 **없는** 매개변수보다 먼저 선언하는 경우, [이름 붙은 인자](#named-arguments)를 통해서만 기본값을 사용할 수 있습니다:
+기본값을 **가진** 매개변수를 기본값이 **없는** 매개변수보다 먼저 선언하는 경우,
+[이름 붙은 인자](#named-arguments)를 통해서만 기본값을 사용할 수 있습니다:
 
 ```kotlin
 fun greeting(
@@ -99,7 +103,7 @@ fun greeting(
     message: String,
 ) { /*...*/ }
 
-fun main () {
+fun main() {
     // 'userId'의 기본값으로 0을 사용합니다.
     greeting(message = "Hello!")
     
@@ -109,7 +113,8 @@ fun main () {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="default-before-ordinary"}
 
-[후행 람다(Trailing lambdas)](lambdas.md#passing-trailing-lambdas)는 이 규칙의 예외입니다. 마지막 매개변수가 전달된 함수에 해당해야 하기 때문입니다:
+[후행 람다(Trailing lambdas)](lambdas.md#passing-trailing-lambdas)는 이 규칙의 예외입니다.
+마지막 매개변수가 전달된 함수에 해당해야 하기 때문입니다:
 
 ```kotlin
 fun main () {
@@ -168,42 +173,43 @@ fun read(
 ```kotlin
 fun main() {
 //sampleStart
-fun read(
-    b: Int,
-    print: Unit? = println("No argument passed for 'print'")
-) { println(b) }
-
-// "No argument passed for 'print'"를 출력한 다음 "1"을 출력합니다.
-read (1)
-// "1"만 출력합니다.
-read (1, null)
-//sampleEnd
+    fun read(
+        b: Int,
+        print: Unit? = println("No argument passed for 'print'")
+    ) { println(b) }
+    
+    // "No argument passed for 'print'"를 출력한 다음 "1"을 출력합니다.
+    read(1)
+    // "1"만 출력합니다.
+    read(1, null)
+    //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="non-constant-default"}
 
-함수 선언의 마지막 매개변수가 함수형 타입인 경우, 해당 [람다](lambdas.md#lambda-expression-syntax) 인자를 이름 붙은 인자(named argument)로 전달하거나 [괄호 바깥(outside the parentheses)](lambdas.md#passing-trailing-lambdas)으로 전달할 수 있습니다:
+함수 선언의 마지막 매개변수가 함수형 타입인 경우,
+해당 [람다](lambdas.md#lambda-expression-syntax) 인자를 이름 붙은 인자(named argument)로 전달하거나 [괄호 바깥(outside the parentheses)](lambdas.md#passing-trailing-lambdas)으로 전달할 수 있습니다:
 
 ```kotlin
 fun main() {
-//sampleStart
-fun log(
-    level: Int = 0,
-    code:  Int = 1,
-    action: () -> Unit,
-) { println (level)
-    println (code)
-    action() }
-
-// 'level'에 1을 전달하고 'code'에 기본값 1을 사용합니다.
-log(1) { println("Connection established") }
-
-// 'level'에 0, 'code'에 1, 두 기본값을 모두 사용합니다.
-log(action = { println("Connection established") })
-
-// 이전 호출과 동일하며, 두 기본값을 모두 사용합니다.
-log { println("Connection established") }
-//sampleEnd   
+    //sampleStart
+    fun log(
+        level: Int = 0,
+        code:  Int = 1,
+        action: () -> Unit,
+    ) { println (level)
+        println (code)
+        action() }
+    
+    // 'level'에 1을 전달하고 'code'에 기본값 1을 사용합니다.
+    log(1) { println("Connection established") }
+    
+    // 'level'에 0, 'code'에 1, 두 기본값을 모두 사용합니다.
+    log(action = { println("Connection established") })
+    
+    // 이전 호출과 동일하며, 두 기본값을 모두 사용합니다.
+    log { println("Connection established") }
+    //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="lambda-outside-parentheses"}
@@ -269,13 +275,14 @@ mergeStrings(strings = arrayOf("a", "b", "c"))
 <!-- Rationale for named arguments interaction with varargs is here https://youtrack.jetbrains.com/issue/KT-52505#focus=Comments-27-6147916.0-0 -->
 
 > JVM에서 자바 함수를 호출할 때는 자바 바이트코드가 함수 매개변수의 이름을 항상 보존하지 않기 때문에 이름 붙은 인자 문법을 사용할 수 없습니다.
-> 
+>
 {style="note"}
 
 ### 반환 타입
 
 블록 본문(중괄호 `{}` 안에 명령을 넣는 방식)으로 함수를 선언할 때는 항상 반환 타입을 명시적으로 지정해야 합니다.
-유일한 예외는 `Unit`을 반환하는 경우이며, [이 경우에는 반환 타입 지정이 선택 사항입니다](#unit-returning-functions).
+유일한 예외는 `Unit`을 반환하는 경우이며,
+[이 경우에는 반환 타입 지정이 선택 사항입니다](#unit-returning-functions).
 
 코틀린은 블록 본문을 가진 함수의 반환 타입을 추론하지 않습니다.
 이러한 함수의 제어 흐름은 복잡할 수 있어 독자(때로는 컴파일러에게도)에게 반환 타입이 명확하지 않을 수 있습니다.
@@ -298,14 +305,18 @@ fun double(x: Int) = x * 2
 
 컴파일러는 단일 표현식에서 반환 타입을 추론할 때 때때로 문제에 직면할 수 있습니다.
 이러한 경우, 반환 타입을 명시적으로 추가해야 합니다.
-예를 들어, 재귀 함수(recursive functions) 또는 상호 재귀 함수(mutually recursive functions)(서로 호출하는)와 `fun empty() = null`과 같은 타입 없는 표현식을 가진 함수는 항상 반환 타입을 요구합니다.
+예를 들어, 재귀 함수(recursive functions) 또는 상호 재귀 함수(mutually recursive functions)(서로 호출하는)와
+`fun empty() = null`과 같은 타입 없는 표현식을 가진 함수는 항상 반환 타입을 요구합니다.
 
-추론된 반환 타입을 사용하는 경우, 컴파일러가 사용자에게 덜 유용한 타입을 추론할 수 있으므로 실제 결과를 확인해야 합니다.
-위 예시에서 `double()` 함수가 `Int` 대신 `Number`를 반환하도록 하려면, 이를 명시적으로 선언해야 합니다.
+추론된 반환 타입을 사용하는 경우,
+컴파일러가 사용자에게 덜 유용한 타입을 추론할 수 있으므로 실제 결과를 확인해야 합니다.
+위 예시에서 `double()` 함수가 `Int` 대신 `Number`를 반환하도록 하려면,
+이를 명시적으로 선언해야 합니다.
 
 ### Unit을 반환하는 함수
 
-함수가 블록 본문(중괄호 `{}` 내의 명령)을 가지고 있고 유용한 값을 반환하지 않는 경우, 컴파일러는 해당 반환 타입을 `Unit`으로 가정합니다.
+함수가 블록 본문(중괄호 `{}` 내의 명령)을 가지고 있고 유용한 값을 반환하지 않는 경우,
+컴파일러는 해당 반환 타입을 `Unit`으로 가정합니다.
 `Unit`은 오직 하나의 값(`Unit`)만을 가진 타입입니다.
 
 함수형 타입 매개변수를 제외하고는 `Unit`을 반환 타입으로 지정할 필요가 없습니다.
@@ -314,29 +325,29 @@ fun double(x: Int) = x * 2
 예를 들어, `Unit`을 반환하지 않는 `printHello()` 함수를 선언할 수 있습니다:
 
 ```kotlin
-// 함수형 타입 매개변수('action')의 선언은 여전히
+// 함수형 타입 매개변수('action')의 선언은 여전히 
 // 명시적 반환 타입이 필요합니다.
 fun printHello(name: String?, action: () -> Unit) {
-  if (name != null)
-    println("Hello $name")
-  else
-    println("Hi there!")
+    if (name != null)
+        println("Hello $name")
+    else
+        println("Hi there!")
 
-  action()
+    action()
 }
 
 fun main() {
-  printHello("Kodee") {
-    println("This runs after the greeting.")
-  }
-  // Hello Kodee
-  // This runs after the greeting.
+    printHello("Kodee") {
+        println("This runs after the greeting.")
+    }
+    // Hello Kodee
+    // This runs after the greeting.
 
-  printHello(null) {
-    println("No name provided, but action still runs.")
-  }
-  // Hi there!
-  // No name provided, but action still runs.
+    printHello(null) {
+        println("No name provided, but action still runs.")
+    }
+    // Hi there!
+    // 이름이 제공되지 않았지만, 동작은 여전히 실행됩니다.
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="return-unit-implicit"}
@@ -344,36 +355,44 @@ fun main() {
 이는 다음의 장황한 선언과 동일합니다:
 
 ```kotlin
-//sample Start
+//sampleStart
 fun printHello(name: String?, action: () -> Unit): Unit {
-  if (name != null)
-    println("Hello $name")
-  else
-    println("Hi there!")
+    if (name != null)
+        println("Hello $name")
+    else
+        println("Hi there!")
 
-  action()
-  return Unit
+    action()
+    return Unit
 }
-// sampleEnd
+//sampleEnd
 fun main() {
-  printHello("Kodee") {
-    println("This runs after the greeting.")
-  }
-  // Hello Kodee
-  // This runs after the greeting.
+    printHello("Kodee") {
+        println("This runs after the greeting.")
+    }
+    // Hello Kodee
+    // This runs after the greeting.
 
-  printHello(null) {
-    println("No name provided, but action still runs.")
-  }
-  // Hi there!
-  // No name provided, but action still runs.
+    printHello(null) {
+        println("No name provided, but action still runs.")
+    }
+    // Hi there!
+    // 이름이 제공되지 않았지만, 동작은 여전히 실행됩니다.
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="return-unit-explicit"}
 
+함수의 반환 타입이 명시적으로 지정된 경우 표현식 본문 내에서 `return` 문을 사용할 수 있습니다:
+
+```kotlin
+fun getDisplayNameOrDefault(userId: String?): String =
+    getDisplayName(userId ?: return "default")
+```
+
 ### 가변 인자 (varargs)
 
-함수에 가변 개수의 인자를 전달하려면, 매개변수 중 하나(일반적으로 마지막 매개변수)를 `vararg` 한정자로 표시할 수 있습니다.
+함수에 가변 개수의 인자를 전달하려면, 매개변수 중 하나(일반적으로 마지막 매개변수)를
+`vararg` 한정자로 표시할 수 있습니다.
 함수 내부에서 `T` 타입의 `vararg` 매개변수를 `T` 배열로 사용할 수 있습니다:
 
 ```kotlin
@@ -389,53 +408,55 @@ fun <T> asList(vararg ts: T): List<T> {
 
 ```kotlin
 fun <T> asList(vararg ts: T): List<T> {
-  val result = ArrayList<T>()
-  for (t in ts) // ts는 Array입니다.
-    result.add(t)
-  return result
+    val result = ArrayList<T>()
+    for (t in ts) // ts는 Array입니다.
+        result.add(t)
+    return result
 }
 
 fun main() {
-  //sampleStart
-  val list = asList(1, 2, 3)
-  println(list)
-  // [1, 2, 3]
-  //sampleEnd
+    //sampleStart
+    val list = asList(1, 2, 3)
+    println(list)
+    // [1, 2, 3]
+    //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="varargs-aslist"}
 
 하나의 매개변수만 `vararg`로 표시될 수 있습니다.
-`vararg` 매개변수를 매개변수 목록의 마지막이 아닌 다른 위치에 선언하는 경우, 후속 매개변수의 값은 이름 붙은 인자(named arguments)를 사용하여 전달해야 합니다.
+`vararg` 매개변수를 매개변수 목록의 마지막이 아닌 다른 위치에 선언하는 경우, 후속 매개변수의 값은
+이름 붙은 인자(named arguments)를 사용하여 전달해야 합니다.
 매개변수가 함수 타입인 경우, 람다를 괄호 바깥에 배치하여 해당 값을 전달할 수도 있습니다.
 
 `vararg` 함수를 호출할 때, `asList(1, 2, 3)`의 예시처럼 인자를 개별적으로 전달할 수 있습니다.
-이미 배열이 있고 그 내용을 함수에 `vararg` 매개변수나 그 일부로 전달하고 싶다면, 배열 이름 앞에 `*`를 붙여 [스프레드 연산자](arrays.md#pass-variable-number-of-arguments-to-a-function)를 사용하세요:
+이미 배열이 있고 그 내용을 함수에 `vararg` 매개변수나 그 일부로 전달하고 싶다면,
+배열 이름 앞에 `*`를 붙여 [스프레드 연산자](arrays.md#pass-variable-number-of-arguments-to-a-function)를 사용하세요:
 
 ```kotlin
 fun <T> asList(vararg ts: T): List<T> {
-  val result = ArrayList<T>()
-  for (t in ts)
-    result.add(t)
-  return result
+    val result = ArrayList<T>()
+    for (t in ts)
+        result.add(t)
+    return result
 }
 
 fun main() {
-  //sampleStart
-  val a = arrayOf(1, 2, 3)
+    //sampleStart
+    val a = arrayOf(1, 2, 3)
 
-  // 함수는 배열 [-1, 0, 1, 2, 3, 4]를 받습니다.
-  val list = asList(-1, 0, *a, 4)
+    // 함수는 배열 [-1, 0, 1, 2, 3, 4]를 받습니다.
+    var list = asList(-1, 0, *a, 4)
 
-  println(list)
-  // [-1, 0, 1, 2, 3, 4]
-
-  //sampleEnd
+    println(list)
+    // [-1, 0, 1, 2, 3, 4]
+    //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="varargs-aslist-with-array"}
 
-[원시 타입 배열](arrays.md#primitive-type-arrays)을 `vararg`로 전달하려면, [`.toTypedArray()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/to-typed-array.html) 함수를 사용하여 일반 (타입이 지정된) 배열로 변환해야 합니다:
+[원시 타입 배열](arrays.md#primitive-type-arrays)을
+`vararg`로 전달하려면, [`.toTypedArray()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/to-typed-array.html) 함수를 사용하여 일반 (타입이 지정된) 배열로 변환해야 합니다:
 
 ```kotlin
 // 'a'는 IntArray이며, 이는 원시 타입 배열입니다.
@@ -470,10 +491,11 @@ infix fun Int.shl(x: Int): Int { /*...*/ }
 > *   `0 until n * 2`는 `0 until (n * 2)`와 동일합니다.
 > *   `xs union ys as Set<*>`는 `xs union (ys as Set<*>)`와 동일합니다.
 >
-> 반면에, 중위 함수 호출의 우선순위는 불리언 연산자 `&&` 및 `||`, `is`- 및 `in`-검사, 그리고 다른 몇몇 연산자들보다 높습니다. 이 표현식들도 동일합니다:
+> 반면에, 중위 함수 호출의 우선순위는 불리언 연산자 `&&` 및 `||`, `is`-
+> 및 `in`-검사, 그리고 다른 몇몇 연산자들보다 높습니다. 이 표현식들도 동일합니다:
 > *   `a && b xor c`는 `a && (b xor c)`와 동일합니다.
 > *   `a xor b in c`는 `(a xor b) in c`와 동일합니다.
-> 
+>
 {style="note"}
 
 중위 함수는 항상 수신자(receiver)와 매개변수(parameter) 모두가 명시되어야 합니다.
@@ -482,31 +504,31 @@ infix fun Int.shl(x: Int): Int { /*...*/ }
 
 ```kotlin
 class MyStringCollection {
-  val items = mutableListOf<String>()
+    val items = mutableListOf<String>()
 
-  infix fun add(s: String) {
-    println("Adding: $s")
-    items += s
-  }
+    infix fun add(s: String) {
+        println("Adding: $s")
+        items += s
+    }
 
-  fun build() {
-      add("first")       // 올바름: 일반 함수 호출
-      this add "second"  // 올바름: 명시적 수신자를 사용한 중위 호출
-      // add "third"     // 컴파일러 오류: 명시적 수신자가 필요합니다.
-  }
+    fun build() {
+        add("first")      // 올바름: 일반 함수 호출
+        this add "second" // 올바름: 명시적 수신자를 사용한 중위 호출
+        // add "third"    // 컴파일러 오류: 명시적 수신자가 필요합니다.
+    }
 
-  fun printAll() = println("Items = $items")
+    fun printAll() = println("Items = $items")
 }
 
 fun main() {
-  val myStrings = MyStringCollection()
-  // "first"와 "second"를 목록에 추가합니다.
-  myStrings.build()
-  
-  myStrings.printAll()
-  // Adding: first
-  // Adding: second
-  // Items = [first, second]
+    val myStrings = MyStringCollection()
+    // "first"와 "second"를 목록에 추가합니다.
+    myStrings.build()
+      
+    myStrings.printAll()
+    // Adding: first
+    // Adding: second
+    // Items = [first, second]
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="infix-notation-example"}
@@ -617,7 +639,8 @@ fun <T> singletonList(item: T): List<T> { /*...*/ }
 
 코틀린은 [꼬리 재귀(tail recursion)](https://en.wikipedia.org/wiki/Tail_call)라고 알려진 함수형 프로그래밍 스타일을 지원합니다.
 일반적으로 루프를 사용하는 일부 알고리즘의 경우, 스택 오버플로우 위험 없이 대신 재귀 함수를 사용할 수 있습니다.
-함수가 `tailrec` 한정자로 표시되고 필요한 형식 조건을 충족하면, 컴파일러는 재귀를 최적화하여 제거하고, 대신 빠르고 효율적인 루프 기반 버전으로 대체합니다:
+함수가 `tailrec` 한정자로 표시되고 필요한 형식 조건을 충족하면, 컴파일러는 재귀를 최적화하여 제거하고,
+대신 빠르고 효율적인 루프 기반 버전으로 대체합니다:
 
 ```kotlin
 import kotlin.math.cos
@@ -631,7 +654,8 @@ tailrec fun findFixPoint(x: Double = 1.0): Double =
 ```
 
 이 코드는 코사인 함수의 고정점(fixpoint)(수학 상수)을 계산합니다.
-이 함수는 `1.0`부터 시작하여 결과가 더 이상 변하지 않을 때까지 `cos()`를 반복적으로 호출하여, 지정된 `eps` 정밀도에 대해 `0.7390851332151611`의 결과를 산출합니다.
+이 함수는 `1.0`부터 시작하여 결과가 더 이상 변하지 않을 때까지 `cos()`를 반복적으로 호출하여,
+지정된 `eps` 정밀도에 대해 `0.7390851332151611`의 결과를 산출합니다.
 이 코드는 다음의 더 전통적인 스타일과 동일합니다:
 
 ```kotlin
@@ -652,7 +676,9 @@ private fun findFixPoint(): Double {
 ```
 
 함수가 마지막 연산으로 자기 자신을 호출할 때만 `tailrec` 한정자를 적용할 수 있습니다.
-재귀 호출 뒤에 더 많은 코드가 있거나, [`try`/`catch`/`finally` 블록](exceptions.md#handle-exceptions-using-try-catch-blocks) 내부에 있거나, 함수가 [열려(open)](inheritance.md) 있을 때는 꼬리 재귀를 사용할 수 없습니다.
+재귀 호출 뒤에 더 많은 코드가 있거나,
+[`try`/`catch`/`finally` 블록](exceptions.md#handle-exceptions-using-try-catch-blocks) 내부에 있거나,
+함수가 [열려(open)](inheritance.md) 있을 때는 꼬리 재귀를 사용할 수 없습니다.
 
 **같이 보기**:
 *   [인라인 함수(Inline functions)](inline-functions.md)

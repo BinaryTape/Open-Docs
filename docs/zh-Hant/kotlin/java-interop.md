@@ -630,15 +630,58 @@ fun render(list: List<*>, to: Appendable) {
 由於 `Any` 不是平台特定的，它只宣告 `toString()`、`hashCode()` 和 `equals()` 作為其成員，
 因此為了使 `java.lang.Object` 的其他成員可用，Kotlin 使用了[擴充函數](extensions.md)。
 
-### wait()/notify()
+### `wait()` 和 `notify()`
 
-`wait()` 和 `notify()` 方法在 `Any` 類型的參考上不可用。通常不鼓勵使用它們，而偏好使用 `java.util.concurrent`。如果您確實需要呼叫這些方法，可以轉換為 `java.lang.Object`：
+`wait()` 和 `notify()` 方法在 `Any` 類型的參考上不可用。通常不鼓勵使用它們，而偏好使用 `java.util.concurrent`。
+
+如果您確實需要呼叫這些方法，可以透過 Java 物件存取它們，並抑制 `PLATFORM_CLASS_MAPPED_TO_KOTLIN` 警告：
 
 ```kotlin
+import java.util.LinkedList
+
+class SimpleBlockingQueue<T>(private val capacity: Int) {
+    private val queue = LinkedList<T>()
+
+    // java.lang.Object is used specifically to access wait() and notify()
+    // In Kotlin, the standard 'Any' type does not expose these methods.
+    @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
+    private val lock = Object()
+
+    fun put(item: T) {
+        synchronized(lock) {
+            while (queue.size >= capacity) {
+                lock.wait()
+            }
+            queue.add(item)
+            println("Produced: $item")
+
+            lock.notifyAll()
+        }
+    }
+
+    fun take(): T {
+        synchronized(lock) {
+            while (queue.isEmpty()) {
+                lock.wait()
+            }
+            val item = queue.removeFirst()
+            println("Consumed: $item")
+
+            lock.notifyAll()
+            return item
+        }
+    }
+}
+```
+
+或者明確地強制轉換為 `java.lang.Object` 並抑制 `PLATFORM_CLASS_MAPPED_TO_KOTLIN` 警告：
+
+```kotlin
+@Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
 (foo as java.lang.Object).wait()
 ```
 
-### getClass()
+### `getClass()`
 
 要擷取物件的 Java 類別，請在[類別參考](reflection.md#class-references)上使用 `java` 擴充屬性：
 
@@ -652,6 +695,49 @@ val fooClass = foo::class.java
 val fooClass = foo.javaClass
 ```
 
+### `clone()`
+
+要覆寫 `clone()`，您的類別需要擴充 `kotlin.Cloneable`：
+
+```kotlin
+class Example : Cloneable {
+    override fun clone(): Any { ... }
+}
+```
+
+不要忘記 [Effective Java, 3rd Edition](https://www.oracle.com/technetwork/java/effectivejava-136174.html) 中的第 13 條：*謹慎地覆寫 clone*。
+
+### `finalize()`
+
+要覆寫 `finalize()`，您只需宣告它，而無需使用 `override` 關鍵字：
+
+```kotlin
+class C {
+    protected fun finalize() {
+        // finalization logic
+    }
+}
+```
+
+根據 Java 的規則，`finalize()` 不得為 `private`。
+
+## 繼承自 Java 類別
+
+在 Kotlin 中，一個類別最多可以有一個 Java 類別作為超類型（以及任意數量的 Java 介面）。
+
+## 存取靜態成員
+
+Java 類別的靜態成員會形成這些類別的「伴隨物件」。您無法將此類「伴隨物件」作為值傳遞，但可以明確地存取其成員，例如：
+
+```kotlin
+if (Character.isLetter(a)) { ... }
+```
+
+要存取[映射](#mapped-types)到 Kotlin 類型的 Java 類型的靜態成員，請使用 Java 類型的完全合格名稱：`java.lang.Integer.bitCount(foo)`。
+
+## Java 反射
+
+Java 反射在 Kotlin 類別上有效，反之亦然。如上所述，您可以使用 `instance::class.java`、`ClassName::class.java` 或 `instance.javaClass` 透過 `java.lang.Class` 進入 Java 反射。
 請勿將 `ClassName.javaClass` 用於此目的，因為它指的是 `ClassName` 的伴隨物件類別，
 這與 `ClassName.Companion::class.java` 相同，而非 `ClassName::class.java`。
 

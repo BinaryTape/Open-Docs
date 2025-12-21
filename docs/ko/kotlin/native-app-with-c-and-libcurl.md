@@ -1,12 +1,12 @@
 [//]: # (title: C 상호 운용 및 libcurl을 사용하여 앱 생성하기 – 튜토리얼)
 
-> C 라이브러리 임포트는 [베타](native-c-interop-stability.md) 단계입니다. C 라이브러리에서 cinterop 도구로 생성된 모든 Kotlin 선언에는 `@ExperimentalForeignApi` 어노테이션이 있어야 합니다.
+> C 라이브러리 임포트는 [베타](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 단계입니다. cinterop 도구로 C 라이브러리에서 생성된 모든 Kotlin 선언에는 `@ExperimentalForeignApi` 어노테이션이 있어야 합니다.
 >
 > Kotlin/Native와 함께 제공되는 네이티브 플랫폼 라이브러리(예: Foundation, UIKit, POSIX)는 일부 API에 대해서만 옵트인(opt-in)이 필요합니다.
 >
 {style="note"}
 
-이 튜토리얼은 IntelliJ IDEA를 사용하여 커맨드라인 애플리케이션을 생성하는 방법을 보여줍니다. Kotlin/Native와 libcurl 라이브러리를 사용하여 지정된 플랫폼에서 네이티브로 실행할 수 있는 간단한 HTTP 클라이언트를 만드는 방법을 배울 것입니다.
+이 튜토리얼에서는 IntelliJ IDEA를 사용하여 커맨드라인 애플리케이션을 생성하는 방법을 보여줍니다. Kotlin/Native와 libcurl 라이브러리를 사용하여 지정된 플랫폼에서 네이티브로 실행할 수 있는 간단한 HTTP 클라이언트를 만드는 방법을 배울 것입니다.
 
 결과물은 macOS 및 Linux에서 실행하여 간단한 HTTP GET 요청을 할 수 있는 실행 가능한 커맨드라인 앱입니다.
 
@@ -19,7 +19,7 @@
 
     ```none
     https://github.com/Kotlin/kmp-native-wizard
-    ```
+    ```  
 
 3.  프로젝트 구조를 살펴봅니다.
 
@@ -116,7 +116,7 @@ nativeTarget.apply {
 }
 ```
 
-먼저 `cinterops`가 추가되고, 그 다음 정의 파일에 대한 항목이 추가됩니다. 기본적으로 파일 이름이 사용됩니다. 추가 매개변수로 이를 재정의할 수 있습니다.
+먼저 `cinterops`가 추가되고, 그 다음 정의 파일에 대한 항목이 추가됩니다. 기본적으로 파일 이름이 사용됩니다. 추가 매개변수로 이를 재정의할 수 있습니다:
 
 ```kotlin
 cinterops {
@@ -158,12 +158,12 @@ fun main(args: Array<String>) {
 
 > 이것은 한 줄씩 직역한 것입니다. 더 Kotlin스러운 방식으로 작성할 수도 있습니다.
 >
-{type="tip"}
+{style="tip"}
 
 ## 애플리케이션 컴파일 및 실행
 
 1.  애플리케이션을 컴파일합니다. 이를 위해 작업 목록에서 `runDebugExecutableNative` Gradle 작업을 실행하거나 터미널에서 다음 명령을 사용합니다.
-
+ 
     ```bash
     ./gradlew runDebugExecutableNative
     ```
@@ -172,13 +172,13 @@ fun main(args: Array<String>) {
 
 2.  컴파일 중 오류가 없으면 `main()` 함수 옆의 여백에 있는 녹색 **Run** 아이콘을 클릭하거나 <shortcut>Shift + Cmd + R</shortcut>/<shortcut>Shift + F10</shortcut> 단축키를 사용합니다.
 
-    IntelliJ IDEA가 **Run** 탭을 열고 [example.com](https://example.com/)의 내용을 출력으로 보여줍니다.
+    IntelliJ IDEA가 **Run** 탭을 열고 [example.com](https://example.com/)의 내용을 출력으로 보여줍니다:
 
     ![Application output with HTML-code](native-output.png){width=700}
 
 `curl_easy_perform` 호출이 결과를 표준 출력으로 인쇄하기 때문에 실제 출력을 볼 수 있습니다. `curl_easy_setopt`를 사용하여 이를 숨길 수 있습니다.
 
-> 전체 프로젝트 코드는 [GitHub 저장소](https://github.com/Kotlin/kotlin-hands-on-intro-kotlin-native)에서 얻을 수 있습니다.
+> 전체 프로젝트 코드는 [GitHub 저장소](https://github.com/kotlin-hands-on/intro-kotlin-native)에서 얻을 수 있습니다.
 >
 {style="note"}
 

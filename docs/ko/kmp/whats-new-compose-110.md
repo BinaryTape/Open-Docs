@@ -29,7 +29,7 @@
 * Savedstate 라이브러리 `org.jetbrains.androidx.savedstate:savedstate*:1.4.0`. [Jetpack Savedstate 1.4.0](https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0) 기반
 * WindowManager Core 라이브러리 `org.jetbrains.androidx.window:window-core:1.5.1`. [Jetpack WindowManager 1.5.1](https://developer.android.com/jetpack/androidx/releases/window#1.5.1) 기반
 
-## 호환성을 깨는 변경 사항
+## 호환성을 깨는 변경 사항 및 지원 중단
 
 ### 지원 중단된 의존성 별칭
 
@@ -40,6 +40,28 @@ Compose Multiplatform Gradle 플러그인(`compose.ui` 및 기타)에서 지원�
 
 이 변경 사항은 Compose Multiplatform 라이브러리에 대한 의존성 관리를 좀 더 투명하게 만들 것입니다.
 앞으로 Compose Multiplatform용 BOM을 제공하여 호환 가능한 버전 설정을 간소화할 수 있기를 바랍니다.
+
+### `PredictiveBackHandler()` 지원 중단
+
+`PredictiveBackHandler()` 함수는 Compose Multiplatform에서 네이티브 Android 뒤로 가기 내비게이션 제스처를 다른 플랫폼으로 가져오기 위해 도입되었습니다.
+Navigation 3 릴리스와 함께, 이전 구현은 새로운 [Navigation Event](https://developer.android.com/jetpack/androidx/releases/navigationevent) 라이브러리 및 해당 API를 선호하여 지원 중단되었습니다.
+특히, `PredictiveBackHandler()` 함수를 사용하는 대신, 이제 더 일반적인 `NavigationEventHandler()` 구현을 래핑하는 새로운 `NavigationBackHandler()` 함수를 사용해야 합니다.
+
+가장 간단한 마이그레이션은 다음과 같습니다:
+
+<compare type="top-bottom">
+    <code-block lang="kotlin" code="         PredictiveBackHandler(enabled = true) { progress -&gt;&#10;            try {&#10;                progress.collect { event -&gt;&#10;                    // Animate the back gesture progress&#10;                }&#10;                // Process the completed back gesture&#10;            } catch(e: Exception) {&#10;                // Process the canceled back gesture&#10;            }&#10;        }"/>
+    <code-block lang="kotlin" code="        // Use an empty state as a stub to satisfy the required argument&#10;        val navState = rememberNavigationEventState(NavigationEventInfo.None)&#10;        NavigationBackHandler(&#10;            state = navState,&#10;            isBackEnabled = true,&#10;            onBackCancelled = {&#10;                // Process the canceled back gesture&#10;            },&#10;            onBackCompleted = {&#10;              // Process the completed back gesture&#10;            }&#10;        )&#10;        LaunchedEffect(navState.transitionState) {&#10;            val transitionState = navState.transitionState&#10;            if (transitionState is NavigationEventTransitionState.InProgress) {&#10;                val progress = transitionState.latestEvent.progress&#10;                // Animate the back gesture progress&#10;            }&#10;        }"/>
+</compare>
+
+여기서:
+
+*   `state` 매개변수는 필수입니다: `NavigationEventInfo`는 UI 상태에 대한 컨텍스트 정보를 담도록 설계되었습니다.
+    현재 저장할 정보가 없다면, `NavigationEventInfo.None`을 스텁으로 사용할 수 있습니다.
+*   `onBack` 매개변수는 `onBackCancelled`와 `onBackCompleted`로 분리되었으므로, 취소된 제스처를 별도로 추적할 필요가 없습니다.
+*   `NavigationEventState.transitionState` 속성은 물리적 제스처의 진행 상황을 추적하는 데 도움이 됩니다.
+
+구현에 대한 자세한 내용은 [Navigation Event API 참조의 NavigationEventHandler 페이지](https://developer.android.com/reference/kotlin/androidx/navigationevent/NavigationEventHandler)를 참조하세요.
 
 ### 웹 대상에 필요한 최소 Kotlin 버전 증가
 
@@ -61,10 +83,10 @@ Compose Multiplatform은 이제 데스크톱 및 iOS의 네이티브 인터롭 �
 이제 이러한 요소들은 콘텐츠를 기반으로 레이아웃을 조정할 수 있으며,
 정확한 크기를 수동으로 계산하거나 고정된 치수를 미리 지정할 필요가 없습니다.
 
-* 데스크톱에서는 `SwingPanel`이 포함된 구성 요소의 최소, 권장 및 최대 크기를 기반으로 자동으로 크기를 조정합니다.
-* iOS에서는 UIKit 인터롭 뷰가 이제 뷰의 적합 크기(고유 콘텐츠 크기)에 따라 크기 조정을 지원합니다.
-  이를 통해 SwiftUI 뷰(`UIHostingController`를 통해) 및
-  `NSLayoutConstraints`에 의존하지 않는 기본 `UIView` 서브클래스의 적절한 래핑이 가능합니다.
+*   데스크톱에서는 `SwingPanel`이 포함된 구성 요소의 최소, 권장 및 최대 크기를 기반으로 자동으로 크기를 조정합니다.
+*   iOS에서는 UIKit 인터롭 뷰가 이제 뷰의 적합 크기(고유 콘텐츠 크기)에 따라 크기 조정을 지원합니다.
+    이를 통해 SwiftUI 뷰(`UIHostingController`를 통해) 및
+    `NSLayoutConstraints`에 의존하지 않는 기본 `UIView` 서브클래스의 적절한 래핑이 가능합니다.
 
 ### 안정화된 `Popup` 및 `Dialog` 속성
 
@@ -94,22 +116,22 @@ Navigation 3를 사용하면 백 스택을 완벽하게 제어할 수 있으며,
 Compose Multiplatform 1.10.0-beta01은 비 Android 대상에서 새로운 내비게이션 API를 사용하는 것에 대한 알파 지원을 제공합니다.
 릴리스된 멀티플랫폼 아티팩트는 다음과 같습니다:
 
-* Navigation 3 UI 라이브러리, `org.jetbrains.androidx.navigation3:navigation3-ui`
-* Navigation 3용 ViewModel, `org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-navigation3`
-* Navigation 3용 Material 3 적응형 레이아웃, `org.jetbrains.compose.material3.adaptive:adaptive-navigation3`
+*   Navigation 3 UI 라이브러리, `org.jetbrains.androidx.navigation3:navigation3-ui`
+*   Navigation 3용 ViewModel, `org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-navigation3`
+*   Navigation 3용 Material 3 적응형 레이아웃, `org.jetbrains.compose.material3.adaptive:adaptive-navigation3`
 
 원본 Android 저장소에서 미러링된 [nav3-recipes](https://github.com/terrakok/nav3-recipes) 샘플에서 멀티플랫폼 Navigation 3 구현 예제를 찾을 수 있습니다.
 
 일부 플랫폼별 구현 세부 정보:
 
-* iOS에서는 [EndEdgePanGestureBehavior](https://github.com/JetBrains/compose-multiplatform-core/pull/2519) 옵션(기본적으로 `Disabled`)을 사용하여 끝 가장자리 [패닝 제스처](https://developer.apple.com/documentation/uikit/handling-pan-gestures)에 대한 내비게이션을 관리할 수 있습니다.
-  여기서 "끝 가장자리"는 LTR 인터페이스에서 화면의 오른쪽 가장자리를, RTL 인터페이스에서는 왼쪽 가장자리를 의미합니다.
-  시작 가장자리는 끝 가장자리와 반대이며 항상 뒤로 가기 제스처에 바인딩됩니다.
-* 웹 앱에서 데스크톱 브라우저에서 **Esc** 키를 누르면 사용자가 이전 화면으로 돌아가고
-  (대화 상자, 팝업 및 Material 3의 `SearchBar`와 같은 일부 위젯을 닫습니다),
-  이는 데스크톱 앱에서 이미 그러하듯이 작동합니다.
-* [브라우저 기록 내비게이션](compose-navigation-routing.md#support-for-browser-navigation-in-web-apps) 지원 및 주소 표시줄에서 목적지를 사용하는 것은 Compose Multiplatform 1.10에서 Navigation 3으로 확장되지 않을 것입니다.
-  이는 멀티플랫폼 라이브러리의 이후 버전으로 연기되었습니다.
+*   iOS에서는 [EndEdgePanGestureBehavior](https://github.com/JetBrains/compose-multiplatform-core/pull/2519) 옵션(기본적으로 `Disabled`)을 사용하여 끝 가장자리 [패닝 제스처](https://developer.apple.com/documentation/uikit/handling-pan-gestures)에 대한 내비게이션을 관리할 수 있습니다.
+    여기서 "끝 가장자리"는 LTR 인터페이스에서 화면의 오른쪽 가장자리를, RTL 인터페이스에서는 왼쪽 가장자리를 의미합니다.
+    시작 가장자리는 끝 가장자리와 반대이며 항상 뒤로 가기 제스처에 바인딩됩니다.
+*   웹 앱에서 데스크톱 브라우저에서 **Esc** 키를 누르면 사용자가 이전 화면으로 돌아가고
+    (대화 상자, 팝업 및 Material 3의 `SearchBar`와 같은 일부 위젯을 닫습니다),
+    이는 데스크톱 앱에서 이미 그러하듯이 작동합니다.
+*   [브라우저 기록 내비게이션](compose-navigation-routing.md#support-for-browser-navigation-in-web-apps) 지원 및 주소 표시줄에서 목적지를 사용하는 것은 Compose Multiplatform 1.10에서 Navigation 3으로 확장되지 않을 것입니다.
+    이는 멀티플랫폼 라이브러리의 이후 버전으로 연기되었습니다.
 
 ## iOS
 

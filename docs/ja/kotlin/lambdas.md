@@ -33,21 +33,21 @@ fun main() {
     //sampleStart
     val items = listOf(1, 2, 3, 4, 5)
     
-    // Lambdas are code blocks enclosed in curly braces.
+    // ラムダは波括弧で囲まれたコードブロックです。
     items.fold(0, { 
-        // When a lambda has parameters, they go first, followed by '->'
+        // ラムダにパラメータがある場合、それらが最初に記述され、その後に'->'が続きます
         acc: Int, i: Int -> 
         print("acc = $acc, i = $i, ") 
         val result = acc + i
         println("result = $result")
-        // The last expression in a lambda is considered the return value:
+        // ラムダ内の最後の式が戻り値とみなされます。
         result
     })
     
-    // Parameter types in a lambda are optional if they can be inferred:
+    // ラムダのパラメータ型は、推論可能であれば省略できます。
     val joinedToString = items.fold("Elements:", { acc, i -> acc + " " + i })
     
-    // Function references can also be used for higher-order function calls:
+    // 関数参照も高階関数の呼び出しに使用できます。
     val product = items.fold(1, Int::times)
     //sampleEnd
     println("joinedToString = $joinedToString")
@@ -161,7 +161,7 @@ fun main() {
     
     println(intPlus.invoke(1, 1))
     println(intPlus(1, 2))
-    println(2.intPlus(3)) // extension-like call
+    println(2.intPlus(3)) // 拡張関数のような呼び出し
     //sampleEnd
 }
 ```
@@ -183,6 +183,12 @@ max(strings, { a, b -> a.length < b.length })
 
 ```kotlin
 fun compare(a: String, b: String): Boolean = a.length < b.length
+```
+
+`suspend`キーワードを使用して*中断ラムダ式*を作成することもできます。中断ラムダは`suspend () -> Unit`という関数型を持ち、他の中断関数を呼び出すことができます。
+
+```kotlin
+val suspendingTask = suspend { doSuspendingWork() }
 ```
 
 ### ラムダ式の構文
@@ -341,11 +347,11 @@ class HTML {
 }
 
 fun html(init: HTML.() -> Unit): HTML {
-    val html = HTML()  // create the receiver object
-    html.init()        // pass the receiver object to the lambda
+    val html = HTML()  // レシーバオブジェクトを作成
+    html.init()        // レシーバオブジェクトをラムダに渡す
     return html
 }
 
-html {       // lambda with receiver begins here
-    body()   // calling a method on the receiver object
+html {       // ここからレシーバ付きラムダが始まる
+    body()   // レシーバオブジェクトのメソッドを呼び出す
 }

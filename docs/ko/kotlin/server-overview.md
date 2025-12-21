@@ -1,8 +1,8 @@
 [//]: # (title: 서버 측 Kotlin)
 
-Kotlin은 서버 측 애플리케이션 개발에 매우 적합합니다. 간결하고 표현력이 풍부한 코드를 작성할 수 있게 해주며, 기존 Java 기반 기술 스택과의 완벽한 호환성을 유지하면서도 부드러운 학습 곡선을 제공합니다.
+Kotlin은 서버 측 애플리케이션 개발에 매우 적합합니다. 간결하고 표현력이 풍부한 코드를 작성할 수 있게 해주며, 기존 Java 기반 기술 스택과의 완벽한 호환성을 유지하면서도 부드러운 학습 곡선을 제공합니다:
 
-*   **표현력**: Kotlin의 [타입-안전 빌더](type-safe-builders.md) 및 [위임 프로퍼티](delegated-properties.md) 지원과 같은 혁신적인 언어 기능은 강력하고 사용하기 쉬운 추상화를 구축하는 데 도움이 됩니다.
+*   **표현력**: Kotlin의 혁신적인 언어 기능인 [타입-안전 빌더](type-safe-builders.md) 및 [위임 프로퍼티](delegated-properties.md) 지원은 강력하고 사용하기 쉬운 추상화를 구축하는 데 도움이 됩니다.
 *   **확장성**: Kotlin의 [코루틴](coroutines-overview.md) 지원은 적당한 하드웨어 요구사항으로도 대규모 클라이언트에 확장될 수 있는 서버 측 애플리케이션을 구축하는 데 도움이 됩니다.
 *   **상호 운용성**: Kotlin은 모든 Java 기반 프레임워크와 완벽하게 호환되므로, 익숙한 기술 스택을 사용하면서도 더 현대적인 언어의 이점을 얻을 수 있습니다.
 *   **마이그레이션**: Kotlin은 대규모 코드베이스를 Java에서 Kotlin으로 점진적으로 마이그레이션하는 것을 지원합니다. 시스템의 오래된 부분은 Java로 유지하면서 새 코드는 Kotlin으로 작성하기 시작할 수 있습니다.
@@ -53,7 +53,7 @@ JetBrains의 전체 라이선스 판매 및 유효성 검사 프로세스를 담
 
 [Chess.com](https://www.chess.com/)은 체스와 게임을 사랑하는 전 세계 수백만 플레이어를 위한 웹사이트입니다. Chess.com은 여러 HTTP 클라이언트의 원활한 구성을 위해 Ktor를 사용합니다.
 
-[Adobe](https://blog.developer.adobe.com/streamlining-server-side-app-development-with-kotlin-be8cf9d8b61a) 엔지니어들은 서버 측 앱 개발에 Kotlin을 사용하고, 데이터 과학 및 머신러닝을 적용하기 전에 고객 데이터를 중앙 집중화하고 표준화할 수 있도록 하는 Adobe Experience Platform에서 프로토타이핑을 위해 Ktor를 사용합니다.
+[Adobe](https://medium.com/adobetech/streamlining-server-side-app-development-with-kotlin-be8cf9d8b61a) 엔지니어들은 서버 측 앱 개발에 Kotlin을 사용하고, 데이터 과학 및 머신러닝을 적용하기 전에 고객 데이터를 중앙 집중화하고 표준화할 수 있도록 하는 Adobe Experience Platform에서 프로토타이핑을 위해 Ktor를 사용합니다.
 
 ## 다음 단계
 

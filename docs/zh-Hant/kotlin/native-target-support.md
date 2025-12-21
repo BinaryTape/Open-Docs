@@ -16,7 +16,7 @@ Kotlin/Native 編譯器支援多種不同的目標平台，儘管對它們的支
 *   **目標三元組** 是根據 `<architecture>-<vendor>-<system>-<abi>` 結構定義的目標名稱，常被 [編譯器](https://clang.llvm.org/docs/CrossCompilation.html#target-triple) 使用。
 *   **執行測試** 表示在 Gradle 和 IDE 中執行測試的開箱即用支援。
 
-    這僅適用於特定目標平台的原生主機。例如，您只能在 macOS x86-64 主機上執行 `macosX64` 和 `iosX64` 測試。
+    這僅適用於特定目標平台的原生主機。例如，您只能在 macOS ARM64 主機上執行 `macosArm64` 和 `iosArm64` 測試。
 
 ### 層級 1
 
@@ -26,9 +26,9 @@ Kotlin/Native 編譯器支援多種不同的目標平台，儘管對它們的支
 | Gradle 目標名稱      | 目標三元組                 | 執行測試 | 描述                                           |
 |-------------------------|-------------------------------|---------------|------------------------------------------------|
 | 僅限 Apple macOS 主機： |                               |               |                                                |
-| `macosArm64`            | `aarch64-apple-macos`         | ✅             | 在 Apple Silicon 平台上的 Apple macOS          |
-| `iosSimulatorArm64`     | `aarch64-apple-ios-simulator` | ✅             | 在 Apple Silicon 平台上的 Apple iOS 模擬器     |
-| `iosArm64`              | `aarch64-apple-ios`           |               | 在 ARM64 平台上的 Apple iOS 和 iPadOS          |
+| `macosArm64`            | `aarch64-apple-macos`         | ✅             | 在 Apple Silicon 平台上的 Apple macOS 11.0 及更高版本         |
+| `iosSimulatorArm64`     | `aarch64-apple-ios-simulator` | ✅             | 在 Apple Silicon 平台上的 Apple iOS 模擬器 14.0 及更高版本 |
+| `iosArm64`              | `aarch64-apple-ios`           |               | 在 ARM64 平台上的 Apple iOS 和 iPadOS 14.0 及更高版本          |
 
 ### 層級 2
 
@@ -40,15 +40,11 @@ Kotlin/Native 編譯器支援多種不同的目標平台，儘管對它們的支
 | `linuxX64`              | `x86_64-unknown-linux-gnu`        | ✅             | 在 x86_64 平台上的 Linux                           |
 | `linuxArm64`            | `aarch64-unknown-linux-gnu`       |               | 在 ARM64 平台上的 Linux                            |
 | 僅限 Apple macOS 主機： |                                   |               |                                                    |
-| `macosX64`              | `x86_64-apple-macos`              | ✅             | 在 x86_64 平台上的 Apple macOS                     |
-| `iosX64`                | `x86_64-apple-ios-simulator`      | ✅             | 在 x86-64 平台上的 Apple iOS 模擬器                |
-| `watchosSimulatorArm64` | `aarch64-apple-watchos-simulator` | ✅             | 在 Apple Silicon 平台上的 Apple watchOS 模擬器     |
-| `watchosX64`            | `x86_64-apple-watchos-simulator`  | ✅             | 在 x86_64 平台上的 Apple watchOS 64 位元模擬器     |
-| `watchosArm32`          | `armv7k-apple-watchos`            |               | 在 ARM32 平台上的 Apple watchOS                    |
-| `watchosArm64`          | `arm64_32-apple-watchos`          |               | 在帶有 ILP32 的 ARM64 平台上的 Apple watchOS       |
-| `tvosSimulatorArm64`    | `aarch64-apple-tvos-simulator`    | ✅             | 在 Apple Silicon 平台上的 Apple tvOS 模擬器        |
-| `tvosX64`               | `x86_64-apple-tvos-simulator`     | ✅             | 在 x86_64 平台上的 Apple tvOS 模擬器               |
-| `tvosArm64`             | `aarch64-apple-tvos`              |               | 在 ARM64 平台上的 Apple tvOS                       |
+| `watchosSimulatorArm64` | `aarch64-apple-watchos-simulator` | ✅             | 在 Apple Silicon 平台上的 Apple watchOS 模擬器 7.0 及更高版本     |
+| `watchosArm32`          | `armv7k-apple-watchos`            |               | 在 ARM32 平台上的 Apple watchOS 7.0 及更高版本                    |
+| `watchosArm64`          | `arm64_32-apple-watchos`          |               | 在帶有 ILP32 的 ARM64 平台上的 Apple watchOS 7.0 及更高版本       |
+| `tvosSimulatorArm64`    | `aarch64-apple-tvos-simulator`    | ✅             | 在 Apple Silicon 平台上的 Apple tvOS 模擬器 14.0 及更高版本        |
+| `tvosArm64`             | `aarch64-apple-tvos`              |               | 在 ARM64 平台上的 Apple tvOS 14.0 及更高版本                       |
 
 ### 層級 3
 
@@ -63,7 +59,11 @@ Kotlin/Native 編譯器支援多種不同的目標平台，儘管對它們的支
 | `androidNativeX64`      | `x86_64-unknown-linux-android`  |               | 在 x86_64 平台上的 [Android NDK](https://developer.android.com/ndk)                     |
 | `mingwX64`              | `x86_64-pc-windows-gnu`         | ✅             | 適用於使用 [MinGW](https://www.mingw-w64.org) 相容層的 64 位元 Windows 10 及更高版本 |
 | 僅限 Apple macOS 主機： |                                 |               |                                                                                          |
-| `watchosDeviceArm64`    | `aarch64-apple-watchos`         |               | 在 ARM64 平台上的 Apple watchOS                                                          |
+| `watchosDeviceArm64`    | `aarch64-apple-watchos`         |               | 在 ARM64 平台上的 Apple watchOS 7.0 及更高版本                                                          |
+| `macosX64`              | `x86_64-apple-macos`            | ✅             | 在 x86_64 平台上的 Apple macOS 11.0 及更高版本                                           |
+| `iosX64`                | `x86_64-apple-ios-simulator`    | ✅             | 在 x86-64 平台上的 Apple iOS 模擬器 14.0 及更高版本                                   |
+| `watchosX64`            | `x86_64-apple-watchos-simulator`| ✅             | 在 x86_64 平台上的 Apple watchOS 7.0 及更高版本 64 位元模擬器                         |
+| `tvosX64`               | `x86_64-apple-tvos-simulator`   | ✅             | 在 x86_64 平台上的 Apple tvOS 14.0 及更高版本模擬器                                  |
 
 > `linuxArm32Hfp` 目標平台已棄用，並將在未來版本中移除。
 >

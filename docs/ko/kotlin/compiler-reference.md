@@ -17,7 +17,7 @@ Kotlin 컴파일러는 컴파일 프로세스를 조정하기 위한 여러 옵�
 컴파일러 옵션과 해당 값(_컴파일러 인자_)을 설정하는 방법은 여러 가지가 있습니다:
 * IntelliJ IDEA에서, **Settings/Preferences** | **Build, Execution, Deployment** | **Compiler** | **Kotlin Compiler**의 **Additional command line parameters** 텍스트 상자에 컴파일러 인자를 작성합니다.
 * Gradle을 사용하는 경우, Kotlin 컴파일 태스크의 `compilerOptions` 속성에 컴파일러 인자를 지정합니다. 자세한 내용은 [Gradle 컴파일러 옵션](gradle-compiler-options.md#how-to-define-options)을 참조하세요.
-* Maven을 사용하는 경우, Maven 플러그인 노드의 `<configuration>` 요소에 컴파일러 인자를 지정합니다. 자세한 내용은 [Maven](maven.md#specify-compiler-options)을 참조하세요.
+* Maven을 사용하는 경우, Maven 플러그인 노드의 `<configuration>` 요소에 컴파일러 인자를 지정합니다. 자세한 내용은 [Maven](maven-compile-package.md#specify-compiler-options)을 참조하세요.
 * 명령줄 컴파일러를 실행하는 경우, 유틸리티 호출에 컴파일러 인자를 직접 추가하거나 [argfile](#argfile)에 작성합니다.
 
   예를 들어:
@@ -217,6 +217,53 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 
 계약(contract)에서 `holdsIn` 키워드를 사용하여 람다 내부에서 부울 조건이 `true`라고 가정할 수 있도록 합니다.
 
+### -Xreturn-value-checker
+<primary-label ref="experimental-general"/>
+
+컴파일러가 [무시된 결과](unused-return-value-checker.md)를 보고하는 방식을 구성합니다:
+
+* `disable`: 사용하지 않는 반환 값 검사기를 비활성화합니다 (기본값).
+* `check`: 검사기를 활성화하고, 표시된 함수에서 무시된 결과에 대해 경고를 보고합니다.
+* `full`: 검사기를 활성화하고, 프로젝트의 모든 함수를 표시된 것으로 처리하며, 무시된 결과에 대해 경고를 보고합니다.
+
+### -Xcompiler-plugin-order={plugin.before>plugin.after}
+
+컴파일러 플러그인의 실행 순서를 구성합니다. 컴파일러는 `plugin.before`를 먼저 실행한 다음, `plugin.after`를 실행합니다:
+
+세 개 이상의 플러그인에 대해 여러 순서 지정 규칙을 정의할 수 있습니다. 예를 들어:
+
+```bash
+kotlinc -Xcompiler-plugin-order=plugin.first>plugin.middle
+kotlinc -Xcompiler-plugin-order=plugin.middle>plugin.last
+```
+
+이는 다음과 같은 실행 순서를 초래합니다:
+
+1. `plugin.first`
+2. `plugin.middle`
+3. `plugin.last`
+
+컴파일러 플러그인이 존재하지 않는 경우, 해당 규칙은 무시됩니다.
+
+다음 플러그인들을 ID로 구성할 수 있습니다:
+
+| 컴파일러 플러그인             | 플러그인 ID                                  |
+|-----------------------------|--------------------------------------------|
+| `all-open`, `kotlin-spring` | `org.jetbrains.kotlin.allopen`             |
+| AtomicFU                    | `org.jetbrains.kotlinx.atomicfu`           |
+| Compose                     | `androidx.compose.compiler.plugins.kotlin` |
+| `js-plain-objects`          | `org.jetbrains.kotlinx.jspo`               |
+| `jvm-abi-gen`               | `org.jetbrains.kotlin.jvm.abi`             |
+| kapt                        | `org.jetbrains.kotlin.kapt3`               |
+| Lombok                      | `org.jetbrains.kotlin.lombok`              |
+| `no-arg`, `kotlin-jpa`      | `org.jetbrains.kotlin.noarg`               |
+| Parcelize                   | `org.jetbrains.kotlin.parcelize`           |
+| Power-assert                | `org.jetbrains.kotlin.powerassert`         |
+| SAM with receiver           | `org.jetbrains.kotlin.samWithReceiver`     |
+| Serialization               | `org.jetbrains.kotlinx.serialization`      |
+
+이 실행 순서는 컴파일러 플러그인의 백엔드만 제어하며, 프론트엔드는 제어하지 않습니다.
+
 ## Kotlin/JVM 컴파일러 옵션
 
 JVM용 Kotlin 컴파일러는 Kotlin 소스 파일을 Java 클래스 파일로 컴파일합니다.
@@ -248,7 +295,7 @@ Kotlin 스크립트 파일을 실행하는 데도 사용할 수 있습니다.
 
 생성된 JVM 바이트코드의 타겟 버전을 지정합니다. 클래스패스의 JDK API를 지정된 Java 버전으로 제한합니다.
 자동으로 [`-jvm-target version`](#jvm-target-version)을 설정합니다.
-가능한 값은 `1.8`, `9`, `10`, ..., `24`입니다.
+가능한 값은 `1.8`, `9`, `10`, ..., `25`입니다.
 
 > 이 옵션은 각 JDK 배포판에 대해 효과가 [보장되지 않습니다](https://youtrack.jetbrains.com/issue/KT-29974).
 >
@@ -256,7 +303,7 @@ Kotlin 스크립트 파일을 실행하는 데도 사용할 수 있습니다.
 
 ### -jvm-target _version_
 
-생성된 JVM 바이트코드의 타겟 버전을 지정합니다. 가능한 값은 `1.8`, `9`, `10`, ..., `24`입니다.
+생성된 JVM 바이트코드의 타겟 버전을 지정합니다. 가능한 값은 `1.8`, `9`, `10`, ..., `25`입니다.
 기본값은 `%defaultJvmTargetVersion%`입니다.
 
 ### -java-parameters

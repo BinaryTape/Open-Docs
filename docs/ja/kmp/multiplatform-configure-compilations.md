@@ -135,7 +135,7 @@ kotlin {
         compilations {
             val main by getting
             val integrationTest by creating {
-                // Import main and its classpath as dependencies and establish internal visibility
+                // mainとそのクラスパスを依存関係としてインポートし、内部可視性を確立します
                 associateWith(main)
                 defaultSourceSet {
                     dependencies {
@@ -144,9 +144,9 @@ kotlin {
                     }
                 }
                 
-                // Create a test task to run the tests produced by this compilation:
+                // このコンピレーションによって生成されたテストを実行するテストタスクを作成します:
                 testRuns.create("integration") {
-                    // Configure the test task
+                    // テストタスクを構成します
                     setExecutionSourceFrom(integrationTest)
                 }
             }
@@ -163,7 +163,7 @@ kotlin {
     jvm {
         compilations.create('integrationTest') {
             def main = compilations.main
-            // Import main and its classpath as dependencies and establish internal visibility
+            // mainとそのクラスパスを依存関係としてインポートし、内部可視性を確立します
             associateWith(main)
             defaultSourceSet {
                 dependencies {
@@ -172,9 +172,9 @@ kotlin {
                 }
             }
 
-            // Create a test task to run the tests produced by this compilation
+            // このコンピレーションによって生成されたテストを実行するテストタスクを作成します
             testRuns.create('integration') {
-                // Configure the test task
+                // テストタスクを構成します
                 setExecutionSourceFrom(compilations.integrationTest)
             }
         }
@@ -189,19 +189,19 @@ kotlin {
 
 カスタムコンピレーションは他のケースでも必要です。たとえば、最終的なアーティファクトで異なるJVMバージョンのコンピレーションを結合したい場合や、すでにGradleでソースセットを設定していてマルチプラットフォームプロジェクトに移行したい場合などです。
 
-> [`androidTarget`](#compilation-for-android)のカスタムコンピレーションを作成するには、[Android Gradleプラグイン](https://developer.android.com/build/build-variants)を通じてビルドバリアントを設定してください。
+> [`android`](#compilation-for-android)のカスタムコンピレーションを作成するには、[Android Gradleプラグイン](https://developer.android.com/build/build-variants)を通じてビルドバリアントを設定してください。
 > 
 {style="tip"}
 
 ## JVMのコンピレーション
 
-マルチプラットフォームプロジェクトで`jvm`ターゲットを宣言すると、Kotlin Multiplatformプラグインは自動的にJavaソースセットを作成し、それらをJVMターゲットのコンピレーションに含めます。
+マルチプラットフォームプロジェクトで`jvm`ターゲットを宣言すると、Kotlin Multiplatform Gradleプラグインは自動的にJavaソースセットを作成し、それらをJVMターゲットのコンピレーションに含めます。
 
 共通ソースセットにはJavaリソースを含めることができないため、それらをマルチプラットフォームプロジェクトの対応する子ディレクトリに配置する必要があります。たとえば：
 
-![Java source files](java-source-paths.png){width=200}
+![Javaソースファイル](java-source-paths.png){width=200}
 
-現在、Kotlin MultiplatformプラグインはJavaプラグインによって構成される一部のタスクを置き換えます。
+現在、Kotlin Multiplatform Gradleプラグインは、Javaプラグインによって構成される一部のタスクを置き換えます。
 
 *   JARタスク：標準の`jar`の代わりに、アーティファクト名に基づくターゲット固有のタスクを使用します。たとえば、`jvm()`ターゲット宣言の場合は`jvmJar`、`jvm("desktop")`の場合は`desktopJar`です。
 *   テストタスク：標準の`test`の代わりに、アーティファクト名に基づくターゲット固有のタスクを使用します。たとえば、`jvmTest`です。
@@ -213,24 +213,24 @@ kotlin {
 <TabItem title="Kotlin" group-key="kotlin">
 
 ```kotlin
-// Shared module's `build.gradle.kts` file
+// 共有モジュールの `build.gradle.kts` ファイル
 plugins {
     kotlin("multiplatform") version "%kotlinVersion%"
 }
 
 kotlin {
-    // Specify the JVM target
+    // JVMターゲットを指定します
     jvm {
-        // Add the task for JAR generation
+        // JAR生成のタスクを追加します
         tasks.named<Jar>(artifactsTaskName).configure {
-            // Configure the task
+            // タスクを構成します
         }
     }
 
     sourceSets {
         jvmMain {
             dependencies {
-                // Add JVM-specific dependencies
+                // JVM固有の依存関係を追加します
             }
         }
     }
@@ -241,24 +241,24 @@ kotlin {
 <TabItem title="Groovy" group-key="groovy">
 
 ```groovy
-// Shared module's `build.gradle` file
+// 共有モジュールの `build.gradle` ファイル
 plugins {
     id 'org.jetbrains.kotlin.multiplatform' version '%kotlinVersion%'
 }
 
 kotlin {
-    // Specify the JVM target
+    // JVMターゲットを指定します
     jvm {
-        // Add the task for JAR generation
+        // JAR生成のタスクを追加します
         tasks.named<Jar>(artifactsTaskName).configure {
-            // Configure the task
+            // タスクを構成します
         }
     }
 
     sourceSets {
         jvmMain {
             dependencies {
-                // Add JVM-specific dependencies
+                // JVM固有の依存関係を追加します
             }
         }
     }
@@ -268,7 +268,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-このターゲットはKotlin Multiplatformプラグインによって公開され、Javaプラグインに固有の手順は必要ありません。
+このターゲットはKotlin Multiplatform Gradleプラグインによって公開され、Javaプラグインに固有の手順は必要ありません。
 
 ## ネイティブ言語との相互運用性を構成する
 
@@ -287,7 +287,7 @@ Kotlinは[ネイティブ言語との相互運用性](https://kotlinlang.org/doc
 
 ```kotlin
 kotlin {
-    linuxX64 { // Replace with a target you need.
+    linuxX64 { // 必要なターゲットに置き換えてください。
         compilations.getByName("main") {
             val myInterop by cinterops.creating {
                 // ネイティブAPIを記述するDef-file。
@@ -324,7 +324,7 @@ kotlin {
 
 ```groovy
 kotlin {
-    linuxX64 { // Replace with a target you need.
+    linuxX64 { // 必要なターゲットに置き換えてください。
         compilations.main {
             cinterops {
                 myInterop {
@@ -363,7 +363,7 @@ kotlin {
 
 Androidターゲット用にデフォルトで作成されるコンピレーションは、[Androidビルドバリアント](https://developer.android.com/build/build-variants)に結び付けられています。各ビルドバリアントに対して、同じ名前のKotlinコンピレーションが作成されます。
 
-次に、各バリアント用にコンパイルされる各[Androidソースセット](https://developer.android.com/build/build-variants#sourcesets)に対して、そのソースセット名にターゲット名がプレフィックスとして付けられたKotlinソースセットが作成されます。たとえば、Androidソースセット`debug`と`androidTarget`という名前のKotlinターゲットの場合、Kotlinソースセットは`androidDebug`となります。これらのKotlinソースセットは、バリアントのコンピレーションに適切に追加されます。
+次に、各バリアント用にコンパイルされる各[Androidソースセット](https://developer.android.com/build/build-variants#sourcesets)に対して、そのソースセット名にターゲット名がプレフィックスとして付けられたKotlinソースセットが作成されます。たとえば、Androidソースセット`debug`と`android`という名前のKotlinターゲットの場合、Kotlinソースセットは`androidDebug`となります。これらのKotlinソースセットは、バリアントのコンピレーションに適切に追加されます。
 
 デフォルトのソースセット`commonMain`は、各本番（アプリケーションまたはライブラリ）バリアントのコンピレーションに追加されます。`commonTest`ソースセットも同様に、単体テストおよび計装テストバリアントのコンピレーションに追加されます。
 
@@ -371,7 +371,7 @@ Androidターゲット用にデフォルトで作成されるコンピレーシ�
 
 ```kotlin
 kotlin {
-    androidTarget { /* ... */ }
+    android { /* ... */ }
 }
 
 dependencies {
@@ -383,7 +383,7 @@ dependencies {
 
 Kotlinは`dependsOn`関係を使用して[ソースセット階層](multiplatform-share-on-platforms.md#share-code-on-similar-platforms)を構築できます。
 
-![Source set hierarchy](jvm-js-main.svg)
+![ソースセット階層](jvm-js-main.svg)
 
 ソースセット`jvmMain`がソースセット`commonMain`に依存している場合：
 

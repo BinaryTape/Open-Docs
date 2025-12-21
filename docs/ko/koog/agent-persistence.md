@@ -62,9 +62,9 @@ val agent = AIAgent(
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
     install(Persistence) {
-        // 스냅샷을 위한 인메모리 스토리지를 사용
+        // Use in-memory storage for snapshots
         storage = InMemoryPersistenceStorageProvider()
-        // 자동 영속성 활성화
+        // Enable automatic persistence
         enableAutomaticPersistence = true
     }
 }
@@ -168,7 +168,7 @@ suspend fun example(context: AIAgentContext) {
     // 현재 상태로 체크포인트 생성
     val checkpoint = context.persistence().createCheckpoint(
         agentContext = context,
-        nodeId = "current-node-id",
+        nodePath = context.executionInfo.path(),
         lastInput = inputData,
         lastInputType = inputType,
         checkpointId = context.runId,
@@ -282,7 +282,7 @@ suspend fun example(context: AIAgentContext) {
         // 'this'는 체크포인트 기능입니다.
         createCheckpoint(
             agentContext = ctx,
-            nodeId = "current-node-id",
+            nodePath = ctx.executionInfo.path(),
             lastInput = inputData,
             lastInputType = inputType,
             checkpointId = ctx.runId,
@@ -387,7 +387,7 @@ val customMessageHistory = emptyList<User>()
 fun example(context: AIAgentContext) {
     context.persistence().setExecutionPoint(
         agentContext = context,
-        nodeId = "target-node-id",
+        nodePath = context.executionInfo.path(),
         messageHistory = customMessageHistory,
         input = customInput
     )

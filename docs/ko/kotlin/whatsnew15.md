@@ -5,7 +5,7 @@ _[출시일: 2021년 5월 5일](releases.md#release-details)_
 Kotlin 1.5.0은 새로운 언어 기능, 안정적인 IR 기반 JVM 컴파일러 백엔드, 성능 개선,
 그리고 실험적 기능 안정화 및 오래된 기능 사용 중단과 같은 발전적인 변화를 도입합니다.
 
-변경 사항에 대한 개요는 [릴리스 블로그 게시물](https://blog.jetbrains.com/kotlin/2021/04/kotlin-1-5-0-released/)에서도 확인할 수 있습니다.
+변경 사항에 대한 개요는 [릴리스 블로그 게시물](https://blog.jetbrains.com/kotlin/2021/05/kotlin-1-5-0-released/)에서도 확인할 수 있습니다.
 
 ## 언어 기능
 
@@ -60,7 +60,7 @@ class FilledRectangle: Polygon, Fillable
 
 [sealed 인터페이스에 대해 자세히 알아보기](sealed-classes.md).
 
-<video src="https://www.youtube.com/v/d_Mor21W_60" title="Sealed 인터페이스 및 Sealed 클래스 개선"/>
+<video src="https://www.youtube.com/v/d_Mor21W_60" title="Sealed Interfaces and Sealed Classes Improvements"/>
 
 ### 패키지 전체의 sealed 클래스 계층 구조
 
@@ -93,7 +93,7 @@ value class Password(val s: String)
 
 [inline 클래스에 대해 자세히 알아보기](inline-classes.md).
 
-<video src="https://www.youtube.com/v/LpqvtgibbsQ" title="Inline 클래스에서 Value 클래스로"/>
+<video src="https://www.youtube.com/v/LpqvtgibbsQ" title="From Inline to Value Classes"/>
 
 ## Kotlin/JVM
 
@@ -156,7 +156,7 @@ Kotlin/JVM 컴파일의 기본 대상 버전은 이제 `1.8`입니다. `1.6` 대
 JVM 1.6용 빌드가 필요한 경우, 여전히 이 대상으로 전환할 수 있습니다. 방법 알아보기:
 
 * [Gradle에서](gradle-compiler-options.md#attributes-specific-to-jvm)
-* [Maven에서](maven.md#attributes-specific-to-jvm)
+* [Maven에서](maven-compile-package.md#attributes-specific-to-jvm)
 * [명령줄 컴파일러에서](compiler-reference.md#jvm-target-version)
 
 ### invokedynamic을 통한 SAM 어댑터
@@ -169,7 +169,7 @@ Kotlin 1.5.0은 이제 SAM(Single Abstract Method) 변환 컴파일을 위해 �
 
 익명 클래스 생성에 기반한 이전 구현 방식으로 되돌리려면, 컴파일러 옵션 `-Xsam-conversions=class`를 추가하세요.
 
-[Gradle](gradle-compiler-options.md), [Maven](maven.md#specify-compiler-options), 및 [명령줄 컴파일러](compiler-reference.md#compiler-options)에서 컴파일러 옵션을 추가하는 방법을 알아보세요.
+[Gradle](gradle-compiler-options.md), [Maven](maven-compile-package.md#specify-compiler-options), 및 [명령줄 컴파일러](compiler-reference.md#compiler-options)에서 컴파일러 옵션을 추가하는 방법을 알아보세요.
 
 ### invokedynamic을 통한 람다
 
@@ -186,7 +186,7 @@ Kotlin 1.5.0은 일반 코틀린 람다(함수형 인터페이스 인스턴스�
 
 이 기능을 사용해 보려면 `-Xlambdas=indy` 컴파일러 옵션을 추가하세요. 이 [YouTrack 티켓](https://youtrack.jetbrains.com/issue/KT-45375)을 사용하여 피드백을 공유해 주시면 감사하겠습니다.
 
-[Gradle](gradle-compiler-options.md), [Maven](maven.md#specify-compiler-options), 및 [명령줄 컴파일러](compiler-reference.md#compiler-options)에서 컴파일러 옵션을 추가하는 방법을 알아보세요.
+[Gradle](gradle-compiler-options.md), [Maven](maven-compile-package.md#specify-compiler-options), 및 [명령줄 컴파일러](compiler-reference.md#compiler-options)에서 컴파일러 옵션을 추가하는 방법을 알아보세요.
 
 ### @JvmDefault 및 이전 Xjvm-default 모드 사용 중단
 
@@ -301,7 +301,7 @@ Kotlin 1.5.0에서는 [각 플랫폼에 대한 테스트 의존성을 선택하�
 
 표준 라이브러리 변경 사항에 대한 자세한 내용은 [이 블로그 게시물](https://blog.jetbrains.com/kotlin/2021/04/kotlin-1-5-0-rc-released)에서 확인할 수 있습니다.
 
-<video src="https://www.youtube.com/v/MyTkiT2I6-8" title="새로운 표준 라이브러리 기능"/>
+<video src="https://www.youtube.com/v/MyTkiT2I6-8" title="New Standard Library Features"/>
 
 ### 안정적인 부호 없는 정수 타입
 
@@ -379,11 +379,11 @@ Kotlin 1.5.0부터 새로운 문자-코드 및 문자-숫자 변환 함수가 [�
 `java.nio.file.Path`에 대한 확장 기능을 포함하는 [실험적인 Path API](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io.path/java.nio.file.-path/)가 이제 [안정화](components-stability.md)되었습니다.
 
 ```kotlin
-// construct path with the div (/) operator
+// div (/) 연산자로 경로 구성
 val baseDir = Path("/base")
 val subDir = baseDir / "subdirectory"
 
-// list files in a directory
+// 디렉토리의 파일 나열
 val kotlinFiles: List<Path> = Path("/home/user").listDirectoryEntries("*.kt")
 ```
 
@@ -729,7 +729,7 @@ IntelliJ IDEA와 Android Studio는 Kotlin 플러그인 1.5.0이 사용 가능해
 기존 프로젝트를 Kotlin 1.5.0으로 마이그레이션하려면, Kotlin 버전을 `1.5.0`으로 변경하고 Gradle 또는 Maven
 프로젝트를 다시 가져오기(re-import)만 하면 됩니다. [Kotlin 1.5.0으로 업데이트하는 방법 알아보기](releases.md#update-to-a-new-kotlin-version).
 
-Kotlin 1.5.0으로 새 프로젝트를 시작하려면, Kotlin 플러그인을 업데이트하고 **File** | **New** |
+새 프로젝트를 Kotlin 1.5.0으로 시작하려면, Kotlin 플러그인을 업데이트하고 **File** | **New** |
 **Project**에서 프로젝트 마법사를 실행하세요.
 
 새로운 명령줄 컴파일러는 [GitHub 릴리스 페이지](https://github.com/JetBrains/kotlin/releases/tag/v1.5.0)에서 다운로드할 수 있습니다.

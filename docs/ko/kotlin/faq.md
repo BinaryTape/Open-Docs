@@ -75,7 +75,7 @@ JavaScript를 대상으로 할 때 Kotlin은 ES5.1로 트랜스파일(transpile)
 
 ### Kotlin은 어떤 JVM 버전을 대상으로 하나요?
 
-Kotlin은 실행을 위한 JVM 버전을 선택할 수 있게 해줍니다. 기본적으로 Kotlin/JVM 컴파일러는 Java 8 호환 바이트코드를 생성합니다. 새로운 Java 버전에서 사용할 수 있는 최적화를 활용하고 싶다면 대상 Java 버전을 9부터 24까지 명시적으로 지정할 수 있습니다. 이 경우 결과 바이트코드가 하위 버전에서는 실행되지 않을 수 있습니다. [Kotlin 1.5](whatsnew15.md#new-default-jvm-target-1-8)부터 컴파일러는 Java 8 미만 버전과 호환되는 바이트코드 생성을 지원하지 않습니다.
+Kotlin은 실행을 위한 JVM 버전을 선택할 수 있게 해줍니다. 기본적으로 Kotlin/JVM 컴파일러는 Java 8 호환 바이트코드를 생성합니다. 새로운 Java 버전에서 사용할 수 있는 최적화를 활용하고 싶다면 대상 Java 버전을 9부터 25까지 명시적으로 지정할 수 있습니다. 이 경우 결과 바이트코드가 하위 버전에서는 실행되지 않을 수 있습니다. [Kotlin 1.5](whatsnew15.md#new-default-jvm-target-1-8)부터 컴파일러는 Java 8 미만 버전과 호환되는 바이트코드 생성을 지원하지 않습니다.
 
 ### Kotlin은 배우기 어려운가요?
 
@@ -83,7 +83,7 @@ Kotlin은 Java, C#, JavaScript, Scala, Groovy 등 기존 언어에서 영감을 
 
 ### 어떤 회사들이 Kotlin을 사용하고 있나요?
 
-Kotlin을 사용하는 회사가 너무 많아 모두 나열하기 어렵습니다. 하지만 블로그 게시물, GitHub 저장소 또는 강연을 통해 Kotlin 사용을 공개적으로 선언한 눈에 띄는 회사로는 [Square](https://medium.com/square-corner-blog/square-open-source-loves-kotlin-c57c21710a17), [Pinterest](https://www.youtube.com/watch?v=mDpnc45WwlI), [Basecamp](https://signalvnoise.com/svn3/using-kotlin-to-make-android-apis-fun-again/), [Corda](https://corda.net/blog/kotlin/) 등이 있습니다.
+Kotlin을 사용하는 회사가 너무 많아 모두 나열하기 어렵습니다. 하지만 블로그 게시물, GitHub 저장소 또는 강연을 통해 Kotlin 사용을 공개적으로 선언한 눈에 띄는 회사로는 [Square](https://medium.com/square-corner-blog/square-open-source-loves-kotlin-c57c21710a17), [Pinterest](https://www.youtube.com/watch?v=mDpnc45WwlI), [Basecamp](https://signalvnoise.com/svn3/using-kotlin-to-make-android-apis-fun-again/) 등이 있습니다.
 
 ### 누가 Kotlin을 개발하나요?
 

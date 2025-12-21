@@ -61,7 +61,7 @@ data class Person(val name: String, val age: Int)
 
 JVM 记录要求生成的 JVM 字节码的目标版本为 `16` 或更高。
 
-要显式指定它，请在 [Gradle](gradle-compiler-options.md#attributes-specific-to-jvm) 或 [Maven](maven.md#attributes-specific-to-jvm) 中使用 `jvmTarget` 编译器选项。
+要显式指定它，请在 [Gradle](gradle-compiler-options.md#attributes-specific-to-jvm) 或 [Maven](maven-compile-package.md#attributes-specific-to-jvm) 中使用 `jvmTarget` 编译器选项。
 
 ## 在 Kotlin 中为记录组件添加注解
 

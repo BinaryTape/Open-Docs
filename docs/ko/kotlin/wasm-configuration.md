@@ -6,7 +6,7 @@
 
 ## 브라우저 버전
 
-Kotlin/Wasm은 WebAssembly 내에서 개선 사항 및 새로운 기능을 도입하기 위해 [가비지 컬렉션 (WasmGC)](#garbage-collection-proposal) 및 [예외 처리](#exception-handling-proposal)와 같은 최신 WebAssembly 제안에 의존합니다.
+Kotlin/Wasm은 [가비지 컬렉션 (WasmGC)](#garbage-collection-proposal) 및 [예외 처리](#exception-handling-proposal)와 같은 최신 WebAssembly 제안에 의존하여 WebAssembly 내에서 개선 사항 및 새로운 기능을 도입합니다.
 
 이러한 기능이 제대로 작동하는지 확인하려면 최신 제안을 지원하는 환경을 제공하세요. 사용 중인 브라우저 버전이 새 WasmGC를 기본적으로 지원하는지 또는 환경을 변경해야 하는지 확인하세요.
 
@@ -73,25 +73,23 @@ Edge, Brave, Opera 또는 Samsung Internet과 같은 Chromium 기반 브라우�
 
 ## Wasm 제안 지원
 
-Kotlin/Wasm의 개선 사항은 [WebAssembly 제안](https://webassembly.org/roadmap/)을 기반으로 합니다. 여기에서는 WebAssembly의 가비지 컬렉션 및 (레거시) 예외 처리 제안에 대한 지원 세부 정보를 찾을 수 있습니다.
+Kotlin/Wasm의 개선 사항은 [WebAssembly 제안](https://webassembly.org/roadmap/)을 기반으로 합니다. 여기에서는 WebAssembly의 가비지 컬렉션 및 (레거시) 예외 처리 제안에 대한 지원 세부 정보를 찾을 수 있습니다. 
 
 ### 가비지 컬렉션 제안
 
-Kotlin 1.9.20부터 Kotlin 툴체인은 [Wasm 가비지 컬렉션](https://github.com/WebAssembly/gc) (WasmGC) 제안의 최신 버전을 사용합니다.
+Kotlin 1.9.20부터 Kotlin 툴체인은 [Wasm 가비지 컬렉션](https://github.com/WebAssembly/gc) (WasmGC) 제안의 최신 버전을 사용합니다. 
 
 이러한 이유로 Wasm 프로젝트를 최신 Kotlin 버전으로 업데이트할 것을 강력히 권장합니다. 또한 Wasm 환경과 함께 최신 버전의 브라우저를 사용할 것을 권장합니다.
 
 ### 예외 처리 제안
 
-Kotlin 툴체인은 기본적으로 [레거시 예외 처리 제안](https://github.com/WebAssembly/exception-handling/blob/master/proposals/exception-handling/legacy/Exceptions.md)을 사용하며, 이는 생성된 Wasm 바이너리를 더 넓은 범위의 환경에서 실행할 수 있도록 합니다.
+Kotlin 툴체인은 [레거시](https://github.com/WebAssembly/exception-handling/blob/master/proposals/exception-handling/legacy/Exceptions.md) 및 [새로운](https://github.com/WebAssembly/exception-handling/blob/main/proposals/exception-handling/Exceptions.md) 버전의 예외 처리 제안을 모두 지원합니다. 이를 통해 Kotlin으로 생성된 Wasm 바이너리가 더 넓은 범위의 환경에서 실행될 수 있습니다.
 
-Kotlin 2.0.0부터 Kotlin/Wasm 내에서 새로운 버전의 Wasm [예외 처리 제안](https://github.com/WebAssembly/exception-handling/blob/main/proposals/exception-handling/Exceptions.md)에 대한 지원을 도입했습니다.
+[`wasmJs` 타겟](wasm-overview.md#kotlin-wasm-and-compose-multiplatform)은 기본적으로 레거시 예외 처리 제안을 사용합니다. `wasmJs` 타겟에 대해 새로운 예외 처리 제안을 활성화하려면 `-Xwasm-use-new-exception-proposal` 컴파일러 옵션을 사용하세요.
 
-이 업데이트는 새로운 예외 처리 제안이 Kotlin 요구 사항에 부합하도록 보장하여, 최신 버전의 제안만 지원하는 가상 머신에서 Kotlin/Wasm을 사용할 수 있도록 합니다.
+반면, [`wasmWasi` 타겟](wasm-overview.md#kotlin-wasm-and-wasi)은 기본적으로 새로운 제안을 사용하여 최신 WebAssembly 런타임과의 더 나은 호환성을 보장합니다. 레거시 제안으로 전환하려면 `-Xwasm-use-new-exception-proposal=false` 컴파일러 옵션을 사용하세요.
 
-새로운 예외 처리 제안은 `-Xwasm-use-new-exception-proposal` 컴파일러 옵션을 사용하여 활성화됩니다. 기본적으로 비활성화되어 있습니다.
-
-<p>&nbsp;</p>
+`wasmWasi` 타겟의 경우, 새로운 예외 처리 제안을 채택하는 것이 안전합니다. 이 환경을 대상으로 하는 애플리케이션은 일반적으로 사용자가 제어하는 덜 다양한 런타임 환경(종종 단일 특정 VM에서 실행)에서 실행되므로 호환성 문제의 위험이 줄어듭니다.
 
 > 프로젝트 설정, 종속성 사용 및 기타 작업에 대한 자세한 내용은
 > [Kotlin/Wasm 예제](https://github.com/Kotlin/kotlin-wasm-examples#readme)에서 알아보세요.
@@ -156,6 +154,13 @@ kotlin {
 
 이 옵션을 활성화하면 애플리케이션 크기가 증가한다는 점을 유의하세요.
 
+### 정규화된 이름
+
+Kotlin/Wasm 타겟에서는 추가 구성 없이 런타임에 정규화된 이름 (FQNs)을 사용할 수 있습니다.
+이는 `KClass.qualifiedName` 속성이 기본적으로 활성화되어 있음을 의미합니다.
+
+FQNs를 사용하면 JVM에서 Wasm 타겟으로의 코드 이식성이 향상되고, 전체 정규화된 이름을 표시하여 런타임 오류를 더욱 유익하게 만듭니다.
+
 ## 배열 범위를 벗어난 접근 및 트랩
 
 Kotlin/Wasm에서 인덱스가 범위를 벗어난 배열에 접근하면 일반적인 Kotlin 예외 대신 WebAssembly 트랩이 트리거됩니다. 트랩은 현재 실행 스택을 즉시 중지시킵니다.
@@ -187,7 +192,7 @@ kotlin {
 
 Kotlin/Wasm은 일반 WebAssembly 상호 운용성을 위한 여러 실험적 어노테이션을 제공합니다.
 
-`@WasmImport` 및 `@WasmExport`는 Kotlin/Wasm 모듈 외부에서 정의된 함수를 호출하고, 각각 Kotlin 함수를 호스트 또는 다른 Wasm 모듈에 노출할 수 있도록 합니다.
+[`@WasmImport`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.wasm/-wasm-import/) 및 [`@WasmExport`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.wasm/-wasm-export/)는 Kotlin/Wasm 모듈 외부에서 정의된 함수를 호출하고, 각각 Kotlin 함수를 호스트 또는 다른 Wasm 모듈에 노출할 수 있도록 합니다.
 
 이러한 메커니즘은 아직 발전 중이므로 모든 어노테이션은 실험적으로 표시됩니다. 명시적으로 [옵트인하여 사용](opt-in-requirements.md)해야 하며, 해당 디자인이나 동작은 향후 Kotlin 버전에서 변경될 수 있습니다.
 

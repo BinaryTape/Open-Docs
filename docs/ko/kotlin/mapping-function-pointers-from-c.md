@@ -9,7 +9,7 @@
     </p>
 </tldr>
 
-> C 라이브러리 임포트는 [베타(Beta)](native-c-interop-stability.md) 버전입니다. cinterop 도구로 C 라이브러리에서 생성된 모든 Kotlin 선언에는 `@ExperimentalForeignApi` 어노테이션이 있어야 합니다.
+> C 라이브러리 임포트는 [베타(Beta)](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 버전입니다. cinterop 도구로 C 라이브러리에서 생성된 모든 Kotlin 선언에는 `@ExperimentalForeignApi` 어노테이션이 있어야 합니다.
 >
 > Kotlin/Native와 함께 제공되는 네이티브 플랫폼 라이브러리(예: Foundation, UIKit, POSIX)는 일부 API에 대해서만 옵트인(opt-in)이 필요합니다.
 >

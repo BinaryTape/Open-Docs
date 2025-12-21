@@ -33,12 +33,12 @@ Kotlin 1.7.0이 릴리스되었습니다. 이 버전은 새로운 Kotlin/JVM K2 
 
 저희 벤치마크는 내부 프로젝트에서 뛰어난 결과를 보여줍니다.
 
-| 프로젝트       | 현재 Kotlin 컴파일러 성능 | 새로운 K2 Kotlin 컴파일러 성능 | 성능 향상 |
+| 프로젝트 | 현재 Kotlin 컴파일러 성능 | 새로운 K2 Kotlin 컴파일러 성능 | 성능 향상 |
 |---------------|-------------------------------------|------------------------------------|-------------------|
-| Kotlin        | 2.2 KLOC/s                          | 4.8 KLOC/s                         | ~ x2.2            |
-| YouTrack      | 1.8 KLOC/s                          | 4.2 KLOC/s                         | ~ x2.3            |
-| IntelliJ IDEA | 1.8 KLOC/s                          | 3.9 KLOC/s                         | ~ x2.2            |
-| Space         | 1.2 KLOC/s                          | 2.8 KLOC/s                         | ~ x2.3            |
+| Kotlin | 2.2 KLOC/s | 4.8 KLOC/s | ~ x2.2 |
+| YouTrack | 1.8 KLOC/s | 4.2 KLOC/s | ~ x2.3 |
+| IntelliJ IDEA | 1.8 KLOC/s | 3.9 KLOC/s | ~ x2.2 |
+| Space | 1.2 KLOC/s | 2.8 KLOC/s | ~ x2.3 |
 
 > KLOC/s 성능 수치는 컴파일러가 초당 처리하는 코드의 천 단위 라인 수를 의미합니다.
 >
@@ -196,7 +196,7 @@ Kotlin/JVM 컴파일의 기본 타겟 버전은 `1.8`입니다. `1.6` 타겟은 
 JVM 타겟 1.8 이상으로 마이그레이션하십시오. 다음 환경에서 JVM 타겟 버전을 업데이트하는 방법을 알아보세요.
 
 *   [Gradle](gradle-compiler-options.md#attributes-specific-to-jvm)
-*   [Maven](maven.md#attributes-specific-to-jvm)
+*   [Maven](maven-compile-package.md#attributes-specific-to-jvm)
 *   [커맨드라인 컴파일러](compiler-reference.md#jvm-target-version)
 
 ## Kotlin/Native
@@ -604,9 +604,14 @@ fun dateReplace() {
 >
 {style="warning"}
 
+In Kotlin 1.7.0, we've reworked incremental compilation for cross-module changes. Now incremental compilation is also
+supported for changes made inside dependent non-Kotlin modules, and it is compatible with
+the [Gradle build cache](https://docs.gradle.org/current/userguide/build_cache.html). Support for compilation avoidance
+has also been improved.
+
 Kotlin 1.7.0에서는 모듈 간 변경 사항에 대한 점진적 컴파일을 재작업했습니다. 이제 종속된 비-Kotlin 모듈 내의 변경 사항에 대해서도 점진적 컴파일이 지원되며, [Gradle 빌드 캐시](https://docs.gradle.org/current/userguide/build_cache.html)와 호환됩니다. 컴파일 회피 (compilation avoidance)에 대한 지원도 향상되었습니다.
 
-빌드 캐시를 사용하거나 비-Kotlin Gradle 모듈에서 자주 변경하는 경우 새로운 접근 방식의 가장 큰 이점을 보게 될 것으로 예상합니다. `kotlin-gradle-plugin` 모듈의 Kotlin 프로젝트에 대한 저희 테스트에서는 캐시 적중 후 변경 사항에 대해 80% 이상의 개선을 보여줍니다.
+저희는 빌드 캐시를 사용하거나 비-Kotlin Gradle 모듈에서 자주 변경하는 경우 새로운 접근 방식의 가장 큰 이점을 보게 될 것으로 예상합니다. `kotlin-gradle-plugin` 모듈의 Kotlin 프로젝트에 대한 저희 테스트에서는 캐시 적중 후 변경 사항에 대해 80% 이상의 개선을 보여줍니다.
 
 이 새로운 접근 방식을 사용해 보려면 `gradle.properties`에 다음 옵션을 설정하십시오.
 
@@ -666,7 +671,7 @@ kotlin.build.report.output=file
 
 ### 최소 지원 버전 올리기
 
-Kotlin 1.7.0부터 최소 지원 Gradle 버전은 6.7.1입니다. 저희는 [Gradle 플러그인 변형](#support-for-gradle-plugin-variants)과 새로운 Gradle API를 지원하기 위해 [버전을 올려야 했습니다](https://youtrack.jetbrains.com/issue/KT-49733/Bump-minimal-supported-Gradle-version-to-6-7-1). 앞으로는 Gradle 플러그인 변형 기능 덕분에 최소 지원 버전을 자주 올릴 필요가 없을 것입니다.
+Kotlin 1.7.0부터 최소 지원 Gradle 버전은 6.7.1입니다. 저희는 [버전을 올려야 했습니다](https://youtrack.jetbrains.com/issue/KT-49733/Bump-minimal-supported-Gradle-version-to-6-7-1) [Gradle 플러그인 변형](#support-for-gradle-plugin-variants)과 새로운 Gradle API를 지원하기 위해. 앞으로는 Gradle 플러그인 변형 기능 덕분에 최소 지원 버전을 자주 올릴 필요가 없을 것입니다.
 
 또한, 최소 지원 Android Gradle 플러그인 버전은 이제 3.6.4입니다.
 

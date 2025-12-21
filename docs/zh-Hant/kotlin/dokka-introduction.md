@@ -6,8 +6,9 @@ Dokka 是一個適用於 Kotlin 的 API 文件引擎。
 [KDoc 註解](https://kotlinlang.org/docs/kotlin-doc.html#kdoc-syntax) 和 Java 的
 [Javadoc 註解](https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html)。
 
-Dokka 可以生成多種格式的文件，包括其自身的現代化 [HTML 格式](dokka-html.md)、
-多種 [Markdown](dokka-markdown.md) 變體，以及 Java 的 [Javadoc HTML](dokka-javadoc.md)。
+Dokka 可以生成多種格式的文件，包括其自身的現代化 [HTML 格式](dokka-html.md)、Java 的 [Javadoc HTML](dokka-javadoc.md)，以及
+[GFM](https://github.com/Kotlin/dokka/blob/8e5c63d035ef44a269b8c43430f43f5c8eebfb63/dokka-subprojects/plugin-gfm/README.md) 和
+[Jekyll](https://github.com/Kotlin/dokka/blob/8e5c63d035ef44a269b8c43430f43f5c8eebfb63/dokka-subprojects/plugin-jekyll/README.md) 兩種 Markdown 變體。
 
 以下是一些使用 Dokka 作為其 API 參考文件的函式庫：
 

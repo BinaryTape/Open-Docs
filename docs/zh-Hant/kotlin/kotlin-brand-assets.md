@@ -6,8 +6,6 @@
 
 [下載所有版本](https://resources.jetbrains.com/storage/products/kotlin/docs/kotlin_logos.zip){:.typo-float-right.kto-button.kto-button_size_m.kto-button_mode_outline}
 
-![Kotlin 標誌](kotlin-logo.png){width=700}
-
 我們的標誌和標記設有保護區域。請將標誌放置好，以確保其他設計元素不會侵入此區域。保護區域的最小尺寸為標記高度的一半。
 
 ![Kotlin 標誌比例](kotlin-logo-guidelines.png){width=700}
@@ -22,6 +20,25 @@
 * 請勿將標誌置於複雜背景上。請勿將標誌置於明亮背景前。
 
 [閱讀 Kotlin 品牌使用指南](https://kotlinfoundation.org/guidelines/)。
+
+## Kotlin 生態系標誌
+
+Kotlin 品牌套件還包含多個官方 Kotlin 生態系專案、函式庫、框架和技術的標誌。這些資產遵循與 Kotlin 標誌相同的視覺原則，並有助於確保整個生態系中的表示方式一致。
+
+此套件包含以下專案的標誌：
+
+* [Kotlin Foundation](https://kotlinfoundation.org)
+* [Kotlin Notebook](kotlin-notebook-overview.md)
+* [Kotlin Multiplatform (KMP)](https://kotlinlang.org/multiplatform/)
+* [Talking Kotlin](https://www.youtube.com/playlist?list=PLlFc5cFwUnmz1TwkP9SKCHU978dqLTANB)
+* [Compose Multiplatform (CMP)](https://www.jetbrains.com/compose-multiplatform/)
+* [Compose Hot Reload](https://kotlinlang.org/docs/multiplatform/compose-hot-reload.html)
+* [Ktor](https://ktor.io)
+* [Exposed](https://www.jetbrains.com/exposed/)
+
+你可以在相同的下載組合中找到這些標誌：
+
+[下載所有版本](https://resources.jetbrains.com/storage/products/kotlin/docs/kotlin_logos.zip){:.typo-float-right.kto-button.kto-button_size_m.kto-button_mode_outline}
 
 ## Kotlin 吉祥物
 

@@ -4,9 +4,7 @@
 
 我们的标志由图形标识和字体组成。全彩版本是主要版本，应在绝大多数情况下使用。
 
-[下载所有版本](https://resources.jetbrains.com/storage/products/kotlin/docs/kotlin_logos.zip){:.typo-float-right.kto-button.kto-button_size_m.kto-button_mode_outline}
-
-![Kotlin logo](kotlin-logo.png){width=700}
+[Download all versions](https://resources.jetbrains.com/storage/products/kotlin/docs/kotlin_logos.zip){:.typo-float-right.kto-button.kto-button_size_m.kto-button_mode_outline}
 
 我们的标志和图形标识都有一个保护区域。请放置标志，确保其他设计元素不进入其保护区域。保护区域的最小尺寸为图形标识高度的一半。
 
@@ -23,6 +21,25 @@
 
 [阅读 Kotlin 品牌使用指南](https://kotlinfoundation.org/guidelines/)。
 
+## Kotlin 生态系统标志
+
+Kotlin 品牌包还包括了多个官方 Kotlin 生态系统项目、库、框架和技术的标志。这些资产遵循与 Kotlin 标志相同的视觉原则，有助于确保在整个生态系统中保持一致的形象。
+
+该包包含以下项目的标志：
+
+* [Kotlin Foundation](https://kotlinfoundation.org)
+* [Kotlin Notebook](kotlin-notebook-overview.md)
+* [Kotlin Multiplatform (KMP)](https://kotlinlang.org/multiplatform/)
+* [Talking Kotlin](https://www.youtube.com/playlist?list=PLlFc5cFwUnmz1TwkP9SKCHU978dqLTANB)
+* [Compose Multiplatform (CMP)](https://www.jetbrains.com/compose-multiplatform/)
+* [Compose Hot Reload](https://kotlinlang.org/docs/multiplatform/compose-hot-reload.html)
+* [Ktor](https://ktor.io)
+* [Exposed](https://www.jetbrains.com/exposed/)
+
+您可以在同一下载包中找到这些标志：
+
+[Download all versions](https://resources.jetbrains.com/storage/products/kotlin/docs/kotlin_logos.zip){:.typo-float-right.kto-button.kto-button_size_m.kto-button_mode_outline}
+
 ## Kotlin 吉祥物
 
 认识 Kodee，Kotlin 吉祥物和您的友好伙伴，它将始终陪伴您，鼓励并激发您的创造力。使用时，我们请您遵循这些[简单指南](https://resources.jetbrains.com/storage/products/kotlin/docs/Kotlin_Mascot_Guidelines.pdf)。
@@ -31,7 +48,7 @@
 
 您可以在数字和印刷材料中使用 Kodee。为此，我们为您准备了各种 Kotlin 吉祥物资产供您下载和探索。
 
-[下载所有资产](https://resources.jetbrains.com/storage/products/kotlin/docs/kotlin_mascot_2.zip){:.typo-float-right.kto-button.kto-button_size_m.kto-button_mode_outline}
+[Download all assets](https://resources.jetbrains.com/storage/products/kotlin/docs/kotlin_mascot_2.zip){:.typo-float-right.kto-button.kto-button_size_m.kto-button_mode_outline}
 
 ![Kotlin mascot Kodee in action](mascot-in-action.png){width=700}
 
@@ -43,7 +60,7 @@
 * 用户组标志也意味着社区的意见和行动独立于 Kotlin 团队。
 * 您的意见不必与我们一致，我们认为这是建立一个富有创造力且强大社区的最有利模式。
 
-[下载所有资产](https://drive.google.com/drive/folders/0B3Zi34svOj1RZ2sxZExhblRJc1k){:.typo-float-right.kto-button.kto-button_size_m.kto-button_mode_outline}
+[Download all assets](https://drive.google.com/drive/folders/0B3Zi34svOj1RZ2sxZExhblRJc1k){:.typo-float-right.kto-button.kto-button_size_m.kto-button_mode_outline}
 
 ### 用户组样式
 
@@ -91,7 +108,7 @@
 
 JetBrains 为 Kotlin Night 活动提供品牌和材料。我们的团队将为活动宣传准备数字资产，并寄送包含贴纸和 T 恤的商品包。快来看看我们提供了哪些资源，让您的 Kotlin Night 充满乐趣！
 
-[下载所有资产](https://drive.google.com/drive/folders/1wTJ-PiO6VvbY6XdACGLsWZ_N8KHI0Nvr){:.typo-float-right.kto-button.kto-button_size_m.kto-button_mode_outline}
+[Download all assets](https://drive.google.com/drive/folders/1wTJ-PiO6VvbY6XdACGLsWZ_N8KHI0Nvr){:.typo-float-right.kto-button.kto-button_size_m.kto-button_mode_outline}
 
 ### 社交媒体
 

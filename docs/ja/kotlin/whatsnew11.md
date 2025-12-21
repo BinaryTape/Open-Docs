@@ -4,7 +4,7 @@ _リリース日: 2016年2月15日_
 
 ## 目次
 
-* [コルーチン (実験的機能)](#coroutines-experimental)
+* [コルーチン](#coroutines-experimental)
 * [その他の言語機能](#other-language-features)
 * [標準ライブラリ](#standard-library)
 * [JVMバックエンド](#jvm-backend)
@@ -21,7 +21,7 @@ Kotlin 1.1の主要な新機能は**コルーチン**であり、`async`/`await`
 コルーチンは実質的に、後で一時停止および再開できる軽量なスレッドです。
 コルーチンは_[中断関数 (suspending functions)](coroutines-basics.md)_を通じてサポートされます。このような関数への呼び出しは、コルーチンを一時停止させる可能性があり、新しいコルーチンを開始するには通常、匿名の中断関数 (つまり、中断ラムダ) を使用します。
 
-外部ライブラリである[kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines)で実装されている`async`/`await`を見てみましょう。
+外部ライブラリである[kotlinx.coroutines](https://github.com/kotlin/kotlinx.coroutines)で実装されている`async`/`await`を見てみましょう。
 
 ```kotlin
 // バックグラウンドスレッドプールでコードを実行
@@ -474,7 +474,7 @@ val index = input.indexOf(keyword).takeUnless { it < 0 } ?: error("keyword not f
 private fun testTakeUnless(string: String) {
 //sampleStart
     val result = string.takeUnless(String::isEmpty)
-//sampleEnd
+//sampleStart
 
     println("string = \"$string\"; result = \"$result\"")
 }
@@ -662,7 +662,7 @@ println(engine.eval("x + 2"))  // 5 を出力します
 ### 統合された標準ライブラリ
 
 Kotlin標準ライブラリのより多くの部分が、JavaScriptにコンパイルされたコードから使用できるようになりました。
-特に、コレクション（`ArrayList`、`HashMap`など）、例外（`IllegalArgumentException`など）、その他いくつかの主要なクラス（`StringBuilder`、`Comparator`）が`kotlin`パッケージの下で定義されるようになりました。JVMでは、これらの名前は対応するJDKクラスの型エイリアスであり、JSでは、これらのクラスはKotlin標準ライブラリに実装されています。
+特に、コレクション（`ArrayList`、`HashMap`など）、例外（`IllegalArgumentException`など）、その他いくつか（`StringBuilder`、`Comparator`）の主要なクラスが`kotlin`パッケージの下で定義されるようになりました。JVMでは、これらの名前は対応するJDKクラスの型エイリアスであり、JSでは、これらのクラスはKotlin標準ライブラリに実装されています。
 
 ### より良いコード生成
 
@@ -706,7 +706,7 @@ external interface JQuery {
 external fun jquery(selector: String): JQuery
 ```
 
-この場合、JQueryは`jquery`という名前のモジュールとしてインポートされます。あるいは、Kotlinコンパイラが使用するように設定されているモジュールシステムに応じて、`$`オブジェクトとして使用することもできます。
+この場合、JQueryは`jquery`という名前のモジュールとしてインポートされます。あるいは、Kotlinコンパイラが使用するように設定されているモジュールシステムに応じて、オブジェクトとして使用することもできます。
 
 これらの宣言は、アプリケーションで次のように使用できます。
 

@@ -1,13 +1,16 @@
 [//]: # (title: 与 Swift/Objective-C 的互操作性)
 
-> Objective-C 库的导入功能目前处于 [Beta](native-c-interop-stability.md) 阶段。
-> 所有由 cinterop 工具从 Objective-C 库生成的 Kotlin 声明都应带有 `@ExperimentalForeignApi` 注解。
+> Objective-C 库的导入目前处于 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 阶段。
+> 所有由 cinterop 工具从 Objective-C 库生成的 Kotlin 声明
+> 都应带有 `@ExperimentalForeignApi` 注解。
 >
-> Kotlin/Native 附带的原生平台库（例如 Foundation、UIKit 和 POSIX）仅对部分 API 要求选择启用。
+> Kotlin/Native 附带的原生平台库（例如 Foundation、UIKit 和 POSIX）
+> 仅对部分 API 要求选择启用。
 >
 {style="note"}
 
-Kotlin/Native 通过 Objective-C 提供与 Swift 的间接互操作。本文档涵盖了如何在 Swift/Objective-C 代码中使用 Kotlin 声明，以及如何在 Kotlin 代码中使用 Objective-C 声明。
+Kotlin/Native 通过 Objective-C 提供与 Swift 的间接互操作。本文档涵盖了如何在 Swift/Objective-C 代码中使用 Kotlin
+声明，以及如何在 Kotlin 代码中使用 Objective-C 声明。
 
 你可能会发现以下其他资源很有用：
 
@@ -64,7 +67,7 @@ class MyKotlinArray {
     fun indexOf(@ObjCName("of") element: String): Int = TODO()
 }
 
-// ObjCName 注解的使用
+// Usage with the ObjCName annotations
 let array = MySwiftArray()
 let index = array.index(of: "element")
 ```
@@ -102,9 +105,9 @@ KDoc 注释嵌入到 klibs 中，并从 klibs 提取到生成的 Apple 框架中
 已知限制：
 
 *   依赖项文档不会被导出，除非它本身也使用 `-Xexport-kdoc` 选项编译。使用此编译器选项编译的库可能与其他编译器版本不兼容。
-*   KDoc 注释大多按原样导出，但许多 KDoc 块标签，例如 `@property`，尚不支持。
+*   KDoc 注释大多按原样导出，但许多 KDoc 代码块标签，例如 `@property`，尚不支持。
 
-如有必要，你可以在 Gradle 构建文件的 `binaries {}` 块中禁用从 klibs 导出 KDoc 注释到生成的 Apple 框架：
+如有必要，你可以在 Gradle 构建文件的 `binaries {}` 代码块中禁用从 klibs 导出 KDoc 注释到生成的 Apple 框架：
 
 ```kotlin
 // build.gradle.kts
@@ -310,13 +313,13 @@ Objective-C 类别和 Swift 扩展的成员通常作为扩展导入到 Kotlin。
 Kotlin 对“常规”Kotlin 类的扩展会分别作为扩展和类别成员导入到 Swift 和 Objective-C。Kotlin 对其他类型的扩展被视为带有额外接收者形参的[顶层声明](#top-level-functions-and-properties)。这些类型包括：
 
 *   Kotlin `String` type
-*   Kotlin 集合类型和子类型
-*   Kotlin `interface` type
-*   Kotlin 原生类型
-*   Kotlin `inline` 类
+*   Kotlin collection types and subtypes
+*   Kotlin `interface` types
+*   Kotlin primitive types
+*   Kotlin `inline` classes
 *   Kotlin `Any` type
-*   Kotlin 函数类型和子类型
-*   Objective-C 类和协议
+*   Kotlin function types and subtypes
+*   Objective-C classes and protocols
 
 [在 Kotlin-Swift interopedia 中查看示例集合](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/tree/main/docs/extensions)。
 
@@ -360,7 +363,7 @@ MyClass.Companion.shared
 
 ### 原生类型
 
-Kotlin 原生类型包装器映射到特殊的 Swift/Objective-C 类。例如，`kotlin.Int` 包装器在 Swift 中表示为 `KotlinInt` 类实例（或在 Objective-C 中表示为 `${prefix}Int` 实例，其中 `prefix` 是框架的名称前缀）。这些类派生自 `NSNumber`，因此这些实例是支持所有相应操作的 `NSNumber`。
+Kotlin 原生类型包装器映射到特殊的 Swift/Objective-C 类。例如，`kotlin.Int` 包装器在 Swift 中表示为 `KotlinInt` 类实例（或在 Objective-C 中表示为 `${prefix}Int` 实例，其中 `prefix` 是框架的名称前缀）。这些类派生自 `NSNumber`，所以这些实例是支持所有相应操作的 `NSNumber`。
 
 当 `NSNumber` 类型用作 Swift/Objective-C 形参类型或返回值时，它不会自动转换为 Kotlin 原生类型。原因是 `NSNumber` 类型没有提供足够关于包装的原生值类型的信息，例如，`NSNumber` 在静态上不确定是 `Byte`、`Boolean` 还是 `Double`。所以 Kotlin 原生值应[手动与 `NSNumber` 之间进行类型转换](#casting-between-mapped-types)。
 
@@ -447,15 +450,8 @@ foo {
 
 #### Objective-C block 类型中的显式形参名称
 
-你可以为 Kotlin 的函数类型添加显式形参名称，以用于导出的 Objective-C 头文件。如果没有它们，
-Xcode 的自动补全会建议调用 Objective-C 函数时，Objective-C block 中没有形参名称，
-并且生成的 block 会触发 Clang 警告。
-
-要启用显式形参名称，请将以下 [二进制选项](native-binary-options.md) 添加到 `gradle.properties` 文件中：
-
-```none
-kotlin.native.binary.objcExportBlockExplicitParameterNames=true
-```
+你可以为 Kotlin 的函数类型添加显式形参名称，以用于导出的 Objective-C 头文件。
+Xcode 的自动补全会建议调用 Objective-C 函数时，Objective-C block 中没有形参名称，并且生成的 block 会触发 Clang 警告。
 
 例如，对于以下 Kotlin 代码：
 
@@ -477,6 +473,14 @@ greetUserBlock:^(NSString *name) {
 > 并且通常不影响从 Swift 的调用。
 >
 {style="note"}
+
+如果你遇到问题，你可以通过在 `gradle.properties` 文件中添加以下[二进制选项](native-binary-options.md)来禁用显式形参名称：
+
+```none
+kotlin.native.binary.objcExportBlockExplicitParameterNames=false
+```
+
+请在我们的问题追踪器 [YouTrack](https://kotl.in/issue) 中报告此类问题。
 
 ### 泛型
 
@@ -591,13 +595,14 @@ fun test() {
 }
 ```
 
-> 你只能从相应的实际类转换为 `objcnames.protocols.ForwardDeclaredProtocolProtocol`。否则，你将收到错误。
+> 你只能从相应的实际类转换为 `objcnames.protocols.ForwardDeclaredProtocolProtocol`。
+> 否则，你将收到错误。
 >
 {style="note"}
 
 ## 映射类型之间的类型转换
 
-在编写 Kotlin 代码时，一个对象可能需要从 Kotlin 类型转换为等效的 Swift/Objective-C 类型（反之亦然）。在这种情况下，你可以使用普通的 Kotlin 类型转换，例如：
+在编写 Kotlin 代码时，一个对象可能需要从 Kotlin 类型转换为等效的 Swift/Objective-C 类型（反之亦然）。在这种情况下，你可以使用[`as` 类型转换](typecasts.md#unsafe-cast-operator)，例如：
 
 ```kotlin
 @file:Suppress("CAST_NEVER_SUCCEEDS")
@@ -646,7 +651,8 @@ class ViewController : UIViewController {
 
 ## 不支持的特性
 
-Kotlin 编程语言的一些特性尚未映射到 Objective-C 或 Swift 的相应特性中。目前，以下特性未在生成的框架头文件中正确公开：
+Kotlin 编程语言的一些特性尚未映射到 Objective-C 或 Swift 的相应特性中。
+目前，以下特性未在生成的框架头文件中正确公开：
 
 *   内联类（实参映射为底层原生类型或 `id`）
 *   实现标准 Kotlin 集合接口（`List`、`Map`、`Set`）及其他特殊类的自定义类

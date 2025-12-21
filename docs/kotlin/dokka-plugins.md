@@ -1,5 +1,9 @@
 [//]: # (title: Dokka 插件)
 
+> 本指南适用于 Dokka Gradle 插件 (DGP) v2 模式。DGP v1 模式不再受支持。要从 v1 模式升级到 v2 模式，请遵循[迁移指南](dokka-migration.md)。
+>
+{style="note"}
+
 Dokka 从零开始构建，旨在高度可扩展和高度可定制，这使得社区能够实现针对缺失或开箱即用未提供的非常特定特性的插件。
 
 Dokka 插件的范围很广，从支持其他编程语言的源代码到不常见的输出格式，无所不包。你可以添加对自定义 KDoc 标签或注解的支持，教 Dokka 如何渲染 KDoc 描述中发现的不同 DSL，对 Dokka 页面进行视觉重新设计，使其无缝集成到公司网站，将其与其他工具集成，以及更多功能。
@@ -8,67 +12,50 @@ Dokka 插件的范围很广，从支持其他编程语言的源代码到不常�
 
 ## 应用 Dokka 插件
 
-Dokka 插件作为独立的构件发布，因此要应用 Dokka 插件，你只需将其添加为依赖项即可。此后，插件会自动扩展 Dokka - 无需进一步操作。
+Dokka 插件作为单独的 artifact 发布，因此要应用 Dokka 插件，你只需将其添加为依赖项即可。此后，插件会自动扩展 Dokka - 无需进一步操作。
 
 > 使用相同扩展点或以类似方式工作的插件可能会相互干扰。
 > 这可能导致视觉 bug、普遍的未定义行为，甚至构建失败。然而，由于 Dokka 不暴露任何可变数据结构或对象，因此不应导致并发问题。
 >
-> 如果你注意到类似问题，最好检查一下应用了哪些插件以及它们的作用。
+> 如果你注意到类似问题，最好检测一下应用了哪些插件以及它们的作用。
 >
 {style="note"}
 
 让我们看看如何将 [mathjax 插件](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-mathjax)应用到你的项目：
 
 <tabs group="build-script">
-<tab title="Kotlin" group-key="kotlin">
-
-> 这些说明反映了 Dokka Gradle 插件 v1 的配置和任务。从 Dokka 2.0.0 开始，几个配置选项、Gradle 任务以及生成文档的步骤已更新，其中包括：
->
-> * [配置 Dokka 插件](dokka-migration.md#configure-dokka-plugins)
-> * [使用多模块项目](dokka-migration.md#share-dokka-configuration-across-modules)
->
-> 有关更多详细信息和 Dokka Gradle 插件 v2 的完整更改列表，请参见[迁移指南](dokka-migration.md)。
->
-> {style="note"}
-
-Dokka 的 Gradle 插件会创建方便的依赖项配置，允许你通用地应用插件，或者仅针对特定输出格式应用插件。
+<tab title="Gradle Kotlin DSL" group-key="kotlin">
 
 ```kotlin
+plugins {
+    id("org.jetbrains.dokka") version "%dokkaVersion%"
+}
+
 dependencies {
-    // 通用地应用
-    dokkaPlugin("org.jetbrains.dokka:mathjax-plugin:%dokkaVersion%")
-
-    // 仅应用于单模块 dokkaHtml 任务
-    dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:%dokkaVersion%")
-
-    // 在多项目构建中应用于 HTML 格式
-    dokkaHtmlPartialPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:%dokkaVersion%")
+    dokkaPlugin("org.jetbrains.dokka:mathjax-plugin")
 }
 ```
 
-> 在文档化[多项目](dokka-gradle.md#multi-project-builds)构建时，你需要在子项目及其父项目中都应用 Dokka 插件。
+> * 内置插件（如 HTML 和 Javadoc）始终自动应用。你只需配置它们，无需声明对它们的依赖项。
+>
+> * 在文档化多模块项目（多项目构建）时，你需要在[子项目之间共享 Dokka 配置和插件](dokka-gradle.md#multi-project-configuration)。
 >
 {style="note"}
 
 </tab>
-<tab title="Groovy" group-key="groovy">
-
-Dokka 的 Gradle 插件会创建方便的依赖项配置，允许你通用地应用 Dokka 插件，或者仅针对特定输出格式应用插件。
+<tab title="Gradle Groovy DSL" group-key="groovy">
 
 ```groovy
+plugins {
+    id 'org.jetbrains.dokka' version '%dokkaVersion%'
+}
+
 dependencies {
-    // 通用地应用
-    dokkaPlugin 'org.jetbrains.dokka:mathjax-plugin:%dokkaVersion%'
-
-    // 仅应用于单模块 dokkaHtml 任务
-    dokkaHtmlPlugin 'org.jetbrains.dokka:kotlin-as-java-plugin:%dokkaVersion%'
-
-    // 在多项目构建中应用于 HTML 格式
-    dokkaHtmlPartialPlugin 'org.jetbrains.dokka:kotlin-as-java-plugin:%dokkaVersion%'
+    dokkaPlugin 'org.jetbrains.dokka:mathjax-plugin'
 }
 ```
 
-> 在文档化[多项目](dokka-gradle.md#multi-project-builds)构建时，你需要在子项目及其父项目中都应用 Dokka 插件。
+> 在文档化[多项目](dokka-gradle.md#multi-project-configuration)构建时，你需要在[子项目之间共享 Dokka 配置](dokka-gradle.md#multi-project-configuration)。
 >
 {style="note"}
 
@@ -124,73 +111,39 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 
 Dokka 插件也可以拥有自己的配置选项。要查看哪些选项可用，请查阅你正在使用的插件的文档。
 
-让我们看看如何配置 `DokkaBase` 插件。该插件负责生成 [HTML](dokka-html.md) 文档，通过向资产添加自定义图片 (`customAssets` 选项)、添加自定义样式表 (`customStyleSheets` 选项) 以及修改页脚消息 (`footerMessage` 选项) 来进行配置：
+让我们看看如何通过向资产添加自定义图片 (`customAssets` 选项)、自定义样式表 (`customStyleSheets` 选项) 以及修改页脚消息 (`footerMessage` 选项) 来配置内置的 HTML 插件：
 
 <tabs group="build-script">
-<tab title="Kotlin" group-key="kotlin">
+<tab title="Gradle Kotlin DSL" group-key="kotlin">
 
-Gradle 的 Kotlin DSL 允许进行类型安全的插件配置。这可以通过将插件的构件添加到 `buildscript` 块中的类路径依赖项，然后导入插件和配置类来实现：
+要以类型安全的方式配置 Dokka 插件，请使用 `dokka.pluginsConfiguration {}` 代码块：
 
 ```kotlin
-import org.jetbrains.dokka.base.DokkaBase
-import org.jetbrains.dokka.gradle.DokkaTask
-import org.jetbrains.dokka.base.DokkaBaseConfiguration
-
-buildscript {
-    dependencies {
-        classpath("org.jetbrains.dokka:dokka-base:%dokkaVersion%")
-    }
-}
-
-tasks.withType<DokkaTask>().configureEach {
-    pluginConfiguration<DokkaBase, DokkaBaseConfiguration> {
-        customAssets = listOf(file("my-image.png"))
-        customStyleSheets = listOf(file("my-styles.css"))
-        footerMessage = "(c) 2022 MyOrg"
+dokka {
+    pluginsConfiguration.html {
+        customAssets.from("logo.png")
+        customStyleSheets.from("styles.css")
+        footerMessage.set("(c) Your Company")
     }
 }
 ```
 
-另外，插件也可以通过 JSON 配置。使用此方法，无需额外依赖项。
+有关 Dokka 插件配置的示例，请参见 [Dokka 的版本控制插件](https://github.com/Kotlin/dokka/tree/master/examples/gradle-v2/versioning-multimodule-example)。
 
-```kotlin
-import org.jetbrains.dokka.gradle.DokkaTask
-
-tasks.withType<DokkaTask>().configureEach {
-    val dokkaBaseConfiguration = """
-    {
-      "customAssets": ["${file("assets/my-image.png")}"],
-      "customStyleSheets": ["${file("assets/my-styles.css")}"],
-      "footerMessage": "(c) 2022 MyOrg"
-    }
-    """
-    pluginsMapConfiguration.set(
-        mapOf(
-            // 完全限定插件名称到 JSON 配置
-            "org.jetbrains.dokka.base.DokkaBase" to dokkaBaseConfiguration
-        )
-    )
-}
-```
+Dokka 允许你通过[配置自定义插件](https://github.com/Kotlin/dokka/blob/v2.1.0/examples/gradle-v2/custom-dokka-plugin-example/demo-library/build.gradle.kts)来扩展其功能并修改文档生成过程。
 
 </tab>
-<tab title="Groovy" group-key="groovy">
+<tab title="Gradle Groovy DSL" group-key="groovy">
 
 ```groovy
-import org.jetbrains.dokka.gradle.DokkaTask
-
-tasks.withType(DokkaTask.class) {
-    String dokkaBaseConfiguration = """
-    {
-      "customAssets": ["${file("assets/my-image.png")}"],
-      "customStyleSheets": ["${file("assets/my-styles.css")}"],
-      "footerMessage": "(c) 2022 MyOrg"
+dokka {
+    pluginsConfiguration {
+        html {
+            customAssets.from("logo.png")
+            customStyleSheets.from("styles.css")
+            footerMessage.set("(c) Your Company")
+        }
     }
-    """
-    pluginsMapConfiguration.set(
-            // 完全限定插件名称到 JSON 配置
-            ["org.jetbrains.dokka.base.DokkaBase": dokkaBaseConfiguration]
-    )
 }
 ```
 
@@ -261,6 +214,8 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 | [Versioning plugin](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-versioning)                       | 添加版本选择器并帮助组织应用程序/库不同版本的文档 |
 | [MermaidJS HTML plugin](https://github.com/glureau/dokka-mermaid)                                                                  | 渲染 KDocs 中发现的 [MermaidJS](https://mermaid-js.github.io/mermaid/#/) 图表和可视化内容      |
 | [Mathjax HTML plugin](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-mathjax)                        | 美化打印 KDocs 中的数学公式                                                                     |
-| [Kotlin as Java plugin](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-kotlin-as-java)              | 渲染从 Java 角度看到的 Kotlin 签名                                                    |
+| [Kotlin as Java plugin](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-kotlin-as-java)               | 渲染从 Java 角度看到的 Kotlin 签名                                                    |
+| [GFM plugin](https://github.com/Kotlin/dokka/tree/master/dokka-subprojects/plugin-gfm)                                                                                                                     | 添加生成 GitHub Flavoured Markdown 格式文档的功能                               |
+| [Jekyll plugin](https://github.com/Kotlin/dokka/tree/master/dokka-subprojects/plugin-jekyll)                                                                                                                                                                                                           | 添加生成 Jekyll Flavoured Markdown 格式文档的功能                               |
 
 如果你是 Dokka 插件作者，并且希望将你的插件添加到此列表，请通过 [Slack](dokka-introduction.md#community) 或 [GitHub](https://github.com/Kotlin/dokka/) 联系维护者。

@@ -1,5 +1,5 @@
 [//]: # (title: Lombok 編譯器外掛程式)
-<primary-label ref="experimental-opt-in"/>
+<primary-label ref="alpha"/>
 
 Kotlin Lombok 編譯器外掛程式允許在相同的混合 Java/Kotlin 模組中，透過 Kotlin 程式碼產生並使用 Java 的 Lombok 宣告。如果您從另一個模組呼叫此類宣告，則該模組的編譯不需要使用該外掛程式。
 
@@ -168,4 +168,3 @@ Lombok 編譯器外掛程式 JAR 可在 Kotlin 編譯器的二進位發行版中
 # 選項可重複。
 
 -P plugin:org.jetbrains.kotlin.lombok:config=<PATH_TO_CONFIG_FILE>
-```

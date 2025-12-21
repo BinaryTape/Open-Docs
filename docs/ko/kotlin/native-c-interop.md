@@ -1,6 +1,6 @@
 [//]: # (title: C 언어와의 상호 운용성)
 
-> C 라이브러리 임포트 기능은 [베타](native-c-interop-stability.md)입니다. `cinterop` 도구가 C 라이브러리에서 생성하는 모든 Kotlin 선언에는 `@ExperimentalForeignApi` 어노테이션이 있어야 합니다.
+> C 라이브러리 임포트는 [베타](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import)입니다. `cinterop` 도구가 C 라이브러리에서 생성하는 모든 Kotlin 선언에는 `@ExperimentalForeignApi` 어노테이션이 있어야 합니다.
 >
 > Kotlin/Native에 포함된 네이티브 플랫폼 라이브러리(예: Foundation, UIKit, POSIX)는 일부 API에 대해서만 옵트인(opt-in)이 필요합니다.
 >
@@ -150,7 +150,7 @@ val fileSize = memScoped {
 
 C 포인터는 `CPointer<T>` 타입으로 매핑되지만, C 함수 포인터 타입 매개변수는 `CValuesRef<T>`로 매핑됩니다. 이러한 매개변수의 값으로 `CPointer<T>`를 전달할 때, 이는 C 함수에 그대로 전달됩니다. 하지만, 포인터 대신 값 시퀀스(sequence)를 전달할 수 있습니다. 이 경우, 시퀀스는 "값으로" 전달됩니다. 즉, C 함수는 해당 시퀀스의 임시 복사본에 대한 포인터를 받으며, 이는 함수가 반환될 때까지만 유효합니다.
 
-포인터 매개변수의 `CValuesRef<T>` 표현은 명시적인 네이티브 메모리 할당 없이 C 배열 리터럴을 지원하도록 설계되었습니다. 불변의 자체 포함된 C 값 시퀀스를 구성하려면 다음 메서드를 사용할 수 있습니다:
+`CValuesRef<T>` 표현은 명시적인 네이티브 메모리 할당 없이 C 배열 리터럴을 지원하도록 설계되었습니다. 불변의 자체 포함된 C 값 시퀀스를 구성하려면 다음 메서드를 사용할 수 있습니다:
 
 *   `${type}Array.toCValues()`, 여기서 `type`은 Kotlin 프리미티브 타입입니다.
 *   `Array<CPointer<T>?>.toCValues()`, `List<CPointer<T>?>.toCValues()`
@@ -239,7 +239,7 @@ C 함수가 구조체/공용체 `T`를 값으로 받거나 반환할 때, 해당
     ```
 
 *   [`fun cValue(initialize: T.() -> Unit): CValue<T>`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/c-value.html)는 제공된 `initialize` 함수를 적용하여 `T`를 메모리에 할당하고 그 결과를 `CValue<T>`로 변환합니다.
-*   [`fun CValue<T>.copy(modify: T.() -> Unit): CValue<T>`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/copy.html)는 기존 `CValue<T>`의 수정된 복사본을 생성합니다. 원본 값은 메모리에 배치되고, `modify()` 함수를 사용하여 변경된 다음, 새로운 `CValue<T>`로 다시 변환됩니다.
+*   [`fun CValue<T>.copy(modify: T.() -> Unit): CValue<T>`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/copy.html)는 기존 `CValue<T>`의 수정된 복사본을 생성합니다. 원본 값은 메모리에 배치되고, `modify()` 함수를 사용하여 변경된 다음, 새로운 `CValue<T>`로 다시 변환합니다.
 *   [`fun CValues<T>.placeTo(scope: AutofreeScope): CPointer<T>`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/place-to.html)는 `CValues<T>`를 `AutofreeScope`에 배치하고, 할당된 메모리에 대한 포인터를 반환합니다. 할당된 메모리는 `AutofreeScope`가 해제될 때 자동으로 해제됩니다.
 
 ### 콜백

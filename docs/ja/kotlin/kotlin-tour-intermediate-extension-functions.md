@@ -58,7 +58,7 @@ fun main() {
 
 拡張関数はどこでも定義できるため、拡張指向設計を作成できます。これらの設計は、コア機能を有用だが不可欠ではない機能から分離し、コードの読みやすさとメンテナンス性を向上させます。
 
-良い例は、ネットワークリクエストの実行に役立つKtorライブラリの[`HttpClient`](https://api.ktor.io/ktor-client/ktor-client-core/io.ktor.client/-http-client/index.html)クラスです。その機能のコアは、HTTPリクエストに必要なすべての情報を受け取る単一の関数`request()`です。
+良い例は、ネットワークリクエストの実行に役立つKtorライブラリの[`HttpClient`](https://api.ktor.io/ktor-client-core/io.ktor.client/-http-client/index.html)クラスです。その機能のコアは、HTTPリクエストに必要なすべての情報を受け取る単一の関数`request()`です。
 
 ```kotlin
 class HttpClient {

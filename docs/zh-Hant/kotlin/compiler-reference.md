@@ -18,7 +18,7 @@ Kotlin 編譯器有許多選項可用於客製化編譯過程。
 有幾種方法可以設定編譯器選項及其值（_編譯器引數_）：
 * 在 IntelliJ IDEA 中，於 **設定/偏好設定** | **建置、執行、部署** | **編譯器** | **Kotlin 編譯器** 中的 **額外命令列參數** 文字方塊中輸入編譯器引數。
 * 如果您使用 Gradle，請在 Kotlin 編譯任務的 `compilerOptions` 屬性中指定編譯器引數。詳情請參閱 [Gradle 編譯器選項](gradle-compiler-options.md#how-to-define-options)。
-* 如果您使用 Maven，請在 Maven 插件節點的 `<configuration>` 元素中指定編譯器引數。詳情請參閱 [Maven](maven.md#specify-compiler-options)。
+* 如果您使用 Maven，請在 Maven 插件節點的 `<configuration>` 元素中指定編譯器引數。詳情請參閱 [Maven](maven-compile-package.md#specify-compiler-options)。
 * 如果您執行命令列編譯器，請直接將編譯器引數新增到公用程式呼叫中，或將它們寫入 [argfile](#argfile)。
 
   例如：
@@ -215,6 +215,53 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 
 允許在契約中使用 `holdsIn` 關鍵字，以假定在 `lambda` 內部布林條件為 `true`。
 
+### -Xreturn-value-checker
+<primary-label ref="experimental-general"/>
+
+設定編譯器如何 [報告被忽略的結果](unused-return-value-checker.md)：
+
+* `disable`: 禁用未使用的回傳值檢查器（預設）。
+* `check`: 啟用檢查器，並報告從標記函式中被忽略結果的警告。
+* `full`: 啟用檢查器，將專案中所有函式視為已標記，並報告被忽略結果的警告。
+
+### -Xcompiler-plugin-order={plugin.before>plugin.after}
+
+設定編譯器套件的執行順序。編譯器會先執行 `plugin.before`，然後執行 `plugin.after`：
+
+您可以定義三個或更多套件的多個排序規則。例如：
+
+```bash
+kotlinc -Xcompiler-plugin-order=plugin.first>plugin.middle
+kotlinc -Xcompiler-plugin-order=plugin.middle>plugin.last
+```
+
+這會產生以下執行順序：
+
+1. `plugin.first`
+2. `plugin.middle`
+3. `plugin.last`
+
+如果編譯器套件不存在，則對應的規則將被忽略。
+
+您可以透過其 ID 配置以下套件：
+
+| 編譯器套件 | 套件 ID |
+|---|---|
+| `all-open`, `kotlin-spring` | `org.jetbrains.kotlin.allopen` |
+| AtomicFU | `org.jetbrains.kotlinx.atomicfu` |
+| Compose | `androidx.compose.compiler.plugins.kotlin` |
+| `js-plain-objects` | `org.jetbrains.kotlinx.jspo` |
+| `jvm-abi-gen` | `org.jetbrains.kotlin.jvm.abi` |
+| kapt | `org.jetbrains.kotlin.kapt3` |
+| Lombok | `org.jetbrains.kotlin.lombok` |
+| `no-arg`, `kotlin-jpa` | `org.jetbrains.kotlin.noarg` |
+| Parcelize | `org.jetbrains.kotlin.parcelize` |
+| Power-assert | `org.jetbrains.kotlin.powerassert` |
+| SAM with receiver | `org.jetbrains.kotlin.samWithReceiver` |
+| Serialization | `org.jetbrains.kotlinx.serialization` |
+
+此執行順序僅控制編譯器套件的後端，而非前端。
+
 ## Kotlin/JVM 編譯器選項
 
 用於 JVM 的 Kotlin 編譯器將 Kotlin 原始碼檔案編譯為 Java 類別檔案。用於 Kotlin 到 JVM 編譯的命令列工具是 `kotlinc` 和 `kotlinc-jvm`。您也可以使用它們來執行 Kotlin 腳本檔案。
@@ -241,7 +288,7 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 
 <primary-label ref="experimental-general"/>
 
-指定生成的 JVM 位元組碼的目標版本。將類別路徑中 JDK 的 API 限制為指定的 Java 版本。自動設定 [`-jvm-target version`](#jvm-target-version)。可能的值為 `1.8`、`9`、`10`、...、`24`。
+指定生成的 JVM 位元組碼的目標版本。將類別路徑中 JDK 的 API 限制為指定的 Java 版本。自動設定 [`-jvm-target version`](#jvm-target-version)。可能的值為 `1.8`、`9`、`10`、...、`25`。
 
 > 此選項 [不保證](https://youtrack.jetbrains.com/issue/KT-29974) 對每個 JDK 發行版都有效。
 >
@@ -249,7 +296,7 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 
 ### -jvm-target _version_
 
-指定生成的 JVM 位元組碼的目標版本。可能的值為 `1.8`、`9`、`10`、...、`24`。預設值為 `%defaultJvmTargetVersion%`。
+指定生成的 JVM 位元組碼的目標版本。可能的值為 `1.8`、`9`、`10`、...、`25`。預設值為 `%defaultJvmTargetVersion%`。
 
 ### -java-parameters
 

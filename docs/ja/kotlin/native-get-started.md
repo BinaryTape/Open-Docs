@@ -164,6 +164,13 @@ IntelliJ IDEA は Gradle タスクを使用してコードを実行し、結果�
 
 このセクションでは、[Gradle](https://gradle.org) を使用して Kotlin/Native アプリケーションを手動で作成する方法を学びます。これは Kotlin/Native および Kotlin Multiplatform プロジェクトのデフォルトのビルドシステムであり、Java、Android、その他のエコシステムでも一般的に使用されています。
 
+Kotlin/Native プロジェクトをビルドする際、Kotlin Gradle プラグインは以下のアーティファクトをダウンロードします。
+
+*   `konanc`、`cinterop`、`jsinterop` などの様々なツールを含む主要な Kotlin/Native バンドル。デフォルトでは、Kotlin/Native バンドルは単純な Gradle 依存関係として [Maven Central](https://repo1.maven.org/maven2/org/jetbrains/kotlin/kotlin-native-prebuilt/) リポジトリからダウンロードされます。
+*   `konanc` 自体に必要な `llvm` などの依存関係。これらはカスタムロジックを使用して JetBrains CDN からダウンロードされます。
+
+主要なバンドルのダウンロード元は、Gradle ビルドスクリプトの `repositories {}` ブロックで変更できます。
+
 ### プロジェクトファイルを作成する
 
 1.  まず、互換性のあるバージョンの[Gradle](https://gradle.org/install/)をインストールします。[互換性テーブル](gradle-configure-project.md#apply-the-plugin)を参照して、Kotlin Gradle プラグイン (KGP) と利用可能な Gradle バージョンの互換性を確認してください。
@@ -179,6 +186,8 @@ IntelliJ IDEA は Gradle タスクを使用してコードを実行し、結果�
    }
 
    repositories {
+       // 主要バンドルのダウンロード元を指定
+       // Maven Central はデフォルトで使用されます
        mavenCentral()
    }
 
@@ -208,6 +217,8 @@ IntelliJ IDEA は Gradle タスクを使用してコードを実行し、結果�
    }
 
    repositories {
+       // 主要バンドルのダウンロード元を指定
+       // Maven Central はデフォルトで使用されます
        mavenCentral()
    }
 

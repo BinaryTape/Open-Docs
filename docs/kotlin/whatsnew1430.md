@@ -4,7 +4,7 @@ _[发布日期：2021 年 2 月 3 日](releases.md#release-details)_
 
 Kotlin 1.4.30 提供了新语言特性的预览版本，将 Kotlin/JVM 编译器的新 IR 后端提升为 Beta 版，并提供了各种性能和功能性改进。
 
-你还可以通过[这篇博客文章](https://blog.jetbrains.com/kotlin/2021/01/kotlin-1-4-30-released/)了解新特性。
+你还可以通过[这篇博客文章](https://blog.jetbrains.com/kotlin/2021/02/kotlin-1-4-30-released/)了解新特性。
 
 ## 语言特性
 
@@ -16,7 +16,7 @@ Kotlin 1.5.0 将带来新的语言特性——JVM records 支持、密封接口�
 
 要在预览模式下启用这些语言特性和改进，你需要通过添加特定的编译器选项来选择启用。详情请参见以下章节。
 
-关于新特性预览的更多信息，请参阅[这篇博客文章](https://blog.jetbrains.com/kotlin/2021/01/new-language-features-preview-in-kotlin-1-4-30)。
+关于新特性预览的更多信息，请参阅[这篇博客文章](https://blog.jetbrains.com/kotlin/2021/02/new-language-features-preview-in-kotlin-1-4-30/)。
 
 ### JVM records 支持
 
@@ -59,8 +59,7 @@ sealed interface Polygon
 class Rectangle(): Polygon
 class Triangle(): Polygon
 
-// when() is exhaustive: no other polygon implementations can appear
-// after the module is compiled
+// when() 是穷尽的：在模块编译后，不会出现其他 polygon 实现
 fun draw(polygon: Polygon) = when (polygon) {
     is Rectangle -> // ...
     is Triangle -> // ...
@@ -201,7 +200,7 @@ Kotlin/JVM 的[基于 IR 的编译器后端](whatsnew14.md#unified-backends-and-
     </configuration>
     ```
 
-关于 JVM IR 后端带来的更改的更多信息，请参阅[这篇博客文章](https://blog.jetbrains.com/kotlin/2021/01/the-jvm-backend-is-in-beta-let-s-make-it-stable-together)。
+关于 JVM IR 后端带来的更改的更多信息，请参阅[这篇博客文章](https://blog.jetbrains.com/kotlin/2021/02/the-jvm-backend-is-in-beta-let-s-make-it-stable-together/)。
 
 ## Kotlin/Native
 
@@ -261,12 +260,14 @@ println("Needs to be capitalized".uppercase()) // NEEDS TO BE CAPITALIZED
 
 Kotlin 1.4.30 提供了以下替代方案：
 
-|**早期版本**|**1.4.30 替代方案**|
-| --- | --- |
-|`String.toUpperCase()`|`String.uppercase()`|
-|`String.toLowerCase()`|`String.lowercase()`|
-|`String.capitalize()`|`String.replaceFirstChar { it.uppercase() }`|
-|`String.decapitalize()`|`String.replaceFirstChar { it.lowercase() }`|
+*   对于 `String` 函数：
+
+    |**早期版本**|**1.4.30 替代方案**|
+    | --- | --- |
+    |`String.toUpperCase()`|`String.uppercase()`|
+    |`String.toLowerCase()`|`String.lowercase()`|
+    |`String.capitalize()`|`String.replaceFirstChar { it.uppercase() }`|
+    |`String.decapitalize()`|`String.replaceFirstChar { it.lowercase() }`|
 
 *   对于 `Char` 函数：
 
@@ -292,9 +293,9 @@ Kotlin 1.4.30 提供了以下替代方案：
 当前的 `Char` 到数字的转换函数（返回以不同数字类型表示的 UTF-16 代码）经常与类似的 String 到 Int 转换（返回字符串的数值）混淆：
 
 ```kotlin
-"4".toInt() // returns 4
-'4'.toInt() // returns 52
-// and there was no common function that would return the numeric value 4 for Char '4'
+"4".toInt() // 返回 4
+'4'.toInt() // 返回 52
+// 并且没有返回 Char '4' 的数值 4 的通用函数
 ```
 
 为了避免这种混淆，我们决定将 `Char` 转换分为以下两组命名清晰的函数：

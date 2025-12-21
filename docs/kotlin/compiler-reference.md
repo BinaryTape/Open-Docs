@@ -1,6 +1,6 @@
 [//]: # (title: Kotlin 编译器选项)
 
-每个 Kotlin 发布版本都包含适用于所支持目标的编译器：JVM、JavaScript 以及适用于[支持平台](native-overview.md#target-platforms)的原生二进制文件。
+Kotlin 的每个发布版本都包含适用于所支持目标的编译器：JVM、JavaScript 以及适用于[支持平台](native-overview.md#target-platforms)的原生二进制文件。
 
 这些编译器由以下工具使用：
 * IDE，当您为 Kotlin 项目点击“__编译__”或“__运行__”按钮时。
@@ -16,7 +16,7 @@ Kotlin 编译器提供了诸多选项，用于定制编译过程。针对不同�
 有几种方式可以设置编译器选项及其值（_编译器实参_）：
 * 在 IntelliJ IDEA 中，将编译器实参写入“**附加命令行参数**”文本框内，该文本框位于“**设置/偏好设置** | **构建、执行、部署** | **编译器** | **Kotlin 编译器**”中。
 * 如果您正在使用 Gradle，请在 Kotlin 编译任务的 `compilerOptions` 属性中指定编译器实参。关于详情，请参见[Gradle 编译器选项](gradle-compiler-options.md#how-to-define-options)。
-* 如果您正在使用 Maven，请在 Maven 插件节点的 `<configuration>` 元素中指定编译器实参。关于详情，请参见[Maven](maven.md#specify-compiler-options)。
+* 如果您正在使用 Maven，请在 Maven 插件节点的 `<configuration>` 元素中指定编译器实参。关于详情，请参见[Maven](maven-compile-package.md#specify-compiler-options)。
 * 如果您运行命令行编译器，请将编译器实参直接添加到实用工具调用中，或者将它们写入一个 [argfile](#argfile) 中。
 
   例如：
@@ -213,6 +213,53 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 
 允许在契约中使用 `holdsIn` 关键字，以假定 lambda 内部的布尔条件为 `true`。
 
+### -Xreturn-value-checker
+<primary-label ref="experimental-general"/>
+
+配置编译器如何[报告被忽略的结果](unused-return-value-checker.md)：
+
+* `disable`：禁用无用返回值检测器（默认）。
+* `check`：启用检测器，并报告标记函数中被忽略结果的警告。
+* `full`：启用检测器，将项目中所有函数视为已标记，并报告被忽略结果的警告。
+
+### -Xcompiler-plugin-order={plugin.before>plugin.after}
+
+配置编译器插件的运行顺序。编译器会先运行 `plugin.before`，然后运行 `plugin.after`：
+
+您可以为三个或更多插件定义多个排序规则。例如：
+
+```bash
+kotlinc -Xcompiler-plugin-order=plugin.first>plugin.middle
+kotlinc -Xcompiler-plugin-order=plugin.middle>plugin.last
+```
+
+这将产生以下运行顺序：
+
+1. `plugin.first`
+2. `plugin.middle`
+3. `plugin.last`
+
+如果编译器插件不存在，则相应的规则将被忽略。
+
+您可以通过其 ID 配置以下插件：
+
+| 编译器插件 | 插件 ID |
+|---|---|
+| `all-open`、`kotlin-spring` | `org.jetbrains.kotlin.allopen` |
+| AtomicFU | `org.jetbrains.kotlinx.atomicfu` |
+| Compose | `androidx.compose.compiler.plugins.kotlin` |
+| `js-plain-objects` | `org.jetbrains.kotlinx.jspo` |
+| `jvm-abi-gen` | `org.jetbrains.kotlin.jvm.abi` |
+| kapt | `org.jetbrains.kotlin.kapt3` |
+| Lombok | `org.jetbrains.kotlin.lombok` |
+| `no-arg`、`kotlin-jpa` | `org.jetbrains.kotlin.noarg` |
+| Parcelize | `org.jetbrains.kotlin.parcelize` |
+| Power-assert | `org.jetbrains.kotlin.powerassert` |
+| SAM with receiver | `org.jetbrains.kotlin.samWithReceiver` |
+| Serialization | `org.jetbrains.kotlinx.serialization` |
+
+此运行顺序仅控制编译器插件的后端，而不控制前端。
+
 ## Kotlin/JVM 编译器选项
 
 用于 JVM 的 Kotlin 编译器将 Kotlin 源文件编译成 Java 类文件。Kotlin 到 JVM 编译的命令行工具是 `kotlinc` 和 `kotlinc-jvm`。您也可以使用它们来执行 Kotlin 脚本文件。
@@ -239,7 +286,7 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 
 <primary-label ref="experimental-general"/>
 
-指定生成的 JVM 字节码的目标版本。限制 classpath 中 JDK 的 API 到指定的 Java 版本。自动设置 [`-jvm-target version`](#jvm-target-version)。可能的值为 `1.8`、`9`、`10`、...、`24`。
+指定生成的 JVM 字节码的目标版本。限制 classpath 中 JDK 的 API 到指定的 Java 版本。自动设置 [`-jvm-target version`](#jvm-target-version)。可能的值为 `1.8`、`9`、`10`、...、`25`。
 
 > 此选项[不保证](https://youtrack.jetbrains.com/issue/KT-29974)对每个 JDK 发行版都有效。
 >
@@ -247,7 +294,7 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 
 ### -jvm-target _version_
 
-指定生成的 JVM 字节码的目标版本。可能的值为 `1.8`、`9`、`10`、...、`24`。默认值为 `%defaultJvmTargetVersion%`。
+指定生成的 JVM 字节码的目标版本。可能的值为 `1.8`、`9`、`10`、...、`25`。默认值为 `%defaultJvmTargetVersion%`。
 
 ### -java-parameters
 

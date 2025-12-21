@@ -9,7 +9,7 @@
 
 ## 依赖项
 
-* Gradle 插件 `org.jetbrains.compose`，版本 `1.10.0-rc02`。基于 Jetpack Compose 库：
+* Gradle Plugin `org.jetbrains.compose`，版本 `1.10.0-rc02`。基于 Jetpack Compose 库：
     * [Runtime 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0)
     * [UI 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0)
     * [Foundation 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.10.0)
@@ -29,7 +29,7 @@
 * Savedstate 库 `org.jetbrains.androidx.savedstate:savedstate*:1.4.0`。基于 [Jetpack Savedstate 1.4.0](https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0)
 * WindowManager Core 库 `org.jetbrains.androidx.window:window-core:1.5.1`。基于 [Jetpack WindowManager 1.5.1](https://developer.android.com/jetpack/androidx/releases/window#1.5.1)
 
-## 破坏性变更
+## 破坏性变更与弃用
 
 ### 已弃用的依赖项别名
 
@@ -39,6 +39,28 @@ Compose Multiplatform Gradle 插件支持的依赖项别名（`compose.ui` 等�
 
 此更改应使 Compose Multiplatform 库的依赖项管理更加透明。
 未来，我们希望为 Compose Multiplatform 提供一个 BOM，以简化兼容版本的设置。
+
+### 已弃用的 `PredictiveBackHandler()`
+
+`PredictiveBackHandler()` 函数是在 Compose Multiplatform 中引入的，旨在将原生 Android 返回导航手势带到其他平台。
+随着 Navigation 3 的发布，旧实现已被弃用，取而代之的是新的 [Navigation Event](https://developer.android.com/jetpack/androidx/releases/navigationevent) 库及其 API。
+具体来说，现在你应该使用新的 `NavigationBackHandler()` 函数，而不是 `PredictiveBackHandler()` 函数，它封装了更通用的 `NavigationEventHandler()` 实现。
+
+最简单的迁移方法如下：
+
+<compare type="top-bottom">
+    <code-block lang="kotlin" code="         PredictiveBackHandler(enabled = true) { progress -&gt;&#10;            try {&#10;                progress.collect { event -&gt;&#10;                    // Animate the back gesture progress&#10;                }&#10;                // Process the completed back gesture&#10;            } catch(e: Exception) {&#10;                // Process the canceled back gesture&#10;            }&#10;        }"/>
+    <code-block lang="kotlin" code="        // Use an empty state as a stub to satisfy the required argument&#10;        val navState = rememberNavigationEventState(NavigationEventInfo.None)&#10;        NavigationBackHandler(&#10;            state = navState,&#10;            isBackEnabled = true,&#10;            onBackCancelled = {&#10;                // Process the canceled back gesture&#10;            },&#10;            onBackCompleted = {&#10;              // Process the completed back gesture&#10;            }&#10;        )&#10;        LaunchedEffect(navState.transitionState) {&#10;            val transitionState = navState.transitionState&#10;            if (transitionState is NavigationEventTransitionState.InProgress) {&#10;                val progress = transitionState.latestEvent.progress&#10;                // Animate the back gesture progress&#10;            }&#10;        }"/>
+</compare>
+
+这里：
+
+* `state` 形参是强制性的：`NavigationEventInfo` 旨在保存关于 UI 状态的上下文信息。
+  如果你目前没有要存储的任何信息，可以使用 `NavigationEventInfo.None` 作为存根。
+* `onBack` 形参已拆分为 `onBackCancelled` 和 `onBackCompleted`，因此你无需单独跟踪已取消的手势。
+* `NavigationEventState.transitionState` 属性有助于跟踪物理手势的进度。
+
+有关实现细节，请参见 [Navigation Event API 参考中的 NavigationEventHandler 页面](https://developer.android.com/reference/kotlin/androidx/navigationevent/NavigationEventHandler)。
 
 ### Web 平台的最低 Kotlin 版本已提高
 

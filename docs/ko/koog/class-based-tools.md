@@ -19,7 +19,7 @@ Koog 프레임워크는 도구를 구현하기 위한 다음 접근 방식을 �
 
 두 접근 방식 모두 동일한 핵심 구성 요소를 사용하지만 구현 및 반환하는 결과에서 차이가 있습니다.
 
-### `Tool` 클래스
+### Tool 클래스
 
 [`Tool<Args, Result>`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/index.html) 추상 클래스는 Koog에서 도구를 생성하기 위한 기본 클래스입니다.
 이 클래스를 사용하면 특정 인자 타입(`Args`)을 허용하고 다양한 타입의 결과(`Result`)를 반환하는 도구를 생성할 수 있습니다.
@@ -53,8 +53,13 @@ import ai.koog.agents.core.tools.annotations.LLMDescription
 -->
 ```kotlin
 // Implement a simple calculator tool that adds two digits
-object CalculatorTool : Tool<CalculatorTool.Args, Int>() {
-    
+object CalculatorTool : Tool<CalculatorTool.Args, Int>(
+    argsSerializer = Args.serializer(),
+    resultSerializer = Int.serializer(),
+    name = "calculator",
+    description = "A simple calculator that can add two digits (0-9)."
+) {
+
     // Arguments for the calculator tool
     @Serializable
     data class Args(
@@ -69,15 +74,6 @@ object CalculatorTool : Tool<CalculatorTool.Args, Int>() {
         }
     }
 
-    // Serializer for the Args class
-    override val argsSerializer = Args.serializer()
-    override val resultSerializer = Int.serializer()
-    
-    // Name of the tool, visible to LLM (by default will be derrived from the class name)
-    override val name = "calculator"
-    // Description of the tool, visible to LLM. Required
-    override val description = "A simple calculator that can add two digits (0-9)."
-
     // Function to add two digits
     override suspend fun execute(args: Args): Int = args.digit1 + args.digit2
 }
@@ -88,7 +84,7 @@ object CalculatorTool : Tool<CalculatorTool.Args, Int>() {
 
 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/index.html)를 참조하세요.
 
-### `SimpleTool` 클래스
+### SimpleTool 클래스
 
 [`SimpleTool<Args>`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-simple-tool/index.html) 추상 클래스는 `Tool<Args, ToolResult.Text>`를 확장하며 텍스트 결과를 반환하는 도구 생성을 단순화합니다.
 
@@ -104,7 +100,7 @@ object CalculatorTool : Tool<CalculatorTool.Args, Int>() {
 !!! tip
     LLM이 도구를 올바르게 이해하고 사용하기 쉽도록 도구에 명확한 설명과 잘 정의된 매개변수 이름을 지정하세요.
 
-#### 사용 예시 
+#### 사용 예시
 
 다음은 `SimpleTool`을 사용한 사용자 정의 도구 구현 예시입니다.
 
@@ -115,7 +111,11 @@ import kotlinx.serialization.Serializable
 -->
 ```kotlin
 // Create a tool that casts a string expression to a double value
-object CastToDoubleTool : SimpleTool<CastToDoubleTool.Args>() {
+object CastToDoubleTool : SimpleTool<CastToDoubleTool.Args>(
+    argsSerializer = Args.serializer(),
+    name = "cast_to_double",
+    description = "casts the passed expression to double or returns 0.0 if the expression is not castable"
+) {
     // Define tool arguments
     @Serializable
     data class Args(
@@ -125,17 +125,11 @@ object CastToDoubleTool : SimpleTool<CastToDoubleTool.Args>() {
         val comment: String
     )
 
-    // Serializer for the Args class
-    override val argsSerializer = Args.serializer()
-
-    // Description of the tool, visible to LLM
-    override val description = "casts the passed expression to double or returns 0.0 if the expression is not castable"
-    
     // Function that executes the tool with the provided arguments
-    override suspend fun doExecute(args: Args): String {
+    override suspend fun execute(args: Args): String {
         return "Result: ${castToDouble(args.expression)}, " + "the comment was: ${args.comment}"
     }
-    
+
     // Function to cast a string expression to a double value
     private fun castToDouble(expression: String): Double {
         return expression.toDoubleOrNull() ?: 0.0
@@ -147,8 +141,8 @@ object CastToDoubleTool : SimpleTool<CastToDoubleTool.Args>() {
 ### LLM에 도구 결과를 사용자 정의 형식으로 전송
 
 JSON 결과가 LLM에 전송되는 방식이 만족스럽지 않다면 (예를 들어, 어떤 경우에는 도구 출력이 Markdown으로 구조화될 때 LLM이 더 잘 작동할 수 있습니다) 다음 단계를 따라야 합니다.
-1. `ToolResult.TextSerializable` 인터페이스를 구현하고 `textForLLM()` 메서드를 오버라이드합니다.
-2. `ToolResultUtils.toTextSerializer<T>()`를 사용하여 `resultSerializer`를 오버라이드합니다.
+1.  `ToolResult.TextSerializable` 인터페이스를 구현하고 `textForLLM()` 메서드를 오버라이드합니다.
+2.  `ToolResultUtils.toTextSerializer<T>()`를 사용하여 `resultSerializer`를 오버라이드합니다.
 
 #### 예시
 
@@ -163,7 +157,12 @@ import ai.koog.prompt.markdown.markdown
 -->
 ```kotlin
 // A tool that edits file
-object EditFile : Tool<EditFile.Args, EditFile.Result>() {
+object EditFile : Tool<EditFile.Args, EditFile.Result>(
+    argsSerializer = Args.serializer(),
+    resultSerializer = Result.serializer(),
+    name = "edit_file",
+    description = "Edits the given file"
+) {
     // Define tool arguments
     @Serializable
     public data class Args(
@@ -203,13 +202,6 @@ object EditFile : Tool<EditFile.Args, EditFile.Result>() {
 
         override fun toString(): String = textForLLM()
     }
-
-    // Serializers for the args and Result class
-    override val argsSerializer = Args.serializer()
-    override val resultSerializer = Result.serializer()
-
-    // Description of the tool, visible to LLM
-    override val description = "Edits the given file"
 
     // Function that executes the tool with the provided arguments
     override suspend fun execute(args: Args): Result {

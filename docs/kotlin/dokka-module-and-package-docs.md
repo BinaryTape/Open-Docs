@@ -1,10 +1,10 @@
 [//]: # (title: 模块文档)
 
-模块的整体文档以及该模块中的包的文档可以作为独立的 Markdown 文件提供。
+一个整体模块的文档，以及该模块中的包的文档，可以作为独立的 Markdown 文件提供。
 
 ## 文件格式
 
-在 Markdown 文件中，整个模块和各个包的文档由相应的一级标题引入。标题文本**必须**是模块的 **Module `<module name>`**，以及包的 **Package `<package qualified name>`**。
+在 Markdown 文件中，整体模块和各个包的文档由相应的一级标题引入。对于模块，标题文本**必须**是 **Module `<module name>`**；对于包，标题文本**必须**是 **Package `<package qualified name>`**。
 
 文件不必同时包含模块和包文档。您可以拥有只包含包或模块文档的文件。甚至可以为每个模块或包提供一个 Markdown 文件。
 
@@ -51,21 +51,21 @@
 <tabs group="build-script">
 <tab title="Gradle" group-key="gradle">
 
-请使用 [Source set configuration](dokka-gradle.md#source-set-configuration) 中的 [includes](dokka-gradle.md#includes) 选项。
+请使用 [General configuration](dokka-gradle-configuration-options.md) 中的 `includes` 选项。
 
 </tab>
 
 <tab title="Maven" group-key="mvn">
 
-请使用 [General configuration](dokka-maven.md#general-configuration) 中的 [includes](dokka-maven.md#includes) 选项。
+请使用 [General configuration](dokka-maven.md#general-configuration) 中的 `includes` 选项。
 
 </tab>
 
 <tab title="CLI" group-key="cli">
 
-如果您正在使用命令行配置，请使用 [Source set options](dokka-cli.md#source-set-options) 中的 [includes](dokka-cli.md#includes-cli) 选项。
+如果您正在使用命令行配置，请使用 [Source set options](dokka-cli.md#source-set-options) 中的 `includes` 选项。
 
-如果您正在使用 JSON 配置，请使用 [General configuration](dokka-cli.md#general-configuration) 中的 [includes](dokka-cli.md#includes-json) 选项。
+如果您正在使用 JSON 配置，请使用 [General configuration](dokka-cli.md#general-configuration) 中的 `includes` 选项。
 
 </tab>
 </tabs>

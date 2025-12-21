@@ -5,18 +5,14 @@
 <tabs group="build-script">
 <tab title="Gradle Kotlin DSL" group-key="kotlin">
 
-> 这些说明反映了 Dokka Gradle 插件 v1 的配置和任务。自 Dokka 2.0.0 起，若干配置选项、Gradle 任务以及生成文档的步骤已更新，其中包括：
->
-> * [调整配置选项](dokka-migration.md#adjust-configuration-options)
-> * [处理多模块项目](dokka-migration.md#share-dokka-configuration-across-modules)
-> * [使用更新后的任务生成文档](dokka-migration.md#generate-documentation-with-the-updated-task)
-> * [指定输出目录](dokka-migration.md#output-directory)
->
-> 有关更多详细信息以及 Dokka Gradle 插件 v2 中的完整更改列表，请参见 [迁移指南](dokka-migration.md)。
+> 本指南适用于 Dokka Gradle 插件 (DGP) v2 模式。DGP v1 模式已不再支持。
+> 要从 v1 模式升级到 v2 模式，请遵循 [迁移指南](dokka-migration.md)。
 >
 {style="note"}
 
-在您的项目的根构建脚本中应用 Dokka 的 Gradle 插件：
+**应用 Gradle Dokka 插件**
+
+在您的项目的根构建脚本中应用 Dokka Gradle 插件 (DGP)：
 
 ```kotlin
 plugins {
@@ -24,25 +20,56 @@ plugins {
 }
 ```
 
-当您为 [多项目](https://docs.gradle.org/current/userguide/multi_project_builds.html) 构建编写文档时，您还需要在子项目中应用 Gradle 插件：
+**文档化多项目构建**
 
-```kotlin
-subprojects {
-    apply(plugin = "org.jetbrains.dokka")
-}
-```
+当您为 [多项目构建](https://docs.gradle.org/current/userguide/multi_project_builds.html) 编写文档时，
+请将插件应用于您想要文档化的每个子项目。通过使用以下方法之一，
+在子项目之间共享 Dokka 配置：
+
+*   约定插件
+*   如果您不使用约定插件，则在每个子项目中直接配置
+
+有关在多项目构建中共享 Dokka 配置的更多信息，
+请参见 [多项目配置](dokka-gradle.md#multi-project-configuration)。
+
+**生成文档**
 
 要生成文档，请运行以下 Gradle 任务：
 
-* `dokkaHtml`，用于单项目构建
-* `dokkaHtmlMultiModule`，用于多项目构建
+```bash
+./gradlew :dokkaGenerate
+```
 
-默认情况下，输出目录设置为 `/build/dokka/html` 和 `/build/dokka/htmlMultiModule`。
+此任务适用于单项目和多项目构建。
 
-要了解更多关于 Dokka 与 Gradle 的用法，请参见 [Gradle](dokka-gradle.md)。
+通过在任务前加上其项目路径（`:`），从聚合项目运行 `dokkaGenerate` 任务。例如：
+
+```bash
+./gradlew :dokkaGenerate
+
+// OR
+
+./gradlew :aggregatingProject:dokkaGenerate
+```
+
+避免运行 `./gradlew dokkaGenerate` 而不是 `./gradlew :dokkaGenerate` 或 `./gradlew :aggregatingProject:dokkaGenerate`。
+如果任务没有项目路径（`:`）前缀，Gradle 将尝试在整个构建中运行所有 `dokkaGenerate` 任务，这可能会触发不必要的工作。
+
+您可以使用不同的任务来生成 [HTML](dokka-html.md)、
+[Javadoc](dokka-javadoc.md) 或 [HTML 和 Javadoc](dokka-gradle.md#configure-documentation-output-format) 格式的输出。
+
+> 要了解更多关于 Dokka 与 Gradle 的用法，请参见 [Gradle](dokka-gradle.md)。
+{style="tip"}
 
 </tab>
 <tab title="Gradle Groovy DSL" group-key="groovy">
+
+> 本指南适用于 Dokka Gradle 插件 (DGP) v2 模式。DGP v1 模式已不再支持。
+> 要从 v1 模式升级到 v2 模式，请遵循 [迁移指南](dokka-migration.md)。
+>
+{style="note"}
+
+**应用 Gradle Dokka 插件**
 
 在您的项目的根构建脚本中应用 Dokka 的 Gradle 插件：
 
@@ -52,22 +79,46 @@ plugins {
 }
 ```
 
-当您为 [多项目](https://docs.gradle.org/current/userguide/multi_project_builds.html) 构建编写文档时，您还需要在子项目中应用 Gradle 插件：
+**文档化多项目构建**
 
-```groovy
-subprojects {
-    apply plugin: 'org.jetbrains.dokka'
-}
-```
+当您为 [多项目构建](https://docs.gradle.org/current/userguide/multi_project_builds.html) 编写文档时，
+您需要将插件应用于您想要文档化的每个子项目。通过使用以下方法之一，
+在子项目之间共享 Dokka 配置：
+
+*   约定插件
+*   如果您不使用约定插件，则在每个子项目中直接配置
+
+有关在多项目构建中共享 Dokka 配置的更多信息，
+请参见 [多项目配置](dokka-gradle.md#multi-project-configuration)。
+
+**生成文档**
 
 要生成文档，请运行以下 Gradle 任务：
 
-* `dokkaHtml`，用于单项目构建
-* `dokkaHtmlMultiModule`，用于多项目构建
+```bash
+./gradlew :dokkaGenerate
+```
 
-默认情况下，输出目录设置为 `/build/dokka/html` 和 `/build/dokka/htmlMultiModule`。
+此任务适用于单项目和多项目构建。
 
-要了解更多关于 Dokka 与 Gradle 的用法，请参见 [Gradle](dokka-gradle.md)。
+通过在任务前加上其项目路径，从聚合项目运行 `dokkaGenerate` 任务。例如：
+
+```bash
+./gradlew :dokkaGenerate
+
+// OR
+
+./gradlew :aggregatingProject:dokkaGenerate
+```
+
+避免运行 `./gradlew dokkaGenerate` 而不是 `./gradlew :dokkaGenerate` 或 `./gradlew :aggregatingProject:dokkaGenerate`。
+如果任务没有项目路径（`:`）前缀，Gradle 将尝试在整个构建中运行所有 `dokkaGenerate` 任务，这可能会触发不必要的工作。
+
+您可以使用不同的任务来生成 [HTML](dokka-html.md)、
+[Javadoc](dokka-javadoc.md) 或 [HTML 和 Javadoc](dokka-gradle.md#configure-documentation-output-format) 格式的输出。
+
+> 要了解更多关于 Dokka 与 Gradle 的用法，请参见 [Gradle](dokka-gradle.md)。
+{style="tip"}
 
 </tab>
 <tab title="Maven" group-key="mvn">

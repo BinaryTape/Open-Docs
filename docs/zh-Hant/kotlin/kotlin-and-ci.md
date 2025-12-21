@@ -2,17 +2,17 @@
 
 在本頁面中，您將學習如何設定 [TeamCity](https://www.jetbrains.com/teamcity/) 以建置您的 Kotlin 專案。有關 TeamCity 的更多資訊和基礎知識，請參閱 [文件頁面](https://www.jetbrains.com/teamcity/documentation/)，其中包含安裝、基本配置等資訊。
 
-Kotlin 可與不同的建置工具協同運作，因此如果您使用 Ant、Maven 或 Gradle 等標準工具，設定 Kotlin 專案的過程與任何其他與這些工具整合的語言或程式庫並無不同。當使用 IntelliJ IDEA 的內部建置系統時（TeamCity 也支援此系統），會有一些細微的要求和差異。
+Kotlin 可與不同的建置工具協同運作，因此如果您使用例如 Maven 或 Gradle 等標準工具，設定 Kotlin 專案的過程與任何其他與這些工具整合的語言或程式庫並無不同。當使用 IntelliJ IDEA 的內部建置系統時（TeamCity 也支援此系統），會有一些細微的要求和差異。
 
-## Gradle、Maven 和 Ant
+## Gradle 和 Maven
 
-如果使用 Ant、Maven 或 Gradle，設定過程非常簡單。所需的僅是定義「建置步驟 (Build Step)」。例如，如果使用 Gradle，只需為「執行器類型 (Runner Type)」定義所需的參數，例如「步驟名稱 (Step Name)」和需要執行的 Gradle 任務。
+如果使用 Maven 或 Gradle，設定過程非常簡單。所需的僅是定義「建置步驟 (Build Step)」。例如，如果使用 Gradle，只需為「執行器類型 (Runner Type)」定義所需的參數，例如「步驟名稱 (Step Name)」和需要執行的 Gradle 任務。
 
 <img src="teamcity-gradle.png" alt="Gradle Build Step" width="700"/>
 
 由於 Kotlin 所需的所有依賴項都已在 Gradle 檔案中定義，因此無需為 Kotlin 的正確執行進行其他特定配置。
 
-如果使用 Ant 或 Maven，適用相同的配置。唯一的區別是「執行器類型 (Runner Type)」將分別為 Ant 或 Maven。
+如果使用 Maven，適用相同的配置。唯一的區別是「執行器類型 (Runner Type)」將為 Maven。
 
 ## IntelliJ IDEA 建置系統
 

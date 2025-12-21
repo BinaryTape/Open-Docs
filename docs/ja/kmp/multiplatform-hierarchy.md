@@ -1,7 +1,7 @@
 [//]: # (title: 階層型プロジェクト構造)
 
 Kotlinマルチプラットフォームプロジェクトは、階層的なソースセット構造をサポートしています。
-これにより、一部の[サポートされているターゲット](multiplatform-dsl-reference.md#targets)間で共通コードを共有するための中間ソースセットの階層を構成できます。中間ソースセットを使用すると、以下のことが可能になります。
+これにより、一部ではあるがすべてではない[サポートされているターゲット](multiplatform-dsl-reference.md#targets)間で共通コードを共有するための中間ソースセットの階層を構成できます。中間ソースセットを使用すると、以下のことが可能になります。
 
 *   特定のターゲット向けのAPIを提供する。例えば、ライブラリはKotlin/Nativeターゲット向けの中間ソースセットでネイティブ固有のAPIを追加できますが、Kotlin/JVM向けには追加しません。
 *   特定のターゲット向けのAPIを利用する。例えば、中間ソースセットを形成する一部のターゲットにKotlinマルチプラットフォームライブラリが提供する豊富なAPIから恩恵を受けることができます。
@@ -26,7 +26,7 @@ Kotlin Gradleプラグインには、ビルトインのデフォルト[階層テ
 
 ```kotlin
 kotlin {
-    androidTarget()
+    android()
     iosArm64()
     iosSimulatorArm64()
 }
@@ -37,7 +37,7 @@ kotlin {
 
 ```groovy
 kotlin {
-    androidTarget()
+    android()
     iosArm64()
     iosSimulatorArm64()
 }
@@ -46,7 +46,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-コードで`androidTarget`、`iosArm64`、`iosSimulatorArm64`ターゲットを宣言すると、Kotlin Gradleプラグインはテンプレートから適切な共有ソースセットを見つけ、それらを作成します。結果の階層は次のようになります。
+コードで`android`、`iosArm64`、`iosSimulatorArm64`ターゲットを宣言すると、Kotlin Gradleプラグインはテンプレートから適切な共有ソースセットを見つけ、それらを作成します。結果の階層は次のようになります。
 
 ![デフォルト階層テンプレートの使用例](default-hierarchy-example.svg)
 
@@ -63,7 +63,7 @@ Kotlin Gradleプラグインは、デフォルト階層テンプレートのす�
 
 ```kotlin
 kotlin {
-    androidTarget()
+    android()
     iosArm64()
     iosSimulatorArm64()
 
@@ -82,7 +82,7 @@ kotlin {
 
 ```groovy
 kotlin {
-    androidTarget()
+    android()
     iosArm64()
     iosSimulatorArm64()
 
@@ -298,10 +298,10 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 
 以下のターゲットの組み合わせに対して、共有ソースセットを持つことができます。
 
-*   JVMまたはAndroid + JS + Native
+*   JVMまたはAndroid + Web + Native
 *   JVMまたはAndroid + Native
-*   JS + Native
-*   JVMまたはAndroid + JS
+*   Web + Native
+*   JVMまたはAndroid + Web
 *   Native
 
 Kotlinは現在、以下の組み合わせでのソースセット共有をサポートしていません。

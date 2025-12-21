@@ -13,7 +13,7 @@ Kotlinで関数を宣言するには：
 // 'x'はInt型のパラメータです
 // 期待される戻り値もInt型です
 fun double(x: Int): Int {
-return 2 * x
+    return 2 * x
 }
 //sampleEnd
 
@@ -51,7 +51,7 @@ fun powerOf(number: Int, exponent: Int): Int { /*...*/ }
 関数本体内では、受け取った引数は読み取り専用です（暗黙的に`val`として宣言されます）：
 
 ```kotlin
-fun powerOf (number: Int, exponent: Int): Int {
+fun powerOf(number: Int, exponent: Int): Int {
     number = 2 // エラー：'val'は再代入できません。
 }
 ```
@@ -101,7 +101,7 @@ fun greeting(
     message: String,
 ) { /*...*/ }
 
-fun main () {
+fun main() {
     // 'userId'のデフォルト値として0を使用します
     greeting(message = "Hello!")
     
@@ -170,16 +170,16 @@ fun read(
 ```kotlin
 fun main() {
 //sampleStart
-fun read(
-    b: Int,
-    print: Unit? = println("No argument passed for 'print'")
-) { println(b) }
-
-// "No argument passed for 'print'"、次に"1"を出力します
-read (1)
-// "1"のみ出力します
-read (1, null)
-//sampleEnd
+    fun read(
+        b: Int,
+        print: Unit? = println("No argument passed for 'print'")
+    ) { println(b) }
+    
+    // "No argument passed for 'print'"、次に"1"を出力します
+    read(1)
+    // "1"のみ出力します
+    read(1, null)
+    //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="non-constant-default"}
@@ -188,24 +188,24 @@ read (1, null)
 
 ```kotlin
 fun main() {
-//sampleStart
-fun log(
-    level: Int = 0,
-    code:  Int = 1,
-    action: () -> Unit,
-) { println (level)
-    println (code)
-    action() }
-
-// 'level'に1を渡し、'code'にはデフォルト値の1を使用します
-log(1) { println("Connection established") }
-
-// 'level'には0、'code'には1の両方のデフォルト値を使用します
-log(action = { println("Connection established") })
-
-// 前の呼び出しと同等で、両方のデフォルト値を使用します
-log { println("Connection established") }
-//sampleEnd   
+    //sampleStart
+    fun log(
+        level: Int = 0,
+        code:  Int = 1,
+        action: () -> Unit,
+    ) { println (level)
+        println (code)
+        action() }
+    
+    // 'level'に1を渡し、'code'にはデフォルト値の1を使用します
+    log(1) { println("Connection established") }
+    
+    // 'level'には0、'code'には1の両方のデフォルト値を使用します
+    log(action = { println("Connection established") })
+    
+    // 前の呼び出しと同等で、両方のデフォルト値を使用します
+    log { println("Connection established") }
+    //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="lambda-outside-parentheses"}
@@ -268,6 +268,8 @@ fun mergeStrings(vararg strings: String) { /*...*/ }
 mergeStrings(strings = arrayOf("a", "b", "c"))
 ```
 
+<!-- Rationale for named arguments interaction with varargs is here https://youtrack.jetbrains.com/issue/KT-52505#focus=Comments-27-6147916.0-0 -->
+
 > JVM上でJava関数を呼び出す場合、Javaバイトコードが関数パラメータの名前を常に保持するとは限らないため、名前付き引数構文を使用することはできません。
 >
 {style="note"}
@@ -314,27 +316,28 @@ fun double(x: Int) = x * 2
 例えば、`printHello()`関数を`Unit`を返さずに宣言できます：
 
 ```kotlin
-// 関数型パラメータ('action')の宣言は、依然として明示的な戻り値の型を必要とします
+// 関数型パラメータ('action')の宣言は、依然として
+// 明示的な戻り値の型を必要とします
 fun printHello(name: String?, action: () -> Unit) {
-  if (name != null)
-    println("Hello $name")
-  else
-    println("Hi there!")
+    if (name != null)
+        println("Hello $name")
+    else
+        println("Hi there!")
 
-  action()
+    action()
 }
 
 fun main() {
-  printHello("Kodee") {
-    println("これは挨拶の後に実行されます。")
-  }
-  // Hello Kodee
-  // これは挨拶の後に実行されます。
+    printHello("Kodee") {
+        println("これは挨拶の後に実行されます。")
+    }
+    // Hello Kodee
+    // これは挨拶の後に実行されます。
 
-  printHello(null) {
-    println("名前は指定されていませんが、アクションは依然として実行されます。")
-  }
-  // 名前は指定されていませんが、アクションは依然として実行されます。
+    printHello(null) {
+        println("名前は指定されていませんが、アクションは依然として実行されます。")
+    }
+    // No name provided, but action still runs
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="return-unit-implicit"}
@@ -342,31 +345,38 @@ fun main() {
 これは次の冗長な宣言と同等です：
 
 ```kotlin
-//sample Start
+//sampleStart
 fun printHello(name: String?, action: () -> Unit): Unit {
-  if (name != null)
-    println("Hello $name")
-  else
-    println("Hi there!")
+    if (name != null)
+        println("Hello $name")
+    else
+        println("Hi there!")
 
-  action()
-  return Unit
+    action()
+    return Unit
 }
-// sampleEnd
+//sampleEnd
 fun main() {
-  printHello("Kodee") {
-    println("これは挨拶の後に実行されます。")
-  }
-  // Hello Kodee
-  // これは挨拶の後に実行されます。
+    printHello("Kodee") {
+        println("これは挨拶の後に実行されます。")
+    }
+    // Hello Kodee
+    // これは挨拶の後に実行されます。
 
-  printHello(null) {
-    println("名前は指定されていませんが、アクションは依然として実行されます。")
-  }
-  // 名前は指定されていませんが、アクションは依然として実行されます。
+    printHello(null) {
+        println("名前は指定されていませんが、アクションは依然として実行されます。")
+    }
+    // No name provided, but action still runs
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="return-unit-explicit"}
+
+関数の戻り値の型が明示的に指定されている場合、式本体内で`return`ステートメントを使用できます：
+
+```kotlin
+fun getDisplayNameOrDefault(userId: String?): String =
+    getDisplayName(userId ?: return "default")
+```
 
 ### 可変長引数 (varargs)
 
@@ -386,18 +396,18 @@ fun <T> asList(vararg ts: T): List<T> {
 
 ```kotlin
 fun <T> asList(vararg ts: T): List<T> {
-  val result = ArrayList<T>()
-  for (t in ts) // tsは配列です
-    result.add(t)
-  return result
+    val result = ArrayList<T>()
+    for (t in ts) // tsは配列です
+        result.add(t)
+    return result
 }
 
 fun main() {
-  //sampleStart
-  val list = asList(1, 2, 3)
-  println(list)
-  // [1, 2, 3]
-  //sampleEnd
+    //sampleStart
+    val list = asList(1, 2, 3)
+    println(list)
+    // [1, 2, 3]
+    //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="varargs-aslist"}
@@ -411,23 +421,22 @@ fun main() {
 
 ```kotlin
 fun <T> asList(vararg ts: T): List<T> {
-  val result = ArrayList<T>()
-  for (t in ts)
-    result.add(t)
-  return result
+    val result = ArrayList<T>()
+    for (t in ts)
+        result.add(t)
+    return result
 }
 
 fun main() {
-  //sampleStart
-  val a = arrayOf(1, 2, 3)
+    //sampleStart
+    val a = arrayOf(1, 2, 3)
 
-  // 関数は配列[-1, 0, 1, 2, 3, 4]を受け取ります
-  val list = asList(-1, 0, *a, 4)
+    // 関数は配列[-1, 0, 1, 2, 3, 4]を受け取ります
+    list = asList(-1, 0, *a, 4)
 
-  println(list)
-  // [-1, 0, 1, 2, 3, 4]
-
-  //sampleEnd
+    println(list)
+    // [-1, 0, 1, 2, 3, 4]
+    //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="varargs-aslist-with-array"}
@@ -479,31 +488,31 @@ infix fun Int.shl(x: Int): Int { /*...*/ }
 
 ```kotlin
 class MyStringCollection {
-  val items = mutableListOf<String>()
+    val items = mutableListOf<String>()
 
-  infix fun add(s: String) {
-    println("追加中: $s")
-    items += s
-  }
+    infix fun add(s: String) {
+        println("Adding: $s")
+        items += s
+    }
 
-  fun build() {
-      add("first")       // 正しい：通常の関数呼び出し
-      this add "second"  // 正しい：明示的なレシーバーによる中置呼び出し
-      // add "third"     // コンパイラエラー：明示的なレシーバーが必要です
-  }
+    fun build() {
+        add("first")      // 正しい：通常の関数呼び出し
+        this add "second" // 正しい：明示的なレシーバーによる中置呼び出し
+        // add "third"    // コンパイラエラー：明示的なレシーバーが必要です
+    }
 
-  fun printAll() = println("Items = $items")
+    fun printAll() = println("Items = $items")
 }
 
 fun main() {
-  val myStrings = MyStringCollection()
-  // リストに"first"と"second"を2回追加します
-  myStrings.build()
-  
-  myStrings.printAll()
-  // 追加中: first
-  // 追加中: second
-  // Items = [first, second]
+    val myStrings = MyStringCollection()
+    // リストに"first"と"second"を2回追加します
+    myStrings.build()
+      
+    myStrings.printAll()
+    // Adding: first
+    // Adding: second
+    // Items = [first, second]
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="infix-notation-example"}
@@ -528,7 +537,7 @@ class SocialGraph(val people: List<Person>)
 fun dfs(graph: SocialGraph) {
     fun dfs(current: Person, visited: MutableSet<Person>) {
         if (!visited.add(current)) return
-        println("${current.name}を訪問しました")
+        println("Visited ${current.name}")
         for (friend in current.friends)
             dfs(friend, visited)
     }
@@ -561,7 +570,7 @@ fun dfs(graph: SocialGraph) {
     val visited = HashSet<Person>()
     fun dfs(current: Person) {
         if (!visited.add(current)) return
-        println("${current.name}を訪問しました")
+        println("Visited ${current.name}")
         for (friend in current.friends)
             dfs(friend)
     }
@@ -620,7 +629,7 @@ Kotlinは[末尾再帰](https://en.wikipedia.org/wiki/Tail_call)として知ら�
 import kotlin.math.cos
 import kotlin.math.abs
 
-// 任意の「十分良い」精度
+// An arbitrary "good enough" precision
 val eps = 1E-10
 
 tailrec fun findFixPoint(x: Double = 1.0): Double =
@@ -635,7 +644,7 @@ tailrec fun findFixPoint(x: Double = 1.0): Double =
 import kotlin.math.cos
 import kotlin.math.abs
 
-// 任意の「十分良い」精度
+// An arbitrary "good enough" precision
 val eps = 1E-10
 
 private fun findFixPoint(): Double {

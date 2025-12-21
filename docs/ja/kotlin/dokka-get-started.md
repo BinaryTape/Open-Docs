@@ -1,22 +1,18 @@
 [//]: # (title: Dokkaを始める)
 
-以下に、Dokkaの利用を開始するのに役立つ簡単な手順を示します。
+Dokkaの利用を開始するのに役立つ簡単な手順を以下に示します。
 
 <tabs group="build-script">
 <tab title="Gradle Kotlin DSL" group-key="kotlin">
 
-> これらの手順は、Dokka Gradleプラグインv1の設定とタスクを反映しています。Dokka 2.0.0以降、いくつかの設定オプション、Gradleタスク、およびドキュメント生成の手順が更新されました。これには以下が含まれます。
->
-> * [設定オプションの調整](dokka-migration.md#adjust-configuration-options)
-> * [マルチモジュールプロジェクトの操作](dokka-migration.md#share-dokka-configuration-across-modules)
-> * [更新されたタスクでのドキュメントの生成](dokka-migration.md#generate-documentation-with-the-updated-task)
-> * [出力ディレクトリの指定](dokka-migration.md#output-directory)
->
-> Dokka Gradleプラグインv2における詳細および変更点の全リストについては、[マイグレーションガイド](dokka-migration.md)を参照してください。
+> このガイドはDokka Gradleプラグイン (DGP) v2モードに適用されます。DGP v1モードはサポートされなくなりました。
+> v1モードからv2モードにアップグレードするには、[マイグレーションガイド](dokka-migration.md)を参照してください。
 >
 {style="note"}
 
-プロジェクトのルートビルドスクリプトにDokkaのGradleプラグインを適用します。
+**Gradle Dokkaプラグインを適用する**
+
+プロジェクトのルートビルドスクリプトにDokka Gradleプラグイン (DGP) を適用します。
 
 ```kotlin
 plugins {
@@ -24,25 +20,51 @@ plugins {
 }
 ```
 
-[マルチプロジェクト](https://docs.gradle.org/current/userguide/multi_project_builds.html)ビルドをドキュメント化する場合、サブプロジェクト内にもGradleプラグインを適用する必要があります。
+**マルチプロジェクトビルドをドキュメント化する**
 
-```kotlin
-subprojects {
-    apply(plugin = "org.jetbrains.dokka")
-}
+[マルチプロジェクトビルド](https://docs.gradle.org/current/userguide/multi_project_builds.html)をドキュメント化する場合、ドキュメント化したいすべてのサブプロジェクトにプラグインを適用します。Dokkaの設定をサブプロジェクト間で共有するには、次のいずれかのアプローチを使用します。
+
+*   Conventionプラグイン
+*   Conventionプラグインを使用しない場合は、各サブプロジェクトで直接設定
+
+マルチプロジェクトビルドでのDokka設定の共有に関する詳細については、[マルチプロジェクト設定](dokka-gradle.md#multi-project-configuration)を参照してください。
+
+**ドキュメントを生成する**
+
+ドキュメントを生成するには、次のGradleタスクを実行します。
+
+```bash
+./gradlew :dokkaGenerate
 ```
 
-ドキュメントを生成するには、以下のGradleタスクを実行します。
+このタスクは、シングルプロジェクトビルドとマルチプロジェクトビルドの両方で機能します。
 
-* `dokkaHtml` (シングルプロジェクトビルドの場合)
-* `dokkaHtmlMultiModule` (マルチプロジェクトビルドの場合)
+集約プロジェクトから`dokkaGenerate`タスクを実行するには、タスクの前にそのプロジェクトパス (`:`) を付与します。例えば、次のようになります。
 
-デフォルトでは、出力ディレクトリは `/build/dokka/html` および `/build/dokka/htmlMultiModule` に設定されています。
+```bash
+./gradlew :dokkaGenerate
 
-GradleでDokkaを使用する方法の詳細については、[Gradle](dokka-gradle.md)を参照してください。
+// または
+
+./gradlew :aggregatingProject:dokkaGenerate
+```
+
+`./gradlew :dokkaGenerate` または `./gradlew :aggregatingProject:dokkaGenerate` の代わりに `./gradlew dokkaGenerate` を実行することは避けてください。タスクにプロジェクトパス (`:`) が付与されていない場合、Gradleはビルド全体で`dokkaGenerate`タスクをすべて実行しようとし、不要な作業がトリガーされる可能性があります。
+
+[HTML](dokka-html.md)、[Javadoc](dokka-javadoc.md)、またはその両方の[HTMLとJavadoc](dokka-gradle.md#configure-documentation-output-format)で出力を生成するために、異なるタスクを使用できます。
+
+> GradleでDokkaを使用する方法の詳細については、[Gradle](dokka-gradle.md)を参照してください。
+{style="tip"}
 
 </tab>
 <tab title="Gradle Groovy DSL" group-key="groovy">
+
+> このガイドはDokka Gradleプラグイン (DGP) v2モードに適用されます。DGP v1モードはサポートされなくなりました。
+> v1モードからv2モードにアップグレードするには、[マイグレーションガイド](dokka-migration.md)を参照してください。
+>
+{style="note"}
+
+**Gradle Dokkaプラグインを適用する**
 
 プロジェクトのルートビルドスクリプトにDokkaのGradleプラグインを適用します。
 
@@ -52,22 +74,41 @@ plugins {
 }
 ```
 
-[マルチプロジェクト](https://docs.gradle.org/current/userguide/multi_project_builds.html)ビルドをドキュメント化する場合、サブプロジェクト内にもGradleプラグインを適用する必要があります。
+**マルチプロジェクトビルドをドキュメント化する**
 
-```groovy
-subprojects {
-    apply plugin: 'org.jetbrains.dokka'
-}
+[マルチプロジェクトビルド](https://docs.gradle.org/current/userguide/multi_project_builds.html)をドキュメント化する場合、ドキュメント化したいすべてのサブプロジェクトにプラグインを適用する必要があります。Dokkaの設定をサブプロジェクト間で共有するには、次のいずれかのアプローチを使用します。
+
+*   Conventionプラグイン
+*   Conventionプラグインを使用しない場合は、各サブプロジェクトで直接設定
+
+マルチプロジェクトビルドでのDokka設定の共有に関する詳細については、[マルチプロジェクト設定](dokka-gradle.md#multi-project-configuration)を参照してください。
+
+**ドキュメントを生成する**
+
+ドキュメントを生成するには、次のGradleタスクを実行します。
+
+```bash
+./gradlew :dokkaGenerate
 ```
 
-ドキュメントを生成するには、以下のGradleタスクを実行します。
+このタスクは、シングルプロジェクトビルドとマルチプロジェクトビルドの両方で機能します。
 
-* `dokkaHtml` (シングルプロジェクトビルドの場合)
-* `dokkaHtmlMultiModule` (マルチプロジェクトビルドの場合)
+集約プロジェクトから`dokkaGenerate`タスクを実行するには、タスクの前にそのプロジェクトパスを付与します。例えば、次のようになります。
 
-デフォルトでは、出力ディレクトリは `/build/dokka/html` および `/build/dokka/htmlMultiModule` に設定されています。
+```bash
+./gradlew :dokkaGenerate
 
-GradleでDokkaを使用する方法の詳細については、[Gradle](dokka-gradle.md)を参照してください。
+// または
+
+./gradlew :aggregatingProject:dokkaGenerate
+```
+
+`./gradlew :dokkaGenerate` または `./gradlew :aggregatingProject:dokkaGenerate` の代わりに `./gradlew dokkaGenerate` を実行することは避けてください。タスクにプロジェクトパス (`:`) が付与されていない場合、Gradleはビルド全体で`dokkaGenerate`タスクをすべて実行しようとし、不要な作業がトリガーされる可能性があります。
+
+[HTML](dokka-html.md)、[Javadoc](dokka-javadoc.md)、またはその両方の[HTMLとJavadoc](dokka-gradle.md#configure-documentation-output-format)で出力を生成するために、異なるタスクを使用できます。
+
+> GradleでDokkaを使用する方法の詳細については、[Gradle](dokka-gradle.md)を参照してください。
+{style="tip"}
 
 </tab>
 <tab title="Maven" group-key="mvn">
@@ -94,9 +135,9 @@ DokkaのMavenプラグインをPOMファイルの`plugins`セクションに追�
 </build>
 ```
 
-ドキュメントを生成するには、`dokka:dokka` ゴールを実行します。
+ドキュメントを生成するには、`dokka:dokka`ゴールを実行します。
 
-デフォルトでは、出力ディレクトリは `target/dokka` に設定されています。
+デフォルトでは、出力ディレクトリは`target/dokka`に設定されています。
 
 MavenでDokkaを使用する方法の詳細については、[Maven](dokka-maven.md)を参照してください。
 

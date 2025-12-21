@@ -1,6 +1,6 @@
 [//]: # (title: C言語との相互運用)
 
-> Cライブラリのインポートは[ベータ版](native-c-interop-stability.md)です。cinteropツールによってCライブラリから生成されるすべてのKotlin宣言には、`@ExperimentalForeignApi`アノテーションを付ける必要があります。
+> Cライブラリのインポートは[ベータ版](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import)です。cinteropツールによってCライブラリから生成されるすべてのKotlin宣言には、`@ExperimentalForeignApi`アノテーションを付ける必要があります。
 >
 > Kotlin/Nativeに付属のネイティブプラットフォームライブラリ（Foundation、UIKit、POSIXなど）は、一部のAPIでのみオプトインが必要です。
 >
@@ -159,7 +159,7 @@ Cポインタは`CPointer<T>`型にマッピングされますが、C関数の�
 たとえば：
 
 ```c
-// C言語:
+// C:
 void foo(int* elements, int count);
 ...
 int elements[] = {1, 2, 3};
@@ -209,7 +209,7 @@ memScoped {
 
 ### スコープローカルポインタ
 
-`memScoped {}`内で利用可能な`CValues<T>.ptr`拡張プロパティを使用して、`CValues<T>`インスタンスのC表現のスコープ安定ポインタを作成することが可能です。これにより、特定の`MemScope`に寿命が縛られたCポインタを必要とするAPIを使用できます。たとえば、次のようになります。
+`memScoped {}`内で利用可能な`CValues<T>.ptr`拡張プロパティを使用して、`CValues<T>`インスタンスのC表現のスコープ安定ポインタを作成することが可能です。これにより、特定の`MemScope`に寿命が縛られたCポインタを必要とするAPIを使用できます。たとえば：
 
 ```kotlin
 import kotlinx.cinterop.*
@@ -352,7 +352,7 @@ Kotlinオブジェクトはピンニングできます。つまり、それら�
                 if (length <= 0) {
                     break
                 }
-                // これで`buffer`には`recv()`呼び出しから取得した生データが含まれます。
+                // Now `buffer` has raw data obtained from the `recv()` call.
             }
         }
     }
@@ -375,7 +375,7 @@ Kotlinオブジェクトはピンニングできます。つまり、それら�
             if (length <= 0) {
                 break
             }
-            // これで`buffer`には`recv()`呼び出しから取得した生データが含まれます。
+            // Now `buffer` has raw data obtained from the `recv()` call.
         }
     }
     ```
@@ -389,7 +389,7 @@ Kotlinオブジェクトはピンニングできます。つまり、それら�
 2つのcinteropライブラリを考えてみましょう。1つは構造体の前方宣言を持ち、もう1つは別のパッケージに実際の実装を持つものです。
 
 ```C
-// 最初のCライブラリ
+// First C library
 #include <stdio.h>
 
 struct ForwardDeclaredStruct;
@@ -401,15 +401,15 @@ void consumeStruct(struct ForwardDeclaredStruct* s) {
 ```
 
 ```C
-// 2番目のCライブラリ
-// ヘッダー:
+// Second C library
+// Header:
 #include <stdlib.h>
 
 struct ForwardDeclaredStruct {
     int data;
 };
 
-// 実装:
+// Implementation:
 struct ForwardDeclaredStruct* produceStruct() {
     struct ForwardDeclaredStruct* s = malloc(sizeof(struct ForwardDeclaredStruct));
     s->data = 42;
@@ -420,7 +420,7 @@ struct ForwardDeclaredStruct* produceStruct() {
 2つのライブラリ間でオブジェクトを転送するには、Kotlinコードで明示的な`as`キャストを使用します。
 
 ```kotlin
-// Kotlinコード:
+// Kotlin code:
 fun test() {
     consumeStruct(produceStruct() as CPointer<cnames.structs.ForwardDeclaredStruct>)
 }
@@ -428,7 +428,7 @@ fun test() {
 
 ## 次のステップ
 
-以下のチュートリアルを完了して、KotlinとCの間で型、関数、文字列がどのようにマッピングされるかを学びましょう。
+KotlinとCの間で型、関数、文字列がどのようにマッピングされるかを、以下のチュートリアルを完了して学びましょう。
 
 *   [C言語からのプリミティブデータ型のマッピング](mapping-primitive-data-types-from-c.md)
 *   [C言語からの構造体および共用体型のマッピング](mapping-struct-union-types-from-c.md)

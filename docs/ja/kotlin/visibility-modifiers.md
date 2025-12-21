@@ -35,12 +35,12 @@ class Bar { ... }
 // file name: example.kt
 package foo
 
-private fun foo() { ... } // visible inside example.kt
+private fun foo() { ... } // example.kt内でのみ可視
 
-public var bar: Int = 5 // property is visible everywhere
-    private set         // setter is visible only in example.kt
+public var bar: Int = 5 // プロパティはどこからでも可視
+    private set         // セッターはexample.kt内でのみ可視
     
-internal val baz = 6    // visible inside the same module
+internal val baz = 6    // 同じモジュール内で可視
 ```
 
 ## クラスメンバー
@@ -65,7 +65,7 @@ open class Outer {
     private val a = 1
     protected open val b = 2
     internal open val c = 3
-    val d = 4  // public by default
+    val d = 4  // デフォルトでpublic
     
     protected class Nested {
         public val e: Int = 5
@@ -73,18 +73,18 @@ open class Outer {
 }
 
 class Subclass : Outer() {
-    // a is not visible
-    // b, c and d are visible
-    // Nested and e are visible
+    // aは不可視
+    // b、c、dは可視
+    // Nestedとeは可視
 
-    override val b = 5   // 'b' is protected
-    override val c = 7   // 'c' is internal
+    override val b = 5   // 'b'はprotected
+    override val c = 7   // 'c'はinternal
 }
 
 class Unrelated(o: Outer) {
-    // o.a, o.b are not visible
-    // o.c and o.d are visible (same module)
-    // Outer.Nested is not visible, and Nested::e is not visible either 
+    // o.a、o.bは不可視
+    // o.cとo.dは可視（同じモジュール内）
+    // Outer.Nestedは不可視、Nested::eも不可視
 }
 ```
 
@@ -116,4 +116,3 @@ class C private constructor(a: Int) { ... }
 * IntelliJ IDEAモジュール。
 * Mavenプロジェクト。
 * Gradleソースセット（ただし、`test`ソースセットは`main`の内部宣言にアクセスできるという例外があります）。
-* `<kotlinc>` Antタスクの1回の呼び出しでコンパイルされるファイルのセット。

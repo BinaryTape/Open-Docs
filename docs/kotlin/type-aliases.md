@@ -1,7 +1,7 @@
 [//]: # (title: 类型别名)
 
 类型别名提供现有类型的替代名称。如果类型名称过长，你可以引入一个不同的短名称并使用新名称来替代。
-
+ 
 这有助于缩短冗长的泛型类型。例如，缩短集合类型通常很有用：
 
 ```kotlin
@@ -41,17 +41,15 @@ fun foo(p: Predicate<Int>) = p(42)
 
 fun main() {
     val f: (Int) -> Boolean = { it > 0 }
-    println(foo(f)) // prints "true"
+    println(foo(f)) // 打印 "true"
 
     val p: Predicate<Int> = { it > 0 }
-    println(listOf(1, -2).filter(p)) // prints "[1]"
+    println(listOf(1, -2).filter(p)) // 打印 "[1]"
 }
 ```
 {kotlin-runnable="true"}
 
 ## 嵌套类型别名
-
-<primary-label ref="beta"/>
 
 在 Kotlin 中，你可以在其他声明内部定义类型别名，只要它们不从其外部类捕获类型形参：
 
@@ -67,7 +65,7 @@ class Dijkstra {
 
 ```kotlin
 class Graph<Node> {
-    // Incorrect because captures Node
+    // 不正确，因为它捕获了 Node
     typealias Path = List<Node>
 }
 ```
@@ -76,7 +74,7 @@ class Graph<Node> {
 
 ```kotlin
 class Graph<Node> {
-    // Correct because Node is a type alias parameter
+    // 正确，因为 Node 是一个类型别名形参
     typealias Path<Node> = List<Node>
 }
 ```
@@ -92,21 +90,3 @@ class Graph<Node> {
 *   它们的[作用域](nested-classes.md)与嵌套类相同。你可以在类内部定义它们，并且它们会隐藏任何同名的父类型别名，因为它们不会[覆盖](override)。
 *   嵌套类型别名可以标记为 `internal` 或 `private` 以限制其可见性。
 *   Kotlin Multiplatform 的 [`expect/actual` 声明](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)中不支持嵌套类型别名。
-
-### 如何启用嵌套类型别名
-
-要在你的[项目](project)中启用嵌套类型别名，请在命令行中使用以下编译器选项：
-
-```bash
--Xnested-type-aliases
-```
-
-或将其添加到你的 Gradle 构建文件中的 `compilerOptions {}` 代码块：
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xnested-type-aliases")
-    }
-}

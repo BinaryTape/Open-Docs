@@ -30,7 +30,7 @@ val oneByte: Byte = 1
 ## 浮點類型
 
 對於實數，Kotlin 提供了遵循 [IEEE 754 標準](https://en.wikipedia.org/wiki/IEEE_754) 的浮點類型 `Float` 和 `Double`。
-`Float` 反映了 IEEE 754 的 *單精度*，而 `Double` 反映了 *雙精度*。
+`Float` 反映了 IEEE 754 的 _單精度_，而 `Double` 反映了 _雙精度_。
 
 這些類型在大小上有所不同，並為不同精度的浮點數提供儲存空間：
 
@@ -63,7 +63,8 @@ val eFloat = 2.7182818284f    // Float, actual value is 2.7182817
 ```
 
 與某些其他語言不同，Kotlin 中的數字沒有隱式擴展轉換。
-例如，帶有 `Double` 參數的函數只能在 `Double` 值上呼叫，而不能在 `Float`、`Int` 或其他數字值上呼叫：
+例如，帶有 `Double` 參數的函數只能在 `Double` 值上呼叫，而不能在 `Float`、
+`Int` 或其他數值上呼叫：
 
 ```kotlin
 fun main() {
@@ -71,14 +72,14 @@ fun main() {
     fun printDouble(x: Double) { print(x) }
 
     val x = 1.0
-    val xInt = 1
-    val xFloat = 1.0f
+    val xInt = 1    
+    val xFloat = 1.0f 
 
     printDouble(x)
-
-    printDouble(xInt)
+    
+    printDouble(xInt)   
     // Argument type mismatch
-
+    
     printDouble(xFloat)
     // Argument type mismatch
 //sampleEnd
@@ -86,7 +87,7 @@ fun main() {
 ```
 {kotlin-runnable="true" validate="false"}
 
-若要將數值轉換為不同類型，請使用[明確轉換](#explicit-number-conversions)。
+若要將數值轉換為不同類型，請使用[明確的數值轉換](#explicit-number-conversions)。
 
 ## 數值的常數文字
 
@@ -139,7 +140,7 @@ fun main() {
     val a: Int = 100
     val boxedA: Int? = a
     val anotherBoxedA: Int? = a
-
+    
     println(boxedA === anotherBoxedA) // true
 //sampleEnd
 }
@@ -154,7 +155,7 @@ fun main() {
     val b: Int = 10000
     val boxedB: Int? = b
     val anotherBoxedB: Int? = b
-
+    
     println(boxedB === anotherBoxedB) // false
     println(boxedB == anotherBoxedB) // true
 //sampleEnd
@@ -175,12 +176,12 @@ fun main() {
 //sampleStart
     val byte: Byte = 1
     // OK, literals are checked statically
-
-    val intAssignedByte: Int = byte
+    
+    val intAssignedByte: Int = byte 
     // Initializer type mismatch
-
+    
     val intConvertedByte: Int = byte.toInt()
-
+    
     println(intConvertedByte)
 //sampleEnd
 }
@@ -249,10 +250,10 @@ fun main() {
 fun main() {
 //sampleStart
     val x = 5 / 2
-    println(x == 2.5)
+    println(x == 2.5) 
     // 運算符 '==' 不能應用於 'Int' 和 'Double'
-
-    println(x == 2)
+    
+    println(x == 2)   
     // true
 //sampleEnd
 }
@@ -267,7 +268,7 @@ fun main() {
     val x = 5L / 2
     println (x == 2)
     // 錯誤，因為 Long (x) 不能與 Int (2) 比較
-
+    
     println(x == 2L)
     // true
 //sampleEnd
@@ -297,15 +298,16 @@ fun main() {
 //sampleStart
     val x = 1
     val xShiftedLeft = (x shl 2)
-    println(xShiftedLeft)
+    println(xShiftedLeft)  
     // 4
-
+    
     val xAnd = x and 0x000FF000
-    println(xAnd)
+    println(xAnd)          
     // 0
 //sampleEnd
 }
 ```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
 位元操作的完整列表：
 
@@ -340,14 +342,14 @@ fun main() {
     //sampleStart
     // 靜態類型為浮點數的操作數
     println(Double.NaN == Double.NaN)                 // false
-
+    
     // 非靜態類型為浮點數的操作數
     // 因此 NaN 等於自身
     println(listOf(Double.NaN) == listOf(Double.NaN)) // true
 
     // 靜態類型為浮點數的操作數
     println(0.0 == -0.0)                              // true
-
+    
     // 非靜態類型為浮點數的操作數
     // 因此 -0.0 小於 0.0
     println(listOf(0.0) == listOf(-0.0))              // false

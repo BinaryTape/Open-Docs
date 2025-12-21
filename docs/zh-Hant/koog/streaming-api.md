@@ -70,7 +70,7 @@ llm.writeSession {
 ```
 <!--- KNIT example-streaming-api-01.kt -->
 
-值得注意的是，您可以透過直接使用原始字串流來解析輸出。這種方法讓您對解析過程擁有更大的靈活性和控制權。
+值得注意的是，您可以透過直接使用原始字串流來解析輸出。這種方法讓您對解析過程擁有更大的靈活性和控制力。
 
 以下是帶有輸出結構 Markdown 定義的原始字串流：
 
@@ -384,21 +384,19 @@ data class Book(
    val description: String
 )
 
-class BookTool(): SimpleTool<Book>() {
-    
+class BookTool(): SimpleTool<Book>(
+    argsSerializer = Book.serializer(),
+    name = NAME,
+    description = "A tool to parse book information from Markdown"
+) {
+
     companion object { const val NAME = "book" }
 
-    override suspend fun doExecute(args: Book): String {
+    override suspend fun execute(args: Book): String {
         println("${args.title} by ${args.author}:
  ${args.description}")
         return "Done"
     }
-
-    override val argsSerializer: KSerializer<Book>
-        get() = Book.serializer()
-
-    override val name: String = NAME
-    override val description: String = "A tool to parse book information from Markdown"
 }
 ```
 <!--- KNIT example-streaming-api-08.kt -->
