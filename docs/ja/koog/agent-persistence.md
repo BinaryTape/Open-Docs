@@ -20,28 +20,6 @@
 
 チェックポイントは一意のIDによって識別され、特定のAIエージェントに関連付けられています。
 
-## 前提条件
-
-エージェントの永続化機能を使用するには、エージェントの戦略内のすべてのノードが一意の名前を持っている必要があります。
-これは、機能がインストールされるときに強制されます。
-
-<!--- INCLUDE
-/*
-KNIT ignore this example
--->
-<!--- SUFFIX
-*/
--->
-```kotlin
-require(ctx.strategy.metadata.uniqueNames) {
-    "Checkpoint feature requires unique node names in the strategy metadata"
-}
-```
-
-<!--- KNIT example-agent-persistence-01.kt -->
-
-グラフ内のノードには必ず一意の名前を設定してください。
-
 ## インストール
 
 エージェントの永続化機能を使用するには、エージェントの設定にこの機能を追加します。
@@ -52,6 +30,7 @@ import ai.koog.agents.snapshot.feature.Persistence
 import ai.koog.agents.snapshot.providers.InMemoryPersistenceStorageProvider
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
+import ai.koog.agents.core.agent.context.RollbackStrategy
 
 val executor = simpleOllamaAIExecutor()
 -->
@@ -64,20 +43,35 @@ val agent = AIAgent(
     install(Persistence) {
         // スナップショットにインメモリストレージを使用
         storage = InMemoryPersistenceStorageProvider()
-        // 自動永続化を有効にする
+        // 各ノードの実行後に自動永続化を有効にする
         enableAutomaticPersistence = true
+        /* 
+         新しいエージェントの実行時に復元される状態を選択します。
+     
+         利用可能なオプションは次のとおりです。
+         1. Default: エージェントを停止した正確な実行ポイント（戦略グラフ内のノード）に復元します。
+            これは、複雑なフォールトトレラントなエージェントを構築する際に特に役立ちます。
+         2. MessageHistoryOnly: メッセージ履歴のみを最後に保存された状態に復元します。
+            エージェントは常に戦略グラフの最初のノードから再起動しますが、以前の実行の履歴を引き継ぎます。
+            これは、会話エージェントやチャットボットを構築するのに役立ちます。
+        */
+        rollbackStrategy = RollbackStrategy.MessageHistoryOnly
     }
 }
 ```
 
-<!--- KNIT example-agent-persistence-02.kt -->
+!!! tip
+    `enableAutomaticPersistence = true`と`RollbackStrategy.MessageHistoryOnly`を組み合わせることで、複数のセッション間で会話コンテキストを維持するエージェントを作成できます。
+
+<!--- KNIT example-agent-persistence-01.kt -->
 
 ## 設定オプション
 
-エージェントの永続化機能には、主に2つの設定オプションがあります。
+エージェントの永続化機能には、主に3つの設定オプションがあります。
 
--   **ストレージプロバイダー**: チェックポイントを保存および取得するために使用されるプロバイダー。
--   **継続的な永続化**: 各ノードの実行後にチェックポイントを自動的に作成する機能。
+- **ストレージプロバイダー**: チェックポイントを保存および取得するために使用されるプロバイダー。
+- **継続的な永続化**: 各ノードの実行後にチェックポイントを自動的に作成する機能。
+- **ロールバック戦略**: チェックポイントにロールバックする際に、どの状態が復元されるかを決定します。
 
 ### ストレージプロバイダー
 
@@ -105,15 +99,15 @@ install(Persistence) {
 }
 ```
 
-<!--- KNIT example-agent-persistence-03.kt -->
+<!--- KNIT example-agent-persistence-02.kt -->
 
 フレームワークには、以下の組み込みプロバイダーが含まれています。
 
--   `InMemoryPersistenceStorageProvider`: チェックポイントをメモリに保存します（アプリケーションの再起動時に失われます）。
--   `FilePersistenceStorageProvider`: チェックポイントをファイルシステムに永続化します。
--   `NoPersistenceStorageProvider`: チェックポイントを保存しない何もしない (no-op) 実装です。これがデフォルトのプロバイダーです。
+- `InMemoryPersistenceStorageProvider`: チェックポイントをメモリに保存します（アプリケーションの再起動時に失われます）。
+- `FilePersistenceStorageProvider`: チェックポイントをファイルシステムに永続化します。
+- `NoPersistenceStorageProvider`: チェックポイントを保存しない何もしない (no-op) 実装です。これがデフォルトのプロバイダーです。
 
-`PersistenceStorageProvider` インターフェースを実装することで、カスタムストレージプロバイダーを実装することもできます。
+`PersistenceStorageProvider`インターフェースを実装することで、カスタムストレージプロバイダーを実装することもできます。
 詳細については、[カスタムストレージプロバイダー](#custom-storage-providers)を参照してください。
 
 ### 継続的な永続化
@@ -143,9 +137,83 @@ install(Persistence) {
 }
 ```
 
-<!--- KNIT example-agent-persistence-04.kt -->
+<!--- KNIT example-agent-persistence-03.kt -->
 
 有効にすると、エージェントは各ノードの実行後に自動的にチェックポイントを作成し、きめ細かいリカバリを可能にします。
+
+### ロールバック戦略
+
+ロールバック戦略は、エージェントがチェックポイントにロールバックするか、新しい実行を開始する際に、どの状態が復元されるかを決定します。
+利用可能な戦略は2つあります。
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.snapshot.feature.Persistence
+import ai.koog.agents.snapshot.providers.InMemoryPersistenceStorageProvider
+import ai.koog.agents.core.agent.context.RollbackStrategy
+import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
+import ai.koog.prompt.llm.OllamaModels
+
+val agent = AIAgent(
+    promptExecutor = simpleOllamaAIExecutor(),
+    llmModel = OllamaModels.Meta.LLAMA_3_2,
+) {
+-->
+<!--- SUFFIX
+}
+-->
+
+```kotlin
+install(Persistence) {
+    // デフォルト戦略: 実行ポイントを含む完全なエージェントの状態を復元します
+    rollbackStrategy = RollbackStrategy.Default
+}
+```
+
+<!--- KNIT example-agent-persistence-04.kt -->
+
+**`RollbackStrategy.Default`**
+
+エージェントを停止した正確な実行ポイント（戦略グラフ内のノード）に復元します。
+これは、以下を含むコンテキスト全体が復元されることを意味します。
+
+- メッセージ履歴
+- 現在実行中のノード
+- その他のステートフルなデータ
+
+この戦略は、停止した正確なポイントから再開する必要がある複雑なフォールトトレラントなエージェントを構築する際に特に役立ちます。
+
+**`RollbackStrategy.MessageHistoryOnly`**
+
+メッセージ履歴のみを最後に保存された状態に復元します。エージェントは常に戦略グラフの最初のノードから再起動しますが、以前の実行の会話履歴を引き継ぎます。
+
+この戦略は、複数のセッション間でコンテキストを維持する必要があるが、常に実行フローを最初から開始すべき会話エージェントやチャットボットを構築するのに役立ちます。
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.snapshot.feature.Persistence
+import ai.koog.agents.snapshot.providers.InMemoryPersistenceStorageProvider
+import ai.koog.agents.core.agent.context.RollbackStrategy
+import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
+import ai.koog.prompt.llm.OllamaModels
+
+val agent = AIAgent(
+    promptExecutor = simpleOllamaAIExecutor(),
+    llmModel = OllamaModels.Meta.LLAMA_3_2,
+) {
+-->
+<!--- SUFFIX
+}
+-->
+
+```kotlin
+install(Persistence) {
+    // MessageHistoryOnly戦略: 会話履歴を保持し、実行を再開します
+    rollbackStrategy = RollbackStrategy.MessageHistoryOnly
+}
+```
+
+<!--- KNIT example-agent-persistence-05.kt -->
 
 ## 基本的な使い方
 
@@ -179,7 +247,7 @@ suspend fun example(context: AIAgentContext) {
 }
 ```
 
-<!--- KNIT example-agent-persistence-05.kt -->
+<!--- KNIT example-agent-persistence-06.kt -->
 
 ### チェックポイントからの復元
 
@@ -200,11 +268,11 @@ suspend fun example(context: AIAgentContext, checkpointId: String) {
 }
 ```
 
-<!--- KNIT example-agent-persistence-06.kt -->
+<!--- KNIT example-agent-persistence-07.kt -->
 
 #### ツールによって生成されたすべての副作用のロールバック
 
-ツールによっては副作用を生成することがよくあります。特に、バックエンドでエージェントを実行している場合、
+一部のツールが副作用を生成することはよくあります。特に、バックエンドでエージェントを実行している場合、
 一部のツールはデータベーストランザクションを実行する可能性があります。これにより、エージェントが時間を遡るのがはるかに困難になります。
 
 データベースに新しいユーザーを作成するツール `createUser` があるとします。そして、エージェントが時間の経過とともに複数のツール呼び出しを生成しました。
@@ -257,7 +325,7 @@ install(Persistence) {
 }
 ```
 
-<!--- KNIT example-agent-persistence-07.kt -->
+<!--- KNIT example-agent-persistence-08.kt -->
 
 ### 拡張関数の使用
 
@@ -265,8 +333,8 @@ install(Persistence) {
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.context.AIAgentContext
-import ai.koog.agents.example.exampleAgentPersistence05.inputData
-import ai.koog.agents.example.exampleAgentPersistence05.inputType
+import ai.koog.agents.example.exampleAgentPersistence06.inputData
+import ai.koog.agents.example.exampleAgentPersistence06.inputType
 import ai.koog.agents.snapshot.feature.persistence
 import ai.koog.agents.snapshot.feature.withPersistence
 -->
@@ -290,13 +358,13 @@ suspend fun example(context: AIAgentContext) {
     }
 }
 ```
-<!--- KNIT example-agent-persistence-08.kt -->
+<!--- KNIT example-agent-persistence-09.kt -->
 
 ## 高度な使い方
 
 ### カスタムストレージプロバイダー
 
-`PersistenceStorageProvider` インターフェースを実装することで、カスタムストレージプロバイダーを実装できます。
+`PersistenceStorageProvider`インターフェースを実装することで、カスタムストレージプロバイダーを実装できます。
 
 <!--- INCLUDE
 import ai.koog.agents.snapshot.feature.AgentCheckpointData
@@ -322,9 +390,10 @@ class MyCustomStorageProvider<MyFilterType> : PersistenceStorageProvider<MyFilte
         TODO("Not yet implemented")
     }
 }
+
 ```
 
-<!--- KNIT example-agent-persistence-09.kt -->
+<!--- KNIT example-agent-persistence-10.kt -->
 
 機能設定でカスタムプロバイダーを使用するには、エージェントの永続化機能をエージェントに設定する際に、それをストレージとして設定します。
 
@@ -365,7 +434,7 @@ install(Persistence) {
 }
 ```
 
-<!--- KNIT example-agent-persistence-10.kt -->
+<!--- KNIT example-agent-persistence-11.kt -->
 
 ### 実行ポイントの設定
 
@@ -390,8 +459,9 @@ fun example(context: AIAgentContext) {
         input = customInput
     )
 }
+
 ```
 
-<!--- KNIT example-agent-persistence-11.kt -->
+<!--- KNIT example-agent-persistence-12.kt -->
 
 これにより、チェックポイントからの復元にとどまらず、エージェントの状態をよりきめ細かく制御できます。

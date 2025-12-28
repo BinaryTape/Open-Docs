@@ -2,7 +2,7 @@
 
 代理程式持久性是 Koog 框架中為 AI 智能體提供檢查點功能的一個特性。它允許您在執行期間的特定時間點儲存和恢復智能體的狀態，從而實現以下功能：
 
-- 從特定時間點恢復智能體執行
+- 從特定點恢復智能體執行
 - 回溯到先前的狀態
 - 跨會話持久化智能體狀態
 
@@ -19,27 +19,6 @@
 
 檢查點由唯一 ID 識別，並與特定智能體關聯。
 
-## 先決條件
-
-代理程式持久性功能要求智能體策略中的所有節點都具有唯一的名稱。這在功能安裝時強制執行：
-
-<!--- INCLUDE
-/*
-KNIT ignore this example
--->
-<!--- SUFFIX
-*/
--->
-```kotlin
-require(ctx.strategy.metadata.uniqueNames) {
-    "Checkpoint feature requires unique node names in the strategy metadata"
-}
-```
-
-<!--- KNIT example-agent-persistence-01.kt -->
-
-請確保為圖形中的節點設定唯一的名稱。
-
 ## 安裝
 
 若要使用代理程式持久性功能，請將其新增至智能體的設定中：
@@ -50,6 +29,7 @@ import ai.koog.agents.snapshot.feature.Persistence
 import ai.koog.agents.snapshot.providers.InMemoryPersistenceStorageProvider
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
+import ai.koog.agents.core.agent.context.RollbackStrategy
 
 val executor = simpleOllamaAIExecutor()
 -->
@@ -60,22 +40,37 @@ val agent = AIAgent(
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
     install(Persistence) {
-        // Use in-memory storage for snapshots
+        // 將快照儲存在記憶體中
         storage = InMemoryPersistenceStorageProvider()
-        // Enable automatic persistence
+        // 在每個節點執行後啟用自動持久化
         enableAutomaticPersistence = true
+        /* 
+         選擇在新智能體執行時要恢復哪個狀態。
+     
+         可用的選項有：
+         1. Default：將智能體恢復到其停止時的確切執行點（策略圖中的節點）。
+            這對於建立複雜、容錯的智能體特別有用。
+         2. MessageHistoryOnly：僅將訊息歷史恢復到上次儲存的狀態。
+            智能體將始終從策略圖中的第一個節點重新啟動，但會帶有先前執行的歷史記錄。
+            這對於建立對話式智能體或聊天機器人很有用。
+        */
+        rollbackStrategy = RollbackStrategy.MessageHistoryOnly
     }
 }
 ```
 
-<!--- KNIT example-agent-persistence-02.kt -->
+!!! tip
+    將 `enableAutomaticPersistence = true` 與 `RollbackStrategy.MessageHistoryOnly` 結合使用，可建立在多個會話中維持對話上下文的智能體。    
+
+<!--- KNIT example-agent-persistence-01.kt -->
 
 ## 設定選項
 
-代理程式持久性功能有兩個主要設定選項：
+代理程式持久性功能有三個主要設定選項：
 
 - **儲存提供者**：用於儲存和擷取檢查點的提供者。
 - **持續性持久化**：在每個節點執行後自動建立檢查點。
+- **回溯策略**：決定在回溯到檢查點時將恢復哪個狀態。
 
 ### 儲存提供者
 
@@ -103,7 +98,7 @@ install(Persistence) {
 }
 ```
 
-<!--- KNIT example-agent-persistence-03.kt -->
+<!--- KNIT example-agent-persistence-02.kt -->
 
 此框架包含以下內建提供者：
 
@@ -115,7 +110,7 @@ install(Persistence) {
 
 ### 持續性持久化
 
-持續性持久化表示在每個節點執行後自動建立檢查點。要啟動持續性持久化，請使用以下程式碼：
+持續性持久化表示在每個節點執行後自動建立檢查點。若要啟用持續性持久化，請使用以下程式碼：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -139,9 +134,81 @@ install(Persistence) {
 }
 ```
 
-<!--- KNIT example-agent-persistence-04.kt -->
+<!--- KNIT example-agent-persistence-03.kt -->
 
 啟用後，智能體將在每個節點執行後自動建立檢查點，從而實現細粒度的恢復。
+
+### 回溯策略
+
+回溯策略決定了當智能體回溯到檢查點或開始新的執行時，將恢復哪個狀態。有兩種可用的策略：
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.snapshot.feature.Persistence
+import ai.koog.agents.snapshot.providers.InMemoryPersistenceStorageProvider
+import ai.koog.agents.core.agent.context.RollbackStrategy
+import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
+import ai.koog.prompt.llm.OllamaModels
+
+val agent = AIAgent(
+    promptExecutor = simpleOllamaAIExecutor(),
+    llmModel = OllamaModels.Meta.LLAMA_3_2,
+) {
+-->
+<!--- SUFFIX
+}
+-->
+
+```kotlin
+install(Persistence) {
+    // 預設策略：恢復完整的智能體狀態，包括執行點
+    rollbackStrategy = RollbackStrategy.Default
+}
+```
+
+<!--- KNIT example-agent-persistence-04.kt -->
+
+**`RollbackStrategy.Default`**
+
+將智能體恢復到其停止時的確切執行點（策略圖中的節點）。這表示將恢復整個上下文，包括：
+
+- 訊息歷史
+- 目前正在執行的節點
+- 任何其他有狀態資料
+
+這對於建立複雜、容錯的智能體特別有用，這些智能體需要從其離開的確切點恢復執行。
+
+**`RollbackStrategy.MessageHistoryOnly`**
+
+僅將訊息歷史恢復到上次儲存的狀態。智能體將始終從策略圖中的第一個節點重新啟動，但會帶有先前執行的對話歷史記錄。
+
+這對於建立對話式智能體或聊天機器人很有用，這些智能體需要在多個會話中維持上下文，但應始終從頭開始執行流程。
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.snapshot.feature.Persistence
+import ai.koog.agents.snapshot.providers.InMemoryPersistenceStorageProvider
+import ai.koog.agents.core.agent.context.RollbackStrategy
+import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
+import ai.koog.prompt.llm.OllamaModels
+
+val agent = AIAgent(
+    promptExecutor = simpleOllamaAIExecutor(),
+    llmModel = OllamaModels.Meta.LLAMA_3_2,
+) {
+-->
+<!--- SUFFIX
+}
+-->
+
+```kotlin
+install(Persistence) {
+    // MessageHistoryOnly 策略：保留對話歷史，但重新啟動執行
+    rollbackStrategy = RollbackStrategy.MessageHistoryOnly
+}
+```
+
+<!--- KNIT example-agent-persistence-05.kt -->
 
 ## 基本用法
 
@@ -160,7 +227,7 @@ val inputType = typeOf<String>()
 
 ```kotlin
 suspend fun example(context: AIAgentContext) {
-    // Create a checkpoint with the current state
+    // 建立目前狀態的檢查點
     val checkpoint = context.persistence().createCheckpoint(
         agentContext = context,
         nodePath = context.executionInfo.path(),
@@ -170,14 +237,12 @@ suspend fun example(context: AIAgentContext) {
         version = 0L
     )
 
-    // The checkpoint ID can be stored for later use
+    // 檢查點 ID 可以儲存供以後使用
     val checkpointId = checkpoint?.checkpointId
 }
 ```
 
-<!--- KNIT example-agent-persistence-05.kt -->
-
-檢查點 ID 可以儲存供以後使用。
+<!--- KNIT example-agent-persistence-06.kt -->
 
 ### 從檢查點恢復
 
@@ -190,15 +255,15 @@ import ai.koog.agents.snapshot.feature.persistence
 
 ```kotlin
 suspend fun example(context: AIAgentContext, checkpointId: String) {
-    // Roll back to a specific checkpoint
+    // 回溯到特定檢查點
     context.persistence().rollbackToCheckpoint(checkpointId, context)
 
-    // Or roll back to the latest checkpoint
+    // 或回溯到最新的檢查點
     context.persistence().rollbackToLatestCheckpoint(context)
 }
 ```
 
-<!--- KNIT example-agent-persistence-06.kt -->
+<!--- KNIT example-agent-persistence-07.kt -->
 
 #### 回溯工具產生的所有副作用
 
@@ -244,16 +309,15 @@ val agent = AIAgent(
 install(Persistence) {
     enableAutomaticPersistence = true
     rollbackToolRegistry = RollbackToolRegistry {
-        // For every `createUser` tool call there will be a `removeUser` invocation in the reverse order 
-        // when rolling back to the desired execution point.
-        // Note: `removeUser` tool should take the same exact arguments as `createUser`. 
-        // It's the developer's responsibility to make sure that `removeUser` invocation rolls back all side-effects of `createUser`:
+        // 對於每次 `createUser` 工具呼叫，當回溯到所需的執行點時，都會以相反順序呼叫 `removeUser`。
+        // 注意：`removeUser` 工具應採用與 `createUser` 相同確切的參數。
+        // 確保 `removeUser` 呼叫回溯 `createUser` 的所有副作用是開發人員的責任：
         registerRollback(::createUser, ::removeUser)
     }
 }
 ```
 
-<!--- KNIT example-agent-persistence-07.kt -->
+<!--- KNIT example-agent-persistence-08.kt -->
 
 ### 使用延伸函式
 
@@ -261,20 +325,20 @@ install(Persistence) {
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.context.AIAgentContext
-import ai.koog.agents.example.exampleAgentPersistence05.inputData
-import ai.koog.agents.example.exampleAgentPersistence05.inputType
+import ai.koog.agents.example.exampleAgentPersistence06.inputData
+import ai.koog.agents.example.exampleAgentPersistence06.inputType
 import ai.koog.agents.snapshot.feature.persistence
 import ai.koog.agents.snapshot.feature.withPersistence
 -->
 
 ```kotlin
 suspend fun example(context: AIAgentContext) {
-    // Access the checkpoint feature
+    // 存取檢查點功能
     val checkpointFeature = context.persistence()
 
-    // Or perform an action with the checkpoint feature
+    // 或使用檢查點功能執行動作
     context.withPersistence { ctx ->
-        // 'this' is the checkpoint feature
+        // 'this' 是檢查點功能
         createCheckpoint(
             agentContext = ctx,
             nodePath = ctx.executionInfo.path(),
@@ -286,7 +350,7 @@ suspend fun example(context: AIAgentContext) {
     }
 }
 ```
-<!--- KNIT example-agent-persistence-08.kt -->
+<!--- KNIT example-agent-persistence-09.kt -->
 
 ## 進階用法
 
@@ -321,7 +385,7 @@ class MyCustomStorageProvider<MyFilterType> : PersistenceStorageProvider<MyFilte
 
 ```
 
-<!--- KNIT example-agent-persistence-09.kt -->
+<!--- KNIT example-agent-persistence-10.kt -->
 
 若要在功能設定中使用您的自訂提供者，請在為智能體設定代理程式持久性功能時將其設定為儲存。
 
@@ -362,7 +426,7 @@ install(Persistence) {
 }
 ```
 
-<!--- KNIT example-agent-persistence-10.kt -->
+<!--- KNIT example-agent-persistence-11.kt -->
 
 ### 設定執行點
 
@@ -390,6 +454,6 @@ fun example(context: AIAgentContext) {
 
 ```
 
-<!--- KNIT example-agent-persistence-11.kt -->
+<!--- KNIT example-agent-persistence-12.kt -->
 
 這允許對智能體的狀態進行比僅從檢查點恢復更細粒度的控制。
