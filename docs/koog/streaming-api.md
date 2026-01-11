@@ -409,6 +409,7 @@ import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.example.exampleStreamingApi04.markdownBookDefinition
 import ai.koog.agents.example.exampleStreamingApi06.parseMarkdownStreamToBooks
 import ai.koog.agents.example.exampleStreamingApi08.BookTool
+import ai.koog.agents.core.agent.session.callToolRaw
 
 -->
 ```kotlin
@@ -482,4 +483,4 @@ val runner = AIAgent(
 
 6. **测试**：使用各种输入场景（包括部分数据块和格式错误的输入）测试您的解析器。
 
-7. **并行处理**：对于独立的数据项，考虑使用并行工具调用以获得更好的性能。
+7. **并行处理**：对于独立数据项，考虑使用并行工具调用以获得更好的性能。

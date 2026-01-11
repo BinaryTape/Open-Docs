@@ -49,8 +49,6 @@ dependencies {
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.agent.functionalStrategy
-import ai.koog.agents.core.dsl.extension.asAssistantMessage
-import ai.koog.agents.core.dsl.extension.requestLLM
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 import kotlinx.coroutines.runBlocking
@@ -94,8 +92,6 @@ The answer to 12 × 9 is 108.
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.agent.functionalStrategy
-import ai.koog.agents.core.dsl.extension.asAssistantMessage
-import ai.koog.agents.core.dsl.extension.requestLLM
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 import kotlinx.coroutines.runBlocking
@@ -115,11 +111,11 @@ val mathAgent = AIAgent<String, String>(
     llmModel = OllamaModels.Meta.LLAMA_3_2,
     strategy = functionalStrategy { input -> // Define the agent logic
         // The first LLM call to produce an initial draft based on the user input
-        val draft = requestLLM("草稿: $input").asAssistantMessage().content
+        val draft = requestLLM("Draft: $input").asAssistantMessage().content
         // The second LLM call to improve the draft by prompting the LLM again with the draft content
-        val improved = requestLLM("改進與澄清。").asAssistantMessage().content
+        val improved = requestLLM("Improve and clarify.").asAssistantMessage().content
         // The final LLM call to format the improved text and return the final formatted result
-        requestLLM("將結果格式化為粗體。").asAssistantMessage().content
+        requestLLM("Format the result as bold.").asAssistantMessage().content
     }
 )
 
@@ -159,10 +155,10 @@ import ai.koog.agents.core.tools.annotations.Tool
 import ai.koog.agents.core.tools.reflect.ToolSet
 --> 
 ```kotlin
-@LLMDescription("簡單乘數")
+@LLMDescription("Simple multiplier")
 class MathTools : ToolSet {
     @Tool
-    @LLMDescription("將兩個數字相乘並傳回結果")
+    @LLMDescription("Multiplies two numbers and returns the result")
     fun multiply(a: Int, b: Int): Int {
         val result = a * b
         return result
@@ -254,7 +250,7 @@ val mathWithTools = AIAgent<String, String>(
 )
 
 // Run the agent with a user input and print the result
-val reply = mathWithTools.run("請將 12.5 和 4 相乘，然後將結果加上 10。")
+val reply = mathWithTools.run("Please multiply 12.5 and 4, then add 10 to the result.")
 println(reply)
 ```
 <!--- KNIT example-functional-agent-05.kt -->

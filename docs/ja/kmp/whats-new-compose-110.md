@@ -9,25 +9,20 @@
 
 ## 依存関係
 
-* Gradleプラグイン `org.jetbrains.compose`、バージョン `1.10.0-rc02`。Jetpack Composeライブラリに基づいています。
-    * [Runtime 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0)
-    * [UI 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0)
-    * [Foundation 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.10.0)
-    * [Material 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-material#1.10.0)
-
-* Compose Material3ライブラリ `org.jetbrains.compose.material3:material3*:1.10.0-alpha05`。[Jetpack Compose Material3 1.5.0-alpha08](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha08)に基づいています。
-
-  [エクスプレッシブテーマ](whats-new-compose-190.md#material-3-expressive-theme)を使用するには、Material 3の実験的バージョンを含めます。
-    ```kotlin
-    implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha05")
-    ```
-* Compose Material3 Adaptiveライブラリ `org.jetbrains.compose.material3.adaptive:adaptive*:1.3.0-alpha02`。[Jetpack Compose Material3 Adaptive 1.3.0-alpha03](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.3.0-alpha03)に基づいています。
-* Lifecycleライブラリ `org.jetbrains.androidx.lifecycle:lifecycle-*:2.10.0-alpha06`。[Jetpack Lifecycle 2.10.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0)に基づいています。
-* Navigationライブラリ `org.jetbrains.androidx.navigation:navigation-*:2.9.1`。[Jetpack Navigation 2.9.4](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4)に基づいています。
-* Navigation 3ライブラリ `org.jetbrains.androidx.navigation3:navigation3-*:1.0.0-alpha06`。[Jetpack Navigation3 1.0.0](https://developer.android.com/jetpack/androidx/releases/navigation3#1.0.0)に基づいています。
-* Navigation Eventライブラリ `org.jetbrains.androidx.navigationevent:navigationevent-compose:1.0.0-rc02`。[Jetpack Navigation Event 1.0.1](https://developer.android.com/jetpack/androidx/releases/navigationevent#1.0.1)に基づいています。
-* Savedstateライブラリ `org.jetbrains.androidx.savedstate:savedstate*:1.4.0`。[Jetpack Savedstate 1.4.0](https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0)に基づいています。
-* WindowManager Coreライブラリ `org.jetbrains.androidx.window:window-core:1.5.1`。[Jetpack WindowManager 1.5.1](https://developer.android.com/jetpack/androidx/releases/window#1.5.1)に基づいています。
+| ライブラリ            | Maven座標                                                               | Jetpackバージョンに基づく                                                                                                             |
+|--------------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| Runtime            | `org.jetbrains.compose.runtime:runtime*:1.10.0-rc02`                        | [Runtime 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0)                                     |
+| UI                 | `org.jetbrains.compose.ui:ui*:1.10.0-rc02`                                  | [UI 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0)                                               |
+| Foundation         | `org.jetbrains.compose.foundation:foundation*:1.10.0-rc02`                  | [Foundation 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.10.0)                               |
+| Material           | `org.jetbrains.compose.material:material*:1.10.0-rc02`                      | [Material 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-material#1.10.0)                                   |
+| Material3          | `org.jetbrains.compose.material3:material3*:1.10.0-alpha05`                 | [Material3 1.5.0-alpha08](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha08)                   |
+| Material3 Adaptive | `org.jetbrains.compose.material3.adaptive:adaptive*:1.3.0-alpha02`          | [Material3 Adaptive 1.3.0-alpha03](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.3.0-alpha03) |
+| Lifecycle          | `org.jetbrains.androidx.lifecycle:lifecycle-*:2.10.0-alpha06`               | [Lifecycle 2.10.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0)                                         |
+| Navigation         | `org.jetbrains.androidx.navigation:navigation-*:2.9.1`                      | [Navigation 2.9.4](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4)                                         |
+| Navigation3        | `org.jetbrains.androidx.navigation3:navigation3-*:1.0.0-alpha06`            | [Navigation3 1.0.0](https://developer.android.com/jetpack/androidx/releases/navigation3#1.0.0)                                       |
+| Navigation Event   | `org.jetbrains.androidx.navigationevent:navigationevent-compose:1.0.0-rc02` | [Navigation Event 1.0.1](https://developer.android.com/jetpack/androidx/releases/navigationevent#1.0.1)                              |
+| Savedstate         | `org.jetbrains.androidx.savedstate:savedstate*:1.4.0`                       | [Savedstate 1.4.0](https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0)                                         |
+| WindowManager Core | `org.jetbrains.androidx.window:window-core:1.5.1`                           | [WindowManager 1.5.1](https://developer.android.com/jetpack/androidx/releases/window#1.5.1)                                          |
 
 ## 破壊的変更と非推奨
 
@@ -88,7 +83,7 @@ Compose Multiplatformは、デスクトップとiOSの両方でネイティブ�
 
 同様に、`PopupProperties`内の`usePlatformDefaultWidth`および`usePlatformInsets`プロパティも安定版に昇格しました。
 
-`PopupProperties`パラメーターを持たない`Popup`オーバーロードの非推奨レベルは`ERROR`に変更され、更新されたAPIの使用が強制されるようになりました。
+`Popup`オーバーロードの非推奨レベルは`ERROR`に変更され、更新されたAPIの使用が強制されるようになりました。
 
 ### Skiaがマイルストーン138に更新されました
 
@@ -141,8 +136,8 @@ Compose Multiplatformは、ステータスバー、ナビゲーションバー�
 
 これらの新しいAPIにより、フィールドがフォーカスを取得してIMEをトリガーしたときの入力インターフェースのカスタマイズが可能になります。
 
-*   `UIResponder.inputView` は、デフォルトのシステムキーボードを置き換えるカスタム入力ビューを指定します。
-*   `UIResponder.inputAccessoryView` は、IMEアクティベーション時にシステムキーボードまたはカスタム`inputView`にアタッチするカスタムアクセサリビューを定義します。
+ * `UIResponder.inputView` は、デフォルトのシステムキーボードを置き換えるカスタム入力ビューを指定します。
+ * `UIResponder.inputAccessoryView` は、IMEアクティベーション時にシステムキーボードまたはカスタム`inputView`にアタッチするカスタムアクセサリビューを定義します。
 
 ### インターロップビューのオーバーレイ配置
 <primary-label ref="Experimental"/>
@@ -172,8 +167,8 @@ Compose Hot Reloadプラグインは、Compose Multiplatform Gradleプラグイ�
 
 Compose Hot Reloadプラグインを明示的に宣言しているプロジェクトに対する影響は以下のとおりです。
 
-*   Compose Multiplatform Gradleプラグインによって提供されるバージョンを使用するため、宣言を安全に削除できます。
-*   特定のバージョン宣言を保持することを選択した場合、バンドルされたバージョンではなく、そのバージョンが使用されます。
+ * Compose Multiplatform Gradleプラグインによって提供されるバージョンを使用するため、宣言を安全に削除できます。
+ * 特定のバージョン宣言を保持することを選択した場合、バンドルされたバージョンではなく、そのバージョンが使用されます。
 
 バンドルされているCompose Hot Reload Gradleプラグインの最小Kotlinバージョンは2.1.20です。
 これより古いKotlinバージョンが検出された場合、ホットリロード機能は無効になります。

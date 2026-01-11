@@ -16,8 +16,7 @@
 
 ## Gradle plugin
 
-本指南主要著重於使用 Compose Multiplatform Gradle plugin 封裝 Compose 應用程式。
-`org.jetbrains.compose` plugin 提供基本封裝、混淆處理和 macOS 程式碼簽章的任務。
+本指南主要著重於使用 Compose Multiplatform Gradle plugin 封裝 Compose 應用程式。`org.jetbrains.compose` plugin 提供基本封裝、混淆處理和 macOS 程式碼簽章的任務。
 
 此 plugin 簡化了使用 `jpackage` 將應用程式封裝為原生發佈以及在本機執行應用程式的流程。
 可發佈的應用程式是自我包含、可安裝的二進位檔，其中包含所有必要的 Java 執行階段元件，無需在目標系統上安裝 JDK。
@@ -231,7 +230,7 @@ compose.desktop {
         <td><code>MAJOR[.MINOR][.PATCH]</code></td>
         <td>
             <ul>
-                <li><code>MAJOR</code> 是大於 0 的整數</li>
+                <li><code>MAJOR</code> 是大於 0 的非負整數</li>
                 <li><code>MINOR</code> 是可選的非負整數</li>
                 <li><code>PATCH</code> 是可選的非負整數</li>
             </ul>

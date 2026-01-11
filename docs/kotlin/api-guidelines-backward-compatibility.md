@@ -121,28 +121,14 @@ Exception in thread "main" java.lang.NoSuchMethodError: 'int LibKt.fib()'
 
 ### 使用重载保留兼容性 {initial-collapse-state="collapsed" collapsible="true"}
 
-在为 JVM 编写 Kotlin 代码时，你可以在带有默认实参的函数上使用 [`@JvmOverloads`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/) 注解。这会为该函数生成重载，每个带有默认实参且可以从形参列表末尾省略的形参都对应一个重载。通过这些单独生成的函数，在形参列表末尾添加新形参可以保留二进制兼容性，因为它不会改变输出中任何现有函数，只是添加了一个新函数。
-
-例如，上述函数可以像这样进行注解：
+为了保留二进制兼容性，如果你想向函数添加新形参，你需要手动创建多个重载，而不是只使用一个带有默认实参的函数。在上面的示例中，这意味着为需要接受 `Int` 形参的情况创建一个单独的 `fib` 函数：
 
 ```kotlin
-@JvmOverloads
-fun fib(input: Int = 0) = …
-```
-
-这将在输出字节码中生成两个方法，一个没有形参，一个带有 `Int` 形参：
-
-```kotlin
-public final static fib()I
-public final static fib(I)I
-```
-
-对于所有 Kotlin 目标平台，你可以选择手动创建函数的多个重载，而不是只创建一个接受默认实参的函数来保留二进制兼容性。在上面的示例中，这意味着为需要接受 `Int` 形参的情况创建一个单独的 `fib` 函数：
-
-```kotlin
-fun fib() = …
+fun fib() = … 
 fun fib(input: Int) = …
 ```
+
+在为 JVM 编写 Kotlin 代码时，当向带有默认实参且被 [`@JvmOverloads`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/) 注解的函数添加形参时，请务必小心。该注解不保留二进制兼容性，因此你仍然需要添加手动重载。
 
 ## 避免拓宽或窄化返回类型
 

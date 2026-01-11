@@ -12,6 +12,7 @@
 - [Paging 확장] AndroidX Paging으로 전환했습니다 (#5910 by @jeffdgr8)
 
 ### 수정
+- [SQLite 다이얼렉트] 사용자 지정 열 타입 사용 시 `group_concat` 함수에 String 타입을 사용했습니다 (#6082 by @griffio)
 - [Gradle 플러그인] 복잡한 스키마에서 멈추는 것을 방지하기 위해 `VerifyMigrationTask`의 성능을 개선했습니다 (#6073 by @Lightwood13)
 
 ## [2.2.1] - 2025-11-13
@@ -94,7 +95,7 @@
 - [JDBC 드라이버] 트랜잭션 종료 중 `connectionManager`의 메모리 누수(memory leak)를 수정했습니다
 - [JDBC 드라이버] 문서에 언급된 대로 트랜잭션 내에서 SQLite 마이그레이션을 실행했습니다 (#5218 by @morki)
 - [JDBC 드라이버] 트랜잭션 커밋/롤백 후 연결 누수(leaking connections)를 수정했습니다 (#5205 by @morki)
-- [Gradle 플러그인] `GenerateSchemaTask` 이전에 `DriverInitializer`를 실행했습니다 (#5562 by @nwagu)
+- [Gradle 플러그인] `DriverInitializer`를 `GenerateSchemaTask` 이전에 실행했습니다 (#5562 by @nwagu)
 - [런타임] 실제 드라이버가 비동기(Async)일 때 `LogSqliteDriver`의 크래시(crash)를 수정했습니다 (#5723 by @edenman)
 - [런타임] `StringBuilder` 용량(capacity)을 수정했습니다 (#5192 by @janbina)
 - [PostgreSQL 다이얼렉트] PostgreSql CREATE OR REPLACE VIEW를 수정했습니다 (#5407 by @griffio)
@@ -272,7 +273,7 @@
 - [Gradle 플러그인] 타입 세이프 프로젝트 접근자(typesafe project accessors)를 활성화했습니다 (#4005 by @hfhbd)
 
 ### 변경
-- [Gradle 플러그인] ServiceLoader 메커니즘으로 `VerifyMigrationTask`에 대한 `DriverInitializer` 등록을 허용했습니다 (#3986 by @C2H6O)
+- [Gradle 플러그인] `ServiceLoader` 메커니즘으로 `VerifyMigrationTask`에 대한 `DriverInitializer` 등록을 허용했습니다 (#3986 by @C2H6O)
 - [Gradle 플러그인] 명시적 컴파일러 환경을 생성했습니다 (#4079 by @hfhbd)
 - [JS 드라이버] 웹 워커 드라이버를 별도 아티팩트로 분할했습니다
 - [JS 드라이버] `JsWorkerSqlCursor` 노출을 금지했습니다 (#3874 by @hfhbd)
@@ -345,7 +346,7 @@
 
 - Paging 3 확장 API가 개수에 대해 `int` 타입만 허용하도록 변경되었습니다.
 - 코루틴 확장(coroutines extension)은 이제 기본값이 아닌 디스패처를 전달해야 합니다.
-- 다이얼렉트 및 드라이버 클래스는 `final`이며, 대신 위임(delegation)을 사용하십시오.
+- 다이얼렉트 및 드라이버 클래스는 final이며, 대신 위임(delegation)을 사용하십시오.
 
 ### 추가
 - [HSQL 다이얼렉트] HSQL: INSERT에서 생성된 열에 DEFAULT 사용을 지원했습니다 (#3372 by @hfhbd)
@@ -425,7 +426,7 @@ sqldelight {
 - [런타임] 서드파티 구현을 지원하기 위해 다이얼렉트 및 리졸버를 공개했습니다 (#3232 by @hfhbd)
 - [컴파일러] 실패 보고서에 컴파일에 사용된 다이얼렉트를 포함했습니다 (#3086)
 - [컴파일러] 사용되지 않는 어댑터를 건너뛰도록 했습니다 (#3162 by @eygraber)
-- [컴파일러] PrepareStatement에서 0부터 시작하는 인덱스를 사용하도록 했습니다 (#3269 by @hfhbd)
+- [컴파일러] `PreparedStatement`에서 0부터 시작하는 인덱스를 사용하도록 했습니다 (#3269 by @hfhbd)
 - [Gradle 플러그인] 다이얼렉트도 단순 문자열 대신 적절한 Gradle 종속성으로 만들었습니다 (#3085)
 - [Gradle 플러그인] Gradle 검증 작업: 데이터베이스 파일 누락 시 예외를 발생시키도록 했습니다 (#3126 by @vanniktech)
 
@@ -572,7 +573,7 @@ sqldelight {
 - [런타임] 기본 열 어댑터를 별도 모듈로 추출했습니다 (#2056, #2060)
 - [컴파일러] 각 모듈에서 다시 구현하는 대신 모듈이 쿼리 구현을 생성하도록 했습니다
 - [컴파일러] 생성된 데이터 클래스의 사용자 지정 `toString` 생성 기능을 제거했습니다. (by @PaulWoitaschek)
-- [JS 드라이버] `sqljs-driver`에서 `sql.js` 종속성을 제거했습니다 (by @dellisd)
+- [JS 드라이버] `sql.js` 종속성을 `sqljs-driver`에서 제거했습니다 (by @dellisd)
 - [Paging] Android Paging 2 확장 기능을 제거했습니다
 - [IDE 플러그인] SQLDelight 동기화 중 에디터 배너를 추가했습니다 (#2511)
 - [IDE 플러그인] 최소 지원 IntelliJ 버전은 2021.1입니다
@@ -713,7 +714,7 @@ sqldelight {
 ### 추가
 - [SQLite 자바스크립트 드라이버] `sqljs-driver` 게시 활성화 (#1667 by @dellisd)
 - [Paging3 확장] Android Paging 3 라이브러리 확장 (#1786 by @kevincianfarini)
-- [MySQL 다이얼렉트] mysql의 ON DUPLICATE KEY UPDATE 충돌 해결 지원 추가 (by @rharter)
+- [MySQL 다이얼렉트] MySQL의 ON DUPLICATE KEY UPDATE 충돌 해결 지원 추가 (by @rharter)
 - [SQLite 다이얼렉트] SQLite `offsets()`에 대한 컴파일러 지원 추가 (by @qjroberts)
 - [IDE 플러그인] 알 수 없는 타입에 대한 임포트 빠른 수정 추가 (#683 by @aperfilyev)
 - [IDE 플러그인] 사용되지 않는 임포트 인스펙션 추가 (#1161 by @aperfilyev)
@@ -933,7 +934,7 @@ sqldelight {
 * Fix: [Gradle] #1287 동기화 시 경고.
 * Fix: [컴파일러] #1469 쿼리에 대한 SynetheticAccessor 생성.
 * Fix: [JVM 드라이버] 메모리 누수 수정.
-* 참고: 코루틴 확장 아티팩트는 빌드 스크립트에 kotlinx bintray maven 저장소가 추가되어야 합니다.
+* NOTE: 코루틴 확장 아티팩트는 빌드 스크립트에 kotlinx bintray maven 저장소가 추가되어야 합니다.
 
 ## [1.2.0] - 2019-08-30
 [1.2.0]: https://github.com/sqldelight/sqldelight/releases/tag/1.2.0
@@ -1022,150 +1023,150 @@ sqldelight {
 ## [0.7.0] - 2018-02-12
 [0.7.0]: https://github.com/sqldelight/sqldelight/releases/tag/0.7.0
 
-* New: 생성된 코드가 Support SQLite 라이브러리만 사용하도록 업데이트되었습니다. 모든 쿼리가 이제 원시 문자열 대신 statement 객체를 생성합니다.
-* New: IDE에서 문 폴딩(Statement folding) 기능.
-* New: 부울 타입이 이제 자동으로 처리됩니다.
-* Fix: 코드 생성에서 사용되지 않는 `marshals` 제거.
-* Fix: `avg` SQL 함수 타입 매핑을 REAL로 올바르게 수정.
-* Fix: `julianday` SQL 함수를 올바르게 감지.
+ * New: 생성된 코드가 Support SQLite 라이브러리만 사용하도록 업데이트되었습니다. 모든 쿼리가 이제 원시 문자열 대신 statement 객체를 생성합니다.
+ * New: IDE에서 문 폴딩(Statement folding) 기능.
+ * New: 부울 타입이 이제 자동으로 처리됩니다.
+ * Fix: 코드 생성에서 사용되지 않는 `marshals` 제거.
+ * Fix: `avg` SQL 함수 타입 매핑을 REAL로 올바르게 수정.
+ * Fix: `julianday` SQL 함수를 올바르게 감지.
 
 ## [0.6.1] - 2017-03-22
 [0.6.1]: https://github.com/sqldelight/sqldelight/releases/tag/0.6.1
 
-* New: 인수가 없는 Delete, Update, Insert 문에 대해 컴파일된 문이 생성됩니다.
-* Fix: 서브쿼리에서 사용되는 뷰 내의 `USING` 절이 오류를 발생시키지 않습니다.
-* Fix: 생성된 Mapper에서 중복 타입 제거.
-* Fix: 서브쿼리가 인수에 대해 검사하는 표현식에서 사용될 수 있습니다.
+ * New: 인수가 없는 Delete, Update, Insert 문에 대해 컴파일된 문이 생성됩니다.
+ * Fix: 서브쿼리에서 사용되는 뷰 내의 `USING` 절이 오류를 발생시키지 않습니다.
+ * Fix: 생성된 Mapper에서 중복 타입 제거.
+ * Fix: 서브쿼리가 인수에 대해 검사하는 표현식에서 사용될 수 있습니다.
 
 ## [0.6.0] - 2017-03-06
 [0.6.0]: https://github.com/sqldelight/sqldelight/releases/tag/0.6.0
 
-* New: Select 쿼리가 문자열 상수 대신 `SqlDelightStatement` 팩토리로 노출됩니다.
-* New: 쿼리 Javadoc이 statement 및 mapper 팩토리로 복사됩니다.
-* New: 뷰 이름에 대한 문자열 상수를 방출합니다.
-* Fix: 팩토리가 필요한 뷰에 대한 쿼리가 해당 팩토리를 인수로 올바르게 요구합니다.
-* Fix: INSERT 문의 인수 개수가 지정된 열 개수와 일치하는지 유효성 검사.
-* Fix: WHERE 절에 사용된 BLOB 리터럴을 올바르게 인코딩.
-* 이 릴리스에는 Gradle 3.3 이상이 필요합니다.
+ * New: Select 쿼리가 문자열 상수 대신 `SqlDelightStatement` 팩토리로 노출됩니다.
+ * New: 쿼리 Javadoc이 statement 및 mapper 팩토리로 복사됩니다.
+ * New: 뷰 이름에 대한 문자열 상수를 방출합니다.
+ * Fix: 팩토리가 필요한 뷰에 대한 쿼리가 해당 팩토리를 인수로 올바르게 요구합니다.
+ * Fix: INSERT 문의 인수 개수가 지정된 열 개수와 일치하는지 유효성 검사.
+ * Fix: WHERE 절에 사용된 BLOB 리터럴을 올바르게 인코딩.
+ * 이 릴리스에는 Gradle 3.3 이상이 필요합니다.
 
 ## [0.5.1] - 2016-10-24
 [0.5.1]: https://github.com/sqldelight/sqldelight/releases/tag/0.5.1
 
-* New: 컴파일된 문은 추상 타입을 확장합니다.
-* Fix: 매개변수의 기본 타입은 널 허용(nullable)이면 박싱(boxed)됩니다.
-* Fix: 바인딩 인수에 필요한 모든 팩토리가 팩토리 메서드에 존재합니다.
-* Fix: 이스케이프된 열 이름이 Cursor에서 가져올 때 올바르게 마샬링됩니다.
+ * New: 컴파일된 문은 추상 타입을 확장합니다.
+ * Fix: 매개변수의 기본 타입은 널 허용(nullable)이면 박싱(boxed)됩니다.
+ * Fix: 바인딩 인수에 필요한 모든 팩토리가 팩토리 메서드에 존재합니다.
+ * Fix: 이스케이프된 열 이름이 Cursor에서 가져올 때 올바르게 마샬링됩니다.
 
 ## [0.5.0] - 2016-10-19
 [0.5.0]: https://github.com/sqldelight/sqldelight/releases/tag/0.5.0
 
-* New: SQLite 인수를 Factory를 통해 타입 안전하게 전달할 수 있습니다.
-* New: IntelliJ 플러그인이 .sq 파일에 서식(formatting)을 수행합니다.
-* New: SQLite 타임스탬프 리터럴 지원.
-* Fix: 매개변수화된 타입은 IntelliJ에서 클릭하여 이동할 수 있습니다.
-* Fix: 이스케이프된 열 이름이 Cursor에서 가져올 때 더 이상 RuntimeException을 발생시키지 않습니다.
-* Fix: Gradle 플러그인이 예외 출력 시 크래시되지 않습니다.
+ * New: SQLite 인수를 Factory를 통해 타입 안전하게 전달할 수 있습니다.
+ * New: IntelliJ 플러그인이 .sq 파일에 서식(formatting)을 수행합니다.
+ * New: SQLite 타임스탬프 리터럴 지원.
+ * Fix: 매개변수화된 타입은 IntelliJ에서 클릭하여 이동할 수 있습니다.
+ * Fix: 이스케이프된 열 이름이 Cursor에서 가져올 때 더 이상 RuntimeException을 발생시키지 않습니다.
+ * Fix: Gradle 플러그인이 예외 출력 시 크래시되지 않습니다.
 
 ## [0.4.4] - 2016-07-20
 [0.4.4]: https://github.com/sqldelight/sqldelight/releases/tag/0.4.4
 
-* New: 열 Java 타입으로 short에 대한 기본 지원.
-* New: 생성된 매퍼 및 팩토리 메서드에 Javadoc 추가.
-* Fix: `group_concat` 및 `nullif` 함수가 올바른 널 허용 여부를 가집니다.
-* Fix: Android Studio 2.2-alpha와의 호환성.
-* Fix: WITH RECURSIVE가 더 이상 플러그인을 크래시시키지 않습니다.
+ * New: 열 Java 타입으로 short에 대한 기본 지원.
+ * New: 생성된 매퍼 및 팩토리 메서드에 Javadoc 추가.
+ * Fix: `group_concat` 및 `nullif` 함수가 올바른 널 허용 여부를 가집니다.
+ * Fix: Android Studio 2.2-alpha와의 호환성.
+ * Fix: WITH RECURSIVE가 더 이상 플러그인을 크래시시키지 않습니다.
 
 ## [0.4.3] - 2016-07-07
 [0.4.3]: https://github.com/sqldelight/sqldelight/releases/tag/0.4.3
 
-* New: 컴파일 오류가 소스 파일로 연결됩니다.
-* New: 마우스 오른쪽 버튼을 클릭하여 SQLDelight 코드를 유효한 SQLite로 복사할 수 있습니다.
-* New: 명명된 문에 대한 Javadoc이 생성된 String에 나타납니다.
-* Fix: 생성된 뷰 모델에 널 허용 여부 어노테이션이 포함됩니다.
-* Fix: union에서 생성된 코드가 가능한 모든 열을 지원하기 위해 올바른 타입과 널 허용 여부를 가집니다.
-* Fix: `sum` 및 `round` SQLite 함수가 생성된 코드에서 올바른 타입을 가집니다.
-* Fix: CAST, 내부 SELECT 버그 수정.
-* Fix: CREATE TABLE 문에서 자동 완성.
-* Fix: SQLite 키워드를 패키지에서 사용할 수 있습니다.
+ * New: 컴파일 오류가 소스 파일로 연결됩니다.
+ * New: 마우스 오른쪽 버튼을 클릭하여 SQLDelight 코드를 유효한 SQLite로 복사할 수 있습니다.
+ * New: 명명된 문에 대한 Javadoc이 생성된 String에 나타납니다.
+ * Fix: 생성된 뷰 모델에 널 허용 여부 어노테이션이 포함됩니다.
+ * Fix: union에서 생성된 코드가 가능한 모든 열을 지원하기 위해 올바른 타입과 널 허용 여부를 가집니다.
+ * Fix: `sum` 및 `round` SQLite 함수가 생성된 코드에서 올바른 타입을 가집니다.
+ * Fix: CAST, 내부 SELECT 버그 수정.
+ * Fix: CREATE TABLE 문에서 자동 완성.
+ * Fix: SQLite 키워드를 패키지에서 사용할 수 있습니다.
 
 ## [0.4.2] - 2016-06-16
 [0.4.2]: https://github.com/sqldelight/sqldelight/releases/tag/0.4.2
 
-* New: Marshal은 팩토리에서 생성될 수 있습니다.
-* Fix: IntelliJ 플러그인이 올바른 제네릭 순서로 팩토리 메서드를 생성합니다.
-* Fix: 함수 이름은 어떤 대소문자도 사용할 수 있습니다.
+ * New: Marshal은 팩토리에서 생성될 수 있습니다.
+ * Fix: IntelliJ 플러그인이 올바른 제네릭 순서로 팩토리 메서드를 생성합니다.
+ * Fix: 함수 이름은 어떤 대소문자도 사용할 수 있습니다.
 
 ## [0.4.1] - 2016-06-14
 [0.4.1]: https://github.com/sqldelight/sqldelight/releases/tag/0.4.1
 
-* Fix: IntelliJ 플러그인이 올바른 제네릭 순서로 클래스를 생성합니다.
-* Fix: 열 정의는 어떤 대소문자도 사용할 수 있습니다.
+ * Fix: IntelliJ 플러그인이 올바른 제네릭 순서로 클래스를 생성합니다.
+ * Fix: 열 정의는 어떤 대소문자도 사용할 수 있습니다.
 
 ## [0.4.0] - 2016-06-14
 [0.4.0]: https://github.com/sqldelight/sqldelight/releases/tag/0.4.0
 
-* New: 매퍼는 테이블당이 아닌 쿼리당 생성됩니다.
-* New: Java 타입을 .sq 파일에서 임포트할 수 있습니다.
-* New: SQLite 함수가 유효성 검사됩니다.
-* Fix: 중복 오류 제거.
-* Fix: 대문자 열 이름 및 Java 키워드 열 이름이 오류를 발생시키지 않습니다.
+ * New: 매퍼는 테이블당이 아닌 쿼리당 생성됩니다.
+ * New: Java 타입을 .sq 파일에서 임포트할 수 있습니다.
+ * New: SQLite 함수가 유효성 검사됩니다.
+ * Fix: 중복 오류 제거.
+ * Fix: 대문자 열 이름 및 Java 키워드 열 이름이 오류를 발생시키지 않습니다.
 
 ## [0.3.2] - 2016-05-14
 [0.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/0.3.2
 
-* New: 자동 완성 및 사용처 찾기 기능이 이제 뷰 및 별칭에 대해 작동합니다.
-* Fix: 컴파일 시 유효성 검사가 이제 함수를 SELECT에서 사용할 수 있도록 허용합니다.
-* Fix: 기본값만 선언하는 INSERT 문 지원.
-* Fix: SQLDelight를 사용하지 않는 프로젝트를 임포트할 때 플러그인이 더 이상 크래시되지 않습니다.
+ * New: 자동 완성 및 사용처 찾기 기능이 이제 뷰 및 별칭에 대해 작동합니다.
+ * Fix: 컴파일 시 유효성 검사가 이제 함수를 SELECT에서 사용할 수 있도록 허용합니다.
+ * Fix: 기본값만 선언하는 INSERT 문 지원.
+ * Fix: SQLDelight를 사용하지 않는 프로젝트를 임포트할 때 플러그인이 더 이상 크래시되지 않습니다.
 
 ## [0.3.1] - 2016-04-27
 [0.3.1]: https://github.com/sqldelight/sqldelight/releases/tag/0.3.1
 
-* Fix: 인터페이스 가시성이 메서드 참조에서 Illegal Access 런타임 예외를 피하기 위해 다시 public으로 변경되었습니다.
-* Fix: 서브 표현식이 올바르게 평가됩니다.
+  * Fix: 인터페이스 가시성이 메서드 참조에서 Illegal Access 런타임 예외를 피하기 위해 다시 public으로 변경되었습니다.
+  * Fix: 서브 표현식이 올바르게 평가됩니다.
 
 ## [0.3.0] - 2016-04-26
 [0.3.0]: https://github.com/sqldelight/sqldelight/releases/tag/0.3.0
 
-* New: 열 정의는 SQLite 타입을 사용하며 Java 타입을 지정하기 위해 추가 'AS' 제약 조건을 가질 수 있습니다.
-* New: IDE에서 버그 보고서를 보낼 수 있습니다.
-* Fix: 자동 완성 기능이 올바르게 작동합니다.
-* Fix: .sq 파일 편집 시 SQLDelight 모델 파일이 업데이트됩니다.
-* Removed: 연결된 데이터베이스는 더 이상 지원되지 않습니다.
+  * New: 열 정의는 SQLite 타입을 사용하며 Java 타입을 지정하기 위해 추가 'AS' 제약 조건을 가질 수 있습니다.
+  * New: IDE에서 버그 보고서를 보낼 수 있습니다.
+  * Fix: 자동 완성 기능이 올바르게 작동합니다.
+  * Fix: .sq 파일 편집 시 SQLDelight 모델 파일이 업데이트됩니다.
+  * Removed: 연결된 데이터베이스는 더 이상 지원되지 않습니다.
 
 ## [0.2.2] - 2016-03-07
 [0.2.2]: https://github.com/sqldelight/sqldelight/releases/tag/0.2.2
 
-* New: INSERT, UPDATE, DELETE, INDEX, TRIGGER 문에서 사용되는 열에 대한 컴파일 시 유효성 검사.
-* Fix: 파일 이동/생성 시 IDE 플러그인이 크래시되지 않도록 했습니다.
+ * New: INSERT, UPDATE, DELETE, INDEX, TRIGGER 문에서 사용되는 열에 대한 컴파일 시 유효성 검사.
+ * Fix: 파일 이동/생성 시 IDE 플러그인이 크래시되지 않도록 했습니다.
 
 ## [0.2.1] - 2016-03-07
 [0.2.1]: https://github.com/sqldelight/sqldelight/releases/tag/0.2.1
 
-* New: Ctrl+`/` (OSX에서는 Cmd+`/`)는 선택된 줄의 주석을 토글합니다.
-* New: SQL 쿼리에서 사용되는 열에 대한 컴파일 시 유효성 검사.
-* Fix: IDE 및 Gradle 플러그인 모두에서 Windows 경로 지원.
+ * New: Ctrl+`/` (OSX에서는 Cmd+`/`)는 선택된 줄의 주석을 토글합니다.
+ * New: SQL 쿼리에서 사용되는 열에 대한 컴파일 시 유효성 검사.
+ * Fix: IDE 및 Gradle 플러그인 모두에서 Windows 경로 지원.
 
 ## [0.2.0] - 2016-02-29
 [0.2.0]: https://github.com/sqldelight/sqldelight/releases/tag/0.2.0
 
-* New: Marshal 클래스에 복사 생성자 추가.
-* New: Kotlin 1.0 Final로 업데이트.
-* Fix: 'sqldelight' 폴더 구조 문제를 실패하지 않는 방식으로 보고.
-* Fix: `table_name`이라는 열 이름 금지. 이들의 생성된 상수가 테이블 이름 상수와 충돌합니다.
-* Fix: IDE 플러그인이 .sq 파일이 열렸는지 여부와 관계없이 모델 클래스를 즉시 생성하도록 보장.
-* Fix: IDE 및 Gradle 플러그인 모두에서 Windows 경로 지원.
+ * New: Marshal 클래스에 복사 생성자 추가.
+ * New: Kotlin 1.0 Final로 업데이트.
+ * Fix: 'sqldelight' 폴더 구조 문제를 실패하지 않는 방식으로 보고.
+ * Fix: `table_name`이라는 열 이름 금지. 이들의 생성된 상수가 테이블 이름 상수와 충돌합니다.
+ * Fix: IDE 플러그인이 .sq 파일이 열렸는지 여부와 관계없이 모델 클래스를 즉시 생성하도록 보장.
+ * Fix: IDE 및 Gradle 플러그인 모두에서 Windows 경로 지원.
 
 ## [0.1.2] - 2016-02-13
 [0.1.2]: https://github.com/sqldelight/sqldelight/releases/tag/0.1.2
 
-* Fix: Gradle 플러그인이 대부분의 프로젝트에서 사용되는 것을 방지하던 코드 제거.
-* Fix: Antlr 런타임에 대한 누락된 컴파일러 종속성 추가.
+ * Fix: Gradle 플러그인이 대부분의 프로젝트에서 사용되는 것을 방지하던 코드 제거.
+ * Fix: Antlr 런타임에 대한 누락된 컴파일러 종속성 추가.
 
 ## [0.1.1] - 2016-02-12
 [0.1.1]: https://github.com/sqldelight/sqldelight/releases/tag/0.1.1
 
-* Fix: Gradle 플러그인이 자체와 동일한 버전의 런타임을 가리키도록 보장.
+ * Fix: Gradle 플러그인이 자체와 동일한 버전의 런타임을 가리키도록 보장.
 
 ## [0.1.0] - 2016-02-12
 [0.1.0]: https://github.com/sqldelight/sqldelight/releases/tag/0.1.0

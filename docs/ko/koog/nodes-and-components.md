@@ -1,18 +1,65 @@
-_# 사전 정의된 노드 및 컴포넌트
+# 사전 정의된 노드 및 컴포넌트
 
 노드는 Koog 프레임워크의 에이전트 워크플로를 구성하는 근본적인 빌딩 블록입니다.
 각 노드는 워크플로 내에서 특정 작업이나 변환을 나타내며, 엣지를 사용하여 연결되어 실행 흐름을 정의합니다.
 
 일반적으로 노드를 사용하면 복잡한 로직을 재사용 가능한 컴포넌트로 캡슐화하여
-다양한 에이전트 워크플로에 쉽게 통합할 수 있습니다. 이 가이드에서는 에이전트 전략에서 사용할 수 있는 기존 노드에 대해 설명합니다.
+다양한 에이전트 워크플로에 쉽게 통합할 수 있습니다. 이 가이드는 에이전트 전략에서 사용할 수 있는 기존 노드를 안내합니다.
 
-자세한 참조 문서는 [API 레퍼런스](https://api.koog.ai/index.html)를 참조하세요.
+각 노드는 기본적으로 특정 타입의 입력을 받아 특정 타입의 출력을 반환하는 함수입니다.
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["node"]
+        execute(Do stuff)
+    end
+    
+    in --Input--> execute --Output--> out
+
+    classDef hidden display: none;
+```
+
+다음은 문자열을 입력으로 받아 문자열의 길이(정수)를 출력으로 반환하는 노드를 정의하는 방법입니다:
+
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+val nodeLength by node<String, Int> { input ->
+    input.length
+}
+```
+<!--- KNIT example-nodes-and-component-01.kt -->
+
+자세한 내용은 [`node()`](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.builder/-a-i-agent-subgraph-builder-base/node.html)를 참조하세요.
 
 ## 유틸리티 노드
 
 ### nodeDoNothing
 
 아무 작업도 하지 않고 입력을 출력으로 반환하는 간단한 패스스루 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-do-nothing.html).
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeDoNothing"]
+        execute(Do nothing)
+    end
+    
+    in ---|T| execute --T--> out
+
+    classDef hidden display: none;
+```
 
 이 노드는 다음 목적으로 사용할 수 있습니다:
 
@@ -37,7 +84,7 @@ val passthrough by nodeDoNothing<String>("passthrough")
 edge(nodeStart forwardTo passthrough)
 edge(passthrough forwardTo nodeFinish)
 ```
-<!--- KNIT example-nodes-and-component-01.kt -->
+<!--- KNIT example-nodes-and-component-02.kt -->
 
 ## LLM 노드
 
@@ -45,6 +92,20 @@ edge(passthrough forwardTo nodeFinish)
 
 제공된 프롬프트 빌더를 사용하여 LLM 프롬프트에 메시지를 추가하는 노드입니다.
 이는 실제 LLM 요청을 하기 전에 대화 컨텍스트를 수정하는 데 유용합니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-update-prompt.html).
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeAppendPrompt"]
+        execute(Append prompt)
+    end
+    
+    in ---|T| execute --T--> out
+
+    classDef hidden display: none;
+```
 
 이 노드는 다음 목적으로 사용할 수 있습니다:
 
@@ -85,20 +146,62 @@ val setupContext by nodeAppendPrompt<Output>("setupContext") {
 edge(firstNode forwardTo setupContext)
 edge(setupContext forwardTo secondNode)
 ```
-<!--- KNIT example-nodes-and-component-02.kt -->
+<!--- KNIT example-nodes-and-component-03.kt -->
 
 ### nodeLLMSendMessageOnlyCallingTools
 
 LLM 프롬프트에 사용자 메시지를 추가하고 LLM이 도구만 호출할 수 있는 응답을 받는 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-message-only-calling-tools.html).
 
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMSendMessageOnlyCallingTools"]
+        execute(Request LLM expecting only tool calls)
+    end
+    
+    in --String--> execute --Message.Response--> out
+
+    classDef hidden display: none;
+```
+
 ### nodeLLMSendMessageForceOneTool
 
 LLM 프롬프트에 사용자 메시지를 추가하고 LLM이 특정 도구를 사용하도록 강제하는 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-message-force-one-tool.html).
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMSendMessageForceOneTool"]
+        execute(Request LLM expecting a specific tool call)
+    end
+    
+    in --String--> execute --Message.Response--> out
+
+    classDef hidden display: none;
+```
 
 ### nodeLLMRequest
 
 LLM 프롬프트에 사용자 메시지를 추가하고 선택적 도구 사용과 함께 응답을 받는 노드입니다. 노드 설정은
 메시지 처리 중에 도구 호출이 허용되는지 여부를 결정합니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-request.html).
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMRequest"]
+        execute(Request LLM)
+    end
+    
+    in --String--> execute --Message.Response--> out
+
+    classDef hidden display: none;
+```
 
 이 노드는 다음 목적으로 사용할 수 있습니다:
 
@@ -122,19 +225,61 @@ val strategy = strategy<String, String>("strategy_name") {
 val requestLLM by nodeLLMRequest("requestLLM", allowToolCalls = true)
 edge(getUserQuestion forwardTo requestLLM)
 ```
-<!--- KNIT example-nodes-and-component-03.kt -->
+<!--- KNIT example-nodes-and-component-04.kt -->
 
 ### nodeLLMRequestStructured
 
 LLM 프롬프트에 사용자 메시지를 추가하고 오류 수정 기능과 함께 LLM으로부터 구조화된 데이터를 요청하는 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-request-structured.html).
 
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMRequestStructured"]
+        execute(Request LLM structured)
+    end
+    
+    in --String--> execute -- "Result&lt;StructuredResponse&gt;" --> out
+
+    classDef hidden display: none;
+```
+
 ### nodeLLMRequestStreaming
 
 LLM 프롬프트에 사용자 메시지를 추가하고 스트림 데이터 변환 유무에 관계없이 LLM 응답을 스트리밍하는 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-request-streaming.html).
 
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMRequestStreaming"]
+        execute(Request LLM streaming)
+    end
+    
+    in --String--> execute --Flow--> out
+
+    classDef hidden display: none;
+```
+
 ### nodeLLMRequestMultiple
 
 LLM 프롬프트에 사용자 메시지를 추가하고 도구 호출이 활성화된 여러 LLM 응답을 받는 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-request-multiple.html).
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMRequestMultiple"]
+        execute(Request LLM expecting multiple responses)
+    end
+    
+    in --String--> execute -- "List&lt;Message.Response&gt;" --> out
+
+    classDef hidden display: none;
+```
 
 이 노드는 다음 목적으로 사용할 수 있습니다:
 
@@ -160,12 +305,26 @@ val strategy = strategy<String, String>("strategy_name") {
 val requestLLMMultipleTools by nodeLLMRequestMultiple()
 edge(getComplexUserQuestion forwardTo requestLLMMultipleTools)
 ```
-<!--- KNIT example-nodes-and-component-04.kt -->
+<!--- KNIT example-nodes-and-component-05.kt -->
 
 ### nodeLLMCompressHistory
 
 현재 LLM 프롬프트(메시지 기록)를 요약으로 압축하여 메시지를 간결한 요약(TL;DR)으로 대체하는 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-compress-history.html).
 이는 기록을 압축하여 토큰 사용량을 줄임으로써 긴 대화를 관리하는 데 유용합니다.
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMCompressHistory"]
+        execute(Compress current prompt)
+    end
+    
+    in ---|T| execute --T--> out
+
+    classDef hidden display: none;
+```
 
 기록 압축에 대한 자세한 내용은 [기록 압축](history-compression.md)을 참조하세요.
 
@@ -198,13 +357,27 @@ val compressHistory by nodeLLMCompressHistory<String>(
 )
 edge(generateHugeHistory forwardTo compressHistory)
 ```
-<!--- KNIT example-nodes-and-component-05.kt -->
+<!--- KNIT example-nodes-and-component-06.kt -->
 
 ## 도구 노드
 
 ### nodeExecuteTool
 
 단일 도구 호출을 실행하고 그 결과를 반환하는 노드입니다. 이 노드는 LLM이 수행한 도구 호출을 처리하는 데 사용됩니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-execute-tool.html).
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeExecuteTool"]
+        execute(Execute tool call)
+    end
+    
+    in --Message.Tool.Call--> execute --ReceivedToolResult--> out
+
+    classDef hidden display: none;
+```
 
 이 노드는 다음 목적으로 사용할 수 있습니다:
 
@@ -231,11 +404,25 @@ val requestLLM by nodeLLMRequest()
 val executeTool by nodeExecuteTool()
 edge(requestLLM forwardTo executeTool onToolCall { true })
 ```
-<!--- KNIT example-nodes-and-component-06.kt -->
+<!--- KNIT example-nodes-and-component-07.kt -->
 
 ### nodeLLMSendToolResult
 
 프롬프트에 도구 결과를 추가하고 LLM 응답을 요청하는 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-tool-result.html).
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMSendToolResult"]
+        execute(Request LLM)
+    end
+    
+    in --ReceivedToolResult--> execute --Message.Response--> out
+
+    classDef hidden display: none;
+```
 
 이 노드는 다음 목적으로 사용할 수 있습니다:
 
@@ -261,11 +448,25 @@ val executeTool by nodeExecuteTool()
 val sendToolResultToLLM by nodeLLMSendToolResult()
 edge(executeTool forwardTo sendToolResultToLLM)
 ```
-<!--- KNIT example-nodes-and-component-07.kt -->
+<!--- KNIT example-nodes-and-component-08.kt -->
 
 ### nodeExecuteMultipleTools
 
 여러 도구 호출을 실행하는 노드입니다. 이 호출들은 선택적으로 병렬로 실행될 수 있습니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-execute-multiple-tools.html).
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeExecuteMultipleTools"]
+        execute(Execute multiple tool calls)
+    end
+    
+    in -- "List&lt;Message.Tool.Call&gt;" --> execute -- "List&lt;ReceivedToolResult&gt;" --> out
+
+    classDef hidden display: none;
+```
 
 이 노드는 다음 목적으로 사용할 수 있습니다:
 
@@ -292,11 +493,25 @@ val requestLLMMultipleTools by nodeLLMRequestMultiple()
 val executeMultipleTools by nodeExecuteMultipleTools()
 edge(requestLLMMultipleTools forwardTo executeMultipleTools onMultipleToolCalls { true })
 ```
-<!--- KNIT example-nodes-and-component-08.kt -->
+<!--- KNIT example-nodes-and-component-09.kt -->
 
 ### nodeLLMSendMultipleToolResults
 
 프롬프트에 여러 도구 결과를 추가하고 여러 LLM 응답을 받는 노드입니다. 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-multiple-tool-results.html).
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMSendMultipleToolResults"]
+        execute(Request LLM expecting multiple responses)
+    end
+    
+    in -- "List&lt;ReceivedToolResult&gt;" --> execute -- "List&lt;Message.Response&gt;" --> out
+
+    classDef hidden display: none;
+```
 
 이 노드는 다음 목적으로 사용할 수 있습니다:
 
@@ -322,15 +537,32 @@ val executeMultipleTools by nodeExecuteMultipleTools()
 val sendMultipleToolResultsToLLM by nodeLLMSendMultipleToolResults()
 edge(executeMultipleTools forwardTo sendMultipleToolResultsToLLM)
 ```
-<!--- KNIT example-nodes-and-component-09.kt -->
+<!--- KNIT example-nodes-and-component-10.kt -->
 
 ## 노드 출력 변환
 
 프레임워크는 노드의 출력에 변환을 적용하는 변환된 버전의 노드를 생성할 수 있게 해주는 `transform` 확장 함수를 제공합니다. 이는 노드의 출력을 다른 유형이나 형식으로 변환해야 하면서도 원래 노드의 기능을 유지해야 할 때 유용합니다.
 
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph nodeWithTransform [transformed node]
+        subgraph node ["node"]
+            execute(Do stuff)
+        end
+        transform
+    end
+    
+    in --Input--> execute --> transform --Output--> out
+
+    classDef hidden display: none;
+```
+
 ### transform
 
-`transform` 함수는 원래 노드를 래핑하고 출력에 변환 함수를 적용하는 새로운 `AIAgentNodeDelegate`를 생성합니다.
+[`transform()`](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.builder/-a-i-agent-node-delegate/transform.html) 함수는 원래 노드를 래핑하고 출력에 변환 함수를 적용하는 새로운 `AIAgentNodeDelegate`를 생성합니다.
 
 <!--- INCLUDE
 /**
@@ -343,7 +575,7 @@ inline fun <reified T> AIAgentNodeDelegate<Input, Output>.transform(
     noinline transformation: suspend (Output) -> T
 ): AIAgentNodeDelegate<Input, T>
 ```
-<!--- KNIT example-nodes-and-component-10.kt -->
+<!--- KNIT example-nodes-and-component-11.kt -->
 
 #### 사용자 정의 노드 변환
 
@@ -367,7 +599,7 @@ val textNode by nodeDoNothing<String>("textNode").transform<Int> { text ->
 edge(nodeStart forwardTo textNode)
 edge(textNode forwardTo nodeFinish)
 ```
-<!--- KNIT example-nodes-and-component-11.kt -->
+<!--- KNIT example-nodes-and-component-12.kt -->
 
 #### 내장 노드 변환
 
@@ -391,7 +623,7 @@ val lengthNode by nodeLLMRequest("llmRequest").transform<Int> { assistantMessage
 edge(nodeStart forwardTo lengthNode)
 edge(lengthNode forwardTo nodeFinish)
 ```
-<!--- KNIT example-nodes-and-component-12.kt -->
+<!--- KNIT example-nodes-and-component-13.kt -->
 
 ## 사전 정의된 서브그래프
 
@@ -453,7 +685,7 @@ val processQuery by subgraphWithTask<String, String>(
     """
 }
 ```
-<!--- KNIT example-nodes-and-component-13.kt -->
+<!--- KNIT example-nodes-and-component-14.kt -->
 
 ### subgraphWithVerification
 
@@ -503,7 +735,7 @@ val verifyCode by subgraphWithVerification<String>(
     """
 }
 ```
-<!--- KNIT example-nodes-and-component-14.kt -->
+<!--- KNIT example-nodes-and-component-15.kt -->
 
 ## 사전 정의된 전략 및 일반적인 전략 패턴
 
@@ -540,7 +772,7 @@ public fun singleRunStrategy(): AIAgentGraphStrategy<String, String> = strategy(
     edge(nodeSendToolResult forwardTo nodeExecuteTool onToolCall { true })
 }
 ```
-<!--- KNIT example-nodes-and-component-15.kt -->
+<!--- KNIT example-nodes-and-component-16.kt -->
 
 ### 도구 기반 전략
 
@@ -594,7 +826,7 @@ fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStr
     }
 }
 ```
-<!--- KNIT example-nodes-and-component-16.kt -->
+<!--- KNIT example-nodes-and-component-17.kt -->
 
 ### 스트리밍 데이터 전략
 
@@ -633,4 +865,4 @@ val agentStrategy = strategy<String, List<Book>>("library-assistant") {
     edge(getMdOutput forwardTo nodeFinish)
 }
 ```
-<!--- KNIT example-nodes-and-component-17.kt -->
+<!--- KNIT example-nodes-and-component-18.kt -->

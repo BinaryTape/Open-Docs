@@ -25,7 +25,7 @@
 
 ```
 dependencies {
-    implementation("ai.koog:koog-agents:$koog_version")
+    implementation("ai.koog:koog-agents:VERSION")
 }
 ```
 
@@ -33,7 +33,7 @@ dependencies {
 
 ### 2. 建立代理
 
-若要建立代理，請建立 `AIAgent` 類別的實例，並提供 `executor` 和 `llmModel` 參數：
+若要建立代理，請建立 `AIAgent` 類別的實例，並提供 `promptExecutor` 和 `llmModel` 參數：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -177,4 +177,3 @@ fun main() = runBlocking {
 
 ```
 Agent says: Hello! I'm here to assist you with a variety of tasks. Whether you have questions, need information, or require help with specific tasks, feel free to ask. How can I assist you today?
-```

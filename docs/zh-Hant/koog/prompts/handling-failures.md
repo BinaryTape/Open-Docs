@@ -40,14 +40,33 @@ val response = resilientClient.execute(prompt, OpenAIModels.Chat.GPT4o)
 
 ### 配置重試行為
 
+依預設，`RetryingLLMClient` 會將 LLM 用戶端配置為最多 3 次重試嘗試、1 秒的初始延遲以及 30 秒的最大延遲。您可以透過傳遞給 `RetryingLLMClient` 的 `RetryConfig` 來指定不同的重試配置。例如：
+
+<!--- INCLUDE
+import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+import ai.koog.prompt.executor.clients.retry.RetryConfig
+import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
+
+val apiKey = System.getenv("OPENAI_API_KEY")
+val client = OpenAILLMClient(apiKey)
+-->
+```kotlin
+// 使用預定義的配置
+val conservativeClient = RetryingLLMClient(
+    delegate = client,
+    config = RetryConfig.CONSERVATIVE
+)
+```
+<!--- KNIT example-handling-failures-02.kt -->
+
 Koog 提供數種預定義的重試配置：
 
-| 配置                 | 最大嘗試次數 | 初始延遲 | 最大延遲 | 使用情境                  |
-|----------------------|--------------|----------|----------|---------------------------|
-| `RetryConfig.DISABLED`     | 1 (不重試)   | -        | -        | 開發與測試                |
-| `RetryConfig.CONSERVATIVE` | 3            | 2s       | 30s      | 正常生產環境使用          |
-| `RetryConfig.AGGRESSIVE`   | 5            | 500ms    | 20s      | 關鍵操作                  |
-| `RetryConfig.PRODUCTION`   | 3            | 1s       | 20s      | 推薦的預設值              |
+| 配置                 | 最大嘗試次數 | 初始延遲 | 最大延遲 | 使用情境                                                                                                     |
+|----------------------|--------------|----------|----------|--------------------------------------------------------------------------------------------------------------|
+| `RetryConfig.DISABLED`     | 1 (不重試)   | -        | -        | 開發、測試與偵錯。                                                                                           |
+| `RetryConfig.CONSERVATIVE` | 3            | 2s       | 30s      | 可靠性比速度更重要的背景或排程任務。                                                                       |
+| `RetryConfig.AGGRESSIVE`   | 5            | 500ms    | 20s      | 從暫時性錯誤中快速復原比減少 API 呼叫更重要的關鍵操作。                                                    |
+| `RetryConfig.PRODUCTION`   | 3            | 1s       | 20s      | 一般生產環境使用。                                                                                           |
 
 您可以直接使用它們或建立自訂配置：
 
@@ -61,12 +80,6 @@ val apiKey = System.getenv("OPENAI_API_KEY")
 val client = OpenAILLMClient(apiKey)
 -->
 ```kotlin
-// 使用預定義的配置
-val conservativeClient = RetryingLLMClient(
-    delegate = client,
-    config = RetryConfig.CONSERVATIVE
-)
-
 // 或建立自訂配置
 val customClient = RetryingLLMClient(
     delegate = client,
@@ -79,7 +92,7 @@ val customClient = RetryingLLMClient(
     )
 )
 ```
-<!--- KNIT example-handling-failures-02.kt -->
+<!--- KNIT example-handling-failures-03.kt -->
 
 ### 重試錯誤模式
 
@@ -97,7 +110,7 @@ Koog 提供預定義的重試配置和模式，適用於所有支援的 LLM 供�
 *   `RetryablePattern.Regex`：比對錯誤訊息中的正規表達式。
 *   `RetryablePattern.Custom`：使用 lambda 函數比對自訂邏輯。
 
-如果任何模式回傳 `true`，該錯誤被視為可重試的，且 LLM 用戶端可以重試請求。
+如果任何模式回傳 `true`，該錯誤被視為可重試的，且 LLM 用戶端會重試請求。
 
 #### 預設模式
 
@@ -145,7 +158,7 @@ val config = RetryConfig(
     )
 )
 ```
-<!--- KNIT example-handling-failures-03.kt -->
+<!--- KNIT example-handling-failures-04.kt -->
 
 您也可以將自訂模式附加到預設的 `RetryConfig.DEFAULT_PATTERNS`：
 
@@ -160,7 +173,7 @@ val config = RetryConfig(
     )
 )
 ```
-<!--- KNIT example-handling-failures-04.kt -->
+<!--- KNIT example-handling-failures-05.kt -->
 
 ### 串流重試
 
@@ -193,10 +206,10 @@ val config = RetryConfig(
 val client = RetryingLLMClient(baseClient, config)
 val stream = client.executeStreaming(prompt, OpenAIModels.Chat.GPT4o)
 ```
-<!--- KNIT example-handling-failures-05.kt -->
+<!--- KNIT example-handling-failures-06.kt -->
 
 !!!note
-    串流重試僅適用於在收到第一個 token 之前發生的連線失敗。串流開始後，任何錯誤將直接傳遞。
+    串流重試僅適用於在收到第一個 token 之前發生的連線失敗。串流開始後，重試邏輯會停用。如果串流期間發生錯誤，操作將會終止。
 
 ### 提示執行器的重試
 
@@ -209,7 +222,6 @@ import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
 import ai.koog.prompt.executor.clients.retry.RetryConfig
 import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
 import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
-import ai.koog.prompt.executor.llms.SingleLLMPromptExecutor
 import ai.koog.prompt.llm.LLMProvider
 import aws.sdk.kotlin.runtime.auth.credentials.StaticCredentialsProvider
 
@@ -220,7 +232,7 @@ val resilientClient = RetryingLLMClient(
     OpenAILLMClient(System.getenv("OPENAI_API_KEY")),
     RetryConfig.PRODUCTION
 )
-val executor = SingleLLMPromptExecutor(resilientClient)
+val executor = MultiLLMPromptExecutor(resilientClient)
 
 // 具有彈性用戶端配置的多供應商執行器
 val multiExecutor = MultiLLMPromptExecutor(
@@ -242,11 +254,22 @@ val multiExecutor = MultiLLMPromptExecutor(
     ),
 )
 ```
-<!--- KNIT example-handling-failures-06.kt -->
+<!--- KNIT example-handling-failures-07.kt -->
 
 ## 逾時配置
 
-所有 LLM 用戶端都支援逾時配置以防止請求掛起。您可以在建立用戶端時，使用 [`ConnectionTimeoutConfig`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/ai.koog.prompt.executor.clients/-connection-timeout-config/index.html) 類別指定網路連線的逾時值：
+所有 LLM 用戶端都支援逾時配置以防止請求掛起。您可以在建立用戶端時，使用
+[`ConnectionTimeoutConfig`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/ai.koog.prompt.executor.clients/-connection-timeout-config/index.html) 類別指定網路連線的逾時值。
+
+`ConnectionTimeoutConfig` 具有以下屬性：
+
+| 屬性                 | 預設值              | 說明                                           |
+|----------------------|---------------------|------------------------------------------------|
+| `connectTimeoutMillis` | 60 秒 (60,000)      | 建立與伺服器連線所需的最大時間。             |
+| `requestTimeoutMillis` | 15 分鐘 (900,000)   | 整個請求完成所需的最大時間。                 |
+| `socketTimeoutMillis`  | 15 分鐘 (900,000)   | 等待已建立連線上資料所需的最大時間。         |
+
+您可以根據您的特定需求自訂這些值。例如：
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.ConnectionTimeoutConfig
@@ -267,7 +290,7 @@ val client = OpenAILLMClient(
     )
 )
 ```
-<!--- KNIT example-handling-failures-07.kt -->
+<!--- KNIT example-handling-failures-08.kt -->
 
 !!! tip
     對於長時間執行或串流呼叫，請為 `requestTimeoutMillis` 和 `socketTimeoutMillis` 設定更高的值。
@@ -276,10 +299,10 @@ val client = OpenAILLMClient(
 
 在生產環境中使用 LLM 時，您需要實作錯誤處理，包括：
 
--   Try-catch 區塊以處理意外錯誤。
--   記錄帶有上下文的錯誤以進行偵錯。
--   關鍵操作的備援。
--   監控重試模式以識別重複出現的問題。
+*   **Try-catch 區塊**以處理意外錯誤。
+*   **記錄帶有上下文的錯誤**以進行偵錯。
+*   **備援**以應對關鍵操作。
+*   **監控重試模式**以識別重複出現的問題。
 
 以下是一個錯誤處理的範例：
 
@@ -332,4 +355,4 @@ fun main() {
     }
 }
 ```
-<!--- KNIT example-handling-failures-08.kt -->
+<!--- KNIT example-handling-failures-09.kt -->

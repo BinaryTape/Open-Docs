@@ -1,6 +1,6 @@
 [//]: # (title: Compose Multiplatform 1.10.0-rc02 新特性)
 
-以下是本次抢先体验预览 (EAP) 特性发布的主要亮点：
+以下是本次抢先体验预览特性发布的主要亮点：
  * [统一的 `@Preview` 注解](#unified-preview-annotation)
  * [支持 Navigation 3](#support-for-navigation-3)
  * [捆绑的 Compose Hot Reload](#compose-hot-reload-integration)
@@ -9,25 +9,20 @@
 
 ## 依赖项
 
-* Gradle Plugin `org.jetbrains.compose`，版本 `1.10.0-rc02`。基于 Jetpack Compose 库：
-    * [Runtime 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0)
-    * [UI 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0)
-    * [Foundation 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.10.0)
-    * [Material 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-material#1.10.0)
-
-* Compose Material3 库 `org.jetbrains.compose.material3:material3*:1.10.0-alpha05`。基于 [Jetpack Compose Material3 1.5.0-alpha08](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha08)。
-
-  要使用 [Expressive 主题](whats-new-compose-190.md#material-3-expressive-theme)，请包含实验性的 Material 3 版本：
-    ```kotlin
-    implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha05")
-    ```
-* Compose Material3 Adaptive 库 `org.jetbrains.compose.material3.adaptive:adaptive*:1.3.0-alpha02`。基于 [Jetpack Compose Material3 Adaptive 1.3.0-alpha03](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.3.0-alpha03)
-* Lifecycle 库 `org.jetbrains.androidx.lifecycle:lifecycle-*:2.10.0-alpha06`。基于 [Jetpack Lifecycle 2.10.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0)
-* Navigation 库 `org.jetbrains.androidx.navigation:navigation-*:2.9.1`。基于 [Jetpack Navigation 2.9.4](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4)
-* Navigation 3 库 `org.jetbrains.androidx.navigation3:navigation3-*:1.0.0-alpha06`。基于 [Jetpack Navigation3 1.0.0](https://developer.android.com/jetpack/androidx/releases/navigation3#1.0.0)
-* Navigation Event 库 `org.jetbrains.androidx.navigationevent:navigationevent-compose:1.0.0-rc02`。基于 [Jetpack Navigation Event 1.0.1](https://developer.android.com/jetpack/androidx/releases/navigationevent#1.0.1)
-* Savedstate 库 `org.jetbrains.androidx.savedstate:savedstate*:1.4.0`。基于 [Jetpack Savedstate 1.4.0](https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0)
-* WindowManager Core 库 `org.jetbrains.androidx.window:window-core:1.5.1`。基于 [Jetpack WindowManager 1.5.1](https://developer.android.com/jetpack/androidx/releases/window#1.5.1)
+| 库 | Maven 坐标 | 基于 Jetpack 版本 |
+|---|---|---|
+| Runtime | `org.jetbrains.compose.runtime:runtime*:1.10.0-rc02` | [Runtime 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0) |
+| UI | `org.jetbrains.compose.ui:ui*:1.10.0-rc02` | [UI 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0) |
+| Foundation | `org.jetbrains.compose.foundation:foundation*:1.10.0-rc02` | [Foundation 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.10.0) |
+| Material | `org.jetbrains.compose.material:material*:1.10.0-rc02` | [Material 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-material#1.10.0) |
+| Material3 | `org.jetbrains.compose.material3:material3*:1.10.0-alpha05` | [Material3 1.5.0-alpha08](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha08) |
+| Material3 Adaptive | `org.jetbrains.compose.material3.adaptive:adaptive*:1.3.0-alpha02` | [Material3 Adaptive 1.3.0-alpha03](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.3.0-alpha03) |
+| Lifecycle | `org.jetbrains.androidx.lifecycle:lifecycle-*:2.10.0-alpha06` | [Lifecycle 2.10.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0) |
+| Navigation | `org.jetbrains.androidx.navigation:navigation-*:2.9.1` | [Navigation 2.9.4](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4) |
+| Navigation3 | `org.jetbrains.androidx.navigation3:navigation3-*:1.0.0-alpha06` | [Navigation3 1.0.0](https://developer.android.com/jetpack/androidx/releases/navigation3#1.0.0) |
+| Navigation Event | `org.jetbrains.androidx.navigationevent:navigationevent-compose:1.0.0-rc02` | [Navigation Event 1.0.1](https://developer.android.com/jetpack/androidx/releases/navigationevent#1.0.1) |
+| Savedstate | `org.jetbrains.androidx.savedstate:savedstate*:1.4.0` | [Savedstate 1.4.0](https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0) |
+| WindowManager Core | `org.jetbrains.androidx.window:window-core:1.5.1` | [WindowManager 1.5.1](https://developer.android.com/jetpack/androidx/releases/window#1.5.1) |
 
 ## 破坏性变更与弃用
 
@@ -49,8 +44,8 @@ Compose Multiplatform Gradle 插件支持的依赖项别名（`compose.ui` 等�
 最简单的迁移方法如下：
 
 <compare type="top-bottom">
-    <code-block lang="kotlin" code="         PredictiveBackHandler(enabled = true) { progress -&gt;&#10;            try {&#10;                progress.collect { event -&gt;&#10;                    // Animate the back gesture progress&#10;                }&#10;                // Process the completed back gesture&#10;            } catch(e: Exception) {&#10;                // Process the canceled back gesture&#10;            }&#10;        }"/>
-    <code-block lang="kotlin" code="        // Use an empty state as a stub to satisfy the required argument&#10;        val navState = rememberNavigationEventState(NavigationEventInfo.None)&#10;        NavigationBackHandler(&#10;            state = navState,&#10;            isBackEnabled = true,&#10;            onBackCancelled = {&#10;                // Process the canceled back gesture&#10;            },&#10;            onBackCompleted = {&#10;              // Process the completed back gesture&#10;            }&#10;        )&#10;        LaunchedEffect(navState.transitionState) {&#10;            val transitionState = navState.transitionState&#10;            if (transitionState is NavigationEventTransitionState.InProgress) {&#10;                val progress = transitionState.latestEvent.progress&#10;                // Animate the back gesture progress&#10;            }&#10;        }"/>
+    <code-block lang="kotlin" code="         PredictiveBackHandler(enabled = true) { progress -&gt;&#10;            try {&#10;                progress.collect { event -&gt;&#10;                    // 动画化返回手势进度&#10;                }&#10;                // 处理已完成的返回手势&#10;            } catch(e: Exception) {&#10;                // 处理已取消的返回手势&#10;            }&#10;        }"/>
+    <code-block lang="kotlin" code="        // Use an empty state as a stub to satisfy the required argument&#10;        val navState = rememberNavigationEventState(NavigationEventInfo.None)&#10;        NavigationBackHandler(&#10;            state = navState,&#10;            isBackEnabled = true,&#10;            onBackCancelled = {&#10;                // 处理已取消的返回手势&#10;            },&#10;            onBackCompleted = {&#10;              // 处理已完成的返回手势&#10;            }&#10;        )&#10;        LaunchedEffect(navState.transitionState) {&#10;            val transitionState = navState.transitionState&#10;            if (transitionState is NavigationEventTransitionState.InProgress) {&#10;                val progress = transitionState.latestEvent.progress&#10;                // 动画化返回手势进度&#10;            }&#10;        }"/>
 </compare>
 
 这里：

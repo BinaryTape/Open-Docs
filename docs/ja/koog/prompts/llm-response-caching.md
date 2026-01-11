@@ -13,9 +13,10 @@
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.llms.SingleLLMPromptExecutor
+import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
 import ai.koog.prompt.executor.cached.CachedPromptExecutor
 import ai.koog.prompt.cache.files.FilePromptCache
+import kotlin.system.measureTimeMillis
 import ai.koog.prompt.dsl.prompt
 import kotlin.io.path.Path
 
@@ -31,24 +32,45 @@ fun main() {
 <!--- SUFFIX
     }
 }
--->
+--> 
 ```kotlin
 // プロンプトエグゼキューターを作成します
-val client = OpenAILLMClient(System.getenv("OPENAI_KEY"))
-val promptExecutor = SingleLLMPromptExecutor(client)
+val client = OpenAILLMClient(System.getenv("OPENAI_API_KEY"))
+val promptExecutor = MultiLLMPromptExecutor(client)
 
 // キャッシュされたプロンプトエグゼキューターを作成します
 val cachedExecutor = CachedPromptExecutor(
-    cache = FilePromptCache(Path("/cache_directory")),
+    cache = FilePromptCache(Path("path/to/your/cache/directory")),
     nested = promptExecutor
 )
 
-// キャッシュされたプロンプトエグゼキューターを実行します
-val response = cachedExecutor.execute(prompt, OpenAIModels.Chat.GPT4o)
+// キャッシュされたプロンプトエグゼキューターを初めて実行します
+// これにより、実際のLLMリクエストが実行されます
+val firstTime = measureTimeMillis {
+    val firstResponse = cachedExecutor.execute(prompt, OpenAIModels.Chat.GPT4o)
+    println("First response: ${firstResponse.first().content}")
+}
+println("First execution took: ${firstTime}ms")
+
+// キャッシュされたプロンプトエグゼキューターを2回目に実行します
+// これにより、キャッシュからすぐに結果が返されます
+val secondTime = measureTimeMillis {
+    val secondResponse = cachedExecutor.execute(prompt, OpenAIModels.Chat.GPT4o)
+    println("Second response: ${secondResponse.first().content}")
+}
+println("Second execution took: ${secondTime}ms")
 ```
 <!--- KNIT example-llm-response-caching-01.kt -->
 
-これで、同じプロンプトを同じモデルで複数回実行できます。レスポンスはキャッシュから取得されます。
+この例では、次の出力が生成されます。
+
+```
+First response: Hello! It seems like we're starting a new conversation. What can I help you with today?
+First execution took: 48ms
+Second response: Hello! It seems like we're starting a new conversation. What can I help you with today?
+Second execution took: 1ms
+```
+2回目のレスポンスはキャッシュから取得され、わずか1msしかかかりませんでした。
 
 !!!note
     *   キャッシュされたプロンプトエグゼキューターで`executeStreaming()`を呼び出すと、レスポンスが単一のチャンクとして生成されます。

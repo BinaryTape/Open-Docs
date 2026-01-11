@@ -8,7 +8,7 @@
 
 基本代理处理单个输入并提供响应。它在一个工具调用周期内完成其任务并提供响应。此代理可以返回消息或工具结果。如果向代理提供了工具注册表，则返回工具结果。
 
-如果您的目标是构建一个简单的代理进行实验，您可以在创建它时只提供一个提示执行器和 LLM。但如果您想要更大的灵活性和定制化，可以传递可选参数来配置代理。关于配置选项的更多信息，请参见 [API 参考](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent/-a-i-agent/-a-i-agent.html)。
+如果您的目标是构建一个简单的代理进行实验，您可以在创建它时只提供一个提示执行器和 LLM。但如果您想要更大的灵活性和定制化，可以传递可选形参来配置代理。关于配置选项的更多信息，请参见 [API 参考](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent/-a-i-agent/-a-i-agent.html)。
 
 ## 前提条件
 
@@ -25,7 +25,7 @@
 
 ```
 dependencies {
-    implementation("ai.koog:koog-agents:$koog_version")
+    implementation("ai.koog:koog-agents:VERSION")
 }
 ```
 
@@ -33,7 +33,7 @@ dependencies {
 
 ### 2. 创建代理
 
-要创建代理，请创建 `AIAgent` 类的一个实例，并提供 `executor` 和 `llmModel` 形参：
+要创建代理，请创建 `AIAgent` 类的一个实例，并提供 `promptExecutor` 和 `llmModel` 形参：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -177,4 +177,3 @@ fun main() = runBlocking {
 
 ```
 Agent says: Hello! I'm here to assist you with a variety of tasks. Whether you have questions, need information, or require help with specific tasks, feel free to ask. How can I assist you today?
-```

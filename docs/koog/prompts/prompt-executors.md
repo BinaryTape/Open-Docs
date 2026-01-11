@@ -22,11 +22,11 @@ Koog 提供了两种主要类型的 prompt 执行器，它们都实现了 [`Prom
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import ai.koog.prompt.executor.llms.SingleLLMPromptExecutor
+import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
 -->
 ```kotlin
 val openAIClient = OpenAILLMClient(System.getenv("OPENAI_KEY"))
-val promptExecutor = SingleLLMPromptExecutor(openAIClient)
+val promptExecutor = MultiLLMPromptExecutor(openAIClient)
 ```
 <!--- KNIT example-prompt-executors-01.kt -->
 
@@ -35,7 +35,7 @@ val promptExecutor = SingleLLMPromptExecutor(openAIClient)
 要创建一个能与多个 LLM 提供商配合使用的 prompt 执行器，请执行以下操作：
 
 1. 为所需的 LLM 提供商配置客户端，并提供相应的 API 密钥。
-2. 将已配置的客户端传递给 `MultiLLMPromptExecutor` 类构造函数，以创建一个支持多个 LLM 提供商的 prompt 执行器。
+2. 将已配置的客户端传递给 [`MultiLLMPromptExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms/ai.koog.prompt.executor.llms/-multi-l-l-m-prompt-executor/index.html) 类构造函数，以创建一个支持多个 LLM 提供商的 prompt 执行器。
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
@@ -60,23 +60,23 @@ val multiExecutor = MultiLLMPromptExecutor(
 
 下表包含了**预定义的单提供商执行器**，它们返回配置了特定 LLM 客户端的 `SingleLLMPromptExecutor`。
 
-| LLM 提供商   | Prompt 执行器                                                                                                                                                                                                                                                                                                                                             | 描述                                                                                                                                                                                                          |
-|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| OpenAI         | [simpleOpenAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-open-a-i-executor.html),<br/>[simpleAzureOpenAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-azure-open-a-i-executor.html)                       | * `simpleOpenAIExecutor` 封装了 `OpenAILLMClient`，使用 OpenAI 模型运行 prompt。<br/>* `simpleAzureOpenAIExecutor` 封装了配置用于使用 Azure OpenAI 服务的 `OpenAILLMClient`。                                   |
-| Anthropic      | [simpleAnthropicExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-anthropic-executor.html)                                                                                                                                                                                              | 封装了 `AnthropicLLMClient`，使用 Anthropic 模型运行 prompt。                                                                                                                                                  |
-| Google         | [simpleGoogleAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-google-a-i-executor.html)                                                                                                                                                                                              | 封装了 `GoogleLLMClient`，使用 Google 模型运行 prompt。                                                                                                                                                        |
-| OpenRouter     | [simpleOpenRouterExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-open-router-executor.html)                                                                                                                                                                                           | 封装了 `OpenRouterLLMClient`，使用 OpenRouter 运行 prompt。                                                                                                                                                    |
-| Amazon Bedrock | [simpleBedrockExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-bedrock-executor.html),<br/>[simpleBedrockExecutorWithBearerToken](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-bedrock-executor-with-bearer-token.html) | * `simpleBedrockExecutor` 封装了 `BedrockLLMClient`，使用 AWS Bedrock 运行 prompt。<br/>* `simpleBedrockExecutorWithBearerToken` 封装了 `BedrockLLMClient`，并使用提供的 Bedrock API 密钥发送请求。 |
-| Mistral        | [simpleMistralAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-mistral-a-i-executor.html)                                                                                                                                                                                            | 封装了 `MistralAILLMClient`，使用 Mistral 模型运行 prompt。                                                                                                                                                    |
-| Ollama         | [simpleOllamaAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-ollama-a-i-executor.html)                                                                                                                                                                                              | 封装了 `OllamaClient`，使用 Ollama 运行 prompt。                                                                                                                                                                  |
-
-Koog 还提供了**预定义的多提供商执行器** `DefaultMultiLLMPromptExecutor`。它是 `MultiLLMPromptExecutor` 的一个实现，封装了 `OpenAILLMClient`、`AnthropicLLMClient` 和 `GoogleLLMClient` 模型。
+| LLM 提供商   | Prompt 执行器                                                                                                                                                                             | 描述                                                                      |
+|----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| OpenAI         | [simpleOpenAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-open-a-i-executor.html)                                  | 封装了 `OpenAILLMClient`，使用 OpenAI 模型运行 prompt。                    |
+| OpenAI         | [simpleAzureOpenAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-azure-open-a-i-executor.html)                       | 封装了配置用于使用 Azure OpenAI 服务的 `OpenAILLMClient`。               |
+| Anthropic      | [simpleAnthropicExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-anthropic-executor.html)                              | 封装了 `AnthropicLLMClient`，使用 Anthropic 模型运行 prompt。              |
+| Google         | [simpleGoogleAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-google-a-i-executor.html)                              | 封装了 `GoogleLLMClient`，使用 Google 模型运行 prompt。                    |
+| OpenRouter     | [simpleOpenRouterExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-open-router-executor.html)                           | 封装了 `OpenRouterLLMClient`，使用 OpenRouter 运行 prompt。                   |
+| Amazon Bedrock | [simpleBedrockExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-bedrock-executor.html)                                  | 封装了 `BedrockLLMClient`，使用 AWS Bedrock 运行 prompt。                     |
+| Amazon Bedrock | [simpleBedrockExecutorWithBearerToken](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-bedrock-executor-with-bearer-token.html) | 封装了 `BedrockLLMClient`，并使用提供的 Bedrock API 密钥发送请求。 |
+| Mistral        | [simpleMistralAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-mistral-a-i-executor.html)                            | 封装了 `MistralAILLMClient`，使用 Mistral 模型运行 prompt。                |
+| Ollama         | [simpleOllamaAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-ollama-a-i-executor.html)                              | 封装了 `OllamaClient`，使用 Ollama 运行 prompt。                              |
 
 示例如下，展示了如何创建预定义的单提供商和多提供商执行器：
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import ai.koog.prompt.executor.llms.all.DefaultMultiLLMPromptExecutor
+import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
 import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
 import ai.koog.prompt.executor.clients.google.GoogleLLMClient
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
@@ -86,11 +86,11 @@ import kotlinx.coroutines.runBlocking
 // 创建一个 OpenAI 执行器
 val promptExecutor = simpleOpenAIExecutor("OPENAI_KEY")
 
-// 创建一个包含 OpenAI、Anthropic 和 Google LLM 客户端的 DefaultMultiLLMPromptExecutor
+// 创建一个包含 OpenAI、Anthropic 和 Google LLM 客户端的 MultiLLMPromptExecutor
 val openAIClient = OpenAILLMClient("OPENAI_KEY")
 val anthropicClient = AnthropicLLMClient("ANTHROPIC_KEY")
 val googleClient = GoogleLLMClient("GOOGLE_KEY")
-val multiExecutor = DefaultMultiLLMPromptExecutor(openAIClient, anthropicClient, googleClient)
+val multiExecutor = MultiLLMPromptExecutor(openAIClient, anthropicClient, googleClient)
 ```
 <!--- KNIT example-prompt-executors-03.kt -->
 
@@ -157,10 +157,16 @@ import ai.koog.prompt.llm.LLMProvider
 import ai.koog.prompt.dsl.prompt
 import kotlinx.coroutines.runBlocking
 
+fun main() = runBlocking {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
 // 为 OpenAI、Anthropic 和 Google 提供商创建 LLM 客户端
-val openAIClient = OpenAILLMClient("OPENAI_KEY")
-val anthropicClient = AnthropicLLMClient("ANTHROPIC_KEY")
-val googleClient = GoogleLLMClient("GOOGLE_KEY")
+val openAIClient = OpenAILLMClient("OPENAI_API_KEY")
+val anthropicClient = AnthropicLLMClient("ANTHROPIC_API_KEY")
+val googleClient = GoogleLLMClient("GOOGLE_API_KEY")
 
 // 创建一个将 LLM 提供商映射到 LLM 客户端的 MultiLLMPromptExecutor
 val executor = MultiLLMPromptExecutor(
@@ -169,12 +175,6 @@ val executor = MultiLLMPromptExecutor(
     LLMProvider.Google to googleClient
 )
 
-fun main() = runBlocking {
--->
-<!--- SUFFIX
-}
--->
-```kotlin
 // 创建一个 prompt
 val p = prompt("demo") { user("Summarize this.") }
 
@@ -186,11 +186,13 @@ val anthropicResult = executor.execute(p, AnthropicModels.Sonnet_3_5)
 ```
 <!--- KNIT example-prompt-executors-05.kt -->
 
-你可以选择性地配置一个回退 LLM 提供商和模型，以便在请求的客户端不可用时使用。更多详情，请参考 [配置回退](#configuring-fallbacks)。
+你可以选择性地配置一个回退 LLM 提供商和模型，以便在请求的客户端不可用时使用。
+更多详情，请参考 [配置回退](#configuring-fallbacks)。
 
 ## 配置回退
 
-当请求的 LLM 客户端不可用时，多提供商 prompt 执行器可以配置为使用回退 LLM 提供商和模型。要配置回退机制，请向 `MultiLLMPromptExecutor` 构造函数提供 `fallback` 形参：
+当请求的 LLM 客户端不可用时，多提供商 prompt 执行器可以配置为使用回退 LLM 提供商和模型。
+要配置回退机制，请向 `MultiLLMPromptExecutor` 构造函数提供 `fallback` 形参：
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
@@ -214,7 +216,8 @@ val multiExecutor = MultiLLMPromptExecutor(
 ```
 <!--- KNIT example-prompt-executors-06.kt -->
 
-如果你传递了一个未包含在 `MultiLLMPromptExecutor` 中的 LLM 提供商的模型，prompt 执行器将使用回退模型：
+如果你传递了一个未包含在 `MultiLLMPromptExecutor` 中的 LLM 提供商的模型，
+prompt 执行器将使用回退模型：
 
 <!--- INCLUDE
 import ai.koog.prompt.dsl.prompt

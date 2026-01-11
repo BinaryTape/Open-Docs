@@ -194,13 +194,13 @@
 
     安裝 Ollama 並在本地執行模型，無需 API 密鑰。
 
-    如需更多資訊，請參閱 [Ollama 文件](https://docs.ollama.com/quickstart)。
+    如需更多資訊，請參閱 [Ollama documentation](https://docs.ollama.com/quickstart)。
 
 ## 建立並執行代理程式
 
 === "OpenAI"
 
-    以下範例使用 [\`GPT-4o\`](https://platform.openai.com/docs/models/gpt-4o) 模型建立並執行一個簡單的 AI 代理程式。
+    以下範例使用 [`GPT-4o`](https://platform.openai.com/docs/models/gpt-4o) 模型建立並執行一個簡單的 AI 代理程式。
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
@@ -246,7 +246,7 @@
 
 === "Anthropic"
 
-    以下範例使用 [\`Claude Opus 4.1\`](https://www.anthropic.com/news/claude-opus-4-1) 模型建立並執行一個簡單的 AI 代理程式。
+    以下範例使用 [`Claude Opus 4.1`](https://www.anthropic.com/news/claude-opus-4-1) 模型建立並執行一個簡單的 AI 代理程式。
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
@@ -290,7 +290,7 @@
 
 === "Google"
 
-    以下範例使用 [\`Gemini 2.5 Pro\`](https://cloud.google.com/vertex-ai/generative-ai/docs/models/gemini/2-5-pro) 模型建立並執行一個簡單的 AI 代理程式。
+    以下範例使用 [`Gemini 2.5 Pro`](https://cloud.google.com/vertex-ai/generative-ai/docs/models/gemini/2-5-pro) 模型建立並執行一個簡單的 AI 代理程式。
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
@@ -334,12 +334,12 @@
 
 === "DeepSeek"
 
-    以下範例使用 \`deepseek-chat\` 模型建立並執行一個簡單的 AI 代理程式。
+    以下範例使用 `deepseek-chat` 模型建立並執行一個簡單的 AI 代理程式。
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
     import ai.koog.prompt.executor.clients.deepseek.DeepSeekLLMClient
-    import ai.koog.prompt.executor.llms.SingleLLMPromptExecutor
+    import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
     import ai.koog.prompt.executor.clients.deepseek.DeepSeekModels
     import kotlinx.coroutines.runBlocking
     -->
@@ -355,7 +355,7 @@
         // 建立代理程式
         val agent = AIAgent(
             // 使用 LLM 用戶端建立一個 prompt executor
-            promptExecutor = SingleLLMPromptExecutor(deepSeekClient),
+            promptExecutor = MultiLLMPromptExecutor(deepSeekClient),
             // 提供一個模型
             llmModel = DeepSeekModels.DeepSeekChat
         )
@@ -375,7 +375,7 @@
 
 === "OpenRouter"
 
-    以下範例使用 [\`GPT-4o\`](https://openrouter.ai/openai/gpt-4o) 模型建立並執行一個簡單的 AI 代理程式。
+    以下範例使用 [`GPT-4o`](https://openrouter.ai/openai/gpt-4o) 模型建立並執行一個簡單的 AI 代理程式。
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
@@ -410,7 +410,7 @@
 
 === "Bedrock"
 
-    以下範例使用 [\`Claude Sonnet 4.5\`](https://www.anthropic.com/news/claude-sonnet-4-5) 模型建立並執行一個簡單的 AI 代理程式。
+    以下範例使用 [`Claude Sonnet 4.5`](https://www.anthropic.com/news/claude-sonnet-4-5) 模型建立並執行一個簡單的 AI 代理程式。
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
@@ -459,7 +459,7 @@
 
 === "Ollama"
 
-    以下範例使用 [\`llama3.2\`](https://ollama.com/library/llama3.2) 模型建立並執行一個簡單的 AI 代理程式。
+    以下範例使用 [`llama3.2`](https://ollama.com/library/llama3.2) 模型建立並執行一個簡單的 AI 代理程式。
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent

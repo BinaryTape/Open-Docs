@@ -114,8 +114,8 @@ Spring 구성은 LLM 제공업체의 잘 알려진 환경 변수를 사용합니
 ```kotlin
 @Service
 class AIService(
-    private val openAIExecutor: SingleLLMPromptExecutor?,
-    private val anthropicExecutor: SingleLLMPromptExecutor?
+    private val openAIExecutor: MultiLLMPromptExecutor?,
+    private val anthropicExecutor: MultiLLMPromptExecutor?
 ) {
 
     suspend fun generateResponse(input: String): String {
@@ -149,7 +149,7 @@ class AIService(
 @RestController
 @RequestMapping("/api/chat")
 class ChatController(
-    private val anthropicExecutor: SingleLLMPromptExecutor?
+    private val anthropicExecutor: MultiLLMPromptExecutor?
 ) {
 
     @PostMapping
@@ -185,9 +185,9 @@ data class ChatResponse(val response: String)
 ```kotlin
 @Service
 class RobustAIService(
-    private val openAIExecutor: SingleLLMPromptExecutor?,
-    private val anthropicExecutor: SingleLLMPromptExecutor?,
-    private val openRouterExecutor: SingleLLMPromptExecutor?
+    private val openAIExecutor: MultiLLMPromptExecutor?,
+    private val anthropicExecutor: MultiLLMPromptExecutor?,
+    private val openRouterExecutor: MultiLLMPromptExecutor?
 ) {
 
     suspend fun generateWithFallback(input: String): String {
@@ -224,7 +224,7 @@ class RobustAIService(
 ```kotlin
 @Service
 class ConfigurableAIService(
-    private val openAIExecutor: SingleLLMPromptExecutor?,
+    private val openAIExecutor: MultiLLMPromptExecutor?,
     @Value("\${ai.koog.openai.api-key:}") private val openAIKey: String
 ) {
 
@@ -277,7 +277,7 @@ class ConfigurableAIService(
 **빈을 찾을 수 없음 오류 (Bean not found error):**
 
 ```
-No qualifying bean of type 'SingleLLMPromptExecutor' available
+No qualifying bean of type 'MultiLLMPromptExecutor' available
 ```
 
 **해결책:** 속성 파일에 하나 이상의 제공업체를 구성했는지 확인하세요.
@@ -285,7 +285,7 @@ No qualifying bean of type 'SingleLLMPromptExecutor' available
 **다중 빈 오류 (Multiple beans error):**
 
 ```
-Multiple qualifying beans of type 'SingleLLMPromptExecutor' available
+Multiple qualifying beans of type 'MultiLLMPromptExecutor' available
 ```
 
 **해결책:** `@Qualifier`를 사용하여 원하는 빈을 지정하세요:
@@ -293,8 +293,8 @@ Multiple qualifying beans of type 'SingleLLMPromptExecutor' available
 ```kotlin
 @Service
 class MyService(
-    @Qualifier("openAIExecutor") private val openAIExecutor: SingleLLMPromptExecutor,
-    @Qualifier("anthropicExecutor") private val anthropicExecutor: SingleLLMPromptExecutor
+    @Qualifier("openAIExecutor") private val openAIExecutor: MultiLLMPromptExecutor,
+    @Qualifier("anthropicExecutor") private val anthropicExecutor: MultiLLMPromptExecutor
 ) {
     // ...
 }
@@ -311,7 +311,7 @@ API key is required but not provided
 ## 모범 사례
 
 1.  **환경 변수**: API 키에 대해 항상 환경 변수를 사용하세요
-2.  **널러블 주입**: 제공업체가 구성되지 않은 경우를 처리하기 위해 널러블 타입(`SingleLLMPromptExecutor?`)을 사용하세요
+2.  **널러블 주입**: 제공업체가 구성되지 않은 경우를 처리하기 위해 널러블 타입(`MultiLLMPromptExecutor?`)을 사용하세요
 3.  **대체 로직**: 다중 제공업체를 사용할 때 대체(fallback) 메커니즘을 구현하세요
 4.  **오류 처리**: 프로덕션 코드에서는 항상 실행자 호출을 try-catch 블록으로 감싸세요
 5.  **테스트**: 실제 API 호출을 피하기 위해 테스트에서 모의 객체(mock)를 사용하세요

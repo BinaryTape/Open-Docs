@@ -1,9 +1,9 @@
 [//]: # (title: 為 EAP 配置您的建置)
 
 <tldr>
-    <p>目前沒有可用的預覽版本。</p>
-    <!-- <p>Latest Kotlin EAP release: <strong>%kotlinEapVersion%</strong></p>
-    <p><a href="eap.md#build-details">Explore Kotlin EAP release details</a></p> -->
+    <!--<p>No preview versions are currently available.</p>-->
+    <p>最新的 Kotlin EAP 版本：<strong>%kotlinEapVersion%</strong></p>
+    <p><a href="eap.md#build-details">探索 Kotlin EAP 發布詳情</a></p> 
 </tldr>
 
 若要配置您的建置以使用 Kotlin 的 EAP 版本，您需要： 
@@ -67,7 +67,7 @@ repositories {
 
 如果您在專案中使用 kotlinx 函式庫，您的函式庫版本可能與 Kotlin 的 EAP 版本不相容。
 
-為了解決此問題，您需要在依賴項中指定相容函式庫的版本。有關相容函式庫的列表，請參閱 [EAP 建置詳細資訊](eap.md#build-details)。 
+為了解決此問題，您需要在依賴項中指定相容函式庫的版本。有關相容函式庫的列表，請參閱 [EAP 建置詳情](eap.md#build-details)。 
 
 > 在大多數情況下，我們只為特定發布版的第一個 EAP 版本建立函式庫，這些函式庫也適用於此發布版的後續 EAP 版本。
 > 

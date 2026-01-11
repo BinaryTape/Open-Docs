@@ -32,7 +32,8 @@ Kotlin 1.9.20 版本已发布，[适用于所有目标平台的 K2 编译器现�
 
 ## 新的 Kotlin K2 编译器更新
 
-JetBrains 的 Kotlin 团队正在继续稳定化新的 K2 编译器，它将带来重大的性能改进，加速新语言特性开发，统一 Kotlin 支持的所有平台，并为多平台项目提供更好的架构。
+JetBrains 的 Kotlin 团队正在继续稳定化新的 K2 编译器，它将带来重大的性能改进，
+加速新语言特性开发，统一 Kotlin 支持的所有平台，并为多平台项目提供更好的架构。
 
 K2 目前适用于所有目标平台，处于 **Beta** 阶段。[在发布博客文章中阅读更多内容](https://blog.jetbrains.com/kotlin/2023/11/kotlin-1-9-20-released/)
 
@@ -127,7 +128,8 @@ Kotlin 1.9.20 包含一个 Stable 内存管理器，默认启用新的内存分�
 
 ### 默认启用自定义内存分配器
 
-Kotlin 1.9.20 默认启用了新的内存分配器。它旨在取代之前的默认分配器 `mimalloc`，以使垃圾回收更高效并改进 [Kotlin/Native 内存管理器](native-memory-manager.md)的运行时性能。
+Kotlin 1.9.20 默认启用了新的内存分配器。它旨在取代之前的默认分配器 `mimalloc`，
+以使垃圾回收更高效并改进 [Kotlin/Native 内存管理器](native-memory-manager.md)的运行时性能。
 
 新的自定义分配器将系统内存划分为页面，允许按连续顺序独立清除。
 每个分配都成为页面内的一个内存块，页面会跟踪块大小。
@@ -140,7 +142,8 @@ Kotlin 1.9.20 默认启用了新的内存分配器。它旨在取代之前的默
 如果不能，线程会从共享分配空间请求不同的页面。
 该页面可能已经可用、需要清除，或者必须先创建。
 
-新的分配器允许同时存在多个独立的分配空间，这将使 Kotlin 团队能够尝试不同的页面布局，以进一步提升性能。
+新的分配器允许同时存在多个独立的分配空间，
+这将使 Kotlin 团队能够尝试不同的页面布局，以进一步提升性能。
 
 #### 如何启用自定义内存分配器
 
@@ -160,7 +163,8 @@ Kotlin 团队继续改进新 Kotlin/Native 内存管理器的性能和稳定性�
 
 #### 全并行标记以减少 GC 的暂停时间
 
-之前，默认垃圾回收器只执行部分并行标记。当变异器线程暂停时，它会从自己的根（例如线程局部变量和调用栈）标记 GC 的开始。
+之前，默认垃圾回收器只执行部分并行标记。当变异器线程暂停时，
+它会从自己的根（例如线程局部变量和调用栈）标记 GC 的开始。
 同时，一个独立的 GC 线程负责从全局根以及所有正在主动运行原生代码因而未暂停的变异器的根开始标记。
 
 这种方法在全局对象数量有限且变异器线程在可运行状态下执行 Kotlin 代码花费大量时间的情况下效果良好。然而，对于典型的 iOS 应用程序来说并非如此。
@@ -210,11 +214,13 @@ kotlin.incremental.native=true
 
 ### 管理库链接问题
 
-此版本改进了 Kotlin/Native 编译器处理 Kotlin 库中链接问题的方式。错误消息现在包含更具可读性的声明，因为它们使用签名名称而不是哈希值，这有助于您更轻松地找到并修复问题。以下是一个示例：
+此版本改进了 Kotlin/Native 编译器处理 Kotlin 库中链接问题的方式。错误消息现在包含更具可读性的声明，
+因为它们使用签名名称而不是哈希值，这有助于您更轻松地找到并修复问题。以下是一个示例：
 
 ```text
 No function found for symbol 'org.samples/MyClass.removedFunction|removedFunction(kotlin.Int;kotlin.String){}[0]'
 ```
+
 Kotlin/Native 编译器检测第三方 Kotlin 库之间的链接问题，并在运行时报告错误。
 如果某个第三方 Kotlin 库的作者在另一个第三方 Kotlin 库使用的实验性的 API 中进行了不兼容的更改，您可能会遇到此类问题。
 
@@ -222,7 +228,7 @@ Kotlin/Native 编译器检测第三方 Kotlin 库之间的链接问题，并在�
 
 *   如果您想在编译日志中记录这些问题，请使用 `-Xpartial-linkage-loglevel=WARNING` 编译器选项启用警告。
 *   也可以使用 `-Xpartial-linkage-loglevel=ERROR` 将报告警告的严重性提升为编译错误。
-在这种情况下，编译失败，您会在编译日志中获取所有错误。使用此选项可以更仔细地探查链接问题。
+    在这种情况下，编译失败，您会在编译日志中获取所有错误。使用此选项可以更仔细地探查链接问题。
 
 ```kotlin
 // 在 Gradle 构建文件中传递编译器选项的示例：
@@ -281,7 +287,8 @@ fun main() {
 
 如果您是库作者，您现在可以通过自定义消息帮助您的用户解决链接器错误。
 
-如果您的 Kotlin 库依赖于 C 或 Objective-C 库（例如，使用 [CocoaPods 集成](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)），其用户需要将这些依赖库本地化到机器上，或者在项目构建脚本中显式配置它们。
+如果您的 Kotlin 库依赖于 C 或 Objective-C 库（例如，使用 [CocoaPods 集成](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)），
+其用户需要将这些依赖库本地化到机器上，或者在项目构建脚本中显式配置它们。
 如果不这样做，用户过去会收到一条令人困惑的“Framework not found”消息。
 
 您现在可以在编译失败消息中提供特定说明或链接。为此，将 `-Xuser-setup-hint` 编译器选项传递给 `cinterop`，或将 `userSetupHint=message` 属性添加到您的 `.def` 文件。
@@ -393,7 +400,7 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
-    // The iosMain source set is created automatically
+    // iosMain 源代码集是自动创建的
 }
 ```
 
@@ -524,7 +531,8 @@ JetBrains 团队正在引入一种创建跨平台项目的新方式 – [Kotlin 
 
 之前，我们引入了 [Gradle 配置缓存的预览版](whatsnew19.md#preview-of-the-gradle-configuration-cache)，该缓存可用于 Kotlin 多平台库。随着 1.9.20 的发布，Kotlin Multiplatform 插件更进一步。
 
-它现在支持 [Kotlin CocoaPods Gradle 插件](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-dsl-reference.html)中的 Gradle 配置缓存，以及 Xcode 构建所需的集成任务中，例如 `embedAndSignAppleFrameworkForXcode`。
+它现在支持 [Kotlin CocoaPods Gradle 插件](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-dsl-reference.html)中的 Gradle 配置缓存，
+以及 Xcode 构建所需的集成任务中，例如 `embedAndSignAppleFrameworkForXcode`。
 
 现在所有多平台项目都可以利用改进的构建期。
 Gradle 配置缓存通过重用配置阶段的结果进行后续构建，从而加速构建过程。
@@ -701,7 +709,7 @@ private external fun wasiRawClockTimeGet(clockId: Int, precision: Long, resultPt
 <table>
    <tr>
        <td>1.9.20 之前</td>
-       <td>1.9.20 中</td>
+       <td>在 1.9.20 中</td>
    </tr>
    <tr>
 <td>
@@ -739,11 +747,13 @@ Kotlin 1.9.20 完全兼容 Gradle 6.8.3 到 8.1。您也可以使用最新 Gradl
 
 ### 支持测试夹具访问 `internal` 声明
 
-在 Kotlin 1.9.20 中，如果您使用 Gradle 的 `java-test-fixtures` 插件，那么您的[测试夹具](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures)现在可以访问主源代码集类中的 `internal` 声明。此外，任何测试源代码也可以查看测试夹具类中的任何 `internal` 声明。
+在 Kotlin 1.9.20 中，如果您使用 Gradle 的 `java-test-fixtures` 插件，那么您的[测试夹具](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures)
+现在可以访问主源代码集类中的 `internal` 声明。此外，任何测试源代码也可以查看测试夹具类中的任何 `internal` 声明。
 
 ### 配置 Konan 目录路径的新属性
 
-在 Kotlin 1.9.20 中，`kotlin.data.dir` Gradle 属性可用于自定义您的 `~/.konan` 目录路径，这样您就不必通过环境变量 `KONAN_DATA_DIR` 来配置它。
+在 Kotlin 1.9.20 中，`konan.data.dir` Gradle 属性可用于自定义您的 `~/.konan` 目录路径，
+这样您就不必通过环境变量 `KONAN_DATA_DIR` 来配置它。
 
 或者，您可以使用 `-Xkonan-data-dir` 编译器选项通过 `cinterop` 和 `konanc` 工具配置您的 `~/.konan` 目录的自定义路径。
 
@@ -803,7 +813,8 @@ Size metrics:
 
 ## 标准库
 
-在 Kotlin 1.9.20 中，[Kotlin/Native 标准库成为 Stable](#the-kotlin-native-standard-library-becomes-stable)，并且有一些新特性：
+在 Kotlin 1.9.20 中，[Kotlin/Native 标准库成为 Stable](#the-kotlin-native-standard-library-becomes-stable)，
+并且有一些新特性：
 *   [Enum 类 `values` 泛型函数的替换](#replacement-of-the-enum-class-values-generic-function)
 *   [Kotlin/JS 中 `HashMap` 操作的性能改进](#improved-performance-of-hashmap-operations-in-kotlin-js)
 
@@ -869,7 +880,8 @@ printAllValues<RGB>()
 
 ### Kotlin/JS 中 `HashMap` 操作的性能改进
 
-Kotlin 1.9.20 改进了 Kotlin/JS 中 `HashMap` 操作的性能并减少了其内存占用。在内部，Kotlin/JS 已将其内部实现更改为开放寻址。这意味着当您执行以下操作时，您应该会看到性能改进：
+Kotlin 1.9.20 改进了 Kotlin/JS 中 `HashMap` 操作的性能并减少了其内存占用。在内部，
+Kotlin/JS 已将其内部实现更改为开放寻址。这意味着当您执行以下操作时，您应该会看到性能改进：
 *   向 `HashMap` 插入新元素。
 *   在 `HashMap` 中搜索现有元素。
 *   在 `HashMap` 中迭代键或值。

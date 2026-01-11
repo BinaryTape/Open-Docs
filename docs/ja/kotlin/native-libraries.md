@@ -15,7 +15,7 @@ Gradleビルドファイルで [Kotlin/Nativeターゲット](native-target-supp
     plugins {
         kotlin("multiplatform") version "%kotlinVersion%"
     }
-    
+ 
     kotlin {
         macosArm64()    // on macOS
         // linuxArm64() // on Linux
@@ -49,7 +49,7 @@ Kotlin/Nativeコンパイラでライブラリを生成するには:
     ```bash
     kotlinc-native qux.kt -l bar
     ```
-
+   
     このコマンドは、`qux.kt` ソースファイルと `bar.klib` ライブラリの内容をコンパイルし、最終的な実行可能バイナリ `program.kexe` を生成します。
 
 ## klibユーティリティ
@@ -62,10 +62,10 @@ klib <command> <library path> [<option>]
 
 現在、以下のコマンドが利用可能です。
 
-| Command                       | 説明                                                                                                                                                                                                                                                                                                                                                    |
+| コマンド                      | 説明                                                                                                                                                                                                                                                                                                                                                    |
 |-------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `info`                        | ライブラリに関する一般情報。                                                                                                                                                                                                                                                                                                                                 |
-| `dump-abi`                    | ライブラリのABIスナップショットをダンプします。スナップショットの各行は1つの宣言に対応します。宣言にABI非互換の変更が発生した場合、スナップショットの対応する行でそれが確認できます。                                                                                                                                                                      |
+| `dump-abi`                    | ライブラリのABIスナップショットをダンプします。スナップショットの各行は1つの宣言に対応します。宣言にABI非互換の変更が発生した場合、スナップショットの対応する行でそれが確認できます。                                                                                                                                       |
 | `dump-ir`                     | ライブラリ宣言の中間表現 (IR) を出力にダンプします。デバッグ目的でのみ使用してください。                                                                                                                                                                                                                                                                       |
 | `dump-ir-signatures`          | すべての非プライベートなライブラリ宣言と、このライブラリによって消費されるすべての非プライベートな宣言のIRシグネチャをダンプします（2つの別々のリストとして）。このコマンドは純粋にIR内のデータに依存します。                                                                                                                                       |
 | `dump-ir-inlinable-functions` | ライブラリ内のインライン化可能な関数のIRを出力にダンプします。デバッグ目的でのみ使用してください。                                                                                                                                                                                                                                                           |
@@ -82,11 +82,11 @@ klib dump-metadata-signatures mylib.klib -signature-version 1
 
 ## ライブラリの作成と使用
 
-1.  `kotlinizer.kt` にソースコードを配置してライブラリを作成します。
+1.  ソースコードを `kotlinizer.kt` に配置してライブラリを作成します。
 
     ```kotlin
     package kotlinizer
-    
+
     val String.kotlinized
         get() = "Kotlin $this"
     ```
@@ -113,7 +113,7 @@ klib dump-metadata-signatures mylib.klib -signature-version 1
 
     ```kotlin
     import kotlinizer.*
-    
+
     fun main(args: Array<String>) {
         println("Hello, ${"world".kotlinized}!")
     }
@@ -136,7 +136,7 @@ klib dump-metadata-signatures mylib.klib -signature-version 1
 ## ライブラリの検索シーケンス
 
 > ライブラリの検索メカニズムは間もなく変更されます。このセクションの更新に注意し、非推奨のフラグへの依存は避けてください。
->
+> 
 {style="note"}
 
 `-library foo` オプションが指定された場合、コンパイラは以下の順序で `foo` ライブラリを検索します。
@@ -144,10 +144,10 @@ klib dump-metadata-signatures mylib.klib -signature-version 1
 1.  現在のコンパイルディレクトリ、または絶対パス。
 2.  デフォルトリポジトリにインストールされているライブラリ。
 
-    > デフォルトのリポジトリは `~/.konan` です。`kotlin.data.dir` Gradle プロパティを設定することで変更できます。
-    >
+    > デフォルトのリポジトリは `~/.konan` です。`konan.data.dir` Gradle プロパティを設定することで変更できます。
+    > 
     > または、`-Xkonan-data-dir` コンパイラオプションを使用して、`cinterop` および `konanc` ツールを介してディレクトリへのカスタムパスを設定することもできます。
-    >
+    > 
     {style="note"}
 
 3.  `$installation/klib` ディレクトリにインストールされているライブラリ。

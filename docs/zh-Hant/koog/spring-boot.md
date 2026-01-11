@@ -114,8 +114,8 @@ Spring 配置使用 LLM 提供者眾所周知的環境變數。
 ```kotlin
 @Service
 class AIService(
-    private val openAIExecutor: SingleLLMPromptExecutor?,
-    private val anthropicExecutor: SingleLLMPromptExecutor?
+    private val openAIExecutor: MultiLLMPromptExecutor?,
+    private val anthropicExecutor: MultiLLMPromptExecutor?
 ) {
 
     suspend fun generateResponse(input: String): String {
@@ -149,7 +149,7 @@ class AIService(
 @RestController
 @RequestMapping("/api/chat")
 class ChatController(
-    private val anthropicExecutor: SingleLLMPromptExecutor?
+    private val anthropicExecutor: MultiLLMPromptExecutor?
 ) {
 
     @PostMapping
@@ -185,9 +185,9 @@ data class ChatResponse(val response: String)
 ```kotlin
 @Service
 class RobustAIService(
-    private val openAIExecutor: SingleLLMPromptExecutor?,
-    private val anthropicExecutor: SingleLLMPromptExecutor?,
-    private val openRouterExecutor: SingleLLMPromptExecutor?
+    private val openAIExecutor: MultiLLMPromptExecutor?,
+    private val anthropicExecutor: MultiLLMPromptExecutor?,
+    private val openRouterExecutor: MultiLLMPromptExecutor?
 ) {
 
     suspend fun generateWithFallback(input: String): String {
@@ -224,7 +224,7 @@ class RobustAIService(
 ```kotlin
 @Service
 class ConfigurableAIService(
-    private val openAIExecutor: SingleLLMPromptExecutor?,
+    private val openAIExecutor: MultiLLMPromptExecutor?,
     @Value("\${ai.koog.openai.api-key:}") private val openAIKey: String
 ) {
 
@@ -245,19 +245,19 @@ class ConfigurableAIService(
 
 ### 可用屬性
 
-| 屬性                            | 描述                | Bean 條件                                                   | 預設值                                      |
-|-------------------------------|---------------------|-------------------------------------------------------------|---------------------------------------------|
-| `ai.koog.openai.api-key`      | OpenAI API 金鑰     | 為 `openAIExecutor` bean 所必需                             | -                                           |
-| `ai.koog.openai.base-url`     | OpenAI 基礎 URL     | 選用                                                        | `https://api.openai.com`                    |
-| `ai.koog.anthropic.api-key`   | Anthropic API 金鑰  | 為 `anthropicExecutor` bean 所必需                          | -                                           |
-| `ai.koog.anthropic.base-url`  | Anthropic 基礎 URL  | 選用                                                        | `https://api.anthropic.com`                 |
-| `ai.koog.google.api-key`      | Google API 金鑰     | 為 `googleExecutor` bean 所必需                             | -                                           |
-| `ai.koog.google.base-url`     | Google 基礎 URL     | 選用                                                        | `https://generativelanguage.googleapis.com` |
-| `ai.koog.openrouter.api-key`  | OpenRouter API 金鑰 | 為 `openRouterExecutor` bean 所必需                         | -                                           |
-| `ai.koog.openrouter.base-url` | OpenRouter 基礎 URL | 選用                                                        | `https://openrouter.ai`                     |
-| `ai.koog.deepseek.api-key`    | DeepSeek API 金鑰   | 為 `deepSeekExecutor` bean 所必需                           | -                                           |
-| `ai.koog.deepseek.base-url`   | DeepSeek 基礎 URL   | 選用                                                        | `https://api.deepseek.com`                  |
-| `ai.koog.ollama.base-url`     | Ollama 基礎 URL     | 任何 `ai.koog.ollama.*` 屬性都會啟用 `ollamaExecutor` bean | `http://localhost:11434`                    |
+| 屬性                            | 描述                | Bean 條件                                                     | 預設值                                      |
+|-------------------------------|---------------------|---------------------------------------------------------------|---------------------------------------------|
+| `ai.koog.openai.api-key`      | OpenAI API 金鑰     | 為 `openAIExecutor` bean 所必需                               | -                                           |
+| `ai.koog.openai.base-url`     | OpenAI 基礎 URL     | 選用                                                          | `https://api.openai.com`                    |
+| `ai.koog.anthropic.api-key`   | Anthropic API 金鑰  | 為 `anthropicExecutor` bean 所必需                            | -                                           |
+| `ai.koog.anthropic.base-url`  | Anthropic 基礎 URL  | 選用                                                          | `https://api.anthropic.com`                 |
+| `ai.koog.google.api-key`      | Google API 金鑰     | 為 `googleExecutor` bean 所必需                               | -                                           |
+| `ai.koog.google.base-url`     | Google 基礎 URL     | 選用                                                          | `https://generativelanguage.googleapis.com` |
+| `ai.koog.openrouter.api-key`  | OpenRouter API 金鑰 | 為 `openRouterExecutor` bean 所必需                           | -                                           |
+| `ai.koog.openrouter.base-url` | OpenRouter 基礎 URL | 選用                                                          | `https://openrouter.ai`                     |
+| `ai.koog.deepseek.api-key`    | DeepSeek API 金鑰   | 為 `deepSeekExecutor` bean 所必需                             | -                                           |
+| `ai.koog.deepseek.base-url`   | DeepSeek 基礎 URL   | 選用                                                          | `https://api.deepseek.com`                  |
+| `ai.koog.ollama.base-url`     | Ollama 基礎 URL     | 任何 `ai.koog.ollama.*` 屬性都會啟用 `ollamaExecutor` bean    | `http://localhost:11434`                    |
 
 ### Bean 名稱
 
@@ -277,7 +277,7 @@ class ConfigurableAIService(
 **找不到 Bean 錯誤：**
 
 ```
-No qualifying bean of type 'SingleLLMPromptExecutor' available
+No qualifying bean of type 'MultiLLMPromptExecutor' available
 ```
 
 **解決方案：** 請確保您已在屬性檔中配置至少一個提供者。
@@ -285,7 +285,7 @@ No qualifying bean of type 'SingleLLMPromptExecutor' available
 **多個 Bean 錯誤：**
 
 ```
-Multiple qualifying beans of type 'SingleLLMPromptExecutor' available
+Multiple qualifying beans of type 'MultiLLMPromptExecutor' available
 ```
 
 **解決方案：** 使用 `@Qualifier` 來指定您想要的 bean：
@@ -293,8 +293,8 @@ Multiple qualifying beans of type 'SingleLLMPromptExecutor' available
 ```kotlin
 @Service
 class MyService(
-    @Qualifier("openAIExecutor") private val openAIExecutor: SingleLLMPromptExecutor,
-    @Qualifier("anthropicExecutor") private val anthropicExecutor: SingleLLMPromptExecutor
+    @Qualifier("openAIExecutor") private val openAIExecutor: MultiLLMPromptExecutor,
+    @Qualifier("anthropicExecutor") private val anthropicExecutor: MultiLLMPromptExecutor
 ) {
     // ...
 }
@@ -311,7 +311,7 @@ API key is required but not provided
 ## 最佳實踐
 
 1.  **環境變數**：始終使用環境變數來儲存 API 金鑰
-2.  **可為空的注入**：使用可為空的型別 (`SingleLLMPromptExecutor?`) 來處理未配置提供者的情況
+2.  **可為空的注入**：使用可為空的型別 (`MultiLLMPromptExecutor?`) 來處理未配置提供者的情況
 3.  **備援邏輯**：在使用多個提供者時實作備援機制
 4.  **錯誤處理**：在生產環境程式碼中，始終將執行器呼叫包裝在 try-catch 區塊中
 5.  **測試**：在測試中使用模擬物件 (mocks) 以避免實際的 API 呼叫

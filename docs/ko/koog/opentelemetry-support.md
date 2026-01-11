@@ -14,13 +14,13 @@ OpenTelemetry는 애플리케이션에서 텔레메트리 데이터(추적)를 �
 
 ## 주요 OpenTelemetry 개념
 
--   **스팬(Span)**: 스팬은 분산 추적 내의 개별 작업 단위 또는 연산을 나타냅니다. 이는 에이전트 실행, 함수 호출, LLM 호출 또는 도구 호출과 같은 애플리케이션 내의 특정 활동의 시작과 끝을 나타냅니다.
--   **속성(Attribute)**: 속성은 스팬과 같은 텔레메트리 관련 항목에 대한 메타데이터를 제공합니다. 속성은 키-값 쌍으로 표현됩니다.
--   **이벤트(Event)**: 이벤트는 스팬의 수명 동안 특정 시점(스팬 관련 이벤트)에 발생한 잠재적으로 주목할 만한 일을 나타냅니다.
--   **익스포터(Exporter)**: 익스포터는 수집된 텔레메트리 데이터를 다양한 백엔드 또는 대상으로 전송하는 역할을 하는 구성 요소입니다.
--   **컬렉터(Collector)**: 컬렉터는 텔레메트리 데이터를 수신, 처리 및 내보냅니다. 이들은 애플리케이션과 관측 가능성 백엔드 사이의 중간자 역할을 합니다.
--   **샘플러(Sampler)**: 샘플러는 샘플링 전략에 따라 추적을 기록할지 여부를 결정합니다. 이들은 텔레메트리 데이터의 양을 관리하는 데 사용됩니다.
--   **리소스(Resource)**: 리소스는 텔레메트리 데이터를 생성하는 엔티티를 나타냅니다. 이들은 리소스에 대한 정보를 제공하는 키-값 쌍인 리소스 속성으로 식별됩니다.
+- **스팬(Span)**: 스팬은 분산 추적 내의 개별 작업 단위 또는 연산을 나타냅니다. 이는 에이전트 실행, 함수 호출, LLM 호출 또는 도구 호출과 같은 애플리케이션 내의 특정 활동의 시작과 끝을 나타냅니다.
+- **속성(Attribute)**: 속성은 스팬과 같은 텔레메트리 관련 항목에 대한 메타데이터를 제공합니다. 속성은 키-값 쌍으로 표현됩니다.
+- **이벤트(Event)**: 이벤트는 스팬의 수명 동안 특정 시점(스팬 관련 이벤트)에 발생한 잠재적으로 주목할 만한 일을 나타냅니다.
+- **익스포터(Exporter)**: 익스포터는 수집된 텔레메트리 데이터를 다양한 백엔드 또는 대상으로 전송하는 역할을 하는 구성 요소입니다.
+- **컬렉터(Collector)**: 컬렉터는 텔레메트리 데이터를 수신, 처리 및 내보냅니다. 이들은 애플리케이션과 관측 가능성 백엔드 사이의 중간자 역할을 합니다.
+- **샘플러(Sampler)**: 샘플러는 샘플링 전략에 따라 추적을 기록할지 여부를 결정합니다. 이들은 텔레메트리 데이터의 양을 관리하는 데 사용됩니다.
+- **리소스(Resource)**: 리소스는 텔레메트리 데이터를 생성하는 엔티티를 나타냅니다. 이들은 리소스에 대한 정보를 제공하는 키-값 쌍인 리소스 속성으로 식별됩니다.
 
 Koog의 OpenTelemetry 기능은 다음을 포함하여 다양한 에이전트 이벤트에 대한 스팬을 자동으로 생성합니다:
 
@@ -127,7 +127,7 @@ install(OpenTelemetry) {
 스팬이 내보내지기 전에 처리할 스팬 프로세서 팩토리를 추가합니다. 다음 인수를 사용합니다:
 
 | 이름        | 데이터 유형                       | 필수 | 기본값 | 설명                                                                         |
-|:------------|:----------------------------------|:---|:-----|:-----------------------------------------------------------------------------|
+|:------------|-----------------------------------|:---|:-----|:-----------------------------------------------------------------------------|
 | `processor` | `(SpanExporter) -> SpanProcessor` | 예 |      | 주어진 익스포터에 대한 스팬 프로세서를 생성하는 함수입니다. 익스포터별 처리를 사용자 정의할 수 있습니다. |
 
 #### addResourceAttributes
@@ -270,23 +270,27 @@ addResourceAttributes(mapOf(
 
 OpenTelemetry 기능은 에이전트의 다양한 작업을 추적하기 위해 자동으로 여러 유형의 스팬을 생성합니다:
 
--   **CreateAgentSpan**: 에이전트를 실행할 때 생성되며, 에이전트가 종료되거나 프로세스가 종료될 때 닫힙니다.
--   **InvokeAgentSpan**: 에이전트 호출.
--   **NodeExecuteSpan**: 에이전트 전략에서 노드의 실행. 이는 Koog 고유의 사용자 정의 스팬입니다.
--   **InferenceSpan**: LLM 호출.
--   **ExecuteToolSpan**: 도구 호출.
+- **CreateAgentSpan**: 에이전트를 실행할 때 생성되며, 에이전트가 종료되거나 프로세스가 종료될 때 닫힙니다.
+- **InvokeAgentSpan**: 에이전트 호출.
+- **StrategySpan**: 에이전트 전략의 실행(최상위 실행 흐름).
+- **NodeExecuteSpan**: 에이전트 전략에서 노드의 실행. 이는 Koog 고유의 사용자 정의 스팬입니다.
+- **SubgraphExecuteSpan**: 에이전트 전략 내 서브그래프의 실행. 이는 Koog 고유의 사용자 정의 스팬입니다.
+- **InferenceSpan**: LLM 호출.
+- **ExecuteToolSpan**: 도구 호출.
 
 스팬은 중첩된 계층 구조로 구성됩니다. 다음은 스팬 구조의 예시입니다:
 
 ```text
 CreateAgentSpan
     InvokeAgentSpan
-        NodeExecuteSpan
-            InferenceSpan
-        NodeExecuteSpan
-            ExecuteToolSpan
-        NodeExecuteSpan
-            InferenceSpan    
+        StrategySpan
+            NodeExecuteSpan
+                InferenceSpan
+            NodeExecuteSpan
+                ExecuteToolSpan
+            SubgraphExecuteSpan
+                NodeExecuteSpan
+                    InferenceSpan
 ```
 
 ### 스팬 속성
@@ -297,23 +301,26 @@ Koog는 OpenTelemetry의 [생성형 AI 이벤트에 대한 시맨틱 컨벤션](
 
 또한 Koog는 Koog 고유의 사용자 정의 속성을 포함합니다. 대부분의 속성은 `koog.` 접두사로 식별할 수 있습니다. 사용 가능한 사용자 정의 속성은 다음과 같습니다:
 
-- `koog.agent.strategy.name`: 에이전트 전략의 이름. 전략은 에이전트의 목적을 설명하는 Koog 관련 엔티티입니다. `InvokeAgentSpan` 스팬에서 사용됩니다.
-- `koog.node.name`: 실행 중인 노드의 이름. `NodeExecuteSpan` 스팬에서 사용됩니다.
+- `koog.strategy.name`: 에이전트 전략의 이름. 전략은 에이전트의 목적을 설명하는 Koog 관련 엔티티입니다. `StrategySpan` 스팬에서 사용됩니다.
+- `koog.node.id`: 실행 중인 노드의 식별자(이름). `NodeExecuteSpan` 스팬에서 사용됩니다.
 - `koog.node.input`: 실행 시작 시 노드에 전달된 입력. 노드가 시작될 때 `NodeExecuteSpan`에 존재합니다.
 - `koog.node.output`: 완료 시 노드가 생성한 출력. 노드가 성공적으로 완료될 때 `NodeExecuteSpan`에 존재합니다.
+- `koog.subgraph.id`: 실행 중인 서브그래프의 식별자(이름). `SubgraphExecuteSpan` 스팬에서 사용됩니다.
+- `koog.subgraph.input`: 실행 시작 시 서브그래프에 전달된 입력. 서브그래프가 시작될 때 `SubgraphExecuteSpan`에 존재합니다.
+- `koog.subgraph.output`: 완료 시 서브그래프가 생성한 출력. 서브그래프가 성공적으로 완료될 때 `SubgraphExecuteSpan`에 존재합니다.
 
 ### 이벤트
 
-스팬에는 _이벤트_가 첨부될 수도 있습니다. 이벤트는 관련 있는 일이 발생한 특정 시점을 설명합니다. 예를 들어, LLM 호출이 시작되거나 종료될 때. 이벤트는 속성을 가지며, 추가적으로 이벤트 _본문 필드_를 포함합니다.
+스팬에는 스팬에 첨부된 _이벤트_도 있을 수 있습니다. 이벤트는 관련 있는 일이 발생한 특정 시점을 설명합니다. 예를 들어, LLM 호출이 시작되거나 종료될 때. 이벤트는 속성을 가지며, 추가적으로 이벤트 _본문 필드_를 포함합니다.
 
 OpenTelemetry의 [생성형 AI 이벤트에 대한 시맨틱 컨벤션](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/)에 따라 다음 이벤트 유형이 지원됩니다:
 
--   **SystemMessageEvent**: 모델에 전달된 시스템 지시사항.
--   **UserMessageEvent**: 모델에 전달된 사용자 메시지.
--   **AssistantMessageEvent**: 모델에 전달된 어시스턴트 메시지.
--   **ToolMessageEvent**: 모델에 전달된 도구 또는 함수 호출의 응답.
--   **ChoiceEvent**: 모델의 응답 메시지.
--   **ModerationResponseEvent**: 모델의 조정 결과 또는 신호.
+- **SystemMessageEvent**: 모델에 전달된 시스템 지시사항.
+- **UserMessageEvent**: 모델에 전달된 사용자 메시지.
+- **AssistantMessageEvent**: 모델에 전달된 어시스턴트 메시지.
+- **ToolMessageEvent**: 모델에 전달된 도구 또는 함수 호출의 응답.
+- **ChoiceEvent**: 모델의 응답 메시지.
+- **ModerationResponseEvent**: 모델의 조정 결과 또는 신호.
 
 !!! note
     `opentelemetry-java` SDK는 이벤트를 추가할 때 이벤트 본문 필드 매개변수를 지원하지 않습니다. 따라서 Koog의 OpenTelemetry 지원에서는 이벤트 본문 필드가 키가 `body`이고 값 유형이 문자열인 별도의 속성으로 처리됩니다. 이 문자열에는 일반적으로 JSON과 같은 객체인 이벤트 본문 필드의 내용 또는 페이로드가 포함됩니다. 이벤트 본문 필드의 예시는 [OpenTelemetry 문서](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/#examples)를 참조하세요. `opentelemetry-java`의 이벤트 본문 필드 지원 상태는 관련 [GitHub 이슈](https://github.com/open-telemetry/semantic-conventions/issues/1870)를 참조하세요.
@@ -600,19 +607,19 @@ Check Jaeger UI at http://localhost:16686 to view traces")
 
 ### 일반적인 문제
 
-1.  **Jaeger, Langfuse 또는 W&B Weave에 추적이 나타나지 않음**
-    -   서비스가 실행 중이고 OpenTelemetry 포트(4317)에 접근 가능한지 확인하십시오.
-    -   OpenTelemetry 익스포터가 올바른 엔드포인트로 구성되었는지 확인하십시오.
-    -   추적을 내보내기 위해 에이전트 실행 후 몇 초 정도 기다려야 합니다.
+1. **Jaeger, Langfuse 또는 W&B Weave에 추적이 나타나지 않음**
+    - 서비스가 실행 중이고 OpenTelemetry 포트(4317)에 접근 가능한지 확인하십시오.
+    - OpenTelemetry 익스포터가 올바른 엔드포인트로 구성되었는지 확인하십시오.
+    - 추적을 내보내기 위해 에이전트 실행 후 몇 초 정도 기다려야 합니다.
 
-2.  **스팬 누락 또는 불완전한 추적**
-    -   에이전트 실행이 성공적으로 완료되는지 확인하십시오.
-    -   에이전트 실행 후 너무 빨리 애플리케이션을 닫지 않도록 하십시오.
-    -   스팬이 내보내질 시간을 허용하도록 에이전트 실행 후 지연을 추가하십시오.
+2. **스팬 누락 또는 불완전한 추적**
+    - 에이전트 실행이 성공적으로 완료되는지 확인하십시오.
+    - 에이전트 실행 후 너무 빨리 애플리케이션을 닫지 않도록 하십시오.
+    - 스팬이 내보내질 시간을 허용하도록 에이전트 실행 후 지연을 추가하십시오.
 
-3.  **과도한 수의 스팬**
-    -   `sampler` 속성을 구성하여 다른 샘플링 전략을 사용하는 것을 고려하십시오.
-    -   예를 들어, 추적의 10%만 샘플링하려면 `Sampler.traceIdRatioBased(0.1)`을 사용하십시오.
+3. **과도한 수의 스팬**
+    - `sampler` 속성을 구성하여 다른 샘플링 전략을 사용하는 것을 고려하십시오.
+    - 예를 들어, 추적의 10%만 샘플링하려면 `Sampler.traceIdRatioBased(0.1)`을 사용하십시오.
 
-4.  **스팬 어댑터가 서로를 재정의합니다**
-    -   현재 OpenTelemetry 에이전트 기능은 여러 스팬 어댑터를 적용하는 것을 지원하지 않습니다 [KG-265](https://youtrack.jetbrains.com/issue/KG-265/Adding-Weave-exporter-breaks-Langfuse-exporter).
+4. **스팬 어댑터가 서로를 재정의합니다**
+    - 현재 OpenTelemetry 에이전트 기능은 여러 스팬 어댑터를 적용하는 것을 지원하지 않습니다 [KG-265](https://youtrack.jetbrains.com/issue/KG-265/Adding-Weave-exporter-breaks-Langfuse-exporter).

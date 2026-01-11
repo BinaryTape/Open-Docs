@@ -12,7 +12,7 @@ Kotlin/Native 编译器持续接收更新，以提升其性能。借助于最新
 
 这样你总能获得最新的性能改进。最新的 Kotlin 版本是 %kotlinVersion%。
 
-### 避免创建大型类
+### 避免创建巨型类
 
 尽量避免创建编译和执行加载耗时较长的巨型类。
 
@@ -20,7 +20,7 @@ Kotlin/Native 编译器持续接收更新，以提升其性能。借助于最新
 
 编译项目时，Kotlin/Native 会下载所需组件并缓存部分工作成果到 `$USER_HOME/.konan` 目录。编译器会利用此目录进行后续编译，从而缩短编译完成时间。
 
-在容器（例如 Docker）中或使用持续集成系统进行构建时，编译器可能需要在每次构建时从头创建 `~/.konan` 目录。为避免此步骤，请配置你的环境，以在构建之间保留 `~/.konan`。例如，可以使用 `kotlin.data.dir` Gradle 属性重新定义其位置。
+在容器（例如 Docker）中或使用持续集成系统进行构建时，编译器可能需要在每次构建时从头创建 `~/.konan` 目录。为避免此步骤，请配置你的环境，以在构建之间保留 `~/.konan`。例如，可以使用 `konan.data.dir` Gradle 属性重新定义其位置。
 
 另外，你也可以通过 `cinterop` 和 `konanc` 工具，使用 `-Xkonan-data-dir` 编译器选项配置目录的自定义路径。
 
@@ -62,7 +62,7 @@ Kotlin/Native 编译器持续接收更新，以提升其性能。借助于最新
 
 Kotlin/Native 支持两种构建模式：[调试和发布](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#declare-binaries)。发布模式经过高度优化，这会耗费大量时间：发布二进制文件的编译时间比调试二进制文件长一个数量级。
 
-除了实际发布之外，所有这些优化在典型开发周期中可能是不必要的。如果在开发过程中使用了名称中包含 `Release` 的任务，请考虑将其替换为 `Debug`。类似地，你可以运行 `assembleSharedDebugXCFramework`，而不是运行 `assembleXCFramework`。
+除了实际发布之外，所有这些优化在典型开发周期中可能是不必要的。如果在开发过程中使用了名称中包含 `Release` 的任务，请考虑将其替换为 `Debug`。类似地，你可以运行 `assembleSharedDebugXCFramework`，而不是运行 `assembleXCFramework`，例如。
 
 > 发布二进制文件是使用 `linkRelease*` Gradle 任务构建的。你可以在构建日志中或通过使用 `--scan` 选项运行 Gradle 构建来在 [Gradle 构建扫描](https://docs.gradle.org/current/userguide/build_scans.html) 中检查它们。
 >

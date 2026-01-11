@@ -31,7 +31,7 @@ val prompt = prompt(
 ```
 <!--- KNIT example-llm-parameters-01.kt -->
 
-有關提示建立的更多資訊，請參閱 [Prompts](prompts/structured-prompts.md)。
+有關提示建立的更多資訊，請參閱 [Prompts](prompts/prompt-creation/index.md)。
 
 - 建立子圖時：
 
@@ -192,10 +192,10 @@ val standardJsonParams = LLMParams(
                     "items" to JsonObject(mapOf(
                         "type" to JsonPrimitive("object"),
                         "properties" to JsonObject(mapOf(
-                            "id" to JsonObject(mapOf("type" to JsonPrimitive("string"))),
-                            "name" to JsonObject(mapOf("type" to JsonPrimitive("string"))),
-                            "price" to JsonObject(mapOf("type" to JsonPrimitive("number"))),
-                            "description" to JsonObject(mapOf("type" to JsonPrimitive("string")))
+                            "id" to JsonPrimitive("string")),
+                            "name" to JsonPrimitive("string")),
+                            "price" to JsonPrimitive("number")),
+                            "description" to JsonPrimitive("string")))
                         )),
                         "additionalProperties" to JsonPrimitive(false),
                         "required" to JsonArray(listOf(JsonPrimitive("id"), JsonPrimitive("name"), JsonPrimitive("price"), JsonPrimitive("description")))

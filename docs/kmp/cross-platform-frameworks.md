@@ -2,27 +2,55 @@
 
 [//]: # (description:本文介绍了六大热门跨平台应用开发框架，并解释了为项目选择跨平台工具时需要考虑的关键事项。)
 
-多年来，跨平台应用开发已成为构建移动应用程序最流行的方式之一。跨平台或多平台方法允许开发者创建在不同移动平台上类似运行的应用。
+多年来，跨平台应用开发已成为构建移动应用程序最流行的方式之一。
+跨平台，或称多平台，方法允许开发者创建在不同移动平台上类似运行的应用。
 
 如下图所示，自 2010 年至今，兴趣稳步增长：
 
 ![Google 趋势图，显示对跨平台应用开发的兴趣](google-trends-cross-platform.png){width=700}
 
-快速发展的[跨平台移动开发](cross-platform-mobile-development.md#kotlin-multiplatform)技术日益普及，促使许多新工具应运而生。面对众多选择，可能难以选择最适合您需求的一个。为了帮助您找到合适的工具，我们整理了六款最佳跨平台应用开发框架及其出色的特性。在本文末尾，您还将找到为您的业务选择多平台开发框架时需要注意的一些关键事项。
+快速发展的[跨平台移动开发](cross-platform-mobile-development.md#kotlin-multiplatform)技术日益普及，促使许多新工具应运而生。
+面对众多选择，可能难以选择最适合您需求的一个。
+为了帮助您找到合适的工具，我们整理了六款最佳跨平台应用开发框架及其出色的特性。
+在本文末尾，您还将找到为您的业务选择多平台开发框架时需要注意的一些关键事项。
 
 ## 什么是跨平台应用开发框架？
 
-移动工程师使用跨平台移动开发框架，通过单一代码库为 Android 和 iOS 等多个平台构建具有原生外观的应用程序。可共享代码是这种方法相对于原生应用开发的关键优势之一。拥有单一代码库意味着移动工程师可以节省时间，避免为每个操作系统编写代码，从而加速开发过程。
+移动工程师使用跨平台移动开发框架，通过单一代码库为 Android 和 iOS 等多个平台构建具有原生外观的应用程序。
+可共享代码是这种方法相对于原生应用开发的关键优势之一。
+拥有单一代码库意味着移动工程师可以节省时间，避免为每个操作系统编写代码，从而加速开发过程。
 
 ## 热门跨平台应用开发框架
 
-此列表并非详尽无遗；目前市场上有许多其他选项。重要的是要认识到，没有一刀切的工具能适合所有人。框架的选择主要取决于您的特定项目和目标，以及我们将在文章末尾介绍的其他具体事项。
+此列表并非详尽无遗；目前市场上有许多其他选项。重要的是要认识到，
+没有一刀切的工具能适合所有人。
+框架的选择主要取决于您的特定项目和目标，以及我们将在文章末尾介绍的其他具体事项。
 
 尽管如此，我们还是尝试挑选出一些最佳的跨平台移动开发框架，为您提供决策的起点。
 
+### Kotlin Multiplatform
+
+[Kotlin Multiplatform (KMP)](https://kotlinlang.org/multiplatform/) 是 JetBrains 构建的一项开源技术，它允许跨平台共享代码，同时保留原生编程的优势。它使开发者能够尽可能多地重用代码，如果需要则编写原生代码，并将共享的 Kotlin 代码无缝集成到任何项目中。您可以将 Kotlin 与 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)（一个现代声明式跨平台 UI 框架）结合使用，以共享高达 100% 的应用代码，包括 UI。
+
+**编程语言：** Kotlin。
+
+**移动应用示例：** Duolingo、麦当劳、Netflix、福布斯、9GAG、Cash App、飞利浦。[关于 Kotlin Multiplatform 案例研究请参阅更多](https://kotlinlang.org/case-studies/?type=multiplatform)。
+
+**主要特性：**
+
+*   开发者可以在 Android、iOS、Web、桌面和服务器端重用代码，同时如果需要则保留原生代码。
+*   Kotlin Multiplatform 可以无缝集成到任何项目中。开发者可以利用平台特有的 API，同时充分利用原生开发和跨平台开发的优势。
+*   借助 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)，开发者拥有完整的代码共享灵活性，并能够同时共享逻辑和 UI。
+*   如果您已经将 Kotlin 用于 Android，则无需将新语言引入您的代码库。您可以重用您的 Kotlin 代码和专业知识，这使得迁移到 Kotlin Multiplatform 的风险低于其他技术。
+
+尽管这款跨平台移动开发框架是我们列表中最年轻的框架之一，但它拥有一个成熟的社区。2023 年 11 月，JetBrains 将其提升为稳定版。在 2024 年 Google I/O 大会上，Google 宣布[官方支持使用 Kotlin Multiplatform 在 Android 和 iOS 之间共享业务逻辑](https://android-developers.googleblog.com/2024/05/android-support-for-kotlin-multiplatform-to-share-business-logic-across-mobile-web-server-desktop.html)。凭借其定期更新的[文档](get-started.topic)和社区支持，您总能找到问题的答案。更重要的是，许多[全球公司和初创企业已经使用 Kotlin Multiplatform](https://kotlinlang.org/case-studies/?type=multiplatform) 来开发具有类似原生用户体验的多平台应用。
+
+[![开启您的 Kotlin Multiplatform 之旅](kmp-journey-start.svg){width="700"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)
+
 ### Flutter
 
-Flutter 由 Google 于 2017 年发布，是一款热门框架，可用于从单一代码库构建移动、Web 和桌面应用。要使用 Flutter 构建应用程序，您需要使用 Google 的编程语言 Dart。
+Flutter 由 Google 于 2017 年发布，是一款热门框架，可用于从单一代码库构建移动、Web 和桌面应用。
+要使用 Flutter 构建应用程序，您需要使用 Google 的编程语言 Dart。
 
 **编程语言：** Dart。
 
@@ -31,10 +59,12 @@ Flutter 由 Google 于 2017 年发布，是一款热门框架，可用于从单�
 **主要特性：**
 
 *   Flutter 的热重载特性让您可以在修改代码后立即看到应用程序的变化，而无需重新编译。
-*   Flutter 支持 Google 的 Material Design，这是一种帮助开发者构建数字体验的设计系统。在构建应用时，您可以使用多种视觉和行为组件。
+*   Flutter 支持 Google 的 Material Design，这是一种帮助开发者构建数字体验的设计系统。
+在构建应用时，您可以使用多种视觉和行为组件。
 *   Flutter 不依赖于 Web 浏览器技术。相反，它拥有自己的渲染引擎来绘制组件。
 
-Flutter 在全球拥有相对活跃的用户社区，并被许多开发者广泛使用。根据 [Stack Overflow 趋势](https://insights.stackoverflow.com/trends?tags=flutter%2Creact-native)显示，基于相应标签使用量的增加，Flutter 的使用量呈上升趋势。
+Flutter 在全球拥有相对活跃的用户社区，并被许多开发者广泛使用。
+根据 [Stack Overflow 趋势](https://insights.stackoverflow.com/trends?tags=flutter%2Creact-native)显示，基于相应标签使用量的增加，Flutter 的使用量呈上升趋势。
 
 > 深入了解 [Kotlin Multiplatform 和 Flutter](kotlin-multiplatform-flutter.md)，以了解它们的优势并为您的跨平台开发选择最适合的方案。
 > 
@@ -55,25 +85,6 @@ React Native 是一个开源 UI 软件框架，由 Meta Platforms（前身为 Fa
 *   在 0.62 及更高版本中，React Native 与移动应用调试器 Flipper 之间的集成默认启用。Flipper 用于调试 Android、iOS 和 React Native 应用，它提供了日志查看器、交互式布局检查器和网络检查器等工具。
 
 作为最热门的跨平台应用开发框架之一，React Native 拥有庞大而强大的开发者社区，他们分享自己的技术知识。借助这个社区，您在用该框架构建移动应用时可以获得所需的支持。
-
-### Kotlin Multiplatform
-
-Kotlin Multiplatform (KMP) 是 JetBrains 构建的一项开源技术，它允许跨平台共享代码，同时保留原生编程的优势。它使开发者能够尽可能多地重用代码，如果需要则编写原生代码，并将共享的 Kotlin 代码无缝集成到任何项目中。
-
-**编程语言：** Kotlin。
-
-**移动应用示例：** 麦当劳、Netflix、福布斯、9GAG、Cash App、飞利浦。[关于 Kotlin Multiplatform 案例研究请参阅更多](https://kotlinlang.org/case-studies/?type=multiplatform)。
-
-**主要特性：**
-
-*   开发者可以在 Android、iOS、Web、桌面和服务器端重用代码，同时如果需要则保留原生代码。
-*   Kotlin Multiplatform 可以无缝集成到任何项目中。开发者可以利用平台特有的 API，同时充分利用原生开发和跨平台开发的优势。
-*   借助 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)（JetBrains 推出的一款现代声明式跨平台 UI 框架），开发者拥有完整的代码共享灵活性，并能够同时共享逻辑和 UI。
-*   如果您已经将 Kotlin 用于 Android，则无需将新语言引入您的代码库。您可以重用您的 Kotlin 代码和专业知识，这使得迁移到 Kotlin Multiplatform 的风险低于其他技术。
-
-尽管这款跨平台移动开发框架是我们列表中最年轻的框架之一，但它拥有一个成熟的社区。2023 年 11 月，JetBrains 将其提升为[稳定版](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)。它正在快速发展，并已在当今市场留下深刻印象。凭借其定期更新的[文档](get-started.topic)和社区支持，您总能找到问题的答案。更重要的是，许多[全球公司和初创企业已经使用 Kotlin Multiplatform](https://kotlinlang.org/case-studies/?type=multiplatform) 来开发具有类似原生用户体验的多平台应用。
-
-[![开启您的 Kotlin Multiplatform 之旅](kmp-journey-start.svg){width="700"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)
 
 ### Ionic
 

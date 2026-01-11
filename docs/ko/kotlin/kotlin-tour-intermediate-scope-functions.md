@@ -3,15 +3,15 @@
 <no-index/>
 
 <tldr>
-    <p><img src="icon-1-done.svg" width="20" alt="First step" /> <a href="kotlin-tour-intermediate-extension-functions.md">확장 함수</a><br />
-        <img src="icon-2.svg" width="20" alt="Second step" /> <strong>스코프 함수</strong><br />
-        <img src="icon-3-todo.svg" width="20" alt="Third step" /> <a href="kotlin-tour-intermediate-lambdas-receiver.md">수신자를 가진 람다 표현식</a><br />
-        <img src="icon-4-todo.svg" width="20" alt="Fourth step" /> <a href="kotlin-tour-intermediate-classes-interfaces.md">클래스와 인터페이스</a><br />
-        <img src="icon-5-todo.svg" width="20" alt="Fifth step" /> <a href="kotlin-tour-intermediate-objects.md">객체</a><br />
-        <img src="icon-6-todo.svg" width="20" alt="Sixth step" /> <a href="kotlin-tour-intermediate-open-special-classes.md">open 및 특수 클래스</a><br />
-        <img src="icon-7-todo.svg" width="20" alt="Seventh step" /> <a href="kotlin-tour-intermediate-properties.md">프로퍼티</a><br />
-        <img src="icon-8-todo.svg" width="20" alt="Eighth step" /> <a href="kotlin-tour-intermediate-null-safety.md">널 안정성</a><br />
-        <img src="icon-9-todo.svg" width="20" alt="Ninth step" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">라이브러리 및 API</a></p>
+    <p><img src="icon-1-done.svg" width="20" alt="첫 번째 단계" /> <a href="kotlin-tour-intermediate-extension-functions.md">확장 함수</a><br />
+        <img src="icon-2.svg" width="20" alt="두 번째 단계" /> <strong>스코프 함수</strong><br />
+        <img src="icon-3-todo.svg" width="20" alt="세 번째 단계" /> <a href="kotlin-tour-intermediate-lambdas-receiver.md">수신자를 가진 람다 표현식</a><br />
+        <img src="icon-4-todo.svg" width="20" alt="네 번째 단계" /> <a href="kotlin-tour-intermediate-classes-interfaces.md">클래스와 인터페이스</a><br />
+        <img src="icon-5-todo.svg" width="20" alt="다섯 번째 단계" /> <a href="kotlin-tour-intermediate-objects.md">객체</a><br />
+        <img src="icon-6-todo.svg" width="20" alt="여섯 번째 단계" /> <a href="kotlin-tour-intermediate-open-special-classes.md">open 및 특수 클래스</a><br />
+        <img src="icon-7-todo.svg" width="20" alt="일곱 번째 단계" /> <a href="kotlin-tour-intermediate-properties.md">프로퍼티</a><br />
+        <img src="icon-8.svg" width="20" alt="여덟 번째 단계" /> <a href="kotlin-tour-intermediate-null-safety.md">널 안정성</a><br />
+        <img src="icon-9.svg" width="20" alt="아홉 번째 단계" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">라이브러리 및 API</a></p>
 </tldr>
 
 이 챕터에서는 확장 함수에 대한 이해를 바탕으로 스코프 함수를 사용하여 더욱 관용적인 코드를 작성하는 방법을 배웁니다.
@@ -115,7 +115,7 @@ fun main() {
 {kotlin-runnable="true" id="kotlin-tour-scope-function-let-non-null"}
 
 이 예시는 다음을 수행합니다:
-*   `confirm`이라는 변수를 생성합니다.
+*   `address`와 `confirm`이라는 변수를 생성합니다.
 *   `address` 변수에 대해 `let` 스코프 함수에 안전 호출을 사용합니다.
 *   `let` 스코프 함수 내부에 임시 스코프를 생성합니다.
 *   `sendNotification()` 함수를 람다 표현식으로 `let` 스코프 함수에 전달합니다.
@@ -135,7 +135,10 @@ class Client() {
     var token: String? = null
     fun connect() = println("connected!")
     fun authenticate() = println("authenticated!")
-    fun getData(): String = "Mock data"
+    fun getData() : String {
+        println("getting data!")
+        return "Mock data"
+    }
 }
 
 val client = Client()
@@ -147,6 +150,7 @@ fun main() {
     client.authenticate()
     // authenticated!
     client.getData()
+    // getting data!
 }
 ```
 {kotlin-runnable="true" id="kotlin-tour-scope-function-apply-before"}
@@ -162,19 +166,23 @@ class Client() {
     var token: String? = null
     fun connect() = println("connected!")
     fun authenticate() = println("authenticated!")
-    fun getData(): String = "Mock data"
+    fun getData() : String {
+        println("getting data!")
+        return "Mock data"
+    }
 }
 //sampleStart
 val client = Client().apply {
     token = "asdf"
     connect()
+    // connected!
     authenticate()
+    // authenticated!
 }
 
 fun main() {
     client.getData()
-    // connected!
-    // authenticated!
+    // getting data!
 }
 //sampleEnd
 ```
@@ -203,7 +211,10 @@ class Client() {
     var token: String? = null
     fun connect() = println("connected!")
     fun authenticate() = println("authenticated!")
-    fun getData(): String = "Mock data"
+    fun getData() : String {
+        println("getting data!")
+        return "Mock data"
+    }
 }
 
 //sampleStart
@@ -218,6 +229,7 @@ fun main() {
         authenticate()
         // authenticated!
         getData()
+        // getting data!
     }
 }
 //sampleEnd
@@ -395,7 +407,8 @@ fun main() {
 
 <deflist collapsible="true">
     <def title="힌트">
-        안전 호출 연산자 <code>?.</code>를 사용하여 <code>getProductInfo()</code> 함수에서 <code>priceInDollars</code> 프로퍼티에 안전하게 접근하세요. 그런 다음 <code>let</code> 스코프 함수를 사용하여 <code>priceInDollars</code> 값을 유로로 변환하세요.
+        안전 호출 연산자 <code>?.</code>를 사용하여 <code>priceInDollars</code> 프로퍼티를 <code>getProductInfo()</code>
+        함수에서 안전하게 접근하세요. 그런 다음 <code>let</code> 스코프 함수를 사용하여 <code>priceInDollars</code> 값을 유로로 변환하세요.
     </def>
 </deflist>
 

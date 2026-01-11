@@ -1,8 +1,8 @@
 [//]: # (title: 參與 Kotlin 搶先體驗計畫)
 
 <tldr>
-    <p>目前沒有可用的預覽版本。</p>
-    <!--<p>Latest Kotlin EAP release: <strong>%kotlinEapVersion%</strong></p>  -->
+    <!--<p>No preview versions are currently available.</p>-->
+    <p>最新 Kotlin EAP 版本：<strong>%kotlinEapVersion%</strong></p>
 </tldr>
 
 您可以參與 Kotlin 搶先體驗計畫 (EAP)，在新功能發布前搶先體驗最新的 Kotlin 功能。
@@ -33,21 +33,21 @@
 
 ## 組建詳細資訊
 
-_目前沒有可用的預覽版本。_
+<!-- _No preview versions are currently available._ -->
 
-<!-- <table>
+ <table>
     <tr>
-        <th>Build info</th>
-        <th>Build highlights</th>
+        <th>組建資訊</th>
+        <th>組建亮點</th>
     </tr>
     <tr>
-        <td><strong>2.3.0-RC3</strong>
-            <p>Released: <strong>December 9, 2025</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC3" target="_blank">Release on GitHub</a></p>
+        <td><strong>2.3.20-Beta1</strong>
+            <p>發布日期：<strong>2026 年 1 月 8 日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20-Beta1" target="_blank">GitHub 發布頁面</a></p>
         </td>
         <td>
-            <p>A language release with previews of new features and tooling updates.</p>
-            <p>For more details, please refer to the <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC3">changelog</a> or <a href="whatsnew-eap.md">What's new in Kotlin 2.3.0-RC3</a>.</p>
+            <p>一個工具版本，包含效能改進、錯誤修復和工具更新。</p>
+            <p>如需更多詳細資訊，請參考<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20-Beta1">變更日誌</a>。</p>
         </td>
     </tr>
-</table> -->
+</table>

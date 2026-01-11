@@ -59,7 +59,7 @@ _Experimental_、_Alpha_、_Beta_を総称して**プレ安定版**レベルと�
 >
 {style="note"}
 
-### Kotlin compiler
+### Kotlinコンパイラ
 
 | **コンポーネント**                                                  | **ステータス** | **バージョンからのステータス** | **コメント** |
 |---------------------------------------------------------------------|------------|--------------------------|--------------|
@@ -77,7 +77,7 @@ _Experimental_、_Alpha_、_Beta_を総称して**プレ安定版**レベルと�
 | [No-arg](no-arg-plugin.md)                       | Stable       | 1.3.0                    |              |
 | [SAM-with-receiver](sam-with-receiver-plugin.md) | Stable       | 1.3.0                    |              |
 | [kapt](kapt.md)                                  | Stable       | 1.3.0                    |              |
-| [Lombok](lombok.md)                              | Alpha        | 2.3.0                    |              |
+| [Lombok](lombok.md)                              | Experimental | 1.5.20                   |              |
 | [Power-assert](power-assert.md)                  | Experimental | 2.0.0                    |              |
 
 ### Kotlin libraries

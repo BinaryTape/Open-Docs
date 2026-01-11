@@ -6,7 +6,7 @@ FunctionalAIAgent 是一种轻量级的非图谱代理，你可以通过一个�
 - 返回最终值（字符串、data class 等），而无需构建完整的策略图谱。
 
 在本指南中你将完成：
-1) 创建一个“Hello, World”FunctionalAIAgent。
+1) 创建一个“Hello, World” FunctionalAIAgent。
 2) 添加一个工具并让代理调用它。
 3) 添加一个特性（事件处理器）以观察行为。
 4) 通过历史压缩控制上下文。
@@ -95,7 +95,7 @@ println("Switch is ${if (sw.isOn()) "on" else "off"}")
 工作原理
 - `containsToolCalls()` 检测 LLM 的工具调用消息。
 - `extractToolCalls(...)` 读取要运行哪些工具以及使用哪些实参。
-- `executeMultipleTools(...)` 根据你的 ToolRegistry 运行它们。
+- `executeMultipleTools(...)` 根据你的 `ToolRegistry` 运行它们。
 - `sendMultipleToolResults(...)` 将结果发送回 LLM 并获取下一个响应。
 
 ## 4) 使用特性观察行为 (EventHandler)
@@ -125,7 +125,7 @@ val observed = functionalAIAgent<String, String>(
 }
 ```
 
-你可以通过这种方式安装的其他特性包括流式传输令牌和跟踪；请参阅侧边栏中相关的文档。
+你可以通过这种方式安装的其他特性包括流式传输令牌和跟踪；请参见侧边栏中相关的文档。
 
 ## 5) 控制上下文（历史压缩）
 长时间的对话可能会超出模型的上下文窗口。使用令牌用量来决定何时压缩历史记录：
@@ -153,7 +153,7 @@ while (responses.containsToolCalls()) {
 - 每个请求一个代理实例
   - 每个代理实例在任一时刻都是单次运行的。如果需要并发，请创建新的实例。
 - 自定义输出类型
-  - 更改 `functionalAIAgent<String, MyResult>` 并从循环中返回一个 data class。
+  - 更改 `functionalAIAgent<String, MyResult>` 并从循环中返回一个 `data class`。
 
 ## 故障排除与陷阱
 - “Agent is already running”
@@ -171,7 +171,7 @@ while (responses.containsToolCalls()) {
 ```kotlin
 fun <Input, Output> functionalAIAgent(
     promptExecutor: PromptExecutor,
-    agentConfig: AIAgentConfigBase,
+    agentConfig: AIAgentConfig,
     toolRegistry: ToolRegistry = ToolRegistry.EMPTY,
     loop: suspend AIAgentFunctionalContext.(input: Input) -> Output
 ): AIAgent<Input, Output>

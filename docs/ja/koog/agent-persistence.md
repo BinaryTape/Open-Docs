@@ -69,9 +69,9 @@ val agent = AIAgent(
 
 エージェントの永続化機能には、主に3つの設定オプションがあります。
 
-- **ストレージプロバイダー**: チェックポイントを保存および取得するために使用されるプロバイダー。
-- **継続的な永続化**: 各ノードの実行後にチェックポイントを自動的に作成する機能。
-- **ロールバック戦略**: チェックポイントにロールバックする際に、どの状態が復元されるかを決定します。
+-   **ストレージプロバイダー**: チェックポイントを保存および取得するために使用されるプロバイダー。
+-   **継続的な永続化**: 各ノードの実行後にチェックポイントを自動的に作成する機能。
+-   **ロールバック戦略**: チェックポイントにロールバックする際に、どの状態が復元されるかを決定します。
 
 ### ストレージプロバイダー
 
@@ -103,9 +103,9 @@ install(Persistence) {
 
 フレームワークには、以下の組み込みプロバイダーが含まれています。
 
-- `InMemoryPersistenceStorageProvider`: チェックポイントをメモリに保存します（アプリケーションの再起動時に失われます）。
-- `FilePersistenceStorageProvider`: チェックポイントをファイルシステムに永続化します。
-- `NoPersistenceStorageProvider`: チェックポイントを保存しない何もしない (no-op) 実装です。これがデフォルトのプロバイダーです。
+-   `InMemoryPersistenceStorageProvider`: チェックポイントをメモリに保存します（アプリケーションの再起動時に失われます）。
+-   `FilePersistenceStorageProvider`: チェックポイントをファイルシステムに永続化します。
+-   `NoPersistenceStorageProvider`: チェックポイントを保存しない何もしない (no-op) 実装です。これがデフォルトのプロバイダーです。
 
 `PersistenceStorageProvider`インターフェースを実装することで、カスタムストレージプロバイダーを実装することもできます。
 詳細については、[カスタムストレージプロバイダー](#custom-storage-providers)を参照してください。
@@ -177,9 +177,9 @@ install(Persistence) {
 エージェントを停止した正確な実行ポイント（戦略グラフ内のノード）に復元します。
 これは、以下を含むコンテキスト全体が復元されることを意味します。
 
-- メッセージ履歴
-- 現在実行中のノード
-- その他のステートフルなデータ
+-   メッセージ履歴
+-   現在実行中のノード
+-   その他のステートフルなデータ
 
 この戦略は、停止した正確なポイントから再開する必要がある複雑なフォールトトレラントなエージェントを構築する際に特に役立ちます。
 
@@ -226,18 +226,18 @@ import ai.koog.agents.core.agent.context.AIAgentContext
 import ai.koog.agents.snapshot.feature.persistence
 import kotlin.reflect.typeOf
 
-const val inputData = "some-input-data"
-val inputType = typeOf<String>()
+const val outputData = "some-output-data"
+val outputType = typeOf<String>()
 -->
 
 ```kotlin
 suspend fun example(context: AIAgentContext) {
     // 現在の状態を含むチェックポイントを作成します
-    val checkpoint = context.persistence().createCheckpoint(
+    val checkpoint = context.persistence().createCheckpointAfterNode(
         agentContext = context,
         nodePath = context.executionInfo.path(),
-        lastInput = inputData,
-        lastInputType = inputType,
+        lastOutput = outputData,
+        lastOutputType = outputType,
         checkpointId = context.runId,
         version = 0L
     )
@@ -298,7 +298,6 @@ import ai.koog.agents.snapshot.providers.InMemoryPersistenceStorageProvider
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 import ai.koog.agents.snapshot.feature.RollbackToolRegistry
-import ai.koog.agents.snapshot.feature.registerRollback
 
 fun createUser(name: String) {}
 
@@ -333,8 +332,8 @@ install(Persistence) {
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.context.AIAgentContext
-import ai.koog.agents.example.exampleAgentPersistence06.inputData
-import ai.koog.agents.example.exampleAgentPersistence06.inputType
+import ai.koog.agents.example.exampleAgentPersistence06.outputData
+import ai.koog.agents.example.exampleAgentPersistence06.outputType
 import ai.koog.agents.snapshot.feature.persistence
 import ai.koog.agents.snapshot.feature.withPersistence
 -->
@@ -347,11 +346,11 @@ suspend fun example(context: AIAgentContext) {
     // またはチェックポイント機能を使用してアクションを実行します
     context.withPersistence { ctx ->
         // 'this' はチェックポイント機能です
-        createCheckpoint(
+        createCheckpointAfterNode(
             agentContext = ctx,
             nodePath = ctx.executionInfo.path(),
-            lastInput = inputData,
-            lastInputType = inputType,
+            lastOutput = outputData,
+            lastOutputType = outputType,
             checkpointId = ctx.runId,
             version = 0L
         )
@@ -447,16 +446,26 @@ import ai.koog.prompt.message.Message.User
 import kotlinx.serialization.json.JsonPrimitive
 
 val customInput = JsonPrimitive("custom-input")
+val customOutput = JsonPrimitive("custom-output")
 val customMessageHistory = emptyList<User>()
 -->
 
 ```kotlin
 fun example(context: AIAgentContext) {
+    // あるノードの前に実行ポイントを設定し、それに入力を提供できます。
     context.persistence().setExecutionPoint(
         agentContext = context,
         nodePath = context.executionInfo.path(),
         messageHistory = customMessageHistory,
         input = customInput
+    )
+
+    // またはあるノードの後に実行ポイントを設定し、ノードからの出力を提供できます。
+    context.persistence().setExecutionPointAfterNode(
+        agentContext = context,
+        nodePath = context.executionInfo.path(),
+        messageHistory = customMessageHistory,
+        output = customOutput
     )
 }
 

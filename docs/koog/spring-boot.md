@@ -114,8 +114,8 @@ Spring 配置使用 LLM 提供商的常用环境变量。
 ```kotlin
 @Service
 class AIService(
-    private val openAIExecutor: SingleLLMPromptExecutor?,
-    private val anthropicExecutor: SingleLLMPromptExecutor?
+    private val openAIExecutor: MultiLLMPromptExecutor?,
+    private val anthropicExecutor: MultiLLMPromptExecutor?
 ) {
 
     suspend fun generateResponse(input: String): String {
@@ -149,7 +149,7 @@ class AIService(
 @RestController
 @RequestMapping("/api/chat")
 class ChatController(
-    private val anthropicExecutor: SingleLLMPromptExecutor?
+    private val anthropicExecutor: MultiLLMPromptExecutor?
 ) {
 
     @PostMapping
@@ -185,9 +185,9 @@ data class ChatResponse(val response: String)
 ```kotlin
 @Service
 class RobustAIService(
-    private val openAIExecutor: SingleLLMPromptExecutor?,
-    private val anthropicExecutor: SingleLLMPromptExecutor?,
-    private val openRouterExecutor: SingleLLMPromptExecutor?
+    private val openAIExecutor: MultiLLMPromptExecutor?,
+    private val anthropicExecutor: MultiLLMPromptExecutor?,
+    private val openRouterExecutor: MultiLLMPromptExecutor?
 ) {
 
     suspend fun generateWithFallback(input: String): String {
@@ -203,12 +203,12 @@ class RobustAIService(
                 val result = executor.execute(prompt)
                 return result.text
             } catch (e: Exception) {
-                logger.warn("执行器失败，尝试下一个：${e.message}")
+                logger.warn("Executor failed, trying next: ${e.message}")
                 continue
             }
         }
 
-        throw IllegalStateException("所有 AI 提供商均失败")
+        throw IllegalStateException("All AI providers failed")
     }
 
     companion object {
@@ -224,7 +224,7 @@ class RobustAIService(
 ```kotlin
 @Service
 class ConfigurableAIService(
-    private val openAIExecutor: SingleLLMPromptExecutor?,
+    private val openAIExecutor: MultiLLMPromptExecutor?,
     @Value("\${ai.koog.openai.api-key:}") private val openAIKey: String
 ) {
 
@@ -277,7 +277,7 @@ class ConfigurableAIService(
 **Bean 未找到错误：**
 
 ```
-No qualifying bean of type 'SingleLLMPromptExecutor' available
+No qualifying bean of type 'MultiLLMPromptExecutor' available
 ```
 
 **解决方案：** 确保您已在属性文件中配置了至少一个提供商。
@@ -285,7 +285,7 @@ No qualifying bean of type 'SingleLLMPromptExecutor' available
 **多个 Bean 错误：**
 
 ```
-Multiple qualifying beans of type 'SingleLLMPromptExecutor' available
+Multiple qualifying beans of type 'MultiLLMPromptExecutor' available
 ```
 
 **解决方案：** 使用 `@Qualifier` 指定您想要的 bean：
@@ -293,8 +293,8 @@ Multiple qualifying beans of type 'SingleLLMPromptExecutor' available
 ```kotlin
 @Service
 class MyService(
-    @Qualifier("openAIExecutor") private val openAIExecutor: SingleLLMPromptExecutor,
-    @Qualifier("anthropicExecutor") private val anthropicExecutor: SingleLLMPromptExecutor
+    @Qualifier("openAIExecutor") private val openAIExecutor: MultiLLMPromptExecutor,
+    @Qualifier("anthropicExecutor") private val anthropicExecutor: MultiLLMPromptExecutor
 ) {
     // ...
 }
@@ -311,7 +311,7 @@ API key is required but not provided
 ## 最佳实践
 
 1.  **环境变量**：始终使用环境变量存储 API 密钥
-2.  **可空注入**：使用可空类型（`SingleLLMPromptExecutor?`）来处理未配置提供商的情况
+2.  **可空注入**：使用可空类型（`MultiLLMPromptExecutor?`）来处理未配置提供商的情况
 3.  **回退逻辑**：在使用多个提供商时实现回退机制
 4.  **错误处理**：在生产代码中始终将执行器调用包裹在 try-catch 代码块中
 5.  **测试**：在测试中使用 mock 以避免实际的 API 调用

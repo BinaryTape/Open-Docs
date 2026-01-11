@@ -15,6 +15,10 @@
     "text": "kotlin.what-s-new-in-kotlin",
     "items": [
       {
+        "text": "kotlin.whatsnew-eap",
+        "link": "whatsnew-eap"
+      },
+      {
         "text": "kotlin.whatsnew23",
         "link": "whatsnew23"
       },

@@ -31,7 +31,7 @@ val prompt = prompt(
 ```
 <!--- KNIT example-llm-parameters-01.kt -->
 
-프롬프트 생성에 대한 자세한 내용은 [프롬프트](prompts/structured-prompts.md)를 참조하세요.
+프롬프트 생성에 대한 자세한 내용은 [프롬프트](prompts/prompt-creation/index.md)를 참조하세요.
 
 - 서브그래프 생성 시:
 
@@ -194,10 +194,10 @@ val standardJsonParams = LLMParams(
                     "items" to JsonObject(mapOf(
                         "type" to JsonPrimitive("object"),
                         "properties" to JsonObject(mapOf(
-                            "id" to JsonObject(mapOf("type" to JsonPrimitive("string"))),
-                            "name" to JsonObject(mapOf("type" to JsonPrimitive("string"))),
-                            "price" to JsonObject(mapOf("type" to JsonPrimitive("number"))),
-                            "description" to JsonObject(mapOf("type" to JsonPrimitive("string")))
+                            "id" to JsonPrimitive("string")),
+                            "name" to JsonPrimitive("string")),
+                            "price" to JsonPrimitive("number")),
+                            "description" to JsonPrimitive("string")))
                         )),
                         "additionalProperties" to JsonPrimitive(false),
                         "required" to JsonArray(listOf(JsonPrimitive("id"), JsonPrimitive("name"), JsonPrimitive("price"), JsonPrimitive("description")))
@@ -216,11 +216,11 @@ val standardJsonParams = LLMParams(
 
 `ToolChoice` 클래스는 언어 모델이 도구를 사용하는 방법을 제어합니다. 다음과 같은 옵션을 제공합니다:
 
-* `LLMParams.ToolChoice.Named`: 언어 모델이 지정된 도구를 호출합니다. 호출할 도구의 이름을 나타내는 `name` 문자열 인수를 사용합니다.
-* `LLMParams.ToolChoice.All`: 언어 모델이 모든 도구를 호출합니다.
-* `LLMParams.ToolChoice.None`: 언어 모델이 도구를 호출하지 않고 텍스트만 생성합니다.
-* `LLMParams.ToolChoice.Auto`: 언어 모델이 도구를 호출할지 여부와 호출할 도구를 자동으로 결정합니다.
-* `LLMParams.ToolChoice.Required`: 언어 모델이 하나 이상의 도구를 호출합니다.
+*   `LLMParams.ToolChoice.Named`: 언어 모델이 지정된 도구를 호출합니다. 호출할 도구의 이름을 나타내는 `name` 문자열 인수를 사용합니다.
+*   `LLMParams.ToolChoice.All`: 언어 모델이 모든 도구를 호출합니다.
+*   `LLMParams.ToolChoice.None`: 언어 모델이 도구를 호출하지 않고 텍스트만 생성합니다.
+*   `LLMParams.ToolChoice.Auto`: 언어 모델이 도구를 호출할지 여부와 호출할 도구를 자동으로 결정합니다.
+*   `LLMParams.ToolChoice.Required`: 언어 모델이 하나 이상의 도구를 호출합니다.
 
 다음은 특정 도구를 호출하기 위해 `LLMParams.ToolChoice.Named` 클래스를 사용하는 예시입니다:
 

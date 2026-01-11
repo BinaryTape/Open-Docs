@@ -2,7 +2,7 @@
 
 _[公開日: 2023年11月1日](releases.md#release-details)_
 
-Kotlin 1.9.20がリリースされました。全てのターゲットに対応した[K2コンパイラがベータ版になりました](#new-kotlin-k2-compiler-updates)、
+Kotlin 1.9.20がリリースされました。[全てのターゲットに対応したK2コンパイラがベータ版になりました](#new-kotlin-k2-compiler-updates)、
 そして[Kotlin Multiplatformが安定版になりました](#kotlin-multiplatform-is-stable)。さらに、主なハイライトは以下の通りです。
 
 *   [マルチプラットフォームプロジェクトの設定における新しいデフォルト階層テンプレート](#template-for-configuring-multiplatform-projects)
@@ -238,10 +238,10 @@ kotlin {
 
         compilations.configureEach {
             compilerOptions.configure {
-                // To report linkage issues as warnings:
+                // リンクの問題を警告として報告するには:
                 freeCompilerArgs.add("-Xpartial-linkage-loglevel=WARNING")
 
-                // To raise linkage warnings to errors:
+                // リンクの警告をエラーに上げるには:
                 freeCompilerArgs.add("-Xpartial-linkage-loglevel=ERROR")
             }
         }
@@ -287,7 +287,7 @@ Kotlin 1.9.20以降、`cinterop`ツールによってCおよびObjective-Cライ
 
 ライブラリの作成者は、カスタムメッセージでユーザーがリンカエラーを解決するのを支援できるようになりました。
 
-KotlinライブラリがCまたはObjective-Cライブラリに依存している場合（例えば、[CocoaPods連携](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)を使用している場合）、そのユーザーはこれらの依存ライブラリをマシン上にローカルに持っているか、プロジェクトのビルドスクリプトで明示的に設定する必要があります。そうでない場合、ユーザーは以前は紛らわしい「Framework not found」メッセージを受け取っていました。
+KotlinライブラリがCまたはObjective-Cライブラリに依存している場合（例えば、[CocoaPods連携](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)を使用している場合）、そのユーザーはこれらの依存ライブラリをマシン上にローカルに持っているか、プロジェクトのビルドスクリプトで明示的に設定する必要があります。そうでない場合、ユーザーは以前は紛らわしい「Framework not found」メッセージを受け取っていました。
 
 コンパイル失敗メッセージに特定の指示やリンクを提供できるようになりました。これを行うには、`-Xuser-setup-hint`コンパイラオプションを`cinterop`に渡すか、`.def`ファイルに`userSetupHint=message`プロパティを追加します。
 
@@ -335,14 +335,14 @@ Kotlin 1.9.20は、Kotlin Multiplatformの安定化に重点を置き、新し�
 
 ### Kotlin Multiplatformが安定版になりました
 
-1.9.20リリースは、Kotlinの進化における重要な節目となります。[Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)がついに
+1.9.20リリースは、Kotlinの進化における重要な節目となります。[Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html)がついに
 安定版となりました。これは、このテクノロジーがプロジェクトでの使用に安全であり、本番環境で100%利用可能であることを意味します。また、Kotlin Multiplatformのさらなる開発は、当社の厳格な[後方互換性ルール](https://kotlinfoundation.org/language-committee-guidelines/)に従って継続されることも意味します。
 
 Kotlin Multiplatformの一部の高度な機能はまだ進化中であることに注意してください。それらを使用する際には、使用している機能の現在の安定性ステータスを説明する警告が表示されます。IntelliJ IDEAで実験的な機能を使用する前に、**Settings** | **Advanced Settings** | **Kotlin** | **Experimental Multiplatform** で明示的に有効にする必要があります。
 
 *   [Kotlinブログ](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)にアクセスして、Kotlin Multiplatformの安定化と今後の計画について詳しくご覧ください。
-*   安定化に向けてどのような重要な変更が行われたかについては、[Multiplatform互換性ガイド](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html)をご確認ください。
-*   このリリースで部分的に安定化されたKotlin Multiplatformの重要な要素である、[expectedおよびactual宣言のメカニズム](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html)についてお読みください。
+*   安定化に向けてどのような重要な変更が行われたかについては、[Multiplatform互換性ガイド](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html)をご確認ください。
+*   このリリースで部分的に安定化されたKotlin Multiplatformの重要な要素である、[expectedおよびactual宣言のメカニズム](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)についてお読みください。
 
 ### マルチプラットフォームプロジェクト構成用テンプレート
 
@@ -473,11 +473,11 @@ Kotlin 1.9.20以降、デフォルト階層テンプレートは自動的に有�
         iosArm64()
         iosSimulatorArm64()
 
-        // Apply the default hierarchy explicitly. It'll create, for example, the iosMain source set:
+        // デフォルト階層を明示的に適用します。例えば、iosMainソースセットが作成されます:
         applyDefaultHierarchyTemplate()
 
         sourceSets {
-            // Create an additional jvmAndMacos source set
+            // 追加のjvmAndMacosソースセットを作成します
             val jvmAndMacos by creating {
                 dependsOn(commonMain.get())
             }
@@ -539,7 +539,7 @@ IDEでは次期リリースを待つ必要があります。
 
 以前、Kotlinマルチプラットフォームライブラリで利用可能だったGradleコンフィギュレーションキャッシュの[プレビュー](whatsnew19.md#preview-of-the-gradle-configuration-cache)を導入しました。1.9.20では、Kotlin Multiplatformプラグインがさらに一歩進みました。
 
-現在、[Kotlin CocoaPods Gradleプラグイン](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-dsl-reference.html)だけでなく、
+現在、[Kotlin CocoaPods Gradleプラグイン](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-dsl-reference.html)だけでなく、
 `embedAndSignAppleFrameworkForXcode`のようなXcodeビルドに必要な統合タスクでもGradleコンフィギュレーションキャッシュをサポートしています。
 
 全てのマルチプラットフォームプロジェクトは、ビルド時間の改善の恩恵を受けることができます。
@@ -613,10 +613,10 @@ Gradleは他のソースセットに対して正しい標準ライブラリ成�
 
 ### サードパーティcinteropライブラリのデフォルトサポート
 
-Kotlin 1.9.20では、[Kotlin CocoaPods Gradle](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-overview.html)プラグインが適用されているプロジェクトの全てのcinterop依存関係に対して、デフォルトのサポート（オプトインによるサポートではなく）が追加されました。
+Kotlin 1.9.20では、[Kotlin CocoaPods Gradle](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)プラグインが適用されているプロジェクトの全てのcinterop依存関係に対して、デフォルトのサポート（オプトインによるサポートではなく）が追加されました。
 
 これにより、プラットフォーム固有の依存関係に制限されることなく、より多くのネイティブコードを共有できるようになります。例えば、
-`iosMain`共有ソースセットに[Podライブラリへの依存関係](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-cocoapods-libraries.html)を追加できます。
+`iosMain`共有ソースセットに[Podライブラリへの依存関係](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-libraries.html)を追加できます。
 
 以前は、これはKotlin/Nativeディストリビューションに同梱されている[プラットフォーム固有のライブラリ](native-platform-libs.md)（Foundation、UIKit、POSIXなど）でのみ機能しました。全てのサードパーティPodライブラリがデフォルトで共有ソースセットで利用できるようになりました。それらをサポートするために個別のGradleプロパティを指定する必要はありません。
 
@@ -913,7 +913,7 @@ Kotlinドキュメントにいくつかの注目すべき変更がありまし�
 *   [Kotlinツアー](kotlin-tour-welcome.md)のCollections章が改善されました – 理論と実践の両方を含む章で、Kotlinプログラミング言語の基本を学ぶ。
 *   [明確な非NULL許容型](generics.md#definitely-non-nullable-types) – 明確な非NULL許容ジェネリック型について学ぶ。
 *   改善された[配列ページ](arrays.md) – 配列とその使用時期について学ぶ。
-*   [Kotlin Multiplatformにおけるexpectedおよびactual宣言](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-expect-actual.html) – Kotlin Multiplatformにおけるexpectedおよびactual宣言のKotlinメカニズムについて学ぶ。
+*   [Kotlin Multiplatformにおけるexpectedおよびactual宣言](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html) – Kotlin Multiplatformにおけるexpectedおよびactual宣言のKotlinメカニズムについて学ぶ。
 
 ## Kotlin 1.9.20のインストール
 

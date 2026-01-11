@@ -6,48 +6,43 @@
 
 ## プロンプトの作成
 
-Koog では、すべてのプロンプトは [**Prompt**](https://api.koog.ai/prompt/prompt-model/ai.koog.prompt.dsl/-prompt/index.html)
-オブジェクトとして表現されます。Prompt オブジェクトには以下が含まれます。
+Koog では、プロンプトは [**Prompt**](https://api.koog.ai/prompt/prompt-model/ai.koog.prompt.dsl/-prompt/index.html)
+データクラスのインスタンスであり、以下のプロパティを持ちます。
 
--   **ID**: プロンプトの一意の識別子。
--   **メッセージ**: LLM との会話を表すメッセージのリスト。
--   **パラメータ**: オプションの [LLM 設定パラメータ](https://api.koog.ai/prompt/prompt-model/ai.koog.prompt.params/-l-l-m-params/index.html)
-    (temperature、tool choice など)。
+-   `id`: プロンプトの一意の識別子。
+-   `messages`: LLM との会話を表すメッセージのリスト。
+-   `params`: オプションの [LLM 設定パラメータ](prompt-creation/index.md#prompt-parameters) (temperature、tool choice など)。
 
-すべての Prompt オブジェクトは、Kotlin DSL を使用して定義された構造化プロンプトであり、これにより会話の構造を指定できます。
+`Prompt` クラスを直接インスタンス化することもできますが、
+プロンプトを作成する推奨される方法は、会話を定義するための構造化された方法を提供する [Kotlin DSL](prompt-creation/index.md) を使用することです。
+
+<!--- INCLUDE
+import ai.koog.prompt.dsl.prompt
+-->
+```kotlin
+val myPrompt = prompt("hello-koog") {
+    system("You are a helpful assistant.")
+    user("What is Koog?")
+}
+```
+<!--- KNIT example-prompts-01.kt -->
 
 !!! note
-    AI エージェントを使用すると、Prompt オブジェクトを作成する代わりに、シンプルなテキストプロンプトを提供できます。
-    エージェントはテキストプロンプトを自動的に Prompt オブジェクトに変換し、実行のために LLM に送信します。
-    これは、単一のリクエストを実行するだけでよい [基本的なエージェント](basic-agents.md) に役立ちます。
-
-<div class="grid cards" markdown>
-
--   :material-code-braces:{ .lg .middle } [**構造化プロンプト**](structured-prompts.md)
-
-    ---
-
-    複雑な複数ターンの会話のために、型安全な構造化プロンプトを作成します。
-
--   :material-multimedia:{ .lg .middle } [**マルチモーダル入力**](multimodal-inputs.md)
-
-    ---
-
-    構造化プロンプトで、テキストとともに画像、音声、ビデオ、ドキュメントを送信します。
-
-</div>
+    AI エージェントは、シンプルなテキストプロンプトを入力として受け取ることができます。
+    これらはテキストプロンプトを自動的に Prompt オブジェクトに変換し、実行のために LLM に送信します。
+    これは、単一のリクエストを実行するだけで、複雑な会話ロジックを必要としない [基本的なエージェント](../basic-agents.md) に役立ちます。
 
 ## プロンプトの実行
 
 Koog は、LLM に対してプロンプトを実行するための2つの抽象化レベル、LLM クライアントとプロンプトエグゼキュータを提供します。
-これらは Prompt オブジェクトのみを受け入れ、AI エージェントなしで直接プロンプトを実行するために使用できます。
+どちらも Prompt オブジェクトを受け入れ、AI エージェントなしで直接プロンプトを実行するために使用できます。
 実行フローは、クライアントとエグゼキュータの両方で同じです。
 
 ```mermaid
 flowchart TB
-    A([Kotlin DSLで構築されたプロンプト])
-    B{LLMクライアントまたはプロンプトエグゼキュータ}
-    C[LLMプロバイダー]
+    A([Kotlin DSL で構築されたプロンプト])
+    B{LLM クライアントまたはプロンプトエグゼキュータ}
+    C[LLM プロバイダー]
     D([アプリケーションへの応答])
 
     A -->|"に渡される"| B
@@ -74,8 +69,71 @@ flowchart TB
 
 </div>
 
-シンプルなテキストプロンプトを実行したい場合は、Kotlin DSL を使用して Prompt オブジェクトにラップするか、これを自動的に行ってくれる AI エージェントを使用します。
-以下にエージェントの実行フローを示します。
+## パフォーマンスの最適化と障害処理
+
+Koog を使用すると、プロンプトの実行時にパフォーマンスを最適化し、障害を処理できます。
+
+<div class="grid cards" markdown>
+
+-   :material-cached:{ .lg .middle } [**LLM 応答のキャッシュ**](llm-response-caching.md)
+
+    ---
+
+    LLM 応答をキャッシュして、パフォーマンスを最適化し、繰り返しのリクエストに対してコストを削減します。
+
+-   :material-shield-check:{ .lg .middle } [**障害処理**](handling-failures.md)
+
+    ---
+
+    アプリケーションで組み込みのリトライ、タイムアウト、その他のエラー処理メカニズムを使用します。
+
+</div>
+
+## AI エージェントにおけるプロンプト
+
+Koog では、AI エージェントはそのライフサイクル中にプロンプトを維持および管理します。
+LLM クライアントやエグゼキュータがプロンプトの実行に使用される一方で、エージェントはプロンプト更新のフローを処理し、会話履歴が適切かつ一貫性を保つようにします。
+
+エージェントにおけるプロンプトのライフサイクルは、通常、いくつかの段階を含みます。
+
+1.  初期プロンプトの設定。
+2.  プロンプトの自動更新。
+3.  コンテキストウィンドウの管理。
+4.  プロンプトの手動管理。
+
+### 初期プロンプトの設定
+
+[エージェントを初期化する](../getting-started/#create-and-run-an-agent) 際、エージェントの動作を設定する [システムメッセージ](prompt-creation/index.md#system-message) を定義します。
+その後、エージェントの `run()` メソッドを呼び出すとき、通常、初期の [ユーザーメッセージ](prompt-creation/index.md#user-messages) を入力として提供します。
+これらのメッセージが一緒になって、エージェントの初期プロンプトを形成します。例：
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import kotlinx.coroutines.runBlocking
+
+val apiKey = System.getenv("OPENAI_API_KEY")
+
+fun main() = runBlocking {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+// エージェントを作成
+val agent = AIAgent(
+    promptExecutor = simpleOpenAIExecutor(apiKey),
+    systemPrompt = "You are a helpful assistant.",
+    llmModel = OpenAIModels.Chat.GPT4o
+)
+
+// エージェントを実行
+val result = agent.run("What is Koog?")
+```
+<!--- KNIT example-prompts-02.kt -->
+
+この例では、エージェントはテキストプロンプトを自動的に Prompt オブジェクトに変換し、プロンプトエグゼキュータに送信します。
 
 ```mermaid
 flowchart TB
@@ -96,44 +154,23 @@ flowchart TB
     B -->|"に結果を返す"| A
 ```
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import kotlinx.coroutines.runBlocking
+より [高度な設定](../complex-workflow-agents.md#4-configure-the-agent) については、[AIAgentConfig](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.config/-a-i-agent-config/index.html) を使用して、エージェントの初期プロンプトを定義することもできます。
 
-val apiKey = System.getenv("OPENAI_API_KEY")
+### プロンプトの自動更新
 
-fun main() = runBlocking {
--->
-```kotlin
-// エージェントを作成
-val agent = AIAgent(
-    promptExecutor = simpleOpenAIExecutor(apiKey),
-    llmModel = OpenAIModels.Chat.GPT4o
-)
+エージェントがその戦略を実行する際、[定義済みのノード](../nodes-and-components.md) はプロンプトを自動的に更新します。
+例：
 
-// エージェントを実行
-val result = agent.run("What is Koog?")
-```
-<!--- KNIT example-prompts-01.kt -->
+-   [`nodeLLMRequest`](../nodes-and-components/#nodellmrequest): ユーザーメッセージをプロンプトに追加し、LLM の応答を捕捉します。
+-   [`nodeLLMSendToolResult`](../nodes-and-components/#nodellmsendtoolresult): ツール実行結果を会話に追加します。
+-   [`nodeAppendPrompt`](../nodes-and-components/#nodeappendprompt): ワークフローの任意の時点で、特定のメッセージをプロンプトに挿入します。
 
-## パフォーマンスの最適化と障害処理
+### コンテキストウィンドウの管理
 
-Koog を使用すると、プロンプトの実行時にパフォーマンスを最適化し、障害を処理できます。
+長期にわたるインタラクションにおいて、LLM のコンテキストウィンドウを超過するのを避けるために、エージェントは [履歴圧縮](../history-compression.md) 機能を使用できます。
 
-<div class="grid cards" markdown>
+### プロンプトの手動管理
 
--   :material-cached:{ .lg .middle } [**LLM 応答のキャッシュ**](llm-response-caching.md)
-
-    ---
-
-    LLM 応答をキャッシュして、パフォーマンスを最適化し、繰り返しのリクエストに対してコストを削減します。
-
--   :material-shield-check:{ .lg .middle } [**障害処理**](handling-failures.md)
-
-    ---
-
-    アプリケーションで組み込みのリトライ、タイムアウト、その他のエラー処理メカニズムを使用します。
-
-</div>
+複雑なワークフローの場合、[LLM セッション](../sessions.md) を使用してプロンプトを手動で管理できます。
+エージェント戦略またはカスタムノードでは、`llm.writeSession` を使用して `Prompt` オブジェクトにアクセスし、変更できます。
+これにより、必要に応じてメッセージを追加、削除、または並べ替えることができます。

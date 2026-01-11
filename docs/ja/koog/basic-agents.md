@@ -31,7 +31,7 @@
 
 ```
 dependencies {
-    implementation("ai.koog:koog-agents:$koog_version")
+    implementation("ai.koog:koog-agents:VERSION")
 }
 ```
 
@@ -39,7 +39,7 @@ dependencies {
 
 ### 2. エージェントの作成
 
-エージェントを作成するには、`AIAgent` クラスのインスタンスを作成し、`executor` および `llmModel` パラメータを提供します。
+エージェントを作成するには、`AIAgent` クラスのインスタンスを作成し、`promptExecutor` および `llmModel` パラメータを提供します。
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -66,7 +66,7 @@ import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 ```kotlin
 val agent = AIAgent(
     promptExecutor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
-    systemPrompt = "あなたは役立つアシスタントです。ユーザーの質問に簡潔に答えてください。",
+    systemPrompt = "You are a helpful assistant. Answer user questions concisely.",
     llmModel = OpenAIModels.Chat.GPT4o
 )
 ```
@@ -84,7 +84,7 @@ import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 ```kotlin
 val agent = AIAgent(
     promptExecutor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
-    systemPrompt = "あなたは役立つアシスタントです。ユーザーの質問に簡潔に答えてください。",
+    systemPrompt = "You are a helpful assistant. Answer user questions concisely.",
     llmModel = OpenAIModels.Chat.GPT4o,
     temperature = 0.7
 )
@@ -108,7 +108,7 @@ import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 ```kotlin
 val agent = AIAgent(
     promptExecutor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
-    systemPrompt = "あなたは役立つアシスタントです。ユーザーの質問に簡潔に答えてください。",
+    systemPrompt = "You are a helpful assistant. Answer user questions concisely.",
     llmModel = OpenAIModels.Chat.GPT4o,
     temperature = 0.7,
     toolRegistry = ToolRegistry {
@@ -133,7 +133,7 @@ import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 ```kotlin
 val agent = AIAgent(
     promptExecutor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
-    systemPrompt = "あなたは役立つアシスタントです。ユーザーの質問に簡潔に答えてください。",
+    systemPrompt = "You are a helpful assistant. Answer user questions concisely.",
     llmModel = OpenAIModels.Chat.GPT4o,
     temperature = 0.7,
     toolRegistry = ToolRegistry {
@@ -166,7 +166,7 @@ import kotlinx.coroutines.runBlocking
 ```kotlin
 val agent = AIAgent(
     promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
-    systemPrompt = "あなたは役立つアシスタントです。ユーザーの質問に簡潔に答えてください。",
+    systemPrompt = "You are a helpful assistant. Answer user questions concisely.",
     llmModel = OpenAIModels.Chat.GPT4o,
     temperature = 0.7,
     toolRegistry = ToolRegistry {
@@ -176,7 +176,7 @@ val agent = AIAgent(
 )
 
 fun main() = runBlocking {
-    val result = agent.run("こんにちは！どのようなお手伝いができますか？")
+    val result = agent.run("Hello! How can you help me?")
 }
 ```
 <!--- KNIT example-basic-06.kt -->
@@ -184,4 +184,4 @@ fun main() = runBlocking {
 エージェントは以下の出力を生成します。
 
 ```
-Agent says: こんにちは！様々なタスクでお手伝いするためにここにいます。質問がある場合、情報が必要な場合、または特定のタスクで助けが必要な場合でも、お気軽にお尋ねください。本日はどのようなお手伝いができますか？
+Agent says: Hello! I'm here to assist you with a variety of tasks. Whether you have questions, need information, or require help with specific tasks, feel free to ask. How can I assist you today?

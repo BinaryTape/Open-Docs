@@ -5,13 +5,60 @@
 
 一般的に、ノードを使用すると、複雑なロジックを再利用可能なコンポーネントとしてカプセル化し、さまざまなエージェントワークフローに簡単に統合できます。このガイドでは、エージェント戦略で使用できる既存のノードについて説明します。
 
-詳細なリファレンスドキュメントについては、[APIリファレンス](https://api.koog.ai/index.html)を参照してください。
+各ノードは基本的に、特定の型の入力を受け取り、特定の型の出力を返す関数です。
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["node"]
+        execute(Do stuff)
+    end
+    
+    in --Input--> execute --Output--> out
+
+    classDef hidden display: none;
+```
+
+文字列を入力として受け取り、その文字列の長さ（整数）を出力として返すノードを定義する方法を以下に示します。
+
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+val nodeLength by node<String, Int> { input ->
+    input.length
+}
+```
+<!--- KNIT example-nodes-and-component-01.kt -->
+
+詳細については、[`node()`](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.builder/-a-i-agent-subgraph-builder-base/node.html)を参照してください。
 
 ## ユーティリティノード
 
 ### nodeDoNothing
 
 何もせずに入力を出力として返すシンプルなパススルーノードです。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-do-nothing.html)を参照してください。
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeDoNothing"]
+        execute(Do nothing)
+    end
+    
+    in ---|T| execute --T--> out
+
+    classDef hidden display: none;
+```
 
 このノードは次の目的で使用できます。
 
@@ -36,7 +83,7 @@ val passthrough by nodeDoNothing<String>("passthrough")
 edge(nodeStart forwardTo passthrough)
 edge(passthrough forwardTo nodeFinish)
 ```
-<!--- KNIT example-nodes-and-component-01.kt -->
+<!--- KNIT example-nodes-and-component-02.kt -->
 
 ## LLMノード
 
@@ -44,6 +91,20 @@ edge(passthrough forwardTo nodeFinish)
 
 提供されたプロンプトビルダーを使用してLLMプロンプトにメッセージを追加するノードです。
 これは、実際のLLMリクエストを行う前に会話コンテキストを変更する場合に役立ちます。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-update-prompt.html)。
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeAppendPrompt"]
+        execute(Append prompt)
+    end
+    
+    in ---|T| execute --T--> out
+
+    classDef hidden display: none;
+```
 
 このノードは次の目的で使用できます。
 
@@ -84,19 +145,61 @@ val setupContext by nodeAppendPrompt<Output>("setupContext") {
 edge(firstNode forwardTo setupContext)
 edge(setupContext forwardTo secondNode)
 ```
-<!--- KNIT example-nodes-and-component-02.kt -->
+<!--- KNIT example-nodes-and-component-03.kt -->
 
 ### nodeLLMSendMessageOnlyCallingTools
 
 ユーザーメッセージをLLMプロンプトに追加し、LLMがツールのみを呼び出せる応答を取得するノードです。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-message-only-calling-tools.html)を参照してください。
 
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMSendMessageOnlyCallingTools"]
+        execute(Request LLM expecting only tool calls)
+    end
+    
+    in --String--> execute --Message.Response--> out
+
+    classDef hidden display: none;
+```
+
 ### nodeLLMSendMessageForceOneTool
 
 ユーザーメッセージをLLMプロンプトに追加し、LLMに特定のツールを使用させるノードです。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-message-force-one-tool.html)を参照してください。
 
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMSendMessageForceOneTool"]
+        execute(Request LLM expecting a specific tool call)
+    end
+    
+    in --String--> execute --Message.Response--> out
+
+    classDef hidden display: none;
+```
+
 ### nodeLLMRequest
 
 ユーザーメッセージをLLMプロンプトに追加し、オプションでツール使用を含む応答を取得するノードです。ノードの設定によって、メッセージの処理中にツール呼び出しが許可されるかどうかが決まります。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-request.html)を参照してください。
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMRequest"]
+        execute(Request LLM)
+    end
+    
+    in --String--> execute --Message.Response--> out
+
+    classDef hidden display: none;
+```
 
 このノードは次の目的で使用できます。
 
@@ -120,19 +223,61 @@ val strategy = strategy<String, String>("strategy_name") {
 val requestLLM by nodeLLMRequest("requestLLM", allowToolCalls = true)
 edge(getUserQuestion forwardTo requestLLM)
 ```
-<!--- KNIT example-nodes-and-component-03.kt -->
+<!--- KNIT example-nodes-and-component-04.kt -->
 
 ### nodeLLMRequestStructured
 
 ユーザーメッセージをLLMプロンプトに追加し、エラー修正機能を備えたLLMから構造化データを要求するノードです。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-request-structured.html)を参照してください。
 
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMRequestStructured"]
+        execute(Request LLM structured)
+    end
+    
+    in --String--> execute -- "Result&lt;StructuredResponse&gt;" --> out
+
+    classDef hidden display: none;
+```
+
 ### nodeLLMRequestStreaming
 
 ユーザーメッセージをLLMプロンプトに追加し、ストリームデータ変換の有無にかかわらずLLM応答をストリームするノードです。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-request-streaming.html)を参照してください。
 
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMRequestStreaming"]
+        execute(Request LLM streaming)
+    end
+    
+    in --String--> execute --Flow--> out
+
+    classDef hidden display: none;
+```
+
 ### nodeLLMRequestMultiple
 
 ユーザーメッセージをLLMプロンプトに追加し、ツール呼び出しが有効な複数のLLM応答を取得するノードです。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-request-multiple.html)を参照してください。
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMRequestMultiple"]
+        execute(Request LLM expecting multiple responses)
+    end
+    
+    in --String--> execute -- "List&lt;Message.Response&gt;" --> out
+
+    classDef hidden display: none;
+```
 
 このノードは次の目的で使用できます。
 
@@ -158,12 +303,26 @@ val strategy = strategy<String, String>("strategy_name") {
 val requestLLMMultipleTools by nodeLLMRequestMultiple()
 edge(getComplexUserQuestion forwardTo requestLLMMultipleTools)
 ```
-<!--- KNIT example-nodes-and-component-04.kt -->
+<!--- KNIT example-nodes-and-component-05.kt -->
 
 ### nodeLLMCompressHistory
 
 現在のLLMプロンプト（メッセージ履歴）を要約に圧縮し、メッセージを簡潔な要約（TL;DR）に置き換えるノードです。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-compress-history.html)を参照してください。
 これは、履歴を圧縮してトークン使用量を削減することで、長い会話を管理するのに役立ちます。
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMCompressHistory"]
+        execute(Compress current prompt)
+    end
+    
+    in ---|T| execute --T--> out
+
+    classDef hidden display: none;
+```
 
 履歴圧縮の詳細については、[履歴圧縮](history-compression.md)を参照してください。
 
@@ -196,13 +355,27 @@ val compressHistory by nodeLLMCompressHistory<String>(
 )
 edge(generateHugeHistory forwardTo compressHistory)
 ```
-<!--- KNIT example-nodes-and-component-05.kt -->
+<!--- KNIT example-nodes-and-component-06.kt -->
 
 ## ツールノード
 
 ### nodeExecuteTool
 
 単一のツール呼び出しを実行し、その結果を返すノードです。このノードは、LLMによって行われたツール呼び出しを処理するために使用されます。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-execute-tool.html)を参照してください。
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeExecuteTool"]
+        execute(Execute tool call)
+    end
+    
+    in --Message.Tool.Call--> execute --ReceivedToolResult--> out
+
+    classDef hidden display: none;
+```
 
 このノードは次の目的で使用できます。
 
@@ -229,11 +402,25 @@ val requestLLM by nodeLLMRequest()
 val executeTool by nodeExecuteTool()
 edge(requestLLM forwardTo executeTool onToolCall { true })
 ```
-<!--- KNIT example-nodes-and-component-06.kt -->
+<!--- KNIT example-nodes-and-component-07.kt -->
 
 ### nodeLLMSendToolResult
 
 ツール結果をプロンプトに追加し、LLM応答を要求するノードです。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-tool-result.html)を参照してください。
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMSendToolResult"]
+        execute(Request LLM)
+    end
+    
+    in --ReceivedToolResult--> execute --Message.Response--> out
+
+    classDef hidden display: none;
+```
 
 このノードは次の目的で使用できます。
 
@@ -259,11 +446,25 @@ val executeTool by nodeExecuteTool()
 val sendToolResultToLLM by nodeLLMSendToolResult()
 edge(executeTool forwardTo sendToolResultToLLM)
 ```
-<!--- KNIT example-nodes-and-component-07.kt -->
+<!--- KNIT example-nodes-and-component-08.kt -->
 
 ### nodeExecuteMultipleTools
 
 複数のツール呼び出しを実行するノードです。これらの呼び出しはオプションで並行して実行できます。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-execute-multiple-tools.html)を参照してください。
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeExecuteMultipleTools"]
+        execute(Execute multiple tool calls)
+    end
+    
+    in -- "List&lt;Message.Tool.Call&gt;" --> execute -- "List&lt;ReceivedToolResult&gt;" --> out
+
+    classDef hidden display: none;
+```
 
 このノードは次の目的で使用できます。
 
@@ -290,11 +491,25 @@ val requestLLMMultipleTools by nodeLLMRequestMultiple()
 val executeMultipleTools by nodeExecuteMultipleTools()
 edge(requestLLMMultipleTools forwardTo executeMultipleTools onMultipleToolCalls { true })
 ```
-<!--- KNIT example-nodes-and-component-08.kt -->
+<!--- KNIT example-nodes-and-component-09.kt -->
 
 ### nodeLLMSendMultipleToolResults
 
 複数のツール結果をプロンプトに追加し、複数のLLM応答を取得するノードです。詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-multiple-tool-results.html)を参照してください。
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMSendMultipleToolResults"]
+        execute(Request LLM expecting multiple responses)
+    end
+    
+    in -- "List&lt;ReceivedToolResult&gt;" --> execute -- "List&lt;Message.Response&gt;" --> out
+
+    classDef hidden display: none;
+```
 
 このノードは次の目的で使用できます。
 
@@ -320,15 +535,32 @@ val executeMultipleTools by nodeExecuteMultipleTools()
 val sendMultipleToolResultsToLLM by nodeLLMSendMultipleToolResults()
 edge(executeMultipleTools forwardTo sendMultipleToolResultsToLLM)
 ```
-<!--- KNIT example-nodes-and-component-09.kt -->
+<!--- KNIT example-nodes-and-component-10.kt -->
 
 ## ノード出力変換
 
 このフレームワークは、ノードの出力に変換を適用する、変換されたバージョンのノードを作成できる `transform` 拡張関数を提供します。これは、元のノードの機能を維持しながら、ノードの出力を異なる型または形式に変換する必要がある場合に役立ちます。
 
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph nodeWithTransform [transformed node]
+        subgraph node ["node"]
+            execute(Do stuff)
+        end
+        transform
+    end
+    
+    in --Input--> execute --> transform --Output--> out
+
+    classDef hidden display: none;
+```
+
 ### transform
 
-`transform` 関数は、元のノードをラップし、その出力に変換関数を適用する新しい `AIAgentNodeDelegate` を作成します。
+[`transform()`](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.builder/-a-i-agent-node-delegate/transform.html) 関数は、元のノードをラップし、その出力に変換関数を適用する新しい `AIAgentNodeDelegate` を作成します。
 
 <!--- INCLUDE
 /**
@@ -341,7 +573,7 @@ inline fun <reified T> AIAgentNodeDelegate<Input, Output>.transform(
     noinline transformation: suspend (Output) -> T
 ): AIAgentNodeDelegate<Input, T>
 ```
-<!--- KNIT example-nodes-and-component-10.kt -->
+<!--- KNIT example-nodes-and-component-11.kt -->
 
 #### カスタムノード変換
 
@@ -365,7 +597,7 @@ val textNode by nodeDoNothing<String>("textNode").transform<Int> { text ->
 edge(nodeStart forwardTo textNode)
 edge(textNode forwardTo nodeFinish)
 ```
-<!--- KNIT example-nodes-and-component-11.kt -->
+<!--- KNIT example-nodes-and-component-12.kt -->
 
 #### 組み込みノード変換
 
@@ -389,7 +621,7 @@ val lengthNode by nodeLLMRequest("llmRequest").transform<Int> { assistantMessage
 edge(nodeStart forwardTo lengthNode)
 edge(lengthNode forwardTo nodeFinish)
 ```
-<!--- KNIT example-nodes-and-component-12.kt -->
+<!--- KNIT example-nodes-and-component-13.kt -->
 
 ## 事前定義されたサブグラフ
 
@@ -451,7 +683,7 @@ val processQuery by subgraphWithTask<String, String>(
     """
 }
 ```
-<!--- KNIT example-nodes-and-component-13.kt -->
+<!--- KNIT example-nodes-and-component-14.kt -->
 
 ### subgraphWithVerification
 
@@ -501,7 +733,7 @@ val verifyCode by subgraphWithVerification<String>(
     """
 }
 ```
-<!--- KNIT example-nodes-and-component-14.kt -->
+<!--- KNIT example-nodes-and-component-15.kt -->
 
 ## 事前定義された戦略と一般的な戦略パターン
 
@@ -538,7 +770,7 @@ public fun singleRunStrategy(): AIAgentGraphStrategy<String, String> = strategy(
     edge(nodeSendToolResult forwardTo nodeExecuteTool onToolCall { true })
 }
 ```
-<!--- KNIT example-nodes-and-component-15.kt -->
+<!--- KNIT example-nodes-and-component-16.kt -->
 
 ### ツールベース戦略
 
@@ -592,7 +824,7 @@ fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStr
     }
 }
 ```
-<!--- KNIT example-nodes-and-component-16.kt -->
+<!--- KNIT example-nodes-and-component-17.kt -->
 
 ### ストリーミングデータ戦略
 
@@ -631,4 +863,4 @@ val agentStrategy = strategy<String, List<Book>>("library-assistant") {
     edge(getMdOutput forwardTo nodeFinish)
 }
 ```
-<!--- KNIT example-nodes-and-component-17.kt -->
+<!--- KNIT example-nodes-and-component-18.kt -->

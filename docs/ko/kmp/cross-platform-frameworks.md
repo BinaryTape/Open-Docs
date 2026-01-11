@@ -28,6 +28,25 @@
 
 그럼에도 불구하고, 우리는 여러분의 결정을 위한 시작점을 제공하기 위해 크로스 플랫폼 모바일 개발을 위한 최고의 프레임워크들을 몇 가지 선정하려고 노력했습니다.
 
+### Kotlin Multiplatform
+
+[Kotlin Multiplatform (KMP)](https://kotlinlang.org/multiplatform/)는 JetBrains가 개발한 오픈소스 기술로, 네이티브 프로그래밍의 이점을 유지하면서 플랫폼 간에 코드를 공유할 수 있도록 합니다. 개발자가 원하는 만큼 코드를 재사용하고, 필요할 경우 네이티브 코드를 작성하며, 공유된 `Kotlin` 코드를 모든 프로젝트에 원활하게 통합할 수 있도록 합니다. 현대적인 선언형 크로스 플랫폼 UI 프레임워크인 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)과 함께 Kotlin을 사용하여 UI를 포함하여 앱 코드의 최대 100%를 공유할 수 있습니다.
+
+**프로그래밍 언어:** `Kotlin`.
+
+**모바일 앱 예시:** Duolingo, McDonald's, Netflix, Forbes, 9GAG, Cash App, Philips. [Kotlin Multiplatform 사례 연구에 대해 더 읽어보기](https://kotlinlang.org/case-studies/?type=multiplatform).
+
+**주요 기능:**
+
+*   개발자는 Android, iOS, 웹, 데스크톱, 서버 측에서 코드를 재사용할 수 있으며, 필요한 경우 네이티브 코드를 유지할 수 있습니다.
+*   Kotlin Multiplatform은 모든 프로젝트에 원활하게 통합될 수 있습니다. 개발자는 플랫폼별 API를 활용하면서 네이티브 및 크로스 플랫폼 개발의 장점을 최대한 활용할 수 있습니다.
+*   [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 덕분에 개발자는 완전한 코드 공유 유연성을 가지며, 로직과 UI를 모두 공유할 수 있습니다.
+*   Android용 `Kotlin`을 이미 사용하고 있다면 코드베이스에 새로운 언어를 도입할 필요가 없습니다. `Kotlin` 코드와 전문 지식을 재사용할 수 있으므로 다른 기술에 비해 Kotlin Multiplatform으로 마이그레이션하는 위험이 적습니다.
+
+이 크로스 플랫폼 모바일 개발 프레임워크는 저희 목록에서 가장 어린 것 중 하나임에도 불구하고, 성숙한 커뮤니티를 가지고 있습니다. 2023년 11월, JetBrains는 이를 Stable 버전으로 승격했습니다. Google I/O 2024에서 Google은 Android 및 iOS 간에 비즈니스 로직을 공유하기 위한 Kotlin Multiplatform의 공식 지원을 발표했습니다. 정기적으로 업데이트되는 [문서](get-started.topic)와 커뮤니티 지원 덕분에 언제든지 질문에 대한 답을 찾을 수 있습니다. 더욱이, 많은 [글로벌 기업과 스타트업이 이미 Kotlin Multiplatform을 사용하여](https://kotlinlang.org/case-studies/?type=multiplatform) 네이티브와 같은 사용자 경험을 제공하는 멀티플랫폼 앱을 개발하고 있습니다.
+
+[![Kotlin Multiplatform 여정을 시작하세요](kmp-journey-start.svg){width="700"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)
+
 ### Flutter
 
 2017년 Google에서 출시된 Flutter는 단일 코드베이스로 모바일, 웹, 데스크톱 앱을 구축하는 데 인기 있는 프레임워크입니다.
@@ -67,25 +86,6 @@ Flutter는 전 세계적으로 비교적 활발한 사용자 커뮤니티를 가
 
 가장 인기 있는 크로스 플랫폼 앱 개발 프레임워크 중 하나로서, React Native는 기술 지식을 공유하는 크고 강력한 개발자 커뮤니티를 가지고 있습니다.
 이 커뮤니티 덕분에 프레임워크로 모바일 앱을 구축할 때 필요한 지원을 받을 수 있습니다.
-
-### Kotlin Multiplatform
-
-Kotlin Multiplatform (KMP)는 JetBrains가 개발한 오픈소스 기술로, 네이티브 프로그래밍의 이점을 유지하면서 플랫폼 간에 코드를 공유할 수 있도록 합니다. 개발자가 원하는 만큼 코드를 재사용하고, 필요할 경우 네이티브 코드를 작성하며, 공유된 `Kotlin` 코드를 모든 프로젝트에 원활하게 통합할 수 있도록 합니다.
-
-**프로그래밍 언어:** `Kotlin`.
-
-**모바일 앱 예시:** McDonald's, Netflix, Forbes, 9GAG, Cash App, Philips. [Kotlin Multiplatform 사례 연구에 대해 더 읽어보기](https://kotlinlang.org/case-studies/?type=multiplatform).
-
-**주요 기능:**
-
-*   개발자는 Android, iOS, 웹, 데스크톱, 서버 측에서 코드를 재사용할 수 있으며, 필요한 경우 네이티브 코드를 유지할 수 있습니다.
-*   Kotlin Multiplatform은 모든 프로젝트에 원활하게 통합될 수 있습니다. 개발자는 플랫폼별 API를 활용하면서 네이티브 및 크로스 플랫폼 개발의 장점을 최대한 활용할 수 있습니다.
-*   JetBrains의 최신 선언형 크로스 플랫폼 UI 프레임워크인 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 덕분에 개발자는 완전한 코드 공유 유연성을 가지며, 로직과 UI를 모두 공유할 수 있습니다.
-*   Android용 `Kotlin`을 이미 사용하고 있다면 코드베이스에 새로운 언어를 도입할 필요가 없습니다. `Kotlin` 코드와 전문 지식을 재사용할 수 있으므로 다른 기술에 비해 Kotlin Multiplatform으로 마이그레이션하는 위험이 적습니다.
-
-이 크로스 플랫폼 모바일 개발 프레임워크는 저희 목록에서 가장 어린 것 중 하나임에도 불구하고, 성숙한 커뮤니티를 가지고 있습니다. 2023년 11월, JetBrains는 이를 [Stable](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/) 버전으로 승격했습니다. 빠르게 성장하고 있으며 이미 오늘날 시장에서 뚜렷한 인상을 남기고 있습니다. 정기적으로 업데이트되는 [문서](get-started.topic)와 커뮤니티 지원 덕분에 언제든지 질문에 대한 답을 찾을 수 있습니다. 더욱이, 많은 [글로벌 기업과 스타트업이 이미 Kotlin Multiplatform을 사용하여](https://kotlinlang.org/case-studies/?type=multiplatform) 네이티브와 같은 사용자 경험을 제공하는 멀티플랫폼 앱을 개발하고 있습니다.
-
-[![Kotlin Multiplatform 여정을 시작하세요](kmp-journey-start.svg){width="700"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)
 
 ### Ionic
 

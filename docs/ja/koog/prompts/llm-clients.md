@@ -1,23 +1,22 @@
 # LLMクライアント
 
 LLMクライアントは、LLMプロバイダーとの直接的な対話のために設計されています。
-各クライアントは、プロンプトの実行と応答のストリーミングのためのメソッドを提供する`LLMClient`インターフェースを実装しています。
+各クライアントは、プロンプトの実行と応答のストリーミングのためのメソッドを提供する[`LLMClient`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/ai.koog.prompt.executor.clients/-l-l-m-client/index.html)インターフェースを実装しています。
 
 単一のLLMプロバイダーと連携し、高度なライフサイクル管理を必要としない場合は、LLMクライアントを使用できます。
 複数のLLMプロバイダーを管理する必要がある場合は、[プロンプトエクゼキュータ](prompt-executors.md)を使用してください。
 
 以下の表は、利用可能なLLMクライアントとその機能を示しています。
-`*`記号は、**Notes**列にある追加の注記を示します。
 
 | LLMプロバイダー                                        | LLMClient                                                                                                                                                                                                   | ツール<br/>呼び出し | ストリーミング | 複数の<br/>選択肢 | 埋め込み | モデレーション | <div style="width:50px">モデル<br/>リスト</div> | <div style="width:200px">注記</div>                                                                                        |
 |-----------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------|-----------|----------------------|------------|------------|-------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
-| [OpenAI](https://platform.openai.com/docs/overview) | [OpenAILLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client/ai.koog.prompt.executor.clients.openai/-open-a-i-l-l-m-client/index.html)                | ✓                | ✓         | ✓                    | ✓          | ✓*         | ✓                                               | OpenAI Moderation APIを介したモデレーションをサポートしています。                                                                          |
+| [OpenAI](https://platform.openai.com/docs/overview) | [OpenAILLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client/ai.koog.prompt.executor.clients.openai/-open-a-i-l-l-m-client/index.html)                | ✓                | ✓         | ✓                    | ✓          | ✓[^1]      | ✓                                               |                                                                                                                             |
 | [Anthropic](https://www.anthropic.com/)             | [AnthropicLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-anthropic-client/ai.koog.prompt.executor.clients.anthropic/-anthropic-l-l-m-client/index.html)      | ✓                | ✓         | -                    | -          | -          | -                                               | -                                                                                                                           |
 | [Google](https://ai.google.dev/)                    | [GoogleLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-google-client/ai.koog.prompt.executor.clients.google/-google-l-l-m-client/index.html)                  | ✓                | ✓         | ✓                    | ✓          | -          | ✓                                               | -                                                                                                                           |
 | [DeepSeek](https://www.deepseek.com/)               | [DeepSeekLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-deepseek-client/ai.koog.prompt.executor.clients.deepseek/-deep-seek-l-l-m-client/index.html)         | ✓                | ✓         | ✓                    | -          | -          | ✓                                               | OpenAI互換のチャットクライアント。                                                                                              |
 | [OpenRouter](https://openrouter.ai/)                | [OpenRouterLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openrouter-client/ai.koog.prompt.executor.clients.openrouter/-open-router-l-l-m-client/index.html) | ✓                | ✓         | ✓                    | -          | -          | ✓                                               | OpenAI互換のルータークライアント。                                                                                            |
-| [Amazon Bedrock](https://aws.amazon.com/bedrock/)   | [BedrockLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-bedrock-client/ai.koog.prompt.executor.clients.bedrock/-bedrock-l-l-m-client/index.html)              | ✓                | ✓         | -                    | ✓          | ✓*         | -                                               | 複数のモデルファミリーをサポートするJVM専用のAWS SDKクライアント。モデレーションにはGuardrailsの設定が必要です。                |
-| [Mistral](https://mistral.ai/)                      | [MistralAILLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-mistralai-client/ai.koog.prompt.executor.clients.mistralai/-mistral-a-i-l-l-m-client/index.html)    | ✓                | ✓         | ✓                    | ✓          | ✓*         | ✓                                               | Mistral `v1/moderations` エンドポイントを介したモデレーションをサポートするOpenAI互換クライアント。                                |
+| [Amazon Bedrock](https://aws.amazon.com/bedrock/)   | [BedrockLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-bedrock-client/ai.koog.prompt.executor.clients.bedrock/-bedrock-l-l-m-client/index.html)              | ✓                | ✓         | -                    | ✓          | ✓[^2]      | -                                               | 複数のモデルファミリーをサポートするJVM専用のAWS SDKクライアント。                                                              |
+| [Mistral](https://mistral.ai/)                      | [MistralAILLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-mistralai-client/ai.koog.prompt.executor.clients.mistralai/-mistral-a-i-l-l-m-client/index.html)    | ✓                | ✓         | ✓                    | ✓          | ✓[^3]      | ✓                                               | OpenAI互換クライアント。                                                                                                   |
 | [Alibaba](https://www.alibabacloud.com/en?_p_lc=1)  | [DashScopeLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-dashscope-client/ai.koog.prompt.executor.clients.dashscope/-dashscope-l-l-m-client/index.html)      | ✓                | ✓         | ✓                    | -          | -          | ✓                                               | プロバイダー固有のパラメーター (`enableSearch`、`parallelToolCalls`、`enableThinking`) を公開するOpenAI互換クライアント。 |
 | [Ollama](https://ollama.com/)                       | [OllamaClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-ollama-client/ai.koog.prompt.executor.ollama.client/-ollama-client/index.html)                            | ✓                | ✓         | -                    | ✓          | ✓          | -                                               | モデル管理APIを備えたローカルサーバークライアント。                                                                             |
 
@@ -114,7 +113,7 @@ Tool call: ${event.name}")
     `GoogleLLMClient`、`BedrockLLMClient`、および`OllamaClient`を除くすべてのLLMクライアントで利用可能です
 
 `executeMultipleChoices()`メソッドを使用することで、単一の呼び出しでモデルから複数の代替応答をリクエストできます。
-これには、実行されるプロンプト内で、追加で[`numberOfChoices`](structured-prompts.md#prompt-parameters) LLMパラメーターを指定する必要があります。
+これには、実行されるプロンプト内で、追加で[`numberOfChoices`](prompt-creation/index.md#prompt-parameters) LLMパラメーターを指定する必要があります。
 
 <!--- INCLUDE
 import ai.koog.prompt.dsl.prompt
@@ -143,9 +142,6 @@ fun main() = runBlocking {
 }
 ```
 <!--- KNIT example-llm-clients-03.kt -->
-
-!!! tip
-    プロンプトに[`numberOfChoices`](structured-prompts.md#prompt-parameters) LLMパラメーターを追加することで、複数の選択肢をリクエストすることもできます。
 
 ## 利用可能なモデルのリスト表示
 
@@ -234,3 +230,7 @@ fun main() = runBlocking {
 
 [プロンプトエクゼキュータ](prompt-executors.md)はLLMクライアントをラップし、ルーティング、フォールバック、プロバイダー間での統一された利用などの追加機能を提供します。
 複数のプロバイダーと連携する際に柔軟性を提供するため、本番環境での使用が推奨されます。
+
+[^1]: OpenAI Moderation APIを介したモデレーションをサポートしています。
+[^2]: モデレーションにはGuardrailsの設定が必要です。
+[^3]: Mistral `v1/moderations` エンドポイントを介したモデレーションをサポートしています。

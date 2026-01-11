@@ -1,23 +1,22 @@
 # LLM 클라이언트
 
 LLM 클라이언트는 LLM 제공업체와 직접 상호작용하도록 설계되었습니다.
-각 클라이언트는 프롬프트 실행 및 응답 스트리밍을 위한 메서드를 제공하는 `LLMClient` 인터페이스를 구현합니다.
+각 클라이언트는 프롬프트 실행 및 응답 스트리밍을 위한 메서드를 제공하는 [`LLMClient`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/ai.koog.prompt.executor.clients/-l-l-m-client/index.html) 인터페이스를 구현합니다.
 
 단일 LLM 제공업체와 작업하고 고급 생명 주기 관리가 필요하지 않을 때 LLM 클라이언트를 사용할 수 있습니다.
 여러 LLM 제공업체를 관리해야 하는 경우 [프롬프트 이그제큐터](prompt-executors.md)를 사용하세요.
 
 아래 표는 사용 가능한 LLM 클라이언트와 해당 기능을 보여줍니다.
-`*` 기호는 **Notes** 열에 추가 정보가 있음을 나타냅니다.
 
 | LLM 제공업체                                        | LLMClient                                                                                                                                                                                                   | 툴<br/>호출 | 스트리밍 | 다중<br/>선택 | 임베딩 | 검토 | <div style="width:50px">모델<br/>목록</div> | <div style="width:200px">참고</div>                                                                                        |
 |-----------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------|-----------|----------------------|------------|------------|-------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
-| [OpenAI](https://platform.openai.com/docs/overview) | [OpenAILLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client/ai.koog.prompt.executor.clients.openai/-open-a-i-l-l-m-client/index.html)                | ✓                | ✓         | ✓                    | ✓          | ✓*         | ✓                                               | OpenAI Moderation API를 통한 검토를 지원합니다.                                                                          |
+| [OpenAI](https://platform.openai.com/docs/overview) | [OpenAILLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openai-client/ai.koog.prompt.executor.clients.openai/-open-a-i-l-l-m-client/index.html)                | ✓                | ✓         | ✓                    | ✓          | ✓[^1]      | ✓                                               |                                                                                                                             |
 | [Anthropic](https://www.anthropic.com/)             | [AnthropicLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-anthropic-client/ai.koog.prompt.executor.clients.anthropic/-anthropic-l-l-m-client/index.html)      | ✓                | ✓         | -                    | -          | -          | -                                               | -                                                                                                                           |
 | [Google](https://ai.google.dev/)                    | [GoogleLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-google-client/ai.koog.prompt.executor.clients.google/-google-l-l-m-client/index.html)                  | ✓                | ✓         | ✓                    | ✓          | -          | ✓                                               | -                                                                                                                           |
 | [DeepSeek](https://www.deepseek.com/)               | [DeepSeekLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-deepseek-client/ai.koog.prompt.executor.clients.deepseek/-deep-seek-l-l-m-client/index.html)         | ✓                | ✓         | ✓                    | -          | -          | ✓                                               | OpenAI 호환 채팅 클라이언트.                                                                                              |
 | [OpenRouter](https://openrouter.ai/)                | [OpenRouterLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-openrouter-client/ai.koog.prompt.executor.clients.openrouter/-open-router-l-l-m-client/index.html) | ✓                | ✓         | ✓                    | -          | -          | ✓                                               | OpenAI 호환 라우터 클라이언트.                                                                                            |
-| [Amazon Bedrock](https://aws.amazon.com/bedrock/)   | [BedrockLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-bedrock-client/ai.koog.prompt.executor.clients.bedrock/-bedrock-l-l-m-client/index.html)              | ✓                | ✓         | -                    | ✓          | ✓*         | -                                               | 여러 모델 패밀리를 지원하는 JVM 전용 AWS SDK 클라이언트. 검토에는 Guardrails 구성이 필요합니다.                |
-| [Mistral](https://mistral.ai/)                      | [MistralAILLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-mistralai-client/ai.koog.prompt.executor.clients.mistralai/-mistral-a-i-l-l-m-client/index.html)    | ✓                | ✓         | ✓                    | ✓          | ✓*         | ✓                                               | Mistral `v1/moderations` 엔드포인트를 통해 검토를 지원하는 OpenAI 호환 클라이언트.                                |
+| [Amazon Bedrock](https://aws.amazon.com/bedrock/)   | [BedrockLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-bedrock-client/ai.koog.prompt.executor.clients.bedrock/-bedrock-l-l-m-client/index.html)              | ✓                | ✓         | -                    | ✓          | ✓[^2]      | -                                               | 여러 모델 패밀리를 지원하는 JVM 전용 AWS SDK 클라이언트.                                                                  |
+| [Mistral](https://mistral.ai/)                      | [MistralAILLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-mistralai-client/ai.koog.prompt.executor.clients.mistralai/-mistral-a-i-l-l-m-client/index.html)    | ✓                | ✓         | ✓                    | ✓          | ✓[^3]      | ✓                                               | OpenAI 호환 클라이언트.                                                                                                   |
 | [Alibaba](https://www.alibabacloud.com/en?_p_lc=1)  | [DashScopeLLMClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-dashscope-client/ai.koog.prompt.executor.clients.dashscope/-dashscope-l-l-m-client/index.html)      | ✓                | ✓         | ✓                    | -          | -          | ✓                                               | 제공업체별 매개변수(`enableSearch`, `parallelToolCalls`, `enableThinking`)를 노출하는 OpenAI 호환 클라이언트. |
 | [Ollama](https://ollama.com/)                       | [OllamaClient](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/prompt-executor-ollama-client/ai.koog.prompt.executor.ollama.client/-ollama-client/index.html)                            | ✓                | ✓         | -                    | ✓          | ✓          | -                                               | 모델 관리 API를 갖춘 로컬 서버 클라이언트.                                                                             |
 
@@ -72,7 +71,7 @@ fun main() = runBlocking {
     모든 LLM 클라이언트에서 사용 가능합니다.
 
 응답이 생성되는 즉시 처리해야 하는 경우,
-`executeStreaming()` 메서드를 사용하여 모델 출력을 스트리밍할 수 있습니다.
+`executeStreaming()` 메서드를 사용하여 모델 출력을 스트리밍할 수 있습니다:
 
 <!--- INCLUDE
 import ai.koog.prompt.dsl.prompt
@@ -114,7 +113,7 @@ Tool call: ${event.name}")
     `GoogleLLMClient`, `BedrockLLMClient`, `OllamaClient`를 제외한 모든 LLM 클라이언트에서 사용 가능합니다.
 
 `executeMultipleChoices()` 메서드를 사용하여 단일 호출로 모델에서 여러 대안 응답을 요청할 수 있습니다.
-이 메서드는 실행 중인 프롬프트에 `numberOfChoices` LLM 매개변수를 추가로 지정해야 합니다.
+이 메서드는 실행 중인 프롬프트에 [`numberOfChoices`](prompt-creation/index.md#prompt-parameters) LLM 매개변수를 추가로 지정해야 합니다.
 
 <!--- INCLUDE
 import ai.koog.prompt.dsl.prompt
@@ -152,7 +151,7 @@ fun main() = runBlocking {
 !!! note
     `GoogleLLMClient`, `BedrockLLMClient`, `OllamaClient`를 제외한 모든 LLM 클라이언트에서 사용 가능합니다.
 
-LLM 클라이언트에서 지원하는 사용 가능한 모델 ID 목록을 얻으려면 `models()` 메서드를 사용하세요.
+LLM 클라이언트에서 지원하는 사용 가능한 모델 ID 목록을 얻으려면 `models()` 메서드를 사용하세요:
 
 <!--- INCLUDE
 import ai.koog.prompt.dsl.prompt
@@ -177,7 +176,7 @@ fun main() = runBlocking {
     `OpenAILLMClient`, `GoogleLLMClient`, `BedrockLLMClient`, `MistralAILLMClient`, `OllamaClient`에서 사용 가능합니다.
 
 `embed()` 메서드를 사용하여 텍스트를 임베딩 벡터로 변환합니다.
-임베딩 모델을 선택하고 텍스트를 이 메서드에 전달하세요.
+임베딩 모델을 선택하고 텍스트를 이 메서드에 전달하세요:
 
 <!--- INCLUDE
 import ai.koog.prompt.dsl.prompt
@@ -205,7 +204,7 @@ fun main() = runBlocking {
 !!! note
     다음 LLM 클라이언트에서 사용 가능합니다: `OpenAILLMClient`, `BedrockLLMClient`, `MistralAILLMClient`, `OllamaClient`.
 
-`moderate()` 메서드를 검토 모델과 함께 사용하여 프롬프트에 부적절한 콘텐츠가 포함되어 있는지 확인할 수 있습니다.
+`moderate()` 메서드를 검토 모델과 함께 사용하여 프롬프트에 부적절한 콘텐츠가 포함되어 있는지 확인할 수 있습니다:
 
 <!--- INCLUDE
 import ai.koog.prompt.dsl.prompt
@@ -234,3 +233,7 @@ fun main() = runBlocking {
 
 [프롬프트 이그제큐터](prompt-executors.md)는 LLM 클라이언트를 래핑(wrap)하며 라우팅, 폴백, 여러 제공업체에 걸친 통합 사용과 같은 추가 기능을 제공합니다.
 여러 제공업체와 작업할 때 유연성을 제공하므로 프로덕션 환경에서 사용하는 것이 좋습니다.
+
+[^1]: OpenAI Moderation API를 통한 검토를 지원합니다.
+[^2]: 검토에는 Guardrails 구성이 필요합니다.
+[^3]: Mistral `v1/moderations` 엔드포인트를 통해 검토를 지원합니다.

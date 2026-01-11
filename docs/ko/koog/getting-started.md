@@ -341,7 +341,7 @@ Koog를 사용하려면 필요한 모든 종속성을 빌드 구성에 포함해
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
     import ai.koog.prompt.executor.clients.deepseek.DeepSeekLLMClient
-    import ai.koog.prompt.executor.llms.SingleLLMPromptExecutor
+    import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
     import ai.koog.prompt.executor.clients.deepseek.DeepSeekModels
     import kotlinx.coroutines.runBlocking
     -->
@@ -357,7 +357,7 @@ Koog를 사용하려면 필요한 모든 종속성을 빌드 구성에 포함해
         // Create an agent
         val agent = AIAgent(
             // Create a prompt executor using the LLM client
-            promptExecutor = SingleLLMPromptExecutor(deepSeekClient),
+            promptExecutor = MultiLLMPromptExecutor(deepSeekClient),
             // Provide a model
             llmModel = DeepSeekModels.DeepSeekChat
         )

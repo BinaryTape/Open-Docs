@@ -69,15 +69,15 @@ val anthropicClient = AnthropicLLMClient(System.getenv("ANTHROPIC_KEY"))
 val googleClient = GoogleLLMClient(System.getenv("GOOGLE_KEY"))
 ```
 <!--- KNIT example-complex-workflow-agents-02.kt -->
-2) 構成されたクライアントを `DefaultMultiLLMPromptExecutor` クラスのコンストラクタに渡して、複数のLLMプロバイダーを持つプロンプトエグゼキュータを作成します。
+2) 構成されたクライアントを `MultiLLMPromptExecutor` クラスのコンストラクタに渡して、複数のLLMプロバイダーを持つプロンプトエグゼキュータを作成します。
 <!--- INCLUDE
 import ai.koog.agents.example.exampleComplexWorkflowAgents02.anthropicClient
 import ai.koog.agents.example.exampleComplexWorkflowAgents02.googleClient
 import ai.koog.agents.example.exampleComplexWorkflowAgents02.openAIClient
-import ai.koog.prompt.executor.llms.all.DefaultMultiLLMPromptExecutor
+import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
 -->
 ```kotlin
-val multiExecutor = DefaultMultiLLMPromptExecutor(openAIClient, anthropicClient, googleClient)
+val multiExecutor = MultiLLMPromptExecutor(openAIClient, anthropicClient, googleClient)
 ```
 <!--- KNIT example-complex-workflow-agents-03.kt -->
 
@@ -382,7 +382,7 @@ fun main() {
     runBlocking {
         println("Enter two numbers to add (e.g., 'add 5 and 7' or '5 + 7'):")
 
-        // ユーザー入力を読み取り、エージェントに送信します
+        // Read the user input and send it to the agent
         val userInput = readlnOrNull() ?: ""
         val agentResult = agent.run(userInput)
         println("The agent returned: $agentResult")

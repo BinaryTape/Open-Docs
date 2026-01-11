@@ -1,5 +1,5 @@
 [//]: # (title: Lombok 컴파일러 플러그인)
-<primary-label ref="alpha"/>
+<primary-label ref="experimental-opt-in"/>
 
 Kotlin Lombok 컴파일러 플러그인을 사용하면 동일한 혼합 Java/Kotlin 모듈에서 Kotlin 코드를 통해 Java의 Lombok 선언을 생성하고 사용할 수 있습니다.
 다른 모듈에서 이러한 선언을 호출하는 경우, 해당 모듈 컴파일을 위해 이 플러그인을 사용할 필요는 없습니다.

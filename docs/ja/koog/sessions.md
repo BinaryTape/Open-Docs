@@ -400,6 +400,8 @@ llm.writeSession {
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.ext.tool.AskUser
+import ai.koog.agents.core.agent.session.callTool
+import ai.koog.agents.core.agent.session.callToolRaw
 
 val myTool = AskUser
 val myArgs = AskUser.Args("this is a string")

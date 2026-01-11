@@ -12,6 +12,7 @@
 - [分頁擴充功能] 切換到 AndroidX Paging (#5910 by @jeffdgr8)
 
 ### 修正
+- [SQLite 變體] 在使用自訂欄位型別時，為 group_concat 函式使用 String 型別 (#6082 by @griffio)
 - [Gradle 外掛程式] 改善 `VerifyMigrationTask` 的效能，以防止其在複雜 Schema 上掛起 (#6073 by @Lightwood13)
 
 ## [2.2.1] - 2025-11-13
@@ -29,7 +30,7 @@
 - [PostgreSQL 變體] 新增判斷式以檢查 SQL 表達式是否可解析為 JSON (#5843 by @griffio)
 - [PostgreSQL 變體] 新增對 PostgreSql Comment On 陳述式的有限支援 (#5808 by @griffio)
 - [MySQL 變體] 新增對索引可見性選項的支援 (#5785 by @orenkislev-faire)
-- [PostgreSql 變體] 新增對 TSQUERY 資料型別的支援 (#5779 by @griffio)
+- [PostgreSQL 變體] 新增對 TSQUERY 資料型別的支援 (#5779 by @griffio)
 - [Gradle 外掛程式] 新增支援版本目錄以新增模組 (#5755 by @DRSchlaubi)
 
 ### 變更
@@ -40,7 +41,7 @@
 - [編譯器] 修正使用包含共同表格表達式 (Common Table Expression) 的 View 時的堆疊溢位 (#5928 by @griffio)
 - [Gradle 外掛程式] 修正開啟 SqlDelight 工具視窗以新增「New Connection」時的崩潰問題 (#5906 by @griffio)
 - [IntelliJ 外掛程式] 避免在複製到 SQLite 側邊欄動作中發生執行緒相關的崩潰 (#5901 by @griffio)
-- [IntelliJ 外掛程式] 修正使用 Schema 陳述式 CREATE INDEX 和 CREATE VIEW 時的 PostgreSql 變體問題 (#5772 by @griffio)
+- [IntelliJ 外掛程式] 修正使用 Schema 陳述式 CREATE INDEX 和 CREATE VIEW 時的 PostgreSQL 變體問題 (#5772 by @griffio)
 - [編譯器] 修正 FTS 堆疊溢位參照欄位時 (#5896 by @griffio)
 - [編譯器] 修正 With Recursive 堆疊溢位 (#5892 by @griffio)
 - [編譯器] 修正 Insert|Update|Delete Returning 陳述式的通知問題 (#5851 by @griffio)
@@ -73,7 +74,7 @@
 - [PostgreSQL 變體] 新增 PostgreSQL 目前日期/時間函式支援 (#5226 by @drewd)
 - [PostgreSQL 變體] PostgreSql Regex 運算子 (#5137 by @griffio)
 - [PostgreSQL 變體] 新增 brin gist (#5059 by @griffio)
-- [MySQL 變體] 支援 MySql 變體中的 RENAME INDEX (#5212 by @orenkislev-faire)
+- [MySQL 變體] 支援 RENAME INDEX (重新命名索引) 用於 MySql 變體 (#5212 by @orenkislev-faire)
 - [JSON 擴充功能] 為 JSON table function 新增別名 (#5372 by @griffio)
 
 ### 變更
@@ -212,7 +213,7 @@
 - [IDE 外掛程式] 允許使用者在 Gradle 工具連接失敗時顯示堆疊追蹤 (#4383)
 
 ### 變更
-- [Sqlite Driver] 簡化 JdbcSqliteDriver 使用 Schema 遷移 (#3737 by @morki)
+- [SQLite Driver] 簡化 JdbcSqliteDriver 使用 Schema 遷移 (#3737 by @morki)
 - [R2DBC Driver] 真實非同步 R2DBC 游標 (#4387 by @hfhbd)
 
 ### 修正
@@ -263,7 +264,7 @@
 - [PostgreSQL 變體] 新增 postgreSql 間隔欄位結果 (#4152 by @griffio)
 - [PostgreSQL 變體] 新增 postgreSql Alter Column (#4165 by @griffio)
 - [PostgreSQL 變體] PostgreSQL: 新增 date_part (#4198 by @hfhbd)
-- [MySQL 變體] 新增 sql 字元長度函式 (#4134 by @griffio)
+- [MySQL 變體] 新增 sql char length 函式 (#4134 by @griffio)
 - [IDE 外掛程式] 新增 sqldelight 目錄建議 (#3976 by @aperfilyev)
 - [IDE 外掛程式] 在專案樹中壓縮中間套件 (#3992 by @aperfilyev)
 - [IDE 外掛程式] 新增連接子句完成 (#4086 by @aperfilyev)
@@ -311,16 +312,16 @@
 - [PostgreSQL 變體] 支援 PostgreSQL 中的 UPDATE FROM (by @eygraber)
 
 ### 變更
-- [RDBC Driver] 公開連線 (by @hfhbd)
+- [R2DBC Driver] 公開連線 (by @hfhbd)
 - [執行期] 將遷移回調移動到 main `migrate` 函式
 - [Gradle 外掛程式] 隱藏下游專案的配置
 - [Gradle 外掛程式] 僅陰影化 IntelliJ (by @hfhbd)
 - [Gradle 外掛程式] 支援 Kotlin 1.8.0-Beta 並新增多版本 Kotlin 測試 (by @hfhbd)
 
 ### 修正
-- [RDBC Driver] 改用 javaObjectType (by @hfhbd)
-- [RDBC Driver] 修正 `bindStatement` 中的原始型別空值 (by @hfhbd)
-- [RDBC Driver] 支援 R2DBC 1.0 (by @hfhbd)
+- [R2DBC Driver] 改用 javaObjectType (by @hfhbd)
+- [R2DBC Driver] 修正 `bindStatement` 中的原始型別空值 (by @hfhbd)
+- [R2DBC Driver] 支援 R2DBC 1.0 (by @hfhbd)
 - [PostgreSQL 變體] Postgres: 修正陣列無型別參數 (by @hfhbd)
 - [IDE 外掛程式] 提高 IntelliJ 版本到 221.6008.13 (by @hfhbd)
 - [編譯器] 解析純檢視的遞迴來源表格 (by @hfhbd)
@@ -348,8 +349,8 @@
 - 變體和驅動程式類別是 final，請改用委託。
 
 ### 新增
-- [HSQL 變體] Hsql: 支援在 Insert 中使用 `DEFAULT` 作為生成欄位 (#3372 by @hfhbd)
-- [PostgreSQL 變體] PostgreSQL: 支援在 INSERT 中使用 `DEFAULT` 作為生成欄位 (#3373 by @hfhbd)
+- [HSQL 變體] HSQL：支援在 Insert 中使用 `DEFAULT` 作為生成欄位 (#3372 by @hfhbd)
+- [PostgreSQL 變體] PostgreSQL：支援在 INSERT 中使用 `DEFAULT` 作為生成欄位 (#3373 by @hfhbd)
 - [PostgreSQL 變體] 新增 NOW() 到 PostgreSQL (#3403 by @hfhbd)
 - [PostgreSQL 變體] PostgreSQL 新增 NOT 運算子 (#3504 by @hfhbd)
 - [分頁] 允許將 CoroutineContext 傳入 *QueryPagingSource (#3384)
@@ -359,13 +360,13 @@
 ### 變更
 - [分頁] 為 KeyedQueryPagingSource 支援的 QueryPagingSource 函式新增預設 Dispatcher (#3385)
 - [分頁] 使 OffsetQueryPagingSource 僅支援 Int 型別 (#3386)
-- [Async Runtime] 將 await* 移動到上層類別 ExecutableQuery (#3524 by @hfhbd)
+- [非同步執行期] 將 await* 移動到上層類別 ExecutableQuery (#3524 by @hfhbd)
 - [協程擴充功能] 移除流擴充功能的預設參數 (#3489)
 
 ### 修正
 - [Gradle 外掛程式] 更新至 Kotlin 1.7.20 (#3542 by @zacsweers)
 - [R2DBC Driver] 採用不總是傳送值的 R2DBC 變更 (#3525 by @hfhbd)
-- [HSQL 變體] 修正 Hsql 導致的 sqlite VerifyMigrationTask 失敗 (#3380 by @hfhbd)
+- [HSQL 變體] 修正 HSQL 導致的 sqlite VerifyMigrationTask 失敗 (#3380 by @hfhbd)
 - [Gradle 外掛程式] 轉換任務以使用延遲配置 API (by @3flex)
 - [Gradle 外掛程式] 避免 Kotlin 1.7.20 中的 NPE (#3398 by @ZacSweers)
 - [Gradle 外掛程式] 修正 squash migrations 任務的描述 (#3449)
@@ -728,9 +729,9 @@ sqldelight {
 ### 變更
 - [編譯器] 智慧轉換「IS NOT NULL」查詢 (#867)
 - [編譯器] 防止運行時失敗的關鍵字 (#1471, #1629)
-- [Gradle 外掛程式] 減少 Gradle 外掛程式大小從 60mb 到 13mb。
+- [Gradle 外掛程式] 減少 Gradle 外掛程式大小從 60MB 到 13MB。
 - [Gradle 外掛程式] 正確支援 Android 變體，並移除對 KMM 目標特定 SQL 的支援 (#1039)
-- [Gradle 外掛程式] 根據 minsdk 選擇最小 sqlite 版本 (#1684)
+- [Gradle 外掛程式] 根據 minSDK 選擇最小 sqlite 版本 (#1684)
 - [原生驅動程式] 原生驅動程式連接池和性能更新
 
 ### 修正
@@ -803,7 +804,7 @@ sqldelight {
 - [IDE 外掛程式] 遇到未知表達式時拋出更好的錯誤訊息 (#1958)
 - [Gradle 外掛程式] SQLDelight 將 IntelliJ 依賴項洩漏到 buildscript 類別路徑 (#1998)
 - [Gradle 外掛程式] 「JavadocIntegrationKt not found」編譯錯誤：在 *.sq 檔案中添加方法文件時 (#1982)
-- [Gradle 外掛程式] SqlDeslight gradle 外掛程式不支援 Configuration Caching (CoCa)。 (#1947 by @stephanenicolas)
+- [Gradle 外掛程式] SqlDelight gradle 外掛程式不支援 Configuration Caching (CoCa)。 (#1947 by @stephanenicolas)
 - [SQLite JDBC Driver] SQLException: 資料庫處於自動提交模式 (#1832)
 - [協程擴充功能] 修正協程擴充功能的 IR 後端 (#1918 by @dellisd)
 
@@ -920,7 +921,7 @@ sqldelight {
 
 * 新增: [執行期] 支援 Windows (mingW)、tvOS、watchOS 和 macOS 架構。
 * 修正: [編譯器] sum() 的回傳型別應該是 nullable。
-* 修正: [分頁] 將 Transacter 傳遞到 QueryDataSourceFactory 以避免 race conditions。
+* 修正: [分頁] 將 Transacter 傳遞到 QueryDataSourceFactory 以避免競爭條件。
 * 修正: [IntelliJ 外掛程式] 尋找檔案的套件名稱時，不要搜尋 dependencies。
 * 修正: [Gradle] #862 將 Gradle 中的 validator logs 變更為 debug level。
 * 增強: [Gradle] 將 GenerateSchemaTask 轉換為使用 Gradle worker。
@@ -932,7 +933,7 @@ sqldelight {
 * 修正: [Gradle] Kotlin Native 1.3.60 支援。
 * 修正: [Gradle] #1287 Sync 時發出警告。
 * 修正: [編譯器] #1469 Query 的 SynetheticAccessor 建立。
-* 修正: [JVM 驅動程式] 修正 memory leak。
+* 修正: [JVM 驅動程式] 修正記憶體洩漏。
 * 注意: coroutine extension artifact 要求將 kotlinx bintray maven repository 添加到您的 buildscript 中。
 
 ## [1.2.0] - 2019-08-30
@@ -1053,7 +1054,7 @@ sqldelight {
 
 * 新增: Compiled statements extend an abstract type。
 * 修正: Primitive types in parameters will be boxed if nullable。
-* 修正: Factory method 中存在所有 required factories for bind args。
+* 修正: All required factories for bind args are present in factory method。
 * 修正: Escaped column names are marshalled correctly。
 
 ## [0.5.0] - 2016-10-19
@@ -1114,7 +1115,7 @@ sqldelight {
 [0.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/0.3.2
 
 * 新增: Autocompletion 和 find usages 現在適用於 views 和 aliases。
-* 修正: Compile-time validation 現在允許 functions 用於 selects。
+* 修正: Compile-time validation now allows functions to be used in selects。
 * 修正: 支援僅聲明 default values 的 insert statements。
 * 修正: 當未使用的專案匯入時，外掛程式不再崩潰。
 
@@ -1149,7 +1150,7 @@ sqldelight {
 ## [0.2.0] - 2016-02-29
 [0.2.0]: https://github.com/sqldelight/sqldelight/releases/tag/0.2.0
 
-* 新增: Marshal 類別新增 copy constructor。
+* 新增: Added copy constructor to Marshal class。
 * 新增: 更新至 Kotlin 1.0 final。
 * 修正: 以非失敗方式報告 'sqldelight' folder structure problems。
 * 修正: Forbid columns named `table_name`。其 generated constant 與 table name constant 衝突。

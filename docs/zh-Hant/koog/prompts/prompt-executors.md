@@ -1,6 +1,8 @@
 # 提示詞執行器
 
-提示詞執行器提供更高層次的抽象，讓您能夠管理一個或多個 LLM 客戶端的生命週期。您可以透過統一的介面與多個 LLM 供應商合作，抽象化供應商特定的細節，並支援在它們之間動態切換和備援。
+提示詞執行器提供更高層次的抽象，讓您能夠管理一個或多個 LLM 客戶端的生命週期。
+您可以透過統一的介面與多個 LLM 供應商合作，抽象化供應商特定的細節，
+並支援在它們之間動態切換和備援。
 
 ## 執行器類型
 
@@ -9,7 +11,7 @@ Koog 提供兩種主要類型的提示詞執行器，它們都實作了 [`Prompt
 | 類型            | <div style="width:175px">類別</div>                                                                                                                               | 描述                                                                                                                                                                                                                                                          |
 |-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 單一供應商      | [`SingleLLMPromptExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms/ai.koog.prompt.executor.llms/-single-l-l-m-prompt-executor/index.html) | 包裝單一供應商的單一 LLM 客戶端。如果您的代理程式只需要在單一 LLM 供應商內的不同模型之間切換，請使用此執行器。                                                                                                                                                            |
-| 多供應商        | [`MultiLLMPromptExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms/ai.koog.prompt.executor.llms/-multi-l-l-m-prompt-executor/index.html)   | 包裝多個 LLM 客戶端並根據 LLM 供應商路由呼叫。當請求的客戶端不可用時，它可以選擇使用已配置的備援供應商和 LLM。如果您的代理程式需要在不同供應商的 LLM 之間切換，請使用此執行器。                                                                                              |
+| 多供應商        | [`MultiLLMPromptExecutor`](https://api.koog.prompt/prompt-executor/prompt-executor-llms/ai.koog.prompt.executor.llms/-multi-l-l-m-prompt-executor/index.html)   | 包裝多個 LLM 客戶端並根據 LLM 供應商路由呼叫。當請求的客戶端不可用時，它可以選擇使用已配置的備援供應商和 LLM。如果您的代理程式需要在不同供應商的 LLM 之間切換，請使用此執行器。                                                                                              |
 
 ## 建立單一供應商執行器
 
@@ -22,11 +24,11 @@ Koog 提供兩種主要類型的提示詞執行器，它們都實作了 [`Prompt
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import ai.koog.prompt.executor.llms.SingleLLMPromptExecutor
+import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
 -->
 ```kotlin
 val openAIClient = OpenAILLMClient(System.getenv("OPENAI_KEY"))
-val promptExecutor = SingleLLMPromptExecutor(openAIClient)
+val promptExecutor = MultiLLMPromptExecutor(openAIClient)
 ```
 <!--- KNIT example-prompt-executors-01.kt -->
 
@@ -35,7 +37,7 @@ val promptExecutor = SingleLLMPromptExecutor(openAIClient)
 若要建立一個支援多個 LLM 供應商的提示詞執行器，請執行以下步驟：
 
 1. 為所需的 LLM 供應商配置客戶端及其對應的 API 金鑰。
-2. 將已配置的客戶端傳遞給 `MultiLLMPromptExecutor` 類別的建構函式，以建立一個支援多個 LLM 供應商的提示詞執行器。
+2. 將已配置的客戶端傳遞給 [`MultiLLMPromptExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms/ai.koog.prompt.executor.llms/-multi-l-l-m-prompt-executor/index.html) 類別的建構函式，以建立一個支援多個 LLM 供應商的提示詞執行器。
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
@@ -60,23 +62,23 @@ val multiExecutor = MultiLLMPromptExecutor(
 
 下表包含 **預先定義的單一供應商執行器**，它們回傳配置了特定 LLM 客戶端的 `SingleLLMPromptExecutor`。
 
-| LLM 供應商   | 提示詞執行器                                                                                                                                                                                                                                                                                                                                             | 描述                                                                                                                                                                                                          |
-|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| OpenAI         | [simpleOpenAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-open-a-i-executor.html),<br/>[simpleAzureOpenAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-azure-open-a-i-executor.html)                       | * `simpleOpenAIExecutor` 包裝了 `OpenAILLMClient`，用於執行 OpenAI 模型的提示詞。<br/>* `simpleAzureOpenAIExecutor` 包裝了配置用於 Azure OpenAI Service 的 `OpenAILLMClient`。                          |
-| Anthropic      | [simpleAnthropicExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-anthropic-executor.html)                                                                                                                                                                                              | 包裝了 `AnthropicLLMClient`，用於執行 Anthropic 模型的提示詞。                                                                                                                                                  |
-| Google         | [simpleGoogleAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-google-a-i-executor.html)                                                                                                                                                                                              | 包裝了 `GoogleLLMClient`，用於執行 Google 模型的提示詞。                                                                                                                                                        |
-| OpenRouter     | [simpleOpenRouterExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-open-router-executor.html)                                                                                                                                                                                           | 包裝了 `OpenRouterLLMClient`，用於執行 OpenRouter 的提示詞。                                                                                                                                                       |
-| Amazon Bedrock | [simpleBedrockExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-bedrock-executor.html),<br/>[simpleBedrockExecutorWithBearerToken](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-bedrock-executor-with-bearer-token.html) | * `simpleBedrockExecutor` 包裝了 `BedrockLLMClient`，用於執行 AWS Bedrock 的提示詞。<br/>* `simpleBedrockExecutorWithBearerToken` 包裝了 `BedrockLLMClient`，並使用提供的 Bedrock API 金鑰發送請求。 |
-| Mistral        | [simpleMistralAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-mistral-a-i-executor.html)                                                                                                                                                                                            | 包裝了 `MistralAILLMClient`，用於執行 Mistral 模型的提示詞。                                                                                                                                                    |
-| Ollama         | [simpleOllamaAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-ollama-a-i-executor.html)                                                                                                                                                                                              | 包裝了 `OllamaClient`，用於執行 Ollama 的提示詞。                                                                                                                                                                  |
-
-Koog 也提供了 **預先定義的多供應商執行器** `DefaultMultiLLMPromptExecutor`。這是 `MultiLLMPromptExecutor` 的實作，它包裝了 `OpenAILLMClient`、`AnthropicLLMClient` 和 `GoogleLLMClient` 模型。
+| LLM 供應商   | 提示詞執行器                                                                                                                                                                             | 描述                                                                                                                                                                           |
+|----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| OpenAI         | [simpleOpenAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-open-a-i-executor.html)                                  | 包裝了 `OpenAILLMClient`，用於執行 OpenAI 模型的提示詞。                                                                                                                        |
+| OpenAI         | [simpleAzureOpenAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-azure-open-a-i-executor.html)                       | 包裝了配置用於 Azure OpenAI Service 的 `OpenAILLMClient`。                                                                                                                     |
+| Anthropic      | [simpleAnthropicExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-anthropic-executor.html)                              | 包裝了 `AnthropicLLMClient`，用於執行 Anthropic 模型的提示詞。                                                                                                                   |
+| Google         | [simpleGoogleAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-google-a-i-executor.html)                              | 包裝了 `GoogleLLMClient`，用於執行 Google 模型的提示詞。                                                                                                                         |
+| OpenRouter     | [simpleOpenRouterExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-open-router-executor.html)                           | 包裝了 `OpenRouterLLMClient`，用於執行 OpenRouter 的提示詞。                                                                                                                         |
+| Amazon Bedrock | [simpleBedrockExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-bedrock-executor.html)                                  | 包裝了 `BedrockLLMClient`，用於執行 AWS Bedrock 的提示詞。                                                                                                                     |
+| Amazon Bedrock | [simpleBedrockExecutorWithBearerToken](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-bedrock-executor-with-bearer-token.html) | 包裝了 `BedrockLLMClient`，並使用提供的 Bedrock API 金鑰發送請求。                                                                                                                   |
+| Mistral        | [simpleMistralAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-mistral-a-i-executor.html)                            | 包裝了 `MistralAILLMClient`，用於執行 Mistral 模型的提示詞。                                                                                                                     |
+| Ollama         | [simpleOllamaAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-ollama-a-i-executor.html)                              | 包裝了 `OllamaClient`，用於執行 Ollama 的提示詞。                                                                                                                                   |
 
 以下是建立預先定義的單一和多供應商執行器的範例：
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import ai.koog.prompt.executor.llms.all.DefaultMultiLLMPromptExecutor
+import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
 import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
 import ai.koog.prompt.executor.clients.google.GoogleLLMClient
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
@@ -86,11 +88,11 @@ import kotlinx.coroutines.runBlocking
 // Create an OpenAI executor
 val promptExecutor = simpleOpenAIExecutor("OPENAI_KEY")
 
-// Create a DefaultMultiLLMPromptExecutor with OpenAI, Anthropic, and Google LLM clients
+// Create a MultiLLMPromptExecutor with OpenAI, Anthropic, and Google LLM clients
 val openAIClient = OpenAILLMClient("OPENAI_KEY")
 val anthropicClient = AnthropicLLMClient("ANTHROPIC_KEY")
 val googleClient = GoogleLLMClient("GOOGLE_KEY")
-val multiExecutor = DefaultMultiLLMPromptExecutor(openAIClient, anthropicClient, googleClient)
+val multiExecutor = MultiLLMPromptExecutor(openAIClient, anthropicClient, googleClient)
 ```
 <!--- KNIT example-prompt-executors-03.kt -->
 
@@ -154,10 +156,16 @@ import ai.koog.prompt.llm.LLMProvider
 import ai.koog.prompt.dsl.prompt
 import kotlinx.coroutines.runBlocking
 
+fun main() = runBlocking {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
 // Create LLM clients for OpenAI, Anthropic, and Google providers
-val openAIClient = OpenAILLMClient("OPENAI_KEY")
-val anthropicClient = AnthropicLLMClient("ANTHROPIC_KEY")
-val googleClient = GoogleLLMClient("GOOGLE_KEY")
+val openAIClient = OpenAILLMClient("OPENAI_API_KEY")
+val anthropicClient = AnthropicLLMClient("ANTHROPIC_API_KEY")
+val googleClient = GoogleLLMClient("GOOGLE_API_KEY")
 
 // Create a MultiLLMPromptExecutor that maps LLM providers to LLM clients
 val executor = MultiLLMPromptExecutor(
@@ -166,12 +174,6 @@ val executor = MultiLLMPromptExecutor(
     LLMProvider.Google to googleClient
 )
 
-fun main() = runBlocking {
--->
-<!--- SUFFIX
-}
--->
-```kotlin
 // Create a prompt
 val p = prompt("demo") { user("Summarize this.") }
 

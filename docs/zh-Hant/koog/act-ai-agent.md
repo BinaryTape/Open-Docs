@@ -45,7 +45,7 @@ println(result)
 ```
 
 發生了什麼？
-- `requestLLMMultiple(input)` 發送使用者輸入並接收一個或多個助理訊息。
+- requestLLMMultiple(input) 發送使用者輸入並接收一個或多個助理訊息。
 - 我們返回唯一訊息的內容 (典型的一次性 (one-shot) 流程)。
 
 提示：如果您想返回結構化資料，請解析內容或使用 Structured Data API。
@@ -93,10 +93,10 @@ println("Switch is ${if (sw.isOn()) "on" else "off"}")
 ```
 
 運作方式
-- `containsToolCalls()` 偵測來自 LLM 的工具呼叫訊息。
-- `extractToolCalls(...)` 讀取要執行哪些工具以及使用哪些參數 (args)。
-- `executeMultipleTools(...)` 根據您的 ToolRegistry 執行它們。
-- `sendMultipleToolResults(...)` 將結果發送回 LLM 並取得下一個回應。
+- containsToolCalls() 偵測來自 LLM 的工具呼叫訊息。
+- extractToolCalls(...) 讀取要執行哪些工具以及使用哪些參數 (args)。
+- executeMultipleTools(...) 根據您的 ToolRegistry 執行它們。
+- sendMultipleToolResults(...) 將結果發送回 LLM 並取得下一個回應。
 
 ## 4) 透過功能 (EventHandler) 觀察行為
 目標：將每次工具呼叫印到控制台。
@@ -171,7 +171,7 @@ while (responses.containsToolCalls()) {
 ```kotlin
 fun <Input, Output> functionalAIAgent(
     promptExecutor: PromptExecutor,
-    agentConfig: AIAgentConfigBase,
+    agentConfig: AIAgentConfig,
     toolRegistry: ToolRegistry = ToolRegistry.EMPTY,
     loop: suspend AIAgentFunctionalContext.(input: Input) -> Output
 ): AIAgent<Input, Output>
@@ -192,6 +192,6 @@ fun <Input, Output> functionalAIAgent(
 - AIAgentConfig / AIAgentConfigBase
 - PromptExecutor
 - ToolRegistry
-- FeatureContext 和功能介面
+- FeatureContext and feature interfaces
 
 查看原始碼：agents/agents-core/src/commonMain/kotlin/ai/koog/agents/core/agent/FunctionalAIAgent.kt

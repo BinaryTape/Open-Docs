@@ -337,16 +337,16 @@ import ai.koog.agents.example.exampleStreamingApi06.parseMarkdownStreamToBooks
 -->
 ```kotlin
 val agentStrategy = strategy<String, List<Book>>("library-assistant") {
-   // Describe the node containing the output stream parsing
+   // 描述包含輸出流解析的節點
    val getMdOutput by node<String, List<Book>> { booksDescription ->
       val books = mutableListOf<Book>()
       val mdDefinition = markdownBookDefinition()
 
       llm.writeSession {
          appendPrompt { user(booksDescription) }
-         // Initiate the response stream in the form of the definition `mdDefinition`
+         // 以定義 `mdDefinition` 的形式啟動回應流
          val markdownStream = requestLLMStreaming(mdDefinition)
-         // Call the parser with the result of the response stream and perform actions with the result
+         // 使用回應流的結果呼叫解析器，並對結果執行操作
          parseMarkdownStreamToBooks(markdownStream).collect { book ->
             books.add(book)
             println("Parsed Book: ${book.title} by ${book.author}")
@@ -355,7 +355,7 @@ val agentStrategy = strategy<String, List<Book>>("library-assistant") {
 
       books
    }
-   // Describe the agent's graph making sure the node is accessible
+   // 描述代理的圖，確保節點可存取
    edge(nodeStart forwardTo getMdOutput)
    edge(getMdOutput forwardTo nodeFinish)
 }
@@ -387,7 +387,7 @@ data class Book(
 class BookTool(): SimpleTool<Book>(
     argsSerializer = Book.serializer(),
     name = NAME,
-    description = "A tool to parse book information from Markdown"
+    description = "一個從 Markdown 解析書籍資訊的工具"
 ) {
 
     companion object { const val NAME = "book" }
@@ -409,6 +409,7 @@ import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.example.exampleStreamingApi04.markdownBookDefinition
 import ai.koog.agents.example.exampleStreamingApi06.parseMarkdownStreamToBooks
 import ai.koog.agents.example.exampleStreamingApi08.BookTool
+import ai.koog.agents.core.agent.session.callToolRaw
 
 -->
 ```kotlin
@@ -422,14 +423,14 @@ val agentStrategy = strategy<String, Unit>("library-assistant") {
 
          parseMarkdownStreamToBooks(markdownStream).collect { book ->
             callToolRaw(BookTool.NAME, book)
-            /* Other possible options:
+            /* 其他可能選項：
                 callTool(BookTool::class, book)
                 callTool<BookTool>(book)
                 findTool(BookTool::class).execute(book)
             */
          }
 
-         // We can make parallel tool calls
+         // 我們可以進行平行工具呼叫
          parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(toolClass=BookTool::class).collect {
             println("Tool call result: $it")
          }

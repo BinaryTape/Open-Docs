@@ -109,7 +109,9 @@ val observed = functionalAIAgent<String, String>(
     toolRegistry = tools,
     featureContext = {
         install(EventHandler) {
-            onToolCallStarting { e -> println("Tool called: ${e.tool.name}, args: ${e.toolArgs}") }
+            onToolCallStarting { e -> println("Tool called: ${'
+    ```}{e.tool.name}, args: ${'
+    ```}{e.toolArgs}") }
         }
     }
 ) { input ->
@@ -169,7 +171,7 @@ while (responses.containsToolCalls()) {
 ```kotlin
 fun <Input, Output> functionalAIAgent(
     promptExecutor: PromptExecutor,
-    agentConfig: AIAgentConfigBase,
+    agentConfig: AIAgentConfig,
     toolRegistry: ToolRegistry = ToolRegistry.EMPTY,
     loop: suspend AIAgentFunctionalContext.(input: Input) -> Output
 ): AIAgent<Input, Output>

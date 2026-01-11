@@ -169,7 +169,7 @@ while (responses.containsToolCalls()) {
 ```kotlin
 fun <Input, Output> functionalAIAgent(
     promptExecutor: PromptExecutor,
-    agentConfig: AIAgentConfigBase,
+    agentConfig: AIAgentConfig,
     toolRegistry: ToolRegistry = ToolRegistry.EMPTY,
     loop: suspend AIAgentFunctionalContext.(input: Input) -> Output
 ): AIAgent<Input, Output>

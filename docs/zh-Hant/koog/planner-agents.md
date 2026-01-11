@@ -8,9 +8,9 @@
 
 在開始之前，請確保您已具備以下條件：
 
-- 一個可運作的 Kotlin/JVM 專案。
-- 已安裝 Java 17+。
-- 從用於實作 AI 代理程式的 LLM 提供者取得的有效 API 密鑰。有關所有可用提供者的列表，請參閱 [LLM 提供者](llm-providers.md)。
+-   一個可運作的 Kotlin/JVM 專案。
+-   已安裝 Java 17+。
+-   從用於實作 AI 代理程式的 LLM 提供者取得的有效 API 密鑰。有關所有可用提供者的列表，請參閱 [LLM 提供者](llm-providers.md)。
 
 !!! tip
     請使用環境變數或安全的組態管理系統來儲存您的 API 密鑰。
@@ -120,7 +120,6 @@ GOAP 規劃器主要處理三個概念：
 <!--- INCLUDE
 import ai.koog.agents.core.agent.config.AIAgentConfig
 import ai.koog.agents.core.agent.context.AIAgentFunctionalContext
-import ai.koog.agents.core.dsl.extension.requestLLM
 import ai.koog.agents.planner.AIAgentPlannerStrategy
 import ai.koog.agents.planner.PlannerAIAgent
 import ai.koog.agents.planner.goap.goap
@@ -263,8 +262,8 @@ action(
 
 GOAP 區分信念 (樂觀預測) 和實際執行：
 
--   **信念 (Belief)**：規劃器認為會發生什麼 (用於規劃)。
--   **執行 (Execution)**：實際發生了什麼 (用於真實狀態更新)。
+-   **信念**：規劃器認為會發生什麼 (用於規劃)。
+-   **執行**：實際發生了什麼 (用於真實狀態更新)。
 
 這使得規劃器能夠根據預期結果制定計劃，同時適當處理實際結果：
 
@@ -285,4 +284,3 @@ action(
         attempts = state.attempts + 1
     )
 }
-```

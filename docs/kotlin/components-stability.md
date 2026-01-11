@@ -40,10 +40,10 @@ Kotlin 语言和工具集被划分为许多组件，例如面向 JVM、JS 和 Na
 
 * **Stability**（稳定性）状态。这表明各项目演进的速度以及用户采纳它时所承担的风险。
   稳定性状态与 [Kotlin 语言特性及其组件的稳定性级别](#stability-levels-explained)完全一致：
-    * ![Experimental stability level](https://kotl.in/badges/experimental.svg){type="joined"} 代表 **Experimental**（实验性的）
+    * ![Experimental stability level](https://kotl.in/badges/experimental.svg){type="joined"} 代表 **Experimental**
     * ![Alpha stability level](https://kotl.in/badges/alpha.svg){type="joined"} 代表 **Alpha**
     * ![Beta stability level](https://kotl.in/badges/beta.svg){type="joined"} 代表 **Beta**
-    * ![Stable stability level](https://kotl.in/badges/stable.svg){type="joined"} 代表 **Stable**（稳定）
+    * ![Stable stability level](https://kotl.in/badges/stable.svg){type="joined"} 代表 **Stable**
 
 * **Support**（支持）状态。这表明我们维护项目和帮助用户解决问题的承诺。
   支持级别对所有 JetBrains 产品都是统一的。
@@ -62,7 +62,7 @@ Kotlin 语言和工具集被划分为许多组件，例如面向 JVM、JS 和 Na
 
 ## Kotlin 组件的当前稳定性
 
-> 默认情况下，所有新组件都具有 Experimental（实验性）状态。
+> 默认情况下，所有新组件都具有 Experimental 状态。
 >
 {style="note"}
 
@@ -78,13 +78,13 @@ Kotlin 语言和工具集被划分为许多组件，例如面向 JVM、JS 和 Na
 
 ### 核心编译器插件
 
-| **组件**                                     | **状态**   | **状态始于版本** | **备注** |
+| **组件**                                     | **状态**     | **状态始于版本** | **备注** |
 |----------------------------------------------|--------------|--------------------|--------------|
 | [All-open](all-open-plugin.md)                   | Stable       | 1.3.0              |              |
 | [No-arg](no-arg-plugin.md)                       | Stable       | 1.3.0              |              |
 | [SAM-with-receiver](sam-with-receiver-plugin.md) | Stable       | 1.3.0              |              |
 | [kapt](kapt.md)                                  | Stable       | 1.3.0              |              |
-| [Lombok](lombok.md)                              | Alpha        | 2.3.0              |              |
+| [Lombok](lombok.md)                              | Experimental | 1.5.20             |              |
 | [Power-assert](power-assert.md)                  | Experimental | 2.0.0              |              |
 
 ### Kotlin 库
@@ -101,9 +101,9 @@ Kotlin 语言和工具集被划分为许多组件，例如面向 JVM、JS 和 Na
 
 ### Kotlin 多平台
 
-| **组件**                                       | **状态** | **状态始于版本** | **备注**                                                                                                   |
-|------------------------------------------------|------------|--------------------|------------------------------------------------------------------------------------------------------------|
-| Kotlin Multiplatform                           | Stable     | 1.9.20             |                                                                                                            |
+| **组件**                                       | **状态** | **状态始于版本** | **备注**                                                                                                         |
+|------------------------------------------------|------------|--------------------|------------------------------------------------------------------------------------------------------------------|
+| Kotlin Multiplatform                           | Stable     | 1.9.20             |                                                                                                                  |
 | Kotlin Multiplatform plugin for Android Studio | Beta       | 0.8.0              | [独立于语言版本化](https://kotlinlang.org/docs/multiplatform/multiplatform-plugin-releases.html) |
 
 ### Kotlin/Native
@@ -120,12 +120,12 @@ Kotlin 语言和工具集被划分为许多组件，例如面向 JVM、JS 和 Na
 
 ### 语言工具
 
-| **组件**                      | **状态**   | **状态始于版本** | **备注**                                   |
-|-------------------------------|--------------|--------------------|--------------------------------------------|
-| 脚本语法和语义                | Alpha        | 1.2.0              |                                            |
-| 脚本嵌入和扩展 API            | Beta         | 1.5.0              |                                            |
-| 脚本 IDE 支持                 | Beta         |                    | 可用于 IntelliJ IDEA 2023.1 及更高版本 |
-| CLI 脚本                        | Alpha        | 1.2.0              |                                            |
+| **组件**                         | **状态** | **状态始于版本** | **备注**                                   |
+|----------------------------------|----------|--------------------|--------------------------------------------|
+| 脚本语法和语义                   | Alpha    | 1.2.0              |                                            |
+| 脚本嵌入和扩展 API               | Beta     | 1.5.0              |                                            |
+| 脚本 IDE 支持                    | Beta     |                    | 可用于 IntelliJ IDEA 2023.1 及更高版本 |
+| CLI 脚本                         | Alpha    | 1.2.0              |                                            |
 
 ## 语言特性和设计提案
 

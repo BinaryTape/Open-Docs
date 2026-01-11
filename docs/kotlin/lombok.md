@@ -1,5 +1,5 @@
 [//]: # (title: Lombok 编译器插件)
-<primary-label ref="alpha"/>
+<primary-label ref="experimental-opt-in"/>
 
 Kotlin Lombok 编译器插件允许 Kotlin 代码在同一 Java/Kotlin 混合模块中生成和使用 Java 的 Lombok 声明。
 如果你从另一个模块调用此类声明，则无需为该模块的编译使用此插件。

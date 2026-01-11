@@ -69,15 +69,15 @@ val anthropicClient = AnthropicLLMClient(System.getenv("ANTHROPIC_KEY"))
 val googleClient = GoogleLLMClient(System.getenv("GOOGLE_KEY"))
 ```
 <!--- KNIT example-complex-workflow-agents-02.kt -->
-2) 將配置好的用戶端傳遞給 `DefaultMultiLLMPromptExecutor` 類別建構函數，以建立具有多個 LLM 提供者的提示執行器：
+2) 將配置好的用戶端傳遞給 `MultiLLMPromptExecutor` 類別建構函數，以建立具有多個 LLM 提供者的提示執行器：
 <!--- INCLUDE
 import ai.koog.agents.example.exampleComplexWorkflowAgents02.anthropicClient
 import ai.koog.agents.example.exampleComplexWorkflowAgents02.googleClient
 import ai.koog.agents.example.exampleComplexWorkflowAgents02.openAIClient
-import ai.koog.prompt.executor.llms.all.DefaultMultiLLMPromptExecutor
+import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
 -->
 ```kotlin
-val multiExecutor = DefaultMultiLLMPromptExecutor(openAIClient, anthropicClient, googleClient)
+val multiExecutor = MultiLLMPromptExecutor(openAIClient, anthropicClient, googleClient)
 ```
 <!--- KNIT example-complex-workflow-agents-03.kt -->
 

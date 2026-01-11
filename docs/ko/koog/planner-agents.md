@@ -61,16 +61,16 @@ suspend fun main() {
 }
 -->
 ```kotlin
-// Create the planner
+// 플래너 생성
 val planner = SimpleLLMPlanner()
 
-// Wrap it in a planner strategy
+// 플래너 전략으로 래핑
 val strategy = AIAgentPlannerStrategy(
     name = "simple-planner",
     planner = planner
 )
 
-// Configure the agent
+// 에이전트 구성
 val agentConfig = AIAgentConfig(
     prompt = prompt("planner") {
         system("You are a helpful planning assistant.")
@@ -79,14 +79,14 @@ val agentConfig = AIAgentConfig(
     maxAgentIterations = 50
 )
 
-// Create the planner agent
+// 플래너 에이전트 생성
 val agent = PlannerAIAgent(
     promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
     strategy = strategy,
     agentConfig = agentConfig
 )
 
-// Run the agent with a task
+// 작업으로 에이전트 실행
 val result = agent.run("Create a plan to organize a team meeting")
 println(result)
 ```
@@ -121,7 +121,6 @@ GOAP 에이전트를 생성하려면 다음을 수행해야 합니다.
 <!--- INCLUDE
 import ai.koog.agents.core.agent.config.AIAgentConfig
 import ai.koog.agents.core.agent.context.AIAgentFunctionalContext
-import ai.koog.agents.core.dsl.extension.requestLLM
 import ai.koog.agents.planner.AIAgentPlannerStrategy
 import ai.koog.agents.planner.PlannerAIAgent
 import ai.koog.agents.planner.goap.goap
@@ -137,7 +136,7 @@ suspend fun main() {
 }
 -->
 ```kotlin
-// Define a state for content creation
+// 콘텐츠 생성을 위한 상태 정의
 data class ContentState(
     val topic: String,
     val hasOutline: Boolean = false,
@@ -148,7 +147,7 @@ data class ContentState(
     val isPublished: Boolean = false
 )
 
-// Create GOAP planner with LLM-powered actions
+// LLM 기반 행동으로 GOAP 플래너 생성
 val planner = goap<ContentState>(typeOf<ContentState>()) {
     action(
         name = "Create outline",
@@ -156,7 +155,7 @@ val planner = goap<ContentState>(typeOf<ContentState>()) {
         belief = { state -> state.copy(hasOutline = true, outline = "Outline") },
         cost = { 1.0 }
     ) { ctx, state ->
-        // Use LLM to create the outline
+        // LLM을 사용하여 개요 생성
         val response = ctx.llm.writeSession {
             appendPrompt {
                 user("Create a detailed outline for an article about: ${state.topic}")
@@ -172,7 +171,7 @@ val planner = goap<ContentState>(typeOf<ContentState>()) {
         belief = { state -> state.copy(hasDraft = true, draft = "Draft") },
         cost = { 2.0 }
     ) { ctx, state ->
-        // Use LLM to write the draft
+        // LLM을 사용하여 초안 작성
         val response = ctx.llm.writeSession {
             appendPrompt {
                 user("Write an article based on this outline:
@@ -189,7 +188,7 @@ ${state.outline}")
         belief = { state -> state.copy(hasReview = true) },
         cost = { 1.0 }
     ) { ctx, state ->
-        // Use LLM to review the draft
+        // LLM을 사용하여 초안 검토
         val response = ctx.llm.writeSession {
             appendPrompt {
                 user("Review this article and suggest improvements:
@@ -218,7 +217,7 @@ ${state.draft}")
     )
 }
 
-// Create and run the agent
+// 에이전트 생성 및 실행
 val strategy = AIAgentPlannerStrategy("content-planner", planner)
 val agentConfig = AIAgentConfig(
     prompt = prompt("writer") {
@@ -251,11 +250,11 @@ action(
     precondition = { true },
     belief = { state -> state.copy(operationDone = true) },
     cost = { state ->
-        // Dynamic cost based on state
+        // 상태에 기반한 동적 비용
         if (state.hasOptimization) 1.0 else 10.0
     }
 ) { ctx, state ->
-    // Execute action
+    // 행동 실행
     state.copy(operationDone = true)
 }
 ```
@@ -274,12 +273,12 @@ action(
     name = "Attempt complex task",
     precondition = { state -> !state.taskComplete },
     belief = { state ->
-        // Optimistic belief: task will succeed
+        // 낙관적인 믿음: 작업이 성공할 것임
         state.copy(taskComplete = true)
     },
     cost = { 5.0 }
 ) { ctx, state ->
-    // Actual execution might fail or have different results
+    // 실제 실행은 실패하거나 다른 결과를 가질 수 있음
     val success = performComplexTask()
     state.copy(
         taskComplete = success,

@@ -15,7 +15,7 @@
     plugins {
         kotlin("multiplatform") version "%kotlinVersion%"
     }
-    
+ 
     kotlin {
         macosArm64()    // on macOS
         // linuxArm64() // on Linux
@@ -49,7 +49,7 @@ Gradle 会自动编译该目标平台的源代码文件，并在项目的 `build
     ```bash
     kotlinc-native qux.kt -l bar
     ```
-
+   
     此命令会编译 `qux.kt` 源代码文件和 `bar.klib` 库的内容，并生成 `program.kexe` 最终可执行二进制文件。
 
 ## klib 实用工具
@@ -136,7 +136,7 @@ klib dump-metadata-signatures mylib.klib -signature-version 1
 ## 库搜索序列
 
 > 库搜索机制即将更改。请留意此部分的更新，并避免依赖已弃用的标志。
->
+> 
 {style="note"}
 
 当给定 `-library foo` 选项时，编译器按以下顺序搜索 `foo` 库：
@@ -144,10 +144,10 @@ klib dump-metadata-signatures mylib.klib -signature-version 1
 1.  当前编译目录或绝对路径。
 2.  安装在默认版本库中的库。
 
-    > 默认版本库是 `~/.konan`。你可以通过设置 `kotlin.data.dir` Gradle 属性来更改它。
-    >
+    > 默认版本库是 `~/.konan`。你可以通过设置 `konan.data.dir` Gradle 属性来更改它。
+    > 
     > 或者，你可以使用 `-Xkonan-data-dir` 编译器选项，通过 `cinterop` 和 `konanc` 工具来配置你的自定义目录路径。
-    >
+    > 
     {style="note"}
 
 3.  安装在 `$installation/klib` 目录中的库。
@@ -182,7 +182,7 @@ Kotlin/Native 库是包含预定义目录结构的 zip 文件，其布局如下�
 
 ## 在 klib 中使用相对路径
 
-源代码文件的序列化 IR 表示是 `klib` 库的 [一部分](#library-format)。它包含用于生成正确调试信息的文件路径。默认情况下，存储的路径是绝对的。
+源代码文件的序列化 IR 表示是 [klib 库的](#library-format) 一部分。它包含用于生成正确调试信息的文件路径。默认情况下，存储的路径是绝对的。
 
 使用 `-Xklib-relative-path-base` 编译器选项，你可以更改格式并在构件中仅使用相对路径。为了使其工作，请将一个或多个源代码文件的基路径作为实参传递：
 
@@ -212,7 +212,7 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
         freeCompilerArgs.add("-Xklib-relative-path-base=$base")
     }
 }
-```
+``` 
 
 </tab>
 </tabs>

@@ -1,13 +1,13 @@
 [//]: # (title: Kotlin早期アクセスプレビューに参加する)
 
 <tldr>
-    <p>現在、プレビューバージョンは利用できません。</p>
-    <!--<p>Latest Kotlin EAP release: <strong>%kotlinEapVersion%</strong></p>  -->
+    <!--<p>No preview versions are currently available.</p>-->
+    <p>最新のKotlin EAPリリース: <strong>%kotlinEapVersion%</strong></p>
 </tldr>
 
 Kotlin早期アクセスプレビュー (EAP) に参加して、Kotlinの最新機能をリリース前に試すことができます。
 
-私たちは、言語 (_2.x.0_) およびツール (_2.x.20_) のすべてのリリースに先立ち、いくつかのベータ (_Beta_) およびリリース候補 (_RC_) ビルドを提供しています。
+私たちは、すべての言語 (_2.x.0_) およびツール (_2.x.20_) リリースに先立ち、いくつかのベータ (_Beta_) およびリリース候補 (_RC_) ビルドを提供しています。
 
 課題トラッカー [YouTrack](https://kotl.in/issue) にバグを見つけて報告していただければ、大変感謝いたします。最終リリース前に修正できる可能性が高く、問題が解決されるまで次のKotlinリリースを待つ必要がなくなります。
 
@@ -33,21 +33,21 @@ Kotlin早期アクセスプレビュー (EAP) に参加して、Kotlinの最新�
 
 ## ビルドの詳細
 
-_現在、プレビューバージョンは利用できません。_
+<!-- _No preview versions are currently available._ -->
 
-<!-- <table>
+ <table>
     <tr>
-        <th>Build info</th>
-        <th>Build highlights</th>
+        <th>ビルド情報</th>
+        <th>ビルドのハイライト</th>
     </tr>
     <tr>
-        <td><strong>2.3.0-RC3</strong>
-            <p>Released: <strong>December 9, 2025</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC3" target="_blank">Release on GitHub</a></p>
+        <td><strong>2.3.20-Beta1</strong>
+            <p>リリース日: <strong>2026年1月8日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20-Beta1" target="_blank">GitHubでリリース</a></p>
         </td>
         <td>
-            <p>A language release with previews of new features and tooling updates.</p>
-            <p>For more details, please refer to the <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0-RC3">changelog</a> or <a href="whatsnew-eap.md">What's new in Kotlin 2.3.0-RC3</a>.</p>
+            <p>パフォーマンス改善、バグ修正、およびツール関連の更新を含むツールリリースです。</p>
+            <p>詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20-Beta1">変更履歴</a>をご参照ください。</p>
         </td>
     </tr>
-</table> -->
+</table>

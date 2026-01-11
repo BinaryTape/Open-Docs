@@ -24,11 +24,11 @@ Koogは、[`PromptExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-e
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import ai.koog.prompt.executor.llms.SingleLLMPromptExecutor
+import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
 -->
 ```kotlin
 val openAIClient = OpenAILLMClient(System.getenv("OPENAI_KEY"))
-val promptExecutor = SingleLLMPromptExecutor(openAIClient)
+val promptExecutor = MultiLLMPromptExecutor(openAIClient)
 ```
 <!--- KNIT example-prompt-executors-01.kt -->
 
@@ -37,7 +37,7 @@ val promptExecutor = SingleLLMPromptExecutor(openAIClient)
 複数のLLMプロバイダと連携するプロンプトエクゼキュータを作成するには、以下を実行します。
 
 1.  必要なLLMプロバイダ向けに、対応するAPIキーを使用してクライアントを設定します。
-2.  設定されたクライアントを `MultiLLMPromptExecutor` クラスのコンストラクタに渡し、複数のLLMプロバイダを持つプロンプトエクゼキュータを作成します。
+2.  設定されたクライアントを [`MultiLLMPromptExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms/ai.koog.prompt.executor.llms/-multi-l-l-m-prompt-executor/index.html) クラスのコンストラクタに渡し、複数のLLMプロバイダを持つプロンプトエクゼキュータを作成します。
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
@@ -62,24 +62,23 @@ val multiExecutor = MultiLLMPromptExecutor(
 
 以下の表は、特定のLLMクライアントで構成された `SingleLLMPromptExecutor` を返す**定義済み単一プロバイダエクゼキュータ**を含みます。
 
-| LLMプロバイダ   | プロンプトエクゼキュータ                                                                                                                                                                                                                                                                                                                                             | 説明                                                                                                                                                                                                          |
-|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| OpenAI         | [simpleOpenAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-open-a-i-executor.html),<br/>[simpleAzureOpenAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-azure-open-a-i-executor.html)                       | * `simpleOpenAIExecutor` は、OpenAIモデルでプロンプトを実行する `OpenAILLMClient` をラップします。<br/>* `simpleAzureOpenAIExecutor` は、Azure OpenAI Serviceを使用するように構成された `OpenAILLMClient` をラップします。                          |
-| Anthropic      | [simpleAnthropicExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-anthropic-executor.html)                                                                                                                                                                                              | Anthropicモデルでプロンプトを実行する `AnthropicLLMClient` をラップします。                                                                                                                                                  |
-| Google         | [simpleGoogleAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-google-a-i-executor.html)                                                                                                                                                                                              | Googleモデルでプロンプトを実行する `GoogleLLMClient` をラップします。                                                                                                                                                        |
-| OpenRouter     | [simpleOpenRouterExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-open-router-executor.html)                                                                                                                                                                                           | OpenRouterでプロンプトを実行する `OpenRouterLLMClient` をラップします。                                                                                                                                                       |
-| Amazon Bedrock | [simpleBedrockExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-bedrock-executor.html),<br/>[simpleBedrockExecutorWithBearerToken](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-bedrock-executor-with-bearer-token.html) | * `simpleBedrockExecutor` は、AWS Bedrockでプロンプトを実行する `BedrockLLMClient` をラップします。<br/>* `simpleBedrockExecutorWithBearerToken` は `BedrockLLMClient` をラップし、提供されたBedrock APIキーを使用してリクエストを送信します。 |
-| Mistral        | [simpleMistralAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-mistral-a-i-executor.html)                                                                                                                                                                                            | Mistralモデルでプロンプトを実行する `MistralAILLMClient` をラップします。                                                                                                                                                    |
-| Ollama         | [simpleOllamaAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-ollama-a-i-executor.html)                                                                                                                                                                                              | Ollamaでプロンプトを実行する `OllamaClient` をラップします。                                                                                                                                                                  |
-
-Koogは、**定義済み複数プロバイダエクゼキュータ**である `DefaultMultiLLMPromptExecutor` も提供しています。
-これは、`OpenAILLMClient`、`AnthropicLLMClient`、および `GoogleLLMClient` モデルをラップする `MultiLLMPromptExecutor` の実装です。
+| LLMプロバイダ   | プロンプトエクゼキュータ                                                                                                                                                                             | 説明                                                                                             |
+|----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
+| OpenAI         | [simpleOpenAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-open-a-i-executor.html)                                  | OpenAIモデルでプロンプトを実行する `OpenAILLMClient` をラップします。                            |
+| OpenAI         | [simpleAzureOpenAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-azure-open-a-i-executor.html)                       | Azure OpenAI Serviceを使用するように構成された `OpenAILLMClient` をラップします。                |
+| Anthropic      | [simpleAnthropicExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-anthropic-executor.html)                              | Anthropicモデルでプロンプトを実行する `AnthropicLLMClient` をラップします。                      |
+| Google         | [simpleGoogleAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-google-a-i-executor.html)                              | Googleモデルでプロンプトを実行する `GoogleLLMClient` をラップします。                            |
+| OpenRouter     | [simpleOpenRouterExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-open-router-executor.html)                           | OpenRouterでプロンプトを実行する `OpenRouterLLMClient` をラップします。                          |
+| Amazon Bedrock | [simpleBedrockExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-bedrock-executor.html)                                  | AWS Bedrockでプロンプトを実行する `BedrockLLMClient` をラップします。                            |
+| Amazon Bedrock | [simpleBedrockExecutorWithBearerToken](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-bedrock-executor-with-bearer-token.html) | `BedrockLLMClient` をラップし、提供されたBedrock APIキーを使用してリクエストを送信します。 |
+| Mistral        | [simpleMistralAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-mistral-a-i-executor.html)                            | Mistralモデルでプロンプトを実行する `MistralAILLMClient` をラップします。                        |
+| Ollama         | [simpleOllamaAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-ollama-a-i-executor.html)                              | Ollamaでプロンプトを実行する `OllamaClient` をラップします。                                     |
 
 定義済みの単一および複数プロバイダエクゼキュータを作成する例を以下に示します。
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import ai.koog.prompt.executor.llms.all.DefaultMultiLLMPromptExecutor
+import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
 import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
 import ai.koog.prompt.executor.clients.google.GoogleLLMClient
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
@@ -89,11 +88,11 @@ import kotlinx.coroutines.runBlocking
 // Create an OpenAI executor
 val promptExecutor = simpleOpenAIExecutor("OPENAI_KEY")
 
-// Create a DefaultMultiLLMPromptExecutor with OpenAI, Anthropic, and Google LLM clients
+// Create a MultiLLMPromptExecutor with OpenAI, Anthropic, and Google LLM clients
 val openAIClient = OpenAILLMClient("OPENAI_KEY")
 val anthropicClient = AnthropicLLMClient("ANTHROPIC_KEY")
 val googleClient = GoogleLLMClient("GOOGLE_KEY")
-val multiExecutor = DefaultMultiLLMPromptExecutor(openAIClient, anthropicClient, googleClient)
+val multiExecutor = MultiLLMPromptExecutor(openAIClient, anthropicClient, googleClient)
 ```
 <!--- KNIT example-prompt-executors-03.kt -->
 
@@ -160,10 +159,16 @@ import ai.koog.prompt.llm.LLMProvider
 import ai.koog.prompt.dsl.prompt
 import kotlinx.coroutines.runBlocking
 
+fun main() = runBlocking {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
 // Create LLM clients for OpenAI, Anthropic, and Google providers
-val openAIClient = OpenAILLMClient("OPENAI_KEY")
-val anthropicClient = AnthropicLLMClient("ANTHROPIC_KEY")
-val googleClient = GoogleLLMClient("GOOGLE_KEY")
+val openAIClient = OpenAILLMClient("OPENAI_API_KEY")
+val anthropicClient = AnthropicLLMClient("ANTHROPIC_API_KEY")
+val googleClient = GoogleLLMClient("GOOGLE_API_KEY")
 
 // Create a MultiLLMPromptExecutor that maps LLM providers to LLM clients
 val executor = MultiLLMPromptExecutor(
@@ -172,12 +177,6 @@ val executor = MultiLLMPromptExecutor(
     LLMProvider.Google to googleClient
 )
 
-fun main() = runBlocking {
--->
-<!--- SUFFIX
-}
--->
-```kotlin
 // Create a prompt
 val p = prompt("demo") { user("Summarize this.") }
 

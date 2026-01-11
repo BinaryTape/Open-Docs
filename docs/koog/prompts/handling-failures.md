@@ -40,14 +40,33 @@ val response = resilientClient.execute(prompt, OpenAIModels.Chat.GPT4o)
 
 ### 配置重试行为
 
+默认情况下，`RetryingLLMClient` 会为 LLM 客户端配置最多 3 次重试尝试、1 秒的初始延迟和 30 秒的最大延迟。你可以通过向 `RetryingLLMClient` 传递 `RetryConfig` 来指定不同的重试配置。例如：
+
+<!--- INCLUDE
+import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+import ai.koog.prompt.executor.clients.retry.RetryConfig
+import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
+
+val apiKey = System.getenv("OPENAI_API_KEY")
+val client = OpenAILLMClient(apiKey)
+-->
+```kotlin
+// 使用预定义配置
+val conservativeClient = RetryingLLMClient(
+    delegate = client,
+    config = RetryConfig.CONSERVATIVE
+)
+```
+<!--- KNIT example-handling-failures-02.kt -->
+
 Koog 提供了几种预定义的重试配置：
 
-| 配置                  | 最大尝试次数 | 初始延迟 | 最大延迟 | 用例                |
-|-----------------------|--------------|----------|----------|---------------------|
-| `RetryConfig.DISABLED`| 1 (不重试)   | -        | -        | 开发和测试          |
-| `RetryConfig.CONSERVATIVE`| 3            | 2s       | 30s      | 正常生产使用        |
-| `RetryConfig.AGGRESSIVE`| 5            | 500ms    | 20s      | 关键操作            |
-| `RetryConfig.PRODUCTION`| 3            | 1s       | 20s      | 推荐默认值          |
+| 配置 | 最大尝试次数 | 初始延迟 | 最大延迟 | 用例 |
+|---|---|---|---|---|
+| `RetryConfig.DISABLED` | 1 (不重试) | - | - | 开发、测试和调试。 |
+| `RetryConfig.CONSERVATIVE` | 3 | 2s | 30s | 后台或计划任务，其中可靠性比速度更重要。 |
+| `RetryConfig.AGGRESSIVE` | 5 | 500ms | 20s | 关键操作，其中从瞬时错误中快速恢复比减少 API 调用更重要。 |
+| `RetryConfig.PRODUCTION` | 3 | 1s | 20s | 一般生产使用。 |
 
 你可以直接使用它们，也可以创建自定义配置：
 
@@ -61,12 +80,6 @@ val apiKey = System.getenv("OPENAI_API_KEY")
 val client = OpenAILLMClient(apiKey)
 -->
 ```kotlin
-// 使用预定义配置
-val conservativeClient = RetryingLLMClient(
-    delegate = client,
-    config = RetryConfig.CONSERVATIVE
-)
-
 // 或者创建自定义配置
 val customClient = RetryingLLMClient(
     delegate = client,
@@ -79,7 +92,7 @@ val customClient = RetryingLLMClient(
     )
 )
 ```
-<!--- KNIT example-handling-failures-02.kt -->
+<!--- KNIT example-handling-failures-03.kt -->
 
 ### 重试错误模式
 
@@ -145,7 +158,7 @@ val config = RetryConfig(
     )
 )
 ```
-<!--- KNIT example-handling-failures-03.kt -->
+<!--- KNIT example-handling-failures-04.kt -->
 
 你还可以将自定义模式添加到默认的 `RetryConfig.DEFAULT_PATTERNS` 中：
 
@@ -160,7 +173,7 @@ val config = RetryConfig(
     )
 )
 ```
-<!--- KNIT example-handling-failures-04.kt -->
+<!--- KNIT example-handling-failures-05.kt -->
 
 ### 带重试的流式传输
 
@@ -193,10 +206,10 @@ val config = RetryConfig(
 val client = RetryingLLMClient(baseClient, config)
 val stream = client.executeStreaming(prompt, OpenAIModels.Chat.GPT4o)
 ```
-<!--- KNIT example-handling-failures-05.kt -->
+<!--- KNIT example-handling-failures-06.kt -->
 
 !!!note
-    流式传输重试仅适用于在收到第一个令牌之前发生的连接失败。流式传输开始后，任何错误都将直接传递。
+    流式传输重试仅适用于在收到第一个令牌之前发生的连接失败。流式传输开始后，重试逻辑将禁用。如果流式传输期间发生错误，操作将被终止。
 
 ### 提示词执行器带重试
 
@@ -209,7 +222,6 @@ import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
 import ai.koog.prompt.executor.clients.retry.RetryConfig
 import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
 import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
-import ai.koog.prompt.executor.llms.SingleLLMPromptExecutor
 import ai.koog.prompt.llm.LLMProvider
 import aws.sdk.kotlin.runtime.auth.credentials.StaticCredentialsProvider
 
@@ -220,7 +232,7 @@ val resilientClient = RetryingLLMClient(
     OpenAILLMClient(System.getenv("OPENAI_API_KEY")),
     RetryConfig.PRODUCTION
 )
-val executor = SingleLLMPromptExecutor(resilientClient)
+val executor = MultiLLMPromptExecutor(resilientClient)
 
 // 带灵活客户端配置的多提供方执行器
 val multiExecutor = MultiLLMPromptExecutor(
@@ -242,11 +254,21 @@ val multiExecutor = MultiLLMPromptExecutor(
     ),
 )
 ```
-<!--- KNIT example-handling-failures-06.kt -->
+<!--- KNIT example-handling-failures-07.kt -->
 
 ## 超时配置
 
-所有 LLM 客户端都支持超时配置，以防止请求挂起。你可以在创建客户端时，使用 [`ConnectionTimeoutConfig`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/ai.koog.prompt.executor.clients/-connection-timeout-config/index.html) 类为网络连接指定超时值：
+所有 LLM 客户端都支持超时配置，以防止请求挂起。你可以在创建客户端时，使用 [`ConnectionTimeoutConfig`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/ai.koog.prompt.executor.clients/-connection-timeout-config/index.html) 类为网络连接指定超时值。
+
+`ConnectionTimeoutConfig` 具有以下属性：
+
+| 属性 | 默认值 | 描述 |
+|---|---|---|
+| `connectTimeoutMillis` | 60 秒 (60,000) | 建立到服务器连接的最大时间。 |
+| `requestTimeoutMillis` | 15 分钟 (900,000) | 整个请求完成的最大时间。 |
+| `socketTimeoutMillis` | 15 分钟 (900,000) | 等待通过已建立连接传输数据的最大时间。 |
+
+你可以根据特定需求自定义这些值。例如：
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.ConnectionTimeoutConfig
@@ -267,7 +289,7 @@ val client = OpenAILLMClient(
     )
 )
 ```
-<!--- KNIT example-handling-failures-07.kt -->
+<!--- KNIT example-handling-failures-08.kt -->
 
 !!! tip
     对于长时间运行或流式传输调用，请为 `requestTimeoutMillis` 和 `socketTimeoutMillis` 设置更高的值。
@@ -332,4 +354,4 @@ fun main() {
     }
 }
 ```
-<!--- KNIT example-handling-failures-08.kt -->
+<!--- KNIT example-handling-failures-09.kt -->

@@ -24,11 +24,11 @@ Koog는 [`PromptExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-exe
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import ai.koog.prompt.executor.llms.SingleLLMPromptExecutor
+import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
 -->
 ```kotlin
 val openAIClient = OpenAILLMClient(System.getenv("OPENAI_KEY"))
-val promptExecutor = SingleLLMPromptExecutor(openAIClient)
+val promptExecutor = MultiLLMPromptExecutor(openAIClient)
 ```
 <!--- KNIT example-prompt-executors-01.kt -->
 
@@ -37,7 +37,7 @@ val promptExecutor = SingleLLMPromptExecutor(openAIClient)
 여러 LLM 제공업체와 함께 작동하는 프롬프트 실행기를 생성하려면 다음을 수행합니다.
 
 1.  필요한 LLM 제공업체용 클라이언트를 해당 API 키로 구성합니다.
-2.  구성된 클라이언트를 `MultiLLMPromptExecutor` 클래스 생성자에 전달하여 여러 LLM 제공업체를 사용하는 프롬프트 실행기를 생성합니다.
+2.  구성된 클라이언트를 [`MultiLLMPromptExecutor`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms/ai.koog.prompt.executor.llms/-multi-l-l-m-prompt-executor/index.html) 클래스 생성자에 전달하여 여러 LLM 제공업체를 사용하는 프롬프트 실행기를 생성합니다.
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
@@ -62,38 +62,37 @@ val multiExecutor = MultiLLMPromptExecutor(
 
 다음 표에는 특정 LLM 클라이언트로 구성된 `SingleLLMPromptExecutor`를 반환하는 **미리 정의된 단일 제공업체 실행기**가 포함되어 있습니다.
 
-| LLM 제공업체   | 프롬프트 실행기                                                                                                                                                                                                                                                                                                                                             | 설명                                                                                                                                                                                                          |
-|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| OpenAI         | [simpleOpenAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-open-a-i-executor.html),<br/>[simpleAzureOpenAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-azure-open-a-i-executor.html)                       | * `simpleOpenAIExecutor`는 OpenAI 모델로 프롬프트를 실행하는 `OpenAILLMClient`를 래핑합니다.<br/>* `simpleAzureOpenAIExecutor`는 Azure OpenAI 서비스를 사용하도록 구성된 `OpenAILLMClient`를 래핑합니다.                          |
-| Anthropic      | [simpleAnthropicExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-anthropic-executor.html)                                                                                                                                                                                              | Anthropic 모델로 프롬프트를 실행하는 `AnthropicLLMClient`를 래핑합니다.                                                                                                                                                  |
-| Google         | [simpleGoogleAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-google-a-i-executor.html)                                                                                                                                                                                              | Google 모델로 프롬프트를 실행하는 `GoogleLLMClient`를 래핑합니다.                                                                                                                                                        |
-| OpenRouter     | [simpleOpenRouterExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-open-router-executor.html)                                                                                                                                                                                           | OpenRouter로 프롬프트를 실행하는 `OpenRouterLLMClient`를 래핑합니다.                                                                                                                                                       |
-| Amazon Bedrock | [simpleBedrockExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-bedrock-executor.html),<br/>[simpleBedrockExecutorWithBearerToken](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-bedrock-executor-with-bearer-token.html) | * `simpleBedrockExecutor`는 AWS Bedrock으로 프롬프트를 실행하는 `BedrockLLMClient`를 래핑합니다.<br/>* `simpleBedrockExecutorWithBearerToken`은 `BedrockLLMClient`를 래핑하고 제공된 Bedrock API 키를 사용하여 요청을 보냅니다. |
-| Mistral        | [simpleMistralAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-mistral-a-i-executor.html)                                                                                                                                                                                            | Mistral 모델로 프롬프트를 실행하는 `MistralAILLMClient`를 래핑합니다.                                                                                                                                                    |
-| Ollama         | [simpleOllamaAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-ollama-a-i-executor.html)                                                                                                                                                                                              | Ollama로 프롬프트를 실행하는 `OllamaClient`를 래핑합니다.                                                                                                                                                                  |
-
-Koog는 또한 **미리 정의된 다중 제공업체 실행기**인 `DefaultMultiLLMPromptExecutor`를 제공합니다.
-이것은 `OpenAILLMClient`, `AnthropicLLMClient`, `GoogleLLMClient` 모델을 래핑하는 `MultiLLMPromptExecutor`의 구현입니다.
+| LLM 제공업체   | 프롬프트 실행기                                                                                                                                                                             | 설명                                                                           |
+|----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------|
+| OpenAI         | [simpleOpenAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-open-a-i-executor.html)                                  | `OpenAILLMClient`를 래핑하고 OpenAI 모델로 프롬프트를 실행합니다.                    |
+| OpenAI         | [simpleAzureOpenAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-azure-open-a-i-executor.html)                       | Azure OpenAI 서비스를 사용하도록 구성된 `OpenAILLMClient`를 래핑합니다.               |
+| Anthropic      | [simpleAnthropicExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-anthropic-executor.html)                              | `AnthropicLLMClient`를 래핑하고 Anthropic 모델로 프롬프트를 실행합니다.              |
+| Google         | [simpleGoogleAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-google-a-i-executor.html)                              | `GoogleLLMClient`를 래핑하고 Google 모델로 프롬프트를 실행합니다.                    |
+| OpenRouter     | [simpleOpenRouterExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-open-router-executor.html)                           | `OpenRouterLLMClient`를 래핑하고 OpenRouter로 프롬프트를 실행합니다.                   |
+| Amazon Bedrock | [simpleBedrockExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-bedrock-executor.html)                                  | `BedrockLLMClient`를 래핑하고 AWS Bedrock으로 프롬프트를 실행합니다.                     |
+| Amazon Bedrock | [simpleBedrockExecutorWithBearerToken](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-bedrock-executor-with-bearer-token.html) | `BedrockLLMClient`를 래핑하고 제공된 Bedrock API 키를 사용하여 요청을 보냅니다. |
+| Mistral        | [simpleMistralAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-mistral-a-i-executor.html)                            | `MistralAILLMClient`를 래핑하고 Mistral 모델로 프롬프트를 실행합니다.                |
+| Ollama         | [simpleOllamaAIExecutor](https://api.koog.ai/prompt/prompt-executor/prompt-executor-llms-all/ai.koog.prompt.executor.llms.all/simple-ollama-a-i-executor.html)                              | `OllamaClient`를 래핑하고 Ollama로 프롬프트를 실행합니다.                              |
 
 다음은 미리 정의된 단일 및 다중 제공업체 실행기를 생성하는 예시입니다.
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import ai.koog.prompt.executor.llms.all.DefaultMultiLLMPromptExecutor
+import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
 import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
 import ai.koog.prompt.executor.clients.google.GoogleLLMClient
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
 import kotlinx.coroutines.runBlocking
 -->
 ```kotlin
-// OpenAI 실행기 생성
+// Create an OpenAI executor
 val promptExecutor = simpleOpenAIExecutor("OPENAI_KEY")
 
-// OpenAI, Anthropic, Google LLM 클라이언트를 사용하여 DefaultMultiLLMPromptExecutor 생성
+// Create a MultiLLMPromptExecutor with OpenAI, Anthropic, and Google LLM clients
 val openAIClient = OpenAILLMClient("OPENAI_KEY")
 val anthropicClient = AnthropicLLMClient("ANTHROPIC_KEY")
 val googleClient = GoogleLLMClient("GOOGLE_KEY")
-val multiExecutor = DefaultMultiLLMPromptExecutor(openAIClient, anthropicClient, googleClient)
+val multiExecutor = MultiLLMPromptExecutor(openAIClient, anthropicClient, googleClient)
 ```
 <!--- KNIT example-prompt-executors-03.kt -->
 
@@ -120,10 +119,10 @@ fun main() {
 }
 -->
 ```kotlin
-// OpenAI 실행기 생성
+// Create an OpenAI executor
 val promptExecutor = simpleOpenAIExecutor("OPENAI_KEY")
 
-// 프롬프트 실행
+// Execute a prompt
 val response = promptExecutor.execute(
     prompt = prompt("demo") { user("Summarize this.") },
     model = OpenAIModels.Chat.GPT4o
@@ -161,31 +160,31 @@ import ai.koog.prompt.llm.LLMProvider
 import ai.koog.prompt.dsl.prompt
 import kotlinx.coroutines.runBlocking
 
-// OpenAI, Anthropic, Google 제공업체용 LLM 클라이언트 생성
-val openAIClient = OpenAILLMClient("OPENAI_KEY")
-val anthropicClient = AnthropicLLMClient("ANTHROPIC_KEY")
-val googleClient = GoogleLLMClient("GOOGLE_KEY")
-
-// LLM 제공업체를 LLM 클라이언트에 매핑하는 MultiLLMPromptExecutor 생성
-val executor = MultiLLMPromptExecutor(
-    LLMProvider.OpenAI to openAIClient,
-    LLMProvider.Anthropic to anthropicClient,
-    LLMProvider.Google to googleClient
-)
-
 fun main() = runBlocking {
 -->
 <!--- SUFFIX
 }
 -->
 ```kotlin
-// 프롬프트 생성
+// Create LLM clients for OpenAI, Anthropic, and Google providers
+val openAIClient = OpenAILLMClient("OPENAI_API_KEY")
+val anthropicClient = AnthropicLLMClient("ANTHROPIC_API_KEY")
+val googleClient = GoogleLLMClient("GOOGLE_API_KEY")
+
+// Create a MultiLLMPromptExecutor that maps LLM providers to LLM clients
+val executor = MultiLLMPromptExecutor(
+    LLMProvider.OpenAI to openAIClient,
+    LLMProvider.Anthropic to anthropicClient,
+    LLMProvider.Google to googleClient
+)
+
+// Create a prompt
 val p = prompt("demo") { user("Summarize this.") }
 
-// OpenAI 모델로 프롬프트 실행; 프롬프트 실행기는 자동으로 OpenAI 클라이언트로 전환됩니다.
+// Run the prompt with an OpenAI model; the prompt executor automatically switches to the OpenAI client
 val openAIResult = executor.execute(p, OpenAIModels.Chat.GPT4o)
 
-// Anthropic 모델로 프롬프트 실행; 프롬프트 실행기는 자동으로 Anthropic 클라이언트로 전환됩니다.
+// Run the prompt with an Anthropic model; the prompt executor automatically switches to the Anthropic client
 val anthropicResult = executor.execute(p, AnthropicModels.Sonnet_3_5)
 ```
 <!--- KNIT example-prompt-executors-05.kt -->
@@ -250,9 +249,9 @@ fun main() = runBlocking {
 }
 -->
 ```kotlin
-// 프롬프트 생성
+// Create a prompt
 val p = prompt("demo") { user("Summarize this") }
-// Google 모델을 전달하면 Google 클라이언트가 포함되어 있지 않으므로 프롬프트 실행기는 대체 모델을 사용합니다.
+// If you pass a Google model, the prompt executor will use the fallback model, as the Google client is not included
 val response = multiExecutor.execute(p, GoogleModels.Gemini2_5Pro)
 ```
 <!--- KNIT example-prompt-executors-07.kt -->

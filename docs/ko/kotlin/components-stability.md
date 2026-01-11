@@ -84,7 +84,7 @@ _피드백 루프 (Feedback Loop)_ 원칙에 따라, 우리는 커뮤니티가 �
 | [No-arg](no-arg-plugin.md)                      | 안정 (Stable)    | 1.3.0              |          |
 | [SAM-with-receiver](sam-with-receiver-plugin.md) | 안정 (Stable)    | 1.3.0              |          |
 | [kapt](kapt.md)                                 | 안정 (Stable)    | 1.3.0              |          |
-| [Lombok](lombok.md)                             | 알파 (Alpha) | 2.3.0              |          |
+| [Lombok](lombok.md)                             | 실험적 (Experimental) | 1.5.20             |          |
 | [Power-assert](power-assert.md)                 | 실험적 (Experimental) | 2.0.0              |          |
 
 ### Kotlin 라이브러리

@@ -1,6 +1,6 @@
 # プランナーエージェント
 
-プランナーエージェントは、反復的な計画サイクルを通じて複数ステップのタスクを計画および実行できるAIエージェントです。これらは継続的に計画を構築または更新し、ステップを実行し、目標が達成されたかどうかを確認します。
+プランナーエージェントは、反復的な計画サイクルを通じて多段階のタスクを計画・実行できるAIエージェントです。これらは継続的に計画を構築または更新し、ステップを実行し、目標が達成されたかどうかを確認します。
 
 プランナーエージェントは、高レベルの目標をより小さく実行可能なステップに分解し、各ステップの結果に基づいて計画を適応させる必要がある複雑なタスクに適しています。
 
@@ -120,7 +120,6 @@ GOAPエージェントを作成するには、次のことを行う必要があ�
 <!--- INCLUDE
 import ai.koog.agents.core.agent.config.AIAgentConfig
 import ai.koog.agents.core.agent.context.AIAgentFunctionalContext
-import ai.koog.agents.core.dsl.extension.requestLLM
 import ai.koog.agents.planner.AIAgentPlannerStrategy
 import ai.koog.agents.planner.PlannerAIAgent
 import ai.koog.agents.planner.goap.goap
@@ -250,11 +249,11 @@ action(
     precondition = { true },
     belief = { state -> state.copy(operationDone = true) },
     cost = { state ->
-        // Dynamic cost based on state
+        // 状態に基づいて動的にコストを計算
         if (state.hasOptimization) 1.0 else 10.0
     }
 ) { ctx, state ->
-    // Execute action
+    // アクションを実行
     state.copy(operationDone = true)
 }
 ```
@@ -273,12 +272,12 @@ action(
     name = "Attempt complex task",
     precondition = { state -> !state.taskComplete },
     belief = { state ->
-        // Optimistic belief: task will succeed
+        // 楽観的な信念: タスクは成功する
         state.copy(taskComplete = true)
     },
     cost = { 5.0 }
 ) { ctx, state ->
-    // Actual execution might fail or have different results
+    // 実際の実行は失敗したり、異なる結果になったりする可能性がある
     val success = performComplexTask()
     state.copy(
         taskComplete = success,

@@ -85,7 +85,7 @@
   "kotlin.kotlin-overview": "Kotlin 概览",
   "kotlin.what-s-new-in-kotlin": "Kotlin 新特性",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.3.0-RC3",
+  "kotlin.whatsnew-eap": "Kotlin 2.3.20-Beta1",
   "kotlin.earlier-versions": "更早版本",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -607,5 +607,7 @@
   "koog.prompt-executors": "提示词执行器",
   "koog.handling-failures": "处理故障",
   "koog.llm-response-caching": "LLM 响应缓存",
-  "koog.agent-client-protocol": "代理客户端协议"
+  "koog.agent-client-protocol": "代理客户端协议",
+  "koog.creating-prompts": "创建提示词",
+  "koog.multimodal-content": "多模态内容"
 }

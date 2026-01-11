@@ -59,7 +59,7 @@ llm.writeSession {
             is StreamFrame.ToolCall -> {
                 println("
 🔧 Tool call: ${frame.name} args=${frame.content}")
-                // 선택적으로 지연 파싱:
+                // Optionally parse lazily:
                 // val json = frame.contentJson
             }
             is StreamFrame.End -> println("
@@ -95,10 +95,10 @@ val mdDefinition = markdownBookDefinition()
 
 llm.writeSession {
     val stream = requestLLMStreaming(mdDefinition)
-    // 원시 문자열 청크에 직접 접근
+    // Access the raw string chunks directly
     stream.collect { chunk ->
-        // 도착하는 각 텍스트 청크 처리
-        println("Received chunk: $chunk") // The chunks together will be structured as a text following the mdDefinition schema
+        // Process each chunk of text as it arrives
+        println("Received chunk: $chunk") // 청크들은 함께 mdDefinition 스키마를 따르는 텍스트로 구성됩니다
     }
 }
 ```
@@ -125,10 +125,10 @@ val strategy = strategy<String, String>("strategy_name") {
 llm.writeSession {
     val frames = requestLLMStreaming()
 
-    // 텍스트 청크가 도착하는 대로 스트림:
+    // Stream text chunks as they come:
     frames.filterTextOnly().collect { chunk -> print(chunk) }
 
-    // 또는, End 이후 모든 텍스트를 하나의 String으로 수집:
+    // Or, gather all text into one String after End:
     val fullText = frames.collectText()
     println("
 ---
@@ -391,7 +391,7 @@ data class Book(
 class BookTool(): SimpleTool<Book>(
     argsSerializer = Book.serializer(),
     name = NAME,
-    description = "A tool to parse book information from Markdown"
+    description = "마크다운에서 책 정보를 파싱하는 도구"
 ) {
 
     companion object { const val NAME = "book" }
@@ -413,6 +413,7 @@ import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.example.exampleStreamingApi04.markdownBookDefinition
 import ai.koog.agents.example.exampleStreamingApi06.parseMarkdownStreamToBooks
 import ai.koog.agents.example.exampleStreamingApi08.BookTool
+import ai.koog.agents.core.agent.session.callToolRaw
 
 -->
 ```kotlin

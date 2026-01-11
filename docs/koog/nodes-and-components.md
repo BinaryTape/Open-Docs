@@ -1,18 +1,65 @@
-_# 预定义节点和组件
+# 预定义节点和组件
 
 节点是 Koog 框架中 agent 工作流的基本构建块。
 每个节点代表工作流中的特定操作或转换，它们可以使用 edge 连接起来以定义执行流。
 
-通常，它们让你将复杂逻辑封装到可重用组件中，这些组件可以轻松集成到
+通常，节点让你将复杂逻辑封装到可重用组件中，这些组件可以轻松集成到
 不同的 agent 工作流中。本指南将引导你了解可用于你的 agent 策略的现有节点。
 
-关于更详细的参考文档，请参见 [API reference](https://api.koog.ai/index.html)。
+每个节点本质上都是一个函数，它接受特定类型的输入并返回特定类型的输出。
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["node"]
+        execute(Do stuff)
+    end
+    
+    in --Input--> execute --Output--> out
+
+    classDef hidden display: none;
+```
+
+下面是你可以如何定义一个节点，它期望一个字符串作为输入并返回字符串的长度（一个整数）作为输出：
+
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+
+val strategy = strategy<String, String>("strategy_name") {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+val nodeLength by node<String, Int> { input ->
+    input.length
+}
+```
+<!--- KNIT example-nodes-and-component-01.kt -->
+
+关于更多信息，请参见 [`node()`](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.builder/-a-i-agent-subgraph-builder-base/node.html)。
 
 ## 实用程序节点
 
 ### nodeDoNothing
 
 一个简单的直通节点，它不执行任何操作并将输入作为输出返回。关于详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-do-nothing.html)。
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeDoNothing"]
+        execute(Do nothing)
+    end
+    
+    in ---|T| execute --T--> out
+
+    classDef hidden display: none;
+```
 
 你可以将此节点用于以下目的：
 
@@ -37,7 +84,7 @@ val passthrough by nodeDoNothing<String>("passthrough")
 edge(nodeStart forwardTo passthrough)
 edge(passthrough forwardTo nodeFinish)
 ```
-<!--- KNIT example-nodes-and-component-01.kt -->
+<!--- KNIT example-nodes-and-component-02.kt -->
 
 ## LLM 节点
 
@@ -45,6 +92,20 @@ edge(passthrough forwardTo nodeFinish)
 
 一个使用所提供的 prompt 构建器向 LLM prompt 添加消息的节点。
 这对于在进行实际 LLM 请求之前修改对话上下文很有用。关于详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-update-prompt.html)。
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeAppendPrompt"]
+        execute(Append prompt)
+    end
+    
+    in ---|T| execute --T--> out
+
+    classDef hidden display: none;
+```
 
 你可以将此节点用于以下目的：
 
@@ -76,7 +137,7 @@ val secondNode by node<Output, Output> {
     // Transform output to output
 }
 
-// 节点将从上一个节点获取 Output 类型的值作为输入，并将其路径传递到下一个节点
+// Node will get the value of type Output as input from the previous node and path through it to the next node
 val setupContext by nodeAppendPrompt<Output>("setupContext") {
     system("You are a helpful assistant specialized in Kotlin programming.")
     user("I need help with Kotlin coroutines.")
@@ -85,19 +146,61 @@ val setupContext by nodeAppendPrompt<Output>("setupContext") {
 edge(firstNode forwardTo setupContext)
 edge(setupContext forwardTo secondNode)
 ```
-<!--- KNIT example-nodes-and-component-02.kt -->
+<!--- KNIT example-nodes-and-component-03.kt -->
 
 ### nodeLLMSendMessageOnlyCallingTools
 
 一个将用户消息附加到 LLM prompt 并获取 LLM 只能调用 tool 的响应的节点。关于详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-message-only-calling-tools.html)。
 
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMSendMessageOnlyCallingTools"]
+        execute(Request LLM expecting only tool calls)
+    end
+    
+    in --String--> execute --Message.Response--> out
+
+    classDef hidden display: none;
+```
+
 ### nodeLLMSendMessageForceOneTool
 
 一个将用户消息附加到 LLM prompt 并强制 LLM 使用特定 tool 的节点。关于详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-message-force-one-tool.html)。
 
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMSendMessageForceOneTool"]
+        execute(Request LLM expecting a specific tool call)
+    end
+    
+    in --String--> execute --Message.Response--> out
+
+    classDef hidden display: none;
+```
+
 ### nodeLLMRequest
 
 一个将用户消息附加到 LLM prompt 并获取带可选 tool 使用的响应的节点。节点配置决定了在处理消息期间是否允许 tool 调用。关于详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-request.html)。
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMRequest"]
+        execute(Request LLM)
+    end
+    
+    in --String--> execute --Message.Response--> out
+
+    classDef hidden display: none;
+```
 
 你可以将此节点用于以下目的：
 
@@ -121,19 +224,61 @@ val strategy = strategy<String, String>("strategy_name") {
 val requestLLM by nodeLLMRequest("requestLLM", allowToolCalls = true)
 edge(getUserQuestion forwardTo requestLLM)
 ```
-<!--- KNIT example-nodes-and-component-03.kt -->
+<!--- KNIT example-nodes-and-component-04.kt -->
 
 ### nodeLLMRequestStructured
 
 一个将用户消息附加到 LLM prompt 并从 LLM 请求带纠错能力的结构化数据的节点。关于详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-request-structured.html)。
 
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMRequestStructured"]
+        execute(Request LLM structured)
+    end
+    
+    in --String--> execute -- "Result&lt;StructuredResponse&gt;" --> out
+
+    classDef hidden display: none;
+```
+
 ### nodeLLMRequestStreaming
 
 一个将用户消息附加到 LLM prompt 并流式传输 LLM 响应，带或不带流数据转换的节点。关于详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-request-streaming.html)。
 
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMRequestStreaming"]
+        execute(Request LLM streaming)
+    end
+    
+    in --String--> execute --Flow--> out
+
+    classDef hidden display: none;
+```
+
 ### nodeLLMRequestMultiple
 
 一个将用户消息附加到 LLM prompt 并获取多个启用 tool 调用的 LLM 响应的节点。关于详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-request-multiple.html)。
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMRequestMultiple"]
+        execute(Request LLM expecting multiple responses)
+    end
+    
+    in --String--> execute -- "List&lt;Message.Response&gt;" --> out
+
+    classDef hidden display: none;
+```
 
 你可以将此节点用于以下目的：
 
@@ -159,12 +304,26 @@ val strategy = strategy<String, String>("strategy_name") {
 val requestLLMMultipleTools by nodeLLMRequestMultiple()
 edge(getComplexUserQuestion forwardTo requestLLMMultipleTools)
 ```
-<!--- KNIT example-nodes-and-component-04.kt -->
+<!--- KNIT example-nodes-and-component-05.kt -->
 
 ### nodeLLMCompressHistory
 
 一个将当前 LLM prompt（消息 history）压缩为摘要，用简洁摘要（TL;DR）替换消息的节点。关于详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-compress-history.html)。
 这对于通过压缩 history 来减少 token 使用以管理长对话很有用。
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMCompressHistory"]
+        execute(Compress current prompt)
+    end
+    
+    in ---|T| execute --T--> out
+
+    classDef hidden display: none;
+```
 
 关于 history 压缩的更多信息，请参见 [History compression](history-compression.md)。
 
@@ -197,13 +356,27 @@ val compressHistory by nodeLLMCompressHistory<String>(
 )
 edge(generateHugeHistory forwardTo compressHistory)
 ```
-<!--- KNIT example-nodes-and-component-05.kt -->
+<!--- KNIT example-nodes-and-component-06.kt -->
 
 ## Tool 节点
 
 ### nodeExecuteTool
 
 一个执行单个 tool 调用并返回其结果的节点。此节点用于处理 LLM 发出的 tool 调用。关于详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-execute-tool.html)。
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeExecuteTool"]
+        execute(Execute tool call)
+    end
+    
+    in --Message.Tool.Call--> execute --ReceivedToolResult--> out
+
+    classDef hidden display: none;
+```
 
 你可以将此节点用于以下目的：
 
@@ -230,11 +403,25 @@ val requestLLM by nodeLLMRequest()
 val executeTool by nodeExecuteTool()
 edge(requestLLM forwardTo executeTool onToolCall { true })
 ```
-<!--- KNIT example-nodes-and-component-06.kt -->
+<!--- KNIT example-nodes-and-component-07.kt -->
 
 ### nodeLLMSendToolResult
 
 一个将 tool 结果添加到 prompt 并请求 LLM 响应的节点。关于详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-tool-result.html)。
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMSendToolResult"]
+        execute(Request LLM)
+    end
+    
+    in --ReceivedToolResult--> execute --Message.Response--> out
+
+    classDef hidden display: none;
+```
 
 你可以将此节点用于以下目的：
 
@@ -260,11 +447,25 @@ val executeTool by nodeExecuteTool()
 val sendToolResultToLLM by nodeLLMSendToolResult()
 edge(executeTool forwardTo sendToolResultToLLM)
 ```
-<!--- KNIT example-nodes-and-component-07.kt -->
+<!--- KNIT example-nodes-and-component-08.kt -->
 
 ### nodeExecuteMultipleTools
 
 一个执行多个 tool 调用的节点。这些调用可以选择并行执行。关于详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-execute-multiple-tools.html)。
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeExecuteMultipleTools"]
+        execute(Execute multiple tool calls)
+    end
+    
+    in -- "List&lt;Message.Tool.Call&gt;" --> execute -- "List&lt;ReceivedToolResult&gt;" --> out
+
+    classDef hidden display: none;
+```
 
 你可以将此节点用于以下目的：
 
@@ -291,11 +492,25 @@ val requestLLMMultipleTools by nodeLLMRequestMultiple()
 val executeMultipleTools by nodeExecuteMultipleTools()
 edge(requestLLMMultipleTools forwardTo executeMultipleTools onMultipleToolCalls { true })
 ```
-<!--- KNIT example-nodes-and-component-08.kt -->
+<!--- KNIT example-nodes-and-component-09.kt -->
 
 ### nodeLLMSendMultipleToolResults
 
 一个将多个 tool 结果添加到 prompt 并获取多个 LLM 响应的节点。关于详细信息，请参见 [API reference](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.extension/node-l-l-m-send-multiple-tool-results.html)。
+
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph node ["nodeLLMSendMultipleToolResults"]
+        execute(Request LLM expecting multiple responses)
+    end
+    
+    in -- "List&lt;ReceivedToolResult&gt;" --> execute -- "List&lt;Message.Response&gt;" --> out
+
+    classDef hidden display: none;
+```
 
 你可以将此节点用于以下目的：
 
@@ -321,15 +536,32 @@ val executeMultipleTools by nodeExecuteMultipleTools()
 val sendMultipleToolResultsToLLM by nodeLLMSendMultipleToolResults()
 edge(executeMultipleTools forwardTo sendMultipleToolResultsToLLM)
 ```
-<!--- KNIT example-nodes-and-component-09.kt -->
+<!--- KNIT example-nodes-and-component-10.kt -->
 
 ## 节点输出转换
 
 框架提供了 `transform` 扩展函数，它允许你创建节点的转换版本，这些转换版本对其输出应用转换。当你需要将节点的输出转换为不同的类型或格式，同时保留原始节点的功能性时，这很有用。
 
+```mermaid
+graph LR
+    in:::hidden
+    out:::hidden
+    
+    subgraph nodeWithTransform [transformed node]
+        subgraph node ["node"]
+            execute(Do stuff)
+        end
+        transform
+    end
+    
+    in --Input--> execute --> transform --Output--> out
+
+    classDef hidden display: none;
+```
+
 ### transform
 
-`transform` 函数创建一个新的 `AIAgentNodeDelegate`，它包装了原始节点并对其输出应用转换函数。
+[`transform()`](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.builder/-a-i-agent-node-delegate/transform.html) 函数创建一个新的 `AIAgentNodeDelegate`，它包装了原始节点并对其输出应用转换函数。
 
 <!--- INCLUDE
 /**
@@ -342,7 +574,7 @@ inline fun <reified T> AIAgentNodeDelegate<Input, Output>.transform(
     noinline transformation: suspend (Output) -> T
 ): AIAgentNodeDelegate<Input, T>
 ```
-<!--- KNIT example-nodes-and-component-10.kt -->
+<!--- KNIT example-nodes-and-component-11.kt -->
 
 #### 自定义节点转换
 
@@ -366,7 +598,7 @@ val textNode by nodeDoNothing<String>("textNode").transform<Int> { text ->
 edge(nodeStart forwardTo textNode)
 edge(textNode forwardTo nodeFinish)
 ```
-<!--- KNIT example-nodes-and-component-11.kt -->
+<!--- KNIT example-nodes-and-component-12.kt -->
 
 #### 内建节点转换
 
@@ -390,7 +622,7 @@ val lengthNode by nodeLLMRequest("llmRequest").transform<Int> { assistantMessage
 edge(nodeStart forwardTo lengthNode)
 edge(lengthNode forwardTo nodeFinish)
 ```
-<!--- KNIT example-nodes-and-component-12.kt -->
+<!--- KNIT example-nodes-and-component-13.kt -->
 
 ## 预定义子图
 
@@ -452,7 +684,7 @@ val processQuery by subgraphWithTask<String, String>(
     """
 }
 ```
-<!--- KNIT example-nodes-and-component-13.kt -->
+<!--- KNIT example-nodes-and-component-14.kt -->
 
 ### subgraphWithVerification
 
@@ -501,7 +733,7 @@ val verifyCode by subgraphWithVerification<String>(
     """
 }
 ```
-<!--- KNIT example-nodes-and-component-14.kt -->
+<!--- KNIT example-nodes-and-component-15.kt -->
 
 ## 预定义策略和常见策略模式
 
@@ -538,7 +770,7 @@ public fun singleRunStrategy(): AIAgentGraphStrategy<String, String> = strategy(
     edge(nodeSendToolResult forwardTo nodeExecuteTool onToolCall { true })
 }
 ```
-<!--- KNIT example-nodes-and-component-15.kt -->
+<!--- KNIT example-nodes-and-component-16.kt -->
 
 ### 基于 tool 的策略
 
@@ -592,11 +824,12 @@ fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStr
     }
 }
 ```
-<!--- KNIT example-nodes-and-component-16.kt -->
+<!--- KNIT example-nodes-and-component-17.kt -->
 
 ### 流式数据策略
 
-流式数据策略专为处理来自 LLM 的流式数据而设计。它通常请求流式数据，处理它，并可能使用处理过的数据调用 tool。
+流式数据策略专为处理来自 LLM 的流式数据而设计。它通常请求
+流式数据，处理它，并可能使用处理过的数据调用 tool。
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
@@ -630,4 +863,4 @@ val agentStrategy = strategy<String, List<Book>>("library-assistant") {
     edge(getMdOutput forwardTo nodeFinish)
 }
 ```
-<!--- KNIT example-nodes-and-component-17.kt -->
+<!--- KNIT example-nodes-and-component-18.kt -->

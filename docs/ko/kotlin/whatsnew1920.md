@@ -36,7 +36,8 @@ K2는 현재 모든 타겟에서 **베타(Beta)** 상태입니다. [릴리스 �
 
 ### Kotlin/Wasm 지원
 
-이번 릴리스부터 Kotlin/Wasm은 새로운 K2 컴파일러를 지원합니다. [프로젝트에서 활성화하는 방법을 알아보세요](#how-to-enable-the-kotlin-k2-compiler).
+이번 릴리스부터 Kotlin/Wasm은 새로운 K2 컴파일러를 지원합니다.
+[프로젝트에서 활성화하는 방법을 알아보세요](#how-to-enable-the-kotlin-k2-compiler).
 
 ### K2와 함께 kapt 컴파일러 플러그인 미리보기
 
@@ -93,7 +94,7 @@ Kotlin K2 컴파일러를 활성화하고 테스트하려면 `pom.xml` 파일의
 #### IntelliJ IDEA에서 K2 활성화
 
 IntelliJ IDEA에서 Kotlin K2 컴파일러를 활성화하고 테스트하려면 **Settings** | **Build, Execution, Deployment** |
-**Compiler** | **Kotlin Compiler**로 이동하여 **Language Version** 필드를 `2.0 (experimental)`으로 업데이트하세요.
+**Compiler** | **Kotlin Compiler**로 이동하여 **언어 버전 (Language Version)** 필드를 `2.0 (experimental)`으로 업데이트하세요.
 
 ### 새로운 K2 컴파일러에 대한 피드백 남기기
 
@@ -326,8 +327,8 @@ Android 및 iPhone 기기를 모두 타겟팅하고 Apple 실리콘 MacBook에�
 
 <table>
    <tr>
-       <td>표준 라이브러리 버전 1.9.10 및 이전</td>
-       <td>표준 라이브러리 버전 1.9.20</td>
+       <td>Kotlin 1.9.0 및 이전 (표준 설정)</td>
+       <td>Kotlin 1.9.20</td>
    </tr>
    <tr>
 <td>
@@ -702,7 +703,7 @@ Kotlin 1.9.20에서 Gradle의 `java-test-fixtures` 플러그인을 사용하는 
 
 ### Konan 디렉토리 경로 구성을 위한 새로운 속성
 
-Kotlin 1.9.20에서는 `kotlin.data.dir` Gradle 속성을 사용하여 `~/.konan` 디렉토리 경로를 사용자 지정할 수 있으므로, 환경 변수 `KONAN_DATA_DIR`을 통해 구성할 필요가 없습니다.
+Kotlin 1.9.20에서는 `konan.data.dir` Gradle 속성을 사용하여 `~/.konan` 디렉토리 경로를 사용자 지정할 수 있으므로, 환경 변수 `KONAN_DATA_DIR`을 통해 구성할 필요가 없습니다.
 
 또는 `-Xkonan-data-dir` 컴파일러 옵션을 사용하여 `cinterop` 및 `konanc` 도구를 통해 `~/.konan` 디렉토리에 대한 사용자 지정 경로를 구성할 수 있습니다.
 

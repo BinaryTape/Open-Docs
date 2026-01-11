@@ -48,8 +48,6 @@ dependencies {
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.agent.functionalStrategy
-import ai.koog.agents.core.dsl.extension.asAssistantMessage
-import ai.koog.agents.core.dsl.extension.requestLLM
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 import kotlinx.coroutines.runBlocking
@@ -63,24 +61,19 @@ fun main() {
 -->
 ```kotlin
 // Create an AIAgent instance and provide a system prompt, prompt executor, and LLM
-// AIAgent 인스턴스를 생성하고 시스템 프롬프트, 프롬프트 실행기, LLM을 제공합니다.
 val mathAgent = AIAgent<String, String>(
     systemPrompt = "You are a precise math assistant.",
     promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
     strategy = functionalStrategy { input -> // Define the agent logic
-        // 에이전트 로직을 정의합니다.
         // Make one LLM call
-        // LLM 호출을 한 번 수행합니다.
         val response = requestLLM(input)
         // Extract and return the assistant message content from the response
-        // 응답에서 어시스턴트 메시지 내용을 추출하여 반환합니다.
         response.asAssistantMessage().content
     }
 )
 
 // Run the agent with a user input and print the result
-// 사용자 입력을 사용하여 에이전트를 실행하고 결과를 출력합니다.
 val result = mathAgent.run("What is 12 × 9?")
 println(result)
 ```
@@ -98,8 +91,6 @@ The answer to 12 × 9 is 108.
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.agent.functionalStrategy
-import ai.koog.agents.core.dsl.extension.asAssistantMessage
-import ai.koog.agents.core.dsl.extension.requestLLM
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 import kotlinx.coroutines.runBlocking
@@ -113,27 +104,21 @@ fun main() {
 -->
 ```kotlin
 // Create an AIAgent instance and provide a system prompt, prompt executor, and LLM
-// AIAgent 인스턴스를 생성하고 시스템 프롬프트, 프롬프트 실행기, LLM을 제공합니다.
 val mathAgent = AIAgent<String, String>(
     systemPrompt = "You are a precise math assistant.",
     promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
     strategy = functionalStrategy { input -> // Define the agent logic
-        // 에이전트 로직을 정의합니다.
         // The first LLM call to produce an initial draft based on the user input
-        // 사용자 입력에 기반한 초기 초안을 생성하는 첫 번째 LLM 호출
         val draft = requestLLM("Draft: $input").asAssistantMessage().content
         // The second LLM call to improve the draft by prompting the LLM again with the draft content
-        // 초안 내용을 사용하여 LLM에 다시 프롬프트하여 초안을 개선하는 두 번째 LLM 호출
         val improved = requestLLM("Improve and clarify.").asAssistantMessage().content
         // The final LLM call to format the improved text and return the final formatted result
-        // 개선된 텍스트를 포맷하고 최종 포맷된 결과를 반환하는 최종 LLM 호출
         requestLLM("Format the result as bold.").asAssistantMessage().content
     }
 )
 
 // Run the agent with a user input and print the result
-// 사용자 입력을 사용하여 에이전트를 실행하고 결과를 출력합니다.
 val result = mathAgent.run("What is 12 × 9?")
 println(result)
 ```
@@ -218,12 +203,6 @@ import ai.koog.agents.core.tools.reflect.tools
 import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.agent.functionalStrategy
-import ai.koog.agents.core.dsl.extension.asAssistantMessage
-import ai.koog.agents.core.dsl.extension.containsToolCalls
-import ai.koog.agents.core.dsl.extension.executeMultipleTools
-import ai.koog.agents.core.dsl.extension.extractToolCalls
-import ai.koog.agents.core.dsl.extension.requestLLMMultiple
-import ai.koog.agents.core.dsl.extension.sendMultipleToolResults
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 import kotlinx.coroutines.runBlocking
@@ -245,33 +224,25 @@ val mathWithTools = AIAgent<String, String>(
     llmModel = OllamaModels.Meta.LLAMA_3_2,
     toolRegistry = toolRegistry,
     strategy = functionalStrategy { input -> // Define the agent logic extended with tool calls
-        // 도구 호출로 확장된 에이전트 로직을 정의합니다.
         // Send the user input to the LLM
-        // 사용자 입력을 LLM으로 보냅니다.
         var responses = requestLLMMultiple(input)
 
         // Only loop while the LLM requests tools
-        // LLM이 도구를 요청하는 동안에만 루프를 실행합니다.
         while (responses.containsToolCalls()) {
             // Extract tool calls from the response
-            // 응답에서 도구 호출을 추출합니다.
             val pendingCalls = extractToolCalls(responses)
             // Execute the tools and return the results
-            // 도구를 실행하고 결과를 반환합니다.
             val results = executeMultipleTools(pendingCalls)
             // Send the tool results back to the LLM. The LLM may call more tools or return a final output
-            // 도구 결과를 LLM으로 다시 보냅니다. LLM은 더 많은 도구를 호출하거나 최종 결과물을 반환할 수 있습니다.
             responses = sendMultipleToolResults(results)
         }
 
         // When no tool calls remain, extract and return the assistant message content from the response
-        // 더 이상 도구 호출이 남아 있지 않으면, 응답에서 어시스턴트 메시지 내용을 추출하여 반환합니다.
         responses.single().asAssistantMessage().content
     }
 )
 
 // Run the agent with a user input and print the result
-// 사용자 입력을 사용하여 에이전트를 실행하고 결과를 출력합니다.
 val reply = mathWithTools.run("Please multiply 12.5 and 4, then add 10 to the result.")
 println(reply)
 ```

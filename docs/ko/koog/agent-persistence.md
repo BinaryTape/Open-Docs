@@ -41,7 +41,7 @@ val agent = AIAgent(
     llmModel = OllamaModels.Meta.LLAMA_3_2,
 ) {
     install(Persistence) {
-        // 체크포인트를 메모리에 저장 (스냅샷 대신 체크포인트 사용)
+        // 체크포인트를 메모리에 저장
         storage = InMemoryPersistenceStorageProvider()
         // 각 노드 실행 후 자동 영속성 활성화
         enableAutomaticPersistence = true
@@ -229,18 +229,18 @@ import ai.koog.agents.core.agent.context.AIAgentContext
 import ai.koog.agents.snapshot.feature.persistence
 import kotlin.reflect.typeOf
 
-const val inputData = "some-input-data"
-val inputType = typeOf<String>()
+const val outputData = "some-output-data"
+val outputType = typeOf<String>()
 -->
 
 ```kotlin
 suspend fun example(context: AIAgentContext) {
     // 현재 상태로 체크포인트 생성
-    val checkpoint = context.persistence().createCheckpoint(
+    val checkpoint = context.persistence().createCheckpointAfterNode(
         agentContext = context,
         nodePath = context.executionInfo.path(),
-        lastInput = inputData,
-        lastInputType = inputType,
+        lastOutput = outputData,
+        lastOutputType = outputType,
         checkpointId = context.runId,
         version = 0L
     )
@@ -301,7 +301,6 @@ import ai.koog.agents.snapshot.providers.InMemoryPersistenceStorageProvider
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 import ai.koog.agents.snapshot.feature.RollbackToolRegistry
-import ai.koog.agents.snapshot.feature.registerRollback
 
 fun createUser(name: String) {}
 
@@ -336,8 +335,8 @@ install(Persistence) {
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.context.AIAgentContext
-import ai.koog.agents.example.exampleAgentPersistence06.inputData
-import ai.koog.agents.example.exampleAgentPersistence06.inputType
+import ai.koog.agents.example.exampleAgentPersistence06.outputData
+import ai.koog.agents.example.exampleAgentPersistence06.outputType
 import ai.koog.agents.snapshot.feature.persistence
 import ai.koog.agents.snapshot.feature.withPersistence
 -->
@@ -350,11 +349,11 @@ suspend fun example(context: AIAgentContext) {
     // 또는 체크포인트 기능으로 작업 수행
     context.withPersistence { ctx ->
         // 'this'는 체크포인트 기능입니다.
-        createCheckpoint(
+        createCheckpointAfterNode(
             agentContext = ctx,
             nodePath = ctx.executionInfo.path(),
-            lastInput = inputData,
-            lastInputType = inputType,
+            lastOutput = outputData,
+            lastOutputType = outputType,
             checkpointId = ctx.runId,
             version = 0L
         )
@@ -450,16 +449,26 @@ import ai.koog.prompt.message.Message.User
 import kotlinx.serialization.json.JsonPrimitive
 
 val customInput = JsonPrimitive("custom-input")
+val customOutput = JsonPrimitive("custom-output")
 val customMessageHistory = emptyList<User>()
 -->
 
 ```kotlin
 fun example(context: AIAgentContext) {
+    // 어떤 노드 이전에 실행 지점을 설정하고 해당 노드에 대한 입력을 제공할 수 있습니다.
     context.persistence().setExecutionPoint(
         agentContext = context,
         nodePath = context.executionInfo.path(),
         messageHistory = customMessageHistory,
         input = customInput
+    )
+
+    // 또는 어떤 노드 이후에 실행 지점을 설정하고 해당 노드의 출력을 제공할 수 있습니다.
+    context.persistence().setExecutionPointAfterNode(
+        agentContext = context,
+        nodePath = context.executionInfo.path(),
+        messageHistory = customMessageHistory,
+        output = customOutput
     )
 }
 

@@ -52,8 +52,7 @@ JetBrainsは、APIの異なるバージョン間でのバイナリ互換性を�
 
 ## 戻り値の型を明示的に指定する
 
-[Kotlinコーディングガイドライン](coding-conventions.md#coding-conventions-for-libraries)で説明されているように、API内の関数戻り値の型とプロパティの型は常に明示的に指定する必要があります。
-[明示的なAPIモード](api-guidelines-simplicity.md#use-explicit-api-mode)に関するセクションも参照してください。
+[Kotlinコーディングガイドライン](coding-conventions.md#coding-conventions-for-libraries)で説明されているように、API内の関数戻り値の型とプロパティの型は常に明示的に指定する必要があります。[明示的なAPIモード](api-guidelines-simplicity.md#use-explicit-api-mode)に関するセクションも参照してください。
 
 次の例を考えてみましょう。ライブラリ作成者が `JsonDeserializer` を作成し、便宜のために拡張関数を使用して `Int` 型と関連付けています。
 
@@ -132,30 +131,14 @@ Exception in thread "main" java.lang.NoSuchMethodError: 'int LibKt.fib()'
 
 ### 互換性維持のためオーバーロードを使用する {initial-collapse-state="collapsed" collapsible="true"}
 
-JVM向けKotlinコードを記述する場合、デフォルト引数を持つ関数に [`@JvmOverloads`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/) アノテーションを使用できます。
-これにより、関数のオーバーロードが生成されます。各オーバーロードは、パラメータリストの末尾から省略できるデフォルト引数を持つパラメータごとに1つずつです。
-これらの個別に生成された関数を使用すると、パラメータリストの末尾に新しいパラメータを追加しても、出力内の既存の関数が変更されず、新しい関数が追加されるだけなので、バイナリ互換性が維持されます。
-
-例えば、上記の関数は次のようにアノテーション付けされるかもしれません。
-
-```kotlin
-@JvmOverloads
-fun fib(input: Int = 0) = …
-```
-
-これにより、出力バイトコードには2つのメソッドが生成されます。1つはパラメータなし、もう1つは `Int` パラメータを持つものです。
-
-```kotlin
-public final static fib()I
-public final static fib(I)I
-```
-
-すべてのKotlinターゲットにおいて、バイナリ互換性を維持するために、デフォルト引数を受け入れる単一の関数ではなく、関数の複数のオーバーロードを手動で作成することを選択できます。上記の例では、これは `Int` パラメータを受け取りたい場合に備えて、別の `fib` 関数を作成することを意味します。
+バイナリ互換性を維持するために、関数に新しいパラメータを追加したい場合は、デフォルト引数を持つ単一の関数を使用する代わりに、複数のオーバーロードを手動で作成する必要があります。上記の例では、`Int` パラメータを受け取りたい場合に備えて、別の `fib()` 関数を作成することを意味します。
 
 ```kotlin
 fun fib() = … 
 fun fib(input: Int) = …
 ```
+
+JVM向けKotlinコードを記述する場合、デフォルト引数を持つ [`@JvmOverloads`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/) アノテーションが付けられた関数にパラメータを追加する際には注意してください。このアノテーションはバイナリ互換性を維持しないため、手動でオーバーロードを追加する必要があります。
 
 ## 戻り値の型を広げたり狭めたりするのを避ける
 

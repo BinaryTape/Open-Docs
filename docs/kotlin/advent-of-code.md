@@ -2,6 +2,7 @@
 
 [Advent of Code](https://adventofcode.com/) 是一项每年十二月举行的活动，每年 12 月 1 日至 12 月 25 日每日发布节日主题谜题。经 Advent of Code 的创建者 [Eric Wastl](http://was.tl/) 允许，我们将展示如何用**地道的 Kotlin 风格**来解决这些谜题：
 
+* [Advent of Code 2025](https://www.youtube.com/playlist?list=PLlFc5cFwUnmx9-VIcfxqhjHrwD3Lab4o4)
 * [Advent of Code 2024](https://www.youtube.com/playlist?list=PLlFc5cFwUnmwHaD3-qeoLHnho_PY2g9JX)
 * [Advent of Code 2023](https://www.youtube.com/playlist?list=PLlFc5cFwUnmzk0wvYW4aTl57F2VNkFisU)
 * [](#advent-of-code-2022)

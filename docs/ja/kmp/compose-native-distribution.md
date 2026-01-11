@@ -7,8 +7,8 @@
 *   [Compose Multiplatform Gradleプラグインとは](#gradle-plugin)
 *   アプリケーションをローカルで実行するなどの[基本的なタスク](#basic-tasks)と、ミニファイや難読化などの[高度なタスク](#minification-and-obfuscation)に関する詳細。
 *   [JDKモジュールを含める方法](#including-jdk-modules)と`ClassNotFoundException`への対処法。
-*   [ディストリビューションのプロパティを指定する方法](#specifying-distribution-properties): パッケージバージョン、JDKバージョン、出力ディレクトリ、ランチャーのプロパティ、およびメタデータ。
-*   リソースライブラリ、JVMリソースのロード、またはパックされたアプリケーションへのファイルの追加を使用した[リソースの管理方法](#managing-resources)。
+*   [ディストリビューションのプロパティを指定する方法](#specifying-distribution-properties): パッケージバージョン、JDKバージョン、出力ディレクトリ、ランチャープロパティ、およびメタデータ。
+*   リソースライブラリ、JVMリソースのロード、またはパッケージ化されたアプリケーションへのファイルの追加を使用した[リソースの管理方法](#managing-resources)。
 *   Gradleソースセット、Kotlin JVMターゲット、または手動での[ソースセットのカスタマイズ方法](#custom-source-sets)。
 *   OSごとに[アプリケーションアイコンを指定する方法](#application-icon)。
 *   Linux上のパッケージメンテナーのメールアドレスやmacOS上のApple App Storeのアプリカテゴリなど、[プラットフォーム固有のオプション](#platform-specific-options)。
@@ -214,7 +214,7 @@ compose.desktop {
         <td><code>MAJOR[.MINOR][.PATCH]</code></td>
         <td>
             <ul>
-                <li><code>MAJOR</code>は0より大きい整数</li>
+                <li><code>MAJOR</code>は非負整数</li>
                 <li><code>MINOR</code>はオプションの非負整数</li>
                 <li><code>PATCH</code>はオプションの非負整数</li>
             </ul>
@@ -849,7 +849,7 @@ compose.desktop {
 
 ### macOSでの署名と公証
 
-最新のmacOSバージョンでは、インターネットからダウンロードされた署名されていないアプリケーションの実行が許可されていません。そのようなアプリケーションを実行しようとすると、次のエラーが発生します。「YourApp is damaged and can't be open. You should eject the disk image」（YourAppは破損しており開けません。ディスクイメージを取り出す必要があります）。
+最新のmacOSバージョンでは、インターネットからダウンロードされた署名されていないアプリケーションの実行が許可されていません。そのようなアプリケーションを実行しようとすると、次のエラーが発生します：「YourApp is damaged and can't be open. You should eject the disk image」（YourAppは破損しており開けません。ディスクイメージを取り出す必要があります）。
 
 アプリケーションに署名して公証する方法については、[チュートリアル](https://github.com/JetBrains/compose-multiplatform/blob/master/tutorials/Signing_and_notarization_on_macOS/README.md)を参照してください。
 

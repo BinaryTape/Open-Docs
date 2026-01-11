@@ -273,7 +273,9 @@ OpenTelemetry機能は、エージェント内のさまざまな操作を追跡�
 
 - **CreateAgentSpan**: エージェントを実行すると作成され、エージェントが閉じられるか、プロセスが終了すると閉じられます。
 - **InvokeAgentSpan**: エージェントの呼び出し。
+- **StrategySpan**: エージェントの戦略（トップレベルの実行フロー）の実行。
 - **NodeExecuteSpan**: エージェントの戦略におけるノードの実行。これはカスタムのKoog固有スパンです。
+- **SubgraphExecuteSpan**: エージェント戦略内のサブグラフの実行。これはカスタムのKoog固有スパンです。
 - **InferenceSpan**: LLM呼び出し。
 - **ExecuteToolSpan**: ツール呼び出し。
 
@@ -282,12 +284,14 @@ OpenTelemetry機能は、エージェント内のさまざまな操作を追跡�
 ```text
 CreateAgentSpan
     InvokeAgentSpan
-        NodeExecuteSpan
-            InferenceSpan
-        NodeExecuteSpan
-            ExecuteToolSpan
-        NodeExecuteSpan
-            InferenceSpan    
+        StrategySpan
+            NodeExecuteSpan
+                InferenceSpan
+            NodeExecuteSpan
+                ExecuteToolSpan
+            SubgraphExecuteSpan
+                NodeExecuteSpan
+                    InferenceSpan
 ```
 
 ### スパン属性
@@ -298,10 +302,13 @@ Koogは、OpenTelemetryの[生成AIイベントのセマンティック規約](h
 
 さらに、KoogはカスタムのKoog固有属性も含まれています。これらの属性のほとんどは`koog.`プレフィックスで識別できます。利用可能なカスタム属性は以下の通りです。
 
-- `koog.agent.strategy.name`: エージェント戦略の名前。戦略は、エージェントの目的を説明するKoog関連エンティティです。`InvokeAgentSpan`スパンで使用されます。
-- `koog.node.name`: 実行中のノードの名前。`NodeExecuteSpan`スパンで使用されます。
+- `koog.strategy.name`: エージェント戦略の名前。戦略は、エージェントの目的を説明するKoog関連エンティティです。`StrategySpan`スパンで使用されます。
+- `koog.node.id`: 実行中のノードの識別子（名前）。`NodeExecuteSpan`スパンで使用されます。
 - `koog.node.input`: 実行開始時にノードに渡された入力。ノード開始時の`NodeExecuteSpan`に存在します。
 - `koog.node.output`: 完了時にノードによって生成された出力。ノードが正常に完了した際の`NodeExecuteSpan`に存在します。
+- `koog.subgraph.id`: 実行中のサブグラフの識別子（名前）。`SubgraphExecuteSpan`スパンで使用されます。
+- `koog.subgraph.input`: 実行開始時にサブグラフに渡された入力。サブグラフ開始時の`SubgraphExecuteSpan`に存在します。
+- `koog.subgraph.output`: 完了時にサブグラフによって生成された出力。サブグラフが正常に完了した際の`SubgraphExecuteSpan`に存在します。
 
 ### イベント
 

@@ -56,12 +56,17 @@
             "text": "koog._0"
           },
           {
-            "text": "koog.structured-prompts",
-            "link": "prompts/structured-prompts"
-          },
-          {
-            "text": "koog.multimodal-inputs",
-            "link": "prompts/multimodal-inputs"
+            "text": "koog.creating-prompts",
+            "items": [
+              {
+                "text": "koog._0"
+              },
+              {
+                "text": "koog.multimodal-content",
+                "link": "prompts/prompt-creation/multimodal-content"
+              }
+            ],
+            "collapsed": true
           },
           {
             "text": "koog.running-prompts",

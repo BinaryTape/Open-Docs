@@ -1,8 +1,6 @@
 # 函数式代理
 
-函数式代理是轻量级的 AI 代理，它们无需构建复杂的策略图即可运行。
-相反，代理逻辑被实现为一个 lambda 函数，该函数处理用户输入，与 LLM 交互，
-可选地调用工具，并生成最终输出。它能够执行单次 LLM 调用，按序处理多个 LLM 调用，或根据用户输入以及 LLM 和工具输出进行循环。
+函数式代理是轻量级的 AI 代理，它们无需构建复杂的策略图即可运行。相反，代理逻辑被实现为一个 lambda 函数，该函数处理用户输入，与 LLM 交互，可选地调用工具，并生成最终输出。它能够执行单次 LLM 调用，按序处理多个 LLM 调用，或根据用户输入以及 LLM 和工具输出进行循环。
 
 !!! tip
     - 如果您已经拥有一个简单的 [基础代理](basic-agents.md) 作为您的第一个 MVP，但在特定任务中遇到限制，请使用函数式代理来原型化自定义逻辑。您可以在纯 Kotlin 中实现自定义控制流，同时仍可使用大多数 Koog 特性，包括历史记录压缩和自动状态管理。
@@ -49,8 +47,6 @@ dependencies {
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.agent.functionalStrategy
-import ai.koog.agents.core.dsl.extension.asAssistantMessage
-import ai.koog.agents.core.dsl.extension.requestLLM
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 import kotlinx.coroutines.runBlocking
@@ -94,8 +90,6 @@ The answer to 12 × 9 is 108.
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.agent.functionalStrategy
-import ai.koog.agents.core.dsl.extension.asAssistantMessage
-import ai.koog.agents.core.dsl.extension.requestLLM
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 import kotlinx.coroutines.runBlocking
@@ -230,7 +224,7 @@ fun main() {
 -->
 ```kotlin
 val mathWithTools = AIAgent<String, String>(
-    systemPrompt = "You are a precise math assistant. When multiplication is needed, use the multiplication tool.",
+    systemPrompt = "您是一个精确的数学助手。当需要乘法时，请使用乘法工具。",
     promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
     toolRegistry = toolRegistry,

@@ -69,15 +69,15 @@ val anthropicClient = AnthropicLLMClient(System.getenv("ANTHROPIC_KEY"))
 val googleClient = GoogleLLMClient(System.getenv("GOOGLE_KEY"))
 ```
 <!--- KNIT example-complex-workflow-agents-02.kt -->
-2)  구성된 클라이언트를 `DefaultMultiLLMPromptExecutor` 클래스 생성자에 전달하여 여러 LLM 제공자와 함께 작동하는 프롬프트 실행기를 생성합니다.
+2)  구성된 클라이언트를 `MultiLLMPromptExecutor` 클래스 생성자에 전달하여 여러 LLM 제공자와 함께 작동하는 프롬프트 실행기를 생성합니다:
 <!--- INCLUDE
 import ai.koog.agents.example.exampleComplexWorkflowAgents02.anthropicClient
 import ai.koog.agents.example.exampleComplexWorkflowAgents02.googleClient
 import ai.koog.agents.example.exampleComplexWorkflowAgents02.openAIClient
-import ai.koog.prompt.executor.llms.all.DefaultMultiLLMPromptExecutor
+import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
 -->
 ```kotlin
-val multiExecutor = DefaultMultiLLMPromptExecutor(openAIClient, anthropicClient, googleClient)
+val multiExecutor = MultiLLMPromptExecutor(openAIClient, anthropicClient, googleClient)
 ```
 <!--- KNIT example-complex-workflow-agents-03.kt -->
 

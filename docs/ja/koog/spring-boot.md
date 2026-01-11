@@ -17,7 +17,7 @@ Koogは、その自動構成スターターを通じてシームレスなSpring 
 
 ### 1. 依存関係の追加
 
-Koog Spring Bootスターターと[Ktorクライアントエンジン](https://ktor.io/docs/client-engines.html#jvm)を`build.gradle.kts`または`pom.xml`に追加します。
+Koog Spring Bootスターターと[Ktor Client Engine](https://ktor.io/docs/client-engines.html#jvm)を`build.gradle.kts`または`pom.xml`に追加します。
 
 ```kotlin
 dependencies {
@@ -31,27 +31,27 @@ dependencies {
 `application.properties`でお好みのLLMプロバイダーを構成します。
 
 ```properties
-# OpenAI Configuration
+# OpenAI 設定
 ai.koog.openai.enabled=true
 ai.koog.openai.api-key=${OPENAI_API_KEY}
 ai.koog.openai.base-url=https://api.openai.com
-# Anthropic Configuration  
+# Anthropic 設定
 ai.koog.anthropic.enabled=true
 ai.koog.anthropic.api-key=${ANTHROPIC_API_KEY}
 ai.koog.anthropic.base-url=https://api.anthropic.com
-# Google Configuration
+# Google 設定
 ai.koog.google.enabled=true
 ai.koog.google.api-key=${GOOGLE_API_KEY}
 ai.koog.google.base-url=https://generativelanguage.googleapis.com
-# OpenRouter Configuration
+# OpenRouter 設定
 ai.koog.openrouter.enabled=true
 ai.koog.openrouter.api-key=${OPENROUTER_API_KEY}
 ai.koog.openrouter.base-url=https://openrouter.ai
-# DeepSeek Configuration
+# DeepSeek 設定
 ai.koog.deepseek.enabled=true
 ai.koog.deepseek.api-key=${DEEPSEEK_API_KEY}
 ai.koog.deepseek.base-url=https://api.deepseek.com
-# Ollama Configuration (local - no API key required)
+# Ollama 設定 (ローカル - APIキー不要)
 ai.koog.ollama.enabled=true
 ai.koog.ollama.base-url=http://localhost:11434
 ```
@@ -82,7 +82,7 @@ ai:
             api-key: ${DEEPSEEK_API_KEY}
             base-url: https://api.deepseek.com
         ollama:
-            enabled: true # Set it to `true` explicitly to activate !!!
+            enabled: true # 明示的に `true` に設定して有効化してください !!!
             base-url: http://localhost:11434
 ```
 
@@ -114,8 +114,8 @@ Spring構成では、LLMプロバイダーのよく知られた環境変数を�
 ```kotlin
 @Service
 class AIService(
-    private val openAIExecutor: SingleLLMPromptExecutor?,
-    private val anthropicExecutor: SingleLLMPromptExecutor?
+    private val openAIExecutor: MultiLLMPromptExecutor?,
+    private val anthropicExecutor: MultiLLMPromptExecutor?
 ) {
 
     suspend fun generateResponse(input: String): String {
@@ -149,7 +149,7 @@ class AIService(
 @RestController
 @RequestMapping("/api/chat")
 class ChatController(
-    private val anthropicExecutor: SingleLLMPromptExecutor?
+    private val anthropicExecutor: MultiLLMPromptExecutor?
 ) {
 
     @PostMapping
@@ -185,9 +185,9 @@ data class ChatResponse(val response: String)
 ```kotlin
 @Service
 class RobustAIService(
-    private val openAIExecutor: SingleLLMPromptExecutor?,
-    private val anthropicExecutor: SingleLLMPromptExecutor?,
-    private val openRouterExecutor: SingleLLMPromptExecutor?
+    private val openAIExecutor: MultiLLMPromptExecutor?,
+    private val anthropicExecutor: MultiLLMPromptExecutor?,
+    private val openRouterExecutor: MultiLLMPromptExecutor?
 ) {
 
     suspend fun generateWithFallback(input: String): String {
@@ -224,7 +224,7 @@ class RobustAIService(
 ```kotlin
 @Service
 class ConfigurableAIService(
-    private val openAIExecutor: SingleLLMPromptExecutor?,
+    private val openAIExecutor: MultiLLMPromptExecutor?,
     @Value("\${ai.koog.openai.api-key:}") private val openAIKey: String
 ) {
 
@@ -277,7 +277,7 @@ class ConfigurableAIService(
 **Beanが見つからないエラー:**
 
 ```
-No qualifying bean of type 'SingleLLMPromptExecutor' available
+No qualifying bean of type 'MultiLLMPromptExecutor' available
 ```
 
 **解決策:** プロパティファイルに少なくとも1つのプロバイダーが構成されていることを確認してください。
@@ -285,7 +285,7 @@ No qualifying bean of type 'SingleLLMPromptExecutor' available
 **複数のBeanエラー:**
 
 ```
-Multiple qualifying beans of type 'SingleLLMPromptExecutor' available
+Multiple qualifying beans of type 'MultiLLMPromptExecutor' available
 ```
 
 **解決策:** `@Qualifier`を使用して、どのBeanを使用するかを指定します。
@@ -293,8 +293,8 @@ Multiple qualifying beans of type 'SingleLLMPromptExecutor' available
 ```kotlin
 @Service
 class MyService(
-    @Qualifier("openAIExecutor") private val openAIExecutor: SingleLLMPromptExecutor,
-    @Qualifier("anthropicExecutor") private val anthropicExecutor: SingleLLMPromptExecutor
+    @Qualifier("openAIExecutor") private val openAIExecutor: MultiLLMPromptExecutor,
+    @Qualifier("anthropicExecutor") private val anthropicExecutor: MultiLLMPromptExecutor
 ) {
     // ...
 }
@@ -311,7 +311,7 @@ API key is required but not provided
 ## ベストプラクティス
 
 1.  **環境変数**: APIキーには常に環境変数を使用します
-2.  **null許容な注入**: プロバイダーが構成されていないケースを処理するために、null許容な型 (`SingleLLMPromptExecutor?`) を使用します
+2.  **null許容な注入**: プロバイダーが構成されていないケースを処理するために、null許容な型 (`MultiLLMPromptExecutor?`) を使用します
 3.  **フォールバックロジック**: 複数のプロバイダーを使用する際には、フォールバックメカニズムを実装します
 4.  **エラーハンドリング**: 本番コードでは常にエグゼキューター呼び出しをtry-catchブロックで囲みます
 5.  **テスト**: 実際のAPI呼び出しを避けるためにテストでモックを使用します

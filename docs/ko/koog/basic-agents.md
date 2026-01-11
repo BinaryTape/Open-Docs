@@ -31,7 +31,7 @@
 
 ```
 dependencies {
-    implementation("ai.koog:koog-agents:$koog_version")
+    implementation("ai.koog:koog-agents:VERSION")
 }
 ```
 
@@ -39,7 +39,7 @@ dependencies {
 
 ### 2. 에이전트 생성
 
-에이전트를 생성하려면 `AIAgent` 클래스의 인스턴스를 생성하고 `executor` 및 `llmModel` 매개변수를 제공하세요.
+에이전트를 생성하려면 `AIAgent` 클래스의 인스턴스를 생성하고 `promptExecutor` 및 `llmModel` 매개변수를 제공하세요.
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent

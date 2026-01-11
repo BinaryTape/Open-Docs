@@ -225,7 +225,7 @@ compose.desktop {
         <td><code>MAJOR[.MINOR][.PATCH]</code></td>
         <td>
             <ul>
-                <li><code>MAJOR</code> 是一个大于 0 的整数</li>
+                <li><code>MAJOR</code> 是一个非负整数</li>
                 <li><code>MINOR</code> 是一个可选的非负整数</li>
                 <li><code>PATCH</code> 是一个可选的非负整数</li>
             </ul>
@@ -318,7 +318,7 @@ compose.desktop {
 
 <tr>
 <td><code>mainClass</code></td>
-    <td>包含 <code>main</code> 方法的类的完全限定名称。</td>
+    <td>包含 <code>main</code> 方法的完全限定名称。</td>
 </tr>
 
 <tr>
@@ -951,7 +951,7 @@ ProGuard 是一个用于代码精简和混淆的[开源工具](https://github.co
         <p>默认: <code>package&lt;FORMAT_NAME&gt;</code></p>
         <p>发布: <code>packageRelease&lt;FORMAT_NAME&gt;</code></p>
     </td>
-    <td>将应用程序镜像打包成 <code>&lt;FORMAT_NAME&gt;</code> 文件。</td>
+    <td>将应用程序镜像打包成一个 <code>&lt;FORMAT_NAME&gt;</code> 文件。</td>
 </tr>
 
 <tr>
@@ -975,7 +975,7 @@ ProGuard 是一个用于代码精简和混淆的[开源工具](https://github.co
         <p>默认: <code>notarize&lt;FORMAT_NAME&gt;</code></p>
         <p>发布: <code>notarizeRelease&lt;FORMAT_NAME&gt;</code></p>
     </td>
-    <td>上传 <code>&lt;FORMAT_NAME&gt;</code> 应用程序镜像以进行公证（仅限 macOS）。</td>
+    <td>上传一个 <code>&lt;FORMAT_NAME&gt;</code> 应用程序镜像以进行公证（仅限 macOS）。</td>
 </tr>
 
 <tr>

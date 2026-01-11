@@ -9,25 +9,20 @@
 
 ## 依賴項
 
-* Gradle Plugin `org.jetbrains.compose`，版本 `1.10.0-rc02`。基於 Jetpack Compose 函式庫：
-    * [Runtime 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0)
-    * [UI 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0)
-    * [Foundation 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.10.0)
-    * [Material 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-material#1.10.0)
-
-* Compose Material3 函式庫 `org.jetbrains.compose.material3:material3*:1.10.0-alpha05`。基於 [Jetpack Compose Material3 1.5.0-alpha08](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha08)。
-
-  若要使用 [Expressive 主題](whats-new-compose-190.md#material-3-expressive-theme)，請包含實驗性版本的 Material 3：
-    ```kotlin
-    implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha05")
-    ```
-* Compose Material3 Adaptive 函式庫 `org.jetbrains.compose.material3.adaptive:adaptive*:1.3.0-alpha02`。基於 [Jetpack Compose Material3 Adaptive 1.3.0-alpha03](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.3.0-alpha03)
-* Lifecycle 函式庫 `org.jetbrains.androidx.lifecycle:lifecycle-*:2.10.0-alpha06`。基於 [Jetpack Lifecycle 2.10.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0)
-* Navigation 函式庫 `org.jetbrains.androidx.navigation:navigation-*:2.9.1`。基於 [Jetpack Navigation 2.9.4](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4)
-* Navigation 3 函式庫 `org.jetbrains.androidx.navigation3:navigation3-*:1.0.0-alpha06`。基於 [Jetpack Navigation3 1.0.0](https://developer.android.com/jetpack/androidx/releases/navigation3#1.0.0)
-* Navigation Event 函式庫 `org.jetbrains.androidx.navigationevent:navigationevent-compose:1.0.0-rc02`。基於 [Jetpack Navigation Event 1.0.1](https://developer.android.com/jetpack/androidx/releases/navigationevent#1.0.1)
-* Savedstate 函式庫 `org.jetbrains.androidx.savedstate:savedstate*:1.4.0`。基於 [Jetpack Savedstate 1.4.0](https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0)
-* WindowManager Core 函式庫 `org.jetbrains.androidx.window:window-core:1.5.1`。基於 [Jetpack WindowManager 1.5.1](https://developer.android.com/jetpack/androidx/releases/window#1.5.1)
+| 函式庫            | Maven 座標                                                           | 基於 Jetpack 版本                                                                                                             |
+|--------------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| Runtime            | `org.jetbrains.compose.runtime:runtime*:1.10.0-rc02`                        | [Runtime 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.0)                                     |
+| UI                 | `org.jetbrains.compose.ui:ui*:1.10.0-rc02`                                  | [UI 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.0)                                               |
+| Foundation         | `org.jetbrains.compose.foundation:foundation*:1.10.0-rc02`                  | [Foundation 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.10.0)                               |
+| Material           | `org.jetbrains.compose.material:material*:1.10.0-rc02`                      | [Material 1.10.0](https://developer.android.com/jetpack/androidx/releases/compose-material#1.10.0)                                   |
+| Material3          | `org.jetbrains.compose.material3:material3*:1.10.0-alpha05`                 | [Material3 1.5.0-alpha08](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha08)                   |
+| Material3 Adaptive | `org.jetbrains.compose.material3.adaptive:adaptive*:1.3.0-alpha02`          | [Material3 Adaptive 1.3.0-alpha03](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.3.0-alpha03) |
+| Lifecycle          | `org.jetbrains.androidx.lifecycle:lifecycle-*:2.10.0-alpha06`               | [Lifecycle 2.10.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0)                                         |
+| Navigation         | `org.jetbrains.androidx.navigation:navigation-*:2.9.1`                      | [Navigation 2.9.4](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.4)                                         |
+| Navigation3        | `org.jetbrains.androidx.navigation3:navigation3-*:1.0.0-alpha06`            | [Navigation3 1.0.0](https://developer.android.com/jetpack/androidx/releases/navigation3#1.0.0)                                       |
+| Navigation Event   | `org.jetbrains.androidx.navigationevent:navigationevent-compose:1.0.0-rc02` | [Navigation Event 1.0.1](https://developer.android.com/jetpack/androidx/releases/navigationevent#1.0.1)                              |
+| Savedstate         | `org.jetbrains.androidx.savedstate:savedstate*:1.4.0`                       | [Savedstate 1.4.0](https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0)                                         |
+| WindowManager Core | `org.jetbrains.androidx.window:window-core:1.5.1`                           | [WindowManager 1.5.1](https://developer.android.com/jetpack/androidx/releases/window#1.5.1)                                          |
 
 ## 破壞性變更與棄用
 
@@ -43,7 +38,8 @@ Compose Multiplatform Gradle 外掛程式支援的依賴項別名 (`compose.ui` 
 ### 已棄用 `PredictiveBackHandler()`
 
 `PredictiveBackHandler()` 函式是在 Compose Multiplatform 中引入的，用於將原生的 Android 返回導覽手勢帶到其他平台。
-隨著 Navigation 3 的發布，舊的實作已被棄用，轉而使用新的 [Navigation Event](https://developer.android.com/jetpack/androidx/releases/navigationevent) 函式庫及其 API。
+隨著 Navigation 3 的發布，舊的實作已被棄用，轉而使用新的 [Navigation Event](https://developer.android.com/jetpack/androidx/releases/navigationevent)
+函式庫及其 API。
 具體來說，您現在應該使用新的 `NavigationBackHandler()` 函式，而不是 `PredictiveBackHandler()` 函式，該函式封裝了更通用的 `NavigationEventHandler()` 實作。
 
 最簡單的遷移方式如下：
@@ -55,8 +51,10 @@ Compose Multiplatform Gradle 外掛程式支援的依賴項別名 (`compose.ui` 
 
 其中：
 
-*   `state` 參數是強制性的：`NavigationEventInfo` 旨在儲存關於 UI 狀態的上下文資訊。如果目前沒有要儲存的資訊，您可以使用 `NavigationEventInfo.None` 作為存根。
-*   `onBack` 參數已拆分為 `onBackCancelled` 和 `onBackCompleted`，因此您無需單獨追蹤已取消的手勢。
+*   `state` 參數是強制性的：`NavigationEventInfo` 旨在儲存關於 UI 狀態的上下文資訊。
+    如果目前沒有要儲存的資訊，您可以使用 `NavigationEventInfo.None` 作為存根。
+*   `onBack` 參數已拆分為 `onBackCancelled` 和 `onBackCompleted`，因此您無需單獨追蹤已取消的
+    手勢。
 *   `NavigationEventState.transitionState` 屬性有助於追蹤實體手勢的進度。
 
 有關實作的詳細資訊，請參閱 [Navigation Event API 參考資料中的 NavigationEventHandler 頁面](https://developer.android.com/reference/kotlin/androidx/navigationevent/NavigationEventHandler)。
@@ -72,7 +70,8 @@ Compose Multiplatform Gradle 外掛程式支援的依賴項別名 (`compose.ui` 
 我們統一了跨平台的預覽方法。
 您現在可以在 `commonMain` 原始碼集中為所有目標平台使用 `androidx.compose.ui.tooling.preview.Preview` 註解。
 
-所有其他註解，例如 `org.jetbrains.compose.ui.tooling.preview.Preview` 以及桌面專用的 `androidx.compose.desktop.ui.tooling.preview.Preview`，都已被棄用。
+所有其他註解，例如 `org.jetbrains.compose.ui.tooling.preview.Preview` 以及
+桌面專用的 `androidx.compose.desktop.ui.tooling.preview.Preview`，都已被棄用。
 
 ### 互操作檢視的自動調整大小
 
@@ -82,15 +81,19 @@ Compose Multiplatform 現在支援桌面和 iOS 上原生互操作元素的自�
 
 *   在桌面版上，`SwingPanel` 會根據嵌入元件的最小、慣用和最大尺寸自動調整其大小。
 *   在 iOS 上，UIKit 互操作檢視現在支援根據檢視的合適尺寸（內在內容尺寸）進行大小調整。
-  這使得 SwiftUI 檢視（透過 `UIHostingController`）和不依賴於 `NSLayoutConstraints` 的基本 `UIView` 子類別能夠正確地換行。
+    這使得 SwiftUI 檢視（透過 `UIHostingController`）
+    和不依賴於 `NSLayoutConstraints` 的基本 `UIView` 子類別能夠正確地換行。
 
 ### Popup 和 Dialog 屬性的穩定化
 
-`DialogProperties` 中的以下屬性已晉升為穩定版，不再是實驗性：`usePlatformInsets`、`useSoftwareKeyboardInset` 和 `scrimColor`。
+`DialogProperties` 中的以下屬性已晉升為穩定版，不再是實驗性：
+`usePlatformInsets`、`useSoftwareKeyboardInset` 和 `scrimColor`。
 
-同樣地，`PopupProperties` 中的 `usePlatformDefaultWidth` 和 `usePlatformInsets` 屬性也已晉升為穩定版。
+同樣地，`PopupProperties` 中的 `usePlatformDefaultWidth` 和 `usePlatformInsets` 屬性
+也已晉升為穩定版。
 
-沒有 `PopupProperties` 參數的 `Popup` 重載的棄用等級已變更為 `ERROR`，以強制使用更新後的 API。
+沒有 `PopupProperties` 參數的 `Popup` 重載的棄用等級
+已變更為 `ERROR`，以強制使用更新後的 API。
 
 ### Skia 更新至 Milestone 138
 
@@ -119,13 +122,13 @@ Compose Multiplatform 1.10.0-beta01 為在非 Android 目標上使用新的導�
 一些特定平台實作細節：
 
 *   在 iOS 上，您現在可以使用 [EndEdgePanGestureBehavior](https://github.com/JetBrains/compose-multiplatform-core/pull/2519) 選項（預設為 `Disabled`）來管理終點邊緣[平移手勢](https://developer.apple.com/documentation/uikit/handling-pan-gestures)的導覽。
-  「終點邊緣」在此指由左至右 (LTR) 介面中的螢幕右側邊緣，以及由右至左 (RTL) 介面中的左側邊緣。
-  起始邊緣與終點邊緣相對，並且始終綁定到返回手勢。
+    「終點邊緣」在此指由左至右 (LTR) 介面中的螢幕右側邊緣，以及由右至左 (RTL) 介面中的左側邊緣。
+    起始邊緣與終點邊緣相對，並且始終綁定到返回手勢。
 *   在網頁應用程式中，現在桌面瀏覽器中按下 **Esc** 鍵會將使用者返回到上一畫面
-  (並關閉對話框、彈出視窗以及某些小工具，例如 Material 3 的 `SearchBar`)，
-  就像它在桌面應用程式中已經做的那樣。
+    (並關閉對話框、彈出視窗以及某些小工具，例如 Material 3 的 `SearchBar`)，
+    就像它在桌面應用程式中已經做的那樣。
 *   Compose Multiplatform 1.10 將不會延伸對 [瀏覽器歷史導覽](compose-navigation-routing.md#support-for-browser-navigation-in-web-apps) 和在網址列中使用目標的支援至 Navigation 3。
-  這已延後到多平台函式庫的後續版本。
+    這已延後到多平台函式庫的後續版本。
 
 ## iOS
 
@@ -149,8 +152,8 @@ Compose Multiplatform 現在支援 `WindowInsetsRulers`，
 
 這些新的 API 允許在欄位取得焦點並觸發 IME 時客製化輸入介面：
 
- * `UIResponder.inputView` 指定一個自訂輸入檢視，以取代預設的系統鍵盤。
- * `UIResponder.inputAccessoryView` 定義一個自訂輔助檢視，在 IME 啟用時附加到系統鍵盤或自訂 `inputView`。
+*   `UIResponder.inputView` 指定一個自訂輸入檢視，以取代預設的系統鍵盤。
+*   `UIResponder.inputAccessoryView` 定義一個自訂輔助檢視，在 IME 啟用時附加到系統鍵盤或自訂 `inputView`。
 
 ### 互操作檢視的疊加放置
 <primary-label ref="Experimental"/>
@@ -158,7 +161,8 @@ Compose Multiplatform 現在支援 `WindowInsetsRulers`，
 您現在可以使用實驗性的 `placedAsOverlay` 旗標將 `UIKitView` 和 `UIKitViewController` 檢視放置在 Compose UI 上方。
 此旗標允許互操作檢視支援透明背景和原生著色器效果。
 
-若要將互操作檢視渲染為疊加層，請使用 `@OptIn(ExperimentalComposeUiApi::class)` 註解並在 `UIKitInteropProperties` 中將 `placedAsOverlay` 參數設定為 `true`：
+若要將互操作檢視渲染為疊加層，請使用 `@OptIn(ExperimentalComposeUiApi::class)` 註解並
+在 `UIKitInteropProperties` 中將 `placedAsOverlay` 參數設定為 `true`：
 
 ```kotlin
 UIKitViewController(
@@ -182,8 +186,8 @@ Compose Hot Reload 外掛程式現在已與 Compose Multiplatform Gradle 外掛�
 
 這對明確宣告 Compose Hot Reload 外掛程式的專案意味著：
 
- * 您可以安全地移除宣告，以便使用 Compose Multiplatform Gradle 外掛程式提供的版本。
- * 如果您選擇保留特定版本宣告，則將使用該版本而不是內建版本。
+*   您可以安全地移除宣告，以便使用 Compose Multiplatform Gradle 外掛程式提供的版本。
+*   如果您選擇保留特定版本宣告，則將使用該版本而不是內建版本。
 
 內建的 Compose Hot Reload Gradle 外掛程式的最低 Kotlin 版本為 2.1.20。
 如果偵測到較舊的 Kotlin 版本，熱重載功能將被禁用。

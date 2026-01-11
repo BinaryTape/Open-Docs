@@ -51,7 +51,7 @@
   "kotlin.kotlin-overview": "Kotlin overview",
   "kotlin.what-s-new-in-kotlin": "What's new in Kotlin",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.3.0-RC3",
+  "kotlin.whatsnew-eap": "Kotlin 2.3.20-Beta1",
   "kotlin.earlier-versions": "Earlier versions",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -574,5 +574,7 @@
   "koog.prompt-executors": "Prompt executors",
   "koog.handling-failures": "Handling failures",
   "koog.llm-response-caching": "LLM response caching",
-  "koog.agent-client-protocol": "Agent Client Protocol"
+  "koog.agent-client-protocol": "Agent Client Protocol",
+  "koog.creating-prompts": "Creating prompts",
+  "koog.multimodal-content": "Multimodal content"
 }

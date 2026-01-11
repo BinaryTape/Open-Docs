@@ -1,6 +1,6 @@
 # LLM 响应缓存
 
-对于使用提示执行器运行的重复请求，您可以缓存 LLM 响应以优化性能并降低成本。在 Koog 中，所有提示执行器都可以通过 `CachedPromptExecutor` 使用缓存，它是一个 `PromptExecutor` 的包装器，增加了缓存功能。它允许您存储先前执行的提示的响应，并在再次运行相同的提示时检索它们。
+对于您使用提示执行器运行的重复请求，您可以缓存 LLM 响应以优化性能并降低成本。在 Koog 中，所有提示执行器都可以通过 `CachedPromptExecutor` 使用缓存，它是一个 `PromptExecutor` 的包装器，增加了缓存功能。它允许您存储先前执行的提示的响应，并在再次运行相同的提示时检索它们。
 
 要创建缓存的提示执行器，请执行以下操作：
 
@@ -13,9 +13,10 @@
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.llms.SingleLLMPromptExecutor
+import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
 import ai.koog.prompt.executor.cached.CachedPromptExecutor
 import ai.koog.prompt.cache.files.FilePromptCache
+import kotlin.system.measureTimeMillis
 import ai.koog.prompt.dsl.prompt
 import kotlin.io.path.Path
 
@@ -34,21 +35,42 @@ fun main() {
 --> 
 ```kotlin
 // 创建一个提示执行器
-val client = OpenAILLMClient(System.getenv("OPENAI_KEY"))
-val promptExecutor = SingleLLMPromptExecutor(client)
+val client = OpenAILLMClient(System.getenv("OPENAI_API_KEY"))
+val promptExecutor = MultiLLMPromptExecutor(client)
 
 // 创建一个缓存的提示执行器
 val cachedExecutor = CachedPromptExecutor(
-    cache = FilePromptCache(Path("/cache_directory")),
+    cache = FilePromptCache(Path("path/to/your/cache/directory")),
     nested = promptExecutor
 )
 
-// 运行缓存的提示执行器
-val response = cachedExecutor.execute(prompt, OpenAIModels.Chat.GPT4o)
+// 首次运行缓存的提示执行器
+// 这将执行实际的 LLM 请求
+val firstTime = measureTimeMillis {
+    val firstResponse = cachedExecutor.execute(prompt, OpenAIModels.Chat.GPT4o)
+    println("First response: ${firstResponse.first().content}")
+}
+println("First execution took: ${firstTime}ms")
+
+// 第二次运行缓存的提示执行器
+// 这将立即从缓存返回结果
+val secondTime = measureTimeMillis {
+    val secondResponse = cachedExecutor.execute(prompt, OpenAIModels.Chat.GPT4o)
+    println("Second response: ${secondResponse.first().content}")
+}
+println("Second execution took: ${secondTime}ms")
 ```
 <!--- KNIT example-llm-response-caching-01.kt -->
 
-现在，您可以使用相同的模型多次运行相同的提示。响应将从缓存中检索。
+该示例产生以下输出：
+
+```
+First response: Hello! It seems like we're starting a new conversation. What can I help you with today?
+First execution took: 48ms
+Second response: Hello! It seems like we're starting a new conversation. What can I help you with today?
+Second execution took: 1ms
+```
+第二个响应是从缓存中检索的，仅耗时 1 毫秒。
 
 !!!note
     *   如果您使用缓存的提示执行器调用 `executeStreaming()`，它会生成一个单块响应。

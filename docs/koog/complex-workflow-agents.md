@@ -69,15 +69,15 @@ val anthropicClient = AnthropicLLMClient(System.getenv("ANTHROPIC_KEY"))
 val googleClient = GoogleLLMClient(System.getenv("GOOGLE_KEY"))
 ```
 <!--- KNIT example-complex-workflow-agents-02.kt -->
-2) 将配置好的客户端传递给 `DefaultMultiLLMPromptExecutor` 类构造函数，以创建支持多个 LLM 提供商的提示执行器：
+2) 将配置好的客户端传递给 `MultiLLMPromptExecutor` 类构造函数，以创建支持多个 LLM 提供商的提示执行器：
 <!--- INCLUDE
 import ai.koog.agents.example.exampleComplexWorkflowAgents02.anthropicClient
 import ai.koog.agents.example.exampleComplexWorkflowAgents02.googleClient
 import ai.koog.agents.example.exampleComplexWorkflowAgents02.openAIClient
-import ai.koog.prompt.executor.llms.all.DefaultMultiLLMPromptExecutor
+import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
 -->
 ```kotlin
-val multiExecutor = DefaultMultiLLMPromptExecutor(openAIClient, anthropicClient, googleClient)
+val multiExecutor = MultiLLMPromptExecutor(openAIClient, anthropicClient, googleClient)
 ```
 <!--- KNIT example-complex-workflow-agents-03.kt -->
 
@@ -108,9 +108,9 @@ val strategy = strategy<InputType, OutputType>("Simple calculator") {
 -->
 ```kotlin
 val processNode by node<InputType, OutputType> { input ->
-    // 处理输入并返回输出
-    // 您可以使用 llm.writeSession 与 LLM 交互
-    // 您可以使用 callTool、callToolRaw 等调用工具
+    // Process the input and return an output
+    // You can use llm.writeSession to interact with the LLM
+    // You can call tools using callTool, callToolRaw, etc.
     transformedOutput
 }
 ```
@@ -130,16 +130,16 @@ const val transformedOutput = "transformed-output"
 val strategy = strategy<String, String>("Simple calculator") {
 
     val sourceNode by node<String, String> { input ->
-        // 处理输入并返回输出
-        // 您可以使用 llm.writeSession 与 LLM 交互
-        // 您可以使用 callTool、callToolRaw 等调用工具
+        // Process the input and return an output
+        // You can use llm.writeSession to interact with the LLM
+        // You can call tools using callTool, callToolRaw, etc.
         transformedOutput
     }
 
     val targetNode by node<String, String> { input ->
-        // 处理输入并返回输出
-        // 您可以使用 llm.writeSession 与 LLM 交互
-        // 您可以使用 callTool、callToolRaw 等调用工具
+        // Process the input and return an output
+        // You can use llm.writeSession to interact with the LLM
+        // You can call tools using callTool, callToolRaw, etc.
         transformedOutput
     }
 -->
@@ -147,22 +147,22 @@ val strategy = strategy<String, String>("Simple calculator") {
 }
 -->
 ```kotlin
-// 基本边
+// Basic edge
 edge(sourceNode forwardTo targetNode)
 
-// 带条件的边
+// Edge with condition
 edge(sourceNode forwardTo targetNode onCondition { output ->
-    // 返回 true 以跟随此边，返回 false 以跳过此边
+    // Return true to follow this edge, false to skip it
     output.contains("specific text")
 })
 
-// 带转换的边
+// Edge with transformation
 edge(sourceNode forwardTo targetNode transformed { output ->
-    // 在将输出传递给目标节点之前对其进行转换
+    // Transform the output before passing it to the target node
     "Modified: $output"
 })
 
-// 条件和转换组合
+// Combined condition and transformation
 edge(sourceNode forwardTo targetNode onCondition { it.isNotEmpty() } transformed { it.uppercase() })
 ```
 <!--- KNIT example-complex-workflow-agents-05.kt -->
@@ -178,32 +178,32 @@ import ai.koog.agents.core.dsl.extension.*
 -->
 ```kotlin
 val agentStrategy = strategy("Simple calculator") {
-    // 定义策略的节点
+    // Define nodes for the strategy
     val nodeSendInput by nodeLLMRequest()
     val nodeExecuteTool by nodeExecuteTool()
     val nodeSendToolResult by nodeLLMSendToolResult()
 
-    // 定义节点之间的边
-    // 开始 -> 发送输入
+    // Define edges between nodes
+    // Start -> Send input
     edge(nodeStart forwardTo nodeSendInput)
 
-    // 发送输入 -> 完成
+    // Send input -> Finish
     edge(
         (nodeSendInput forwardTo nodeFinish)
                 transformed { it }
                 onAssistantMessage { true }
     )
 
-    // 发送输入 -> 执行工具
+    // Send input -> Execute tool
     edge(
         (nodeSendInput forwardTo nodeExecuteTool)
                 onToolCall { true }
     )
 
-    // 执行工具 -> 发送工具结果
+    // Execute tool -> Send the tool result
     edge(nodeExecuteTool forwardTo nodeSendToolResult)
 
-    // 发送工具结果 -> 完成
+    // Send the tool result -> finish
     edge(
         (nodeSendToolResult forwardTo nodeFinish)
                 transformed { it }
@@ -276,7 +276,7 @@ import ai.koog.agents.core.tools.reflect.ToolSet
 import ai.koog.agents.core.tools.reflect.tools
 -->
 ```kotlin
-// 实现一个可以相加两个数字的简单计算器工具
+// Implement a simple calculator tool that can add two numbers
 @LLMDescription("用于执行基本算术操作的工具")
 class CalculatorTools : ToolSet {
     @Tool
@@ -293,7 +293,7 @@ class CalculatorTools : ToolSet {
     }
 }
 
-// 将工具添加到工具注册表
+// Add the tool to the tool registry
 val toolRegistry = ToolRegistry {
     tools(CalculatorTools())
 }
@@ -329,7 +329,7 @@ val agent = AIAgent(
 )
 -->
 ```kotlin
-// 安装 EventHandler 特性
+// install the EventHandler feature
 installFeatures = {
     install(EventHandler) {
         onAgentStarting { eventContext: AgentStartingContext ->
@@ -435,26 +435,26 @@ val agentStrategy = strategy("Simple calculator") {
     val nodeSendToolResult by nodeLLMSendToolResult()
 
     // 定义节点之间的边
-    // 开始 -> 发送输入
+    // Start -> Send input
     edge(nodeStart forwardTo nodeSendInput)
 
-    // 发送输入 -> 完成
+    // Send input -> Finish
     edge(
         (nodeSendInput forwardTo nodeFinish)
                 transformed { it }
                 onAssistantMessage { true }
     )
 
-    // 发送输入 -> 执行工具
+    // Send input -> Execute tool
     edge(
         (nodeSendInput forwardTo nodeExecuteTool)
                 onToolCall { true }
     )
 
-    // 执行工具 -> 发送工具结果
+    // Execute tool -> Send the tool result
     edge(nodeExecuteTool forwardTo nodeSendToolResult)
 
-    // 发送工具结果 -> 完成
+    // Send the tool result -> finish
     edge(
         (nodeSendToolResult forwardTo nodeFinish)
                 transformed { it }
@@ -462,7 +462,7 @@ val agentStrategy = strategy("Simple calculator") {
     )
 }
 
-// 配置代理
+// Configure the agent
 val agentConfig = AIAgentConfig(
     prompt = Prompt.build("simple-calculator") {
         system(
@@ -480,7 +480,7 @@ val agentConfig = AIAgentConfig(
     maxAgentIterations = 10
 )
 
-// 实现一个可以相加两个数字的简单计算器工具
+// Implement a simple calculator tool that can add two numbers
 @LLMDescription("用于执行基本算术操作的工具")
 class CalculatorTools : ToolSet {
     @Tool
@@ -497,12 +497,12 @@ class CalculatorTools : ToolSet {
     }
 }
 
-// 将工具添加到工具注册表
+// Add the tool to the tool registry
 val toolRegistry = ToolRegistry {
     tools(CalculatorTools())
 }
 
-// 创建代理
+// Create the agent
 val agent = AIAgent(
     promptExecutor = promptExecutor,
     toolRegistry = toolRegistry,

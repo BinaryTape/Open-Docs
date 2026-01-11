@@ -13,7 +13,7 @@
 *   Gradle 소스 세트, Kotlin JVM 타겟, 또는 수동으로 [사용자 지정 소스 세트를 설정하는 방법](#custom-source-sets).
 *   각 OS에 대해 [애플리케이션 아이콘을 지정하는 방법](#application-icon).
 *   Linux에서 패키지 관리자의 이메일, macOS에서 Apple App Store의 앱 카테고리와 같은 [플랫폼별 옵션](#platform-specific-options).
-*   [macOS별 구성](#macos-specific-configuration): 코드 서명, 공증 및 `Info.plist`.
+*   [macOS별 구성](#macos-specific-configuration): 서명, 공증 및 `Info.plist`.
 
 ## Gradle 플러그인
 
@@ -129,7 +129,7 @@ compose.desktop {
 
 ## JDK 모듈 포함
 
-배포 가능한 크기를 줄이기 위해 Gradle 플러그인은 필요한 JDK 모듈만 번들링하는 데 도움이 되는 [jlink](https://openjdk.org/jeps/282)를 사용합니다.
+배포 가능한 크기를 줄이기 위해 Gradle 플러그인은 [jlink](https://openjdk.org/jeps/282)를 사용하며, 이는 필요한 JDK 모듈만 번들링하는 데 도움이 됩니다.
 
 현재 Gradle 플러그인은 필요한 JDK 모듈을 자동으로 결정하지 않습니다. 이는 컴파일 문제를 일으키지 않지만,
 필요한 모듈을 제공하지 않으면 런타임에 `ClassNotFoundException`이 발생할 수 있습니다.
@@ -757,10 +757,10 @@ compose.desktop {
 <tr>
 <td><code>entitlementsFile.set(File("PATH_ENT"))</code></td>
         <td>
-            서명 시 사용되는 권한(entitlements)이 포함된 파일의 경로를 지정합니다. 사용자 지정 파일을 제공할 때, 
+            서명 시 사용되는 권한이 포함된 파일의 경로를 지정합니다. 사용자 지정 파일을 제공할 때, 
             Java 애플리케이션에 필요한 권한을 추가해야 합니다. App Store용으로 빌드할 때 사용되는 기본 파일은 
             <a href="https://github.com/openjdk/jdk/blob/master/src/jdk.jpackage/macosx/classes/jdk/jpackage/internal/resources/sandbox.plist">
-                <code>sandbox.plist</code></a>를 참조하십시오. 이 기본 파일은 JDK 버전에 따라 다를 수 있습니다.
+                sandbox.plist</a>를 참조하십시오. 이 기본 파일은 JDK 버전에 따라 다를 수 있습니다.
             파일을 지정하지 않으면 플러그인은 <code>jpackage</code>가 제공하는 기본 권한을 사용합니다. 자세한 내용은
             <a href="https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials/Signing_and_notarization_on_macOS">
                macOS용 배포판 서명 및 공증</a> 튜토리얼을 참조하십시오.
@@ -774,7 +774,7 @@ compose.desktop {
             JVM 런타임 서명 시 사용되는 권한이 포함된 파일의 경로를 지정합니다. 사용자 지정 파일을 제공할 때, 
             Java 애플리케이션에 필요한 권한을 추가해야 합니다. App Store용으로 빌드할 때 사용되는 기본 파일은 
             <a href="https://github.com/openjdk/jdk/blob/master/src/jdk.jpackage/macosx/classes/jdk/jpackage/internal/resources/sandbox.plist">
-                <code>sandbox.plist</code></a>를 참조하십시오. 이 기본 파일은 JDK 버전에 따라 다를 수 있습니다.
+                sandbox.plist</a>를 참조하십시오. 이 기본 파일은 JDK 버전에 따라 다를 수 있습니다.
             파일을 지정하지 않으면 플러그인은 <code>jpackage</code>가 제공하는 기본 권한을 사용합니다. 자세한 내용은
             <a href="https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials/Signing_and_notarization_on_macOS">
                macOS용 배포판 서명 및 공증</a> 튜토리얼을 참조하십시오.
@@ -876,10 +876,10 @@ compose.desktop {
 
 ## macOS별 구성
 
-### macOS에서 코드 서명 및 공증
+### macOS에서 서명 및 공증
 
 최신 macOS 버전은 인터넷에서 다운로드한 서명되지 않은 애플리케이션의 실행을 허용하지 않습니다. 이러한 애플리케이션을 실행하려고 하면
-다음과 같은 오류가 발생합니다. "YourApp is damaged and can't be open. You should eject the disk image" (YourApp이 손상되어 열 수 없습니다. 디스크 이미지를 추출해야 합니다).
+다음과 같은 오류가 발생합니다: "YourApp is damaged and can't be open. You should eject the disk image" (YourApp이 손상되어 열 수 없습니다. 디스크 이미지를 추출해야 합니다).
 
 애플리케이션을 서명하고 공증하는 방법은 [튜토리얼](https://github.com/JetBrains/compose-multiplatform/blob/master/tutorials/Signing_and_notarization_on_macOS/README.md)을 참조하십시오.
 
@@ -958,7 +958,7 @@ DSL에 표현되지 않은 `Info.plist` 값을 지정해야 하는 경우,
   ```
   {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Desktop.getDesktop().setOpenURIHandler { event ->"}
 
-3.  `runDistributable` 태스크를 실행합니다. `./gradlew runDistributable`.
+3.  `runDistributable` 태스크를 실행합니다: `./gradlew runDistributable`.
 
 결과적으로 `compose://foo/bar`와 같은 링크는 이제 브라우저에서 애플리케이션으로 리디렉션될 수 있습니다.
 

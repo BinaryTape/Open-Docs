@@ -15,7 +15,7 @@ Gradle 빌드 파일에 [Kotlin/Native 타겟](native-target-support.md)을 지�
     plugins {
         kotlin("multiplatform") version "%kotlinVersion%"
     }
-    
+ 
     kotlin {
         macosArm64()    // on macOS
         // linuxArm64() // on Linux
@@ -49,7 +49,7 @@ Kotlin/Native 컴파일러로 라이브러리를 생성하려면:
     ```bash
     kotlinc-native qux.kt -l bar
     ```
-    
+   
     이 명령어는 `qux.kt` 소스 파일과 `bar.klib` 라이브러리의 내용을 컴파일하여 `program.kexe` 최종 실행 바이너리를 생성합니다.
 
 ## klib 유틸리티
@@ -86,7 +86,7 @@ klib dump-metadata-signatures mylib.klib -signature-version 1
 
     ```kotlin
     package kotlinizer
-    
+
     val String.kotlinized
         get() = "Kotlin $this"
     ```
@@ -113,7 +113,7 @@ klib dump-metadata-signatures mylib.klib -signature-version 1
 
     ```kotlin
     import kotlinizer.*
-    
+
     fun main(args: Array<String>) {
         println("Hello, ${"world".kotlinized}!")
     }

@@ -10,9 +10,9 @@
 
 請注意：
 
-* 即使不破壞原始碼相容性，也可能破壞二進位相容性，反之亦然。
-* 保證原始碼相容性是理想但非常困難的。作為函式庫作者，您必須考量函式庫使用者可能呼叫或實例化函式或類型的所有可能方式。
-  原始碼相容性通常是願景，而非承諾。
+*   即使不破壞原始碼相容性，也可能破壞二進位相容性，反之亦然。
+*   保證原始碼相容性是理想但非常困難的。作為函式庫作者，您必須考量函式庫使用者可能呼叫或實例化函式或類型的所有可能方式。
+    原始碼相容性通常是願景，而非承諾。
 
 本節其餘部分將說明您可以採取的行動，以及可以使用的工具，以協助確保不同類型的相容性。
 
@@ -35,8 +35,8 @@ JetBrains 提供一個 [Binary compatibility validator](https://github.com/Kotli
 
 此工具作為 Gradle 外掛實作，並為您的建構新增兩個任務：
 
-* `apiDump` 任務會建立一個人類可讀的 `.api` 檔案，描述您的 API。
-* `apiCheck` 任務會將儲存的 API 描述與目前建構中編譯的類別進行比較。
+*   `apiDump` 任務會建立一個人類可讀的 `.api` 檔案，描述您的 API。
+*   `apiCheck` 任務會將儲存的 API 描述與目前建構中編譯的類別進行比較。
 
 `apiCheck` 任務在建構時由標準的 Gradle `check` 任務呼叫。
 當相容性被破壞時，建構會失敗。此時，您應該手動執行 `apiDump` 任務，並比較舊版本和新版本之間的差異。
@@ -130,32 +130,16 @@ Exception in thread "main" java.lang.NoSuchMethodError: 'int LibKt.fib()'
 
 然而，原始碼相容性被保留。如果您重新編譯兩個檔案，程式將像以前一樣執行。
 
-### 使用多載來保留相容性 {initial-collapse-state="collapsed" collapsible="true"}
+### 使用手動多載來保留相容性 {initial-collapse-state="collapsed" collapsible="true"}
 
-在為 JVM 撰寫 Kotlin 程式碼時，您可以在具有預設參數的函式上使用 [`@JvmOverloads`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/) 註解。
-這會生成函式的多載，每個多載對應一個帶有預設參數且可以從參數列表末尾省略的參數。
-透過這些獨立生成的函式，在參數列表末尾新增一個新參數會保留二進位相容性，因為它不會改變輸出中任何現有函式，只是新增一個。
-
-例如，上述函式可以像這樣註解：
-
-```kotlin
-@JvmOverloads
-fun fib(input: Int = 0) = …
-```
-
-這將在輸出位元組碼中生成兩個方法，一個沒有參數，一個帶有 `Int` 參數：
-
-```kotlin
-public final static fib()I
-public final static fib(I)I
-```
-
-對於所有 Kotlin 目標，您可以選擇手動為您的函式建立多個多載，而不是單一接受預設參數的函式，以保留二進位相容性。在上述範例中，這意味著為您希望接受 `Int` 參數的情況建立一個單獨的 `fib` 函式：
+為了保持二進位相容性，如果您想要向函式新增一個新參數，您需要手動建立多個多載，而不是使用單一接受預設參數的函式。在上述範例中，這意味著為您希望接受 `Int` 參數的情況建立一個單獨的 `fib()` 函式：
 
 ```kotlin
 fun fib() = … 
 fun fib(input: Int) = …
 ```
+
+在為 JVM 撰寫 Kotlin 程式碼時，向帶有預設參數並用 [`@JvmOverloads`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/) 註解的函式新增參數時請注意。此註解不會保留二進位相容性，因此您仍然需要新增手動多載。
 
 ## 避免擴展或縮小回傳類型
 
@@ -272,9 +256,9 @@ Kotlin 允許內聯函式成為您函式庫 API 的一部分。對這些函式�
 
 在舊宣告上使用 [`@Deprecated`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-deprecated/) 註解，以表明它正在被替換。此註解的參數提供了有關棄用的重要詳細資訊：
 
-* `message` 應解釋正在更改的內容以及原因。
-* `replaceWith` 參數應盡可能用於提供自動遷移到新 API 的功能。
-* 棄用的層級應用於逐漸棄用 API。有關更多資訊，請參閱 [Kotlin 文件中的 Deprecated 頁面](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-deprecated/)。
+*   `message` 應解釋正在更改的內容以及原因。
+*   `replaceWith` 參數應盡可能用於提供自動遷移到新 API 的功能。
+*   棄用的層級應用於逐漸棄用 API。有關更多資訊，請參閱 [Kotlin 文件中的 Deprecated 頁面](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-deprecated/)。
 
 通常，棄用應首先產生警告，然後是錯誤，最後隱藏宣告。
 此過程應在幾個次要版本中進行，給予使用者時間在其專案中進行任何必要的更改。
@@ -291,13 +275,13 @@ Kotlin 標準函式庫 [提供了選擇性加入機制](opt-in-requirements.md)�
 
 如果您選擇使用此機制，我們建議遵循以下最佳實踐：
 
-* 使用選擇性加入機制為 API 的不同部分提供不同的保證。例如，您可以將功能標記為 *預覽*、*實驗性* 和 *精細*。每個類別都應在您的文件中和 [KDoc 註解](kotlin-doc.md) 中清楚解釋，並附有適當的警告訊息。
-* 如果您的函式庫使用實驗性 API，請將 [註解傳播](opt-in-requirements.md#propagate-opt-in-requirements) 給您的使用者。這確保您的使用者意識到您有仍在演進的依賴項。
-* 避免使用選擇性加入機制來棄用函式庫中已存在的宣告。請改用 `@Deprecated`，如 [務實地演進 API](#evolve-apis-pragmatically) 部分所述。
+*   使用選擇性加入機制為 API 的不同部分提供不同的保證。例如，您可以將功能標記為 _預覽_、_實驗性_ 和 _精細_。每個類別都應在您的文件中和 [KDoc 註解](kotlin-doc.md) 中清楚解釋，並附有適當的警告訊息。
+*   如果您的函式庫使用實驗性 API，請將 [註解傳播](opt-in-requirements.md#propagate-opt-in-requirements) 給您的使用者。這確保您的使用者意識到您有仍在演進的依賴項。
+*   避免使用選擇性加入機制來棄用函式庫中已存在的宣告。請改用 `@Deprecated`，如 [務實地演進 API](#evolve-apis-pragmatically) 部分所述。
 
 ## 接下來呢
 
 如果您還沒有，請考慮查看這些頁面：
 
-* 在 [最小化心智複雜度](api-guidelines-minimizing-mental-complexity.md) 頁面中探索最小化心智複雜度的策略。
-* 有關有效文件撰寫實踐的廣泛概述，請參閱 [資訊豐富的文件](api-guidelines-informative-documentation.md)。
+*   在 [最小化心智複雜度](api-guidelines-minimizing-mental-complexity.md) 頁面中探索最小化心智複雜度的策略。
+*   有關有效文件撰寫實踐的廣泛概述，請參閱 [資訊豐富的文件](api-guidelines-informative-documentation.md)。

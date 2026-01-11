@@ -99,7 +99,7 @@
         setx OPENAI_API_KEY "your-api-key"
         ```
     
-    重启你的终端以应用更改。你现在可以检索并使用 API 密钥来创建代理。
+    重启你的终端以应用更改。你现在可以检索并使用 API 密钥来创建代理。   
 
 === "Anthropic"
 
@@ -135,7 +135,7 @@
         setx GOOGLE_API_KEY "your-api-key"
         ```
 
-    重启你的终端以应用更改。你现在可以检索并使用 API 密钥来创建代理。
+    重启你的终端以应用更改。你现在可以检索并使用 API 密钥来创建代理。   
 
 === "DeepSeek"
     
@@ -153,7 +153,7 @@
         setx DEEPSEEK_API_KEY "your-api-key"
         ```
 
-    重启你的终端以应用更改。你现在可以检索并使用 API 密钥来创建代理。
+    重启你的终端以应用更改。你现在可以检索并使用 API 密钥来创建代理。   
 
 === "OpenRouter"
 
@@ -171,7 +171,7 @@
         setx OPENROUTER_API_KEY "your-api-key"
         ```
 
-    重启你的终端以应用更改。你现在可以检索并使用 API 密钥来创建代理。
+    重启你的终端以应用更改。你现在可以检索并使用 API 密钥来创建代理。   
 
 === "Bedrock"
 
@@ -191,7 +191,7 @@
         setx AWS_BEDROCK_SECRET_ACCESS_KEY "your-secret-access-key"
         ```
 
-    重启你的终端以应用更改。你现在可以检索并使用 API 密钥来创建代理。
+    重启你的终端以应用更改。你现在可以检索并使用 API 密钥来创建代理。   
 
 === "Ollama"
 
@@ -342,7 +342,7 @@
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
     import ai.koog.prompt.executor.clients.deepseek.DeepSeekLLMClient
-    import ai.koog.prompt.executor.llms.SingleLLMPromptExecutor
+    import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
     import ai.koog.prompt.executor.clients.deepseek.DeepSeekModels
     import kotlinx.coroutines.runBlocking
     -->
@@ -358,7 +358,7 @@
         // 创建代理
         val agent = AIAgent(
             // 使用 LLM 客户端创建提示执行器
-            promptExecutor = SingleLLMPromptExecutor(deepSeekClient),
+            promptExecutor = MultiLLMPromptExecutor(deepSeekClient),
             // 提供模型
             llmModel = DeepSeekModels.DeepSeekChat
         )

@@ -1,5 +1,5 @@
 [//]: # (title: Lombokコンパイラープラグイン)
-<primary-label ref="alpha"/>
+<primary-label ref="experimental-opt-in"/>
 
 Kotlin Lombokコンパイラープラグインを使用すると、同じJava/Kotlin混在モジュール内でKotlinコードによるJavaのLombok宣言の生成と使用が可能になります。
 別のモジュールからそのような宣言を呼び出す場合、そのモジュールのコンパイルにはこのプラグインを使用する必要はありません。

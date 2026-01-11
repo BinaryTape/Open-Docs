@@ -22,16 +22,16 @@ val prompt = prompt(
         maxTokens = 500
     )
 ) {
-    // Add a system message to set the context
+    // システムメッセージを追加してコンテキストを設定します
     system("You are a helpful assistant.")
 
-    // Add a user message
+    // ユーザーメッセージを追加します
     user("Tell me about Kotlin")
 }
 ```
 <!--- KNIT example-llm-parameters-01.kt -->
 
-プロンプトの作成に関する詳細については、「[Prompts](prompts/structured-prompts.md)」を参照してください。
+プロンプトの作成に関する詳細については、「[Prompts](prompts/prompt-creation/index.md)」を参照してください。
 
 - サブグラフを作成する場合:
 
@@ -399,7 +399,7 @@ val openRouterParams = OpenRouterParams(
 import ai.koog.prompt.params.LLMParams
 -->
 ```kotlin
-// A basic set of parameters with limited length 
+// 長さ制限のある基本的なパラメータセット
 val basicParams = LLMParams(
     temperature = 0.7,
     maxTokens = 150,
@@ -447,7 +447,7 @@ import ai.koog.prompt.params.LLMParams
 import ai.koog.prompt.params.additionalPropertiesOf
 -->
 ```kotlin
-// Add custom parameters for specific model providers
+// 特定のモデルプロバイダー用のカスタムパラメータを追加
 val customParams = LLMParams(
     additionalProperties = additionalPropertiesOf(
         "top_p" to 0.95,
@@ -467,14 +467,14 @@ val customParams = LLMParams(
 import ai.koog.prompt.params.LLMParams
 -->
 ```kotlin
-// Define default parameters
+// デフォルトパラメータを定義
 val defaultParams = LLMParams(
     temperature = 0.7,
     maxTokens = 150,
     toolChoice = LLMParams.ToolChoice.Auto
 )
 
-// Create parameters with some overrides, using defaults for the rest
+// 一部をオーバーライドし、残りはデフォルト値を使用するパラメータを作成
 val overrideParams = LLMParams(
     temperature = 0.2,
     numberOfChoices = 3

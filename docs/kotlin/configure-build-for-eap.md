@@ -1,12 +1,12 @@
 [//]: # (title: 为 EAP 配置你的构建)
 
 <tldr>
-    <p>当前没有可用的预览版本。</p>
-    <!-- <p>最新 Kotlin EAP 版本: <strong>%kotlinEapVersion%</strong></p>
-    <p><a href="eap.md#build-details">探索 Kotlin EAP 发布详情</a></p> -->
+    <!--<p>当前没有可用的预览版本。</p>-->
+    <p>最新 Kotlin EAP 发布: <strong>%kotlinEapVersion%</strong></p>
+    <p><a href="eap.md#build-details">探索 Kotlin EAP 发布详情</a></p>
 </tldr>
 
-为配置你的构建以使用 Kotlin 的 EAP 版本，你需要：
+要配置你的构建以使用 Kotlin 的 EAP 版本，你需要：
 
 *   指定 Kotlin 的 EAP 版本。[可用的 EAP 版本此处列出](eap.md#build-details)。
 *   将依赖项的版本更改为 EAP 版本。

@@ -64,7 +64,7 @@ val agent = AIAgent(
 | Name | Data type | Default value | Description |
 |:---|:---|:---|:---|
 | `serviceName` | `String` | `ai.koog` | 正在插桩的服务名称。 |
-| `serviceVersion` | `String` | 当前 Koog 库版本 | 正在插桩的服务版本。 |
+| `serviceVersion` | `String` | Current Koog library version | 正在插桩的服务版本。 |
 | `isVerbose` | `Boolean` | `false` | 是否为 OpenTelemetry 配置调试启用详细日志记录。 |
 | `sdk` | `OpenTelemetrySdk` | | 用于遥测数据收集的 OpenTelemetry SDK 实例。 |
 | `tracer` | `Tracer` | | 用于创建 Span 的 OpenTelemetry tracer 实例。 |
@@ -155,7 +155,6 @@ install(OpenTelemetry) {
 | `verbose` | `Boolean` | Yes | `false` | 如果为 true，应用程序将收集更详细的遥测数据。 |
 
 !!! note
-
     出于安全原因，OpenTelemetry Span 的某些内容默认被遮盖。例如，LLM 消息被遮盖为 `HIDDEN:non-empty` 而不是实际消息内容。要获取内容，请将 `verbose` 实参的值设置为 `true`。
 
 #### setSdk
@@ -173,7 +172,7 @@ install(OpenTelemetry) {
 
 对于更高级的配置，您还可以自定义以下配置选项：
 
-- Sampler：配置采样策略以调整收集数据的频率和数量。
+- 采样器：配置采样策略以调整收集数据的频率和数量。
 - 资源属性：添加有关生成遥测数据的进程的更多信息。
 
 <!--- INCLUDE
@@ -215,7 +214,7 @@ install(OpenTelemetry) {
 ```
 <!--- KNIT example-opentelemetry-support-03.kt -->
 
-#### Sampler
+#### 采样器
 
 要定义采样器，请使用 `opentelemetry-java` SDK 中 `Sampler` 类 (`io.opentelemetry.sdk.trace.samplers.Sampler`) 的相应方法，该方法表示您要使用的采样策略。
 
@@ -273,7 +272,9 @@ OpenTelemetry 特性会自动创建不同类型的 Span 以跟踪代理中的各
 
 - **CreateAgentSpan**：在您运行代理时创建，在代理关闭或进程终止时关闭。
 - **InvokeAgentSpan**：代理的调用。
+- **StrategySpan**：代理策略的执行（顶层执行流）。
 - **NodeExecuteSpan**：代理策略中节点的执行。这是一个自定义的、Koog 特有的 Span。
+- **SubgraphExecuteSpan**：代理策略中子图的执行。这是一个自定义的、Koog 特有的 Span。
 - **InferenceSpan**：LLM 调用。
 - **ExecuteToolSpan**：工具调用。
 
@@ -282,12 +283,14 @@ Span 以嵌套的、分层的结构组织。以下是 Span 结构的示例：
 ```text
 CreateAgentSpan
     InvokeAgentSpan
-        NodeExecuteSpan
-            InferenceSpan
-        NodeExecuteSpan
-            ExecuteToolSpan
-        NodeExecuteSpan
-            InferenceSpan    
+        StrategySpan
+            NodeExecuteSpan
+                InferenceSpan
+            NodeExecuteSpan
+                ExecuteToolSpan
+            SubgraphExecuteSpan
+                NodeExecuteSpan
+                    InferenceSpan
 ```
 
 ### Span 属性
@@ -298,14 +301,17 @@ Koog 支持遵循 OpenTelemetry [生成式 AI 事件语义约定](https://opente
 
 此外，Koog 还包括自定义的、Koog 特有的属性。您可以通过 `koog.` 前缀识别其中大多数属性。以下是可用的自定义属性：
 
-- `koog.agent.strategy.name`：代理策略的名称。策略是与 Koog 相关的实体，描述代理的用途。用于 `InvokeAgentSpan` Span。
-- `koog.node.name`：正在运行的节点的名称。用于 `NodeExecuteSpan` Span。
+- `koog.strategy.name`：代理策略的名称。策略是与 Koog 相关的实体，描述代理的用途。用于 `StrategySpan` Span。
+- `koog.node.id`：正在执行的节点的标识符（名称）。用于 `NodeExecuteSpan` Span。
 - `koog.node.input`：在执行开始时传递给节点的输入。当节点启动时存在于 `NodeExecuteSpan` 上。
 - `koog.node.output`：节点完成时产生的输出。当节点成功完成时存在于 `NodeExecuteSpan` 上。
+- `koog.subgraph.id`：正在执行的子图的标识符（名称）。用于 `SubgraphExecuteSpan` Span。
+- `koog.subgraph.input`：在执行开始时传递给子图的输入。当子图启动时存在于 `SubgraphExecuteSpan` 上。
+- `koog.subgraph.output`：子图完成时产生的输出。当子图成功完成时存在于 `SubgraphExecuteSpan` 上。
 
 ### 事件
 
-Span 也可以附加一个_事件_。事件描述了在特定时间点发生的相关事情。例如，LLM 调用开始或结束时。事件也具有属性，并且还包含事件_正文字段_。
+Span 也可以附加一个_事件_。事件描述了在特定时间点发生的、相关的事情。例如，LLM 调用开始或结束时。事件也具有属性，并且还包含事件_正文字段_。
 
 以下事件类型符合 OpenTelemetry [生成式 AI 事件语义约定](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/)的要求：
 
@@ -316,7 +322,7 @@ Span 也可以附加一个_事件_。事件描述了在特定时间点发生的�
 - **ChoiceEvent**：从模型返回的响应消息。
 - **ModerationResponseEvent**：模型审核结果或信号。
 
-!!! note   
+!!! note
     `optentelemetry-java` SDK 在添加事件时不支持事件正文字段形参。因此，在 Koog 的 OpenTelemetry 支持中，事件正文字段是一个单独的属性，其键为 `body`，值类型为 string。该 string 包含事件正文字段的内容或载荷，通常是类似 JSON 的 object。有关事件正文字段的示例，请参见 [OpenTelemetry 文档](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/#examples)。有关 `opentelemetry-java` 中事件正文字段支持状态的信息，请参见相关的 [GitHub 议题](https://github.com/open-telemetry/semantic-conventions/issues/1870)。
 
 ## 导出器
@@ -608,7 +614,7 @@ fun main() {
 
 2.  **Span 缺失或跟踪不完整**
     - 验证代理执行是否成功完成。
-    - 确保您没有在应用程序执行后过快地关闭应用程序。
+    - 确保您没有在代理执行后过快地关闭应用程序。
     - 在代理执行后添加延迟，以便有时间导出 Span。
 
 3.  **Span 数量过多**

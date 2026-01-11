@@ -13,9 +13,10 @@
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.llms.SingleLLMPromptExecutor
+import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
 import ai.koog.prompt.executor.cached.CachedPromptExecutor
 import ai.koog.prompt.cache.files.FilePromptCache
+import kotlin.system.measureTimeMillis
 import ai.koog.prompt.dsl.prompt
 import kotlin.io.path.Path
 
@@ -31,24 +32,45 @@ fun main() {
 <!--- SUFFIX
     }
 }
--->
+--> 
 ```kotlin
-// Create a prompt executor
-val client = OpenAILLMClient(System.getenv("OPENAI_KEY"))
-val promptExecutor = SingleLLMPromptExecutor(client)
+// 프롬프트 실행기 생성
+val client = OpenAILLMClient(System.getenv("OPENAI_API_KEY"))
+val promptExecutor = MultiLLMPromptExecutor(client)
 
-// Create a cached prompt executor
+// 캐시된 프롬프트 실행기 생성
 val cachedExecutor = CachedPromptExecutor(
-    cache = FilePromptCache(Path("/cache_directory")),
+    cache = FilePromptCache(Path("path/to/your/cache/directory")),
     nested = promptExecutor
 )
 
-// Run the cached prompt executor
-val response = cachedExecutor.execute(prompt, OpenAIModels.Chat.GPT4o)
+// 캐시된 프롬프트 실행기를 처음 실행
+// 실제 LLM 요청을 수행합니다.
+val firstTime = measureTimeMillis {
+    val firstResponse = cachedExecutor.execute(prompt, OpenAIModels.Chat.GPT4o)
+    println("First response: ${firstResponse.first().content}")
+}
+println("First execution took: ${firstTime}ms")
+
+// 캐시된 프롬프트 실행기를 두 번째 실행
+// 캐시에서 즉시 결과를 반환합니다.
+val secondTime = measureTimeMillis {
+    val secondResponse = cachedExecutor.execute(prompt, OpenAIModels.Chat.GPT4o)
+    println("Second response: ${secondResponse.first().content}")
+}
+println("Second execution took: ${secondTime}ms")
 ```
 <!--- KNIT example-llm-response-caching-01.kt -->
 
-이제 동일한 프롬프트와 동일한 모델로 여러 번 실행할 수 있습니다. 응답은 캐시에서 검색됩니다.
+이 예시는 다음과 같은 출력을 생성합니다:
+
+```
+First response: Hello! It seems like we're starting a new conversation. What can I help you with today?
+First execution took: 48ms
+Second response: Hello! It seems like we're starting a new conversation. What can I help you with today?
+Second execution took: 1ms
+```
+두 번째 응답은 캐시에서 검색되었으며, 1ms밖에 걸리지 않았습니다.
 
 !!!note
     *   캐시된 프롬프트 실행기로 `executeStreaming()`을 호출하면, 응답을 단일 청크(single chunk)로 생성합니다.

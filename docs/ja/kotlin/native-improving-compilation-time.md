@@ -20,7 +20,7 @@ Kotlin/Nativeのコンパイルプロセスを高速化するためのヒント�
 
 プロジェクトをコンパイルする際、Kotlin/Nativeは必要なコンポーネントをダウンロードし、その作業結果の一部を `$USER_HOME/.konan` ディレクトリにキャッシュします。コンパイラはこのディレクトリを以降のコンパイルに使用し、完了にかかる時間を短縮します。
 
-コンテナ（Dockerなど）または継続的インテグレーションシステムでビルドを行う場合、コンパイラはビルドごとに `~/.konan` ディレクトリをゼロから作成する必要があるかもしれません。この手順を避けるには、ビルド間で `~/.konan` を保持するように環境を設定してください。たとえば、`kotlin.data.dir` Gradleプロパティを使用してその場所を再定義します。
+コンテナ（Dockerなど）または継続的インテグレーションシステムでビルドを行う場合、コンパイラはビルドごとに `~/.konan` ディレクトリをゼロから作成する必要があるかもしれません。この手順を避けるには、ビルド間で `~/.konan` を保持するように環境を設定してください。たとえば、`konan.data.dir` Gradleプロパティを使用してその場所を再定義します。
 
 あるいは、`-Xkonan-data-dir` コンパイラオプションを使用して、`cinterop` および `konanc` ツール経由でディレクトリへのカスタムパスを設定できます。
 
@@ -42,10 +42,10 @@ Gradleでの最初のコンパイルは、依存関係のダウンロード、�
 
 一般的でないケースやビルド設定の場合、タスクを自分で選択する必要があるかもしれません。
 
-*   `linkDebug*`。開発中にコードを実行する場合、通常は1つのバイナリのみが必要なため、対応する `linkDebug*` タスクを実行するだけで十分なはずです。
-*   `embedAndSignAppleFrameworkForXcode`。iOSシミュレータとデバイスは異なるプロセッサアーキテクチャを持っているため、Kotlin/Nativeバイナリをユニバーサル（fat）フレームワークとして配布するのが一般的なアプローチです。
+* `linkDebug*`。開発中にコードを実行する場合、通常は1つのバイナリのみが必要なため、対応する `linkDebug*` タスクを実行するだけで十分なはずです。
+* `embedAndSignAppleFrameworkForXcode`。iOSシミュレータとデバイスは異なるプロセッサアーキテクチャを持っているため、Kotlin/Nativeバイナリをユニバーサル（fat）フレームワークとして配布するのが一般的なアプローチです。
 
-    ただし、ローカル開発中は、使用しているプラットフォーム専用の `.framework` ファイルをビルドする方が高速です。プラットフォーム固有のフレームワークをビルドするには、[embedAndSignAppleFrameworkForXcode](https://kotlinlang.org/docs/multiplatform/multiplatform-direct-integration.html#connect-the-framework-to-your-project) タスクを使用します。
+  ただし、ローカル開発中は、使用しているプラットフォーム専用の `.framework` ファイルをビルドする方が高速です。プラットフォーム固有のフレームワークをビルドするには、[embedAndSignAppleFrameworkForXcode](https://kotlinlang.org/docs/multiplatform/multiplatform-direct-integration.html#connect-the-framework-to-your-project) タスクを使用します。
 
 ### 必要なターゲットのみをビルドする
 
@@ -54,7 +54,8 @@ Gradleでの最初のコンパイルは、依存関係のダウンロード、�
 もしセットアップにXCFrameworkが必要な場合でも、ターゲットの数を減らすことができます。たとえば、IntelベースのMac上のiOSシミュレータでこのプロジェクトを実行しない場合、`iosX64` は必要ありません。
 
 > 異なるターゲットのバイナリは、`linkDebug*$Target` および `linkRelease*$Target` Gradleタスクでビルドされます。実行されたタスクは、ビルドログ、または `--scan` オプションを付けてGradleビルドを実行することで[Gradleビルドスキャン](https://docs.gradle.org/current/userguide/build_scans.html)で確認できます。
-> {style="tip"}
+>
+{style="tip"}
 
 ### 不要なリリースバイナリをビルドしない
 
@@ -63,7 +64,8 @@ Kotlin/Nativeは、[デバッグモードとリリースモード](https://kotli
 実際のリリースを除けば、これらの最適化はすべて、通常の開発サイクルでは不要な場合があります。開発プロセス中に名前に `Release` を含むタスクを使用している場合は、`Debug` に置き換えることを検討してください。同様に、`assembleXCFramework` を実行する代わりに、たとえば `assembleSharedDebugXCFramework` を実行できます。
 
 > リリースバイナリは `linkRelease*` Gradleタスクでビルドされます。ビルドログ、または `--scan` オプションを付けてGradleビルドを実行することで[Gradleビルドスキャン](https://docs.gradle.org/current/userguide/build_scans.html)でそれらを確認できます。
-> {style="tip"}
+>
+{style="tip"}
 
 ### Gradleデーモンを無効にしない
 
@@ -81,23 +83,24 @@ Kotlin/Nativeは、[デバッグモードとリリースモード](https://kotli
 
 Gradleの[ビルドキャッシュ](https://docs.gradle.org/current/userguide/build_cache.html)機能を有効にします。
 
-*   **ローカルビルドキャッシュ**。ローカルキャッシュの場合、`gradle.properties` ファイルに `org.gradle.caching=true` を追加するか、コマンドラインで `--build-cache` オプションを付けてビルドを実行します。
-*   **リモートビルドキャッシュ**。継続的インテグレーション環境向けに[リモートビルドキャッシュを設定する方法](https://docs.gradle.org/current/userguide/build_cache.html#sec:build_cache_configure_remote)を学習してください。
+* **ローカルビルドキャッシュ**。ローカルキャッシュの場合、`gradle.properties` ファイルに `org.gradle.caching=true` を追加するか、コマンドラインで `--build-cache` オプションを付けてビルドを実行します。
+* **リモートビルドキャッシュ**。継続的インテグレーション環境向けに[リモートビルドキャッシュを設定する方法](https://docs.gradle.org/current/userguide/build_cache.html#sec:build_cache_configure_remote)を学習してください。
 
 ### Gradleコンフィギュレーションキャッシュを使用する
 
 Gradleの[コンフィギュレーションキャッシュ](https://docs.gradle.org/current/userguide/configuration_cache.html)を使用するには、`gradle.properties` ファイルに `org.gradle.configuration-cache=true` を追加します。
 
 > コンフィギュレーションキャッシュは、`link*` タスクの並列実行も可能にします。これにより、特に多くのCPUコアを持つマシンで負荷が大きくなる可能性があります。この問題は[KT-70915](https://youtrack.jetbrains.com/issue/KT-70915)で修正される予定です。
-> {style="note"}
+>
+{style="note"}
 
 ### 以前に無効にした機能を有効にする
 
 Gradleデーモンとコンパイラキャッシュを無効にするKotlin/Nativeプロパティがあります。
 
-*   `kotlin.native.disableCompilerDaemon=true`
-*   `kotlin.native.cacheKind=none`
-*   `kotlin.native.cacheKind.$target=none`。ここで `$target` はKotlin/Nativeのコンパイルターゲットです（例: `iosSimulatorArm64`）。
+* `kotlin.native.disableCompilerDaemon=true`
+* `kotlin.native.cacheKind=none`
+* `kotlin.native.cacheKind.$target=none`。ここで `$target` はKotlin/Nativeのコンパイルターゲットです（例: `iosSimulatorArm64`）。
 
 以前にこれらの機能で問題があり、`gradle.properties` ファイルまたはGradle引数にこれらの行を追加した場合は、それらを削除してビルドが正常に完了するかどうかを確認してください。これらのプロパティは、以前にすでに修正された問題を回避するために追加された可能性があります。
 

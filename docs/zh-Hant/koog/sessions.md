@@ -12,7 +12,7 @@ LLM 會話代表了與語言模型互動的上下文。它封裝了：
 
 - 對話歷史記錄 (提示)
 - 可用的工具
-- 向 LLM 發出請求的方法
+- 發出 LLM 請求的方法
 - 更新對話歷史記錄的方法
 - 執行工具的方法
 
@@ -400,6 +400,8 @@ llm.writeSession {
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.ext.tool.AskUser
+import ai.koog.agents.core.agent.session.callTool
+import ai.koog.agents.core.agent.session.callToolRaw
 
 val myTool = AskUser
 val myArgs = AskUser.Args("this is a string")
@@ -480,7 +482,7 @@ llm.writeSession {
 
 4.  **管理歷史記錄大小**：對於長時間運行的對話，使用歷史記錄壓縮來減少令牌使用量。
 
-5.  **偏好高階抽象****：在可能的情況下，使用基於節點的 API。例如，使用 `nodeLLMRequest` 而不是直接操作會話。
+5.  **偏好高階抽象**：在可能的情況下，使用基於節點的 API。例如，使用 `nodeLLMRequest` 而不是直接操作會話。
 
 6.  **注意執行緒安全**：請記住，寫入會話會阻塞其他會話，因此請盡量縮短寫入操作。
 

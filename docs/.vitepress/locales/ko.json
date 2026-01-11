@@ -85,7 +85,7 @@
   "kotlin.kotlin-overview": "Kotlin 개요",
   "kotlin.what-s-new-in-kotlin": "Kotlin의 새로운 기능",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.3.0-RC3",
+  "kotlin.whatsnew-eap": "Kotlin 2.3.20-Beta1",
   "kotlin.earlier-versions": "이전 버전",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -607,5 +607,7 @@
   "koog.prompt-executors": "프롬프트 실행기",
   "koog.handling-failures": "오류 처리",
   "koog.llm-response-caching": "LLM 응답 캐싱",
-  "koog.agent-client-protocol": "에이전트 클라이언트 프로토콜"
+  "koog.agent-client-protocol": "에이전트 클라이언트 프로토콜",
+  "koog.creating-prompts": "프롬프트 만들기",
+  "koog.multimodal-content": "멀티모달 콘텐츠"
 }

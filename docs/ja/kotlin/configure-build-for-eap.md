@@ -1,9 +1,9 @@
 [//]: # (title: EAPビルドの構成)
 
 <tldr>
-    <p>プレビューバージョンは現在利用できません。</p>
-    <!-- <p>Latest Kotlin EAP release: <strong>%kotlinEapVersion%</strong></p>
-    <p><a href="eap.md#build-details">Explore Kotlin EAP release details</a></p> -->
+    <!--<p>No preview versions are currently available.</p>-->
+    <p>最新のKotlin EAPリリース: <strong>%kotlinEapVersion%</strong></p>
+    <p><a href="eap.md#build-details">EAPリリースの詳細を確認する</a></p> 
 </tldr>
 
 KotlinのEAPバージョンを使用するようにビルドを構成するには、以下を行う必要があります。
@@ -77,7 +77,7 @@ repositories {
 
 例を次に示します。
 
-`**kotlinx.coroutines**`ライブラリの場合、`%kotlinEapVersion%`と互換性のあるバージョン番号（`%coroutinesEapVersion%`）を追加します。
+**kotlinx.coroutines**ライブラリの場合、`%kotlinEapVersion%`と互換性のあるバージョン番号（`%coroutinesEapVersion%`）を追加します。
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">

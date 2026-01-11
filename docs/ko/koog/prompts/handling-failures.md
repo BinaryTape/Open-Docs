@@ -41,14 +41,35 @@ val response = resilientClient.execute(prompt, OpenAIModels.Chat.GPT4o)
 
 ### 재시도 동작 구성
 
+기본적으로 `RetryingLLMClient`는 최대 3번의 재시도, 1초의 초기 지연, 그리고 30초의 최대 지연으로 LLM 클라이언트를 구성합니다.
+`RetryingLLMClient`에 전달되는 `RetryConfig`를 사용하여 다른 재시도 구성을 지정할 수 있습니다.
+예를 들어:
+
+<!--- INCLUDE
+import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+import ai.koog.prompt.executor.clients.retry.RetryConfig
+import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
+
+val apiKey = System.getenv("OPENAI_API_KEY")
+val client = OpenAILLMClient(apiKey)
+-->
+```kotlin
+// 미리 정의된 구성 사용
+val conservativeClient = RetryingLLMClient(
+    delegate = client,
+    config = RetryConfig.CONSERVATIVE
+)
+```
+<!--- KNIT example-handling-failures-02.kt -->
+
 Koog는 몇 가지 미리 정의된 재시도 구성을 제공합니다:
 
-| 구성                 | 최대 시도 횟수 | 초기 지연 | 최대 지연 | 사용 사례                   |
-|----------------------|----------------|-----------|-----------|-----------------------------|
-| `RetryConfig.DISABLED` | 1 (재시도 없음) | -         | -         | 개발 및 테스트              |
-| `RetryConfig.CONSERVATIVE` | 3              | 2초       | 30초      | 일반적인 프로덕션 사용      |
-| `RetryConfig.AGGRESSIVE`   | 5              | 500ms     | 20초      | 중요 작업                   |
-| `RetryConfig.PRODUCTION`   | 3              | 1초       | 20초      | 권장 기본값                 |
+| 구성                 | 최대 시도 횟수 | 초기 지연 | 최대 지연 | 사용 사례                                                      |
+|----------------------|----------------|-----------|-----------|----------------------------------------------------------------|
+| `RetryConfig.DISABLED` | 1 (재시도 없음) | -         | -         | 개발, 테스트 및 디버깅.                                          |
+| `RetryConfig.CONSERVATIVE` | 3              | 2초       | 30초      | 신뢰성이 속도보다 중요한 백그라운드 또는 예약된 작업.        |
+| `RetryConfig.AGGRESSIVE`   | 5              | 500ms     | 20초      | 일시적 오류로부터의 빠른 복구가 API 호출 감소보다 중요한 중요 작업. |
+| `RetryConfig.PRODUCTION`   | 3              | 1초       | 20초      | 일반적인 프로덕션 사용.                                          |
 
 이들을 직접 사용하거나 사용자 지정 구성을 생성할 수 있습니다:
 
@@ -62,12 +83,6 @@ val apiKey = System.getenv("OPENAI_API_KEY")
 val client = OpenAILLMClient(apiKey)
 -->
 ```kotlin
-// 미리 정의된 구성 사용
-val conservativeClient = RetryingLLMClient(
-    delegate = client,
-    config = RetryConfig.CONSERVATIVE
-)
-
 // 또는 사용자 지정 구성 생성
 val customClient = RetryingLLMClient(
     delegate = client,
@@ -80,7 +95,7 @@ val customClient = RetryingLLMClient(
     )
 )
 ```
-<!--- KNIT example-handling-failures-02.kt -->
+<!--- KNIT example-handling-failures-03.kt -->
 
 ### 재시도 오류 패턴
 
@@ -150,7 +165,7 @@ val config = RetryConfig(
     )
 )
 ```
-<!--- KNIT example-handling-failures-03.kt -->
+<!--- KNIT example-handling-failures-04.kt -->
 
 기본 `RetryConfig.DEFAULT_PATTERNS`에 사용자 지정 패턴을 추가할 수도 있습니다:
 
@@ -165,7 +180,7 @@ val config = RetryConfig(
     )
 )
 ```
-<!--- KNIT example-handling-failures-04.kt -->
+<!--- KNIT example-handling-failures-05.kt -->
 
 ### 재시도를 통한 스트리밍
 
@@ -198,11 +213,12 @@ val config = RetryConfig(
 val client = RetryingLLMClient(baseClient, config)
 val stream = client.executeStreaming(prompt, OpenAIModels.Chat.GPT4o)
 ```
-<!--- KNIT example-handling-failures-05.kt -->
+<!--- KNIT example-handling-failures-06.kt -->
 
 !!!note
     스트리밍 재시도는 첫 번째 토큰을 받기 전에 발생하는 연결 실패에만 적용됩니다.
-    스트리밍이 시작된 후에는 모든 오류가 그대로 전달됩니다.
+    스트리밍이 시작된 후에는 재시도 로직이 비활성화됩니다.
+    스트리밍 중 오류가 발생하면 작업은 종료됩니다.
 
 ### 프롬프트 실행기를 사용한 재시도
 
@@ -216,7 +232,6 @@ import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
 import ai.koog.prompt.executor.clients.retry.RetryConfig
 import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
 import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
-import ai.koog.prompt.executor.llms.SingleLLMPromptExecutor
 import ai.koog.prompt.llm.LLMProvider
 import aws.sdk.kotlin.runtime.auth.credentials.StaticCredentialsProvider
 
@@ -227,7 +242,7 @@ val resilientClient = RetryingLLMClient(
     OpenAILLMClient(System.getenv("OPENAI_API_KEY")),
     RetryConfig.PRODUCTION
 )
-val executor = SingleLLMPromptExecutor(resilientClient)
+val executor = MultiLLMPromptExecutor(resilientClient)
 
 // 유연한 클라이언트 구성을 가진 다중 제공업체 실행기
 val multiExecutor = MultiLLMPromptExecutor(
@@ -249,12 +264,22 @@ val multiExecutor = MultiLLMPromptExecutor(
     ),
 )
 ```
-<!--- KNIT example-handling-failures-06.kt -->
+<!--- KNIT example-handling-failures-07.kt -->
 
 ## 타임아웃 구성
 
 모든 LLM 클라이언트는 요청이 중단되는 것을 방지하기 위해 타임아웃 구성을 지원합니다.
-클라이언트를 생성할 때 [`ConnectionTimeoutConfig`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/ai.koog.prompt.executor.clients/-connection-timeout-config/index.html) 클래스를 사용하여 네트워크 연결에 대한 타임아웃 값을 지정할 수 있습니다:
+클라이언트를 생성할 때 [`ConnectionTimeoutConfig`](https://api.koog.ai/prompt/prompt-executor/prompt-executor-clients/ai.koog.prompt.executor.clients/-connection-timeout-config/index.html) 클래스를 사용하여 네트워크 연결에 대한 타임아웃 값을 지정할 수 있습니다.
+
+`ConnectionTimeoutConfig`에는 다음과 같은 속성이 있습니다:
+
+| 속성                   | 기본값              | 설명                                                  |
+|------------------------|---------------------|-------------------------------------------------------|
+| `connectTimeoutMillis` | 60초 (60,000)       | 서버에 대한 연결을 설정하는 최대 시간.                |
+| `requestTimeoutMillis` | 15분 (900,000)      | 전체 요청이 완료되는 최대 시간.                       |
+| `socketTimeoutMillis`  | 15분 (900,000)      | 설정된 연결을 통해 데이터를 기다리는 최대 시간.       |
+
+특정 요구사항에 맞게 이 값들을 사용자 지정할 수 있습니다. 예를 들어:
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.ConnectionTimeoutConfig
@@ -275,7 +300,7 @@ val client = OpenAILLMClient(
     )
 )
 ```
-<!--- KNIT example-handling-failures-07.kt -->
+<!--- KNIT example-handling-failures-08.kt -->
 
 !!! tip
     장시간 실행되거나 스트리밍되는 호출의 경우 `requestTimeoutMillis` 및 `socketTimeoutMillis`에 더 높은 값을 설정하세요.
@@ -340,4 +365,4 @@ fun main() {
     }
 }
 ```
-<!--- KNIT example-handling-failures-08.kt -->
+<!--- KNIT example-handling-failures-09.kt -->

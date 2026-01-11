@@ -1,4 +1,5 @@
 # LLM 会话与手动历史记录管理
+[//]: # (title: LLM 会话与手动历史记录管理)
 
 本页详细介绍了 LLM 会话，包括如何使用读写会话、管理对话历史记录以及向语言模型发送请求。
 
@@ -400,6 +401,8 @@ llm.writeSession {
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.ext.tool.AskUser
+import ai.koog.agents.core.agent.session.callTool
+import ai.koog.agents.core.agent.session.callToolRaw
 
 val myTool = AskUser
 val myArgs = AskUser.Args("this is a string")

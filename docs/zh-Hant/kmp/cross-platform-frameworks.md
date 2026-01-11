@@ -1,6 +1,6 @@
 [//]: # (title: 六大最受歡迎的跨平台應用程式開發框架)
 
-[//]: # (description: 本文將介紹六大最受歡迎的跨平台應用程式開發框架，並解釋在為您的專案選擇跨平台工具時需要考量的重要事項。)
+[//]: # (description:本文將介紹六大最受歡迎的跨平台應用程式開發框架，並解釋在為您的專案選擇跨平台工具時需要考量的重要事項。)
 
 多年來，跨平台應用程式開發已成為建構行動應用程式最受歡迎的方式之一。跨平台（或稱多平台）方法允許開發者建立可在不同行動平台上相似運行的應用程式。
 
@@ -19,6 +19,25 @@
 此清單並非詳盡無遺；市場上今天還有許多其他選項。重要的是要認識到，沒有適用於所有人的「一體適用 (one-size-fits-all)」工具。框架的選擇很大程度上取決於您的特定專案和目標，以及我們將在文章末尾涵蓋的其他具體細節。
 
 儘管如此，我們仍試圖挑選出一些最佳的跨平台行動開發框架，為您的決策提供起點。
+
+### Kotlin Multiplatform
+
+[Kotlin Multiplatform (KMP)](https://kotlinlang.org/multiplatform/) 是一種由 JetBrains 開發的開源技術，它允許在不同平台間共用程式碼，同時保留原生程式設計的優勢。它使開發者能夠盡可能地重用程式碼，在需要時撰寫原生程式碼，並將共用的 Kotlin 程式碼無縫整合到任何專案中。您可以使用 Kotlin 搭配 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)（一個現代聲明式跨平台 UI 框架），共用高達 100% 的應用程式程式碼，包括 UI。
+
+**程式語言：** Kotlin。
+
+**行動應用程式範例：** Duolingo, McDonald's, Netflix, Forbes, 9GAG, Cash App, Philips。[閱讀更多關於 Kotlin Multiplatform 案例研究](https://kotlinlang.org/case-studies/?type=multiplatform)。
+
+**主要功能：**
+
+*   開發者可以在 Android、iOS、網頁、桌面和伺服器端重用程式碼，並在需要時保留原生程式碼。
+*   Kotlin Multiplatform 可以無縫整合到任何專案中。開發者可以利用平台特定的 API，同時充分發揮原生和跨平台開發的優勢。
+*   歸功於 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)，開發者擁有完整的程式碼共用靈活性，並且能夠同時共用邏輯和 UI。
+*   當您已經在 Android 上使用 Kotlin 時，無需在您的程式碼庫中引入新語言。您可以重用您的 Kotlin 程式碼和專業知識，這使得遷移到 Kotlin Multiplatform 相較於其他技術風險更低。
+
+儘管這個跨平台行動開發框架是我們清單上最年輕的之一，但它擁有成熟的社群。在 2023 年 11 月，JetBrains 將其升級為穩定版。在 Google I/O 2024 上，Google 宣布[官方支援使用 Kotlin Multiplatform 在 Android 和 iOS 之間共用業務邏輯](https://android-developers.googleblog.com/2024/05/android-support-for-kotlin-multiplatform-to-share-business-logic-across-mobile-web-server-desktop.html)。歸功於其定期更新的[文件](get-started.topic)和社群支援，您可以隨時找到問題的答案。更重要的是，許多[全球公司和新創公司已經使用 Kotlin Multiplatform](https://kotlinlang.org/case-studies/?type=multiplatform) 來開發具有類似原生使用者體驗的多平台應用程式。
+
+[![啟動您的 Kotlin Multiplatform 旅程](kmp-journey-start.svg){width="700"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)
 
 ### Flutter
 
@@ -55,25 +74,6 @@ React Native 是一個開源 UI 軟體框架，由 Meta Platforms（前身為 Fa
 *   在 0.62 及更高版本中，React Native 與行動應用程式除錯器 Flipper 之間的整合預設啟用。Flipper 用於除錯 Android、iOS 和 React Native 應用程式，它提供了諸如日誌檢視器、互動式佈局檢查器和網路檢查器等工具。
 
 作為最受歡迎的跨平台應用程式開發框架之一，React Native 擁有龐大且強大的開發者社群，他們分享技術知識。由於這個社群，您在使用此框架建構行動應用程式時可以獲得所需的支援。
-
-### Kotlin Multiplatform
-
-Kotlin Multiplatform (KMP) 是一種由 JetBrains 開發的開源技術，它允許在不同平台間共用程式碼，同時保留原生程式設計的優勢。它使開發者能夠盡可能地重用程式碼，在需要時撰寫原生程式碼，並將共用的 Kotlin 程式碼無縫整合到任何專案中。
-
-**程式語言：** Kotlin。
-
-**行動應用程式範例：** McDonald's, Netflix, Forbes, 9GAG, Cash App, Philips。[閱讀更多關於 Kotlin Multiplatform 案例研究](https://kotlinlang.org/case-studies/?type=multiplatform)。
-
-**主要功能：**
-
-*   開發者可以在 Android、iOS、網頁、桌面和伺服器端重用程式碼，並在需要時保留原生程式碼。
-*   Kotlin Multiplatform 可以無縫整合到任何專案中。開發者可以利用平台特定的 API，同時充分發揮原生和跨平台開發的優勢。
-*   歸功於 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)（JetBrains 推出的一個現代聲明式跨平台 UI 框架），開發者擁有完整的程式碼共用靈活性，並且能夠同時共用邏輯和 UI。
-*   當您已經在 Android 上使用 Kotlin 時，無需在您的程式碼庫中引入新語言。您可以重用您的 Kotlin 程式碼和專業知識，這使得遷移到 Kotlin Multiplatform 相較於其他技術風險更低。
-
-儘管這個跨平台行動開發框架是我們清單上最年輕的之一，但它擁有成熟的社群。在 2023 年 11 月，JetBrains 將其升級為[穩定版](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)。它發展迅速，並已在當今市場上留下獨特的印象。由於其定期更新的[文件](get-started.topic)和社群支援，您可以隨時找到問題的答案。更重要的是，許多[全球公司和新創公司已經使用 Kotlin Multiplatform](https://kotlinlang.org/case-studies/?type=multiplatform) 來開發具有類似原生使用者體驗的多平台應用程式。
-
-[![啟動您的 Kotlin Multiplatform 旅程](kmp-journey-start.svg){width="700"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)
 
 ### Ionic
 

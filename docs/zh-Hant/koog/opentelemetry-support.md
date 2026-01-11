@@ -272,7 +272,9 @@ OpenTelemetry 功能會自動建立不同類型的 Span，以追蹤代理中的�
 
 - **CreateAgentSpan**：在您運行代理時建立，在代理關閉或程序終止時關閉。
 - **InvokeAgentSpan**：代理的調用。
+- **StrategySpan**：代理策略的執行（頂層執行流程）。
 - **NodeExecuteSpan**：代理策略中節點的執行。這是一個自訂的、Koog 特定的 Span。
+- **SubgraphExecuteSpan**：代理策略中子圖的執行。這是一個自訂的、Koog 特定的 Span。
 - **InferenceSpan**：LLM 呼叫。
 - **ExecuteToolSpan**：工具呼叫。
 
@@ -281,12 +283,14 @@ Span 以巢狀的、階層式的結構組織。以下是一個 Span 結構的範
 ```text
 CreateAgentSpan
     InvokeAgentSpan
-        NodeExecuteSpan
-            InferenceSpan
-        NodeExecuteSpan
-            ExecuteToolSpan
-        NodeExecuteSpan
-            InferenceSpan    
+        StrategySpan
+            NodeExecuteSpan
+                InferenceSpan
+            NodeExecuteSpan
+                ExecuteToolSpan
+            SubgraphExecuteSpan
+                NodeExecuteSpan
+                    InferenceSpan
 ```
 
 ### Span Attribute
@@ -297,10 +301,13 @@ Koog 支援一組預定義的 Attribute，這些 Attribute 遵循 OpenTelemetry 
 
 此外，Koog 還包含自訂的、Koog 特定的 Attribute。您可以透過 `koog.` 前綴識別這些 Attribute 中的大多數。以下是可用的自訂 Attribute：
 
-- `koog.agent.strategy.name`：代理策略的名稱。策略是一個與 Koog 相關的實體，描述代理的目的。用於 `InvokeAgentSpan` Span。
-- `koog.node.name`：正在運行的節點名稱。用於 `NodeExecuteSpan` Span。
+- `koog.strategy.name`：代理策略的名稱。策略是一個與 Koog 相關的實體，描述代理的目的。用於 `StrategySpan` Span。
+- `koog.node.id`：正在執行的節點的識別碼 (名稱)。用於 `NodeExecuteSpan` Span。
 - `koog.node.input`：在執行開始時傳遞給節點的輸入。當節點開始時出現在 `NodeExecuteSpan` 上。
 - `koog.node.output`：節點完成時產生的輸出。當節點成功完成時出現在 `NodeExecuteSpan` 上。
+- `koog.subgraph.id`：正在執行的子圖的識別碼 (名稱)。用於 `SubgraphExecuteSpan` Span。
+- `koog.subgraph.input`：在執行開始時傳遞給子圖的輸入。當子圖開始時出現在 `SubgraphExecuteSpan` 上。
+- `koog.subgraph.output`：子圖完成時產生的輸出。當子圖成功完成時出現在 `SubgraphExecuteSpan` 上。
 
 ### Event
 

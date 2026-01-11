@@ -1,9 +1,9 @@
 # 智能体持久化
 
-智能体持久化是一种**特性**，它为 Koog framework 中的 **AI 智能体**提供了检查点功能。它允许你在**执行**期间的特定点保存和恢复**智能体**的**状态**，从而实现以下**功能**：
+智能体持久化是一种**特性**，它为 Koog **框架**中的 AI **智能体**提供了**检查点****功能**。它允许你在**执行**期间的特定点保存和恢复**智能体**的**状态**，从而实现以下**功能**：
 
 - 从特定点恢复**智能体执行**
-- 回滚到以前的**状态**
+- **回滚**到以前的**状态**
 - 在**会话**间持久化**智能体状态**
 
 ## 关键概念
@@ -44,7 +44,7 @@ val agent = AIAgent(
         storage = InMemoryPersistenceStorageProvider()
         // 在每个节点后启用自动持久化
         enableAutomaticPersistence = true
-        /*
+        /* 
          选择在新智能体运行时要恢复的状态。
      
          可用选项有：
@@ -60,7 +60,7 @@ val agent = AIAgent(
 ```
 
 !!! tip
-    将 `enableAutomaticPersistence = true` 与 `RollbackStrategy.MessageHistoryOnly` 结合使用，可创建在多个会话中维护对话上下文的智能体。
+    将 `enableAutomaticPersistence = true` 与 `RollbackStrategy.MessageHistoryOnly` 结合使用，可创建在多个**会话**中维护对话上下文的**智能体**。
 
 <!--- KNIT example-agent-persistence-01.kt -->
 
@@ -70,7 +70,7 @@ val agent = AIAgent(
 
 - **存储提供者**：用于保存和检索**检查点**的提供者。
 - **持续持久化**：在每个**节点**运行后自动**创建检查点**。
-- **回滚策略**：决定回滚到**检查点**时要恢复哪个状态。
+- **回滚策略**：决定**回滚**到**检查点**时要恢复哪个**状态**。
 
 ### 存储提供者
 
@@ -100,13 +100,13 @@ install(Persistence) {
 
 <!--- KNIT example-agent-persistence-02.kt -->
 
-该 framework 包含以下内置提供者：
+该**框架**包含以下内置提供者：
 
 - `InMemoryPersistenceStorageProvider`：将**检查点**存储在内存中（**应用程序**重启后会丢失）。
 - `FilePersistenceStorageProvider`：将**检查点**持久化到文件系统。
-- `NoPersistenceStorageProvider`：一个空操作符实现，不存储**检查点**。这是默认提供者。
+- `NoPersistenceStorageProvider`：一个空**操作符**实现，不存储**检查点**。这是默认提供者。
 
-你也可以通过实现 `PersistenceStorageProvider` **接口**来**实现自定义存储提供者**。关于更多信息，请参见 [自定义存储提供者](#custom-storage-providers)。
+你也可以通过**实现** `PersistenceStorageProvider` **接口**来**实现自定义存储提供者**。关于更多信息，请参见 [自定义存储提供者](#custom-storage-providers)。
 
 ### 持续持久化
 
@@ -140,7 +140,7 @@ install(Persistence) {
 
 ### 回滚策略
 
-回滚策略决定了当**智能体**回滚到**检查点**或开始新的运行时，要恢复哪个状态。有两种可用的策略：
+**回滚策略**决定了当**智能体**回滚到**检查点**或开始新的运行时，要恢复哪个**状态**。有两种可用的策略：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -170,11 +170,11 @@ install(Persistence) {
 
 **`RollbackStrategy.Default`**
 
-将**智能体**恢复到其停止时的确切执行点（strategy graph 中的**节点**）。这意味着将恢复整个上下文，包括：
+将**智能体**恢复到其停止时的确切**执行点**（strategy graph 中的**节点**）。这意味着将恢复整个上下文，包括：
 
 - 消息历史
 - 当前正在**执行**的**节点**
-- 任何其他有状态数据
+- 任何其他有**状态**数据
 
 此策略对于构建需要从其停止的确切点恢复的复杂、容错的**智能体**特别有用。
 
@@ -182,7 +182,7 @@ install(Persistence) {
 
 仅将消息历史恢复到最后保存的**状态**。**智能体**将始终从 strategy graph 中的第一个**节点**重新启动，但会带有之前运行的对话历史记录。
 
-此策略对于构建需要跨多个会话维护上下文，但应始终从头开始执行流的对话式**智能体**或聊天机器人很有用。
+此策略对于构建需要跨多个**会话**维护上下文，但应始终从头开始**执行**流的对话式**智能体**或聊天机器人很有用。
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -221,18 +221,18 @@ import ai.koog.agents.core.agent.context.AIAgentContext
 import ai.koog.agents.snapshot.feature.persistence
 import kotlin.reflect.typeOf
 
-const val inputData = "some-input-data"
-val inputType = typeOf<String>()
+const val outputData = "some-output-data"
+val outputType = typeOf<String>()
 -->
 
 ```kotlin
 suspend fun example(context: AIAgentContext) {
     // 使用当前状态创建检查点
-    val checkpoint = context.persistence().createCheckpoint(
+    val checkpoint = context.persistence().createCheckpointAfterNode(
         agentContext = context,
         nodePath = context.executionInfo.path(),
-        lastInput = inputData,
-        lastInputType = inputType,
+        lastOutput = outputData,
+        lastOutputType = outputType,
         checkpointId = context.runId,
         version = 0L
     )
@@ -279,9 +279,9 @@ tool call: createUser "Daniel"
 tool call: createUser "Maria"
 ```
 
-现在你想回滚到一个**检查点**。仅仅恢复**智能体**的**状态**（包括消息历史和 strategy graph node）不足以实现**检查点**之前的确切“世界**状态**”。你还应该恢复你的 tool 调用产生的**副作用**。在我们的示例中，这意味着从**数据库**中删除 `Maria` 和 `Daniel`。
+现在你想**回滚**到一个**检查点**。仅仅恢复**智能体**的**状态**（包括消息历史和 strategy graph node）不足以实现**检查点**之前的确切“世界**状态**”。你还应该恢复你的 tool 调用产生的**副作用**。在我们的示例中，这意味着从**数据库**中删除 `Maria` 和 `Daniel`。
 
-通过 Koog Persistence，你可以通过向 `Persistence` **特性配置**提供一个 `RollbackToolRegistry` 来实现这一点：
+通过 Koog Persistence，你可以通过向 `Persistence` **特性配置**提供一个 `RollbackToolRegistry` 来**实现**这一点：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -290,7 +290,6 @@ import ai.koog.agents.snapshot.providers.InMemoryPersistenceStorageProvider
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
 import ai.koog.agents.snapshot.feature.RollbackToolRegistry
-import ai.koog.agents.snapshot.feature.registerRollback
 
 fun createUser(name: String) {}
 
@@ -325,8 +324,8 @@ install(Persistence) {
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.context.AIAgentContext
-import ai.koog.agents.example.exampleAgentPersistence06.inputData
-import ai.koog.agents.example.exampleAgentPersistence06.inputType
+import ai.koog.agents.example.exampleAgentPersistence06.outputData
+import ai.koog.agents.example.exampleAgentPersistence06.outputType
 import ai.koog.agents.snapshot.feature.persistence
 import ai.koog.agents.snapshot.feature.withPersistence
 -->
@@ -339,11 +338,11 @@ suspend fun example(context: AIAgentContext) {
     // 或者使用检查点特性执行操作
     context.withPersistence { ctx ->
         // 'this' 是检查点特性
-        createCheckpoint(
+        createCheckpointAfterNode(
             agentContext = ctx,
             nodePath = ctx.executionInfo.path(),
-            lastInput = inputData,
-            lastInputType = inputType,
+            lastOutput = outputData,
+            lastOutputType = outputType,
             checkpointId = ctx.runId,
             version = 0L
         )
@@ -356,7 +355,7 @@ suspend fun example(context: AIAgentContext) {
 
 ### 自定义存储提供者
 
-你可以通过实现 `PersistenceStorageProvider` **接口**来**实现自定义存储提供者**：
+你可以通过**实现** `PersistenceStorageProvider` **接口**来**实现自定义存储提供者**：
 
 <!--- INCLUDE
 import ai.koog.agents.snapshot.feature.AgentCheckpointData
@@ -439,19 +438,28 @@ import ai.koog.prompt.message.Message.User
 import kotlinx.serialization.json.JsonPrimitive
 
 val customInput = JsonPrimitive("custom-input")
+val customOutput = JsonPrimitive("custom-output")
 val customMessageHistory = emptyList<User>()
 -->
 
 ```kotlin
 fun example(context: AIAgentContext) {
+    // 你可以在某个节点之前设置执行点并为其提供输入：
     context.persistence().setExecutionPoint(
         agentContext = context,
         nodePath = context.executionInfo.path(),
         messageHistory = customMessageHistory,
         input = customInput
     )
-}
 
+    // 或者在某个节点之后设置执行点并提供该节点的输出：
+    context.persistence().setExecutionPointAfterNode(
+        agentContext = context,
+        nodePath = context.executionInfo.path(),
+        messageHistory = customMessageHistory,
+        output = customOutput
+    )
+}
 ```
 
 <!--- KNIT example-agent-persistence-12.kt -->
