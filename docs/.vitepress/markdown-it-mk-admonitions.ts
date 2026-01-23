@@ -21,7 +21,7 @@ export default function markdownItMkAdmonition(md) {
 
       if (match) {
         const leadingWhitespace = match[1] || ''; // Whitespace before !!!
-        const type = match[2];
+        const type = match[2].toLowerCase();
         const title = match[3] || ''; // Title content, or empty string if not present
 
         const content = [];
@@ -59,6 +59,25 @@ export default function markdownItMkAdmonition(md) {
           admonitionContentStartIndex = j + 1; // Update line counter
         }
 
+
+        // Fix for dangling code fences (e.g., incorrect indentation in original MD)
+        // If content has an odd number of code fences, and the last line is a fence, remove it.
+        let fenceCount = 0;
+        for (const line of content) {
+          if (line.trim().startsWith('```') || line.trim().startsWith('~~~')) {
+            fenceCount++;
+          }
+        }
+
+        if (fenceCount % 2 !== 0 && content.length > 0) {
+          const lastLineIndex = content.length - 1;
+          const lastLine = content[lastLineIndex].trim();
+          if (lastLine.startsWith('```') || lastLine.startsWith('~~~')) {
+            // Remove the dangling fence
+            content.splice(lastLineIndex, 1);
+          }
+        }
+
         if (hasActualContent) {
           // Construct VitePress container
           newLines.push(`${leadingWhitespace}::: ${type}${title ? ' ' + title.trim() : ''}`);
@@ -67,6 +86,7 @@ export default function markdownItMkAdmonition(md) {
           }));
           newLines.push(`${leadingWhitespace}:::`);
           i = admonitionContentStartIndex; // Move master index past processed admonition
+
         } else {
           // No valid content found, treat as regular line
           newLines.push(currentLine);
