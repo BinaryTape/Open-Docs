@@ -10,10 +10,10 @@ export default function markdownItMkAdmonition(md) {
     // Regex to find the start of an MKDocs admonition
     // ^(\s*)!!!             - Start of line, optional leading whitespace (capture 1), then !!!
     // \s+                   - One or more spaces
-    // (\w+)                 - The admonition type (e.g., note, warning) (capture 2)
+    // (\S+)                 - The admonition type (non-whitespace characters) (capture 2)
     // (?:\s+"([^"]*)")?     - Optional: space, then a quoted title (capture 3 is the title content)
     // \s*$                  - Optional trailing whitespace, end of line
-    const admonitionStartRegex = /^(\s*)!!!\s+(\w+)(?:\s+"([^"]*)")?\s*$/;
+    const admonitionStartRegex = /^(\s*)!!!\s+(\S+)(?:\s+"([^"]*)")?\s*$/;
 
     while (i < lines.length) {
       const currentLine = lines[i];
@@ -21,8 +21,18 @@ export default function markdownItMkAdmonition(md) {
 
       if (match) {
         const leadingWhitespace = match[1] || ''; // Whitespace before !!!
-        const type = match[2].toLowerCase();
-        const title = match[3] || ''; // Title content, or empty string if not present
+        let type = match[2];
+        let title = match[3] || ''; // Title content, or empty string if not present
+
+        // Handle Chinese '注意' mapping
+        if (type === '注意') {
+          type = 'note';
+          if (!title) {
+            title = '注意';
+          }
+        } else {
+          type = type.toLowerCase();
+        }
 
         const content = [];
         let admonitionContentStartIndex = i + 1;
