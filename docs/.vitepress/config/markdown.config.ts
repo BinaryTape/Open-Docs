@@ -88,6 +88,28 @@ export function registerMarkdownPlugins(md: any) {
   createContainer(md, 'warning', 'danger', 'WARNING')
   createContainer(md, 'example', 'info', 'EXAMPLE')
 
+  // Tabs
+  md.use(markdownItContainer, 'tabs', {
+    render: (tokens: any[], idx: number) => {
+      if (tokens[idx].nesting === 1) {
+        return '<Tabs>\n'
+      } else {
+        return '</Tabs>\n'
+      }
+    }
+  })
+  md.use(markdownItContainer, 'tab', {
+    render: (tokens: any[], idx: number) => {
+      if (tokens[idx].nesting === 1) {
+        const title = tokens[idx].info.trim().slice('tab'.length).trim()
+        const safeTitle = title.replace(/"/g, '&quot;')
+        return `<Tab title="${safeTitle}">\n`
+      } else {
+        return '</Tab>\n'
+      }
+    }
+  })
+
   // Auto-titling (must be registered last as it overrides md.parse)
   md.use(markdownItAutoTitle)
 }

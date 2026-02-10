@@ -1,122 +1,168 @@
-// Process Material MKDocs flavored Code Tabs to VitePress Code Group
-export default function markdownItMkCodeTabs(md) {
-  function transformContentTabs(state) {
-    const src = state.src;
-    const lines = src.split('\n');
-    const newLines = [];
-    let i = 0; // Current line index in the original `lines` array
+// Process Material MKDocs flavored Content Tabs to VitePress Custom Containers
 
-    // Regex for the start of an MKDocs content tab header
-    // Captures: 1: blockIndent, 2: tabTitle
-    const tabStartRegex = /^(\s*)===\s*"([^"]+)"\s*$/;
+interface TabStackItem {
+  indent: string;
+  outputIndent: string;
+  type: 'tabs' | 'tab';
+}
 
-    while (i < lines.length) {
-      const currentLine = lines[i];
-      const firstTabMatch = currentLine.match(tabStartRegex);
+export default function markdownItMkCodeTabs(md: any) {
+  md.core.ruler.before('normalize', 'mk_tabs_to_container', (state: any) => {
+    const lines = state.src.split('\n');
+    const newLines: string[] = [];
+    const stack: TabStackItem[] = []; // Stack of { indent: string, type: 'tabs' | 'tab' }
 
-      if (firstTabMatch) {
-        const blockIndent = firstTabMatch[1] || ''; // Indentation of the '===' line itself
-        let currentGroupLineIndex = i; // Line index for iterating through potential tabs in a group
-        const collectedTabs = []; // Stores data for each tab in the current group
-
-        // Loop to collect all contiguous tabs belonging to this group
-        while (currentGroupLineIndex < lines.length) {
-          const lineForGroupCheck = lines[currentGroupLineIndex];
-          const tabMatch = lineForGroupCheck.match(tabStartRegex);
-
-          // Check if this line is a tab header at the same blockIndent level
-          if (tabMatch && (tabMatch[1] || '') === blockIndent) {
-            const tabTitle = tabMatch[2];
-            let codeLinesForThisTab = [];
-            let currentTabLang = '';
-            let currentTabActualIndent = ''; // Indentation of the '```' line itself
-            let inCodeBlockForThisTab = false;
-            // Start scanning for this tab's content from the line *after* the '===' header
-            let tabContentEndLineIndex = currentGroupLineIndex + 1;
-
-            let contentScanIndex = currentGroupLineIndex + 1;
-            while (contentScanIndex < lines.length) {
-              const contentLine = lines[contentScanIndex];
-
-              if (!inCodeBlockForThisTab) {
-                // Allow blank lines (at least blockIndent deep) before the code block starts
-                if (contentLine.trim() === '' && contentLine.startsWith(blockIndent) && !contentLine.substring(blockIndent.length).trimStart()) {
-                  contentScanIndex++;
-                  tabContentEndLineIndex = contentScanIndex;
-                  continue;
-                }
-
-                // Regex for '```lang', capturing its own indent and lang
-                // Expects code block to be more indented than the '===' line
-                const codeBlockStartMatch = contentLine.match(/^(\s*)```(\w*)/);
-                if (codeBlockStartMatch && codeBlockStartMatch[1].length > blockIndent.length) {
-                  inCodeBlockForThisTab = true;
-                  currentTabActualIndent = codeBlockStartMatch[1]; // Full indent of the ``` line
-                  currentTabLang = codeBlockStartMatch[2] || '';
-                  tabContentEndLineIndex = contentScanIndex + 1; // Consume the opening ``` line
-                } else {
-                  // Not a valid indented code block start for this tab. This tab definition ends here.
-                  break;
-                }
-              } else { // We are inside a code block, looking for content or the closing ```
-                // Check for closing fence, it must match currentTabActualIndent
-                if (contentLine.startsWith(currentTabActualIndent + "```")) {
-                  tabContentEndLineIndex = contentScanIndex + 1; // Consume the closing ``` line
-                  break; // End of this tab's content
-                }
-                // Add the code line, de-dented relative to the ``` fence's own indentation
-                codeLinesForThisTab.push(contentLine.substring(currentTabActualIndent.length));
-                tabContentEndLineIndex = contentScanIndex + 1;
-              }
-              contentScanIndex++;
-            } // End while loop for a single tab's content
-
-            if (inCodeBlockForThisTab) {
-              collectedTabs.push({
-                title: tabTitle,
-                lang: currentTabLang,
-                codeLines: codeLinesForThisTab,
-              });
-              currentGroupLineIndex = tabContentEndLineIndex; // Move to the line after this tab's content
-            } else {
-              // This '===' line was not followed by a valid code block.
-              // End the current group collection. The '===' line will be handled as plain text.
-              break;
-            }
+    function closeLevels(targetIndentLen: number) {
+      while (stack.length > 0) {
+        const top = stack[stack.length - 1];
+        if (top.indent.length >= targetIndentLen) {
+          // Close the level
+          if (top.type === 'tabs') {
+            newLines.push(`${top.outputIndent}</tabs>`);
+            // Add blank line after closing tabs to ensure subsequent markdown content is parsed correctly
+            newLines.push('');
           } else {
-            // This line is not part of the current tab group (e.g. different indent or not a tab header)
-            break;
+            newLines.push(`${top.outputIndent}</tab>`);
           }
-        } // End while loop for collecting a group of tabs
-
-        if (collectedTabs.length > 0) {
-          // Construct the VitePress code-group
-          newLines.push(`${blockIndent}::: code-group`);
-          for (const tab of collectedTabs) {
-            newLines.push(`${blockIndent}\`\`\`${tab.lang} [${tab.title}]`);
-            for (const codeLine of tab.codeLines) {
-              // Prepend original blockIndent to the already de-dented code line
-              newLines.push(blockIndent + codeLine);
-            }
-            newLines.push(`${blockIndent}\`\`\``);
-          }
-          newLines.push(`${blockIndent}:::`);
-          i = currentGroupLineIndex; // Update main loop index to after the processed group
+          stack.pop();
         } else {
-          // No valid tab group was formed from the initial '===' line (e.g., malformed content).
-          // Push the original '===' line and let it be handled as plain text.
-          newLines.push(currentLine);
-          i++;
+          break;
         }
-      } else {
-        // Line is not a tab start, keep it as is
-        newLines.push(currentLine);
-        i++;
       }
-    } // End while loop for all lines in the source
+    }
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      const match = line.match(/^(\s*)===\s*"(.*)"\s*$/);
+
+      if (match) {
+        const indent = match[1];
+        const title = match[2];
+
+        // Close strictly deeper levels first
+        closeLevels(indent.length + 1);
+
+        // Check if we are at the same level as a current tab
+        if (stack.length > 0) {
+          const top = stack[stack.length - 1];
+          if (top.indent.length === indent.length && top.type === 'tab') {
+            // Close sibling tab
+            newLines.push(`${top.outputIndent}</tab>`);
+            stack.pop();
+          }
+        }
+
+        // Calculate output indent
+        let outputIndent = indent;
+        if (stack.length > 0) {
+          const parent = stack[stack.length - 1];
+          // Parent content is indented by parent.indent + 4 spaces
+          // We want to dedent relative to that.
+          // Actually, we want to simply use the parent's outputIndent?
+          // No, if list item... 
+          // Logic: source indent - (parent.indent + 4) + parent.outputIndent ??
+          // Simpler: If in a tab, we dedent by (parent.indent + 4).
+          // But we need to keep any base indentation from list items.
+          // If parent is at Source=0, Output=0.
+          // Inner is Source=4. Dedent=4. Output=0.
+
+          // If Parent is Source=4 (List), Output=4.
+          // Inner is Source=8. Dedent=8 (absolute?) or 4 relative?
+          // Inner Source 8. Parent Content Start = 4+4=8.
+          // So dedent 8? 
+          // Result 0 relative to parent... so 0 + ParentOutput(4) = 4?
+
+          // Wait, simply: the indentation we strip from source is `parent.indent.length + 4`.
+          // But we need to prepend `parent.outputIndent`?
+          // If we strictly flatten:
+          // Top level tabs -> OutputIndent = indent.
+          // Nested tabs -> OutputIndent = parent.outputIndent.
+          // Because content starts at parent.outputIndent.
+
+          // Let's try: Nested tabs always align with their container.
+          // Container for Inner is Outer. Outer starts at 0.
+          // Inner should start at 0.
+          // Container for List Tab is List Item (0). Tab starts at 4.
+
+          // So:
+          if (parent.type === 'tab') {
+            // If nested inside a tab, align with parent tab's content start (which is effectively parent.outputIndent)
+            outputIndent = parent.outputIndent;
+          } else {
+            // inside 'tabs' group?
+            // 'tabs' group has same indent as 'tab'.
+            outputIndent = parent.outputIndent;
+          }
+        }
+
+        // Check if we need to start a new group
+        let inGroup = false;
+        if (stack.length > 0) {
+          const top = stack[stack.length - 1];
+          if (top.indent.length === indent.length && top.type === 'tabs') {
+            inGroup = true;
+          }
+        }
+
+        if (!inGroup) {
+          newLines.push(`${outputIndent}<tabs>`);
+          stack.push({ indent: indent, type: 'tabs', outputIndent: outputIndent });
+        }
+
+        // Start tab
+        newLines.push(`${outputIndent}<tab title="${title}">`);
+        stack.push({ indent: indent, type: 'tab', outputIndent: outputIndent });
+
+      } else {
+        // Content or outside
+        if (line.trim() === '') {
+          newLines.push(line);
+          continue;
+        }
+
+        const currentIndentMatch = line.match(/^(\s*)/);
+        const currentIndentLen = currentIndentMatch ? currentIndentMatch[1].length : 0;
+
+        // Check if valid content for current tab
+        let isContent = false;
+        if (stack.length > 0) {
+          const top = stack[stack.length - 1];
+          // If we are in a tab (top.type === 'tab')
+          // Valid content must be deeper than header indent.
+          if (currentIndentLen > top.indent.length && top.type === 'tab') {
+            isContent = true;
+
+            // Dedent logic: remove 4 spaces relative to parent, if possible.
+            let content = line;
+            if (content.startsWith(top.indent)) {
+              content = content.slice(top.indent.length);
+              // Remove up to 4 spaces
+              if (content.startsWith('    ')) {
+                content = content.slice(4);
+              } else if (content.startsWith('\t')) {
+                content = content.slice(1);
+              } else {
+                // fallback
+              }
+              newLines.push(top.outputIndent + content);
+            } else {
+              newLines.push(line);
+            }
+          }
+        }
+
+        if (!isContent) {
+          // Not content for current tab (or stack empty)
+          // Close levels that are >= currentIndent
+          closeLevels(currentIndentLen);
+          newLines.push(line);
+        }
+      }
+    }
+
+    // End of doc, close all
+    closeLevels(0);
 
     state.src = newLines.join('\n');
-  }
-
-  md.core.ruler.before('normalize', 'content_tabs_to_code_group', transformContentTabs);
+  });
 }
