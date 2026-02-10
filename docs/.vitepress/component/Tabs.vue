@@ -1,10 +1,12 @@
 <script setup>
-import { useSlots, ref, computed } from 'vue';
+import { useSlots, ref, computed, Text, Comment, Fragment } from 'vue';
 
 const slots = useSlots();
 
 const tabs = computed(() => {
-  return slots.default ? slots.default().filter(child => child.type && child.props) : [];
+  return slots.default ? slots.default().filter(child => {
+    return child.type !== Text && child.type !== Comment && child.type !== Fragment
+  }) : [];
 });
 
 const activeIndex = ref(0);
@@ -32,7 +34,7 @@ const isTab = tabs.props?.id;
             :for="`${groupName}-${index}`"
             @click="activeIndex = index"
         >
-          {{ tab.props?.title }}
+          {{ tab.props?.title || 'Tab' }}
         </label>
       </template>
     </div>
