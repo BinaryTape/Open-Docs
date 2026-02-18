@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useData } from 'vitepress';
+import { computed } from 'vue';
 import DocCard from '../../component/DocCard.vue';
 import { t } from '../../utils/i18n-utils';
 const { site } = useData();
-const docCardConfig = [
+const docCardConfig = computed(() => [
     {
         href: 'kotlin/home',
         docType: 'kotlin',
@@ -53,7 +54,7 @@ const docCardConfig = [
         description: t('homepage.card.coil.description'),
         tags: [t('homepage.card.coil.tag.crossplatform'), t('homepage.card.coil.tag.imageloadder')],
     },
-]
+])
 </script>
 
 <template>
