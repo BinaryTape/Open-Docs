@@ -7,7 +7,7 @@ export default function markdownItMKVars(md) {
 
   // Try to read data from file
     try {
-      const resolvedPath = path.resolve("docs/.vitepress/sqldelightVer.json");
+      const resolvedPath = path.resolve("docs/.vitepress/variables/sqldelightVer.json");
       if (fs.existsSync(resolvedPath)) {
         const jsonContent = fs.readFileSync(resolvedPath, 'utf-8');
         jsonData = JSON.parse(jsonContent);
@@ -15,7 +15,7 @@ export default function markdownItMKVars(md) {
         console.warn(`JSON variable file not found at ${resolvedPath}. Unable to load variables.`);
       }
     } catch (error) {
-      console.error(`Error reading JSON variable file from docs/.vitepress/sqldelightVer.json:`, error);
+      console.error(`Error reading JSON variable file from docs/.vitepress/variables/sqldelightVer.json:`, error);
       console.warn('Unable to load variables from file.');
     }
 

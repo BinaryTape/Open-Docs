@@ -1,7 +1,7 @@
 import fs from "fs-extra";
 import path from "path";
 import {defaultStrategy} from "./strategy.mjs";
-import {generateSidebar} from "./SidebarProcessor.mjs";
+import {generateSidebar} from "../processors/SidebarProcessor.mjs";
 
 const extraFilesMapping = new Map([
     ["CHANGELOG.md", "docs/changelog.md"],

@@ -1,6 +1,6 @@
 import type MarkdownIt from 'markdown-it'
-import { SITE_LOCALES } from './locales.config'
-import { DOCS_TYPES, DocsTypeConfig } from './docs.config'
+import { SITE_LOCALES } from '../../../locales.config'
+import { DOCS_TYPES, DocsTypeConfig } from '../../../docs.config'
 import path from 'path'
 
 export interface RewriteLinkOptions {

@@ -1,9 +1,9 @@
 import {defaultStrategy} from "./strategy.mjs";
-import {copyFlatten} from "./fsUtils.mjs";
+import {copyFlatten} from "../utils/fsUtils.mjs";
 import path from "path";
 import fs from "fs-extra";
-import {processTopicFileAsync} from "./TopicProcessor.mjs";
-import {generateSidebar} from "./SidebarProcessor.mjs";
+import {processTopicFileAsync} from "../processors/TopicProcessor.mjs";
+import {generateSidebar} from "../processors/SidebarProcessor.mjs";
 
 export const kotlinStrategy = {
     ...defaultStrategy,
@@ -99,10 +99,10 @@ export const kotlinStrategy = {
     postTranslate: async (context, repoConfig) => {
         if (repoConfig.path === "kotlin-repo") {
             console.log(`  Copying Kotlin version file... `);
-            const versionFile = "kotlin-repo/docs/v.list";
+            const versionFile = "kotlin-repo/docs/variables/v.list";
             if (await fs.pathExists(versionFile)) {
-                await fs.copy(versionFile, "docs/.vitepress/kotlin.v.list", {overwrite: true});
-                context.gitAddPaths.add("docs/.vitepress/kotlin.v.list")
+                await fs.copy(versionFile, "docs/.vitepress/variables/kotlin.v.list", {overwrite: true});
+                context.gitAddPaths.add("docs/.vitepress/variables/kotlin.v.list")
                 console.log(`  Copying Kotlin version file finished - ${repoConfig.path}`);
             }
         }

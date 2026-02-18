@@ -1,10 +1,10 @@
-import { coilStrategy } from "./strategy-coil.mjs";
-import { koinStrategy } from "./strategy-koin.mjs";
-import { sqlDelightStrategy } from "./strategy-sqldelight.mjs";
-import { kotlinStrategy } from "./strategy-kotlin.mjs";
-import { kmpStrategy } from "./strategy-kmp.mjs";
-import { koogStrategy } from "./strategy-koog.mjs";
-import { ktorStrategy } from "./strategy-ktor.mjs";
+import { coilStrategy } from "./strategies/strategy-coil.mjs";
+import { koinStrategy } from "./strategies/strategy-koin.mjs";
+import { sqlDelightStrategy } from "./strategies/strategy-sqldelight.mjs";
+import { kotlinStrategy } from "./strategies/strategy-kotlin.mjs";
+import { kmpStrategy } from "./strategies/strategy-kmp.mjs";
+import { koogStrategy } from "./strategies/strategy-koog.mjs";
+import { ktorStrategy } from "./strategies/strategy-ktor.mjs";
 
 export const REPOS = [
   {

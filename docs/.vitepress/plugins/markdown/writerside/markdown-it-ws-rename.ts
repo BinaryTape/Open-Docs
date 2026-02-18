@@ -1,4 +1,4 @@
-import { DOCS_TYPES, DocsTypeConfig } from "./docs.config";
+import { DOCS_TYPES, DocsTypeConfig } from "../../../docs.config";
 
 export default function markdownItWsRename(md) {
     const defaultRender = md.renderer.rules.html_block || function (tokens, idx, options, env, self) {

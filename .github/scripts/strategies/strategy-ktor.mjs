@@ -1,10 +1,10 @@
 import {defaultStrategy} from "./strategy.mjs";
-import { copyFlatten } from "./fsUtils.mjs";
+import { copyFlatten } from "../utils/fsUtils.mjs";
 import path from "path";
 import fs from "fs-extra";
-import {processTopicFileAsync} from "./TopicProcessor.mjs";
-import {generateSidebar} from "./SidebarProcessor.mjs";
-import {processMarkdownFile} from "./MarkdownProcessor.mjs";
+import {processTopicFileAsync} from "../processors/TopicProcessor.mjs";
+import {generateSidebar} from "../processors/SidebarProcessor.mjs";
+import {processMarkdownFile} from "../processors/MarkdownProcessor.mjs";
 
 export const ktorStrategy = {
     ...defaultStrategy,
@@ -67,10 +67,10 @@ export const ktorStrategy = {
      */
     postTranslate: async (context, repoConfig) => {
         console.log(`  Copying Ktor version file... `);
-        const versionFile = `${repoConfig.path}/v.list`;
+        const versionFile = `variables/${repoConfig.path}/v.list`;
         if (await fs.pathExists(versionFile)) {
-            await fs.copy(versionFile, "docs/.vitepress/ktor.v.list", { overwrite: true });
-            context.gitAddPaths.add("docs/.vitepress/ktor.v.list")
+            await fs.copy(versionFile, "docs/.vitepress/variables/ktor.v.list", { overwrite: true });
+            context.gitAddPaths.add("docs/.vitepress/variables/ktor.v.list")
             console.log(`  Copying Ktor version file finished - ${repoConfig.path}`);
         }
 

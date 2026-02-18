@@ -11,10 +11,10 @@ import {
 } from './config/markdown.config'
 
 // ===== Vite plugins =====
-import liquidIncludePlugin from "./vite-liquid-include"
+import liquidIncludePlugin from "./plugins/vite/vite-liquid-include"
 
 // ===== Constants =====
-const mkDiffGrammarPath = resolve(__dirname, './shiki-mk-diff.json')
+const mkDiffGrammarPath = resolve(__dirname, './plugins/shiki/shiki-mk-diff.json')
 const mkDiffGrammar = JSON.parse(readFileSync(mkDiffGrammarPath, 'utf-8'))
 
 // ===== Main configuration =====

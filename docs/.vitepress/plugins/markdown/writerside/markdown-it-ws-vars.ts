@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { DOCS_TYPES } from "./docs.config";
+import { DOCS_TYPES } from "../../../docs.config";
 
 export default function markdownItWsVars(md) {
   const fileVarRegex = /<var\s+name="(?<name>[^"]+)"\s+value="(?<value>[^"]+)"[^>]*>/gi;
@@ -17,9 +17,9 @@ export default function markdownItWsVars(md) {
 
       let xmlFilePath = '';
       switch (docType) {
-        case 'kotlin': xmlFilePath = 'docs/.vitepress/kotlin.v.list'; break;
-        case 'ktor':   xmlFilePath = 'docs/.vitepress/ktor.v.list';   break;
-        case 'kmp':    xmlFilePath = 'docs/.vitepress/kmp.v.list';    break;
+        case 'kotlin': xmlFilePath = 'docs/.vitepress/variables/kotlin.v.list'; break;
+        case 'ktor':   xmlFilePath = 'docs/.vitepress/variables/ktor.v.list';   break;
+        case 'kmp':    xmlFilePath = 'docs/.vitepress/variables/kmp.v.list';    break;
       }
 
       if (xmlFilePath) {

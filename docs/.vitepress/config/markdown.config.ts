@@ -1,33 +1,37 @@
 // @ts-ignore - no type declarations available
 import markdownItContainer from 'markdown-it-container'
 
-// ===== MarkdownIt plugin imports =====
-import markdownItWsContainer from "../markdown-it-ws-container"
-import markdownItWsFrontmatter from "../markdown-it-ws-frontmatter"
-import markdownItWsCodeClean from "../markdown-it-ws-code-clean"
-import markdownItWsAssets from "../markdown-it-ws-assets"
-import markdownItWsVars from "../markdown-it-ws-vars"
-import markdownItMKVars from "../markdown-it-mk-vars"
-import markdownItMkHlLines from "../markdown-it-mk-hl-lines"
-import markdownItMkAdmonition from "../markdown-it-mk-admonitions"
-import markdownItMkCodeTabs from "../markdown-it-mk-code-tabs"
-import markdownItMkLinks from "../markdown-it-mk-links"
-import { markdownItRewriteLinks } from '../markdown-it-ws-inline-link'
-import markdownItDiffTitleWrapper from "../markdown-it-mk-diff-code-block"
-import markdownItMKInclude from "../markdown-it-mk-Include"
-import markdownItRemoveScript from "../markdown-it-remove-script"
-import markdownItRemoveContributeUrl from "../markdown-it-remove-contribute-url"
-import markdownItWsClassstyles from "../markdown-it-ws-classstyles"
-import markdownItWsRenderInline from "../markdown-it-ws-render-inline"
-import markdownItWsRename from "../markdown-it-ws-rename"
-import markdownItWsTopicTitle from "../markdown-it-ws-topicTitle"
-import { markdownItCollapsed } from "../markdownItCollapsed.mts"
-import markdownItWsRemoveCodeAttr from "../markdown-it-ws-remove-code-attr"
-import markdownItAutoTitle from "../markdown-it-auto-title"
+// ===== Writerside plugins =====
+import markdownItWsContainer from "../plugins/markdown/writerside/markdown-it-ws-container"
+import markdownItWsFrontmatter from "../plugins/markdown/writerside/markdown-it-ws-frontmatter"
+import markdownItWsCodeClean from "../plugins/markdown/writerside/markdown-it-ws-code-clean"
+import markdownItWsAssets from "../plugins/markdown/writerside/markdown-it-ws-assets"
+import markdownItWsVars from "../plugins/markdown/writerside/markdown-it-ws-vars"
+import markdownItWsClassstyles from "../plugins/markdown/writerside/markdown-it-ws-classstyles"
+import markdownItWsRenderInline from "../plugins/markdown/writerside/markdown-it-ws-render-inline"
+import markdownItWsRename from "../plugins/markdown/writerside/markdown-it-ws-rename"
+import markdownItWsTopicTitle from "../plugins/markdown/writerside/markdown-it-ws-topicTitle"
+import markdownItWsRemoveCodeAttr from "../plugins/markdown/writerside/markdown-it-ws-remove-code-attr"
+import { markdownItRewriteLinks } from '../plugins/markdown/writerside/markdown-it-ws-inline-link'
+
+// ===== MkDocs plugins =====
+import markdownItMKVars from "../plugins/markdown/mkdocs/markdown-it-mk-vars"
+import markdownItMkHlLines from "../plugins/markdown/mkdocs/markdown-it-mk-hl-lines"
+import markdownItMkAdmonition from "../plugins/markdown/mkdocs/markdown-it-mk-admonitions"
+import markdownItMkCodeTabs from "../plugins/markdown/mkdocs/markdown-it-mk-code-tabs"
+import markdownItMkLinks from "../plugins/markdown/mkdocs/markdown-it-mk-links"
+import markdownItDiffTitleWrapper from "../plugins/markdown/mkdocs/markdown-it-mk-diff-code-block"
+import markdownItMKInclude from "../plugins/markdown/mkdocs/markdown-it-mk-Include"
+
+// ===== Common plugins =====
+import markdownItRemoveScript from "../plugins/markdown/common/markdown-it-remove-script"
+import markdownItRemoveContributeUrl from "../plugins/markdown/common/markdown-it-remove-contribute-url"
+import { markdownItCollapsed } from "../plugins/markdown/common/markdownItCollapsed.mts"
+import markdownItAutoTitle from "../plugins/markdown/common/markdown-it-auto-title"
 
 // Re-export plugins that are used directly in config.mts
-export { default as markdownItMkLiquidCondition } from "../markdown-it-mk-liquid-condition"
-export { default as shikiRemoveDiffMarker } from "../shiki-remove-diff-marker"
+export { default as markdownItMkLiquidCondition } from "../plugins/markdown/mkdocs/markdown-it-mk-liquid-condition"
+export { default as shikiRemoveDiffMarker } from "../plugins/shiki/shiki-remove-diff-marker"
 
 /**
  * Create a custom markdown-it container

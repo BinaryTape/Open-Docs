@@ -1,7 +1,7 @@
 import {defaultStrategy} from "./strategy.mjs";
 import path from "path";
 import fs from "fs-extra";
-import {generateSidebar} from "./SidebarProcessor.mjs";
+import {generateSidebar} from "../processors/SidebarProcessor.mjs";
 
 export const koogStrategy = {
     ...defaultStrategy,

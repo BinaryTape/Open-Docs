@@ -1,6 +1,6 @@
 import matter from 'gray-matter'
-import { DOCS_TYPES } from './docs.config'
-import { getSidebarTitle } from './utils/sidebar-utils'
+import { DOCS_TYPES } from '../../../docs.config'
+import { getSidebarTitle } from '../../../utils/sidebar-utils'
 
 /**
  * Markdown-it plugin for auto-titling
