@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open-Docs 翻译平台</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <style>
+    :root {
+      --bg-0: #0b1120; --bg-1: #111827; --bg-2: #1e293b; --bg-3: #334155; --bg-hover: #3b4c66;
+      --text-1: #f1f5f9; --text-2: #cbd5e1; --text-3: #94a3b8; --text-4: #64748b;
+      --border: #1e3a5f;
+      --primary: #818cf8; --primary-dim: #6366f1; --primary-bg: rgba(99,102,241,0.12);
+      --success: #34d399; --success-bg: rgba(52,211,153,0.12);
+      --error: #f87171; --error-bg: rgba(248,113,113,0.12);
+      --warning: #fbbf24; --warning-bg: rgba(251,191,36,0.12);
+      --radius: 8px; --radius-sm: 6px; --sidebar-w: 320px;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; overflow: hidden; }
+    body { font-family: var(--font); background: var(--bg-0); color: var(--text-1); font-size: 14px; line-height: 1.6; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--bg-3); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-4); }
+
+    .app { display: flex; height: 100vh; }
+    .sidebar { width: var(--sidebar-w); min-width: var(--sidebar-w); background: var(--bg-1); border-right: 1px solid var(--border); display: flex; flex-direction: column; z-index: 10; }
+    .main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+
+    .sidebar-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+    .sidebar-header .logo { font-size: 20px; }
+    .sidebar-header h1 { font-size: 15px; font-weight: 600; color: var(--text-1); white-space: nowrap; }
+    .sidebar-tabs { display: flex; border-bottom: 1px solid var(--border); }
+    .sidebar-tab { flex: 1; padding: 10px 6px; text-align: center; cursor: pointer; background: transparent; border: none; color: var(--text-3); font-size: 12px; font-family: var(--font); transition: all .2s; border-bottom: 2px solid transparent; }
+    .sidebar-tab:hover { color: var(--text-2); background: var(--bg-2); }
+    .sidebar-tab.active { color: var(--primary); border-bottom-color: var(--primary); background: var(--primary-bg); }
+    .sidebar-body { flex: 1; overflow-y: auto; }
+
+    .nav-item { padding: 10px 14px; border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background .15s; margin: 2px 6px; font-size: 13px; color: var(--text-2); }
+    .nav-item:hover { background: var(--bg-2); }
+    .nav-item.active { background: var(--primary-bg); color: var(--primary); }
+    .nav-item .icon { font-size: 16px; flex-shrink: 0; }
+    .nav-item .name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
+    .nav-item .badge-sm { font-size: 11px; color: var(--text-4); background: var(--bg-3); padding: 1px 6px; border-radius: 3px; }
+    .nav-back { padding: 10px 14px; color: var(--text-3); cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 13px; border-bottom: 1px solid var(--border); transition: background .15s; }
+    .nav-back:hover { background: var(--bg-2); color: var(--text-2); }
+    .nav-section { padding: 6px 14px; font-size: 11px; color: var(--text-4); text-transform: uppercase; letter-spacing: .5px; margin-top: 8px; }
+
+    .tree-node { padding: 5px 8px; padding-left: calc(12px + var(--depth, 0) * 16px); cursor: pointer; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-2); transition: all .12s; margin: 1px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .tree-node:hover { background: var(--bg-2); color: var(--text-1); }
+    .tree-node.selected { background: var(--primary-bg); color: var(--primary); }
+    .tree-icon { font-size: 14px; flex-shrink: 0; width: 18px; text-align: center; }
+    .tree-name { overflow: hidden; text-overflow: ellipsis; }
+
+    .upload-area { padding: 16px; }
+    .upload-drop { border: 2px dashed var(--border); border-radius: var(--radius); padding: 32px 16px; text-align: center; cursor: pointer; transition: all .2s; }
+    .upload-drop:hover, .upload-drop.dragover { border-color: var(--primary); background: var(--primary-bg); }
+    .upload-drop .icon { font-size: 32px; margin-bottom: 8px; }
+    .upload-drop p { color: var(--text-3); font-size: 13px; }
+    .upload-drop .hint { font-size: 11px; color: var(--text-4); margin-top: 4px; }
+    .upload-list { margin-top: 12px; }
+    .upload-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; background: var(--bg-2); border-radius: var(--radius-sm); margin-bottom: 6px; cursor: pointer; transition: background .15s; }
+    .upload-item:hover { background: var(--bg-3); }
+    .upload-item .name { flex: 1; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .upload-item .remove { color: var(--text-4); cursor: pointer; padding: 2px 4px; border-radius: 4px; font-size: 16px; line-height: 1; }
+    .upload-item .remove:hover { color: var(--error); background: var(--error-bg); }
+
+    .queue-header { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .queue-header .count { font-size: 12px; color: var(--text-4); }
+    .queue-list { padding: 8px; }
+    .queue-item { padding: 10px 12px; background: var(--bg-2); border-radius: var(--radius-sm); margin-bottom: 6px; cursor: pointer; transition: all .15s; border-left: 3px solid transparent; }
+    .queue-item:hover { background: var(--bg-3); }
+    .queue-item.active { border-left-color: var(--primary); }
+    .queue-item .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+    .queue-item .file-name { font-size: 13px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 200px; }
+    .queue-item .lang { font-size: 11px; color: var(--text-4); background: var(--bg-3); padding: 1px 6px; border-radius: 3px; }
+    .queue-item .status { font-size: 11px; margin-top: 2px; }
+    .status-pending { color: var(--text-4); } .status-translating { color: var(--warning); } .status-completed { color: var(--success); } .status-error { color: var(--error); }
+    .queue-actions { padding: 12px 16px; border-top: 1px solid var(--border); display: flex; gap: 8px; }
+
+    .toolbar { padding: 10px 16px; background: var(--bg-1); border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .toolbar-group { display: flex; align-items: center; gap: 6px; }
+    .toolbar-sep { width: 1px; height: 24px; background: var(--border); margin: 0 4px; }
+
+    select, input[type="text"], input[type="password"] { background: var(--bg-2); border: 1px solid var(--border); color: var(--text-1); padding: 6px 10px; border-radius: var(--radius-sm); font-size: 13px; font-family: var(--font); outline: none; transition: border-color .2s; }
+    select:focus, input:focus, textarea:focus { border-color: var(--primary); }
+    select { cursor: pointer; padding-right: 28px; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; }
+    label { font-size: 13px; color: var(--text-3); display: flex; align-items: center; gap: 6px; cursor: pointer; white-space: nowrap; }
+    label input[type="checkbox"] { accent-color: var(--primary); width: 14px; height: 14px; cursor: pointer; }
+    textarea { background: var(--bg-2); border: 1px solid var(--border); color: var(--text-1); padding: 10px 12px; border-radius: var(--radius-sm); font-size: 13px; font-family: var(--font-mono); line-height: 1.5; resize: vertical; outline: none; width: 100%; }
+
+    .btn { padding: 6px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--bg-2); color: var(--text-2); font-size: 13px; font-family: var(--font); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all .15s; white-space: nowrap; }
+    .btn:hover { background: var(--bg-3); color: var(--text-1); }
+    .btn:disabled { opacity: .5; cursor: not-allowed; }
+    .btn-primary { background: var(--primary-dim); border-color: var(--primary-dim); color: #fff; } .btn-primary:hover { background: var(--primary); }
+    .btn-success { background: #059669; border-color: #059669; color: #fff; } .btn-success:hover { background: #10b981; }
+    .btn-danger { background: transparent; border-color: var(--error); color: var(--error); } .btn-danger:hover { background: var(--error-bg); }
+    .btn-sm { padding: 4px 10px; font-size: 12px; } .btn-icon { padding: 6px 8px; }
+
+    .editor { flex: 1; display: flex; overflow: hidden; }
+    .panel { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+    .panel + .panel { border-left: 1px solid var(--border); }
+    .panel-header { padding: 8px 16px; background: var(--bg-1); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+    .panel-title { font-size: 13px; font-weight: 600; color: var(--text-2); display: flex; align-items: center; gap: 6px; }
+    .panel-toggle { display: flex; background: var(--bg-2); border-radius: var(--radius-sm); overflow: hidden; }
+    .panel-toggle button { padding: 4px 10px; border: none; background: transparent; color: var(--text-3); font-size: 12px; cursor: pointer; font-family: var(--font); transition: all .15s; }
+    .panel-toggle button.active { background: var(--primary-bg); color: var(--primary); }
+    .panel-toggle button:hover:not(.active) { color: var(--text-2); }
+    .panel-content { flex: 1; overflow-y: auto; position: relative; }
+    .panel-content .code-view { padding: 16px; font-family: var(--font-mono); font-size: 13px; line-height: 1.7; white-space: pre-wrap; word-break: break-word; color: var(--text-2); }
+    .panel-empty { display: flex; align-items: center; justify-content: center; height: 100%; color: var(--text-4); font-size: 14px; flex-direction: column; gap: 8px; }
+    .panel-empty .icon { font-size: 40px; opacity: .5; }
+
+    .md-preview { padding: 20px 24px; font-size: 14px; line-height: 1.8; color: var(--text-2); }
+    .md-preview h1 { font-size: 1.8em; font-weight: 700; color: var(--text-1); margin: .6em 0 .3em; padding-bottom: .2em; border-bottom: 1px solid var(--border); }
+    .md-preview h2 { font-size: 1.4em; font-weight: 600; color: var(--text-1); margin: .5em 0 .2em; padding-bottom: .15em; border-bottom: 1px solid var(--border); }
+    .md-preview h3 { font-size: 1.2em; font-weight: 600; color: var(--text-1); margin: .5em 0 .2em; }
+    .md-preview h4, .md-preview h5, .md-preview h6 { font-weight: 600; color: var(--text-1); margin: .4em 0 .2em; }
+    .md-preview p { margin: .5em 0; }
+    .md-preview a { color: var(--primary); text-decoration: none; } .md-preview a:hover { text-decoration: underline; }
+    .md-preview code { background: var(--bg-3); padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono); font-size: .9em; color: #e879f9; }
+    .md-preview pre { background: var(--bg-0); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; overflow-x: auto; margin: .8em 0; }
+    .md-preview pre code { background: transparent; padding: 0; color: var(--text-2); font-size: 13px; }
+    .md-preview blockquote { border-left: 3px solid var(--primary); padding: .5em 1em; margin: .5em 0; background: var(--primary-bg); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+    .md-preview ul, .md-preview ol { padding-left: 1.5em; margin: .5em 0; } .md-preview li { margin: .25em 0; }
+    .md-preview table { border-collapse: collapse; width: 100%; margin: .8em 0; }
+    .md-preview th, .md-preview td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+    .md-preview th { background: var(--bg-2); font-weight: 600; color: var(--text-1); }
+    .md-preview img { max-width: 100%; border-radius: var(--radius); } .md-preview hr { border: none; border-top: 1px solid var(--border); margin: 1.5em 0; }
+    /* ── VitePress 代码块样式 ── */
+    .md-preview .shiki, .md-preview pre[class*="shiki"] { border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; overflow-x: auto; margin: .8em 0; font-family: var(--font-mono); font-size: 13px; line-height: 1.6; }
+    .md-preview .shiki code, .md-preview pre code { background: transparent !important; padding: 0; color: inherit; font-size: inherit; }
+    .md-preview div[class^="language-"] { position: relative; margin: .8em 0; border-radius: var(--radius); overflow: hidden; }
+    .md-preview div[class^="language-"] .lang { position: absolute; top: 6px; right: 10px; font-size: 11px; color: var(--text-4); z-index: 2; }
+    .md-preview div[class^="language-"] button.copy { display: none; }
+    .md-preview div[class^="language-"] pre { margin: 0; border-radius: var(--radius); }
+    /* Shiki 双主题：仅显示暗色 */
+    .md-preview .shiki, .md-preview .shiki span { color: var(--shiki-dark) !important; background-color: var(--shiki-dark-bg) !important; }
+    /* ── VitePress 容器样式 ── */
+    .md-preview .custom-block { padding: 12px 16px; border-radius: var(--radius-sm); margin: .8em 0; border-left: 4px solid; }
+    .md-preview .custom-block-title { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+    .md-preview .custom-block.note, .md-preview .custom-block.info { background: var(--primary-bg); border-color: var(--primary); }
+    .md-preview .custom-block.note .custom-block-title, .md-preview .custom-block.info .custom-block-title { color: var(--primary); }
+    .md-preview .custom-block.warning { background: var(--warning-bg); border-color: var(--warning); }
+    .md-preview .custom-block.warning .custom-block-title { color: var(--warning); }
+    .md-preview .custom-block.danger { background: var(--error-bg); border-color: var(--error); }
+    .md-preview .custom-block.danger .custom-block-title { color: var(--error); }
+    .md-preview .custom-block.tip { background: var(--success-bg); border-color: var(--success); }
+    .md-preview .custom-block.tip .custom-block-title { color: var(--success); }
+    .md-preview .custom-block.details { background: var(--bg-2); border-color: var(--text-4); }
+    .md-preview .custom-block.details .custom-block-title { color: var(--text-2); cursor: pointer; }
+    .md-preview .custom-block.details summary { cursor: pointer; font-weight: 600; font-size: 13px; color: var(--text-2); }
+    /* ── Vue component styles (rendered as raw HTML tags in preview) ── */
+    .md-preview Tabs, .md-preview tabs { display: block; margin: .8em 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .md-preview TabItem, .md-preview tab { display: block; padding: 12px 16px; border-top: 1px solid var(--border); }
+    .md-preview TabItem:first-child, .md-preview tab:first-child { border-top: none; }
+    .md-preview TabItem::before, .md-preview tab::before { content: attr(title); display: block; font-size: 12px; font-weight: 600; color: var(--primary); margin-bottom: 6px; padding: 4px 8px; background: var(--primary-bg); border-radius: 4px; width: fit-content; }
+    .md-preview TopicTitle { display: block; font-size: 1.8em; font-weight: 700; color: var(--text-1); margin: .6em 0 .3em; }
+    .md-preview card { display: block; padding: 12px 16px; margin: 6px 0; background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+    .md-preview card::before { content: attr(summary); display: block; font-size: 12px; color: var(--text-3); margin-top: 4px; }
+    .md-preview code-block { display: block; background: var(--bg-0); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; margin: .8em 0; font-family: var(--font-mono); font-size: 13px; white-space: pre-wrap; overflow-x: auto; }
+    .md-preview deflist { display: block; margin: .8em 0; }
+    .md-preview def { display: block; padding: 8px 0; border-bottom: 1px solid var(--border); }
+    .md-preview def::before { content: attr(title); display: block; font-weight: 600; color: var(--text-1); margin-bottom: 4px; }
+    .md-preview tldr { display: block; padding: 10px 16px; margin: .8em 0; background: var(--primary-bg); border-left: 4px solid var(--primary); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+    .md-preview procedure { display: block; margin: .8em 0; counter-reset: step-counter; }
+    .md-preview step { display: block; padding: 6px 0 6px 32px; position: relative; counter-increment: step-counter; }
+    .md-preview step::before { content: counter(step-counter); position: absolute; left: 0; width: 22px; height: 22px; background: var(--primary); color: #fff; border-radius: 50%; text-align: center; line-height: 22px; font-size: 12px; font-weight: 600; }
+    .md-preview note, .md-preview tip { display: block; padding: 10px 16px; margin: .8em 0; background: var(--primary-bg); border-left: 4px solid var(--primary); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+    .md-preview warning { display: block; padding: 10px 16px; margin: .8em 0; background: var(--warning-bg); border-left: 4px solid var(--warning); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+    .md-preview chapter { display: block; margin: .8em 0; }
+    .md-preview chapter::before { content: attr(title); display: block; font-size: 1.3em; font-weight: 600; color: var(--text-1); margin: .5em 0 .2em; }
+    .md-preview snippet, .md-preview include { display: block; padding: 8px 12px; margin: .5em 0; background: var(--bg-2); border-radius: var(--radius-sm); font-size: 13px; }
+    .md-preview Links { display: inline; color: var(--primary); text-decoration: none; }
+    .md-preview Path { display: inline; font-family: var(--font-mono); background: var(--bg-3); padding: 1px 5px; border-radius: 3px; font-size: .9em; }
+    .md-preview YouTubeVideo { display: block; padding: 40px; margin: .8em 0; background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius); text-align: center; color: var(--text-4); }
+    .md-preview YouTubeVideo::before { content: '▶ YouTube Video'; font-size: 14px; }
+    .md-preview section-starting-page { display: block; }
+    .md-preview primary-label { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; background: var(--primary-bg); color: var(--primary); margin-left: 6px; }
+    .md-preview Var { display: inline; }
+
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); backdrop-filter: blur(4px); z-index: 100; display: flex; align-items: center; justify-content: center; }
+    .modal { background: var(--bg-1); border: 1px solid var(--border); border-radius: 12px; width: 90%; max-width: 720px; max-height: 85vh; overflow-y: auto; }
+    .modal-header { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: var(--bg-1); z-index: 1; }
+    .modal-header h2 { font-size: 16px; font-weight: 600; } .modal-close { background: none; border: none; color: var(--text-3); font-size: 20px; cursor: pointer; padding: 4px; line-height: 1; } .modal-close:hover { color: var(--text-1); }
+    .modal-body { padding: 24px; }
+    .setting-group { margin-bottom: 20px; }
+    .setting-group > label { display: block; font-size: 13px; font-weight: 500; color: var(--text-2); margin-bottom: 6px; }
+    .setting-group input[type="text"], .setting-group input[type="password"], .setting-group textarea, .setting-group select { width: 100%; }
+    .setting-hint { font-size: 11px; color: var(--text-4); margin-top: 4px; }
+    .setting-actions { display: flex; gap: 8px; margin-top: 8px; }
+
+    .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid var(--bg-3); border-top-color: var(--primary); border-radius: 50%; animation: spin .6s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .translating-overlay { position: absolute; inset: 0; background: rgba(11,17,32,.7); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; z-index: 5; }
+    .translating-overlay .spinner { width: 32px; height: 32px; border-width: 3px; }
+    .translating-overlay p { color: var(--text-3); font-size: 14px; }
+    .loading-center { display: flex; align-items: center; justify-content: center; padding: 40px; gap: 8px; color: var(--text-3); font-size: 13px; }
+
+    .toast-container { position: fixed; top: 16px; right: 16px; z-index: 200; display: flex; flex-direction: column; gap: 8px; }
+    .toast { padding: 10px 16px; border-radius: var(--radius-sm); font-size: 13px; background: var(--bg-2); border: 1px solid var(--border); color: var(--text-1); box-shadow: 0 8px 24px rgba(0,0,0,.3); animation: toastIn .3s ease; display: flex; align-items: center; gap: 8px; }
+    .toast.success { border-color: var(--success); } .toast.error { border-color: var(--error); }
+    @keyframes toastIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    .badge { display: inline-flex; align-items: center; justify-content: center; background: var(--error); color: #fff; font-size: 10px; font-weight: 600; min-width: 16px; height: 16px; border-radius: 8px; padding: 0 4px; }
+    .github-link { font-size: 11px; color: var(--text-4); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="toast-container">
+    <div v-for="t in toasts" :key="t.id" :class="['toast', t.type]">
+      <span>{{ t.type === 'success' ? '✅' : t.type === 'error' ? '❌' : 'ℹ️' }}</span>{{ t.message }}
+    </div>
+  </div>
+
+  <div class="app">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <span class="logo">🌐</span>
+        <h1>Open-Docs 翻译平台</h1>
+      </div>
+      <div class="sidebar-tabs">
+        <button :class="['sidebar-tab', { active: sidebarTab === 'files' }]" @click="sidebarTab = 'files'">📁 文件</button>
+        <button :class="['sidebar-tab', { active: sidebarTab === 'upload' }]" @click="sidebarTab = 'upload'">📤 上传</button>
+        <button :class="['sidebar-tab', { active: sidebarTab === 'queue' }]" @click="sidebarTab = 'queue'">
+          📋 队列 <span v-if="queue.length" class="badge" style="margin-left:4px">{{ queue.length }}</span>
+        </button>
+      </div>
+      <div class="sidebar-body">
+
+        <!-- FILES TAB -->
+        <div v-if="sidebarTab === 'files'">
+          <!-- Level 1: Project list -->
+          <div v-if="navLevel === 'projects'" style="padding:4px 0">
+            <div class="nav-section">GitHub 项目</div>
+            <div v-for="p in projects" :key="p.name" class="nav-item" @click="selectProject(p)">
+              <span class="icon">📦</span>
+              <span class="name">{{ p.displayName }}</span>
+              <span class="badge-sm">{{ p.repos.length }} repo</span>
+            </div>
+          </div>
+
+          <!-- Level 2: Repo list -->
+          <div v-if="navLevel === 'repos'">
+            <div class="nav-back" @click="navLevel = 'projects'; currentProject = null">
+              ← 返回项目列表
+            </div>
+            <div class="nav-section">{{ currentProject.displayName }} · 仓库</div>
+            <div v-for="(r, idx) in currentProject.repos" :key="r.repo" class="nav-item" @click="selectRepo(idx)">
+              <span class="icon">🐙</span>
+              <span class="name" style="font-size:12px">{{ r.repo }}</span>
+            </div>
+          </div>
+
+          <!-- Level 3: File tree from GitHub -->
+          <div v-if="navLevel === 'tree'">
+            <div class="nav-back" @click="navLevel = 'repos'; currentRepoData = null">
+              ← {{ currentProject.displayName }}
+            </div>
+            <div style="padding:6px 14px;font-size:11px;color:var(--text-4);display:flex;justify-content:space-between;align-items:center">
+              <span class="github-link">{{ currentRepoConfig.repo }}@{{ currentRepoConfig.branch }}</span>
+              <button class="btn btn-sm" style="padding:2px 6px;font-size:10px" @click="refreshTree" title="刷新">🔄</button>
+            </div>
+            <div v-if="loadingTree" class="loading-center"><span class="spinner"></span> 加载中...</div>
+            <div v-else style="padding:4px 0">
+              <template v-for="node in currentRepoData.tree" :key="node.path || node.name">
+                <tree-node :node="node" :depth="0" :expanded="expanded" :selected-path="selectedFile?.githubPath"
+                  @toggle="k => expanded[k] = !expanded[k]"
+                  @select="(n) => loadGitHubFile(n)" />
+              </template>
+              <div v-if="!currentRepoData.tree.length" style="padding:24px;text-align:center;color:var(--text-4);font-size:13px">
+                未找到文档文件
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- UPLOAD TAB -->
+        <div v-if="sidebarTab === 'upload'" class="upload-area">
+          <div :class="['upload-drop', { dragover: isDragging }]"
+               @click="triggerUpload" @dragover.prevent="isDragging = true" @dragleave="isDragging = false"
+               @drop.prevent="handleDrop($event); isDragging = false">
+            <div class="icon">📤</div>
+            <p>点击选择或拖放文件</p>
+            <p class="hint">支持 .md / .topic 文件</p>
+          </div>
+          <input type="file" ref="fileInput" @change="handleFileSelect" accept=".md,.topic" multiple style="display:none">
+          <div class="upload-list">
+            <div v-for="f in uploads" :key="f.id" class="upload-item" @click="loadUploadedFile(f)">
+              <span>📄</span><span class="name">{{ f.name }}</span>
+              <span class="remove" @click.stop="removeUpload(f.id)">×</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- QUEUE TAB -->
+        <div v-if="sidebarTab === 'queue'">
+          <div class="queue-header">
+            <span style="font-size:13px;font-weight:500">翻译队列</span>
+            <span class="count">{{ queue.filter(q => q.status === 'completed').length }}/{{ queue.length }}</span>
+          </div>
+          <div class="queue-list">
+            <div v-for="q in queue" :key="q.id" :class="['queue-item', { active: activeQueueItem === q.id }]" @click="viewQueueItem(q)">
+              <div class="top">
+                <span class="file-name">{{ q.fileName }}</span>
+                <span class="lang">{{ languageNames[q.targetLang] || q.targetLang }}</span>
+              </div>
+              <div :class="['status', 'status-' + q.status]">
+                <span v-if="q.status === 'pending'">⏳ 等待中</span>
+                <span v-else-if="q.status === 'translating'"><span class="spinner" style="width:10px;height:10px;border-width:1.5px;vertical-align:middle"></span> 翻译中...</span>
+                <span v-else-if="q.status === 'completed'">✅ 已完成</span>
+                <span v-else-if="q.status === 'error'">❌ {{ q.error || '失败' }}</span>
+              </div>
+            </div>
+            <div v-if="!queue.length" style="padding:24px;text-align:center;color:var(--text-4);font-size:13px">队列为空</div>
+          </div>
+          <div class="queue-actions" v-if="queue.length">
+            <button class="btn btn-primary btn-sm" style="flex:1" @click="processQueue" :disabled="isProcessingQueue || !queue.some(q => q.status === 'pending')">
+              <span v-if="isProcessingQueue" class="spinner" style="width:12px;height:12px;border-width:1.5px"></span>
+              {{ isProcessingQueue ? '处理中...' : '🚀 开始翻译' }}
+            </button>
+            <button class="btn btn-danger btn-sm" @click="clearQueue">清空</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Area -->
+    <div class="main">
+      <div class="toolbar">
+        <div class="toolbar-group">
+          <label style="color:var(--text-3);font-size:12px">目标语言</label>
+          <select v-model="targetLang" style="min-width:120px">
+            <option v-for="lang in languages" :value="lang">{{ languageNames[lang] || lang }}</option>
+          </select>
+        </div>
+        <div class="toolbar-group">
+          <label style="color:var(--text-3);font-size:12px">模型</label>
+          <select v-model="selectedModel" style="min-width:150px">
+            <option v-for="m in models" :value="m.id">{{ m.name }}</option>
+          </select>
+        </div>
+        <div class="toolbar-sep"></div>
+        <div class="toolbar-group">
+          <label style="color:var(--text-3);font-size:12px">预处理</label>
+          <select v-model="preprocessMode" style="min-width:90px">
+            <option value="none">关闭</option>
+            <option value="topic">Topic</option>
+            <option value="markdown">Markdown</option>
+            <option value="both">全部</option>
+          </select>
+        </div>
+        <label><input type="checkbox" v-model="useTerminology"> 术语表</label>
+        <label><input type="checkbox" v-model="usePrevTranslation"> 先前翻译</label>
+        <div class="toolbar-sep"></div>
+        <button class="btn btn-primary" @click="translateCurrent" :disabled="!sourceContent || isTranslating">
+          <span v-if="isTranslating" class="spinner" style="width:12px;height:12px;border-width:1.5px"></span>
+          {{ isTranslating ? '翻译中...' : '🔄 翻译' }}
+        </button>
+        <button class="btn" @click="addCurrentToQueue" :disabled="!sourceContent" title="添加到队列">📋 加入队列</button>
+        <button class="btn btn-success" @click="saveTranslation" :disabled="!translatedContent || !selectedFile?.projectName" title="替换目标文件">💾 替换文件</button>
+        <div style="flex:1"></div>
+        <button class="btn btn-icon" @click="showSettings = true" title="设置">⚙️</button>
+      </div>
+
+      <div class="editor">
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">📝 原文档 <span v-if="selectedFile" style="font-weight:400;color:var(--text-4);font-size:11px;margin-left:4px">{{ selectedFile.name }}</span></span>
+            <div class="panel-toggle">
+              <button :class="{ active: sourceView === 'preview' }" @click="sourceView = 'preview'">预览</button>
+              <button :class="{ active: sourceView === 'code' }" @click="sourceView = 'code'">源码</button>
+            </div>
+          </div>
+          <div class="panel-content">
+            <div v-if="loadingFile" class="loading-center"><span class="spinner"></span> 从 GitHub 加载中...</div>
+            <div v-else-if="!sourceContent" class="panel-empty"><span class="icon">📂</span><span>从左侧选择 GitHub 文件或上传文档</span></div>
+            <div v-else-if="sourceView === 'preview'" class="md-preview" v-html="renderedSource"></div>
+            <div v-else class="code-view">{{ sourceContent }}</div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">🌐 译文 <span v-if="translatedContent" style="font-weight:400;color:var(--text-4);font-size:11px;margin-left:4px">{{ languageNames[targetLang] }}</span></span>
+            <div class="panel-toggle">
+              <button :class="{ active: targetView === 'preview' }" @click="targetView = 'preview'">预览</button>
+              <button :class="{ active: targetView === 'code' }" @click="targetView = 'code'">源码</button>
+            </div>
+          </div>
+          <div class="panel-content" style="position:relative">
+            <div v-if="isTranslating" class="translating-overlay"><div class="spinner"></div><p>正在翻译中，请稍候...</p></div>
+            <div v-if="!translatedContent && !isTranslating" class="panel-empty"><span class="icon">🌐</span><span>翻译结果将显示在这里</span></div>
+            <div v-else-if="targetView === 'preview' && translatedContent" class="md-preview" v-html="renderedTarget"></div>
+            <div v-else-if="targetView === 'code' && translatedContent" class="code-view">{{ translatedContent }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay" v-if="showSettings" @click.self="showSettings = false">
+    <div class="modal">
+      <div class="modal-header"><h2>⚙️ 设置</h2><button class="modal-close" @click="showSettings = false">×</button></div>
+      <div class="modal-body">
+        <div class="setting-group">
+          <label>Google API Key</label>
+          <input type="password" v-model="apiKey" placeholder="输入 Google Gemini API Key...">
+          <p class="setting-hint">也可通过环境变量 GOOGLE_API_KEY 设置{{ hasEnvKey ? ' (已通过环境变量设置 ✅)' : '' }}</p>
+        </div>
+        <div class="setting-group">
+          <label>Prompt 模板</label>
+          <div style="display:flex;gap:8px;margin-bottom:8px">
+            <select v-model="promptLang" @change="loadPrompt" style="flex:1">
+              <option v-for="lang in languages" :value="lang">{{ languageNames[lang] || lang }}</option>
+            </select>
+            <button class="btn btn-sm" @click="resetPrompt">恢复默认</button>
+            <button class="btn btn-primary btn-sm" @click="savePrompt">保存修改</button>
+          </div>
+          <textarea v-model="editingPrompt" rows="16" style="font-size:12px"></textarea>
+          <p class="setting-hint">可用占位符: {RELEVANT_TERMS}, {TRANSLATION_REFERENCES}, {SOURCE_TEXT}</p>
+        </div>
+        <div class="setting-group">
+          <label>术语表预览</label>
+          <textarea :value="terminologyPreview" readonly rows="8" style="font-size:12px;opacity:.7"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const { createApp, ref, reactive, computed, watch, onMounted } = Vue;
+
+// Recursive tree node component
+const TreeNode = {
+  name: 'tree-node',
+  props: ['node', 'depth', 'expanded', 'selectedPath'],
+  emits: ['toggle', 'select'],
+  template: `
+    <div>
+      <div :class="['tree-node', { selected: node.type === 'file' && node.path === selectedPath }]"
+           :style="{ '--depth': depth }" @click="handleClick">
+        <span class="tree-icon">{{ node.type === 'directory' ? (expanded[key] ? '📂' : '📁') : '📄' }}</span>
+        <span class="tree-name">{{ node.name }}</span>
+      </div>
+      <template v-if="node.type === 'directory' && node.children && expanded[key]">
+        <tree-node v-for="child in node.children" :key="child.path || child.name"
+          :node="child" :depth="depth + 1" :expanded="expanded" :selected-path="selectedPath"
+          @toggle="k => $emit('toggle', k)" @select="n => $emit('select', n)" />
+      </template>
+    </div>
+  `,
+  computed: {
+    key() { return this.node.name + '_' + this.depth; }
+  },
+  methods: {
+    handleClick() {
+      if (this.node.type === 'directory') this.$emit('toggle', this.key);
+      else this.$emit('select', this.node);
+    }
+  }
+};
+
+const app = createApp({
+  setup() {
+    // State
+    const sidebarTab = ref('files');
+    const projects = ref([]);
+    const languages = ref([]);
+    const languageNames = ref({});
+    const models = ref([]);
+    const hasEnvKey = ref(false);
+
+    // Navigation: projects → repos → tree
+    const navLevel = ref('projects'); // 'projects' | 'repos' | 'tree'
+    const currentProject = ref(null);
+    const currentRepoIdx = ref(0);
+    const currentRepoData = ref(null);
+    const currentRepoConfig = computed(() => currentProject.value?.repos[currentRepoIdx.value]);
+    const loadingTree = ref(false);
+    const expanded = reactive({});
+
+    const selectedFile = ref(null);
+    const sourceContent = ref('');
+    const translatedContent = ref('');
+    const loadingFile = ref(false);
+
+    const targetLang = ref('zh-Hans');
+    const selectedModel = ref('gemini-2.5-flash');
+    const preprocessMode = ref('both'); // 'none' | 'topic' | 'markdown' | 'both'
+    const useTerminology = ref(true);
+    const usePrevTranslation = ref(true);
+    const isTranslating = ref(false);
+    const sourceView = ref('preview');
+    const targetView = ref('preview');
+
+    const queue = ref([]);
+    const isProcessingQueue = ref(false);
+    const activeQueueItem = ref(null);
+
+    const uploads = ref([]);
+    const isDragging = ref(false);
+    const fileInput = ref(null);
+
+    const showSettings = ref(false);
+    const apiKey = ref(localStorage.getItem('od_apiKey') || '');
+    const promptLang = ref('zh-Hans');
+    const editingPrompt = ref('');
+    const terminologyPreview = ref('');
+    const toasts = ref([]);
+
+    // Server-side rendered HTML (markdown-it + shiki)
+    const renderedSource = ref('');
+    const renderedTarget = ref('');
+    let renderSourceTimer = null;
+    let renderTargetTimer = null;
+
+    async function renderMarkdown(content) {
+      if (!content) return '';
+      try {
+        const data = await api('/api/render', {
+          method: 'POST',
+          body: {
+            content,
+            projectName: selectedFile.value?.projectName || null,
+            fileName: selectedFile.value?.name || null,
+          }
+        });
+        return data.html || '';
+      } catch { return `<pre>${content}</pre>`; }
+    }
+
+    // Debounced watch for source content → render preview
+    watch(sourceContent, (val) => {
+      clearTimeout(renderSourceTimer);
+      if (!val) { renderedSource.value = ''; return; }
+      renderSourceTimer = setTimeout(async () => {
+        renderedSource.value = await renderMarkdown(val);
+      }, 300);
+    });
+
+    // Debounced watch for translated content → render preview
+    watch(translatedContent, (val) => {
+      clearTimeout(renderTargetTimer);
+      if (!val) { renderedTarget.value = ''; return; }
+      renderTargetTimer = setTimeout(async () => {
+        renderedTarget.value = await renderMarkdown(val);
+      }, 300);
+    });
+
+    function toast(message, type = 'info') {
+      const id = Date.now();
+      toasts.value.push({ id, message, type });
+      setTimeout(() => { toasts.value = toasts.value.filter(t => t.id !== id); }, 3500);
+    }
+
+    async function api(url, options = {}) {
+      const res = await fetch(url, {
+        headers: { 'Content-Type': 'application/json' },
+        ...options,
+        body: options.body ? JSON.stringify(options.body) : undefined,
+      });
+      return res.json();
+    }
+
+    onMounted(async () => {
+      const cfg = await api('/api/config');
+      projects.value = cfg.projects;
+      languages.value = cfg.languages;
+      languageNames.value = cfg.languageNames;
+      models.value = cfg.models;
+      hasEnvKey.value = cfg.hasApiKey;
+      const term = await api('/api/terminology');
+      terminologyPreview.value = term.content || '';
+      loadPrompt();
+      // SSE
+      const es = new EventSource('/api/events');
+      es.onmessage = (e) => {
+        if (e.data === 'connected') return;
+        try { const d = JSON.parse(e.data); queue.value = d.queue; isProcessingQueue.value = d.isProcessing; } catch {}
+      };
+      const ul = await api('/api/uploads');
+      uploads.value = ul.files || [];
+    });
+
+    // ── Navigation ──
+    function selectProject(p) {
+      currentProject.value = p;
+      if (p.repos.length === 1) {
+        // Skip repo selection, go straight to tree
+        selectRepo(0);
+      } else {
+        navLevel.value = 'repos';
+      }
+    }
+
+    async function selectRepo(idx) {
+      currentRepoIdx.value = idx;
+      navLevel.value = 'tree';
+      await loadTree();
+    }
+
+    async function loadTree() {
+      loadingTree.value = true;
+      try {
+        const data = await api(`/api/files/${currentProject.value.name}`);
+        const repo = data.repos?.[currentRepoIdx.value];
+        currentRepoData.value = repo || { tree: [] };
+      } catch (e) {
+        toast('加载文件树失败: ' + e.message, 'error');
+        currentRepoData.value = { tree: [] };
+      } finally {
+        loadingTree.value = false;
+      }
+    }
+
+    async function refreshTree() {
+      await api('/api/github/refresh', { method: 'POST' });
+      await loadTree();
+      toast('已刷新', 'success');
+    }
+
+    async function loadGitHubFile(node) {
+      if (!currentRepoConfig.value) return;
+      loadingFile.value = true;
+      translatedContent.value = '';
+      try {
+        const data = await api(`/api/github/file?repo=${encodeURIComponent(currentRepoConfig.value.repo)}&branch=${encodeURIComponent(currentRepoConfig.value.branch)}&path=${encodeURIComponent(node.path)}`);
+        sourceContent.value = data.content;
+        const baseName = node.path.split('/').pop();
+        selectedFile.value = {
+          name: baseName,
+          githubPath: node.path,
+          repo: currentRepoConfig.value.repo,
+          branch: currentRepoConfig.value.branch,
+          projectName: currentProject.value.name,
+        };
+      } catch (e) {
+        toast('加载文件失败: ' + e.message, 'error');
+      } finally {
+        loadingFile.value = false;
+      }
+    }
+
+    // ── Upload ──
+    function triggerUpload() { fileInput.value?.click(); }
+    function handleFileSelect(e) { processFiles(Array.from(e.target.files)); e.target.value = ''; }
+    function handleDrop(e) { processFiles(Array.from(e.dataTransfer?.files || [])); }
+    async function processFiles(files) {
+      const valid = files.filter(f => f.name.endsWith('.md') || f.name.endsWith('.topic'));
+      if (!valid.length) { toast('请选择 .md 或 .topic 文件', 'error'); return; }
+      const data = [];
+      for (const f of valid) data.push({ name: f.name, content: await f.text() });
+      const res = await api('/api/upload', { method: 'POST', body: { files: data } });
+      if (res.files) { uploads.value.push(...res.files); toast(`上传 ${res.files.length} 个文件`, 'success'); }
+    }
+    async function loadUploadedFile(f) {
+      const data = await api(`/api/upload/${f.id}`);
+      sourceContent.value = data.content;
+      selectedFile.value = { name: data.name, uploadId: f.id, projectName: null };
+      translatedContent.value = '';
+    }
+    async function removeUpload(id) {
+      await api(`/api/upload/${id}`, { method: 'DELETE' });
+      uploads.value = uploads.value.filter(f => f.id !== id);
+    }
+
+    // ── Translation ──
+    async function translateCurrent() {
+      if (!sourceContent.value || isTranslating.value) return;
+      isTranslating.value = true;
+      translatedContent.value = '';
+      try {
+        const data = await api('/api/translate', {
+          method: 'POST',
+          body: {
+            sourceContent: sourceContent.value,
+            targetLang: targetLang.value,
+            model: selectedModel.value,
+            preprocessMode: preprocessMode.value,
+            useTerminology: useTerminology.value,
+            usePrevTranslation: usePrevTranslation.value,
+            projectName: selectedFile.value?.projectName || null,
+            fileName: selectedFile.value?.name || null,
+            apiKey: apiKey.value || undefined,
+          }
+        });
+        if (data.success) { translatedContent.value = data.content; toast('翻译完成！', 'success'); }
+        else toast('翻译失败: ' + (data.error || '未知错误'), 'error');
+      } catch (e) { toast('翻译请求失败: ' + e.message, 'error'); }
+      finally { isTranslating.value = false; }
+    }
+
+    // ── Queue ──
+    async function addCurrentToQueue() {
+      if (!sourceContent.value) return;
+      await api('/api/queue/add', {
+        method: 'POST',
+        body: {
+          fileName: selectedFile.value?.name || 'uploaded-file.md',
+          sourceContent: sourceContent.value,
+          projectName: selectedFile.value?.projectName || null,
+          targetLang: targetLang.value,
+          model: selectedModel.value,
+          options: { preprocessMode: preprocessMode.value, useTerminology: useTerminology.value, usePrevTranslation: usePrevTranslation.value },
+        }
+      });
+      sidebarTab.value = 'queue';
+      toast('已添加到队列', 'success');
+    }
+    async function processQueue() {
+      await api('/api/queue/process', { method: 'POST', body: { apiKey: apiKey.value || undefined } });
+    }
+    async function clearQueue() {
+      await api('/api/queue', { method: 'DELETE' });
+      activeQueueItem.value = null;
+    }
+    async function viewQueueItem(q) {
+      activeQueueItem.value = q.id;
+      const data = await api(`/api/queue/${q.id}`);
+      if (data.sourceContent) sourceContent.value = data.sourceContent;
+      if (data.result) translatedContent.value = data.result;
+      if (data.fileName) selectedFile.value = { name: data.fileName, projectName: data.projectName };
+    }
+
+    // ── Save ──
+    async function saveTranslation() {
+      if (!translatedContent.value || !selectedFile.value?.projectName) {
+        toast('无法保存：需要从 GitHub 项目选择的文件', 'error'); return;
+      }
+      try {
+        const data = await api('/api/save', {
+          method: 'POST',
+          body: {
+            content: translatedContent.value,
+            projectName: selectedFile.value.projectName,
+            fileName: selectedFile.value.name,
+            targetLang: targetLang.value,
+          }
+        });
+        if (data.success) toast(`已保存到: docs/${data.targetPath}`, 'success');
+        else toast('保存失败: ' + (data.error || '未知错误'), 'error');
+      } catch (e) { toast('保存失败: ' + e.message, 'error'); }
+    }
+
+    // ── Settings ──
+    async function loadPrompt() {
+      const data = await api(`/api/prompt/${promptLang.value}`);
+      editingPrompt.value = data.prompt || '';
+    }
+    async function savePrompt() {
+      await api(`/api/prompt/${promptLang.value}`, { method: 'POST', body: { prompt: editingPrompt.value } });
+      toast('Prompt 已保存', 'success');
+    }
+    async function resetPrompt() {
+      await api(`/api/prompt/${promptLang.value}`, { method: 'POST', body: { prompt: null } });
+      await loadPrompt();
+      toast('已恢复默认', 'success');
+    }
+    watch(apiKey, (v) => { localStorage.setItem('od_apiKey', v); });
+
+    return {
+      sidebarTab, projects, languages, languageNames, models, hasEnvKey,
+      navLevel, currentProject, currentRepoIdx, currentRepoData, currentRepoConfig, loadingTree, expanded,
+      selectedFile, sourceContent, translatedContent, loadingFile,
+      targetLang, selectedModel, preprocessMode, useTerminology, usePrevTranslation, isTranslating,
+      sourceView, targetView,
+      queue, isProcessingQueue, activeQueueItem,
+      uploads, isDragging, fileInput,
+      showSettings, apiKey, promptLang, editingPrompt, terminologyPreview,
+      toasts, renderedSource, renderedTarget,
+      selectProject, selectRepo, loadTree, refreshTree, loadGitHubFile,
+      triggerUpload, handleFileSelect, handleDrop, loadUploadedFile, removeUpload, processFiles,
+      translateCurrent, addCurrentToQueue, processQueue, clearQueue, viewQueueItem,
+      saveTranslation, loadPrompt, savePrompt, resetPrompt, toast,
+    };
+  }
+});
+
+app.component('tree-node', TreeNode);
+app.mount('#app');
+</script>
+</body>
+</html>

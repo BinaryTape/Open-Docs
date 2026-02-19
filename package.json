@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "docs:dev": "vitepress dev docs",
     "docs:build": "node --max-old-space-size=8192 node_modules/vitepress/bin/vitepress.js build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "translate": "node --import tsx translate-tool/server.mjs"
   },
   "pnpm": {
     "overrides": {
@@ -33,6 +34,9 @@
     "vitepress": "^2.0.0-alpha.15",
     "xml2js": "^0.6.2",
     "@vueuse/core": "^13.7.0",
+    "express": "^5.1.0",
+    "markdown-it": "^14.0.0",
+    "tsx": "^4.19.0",
     "oxc-minify": "^0.82.2"
   },
   "dependencies": {
