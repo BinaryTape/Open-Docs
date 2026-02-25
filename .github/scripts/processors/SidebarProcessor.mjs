@@ -3,7 +3,7 @@ import {parseStringPromise} from 'xml2js';
 import path from 'node:path';
 import {slugify} from "@mdit-vue/shared";
 import yaml from 'js-yaml';
-const {SITE_LOCALES} = await import("../../docs/.vitepress/locales.config");
+const {SITE_LOCALES} = await import("../../../docs/.vitepress/locales.config");
 
 /** 读 JSON，若不存在返回 {} */
 async function readJson(file) {
