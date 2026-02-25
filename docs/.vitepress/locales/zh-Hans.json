@@ -85,7 +85,7 @@
   "kotlin.kotlin-overview": "Kotlin 概览",
   "kotlin.what-s-new-in-kotlin": "Kotlin 新特性",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.3.20-Beta1",
+  "kotlin.whatsnew-eap": "Kotlin 2.3.20-RC",
   "kotlin.earlier-versions": "更早版本",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -514,7 +514,7 @@
   "koog.event-handlers": "事件处理器",
   "kmp.kmp-tooling": "KMP 工具",
   "kotlin.compose-multiplatform-material3": "Compose Multiplatform Material3",
-  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.0-rc02",
+  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.1",
   "kmp.earlier-versions": "更早版本",
   "kotlin.language-guide": "语言指南",
   "kotlin.basic-syntax": "概览",
@@ -609,5 +609,14 @@
   "koog.llm-response-caching": "LLM 响应缓存",
   "koog.agent-client-protocol": "代理客户端协议",
   "koog.creating-prompts": "创建提示词",
-  "koog.multimodal-content": "多模态内容"
+  "koog.multimodal-content": "多模态内容",
+  "kotlin.compiler-plugins-overview": "概览",
+  "kotlin.gsoc-2026": "GSoC 2026",
+  "ktor.server-api-key-auth": "API 密钥认证",
+  "kmp.desktop-specific-features": "桌面特有特性",
+  "kmp.web-specific-features": "Web 特有特性",
+  "kmp.webassembly-wasm": "WebAssembly (Wasm)",
+  "kmp.kmp-ci-tutorial": "为 KMP 应用配置 CI",
+  "kmp.multiplatform-project-agp-9-migration": "升级到 AGP 9",
+  "kmp.ios-android-app-development": "iOS 与 Android 应用开发"
 }

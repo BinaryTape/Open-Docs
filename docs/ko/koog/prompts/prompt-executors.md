@@ -1,0 +1,253 @@
+# 프롬프트 실행기 (Prompt executors)
+
+프롬프트 실행기(Prompt executors)는 하나 또는 여러 LLM 클라이언트의 생명 주기(lifecycle)를 관리할 수 있게 해주는 고수준 추상화를 제공합니다.
+공급자별 세부 사항을 추상화한 통합 인터페이스를 통해 여러 LLM 공급자와 작업할 수 있으며, 공급자 간의 동적 전환 및 폴백(fallback) 기능을 지원합니다.
+
+## 실행기 유형 (Executor types)
+
+Koog는 [`PromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.model.PromptExecutor) 인터페이스를 구현하는 두 가지 주요 프롬프트 실행기 유형을 제공합니다:
+
+| 유형 | <div style="width:175px">클래스</div> | 설명 |
+|-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 단일 제공자 (Single-provider) | [`SingleLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.SingleLLMPromptExecutor) | 단일 공급자를 위한 단일 LLM 클라이언트를 래핑합니다. 에이전트가 단일 LLM 공급자 내의 모델 간 전환만 필요한 경우 이 실행기를 사용하세요. |
+| 다중 제공자 (Multi-provider) | [`MultiLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor)   | 여러 LLM 클라이언트를 래핑하고 LLM 공급자에 따라 호출을 라우팅합니다. 선택적으로 요청된 클라이언트를 사용할 수 없을 때 구성된 폴백 공급자 및 LLM을 사용할 수 있습니다. 에이전트가 서로 다른 공급자의 LLM 간에 전환해야 하는 경우 이 실행기를 사용하세요. |
+
+## 단일 제공자 실행기 생성하기
+
+특정 LLM 공급자를 위한 프롬프트 실행기를 생성하려면 다음 단계를 수행하세요:
+
+1. 해당 API 키를 사용하여 특정 공급자에 대한 LLM 클라이언트를 구성합니다.
+2. [`SingleLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.SingleLLMPromptExecutor)를 사용하여 프롬프트 실행기를 생성합니다.
+
+예제는 다음과 같습니다:
+
+<!--- INCLUDE
+import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
+-->
+```kotlin
+val openAIClient = OpenAILLMClient(System.getenv("OPENAI_KEY"))
+val promptExecutor = MultiLLMPromptExecutor(openAIClient)
+```
+<!--- KNIT example-prompt-executors-01.kt -->
+
+## 다중 제공자 실행기 생성하기
+
+여러 LLM 공급자와 함께 작동하는 프롬프트 실행기를 생성하려면 다음 단계를 수행하세요:
+
+1. 해당 API 키를 사용하여 필요한 LLM 공급자에 대한 클라이언트를 구성합니다.
+2. 구성된 클라이언트들을 [`MultiLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor) 클래스 생성자에 전달하여 여러 LLM 공급자를 갖춘 프롬프트 실행기를 생성합니다.
+
+<!--- INCLUDE
+import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+import ai.koog.prompt.executor.ollama.client.OllamaClient
+import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
+import ai.koog.prompt.llm.LLMProvider
+-->
+```kotlin
+val openAIClient = OpenAILLMClient(System.getenv("OPENAI_KEY"))
+val ollamaClient = OllamaClient()
+
+val multiExecutor = MultiLLMPromptExecutor(
+    LLMProvider.OpenAI to openAIClient,
+    LLMProvider.Ollama to ollamaClient
+)
+```
+<!--- KNIT example-prompt-executors-02.kt -->
+
+## 사전에 정의된 프롬프트 실행기
+
+빠른 설정을 위해 Koog는 일반적인 공급자에 대해 바로 사용할 수 있는 실행기 구현을 제공합니다.
+
+다음 표는 특정 LLM 클라이언트로 구성된 `SingleLLMPromptExecutor`를 반환하는 **사전에 정의된 단일 제공자 실행기** 목록입니다.
+
+| LLM 공급자 | 프롬프트 실행기 | 설명 |
+|----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| OpenAI         | [simpleOpenAIExecutor](api:prompt-executor-llms-all::ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor)                                  | OpenAI 모델로 프롬프트를 실행하는 `OpenAILLMClient`를 래핑합니다. |
+| OpenAI         | [simpleAzureOpenAIExecutor](api:prompt-executor-llms-all::ai.koog.prompt.executor.llms.all.simpleAzureOpenAIExecutor)                       | Azure OpenAI Service를 사용하도록 구성된 `OpenAILLMClient`를 래핑합니다. |
+| Anthropic      | [simpleAnthropicExecutor](api:prompt-executor-llms-all::ai.koog.prompt.executor.llms.all.simpleAnthropicExecutor)                              | Anthropic 모델로 프롬프트를 실행하는 `AnthropicLLMClient`를 래핑합니다. |
+| Google         | [simpleGoogleAIExecutor](api:prompt-executor-llms-all::ai.koog.prompt.executor.llms.all.simpleGoogleAIExecutor)                              | Google 모델로 프롬프트를 실행하는 `GoogleLLMClient`를 래핑합니다. |
+| OpenRouter     | [simpleOpenRouterExecutor](api:prompt-executor-llms-all::ai.koog.prompt.executor.llms.all.simpleOpenRouterExecutor)                           | OpenRouter로 프롬프트를 실행하는 `OpenRouterLLMClient`를 래핑합니다. |
+| Amazon Bedrock | [simpleBedrockExecutor](api:prompt-executor-llms-all::ai.koog.prompt.executor.llms.all.simpleBedrockExecutor)                                  | AWS Bedrock으로 프롬프트를 실행하는 `BedrockLLMClient`를 래핑합니다. |
+| Amazon Bedrock | [simpleBedrockExecutorWithBearerToken](api:prompt-executor-llms-all::ai.koog.prompt.executor.llms.all.simpleBedrockExecutorWithBearerToken) | `BedrockLLMClient`를 래핑하며 제공된 Bedrock API 키를 사용하여 요청을 보냅니다. |
+| Mistral        | [simpleMistralAIExecutor](api:prompt-executor-llms-all::ai.koog.prompt.executor.llms.all.simpleMistralAIExecutor)                            | Mistral 모델로 프롬프트를 실행하는 `MistralAILLMClient`를 래핑합니다. |
+| Ollama         | [simpleOllamaAIExecutor](api:prompt-executor-llms-all::ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor)                              | Ollama로 프롬프트를 실행하는 `OllamaClient`를 래핑합니다. |
+
+사전에 정의된 단일 및 다중 제공자 실행기를 생성하는 예제는 다음과 같습니다:
+
+<!--- INCLUDE
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
+import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
+import ai.koog.prompt.executor.clients.google.GoogleLLMClient
+import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+import kotlinx.coroutines.runBlocking
+-->
+```kotlin
+// OpenAI 실행기 생성
+val promptExecutor = simpleOpenAIExecutor("OPENAI_KEY")
+
+// OpenAI, Anthropic, Google LLM 클라이언트를 포함하는 MultiLLMPromptExecutor 생성
+val openAIClient = OpenAILLMClient("OPENAI_KEY")
+val anthropicClient = AnthropicLLMClient("ANTHROPIC_KEY")
+val googleClient = GoogleLLMClient("GOOGLE_KEY")
+val multiExecutor = MultiLLMPromptExecutor(openAIClient, anthropicClient, googleClient)
+```
+<!--- KNIT example-prompt-executors-03.kt -->
+
+## 프롬프트 실행하기
+
+프롬프트 실행기를 사용하여 프롬프트를 실행하려면 다음 단계를 수행하세요:
+
+1. 프롬프트 실행기를 생성합니다.
+2. `execute()` 메서드를 사용하여 특정 LLM으로 프롬프트를 실행합니다.
+
+예제는 다음과 같습니다:
+
+<!--- INCLUDE
+import ai.koog.prompt.dsl.prompt
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import kotlinx.coroutines.runBlocking
+
+fun main() {
+    runBlocking {
+-->
+<!--- SUFFIX
+    }
+}
+-->
+```kotlin
+// OpenAI 실행기 생성
+val promptExecutor = simpleOpenAIExecutor("OPENAI_KEY")
+
+// 프롬프트 실행
+val response = promptExecutor.execute(
+    prompt = prompt("demo") { user("Summarize this.") },
+    model = OpenAIModels.Chat.GPT4o
+)
+```
+<!--- KNIT example-prompt-executors-04.kt -->
+
+이렇게 하면 `GPT4o` 모델로 프롬프트가 실행되고 응답이 반환됩니다.
+
+!!! note
+    프롬프트 실행기는 스트리밍, 다중 선택 생성(multiple choice generation), 콘텐츠 중재(content moderation) 등 다양한 기능을 사용하여 프롬프트를 실행하는 메서드를 제공합니다. 프롬프트 실행기는 LLM 클라이언트를 래핑하므로, 각 실행기는 해당 클라이언트의 기능을 지원합니다. 자세한 내용은 [LLM 클라이언트](llm-clients.md)를 참조하세요.
+
+## 공급자 간 전환하기
+
+`MultiLLMPromptExecutor`를 사용하여 여러 LLM 공급자와 작업할 때, 공급자 간에 전환할 수 있습니다. 프로세스는 다음과 같습니다:
+
+1. 사용하려는 각 공급자에 대해 LLM 클라이언트 인스턴스를 생성합니다.
+2. LLM 공급자를 LLM 클라이언트에 매핑하는 `MultiLLMPromptExecutor`를 생성합니다.
+3. `execute()` 메서드의 인자로 전달된 클라이언트에 해당하는 모델로 프롬프트를 실행합니다. 프롬프트 실행기는 모델 공급자를 기반으로 해당 클라이언트를 사용하여 프롬프트를 실행합니다.
+
+공급자 간 전환 예제는 다음과 같습니다:
+
+<!--- INCLUDE
+import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
+import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
+import ai.koog.prompt.executor.clients.google.GoogleLLMClient
+import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
+import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
+import ai.koog.prompt.llm.LLMProvider
+import ai.koog.prompt.dsl.prompt
+import kotlinx.coroutines.runBlocking
+
+fun main() = runBlocking {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+// OpenAI, Anthropic, Google 공급자를 위한 LLM 클라이언트 생성
+val openAIClient = OpenAILLMClient("OPENAI_API_KEY")
+val anthropicClient = AnthropicLLMClient("ANTHROPIC_API_KEY")
+val googleClient = GoogleLLMClient("GOOGLE_API_KEY")
+
+// LLM 공급자를 LLM 클라이언트에 매핑하는 MultiLLMPromptExecutor 생성
+val executor = MultiLLMPromptExecutor(
+    LLMProvider.OpenAI to openAIClient,
+    LLMProvider.Anthropic to anthropicClient,
+    LLMProvider.Google to googleClient
+)
+
+// 프롬프트 생성
+val p = prompt("demo") { user("Summarize this.") }
+
+// OpenAI 모델로 프롬프트 실행; 프롬프트 실행기가 자동으로 OpenAI 클라이언트로 전환함
+val openAIResult = executor.execute(p, OpenAIModels.Chat.GPT4o)
+
+// Anthropic 모델로 프롬프트 실행; 프롬프트 실행기가 자동으로 Anthropic 클라이언트로 전환함
+val anthropicResult = executor.execute(p, AnthropicModels.Opus_4_6)
+```
+<!--- KNIT example-prompt-executors-05.kt -->
+
+요청된 클라이언트를 사용할 수 없을 때 사용할 폴백(fallback) LLM 공급자 및 모델을 선택적으로 구성할 수 있습니다. 자세한 내용은 [폴백 구성하기](#configuring-fallbacks)를 참조하세요.
+
+## 폴백 구성하기
+
+다중 제공자 프롬프트 실행기는 요청된 LLM 클라이언트를 사용할 수 없을 때 사용할 폴백 LLM 공급자 및 모델을 사용하도록 구성할 수 있습니다. 폴백 메커니즘을 구성하려면 `MultiLLMPromptExecutor` 생성자에 `fallback` 매개변수를 제공하세요:
+
+<!--- INCLUDE
+import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
+import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+import ai.koog.prompt.executor.ollama.client.OllamaClient
+import ai.koog.prompt.executor.ollama.client.OllamaModels
+import ai.koog.prompt.llm.LLMProvider
+-->
+```kotlin
+val openAIClient = OpenAILLMClient(System.getenv("OPENAI_KEY"))
+val ollamaClient = OllamaClient()
+
+val multiExecutor = MultiLLMPromptExecutor(
+    LLMProvider.OpenAI to openAIClient,
+    LLMProvider.Ollama to ollamaClient,
+    fallback = MultiLLMPromptExecutor.FallbackPromptExecutorSettings(
+        fallbackProvider = LLMProvider.Ollama,
+        fallbackModel = OllamaModels.Meta.LLAMA_3_2
+    )
+)
+```
+<!--- KNIT example-prompt-executors-06.kt -->
+
+만약 `MultiLLMPromptExecutor`에 포함되지 않은 LLM 공급자의 모델을 전달하면, 프롬프트 실행기는 폴백 모델을 사용합니다:
+
+<!--- INCLUDE
+import ai.koog.prompt.dsl.prompt
+import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
+import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+import ai.koog.prompt.executor.ollama.client.OllamaClient
+import ai.koog.prompt.executor.clients.google.GoogleModels
+import ai.koog.prompt.executor.ollama.client.OllamaModels
+import ai.koog.prompt.llm.LLMProvider
+import kotlinx.coroutines.runBlocking
+
+val openAIClient = OpenAILLMClient(System.getenv("OPENAI_KEY"))
+val ollamaClient = OllamaClient()
+
+val multiExecutor = MultiLLMPromptExecutor(
+    LLMProvider.OpenAI to openAIClient,
+    LLMProvider.Ollama to ollamaClient,
+    fallback = MultiLLMPromptExecutor.FallbackPromptExecutorSettings(
+        fallbackProvider = LLMProvider.Ollama,
+        fallbackModel = OllamaModels.Meta.LLAMA_3_2
+    )
+)
+
+fun main() = runBlocking {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+// 프롬프트 생성
+val p = prompt("demo") { user("Summarize this") }
+// Google 모델을 전달하면 Google 클라이언트가 포함되어 있지 않으므로 프롬프트 실행기는 폴백 모델을 사용합니다
+val response = multiExecutor.execute(p, GoogleModels.Gemini2_5Pro)
+```
+<!--- KNIT example-prompt-executors-07.kt -->
+
+!!! note
+    폴백은 `execute()` 및 `executeMultipleChoices()` 메서드에서만 사용할 수 있습니다.

@@ -287,7 +287,7 @@
         "items": [
           {
             "text": "kotlin.grammar",
-            "href": "https://kotlinlang.org/docs/reference/grammar.html"
+            "href": "https://kotlinlang.org/grammar/"
           },
           {
             "text": "kotlin.language-specification",
@@ -1092,16 +1092,12 @@
         "text": "kotlin.kotlin-compiler-plugins",
         "items": [
           {
+            "text": "kotlin.compiler-plugins-overview",
+            "link": "compiler-plugins-overview"
+          },
+          {
             "text": "kotlin.all-open-plugin",
             "link": "all-open-plugin"
-          },
-          {
-            "text": "kotlin.no-arg-plugin",
-            "link": "no-arg-plugin"
-          },
-          {
-            "text": "kotlin.sam-with-receiver-plugin",
-            "link": "sam-with-receiver-plugin"
           },
           {
             "text": "kotlin.kapt",
@@ -1112,8 +1108,20 @@
             "link": "lombok"
           },
           {
+            "text": "kotlin.no-arg-plugin",
+            "link": "no-arg-plugin"
+          },
+          {
             "text": "kotlin.power-assert",
             "link": "power-assert"
+          },
+          {
+            "text": "kotlin.sam-with-receiver-plugin",
+            "link": "sam-with-receiver-plugin"
+          },
+          {
+            "text": "kotlin.custom-compiler-plugins",
+            "link": "custom-compiler-plugins"
           }
         ],
         "collapsed": true
@@ -1514,6 +1522,10 @@
           {
             "text": "kotlin.gsoc-overview",
             "link": "gsoc-overview"
+          },
+          {
+            "text": "kotlin.gsoc-2026",
+            "link": "gsoc-2026"
           },
           {
             "text": "kotlin.gsoc-2025",

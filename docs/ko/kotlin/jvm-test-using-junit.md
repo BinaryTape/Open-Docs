@@ -1,0 +1,318 @@
+[//]: # (title: Kotlin과 JUnit을 사용하여 Java 코드 테스트하기 – 튜토리얼)
+
+Kotlin은 Java와 완전히 상호 운용 가능하므로, Kotlin을 사용하여 Java 코드에 대한 테스트를 작성하고 동일한 프로젝트 내의 기존 Java 테스트와 함께 실행할 수 있습니다.
+
+이 튜토리얼에서는 다음 내용을 배웁니다:
+
+* [JUnit](https://junit.org/)을 사용하여 테스트를 실행하도록 Java-Kotlin 혼합 프로젝트를 구성하는 방법.
+* Java 코드를 검증하는 Kotlin 테스트를 추가하는 방법.
+* Maven 또는 Gradle을 사용하여 테스트를 실행하는 방법.
+
+> 시작하기 전에 다음 사항을 확인하세요:
+>
+> * Kotlin 플러그인이 포함된 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)(Community 또는 Ultimate 에디션) 또는 [Kotlin 확장](https://github.com/Kotlin/kotlin-lsp/tree/main?tab=readme-ov-file#vs-code-quick-start)이 설치된 [VS Code](https://code.visualstudio.com/Download).
+> * Java 17 이상
+>
+{style="note"}
+
+## 프로젝트 구성하기
+
+1. IDE에서 버전 관리 시스템을 통해 예제 프로젝트를 클론합니다:
+
+   ```text
+   https://github.com/kotlin-hands-on/kotlin-junit-sample.git
+   ```
+
+2. `initial` 모듈로 이동하여 프로젝트 구조를 확인합니다:
+
+    ```text
+    kotlin-junit-sample/
+    ├── initial/
+    │   ├── src/
+    │   │   ├── main/java/    # Java 소스 코드
+    │   │   └── test/java/    # Java로 작성된 JUnit 테스트
+    │   ├── pom.xml           # Maven 설정
+    │   └── build.gradle.kts  # Gradle 설정
+    ```
+
+   `initial` 모듈에는 단일 테스트가 포함된 간단한 Java용 Todo 애플리케이션이 들어 있습니다.
+
+3. 같은 디렉토리에서 빌드 파일을 열고 Kotlin을 지원하도록 내용을 업데이트합니다:
+
+    <tabs group="build-system">
+    <tab title="Maven" group-key="maven">
+
+    ```xml
+    ```
+   {src="jvm-test-tutorial/pom.xml" initial-collapse-state="collapsed" collapsible="true" ignore-vars="false" collapsed-title="pom.xml 파일"}
+
+    * `<properties>` 섹션에서 Kotlin 버전을 설정합니다.
+    * `<dependencies>` 섹션에 JUnit Jupiter 의존성과 Kotlin 테스트를 컴파일 및 실행하기 위한 `kotlin-stdlib` (test 스코프)를 추가합니다.
+    * `<build><plugins>` 섹션에 `extensions`가 활성화된 `kotlin-maven-plugin`을 적용하고, Kotlin과 Java 모두를 위한 `sourceDirs`를 포함하여 `compile` 및 `test-compile` 실행을 구성합니다.
+    * Kotlin Maven 플러그인을 확장(extensions)과 함께 사용할 때는 `<build><pluginManagement>` 섹션에 `maven-compiler-plugin`을 추가할 필요가 없습니다.
+
+    </tab>
+    <tab title="Gradle" group-key="gradle">
+
+    ```kotlin
+   // build.gradle.kts
+    group = "org.jetbrains.kotlin"
+    version = "1.0-SNAPSHOT"
+    description = "kotlin-junit-complete"
+    java.sourceCompatibility = JavaVersion.VERSION_17
+    
+    plugins {
+        application
+        kotlin("jvm") version "%kotlinVersion%"
+    }
+
+    kotlin {
+        jvmToolchain(17)
+    }
+
+    application {
+        mainClass.set("org.jetbrains.kotlin.junit.App")
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation("com.gitlab.klamonte:jexer:1.6.0")
+
+        testImplementation(kotlin("test"))
+        testImplementation(libs.org.junit.jupiter.junit.jupiter.api)
+        testImplementation(libs.org.junit.jupiter.junit.jupiter.params)
+        testRuntimeOnly(libs.org.junit.jupiter.junit.jupiter.engine)
+        testRuntimeOnly(libs.org.junit.platform.junit.platform.launcher)
+    }
+
+    tasks.test {
+        useJUnitPlatform()
+    }
+    ```
+   {initial-collapse-state="collapsed" collapsible="true" collapsed-title="build.gradle.kts"}
+
+    * `plugins {}` 블록에 `kotlin("jvm")` 플러그인을 추가합니다.
+    * JVM 툴체인 버전을 사용 중인 Java 버전과 일치하도록 설정합니다.
+    * `dependencies {}` 블록에 Kotlin의 테스트 유틸리티를 제공하고 JUnit과 통합되는 `kotlin.test` 라이브러리를 추가합니다.
+      
+    Kotlin/JVM은 최신 안정 버전인 JUnit 6을 지원합니다. `gradle/libs.versions.toml` 버전 카탈로그에서 확인할 수 있습니다.
+   
+    일반적으로 버전 카탈로그 사용을 선호한다면, 다음과 같이 `kotlin("jvm")` 플러그인을 추가할 수도 있습니다:
+
+    ```toml
+    # gradle/libs.versions.toml
+    [versions]
+    kotlin = "%kotlinVersion%"
+    junit = "6.0.2"
+
+    [libraries]
+    org-junit-jupiter-junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
+    org-junit-jupiter-junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit" }
+    org-junit-jupiter-junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
+    org-junit-platform-junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+      
+    [plugins]
+    kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+    ```
+    {initial-collapse-state="collapsed" collapsible="true" collapsed-title="libs.versions.toml"}
+
+    </tab>
+    </tabs>
+
+4. IDE에서 빌드 파일을 다시 로드(Reload)합니다.
+
+빌드 파일 설정에 대한 자세한 내용은 [프로젝트 구성](mixing-java-kotlin-intellij.md#project-configuration)을 참고하세요.
+
+## 첫 번째 Kotlin 테스트 추가하기
+
+`initial/src/test/java`에 있는 `TodoItemTest.java` 테스트는 이미 항목 생성, 기본값, 고유 ID 및 상태 변경과 같은 앱의 기본 사항을 검증하고 있습니다.
+
+리포지토리 레벨의 동작을 검증하는 Kotlin 테스트를 추가하여 테스트 커버리지를 확장할 수 있습니다:
+
+1. 동일한 테스트 소스 디렉토리인 `initial/src/test/java`로 이동합니다.
+2. Java 테스트와 동일한 패키지에 `TodoRepositoryTest.kt` 파일을 생성합니다.
+3. 필드 선언과 설정(setup) 함수가 포함된 테스트 클래스를 생성합니다:
+
+   ```kotlin
+   package org.jetbrains.kotlin.junit
+
+   import org.junit.jupiter.api.BeforeEach
+   import org.junit.jupiter.api.Assertions
+   import org.junit.jupiter.api.Test
+   import org.junit.jupiter.api.DisplayName
+
+   internal class TodoRepositoryTest {
+       lateinit var repository: TodoRepository
+       lateinit var testItem1: TodoItem
+       lateinit var testItem2: TodoItem
+
+       @BeforeEach
+       fun setUp() {
+           repository = TodoRepository()
+           testItem1 = TodoItem("Task 1", "Description 1")
+           testItem2 = TodoItem("Task 2", "Description 2")
+       }
+   }
+   ```
+
+    * JUnit 5 어노테이션은 Java에서와 마찬가지로 Kotlin에서도 동일하게 작동합니다.
+    * Kotlin에서 [`lateinit` 키워드](properties.md#late-initialized-properties-and-variables)를 사용하면 나중에 초기화되는 null이 아닌 프로퍼티를 선언할 수 있습니다. 이는 테스트에서 nullable 타입(`TodoRepository?`)을 사용해야 하는 상황을 방지하는 데 도움이 됩니다.
+
+4. `TodoRepositoryTest` 클래스 내에 초기 리포지토리 상태와 크기를 확인하는 테스트를 추가합니다:
+
+   ```kotlin
+   @Test
+   @DisplayName("Should start with empty repository")
+   fun shouldStartEmpty() {
+       Assertions.assertEquals(0, repository.size())
+       Assertions.assertTrue(repository.all.isEmpty())
+   }
+   ```
+
+    * Java의 정적 임포트(static import)와 달리, Jupiter의 `Assertions`는 클래스로 임포트되며 단언(assertion) 함수의 수식어(qualifier)로 사용됩니다.
+    * Kotlin에서는 `repository.all`과 같이 Java 게터(getter)를 프로퍼티로 접근할 수 있으므로 `.getAll()` 호출 대신 사용할 수 있습니다.
+
+5. 모든 항목에 대한 방어적 복사(defensive copy) 동작을 검증하는 또 다른 테스트를 작성합니다:
+
+   ```kotlin
+   @Test
+   @DisplayName("Should return defensive copy of items")
+   fun shouldReturnDefensiveCopy() {
+       repository.add(testItem1)
+
+       val items1 = repository.all
+       val items2 = repository.all
+
+       Assertions.assertNotSame(items1, items2)
+       Assertions.assertThrows(
+           UnsupportedOperationException::class.java
+       ) { items1.clear() }
+       Assertions.assertEquals(1, repository.size())
+   }
+   ```
+
+    * Kotlin 클래스에서 Java 클래스 객체를 얻으려면 `::class.java`를 사용합니다.
+    * 복잡한 단언문은 별도의 특수 줄 바꿈 문자 없이 여러 줄로 나눌 수 있습니다.
+
+6. ID로 항목을 찾는 기능을 검증하는 테스트를 추가합니다:
+
+   ```kotlin
+   @Test
+   @DisplayName("Should find item by ID")
+   fun shouldFindItemById() {
+       repository.add(testItem1)
+       repository.add(testItem2)
+
+        val found = repository.getById(testItem1.id())
+
+        Assertions.assertTrue(found.isPresent)
+        Assertions.assertEquals(testItem1, found.get())
+   }
+   ```
+
+   Kotlin은 Java의 [`Optional` API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html)와 매끄럽게 연동됩니다. 게터 메서드를 프로퍼티로 자동 변환하므로, 여기서는 `isPresent()` 메서드를 프로퍼티로 접근합니다.
+
+7. 항목 삭제 메커니즘을 검증하는 테스트를 작성합니다:
+
+   ```kotlin
+    @Test
+    @DisplayName("Should remove item by ID")
+    fun shouldRemoveItemById() {
+        repository.add(testItem1)
+        repository.add(testItem2)
+
+        val removed = repository.remove(testItem1.id())
+
+        Assertions.assertTrue(removed)
+        Assertions.assertEquals(1, repository.size())
+        Assertions.assertTrue(repository.getById(testItem1.id()).isEmpty)
+        Assertions.assertTrue(repository.getById(testItem2.id()).isPresent)
+    }
+   
+    @Test
+    @DisplayName("Should return false when removing non-existent item")
+    fun shouldReturnFalseForNonExistentRemoval() {
+        repository.add(testItem1)
+
+        val removed = repository.remove("non-existent-id")
+
+        Assertions.assertFalse(removed)
+        Assertions.assertEquals(1, repository.size())
+    }
+   ```
+
+   Kotlin에서는 `repository.getById(id).isEmpty`와 같이 메서드 호출과 프로퍼티 접근을 체이닝할 수 있습니다.
+
+> 추가적인 기능을 다루기 위해 `TodoRepositoryTest` 테스트 클래스에 더 많은 테스트를 추가할 수 있습니다. 전체 소스 코드는 예제 프로젝트의 [`complete`](https://github.com/kotlin-hands-on/kotlin-junit-sample/blob/main/complete/src/test/java/org/jetbrains/kotlin/junit/TodoRepositoryTest.kt) 모듈을 확인하세요.
+>
+{style="tip"}
+
+## 테스트 실행하기
+
+프로젝트가 예상대로 작동하는지 확인하기 위해 Java와 Kotlin 테스트를 모두 실행합니다:
+
+1. 거터(gutter) 아이콘을 사용하여 테스트를 실행합니다:
+
+   ![테스트 실행](run-test.png)
+
+   명령줄을 사용하여 `initial` 디렉토리에서 모든 프로젝트 테스트를 실행할 수도 있습니다:
+
+    <tabs group="build-system">
+    <tab title="Maven" group-key="maven">
+
+    ```bash
+    mvn test
+    ```
+
+    </tab>
+    <tab title="Gradle" group-key="gradle">
+
+    ```bash
+    ./gradlew test
+    ```
+
+    </tab>
+    </tabs>
+
+2. 변수 값 중 하나를 변경하여 테스트가 올바르게 작동하는지 확인합니다.
+   예를 들어, `shouldAddItem` 테스트를 수정하여 잘못된 리포지토리 크기를 기대하도록 만듭니다:
+
+   ```kotlin
+   @Test
+   @DisplayName("Should add item to repository")
+   fun shouldAddItem() {
+       repository.add(testItem1)
+
+       Assertions.assertEquals(2, repository.size())  // 1에서 2로 변경
+       Assertions.assertTrue(repository.all.contains(testItem1))
+   }
+   ```
+
+3. 테스트를 다시 실행하고 실패하는지 확인합니다:
+
+   ![테스트 결과 확인. 테스트가 실패함](test-failed.png)
+
+> 테스트가 포함된 전체 구성 프로젝트는 예제 프로젝트의 [`complete`](https://github.com/kotlin-hands-on/kotlin-junit-sample/tree/main/complete) 모듈에서 찾을 수 있습니다.
+>
+{style="tip"}
+
+## 다른 테스트 라이브러리 살펴보기
+
+JUnit 외에도 Kotlin과 Java를 모두 지원하는 다른 라이브러리를 사용할 수 있습니다:
+
+| 라이브러리 | 설명 |
+|-------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| [AssertJ](https://github.com/assertj/assertj)               | 연쇄적인 단언이 가능한 유연한(Fluent) 단언 라이브러리입니다. |
+| [Mockito-Kotlin](https://github.com/mockito/mockito-kotlin) | 도우미 함수와 Kotlin 타입 시스템과의 더 나은 통합을 제공하는 Mockito용 Kotlin 래퍼입니다. |
+| [MockK](https://github.com/mockk/mockk)                     | 코루틴 및 확장 함수를 포함한 Kotlin 전용 기능을 지원하는 기본(Native) Kotlin 모킹 라이브러리입니다. |
+| [Kotest](https://github.com/kotest/kotest)                  | 여러 단언 스타일과 광범위한 매처(matcher) 지원을 제공하는 Kotlin용 단언 라이브러리입니다. |
+| [Strikt](https://github.com/robfletcher/strikt)             | 타입 안전한 단언과 데이터 클래스 지원을 제공하는 Kotlin용 단언 라이브러리입니다. |
+
+## 다음 단계
+
+* [Kotlin의 Power-assert 컴파일러 플러그인](power-assert.md)으로 테스트 출력을 개선해 보세요.
+* [Kotlin과 Spring Boot로 첫 서버 사이드 애플리케이션](jvm-get-started-spring-boot.md)을 만들어 보세요.
+* [`kotlin.test` 라이브러리](https://kotlinlang.org/api/latest/kotlin.test/kotlin.test/)의 기능을 살펴보세요.

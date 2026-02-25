@@ -1,0 +1,564 @@
+# ストリーミングAPI
+
+## はじめに
+
+Koogの**ストリーミングAPI**を使用すると、**LLMの出力を逐次的に（インクリメンタルに）** `Flow<StreamFrame>` として取得できます。レスポンス全体が完了するのを待つ代わりに、コードで以下のことが可能になります：
+
+- アシスタントのテキストが到着するたびにレンダリングする
+- **ツール呼び出し（tool calls）**をライブで検出し、それに基づいて動作する
+- ストリームが**いつ、なぜ終了したか**を把握する
+
+ストリームは、以下の2つのカテゴリに分類される**型付きフレーム**を運びます：
+
+**デルタフレーム（Delta frames）**（増加分/部分的なコンテンツ）：
+- `StreamFrame.TextDelta(text: String, index: Int?)` — 逐次的なアシスタントテキスト
+- `StreamFrame.ReasoningDelta(text: String?, summary: String?, index: Int?)` — 逐次的な推論テキストおよび要約
+- `StreamFrame.ToolCallDelta(id: String?, name: String?, content: String?, index: Int?)` — 部分的なツールの呼び出し
+
+**コンプリートフレーム（Complete frames）**（完全なコンテンツ）：
+- `StreamFrame.TextComplete(text: String)` — 完全なアシスタントテキスト
+- `StreamFrame.ReasoningComplete(text: List<String>, summary: List<String>?)` — オプションの要約を含む完全な推論
+- `StreamFrame.ToolCallComplete(id: String?, name: String, content: String)` — 完全なツール呼び出し
+
+**終了マーカー（End marker）**：
+- `StreamFrame.End(finishReason: String?)` — ストリーム終了マーカー
+
+プレーンテキストの抽出、フレームの `Message.Response` オブジェクトへの変換、および**分割されたツール呼び出しを安全に結合する**ためのヘルパーが提供されています。
+
+---
+
+## ストリーミングAPIの概要
+
+ストリーミングを使用すると、以下のことが可能になります：
+
+- データが到着するたびに処理する（UIの応答性が向上します）
+- 構造化された情報をオンザフライで解析する（Markdown/JSONなど）
+- オブジェクトが完成した時点で出力する
+- リアルタイムでツールを起動する
+- モデルの推論にリアルタイムでアクセスする（サポートされているモデルの場合）
+
+**フレーム**自体を操作することも、フレームから派生した**プレーンテキスト**を操作することもできます。
+
+### デルタフレーム vs コンプリートフレーム
+
+ストリーミングAPIでは、2種類のフレームを区別します：
+
+- **デルタフレーム** (`DeltaFrame`) — チャンクとして到着する、インクリメンタル（逐次的）または部分的なコンテンツです。コンテンツがストリーミングされる際にリアルタイムで表示するのに適しています。例：`TextDelta`、`ReasoningDelta`、`ToolCallDelta`。
+
+- **コンプリートフレーム** (`CompleteFrame`) — そのコンテンツタイプのすべてのデルタが受信された後に出力される完全なコンテンツです。最終的な処理や `Message.Response` オブジェクトへの変換に役立ちます。例：`TextComplete`、`ReasoningComplete`、`ToolCallComplete`。
+
+通常、UIの更新にはデルタフレームを使用し、最終的な構造化データの抽出にはコンプリートフレームを使用します。
+
+---
+## 使い方
+
+### フレームを直接操作する
+
+これは最も一般的なアプローチであり、各フレームの種類に反応します。
+
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.prompt.streaming.StreamFrame
+
+val strategy = strategy<String, String>("strategy_name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
+```kotlin
+llm.writeSession {
+    appendPrompt { user("Tell me a joke, then call a tool with JSON args.") }
+
+    val stream = requestLLMStreaming() // Flow<StreamFrame>
+
+    stream.collect { frame ->
+        when (frame) {
+            is StreamFrame.TextDelta -> print(frame.text)
+            is StreamFrame.ReasoningDelta -> print("[Reasoning] text=${frame.text} summary=${frame.summary}")
+            is StreamFrame.ToolCallComplete -> {
+                println("
+🔧 Tool call: ${frame.name} args=${frame.content}")
+                // オプションで遅延パースが可能：
+                // val json = frame.contentJson
+            }
+            is StreamFrame.End -> println("
+[END] reason=${frame.finishReason}")
+            else -> {} // 他のフレームタイプ（TextComplete, ToolCallDeltaなど）を処理
+        }
+    }
+}
+```
+<!--- KNIT example-streaming-api-01.kt -->
+
+生の文字列ストリームを直接操作して出力を解析することも可能であることに注意してください。
+このアプローチにより、解析プロセスをより柔軟に制御できます。
+
+以下は、出力構造のMarkdown定義を使用した生の文字列ストリームの例です：
+
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.prompt.structure.markdown.MarkdownStructureDefinition
+
+val strategy = strategy<String, String>("strategy_name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
+```kotlin
+fun markdownBookDefinition(): MarkdownStructureDefinition {
+    return MarkdownStructureDefinition("name", schema = { /*...*/ })
+}
+
+val mdDefinition = markdownBookDefinition()
+
+llm.writeSession {
+    val stream = requestLLMStreaming(mdDefinition)
+    // 生の文字列チャンクに直接アクセスする
+    stream.collect { chunk ->
+        // テキストの各チャンクが到着するたびに処理する
+        println("Received chunk: $chunk") // チャンクを結合したものは、mdDefinitionスキーマに従ったテキスト構造になります
+    }
+}
+```
+<!--- KNIT example-streaming-api-02.kt -->
+
+### 推論フレームの操作
+
+推論をサポートするモデル（Claude Sonnet 4.5やGPT-o1など）は、ストリーミング中に推論フレームを出力します。推論プロセスとその要約の両方にアクセスできます：
+
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.prompt.streaming.StreamFrame
+
+val strategy = strategy<String, String>("strategy_name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
+```kotlin
+llm.writeSession {
+    appendPrompt { user("Solve this complex problem: ...") }
+
+    val stream = requestLLMStreaming()
+    val reasoningSteps = mutableListOf<String>()
+    val summarySteps = mutableListOf<String>()
+
+    stream.collect { frame ->
+        when (frame) {
+            is StreamFrame.ReasoningDelta -> {
+                frame.text?.let { 
+                    reasoningSteps.add(it)
+                    print(frame.text) // 到着した推論を表示
+                }
+                frame.summary?.let {
+                    summarySteps.add(it)
+                    print(frame.summary) // 到着した推論の要約を表示
+                }
+            }
+            is StreamFrame.ReasoningComplete -> {
+                // 完全な推論にアクセス
+                println("
+Complete reasoning: ${frame.text.joinToString("")}")
+                println("Summary: ${frame.summary?.joinToString("") ?: "N/A"}")
+            }
+            is StreamFrame.TextDelta -> print(frame.text)
+            is StreamFrame.End -> println("
+[END]")
+            else -> {}
+        }
+    }
+}
+```
+<!--- KNIT example-streaming-api-reasoning-01.kt -->
+
+### 生のテキストストリーム（派生）の操作
+
+`Flow<String>` を期待する既存のストリーミングパーサーがある場合は、`filterTextOnly()` を介してテキストチャンクを派生させるか、`collectText()` でそれらを収集します。
+
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.prompt.streaming.filterTextOnly
+import ai.koog.prompt.streaming.collectText
+
+val strategy = strategy<String, String>("strategy_name") {
+    val node by node<Unit, Unit> {
+-->
+<!--- SUFFIX
+   }
+}
+-->
+```kotlin
+llm.writeSession {
+    val frames = requestLLMStreaming()
+
+    // テキストチャンクが来るたびにストリーム出力：
+    frames.filterTextOnly().collect { chunk -> print(chunk) }
+
+    // または、Endの後にすべてのテキストを1つのStringにまとめる：
+    val fullText = frames.collectText()
+    println("
+---
+$fullText")
+}
+```
+<!--- KNIT example-streaming-api-02-01.kt -->
+
+### イベントハンドラーでのストリームイベントのリスニング
+
+[エージェントイベントハンドラー](agent-event-handlers.md)でストリームイベントをリスニングできます。
+
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.agent.GraphAIAgent
+import ai.koog.agents.features.eventHandler.feature.handleEvents
+import ai.koog.prompt.streaming.StreamFrame
+import ai.koog.prompt.structure.markdown.MarkdownStructureDefinition
+
+fun GraphAIAgent.FeatureContext.installStreamingApi() {
+-->
+<!--- SUFFIX
+}
+-->
+```kotlin
+handleEvents {
+    onToolCallStarting { context ->
+        println("
+🔧 Using ${context.toolName} with ${context.toolArgs}... ")
+    }
+    onLLMStreamingFrameReceived { context ->
+        when (val frame = context.streamFrame) {
+            is StreamFrame.TextDelta -> print(frame.text)
+            is StreamFrame.ReasoningDelta -> print("[Reasoning] text=${frame.text} summary=${frame.summary}")
+            else -> {} // 必要に応じて他のフレームタイプを処理
+        }
+    }
+    onLLMStreamingFailed { context ->
+        println("❌ Error: ${context.error}")
+    }
+    onLLMStreamingCompleted {
+        println("🏁 Done")
+    }
+}
+```
+<!--- KNIT example-streaming-api-02-02.kt -->
+
+### フレームから `Message.Response` への変換
+
+収集されたフレームのリストを標準のメッセージオブジェクトに変換できます：
+- `toAssistantMessageOrNull()` — テキストフレームから `Message.Assistant` を抽出します
+- `toReasoningMessageOrNull()` — 推論フレームから `Message.Reasoning` を抽出します
+- `toToolCallMessages()` — ツール呼び出しフレームから `Message.Tool.Call` を抽出します
+- `toMessageResponses()` — すべてのコンプリートフレームを対応する `Message.Response` オブジェクトに変換します
+
+---
+
+## 例
+
+### ストリーミング中の構造化データ（Markdownの例）
+
+生の文字列ストリームを操作することも可能ですが、通常は[構造化データ](structured-output.md)を操作する方が便利です。
+
+構造化データのアプローチには、以下の主要なコンポーネントが含まれます：
+
+1. **MarkdownStructureDefinition**: Markdown形式の構造化データのスキーマと例を定義するためのクラス。
+2. **markdownStreamingParser**: Markdownチャンクのストリームを処理してイベントを発生させるパーサーを作成するための関数。
+
+以下のセクションでは、構造化データのストリーム処理に関連するステップバイステップの手順とコードサンプルを提供します。
+
+#### 1. データ構造の定義
+
+まず、構造化データを表すデータクラスを定義します：
+
+<!--- INCLUDE
+import kotlinx.serialization.Serializable
+-->
+```kotlin
+@Serializable
+data class Book(
+    val title: String,
+    val author: String,
+    val description: String
+)
+```
+<!--- KNIT example-streaming-api-03.kt -->
+
+#### 2. Markdown構造の定義
+
+`MarkdownStructureDefinition` クラスを使用して、Markdown内でデータがどのように構造化されるかを指定する定義を作成します：
+
+<!--- INCLUDE
+import ai.koog.prompt.markdown.markdown
+import ai.koog.prompt.structure.markdown.MarkdownStructureDefinition
+-->
+```kotlin
+fun markdownBookDefinition(): MarkdownStructureDefinition {
+    return MarkdownStructureDefinition("bookList", schema = {
+        markdown {
+            header(1, "title")
+            bulleted {
+                item("author")
+                item("description")
+            }
+        }
+    }, examples = {
+        markdown {
+            header(1, "The Great Gatsby")
+            bulleted {
+                item("F. Scott Fitzgerald")
+                item("A novel set in the Jazz Age that tells the story of Jay Gatsby's unrequited love for Daisy Buchanan.")
+            }
+        }
+    })
+}
+```
+<!--- KNIT example-streaming-api-04.kt -->
+
+#### 3. データ構造用のパーサーの作成
+
+`markdownStreamingParser` は、さまざまなMarkdown要素に対していくつかのハンドラーを提供します：
+
+<!--- INCLUDE
+import ai.koog.agents.example.exampleStreamingApi03.Book
+import ai.koog.prompt.structure.markdown.markdownStreamingParser
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+
+fun parseMarkdownStreamToBooks(markdownStream: Flow<String>): Flow<Book> {
+    return flow {
+-->
+<!--- SUFFIX
+   }
+}
+-->
+```kotlin
+markdownStreamingParser {
+    // レベル1の見出しを処理（レベルの範囲は1から6）
+    onHeader(1) { headerText -> }
+    // 箇条書きを処理
+    onBullet { bulletText -> }
+    // コードブロックを処理
+    onCodeBlock { codeBlockContent -> }
+    // 正規表現パターンに一致する行を処理
+    onLineMatching(Regex("pattern")) { line -> }
+    // ストリームの終了を処理
+    onFinishStream { remainingText -> }
+}
+```
+<!--- KNIT example-streaming-api-05.kt -->
+
+定義されたハンドラーを使用して、`markdownStreamingParser` 関数でMarkdownストリームを解析し、データオブジェクトを出力する関数を実装できます。
+
+<!--- INCLUDE
+import ai.koog.agents.example.exampleStreamingApi03.Book
+import ai.koog.prompt.structure.markdown.markdownStreamingParser
+import ai.koog.prompt.streaming.StreamFrame
+import ai.koog.prompt.streaming.filterTextOnly
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+
+-->
+```kotlin
+fun parseMarkdownStreamToBooks(markdownStream: Flow<StreamFrame>): Flow<Book> {
+   return flow {
+      markdownStreamingParser {
+         var currentBookTitle = ""
+         val bulletPoints = mutableListOf<String>()
+
+         // レスポンスストリーム内でMarkdownの見出しを受信したイベントを処理
+         onHeader(1) { headerText ->
+            // 前の書籍がある場合は、それを送信
+            if (currentBookTitle.isNotEmpty() && bulletPoints.isNotEmpty()) {
+               val author = bulletPoints.getOrNull(0) ?: ""
+               val description = bulletPoints.getOrNull(1) ?: ""
+               emit(Book(currentBookTitle, author, description))
+            }
+
+            currentBookTitle = headerText
+            bulletPoints.clear()
+         }
+
+         // レスポンスストリーム内でMarkdownの箇条書きリストを受信したイベントを処理
+         onBullet { bulletText ->
+            bulletPoints.add(bulletText)
+         }
+
+         // レスポンスストリームの終了を処理
+         onFinishStream {
+            // 最後の書籍があれば送信
+            if (currentBookTitle.isNotEmpty() && bulletPoints.isNotEmpty()) {
+               val author = bulletPoints.getOrNull(0) ?: ""
+               val description = bulletPoints.getOrNull(1) ?: ""
+               emit(Book(currentBookTitle, author, description))
+            }
+         }
+      }.parseStream(markdownStream.filterTextOnly())
+   }
+}
+```
+<!--- KNIT example-streaming-api-06.kt -->
+
+#### 4. エージェント戦略でパーサーを使用する
+
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.example.exampleStreamingApi03.Book
+import ai.koog.agents.example.exampleStreamingApi04.markdownBookDefinition
+import ai.koog.agents.example.exampleStreamingApi06.parseMarkdownStreamToBooks
+-->
+```kotlin
+val agentStrategy = strategy<String, List<Book>>("library-assistant") {
+   // 出力ストリームの解析を含むノードを記述
+   val getMdOutput by node<String, List<Book>> { booksDescription ->
+      val books = mutableListOf<Book>()
+      val mdDefinition = markdownBookDefinition()
+
+      llm.writeSession {
+         appendPrompt { user(booksDescription) }
+         // 定義 `mdDefinition` の形式でレスポンスストリームを開始
+         val markdownStream = requestLLMStreaming(mdDefinition)
+         // レスポンスストリームの結果を使用してパーサーを呼び出し、結果に対してアクションを実行
+         parseMarkdownStreamToBooks(markdownStream).collect { book ->
+            books.add(book)
+            println("Parsed Book: ${book.title} by ${book.author}")
+         }
+      }
+
+      books
+   }
+   // ノードにアクセス可能であることを確認しつつ、エージェントのグラフを記述
+   edge(nodeStart forwardTo getMdOutput)
+   edge(getMdOutput forwardTo nodeFinish)
+}
+```
+<!--- KNIT example-streaming-api-07.kt -->
+
+### 高度な使用法：ツールを使用したストリーミング
+
+ストリーミングAPIをツールと組み合わせて使用し、データが到着するたびに処理することもできます。
+以下のセクションでは、ツールを定義し、それをストリーミングデータで使用する方法について、簡単なステップバイステップガイドを提供します。
+
+### 1. データ構造用のツールを定義する
+
+<!--- INCLUDE
+import ai.koog.agents.core.tools.SimpleTool
+import ai.koog.agents.core.tools.ToolDescriptor
+import ai.koog.agents.example.exampleStreamingApi03.Book
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
+
+-->
+```kotlin
+@Serializable
+data class Book(
+   val title: String,
+   val author: String,
+   val description: String
+)
+
+class BookTool(): SimpleTool<Book>(
+    argsSerializer = Book.serializer(),
+    name = NAME,
+    description = "A tool to parse book information from Markdown"
+) {
+
+    companion object { const val NAME = "book" }
+
+    override suspend fun execute(args: Book): String {
+        println("${args.title} by ${args.author}:
+ ${args.description}")
+        return "Done"
+    }
+}
+```
+<!--- KNIT example-streaming-api-08.kt -->
+
+### 2. ストリーミングデータでツールを使用する
+
+<!--- INCLUDE
+import ai.koog.agents.core.dsl.builder.forwardTo
+import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.example.exampleStreamingApi04.markdownBookDefinition
+import ai.koog.agents.example.exampleStreamingApi06.parseMarkdownStreamToBooks
+import ai.koog.agents.example.exampleStreamingApi08.BookTool
+import ai.koog.agents.core.agent.session.callToolRaw
+
+-->
+```kotlin
+val agentStrategy = strategy<String, Unit>("library-assistant") {
+   val getMdOutput by node<String, Unit> { input ->
+      val mdDefinition = markdownBookDefinition()
+
+      llm.writeSession {
+         appendPrompt { user(input) }
+         val markdownStream = requestLLMStreaming(mdDefinition)
+
+         parseMarkdownStreamToBooks(markdownStream).collect { book ->
+            callToolRaw(BookTool.NAME, book)
+            /* その他の可能なオプション：
+                callTool(BookTool::class, book)
+                callTool<BookTool>(book)
+                findTool(BookTool::class).execute(book)
+            */
+         }
+
+         // 並列ツール呼び出しも可能
+         parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(toolClass=BookTool::class).collect {
+            println("Tool call result: $it")
+         }
+      }
+   }
+
+   edge(nodeStart forwardTo getMdOutput)
+   edge(getMdOutput forwardTo nodeFinish)
+ }
+```
+<!--- KNIT example-streaming-api-09.kt -->
+
+### 3. エージェント設定にツールを登録する
+
+<!--- INCLUDE
+import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.tools.ToolRegistry
+import ai.koog.agents.example.exampleComplexWorkflowAgents01.token
+import ai.koog.agents.example.exampleComplexWorkflowAgents06.agentStrategy
+import ai.koog.agents.example.exampleComplexWorkflowAgents07.agentConfig
+import ai.koog.agents.example.exampleStreamingApi08.BookTool
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+
+-->
+```kotlin
+val toolRegistry = ToolRegistry {
+   tool(BookTool())
+}
+
+val runner = AIAgent(
+   promptExecutor = simpleOpenAIExecutor(token),
+   toolRegistry = toolRegistry,
+   strategy = agentStrategy,
+   agentConfig = agentConfig
+)
+```
+<!--- KNIT example-streaming-api-10.kt -->
+
+## ベストプラクティス
+
+1. **明確な構造を定義する**: データに対して、明確で曖昧さのないMarkdown構造を作成します。
+
+2. **適切な例を提供する**: LLMをガイドするために、`MarkdownStructureDefinition` に包括的な例を含めます。
+
+3. **不完全なデータを処理する**: ストリームからデータを解析する際は、常にnullや空の値をチェックしてください。
+
+4. **リソースをクリーンアップする**: `onFinishStream` ハンドラーを使用して、リソースをクリーンアップし、残りのデータを処理します。
+
+5. **エラーを処理する**: 不正な形式のMarkdownや予期しないデータに対して、適切なエラー処理を実装します。
+
+6. **テスト**: 部分的なチャンクや不正な形式の入力を含む、さまざまな入力シナリオでパーサーをテストします。
+
+7. **並列処理**: 独立したデータ項目の場合、パフォーマンスを向上させるために並列ツール呼び出しの使用を検討してください。

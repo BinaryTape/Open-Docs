@@ -51,16 +51,16 @@
         "text": "kmp.what-s-new",
         "items": [
           {
-            "text": "kmp.whats-new-compose-190",
-            "link": "whats-new-compose-190"
-          },
-          {
             "text": "kmp.whats-new-compose-110",
             "link": "whats-new-compose-110"
           },
           {
             "text": "kmp.earlier-versions",
             "items": [
+              {
+                "text": "kmp.whats-new-compose-190",
+                "link": "whats-new-compose-190"
+              },
               {
                 "text": "kmp.whats-new-compose-180",
                 "link": "whats-new-compose-180"
@@ -118,6 +118,10 @@
           }
         ],
         "collapsed": true
+      },
+      {
+        "text": "kmp.compose-previews",
+        "link": "compose-previews"
       },
       {
         "text": "kmp.multiplatform-resources",
@@ -236,7 +240,7 @@
         "link": "compose-android-only-components"
       },
       {
-        "text": "kmp.desktop-specific-components",
+        "text": "kmp.desktop-specific-features",
         "items": [
           {
             "text": "kmp.compose-desktop-components",
@@ -286,8 +290,22 @@
         "collapsed": true
       },
       {
-        "text": "kmp.compose-multiplatform-for-web",
-        "href": "/docs/wasm-get-started.html"
+        "text": "kmp.web-specific-features",
+        "items": [
+          {
+            "text": "kmp.compose-web-resources",
+            "link": "compose-web-resources"
+          },
+          {
+            "text": "kmp.compose-css-styles",
+            "link": "compose-css-styles"
+          },
+          {
+            "text": "kmp.webassembly-wasm",
+            "href": "/docs/wasm-get-started.html"
+          }
+        ],
+        "collapsed": true
       },
       {
         "text": "kmp.compose-compiler",
@@ -534,6 +552,10 @@
       {
         "text": "kmp.amper",
         "link": "amper"
+      },
+      {
+        "text": "kmp.kmp-ci-tutorial",
+        "link": "kmp-ci-tutorial"
       }
     ],
     "collapsed": true
@@ -552,6 +574,10 @@
       {
         "text": "kmp.multiplatform-plugin-releases",
         "link": "multiplatform-plugin-releases"
+      },
+      {
+        "text": "kmp.multiplatform-project-agp-9-migration",
+        "link": "multiplatform-project-agp-9-migration"
       }
     ],
     "collapsed": true
@@ -574,6 +600,10 @@
       {
         "text": "kmp.multiplatform-introduce-your-team",
         "link": "multiplatform-introduce-your-team"
+      },
+      {
+        "text": "kmp.ios-android-app-development",
+        "link": "ios-android-app-development"
       },
       {
         "text": "kmp.use-cases-examples",

@@ -40,6 +40,10 @@
         "text": "ktor.developing-applications",
         "items": [
           {
+            "text": "ktor.server-application-structure",
+            "link": "server-application-structure"
+          },
+          {
             "text": "ktor.creating-and-configuring-a-server",
             "items": [
               {
@@ -116,8 +120,8 @@
                 "link": "server-resources"
               },
               {
-                "text": "ktor.server-application-structure",
-                "link": "server-application-structure"
+                "text": "ktor.server-routing-organization",
+                "link": "server-routing-organization"
               },
               {
                 "text": "ktor.server-autoheadresponse",
@@ -144,6 +148,10 @@
               {
                 "text": "ktor.server-rate-limit",
                 "link": "server-rate-limit"
+              },
+              {
+                "text": "ktor.server-http-request-lifecycle",
+                "link": "server-http-request-lifecycle"
               },
               {
                 "text": "ktor.server-double-receive",
@@ -242,6 +250,10 @@
               {
                 "text": "ktor.server-bearer-auth",
                 "link": "server-bearer-auth"
+              },
+              {
+                "text": "ktor.server-api-key-auth",
+                "link": "server-api-key-auth"
               },
               {
                 "text": "ktor.server-form-based-auth",
@@ -747,6 +759,10 @@
       {
         "text": "ktor.releases",
         "link": "releases"
+      },
+      {
+        "text": "ktor.whats-new-340",
+        "link": "whats-new-340"
       },
       {
         "text": "ktor.whats-new-330",
