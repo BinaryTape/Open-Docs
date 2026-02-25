@@ -8,7 +8,7 @@
     "docs:dev": "vitepress dev docs",
     "docs:build": "node --max-old-space-size=8192 node_modules/vitepress/bin/vitepress.js build docs",
     "docs:preview": "vitepress preview docs",
-    "translate": "node --import tsx translate-tool/server.mjs"
+    "translate": "node --import tsx --watch translate-tool/server.mjs"
   },
   "pnpm": {
     "overrides": {

@@ -8,10 +8,22 @@ import {
 } from "./TopicProcessor.mjs";
 import path from "node:path";
 
+/**
+ * Full markdown processing pipeline (pure in-memory, no file I/O).
+ * Applies Writerside XML tag processing (processTopicContentAsync) followed by
+ * markdown-specific transformations (processMarkdownContent).
+ * @param {string} filePath - File path (used for snippet/title resolution)
+ * @param {string} content  - Raw markdown content
+ * @returns {Promise<string>} Processed markdown content
+ */
+export async function processFullMarkdownContent(filePath, content) {
+    let processedContent = await processTopicContentAsync(filePath, path.dirname(filePath), content);
+    return await processMarkdownContent(filePath, processedContent);
+}
+
 export async function processMarkdownFile(filePath) {
     const content = fs.readFileSync(filePath, "utf-8");
-    let processedContent = await processTopicContentAsync(filePath, path.dirname(filePath), content);
-    processedContent = await processMarkdownContent(filePath, processedContent);
+    const processedContent = await processFullMarkdownContent(filePath, content);
     fs.writeFileSync(filePath, processedContent, "utf-8");
 }
 

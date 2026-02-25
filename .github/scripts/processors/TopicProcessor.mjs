@@ -26,31 +26,52 @@ export async function replaceAsync(str, regex, asyncReplacer) {
     return str;
 }
 
+/**
+ * Extract and process <topic> content from raw file content (pure in-memory, no file I/O).
+ * @param {string} rawContent  - Raw file content (e.g. .topic XML)
+ * @param {boolean} isKtor     - Whether to apply Ktor-specific XML tag processing
+ * @param {string} filePath    - File path (used by processTopicContentAsync for anchor resolution)
+ * @param {string} docsPath    - Docs directory path (used for include/card/link resolution)
+ * @returns {Promise<string|null>} Processed topic content, or null if no <topic> tag found
+ */
+export async function extractTopicContent(rawContent, isKtor = false, filePath = '', docsPath = '') {
+    const match = rawContent.match(/<topic\s*([^>]*)>([\s\S]*?)<\/topic>/);
+    if (!match) return null;
+
+    let topicContent = match[0];
+
+    if (isKtor) {
+        topicContent = await processTopicContentAsync(filePath, docsPath, topicContent);
+    }
+
+    // Remove <include-in-head> tag and its content
+    topicContent = topicContent.replace(
+        /<include-in-head>[\s\S]*?<\/include-in-head>/gm,
+        ''
+    );
+
+    // Remove any empty lines from the extracted topic content
+    topicContent = topicContent
+        .split(/\r?\n/)
+        .filter(line => line.trim() !== '')
+        .join('\n');
+
+    if (topicContent.includes('<section-starting-page>')) {
+        topicContent = "---\naside: false\n---\n" + topicContent;
+    }
+
+    return topicContent;
+}
+
 export async function processTopicFileAsync(inputFile, outputPath, isKtor = false) {
     try {
         const data = await fs.promises.readFile(inputFile, 'utf8');
+        const topicContent = await extractTopicContent(data, isKtor, inputFile, outputPath);
 
-        const match = data.match(/<topic\s*([^>]*)>([\s\S]*?)<\/topic>/);
-        if (match) {
-            let topicContent = match[0];
-
+        if (topicContent !== null) {
             // Create output directory if it doesn't exist
             if (!fs.existsSync(outputPath)) {
                 fs.mkdirSync(outputPath, { recursive: true });
-            }
-
-            if (isKtor) {
-                topicContent = await processTopicContentAsync(inputFile, outputPath, topicContent);
-            }
-
-            // Remove any empty lines from the extracted topic content
-            topicContent = topicContent
-                .split(/\r?\n/)
-                .filter(line => line.trim() !== '')
-                .join('\n');
-
-            if (topicContent.includes('<section-starting-page>')) {
-                topicContent = "---\naside: false\n---\n" + topicContent;
             }
 
             const inputFileName = path.basename(inputFile).replace('.topic', '');

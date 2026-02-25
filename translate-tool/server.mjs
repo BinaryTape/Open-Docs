@@ -259,18 +259,24 @@ function buildTreeFromFiles(allFiles, docPaths) {
 
 // ─── Pre-processing（直接复用 .github/scripts/processors） ──────────────────
 //
-// processTopicContentAsync — Writerside XML 标签处理（<card>, <a>, <code-block src>, <include> 等）
-// processMarkdownContent  — KMP/Ktor markdown 特殊语法处理（代码片段引用, tabs 重命名, 空链接标题填充等）
+// extractTopicContent        — 提取 <topic> 内容 + Writerside XML 标签处理 + 清理空行 + frontmatter
+// processFullMarkdownContent — Writerside XML 标签处理 + Markdown 特殊语法处理（完整流水线）
 //
 // 需要本地文件系统的操作（include 解析、snippet 获取、标题查找）会自动 fallback（catch → 返回原文）
 //
 import {
-  processTopicContentAsync,
-  replaceAsync,
+  extractTopicContent,
 } from '../.github/scripts/processors/TopicProcessor.mjs';
 import {
-  processMarkdownContent,
+  processFullMarkdownContent,
 } from '../.github/scripts/processors/MarkdownProcessor.mjs';
+import {
+  cleanupTranslation,
+  getPromptTemplate,
+  getLocalePromptTemplate,
+  getLangDisplayName,
+  fillPromptTemplate,
+} from '../.github/scripts/translate.mjs';
 
 /**
  * 预处理内容。根据 preprocessMode 选择处理方式:
@@ -279,44 +285,39 @@ import {
  *   'both'     — 先 topic 处理再 markdown 处理
  *   'none'     — 不处理
  *
+ * 复用 TopicProcessor.extractTopicContent 和 MarkdownProcessor.processFullMarkdownContent，
+ * 与 CI 流水线行为一致。文件系统相关操作（include 解析、snippet 获取、标题查找）
+ * 找不到文件时会静默失败。
+ *
  * @param {string} content      原始文件内容
  * @param {string} fileName     文件名（用于判断 .topic / .md）
- * @param {string} projectName  项目名（用于 processTopicContentAsync 的 docRoot）
+ * @param {string} projectName  项目名（用于 docsPath / filePath 构造）
  * @param {string} preprocessMode  'topic' | 'markdown' | 'both' | 'none'
  */
 async function preprocessContent(content, fileName, projectName, preprocessMode) {
   if (!content || preprocessMode === 'none') return content;
 
-  const isTopic = fileName.endsWith('.topic');
   const doTopic = preprocessMode === 'topic' || preprocessMode === 'both';
   const doMarkdown = preprocessMode === 'markdown' || preprocessMode === 'both';
 
   // ── .topic 文件提取 ──
-  if (isTopic && doTopic) {
-    const m = content.match(/<topic\s*([^>]*)>([\s\S]*?)<\/topic>/);
-    if (m) {
-      let tc = m[0];
-      // 运行完整的 topic 内容处理（includes/snippets 找不到会自动跳过）
-      try {
-        const fakeDocsPath = `${projectName}-repo/docs`;
-        tc = await processTopicContentAsync(fileName, fakeDocsPath, tc);
-      } catch (e) {
-        console.warn('  ⚠️ Topic content processing partial failure (expected):', e.message);
-      }
-      tc = tc.split(/\r?\n/).filter(l => l.trim() !== '').join('\n');
-      if (tc.includes('<section-starting-page>')) tc = '---\naside: false\n---\n' + tc;
-      return tc;
+  if (doTopic) {
+    try {
+      const isKtor = projectName === 'ktor';
+      const fakeDocsPath = `${projectName}-repo/topics`;
+      const result = await extractTopicContent(content, isKtor, fileName, fakeDocsPath);
+      return result !== null ? result : content;
+    } catch (e) {
+      console.warn('  ⚠️ Topic processing partial failure (expected):', e.message);
+      return content;
     }
-    return content;
   }
 
   // ── Markdown 处理 ──
-  if (!isTopic && doMarkdown) {
+  if (doMarkdown) {
     try {
-      // processMarkdownContent 内部会调用 processTopicContentAsync + processMarkdownContent
-      // 文件系统相关操作（fetchSnippet, getChapterTitle 等）找不到文件时会静默失败
       const fakeFilePath = `${projectName}-repo/docs/${fileName}`;
-      content = await processMarkdownContent(fakeFilePath, content);
+      content = await processFullMarkdownContent(fakeFilePath, content);
     } catch (e) {
       console.warn('  ⚠️ Markdown processing partial failure (expected):', e.message);
     }
@@ -369,205 +370,15 @@ const uploadedFiles = [];
 const customPrompts = {};
 
 // ─── Prompt Templates ───────────────────────────────────────────────────────
+// cleanupTranslation, getPromptTemplate, getLocalePromptTemplate,
+// getLangDisplayName, fillPromptTemplate are imported from translate.mjs
+
 function getDefaultPrompt(targetLang) {
-  const langName = LANGUAGE_NAMES[targetLang] || targetLang;
   if (customPrompts[targetLang]) return customPrompts[targetLang];
-  if (targetLang === 'ja' || targetLang === 'ko') return getEnglishPrompt(langName);
-  if (targetLang === 'zh-Hant') return getTraditionalChinesePrompt(langName);
-  return getSimplifiedChinesePrompt(langName);
-}
-
-function getEnglishPrompt(lang) {
-  return `# Role and Task
-
-You are a professional AI translation assistant specializing in translating **Kotlin-related** English technical documentation into ${lang} with precision. Your goal is to produce high-quality, technically accurate translations that conform to the reading habits of the target language, primarily for a **developer audience**. Please strictly follow these guidelines and requirements:
-
-## I. Translation Style and Quality Requirements
-
-1.  **Faithful to the Original and Fluent Expression:**
-    * Translations should be natural and fluent while ensuring technical accuracy, conforming to the language habits of ${lang} and the expression style of the internet technology community.
-    * Properly handle the original sentence structure and word order, avoiding literal translations that may create reading obstacles.
-    * Maintain the tone of the original text (e.g., formal, informal, educational).
-
-2.  **Terminology Handling:**
-    * **Prioritize the Terminology List:** Strictly translate according to the terminology list provided below. The terminology list has the highest priority.
-    * **Reference Translation Consistency:** For terms not included in the terminology list, please refer to the reference translations to maintain consistency in style and existing terminology usage.
-    * **New/Ambiguous Terminology Handling:**
-        * For proper nouns or technical terms not included in the terminology list and without precedent in reference translations, if you choose to translate them, it is recommended to include the original English in parentheses after the translation at first occurrence, e.g., "Translation (English Term)".
-        * If you are uncertain about a term's translation, or believe keeping the English is clearer, please **keep the original English text**.
-    * **Placeholders/Variable Names:** Placeholders (such as \`YOUR_API_KEY\`) or special variable names in the document that are not in code blocks should usually be kept in English, or translated with comments based on context.
-
-## II. Technical Format Requirements
-
-1.  **Markdown Format:** Completely preserve all Markdown syntax and formatting in the original text, including but not limited to: headers, lists, bold, italics, strikethrough, blockquotes, horizontal rules, admonitions (:::), etc.
-2.  **Code Handling:** Content in code blocks and inline code **must not be translated**, must be kept in the original English, determine whether to translate comments based on context.
-3.  **Links and Images:** All links (URLs) and image reference paths in the original text must remain unchanged.
-4.  **HTML Tags:** If HTML tags are embedded in the original Markdown, these tags and their attributes should also remain unchanged.
-
-## III. YAML Frontmatter and Special Comments Handling Requirements
-
-1.  **Format Preservation:** The format of the YAML Frontmatter section at the beginning of the document must be strictly preserved.
-2.  **Field Translation:** Only translate the content values of fields like 'title', 'description', etc.
-3.  **Special Comments Handling:** Translate the title content in special comments like \`[//]: # (title: Content to translate)\`.
-
-## IV. Output Requirements
-
-1.  **Clean Output:** Output only the translated Markdown content. Do not include any additional explanations, statements, apologies, or self-comments.
-2.  **Consistent Structure:** Maintain the same document structure and paragraphing as the original text.
-
----
-
-## V. Resources
-
-### 1. Terminology List (Glossary)
-{RELEVANT_TERMS}
-
-### 2. Reference Translations
-{TRANSLATION_REFERENCES}
-
----
-
-## VI. Content to Translate
-Please translate the following Markdown content from English to ${lang}:
-
-\`\`\`markdown
-{SOURCE_TEXT}
-\`\`\``;
-}
-
-function getTraditionalChinesePrompt(lang) {
-  return `# 角色與任務
-
-你是一位專業的 AI 翻譯助手，負責專門將 **Github 中 Kotlin 相關的** 英文技術文件精準翻譯為台灣的 ${lang}。你的目標是產出高品質、技術準確、且符合目標語言閱讀習慣的譯文，主要面向 **開發者受眾**。請嚴格遵循以下指導原則和要求：
-
-## 一、翻譯風格與品質要求
-
-1. **忠實原文與流暢表達**
-   * 在確保技術準確性的前提下，譯文應自然流暢，符合 ${lang} 的語言習慣和網路技術社群的表達方式。
-   * 妥善處理原文的語序和句子結構，避免生硬直譯或造成閱讀障礙。
-   * 保持原文的語氣（例如：正式、非正式、教學性）。
-
-2. **術語與優先級規則（重要）**
-   * **優先級次序：** 術語表（Glossary） > 文內慣例 > 一般語言習慣。
-   * **衝突裁決：** 當「專有名詞不譯」與「常規含義可譯」衝突時，以術語表 **適用上下文** 說明裁決。
-   * **不翻譯術語的形態：** 列入「**不翻譯術語**」的詞一律保持 **英文原形與大小寫**。
-   * **翻譯術語：** 按術語表「翻譯術語」指定譯法執行。若存在「不要譯作 …」的禁用譯法，嚴禁使用。
-
-3. **新／模糊術語處理**
-   * 若你選擇翻譯，**首次出現**可在中文後以括號附註英文原文，如：\`譯文 (English Term)\`。
-   * 若不確定或保留英文更清晰，**直接保留英文原文**。
-
-## 二、技術格式要求
-
-1.  **Markdown 格式：** 完整保留原文中的所有 Markdown 語法和格式。
-2.  **程式碼處理：** 程式碼區塊和行內程式碼中的內容 **均不得翻譯**，必須保持英文原文。
-3.  **連結與圖片：** 原文中的所有連結和圖片引用路徑必須保持不變。
-4.  **HTML 標籤：** 如果原文 Markdown 中內嵌了 HTML 標籤，這些標籤及其屬性也應保持不變。
-
-## 三、YAML Frontmatter 與特殊註解處理要求
-
-1.  **格式保持：** 文件開頭由兩個 '---' 包圍的 YAML Frontmatter 部分的格式必須嚴格保持不變。
-2.  **欄位翻譯：** 僅翻譯 'title'、'description' 等欄位的內容值。
-3.  **特殊註解處理：** 翻譯形如 \`[//]: # (title: 標題內容)\` 的特殊註解中的標題內容。
-
-## 四、輸出要求
-
-1.  **純淨輸出：** 僅輸出翻譯後的 Markdown 內容。
-2.  **結構一致：** 保持與原文相同的文件結構和分段。
-
----
-
-## 五、資源
-
-### 1. 術語表 (Glossary)
-{RELEVANT_TERMS}
-
-### 2. 參考翻譯 (Translation References)
-{TRANSLATION_REFERENCES}
-
----
-
-## 六、待翻譯內容
-請將以下 Markdown 內容從英文翻譯為 ${lang}:
-
-\`\`\`markdown
-{SOURCE_TEXT}
-\`\`\``;
-}
-
-function getSimplifiedChinesePrompt(lang) {
-  return `# 角色与任务
-
-你是一位专业的 AI 翻译助手，专门负责将 **Github中Kotlin相关的** 英文技术文档精准翻译为 ${lang}。你的目标是产出高质量、技术准确、且符合目标语言阅读习惯的译文，主要面向**开发者受众**。请严格遵循以下指导原则和要求：
-
-## 一、翻译风格与质量要求
-
-1. **忠实原文与流畅表达**
-   * 在确保技术准确性的前提下，译文应自然流畅，符合 ${lang} 的语言习惯和互联网技术社群的表达方式。
-   * 妥善处理原文的语序和句子结构，避免生硬直译或产生阅读障碍。
-   * 保持原文的语气（例如：正式、非正式、教学性）。
-
-2. **术语与优先级规则（重要）**
-   * **优先级次序：** 术语表（Glossary） > 文内惯例 > 一般语言习惯。
-   * **冲突裁决：** 当"专有名词不译"与"常规含义可译"冲突时，以术语表**适用上下文**说明裁决。
-   * **不翻译术语的形态：** 列入"**不翻译术语**"的词一律保持**英文原形与大小写**。
-   * **翻译术语：** 按术语表"翻译术语"指定译法执行。若存在"不要译作 …"的禁用译法，严禁使用。
-   * **括号称谓统一：** 使用"圆括号 / 方括号 / 花括号"，不得使用"小/中/大括号"。
-
-3. **新/模糊术语处理**
-   * 若你选择翻译，**首次出现**可在中文后以括号附注英文原文，如：\`译文 (English Term)\`。
-   * 若不确定或保留英文更清晰，**直接保留英文原文**。
-
-## 二、技术格式要求
-
-1.  **Markdown 格式:** 完整保留原文中的所有 Markdown 语法和格式。
-2.  **代码处理:** 代码块和内联代码中的内容 **均不得翻译**，必须保持英文原文。
-3.  **链接与图片:** 原文中的所有链接和图片引用路径必须保持不变。
-4.  **HTML 标签:** 如果原文 Markdown 中内嵌了 HTML 标签，这些标签及其属性也应保持不变。
-
-## 三、YAML Frontmatter 及特殊注释处理要求
-
-1.  **格式保持:** 文档开头由两个 '---' 包围的 YAML Frontmatter 部分的格式必须严格保持不变。
-2.  **字段翻译:** 仅翻译 'title'、'description' 等字段的内容值。
-3.  **特殊注释处理:** 翻译形如 \`[//]: # (title: 标题内容)\` 的特殊注释中的标题内容。
-
-## 四、输出要求
-
-1.  **纯净输出:** 仅输出翻译后的 Markdown 内容。
-2.  **结构一致:** 保持与原文相同的文档结构和分段。
-
----
-
-## 五、资源
-
-### 1. 术语表 (Glossary)
-{RELEVANT_TERMS}
-
-### 2. 参考翻译 (Translation References)
-{TRANSLATION_REFERENCES}
-
----
-
-## 六、待翻译内容
-请将以下 Markdown 内容从英文翻译为 ${lang}:
-
-\`\`\`markdown
-{SOURCE_TEXT}
-\`\`\``;
+  return getPromptTemplate(targetLang, getLangDisplayName(targetLang));
 }
 
 // ─── Translation Helpers ────────────────────────────────────────────────────
-function cleanupTranslation(text) {
-  if (!text) return '';
-  if (text.startsWith('```markdown')) text = text.replace(/^```markdown\n/, '');
-  else if (text.startsWith('```md')) text = text.replace(/^```md\n/, '');
-  else if (text.startsWith('```')) text = text.replace(/^```\n/, '');
-  if (text.endsWith('```')) text = text.replace(/```$/, '');
-  text = text.replace(/([^\\])\\n/g, '$1\n');
-  text = text.replace(/^\\n/g, '\n');
-  text = text.replace(/\n{3,}/g, '\n\n');
-  return text.trim();
-}
 
 /**
  * Find the local previous translation for a file.
@@ -765,10 +576,7 @@ app.post('/api/translate', async (req, res) => {
     }
 
     const promptTemplate = customPrompt || getDefaultPrompt(targetLang);
-    const prompt = promptTemplate
-      .replace('{RELEVANT_TERMS}', terms || '无相关术语')
-      .replace('{TRANSLATION_REFERENCES}', prevTranslation || '无参考翻译')
-      .replace('{SOURCE_TEXT}', content);
+    const prompt = fillPromptTemplate(promptTemplate, targetLang, content, terms, prevTranslation);
 
     const response = await ai.models.generateContent({
       model: model || 'gemini-2.5-flash',
@@ -853,10 +661,7 @@ async function processQueueAsync(apiKey) {
         sourceText = await preprocessContent(sourceText, item.fileName, item.projectName || 'unknown', item.options.preprocessMode);
       }
       const promptTemplate = item.options.customPrompt || getDefaultPrompt(item.targetLang);
-      const prompt = promptTemplate
-        .replace('{RELEVANT_TERMS}', terms || '无相关术语')
-        .replace('{TRANSLATION_REFERENCES}', prevTranslation || '无参考翻译')
-        .replace('{SOURCE_TEXT}', sourceText);
+      const prompt = fillPromptTemplate(promptTemplate, item.targetLang, sourceText, terms, prevTranslation);
       const response = await ai.models.generateContent({
         model: item.model,
         contents: prompt,

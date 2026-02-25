@@ -115,6 +115,12 @@
     .panel-content .code-view { padding: 16px; font-family: var(--font-mono); font-size: 13px; line-height: 1.7; white-space: pre-wrap; word-break: break-word; color: var(--text-2); }
     .panel-empty { display: flex; align-items: center; justify-content: center; height: 100%; color: var(--text-4); font-size: 14px; flex-direction: column; gap: 8px; }
     .panel-empty .icon { font-size: 40px; opacity: .5; }
+    /* ── Code editor with line numbers ── */
+    .code-editor { display: flex; height: 100%; overflow: hidden; }
+    .code-editor .line-numbers { padding: 12px 0; min-width: 44px; text-align: right; user-select: none; background: var(--bg-1); border-right: 1px solid var(--border); font-family: var(--font-mono); font-size: 13px; line-height: 1.7; color: var(--text-4); overflow: hidden; flex-shrink: 0; }
+    .code-editor .line-numbers .ln { padding: 0 10px 0 6px; display: block; }
+    .code-editor textarea { flex: 1; resize: none; border: none; outline: none; background: transparent; color: var(--text-2); font-family: var(--font-mono); font-size: 13px; line-height: 1.7; padding: 12px 14px; white-space: pre; overflow-wrap: normal; overflow-x: auto; tab-size: 2; }
+    .code-editor textarea::placeholder { color: var(--text-4); font-family: var(--font); font-style: italic; }
 
     .md-preview { padding: 20px 24px; font-size: 14px; line-height: 1.8; color: var(--text-2); }
     .md-preview h1 { font-size: 1.8em; font-weight: 700; color: var(--text-1); margin: .6em 0 .3em; padding-bottom: .2em; border-bottom: 1px solid var(--border); }
@@ -359,6 +365,10 @@
         <label><input type="checkbox" v-model="useTerminology"> 术语表</label>
         <label><input type="checkbox" v-model="usePrevTranslation"> 先前翻译</label>
         <div class="toolbar-sep"></div>
+        <button class="btn" @click="preprocessOnly" :disabled="!sourceContent || preprocessMode === 'none' || isPreprocessing" title="仅预处理，不翻译">
+          <span v-if="isPreprocessing" class="spinner" style="width:12px;height:12px;border-width:1.5px"></span>
+          {{ isPreprocessing ? '处理中...' : '⚙️ 仅预处理' }}
+        </button>
         <button class="btn btn-primary" @click="translateCurrent" :disabled="!sourceContent || isTranslating">
           <span v-if="isTranslating" class="spinner" style="width:12px;height:12px;border-width:1.5px"></span>
           {{ isTranslating ? '翻译中...' : '🔄 翻译' }}
@@ -374,15 +384,18 @@
           <div class="panel-header">
             <span class="panel-title">📝 原文档 <span v-if="selectedFile" style="font-weight:400;color:var(--text-4);font-size:11px;margin-left:4px">{{ selectedFile.name }}</span></span>
             <div class="panel-toggle">
+              <button :class="{ active: sourceView === 'code' }" @click="sourceView = 'code'">编辑</button>
               <button :class="{ active: sourceView === 'preview' }" @click="sourceView = 'preview'">预览</button>
-              <button :class="{ active: sourceView === 'code' }" @click="sourceView = 'code'">源码</button>
             </div>
           </div>
           <div class="panel-content">
             <div v-if="loadingFile" class="loading-center"><span class="spinner"></span> 从 GitHub 加载中...</div>
+            <div v-else-if="sourceView === 'code'" class="code-editor" ref="sourceEditorWrap">
+              <div class="line-numbers" ref="sourceLineNums"><span class="ln" v-for="n in Math.max(sourceLineCount, 1)" :key="n">{{ n }}</span></div>
+              <textarea v-model="sourceContent" @scroll="syncScroll($event, 'source')" spellcheck="false" placeholder="从左侧选择文件、上传文档，或直接粘贴内容..."></textarea>
+            </div>
             <div v-else-if="!sourceContent" class="panel-empty"><span class="icon">📂</span><span>从左侧选择 GitHub 文件或上传文档</span></div>
-            <div v-else-if="sourceView === 'preview'" class="md-preview" v-html="renderedSource"></div>
-            <div v-else class="code-view">{{ sourceContent }}</div>
+            <div v-else class="md-preview" v-html="renderedSource"></div>
           </div>
         </div>
         <div class="panel">
@@ -397,7 +410,10 @@
             <div v-if="isTranslating" class="translating-overlay"><div class="spinner"></div><p>正在翻译中，请稍候...</p></div>
             <div v-if="!translatedContent && !isTranslating" class="panel-empty"><span class="icon">🌐</span><span>翻译结果将显示在这里</span></div>
             <div v-else-if="targetView === 'preview' && translatedContent" class="md-preview" v-html="renderedTarget"></div>
-            <div v-else-if="targetView === 'code' && translatedContent" class="code-view">{{ translatedContent }}</div>
+            <div v-else-if="targetView === 'code' && translatedContent" class="code-editor" ref="targetEditorWrap">
+              <div class="line-numbers" ref="targetLineNums"><span class="ln" v-for="n in targetLineCount" :key="n">{{ n }}</span></div>
+              <textarea v-model="translatedContent" @scroll="syncScroll($event, 'target')" spellcheck="false"></textarea>
+            </div>
           </div>
         </div>
       </div>
@@ -498,8 +514,9 @@ const app = createApp({
     const useTerminology = ref(true);
     const usePrevTranslation = ref(true);
     const isTranslating = ref(false);
-    const sourceView = ref('preview');
-    const targetView = ref('preview');
+    const isPreprocessing = ref(false);
+    const sourceView = ref('code');     // 原文档默认编辑器
+    const targetView = ref('preview'); // 译文默认预览
 
     const queue = ref([]);
     const isProcessingQueue = ref(false);
@@ -508,6 +525,19 @@ const app = createApp({
     const uploads = ref([]);
     const isDragging = ref(false);
     const fileInput = ref(null);
+
+    const sourceEditorWrap = ref(null);
+    const sourceLineNums = ref(null);
+    const targetEditorWrap = ref(null);
+    const targetLineNums = ref(null);
+    const sourceLineCount = computed(() => (sourceContent.value || '').split('\n').length);
+    const targetLineCount = computed(() => (translatedContent.value || '').split('\n').length);
+
+    function syncScroll(e, which) {
+      const ta = e.target;
+      const ln = which === 'source' ? sourceLineNums.value : targetLineNums.value;
+      if (ln) ln.scrollTop = ta.scrollTop;
+    }
 
     const showSettings = ref(false);
     const apiKey = ref(localStorage.getItem('od_apiKey') || '');
@@ -672,6 +702,31 @@ const app = createApp({
       uploads.value = uploads.value.filter(f => f.id !== id);
     }
 
+    // ── Preprocess only ──
+    async function preprocessOnly() {
+      if (!sourceContent.value || preprocessMode.value === 'none' || isPreprocessing.value) return;
+      isPreprocessing.value = true;
+      translatedContent.value = '';
+      try {
+        const data = await api('/api/preprocess', {
+          method: 'POST',
+          body: {
+            content: sourceContent.value,
+            fileName: selectedFile.value?.name || 'file.md',
+            projectName: selectedFile.value?.projectName || null,
+            mode: preprocessMode.value,
+          }
+        });
+        if (data.content) {
+          translatedContent.value = data.content;
+          toast('预处理完成', 'success');
+        } else {
+          toast('预处理失败: ' + (data.error || '无结果'), 'error');
+        }
+      } catch (e) { toast('预处理请求失败: ' + e.message, 'error'); }
+      finally { isPreprocessing.value = false; }
+    }
+
     // ── Translation ──
     async function translateCurrent() {
       if (!sourceContent.value || isTranslating.value) return;
@@ -770,15 +825,17 @@ const app = createApp({
       sidebarTab, projects, languages, languageNames, models, hasEnvKey,
       navLevel, currentProject, currentRepoIdx, currentRepoData, currentRepoConfig, loadingTree, expanded,
       selectedFile, sourceContent, translatedContent, loadingFile,
-      targetLang, selectedModel, preprocessMode, useTerminology, usePrevTranslation, isTranslating,
+      targetLang, selectedModel, preprocessMode, useTerminology, usePrevTranslation, isTranslating, isPreprocessing,
       sourceView, targetView,
       queue, isProcessingQueue, activeQueueItem,
       uploads, isDragging, fileInput,
+      sourceEditorWrap, sourceLineNums, targetEditorWrap, targetLineNums,
+      sourceLineCount, targetLineCount, syncScroll,
       showSettings, apiKey, promptLang, editingPrompt, terminologyPreview,
       toasts, renderedSource, renderedTarget,
       selectProject, selectRepo, loadTree, refreshTree, loadGitHubFile,
       triggerUpload, handleFileSelect, handleDrop, loadUploadedFile, removeUpload, processFiles,
-      translateCurrent, addCurrentToQueue, processQueue, clearQueue, viewQueueItem,
+      preprocessOnly, translateCurrent, addCurrentToQueue, processQueue, clearQueue, viewQueueItem,
       saveTranslation, loadPrompt, savePrompt, resetPrompt, toast,
     };
   }

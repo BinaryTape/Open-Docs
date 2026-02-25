@@ -104,25 +104,21 @@ function prepareTranslationPrompt(sourceText, targetLang, currentFilePath) {
     : getPromptTemplate(targetLang, getLangDisplayName(targetLang));
 
   // Insert variables into template
-  return promptTemplate
-    .replace(
-      "{RELEVANT_TERMS}",
-      relevantTerms ||
-        (targetLang === "ja" || targetLang === "ko"
-          ? "No relevant terms"
-          : "无相关术语")
-    )
-    .replace(
-      "{TRANSLATION_REFERENCES}",
-      translationReferences ||
-        (targetLang === "ja" || targetLang === "ko"
-          ? "No reference translations"
-          : "无参考翻译")
-    )
+  return fillPromptTemplate(promptTemplate, targetLang, sourceText, relevantTerms, translationReferences);
+}
+
+// Fill prompt template with variables, using language-appropriate fallback text
+export function fillPromptTemplate(template, targetLang, sourceText, terms, references) {
+  const noTerms = (targetLang === "ja" || targetLang === "ko") ? "No relevant terms" : "无相关术语";
+  const noRefs = (targetLang === "ja" || targetLang === "ko") ? "No reference translations" : "无参考翻译";
+
+  return template
+    .replace("{RELEVANT_TERMS}", terms || noTerms)
+    .replace("{TRANSLATION_REFERENCES}", references || noRefs)
     .replace("{SOURCE_TEXT}", sourceText);
 }
 
-function getLocalePromptTemplate(langDisplayName) {
+export function getLocalePromptTemplate(langDisplayName) {
   return `# Role & Task
   You are a professional AI translation assistant. Your job is to translate **Kotlin/GitHub-related** English JSON copy into ${langDisplayName}. You must produce high-quality, technically accurate text that reads naturally for a developer audience—**without changing any JSON structure or keys**. Translate **values only**.
 
@@ -170,7 +166,7 @@ Translate **all values** in the following JSON from English into ${langDisplayNa
 }
 
 // Get appropriate prompt template based on target language
-function getPromptTemplate(targetLang, langDisplayName) {
+export function getPromptTemplate(targetLang, langDisplayName) {
   // Japanese and Korean use English prompts
   if (targetLang === "ja" || targetLang === "ko") {
     return `# Role and Task
@@ -538,7 +534,9 @@ async function translateFile(filePath) {
 }
 
 // Clean up extra content in translation results
-function cleanupTranslation(text) {
+export function cleanupTranslation(text) {
+  if (!text) return "";
+
   // Remove markdown code block markers at beginning
   if (text.startsWith("```markdown")) {
     text = text.replace(/^```markdown\n/, "");
@@ -563,11 +561,46 @@ function cleanupTranslation(text) {
   // Remove possible extra spaces
   text = text.trim();
 
+  // Fix YAML frontmatter values with special characters that need quoting
+  text = fixFrontmatterQuoting(text);
+
   return text;
 }
 
+// Fix YAML frontmatter values containing special characters by wrapping them in double quotes
+function fixFrontmatterQuoting(text) {
+  const fmMatch = text.match(/^(---\n)([\s\S]*?\n)(---(?:\n|$))([\s\S]*)$/);
+  if (!fmMatch) return text;
+
+  const fixedBody = fmMatch[2].split("\n").map((line) => {
+    // Match "key: value" pattern (skip lines that are not key-value pairs)
+    const kvMatch = line.match(/^(\s*[\w][\w.-]*):\s+(.+)$/);
+    if (!kvMatch) return line;
+
+    const [, key, value] = kvMatch;
+
+    // Already quoted, skip
+    if (/^".*"$/.test(value) || /^'.*'$/.test(value)) return line;
+
+    // YAML special characters at start that require quoting: @ # % * & ! | > ' ` { [ ?
+    // Also values starting with "- " or containing ": "
+    if (
+      /^[@#%*&!|>'`{\[?]/.test(value) ||
+      /^-\s/.test(value) ||
+      /:\s/.test(value)
+    ) {
+      const escaped = value.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+      return `${key}: "${escaped}"`;
+    }
+
+    return line;
+  }).join("\n");
+
+  return fmMatch[1] + fixedBody + fmMatch[3] + fmMatch[4];
+}
+
 // Get language display name
-function getLangDisplayName(langCode) {
+export function getLangDisplayName(langCode) {
   return config.languageNames[langCode] || langCode;
 }
 
