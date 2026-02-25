@@ -22,6 +22,7 @@ jobs:
         with:
           version: 10
           run_install: false
+          standalone: true
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
