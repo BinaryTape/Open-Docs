@@ -23,12 +23,29 @@ let genAI = (() => {
 })();
 
 // Load terminology database
-let terminology = "";
-
+// terminology.json is an array of objects, each keyed by "Term [en]": "Term [<locale>]"
+// We parse it once and select the right object per target language at translation time.
+const TERM_LANG_MAP = { 'zh-Hans': 'zh-CN', 'zh-Hant': 'zh-TW' };
+let terminologyData = [];
 try {
-  terminology = fs.readFileSync(config.terminologyPath, "utf8");
+  terminologyData = JSON.parse(fs.readFileSync(config.terminologyPath, "utf8"));
 } catch (error) {
-  terminology = { terms: {} };
+  terminologyData = [];
+}
+
+/**
+ * Select and minify terminology for a given target language.
+ * Returns a minified JSON string, or empty string if no match.
+ */
+export function getTerminologyForLang(targetLang) {
+  const locale = TERM_LANG_MAP[targetLang];
+  if (!locale) return "";
+  const header = `Term [${locale}]`;
+  const matched = terminologyData.find(obj => obj["Term [en]"] === header);
+  if (!matched) return "";
+  // Strip the header key and minify
+  const { "Term [en]": _, ...terms } = matched;
+  return JSON.stringify(terms);
 }
 
 // Calculate target file path
@@ -77,8 +94,8 @@ function loadPreviousTranslations(targetLang, currentFilePath) {
 
 // Prepare translation prompt
 function prepareTranslationPrompt(sourceText, targetLang, currentFilePath) {
-  // Get relevant terminology
-  const relevantTerms = targetLang === "zh-Hans" ? terminology : "";
+  // Get relevant terminology (minified JSON for the target language)
+  const relevantTerms = getTerminologyForLang(targetLang);
 
   // Get previously translated file with the same name as reference
   const previousTranslations = currentFilePath.includes("locales")

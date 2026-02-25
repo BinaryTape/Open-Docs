@@ -34,10 +34,11 @@ const config = JSON.parse(
   fs.readFileSync(path.join(ROOT, '.github/scripts/translate-config.json'), 'utf8')
 );
 
-let terminologyContent = '';
+// Raw terminology content for preview; per-language selection uses getTerminologyForLang()
+let terminologyContentRaw = '';
 try {
-  terminologyContent = fs.readFileSync(path.join(ROOT, config.terminologyPath), 'utf8');
-} catch { terminologyContent = ''; }
+  terminologyContentRaw = fs.readFileSync(path.join(ROOT, config.terminologyPath), 'utf8');
+} catch { terminologyContentRaw = ''; }
 
 // ─── Projects: GitHub repos with doc paths ──────────────────────────────────
 // Mirrors docs-repo-config.mjs — branches strip "origin/", docPaths from strategy.getDocPatterns()
@@ -276,6 +277,7 @@ import {
   getLocalePromptTemplate,
   getLangDisplayName,
   fillPromptTemplate,
+  getTerminologyForLang,
 } from '../.github/scripts/translate.mjs';
 
 /**
@@ -569,7 +571,7 @@ app.post('/api/translate', async (req, res) => {
     }
 
     const ai = getGenAI(apiKey);
-    const terms = useTerminology !== false ? terminologyContent : '';
+    const terms = useTerminology !== false ? getTerminologyForLang(targetLang) : '';
     let prevTranslation = '';
     if (usePrevTranslation !== false && projectName && fileName) {
       prevTranslation = loadPreviousTranslation(projectName, fileName, targetLang);
@@ -651,7 +653,7 @@ async function processQueueAsync(apiKey) {
     broadcastQueue();
     try {
       const ai = getGenAI(apiKey);
-      const terms = item.options.useTerminology !== false ? terminologyContent : '';
+      const terms = item.options.useTerminology !== false ? getTerminologyForLang(item.targetLang) : '';
       let prevTranslation = '';
       if (item.options.usePrevTranslation !== false && item.projectName && item.fileName) {
         prevTranslation = loadPreviousTranslation(item.projectName, item.fileName, item.targetLang);
@@ -731,7 +733,7 @@ app.post('/api/save', (req, res) => {
 // ─── Terminology ────────────────────────────────────────────────────────────
 
 app.get('/api/terminology', (req, res) => {
-  res.json({ content: terminologyContent });
+  res.json({ content: terminologyContentRaw });
 });
 
 // ─── Fallback ───────────────────────────────────────────────────────────────
