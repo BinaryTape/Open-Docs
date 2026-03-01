@@ -312,7 +312,7 @@ fun markdownBookDefinition(): MarkdownStructureDefinition {
             header(1, "了不起的盖茨比")
             bulleted {
                 item("F. Scott Fitzgerald")
-                item("一部背景设定在爵士时代的控制，讲述了杰伊·盖茨比对黛西·布坎南无私爱情的故事。")
+                item("一部背景设定在爵士时代的小说，讲述了杰伊·盖茨比对黛西·布坎南无私爱情的故事。")
             }
         }
     })
@@ -527,23 +527,20 @@ val agentStrategy = strategy<String, Unit>("library-assistant") {
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.tools.ToolRegistry
-import ai.koog.agents.example.exampleComplexWorkflowAgents01.token
-import ai.koog.agents.example.exampleComplexWorkflowAgents06.agentStrategy
-import ai.koog.agents.example.exampleComplexWorkflowAgents07.agentConfig
 import ai.koog.agents.example.exampleStreamingApi08.BookTool
+import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 
 -->
 ```kotlin
 val toolRegistry = ToolRegistry {
-   tool(BookTool())
+    tool(BookTool())
 }
 
 val runner = AIAgent(
-   promptExecutor = simpleOpenAIExecutor(token),
-   toolRegistry = toolRegistry,
-   strategy = agentStrategy,
-   agentConfig = agentConfig
+    promptExecutor = simpleOpenAIExecutor("OPENAI_API_KEY"),
+    llmModel = OpenAIModels.Chat.GPT4o,
+    toolRegistry = toolRegistry
 )
 ```
 <!--- KNIT example-streaming-api-10.kt -->

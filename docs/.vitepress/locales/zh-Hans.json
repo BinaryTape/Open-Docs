@@ -93,6 +93,8 @@
   "kotlin.whatsnew20": "Kotlin 2.0.0",
   "kotlin.whatsnew1920": "Kotlin 1.9.20",
   "kotlin.whatsnew19": "Kotlin 1.9.0",
+  "kotlin.whatsnew1920": "Kotlin 1.9.20",
+  "kotlin.whatsnew19": "Kotlin 1.9.0",
   "kotlin.whatsnew1820": "Kotlin 1.8.20",
   "kotlin.whatsnew18": "Kotlin 1.8.0",
   "kotlin.whatsnew1720": "Kotlin 1.7.20",
@@ -618,5 +620,15 @@
   "kmp.webassembly-wasm": "WebAssembly (Wasm)",
   "kmp.kmp-ci-tutorial": "为 KMP 应用配置 CI",
   "kmp.multiplatform-project-agp-9-migration": "升级到 AGP 9",
-  "kmp.ios-android-app-development": "iOS 与 Android 应用开发"
+  "kmp.ios-android-app-development": "iOS 与 Android 应用开发",
+  "ktor.dependency-injection": "依赖注入",
+  "ktor.server-dependency-injection": "概览",
+  "ktor.server-di-configuration": "配置",
+  "ktor.server-di-testing": "测试",
+  "koog.quickstart": "快速入门",
+  "koog.agents": "代理",
+  "koog.graph-based-agents": "基于图的代理",
+  "koog.llm-based-planners": "基于 LLM 的规划器",
+  "koog.goap-agents": "GOAP 代理",
+  "koog.long-term-memory": "长期记忆"
 }

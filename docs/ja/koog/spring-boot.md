@@ -319,8 +319,8 @@ API key is required but not provided
 
 ## 次のステップ
 
-- [基本的なエージェント](basic-agents.md) について学び、最小限のAIワークフローを構築する
-- 高度なユースケースのために [複雑なワークフローエージェント](complex-workflow-agents.md) を探索する
+- [基本的なエージェント](agents/basic-agents.md) について学び、最小限のAIワークフローを構築する
+- 高度なユースケースのために [グラフベースのエージェント](agents/graph-based-agents.md) を探索する
 - エージェントの機能を拡張するために [ツールの概要](tools-overview.md) を参照する
 - 実践的な実装については [サンプル](examples.md) を確認する
 - フレームワークをより深く理解するために [用語集](glossary.md) を読む

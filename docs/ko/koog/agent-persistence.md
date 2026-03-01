@@ -43,26 +43,9 @@ val agent = AIAgent(
     install(Persistence) {
         // 스냅샷을 위해 인메모리 스토리지를 사용합니다.
         storage = InMemoryPersistenceStorageProvider()
-        // 각 노드 실행 후 자동 지속성 활성화
-        enableAutomaticPersistence = true
-        /* 
-         새로운 에이전트 실행 시 복원될 상태를 선택합니다.
-     
-         사용 가능한 옵션은 다음과 같습니다:
-         1. Default: 에이전트가 중단된 정확한 실행 지점(전략 그래프의 노드)으로 복원합니다.
-            이는 복잡하고 결함 허용(fault-tolerant)이 필요한 에이전트를 구축할 때 특히 유용합니다.
-         2. MessageHistoryOnly: 마지막으로 저장된 상태의 메시지 기록만 복원합니다.
-            에이전트는 항상 전략 그래프의 첫 번째 노드부터 다시 시작하지만, 이전 실행의 기록을 가지고 시작합니다.
-            이는 대화형 에이전트나 챗봇을 구축할 때 유용합니다.
-        */
-        rollbackStrategy = RollbackStrategy.MessageHistoryOnly
     }
 }
 ```
-
-!!! tip
-    `enableAutomaticPersistence = true`와 `RollbackStrategy.MessageHistoryOnly`를 결합하여 
-    여러 세션에 걸쳐 대화 문맥을 유지하는 에이전트를 만들 수 있습니다.
 
 <!--- KNIT example-agent-persistence-01.kt -->
 
@@ -114,7 +97,7 @@ install(Persistence) {
 ### 지속적 지속성 (Continuous persistence)
 
 지속적 지속성은 각 노드가 실행된 후 체크포인트가 자동으로 생성됨을 의미합니다.
-지속적 지속성을 활성화하려면 아래 코드를 사용하십시오:
+지속적 지속성을 비활성화하려면 아래 코드를 사용하십시오:
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -134,87 +117,13 @@ val agent = AIAgent(
 
 ```kotlin
 install(Persistence) {
-    enableAutomaticPersistence = true
+    enableAutomaticPersistence = false
 }
 ```
 
 <!--- KNIT example-agent-persistence-03.kt -->
 
-이 기능이 활성화되면 에이전트는 각 노드가 실행된 후 자동으로 체크포인트를 생성하여 세밀한 복구를 가능하게 합니다.
-
-### 롤백 전략 (Rollback strategy)
-
-롤백 전략은 에이전트가 체크포인트로 롤백하거나 새로 시작할 때 어떤 상태를 복원할지 결정합니다.
-두 가지 전략을 사용할 수 있습니다:
-
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.snapshot.feature.Persistence
-import ai.koog.agents.snapshot.providers.InMemoryPersistenceStorageProvider
-import ai.koog.agents.core.agent.context.RollbackStrategy
-import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
-import ai.koog.prompt.executor.ollama.client.OllamaModels
-
-val agent = AIAgent(
-    promptExecutor = simpleOllamaAIExecutor(),
-    llmModel = OllamaModels.Meta.LLAMA_3_2,
-) {
--->
-<!--- SUFFIX
-}
--->
-
-```kotlin
-install(Persistence) {
-    // 기본 전략: 실행 지점을 포함한 전체 에이전트 상태를 복원합니다.
-    rollbackStrategy = RollbackStrategy.Default
-}
-```
-
-<!--- KNIT example-agent-persistence-04.kt -->
-
-**`RollbackStrategy.Default`**
-
-에이전트가 중단된 정확한 실행 지점(전략 그래프의 노드)으로 복원합니다.
-이는 다음을 포함한 전체 문맥(context)이 복원됨을 의미합니다:
-
-- 메시지 기록
-- 현재 실행 중인 노드
-- 기타 모든 상태 저장 데이터
-
-이 전략은 중단된 정확한 지점부터 다시 시작해야 하는 복잡하고 결함 허용이 필요한 에이전트를 구축할 때 특히 유용합니다.
-
-**`RollbackStrategy.MessageHistoryOnly`**
-
-마지막으로 저장된 상태의 메시지 기록만 복원합니다. 에이전트는 항상 전략 그래프의 첫 번째 노드부터 다시 시작하지만, 이전 실행의 대화 기록을 유지합니다.
-
-이 전략은 여러 세션에 걸쳐 문맥을 유지해야 하지만 실행 흐름은 항상 처음부터 시작해야 하는 대화형 에이전트나 챗봇을 구축하는 데 유용합니다.
-
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.snapshot.feature.Persistence
-import ai.koog.agents.snapshot.providers.InMemoryPersistenceStorageProvider
-import ai.koog.agents.core.agent.context.RollbackStrategy
-import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
-import ai.koog.prompt.executor.ollama.client.OllamaModels
-
-val agent = AIAgent(
-    promptExecutor = simpleOllamaAIExecutor(),
-    llmModel = OllamaModels.Meta.LLAMA_3_2,
-) {
--->
-<!--- SUFFIX
-}
--->
-
-```kotlin
-install(Persistence) {
-    // MessageHistoryOnly 전략: 대화 기록은 보존하지만 실행은 다시 시작합니다.
-    rollbackStrategy = RollbackStrategy.MessageHistoryOnly
-}
-```
-
-<!--- KNIT example-agent-persistence-05.kt -->
+지속적 지속성이 비활성화된 경우에도 수동으로 체크포인트를 생성할 수 있습니다.
 
 ## 기본 사용법
 
@@ -248,7 +157,7 @@ suspend fun example(context: AIAgentContext) {
 }
 ```
 
-<!--- KNIT example-agent-persistence-06.kt -->
+<!--- KNIT example-agent-persistence-04.kt -->
 
 ### 체크포인트에서 복원하기
 
@@ -269,7 +178,7 @@ suspend fun example(context: AIAgentContext, checkpointId: String) {
 }
 ```
 
-<!--- KNIT example-agent-persistence-07.kt -->
+<!--- KNIT example-agent-persistence-05.kt -->
 
 #### 도구에 의해 생성된 모든 사이드 이펙트 롤백하기
 
@@ -323,7 +232,7 @@ install(Persistence) {
 }
 ```
 
-<!--- KNIT example-agent-persistence-08.kt -->
+<!--- KNIT example-agent-persistence-06.kt -->
 
 ### 확장 함수 사용하기
 
@@ -331,8 +240,8 @@ install(Persistence) {
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.context.AIAgentContext
-import ai.koog.agents.example.exampleAgentPersistence06.outputData
-import ai.koog.agents.example.exampleAgentPersistence06.outputType
+import ai.koog.agents.example.exampleAgentPersistence04.outputData
+import ai.koog.agents.example.exampleAgentPersistence04.outputType
 import ai.koog.agents.snapshot.feature.persistence
 import ai.koog.agents.snapshot.feature.withPersistence
 -->
@@ -356,7 +265,7 @@ suspend fun example(context: AIAgentContext) {
     }
 }
 ```
-<!--- KNIT example-agent-persistence-09.kt -->
+<!--- KNIT example-agent-persistence-07.kt -->
 
 ## 고급 사용법
 
@@ -391,7 +300,7 @@ class MyCustomStorageProvider<MyFilterType> : PersistenceStorageProvider<MyFilte
 
 ```
 
-<!--- KNIT example-agent-persistence-10.kt -->
+<!--- KNIT example-agent-persistence-08.kt -->
 
 커스텀 프로바이더를 기능 설정에서 사용하려면, 에이전트의 에이전트 지속성 기능을 구성할 때 이를 스토리지로 설정하십시오.
 
@@ -432,7 +341,7 @@ install(Persistence) {
 }
 ```
 
-<!--- KNIT example-agent-persistence-11.kt -->
+<!--- KNIT example-agent-persistence-09.kt -->
 
 ### 실행 지점 설정하기
 
@@ -470,6 +379,6 @@ fun example(context: AIAgentContext) {
 
 ```
 
-<!--- KNIT example-agent-persistence-12.kt -->
+<!--- KNIT example-agent-persistence-10.kt -->
 
 이를 통해 단순히 체크포인트에서 복원하는 것 이상으로 에이전트 상태를 세밀하게 제어할 수 있습니다.

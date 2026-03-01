@@ -5,12 +5,13 @@
 
 ## エグゼキューターの種類
 
-Koogは、[`PromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.model.PromptExecutor) インターフェースを実装する2つの主要なプロンプトエグゼキューターを提供しています。
+Koogは、[`PromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.model.PromptExecutor) インターフェースを実装する3つの主要なプロンプトエグゼキューターを提供しています。
 
 | 種類 | <div style="width:175px">クラス</div> | 説明 |
 |-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | シングルプロバイダー | [`SingleLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.SingleLLMPromptExecutor) | 1つのプロバイダーに対する単一のLLMクライアントをラップします。エージェントが単一のLLMプロバイダー内でのモデルの切り替えのみを必要とする場合に、このエグゼキューターを使用します。 |
 | マルチプロバイダー | [`MultiLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor)   | 複数のLLMクライアントをラップし、LLMプロバイダーに基づいて呼び出しをルーティングします。リクエストされたクライアントが利用できない場合に、オプションで設定されたフォールバックプロバイダーとLLMを使用できます。エージェントが異なるプロバイダーのLLMを切り替える必要がある場合に、このエグゼキューターを使用します。 |
+| ルーティング | [`RoutingLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) | ルーティング戦略を使用して、特定のLLMモデルへのリクエストを複数のクライアントインスタンスに分散します。レート制限の回避、スループットの向上、ロードバランシングによるフェイルオーバー戦略の実装を行う場合に、このエグゼキューターを使用します。 |
 
 ## シングルプロバイダーエグゼキューターの作成
 
@@ -55,6 +56,44 @@ val multiExecutor = MultiLLMPromptExecutor(
 ```
 <!--- KNIT example-prompt-executors-02.kt -->
 
+## ルーティングエグゼキューターの作成
+
+!!! warning "実験的API"
+    ルーティング機能は実験的であり、将来のリリースで変更される可能性があります。
+    これらを使用するには、`@OptIn(ExperimentalRoutingApi::class)` でオプトインしてください。
+
+ルーティング戦略を使用して、特定のLLMモデルへのリクエストを複数のクライアントインスタンスに分散するプロンプトエグゼキューターを作成するには、以下の手順を実行します。
+
+1. 対応するAPIキーを使用して、複数のクライアントインスタンス（同じLLMプロバイダーでも異なるプロバイダーでも可）を構成します。
+2. [`RoundRobinRouter`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.RoundRobinRouter) などのルーティング戦略を使用してルーターを作成します。
+3. ルーターを [`RoutingLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) クラスのコンストラクタに渡します。
+
+これは、レート制限の回避、スループットの向上、フェイルオーバー戦略の実装に役立ちます。
+
+<!--- INCLUDE
+import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
+import ai.koog.prompt.executor.llms.RoundRobinRouter
+import ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor
+-->
+```kotlin
+// 複数のクライアントインスタンスを作成する
+val openAI1 = OpenAILLMClient(apiKey = "openai-key-1")
+val openAI2 = OpenAILLMClient(apiKey = "openai-key-2")
+val anthropic = AnthropicLLMClient(apiKey = "anthropic-key")
+
+// ラウンドロビン戦略でルーターを作成する
+val router = RoundRobinRouter(openAI1, openAI2, anthropic)
+
+// ルーティングエグゼキューターを作成する
+val routingExecutor = RoutingLLMPromptExecutor(router)
+```
+<!--- KNIT example-prompt-executors-03.kt -->
+
+このエグゼキューターでプロンプトを実行すると、OpenAIモデルへのリクエストはラウンドロビン戦略を使用して `openAI1` と `openAI2` の間で交互に行われます。Anthropicモデルへのリクエストは、ラウンドロビンがプロバイダーごとに独立したカウンターを保持するため、常に単一の `anthropic` クライアントに送られます。
+
+[`LLMClientRouter`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.LLMClientRouter) インターフェースを実装するクラスを作成することで、カスタムルーティング戦略を実装することもできます。
+
 ## 定義済みプロンプトエグゼキューター
 
 セットアップを迅速に行うために、Koogは一般的なプロバイダー向けのすぐに使用できるエグゼキューターの実装を提供しています。
@@ -93,7 +132,7 @@ val anthropicClient = AnthropicLLMClient("ANTHROPIC_KEY")
 val googleClient = GoogleLLMClient("GOOGLE_KEY")
 val multiExecutor = MultiLLMPromptExecutor(openAIClient, anthropicClient, googleClient)
 ```
-<!--- KNIT example-prompt-executors-03.kt -->
+<!--- KNIT example-prompt-executors-04.kt -->
 
 ## プロンプトの実行
 
@@ -127,7 +166,7 @@ val response = promptExecutor.execute(
     model = OpenAIModels.Chat.GPT4o
 )
 ```
-<!--- KNIT example-prompt-executors-04.kt -->
+<!--- KNIT example-prompt-executors-05.kt -->
 
 これにより、`GPT4o` モデルでプロンプトが実行され、レスポンスが返されます。
 
@@ -186,15 +225,14 @@ val openAIResult = executor.execute(p, OpenAIModels.Chat.GPT4o)
 // Anthropicモデルでプロンプトを実行する。プロンプトエグゼキューターは自動的にAnthropicクライアントに切り替わる
 val anthropicResult = executor.execute(p, AnthropicModels.Opus_4_6)
 ```
-<!--- KNIT example-prompt-executors-05.kt -->
+<!--- KNIT example-prompt-executors-06.kt -->
 
 オプションで、リクエストされたクライアントが利用できない場合に使用するフォールバックLLMプロバイダーとモデルを構成できます。
-詳細については、[フォールバックの構成](#configuring-fallbacks) を参照してください。
 
 ## フォールバックの構成
 
-マルチプロバイダープロンプトエグゼキューターは、リクエストされたLLMクライアントが利用できない場合にフォールバックLLMプロバイダーとモデルを使用するように構成できます。
-フォールバックメカニズムを構成するには、`MultiLLMPromptExecutor` のコンストラクタに `fallback` パラメータを指定します。
+マルチプロバイダーおよびルーティングプロンプトエグゼキューターは、リクエストされたLLMクライアントが利用できない場合にフォールバックLLMプロバイダーとモデルを使用するように構成できます。
+フォールバックメカニズムを構成するには、`MultiLLMPromptExecutor` または `RoutingLLMPromptExecutor` のコンストラクタに `fallback` パラメータを指定します。
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
@@ -216,7 +254,7 @@ val multiExecutor = MultiLLMPromptExecutor(
     )
 )
 ```
-<!--- KNIT example-prompt-executors-06.kt -->
+<!--- KNIT example-prompt-executors-07.kt -->
 
 `MultiLLMPromptExecutor` に含まれていないLLMプロバイダーのモデルを渡すと、プロンプトエグゼキューターはフォールバックモデルを使用します。
 
@@ -253,7 +291,7 @@ val p = prompt("demo") { user("Summarize this") }
 // Googleモデルを渡すと、Googleクライアントが含まれていないため、プロンプトエグゼキューターはフォールバックモデルを使用する
 val response = multiExecutor.execute(p, GoogleModels.Gemini2_5Pro)
 ```
-<!--- KNIT example-prompt-executors-07.kt -->
+<!--- KNIT example-prompt-executors-08.kt -->
 
 !!! note
     フォールバックは `execute()` および `executeMultipleChoices()` メソッドでのみ利用可能です。

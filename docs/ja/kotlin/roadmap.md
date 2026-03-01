@@ -3,11 +3,11 @@
 <table>
     <tr>
         <td><strong>最終更新日</strong></td>
-        <td><strong>2025年8月</strong></td>
+        <td><strong>2026年2月</strong></td>
     </tr>
     <tr>
         <td><strong>次回の更新</strong></td>
-        <td><strong>2026年2月</strong></td>
+        <td><strong>2026年8月</strong></td>
     </tr>
 </table>
 
@@ -18,8 +18,8 @@ Kotlin ロードマップへようこそ！JetBrains チームの優先事項を
 このロードマップの目的は、全体像を提示することにあります。
 以下は、私たちが提供に注力している最も重要な方向性である、主要な重点分野のリストです。
 
-* **言語の進化**: 構文の変更よりもセマンティクス（意味論）を重視した有意義な言語改善により、Kotlin を実用的かつ表現力豊かな言語に保ちます。
-* **マルチプラットフォーム**: 強固な iOS サポート、成熟した Web ターゲット、および信頼性の高い IDE ツーリングを備えた、現代的なマルチプラットフォーム・アプリの基盤を構築します。
+* **言語の進化**: 構文の儀式的な記述よりも有意義なセマンティクス（意味論）を重視することで、Kotlin を簡潔かつ表現力豊かな言語に保ちます。
+* **マルチプラットフォーム**: 強固な iOS 体験、成熟した Web ターゲット、および信頼性の高い IDE ツーリングを備えた、現代的なクロスプラットフォーム・アプリの基盤を構築します。
 * **特定のツールに依存しない（Staying agnostic）**: 開発者がどのようなツールやターゲットを使用していても、それをサポートします。
 * **エコシステムのサポート**: Kotlin ライブラリ、ツール、フレームワークの開発および公開プロセスを簡素化します。
 
@@ -41,17 +41,20 @@ Kotlin ロードマップへようこそ！JetBrains チームの優先事項を
     <tr id="language">
         <td><strong>言語</strong></td>
         <td>
-            <p><a href="kotlin-language-features-and-proposals.md">Kotlin 言語機能とプロポーザルの全リストを見る</a>。または、<a href="https://youtrack.jetbrains.com/issue/KT-54620">今後の言語機能に関する YouTrack の問題</a>をフォローしてください。</p>
+            <p>Kotlin 言語機能とプロポーザルの<a href="kotlin-language-features-and-proposals.md">全リストを見る</a>。または、<a href="https://youtrack.jetbrains.com/issue/KT-54620">今後の言語機能に関する YouTrack の問題</a>をフォローしてください。</p>
         </td>
     </tr>
     <tr id="compiler">
         <td><strong>コンパイラ</strong></td>
         <td>
             <list>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-80304">Kotlin/Wasm: 新しいスレッドプロポーザルを使用したマルチスレッドサポートのプロトタイプ作成</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/KT-75371">JSpecify サポートの仕上げ</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/KT-75372">K1 コンパイラの非推奨化</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/KT-75370">Kotlin/Wasm (<code>wasm-js</code> ターゲット) を Beta に昇格</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-51107" target="_blank">ラムダの戻り値の型によるオーバーロード解決の安定化</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-84567" target="_blank">共通コードの K2 マルチプラットフォーム増分コンパイルをサポート</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-75463" target="_blank">新しい JVM リフレクション：調査、プロトタイプ作成、および実装</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-84568" target="_blank">Power-assert プラグインの進化</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-64568" target="_blank">Kotlin/Wasm: ライブラリの <code>wasm-wasi</code> ターゲットを WASI Preview 2 に切り替え</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-64569" target="_blank">Kotlin/Wasm: コンポーネントモデルのサポート</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-82064" target="_blank">Kotlin/Wasm: マルチモジュールコンパイルのサポート</a></li>
             </list>
         </td>
     </tr>
@@ -59,13 +62,15 @@ Kotlin ロードマップへようこそ！JetBrains チームの優先事項を
         <td><strong>マルチプラットフォーム</strong></td>
         <td>
             <list>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-80305">Swift Export でのコルーチンをサポート</a></li>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-80308">Kotlin/JS: モダンな JavaScript へのコンパイル</a></li> 
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-80310">Kotlin/JS: JavaScript への Kotlin 宣言のエクスポートの可能性を拡張</a></li>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-80307">Kotlin/JS: Kotlin/JS のオンボーディング資料の改善</a></li> 
-                <li><a href="https://youtrack.jetbrains.com/issue/KT-71278">Concurrent Mark and Sweep (CMS) GC をデフォルトで有効化</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/KT-68323">マルチプラットフォーム・ライブラリの次世代配布形式を実装</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-80305" target="_blank">Swift Export: Alpha リリース</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-84569" target="_blank">Compose Multiplatform の iOS 用に新しい <code>TextInputService</code> を実装</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-84570" target="_blank">Swift 6.3 のサポート</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-84571" target="_blank">Compose Multiplatform 用の Navigation3 を安定化</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KT-68323" target="_blank">マルチプラットフォーム・ライブラリの次世代配布形式を実装</a></li>
                 <li><a href="https://youtrack.jetbrains.com/issue/KT-64570" target="_blank">すべての Kotlin ターゲット間でインライン・セマンティクスを統一</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KT-80307" target="_blank">Kotlin/JS: Kotlin/JS のオンボーディング資料の改善</a></li> 
+                <li><a href="https://youtrack.jetbrains.com/issue/KT-80308" target="_blank">Kotlin/JS: モダンな JavaScript へのコンパイル</a></li> 
+                <li><a href="https://youtrack.jetbrains.com/issue/KT-80310" target="_blank">Kotlin/JS: JavaScript への Kotlin 宣言のエクスポートの可能性を拡張</a></li>
                 <li><a href="https://youtrack.jetbrains.com/issue/KT-71279" target="_blank">klib アーティファクトの増分コンパイルをデフォルトで有効化</a></li>
             </list>
             <tip><p><a href="https://jb.gg/kmp-roadmap-2025" target="_blank">Kotlin Multiplatform 開発ロードマップ</a></p></tip>
@@ -75,16 +80,15 @@ Kotlin ロードマップへようこそ！JetBrains チームの優先事項を
         <td><strong>ツール</strong></td>
         <td>
             <list>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-80322" target="_blank">Kotlin LSP および VS Code のサポート</a></li>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KTIJ-35208" target="_blank">Kotlin + JPA のエクスペリエンス向上</a></li>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-80311" target="_blank">Gradle Project Isolation における Kotlin JS\WASM のサポート</a></li>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KTNB-1133" target="_blank">Kotlin Notebooks: 新しいユースケースのサポート</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/KT-75374" target="_blank">IntelliJ IDEA での Kotlin/Wasm プロジェクトの開発エクスペリエンス向上</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/KT-75376" target="_blank">インポートのパフォーマンス向上</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/KTIJ-31316" target="_blank">IntelliJ IDEA K2 モードの完全リリース</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-84572" target="_blank">Kotlin/Native デバッガの健全性とパフォーマンスの向上</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-84573" target="_blank">Maven での Kotlin のスマートなデフォルト設定（Java + Kotlin 混在）</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-53877" target="_blank">Kotlin での Swift Package Manager パッケージのインポートをサポート</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-66897" target="_blank">Karma ランナーを非推奨でない代替ツールに置き換え</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KT-49511" target="_blank">Kotlin スクリプティングおよび <code>.gradle.kts</code> のエクスペリエンス向上</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KT-80311" target="_blank">Gradle Project Isolation における Kotlin/JS および Kotlin/Wasm のサポート</a></li>
                 <li><a href="https://youtrack.jetbrains.com/issue/KT-76255" target="_blank">Build Tools API の設計</a></li>
                 <li><a href="https://youtrack.jetbrains.com/issue/KT-71292" target="_blank">Declarative Gradle をサポートする Kotlin エコシステム・プラグインのリリース</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/KT-49511" target="_blank">Kotlin スクリプティングおよび <code>.gradle.kts</code> のエクスペリエンス向上</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KT-80322" target="_blank">Kotlin LSP および VS Code のサポート</a></li>
             </list>
          </td>
     </tr>
@@ -92,30 +96,32 @@ Kotlin ロードマップへようこそ！JetBrains チームの優先事項を
         <td><strong>エコシステム</strong></td>
         <td>
             <list>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-80323">KDoc のマシン読み取り可能な表現を実装</a></li>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-80324">Kotlin Notebooks の安定化</a></li>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-80327">Kotlin DataFrame 1.0 のリリース</a></li>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-80328">Kandy 0.9 のリリース</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/KT-12719" target="_blank">Unit 以外の値を返し、それが使用されていない Kotlin 関数に対するデフォルトの警告/エラーの導入</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-83525" target="_blank">標準ライブラリのセキュリティ修正に対して 18 か月のサポート期間を導入</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-84574" target="_blank">試験的な <code>kotlinx.serialization</code> API の安定化</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-84575" target="_blank"><code>kotlinx.collections.immutable</code> の安定化</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KT-84576" target="_blank">サーバーサイド向け Kotlin での Lombok コンパイラプラグインのエクスペリエンス向上</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KT-64578" target="_blank"><code>kotlinx-datetime</code> を Beta に昇格</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KT-80323" target="_blank">KDoc のマシン読み取り可能な表現を実装</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KT-71297" target="_blank">Kotlin 配布の UX 向上: コードカバレッジとバイナリ互換性の検証を追加</a></li>
                 <li><a href="https://youtrack.jetbrains.com/issue/KT-71298" target="_blank">標準ライブラリ用の新しいマルチプラットフォーム API: Unicode およびコードポイントのサポート</a></li>
                 <li><a href="https://youtrack.jetbrains.com/issue/KT-71300" target="_blank"><code>kotlinx-io</code> ライブラリの安定化</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/KT-71297" target="_blank">Kotlin 配布の UX 向上: コードカバレッジとバイナリ互換性の検証を追加</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/KT-64578" target="_blank"><code>kotlinx-datetime</code> を Beta に昇格</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KT-12719" target="_blank">Unit 以外の値を返し、それが使用されていない Kotlin 関数に対するデフォルトの警告/エラーの導入</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KT-80324" target="_blank">Kotlin Notebooks の安定化</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KT-80327" target="_blank">Kotlin DataFrame 1.0 のリリース</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KT-80328" target="_blank">Kandy 0.9 のリリース</a></li>
             </list>
             <p><b>Ktor:</b></p>
             <list>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KTOR-8316">Ktor Client および Server Application での OpenAPI 仕様のサポート</a></li>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KTOR-6622">Ktor の管理とオブザーバビリティ（観測可能性）の向上</a></li>
-                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KTOR-7958">WebRTC クライアント</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/KTOR-1501">ジェネレータープラグインとチュートリアルによる Ktor への gRPC サポートの追加</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/KTOR-6026">Kubernetes ジェネレータープラグインの作成</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/KTOR-6621">依存関係注入（DI）の使用をシンプルにする</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/KTOR-7938">HTTP/3 サポート</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/KTOR-9266" target="_blank">Ktor での認証機能の向上</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KTOR-7938" target="_blank">HTTP/3 サポート</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KTOR-6026" target="_blank">Kubernetes ジェネレータープラグインの作成</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KTOR-1501" target="_blank">ジェネレータープラグインとチュートリアルによる Ktor への gRPC サポートの追加</a></li>
+                <li><a href="https://youtrack.jetbrains.com/issue/KTOR-6622" target="_blank">Ktor の管理とオブザーバビリティ（観測可能性）の向上</a></li>
             </list>
             <p><b>Exposed:</b></p>
             <list>
-                <li><a href="https://youtrack.jetbrains.com/issue/EXPOSED-444">1.0.0 のリリース</a></li>
-                <li><a href="https://youtrack.jetbrains.com/issue/EXPOSED-74">R2DBC サポートの追加</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/EXPOSED-778" target="_blank">Exposed DAO 2.0 のリリース</a></li>
+                <li>🆕 <a href="https://youtrack.jetbrains.com/issue/EXPOSED-755" target="_blank">移行用の Gradle プラグインを作成</a></li>
             </list>
          </td>
     </tr>
@@ -127,55 +133,63 @@ Kotlin ロードマップへようこそ！JetBrains チームの優先事項を
 > 
 {style="note"}
 
-## 2025年2月以降の変更点
+## 2025年8月以降の変更点
 
 ### 完了した項目
 
 以前のロードマップから以下の項目を**完了**しました。
 
-* ✅ マルチプラットフォーム: [Swift Export の最初のパブリックリリース](https://youtrack.jetbrains.com/issue/KT-64572)
-* ✅ マルチプラットフォーム: [プロジェクトレベルでの Kotlin Multiplatform 依存関係の宣言をサポート](https://youtrack.jetbrains.com/issue/KT-71289)
-* ✅ マルチプラットフォーム: [異なるプラットフォーム間での klib クロスコンパイルを安定化](https://youtrack.jetbrains.com/issue/KT-71290)
-* ✅ マルチプラットフォーム: [Kotlin/JS: Compose フォールバックモードのための WasmJS と JS 間の共通ソースをサポート](https://youtrack.jetbrains.com/issue/KT-79394)
-* ✅ ツール: [Kotlin ビルドレポートの改善](https://youtrack.jetbrains.com/issue/KT-60279)
-* ✅ ツール: [Gradle DSL で安定したコンパイラ引数を公開](https://youtrack.jetbrains.com/issue/KT-55515)
-* ✅ ツール: [Gradle Project Isolation をサポート](https://youtrack.jetbrains.com/issue/KT-54105)
-* ✅ ツール: [Gradle への Kotlin/Native ツールチェーンの統合を改善](https://youtrack.jetbrains.com/issue/KT-64577)
-* ✅ ツール: [Kotlin Notebook: アクセスの円滑化とエクスペリエンスの向上](https://youtrack.jetbrains.com/issue/KTNB-898)
-* ✅ ツール: [XCFrameworks でのリソースのサポート](https://youtrack.jetbrains.com/issue/KT-75377)
-* ✅ エコシステム: [Dokka HTML 出力の UI を改良](https://youtrack.jetbrains.com/issue/KT-71295)
-* ✅ エコシステム: [バックエンドアプリケーションのプロジェクト構造化をシンプルにする](https://youtrack.jetbrains.com/issue/KTOR-7158)
-* ✅ エコシステム: [CLI ジェネレーターを SNAP に公開](https://youtrack.jetbrains.com/issue/KTOR-3937)
-* ✅ エコシステム: [依存関係注入（DI）の使用をシンプルにする](https://youtrack.jetbrains.com/issue/KTOR-6621)
+* ✅ コンパイラ: [JSpecify サポートの仕上げ](https://youtrack.jetbrains.com/issue/KT-75371)
+* ✅ コンパイラ: [K1 コンパイラの非推奨化](https://youtrack.jetbrains.com/issue/KT-75372)
+* ✅ コンパイラ: [Kotlin/Wasm (<code>wasm-js</code> ターゲット) を Beta に昇格](https://youtrack.jetbrains.com/issue/KT-75370)
+* ✅ マルチプラットフォーム: [Concurrent Mark and Sweep (CMS) GC をデフォルトで有効化](https://youtrack.jetbrains.com/issue/KT-71278)
+* ✅ マルチプラットフォーム: [Kotlin Multiplatform IDE プラグインでの Windows および Linux のサポート](https://youtrack.jetbrains.com/issue/KMT-789)
+* ✅ マルチプラットフォーム: [Compose Multiplatform for Web を Beta でリリース](https://blog.jetbrains.com/kotlin/2025/09/compose-multiplatform-1-9-0-compose-for-web-beta/)
+* ✅ マルチプラットフォーム: [Compose Hot Reload を Stable でリリース](https://blog.jetbrains.com/kotlin/2026/01/compose-multiplatform-1-10-0/)
+* ✅ ツール: [Kotlin + JPA のエクスペリエンス向上](https://youtrack.jetbrains.com/issue/KTIJ-35208)
+* ✅ ツール: [Kotlin Notebooks: 新しいユースケースのサポート](https://youtrack.jetbrains.com/issue/KTNB-1133)
+* ✅ ツール: [IntelliJ IDEA での Kotlin/Wasm プロジェクトの開発エクスペリエンス向上](https://youtrack.jetbrains.com/issue/KT-75374)
+* ✅ ツール: [JS/Wasm アーティファクトの NPM 公開機能を追加](https://plugins.gradle.org/plugin/org.jetbrains.kotlin.npm-publish)
+* ✅ ツール: [IntelliJ IDEA K2 モードの完全リリース](https://youtrack.jetbrains.com/issue/KTIJ-31316)
+* ✅ ツール: [インポートのパフォーマンス向上](https://youtrack.jetbrains.com/issue/KT-75376)
+* ✅ エコシステム: [Ktor Client および Server アプリケーションでの OpenAPI 仕様のサポート](https://youtrack.jetbrains.com/issue/KTOR-8316)
+* ✅ エコシステム: [Ktor WebRTC クライアント](https://youtrack.jetbrains.com/issue/KTOR-7958)
+* ✅ エコシステム: [Ktor での依存関係注入（DI）の使用をシンプルにする](https://youtrack.jetbrains.com/issue/KTOR-6621)
+* ✅ エコシステム: [Exposed 1.0.0 のリリース](https://youtrack.jetbrains.com/issue/EXPOSED-444)
+* ✅ エコシステム: [Exposed への R2DBC サポートの追加](https://youtrack.jetbrains.com/issue/EXPOSED-74)
 
 ### 新規項目
 
 ロードマップに以下の項目を**追加**しました。
 
-* 🆕 コンパイラ: [Kotlin/Wasm: 新しいスレッドプロポーザルを使用したマルチスレッドサポートのプロトタイプ作成](https://youtrack.jetbrains.com/issue/KT-80304)
-* 🆕 マルチプラットフォーム: [Swift Export でのコルーチンをサポート](https://youtrack.jetbrains.com/issue/KT-80305)
-* 🆕 マルチプラットフォーム: [Kotlin/JS: モダンな JavaScript へのコンパイル](https://youtrack.jetbrains.com/issue/KT-80308)
-* 🆕 マルチプラットフォーム: [Kotlin/JS: JavaScript への Kotlin 宣言のエクスポートの可能性を拡張](https://youtrack.jetbrains.com/issue/KT-80310)
-* 🆕 マルチプラットフォーム: [Kotlin/JS: Kotlin/JS のオンボーディング資料の改善](https://youtrack.jetbrains.com/issue/KT-80307)
-* 🆕 ツール: [Kotlin LSP および VS Code のサポート](https://youtrack.jetbrains.com/issue/KT-80322)
-* 🆕 ツール: [Kotlin + JPA のエクスペリエンス向上](https://youtrack.jetbrains.com/issue/KTIJ-35208)
-* 🆕 ツール: [Gradle Project Isolation における Kotlin JS\WASM のサポート](https://youtrack.jetbrains.com/issue/KT-80311)
-* 🆕 ツール: [Kotlin Notebooks: 新しいユースケースのサポート](https://youtrack.jetbrains.com/issue/KTNB-1133)
-* 🆕 エコシステム: [KDoc のマシン読み取り可能な表現を実装](https://youtrack.jetbrains.com/issue/KT-80323)
-* 🆕 エコシステム: [Kotlin Notebooks の安定化](https://youtrack.jetbrains.com/issue/KT-80324)
-* 🆕 エコシステム: [Kotlin DataFrame 1.0 のリリース](https://youtrack.jetbrains.com/issue/KT-80327)
-* 🆕 エコシステム: [Kandy 0.9 のリリース](https://youtrack.jetbrains.com/issue/KT-80328)
-* 🆕 エコシステム: [Ktor Client および Server Application での OpenAPI 仕様のサポート](https://youtrack.jetbrains.com/issue/KTOR-8316)
-* 🆕 エコシステム: [Ktor の管理とオブザーバビリティ（観測可能性）の向上](https://youtrack.jetbrains.com/issue/KTOR-6622)
-* 🆕 エコシステム: [WebRTC クライアント](https://youtrack.jetbrains.com/issue/KTOR-7958)
+* 🆕 コンパイラ: [Kotlin/Wasm: マルチモジュールコンパイルのサポート](https://youtrack.jetbrains.com/issue/KT-82064)
+* 🆕 コンパイラ: [Kotlin/Wasm: ライブラリの `wasm-wasi` ターゲットを WASI Preview 2 に切り替え](https://youtrack.jetbrains.com/issue/KT-64568)
+* 🆕 コンパイラ: [Kotlin/Wasm: コンポーネントモデルのサポート](https://youtrack.jetbrains.com/issue/KT-64569)
+* 🆕 コンパイラ: [ラムダの戻り値の型によるオーバーロード解決の安定化](https://youtrack.jetbrains.com/issue/KT-51107)
+* 🆕 コンパイラ: [共通コードの K2 マルチプラットフォーム増分コンパイルをサポート](https://youtrack.jetbrains.com/issue/KT-84567)
+* 🆕 コンパイラ: [新しい JVM リフレクション：調査、プロトタイプ作成、および実装](https://youtrack.jetbrains.com/issue/KT-75463)
+* 🆕 コンパイラ: [Power-assert プラグインの進化](https://youtrack.jetbrains.com/issue/KT-84568)
+* 🆕 マルチプラットフォーム: [Swift Export: Alpha リリース](https://youtrack.jetbrains.com/issue/KT-80305)
+* 🆕 マルチプラットフォーム: [Compose Multiplatform の iOS 用に新しい `TextInputService` を実装](https://youtrack.jetbrains.com/issue/KT-84569)
+* 🆕 マルチプラットフォーム: [Swift 6.3 のサポート](https://youtrack.jetbrains.com/issue/KT-84570)
+* 🆕 マルチプラットフォーム: [Compose Multiplatform 用の Navigation3 を安定化](https://youtrack.jetbrains.com/issue/KT-84571)
+* 🆕 ツール: [Kotlin/Native デバッガの健全性とパフォーマンスの向上](https://youtrack.jetbrains.com/issue/KT-84572)
+* 🆕 ツール: [Maven での Kotlin のスマートなデフォルト設定（Java + Kotlin 混在）](https://youtrack.jetbrains.com/issue/KT-84573)
+* 🆕 ツール: [Kotlin での Swift Package Manager パッケージのインポートをサポート](https://youtrack.jetbrains.com/issue/KT-53877)
+* 🆕 ツール: [Karma ランナーを非推奨でない代替ツールに置き換え](https://youtrack.jetbrains.com/issue/KT-66897)
+* 🆕 エコシステム: [標準ライブラリのセキュリティ修正に対して 18 か月のサポート期間を導入](https://youtrack.jetbrains.com/issue/KT-83525)
+* 🆕 エコシステム: [試験的な `kotlinx.serialization` API の安定化](https://youtrack.jetbrains.com/issue/KT-84574)
+* 🆕 エコシステム: [<code>kotlinx.collections.immutable</code> の安定化](https://youtrack.jetbrains.com/issue/KT-84575)
+* 🆕 エコシステム: [サーバーサイド向け Kotlin での Lombok コンパイラプラグインのエクスペリエンス向上](https://youtrack.jetbrains.com/issue/KT-84576)
+* 🆕 エコシステム: [Ktor での認証機能の向上](https://youtrack.jetbrains.com/issue/KTOR-9266)
+* 🆕 エコシステム: [Exposed DAO 2.0 のリリース](https://youtrack.jetbrains.com/issue/EXPOSED-778)
+* 🆕 エコシステム: [Exposed 移行用の Gradle プラグインを作成](https://youtrack.jetbrains.com/issue/EXPOSED-755)
 
 ### 削除された項目
 
 ロードマップから以下の項目を**削除**しました。
 
-* ❌ コンパイラ: [Kotlin/Wasm: ライブラリの `wasm-wasi` ターゲットを WASI Preview 2 に切り替え](https://youtrack.jetbrains.com/issue/KT-64568)
-* ❌ コンパイラ: [Kotlin/Wasm: コンポーネントモデルのサポート](https://youtrack.jetbrains.com/issue/KT-64569)
-* ❌ エコシステム: [Snap への公開](https://youtrack.jetbrains.com/issue/KTOR-3937)
+* ❌ コンパイラ: [Kotlin/Wasm: 新しいスレッドプロポーザルを使用したマルチスレッドサポートのプロトタイプ作成](https://youtrack.jetbrains.com/issue/KT-80304)
 
 > 一部の項目はロードマップから削除されましたが、完全に中止されたわけではありません。場合によっては、以前のロードマップ項目を現在の項目に統合しました。
 >

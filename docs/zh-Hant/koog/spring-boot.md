@@ -319,8 +319,8 @@ API key is required but not provided
 
 ## 後續步驟
 
-- 了解 [基礎 agent](basic-agents.md) 以建置極簡的 AI 工作流程。
-- 探索 [複雜工作流程 agent](complex-workflow-agents.md) 以處理進階使用案例。
+- 了解 [基礎 agent](agents/basic-agents.md) 以建置極簡的 AI 工作流程。
+- 探索 [圖形式 agent](agents/graph-based-agents.md) 以處理進階使用案例。
 - 參閱 [工具總覽](tools-overview.md) 以擴展您 agent 的功能。
 - 查看 [範例](examples.md) 以了解實際的實作方式。
 - 閱讀 [術語表](glossary.md) 以更深入了解框架。

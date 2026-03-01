@@ -82,8 +82,34 @@
                 "link": "server-modules"
               },
               {
-                "text": "ktor.server-dependency-injection",
-                "link": "server-dependency-injection"
+                "text": "ktor.dependency-injection",
+                "items": [
+                  {
+                    "text": "ktor.server-dependency-injection",
+                    "link": "server-dependency-injection"
+                  },
+                  {
+                    "text": "ktor.server-di-configuration",
+                    "link": "server-di-configuration"
+                  },
+                  {
+                    "text": "ktor.server-di-dependency-registration",
+                    "link": "server-di-dependency-registration"
+                  },
+                  {
+                    "text": "ktor.server-di-dependency-resolution",
+                    "link": "server-di-dependency-resolution"
+                  },
+                  {
+                    "text": "ktor.server-di-resource-lifecycle-management",
+                    "link": "server-di-resource-lifecycle-management"
+                  },
+                  {
+                    "text": "ktor.server-di-testing",
+                    "link": "server-di-testing"
+                  }
+                ],
+                "collapsed": true
               },
               {
                 "text": "ktor.server-plugins",

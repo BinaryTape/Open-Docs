@@ -8,9 +8,18 @@
 <p>
 <b>所需依赖项</b>：<code>io.ktor:ktor-server-di</code>
 </p>
+<var name="example_name" value="server-di"/>
+<p>
+    <b>代码示例</b>：
+    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+        %example_name%
+    </a>
+</p>
 </tldr>
 
-依赖注入 (DI) 插件允许您仅注册一次服务和配置对象，并将它们注入到整个项目的应用程序模块、插件、路由和其他组件中。Ktor 的 DI 旨在与现有的应用程序生命周期自然集成，并开箱即用支持作用域和结构化配置。
+[依赖注入 (DI)](https://en.wikipedia.org/wiki/Dependency_injection) 是一种设计模式，旨在帮助您为组件提供其所需的依赖项。模块不再直接创建具体实现，而是依赖于抽象，并由 DI 容器负责在运行时构建并提供适当的实例。这种分离降低了耦合性，提高了可测试性，并使得在不修改现有代码的情况下替换或重新配置实现变得更加容易。
+
+Ktor 提供了一个内置的 DI 插件，允许您仅注册一次服务和配置对象，并在整个应用程序中访问它们。您可以以一致且类型安全的方式将 [这些依赖项注入到模块](server-di-dependency-resolution.md#inject-into-modules)、插件、路由和其他 Ktor 组件中。该插件与 Ktor 应用程序生命周期集成，并支持作用域、结构化配置和 [自动资源管理](server-di-resource-lifecycle-management.md)，从而使组织和维护应用程序级服务变得更加容易。
 
 ## 添加依赖项
 
@@ -28,268 +37,37 @@
     </TabItem>
 </Tabs>
 
-## 基础依赖项注册
+## 依赖注入在 Ktor 中的工作方式
 
-您可以使用 lambda 表达式、函数引用或构造函数引用来注册依赖项：
+在 Ktor 中，依赖注入是一个单一的集成过程，由两个紧密相关的步骤组成：
 
-```kotlin
-dependencies {
-    // 基于 lambda 表达式
-    provide<GreetingService> { GreetingServiceImpl() }
+* [注册依赖项](server-di-dependency-registration.md) — 声明如何创建实例。
+* [解析依赖项](server-di-dependency-resolution.md) — 在运行时访问并注入这些实例。
 
-    // 函数引用
-    provide<GreetingService>(::GreetingServiceImpl)
-    provide(BankServiceImpl::class)
-    provide(::createBankTeller)
+这些步骤由单个 DI 容器处理。
 
-    // 将 lambda 表达式注册为依赖项
-    provide<() -> GreetingService> { { GreetingServiceImpl() } }
-}
-```
+要开始在您的应用程序中使用依赖注入，请先从 [注册依赖项](server-di-dependency-registration.md) 开始。一旦声明了依赖项，请继续进行 [解析依赖项](server-di-dependency-resolution.md)。
 
-## 基于配置的依赖项注册
+## 支持的功能
 
-您可以在配置文件中使用类路径引用以声明方式配置依赖项。这支持函数引用和类引用：
+DI 插件支持一系列旨在涵盖常见应用程序需求的功能：
 
-```yaml
-# application.yaml
-ktor:
-  application:
-    dependencies:
-      - com.example.RepositoriesKt.provideDatabase
-      - com.example.UserRepository
-database:
-  connectionUrl: postgres://localhost:3037/admin
-```
+* [类型安全的依赖项解析](server-di-dependency-resolution.md)。
+* [可选与可为 null 的依赖项](server-di-dependency-resolution.md#optional-dependencies)。
+* [协变泛型解析](server-di-dependency-resolution.md#covariant-generics)。
+* [异步依赖项解析](server-di-dependency-resolution.md#async-dependency-resolution)。
+* [自动与自定义资源生命周期管理](server-di-resource-lifecycle-management.md)。
 
-```kotlin
-// Repositories.kt
-fun provideDatabase(@Property("database.connectionUrl") connectionUrl: String): Database =
-  PostgresDatabase(connectionUrl)
+## 配置与生命周期行为
 
-class UserRepository(val db: Database) {
-  // 实现 
-}
-```
+可以使用配置选项自定义 DI 容器的行为。这些选项控制依赖项键的匹配方式、冲突的处理方式以及在高级方案中解析的行为方式。
 
-Ktor 使用 DI 容器自动解析构造函数和函数参数。在特殊情况下（例如仅凭类型不足以区分某个值时），您可以使用 `@Property` 或 `@Named` 等注解来重写或显式绑定参数。如果省略，Ktor 将尝试使用 DI 容器通过类型来解析参数。
+有关配置详情，请参阅 [配置 DI 插件](server-di-configuration.md)。
 
-## 依赖项解析与注入
-
-### 解析依赖项
-
-要解析依赖项，您可以使用属性委托或直接解析：
-
-```kotlin
-// 使用属性委托
-val service: GreetingService by dependencies
-
-// 直接解析
-val service = dependencies.resolve<GreetingService>()
-```
-
-### 异步依赖项解析
-
-为了支持异步加载，您可以使用挂起函数：
-
-```kotlin
-suspend fun Application.installEvents() {
-  val kubernetesConnection: EventsConnection = dependencies.resolve() // 挂起直到提供
-}
-
-suspend fun Application.loadEventsConnection() {
-  dependencies.provide {
-    connect(property<KubernetesConfig>("app.events"))
-  }
-}
-```
-
-DI 插件将自动挂起 `resolve()` 调用，直到所有依赖项准备就绪。
-
-### 注入到应用程序模块
-
-您可以通过在模块函数中指定参数，将依赖项直接注入到应用程序模块中。Ktor 将根据类型匹配从 DI 容器中解析这些依赖项。
-
-首先，在配置的 `dependencies` 部分注册您的依赖项提供程序：
-
-```yaml
-ktor:
-  application:
-    dependencies:
-      - com.example.PrintStreamProviderKt.stdout
-    modules:
-      - com.example.LoggingKt.logging
-```
-
-以下是依赖项提供程序和模块函数的形式：
-
-```kotlin
-// com.example.PrintStreamProvider.kt
-fun stdout(): () -> PrintStream = { System.out }
-```
-
-```kotlin
-// com.example.Logging.kt
-fun Application.logging(printStreamProvider: () -> PrintStream) {
-    dependencies {
-        provide<Logger> { SimpleLogger(printStreamProvider()) }
-    }
-}
-```
-
-使用 `@Named` 注入特定键值的依赖项：
-
-```kotlin
-fun Application.userRepository(@Named("mongo") database: Database) {
-    // 使用名为 "mongo" 的依赖项
-}
-```
-
-### 属性与配置注入
-
-使用 `@Property` 直接注入配置值：
-
-```yaml
-connection:
-  domain: api.example.com
-  path: /v1
-  protocol: https
-```
-
-```kotlin
-val connection: Connection = application.property("connection")
-```
-
-这简化了结构化配置的处理，并支持基元类型的自动解析。
-
-## 高级依赖项功能
-
-### 可选与可为 null 的依赖项
-
-使用可为 null 类型来优雅地处理可选依赖项：
-
-```kotlin
-// 使用属性委托
-val config: Config? by dependencies
-
-// 或直接解析
-val config = dependencies.resolve<Config?>()
-```
-
-### 协变泛型
-
-Ktor 的 DI 系统支持类型协变，这允许在类型形参是协变的情况下，将某个值作为其超类型之一进行注入。这对于处理子类型的集合和接口特别有用。
-
-```kotlin
-dependencies {
-  provide<List<String>> { listOf("one", "two") }
-}
-
-// 由于支持类型形参协变，这将正常工作
-val stringList: List<CharSequence> by dependencies
-// 这也将正常工作
-val stringCollection: Collection<CharSequence> by dependencies
-```
-
-协变也适用于非泛型超类型：
-
-```kotlin
-dependencies {
-    provide<BufferedOutputStream> { BufferedOutputStream(System.out) }
-}
-
-// 这样可行，因为 BufferedOutputStream 是 OutputStream 的子类型
-val outputStream: OutputStream by dependencies
-```
-
-#### 限制
-
-虽然 DI 系统支持泛型类型的协变，但它目前不支持跨类型实参子类型解析参数化类型。这意味着您无法使用比注册时更具体或更通用的类型来检索依赖项。
-
-例如，以下代码将无法解析：
-
-```kotlin
-dependencies {
-    provide<Sink<CharSequence>> { CsqSink() }
-}
-
-// 无法解析
-val charSequenceSink: Sink<String> by dependencies
-```
-
-## 资源生命周期管理
-
-DI 插件会在应用程序关闭时自动处理生命周期和清理。
-
-### AutoCloseable 支持
-
-默认情况下，任何实现了 `AutoCloseable` 的依赖项都会在您的应用程序停止时自动关闭：
-
-```kotlin
-class DatabaseConnection : AutoCloseable {
-  override fun close() {
-    // 关闭连接，释放资源
-  }
-}
-
-dependencies {
-  provide<DatabaseConnection> { DatabaseConnection() }
-}
-```
-
-### 自定义清理逻辑
-
-您可以通过指定 `cleanup` 函数来定义自定义清理逻辑：
-
-```kotlin
-dependencies {
-  provide<ResourceManager> { ResourceManagerImpl() } cleanup { manager ->
-    manager.releaseResources()
-  }
-}
-```
-
-### 使用键进行限定作用域的清理
-
-使用 `key` 来管理命名资源及其清理：
-
-```kotlin
-dependencies {
-  key<Closer>("second") {
-    provide { CustomCloser() }
-    cleanup { it.closeMe() }
-  }
-}
-```
-
-依赖项将按声明的逆序进行清理，以确保正确的拆卸过程。
+有关资源清理和关闭行为，请参阅 [资源生命周期管理](server-di-resource-lifecycle-management.md)。
 
 ## 使用依赖注入进行测试
 
-DI 插件提供了简化测试的工具。您可以在加载应用程序模块之前重写依赖项：
+DI 插件与 Ktor 的测试实用程序集成，并支持在测试环境中重写依赖项、加载配置以及控制冲突行为。
 
-```kotlin
-fun test() = testApplication {
-  application {
-    dependencies.provide<MyService> {
-      MockService()
-    }
-    loadServices()
-  }
-}
-```
-
-### 在测试中加载配置
-
-使用 `configure()` 在测试中轻松加载配置文件：
-
-```kotlin
-fun test() = testApplication {
-  // 从默认配置文件路径加载属性
-  configure()
-  // 加载多个带有重写的外部文件
-  configure("root-config.yaml", "test-overrides.yaml")
-}
-```
-
-测试引擎会忽略冲突的声明，以便让您自由地进行重写。
+欲了解更多信息和示例，请参阅 [使用依赖注入进行测试](server-di-testing.md)。

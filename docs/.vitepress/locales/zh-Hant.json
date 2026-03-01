@@ -271,7 +271,7 @@
   "kmp.compose-multiplatform-resources-usage": "存取與使用",
   "kmp.compose-resource-environment": "本地資源環境",
   "kmp.navigation": "導航",
-  "kmp.localization": "本地化",
+  "kmp.localization": "在地化",
   "kmp.compose-regional-format": "區域格式設定",
   "kmp.compose-rtl": "RTL 語言",
   "kmp.ios-specific-features": "iOS 特定功能",
@@ -620,5 +620,15 @@
   "kmp.webassembly-wasm": "WebAssembly (Wasm)",
   "kmp.kmp-ci-tutorial": "為 KMP 應用程式配置 CI",
   "kmp.multiplatform-project-agp-9-migration": "升級至 AGP 9",
-  "kmp.ios-android-app-development": "iOS 與 Android 應用程式開發"
+  "kmp.ios-android-app-development": "iOS 與 Android 應用程式開發",
+  "ktor.dependency-injection": "相依注入",
+  "ktor.server-dependency-injection": "概覽",
+  "ktor.server-di-configuration": "配置",
+  "ktor.server-di-testing": "測試",
+  "koog.quickstart": "快速入門",
+  "koog.agents": "代理",
+  "koog.graph-based-agents": "基於圖的代理",
+  "koog.llm-based-planners": "基於 LLM 的規劃器",
+  "koog.goap-agents": "GOAP 代理",
+  "koog.long-term-memory": "長期記憶"
 }

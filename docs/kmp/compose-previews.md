@@ -40,7 +40,7 @@ kotlin {
 }
 ```
 
-工具依赖项应根据您的 [Android 目标配置](#android-target-configurations)，通过以下两种方式之一在 KMP 模块 `build.gradle.kts` 文件的根 `dependencies {}` 块中声明：
+工具依赖项应根据您的 [Android 目标配置](#android-target-configurations)，通过以下两种方式之一在公共代码模块 `build.gradle.kts` 文件的根 `dependencies {}` 块中声明：
 
 * 如果您使用的是 `com.android.application` 或 `com.android.library` 插件：
 

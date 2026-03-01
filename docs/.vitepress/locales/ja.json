@@ -583,7 +583,7 @@
   "kotlin.kotlin-1-3-x": "Kotlin 1.3.x",
   "kotlin.compatibility-guide-13": "互換性ガイド",
   "koog.llm-parameters": "LLMパラメーター",
-  "sqldelight.fts5-virtual-tables": "FTS5 Virtual Tables",
+  "sqldelight.fts5-virtual-tables": "FTS5 仮想テーブル",
   "kmp.case-studies": "ケーススタディ",
   "kmp.compose-multiplatform-and-jetpack-compose": "フレームワーク間の関係",
   "kmp.compose-multiplatform-jetpack-libraries": "ComposeライブラリのMultiplatformアーティファクト",
@@ -618,5 +618,15 @@
   "kmp.webassembly-wasm": "WebAssembly (Wasm)",
   "kmp.kmp-ci-tutorial": "KMPアプリのCIを設定する",
   "kmp.multiplatform-project-agp-9-migration": "AGP 9へのアップグレード",
-  "kmp.ios-android-app-development": "iOSおよびAndroidアプリの開発"
+  "kmp.ios-android-app-development": "iOSおよびAndroidアプリの開発",
+  "ktor.dependency-injection": "依存性注入",
+  "ktor.server-dependency-injection": "概要",
+  "ktor.server-di-configuration": "設定",
+  "ktor.server-di-testing": "テスト",
+  "koog.quickstart": "クイックスタート",
+  "koog.agents": "エージェント",
+  "koog.graph-based-agents": "グラフベースのエージェント",
+  "koog.llm-based-planners": "LLMベースのプランナー",
+  "koog.goap-agents": "GOAPエージェント",
+  "koog.long-term-memory": "長期メモリ"
 }

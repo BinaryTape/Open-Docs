@@ -43,25 +43,9 @@ val agent = AIAgent(
     install(Persistence) {
         // 为快照使用内存存储
         storage = InMemoryPersistenceStorageProvider()
-        // 启用每个节点后的自动持久化
-        enableAutomaticPersistence = true
-        /* 
-         选择在新 agent 运行中恢复哪个状态。
-     
-         可用选项包括：
-         1. Default: 将 agent 恢复到其停止时的确切执行点（策略图中的节点）。
-            这对于构建复杂的、具有容错能力的 agent 特别有用。
-         2. MessageHistoryOnly: 仅将消息历史恢复到最后保存的状态。
-            agent 将始终从策略图中的第一个节点重新开始，但带有之前运行的历史记录。
-            这对于构建对话式 agent 或聊天机器人非常有用。
-        */
-        rollbackStrategy = RollbackStrategy.MessageHistoryOnly
     }
 }
 ```
-
-!!! tip
-    将 `enableAutomaticPersistence = true` 与 `RollbackStrategy.MessageHistoryOnly` 结合使用，可以创建能够跨多个会话保持对话上下文的 agent。
 
 <!--- KNIT example-agent-persistence-01.kt -->
 
@@ -113,7 +97,7 @@ install(Persistence) {
 ### 连续持久化
 
 连续持久化意味着在每个节点运行后都会自动创建一个检查点。
-要激活连续持久化，请使用以下代码：
+要禁用连续持久化，请使用以下代码：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -133,87 +117,13 @@ val agent = AIAgent(
 
 ```kotlin
 install(Persistence) {
-    enableAutomaticPersistence = true
+    enableAutomaticPersistence = false
 }
 ```
 
 <!--- KNIT example-agent-persistence-03.kt -->
 
-激活后，agent 将在执行每个节点后自动创建一个检查点，从而实现细粒度的恢复。
-
-### 回滚策略
-
-回滚策略确定当 agent 回滚到检查点或开始新运行阶段时将恢复哪个状态。
-有两种可用策略：
-
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.snapshot.feature.Persistence
-import ai.koog.agents.snapshot.providers.InMemoryPersistenceStorageProvider
-import ai.koog.agents.core.agent.context.RollbackStrategy
-import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
-import ai.koog.prompt.executor.ollama.client.OllamaModels
-
-val agent = AIAgent(
-    promptExecutor = simpleOllamaAIExecutor(),
-    llmModel = OllamaModels.Meta.LLAMA_3_2,
-) {
--->
-<!--- SUFFIX
-}
--->
-
-```kotlin
-install(Persistence) {
-    // Default 策略：恢复完整的 agent 状态，包括执行点
-    rollbackStrategy = RollbackStrategy.Default
-}
-```
-
-<!--- KNIT example-agent-persistence-04.kt -->
-
-**`RollbackStrategy.Default`**
-
-将 agent 恢复到其停止时的确切执行点（策略图中的节点）。
-这意味着整个上下文都将被恢复，包括：
-
-- 消息历史
-- 正在执行的当前节点
-- 任何其他有状态的数据
-
-这种策略对于构建复杂的、具有容错能力的 agent 特别有用，这些 agent 需要从上次中断的确切位置恢复执行。
-
-**`RollbackStrategy.MessageHistoryOnly`**
-
-仅将消息历史恢复到最后保存的状态。agent 将始终从策略图中的第一个节点重新开始，但带有之前运行的对话历史记录。
-
-这种策略对于构建对话式 agent 或聊天机器人非常有用，它们需要跨多个会话保持上下文，但应始终从头开始其执行流程。
-
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.snapshot.feature.Persistence
-import ai.koog.agents.snapshot.providers.InMemoryPersistenceStorageProvider
-import ai.koog.agents.core.agent.context.RollbackStrategy
-import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
-import ai.koog.prompt.executor.ollama.client.OllamaModels
-
-val agent = AIAgent(
-    promptExecutor = simpleOllamaAIExecutor(),
-    llmModel = OllamaModels.Meta.LLAMA_3_2,
-) {
--->
-<!--- SUFFIX
-}
--->
-
-```kotlin
-install(Persistence) {
-    // MessageHistoryOnly 策略：保留对话历史但重新开始执行
-    rollbackStrategy = RollbackStrategy.MessageHistoryOnly
-}
-```
-
-<!--- KNIT example-agent-persistence-05.kt -->
+如果禁用了连续持久化，您仍然可以手动创建检查点。
 
 ## 基本用法
 
@@ -247,7 +157,7 @@ suspend fun example(context: AIAgentContext) {
 }
 ```
 
-<!--- KNIT example-agent-persistence-06.kt -->
+<!--- KNIT example-agent-persistence-04.kt -->
 
 ### 从检查点恢复
 
@@ -268,7 +178,7 @@ suspend fun example(context: AIAgentContext, checkpointId: String) {
 }
 ```
 
-<!--- KNIT example-agent-persistence-07.kt -->
+<!--- KNIT example-agent-persistence-05.kt -->
 
 #### 回滚工具产生的所有副作用
 
@@ -322,7 +232,7 @@ install(Persistence) {
 }
 ```
 
-<!--- KNIT example-agent-persistence-08.kt -->
+<!--- KNIT example-agent-persistence-06.kt -->
 
 ### 使用扩展函数
 
@@ -330,8 +240,8 @@ Agent 持久化功能提供了处理检查点的便捷扩展函数：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.context.AIAgentContext
-import ai.koog.agents.example.exampleAgentPersistence06.outputData
-import ai.koog.agents.example.exampleAgentPersistence06.outputType
+import ai.koog.agents.example.exampleAgentPersistence04.outputData
+import ai.koog.agents.example.exampleAgentPersistence04.outputType
 import ai.koog.agents.snapshot.feature.persistence
 import ai.koog.agents.snapshot.feature.withPersistence
 -->
@@ -355,7 +265,7 @@ suspend fun example(context: AIAgentContext) {
     }
 }
 ```
-<!--- KNIT example-agent-persistence-09.kt -->
+<!--- KNIT example-agent-persistence-07.kt -->
 
 ## 高级用法
 
@@ -390,7 +300,7 @@ class MyCustomStorageProvider<MyFilterType> : PersistenceStorageProvider<MyFilte
 
 ```
 
-<!--- KNIT example-agent-persistence-10.kt -->
+<!--- KNIT example-agent-persistence-08.kt -->
 
 要在功能配置中使用您的自定义提供者，请在 agent 中配置 Agent 持久化功能时将其设置为存储。
 
@@ -431,7 +341,7 @@ install(Persistence) {
 }
 ```
 
-<!--- KNIT example-agent-persistence-11.kt -->
+<!--- KNIT example-agent-persistence-09.kt -->
 
 ### 设置执行点
 
@@ -469,6 +379,6 @@ fun example(context: AIAgentContext) {
 
 ```
 
-<!--- KNIT example-agent-persistence-12.kt -->
+<!--- KNIT example-agent-persistence-10.kt -->
 
 这允许在仅从检查点恢复之外，对 agent 的状态进行更细粒度的控制。

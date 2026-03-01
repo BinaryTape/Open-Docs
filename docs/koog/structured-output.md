@@ -207,7 +207,7 @@ val exampleForecasts = listOf(
 - 根据[模型能力](./model-capabilities.md)自动选择最佳的结构化输出方案
 - 必要时在原始提示词中注入结构化输出指令
 - 在可用时使用原生结构化输出支持
-- 当解析失败时，通过辅助 LLM 提供自动错误修正
+- 可选地，当解析失败时，通过辅助 LLM 提供自动错误修正（通过 `fixingParser` 参数）
 
 以下是使用 `executeStructured` 方法的示例：
 
@@ -217,8 +217,8 @@ import ai.koog.agents.example.exampleStructuredData06.exampleForecasts
 import ai.koog.prompt.dsl.prompt
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import ai.koog.prompt.structure.executeStructured
-import ai.koog.prompt.structure.StructureFixingParser
+import ai.koog.prompt.executor.model.executeStructured
+import ai.koog.prompt.executor.model.StructureFixingParser
 import kotlinx.coroutines.runBlocking
 
 fun main() {
@@ -266,7 +266,7 @@ val structuredResponse = promptExecutor.executeStructured<WeatherForecast>(
 | `prompt` | Prompt | 是 | | 要执行的提示词。有关更多信息，请参阅[提示词](prompts/index.md)。 |
 | `model` | LLModel | 是 | | 执行提示词的主模型。 |
 | `examples` | List<T> | 否 | `emptyList()` | 可选的示例列表，帮助模型理解预期的格式。 |
-| `fixingParser` | StructureFixingParser? | 否 | `null` | 可选的解析器，通过使用辅助 LLM 智能修复解析错误来处理格式错误的响应。 |
+| `fixingParser` | StructureFixingParser? | 否 | `null` | 可选的解析器，通过使用辅助 LLM 智能修复解析错误来处理格式错误的响应。提供后，将自动对解析失败的响应进行带错误修正的重试。 |
 
 该方法返回一个 `Result<StructuredResponse<T>>`，其中包含成功解析的结构化数据或错误。
 
@@ -281,7 +281,7 @@ import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.example.exampleStructuredData03.WeatherForecast
 import ai.koog.agents.example.exampleStructuredData06.exampleForecasts
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.structure.StructureFixingParser
+import ai.koog.prompt.executor.model.StructureFixingParser
 
 val strategy = strategy<Unit, Unit>("strategy-name") {
     val node by node<Unit, Unit> {
@@ -303,7 +303,14 @@ val structuredResponse = llm.writeSession {
 ```
 <!--- KNIT example-structured-data-08.kt -->
 
-`fixingParser` 参数指定了在重试期间通过辅助 LLM 处理来应对格式错误响应的配置。这有助于确保您始终获得有效的响应。
+`fixingParser` 参数为格式错误的 JSON 响应提供自动错误修正。当解析失败时，它会使用辅助 LLM 智能地修复响应，直到达到指定的重试次数。
+
+**StructureFixingParser 参数：**
+- `model: LLModel` - 用于修复格式错误 JSON 输出的 LLM
+- `retries: Int` - 最大修复尝试次数（默认值：3）
+- `prompt` - 可选的自定义提示词函数，用于修复过程（默认为内置的修复提示词）
+
+修复过程会迭代地将解析错误传递给辅助模型，该模型会尝试纠正 JSON，同时保留原始数据并进行最小限度的更改。
 
 #### 与智能体策略集成
 
@@ -316,7 +323,7 @@ import ai.koog.agents.core.dsl.extension.nodeLLMRequest
 import ai.koog.agents.example.exampleStructuredData03.WeatherForecast
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.message.Message
-import ai.koog.prompt.structure.StructureFixingParser
+import ai.koog.prompt.executor.model.StructureFixingParser
 -->
 ```kotlin
 val agentStrategy = strategy("weather-forecast") {
@@ -366,7 +373,7 @@ import ai.koog.agents.example.exampleStructuredData03.WeatherForecast
 import ai.koog.agents.example.exampleStructuredData06.exampleForecasts
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.structure.StructuredResponse
-import ai.koog.prompt.structure.StructureFixingParser
+import ai.koog.prompt.executor.model.StructureFixingParser
 -->
 ```kotlin
 val agentStrategy = strategy("weather-forecast") {
@@ -533,9 +540,9 @@ import ai.koog.prompt.dsl.prompt
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import ai.koog.prompt.structure.executeStructured
+import ai.koog.prompt.executor.model.executeStructured
 import ai.koog.prompt.structure.StructuredRequest
-import ai.koog.prompt.structure.StructureFixingParser
+import ai.koog.prompt.executor.model.StructureFixingParser
 import ai.koog.prompt.structure.json.JsonStructure
 import ai.koog.prompt.structure.json.generator.StandardJsonSchemaGenerator
 import ai.koog.prompt.executor.clients.openai.base.structure.OpenAIBasicJsonSchemaGenerator
@@ -575,11 +582,11 @@ val structuredResponse = promptExecutor.executeStructured(
         byProvider = mapOf(
             LLMProvider.OpenAI to StructuredRequest.Native(openAiStructure),
         ),
-        default = StructuredRequest.Manual(genericStructure),
-        fixingParser = StructureFixingParser(
-            model = AnthropicModels.Haiku_4_5,
-            retries = 2
-        )
+        default = StructuredRequest.Manual(genericStructure)
+    ),
+    fixingParser = StructureFixingParser(
+        model = AnthropicModels.Haiku_4_5,
+        retries = 2
     )
 )
 ```
@@ -595,7 +602,7 @@ val structuredResponse = promptExecutor.executeStructured(
 
 ### 跨层级用法
 
-高级配置在 API 的所有三个层级中保持一致。方法名称保持不变，仅参数从简单参数变为更高级的 `StructuredOutputConfig`：
+高级配置在 API 的所有三个层级中保持一致。方法名称保持不变，仅参数从简单参数变为更高级的 `StructuredRequestConfig`：
 
 - **提示词执行器**：`executeStructured(prompt, model, config: StructuredRequestConfig<T>)`
 - **智能体 LLM 上下文**：`requestLLMStructured(config: StructuredRequestConfig<T>)`

@@ -5,12 +5,13 @@
 
 ## 执行器类型
 
-Koog 提供了两种主要类型的提示执行器，它们实现了 [`PromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.model.PromptExecutor) 接口：
+Koog 提供了三种主要类型的提示执行器，它们实现了 [`PromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.model.PromptExecutor) 接口：
 
 | 类型 | <div style="width:175px">类</div> | 描述 |
 |-----------------|-----------------|-----------------|
 | 单提供商 | [`SingleLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.SingleLLMPromptExecutor) | 包装单个提供商的单个 LLM 客户端。如果您的智能体仅需要在单个 LLM 提供商内的模型之间切换，请使用此执行器。 |
 | 多提供商 | [`MultiLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor) | 包装多个 LLM 客户端，并根据 LLM 提供商路由调用。当请求的客户端不可用时，它可以选择性地使用配置的回退提供商和 LLM。如果您的智能体需要在不同提供商的 LLM 之间切换，请使用此执行器。 |
+| 路由 | [`RoutingLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) | 使用路由策略将请求分发到多个客户端实例中的给定 LLM 模型。使用此执行器可以避免速率限制、提高吞吐量，并通过负载均衡实现故障转移策略。 |
 
 ## 创建单提供商执行器
 
@@ -55,6 +56,44 @@ val multiExecutor = MultiLLMPromptExecutor(
 ```
 <!--- KNIT example-prompt-executors-02.kt -->
 
+## 创建路由执行器
+
+!!! warning "实验性 API"
+    路由功能处于实验性阶段，可能会在未来的版本中发生变化。
+    要使用它们，请通过 `@OptIn(ExperimentalRoutingApi::class)` 进行选择性加入。
+
+要创建使用路由策略在多个 LLM 客户端实例之间分发请求的提示执行器，请执行以下操作：
+
+1. 配置多个客户端实例（可以针对相同或不同的 LLM 提供商）及其相应的 API 密钥。
+2. 使用路由策略创建路由器，例如 [`RoundRobinRouter`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.RoundRobinRouter)。
+3. 将路由器传递给 [`RoutingLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) 类构造函数。
+
+这对于避免速率限制、提高吞吐量和实现故障转移策略非常有用。
+
+<!--- INCLUDE
+import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
+import ai.koog.prompt.executor.llms.RoundRobinRouter
+import ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor
+-->
+```kotlin
+// 创建多个客户端实例
+val openAI1 = OpenAILLMClient(apiKey = "openai-key-1")
+val openAI2 = OpenAILLMClient(apiKey = "openai-key-2")
+val anthropic = AnthropicLLMClient(apiKey = "anthropic-key")
+
+// 使用轮询策略创建路由器
+val router = RoundRobinRouter(openAI1, openAI2, anthropic)
+
+// 创建路由执行器
+val routingExecutor = RoutingLLMPromptExecutor(router)
+```
+<!--- KNIT example-prompt-executors-03.kt -->
+
+当您使用此执行器执行提示时，发往 OpenAI 模型的请求将在 `openAI1` 和 `openAI2` 之间轮流切换（使用轮询策略）。发往 Anthropic 模型的请求将始终转到单个 `anthropic` 客户端，因为轮询策略会为每个提供商维护独立的计数器。
+
+您还可以通过创建一个实现 [`LLMClientRouter`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.LLMClientRouter) 接口的类来实现自定义路由策略。
+
 ## 预定义提示执行器
 
 为了更快地进行设置，Koog 为常用提供商提供了现成的执行器实现。
@@ -93,7 +132,7 @@ val anthropicClient = AnthropicLLMClient("ANTHROPIC_KEY")
 val googleClient = GoogleLLMClient("GOOGLE_KEY")
 val multiExecutor = MultiLLMPromptExecutor(openAIClient, anthropicClient, googleClient)
 ```
-<!--- KNIT example-prompt-executors-03.kt -->
+<!--- KNIT example-prompt-executors-04.kt -->
 
 ## 运行提示
 
@@ -127,7 +166,7 @@ val response = promptExecutor.execute(
     model = OpenAIModels.Chat.GPT4o
 )
 ```
-<!--- KNIT example-prompt-executors-04.kt -->
+<!--- KNIT example-prompt-executors-05.kt -->
 
 这将使用 `GPT4o` 模型运行提示并返回响应。
 
@@ -182,13 +221,13 @@ val openAIResult = executor.execute(p, OpenAIModels.Chat.GPT4o)
 // 使用 Anthropic 模型运行提示；提示执行器会自动切换到 Anthropic 客户端
 val anthropicResult = executor.execute(p, AnthropicModels.Opus_4_6)
 ```
-<!--- KNIT example-prompt-executors-05.kt -->
+<!--- KNIT example-prompt-executors-06.kt -->
 
-您可以选择配置回退 LLM 提供商和模型，以便在请求的客户端不可用时使用。详情请参阅[配置回退](#configuring-fallbacks)。
+您可以选择配置回退 LLM 提供商和模型，以便在请求的客户端不可用时使用。
 
 ## 配置回退
 
-可以配置多提供商提示执行器，以便在请求的 LLM 客户端不可用时使用回退 LLM 提供商和模型。要配置回退机制，请向 `MultiLLMPromptExecutor` 构造函数提供 `fallback` 参数：
+多提供商和路由提示执行器可以配置为：在请求的 LLM 客户端不可用时使用回退 LLM 提供商和模型。要配置回退机制，请向 `MultiLLMPromptExecutor` 或 `RoutingLLMPromptExecutor` 构造函数提供 `fallback` 参数：
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
@@ -210,7 +249,7 @@ val multiExecutor = MultiLLMPromptExecutor(
     )
 )
 ```
-<!--- KNIT example-prompt-executors-06.kt -->
+<!--- KNIT example-prompt-executors-07.kt -->
 
 如果您传递的模型所属的 LLM 提供商未包含在 `MultiLLMPromptExecutor` 中，提示执行器将使用回退模型：
 
@@ -247,7 +286,7 @@ val p = prompt("demo") { user("Summarize this") }
 // 如果您传递一个 Google 模型，提示执行器将使用回退模型，因为不包含 Google 客户端
 val response = multiExecutor.execute(p, GoogleModels.Gemini2_5Pro)
 ```
-<!--- KNIT example-prompt-executors-07.kt -->
+<!--- KNIT example-prompt-executors-08.kt -->
 
 !!! note
     回退功能仅适用于 `execute()` 和 `executeMultipleChoices()` 方法。

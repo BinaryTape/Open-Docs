@@ -40,7 +40,7 @@ kotlin {
 }
 ```
 
-툴링 의존성은 사용 중인 [Android 타겟 구성](#android-target-configurations)에 따라 KMP 모듈의 `build.gradle.kts` 파일에 있는 루트 `dependencies {}` 블록에 다음 두 가지 방법 중 하나로 선언해야 합니다:
+툴링 의존성은 사용 중인 [Android 타겟 구성](#android-target-configurations)에 따라 공통 코드 모듈의 `build.gradle.kts` 파일에 있는 루트 `dependencies {}` 블록에 다음 두 가지 방법 중 하나로 선언해야 합니다:
 
 * `com.android.application` 또는 `com.android.library` 플러그인을 사용하는 경우:
 

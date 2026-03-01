@@ -5,12 +5,13 @@
 
 ## 실행기 유형 (Executor types)
 
-Koog는 [`PromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.model.PromptExecutor) 인터페이스를 구현하는 두 가지 주요 프롬프트 실행기 유형을 제공합니다:
+Koog는 [`PromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.model.PromptExecutor) 인터페이스를 구현하는 세 가지 주요 프롬프트 실행기 유형을 제공합니다:
 
 | 유형 | <div style="width:175px">클래스</div> | 설명 |
 |-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 단일 제공자 (Single-provider) | [`SingleLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.SingleLLMPromptExecutor) | 단일 공급자를 위한 단일 LLM 클라이언트를 래핑합니다. 에이전트가 단일 LLM 공급자 내의 모델 간 전환만 필요한 경우 이 실행기를 사용하세요. |
 | 다중 제공자 (Multi-provider) | [`MultiLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor)   | 여러 LLM 클라이언트를 래핑하고 LLM 공급자에 따라 호출을 라우팅합니다. 선택적으로 요청된 클라이언트를 사용할 수 없을 때 구성된 폴백 공급자 및 LLM을 사용할 수 있습니다. 에이전트가 서로 다른 공급자의 LLM 간에 전환해야 하는 경우 이 실행기를 사용하세요. |
+| 라우팅 (Routing) | [`RoutingLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) | 라우팅 전략을 사용하여 지정된 LLM 모델에 대한 요청을 여러 클라이언트 인스턴스에 분산합니다. 속도 제한(rate limits)을 피하고, 처리량(throughput)을 개선하며, 부하 분산(load balancing)과 함께 장애 조치(failover) 전략을 구현하려면 이 실행기를 사용하세요. |
 
 ## 단일 제공자 실행기 생성하기
 
@@ -55,6 +56,45 @@ val multiExecutor = MultiLLMPromptExecutor(
 ```
 <!--- KNIT example-prompt-executors-02.kt -->
 
+## 라우팅 실행기 생성하기
+
+!!! warning "실험적 API"
+    라우팅 기능은 실험적이며 향후 릴리스에서 변경될 수 있습니다.
+    이를 사용하려면 `@OptIn(ExperimentalRoutingApi::class)`를 통해 옵트인(opt in)하세요.
+
+라우팅 전략을 사용하여 여러 LLM 클라이언트 인스턴스에 요청을 분산하는 프롬프트 실행기를 생성하려면 다음 단계를 수행하세요:
+
+1. 해당 API 키를 사용하여 여러 클라이언트 인스턴스(동일하거나 서로 다른 LLM 공급자일 수 있음)를 구성합니다.
+2. [`RoundRobinRouter`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.RoundRobinRouter)와 같은 라우팅 전략을 사용하여 라우터를 생성합니다.
+3. 라우터를 [`RoutingLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) 클래스 생성자에 전달합니다.
+
+이는 속도 제한을 피하고, 처리량을 개선하며, 장애 조치 전략을 구현하는 데 유용합니다.
+
+<!--- INCLUDE
+import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
+import ai.koog.prompt.executor.llms.RoundRobinRouter
+import ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor
+-->
+```kotlin
+// 여러 클라이언트 인스턴스 생성
+val openAI1 = OpenAILLMClient(apiKey = "openai-key-1")
+val openAI2 = OpenAILLMClient(apiKey = "openai-key-2")
+val anthropic = AnthropicLLMClient(apiKey = "anthropic-key")
+
+// 라운드 로빈 전략으로 라우터 생성
+val router = RoundRobinRouter(openAI1, openAI2, anthropic)
+
+// 라우팅 실행기 생성
+val routingExecutor = RoutingLLMPromptExecutor(router)
+```
+<!--- KNIT example-prompt-executors-03.kt -->
+
+이 실행기로 프롬프트를 실행하면, OpenAI 모델에 대한 요청은 라운드 로빈 전략을 사용하여 `openAI1`과 `openAI2` 사이에서 번갈아 가며 수행됩니다.
+Anthropic 모델에 대한 요청은 항상 단일 `anthropic` 클라이언트로 전달되는데, 라운드 로빈은 공급자별로 독립적인 카운터를 유지하기 때문입니다.
+
+[`LLMClientRouter`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.LLMClientRouter) 인터페이스를 구현하는 클래스를 생성하여 커스텀 라우팅 전략을 구현할 수도 있습니다.
+
 ## 사전에 정의된 프롬프트 실행기
 
 빠른 설정을 위해 Koog는 일반적인 공급자에 대해 바로 사용할 수 있는 실행기 구현을 제공합니다.
@@ -93,7 +133,7 @@ val anthropicClient = AnthropicLLMClient("ANTHROPIC_KEY")
 val googleClient = GoogleLLMClient("GOOGLE_KEY")
 val multiExecutor = MultiLLMPromptExecutor(openAIClient, anthropicClient, googleClient)
 ```
-<!--- KNIT example-prompt-executors-03.kt -->
+<!--- KNIT example-prompt-executors-04.kt -->
 
 ## 프롬프트 실행하기
 
@@ -127,7 +167,7 @@ val response = promptExecutor.execute(
     model = OpenAIModels.Chat.GPT4o
 )
 ```
-<!--- KNIT example-prompt-executors-04.kt -->
+<!--- KNIT example-prompt-executors-05.kt -->
 
 이렇게 하면 `GPT4o` 모델로 프롬프트가 실행되고 응답이 반환됩니다.
 
@@ -182,13 +222,13 @@ val openAIResult = executor.execute(p, OpenAIModels.Chat.GPT4o)
 // Anthropic 모델로 프롬프트 실행; 프롬프트 실행기가 자동으로 Anthropic 클라이언트로 전환함
 val anthropicResult = executor.execute(p, AnthropicModels.Opus_4_6)
 ```
-<!--- KNIT example-prompt-executors-05.kt -->
+<!--- KNIT example-prompt-executors-06.kt -->
 
-요청된 클라이언트를 사용할 수 없을 때 사용할 폴백(fallback) LLM 공급자 및 모델을 선택적으로 구성할 수 있습니다. 자세한 내용은 [폴백 구성하기](#configuring-fallbacks)를 참조하세요.
+요청된 클라이언트를 사용할 수 없을 때 사용할 폴백(fallback) LLM 공급자 및 모델을 선택적으로 구성할 수 있습니다.
 
 ## 폴백 구성하기
 
-다중 제공자 프롬프트 실행기는 요청된 LLM 클라이언트를 사용할 수 없을 때 사용할 폴백 LLM 공급자 및 모델을 사용하도록 구성할 수 있습니다. 폴백 메커니즘을 구성하려면 `MultiLLMPromptExecutor` 생성자에 `fallback` 매개변수를 제공하세요:
+다중 제공자 및 라우팅 프롬프트 실행기는 요청된 LLM 클라이언트를 사용할 수 없을 때 사용할 폴백 LLM 공급자 및 모델을 사용하도록 구성할 수 있습니다. 폴백 메커니즘을 구성하려면 `MultiLLMPromptExecutor` 또는 `RoutingLLMPromptExecutor` 생성자에 `fallback` 매개변수를 제공하세요:
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
@@ -210,7 +250,7 @@ val multiExecutor = MultiLLMPromptExecutor(
     )
 )
 ```
-<!--- KNIT example-prompt-executors-06.kt -->
+<!--- KNIT example-prompt-executors-07.kt -->
 
 만약 `MultiLLMPromptExecutor`에 포함되지 않은 LLM 공급자의 모델을 전달하면, 프롬프트 실행기는 폴백 모델을 사용합니다:
 
@@ -247,7 +287,7 @@ val p = prompt("demo") { user("Summarize this") }
 // Google 모델을 전달하면 Google 클라이언트가 포함되어 있지 않으므로 프롬프트 실행기는 폴백 모델을 사용합니다
 val response = multiExecutor.execute(p, GoogleModels.Gemini2_5Pro)
 ```
-<!--- KNIT example-prompt-executors-07.kt -->
+<!--- KNIT example-prompt-executors-08.kt -->
 
 !!! note
     폴백은 `execute()` 및 `executeMultipleChoices()` 메서드에서만 사용할 수 있습니다.

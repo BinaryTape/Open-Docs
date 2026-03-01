@@ -10,14 +10,14 @@ Koog 提供專為 JVM 和 Kotlin 開發人員設計的 Kotlin 領域特定語言
 
 ## 經 JetBrains 產品實戰驗證
 
-Koog 為多款 JetBrains 產品提供支援，包括內部的 AI 代理。
+Koog 為多款 JetBrains 產品提供支援，包括內部的 AI 代理 (agent)。
 這種實戰整合確保了 Koog 針對實際使用案例進行持續的測試、改進與驗證。
 它專注於實務中的有效性，並結合了來自廣泛回饋和真實產品場景的洞察。
 這種整合賦予了 Koog 與其他架構截然不同的優勢。
 
 ## 開箱即用的進階解決方案
 
-Koog 包含預先建置且可組合的解決方案，以簡化並加速代理系統 (Agentic systems) 的開發，使其與僅提供基礎元件的架構有所區別：
+Koog 包含預先建置且可組合的解決方案，以簡化並加速代理系統 (agentic system) 的開發，使其與僅提供基礎元件的架構有所區別：
 
 * **多種歷程記錄壓縮策略。** Koog 開箱即提供進階策略來壓縮與管理長期的對話，無需手動嘗試各種方法。憑藉經 ML 工程師測試與改進的微調提示詞、技術與演算法，您可以依靠成熟的方法來提升效能。如需更多關於壓縮策略的詳細資訊，請參閱 [歷程記錄壓縮](https://docs.koog.ai/history-compression/)。若要探索 Koog 如何在現實場景中處理壓縮與內容管理，請查看 [這篇文章](https://blog.jetbrains.com/ai/2025/07/when-tool-calling-becomes-an-addiction-debugging-llm-patterns-in-koog/)。
 * **無縫 LLM 切換。** 您可以在任何時間點將對話切換到具有一組新可用工具的不同大型語言模型 (LLM)，而不會遺失現有的對話歷程記錄。Koog 會自動重寫歷程記錄並處理無法使用的工具，實現平滑轉換與自然的互動流程。
@@ -54,7 +54,7 @@ Koog 團隊致力於建立強大的開發者社群。
 
 ## 從何處開始
 
-* 在 [總覽](https://docs.koog.ai/) 中探索 Koog 的功能。
-* 參考我們的 [快速入門](https://docs.koog.ai/getting-started/) 指南建置您的第一個 Koog 代理。
+* 在 [總覽](index.md) 中探索 Koog 的功能。
+* 參考我們的 [快速入門](quickstart.md) 指南建置您的第一個 Koog 代理。
 * 在 Koog [版本說明](https://github.com/JetBrains/koog/blob/main/CHANGELOG.md) 中查看最新更新。
 * 從 [範例](https://docs.koog.ai/examples/) 中學習。

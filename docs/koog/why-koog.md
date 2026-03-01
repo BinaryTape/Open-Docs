@@ -45,7 +45,7 @@ Koog 团队致力于建立一个强大的开发者社区。通过积极收集和
 
 ## 从哪里开始
 
-* 在 [概览](https://docs.koog.ai/) 中探索 Koog 的功能。
-* 参考我们的 [快速入门](https://docs.koog.ai/getting-started/) 指南构建您的第一个 Koog agent。
+* 在 [概览](index.md) 中探索 Koog 的功能。
+* 参考我们的 [快速入门](quickstart.md) 指南构建您的第一个 Koog agent。
 * 在 Koog [发布说明](https://github.com/JetBrains/koog/blob/main/CHANGELOG.md) 中查看最新更新。
 * 从 [示例](https://docs.koog.ai/examples/) 中学习。

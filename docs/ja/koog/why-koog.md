@@ -29,10 +29,10 @@ Koog には、エージェンティック・システムの開発を簡素化し
 
 Koog は、さまざまなプラットフォームや環境でのエージェント指向アプリケーションの開発とデプロイをサポートしています。
 
-* **マルチプラットフォームサポート。** エージェント指向アプリケーションを JVM、JS、WasmJS、Android、iOS ターゲットにデプロイできます。
-* **幅広い AI 統合。** Koog は、OpenAI や Anthropic などの主要な LLM プロバイダーや、Bedrock のようなエンタープライズレベルの AI クラウドと統合されています。また、Ollama などのローカルモデルもサポートしています。利用可能なプロバイダーの完全なリストについては、[LLM providers](https://docs.koog.ai/llm-providers/) を参照してください。
-* **OpenTelemetry のサポート。** Koog は、AI アプリケーションのモニタリングとデバッグのために、[W&B Weave](https://wandb.ai/site/weave/) や [Langfuse](https://langfuse.com/) といった人気のあるオブザーバビリティプロバイダーとの統合を標準で提供しています。ネイティブの OpenTelemetry サポートにより、システムですでに使用しているものと同じツールを使用して、エージェントのトレース、ログ記録、測定を行うことができます。詳細は [OpenTelemetry](https://docs.koog.ai/opentelemetry-support/) を参照してください。
-* **Spring Boot および Ktor との統合。** Koog は、広く使用されているエンタープライズ環境と統合されています。
+* **マルチプラットフォームサポート**。エージェント指向アプリケーションを JVM、JS、WasmJS、Android、iOS ターゲットにデプロイできます。
+* **幅広い AI 統合**。Koog は、OpenAI や Anthropic などの主要な LLM プロバイダーや、Bedrock のようなエンタープライズレベル Kings AI クラウドと統合されています。また、Ollama などのローカルモデルもサポートしています。利用可能なプロバイダーの完全なリストについては、[LLM providers](https://docs.koog.ai/llm-providers/) を参照してください。
+* **OpenTelemetry のサポート**。Koog は、AI アプリケーションのモニタリングとデバッグのために、[W&B Weave](https://wandb.ai/site/weave/) や [Langfuse](https://langfuse.com/) といった人気のあるオブザーバビリティプロバイダーとの統合を標準で提供しています。ネイティブの OpenTelemetry サポートにより、システムですでに使用しているものと同じツールを使用して、エージェントのトレース、ログ記録、測定を行うことができます。詳細は [OpenTelemetry](https://docs.koog.ai/opentelemetry-support/) を参照してください。
+* **Spring Boot および Ktor との統合**。Koog は、広く使用されているエンタープライズ環境と統合されています。
     * Ktor サーバーをお使いの場合は、Koog をプラグインとしてインストールし、設定ファイルを使用してプロバイダーを構成し、LLM クライアントを手動で接続することなく、任意のルートからエージェントを直接呼び出すことができます。
     * Spring Boot の場合、Koog はすぐに使用できる Bean と自動構成された LLM クライアントを提供し、AI パワードのワークフロー構築を簡単に開始できるようにします。
 
@@ -54,7 +54,7 @@ Koog チームは、強力な開発者コミュニティを構築することに
 
 ## どこから始めるか
 
-* [Overview](https://docs.koog.ai/) で Koog の機能を確認する。
-* [Getting started](https://docs.koog.ai/getting-started/) ガイドで最初の Koog エージェントを構築する。
+* [Overview](index.md) で Koog の機能を確認する。
+* [Quickstart](quickstart.md) ガイドで最初の Koog エージェントを構築する。
 * Koog の [release notes](https://github.com/JetBrains/koog/blob/main/CHANGELOG.md) で最新のアップデートを確認する。
 * [Examples](https://docs.koog.ai/examples/) から学ぶ。

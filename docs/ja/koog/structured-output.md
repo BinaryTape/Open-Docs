@@ -207,7 +207,7 @@ Koogでは、構造化出力を使用できる3つの主要なレイヤーがあ
 - [モデルの機能](./model-capabilities.md)に基づいて、最適な構造化出力のアプローチを自動的に選択します。
 - 必要に応じて、元のプロンプトに構造化出力の指示を挿入します。
 - 利用可能な場合は、ネイティブの構造化出力サポートを使用します。
-- パースに失敗した場合は、補助LLMによる自動エラー修正を提供します。
+- パースに失敗した場合は、オプションで補助LLMによる自動エラー修正（`fixingParser` パラメーター経由）を提供します。
 
 以下は `executeStructured` メソッドの使用例です。
 
@@ -217,8 +217,8 @@ import ai.koog.agents.example.exampleStructuredData06.exampleForecasts
 import ai.koog.prompt.dsl.prompt
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import ai.koog.prompt.structure.executeStructured
-import ai.koog.prompt.structure.StructureFixingParser
+import ai.koog.prompt.executor.model.executeStructured
+import ai.koog.prompt.executor.model.StructureFixingParser
 import kotlinx.coroutines.runBlocking
 
 fun main() {
@@ -250,7 +250,7 @@ val structuredResponse = promptExecutor.executeStructured<WeatherForecast>(
         model = OpenAIModels.Chat.GPT4oMini,
         // オプション: モデルがフォーマットを理解するのを助けるための例を提供
         examples = exampleForecasts,
-        // オプション: エラー修正のための修正パーサー（fixing parser）を提供
+        // オプション: エラー修正のための修正パーサーを提供
         fixingParser = StructureFixingParser(
             model = OpenAIModels.Chat.GPT4o,
             retries = 3
@@ -266,7 +266,7 @@ val structuredResponse = promptExecutor.executeStructured<WeatherForecast>(
 | `prompt` | Prompt | はい | | 実行するプロンプト。詳細については[Prompts](prompts/index.md)を参照。 |
 | `model` | LLModel | はい | | プロンプトを実行するメインモデル。 |
 | `examples` | List<T> | いいえ | `emptyList()` | モデルが期待されるフォーマットを理解するのを助けるための、オプションの例のリスト。 |
-| `fixingParser` | StructureFixingParser? | いいえ | `null` | 補助LLMを使用してパースエラーをインテリジェントに修正することで、不正な形式のレスポンスを処理するオプションのパーサー。 |
+| `fixingParser` | StructureFixingParser? | いいえ | `null` | 補助LLMを使用してパースエラーをインテリジェントに修正することで、不正な形式のレスポンスを処理するオプションのパーサー。指定された場合、エラー修正を伴うパース失敗の再試行を自動的に行います。 |
 
 このメソッドは、正常にパースされた構造化データまたはエラーを含む `Result<StructuredResponse<T>>` を返します。
 
@@ -281,7 +281,7 @@ import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.example.exampleStructuredData03.WeatherForecast
 import ai.koog.agents.example.exampleStructuredData06.exampleForecasts
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.structure.StructureFixingParser
+import ai.koog.prompt.executor.model.StructureFixingParser
 
 val strategy = strategy<Unit, Unit>("strategy-name") {
     val node by node<Unit, Unit> {
@@ -303,7 +303,14 @@ val structuredResponse = llm.writeSession {
 ```
 <!--- KNIT example-structured-data-08.kt -->
 
-`fixingParser` パラメーターは、再試行中の補助LLM処理を介して不正な形式のレスポンスを処理するための設定を指定します。これにより、常に有効なレスポンスが得られるようになります。
+`fixingParser` パラメーターは、不正な形式のJSONレスポンスに対する自動エラー修正を提供します。パースに失敗した場合、指定された再試行回数まで、補助LLMを使用してインテリジェントにレスポンスを修正します。
+
+**StructureFixingParserのパラメーター:**
+- `model: LLModel` - 不正な形式のJSON出力を修正するために使用されるLLM
+- `retries: Int` - 修正試行の最大回数（デフォルト: 3）
+- `prompt` - 修正プロセス用のオプションのカスタムプロンプト関数（デフォルトは組み込みの修正プロンプト）
+
+修正プロセスでは、パースエラーを反復的に補助モデルに渡し、補助モデルは元のデータを保持しつつ最小限の変更でJSONを修正しようと試みます。
 
 #### エージェントストラテジーとの統合
 
@@ -316,7 +323,7 @@ import ai.koog.agents.core.dsl.extension.nodeLLMRequest
 import ai.koog.agents.example.exampleStructuredData03.WeatherForecast
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.message.Message
-import ai.koog.prompt.structure.StructureFixingParser
+import ai.koog.prompt.executor.model.StructureFixingParser
 -->
 ```kotlin
 val agentStrategy = strategy("weather-forecast") {
@@ -366,7 +373,7 @@ import ai.koog.agents.example.exampleStructuredData03.WeatherForecast
 import ai.koog.agents.example.exampleStructuredData06.exampleForecasts
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.structure.StructuredResponse
-import ai.koog.prompt.structure.StructureFixingParser
+import ai.koog.prompt.executor.model.StructureFixingParser
 -->
 ```kotlin
 val agentStrategy = strategy("weather-forecast") {
@@ -533,9 +540,9 @@ import ai.koog.prompt.dsl.prompt
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import ai.koog.prompt.structure.executeStructured
+import ai.koog.prompt.executor.model.executeStructured
 import ai.koog.prompt.structure.StructuredRequest
-import ai.koog.prompt.structure.StructureFixingParser
+import ai.koog.prompt.executor.model.StructureFixingParser
 import ai.koog.prompt.structure.json.JsonStructure
 import ai.koog.prompt.structure.json.generator.StandardJsonSchemaGenerator
 import ai.koog.prompt.executor.clients.openai.base.structure.OpenAIBasicJsonSchemaGenerator
@@ -575,11 +582,11 @@ val structuredResponse = promptExecutor.executeStructured(
         byProvider = mapOf(
             LLMProvider.OpenAI to StructuredRequest.Native(openAiStructure),
         ),
-        default = StructuredRequest.Manual(genericStructure),
-        fixingParser = StructureFixingParser(
-            model = AnthropicModels.Haiku_4_5,
-            retries = 2
-        )
+        default = StructuredRequest.Manual(genericStructure)
+    ),
+    fixingParser = StructureFixingParser(
+        model = AnthropicModels.Haiku_4_5,
+        retries = 2
     )
 )
 ```
@@ -595,7 +602,7 @@ val structuredResponse = promptExecutor.executeStructured(
 
 ### すべてのレイヤーでの使用
 
-高度な設定は、APIの3つのレイヤーすべてで一貫して機能します。メソッド名は同じで、パラメーターが単純な引数から、より高度な `StructuredOutputConfig` に変わるだけです。
+高度な設定は、APIの3つのレイヤーすべてで一貫して機能します。メソッド名は同じで、パラメーターが単純な引数から、より高度な `StructuredRequestConfig` に変わるだけです。
 
 - **プロンプトエグゼキューター**: `executeStructured(prompt, model, config: StructuredRequestConfig<T>)`
 - **エージェントLLMコンテキスト**: `requestLLMStructured(config: StructuredRequestConfig<T>)`

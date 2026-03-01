@@ -319,8 +319,8 @@ API key is required but not provided
 
 ## 다음 단계
 
-- 최소한의 AI 워크플로를 구축하기 위한 [기본 에이전트](basic-agents.md)에 대해 알아보세요.
-- 고급 사용 사례를 위한 [복잡한 워크플로 에이전트](complex-workflow-agents.md)를 살펴보세요.
+- 최소한의 AI 워크플로를 구축하기 위한 [기본 에이전트](agents/basic-agents.md)에 대해 알아보세요.
+- 고급 사용 사례를 위한 [그래프 기반 에이전트](agents/graph-based-agents.md)를 살펴보세요.
 - 에이전트의 기능을 확장하기 위한 [도구 개요](tools-overview.md)를 확인하세요.
 - 실제 구현 사례는 [예제](examples.md)를 참조하세요.
 - 프레임워크를 더 잘 이해하려면 [용어집](glossary.md)을 읽어보세요.

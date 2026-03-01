@@ -21,15 +21,17 @@
 ContentEncoding 外掛程式允許您啟用指定的壓縮演算法（例如 'gzip' 和 'deflate'）並配置其設定。
 </link-summary>
 
-Ktor 用戶端提供 [ContentEncoding](https://api.ktor.io/ktor-client-encoding/io.ktor.client.plugins.compression/-content-encoding) 
+Ktor 用戶端提供 [`ContentEncoding`](https://api.ktor.io/ktor-client-encoding/io.ktor.client.plugins.compression/-content-encoding) 
 外掛程式，允許您啟用指定的壓縮演算法（例如 `gzip` 和 `deflate`）並配置其設定。 
-此外掛程式主要有三個用途：
+
+此外掛程式提供以下功能：
 * 使用指定的品質值設定 `Accept-Encoding` 標頭。
 * 可選擇性地對請求主體進行編碼。
 * 對[從伺服器接收的內容](client-responses.md#body)進行解碼，以取得原始負載。
 
 ## 新增相依性 {id="add_dependencies"}
-若要使用 `ContentEncoding`，您需要在建置指令碼中包含 `%artifact_name%` 構件：
+
+若要使用 `ContentEncoding`，請在建置指令碼中包含 `%artifact_name%` 構件：
 
 <Tabs group="languages">
     <TabItem title="Gradle (Kotlin)" group-key="kotlin">
@@ -47,7 +49,9 @@ Ktor 用戶端提供 [ContentEncoding](https://api.ktor.io/ktor-client-encoding/
 </p>
 
 ## 安裝 ContentEncoding {id="install_plugin"}
+
 若要安裝 `ContentEncoding`，請將其傳遞給[用戶端配置區塊](client-create-and-configure.md#configure-client)內的 `install` 函式：
+
 ```kotlin
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
@@ -59,7 +63,12 @@ val client = HttpClient(CIO) {
 ```
 
 ## 配置 ContentEncoding {id="configure_plugin"}
-下面的[範例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-content-encoding)展示了如何在用戶端啟用具有指定品質值的 `deflate` 和 `gzip` 編碼器：
+
+### 啟用編碼器
+
+您可以配置支援哪些編碼器並指定其品質值（用於 `Accept-Encoding` 標頭）。
+
+下面的[範例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-content-encoding)展示了如何以自訂品質值啟用 `deflate` 和 `gzip` 編碼器：
 
 ```kotlin
 val client = HttpClient(CIO) {
@@ -70,19 +79,57 @@ val client = HttpClient(CIO) {
 }
 ```
 
-如果需要，您可以實作 `ContentEncoder` 介面來建立自訂編碼器，並將其傳遞給 `customEncoder` 函式。
+如有需要，您可以實作 [`ContentEncoder`](https://api.ktor.io/ktor-utils/io.ktor.util/-content-encoder/index.html)
+介面來建立自訂編碼器，並使用 `customEncoder()` 函式進行註冊。
+
+### 設定 mode 屬性
+
+預設情況下，`ContentEncoding` 僅處理回應解壓縮。您可以使用 `mode` 屬性來定義外掛程式的運作方式。
+
+可用的值為：
+<deflist>
+<def>
+<title><code>ContentEncodingConfig.Mode.DecompressResponse</code></title>
+僅解壓縮回應。這是預設模式。
+</def>
+<def>
+<title><code>ContentEncodingConfig.Mode.CompressRequest</code></title>
+僅啟用請求主體壓縮。
+</def>
+<def>
+<title><code>ContentEncodingConfig.Mode.All</code></title>
+同時啟用回應解壓縮和請求壓縮。
+</def>
+</deflist>
 
 ## 對請求主體編碼 {id="encode_request_body"}
-若要對請求主體進行編碼，請在 [HttpRequestBuilder](https://api.ktor.io/ktor-client-core/io.ktor.client.request/-http-request-builder/index.html) 區塊中使用 `compress()` 函式。
+
+若要啟用請求壓縮，請設定 `mode` 屬性，並在 [`HttpRequestBuilder`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/-http-request-builder/index.html) 區塊中使用 `compress()` 函式：
+
 ```kotlin
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.compression.*
 //...
 val client = HttpClient(CIO) {
-    install(ContentEncoding)
+    install(ContentEncoding) {
+        mode = ContentEncodingConfig.Mode.CompressRequest
+        gzip()
+    }
 }
 client.post("/upload") {
     compress("gzip")
     setBody(someLongBody)
 }
+```
+
+在此範例中：
+
+* `mode = ContentEncodingConfig.Mode.CompressRequest` 啟用請求壓縮。
+* `gzip()` 註冊 gzip 編碼器。
+* `compress("gzip")` 將 gzip 壓縮套用於此特定請求。
+* `Content-Encoding` 標頭會自動新增。
+
+> 有關處理回應的更多詳細資訊，請參閱[接收回應](client-responses.md)。
+>
+{style="tip"}

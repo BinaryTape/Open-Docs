@@ -28,7 +28,7 @@ val myPrompt = prompt("hello-koog") {
 !!! note
     AI 智能体可以将简单的文本 prompt 作为输入。
     它们会自动将文本 prompt 转换为 Prompt 对象并发送给 LLM 执行。
-    这对于只需要运行单个请求且不需要复杂对话逻辑的[基础智能体](../basic-agents.md)非常有用。
+    这对只需要运行单个请求且不需要复杂对话逻辑的[基础智能体](../agents/basic-agents.md)非常有用。
 
 ## 运行 prompt
 
@@ -101,8 +101,9 @@ Koog 允许您在运行 prompt 时优化性能并处理失败。
 
 ### 初始 prompt 设置
 
-当您[初始化智能体](../getting-started/#create-and-run-an-agent)时，需要定义一条[系统消息](prompt-creation/index.md#system-message)来设定智能体的行为。
-然后，当您调用智能体的 `run()` 方法时，通常会提供一条初始[用户消息](prompt-creation/index.md#user-messages)作为输入。这些消息共同构成了智能体的初始 prompt。例如：
+当您[初始化智能体](../quickstart.md#create-your-first-koog-agent)时，需要定义一条[系统消息](prompt-creation/index.md#system-message)来设定智能体的行为。
+然后，当您调用智能体的 `run()` 方法时，通常会提供一条初始[用户消息](prompt-creation/index.md#user-messages)作为输入。
+这些消息共同构成了智能体的初始 prompt。例如：
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -130,7 +131,7 @@ val result = agent.run("What is Koog?")
 ```
 <!--- KNIT example-prompts-02.kt -->
 
-在示例中，智能体会自动将文本 prompt 转换为 Prompt 对象并将其发送给 prompt 执行器：
+在示例中，智能体自动将文本 prompt 转换为 Prompt 对象并将其发送给 prompt 执行器：
 
 ```mermaid
 flowchart TB
@@ -151,16 +152,16 @@ flowchart TB
     B -->|"结果给"| A
 ```
 
-对于更[高级的配置](../complex-workflow-agents.md#4-configure-the-agent)，您还可以使用 [AIAgentConfig](api:agents-core::ai.koog.agents.core.agent.config.AIAgentConfig) 来定义智能体的初始 prompt。
+对于更高级的配置，您还可以使用 [AIAgentConfig](api:agents-core::ai.koog.agents.core.agent.config.AIAgentConfig) 来定义智能体的初始 prompt。
 
 ### 自动 prompt 更新
 
 随着智能体运行其策略，[预定义节点](../nodes-and-components.md)会自动更新 prompt。
 例如：
 
-- [`nodeLLMRequest`](../nodes-and-components/#nodellmrequest)：将用户消息附加到 prompt 并捕获 LLM 响应。
-- [`nodeLLMSendToolResult`](../nodes-and-components/#nodellmsendtoolresult)：将工具执行结果附加到对话中。
-- [`nodeAppendPrompt`](../nodes-and-components/#nodeappendprompt)：在工作流的任何位置向 prompt 插入特定消息。
+- [`nodeLLMRequest`](../nodes-and-components.md#nodellmrequest)：将用户消息附加到 prompt 并捕获 LLM 响应。
+- [`nodeLLMSendToolResult`](../nodes-and-components.md#nodellmsendtoolresult)：将工具执行结果附加到对话中。
+- [`nodeAppendPrompt`](../nodes-and-components.md#nodeappendprompt)：在工作流的任何位置向 prompt 插入特定消息。
 
 ### 上下文窗口管理
 

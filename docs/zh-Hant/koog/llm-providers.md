@@ -55,7 +55,7 @@ Koog 讓您可以在兩個層級上使用 LLM 提供者：
 
 ## 後續步驟
 
-- 針對特定 LLM 提供者[建立並執行代理](getting-started.md)。
+- 針對特定 LLM 提供者[建立並執行代理](quickstart.md)。
 - 進一步了解 [提示詞 (prompts)](prompts/index.md)。
 
 [^1]: 該功能僅由提供者的部分模型支援。

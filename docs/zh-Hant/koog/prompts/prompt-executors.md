@@ -6,12 +6,13 @@ Prompt 執行器提供更高層級的抽象，讓您可以管理一個或多個 
 
 ## 執行器類型
 
-Koog 提供兩類實作了 [`PromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.model.PromptExecutor) 介面的主要 Prompt 執行器：
+Koog 提供三類實作了 [`PromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.model.PromptExecutor) 介面的主要 Prompt 執行器：
 
 | 類型 | <div style="width:175px">類別</div> | 說明 |
 |-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 單一提供者 | [`SingleLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.SingleLLMPromptExecutor) | 封裝單一提供者的單一 LLM 用戶端。如果您的代理只需要在單一 LLM 提供者內部的模型之間進行切換，請使用此執行器。 |
 | 多個提供者 | [`MultiLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor) | 封裝多個 LLM 用戶端，並根據 LLM 提供者路由呼叫。當請求的用戶端無法使用時，它可以選擇性地使用配置的備援提供者與 LLM。如果您的代理需要在不同提供者的 LLM 之間切換，請使用此執行器。 |
+| 路由 | [`RoutingLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) | 使用路由策略將對指定 LLM 模型的請求分發到多個用戶端執行個體。使用此執行器可避免速率限制、提高吞吐量，並實作具備負載平衡的容錯移轉策略。 |
 
 ## 建立單一提供者執行器
 
@@ -56,6 +57,45 @@ val multiExecutor = MultiLLMPromptExecutor(
 ```
 <!--- KNIT example-prompt-executors-02.kt -->
 
+## 建立路由執行器
+
+!!! warning "實驗性 API"
+    路由功能為實驗性，且可能在未來的版本中變更。
+    若要使用，請透過 `@OptIn(ExperimentalRoutingApi::class)` 啟用。
+
+若要建立使用路由策略將請求分發到多個 LLM 用戶端執行個體的 Prompt 執行器，請執行以下操作：
+
+1. 配置多個用戶端執行個體（可屬於相同或不同的 LLM 提供者）及其對應的 API 金鑰。
+2. 使用路由策略建立路由員（router），例如 [`RoundRobinRouter`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.RoundRobinRouter)。
+3. 將路由員傳遞給 [`RoutingLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) 類別建構函式。
+
+這對於避免速率限制、提高吞吐量以及實作容錯移轉策略非常有用。
+
+<!--- INCLUDE
+import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
+import ai.koog.prompt.executor.llms.RoundRobinRouter
+import ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor
+-->
+```kotlin
+// 建立多個用戶端執行個體
+val openAI1 = OpenAILLMClient(apiKey = "openai-key-1")
+val openAI2 = OpenAILLMClient(apiKey = "openai-key-2")
+val anthropic = AnthropicLLMClient(apiKey = "anthropic-key")
+
+// 使用輪詢（round-robin）策略建立路由員
+val router = RoundRobinRouter(openAI1, openAI2, anthropic)
+
+// 建立路由執行器
+val routingExecutor = RoutingLLMPromptExecutor(router)
+```
+<!--- KNIT example-prompt-executors-03.kt -->
+
+當您使用此執行器執行 Prompt 時，對 OpenAI 模型的請求將根據輪詢策略在 `openAI1` 與 `openAI2` 之間交替切換。
+對 Anthropic 模型的請求一律會發送到單一的 `anthropic` 用戶端，因為輪詢策略會為每個提供者維護獨立的計數器。
+
+您也可以透過建立一個實作了 [`LLMClientRouter`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.LLMClientRouter) 介面的類別來實作自訂路由策略。
+
 ## 預定義的 Prompt 執行器
 
 為了更快速的設定，Koog 為常見的提供者提供了即開即用的執行器實作。
@@ -94,7 +134,7 @@ val anthropicClient = AnthropicLLMClient("ANTHROPIC_KEY")
 val googleClient = GoogleLLMClient("GOOGLE_KEY")
 val multiExecutor = MultiLLMPromptExecutor(openAIClient, anthropicClient, googleClient)
 ```
-<!--- KNIT example-prompt-executors-03.kt -->
+<!--- KNIT example-prompt-executors-04.kt -->
 
 ## 執行 Prompt
 
@@ -128,7 +168,7 @@ val response = promptExecutor.execute(
     model = OpenAIModels.Chat.GPT4o
 )
 ```
-<!--- KNIT example-prompt-executors-04.kt -->
+<!--- KNIT example-prompt-executors-05.kt -->
 
 這將使用 `GPT4o` 模型執行 Prompt 並傳回回應。
 
@@ -187,15 +227,14 @@ val openAIResult = executor.execute(p, OpenAIModels.Chat.GPT4o)
 // 使用 Anthropic 模型執行 Prompt；Prompt 執行器會自動切換到 Anthropic 用戶端
 val anthropicResult = executor.execute(p, AnthropicModels.Opus_4_6)
 ```
-<!--- KNIT example-prompt-executors-05.kt -->
+<!--- KNIT example-prompt-executors-06.kt -->
 
 您可以選擇性地配置一個備援 LLM 提供者與模型，以便在請求的用戶端無法使用時使用。
-如需詳細資訊，請參閱 [配置備援](#configuring-fallbacks)。
 
 ## 配置備援
 
-多個提供者 Prompt 執行器可以配置為在請求的 LLM 用戶端無法使用時使用備援 LLM 提供者與模型。
-若要配置備援機制，請向 `MultiLLMPromptExecutor` 建構函式提供 `fallback` 參數：
+多個提供者與路由 Prompt 執行器可以配置為在請求的 LLM 用戶端無法使用時使用備援 LLM 提供者與模型。
+若要配置備援機制，請向 `MultiLLMPromptExecutor` 或 `RoutingLLMPromptExecutor` 建構函式提供 `fallback` 參數：
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
@@ -217,7 +256,7 @@ val multiExecutor = MultiLLMPromptExecutor(
     )
 )
 ```
-<!--- KNIT example-prompt-executors-06.kt -->
+<!--- KNIT example-prompt-executors-07.kt -->
 
 如果您傳遞一個不包含在 `MultiLLMPromptExecutor` 中的 LLM 提供者的模型，
 Prompt 執行器將會使用備援模型：
@@ -255,7 +294,7 @@ val p = prompt("demo") { user("Summarize this") }
 // 如果您傳遞一個 Google 模型，Prompt 執行器將會使用備援模型，因為不包含 Google 用戶端
 val response = multiExecutor.execute(p, GoogleModels.Gemini2_5Pro)
 ```
-<!--- KNIT example-prompt-executors-07.kt -->
+<!--- KNIT example-prompt-executors-08.kt -->
 
 !!! note
     備援僅適用於 `execute()` 與 `executeMultipleChoices()` 方法。

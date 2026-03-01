@@ -618,5 +618,15 @@
   "kmp.webassembly-wasm": "WebAssembly (Wasm)",
   "kmp.kmp-ci-tutorial": "KMP 앱을 위한 CI 구성",
   "kmp.multiplatform-project-agp-9-migration": "AGP 9로 업그레이드",
-  "kmp.ios-android-app-development": "iOS 및 Android 앱 개발"
+  "kmp.ios-android-app-development": "iOS 및 Android 앱 개발",
+  "ktor.dependency-injection": "의존성 주입",
+  "ktor.server-dependency-injection": "개요",
+  "ktor.server-di-configuration": "구성",
+  "ktor.server-di-testing": "테스트",
+  "koog.quickstart": "빠른 시작",
+  "koog.agents": "에이전트",
+  "koog.graph-based-agents": "그래프 기반 에이전트",
+  "koog.llm-based-planners": "LLM 기반 플래너",
+  "koog.goap-agents": "GOAP 에이전트",
+  "koog.long-term-memory": "장기 메모리"
 }

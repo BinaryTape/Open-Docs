@@ -27,19 +27,19 @@ kotlin {
         commonMain.dependencies {
             // 新的註解，可在 CMP 1.10.0 及更高版本中使用
             implementation("org.jetbrains.compose.ui:ui-tooling-preview:1.10.0")
-            // 匯入新註解：
+            // 若要匯入新註解：
             // import androidx.compose.ui.tooling.preview.Preview
 
             // 舊的註解，在 CMP 1.10.0 中已棄用
             implementation("org.jetbrains.compose.components:components-ui-tooling-preview:1.10.0")
-            // 匯入舊註解：
+            // 若要匯入舊註解：
             // import org.jetbrains.compose.ui.tooling.preview.Preview
         }
     }
 }
 ```
 
-工具相依性應宣告在 KMP 模組 `build.gradle.kts` 檔案的根 `dependencies {}` 區塊中，有兩種方式，具體取決於您的 [Android 目標配置](#android-target-configurations)：
+工具相依性應宣告在共用程式碼模組 `build.gradle.kts` 檔案的根 `dependencies {}` 區塊中，有兩種方式，具體取決於您的 [Android 目標配置](#android-target-configurations)：
 
 * 如果您使用 `com.android.application` 或 `com.android.library` 外掛程式：
 

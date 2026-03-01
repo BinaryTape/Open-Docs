@@ -7,7 +7,7 @@ Koog 是一個開源的 JetBrains 架構，專為 JVM 與 Kotlin 開發人員設
 
 <div class="grid cards" markdown>
 
--   :material-rocket-launch:{ .lg .middle } [**快速入門**](getting-started.md)
+-   :material-rocket-launch:{ .lg .middle } [**快速入門**](quickstart.md)
 
     ---
 
@@ -23,35 +23,39 @@ Koog 是一個開源的 JetBrains 架構，專為 JVM 與 Kotlin 開發人員設
 
 ## Agent 類型
 
+進一步了解 [agent 概覽](agents/index.md) 以及如何使用 Koog 建立不同類型的 agent：
+
 <div class="grid cards" markdown>
 
--   :material-robot-outline:{ .lg .middle } [**基礎 agent**](basic-agents.md)
+-   :material-robot-outline:{ .lg .middle } [**基礎 agent**](agents/basic-agents.md)
 
     ---
 
-    建立並執行處理單一輸入並提供回應的 agent
+    使用適用於大多數常見使用案例的預定義策略
 
--   :material-script-text-outline:{ .lg .middle } [**功能型 agent**](functional-agents.md)
-
-    ---
-
-    使用純 Kotlin 自訂邏輯來建立並執行輕量級 agent
-
--   :material-graph-outline:{ .lg .middle } [**複雜工作流程 agent**](complex-workflow-agents.md)
+-   :material-function:{ .lg .middle } [**功能型 agent**](agents/functional-agents.md)
 
     ---
 
-    建立並執行使用自訂策略處理複雜工作流程的 agent
+    使用純 Kotlin 將自訂邏輯定義為 Lambda 函式 
 
--   :material-state-machine:{ .lg .middle } [**規劃型 agent**](planner-agents.md)
+-   :material-graph-outline:{ .lg .middle } [**基於圖形的 agent**](agents/graph-based-agents.md)
 
     ---
 
-    建立並執行反覆建置與執行計畫的 agent
+    將自訂工作流程實作為策略圖
+
+-   :material-list-status:{ .lg .middle } [**規劃型 agent**](agents/planner-agents/index.md)
+
+    ---
+
+    反覆建置與執行計畫，直到狀態符合期望的條件
 
 </div>
 
-## 核心功能
+## 核心元件
+
+詳細了解 Koog agent 的核心元件：
 
 <div class="grid cards" markdown>
 
@@ -59,26 +63,25 @@ Koog 是一個開源的 JetBrains 架構，專為 JVM 與 Kotlin 開發人員設
 
     ---
 
-    建立提示，使用 LLM 用戶端或提示執行器執行它們，
-    在 LLM 與供應商之間切換，並透過內建重試機制處理失敗
+    建立、管理並執行驅動 agent 與 LLM 互動的提示
 
--   :material-wrench:{ .lg .middle } [**工具**](tools-overview.md)
-
-    ---
-
-    使用內建、基於註解或基於類別且能存取外部系統與 API 的工具來強化您的 agent
-
--   :material-share-variant-outline:{ .lg .middle } [**策略**](predefined-agent-strategies.md)
+-   :material-strategy:{ .lg .middle } [**策略**](predefined-agent-strategies.md)
 
     ---
 
-    使用直觀的基於圖形的工作流程設計複雜的 agent 行為
+    將 agent 預定的工作流程設計為有向圖
 
--   :material-bell-outline:{ .lg .middle } [**事件**](agent-events.md)
+-   :material-tools:{ .lg .middle } [**工具**](tools-overview.md)
 
     ---
 
-    使用預定義處理常式來監控與處理 agent 生命周期、策略、節點、LLM 呼叫及工具呼叫事件
+    讓 agent 能夠與外部資料來源和服務互動
+
+-   :material-toy-brick-outline:{ .lg .middle } [**功能**](features-overview.md)
+
+    ---
+
+    擴充並強化 AI agent 的功能性
 
 </div>
 
@@ -92,7 +95,7 @@ Koog 是一個開源的 JetBrains 架構，專為 JVM 與 Kotlin 開發人員設
 
     使用進階技術在長時間對話中保持內容關聯，同時最佳化語彙單元 (token) 使用量
 
--   :material-state-machine:{ .lg .middle } [**Agent 持久化**](agent-persistence.md)
+-   :material-floppy:{ .lg .middle } [**Agent 持久化**](agent-persistence.md)
 
     ---
 
@@ -122,6 +125,12 @@ Koog 是一個開源的 JetBrains 架構，專為 JVM 與 Kotlin 開發人員設
     ---
 
     透過詳細且可配置的追蹤功能來偵錯與監控 agent 執行
+
+-   :material-timeline-text:{ .lg .middle } [**長期記憶**](long-term-memory.md)
+
+    ---
+
+    為 RAG 與持久性記憶體整合向量資料庫與記憶體供應商。
 
 </div>
 

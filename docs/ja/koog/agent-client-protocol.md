@@ -1,209 +1,256 @@
 # エージェントクライアントプロトコル (Agent Client Protocol)
 
-エージェントクライアントプロトコル (Agent Client Protocol: ACP) は、クライアントアプリケーションが一貫した双方向インターフェースを介して AI エージェントと通信できるようにする標準化されたプロトコルです。
+エージェントクライアントプロトコル (Agent Client Protocol: ACP) は、クライアントアプリケーションが一貫した双方向インターフェースを介して AI エージェントと通信できるようにする、オープンソースの標準化されたプロトコルです。
+Koog エージェントに ACP を実装することで、IDE などの ACP 準拠のあらゆる環境に簡単に統合できるようになります。
 
-ACP は、エージェントがクライアントとやり取りするための構造化された方法を提供し、リアルタイムのイベントストリーミング、ツール呼び出し通知、およびセッションのライフサイクル管理をサポートします。
-
-Koog フレームワークは ACP との統合を提供しており、標準化されたクライアントアプリケーションと通信できる ACP 準拠のエージェントを構築できます。
-
-プロトコルの詳細については、[Agent Client Protocol](https://agentclientprotocol.com) のドキュメントを参照してください。
+プロトコルの詳細については、[Agent Client Protocol] のドキュメントを参照してください。
 
 ## Koog との統合
 
-Koog フレームワークは、[ACP Kotlin SDK](https://github.com/agentclientprotocol/kotlin-sdk) を使用し、`agents-features-acp` モジュールの追加 API 拡張機能を介して ACP と統合します。
+Koog フレームワークは、[ACP Kotlin SDK] を使用し、追加の API 拡張機能を介して ACP と統合します。
+この統合により、以下が可能になります。
 
-この統合により、Koog エージェントは以下のことが可能になります。
+* Koog エージェントと ACP 準拠のクライアントアプリケーション間の標準化された通信
+* ツール呼び出し、エージェントの思考、および完了に関する実行状況の自動更新
+* Koog のマルチモーダルメッセージ形式と ACP のコンテンツブロック間のシームレスなメッセージ変換
+* Koog エージェントの状態から ACP セッションイベントへのライフサイクルマッピング
 
-* ACP 準拠のクライアントアプリケーションとの通信
-* エージェントの実行に関するリアルタイムの更新（ツールの呼び出し、思考、完了）の送信
-* 標準的な ACP イベントと通知の自動処理
-* Koog のメッセージ形式と ACP のコンテンツブロック間の変換
+!!! note
 
-### 主要なコンポーネント
+    [ACP Kotlin SDK] は JVM 固有であるため、ACP 統合は現在 JVM プラットフォームでのみ利用可能です。
 
-Koog における ACP 統合の主なコンポーネントは以下の通りです。
+### 依存関係の追加
 
-| コンポーネント | 説明 |
-|---------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------|
-| [`AcpAgent`](https://api.koog.ai/agents/agents-features-acp/ai.koog.agents.features.acp/-acp-agent/index.html)                                   | Koog エージェントと ACP クライアント間の通信を可能にするメイン機能です。 |
-| [`MessageConverters`](https://api.koog.ai/agents/agents-features-acp/ai.koog.agents.features.acp/-message-converters/index.html)                 | Koog と ACP 形式間でメッセージを変換するためのユーティリティです。 |
-| [`AcpConfig`](https://api.koog.ai/agents/agents-features-acp/ai.koog.agents.features.acp/-acp-agent/-acp-config/index.html)                      | AcpAgent 機能の構成クラスです。 |
+ACP サポートはオプションの[機能 (feature)](features-overview.md) であり、Koog ではデフォルトでは利用できません。
+Koog エージェントに ACP を実装するには、[ai.koog:agents-features-acp](https://mvnrepository.com/artifact/ai.koog/agents-features-acp) の依存関係を追加してください。
+このモジュール自体が [com.agentclientprotocol:acp](https://mvnrepository.com/artifact/com.agentclientprotocol/acp) に依存しています。
 
-## はじめに
+例えば、`build.gradle.kts` の場合は以下のようになります。
 
-ACP の依存関係は、`koog-agents` メタ依存関係にはデフォルトで**含まれていません**。
-プロジェクトに ACP モジュールを明示的に追加する必要があります。
-
-### 依存関係
-
-プロジェクトで ACP を使用するには、以下の依存関係を追加してください。
-
-<!--- INCLUDE
-/**
--->
-<!--- SUFFIX
-**/
--->
 ```kotlin
 dependencies {
     implementation("ai.koog:agents-features-acp:$koogVersion")
 }
 ```
-<!--- KNIT example-agent-client-protocol-01.kt -->
 
-### 1. ACP エージェントサポートの実装
+### Koog エージェントで ACP を有効にする
 
-Koog の ACP 統合は [Kotlin ACP SDK](https://github.com/agentclientprotocol/kotlin-sdk) に基づいています。
-この SDK は、エージェントを ACP クライアントに接続するために実装する必要がある `AgentSupport` および `AgentSession` インターフェースを提供します。
-`AgentSupport` は、エージェントセッションの作成と読み込みを管理します。このインターフェースの実装は、ほとんどすべてのエージェントでほぼ同じです。実装例は後述します。
-`AgentSession` は、エージェントのインスタンス化、呼び出し、および実行時の制御を管理します。`prompt` メソッド内で Koog エージェントを定義して実行します。
+Koog エージェントの内部[イベントシステム](agent-events.md)を ACP プロトコルと橋渡しするには、`ai.koog.agents.features.acp.AcpAgent` 機能をインストールします。
+インストールされると、この機能はライフサイクルイベント（ツール呼び出しや LLM のレスポンスなど）をリッスンし、それらを ACP クライアントに送信します。
 
-Koog で ACP を使用するには、ACP SDK の `AgentSupport` および `AgentSession` インターフェースを実装する必要があります。
-
+<!--- CLEAR -->
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.agent.config.AIAgentConfig
 import ai.koog.agents.features.acp.AcpAgent
-import ai.koog.agents.features.acp.toKoogMessage
-import ai.koog.prompt.dsl.Prompt
-import ai.koog.prompt.dsl.prompt
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.model.PromptExecutor
-import com.agentclientprotocol.agent.AgentSession
-import com.agentclientprotocol.common.Event
-import com.agentclientprotocol.model.ContentBlock
-import com.agentclientprotocol.model.SessionId
-import com.agentclientprotocol.protocol.Protocol
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.channelFlow
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
-import kotlin.time.Clock
-import kotlinx.serialization.json.JsonElement
-import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 
-val promptExecutor: PromptExecutor = TODO()
-val protocol: Protocol = TODO()
-val clock: Clock = Clock.System
--->
-```kotlin
-// Koog エージェントのライフサイクルを管理するために AgentSession を実装する
-class KoogAgentSession(
-    override val sessionId: SessionId,
-    private val promptExecutor: PromptExecutor,
-    private val protocol: Protocol,
-    private val clock: Clock,
-) : AgentSession {
-
-    private var agentJob: Deferred<Unit>? = null
-    private val agentMutex = Mutex()
-
-    override suspend fun prompt(
-        content: List<ContentBlock>,
-        _meta: JsonElement?
-    ): Flow<Event> = channelFlow {
-        val agentConfig = AIAgentConfig(
-            prompt = prompt("acp") {
-                system("You are a helpful assistant.")
-            }.appendPrompt(content),
-            model = OpenAIModels.Chat.GPT4o,
-            maxAgentIterations = 1000
-        )
-
-        agentMutex.withLock {
-            val agent = AIAgent(
-                promptExecutor = promptExecutor,
-                agentConfig = agentConfig,
-                strategy = myStrategy()
-            ) {
-                install(AcpAgent) {
-                    this.sessionId = this@KoogAgentSession.sessionId.value
-                    this.protocol = this@KoogAgentSession.protocol
-                    this.eventsProducer = this@channelFlow
-                    this.setDefaultNotifications = true
-                }
-            }
-
-            agentJob = async { agent.run(Unit) }
-            agentJob?.await()
-        }
-    }
-
-    private fun Prompt.appendPrompt(content: List<ContentBlock>): Prompt {
-        return withMessages { messages ->
-            messages + listOf(content.toKoogMessage(clock))
-        }
-    }
-    
-    private fun myStrategy() = strategy<Unit, Unit>("") {
-        // ここにストラテジーを定義
-    }    
-    override suspend fun cancel() {
-        agentJob?.cancel()
-    }
-}
-```
-<!--- KNIT example-agent-client-protocol-02.kt -->
-
-### 2. AcpAgent 機能の構成
-
-`AcpAgent` 機能は `AcpConfig` を通じて構成できます。
-
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.agent.config.AIAgentConfig
-import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
-import ai.koog.agents.features.acp.AcpAgent
-import ai.koog.prompt.executor.model.PromptExecutor
-import com.agentclientprotocol.protocol.Protocol
-import kotlinx.coroutines.flow.channelFlow
-
-val promptExecutor: PromptExecutor = TODO()
-val protocol: Protocol = TODO()
-val sessionIdValue: String = "session-123"
-val agentConfig: AIAgentConfig = TODO()
-private fun myStrategy(): AIAgentGraphStrategy<Unit, Unit> = TODO()
-
-suspend fun main() = channelFlow {
--->
-<!--- SUFFIX
-}
 -->
 ```kotlin
 val agent = AIAgent(
-    promptExecutor = promptExecutor,
-    agentConfig = agentConfig,
-    strategy = myStrategy()
+    promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
+    llmModel = OpenAIModels.Chat.GPT4o
 ) {
     install(AcpAgent) {
-        // 必須: ACP 接続用の一意のセッション識別子
-        this.sessionId = sessionIdValue
-
-        // 必須: リクエストや通知の送信に使用されるプロトコルインスタンス
+        this.sessionId = sessionId
         this.protocol = protocol
-
-        // 必須: イベント送信用のコルーチンベースのプロデューサースコープ
-        this.eventsProducer = this@channelFlow
-
-        // オプション: デフォルトの通知ハンドラーを登録するかどうか (デフォルト: true)
+        this.eventsProducer = eventsProducer
         this.setDefaultNotifications = true
     }
 }
 ```
-<!--- KNIT example-agent-client-protocol-03.kt -->
+<!--- KNIT example-agent-client-protocol-01.kt -->
 
 主な構成オプション:
 
-- `sessionId`: ACP 接続用の一意のセッション識別子
-- `protocol`: ACP クライアントへのリクエストや通知の送信に使用されるプロトコルインスタンス
-- `eventsProducer`: イベント送信用のコルーチンベースのプロデューサースコープ
-- `setDefaultNotifications`: デフォルトの通知ハンドラーを登録するかどうか (デフォルト: `true`)
+*   **`sessionId`**: 現在の会話セッションを識別する一意の文字列。
+*   **`protocol`**: 低レベルの通信に使用される [`com.agentclientprotocol.protocol.Protocol`](https://github.com/agentclientprotocol/kotlin-sdk/blob/master/acp/src/commonMain/kotlin/com/agentclientprotocol/protocol/Protocol.kt) のインスタンス。
+*   **`eventsProducer`**: ACP イベントが送信される `kotlinx.coroutines.channels.ProducerScope<Event>`。
+    詳細については、[イベントストリーミング](#イベントストリーミング)を参照してください。
+*   **`setDefaultNotifications`**: エージェントのライフサイクルイベントに対してデフォルトの通知ハンドラーを登録するかどうか。
+    詳細については、[エージェント通知の処理](#エージェント通知の処理)を参照してください。
 
-### 3. 入力プロンプトの処理
+このエージェントは、次の章で説明するように、ACP セッションのスコープ内で実行する必要があります。
 
-提供されている拡張関数を使用して、ACP コンテンツブロックを Koog メッセージに変換します。
+### ACP 対応エージェントの実装
+
+Koog エージェントを ACP クライアントに接続するには、[ACP Kotlin SDK](https://github.com/agentclientprotocol/kotlin-sdk) の 2 つのコアインターフェースを実装します。
+
+- [`AgentSupport`](https://github.com/agentclientprotocol/kotlin-sdk/blob/master/acp/src/commonMain/kotlin/com/agentclientprotocol/agent/AgentSupport.kt):
+  エージェントのアイデンティティ、機能、およびセッションのライフサイクル（セッションの作成や読み込み）を管理します。
+- [`AgentSession`](https://github.com/agentclientprotocol/kotlin-sdk/blob/master/acp/src/commonMain/kotlin/com/agentclientprotocol/agent/AgentSession.kt):
+  単一の会話セッションを管理し、`prompt` の実行を処理し、キャンセルの管理を行います。
+
+`AgentSession` の `prompt()` メソッド内で、ACP 対応の Koog エージェントを初期化して実行します。以下に例を示します。
+
+=== "AgentSession"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.agents.core.agent.config.AIAgentConfig
+    import ai.koog.agents.features.acp.AcpAgent
+    import ai.koog.agents.features.acp.toKoogMessage
+    import ai.koog.prompt.dsl.Prompt
+    import ai.koog.prompt.dsl.prompt
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.executor.model.PromptExecutor
+    import com.agentclientprotocol.agent.AgentSession
+    import com.agentclientprotocol.common.Event
+    import com.agentclientprotocol.model.ContentBlock
+    import com.agentclientprotocol.model.SessionId
+    import com.agentclientprotocol.protocol.Protocol
+    import kotlinx.coroutines.Deferred
+    import kotlinx.coroutines.async
+    import kotlinx.coroutines.flow.Flow
+    import kotlinx.coroutines.flow.channelFlow
+    import kotlinx.coroutines.sync.Mutex
+    import kotlinx.coroutines.sync.withLock
+    import kotlin.time.Clock
+    import kotlinx.serialization.json.JsonElement
+    -->
+    ```kotlin
+    class MyAgentSession(
+        override val sessionId: SessionId,
+        private val promptExecutor: PromptExecutor,
+        private val protocol: Protocol,
+        private val clock: Clock
+    ) : AgentSession {
+    
+        private var agentJob: Deferred<Unit>? = null
+        private val agentMutex = Mutex()
+    
+        override suspend fun prompt(
+            content: List<ContentBlock>,
+            _meta: JsonElement?
+        ): Flow<Event> = channelFlow {
+            val agentConfig = AIAgentConfig(
+                prompt = prompt("acp") {
+                    system("You are a helpful assistant.")
+                }.appendPrompt(content),
+                model = OpenAIModels.Chat.GPT4o,
+                maxAgentIterations = 1000
+            )
+    
+            // 一度に 1 つのエージェントセッションのみが実行されるようにする
+            agentMutex.withLock {
+                val agent = AIAgent(
+                    promptExecutor = promptExecutor,
+                    agentConfig = agentConfig
+                ) {
+                    install(AcpAgent) {
+                        this.sessionId = this@MyAgentSession.sessionId.value
+                        this.protocol = this@MyAgentSession.protocol
+                        this.eventsProducer = this@channelFlow
+                        this.setDefaultNotifications = true
+                    }
+                }
+
+                agentJob = async { agent.run("Hello. How can you help me?") }
+                agentJob?.await()
+            }
+        }
+    
+        private fun Prompt.appendPrompt(content: List<ContentBlock>): Prompt {
+            return withMessages { messages ->
+                messages + listOf(content.toKoogMessage(clock))
+            }
+        }
+    
+        override suspend fun cancel() {
+            agentJob?.cancel()
+        }
+    }
+    ```
+    <!--- KNIT example-agent-client-protocol-02.kt -->
+
+=== "AgentSupport"
+
+    <!--- INCLUDE
+    import ai.koog.prompt.executor.model.PromptExecutor
+    import com.agentclientprotocol.agent.AgentInfo
+    import com.agentclientprotocol.agent.AgentSession
+    import com.agentclientprotocol.agent.AgentSupport
+    import com.agentclientprotocol.client.ClientInfo
+    import com.agentclientprotocol.common.Event
+    import com.agentclientprotocol.common.SessionCreationParameters
+    import com.agentclientprotocol.model.AgentCapabilities
+    import com.agentclientprotocol.model.ContentBlock
+    import com.agentclientprotocol.model.LATEST_PROTOCOL_VERSION
+    import com.agentclientprotocol.model.PromptCapabilities
+    import com.agentclientprotocol.model.SessionId
+    import com.agentclientprotocol.protocol.Protocol
+    import kotlinx.coroutines.flow.Flow
+    import kotlinx.serialization.json.JsonElement
+    import kotlin.time.Clock
+    import kotlin.uuid.ExperimentalUuidApi
+    import kotlin.uuid.Uuid
+    class MyAgentSession(
+        override val sessionId: SessionId,
+        private val promptExecutor: PromptExecutor,
+        private val protocol: Protocol,
+        private val clock: Clock
+    ): AgentSession {
+        override suspend fun prompt(
+            content: List<ContentBlock>,
+            _meta: JsonElement?
+        ): Flow<Event> {
+            TODO("Not yet implemented")
+        }
+    }
+    -->
+    ```kotlin
+    class MyAgentSupport(
+        private val promptExecutor: PromptExecutor,
+        private val clock: Clock,
+        private val protocol: Protocol,
+    ) : AgentSupport {
+    
+        override suspend fun initialize(clientInfo: ClientInfo): AgentInfo {
+            return AgentInfo(
+                protocolVersion = LATEST_PROTOCOL_VERSION,
+                capabilities = AgentCapabilities(
+                    loadSession = false, // セッションの永続化を実装する場合は true に設定
+                    promptCapabilities = PromptCapabilities(
+                        audio = false,
+                        image = false,
+                        embeddedContext = true
+                    )
+                )
+            )
+        }
+    
+        @OptIn(ExperimentalUuidApi::class)
+        override suspend fun createSession(sessionParameters: SessionCreationParameters): AgentSession {
+            val sessionId = SessionId(Uuid.random().toString())
+            return MyAgentSession(sessionId, promptExecutor, protocol, clock)
+        }
+    
+        override suspend fun loadSession(sessionId: SessionId, sessionParameters: SessionCreationParameters): AgentSession {
+            throw UnsupportedOperationException("Session loading not implemented")
+        }
+    }
+    ```
+    <!--- KNIT example-agent-client-protocol-03.kt -->
+
+## イベントストリーミング
+
+例の `AgentSession` では、イベントの `channelFlow` を返す `prompt()` 関数を定義しています。
+次に、`this@channelFlow` を `eventsProducer` として `AcpAgent` 機能をインストールします。
+これにより、異なるコルーチンからイベントを送信できるようになります。
+
+## 実行の同期化
+
+例の `AgentSession` では、ACP が前の実行が終了するまで新しいエージェントの実行をトリガーすべきではないため、ミューテックスを使用してエージェントインスタンスへのアクセスを同期しています。
+このため、エージェントの作成と実行は、定義されたミューテックスに対する `withLock` のスコープ内で行われます。
+
+また、エージェントが途中でキャンセルされないように、`channelFlow` スコープ内でエージェントを非同期実行し、`agentJob` という Deferred ジョブとして管理しています。
+
+## ACP クライアント入力の処理
+
+ACP クライアントは、ユーザー入力を [`ContentBlock`](https://agentclientprotocol.com/protocol/schema#contentblock) オブジェクトのリストとして送信します。
+これらを Koog で処理するには、`List<ContentBlock>.toKoogMessage()` 拡張関数を使用して ACP コンテンツブロックを [`Message.User`](api:prompt-model::ai.koog.prompt.message.Message.User) に変換し、それを[エージェントのプロンプト](prompts/index.md)に追加します。
+
+例の `AgentSession` では、ACP セッションで初期エージェントプロンプトを拡張するためのプライベート関数を定義しています。
 
 <!--- INCLUDE
 import ai.koog.agents.features.acp.toKoogMessage
@@ -212,15 +259,9 @@ import com.agentclientprotocol.model.ContentBlock
 import kotlin.time.Clock
 
 val clock: Clock = Clock.System
-val existingPrompt: Prompt = TODO()
-val acpContent: List<ContentBlock> = TODO()
 -->
 ```kotlin
-// ACP コンテンツブロックを Koog メッセージに変換
-val koogMessage = acpContent.toKoogMessage(clock)
-
-// 既存のプロンプトに追加
-fun Prompt.appendPrompt(content: List<ContentBlock>): Prompt {
+private fun Prompt.appendPrompt(content: List<ContentBlock>): Prompt {
     return withMessages { messages ->
         messages + listOf(content.toKoogMessage(clock))
     }
@@ -228,196 +269,164 @@ fun Prompt.appendPrompt(content: List<ContentBlock>): Prompt {
 ```
 <!--- KNIT example-agent-client-protocol-04.kt -->
 
-## デフォルトの通知ハンドラー
+!!! note
 
-`setDefaultNotifications` が有効な場合、AcpAgent 機能は以下を自動的に処理します。
+    メッセージにタイムスタンプを付与するために、`Clock` インスタンスが必要です。
 
-1. **エージェントの完了**: エージェントが正常に完了したときに、`StopReason.END_TURN` を含む `PromptResponseEvent` を送信します。
-2. **エージェント実行の失敗**: 適切な停止理由を含む `PromptResponseEvent` を送信します。
-    - 最大反復回数を超えた場合は `StopReason.MAX_TURN_REQUESTS`
+詳細については、[メッセージの変換](#メッセージの変換)を参照してください。
+
+## メッセージの変換
+
+`agents-features-acp` モジュールは、Koog の内部メッセージタイプと [ACP コンテンツブロック](https://agentclientprotocol.com/protocol/content)をシームレスに変換するための拡張関数を提供します。
+
+ACP クライアントから入力を受信する際は、以下の関数を使用します。
+
+- `List<ContentBlock>.toKoogMessage()`: ACP コンテンツブロックのリストを [`Message.User`](api:prompt-model::ai.koog.prompt.message.Message.User) に変換します。
+- `ContentBlock.toKoogContentPart()`: 単一の ACP コンテンツブロックを [`ContentPart`](api:prompt-model::ai.koog.prompt.message.ContentPart) に変換します。
+
+Koog メッセージから ACP イベントまたはコンテンツブロックを作成する際は、以下の関数を使用します。
+
+- `Message.Response.toAcpEvents()`: [`Message.Response`](api:prompt-model::ai.koog.prompt.message.Message.Response) を ACP セッション更新イベントのリストに変換します。
+- `ContentPart.toAcpContentBlock()`: [`ContentPart`](api:prompt-model::ai.koog.prompt.message.ContentPart) を単一の ACP コンテンツブロックに変換します。
+
+## エージェント通知の処理
+
+デフォルトでは `setDefaultNotifications` は `true` に設定されており、ACP 対応エージェントは以下の通知を自動的に処理します。
+
+- **エージェントの完了**
+
+    エージェントが正常に完了したときに、`StopReason.END_TURN` を含む `PromptResponseEvent` を送信します。
+
+- **エージェント実行の失敗**
+
+    適切な停止理由を含む `PromptResponseEvent` を送信します。
+
+    - エージェントが最大反復回数を超えた場合は `StopReason.MAX_TURN_REQUESTS`
     - その他の実行失敗については `StopReason.REFUSAL`
-3. **LLM のレスポンス**: LLM のレスポンスを ACP イベント（テキスト、ツール呼び出し、推論）として変換し、送信します。
-4. **ツール呼び出しのライフサイクル**: ツール呼び出しのステータス変更を報告します。
+  
+- **LLM のレスポンス**
+
+    LLM のレスポンスを ACP イベント（テキスト、ツール呼び出し、推論）として変換し、送信します。
+
+- **ツール呼び出しのライフサイクル**
+
+    ツール呼び出しのステータス変更を報告します。
+
     - ツール呼び出し開始時の `ToolCallStatus.IN_PROGRESS`
     - ツール呼び出し成功時の `ToolCallStatus.COMPLETED`
     - ツール呼び出し失敗時の `ToolCallStatus.FAILED`
 
+通知処理をカスタマイズしたい場合は、`setDefaultNotifications = false` に設定し、仕様に従ってエージェントイベントを処理してください。
+
 ## カスタムイベントの送信
 
-`sendEvent` メソッドを使用して、ACP クライアントにカスタムイベントを送信できます。
+自動通知に加えて、`withAcpAgent` ブロック内の `sendEvent` を使用して、エージェント実行中の任意の時点で ACP クライアントにカスタムイベントを送信できます。
+これは、進捗状況の更新、カスタムステータスメッセージ、またはプランの更新に役立ちます。
+
+これは `AIAgentContext` 内、例えばノード内で行うことができます。
 
 <!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.features.acp.withAcpAgent
-import ai.koog.prompt.executor.model.PromptExecutor
 import com.agentclientprotocol.common.Event
 import com.agentclientprotocol.model.Plan
 import com.agentclientprotocol.model.SessionUpdate
-
-val promptExecutor: PromptExecutor = TODO()
-val agent: AIAgent<Unit, Unit> = TODO()
-val plan: Plan = TODO()
-
-val str = strategy<Unit, Unit>("example-agent") {
-// ACP 機能にアクセスし、カスタムイベントを送信する
-    val node by node<Unit, Unit>() {
--->
-<!--- SUFFIX
-
-    }
-}
+import com.agentclientprotocol.protocol.sendRequest
 -->
 ```kotlin
-// ACP 機能にアクセスし、カスタムイベントを送信する
-withAcpAgent {
-    sendEvent(
-        Event.SessionUpdateEvent(
-            SessionUpdate.PlanUpdate(plan.entries)
-        )
-    )
+val plan: Plan = TODO()
+
+val strategy = strategy<Unit, Unit>("my-strategy") {
+    val node by node<Unit, Unit> {
+        withAcpAgent {
+            sendEvent(
+                Event.SessionUpdateEvent(
+                    SessionUpdate.PlanUpdate(plan.entries)
+                )
+            )
+        }
+    }
 }
 ```
 <!--- KNIT example-agent-client-protocol-05.kt -->
 
-さらに、`withAcpAgent` 内で `protocol` を使用して、カスタムの通知やリクエストを送信することも可能です。
+また、基盤となる `protocol` にアクセスして、認証リクエストなどのカスタムリクエストをクライアントに送信することもできます。
+
 <!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.features.acp.withAcpAgent
-import ai.koog.prompt.executor.model.PromptExecutor
 import com.agentclientprotocol.model.AcpMethod
 import com.agentclientprotocol.model.AuthMethodId
 import com.agentclientprotocol.model.AuthenticateRequest
-import com.agentclientprotocol.model.AuthenticateResponse
-import com.agentclientprotocol.model.Plan
 import com.agentclientprotocol.protocol.sendRequest
-
-val promptExecutor: PromptExecutor = TODO()
-val agent: AIAgent<Unit, Unit> = TODO()
-val plan: Plan = TODO()
-
-val str = strategy<Unit, Unit>("example-agent") {
-// ACP 機能にアクセスし、カスタムイベントを送信する
-    val node by node<Unit, Unit>() {
--->
-<!--- SUFFIX
-
-    }
-}
 -->
 ```kotlin
-// ACP 機能にアクセスし、カスタムイベントを送信する
-withAcpAgent {
-    protocol.sendRequest<AuthenticateRequest, AuthenticateResponse>(
-        AcpMethod.AgentMethods.Authenticate,
-        AuthenticateRequest(methodId = AuthMethodId("Google"))
-    )
+val strategy = strategy<Unit, Unit>("my-strategy") {
+    val node by node<Unit, Unit> {
+        withAcpAgent {
+            protocol.sendRequest(
+                AcpMethod.AgentMethods.Authenticate,
+                AuthenticateRequest(methodId = AuthMethodId("Google"))
+            )
+        }
+    }
 }
 ```
 <!--- KNIT example-agent-client-protocol-06.kt -->
 
-## メッセージ変換
-
-このモジュールは、Koog と ACP メッセージ形式間の変換を行うためのユーティリティを提供します。
-
-### ACP から Koog へ
-
-<!--- INCLUDE
-import ai.koog.agents.features.acp.toKoogContentPart
-import ai.koog.agents.features.acp.toKoogMessage
-import com.agentclientprotocol.model.ContentBlock
-import kotlin.time.Clock
-
-val clock: Clock = Clock.System
-val acpContentBlocks: List<ContentBlock> = TODO()
-val acpContentBlock: ContentBlock = TODO()
--->
-```kotlin
-// ACP コンテンツブロックを Koog メッセージに変換
-val koogMessage = acpContentBlocks.toKoogMessage(clock)
-
-// 単一の ACP コンテンツブロックを Koog コンテンツパートに変換
-val contentPart = acpContentBlock.toKoogContentPart()
-```
-<!--- KNIT example-agent-client-protocol-07.kt -->
-
-### Koog から ACP へ
-
-<!--- INCLUDE
-import ai.koog.agents.features.acp.toAcpContentBlock
-import ai.koog.agents.features.acp.toAcpEvents
-import ai.koog.prompt.message.ContentPart
-import ai.koog.prompt.message.Message
-
-val koogResponseMessage: Message.Assistant = TODO()
-val koogContentPart: ContentPart = TODO()
--->
-```kotlin
-// Koog レスポンスメッセージを ACP イベントに変換
-val acpEvents = koogResponseMessage.toAcpEvents()
-
-// Koog コンテンツパートを ACP コンテンツブロックに変換
-val acpContentBlock = koogContentPart.toAcpContentBlock()
-```
-<!--- KNIT example-agent-client-protocol-08.kt -->
-
-## 重要な注意点
-
-### イベントストリーミングには channelFlow を使用する
-
-異なるコルーチンからのイベント送信を可能にするために、`channelFlow` を使用してください。
-
-```kotlin
-override suspend fun prompt(
-    content: List<ContentBlock>,
-    _meta: JsonElement?
-): Flow<Event> = channelFlow {
-    // eventsProducer として this@channelFlow を指定して AcpAgent をインストール
-}
-```
-
-### エージェントの実行の同期化
-
-プロトコルは前の実行が終了するまで新しい実行をトリガーすべきではないため、ミューテックス（Mutex）を使用してエージェントインスタンスへのアクセスを同期してください。
-
-```kotlin
-private val agentMutex = Mutex()
-
-agentMutex.withLock {
-    // エージェントの作成と実行
-}
-```
-
-### 手動での通知処理
-
-カスタムの通知処理が必要な場合は、`setDefaultNotifications = false` に設定し、仕様に従ってすべてのエージェントイベントを処理してください。
-
-```kotlin
-install(AcpAgent) {
-    this.setDefaultNotifications = false
-    // カスタムイベント処理の実装
-}
-```
-
-## プラットフォームのサポート
-
-ACP 機能は、JVM 固有である ACP Kotlin SDK に依存しているため、現在は JVM プラットフォームでのみ利用可能です。
-
 ## 使用例
 
-完全な動作例は、[Koog リポジトリ](https://github.com/JetBrains/koog/tree/develop/examples/simple-examples/src/main/kotlin/ai/koog/agents/example/acp)にあります。
+Koog リポジトリの [/examples](https://github.com/JetBrains/koog/tree/develop/examples/) の下に、動作する Koog エージェントの例があります。
 
-### 例の実行
+### コンソールベースの ACP クライアントの実行
 
-1. ACP サンプルアプリケーションを実行します。
-```shell
-./gradlew :examples:simple-examples:run
-```
+この例では、シンプルな Koog エージェントとやり取りするコンソールベースの ACP クライアントを実行します。
 
-2. ACP エージェントへのリクエストを入力します。
-```shell
-Move file `my-file.md` to folder `my-folder` and append title '## My File' to the file content
-```
+1. [/examples/simple-examples](https://github.com/JetBrains/koog/blob/develop/examples/simple-examples/) を開きます。
+2. LLM プロバイダーの API キーを構成する方法については、[README](https://github.com/JetBrains/koog/blob/develop/examples/simple-examples/README.md) を参照してください。
+3. `runExampleAcpApp` Gradle タスクを実行します。
+4. コンソールで ACP クライアントが起動したら、エージェントへのリクエストを入力します。例：
+    ```text
+    List files in the current directory and create a new file named 'acp-test.txt' with the content 'Hello from ACP!'.
+    ```
+5. コンソールのイベントトレースを観察します。Koog イベントがどのように ACP イベントに変換され、クライアントに送信されるかを確認できます。
 
-3. コンソールに表示されるイベントトレースで、エージェントの実行、ツール呼び出し、および完了ステータスを確認してください。
+### ACP 対応の Koog エージェントを JetBrains IDE に接続する
+
+この例では、ACP 対応エージェントを作成し、IntelliJ IDEA に接続する方法を示します。
+
+1. [/examples/acp-agent](https://github.com/JetBrains/koog/tree/develop/examples/acp-agent) を開きます。
+2. `installDist` Gradle タスクを実行します。
+3. これにより、エージェントの実行ファイル `build/install/acp-agent/bin/acp-agent` （Windows の場合は `acp-agent.bat`）が作成されます。
+4. IntelliJ IDEA (または他の JetBrains IDE) を開きます。
+5. **AI Chat** > **Options** > **Add Custom Agent** に移動します。
+6. 開いた `acp.json` ファイルに、以下を貼り付けます。
+
+    ```json
+    {
+        "agent_servers": {
+            "Koog Agent": {
+                "command": "/absolute/path/to/acp-agent/build/install/acp-agent/bin/acp-agent",
+                "args": [],
+                "env": {
+                    "OPENAI_API_KEY": "ここにAPIキーを貼り付け"
+                }
+            }
+        }
+    }
+    ```
+
+    構成パラメータ:
+
+    - `agent_servers`: 1 つ以上のエージェント構成を含むオブジェクト
+    - `Koog Agent`: IDE のエージェントセレクターに表示される表示名
+    - `command`: エージェント実行ファイルへの絶対パス
+    - `args`: コマンドライン引数（このエージェントの場合は空）
+    - `env`: エージェントプロセスに渡される環境変数（この例では OpenAI API キー）
+
+7. エージェントが **AI Chat** ツールウィンドウで利用可能になります。
+
+カスタムエージェントを IDE に追加する方法の詳細については、[AI Assistant のドキュメント](https://www.jetbrains.com/help/ai-assistant/acp.html#add-custom-agent)および[こちらのブログ記事](https://blog.jetbrains.com/ai/2026/02/koog-x-acp-connect-an-agent-to-your-ide-and-more/)を参照してください。
+
+[Agent Client Protocol]: https://agentclientprotocol.com
+[ACP Kotlin SDK]: https://github.com/agentclientprotocol/kotlin-sdk

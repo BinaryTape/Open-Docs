@@ -13,8 +13,7 @@
 - `params`：選用的 [LLM 配置參數](prompt-creation/index.md#prompt-parameters)（例如溫度 (temperature)、工具選擇等）。
 
 雖然您可以直接具現化 `Prompt` 類別，
-但建議的提示詞建立方式是使用 [Kotlin DSL](prompt-creation/index.md)，
-它提供了一種結構化的方式來定義對話。
+但建議的提示詞建立方式是使用 [Kotlin DSL](prompt-creation/index.md)，它提供了一種結構化的方式來定義對話。
 
 <!--- INCLUDE
 import ai.koog.prompt.dsl.prompt
@@ -30,7 +29,7 @@ val myPrompt = prompt("hello-koog") {
 !!! note
     AI 代理 (AI agents) 可以接受簡單的文字提示作為輸入。
     它們會自動將文字提示轉換為 Prompt 物件，並將其發送到 LLM 執行。
-    這對於僅需執行單次請求且不需要複雜對話邏輯的 [基礎代理](../basic-agents.md) 非常有用。
+    這對於僅需執行單次請求且不需要複雜對話邏輯的 [基礎代理](../agents/basic-agents.md) 非常有用。
 
 ## 執行提示詞
 
@@ -103,8 +102,8 @@ Koog 允許您在執行提示詞時最佳化效能並處理失敗。
 
 ### 初始提示詞設定
 
-當您[初始化代理](../getting-started/#create-and-run-an-agent)時，您會定義一個[系統訊息 (system message)](prompt-creation/index.md#system-message) 來設定代理的行為。
-接著，當您呼叫代理的 `run()` 方法時，通常會提供一個初始[使用者訊息 (user message)](prompt-creation/index.md#user-messages) 作為輸入。
+當您 [初始化代理](../quickstart.md#create-your-first-koog-agent) 時，您可以定義一個 [系統訊息 (system message)](prompt-creation/index.md#system-message) 來設定代理的行為。
+接著，當您呼叫代理的 `run()` 方法時，通常會提供一個初始 [使用者訊息 (user message)](prompt-creation/index.md#user-messages) 作為輸入。
 這些訊息共同構成了代理的初始提示詞。例如：
 
 <!--- INCLUDE
@@ -154,18 +153,16 @@ flowchart TB
     B -->|"結果傳回至"| A
 ```
 
-對於更[進階的配置](../complex-workflow-agents.md#4-configure-the-agent)，您也可以使用 
-[AIAgentConfig](api:agents-core::ai.koog.agents.core.agent.config.AIAgentConfig) 
-來定義代理的初始提示詞。
+對於更進階的配置，您也可以使用 [AIAgentConfig](api:agents-core::ai.koog.agents.core.agent.config.AIAgentConfig) 來定義代理的初始提示詞。
 
 ### 自動提示詞更新
 
 當代理執行其策略時，[預定義節點](../nodes-and-components.md) 會自動更新提示詞。
 例如：
 
-- [`nodeLLMRequest`](../nodes-and-components/#nodellmrequest)：將使用者訊息附加到提示詞中，並擷取 LLM 回應。
-- [`nodeLLMSendToolResult`](../nodes-and-components/#nodellmsendtoolresult)：將工具執行結果附加到對話中。
-- [`nodeAppendPrompt`](../nodes-and-components/#nodeappendprompt)：在工作流程中的任何位置將特定訊息插入提示詞中。
+- [`nodeLLMRequest`](../nodes-and-components.md#nodellmrequest)：將使用者訊息附加到提示詞中，並擷取 LLM 回應。
+- [`nodeLLMSendToolResult`](../nodes-and-components.md#nodellmsendtoolresult)：將工具執行結果附加到對話中。
+- [`nodeAppendPrompt`](../nodes-and-components.md#nodeappendprompt)：在工作流程中的任何位置將特定訊息插入提示詞中。
 
 ### 上下文視窗管理
 

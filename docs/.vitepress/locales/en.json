@@ -585,5 +585,15 @@
   "kmp.webassembly-wasm": "WebAssembly (Wasm)",
   "kmp.kmp-ci-tutorial": "Configure CI for a KMP app",
   "kmp.multiplatform-project-agp-9-migration": "Upgrading to AGP 9",
-  "kmp.ios-android-app-development": "iOS and Android app development"
+  "kmp.ios-android-app-development": "iOS and Android app development",
+  "ktor.dependency-injection": "Dependency injection",
+  "ktor.server-dependency-injection": "Overview",
+  "ktor.server-di-configuration": "Configuration",
+  "ktor.server-di-testing": "Testing",
+  "koog.quickstart": "Quickstart",
+  "koog.agents": "Agents",
+  "koog.graph-based-agents": "Graph-based agents",
+  "koog.llm-based-planners": "LLM-based planners",
+  "koog.goap-agents": "GOAP agents",
+  "koog.long-term-memory": "Long Term Memory"
 }
