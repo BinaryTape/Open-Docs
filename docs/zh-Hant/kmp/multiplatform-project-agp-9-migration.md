@@ -9,6 +9,8 @@ Kotlin Multiplatform Gradle 外掛程式將不再相容於 `com.android.applicat
   請將其提取到一個獨立的模組中，以避免 Gradle 外掛程式衝突。
 * 將您的共用程式碼模組遷移至使用專為多平台專案建置的新 [Android-KMP 程式庫外掛程式](https://developer.android.com/kotlin/multiplatform/plugin)。
 
+<video src="https://www.youtube.com/v/m0Cq6J-V_RY" title="將 Kotlin 專案遷移至 Android Gradle plugin 9.0"/>
+
 > Android Studio 從 Otter 3 Feature Drop 2025.2.3 開始支援 AGP 9.0.0。
 > IntelliJ IDEA 對 AGP 9.0.0 的支援預計於 2026 年第一季推出。
 > 

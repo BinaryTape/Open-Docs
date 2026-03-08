@@ -227,7 +227,7 @@ fun main() {
 
 ## Map
 
-Map 以鍵值對的形式儲存項目。您可以透過引用鍵（key）來存取值（value）。您可以將 Map 想像成菜單。您可以透過找到想吃的食物（鍵）來找到對應的價格（值）。如果您想在不使用數字索引（如 List）的情況下查找值，Map 就非常有用。
+Map 以鍵值對的形式儲存項目。您可以透過引用鍵（key）來存取值（value）。您可以將 Map 想像成菜單。您可以透過找到想吃的食物（鍵）來找到對應的價格（值）。如果您想在不使用數字索引（如 List）的情況下查找值， Map 就非常有用。
 
 > * Map 中的每個鍵都必須是唯一的，這樣 Kotlin 才能識別您想要取得哪個值。
 > * Map 中可以有重複的值。
@@ -468,7 +468,7 @@ fun main() {
 fun main() {
     val number2word = // 在此編寫您的程式碼
     val n = 2
-    println("$n is spelt as '${<在此編寫您的程式碼 >}'")
+    println("$n is spelled as '${<在此編寫您的程式碼 >}'")
 }
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-collections-exercise-3"}

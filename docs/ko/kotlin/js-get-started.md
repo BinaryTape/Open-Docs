@@ -3,8 +3,8 @@
 이 튜토리얼에서는 Kotlin/JavaScript(Kotlin/JS)를 사용하여 브라우저용 웹 애플리케이션을 만드는 방법을 보여줍니다.
 앱을 만들려면 워크플로에 가장 적합한 도구를 선택하세요:
 
-* **[IntelliJ IDEA에서 애플리케이션 생성](#create-your-application-in-intellij-idea)**: 버전 관리 시스템에서 프로젝트 템플릿을 클론하고 IntelliJ IDEA에서 작업합니다.
-* **[Gradle을 사용하여 애플리케이션 생성](#create-your-application-using-gradle)**: 프로젝트의 설정이 내부적으로 어떻게 작동하는지 더 잘 이해하기 위해 프로젝트의 빌드 파일을 수동으로 생성합니다.
+* **[IntelliJ IDEA](#create-your-application-in-intellij-idea)**: 버전 관리 시스템에서 프로젝트 템플릿을 클론하고 IntelliJ IDEA에서 작업합니다.
+* **[Gradle 빌드 시스템](#create-your-application-using-gradle)**: 프로젝트의 설정이 내부적으로 어떻게 작동하는지 더 잘 이해하기 위해 프로젝트의 빌드 파일을 수동으로 생성합니다.
 
 > Kotlin/JS를 사용하면 브라우저 외에도 다른 환경을 타겟으로 컴파일할 수 있습니다. 
 > 자세한 내용은 [실행 환경(Execution environments)](js-project-setup.md#execution-environments)을 참고하세요.
@@ -18,7 +18,7 @@ Kotlin/JS 웹 애플리케이션을 만들려면 [IntelliJ IDEA](https://www.jet
 ### 환경 설정
 
 1. 최신 버전의 [IntelliJ IDEA](https://www.jetbrains.com/idea/)를 다운로드하고 설치합니다.
-2. [Kotlin 멀티플랫폼 개발을 위한 환경 설정](https://kotlinlang.org/docs/multiplatform/quickstart.html#set-up-the-environment)을 완료합니다.
+2. [Kotlin 멀티플랫폼 IDE 플러그인](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)을 설치합니다(Kotlin 멀티플랫폼 Gradle 플러그인과 혼동하지 마세요).
 
 ### 프로젝트 생성
 
@@ -340,7 +340,7 @@ Gradle은 Kotlin/JS 및 Kotlin 멀티플랫폼 프로젝트의 기본 빌드 시
    관례에 따라 모든 소스는 `src/<target name>[Main|Test]/kotlin` 디렉터리에 위치합니다: 
    * `Main`은 소스 코드가 위치하는 곳입니다.
    * `Test`는 테스트가 위치하는 곳입니다. 
-   * `<target name>`은 타겟 플랫폼에 해당합니다 (이 경우 `js`).
+   * `<target name>`은 타겟 플랫폼에 해당합니다(이 경우 `js`).
 
 **`browser` 환경인 경우**
 
@@ -365,7 +365,7 @@ Gradle은 Kotlin/JS 및 Kotlin 멀티플랫폼 프로젝트의 기본 빌드 시
    </html>
    ```
 
-3. `$NAME_OF_YOUR_PROJECT_DIRECTORY` 자리에 프로젝트 디렉터리의 이름을 입력합니다.
+3. `$NAME_OF_YOUR_PROJECT_DIRECTORY` 플레이스홀더를 프로젝트 디렉터리의 이름으로 바꿉니다.
 
 ### 프로젝트 빌드 및 실행
 

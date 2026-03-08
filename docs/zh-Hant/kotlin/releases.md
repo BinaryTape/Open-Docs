@@ -21,7 +21,7 @@
 
 針對每個語言與工具發佈，我們也會提供數個預覽 (_EAP_) 版本，供您在功能正式發佈前進行嘗試。詳情請參閱 [早期體驗預覽 (Early Access Preview)](eap.md)。
 
-> 如果您希望收到新版本 Kotlin 的通知，請訂閱 [Kotlin 電子報](https://lp.jetbrains.com/subscribe-to-kotlin-news/)、關注 [X 上的 Kotlin](https://x.com/kotlin)，或在 [Kotlin GitHub 儲存庫](https://github.com/JetBrains/kotlin) 上啟用 **Watch | Custom | Releases** 選項。
+> 如果您希望收到新版本 Kotlin 的通知，請訂閱 [Kotlin 電子報](https://lp.jetbrains.com/subscribe-to-kotlin-news/)、關注 [X 上的 Kotlin](https://x.com/kotlin)，或在 [Kotlin GitHub 存儲庫](https://github.com/JetBrains/kotlin) 上啟用 **Watch | Custom | Releases** 選項。
 > 
 {style="note"}
 
@@ -34,7 +34,7 @@
 
 ## 更新至新的 Kotlin 版本
 
-若要將您的專案升級至新版本，請更新建置系統中的 Kotlin 版本。
+若要將您的專案升級至新版本，請更新組建系統中的 Kotlin 版本。
 
 ### Gradle
 
@@ -71,7 +71,7 @@ plugins {
 </tab>
 </tabs>
 
-如果您有使用較早 Kotlin 版本建立的專案，請檢查是否也需要 [更新任何 kotlinx 函式庫的版本](gradle-configure-project.md#set-a-dependency-on-a-kotlinx-library)。
+如果您有使用較早 Kotlin 版本建立的專案，請檢查是否也需要 [更新任何 kotlinx 程式庫的版本](gradle-configure-project.md#set-a-dependency-on-a-kotlinx-library)。
 
 如果您正遷移至新的語言發佈版本，Kotlin 外掛程式的遷移工具將協助您完成此程序。
 
@@ -101,7 +101,7 @@ plugins {
 </plugins>
 ```
 
-如果您有使用較早 Kotlin 版本建立的專案，請檢查是否也需要 [更新任何 kotlinx 函式庫的版本](maven-configure-project.md#dependency-on-a-kotlinx-library)。
+如果您有使用較早 Kotlin 版本建立的專案，請檢查是否也需要 [更新任何 kotlinx 程式庫的版本](maven-configure-project.md#dependency-on-a-kotlinx-library)。
 
 > 若要進一步了解如何在專案中使用 Maven，請參閱 [Maven](maven.md)。
 >
@@ -110,17 +110,6 @@ plugins {
 ## IDE 支援
 
 Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Android Studio](https://developer.android.com/kotlin/get-started) 中擁有完整的開箱即用支援，並配有由 JetBrains 開發的官方 Kotlin 外掛程式。
-
-IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 編譯器來改進程式碼分析、程式碼補全和醒目提示。
-
-IntelliJ IDEA 2025.3 及更新版本一律使用 K2 模式。
-
-在 Android Studio 中，您可以從 2024.1 版本開始透過以下步驟啟用 K2 模式：
-
-1. 前往 **Settings** | **Languages & Frameworks** | **Kotlin**。
-2. 選取 **Enable K2 mode** 選項。
-
-在 [我們的部落格](https://blog.jetbrains.com/idea/2025/04/k2-mode-in-intellij-idea-2025-1-current-state-and-faq/) 中進一步了解 K2 模式。
 
 ## Kotlin 發佈相容性
 
@@ -156,7 +145,7 @@ IntelliJ IDEA 2025.3 及更新版本一律使用 K2 模式。
         </td>
         <td>
             <p>語言發佈版本，包含新的與穩定的語言特性、工具更新、針對不同平台的效能改進以及重要修正。</p>
-            <p>如需更多詳細資訊，請參閱 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0">變更日誌</a>。</p>
+            <p>在 <a href="whatsnew23.md" target="_blank">Kotlin 2.3.0 的新功能</a> 中進一步了解 Kotlin 2.3.0。</p>
         </td>
     </tr> 
     <tr>
@@ -176,7 +165,7 @@ IntelliJ IDEA 2025.3 及更新版本一律使用 K2 模式。
         </td>
         <td>
             <p>Kotlin 2.2.0 的工具發佈，包含對 Web 開發的重要變更及其他改進。</p>
-            <p>如需更多詳細資訊，請參閱 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20">變更日誌</a>。</p>
+            <p>在 <a href="whatsnew2220.md" target="_blank">Kotlin 2.2.20 的新功能</a> 中進一步了解 Kotlin 2.2.20。</p>
         </td>
     </tr>
     <tr>
@@ -196,7 +185,7 @@ IntelliJ IDEA 2025.3 及更新版本一律使用 K2 模式。
         </td>
         <td>
             <p>語言發佈版本，包含新的與穩定的語言特性、工具更新、針對不同平台的效能改進以及重要修正。</p>
-            <p>如需更多詳細資訊，請參閱 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.0">變更日誌</a>。</p>
+            <p>在 <a href="whatsnew22.md" target="_blank">Kotlin 2.2.0 的新功能</a> 中進一步了解 Kotlin 2.2.0。</p>
         </td>
     </tr> 
     <tr>

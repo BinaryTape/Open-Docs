@@ -33,7 +33,7 @@ Wasm 是一种基于栈的虚拟机的二进制指令格式。这种格式与平
 
 ## Kotlin/Wasm 与 WASI
 
-Kotlin/Wasm 为服务器端应用程序使用 [WebAssembly System Interface (WASI)](https://wasi.dev/)。使用 Kotlin/Wasm 和 WASI 构建的应用使用 Wasm-WASI 目标，允许您调用 WASI API 并在浏览器环境之外运行应用。
+Kotlin/Wasm 为服务器端应用使用 [WebAssembly System Interface (WASI)](https://wasi.dev/)。使用 Kotlin/Wasm 和 WASI 构建的应用使用 Wasm-WASI 目标，允许您调用 WASI API 并在浏览器环境之外运行应用。
 
 Kotlin/Wasm 利用 WASI 抽象掉平台特定的细节，允许相同的 Kotlin 代码在不同平台上运行。这扩展了 Kotlin/Wasm 的应用范围，使其不仅限于 Web 应用，且不需要为每个运行时进行自定义处理。
 
@@ -53,7 +53,7 @@ WASI 为在不同环境中运行编译为 WebAssembly 的 Kotlin 应用提供了
 
 ## 浏览器 API 支持
 
-Kotlin/Wasm 标准库提供了浏览器 API 的声明，包括 DOM API。利用这些声明，您可以直接使用 Kotlin API 来访问和利用各种浏览器功能。例如，在您的 Kotlin/Wasm 应用中，您可以操作 DOM 元素或调用 fetch API，而无需从头开始定义这些声明。要了解更多信息，请参阅我们的 [Kotlin/Wasm 浏览器示例](https://github.com/Kotlin/kotlin-wasm-examples/tree/main/browser-example)。
+Kotlin/Wasm 标准库提供了浏览器 API 的声明，包括 DOM API。利用这些声明，您可以直接使用 Kotlin API 来访问和利用各种浏览器功能。例如，在您的 Kotlin/Wasm 应用中，您可以操作 DOM 元素或调用 fetch API，而无需从头开始定义这些声明。要了解更多信息，请参阅我们的 [Kotlin/Wasm 浏览器示例](https://github.com/Kotlin/kotlin-wasm-browser-template)。
 
 浏览器 API 支持的声明是使用 JavaScript [互操作性功能](wasm-js-interop.md) 定义的。您可以使用相同的功能来定义自己的声明。此外，Kotlin/Wasm 与 JavaScript 的互操作性允许您在 JavaScript 中使用 Kotlin 代码。更多信息请参阅 [在 JavaScript 中使用 Kotlin 代码](wasm-js-interop.md#use-kotlin-code-in-javascript)。
 

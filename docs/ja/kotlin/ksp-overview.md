@@ -1,34 +1,39 @@
 [//]: # (title: Kotlin Symbol Processing API)
 
-Kotlin Symbol Processing (_KSP_) は、軽量なコンパイラプラグインを開発するためのAPIです。
-KSPは、Kotlinのパワーを活用しつつ学習コストを最小限に抑えた、簡素化されたコンパイラプラグインAPIを提供します。[kapt](kapt.md) と比較して、KSPを使用するアノテーションプロセッサは最大2倍高速に動作します。
+Kotlin Symbol Processing (KSP) は、Kotlin 用のソースコード生成フレームワークです。KSP API を使用すると、ソースコード内の [アノテーション](annotations.md) に基づいてコードを生成するプロセッサを作成できます。
 
-* KSPとkaptの比較についての詳細は、[なぜKSPか](ksp-why-ksp.md) を確認してください。
-* KSPプロセッサの作成を開始するには、[KSPクイックスタート](ksp-quickstart.md) をご覧ください。
+KSP は、軽量なコンパイラプラグインの作成を簡素化することを目指しています。適切に定義された API によってコンパイラの変更が隠蔽されているため、プロセッサのメンテナンスに多大な労力を割く必要がありません。ただし、このアプローチにはトレードオフもあります。例えば、KSP ベースのプロセッサは、式（expression）や文（statement）を調査することはできず、ソースコードを変更することもできません。
+
+KSP ベースのプラグインの代表的なユースケースには、以下が含まれます：
+* 依存関係の注入 ([Dagger](https://dagger.dev/dev-guide/ksp))
+* シリアライゼーション ([Moshi](https://github.com/square/moshi))
+* データベース管理 ([Room](https://developer.android.com/jetpack/androidx/releases/room#2.3.0-beta02))
+
+最初の KSP ベースのプロセッサを作成する方法については、[KSP クイックスタート](ksp-quickstart.md) をご覧ください。
 
 ## 概要
 
-KSP APIは、Kotlinプログラムを慣用的に処理します。KSPは、拡張関数、宣言区の変異（declaration-site variance）、ローカル関数といったKotlin特有の機能を理解しています。また、型を明示的にモデル化し、等価性や代入互換性などの基本的な型チェックも提供します。
+KSP API は、Kotlin プログラムを慣用的に処理します。KSP は、拡張関数、宣言区の変異（declaration-site variance）、ローカル関数といった Kotlin 特有の機能を理解しています。また、型を明示的にモデル化し、等価性や代入互換性などの基本的な型チェックも提供します。
 
-このAPIは、[Kotlinの文法](https://kotlinlang.org/grammar/) に従って、プログラム構造をシンボルレベルでモデル化します。KSPベースのプラグインがソースプログラムを処理する際、クラス、クラスメンバー、関数、および関連するパラメータなどの構成要素にはプロセッサからアクセスできますが、`if` ブロックや `for` ループなどはアクセス対象外となります。
+この API は、[Kotlin の文法](https://kotlinlang.org/grammar/) に従って、プログラム構造をシンボルレベルでモデル化します。KSP ベースのプラグインがソースプログラムを処理する際、クラス、クラスメンバー、関数、および関連するパラメータなどの構成要素にはプロセッサからアクセスできますが、`if` ブロックや `for` ループなどはアクセス対象外となります。
 
-概念的に、KSPはKotlinリフレクションの [KType](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-type/) に似ています。このAPIを使用すると、プロセッサはクラス宣言から特定の型引数を持つ対応する型へ、またその逆へとナビゲートできます。また、型引数の置換、変異（variance）の指定、スター投影（star projections）の適用、型のNULL許容性のマークなども可能です。
+概念的に、KSP は Kotlin リフレクションの [KType](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-type/) に似ています。この API を使用すると、プロセッサはクラス宣言から特定の型引数を持つ対応する型へ、またその逆へとナビゲートできます。また、型引数の置換、変異（variance）の指定、スター投影（star projections）の適用、型の NULL 許容性のマークなども可能です。
 
-KSPの別の捉え方として、Kotlinプログラムのプリプロセッサフレームワークと考えることもできます。KSPベースのプラグインを「シンボルプロセッサ（symbol processors）」、あるいは単に「プロセッサ」と呼ぶ場合、コンパイルにおけるデータフローは以下のステップで説明できます。
+KSP の別の捉え方として、Kotlin プログラムのプリプロセッサフレームワークと考えることもできます。KSP ベースのプラグインを「シンボルプロセッサ（symbol processors）」、あるいは単に「プロセッサ」と呼ぶ場合、コンパイルにおけるデータフローは以下のステップで説明できます。
 
 1. プロセッサがソースプログラムとリソースを読み取り、分析する。
 2. プロセッサがコードまたはその他の形式の出力を生成する。
-3. Kotlinコンパイラが、ソースプログラムを生成されたコードと一緒にコンパイルする。
+3. Kotlin コンパイラが、ソースプログラムを生成されたコードと一緒にコンパイルする。
 
-本格的なコンパイラプラグインとは異なり、プロセッサは既存のコードを変更することはできません。言語のセマンティクス（意味論）を変更するコンパイラプラグインは、時に非常に混乱を招くことがあります。KSPは、ソースプログラムを読み取り専用として扱うことで、その問題を回避しています。
+本格的なコンパイラプラグインとは異なり、プロセッサはコードを変更することはできません。言語のセマンティクス（意味論）を変更するコンパイラプラグインは、時に非常に混乱を招くことがあります。KSP は、ソースプログラムを読み取り専用として扱うことで、その問題を回避しています。
 
-KSPの概要については、こちらの動画（英語）でもご確認いただけます：
+KSP の概要については、こちらの動画（英語）でもご確認いただけます：
 
 <video src="https://www.youtube.com/v/bv-VyGM3HCY" title="Kotlin Symbol Processing (KSP)"/>
 
-## KSPがソースファイルをどのように見るか
+## KSP がソースファイルをどのように見るか
 
-ほとんどのプロセッサは、入力ソースコードのさまざまなプログラム構造を辿ります。APIの使用方法に入る前に、KSPの視点からファイルがどのように見えるかを確認してみましょう。
+ほとんどのプロセッサは、入力ソースコードのさまざまなプログラム構造を辿ります。API の使用方法に入る前に、KSP の視点からファイルがどのように見えるかを確認してみましょう。
 
 ```text
 KSFile
@@ -77,7 +82,7 @@ KSFile
 
 ## SymbolProcessorProvider: エントリポイント
 
-KSPは、`SymbolProcessor` をインスタンス化するために `SymbolProcessorProvider` インターフェースの実装を必要とします。
+KSP は、`SymbolProcessor` をインスタンス化するために `SymbolProcessorProvider` インターフェースの実装を必要とします。
 
 ```kotlin
 interface SymbolProcessorProvider {
@@ -131,19 +136,19 @@ class HelloFunctionFinderProcessor : SymbolProcessor() {
 ## リソース
 
 * [クイックスタート](ksp-quickstart.md)
-* [なぜKSPを使うのか？](ksp-why-ksp.md)
+* [なぜ KSP を使うのか？](ksp-why-ksp.md)
 * [例 (Examples)](ksp-examples.md)
-* [KSPがどのようにKotlinコードをモデル化するか](ksp-additional-details.md)
-* [Javaアノテーションプロセッサ作成者のためのリファレンス](ksp-reference.md)
+* [KSP がどのように Kotlin コードをモデル化するか](ksp-additional-details.md)
+* [Java アノテーションプロセッサ作成者のためのリファレンス](ksp-reference.md)
 * [インクリメンタル処理に関するメモ](ksp-incremental.md)
 * [マルチラウンド処理に関するメモ](ksp-multi-round.md)
-* [マルチプラットフォームプロジェクトでのKSP](ksp-multiplatform.md)
-* [コマンドラインからのKSPの実行](ksp-command-line.md)
+* [マルチプラットフォームプロジェクトでの KSP](ksp-multiplatform.md)
+* [コマンドラインからの KSP の実行](ksp-command-line.md)
 * [FAQ](ksp-faq.md)
 
 ## サポートされているライブラリ
 
-以下の表は、Androidで人気のライブラリと、それらのKSPサポート状況のリストです。
+以下の表は、Android で人気のライブラリと、それらの KSP サポート状況のリストです。
 
 | ライブラリ | ステータス |
 |------------------|---------------------------------------------------------------------------------------------------|

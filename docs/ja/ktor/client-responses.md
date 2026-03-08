@@ -196,6 +196,11 @@ Ktorは、[`ByteReadChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte
 
 レスポンスをチャンク単位で逐次処理するには、スコープ付きの[`execute`](https://api.ktor.io/ktor-client-core/io.ktor.client.statement/-http-statement/execute.html)ブロックで`HttpStatement`を使用します。
 
+> JVMにおいて、`HttpStatement.execute {}`および`HttpStatement.body {}`のエンジンディスパッチャー実行は、後方互換性を維持するためにオプトイン方式になっています。
+> JVM上のエンジンディスパッチャーでこれらのブロックを実行するには、JVMシステムプロパティ`io.ktor.client.statement.useEngineDispatcher`を`true`に設定してください（例：`-Dio.ktor.client.statement.useEngineDispatcher=true`）。
+>
+{style="warning"}
+
 以下の例は、レスポンスをチャンク単位で読み取り、ファイルに保存する方法を示しています。
 
 ```kotlin
@@ -262,6 +267,7 @@ client.prepareGet(url).execute { httpResponse ->
     channel.readTo(stream)
 }
 println("A file saved to ${file.path}")
+
 ```
 
 `.copyAndClose()`とは異なり、シンクは書き込み後も開いたままになり、転送中にエラーが発生した場合にのみ自動的に閉じられます。

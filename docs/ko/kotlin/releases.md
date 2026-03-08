@@ -111,17 +111,6 @@ Kotlin %kotlinVersion%으로 업데이트하려면 `pom.xml` 파일에서 버전
 
 Kotlin은 JetBrains에서 개발한 공식 Kotlin 플러그인을 통해 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 및 [Android Studio](https://developer.android.com/kotlin/get-started)에서 별도의 설정 없이 완전한 기능을 지원합니다.
 
-IntelliJ IDEA 및 Android Studio의 K2 모드는 K2 컴파일러를 사용하여 코드 분석, 코드 완성 및 하이라이팅 성능을 향상시킵니다.
-
-IntelliJ IDEA 2025.3 이상 버전은 항상 K2 모드를 사용합니다.
-
-Android Studio에서는 2024.1 버전부터 다음 단계에 따라 K2 모드를 활성화할 수 있습니다.
-
-1. **Settings** | **Languages & Frameworks** | **Kotlin**으로 이동합니다.
-2. **Enable K2 mode** 옵션을 선택합니다.
-
-K2 모드에 대한 자세한 내용은 [공식 블로그](https://blog.jetbrains.com/idea/2025/04/k2-mode-in-intellij-idea-2025-1-current-state-and-faq/)에서 확인하세요.
-
 ## Kotlin 릴리스 호환성
 
 [Kotlin 릴리스 유형 및 호환성](kotlin-evolution-principles.md#language-and-tooling-releases)에 대해 자세히 알아보세요.
@@ -156,7 +145,7 @@ K2 모드에 대한 자세한 내용은 [공식 블로그](https://blog.jetbrain
         </td>
         <td>
             <p>새로운 기능 및 안정화된 언어 기능, 도구 업데이트, 다양한 플랫폼을 위한 성능 개선 및 중요한 수정을 포함하는 언어 릴리스입니다.</p>
-            <p>자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0">변경 로그</a>를 참조하세요.</p>
+            <p>Kotlin 2.3.0에 대한 자세한 내용은 <a href="whatsnew23.md" target="_blank">Kotlin 2.3.0의 새로운 기능</a>을 참조하세요.</p>
         </td>
     </tr> 
     <tr>
@@ -176,7 +165,7 @@ K2 모드에 대한 자세한 내용은 [공식 블로그](https://blog.jetbrain
         </td>
         <td>
             <p>웹 개발을 위한 중요한 변경 사항과 기타 개선 사항을 포함하는 Kotlin 2.2.0용 도구 릴리스입니다.</p>
-            <p>자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20">변경 로그</a>를 참조하세요.</p>
+            <p>Kotlin 2.2.20에 대한 자세한 내용은 <a href="whatsnew2220.md" target="_blank">Kotlin 2.2.20의 새로운 기능</a>을 참조하세요.</p>
         </td>
     </tr>
     <tr>
@@ -196,7 +185,7 @@ K2 모드에 대한 자세한 내용은 [공식 블로그](https://blog.jetbrain
         </td>
         <td>
             <p>새로운 기능 및 안정화된 언어 기능, 도구 업데이트, 다양한 플랫폼을 위한 성능 개선 및 중요한 수정을 포함하는 언어 릴리스입니다.</p>
-            <p>자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.0">변경 로그</a>를 참조하세요.</p>
+            <p>Kotlin 2.2.0에 대한 자세한 내용은 <a href="whatsnew22.md" target="_blank">Kotlin 2.2.0의 새로운 기능</a>을 참조하세요.</p>
         </td>
     </tr> 
     <tr>
@@ -255,7 +244,7 @@ K2 모드에 대한 자세한 내용은 [공식 블로그](https://blog.jetbrain
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.0.20" target="_blank">GitHub에서 릴리스 보기</a></p>
         </td>
         <td>
-           <p>성능 개선 및 버그 수정을 포함하는 Kotlin 2.0.0용 도구 릴리스입니다. 주요 기능으로는 Kotlin/Native 가비지 컬렉터의 동시 마킹(concurrent marking), Kotlin 공통 표준 라이브러리의 UUID 지원, Compose 컴파일러 업데이트 및 Gradle 8.8 지원 등이 있습니다.
+           <p>성능 개선 및 버그 수정을 포함하는 Kotlin 2.0.0용 도구 릴리스입니다. 주요 기능으로는 Kotlin/Native 가비지 컬렉터의 동시 마킹(concurrent marking), Kotlin 공통 표준 라이브러리의 UUID 지원, Compose 컴파일러 업데이트 및 Gradle 8.8까지의 지원 등이 있습니다.
             </p>
             <p>Kotlin 2.0.20에 대한 자세한 내용은 <a href="whatsnew2020.md" target="_blank">Kotlin 2.0.20의 새로운 기능</a>을 참조하세요.</p>
         </td>
@@ -383,7 +372,7 @@ K2 모드에 대한 자세한 내용은 [공식 블로그](https://blog.jetbrain
     </tr>
     <tr>
         <td><strong>1.8.21</strong>
-            <p>출시일: <strong>2023년 April 25일</strong></p>
+            <p>출시일: <strong>2023년 4월 25일</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.8.21" target="_blank">GitHub에서 릴리스 보기</a></p>
         </td>
         <td>

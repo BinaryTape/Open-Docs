@@ -1,6 +1,7 @@
 [//]: # (title: Compose Hot Reload)
 
-[Compose Hot Reload](https://github.com/JetBrains/compose-hot-reload) 帮助你在开发 Compose Multiplatform 项目时，实时查看并尝试 UI 更改。
+Compose Hot Reload 帮助你在开发 Compose Multiplatform 项目时，实时查看并尝试 UI 更改。
+与标准的 [Compose previews](compose-previews.md)（适用于使用测试数据查看独立组件）不同，Compose Hot Reload 会直接将你的代码更改应用到运行中的应用程序。
 
 捆绑的 Compose Hot Reload Gradle 插件需要 Kotlin 2.1.20+ 以及与 Java 21 或更早版本兼容的 JVM 目标。
 为了使用 Compose Hot Reload 的完整功能，我们建议安装 [Kotlin Multiplatform IDE 插件](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)，该插件适用于 IntelliJ IDEA 2025.2.2 及以上版本，以及 Android Studio Otter 2025.2.1 及以上版本。
@@ -39,7 +40,7 @@
 
 对于使用 1.10.0 之前版本的 Compose Multiplatform 的多平台项目，你必须配置桌面目标，然后显式添加 Compose Hot Reload 插件。以下步骤以[使用共享逻辑和 UI 创建应用](compose-multiplatform-create-first-app.md)教程中的项目作为参考。
 
-1. 引入桌面目标：创建 `jvmMain` 目录，定义 `main()` 函数，并提供 `actual` 实现。
+1. 引入桌面目标：创建 `jvmMain` directory，定义 `main()` 函数，并提供 `actual` 实现。
    如果你的项目已经包含桌面目标，可以跳过此步骤。
    参考示例请参阅[添加 JVM 入口点](migrate-from-android.md#optional-add-a-jvm-entry-point)。
  

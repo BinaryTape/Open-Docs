@@ -18,7 +18,7 @@ exclude: true
 
     ``` kotlin title="build.gradle.kts"
     dependencies {
-        implementation("ai.koog:koog-agents:0.6.0")
+        implementation("ai.koog:koog-agents:0.6.4")
     }
     ```
 
@@ -26,7 +26,7 @@ exclude: true
 
     ``` groovy title="build.gradle"
     dependencies {
-        implementation 'ai.koog:koog-agents:0.6.0'
+        implementation 'ai.koog:koog-agents:0.6.4'
     }
     ```
 
@@ -36,7 +36,7 @@ exclude: true
     <dependency>
         <groupId>ai.koog</groupId>
         <artifactId>koog-agents-jvm</artifactId>
-        <version>0.6.0</version>
+        <version>0.6.4</version>
     </dependency>
     ```
 # --8<-- [end:dependencies]

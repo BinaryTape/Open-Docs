@@ -13,7 +13,7 @@ Ktor 3.4.0 在服务器、客户端和工具方面带来了一系列增强功能
 
 ## Ktor 服务器
 
-### OAuth 错误处理回退
+### 针对错误处理的 OAuth 回退
 
 Ktor 3.4.0 为 [OAuth](server-oauth.md) 身份验证提供程序引入了新的 [`fallback()`](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-o-auth-authentication-provider/-config/fallback.html) 函数。
 当 OAuth 流程因 `AuthenticationFailedCause.Error`（例如令牌交换失败、网络问题或响应解析错误）而失败时，将调用该回退。
@@ -389,7 +389,16 @@ val client = HttpClient(Curl) {
     }
 }
 ```
-### 使用引擎调度器执行 HttpStatement
+### 使用引擎调度器执行 HttpStatement {id="use-engine-dispatcher"}
+
+> 在 Ktor 3.4.1 中，此行为在 JVM 上是选择性启用的，以保持向后兼容性，因为默认启用它可能会破坏一些在内部使用 Ktor 的库。
+> 要启用它，请将 `io.ktor.client.statement.useEngineDispatcher` JVM 系统属性设置为 `true`
+>  ```shell
+>  -Dio.ktor.client.statement.useEngineDispatcher=true
+>  ```
+> 此选项将在未来的版本中成为默认设置，因此我们建议尽早选择性启用。
+>
+{style="warning"}
 
 `HttpStatement.execute {}` 和 `HttpStatement.body {}` 块现在在 HTTP 引擎的调度器上运行，而不是在调用者的协程上下文中运行。这可以防止从主线程调用这些块时发生意外阻塞。
 

@@ -1,7 +1,8 @@
 [//]: # (title: Compose UI プレビュー)
 
 エミュレータを実行せずに、IDE (IntelliJ IDEA および Android Studio) で UI がレンダリングされた状態を確認するための *プレビュー* composable を作成できます。
-プレビューは、[Jetpack Compose のコア機能の一部](https://developer.android.com/develop/ui/compose/tooling/previews)です。
+この [Jetpack Compose のコア機能](https://developer.android.com/develop/ui/compose/tooling/previews) を使用すると、さまざまな構成のテストデータを使用して個々のコンポーネントを簡単に視覚化できます。
+さらに、[Compose Hot Reload](compose-hot-reload.md) を使用して、デスクトップ JVM ターゲットで実行されているライブアプリケーションにコードの変更を即座に反映させることもできます。
 
 > Kotlin Multiplatform プロジェクトの共通コード (common code) で Compose プレビューを有効にするには、Android ターゲットが必要です。これは、プレビューが Android ライブラリに依存しているためです。
 > 
@@ -10,12 +11,21 @@
 Compose Multiplatform は当初、カスタムライブラリとして限定的な `@Preview` アノテーションを実装していましたが、バージョン 1.10.0 以降、オリジナルの AndroidX アノテーションが完全にマルチプラットフォーム化されたため、この実装は非推奨となりました。
 
 このページでは、以下について説明します：
+
 * さまざまなプロジェクト構成において、共通コードで [プレビューを有効にする方法](#preview-setup)
+* 追加のパラメータを使用して [プレビューを使用およびカスタマイズする方法](#use-previews)
 * Compose Multiplatform、AGP、およびアノテーションの [サポートされている組み合わせの概要](#supported-configurations)
 
 ## プレビューの設定
 
-IDE でプレビューサポートを有効にするには、KMP モジュールの `build.gradle.kts` ファイルに必要な依存関係を追加します。
+ゼロから始める場合は、IDE ウィザードを使用して、あらかじめ設定された **新規プロジェクト** を作成できます。
+
+まずは、IntelliJ IDEA と Android Studio の両方で利用可能な [Kotlin Multiplatform IDE プラグイン](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform) をインストールしてください。
+新規プロジェクトには、`@Preview` アノテーションが付与された、すぐに使用できる `App` 関数が含まれています。
+
+![IDE でのプレビュー composable](compose-preview-split.png){width=700 style="block"}
+
+**既存のプロジェクト** でプレビューサポートを有効にするには、KMP モジュールの `build.gradle.kts` ファイルに必要な依存関係を追加します。
 
 1. `commonMain` ソースセット用のアノテーションの依存関係：Compose Multiplatform のバージョンに応じて、古いものまたは新しいものを使用します。
 2. クラスパス上のツール用 (tooling) の依存関係。その宣言は Android の構成に依存します。
@@ -40,7 +50,7 @@ kotlin {
 }
 ```
 
-ツール用の依存関係は、[Android ターゲット構成](#android-target-configurations) に応じて、KMP モジュールの `build.gradle.kts` ファイルのルートにある `dependencies {}` ブロックで、次の 2 つの方法のいずれかで宣言する必要があります。
+ツール用の依存関係は、[Android ターゲット構成](#android-target-configurations) に応じて、共通コードモジュールの `build.gradle.kts` ファイルのルートにある `dependencies {}` ブロックで、次の 2 つの方法のいずれかで宣言する必要があります。
 
 * `com.android.application` または `com.android.library` プラグインを使用している場合：
 
@@ -56,6 +66,25 @@ kotlin {
         androidRuntimeClasspath("org.jetbrains.compose.ui:ui-tooling:1.10.0")
     }
     ```
+
+## プレビューの使用
+
+Compose Multiplatform では、Android のツール機能によって提供される完全なプレビュー機能を使用できます。
+プレビューをインタラクティブにしたり、プレビューを画像としてコピーしたり、同じ `@Preview` composable の複数のバージョンを異なるパラメータで表示したりできます。
+利用可能な機能の詳細については、[プレビューに関する Android ガイド](https://developer.android.com/develop/ui/compose/tooling/previews) を参照してください。
+
+<video src="compose_preview_interactive_mode.mp4" alt="Interactive mode" width="350" preview-src="compose_preview_interactive_mode.png"/>
+
+追加のパラメータを構成することで、デザイン時のプレビューで `@Composable` 関数がどのようにレンダリングされるかを制御できます。
+Compose Multiplatform は、`@Preview` アノテーションに対して以下のパラメータをサポートしています。
+
+* `name`: プレビューの表示名。
+* `group`: プレビューのグループ名。関連するプレビューを論理的に整理し、選択的に表示できます。
+* `widthDp`: 最大幅 ([dp](https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp) 単位)。
+* `heightDp`: 最大高さ (dp 単位)。
+* `locale`: アプリケーションの現在のロケール。
+* `showBackground`: プレビューにデフォルトの背景色を適用するかどうかを決定するフラグ。
+* `backgroundColor`: プレビューの背景色を定義する 32 ビット ARGB カラー整数。
 
 ## サポートされている構成
 

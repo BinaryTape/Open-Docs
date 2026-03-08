@@ -1,10 +1,15 @@
 [//]: # (title: Kotlin 심볼 프로세싱 API)
 
-Kotlin Symbol Processing(_KSP_)은 경량 컴파일러 플러그인을 개발하는 데 사용할 수 있는 API입니다.
-KSP는 코틀린의 기능을 활용하면서 학습 곡선을 최소화하는 간소화된 컴파일러 플러그인 API를 제공합니다. [kapt](kapt.md)와 비교했을 때, KSP를 사용하는 어노테이션 프로세서는 최대 2배 더 빠르게 실행될 수 있습니다.
+Kotlin Symbol Processing(_KSP_)은 코틀린을 위한 소스 코드 생성 프레임워크입니다. KSP API를 사용하면 소스 코드의 [어노테이션](annotations.md)을 기반으로 코드를 생성하는 프로세서를 만들 수 있습니다.
 
-* KSP와 kapt의 비교에 대해 더 자세히 알아보려면 [왜 KSP인가](ksp-why-ksp.md)를 확인하세요.
-* KSP 프로세서 작성을 시작하려면 [KSP 빠른 시작](ksp-quickstart.md)을 참고하세요.
+KSP는 경량 컴파일러 플러그인을 더 쉽게 만들 수 있도록 하는 것을 목표로 합니다. 잘 정의된 API는 컴파일러의 변경 사항을 숨겨주므로, 프로세서 유지 보수에 큰 노력을 들일 필요가 없습니다. 하지만 이 방식에는 트레이드오프가 있습니다. 예를 들어, KSP 기반 프로세서는 표현식(expressions)이나 문(statements)을 검사할 수 없으며, 소스 코드를 수정할 수 없습니다.
+
+KSP 기반 플러그인의 전형적인 사례는 다음과 같습니다: 
+* 의존성 주입 ([Dagger](https://dagger.dev/dev-guide/ksp))
+* 직렬화 ([Moshi](https://github.com/square/moshi))
+* 데이터베이스 관리 ([Room](https://developer.android.com/jetpack/androidx/releases/room#2.3.0-beta02))
+
+첫 번째 KSP 기반 프로세서를 만드는 방법은 [KSP 빠른 시작](ksp-quickstart.md)을 참고하세요.
 
 ## 개요
 

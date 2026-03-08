@@ -36,6 +36,17 @@ val client = HttpClient(CIO) {
 }
 ```
 
+[`HttpTimeout`](client-timeout.md) プラグインがインストールされている場合、タイムアウトに対する再試行を構成できるようにするために、`HttpRequestRetry` を先にインストールする必要があります。
+
+```kotlin
+val client = HttpClient(CIO) {
+    install(HttpRequestRetry) // HttpTimeout よりも前にインストールする必要があります
+    install(HttpTimeout) {
+       // ...
+     }
+}
+```
+
 ## HttpRequestRetry の構成 {id="configure_retry"}
 
 ### 基本的な再試行設定 {id="basic_config"}

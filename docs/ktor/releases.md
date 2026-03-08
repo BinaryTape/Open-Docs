@@ -35,6 +35,18 @@ IntelliJ Ktor 插件允许您将 Ktor 项目迁移到最新版本。
 </tr>
 
 <tr>
+<td>3.4.1</td><td>2026 年 3 月 4 日</td><td>
+<p>
+一个修订版本，包含重要的回归修复，包括解决<a href="whats-new-340.md#use-engine-dispatcher">使用引擎调度器的 HttpStatement 执行问题</a>，并恢复了正确的 <code>StreamResetException</code> 传播。它还包含性能改进、OpenAPI 增强以及跨引擎和平台的多个稳定性修复。
+</p>
+<var name="version" value="3.4.1"/>
+<p>
+    <a href="https://github.com/ktorio/ktor/releases/tag/%version%">在 GitHub 上查看变更日志</a>
+</p>
+</td>
+</tr>
+
+<tr>
 <td>3.4.0</td><td>2026 年 1 月 23 日</td><td>
 <p>
 一个次要版本，引入了运行时生成的 OpenAPI 规范、Zstd 和 Jackson 3 支持、OkHttp 的双工流，以及数十个增强整个框架可靠性的错误修复。
@@ -155,7 +167,7 @@ IntelliJ Ktor 插件允许您将 Ktor 项目迁移到最新版本。
 
 <tr>
 <td>3.1.2</td><td>2025 年 3 月 27 日</td><td><p>
-一个修订版本，将 Kotlin 更新至 2.1.20，并修复了各种问题，包括 Base64 解码、身份验证令牌清除、Android 服务器启动错误、WebSocket 标头格式化和 SSE 会话取消。
+一个修订版本，将 Kotlin 更新至 2.1.20，并修复了各种问题，包括 Base64 解码、身份验证令牌清除、Android 服务器启动错误、WebSocket 标头格式化和 SSE 会话取消。 
 </p>
 <var name="version" value="3.1.2"/>
 <p>
@@ -199,7 +211,7 @@ IntelliJ Ktor 插件允许您将 Ktor 项目迁移到最新版本。
 
 <tr>
 <td>3.0.2</td><td>2024 年 12 月 4 日</td><td><p>
-一个修订版本，解决了与响应损坏、正文截断、连接处理和错误标头相关的多个错误修复，同时扩展了二进制编码支持并增强了 Android 的性能。
+一个修订版本，解决了与响应损坏、正文截断、连接处理和错误标头相关的多个错误修复，同时扩展了二进制编码支持并增强了 Android 的性能。 
 </p>
 <var name="version" value="3.0.2"/>
 <p>
@@ -210,7 +222,7 @@ IntelliJ Ktor 插件允许您将 Ktor 项目迁移到最新版本。
 
 <tr>
 <td>2.3.13</td><td>2024 年 11 月 20 日</td><td><p>
-一个修订版本，包含错误修复、安全补丁和改进，包括增加了对 <code>watchosDeviceArm64</code> 目标的支持。
+一个修订版本，包含错误修复、安全补丁和改进，包括增加了对 <code>watchosDeviceArm64</code> 目标的支持。  
 </p>
 <var name="version" value="2.3.13"/>
 <p>
@@ -221,7 +233,7 @@ IntelliJ Ktor 插件允许您将 Ktor 项目迁移到最新版本。
 
 <tr>
 <td>3.0.1</td><td>2024 年 10 月 29 日</td><td><p>
-一个修订版本，包括客户端和服务器日志记录的改进，以及各种错误修复。
+一个修订版本，包括客户端和服务器日志记录的改进，以及各种错误修复。  
 </p>
 <var name="version" value="3.0.1"/>
 <p>
@@ -538,7 +550,7 @@ IntelliJ Ktor 插件允许您将 Ktor 项目迁移到最新版本。
 <tr>
 <td>2.1.0</td><td>2022 年 8 月 11 日</td><td>
 <p>
-一个次要版本，增加了对 YAML 配置的支持以及各种其他改进和错误修复。
+一个次要版本，增加了对 YAML 配置的支持以及各种其他改进 and 错误修复。
 </p>
 <var name="version" value="2.1.0"/>
 <p>

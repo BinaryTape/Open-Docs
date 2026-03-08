@@ -51,7 +51,7 @@
   "kotlin.kotlin-overview": "Kotlin overview",
   "kotlin.what-s-new-in-kotlin": "What's new in Kotlin",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.3.20-RC",
+  "kotlin.whatsnew-eap": "Kotlin 2.3.20-RC2",
   "kotlin.earlier-versions": "Earlier versions",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -481,7 +481,7 @@
   "koog.event-handlers": "Event handlers",
   "kmp.kmp-tooling": "KMP tooling",
   "kotlin.compose-multiplatform-material3": "Compose Multiplatform Material3",
-  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.1",
+  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.2",
   "kmp.earlier-versions": "Earlier versions",
   "kotlin.language-guide": "Language guide",
   "kotlin.basic-syntax": "Overview",
@@ -595,5 +595,8 @@
   "koog.graph-based-agents": "Graph-based agents",
   "koog.llm-based-planners": "LLM-based planners",
   "koog.goap-agents": "GOAP agents",
-  "koog.long-term-memory": "Long Term Memory"
+  "koog.long-term-memory": "Long Term Memory",
+  "koog.chat-agent-with-memory": "Chat agent with memory",
+  "koog.chat-memory": "Chat Memory",
+  "koog.custom-features": "Custom features"
 }

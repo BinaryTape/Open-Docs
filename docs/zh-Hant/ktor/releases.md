@@ -36,6 +36,18 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。
 </tr>
 
 <tr>
+<td>3.4.1</td><td>2026 年 3 月 4 日</td><td>
+<p>
+一個修正版本，包含重要的迴歸修正，包括解決了<a href="whats-new-340.md#use-engine-dispatcher">使用引擎分派器 (dispatcher) 執行 HttpStatement</a> 的問題，並恢復了正確的 <code>StreamResetException</code> 傳遞。它還包含效能改進、OpenAPI 增強，以及跨引擎與平台的多項穩定性修正。
+</p>
+<var name="version" value="3.4.1"/>
+<p>
+    <a href="https://github.com/ktorio/ktor/releases/tag/%version%">在 GitHub 上查看變更記錄</a>
+</p>
+</td>
+</tr>
+
+<tr>
 <td>3.4.0</td><td>2026 年 1 月 23 日</td><td>
 <p>
 一個次要版本，引入了執行階段產生的 OpenAPI 規格、Zstd 和 Jackson 3 支援、OkHttp 的雙工串流，以及數十項增強整個架構可靠性的錯誤修正。
@@ -233,7 +245,8 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。
 
 <tr>
 <td>3.0.0</td><td>2024 年 10 月 9 日</td><td><p>
-一個包含改進與錯誤修正的主要版本，包括新增對 Android Native 目標的支援。如需關於破壞性變更的更多資訊，請參閱 <Links href="/ktor/migrating-3" summary="undefined">遷移指南</Links>。
+一個包含改進與錯誤修正的主要版本，包括新增對 Android Native 目標的支援。
+如需關於破壞性變更的更多資訊，請參閱 <Links href="/ktor/migrating-3" summary="undefined">遷移指南</Links>。
 </p>
 <var name="version" value="3.0.0"/>
 <p>
@@ -489,7 +502,8 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。
 <tr>
 <td>2.2.0</td><td>2022 年 12 月 7 日</td><td>
 <p>
-一個包含多項功能的版本，包括 Swagger UI 代管、新的外掛程式 API、工作階段 (Sessions) 的多平台支援等。如需更多資訊，請參閱 <Links href="/ktor/migration-to-22x" summary="undefined">從 2.0.x 遷移至 2.2.x</Links> 指南。
+一個包含多項功能的版本，包括 Swagger UI 代管、新的外掛程式 API、工作階段 (Sessions) 的多平台支援等。
+如需更多資訊，請參閱 <Links href="/ktor/migration-to-22x" summary="undefined">從 2.0.x 遷移至 2.2.x</Links> 指南。
 </p>
 <var name="version" value="2.2.0"/>
 <p>

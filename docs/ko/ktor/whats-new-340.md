@@ -62,7 +62,7 @@ install(Compression) {
 }
 ```
 
-### 설정 파일에서의 SSL 트스트 스토어(trust store) 설정
+### 설정 파일에서의 SSL 트러스트 스토어(trust store) 설정
 
 이제 애플리케이션 설정 파일을 사용하여 서버에 대한 추가적인 [SSL 설정](server-ssl.md#config-file)을 구성할 수 있습니다. 트러스트 스토어, 해당 비밀번호, 활성화된 TLS 프로토콜 목록을 설정에서 직접 지정할 수 있습니다.
 
@@ -383,7 +383,16 @@ val client = HttpClient(Curl) {
     }
 }
 ```
-### 엔진 디스패처를 사용한 HttpStatement 실행
+### 엔진 디스패처를 사용한 HttpStatement 실행 {id="use-engine-dispatcher"}
+
+> Ktor 3.4.1에서 이 동작은 하위 호환성을 유지하기 위해 JVM에서 옵트인(opt-in) 방식으로 제공됩니다. 이를 기본적으로 활성화하면 Ktor를 내부적으로 사용하는 일부 라이브러리가 중단될 수 있기 때문입니다.
+> 이를 활성화하려면 `io.ktor.client.statement.useEngineDispatcher` JVM 시스템 속성을 `true`로 설정하세요.
+>  ```shell
+>  -Dio.ktor.client.statement.useEngineDispatcher=true
+>  ```
+> 이 옵션은 향후 릴리스에서 기본값이 될 예정이므로, 조기에 옵트인하는 것을 권장합니다.
+>
+{style="warning"}
 
 `HttpStatement.execute {}` 및 `HttpStatement.body {}` 블록은 이제 호출자의 코루틴 컨텍스트 대신 HTTP 엔진의 디스패처에서 실행됩니다. 이는 이러한 블록이 메인 스레드에서 호출될 때 실수로 블로킹되는 것을 방지합니다.
 

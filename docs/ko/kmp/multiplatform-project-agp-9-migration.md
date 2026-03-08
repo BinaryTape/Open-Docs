@@ -8,6 +8,8 @@ Kotlin 멀티플랫폼 Gradle 플러그인은 `com.android.application` 및 `com
 * 현재 Android 진입점(entry point)이 공용 코드 모듈에 구현되어 있다면, Gradle 플러그인 충돌을 피하기 위해 이를 별도의 모듈로 추출하세요.
 * 공용 코드 모듈을 멀티플랫폼 프로젝트를 위해 특별히 제작된 새로운 [Android-KMP 라이브러리 플러그인](https://developer.android.com/kotlin/multiplatform/plugin)을 사용하도록 마이그레이션하세요.
 
+<video src="https://www.youtube.com/v/m0Cq6J-V_RY" title="Kotlin 프로젝트를 Android Gradle 플러그인 9.0으로 마이그레이션하기"/>
+
 > Android Studio는 Otter 3 Feature Drop 2025.2.3부터 AGP 9.0.0을 지원합니다.
 > IntelliJ IDEA의 AGP 9.0.0 지원은 2026년 1분기로 예정되어 있습니다.
 > 
@@ -106,7 +108,7 @@ Android 앱 모듈(`androidApp`)을 생성하려면 다음을 수행하세요:
     }
     ```
 
-4. 필요한 의존성을 추가하기 위해 `composeApp` 빌드 스크립트의 `androidMain.dependencies {}` 블록에서 기존 의존성을 복사하고, `composeApp` 모듈 자체에 대한 의존성을 추가합니다.
+4. 필요한 의존성을 추가하기 위해 `composeApp` 빌드 스크립트의 `androidMain.dependencies {}` 블록에서 기존 의존성을 복사하고, `composeApp` 모듈 자체에 대한 의존성을 추가합니다. 
    이 예제에서 결과는 다음과 같아야 합니다:
 
    ```kotlin
@@ -119,7 +121,7 @@ Android 앱 모듈(`androidApp`)을 생성하려면 다음을 수행하세요:
    }
    ```
 
-5. `composeApp/build.gradle.kts` 파일에서 Android 전용 구성이 포함된 `android {}` 블록 전체를 `androidApp/build.gradle.kts` 파일로 복사합니다.
+5. `composeApp/build.gradle.kts` 파일에서 Android 전용 구성이 포함된 `android {}` 블록 전체를 `androidApp/build.gradle.kts` 파일로 복사합니다. 
 
 6. `composeApp/build.gradle.kts` 파일의 `androidTarget {}` 블록에서 컴파일러 옵션을 `androidApp/build.gradle.kts` 파일의 `target {}` 블록으로 복사합니다:
 

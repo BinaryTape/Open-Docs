@@ -85,7 +85,7 @@
   "kotlin.kotlin-overview": "Kotlin 개요",
   "kotlin.what-s-new-in-kotlin": "Kotlin의 새로운 기능",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.3.20-RC",
+  "kotlin.whatsnew-eap": "Kotlin 2.3.20-RC2",
   "kotlin.earlier-versions": "이전 버전",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -514,7 +514,7 @@
   "koog.event-handlers": "이벤트 핸들러",
   "kmp.kmp-tooling": "KMP 툴링",
   "kotlin.compose-multiplatform-material3": "Compose Multiplatform Material3",
-  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.1",
+  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.2",
   "kmp.earlier-versions": "이전 버전",
   "kotlin.language-guide": "언어 가이드",
   "kotlin.basic-syntax": "개요",
@@ -628,5 +628,8 @@
   "koog.graph-based-agents": "그래프 기반 에이전트",
   "koog.llm-based-planners": "LLM 기반 플래너",
   "koog.goap-agents": "GOAP 에이전트",
-  "koog.long-term-memory": "장기 메모리"
+  "koog.long-term-memory": "장기 메모리",
+  "koog.chat-agent-with-memory": "메모리가 포함된 채팅 에이전트",
+  "koog.chat-memory": "채팅 메모리",
+  "koog.custom-features": "커스텀 기능"
 }

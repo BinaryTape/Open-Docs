@@ -389,7 +389,16 @@ val client = HttpClient(Curl) {
     }
 }
 ```
-### エンジンディスパッチャーを使用した HttpStatement の実行
+### エンジンディスパッチャーを使用した HttpStatement の実行 {id="use-engine-dispatcher"}
+
+> Ktor 3.4.1 では、後方互換性を維持するために、JVM でのこの動作はオプトイン方式になっています。これをデフォルトで有効にすると、内部で Ktor を使用している一部のライブラリが破損する可能性があるためです。
+> 有効にするには、`io.ktor.client.statement.useEngineDispatcher` JVM システムプロパティを `true` に設定してください。
+>  ```shell
+>  -Dio.ktor.client.statement.useEngineDispatcher=true
+>  ```
+> このオプションは将来のリリースでデフォルトになる予定ですので、早めのオプトインをお勧めします。
+>
+{style="warning"}
 
 `HttpStatement.execute {}` および `HttpStatement.body {}` ブロックが、呼び出し元のコルーチンコンテキストではなく、HTTP エンジンのディスパッチャーで実行されるようになりました。これにより、これらのブロックがメインスレッドから呼び出されたときに誤ってブロックされるのを防ぎます。
 
@@ -501,7 +510,7 @@ println("A file saved to ${file.path}")
 
 以前の OpenAPI コンパイラプラグインは、ビルド時に完全で静的な OpenAPI ドキュメントを生成していました。Ktor 3.4.0 では、代わりに実行時に OpenAPI メタデータを提供するコードを生成します。このメタデータは、仕様を提供するときに [OpenAPI](server-openapi.md) および [Swagger UI](server-swagger-ui.md) プラグインによって消費されます。
 
-専用の `buildOpenApi` Gradle タスクは削除されました。コンパイラプラグインは通常のビルド中に自動的に適用され、ルートやアノテーションの変更は、追加の生成ステップを必要とせずに、実行中のサーバーに反映されます。
+専用 `buildOpenApi` Gradle タスクは削除されました。コンパイラプラグインは通常のビルド中に自動的に適用され、ルートやアノテーションの変更は、追加の生成ステップを必要とせずに、実行中のサーバーに反映されます。
 
 #### 構成
 

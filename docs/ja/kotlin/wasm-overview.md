@@ -56,7 +56,7 @@ Kotlin/Wasmはまだベータ版（Beta）ですが、Kotlin/Wasm上で動作す
 
 Kotlin/Wasm標準ライブラリは、DOM APIを含むブラウザAPIの宣言を提供しています。
 これらの宣言により、Kotlin APIを直接使用して、さまざまなブラウザ機能にアクセスし活用できます。
-例えば、Kotlin/Wasmアプリケーションでは、これらの宣言をゼロから定義することなく、DOM要素の操作やFetch APIを使用できます。詳細については、[Kotlin/Wasmブラウザサンプルの例](https://github.com/Kotlin/kotlin-wasm-examples/tree/main/browser-example)を参照してください。
+例えば、Kotlin/Wasmアプリケーションでは、これらの宣言をゼロから定義することなく、DOM要素の操作やFetch APIを使用できます。詳細については、[Kotlin/Wasmブラウザサンプルの例](https://github.com/Kotlin/kotlin-wasm-browser-template)を参照してください。
 
 ブラウザAPIサポートの宣言は、JavaScriptとの[相互運用機能（interoperability capabilities）](wasm-js-interop.md)を使用して定義されています。
 同じ機能を使用して、独自の宣言を定義することもできます。さらに、Kotlin/WasmとJavaScriptの相互運用により、JavaScriptからKotlinコードを使用することも可能です。詳細については、[JavaScriptでのKotlinコードの使用](wasm-js-interop.md#use-kotlin-code-in-javascript)を参照してください。

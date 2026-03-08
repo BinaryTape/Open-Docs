@@ -53,7 +53,7 @@ Google Chrome의 최신 버전 테스트 환경에서 정기적으로 Kotlin/Was
 
 ## 브라우저 API 지원
 
-Kotlin/Wasm 표준 라이브러리는 DOM API를 포함한 브라우저 API에 대한 선언을 제공합니다. 이러한 선언을 통해 Kotlin API를 직접 사용하여 다양한 브라우저 기능을 접근하고 활용할 수 있습니다. 예를 들어, Kotlin/Wasm 애플리케이션에서 이러한 선언을 처음부터 정의하지 않고도 DOM 요소를 조작하거나 fetch API를 사용할 수 있습니다. 자세한 내용은 [Kotlin/Wasm 브라우저 예제](https://github.com/Kotlin/kotlin-wasm-examples/tree/main/browser-example)를 참고하세요.
+Kotlin/Wasm 표준 라이브러리는 DOM API를 포함한 브라우저 API에 대한 선언을 제공합니다. 이러한 선언을 통해 Kotlin API를 직접 사용하여 다양한 브라우저 기능을 접근하고 활용할 수 있습니다. 예를 들어, Kotlin/Wasm 애플리케이션에서 이러한 선언을 처음부터 정의하지 않고도 DOM 요소를 조작하거나 fetch API를 사용할 수 있습니다. 자세한 내용은 [Kotlin/Wasm 브라우저 예제](https://github.com/Kotlin/kotlin-wasm-browser-template)를 참고하세요.
 
 브라우저 API 지원을 위한 선언은 JavaScript [상호 운용성(interoperability) 기능](wasm-js-interop.md)을 사용하여 정의됩니다. 동일한 기능을 사용하여 사용자 정의 선언을 정의할 수도 있습니다. 또한, Kotlin/Wasm–JavaScript 상호 운용성을 통해 JavaScript에서 Kotlin 코드를 사용할 수 있습니다. 자세한 내용은 [JavaScript에서 Kotlin 코드 사용하기](wasm-js-interop.md#use-kotlin-code-in-javascript)를 참고하세요.
 

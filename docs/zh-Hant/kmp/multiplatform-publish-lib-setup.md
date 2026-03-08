@@ -234,16 +234,6 @@ kotlin {
   }
   ```
 
-## 停用 JVM 環境屬性發佈
-
-從 Kotlin 2.0.0 開始，Gradle 屬性 [`org.gradle.jvm.environment`](https://docs.gradle.org/current/userguide/variant_attributes.html#sub:jvm_default_attributes) 會自動隨所有 Kotlin 變體一起發佈，以協助區分 Kotlin 多平台程式庫的 JVM 與 Android 變體。該屬性指示哪個程式庫變體適用於哪個 JVM 環境，Gradle 使用此資訊來協助處理專案中的相依性解析。目標環境可以是 "android"、"standard-jvm" 或 "no-jvm"。
-
-您可以透過在 `gradle.properties` 檔案中新增以下 Gradle 屬性來停用此屬性的發佈：
-
-```none
-kotlin.publishJvmEnvironmentAttribute=false
-```
-
 ## 推廣您的程式庫
 
 您的程式庫可以在 [JetBrains 的多平台程式庫目錄](https://klibs.io/)中展示。它旨在讓使用者輕鬆地根據目標平台尋找 Kotlin 多平台程式庫。

@@ -32,7 +32,7 @@ Kotlin 拥有以下用于对项进行分组的集合类型：
 
 List 按添加顺序存储项，并允许重复项。
 
-要创建只读 List ([`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/))，请使用
+要创建只读 List ([`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/))，请使用 
 [`listOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/list-of.html) 函数。
 
 要创建可变 List ([`MutableList`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list.html))，
@@ -98,7 +98,7 @@ fun main() {
 > 函数是**扩展**函数的示例。要在对象上调用扩展函数，请在对象后紧跟一个点号 `.` 并写下函数名称。
 > 
 > 扩展函数将在[中级教程](kotlin-tour-intermediate-extension-functions.md#extension-functions)中详细介绍。
-> 目前，你只需要知道如何调用它们即可。
+> 目前，你只需要知道如何调用它们即可。 
 > 
 {style="note"}
 
@@ -154,7 +154,7 @@ fun main() {
 
 List 是有序且允许重复项的，而 Set 则是**无序**且仅存储**唯一**项的。
 
-要创建只读 Set ([`Set`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/))，请使用
+要创建只读 Set ([`Set`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/))，请使用 
 [`setOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/set-of.html) 函数。
 
 要创建可变 Set ([`MutableSet`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-set/))，
@@ -241,12 +241,12 @@ fun main() {
 Map 以键值对的形式存储项。你可以通过引用键来访问值。你可以将 Map 想象成一份食物菜单。
 你可以通过找到你想吃的食物（键）来找到价格（值）。如果你想在不使用数字索引（如 List）的情况下查找值，Map 非常有用。
 
-> * Map 中的每个键都必须是唯一的，以便 Kotlin 能够理解你想要获取哪个值。
+> * Map 中的每个键都必须是唯一的，以便 Kotlin 能够理解你想要获取哪个值。 
 > * 你在 Map 中可以有重复的值。
 >
 {style="note"}
 
-要创建只读 Map ([`Map`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/))，请使用
+要创建只读 Map ([`Map`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/))，请使用 
 [`mapOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map-of.html) 函数。
 
 要创建可变 Map ([`MutableMap`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/))，
@@ -329,7 +329,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-map-add-item"}
 
-要从可变 Map 中移除项，请使用 [`.remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/remove.html)
+要从可变 Map 中移除项，请使用 [`.remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/remove.html) 
 函数：
 
 ```kotlin

@@ -188,13 +188,19 @@ part.dispose()
 
 ### 스트리밍 데이터 {id="streaming"}
 
-기본적으로 `HttpResponse.body()`를 호출하면 전체 응답이 메모리에 로드됩니다. 큰 응답이나 파일 다운로드의 경우, 전체 본문을 기다리지 않고 데이터를 청크 단위로 처리하는 것이 더 좋은 경우가 많습니다.
+기본적으로 `HttpResponse.body()`를 호출하면 전체 응답이 메모리에 로드됩니다. 큰 응답이나 파일 다운로드의 경우, 전체 본문을 기다리지 않고 데이터를 청크(chunk) 단위로 처리하는 것이 더 좋은 경우가 많습니다.
 
 Ktor는 [`ByteReadChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-read-channel/index.html) 및 I/O 유틸리티를 사용하여 이를 수행하는 몇 가지 방법을 제공합니다.
 
 #### 순차적 청크 처리
 
 응답을 순차적으로 청크 단위로 처리하려면 스코프가 지정된 [`execute`](https://api.ktor.io/ktor-client-core/io.ktor.client.statement/-http-statement/execute.html) 블록과 함께 `HttpStatement`를 사용하십시오.
+
+> `HttpStatement.execute {}` 및 `HttpStatement.body {}`에 대한 엔진 디스패처(engine-dispatcher) 실행은 하위 호환성 유지를 위해 JVM에서 선택 사항(opt-in)입니다.
+> JVM의 엔진 디스패처에서 이 블록들을 실행하려면, `io.ktor.client.statement.useEngineDispatcher` JVM 시스템 속성을 `true`로 설정하십시오.
+> (예: `-Dio.ktor.client.statement.useEngineDispatcher=true`).
+>
+{style="warning"}
 
 다음 예제는 응답을 청크 단위로 읽어 파일로 저장하는 방법을 보여줍니다:
 
@@ -265,7 +271,7 @@ println("A file saved to ${file.path}")
 
 ```
 
-`.copyAndClose()`와 달리 싱크는 쓰기 후에 열린 상태로 유지되며, 전송 중에 오류가 발생한 경우에만 자동으로 닫힙니다.
+`.copyAndClose()`와 달리 싱크(sink)는 쓰기 후에 열린 상태로 유지되며, 전송 중에 오류가 발생한 경우에만 자동으로 닫힙니다.
 
 > Ktor 채널과 `RawSink`, `RawSource` 또는 `OutputStream`과 같은 타입 간의 변환에 대해서는 [I/O 상호 운용성](io-interoperability.md)을 참조하십시오.
 >

@@ -36,6 +36,17 @@ val client = HttpClient(CIO) {
 }
 ```
 
+如果安装了 [`HttpTimeout`](client-timeout.md) 插件，则应首先安装 `HttpRequestRetry`，以便能够为超时配置重试：
+
+```kotlin
+val client = HttpClient(CIO) {
+    install(HttpRequestRetry) // 应在 HttpTimeout 之前安装
+    install(HttpTimeout) {
+       // ...
+     }
+}
+```
+
 ## 配置 HttpRequestRetry {id="configure_retry"}
 
 ### 基本重试配置 {id="basic_config"}

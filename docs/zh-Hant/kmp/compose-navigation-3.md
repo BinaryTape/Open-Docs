@@ -75,7 +75,7 @@ Navigation 3 與 Compose 緊密結合，允許 Android 導覽實作在通用 Com
 * [第一個多載](https://developer.android.com/reference/kotlin/androidx/navigation3/runtime/package-summary#rememberNavBackStack(kotlin.Array))僅接受一組 `NavKey` 參考，並需要基於反射的序列化器。
 * [第二個多載](https://developer.android.com/reference/kotlin/androidx/navigation3/runtime/package-summary#rememberNavBackStack(androidx.savedstate.serialization.SavedStateConfiguration,kotlin.Array))還接受一個 `SavedStateConfiguration` 參數，允許您提供 `SerializersModule` 並在所有平台上正確處理開放式多型。
 
-在 Navigation 3 多平台範例中，多型序列化可能看起來[像這樣](https://github.com/terrakok/nav3-recipes/blob/8ff455499877225b638d5fcd82b232834f819422/sharedUI/src/commonMain/kotlin/com/example/nav3recipes/basicdsl/BasicDslActivity.kt#L40)：
+Navigation 3 [多平台範例](https://github.com/terrakok/nav3-recipes/blob/8ff455499877225b638d5fcd82b232834f819422/sharedUI/src/commonMain/kotlin/com/example/nav3recipes/basicdsl/BasicDslActivity.kt#L40)定義了路由並使用 `SavedStateConfiguration` 進行註冊，如下所示：
 
 ```kotlin
 @Serializable
@@ -106,10 +106,112 @@ fun BasicDslActivity() {
 }
 ```
 
+### 建議的序列化方法
+
+在實作多平台導覽時，您需要選擇如何組織和序列化您的路由定義。根據您專案的複雜程度和模組化程度，請使用以下三種模式之一。
+
+#### 使用密封型別的單一模組
+
+對於所有路由都存在於單一模組的小型專案，請使用 `sealed interface`。這是最直接的方法，因為 Kotlin 序列化會自動處理階層結構：
+
+```kotlin
+@Serializable
+sealed interface Route : NavKey
+
+@Serializable
+data object RouteA : Route
+
+@Serializable
+data class RouteB(val id: String) : Route
+
+// 使用預設序列化器的 Backstack
+val backStack: MutableList<Route> =
+    rememberSerializable(serializer = SnapshotStateListSerializer()) {
+        mutableStateListOf(RouteA)
+    }
+```
+
+或者，如果您想明確使用 `rememberNavBackStack()` 函式，這裡有一個稍微不同的組態：
+
+```kotlin
+private val config = SavedStateConfiguration {
+    serializersModule = SerializersModule {
+        polymorphic(NavKey::class) {
+            subclassesOfSealed<Route>()
+        }
+    }
+}
+val backStack = rememberNavBackStack(config, RouteA)
+```
+
+#### 包含聚合密封型別的多模組
+
+對於路由定義在多個模組中的更複雜專案，您可以為每個模組定義一個密封型別。然後，在 `app` 模組中使用 `subclassesOfSealed()` 函式聚合它們的序列化器。
+
+```kotlin
+// 模組 A
+@Serializable sealed interface FeatureA : NavKey
+@Serializable data object RouteA1 : FeatureA
+@Serializable data object RouteA2 : FeatureA
+
+// 模組 B
+@Serializable sealed interface FeatureB : NavKey
+@Serializable data class RouteB1(val id: String) : FeatureB
+@Serializable data class RouteB2(val id: String) : FeatureB
+
+// app 模組
+private val config = SavedStateConfiguration {
+    serializersModule = SerializersModule {
+        polymorphic(NavKey::class) {
+            subclassesOfSealed<FeatureA>()
+            subclassesOfSealed<FeatureB>()
+        }
+    }
+}
+val backStack = rememberNavBackStack(config, RouteA1)
+```
+
+透過相依注入 (DI)，您還可以動態使用 DI 容器將每個模組的密封型別序列化器收集到 `Set<KSerializer>` 中。
+
+#### 包含個別路由註冊的多模組
+
+如果您的路由無法分組為密封型別，您可以手動組合來自不同模組的 `SerializersModule` 執行個體。
+
+```kotlin
+// 模組 A
+@Serializable data object RouteA1 : NavKey
+@Serializable data object RouteA2 : NavKey
+
+val serializerModuleA = SerializersModule {
+    polymorphic(NavKey::class) {
+        subclass(RouteA1::class, RouteA1.serializer())
+        subclass(RouteA2::class, RouteA2.serializer())
+    }
+}
+
+// 模組 B
+@Serializable data class RouteB1(val id: String) : NavKey
+@Serializable data class RouteB2(val id: String) : NavKey
+
+val serializerModuleB = SerializersModule {
+    polymorphic(NavKey::class) {
+        subclass(RouteB1::class, RouteB1.serializer())
+        subclass(RouteB2::class, RouteB2.serializer())
+    }
+}
+
+// app 模組
+private val config = SavedStateConfiguration {
+    serializersModule = serializerModuleA + serializerModuleB
+}
+val backStack = rememberNavBackStack(config, RouteA1)
+```
+
+這種方法提供了高度的靈活性和解耦，儘管它需要更多的手動維護。與[包含聚合密封型別的多模組](#multi-module-with-aggregated-sealed-types)方法類似，您可以使用 DI 動態組合序列化器列表，這可以提高靈活性。
+
 ## 下一步
 
-Android 開發者入口網站對 Navigation 3 進行了深入探討。
-雖然部分文件使用了 Android 特定的範例，但核心概念和導覽原則在所有平台上都保持一致：
+Android 開發者入口網站對 Navigation 3 進行了深入探討。雖然部分文件使用了 Android 特定的範例，但核心概念和導覽原則在所有平台上都保持一致：
 
 * [Navigation 3 總覽](https://developer.android.com/guide/navigation/navigation-3)，包含管理狀態、模組化導覽程式碼和動畫的建議。
 * [從 Navigation 2 遷移到 Navigation 3](https://developer.android.com/guide/navigation/navigation-3/migration-guide)。將 Navigation 3 視為一個新的程式庫，而不是現有程式庫的新版本會更容易，因此與其說是遷移，不如說是重寫。但該指南指出了應採取的一般步驟。

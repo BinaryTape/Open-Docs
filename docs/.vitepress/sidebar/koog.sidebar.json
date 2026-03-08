@@ -25,7 +25,16 @@
       },
       {
         "text": "koog.quickstart",
-        "link": "quickstart"
+        "items": [
+          {
+            "text": "koog._0"
+          },
+          {
+            "text": "koog.chat-agent-with-memory",
+            "link": "quickstart/chat-agent"
+          }
+        ],
+        "collapsed": true
       },
       {
         "text": "koog.agents",
@@ -181,6 +190,10 @@
             "link": "agent-memory"
           },
           {
+            "text": "koog.chat-memory",
+            "link": "chat-memory"
+          },
+          {
             "text": "koog.long-term-memory",
             "link": "long-term-memory"
           },
@@ -205,6 +218,10 @@
               }
             ],
             "collapsed": true
+          },
+          {
+            "text": "koog.custom-features",
+            "link": "custom-features"
           }
         ],
         "collapsed": true

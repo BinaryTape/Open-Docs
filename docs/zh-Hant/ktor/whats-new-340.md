@@ -45,7 +45,7 @@ install(Authentication) {
 
 [Compression](server-compression.md) 外掛程式現在支援 [Zstd](https://github.com/facebook/zstd) 壓縮。
 
-`Zstd` 是一種快速壓縮演算法，提供高壓縮比和低壓縮時間，並具有可配置的壓縮級別。
+`Zstd` 是一種快速壓縮演算法，提供高壓縮比和低壓縮時間，並具有可配置的壓縮級別。 
 
 若要啟用它，請將 `ktor-server-compression-zstd` 相依性新增到您的專案：
 ```kotlin
@@ -108,7 +108,7 @@ get("/books.html") {
 
 ### HTTP 請求生命週期
 
-新的 [`HttpRequestLifecycle` 外掛程式](server-http-request-lifecycle.md)允許您在用戶端中斷連線時取消正在進行的 HTTP 請求。當您需要在用戶端斷開連線時，取消耗時較長或資源密集型請求的在途 HTTP 請求時，這非常有用。
+新的 [`HttpRequestLifecycle` 外掛程式](server-http-request-lifecycle.md)允許您在用戶端中斷連線時取消正在進行的 HTTP 請求。當您需要在用戶端斷開連線時，取消耗時較長或資源密集型請求的在途 HTTP 請求時，這非常有用。 
 
 透過安裝 `HttpRequestLifecycle` 外掛程式並將 `cancelCallOnClose` 設為 `true` 來啟用此功能：
 
@@ -387,7 +387,16 @@ val client = HttpClient(Curl) {
     }
 }
 ```
-### 使用引擎 Dispatcher 執行 HttpStatement
+### 使用引擎 Dispatcher 執行 HttpStatement {id="use-engine-dispatcher"}
+
+> 在 Ktor 3.4.1 中，此行為在 JVM 上為選用加入，以保持回溯相容性，因為預設啟用它可能會破壞某些在內部使用 Ktor 的程式庫。
+> 若要啟用它，請將 `io.ktor.client.statement.useEngineDispatcher` JVM 系統屬性設為 `true`
+>  ```shell
+>  -Dio.ktor.client.statement.useEngineDispatcher=true
+>  ```
+> 此選項將在未來版本中成為預設值，因此我們建議儘早加入。
+>
+{style="warning"}
 
 `HttpStatement.execute {}` 和 `HttpStatement.body {}` 區塊現在在 HTTP 引擎的 Dispatcher 上執行，而非呼叫者的協同程式內容。這可以防止當這些區塊從主執行緒調用時意外發生阻塞。
 
@@ -448,7 +457,9 @@ val client = HttpClient {
 
 Ktor 現在支援多平台專案中的 [Kotlin 共用 `web` 來源集](https://kotlinlang.org/docs/whatsnew2220.html#shared-source-set-for-js-and-wasmjs-targets)，允許您在 `js` 與 `wasmJs` 目標之間共用 Ktor 相依性。這使得在 JavaScript 和 Wasm/JS 之間共用 Web 特定的用戶端程式碼（例如 HTTP 用戶端和引擎）變得更加容易。
 
-在您的 <Path>build.gradle.kts</Path> 檔案中，您可以在 `webMain` 原始碼集中宣告 Ktor 相依性：
+在您的
+<Path>build.gradle.kts</Path>
+檔案中，您可以在 `webMain` 原始碼集中宣告 Ktor 相依性：
 
 ```kotlin
 kotlin {

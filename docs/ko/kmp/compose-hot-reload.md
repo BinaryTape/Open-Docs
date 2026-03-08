@@ -1,11 +1,16 @@
 [//]: # (title: Compose Hot Reload)
 
-[Compose Hot Reload](https://github.com/JetBrains/compose-hot-reload)는 Compose Multiplatform 프로젝트를 작업하는 동안 UI 변경 사항을 시각화하고 실험하는 데 도움을 줍니다.
+Compose Hot Reload는 Compose Multiplatform 프로젝트를 작업하는 동안 UI 변경 사항을 시각화하고 실험하는 데 도움을 줍니다.
+테스트 데이터를 사용하여 격리된 컴포넌트를 확인하는 데 유용한 표준 [Compose 미리보기(Compose previews)](compose-previews.md)와 달리,
+Compose Hot Reload는 코드 변경 사항을 실행 중인 애플리케이션에 직접 적용합니다.
 
-번들로 제공되는 Compose Hot Reload Gradle 플러그인은 Kotlin 2.1.20 이상 및 Java 21 이하와 호환되는 JVM 타겟을 필요로 합니다.
-Compose Hot Reload의 모든 기능을 사용하려면, IntelliJ IDEA 버전 2025.2.2 이상 및 Android Studio Otter 2025.2.1 이상에서 사용할 수 있는 [Kotlin Multiplatform IDE 플러그인](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)을 설치하는 것을 권장합니다.
+번들로 제공되는 Compose Hot Reload Gradle 플러그인은 
+Kotlin 2.1.20 이상 및 Java 21 이하와 호환되는 JVM 타겟을 필요로 합니다.
+Compose Hot Reload의 모든 기능을 사용하려면, 
+IntelliJ IDEA 버전 2025.2.2 이상 및 Android Studio Otter 2025.2.1 이상에서 사용할 수 있는 [Kotlin Multiplatform IDE 플러그인](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)을 설치하는 것을 권장합니다.
 
-다른 타겟에 대한 지원 추가를 검토하는 동안, 데스크톱 앱을 샌드박스로 사용하여 흐름을 끊지 않고 공통 코드(common code)의 UI 변경 사항을 빠르게 실험해 볼 수 있습니다.
+다른 타겟에 대한 지원 추가를 검토하는 동안, 데스크톱 앱을 샌드박스(sandbox)로 사용하여 
+흐름을 끊지 않고 공통 코드(common code)의 UI 변경 사항을 빠르게 실험해 볼 수 있습니다.
 
 <img src="KotlinConf_hot_reload.animated.gif" alt="Compose Hot Reload" width="600" preview-src="KotlinConf_hot_reload.png"/>
 
@@ -29,17 +34,24 @@ Compose Hot Reload는 다음 두 가지 방법으로 추가할 수 있습니다:
 
 ### 기존 프로젝트에 추가하기 {#to-an-existing-project}
 
-Compose Multiplatform 1.10.0부터 Compose Hot Reload 플러그인은 [번들로 제공](whats-new-compose-110.md#compose-hot-reload-integration)되며, **데스크톱 타겟**을 포함하는 모든 프로젝트에서 기본적으로 활성화됩니다.
+Compose Multiplatform 1.10.0부터 
+Compose Hot Reload 플러그인은 [번들로 제공](whats-new-compose-110.md#compose-hot-reload-integration)되며, 
+**데스크톱 타겟**을 포함하는 모든 프로젝트에서 기본적으로 활성화됩니다. 
 
-프로젝트에 이미 데스크톱 타겟이 포함되어 있다면, Compose Multiplatform 버전을 1.10.0 이상으로 업그레이드하여 별도의 설정 없이 Compose Hot Reload 기능을 바로 사용할 수 있습니다.
+프로젝트에 이미 데스크톱 타겟이 포함되어 있다면, 
+Compose Multiplatform 버전을 1.10.0 이상으로 업그레이드하여 별도의 설정 없이 Compose Hot Reload 기능을 바로 사용할 수 있습니다. 
 
-기본적으로 활성화되어 있지만, 특정 이전 버전을 사용하기 위해 Compose Hot Reload 플러그인을 명시적으로 선언할 수도 있습니다.
+기본적으로 활성화되어 있지만, 
+특정 이전 버전을 사용하기 위해 Compose Hot Reload 플러그인을 명시적으로 선언할 수도 있습니다.
 
 #### 이전 버전의 Compose Multiplatform {initial-collapse-state="collapsed" collapsible="true"}
 
-1.10.0 이전 버전의 Compose Multiplatform을 사용하는 멀티플랫폼 프로젝트의 경우, 데스크톱 타겟이 구성되어 있어야 하며 Compose Hot Reload 플러그인을 명시적으로 추가해야 합니다. 아래 단계는 [공유 로직 및 UI를 포함한 앱 생성](compose-multiplatform-create-first-app.md) 튜토리얼의 프로젝트를 참고용으로 사용합니다.
+1.10.0 이전 버전의 Compose Multiplatform을 사용하는 멀티플랫폼 프로젝트의 경우,
+데스크톱 타겟이 구성되어 있어야 하며 Compose Hot Reload 플러그인을 명시적으로 추가해야 합니다.
+아래 단계는 [공유 로직 및 UI를 포함한 앱 생성](compose-multiplatform-create-first-app.md) 튜토리얼의 프로젝트를 참고용으로 사용합니다.
 
-1. 데스크톱 타겟 도입: `jvmMain` 디렉토리를 생성하고, `main()` 함수를 정의하며, `actual` 구현을 제공합니다.
+1. 데스크톱 타겟 도입: `jvmMain` 디렉토리를 생성하고, `main()` 함수를 정의하며,
+   `actual` 구현을 제공합니다.
    이미 프로젝트에 데스크톱 타겟이 포함되어 있다면 이 단계를 건너뛸 수 있습니다.
    참고를 위해 [JVM 진입점 추가](migrate-from-android.md#optional-add-a-jvm-entry-point)의 샘플을 확인하세요.
  
@@ -69,7 +81,7 @@ Compose Multiplatform 1.10.0부터 Compose Hot Reload 플러그인은 [번들로
 5. 프로젝트는 향상된 클래스 재정의(class redefinition)를 지원하는 OpenJDK 포크인 [JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime)(JBR)에서 실행되어야 합니다.
    Compose Hot Reload는 프로젝트에 호환되는 JBR을 자동으로 프로비저닝(provision)할 수 있습니다.
 
-   > 최신 JetBrains Runtime은 Java 21만 지원합니다.
+   > 최신 JetBrains Runtime은 Java 21만 지원합니다:
    > Java 22 이상과만 호환되는 프로젝트에 Compose Hot Reload를 추가하면,
    > 프로젝트 실행 시 링크 오류(linkage error)가 발생합니다.
    > 
@@ -101,7 +113,7 @@ Compose Multiplatform 1.10.0부터 Compose Hot Reload 플러그인은 [번들로
    ```
    `alwaysOnTop` 변수를 `true`로 설정하면, 생성된 데스크톱 앱이 모든 창 위에 유지되어 코드를 수정하고 변경 사항을 실시간으로 확인하기가 더 쉬워집니다.
 
-2. `App.kt` 파일을 열고 `Button` 컴포저블을 업데이트합니다:
+2. `App.kt` 파일을 열고 `Button` 컴포저블(composable)을 업데이트합니다:
    ```kotlin
    Button(onClick = { showContent = !showContent }) {
        Column {
@@ -118,7 +130,7 @@ Compose Multiplatform 1.10.0부터 Compose Hot Reload 플러그인은 [번들로
     }
    ```
 
-4. `main.kt` 파일을 열고 거터(gutter)에 있는 **Run** 아이콘을 클릭합니다.
+4. `main.kt` 파일을 열고 거터(gutter)에 있는 **Run** 아이콘을 클릭합니다. 
    **Run 'composeApp [jvm]' with Compose Hot Reload**를 선택합니다.
 
     ![거터에서 Compose Hot Reload 실행](compose-hot-reload-gutter-run.png){width=350}

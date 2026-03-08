@@ -11,7 +11,7 @@
 * **改进的调用解析和类型推断**。编译器的行为更加一致，并且能更好地理解您的代码。
 * **更容易为新语言功能引入语法糖**。未来，在引入新功能时，您将能够使用更简洁、更具可读性的代码。
 * **更快的编译时间**。编译速度可以得到[显著提升](#performance-improvements)。
-* **增强的 IDE 性能**。从 2025.1 开始，IntelliJ IDEA 使用 K2 模式来分析您的 Kotlin 代码，提高了稳定性并提供了性能改进。有关更多信息，请参阅 [IDE 支持](#support-in-ides)。
+* **增强的 IDE 性能**。IntelliJ IDEA 和 Android Studio 使用 K2 编译器来分析您的 Kotlin 代码，提高了稳定性并提供了性能改进。有关更多信息，请参阅 [IDE 支持](#support-in-ides)。
 
 本指南：
 
@@ -208,7 +208,7 @@ class Holder(val provider: Provider?, val processor: Processor?) {
 
 #### 异常处理
 
-在 Kotlin 2.0.0 中，我们改进了异常处理，使得智能转换信息可以传递给 `catch` 和 `finally` 块。此更改使您的代码更安全，因为编译器会跟踪您的对象是否具有可为 null 类型。例如：
+在 Kotlin 2.0.0 中，我们改进了异常处理，使得智能转换信息可以传递给 `catch` 和 `finally` 块。此更改使您的代码更安全，因为编译器会跟踪您的对象是否具有为 null 性类型。例如：
 
 ```kotlin
 //sampleStart
@@ -465,8 +465,6 @@ class Expanded                                  // 默认为 public 可见性，
 
 要升级 Kotlin 版本，请在您的 [Gradle](gradle-configure-project.md#apply-the-plugin) 和 [Maven](maven-configure-project.md#enable-and-configure-the-plugin) 构建脚本中将其更改为 2.0.0 或更高版本。
 
-为了在 Android Studio 中获得最佳体验，请在您的 IDE 中使用 [K2 模式](#support-in-ides)。IntelliJ IDEA 默认使用 K2 模式，因此您无需更改任何内容。
-
 ### 在 Gradle 中使用 Kotlin 构建报告
 
 Kotlin [构建报告](gradle-compilation-and-caches.md#build-reports)提供了关于 Kotlin 编译器任务在不同编译阶段所花费时间的信息，以及使用了哪个编译器和 Kotlin 版本，以及编译是否为增量编译。这些构建报告对于评估构建性能非常有用。与 [Gradle 构建扫描](https://scans.gradle.com/)相比，它们提供了更多关于 Kotlin 编译流水线的洞察，因为它们为您提供了所有 Gradle 任务性能的概览。
@@ -493,14 +491,8 @@ kotlin.build.report.output=file
 
 ## IDE 支持
 
-IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代码分析、代码补全和高亮显示。
-
-IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
-
-在 Android Studio 中，您可以按照以下步骤从 2024.1 开始启用 K2 模式：
-
-1. 转到 **Settings** | **Languages & Frameworks** | **Kotlin**。
-2. 选择 **Enable K2 mode** 选项。
+IntelliJ IDEA 和 Android Studio 均完全支持 K2 编译器，并默认使用它来改进代码分析、代码补全和高亮显示。
+您不需要进行任何配置。请更新到最新版本以体验其优势。
 
 ## 在 Kotlin Playground 中尝试 Kotlin K2 编译器
 
@@ -977,7 +969,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-57178](https://youtrack.jetbrains.com/issue/KT-57178) | 将前缀自增的推断类型更改为 Getter 的返回值类型，而不是 inc() 运算符的返回值类型 |
 | [KT-57609](https://youtrack.jetbrains.com/issue/KT-57609) | K2：停止针对逆变参数依赖 @UnsafeVariance 的存在 |
 | [KT-57620](https://youtrack.jetbrains.com/issue/KT-57620) | K2：禁止对原生类型的包含成员进行解析 |
-| [KT-64641](https://youtrack.jetbrains.com/issue/KT-64641) | K2：正确推断带有扩展函数形参的可调用对象的可调用引用类型 |
+| [KT-64641](https://youtrack.jetbrains.com/issue/KT-64641) | K2：正确推断带有扩展函数形参的可调用对象的可callable引用类型 |
 | [KT-57011](https://youtrack.jetbrains.com/issue/KT-57011) | 使析构变量的实际类型与指定的显式类型保持一致 |
 | [KT-38895](https://youtrack.jetbrains.com/issue/KT-38895) | K2：修复整数文字溢出的不一致行为 |
 | [KT-54862](https://youtrack.jetbrains.com/issue/KT-54862) | 匿名类型可以从类型实参的匿名函数中暴露出来 |
@@ -1094,7 +1086,7 @@ actual open class PlatformFileSystem : FileSystem {
 | 问题 ID | 标题 |
 |-----------------------------------------------------------|----------------------------------------------------------------------------------------------|
 | [KT-57608](https://youtrack.jetbrains.com/issue/KT-57608) | 禁止在枚举项初始化期间访问枚举类的伴生对象 |
-| [KT-34372](https://youtrack.jetbrains.com/issue/KT-34372) | 对枚举类中遗漏的虚拟内联方法错误进行报告 |
+| [KT-34372](https://youtrack.jetbrains.com/issue/KT-34372) | 报告枚举类中遗漏的虚拟内联方法错误 |
 | [KT-52802](https://youtrack.jetbrains.com/issue/KT-52802) | 报告属性/字段和枚举项之间解析的歧义 |
 | [KT-47310](https://youtrack.jetbrains.com/issue/KT-47310) | 当伴生属性相对于枚举项被首选时，更改限定符解析行为 |
 
@@ -1104,7 +1096,7 @@ actual open class PlatformFileSystem : FileSystem {
 |-----------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
 | [KT-52628](https://youtrack.jetbrains.com/issue/KT-52628) | 弃用在没有注解的情况下需要 OptIn 的 SAM 构造函数用法 |
 | [KT-57014](https://youtrack.jetbrains.com/issue/KT-57014) | 禁止从 JDK 函数接口的 SAM 构造函数的 lambda 返回具有不正确为 null 性的值 |
-| [KT-64342](https://youtrack.jetbrains.com/issue/KT-64342) | 可调用引用的形参类型的 SAM 转换会导致 CCE |
+| [KT-64342](https://youtrack.jetbrains.com/issue/KT-64342) | 可callable引用的形参类型的 SAM 转换会导致 CCE |
 
 #### 伴生对象 {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -1123,7 +1115,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-62019](https://youtrack.jetbrains.com/issue/KT-62019)  | [LC 问题] 禁止在语句位置使用带有 suspend 标记的匿名函数声明 |
 | [KT-55111](https://youtrack.jetbrains.com/issue/KT-55111)  | OptIn：禁止在标记下进行具有默认实参（具有默认值的形参）的构造函数调用 |
 | [KT-61182](https://youtrack.jetbrains.com/issue/KT-61182)  | 意外地允许 Unit 转换用于变量上的表达式 + 调用解析 |
-| [KT-55199](https://youtrack.jetbrains.com/issue/KT-55199)  | 禁止将带有自适应的可调用引用提升为 KFunction |
+| [KT-55199](https://youtrack.jetbrains.com/issue/KT-55199)  | 禁止将带有自适应的可callable引用提升为 KFunction |
 | [KT-65776](https://youtrack.jetbrains.com/issue/KT-65776)  | [LC] K2 破坏了 `false && ...` 和 `false || ...` |
 | [KT-65682](https://youtrack.jetbrains.com/issue/KT-65682)  | [LC] 弃用 `header`/`impl` 关键字 |
 | [KT-45375](https://youtrack.jetbrains.com/issue/KT-45375)  | 默认通过 invokedynamic + LambdaMetafactory 生成所有 Kotlin lambda |
@@ -1184,7 +1176,7 @@ actual open class PlatformFileSystem : FileSystem {
 
 #### 后端和前端编译器插件
 
-如果您的插件使用与前端相关的扩展点，则需要使用新的 K2 编译器 API 重写该插件。有关新 API 的介绍，请参阅 [FIR 插件 API](https://github.com/JetBrains/kotlin/blob/master/docs/fir/fir-plugins.md)。
+如果您的插件使用与前端相关的扩展点，则需要使用新的 K2 编译器 API 重写该插件。有关新 API 的介绍，请参阅 [FIR 插件 API](https://github.com/JetBrains/kotlin/blob/master/FIR/fir-plugins.md)。
 
 > 如果您对升级自定义编译器插件有疑问，请加入我们的 [#compiler](https://kotlinlang.slack.com/archives/C7L3JB43G) Slack 频道，我们将尽力为您提供帮助。
 >

@@ -1,32 +1,31 @@
 [//]: # (title: Kotlin Symbol Processing API)
 
-Kotlin Symbol Processing (_KSP_) 是一款可用於開發輕量級編譯器外掛程式的 API。
-KSP 提供了一個簡化的編譯器外掛程式 API，在發揮 Kotlin 強大功能的同時，將學習曲線降至最低。
-與 [kapt](kapt.md) 相比，使用 KSP 的註解處理器執行速度最高可快上兩倍。
+Kotlin Symbol Processing (KSP) 是一款適用於 Kotlin 的原始碼產生架構。透過 KSP API，您可以根據原始碼中的[註解](annotations.md)來建立產生程式碼的處理器。
 
-* 若要了解更多關於 KSP 與 kapt 的比較，請參閱[為何使用 KSP](ksp-why-ksp.md)。
-* 若要開始編寫 KSP 處理器，請參閱 [KSP 快速入門指南](ksp-quickstart.md)。
+KSP 旨在簡化輕量級編譯器外掛程式的開發。其定義良好的 API 隱藏了編譯器的變更，因此您無需投入大量精力維護處理器。然而，這種方法也存在權衡。例如，基於 KSP 的處理器無法檢查運算式或陳述式，且無法修改原始碼。
+
+基於 KSP 的外掛程式典型使用案例包括：
+* 相依注入 ([Dagger](https://dagger.dev/dev-guide/ksp))
+* 序列化 ([Moshi](https://github.com/square/moshi))
+* 資料庫管理 ([Room](https://developer.android.com/jetpack/androidx/releases/room#2.3.0-beta02))
+
+若要了解如何建立您的第一個基於 KSP 的處理器，請參閱 [KSP 快速入門指南](ksp-quickstart.md)。
 
 ## 總覽
 
 KSP API 以慣用的方式處理 Kotlin 程式。KSP 了解 Kotlin 特有的特性，例如擴充函式、宣告處差異以及區域函式。它還對型別進行明確建模，並提供基本的型別檢查，例如等價性和指派相容性。
 
-該 API 根據 [Kotlin 語法](https://kotlinlang.org/grammar/)在符號層級對 Kotlin 程式結構進行建模。
-當基於 KSP 的外掛程式處理原始程式時，處理器可以存取類別、類別成員、函式及其相關參數等結構，而 `if` 區塊和 `for` 迴圈等內容則無法存取。
+該 API 根據 [Kotlin 語法](https://kotlinlang.org/grammar/)在符號層級對 Kotlin 程式結構進行建模。當基於 KSP 的外掛程式處理原始程式時，處理器可以存取類別、類別成員、函式及其相關參數等結構，而 `if` 區塊和 `for` 迴圈等內容則無法存取。
 
-從概念上講，KSP 類似於 Kotlin 反射中的 [KType](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-type/)。
-該 API 允許處理器從類別宣告導覽到具有特定型別引數的相應型別，反之亦然。
-您還可以替換型別引數、指定差異、套用星號投影並標記型別的可 null 性。
+從概念上講，KSP 類似於 Kotlin 反射中的 [KType](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-type/)。該 API 允許處理器從類別宣告導覽到具有特定型別引數的對應型別，反之亦然。您還可以替換型別引數、指定差異、套用星號投影並標記型別的可 null 性。
 
-思考 KSP 的另一種方式是將其視為 Kotlin 程式的前置處理器架構。將基於 KSP 的外掛程式視為「符號處理器」或簡稱為「處理器」，編譯中的資料流可以透過以下步驟描述：
+思考 KSP 的另一種方式是將其視為 Kotlin 程式的前置處理器架構。透過將基於 KSP 的外掛程式視為「符號處理器」或簡稱為「處理器」，編譯中的資料流可以透過以下步驟描述：
 
 1. 處理器讀取並分析原始程式與資源。
 2. 處理器產生程式碼或其他形式的輸出。
 3. Kotlin 編譯器將原始程式與產生的程式碼一起編譯。
 
-與成熟的編譯器外掛程式不同，處理器不能修改程式碼。
-改變語言語意的編譯器外掛程式有時會讓人感到非常困惑。
-KSP 透過將原始程式視為唯讀來避免這種情況。
+與成熟的編譯器外掛程式不同，處理器不能修改程式碼。改變語言語意的編譯器外掛程式有時會讓人感到非常困惑。KSP 透過將原始程式視為唯讀來避免這種情況。
 
 您也可以透過此影片了解 KSP 的總覽：
 
@@ -34,8 +33,7 @@ KSP 透過將原始程式視為唯讀來避免這種情況。
 
 ## KSP 如何看待原始檔案
 
-大多數處理器會遍歷輸入原始碼的各種程式結構。
-在深入了解 API 的用法之前，讓我們看看從 KSP 的角度來看，一個檔案可能呈現的樣子：
+大多數處理器會遍歷輸入原始碼的各種程式結構。在深入了解 API 的用法之前，讓我們看看從 KSP 的角度來看，一個檔案可能呈現的樣子：
 
 ```text
 KSFile
@@ -102,8 +100,7 @@ interface SymbolProcessor {
 }
 ```
 
-`Resolver` 為 `SymbolProcessor` 提供了存取編譯器細節（例如符號）的能力。
-一個尋找所有頂層函式以及頂層類別中非區域函式的處理器可能如下所示：
+`Resolver` 為 `SymbolProcessor` 提供了存取編譯器細節（例如符號）的能力。一個尋找所有頂層函式以及頂層類別中非區域函式的處理器可能如下所示：
 
 ```kotlin
 class HelloFunctionFinderProcessor : SymbolProcessor() {

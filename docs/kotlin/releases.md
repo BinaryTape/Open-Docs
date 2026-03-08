@@ -63,7 +63,7 @@ plugins {
     id 'org.jetbrains.kotlin.<...>' version '%kotlinVersion%'
     // 例如，如果您的目标环境是 JVM： 
     // id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
-    // If your target is Kotlin Multiplatform:
+    // 如果您的目标是 Kotlin Multiplatform:
     // id 'org.jetbrains.kotlin.multiplatform' version '%kotlinVersion%'
 }
 ```
@@ -111,17 +111,6 @@ plugins {
 
 Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Android Studio](https://developer.android.com/kotlin/get-started) 中拥有完善的开箱即用支持，并配有由 JetBrains 开发的官方 Kotlin 插件。
 
-IntelliJ IDEA 和 Android Studio 中的 K2 模式使用 K2 编译器来改进代码分析、代码补全和高亮显示。
-
-IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
-
-在 Android Studio 中，您可以从 2024.1 版本开始通过以下步骤启用 K2 模式：
-
-1. 转到 **Settings** | **Languages & Frameworks** | **Kotlin**。
-2. 选择 **Enable K2 mode** 选项。
-
-在[我们的博客](https://blog.jetbrains.com/idea/2025/04/k2-mode-in-intellij-idea-2025-1-current-state-and-faq/)中了解有关 K2 模式的更多信息。
-
 ## Kotlin 发布兼容性
 
 详细了解 [Kotlin 发布类型及其兼容性](kotlin-evolution-principles.md#language-and-tooling-releases)
@@ -156,7 +145,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
         </td>
         <td>
             <p>一个语言发布，包含新的和稳定的语言功能、工具更新、不同平台的性能改进以及重要修复。</p>
-            <p>欲了解更多详情，请参考 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0">变更日志</a>。</p>
+            <p>在 <a href="whatsnew23.md" target="_blank">Kotlin 2.3.0 最新变化</a> 中了解更多关于 Kotlin 2.3.0 的信息。</p>
         </td>
     </tr> 
     <tr>
@@ -176,7 +165,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
         </td>
         <td>
             <p>Kotlin 2.2.0 的工具发布，包含 Web 开发的重要变更和其他改进。</p>
-            <p>欲了解更多详情，请参考 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20">变更日志</a>。</p>
+            <p>在 <a href="whatsnew2220.md" target="_blank">Kotlin 2.2.20 最新变化</a> 中了解更多关于 Kotlin 2.2.20 的信息。</p>
         </td>
     </tr>
     <tr>
@@ -196,7 +185,7 @@ IntelliJ IDEA 2025.3 及更高版本始终使用 K2 模式。
         </td>
         <td>
             <p>一个语言发布，包含新的和稳定的语言功能、工具更新、不同平台的性能改进以及重要修复。</p>
-            <p>欲了解更多详情，请参考 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.0">变更日志</a>。</p>
+            <p>在 <a href="whatsnew22.md" target="_blank">Kotlin 2.2.0 最新变化</a> 中了解更多关于 Kotlin 2.2.0 的信息。</p>
         </td>
     </tr> 
     <tr>

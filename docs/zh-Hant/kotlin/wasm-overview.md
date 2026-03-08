@@ -56,7 +56,7 @@ WASI 提供了一個安全的標準介面，用於在不同環境中執行編譯
 
 Kotlin/Wasm 標準函式庫提供了瀏覽器 API 的宣告，包括 DOM API。
 透過這些宣告，您可以直接使用 Kotlin API 來存取並利用各種瀏覽器功能。 
-例如，在您的 Kotlin/Wasm 應用程式中，您可以對 DOM 元素進行操作或呼叫 fetch API，而無需從頭開始定義這些宣告。若要了解更多，請參閱我們的 [Kotlin/Wasm 瀏覽器範例](https://github.com/Kotlin/kotlin-wasm-examples/tree/main/browser-example)。
+例如，在您的 Kotlin/Wasm 應用程式中，您可以對 DOM 元素進行操作或呼叫 fetch API，而無需從頭開始定義這些宣告。若要了解更多，請參閱我們的 [Kotlin/Wasm 瀏覽器範例](https://github.com/Kotlin/kotlin-wasm-browser-template)。
 
 瀏覽器 API 支援的宣告是使用 JavaScript [互通性功能](wasm-js-interop.md) 定義的。 
 您可以使用相同的功能來定義您自己的宣告。此外，Kotlin/Wasm 與 JavaScript 的互通性允許您從 JavaScript 中使用 Kotlin 程式碼。如需更多資訊，請參閱 [在 JavaScript 中使用 Kotlin 程式碼](wasm-js-interop.md#use-kotlin-code-in-javascript)。

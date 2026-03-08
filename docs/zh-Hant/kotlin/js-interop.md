@@ -2,7 +2,7 @@
 
 Kotlin 最初是為了與 Java 平台輕鬆互通而設計的：它將 Java 類別視為 Kotlin 類別，而 Java 則將 Kotlin 類別視為 Java 類別。
 
-然而，JavaScript 是一種動態語言 (dynamically typed language)，這意味著它不會在編譯期間檢查型別。你可以透過 [dynamic](dynamic-type.md) 型別從 Kotlin 自由地與 JavaScript 通訊。如果你想利用 Kotlin 型別系統的完整功能，可以為 JavaScript 程式庫建立外部宣告 (external declarations)，這些宣告將被 Kotlin 編譯器和周邊工具所理解。
+然而，JavaScript 是一種動態型別語言 (dynamically typed language)，這意味著它不會在編譯期間檢查型別。你可以透過 [dynamic](dynamic-type.md) 型別從 Kotlin 自由地與 JavaScript 通訊。如果你想利用 Kotlin 型別系統的完整功能，可以為 JavaScript 程式庫建立外部宣告 (external declarations)，這些宣告將被 Kotlin 編譯器和周邊工具所理解。
 
 ## 內嵌 JavaScript
 
@@ -32,7 +32,7 @@ fun getTypeof() = "typeof"
 
 ## external 修飾符
 
-為了告訴 Kotlin 某個宣告是用純 JavaScript 編寫的，你應該使用 `external` 修飾符標記它。當編譯器看到這樣的宣告時，它會假設對應的類別、函式或屬性的實作是由外部提供的（由開發人員提供或透過 [npm 相依性](js-project-setup.md#npm-dependencies)），因此不會嘗試從該宣告產生任何 JavaScript 程式碼。這也是為什麼 `external` 宣告不能有主體 (body) 的原因。例如：
+為了告訴 Kotlin 某個宣告是用純 JavaScript 編寫的，你應該使用 `external` 修飾符標記它。當編譯器看到這樣的宣告時，它會假設對應的類別、函式或屬性的實作是由外部提供的（由開發者提供或透過 [npm 相依性](js-project-setup.md#npm-dependencies)），因此不會嘗試從該宣告產生任何 JavaScript 程式碼。這也是為什麼 `external` 宣告不能有主體 (body) 的原因。例如：
 
 ```kotlin
 external fun alert(message: Any?): Unit
@@ -209,9 +209,9 @@ fun main() {
     val value1 = name.substring(0, 1)
     val value2 = name.substring(0, 1)
 
-    println(if (value1 === value2) "yes" else "no")
-    // 在 Kotlin/JS 上列印 'yes'
-    // 在其他平台上列印 'no'
+    println(value1 === value2)
+    // 在 Kotlin/JS 上列印 'true'
+    // 在其他平台上列印 'false'
 }
  ```
 

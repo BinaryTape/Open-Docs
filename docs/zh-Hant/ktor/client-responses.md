@@ -37,7 +37,7 @@ if (httpResponse.status.value in 200..299) {
 
 ### 標頭 {id="headers"}
 
-[`HttpResponse.headers`](https://api.ktor.io/ktor-client-core/io.ktor.client.statement/-http-response/index.html) 屬性允許您獲取包含所有回應標頭的 [`Headers`](https://api.ktor.io/ktor-http/io.ktor.http/-headers/index.html) map。
+[`HttpResponse.headers`](https://api.ktor.io/ktor-client-core/io.ktor.client.statement/-http-response/index.html) 屬性允許您獲取一個包含所有回應標頭的 [`Headers`](https://api.ktor.io/ktor-http/io.ktor.http/-headers/index.html) map。
 
 此外，`HttpResponse` 類別還公開了以下用於接收特定標頭值的函式：
 
@@ -49,7 +49,7 @@ if (httpResponse.status.value in 200..299) {
 
 #### 分隔標頭值
 
-如果標頭可以包含多個以逗號或分號分隔的值，您可以使用 `.getSplitValues()` 函式從標頭中獲取所有分隔後的值：
+如果標頭可以包含多個以逗號或分號分隔的值，您可以使用 `.getSplitValues()` 函式從標頭中檢索所有分隔後的值：
 
 ```kotlin
 val httpResponse: HttpResponse = client.get("https://ktor.io/")
@@ -122,7 +122,7 @@ val customer: Customer = client.get("http://localhost:8080/customer/3").body()
 
 ### 多部分表單資料 {id="multipart"}
 
-當接收包含多部分表單資料 (multipart form data) 的回應時，您可以將其主體讀取為一個 [`MultiPartData`](https://api.ktor.io/ktor-http/io.ktor.http.content/-multi-part-data/index.html) 執行個體。這允許您處理回應中包含的表單欄位和檔案。
+當接收包含多部分表單資料的回應時，您可以將其主體讀取為一個 [`MultiPartData`](https://api.ktor.io/ktor-http/io.ktor.http.content/-multi-part-data/index.html) 執行個體。這允許您處理回應中包含的表單欄位和檔案。
 
 下面的範例示範了如何處理來自多部分回應的文字表單欄位和檔案上傳：
 
@@ -188,13 +188,19 @@ part.dispose()
 
 ### 串流資料 {id="streaming"}
 
-預設情況下，呼叫 `HttpResponse.body()` 會將完整回應載入到記憶體中。對於大型回應或檔案下載，通常最好以分塊 (chunks) 方式處理資料，而無需等待完整主體。
+預設情況下，呼叫 `HttpResponse.body()` 會將完整回應載入到記憶體中。對於大型回應或檔案下載，通常最好以分塊方式處理資料，而無需等待完整主體。
 
 Ktor 提供了幾種使用 [`ByteReadChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-read-channel/index.html) 和 I/O 公用程式來執行此操作的方法。
 
 #### 順序分塊處理
 
 若要以分塊方式按順序處理回應，請使用帶有作用域 [`execute`](https://api.ktor.io/ktor-client-core/io.ktor.client.statement/-http-statement/execute.html) 區塊的 `HttpStatement`。
+
+> 對於 `HttpStatement.execute {}` 和 `HttpStatement.body {}` 的引擎分派器 (engine-dispatcher) 執行，在 JVM 上是選用的，以保持向後相容性。
+> 若要在 JVM 上的引擎分派器上執行這些區塊，請將 `io.ktor.client.statement.useEngineDispatcher` JVM 系統屬性設定為 `true`
+> （例如 `-Dio.ktor.client.statement.useEngineDispatcher=true`）。
+>
+{style="warning"}
 
 以下範例示範了以分塊方式讀取回應並將其儲存到檔案中：
 

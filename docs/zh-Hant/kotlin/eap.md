@@ -7,10 +7,10 @@
 
 您可以參與 Kotlin 早期體驗預覽 (EAP)，在最新 Kotlin 特性發佈前進行試用。
 
-在每個語言 (2.x.0) 與工具 (2.x.20) 版本發佈之前，我們會發佈幾個 Beta (_Beta_) 與版本候選 (_RC_) 組建。
+在每個語言 (_2.x.0_) 與工具 (_2.x.20_) 版本發佈之前，我們會發佈幾個 Beta (_Beta_) 與版本候選 (_RC_) 組建。
 
 如果您發現錯誤並回報至我們的問題追蹤器 [YouTrack](https://kotl.in/issue)，我們將不勝感激。
-我們極有可能在最終版本發佈前修復這些錯誤，這意味著您無需等待下一個 Kotlin 版本即可解決您的問題。
+我們極有可能在最終版本發佈前修復這些錯誤，這意指您無需等待下一個 Kotlin 版本即可解決您的問題。
 
 透過參與早期體驗預覽並回報錯誤，您正在為 Kotlin 做出貢獻，並幫助我們為[日益增長的 Kotlin 社群](https://kotlinlang.org/community/)中的每個人打造更好的 Kotlin。我們非常感謝您的幫助！
 
@@ -43,13 +43,13 @@
         <th>組建亮點</th>
     </tr>
     <tr>
-        <td><strong>2.3.20-RC</strong>
-            <p>發佈日期：<strong>2026 年 2 月 19 日</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20-RC" target="_blank">GitHub 上的版本</a></p>
+        <td><strong>2.3.20-RC2</strong>
+            <p>發佈日期：<strong>2026 年 3 月 3 日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20-RC2" target="_blank">GitHub 上的版本</a></p>
         </td>
         <td>
             <p>一個工具版本，包含效能改進、錯誤修正和工具更新。</p>
-            <p>如需更多詳細資訊，請參閱 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20-RC">變更記錄</a>。</p>
+            <p>如需更多詳細資訊，請參閱 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20-RC2">變更記錄</a>。</p>
         </td>
     </tr>
 </table>

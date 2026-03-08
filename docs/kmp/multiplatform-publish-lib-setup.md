@@ -37,7 +37,7 @@
 
 Kotlin 多平台库的发布包含多个 Maven 发布，每个发布对应一个特定的目标。此外，还会发布一个代表整个库的名为 `kotlinMultiplatform` 的伞形“根”发布。
 
-当作为[依赖项](multiplatform-add-dependencies.md)添加到公共源集时，根发布会自动解析为相应的平台特定工件。
+当作为[依赖项](multiplatform-add-dependencies.md)添加到公共源集中时，根发布会自动解析为相应的平台特定工件。
 
 ### 目标特定发布与根发布
 
@@ -233,16 +233,6 @@ kotlin {
       linuxX64()
   }
   ```
-
-## 禁用 JVM 环境属性发布
-
-从 Kotlin 2.0.0 开始，Gradle 属性 [`org.gradle.jvm.environment`](https://docs.gradle.org/current/userguide/variant_attributes.html#sub:jvm_default_attributes) 会随所有 Kotlin 变体自动发布，以帮助区分 Kotlin 多平台库的 JVM 变体和 Android 变体。该属性指示哪个库变体适用于哪个 JVM 环境，Gradle 利用此信息协助项目中的依赖解析。目标环境可以是 "android"、"standard-jvm" 或 "no-jvm"。
-
-您可以通过在 `gradle.properties` 文件中添加以下 Gradle 属性来禁用此属性的发布：
-
-```none
-kotlin.publishJvmEnvironmentAttribute=false
-```
 
 ## 推广您的库
 

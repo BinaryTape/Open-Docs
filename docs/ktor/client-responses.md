@@ -104,7 +104,7 @@ val byteArrayBody: ByteArray = httpResponse.body()
 
 上述示例中的 [`onDownload()`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/on-download.html) 扩展函数用于显示下载进度。
 
-对于非流式请求，响应体会被自动加载并缓存到内存中，以便重复访问。虽然这对于小型负载很高效，但在处理大型响应时可能会导致高内存占用。
+对于非流式请求，响应体会被自动加载并缓存到内存中，以便重复访问。虽然这对于小型负载很高效，但在处理大型响应时可能会导致高内存使用情况。
 
 为了高效处理大型响应，请使用[流式方法](#streaming)，该方法会增量处理响应而不会将其保存在内存中。
 
@@ -196,6 +196,12 @@ Ktor 提供了几种使用 [`ByteReadChannel`](https://api.ktor.io/ktor-io/io.kt
 
 要按顺序分块处理响应，请使用 `HttpStatement` 配合作用域内的 [`execute`](https://api.ktor.io/ktor-client-core/io.ktor.client.statement/-http-statement/execute.html) 块。
 
+> 在 JVM 上，`HttpStatement.execute {}` 和 `HttpStatement.body {}` 的引擎调度器执行是选择性加入的，以保持向后兼容性。
+> 要在 JVM 上的引擎调度器上运行这些块，请将 `io.ktor.client.statement.useEngineDispatcher` JVM 系统属性设置为 `true`
+> （例如，`-Dio.ktor.client.statement.useEngineDispatcher=true`）。
+>
+{style="warning"}
+
 以下示例演示了分块读取响应并将其保存到文件中：
 
 ```kotlin
@@ -265,7 +271,7 @@ println("A file saved to ${file.path}")
 
 ```
 
-与 `.copyAndClose()` 不同，接收器（sink）在写入后保持打开状态，只有在传输过程中发生错误时才会自动关闭。
+与 `.copyAndClose()` 不同，接收器在写入后保持打开状态，只有在传输过程中发生错误时才会自动关闭。
 
 > 有关 Ktor 通道与 `RawSink`、`RawSource` 或 `OutputStream` 等类型之间的转换，请参阅 [I/O 互操作性](io-interoperability.md)。
 >

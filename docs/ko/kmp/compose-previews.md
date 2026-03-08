@@ -1,7 +1,8 @@
 [//]: # (title: Compose UI 프리뷰)
 
 에뮬레이터를 실행하지 않고도 IDE(IntelliJ IDEA 및 Android Studio)에서 렌더링된 UI를 확인할 수 있도록 _프리뷰(preview)_ 컴포저블을 만들 수 있습니다.
-프리뷰는 [Jetpack Compose 핵심 기능의 일부](https://developer.android.com/develop/ui/compose/tooling/previews)입니다.
+이 [Jetpack Compose 핵심 기능](https://developer.android.com/develop/ui/compose/tooling/previews)을 사용하면 다양한 구성에서 테스트 데이터를 사용하여 개별 컴포넌트를 쉽게 시각화할 수 있습니다.
+또한, [Compose Hot Reload](compose-hot-reload.md)를 사용하면 데스크톱 JVM 타겟에서 실행 중인 라이브 애플리케이션에 코드 변경 사항이 즉시 반영되는 것을 확인할 수 있습니다.
 
 > Kotlin 멀티플랫폼 프로젝트의 공통 코드(common code)에서 Compose 프리뷰를 활성화하려면, 프리뷰가 Android 라이브러리에 의존하므로 Android 타겟이 필요합니다.
 > 
@@ -10,12 +11,21 @@
 Compose 멀티플랫폼은 처음에 제한적인 `@Preview` 어노테이션을 커스텀 라이브러리로 구현했으나, 버전 1.10.0부터는 원본 AndroidX 어노테이션이 완전히 멀티플랫폼화됨에 따라 기존 구현은 지원 중단(deprecated)되었습니다.
 
 이 페이지에서는 다음 내용을 확인할 수 있습니다:
+
 * 다양한 프로젝트 구성의 공통 코드에서 [프리뷰를 활성화하는 방법](#preview-setup)
+* 추가 파라미터를 사용하여 [프리뷰를 사용하고 커스텀하는 방법](#use-previews)
 * Compose 멀티플랫폼, AGP 및 어노테이션의 [지원되는 조합 개요](#supported-configurations)
 
 ## 프리뷰 설정
 
-IDE에서 프리뷰 지원을 활성화하려면 KMP 모듈의 `build.gradle.kts` 파일에 필요한 의존성을 추가하세요:
+처음부터 시작하는 경우, 미리 구성되어 제공되는 IDE 마법사를 사용하여 **새 프로젝트**를 생성할 수 있습니다.
+
+시작하려면 IntelliJ IDEA와 Android Studio에서 모두 사용 가능한 [Kotlin Multiplatform IDE 플러그인](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)을 설치하기만 하면 됩니다.
+새 프로젝트에는 `@Preview` 어노테이션이 추가된, 바로 사용할 수 있는 `App` 함수가 포함되어 있습니다:
+
+![IDE의 프리뷰 컴포저블](compose-preview-split.png){width=700 style="block"}
+
+**기존 프로젝트**에서 프리뷰 지원을 활성화하려면 KMP 모듈의 `build.gradle.kts` 파일에 필요한 의존성을 추가하세요:
 
 1. `commonMain` 소스 세트에 대한 어노테이션 의존성: Compose 멀티플랫폼 버전에 따라 이전 것 또는 새로운 것을 추가합니다.
 2. 클래스패스(classpath)의 툴링(tooling) 의존성: Android 구성에 따라 선언 방식이 달라집니다.
@@ -57,6 +67,24 @@ kotlin {
     }
     ```
 
+## 프리뷰 사용
+
+Compose 멀티플랫폼은 Android 툴링에서 제공하는 전체 프리뷰 기능을 사용할 수 있게 해줍니다.
+프리뷰를 대화형(interactive)으로 만들거나, 프리뷰를 이미지로 복사하거나, 동일한 `@Preview` 컴포저블을 서로 다른 파라미터로 여러 버전을 표시할 수 있습니다.
+사용 가능한 기능에 대한 자세한 내용은 [Android 프리뷰 가이드](https://developer.android.com/develop/ui/compose/tooling/previews)를 확인하세요.
+
+<video src="compose_preview_interactive_mode.mp4" alt="Interactive mode" width="350" preview-src="compose_preview_interactive_mode.png"/>
+
+추가 파라미터를 구성하여 디자인 타임 프리뷰에서 `@Composable` 함수가 렌더링되는 방식을 제어할 수 있습니다. Compose 멀티플랫폼은 `@Preview` 어노테이션에 대해 다음 파라미터를 지원합니다:
+
+* `name`: 프리뷰의 표시 이름입니다.
+* `group`: 프리뷰의 그룹 이름으로, 관련 프리뷰의 논리적 구성 및 선택적 표시를 가능하게 합니다.
+* `widthDp`: 최대 너비([dp](https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp) 단위)입니다.
+* `heightDp`: 최대 높이(dp 단위)입니다.
+* `locale`: 애플리케이션의 현재 로케일(locale)입니다.
+* `showBackground`: 프리뷰에 기본 배경색을 적용할지 여부를 결정하는 플래그입니다.
+* `backgroundColor`: 프리뷰의 배경색을 정의하는 32비트 ARGB 색상 정수입니다.
+
 ## 지원되는 구성
 
 의존성 버전과 프로젝트 구성 스타일에 따라 Compose 프리뷰를 활성화하는 데 사용할 수 있는 몇 가지 지원 조합이 있습니다:
@@ -96,4 +124,4 @@ Android Gradle 플러그인 9.0의 경우, Android 구성을 위한 `androidLibr
 >
 {style="note"}
 
-AGP 9.0으로 업그레이드하는 방법에 대한 자세한 내용은 [마이그레이션 페이지](multiplatform-project-agp-9-migration.md)를 참조하세요.
+AGP 9.0으로 업그레이드하는 방법에 대한 자세한 내용은 [마이그레이션 가이드](multiplatform-project-agp-9-migration.md)를 참조하세요.

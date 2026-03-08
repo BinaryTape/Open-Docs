@@ -1,12 +1,17 @@
 [//]: # (title: Compose Hot Reload)
 
-[Compose Hot Reload](https://github.com/JetBrains/compose-hot-reload) 協助您在開發 Compose Multiplatform 專案時，視覺化並試驗 UI 變更。
+Compose Hot Reload 協助您在開發 Compose Multiplatform 專案時，視覺化並試驗 UI 變更。
+與標準的 [Compose 預覽](compose-previews.md)（適用於使用測試資料查看獨立元件）不同，
+Compose Hot Reload 直接將程式碼變更套用至執行中的應用程式。
 
-隨附的 Compose Hot Reload Gradle 外掛程式需要 Kotlin 2.1.20+ 以及與 Java 21 或更早版本相容的 JVM 目標。
-若要使用 Compose Hot Reload 的完整功能，我們建議安裝 [Kotlin Multiplatform IDE 外掛程式](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)，
+隨附的 Compose Hot Reload Gradle 外掛程式 
+需要 Kotlin 2.1.20+ 以及與 Java 21 或更早版本相容的 JVM 目標。
+若要使用 Compose Hot Reload 的完整功能，
+我們建議安裝 [Kotlin Multiplatform IDE 外掛程式](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)，
 該外掛程式自 IntelliJ IDEA 2025.2.2 版本以及 Android Studio Otter 2025.2.1 版本起開始提供。
 
-在我們探索為其他目標提供支援的同時，您已經可以將桌面應用程式作為沙盒，在不中斷流程的情況下，快速試驗共用程式碼中的 UI 變更。
+在我們探索為其他目標提供支援的同時，您已經可以將桌面應用程式作為沙盒，
+在不中斷流程的情況下，快速試驗共用程式碼中的 UI 變更。
 
 <img src="KotlinConf_hot_reload.animated.gif" alt="Compose Hot Reload" width="600" preview-src="KotlinConf_hot_reload.png"/>
 
@@ -21,7 +26,7 @@ Compose Hot Reload 可以透過以下兩種方式新增：
 
 本節將引導您完成在 IntelliJ IDEA 和 Android Studio 中建立具有桌面目標的多平台專案的步驟。建立專案時，Compose Hot Reload 會自動新增。
 
-1. 在[快速入門指南](quickstart.md)中，完成[設定 Kotlin Multiplatform 開發環境](quickstart.md#set-up-the-environment)的說明。
+1. 在[快速入門](quickstart.md)中，完成[設定 Kotlin Multiplatform 開發環境](quickstart.md#set-up-the-environment)的說明。
 2. 在 IDE 中，選取 **File** | **New** | **Project**。
 3. 在左側面板中，選取 **Kotlin Multiplatform**。
 4. 在 **New Project** 視窗中指定 **Name**、**Group** 和 **Artifact** 欄位。
@@ -30,18 +35,24 @@ Compose Hot Reload 可以透過以下兩種方式新增：
 
 ### 至現有專案
 
-從 Compose Multiplatform 1.10.0 開始，Compose Hot Reload 外掛程式已[內建](whats-new-compose-110.md#compose-hot-reload-integration)並對所有包含 **桌面目標** 的專案預設啟用。
+從 Compose Multiplatform 1.10.0 開始，
+Compose Hot Reload 外掛程式已[內建](whats-new-compose-110.md#compose-hot-reload-integration) 
+並對所有包含 **桌面目標** 的專案預設啟用。 
 
-如果您的專案已經包含桌面目標，您可以升級至 Compose Multiplatform 1.10.0 或更高版本，即可開箱即用享受 Compose Hot Reload 功能。
+如果您的專案已經包含桌面目標，
+您可以升級至 Compose Multiplatform 1.10.0 或更高版本，即可開箱即用享受 Compose Hot Reload 功能。 
 
-雖然它預設為啟用，但您仍然可以明確宣告 Compose Hot Reload 外掛程式以使用特定的舊版本。
+雖然它預設為啟用，
+您仍然可以明確宣告 Compose Hot Reload 外掛程式以使用特定的舊版本。
 
 #### 較早版本的 Compose Multiplatform {initial-collapse-state="collapsed" collapsible="true"}
 
-對於使用早於 1.10.0 之 Compose Multiplatform 版本的多平台專案，您必須配置好桌面目標，然後明確新增 Compose Hot Reload 外掛程式。
+對於使用早於 1.10.0 之 Compose Multiplatform 版本的多平台專案，
+您必須配置好桌面目標，然後明確新增 Compose Hot Reload 外掛程式。
 以下步驟參考自[使用共享邏輯與 UI 建立應用程式](compose-multiplatform-create-first-app.md)教學中的專案。
 
-1. 引入桌面目標：建立 `jvmMain` 目錄，定義 `main()` 函式，並提供 `actual` 實作。
+1. 引入桌面目標：建立 `jvmMain` 目錄，定義 `main()` 函式，
+   並提供 `actual` 實作。
    如果您的專案已經包含桌面目標，可以跳過此步驟。
    參考範例請參閱[新增 JVM 入口點](migrate-from-android.md#optional-add-a-jvm-entry-point)。
  
@@ -120,8 +131,8 @@ Compose Hot Reload 可以透過以下兩種方式新增：
     }
    ```
 
-4. 開啟 `main.kt` 檔案並點擊邊欄中的 **Run** 圖示。
-   選取 **Run 'composeApp [jvm]' with Compose Hot Reload**。
+4.  開啟 `main.kt` 檔案並點擊邊欄中的 **Run** 圖示。 
+    選取 **Run 'composeApp [jvm]' with Compose Hot Reload**。
 
     ![從邊欄執行 Compose Hot Reload](compose-hot-reload-gutter-run.png){width=350}
 

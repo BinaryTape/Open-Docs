@@ -1,6 +1,7 @@
 [//]: # (title: Compose Hot Reload)
 
-[Compose Hot Reload](https://github.com/JetBrains/compose-hot-reload) は、Compose Multiplatform プロジェクトでの作業中に UI の変更を視覚化し、試行錯誤するのに役立ちます。
+Compose Hot Reload は、Compose Multiplatform プロジェクトでの作業中に UI の変更を視覚化し、試行錯誤するのに役立ちます。
+テストデータを使用して個別のコンポーネントを表示するのに役立つ標準的な [Compose プレビュー](compose-previews.md)とは異なり、Compose Hot Reload はコードの変更を実行中のアプリケーションに直接適用します。
 
 同梱されている Compose Hot Reload Gradle プラグインは、Kotlin 2.1.20 以上、および Java 21 以前と互換性のある JVM ターゲットを必要とします。
 Compose Hot Reload の全機能を使用するには、[Kotlin Multiplatform IDE プラグイン](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)をインストールすることをお勧めします。これは、IntelliJ IDEA バージョン 2025.2.2 以降、および Android Studio Otter 2025.2.1 以降で利用可能です。

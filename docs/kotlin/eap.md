@@ -7,27 +7,27 @@
 
 您可以参与 Kotlin 抢先体验预览 (EAP)，在最新的 Kotlin 功能发布之前对其进行试用。
 
-在每个语言 (_2.x.0_) 和工具 (_2.x.20_) 版本正式发布之前，我们都会发布几个 Beta (_Beta_) 和发布候选 (_RC_) 构建版本。
+在每个语言 (_2.x.0_) 和工具 (_2.x.20_) 版本正式发布之前，我们都会发布几个 Beta (_Beta_) 和发布候选 (_RC_) 构建版本。 
 
-如果您能在我们的问题跟踪器 [YouTrack](https://kotl.in/issue) 中发现并报告错误，我们将不胜感激。
-我们很有可能在最终发布之前修复这些错误，这意味着您无需等到下一个 Kotlin 版本发布即可解决您的问题。
+如果您能在我们的问题跟踪器 [YouTrack](https://kotl.in/issue) 中发现并报告错误，我们将不胜感激。 
+我们很有可能在最终发布之前修复这些错误，这意味着您无需等到下一个 Kotlin 版本发布即可解决您的问题。 
 
-通过参与抢先体验预览并报告错误，您将为 Kotlin 做出贡献，并帮助我们为[不断壮大的 Kotlin 社区](https://kotlinlang.org/community/)中的每位成员提供更好的工具。非常感谢您的帮助！
+通过参与抢先体验预览并报告错误，您将为 Kotlin 做出贡献，并帮助我们为[不断壮大的 Kotlin 社区](https://kotlinlang.org/community/)中的每位成员提供更好的工具。非常感谢您的帮助！ 
 
-如果您有任何疑问并希望参与讨论，欢迎加入 [Kotlin Slack 中的 #eap 频道](https://app.slack.com/client/T09229ZC6/C0KLZSCHF)。
+如果您有任何疑问并希望参与讨论，欢迎加入 [Kotlin Slack 中的 #eap 频道](https://app.slack.com/client/T09229ZC6/C0KLZSCHF)。 
 在该频道中，您还可以获取有关新 EAP 构建版本的通知。
 
 **[为 Kotlin EAP 版本配置项目](configure-build-for-eap.md)**
 
 > 通过参与 EAP，您明确知晓 EAP 版本可能不稳定，可能无法按预期工作，并且可能包含错误。
 >
-> 请注意，我们不保证同一版本的 EAP 与最终版本之间的兼容性。
+> 请注意，我们不保证同一版本的 EAP 与最终版本之间的兼容性。 
 >
 {style="note"}
 
 ## EAP 如何帮助您提高 Kotlin 编码效率
 
-* **为稳定版本做好准备**。如果您在一个复杂的多模块项目中工作，参与 EAP 可以简化您采用稳定版本的体验。您越早更新到稳定版本，就能越早利用其性能改进和新语言功能。
+* **为稳定版本做好准备**。如果您在一个复杂的多模块项目中工作，参与 EAP 可以简化您采用稳定版本的体验。您越早更新到稳定版本，就能越早利用其性能改进和新语言功能。 
 
   大型复杂项目的迁移可能需要一段时间，这不仅是因为项目规模庞大，还因为某些特定的用例可能尚未被 Kotlin 团队覆盖。通过参与 EAP 并持续测试新版本的 Kotlin，您可以向我们提供有关您特定用例的早期反馈。这将帮助我们解决尽可能多的问题，并确保您在正式版发布时可以安全地更新到稳定版本。[了解 Slack 如何从测试 Android、Kotlin 和 Gradle 的预发布版本中受益](https://slack.engineering/shadow-jobs/)。
 * **保持您的库处于最新状态**。如果您是一位库作者，更新到新的 Kotlin 版本至关重要。使用旧版本可能会阻止您的用户在他们的项目中更新 Kotlin。使用 EAP 版本让您能够在稳定版本发布时几乎立即在您的库中支持最新的 Kotlin 版本，这会让您的用户更满意，也能让您的库更受欢迎。
@@ -43,13 +43,13 @@
         <th>构建亮点</th>
     </tr>
     <tr>
-        <td><strong>2.3.20-RC</strong>
-            <p>发布日期：<strong>2026 年 2 月 19 日</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20-RC" target="_blank">GitHub 上的发布版本</a></p>
+        <td><strong>2.3.20-RC2</strong>
+            <p>发布日期：<strong>2026 年 3 月 3 日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20-RC2" target="_blank">GitHub 上的发布版本</a></p>
         </td>
         <td>
             <p>这是一个工具版本，包含性能改进、错误修复和工具更新。</p>
-            <p>有关更多详细信息，请参阅<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20-RC">变更日志</a>。</p>
+            <p>有关更多详细信息，请参阅<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20-RC2">变更日志</a>。</p>
         </td>
     </tr>
 </table>

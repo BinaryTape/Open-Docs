@@ -1,36 +1,31 @@
 [//]: # (title: Kotlin 符号处理 API)
 
-Kotlin 符号处理（_KSP_）是一个可用于开发轻量级编译器插件的 API。
-KSP 提供了一个简化的编译器插件 API，它在充分利用 Kotlin 功能的同时，将学习曲线降至
-最低。与 [kapt](kapt.md) 相比，使用 KSP 的注解处理器运行速度最高可快达两倍。
+Kotlin 符号处理（KSP）是一个适用于 Kotlin 的源代码生成框架。借助 KSP API，你可以创建根据源代码中的[注解](annotations.md)生成代码的处理器。
 
-* 要了解更多关于 KSP 与 kapt 的对比，请查看[为什么选择 KSP](ksp-why-ksp.md)。
-* 要开始编写 KSP 处理器，请查看 [KSP 快速入门指南](ksp-quickstart.md)。
+KSP 旨在简化轻量级编译器插件的创建。其定义良好的 API 隐藏了编译器变更，因此你无需花费太多精力来维护处理器。然而，这种方法也有折衷。例如，基于 KSP 的处理器无法检查表达式或语句，也无法修改源代码。
+
+基于 KSP 插件的典型用例包括： 
+* 依赖注入 ([Dagger](https://dagger.dev/dev-guide/ksp))
+* 序列化 ([Moshi](https://github.com/square/moshi))
+* 数据库管理 ([Room](https://developer.android.com/jetpack/androidx/releases/room#2.3.0-beta02))
+
+要了解如何创建你的第一个基于 KSP 的处理器，请参阅 [KSP 快速入门指南](ksp-quickstart.md)。
 
 ## 概述
 
-KSP API 以符合 Kotlin 习惯的方式处理 Kotlin 程序。KSP 能够理解 Kotlin 特有的功能，例如扩展函数、
-声明处型变（variance）和局部函数。它还对类型进行了显式建模，并提供基本的类型检查，
-例如等价性和赋值兼容性。
+KSP API 以符合 Kotlin 习惯的方式处理 Kotlin 程序。KSP 能够理解 Kotlin 特有的功能，例如扩展函数、声明处型变（variance）和局部函数。它还对类型进行了显式建模，并提供基本的类型检查，例如等价性和赋值兼容性。
 
-该 API 根据 [Kotlin 语法](https://kotlinlang.org/grammar/)在符号级别对 Kotlin 程序结构进行建模。
-当基于 KSP 的插件处理源程序时，处理器可以访问类、类成员、函数和相关形参等构造，
-而 `if` 块和 `for` 循环等内容则无法访问。
+该 API 根据 [Kotlin 语法](https://kotlinlang.org/grammar/)在符号级别对 Kotlin 程序结构进行建模。当基于 KSP 的插件处理源程序时，处理器可以访问类、类成员、函数和相关形参等构造，而 `if` 块和 `for` 循环等内容则无法访问。
 
-从概念上讲，KSP 与 Kotlin 反射中的 [KType](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-type/) 类似。
-该 API 允许处理器从类声明导航到具有特定类型实参的相应类型，反之亦然。
-你还可以替换类型实参、指定型变、应用星投影以及标记类型的为 null 性。
+从概念上讲，KSP 与 Kotlin 反射中的 [KType](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-type/) 类似。该 API 允许处理器从类声明导航到具有特定类型实参的相应类型，反之亦然。你还可以替换类型实参、指定型变、应用星投影以及标记类型的为 null 性。
 
-另一种理解 KSP 的方式是将其视为 Kotlin 程序的预处理器框架。通过将基于 KSP 的插件视为
-“符号处理器”（_symbol processors_），或简称为“处理器”，编译中的数据流可以描述为以下步骤：
+另一种理解 KSP 的方式是将其视为 Kotlin 程序的预处理器框架。通过将基于 KSP 的插件视为“符号处理器”（_symbol processors_），或简称为“处理器”，编译中的数据流可以描述为以下步骤：
 
 1. 处理器读取并分析源程序和资源。
 2. 处理器生成代码或其他形式的输出。
 3. Kotlin 编译器将源程序与生成的代码一起进行编译。
 
-与成熟的编译器插件不同，处理器不能修改代码。
-改变语言语义的编译器插件有时会让人非常困惑。
-KSP 通过将源程序视为只读来避免这种情况。
+与成熟的编译器插件不同，处理器不能修改代码。改变语言语义的编译器插件有时会让人非常困惑。KSP 通过将源程序视为只读来避免这种情况。
 
 你也可以通过这个视频了解 KSP 的概览：
 
@@ -38,8 +33,7 @@ KSP 通过将源程序视为只读来避免这种情况。
 
 ## KSP 如何看待源文件
 
-大多数处理器会遍历输入源代码的各种程序结构。
-在深入了解 API 的用法之前，让我们看看从 KSP 的角度来看，一个文件可能是怎样的：
+大多数处理器会遍历输入源代码的各种程序结构。在深入了解 API 的用法之前，让我们看看从 KSP 的角度来看，一个文件可能是怎样的：
 
 ```text
 KSFile
@@ -106,8 +100,7 @@ interface SymbolProcessor {
 }
 ```
 
-`Resolver` 为 `SymbolProcessor` 提供了访问符号等编译器详情的能力。
-一个查找所有顶级函数和顶级类中非局部函数的处理器可能如下所示：
+`Resolver` 为 `SymbolProcessor` 提供了访问符号等编译器详情的能力。一个查找所有顶级函数和顶级类中非局部函数的处理器可能如下所示：
 
 ```kotlin
 class HelloFunctionFinderProcessor : SymbolProcessor() {

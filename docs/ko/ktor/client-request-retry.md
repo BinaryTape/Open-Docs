@@ -36,6 +36,17 @@ val client = HttpClient(CIO) {
 }
 ```
 
+[`HttpTimeout`](client-timeout.md) 플러그인이 설치된 경우, 타임아웃에 대한 재시도 구성을 허용하려면 `HttpRequestRetry`를 먼저 설치해야 합니다:
+
+```kotlin
+val client = HttpClient(CIO) {
+    install(HttpRequestRetry) // HttpTimeout보다 먼저 설치되어야 함
+    install(HttpTimeout) {
+       // ...
+     }
+}
+```
+
 ## HttpRequestRetry 설정 {id="configure_retry"}
 
 ### 기본 재시도 설정 {id="basic_config"}

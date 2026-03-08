@@ -74,7 +74,7 @@ Android에서 네비게이션 3는 리플렉션(reflection) 기반 직렬화에 
 * [첫 번째 오버로드](https://developer.android.com/reference/kotlin/androidx/navigation3/runtime/package-summary#rememberNavBackStack(kotlin.Array))는 `NavKey` 참조 세트만 받으며 리플렉션 기반 직렬화 도구가 필요합니다.
 * [두 번째 오버로드](https://developer.android.com/reference/kotlin/androidx/navigation3/runtime/package-summary#rememberNavBackStack(androidx.savedstate.serialization.SavedStateConfiguration,kotlin.Array))는 `SavedStateConfiguration` 파라미터도 함께 받으므로, `SerializersModule`을 제공하고 모든 플랫폼에서 개방형 다형성(open polymorphism)을 올바르게 처리할 수 있게 해줍니다.
 
-네비게이션 3 멀티플랫폼 예시에서 다형성 직렬화는 [이와 같이](https://github.com/terrakok/nav3-recipes/blob/8ff455499877225b638d5fcd82b232834f819422/sharedUI/src/commonMain/kotlin/com/example/nav3recipes/basicdsl/BasicDslActivity.kt#L40) 구성할 수 있습니다:
+네비게이션 3 [멀티플랫폼 예시](https://github.com/terrakok/nav3-recipes/blob/8ff455499877225b638d5fcd82b232834f819422/sharedUI/src/commonMain/kotlin/com/example/nav3recipes/basicdsl/BasicDslActivity.kt#L40)에서는 아래와 같이 경로를 정의하고 `SavedStateConfiguration`에 등록합니다:
 
 ```kotlin
 @Serializable
@@ -105,10 +105,112 @@ fun BasicDslActivity() {
 }
 ```
 
+### 권장하는 직렬화 방식
+
+멀티플랫폼 네비게이션을 구현할 때, 경로 정의(route definitions)를 어떻게 구성하고 직렬화할지 선택해야 합니다. 프로젝트의 복잡성과 모듈화 수준에 따라 다음 세 가지 패턴 중 하나를 사용하세요.
+
+#### 봉인된 타입(sealed type)을 사용하는 단일 모듈
+
+모든 경로가 하나의 모듈에 존재하는 소규모 프로젝트의 경우, `sealed interface`를 사용하세요. Kotlin 직렬화가 계층 구조를 자동으로 처리하므로 가장 간단한 방식입니다:
+
+```kotlin
+@Serializable
+sealed interface Route : NavKey
+
+@Serializable
+data object RouteA : Route
+
+@Serializable
+data class RouteB(val id: String) : Route
+
+// 기본 직렬화 도구를 사용하는 백 스택
+val backStack: MutableList<Route> =
+    rememberSerializable(serializer = SnapshotStateListSerializer()) {
+        mutableStateListOf(RouteA)
+    }
+```
+
+또는 `rememberNavBackStack()` 함수를 명시적으로 사용하려는 경우, 다음과 같이 약간 다른 구성을 사용할 수 있습니다:
+
+```kotlin
+private val config = SavedStateConfiguration {
+    serializersModule = SerializersModule {
+        polymorphic(NavKey::class) {
+            subclassesOfSealed<Route>()
+        }
+    }
+}
+val backStack = rememberNavBackStack(config, RouteA)
+```
+
+#### 봉인된 타입을 집계하는 멀티 모듈
+
+여러 모듈에 경로가 정의된 더 복잡한 프로젝트에서는 각 모듈에 대해 봉인된 타입을 정의할 수 있습니다. 그 다음, `subclassesOfSealed()` 함수를 사용하여 `app` 모듈에서 해당 직렬화 도구들을 집계합니다.
+
+```kotlin
+// 모듈 A
+@Serializable sealed interface FeatureA : NavKey
+@Serializable data object RouteA1 : FeatureA
+@Serializable data object RouteA2 : FeatureA
+
+// 모듈 B
+@Serializable sealed interface FeatureB : NavKey
+@Serializable data class RouteB1(val id: String) : FeatureB
+@Serializable data class RouteB2(val id: String) : FeatureB
+
+// 모듈 app
+private val config = SavedStateConfiguration {
+    serializersModule = SerializersModule {
+        polymorphic(NavKey::class) {
+            subclassesOfSealed<FeatureA>()
+            subclassesOfSealed<FeatureB>()
+        }
+    }
+}
+val backStack = rememberNavBackStack(config, RouteA1)
+```
+
+의존성 주입(DI)을 사용하면, DI 컨테이너를 통해 각 모듈의 봉인된 타입에 대한 직렬화 도구를 `Set<KSerializer>`로 동적으로 수집할 수도 있습니다.
+
+#### 개별 경로 등록을 사용하는 멀티 모듈
+
+경로를 봉인된 타입으로 그룹화할 수 없는 경우, 서로 다른 모듈의 `SerializersModule` 인스턴스를 수동으로 결합할 수 있습니다.
+
+```kotlin
+// 모듈 A
+@Serializable data object RouteA1 : NavKey
+@Serializable data object RouteA2 : NavKey
+
+val serializerModuleA = SerializersModule {
+    polymorphic(NavKey::class) {
+        subclass(RouteA1::class, RouteA1.serializer())
+        subclass(RouteA2::class, RouteA2.serializer())
+    }
+}
+
+// 모듈 B
+@Serializable data class RouteB1(val id: String) : NavKey
+@Serializable data class RouteB2(val id: String) : NavKey
+
+val serializerModuleB = SerializersModule {
+    polymorphic(NavKey::class) {
+        subclass(RouteB1::class, RouteB1.serializer())
+        subclass(RouteB2::class, RouteB2.serializer())
+    }
+}
+
+// 모듈 app
+private val config = SavedStateConfiguration {
+    serializersModule = serializerModuleA + serializerModuleB
+}
+val backStack = rememberNavBackStack(config, RouteA1)
+```
+
+이 방식은 높은 수준의 유연성과 디커플링(decoupling)을 제공하지만, 더 많은 수동 관리가 필요합니다. [봉인된 타입을 집계하는 멀티 모듈](#multi-module-with-aggregated-sealed-types) 방식과 마찬가지로, DI를 사용하여 직렬화 도구 목록을 동적으로 구성함으로써 유연성을 높일 수 있습니다.
+
 ## 다음 단계
 
-네비게이션 3에 대해서는 Android 개발자 포털에서 심도 있게 다루고 있습니다.
-일부 문서는 Android 전용 예시를 사용하지만, 핵심 개념과 네비게이션 원칙은 모든 플랫폼에서 동일하게 유지됩니다:
+네비게이션 3에 대해서는 Android 개발자 포털에서 심도 있게 다루고 있습니다. 일부 문서는 Android 전용 예시를 사용하지만, 핵심 개념과 네비게이션 원칙은 모든 플랫폼에서 동일하게 유지됩니다:
 
 * [네비게이션 3 개요](https://developer.android.com/guide/navigation/navigation-3): 상태 관리, 네비게이션 코드 모듈화 및 애니메이션에 대한 조언이 포함되어 있습니다.
 * [네비게이션 2에서 네비게이션 3로 마이그레이션](https://developer.android.com/guide/navigation/navigation-3/migration-guide). 네비게이션 3는 기존 라이브러리의 새 버전이라기보다 새로운 라이브러리로 보는 것이 더 쉬우므로, 마이그레이션이라기보다는 재작성에 가깝습니다. 하지만 이 가이드는 취해야 할 일반적인 단계들을 안내합니다.

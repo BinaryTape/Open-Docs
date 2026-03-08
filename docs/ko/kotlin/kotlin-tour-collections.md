@@ -30,7 +30,7 @@
 
 ## 리스트(List)
 
-리스트는 아이템이 추가된 순서대로 저장하며, 중복된 아이템을 허용합니다.
+리스트는 아이템이 추가된 순서대로 저장하며, 중복된 아이템을 허용합니다. 
 
 읽기 전용 리스트([`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/))를 생성하려면 [`listOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/list-of.html) 함수를 사용하세요.
 
@@ -93,7 +93,7 @@ fun main() {
 
 > [`.first()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first.html)와 [`.last()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/last.html) 함수는 **확장(extension)** 함수의 예입니다. 객체에서 확장 함수를 호출하려면 객체 이름 뒤에 마침표 `.`를 찍고 함수 이름을 씁니다.
 > 
-> 확장 함수는 [중급 투어(intermediate tour)](kotlin-tour-intermediate-extension-functions.md#extension-functions)에서 자세히 다룹니다. 지금은 호출하는 방법만 알면 됩니다.
+> 확장 함수는 [중급 투어(intermediate tour)](kotlin-tour-intermediate-extension-functions.md#extension-functions)에서 자세히 다룹니다. 지금은 호출하는 방법만 알면 됩니다. 
 > 
 {style="note"}
 
@@ -229,7 +229,7 @@ fun main() {
 
 맵은 아이템을 키-값(key-value) 쌍으로 저장합니다. 키를 참조하여 값에 접근합니다. 맵은 음식 메뉴판과 같다고 생각할 수 있습니다. 먹고 싶은 음식(키)을 찾으면 가격(값)을 찾을 수 있습니다. 맵은 리스트처럼 숫자 인덱스를 사용하지 않고 값을 찾고 싶을 때 유용합니다.
 
-> * 코틀린이 당신이 원하는 값을 정확히 이해할 수 있도록 맵의 모든 키는 유일해야 합니다.
+> * 코틀린이 당신이 원하는 값을 정확히 이해할 수 있도록 맵의 모든 키는 유일해야 합니다. 
 > * 맵에서 값은 중복될 수 있습니다.
 >
 {style="note"}
