@@ -47,15 +47,15 @@ import ai.koog.agents.core.tools.Tool
 import ai.koog.agents.core.tools.ToolDescriptor
 import ai.koog.agents.core.tools.ToolParameterDescriptor
 import ai.koog.agents.core.tools.ToolParameterType
+import ai.koog.serialization.typeToken
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.builtins.serializer
 import ai.koog.agents.core.tools.annotations.LLMDescription
 -->
 ```kotlin
 // 实现一个简单的计算器工具，将两个数字相加
 object CalculatorTool : Tool<CalculatorTool.Args, Int>(
-    argsSerializer = Args.serializer(),
-    resultSerializer = Int.serializer(),
+    argsType = typeToken<Args>(),
+    resultType = typeToken<Int>(),
     name = "calculator",
     description = "一个可以将两个数字 (0-9) 相加的简单计算器。"
 ) {
@@ -107,12 +107,13 @@ object CalculatorTool : Tool<CalculatorTool.Args, Int>(
 <!--- INCLUDE
 import ai.koog.agents.core.tools.SimpleTool
 import ai.koog.agents.core.tools.annotations.LLMDescription
+import ai.koog.serialization.typeToken
 import kotlinx.serialization.Serializable
 -->
 ```kotlin
 // 创建一个将字符串表达式转换为 double 值的工具
 object CastToDoubleTool : SimpleTool<CastToDoubleTool.Args>(
-    argsSerializer = Args.serializer(),
+    argsType = typeToken<Args>(),
     name = "cast_to_double",
     description = "将传入的表达式转换为 double，如果表达式不可转换，则返回 0.0"
 ) {
@@ -151,6 +152,7 @@ import ai.koog.agents.core.tools.Tool
 import ai.koog.agents.core.tools.ToolDescriptor
 import ai.koog.agents.core.tools.ToolParameterDescriptor
 import ai.koog.agents.core.tools.ToolParameterType
+import ai.koog.serialization.typeToken
 import kotlinx.serialization.Serializable
 import ai.koog.agents.core.tools.annotations.LLMDescription
 import ai.koog.prompt.markdown.markdown
@@ -158,8 +160,8 @@ import ai.koog.prompt.markdown.markdown
 ```kotlin
 // 一个编辑文件的工具
 object EditFile : Tool<EditFile.Args, EditFile.Result>(
-    argsSerializer = Args.serializer(),
-    resultSerializer = Result.serializer(),
+    argsType = typeToken<Args>(),
+    resultType = typeToken<Result>(),
     name = "edit_file",
     description = "编辑给定的文件"
 ) {

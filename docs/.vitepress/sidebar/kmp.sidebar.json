@@ -462,8 +462,22 @@
         "link": "multiplatform-direct-integration"
       },
       {
-        "text": "kmp.multiplatform-spm-export",
-        "link": "multiplatform-spm-export"
+        "text": "kmp.swiftpm-integration",
+        "items": [
+          {
+            "text": "kmp.multiplatform-spm-export",
+            "link": "multiplatform-spm-export"
+          },
+          {
+            "text": "kmp.multiplatform-spm-import",
+            "link": "multiplatform-spm-import"
+          },
+          {
+            "text": "kmp.multiplatform-cocoapods-spm-migration",
+            "link": "multiplatform-cocoapods-spm-migration"
+          }
+        ],
+        "collapsed": true
       },
       {
         "text": "kmp.cocoapods-integration",

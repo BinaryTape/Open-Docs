@@ -11,7 +11,7 @@ data class User(val name: String, val age: Int)
 * `equals()`/`hashCode()` 对。
 * 形式为 `"User(name=John, age=42)"` 的 `toString()`。
 * 与属性声明顺序相对应的 [`componentN()` 函数](destructuring-declarations.md)。
-* `copy()` 函数（见下文）。
+* [`copy()` 函数](#copying)（见下文）。
 
 为了确保生成代码的一致性和有意义的行为，数据类必须符合以下要求：
 

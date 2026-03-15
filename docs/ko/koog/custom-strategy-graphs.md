@@ -8,7 +8,7 @@
 
 상위 수준에서 전략 그래프는 다음과 같은 구성 요소로 이루어집니다:
 
-- **전략(Strategy)**: 그래프를 위한 최상위 컨테이너로, 제네릭 파라미터를 사용하여 지정된 입력 및 출력 타입을 가진 `strategy` 함수를 통해 생성됩니다.
+- **전략(Strategy)**: 그래프를 위한 최상위 컨테이너로, 제네릭 파라미터(generic parameters)를 사용하여 지정된 입력 및 출력 타입을 가진 `strategy` 함수를 통해 생성됩니다.
 - **서브그래프(Subgraphs)**: 자체적인 도구 세트와 컨텍스트를 가질 수 있는 그래프의 섹션입니다.
 - **노드(Nodes)**: 워크플로의 개별 작업 또는 변환입니다.
 - **에지(Edges)**: 전이 조건과 변환을 정의하는 노드 간의 연결입니다.
@@ -32,6 +32,9 @@ Koog 프레임워크는 미리 정의된 노드를 제공하며, `node` 함수�
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 
 val strategy = strategy<String, String>("strategy_name") {
         val sourceNode by node<String, String> { input -> input }
@@ -62,6 +65,9 @@ edge(sourceNode forwardTo targetNode)
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 
 val strategy = strategy<String, String>("strategy_name") {
         val sourceNode by node<String, String> { input -> input }
@@ -84,6 +90,9 @@ edge(sourceNode forwardTo targetNode
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 
 typealias Input = String
 typealias Output = Int
@@ -110,6 +119,9 @@ val strategy = strategy<Input, Output>("strategy-name") {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.ext.tool.SayToUser
 
 typealias Input = String
@@ -152,6 +164,9 @@ val strategy = strategy<Input, Output>("strategy-name") {
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.nodeExecuteTool
 import ai.koog.agents.core.dsl.extension.nodeLLMRequest
 import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
@@ -185,6 +200,9 @@ JVM에서는 전략 그래프에 대한 [Mermaid 상태 다이어그램(state di
 import ai.koog.agents.core.agent.asMermaidDiagram
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.nodeExecuteTool
 import ai.koog.agents.core.dsl.extension.nodeLLMRequest
 import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
@@ -248,6 +266,9 @@ stateDiagram
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.nodeExecuteMultipleTools
 import ai.koog.agents.core.dsl.extension.nodeLLMSendMultipleToolResults
 import ai.koog.prompt.message.Message
@@ -280,9 +301,9 @@ parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(BookTool::clas
 ```
 <!--- KNIT example-custom-strategy-graphs-08.kt -->
 
-자세한 내용은 [도구](tools-overview.md#parallel-tool-calls)를 참조하세요.
+자세한 내용은 [도구](tools-overview.md#parallel-tool-calls)를 참조하세요. 
 
-### 병렬 노드 실행 (Parallel node execution)
+### 병렬 노드 실행 (Parallel node execution) 
 
 병렬 노드 실행을 사용하면 여러 노드를 동시에 실행하여 성능을 향상시키고 복잡한 워크플로를 구현할 수 있습니다.
 
@@ -290,6 +311,9 @@ parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(BookTool::clas
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 
 val strategy = strategy<String, String>("strategy_name") {
     val nodeCalcTokens by node<String, Int> { 42 }
@@ -320,6 +344,9 @@ val calc by parallel<String, Int>(
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 
 val strategy = strategy<String, String>("strategy_name") {
     val someNode by node<String, String> { it }
@@ -372,6 +399,9 @@ edge(
 import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.nodeExecuteTool
 import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
 import ai.koog.agents.core.dsl.extension.nodeLLMRequest

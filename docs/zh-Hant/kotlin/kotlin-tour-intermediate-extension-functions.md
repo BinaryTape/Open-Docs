@@ -32,7 +32,7 @@
 
 在此範例中，`main()` 函式呼叫 [`.first()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/first.html) 函式來傳回清單中的第一個元素。`.first()` 函式是在 `readOnlyShapes` 變數**上**呼叫的，因此 `readOnlyShapes` 變數就是接收者。
 
-要建立擴充函式，請寫下你想要擴充的類別名稱，後跟一個 `.` 和你的函式名稱。接著完成函式宣告的其餘部分，包括其引數和傳回型別。
+要建立擴充函式，請寫下你想要擴充的類別名稱，後跟一個 `.` 和你的函式名稱。接著完成函式宣告的其餘部分，包括其參數和傳回型別。
 
 例如：
 
@@ -66,7 +66,7 @@ fun main() {
 ```kotlin
 class HttpClient {
     fun request(method: String, url: String, headers: Map<String, String>): HttpResponse {
-        // 網路代碼
+        // 網路程式碼
     }
 }
 ```

@@ -10,16 +10,16 @@ Koog 提供三類實作了 [`PromptExecutor`](api:prompt-executor-model::ai.koog
 
 | 類型 | <div style="width:175px">類別</div> | 說明 |
 |-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 單一提供者 | [`SingleLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.SingleLLMPromptExecutor) | 封裝單一提供者的單一 LLM 用戶端。如果您的代理只需要在單一 LLM 提供者內部的模型之間進行切換，請使用此執行器。 |
-| 多個提供者 | [`MultiLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor) | 封裝多個 LLM 用戶端，並根據 LLM 提供者路由呼叫。當請求的用戶端無法使用時，它可以選擇性地使用配置的備援提供者與 LLM。如果您的代理需要在不同提供者的 LLM 之間切換，請使用此執行器。 |
-| 路由 | [`RoutingLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) | 使用路由策略將對指定 LLM 模型的請求分發到多個用戶端執行個體。使用此執行器可避免速率限制、提高吞吐量，並實作具備負載平衡的容錯移轉策略。 |
+| 單一提供者 | [`SingleLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.SingleLLMPromptExecutor) | 封裝單一提供者的單一 LLM 用戶端。如果您的代理只需要在單一 LLM 提供者內部的模型之間進行切換，請使用此執行器。 |
+| 多個提供者 | [`MultiLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor) | 封裝多個 LLM 用戶端，並根據 LLM 提供者路由呼叫。當請求的用戶端無法使用時，它可以選擇性地使用配置的備援提供者與 LLM。如果您的代理需要在不同提供者的 LLM 之間切換，請使用此執行器。 |
+| 路由 | [`RoutingLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) | 使用路由策略將對指定 LLM 模型的請求分發到多個用戶端執行個體。使用此執行器可避免速率限制、提高吞吐量，並實作具備負載平衡的容錯移轉策略。 |
 
 ## 建立單一提供者執行器
 
 若要為特定的 LLM 提供者建立 Prompt 執行器，請執行以下操作：
 
 1. 為特定提供者配置包含對應 API 金鑰的 LLM 用戶端。
-2. 使用 [`SingleLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.SingleLLMPromptExecutor) 建立 Prompt 執行器。
+2. 使用 [`SingleLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.SingleLLMPromptExecutor) 建立 Prompt 執行器。
 
 以下是一個範例：
 
@@ -38,7 +38,7 @@ val promptExecutor = MultiLLMPromptExecutor(openAIClient)
 若要建立可與多個 LLM 提供者協作的 Prompt 執行器，請執行以下操作：
 
 1. 為需要的 LLM 提供者配置包含對應 API 金鑰的用戶端。
-2. 將配置好的用戶端傳遞給 [`MultiLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor) 類別建構函式，以建立具有多個 LLM 提供者的 Prompt 執行器。
+2. 將配置好的用戶端傳遞給 [`MultiLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor) 類別建構函式，以建立具有多個 LLM 提供者的 Prompt 執行器。
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
@@ -66,8 +66,8 @@ val multiExecutor = MultiLLMPromptExecutor(
 若要建立使用路由策略將請求分發到多個 LLM 用戶端執行個體的 Prompt 執行器，請執行以下操作：
 
 1. 配置多個用戶端執行個體（可屬於相同或不同的 LLM 提供者）及其對應的 API 金鑰。
-2. 使用路由策略建立路由員（router），例如 [`RoundRobinRouter`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.RoundRobinRouter)。
-3. 將路由員傳遞給 [`RoutingLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) 類別建構函式。
+2. 使用路由策略建立路由員（router），例如 [`RoundRobinRouter`](api:prompt-executor-model::ai.koog.prompt.executor.llms.RoundRobinRouter)。
+3. 將路由員傳遞給 [`RoutingLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) 類別建構函式。
 
 這對於避免速率限制、提高吞吐量以及實作容錯移轉策略非常有用。
 
@@ -78,23 +78,23 @@ import ai.koog.prompt.executor.llms.RoundRobinRouter
 import ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor
 -->
 ```kotlin
-// 建立多個用戶端執行個體
+// Create multiple client instances
 val openAI1 = OpenAILLMClient(apiKey = "openai-key-1")
 val openAI2 = OpenAILLMClient(apiKey = "openai-key-2")
 val anthropic = AnthropicLLMClient(apiKey = "anthropic-key")
 
-// 使用輪詢（round-robin）策略建立路由員
+// Create router with round-robin strategy
 val router = RoundRobinRouter(openAI1, openAI2, anthropic)
 
-// 建立路由執行器
+// Create routing executor
 val routingExecutor = RoutingLLMPromptExecutor(router)
 ```
 <!--- KNIT example-prompt-executors-03.kt -->
 
-當您使用此執行器執行 Prompt 時，對 OpenAI 模型的請求將根據輪詢策略在 `openAI1` 與 `openAI2` 之間交替切換。
+當您使用此執行器執行 Prompt 時，對 OpenAI 模型的請求將根據輪詢（round-robin）策略在 `openAI1` 與 `openAI2` 之間交替切換。
 對 Anthropic 模型的請求一律會發送到單一的 `anthropic` 用戶端，因為輪詢策略會為每個提供者維護獨立的計數器。
 
-您也可以透過建立一個實作了 [`LLMClientRouter`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.LLMClientRouter) 介面的類別來實作自訂路由策略。
+您也可以透過建立一個實作了 [`LLMClientRouter`](api:prompt-executor-model::ai.koog.prompt.executor.llms.LLMClientRouter) 介面的類別來實作自訂路由策略。
 
 ## 預定義的 Prompt 執行器
 
@@ -125,10 +125,10 @@ import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
 import kotlinx.coroutines.runBlocking
 -->
 ```kotlin
-// 建立一個 OpenAI 執行器
+// Create an OpenAI executor
 val promptExecutor = simpleOpenAIExecutor("OPENAI_KEY")
 
-// 建立具有 OpenAI、Anthropic 和 Google LLM 用戶端的 MultiLLMPromptExecutor
+// Create a MultiLLMPromptExecutor with OpenAI, Anthropic, and Google LLM clients
 val openAIClient = OpenAILLMClient("OPENAI_KEY")
 val anthropicClient = AnthropicLLMClient("ANTHROPIC_KEY")
 val googleClient = GoogleLLMClient("GOOGLE_KEY")
@@ -159,10 +159,10 @@ fun main() {
 }
 -->
 ```kotlin
-// 建立一個 OpenAI 執行器
+// Create an OpenAI executor
 val promptExecutor = simpleOpenAIExecutor("OPENAI_KEY")
 
-// 執行一個 Prompt
+// Execute a prompt
 val response = promptExecutor.execute(
     prompt = prompt("demo") { user("Summarize this.") },
     model = OpenAIModels.Chat.GPT4o
@@ -206,25 +206,25 @@ fun main() = runBlocking {
 }
 -->
 ```kotlin
-// 為 OpenAI、Anthropic 和 Google 提供者建立 LLM 用戶端
+// Create LLM clients for OpenAI, Anthropic, and Google providers
 val openAIClient = OpenAILLMClient("OPENAI_API_KEY")
 val anthropicClient = AnthropicLLMClient("ANTHROPIC_API_KEY")
 val googleClient = GoogleLLMClient("GOOGLE_API_KEY")
 
-// 建立一個將 LLM 提供者對應到 LLM 用戶端的 MultiLLMPromptExecutor
+// Create a MultiLLMPromptExecutor that maps LLM providers to LLM clients
 val executor = MultiLLMPromptExecutor(
     LLMProvider.OpenAI to openAIClient,
     LLMProvider.Anthropic to anthropicClient,
     LLMProvider.Google to googleClient
 )
 
-// 建立一個 Prompt
+// Create a prompt
 val p = prompt("demo") { user("Summarize this.") }
 
-// 使用 OpenAI 模型執行 Prompt；Prompt 執行器會自動切換到 OpenAI 用戶端
+// Run the prompt with an OpenAI model; the prompt executor automatically switches to the OpenAI client
 val openAIResult = executor.execute(p, OpenAIModels.Chat.GPT4o)
 
-// 使用 Anthropic 模型執行 Prompt；Prompt 執行器會自動切換到 Anthropic 用戶端
+// Run the prompt with an Anthropic model; the prompt executor automatically switches to the Anthropic client
 val anthropicResult = executor.execute(p, AnthropicModels.Opus_4_6)
 ```
 <!--- KNIT example-prompt-executors-06.kt -->
@@ -289,9 +289,9 @@ fun main() = runBlocking {
 }
 -->
 ```kotlin
-// 建立一個 Prompt
+// Create a prompt
 val p = prompt("demo") { user("Summarize this") }
-// 如果您傳遞一個 Google 模型，Prompt 執行器將會使用備援模型，因為不包含 Google 用戶端
+// If you pass a Google model, the prompt executor will use the fallback model, as the Google client is not included
 val response = multiExecutor.execute(p, GoogleModels.Gemini2_5Pro)
 ```
 <!--- KNIT example-prompt-executors-08.kt -->

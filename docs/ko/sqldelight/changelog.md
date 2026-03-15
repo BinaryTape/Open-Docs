@@ -2,9 +2,16 @@
 
 ## 미출시(Unreleased)
 
+### 변경됨
+* [페이징 확장] Paging 3.4.1로 업그레이드 및 X64 Apple 타겟 삭제. (#6166)
+
+## [2.3.1] - 2026-03-12
+[2.3.1]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.1
+
 ### 추가됨
 - [PostgreSQL 다이얼렉트] `ALTER TABLE ALTER TYPE USING` 표현식 지원 개선 (#6116 by @griffio)
 - [PostgreSQL 다이얼렉트] `DROP COLUMN IF EXISTS` 지원 추가 (#6112 by @griffio)
+- [Gradle 플러그인] `SELECT` 와일드카드 확장을 비활성화하기 위한 `expandSelectStar` 플래그 추가 (#5813 by @griffio)
 - [MySQL 다이얼렉트] 윈도우 함수(Window Functions) 지원 추가 (#6086 by @griffio)
 - [Gradle 플러그인] 시작 스키마 버전이 1이 아니고 `verifyMigrations`가 true일 때 발생하는 빌드 실패 수정 (#6017 by @neilgmiller)
 - [Gradle 플러그인] `SqlDelightWorkerTask`를 더 유연하게 설정 가능하도록 변경하고, Windows에서의 개발을 지원하도록 기본 설정을 업데이트 (#5215 by @MSDarwish2000)
@@ -14,6 +21,7 @@
 - [PostgreSQL 다이얼렉트] Postgis Point 타입 및 관련 함수 지원 (#5602 by @vanniktech)
 - [런타임] 트랜잭션의 `CoroutineContext`를 제어하는 메커니즘을 제공하는 `SuspendingTransacter.TransactionDispatcher` 추가 (#5967 by @eygraber)
 - [Gradle 플러그인] Android Gradle Plugin 9.0의 새로운 DSL과 완전히 호환됨. (#6140)
+- [PostgreSQL 다이얼렉트] PostgreSql `CREATE TABLE` 저장 파라미터(storage parameters) 지원 (#6148 by @griffio)
 
 ### 변경됨
 - [컴파일러] 컴파일러 출력 타입을 `java.lang.Void`에서 `kotlin.Nothing`으로 변경 (#6099 by @griffio)
@@ -28,6 +36,11 @@
 - [Gradle 플러그인] 복잡한 스키마에서 중단되지 않도록 `VerifyMigrationTask` 성능 개선 (#6073 by @Lightwood13)
 - [Intellij 플러그인] 플러그인 초기화 예외 수정 및 지원 중단된 메서드 업데이트 (#6040 by @griffio)
 - [Gradle 플러그인] Android Gradle Plugin의 내장 Kotlin과의 호환성 수정 (#6139)
+
+## [2.3.0] - 2025-03-12
+[2.3.0]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.0
+
+실패한 릴리스입니다. 2.3.1을 사용하세요!
 
 ## [2.2.1] - 2025-11-13
 [2.2.1]: https://github.com/sqldelight/sqldelight/releases/tag/2.2.1
@@ -272,7 +285,7 @@
 - [페이징] `androidx-paging3` 확장에 `iosSimulatorArm64` 타겟 추가 (#4117)
 - [PostgreSQL 다이얼렉트] `gen_random_uuid()` 지원 및 테스트 추가 (#3855 by @davidwheeler123)
 - [PostgreSQL 다이얼렉트] PostgreSQL `Alter table add constraint` (#4116 by @griffio)
-- [PostgreSQL 다이얼렉트] `Alter table add constraint check` (#4120 by @griffio)
+- [PostgreSQL 다이얼렉트] PostgreSQL `Alter table add constraint check` (#4120 by @griffio)
 - [PostgreSQL 다이얼렉트] PostgreSQL 문자 길이 함수 추가 (#4121 by @griffio)
 - [PostgreSQL 다이얼렉트] PostgreSQL 컬럼 기본값 interval 추가 (#4142 by @griffio)
 - [PostgreSQL 다이얼렉트] PostgreSQL interval 컬럼 결과 추가 (#4152 by @griffio)
@@ -418,7 +431,7 @@ sqldelight {
 ```
 - `AfterVersionWithDriver` 타입이 이제 항상 드라이버를 가지는 `AfterVersion`을 위해 삭제되었습니다.
 - `Schema` 타입은 더 이상 `SqlDriver`의 서브타입이 아닙니다.
-- `PreparedStatement` API는 이제 0부터 시작하는 인덱스로 호출됩니다.
+- `PreparedStatement` API은 이제 0부터 시작하는 인덱스로 호출됩니다.
 
 ### 추가됨
 - [IDE 플러그인] 실행 중인 데이터베이스에 대해 SQLite, MySQL, PostgreSQL 명령을 실행하는 지원 추가 (#2718 by @aperfilyev)
@@ -561,7 +574,7 @@ sqldelight {
 }
 ```
 
-현재 지원되는 다이얼렉트는 `mysql-dialect`, `postgresql-dialect`, `hsql-dialect`, `sqlite-3-18-dialect`, `sqlite-3-24-dialect`, `sqlite-3-25-dialect`, `sqlite-3-30-dialect`, `sqlite-3-35-dialect`입니다.
+현재 지원되는 다이얼렉트는 `mysql-dialect`, `postgresql-dialect`, `hsql-dialect`, `sqlite-3-18-dialect`, `sqlite-3-24-dialect`, `sqlite-3-24-dialect`, `sqlite-3-30-dialect`, `sqlite-3-35-dialect`입니다.
 
 - 원시 타입은 이제 명시적으로 임포트해야 합니다(예: `INTEGER AS Boolean`을 쓰려면 `import kotlin.Boolean` 필요). 이전에 지원되던 일부 타입은 이제 어댑터가 필요합니다. 대부분의 변환을 위한 원시 어댑터는 `app.cash.sqldelight:primitive-adapters:2.0.0-alpha01`에서 제공됩니다(예: `Integer AS kotlin.Int`를 위한 `IntColumnAdapter`).
 
@@ -569,7 +582,7 @@ sqldelight {
 - [IDE 플러그인] 기본적인 마이그레이션 제안 (by @aperfilyev)
 - [IDE 플러그인] 임포트 힌트 액션 추가 (by @aperfilyev)
 - [IDE 플러그인] Kotlin 클래스 완성 추가 (by @aperfilyev)
-- [Gradle 플러그인] Gradle 타입 세이프 프로젝트 접근자 단축어 추가 (by @hfhbd)
+- [Gradle 플러그인] 타입 세이프(typesafe) 프로젝트 접근자 단축어 추가 (by @hfhbd)
 - [컴파일러] 다이얼렉트에 기반한 코드 생성 커스터마이징 (by @MariusVolkhart)
 - [JDBC 드라이버] `JdbcDriver`에 일반 타입 추가 (by @MariusVolkhart)
 - [SQLite] SQLite 3.35 지원 추가 (by @eygraber)
@@ -946,7 +959,7 @@ sqldelight {
 
 * 수정: [Gradle] Kotlin Native 1.3.60 지원.
 * 수정: [Gradle] #1287 동기화 시 경고 발생.
-* 수정: [컴파일러] #1469 쿼리를 위한 `SynetheticAccessor` 생성.
+* 수정: [컴파일러] #1469 `SynetheticAccessor` 생성.
 * 수정: [JVM 드라이버] 메모리 누수 수정.
 * 참고: 코루틴 확장 아티팩트는 buildscript에 kotlinx bintray maven 저장소 추가가 필요합니다.
 
@@ -957,7 +970,7 @@ sqldelight {
 * 수정: [Gradle] Kotlin Native 1.3.50 지원.
 * 수정: [Gradle] #1380 클린 빌드가 가끔 실패하는 문제.
 * 수정: [Gradle] #1348 verify 태스크 실행 시 "Could not retrieve functions"가 출력되는 문제.
-* 수정: [컴파일] #1405 쿼리에 FTS 테이블이 조인되어 포함된 경우 프로젝트 빌드 불가 문제.
+* 수정: [Compile] #1405 쿼리에 FTS 테이블이 조인되어 포함된 경우 프로젝트 빌드 불가 문제.
 * 수정: [Gradle] #1266 여러 데이터베이스 모듈이 있을 때 산발적인 Gradle 빌드 실패 문제.
 
 ## [1.1.4] - 2019-07-11
@@ -1078,7 +1091,7 @@ sqldelight {
  * 신규: IntelliJ 플러그인이 .sq 파일에서 포맷팅 수행
  * 신규: SQLite timestamp 리터럴 지원
  * 수정: IntelliJ에서 파라미터화된 타입을 클릭하여 이동 가능
- * 수정: 이스케이프된 컬럼 이름을 Cursor에서 가져올 때 더 이상 `RuntimeException`을 발생시키지 않음.
+ * 수정: 이스케이프된 컬럼 이름이 적절히 Cursor에서 가져올 때 더 이상 `RuntimeException`을 발생시키지 않음.
  * 수정: Gradle 플러그인이 예외를 출력하려고 할 때 크래시 나지 않음.
 
 ## [0.4.4] - 2016-07-20

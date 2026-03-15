@@ -3,14 +3,14 @@
 <tldr>
    これはローカルでの統合手法です。以下の場合に適しています：<br/>
 
-   * ローカル SPM モジュールを持つ iOS アプリがある。
+   * ローカル SwiftPM モジュールを持つ iOS アプリがある。
    * ローカルマシンに iOS をターゲットとした Kotlin Multiplatform プロジェクトをすでにセットアップしている。
    * 既存の iOS プロジェクトが静的リンク（static linking）タイプである。<br/>
 
    [自分に最適な統合方法を選択する](multiplatform-ios-integration-overview.md)
 </tldr>
 
-このチュートリアルでは、Kotlin Multiplatform プロジェクトの Kotlin フレームワークを、Swift Package Manager (SPM) を使用してローカルパッケージに統合する方法を学びます。
+このチュートリアルでは、Kotlin Multiplatform プロジェクトの Kotlin フレームワークを、Swift Package Manager (SwiftPM) を使用してローカルパッケージに統合する方法を学びます。
 
 ![Direct integration diagram](direct-integration-scheme.svg){width=700}
 
@@ -36,14 +36,14 @@
 
 ### SPM の binaryTarget 統合からの移行 {initial-collapse-state="collapsed" collapsible="true"}
 
-`binaryTarget` を使用した SPM 統合から移行するには：
+`binaryTarget` を使用した SwiftPM 統合から移行するには：
 
 1. Xcode で、**Product** | **Clean Build Folder** を使用するか、<shortcut>Cmd + Shift + K</shortcut> ショートカットを使用してビルドディレクトリをクリーンアップします。
 2. すべての `Package.swift` ファイルから、Kotlin フレームワークを含むパッケージへの依存関係と、プロダクトへのターゲット依存関係の両方を削除します。
 
 ### CocoaPods プラグインからの移行 {initial-collapse-state="collapsed" collapsible="true"}
 
-> `cocoapods {}` ブロック内に他の Pod への依存関係がある場合は、CocoaPods 統合アプローチを継続する必要があります。現在、マルチモードの SPM プロジェクトにおいて、Pod への依存関係と Kotlin フレームワークへの依存関係を両立させることはできません。
+> `cocoapods {}` ブロック内に他の Pod への依存関係がある場合は、CocoaPods 統合アプローチを継続する必要があります。現在、マルチモードの SwiftPM プロジェクトにおいて、Pod への依存関係と Kotlin フレームワークへの依存関係を両立させることはできません。
 >
 {style="warning"}
 
@@ -101,7 +101,7 @@ CocoaPods プラグインから移行するには：
    }
    ```
 
-   ![SPM usage](xcode-spm-usage.png){width=700}
+   ![SwiftPM usage](xcode-spm-usage.png){width=700}
 
 6. iOS プロジェクトの `ContentView.swift` ファイルで、このローカルパッケージをインポートして関数を使用できるようになります：
 
@@ -111,7 +111,7 @@ CocoaPods プラグインから移行するには：
    
    struct ContentView: View {
        var body: some View {
-           VStack {
+           Vstack {
                Image(systemName: "globe")
                    .imageScale(.large)
                    .foregroundStyle(.tint)

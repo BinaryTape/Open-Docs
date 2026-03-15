@@ -220,7 +220,7 @@ XCFramework の公開を設定するには：
     
         listOf(
             iosX64(),
-            iosArm64(),
+            ios Arm64(),
             iosSimulatorArm64()
         ).forEach { iosTarget ->
             // 上記の例と同様ですが、

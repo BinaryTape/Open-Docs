@@ -27,6 +27,8 @@ Koog 中的并行节点执行由下述方法和数据结构组成。
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
 
 typealias Input = Unit
 typealias Output = String
@@ -53,6 +55,8 @@ val nodeName by parallel<Input, Output>(
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
 
 typealias Input = String
 typealias Output = Int
@@ -91,6 +95,8 @@ val calc by parallel<String, Int>(
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
 
 typealias Input = String
 typealias Output = String
@@ -120,6 +126,8 @@ val nodeSelectJoke by parallel<String, String>(
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
 
 typealias Input = String
 typealias Output = String
@@ -149,6 +157,8 @@ val nodeLongestJoke by parallel<String, String>(
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.structure.json.JsonStructure
 
@@ -196,6 +206,8 @@ val nodeBestJoke by parallel<String, String>(
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
 
 typealias Input = String
 typealias Output = String
@@ -227,6 +239,8 @@ $joke" }
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
 import ai.koog.prompt.dsl.prompt
 import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
 import ai.koog.prompt.executor.clients.openai.OpenAIModels

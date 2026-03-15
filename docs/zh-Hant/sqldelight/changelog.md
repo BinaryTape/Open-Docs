@@ -2,9 +2,16 @@
 
 ## 未發佈
 
+### 變更
+- [分頁擴充套件] 升級至 paging 3.4.1，並移除 X64 Apple 目標。（#6166）
+
+## [2.3.1] - 2026-03-12
+[2.3.1]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.1
+
 ### 新增
 - [PostgreSQL 方言] 改進對 ALTER TABLE ALTER TYPE USING 運算式的支援（#6116 由 @griffio 提供）
 - [PostgreSQL 方言] 新增對 DROP COLUMN IF EXISTS 的支援（#6112 由 @griffio 提供）
+- [Gradle 外掛程式] 新增 `expandSelectStar` 旗標以關閉 Select 萬用字元展開（#5813 由 @griffio 提供）
 - [MySQL 方言] 新增對視窗函式的支援（#6086 由 @griffio 提供）
 - [Gradle 外掛程式] 修復當起始架構版本不為 1 且 verifyMigrations 為 true 時的組建失敗（#6017 由 @neilgmiller 提供）
 - [Gradle 外掛程式] 讓 `SqlDelightWorkerTask` 具備更多可配置性，並更新預設配置以支援在 Windows 上開發（#5215 由 @MSDarwish2000 提供）
@@ -14,6 +21,7 @@
 - [PostgreSQL 方言] 支援 Postgis Point 型別及相關函式（#5602 由 @vanniktech 提供）
 - [執行階段] 新增了 `SuspendingTransacter.TransactionDispatcher`，提供一種用於控制交易的 `CoroutineContext` 的機制（#5967 由 @eygraber 提供）
 - [Gradle 外掛程式] 完全相容 Android Gradle Plugin 9.0 的新 DSL。（#6140）
+- [PostgreSQL 方言] 支援 PostgreSql CREATE TABLE 儲存參數（#6148 由 @griffio 提供）
 
 ### 變更
 - [編譯器] 將編譯器輸出型別從 java.lang.Void 變更為 kotlin.Nothing（#6099 由 @griffio 提供）
@@ -23,11 +31,16 @@
 
 ### 修復
 - [IntelliJ 外掛程式] 修復在 VFS 重新整理事件期間，因在 EDT 上阻塞檔案類型偵測而導致的 IDE 凍結。
-- [SQLite 方言] 修復使用 JSON 路徑運算子時的 SQLite 3.38 編譯錯誤（#6070 由 @griffio 提供）
-- [SQLite 方言] 使用自訂列型別時，為 group_concat 函式使用 String 型別（#6082 由 @griffio 提供）
+- [SQLite 方言] 修復 SQLite 3.38 編譯錯誤時使用 JSON 路徑運算子的問題（#6070 由 @griffio 提供）
+- [SQLite 方言] 使用自定義列型別時，為 `group_concat` 函式使用 String 型別（#6082 由 @griffio 提供）
 - [Gradle 外掛程式] 提升 `VerifyMigrationTask` 的效能，防止其在複雜架構上掛起（#6073 由 @Lightwood13 提供）
 - [IntelliJ 外掛程式] 修復外掛程式初始化例外狀況並更新已棄用的方法（#6040 由 @griffio 提供）
-- [Gradle 外掛程式] 修復與 Android Gradle Plugin 內建 Kotlin 的相容性（#6139）
+- [Gradle 外掛程式] 修復與 Android Gradle Plugin 內置 Kotlin 的相容性（#6139）
+
+## [2.3.0] - 2025-03-12
+[2.3.0]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.0
+
+發佈失敗。請使用 2.3.1！
 
 ## [2.2.1] - 2025-11-13
 [2.2.1]: https://github.com/sqldelight/sqldelight/releases/tag/2.2.1
@@ -40,7 +53,7 @@
 - [PostgreSQL 方言] 新增對使用通用資料表運算式的 MATERIALIZED 查詢計畫提示的支援（#5961 由 @griffio 提供）
 - [PostgreSQL 方言] 新增對 Postgres JSON Aggregate FILTER 的支援（#5957 由 @griffio 提供）
 - [PostgreSQL 方言] 新增對 Postgres 列舉的支援（#5935 由 @griffio 提供）
-- [PostgreSQL 方方言] 新增對 Postgres 觸發器的有限支援（#5932 由 @griffio 提供）
+- [PostgreSQL 方言] 新增對 Postgres 觸發器的有限支援（#5932 由 @griffio 提供）
 - [PostgreSQL 方言] 新增述詞以檢查 SQL 運算式是否可剖析為 JSON（#5843 由 @griffio 提供）
 - [PostgreSQL 方言] 新增對 PostgreSql Comment On 陳述式的有限支援（#5808 由 @griffio 提供）
 - [MySQL 方言] 新增對索引可見性選項的支援（#5785 由 @orenkislev-faire 提供）
@@ -76,7 +89,7 @@
 - [PostgreSQL 方言] 支援 PostgreSql UnNest Array 轉資料列（#5673 由 @griffio 提供）
 - [PostgreSQL 方言] 支援 PostgreSql TSRANGE/TSTZRANGE（#5297 由 @griffio 提供）
 - [PostgreSQL 方言] PostgreSql Right Full Join（#5086 由 @griffio 提供）
-- [PostgreSQL 方言] 從時間型別提取 Postrgesql 資料（#5273 由 @griffio 提供）
+- [PostgreSQL 方言] 從時間型別提取 PostgreSql 資料（#5273 由 @griffio 提供）
 - [PostgreSQL 方言] PostgreSql 陣列包含運算子（#4933 由 @griffio 提供）
 - [PostgreSQL 方言] PostgreSql 卸載約束（#5288 由 @griffio 提供）
 - [PostgreSQL 方言] PostgreSql 型別轉換（#5089 由 @griffio 提供）
@@ -93,7 +106,7 @@
 
 ### 變更
 - [編譯器] 產生的查詢檔案為簡單的變動器傳回資料列計數（#4578 由 @MariusVolkhart 提供）
-- [原生驅動程式] 更新 NativeSqlDatabase.kt 以變更 DELETE、INSERT 與 UPDATE 陳述式的唯讀標記（#5680 由 @griffio 提供）
+- [原生驅動程式] 更新 `NativeSqlDatabase.kt` 以變更 DELETE、INSERT 與 UPDATE 陳述式的唯讀標記（#5680 由 @griffio 提供）
 - [PostgreSQL 方言] 將 PgInterval 變更為 String（#5403 由 @griffio 提供）
 - [PostgreSQL 方言] 支援 SqlDelight 模組實作 PostgreSql 擴充功能（#5677 由 @griffio 提供）
 
@@ -175,7 +188,7 @@
 - [PostgreSQL 方言] 新增對 PostgreSQL CREATE INDEX CONCURRENTLY 的支援（#4531 由 @griffio 提供）
 - [PostgreSQL 方言] 允許 PostgreSQL CTE 輔助陳述式互相參考（#4493 由 @griffio 提供）
 - [PostgreSQL 方言] 新增對二元運算式與總和的 PostgreSQL 型別支援（#4539 由 @Adriel-M 提供）
-- [PostgreSQL 方言] 新增對 PostgreSQL SELECT DISTINCT ON 語法的支援（#4584 由 @griffio 提供）
+- [PostgreSQL 方言] 新增對 SELECT 陳述式中 PostgreSQL SELECT DISTINCT ON 語法的支援（#4584 由 @griffio 提供）
 - [PostgreSQL 方言] 新增對 SELECT 陳述式中 PostgreSQL JSON 函式的支援（#4590 由 @MariusVolkhart 提供）
 - [PostgreSQL 方言] 新增 generate_series PostgreSQL 函式（#4717 由 @griffio 提供）
 - [PostgreSQL 方言] 新增額外的 Postgres 字串函式定義（#4752 由 @MariusVolkhart 提供）
@@ -534,7 +547,7 @@ sqldelight {
 - [MySQL] UNIX_TIMESTAMP、TO_SECONDS、JSON_ARRAYAGG MySQL 函式無法辨識
 - [SQLite] 修復 SQLite 視窗功能
 - [IDE 外掛程式] 在空進度指示器中執行跳轉處理常式（#2990）
-- [IDE 外掛程式] 確保如果專案未配置，醒目提示存取器不會執行（#2981、#2976）
+- [IDE 外掛程式] 確保醒目提示訪問器不會在專案未配置時執行（#2981、#2976）
 - [IDE 外掛程式] 確保轉移產生的程式碼在 IDE 中也會更新（#1837）
 - [IDE 外掛程式] 更新方言時使索引失效
 
@@ -632,7 +645,7 @@ sqldelight {
 
 ### 修復
 - [編譯器] 不要為重複的陣列參數提取變數（由 @aperfilyev 提供）
-- [Gradle 外掛程式] 新增 kotlin.mpp.enableCompatibilityMetadataVariant。（#2628 由 @martinbonnin 提供）
+- [Gradle 外掛程式] 新增 `kotlin.mpp.enableCompatibilityMetadataVariant`。（#2628 由 @martinbonnin 提供）
 - [IDE 外掛程式] 尋找用法處理需要讀取操作
 
 ## [1.5.2] - 2021-10-12
@@ -655,7 +668,7 @@ sqldelight {
 
 ### 變更
 - [Gradle 外掛程式] 明確要求 Gradle 7.0（#2572 由 @martinbonnin 提供）
-- [Gradle 外掛程式] 讓 VerifyMigrationTask 支援 Gradle 的最新檢查（#2533 由 @3flex 提供）
+- [Gradle 外掛程式] 讓 `VerifyMigrationTask` 支援 Gradle 的最新檢查（#2533 由 @3flex 提供）
 - [IDE 外掛程式] 當將可 null 型別與不可為 null 型別聯結時，不要發出「聯結比較兩個不同型別的列」的警告（#2550 由 @pchmielowski 提供）
 - [IDE 外掛程式] 釐清列型別中小寫「as」的錯誤（由 @aperfilyev 提供）
 
@@ -728,7 +741,7 @@ sqldelight {
 ### 新增
 - [SQLite Javascript 驅動程式] 啟用 sqljs-driver 發佈（#1667 由 @dellisd 提供）
 - [Paging3 擴充套件] 用於 Android Paging 3 程式庫的擴充套件（#1786 由 @kevincianfarini 提供）
-- [MySQL 方言] 增加對 MySQL ON DUPLICATE KEY UPDATE 衝突解決的支援。（由 @rharter 提供）
+- [MySQL 方言] 增加對 MySql ON DUPLICATE KEY UPDATE 衝突解決的支援。（由 @rharter 提供）
 - [SQLite 方言] 為 SQLite offsets() 新增編譯器支援（由 @qjroberts 提供）
 - [IDE 外掛程式] 為未知型別新增匯入快速修正（#683 由 @aperfilyev 提供）
 - [IDE 外掛程式] 新增未使用的匯入檢查（#1161 由 @aperfilyev 提供）
@@ -743,7 +756,7 @@ sqldelight {
 ### 變更
 - [編譯器] 智慧轉換「IS NOT NULL」查詢（#867）
 - [編譯器] 防止在執行時會失敗的關鍵字使用（#1471、#1629）
-- [Gradle 外掛程式] 將 Gradle 外掛程式大小從 60mb 減少到 13mb。
+- [Gradle 外掛程式] 將 Gradle 外掛程式大小從 60 MB 減少到 13 MB。
 - [Gradle 外掛程式] 正確支援 Android 變體，並移除對 KMM 目標特定 SQL 的支援（#1039）
 - [Gradle 外掛程式] 根據 minsdk 選擇最低 SQLite 版本（#1684）
 - [原生驅動程式] 原生驅動程式連線池與效能更新
@@ -778,7 +791,7 @@ sqldelight {
 - [IDE 外掛程式] 處理在 IDE 中產生程式碼前偵測錯誤時發生的例外
 - [IDE 外掛程式] 讓 IDE 外掛程式相容於動態外掛程式（#1536）
 - [Gradle 外掛程式] 使用 WorkerApi 產生資料庫時的競態條件（#2062 由 @stephanenicolas 提供）
-- [Gradle 外掛程式] classLoaderIsolation 防止自訂 JDBC 使用（#2048 由 @benasher44 提供）
+- [Gradle 外掛程式] `classLoaderIsolation` 防止自訂 JDBC 使用（#2048 由 @benasher44 提供）
 - [Gradle 外掛程式] 改進遺漏 packageName 的錯誤訊息（由 @vanniktech 提供）
 - [Gradle 外掛程式] SQLDelight 將 IntelliJ 相依項流失至 buildscript 類別路徑（#1998）
 - [Gradle 外掛程式] 修復 Gradle 組建快取（#2075）
@@ -794,7 +807,7 @@ sqldelight {
 ### 新增
 - [PostgreSQL 方言] 支援 WITH 中修改資料的陳述式
 - [PostgreSQL 方言] 支援 substring 函式
-- [Gradle 外掛程式] 新增了 verifyMigrations 旗標，用於在 SQLDelight 編譯期間驗證遷移（#1872）
+- [Gradle 外掛程式] 新增了 `verifyMigrations` 旗標，用於在 SQLDelight 編譯期間驗證遷移（#1872）
 
 ### 變更
 - [編譯器] 在非 SQLite 方言中將 SQLite 特定函式標記為未知
@@ -810,7 +823,7 @@ sqldelight {
 - [編譯器] 查詢包裝器中出現許多名稱遮蔽警告（#1946 由 @eygraber 提供）
 - [編譯器] 產生的程式碼使用全限定名稱（#1939）
 - [IDE 外掛程式] 從 Gradle 同步觸發 SQLDelight 程式碼產生
-- [IDE 外掛程式] 變更 .sq 檔案時外掛程式未重新產生資料庫介面（#1945）
+- [IDE 外掛程式] 外掛程式未在變更 .sq 檔案時重新產生資料庫介面（#1945）
 - [IDE 外掛程式] 將檔案移至新套件時的問題（#444）
 - [IDE 外掛程式] 如果無處可移動游標，則不執行任何操作而不是當機（#1994）
 - [IDE 外掛程式] 為 Gradle 專案之外的檔案使用空套件名稱（#1973）
@@ -826,7 +839,7 @@ sqldelight {
 [1.4.3]: https://github.com/sqldelight/sqldelight/releases/tag/1.4.3
 
 ### 新增
-- [MySQL 方言] 增加對 MySQL last_insert_id 函式的支援（由 @lawkai 提供）
+- [MySQL 方言] 增加對 MySQL `last_insert_id` 函式的支援（由 @lawkai 提供）
 - [PostgreSQL 方言] 支援 SERIAL 資料型別（由 @veyndan 與 @felipecsl 提供）
 - [PostgreSQL 方言] 支援 PostgreSQL RETURNING（由 @veyndan 提供）
 
@@ -835,7 +848,7 @@ sqldelight {
 - [編譯器] 修復 Upsert 陳述式編譯器錯誤（#1809 由 @eygraber 提供）
 - [編譯器] 修復產生無效 Kotlin 的問題（#1925 由 @eygraber 提供）
 - [編譯器] 對未知函式有更好的錯誤訊息（#1843）
-- [編譯器] 公開字串作為 instr 第二個參數的型別
+- [編譯器] 公開字串作為 `instr` 第二個參數的型別
 - [IDE 外掛程式] 修復 IDE 外掛程式的守護程序膨脹與 UI 執行緒停頓（#1916）
 - [IDE 外掛程式] 處理模組為 null 的情況（#1902）
 - [IDE 外掛程式] 在未配置的 sq 檔案中，為套件名稱傳回空字串（#1920）
@@ -901,7 +914,7 @@ sqldelight {
 - [JDBC 驅動程式] 公開源自 javax.sql.DataSource 的 JdbcDriver 建構函式（#1614）
 
 ### 修復
-- [編譯器] 支援資料表上的 Javadoc 並修復一個檔案中出現多個 javadoc 的問題（#1224）
+- [編譯器]支援資料表上的 Javadoc 並修復一個檔案中出現多個 javadoc 的問題（#1224）
 - [編譯器] 允許為合成列插入值（#1351）
 - [編譯器] 修復目錄名稱清理中的不一致（由 @ZacSweers 提供）
 - [編譯器] 合成列應在聯結中保留可 null 性（#1656）
@@ -984,7 +997,7 @@ sqldelight {
 * 新功能：[執行階段] #1267 日誌驅動程式裝飾器。
 * 修復：[編譯器] #1254 拆分長度超過 2^16 個字元的字串常值。
 * 修復：[Gradle] #1260 產生的原始碼在多平台專案中被辨識為 iOS 來源。
-* 修復：[IDE] #1290 CopyAsSqliteAction.kt:43 中的 kotlin.KotlinNullPointerException。
+* 修復：[IDE] #1290 kotlin.KotlinNullPointerException 在 CopyAsSqliteAction.kt:43。
 * 修復：[Gradle] #1268 近期版本中執行 linkDebugFrameworkIos* 任務失敗。
 
 ## [1.1.1] - 2019-03-01
@@ -1185,4 +1198,4 @@ sqldelight {
 ## [0.1.0] - 2016-02-12
 [0.1.0]: https://github.com/sqldelight/sqldelight/releases/tag/0.1.0
 
-初始版本。
+初始發佈。

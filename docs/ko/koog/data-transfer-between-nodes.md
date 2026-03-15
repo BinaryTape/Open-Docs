@@ -64,6 +64,7 @@ val userDataKey = createStorageKey<UserData>("user-data")
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.core.agent.entity.createStorageKey
 
 class UserData(
@@ -94,6 +95,7 @@ val nodeSaveData by node<Unit, Unit> {
 <!--- INCLUDE
 import ai.koog.agents.core.agent.entity.createStorageKey
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 class UserData(
     val name: String,

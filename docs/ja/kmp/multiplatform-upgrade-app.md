@@ -6,7 +6,7 @@
 <tldr>
     <p>このチュートリアルではIntelliJ IDEAを使用しますが、Android Studioでも同様に進めることができます。両方のIDEは同じコア機能とKotlin Multiplatformのサポートを共有しています。</p>
     <br/>
-    <p>これは「共有ロジックとネイティブUIを備えたKotlin Multiplatformアプリの作成」チュートリアルの第4部です。続行する前に、前のステップを完了していることを確認してください。</p>
+    <p>これは<strong>「共有ロジックとネイティブUIを備えたKotlin Multiplatformアプリの作成」</strong>チュートリアルの第4部です。続行する前に、前のステップを完了していることを確認してください。</p>
     <p><img src="icon-1-done.svg" width="20" alt="First step"/> <Links href="/kmp/multiplatform-create-first-app" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the first part of the Create a Kotlin Multiplatform app with shared logic and native UI tutorial. Create your Kotlin Multiplatform app Update the user interface Add dependencies Share more logic Wrap up your project">Kotlin Multiplatformアプリの作成</Links><br/>
       <img src="icon-2-done.svg" width="20" alt="Second step"/> <Links href="/kmp/multiplatform-update-ui" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the second part of the Create a Kotlin Multiplatform app with shared logic and native UI tutorial. Before proceeding, make sure you've completed previous steps. Create your Kotlin Multiplatform app Update the user interface Add dependencies Share more logic Wrap up your project">ユーザーインターフェースの更新</Links><br/>
       <img src="icon-3-done.svg" width="20" alt="Third step"/> <Links href="/kmp/multiplatform-dependencies" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the third part of the Create a Kotlin Multiplatform app with shared logic and native UI tutorial. Before proceeding, make sure you've completed previous steps. Create your Kotlin Multiplatform app Update the user interface Add dependencies Share more logic Wrap up your project">依存関係の追加</Links><br/>
@@ -152,7 +152,7 @@ data class RocketLaunch (
    * Ktorの [`ContentNegotiation`](https://ktor.io/docs/serialization-client.html#register_json) プラグインとJSONシリアライザーが、GETリクエストの結果をデシリアライズします。
    * ここでのJSONシリアライザーは、`prettyPrint` プロパティによってJSONをより読みやすい形式で出力するように構成されています。また、`isLenient` によって不正な形式のJSONを読み取る際に柔軟に対応し、`ignoreUnknownKeys` によってロケット打ち上げモデルで宣言されていないキーを無視します。
 
-3. `RocketComponent` に `getDateOfLastSuccessfulLaunch()` suspend関数を追加します。
+3. `RocketComponent` に `getDateOfLastSuccessfulLaunch()` suspend関数（suspending function）を追加します。
 
    ```kotlin
    class RocketComponent {
@@ -462,7 +462,7 @@ struct ListView: View {
 これらはいずれも、Kotlin/Native コンパイラがデフォルトではまだ提供していない、Flow によるキャンセルやジェネリクスをサポートするオープンソースのソリューションです。
 
 * SKIE ライブラリは、Kotlin コンパイラによって生成される Objective-C API を拡張します。SKIE は Flow を Swift の `AsyncSequence` に相当するものに変換します。SKIE は、スレッドの制限なしで Swift の `async`/`await` を直接サポートし、双方向の自動キャンセル機能を備えています（Combine や RxSwift にはアダプターが必要です）。SKIE は、さまざまな Kotlin 型を Swift の同等な型にブリッジするなど、Kotlin から Swift フレンドリーな API を生成するための他の機能も提供します。また、iOS プロジェクトに追加の依存関係を追加する必要もありません。
-* KMP-NativeCoroutines ライブラリは、必要なラッパーを生成することで、iOS から suspend関数や Flow を利用しやすくします。KMP-NativeCoroutines は Swift の `async`/`await` 機能に加えて、Combine や RxSwift もサポートしています。KMP-NativeCoroutines を使用するには、iOS プロジェクトに SPM または CocoaPod の依存関係を追加する必要があります。
+* KMP-NativeCoroutines ライブラリは、必要なラッパーを生成することで、iOS から suspend関数や Flow を利用しやすくします。KMP-NativeCoroutines は Swift の `async`/`await` 機能に加えて、Combine や RxSwift もサポートしています。KMP-NativeCoroutines を使用するには、iOS プロジェクトに SwiftPM または CocoaPod の依存関係を追加する必要があります。
 
 ### オプション1. KMP-NativeCoroutinesの構成 {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -528,7 +528,7 @@ struct ListView: View {
     }
     ```
 
-#### XCodeでSPMを使用してライブラリをインポートする
+#### XCodeでSwiftPMを使用してライブラリをインポートする
 
 1. **File** | **Open Project in Xcode** に移動します。
 2. Xcode で、左側のメニューにある `iosApp` プロジェクトを右クリックし、**Add Package Dependencies** を選択します。

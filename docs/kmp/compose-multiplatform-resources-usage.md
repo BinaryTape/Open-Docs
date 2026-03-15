@@ -156,11 +156,11 @@ Image(
 
 ### 字符串
 
-将所有字符串资源存储在 `composeResources/values` 目录下的 XML 文件中。
-系统会为每个文件中的每个项目生成一个静态访问器。
+将所有字符串资源存储在 `composeResources/values` 目录下的 XML 文件中。系统会为每个文件中的每个项目生成一个静态访问器。
 
-有关如何针对不同区域性进行字符串本地化的更多信息，请参阅
-[本地化字符串指南](compose-localize-strings.md)。
+Compose Multiplatform 支持类 Emmet 的缩写语法，以便直接在 XML 文件中添加字符串资源、字符串数组和复数。例如，当你在 `strings.xml` 中输入 `test{Example}` 或 `s.test{Example}` 并按 **Tab** 键时，它会自动扩展为 `<string name="test">Example</string>`。
+
+有关如何针对不同区域性进行字符串本地化的更多信息，请参阅[本地化字符串指南](compose-localize-strings.md)。
 
 #### 简单字符串
 
@@ -221,6 +221,12 @@ coroutineScope.launch {
 
 你不需要像[为 Android 字符串所做的那样](https://developer.android.com/guide/topics/resources/string-resource#escaping_quotes)转义像 "@" 或 "?" 这样的特殊 XML 字符。 
 
+> 使用类 Emmet 的语法并按 **Tab** 键将缩写扩展为字符串标签：
+> * `test` → `<string name="test"></string>`
+> * `test{Example}` → `<string name="test">Example</string>`
+>
+{style="note"}
+
 #### 字符串模板
 
 目前，参数对字符串资源提供基本支持。
@@ -245,6 +251,10 @@ Text(stringResource(Res.string.str_template, 100, "User_name"))
 ```kotlin
 Text(stringResource(Res.string.str_template, "User_name", 100.1f))
 ```
+
+> 除了手动输入占位符 `%1$s` 或 `%2$d` 之外，你还可以使用内联数字快捷方式。例如，当你在字符串值中输入 `1` 或 `1s` 时，它会扩展为 `%1$s`。类似地，当你输入 `2d` 时，它会扩展为 `%2$d`。
+> 
+{style="note"}
 
 #### 字符串数组
 
@@ -296,6 +306,16 @@ coroutineScope.launch {
 
 </TabItem>
 </Tabs>
+
+> 你可以使用类 Emmet 的语法快速定义字符串数组。使用 `string-array`、`sa` 或 `>` 运算符生成空的数组模板。对于具有预定义项目数量和起始文本的命名数组，请输入 `test>2{Hello}` 并按 **Tab** 键：
+> ```xml
+> <string-array name="test">
+>    <item>Hello</item>
+>    <item>Hello</item>
+> </string-array>
+> ```
+>
+{style="note"}
 
 #### 复数
 
@@ -360,6 +380,16 @@ coroutineScope.launch {
 
 </TabItem>
 </Tabs>
+
+> 你可以使用类 Emmet 的语法生成复数资源。例如，使用 `plurals`、`p` 或 `:` 生成默认的空字符串模板。如果你在 `values-en/strings.xml` 中工作，IDE 会自动检测区域性、所需的数量，以及英语仅需要 `one` 和 `other`。输入 `p.test` 或 `plurals.test` 并按 **Tab** 键将缩写扩展为 `plurals` 块：
+> ```xml
+> <plurals name="test">
+>     <item quantity="one"></item>
+>     <item quantity="other"></item>
+> </plurals>
+> ```
+>
+{style="note"}
 
 ### 字体
 

@@ -85,7 +85,7 @@
   "kotlin.kotlin-overview": "Kotlin 개요",
   "kotlin.what-s-new-in-kotlin": "Kotlin의 새로운 기능",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.3.20-RC2",
+  "kotlin.whatsnew-eap": "Kotlin 2.3.20-RC3",
   "kotlin.earlier-versions": "이전 버전",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -314,9 +314,9 @@
   "kmp.multiplatform-ios-dependencies": "iOS 타겟 플랫폼용",
   "kmp.set-up-ios-integration": "iOS 통합 설정",
   "kmp.multiplatform-ios-integration-overview": "통합 방법 선택",
-  "kmp.multiplatform-spm-export": "원격 SPM 내보내기",
+  "kmp.multiplatform-spm-export": "원격 SwiftPM 내보내기",
   "kmp.cocoapods-integration": "CocoaPods 통합",
-  "kmp.multiplatform-spm-local-integration": "SPM과 로컬 통합",
+  "kmp.multiplatform-spm-local-integration": "SwiftPM을 사용한 로컬 통합",
   "kmp.compile-artifacts": "아티팩트 컴파일",
   "kmp.multiplatform-run-tests": "멀티플랫폼 앱 테스트",
   "kmp.publish-your-multiplatform-project": "멀티플랫폼 프로젝트 게시",
@@ -631,5 +631,9 @@
   "koog.long-term-memory": "장기 메모리",
   "koog.chat-agent-with-memory": "메모리가 포함된 채팅 에이전트",
   "koog.chat-memory": "채팅 메모리",
-  "koog.custom-features": "커스텀 기능"
+  "koog.custom-features": "커스텀 기능",
+  "kmp.swiftpm-integration": "SwiftPM 통합",
+  "kmp.multiplatform-spm-import": "SwiftPM 가져오기",
+  "kmp.multiplatform-cocoapods-spm-migration": "CocoaPods에서 SwiftPM으로 마이그레이션",
+  "koog.serialization": "직렬화"
 }

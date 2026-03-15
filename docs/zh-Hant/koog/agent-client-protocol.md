@@ -3,17 +3,17 @@
 Agent Client Protocol (ACP) 是一種開源的標準化協定，讓用戶端應用程式能透過一致的雙向介面與 AI 代理 (agent) 進行通訊。
 透過在您的 Koog 代理中實作 ACP，您可以確保它能輕鬆整合到任何符合 ACP 規範的環境中，例如 IDE。
 
-如需更多資訊，請參閱 [Agent Client Protocol] 文件。
+若要了解更多，請參閱 [Agent Client Protocol] 文件。
 
 ## 與 Koog 整合
 
 Koog 架構透過 [ACP Kotlin SDK] 搭配額外的 API 擴充功能與 ACP 整合。
 此整合提供：
 
-*   為 Koog 代理與符合 ACP 規範的用戶端應用程式提供標準化通訊
-*   自動更新工具呼叫、代理想法與補全的執行狀態
-*   在 Koog 的多模態訊息格式與 ACP 的內容區塊之間進行無縫訊息轉換
-*   將 Koog 代理狀態的生命週期對應至 ACP 工作階段事件
+* 為 Koog 代理與符合 ACP 規範的用戶端應用程式提供標準化通訊
+* 自動更新工具呼叫、代理想法與補全的執行狀態
+* 在 Koog 的多模態訊息格式與 ACP 的內容區塊之間進行無縫訊息轉換
+* 將 Koog 代理狀態的生命週期對應至 ACP 工作階段事件
 
 !!! note
 
@@ -65,9 +65,9 @@ val agent = AIAgent(
 *   **`sessionId`**：識別目前對話工作階段的唯一字串。
 *   **`protocol`**：用於底層通訊的 [`com.agentclientprotocol.protocol.Protocol`](https://github.com/agentclientprotocol/kotlin-sdk/blob/master/acp/src/commonMain/kotlin/com/agentclientprotocol/protocol/Protocol.kt) 執行個體。
 *   **`eventsProducer`**：用於傳送 ACP 事件的 `kotlinx.coroutines.channels.ProducerScope<Event>`。
-    如需更多資訊，請參閱[事件串流](#event-streaming)。
+    進一步了解 [事件串流](#event-streaming)。
 *   **`setDefaultNotifications`**：是否為代理生命週期事件註冊預設通知處理常式。
-    如需更多資訊，請參閱[處理代理通知](#handling-agent-notifications)。
+    進一步了解 [處理代理通知](#handling-agent-notifications)。
 
 此代理必須在下一章所述的 ACP 工作階段範圍內執行。
 
@@ -75,10 +75,8 @@ val agent = AIAgent(
 
 若要將您的 Koog 代理連接至 ACP 用戶端，請實作來自 [ACP Kotlin SDK](https://github.com/agentclientprotocol/kotlin-sdk) 的兩個核心介面：
 
-- [`AgentSupport`](https://github.com/agentclientprotocol/kotlin-sdk/blob/master/acp/src/commonMain/kotlin/com/agentclientprotocol/agent/AgentSupport.kt)：
-  管理代理的識別資訊、能力與工作階段生命週期（建立或載入工作階段）。
-- [`AgentSession`](https://github.com/agentclientprotocol/kotlin-sdk/blob/master/acp/src/commonMain/kotlin/com/agentclientprotocol/agent/AgentSession.kt)：
-  管理單個對話工作階段，處理 `prompt` 執行並管理取消。
+- [`AgentSupport`](https://github.com/agentclientprotocol/kotlin-sdk/blob/master/acp/src/commonMain/kotlin/com/agentclientprotocol/agent/AgentSupport.kt)：管理代理的識別資訊、能力與工作階段生命週期（建立或載入工作階段）。
+- [`AgentSession`](https://github.com/agentclientprotocol/kotlin-sdk/blob/master/acp/src/commonMain/kotlin/com/agentclientprotocol/agent/AgentSession.kt)：管理單個對話工作階段，處理 `prompt` 執行並管理取消。
 
 在 `AgentSession` 的 `prompt()` 方法內，是您應該初始化並執行啟用 ACP 的 Koog 代理的地方。
 以下是一個範例：
@@ -273,7 +271,7 @@ private fun Prompt.appendPrompt(content: List<ContentBlock>): Prompt {
 
     需要一個 `Clock` 執行個體來為訊息標記時間戳記。
 
-如需更多資訊，請參閱[轉換訊息](#converting-messages)。
+進一步了解 [轉換訊息](#converting-messages)。
 
 ## 轉換訊息
 
@@ -327,6 +325,7 @@ private fun Prompt.appendPrompt(content: List<ContentBlock>): Prompt {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.features.acp.withAcpAgent
 import com.agentclientprotocol.common.Event
 import com.agentclientprotocol.model.Plan
@@ -354,6 +353,7 @@ val strategy = strategy<Unit, Unit>("my-strategy") {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.features.acp.withAcpAgent
 import com.agentclientprotocol.model.AcpMethod
 import com.agentclientprotocol.model.AuthMethodId

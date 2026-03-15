@@ -253,4 +253,36 @@ falseの場合、スキーマは `.sq` ファイルで定義されます。
     deriveSchemaFromMigrations = true
     ```
 
+----
+
+### `expandSelectStar`
+
+型: `Property<Boolean>`
+
+trueに設定すると、SQLDelightは `SELECT *` ステートメントを、結果として得られる実際の各カラムを明示的に参照するように書き換えます。
+
+例えば、以下の `getAll` クエリは
+```sql
+CREATE TABLE hockey_player (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  number INTEGER NOT NULL
+);
+
+getAll:
+SELECT * FROM hockey_player;
+```
+`SELECT hockey_player.id, hockey_player.name, hockey_player.number FROM hockey_player;` のように書き換えられます。
+
+デフォルトは `true` です。
+
+=== "Kotlin"
+    ```kotlin
+    expandSelectStar.set(true)
+    ```
+=== "Groovy"
+    ```groovy
+    expandSelectStar = true
+    ```
+
 {% include 'common/gradle-dependencies.md' %}

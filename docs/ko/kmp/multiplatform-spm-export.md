@@ -268,6 +268,6 @@ XCFramework 게시를 설정하려면:
     ./gradlew :together:assembleTogetherReleaseXCFramework
     ```
 
-5. [이전 섹션](#prepare-the-xcframework-and-the-swift-package-manifest)의 단계에 따라 `together.xcframework`를 준비합니다: 아카이브하고, 체크섬을 계산하고, 아카이브된 XCFramework를 파일 저장소에 업로드하고, `Package.swift` 파일을 생성하여 푸시합니다.
+5. [이전 섹션](#xcframework-및-swift-패키지-매니페스트-준비)의 단계에 따라 `together.xcframework`를 준비합니다: 아카이브하고, 체크섬을 계산하고, 아카이브된 XCFramework를 파일 저장소에 업로드하고, `Package.swift` 파일을 생성하여 푸시합니다.
 
 이제 Xcode 프로젝트로 의존성을 임포트할 수 있습니다. `import together` 디렉티브를 추가한 후, Swift 코드에서 `network`와 `database` 모듈의 클래스를 모두 사용할 수 있습니다.

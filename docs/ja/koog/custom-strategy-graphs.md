@@ -13,7 +13,7 @@
 - **ノード (Nodes)**: ワークフロー内の個々の操作または変換。
 - **エッジ (Edges)**: 遷移条件と変換を定義するノード間の接続。
 
-戦略グラフは `nodeStart` と呼ばれる特殊なノードで始まり、`nodeFinish` で終わります。
+戦略グラフは `nodeStart` と呼ばめる特殊なノードで始まり、`nodeFinish` で終わります。
 これらのノード間のパスは、グラフで指定されたエッジと条件によって決定されます。
 
 ## 戦略グラフのコンポーネント
@@ -34,6 +34,9 @@ Koog フレームワークは定義済みのノードを提供しており、`no
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 
 val strategy = strategy<String, String>("strategy_name") {
         val sourceNode by node<String, String> { input -> input }
@@ -64,6 +67,9 @@ edge(sourceNode forwardTo targetNode)
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 
 val strategy = strategy<String, String>("strategy_name") {
         val sourceNode by node<String, String> { input -> input }
@@ -87,6 +93,9 @@ edge(sourceNode forwardTo targetNode
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 
 typealias Input = String
 typealias Output = Int
@@ -114,6 +123,9 @@ val strategy = strategy<Input, Output>("strategy-name") {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.ext.tool.SayToUser
 
 typealias Input = String
@@ -156,6 +168,9 @@ val strategy = strategy<Input, Output>("strategy-name") {
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.nodeExecuteTool
 import ai.koog.agents.core.dsl.extension.nodeLLMRequest
 import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
@@ -189,6 +204,9 @@ JVM では、戦略グラフの [Mermaid 状態遷移図 (state diagram)](https:
 import ai.koog.agents.core.agent.asMermaidDiagram
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.nodeExecuteTool
 import ai.koog.agents.core.dsl.extension.nodeLLMRequest
 import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
@@ -252,6 +270,9 @@ stateDiagram
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.nodeExecuteMultipleTools
 import ai.koog.agents.core.dsl.extension.nodeLLMSendMultipleToolResults
 import ai.koog.prompt.message.Message
@@ -294,6 +315,9 @@ parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(BookTool::clas
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 
 val strategy = strategy<String, String>("strategy_name") {
     val nodeCalcTokens by node<String, Int> { 42 }
@@ -324,6 +348,9 @@ val calc by parallel<String, Int>(
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 
 val strategy = strategy<String, String>("strategy_name") {
     val someNode by node<String, String> { it }
@@ -376,6 +403,9 @@ edge(
 import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.nodeExecuteTool
 import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
 import ai.koog.agents.core.dsl.extension.nodeLLMRequest
@@ -441,12 +471,12 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy
 この戦略は以下のことを行います。
 
 1. 入力を LLM に送信します。
-2. LLM がメッセージで応答した場合、プロセスを終了します。
-3. LLM がツールを呼び出した場合、ツールを実行します。
-4. 履歴が大きすぎる（100 メッセージ超）場合、ツールの結果を送信する前に履歴を圧縮します。
-5. そうでない場合は、ツールの結果を直接送信します。
-6. LLM が別のツールを呼び出した場合、それを実行します。
-7. LLM がメッセージで応答した場合、プロセスを終了します。
+2. LLM がメッセージで応答した場合、戦略はプロセスを終了します。
+3. LLM がツールを呼び出した場合、戦略はツールを実行します。
+4. 履歴が大きすぎる（100 メッセージ超）場合、戦略はツールの結果を送信する前に履歴を圧縮します。
+5. そうでない場合は、戦略はツールの結果を直接送信します。
+6. LLM が別のツールを呼び出した場合、戦略はそれを実行します。
+7. LLM がメッセージで応答した場合、戦略はプロセスを終了します。
 
 ## トラブルシューティング
 

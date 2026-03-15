@@ -253,4 +253,36 @@
     deriveSchemaFromMigrations = true
     ```
 
+----
+
+### `expandSelectStar`
+
+类型：`Property<Boolean>`
+
+如果设置为 true，SQLDelight 将重写 `SELECT *` 语句以显式引用每个实际的结果列。
+
+例如，下方的 `getAll` 查询
+```sql
+CREATE TABLE hockey_player (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  number INTEGER NOT NULL
+);
+
+getAll:
+SELECT * FROM hockey_player;
+```
+将被重写为 `SELECT hockey_player.id, hockey_player.name, hockey_player.number FROM hockey_player;`。
+
+默认为 `true`。
+
+=== "Kotlin"
+    ```kotlin
+    expandSelectStar.set(true)
+    ```
+=== "Groovy"
+    ```groovy
+    expandSelectStar = true
+    ```
+
 {% include 'common/gradle-dependencies.md' %}

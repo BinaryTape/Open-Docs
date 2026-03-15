@@ -9,16 +9,16 @@ Koog는 [`PromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.mo
 
 | 유형 | <div style="width:175px">클래스</div> | 설명 |
 |-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 단일 제공자 (Single-provider) | [`SingleLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.SingleLLMPromptExecutor) | 단일 공급자를 위한 단일 LLM 클라이언트를 래핑합니다. 에이전트가 단일 LLM 공급자 내의 모델 간 전환만 필요한 경우 이 실행기를 사용하세요. |
-| 다중 제공자 (Multi-provider) | [`MultiLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor)   | 여러 LLM 클라이언트를 래핑하고 LLM 공급자에 따라 호출을 라우팅합니다. 선택적으로 요청된 클라이언트를 사용할 수 없을 때 구성된 폴백 공급자 및 LLM을 사용할 수 있습니다. 에이전트가 서로 다른 공급자의 LLM 간에 전환해야 하는 경우 이 실행기를 사용하세요. |
-| 라우팅 (Routing) | [`RoutingLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) | 라우팅 전략을 사용하여 지정된 LLM 모델에 대한 요청을 여러 클라이언트 인스턴스에 분산합니다. 속도 제한(rate limits)을 피하고, 처리량(throughput)을 개선하며, 부하 분산(load balancing)과 함께 장애 조치(failover) 전략을 구현하려면 이 실행기를 사용하세요. |
+| 단일 제공자 (Single-provider) | [`SingleLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.SingleLLMPromptExecutor) | 단일 공급자를 위한 단일 LLM 클라이언트를 래핑합니다. 에이전트가 단일 LLM 공급자 내의 모델 간 전환만 필요한 경우 이 실행기를 사용하세요. |
+| 다중 제공자 (Multi-provider) | [`MultiLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor)   | 여러 LLM 클라이언트를 래핑하고 LLM 공급자에 따라 호출을 라우팅합니다. 선택적으로 요청된 클라이언트를 사용할 수 없을 때 구성된 폴백 공급자 및 LLM을 사용할 수 있습니다. 에이전트가 서로 다른 공급자의 LLM 간에 전환해야 하는 경우 이 실행기를 사용하세요. |
+| 라우팅 (Routing) | [`RoutingLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) | 라우팅 전략을 사용하여 지정된 LLM 모델에 대한 요청을 여러 클라이언트 인스턴스에 분산합니다. 속도 제한(rate limits)을 피하고, 처리량(throughput)을 개선하며, 부하 분산(load balancing)과 함께 장애 조치(failover) 전략을 구현하려면 이 실행기를 사용하세요. |
 
 ## 단일 제공자 실행기 생성하기
 
 특정 LLM 공급자를 위한 프롬프트 실행기를 생성하려면 다음 단계를 수행하세요:
 
 1. 해당 API 키를 사용하여 특정 공급자에 대한 LLM 클라이언트를 구성합니다.
-2. [`SingleLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.SingleLLMPromptExecutor)를 사용하여 프롬프트 실행기를 생성합니다.
+2. [`SingleLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.SingleLLMPromptExecutor)를 사용하여 프롬프트 실행기를 생성합니다.
 
 예제는 다음과 같습니다:
 
@@ -37,7 +37,7 @@ val promptExecutor = MultiLLMPromptExecutor(openAIClient)
 여러 LLM 공급자와 함께 작동하는 프롬프트 실행기를 생성하려면 다음 단계를 수행하세요:
 
 1. 해당 API 키를 사용하여 필요한 LLM 공급자에 대한 클라이언트를 구성합니다.
-2. 구성된 클라이언트들을 [`MultiLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor) 클래스 생성자에 전달하여 여러 LLM 공급자를 갖춘 프롬프트 실행기를 생성합니다.
+2. 구성된 클라이언트들을 [`MultiLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor) 클래스 생성자에 전달하여 여러 LLM 공급자를 갖춘 프롬프트 실행기를 생성합니다.
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
@@ -65,8 +65,8 @@ val multiExecutor = MultiLLMPromptExecutor(
 라우팅 전략을 사용하여 여러 LLM 클라이언트 인스턴스에 요청을 분산하는 프롬프트 실행기를 생성하려면 다음 단계를 수행하세요:
 
 1. 해당 API 키를 사용하여 여러 클라이언트 인스턴스(동일하거나 서로 다른 LLM 공급자일 수 있음)를 구성합니다.
-2. [`RoundRobinRouter`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.RoundRobinRouter)와 같은 라우팅 전략을 사용하여 라우터를 생성합니다.
-3. 라우터를 [`RoutingLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) 클래스 생성자에 전달합니다.
+2. [`RoundRobinRouter`](api:prompt-executor-model::ai.koog.prompt.executor.llms.RoundRobinRouter)와 같은 라우팅 전략을 사용하여 라우터를 생성합니다.
+3. 라우터를 [`RoutingLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) 클래스 생성자에 전달합니다.
 
 이는 속도 제한을 피하고, 처리량을 개선하며, 장애 조치 전략을 구현하는 데 유용합니다.
 
@@ -93,7 +93,7 @@ val routingExecutor = RoutingLLMPromptExecutor(router)
 이 실행기로 프롬프트를 실행하면, OpenAI 모델에 대한 요청은 라운드 로빈 전략을 사용하여 `openAI1`과 `openAI2` 사이에서 번갈아 가며 수행됩니다.
 Anthropic 모델에 대한 요청은 항상 단일 `anthropic` 클라이언트로 전달되는데, 라운드 로빈은 공급자별로 독립적인 카운터를 유지하기 때문입니다.
 
-[`LLMClientRouter`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.LLMClientRouter) 인터페이스를 구현하는 클래스를 생성하여 커스텀 라우팅 전략을 구현할 수도 있습니다.
+[`LLMClientRouter`](api:prompt-executor-model::ai.koog.prompt.executor.llms.LLMClientRouter) 인터페이스를 구현하는 클래스를 생성하여 커스텀 라우팅 전략을 구현할 수도 있습니다.
 
 ## 사전에 정의된 프롬프트 실행기
 

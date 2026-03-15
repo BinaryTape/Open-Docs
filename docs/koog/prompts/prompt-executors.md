@@ -9,16 +9,16 @@ Koog 提供了三种主要类型的提示执行器，它们实现了 [`PromptExe
 
 | 类型 | <div style="width:175px">类</div> | 描述 |
 |-----------------|-----------------|-----------------|
-| 单提供商 | [`SingleLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.SingleLLMPromptExecutor) | 包装单个提供商的单个 LLM 客户端。如果您的智能体仅需要在单个 LLM 提供商内的模型之间切换，请使用此执行器。 |
-| 多提供商 | [`MultiLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor) | 包装多个 LLM 客户端，并根据 LLM 提供商路由调用。当请求的客户端不可用时，它可以选择性地使用配置的回退提供商和 LLM。如果您的智能体需要在不同提供商的 LLM 之间切换，请使用此执行器。 |
-| 路由 | [`RoutingLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) | 使用路由策略将请求分发到多个客户端实例中的给定 LLM 模型。使用此执行器可以避免速率限制、提高吞吐量，并通过负载均衡实现故障转移策略。 |
+| 单提供商 | [`SingleLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.SingleLLMPromptExecutor) | 包装单个提供商的单个 LLM 客户端。如果您的智能体仅需要在单个 LLM 提供商内的模型之间切换，请使用此执行器。 |
+| 多提供商 | [`MultiLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor) | 包装多个 LLM 客户端，并根据 LLM 提供商路由调用。当请求的客户端不可用时，它可以选择性地使用配置的回退提供商和 LLM。如果您的智能体需要在不同提供商的 LLM 之间切换，请使用此执行器。 |
+| 路由 | [`RoutingLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) | 使用路由策略将请求分发到多个客户端实例中的给定 LLM 模型。使用此执行器可以避免速率限制、提高吞吐量，并通过负载均衡实现故障转移策略。 |
 
 ## 创建单提供商执行器
 
 要为特定的 LLM 提供商创建提示执行器，请执行以下操作：
 
 1. 使用相应的 API 密钥为特定提供商配置 LLM 客户端。
-2. 使用 [`SingleLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.SingleLLMPromptExecutor) 创建提示执行器。
+2. 使用 [`SingleLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.SingleLLMPromptExecutor) 创建提示执行器。
 
 示例如下：
 
@@ -37,7 +37,7 @@ val promptExecutor = MultiLLMPromptExecutor(openAIClient)
 要创建可与多个 LLM 提供商协作的提示执行器，请执行以下操作：
 
 1. 使用相应的 API 密钥为所需的 LLM 提供商配置客户端。
-2. 将配置好的客户端传递给 [`MultiLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor) 类构造函数，以创建包含多个 LLM 提供商的提示执行器。
+2. 将配置好的客户端传递给 [`MultiLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor) 类构造函数，以创建包含多个 LLM 提供商的提示执行器。
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
@@ -65,8 +65,8 @@ val multiExecutor = MultiLLMPromptExecutor(
 要创建使用路由策略在多个 LLM 客户端实例之间分发请求的提示执行器，请执行以下操作：
 
 1. 配置多个客户端实例（可以针对相同或不同的 LLM 提供商）及其相应的 API 密钥。
-2. 使用路由策略创建路由器，例如 [`RoundRobinRouter`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.RoundRobinRouter)。
-3. 将路由器传递给 [`RoutingLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) 类构造函数。
+2. 使用路由策略创建路由器，例如 [`RoundRobinRouter`](api:prompt-executor-model::ai.koog.prompt.executor.llms.RoundRobinRouter)。
+3. 将路由器传递给 [`RoutingLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) 类构造函数。
 
 这对于避免速率限制、提高吞吐量和实现故障转移策略非常有用。
 
@@ -92,7 +92,7 @@ val routingExecutor = RoutingLLMPromptExecutor(router)
 
 当您使用此执行器执行提示时，发往 OpenAI 模型的请求将在 `openAI1` 和 `openAI2` 之间轮流切换（使用轮询策略）。发往 Anthropic 模型的请求将始终转到单个 `anthropic` 客户端，因为轮询策略会为每个提供商维护独立的计数器。
 
-您还可以通过创建一个实现 [`LLMClientRouter`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.LLMClientRouter) 接口的类来实现自定义路由策略。
+您还可以通过创建一个实现 [`LLMClientRouter`](api:prompt-executor-model::ai.koog.prompt.executor.llms.LLMClientRouter) 接口的类来实现自定义路由策略。
 
 ## 预定义提示执行器
 

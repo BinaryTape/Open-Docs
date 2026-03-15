@@ -2,11 +2,18 @@
 
 ## Unreleased
 
+### Changed
+* [Paging拡張] Paging 3.4.1 へのアップグレード、および X64 Apple ターゲットの削除 (#6166)
+
+## [2.3.1] - 2026-03-12
+[2.3.1]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.1
+
 ### Added
 - [PostgreSQLダイアレクト] `ALTER TABLE ALTER TYPE USING` 式のサポートを改善 (#6116 by @griffio)
 - [PostgreSQLダイアレクト] `DROP COLUMN IF EXISTS` のサポートを追加 (#6112 by @griffio)
+- [Gradleプラグイン] `Select` ワイルドカード展開を無効にする `expandSelectStar` フラグを追加 (#5813 by @griffio)
 - [MySQLダイアレクト] ウィンドウ関数 (Window Functions) のサポートを追加 (#6086 by @griffio)
-- [Gradleプラグイン] 開始スキーマバージョンが1ではなく、`verifyMigrations` が true の場合にビルドが失敗する問題を修正 (#6017 by @neilgmiller)
+- [Gradleプラグイン] 開始スキーマバージョンが 1 ではなく、`verifyMigrations` が true の場合にビルドが失敗する問題を修正 (#6017 by @neilgmiller)
 - [Gradleプラグイン] `SqlDelightWorkerTask` をより詳細に設定可能にし、Windows上での開発をサポートするようにデフォルト設定を更新 (#5215 by @MSDarwish2000)
 - [SQLiteダイアレクト] FTS5 仮想テーブルにおける合成カラム (synthesized columns) のサポートを追加 (#5986 by @watbe)
 - [PostgreSQLダイアレクト] Postgres の行レベルセキュリティ (row level security) のサポートを追加 (#6087 by @shellderp)
@@ -14,6 +21,7 @@
 - [PostgreSQLダイアレクト] Postgis の `Point` 型と関連関数のサポートを追加 (#5602 by @vanniktech)
 - [ランタイム] トランザクションの `CoroutineContext` を制御するメカニズムを提供する `SuspendingTransacter.TransactionDispatcher` を追加 (#5967 by @eygraber)
 - [Gradleプラグイン] Android Gradle Plugin 9.0 の新しい DSL との完全な互換性を追加 (#6140)
+- [PostgreSQLダイアレクト] PostgreSql の `CREATE TABLE` ストレージパラメータのサポートを追加 (#6148 by @griffio)
 
 ### Changed
 - [コンパイラ] コンパイラの出力型を `java.lang.Void` から `kotlin.Nothing` に変更 (#6099 by @griffio)
@@ -26,8 +34,13 @@
 - [SQLiteダイアレクト] Json パス演算子を使用する際の Sqlite 3.38 のコンパイルエラーを修正 (#6070 by @griffio)
 - [SQLiteダイアレクト] カスタムカラム型を使用する際、`group_concat` 関数に `String` 型を使用するように修正 (#6082 by @griffio)
 - [Gradleプラグイン] `VerifyMigrationTask` のパフォーマンスを改善し、複雑なスキーマでハングアップする問題を修正 (#6073 by @Lightwood13)
-- [Intellijプラグイン] プラグイン初期化時の例外を修正し、非推奨メソッドを更新 (#6040 by @griffio)
+- [IntelliJプラグイン] プラグイン初期化時の例外を修正し、非推奨メソッドを更新 (#6040 by @griffio)
 - [Gradleプラグイン] Android Gradle Plugin 内蔵の Kotlin との互換性を修正 (#6139)
+
+## [2.3.0] - 2025-03-12
+[2.3.0]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.0
+
+リリースの失敗です。2.3.1 を使用してください！
 
 ## [2.2.1] - 2025-11-13
 [2.2.1]: https://github.com/sqldelight/sqldelight/releases/tag/2.2.1
@@ -44,7 +57,7 @@
 - [PostgreSQLダイアレクト] SQL 式が JSON としてパース可能かどうかをチェックする述語を追加 (#5843 by @griffio)
 - [PostgreSQLダイアレクト] PostgreSql `COMMENT ON` 文の限定的なサポートを追加 (#5808 by @griffio)
 - [MySQLダイアレクト] インデックス可視性オプションのサポートを追加 (#5785 by @orenkislev-faire)
-- [PostgreSqlダイアレクト] `TSQUERY` データ型のサポートを追加 (#5779 by @griffio)
+- [PostgreSQLダイアレクト] `TSQUERY` データ型のサポートを追加 (#5779 by @griffio)
 - [Gradleプラグイン] モジュール追加時のバージョンカタログのサポートを追加 (#5755 by @DRSchlaubi)
 
 ### Changed
@@ -55,7 +68,7 @@
 - [コンパイラ] 共通テーブル式を含む View を使用した際のスタックオーバーフローを修正 (#5928 by @griffio)
 - [Gradleプラグイン] SqlDelight ツールウィンドウを開いて "New Connection" を追加する際のクラッシュを修正 (#5906 by @griffio)
 - [IntelliJプラグイン] copy-to-sqlite ガターアクションにおけるスレッド関連のクラッシュを回避 (#5901 by @griffio)
-- [IntelliJプラグイン] `CREATE INDEX` および `CREATE VIEW` スキーマ文を使用する際の PostgreSql ダイアレクトの修正 (#5772 by @griffio)
+- [IntelliJプラグイン] `CREATE INDEX` および `CREATE VIEW` スキーマ文を使用する際の PostgreSQL ダイアレクトの修正 (#5772 by @griffio)
 - [コンパイラ] カラム参照時の FTS スタックオーバーフローを修正 (#5896 by @griffio)
 - [コンパイラ] `WITH RECURSIVE` のスタックオーバーフローを修正 (#5892 by @griffio)
 - [コンパイラ] `INSERT`|`UPDATE`|`DELETE RETURNING` 文の Notify を修正 (#5851 by @griffio)
@@ -66,7 +79,7 @@
 ## [2.2.0] - 2025-11-13
 [2.2.0]: https://github.com/sqldelight/sqldelight/releases/tag/2.2.0
 
-アーティファクトの一部のみが公開された、リリースの失敗です。2.2.1 を使用してください。
+アーティファクトの一部のみが公開された、リリースの失敗です。2.2.1 を使用してください！
 
 ## [2.1.0] - 2025-05-16
 [2.1.0]: https://github.com/sqldelight/sqldelight/releases/tag/2.1.0
@@ -134,7 +147,7 @@
 - [PostgreSQLダイアレクト] PostgreSQL `STRING_AGG` 関数を追加 (#4950 by @anddani)
 - [PostgreSQLダイアレクト] PostgreSQL ダイアレクトに `SET` 文を追加 (#4927 by @de-luca)
 - [PostgreSQLダイアレクト] PostgreSql カラムのシーケンスパラメータ変更 (alter column sequence parameters) を追加 (#4916 by @griffio)
-- [PostgreSQLダイアレクト] インサート文における PostgreSql カラムのデフォルト値のサポートを追加 (#4912 by @griffio)
+- [PostgreSQLダイアレクト] インサート文における PostgreSQL カラムのデフォルト値のサポートを追加 (#4912 by @griffio)
 - [PostgreSQLダイアレクト] PostgreSql シーケンスの変更 (alter sequence) と削除 (drop sequence) を追加 (#4920 by @griffio)
 - [PostgreSQLダイアレクト] Postgres 正規表現関数の定義を追加 (#5025 by @MariusVolkhart)
 - [PostgreSQLダイアレクト] GIN のグラマーを追加 (#5027 by @griffio)
@@ -148,10 +161,10 @@
 - [ドライバ] ダイアレクト作者向けに、より多くの JDBC/R2DBC ステートメントメソッドを公開 (#5098 by @hfhbd)
 
 ### Fixed
-- [PostgreSQLダイアレクト] PostgreSql `ALTER TABLE ALTER COLUMN` を修正 (#4868 by @griffio)
+- [PostgreSQLダイアレクト] PostgreSQL `ALTER TABLE ALTER COLUMN` を修正 (#4868 by @griffio)
 - [PostgreSQLダイアレクト] 課題 4448 を修正: テーブルモデルのインポート欠落 (#4885 by @griffio)
-- [PostgreSQLダイアレクト] 課題 4932 を修正: PostgreSql デフォルト制約関数 (#4934 by @griffio)
-- [PostgreSQLダイアレクト] 課題 4879 を修正: マイグレーション中の `ALTER TABLE RENAME COLUMN` における PostgreSql クラスキャストエラー (#4880 by @griffio)
+- [PostgreSQLダイアレクト] 課題 4932 を修正: PostgreSQL デフォルト制約関数 (#4934 by @griffio)
+- [PostgreSQLダイアレクト] 課題 4879 を修正: マイグレーション中の `ALTER TABLE RENAME COLUMN` における PostgreSQL クラスキャストエラー (#4880 by @griffio)
 - [PostgreSQLダイアレクト] 課題 4474 を修正: PostgreSql 拡張の作成 (create extension) (#4541 by @griffio)
 - [PostgreSQLダイアレクト] 課題 5018 を修正: PostgreSql `ADD PRIMARY KEY` の非 Null 型 (#5020 by @griffio)
 - [PostgreSQLダイアレクト] 課題 4703 を修正: 集計式 (#5071 by @griffio)
@@ -175,7 +188,7 @@
 - [PostgreSQLダイアレクト] PostgreSQL `CREATE INDEX CONCURRENTLY` のサポートを追加 (#4531 by @griffio)
 - [PostgreSQLダイアレクト] PostgreSQL CTE の補助ステートメントが相互に参照可能になるようサポート (#4493 by @griffio)
 - [PostgreSQLダイアレクト] バイナリ式 (binary expr) および `sum` における PostgreSQL 型のサポートを追加 (#4539 by @Adriel-M)
-- [PostgreSQLダイアレクト] PostgreSQL `SELECT DISTINCT ON` 構文のサポートを追加 (#4584 by @griffio)
+- [PostgreSQLダイアレクト] PostgreSQL `SELECT DISTINCT ON` 構文의 サポートを追加 (#4584 by @griffio)
 - [PostgreSQLダイアレクト] `SELECT` 文における PostgreSQL JSON 関数のサポートを追加 (#4590 by @MariusVolkhart)
 - [PostgreSQLダイアレクト] `generate_series` PostgreSQL 関数を追加 (#4717 by @griffio)
 - [PostgreSQLダイアレクト] 追加の Postgres 文字列関数の定義を追加 (#4752 by @MariusVolkhart)
@@ -271,12 +284,12 @@
 - [Paging] Paging 拡張に js browser ターゲットを追加 (#3843 by @sproctor)
 - [Paging] androidx-paging3 拡張に `iosSimulatorArm64` ターゲットを追加 (#4117)
 - [PostgreSQLダイアレクト] `gen_random_uuid()` のサポートとテストを追加 (#3855 by @davidwheeler123)
-- [PostgreSQLダイアレクト] Postgres の `ALTER TABLE ADD CONSTRAINT` (#4116 by @griffio)
+- [PostgreSQLダイアレクト] PostgreSQL の `ALTER TABLE ADD CONSTRAINT` (#4116 by @griffio)
 - [PostgreSQLダイアレクト] `ALTER TABLE ADD CONSTRAINT CHECK` (#4120 by @griffio)
-- [PostgreSQLダイアレクト] PostgreSql の文字長関数を追加 (#4121 by @griffio)
-- [PostgreSQLダイアレクト] PostgreSql のカラムデフォルト `INTERVAL` を追加 (#4142 by @griffio)
-- [PostgreSQLダイアレクト] PostgreSql `INTERVAL` カラム結果を追加 (#4152 by @griffio)
-- [PostgreSQLダイアレクト] PostgreSql `ALTER COLUMN` を追加 (#4165 by @griffio)
+- [PostgreSQLダイアレクト] PostgreSQL の文字長関数を追加 (#4121 by @griffio)
+- [PostgreSQLダイアレクト] PostgreSQL のカラムデフォルト `INTERVAL` を追加 (#4142 by @griffio)
+- [PostgreSQLダイアレクト] PostgreSQL `INTERVAL` カラム結果を追加 (#4152 by @griffio)
+- [PostgreSQLダイアレクト] PostgreSQL `ALTER COLUMN` を追加 (#4165 by @griffio)
 - [PostgreSQLダイアレクト] PostgreSQL: `date_part` を追加 (#4198 by @hfhbd)
 - [MySQLダイアレクト] SQL 文字長関数を追加 (#4134 by @griffio)
 - [IDEプラグイン] sqldelight ディレクトリのサジェストを追加 (#3976 by @aperfilyev)
@@ -323,13 +336,13 @@
 - [Paging] マルチプラットフォーム Paging 拡張 (by @jeffdgr8)
 - [ランタイム] `Listener` インターフェースに `fun` 修飾子を追加。
 - [SQLiteダイアレクト] SQLite 3.33 サポート (`UPDATE FROM`) を追加 (by @eygraber)
-- [PostgreSQLダイアレクト] PostgreSql における `UPDATE FROM` をサポート (by @eygraber)
+- [PostgreSQLダイアレクト] PostgreSQL における `UPDATE FROM` をサポート (by @eygraber)
 
 ### Changed
 - [RDBCドライバ] コネクションを公開 (by @hfhbd)
 - [ランタイム] マイグレーションコールバックをメインの `migrate` 関数に移動
 - [Gradleプラグイン] 下流プロジェクトから `Configurations` を隠蔽
-- [Gradleプラグイン] Intellij のみをシェード (by @hfhbd)
+- [Gradleプラグイン] IntelliJ のみをシェード (by @hfhbd)
 - [Gradleプラグイン] Kotlin 1.8.0-Beta をサポートし、複数バージョンの Kotlin テストを追加 (by @hfhbd)
 
 ### Fixed
@@ -501,8 +514,8 @@ sqldelight {
 - [MySQL] MySQL `REPLACE` をサポート
 - [MySQL] `NUMERIC`/`BigDecimal` MySQL 型をサポート (#2051)
 - [MySQL] MySQL `TRUNCATE` 文をサポート
-- [MySQL] MySql における JSON 特有の演算子をサポート (by @eygraber)
-- [MySQL] MySql `INTERVAL` をサポート (#2969 by @eygraber)
+- [MySQL] MySQL における JSON 特有の演算子をサポート (by @eygraber)
+- [MySQL] MySQL `INTERVAL` をサポート (#2969 by @eygraber)
 - [HSQL] HSQL ウィンドウ機能を追加
 - [SQLite] `WHERE` 句における Null 許容パラメータの等価性チェックを置換しないように変更 (#1490 by @eygraber)
 - [SQLite] Sqlite 3.35 の `RETURNING` 文をサポート (#1490 by @eygraber)
@@ -604,7 +617,7 @@ sqldelight {
 - [IDEプラグイン] Gradle 同期が発生するまでファイルインデックスを初期化しないように変更
 - [IDEプラグイン] Gradle 同期が開始された場合は SQLDelight インポートをキャンセル
 - [IDEプラグイン] アンドゥアクションが実行されるスレッドの外でデータベースを再生成
-- [IDEプラグイン] 参照を解決できない場合は空の Java 型を使用
+- [IDEプラグイン] 参照を解決できない場合は空의 Java 型を使用
 - [IDEプラグイン] ファイル解析中にメインスレッドから離れ、書き込み時のみ戻るように改善
 - [IDEプラグイン] 古い IntelliJ バージョンとの互換性を改善 (by @3flex)
 - [IDEプラグイン] より高速なアノテーション API を使用
@@ -646,8 +659,8 @@ sqldelight {
 - [SQLiteドライバ] `mingwX86` ターゲットを追加 (#2558 by @enginegl)
 - [SQLiteドライバ] M1 ターゲットを追加
 - [SQLiteドライバ] `linuxX64` サポートを追加 (#2456 by @chippmann)
-- [MySQLダイアレクト] MySql に `ROW_COUNT` 関数を追加 (#2523)
-- [PostgreSQLダイアレクト] Postgres のリネーム、カラム削除を追加 (by @pabl0rg)
+- [MySQLダイアレクト] MySQL に `ROW_COUNT` 関数を追加 (#2523)
+- [PostgreSQLダイアレクト] PostgreSQL のリネーム、カラム削除を追加 (by @pabl0rg)
 - [PostgreSQLダイアレクト] PostgreSQL グラマーが `CITEXT` を認識しない問題を修正
 - [PostgreSQLダイアレクト] `TIMESTAMP WITH TIME ZONE` と `TIMESTAMPTZ` を追加
 - [PostgreSQLダイアレクト] PostgreSQL `GENERATED` カラムのグラマーを追加
@@ -728,7 +741,7 @@ sqldelight {
 ### Added
 - [SQLite Javascriptドライバ] `sqljs-driver` の公開を有効化 (#1667 by @dellisd)
 - [Paging3拡張] Android Paging 3 ライブラリ用拡張 (#1786 by @kevincianfarini)
-- [MySQLダイアレクト] mysql の `ON DUPLICATE KEY UPDATE` 衝突解決のサポートを追加 (by @rharter)
+- [MySQLダイアレクト] MySQL の `ON DUPLICATE KEY UPDATE` 衝突解決のサポートを追加 (by @rharter)
 - [SQLiteダイアレクト] SQLite `offsets()` のコンパイラサポートを追加 (by @qjroberts)
 - [IDEプラグイン] 未知の型に対するインポートクイックフィックスを追加 (#683 by @aperfilyev)
 - [IDEプラグイン] 未使用インポート検査を追加 (#1161 by @aperfilyev)
@@ -785,8 +798,6 @@ sqldelight {
 - [Gradleプラグイン] Gradle プラグインで `kotlin-native-utils` に依存しないように修正 (by @ilmat192)
 - [Gradleプラグイン] マイグレーションファイルのみが存在する場合でもデータベースを書き出すように修正 (#2094)
 - [Gradleプラグイン] 最終的なコンパイルユニットでダイヤモンド依存関係が 1 回だけ取得されるように修正 (#1455)
-
-今回のリリースにおいて、SQLDelight のインフラ改善に多大な貢献をしてくれた @3flex に感謝します。
 
 ## [1.4.4] - 2020-10-08
 [1.4.4]: https://github.com/sqldelight/sqldelight/releases/tag/1.4.4
@@ -1101,7 +1112,7 @@ sqldelight {
  * Fix: 生成されたコードにおいて `sum` および `round` SQLite 関数が適切な型を持つように修正。
  * Fix: `CAST`、内部セレクトに関するバグを修正。
  * Fix: `CREATE TABLE` 文におけるオートコンプリートを修正。
- * Fix: パッケージ内で SQLite キーワードを使用可能に修正。
+ * Fix: SQLite キーワードをパッケージで使用可能に修正。
 
 ## [0.4.2] - 2016-06-16
 [0.4.2]: https://github.com/sqldelight/sqldelight/releases/tag/0.4.2
@@ -1128,7 +1139,7 @@ sqldelight {
 ## [0.3.2] - 2016-05-14
 [0.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/0.3.2
 
- * New: ビューとエイリアスに対してオートコンプリートと使用箇所検索が機能するようになりました。
+ * New: オートコンプリートと使用箇所検索がビューとエイリアスに対して機能するようになりました。
  * Fix: コンパイル時の検証において、セレクト内での関数の使用を許可。
  * Fix: デフォルト値のみを宣言する insert 文をサポート。
  * Fix: SQLDelight を使用していないプロジェクトがインポートされた際にプラグインがクラッシュしないように修正。

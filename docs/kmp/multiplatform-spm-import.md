@@ -1,0 +1,366 @@
+[//]: # (title: 向 KMP 模块添加 Swift 软件包作为依赖项)
+<primary-label ref="Experimental"/>
+
+<tldr>
+   <p>Swift Package Manager (SwiftPM) 扮演着与 CocoaPods 相同的角色：它可以让您透明地协调 iOS 应用的 native iOS 依赖项。</p>
+   <p>在这里，您可以学习如何在 KMP 项目中设置 SwiftPM 依赖项，以及在必要时如何将 KMP 配置从 CocoaPods 迁移到 SwiftPM。</p>
+</tldr>
+
+> 此功能目前处于[实验性](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained)阶段，**不**建议用于生产环境。
+> 请在专门的 Kotlin Slack 频道中分享您遇到的任何问题或反馈：[#kmp-swift-package-manager](https://kotlinlang.slack.com/archives/C09TW68099C)
+>
+{style="warning"}
+
+带有 SwiftPM 导入集成的 Kotlin Gradle 插件允许您使用为 Apple 目标声明的 SwiftPM 依赖项，从 Objective-C 和 Swift 代码中导入 Objective-C API。
+
+对于传递依赖项（依赖于使用 SwiftPM 导入的项目），Kotlin Gradle 插件会自动从 SwiftPM 依赖项中提供必要的机器码。例如，在运行 Kotlin/Native 测试或链接框架时，您不需要进行任何额外配置。
+
+> 目前尚不支持将使用 SwiftPM 导入的 KMP 模块本身作为 Swift 软件包[导出](multiplatform-spm-export.md)，且可能无法正常工作。
+> 有关更多详细信息，请参阅此 [YouTrack 问题](https://youtrack.jetbrains.com/issue/KT-84420)，并让我们了解您的用例。
+>
+{style="note"}
+
+要配置您的项目：
+
+1. [设置您的开发环境](#set-up-environment)
+2. [向您的 KMP 模块添加 SwiftPM 依赖项](#add-and-call-swiftpm-dependencies)
+3. [在您的 Kotlin 代码中使用导入的 API](#use-imported-apis)
+
+## 设置环境
+
+要试用 SwiftPM 导入功能，您需要使用特定的 Kotlin 开发版本。请记住，此版本**不**适用于生产环境。
+<!-- This will be invalidated when 2.4.0-Beta1 comes out. This is when we specify the feature stability level and change the page label. -->
+
+要设置 Kotlin 多平台 Gradle 插件：
+
+1. 在您的 `settings.gradle.kts` 文件中，添加用于依赖项和插件的开发软件包仓库：
+
+    ```kotlin
+    dependencyResolutionManagement {
+        repositories {
+            maven("https://packages.jetbrains.team/maven/p/kt/dev")
+            mavenCentral()
+        }
+    }
+
+    pluginManagement {
+        repositories {
+            maven("https://packages.jetbrains.team/maven/p/kt/dev")
+            mavenCentral()
+            gradlePluginPortal()
+        }
+    }
+    ```
+
+2. 在您的版本目录 (version catalog) 中，应用实验性版本的 Kotlin 多平台 Gradle 插件：
+
+    ```text
+    kotlin = "%spmImport%"
+
+    [plugins]
+    kotlin-multiplatform = "%spmImport%"
+    ```
+
+3. 同步 Gradle 文件，并尝试向 KMP 模块的 `build.gradle.kts` 文件中添加 `kotlin.swiftPMDependencies {}` 块。
+
+   如果无法解析 `swiftPMDependencies` 名称，请向根目录的 `build.gradle.kts` 文件中添加以下块，以强制使用实验性 Kotlin 多平台 Gradle 插件版本：
+
+    ```kotlin
+    buildscript {
+        dependencies.constraints {
+            "classpath"("org.jetbrains.kotlin:kotlin-gradle-plugin:%spmImport%")
+        }
+    }
+    ```
+
+### 设置 KMP IDE 插件
+
+如果您使用的是为 KMP 项目推荐的 [Kotlin 多平台 IDE 插件]()，请明确指定从 KMP 模块构建的 iOS 项目的路径。
+
+在调用 `iosTarget.binaries.framework` API 的 `build.gradle.kts` 文件中，添加设置路径的 API 调用：
+
+```kotlin
+kotlin {
+    // iOS 目标配置示例
+    listOf(
+        iosArm64(),
+        iosSimulatorArm64(),
+        iosX64(),
+    ).forEach { iosTarget ->
+            iosTarget.binaries.framework { 
+                baseName = "Shared"
+                isStatic = false
+            } 
+    }
+
+    swiftPMDependencies { 
+        // 指定使用 `:embedAndSignAppleFrameworkForXcode` 集成的
+        // .xcodeproj 文件的路径
+        xcodeProjectPathForKmpIJPlugin.set(
+            layout.projectDirectory.file("../iosApp/iosApp.xcodeproj")
+        )
+    }
+}
+```
+
+## 添加并调用 SwiftPM 依赖项
+
+> 有关运行示例，请参阅我们的示例项目。在 `master` 分支上，每个项目都使用 CocoaPods 构建，而 `spm_import` 分支则使用 SwiftPM：
+> 
+> * [SwiftUI 和 Firebase 示例应用](https://github.com/Kotlin/kmp-with-cocoapods-firebase-sample/tree/spm_import)
+> * [Compose Multiplatform iOS 示例应用](https://github.com/Kotlin/kmp-with-cocoapods-compose-sample/tree/spm_import)
+>
+{type="tip"}
+
+### 配置构建文件
+
+可以在声明 Apple 目标的 `build.gradle.kts` 文件的 `swiftPMDependencies` 块中添加特定的 SwiftPM 依赖项。
+例如，对于 Firebase：
+
+```kotlin
+kotlin {
+    iosArm64()
+    iosSimulatorArm64()
+    iosX64()
+
+    swiftPMDependencies {
+        // 将 FirebaseAnalytics 导入您的 Kotlin 代码
+        swiftPackage(
+            url = url("https://github.com/firebase/firebase-ios-sdk.git"),
+            version = from("12.5.0"),
+            products = listOf(product("FirebaseAnalytics")),
+        )
+        // swift-protobuf 是 Firebase 的传递依赖项，
+        // 只有在您想使用特定版本时
+        // 才需要包含它
+        swiftPackage(
+            url = url("https://github.com/apple/swift-protobuf.git"),
+            version = exact("1.32.0"),
+            products = listOf(),
+        )
+    }
+}
+```
+
+SwiftPM 集成基于导入 Clang 模块。默认情况下，导入机制会自动发现指定 Swift 软件包中的 Clang 模块，并使所有可用模块对 Kotlin 代码可见——这类似于 API 可见性在 Swift 和 Objective-C 中的工作方式。
+<!-- TODO link to where it is explained? -->
+
+要禁用默认行为和自动模块发现，请将 `discoverClangModulesImplicitly` 设置为 `false`。当禁用模块发现时，SwiftPM 导入将使用产品名称作为 Clang 模块名称。
+
+要导入名称与产品名称不同的 Clang 模块，请使用 `importedClangModules` 参数，例如：
+
+```kotlin
+kotlin {
+    swiftPMDependencies {
+        // 如果 'discoverClangModulesImplicitly' 设置为 'true'，
+        // 下面的 'importedClangModules' 参数将被忽略
+        discoverClangModulesImplicitly = false
+
+        // 导入的软件包、它们的产品和 Clang 模块
+        swiftPackage(
+            url = url("https://github.com/firebase/firebase-ios-sdk.git"),
+            version = from("12.5.0"),
+            products = listOf(
+                product("FirebaseAnalytics"),
+                product("FirebaseFirestore")
+            ),
+            importedClangModules = listOf(
+                "FirebaseAnalytics", 
+                // FirebaseFirestore 的 Objective-C API 位于
+                // 'FirebaseFirestoreInternal' Clang 模块中
+                "FirebaseFirestoreInternal"
+            ),
+        )
+    }
+}
+```
+
+### 设置平台约束
+
+某些 SwiftPM 依赖项可能无法在构建脚本中的所有目标上编译或提供有效的 API。例如，Google Maps SDK 目前仅支持 iOS 目标。
+
+因此，虽然您的项目仅针对 iOS，但您不需要显式声明平台。但是，一旦您添加了另一个目标（例如 macOS），您就需要为每个依赖项指定平台约束。
+
+为了确保依赖项仅应用于相关的编译，请在 `product` 规范的 `platforms` 参数中指定正确的目标：
+
+```kotlin
+kotlin {
+    iosArm64()
+    iosSimulatorArm64()
+    iosX64()
+    macosArm64()
+
+    swiftPMDependencies {
+        swiftPackage(
+            url = url("https://github.com/googlemaps/ios-maps-sdk.git"),
+            version = exact("10.3.0"),
+            products = listOf(
+                product(
+                    "GoogleMaps", 
+                    platforms = setOf(
+                        // `GoogleMaps` 软件包将仅对
+                        // iOS 编译可见
+                        iOS()
+                    )
+                )
+            )
+        ) 
+    }
+}
+```
+
+### 使用导入的 API
+
+导入的 Objective-C API 包含在以 `swiftPMImport` 前缀开头，并以项目及其组的 Gradle 名称结尾的命名空间中。
+
+例如，Kotlin 构建脚本如下指定组名：
+
+```kotlin
+// subproject/build.gradle.kts
+group = "groupName"
+```
+
+在这里，`groupName` 是项目的 Gradle 组名，`subproject` 是项目名称。现在，您可以在该模块的 `iosMain` 源集中导入 Firebase API：
+
+```kotlin
+// subproject/src/iosMain/kotlin/useFirebaseAnalytics.kt
+import swiftPMImport.groupName.subproject.FIRAnalytics
+import swiftPMImport.groupName.subproject.FIRApp
+```
+
+## 其他导入选项
+
+### 导入本地 Swift 软件包
+
+SwiftPM 导入机制还允许从本地文件系统导入 Swift 软件包。
+
+让我们考虑一个具有以下清单的 Swift 软件包，它位于 `/path/to/ExamplePackage` 目录中：
+
+```swift
+// /path/to/ExamplePackage/Package.swift
+let package = Package(
+  name: "ExamplePackage",
+  platforms: [.iOS("15.0")],
+  products: [
+    .library(name: "ExamplePackage", targets: ["ExamplePackage"]),
+  ],
+  dependencies: [
+    .package(url: "https://github.com/grpc/grpc-swift.git", exact: "1.27.0",),
+  ],
+  targets: [
+    // 此目标可以用带 @objc API 的 Swift 实现，也可以用 Objective-C 实现
+    .target(name: "ExamplePackage", dependencies: [.product(name: "GRPC", package: "grpc-swift")]),
+  ]
+)
+```
+{collapsible="true" collapsed-title-line-number="3"}
+
+要在您的 Kotlin 构建脚本中导入它，请使用 `localSwiftPackage` API：
+
+```kotlin
+// <projectDir>/shared/build.gradle.kts
+kotlin {
+    swiftPMDependencies {
+        localSwiftPackage(
+            directory = project.layout.projectDirectory.dir("/path/to/ExamplePackage/"),
+            products = listOf("ExamplePackage")
+        )
+    }
+}
+```
+
+同步 Gradle 文件以执行 SwiftPM 导入，然后在您的 Kotlin 代码中使用导入的 API：
+
+```kotlin
+// /path/to/shared/src/appleMain/kotlin/useExamplePackage.kt
+
+@OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
+fun useExamplePackage() {
+    // 如果 Swift 软件包成功导入，
+    // IDE 会为该类建议正确的导入
+    HelloFromExamplePackage().hello()
+}
+```
+
+### 特定部署版本
+
+如果您的依赖项需要更高的[部署版本](https://developer.apple.com/documentation/packagedescription/supportedplatform)，请在 `*MinimumDeploymentTarget` 参数中指定它。例如，对于 iOS：
+
+```kotlin
+kotlin {
+    swiftPMDependencies {
+        iosMinimumDeploymentTarget.set("16.0")
+    }
+}
+```
+
+### Swift 软件包的位置和版本
+
+与 `Package.swift` 清单文件类似，您可以在 `swiftPackage()` 调用中指定 Swift 软件包的位置和版本。两者都有几个互斥的选项。 
+
+要设置位置，您可以使用 URL 或 [SwiftPM 注册表 ID](https://docs.swift.org/swiftpm/documentation/packagemanagerdocs/usingswiftpackageregistry)：
+
+```kotlin
+swiftPackage(
+    // 选项 1，URL 字符串
+    // 指向软件包的 Git 仓库
+    url = url("https://github.com/firebase/firebase-ios-sdk.git")
+
+    // 选项 2，Swift 软件包注册表 ID
+    // 请参阅上面链接的有关使用软件包注册表的 Apple 文档
+    repository = id("...")
+)
+```
+
+要指定版本，请使用以下 Gradle 风格和 Git 风格的版本规范：
+
+```kotlin
+swiftPackage(
+    // 类似于 Gradle 的 'require' 版本约束，
+    // 从指定版本开始
+    version = from("1.0")
+
+    // 类似于 Gradle 的 'strict' 版本约束，
+    // 与指定版本完全匹配
+    version = exact("2.0")
+
+    // Git 特定的版本规范，
+    // 匹配指定的分支或修订
+    version = branch("master")
+    // 或者
+    version = revision("e74b07278b926c9ec6f9643455ea00d1ce04a021")
+)
+```
+
+## 动态 Kotlin/Native 框架的已知限制
+
+目前，SwiftPM 导入集成并不支持生成动态 Kotlin/Native 框架时可能出现的所有边缘情况。您可能会在 Xcode 构建期间遇到问题，或者在运行时看到警告，例如：
+
+* `Undefined symbols for architecture ...: "...", referenced from: ld: symbol(s) not found ...`
+* `dyld: Symbol not found: ...`
+* `objc[...]: Class _Foo is implemented in both /path/to/Shared and /path/to/Bar. This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.`
+
+这些问题的一般解决方法是通过将 `isStatic` 属性设置为 `true` 来更改框架的链接模式：
+
+```kotlin
+// shared/build.gradle.kts
+kotlin {
+    listOf(
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "Shared"
+
+            // 将此属性设置为 "true"
+            isStatic = true
+        }
+    }
+}
+```
+
+如果您遇到了这些问题中的任何一个，需要保持 `isStatic=false`，或者更改此属性无助于解决构建失败，请在我们的 Slack 频道中告知我们。获取[邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)并加入 [#kmp-swift-package-manager](https://kotlinlang.slack.com/archives/C09TW68099C)。
+
+## 下一步？
+
+详细了解[在 KMP 项目中从 CocoaPods 切换到 SwiftPM 依赖项](multiplatform-cocoapods-spm-migration.md)。

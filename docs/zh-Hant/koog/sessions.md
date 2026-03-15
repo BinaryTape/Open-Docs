@@ -46,6 +46,7 @@ Koog 架構提供了兩種類型的工作階段：
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 val strategy = strategy<Unit, Unit>("strategy-name") {
     val node by node<Unit, Unit> {
@@ -85,6 +86,7 @@ llm.readSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 val strategy = strategy<Unit, Unit>("strategy-name") {
     val node by node<Unit, Unit> {
@@ -105,6 +107,7 @@ llm.readSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.core.tools.ToolDescriptor
 
 val newTools = listOf<ToolDescriptor>()
@@ -151,6 +154,7 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 val strategy = strategy<Unit, Unit>("strategy-name") {
     val node by node<Unit, Unit> {
@@ -188,6 +192,7 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.prompt.message.Message
 
 val strategy = strategy<Unit, Unit>("strategy-name") {
@@ -227,6 +232,7 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.example.exampleParallelNodeExecution07.JokeRating
 
 val strategy = strategy<Unit, Unit>("strategy-name") {
@@ -258,6 +264,7 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.prompt.message.Message
 import ai.koog.prompt.message.RequestMetaInfo
 import kotlin.time.Clock
@@ -301,6 +308,7 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.prompt.message.Message
 
 val filteredMessages = emptyList<Message>()
@@ -328,6 +336,7 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 val strategy = strategy<Unit, Unit>("strategy-name") {
     val node by node<Unit, Unit> {
@@ -359,6 +368,7 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
 import ai.koog.agents.core.dsl.extension.replaceHistoryWithTLDR
 
@@ -399,6 +409,7 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.ext.tool.AskUser
 import ai.koog.agents.core.agent.session.callTool
 import ai.koog.agents.core.agent.session.callToolRaw
@@ -438,6 +449,7 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.ext.tool.AskUser
 import kotlinx.coroutines.flow.flow
 
@@ -502,6 +514,7 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
 import ai.koog.agents.core.dsl.extension.replaceHistoryWithTLDR
 

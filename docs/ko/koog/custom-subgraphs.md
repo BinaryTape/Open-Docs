@@ -10,6 +10,8 @@
 <!--- INCLUDE
 import ai.koog.agents.core.agent.entity.ToolSelectionStrategy
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.subgraph
 
 typealias StrategyInput = Unit
 typealias StrategyOutput = Unit
@@ -35,6 +37,8 @@ strategy<StrategyInput, StrategyOutput>("strategy-name") {
 <!--- INCLUDE
 import ai.koog.agents.core.agent.entity.ToolSelectionStrategy
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.ext.tool.AskUser
 import ai.koog.agents.ext.tool.SayToUser
 
@@ -68,6 +72,8 @@ strategy<StrategyInput, StrategyOutput>("strategy-name") {
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.*
 import ai.koog.agents.ext.tool.AskUser
 import ai.koog.agents.ext.tool.SayToUser
@@ -103,6 +109,8 @@ strategy<String, String>("my-strategy") {
 * 서브그래프 정의에서 직접 구성:
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.ext.tool.AskUser
 
 val str = strategy<String, String>("my-strategy") {
@@ -122,6 +130,8 @@ val mySubgraph by subgraph<String, String>(
 * 도구 레지스트리(tool registry)에서 구성:
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.tools.ToolRegistry
 
 val toolRegistry = ToolRegistry.EMPTY
@@ -142,6 +152,8 @@ val mySubgraph by subgraph<String, String>(
 * 실행 중 동적으로 구성:
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.subgraph
 
 val str = strategy<String, String>("my-strategy") {
     val node by node<Unit, Unit>("node_name") {
@@ -165,6 +177,8 @@ this.llm.writeSession {
 복잡한 워크플로는 각 프로세스의 특정 부분을 처리하는 여러 서브그래프로 나눌 수 있습니다:
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.ext.tool.AskUser
 import ai.koog.agents.ext.tool.SayToUser
 
@@ -244,6 +258,8 @@ strategy("complex-workflow") {
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.nodeExecuteTool
 import ai.koog.agents.core.dsl.extension.nodeLLMRequest
 import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
@@ -252,11 +268,11 @@ import ai.koog.agents.core.dsl.extension.onToolCall
 import ai.koog.agents.core.tools.SimpleTool
 import ai.koog.agents.core.tools.ToolDescriptor
 import ai.koog.prompt.dsl.prompt
-import kotlinx.serialization.KSerializer
+import ai.koog.serialization.typeToken
 import kotlinx.serialization.Serializable
 
 class WebSearchTool: SimpleTool<WebSearchTool.Args>(
-    argsSerializer = Args.serializer(),
+    argsType = typeToken<Args>(),
     name = "web_search",
     description = "Search on the web"
 ) {
@@ -269,7 +285,7 @@ class WebSearchTool: SimpleTool<WebSearchTool.Args>(
 }
 
 class DoAction: SimpleTool<DoAction.Args>(
-    argsSerializer = Args.serializer(),
+    argsType = typeToken<Args>(),
     name = "do_action",
     description = "Do something"
 ) {
@@ -282,7 +298,7 @@ class DoAction: SimpleTool<DoAction.Args>(
 }
 
 class DoAnotherAction: SimpleTool<DoAnotherAction.Args>(
-    argsSerializer = Args.serializer(),
+    argsType = typeToken<Args>(),
     name = "do_another_action",
     description = "Do something other"
 ) {

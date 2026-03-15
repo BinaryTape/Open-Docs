@@ -307,12 +307,13 @@ private fun Prompt.appendPrompt(content: List<ContentBlock>): Prompt {
 
 ## 发送自定义事件
 
-除了自动通知外，您还可以在智能体执行期间的任何时间点使用 `withAcpAgent` 块中的 `sendEvent` 向 ACP 客户端发送自定义事件。这对于进度更新、自定义状态消息或计划更新非常有用。
+除了自动通知外，您还可以在智能体执行期间的任何时间点使用 `sendEvent` 向 ACP 客户端发送自定义事件。这对于进度更新、自定义状态消息或计划更新非常有用。
 
 您可以在 `AIAgentContext` 内部执行此操作，例如在节点 (node) 中：
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.features.acp.withAcpAgent
 import com.agentclientprotocol.common.Event
 import com.agentclientprotocol.model.Plan
@@ -340,6 +341,7 @@ val strategy = strategy<Unit, Unit>("my-strategy") {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.features.acp.withAcpAgent
 import com.agentclientprotocol.model.AcpMethod
 import com.agentclientprotocol.model.AuthMethodId

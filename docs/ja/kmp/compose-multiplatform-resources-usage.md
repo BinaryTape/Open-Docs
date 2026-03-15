@@ -160,6 +160,9 @@ Image(
 すべての文字列リソースは `composeResources/values` ディレクトリの XML ファイルに保存します。
 各ファイルの各アイテムに対して静的アクセッサが生成されます。
 
+Compose Multiplatform は、XML ファイルに直接文字列リソース、文字列配列、複数形を追加するための、Emmet のような短縮構文をサポートしています。
+たとえば、`strings.xml` で `test{Example}` または `s.test{Example}` と入力して **Tab** を押すと、自動的に `<string name="test">Example</string>` に展開されます。
+
 異なるロケール用に文字列をローカライズする方法の詳細については、[文字列のローカライズに関するガイド](compose-localize-strings.md)を参照してください。
 
 #### 単純な文字列
@@ -221,6 +224,12 @@ coroutineScope.launch {
 
 [Android の文字列](https://developer.android.com/guide/topics/resources/string-resource#escaping_quotes)のように、"@" や "?" などの特殊な XML 文字をエスケープする必要はありません。
 
+> Emmet のような構文を使用し、**Tab** を押して省略形を文字列タグに展開します:
+> * `test` → `<string name="test"></string>`
+> * `test{Example}` → `<string name="test">Example</string>`
+>
+{style="note"}
+
 #### 文字列テンプレート
 
 現在、引数は文字列リソースに対して基本的なサポートを提供しています。
@@ -245,6 +254,12 @@ Text(stringResource(Res.string.str_template, 100, "User_name"))
 ```kotlin
 Text(stringResource(Res.string.str_template, "User_name", 100.1f))
 ```
+
+> プレースホルダーのために `%1$s` や `%2$d` を手動で入力する代わりに、インラインの数字ショートカットを使用できます。
+> たとえば、文字列値の中で `1` または `1s` と入力すると `%1$s` に展開されます。
+> 同様に、`2d` と入力すると `%2$d` に展開されます。
+> 
+{style="note"}
 
 #### 文字列配列
 
@@ -296,6 +311,18 @@ coroutineScope.launch {
 
 </TabItem>
 </Tabs>
+
+> Emmet のような構文を使用して、文字列配列をすばやく定義できます。
+> `string-array`、`sa`、または `>` オペレーターを使用して、空の配列テンプレートを生成します。
+> 名前付きの配列で、定義済みのアイテム数と開始テキストを指定するには、`test>2{Hello}` と入力して **Tab** を押します。
+> ```xml
+> <string-array name="test">
+>    <item>Hello</item>
+>    <item>Hello</item>
+> </string-array>
+> ```
+>
+{style="note"}
 
 #### 複数形（Plurals）
 
@@ -360,6 +387,19 @@ coroutineScope.launch {
 
 </TabItem>
 </Tabs>
+
+> Emmet のような構文を使用して、複数形リソースを生成できます。
+> たとえば、`plurals`、`p`、または `:` を使用して、デフォルトの空の文字列テンプレートを生成します。
+> `values-en/strings.xml` で作業している場合、IDE はロケール、必要な数量、および英語には `one` と `other` のみが必要であることを自動的に検出します。
+> `p.test` または `plurals.test` と入力して **Tab** を押すと、省略形が `plurals` ブロックに展開されます。
+> ```xml
+> <plurals name="test">
+>     <item quantity="one"></item>
+>     <item quantity="other"></item>
+> </plurals>
+> ```
+>
+{style="note"}
 
 ### フォント
 

@@ -295,7 +295,7 @@ data class RocketLaunch (
 
 ### 引入 ViewModel
 
-現在應用程式變得更加複雜，是時候為名為 `MainActivity` 的 [Android Activity](https://developer.android.com/guide/components/activities/intro-activities) 引入 ViewModel 了。它會呼叫實作 UI 的 `App()` 函式。 ViewModel 將管理來自 Activity 的資料，且在 Activity 經歷生命週期變化時不會消失。
+現在應用程式變得更加複雜，是時候為名為 `MainActivity` 的 [Android Activity](https://developer.android.com/guide/components/activities/intro-activities) 引入 ViewModel 了。它會呼叫實作 UI 的 `App()` 函式。ViewModel 將管理來自 Activity 的資料，且在 Activity 經歷生命週期變化時不會消失。
 
 1. 在 `composeApp/src/androidMain/.../greetingkmp` 目錄中，建立一個新的 `MainViewModel` Kotlin 類別：
 

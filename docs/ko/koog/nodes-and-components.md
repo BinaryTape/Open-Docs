@@ -25,6 +25,7 @@ graph LR
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 val strategy = strategy<String, String>("strategy_name") {
 -->
@@ -70,6 +71,7 @@ graph LR
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.core.dsl.extension.nodeDoNothing
 
 val strategy = strategy<String, String>("strategy_name") {
@@ -117,6 +119,7 @@ graph LR
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.core.dsl.extension.nodeAppendPrompt
 
 typealias Input = Unit
@@ -210,6 +213,7 @@ graph LR
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.core.dsl.extension.nodeLLMRequest
 import ai.koog.agents.core.dsl.extension.nodeDoNothing
 
@@ -290,6 +294,7 @@ graph LR
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.core.dsl.extension.nodeLLMRequestMultiple
 import ai.koog.agents.core.dsl.extension.nodeDoNothing
 
@@ -337,6 +342,7 @@ graph LR
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
 import ai.koog.agents.core.dsl.extension.nodeDoNothing
 import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
@@ -388,6 +394,7 @@ graph LR
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.core.dsl.extension.nodeExecuteTool
 import ai.koog.agents.core.dsl.extension.nodeLLMRequest
 import ai.koog.agents.core.dsl.extension.onToolCall
@@ -433,6 +440,7 @@ graph LR
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.core.dsl.extension.nodeExecuteTool
 import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
 
@@ -477,6 +485,7 @@ graph LR
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.core.dsl.extension.nodeLLMRequestMultiple
 import ai.koog.agents.core.dsl.extension.nodeExecuteMultipleTools
 import ai.koog.agents.core.dsl.extension.onMultipleToolCalls
@@ -522,6 +531,7 @@ graph LR
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.core.dsl.extension.nodeLLMSendMultipleToolResults
 import ai.koog.agents.core.dsl.extension.nodeExecuteMultipleTools
 
@@ -582,6 +592,7 @@ inline fun <reified T> AIAgentNodeDelegate<Input, Output>.transform(
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.core.dsl.extension.nodeDoNothing
 
 val strategy = strategy<String, Int>("strategy_name") {
@@ -606,6 +617,7 @@ edge(textNode forwardTo nodeFinish)
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.core.dsl.extension.nodeLLMRequest
 
 val strategy = strategy<String, Int>("strategy_name") {
@@ -635,7 +647,7 @@ edge(lengthNode forwardTo nodeFinish)
 
 ### subgraphWithTask
 
-제공된 도구를 사용하여 특정 작업을 수행하고 구조화된 결과를 반환하는 서브그래프입니다. 다중 응답 LLM 상호작용(어시스턴트가 도구 호출과 섞인 여러 응답을 생성할 수 있음)을 지원하며 도구 호출의 실행 방식을 제어할 수 있습니다. 자세한 내용은 [API 레퍼런스](api:agents-ext::ai.koog.agents.ext.agent.subgraphWithTask)를 참조하세요.
+제공된 도구를 사용하여 특정 작업을 수행하고 구조화된 결과를 반환하는 서브그래프입니다. 다중 응답 LLM 상호작용(어시스턴트가 도구 호출과 섞인 여러 응답을 생성할 수 있음)을 지원하며 도구 호출의 실행 방식을 제어할 수 있습니다. 자세한 내용은 [API 레퍼런스](api:agents-ext::ai.koog.agents.ext.agent.subgraphWithTask).
 
 이 서브그래프는 다음과 같은 목적으로 사용할 수 있습니다:
 
@@ -655,6 +667,7 @@ API를 사용하면 다음과 같은 선택적 파라미터로 실행을 세밀�
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.ext.tool.SayToUser
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.agents.ext.agent.subgraphWithTask
@@ -687,7 +700,7 @@ val processQuery by subgraphWithTask<String, String>(
 
 ### subgraphWithVerification
 
-작업이 올바르게 수행되었는지 검증하고 발생한 문제에 대한 세부 정보를 제공하는 `subgraphWithTask`의 특수 버전입니다. 이 서브그래프는 유효성 검사 또는 품질 체크가 필요한 워크플로에 유용합니다. 자세한 내용은 [API 레퍼런스](api:agents-ext::ai.koog.agents.ext.agent.subgraphWithVerification)를 참조하세요.
+작업이 올바르게 수행되었는지 검증하고 발생한 문제에 대한 세부 정보를 제공하는 `subgraphWithTask`의 특수 버전입니다. 이 서브그래프는 유효성 검사 또는 품질 체크가 필요한 워크플로에 유용합니다. 자세한 내용은 [API 레퍼런스](api:agents-ext::ai.koog.agents.ext.agent.subgraphWithVerification).
 
 이 서브그래프는 다음과 같은 목적으로 사용할 수 있습니다:
 
@@ -701,6 +714,7 @@ val processQuery by subgraphWithTask<String, String>(
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.ext.tool.SayToUser
 import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
 import ai.koog.agents.ext.agent.subgraphWithVerification
@@ -752,6 +766,7 @@ val verifyCode by subgraphWithVerification<String>(
 import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.core.dsl.extension.*
 
 -->
@@ -781,6 +796,7 @@ public fun singleRunStrategy(): AIAgentGraphStrategy<String, String> = strategy(
 import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.core.dsl.extension.*
 import ai.koog.agents.core.tools.ToolRegistry
 
@@ -833,6 +849,7 @@ fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStr
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.example.exampleStreamingApi03.Book
 import ai.koog.agents.example.exampleStreamingApi04.markdownBookDefinition
 import ai.koog.agents.example.exampleStreamingApi06.parseMarkdownStreamToBooks

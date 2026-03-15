@@ -252,4 +252,36 @@ false인 경우, 스키마는 `.sq` 파일에 정의됩니다.
     deriveSchemaFromMigrations = true
     ```
 
+----
+
+### `expandSelectStar`
+
+타입: `Property<Boolean>`
+
+true로 설정하면 SQLDelight는 `SELECT *` 문을 각 결과 컬럼을 명시적으로 참조하도록 재작성합니다.
+
+예를 들어, 아래의 `getAll` 쿼리는
+```sql
+CREATE TABLE hockey_player (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  number INTEGER NOT NULL
+);
+
+getAll:
+SELECT * FROM hockey_player;
+```
+`SELECT hockey_player.id, hockey_player.name, hockey_player.number FROM hockey_player;` 로 재작성됩니다.
+
+기본값은 `true`입니다.
+
+=== "Kotlin"
+    ```kotlin
+    expandSelectStar.set(true)
+    ```
+=== "Groovy"
+    ```groovy
+    expandSelectStar = true
+    ```
+
 {% include 'common/gradle-dependencies.md' %}

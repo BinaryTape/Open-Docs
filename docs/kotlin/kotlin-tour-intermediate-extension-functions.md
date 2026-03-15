@@ -83,7 +83,7 @@ fun HttpClient.post(url: String): HttpResponse = request("POST", url, emptyMap()
 ```
 {validate="false"}
 
-这些 `.get()` 和 `.post()` 函数扩展了 `HttpClient` 类。它们可以直接使用 `HttpClient` 类中的 `request()` 函数，因为它们是在 `HttpClient` 类的实例（作为接收者）上调用的。你可以使用这些扩展函数来通过适当的 HTTP 方法调用 `request()` 函数，这简化了你的代码并使其更易于理解：
+这些 `.get()` 和 `.post()` 函数扩展了 `HttpClient` 类。它们可以直接使用 `HttpClient` 类中的 `request()` 函数，因为它们是在 `HttpClient` 类的实例（作为接收者）上调用的。你可以使用 these 扩展函数来通过适当的 HTTP 方法调用 `request()` 函数，这简化了你的代码并使其更易于理解：
 
 ```kotlin
 class HttpClient {

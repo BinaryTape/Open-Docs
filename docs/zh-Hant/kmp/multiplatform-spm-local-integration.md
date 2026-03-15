@@ -3,14 +3,14 @@
 <tldr>
    這是一種本機整合方法。如果符合以下情況，它可能適合您：<br/>
 
-   * 您有一個包含本機 SPM 模組的 iOS 應用程式。
+   * 您有一個包含本機 SwiftPM 模組的 iOS 應用程式。
    * 您已經在本機電腦上設定了針對 iOS 的 Kotlin Multiplatform 專案。
    * 您現有的 iOS 專案具有靜態連結類型。<br/>
 
    [選擇最適合您的整合方法](multiplatform-ios-integration-overview.md)
 </tldr>
 
-在本教學中，您將學習如何使用 Swift 封裝管理員 (SPM) 將 Kotlin Multiplatform 專案中的 Kotlin 架構整合到本機軟件包中。
+在本教學中，您將學習如何使用 Swift 封裝管理員 (SwiftPM) 將 Kotlin Multiplatform 專案中的 Kotlin 架構整合到本機軟件包中。
 
 ![直接整合圖示](direct-integration-scheme.svg){width=700}
 
@@ -34,16 +34,16 @@
 
 本教學假設您的專案在專案的組建階段中使用帶有 `embedAndSignAppleFrameworkForXcode` 任務的[直接整合](multiplatform-direct-integration.md)方法。如果您是透過 CocoaPods 外掛程式或透過帶有 `binaryTarget` 的 Swift 軟件包連接 Kotlin 架構，請先進行遷移。
 
-### 從 SPM binaryTarget 整合遷移 {initial-collapse-state="collapsed" collapsible="true"}
+### 從 SwiftPM binaryTarget 整合遷移 {initial-collapse-state="collapsed" collapsible="true"}
 
-要從使用 `binaryTarget` 的 SPM 整合遷移：
+要從使用 `binaryTarget` 的 SwiftPM 整合遷移：
 
 1. 在 Xcode 中，使用 **Product** | **Clean Build Folder** 或使用 <shortcut>Cmd + Shift + K</shortcut> 快速鍵清理組建目錄。
 2. 在每個 `Package.swift` 檔案中，移除對包含 Kotlin 架構的軟件包的相依性，以及對產品的目標相依性。
 
 ### 從 CocoaPods 外掛程式遷移 {initial-collapse-state="collapsed" collapsible="true"}
 
-> 如果您在 `cocoapods {}` 區塊中對其他 Pod 有相依性，則必須採用 CocoaPods 整合方法。目前，在多模組 SPM 專案中不可能同時擁有對 Pod 和對 Kotlin 架構的相依性。
+> 如果您在 `cocoapods {}` 區塊中對其他 Pod 有相依性，則必須採用 CocoaPods 整合方法。目前，在多模組 SwiftPM 專案中不可能同時擁有對 Pod 和對 Kotlin 架構的相依性。
 >
 {style="warning"}
 
@@ -101,7 +101,7 @@
    }
    ```
 
-   ![SPM 用法](xcode-spm-usage.png){width=700}
+   ![SwiftPM 用法](xcode-spm-usage.png){width=700}
 
 6. 在 iOS 專案的 `ContentView.swift` 檔案中，您現在可以透過匯入本機軟件包來使用此函式：
 
@@ -131,9 +131,11 @@
 還有一些值得考慮的因素：
 
 * 如果您有不同於預設 `Debug` 或 `Release` 的自訂組建組態，請在 **Build Settings** 分頁的 **User-Defined** 下新增 `KOTLIN_FRAMEWORK_BUILD_TYPE` 設定，並將其設定為 `Debug` 或 `Release`。
+* If you encounter an error with script sandboxing, open the iOS project settings by double-clicking the project name,
+  then on the **Build Settings** tab, disable the **User Script Sandboxing** under **Build Options**.
 * 如果您遇到指令碼沙盒化錯誤，請透過按兩下專案名稱開啟 iOS 專案設定，然後在 **Build Settings** 分頁中，停用 **Build Options** 下的 **User Script Sandboxing**。
 
 ## 下一步
 
 * [選擇您的整合方法](multiplatform-ios-integration-overview.md)
-* [了解如何設定 Swift 軟件包匯出](multiplatform-spm-export.md)
+* [進一步了解如何設定 Swift 軟件包匯出](multiplatform-spm-export.md)

@@ -27,6 +27,8 @@ Koog 中的並行節點執行由下列方法與資料結構組成。
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
 
 typealias Input = Unit
 typealias Output = String
@@ -43,7 +45,7 @@ val strategy = strategy<String, String>("strategy_name") {
 val nodeName by parallel<Input, Output>(
    firstNode, secondNode, thirdNode /* 如果需要，可增加更多節點 */
 ) {
-   // 合併策略放置於此，例如：
+   // 合併策略放置於此，例如： 
    selectByMax { it.length }
 }
 ```
@@ -53,6 +55,8 @@ val nodeName by parallel<Input, Output>(
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
 
 typealias Input = String
 typealias Output = Int
@@ -91,6 +95,8 @@ val calc by parallel<String, Int>(
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
 
 typealias Input = String
 typealias Output = String
@@ -120,6 +126,8 @@ val nodeSelectJoke by parallel<String, String>(
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
 
 typealias Input = String
 typealias Output = String
@@ -149,6 +157,8 @@ val nodeLongestJoke by parallel<String, String>(
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.structure.json.JsonStructure
 
@@ -196,6 +206,8 @@ val nodeBestJoke by parallel<String, String>(
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
 
 typealias Input = String
 typealias Output = String
@@ -227,6 +239,8 @@ $joke" }
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
 import ai.koog.prompt.dsl.prompt
 import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
@@ -319,7 +333,7 @@ $joke" }.joinToString("
 
 1. **考量資源限制**：並行執行節點時，請留意資源使用情況，特別是同時進行多個 LLM API 呼叫時。
 
-2. **上下文管理**：每次並行執行都會建立一個分叉的內容（forked context）。合併結果時，請選擇要保留哪個內容，或如何結合來自不同執行的內容。
+2. **內容管理**：每次並行執行都會建立一個分叉的內容（forked context）。合併結果時，請選擇要保留哪個內容，或如何結合來自不同執行的內容。
 
 3. **針對您的使用案例進行優化**：
     - 對於競爭性評估（如笑話範例），使用 `selectByIndex` 選擇最佳結果

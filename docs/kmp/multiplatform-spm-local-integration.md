@@ -3,14 +3,14 @@
 <tldr>
    这是一个本地集成方法。如果满足以下条件，它可能适合您：<br/>
 
-   * 您拥有一个带有本地 SPM 模块的 iOS 应用。
+   * 您拥有一个带有本地 SwiftPM 模块的 iOS 应用。
    * 您已经在本地机器上设置了一个面向 iOS 的 Kotlin Multiplatform 项目。
    * 您现有的 iOS 项目具有静态链接类型。<br/>
 
    [选择最适合您的集成方法](multiplatform-ios-integration-overview.md)
 </tldr>
 
-在本教程中，您将学习如何使用 Swift 软件包管理器 (SPM) 将 Kotlin Multiplatform 项目中的 Kotlin 框架集成到本地软件包中。
+在本教程中，您将学习如何使用 Swift 软件包管理器 (SwiftPM) 将 Kotlin Multiplatform 项目中的 Kotlin 框架集成到本地软件包中。
 
 ![直接集成图示](direct-integration-scheme.svg){width=700}
 
@@ -34,16 +34,16 @@
 
 本教程假设您的项目正在使用[直接集成](multiplatform-direct-integration.md)方法，即在项目的构建阶段使用 `embedAndSignAppleFrameworkForXcode` 任务。如果您正在通过 CocoaPods 插件或通过带有 `binaryTarget` 的 Swift 软件包连接 Kotlin 框架，请先进行迁移。
 
-### 从 SPM binaryTarget 集成迁移 {initial-collapse-state="collapsed" collapsible="true"}
+### 从 SwiftPM binaryTarget 集成迁移 {initial-collapse-state="collapsed" collapsible="true"}
 
-要从带有 `binaryTarget` 的 SPM 集成迁移：
+要从带有 `binaryTarget` 的 SwiftPM 集成迁移：
 
 1. 在 Xcode 中，使用 **Product** | **Clean Build Folder** 或通过 <shortcut>Cmd + Shift + K</shortcut> 快捷键清理构建目录。
 2. 在每个 `Package.swift` 文件中，删除对包含 Kotlin 框架的软件包的依赖项，以及对产品的目标依赖项。
 
 ### 从 CocoaPods 插件迁移 {initial-collapse-state="collapsed" collapsible="true"}
 
-> 如果您在 `cocoapods {}` 代码块中依赖了其他 Pod，则必须采用 CocoaPods 集成方法。目前，在多模块 SPM 项目中无法同时依赖 Pod 和 Kotlin 框架。
+> 如果您在 `cocoapods {}` 代码块中依赖了其他 Pod，则必须采用 CocoaPods 集成方法。目前，在多模块 SwiftPM 项目中无法同时依赖 Pod 和 Kotlin 框架。
 >
 {style="warning"}
 
@@ -101,7 +101,7 @@
    }
    ```
 
-   ![SPM 用法](xcode-spm-usage.png){width=700}
+   ![SwiftPM 用法](xcode-spm-usage.png){width=700}
 
 6. 在 iOS 项目的 `ContentView.swift` 文件中，您现在可以通过导入本地软件包来使用此函数：
 
@@ -111,7 +111,7 @@
    
    struct ContentView: View {
        var body: some View {
-           VStack {
+           Vstack {
                Image(systemName: "globe")
                    .imageScale(.large)
                    .foregroundStyle(.tint)

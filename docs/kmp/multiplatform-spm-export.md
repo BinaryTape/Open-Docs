@@ -10,7 +10,7 @@
    [选择最适合您的集成方法](multiplatform-ios-integration-overview.md)
 </tldr>
 
-您可以将针对 Apple 目标的 Kotlin/Native 输出设置为供 Swift 软件包管理器 (SPM) 依赖项使用。
+您可以将针对 Apple 目标的 Kotlin/Native 输出设置为供 Swift 软件包管理器 (SwiftPM) 依赖项使用。
 
 假设有一个包含 iOS 目标的 Kotlin Multiplatform 项目。您可能希望让开发原生 Swift 项目的 iOS 开发者可以将此 iOS 二进制文件作为依赖项使用。利用 Kotlin Multiplatform 工具，您可以提供一个能够与他们的 Xcode 项目无缝集成的构件。
 
@@ -32,9 +32,9 @@
 
 * 将 `Package.swift` 文件和应打包到 XCFramework 中的代码存储在不同的 Git 仓库中。
   这允许独立于文件所描述的项目对 Swift 清单进行版本控制。这是推荐的方法：它允许扩展，并且通常更易于维护。
-* 将 `Package.swift` 文件放在 Kotlin Multiplatform 代码旁边。这是一种更直接的方法，但请记住，在这种情况下，Swift 软件包和代码将使用相同的版本控制。SPM 使用 Git 标签对软件包进行版本控制，这可能会与您项目中使用的标签冲突。
+* 将 `Package.swift` 文件放在 Kotlin Multiplatform 代码旁边。这是一种更直接的方法，但请记住，在这种情况下，Swift 软件包和代码将使用相同的版本控制。SwiftPM 使用 Git 标签对软件包进行版本控制，这可能会与您项目中使用的标签冲突。
 * 将 `Package.swift` 文件存储在使用者项目的仓库中。这有助于避免版本控制和维护问题。
-  但是，这种方法可能会导致使用者项目的多仓库 SPM 设置和进一步自动化出现问题：
+  但是，这种方法可能会导致使用者项目的多仓库 SwiftPM 设置和进一步自动化出现问题：
 
   * 在多软件包项目中，只有一个使用者软件包可以依赖外部模块（以避免项目内的依赖项冲突）。因此，所有依赖于您的 Kotlin Multiplatform 模块的逻辑都应封装在一个特定的使用者软件包中。
   * 如果您使用自动化的 CI 流程发布 Kotlin Multiplatform 项目，则该流程需要包括将更新后的 `Package.swift` 文件发布到使用者仓库。这可能会导致使用者仓库的冲突更新，因此 CI 中的此类阶段可能难以维护。

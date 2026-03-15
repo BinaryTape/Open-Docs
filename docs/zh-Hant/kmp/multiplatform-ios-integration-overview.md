@@ -37,11 +37,11 @@
 
 ## 遠端整合
 
-對於遠端整合，您的專案可能會使用 Swift Package Manager (SPM) 或 CocoaPods 相依管理器來連接來自 Kotlin Multiplatform 專案的 iOS 架構。
+對於遠端整合，您的專案可能會使用 Swift Package Manager (SwiftPM) 或 CocoaPods 相依管理器來連接來自 Kotlin Multiplatform 專案的 iOS 架構。
 
 ### 搭配 XCFrameworks 的 Swift Package Manager
 
-您可以使用 XCFrameworks 設定 Swift Package Manager (SPM) 相依性，以連接來自 Kotlin Multiplatform 專案的 iOS 架構。
+您可以使用 XCFrameworks 設定 Swift Package Manager (SwiftPM) 相依性，以連接來自 Kotlin Multiplatform 專案的 iOS 架構。
 
 若要了解更多，請參閱 [Swift 套件匯出設定](multiplatform-spm-export.md)。
 

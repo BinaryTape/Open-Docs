@@ -1,6 +1,6 @@
 # 自訂 node 實作
 
-本頁面提供如何在 Koog 架構中實作自訂 node 的詳細說明。自訂 node 可讓您透過建立執行特定作業的可重複使用組建，來擴充 agent 工作流程的功能。
+本頁面提供如何在 Koog 架構中實作自訂 node 的詳細說明。自訂 node 可讓您透過建立執行特定作業的可重複使用組件，來擴充 agent 工作流程的功能。
 
 若要進一步了解圖形節點是什麼、其用法以及現有的預設節點，請參閱[圖形節點](nodes-and-components.md)。
 
@@ -20,6 +20,7 @@
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 typealias Input = String
 typealias Output = Int
@@ -43,6 +44,7 @@ val myNode by node<Input, Output>("node_name") { input ->
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 val str = strategy<String, Int>("my-strategy") {
 -->
@@ -57,12 +59,13 @@ val myNode by node<String, Int>("node_name") { input ->
 ```
 <!--- KNIT example-custom-nodes-02.kt -->
 
-建立自訂 node 的另一種方法是在 `AIAgentSubgraphBuilderBase` 上定義一個呼叫 `node` 函式的擴充方法：
+建立自訂 node 的另一種方法是在 `AIAgentSubgraphBuilderBase` 上定義一個呼叫 `node` 函式的擴充函式：
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.AIAgentNodeDelegate
 import ai.koog.agents.core.dsl.builder.AIAgentSubgraphBuilderBase
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 typealias Input = String
 typealias Output = String
@@ -94,6 +97,7 @@ val myCustomNode by myCustomNode("node_name")
 import ai.koog.agents.core.dsl.builder.AIAgentNodeDelegate
 import ai.koog.agents.core.dsl.builder.AIAgentSubgraphBuilderBase
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 typealias Input = String
 typealias Output = String
@@ -125,6 +129,7 @@ val myCustomNode by myNodeWithArguments("node_name", arg1 = "value1", arg2 = 42)
 import ai.koog.agents.core.dsl.builder.AIAgentNodeDelegate
 import ai.koog.agents.core.dsl.builder.AIAgentSubgraphBuilderBase
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 -->
 
 ```kotlin
@@ -149,6 +154,7 @@ val strategy = strategy<String, String>("strategy_name") {
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.AIAgentNodeDelegate
 import ai.koog.agents.core.dsl.builder.AIAgentSubgraphBuilderBase
+import ai.koog.agents.core.dsl.builder.node
 
 typealias Input = Unit
 typealias Output = Unit
@@ -175,6 +181,7 @@ Node 可以具有不同的輸入和輸出型別，這些型別被指定為泛型
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 val strategy = strategy<String, String>("strategy_name") {
 -->
@@ -214,6 +221,7 @@ val stringToIntNode by node<String, Int>("node_name") { input: String ->
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 val strategy = strategy<String, String>("strategy_name") {
 -->
@@ -235,6 +243,7 @@ val loggingNode by node<String, String>("node_name") { input ->
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 val strategy = strategy<String, String>("strategy_name") {
 -->
@@ -255,6 +264,7 @@ val upperCaseNode by node<String, String>("node_name") { input ->
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 val strategy = strategy<String, String>("strategy_name") {
 -->
@@ -279,6 +289,7 @@ val summarizeTextNode by node<String, String>("node_name") { input ->
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.prompt.message.Message
 import ai.koog.prompt.message.ResponseMetaInfo
 import kotlin.time.Clock

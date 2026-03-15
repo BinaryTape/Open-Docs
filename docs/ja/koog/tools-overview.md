@@ -114,10 +114,11 @@ val agent = AIAgent(
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.core.tools.SimpleTool
+import ai.koog.serialization.typeToken
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
-import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 -->
 ```kotlin
@@ -129,7 +130,7 @@ data class Book(
 )
 
 class BookTool() : SimpleTool<Book>(
-    argsSerializer = Book.serializer(),
+    argsType = typeToken<Book>(),
     name = NAME,
     description = "A tool to parse book information from Markdown"
 ) {
@@ -192,6 +193,7 @@ import ai.koog.agents.core.tools.ToolParameterType
 import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+import ai.koog.serialization.typeToken
 
 const val apiKey = ""
 val analysisToolRegistry = ToolRegistry {}
@@ -211,6 +213,7 @@ val analysisAgentTool = analysisAgentService.createAgentTool(
     agentName = "analyzeTransactions",
     agentDescription = "Performs financial transaction analysis",
     inputDescription = "Transaction analysis request",
+    inputType = typeToken<String>(),
 )
 ```
 <!--- KNIT example-tools-overview-05.kt -->
@@ -230,7 +233,7 @@ const val apiKey = ""
 
 -->
 ```kotlin
-// 専門化されたサービスをツールとして使用できるコーディネーターエージェントを作成します。
+// 専門化されたエージェントをツールとして使用できるコーディネーターエージェントを作成します。
 val coordinatorAgent = AIAgent(
     promptExecutor = simpleOpenAIExecutor(apiKey),
     llmModel = OpenAIModels.Chat.GPT4o,

@@ -38,6 +38,7 @@ val prompt = prompt(
 <!--- INCLUDE
 import ai.koog.agents.core.agent.ToolCalls
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.ext.tool.SayToUser
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.agents.ext.agent.subgraphWithTask
@@ -78,6 +79,7 @@ Koog에서 제공하는 기존 서브그래프 유형에 대한 자세한 내용
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.prompt.params.LLMParams
 val strategy = strategy<Unit, Unit>("strategy-name") {
 val node by node<Unit, Unit> {

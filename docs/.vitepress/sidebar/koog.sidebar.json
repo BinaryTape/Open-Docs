@@ -330,6 +330,10 @@
           {
             "text": "koog.ranked-document-storage",
             "link": "ranked-document-storage"
+          },
+          {
+            "text": "koog.serialization",
+            "link": "serialization"
           }
         ],
         "collapsed": true

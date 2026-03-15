@@ -37,11 +37,11 @@
 
 ## 远程集成
 
-对于远程集成，您的项目可能会使用 Swift Package Manager (SPM) 或 CocoaPods 依赖管理器来连接来自 Kotlin Multiplatform 项目的 iOS 框架。
+对于远程集成，您的项目可能会使用 Swift Package Manager (SwiftPM) 或 CocoaPods 依赖管理器来连接来自 Kotlin Multiplatform 项目的 iOS 框架。
 
-### 使用 XCFrameworks 的 Swift Package Manager
+### 使用 XCFrameworks 的 SwiftPM
 
-您可以使用 XCFrameworks 设置 Swift Package Manager (SPM) 依赖项，以连接来自 Kotlin Multiplatform 项目的 iOS 框架。
+您可以使用 XCFrameworks 设置 SwiftPM 依赖项，以连接来自 Kotlin Multiplatform 项目的 iOS 框架。
 
 有关更多信息，请参阅 [Swift 软件包导出设置](multiplatform-spm-export.md)。
 

@@ -12,18 +12,18 @@ data class User(val name: String, val age: Int)
 * `equals()`/`hashCode()` 配對。
 * 形式如 `"User(name=John, age=42)"` 的 `toString()`。
 * 與屬性宣告順序相對應的 [`componentN()` 函式](destructuring-declarations.md)。
-* `copy()` 函式（見下文）。
+* [`copy()` 函式](#copying)。
 
 為了確保產生的程式碼具有一致性且行為有意義，資料類別必須符合以下需求：
 
 * 主建構函數必須至少有一個參數。
 * 所有主建構函數的參數必須標記為 `val` 或 `var`。
-* 資料類別不能是 `abstract`、`open`、`sealed` 或 `inner`。
+* 資料類別不能是 abstract、open、sealed 或 inner。
 
 此外，資料類別成員的產生在成員繼承方面遵循以下規則：
 
 * 如果在資料類別主體中有 `equals()`、`hashCode()` 或 `toString()` 的明確實作，或者在父類別中有 `final` 實作，則不會產生這些函式，並會使用現有的實作。
-* 如果父型別具有 `open` 且傳回相容型別的 `componentN()` 函式，則會為該資料類別產生相應的函式並覆寫父型別中的函式。如果由於簽章不相容或其為 `final` 而導致無法覆寫父型別的函式，則會回報錯誤。
+* 如果父型別具有 `open` 且傳回相容型別的 `componentN()` 函式，則會為該資料類別產生相應的函式並覆寫父型別中的函式。如果由於簽章不相容或其為 final 而導致無法覆寫父型別的函式，則會回報錯誤。
 * 不允許為 `componentN()` 和 `copy()` 函式提供明確的實作。
 
 資料類別可以擴充其他類別（範例請參閱 [密封類別 (Sealed classes)](sealed-classes.md)）。

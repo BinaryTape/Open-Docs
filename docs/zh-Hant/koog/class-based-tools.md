@@ -1,6 +1,6 @@
 # 以類別為基礎的工具
 
-本節說明專為需要更高靈活度與自訂行為的案例而設計的 API。
+本節說明專為需要更高靈活度與自訂行為的情境而設計的 API。
 透過這種方式，您可以完全控制工具，包括其參數、元資料、執行邏輯，以及如何註冊與叫用工具。
 
 這種程度的控制非常適合建立擴展基本使用案例的複雜工具，進而實現與代理程式工作階段和工作流程的無縫整合。
@@ -15,7 +15,7 @@
 Koog 架構提供以下實作工具的方法：
 
 * 為所有工具使用基底類別 `Tool`。當您需要傳回非文字結果或需要完全控制工具行為時，應使用此類別。
-* 使用擴展自 `Tool` 基底類別的 `SimpleTool` 類別，其簡化了傳回文字結果的工具建立過程。對於工具僅需傳回文字的案例，您應使用此方法。
+* 使用擴展自 `Tool` 基底類別的 `SimpleTool` 類別，其簡化了傳回文字結果的工具建立過程。對於工具僅需傳回文字的情境，您應使用此方法。
 
 這兩種方法都使用相同的核心元件，但在實作和傳回的結果方面有所不同。
 
@@ -33,7 +33,7 @@ Koog 架構提供以下實作工具的方法：
 | `argsSerializer`                         | 覆寫的變數，定義如何還原序列化工具的引數。另請參閱 [argsSerializer](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/args-serializer.html)。                                                                                                                          |
 | `resultSerializer`                       | 覆寫的變數，定義如何還原序列化工具的結果。另請參閱 [resultSerializer](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/result-serializer.html)。如果您選擇繼承 [ToolResult.TextSerializable](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool-result/-text-serializable/index.html)，請考慮使用 `ToolResultUtils.toTextSerializer()`。 |
 | `descriptor`                             | 覆寫的變數，指定工具元資料：<br/>- `name`<br/>- `description`<br/>- `requiredParameters` (預設為空)<br/>- `optionalParameters` (預設為空)<br/>另請參閱 [descriptor](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/descriptor.html)。                                                                                                                               |
-| `execute()`                              | 實作工具邏輯的函式／方法。它接受型別為 `Args` 的引數並傳回型別為 `Result` 的結果。另請參閱 [execute()]()。                                                                                                                                                                                                                                                                                 |
+| `execute()`                              | 實作工具邏輯的函式。它接受型別為 `Args` 的引數並傳回型別為 `Result` 的結果。另請參閱 [execute()]()。                                                                                                                                                                                                                                                                                 |
 
 !!! tip
     請確保您的工具具有清晰的描述和定義良好的參數名稱，以便 LLM 更容易理解並正確使用它們。
@@ -47,15 +47,15 @@ import ai.koog.agents.core.tools.Tool
 import ai.koog.agents.core.tools.ToolDescriptor
 import ai.koog.agents.core.tools.ToolParameterDescriptor
 import ai.koog.agents.core.tools.ToolParameterType
+import ai.koog.serialization.typeToken
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.builtins.serializer
 import ai.koog.agents.core.tools.annotations.LLMDescription
 -->
 ```kotlin
 // 實作一個簡單的計算機工具，可將兩個數字相加
 object CalculatorTool : Tool<CalculatorTool.Args, Int>(
-    argsSerializer = Args.serializer(),
-    resultSerializer = Int.serializer(),
+    argsType = typeToken<Args>(),
+    resultType = typeToken<Int>(),
     name = "calculator",
     description = "A simple calculator that can add two digits (0-9)."
 ) {
@@ -98,7 +98,7 @@ object CalculatorTool : Tool<CalculatorTool.Args, Int>(
 | `doExecute()`                            | 覆寫的函式，描述工具執行的主要操作。它接受型別為 `Args` 的引數並傳回一個 `String`。另請參閱 [doExecute()](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-simple-tool/do-execute.html)。                                          |
 
 !!! tip
-    請確保您的工具具有清晰的描述和定義良好的參數名稱，以便 LLM 更容易理解並正確使用它們。
+    請確保您的工具具有清晰的描述 and 定義良好的參數名稱，以便 LLM 更容易理解並正確使用它們。
 
 #### 使用範例 
 
@@ -107,12 +107,13 @@ object CalculatorTool : Tool<CalculatorTool.Args, Int>(
 <!--- INCLUDE
 import ai.koog.agents.core.tools.SimpleTool
 import ai.koog.agents.core.tools.annotations.LLMDescription
+import ai.koog.serialization.typeToken
 import kotlinx.serialization.Serializable
 -->
 ```kotlin
 // 建立一個將字串運算式轉換為 double 值的工具
 object CastToDoubleTool : SimpleTool<CastToDoubleTool.Args>(
-    argsSerializer = Args.serializer(),
+    argsType = typeToken<Args>(),
     name = "cast_to_double",
     description = "casts the passed expression to double or returns 0.0 if the expression is not castable"
 ) {
@@ -151,6 +152,7 @@ import ai.koog.agents.core.tools.Tool
 import ai.koog.agents.core.tools.ToolDescriptor
 import ai.koog.agents.core.tools.ToolParameterDescriptor
 import ai.koog.agents.core.tools.ToolParameterType
+import ai.koog.serialization.typeToken
 import kotlinx.serialization.Serializable
 import ai.koog.agents.core.tools.annotations.LLMDescription
 import ai.koog.prompt.markdown.markdown
@@ -158,8 +160,8 @@ import ai.koog.prompt.markdown.markdown
 ```kotlin
 // 編輯檔案的工具
 object EditFile : Tool<EditFile.Args, EditFile.Result>(
-    argsSerializer = Args.serializer(),
-    resultSerializer = Result.serializer(),
+    argsType = typeToken<Args>(),
+    resultType = typeToken<Result>(),
     name = "edit_file",
     description = "Edits the given file"
 ) {

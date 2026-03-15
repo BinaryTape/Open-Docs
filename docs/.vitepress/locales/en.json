@@ -51,7 +51,7 @@
   "kotlin.kotlin-overview": "Kotlin overview",
   "kotlin.what-s-new-in-kotlin": "What's new in Kotlin",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.3.20-RC2",
+  "kotlin.whatsnew-eap": "Kotlin 2.3.20-RC3",
   "kotlin.earlier-versions": "Earlier versions",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -280,9 +280,9 @@
   "kmp.multiplatform-ios-dependencies": "For iOS target platforms",
   "kmp.set-up-ios-integration": "Set up iOS integration",
   "kmp.multiplatform-ios-integration-overview": "Choose integration method",
-  "kmp.multiplatform-spm-export": "Remote SPM export",
+  "kmp.multiplatform-spm-export": "Remote SwiftPM export",
   "kmp.cocoapods-integration": "CocoaPods integration",
-  "kmp.multiplatform-spm-local-integration": "Local integration with SPM",
+  "kmp.multiplatform-spm-local-integration": "Local integration with SwiftPM",
   "kmp.compile-artifacts": "Compile artifacts",
   "kmp.multiplatform-run-tests": "Test your multiplatform app",
   "kmp.publish-your-multiplatform-project": "Publish your multiplatform project",
@@ -598,5 +598,9 @@
   "koog.long-term-memory": "Long Term Memory",
   "koog.chat-agent-with-memory": "Chat agent with memory",
   "koog.chat-memory": "Chat Memory",
-  "koog.custom-features": "Custom features"
+  "koog.custom-features": "Custom features",
+  "kmp.swiftpm-integration": "SwiftPM integration",
+  "kmp.multiplatform-spm-import": "SwiftPM import",
+  "kmp.multiplatform-cocoapods-spm-migration": "Migrating from CocoaPods to SwiftPM",
+  "koog.serialization": "Serialization"
 }

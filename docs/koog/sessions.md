@@ -46,6 +46,7 @@ Koog 框架提供了两种类型的会话：
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 val strategy = strategy<Unit, Unit>("strategy-name") {
     val node by node<Unit, Unit> {
@@ -85,6 +86,7 @@ llm.readSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 val strategy = strategy<Unit, Unit>("strategy-name") {
     val node by node<Unit, Unit> {
@@ -105,6 +107,7 @@ llm.readSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.core.tools.ToolDescriptor
 
 val newTools = listOf<ToolDescriptor>()
@@ -151,6 +154,7 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 val strategy = strategy<Unit, Unit>("strategy-name") {
     val node by node<Unit, Unit> {
@@ -188,6 +192,7 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.prompt.message.Message
 
 val strategy = strategy<Unit, Unit>("strategy-name") {
@@ -221,12 +226,13 @@ llm.writeSession {
 
 2. `requestLLMStructuredOneShot()`：与 `requestLLMStructured()` 类似，但没有重试或修正。
 
-3. `requestLLMStreaming()`：向 LLM 发起流式请求，返回响应分块流。
+3. `requestLLMStreaming()`：向 LLM 发起流式请求，返回响应分块流 (flow)。
 
 示例：
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.example.exampleParallelNodeExecution07.JokeRating
 
 val strategy = strategy<Unit, Unit>("strategy-name") {
@@ -258,6 +264,7 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.prompt.message.Message
 import ai.koog.prompt.message.RequestMetaInfo
 import kotlin.time.Clock
@@ -301,6 +308,7 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.prompt.message.Message
 
 val filteredMessages = emptyList<Message>()
@@ -328,6 +336,7 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 val strategy = strategy<Unit, Unit>("strategy-name") {
     val node by node<Unit, Unit> {
@@ -359,6 +368,7 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
 import ai.koog.agents.core.dsl.extension.replaceHistoryWithTLDR
 
@@ -399,6 +409,7 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.ext.tool.AskUser
 import ai.koog.agents.core.agent.session.callTool
 import ai.koog.agents.core.agent.session.callToolRaw
@@ -438,6 +449,7 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.ext.tool.AskUser
 import kotlinx.coroutines.flow.flow
 
@@ -502,6 +514,7 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
 import ai.koog.agents.core.dsl.extension.replaceHistoryWithTLDR
 
@@ -519,7 +532,7 @@ llm.writeSession {
 ```
 <!--- KNIT example-sessions-13.kt -->
 
-有关更多信息，请参阅[历史记录压缩](history-compression.md)。
+有关更多信息，请参阅[历史记录压缩](history-compression.md)
 
 ### 找不到工具
 

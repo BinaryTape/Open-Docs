@@ -11,7 +11,7 @@
 
 공유 코드를 통해 Kotlin Multiplatform 프로젝트와 iOS 프로젝트를 동시에 개발하고 싶다면, 특별한 스크립트를 사용하여 직접 통합을 설정할 수 있습니다.
 
-이 스크립트는 Kotlin 프레임워크를 Xcode의 iOS 프로젝트에 연결하는 프로세스를 자동화합니다:
+이 스크립트는 Xcode에서 Kotlin 프레임워크를 iOS 프로젝트에 연결하는 프로세스를 자동화합니다:
 
 ![직접 통합 다이어그램](direct-integration-scheme.svg){width=700}
 

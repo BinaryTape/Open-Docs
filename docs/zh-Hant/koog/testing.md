@@ -46,7 +46,7 @@ val toolRegistry = ToolRegistry {}
 -->
 ```kotlin
 // 建立模擬的 LLM 執行器
-val mockLLMApi = getMockExecutor(toolRegistry) {
+val mockLLMApi = getMockExecutor {
   // 模擬簡單的文字回應
   mockLLMAnswer("Hello!") onRequestContains "Hello"
 
@@ -64,14 +64,13 @@ import ai.koog.agents.core.tools.*
 import ai.koog.agents.ext.tool.AskUser
 import ai.koog.agents.ext.tool.SayToUser
 import ai.koog.agents.testing.tools.getMockExecutor
-import kotlinx.serialization.KSerializer
+import ai.koog.serialization.typeToken
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.builtins.serializer
 import ai.koog.agents.core.tools.annotations.LLMDescription
 
 public object CreateTool : Tool<CreateTool.Args, String>(
-    argsSerializer = Args.serializer(),
-    resultSerializer = String.serializer(),
+    argsType = typeToken<Args>(),
+    resultType = typeToken<String>(),
     name = "message",
     description = "Service tool, used by the agent to talk with user"
 ) {
@@ -90,8 +89,8 @@ public object CreateTool : Tool<CreateTool.Args, String>(
 }
 
 public object SearchTool : Tool<SearchTool.Args, String>(
-    argsSerializer = Args.serializer(),
-    resultSerializer = String.serializer(),
+    argsType = typeToken<Args>(),
+    resultType = typeToken<String>(),
     name = "message",
     description = "Service tool, used by the agent to talk with user"
 ) {
@@ -110,8 +109,8 @@ public object SearchTool : Tool<SearchTool.Args, String>(
 }
 
 public object AnalyzeTool : Tool<AnalyzeTool.Args, String>(
-    argsSerializer = Args.serializer(),
-    resultSerializer = String.serializer(),
+    argsType = typeToken<Args>(),
+    resultType = typeToken<String>(),
     name = "message",
     description = "Service tool, used by the agent to talk with user"
 ) {
@@ -340,12 +339,12 @@ import ai.koog.agents.testing.feature.toolCallMessage
 import ai.koog.agents.testing.feature.toolResult
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.message.Message
-import kotlinx.serialization.KSerializer
+import ai.koog.serialization.typeToken
 import kotlinx.serialization.Serializable
 import ai.koog.agents.core.tools.annotations.LLMDescription
 
 object SolveTool : SimpleTool<SolveTool.Args>(
-    argsSerializer = Args.serializer(),
+    argsType = typeToken<Args>(),
     name = "message",
     description = "Service tool, used by the agent to talk with user"
 ) {
@@ -383,7 +382,7 @@ fun main() {
 -->
 ```kotlin
 assertNodes {
-    // 測試具有特定參數的工具執行
+    // 測試具有特定引數的工具執行
     callTool withInput toolCallMessage(
         SolveTool,
         SolveTool.Args("solve")
@@ -392,7 +391,7 @@ assertNodes {
 ```
 <!--- KNIT example-testing-07.kt -->
 
-這驗證了當工具執行節點接收到特定的工具呼叫特徵時，它會產生預期的工具結果。
+這驗證了當工具執行節點接收到特定的工具呼叫簽章時，它會產生預期的工具結果。
 
 #### 進階節點測試
 
@@ -408,14 +407,13 @@ import ai.koog.agents.testing.feature.testGraph
 import ai.koog.agents.testing.feature.toolCallMessage
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.message.Message
-import kotlinx.serialization.KSerializer
+import ai.koog.serialization.typeToken
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.builtins.serializer
 import ai.koog.agents.core.tools.annotations.LLMDescription
 
 object AnalyzeTool : Tool<AnalyzeTool.Args, String>(
-    argsSerializer = Args.serializer(),
-    resultSerializer = String.serializer(),
+    argsType = typeToken<Args>(),
+    resultType = typeToken<String>(),
     name = "message",
     description = "Service tool, used by the agent to talk with user"
 ) {
@@ -477,12 +475,12 @@ import ai.koog.agents.testing.feature.toolCallMessage
 import ai.koog.agents.testing.feature.toolResult
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.message.Message
-import kotlinx.serialization.KSerializer
+import ai.koog.serialization.typeToken
 import kotlinx.serialization.Serializable
 
 object AnalyzeTool : Tool<AnalyzeTool.Args, AnalyzeTool.Result>(
-    argsSerializer = Args.serializer(),
-    resultSerializer = Result.serializer(),
+    argsType = typeToken<Args>(),
+    resultType = typeToken<Result>(),
     name = "message",
     description = "Service tool, used by the agent to talk with user"
 ) {

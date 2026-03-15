@@ -144,7 +144,7 @@ Kotlinは、JetBrainsが開発した公式のKotlinプラグインにより、[I
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.0" target="_blank">GitHubでのリリース</a></p>
         </td>
         <td>
-            <p>新しい機能および安定した言語機能、ツールのアップデート、各種プラットフォーム의 パフォーマンス向上、および重要な修正を含む言語リリースです。</p>
+            <p>新しい機能および安定した言語機能、ツールのアップデート、各種プラットフォームのパフォーマンス向上、および重要な修正を含む言語リリースです。</p>
             <p>Kotlin 2.3.0の詳細については、<a href="whatsnew23.md" target="_blank">Kotlin 2.3.0の新機能</a>を参照してください。</p>
         </td>
     </tr> 
@@ -427,7 +427,7 @@ Kotlinは、JetBrainsが開発した公式のKotlinプラグインにより、[I
         <td>
             <p>Kotlin 1.7.20 のバグ修正リリースです。</p>
             <p>Kotlin 1.7.20の詳細については、<a href="whatsnew1720.md" target="_blank">Kotlin 1.7.20の新機能</a>を参照してください。</p>
-            <note>Android Studio Dolphin、Electric Eel、および Flamingo 用ের Kotlin プラグイン 1.7.21 は、今後の Android Studio のアップデートで提供される予定です。</note>
+            <note>Android Studio Dolphin、Electric Eel、および Flamingo 用の Kotlin プラグイン 1.7.21 は、今後の Android Studio のアップデートで提供される予定です。</note>
         </td>
     </tr>
     <tr>

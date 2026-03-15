@@ -12,7 +12,7 @@ data class User(val name: String, val age: Int)
 * `equals()`/`hashCode()` のペア。
 * `"User(name=John, age=42)"` という形式の `toString()`。
 * 宣言順のプロパティに対応する [`componentN()` 関数](destructuring-declarations.md)。
-* `copy()` 関数（後述）。
+* [`copy()` 関数](#copying)（後述）。
 
 生成されたコードの一貫性と意味のある動作を保証するために、データクラスは以下の要件を満たす必要があります。
 

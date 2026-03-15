@@ -63,7 +63,7 @@ plugins {
     id 'org.jetbrains.kotlin.<...>' version '%kotlinVersion%'
     // 例如，如果您的目標環境是 JVM： 
     // id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
-    // If your target is Kotlin Multiplatform:
+    // 如果您的目標是 Kotlin Multiplatform：
     // id 'org.jetbrains.kotlin.multiplatform' version '%kotlinVersion%'
 }
 ```

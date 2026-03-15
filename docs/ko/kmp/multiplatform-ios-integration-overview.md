@@ -1,6 +1,6 @@
 [//]: # (title: iOS 통합 방법)
 
-Kotlin Multiplatform 공유 모듈을 iOS 앱에 통합할 수 있습니다. 이를 위해 공유 모듈에서 [iOS 프레임워크](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/WhatAreFrameworks.html)를 생성한 다음, 이를 iOS 프로젝트에 의존성으로 추가합니다.
+Kotlin Multiplatform 공유 모듈을 iOS 앱에 통합할 수 있습니다. 이를 위해 공유 모듈에서 [iOS 프레임워크](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/WhatAreFrameworks.html)를 생성한 다음, 이를 iOS 프로젝트에 의존성으로 추가합니다:
 
 ![iOS 통합 구조](ios-integration-scheme.svg)
 
@@ -37,7 +37,7 @@ Swift 및 Objective-C 프로젝트에서 널리 사용되는 의존성 관리자
 
 ## 원격 통합
 
-원격 통합의 경우, 프로젝트에서 Swift 패키지 매니저(SPM) 또는 CocoaPods 의존성 관리자를 사용하여 Kotlin Multiplatform 프로젝트의 iOS 프레임워크를 연결할 수 있습니다.
+원격 통합의 경우, 프로젝트에서 Swift 패키지 매니저(SwiftPM) 또는 CocoaPods 의존성 관리자를 사용하여 Kotlin Multiplatform 프로젝트의 iOS 프레임워크를 연결할 수 있습니다.
 
 ### XCFrameworks를 사용한 Swift 패키지 매니저(SPM)
 

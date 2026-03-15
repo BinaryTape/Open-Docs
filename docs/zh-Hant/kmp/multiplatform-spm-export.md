@@ -1,16 +1,16 @@
-[//]: # (title: Swift 封裝匯出設定)
+[//]: # (title: Swift 套件匯出設定)
 
 <tldr>
    這是一項遠端整合方法。適用於以下情況：<br/>
 
    * 您希望將最終應用程式的程式碼庫與通用程式碼庫分開。
    * 您已經在本機電腦上設定了以 iOS 為目標的 Kotlin Multiplatform 專案。
-   * 您在 iOS 專案中使用 Swift package manager 來處理相依性。<br/>
+   * 您在 iOS 專案中使用 Swift Package Manager 來處理相依性。<br/>
 
    [選擇最適合您的整合方法](multiplatform-ios-integration-overview.md)
 </tldr>
 
-您可以將 Apple 目標的 Kotlin/Native 輸出設定為 Swift package manager (SPM) 相依性。
+您可以將 Apple 目標的 Kotlin/Native 輸出設定為 Swift Package Manager (SwiftPM) 相依性。
 
 考慮一個具有 iOS 目標的 Kotlin Multiplatform 專案。您可能希望讓這個 iOS 二進位檔案可供處理原生 Swift 專案的 iOS 開發人員作為相依性使用。利用 Kotlin Multiplatform 工具，您可以提供一個能與他們的 Xcode 專案無縫整合的構件。
 
@@ -32,9 +32,9 @@
 
 * 將 `Package.swift` 檔案與應封裝到 XCFramework 中的程式碼儲存在不同的 Git 存儲庫中。
   這允許將 Swift 清單檔案與該檔案所描述的專案分開進行版本控制。這是推薦的方法：它允許擴展，且通常更容易維護。
-* 將 `Package.swift` 檔案放置在 Kotlin Multiplatform 程式碼旁邊。這是一個更直接的方法，但請記住，在這種情況下，Swift 套件和程式碼將使用相同的版本控制。SPM 使用 Git 標籤（tag）來進行套件的版本控制，這可能會與您專案使用的標籤產生衝突。
+* 將 `Package.swift` 檔案放置在 Kotlin Multiplatform 程式碼旁邊。這是一個更直接的方法，但請記住，在這種情況下，Swift 套件和程式碼將使用相同的版本控制。SwiftPM 使用 Git 標籤（tag）來進行套件的版本控制，這可能會與您專案使用的標籤產生衝突。
 * 將 `Package.swift` 檔案儲存在取用者專案的存儲庫中。這有助於避免版本控制和維護問題。
-  然而，這種方法可能會導致取用者專案的多存儲庫 SPM 設定及後續自動化出現問題：
+  然而，這種方法可能會導致取用者專案的多存儲庫 SwiftPM 設定及後續自動化出現問題：
 
   * 在多套件專案中，只有一個取用者套件可以依賴外部模組（以避免專案內的相依性衝突）。因此，所有相依於 Kotlin Multiplatform 模組的邏輯都應封裝在特定的取用者套件中。
   * 如果您使用自動化 CI 程序發佈 Kotlin Multiplatform 專案，該程序需要包含將更新後的 `Package.swift` 檔案發佈到取用者存儲庫。這可能會導致取用者存儲庫的更新衝突，因此 CI 中的此類階段可能難以維護。

@@ -38,6 +38,7 @@ val prompt = prompt(
 <!--- INCLUDE
 import ai.koog.agents.core.agent.ToolCalls
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.ext.tool.SayToUser
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.agents.ext.agent.subgraphWithTask
@@ -78,6 +79,7 @@ val processQuery by subgraphWithTask<String, String>(
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.prompt.params.LLMParams
 val strategy = strategy<Unit, Unit>("strategy-name") {
 val node by node<Unit, Unit> {

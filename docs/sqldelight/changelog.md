@@ -2,18 +2,26 @@
 
 ## 未发布
 
+### 已变更
+- [Paging 扩展] 升级至 paging 3.4.1，并移除了 X64 Apple 目标。 (#6166)
+
+## [2.3.1] - 2026-03-12
+[2.3.1]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.1
+
 ### 已添加
 - [PostgreSQL 方言] 改进了对 `ALTER TABLE ALTER TYPE USING` 表达式的支持 (#6116 由 @griffio 贡献)
 - [PostgreSQL 方言] 添加了对 `DROP COLUMN IF EXISTS` 的支持 (#6112 由 @griffio 贡献)
+- [Gradle 插件] 添加了 `expandSelectStar` 标志以关闭 Select 通配符扩展 (#5813 由 @griffio 贡献)
 - [MySQL 方言] 添加了对窗口函数的支持 (#6086 由 @griffio 贡献)
 - [Gradle 插件] 修复了当起始架构版本不为 1 且 `verifyMigrations` 为 `true` 时的构建失败问题 (#6017 由 @neilgmiller 贡献)
-- [Gradle 插件] 使 `SqlDelightWorkerTask` 更具可配置性，并更新默认配置以支持在 Windows 上进行开发 (#5215 由 @MSDarwish2000 贡献)
+- [Gradle 插件] 使 `SqlDelightWorkerTask` 更具可配置性，并更新默认配置以支持在 Windows 上开发 (#5215 由 @MSDarwish2000 贡献)
 - [SQLite 方言] 添加了对 FTS5 虚表中合成列的支持 (#5986 由 @watbe 贡献)
 - [PostgreSQL 方言] 添加了对 Postgres 行级安全性的支持 (#6087 由 @shellderp 贡献)
 - [PostgreSQL 方言] 扩展了 `FOR UPDATE` 以支持 `OF table`、`NO KEY UPDATE`、`NO WAIT` (#6104 由 @shellderp 贡献)
 - [PostgreSQL 方言] 支持 Postgis `Point` 类型及相关函数 (#5602 由 @vanniktech 贡献)
 - [运行时] 添加了 `SuspendingTransacter.TransactionDispatcher`，提供了一种控制事务 `CoroutineContext` 的机制 (#5967 由 @eygraber 贡献)
 - [Gradle 插件] 与 Android Gradle 插件 9.0 的新 DSL 完全兼容。 (#6140)
+- [PostgreSQL 方言] 支持 PostgreSql `CREATE TABLE` 存储参数 (#6148 由 @griffio 贡献)
 
 ### 已变更
 - [编译器] 将编译器输出类型从 `java.lang.Void` 更改为 `kotlin.Nothing` (#6099 由 @griffio 贡献)
@@ -28,6 +36,11 @@
 - [Gradle 插件] 改进了 `VerifyMigrationTask` 的性能，防止其在复杂的架构上卡死 (#6073 由 @Lightwood13 贡献)
 - [Intellij 插件] 修复了插件初始化异常并更新了过时的方法 (#6040 由 @griffio 贡献)
 - [Gradle 插件] 修复了与 Android Gradle 插件内置 Kotlin 的兼容性问题 (#6139)
+
+## [2.3.0] - 2025-03-12
+[2.3.0]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.0
+
+发布失败。请使用 2.3.1！
 
 ## [2.2.1] - 2025-11-13
 [2.2.1]: https://github.com/sqldelight/sqldelight/releases/tag/2.2.1
@@ -55,10 +68,10 @@
 - [编译器] 修复了使用包含公用表表达式的视图时的堆栈溢出问题 (#5928 由 @griffio 贡献)
 - [Gradle 插件] 修复了打开 SqlDelight 工具窗口以添加“新连接”时的崩溃问题 (#5906 由 @griffio 贡献)
 - [IntelliJ 插件] 避免了 `copy-to-sqlite` 装订区域操作中与线程相关的崩溃 (#5901 由 @griffio 贡献)
-- [IntelliJ 插件] 修复了使用架构语句 `CREATE INDEX` 和 `CREATE VIEW` 时的 PostgreSql 方言问题 (#5772 由 @griffio 贡献)
+- [IntelliJ 插件] 修复了使用架构语句 `CREATE INDEX` 和 `CREATE VIEW` 时的 PostgreSQL 方言问题 (#5772 由 @griffio 贡献)
 - [编译器] 修复了引用列时的 FTS 堆栈溢出问题 (#5896 由 @griffio 贡献)
 - [编译器] 修复了 `With Recursive` 堆栈溢出问题 (#5892 由 @griffio 贡献)
-- [编译器] 修复了 `Insert|Update|Delete Returning` 语句的 `Notify` 问题 (#5851 由 @griffio 贡献)
+- [编译器] 修复了 `Insert|Update|Delete Returning` 语句的通知 (Notify) 问题 (#5851 由 @griffio 贡献)
 - [编译器] 修复了返回 `Long` 的事务块的异步结果类型 (#5836 由 @griffio 贡献)
 - [编译器] 将 SQL 参数绑定的复杂度从 O(n²) 优化到 O(n) (#5898 由 @chenf7 贡献)
 - [SQLite 方言] 修复了 SQLite 3.18 缺失函数的问题 (#5759 由 @griffio 贡献)
@@ -76,19 +89,19 @@
 - [PostgreSQL 方言] 支持 PostgreSql `UnNest` 数组到行 (#5673 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSql `TSRANGE`/`TSTZRANGE` 支持 (#5297 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSql `Right Full Join` (#5086 由 @griffio 贡献)
-- [PostgreSQL 方言] 从时间类型中提取 Postrgesql 数据 (#5273 由 @griffio 贡献)
+- [PostgreSQL 方言] 从时间类型中提取 PostgreSQL 数据 (#5273 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSql 数组包含运算符 (#4933 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSql 删除约束 (#5288 由 @griffio 贡献)
-- [PostgreSQL 方言] Postgresql 类型转换 (#5089 由 @griffio 贡献)
+- [PostgreSQL 方言] PostgreSql 类型转换 (#5089 由 @griffio 贡献)
 - [PostgreSQL 方言] 用于子查询的 PostgreSql `lateral join` 运算符 (#5122 由 @griffio 贡献)
-- [PostgreSQL 方言] Postgresql `ILIKE` 运算符 (#5330 由 @griffio 贡献)
+- [PostgreSQL 方言] PostgreSql `ILIKE` 运算符 (#5330 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSql `XML` 类型 (#5331 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSql `AT TIME ZONE` (#5243 由 @griffio 贡献)
 - [PostgreSQL 方言] 支持 PostgreSql `order by nulls` (#5199 由 @griffio 贡献)
 - [PostgreSQL 方言] 添加了 PostgreSQL 当前日期/时间函数支持 (#5226 由 @drewd 贡献)
 - [PostgreSQL 方言] PostgreSql 正则表达式运算符 (#5137 由 @griffio 贡献)
 - [PostgreSQL 方言] 添加了 `brin gist` (#5059 由 @griffio 贡献)
-- [MySQL 方言] 为 MySql 方言支持 `RENAME INDEX` (#5212 由 @orenkislev-faire 贡献)
+- [MySQL 方言] 为 MySQL 方言支持 `RENAME INDEX` (#5212 由 @orenkislev-faire 贡献)
 - [JSON 扩展] 为 JSON 表函数添加了别名 (#5372 由 @griffio 贡献)
 
 ### 已变更
@@ -113,12 +126,12 @@
 - [运行时] 修复了当真实驱动程序为 `Async` 时 `LogSqliteDriver` 中的崩溃问题 (#5723 由 @edenman 贡献)
 - [运行时] 修复了 `StringBuilder` 容量问题 (#5192 由 @janbina 贡献)
 - [PostgreSQL 方言] PostgreSql 创建或替换视图 (#5407 由 @griffio 贡献)
-- [PostgreSQL 方言] Postgresql `to_json` (#5606 由 @griffio 贡献)
+- [PostgreSQL 方言] PostgreSql `to_json` (#5606 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSql 数字解析器 (#5399 由 @griffio 贡献)
 - [PostgreSQL 方言] SQLite 窗口函数 (#2799 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSql `SELECT DISTINCT ON` (#5345 由 @griffio 贡献)
 - [PostgreSQL 方言] `alter table add column if not exists` (#5309 由 @griffio 贡献)
-- [PostgreSQL 方言] Postgresql 异步绑定参数 (#5313 由 @griffio 贡献)
+- [PostgreSQL 方言] PostgreSql 异步绑定参数 (#5313 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSql 布尔文字 (#5262 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSql 窗口函数 (#5155 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSql `isNull` `isNotNull` 类型 (#5173 由 @griffio 贡献)
@@ -134,7 +147,7 @@
 - [PostgreSQL 方言] 添加了 PostgreSQL `STRING_AGG` 函数 (#4950 由 @anddani 贡献)
 - [PostgreSQL 方言] 在 Postgres 方言中添加了 `SET` 语句 (#4927 由 @de-luca 贡献)
 - [PostgreSQL 方言] 添加了 PostgreSql 修改列序列参数 (#4916 由 @griffio 贡献)
-- [PostgreSQL 方言] 为插入语句添加了 Postgresql 修改列默认值支持 (#4912 由 @griffio 贡献)
+- [PostgreSQL 方言] 为插入语句添加了 PostgreSql 修改列默认值支持 (#4912 由 @griffio 贡献)
 - [PostgreSQL 方言] 添加了 PostgreSql 修改序列和删除序列 (#4920 由 @griffio 贡献)
 - [PostgreSQL 方言] 添加了 Postgres 正则表达式函数定义 (#5025 由 @MariusVolkhart 贡献)
 - [PostgreSQL 方言] 添加了 GIN 的语法 (#5027 由 @griffio 贡献)
@@ -486,11 +499,11 @@ sqldelight {
 - [编译器] 支持多更新语句
 - [PostgreSQL] 支持 Postgres 返回语句
 - [PostgreSQL] 支持 Postgres 日期类型
-- [PostgreSQL] 支持 Postgres 间隔
+- [PostgreSQL] 支持 Postgres 间隔 (Interval)
 - [PostgreSQL] 支持 Postgres 布尔值并修复了修改表上的插入操作
-- [PostgreSQL] 支持 Postgres 中的可选限制
+- [PostgreSQL] 支持 Postgres 中的可选限制 (Limit)
 - [PostgreSQL] 支持 Postgres `BYTEA` 类型
-- [PostgreSQL] 为 Postgres 序列添加了测试
+- [PostgreSQL] 为 Postgres 序列 (Serial) 添加了测试
 - [PostgreSQL] 支持 Postgres 的 `for update` 语法
 - [PostgreSQL] 支持 PostgreSQL 数组类型
 - [PostgreSQL] 在 Postgres 中正确存储/检索 UUID 类型
@@ -743,9 +756,9 @@ sqldelight {
 ### 已变更
 - [编译器] 智能转换 "IS NOT NULL" 查询 (#867)
 - [编译器] 防止在运行时会失败的关键字 (#1471, #1629)
-- [Gradle 插件] 将 Gradle 插件的大小从 60mb 减少到 13mb。
+- [Gradle 插件] 将 Gradle 插件的大小从 60 MB 减少到 13 MB。
 - [Gradle 插件] 正确支持 Android 变体，并移除对 KMM 特定目标的 SQL 支持 (#1039)
-- [Gradle 插件] 根据 `minsdk` 选择最低 SQLite 版本 (#1684)
+- [Gradle 插件] 根据 `minSdk` 选择最低 SQLite 版本 (#1684)
 - [原生驱动程序] 原生驱动程序连接池和性能更新
 
 ### 已修复
@@ -773,7 +786,7 @@ sqldelight {
 - [IDE 插件] 同时确保在运行 Gradle 操作之前项目未被释放 (#2155)
 - [IDE 插件] 可为 null 类型上的算术运算也应为可为 null (#1853)
 - [IDE 插件] 使 'expand * 意图' 适用于额外的投影 (#2173 由 @aperfilyev 贡献)
-- [IDE 插件] 如果在 `GoTo` 期间 Kotlin 解析失败，不要尝试跳转到 `sqldelight` 文件
+- [IDE 插件] 如果 Kotlin 解析失败期间转到操作 (GoTo) 失败，不要尝试跳转到 `sqldelight` 文件
 - [IDE 插件] 如果 IntelliJ 在 SQLDelight 索引时遇到异常，不要崩溃
 - [IDE 插件] 处理 IDE 中代码生成前检测错误时发生的异常
 - [IDE 插件] 使 IDE 插件与动态插件兼容 (#1536)
@@ -835,7 +848,7 @@ sqldelight {
 - [编译器] 修复了 `Upsert` 语句编译器错误 (#1809 由 @eygraber 贡献)
 - [编译器] 修复了生成无效 Kotlin 代码的问题 (#1925 由 @eygraber 贡献)
 - [编译器] 为未知函数提供了更好的错误消息 (#1843)
-- [编译器] 公开 `string` 作为 `instr` 第二个形参的类型
+- [编译器] 公开 `string` 作为 `instr` 第二个实参的类型
 - [IDE 插件] 修复了 IDE 插件的守护进程膨胀和 UI 线程卡死问题 (#1916)
 - [IDE 插件] 处理空模块的情况 (#1902)
 - [IDE 插件] 在未配置的 sq 文件中，为软件包名称返回空字符串 (#1920)
@@ -856,7 +869,7 @@ sqldelight {
 - [IDE 插件] 使用 Gradle 工具 API 促进 IDE 和 Gradle 之间的数据共享
 - [IDE 插件] 架构推导默认设为 `false`
 - [IDE 插件] 正确检索 `commonMain` 源集
-- [MySQL 方言] 在 `mySqlFunctionType()` 中添加了 `minute` (由 @maaxgr 贡献)
+- [MySQL 方言] 向 `mySqlFunctionType()` 添加了 `minute` (由 @maaxgr 贡献)
 
 ## [1.4.1] - 2020-08-21
 [1.4.1]: https://github.com/sqldelight/sqldelight/releases/tag/1.4.1
@@ -906,7 +919,7 @@ sqldelight {
 - [编译器] 修复了目录名称清理中的不一致问题 (由 @ZacSweers 贡献)
 - [编译器] 合成列在联接中应保留为 null 性 (#1656)
 - [编译器] 将删除语句固定在 `delete` 关键字上 (#1643)
-- [编译器] 修复了引用问题 (#1525 由 @angusholder 贡献)
+- [编译器] 修复了转义问题 (#1525 由 @angusholder 贡献)
 - [编译器] 修复了 `between` 运算符以正确递归到表达式中 (#1279)
 - [编译器] 为创建索引时缺失的表/列提供了更好的错误提示 (#1372)
 - [编译器] 允许在联接约束中使用外部查询的投影 (#1346)
@@ -1145,7 +1158,7 @@ sqldelight {
   * 新增：列定义使用 SQLite 类型，并可以有额外的 'AS' 约束以指定 Java 类型。
   * 新增：可以从 IDE 发送错误报告。
   * 修复：自动补全功能正常运行。
-  * 修复：SQLDelight 模型文件在编辑 .sq 文件时更新。
+  * 修复：SQLDelight 模型文件在编辑 .sq file 时更新。
   * 移除：不再支持附加的数据库。
 
 ## [0.2.2] - 2016-03-07

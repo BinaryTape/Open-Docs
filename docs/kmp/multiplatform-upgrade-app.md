@@ -240,7 +240,7 @@ data class RocketLaunch (
 
 ### 创建流 (Flow)
 
-您可以使用 Flow 而不是挂起函数。它们发出的是一系列值，而不是挂起函数返回的单个值。
+您可以使用流 (Flow) 而不是挂起函数。它们发出的是一系列值，而不是挂起函数返回的单个值。
 
 1. 打开 `shared/src/commonMain/kotlin` 目录中的 `Greeting.kt` 文件。
 2. 向 `Greeting` 类添加 `rocketComponent` 属性。该属性将存储包含最后一次成功发射日期的消息：
@@ -471,7 +471,7 @@ struct ListView: View {
 * SKIE 库增强了由 Kotlin 编译器生成的 Objective-C API：SKIE 将流转换为等效的 Swift `AsyncSequence`。SKIE 直接支持 Swift 的 `async`/`await`，没有线程限制，并具有自动双向取消功能（Combine 和 RxSwift 需要适配器）。SKIE 提供了其他功能来生成 Swift 友好的 Kotlin API，包括将各种 Kotlin 类型桥接到 Swift 等效类型。它也不需要在 iOS 项目中添加额外的依赖项。
 * KMP-NativeCoroutines 库通过生成必要的包装器，帮助您从 iOS 消费挂起函数和流。
   KMP-NativeCoroutines 支持 Swift 的 `async`/`await` 功能以及 Combine 和 RxSwift。
-  使用 KMP-NativeCoroutines 需要在 iOS 项目中添加 SPM 或 CocoaPod 依赖项。
+  使用 KMP-NativeCoroutines 需要在 iOS 项目中添加 SwiftPM 或 CocoaPod 依赖项。
 
 ### 选项 1. 配置 KMP-NativeCoroutines {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -538,7 +538,7 @@ struct ListView: View {
     }
     ```
 
-#### 在 Xcode 中使用 SPM 导入库
+#### 在 Xcode 中使用 SwiftPM 导入库
 
 1. 转到 **File** | **Open Project in Xcode**。
 2. 在 Xcode 中，右键点击左侧菜单中的 `iosApp` 项目，然后选择 **Add Package Dependencies**。

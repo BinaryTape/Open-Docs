@@ -15,7 +15,7 @@
   * 來自 Material Symbols 程式庫的 [向量 Android XML 圖示](#icons)。
   * [字串](#strings)，包括簡單字串、範本、陣列和複數 (plurals)。
   * [儲存與載入自訂字型](#fonts)。
-  * [原始檔案 (Raw files)](#raw-files) 以及將位元組陣列轉換為圖像。
+  * [原始檔案 (Raw files)](#raw-files) 以及將位元組陣列轉換為圖像。 
 * [存取與字串 ID 對應的資源](#generated-maps-for-resources-and-string-ids)。
 * [將多平台資源作為 Android assets 使用](#compose-multiplatform-resources-as-android-assets)。
 * 處理 Web 特定資源：
@@ -159,6 +159,9 @@ Image(
 將所有字串資源儲存在 `composeResources/values` 目錄下的 XML 檔案中。
 每個檔案中的每個項目都會產生一個靜態存取子。
 
+Compose Multiplatform 支援類 Emmet 的縮寫語法，可直接在 XML 檔案中新增字串資源、字串陣列和複數。
+例如，當您在 `strings.xml` 中輸入 `test{Example}` 或 `s.test{Example}` 並按下 **Tab** 時，它會自動展開為 `<string name="test">Example</string>`。
+
 關於如何為不同區域設定進行字串在地化的更多資訊，請參閱 [字串在地化指南](compose-localize-strings.md)。
 
 #### 簡單字串
@@ -220,6 +223,12 @@ coroutineScope.launch {
 
 您不需要像 [Android 字串](https://developer.android.com/guide/topics/resources/string-resource#escaping_quotes) 那樣對 "@" 或 "?" 等特殊 XML 字元進行轉義。
 
+> 使用類 Emmet 的語法並按下 **Tab** 以將縮寫展開為字串標籤：
+> * `test` → `<string name="test"></string>`
+> * `test{Example}` → `<string name="test">Example</string>`
+>
+{style="note"}
+
 #### 字串範本
 
 目前，字串資源對引數 (arguments) 提供基本支援。
@@ -244,6 +253,12 @@ Text(stringResource(Res.string.str_template, 100, "User_name"))
 ```kotlin
 Text(stringResource(Res.string.str_template, "User_name", 100.1f))
 ```
+
+> 您可以使用內嵌數字快速鍵來取代手動輸入 `%1$s` 或 `%2$d` 作為占位符。
+> 例如，當您在字串值中輸入 `1` 或 `1s` 時，它會展開為 `%1$s`。
+> 同樣地，當您輸入 `2d` 時，它會展開為 `%2$d`。
+> 
+{style="note"}
 
 #### 字串陣列
 
@@ -295,6 +310,18 @@ coroutineScope.launch {
 
 </TabItem>
 </Tabs>
+
+> 您可以使用類 Emmet 的語法來快速定義字串陣列。
+> 使用 `string-array`、`sa` 或 `>` 運算子來產生空的陣列範本。
+> 對於具有預定義項目數量和起始文字的具名陣列，請輸入 `test>2{Hello}` 並按下 **Tab**：
+> ```xml
+> <string-array name="test">
+>    <item>Hello</item>
+>    <item>Hello</item>
+> </string-array>
+> ```
+>
+{style="note"}
 
 #### 複數 (Plurals)
 
@@ -359,6 +386,19 @@ coroutineScope.launch {
 
 </TabItem>
 </Tabs>
+
+> 您可以使用類 Emmet 的語法來產生複數資源。
+> 例如，使用 `plurals`、`p` 或 `:` 來產生預設的空字串範本。
+> 如果您在 `values-en/strings.xml` 中工作，IDE 會自動偵測區域設定、所需的數量，以及英語僅需要 `one` 和 `other`。
+> 輸入 `p.test` 或 `plurals.test` 並按下 **Tab** 以將縮寫展開為 `plurals` 區塊：
+> ```xml
+> <plurals name="test">
+>     <item quantity="one"></item>
+>     <item quantity="other"></item>
+> </plurals>
+> ```
+>
+{style="note"}
 
 ### 字型
 
@@ -473,7 +513,7 @@ Image(bytes.decodeToImageVector(LocalDensity.current), null)
 Image(bytes.decodeToSvgPainter(LocalDensity.current), null)
 ```
 
-### 存取與字串 ID 對應的資源
+### 產生的資源與字串 ID 對應表
 
 為了方便存取，Compose Multiplatform 還將資源與字串 ID 進行了對應。您可以使用檔案名稱作為鍵 (key) 來存取它們：
 
@@ -513,7 +553,7 @@ fun App() {
     MaterialTheme {
         val uri = Res.getUri("files/webview/index.html")
 
-        // 在 AndroidView 中加入 WebView，配置為全螢幕配置。
+        // 在 AndroidView 中加入 WebView，並將佈局配置為全螢幕。
         AndroidView(factory = {
             WebView(it).apply {
                 layoutParams = ViewGroup.LayoutParams(

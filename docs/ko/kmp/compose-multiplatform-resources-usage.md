@@ -159,6 +159,9 @@ Image(
 모든 문자열 리소스를 `composeResources/values` 디렉터리의 XML 파일에 저장하세요.
 각 파일의 각 항목에 대해 정적 접근자가 생성됩니다.
 
+Compose Multiplatform은 XML 파일에 직접 문자열 리소스, 문자열 배열 및 복수형을 추가하기 위한 Emmet 스타일의 단축 구문을 지원합니다.
+예를 들어, `strings.xml`에서 `test{Example}` 또는 `s.test{Example}`를 입력하고 **Tab**을 누르면 자동으로 `<string name="test">Example</string>`으로 확장됩니다.
+
 다양한 로케일에 대해 문자열을 현지화하는 방법에 대한 자세한 내용은 [문자열 현지화 가이드](compose-localize-strings.md)를 참조하세요.
 
 #### 단순 문자열 (Simple strings)
@@ -220,6 +223,12 @@ coroutineScope.launch {
 
 [Android 문자열의 경우](https://developer.android.com/guide/topics/resources/string-resource#escaping_quotes)와 달리 "@"나 "?"와 같은 특수 XML 문자를 이스케이프할 필요가 없습니다.
 
+> Emmet 스타일의 구문을 사용하고 **Tab**을 눌러 약어를 문자열 태그로 확장할 수 있습니다:
+> * `test` → `<string name="test"></string>`
+> * `test{Example}` → `<string name="test">Example</string>`
+>
+{style="note"}
+
 #### 문자열 템플릿 (String templates)
 
 현재 문자열 리소스의 인자에 대해서는 기본적인 지원을 제공합니다.
@@ -244,6 +253,12 @@ Text(stringResource(Res.string.str_template, 100, "User_name"))
 ```kotlin
 Text(stringResource(Res.string.str_template, "User_name", 100.1f))
 ```
+
+> 자리표시자를 위해 `%1$s`나 `%2$d`를 직접 입력하는 대신, 인라인 숫자 단축키를 사용할 수 있습니다.
+> 예를 들어, 문자열 값 내에서 `1` 또는 `1s`를 입력하면 `%1$s`로 확장됩니다.
+> 마찬가지로 `2d`를 입력하면 `%2$d`로 확장됩니다.
+> 
+{style="note"}
 
 #### 문자열 배열 (String arrays)
 
@@ -295,6 +310,18 @@ coroutineScope.launch {
 
 </TabItem>
 </Tabs>
+
+> Emmet 스타일의 구문을 사용하여 문자열 배열을 빠르게 정의할 수 있습니다.
+> `string-array`, `sa`, 또는 `>` 연산자를 사용하여 빈 배열 템플릿을 생성하세요.
+> 미리 정의된 항목 수와 시작 텍스트가 있는 명명된 배열의 경우, `test>2{Hello}`를 입력하고 **Tab**을 누르세요:
+> ```xml
+> <string-array name="test">
+>    <item>Hello</item>
+>    <item>Hello</item>
+> </string-array>
+> ```
+>
+{style="note"}
 
 #### 복수형 (Plurals)
 
@@ -359,6 +386,19 @@ coroutineScope.launch {
 
 </TabItem>
 </Tabs>
+
+> Emmet 스타일 구문을 사용하여 복수형 리소스를 생성할 수 있습니다.
+> 예를 들어, `plurals`, `p`, 또는 `:`를 사용하여 기본 빈 문자열 템플릿을 생성하세요.
+> `values-en/strings.xml`에서 작업하는 경우, IDE는 자동으로 로케일과 필요한 수량을 감지하며, 영어가 `one`과 `other`만 필요하다는 것을 인식합니다.
+> `p.test` 또는 `plurals.test`를 입력하고 **Tab**을 누르면 해당 약어가 `plurals` 블록으로 확장됩니다:
+> ```xml
+> <plurals name="test">
+>     <item quantity="one"></item>
+>     <item quantity="other"></item>
+> </plurals>
+> ```
+>
+{style="note"}
 
 ### 폰트 (Fonts)
 

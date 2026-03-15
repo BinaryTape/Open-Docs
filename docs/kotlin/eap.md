@@ -43,13 +43,13 @@
         <th>构建亮点</th>
     </tr>
     <tr>
-        <td><strong>2.3.20-RC2</strong>
-            <p>发布日期：<strong>2026 年 3 月 3 日</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20-RC2" target="_blank">GitHub 上的发布版本</a></p>
+        <td><strong>2.3.20-RC3</strong>
+            <p>发布日期：<strong>2026 年 3 月 10 日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20-RC3" target="_blank">GitHub 上的发布版本</a></p>
         </td>
         <td>
             <p>这是一个工具版本，包含性能改进、错误修复和工具更新。</p>
-            <p>有关更多详细信息，请参阅<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20-RC2">变更日志</a>。</p>
+            <p>有关更多详细信息，请参阅<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20-RC3">变更日志</a>。</p>
         </td>
     </tr>
 </table>

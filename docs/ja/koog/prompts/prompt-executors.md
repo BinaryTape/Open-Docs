@@ -9,16 +9,16 @@ Koogは、[`PromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.
 
 | 種類 | <div style="width:175px">クラス</div> | 説明 |
 |-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| シングルプロバイダー | [`SingleLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.SingleLLMPromptExecutor) | 1つのプロバイダーに対する単一のLLMクライアントをラップします。エージェントが単一のLLMプロバイダー内でのモデルの切り替えのみを必要とする場合に、このエグゼキューターを使用します。 |
-| マルチプロバイダー | [`MultiLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor)   | 複数のLLMクライアントをラップし、LLMプロバイダーに基づいて呼び出しをルーティングします。リクエストされたクライアントが利用できない場合に、オプションで設定されたフォールバックプロバイダーとLLMを使用できます。エージェントが異なるプロバイダーのLLMを切り替える必要がある場合に、このエグゼキューターを使用します。 |
-| ルーティング | [`RoutingLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) | ルーティング戦略を使用して、特定のLLMモデルへのリクエストを複数のクライアントインスタンスに分散します。レート制限の回避、スループットの向上、ロードバランシングによるフェイルオーバー戦略の実装を行う場合に、このエグゼキューターを使用します。 |
+| シングルプロバイダー | [`SingleLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.SingleLLMPromptExecutor) | 1つのプロバイダーに対する単一のLLMクライアントをラップします。エージェントが単一のLLMプロバイダー内でのモデルの切り替えのみを必要とする場合に、このエグゼキューターを使用します。 |
+| マルチプロバイダー | [`MultiLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor)   | 複数のLLMクライアントをラップし、LLMプロバイダーに基づいて呼び出しをルーティングします。リクエストされたクライアントが利用できない場合に、オプションで設定されたフォールバックプロバイダーとLLMを使用できます。エージェントが異なるプロバイダーのLLMを切り替える必要がある場合に、このエグゼキューターを使用します。 |
+| ルーティング | [`RoutingLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) | ルーティング戦略を使用して、特定のLLMモデルへのリクエストを複数のクライアントインスタンスに分散します。レート制限の回避、スループットの向上、ロードバランシングによるフェイルオーバー戦略の実装を行う場合に、このエグゼキューターを使用します。 |
 
 ## シングルプロバイダーエグゼキューターの作成
 
 特定のLLMプロバイダー向けのプロンプトエグゼキューターを作成するには、以下の手順を実行します。
 
 1. 対応するAPIキーを使用して、特定のプロバイダーのLLMクライアントを構成します。
-2. [`SingleLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.SingleLLMPromptExecutor) を使用してプロンプトエグゼキューターを作成します。
+2. [`SingleLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.SingleLLMPromptExecutor) を使用してプロンプトエグゼキューターを作成します。
 
 例を示します。
 
@@ -37,7 +37,7 @@ val promptExecutor = MultiLLMPromptExecutor(openAIClient)
 複数のLLMプロバイダーで動作するプロンプトエグゼキューターを作成するには、以下の手順を実行します。
 
 1. 対応するAPIキーを使用して、必要なLLMプロバイダーのクライアントを構成します。
-2. 構成したクライアントを [`MultiLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor) クラスのコンストラクタに渡し、複数のLLMプロバイダーを持つプロンプトエグゼキューターを作成します。
+2. 構成したクライアントを [`MultiLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor) クラスのコンストラクタに渡し、複数のLLMプロバイダーを持つプロンプトエグゼキューターを作成します。
 
 <!--- INCLUDE
 import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
@@ -65,8 +65,8 @@ val multiExecutor = MultiLLMPromptExecutor(
 ルーティング戦略を使用して、特定のLLMモデルへのリクエストを複数のクライアントインスタンスに分散するプロンプトエグゼキューターを作成するには、以下の手順を実行します。
 
 1. 対応するAPIキーを使用して、複数のクライアントインスタンス（同じLLMプロバイダーでも異なるプロバイダーでも可）を構成します。
-2. [`RoundRobinRouter`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.RoundRobinRouter) などのルーティング戦略を使用してルーターを作成します。
-3. ルーターを [`RoutingLLMPromptExecutor`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) クラスのコンストラクタに渡します。
+2. [`RoundRobinRouter`](api:prompt-executor-model::ai.koog.prompt.executor.llms.RoundRobinRouter) などのルーティング戦略を使用してルーターを作成します。
+3. ルーターを [`RoutingLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) クラスのコンストラクタに渡します。
 
 これは、レート制限の回避、スループットの向上、フェイルオーバー戦略の実装に役立ちます。
 
@@ -92,7 +92,7 @@ val routingExecutor = RoutingLLMPromptExecutor(router)
 
 このエグゼキューターでプロンプトを実行すると、OpenAIモデルへのリクエストはラウンドロビン戦略を使用して `openAI1` と `openAI2` の間で交互に行われます。Anthropicモデルへのリクエストは、ラウンドロビンがプロバイダーごとに独立したカウンターを保持するため、常に単一の `anthropic` クライアントに送られます。
 
-[`LLMClientRouter`](api:prompt-executor-llms::ai.koog.prompt.executor.llms.LLMClientRouter) インターフェースを実装するクラスを作成することで、カスタムルーティング戦略を実装することもできます。
+[`LLMClientRouter`](api:prompt-executor-model::ai.koog.prompt.executor.llms.LLMClientRouter) インターフェースを実装するクラスを作成することで、カスタムルーティング戦略を実装することもできます。
 
 ## 定義済みプロンプトエグゼキューター
 

@@ -38,6 +38,8 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
 import ai.koog.agents.core.agent.context.AIAgentContext
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.nodeExecuteTool
 import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
 import ai.koog.agents.core.dsl.extension.nodeLLMRequest
@@ -62,7 +64,7 @@ val strategy = strategy<String, String>("execute-with-history-compression") {
     edge(callLLM forwardTo nodeFinish onAssistantMessage { true })
     edge(callLLM forwardTo executeTool onToolCall { true })
 
-    // 履歴が長すぎる場合、ツールの実行後に履歴を圧縮する 
+    // 履歴が長すぎる場合、ツールの実行後に履歴 को 圧縮する 
     edge(executeTool forwardTo compressHistory onCondition { historyIsTooLong() })
     edge(compressHistory forwardTo sendToolResult)
     // そうでない場合は、次のLLMリクエストに進む
@@ -81,6 +83,8 @@ val strategy = strategy<String, String>("execute-with-history-compression") {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
 -->
 ```kotlin
@@ -106,6 +110,8 @@ val strategy = strategy<String, String>("execute-with-history-compression") {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.replaceHistoryWithTLDR
 
 val strategy = strategy<String, String>("strategy_name") {
@@ -141,6 +147,8 @@ llm.writeSession {
 * ストラテジーグラフ内：
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
 import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
 
@@ -164,6 +172,8 @@ val compressHistory by nodeLLMCompressHistory<ProcessedInput>(
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
 import ai.koog.agents.core.dsl.extension.replaceHistoryWithTLDR
 
@@ -192,6 +202,8 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
 import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
 
@@ -215,6 +227,8 @@ val compressHistory by nodeLLMCompressHistory<ProcessedInput>(
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
 import ai.koog.agents.core.dsl.extension.replaceHistoryWithTLDR
 
@@ -245,6 +259,8 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
 import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
 
@@ -268,6 +284,8 @@ val compressHistory by nodeLLMCompressHistory<ProcessedInput>(
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
 import ai.koog.agents.core.dsl.extension.replaceHistoryWithTLDR
 
@@ -299,6 +317,8 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
 import ai.koog.agents.memory.feature.history.RetrieveFactsFromHistory
 import ai.koog.agents.memory.model.Concept
@@ -346,6 +366,8 @@ val compressHistory by nodeLLMCompressHistory<ProcessedInput>(
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.replaceHistoryWithTLDR
 import ai.koog.agents.memory.feature.history.RetrieveFactsFromHistory
 import ai.koog.agents.memory.model.Concept
@@ -382,7 +404,7 @@ llm.writeSession {
                 keyword = "issue_solved",
                 // LLMへの説明 -- 具体的に何を検索するか
                 description = "Was the initial user's issue resolved?",
-                // LLMはこの質問に対する単一の回答を検索する：
+                // LLMはこの質問に対する単一의 回答を検索する：
                 factType = FactType.SINGLE
             )
         )
@@ -443,6 +465,8 @@ class MyCustomCompressionStrategy : HistoryCompressionStrategy() {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
 import ai.koog.agents.example.exampleHistoryCompression12.MyCustomCompressionStrategy
 
@@ -464,6 +488,8 @@ val compressHistory by nodeLLMCompressHistory<ProcessedInput>(
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.replaceHistoryWithTLDR
 import ai.koog.agents.example.exampleHistoryCompression12.MyCustomCompressionStrategy
 
@@ -494,6 +520,8 @@ llm.writeSession {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
 import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
 
@@ -516,6 +544,8 @@ val compressHistory by nodeLLMCompressHistory<ProcessedInput>(
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
 import ai.koog.agents.core.dsl.extension.replaceHistoryWithTLDR
 

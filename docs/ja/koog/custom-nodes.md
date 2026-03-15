@@ -21,6 +21,7 @@
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 typealias Input = String
 typealias Output = Int
@@ -44,6 +45,7 @@ val myNode by node<Input, Output>("node_name") { input ->
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 val str = strategy<String, Int>("my-strategy") {
 -->
@@ -64,6 +66,7 @@ val myNode by node<String, Int>("node_name") { input ->
 import ai.koog.agents.core.dsl.builder.AIAgentNodeDelegate
 import ai.koog.agents.core.dsl.builder.AIAgentSubgraphBuilderBase
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 typealias Input = String
 typealias Output = String
@@ -95,6 +98,7 @@ val myCustomNode by myCustomNode("node_name")
 import ai.koog.agents.core.dsl.builder.AIAgentNodeDelegate
 import ai.koog.agents.core.dsl.builder.AIAgentSubgraphBuilderBase
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 typealias Input = String
 typealias Output = String
@@ -126,6 +130,7 @@ val myCustomNode by myNodeWithArguments("node_name", arg1 = "value1", arg2 = 42)
 import ai.koog.agents.core.dsl.builder.AIAgentNodeDelegate
 import ai.koog.agents.core.dsl.builder.AIAgentSubgraphBuilderBase
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 -->
 
 ```kotlin
@@ -150,6 +155,7 @@ val strategy = strategy<String, String>("strategy_name") {
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.AIAgentNodeDelegate
 import ai.koog.agents.core.dsl.builder.AIAgentSubgraphBuilderBase
+import ai.koog.agents.core.dsl.builder.node
 
 typealias Input = Unit
 typealias Output = Unit
@@ -176,6 +182,7 @@ fun AIAgentSubgraphBuilderBase<*, *>.myStatefulNode(
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 val strategy = strategy<String, String>("strategy_name") {
 -->
@@ -215,6 +222,7 @@ val stringToIntNode by node<String, Int>("node_name") { input: String ->
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 val strategy = strategy<String, String>("strategy_name") {
 -->
@@ -236,6 +244,7 @@ val loggingNode by node<String, String>("node_name") { input ->
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 val strategy = strategy<String, String>("strategy_name") {
 -->
@@ -256,6 +265,7 @@ LLMとやり取りするノードです。
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 
 val strategy = strategy<String, String>("strategy_name") {
 -->
@@ -280,6 +290,7 @@ val summarizeTextNode by node<String, String>("node_name") { input ->
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
 import ai.koog.prompt.message.Message
 import ai.koog.prompt.message.ResponseMetaInfo
 import kotlin.time.Clock

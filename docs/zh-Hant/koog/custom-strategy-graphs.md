@@ -33,6 +33,9 @@ Koog 架構提供了預定義節點，也允許您使用 `node` 函式建立自�
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 
 val strategy = strategy<String, String>("strategy_name") {
         val sourceNode by node<String, String> { input -> input }
@@ -63,6 +66,9 @@ edge(sourceNode forwardTo targetNode)
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 
 val strategy = strategy<String, String>("strategy_name") {
         val sourceNode by node<String, String> { input -> input }
@@ -86,6 +92,9 @@ edge(sourceNode forwardTo targetNode
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 
 typealias Input = String
 typealias Output = Int
@@ -113,6 +122,9 @@ val strategy = strategy<Input, Output>("strategy-name") {
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.ext.tool.SayToUser
 
 typealias Input = String
@@ -139,7 +151,7 @@ val strategy = strategy<Input, Output>("strategy-name") {
 
 ## 基本策略圖建立
 
-基本策略圖的操作方式如下：
+基本策略圖的操作方式如下： 
 
 1. 將輸入發送至 LLM。
 2. 若 LLM 回覆訊息，則結束流程。
@@ -155,6 +167,9 @@ val strategy = strategy<Input, Output>("strategy-name") {
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.nodeExecuteTool
 import ai.koog.agents.core.dsl.extension.nodeLLMRequest
 import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
@@ -178,7 +193,7 @@ val myStrategy = strategy<String, String>("my-strategy") {
 ```
 <!--- KNIT example-custom-strategy-graphs-05.kt -->
 
-## 視覺化策略圖
+## 視覺化策略圖 
 
 在 JVM 上，您可以為策略圖產生 [Mermaid 狀態圖 (Mermaid state diagram)](https://mermaid.js.org/syntax/stateDiagram.html)。
 
@@ -188,6 +203,9 @@ val myStrategy = strategy<String, String>("my-strategy") {
 import ai.koog.agents.core.agent.asMermaidDiagram
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.nodeExecuteTool
 import ai.koog.agents.core.dsl.extension.nodeLLMRequest
 import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
@@ -203,7 +221,7 @@ fun main() {
         edge(nodeStart forwardTo nodeCallLLM)
         edge(nodeCallLLM forwardTo nodeFinish onAssistantMessage { true })
         edge(nodeCallLLM forwardTo executeToolCall onToolCall { true })
-        executeToolCall forwardTo sendToolResult)
+        edge(executeToolCall forwardTo sendToolResult)
         edge(sendToolResult forwardTo nodeFinish onAssistantMessage { true })
         edge(sendToolResult forwardTo executeToolCall onToolCall { true })
     }
@@ -251,6 +269,9 @@ stateDiagram
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.nodeExecuteMultipleTools
 import ai.koog.agents.core.dsl.extension.nodeLLMSendMultipleToolResults
 import ai.koog.prompt.message.Message
@@ -283,9 +304,9 @@ parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(BookTool::clas
 ```
 <!--- KNIT example-custom-strategy-graphs-08.kt -->
 
-欲了解更多資訊，請參閱[工具](tools-overview.md#parallel-tool-calls)。
+欲了解更多資訊，請參閱[工具](tools-overview.md#parallel-tool-calls)。 
 
-### 並行節點執行
+### 並行節點執行 
 
 並行節點執行可讓您同時執行多個節點，從而提高效能並實現複雜的工作流程。
 
@@ -293,6 +314,9 @@ parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(BookTool::clas
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 
 val strategy = strategy<String, String>("strategy_name") {
     val nodeCalcTokens by node<String, Int> { 42 }
@@ -323,6 +347,9 @@ val calc by parallel<String, Int>(
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 
 val strategy = strategy<String, String>("strategy_name") {
     val someNode by node<String, String> { it }
@@ -375,6 +402,9 @@ edge(
 import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
+import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.builder.parallel
+import ai.koog.agents.core.dsl.builder.subgraph
 import ai.koog.agents.core.dsl.extension.nodeExecuteTool
 import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
 import ai.koog.agents.core.dsl.extension.nodeLLMRequest

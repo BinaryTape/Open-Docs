@@ -46,7 +46,7 @@ val toolRegistry = ToolRegistry {}
 -->
 ```kotlin
 // モックLLMエグゼキューターの作成
-val mockLLMApi = getMockExecutor(toolRegistry) {
+val mockLLMApi = getMockExecutor {
   // 単純なテキストレスポンスをモック化
   mockLLMAnswer("Hello!") onRequestContains "Hello"
 
@@ -64,14 +64,13 @@ import ai.koog.agents.core.tools.*
 import ai.koog.agents.ext.tool.AskUser
 import ai.koog.agents.ext.tool.SayToUser
 import ai.koog.agents.testing.tools.getMockExecutor
-import kotlinx.serialization.KSerializer
+import ai.koog.serialization.typeToken
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.builtins.serializer
 import ai.koog.agents.core.tools.annotations.LLMDescription
 
 public object CreateTool : Tool<CreateTool.Args, String>(
-    argsSerializer = Args.serializer(),
-    resultSerializer = String.serializer(),
+    argsType = typeToken<Args>(),
+    resultType = typeToken<String>(),
     name = "message",
     description = "Service tool, used by the agent to talk with user"
 ) {
@@ -90,8 +89,8 @@ public object CreateTool : Tool<CreateTool.Args, String>(
 }
 
 public object SearchTool : Tool<SearchTool.Args, String>(
-    argsSerializer = Args.serializer(),
-    resultSerializer = String.serializer(),
+    argsType = typeToken<Args>(),
+    resultType = typeToken<String>(),
     name = "message",
     description = "Service tool, used by the agent to talk with user"
 ) {
@@ -110,8 +109,8 @@ public object SearchTool : Tool<SearchTool.Args, String>(
 }
 
 public object AnalyzeTool : Tool<AnalyzeTool.Args, String>(
-    argsSerializer = Args.serializer(),
-    resultSerializer = String.serializer(),
+    argsType = typeToken<Args>(),
+    resultType = typeToken<String>(),
     name = "message",
     description = "Service tool, used by the agent to talk with user"
 ) {
@@ -340,12 +339,12 @@ import ai.koog.agents.testing.feature.toolCallMessage
 import ai.koog.agents.testing.feature.toolResult
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.message.Message
-import kotlinx.serialization.KSerializer
+import ai.koog.serialization.typeToken
 import kotlinx.serialization.Serializable
 import ai.koog.agents.core.tools.annotations.LLMDescription
 
 object SolveTool : SimpleTool<SolveTool.Args>(
-    argsSerializer = Args.serializer(),
+    argsType = typeToken<Args>(),
     name = "message",
     description = "Service tool, used by the agent to talk with user"
 ) {
@@ -408,14 +407,13 @@ import ai.koog.agents.testing.feature.testGraph
 import ai.koog.agents.testing.feature.toolCallMessage
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.message.Message
-import kotlinx.serialization.KSerializer
+import ai.koog.serialization.typeToken
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.builtins.serializer
 import ai.koog.agents.core.tools.annotations.LLMDescription
 
 object AnalyzeTool : Tool<AnalyzeTool.Args, String>(
-    argsSerializer = Args.serializer(),
-    resultSerializer = String.serializer(),
+    argsType = typeToken<Args>(),
+    resultType = typeToken<String>(),
     name = "message",
     description = "Service tool, used by the agent to talk with user"
 ) {
@@ -477,12 +475,12 @@ import ai.koog.agents.testing.feature.toolCallMessage
 import ai.koog.agents.testing.feature.toolResult
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.message.Message
-import kotlinx.serialization.KSerializer
+import ai.koog.serialization.typeToken
 import kotlinx.serialization.Serializable
 
 object AnalyzeTool : Tool<AnalyzeTool.Args, AnalyzeTool.Result>(
-    argsSerializer = Args.serializer(),
-    resultSerializer = Result.serializer(),
+    argsType = typeToken<Args>(),
+    resultType = typeToken<Result>(),
     name = "message",
     description = "Service tool, used by the agent to talk with user"
 ) {
@@ -706,6 +704,7 @@ import ai.koog.agents.example.exampleTesting02.mockLLMApi
 import ai.koog.agents.example.exampleTesting02.toolRegistry
 import ai.koog.agents.example.exampleTesting09.AnalyzeTool
 import ai.koog.agents.testing.feature.testGraph
+import ai.koog.agents.testing.feature.toolResult
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.message.Message
 
@@ -1088,11 +1087,11 @@ getMockExecutor {
 ```
 <!--- KNIT example-testing-18.kt -->
 
-### トラトラブルシューティング
+### トラブルシューティング
 
 #### モックエグゼキューターが常にデフォルトレスポンスを返す
 
-パターンマッチングが正しいか確認してください。パターンはは大文字と小文字を区別し、指定された通りに正確に一致する必要があります。
+パターンマッチングが正しいか確認してください。パターンは大文字と小文字を区別し、指定された通りに正確に一致する必要があります。
 
 #### ツールコールがインターセプトされない
 
