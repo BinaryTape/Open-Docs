@@ -14,7 +14,7 @@
 
 このトピックでは、Ktorアプリケーションをデプロイする方法の概要を説明します。
 
-> サーバーKtorアプリケーションのデプロイプロセスを簡素化するために、Gradle用の[Ktor](https://github.com/ktorio/ktor-build-plugins)プラグインを使用できます。このプラグインは以下の機能を提供します：
+> サーバーKtorアプリケーションのデプロイプロセスを簡素化するために、Gradle用の [Ktor](https://github.com/ktorio/ktor-build-plugins) プラグインを使用できます。このプラグインは以下の機能を提供します：
 > - fat JARのビルド。
 > - アプリケーションのDocker化。
 
@@ -43,7 +43,7 @@ Ktorでは、アプリケーション内で直接、目的のネットワーク[
 
 * **実行可能なJVMアプリケーション**
 
-   実行可能なJVMアプリケーションは、コードの依存関係と生成された起動スクリプトを含むパッケージ化されたアプリケーションです。Gradleの場合、[Application](server-packaging.md)プラグインを使用してアプリケーションを生成できます。
+   実行可能なJVMアプリケーションは、コードの依存関係と生成された起動スクリプトを含むパッケージ化されたアプリケーションです。Gradleの場合、[Application](server-packaging.md)プラグインを使用してアプリケーションを生成できます。 
 
 * **WAR**
 
@@ -62,6 +62,7 @@ Ktorでは、アプリケーション内で直接、目的のネットワーク[
 以下のチュートリアルでは、特定のクラウドプロバイダーにKtorアプリケーションをデプロイする方法を示しています：
 * [Google App Engine](google-app-engine.md)
 * [Heroku](heroku.md)
+* [Dokku](dokku.md)
 * [AWS Elastic Beanstalk](elastic-beanstalk.md)
 
 ## SSL {id="ssl"}

@@ -2,173 +2,275 @@
 title: 模組
 ---
 
-透過使用 Koin，您可以在模組中描述定義。在此章節中，我們將了解如何宣告、組織與連結您的模組。
+# 模組
+
+Koin 模組是組織相依注入配置的建置區塊。
 
 ## 什麼是模組？
 
-Koin 模組是一個用來收集 Koin 定義的「空間」。它是使用 `module` 函式來宣告的。
+模組是群組相關定義的邏輯容器：
 
 ```kotlin
-val myModule = module {
-    // 您的定義 ...
+val appModule = module {
+    single<Database>()
+    single<UserRepository>()
+    viewModel<UserViewModel>()
+}
+```
+
+模組可以協助您：
+- 依功能或層級**組織**定義
+- **封裝**相關的相依性
+- 跨內容**重複使用**配置
+- 在模組化專案中**控制可見性**
+
+## 建立模組
+
+### 使用編譯器外掛程式 DSL
+
+```kotlin
+import org.koin.plugin.module.dsl.*
+
+val networkModule = module {
+    single<ApiClient>()
+    single<TokenManager>()
+}
+
+val databaseModule = module {
+    single<Database>()
+    single<UserDao>()
+}
+```
+
+### 使用註解
+
+```kotlin
+@Module
+@ComponentScan("com.myapp.network")
+class NetworkModule
+
+@Module
+@ComponentScan("com.myapp.database")
+class DatabaseModule
+```
+
+### 使用經典 DSL
+
+```kotlin
+val networkModule = module {
+    singleOf(::ApiClient)
+    singleOf(::TokenManager)
 }
 ```
 
 ## 使用多個模組
 
-元件不一定非得在同一個模組中。模組是一個邏輯空間，可以協助您組織定義，並且可以相依於來自其他模組的定義。定義是延遲的，只有在元件請求它們時才會進行解析。
-
-讓我們看一個範例，其中連結的元件位於不同的模組中：
+相依性可以參考來自其他模組的定義：
 
 ```kotlin
-// ComponentB <- ComponentA
-class ComponentA()
-class ComponentB(val componentA : ComponentA)
-
-val moduleA = module {
-    // 單例（Singleton）ComponentA
-    single { ComponentA() }
+// 資料層
+val dataModule = module {
+    single<Database>()
+    single<UserRepository>()  // 可以使用此模組中的 Database
 }
 
-val moduleB = module {
-    // 連結了 ComponentA 執行個體的單例 ComponentB
-    single { ComponentB(get()) }
+// 表現層
+val viewModelModule = module {
+    viewModel<UserViewModel>()  // 可以使用來自 dataModule 的 UserRepository
+}
+
+// 載入兩者
+startKoin {
+    modules(dataModule, viewModelModule)
 }
 ```
 
-:::info 
-Koin 沒有任何匯入的概念。Koin 定義是延遲的：Koin 定義會隨 Koin 容器啟動，但不會被具現化。只有在對該型別發出請求時，才會建立執行個體。
+:::info
+Koin 會自動解析所有已載入模組間的相依性。不需要明確匯入。
 :::
-
-我們只需要在啟動 Koin 容器時宣告所使用的模組清單：
-
-```kotlin
-// 使用 moduleA 與 moduleB 啟動 Koin
-startKoin {
-    modules(moduleA,moduleB)
-}
-```
-
-Koin 接著會解析來自所有給定模組的相依性。
-
-## 覆寫定義或模組 (3.1.0+)
-
-新的 Koin 覆寫策略預設允許覆寫任何定義。您不再需要在模組中指定 `override = true`。
-
-如果您在不同的模組中有兩個具有相同對應的定義，則最後一個將會覆寫目前的定義。
-
-```kotlin
-val myModuleA = module {
-    single<Service> { ServiceImp() }
-}
-val myModuleB = module {
-    single<Service> { TestServiceImp() }
-}
-
-startKoin {
-    // TestServiceImp 將覆寫 ServiceImp 定義
-    modules(myModuleA,myModuleB)
-}
-```
-
-您可以檢查 Koin 記錄，以了解定義對應的覆寫情況。
-
-您可以在 Koin 應用程式配置中使用 `allowOverride(false)` 來指定不允許覆寫：
-
-```kotlin
-startKoin {
-    // 禁止定義覆寫
-    allowOverride(false)
-}
-```
-
-在停用覆寫的情況下，Koin 會在任何嘗試覆寫時拋出 `DefinitionOverrideException` 例外。
-
-## 共享模組
-
-當使用 `module { }` 函式時，Koin 會預先分配所有執行個體工廠。如果您需要共享模組，請考慮使用函式傳回您的模組。
-
-```kotlin
-fun sharedModule() = module {
-    // 您的定義 ...
-}
-```
-
-透過這種方式，您可以共享定義，並避免在變數中預先分配工廠。
-
-## 覆寫定義或模組 (3.1.0 之前)
-
-Koin 不允許您重新定義已存在的定義（型別、名稱、路徑 ...）。如果您嘗試這樣做，將會收到錯誤：
-
-```kotlin
-val myModuleA = module {
-
-    single<Service> { ServiceImp() }
-}
-
-val myModuleB = module {
-
-    single<Service> { TestServiceImp() }
-}
-
-// 將拋出 BeanOverrideException
-startKoin {
-    modules(myModuleA,myModuleB)
-}
-```
-
-若要允許定義覆寫，您必須使用 `override` 參數：
-
-```kotlin
-val myModuleA = module {
-
-    single<Service> { ServiceImp() }
-}
-
-val myModuleB = module {
-
-    // 此定義的覆寫
-    single<Service>(override=true) { TestServiceImp() }
-}
-```
-
-```kotlin
-val myModuleA = module {
-
-    single<Service> { ServiceImp() }
-}
-
-// 允許模組中所有定義的覆寫
-val myModuleB = module(override=true) {
-
-    single<Service> { TestServiceImp() }
-}
-```
 
 :::note
- 列出模組與覆寫定義時，順序非常重要。您的覆寫定義必須位於模組清單的最後。
+雖然直接列出模組是可行的，但建議考慮使用 [`includes()`](#使用-includes-組合模組) 將您的模組組織成階層結構，以獲得更好的結構與最佳化載入。
 :::
 
-## 連結模組策略
+## 使用 `includes()` 組合模組
 
-*由於模組間的定義是延遲的*，我們可以使用模組來實作不同的策略實作：為每個模組宣告一個實作。
+`includes()` 函式是組織模組的**推薦方式**。它提供：
 
-讓我們以 Repository（存儲庫）和 Datasource（資料來源）為例。Repository 需要 Datasource，而 Datasource 可以透過兩種方式實作：本機或遠端。
+- **模組階層結構** - 以清晰的父子關係建構您的模組
+- **最佳化載入** - Koin 會對包含的模組進行去重，防止冗餘註冊
+- **更簡潔的啟動** - 載入單一根模組，而非一長串清單
+- **封裝** - 內部模組可以隱藏在公開 API 模組之後
+
+:::tip
+**最佳實務：** 使用 `includes()` 建置模組階層結構，而不是在 `startKoin` 中列出所有模組。這可以改善組織並確保高效的模組載入。
+:::
 
 ```kotlin
-class Repository(val datasource : Datasource)
-interface Datasource
-class LocalDatasource() : Datasource
-class RemoteDatasource() : Datasource
+val networkModule = module {
+    single<ApiClient>()
+}
+
+val storageModule = module {
+    single<Database>()
+}
+
+// 父模組包含子模組
+val dataModule = module {
+    includes(networkModule, storageModule)
+    single<UserRepository>()
+}
+
+// ✅ 推薦：載入具有 includes 的根模組
+startKoin {
+    modules(dataModule)
+}
+
+// ❌ 避免：扁平的模組清單
+startKoin {
+    modules(networkModule, storageModule, dataModule)
+}
 ```
 
-我們可以在 3 個模組中宣告這些元件：Repository 以及每個 Datasource 實作各一個：
+### `includes()` 如何最佳化載入
+
+當模組被多次包含時，Koin 僅會載入它們一次：
+
+```kotlin
+val commonModule = module {
+    single<Logger>()
+}
+
+val featureAModule = module {
+    includes(commonModule)
+    single<FeatureA>()
+}
+
+val featureBModule = module {
+    includes(commonModule)  // 同樣包含了 commonModule
+    single<FeatureB>()
+}
+
+val appModule = module {
+    includes(featureAModule, featureBModule)
+}
+
+// commonModule 僅會被載入一次，即使它被包含了兩次
+startKoin {
+    modules(appModule)
+}
+```
+
+### 多模組專案
+
+使用可見性修飾詞來控制公開的內容：
+
+```kotlin
+// :feature:user 模組
+
+// 私有 - 對其他模組隱藏
+private val userDataModule = module {
+    single<UserDao>()
+    single<UserCache>()
+}
+
+// 公開 API
+val userFeatureModule = module {
+    includes(userDataModule)
+    viewModel<UserViewModel>()
+}
+```
+
+```kotlin
+// :app 模組
+startKoin {
+    modules(userFeatureModule)  // 只有此模組可被存取
+}
+```
+
+## 模組覆寫
+
+### 預設行為
+
+預設情況下，**最後載入的定義優先**：
+
+```kotlin
+val productionModule = module {
+    single<ApiService> { ProductionApi() }
+}
+
+val debugModule = module {
+    single<ApiService> { DebugApi() }
+}
+
+startKoin {
+    modules(productionModule, debugModule)  // DebugApi 優先
+}
+```
+
+### 嚴格模式
+
+在生產環境中停用覆寫：
+
+```kotlin
+startKoin {
+    allowOverride(false)  // 嘗試覆寫時會拋出例外
+    modules(productionModule)
+}
+```
+
+### 明確覆寫
+
+在嚴格模式下允許特定覆寫：
+
+```kotlin
+val testModule = module {
+    single<ApiService> { MockApi() }.override()  // 允許
+}
+
+startKoin {
+    allowOverride(false)
+    modules(productionModule, testModule)
+}
+```
+
+## 立即模組建立
+
+在啟動時立即建立單例（Singleton）：
+
+```kotlin
+val coreModule = module(createdAtStart = true) {
+    single<ConfigManager>()
+    single<LoggingSystem>()
+}
+```
+
+## 參數化模組
+
+動態建立模組：
+
+```kotlin
+fun featureModule(debug: Boolean) = module {
+    single<Logger> {
+        if (debug) DebugLogger() else ProductionLogger()
+    }
+}
+
+startKoin {
+    modules(featureModule(debug = BuildConfig.DEBUG))
+}
+```
+
+## 策略模式
+
+使用模組來交換實作：
 
 ```kotlin
 val repositoryModule = module {
-    single { Repository(get()) }
+    single<UserRepository>()  // 相依於 Datasource
 }
 
+// 策略選項
 val localDatasourceModule = module {
     single<Datasource> { LocalDatasource() }
 }
@@ -176,79 +278,90 @@ val localDatasourceModule = module {
 val remoteDatasourceModule = module {
     single<Datasource> { RemoteDatasource() }
 }
+
+// 生產環境
+startKoin {
+    modules(repositoryModule, remoteDatasourceModule)
+}
+
+// 離線模式
+startKoin {
+    modules(repositoryModule, localDatasourceModule)
+}
 ```
 
-接著我們只需要使用正確的模組組合來啟動 Koin：
+## 註解式模組
+
+Koin 支援基於註解的模組配置，作為 DSL 的替代方案。
 
 ```kotlin
-// 載入 Repository + 本機 Datasource 定義
-startKoin {
-    modules(repositoryModule,localDatasourceModule)
-}
+@Module
+@ComponentScan("com.myapp.data")
+class DataModule
 
-// 載入 Repository + 遠端 Datasource 定義
-startKoin {
-    modules(repositoryModule,remoteDatasourceModule)
-}
+@Module
+@ComponentScan("com.myapp.network")
+class NetworkModule
+
+// 包含其他模組
+@Module(includes = [DataModule::class, NetworkModule::class])
+class AppModule
 ```
 
-## 模組包含 (自 3.2 起)
-
-`Module` 類別中提供了一個新的函式 `includes()`，它讓您可以透過有組織且結構化的方式包含其他模組來組合模組。
-
-此新功能的兩個主要使用案例為：
-- 將大型模組拆分為更小且更專注的模組。
-- 在模組化專案中，它讓您能更精細地控制模組的可見性（請參閱下方範例）。
-
-它是如何運作的？讓我們取得一些模組，並將模組包含在 `parentModule` 中：
-
-```kotlin
-// `:feature` 模組
-val childModule1 = module {
-    /* 此處為其他定義。 */
-}
-val childModule2 = module {
-    /* 此處為其他定義。 */
-}
-val parentModule = module {
-    includes(childModule1, childModule2)
-}
-
-// `:app` 模組
-startKoin { modules(parentModule) }
-```
-
-請注意，我們不需要顯式設定所有模組：透過包含 `parentModule`，宣告在 `includes` 中的所有模組都將被自動載入（`childModule1` 與 `childModule2`）。換句話說，Koin 實際上載入了：`parentModule`、`childModule1` 與 `childModule2`。
-
-一個值得注意的重要細節是，您也可以使用 `includes` 來加入 `internal` 與 `private` 模組——這為您在模組化專案中要公開的內容提供了靈活性。
+關鍵特性：
+- `@Module` 將類別標記為 Koin 模組
+- `@ComponentScan` 自動發現套件中帶有註解的類別
+- `@Configuration` 在啟動時啟用自動發現
+- 模組函式提供外部程式庫執行個體
 
 :::info
-模組載入現在已針對扁平化所有模組圖進行優化，並避免模組的重複定義。
+如需完整的註解式模組文件，請參閱 [註解參考 - 模組](/docs/reference/koin-annotations/modules)。
 :::
 
-最後，您可以包含多個巢狀或重複的模組，Koin 將扁平化所有包含的模組並移除重複項：
+## 最佳實務
 
-```kotlin
-// :feature 模組
-val dataModule = module {
-    /* 此處為其他定義。 */
-}
-val domainModule = module {
-    /* 此處為其他定義。 */
-}
-val featureModule1 = module {
-    includes(domainModule, dataModule)
-}
-val featureModule2 = module {
-    includes(domainModule, dataModule)
-}
+### 組織
 
-// `:app` 模組
-startKoin { modules(featureModule1, featureModule2) }
-```
+1. **依功能/層級群組**
+   ```kotlin
+   val authModule = module { /* auth 功能 */ }
+   val networkModule = module { /* 網路層 */ }
+   ```
 
-請注意，所有模組都將僅被包含一次：`dataModule`、`domainModule`、`featureModule1`、`featureModule2`。
+2. **使用 `includes()` 建置模組階層結構** (推薦)
+   ```kotlin
+   // 建立一個包含所有功能的根模組
+   val appModule = module {
+       includes(
+           coreModule,
+           networkModule,
+           featureAModule,
+           featureBModule
+       )
+   }
 
-:::info
-如果您在包含來自同一檔案的模組時遇到任何編譯問題，請在您的模組上使用 `get()` Kotlin 屬性運算子，或將每個模組拆分到不同檔案中。請參閱 https://github.com/InsertKoinIO/koin/issues/1341 的因應措施
-:::
+   // 使用單一模組進行簡潔的啟動
+   startKoin {
+       modules(appModule)
+   }
+   ```
+
+3. **保持模組專注** - 每個模組僅負擔單一職責
+
+### 命名
+
+- 使用描述性名稱：`networkModule`、`userFeatureModule`
+- 將相關內容群組：`authDataModule`、`authDomainModule`
+
+### 多模組專案
+
+1. **每個功能一個公開模組**
+2. **實作模組使用 `private`/`internal`**
+3. **將共享模組置於 `:core`**
+
+## 後續步驟
+
+- **[定義](/docs/reference/koin-core/definitions)** - 建立定義
+- **[限定符](/docs/reference/koin-core/qualifiers)** - 具名與型別限定符
+- **[作用域](/docs/reference/koin-core/scopes)** - 使用作用域管理生命週期
+- **[疑難排解](/docs/reference/koin-core/troubleshooting)** - 偵錯並修正常見問題

@@ -142,6 +142,32 @@ external object Counter : JsAny {
 
 与常规类和接口类似，你可以声明外部声明来扩展其他外部类并实现外部接口。但是，你不能在同一个类型层次结构中混合使用外部和非外部声明。
 
+#### 带有 `@nativeInvoke` 的可调用 JavaScript 对象
+<primary-label ref="experimental-opt-in"/>
+
+你可以在 `external` 声明（类或接口）的 Kotlin 成员函数上使用 `@nativeInvoke` 注解，使其可以作为 JavaScript 函数调用。
+
+通过此注解，在 Kotlin 中对该函数的每次调用都会转换为对 JavaScript 对象的直接调用：
+
+```kotlin
+import kotlin.js.nativeInvoke
+
+@OptIn(ExperimentalWasmJsInterop::class)
+external class JsAction {
+    @nativeInvoke
+    operator fun invoke(data: String)
+}
+
+fun main() {
+    val action = JsAction() 
+    action("Run task")
+}
+```
+
+> `@nativeInvoke` 注解是一个临时解决方案，直到有了稳定互操作性的设计。目前，当你使用 `@nativeInvoke` 时，编译器会报告警告。
+>
+{style="note"}
+
 ### 带有 JavaScript 代码的 Kotlin 函数
 
 通过定义带有 `= js("code")` 主体的函数，你可以将 JavaScript 片段添加到 Kotlin/Wasm 代码中：
@@ -248,7 +274,7 @@ import org.khronos.webgl.*
     val jsInt32Array: Int32Array = intArray.toInt32Array()
     
     // 使用 toIntArray() 将 JavaScript Int32Array 转回 Kotlin IntArray
-    val kotlnIntArray: IntArray = jsInt32Array.toIntArray()
+    val kotlinIntArray: IntArray = jsInt32Array.toIntArray()
 ```
 
 ## 在 JavaScript 中使用 Kotlin 代码
@@ -430,7 +456,7 @@ fun main() {
 | **类型**               | 对所有互操作声明 `external`、`= js("code")` 和 `@JsExport` 统一应用更严格的类型限制。允许精选数量的 [内置 Kotlin 类型和 `JsAny` 子类型](#type-correspondence)。 | 允许在 `external` 声明中使用所有类型。限制[可在 `@JsExport` 中使用的类型](js-to-kotlin-interop.md#kotlin-types-in-javascript)。 |
 | **Long**                | 类型对应于 JavaScript `BigInt`。                                                                                                                                                                            | 在 JavaScript 中作为自定义类可见。                                                                                                            |
 | **数组**              | 尚未在互操作中直接支持。你可以改用新的 `JsArray` 类型。                                                                                                                                  | 实现为 JavaScript 数组。                                                                                                                   |
-| **其他类型**         | 需要 `JsReference<>` 才能将 Kotlin 对象传递给 JavaScript。                                                                                                                                                      | 允许在外部声明中使用非外部 Kotlin 类类型。                                                                         |
+| **其他类型**         | 需要 `JsReference<>` 才能将 Kotlin 对象传递给 JavaScript.                                                                                                                                                      | 允许在外部声明中使用非外部 Kotlin 类类型。                                                                         |
 | **异常处理**  | 你可以使用 `JsException` 和 `Throwable` 类型捕获任何 JavaScript 异常。                                                                                                                                | 可以使用 `Throwable` 类型捕获 JavaScript `Error`。可以使用 `dynamic` 类型捕获任何 JavaScript 异常。                            |
 | **动态类型**       | 不支持 `dynamic` 类型。请改用 `JsAny`（见下方的代码示例）。                                                                                                                                   | 支持 `dynamic` 类型。                                                                                                                     |
 

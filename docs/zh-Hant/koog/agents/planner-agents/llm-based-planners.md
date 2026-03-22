@@ -27,49 +27,92 @@ Koog 提供兩種簡單的規劃器：
 
 以下範例顯示如何使用 `SimpleLLMPlanner` 建立一個簡單的規劃器代理：
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.config.AIAgentConfig
-import ai.koog.agents.planner.AIAgentPlannerStrategy
-import ai.koog.agents.planner.PlannerAIAgent
-import ai.koog.agents.planner.llm.SimpleLLMPlanner
-import ai.koog.prompt.dsl.prompt
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import kotlinx.coroutines.runBlocking
--->
-```kotlin
-// 建立規劃器
-val planner = SimpleLLMPlanner()
+=== "Kotlin"
 
-// 將其包裝在規劃策略中
-val strategy = AIAgentPlannerStrategy(
-    name = "simple-planner",
-    planner = planner
-)
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.config.AIAgentConfig
+    import ai.koog.agents.planner.AIAgentPlannerStrategy
+    import ai.koog.agents.planner.PlannerAIAgent
+    import ai.koog.agents.planner.llm.SimpleLLMPlanner
+    import ai.koog.prompt.dsl.prompt
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    import kotlinx.coroutines.runBlocking
+    -->
+    ```kotlin
+    // 建立規劃器
+    val planner = SimpleLLMPlanner()
 
-// 設定代理
-val agentConfig = AIAgentConfig(
-    prompt = prompt("planner") {
-        system("You are a helpful planning assistant.")
-    },
-    model = OpenAIModels.Chat.GPT4o,
-    maxAgentIterations = 50
-)
+    // 將其包裝在規劃策略中
+    val strategy = AIAgentPlannerStrategy(
+        name = "simple-planner",
+        planner = planner
+    )
 
-// 建立規劃器代理
-val agent = PlannerAIAgent(
-    promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
-    strategy = strategy,
-    agentConfig = agentConfig
-)
+    // 設定代理
+    val agentConfig = AIAgentConfig(
+        prompt = prompt("planner") {
+            system("You are a helpful planning assistant.")
+        },
+        model = OpenAIModels.Chat.GPT4o,
+        maxAgentIterations = 50
+    )
 
-suspend fun main() {
+    // 建立規劃器代理
+    val agent = PlannerAIAgent(
+        promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
+        strategy = strategy,
+        agentConfig = agentConfig
+    )
+
+    suspend fun main() {
+        // 執行帶有任務的代理
+        val result = agent.run("Create a plan to organize a team meeting")
+        println(result)
+    }
+    ```
+    <!--- KNIT example-llm-based-planners-01.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent;
+    import ai.koog.agents.planner.AIAgentPlannerStrategy;
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels;
+    import ai.koog.prompt.executor.model.PromptExecutor;
+    class exampleLLMBasedPlanner01 {
+        public static void main(String[] args) {
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    // 使用以 LLM 為基礎的規劃器建立規劃策略
+    AIAgentPlannerStrategy<String, String, ?> strategy =
+        AIAgentPlannerStrategy.builder("simple-planner")
+            .llmBasedPlanner()
+            .build();
+
+    // 建立 OpenAI 執行器
+    var promptExecutor = PromptExecutor.builder()
+        .openAI("OPENAI_API_KEY")
+        .build();
+
+    // 使用 AIAgent 產生器建立規劃器代理
+    AIAgent<String, String> agent = AIAgent.builder()
+        .plannerStrategy(strategy)
+        .promptExecutor(promptExecutor)
+        .llmModel(OpenAIModels.Chat.GPT4o)
+        .systemPrompt("You are a helpful planning assistant.")
+        .maxIterations(50)
+        .build();
+
     // 執行帶有任務的代理
-    val result = agent.run("Create a plan to organize a team meeting")
-    println(result)
-}
-```
-<!--- KNIT example-llm-based-planners-01.kt -->
+    String result = agent.run("Create a plan to organize a team meeting");
+    System.out.println(result);
+    ```
+     <!--- KNIT exampleLLMBasedPlannerJava01.java -->
 
 ## 下一步
 

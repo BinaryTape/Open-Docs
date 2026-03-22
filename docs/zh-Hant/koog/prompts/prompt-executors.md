@@ -19,19 +19,36 @@ Koog 提供三類實作了 [`PromptExecutor`](api:prompt-executor-model::ai.koog
 若要為特定的 LLM 提供者建立 Prompt 執行器，請執行以下操作：
 
 1. 為特定提供者配置包含對應 API 金鑰的 LLM 用戶端。
-2. 使用 [`SingleLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.SingleLLMPromptExecutor) 建立 Prompt 執行器。
+2. 使用 [`MultiLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor) 建立 Prompt 執行器。
 
 以下是一個範例：
 
-<!--- INCLUDE
-import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
--->
-```kotlin
-val openAIClient = OpenAILLMClient(System.getenv("OPENAI_KEY"))
-val promptExecutor = MultiLLMPromptExecutor(openAIClient)
-```
-<!--- KNIT example-prompt-executors-01.kt -->
+=== "Kotlin"
+
+    <!--- INCLUDE
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+    import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
+    -->
+
+    ```kotlin
+    val openAIClient = OpenAILLMClient(System.getenv("OPENAI_API_KEY"))
+    val promptExecutor = MultiLLMPromptExecutor(openAIClient)
+    ```
+    <!--- KNIT example-prompt-executors-01.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    OpenAILLMClient openAIClient = new OpenAILLMClient(System.getenv("OPENAI_API_KEY"));
+    MultiLLMPromptExecutor promptExecutor = new MultiLLMPromptExecutor(openAIClient);
+    ```
+    <!--- KNIT example-prompt-executors-java-01.java -->
 
 ## 建立多個提供者執行器
 
@@ -40,22 +57,41 @@ val promptExecutor = MultiLLMPromptExecutor(openAIClient)
 1. 為需要的 LLM 提供者配置包含對應 API 金鑰的用戶端。
 2. 將配置好的用戶端傳遞給 [`MultiLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor) 類別建構函式，以建立具有多個 LLM 提供者的 Prompt 執行器。
 
-<!--- INCLUDE
-import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import ai.koog.prompt.executor.ollama.client.OllamaClient
-import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
-import ai.koog.prompt.llm.LLMProvider
--->
-```kotlin
-val openAIClient = OpenAILLMClient(System.getenv("OPENAI_KEY"))
-val ollamaClient = OllamaClient()
+=== "Kotlin"
 
-val multiExecutor = MultiLLMPromptExecutor(
-    LLMProvider.OpenAI to openAIClient,
-    LLMProvider.Ollama to ollamaClient
-)
-```
-<!--- KNIT example-prompt-executors-02.kt -->
+    <!--- INCLUDE
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+    import ai.koog.prompt.executor.ollama.client.OllamaClient
+    import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
+    import ai.koog.prompt.llm.LLMProvider
+    -->
+
+    ```kotlin
+    val openAIClient = OpenAILLMClient(System.getenv("OPENAI_API_KEY"))
+    val ollamaClient = OllamaClient()
+
+    val multiExecutor = MultiLLMPromptExecutor(
+        LLMProvider.OpenAI to openAIClient,
+        LLMProvider.Ollama to ollamaClient
+    )
+    ```
+    <!--- KNIT example-prompt-executors-02.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    OpenAILLMClient openAIClient = new OpenAILLMClient(System.getenv("OPENAI_API_KEY"));
+    OllamaClient ollamaClient = new OllamaClient();
+
+    MultiLLMPromptExecutor promptExecutor = new MultiLLMPromptExecutor(openAIClient, ollamaClient);
+    ```
+    <!--- KNIT example-prompt-executors-java-02.java -->
 
 ## 建立路由執行器
 
@@ -71,25 +107,49 @@ val multiExecutor = MultiLLMPromptExecutor(
 
 這對於避免速率限制、提高吞吐量以及實作容錯移轉策略非常有用。
 
-<!--- INCLUDE
-import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
-import ai.koog.prompt.executor.llms.RoundRobinRouter
-import ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor
--->
-```kotlin
-// Create multiple client instances
-val openAI1 = OpenAILLMClient(apiKey = "openai-key-1")
-val openAI2 = OpenAILLMClient(apiKey = "openai-key-2")
-val anthropic = AnthropicLLMClient(apiKey = "anthropic-key")
+=== "Kotlin"
 
-// Create router with round-robin strategy
-val router = RoundRobinRouter(openAI1, openAI2, anthropic)
+    <!--- INCLUDE
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+    import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
+    import ai.koog.prompt.executor.llms.RoundRobinRouter
+    import ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor
+    -->
+    ```kotlin
+    // Create multiple client instances
+    val openAI1 = OpenAILLMClient(apiKey = "openai-key-1")
+    val openAI2 = OpenAILLMClient(apiKey = "openai-key-2")
+    val anthropic = AnthropicLLMClient(apiKey = "anthropic-key")
 
-// Create routing executor
-val routingExecutor = RoutingLLMPromptExecutor(router)
-```
-<!--- KNIT example-prompt-executors-03.kt -->
+    // Create router with round-robin strategy
+    val router = RoundRobinRouter(openAI1, openAI2, anthropic)
+
+    // Create routing executor
+    val routingExecutor = RoutingLLMPromptExecutor(router)
+    ```
+    <!--- KNIT example-prompt-executors-03.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    // Create multiple client instances
+    OpenAILLMClient openAI1 = new OpenAILLMClient("openai-key-1");
+    OpenAILLMClient openAI2 = new OpenAILLMClient("openai-key-2");
+    AnthropicLLMClient anthropic = new AnthropicLLMClient("anthropic-key");
+
+    // Create router with round-robin strategy
+    RoundRobinRouter router = new RoundRobinRouter(openAI1, openAI2, anthropic);
+
+    // Create routing executor
+    RoutingLLMPromptExecutor routingExecutor = new RoutingLLMPromptExecutor(router);
+    ```
+    <!--- KNIT example-prompt-executors-java-03.java -->
 
 當您使用此執行器執行 Prompt 時，對 OpenAI 模型的請求將根據輪詢（round-robin）策略在 `openAI1` 與 `openAI2` 之間交替切換。
 對 Anthropic 模型的請求一律會發送到單一的 `anthropic` 用戶端，因為輪詢策略會為每個提供者維護獨立的計數器。
@@ -98,9 +158,12 @@ val routingExecutor = RoutingLLMPromptExecutor(router)
 
 ## 預定義的 Prompt 執行器
 
-為了更快速的設定，Koog 為常見的提供者提供了即開即用的執行器實作。
+為了更快速的設定，Koog 為 Kotlin 與 Java 的常見提供者提供了即開即用的執行器實作。
 
 下表包含返回配置了特定 LLM 用戶端的 `SingleLLMPromptExecutor` 的 **預定義單一提供者執行器**。
+
+<!--TODO: SingleLLMPromptExecutor is deprecated and is being replaced by PromptExecutor. Once it is implemented,
+the predefined executors will return a PromptExecutor instance configured with a specific client.-->
 
 | LLM 提供者 | Prompt 執行器 | 說明 |
 |----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
@@ -114,27 +177,38 @@ val routingExecutor = RoutingLLMPromptExecutor(router)
 | Mistral | [simpleMistralAIExecutor](api:prompt-executor-llms-all::ai.koog.prompt.executor.llms.all.simpleMistralAIExecutor) | 封裝使用 Mistral 模型執行 Prompt 的 `MistralAILLMClient`。 |
 | Ollama | [simpleOllamaAIExecutor](api:prompt-executor-llms-all::ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor) | 封裝與 Ollama 搭配執行 Prompt 的 `OllamaClient`。 |
 
-以下是建立預定義的單一提供者與多個提供者執行器的範例：
+以下是建立預定義執行器的範例：
 
-<!--- INCLUDE
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
-import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
-import ai.koog.prompt.executor.clients.google.GoogleLLMClient
-import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import kotlinx.coroutines.runBlocking
--->
-```kotlin
-// Create an OpenAI executor
-val promptExecutor = simpleOpenAIExecutor("OPENAI_KEY")
+=== "Kotlin"
 
-// Create a MultiLLMPromptExecutor with OpenAI, Anthropic, and Google LLM clients
-val openAIClient = OpenAILLMClient("OPENAI_KEY")
-val anthropicClient = AnthropicLLMClient("ANTHROPIC_KEY")
-val googleClient = GoogleLLMClient("GOOGLE_KEY")
-val multiExecutor = MultiLLMPromptExecutor(openAIClient, anthropicClient, googleClient)
-```
-<!--- KNIT example-prompt-executors-04.kt -->
+    <!--- INCLUDE
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
+    import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
+    import ai.koog.prompt.executor.clients.google.GoogleLLMClient
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+    import kotlinx.coroutines.runBlocking
+    -->
+
+    ```kotlin
+    // Create an OpenAI executor
+    val promptExecutor = simpleOpenAIExecutor("OPENAI_API_KEY")
+    ```
+    <!--- KNIT example-prompt-executors-04.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    // Create an OpenAI executor
+    PromptExecutor openAIExecutor = simpleOpenAIExecutor("OPENAI_API_KEY");
+    ```
+    <!--- KNIT example-prompt-executors-java-04.java -->
 
 ## 執行 Prompt
 
@@ -145,30 +219,54 @@ val multiExecutor = MultiLLMPromptExecutor(openAIClient, anthropicClient, google
 
 以下是一個範例：
 
-<!--- INCLUDE
-import ai.koog.prompt.dsl.prompt
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import kotlinx.coroutines.runBlocking
+=== "Kotlin"
 
-fun main() {
-    runBlocking {
--->
-<!--- SUFFIX
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.prompt
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import kotlinx.coroutines.runBlocking
+    fun main() {
+        runBlocking {
+    -->
+    <!--- SUFFIX
+        }
     }
-}
--->
-```kotlin
-// Create an OpenAI executor
-val promptExecutor = simpleOpenAIExecutor("OPENAI_KEY")
+    -->
 
-// Execute a prompt
-val response = promptExecutor.execute(
-    prompt = prompt("demo") { user("Summarize this.") },
-    model = OpenAIModels.Chat.GPT4o
-)
-```
-<!--- KNIT example-prompt-executors-05.kt -->
+    ```kotlin
+    // Create an OpenAI executor
+    val promptExecutor = simpleOpenAIExecutor("OPENAI_API_KEY")
+
+    // Execute a prompt
+    val response = promptExecutor.execute(
+        prompt = prompt("demo") { user("Summarize this.") },
+        model = OpenAIModels.Chat.GPT4o
+    )
+    ```
+    <!--- KNIT example-prompt-executors-05.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    // Create an OpenAI executor
+    PromptExecutor promptExecutor = simpleOpenAIExecutor("OPENAI_API_KEY");
+
+    // Create a prompt
+    Prompt prompt = Prompt.builder("demo")
+        .user("Summarize this.")
+        .build();
+
+    // Run the prompt
+    List<Message.Response> response = promptExecutor.execute(prompt, OpenAIModels.Chat.GPT4o);
+    ```
+    <!--- KNIT example-prompt-executors-java-05.java -->
 
 這將使用 `GPT4o` 模型執行 Prompt 並傳回回應。
 
@@ -189,112 +287,199 @@ val response = promptExecutor.execute(
 
 以下是在提供者之間切換的範例：
 
-<!--- INCLUDE
-import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
-import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
-import ai.koog.prompt.executor.clients.google.GoogleLLMClient
-import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
-import ai.koog.prompt.llm.LLMProvider
-import ai.koog.prompt.dsl.prompt
-import kotlinx.coroutines.runBlocking
+=== "Kotlin"
 
-fun main() = runBlocking {
--->
-<!--- SUFFIX
-}
--->
-```kotlin
-// Create LLM clients for OpenAI, Anthropic, and Google providers
-val openAIClient = OpenAILLMClient("OPENAI_API_KEY")
-val anthropicClient = AnthropicLLMClient("ANTHROPIC_API_KEY")
-val googleClient = GoogleLLMClient("GOOGLE_API_KEY")
+    <!--- INCLUDE
+    import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
+    import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
+    import ai.koog.prompt.executor.clients.google.GoogleLLMClient
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
+    import ai.koog.prompt.llm.LLMProvider
+    import ai.koog.prompt.dsl.prompt
+    import kotlinx.coroutines.runBlocking
+    fun main() = runBlocking {
+    -->
+    <!--- SUFFIX
+    }
+    -->
 
-// Create a MultiLLMPromptExecutor that maps LLM providers to LLM clients
-val executor = MultiLLMPromptExecutor(
-    LLMProvider.OpenAI to openAIClient,
-    LLMProvider.Anthropic to anthropicClient,
-    LLMProvider.Google to googleClient
-)
+    ```kotlin
+    // Create LLM clients for OpenAI, Anthropic, and Google providers
+    val openAIClient = OpenAILLMClient("OPENAI_API_KEY")
+    val anthropicClient = AnthropicLLMClient("ANTHROPIC_API_KEY")
+    val googleClient = GoogleLLMClient("GOOGLE_API_KEY")
 
-// Create a prompt
-val p = prompt("demo") { user("Summarize this.") }
+    // Create a MultiLLMPromptExecutor that maps LLM providers to LLM clients
+    val executor = MultiLLMPromptExecutor(
+        LLMProvider.OpenAI to openAIClient,
+        LLMProvider.Anthropic to anthropicClient,
+        LLMProvider.Google to googleClient
+    )
 
-// Run the prompt with an OpenAI model; the prompt executor automatically switches to the OpenAI client
-val openAIResult = executor.execute(p, OpenAIModels.Chat.GPT4o)
+    // Create a prompt
+    val p = prompt("demo") { user("Summarize this.") }
 
-// Run the prompt with an Anthropic model; the prompt executor automatically switches to the Anthropic client
-val anthropicResult = executor.execute(p, AnthropicModels.Opus_4_6)
-```
-<!--- KNIT example-prompt-executors-06.kt -->
+    // Run the prompt with an OpenAI model; the prompt executor automatically switches to the OpenAI client
+    val openAIResult = executor.execute(p, OpenAIModels.Chat.GPT4o)
+
+    // Run the prompt with an Anthropic model; the prompt executor automatically switches to the Anthropic client
+    val anthropicResult = executor.execute(p, AnthropicModels.Sonnet_4_5)
+    ```
+    <!--- KNIT example-prompt-executors-06.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    // Create LLM clients for OpenAI, Anthropic, and Google providers
+    OpenAILLMClient openAIClient = new OpenAILLMClient("OPENAI_API_KEY");
+    AnthropicLLMClient anthropicClient = new AnthropicLLMClient("ANTHROPIC_API_KEY");
+    GoogleLLMClient googleClient = new GoogleLLMClient("GOOGLE_API_KEY");
+
+    // Create a MultiLLMPromptExecutor that maps LLM providers to LLM clients
+    MultiLLMPromptExecutor promptExecutor = new MultiLLMPromptExecutor(
+        Map.of(
+            LLMProvider.OpenAI, openAIClient,
+            LLMProvider.Anthropic, anthropicClient,
+            LLMProvider.Google, googleClient
+        )
+    );
+
+    // Create a prompt
+    Prompt prompt = Prompt.builder("demo")
+        .user("Summarize this.")
+        .build();
+
+    // Run the prompt with an OpenAI model; the prompt executor automatically switches to the OpenAI client
+    List<Message.Response> openAIResult = promptExecutor.execute(prompt, OpenAIModels.Chat.GPT4o);
+
+    // Run the prompt with an Anthropic model; the prompt executor automatically switches to the Anthropic client
+    List<Message.Response> anthropicResult = promptExecutor.execute(prompt, AnthropicModels.Sonnet_4_5);
+    ```
+    <!--- KNIT example-prompt-executors-java-06.java -->
 
 您可以選擇性地配置一個備援 LLM 提供者與模型，以便在請求的用戶端無法使用時使用。
+如需詳細資訊，請參閱 [配置備援](#configuring-fallbacks)。
 
 ## 配置備援
 
 多個提供者與路由 Prompt 執行器可以配置為在請求的 LLM 用戶端無法使用時使用備援 LLM 提供者與模型。
-若要配置備援機制，請向 `MultiLLMPromptExecutor` 或 `RoutingLLMPromptExecutor` 建構函式提供 `fallback` 參數：
 
-<!--- INCLUDE
-import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
-import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import ai.koog.prompt.executor.ollama.client.OllamaClient
-import ai.koog.prompt.executor.ollama.client.OllamaModels
-import ai.koog.prompt.llm.LLMProvider
--->
-```kotlin
-val openAIClient = OpenAILLMClient(System.getenv("OPENAI_KEY"))
-val ollamaClient = OllamaClient()
+若要配置備援機制，請在建立 `MultiLLMPromptExecutor` 或 `RoutingLLMPromptExecutor` 時傳遞備援設定：
 
-val multiExecutor = MultiLLMPromptExecutor(
-    LLMProvider.OpenAI to openAIClient,
-    LLMProvider.Ollama to ollamaClient,
-    fallback = MultiLLMPromptExecutor.FallbackPromptExecutorSettings(
-        fallbackProvider = LLMProvider.Ollama,
-        fallbackModel = OllamaModels.Meta.LLAMA_3_2
+=== "Kotlin"
+
+    <!--- INCLUDE
+    import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+    import ai.koog.prompt.executor.ollama.client.OllamaClient
+    import ai.koog.prompt.executor.ollama.client.OllamaModels
+    import ai.koog.prompt.llm.LLMProvider
+    -->
+
+    ```kotlin
+    val openAIClient = OpenAILLMClient(System.getenv("OPENAI_API_KEY"))
+    val ollamaClient = OllamaClient()
+
+    val multiExecutor = MultiLLMPromptExecutor(
+        LLMProvider.OpenAI to openAIClient,
+        LLMProvider.Ollama to ollamaClient,
+        fallback = MultiLLMPromptExecutor.FallbackPromptExecutorSettings(
+            fallbackProvider = LLMProvider.Ollama,
+            fallbackModel = OllamaModels.Meta.LLAMA_3_2
+        )
     )
-)
-```
-<!--- KNIT example-prompt-executors-07.kt -->
+    ```
+    <!--- KNIT example-prompt-executors-07.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    OpenAILLMClient openAIClient = new OpenAILLMClient(System.getenv("OPENAI_API_KEY"));
+    OllamaClient ollamaClient = new OllamaClient();
+
+    MultiLLMPromptExecutor multiExecutor = new MultiLLMPromptExecutor(
+        Map.of(
+            LLMProvider.OpenAI, openAIClient,
+            LLMProvider.Ollama, ollamaClient
+        ),
+        new MultiLLMPromptExecutor.FallbackPromptExecutorSettings(
+            LLMProvider.Ollama,
+            OllamaModels.Meta.LLAMA_3_2
+        )
+    );
+    ```
+    <!--- KNIT example-prompt-executors-java-07.java -->
 
 如果您傳遞一個不包含在 `MultiLLMPromptExecutor` 中的 LLM 提供者的模型，
 Prompt 執行器將會使用備援模型：
 
-<!--- INCLUDE
-import ai.koog.prompt.dsl.prompt
-import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
-import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import ai.koog.prompt.executor.ollama.client.OllamaClient
-import ai.koog.prompt.executor.clients.google.GoogleModels
-import ai.koog.prompt.executor.ollama.client.OllamaModels
-import ai.koog.prompt.llm.LLMProvider
-import kotlinx.coroutines.runBlocking
+=== "Kotlin"
 
-val openAIClient = OpenAILLMClient(System.getenv("OPENAI_KEY"))
-val ollamaClient = OllamaClient()
-
-val multiExecutor = MultiLLMPromptExecutor(
-    LLMProvider.OpenAI to openAIClient,
-    LLMProvider.Ollama to ollamaClient,
-    fallback = MultiLLMPromptExecutor.FallbackPromptExecutorSettings(
-        fallbackProvider = LLMProvider.Ollama,
-        fallbackModel = OllamaModels.Meta.LLAMA_3_2
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.prompt
+    import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+    import ai.koog.prompt.executor.ollama.client.OllamaClient
+    import ai.koog.prompt.executor.clients.google.GoogleModels
+    import ai.koog.prompt.executor.ollama.client.OllamaModels
+    import ai.koog.prompt.llm.LLMProvider
+    import kotlinx.coroutines.runBlocking
+    val openAIClient = OpenAILLMClient(System.getenv("OPENAI_API_KEY"))
+    val ollamaClient = OllamaClient()
+    val multiExecutor = MultiLLMPromptExecutor(
+        LLMProvider.OpenAI to openAIClient,
+        LLMProvider.Ollama to ollamaClient,
+        fallback = MultiLLMPromptExecutor.FallbackPromptExecutorSettings(
+            fallbackProvider = LLMProvider.Ollama,
+            fallbackModel = OllamaModels.Meta.LLAMA_3_2
+        )
     )
-)
+    fun main() = runBlocking {
+    -->
+    <!--- SUFFIX
+    }
+    -->
 
-fun main() = runBlocking {
--->
-<!--- SUFFIX
-}
--->
-```kotlin
-// Create a prompt
-val p = prompt("demo") { user("Summarize this") }
-// If you pass a Google model, the prompt executor will use the fallback model, as the Google client is not included
-val response = multiExecutor.execute(p, GoogleModels.Gemini2_5Pro)
-```
-<!--- KNIT example-prompt-executors-08.kt -->
+    ```kotlin
+    // Create a prompt
+    val p = prompt("demo") { user("Summarize this") }
+    // If you pass a Google model, the prompt executor will use the fallback model, as the Google client is not included
+    val response = multiExecutor.execute(p, GoogleModels.Gemini2_5Pro)
+    ```
+    <!--- KNIT example-prompt-executors-08.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    // Create a prompt
+    Prompt p = Prompt.builder("demo")
+        .user("Summarize this")
+        .build();
+
+    // If you pass a Google model, the prompt executor will use the fallback model, as the Google client is not included
+    List<Message.Response> response = multiExecutor.execute(p, GoogleModels.Gemini2_5Pro);
+    ```
+    <!--- KNIT example-prompt-executors-java-08.java -->
 
 !!! note
     備援僅適用於 `execute()` 與 `executeMultipleChoices()` 方法。

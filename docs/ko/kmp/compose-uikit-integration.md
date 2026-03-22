@@ -3,7 +3,7 @@
 <show-structure depth="3"/>
 
 Compose Multiplatform은 [UIKit](https://developer.apple.com/documentation/uikit) 프레임워크와 상호 운용이 가능합니다.
-UIKit 애플리케이션 내에 Compose Multiplatform을 임베드할 수 있을 뿐만 아니라, Compose Multiplatform UI 내에 네이티브 UIKit 컴포넌트를 임베드할 수도 있습니다. 이 페이지에서는 UIKit 애플리케이션 내에서 Compose Multiplatform을 사용하는 방법과 Compose Multiplatform 내에서 UIKit 컴포넌트를 임베드하는 방법 모두에 대한 예제를 제공합니다.
+UIKit 애플리케이션 내에 Compose Multiplatform을 임베드할 수 있을 뿐만 아니라, Compose Multiplatform UI 내에 네이티브 UIKit 컴포넌트를 임베드할 수도 있습니다. 이 페이지에서는 UIKit 애플리케이션 내에서 Compose Multiplatform을 사용하는 방법과 Compose Multiplatform UI 내에서 UIKit 컴포넌트를 임베드하는 방법 모두에 대한 예제를 제공합니다.
 
 > SwiftUI 상호 운용성에 대해 알아보려면 [SwiftUI 프레임워크와의 통합](compose-swiftui-integration.md) 문서를 참고하세요.
 >
@@ -34,6 +34,12 @@ tabBarController.tabBar.items?[1].title = "UIKit"
 이 코드를 적용하면 애플리케이션은 다음과 같이 보입니다:
 
 ![UIKit](uikit.png){width=300}
+
+> Compose Multiplatform 렌더링을 위해서는 높은 주사율(high refresh rates)을 명시적으로 활성화해야 합니다.
+> 앱의 `Info.plist` 파일에 `CADisableMinimumFrameDurationOnPhone` 키를 추가하세요.
+> 이 키가 없으면 런타임에 앱이 충돌합니다.
+>
+{style="note"}
 
 이 코드는 [샘플 프로젝트](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/interop/ios-compose-in-uikit)에서 자세히 살펴볼 수 있습니다.
 

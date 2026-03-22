@@ -51,7 +51,7 @@ JVM용 K2 컴파일러가 이제 **Beta** 단계입니다.
 
 ### kapt 컴파일러 플러그인과 K2 컴파일러의 호환성
 
-일부 제한 사항이 있지만, K2 컴파일러와 함께 프로젝트에서 [kapt 플러그인](kapt.md)을 사용할 수 있습니다.
+일부 제한 사항이 있지만, K2 컴파일러와 함께 프로젝트에서 [kapt 플러그인](kapt.md)을 사용할 수 있습니다. 
 `languageVersion`을 `2.0`으로 설정하더라도, kapt 컴파일러 플러그인은 여전히 이전 컴파일러를 사용합니다.
 
 `languageVersion`이 `2.0`으로 설정된 프로젝트에서 kapt 컴파일러 플러그인을 실행하면, kapt는 자동으로 `1.9`로 전환하고 특정 버전 호환성 체크를 비활성화합니다. 이 동작은 다음 명령 인수를 포함하는 것과 동일합니다:
@@ -224,7 +224,7 @@ Kotlin 1.5부터 `JvmDefault` 어노테이션의 사용은 새로운 `-Xjvm-defa
 * [커스텀 메모리 할당자 프리뷰](#preview-of-custom-memory-allocator)
 * [메인 스레드에서의 Objective-C 또는 Swift 객체 할당 해제(deallocation) 훅](#objective-c-or-swift-object-deallocation-hook-on-the-main-thread)
 * [Kotlin/Native에서 상수 값 접근 시 객체 초기화 방지](#no-object-initialization-when-accessing-constant-values-in-kotlin-native)
-* [iOS 시뮬레이터 테스트를 위한 독립 실행형(standalone) 모드 구성 기능](#ability-to-configure-standalone-mode-for-ios-simulator-tests-in-kotlin-native)
+* [iOS 시뮬레이터 테스트를 위한 독립 실행형 모드 구성 기능](#ability-to-configure-standalone-mode-for-ios-simulator-tests-in-kotlin-native)
 * [Kotlin/Native의 라이브러리 링크(linkage)](#library-linkage-in-kotlin-native)
 
 ### 커스텀 메모리 할당자 프리뷰
@@ -324,7 +324,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimu
 ```
 {validate="false"}
 
-> 독립 실행형 모드를 비활성화하는 경우 시뮬레이터를 수동으로 부팅해야 합니다.
+> 독립 실행형 모드를 비활성화하는 경우 시뮬레이터를 수동으로 부팅해야 합니다. 
 > CLI에서 시뮬레이터를 부팅하려면 다음 명령을 사용할 수 있습니다:
 >
 > ```shell
@@ -435,9 +435,7 @@ Kotlin 1.9.0부터 새로운 Android 소스 세트 레이아웃이 기본값이 
 
 ### Gradle 구성 캐시 프리뷰
 
-<anchor name="preview-of-gradle-configuration-cache"/>
-
-Kotlin 1.9.0은 멀티플랫폼 라이브러리에서 [Gradle 구성 캐시(configuration cache)](https://docs.gradle.org/current/userguide/configuration_cache.html)를 지원합니다. 라이브러리 제작자라면 이미 개선된 빌드 성능의 혜택을 누릴 수 있습니다.
+<p id="preview-of-gradle-configuration-cache">Kotlin 1.9.0은 멀티플랫폼 라이브러리에서 <a href="https://docs.gradle.org/current/userguide/configuration_cache.html">Gradle 구성 캐시(configuration cache)</a>를 지원합니다. 라이브러리 제작자라면 이미 개선된 빌드 성능의 혜택을 누릴 수 있습니다.</p>
 
 Gradle 구성 캐시는 후속 빌드를 위해 구성 단계의 결과를 재사용하여 빌드 프로세스 속도를 높입니다. 이 기능은 Gradle 8.1부터 안정화되었습니다. 이를 활성화하려면 [Gradle 문서](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage)의 지침을 따르세요.
 
@@ -986,7 +984,7 @@ sourcePath.copyToRecursively(
 >
 {style="warning"}
 
-1.9.0에서는 수치 값과 16진수 문자열 간의 변환을 가능하게 하는 `HexFormat` 클래스와 관련 확장 함수가 실험적 기능으로 제공됩니다. 구체적으로, 확장 함수를 사용하여 16진수 문자열과 `ByteArray` 또는 다른 수치 타입(`Int`, `Short`, `Long`) 간의 변환을 수행할 수 있습니다.
+1.9.0에서는 수치 값과 16진수 문자열 간의 변환을 가능하게 하는 [`HexFormat`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-hex-format/) 클래스와 관련 확장 함수가 실험적 기능으로 제공됩니다. 구체적으로, 확장 함수를 사용하여 16진수 문자열과 `ByteArray` 또는 다른 수치 타입(`Int`, `Short`, `Long`) 간의 변환을 수행할 수 있습니다.
 
 예를 들어:
 

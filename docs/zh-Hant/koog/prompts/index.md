@@ -12,19 +12,39 @@
 - `messages`：代表與 LLM 對話的訊息清單。
 - `params`：選用的 [LLM 配置參數](prompt-creation/index.md#prompt-parameters)（例如溫度 (temperature)、工具選擇等）。
 
-雖然您可以直接具現化 `Prompt` 類別，
-但建議的提示詞建立方式是使用 [Kotlin DSL](prompt-creation/index.md)，它提供了一種結構化的方式來定義對話。
+雖然您可以直接具現化 `Prompt` 類別，但建議的提示詞建立方式是使用 [Kotlin DSL](prompt-creation/index.md) 或 Java builder API，它們提供了一種結構化的方式來定義對話。
 
-<!--- INCLUDE
-import ai.koog.prompt.dsl.prompt
--->
-```kotlin
-val myPrompt = prompt("hello-koog") {
-    system("You are a helpful assistant.")
-    user("What is Koog?")
-}
-```
-<!--- KNIT example-prompts-01.kt -->
+!!! note
+    本頁面的 Kotlin 範例使用 Kotlin DSL。Java 範例使用 `Prompt.builder("id")` builder，並搭配明確的方法，例如 `system(...)`、`user(...)`、`assistant(...)`、`toolCall(...)`、`toolResult(...)`，以及在適用情況下使用 `withOutput(Foo.class)`。
+
+=== "Kotlin"
+
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.prompt
+    -->
+    ```kotlin
+    val myPrompt = prompt("hello-koog") {
+        system("You are a helpful assistant.")
+        user("What is Koog?")
+    }
+    ```
+    <!--- KNIT example-prompts-01.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    var myPrompt = Prompt.builder("hello-koog")
+        .system("You are a helpful assistant.")
+        .user("What is Koog?")
+        .build();
+    ```
+    <!--- KNIT example-prompts-java-01.java -->
 
 !!! note
     AI 代理 (AI agents) 可以接受簡單的文字提示作為輸入。
@@ -35,11 +55,11 @@ val myPrompt = prompt("hello-koog") {
 
 Koog 為針對 LLMs 執行提示詞提供了兩層抽象：LLM 用戶端 (LLM clients) 與提示詞執行器 (prompt executors)。
 兩者皆接受 Prompt 物件，且可用於直接執行提示詞，而無需透過 AI 代理。
-用戶端與執行器的執行流程相同：
+兩者的執行流程相同：
 
 ```mermaid
 flowchart TB
-    A([使用 Kotlin DSL 構建的提示詞])
+    A([使用 Kotlin DSL 或 Java builder 構建的提示詞])
     B{LLM 用戶端或提示詞執行器}
     C[LLM 提供者]
     D([傳回您應用程式的回應])
@@ -49,6 +69,7 @@ flowchart TB
     C -->|"傳回回應"| B
     B -->|"傳回結果"| D
 ```
+<!--- KNIT example-prompts-01.txt -->
 
 <div class="grid cards" markdown>
 
@@ -106,31 +127,50 @@ Koog 允許您在執行提示詞時最佳化效能並處理失敗。
 接著，當您呼叫代理的 `run()` 方法時，通常會提供一個初始 [使用者訊息 (user message)](prompt-creation/index.md#user-messages) 作為輸入。
 這些訊息共同構成了代理的初始提示詞。例如：
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import kotlinx.coroutines.runBlocking
+=== "Kotlin"
 
-val apiKey = System.getenv("OPENAI_API_KEY")
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    import kotlinx.coroutines.runBlocking
+    val apiKey = System.getenv("OPENAI_API_KEY")
+    fun main() = runBlocking {
+    -->
+    <!--- SUFFIX
+    }
+    -->
+    ```kotlin
+    // 建立代理
+    val agent = AIAgent(
+        promptExecutor = simpleOpenAIExecutor(apiKey),
+        systemPrompt = "You are a helpful assistant.",
+        llmModel = OpenAIModels.Chat.GPT4o
+    )
+    
+    // 執行代理
+    val result = agent.run("What is Koog?")
+    ```
+    <!--- KNIT example-prompts-02.kt -->
 
-fun main() = runBlocking {
--->
-<!--- SUFFIX
-}
--->
-```kotlin
-// 建立代理
-val agent = AIAgent(
-    promptExecutor = simpleOpenAIExecutor(apiKey),
-    systemPrompt = "You are a helpful assistant.",
-    llmModel = OpenAIModels.Chat.GPT4o
-)
+=== "Java"
 
-// 執行代理
-val result = agent.run("What is Koog?")
-```
-<!--- KNIT example-prompts-02.kt -->
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    AIAgent<String, String> agent = AIAgent.builder()
+        .promptExecutor(simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")))
+        .systemPrompt("You are a helpful assistant. Answer user questions concisely.")
+        .llmModel(OpenAIModels.Chat.GPT4o)
+        .build();
+
+    var result = agent.run("What is Koog?");
+    ```
+    <!--- KNIT example-prompts-java-02.java -->
 
 在此範例中，代理會自動將文字提示轉換為 Prompt 物件，並將其傳送至提示詞執行器：
 
@@ -152,6 +192,7 @@ flowchart TB
     E -->|"結果傳回至"| B
     B -->|"結果傳回至"| A
 ```
+<!--- KNIT example-prompts-02.txt -->
 
 對於更進階的配置，您也可以使用 [AIAgentConfig](api:agents-core::ai.koog.agents.core.agent.config.AIAgentConfig) 來定義代理的初始提示詞。
 

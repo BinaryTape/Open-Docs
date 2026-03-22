@@ -14,7 +14,7 @@
 
 Kotlin Notebook 依賴 [Kotlin Notebook 外掛程式](https://plugins.jetbrains.com/plugin/16340-kotlin-notebook)，該外掛程式已預設內置並在 IntelliJ IDEA 中啟用。
 
-若要使用 Kotlin Notebook，請下載並安裝最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html)。
+若要使用 Kotlin Notebook，請下載並安裝最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)。
 
 如果 Kotlin Notebook 功能無法使用，請確保已啟用此外掛程式：
 

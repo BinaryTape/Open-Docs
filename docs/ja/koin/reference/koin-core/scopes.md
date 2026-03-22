@@ -2,233 +2,416 @@
 title: スコープ
 ---
 
-Koinは、特定の有効期限（ライフタイム）に紐付けられたインスタンスを定義するためのシンプルなAPIを提供します。
+# スコープ
 
-## スコープとは？
+スコープは、依存関係のライフサイクルを制御します。このガイドでは、スコープの定義、作成、および管理方法について説明します。
 
-スコープとは、オブジェクトが存在する固定の期間、あるいはメソッド呼び出しの範囲のことです。
-別の見方をすれば、スコープはオブジェクトの状態が持続する時間の長さと考えることができます。
-スコープのコンテキストが終了すると、そのスコープにバインドされたオブジェクトは二度とインジェクトできなくなります（コンテナから破棄されます）。
+## スコープを理解する
 
-## スコープの定義
+| スコープの種類 | ライフサイクル | 例 |
+|------------|-----------|---------|
+| **Single** (シングルトン) | アプリの全期間 | Database, ApiClient |
+| **Factory** | リクエストごと | Presenter, Use Case |
+| **Scoped** | スコープごと | Activity 紐付け, セッション紐付け |
 
-Koinにはデフォルトで3種類のスコープがあります：
+## スコープを使用するタイミング
 
-- `single` 定義：コンテナの全ライフタイムにわたって存続するオブジェクトを作成します（破棄できません）。
-- `factory` 定義：毎回新しいオブジェクトを作成します。短命です。コンテナ内には保持されません（共有できません）。
-- `scoped` 定義：関連付けられたスコープのライフタイムに紐付いて存続するオブジェクトを作成します。
+以下の場合にスコープを使用してください：
+- ファクトリより長く、シングルトンより短い期間存続するインスタンスが必要な場合
+- 特定のコンテキスト（Activity, Fragment, セッション）内で状態を共有する場合
+- コンテキスト終了時に自動的にクリーンアップを行いたい場合
 
-スコープ定義を宣言するには、以下のように `scoped` 関数を使用します。スコープは、スコープ定義を論理的な時間の単位としてまとめます。
+## スコープ定義の宣言
 
-特定の型に対してスコープを宣言するには、`scope` キーワードを使用する必要があります：
+### DSL
 
 ```kotlin
-module {
-    scope<MyType>{
-        scoped { Presenter() }
-        // ...
+val appModule = module {
+    // MyActivity 用のスコープ
+    scope<MyActivity> {
+        scoped<Presenter>()
+        scoped<Navigator>()
+    }
+
+    // 名前付きスコープ
+    scope(named("session")) {
+        scoped<SessionData>()
+        scoped<UserPreferences>()
     }
 }
 ```
 
-### スコープ ID とスコープ名
+### アノテーション
 
-Koinのスコープは以下によって定義されます：
+| アノテーション | DSL での同等表現 | 目的 |
+|------------|----------------|---------|
+| `@Scope` | `scope<T> { }` | クラスがどのスコープに属するかを指定する |
+| `@Scoped` | `scoped<T>()` | スコープ付きバインディングを定義する |
 
-- スコープ名 (scope name) - スコープの限定子 (qualifier)
-- スコープ ID (scope id) - スコープインスタンスの一意識別子
-
-:::note
- `scope<A> { }` は `scope(named<A>()){ } ` と同等ですが、より簡潔に記述できます。また、`scope(named("SCOPE_NAME")) { }` のように文字列の限定子を使用することもできます。
-:::
-
-`Koin` インスタンスからは、以下にアクセスできます：
-
-- `createScope(id : ScopeID, scopeName : Qualifier)` - 指定された ID とスコープ名で閉じられたスコープインスタンスを作成します。
-- `getScope(id : ScopeID)` - 以前に作成された指定の ID を持つスコープを取得します。
-- `getOrCreateScope(id : ScopeID, scopeName : Qualifier)` - 指定された ID とスコープ名で、閉じられたスコープインスタンスを作成、または既に作成されている場合は取得します。
-
-:::note
-デフォルトでは、オブジェクトに対して `createScope` を呼び出しても、スコープの「ソース (source)」は渡されません。パラメータとして渡す必要があります：`T.createScope(<source>)`
-:::
-
-### スコープコンポーネント：コンポーネントへのスコープの関連付け [2.2.0]
-
-Koinには、スコープインスタンスをそのクラスに持たせるための `KoinScopeComponent` という概念があります：
+スコープ付きクラスには、`@Scoped` と `@Scope` の両方が必要です：
 
 ```kotlin
-class A : KoinScopeComponent {
-    override val scope: Scope by lazy { createScope(this) }
-}
+@Scope(MyActivityScope::class)
+@Scoped
+class Presenter(private val repository: UserRepository)
 
-class B
+@Scope(MyActivityScope::class)
+@Scoped
+class Navigator
 ```
 
-`KoinScopeComponent` インターフェースには、いくつかの拡張機能が含まれています：
-- `createScope`：現在のコンポーネントのスコープ ID と名前からスコープを作成します。
-- `get`, `inject`：スコープからインスタンスを解決します（`scope.get()` および `scope.inject()` と同等です）。
-
-B を解決するために、A のスコープを定義してみましょう：
+あるいは、一般的な Android スコープ用のスコープアーキタイプアノテーションを使用します（`@Scoped` は不要です）：
 
 ```kotlin
-module {
-    scope<A> {
-        scoped { B() } // Aのスコープに紐付けられる
-    }
-}
+// ViewModel スコープ
+@ViewModelScope
+class UserCache
+
+// Activity スコープ
+@ActivityScope
+class ActivityPresenter
+
+@ActivityRetainedScope
+class RetainedPresenter
+
+// Fragment スコープ
+@FragmentScope
+class FragmentPresenter
 ```
 
-これにより、`org.koin.core.scope` の `get` および `inject` 拡張機能のおかげで、`B` のインスタンスを直接解決できます：
+## スコープの作成と使用
 
-```kotlin
-class A : KoinScopeComponent {
-    override val scope: Scope by lazy { newScope(this) }
-
-    // injectとしてBを解決
-    val b : B by inject() // スコープからインジェクト
-
-    // Bを解決
-    fun doSomething(){
-        val b = get<B>()
-    }
-
-    fun close(){
-        scope.close() // 現在のスコープを閉じるのを忘れないでください
-    }
-}
-```
-
-### スコープ内での依存関係の解決
-
-スコープの `get` および `inject` 関数を使用して依存関係を解決するには： `val presenter = scope.get<Presenter>()` 
-
-スコープの利点は、スコープ定義のための共通の論理的な時間の単位を定義することです。これにより、指定されたスコープ内から定義を解決することも可能になります。
-
-```kotlin
-// クラスの定義
-class ComponentA
-class ComponentB(val a : ComponentA)
-
-// スコープを持つモジュール
-module {
-    
-    scope<A> {
-        scoped { ComponentA() }
-        // 現在のスコープインスタンスから解決される
-        scoped { ComponentB(get()) }
-    }
-}
-```
-
-依存関係の解決は非常にシンプルです：
+### 手動でのスコープ管理
 
 ```kotlin
 // スコープの作成
-val myScope = koin.createScope<A>()
+val myScope = getKoin().createScope("my_scope_id", named("session"))
 
-// 同じスコープから取得
-val componentA = myScope.get<ComponentA>()
-val componentB = myScope.get<ComponentB>()
+// スコープからインスタンスを取得
+val sessionData: SessionData = myScope.get()
+val prefs: UserPreferences = myScope.get()
+
+// 終了時に閉じる
+myScope.close()
 ```
 
+### Android Activity スコープ
+
+```kotlin
+class MyActivity : AppCompatActivity(), AndroidScopeComponent {
+    // Activity のライフサイクルに基づいてスコープを自動的に作成および破棄
+    override val scope: Scope by activityScope()
+
+    // スコープ付きインスタンス - Activity インスタンスごとに作成される
+    private val presenter: Presenter by inject()
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // スコープは自動的に閉じられる
+    }
+}
+```
+
+### Android Fragment スコープ
+
+```kotlin
+class MyFragment : Fragment(), AndroidScopeComponent {
+    // Fragment のライフサイクルに基づいてスコープを自動的に作成および破棄
+    override val scope: Scope by fragmentScope()
+
+    private val presenter: Presenter by inject()
+}
+```
+
+## スコープの種類
+
+### 型ベースのスコープ
+
+```kotlin
+scope<MyActivity> {
+    scoped<ActivityPresenter>()
+}
+```
+
+スコープは `MyActivity` 型によって識別されます。このスコープは `MyActivity` によってのみトリガーされますが、`activityScope` は汎用的なものです。
+
+### 名前付きスコープ
+
+```kotlin
+scope(named("user_session")) {
+    scoped<SessionManager>()
+}
+```
+
+スコープが特定の型に紐付けられていない場合に使用します。
+
+### 限定子ベースのスコープ
+
+```kotlin
+scope(named<MyQualifier>()) {
+    scoped<ScopedService>()
+}
+```
+
+## スコープアーキタイプ
+
+Koin は、一般的な Android スコープパターンのための専用 DSL を提供しています。これらのアーキタイプ（Archetypes）により、ViewModel、Activity、Fragment のスコープ定義が簡素化されます。
+
+### ViewModel スコープ
+
+ViewModel のライフサイクルにスコープされた依存関係を定義します：
+
+```kotlin
+val appModule = module {
+    viewModelScope {
+        scoped<UserCache>()
+        scoped<UserRepository>()
+        viewModel<UserViewModel>()
+    }
+}
+```
+
+ViewModel は、そのスコープ付き依存関係に自動的にアクセスできるようになります：
+
+```kotlin
+class UserViewModel(
+    private val cache: UserCache,      // この ViewModel にスコープされる
+    private val repository: UserRepository
+) : ViewModel()
+```
+
+### Activity スコープ
+
+Activity のライフサイクルにスコープされた依存関係を定義します：
+
+```kotlin
+val appModule = module {
+    activityScope {
+        scoped<ActivityPresenter>()
+        scoped<ActivityNavigator>()
+    }
+}
+```
+
+### Fragment スコープ
+
+Fragment のライフサイクルにスコープされた依存関係を定義します：
+
+```kotlin
+val appModule = module {
+    fragmentScope {
+        scoped<FragmentPresenter>()
+    }
+}
+```
+
+### 比較
+
+| アーキタイプ | DSL | アノテーション | ライフサイクル |
+|-----------|-----|------------|-----------|
+| ViewModel | `viewModelScope { }` | `@ViewModelScope` | ViewModel がクリアされた時 |
+| Activity | `activityScope { }` | `@ActivityScope` | Activity が破棄された時 |
+| Activity Retained | `activityRetainedScope { }` | `@ActivityRetainedScope` | Activity が終了した時 |
+| Fragment | `fragmentScope { }` | `@FragmentScope` | Fragment が破棄された時 |
+
 :::info
- デフォルトでは、現在のスコープで定義が見つからない場合、すべてのスコープはメインスコープでの解決にフォールバックします。
+スコープアーキタイプは Koin 4.0 以降で利用可能です。これらは、一般的な Android コンポーネントに対して `scope<T> { }` を手動で定義するよりもクリーンな構文を提供します。
 :::
+
+## スコープのリンク
+
+親スコープの定義にアクセスするためにスコープをリンクします：
+
+```kotlin
+val appModule = module {
+    // Activity スコープ
+    scope<MainActivity> {
+        scoped<ActivityData>()
+    }
+
+    // Activity にリンクされた Fragment スコープ
+    scope<UserFragment> {
+        scoped<FragmentPresenter>()
+    }
+}
+```
+
+```kotlin
+class UserFragment : Fragment(), AndroidScopeComponent {
+    override val scope: Scope by fragmentScope()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // 親の Activity スコープにリンクする
+        scope.linkTo((requireActivity() as AndroidScopeComponent).scope)
+
+        // これで Fragment と Activity 両方のスコープ付きインスタンスにアクセスできるようになる
+        val fragmentPresenter: FragmentPresenter by inject()
+        val activityData: ActivityData by inject()  // リンクされたスコープから
+    }
+}
+```
+
+## スコープのソース
+
+自身のスコープを認識している依存関係をインジェクトします：
+
+```kotlin
+class Presenter(
+    val scope: Scope  // Koin によってインジェクトされる
+) {
+    fun clearScope() {
+        scope.close()
+    }
+}
+
+scope<MyActivity> {
+    scoped { Presenter(get()) }  // スコープがインジェクトされる
+}
+```
+
+## スコープインスタンス ID
+
+各スコープインスタンスには一意の ID があります：
+
+```kotlin
+// 明示的な ID で作成
+val scope1 = getKoin().createScope("scope_1", named("session"))
+val scope2 = getKoin().createScope("scope_2", named("session"))
+
+// 同じスコープ型だが、異なるインスタンス
+scope1.get<SessionData>() !== scope2.get<SessionData>()
+```
+
+## スコープ付きインスタンスへのアクセス
+
+### スコープ内から
+
+```kotlin
+class MyActivity : AppCompatActivity(), AndroidScopeComponent {
+    override val scope: Scope by activityScope()
+
+    // スコープ付きインスタンスを直接インジェクトする
+    private val presenter: Presenter by inject()
+}
+```
+
+### スコープ外から
+
+```kotlin
+// スコープを取得または作成
+val myScope = getKoin().getOrCreateScope("my_id", named("session"))
+
+// インスタンスを取得
+val session: SessionData = myScope.get()
+```
+
+### Compose 内で
+
+```kotlin
+@Composable
+fun MyScreen() {
+    // Composable のライフサイクルに紐付けられたスコープを作成
+    val scope = rememberKoinScope(named("screen_scope"))
+
+    // スコープ付きインスタンスを取得
+    val presenter: ScreenPresenter = scope.get()
+}
+```
+
+## スコープのライフサイクル
 
 ### スコープを閉じる
 
-スコープインスタンスを使い終わったら、`close()` 関数で閉じるだけです：
+スコープが閉じると：
+1. すべてのスコープ付きインスタンスが解放されます
+2. `onClose` コールバックが呼び出されます
+3. スコープは使用不能になります
 
 ```kotlin
-// KoinComponentから
-val scope = getKoin().createScope<A>()
+val scope = getKoin().createScope("my_scope", named("session"))
 
-// 使用する ...
+// スコープを使用
+val data: SessionData = scope.get()
 
-// 閉じる
-scope.close()
+// 終了時に閉じる
+scope.close()  // SessionData インスタンスが解放される
+
+// これは例外をスローします
+// scope.get<SessionData>()  // エラー：スコープは閉じられています
 ```
 
-:::info
- 閉じたスコープからは、もうインスタンスをインジェクトできないことに注意してください。
-:::
-
-### スコープのソース値の取得
-
-Koin 2.1.4 の Scope API では、定義の中でスコープの元のソース (source) を渡すことができます。以下の例を見てみましょう。
-シングルトンインスタンス `A` があるとします：
+### onClose コールバック
 
 ```kotlin
-class A
-class BofA(val a : A)
-
-module {
-    single { A() }
-    scope<A> {
-        scoped { BofA(getSource() /* あるいは get() */) }
-
+scope(named("session")) {
+    scoped {
+        SessionData()
+    } onClose {
+        it?.cleanup()  // スコープが閉じられるときに呼び出される
     }
 }
 ```
 
-A のスコープを作成することで、スコープのソース（A のインスタンス）への参照を、スコープ内の定義に転送できます：`scoped { BofA(getSource()) }` または `scoped { BofA(get()) }`
+## 一般的なパターン
 
-これは、パラメータのインジェクションが連鎖するのを避け、スコープ定義内でソースの値を直接取得するためです。
+### セッションスコープ
 
 ```kotlin
-val a = koin.get<A>()
-val b = a.scope.get<BofA>()
-assertTrue(b.a == a)
+val appModule = module {
+    scope(named("user_session")) {
+        scoped { SessionManager() }
+        scoped { UserPreferences(get()) }
+        scoped { CartRepository(get()) }
+    }
+}
+
+// ログイン
+fun onLogin(userId: String) {
+    val sessionScope = getKoin().createScope(userId, named("user_session"))
+    // セッションインスタンスが利用可能になる
+}
+
+// ログアウト
+fun onLogout(userId: String) {
+    getKoin().getScopeOrNull(userId)?.close()
+    // セッションインスタンスが解放される
+}
 ```
 
-:::note
- `getSource()` と `get()` の違い：`getSource` はソースの値を直接取得します。`get` は任意の定義の解決を試み、可能であればソースの値にフォールバックします。そのため、パフォーマンスの点では `getSource()` の方が効率的です。
-:::
-
-### スコープのリンク
-
-Koin 2.1 の Scope API では、あるスコープを別のスコープにリンクさせることができ、結合された定義空間を解決できるようになります。例を見てみましょう。
-ここでは、A のスコープと B のスコープという 2 つのスコープ空間を定義しています。A のスコープでは、（B のスコープで定義されている）C にはアクセスできません。
+### 機能スコープ
 
 ```kotlin
-module {
-    single { A() }
-    scope<A> {
-        scoped { B() }
+val appModule = module {
+    scope(named("checkout")) {
+        scoped { CheckoutNavigator() }
+        scoped { CheckoutPresenter(get()) }
     }
-    scope<B> {
-        scoped { C() }
+}
+
+class CheckoutActivity : AppCompatActivity(), AndroidScopeComponent {
+    override val scope: Scope by lazy {
+        getKoin().createScope("checkout_${hashCode()}", named("checkout"))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        scope.close()
     }
 }
 ```
 
-スコープリンク API を使用すると、A のスコープから直接 B のスコープのインスタンス C を解決できるようになります。これにはスコープインスタンスに対して `linkTo()` を使用します：
+## ベストプラクティス
 
-```kotlin
-val a = koin.get<A>()
-// AのスコープからBを取得
-val b = a.scope.get<B>()
-// AのスコープをBのスコープにリンク
-a.scope.linkTo(b.scope)
-// AまたはBのスコープから同じCインスタンスを取得できる
-assertTrue(a.scope.get<C>() == b.scope.get<C>())
-```
+1. **シングルトンの使用は控えめに** - 本当にアプリ全体で必要な依存関係にのみ使用してください。
+2. **共有状態のスコープ化** - 複数のコンポーネントが同じインスタンスを必要とする場合に使用します。
+3. **スコープを明示的に閉じる** - ガベージコレクションに依存しないでください。
+4. **スコープの目的を絞る** - 1つのスコープにすべてを詰め込まないでください。
+5. **Android スコープコンポーネントを使用する** - ライフサイクルの自動管理のため。
 
-### スコープアーキタイプ
+## 次のステップ
 
-スコープ「アーキタイプ (Archetypes)」は、汎用的なクラスのためのスコープ空間です。例えば、Android（Activity, Fragment, ViewModel）や Ktor（RequestScope）用のスコープアーキタイプを持つことができます。
-スコープアーキタイプは、特定のスコープ空間を要求するためにさまざまな API に渡される Koin の `TypeQualifier` です。
-
-アーキタイプは以下で構成されます：
-- 特定の型に対してスコープを宣言するためのモジュール DSL 拡張：
-```kotlin
-// ActivityScopeArchetype (TypeQualifier(AppCompatActivity::class)) 用のスコープアーキタイプを宣言
-fun Module.activityScope(scopeSet: ScopeDSL.() -> Unit) {
-    val qualifier = ActivityScopeArchetype
-    ScopeDSL(qualifier, this).apply(scopeSet)
-}
-```
-- 指定された特定のスコープアーキタイプの TypeQualifier を持つスコープを要求する API：
-```kotlin
-// ActivityScopeArchetype アーキタイプを使用してスコープを作成
-val scope = getKoin().createScope(getScopeId(), getScopeName(), this, ActivityScopeArchetype)
+- **[Koin for Android](/docs/integrations/android/android-scopes)** - Android 特有のスコープ
+- **[Koin for Compose](/docs/integrations/compose/compose-modules)** - Compose でのスコープ
+- **[ベストプラクティス](/docs/best-practices/custom-scopes)** - スコープのパターン

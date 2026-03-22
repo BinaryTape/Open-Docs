@@ -306,8 +306,11 @@ fun testHello() = testApplication {
 Ktor 서버용 `Locations` 플러그인이 제거되었습니다. 타입 안전한 라우팅을 만들려면 대신 [Resources 플러그인](server-resources.md)을 사용하세요. 이를 위해 다음과 같은 변경이 필요합니다:
 
 * `io.ktor:ktor-server-locations` 아티팩트를 `io.ktor:ktor-server-resources`로 교체합니다.
+
 * `Resources` 플러그인은 Kotlin 직렬화(serialization) 플러그인에 의존합니다. 직렬화 플러그인을 추가하려면 [kotlinx.serialization 설정](https://github.com/Kotlin/kotlinx.serialization#setup)을 참조하세요.
+
 * 플러그인 임포트를 `io.ktor.server.locations.*`에서 `io.ktor.server.resources.*`로 업데이트합니다.
+
 * 또한 `io.ktor.resources`에서 `Resource` 모듈을 임포트합니다.
 
 다음 예시는 이러한 변경 사항을 구현하는 방법을 보여줍니다:
@@ -405,11 +408,11 @@ JS 및 WasmJS 환경에서 비동기 작업을 지원하기 위해 [`TCPSocketBu
 
 ### 바이너리 및 파일 항목에 대한 새로운 기본 제한
 
-Ktor 3.0.0에서는 [`ApplicationCall.receiveMultipart()`](https://api.ktor.io/3.0.x/ktor-server-core/io.ktor.server.request/receive-multipart.html)를 사용하여 바이너리 및 파일 항목을 받을 때 50MB의 기본 제한이 도입되었습니다. 받은 파일이나 바이너리 항목이 50MB 제한을 초과하면 `IOException`이 발생합니다.
+Ktor 3.0.0에서는 [`ApplicationCall.receiveMultipart()`](https://api.ktor.io/3.0.x/ktor-server-core/io.ktor.server.request/receive-multipart.html)를 사용하여 바이너리 및 파일 항목을 받을 때 50MiB(약 52.4MB)의 기본 제한이 도입되었습니다. 받은 파일이나 바이너리 항목이 50MiB 제한을 초과하면 `IOException`이 발생합니다.
 
 #### 기본 제한 재정의
 
-애플리케이션이 이전에 명시적 구성 없이 50MB보다 큰 파일을 처리하는 데 의존했다면, 예기치 않은 동작을 방지하기 위해 코드를 업데이트해야 합니다.
+애플리케이션이 이전에 명시적 구성 없이 50MiB보다 큰 파일을 처리하는 데 의존했다면, 예기치 않은 동작을 방지하기 위해 코드를 업데이트해야 합니다.
 
 기본 제한을 재정의하려면 `.receiveMultipart()`를 호출할 때 `formFieldLimit` 매개변수를 전달하세요:
 

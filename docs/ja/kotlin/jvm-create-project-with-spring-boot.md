@@ -15,7 +15,7 @@
 
 ## 始める前に
 
-最新バージョンの [IntelliJ IDEA Ultimate Edition](https://www.jetbrains.com/idea/download/index.html) をダウンロードしてインストールしてください。
+最新バージョンの [IntelliJ IDEA Ultimate Edition](https://www.jetbrains.com/idea/download/) をダウンロードしてインストールしてください。
 
 > IntelliJ IDEA Community Editionまたは別のIDEを使用している場合は、[ウェブベースのプロジェクトジェネレーター](https://start.spring.io/#!language=kotlin&type=gradle-project-kotlin)を使用してSpring Bootプロジェクトを生成できます。
 > 

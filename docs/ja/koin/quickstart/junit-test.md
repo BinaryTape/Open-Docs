@@ -4,6 +4,10 @@ title: JUnit テスト
 
 > このチュートリアルでは、Kotlin アプリケーションをテストし、Koin を使用してコンポーネントを注入 (inject) および取得する方法を説明します。
 
+:::note
+更新 - 2025-01-28
+:::
+
 ## コードの取得
 
 :::info
@@ -28,50 +32,71 @@ dependencies {
 `koin-core` の入門プロジェクトを再利用して、Koin モジュールを使用します。
 
 ```kotlin
-val helloModule = module {
-    single { HelloMessageData() }
-    single { HelloServiceImpl(get()) as HelloService }
+val appModule = module {
+    single<UserApplication>()
+    single<UserRepositoryImpl>() bind UserRepository::class
+    single<UserServiceImpl>() bind UserService::class
 }
 ```
 
-## 最初のテストの作成
+## モジュールの検証
 
-最初のテストを作成するために、シンプルな JUnit テストファイルを作成し、`KoinTest` を継承させましょう。これにより、`by inject()` オペレーターを使用できるようになります。
+Koin の設定をテストする最も簡単な方法は、モジュールを検証することです。`verify()` 関数は、すべての依存関係が解決可能であることを確認するためのドライラン (dry-run) チェックを実行します。
 
 ```kotlin
-class HelloAppTest : KoinTest {
+class ModuleVerificationTest : AutoCloseKoinTest() {
 
-    val model by inject<HelloMessageData>()
-    val service by inject<HelloService>()
+    @Test
+    fun verifyModules() {
+        appModule.verify()
+    }
+}
+```
+
+依存関係の定義が無効な場合や、必要な依存関係が不足している場合、このテストは失敗します。
+
+## KoinTestRule を使用したテストの作成
+
+依存関係を注入するテストを作成するには、`KoinTest` を継承し、`KoinTestRule` を使用します。
+
+```kotlin
+class UserAppTest : KoinTest {
+
+    val userService by inject<UserService>()
+    val userRepository by inject<UserRepository>()
 
     @get:Rule
     val koinTestRule = KoinTestRule.create {
         printLogger()
-        modules(helloModule)
+        modules(appModule)
     }
 
     @Test
-    fun `unit test`() {
-        val helloApp = HelloApplication()
-        helloApp.sayHello()
+    fun `test user service`() {
+        // サービス経由でユーザーを読み込む
+        userService.loadUsers()
 
-        assertEquals(service, helloApp.helloService)
-        assertEquals("Hey, ${model.message}", service.hello())
+        // ユーザーが見つかることを検証する
+        val user = userService.getUserOrNull("Alice")
+        assertNotNull(user)
+        assertEquals("Alice", user?.name)
     }
 }
 ```
 
-> Koin の `KoinTestRule` ルールを使用して、Koin コンテキストの開始と停止を行います。
+> Koin の `KoinTestRule` ルールを使用して、各テストで Koin コンテキストの開始と停止を行います。
 
-`MyPresenter` に直接モックを作成したり、`MyRepository` をテストしたりすることもできます。これらのコンポーネントは Koin API との依存関係はありません。
+## 依存関係のモック
+
+`declareMock` を使用して、テスト内の依存関係をモック化できます。これにより、実際の実装がモックに置き換えられます。
 
 ```kotlin
-class HelloMockTest : KoinTest {
+class UserMockTest : KoinTest {
 
     @get:Rule
     val koinTestRule = KoinTestRule.create {
         printLogger(Level.DEBUG)
-        modules(helloModule)
+        modules(appModule)
     }
 
     @get:Rule
@@ -81,12 +106,37 @@ class HelloMockTest : KoinTest {
 
     @Test
     fun `mock test`() {
-        val service = declareMock<HelloService> {
-            given(hello()).willReturn("Hello Mock")
+        // UserRepository のモックを宣言
+        val repository = declareMock<UserRepository> {
+            given(findUserOrNull(anyString())).willReturn(
+                User("Mock", "mock@example.com")
+            )
         }
 
-        HelloApplication().sayHello()
+        // モック化されたリポジトリを使用してアプリケーションを使用
+        getKoin().get<UserApplication>().sayHello("Mock")
 
-        Mockito.verify(service,times(1)).hello()
+        // モックが呼び出されたことを検証
+        Mockito.verify(repository, times(1)).findUserOrNull(anyString())
     }
 }
+```
+
+`MockProviderRule` は Mockito をモックフレームワークとして設定し、`declareMock` は実際の `UserRepository` を制御されたデータを返すモックに置き換えます。
+
+## テストの主要な概念
+
+| 概念 | 説明 |
+|---------|-------------|
+| `KoinTest` | Koin テストをサポートするために継承するインターフェース |
+| `AutoCloseKoinTest` | 各テストの後に Koin を自動的にクローズする |
+| `KoinTestRule` | Koin コンテキストを開始・停止するための JUnit ルール |
+| `MockProviderRule` | モックフレームワークを設定する |
+| `verify()` | 実行せずにモジュール設定を検証する |
+| `declareMock<T>()` | 定義をモックに置き換える |
+| `by inject<T>()` | テスト内で依存関係を遅延注入 (lazy inject) する |
+
+## 関連項目
+
+- **[テストリファレンス](/docs/reference/koin-test/testing)** - 完全なテストドキュメント
+- **[モジュールの検証](/docs/reference/koin-test/verify)** - `verify()` および `checkModules()` の詳細

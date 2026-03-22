@@ -4,6 +4,10 @@ title: JUnit 测试
 
 > 本教程将指导您测试 Kotlin 应用程序，并使用 Koin 注入和检索组件。
 
+:::note
+更新 - 2025-01-28
+:::
+
 ## 获取代码
 
 :::info
@@ -28,50 +32,71 @@ dependencies {
 我们重复使用 `koin-core` 快速入门项目，以使用 koin 模块：
 
 ```kotlin
-val helloModule = module {
-    single { HelloMessageData() }
-    single { HelloServiceImpl(get()) as HelloService }
+val appModule = module {
+    single<UserApplication>()
+    single<UserRepositoryImpl>() bind UserRepository::class
+    single<UserServiceImpl>() bind UserService::class
 }
 ```
 
-## 编写我们的第一个测试
+## 验证您的模块
 
-为了进行第一个测试，让我们编写一个简单的 JUnit 测试文件并扩展 `KoinTest`。然后，我们将能够使用 `by inject()` 运算符。
+测试 Koin 配置的最简单方法是验证您的模块。`verify()` 函数执行空运行检查，以确保所有依赖项都可以被解析：
 
 ```kotlin
-class HelloAppTest : KoinTest {
+class ModuleVerificationTest : AutoCloseKoinTest() {
 
-    val model by inject<HelloMessageData>()
-    val service by inject<HelloService>()
+    @Test
+    fun verifyModules() {
+        appModule.verify()
+    }
+}
+```
+
+如果任何依赖项定义无效或缺少任何必需的依赖项，此测试将失败。
+
+## 编写使用 KoinTestRule 的测试
+
+要编写注入依赖项的测试，请扩展 `KoinTest` 并使用 `KoinTestRule`：
+
+```kotlin
+class UserAppTest : KoinTest {
+
+    val userService by inject<UserService>()
+    val userRepository by inject<UserRepository>()
 
     @get:Rule
     val koinTestRule = KoinTestRule.create {
         printLogger()
-        modules(helloModule)
+        modules(appModule)
     }
 
     @Test
-    fun `unit test`() {
-        val helloApp = HelloApplication()
-        helloApp.sayHello()
+    fun `test user service`() {
+        // 通过 service 加载用户
+        userService.loadUsers()
 
-        assertEquals(service, helloApp.helloService)
-        assertEquals("Hey, ${model.message}", service.hello())
+        // 验证是否可以找到用户
+        val user = userService.getUserOrNull("Alice")
+        assertNotNull(user)
+        assertEquals("Alice", user?.name)
     }
 }
 ```
 
-> 我们使用 Koin `KoinTestRule` 规则来启动/停止 Koin 上下文
+> 我们使用 `KoinTestRule` 为每个测试启动/停止 Koin 上下文
 
-您甚至可以直接在 `MyPresenter` 中创建 Mock，或测试 `MyRepository`。这些组件与 Koin API 没有任何联系。
+## 模拟依赖项
+
+您可以使用 `declareMock` 在测试中模拟依赖项。这会用 mock 替换真实的实现：
 
 ```kotlin
-class HelloMockTest : KoinTest {
+class UserMockTest : KoinTest {
 
     @get:Rule
     val koinTestRule = KoinTestRule.create {
         printLogger(Level.DEBUG)
-        modules(helloModule)
+        modules(appModule)
     }
 
     @get:Rule
@@ -81,12 +106,37 @@ class HelloMockTest : KoinTest {
 
     @Test
     fun `mock test`() {
-        val service = declareMock<HelloService> {
-            given(hello()).willReturn("Hello Mock")
+        // 为 UserRepository 声明一个 mock
+        val repository = declareMock<UserRepository> {
+            given(findUserOrNull(anyString())).willReturn(
+                User("Mock", "mock@example.com")
+            )
         }
 
-        HelloApplication().sayHello()
+        // 使用带有 mock 仓库的应用程序
+        getKoin().get<UserApplication>().sayHello("Mock")
 
-        Mockito.verify(service,times(1)).hello()
+        // 验证 mock 是否被调用
+        Mockito.verify(repository, times(1)).findUserOrNull(anyString())
     }
 }
+```
+
+`MockProviderRule` 将 Mockito 配置为模拟框架，而 `declareMock` 则将真实的 `UserRepository` 替换为返回受控数据的 mock。
+
+## 关键测试概念
+
+| 概念 | 描述 |
+|---------|-------------|
+| `KoinTest` | 扩展以获得 Koin 测试支持的接口 |
+| `AutoCloseKoinTest` | 在每次测试后自动关闭 Koin |
+| `KoinTestRule` | 用于启动/停止 Koin 上下文的 JUnit 规则 |
+| `MockProviderRule` | 配置模拟框架 |
+| `verify()` | 在不运行的情况下验证模块配置 |
+| `declareMock<T>()` | 使用 mock 替换定义 |
+| `by inject<T>()` | 在测试中延迟注入依赖项 |
+
+## 另请参阅
+
+- **[测试参考](/docs/reference/koin-test/testing)** - 完整的测试文档
+- **[模块验证](/docs/reference/koin-test/verify)** - verify() 和 checkModules() 详情

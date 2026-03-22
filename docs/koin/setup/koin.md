@@ -10,39 +10,82 @@ title: Koin
 
 以下是当前可用的 Koin 版本：
 
-- Koin 稳定版 [![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-core/4.0.3)](https://mvnrepository.com/artifact/io.insert-koin/koin-bom) 
-- Koin 非稳定版本 [![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-core/4.1.0)](https://mvnrepository.com/artifact/io.insert-koin/koin-bom)
+- Koin 稳定版 [![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-core?label=stable)](https://mvnrepository.com/artifact/io.insert-koin/koin-core)
+- Koin 最新版本 [![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-core)](https://mvnrepository.com/artifact/io.insert-koin/koin-core)
 
-## Gradle 设置
+## Koin BOM (推荐)
 
-### Kotlin
+:::info
+**最佳做法**：使用 Koin 物料清单 (BOM) 来一致地管理所有 Koin 库版本。这是所有项目的推荐方法。
+:::
 
-从 3.5.0 版本开始，您可以使用 BOM 版本来管理所有 Koin 库版本。在应用程序中使用 BOM 时，您不需要在 Koin 库依赖项本身中添加任何版本。当您更新 BOM 版本时，您正在使用的所有库都会自动更新到其新版本。
+Koin 物料清单 (BOM) 允许您通过仅指定 BOM 的版本来管理所有 Koin 库版本。BOM 本身包含指向不同 Koin 库稳定版本的链接，从而确保它们可以很好地协同工作。在应用程序中使用 BOM 时，您不需要在 Koin 库依赖项本身中添加任何版本。当您更新 BOM 版本时，您正在使用的所有库都会自动更新到其新版本。
 
-将 `koin-bom` BOM 和 `koin-core` 依赖项添加到您的应用程序： 
-```kotlin
-implementation(project.dependencies.platform("io.insert-koin:koin-bom:$koin_version"))
-implementation("io.insert-koin:koin-core")
-```
-如果您正在使用版本目录：
+### 将 BOM 与版本目录配合使用 (推荐)
+
+在您的 `gradle/libs.versions.toml` 中：
+
 ```toml
 [versions]
-koin-bom = "x.x.x"
-...
+koin-bom = "4.1.1"  # 稳定版本
 
 [libraries]
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
 koin-core = { module = "io.insert-koin:koin-core" }
-...
+koin-android = { module = "io.insert-koin:koin-android" }
+koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose" }
+koin-compose = { module = "io.insert-koin:koin-compose" }
+koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel" }
+koin-ktor = { module = "io.insert-koin:koin-ktor" }
+koin-test = { module = "io.insert-koin:koin-test" }
 ```
+
+在您的 `build.gradle.kts` 中：
+
 ```kotlin
 dependencies {
-    implementation(project.dependencies.platform(libs.koin.bom))
+    implementation(platform(libs.koin.bom))
     implementation(libs.koin.core)
+    // 添加其他不带版本的 Koin 依赖项
 }
 ```
 
-或者使用指定 Koin 确切依赖项版本的旧方法：
+### 在不使用版本目录的情况下使用 BOM
+
+```kotlin
+dependencies {
+    // 声明 koin-bom 版本
+    implementation(platform("io.insert-koin:koin-bom:$koin_version"))
+
+    // 声明不带版本的 koin 依赖项
+    implementation("io.insert-koin:koin-android")
+    implementation("io.insert-koin:koin-core-coroutines")
+    implementation("io.insert-koin:koin-androidx-workmanager")
+
+    // 如果您需要为特定依赖项指定不同的版本
+    implementation("io.insert-koin:koin-androidx-navigation:1.2.3-alpha03")
+
+    // 同样适用于测试库！
+    testImplementation("io.insert-koin:koin-test-junit4")
+    testImplementation("io.insert-koin:koin-android-test")
+}
+```
+
+## 平台特定设置
+
+### Kotlin
+
+将 Koin BOM 和 `koin-core` 依赖项添加到您的应用程序：
+
+```kotlin
+dependencies {
+    implementation(platform("io.insert-koin:koin-bom:$koin_version"))
+    implementation("io.insert-koin:koin-core")
+}
+```
+
+或者指定确切的依赖项版本（不推荐）：
+
 ```kotlin
 dependencies {
     implementation("io.insert-koin:koin-core:$koin_version")
@@ -61,7 +104,7 @@ fun main() {
 
 如果您需要测试功能：
 
-```groovy
+```kotlin
 dependencies {
     // Koin 测试功能
     testImplementation("io.insert-koin:koin-test:$koin_version")
@@ -73,16 +116,17 @@ dependencies {
 ```
 
 :::info
-现在您可以继续阅读 Koin 教程以了解如何使用 Koin：[Kotlin 应用教程](/docs/quickstart/kotlin)
+**后续步骤**：继续阅读 [Kotlin 应用教程](/docs/quickstart/kotlin) 或探索 [核心功能](/docs/reference/koin-core/dsl)。
 :::
 
-### **Android**
+### Android
 
 将 `koin-android` 依赖项添加到您的 Android 应用程序：
 
-```groovy
+```kotlin
 dependencies {
-    implementation("io.insert-koin:koin-android:$koin_android_version")
+    implementation(platform("io.insert-koin:koin-bom:$koin_version"))
+    implementation("io.insert-koin:koin-android")
 }
 ```
 
@@ -92,82 +136,113 @@ dependencies {
 class MainApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        
+
         startKoin {
+            androidLogger()
+            androidContext(this@MainApplication)
             modules(appModule)
         }
     }
 }
 ```
 
-如果您需要额外功能，请添加以下所需的软件包：
+如果您需要额外功能，请添加以下软件包：
 
-```groovy
+```kotlin
 dependencies {
     // Java 兼容性
-    implementation("io.insert-koin:koin-android-compat:$koin_android_version")
+    implementation("io.insert-koin:koin-android-compat")
     // Jetpack WorkManager
-    implementation("io.insert-koin:koin-androidx-workmanager:$koin_android_version")
+    implementation("io.insert-koin:koin-androidx-workmanager")
     // Navigation Graph
-    implementation("io.insert-koin:koin-androidx-navigation:$koin_android_version")
-    // App Startup
-    implementation("io.insert-koin:koin-androidx-startup:$koin_android_version")
+    implementation("io.insert-koin:koin-androidx-navigation")
+    // App Startup - 使用 AndroidX Startup 启动 Koin
+    implementation("io.insert-koin:koin-androidx-startup")
 }
 ```
 
 :::info
-现在您可以继续阅读 Koin 教程以了解如何使用 Koin：[Android 应用教程](/docs/quickstart/android-viewmodel)
+**后续步骤**：继续阅读 [Android 应用教程](/docs/quickstart/android-viewmodel) 或参阅 [在 Android 上启动 Koin](/docs/reference/koin-android/start) 以了解详细集成信息。
 :::
 
-### **Jetpack Compose 或 Compose Multiplatform**
+### Jetpack Compose 或 Compose Multiplatform
 
-将 `koin-compose` 依赖项添加到您的多平台应用程序，以使用 Koin 和 Compose API：
+对于 **Compose Multiplatform** (Android, iOS, Desktop, Web)，添加以下依赖项：
 
-```groovy
+```kotlin
 dependencies {
-    implementation("io.insert-koin:koin-compose:$koin_version")
-    implementation("io.insert-koin:koin-compose-viewmodel:$koin_version")
-    implementation("io.insert-koin:koin-compose-viewmodel-navigation:$koin_version")
+    implementation(platform("io.insert-koin:koin-bom:$koin_version"))
+    implementation("io.insert-koin:koin-compose")
+    implementation("io.insert-koin:koin-compose-viewmodel")
+    implementation("io.insert-koin:koin-compose-viewmodel-navigation")
 }
 ```
 
-如果您使用的是原生的 Android Jetpack Compose，可以使用：
+对于 **原生 Android Jetpack Compose**，您可以使用：
 
-```groovy
+```kotlin
 dependencies {
-    implementation("io.insert-koin:koin-androidx-compose:$koin_version")
-    implementation("io.insert-koin:koin-androidx-compose-navigation:$koin_version")
+    implementation(platform("io.insert-koin:koin-bom:$koin_version"))
+    implementation("io.insert-koin:koin-androidx-compose")
+    implementation("io.insert-koin:koin-androidx-compose-navigation")
 }
 ```
 
-### **Kotlin Multiplatform**
+对于 **Navigation 3 集成** (实验性)：
 
-将 `koin-core` 依赖项添加到您的多平台应用程序，用于共享 Kotlin 部分：
-
-```groovy
+```kotlin
 dependencies {
-    implementation("io.insert-koin:koin-core:$koin_version")
+    // Navigation 3 支持 (alpha)
+    implementation("io.insert-koin:koin-compose-navigation3")
+}
+```
+
+:::warning
+Navigation 3 处于 alpha 阶段。有关详情，请参阅 [Navigation 3 集成](/docs/reference/koin-compose/navigation3)。
+:::
+
+:::info
+**后续步骤**：继续阅读 [Compose 教程](/docs/quickstart/android-compose) 或参阅 [Koin Compose](/docs/reference/koin-compose/compose) 以了解详细集成信息。
+:::
+
+### Kotlin Multiplatform
+
+在您的 `shared/build.gradle.kts` 中，将 `koin-core` 依赖项添加到 commonMain：
+
+```kotlin
+kotlin {
+    sourceSets {
+        commonMain.dependencies {
+            implementation(platform("io.insert-koin:koin-bom:$koin_version"))
+            implementation("io.insert-koin:koin-core")
+        }
+
+        commonTest.dependencies {
+            implementation("io.insert-koin:koin-test")
+        }
+    }
 }
 ```
 
 :::info
-现在您可以继续阅读 Koin 教程以了解如何使用 Koin：[Kotlin 多平台应用教程](/docs/quickstart/kmp)
+**后续步骤**：参阅 [结合使用 Kotlin Multiplatform 与 Koin](/docs/reference/koin-mp/kmp) 以了解特定于平台的设置、expect/actual 模式以及架构指南。
 :::
 
-### **Ktor**
+### Ktor
 
 将 `koin-ktor` 依赖项添加到您的 Ktor 应用程序：
 
-```groovy
+```kotlin
 dependencies {
-    // 适用于 Ktor 的 Koin 
-    implementation("io.insert-koin:koin-ktor:$koin_ktor")
+    implementation(platform("io.insert-koin:koin-bom:$koin_version"))
+    // 适用于 Ktor 的 Koin
+    implementation("io.insert-koin:koin-ktor")
     // SLF4J 日志记录器
-    implementation("io.insert-koin:koin-logger-slf4j:$koin_ktor")
+    implementation("io.insert-koin:koin-logger-slf4j")
 }
 ```
 
-您现在可以在您的 Ktor 应用程序中安装 Koin 功能：
+您现在可以在 Ktor 应用程序中安装 Koin 功能：
 
 ```kotlin
 fun Application.main() {
@@ -179,26 +254,21 @@ fun Application.main() {
 ```
 
 :::info
-现在您可以继续阅读 Koin 教程以了解如何使用 Koin：[Ktor 应用教程](/docs/quickstart/ktor)
+**后续步骤**：继续阅读 [Ktor 应用教程](/docs/quickstart/ktor) 或参阅 [Ktor 集成](/docs/reference/koin-ktor/ktor) 以了解详细设置。
 :::
 
-### **Koin BOM**
-Koin 物料清单 (BOM) 让您可以通过仅指定 BOM 版本来管理所有 Koin 库版本。BOM 本身包含指向不同 Koin 库稳定版本的链接，从而确保它们可以很好地协同工作。在应用程序中使用 BOM 时，您不需要在 Koin 库依赖项本身中添加任何版本。当您更新 BOM 版本时，您正在使用的所有库都会自动更新到其新版本。
+## 替代方案：直接指定版本
 
-```groovy
+如果您不想使用 BOM，可以直接为每个依赖项指定版本：
+
+```kotlin
 dependencies {
-    // 声明 koin-bom 版本
-    implementation platform("io.insert-koin:koin-bom:$koin_bom")
-    
-    // 声明您需要的 koin 依赖项
-    implementation("io.insert-koin:koin-android")
-    implementation("io.insert-koin:koin-core-coroutines")
-    implementation("io.insert-koin:koin-androidx-workmanager")
-    
-    // 如果您需要指定某些版本，只需指向所需版本即可
-    implementation("io.insert-koin:koin-androidx-navigation:1.2.3-alpha03")
-    
-    // 同样适用于测试库！
-    testImplementation("io.insert-koin:koin-test-junit4")
-    testImplementation("io.insert-koin:koin-android-test")
+    implementation("io.insert-koin:koin-core:$koin_version")
+    implementation("io.insert-koin:koin-android:$koin_version")
+    implementation("io.insert-koin:koin-compose:$koin_version")
 }
+```
+
+:::note
+此方法要求手动使所有 Koin 依赖项同步到兼容版本。**强烈建议使用 BOM** 以避免版本冲突。
+:::

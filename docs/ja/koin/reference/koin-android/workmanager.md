@@ -2,105 +2,165 @@
 title: WorkManager
 ---
 
-`koin-androidx-workmanager`プロジェクトは、Android WorkManagerの機能を提供するためのものです。
+Koinは、Workerでのコンストラクタインジェクションを可能にするために、[Android WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager)と統合されています。
 
-## WorkManager DSL
+## セットアップ
 
-## WorkManagerのセットアップ
+### 依存関係の追加
 
-開始時に、`KoinApplication`の宣言内で`workManagerFactory()`キーワードを使用して、カスタムのWorkManagerインスタンスをセットアップします。
+```groovy
+implementation "io.insert-koin:koin-android:$koin_version"
+implementation "io.insert-koin:koin-androidx-workmanager:$koin_version"
+```
+
+### WorkManagerの設定
+
+ApplicationクラスでKoin WorkManagerファクトリをセットアップします：
 
 ```kotlin
-class MainApplication : Application(), KoinComponent {
+class MainApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
 
         startKoin {
-            // WorkManagerインスタンスをセットアップ
+            androidContext(this@MainApplication)
             workManagerFactory()
-            modules(...)
+            modules(appModule)
         }
-
-        setupWorkManagerFactory()
+    }
 }
 ```
 
-また、https://developer.android.com/topic/libraries/architecture/workmanager/advanced/custom-configuration#remove-default に示されているように、Androidがデフォルトの`WorkManagerFactory`を初期化するのを防ぐために`AndroidManifest.xml`を編集することも重要です。これを行わないと、アプリがクラッシュします。
+### デフォルトの初期化子の無効化
+
+デフォルトのWorkManager初期化子を無効にするために、`AndroidManifest.xml`に以下を追加します：
 
 ```xml
-    <application . . .>
-        . . .
-        <provider
-            android:name="androidx.startup.InitializationProvider"
-            android:authorities="${applicationId}.androidx-startup"
-            android:exported="false"
-            tools:node="merge">
-            <meta-data
-                android:name="androidx.work.WorkManagerInitializer"
-                android:value="androidx.startup"
-                tools:node="remove" />
-        </provider>
-    </application>
+<provider
+    android:name="androidx.startup.InitializationProvider"
+    android:authorities="${applicationId}.androidx-startup"
+    android:exported="false"
+    tools:node="merge">
+    <meta-data
+        android:name="androidx.work.WorkManagerInitializer"
+        android:value="androidx.startup"
+        tools:node="remove" />
+</provider>
 ```
 
-## ListenableWorkerの宣言
+## Workerの宣言
+
+### コンパイラプラグインDSL
+
+```kotlin
+class MyWorker(
+    context: Context,
+    workerParams: WorkerParameters,
+    private val myService: MyService
+) : CoroutineWorker(context, workerParams) {
+
+    override suspend fun doWork(): Result {
+        myService.performTask()
+        return Result.success()
+    }
+}
+
+val appModule = module {
+    single<MyService>()
+    worker<MyWorker>()
+}
+```
+
+### アノテーション
+
+```kotlin
+@KoinWorker
+class MyWorker(
+    context: Context,
+    workerParams: WorkerParameters,
+    private val myService: MyService
+) : CoroutineWorker(context, workerParams) {
+
+    override suspend fun doWork(): Result {
+        myService.performTask()
+        return Result.success()
+    }
+}
+
+@Singleton
+class MyService
+```
+
+### クラシックDSL
 
 ```kotlin
 val appModule = module {
     single { MyService() }
-    worker { MyListenableWorker(get()) }
-}
-```
-
-### 追加のWorkManagerファクトリの作成
-
-`WorkManagerFactory`を作成してKoinに渡すこともできます。これはデリゲートとして追加されます。
-
-```kotlin
-class MainApplication : Application(), KoinComponent {
-
-    override fun onCreate() {
-        super.onCreate()
-
-        startKoin {
-           workManagerFactory(workFactory1, workFactory2)
-           . . .
-        }
-
-        setupWorkManagerFactory()
+    worker { params ->
+        MyWorker(
+            context = params.get(),
+            workerParams = params.get(),
+            myService = get()
+        )
     }
 }
-
 ```
 
-Koinと`workFactory1`の両方から提供された`WorkManagerFactory`が`ListenableWorker`をインスタンス化できる場合、Koinから提供されたファクトリが使用されます。
+## Workのエンキュー
 
-## いくつかの想定
+WorkManagerを通常通り使用して、workerをエンキューします：
 
-### koinライブラリ自体にマニフェストの変更を追加する
-`koin-androidx-workmanager`自体のマニフェストでデフォルトのWorkManagerを無効にすれば、アプリケーション開発者の手間を一つ減らすことができます。しかし、アプリ開発者がKoinのWorkManagerインフラストラクチャを初期化しなかった場合、使用可能なWorkManagerファクトリがなくなってしまうため、混乱を招く可能性があります。
-
-これは`checkModules`が役立つ可能性があるケースです。プロジェクト内のいずれかのクラスが`ListenableWorker`を実装している場合、マニフェストとコードの両方を検査して、整合性が取れているかを確認できるのではないでしょうか。
-
-### DSLの改善案：
 ```kotlin
+val workRequest = OneTimeWorkRequestBuilder<MyWorker>().build()
+WorkManager.getInstance(context).enqueue(workRequest)
+```
 
-val workerFactoryModule = module {
-   factory<WorkerFactory> { WorkerFactory1() }
-   factory<WorkerFactory> { WorkerFactory2() }
+## パラメータを持つWorker
+
+WorkManagerのinput dataを介してパラメータを渡します：
+
+```kotlin
+@KoinWorker
+class SyncWorker(
+    context: Context,
+    workerParams: WorkerParameters,
+    private val repository: DataRepository
+) : CoroutineWorker(context, workerParams) {
+
+    override suspend fun doWork(): Result {
+        val userId = inputData.getString("USER_ID") ?: return Result.failure()
+        repository.syncUser(userId)
+        return Result.success()
+    }
 }
 ```
 
-その上で、Koinの内部で次のような処理を行います。
+データとともにエンキュー：
 
 ```kotlin
-fun Application.setupWorkManagerFactory(
-  // WorkerFactoryの可変長引数はなし
-) {
-. . .
-            getKoin().getAll<WorkerFactory>()
-                .forEach {
-                    delegatingWorkerFactory.addFactory(it)
-                }
-}
+val workRequest = OneTimeWorkRequestBuilder<SyncWorker>()
+    .setInputData(workDataOf("USER_ID" to "123"))
+    .build()
+
+WorkManager.getInstance(context).enqueue(workRequest)
+```
+
+## クイックリファレンス
+
+| アプローチ | 宣言 |
+|----------|-------------|
+| コンパイラプラグインDSL | `worker<MyWorker>()` |
+| アノテーション | `@KoinWorker` |
+| クラシックDSL | `worker { params -> MyWorker(params.get(), params.get(), get()) }` |
+
+| セットアップ | コード |
+|-------|------|
+| ファクトリを有効化 | startKoin内で `workManagerFactory()` |
+| デフォルトを無効化 | マニフェスト内で `WorkManagerInitializer` を削除 |
+
+## 次のステップ
+
+- **[Android WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager)** - WorkManager公式ドキュメント
+- **[Scopes](/docs/reference/koin-android/scope)** - Androidのスコープ
+- **[ViewModel](/docs/reference/koin-android/viewmodel)** - ViewModelのインジェクション

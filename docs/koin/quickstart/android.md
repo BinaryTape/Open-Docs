@@ -31,34 +31,65 @@ dependencies {
 
 该应用程序的设计思路是管理一个用户列表，并使用 Presenter 或 ViewModel 在我们的 `MainActivity` 类中显示它：
 
-> Users -> UserRepository -> (Presenter 或 ViewModel) -> MainActivity
+> Users -> UserRepository -> UserService -> (Presenter 或 ViewModel) -> MainActivity
 
 ## “User” 数据
 
 我们将管理一个 User 集合。以下是数据类：
 
 ```kotlin
-data class User(val name : String)
+data class User(val name: String, val email: String)
 ```
 
 我们创建一个 “Repository” 组件来管理用户列表（添加用户或按名称查找）。下面是 `UserRepository` 接口及其实现：
 
 ```kotlin
 interface UserRepository {
-    fun findUser(name : String): User?
-    fun addUsers(users : List<User>)
+    fun findUserOrNull(name: String): User?
+    fun addUsers(users: List<User>)
 }
 
 class UserRepositoryImpl : UserRepository {
 
     private val _users = arrayListOf<User>()
 
-    override fun findUser(name: String): User? {
+    override fun findUserOrNull(name: String): User? {
         return _users.firstOrNull { it.name == name }
     }
 
-    override fun addUsers(users : List<User>) {
+    override fun addUsers(users: List<User>) {
         _users.addAll(users)
+    }
+}
+```
+
+## UserService 组件
+
+让我们编写一个服务组件来管理用户操作：
+
+```kotlin
+interface UserService {
+    fun getUserOrNull(name: String): User?
+    fun loadUsers()
+    fun prepareHelloMessage(user: User?): String
+}
+
+class UserServiceImpl(
+    private val userRepository: UserRepository
+) : UserService {
+
+    override fun getUserOrNull(name: String): User? = userRepository.findUserOrNull(name)
+
+    override fun loadUsers() {
+        userRepository.addUsers(listOf(
+            User("Alice", "alice@example.com"),
+            User("Bob", "bob@example.com"),
+            User("Charlie", "charlie@example.com")
+        ))
+    }
+
+    override fun prepareHelloMessage(user: User?): String {
+        return user?.let { "Hello '${user.name}' (${user.email})! 👋" } ?: "❌ User not found"
     }
 }
 ```
@@ -69,48 +100,53 @@ class UserRepositoryImpl : UserRepository {
 
 ```kotlin
 val appModule = module {
-    
+
 }
 ```
 
-让我们声明我们的第一个组件。我们希望通过创建 `UserRepositoryImpl` 的实例来获得 `UserRepository` 的单例：
+让我们声明我们的组件。我们希望获得 `UserRepository` 和 `UserService` 的单例：
 
 ```kotlin
 val appModule = module {
-    singleOf(::UserRepositoryImpl) { bind<UserRepository>() }
+    single<UserRepositoryImpl>() bind UserRepository::class
+    single<UserServiceImpl>() bind UserService::class
 }
 ```
+
+:::info
+本教程使用 **Koin 编译器插件 DSL** (`single<T>()`、`factory<T>()`)，它在编译时提供自动装配。有关配置请参阅 [编译器插件设置](/docs/setup/compiler-plugin)。
+:::
 
 ## 使用 Presenter 显示用户
 
 让我们编写一个 Presenter 组件来显示用户：
 
 ```kotlin
-class UserPresenter(private val repository: UserRepository) {
+class UserPresenter(private val userService: UserService) {
 
-    fun sayHello(name : String) : String{
-        val foundUser = repository.findUser(name)
-        return foundUser?.let { "Hello '$it' from $this" } ?: "User '$name' not found!"
+    fun sayHello(name: String): String {
+        val user = userService.getUserOrNull(name)
+        val message = userService.prepareHelloMessage(user)
+        return "[UserPresenter] $message"
     }
 }
 ```
 
-> `UserRepository` 在 `UserPresenter` 的构造函数中被引用
+> `UserService` 在 `UserPresenter` 的构造函数中被引用
 
-我们在 Koin 模块中声明 `UserPresenter`。我们将其声明为 `factoryOf` 定义，以便不在内存中保留任何实例（避免 Android 生命周期的内存泄漏）：
+我们在 Koin 模块中声明 `UserPresenter`。我们将其声明为 `factory` 定义，以便不在内存中保留任何实例（避免 Android 生命周期的任何内存泄漏）：
 
 ```kotlin
 val appModule = module {
-    singleOf(::UserRepositoryImpl) { bind<UserRepository>() }
-    factoryOf(::UserStateHolder)
+    single<UserRepositoryImpl>() bind UserRepository::class
+    single<UserServiceImpl>() bind UserService::class
+    factory<UserPresenter>()
 }
 ```
 
-> `get()` 函数允许请求 Koin 解析所需的依赖项。
-
 ## 在 Android 中注入依赖项
 
-`UserPresenter` 组件将被创建，并随之解析 `UserRepository` 实例。为了在 Activity 中获取它，让我们使用 `by inject()` 委托函数进行注入：
+`UserPresenter` 组件将被创建，并随之解析 `UserService` 实例。为了在 Activity 中获取它，让我们使用 `by inject()` 委托函数进行注入：
 
 ```kotlin
 class MainActivity : AppCompatActivity() {
@@ -153,59 +189,28 @@ class MainApplication : Application(){
 `startKoin` 中的 `modules()` 函数会加载给定的模块列表。
 :::
 
-## Koin 模块：经典 DSL 还是构造函数 DSL？
+## Koin 模块：DSL 对比
 
-这是我们应用的 Koin 模块声明：
-
-```kotlin
-val appModule = module {
-    single<HelloRepository> { HelloRepositoryImpl() }
-    factory { MyPresenter(get()) }
-}
-```
-
-我们可以通过使用构造函数，以更紧凑的方式编写它：
+这是使用 **经典 DSL**（手动装配）的 Koin 模块声明：
 
 ```kotlin
 val appModule = module {
-    singleOf(::UserRepositoryImpl) { bind<UserRepository>() }
-    factoryOf(::UserPresenter)
+    single<UserRepository> { UserRepositoryImpl() }
+    single<UserService> { UserServiceImpl(get()) }
+    factory { UserPresenter(get()) }
 }
 ```
 
-## 验证你的应用！
-
-在启动应用之前，我们可以通过一个简单的 JUnit 测试来验证 Koin 配置，从而确保 Koin 配置是正确的。
-
-### Gradle 设置
-
-像下面这样添加 Koin Android 依赖项：
-
-```groovy
-// 如果需要，将 Maven Central 添加到你的仓库中
-repositories {
-	mavenCentral()    
-}
-
-dependencies {
-    
-    // 用于测试的 Koin
-    testImplementation "io.insert-koin:koin-test-junit4:$koin_version"
-}
-```
-
-### 检查你的模块
-
-`verify()` 函数允许验证给定的 Koin 模块：
+使用 **编译器插件 DSL**（编译时自动装配）：
 
 ```kotlin
-class CheckModulesTest : KoinTest {
-
-    @Test
-    fun checkAllModules() {
-        appModule.verify()
-    }
+val appModule = module {
+    single<UserRepositoryImpl>() bind UserRepository::class
+    single<UserServiceImpl>() bind UserService::class
+    factory<UserPresenter>()
 }
 ```
 
-只需一个 JUnit 测试，你就可以确保你的定义配置没有遗漏任何内容！
+:::tip
+编译器插件 DSL 需要 [Koin 编译器插件](/docs/setup/compiler-plugin)。它提供编译时依赖解析和更整洁的语法。
+:::

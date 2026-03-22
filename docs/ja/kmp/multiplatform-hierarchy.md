@@ -197,7 +197,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 
 #### ソースセットの変更
 
-**ケース**: テンプレートによって生成されるものとまったく同じ名前のソースセットが既にあり、それらがプロジェクト内の異なるターゲットセット間で共有されている場合。例えば、`nativeMain` ソースセットがデスクトップ固有のターゲットである `linuxX64`、`mingwX64`、`macosX64` 間でのみ共有されているような場合です。
+**ケース**: テンプレートによって生成されるものとまったく同じ名前のソースセットが既にあり、それらがプロジェクト内の異なるターゲットセット間で共有されている場合。例えば、`nativeMain` ソースセットがデスクトップ固有のターゲットである `linuxX64`、`mingwX64`、および `macosArm64` 間でのみ共有されているような場合です。
 
 **解決策**: 現在、テンプレートのソースセット間のデフォルトの `dependsOn` 関係を変更する方法はありません。また、ソースセット（例：`nativeMain`）の実装と意味がすべてのプロジェクトで同じであることも重要です。
 
@@ -216,7 +216,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 
 プロジェクトがコンパイルされるターゲットを宣言すると、プラグインはテンプレートから指定されたターゲットに基づいて共有ソースセットを選択し、プロジェクト内に作成します。
 
-![完全な階層テンプレート](full-template-hierarchy.svg)
+![デフォルトの階層テンプレート](full-template-hierarchy.svg)
 
 > この例ではプロジェクトのプロダクション部分のみを示しており、`Main` サフィックスを省略しています（例えば、`commonMain` の代わりに `common` を使用）。ただし、`*Test` ソースについてもすべて同様です。
 >
@@ -226,7 +226,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 
 ソースセット構造の中に、手動で中間ソースを導入することができます。これは複数のターゲットの共有コードを保持します。
 
-例えば、ネイティブのLinux、Windows、およびmacOSターゲット（`linuxX64`、`mingwX64`、および `macosX64`）の間でコードを共有したい場合は、次のようにします。
+例えば、ネイティブのLinux、Windows、およびmacOSターゲット（`linuxX64`、`mingwX64`、および `macosArm64`）の間でコードを共有したい場合は、次のようにします。
 
 1. 共有モジュールの `build.gradle(.kts)` ファイルに、これらターゲットの共有ロジックを保持する中間ソースセット `myDesktopMain` を追加します。
 2. `dependsOn` 関係を使用して、ソースセット階層をセットアップします。`commonMain` を `myDesktopMain` に接続し、次に `myDesktopMain` を各ターゲットソースセットに接続します。
@@ -238,7 +238,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
     kotlin {
         linuxX64()
         mingwX64()
-        macosX64()
+        macosArm64()
     
         sourceSets {
             val myDesktopMain by creating {
@@ -247,7 +247,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
     
             linuxX64Main.get().dependsOn(myDesktopMain)
             mingwX64Main.get().dependsOn(myDesktopMain)
-            macosX64Main.get().dependsOn(myDesktopMain)
+            macosArm64Main.get().dependsOn(myDesktopMain)
         }
     }
     ```
@@ -259,7 +259,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
     kotlin {
         linuxX64()
         mingwX64()
-        macosX64()
+        macosArm64()
     
         sourceSets {
             myDesktopMain {
@@ -271,7 +271,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
             mingwX64Main {
                 dependsOn(myDesktopMain)
             }
-            macosX64Main {
+            macosArm64Main {
                 dependsOn(myDesktopMain)
             }
         }

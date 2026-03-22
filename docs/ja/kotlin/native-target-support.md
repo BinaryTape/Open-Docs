@@ -66,14 +66,19 @@ Kotlin/Native コンパイラは多くの異なるターゲットをサポート
 | `mingwX64`              | `x86_64-pc-windows-gnu`          | ✅             | [MinGW](https://www.mingw-w64.org) 互換レイヤーを使用した 64 ビット Windows 10 以降 |
 | Apple macOS ホストのみ: |                                  |               |                                                                                          |
 | `watchosDeviceArm64`    | `aarch64-apple-watchos`          |               | ARM64 プラットフォーム上の Apple watchOS 7.0 以降 |
-| `macosX64`              | `x86_64-apple-macos`             | ✅             | x86_64 プラットフォーム上の Apple macOS 11.0 以降 |
 | `iosX64`                | `x86_64-apple-ios-simulator`     | ✅             | x86-64 プラットフォーム上の Apple iOS シミュレータ 14.0 以降 |
-| `watchosX64`            | `x86_64-apple-watchos-simulator` | ✅             | x86_64 プラットフォーム上の Apple watchOS 7.0 以降の 64 ビットシミュレータ |
-| `tvosX64`               | `x86_64-apple-tvos-simulator`    | ✅             | x86_64 プラットフォーム上の Apple tvOS 14.0 以降のシミュレータ |
 
 > `linuxArm32Hfp` ターゲットは非推奨であり、将来のリリースで削除される予定です。
 > 
 {style="note"}
+
+### 非推奨のターゲット
+
+Kotlin 2.3.20 以降、以下のターゲットは非推奨となりました。
+
+* `macosX64` (x86_64 プラットフォーム上の Apple macOS 11.0 以降)
+* `watchosX64` (x86_64 プラットフォーム上の Apple watchOS 7.0 以降の 64 ビットシミュレータ)
+* `tvosX64` (x86_64 プラットフォーム上の Apple tvOS 14.0 以降のシミュレータ)
 
 ### ライブラリ作者の方へ
 

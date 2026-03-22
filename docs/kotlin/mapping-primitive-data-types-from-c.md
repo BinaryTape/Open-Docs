@@ -113,7 +113,6 @@ cinterop 工具会为每组 `.h` 文件生成一个 Kotlin/Native 库（`.klib` 
     
     kotlin {
         macosArm64("native") {    // Apple 芯片上的 macOS
-        // macosX64("native") {   // x86_64 平台上的 macOS
         // linuxArm64("native") { // ARM64 平台上的 Linux 
         // linuxX64("native") {   // x86_64 平台上的 Linux
         // mingwX64("native") {   // Windows 上
@@ -146,7 +145,6 @@ cinterop 工具会为每组 `.h` 文件生成一个 Kotlin/Native 库（`.klib` 
     
     kotlin {
         macosArm64("native") {    // Apple 芯片上的 macOS
-        // macosX64("native") {   // x86_64 平台上的 macOS
         // linuxArm64("native") { // ARM64 平台上的 Linux
         // linuxX64("native") {   // x86_64 平台上的 Linux
         // mingwX64("native") {   // Windows

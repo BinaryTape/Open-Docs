@@ -326,7 +326,7 @@ jvmTest<Scope>
       <p>在程式碼 <code>Optional&lt;out T&gt;.toList()</code> 中，<code>.toList()</code> 是 <code>Optional</code> 的擴充函式。擴充函式允許您為任何類別編寫額外的函式，當您想要擴充某些程式庫類別的功能時，這特別有用。</p>
    </def>
    <def title="可摺疊項目 #2">
-      <p><a href="https://docs.spring.io/spring-data/jdbc/docs/current/reference/html/#jdbc.entity-persistence">此函式的工作原理</a>是假設新物件在資料庫中沒有 ID。因此，插入時 ID <b>應為 null</b>。</p>
+      <p><a href="https://docs.spring.io/spring-data/relational/reference/#jdbc.entity-persistence">此函式的工作原理</a>是假設新物件在資料庫中沒有 ID。因此，插入時 ID <b>應為 null</b>。</p>
       <p> 如果 ID 不是 <i>null</i>，<code>CrudRepository</code> 會假設該物件已存在於資料庫中，且這是一個<i>更新</i>操作，而非<i>插入</i>操作。在插入操作之後，<code>id</code> 將由資料存儲產生並重新指派給 <code>Message</code> 執行個體。這就是為什麼 <code>id</code> 屬性應使用 <code>var</code> 關鍵字宣告的原因。</p>
       <p></p>
    </def>

@@ -1,14 +1,48 @@
 [//]: # (title: 编译并打包 Maven 项目)
 
-您可以设置您的 Maven 项目以编译纯 Kotlin 或混合 Kotlin 与 Java 源代码，配置 Kotlin 编译器，指定编译器选项，并将您的应用程序打包为 JAR。
+您可以设置您的 Maven 项目以编译仅 Kotlin 或混合 Kotlin 与 Java 源代码，配置 Kotlin 编译器，指定编译器选项，并将您的应用程序打包为 JAR。
 
 ## 配置源代码编译
 
-为了确保您的源代码被正确编译，请调整项目配置。您的 Maven 项目可以设置为编译[仅 Kotlin 源代码](#compile-kotlin-only-sources)或 [Kotlin 和 Java 源代码](#compile-kotlin-and-java-sources)的组合。
+为了确保您的源代码被正确编译，请调整项目配置。
+您的 Maven 项目可以设置为编译[仅 Kotlin 源代码](#compile-kotlin-only-sources)或 [Kotlin 和 Java 源代码](#compile-kotlin-and-java-sources)的组合。
 
 ### 编译仅 Kotlin 源代码
 
-要编译您的 Kotlin 源代码：
+您可以利用 `extensions` 简化 Kotlin 编译的配置：
+
+<tabs group="kotlin-java-maven">
+<tab title="使用扩展程序" group-key="with-extensions">
+
+确保应用 Kotlin Maven 插件时将 `extensions` 选项设置为 `true`：
+
+```xml
+<build>
+   <plugins>
+       <plugin>
+           <groupId>org.jetbrains.kotlin</groupId>
+           <artifactId>kotlin-maven-plugin</artifactId>
+           <version>%kotlinVersion%</version>
+           <extensions>true</extensions> <!-- 启用扩展程序 -->
+       </plugin>
+   </plugins>
+</build>
+```
+
+Kotlin Maven 插件中的 `extensions` 选项会自动执行以下操作：
+
+* 将 `compile`、`test-compile`、`kapt` 和 `test-kapt` 执行添加到您的构建中，并绑定到它们适当的[生命周期阶段](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)。
+* 如果 `src/main/kotlin` 和 `src/test/kotlin` 目录已经存在但未在插件配置中指定，则将其注册为源根目录。
+* 如果项目中尚未定义 [`kotlin-stdlib` 依赖项](maven-configure-project.md#dependency-on-the-standard-library)，则添加该依赖项。
+
+扩展程序配置取代了整个 `<executions>` 部分。如果您需要配置某次执行，请参阅[编译 Kotlin 和 Java 源代码](#compile-kotlin-and-java-sources)中的示例。
+
+> 如果多个构建插件重写了默认生命周期，并且您也启用了 `extensions` 选项，则 `<build>` 部分中的最后一个插件在生命周期设置方面具有优先级。所有早期对生命周期设置的更改都将被忽略。
+>
+{style="note"}
+
+</tab>
+<tab title="不使用扩展程序" group-key="no-extensions">
 
 1. 在 `<build>` 部分指定源代码目录：
 
@@ -28,7 +62,6 @@
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <version>${kotlin.version}</version>
-    
                 <executions>
                     <execution>
                         <id>compile</id>
@@ -36,7 +69,6 @@
                             <goal>compile</goal>
                         </goals>
                     </execution>
-    
                     <execution>
                         <id>test-compile</id>
                         <goals>
@@ -49,17 +81,16 @@
     </build>
     ```
 
-您可以将上述整个 `<executions>` 部分替换为 `<extensions>true</extensions>`。启用扩展程序会自动将 `compile`、`test-compile`、`kapt` 和 `test-kapt` 执行添加到您的构建中，并绑定到它们适当的[生命周期阶段](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)。如果您需要配置某次执行，则需要指定其 ID。您可以在下一节中找到相关示例。
-
-> 如果多个构建插件重写了默认生命周期，并且您也启用了 `extensions` 选项，则 `<build>` 部分中的最后一个插件在生命周期设置方面具有优先级。所有早期对生命周期设置的更改都将被忽略。
->
-{style="note"}
+</tab>
+</tabs>
 
 <!-- The following header is used in the Mari link service. If you wish to change it here, change the link there too -->
 
 ### 编译 Kotlin 和 Java 源代码
 
-要编译同时包含 Kotlin 和 Java 源文件的项目，请确保 Kotlin 编译器在 Java 编译器之前运行。Java 编译器在 Kotlin 声明被编译为 `.class` 文件之前无法看到它们。如果您的 Java 代码使用了 Kotlin 类，为了避免 `cannot find symbol`（找不到符号）错误，必须先编译这些类。
+要编译同时包含 Kotlin 和 Java 源文件的项目，请确保 Kotlin 编译器在 Java 编译器之前运行。
+Java 编译器在 Kotlin 声明被编译为 `.class` 文件之前无法看到它们。
+如果您的 Java 代码使用了 Kotlin 类，为了避免 `cannot find symbol`（找不到符号）错误，必须先编译这些类。
 
 Maven 根据两个主要因素确定插件执行顺序：
 
@@ -90,45 +121,11 @@ Maven 根据两个主要因素确定插件执行顺序：
             <artifactId>kotlin-maven-plugin</artifactId>
             <version>${kotlin.version}</version>
             <extensions>true</extensions>
-            <executions>
-                <execution>
-                    <id>default-compile</id>
-                    <phase>compile</phase>
-                    <configuration>
-                        <sourceDirs>
-                            <sourceDir>src/main/kotlin</sourceDir>
-                            <!-- 确保 Kotlin 代码可以引用 Java 代码 -->
-                            <sourceDir>src/main/java</sourceDir>
-                        </sourceDirs>
-                    </configuration>
-                </execution>
-                <execution>
-                    <id>default-test-compile</id>
-                    <phase>test-compile</phase>
-                    <configuration>
-                        <sourceDirs>
-                            <sourceDir>src/test/kotlin</sourceDir>
-                            <sourceDir>src/test/java</sourceDir>
-                        </sourceDirs>
-                    </configuration>
-                </execution>
-            </executions>
         </plugin>
         <!-- 使用扩展程序无需配置 Maven 编译器插件 -->
     </plugins>
 </build>
 ```
-
-如果您的项目之前是纯 Kotlin 配置，您还需要从 `<build>` 部分中删除以下行：
-
-```xml
-<build>
-    <sourceDirectory>src/main/kotlin</sourceDirectory>
-    <testSourceDirectory>src/test/kotlin</testSourceDirectory>
-</build>
-```
-
-这可以确保在 `extensions` 设置下，Kotlin 代码可以引用 Java 代码，反之亦然。
 
 </tab>
 <tab title="不使用扩展程序" group-key="no-extensions">
@@ -224,14 +221,9 @@ Maven 根据两个主要因素确定插件执行顺序：
 
 ### 选择执行策略
 
-_Kotlin 编译器执行策略_定义了 Kotlin 编译器的运行位置。有两种可用的策略：
+<snippet id="maven-configure-execution-strategy">
 
-| 策略 | Kotlin 编译器的执行位置 |
-|-------------------------|---------------------------------------|
-| Kotlin 守护进程 (默认) | 在其自身的守护进程内 |
-| 进程内 (In process) | 在 Maven 进程内 |
-
-默认情况下，使用 [Kotlin 守护进程](kotlin-daemon.md)。您可以通过在 `pom.xml` 文件中设置以下属性来切换到“进程内”策略：
+默认情况下，Maven 使用 Kotlin 守护进程编译器执行策略。要切换到“进程内”策略，请在您的 `pom.xml` 文件中设置以下属性：
 
 ```xml
 <properties>
@@ -239,7 +231,9 @@ _Kotlin 编译器执行策略_定义了 Kotlin 编译器的运行位置。有两
 </properties>
 ```
 
-无论您使用哪种编译器执行策略，您仍然需要显式配置增量编译。
+</snippet>
+
+有关不同策略的更多信息，请参阅[编译器执行策略](compiler-execution-strategy.md)。
 
 ### 启用增量编译
 
@@ -289,16 +283,16 @@ _Kotlin 编译器执行策略_定义了 Kotlin 编译器的运行位置。有两
 #### JVM 特有的属性
 
 | 名称 | 属性名称 | 描述 | 可能的值 | 默认值 |
-|-------------------|---------------------------------|------------------------------------------------------------------------------------------------------|---------------------------------------------------------|-----------------------------|
-| `nowarn` | | 不生成警告 | true, false | false |
-| `languageVersion` | kotlin.compiler.languageVersion | 提供与指定 Kotlin 版本的源代码兼容性 | "1.9", "2.0", "2.1", "2.2", "2.3", "2.4" (实验性) | |
-| `apiVersion` | kotlin.compiler.apiVersion | 仅允许使用来自指定版本的捆绑库的声明 | "1.9", "2.0", "2.1", "2.2", "2.3", "2.4" (实验性) | |
-| `sourceDirs` | | 包含要编译的源文件的目录 | | 项目源根目录 |
-| `compilerPlugins` | | 已启用的编译器插件 | | [] |
-| `pluginOptions` | | 编译器插件的选项 | | [] |
-| `args` | | 额外的编译器参数 | | [] |
-| `jvmTarget` | `kotlin.compiler.jvmTarget` | 生成的 JVM 字节码的目标版本 | "1.8", "9", "10", ..., "25" | "%defaultJvmTargetVersion%" |
-| `jdkHome` | `kotlin.compiler.jdkHome` | 将指定位置的自定义 JDK 包含到类路径中，而不是使用默认的 JAVA_HOME | | |
+|-------------------|-----------------------------------|------------------------------------------------------------------------------------------------------|---------------------------------------------------------|-----------------------------|
+| `nowarn`          |                                   | 不生成警告 | true, false                                             | false                       |
+| `languageVersion` | `kotlin.compiler.languageVersion` | 提供与指定 Kotlin 版本的源代码兼容性 | "1.9", "2.0", "2.1", "2.2", "2.3", "2.4" (实验性) |                             |
+| `apiVersion`      | `kotlin.compiler.apiVersion`      | 仅允许使用来自指定版本的捆绑库的声明 | "1.9", "2.0", "2.1", "2.2", "2.3", "2.4" (实验性) |                             |
+| `sourceDirs`      |                                   | 包含要编译的源文件的目录 |                                                         | 项目源根目录 |
+| `compilerPlugins` |                                   | 已启用的编译器插件 |                                                         | []                          |
+| `pluginOptions`   |                                   | 编译器插件的选项 |                                                         | []                          |
+| `args`            |                                   | 额外的编译器参数 |                                                         | []                          |
+| `jvmTarget`       | `kotlin.compiler.jvmTarget`       | 生成的 JVM 字节码的目标版本 | "1.8", "9", "10", ..., "25"                             | "%defaultJvmTargetVersion%" |
+| `jdkHome`         | `kotlin.compiler.jdkHome`         | 将指定位置的自定义 JDK 包含到类路径中，而不是使用默认的 JAVA_HOME |                                                         |                             |
 
 ## 打包您的项目
 

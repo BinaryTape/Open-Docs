@@ -113,7 +113,6 @@ C 라이브러리를 생성하려면:
     
     kotlin {
         macosArm64("native") {    // Apple Silicon 기반 macOS
-        // macosX64("native") {   // x86_64 플랫폼 기반 macOS
         // linuxArm64("native") { // ARM64 플랫폼 기반 Linux 
         // linuxX64("native") {   // x86_64 플랫폼 기반 Linux
         // mingwX64("native") {   // Windows
@@ -146,7 +145,6 @@ C 라이브러리를 생성하려면:
     
     kotlin {
         macosArm64("native") {    // Apple Silicon macOS
-        // macosX64("native") {   // x86_64 플랫폼 기반 macOS
         // linuxArm64("native") { // ARM64 플랫폼 기반 Linux
         // linuxX64("native") {   // x86_64 플랫폼 기반 Linux
         // mingwX64("native") {   // Windows

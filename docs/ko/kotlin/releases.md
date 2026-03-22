@@ -4,7 +4,7 @@
 
 <tldr>
     <p>최신 Kotlin 버전: <strong>%kotlinVersion%</strong></p>
-    <p><a href="%kotlinLatestWhatsnew%">Kotlin 2.3.0의 새로운 기능</a>을 확인하고, <a href="%kotlinLatestUrl%">변경 로그(changelog)</a>에서 버그 수정 세부 정보를 찾아보세요.</p>
+    <p><a href="%kotlinLatestWhatsnew%">Kotlin 2.3.20의 새로운 기능</a>을 확인해 보세요.<!-- 및 <a href="%kotlinLatestUrl%">변경 로그(changelog)</a>에서 버그 수정 세부 정보를 찾아보세요.--></p>
 </tldr>
 
 이 페이지에서는 Kotlin의 릴리스 주기와 제공되는 다양한 릴리스 유형에 대해 설명합니다. 또한 과거 및 향후 Kotlin 릴리스에 대한 세부 정보와 특정 릴리스로 업데이트하는 방법에 대한 지침도 포함되어 있습니다.
@@ -15,7 +15,7 @@ Kotlin 2.0.0부터 다음 유형의 릴리스를 제공합니다:
 * _도구 릴리스(Tooling releases)_ (2._x_._20_): 언어 릴리스 사이에 제공되며 도구 업데이트, 성능 개선 및 버그 수정을 포함합니다. 해당 _언어 릴리스_ 후 3개월 이내에 릴리스됩니다.
 * _버그 수정 릴리스(Bug fix releases)_ (2._x_._yz_): _도구 릴리스_에 대한 버그 수정을 포함합니다. 이러한 릴리스에 대한 정확한 일정은 없습니다.
 
-> 예를 들어, 언어 릴리스 2.2.0의 경우 도구 릴리스 2.2.20 하나와 버그 수정 릴리스 2.2.21 하나가 있었습니다.
+> 예를 들어, 언어 릴리스 2.2.0의 경우 도구 릴리스 2.2.20 하나와 버그 수정 릴리스 2.2.21 하나만 있었습니다.
 >
 {style="tip"}
 
@@ -29,8 +29,8 @@ Kotlin 2.0.0부터 다음 유형의 릴리스를 제공합니다:
 
 향후 안정 버전 Kotlin 릴리스의 대략적인 일정은 다음과 같습니다:
 
-* **2.3.20**: 2026년 3월 – 4월 예정
 * **2.4.0**: 2026년 6월 – 7월 예정
+* **2.4.20**: 2026년 9월 예정
 
 ## 새로운 Kotlin 버전으로 업데이트
 
@@ -127,6 +127,16 @@ Kotlin은 JetBrains에서 개발한 공식 Kotlin 플러그인을 통해 [Intell
     <tr>
         <th>빌드 정보</th>
         <th>빌드 주요 사항</th>
+    </tr>
+    <tr>
+        <td><strong>2.3.20</strong>
+            <p>출시일: <strong>2026년 3월 16일</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20" target="_blank">GitHub에서 릴리스 보기</a></p>
+        </td>
+        <td>
+            <p>성능 개선, 버그 수정 및 도구 업데이트를 포함하는 도구 릴리스입니다.</p>
+            <p>자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20">변경 로그</a>를 참조하세요.</p>
+        </td>
     </tr>
     <tr>
         <td><strong>2.3.10</strong>

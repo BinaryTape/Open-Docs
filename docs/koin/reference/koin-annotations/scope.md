@@ -6,7 +6,7 @@ title: Koin Annotations 中的作用域
 
 ## 使用 @Scope 定义作用域
 
-Koin 允许使用作用域。请参阅 [Koin 作用域](/docs/reference/koin-core/scopes.md) 部分以了解更多基础细节。
+Koin 允许使用作用域。请参阅 [Koin 作用域](/docs/reference/koin-core/scopes) 部分以了解更多基础细节。
 
 要使用注解声明作用域，只需在类上使用 `@Scope` 注解，如下所示：
 

@@ -2,300 +2,466 @@
 title: 定義
 ---
 
-Koinを使用することで、モジュール内に定義を記述します。このセクションでは、モジュールの宣言、整理、およびリンクの方法について説明します。
+# 定義
 
-## モジュールの記述
+定義は、Koinがどのように依存関係を作成し管理するかを宣言するものです。このガイドでは、DSLとアノテーションの両方を使用したすべての定義型について説明します。
 
-Koinモジュールは、*すべてのコンポーネントを宣言するためのスペース*です。`module`関数を使用してKoinモジュールを宣言します。
+## 定義の型
+
+| 型 | DSL | アノテーション | ライフサイクル | ユースケース |
+|------|-----|------------|-----------|----------|
+| シングルトン | `single()` | `@Singleton` | アプリの生存期間中、1つのインスタンス | サービス、リポジトリ、データベース |
+| ファクトリ | `factory()` | `@Factory` | リクエストのたびに新しいインスタンス | プレゼンター、ユースケース、状態を持つオブジェクト |
+| スコープ | `scoped()` | `@Scoped` | スコープごとに1つのインスタンス | Activityやセッションに紐づくオブジェクト |
+| ViewModel | `viewModel()` | `@KoinViewModel` | Android ViewModelのライフサイクル | ViewModel |
+
+## 定義の宣言
+
+### コンパイラプラグインDSL（推奨）
 
 ```kotlin
-val myModule = module {
-   // ここに依存関係を記述します
+import org.koin.plugin.module.dsl.*
+
+val appModule = module {
+    // シングルトン
+    single<Database>()
+    single<UserRepository>()
+
+    // ファクトリ - リクエストのたびに新しいインスタンスを作成
+    factory<UserPresenter>()
+
+    // ViewModel
+    viewModel<UserViewModel>()
 }
 ```
 
-このモジュール内では、以下で説明するようにコンポーネントを宣言できます。
-
-## シングルトンの定義
-
-シングルトンコンポーネントを宣言すると、Koinコンテナは宣言されたコンポーネントの*唯一のインスタンス*を保持します。モジュール内でシングルトンを宣言するには、`single`関数を使用します。
+### アノテーション
 
 ```kotlin
-class MyService()
+@Singleton  // または @Single
+class Database
 
-val myModule = module {
+@Singleton
+class UserRepository(private val database: Database)
 
-    // MyServiceクラスのシングルインスタンスを宣言
-    single { MyService() }
+@Factory
+class UserPresenter(private val repository: UserRepository)
+
+@KoinViewModel
+class UserViewModel(private val repository: UserRepository) : ViewModel()
+```
+
+### クラシックDSL
+
+```kotlin
+val appModule = module {
+    // コンストラクタ参照（自動ワイヤリング）を使用
+    singleOf(::Database)
+    singleOf(::UserRepository)
+    factoryOf(::UserPresenter)
+    viewModelOf(::UserViewModel)
+
+    // ラムダ（手動ワイヤリング）を使用
+    single { Database() }
+    single { UserRepository(get()) }
+    factory { UserPresenter(get()) }
+    viewModel { UserViewModel(get()) }
 }
 ```
 
-## ラムダ内でのコンポーネント定義
+## 定義の比較
 
-`single`、`factory`、および`scoped`キーワードを使用すると、ラムダ式を通じてコンポーネントを宣言できます。このラムダは、コンポーネントの構築方法を記述します。通常はコンストラクタを介してコンポーネントをインスタンス化しますが、任意の式を使用することも可能です。
-
-`single { クラスのコンストラクタ // Kotlinの式 }`
-
-ラムダの結果の型が、そのコンポーネントのメインの型になります。
-
-## ファクトリの定義
-
-ファクトリコンポーネントの宣言は、その定義が要求されるたびに*新しいインスタンスを提供する*定義です（このインスタンスはKoinコンテナに保持されないため、後で他の定義にこのインスタンスが注入されることはありません）。コンポーネントを構築するには、ラムダ式とともに`factory`関数を使用します。
-
-```kotlin
-class Controller()
-
-val myModule = module {
-
-    // Controllerクラスのファクトリインスタンスを宣言
-    factory { Controller() }
-}
-```
+| コンセプト | コンパイラプラグインDSL | クラシックDSL | アノテーション |
+|---------|---------------------|-------------|------------|
+| シングルトン | `single<MyClass>()` | `singleOf(::MyClass)` | `@Singleton` / `@Single` |
+| ファクトリ | `factory<MyClass>()` | `factoryOf(::MyClass)` | `@Factory` |
+| スコープ | `scoped<MyClass>()` | `scopedOf(::MyClass)` | `@Scoped` |
+| ViewModel | `viewModel<MyVM>()` | `viewModelOf(::MyVM)` | `@KoinViewModel` |
+| Worker | `worker<MyWorker>()` | `workerOf(::MyWorker)` | `@KoinWorker` |
 
 :::info
- Koinコンテナはファクトリインスタンスを保持しません。定義が要求されるたびに新しいインスタンスを提供するためです。
+コンパイラプラグインはクラスや関数のパラメータを解析し、適切な `get()` 関数の呼び出しを自動生成します。そのため、手動で `get()` を記述する必要はありません。
 :::
 
-## 依存関係の解決と注入
+## Single（シングルトン）
 
-コンポーネントの定義を宣言できるようになったので、次は依存関係の注入（Dependency Injection）によってインスタンスをリンクさせます。Koinモジュール内で*インスタンスを解決*するには、`get()`関数を使用して必要なコンポーネントインスタンスをリクエストするだけです。この`get()`関数は通常、コンストラクタの値を注入するためにコンストラクタ内で使用されます。
-
-:::info
- Koinコンテナで依存関係の注入を行うには、*コンストラクタ注入*のスタイルで記述する必要があります。つまり、クラスのコンストラクタで依存関係を解決します。これにより、インスタンスはKoinから注入されたインスタンスを使用して作成されます。
-:::
-
-複数のクラスを使用した例を見てみましょう：
+アプリ全体で再利用される単一のインスタンスを作成します。
 
 ```kotlin
-// Presenter <- Service
-class Service()
-class Controller(val view : View)
+// DSL
+single<DatabaseHelper>()
 
-val myModule = module {
+// アノテーション
+@Singleton
+class DatabaseHelper
+```
 
-    // Serviceをシングルインスタンスとして宣言
-    single { Service() }
-    // Controllerをシングルインスタンスとして宣言し、get()でViewインスタンスを解決
-    single { Controller(get()) }
+どちらも同じ結果、つまりすべてのコンシューマ（利用側）で共有される単一のインスタンスを作成します。
+
+## Factory（ファクトリ）
+
+リクエストのたびに新しいインスタンスを作成します。
+
+```kotlin
+// DSL
+factory<UserPresenter>()
+
+// アノテーション
+@Factory
+class UserPresenter(private val repository: UserRepository)
+```
+
+## Scoped（スコープ）
+
+スコープごとに1つのインスタンスを作成します。
+
+```kotlin
+// DSL
+scope<MyActivity> {
+    scoped<ActivityPresenter>()
+}
+
+// アノテーション
+@Scoped(MyActivityScope::class)
+class ActivityPresenter
+```
+
+## ViewModel
+
+適切なライフサイクルを持つAndroid ViewModelです。
+
+```kotlin
+// DSL
+viewModel<UserViewModel>()
+
+// アノテーション
+@KoinViewModel
+class UserViewModel(private val repository: UserRepository) : ViewModel()
+```
+
+## インターフェースのバインド
+
+### コンパイラプラグインDSL
+
+```kotlin
+single<UserRepositoryImpl>() bind UserRepository::class
+
+// 複数のバインド
+single<MyServiceImpl>() binds arrayOf(ServiceA::class, ServiceB::class)
+```
+
+### クラシックDSL
+
+```kotlin
+singleOf(::UserRepositoryImpl) bind UserRepository::class
+
+// またはラムダを使用
+single<UserRepository> { UserRepositoryImpl(get()) }
+```
+
+### アノテーション
+
+クラスがインターフェースを実装している場合、**インターフェースのバインドは自動的に行われます**。
+
+```kotlin
+@Singleton
+class UserRepositoryImpl(
+    private val database: Database
+) : UserRepository  // 自動的に UserRepository にバインドされる
+```
+
+明示的にバインドする場合：
+
+```kotlin
+@Singleton
+@Binds(UserRepository::class)
+class UserRepositoryImpl : UserRepository
+```
+
+## クオリファイア（名前の指定された定義）
+
+同じ型の定義が複数ある場合に使用します。取得方法については、[クオリファイアを使用した注入](/docs/reference/koin-core/injection#injection-with-qualifiers)も参照してください。
+
+### コンパイラプラグインDSL
+
+コンパイラプラグインDSLで文字列のクオリファイアを使用する場合（以前 `named()` を使用していたときのように）、`@Named` でアノテーションを付ける必要があります。
+
+```kotlin
+@Named("local")
+class LocalDatabase : Database
+
+@Named("remote")
+class RemoteDatabase : Database
+
+class UserRepository(
+    @Named("local") private val localDb: Database,
+    @Named("remote") private val remoteDb: Database
+)
+
+single<LocalDatabase>()
+single<RemoteDatabase>()
+single<UserRepository>()
+
+// 使用方法
+val localDb: Database = get(named("local"))
+```
+
+### クラシックDSL
+
+```kotlin
+single<Database>(named("local")) { LocalDatabase() }
+single<Database>(named("remote")) { RemoteDatabase() }
+
+// 使用方法
+val localDb: Database = get(named("local"))
+```
+
+### アノテーション
+
+```kotlin
+@Singleton
+@Named("local")
+class LocalDatabase : Database
+
+@Singleton
+@Named("remote")
+class RemoteDatabase : Database
+
+// コンシューマ（利用側）での例
+@Singleton
+class UserRepository(
+    @Named("local") private val localDb: Database,
+    @Named("remote") private val remoteDb: Database
+)
+```
+
+## 注入パラメータ
+
+注入時にパラメータを渡します。
+
+### コンパイラプラグインDSL
+
+`@InjectedParam` を使用して、そのパラメータが注入パラメータ（injected parameters）によって提供されることを示します。
+
+```kotlin
+class UserPresenter(
+    @InjectedParam userId : String,
+    repository : UserRepository
+)
+
+factory<UserPresenter>()
+```
+
+### クラシックDSL
+
+```kotlin
+class UserPresenter(
+    userId : String,
+    repository : UserRepository
+)
+
+factory { params ->
+    UserPresenter(
+        userId = params.get(),
+        repository = get()
+    )
 }
 ```
 
-## 定義：インターフェースのバインド
-
-`single`または`factory`の定義は、指定されたラムダ定義の型（例：`single { T }`）を使用します。
-その定義に一致する型は、この式から得られる唯一の型となります。
-
-クラスと実装されたインターフェースの例を見てみましょう：
+### アノテーション
 
 ```kotlin
-// Serviceインターフェース
-interface Service {
+@Factory
+class UserPresenter(
+    @InjectedParam val userId: String,
+    val repository: UserRepository  // 自動注入される
+)
 
-    fun doSomething()
-}
+// 使用方法
+val presenter: UserPresenter = get { parametersOf("user123") }
+```
 
-// Serviceの実装
-class ServiceImp() : Service {
+## オプショナルな依存関係
 
-    fun doSomething() { ... }
+### コンパイラプラグインDSL
+
+```kotlin
+class MyService(
+    val required: RequiredDep,
+    val optional: OptionalDep?  // getOrNull() で解決される
+)
+
+single<MyService>()
+```
+
+### クラシックDSL
+
+```kotlin
+single {
+    MyService(
+        required = get(),
+        optional = getOrNull()
+    )
 }
 ```
 
-Koinモジュールでは、以下のようにKotlinの`as`キャスト演算子を使用できます。
+### アノテーション
+
+Null許容（Nullable）なパラメータは自動的に処理されます。
 
 ```kotlin
-val myModule = module {
+@Singleton
+class MyService(
+    val required: RequiredDep,
+    val optional: OptionalDep?  // getOrNull() で解決される
+)
+```
 
-    // ServiceImp型のみに一致
-    single { ServiceImp() }
+## 遅延注入
 
-    // Service型のみに一致
-    single { ServiceImp() as Service }
+インスタンスの作成を遅延させます。
 
+### コンパイラプラグインDSL
+
+```kotlin
+class MyService(
+    val lazyDep: Lazy<HeavyDependency>  // 遅延作成
+)
+
+single<MyService>()
+```
+
+### クラシックDSL
+
+```kotlin
+single {
+    MyService(
+        lazyDep = inject()  // Lazy<Dependency>
+    )
 }
 ```
 
-また、推論された型による表現も使用できます：
+### アノテーション
 
 ```kotlin
-val myModule = module {
+@Singleton
+class MyService(
+    val lazyDep: Lazy<HeavyDependency>  // 遅延作成
+)
+```
 
-    // ServiceImp型のみに一致
-    single { ServiceImp() }
+## プロパティ
 
-    // Service型のみに一致
-    single<Service> { ServiceImp() }
+設定値を注入します。
 
+### コンパイラプラグインDSL
+
+```kotlin
+class ApiClient(
+    @Property("api_url") val url: String,
+    @Property("api_key") val key: String
+)
+
+single<ApiClient>()
+```
+
+### クラシックDSL
+
+```kotlin
+single {
+    ApiClient(
+        url = getProperty("api_url"),
+        key = getProperty("api_key", "default")
+    )
 }
 ```
 
-:::note
- この2番目の宣言スタイルが推奨されており、以降のドキュメントでも使用されます。
-:::
-
-## 追加の型バインド
-
-1つの定義から複数の型を一致させたい場合があります。
-
-クラスとインターフェースの例を見てみましょう：
+### アノテーション
 
 ```kotlin
-// Serviceインターフェース
-interface Service {
+@Singleton
+class ApiClient(
+    @Property("api_url") val url: String,
+    @Property("api_key") val key: String
+)
+```
 
-    fun doSomething()
-}
+## コールバック
 
-// Serviceの実装
-class ServiceImp() : Service {
+### onClose コールバック
 
-    fun doSomething() { ... }
+インスタンスが解放されるときにコードを実行します。
+
+```kotlin
+single {
+    Database()
+} onClose {
+    it?.close()  // Koinの停止時、またはスコープの終了時に呼び出される
 }
 ```
 
-定義に追加の型をバインドさせるには、クラスに対して`bind`演算子を使用します。
+### createdAtStart
+
+起動時にインスタンスを先行作成（eager creation）します。
 
 ```kotlin
-val myModule = module {
+// コンパイラプラグインDSL
+single<ConfigManager>() withOptions {
+    createdAtStart()
+}
 
-    // ServiceImp型とService型の両方に一致
-    single { ServiceImp() } bind Service::class
+// クラシックDSL
+single(createdAtStart = true) {
+    ConfigManager()
 }
 ```
 
-ここでは、`get()`を使用して直接`Service`型を解決できます。しかし、`Service`をバインドしている定義が複数ある場合は、`bind<>()`関数を使用する必要があります。
+## 定義のオーバーライド
 
-## 定義：命名とデフォルトのバインド
-
-同じ型の2つの定義を区別するために、定義に名前を指定することができます。
-
-名前を指定して定義をリクエストするだけです：
+### デフォルト：後勝ち（Last Wins）
 
 ```kotlin
-val myModule = module {
-    single<Service>(named("default")) { ServiceImpl() }
-    single<Service>(named("test")) { ServiceImpl() }
+val prodModule = module {
+    single<ApiService> { ProductionApi() }
 }
 
-val service : Service by inject(qualifier = named("default"))
-```
-
-`get()`および`by inject()`関数では、必要に応じて定義名を指定できます。この名前は、`named()`関数によって生成される`qualifier`です。
-
-デフォルトでは、Koinは型によって定義をバインドしますが、その型が既に別の定義にバインドされている場合は名前によってバインドします。
-
-```kotlin
-val myModule = module {
-    single<Service> { ServiceImpl1() }
-    single<Service>(named("test")) { ServiceImpl2() }
-}
-```
-
-この場合：
-
-- `val service : Service by inject()` は `ServiceImpl1` の定義をトリガーします
-- `val service : Service by inject(named("test"))` は `ServiceImpl2` の定義をトリガーします
-
-## 注入パラメータの宣言
-
-どの定義においても、注入パラメータ（定義によって注入され使用されるパラメータ）を使用できます。
-
-```kotlin
-class Presenter(val view : View)
-
-val myModule = module {
-    single { (view : View) -> Presenter(view) }
-}
-```
-
-解決された依存関係（`get()`で解決されるもの）とは異なり、注入パラメータは*解決APIを通じて渡されるパラメータ*です。
-これは、それらのパラメータが`get()`や`by inject()`において、`parametersOf`関数を使用して渡される値であることを意味します。
-
-```kotlin
-val presenter : Presenter by inject { parametersOf(view) }
-```
-
-詳細は [注入パラメータのセクション](/docs/reference/koin-core/injection-parameters) を参照してください。
-
-## 定義の終了 - OnClose
-
-`onClose`関数を使用すると、定義にコールバックを追加し、定義のクローズが呼び出された際に実行させることができます。
-
-```kotlin
-class Presenter(val view : View)
-
-val myModule = module {
-    factory { (view : View) -> Presenter(view) } onClose { // クローズ時のコールバック - 対象はPresenter }
-}
-```
-
-## 定義フラグの使用
-
-Koin DSLでは、いくつかのフラグも提供されています。
-
-### 開始時にインスタンスを作成する
-
-定義またはモジュールに`CreatedAtStart`フラグを立てることで、開始時（または任意のタイミング）に作成されるように指定できます。まず、モジュールまたは定義に`createdAtStart`フラグを設定します。
-
-定義におけるCreatedAtStartフラグ：
-
-```kotlin
-val myModuleA = module {
-
-    single<Service> { ServiceImp() }
+val testModule = module {
+    single<ApiService> { MockApi() }  // 本番用をオーバーライドする
 }
 
-val myModuleB = module {
-
-    // この定義を先行作成（eager creation）する
-    single<Service>(createdAtStart=true) { TestServiceImp() }
-}
-```
-
-モジュールにおけるCreatedAtStartフラグ：
-
-```kotlin
-val myModuleA = module {
-
-    single<Service> { ServiceImp() }
-}
-
-val myModuleB = module(createdAtStart=true) {
-
-    single<Service>{ TestServiceImp() }
-}
-```
-
-`startKoin`関数は、`createdAtStart`フラグが立てられた定義のインスタンスを自動的に作成します。
-
-```kotlin
-// Koinモジュールを開始
 startKoin {
-    modules(myModuleA, myModuleB)
+    modules(prodModule, testModule)
 }
 ```
 
-:::info
-特定のタイミング（例えば、UIスレッドではなくバックグラウンドスレッドなど）で定義をロードする必要がある場合は、単に必要なコンポーネントをget/injectしてください。
-:::
+### 明示的なオーバーライド
 
-### ジェネリクスの扱い
-
-Koinの定義では、ジェネリクスの型引数は考慮されません。例えば、以下のモジュールはListの2つの定義を行おうとしています：
+厳密モード（strict mode）では、オーバーライドを明示的にマークします。
 
 ```kotlin
-module {
-    single { ArrayList<Int>() }
-    single { ArrayList<String>() }
+val testModule = module {
+    single<ApiService> { MockApi() }.override()
+}
+
+startKoin {
+    allowOverride(false)
+    modules(prodModule, testModule)
 }
 ```
 
-Koinはこのような定義では起動しません。一方が他方をオーバーライドしようとしていると解釈するためです。
+## ベストプラクティス
 
-これら2つの定義を使用できるようにするには、名前または場所（モジュール）によってそれらを区別する必要があります。例：
+1. **コンストラクタ注入を優先する** - Koinなしでコードをテスト可能にします。
+2. **状態を持たないサービスには `single` を使用する** - リポジトリ、クライアント、ヘルパーなど。
+3. **状態を持つオブジェクトには `factory` を使用する** - 状態を持つプレゼンター、ユースケースなど。
+4. **ライフサイクルに紐づくオブジェクトには `scoped` を使用する** - Activity、Fragment、セッションなど。
+5. **クオリファイアの使用を最小限に抑える** - 可能な場合は代わりに異なるインターフェースを使用します。
+6. **インターフェースにバインドする** - 実装ではなく抽象に依存させます。
+7. **外部ライブラリには `create(::builder)` を使用する** - より安全な依存関係の解決が可能です。
 
-```kotlin
-module {
-    single(named("Ints")) { ArrayList<Int>() }
-    single(named("Strings")) { ArrayList<String>() }
-}
+## 次のステップ
+
+- **[注入](/docs/reference/koin-core/injection)** - 依存関係の取得
+- **[クオリファイア](/docs/reference/koin-core/qualifiers)** - 名前付きおよび型付きのクオリファイア
+- **[アドバンスドパターン](/docs/reference/koin-core/advanced-patterns)** - コレクション、デコレータ、外部ライブラリ
+- **[スコープ](/docs/reference/koin-core/scopes)** - ライフサイクルの管理

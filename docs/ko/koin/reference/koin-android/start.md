@@ -12,7 +12,7 @@ title: Android에서 Koin 시작하기
 class MainApplication : Application() {
 
     override fun onCreate() {
-        super.onCreate()
+        super.super.onCreate()
 
         startKoin {
             // Android 로거에 Koin 로그 기록
@@ -37,6 +37,50 @@ startKoin {
     // Android 컨텍스트 주입
     androidContext(/* your android context */)
     // ...
+}
+```
+
+## 애노테이션으로 Koin 시작하기
+
+Koin 애노테이션(Annotations)을 사용하는 경우, `startKoin<T>()`를 사용하여 애노테이션이 지정된 모듈 클래스로 Koin을 시작할 수 있습니다:
+
+```kotlin
+@KoinApplication
+class MainApplication : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+
+        startKoin<MainApplication> {
+            androidLogger()
+            androidContext(this@MainApplication)
+        }
+    }
+}
+```
+
+`startKoin<T>()` 함수는 `@Module` 애노테이션이 지정된 클래스에서 생성된 모듈을 자동으로 로드합니다.
+
+여러 모듈을 사용하는 경우:
+
+```kotlin
+@Module
+@Configuration
+@ComponentScan("com.myapp.data")
+class DataModule
+
+@Module
+@Configuration
+@ComponentScan("com.myapp.domain")
+class DomainModule
+
+@KoinApplication
+class MainApplication
+
+// 여러 모듈로 시작하기
+startKoin<MainApplication> {
+    androidLogger()
+    androidContext(this@MainApplication)
 }
 ```
 
@@ -70,7 +114,9 @@ startKoin {
 }
 ```
 
-## AndroidX Startup으로 Koin 시작하기 (4.0.1) [실험적]
+## AndroidX Startup으로 Koin 시작하기 (4.0.1)
+
+[AndroidX Startup](https://developer.android.com/topic/libraries/app-startup)은 앱 시작 시 구성 요소를 초기화하는 간단한 방법을 제공하는 라이브러리입니다. 단일 ContentProvider를 사용하여 모든 의존성을 초기화하므로, 조기 초기화가 필요한 각 구성 요소에 대해 별도의 ContentProvider를 사용하는 오버헤드를 방지합니다.
 
 `koin-androidx-startup` Gradle 패키지를 사용하면, `KoinStartup` 인터페이스를 사용하여 Application 클래스에 Koin 설정을 선언할 수 있습니다:
 
@@ -91,16 +137,17 @@ class MainApplication : Application(), KoinStartup {
 이 방식은 일반적으로 `onCreate`에서 사용하는 `startKoin` 함수를 대체합니다. `koinConfiguration` 함수는 `KoinConfiguration` 인스턴스를 반환합니다.
 
 :::info
-`KoinStartup`은 시작 시 메인 스레드 차단을 방지하며 더 나은 성능을 제공합니다.
+`KoinStartup`은 AndroidX App Startup과 통합되어 `Application.onCreate()` 이전에 ContentProvider를 통해 Koin을 초기화합니다. 이는 Koin이 준비되어 있어야 하는 다른 Initializer들과의 초기화 순서를 관리해야 할 때 유용합니다.
 :::
 
-## Koin과의 Startup 의존성
+:::warning
+`KoinStartup`은 앱 시작 시 메인 스레드에서 실행됩니다. 다른 Initializer를 관리하기 위해 AndroidX App Startup 라이브러리를 사용하지 않는다면, `KoinStartup`을 사용할 **이점이 없습니다**. 대신 표준 `startKoin` 방식을 사용하세요. 모듈 로딩을 백그라운드 스레드로 분산하려면 [Lazy Modules](/docs/reference/koin-core/lazy-modules)를 참고하세요.
+:::
 
-Koin 설정이 완료되어야 하고 의존성 주입이 필요한 경우, `Initializer`가 `KoinInitializer`에 의존하도록 만들 수 있습니다:
+Koin이 필요한 다른 Initializer가 있는 경우, 해당 Initializer가 `KoinInitializer`에 의존하도록 설정하세요:
 
 ```kotlin
 class CrashTrackerInitializer : Initializer<Unit>, KoinComponent {
-
     private val crashTrackerService: CrashTrackerService by inject()
 
     override fun create(context: Context) {
@@ -110,5 +157,12 @@ class CrashTrackerInitializer : Initializer<Unit>, KoinComponent {
     override fun dependencies(): List<Class<out Initializer<*>>> {
         return listOf(KoinInitializer::class.java)
     }
-
 }
+```
+
+## 다음 단계
+
+- **[JSR-330 호환성](/docs/reference/koin-android/jsr330)** - 표준 `@Inject`, `@Singleton` 애노테이션 사용
+- **[Android에서 주입하기](/docs/reference/koin-android/get-instances)** - Activity, Fragment, Service에서 인스턴스 가져오기
+- **[Android ViewModel](/docs/reference/koin-android/viewmodel)** - ViewModel 주입 및 스코핑(scoping)
+- **[Hilt 마이그레이션](/docs/reference/koin-android/hilt-migration)** - Hilt에서 Koin으로 마이그레이션하기

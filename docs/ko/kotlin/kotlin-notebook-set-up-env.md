@@ -14,7 +14,7 @@
 
 Kotlin Notebook은 [Kotlin Notebook 플러그인](https://plugins.jetbrains.com/plugin/16340-kotlin-notebook)을 기반으로 동작하며, 이 플러그인은 IntelliJ IDEA에 기본적으로 포함되어 활성화되어 있습니다.
 
-Kotlin Notebook을 사용하려면 최신 버전의 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html)를 다운로드하여 설치하세요.
+Kotlin Notebook을 사용하려면 최신 버전의 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)를 다운로드하여 설치하세요.
 
 Kotlin Notebook 기능을 사용할 수 없는 경우, 플러그인이 활성화되어 있는지 확인하세요:
 

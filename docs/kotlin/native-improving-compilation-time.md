@@ -34,7 +34,7 @@ Kotlin/Native 编译器不断接收改进其性能的更新。通过使用最新
 
 要增加 [Gradle 堆大小](https://docs.gradle.org/current/userguide/performance.html#adjust_the_daemons_heap_size)，请将 `org.gradle.jvmargs=-Xmx3g` 添加到您的 `gradle.properties` 文件中。
 
-如果您使用 [并行构建](https://docs.gradle.org/current/userguide/performance.html#parallel_execution)，您可能需要使用 `org.gradle.workers.max` 属性或 `--max-workers` 命令行选项选择合适的工作线程数量。默认值为 CPU 处理器核心数。
+如果您使用 [并行构建](https://docs.gradle.org/current/userguide/performance.html#parallel_execution)，您可能需要使用 `org.gradle.workers.max` 属性或 `--max-workers` 命令行选项选择合适的工作线程数量。默认值为 CPU 处理器数。
 
 ### 仅构建必要的二进制文件
 
@@ -101,10 +101,9 @@ Gradle [配置缓存](https://docs.gradle.org/current/userguide/configuration_ca
 有些 Kotlin/Native 属性会禁用 Gradle daemon 和编译器缓存：
 
 * `kotlin.native.disableCompilerDaemon=true`
-* `kotlin.native.cacheKind=none`
-* `kotlin.native.cacheKind.$target=none`，其中 `$target` 是 Kotlin/Native 编译目标，例如 `iosSimulatorArm64`。
+* Gradle 构建文件 `binaries {}` 块中的 [`disableNativeCache`](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#binaries) DSL。
 
-如果您之前在使用这些功能时遇到问题，并将这些行添加到了 `gradle.properties` 文件或 Gradle 参数中，请移除它们并检查构建是否可以成功完成。这些属性可能是之前为了解决已修复的问题而添加的。
+如果您之前在使用这些功能时遇到问题，并将这些行添加到了 `gradle.properties` 文件或 Gradle 构建文件中，请移除它们并检查构建是否可以成功完成。这些属性可能是之前为了解决已修复的问题而添加的。
 
 ### 尝试 klib 工件的增量编译
 

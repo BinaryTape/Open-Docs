@@ -123,7 +123,7 @@ plugins {
 kotlin {
     jvm()
     iosArm64()
-    macosX64()
+    macosArm64()
     js().browser()
 }
 ```
@@ -246,16 +246,17 @@ kotlin {
 
 对于二进制文件配置，可以使用以下参数：
 
-| **名称**      | **说明**                                                                                                                              | 
-|---------------|---------------------------------------------------------------------------------------------------------------------------------------|
-| `compilation` | 构建二进制文件所属的编译。默认情况下，`test` 二进制文件基于 `test` 编译，而其他二进制文件基于 `main` 编译。                           |
-| `linkerOpts`  | 在二进制文件构建期间传递给系统链接器的选项。                                                                                          |
-| `baseName`    | 输出文件的自定义基本名称。最终文件名将通过在此基本名称后添加系统相关的显式前缀和后缀形成。                                           |
-| `entryPoint`  | 可执行二进制文件的入口点函数。默认情况下，它是根软件包中的 `main()`。                                                                 |
-| `outputFile`  | 访问输出文件。                                                                                                                        |
-| `linkTask`    | 访问链接任务。                                                                                                                        |
-| `runTask`     | 访问可执行二进制文件的运行任务。对于 `linuxX64`、`macosX64` 或 `mingwX64` 以外的目标，该值为 `null`。                               |
-| `isStatic`    | 用于 Objective-C 框架。包含静态库而不是动态库。                                                                                       |
+| **名称**             | **说明**                                                                                                                                                                 | 
+|----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `compilation`        | 构建二进制文件所属的编译。默认情况下，`test` 二进制文件基于 `test` 编译，而其他二进制文件基于 `main` 编译。                                                              |
+| `linkerOpts`         | 在二进制文件构建期间传递给系统链接器的选项。                                                                                                                             |
+| `baseName`           | 输出文件的自定义基本名称。最终文件名将通过在此基本名称后添加系统相关的显式前缀和后缀形成。                                                                              |
+| `entryPoint`         | 可执行二进制文件的入口点函数。默认情况下，它是根软件包中的 `main()`。                                                                                                    |
+| `outputFile`         | 访问输出文件。                                                                                                                                                           |
+| `linkTask`           | 访问链接任务。                                                                                                                                                           |
+| `runTask`            | 访问可执行二进制文件的运行任务。对于 `linuxX64`、`macosX64` 或 `mingwX64` 以外的目标，该值为 `null`。                                                                  |
+| `isStatic`           | 用于 Objective-C 框架。包含静态库而不是动态库。                                                                                                                          |
+| `disableNativeCache` | <p>禁用编译缓存。由于会增加编译时间，请仅在特殊情况下使用。</p><p>必须包含禁用了缓存的 Kotlin `version` 以及 `reason`（原因）。（可选）可以指定指向问题跟踪器中 `issue` 的 URL。</p> |
 
 <Tabs group="build-script">
 <TabItem title="Kotlin" group-key="kotlin">
@@ -289,6 +290,13 @@ binaries {
     framework("my_framework" listOf(RELEASE)) {
         // 在框架中包含静态库而不是动态库。
         isStatic = true
+
+        // 为此二进制文件禁用编译缓存
+        disableNativeCache(
+            version = DisableCacheInKotlinVersion.2_3_0,
+            reason = "Cache bug",
+            issue = URI("https://youtrack.com/YY-1111")
+        )
     }
 }
 ```
@@ -325,6 +333,13 @@ binaries {
     framework('my_framework' [RELEASE]) {
         // 在框架中包含静态库而不是动态库。
         isStatic = true
+
+        // 为此二进制文件禁用编译缓存
+        disableNativeCache(
+            version = DisableCacheInKotlinVersion.2_3_0,
+            reason = 'Cache bug',
+            issue = URI('https://youtrack.com/YY-1111')
+        )
     }
 }
 ```
@@ -507,7 +522,7 @@ kotlin {
 kotlin {
     //...
     sourceSets { 
-        val myMain by creating { /* ... */ } // 创建一个名为 'myMain' 的新源集
+        val myMain by creating { /* ... */ } // 创建一个名为 'MyMain' 的新源集
     }
 }
 ```
@@ -708,7 +723,7 @@ kotlin {
 | `defaultSourceSet`       | 编译的默认源集。                                                                                                                                   |
 | `kotlinSourceSets`       | 参与编译的源集。                                                                                                                                   |
 | `allKotlinSourceSets`    | 参与编译的源集及其通过 `dependsOn()` 建立的连接。                                                                                                  |
-| `compilerOptions`        | 应用于编译的编译器选项。有关可用选项的列表，请参阅 [编译器选项](https://kotlinlang.org/docs/gradle-compiler-options.html)。                        |
+| `compilerOptions`        | 应用于编译的编译器选项。有关可用选项的列表，请参阅 [编译器选项](#compiler-options)。                                                               |
 | `compileKotlinTask`      | 用于编译 Kotlin 源代码的 Gradle 任务。                                                                                                             |
 | `compileKotlinTaskName`  | `compileKotlinTask` 的名称。                                                                                                                       |
 | `compileAllTaskName`     | 用于编译某个编译中所有源代码的 Gradle 任务名称。                                                                                                   |

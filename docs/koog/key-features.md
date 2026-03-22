@@ -2,13 +2,13 @@
 
 Koog 的核心功能包括：
 
-- **多平台开发**：使用 Kotlin Multiplatform 将智能体部署到 JVM、JS、WasmJS、Android 和 iOS 目标平台。
+- **符合习惯的 Kotlin 和 Java 支持**：在类型安全的 Kotlin DSL 或专用的流式 Java 构建器 API 之间进行选择。Java API 旨在让 Java 团队感到自然，使用标准线程池执行器而非公开协程。
 - **可靠性与容错**：通过内置重试机制处理失败，并利用智能体持久化功能在执行过程中的特定点恢复智能体状态。
 - **智能历史记录压缩**：使用先进的内置历史记录压缩技术，在保持长期对话上下文的同时优化 token 使用量。
 - **企业级集成**：利用与 Spring Boot 和 Ktor 等流行 JVM 框架的集成，将 Koog 嵌入到您的应用程序中。
 - **通过 OpenTelemetry 导出器实现可观测性**：利用对流行可观测性提供商（W&B Weave、Langfuse）的内置支持，监控并调试应用程序。
 - **LLM 切换与无缝历史记录适配**：在任何时间点切换到不同的 LLM 而不丢失现有对话历史记录，或在多个 LLM 提供商之间重新路由。
-- **与 JVM 和 Kotlin 应用程序集成**：使用专门为 JVM 和 Kotlin 开发者设计的、符合习惯且类型安全的 Kotlin DSL 来构建 AI 智能体。
+- **多平台开发**：对于使用 Kotlin 编写的智能体，利用 Kotlin Multiplatform 将智能体部署到 JVM、JS、WasmJS、Android 和 iOS 目标平台。
 - **Model Context Protocol 集成**：在 AI 智能体中使用 Model Context Protocol (MCP) 工具。
 - **知识检索与记忆**：利用向量嵌入、排序文档存储和共享智能体内存，在对话之间保留并检索知识。
 - **强大的流式 API**：通过流式支持和并行工具调用实时处理响应。

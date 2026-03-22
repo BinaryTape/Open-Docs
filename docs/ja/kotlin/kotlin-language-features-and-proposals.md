@@ -4,10 +4,11 @@
 
 JetBrains は、実用的な設計に基づいた [Kotlin 言語進化の原則](kotlin-evolution-principles.md)に従って、Kotlin 言語を進化させています。
 
-> 言語機能の提案は Kotlin 1.7.0 以降のものがリストされています。
->
-> 言語機能のステータスの説明については、[Kotlin 進化の原則ドキュメント](kotlin-evolution-principles.md#pre-stable-features)を参照してください。
->
+> 言語機能の提案は Kotlin 1.7.0 以降のものがリストされています。 
+> 
+> 言語機能のステータスの説明については、
+> [Kotlin 進化の原則ドキュメント](kotlin-evolution-principles.md#pre-stable-features)を参照してください。
+> 
 {style="note"}
 
 <tabs>
@@ -24,22 +25,6 @@ JetBrains は、実用的な設計に基づいた [Kotlin 言語進化の原則]
 
 <tr filter="exploration-and-design">
 <td width="200">
-
-**検討および設計**
-
-</td>
-<td>
-
-**名前ベースの分割代入 (Name-based destructuring)**
-
-* KEEP 提案: [name-based-destructuring.md](https://github.com/Kotlin/KEEP/blob/name-based-destructuring/proposals/name-based-destructuring.md)
-* YouTrack イシュー: [KT-19627](https://youtrack.jetbrains.com/issue/KT-19627)
-
-</td>
-</tr>
-
-<tr filter="exploration-and-design">
-<td>
 
 **検討および設計**
 
@@ -188,6 +173,24 @@ JetBrains は、実用的な設計に基づいた [Kotlin 言語進化の原則]
 <!-- END OF KEEP DISCUSSION BLOCK -->
 
 <!-- IN PREVIEW BLOCK -->
+
+<tr filter="in-preview">
+<td width="200">
+
+**プレビュー中**
+
+</td>
+<td>
+
+**名前ベースの分割代入 (Name-based destructuring)**
+
+* KEEP 提案: [name-based-destructuring.md](https://github.com/Kotlin/KEEP/blob/name-based-destructuring/proposals/name-based-destructuring.md)
+* YouTrack イシュー: [KT-19627](https://youtrack.jetbrains.com/issue/KT-19627)
+* 安定性レベル: [試験的 (Experimental)](components-stability.md#stability-levels-explained)
+* 利用可能バージョン: 2.3.20
+
+</td>
+</tr>
 
 <tr filter="in-preview">
 <td width="200">
@@ -597,22 +600,6 @@ JetBrains は、実用的な設計に基づいた [Kotlin 言語進化の原則]
 </td>
 <td>
 
-**名前ベースの分割代入 (Name-based destructuring)**
-
-* KEEP 提案: [name-based-destructuring.md](https://github.com/Kotlin/KEEP/blob/name-based-destructuring/proposals/name-based-destructuring.md)
-* YouTrack イシュー: [KT-19627](https://youtrack.jetbrains.com/issue/KT-19627)
-
-</td>
-</tr>
-
-<tr filter="exploration-and-design">
-<td>
-
-**検討および設計**
-
-</td>
-<td>
-
 **不変性のサポート (Support immutability)**
 
 * KEEP ノート: [immutability](https://github.com/Kotlin/KEEP/blob/master/notes/value-classes.md#immutability-and-value-classes)
@@ -760,6 +747,24 @@ JetBrains は、実用的な設計に基づいた [Kotlin 言語進化の原則]
 <tab id="in-preview" title="プレビュー中">
 
 <table>
+<tr filter="in-preview">
+<td width="200">
+
+**プレビュー中**
+
+</td>
+<td>
+
+**名前ベースの分割代入 (Name-based destructuring)**
+
+* KEEP 提案: [name-based-destructuring.md](https://github.com/Kotlin/KEEP/blob/name-based-destructuring/proposals/name-based-destructuring.md)
+* YouTrack イシュー: [KT-19627](https://youtrack.jetbrains.com/issue/KT-19627)
+* 安定性レベル: [試験的 (Experimental)](components-stability.md#stability-levels-explained)
+* 利用可能バージョン: 2.3.20
+
+</td>
+</tr>
+
 <tr filter="in-preview">
 <td width="200">
 

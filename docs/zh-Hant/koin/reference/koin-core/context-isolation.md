@@ -2,75 +2,79 @@
 title: 上下文隔離
 ---
 
-## 什麼是上下文隔離？
+上下文隔離允許 SDK 製作人員在不與宿主應用程式的 Koin 執行個體（instance）產生衝突的情況下使用 Koin。
 
-對於 SDK 製作人員（Makers），你也可以透過非全域的方式使用 Koin：在你的程式庫中使用 Koin 進行相依注入（DI），並透過隔離你的上下文（context），避免使用你程式庫的人與 Koin 產生任何衝突。
+:::info
+關於一般的 Koin 設定，請參閱 **[啟動 Koin](/docs/reference/koin-core/starting-koin)**。
+:::
 
-以標準方式，我們可以這樣啟動 Koin：
+## 何時使用上下文隔離
 
-```kotlin
-// 啟動一個 KoinApplication 並將其註冊到 Global context
-startKoin {
+- **SDK/程式庫開發** - 你的程式庫在內部使用 Koin
+- **避免衝突** - 宿主應用程式可能也使用了 Koin
+- **封裝** - 保持你的 DI 容器私有
 
-    // 宣告使用的 modules
-    modules(...)
-}
-```
+## 建立隔離的上下文
 
-這會使用預設的 Koin 上下文來註冊你的相依性。
-
-但如果我們想使用隔離的 Koin 執行個體（instance），你需要宣告一個執行個體並將其存儲在一個類別中以持有該執行個體。
-你必須讓你的 Koin 應用程式執行個體在程式庫中保持可用，並將其傳遞給你的自訂 `KoinComponent` 實作：
-
-這裡的 `MyIsolatedKoinContext` 類別持有我們的 Koin 執行個體：
+不要使用 `startKoin`（它會在 `GlobalContext` 中註冊），而是使用 `koinApplication`：
 
 ```kotlin
-// 為你的 Koin 執行個體獲取一個 Context
-object MyIsolatedKoinContext {
+// 為你的 SDK 建立隔離的 Koin 上下文
+object MySdkKoinContext {
 
     private val koinApp = koinApplication {
-        // 宣告使用的 modules
-        modules(coffeeAppModule)
+        modules(sdkModule)
     }
 
-    val koin = koinApp.koin 
+    val koin = koinApp.koin
+}
+
+val sdkModule = module {
+    single<SdkService>()
+    single<SdkRepository>()
 }
 ```
 
-讓我們使用 `MyIsolatedKoinContext` 來定義我們的 `IsolatedKoinComponent` 類別，這是一個將使用我們隔離上下文的 `KoinComponent`：
+## 自訂 KoinComponent
+
+建立一個使用你隔離上下文的自訂 `KoinComponent`：
 
 ```kotlin
-internal interface IsolatedKoinComponent : KoinComponent {
+internal interface SdkKoinComponent : KoinComponent {
+    // 覆寫以使用隔離的上下文
+    override fun getKoin(): Koin = MySdkKoinContext.koin
+}
 
-    // 覆寫預設的 Koin 執行個體
-    override fun getKoin(): Koin = MyIsolatedKoinContext.koin
+// 在你的 SDK 類別中使用
+class MySdkClass : SdkKoinComponent {
+    private val service: SdkService by inject()  // 使用隔離的上下文
 }
 ```
 
-一切準備就緒，只需使用 `IsolatedKoinComponent` 從隔離上下文中檢索執行個體：
+## 測試隔離的上下文
+
+在測試中覆寫 `getKoin()` 以使用隔離的上下文：
 
 ```kotlin
-class MyKoinComponent : IsolatedKoinComponent {
-    // inject 與 get 將會以 MyKoinContext 為目標
-}
-```
-
-## 測試
-
-若要測試使用 `by inject()` 委派檢索相依性的類別，請覆寫 `getKoin()` 方法並定義自訂 Koin 模組：
-
-```kotlin
-class MyClassTest : KoinTest {
-    // 用於檢索相依性的 Koin 上下文
-    override fun getKoin(): Koin = MyIsolatedKoinContext.koin
+class SdkTest : KoinTest {
+    override fun getKoin(): Koin = MySdkKoinContext.koin
 
     @Before
     fun setUp() {
-       // 定義自訂 Koin 模組
-        val module = module {
-            // 註冊相依性
+        val testModule = module {
+            single<SdkService> { MockSdkService() }
         }
+        koin.loadModules(listOf(testModule))
+    }
 
-        koin.loadModules(listOf(module))
+    @After
+    fun tearDown() {
+        koin.unloadModules(listOf(testModule))
     }
 }
+```
+
+## 延伸閱讀
+
+- **[啟動 Koin](/docs/reference/koin-core/starting-koin)** - 標準 Koin 設定
+- **[Compose 隔離上下文](/docs/reference/koin-compose/isolated-context)** - Compose 應用程式中的隔離

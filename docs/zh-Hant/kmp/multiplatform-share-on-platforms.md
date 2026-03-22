@@ -14,10 +14,10 @@
 ![在所有平台上分享程式碼](flat-structure.svg)
 
 原始碼集的一些相依性是預設設定的。您不需要手動指定任何 `dependsOn` 關係：
-* 適用於所有相依於 `common` 原始碼集的平台特定原始碼集，例如 `jvmMain`、`macosX64Main` 等。 
+* 適用於所有相依於 `common` 原始碼集的平台特定原始碼集，例如 `jvmMain`、`macosArm64Main` 等。 
 * 在特定目標的 `main` 和 `test` 原始碼集之間，例如 `androidMain` 和 `androidUnitTest`。
 
-如果您需要從共享程式碼存取平台特定 API，請使用 Kotlin 的 [expected 與 actual 宣告](multiplatform-expect-actual.md)機制。
+如果您與共享程式碼需要存取平台特定 API，請使用 Kotlin 的 [expected 與 actual 宣告](multiplatform-expect-actual.md)機制。
 
 ## 在相似平台上分享程式碼
 

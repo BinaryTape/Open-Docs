@@ -43,7 +43,7 @@ print(
 
 ## 开始之前
 
-下载并安装最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html)。
+下载并安装最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)。
 
 ## 创建项目
 

@@ -18,7 +18,7 @@
 
 ## 始める前に
 
-1. 最新バージョンの [IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html) をダウンロードしてインストールします。
+1. 最新バージョンの [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) をダウンロードしてインストールします。
 2. [プロジェクトテンプレート](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle)をクローンし、IntelliJ IDEAで開きます。テンプレートには、必要なすべての構成と依存関係が含まれた基本的なKotlinマルチプラットフォームGradleプロジェクトが含まれています。
 
    * `build.gradle.kts` ファイル内の依存関係とタスク：
@@ -936,7 +936,7 @@ Reactには、これらの機能を自分で構築する代わりに使用でき
 
 最初に考えられる問題は、`fetch()` のようなブラウザAPIが非ブロッキング操作を実行するために [コールバック](https://developer.mozilla.org/en-US/docs/Glossary/Callback_function) を使用することです。複数のコールバックを次々に実行する必要がある場合、それらをネストする必要があります。当然、コードは深くインデントされ、より多くの機能が互いに積み重なり、読みづらくなります。
 
-これを克服するために、このような機能に対する優れたアプローチであるKotlinのコルーチンを使用できます。
+これを克服するために、このような機能に対する優れたアプローチであるKotlin의 コルーチンを使用できます。
 
 2つ目の問題は、JavaScriptの動的型付けの性質から生じます。外部APIから返されるデータの型に関する保証はありません。これを解決するために、`kotlinx.serialization` ライブラリを使用できます。
 

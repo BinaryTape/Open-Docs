@@ -453,9 +453,15 @@ foo {
 ```
 
 #### Objective-C ブロック型における明示的なパラメータ名
+<primary-label ref="experimental-opt-in"/>
 
-Kotlin は、エクスポートされる Objective-C ヘッダーの関数型に明示的なパラメータ名を追加します。
-Xcode のオートコンプリートは、Objective-C ブロック内で Objective-C 関数を呼び出す際に、これらの名前を提案します。
+エクスポートされる Objective-C ヘッダーの Kotlin の関数型に明示的なパラメータ名を追加できます。Xcode のオートコンプリートは、Objective-C ブロック内で Objective-C 関数を呼び出す際に、これらの名前を提案します。これにより、生成されたブロックにおける Clang の警告を回避できます。
+
+明示的なパラメータ名を有効にするには、`gradle.properties` ファイルに以下の[バイナリオプション](native-binary-options.md)を追加してください：
+
+```none
+kotlin.native.binary.objcExportBlockExplicitParameterNames=true
+```
 
 たとえば、以下の Kotlin コードの場合：
 
@@ -476,14 +482,6 @@ greetUserBlock:^(NSString *name) {
 > このオプションは Objective-C 相互運用のみに影響します。これは Xcode で生成された Objective-C コードを Objective-C から呼び出す際に適用され、一般的に Swift からの呼び出しには影響しません。
 >
 {style="note"}
-
-問題が発生した場合は、`gradle.properties` ファイルで以下の[バイナリオプション](native-binary-options.md)を使用して明示的なパラメータ名を無効にすることができます：
-
-```none
-kotlin.native.binary.objcExportBlockExplicitParameterNames=false
-```
-
-このような問題が発生した場合は、イシュートラッカー [YouTrack](https://kotl.in/issue) に報告してください。
 
 ### ジェネリクス (Generics)
 

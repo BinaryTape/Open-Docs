@@ -90,7 +90,7 @@ sudo snap install --classic kotlin
 
 ## 编译库
 
-如果您正在开发供其他 Kotlin 应用程序使用的库，则可以在不包含 Kotlin 运行时的情下构建 **.jar** 文件：
+如果您正在开发供其他 Kotlin 应用程序使用的库，则可以在不包含 Kotlin 运行时的情况下构建 **.jar** 文件：
 
 ```bash
 kotlinc hello.kt -d hello.jar

@@ -2,11 +2,23 @@
 
 ## Unreleased
 
-### Changed
-* [Paging拡張] Paging 3.4.1 へのアップグレード、および X64 Apple ターゲットの削除 (#6166)
+### Added
+- [Nativeドライバ] `inMemoryDriver` に `extendedConfig` パラメータを追加 (#5539 by @GuilhE)
+- [PostgreSQLダイアレクト] 暗黙的に定義されたシステムカラム (System Columns) のクエリサポートを追加 (#5834 by @griffio)
+- [PostgreSQLダイアレクト] 基本的な配列リテラル (Array literal) のサポートを追加 (#5997 by @griffio)
+- [PostgreSQLダイアレクト] 基本的な LTREE のサポートを追加 (#5880 by @yesitskev @griffio)
+- [MySQLダイアレクト] INET 関数のサポートを追加 (#5072 by @mcxinyu)
 
-## [2.3.1] - 2026-03-12
-[2.3.1]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.1
+### Changed
+- [PostgreSQLダイアレクト] `arrayIntermediateType` の可視性を public に変更 (#5835 by @griffio)
+- [Gradleプラグイン] より厳格な MigrationFile のバージョニングを実装 (#5730 by @madisp)
+
+### Fixed
+- [コンパイラ] グループ化されていない集計結果セット内の他のカラムが、常に Null 許容になるように修正
+- [PostgreSQLダイアレクト] `coalesce` および `ifnull` の Null 許容性を正しく解決するように修正
+
+## [2.3.2] - 2026-03-16
+[2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
 
 ### Added
 - [PostgreSQLダイアレクト] `ALTER TABLE ALTER TYPE USING` 式のサポートを改善 (#6116 by @griffio)
@@ -22,12 +34,14 @@
 - [ランタイム] トランザクションの `CoroutineContext` を制御するメカニズムを提供する `SuspendingTransacter.TransactionDispatcher` を追加 (#5967 by @eygraber)
 - [Gradleプラグイン] Android Gradle Plugin 9.0 の新しい DSL との完全な互換性を追加 (#6140)
 - [PostgreSQLダイアレクト] PostgreSql の `CREATE TABLE` ストレージパラメータのサポートを追加 (#6148 by @griffio)
+- [PostgreSQLダイアレクト] PostgreSql の一意なテーブル制約における Null 許容の結果カラムを修正 (#6167 by @griffio)
 
 ### Changed
 - [コンパイラ] コンパイラの出力型を `java.lang.Void` から `kotlin.Nothing` に変更 (#6099 by @griffio)
 - [コンパイラ] パッケージ名にアンダースコアを使用可能に変更。以前はアンダースコアがサニタイズされ、予期しない動作の原因となっていました (#6027 by @BierDav)
 - [Paging拡張] AndroidX Paging への切り替え (#5910 by @jeffdgr8)
 - [Androidドライバ] Android の `minSdk` を 23 に引き上げ (#6141)
+- [Paging拡張] Paging 3.4.1 へのアップグレード、および X64 Apple ターゲットの削除 (#6166)
 
 ### Fixed
 - [IntelliJプラグイン] VFS リフレッシュイベント中に EDT 上でブロッキングなファイルタイプ検出が行われることによる IDE のフリーズを修正
@@ -37,10 +51,15 @@
 - [IntelliJプラグイン] プラグイン初期化時の例外を修正し、非推奨メソッドを更新 (#6040 by @griffio)
 - [Gradleプラグイン] Android Gradle Plugin 内蔵の Kotlin との互換性を修正 (#6139)
 
+## [2.3.1] - 2025-03-12
+[2.3.1]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.1
+
+リリースの失敗です。2.3.2 を使用してください！
+
 ## [2.3.0] - 2025-03-12
 [2.3.0]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.0
 
-リリースの失敗です。2.3.1 を使用してください！
+リリースの失敗です。2.3.2 を使用してください！
 
 ## [2.2.1] - 2025-11-13
 [2.2.1]: https://github.com/sqldelight/sqldelight/releases/tag/2.2.1
@@ -188,7 +207,7 @@
 - [PostgreSQLダイアレクト] PostgreSQL `CREATE INDEX CONCURRENTLY` のサポートを追加 (#4531 by @griffio)
 - [PostgreSQLダイアレクト] PostgreSQL CTE の補助ステートメントが相互に参照可能になるようサポート (#4493 by @griffio)
 - [PostgreSQLダイアレクト] バイナリ式 (binary expr) および `sum` における PostgreSQL 型のサポートを追加 (#4539 by @Adriel-M)
-- [PostgreSQLダイアレクト] PostgreSQL `SELECT DISTINCT ON` 構文의 サポートを追加 (#4584 by @griffio)
+- [PostgreSQLダイアレクト] PostgreSQL `SELECT DISTINCT ON` 構文のサポートを追加 (#4584 by @griffio)
 - [PostgreSQLダイアレクト] `SELECT` 文における PostgreSQL JSON 関数のサポートを追加 (#4590 by @MariusVolkhart)
 - [PostgreSQLダイアレクト] `generate_series` PostgreSQL 関数を追加 (#4717 by @griffio)
 - [PostgreSQLダイアレクト] 追加の Postgres 文字列関数の定義を追加 (#4752 by @MariusVolkhart)
@@ -453,7 +472,7 @@ sqldelight {
 - [ランタイム] サードパーティ実装をサポートするためにダイアレクトとリゾルバをオープンに変更 (#3232 by @hfhbd)
 - [コンパイラ] 失敗レポートにコンパイルに使用されたダイアレクトを含めるように変更 (#3086)
 - [コンパイラ] 未使用のアダプタをスキップ (#3162 by @eygraber)
-- [コンパイラ] `PrepareStatement` で 0 始まりのインデックスを使用 (#3269 by @hfhbd)
+- [コンパイラ] `PreparedStatement` で 0 始まりのインデックスを使用 (#3269 by @hfhbd)
 - [Gradleプラグイン] ダイアレクトを文字列ではなく適切な Gradle 依存関係に変更 (#3085)
 - [Gradleプラグイン] Gradle 検証タスク: データベースファイルが欠落している場合に例外を投げるように変更 (#3126 by @vanniktech)
 
@@ -617,7 +636,7 @@ sqldelight {
 - [IDEプラグイン] Gradle 同期が発生するまでファイルインデックスを初期化しないように変更
 - [IDEプラグイン] Gradle 同期が開始された場合は SQLDelight インポートをキャンセル
 - [IDEプラグイン] アンドゥアクションが実行されるスレッドの外でデータベースを再生成
-- [IDEプラグイン] 参照を解決できない場合は空의 Java 型を使用
+- [IDEプラグイン] 参照を解決できない場合は空の Java 型を使用
 - [IDEプラグイン] ファイル解析中にメインスレッドから離れ、書き込み時のみ戻るように改善
 - [IDEプラグイン] 古い IntelliJ バージョンとの互換性を改善 (by @3flex)
 - [IDEプラグイン] より高速なアノテーション API を使用
@@ -727,7 +746,7 @@ sqldelight {
 - [RX拡張] サブスクリプション/破棄のレースリークを修正 (#2403 by @pyricau)
 - [コルーチン拡張] 通知前にクエリリスナーを登録するように修正
 - [コンパイラ] Kotlin 出力ファイルを一貫させるため `notifyQueries` をソート (by @thomascjy)
-- [コンパイラ] select クエリクラスのプロパティに `@JvmField` アノテーションを付けないように修正 (by @eygraber)
+- [コンパイラ] select クエリクラス의 プロパティに `@JvmField` アノテーションを付けないように修正 (by @eygraber)
 - [IDEプラグイン] インポート最適化を修正 (#2350 by @aperfilyev)
 - [IDEプラグイン] 未使用カラム検査を修正 (by @aperfilyev)
 - [IDEプラグイン] インポート検査とクラスアノテーターにネストされたクラスのサポートを追加 (by @aperfilyev)
@@ -981,7 +1000,7 @@ sqldelight {
 * Fix: [Gradle] Gradle タスクのキャッシュを有効化。
 * Fix: [Gradle] #1274 Kotlin DSL での sqldelight 拡張の使用を有効化。
 * Fix: [コンパイラ] 各クエリに対して一意の ID が決定論的に生成されるように修正。
-* Fix: [コンパイラ] トランザクションが完了したときにのみ、待機中のクエリに通知するように修正。
+* Fix: [コンパイラ] トランザクションが完了したときにのみ、待機中のクエリに通知するように修正.
 * Fix: [JVMドライバ] #1370 `JdbcSqliteDriver` ユーザーに DB URL の提供を強制。
 
 ## [1.1.3] - 2019-04-14
@@ -1071,7 +1090,7 @@ sqldelight {
  * New: View 名の文字列定数を出力するように変更。
  * Fix: ファクトリを必要とする View に対するクエリにおいて、それらのファクトリを引数として正しく要求するように修正。
  * Fix: insert への引数の数が指定されたカラムの数と一致することを検証するように修正。
- * Fix: where 句で使用される blob リテラルを適切にエンコードするように修正。
+ * Fix: where 句で使用される blob リテラルを適切にエンコードするように修正.
  * このリリースには Gradle 3.3 以降が必要です。
 
 ## [0.5.1] - 2016-10-24

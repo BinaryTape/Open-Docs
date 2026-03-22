@@ -29,50 +29,91 @@ LLM 用戶端旨在與 LLM 供應商進行直接互動。
 
 以下是使用 `OpenAILLMClient` 執行 prompt 的範例：
 
-<!--- INCLUDE
-import ai.koog.prompt.dsl.prompt
-import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.params.LLMParams
-import kotlinx.coroutines.runBlocking
--->
-```kotlin
-fun main() = runBlocking {
+=== "Kotlin"
+
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.prompt
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.params.LLMParams
+    import kotlinx.coroutines.runBlocking
+    -->
+
+    ```kotlin
+    fun main() = runBlocking {
+        // 建立 OpenAI 用戶端
+        val apiKey = System.getenv("OPENAI_API_KEY")
+        val client = OpenAILLMClient(apiKey)
+
+        // 建立 prompt
+        val prompt = prompt("prompt_name", LLMParams()) {
+            // 新增系統訊息以設定上下文
+            system("You are a helpful assistant.")
+
+            // 新增使用者訊息
+            user("Tell me about Kotlin")
+
+            // 也可以新增 assistant 訊息作為 few-shot 範例
+            assistant("Kotlin is a modern programming language...")
+
+            // 新增另一個使用者訊息
+            user("What are its key features?")
+        }
+
+        // 執行 prompt
+        val response = client.execute(prompt, OpenAIModels.Chat.GPT4o)
+        // 印出回應
+        println(response)
+    }
+    ```
+    <!--- KNIT example-llm-clients-01.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
     // 建立 OpenAI 用戶端
-    val token = System.getenv("OPENAI_API_KEY")
-    val client = OpenAILLMClient(token)
+    String apiKey = System.getenv("OPENAI_API_KEY");
+    OpenAILLMClient client = new OpenAILLMClient(apiKey);
 
     // 建立 prompt
-    val prompt = prompt("prompt_name", LLMParams()) {
+    Prompt prompt = Prompt.builder("prompt_name")
         // 新增系統訊息以設定上下文
-        system("You are a helpful assistant.")
-
+        .system("You are a helpful assistant.")
+        
         // 新增使用者訊息
-        user("Tell me about Kotlin")
+        .user("Tell me about Kotlin")
 
         // 也可以新增 assistant 訊息作為 few-shot 範例
-        assistant("Kotlin is a modern programming language...")
+        .assistant("Kotlin is a modern programming language...")
 
         // 新增另一個使用者訊息
-        user("What are its key features?")
-    }
+        .user("What are its key features?")
+        .build();
 
     // 執行 prompt
-    val response = client.execute(prompt, OpenAIModels.Chat.GPT4o)
+    List<Message.Response> response = client.execute(prompt, OpenAIModels.Chat.GPT4o, Collections.emptyList());
     // 印出回應
-    println(response)
-}
-```
-<!--- KNIT example-llm-clients-01.kt -->
+    System.out.println(response);
+
+    client.close();
+    ```
+    <!--- KNIT example-llm-clients-java-01.java -->
 
 ## 串流回應
 
 !!! note
     適用於所有 LLM 用戶端。
 
-當您需要在回應生成時即時處理它們，可以使用 `executeStreaming()` 方法來串流模型輸出。
+當您需要在回應生成時即時處理它們，可以使用 Kotlin 中的 `executeStreaming()` 方法或 Java 中的 `executeStreamingWithPublisher()` 來串流模型輸出。
 
 串流 API 提供不同的框架（frame）型別：
+
 - **Delta 框架** (`TextDelta`、`ReasoningDelta`、`ToolCallDelta`) — 以區塊形式到達的增量內容
 - **完整框架** (`TextComplete`、`ReasoningComplete`、`ToolCallComplete`) — 接收完所有 delta 後的完整內容
 - **結束框架** (`End`) — 發出串流完成訊號並包含結束原因
@@ -80,41 +121,99 @@ fun main() = runBlocking {
 對於支援推理（reasoning）的模型（例如 Claude Sonnet 4.5 或 GPT-o1），串流期間將發出推理框架。
 關於使用框架的更多詳細資訊，請參閱 [串流 API 文件](../streaming-api.md)。
 
-<!--- INCLUDE
-import ai.koog.prompt.dsl.prompt
-import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.streaming.StreamFrame
-import kotlinx.coroutines.runBlocking
+=== "Kotlin"
 
-fun main() = runBlocking {
--->
-<!--- SUFFIX
-}
--->
-```kotlin
-// 使用您的 API 金鑰設定 OpenAI 用戶端
-val token = System.getenv("OPENAI_API_KEY")
-val client = OpenAILLMClient(token)
-
-val response = client.executeStreaming(
-    prompt = prompt("stream_demo") { user("Stream this response in short chunks.") },
-    model = OpenAIModels.Chat.GPT4_1
-)
-
-response.collect { frame ->
-    when (frame) {
-        is StreamFrame.TextDelta -> print(frame.text)
-        is StreamFrame.ReasoningDelta -> print("[Reasoning] ${frame.text}")
-        is StreamFrame.ToolCallComplete -> println("
-Tool call: ${frame.name}")
-        is StreamFrame.End -> println("
-[done] Reason: ${frame.finishReason}")
-        else -> {} // 視需要處理其他框架型別
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.prompt
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.streaming.StreamFrame
+    import kotlinx.coroutines.runBlocking
+    fun main() = runBlocking {
+    -->
+    <!--- SUFFIX
     }
-}
-```
-<!--- KNIT example-llm-clients-02.kt -->
+    -->
+    ```kotlin
+    // 使用您的 API 金鑰設定 OpenAI 用戶端
+    val token = System.getenv("OPENAI_API_KEY")
+    val client = OpenAILLMClient(token)
+
+    val response = client.executeStreaming(
+        prompt = prompt("stream_demo") { user("Stream this response in short chunks.") },
+        model = OpenAIModels.Chat.GPT4_1
+    )
+
+    response.collect { frame ->
+        when (frame) {
+            is StreamFrame.TextDelta -> print(frame.text)
+            is StreamFrame.ReasoningDelta -> print("[Reasoning] ${frame.text}")
+            is StreamFrame.ToolCallComplete -> println("
+Tool call: ${frame.name}")
+            is StreamFrame.End -> println("
+[done] Reason: ${frame.finishReason}")
+            else -> {} // 視需要處理其他框架型別
+        }
+    }
+    ```
+    <!--- KNIT example-llm-clients-02.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    // 使用您的 API 金鑰設定 OpenAI 用戶端
+    String token = System.getenv("OPENAI_API_KEY");
+    OpenAILLMClient client = new OpenAILLMClient(token);
+
+    Prompt prompt = Prompt.builder("stream_demo")
+                .user("Stream this response in short chunks.")
+                .build();
+    
+    Publisher<StreamFrame> response = client.executeStreamingWithPublisher(prompt, OpenAIModels.Chat.GPT4_1);
+
+    // 訂閱 Publisher 以取用框架
+    response.subscribe(new Subscriber<StreamFrame>() {
+        private Subscription subscription;
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            this.subscription = s;
+            s.request(Long.MAX_VALUE);
+        }
+
+        @Override
+        public void onNext(StreamFrame frame) {
+            switch (frame) {
+                case StreamFrame.TextDelta delta ->
+                        System.out.print(delta.getText());
+                case StreamFrame.ReasoningDelta reasoning ->
+                        System.out.print("[Reasoning] " + reasoning.getText());
+                case StreamFrame.ToolCallComplete toolCall ->
+                        System.out.println("
+Tool call: " + toolCall.getName());
+                case StreamFrame.End end ->
+                        System.out.println("
+[done] Reason: " + end.getFinishReason());
+                default -> {} // 處理其他框架型別
+            }
+        }
+
+        @Override
+        public void onError(Throwable t) {
+            t.printStackTrace();
+        }
+
+        @Override
+        public void onComplete() { }
+    });
+    ```
+    <!--- KNIT example-llm-clients-java-02.java -->
 
 ## 多個選項
 
@@ -124,58 +223,128 @@ Tool call: ${frame.name}")
 您可以透過使用 `executeMultipleChoices()` 方法，在單次呼叫中向模型請求多個替代回應。
 這需要在正在執行的 prompt 中額外指定 [`numberOfChoices`](prompt-creation/index.md#prompt-parameters) LLM 參數。
 
-<!--- INCLUDE
-import ai.koog.prompt.dsl.prompt
-import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.params.LLMParams
-import kotlinx.coroutines.runBlocking
--->
-```kotlin
-fun main() = runBlocking {
-    val apiKey = System.getenv("OPENAI_API_KEY")
-    val client = OpenAILLMClient(apiKey)
+=== "Kotlin"
 
-    val choices = client.executeMultipleChoices(
-        prompt = prompt("n_best", params = LLMParams(numberOfChoices = 3)) {
-            system("You are a creative assistant.")
-            user("Give me three different opening lines for a story.")
-        },
-        model = OpenAIModels.Chat.GPT4o
-    )
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.prompt
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.params.LLMParams
+    import kotlinx.coroutines.runBlocking
+    -->
+    ```kotlin
+    fun main() = runBlocking {
+        val apiKey = System.getenv("OPENAI_API_KEY")
+        val client = OpenAILLMClient(apiKey)
 
-    choices.forEachIndexed { i, choice ->
-        val text = choice.joinToString(" ") { it.content }
-        println("Line #${i + 1}: $text")
+        val choices = client.executeMultipleChoices(
+            prompt = prompt("n_best", params = LLMParams(numberOfChoices = 3)) {
+                system("You are a creative assistant.")
+                user("Give me three different opening lines for a story.")
+            },
+            model = OpenAIModels.Chat.GPT4o
+        )
+
+        choices.forEachIndexed { i, choice ->
+            val text = choice.joinToString(" ") { it.content }
+            println("Line #${i + 1}: $text")
+        }
     }
-}
-```
-<!--- KNIT example-llm-clients-03.kt -->
+    ```
+    <!--- KNIT example-llm-clients-03.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    String apiKey = System.getenv("OPENAI_API_KEY");
+    OpenAILLMClient client = new OpenAILLMClient(apiKey);
+
+    // 配置參數（LLMParams 建構函式在 Java 中需要全部 8 個引數）
+    LLMParams params = new LLMParams(
+        null, // temperature
+        null, // maxTokens
+        3,    // numberOfChoices
+        null, // speculation
+        null, // schema
+        null, // toolChoice
+        null, // user
+        null  // additionalProperties
+    );
+
+    Prompt prompt = Prompt.builder("n_best")
+        .system("You are a creative assistant.")
+        .user("Give me three different opening lines for a story.")
+        .build()
+        .withParams(params);
+
+    // LLMChoice 是 List<Message.Response> 的型別別名
+    List<List<Message.Response>> choices = client.executeMultipleChoices(
+        prompt, 
+        OpenAIModels.Chat.GPT4o
+    );
+
+    for (int i = 0; i < choices.size(); i++) {
+        List<Message.Response> choice = choices.get(i);
+        StringBuilder text = new StringBuilder();
+        for (Message.Response msg : choice) {
+            text.append(msg.getContent()).append(" ");
+        }
+        System.out.println("Line #" + (i + 1) + ": " + text.toString().trim());
+    }
+    ```
+    <!--- KNIT example-llm-clients-java-03.java -->
 
 ## 列出可用模型
 
 !!! note
     適用於除 `AnthropicLLMClient`、`BedrockLLMClient` 和 `OllamaClient` 之外的所有 LLM 用戶端。
 
-要獲取 LLM 用戶端支援的可用模型 ID 列表，請使用 `models()` 方法：
+要獲取 LLM 用戶端支援的可用模型 ID 列表，請使用 `models()` 方法：    
 
-<!--- INCLUDE
-import ai.koog.prompt.dsl.prompt
-import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.llm.LLModel
-import kotlinx.coroutines.runBlocking
--->
-```kotlin
-fun main() = runBlocking {
-    val apiKey = System.getenv("OPENAI_API_KEY")
-    val client = OpenAILLMClient(apiKey)
+=== "Kotlin"
 
-    val models: List<LLModel> = client.models()
-    models.forEach { println(it.id) }
-}
-```
-<!--- KNIT example-llm-clients-04.kt -->
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.prompt
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.llm.LLModel
+    import kotlinx.coroutines.runBlocking
+    -->
+    ```kotlin
+    fun main() = runBlocking {
+        val apiKey = System.getenv("OPENAI_API_KEY")
+        val client = OpenAILLMClient(apiKey)
+
+        val models: List<LLModel> = client.models()
+        models.forEach { println(it.id) }
+    }
+    ```
+    <!--- KNIT example-llm-clients-04.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    String apiKey = System.getenv("OPENAI_API_KEY");
+    OpenAILLMClient client = new OpenAILLMClient(apiKey);
+
+    List<LLModel> models = client.models();
+    for (LLModel model : models) {
+        System.out.println(model.getId());
+    }
+    ```
+    <!--- KNIT example-llm-clients-java-04.java -->
 
 ## 嵌入 (Embeddings)
 
@@ -213,28 +382,51 @@ fun main() = runBlocking {
 
 您可以使用 `moderate()` 方法配合審核模型，來檢查 prompt 是否包含不當內容：
 
-<!--- INCLUDE
-import ai.koog.prompt.dsl.prompt
-import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import kotlinx.coroutines.runBlocking
--->
-```kotlin
-fun main() = runBlocking {
-    val apiKey = System.getenv("OPENAI_API_KEY")
-    val client = OpenAILLMClient(apiKey)
+=== "Kotlin"
 
-    val result = client.moderate(
-        prompt = prompt("moderation") {
-            user("This is a test message that may contain offensive content.")
-        },
-        model = OpenAIModels.Moderation.Omni
-    )
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.prompt
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import kotlinx.coroutines.runBlocking
+    -->
+    ```kotlin
+    fun main() = runBlocking {
+        val apiKey = System.getenv("OPENAI_API_KEY")
+        val client = OpenAILLMClient(apiKey)
 
-    println(result)
-}
-```
-<!--- KNIT example-llm-clients-06.kt -->
+        val result = client.moderate(
+            prompt = prompt("moderation") {
+                user("This is a test message that may contain offensive content.")
+            },
+            model = OpenAIModels.Moderation.Omni
+        )
+
+        println(result)
+    }
+    ```
+    <!--- KNIT example-llm-clients-06.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    String apiKey = System.getenv("OPENAI_API_KEY");
+    OpenAILLMClient client = new OpenAILLMClient(apiKey);
+
+    Prompt prompt = Prompt.builder("moderation")
+        .user("This is a test message that may contain offensive content.")
+        .build();
+
+    ModerationResult result = client.moderate(prompt, OpenAIModels.Moderation.Omni);
+    System.out.println(result);
+    ```
+    <!--- KNIT example-llm-clients-java-05.java -->
 
 ## 與 prompt executor 整合
 

@@ -6,7 +6,7 @@ title: Koin Annotations의 Scope
 
 ## @Scope로 스코프 정의하기
 
-Koin은 스코프 사용을 허용합니다. 기본 사항에 대한 자세한 내용은 [Koin Scopes](/docs/reference/koin-core/scopes.md) 섹션을 참조하세요. 
+Koin은 스코프 사용을 허용합니다. 기본 사항에 대한 자세한 내용은 [Koin Scopes](/docs/reference/koin-core/scopes) 섹션을 참조하세요. 
 
 어노테이션으로 스코프를 선언하려면, 다음과 같이 클래스에 `@Scope` 어노테이션을 사용하면 됩니다.
 
@@ -106,7 +106,7 @@ factory { Myfactory(getScope("my_scope_id").get()) }
 이 예시는 `MyFactory` 컴포넌트가 ID가 "my_scope_id"인 스코프 인스턴스에서 `MyScopedComponent` 컴포넌트를 해결함을 보여줍니다. "my_scope_id" ID로 생성된 이 스코프는 올바른 스코프 정의와 함께 생성되어야 합니다.
 
 :::info
-  `MyScopedComponent` 컴포넌트는 Scope 섹션에 정의되어 있어야 하며, 스코프 인스턴스는 "my_scope_id" ID로 생성되어야 합니다.
+  `MyScopedComponent` 컴포넌트는 Scope 섹션에 정의되어 있어야 하며, 스코프 인스턴스는 "my_scope_id" ID로 생성되어야 합니다. 
 :::
 
 ## 스코프 아키타입(Archetype) 어노테이션

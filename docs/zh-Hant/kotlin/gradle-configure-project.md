@@ -9,9 +9,9 @@
 >
 {style="note"}
 
-## 應用外掛程式
+## 套用外掛程式
 
-若要應用 Kotlin Gradle 外掛程式，請使用 Gradle 外掛程式 DSL 中的 [`plugins{}` 區塊](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block)：
+若要套用 Kotlin Gradle 外掛程式，請使用 Gradle 外掛程式 DSL 中的 [`plugins{}` 區塊](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block)：
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -49,7 +49,8 @@ plugins {
 
 | KGP 版本       | Gradle 最小與最大版本                 | AGP 最小與最大版本                                  |
 |---------------|---------------------------------------|-----------------------------------------------------|
-| 2.3.10        | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
+| 2.3.20        | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
+| 2.3.10        | 7.6.3–9.0.0                           | 8.2.2–9.0.0                                         |
 | 2.3.0         | 7.6.3–9.0.0                           | 8.2.2–8.13.0                                        |
 | 2.2.20–2.2.21 | 7.6.3–8.14                            | 7.3.1–8.11.1                                        |
 | 2.2.0–2.2.10  | 7.6.3–8.14                            | 7.3.1–8.10.0                                        |
@@ -101,7 +102,7 @@ plugins {
 
 ## 以 JVM 為目標
 
-若要以 JVM 為目標，請應用 Kotlin JVM 外掛程式。
+若要以 JVM 為目標，請套用 Kotlin JVM 外掛程式。
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -124,7 +125,7 @@ plugins {
 </tab>
 </tabs>
 
-在此區塊中 `version` 應為常值，且不能從另一個組建指令碼應用。
+在此區塊中 `version` 應為常值，且不能從另一個組建指令碼套用。
 
 ### Kotlin 與 Java 原始碼
 
@@ -250,7 +251,7 @@ plugins {
 </tab>
 </tabs>
 
-當組建指令碼中沒有關於 `jvmTarget` 值的明確資訊時，其預設值為 `null`，編譯器將其轉換為預設值 `1.8`。`targetCompatibility` 等於目前 Gradle 的 JDK 版本，這等於您的 JDK 版本（除非您使用 [Java 工具鏈方法](gradle-configure-project.md#gradle-java-toolchains-support)）。假設您的 JDK 版本為 `%jvmLTSVersionSupportedByKotlin%`，您發佈的程式庫構件將 [宣告其與 JDK %jvmLTSVersionSupportedByKotlin%+ 相容](https://docs.gradle.org/current/userguide/publishing_gradle_module_metadata.html)：`org.gradle.jvm.version=%jvmLTSVersionSupportedByKotlin%`，這是錯誤的。在這種情況下，您必須在主專案中使用 Java %jvmLTSVersionSupportedByKotlin% 才能新增此程式庫，即使位元組碼的版本是 `1.8`。請 [配置工具鏈](gradle-configure-project.md#gradle-java-toolchains-support) 來解決此問題。
+當組建指令碼中沒有關於 `jvmTarget` 值的明確資訊時，其預設值為 `null`，編譯器將其轉換為預設值 `1.8`。`targetCompatibility` 等於目前 Gradle 的 JDK 版本，這等於您的 JDK 版本（除非您使用 [Java 工具鏈方法](gradle-configure-project.md#gradle-java-toolchains-support)）。假設您的 JDK 版本為 `%jvmLTSVersionSupportedByKotlin%`，您發佈的構件將 [宣告其與 JDK %jvmLTSVersionSupportedByKotlin%+ 相容](https://docs.gradle.org/current/userguide/publishing_gradle_module_metadata.html)：`org.gradle.jvm.version=%jvmLTSVersionSupportedByKotlin%`，這是錯誤的。在這種情況下，您必須在主專案中使用 Java %jvmLTSVersionSupportedByKotlin% 才能新增此程式庫，即使位元組碼的版本是 `1.8`。請 [配置工具鏈](gradle-configure-project.md#gradle-java-toolchains-support) 來解決此問題。
 
 ### Gradle Java 工具鏈支援
 
@@ -752,7 +753,7 @@ kotlin {
 
 ## 使用 KotlinBasePlugin 介面觸發配置操作
 
-若要在應用任何 Kotlin Gradle 外掛程式（JVM、JS、Multiplatform、Native 等）時觸發某些配置操作，請使用所有 Kotlin 外掛程式都繼承自的 `KotlinBasePlugin` 介面：
+若要在套用任何 Kotlin Gradle 外掛程式（JVM、JS、Multiplatform、Native 等）時觸發某些配置操作，請使用所有 Kotlin 外掛程式都繼承自的 `KotlinBasePlugin` 介面：
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">

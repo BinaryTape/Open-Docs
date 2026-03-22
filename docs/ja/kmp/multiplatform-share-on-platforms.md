@@ -1,7 +1,7 @@
 [//]: # (title: プラットフォーム間でのコード共有)
 
-Kotlin Multiplatformを使用すると、Kotlinが提供するメカニズムを使用してコードを共有できます：
-
+Kotlin Multiplatformを使用すると、Kotlinが提供するメカニズムを使用してコードを共有できます： 
+ 
 * [プロジェクトで使用されるすべてのプラットフォーム間でのコード共有](#share-code-on-all-platforms)。すべてのプラットフォームに適用される共通のビジネスロジックを共有するために使用します。
 * [一部のプラットフォーム間でのコード共有](#share-code-on-similar-platforms)。プロジェクトに含まれる一部（すべてではない）のプラットフォーム間でコードを共有します。階層構造（hierarchical structure）を利用して、類似したプラットフォーム間でコードを再利用できます。
 
@@ -14,7 +14,7 @@ Kotlin Multiplatformを使用すると、Kotlinが提供するメカニズムを
 ![すべてのプラットフォームで共有されるコード](flat-structure.svg)
 
 ソースセットの一部の依存関係はデフォルトで設定されています。以下のものについては、手動で `dependsOn` 関係を指定する必要はありません：
-* `jvmMain` や `macosX64Main` など、共通ソースセットに依存するすべてのプラットフォーム固有のソースセット。
+* `jvmMain` や `macosArm64Main` など、共通ソースセットに依存するすべてのプラットフォーム固有のソースセット。
 * `androidMain` と `androidUnitTest` など、特定のターゲットの `main` ソースセットと `test` ソースセットの間。
 
 共有コードからプラットフォーム固有のAPIにアクセスする必要がある場合は、Kotlinの[期待宣言と実体宣言（expected and actual declarations）](multiplatform-expect-actual.md)のメカニズムを使用してください。
@@ -27,7 +27,7 @@ Kotlin Multiplatformを使用すると、Kotlinが提供するメカニズムを
 
 明らかに、この構成では、2つのiOSターゲットに対して共有ソースセットを用意し、iOSデバイスとシミュレータの両方に共通するAPIを直接呼び出せるKotlin/Nativeコードを記述できることが望ましいです。
 
-この場合、以下のいずれかの方法で[階層構造](multiplatform-hierarchy.md)を使用して、プロジェクト内のネイティブターゲット間でコードを共有できます：
+この場合、以下のいずれかの方法で[階層構造（hierarchical structure）](multiplatform-hierarchy.md)を使用して、プロジェクト内のネイティブターゲット間でコードを共有できます：
 
 * [デフォルトの階層テンプレートの使用](multiplatform-hierarchy.md#default-hierarchy-template)
 * [階層構造を手動で構成する](multiplatform-hierarchy.md#manual-configuration)
@@ -36,17 +36,17 @@ Kotlin Multiplatformを使用すると、Kotlinが提供するメカニズムを
 
 ## ライブラリでのコード共有
 
-階層的なプロジェクト構造のおかげで、ライブラリもターゲットのサブセットに対して共通のAPIを提供できます。[ライブラリが公開](multiplatform-publish-lib-setup.md)されると、その中間ソースセットのAPIは、プロジェクト構造に関する情報とともにライブラリアーティファクトに埋め込まれます。このライブラリを使用すると、プロジェクトの中間ソースセットは、各ソースセットのターゲットが利用可能なライブラリのAPIにのみアクセスします。
+階層的なプロジェクト構造のおかげで、ライブラリもターゲットのサブセットに対して共通のAPIを提供できます。[ライブラリが公開（publish）](multiplatform-publish-lib-setup.md)されると、その中間ソースセット（intermediate source sets）のAPIは、プロジェクト構造に関する情報とともにライブラリアーティファクトに埋め込まれます。このライブラリを使用すると、プロジェクトの中間ソースセットは、各ソースセットのターゲットが利用可能なライブラリのAPIにのみアクセスします。
 
 例えば、`kotlinx.coroutines` リポジトリの以下のソースセット階層を確認してください：
 
 ![ライブラリの階層構造](lib-hierarchical-structure.svg)
 
-`concurrent` ソースセットは `runBlocking` 関数を宣言し、JVMとネイティブターゲット向けにコンパイルされます。`kotlinx.coroutines` ライブラリが階層的なプロジェクト構造で更新および公開されると、ライブラリの `concurrent` ソースセットの「ターゲットシグネチャ」と一致するため、JVMとネイティブターゲット間で共有されているソースセットからそれに依存して `runBlocking` を呼び出すことができます。
+`concurrent` ソースセットは `runBlocking` 関数を宣言し、JVMとネイティブターゲット向けにコンパイルされます。`kotlinx.coroutines` ライブラリが階層的なプロジェクト構造で更新および公開されると、ライブラリの `concurrent` ソースセットの「ターゲットシグネチャ（targets signature）」と一致するため、JVMとネイティブターゲット間で共有されているソースセットからそれに依存して `runBlocking` を呼び出すことができます。
 
 ## プラットフォーム固有ライブラリの接続
 
-プラットフォーム固有の依存関係に制限されることなく、より多くのネイティブコードを共有するには、Foundation、UIKit、POSIXなどの[プラットフォームライブラリ](https://kotlinlang.org/docs/native-platform-libs.html)を使用します。これらのライブラリはKotlin/Nativeに同梱されており、デフォルトで共有ソースセットで利用可能です。
+プラットフォーム固有の依存関係に制限されることなく、より多くのネイティブコードを共有するには、Foundation、UIKit、POSIXなどの[プラットフォームライブラリ（platform libraries）](https://kotlinlang.org/docs/native-platform-libs.html)を使用します。これらのライブラリはKotlin/Nativeに同梱されており、デフォルトで共有ソースセットで利用可能です。
 
 さらに、プロジェクトで [Kotlin CocoaPods Gradle](multiplatform-cocoapods-overview.md) プラグインを使用している場合は、[`cinterop` メカニズム](https://kotlinlang.org/docs/native-c-interop.html)を使用して取り込まれたサードパーティのネイティブライブラリを扱うことができます。
 

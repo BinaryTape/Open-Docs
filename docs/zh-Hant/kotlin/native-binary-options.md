@@ -73,12 +73,12 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td><a href="native-objc-interop.md#explicit-parameter-names-in-objective-c-block-types"><code>objcExportBlockExplicitParameterNames</code></a></td>
         <td>
             <list>
-                <li><code>true (預設)</code></li>
-                <li><code>false</code></li>
+                <li><code>true</code></li>
+                <li><code>false (預設)</code></li>
             </list>
         </td>
         <td>為匯出的 Objective-C 標頭函式型別加入明確的參數名稱。</td>
-        <td>自 2.3.0 起為預設值</td>
+        <td>自 2.2.20 起為實驗性</td>
     </tr>
     <tr>
         <td><a href="whatsnew2220.md#smaller-binary-size-for-release-binaries"><code>smallBinary</code></a></td>
@@ -226,7 +226,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
                 <li><code>String</code></li>
             </list>
         </td>
-        <td>在 <code>Info.plist</code> 檔案中設定套件 ID (<code>CFBundleIdentifier</code>)。</td>
+        <td>在 <code>Info.plst</code> 檔案中設定套件 ID (<code>CFBundleIdentifier</code>)。</td>
         <td>自 1.7.20 起提供</td>
     </tr>
     <tr>
@@ -236,7 +236,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
                 <li><code>String</code></li>
             </list>
         </td>
-        <td>在 <code>Info.plist</code> 檔案中設定短套件版本號 (<code>CFBundleShortVersionString</code>)。</td>
+        <td>在 <code>Info.plst</code> 檔案中設定短套件版本號 (<code>CFBundleShortVersionString</code>)。</td>
         <td>自 1.7.20 起提供</td>
     </tr>
     <tr>
@@ -246,7 +246,7 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
                 <li><code>String</code></li>
             </list>
         </td>
-        <td>在 <code>Info.plist</code> 檔案中設定套件版本號 (<code>CFBundleVersion</code>)。</td>
+        <td>在 <code>Info.plst</code> 檔案中設定套件版本號 (<code>CFBundleVersion</code>)。</td>
         <td>自 1.7.20 起提供</td>
     </tr>
     <tr>

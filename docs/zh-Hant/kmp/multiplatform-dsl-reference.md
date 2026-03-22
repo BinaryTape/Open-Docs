@@ -123,7 +123,7 @@ plugins {
 kotlin {
     jvm()
     iosArm64()
-    macosX64()
+    macosArm64()
     js().browser()
 }
 ```
@@ -246,16 +246,17 @@ kotlin {
 
 對於二進位檔配置，可以使用以下參數：
 
-| **名稱**      | **說明**                                                                                                                                             | 
-|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `compilation` | 建置二進位檔所依據的編譯。預設情況下，`test` 二進位檔基於 `test` 編譯，而其他二進位檔則基於 `main` 編譯。                                            |
-| `linkerOpts`  | 在二進位檔建置期間傳遞給系統連結器的選項。                                                                                                           |
-| `baseName`    | 輸出檔案的自訂基本名稱。最終檔案名稱將透過在此基本名稱後加入系統相關的前綴和後綴來形成。                                                              |
-| `entryPoint`  | 可執行二進位檔的入口點函式。預設情況下，它是根套件中的 `main()`。                                                                                    |
-| `outputFile`  | 存取輸出檔案。                                                                                                                                       |
-| `linkTask`    | 存取連結任務。                                                                                                                                       |
-| `runTask`     | 存取可執行二進位檔的執行任務。對於 `linuxX64`、`macosX64` 或 `mingwX64` 以外的目標，該值為 `null`。                                                 |
-| `isStatic`    | 用於 Objective-C 架構。包含靜態程式庫而非動態程式庫。                                                                                                |
+| **名稱**             | **說明**                                                                                                                                                                                                                                              | 
+|----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `compilation`        | 建置二進位檔所依據的編譯。預設情況下，`test` 二進位檔基於 `test` 編譯，而其他二進位檔則基於 `main` 編譯。                                                                                                                                            |
+| `linkerOpts`         | 在二進位檔建置期間傳遞給系統連結器的選項。                                                                                                                                                                                                                    |
+| `baseName`           | 輸出檔案的自訂基本名稱。最終檔案名稱將透過在此基本名稱後加入系統相關的前綴和後綴來形成。                                                                                                                                                                      |
+| `entryPoint`         | 可執行二進位檔的入口點函式。預設情況下，它是根套件中的 `main()`。                                                                                                                                                                                            |
+| `outputFile`         | 存取輸出檔案。                                                                                                                                                                                                                                                |
+| `linkTask`           | 存取連結任務。                                                                                                                                                                                                                                                |
+| `runTask`            | 存取可執行二進位檔的執行任務。對於 `linuxX64`、`macosX64` 或 `mingwX64` 以外的目標，該值為 `null`。                                                                                                                                                          |
+| `isStatic`           | 用於 Objective-C 架構。包含靜態程式庫而非動態程式庫。                                                                                                                                                                                                        |
+| `disableNativeCache` | <p>停用編譯快取。僅在特殊情況下使用，因為它會增加編譯時間。</p><p>必須包含要停用快取的 Kotlin `version` 以及 `reason`（原因）。您可以選擇性地指定指向錯誤追蹤器中 `issue` 的 URL。</p> |
 
 <Tabs group="build-script">
 <TabItem title="Kotlin" group-key="kotlin">
@@ -289,6 +290,13 @@ binaries {
     framework("my_framework" listOf(RELEASE)) {
         // 在架構中包含靜態程式庫而非動態程式庫。
         isStatic = true
+
+        // 停用此二進位檔的編譯快取
+        disableNativeCache(
+            version = DisableCacheInKotlinVersion.2_3_0,
+            reason = "Cache bug",
+            issue = URI("https://youtrack.com/YY-1111")
+        )
     }
 }
 ```
@@ -325,6 +333,13 @@ binaries {
     framework('my_framework' [RELEASE]) {
         // 在架構中包含靜態程式庫而非動態程式庫。
         isStatic = true
+
+        // 停用此二進位檔的編譯快取
+        disableNativeCache(
+            version = DisableCacheInKotlinVersion .2_3_0,
+            reason = 'Cache bug',
+            issue = URI('https://youtrack.com/YY-1111')
+        )
     }
 }
 ```

@@ -73,12 +73,12 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td><a href="native-objc-interop.md#explicit-parameter-names-in-objective-c-block-types"><code>objcExportBlockExplicitParameterNames</code></a></td>
         <td>
             <list>
-                <li><code>true (デフォルト)</code></li>
-                <li><code>false</code></li>
+                <li><code>true</code></li>
+                <li><code>false (デフォルト)</code></li>
             </list>
         </td>
         <td>エクスポートされたObjective-Cヘッダーの関数型に、明示的なパラメータ名を追加します。</td>
-        <td>2.3.0よりデフォルト</td>
+        <td>2.2.20より実験的 (Experimental)</td>
     </tr>
     <tr>
         <td><a href="whatsnew2220.md#smaller-binary-size-for-release-binaries"><code>smallBinary</code></a></td>
@@ -269,10 +269,10 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td>
             <list>
                 <li><code>true</code></li>
-                <li><code>false</code> (default)</li>
+                <li><code>false</code> (デフォルト)</li>
             </list>
         </td>
-        <td>When <code>enabled</code>, reports warnings in case name collisions occur during Objective-C export.</td>
+        <td><code>enabled</code> の場合、Objective-Cのエクスポート中に名前の衝突が発生した際に警告を報告します。</td>
         <td></td>
     </tr>
     <tr>
@@ -280,22 +280,22 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td>
             <list>
                 <li><code>true</code></li>
-                <li><code>false</code> (default)</li>
+                <li><code>false</code> (デフォルト)</li>
             </list>
         </td>
-        <td>When <code>true</code>, issues errors in case name collisions occur during Objective-C export.</td>
+        <td><code>true</code> の場合、Objective-Cのエクスポート中に名前の衝突が発生した際にエラーを出力します。</td>
         <td></td>
     </tr>
     <tr>
         <td><code>debugCompilationDir</code></td>
         <td><code>String</code></td>
-        <td>Specifies the directory path to use for debug information in the compiled binary.</td>
+        <td>コンパイルされたバイナリ内のデバッグ情報に使用するディレクトリパスを指定します。</td>
         <td></td>
     </tr>
     <tr>
         <td><code>fixedBlockPageSize</code></td>
         <td><code>UInt</code></td>
-        <td>Controls the page size for fixed memory blocks in the memory allocator. Affects memory allocation performance and fragmentation.</td>
+        <td>メモリアロケータ内の固定メモリブロックのページサイズを制御します。メモリ確保のパフォーマンスとフラグメンテーションに影響します。</td>
         <td></td>
     </tr>
     <tr>
@@ -303,16 +303,16 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td>
             <list>
                 <li><code>true</code></li>
-                <li><code>false</code> (default)</li>
+                <li><code>false</code> (デフォルト)</li>
             </list>
         </td>
-        <td>Controls cooperation between mutator threads and the garbage collector.</td>
+        <td>ミューテータスレッド（mutator threads）とガベージコレクタ間の協調を制御します。</td>
         <td></td>
     </tr>
     <tr>
         <td><code>auxGCThreads</code></td>
         <td><code>UInt</code></td>
-        <td>Specifies the number of auxiliary threads to use for garbage collection.</td>
+        <td>ガベージコレクションに使用する補助スレッドの数を指定します。</td>
         <td></td>
     </tr>
     <tr>
@@ -323,8 +323,8 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
                 <li><code>thread</code></li>
             </list>
         </td>
-        <td>Enables runtime sanitizers for detecting various issues like memory errors, data races, and undefined behavior.</td>
-        <td>Experimental</td>
+        <td>メモリ・エラー、データ・レース、未定義動作などのさまざまな問題を検出するためのランタイム・サニタイザを有効にします。</td>
+        <td>実験的 (Experimental)</td>
     </tr> -->
 </table>
 

@@ -519,6 +519,10 @@
                 "link": "heroku"
               },
               {
+                "text": "ktor.dokku",
+                "link": "dokku"
+              },
+              {
                 "text": "ktor.sevalla",
                 "link": "sevalla"
               },

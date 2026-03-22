@@ -15,10 +15,10 @@
     develop 브랜치의 나이틀리 빌드는 [JetBrains Grazie Maven](https://packages.jetbrains.team/maven/p/grazi/grazie-platform-public) 저장소에 배포됩니다.
     
     나이틀리 빌드를 사용하려면 빌드 구성에 다음 저장소를 추가하세요:
-    `https://packages.jetbrains.team/maven/p/grazi/grazie-platform-public`
+    `https://packages.jetbrains.team/maven/p/grazi/grazie-platform-public`.
     
     그 다음 Koog 의존성을 원하는 나이틀리 버전으로 업데이트하세요. 나이틀리 버전은 다음과 같은 형식을 따릅니다:
-    `[next-major-version]-develop-[date]-[time]`
+    `[next-major-version]-develop-[date]-[time]`.
     
     사용 가능한 나이틀리 빌드는 [여기](https://packages.jetbrains.team/maven/p/grazi/grazie-platform-public/ai/koog/koog-agents/)에서 확인할 수 있습니다.
 
@@ -141,6 +141,7 @@ Koog를 사용하려면 [지원되는 LLM 제공자](llm-providers.md)의 API �
         ```cmd
         setx MISTRAL_API_KEY "your-api-key"
         ``` 
+        <!--- KNIT example-getting-started-01.txt -->
 
 === "Ollama"
 
@@ -152,30 +153,59 @@ Koog를 사용하려면 [지원되는 LLM 제공자](llm-providers.md)의 API �
 
     다음 예제는 OpenAI API를 통해 [`GPT-4o`](https://platform.openai.com/docs/models/gpt-4o) 모델을 사용하는 간단한 Koog 에이전트를 생성하고 실행합니다.
 
-    <!--- INCLUDE
-    import ai.koog.agents.core.agent.AIAgent
-    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-    import ai.koog.prompt.executor.clients.openai.OpenAIModels
-    import kotlinx.coroutines.runBlocking
-    -->
-    ```kotlin
-    fun main() = runBlocking {
-        // OPENAI_API_KEY 환경 변수에서 OpenAI API 키를 가져옵니다.
-        val apiKey = System.getenv("OPENAI_API_KEY")
-            ?: error("API 키가 설정되지 않았습니다.")
+    === "Kotlin"
+
+        <!--- INCLUDE
+        import ai.koog.agents.core.agent.AIAgent
+        import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+        import ai.koog.prompt.executor.clients.openai.OpenAIModels
+        import kotlinx.coroutines.runBlocking
+        -->
+        ```kotlin
+        fun main() = runBlocking {
+            // OPENAI_API_KEY 환경 변수에서 OpenAI API 키를 가져옵니다.
+            val apiKey = System.getenv("OPENAI_API_KEY")
+                ?: error("API 키가 설정되지 않았습니다.")
+            
+            // 에이전트 생성
+            val agent = AIAgent(
+                promptExecutor = simpleOpenAIExecutor(apiKey),
+                llmModel = OpenAIModels.Chat.GPT4o
+            )
         
+            // 에이전트 실행
+            val result = agent.run("Hello! How can you help me?")
+            println(result)
+        }
+        ```
+        <!--- KNIT example-getting-started-01.kt -->
+
+    === "Java"
+
+        <!--- INCLUDE
+        /**
+        -->
+        <!--- SUFFIX
+        **/
+        -->
+        ```java
+        // OPENAI_API_KEY 환경 변수에서 OpenAI API 키를 가져옵니다.
+        String apiKey = System.getenv("OPENAI_API_KEY");
+        if (apiKey == null) {
+            throw new RuntimeException("API 키가 설정되지 않았습니다.");
+        }
+
         // 에이전트 생성
-        val agent = AIAgent(
-            promptExecutor = simpleOpenAIExecutor(apiKey),
-            llmModel = OpenAIModels.Chat.GPT4o
-        )
-    
+        AIAgent<String, String> agent = AIAgent.builder()
+            .promptExecutor(simpleOpenAIExecutor(apiKey))
+            .llmModel(OpenAIModels.Chat.GPT4o)
+            .build();
+
         // 에이전트 실행
-        val result = agent.run("Hello! How can you help me?")
-        println(result)
-    }
-    ```
-    <!--- KNIT example-getting-started-01.kt -->
+        String result = agent.run("Hello! How can you help me?");
+        System.out.println(result);
+        ```
+        <!--- KNIT example-getting-started-java-01.java -->
 
     이 예제는 다음과 같은 출력을 생성할 수 있습니다:
     
@@ -193,35 +223,65 @@ Koog를 사용하려면 [지원되는 LLM 제공자](llm-providers.md)의 API �
 
     도움이 필요한 것이 있다면 말씀해 주세요!
     ```
+    <!--- KNIT example-getting-started-02.txt -->
 
 === "Anthropic"
 
     다음 예제는 Anthropic API를 통해 [`Claude Opus 4.1`](https://www.anthropic.com/news/claude-opus-4-1) 모델을 사용하는 간단한 Koog 에이전트를 생성하고 실행합니다.
 
-    <!--- INCLUDE
-    import ai.koog.agents.core.agent.AIAgent
-    import ai.koog.prompt.executor.llms.all.simpleAnthropicExecutor
-    import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
-    import kotlinx.coroutines.runBlocking
-    -->
-    ```kotlin
-    fun main() = runBlocking {
-        // ANTHROPIC_API_KEY 환경 변수에서 Anthropic API 키를 가져옵니다.
-        val apiKey = System.getenv("ANTHROPIC_API_KEY")
-            ?: error("API 키가 설정되지 않았습니다.")
+    === "Kotlin"
+
+        <!--- INCLUDE
+        import ai.koog.agents.core.agent.AIAgent
+        import ai.koog.prompt.executor.llms.all.simpleAnthropicExecutor
+        import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
+        import kotlinx.coroutines.runBlocking
+        -->
+        ```kotlin
+        fun main() = runBlocking {
+            // ANTHROPIC_API_KEY 환경 변수에서 Anthropic API 키를 가져옵니다.
+            val apiKey = System.getenv("ANTHROPIC_API_KEY")
+                ?: error("API 키가 설정되지 않았습니다.")
+            
+            // 에이전트 생성
+            val agent = AIAgent(
+                promptExecutor = simpleAnthropicExecutor(apiKey),
+                llmModel = AnthropicModels.Opus_4_1
+            )
         
+            // 에이전트 실행
+            val result = agent.run("Hello! How can you help me?")
+            println(result)
+        }
+        ```
+        <!--- KNIT example-getting-started-02.kt -->
+
+    === "Java"
+
+        <!--- INCLUDE
+        /**
+        -->
+        <!--- SUFFIX
+        **/
+        -->
+        ```java
+        // ANTHROPIC_API_KEY 환경 변수에서 Anthropic API 키를 가져옵니다.
+        String apiKey = System.getenv("ANTHROPIC_API_KEY");
+        if (apiKey == null) {
+            throw new RuntimeException("API 키가 설정되지 않았습니다.");
+        }
+
         // 에이전트 생성
-        val agent = AIAgent(
-            promptExecutor = simpleAnthropicExecutor(apiKey),
-            llmModel = AnthropicModels.Opus_4_1
-        )
-    
+        AIAgent<String, String> agent = AIAgent.builder()
+            .promptExecutor(simpleAnthropicExecutor(apiKey))
+            .llmModel(AnthropicModels.Opus_4_1)
+            .build();
+
         // 에이전트 실행
-        val result = agent.run("Hello! How can you help me?")
-        println(result)
-    }
-    ```
-    <!--- KNIT example-getting-started-02.kt -->
+        String result = agent.run("Hello! How can you help me?");
+        System.out.println(result);
+        ```
+        <!--- KNIT example-getting-started-java-02.java -->
 
     이 예제는 다음과 같은 출력을 생성할 수 있습니다:
 
@@ -237,35 +297,65 @@ Koog를 사용하려면 [지원되는 LLM 제공자](llm-providers.md)의 API �
     
     오늘은 어떤 도움이 필요하신가요?
     ```
+    <!--- KNIT example-getting-started-03.txt -->
 
 === "Google"
 
     다음 예제는 Gemini API를 통해 [`Gemini 2.5 Pro`](https://cloud.google.com/vertex-ai/generative-ai/docs/models/gemini/2-5-pro) 모델을 사용하는 간단한 Koog 에이전트를 생성하고 실행합니다.
 
-    <!--- INCLUDE
-    import ai.koog.agents.core.agent.AIAgent
-    import ai.koog.prompt.executor.llms.all.simpleGoogleAIExecutor
-    import ai.koog.prompt.executor.clients.google.GoogleModels
-    import kotlinx.coroutines.runBlocking
-    -->
-    ```kotlin
-    fun main() = runBlocking {
-        // GOOGLE_API_KEY 환경 변수에서 Gemini API 키를 가져옵니다.
-        val apiKey = System.getenv("GOOGLE_API_KEY")
-            ?: error("API 키가 설정되지 않았습니다.")
+    === "Kotlin"
+
+        <!--- INCLUDE
+        import ai.koog.agents.core.agent.AIAgent
+        import ai.koog.prompt.executor.llms.all.simpleGoogleAIExecutor
+        import ai.koog.prompt.executor.clients.google.GoogleModels
+        import kotlinx.coroutines.runBlocking
+        -->
+        ```kotlin
+        fun main() = runBlocking {
+            // GOOGLE_API_KEY 환경 변수에서 Gemini API 키를 가져옵니다.
+            val apiKey = System.getenv("GOOGLE_API_KEY")
+                ?: error("API 키가 설정되지 않았습니다.")
+            
+            // 에이전트 생성
+            val agent = AIAgent(
+                promptExecutor = simpleGoogleAIExecutor(apiKey),
+                llmModel = GoogleModels.Gemini2_5Pro
+            )
         
+            // 에이전트 실행
+            val result = agent.run("Hello! How can you help me?")
+            println(result)
+        }
+        ```
+        <!--- KNIT example-getting-started-03.kt -->
+
+    === "Java"
+
+        <!--- INCLUDE
+        /**
+        -->
+        <!--- SUFFIX
+        **/
+        -->
+        ```java
+        // GOOGLE_API_KEY 환경 변수에서 Gemini API 키를 가져옵니다.
+        String apiKey = System.getenv("GOOGLE_API_KEY");
+        if (apiKey == null) {
+            throw new RuntimeException("API 키가 설정되지 않았습니다.");
+        }
+
         // 에이전트 생성
-        val agent = AIAgent(
-            promptExecutor = simpleGoogleAIExecutor(apiKey),
-            llmModel = GoogleModels.Gemini2_5Pro
-        )
-    
+        AIAgent<String, String> agent = AIAgent.builder()
+            .promptExecutor(simpleGoogleAIExecutor(apiKey))
+            .llmModel(GoogleModels.Gemini2_5Pro)
+            .build();
+
         // 에이전트 실행
-        val result = agent.run("Hello! How can you help me?")
-        println(result)
-    }
-    ```
-    <!--- KNIT example-getting-started-03.kt -->
+        String result = agent.run("Hello! How can you help me?");
+        System.out.println(result);
+        ```
+        <!--- KNIT example-getting-started-java-03.java -->
 
     이 예제는 다음과 같은 출력을 생성할 수 있습니다:
 
@@ -281,111 +371,206 @@ Koog를 사용하려면 [지원되는 LLM 제공자](llm-providers.md)의 API �
 
     필요한 것이 있다면 말씀해 주세요.
     ```
+    <!--- KNIT example-getting-started-04.txt -->
 
 === "DeepSeek"
 
     다음 예제는 DeepSeek API를 통해 `deepseek-chat` 모델을 사용하는 간단한 Koog 에이전트를 생성하고 실행합니다.
 
-    <!--- INCLUDE
-    import ai.koog.agents.core.agent.AIAgent
-    import ai.koog.prompt.executor.clients.deepseek.DeepSeekLLMClient
-    import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
-    import ai.koog.prompt.executor.clients.deepseek.DeepSeekModels
-    import kotlinx.coroutines.runBlocking
-    -->
-    ```kotlin
-    fun main() = runBlocking {
-        // DEEPSEEK_API_KEY 환경 변수에서 DeepSeek API 키를 가져옵니다.
-        val apiKey = System.getenv("DEEPSEEK_API_KEY")
-            ?: error("API 키가 설정되지 않았습니다.")
+    === "Kotlin"
+
+        <!--- INCLUDE
+        import ai.koog.agents.core.agent.AIAgent
+        import ai.koog.prompt.executor.clients.deepseek.DeepSeekLLMClient
+        import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
+        import ai.koog.prompt.executor.clients.deepseek.DeepSeekModels
+        import kotlinx.coroutines.runBlocking
+        -->
+        ```kotlin
+        fun main() = runBlocking {
+            // DEEPSEEK_API_KEY 환경 변수에서 DeepSeek API 키를 가져옵니다.
+            val apiKey = System.getenv("DEEPSEEK_API_KEY")
+                ?: error("API 키가 설정되지 않았습니다.")
+            
+            // LLM 클라이언트 생성
+            val deepSeekClient = DeepSeekLLMClient(apiKey)
         
+            // 에이전트 생성
+            val agent = AIAgent(
+                // LLM 클라이언트를 사용하여 프롬프트 실행기 생성
+                promptExecutor = MultiLLMPromptExecutor(deepSeekClient),
+                // 모델 제공
+                llmModel = DeepSeekModels.DeepSeekChat
+            )
+        
+            // 에이전트 실행
+            val result = agent.run("Hello! How can you help me?")
+            println(result)
+        }
+        ```
+        <!--- KNIT example-getting-started-04.kt -->
+
+    === "Java"
+
+        <!--- INCLUDE
+        /**
+        -->
+        <!--- SUFFIX
+        **/
+        -->
+        ```java
+        // DEEPSEEK_API_KEY 환경 변수에서 DeepSeek API 키를 가져옵니다.
+        String apiKey = System.getenv("DEEPSEEK_API_KEY");
+        if (apiKey == null) {
+            throw new RuntimeException("API 키가 설정되지 않았습니다.");
+        }
+
         // LLM 클라이언트 생성
-        val deepSeekClient = DeepSeekLLMClient(apiKey)
-    
+        DeepSeekLLMClient deepSeekClient = new DeepSeekLLMClient(apiKey);
+
         // 에이전트 생성
-        val agent = AIAgent(
+        AIAgent<String, String> agent = AIAgent.builder()
             // LLM 클라이언트를 사용하여 프롬프트 실행기 생성
-            promptExecutor = MultiLLMPromptExecutor(deepSeekClient),
+            .promptExecutor(new MultiLLMPromptExecutor(deepSeekClient))
             // 모델 제공
-            llmModel = DeepSeekModels.DeepSeekChat
-        )
-    
+            .llmModel(DeepSeekModels.DeepSeekChat)
+            .build();
+
         // 에이전트 실행
-        val result = agent.run("Hello! How can you help me?")
-        println(result)
-    }
-    ```
-    <!--- KNIT example-getting-started-04.kt -->
+        String result = agent.run("Hello! How can you help me?");
+        System.out.println(result);
+        ```
+        <!--- KNIT example-getting-started-java-04.java -->
 
     이 예제는 다음과 같은 출력을 생성할 수 있습니다:
 
     ```
     안녕하세요! 질문 답변, 정보 제공, 문제 해결 지원, 창의적인 아이디어 제안, 그리고 간단한 대화까지 폭넓은 작업을 도와드릴 수 있습니다. 조사, 글쓰기, 새로운 학습에 도움이 필요하시거나 단순히 특정 주제에 대해 이야기하고 싶으시다면 언제든 편하게 말씀해 주세요. 기꺼이 도와드리겠습니다! 😊
     ```
+    <!--- KNIT example-getting-started-05.txt -->
 
 === "OpenRouter"
 
     다음 예제는 OpenRouter API를 통해 [`GPT-4o`](https://openrouter.ai/openai/gpt-4o) 모델을 사용하는 간단한 Koog 에이전트를 생성하고 실행합니다.
 
-    <!--- INCLUDE
-    import ai.koog.agents.core.agent.AIAgent
-    import ai.koog.prompt.executor.llms.all.simpleOpenRouterExecutor
-    import ai.koog.prompt.executor.clients.openrouter.OpenRouterModels
-    import kotlinx.coroutines.runBlocking
-    -->
-    ```kotlin
-    fun main() = runBlocking {
-        // OPENROUTER_API_KEY 환경 변수에서 OpenRouter API 키를 가져옵니다.
-        val apiKey = System.getenv("OPENROUTER_API_KEY")
-            ?: error("API 키가 설정되지 않았습니다.")
+    === "Kotlin"
+
+        <!--- INCLUDE
+        import ai.koog.agents.core.agent.AIAgent
+        import ai.koog.prompt.executor.llms.all.simpleOpenRouterExecutor
+        import ai.koog.prompt.executor.clients.openrouter.OpenRouterModels
+        import kotlinx.coroutines.runBlocking
+        -->
+        ```kotlin
+        fun main() = runBlocking {
+            // OPENROUTER_API_KEY 환경 변수에서 OpenRouter API 키를 가져옵니다.
+            val apiKey = System.getenv("OPENROUTER_API_KEY")
+                ?: error("API 키가 설정되지 않았습니다.")
+            
+            // 에이전트 생성
+            val agent = AIAgent(
+                promptExecutor = simpleOpenRouterExecutor(apiKey),
+                llmModel = OpenRouterModels.GPT4o
+            )
         
+            // 에이전트 실행
+            val result = agent.run("Hello! How can you help me?")
+            println(result)
+        }
+        ```
+        <!--- KNIT example-getting-started-05.kt -->
+
+    === "Java"
+
+        <!--- INCLUDE
+        /**
+        -->
+        <!--- SUFFIX
+        **/
+        -->
+        ```java
+        // OPENROUTER_API_KEY 환경 변수에서 OpenRouter API 키를 가져옵니다.
+        String apiKey = System.getenv("OPENROUTER_API_KEY");
+        if (apiKey == null) {
+            throw new RuntimeException("API 키가 설정되지 않았습니다.");
+        }
+
         // 에이전트 생성
-        val agent = AIAgent(
-            promptExecutor = simpleOpenRouterExecutor(apiKey),
-            llmModel = OpenRouterModels.GPT4o
-        )
-    
+        AIAgent<String, String> agent = AIAgent.builder()
+            .promptExecutor(simpleOpenRouterExecutor(apiKey))
+            .llmModel(OpenRouterModels.GPT4o)
+            .build();
+
         // 에이전트 실행
-        val result = agent.run("Hello! How can you help me?")
-        println(result)
-    }
-    ```
-    <!--- KNIT example-getting-started-05.kt -->
+        String result = agent.run("Hello! How can you help me?");
+        System.out.println(result);
+        ```
+        <!--- KNIT example-getting-started-java-05.java -->
 
     이 예제는 다음과 같은 출력을 생성할 수 있습니다:
 
     ```
     질문에 답하고, 글쓰기를 돕고, 문제를 해결하고, 작업을 정리하는 등 다양한 일을 도와드릴 수 있습니다. 무엇이 필요한지 알려주세요!
     ```
+    <!--- KNIT example-getting-started-06.txt -->
 
 === "Bedrock"
 
     다음 예제는 Bedrock API를 통해 [`Claude Sonnet 4.5`](https://www.anthropic.com/news/claude-sonnet-4-5) 모델을 사용하는 간단한 Koog 에이전트를 생성하고 실행합니다.
-
-    <!--- INCLUDE
-    import ai.koog.agents.core.agent.AIAgent
-    import ai.koog.prompt.executor.llms.all.simpleBedrockExecutorWithBearerToken
-    import ai.koog.prompt.executor.clients.bedrock.BedrockModels
-    import kotlinx.coroutines.runBlocking
-    -->
-    ```kotlin
-    fun main() = runBlocking {
-        // BEDROCK_API_KEY 환경 변수에서 Bedrock API 키를 가져옵니다.
-        val apiKey = System.getenv("BEDROCK_API_KEY")
-            ?: error("API 키가 설정되지 않았습니다.")
-        
-        // 에이전트 생성
-        val agent = AIAgent(
-            promptExecutor = simpleBedrockExecutorWithBearerToken(apiKey),
-            llmModel = BedrockModels.AnthropicClaude4_5Sonnet
-        )
     
+    === "Kotlin"
+
+        <!--- INCLUDE
+        import ai.koog.agents.core.agent.AIAgent
+        import ai.koog.prompt.executor.llms.all.simpleBedrockExecutorWithBearerToken
+        import ai.koog.prompt.executor.clients.bedrock.BedrockModels
+        import kotlinx.coroutines.runBlocking
+        -->
+        ```kotlin
+        fun main() = runBlocking {
+            // BEDROCK_API_KEY 환경 변수에서 Bedrock API 키를 가져옵니다.
+            val apiKey = System.getenv("BEDROCK_API_KEY")
+                ?: error("API 키가 설정되지 않았습니다.")
+            
+            // 에이전트 생성
+            val agent = AIAgent(
+                promptExecutor = simpleBedrockExecutorWithBearerToken(apiKey),
+                llmModel = BedrockModels.AnthropicClaude4_5Sonnet
+            )
+        
+            // 에이전트 실행
+            val result = agent.run("Hello! How can you help me?")
+            println(result)
+        }
+        ```
+        <!--- KNIT example-getting-started-06.kt -->
+
+    === "Java"
+
+        <!--- INCLUDE
+        /**
+        -->
+        <!--- SUFFIX
+        **/
+        -->
+        ```java
+        // BEDROCK_API_KEY 환경 변수에서 Bedrock API 키를 가져옵니다.
+        String apiKey = System.getenv("BEDROCK_API_KEY");
+        if (apiKey == null) {
+            throw new RuntimeException("API 키가 설정되지 않았습니다.");
+        }
+
+        // 에이전트 생성
+        AIAgent<String, String> agent = AIAgent.builder()
+            .promptExecutor(simpleBedrockExecutorWithBearerToken(apiKey, new BedrockClientSettings()))
+            .llmModel(BedrockModels.INSTANCE.getAnthropicClaude4_5Sonnet())
+            .build();
+
         // 에이전트 실행
-        val result = agent.run("Hello! How can you help me?")
-        println(result)
-    }
-    ```
-    <!--- KNIT example-getting-started-06.kt -->
+        String result = agent.run("Hello! How can you help me?");
+        System.out.println(result);
+        ```
+        <!--- KNIT example-getting-started-java-06.java -->
 
     이 예제는 다음과 같은 출력을 생성할 수 있습니다:
 
@@ -403,35 +588,65 @@ Koog를 사용하려면 [지원되는 LLM 제공자](llm-providers.md)의 API �
     
      오늘은 어떤 도움을 드릴까요?
     ```
+    <!--- KNIT example-getting-started-07.txt -->
 
 === "Mistral"
 
     다음 예제는 Mistral AI API를 통해 [`Mistral Medium 3.1`](https://docs.mistral.ai/models/mistral-medium-3-1-25-08) 모델을 사용하는 간단한 Koog 에이전트를 생성하고 실행합니다.
 
-    <!--- INCLUDE
-    import ai.koog.agents.core.agent.AIAgent
-    import ai.koog.prompt.executor.llms.all.simpleMistralAIExecutor
-    import ai.koog.prompt.executor.clients.mistralai.MistralAIModels
-    import kotlinx.coroutines.runBlocking
-    -->
-    ```kotlin
-    fun main() = runBlocking {
-        // MISTRAL_API_KEY 환경 변수에서 Mistral AI API 키를 가져옵니다.
-        val apiKey = System.getenv("MISTRAL_API_KEY")
-            ?: error("API 키가 설정되지 않았습니다.")
+    === "Kotlin"
+
+        <!--- INCLUDE
+        import ai.koog.agents.core.agent.AIAgent
+        import ai.koog.prompt.executor.llms.all.simpleMistralAIExecutor
+        import ai.koog.prompt.executor.clients.mistralai.MistralAIModels
+        import kotlinx.coroutines.runBlocking
+        -->
+        ```kotlin
+        fun main() = runBlocking {
+            // MISTRAL_API_KEY 환경 변수에서 Mistral AI API 키를 가져옵니다.
+            val apiKey = System.getenv("MISTRAL_API_KEY")
+                ?: error("API 키가 설정되지 않았습니다.")
+            
+            // 에이전트 생성
+            val agent = AIAgent(
+                promptExecutor = simpleMistralAIExecutor(apiKey),
+                llmModel = MistralAIModels.Chat.MistralMedium31
+            )
         
-        // 에이전트 생성
-        val agent = AIAgent(
-            promptExecutor = simpleMistralAIExecutor(apiKey),
-            llmModel = MistralAIModels.Chat.MistralMedium31
-        )
+            // 에이전트 실행
+            val result = agent.run("Hello! How can you help me?")
+            println(result)
+        }
+        ```
+        <!--- KNIT example-getting-started-07.kt -->
     
+    === "Java"
+
+        <!--- INCLUDE
+        /**
+        -->
+        <!--- SUFFIX
+        **/
+        -->   
+        ```java
+        // MISTRAL_API_KEY 환경 변수에서 Mistral AI API 키를 가져옵니다.
+        String apiKey = System.getenv("MISTRAL_API_KEY");
+        if (apiKey == null) {
+            throw new RuntimeException("API 키가 설정되지 않았습니다.");
+        }
+
+        // 에이전트 생성
+        AIAgent<String, String> agent = AIAgent.builder()
+            .promptExecutor(simpleMistralAIExecutor(apiKey))
+            .llmModel(MistralAIModels.Chat.MistralMedium31)
+            .build();
+
         // 에이전트 실행
-        val result = agent.run("Hello! How can you help me?")
-        println(result)
-    }
-    ```
-    <!--- KNIT example-getting-started-07.kt -->
+        String result = agent.run("Hello! How can you help me?");
+        System.out.println(result);
+        ```
+        <!--- KNIT example-getting-started-java-07.java -->
 
     이 예제는 다음과 같은 출력을 생성할 수 있습니다:
 
@@ -449,37 +664,62 @@ Koog를 사용하려면 [지원되는 LLM 제공자](llm-providers.md)의 API �
     
     지금 무슨 생각을 하고 계신가요? 특별히 도움이 필요한 부분이 있나요?
     ```
+    <!--- KNIT example-getting-started-08.txt -->
 
 === "Ollama"
 
     다음 예제는 Ollama를 통해 로컬에서 실행되는 [`llama3.2`](https://ollama.com/library/llama3.2) 모델을 사용하는 간단한 Koog 에이전트를 생성하고 실행합니다.
 
-    <!--- INCLUDE
-    import ai.koog.agents.core.agent.AIAgent
-    import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
-    import ai.koog.prompt.executor.ollama.client.OllamaModels
-    import kotlinx.coroutines.runBlocking
-    -->
-    ```kotlin
-    fun main() = runBlocking {
+    === "Kotlin"
+
+        <!--- INCLUDE
+        import ai.koog.agents.core.agent.AIAgent
+        import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
+        import ai.koog.prompt.executor.ollama.client.OllamaModels
+        import kotlinx.coroutines.runBlocking
+        -->
+        ```kotlin
+        fun main() = runBlocking {
+            // 에이전트 생성
+            val agent = AIAgent(
+                promptExecutor = simpleOllamaAIExecutor(),
+                llmModel = OllamaModels.Meta.LLAMA_3_2
+            )
+
+            // 에이전트 실행
+            val result = agent.run("Hello! How can you help me?")
+            println(result)
+        }
+        ```
+        <!--- KNIT example-getting-started-08.kt -->
+
+    === "Java"
+
+        <!--- INCLUDE
+        /**
+        -->
+        <!--- SUFFIX
+        **/
+        -->  
+        ```java
         // 에이전트 생성
-        val agent = AIAgent(
-            promptExecutor = simpleOllamaAIExecutor(),
-            llmModel = OllamaModels.Meta.LLAMA_3_2
-        )
+        AIAgent<String, String> agent = AIAgent.builder()
+            .promptExecutor(simpleOllamaAIExecutor("http://localhost:11434"))
+            .llmModel(OllamaModels.Meta.LLAMA_3_2)
+            .build();
 
         // 에이전트 실행
-        val result = agent.run("Hello! How can you help me?")
-        println(result)
-    }
-    ```
-    <!--- KNIT example-getting-started-08.kt -->
+        String result = agent.run("Hello! How can you help me?");
+        System.out.println(result);
+        ```
+        <!--- KNIT example-getting-started-java-08.java -->
 
     이 예제는 다음과 같은 출력을 생성할 수 있습니다:
 
     ```
     질문 답변, 정보 제공, 그리고 교정이나 글쓰기 제안과 같은 언어 관련 작업 등 다양한 업무를 도와드릴 수 있습니다. 오늘 어떤 도움이 필요하신가요?
     ```
+    <!--- KNIT example-getting-started-09.txt -->
 
 ## 다음 단계
 

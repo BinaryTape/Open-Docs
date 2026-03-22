@@ -2,16 +2,28 @@
 
 ## 미출시(Unreleased)
 
-### 변경됨
-* [페이징 확장] Paging 3.4.1로 업그레이드 및 X64 Apple 타겟 삭제. (#6166)
+### 추가됨
+- [Native 드라이버] `inMemoryDriver`에 `extendedConfig` 파라미터 추가 (#5539 by @GuilhE)
+- [PostgreSQL 다이얼렉트] 암시적으로 정의된 시스템 컬럼(implicitly defined System Columns)에 대한 쿼리 지원 추가 (#5834 by @griffio)
+- [PostgreSQL 다이얼렉트] 기본적인 배열 리터럴(Array literal) 지원 추가 (#5997 by @griffio)
+- [PostgreSQL 다이얼렉트] 기본적인 LTREE 지원 추가 (#5880 by @yesitskev @griffio)
+- [MySQL 다이얼렉트] INET 함수 지원 추가 (#5072 by @mcxinyu)
 
-## [2.3.1] - 2026-03-12
-[2.3.1]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.1
+### 변경됨
+- [PostgreSQL 다이얼렉트] `arrayIntermediateType` 가시성을 public으로 변경 (#5835 by @griffio)
+- [Gradle 플러그인] 더 엄격한 `MigrationFile` 버전 관리(versioning) 구현 (#5730 by @madisp)
+
+### 수정됨
+- [컴파일러] 그룹화되지 않은 집계 결과 집합(non-grouped aggregate result set)의 다른 컬럼들은 항상 널 허용(nullable)임
+- [PostgreSQL 다이얼렉트] `coalesce` 및 `ifnull`에 대한 널 허용 여부(nullability)를 올바르게 해결
+
+## [2.3.2] - 2026-03-16
+[2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
 
 ### 추가됨
 - [PostgreSQL 다이얼렉트] `ALTER TABLE ALTER TYPE USING` 표현식 지원 개선 (#6116 by @griffio)
 - [PostgreSQL 다이얼렉트] `DROP COLUMN IF EXISTS` 지원 추가 (#6112 by @griffio)
-- [Gradle 플러그인] `SELECT` 와일드카드 확장을 비활성화하기 위한 `expandSelectStar` 플래그 추가 (#5813 by @griffio)
+- [Gradle 플러그인] `SELECT` 와일드카드 확장(wildcard expansions)을 비활성화하기 위한 `expandSelectStar` 플래그 추가 (#5813 by @griffio)
 - [MySQL 다이얼렉트] 윈도우 함수(Window Functions) 지원 추가 (#6086 by @griffio)
 - [Gradle 플러그인] 시작 스키마 버전이 1이 아니고 `verifyMigrations`가 true일 때 발생하는 빌드 실패 수정 (#6017 by @neilgmiller)
 - [Gradle 플러그인] `SqlDelightWorkerTask`를 더 유연하게 설정 가능하도록 변경하고, Windows에서의 개발을 지원하도록 기본 설정을 업데이트 (#5215 by @MSDarwish2000)
@@ -22,12 +34,14 @@
 - [런타임] 트랜잭션의 `CoroutineContext`를 제어하는 메커니즘을 제공하는 `SuspendingTransacter.TransactionDispatcher` 추가 (#5967 by @eygraber)
 - [Gradle 플러그인] Android Gradle Plugin 9.0의 새로운 DSL과 완전히 호환됨. (#6140)
 - [PostgreSQL 다이얼렉트] PostgreSql `CREATE TABLE` 저장 파라미터(storage parameters) 지원 (#6148 by @griffio)
+- [PostgreSQL 다이얼렉트] PostgreSql 유니크 테이블 제약 조건의 널 허용 결과 컬럼 수정 (#6167 by @griffio)
 
 ### 변경됨
 - [컴파일러] 컴파일러 출력 타입을 `java.lang.Void`에서 `kotlin.Nothing`으로 변경 (#6099 by @griffio)
 - [컴파일러] 패키지 이름에 언더스코어(_) 사용 허용. 이전에는 언더스코어가 제거되어 예기치 않은 동작이 발생했음 (#6027 by @BierDav)
 - [페이징 확장] AndroidX Paging으로 전환 (#5910 by @jeffdgr8)
 - [Android 드라이버] Android `minSdk`를 23으로 상향. (#6141)
+- [페이징 확장] Paging 3.4.1로 업그레이드 및 X64 Apple 타겟 삭제. (#6166)
 
 ### 수정됨
 - [IntelliJ 플러그인] VFS 새로고침 이벤트 중 EDT에서 파일 유형 감지를 차단하여 발생하는 IDE 프리징 수정.
@@ -37,10 +51,15 @@
 - [Intellij 플러그인] 플러그인 초기화 예외 수정 및 지원 중단된 메서드 업데이트 (#6040 by @griffio)
 - [Gradle 플러그인] Android Gradle Plugin의 내장 Kotlin과의 호환성 수정 (#6139)
 
+## [2.3.1] - 2025-03-12
+[2.3.1]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.1
+
+실패한 릴리스입니다. 2.3.2를 사용하세요!
+
 ## [2.3.0] - 2025-03-12
 [2.3.0]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.0
 
-실패한 릴리스입니다. 2.3.1을 사용하세요!
+실패한 릴리스입니다. 2.3.2를 사용하세요!
 
 ## [2.2.1] - 2025-11-13
 [2.2.1]: https://github.com/sqldelight/sqldelight/releases/tag/2.2.1
@@ -62,15 +81,15 @@
 
 ### 변경됨
 - 개발 중인 스냅샷이 이제 https://central.sonatype.com/repository/maven-snapshots/ 의 Central Portal Snapshots 저장소에 게시됩니다.
-- [컴파일러] 생성자 참조를 사용하여 기본 생성 쿼리 단순화 (#5814 by @jonapoul)
+- [컴파일러] 생성자 참조(constructor references)를 사용하여 기본 생성 쿼리 단순화 (#5814 by @jonapoul)
 
 ### 수정됨
-- [컴파일러] 공통 테이블 식(Common Table Expression)을 포함하는 View 사용 시 스택 오버플로 수정 (#5928 by @griffio)
+- [컴파일러] 공통 테이블 식(Common Table Expression)을 포함하는 View 사용 시 스택 오버플로(stack overflow) 수정 (#5928 by @griffio)
 - [Gradle 플러그인] "New Connection"을 추가하기 위해 SqlDelight 도구 창을 열 때 발생하는 크래시 수정 (#5906 by @griffio)
 - [IntelliJ 플러그인] copy-to-sqlite 거터 액션(gutter action)에서 스레딩 관련 크래시 방지 (#5901 by @griffio)
 - [IntelliJ 플러그인] `CREATE INDEX` 및 `CREATE VIEW` 스키마 문 사용 시 PostgreSQL 다이얼렉트 수정 (#5772 by @griffio)
-- [컴파일러] 컬럼 참조 시 FTS 스택 오버플로 수정 (#5896 by @griffio)
-- [컴파일러] `With Recursive` 스택 오버플로 수정 (#5892 by @griffio)
+- [컴파일러] 컬럼 참조 시 FTS 스택 오버플로(stack overflow) 수정 (#5896 by @griffio)
+- [컴파일러] `With Recursive` 스택 오버플로(stack overflow) 수정 (#5892 by @griffio)
 - [컴파일러] `Insert|Update|Delete Returning` 문에 대한 Notify 수정 (#5851 by @griffio)
 - [컴파일러] `Long`을 반환하는 트랜잭션 블록의 비동기 결과 타입 수정 (#5836 by @griffio)
 - [컴파일러] SQL 파라미터 바인딩 복잡도를 O(n²)에서 O(n)으로 최적화 (#5898 by @chenf7)
@@ -237,7 +256,7 @@
 - [MySQL 다이얼렉트] MySQL: `IF` 표현식에서 timestamp/bigint 지원 (#4329 by @shellderp)
 - [MySQL 다이얼렉트] MySQL: `now` 추가 (#4431 by @hfhbd)
 - [Web 드라이버] NPM 패키지 게시 활성화 (#4364)
-- [IDE 플러그인] Gradle 툴링 연결 실패 시 사용자가 스택트레이스를 볼 수 있도록 허용 (#4383)
+- [IDE 플러그인] Gradle 툴링 연결 실패 시 사용자가 스택트레이스(stacktrace)를 볼 수 있도록 허용 (#4383)
 
 ### 변경됨
 - [Sqlite 드라이버] `JdbcSqliteDriver`에 대한 스키마 마이그레이션 사용 단순화 (#3737 by @morki)
@@ -352,7 +371,7 @@
 - [PostgreSQL 다이얼렉트] Postgres: 타입 파라미터가 없는 Array 수정 (by @hfhbd)
 - [IDE 플러그인] IntelliJ를 221.6008.13으로 업데이트 (by @hfhbd)
 - [컴파일러] 순수 View로부터 재귀적 원본 테이블 해결 (#hfhbd)
-- [컴파일러] 테이블 외래 키 절에서 value 클래스 사용 (by @hfhbd)
+- [컴파일러] 테이블 외래 키 절에서 가치 클래스(value classes) 사용 (by @hfhbd)
 - [컴파일러] 괄호 없는 바인드 표현식을 지원하도록 `SelectQueryGenerator` 수정 (by @bellatoris)
 - [컴파일러] 트랜잭션 사용 시 `${name}Indexes` 변수의 중복 생성 수정 (by @sachera)
 
@@ -373,7 +392,7 @@
 
 - Paging 3 확장 API가 개수(count)에 대해 int 타입만 허용하도록 변경되었습니다.
 - 코루틴 확장은 이제 기본값을 사용하는 대신 디스패처(dispatcher)를 전달해야 합니다.
-- Dialect 및 Driver 클래스는 final이며, 대신 위임(delegation)을 사용하세요.
+- 다이얼렉트(Dialect) 및 드라이버(Driver) 클래스는 final이며, 대신 위임(delegation)을 사용하세요.
 
 ### 추가됨
 - [HSQL 다이얼렉트] Hsql: Insert에서 생성된 컬럼에 `DEFAULT` 사용 지원 (#3372 by @hfhbd)
@@ -381,7 +400,7 @@
 - [PostgreSQL 다이얼렉트] PostgreSQL에 `NOW()` 추가 (#3403 by @hfhbd)
 - [PostgreSQL 다이얼렉트] PostgreSQL에 `NOT` 연산자 추가 (#3504 by @hfhbd)
 - [페이징] `*QueryPagingSource`에 `CoroutineContext` 전달 허용 (#3384)
-- [Gradle 플러그인] 다이얼렉트에 대해 더 나은 버전 카탈로그 지원 추가 (#3435)
+- [Gradle 플러그인] 다이얼렉트에 대해 더 나은 버전 카탈로그(version catalog) 지원 추가 (#3435)
 - [Native 드라이버] `NativeSqliteDriver`의 `DatabaseConfiguration` 생성에 훅(hook)을 거는 콜백 추가 (#3512 by @svenjacobs)
 
 ### 변경됨
@@ -431,7 +450,7 @@ sqldelight {
 ```
 - `AfterVersionWithDriver` 타입이 이제 항상 드라이버를 가지는 `AfterVersion`을 위해 삭제되었습니다.
 - `Schema` 타입은 더 이상 `SqlDriver`의 서브타입이 아닙니다.
-- `PreparedStatement` API은 이제 0부터 시작하는 인덱스로 호출됩니다.
+- `PreparedStatement` API는 이제 0부터 시작하는 인덱스로 호출됩니다.
 
 ### 추가됨
 - [IDE 플러그인] 실행 중인 데이터베이스에 대해 SQLite, MySQL, PostgreSQL 명령을 실행하는 지원 추가 (#2718 by @aperfilyev)
@@ -494,7 +513,7 @@ sqldelight {
 - [컴파일러] 그룹 문의 끝에서 returning 지원
 - [컴파일러] 다이얼렉트 모듈을 통한 컴파일러 확장 지원 및 SQLite JSON 확장 추가 (#1379, #2087)
 - [컴파일러] 값을 반환하는 `PRAGMA` 문 지원 (#1106)
-- [컴파일러] 표시된 컬럼에 대해 value 타입 생성 지원
+- [컴파일러] 표시된 컬럼에 대해 가치 타입(value type) 생성 지원
 - [컴파일러] 낙관적 락(optimistic locks) 및 유효성 검사 지원 추가 (#1952)
 - [컴파일러] 멀티 업데이트(multi-update) 문 지원
 - [PostgreSQL] Postgres returning 문 지원
@@ -539,8 +558,8 @@ sqldelight {
 - [컴파일러] `INSTEAD OF` 트리거가 있는 view 업데이트 지원 (#1018)
 - [컴파일러] 함수 이름에서 from 및 for 지원
 - [컴파일러] 함수 표현식에서 `SEPARATOR` 키워드 허용
-- [컴파일러] `ORDER BY`에서 에일리언스된 테이블의 `ROWID`에 접근할 수 없는 문제 수정
-- [컴파일러] MySQL의 `HAVING` 절에서 에일리언스된 컬럼 이름이 인식되지 않는 문제 수정
+- [컴파일러] `ORDER BY`에서 에일리어스(alias)된 테이블의 `ROWID`에 접근할 수 없는 문제 수정
+- [컴파일러] MySQL의 `HAVING` 절에서 에일리어스(alias)된 컬럼 이름이 인식되지 않는 문제 수정
 - [컴파일러] 잘못된 'Multiple columns found' 에러 수정
 - [컴파일러] `PRAGMA locking_mode = EXCLUSIVE;`를 설정할 수 없는 문제 수정
 - [PostgreSQL] PostgreSQL 컬럼 이름 변경 수정
@@ -574,7 +593,7 @@ sqldelight {
 }
 ```
 
-현재 지원되는 다이얼렉트는 `mysql-dialect`, `postgresql-dialect`, `hsql-dialect`, `sqlite-3-18-dialect`, `sqlite-3-24-dialect`, `sqlite-3-24-dialect`, `sqlite-3-30-dialect`, `sqlite-3-35-dialect`입니다.
+현재 지원되는 다이얼렉트는 `mysql-dialect`, `postgresql-dialect`, `hsql-dialect`, `sqlite-3-18-dialect`, `sqlite-3-24-dialect`, `sqlite-3-25-dialect`, `sqlite-3-30-dialect`, `sqlite-3-35-dialect`입니다.
 
 - 원시 타입은 이제 명시적으로 임포트해야 합니다(예: `INTEGER AS Boolean`을 쓰려면 `import kotlin.Boolean` 필요). 이전에 지원되던 일부 타입은 이제 어댑터가 필요합니다. 대부분의 변환을 위한 원시 어댑터는 `app.cash.sqldelight:primitive-adapters:2.0.0-alpha01`에서 제공됩니다(예: `Integer AS kotlin.Int`를 위한 `IntColumnAdapter`).
 
@@ -606,7 +625,7 @@ sqldelight {
 - [IDE 플러그인] 최소 지원 IntelliJ 버전은 2021.1
 
 ### 수정됨
-- [런타임] 할당 및 포인터 체이싱을 줄이기 위해 리스너 리스트를 플래툰(Flatten). (by @andersio)
+- [런타임] 할당 및 포인터 체이싱을 줄이기 위해 리스너 리스트를 평탄화(Flatten). (by @andersio)
 - [IDE 플러그인] 에러로 점프할 수 있도록 에러 메시지 수정 (by @hfhbd)
 - [IDE 플러그인] 누락된 검사(inspection) 설명 추가 (#2768 by @aperfilyev)
 - [IDE 플러그인] `GotoDeclarationHandler`의 예외 수정 (#2531, #2688, #2804 by @aperfilyev)
@@ -624,7 +643,7 @@ sqldelight {
 - [Gradle 플러그인] 런타임 추가 시 js/android 플러그인을 명시적으로 지원 (by @ZacSweers)
 - [Gradle 플러그인] 마이그레이션에서 스키마를 도출하지 않고 마이그레이션 출력 태스크 등록 (#2744 by @kevincianfarini)
 - [Gradle 플러그인] 마이그레이션 태스크 크래시 시 실행 중이던 파일 출력
-- [Gradle 플러그인] 멱등성 있는 출력을 보장하기 위해 코드 생성 시 파일 정렬 (by @ZacSweers)
+- [Gradle 플러그인] 멱등성(idempotent) 있는 출력을 보장하기 위해 코드 생성 시 파일 정렬 (by @ZacSweers)
 - [컴파일러] 파일 반복을 위해 더 빠른 API를 사용하고 전체 PSI 그래프를 탐색하지 않음
 - [컴파일러] select 함수 파라미터에 키워드 맹글링 추가 (#2759 by @aperfilyev)
 - [컴파일러] 마이그레이션 어댑터를 위한 `packageName` 수정 (by @hfhbd)
@@ -641,7 +660,7 @@ sqldelight {
 
 ### 변경됨
 - [Paging3 확장] `sqldelight-android-paging3`를 AAR 대신 JAR로 배포 (#2634 by @julioromano)
-- 소프트 키워드이기도 한 프로퍼티 이름에는 이제 언더스코어가 접미사로 붙습니다. 예를 들어 `value`는 `value_`로 노출됩니다.
+- 소프트 키워드(soft keywords)이기도 한 프로퍼티 이름에는 이제 언더스코어가 접미사로 붙습니다. 예를 들어 `value`는 `value_`로 노출됩니다.
 
 ### 수정됨
 - [컴파일러] 중복된 배열 파라미터에 대해 변수를 추출하지 않도록 수정 (by @aperfilyev)
@@ -798,8 +817,6 @@ sqldelight {
 - [Gradle 플러그인] Gradle 플러그인에서 `kotlin-native-utils`에 의존하지 않도록 수정 (by @ilmat192)
 - [Gradle 플러그인] 마이그레이션 파일만 있는 경우에도 데이터베이스를 쓰도록 보장 (#2094)
 - [Gradle 플러그인] 다이아몬드 의존성이 최종 컴파일 단위에서 한 번만 선택되도록 보장 (#1455)
-
-또한 이번 릴리스에서 SQLDelight 인프라 개선을 위해 많은 노력을 기울여 준 @3flex에게 감사의 인사를 전합니다.
 
 ## [1.4.4] - 2020-10-08
 [1.4.4]: https://github.com/sqldelight/sqldelight/releases/tag/1.4.4
@@ -1091,7 +1108,7 @@ sqldelight {
  * 신규: IntelliJ 플러그인이 .sq 파일에서 포맷팅 수행
  * 신규: SQLite timestamp 리터럴 지원
  * 수정: IntelliJ에서 파라미터화된 타입을 클릭하여 이동 가능
- * 수정: 이스케이프된 컬럼 이름이 적절히 Cursor에서 가져올 때 더 이상 `RuntimeException`을 발생시키지 않음.
+ * 수정: 이스케이프된 컬럼 이름이 Cursor에서 가져올 때 더 이상 `RuntimeException`을 발생시키지 않음.
  * 수정: Gradle 플러그인이 예외를 출력하려고 할 때 크래시 나지 않음.
 
 ## [0.4.4] - 2016-07-20
@@ -1141,7 +1158,7 @@ sqldelight {
 ## [0.3.2] - 2016-05-14
 [0.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/0.3.2
 
- * 신규: 이제 자동 완성 및 사용처 찾기가 view 및 에일리어스에 대해 작동함.
+ * 신규: 자동 완성 및 사용처 찾기가 view 및 에일리어스(alias)에 대해 작동함.
  * 수정: 컴파일 타임 검증이 select에서 함수 사용을 허용함.
  * 수정: 기본값만 선언하는 insert 문 지원.
  * 수정: SQLDelight를 사용하지 않는 프로젝트를 임포트할 때 플러그인이 더 이상 크래시 나지 않음.

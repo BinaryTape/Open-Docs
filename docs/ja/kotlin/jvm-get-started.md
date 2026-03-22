@@ -1,8 +1,10 @@
 [//]: # (title: コンソールアプリの作成 – チュートリアル)
 
+<web-summary>IntelliJ IDEA で Kotlin コンソールアプリを作成し、Kotlin コンパイラーを使用して実行します。</web-summary>
+
 このチュートリアルでは、IntelliJ IDEA を使用してコンソールアプリケーションを作成する方法を説明します。
 
-まず、最新バージョンの [IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html) をダウンロードしてインストールしてください。
+まず、最新バージョンの [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) をダウンロードしてインストールしてください。
 
 ## プロジェクトの作成
 

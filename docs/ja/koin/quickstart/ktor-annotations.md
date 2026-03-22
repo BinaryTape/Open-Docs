@@ -47,26 +47,27 @@ dependencies {
 ユーザーのコレクションを管理します。データクラスは以下の通りです。
 
 ```kotlin
-data class User(val name : String)
+data class User(val name: String, val email: String)
 ```
 
 ユーザーのリストを管理（ユーザーの追加や名前による検索）するための「Repository」コンポーネントを作成します。以下は、`UserRepository` インターフェースとその実装です。
 
 ```kotlin
 interface UserRepository {
-    fun findUser(name : String): User?
-    fun addUsers(users : List<User>)
+    fun findUserOrNull(name: String): User?
+    fun addUsers(users: List<User>)
 }
 
+@Singleton
 class UserRepositoryImpl : UserRepository {
 
     private val _users = arrayListOf<User>()
 
-    override fun findUser(name: String): User? {
+    override fun findUserOrNull(name: String): User? {
         return _users.firstOrNull { it.name == name }
     }
 
-    override fun addUsers(users : List<User>) {
+    override fun addUsers(users: List<User>) {
         _users.addAll(users)
     }
 }
@@ -79,108 +80,119 @@ class UserRepositoryImpl : UserRepository {
 ```kotlin
 @Module
 @ComponentScan("org.koin.sample")
+@Configuration
 class AppModule
 ```
 
-`@ComponentScan("org.koin.sample")` は、対象となるパッケージからアノテーション付きのクラスをスキャンするのに役立ちます。
+* `@Module` - これをKoinモジュールとして宣言します
+* `@ComponentScan("org.koin.sample")` - パッケージからアノテーション付きのクラスをスキャンして登録します
+* `@Configuration` - `@KoinApplication` による自動モジュール検出を有効にします
 
-最初のコンポーネントを宣言しましょう。`UserRepositoryImpl` のインスタンスを作成して、`UserRepository` のシングルトン（Singleton）を作成します。これに `@Single` とタグ付けします。
+:::note
+このプロジェクトでは、シングルトン（Singleton）コンポーネントを宣言するために（`org.koin.core.annotation` の）Koinの `@Singleton` アノテーションを使用しています。
+:::
+
+最初のコンポーネントを宣言しましょう。`UserRepositoryImpl` のインスタンスを作成して、`UserRepository` のシングルトンを作成します。これに `@Singleton` とタグ付けします。
 
 ```kotlin
-@Single
+@Singleton
 class UserRepositoryImpl : UserRepository
 ```
 
 ## UserServiceコンポーネント
 
-デフォルトユーザーを要求するための `UserService` コンポーネントを作成しましょう。
+ユーザー操作を管理するための `UserService` コンポーネントを作成しましょう。
 
 ```kotlin
-class UserService(private val userRepository: UserRepository) {
-
-    fun getDefaultUser() : User = userRepository.findUser(DefaultData.DEFAULT_USER.name) ?: error("Can't find default user")
+interface UserService {
+    fun getUserOrNull(name: String): User?
+    fun loadUsers()
+    fun prepareHelloMessage(user: User?): String
 }
-```
 
-> UserRepositoryは `UserPresenter` のコンストラクターで参照されています。
+@Singleton
+class UserServiceImpl(
+    private val userRepository: UserRepository
+) : UserService {
 
-Koinモジュールで `UserService` を宣言します。`@Single` アノテーションを付与します。
+    override fun getUserOrNull(name: String): User? = userRepository.findUserOrNull(name)
 
-```kotlin
-@Single
-class UserService(private val userRepository: UserRepository)
-```
+    override fun loadUsers() {
+        userRepository.addUsers(listOf(
+            User("Alice", "alice@example.com"),
+            User("Bob", "bob@example.com"),
+            User("Charlie", "charlie@example.com")
+        ))
+    }
 
-## HTTPコントローラー
-
-最後に、HTTPルートを作成するためのHTTPコントローラーが必要です。Ktorでは、これはKtorの拡張関数として表現されます。
-
-```kotlin
-fun Application.main() {
-
-    // UserServiceを遅延注入（Lazy inject）
-    val service by inject<UserService>()
-
-    // ルーティングセクション
-    routing {
-        get("/hello") {
-            call.respondText(service.sayHello())
-        }
+    override fun prepareHelloMessage(user: User?): String {
+        return user?.let { "Hello '${user.name}' (${user.email})! 👋" } ?: "❌ User not found"
     }
 }
 ```
 
-`Application.main` 関数を起動するために、`application.conf` が以下のように設定されているか確認してください。
+> UserRepositoryは `UserServiceImpl` のコンストラクターで参照されています。
+
+`@Singleton` アノテーションを使用して `UserService` を宣言します。
+
+## HTTPコントローラーとKoinアプリケーション
+
+最後に、`@KoinApplication` オブジェクトを作成し、HTTPルートを設定する必要があります。
 
 ```kotlin
-ktor {
-    deployment {
-        port = 8080
-
-        // 開発用設定
-        //autoreload = true
-        //watch = [org.koin.sample]
-    }
-
-    application {
-        modules = [ org.koin.sample.UserApplicationKt.main ]
-    }
-}
+@KoinApplication
+object KoinUserApplication
 ```
+
+`@KoinApplication` アノテーションは、これをKoinのアノテーションベースの設定のエントリポイントとしてマークします。KSPプロセッサは、Koinを初期化するために `withConfiguration<T>()` で使用できる設定を生成します。
 
 ## 起動と注入
 
-最後に、KtorからKoinを起動しましょう。
+それでは、KtorアプリケーションでKoinを設定しましょう。
 
 ```kotlin
 fun Application.main() {
+    // 生成された設定を使用してKoinをインストール
     install(Koin) {
         slf4jLogger()
-        modules(AppModule().module)
+        withConfiguration<KoinUserApplication>()
     }
 
     // UserServiceを遅延注入（Lazy inject）
     val service by inject<UserService>()
-    service.saveDefaultUsers()
+    service.loadUsers()
 
     // ルーティングセクション
     routing {
         get("/hello") {
-            call.respondText(service.sayHello())
+            val userName = call.queryParameters["name"] ?: "Alice"
+            val user = service.getUserOrNull(userName)
+            val message = service.prepareHelloMessage(user)
+            call.respondText(message)
         }
     }
 }
 ```
 
-`AppModule().module` と記述することで、`AppModule` クラスに対して生成された拡張プロパティを使用します。
+**主なポイント:**
+* `withConfiguration<KoinUserApplication>()` - アノテーションが付与されたアプリケーションオブジェクトから生成されたKoin設定を使用します。
+* 手動で `modules(AppModule().module)` を呼び出す必要はありません。自動的に含まれます！
+* `/hello` エンドポイントは、オプションの `name` クエリパラメータを受け取ります。
 
 Ktorを起動しましょう。
 
 ```kotlin
 fun main(args: Array<String>) {
-    // Ktorを起動
-    embeddedServer(Netty, commandLineEnvironment(args)).start(wait = true)
+    embeddedServer(Netty, port = 8080) {
+        main()
+    }.start(wait = true)
 }
 ```
 
-以上です！これで準備が整いました。`http://localhost:8080/hello` にアクセスして確認してみてください！
+以上です！これで準備が整いました。以下のURLを確認してください：
+- `http://localhost:8080/hello` - Alice（デフォルトユーザー）に挨拶します
+- `http://localhost:8080/hello?name=Bob` - Bobに挨拶します
+
+:::info
+モジュール上の `@Configuration` と併用される `@KoinApplication` アノテーションは、コンパイル時にすべてのアノテーション付き依存関係を自動的に検出し、ロードします。
+:::

@@ -2,11 +2,23 @@
 
 ## 未发布
 
-### 已变更
-- [Paging 扩展] 升级至 paging 3.4.1，并移除了 X64 Apple 目标。 (#6166)
+### 已添加
+- [原生驱动程序] 为 `inMemoryDriver` 添加了 `extendedConfig` 形参 (#5539 由 @GuilhE 贡献)
+- [PostgreSQL 方言] 添加了对隐式定义的系统列 (System Columns) 的查询支持 (#5834 由 @griffio 贡献)
+- [PostgreSQL 方言] 添加了基础数组文字 (Array literal) 支持 (#5997 由 @griffio 贡献)
+- [PostgreSQL 方言] 添加了基础 LTREE 支持 (#5880 由 @yesitskev @griffio 贡献)
+- [MySQL 方言] 添加了对 INET 函数的支持 (#5072 由 @mcxinyu 贡献)
 
-## [2.3.1] - 2026-03-12
-[2.3.1]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.1
+### 已变更
+- [PostgreSQL 方言] 将 `arrayIntermediateType` 的可见性更改为 public (#5835 由 @griffio 贡献)
+- [Gradle 插件] 实现了更严格的 `MigrationFile` 版本控制 (#5730 由 @madisp 贡献)
+
+### 已修复
+- [编译器] 非分组聚合结果集中的其他列始终为可为 null
+- [PostgreSQL 方言] 正确解析 `coalesce` 和 `ifnull` 的为 null 性
+
+## [2.3.2] - 2026-03-16
+[2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
 
 ### 已添加
 - [PostgreSQL 方言] 改进了对 `ALTER TABLE ALTER TYPE USING` 表达式的支持 (#6116 由 @griffio 贡献)
@@ -22,12 +34,14 @@
 - [运行时] 添加了 `SuspendingTransacter.TransactionDispatcher`，提供了一种控制事务 `CoroutineContext` 的机制 (#5967 由 @eygraber 贡献)
 - [Gradle 插件] 与 Android Gradle 插件 9.0 的新 DSL 完全兼容。 (#6140)
 - [PostgreSQL 方言] 支持 PostgreSql `CREATE TABLE` 存储参数 (#6148 由 @griffio 贡献)
+- [PostgreSQL 方言] 修复了 PostgreSql 唯一表约束可为 null 的结果列问题 (#6167 由 @griffio 贡献)
 
 ### 已变更
 - [编译器] 将编译器输出类型从 `java.lang.Void` 更改为 `kotlin.Nothing` (#6099 由 @griffio 贡献)
 - [编译器] 允许在软件包名称中使用下划线。之前下划线会被清理，导致出现非预期的行为 (#6027 由 @BierDav 贡献)
 - [Paging 扩展] 切换到 AndroidX Paging (#5910 由 @jeffdgr8 贡献)
 - [Android 驱动程序] 将 Android `minSdk` 提高到 23。 (#6141)
+- [Paging 扩展] 升级至 paging 3.4.1，并移除了 X64 Apple 目标。 (#6166)
 
 ### 已修复
 - [IntelliJ 插件] 修复了由于在 VFS 刷新事件期间阻塞 EDT 上的文件类型检测而导致的 IDE 冻结问题。
@@ -37,10 +51,15 @@
 - [Intellij 插件] 修复了插件初始化异常并更新了过时的方法 (#6040 由 @griffio 贡献)
 - [Gradle 插件] 修复了与 Android Gradle 插件内置 Kotlin 的兼容性问题 (#6139)
 
+## [2.3.1] - 2025-03-12
+[2.3.1]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.1
+
+发布失败。请使用 2.3.2！
+
 ## [2.3.0] - 2025-03-12
 [2.3.0]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.0
 
-发布失败。请使用 2.3.1！
+发布失败。请使用 2.3.2！
 
 ## [2.2.1] - 2025-11-13
 [2.2.1]: https://github.com/sqldelight/sqldelight/releases/tag/2.2.1
@@ -53,7 +72,7 @@
 - [PostgreSQL 方言] 添加了对使用公用表表达式的 `MATERIALIZED` 查询计划程序提示的支持 (#5961 由 @griffio 贡献)
 - [PostgreSQL 方言] 添加了对 Postgres JSON 聚合 `FILTER` 的支持 (#5957 由 @griffio 贡献)
 - [PostgreSQL 方言] 添加了对 Postgres 枚举的支持 (#5935 由 @griffio 贡献)
-- [PostgreSQL 方言] 添加了对 Postgres 触发器的有限支持 (#5932 由 @griffio 贡献)
+- [PostgreSQL 方方] 添加了对 Postgres 触发器的有限支持 (#5932 由 @griffio 贡献)
 - [PostgreSQL 方言] 添加了检查 SQL 表达式是否可以解析为 JSON 的谓词 (#5843 由 @griffio 贡献)
 - [PostgreSQL 方言] 添加了对 PostgreSql `Comment On` 语句的有限支持 (#5808 由 @griffio 贡献)
 - [MySQL 方言] 添加了对索引可见性选项的支持 (#5785 由 @orenkislev-faire 贡献)
@@ -547,7 +566,7 @@ sqldelight {
 - [MySQL] 无法识别 `UNIX_TIMESTAMP`、`TO_SECONDS`、`JSON_ARRAYAGG` 等 MySQL 函数
 - [SQLite] 修复了 SQLite 窗口功能
 - [IDE 插件] 在空进度指示器中运行转到处理程序 (#2990)
-- [IDE 插件] 确保如果项目未配置，高亮访问器不运行 (#2981, #2976)
+- [IDE 插件] 确保 如果项目未配置，高亮访问器不运行 (#2981, #2976)
 - [IDE 插件] 确保传递生成的代码在 IDE 中也能更新 (#1837)
 - [IDE 插件] 更新方言时使索引失效
 
@@ -937,7 +956,7 @@ sqldelight {
 
 * 新增：[Gradle] `dialect` 属性，用于指定要针对其编译的 SQL 方言。
 * 新增：[编译器] #1009 对 MySQL 方言的实验性支持。
-* 新增：[编译器] #1436 对 SQLite:3.24 方言和 `upsert` 的支持。
+* 新增：[编译器] #1436 对 SQLite 3.24 方言和 `upsert` 的支持。
 * 新增：[JDBC 驱动程序] 从 SQLite JVM 驱动程序中拆分出 JDBC 驱动程序。
 * 修复：[编译器] #1199 支持任意长度的 lambda。
 * 修复：[编译器] #1610 将 `avg()` 的返回值类型修复为可为 null。
@@ -1144,7 +1163,7 @@ sqldelight {
  * 新增：自动补全和查找用例现在适用于视图和别名。
  * 修复：编译时验证现在允许在 `select` 中使用函数。
  * 修复：支持仅声明默认值的插入语句。
- * 修复：导入不使用 SQLDelight 的项目时，插件不再崩溃。
+ * 修复：插件不再崩溃当一个不使用 SQLDelight 的项目被导入时。
 
 ## [0.3.1] - 2016-04-27
 [0.3.1]: https://github.com/sqldelight/sqldelight/releases/tag/0.3.1

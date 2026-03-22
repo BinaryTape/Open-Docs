@@ -56,9 +56,8 @@ plugins {
 | iOS                 | macOS        | tvOS                 | watchOS                 |
 |---------------------|--------------|----------------------|-------------------------|
 | `iosArm64`          | `macosArm64` | `tvosArm64`          | `watchosArm64`          |
-| `iosX64`            | `macosX64`   | `tvosX64`            | `watchosX64`            |
 | `iosSimulatorArm64` |              | `tvosSimulatorArm64` | `watchosSimulatorArm64` |
-|                     |              |                      | `watchosArm32`          |
+| `iosX64`            |              |                      | `watchosArm32`          |
 |                     |              |                      | `watchosDeviceArm64`    |
 
 각 타겟에 대해 `deploymentTarget` 프로퍼티를 사용하여 Pod 라이브러리의 최소 타겟 버전을 지정하세요.

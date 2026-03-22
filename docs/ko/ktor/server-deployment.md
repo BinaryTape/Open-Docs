@@ -62,6 +62,7 @@ Ktor를 사용하면 애플리케이션 내에서 바로 원하는 네트워크 
 아래 튜토리얼들은 Ktor 애플리케이션을 특정 클라우드 제공업체에 배포하는 방법을 보여줍니다:
 * [Google App Engine](google-app-engine.md)
 * [Heroku](heroku.md)
+* [Dokku](dokku.md)
 * [AWS Elastic Beanstalk](elastic-beanstalk.md)
 
 ## SSL {id="ssl"}

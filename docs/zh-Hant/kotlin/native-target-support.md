@@ -41,10 +41,10 @@ Kotlin/Native 編譯器支援多種不同的目標，但對這些目標的支援
 | `linuxX64` | `x86_64-unknown-linux-gnu` | ✅ | x86_64 平台上的 Linux |
 | `linuxArm64` | `aarch64-unknown-linux-gnu` | | ARM64 平台上的 Linux |
 | 僅限 Apple macOS 主機： | | | |
-| `watchosSimulatorArm64` | `aarch64-apple-watchos-simulator` | ✅ | Apple 晶片平台上的 Apple watchOS 模擬器 7.0 及更高版本 |
+| `watchosSimulatorArm64` | `aarch64-apple-watchos-simulator` | ✅ | Apple Silicon 平台上的 Apple watchOS 模擬器 7.0 及更高版本 |
 | `watchosArm32` | `armv7k-apple-watchos` | | ARM32 平台上的 Apple watchOS 7.0 及更高版本 |
 | `watchosArm64` | `arm64_32-apple-watchos` | | 使用 ILP32 的 ARM64 平台上的 Apple watchOS 7.0 及更高版本 |
-| `tvosSimulatorArm64` | `aarch64-apple-tvos-simulator` | ✅ | Apple 晶片平台上的 Apple tvOS 模擬器 14.0 及更高版本 |
+| `tvosSimulatorArm64` | `aarch64-apple-tvos-simulator` | ✅ | Apple Silicon 平台上的 Apple tvOS 模擬器 14.0 及更高版本 |
 | `tvosArm64` | `aarch64-apple-tvos` | | ARM64 平台上的 Apple tvOS 14.0 及更高版本 |
 
 ### 第 3 層級
@@ -65,14 +65,19 @@ Kotlin/Native 編譯器支援多種不同的目標，但對這些目標的支援
 | `mingwX64` | `x86_64-pc-windows-gnu` | ✅ | 使用 [MinGW](https://www.mingw-w64.org) 相容層的 64 位元 Windows 10 及更高版本 |
 | 僅限 Apple macOS 主機： | | | |
 | `watchosDeviceArm64` | `aarch64-apple-watchos` | | ARM64 平台上的 Apple watchOS 7.0 及更高版本 |
-| `macosX64` | `x86_64-apple-macos` | ✅ | x86_64 平台上的 Apple macOS 11.0 及更高版本 |
 | `iosX64` | `x86_64-apple-ios-simulator` | ✅ | x86-64 平台上的 Apple iOS 模擬器 14.0 及更高版本 |
-| `watchosX64` | `x86_64-apple-watchos-simulator` | ✅ | x86_64 平台上的 Apple watchOS 7.0 及更高版本 64 位元模擬器 |
-| `tvosX64` | `x86_64-apple-tvos-simulator` | ✅ | x86_64 平台上的 Apple tvOS 14.0 及更高版本模擬器 |
 
 > `linuxArm32Hfp` 目標已棄用，並將在未來的版本中移除。
 > 
 {style="note"}
+
+### 已棄用目標
+
+從 Kotlin 2.3.20 開始，以下目標已被棄用：
+
+* `macosX64` (x86_64 平台上的 Apple macOS 11.0 及更高版本)
+* `watchosX64` (x86_64 平台上的 Apple watchOS 7.0 及更高版本 64 位元模擬器)
+* `tvosX64` (x86_64 平台上的 Apple tvOS 14.0 及更高版本模擬器)
 
 ### 給程式庫作者
 
@@ -89,7 +94,7 @@ Kotlin/Native 編譯器支援以下主機：
 
 | 主機作業系統 | 建置最終執行檔 | 產生 `.klib` 構件 |
 |----------------------------------------------------|------------------------------------------------|------------------------------------------------------------------------|
-| Apple 晶片 (ARM64) 上的 macOS | 任何支援的目標 | 任何支援的目標 |
+| Apple Silicon (ARM64) 上的 macOS | 任何支援的目標 | 任何支援的目標 |
 | Intel 晶片 (x86_64) 上的 macOS | 任何支援的目標 | 任何支援的目標 |
 | x86_64 架構的 Linux | 除 Apple 目標外，任何支援的目標 | 任何支援的目標，Apple 目標僅限無 cinterop 相依性時 |
 | x86_64 架構的 Windows (MinGW 工具鏈) | 除 Apple 目標外，任何支援的目標 | 任何支援的目標，Apple 目標僅限無 cinterop 相依性時 |

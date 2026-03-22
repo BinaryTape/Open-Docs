@@ -24,9 +24,11 @@ fun MainViewController(): UIViewController =
 
 [`ComposeUIViewController()`](https://github.com/JetBrains/compose-multiplatform-core/blob/5b487914cc20df24187f9ddf54534dfec30f6752/compose/ui/ui/src/uikitMain/kotlin/androidx/compose/ui/window/ComposeWindow.uikit.kt)는 컴포저블(composable) 함수를 `content` 인자로 받는 Compose Multiplatform 라이브러리 함수입니다. 이 방식으로 전달된 함수는 `Text()`와 같은 다른 컴포저블 함수를 호출할 수 있습니다.
 
-> 컴포저블 함수는 `@Composable` 어노테이션이 붙은 함수입니다.
+> Compose Multiplatform 렌더링을 위해서는 높은 주사율(high refresh rates)이 명시적으로 활성화되어야 합니다.
+> 앱의 `Info.plist` 파일에 `CADisableMinimumFrameDurationOnPhone` 키를 추가하세요.
+> 이 키가 없으면 런타임에 앱이 충돌합니다.
 >
-{style="tip"}
+{style="note"}
 
 다음으로, SwiftUI에서 Compose Multiplatform을 나타내는 구조체가 필요합니다. `UIViewController` 인스턴스를 SwiftUI 뷰로 변환하는 다음 구조체를 생성합니다:
 
@@ -278,7 +280,7 @@ struct CameraPreview: View {
 * 사용자가 버튼을 탭할 때 모달 `.sheet`에서 `CameraView`를 제시합니다.
 * 촬영된 이미지를 저장하고 표시하기 위해 `@State` 프로퍼티 래퍼를 사용합니다.
 * 사진 미리보기를 위해 SwiftUI의 네이티브 `Image` 뷰를 임베드합니다.
-* 이전과 동일한 `UIViewControllerRepresentable` 기반의 `CameraView`를 재사용하지만, SwiftUI 상태 시스템에 더 깊이 통합합니다.
+* 이전과 동일한 `UIViewControllerRepresentable`-based `CameraView`를 재사용하지만, SwiftUI 상태 시스템에 더 깊이 통합합니다.
 
 > 실제 기기에서 테스트하려면 앱의 `Info.plist` 파일에 `NSCameraUsageDescription` 키를 추가해야 합니다. 이 키가 없으면 런타임에 앱이 충돌합니다.
 >

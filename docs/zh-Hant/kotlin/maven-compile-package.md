@@ -5,11 +5,44 @@
 ## 設定原始碼編譯
 
 為了確保您的原始碼能正確編譯，請調整專案組態。
-您的 Maven 專案可以設定為編譯 [僅限 Kotlin 的原始碼](#compile-kotlin-only-sources) 或 [Kotlin 與 Java 混合的原始碼](#compile-kotlin-and-java-sources)。
+您的 Maven 專案可以設定為編譯 [僅限 Kotlin 的原始碼](#compile-kotlin-only-sources) 或 [Kotlin 與 Java 混合的原始碼](#compile-kotlin-and-java-sources) 的組合。
 
 ### 編譯僅限 Kotlin 的原始碼
 
-若要編譯您的 Kotlin 原始碼：
+您可以使用 `extensions` 來簡化 Kotlin 編譯的設定：
+
+<tabs group="kotlin-java-maven">
+<tab title="使用擴充套件" group-key="with-extensions">
+
+確保已套用 Kotlin Maven 外掛程式，且 `extensions` 選項設定為 `true`：
+
+```xml
+<build>
+   <plugins>
+       <plugin>
+           <groupId>org.jetbrains.kotlin</groupId>
+           <artifactId>kotlin-maven-plugin</artifactId>
+           <version>%kotlinVersion%</version>
+           <extensions>true</extensions> <!-- 啟用擴充套件 -->
+       </plugin>
+   </plugins>
+</build>
+```
+
+Kotlin Maven 外掛程式中的 `extensions` 選項會自動：
+
+* 將 `compile`、`test-compile`、`kapt` 與 `test-kapt` 執行新增到您的組建中，並繫結到其適當的 [生命週期階段](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)。
+* 如果 `src/main/kotlin` 與 `src/test/kotlin` 目錄已存在但未在外掛程式組態中指定，則將其註冊為原始碼根目錄。
+* 如果專案中尚未定義 [`kotlin-stdlib` 相依性](maven-configure-project.md#dependency-on-the-standard-library)，則新增該相依性。
+
+擴充套件設定會取代整個 `<executions>` 區段。如果您需要設定某個執行，請參閱 [編譯 Kotlin 與 Java 原始碼](#compile-kotlin-and-java-sources) 中的範例。
+
+> 如果有多個建置外掛程式覆寫了預設生命週期，且您也啟用了 `extensions` 選項，則 `<build>` 區塊中最後一個外掛程式在生命週期設定方面具有優先權。所有早先對生命週期設定的變更都將被忽略。
+>
+{style="note"}
+
+</tab>
+<tab title="不使用擴充套件" group-key="no-extensions">
 
 1. 在 `<build>` 區塊中指定原始碼目錄：
 
@@ -29,7 +62,6 @@
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <version>${kotlin.version}</version>
-    
                 <executions>
                     <execution>
                         <id>compile</id>
@@ -37,7 +69,6 @@
                             <goal>compile</goal>
                         </goals>
                     </execution>
-    
                     <execution>
                         <id>test-compile</id>
                         <goals>
@@ -50,13 +81,8 @@
     </build>
     ```
 
-您可以將上面的整個 `<executions>` 區塊替換為 `<extensions>true</extensions>`。
-啟用擴充套件會自動將 `compile`、`test-compile`、`kapt` 與 `test-kapt` 執行新增到您的組建中，並繫結到其適當的 [生命週期階段](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)。
-如果您需要設定某個執行，則需要指定其 ID。您可以在下一節中找到相關範例。
-
-> 如果有多個建置外掛程式覆寫了預設生命週期，且您也啟用了 `extensions` 選項，則 `<build>` 區塊中最後一個外掛程式在生命週期設定方面具有優先權。所有早先對生命週期設定的變更都將被忽略。
->
-{style="note"}
+</tab>
+</tabs>
 
 <!-- The following header is used in the Mari link service. If you wish to change it here, change the link there too -->
 
@@ -96,45 +122,11 @@ Maven 根據兩個主要因素來決定外掛程式的執行順序：
             <artifactId>kotlin-maven-plugin</artifactId>
             <version>${kotlin.version}</version>
             <extensions>true</extensions>
-            <executions>
-                <execution>
-                    <id>default-compile</id>
-                    <phase>compile</phase>
-                    <configuration>
-                        <sourceDirs>
-                            <sourceDir>src/main/kotlin</sourceDir>
-                            <!-- Ensure Kotlin code can reference Java code -->
-                            <sourceDir>src/main/java</sourceDir>
-                        </sourceDirs>
-                    </configuration>
-                </execution>
-                <execution>
-                    <id>default-test-compile</id>
-                    <phase>test-compile</phase>
-                    <configuration>
-                        <sourceDirs>
-                            <sourceDir>src/test/kotlin</sourceDir>
-                            <sourceDir>src/test/java</sourceDir>
-                        </sourceDirs>
-                    </configuration>
-                </execution>
-            </executions>
         </plugin>
         <!-- No need to configure Maven compiler plugin with extensions -->
     </plugins>
 </build>
 ```
-
-如果您的專案先前使用的是僅限 Kotlin 的設定，您還需要從 `<build>` 區塊中移除以下幾行：
-
-```xml
-<build>
-    <sourceDirectory>src/main/kotlin</sourceDirectory>
-    <testSourceDirectory>src/test/kotlin</testSourceDirectory>
-</build>
-```
-
-透過 `extensions` 設定，這能確保 Kotlin 程式碼可以參照 Java 程式碼，反之亦然。
 
 </tab>
 <tab title="不使用擴充套件" group-key="no-extensions">
@@ -230,14 +222,9 @@ Maven 根據兩個主要因素來決定外掛程式的執行順序：
 
 ### 選擇執行策略
 
-_Kotlin 編譯器執行策略_定義了 Kotlin 編譯器在何處執行。有兩種可用的策略：
+<snippet id="maven-configure-execution-strategy">
 
-| 策略                      | Kotlin 編譯器執行的位置 |
-|-------------------------|-------------------|
-| Kotlin daemon（預設） | 在其自身的 daemon 處理序內 |
-| 在處理序內 (In process)   | 在 Maven 處理序內     |
-
-預設情況下使用 [Kotlin daemon](kotlin-daemon.md)。您可以透過在 `pom.xml` 檔案中設定以下屬性來切換到「在處理序內」策略：
+預設情況下，Maven 使用 Kotlin daemon 編譯器執行策略。若要切換到「在處理序內 (in process)」策略，請在 `pom.xml` 檔案中設定以下屬性：
 
 ```xml
 <properties>
@@ -245,7 +232,9 @@ _Kotlin 編譯器執行策略_定義了 Kotlin 編譯器在何處執行。有兩
 </properties>
 ```
 
-無論您使用哪種編譯器執行策略，您仍然需要明確設定累加編譯。
+</snippet>
+
+如需更多關於不同策略的資訊，請參閱 [編譯器執行策略](compiler-execution-strategy.md)。
 
 ### 啟用累加編譯
 
@@ -294,17 +283,17 @@ _Kotlin 編譯器執行策略_定義了 Kotlin 編譯器在何處執行。有兩
 
 #### JVM 特有的屬性
 
-| 名稱              | 屬性名稱                            | 描述                                                                                          | 可能的值                                         | 預設值               |
-|-------------------|---------------------------------|------------------------------------------------------------------------------------------------------|---------------------------------------------------------|-----------------------------|
-| `nowarn`          |                                 | 不產生警告                                                                                 | true, false                                             | false                       |
-| `languageVersion` | kotlin.compiler.languageVersion | 提供與指定 Kotlin 版本的原始碼相容性                                    | "1.9", "2.0", "2.1", "2.2", "2.3", "2.4" (實驗功能) |                             |
-| `apiVersion`      | kotlin.compiler.apiVersion      | 僅允許使用來自指定版本的隨附程式庫中的宣告                        | "1.9", "2.0", "2.1", "2.2", "2.3", "2.4" (實驗功能) |                             |
-| `sourceDirs`      |                                 | 包含要編譯的原始檔目錄                                               |                                                         | 專案原始碼根目錄    |
-| `compilerPlugins` |                                 | 已啟用的編譯器外掛程式                                                                             |                                                         | []                          |
-| `pluginOptions`   |                                 | 編譯器外掛程式的選項                                                                         |                                                         | []                          |
-| `args`            |                                 | 額外的編譯器引數                                                                        |                                                         | []                          |
-| `jvmTarget`       | `kotlin.compiler.jvmTarget`     | 產生的 JVM 位元組碼目標版本                                                         | "1.8", "9", "10", ..., "25"                             | "%defaultJvmTargetVersion%" |
-| `jdkHome`         | `kotlin.compiler.jdkHome`       | 從指定位置包含自訂 JDK 到 classpath，而非使用預設的 JAVA_HOME |                                                         |                             |
+| 名稱 | 屬性名稱 | 描述 | 可能的值 | 預設值 |
+|-------------------|-----------------------------------|------------------------------------------------------------------------------------------------------|---------------------------------------------------------|-----------------------------|
+| `nowarn` | | 不產生警告 | true, false | false |
+| `languageVersion` | `kotlin.compiler.languageVersion` | 提供與指定 Kotlin 版本的原始碼相容性 | "1.9", "2.0", "2.1", "2.2", "2.3", "2.4" (實驗功能) | |
+| `apiVersion` | `kotlin.compiler.apiVersion` | 僅允許使用來自指定版本的隨附程式庫中的宣告 | "1.9", "2.0", "2.1", "2.2", "2.3", "2.4" (實驗功能) | |
+| `sourceDirs` | | 包含要編譯的原始檔目錄 | | 專案原始碼根目錄 |
+| `compilerPlugins` | | 已啟用的編譯器外掛程式 | | [] |
+| `pluginOptions` | | 編譯器外掛程式的選項 | | [] |
+| `args` | | 額外的編譯器引數 | | [] |
+| `jvmTarget` | `kotlin.compiler.jvmTarget` | 產生的 JVM 位元組碼目標版本 | "1.8", "9", "10", ..., "25" | "%defaultJvmTargetVersion%" |
+| `jdkHome` | `kotlin.compiler.jdkHome` | 從指定位置包含自訂 JDK 到 classpath，而非使用預設的 JAVA_HOME | | |
 
 ## 封裝您的專案
 

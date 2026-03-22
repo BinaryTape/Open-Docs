@@ -32,7 +32,7 @@ plugins {
 plugins {
     // 将 `<...>` 替换为适用于您的目标环境的插件名称
     id 'org.jetbrains.kotlin.<...>' version '%kotlinVersion%'
-    // 例如，如果您的目标环境是 JVM：
+    // 例如，如果您的目标环境是 JVM： 
     // id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
 }
 ```
@@ -49,7 +49,8 @@ plugins {
 
 | KGP 版本        | Gradle 最小和最大版本                  | AGP 最小和最大版本                                   |
 |---------------|---------------------------------------|-----------------------------------------------------|
-| 2.3.10        | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
+| 2.3.20        | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
+| 2.3.10        | 7.6.3–9.0.0                           | 8.2.2–9.0.0                                         |
 | 2.3.0         | 7.6.3–9.0.0                           | 8.2.2–8.13.0                                        |
 | 2.2.20–2.2.21 | 7.6.3–8.14                            | 7.3.1–8.11.1                                        |
 | 2.2.0–2.2.10  | 7.6.3–8.14                            | 7.3.1–8.10.0                                        |
@@ -562,7 +563,7 @@ kotlin.build.archivesTaskOutputAsFriendModule=false
 
 #### 延迟 Kotlin/JVM 任务创建
 
-从 Kotlin 1.8.20 开始，Kotlin Gradle 插件会注册所有任务，并且不会在预运行（dry run）时配置它们。
+从 Kotlin 1.8.20 开始，Kotlin Gradle 插件会注册所有任务，并且不会在预运行 (dry run) 时配置它们。
 
 #### 编译任务 destinationDirectory 的非默认位置
 
@@ -919,8 +920,8 @@ kotlin.stdlib.default.dependency=false
 
 从 Kotlin 标准库 1.9.20 版本开始，Gradle 使用标准库中包含的元数据来自动对齐传递的 `kotlin-stdlib-jdk7` 和 `kotlin-stdlib-jdk8` 依赖项。
 
-如果您为 1.8.0 – 1.9.10 之间的任何 Kotlin 标准库版本添加依赖项，例如：
-`implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.0")`，那么 Kotlin Gradle 插件会对传递的 `kotlin-stdlib-jdk7` 和 `kotlin-stdlib-jdk8` 依赖项使用此 Kotlin 版本。这避免了来自不同标准库版本的类重复。[详细了解将 `kotlin-stdlib-jdk7` 和 `kotlin-stdlib-jdk8` 合并到 `kotlin-stdlib` 中](whatsnew18.md#updated-jvm-compilation-target)。
+如果您为 1.8.0 – 1.9.10 之间的任何 Kotlin 标准库版本添加依赖项，例如： 
+`implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.0")`，那么 Kotlin Gradle 插件会对传递的 `kotlin-stdlib-jdk7` 和 `kotlin-stdlib-jdk8` 依赖项使用此 Kotlin 版本。这避免了来自不同标准库版本的类重复。[详细了解将 `kotlin-stdlib-jdk7` 和 `kotlin-stdlib-jdk8` 合并到 `kotlin-stdlib` 中](whatsnew18.md#updated-jvm-compilation-target)。 
 您可以通过在 `gradle.properties` 文件中设置 `kotlin.stdlib.jdk.variants.version.alignment` Gradle 属性来禁用此行为：
 
 ```none
@@ -929,7 +930,7 @@ kotlin.stdlib.jdk.variants.version.alignment=false
 
 ##### 其他对齐版本的方法 {initial-collapse-state="collapsed" collapsible="true"}
 
-* 如果您在版本对齐方面遇到问题，可以通过 Kotlin [BOM](https://docs.gradle.org/current/userguide/platforms.html#sub:bom_import) 对齐所有版本。
+* 如果您在版本对齐方面遇到问题，可以通过 Kotlin [BOM](https://docs.gradle.org/current/userguide/platforms.html#sub:bom_import) 对齐所有版本。 
   在您的构建脚本中声明对 `kotlin-bom` 的平台依赖：
 
   <tabs group="build-script">
@@ -994,7 +995,8 @@ kotlin.stdlib.jdk.variants.version.alignment=false
   </tab>
   </tabs>
   
-* 如果您添加了 Kotlin 标准库版本 `%kotlinVersion%` 的依赖项：`implementation("org.jetbrains.kotlin:kotlin-stdlib:%kotlinVersion%")`，以及旧版本（早于 `1.8.0`）的 Kotlin Gradle 插件，请更新 Kotlin Gradle 插件以匹配标准库版本：
+* 如果您添加了 Kotlin 标准库版本 `%kotlinVersion%` 的依赖项：`implementation("org.jetbrains.kotlin:kotlin-stdlib:%kotlinVersion%")`，
+  以及旧版本（早于 `1.8.0`）的 Kotlin Gradle 插件，请更新 Kotlin Gradle 插件以匹配标准库版本：
 
   
   <tabs group="build-script">
@@ -1020,7 +1022,7 @@ kotlin.stdlib.jdk.variants.version.alignment=false
   </tab>
   </tabs>
 
-* 如果您使用的是 `1.8.0` 之前的 `kotlin-stdlib-jdk7`/`kotlin-stdlib-jdk8` 版本，例如，
+* 如果您使用的是 `1.8.0` 之前的 `kotlin-stdlib-jdk7`/`kotlin-stdlib-jdk8` 版本，例如， 
   `implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:SOME_OLD_KOTLIN_VERSION")`，以及一个传递地引入 `kotlin-stdlib:1.8+` 的依赖项，请[将您的 `kotlin-stdlib-jdk<7/8>:SOME_OLD_KOTLIN_VERSION` 替换为 `kotlin-stdlib-jdk*:%kotlinVersion%`](whatsnew18.md#updated-jvm-compilation-target) 或从引入它的库中[排除](https://docs.gradle.org/current/userguide/dependency_downgrade_and_exclude.html#sec:excluding-transitive-deps)传递的 `kotlin-stdlib:1.8+`：
 
   <tabs group="build-script">
@@ -1340,7 +1342,8 @@ kotlin.sourceSets.getByName("main").generatedKotlin.srcDir(generatorTask)
 此示例创建了一个新的任务 `generator`，其输出目录为 `"src/main/kotlinGen"`。当任务运行时，
 `doLast {}` 任务操作在输出目录中创建一个 `generated.kt` 文件。最后，该示例将任务的输出注册为生成的源码。
 
-如果您正在开发 Gradle 插件，可以使用 [`allKotlinSources`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/all-kotlin-sources.html) 属性访问在 [`KotlinSourceSet.kotlin`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/kotlin.html) 和 `KotlinSourceSet.generatedKotlin` 属性中注册的所有源码。
+如果您正在开发 Gradle 插件，可以使用 [`allKotlinSources`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/all-kotlin-sources.html) 属性访问在 [`KotlinSourceSet.kotlin`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/kotlin.html) 和 
+`KotlinSourceSet.generatedKotlin` 属性中注册的所有源码。
 
 ## 下一步是什么？
 

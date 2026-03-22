@@ -24,9 +24,9 @@ fun MainViewController(): UIViewController =
 
 [`ComposeUIViewController()`](https://github.com/JetBrains/compose-multiplatform-core/blob/5b487914cc20df24187f9ddf54534dfec30f6752/compose/ui/ui/src/uikitMain/kotlin/androidx/compose/ui/window/ComposeWindow.uikit.kt) 是一個 Compose Multiplatform 程式庫函式，它接受一個 composable 函式作為 `content` 引數。以這種方式傳遞的函式可以呼叫其他 composable 函式，例如 `Text()`。
 
-> Composable 函式是具有 `@Composable` 註解的函式。
+> Compose Multiplatform 渲染需要明確啟用高重新整理率：請將 `CADisableMinimumFrameDurationOnPhone` 鍵新增到應用程式的 `Info.plist` 檔案中。若沒有它，應用程式將在執行時崩潰。
 >
-{style="tip"}
+{style="note"}
 
 接著，您需要一個在 SwiftUI 中表示 Compose Multiplatform 的結構。建立以下將 `UIViewController` 執行個體轉換為 SwiftUI 檢視的結構：
 

@@ -14,7 +14,7 @@
 ![在所有平台上共享代码](flat-structure.svg)
 
 源集的某些依赖项是默认设置的。您不需要手动指定任何 `dependsOn` 关系：
-* 对于依赖于 common 源集的所有平台特定源集，例如 `jvmMain`、`macosX64Main` 等。 
+* 对于依赖于 common 源集的所有平台特定源集，例如 `jvmMain`、`macosArm64Main` 等。 
 * 在特定目标的 `main` 和 `test` 源集之间，例如 `androidMain` 和 `androidUnitTest`。
 
 如果您需要从共享代码访问平台特定的 API，请使用 Kotlin 的 [预期声明与实际声明](multiplatform-expect-actual.md) 机制。

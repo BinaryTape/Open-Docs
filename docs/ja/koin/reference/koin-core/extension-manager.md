@@ -2,62 +2,168 @@
 title: Extensionマネージャー
 ---
 
-ここでは、Koinフレームワーク内に新機能を追加するための`KoinExtension`マネージャーについて簡単に説明します。
+# Extensionマネージャー
 
-## エクステンションの定義
+Koinは、フレームワークに新機能を追加するためのエクステンションシステムを提供しています。これは、Koinを外部システムと統合したり、カスタム機能を追加したりする場合に便利です。
 
-Koinエクステンションは、`KoinExtension`インターフェースを継承するクラスを作成することで定義します。
+## KoinExtension
+
+Koinエクステンションは、`KoinExtension`インターフェースを実装するクラスです。
 
 ```kotlin
 interface KoinExtension {
+    /**
+     * エクステンションが登録されたときに呼び出されます
+     */
+    fun onRegister(koin: Koin)
 
-    fun onRegister(koin : Koin)
-
+    /**
+     * Koinの終了時に呼び出されます
+     */
     fun onClose()
 }
 ```
 
-このインターフェースにより、`Koin`インスタンスが確実に渡されることが保証され、Koinのクローズ（終了）時にエクステンションが呼び出されるようになります。
-
-## エクステンションの開始
-
-エクステンションを開始するには、システムの適切な箇所を拡張し、`Koin.extensionManager`に登録します。
-
-以下は、`coroutinesEngine`エクステンションを定義する方法の例です。
+### エクステンションの作成
 
 ```kotlin
-fun KoinApplication.coroutinesEngine() {
-    with(koin.extensionManager) {
-        if (getExtensionOrNull<KoinCoroutinesEngine>(EXTENSION_NAME) == null) {
-            registerExtension(EXTENSION_NAME, KoinCoroutinesEngine())
-        }
+class MyCustomExtension : KoinExtension {
+    private lateinit var koin: Koin
+
+    override fun onRegister(koin: Koin) {
+        this.koin = koin
+        // エクステンションの初期化
+    }
+
+    override fun onClose() {
+        // リソースのクリーンアップ
+    }
+
+    fun doSomething() {
+        // エクステンションのロジック
     }
 }
 ```
 
-以下は、`coroutinesEngine`エクステンションを呼び出す方法です。
+### エクステンションの登録
+
+エクステンションを登録するには、`ExtensionManager`を使用します。
 
 ```kotlin
-val Koin.coroutinesEngine: KoinCoroutinesEngine get() = extensionManager.getExtension(EXTENSION_NAME)
+fun KoinApplication.myExtension() {
+    with(koin.extensionManager) {
+        if (getExtensionOrNull<MyCustomExtension>(EXTENSION_ID) == null) {
+            registerExtension(EXTENSION_ID, MyCustomExtension())
+        }
+    }
+}
+
+private const val EXTENSION_ID = "my-extension"
 ```
 
-## リゾルバーエンジンとResolution Extension
-
-Koinの解決（resolution）アルゴリズムは、プラグイン可能で拡張できるように再構築されました。新しいCoreResolverおよびResolutionExtension APIにより、外部システムとの統合やカスタム解決ロジックの実装が可能になります。
-
-内部的には、解決処理がスタック要素をより効率的に走査するようになり、スコープや親階層をまたぐ伝播がよりクリーンになりました。これにより、リンクされたスコープの探索に関連する多くの問題が修正され、Koinを他のシステムへより適切に統合できるようになります。
-
-以下に、Resolution Extensionをデモするテストコードを示します。
+### エクステンションへのアクセス
 
 ```kotlin
-@Test
-fun extend_resolution_test(){
+val Koin.myExtension: MyCustomExtension
+    get() = extensionManager.getExtension(EXTENSION_ID)
+
+// 使用方法
+val extension = getKoin().myExtension
+extension.doSomething()
+```
+
+### Koinのセットアップでの使用
+
+```kotlin
+startKoin {
+    myExtension()  // エクステンションの登録
+    modules(appModule)
+}
+```
+
+:::note
+`ExtensionManager`は`@KoinInternalApi`としてマークされています。これは、バージョン間でAPIが変更される可能性があることを意味します。本番環境のコードでは注意して使用してください。
+:::
+
+## ResolutionExtension
+
+より高度なユースケースのために、Koinは依存関係の解決（resolution）プロセスにフックするための`ResolutionExtension`を提供しています。これにより、外部ソースからインスタンスを提供できるようになります。
+
+```kotlin
+interface ResolutionExtension {
+    /**
+     * 識別用のエクステンション名
+     */
+    val name: String
+
+    /**
+     * 依存関係の解決中に呼び出されます
+     * @param scope 現在の解決スコープ
+     * @param instanceContext 型情報を含む解決コンテキスト
+     * @return インスタンスが見つかった場合はそのインスタンス、それ以外はnull
+     */
+    fun resolve(scope: Scope, instanceContext: ResolutionContext): Any?
+}
+```
+
+### ユースケース
+
+- 外部DIコンテナとの統合
+- キャッシュやプールからのインスタンス提供
+- 実行時の条件に基づいた動的なインスタンス解決
+- モックプロバイダーを使用したテスト
+
+### 例：外部インスタンスプロバイダー
+
+```kotlin
+class ExternalInstanceProvider : ResolutionExtension {
+    private val externalInstances = mutableMapOf<KClass<*>, Any>()
+
+    override val name: String = "external-provider"
+
+    override fun resolve(scope: Scope, instanceContext: ResolutionContext): Any? {
+        return externalInstances[instanceContext.clazz]
+    }
+
+    fun <T : Any> registerInstance(clazz: KClass<T>, instance: T) {
+        externalInstances[clazz] = instance
+    }
+}
+```
+
+### ResolutionExtensionの登録
+
+```kotlin
+val externalProvider = ExternalInstanceProvider()
+externalProvider.registerInstance(MyService::class, MyServiceImpl())
+
+startKoin {
+    // resolution extensionの登録
+    koin.addResolutionExtension(externalProvider)
+
+    modules(module {
+        // これにより、外部プロバイダーからMyServiceを解決できるようになります
+        single<MyComponent>()  // MyComponentはMyServiceに依存
+    })
+}
+```
+
+:::warning Experimental API
+`ResolutionExtension` APIは`@KoinExperimentalAPI`としてマークされています。このAPIは将来のバージョンで変更される可能性があります。
+:::
+
+### 完全な例
+
+```kotlin
+@OptIn(KoinExperimentalAPI::class)
+fun resolutionExtensionExample() {
     val resolutionExtension = object : ResolutionExtension {
         val instanceMap = mapOf<KClass<*>, Any>(
-            Simple.ComponentA::class to Simple.ComponentA()
+            ComponentA::class to ComponentA()
         )
 
-        override val name: String = "hello-extension"
+        override val name: String = "custom-resolver"
+
         override fun resolve(
             scope: Scope,
             instanceContext: ResolutionContext
@@ -66,14 +172,37 @@ fun extend_resolution_test(){
         }
     }
 
-    val koin = koinApplication{
+    val koin = koinApplication {
         printLogger(Level.DEBUG)
-        koin.resolver.addResolutionExtension(resolutionExtension)
+        koin.addResolutionExtension(resolutionExtension)
         modules(module {
-            single { Simple.ComponentB(get())}
+            // ComponentBはComponentAに依存
+            // ComponentAはエクステンションから解決される
+            single { ComponentB(get()) }
         })
     }.koin
 
-    assertEquals(resolutionExtension.instanceMap[Simple.ComponentA::class], koin.get<Simple.ComponentB>().a)
-    assertEquals(1,koin.instanceRegistry.instances.values.size)
+    val componentB = koin.get<ComponentB>()
+    // componentB.a は resolutionExtension から提供されたインスタンス
 }
+```
+
+## エクステンションの使用タイミング
+
+| エクステンションの種類 | ユースケース |
+|---------------|----------|
+| `KoinExtension` | Koinへの機能追加（ロギング、モニタリング、カスタムスコープなど） |
+| `ResolutionExtension` | 解決プロセス中に外部ソースからインスタンスを提供する場合 |
+
+## ベストプラクティス
+
+1. **控えめに使用する** - エクステンションは複雑さを増大させます。可能な限り標準のKoin定義を優先してください。
+2. **エクステンションをドキュメント化する** - エクステンションが何を行うのか、どのように使用するのかを明確にしてください。
+3. **クリーンアップを処理する** - リソース漏洩を避けるため、常に`onClose()`を実装してください。
+4. **スレッドセーフを考慮する** - エクステンションは複数のスレッドから呼び出される可能性があります。
+
+## 次のステップ
+
+- **[スコープ (Scopes)](/docs/reference/koin-core/scopes)** - カスタムスコープ管理
+- **[モジュール (Modules)](/docs/reference/koin-core/modules)** - モジュールの構成
+- **[高度なパターン (Advanced Patterns)](/docs/reference/koin-core/advanced-patterns)** - より高度なパターン

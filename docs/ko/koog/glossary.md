@@ -61,13 +61,13 @@
 
 ### AgentMemory 기능
 
-- **AgentMemory**: AI 에이전트가 대화 전반에 걸쳐 정보를 저장, 조회 및 사용할 수 있게 하는 기능입니다. 자세한 내용은 [AgentMemory](agent-memory.md)를 참고하세요.
+- **AgentMemory**: AI 에이전트가 대화 전반에 걸쳐 정보를 저장, 조회 및 사용할 수 있게 하는 기능입니다. 자세한 내용은 [AgentMemory](features/agent-memory.md)를 참고하세요.
 
-- **개념 (Concept)**: 키워드, 설명 및 사실 유형을 포함하여 `AgentMemory` 기능에서 관련 메타데이터가 있는 정보 카테고리입니다. 개념(Concept)은 에이전트가 기억하고 회상할 수 있는 `AgentMemory` 시스템의 기본 구성 요소입니다.
-자세한 내용은 [AgentMemory](agent-memory.md)를 참고하세요.
+- **개념 (Concept)**: 키워드, 설명 및 사실 유형을 포함하여 AgentMemory 기능에서 관련 메타데이터가 있는 정보 카테고리입니다. 개념(Concept)은 에이전트가 기억하고 회상할 수 있는 AgentMemory 시스템의 기본 구성 요소입니다.
+자세한 내용은 [AgentMemory](features/agent-memory.md)를 참고하세요.
 
-- **사실 (Fact)**: `AgentMemory` 시스템에 저장된 개별 정보 조각입니다.
+- **사실 (Fact)**: AgentMemory 시스템에 저장된 개별 정보 조각입니다.
 사실(Fact)은 개념과 연결되며 단일 값 또는 다중 값을 가질 수 있습니다.
-자세한 내용은 [AgentMemory](agent-memory.md)를 참고하세요.
+자세한 내용은 [AgentMemory](features/agent-memory.md)를 참고하세요.
 
-- **메모리 범위 (Memory scope)**: 사실이 유효한 컨텍스트입니다. 자세한 내용은 [AgentMemory](agent-memory.md)를 참고하세요.
+- **메모리 범위 (Memory scope)**: 사실이 유효한 컨텍스트입니다. 자세한 내용은 [AgentMemory](features/agent-memory.md)를 참고하세요.

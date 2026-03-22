@@ -1,5 +1,7 @@
 [//]: # (title: Kotlin 編譯器選項)
 
+<show-structure depth="1"/>
+
 每個版本的 Kotlin 都包含針對所支援目標的編譯器：
 JVM、JavaScript 以及[支援平台](native-overview.md#target-platforms)的原生二進位檔。
 
@@ -54,7 +56,7 @@ Kotlin 編譯器有許多用於自訂編譯過程的選項。
 
 ### -script
 
-評估 Kotlin 指令嗎檔案。使用此選項呼叫時，編譯器會執行指定引數中第一個 Kotlin 指令嗎 (`*.kts`) 檔案。
+評估 Kotlin 指令碼檔案。使用此選項呼叫時，編譯器會執行指定引數中第一個 Kotlin 指令碼 (`*.kts`) 檔案。
 
 ### -help (-h)
 
@@ -283,7 +285,7 @@ kotlinc -Xcompiler-plugin-order=plugin.middle>plugin.last
 
 針對 JVM 的 Kotlin 編譯器將 Kotlin 原始碼檔案編譯成 Java 類別檔案。
 Kotlin 到 JVM 編譯的命令列工具是 `kotlinc` 和 `kotlinc-jvm`。
-你也可以使用它們來執行 Kotlin 指令嗎檔案。
+你也可以使用它們來執行 Kotlin 指令碼檔案。
 
 除了[通用選項](#common-options)外，Kotlin/JVM 編譯器還具有下列選項。
 
@@ -343,7 +345,7 @@ Kotlin 到 JVM 編譯的命令列工具是 `kotlinc` 和 `kotlinc-jvm`。
   
 ### -script-templates _類別名稱[,]_
 
-指令嗎定義範本類別。使用完全限定類名並以逗號 (**,**) 分隔。
+指令碼定義範本類別。使用完全限定類名並以逗號 (**,**) 分隔。
 
 ### -Xjvm-expose-boxed
 
@@ -359,13 +361,20 @@ Kotlin 到 JVM 編譯的命令列工具是 `kotlinc` 和 `kotlinc-jvm`。
 |--------------------|-----------------------------------------------------------------------------------------------------------------------------------|
 | `enable`           | 在介面中產生預設實作，並在子類別和 `DefaultImpls` 類別中包含橋接函式。（預設） |
 | `no-compatibility` | 僅在介面中產生預設實作，跳過相容性橋接器和 `DefaultImpls` 類別。                  |
-| `disable`          | 僅產生相容性橋接器和 `DefaultImpls` 類別，跳過預設方法。                                        |
+| `disable`          | 僅產生相容性橋接器 and `DefaultImpls` 類別，跳過預設方法。                                        |
 
 ### -Xdump-directory
 
 <primary-label ref="experimental-general"/>
 
 為 [-Xphases-to-dump-before`](#xphases-to-dump-before) 編譯器選項設定傾印檔案目錄。
+
+### -Xnullability-annotations
+<primary-label ref="experimental-general"/>
+
+設定 Kotlin 編譯器如何解讀來自特定 Java 封裝的可 null 性註解。
+
+如需支援的註解與配置選項的完整清單，請參閱[可 null 性註解](java-interop.md#nullability-annotations)。
 
 ## Kotlin/JS 編譯器選項
 
@@ -449,6 +458,11 @@ Kotlin 到 JS 編譯的命令列工具是 `kotlinc-js`。
 
 在編譯為現代 JavaScript (ES2020) 時，啟用對 JavaScript `BigInt` 型別的支援，以表示 Kotlin `Long` 值。
 
+### -Xenable-implementing-interfaces-from-typescript
+<primary-label ref="experimental-general"/>
+
+允許從 JavaScript/TypeScript 實作使用 `@JsExport` 註解[匯出的 Kotlin 介面](whatsnew2320.md#implementing-kotlin-interfaces-from-javascript-typescript)。
+
 ## Kotlin/Native 編譯器選項
 
 Kotlin/Native 編譯器將 Kotlin 原始碼檔案編譯為[支援平台](native-overview.md#target-platforms)的原生二進位檔。
@@ -481,7 +495,7 @@ Kotlin/Native 編譯的命令列工具是 `kotlinc-native`。
 與程式庫連結。若要了解在 Kotlin/Native 專案中使用程式庫的資訊，請參閱 
 [Kotlin/Native 程式庫](native-libraries.md)。
 
-### -library-version _版本_ (-lv _version_)
+### -library-version _版本_ (-lv _版本_)
 
 設定程式庫版本。
     
@@ -519,7 +533,7 @@ Kotlin/Native 編譯的命令列工具是 `kotlinc-native`。
 
 在建置二進位檔期間將引數傳遞給連結器。這可以用於與某些原生程式庫連結。
 
-### -linker-options _參數_
+### -linker-options _引數_
 
 在建置二進位檔期間將多個引數傳遞給連結器。以空白字元分隔引數。
 
@@ -557,3 +571,8 @@ Kotlin/Native 編譯的命令列工具是 `kotlinc-native`。
 ### -target _目標_
 
 設定硬體目標。若要查看可用目標列表，請使用 [`-list-targets`](#list-targets) 選項。
+
+### -Xccall-mode
+<primary-label ref="experimental-general"/>
+
+為透過 cinterop 匯入的 C 或 Objective-C 程式庫啟用[新的互通性模式](whatsnew2320.md#new-interoperability-mode-for-c-or-objective-c-libraries)。

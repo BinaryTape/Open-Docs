@@ -99,13 +99,12 @@ Gradle構成キャッシュを使用するには、`gradle.properties` ファイ
 
 ### 以前に無効にした機能を有効にする
 
-Gradleデーモンやコンパイラキャッシュを無効にするKotlin/Nativeプロパティがあります。
+Gradleデーモンやコンパイラキャッシュを無効にするKotlin/Nativeオプションがあります。
 
 * `kotlin.native.disableCompilerDaemon=true`
-* `kotlin.native.cacheKind=none`
-* `kotlin.native.cacheKind.$target=none`（ここで `$target` は `iosSimulatorArm64` などのKotlin/Nativeコンパイルターゲット）
+* Gradleビルドファイルの `binaries {}` ブロックにある [`disableNativeCache`](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#binaries) DSL
 
-以前にこれらの機能で問題が発生し、これらの行を `gradle.properties` ファイルやGradle引数に追加していた場合は、それらを削除してビルドが正常に完了するか確認してください。これらのプロパティは、すでに修正された問題を回避するために以前に追加されたものである可能性があります。
+以前にこれらの機能で問題が発生し、これらの行を `gradle.properties` ファイルやGradleビルドファイルに追加していた場合は、それらを削除してビルドが正常に完了するか確認してください。これらのプロパティは、すでに修正された問題を回避するために以前に追加されたものである可能性があります。
 
 ### klibアーティファクトのインクリメンタルコンパイルを試す
 

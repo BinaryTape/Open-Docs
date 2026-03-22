@@ -19,7 +19,7 @@
 ### 本機 Embeddings
 
 若要搭配本機模型使用 Embedding 功能性，您的系統需要安裝並執行 Ollama。
-有關安裝與執行指示，請參閱 [Ollama 官方 GitHub 存儲庫](https://github.com/ollama/ollama)。
+有關安裝與執行指示，請參閱 [官方 Ollama GitHub 存儲庫](https://github.com/ollama/ollama)。
 
 <!--- INCLUDE
 import ai.koog.embeddings.local.LLMEmbedder
@@ -50,6 +50,8 @@ fun main() {
     ```bash
     ollama pull <ollama-model-id>
     ```
+    <!--- KNIT example-embeddings-01.txt -->
+
     將 `<ollama-model-id>` 替換為特定模型的 Ollama 識別碼。有關可用 Embedding 模型及其識別碼的更多資訊，請參閱 [Ollama 模型總覽](#ollama-models-overview)。
 
 ### Ollama 模型總覽

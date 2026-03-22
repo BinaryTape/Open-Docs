@@ -4,9 +4,9 @@
 
 <tldr>현재 BTA는 Kotlin/JVM만 지원합니다.</tldr>
 
-Kotlin 2.2.0에서 빌드 시스템과 Kotlin 컴파일러의 통합을 간소화하는 실험적인 Build tools API(BTA)가 도입되었습니다.
+Kotlin에는 빌드 시스템과 Kotlin 컴파일러의 통합을 간소화하는 실험적인 Build tools API(BTA)가 있습니다.
 
-이전에는 빌드 시스템에 Kotlin에 대한 완전한 지원(증분 컴파일, Kotlin 컴파일러 플러그인, 데몬, Kotlin 멀티플랫폼 등)을 추가하려면 상당한 노력이 필요했습니다. BTA는 빌드 시스템과 Kotlin 컴파일러 에코시스템 사이에 통합된 API를 제공하여 이러한 복잡성을 줄이는 것을 목표로 합니다.
+빌드 시스템에 Kotlin에 대한 완전한 지원(증분 컴파일, Kotlin 컴파일러 플러그인, 데몬, Kotlin 멀티플랫폼 등)을 추가하려면 상당한 노력이 필요합니다. BTA는 빌드 시스템과 Kotlin 컴파일러 에코시스템 사이에 통합된 API를 제공하여 이러한 복잡성을 줄이는 것을 목표로 합니다.
 
 BTA는 빌드 시스템이 구현할 수 있는 단일 진입점(entry point)을 정의합니다. 이를 통해 컴파일러의 내부 세부 사항과 깊게 통합할 필요가 없어집니다.
 
@@ -18,19 +18,11 @@ BTA는 빌드 시스템이 구현할 수 있는 단일 진입점(entry point)을
 
 ## Gradle과의 통합
 
-Kotlin Gradle 플러그인(KGP)은 BTA를 실험적으로 지원하며, 이를 사용하려면 옵트인(opt-in)해야 합니다.
+Kotlin Gradle 플러그인(KGP)은 BTA를 실험적으로 지원합니다. KGP는 Kotlin/JVM 컴파일에 기본적으로 BTA를 사용합니다.
 
 > KGP 사용 경험에 대한 피드백은 [YouTrack](https://youtrack.jetbrains.com/issue/KT-56574)을 통해 언제든지 보내주세요.
 > 
 {style="note"}
-
-### 활성화 방법
-
-`gradle.properties` 파일에 다음 속성을 추가하세요:
-
-```kotlin
-kotlin.compiler.runViaBuildToolsApi=true
-```
 
 ### 다른 컴파일러 버전 구성하기
 
@@ -84,7 +76,8 @@ BTA는 다음 버전을 지원합니다:
 
 ### '인프로세스(in-process)' 전략을 사용한 증분 컴파일 활성화
 
-KGP는 세 가지 [컴파일러 실행 전략](gradle-compilation-and-caches.md#defining-kotlin-compiler-execution-strategy)을 지원합니다. 일반적으로 "인프로세스(in-process)" 전략(Gradle 데몬 내에서 컴파일러를 실행)은 증분 컴파일을 지원하지 않습니다.
+KGP는 세 가지 [컴파일러 실행 전략](compiler-execution-strategy.md)을 지원합니다.
+일반적으로 "인프로세스(in-process)" 전략(Gradle 데몬 내에서 컴파일러를 실행)은 증분 컴파일을 지원하지 않습니다.
 
 BTA를 사용하면 "인프로세스" 전략에서도 증분 컴파일을 지원합니다. 이를 활성화하려면 `gradle.properties` 파일에 다음 속성을 추가하세요:
 

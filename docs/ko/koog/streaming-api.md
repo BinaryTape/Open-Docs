@@ -1,7 +1,5 @@
 # 스트리밍 API (Streaming API)
 
-## 소개 (Introduction)
-
 Koog의 **스트리밍 API(Streaming API)**를 사용하면 **LLM 출력을 `Flow<StreamFrame>` 형태로 증분식으로(incrementally) 소비**할 수 있습니다. 전체 응답이 올 때까지 기다리는 대신, 코드를 통해 다음과 같은 작업을 수행할 수 있습니다.
 
 - 어시스턴트 텍스트가 도착하는 즉시 렌더링
@@ -25,9 +23,7 @@ Koog의 **스트리밍 API(Streaming API)**를 사용하면 **LLM 출력을 `Flo
 
 일반 텍스트를 추출하거나, 프레임을 `Message.Response` 객체로 변환하고, **청크된(chunked) 도구 호출을 안전하게 결합**할 수 있는 헬퍼 함수들이 제공됩니다.
 
----
-
-## 스트리밍 API 개요 (Streaming API overview)
+## API 개요 (API overview)
 
 스트리밍을 통해 다음을 수행할 수 있습니다.
 
@@ -37,7 +33,7 @@ Koog의 **스트리밍 API(Streaming API)**를 사용하면 **LLM 출력을 `Flo
 - 실시간으로 도구 실행
 - 지원되는 모델의 경우 모델의 추론 과정에 실시간으로 액세스
 
-**프레임** 자체를 직접 조작하거나, 프레임에서 파생된 **일반 텍스트**를 조작할 수 있습니다.
+**프레임** 자체를 직접 조작하거나, 프레임에서 파생된 **일반 텍스트(plain text)**를 조작할 수 있습니다.
 
 ### 델타 프레임 vs 컴플리트 프레임 (Delta vs Complete Frames)
 
@@ -56,77 +52,104 @@ Koog의 **스트리밍 API(Streaming API)**를 사용하면 **LLM 출력을 `Flo
 
 가장 일반적인 접근 방식은 각 프레임 종류에 따라 반응하는 것입니다.
 
-<!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.prompt.streaming.StreamFrame
+=== "Kotlin"
 
-val strategy = strategy<String, String>("strategy_name") {
-    val node by node<Unit, Unit> {
--->
-<!--- SUFFIX
-   }
-}
--->
-```kotlin
-llm.writeSession {
-    appendPrompt { user("Tell me a joke, then call a tool with JSON args.") }
-
-    val stream = requestLLMStreaming() // Flow<StreamFrame>
-
-    stream.collect { frame ->
-        when (frame) {
-            is StreamFrame.TextDelta -> print(frame.text)
-            is StreamFrame.ReasoningDelta -> print("[Reasoning] text=${frame.text} summary=${frame.summary}")
-            is StreamFrame.ToolCallComplete -> {
-                println("
+    <!--- INCLUDE
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.prompt.streaming.StreamFrame
+    
+    val strategy = strategy<String, String>("strategy_name") {
+        val node by node<Unit, Unit> {
+    -->
+    <!--- SUFFIX
+       }
+    }
+    -->
+    ```kotlin
+    llm.writeSession {
+        appendPrompt { user("Tell me a joke, then call a tool with JSON args.") }
+    
+        val stream = requestLLMStreaming() // Flow<StreamFrame>
+    
+        stream.collect { frame ->
+            when (frame) {
+                is StreamFrame.TextDelta -> print(frame.text)
+                is StreamFrame.ReasoningDelta -> print("[Reasoning] text=${frame.text} summary=${frame.summary}")
+                is StreamFrame.ToolCallComplete -> {
+                    println("
 🔧 Tool call: ${frame.name} args=${frame.content}")
-                // 선택적으로 지연 파싱 가능:
-                // val json = frame.contentJson
-            }
-            is StreamFrame.End -> println("
+                    // 선택적으로 지연 파싱 가능:
+                    // val json = frame.contentJson
+                }
+                is StreamFrame.End -> println("
 [END] reason=${frame.finishReason}")
-            else -> {} // 다른 프레임 타입 처리 (TextComplete, ToolCallDelta 등)
+                else -> {} // 다른 프레임 타입 처리 (TextComplete, ToolCallDelta 등)
+            }
         }
     }
-}
-```
-<!--- KNIT example-streaming-api-01.kt -->
+    ```
+    <!--- KNIT example-streaming-api-01.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    ```
+    <!--- KNIT example-streaming-api-java-01.java -->
 
 원시 문자열 스트림(raw string stream)을 직접 다루어 출력을 파싱할 수도 있다는 점에 유의하세요.
 이 방식은 파싱 프로세스에 대해 더 많은 유연성과 제어권을 제공합니다.
 
 다음은 출력 구조의 마크다운 정의를 사용하는 원시 문자열 스트림 예시입니다.
 
-<!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.prompt.structure.markdown.MarkdownStructureDefinition
+=== "Kotlin"
 
-val strategy = strategy<String, String>("strategy_name") {
-    val node by node<Unit, Unit> {
--->
-<!--- SUFFIX
-   }
-}
--->
-```kotlin
-fun markdownBookDefinition(): MarkdownStructureDefinition {
-    return MarkdownStructureDefinition("name", schema = { /*...*/ })
-}
-
-val mdDefinition = markdownBookDefinition()
-
-llm.writeSession {
-    val stream = requestLLMStreaming(mdDefinition)
-    // 원시 문자열 청크에 직접 액세스
-    stream.collect { chunk ->
-        // 텍스트 청크가 도착하는 대로 처리
-        println("Received chunk: $chunk") // 전체 청크가 합쳐지면 mdDefinition 스키마를 따르는 구조화된 텍스트가 됩니다.
+    <!--- INCLUDE
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.prompt.structure.markdown.MarkdownStructureDefinition
+    val strategy = strategy<String, String>("strategy_name") {
+        val node by node<Unit, Unit> {
+    -->
+    <!--- SUFFIX
+       }
     }
-}
-```
-<!--- KNIT example-streaming-api-02.kt -->
+    -->
+    ```kotlin
+    fun markdownBookDefinition(): MarkdownStructureDefinition {
+        return MarkdownStructureDefinition("name", schema = { /*...*/ })
+    }
+
+    val mdDefinition = markdownBookDefinition()
+
+    llm.writeSession {
+        val stream = requestLLMStreaming(mdDefinition)
+        // 원시 문자열 청크에 직접 액세스
+        stream.collect { chunk ->
+            // 텍스트 청크가 도착하는 대로 처리
+            println("Received chunk: $chunk") // 전체 청크가 합쳐지면 mdDefinition 스키마를 따르는 구조화된 텍스트가 됩니다.
+        }
+    }
+    ```
+    <!--- KNIT example-streaming-api-02.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    ```
+    <!--- KNIT example-streaming-api-java-02.java -->
 
 ### 추론 프레임 다루기 (Working with reasoning frames)
 
@@ -184,74 +207,101 @@ Complete reasoning: ${frame.text.joinToString("")}")
 
 `Flow<String>`을 기대하는 기존 스트리밍 파서가 있는 경우, `filterTextOnly()`를 통해 텍스트 청크를 파생시키거나 `collectText()`를 사용해 수집하십시오.
 
-<!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.prompt.streaming.filterTextOnly
-import ai.koog.prompt.streaming.collectText
+=== "Kotlin"
 
-val strategy = strategy<String, String>("strategy_name") {
-    val node by node<Unit, Unit> {
--->
-<!--- SUFFIX
-   }
-}
--->
-```kotlin
-llm.writeSession {
-    val frames = requestLLMStreaming()
+    <!--- INCLUDE
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.prompt.streaming.filterTextOnly
+    import ai.koog.prompt.streaming.collectText
+    val strategy = strategy<String, String>("strategy_name") {
+        val node by node<Unit, Unit> {
+    -->
+    <!--- SUFFIX
+       }
+    }
+    -->
+    ```kotlin
+    llm.writeSession {
+        val frames = requestLLMStreaming()
 
-    // 텍스트 청크가 오는 대로 스트리밍:
-    frames.filterTextOnly().collect { chunk -> print(chunk) }
+        // 텍스트 청크가 오는 대로 스트리밍:
+        frames.filterTextOnly().collect { chunk -> print(chunk) }
 
-    // 또는, End 이후에 모든 텍스트를 하나의 String으로 모으기:
-    val fullText = frames.collectText()
-    println("
+        // 또는, End 이후에 모든 텍스트를 하나의 String으로 모으기:
+        val fullText = frames.collectText()
+        println("
 ---
 $fullText")
-}
-```
-<!--- KNIT example-streaming-api-02-01.kt -->
+    }
+    ```
+    <!--- KNIT example-streaming-api-03.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    ```
+    <!--- KNIT example-streaming-api-java-03.java -->
 
 ### 이벤트 핸들러에서 스트림 이벤트 리스닝하기 (Listening to stream events in event handlers)
 
-[에이전트 이벤트 핸들러](agent-event-handlers.md)에서 스트림 이벤트를 리스닝할 수 있습니다.
+[에이전트 이벤트 핸들러](features/agent-event-handlers.md)에서 스트림 이벤트를 리스닝할 수 있습니다.
 
-<!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.agents.core.agent.GraphAIAgent
-import ai.koog.agents.features.eventHandler.feature.handleEvents
-import ai.koog.prompt.streaming.StreamFrame
-import ai.koog.prompt.structure.markdown.MarkdownStructureDefinition
+=== "Kotlin"
 
-fun GraphAIAgent.FeatureContext.installStreamingApi() {
--->
-<!--- SUFFIX
-}
--->
-```kotlin
-handleEvents {
-    onToolCallStarting { context ->
-        println("
-🔧 Using ${context.toolName} with ${context.toolArgs}... ")
+    <!--- INCLUDE
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.agents.core.agent.GraphAIAgent
+    import ai.koog.agents.features.eventHandler.feature.handleEvents
+    import ai.koog.prompt.streaming.StreamFrame
+    import ai.koog.prompt.structure.markdown.MarkdownStructureDefinition
+    
+    fun GraphAIAgent.FeatureContext.installStreamingApi() {
+    -->
+    <!--- SUFFIX
     }
-    onLLMStreamingFrameReceived { context ->
-        when (val frame = context.streamFrame) {
-            is StreamFrame.TextDelta -> print(frame.text)
-            is StreamFrame.ReasoningDelta -> print("[Reasoning] text=${frame.text} summary=${frame.summary}")
-            else -> {} // 필요한 경우 다른 프레임 타입 처리
+    -->
+    ```kotlin
+    handleEvents {
+        onToolCallStarting { context ->
+            println("
+🔧 Using ${context.toolName} with ${context.toolArgs}... ")
+        }
+        onLLMStreamingFrameReceived { context ->
+            when (val frame = context.streamFrame) {
+                is StreamFrame.TextDelta -> print(frame.text)
+                is StreamFrame.ReasoningDelta -> print("[Reasoning] text=${frame.text} summary=${frame.summary}")
+                else -> {} // 필요한 경우 다른 프레임 타입 처리
+            }
+        }
+        onLLMStreamingFailed { context ->
+            println("❌ Error: ${context.error}")
+        }
+        onLLMStreamingCompleted {
+            println("🏁 Done")
         }
     }
-    onLLMStreamingFailed { context ->
-        println("❌ Error: ${context.error}")
-    }
-    onLLMStreamingCompleted {
-        println("🏁 Done")
-    }
-}
-```
-<!--- KNIT example-streaming-api-02-02.kt -->
+    ```
+    <!--- KNIT example-streaming-api-04.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    ```
+    <!--- KNIT example-streaming-api-java-04.java -->
 
 ### 프레임을 `Message.Response`로 변환하기 (Converting frames to `Message.Response`)
 
@@ -260,8 +310,6 @@ handleEvents {
 - `toReasoningMessageOrNull()` — 추론 프레임에서 `Message.Reasoning`을 추출합니다.
 - `toToolCallMessages()` — 도구 호출 프레임에서 `Message.Tool.Call`을 추출합니다.
 - `toMessageResponses()` — 모든 컴플리트 프레임을 해당 `Message.Response` 객체로 변환합니다.
-
----
 
 ## 예제 (Examples)
 
@@ -280,260 +328,362 @@ handleEvents {
 
 먼저, 구조화된 데이터를 나타낼 데이터 클래스를 정의합니다.
 
-<!--- INCLUDE
-import kotlinx.serialization.Serializable
--->
-```kotlin
-@Serializable
-data class Book(
-    val title: String,
-    val author: String,
-    val description: String
-)
-```
-<!--- KNIT example-streaming-api-03.kt -->
+=== "Kotlin"
+
+    <!--- INCLUDE
+    import kotlinx.serialization.Serializable
+    -->
+    ```kotlin
+    @Serializable
+    data class Book(
+        val title: String,
+        val author: String,
+        val description: String
+    )
+    ```
+    <!--- KNIT example-streaming-api-05.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    // Kotlin의 @Serializable data 클래스와 동일한 간단한 Java POJO입니다.
+    public class Book {
+        public final String title;
+        public final String author;
+        public final String description;
+
+        public Book(String title, String author, String description) {
+            this.title = title;
+            this.author = author;
+            this.description = description;
+        }
+    }
+    ```
+    <!--- KNIT exampleStreamingApiJava01.java -->
 
 #### 2. 마크다운 구조 정의하기 (Define the Markdown structure)
 
 `MarkdownStructureDefinition` 클래스를 사용하여 마크다운에서 데이터가 어떻게 구조화되어야 하는지 명시하는 정의를 생성합니다.
 
-<!--- INCLUDE
-import ai.koog.prompt.markdown.markdown
-import ai.koog.prompt.structure.markdown.MarkdownStructureDefinition
--->
-```kotlin
-fun markdownBookDefinition(): MarkdownStructureDefinition {
-    return MarkdownStructureDefinition("bookList", schema = {
-        markdown {
-            header(1, "title")
-            bulleted {
-                item("author")
-                item("description")
+=== "Kotlin"
+
+    <!--- INCLUDE
+    import ai.koog.prompt.markdown.markdown
+    import ai.koog.prompt.structure.markdown.MarkdownStructureDefinition
+    -->
+    ```kotlin
+    fun markdownBookDefinition(): MarkdownStructureDefinition {
+        return MarkdownStructureDefinition("bookList", schema = {
+            markdown {
+                header(1, "title")
+                bulleted {
+                    item("author")
+                    item("description")
+                }
             }
-        }
-    }, examples = {
-        markdown {
-            header(1, "The Great Gatsby")
-            bulleted {
-                item("F. Scott Fitzgerald")
-                item("A novel set in the Jazz Age that tells the story of Jay Gatsby's unrequited love for Daisy Buchanan.")
+        }, examples = {
+            markdown {
+                header(1, "The Great Gatsby")
+                bulleted {
+                    item("F. Scott Fitzgerald")
+                    item("A novel set in the Jazz Age that tells the story of Jay Gatsby's unrequited love for Daisy Buchanan.")
+                }
             }
-        }
-    })
-}
-```
-<!--- KNIT example-streaming-api-04.kt -->
+        })
+    }
+    ```
+    <!--- KNIT example-streaming-api-06.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    ```
+    <!--- KNIT example-streaming-api-java-05.java -->
 
 #### 3. 데이터 구조를 위한 파서 생성하기 (Create a parser for your data structure)
 
 `markdownStreamingParser`는 다양한 마크다운 요소에 대한 여러 핸들러를 제공합니다.
 
-<!--- INCLUDE
-import ai.koog.agents.example.exampleStreamingApi03.Book
-import ai.koog.prompt.structure.markdown.markdownStreamingParser
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+=== "Kotlin"
 
-fun parseMarkdownStreamToBooks(markdownStream: Flow<String>): Flow<Book> {
-    return flow {
--->
-<!--- SUFFIX
-   }
-}
--->
-```kotlin
-markdownStreamingParser {
-    // 레벨 1 헤더 처리 (레벨 범위는 1~6)
-    onHeader(1) { headerText -> }
-    // 불렛 포인트 처리
-    onBullet { bulletText -> }
-    // 코드 블록 처리
-    onCodeBlock { codeBlockContent -> }
-    // 정규식 패턴과 일치하는 라인 처리
-    onLineMatching(Regex("pattern")) { line -> }
-    // 스트림 종료 처리
-    onFinishStream { remainingText -> }
-}
-```
-<!--- KNIT example-streaming-api-05.kt -->
+    <!--- INCLUDE
+    import ai.koog.agents.example.exampleStreamingApi05.Book
+    import ai.koog.prompt.structure.markdown.markdownStreamingParser
+    import kotlinx.coroutines.flow.Flow
+    import kotlinx.coroutines.flow.flow
+    fun parseMarkdownStreamToBooks(markdownStream: Flow<String>): Flow<Book> {
+        return flow {
+    -->
+    <!--- SUFFIX
+       }
+    }
+    -->
+    ```kotlin
+    markdownStreamingParser {
+        // 레벨 1 헤더 처리 (레벨 범위는 1~6)
+        onHeader(1) { headerText -> }
+        // 불렛 포인트 처리
+        onBullet { bulletText -> }
+        // 코드 블록 처리
+        onCodeBlock { codeBlockContent -> }
+        // 정규식 패턴과 일치하는 라인 처리
+        onLineMatching(Regex("pattern")) { line -> }
+        // 스트림 종료 처리
+        onFinishStream { remainingText -> }
+    }
+    ```
+    <!--- KNIT example-streaming-api-07.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    ```
+    <!--- KNIT example-streaming-api-java-06.java -->
 
 정의된 핸들러를 사용하여 `markdownStreamingParser` 함수로 마크다운 스트림을 파싱하고 데이터 객체를 내보내는 함수를 구현할 수 있습니다.
 
-<!--- INCLUDE
-import ai.koog.agents.example.exampleStreamingApi03.Book
-import ai.koog.prompt.structure.markdown.markdownStreamingParser
-import ai.koog.prompt.streaming.StreamFrame
-import ai.koog.prompt.streaming.filterTextOnly
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+=== "Kotlin"
 
--->
-```kotlin
-fun parseMarkdownStreamToBooks(markdownStream: Flow<StreamFrame>): Flow<Book> {
-   return flow {
-      markdownStreamingParser {
-         var currentBookTitle = ""
-         val bulletPoints = mutableListOf<String>()
+    <!--- INCLUDE
+    import ai.koog.agents.example.exampleStreamingApi05.Book
+    import ai.koog.prompt.structure.markdown.markdownStreamingParser
+    import ai.koog.prompt.streaming.StreamFrame
+    import ai.koog.prompt.streaming.filterTextOnly
+    import kotlinx.coroutines.flow.Flow
+    import kotlinx.coroutines.flow.flow
+    -->
+    ```kotlin
+    fun parseMarkdownStreamToBooks(markdownStream: Flow<StreamFrame>): Flow<Book> {
+       return flow {
+          markdownStreamingParser {
+             var currentBookTitle = ""
+             val bulletPoints = mutableListOf<String>()
 
-         // 응답 스트림에서 마크다운 헤더를 수신하는 이벤트 처리
-         onHeader(1) { headerText ->
-            // 이전 도서 정보가 있다면 내보냄
-            if (currentBookTitle.isNotEmpty() && bulletPoints.isNotEmpty()) {
-               val author = bulletPoints.getOrNull(0) ?: ""
-               val description = bulletPoints.getOrNull(1) ?: ""
-               emit(Book(currentBookTitle, author, description))
-            }
+             // 응답 스트림에서 마크다운 헤더를 수신하는 이벤트 처리
+             onHeader(1) { headerText ->
+                // 이전 도서 정보가 있다면 내보냄
+                if (currentBookTitle.isNotEmpty() && bulletPoints.isNotEmpty()) {
+                   val author = bulletPoints.getOrNull(0) ?: ""
+                   val description = bulletPoints.getOrNull(1) ?: ""
+                   emit(Book(currentBookTitle, author, description))
+                }
 
-            currentBookTitle = headerText
-            bulletPoints.clear()
-         }
+                currentBookTitle = headerText
+                bulletPoints.clear()
+             }
 
-         // 응답 스트림에서 마크다운 불렛 리스트를 수신하는 이벤트 처리
-         onBullet { bulletText ->
-            bulletPoints.add(bulletText)
-         }
+             // 응답 스트림에서 마크다운 불렛 리스트를 수신하는 이벤트 처리
+             onBullet { bulletText ->
+                bulletPoints.add(bulletText)
+             }
 
-         // 응답 스트림 종료 처리
-         onFinishStream {
-            // 마지막 도서 정보가 있다면 내보냄
-            if (currentBookTitle.isNotEmpty() && bulletPoints.isNotEmpty()) {
-               val author = bulletPoints.getOrNull(0) ?: ""
-               val description = bulletPoints.getOrNull(1) ?: ""
-               emit(Book(currentBookTitle, author, description))
-            }
-         }
-      }.parseStream(markdownStream.filterTextOnly())
-   }
-}
-```
-<!--- KNIT example-streaming-api-06.kt -->
+             // 응답 스트림 종료 처리
+             onFinishStream {
+                // 마지막 도서 정보가 있다면 내보냄
+                if (currentBookTitle.isNotEmpty() && bulletPoints.isNotEmpty()) {
+                   val author = bulletPoints.getOrNull(0) ?: ""
+                   val description = bulletPoints.getOrNull(1) ?: ""
+                   emit(Book(currentBookTitle, author, description))
+                }
+             }
+          }.parseStream(markdownStream.filterTextOnly())
+       }
+    }
+    ```
+    <!--- KNIT example-streaming-api-08.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    ```
+    <!--- KNIT example-streaming-api-java-07.java -->
 
 #### 4. 에이전트 전략에서 파서 사용하기 (Use the parser in your agent strategy)
 
-<!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.forwardTo
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.agents.example.exampleStreamingApi03.Book
-import ai.koog.agents.example.exampleStreamingApi04.markdownBookDefinition
-import ai.koog.agents.example.exampleStreamingApi06.parseMarkdownStreamToBooks
--->
-```kotlin
-val agentStrategy = strategy<String, List<Book>>("library-assistant") {
-   // 출력 스트림 파싱을 포함하는 노드 기술
-   val getMdOutput by node<String, List<Book>> { booksDescription ->
-      val books = mutableListOf<Book>()
-      val mdDefinition = markdownBookDefinition()
+=== "Kotlin"
 
-      llm.writeSession {
-         appendPrompt { user(booksDescription) }
-         // `mdDefinition` 정의 형식으로 응답 스트림 시작
-         val markdownStream = requestLLMStreaming(mdDefinition)
-         // 응답 스트림의 결과로 파서를 호출하고 결과에 따른 작업 수행
-         parseMarkdownStreamToBooks(markdownStream).collect { book ->
-            books.add(book)
-            println("Parsed Book: ${book.title} by ${book.author}")
-         }
-      }
+    <!--- INCLUDE
+    import ai.koog.agents.core.dsl.builder.forwardTo
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.agents.example.exampleStreamingApi05.Book
+    import ai.koog.agents.example.exampleStreamingApi06.markdownBookDefinition
+    import ai.koog.agents.example.exampleStreamingApi08.parseMarkdownStreamToBooks
+    -->
+    ```kotlin
+    val agentStrategy = strategy<String, List<Book>>("library-assistant") {
+       // 출력 스트림 파싱을 포함하는 노드 기술
+       val getMdOutput by node<String, List<Book>> { booksDescription ->
+          val books = mutableListOf<Book>()
+          val mdDefinition = markdownBookDefinition()
 
-      books
-   }
-   // 노드에 접근 가능한지 확인하며 에이전트 그래프 기술
-   edge(nodeStart forwardTo getMdOutput)
-   edge(getMdOutput forwardTo nodeFinish)
-}
-```
-<!--- KNIT example-streaming-api-07.kt -->
+          llm.writeSession {
+             appendPrompt { user(booksDescription) }
+             // `mdDefinition` 정의 형식으로 응답 스트림 시작
+             val markdownStream = requestLLMStreaming(mdDefinition)
+             // 응답 스트림의 결과로 파서를 호출하고 결과에 따른 작업 수행
+             parseMarkdownStreamToBooks(markdownStream).collect { book ->
+                books.add(book)
+                println("Parsed Book: ${book.title} by ${book.author}")
+             }
+          }
+
+          books
+       }
+       // 노드에 접근 가능한지 확인하며 에이전트 그래프 기술
+       edge(nodeStart forwardTo getMdOutput)
+       edge(getMdOutput forwardTo nodeFinish)
+    }
+    ```
+    <!--- KNIT example-streaming-api-09.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    ```
+    <!--- KNIT example-streaming-api-java-08.java -->
 
 ### 고급 사용법: 도구를 사용한 스트리밍 (Advanced usage: Streaming with tools)
 
-스트리밍 API를 도구와 함께 사용하여 데이터가 도착하는 대로 처리할 수도 있습니다.
+스트리밍 API를 도구와 함께 사용하여 데이터가 도착하는 대로 처리할 수도 있습니다. 
 다음 섹션에서는 도구를 정의하고 스트리밍 데이터와 함께 사용하는 방법에 대한 간단한 단계별 가이드를 제공합니다.
 
 ### 1. 데이터 구조를 위한 도구 정의하기 (Define a tool for your data structure)
 
-<!--- INCLUDE
-import ai.koog.agents.core.tools.SimpleTool
-import ai.koog.agents.core.tools.ToolDescriptor
-import ai.koog.agents.example.exampleStreamingApi03.Book
-import ai.koog.serialization.typeToken
-import kotlinx.serialization.Serializable
+=== "Kotlin"
 
--->
-```kotlin
-@Serializable
-data class Book(
-   val title: String,
-   val author: String,
-   val description: String
-)
-
-class BookTool(): SimpleTool<Book>(
-    argsType = typeToken<Book>(),
-    name = NAME,
-    description = "A tool to parse book information from Markdown"
-) {
-
-    companion object { const val NAME = "book" }
-
-    override suspend fun execute(args: Book): String {
-        println("${args.title} by ${args.author}:
+    <!--- INCLUDE
+    import ai.koog.agents.core.tools.SimpleTool
+    import ai.koog.agents.core.tools.ToolDescriptor
+    import ai.koog.agents.example.exampleStreamingApi05.Book
+    import ai.koog.serialization.typeToken
+    import kotlinx.serialization.Serializable
+    -->
+    ```kotlin
+    @Serializable
+    data class Book(
+       val title: String,
+       val author: String,
+       val description: String
+    )
+    
+    class BookTool(): SimpleTool<Book>(
+        argsType = typeToken<Book>(),
+        name = NAME,
+        description = "A tool to parse book information from Markdown"
+    ) {
+    
+        companion object { const val NAME = "book" }
+    
+        override suspend fun execute(args: Book): String {
+            println("${args.title} by ${args.author}:
  ${args.description}")
-        return "Done"
+            return "Done"
+        }
     }
-}
-```
-<!--- KNIT example-streaming-api-08.kt -->
+    ```
+    <!--- KNIT example-streaming-api-10.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    -->
+    ```java
+    ```
+    <!--- KNIT example-streaming-api-java-09.java -->
 
 ### 2. 스트리밍 데이터와 함께 도구 사용하기 (Use the tool with streaming data)
 
-<!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.forwardTo
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.agents.example.exampleStreamingApi04.markdownBookDefinition
-import ai.koog.agents.example.exampleStreamingApi06.parseMarkdownStreamToBooks
-import ai.koog.agents.example.exampleStreamingApi08.BookTool
-import ai.koog.agents.core.agent.session.callToolRaw
+=== "Kotlin"
 
--->
-```kotlin
-val agentStrategy = strategy<String, Unit>("library-assistant") {
-   val getMdOutput by node<String, Unit> { input ->
-      val mdDefinition = markdownBookDefinition()
+    <!--- INCLUDE
+    import ai.koog.agents.core.dsl.builder.forwardTo
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.agents.example.exampleStreamingApi06.markdownBookDefinition
+    import ai.koog.agents.example.exampleStreamingApi08.parseMarkdownStreamToBooks
+    import ai.koog.agents.example.exampleStreamingApi10.BookTool
+    import ai.koog.agents.core.agent.session.callToolRaw
+    -->
+    ```kotlin
+    val agentStrategy = strategy<String, Unit>("library-assistant") {
+       val getMdOutput by node<String, Unit> { input ->
+          val mdDefinition = markdownBookDefinition()
 
-      llm.writeSession {
-         appendPrompt { user(input) }
-         val markdownStream = requestLLMStreaming(mdDefinition)
+          llm.writeSession {
+             appendPrompt { user(input) }
+             val markdownStream = requestLLMStreaming(mdDefinition)
 
-         parseMarkdownStreamToBooks(markdownStream).collect { book ->
-            callToolRaw(BookTool.NAME, book)
-            /* 기타 가능한 옵션들:
-                callTool(BookTool::class, book)
-                callTool<BookTool>(book)
-                findTool(BookTool::class).execute(book)
-            */
-         }
+             parseMarkdownStreamToBooks(markdownStream).collect { book ->
+                callToolRaw(BookTool.NAME, book)
+                /* 기타 가능한 옵션들:
+                    callTool(BookTool::class, book)
+                    callTool<BookTool>(book)
+                    findTool(BookTool::class).execute(book)
+                */
+             }
 
-         // 병렬 도구 호출 가능
-         parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(toolClass=BookTool::class).collect {
-            println("Tool call result: $it")
-         }
-      }
-   }
+             // 병렬 도구 호출 가능
+             parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(toolClass=BookTool::class).collect {
+                println("Tool call result: $it")
+             }
+          }
+       }
 
-   edge(nodeStart forwardTo getMdOutput)
-   edge(getMdOutput forwardTo nodeFinish)
- }
-```
-<!--- KNIT example-streaming-api-09.kt -->
+       edge(nodeStart forwardTo getMdOutput)
+       edge(getMdOutput forwardTo nodeFinish)
+     }
+    ```
+    <!--- KNIT example-streaming-api-11.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    ```
+    <!--- KNIT example-streaming-api-java-10.java -->
 
 ### 3. 에이전트 구성에 도구 등록하기 (Register the tool in your agent configuration)
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.tools.ToolRegistry
-import ai.koog.agents.example.exampleStreamingApi08.BookTool
+import ai.koog.agents.example.exampleStreamingApi10.BookTool
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 
@@ -549,7 +699,7 @@ val runner = AIAgent(
     toolRegistry = toolRegistry
 )
 ```
-<!--- KNIT example-streaming-api-10.kt -->
+<!--- KNIT example-streaming-api-12.kt -->
 
 ## 권장 사항 (Best practices)
 

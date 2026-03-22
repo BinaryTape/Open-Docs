@@ -217,7 +217,7 @@ kotlin {
             api("org.example:not-exported-library:1.0")
         }
     }
-    macosX64("macos").binaries {
+    macosArm64("macos").binaries {
         framework {
             export(project(":dependency"))
             export("org.example:exported-library:1.0")
@@ -245,7 +245,7 @@ kotlin {
             api 'org.example:not-exported-library:1.0'
         }
     }
-    macosX64("macos").binaries {
+    macosArm64("macos").binaries {
         framework {
             export project(':dependency')
             export 'org.example:exported-library:1.0'
@@ -439,6 +439,8 @@ kotlin {
 * `assembleXCFramework`
 * `assemble<Framework name>DebugXCFramework`
 * `assemble<Framework name>ReleaseXCFramework`
+
+undefined
 
 如果你在项目中使用 [CocoaPods 集成](multiplatform-cocoapods-overview.md)，可以使用 Kotlin CocoaPods Gradle 插件构建 XCFramework。它包含以下构建 XCFramework（包含所有已注册目标）并生成 podspec 文件的任务：
 

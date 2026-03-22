@@ -55,7 +55,7 @@ get("/user/{login}") {
 
 ## 查询形参 {id="query_parameters"}
 
-要访问查询字符串的形参，可以使用 [`ApplicationRequest.queryParameters()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/query-parameters.html) 属性。例如，如果向 `/products?price=asc` 发起请求，您可以通过以下方式访问 `price` 查询形参：
+要访问 <emphasis tooltip="query_string">查询字符串</emphasis> 的形参，可以使用 [`ApplicationRequest.queryParameters()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/query-parameters.html) 属性。例如，如果向 `/products?price=asc` 发起请求，您可以通过以下方式访问 `price` 查询形参：
 
 ```kotlin
 get("/products") {
@@ -214,7 +214,7 @@ fun Application.main() {
 
 #### 默认文件大小限制
 
-默认情况下，可以接收的二进制项和文件项的允许大小限制为 50MB。如果接收到的文件或二进制项超过 50MB 限制，则会抛出 `IOException`。
+默认情况下，可以接收的二进制项和文件项的允许大小限制为 50 MB。如果接收到的文件或二进制项超过 50 MB 限制，则会抛出 `IOException`。
 
 要替代默认的表单字段限制，请在调用 `.receiveMultipart()` 时传递 `formFieldLimit` 形参：
 
@@ -222,7 +222,7 @@ fun Application.main() {
 val multipartData = call.receiveMultipart(formFieldLimit = 1024 * 1024 * 100)
 ```
 
-在此示例中，新限制设置为 100MB。
+在此示例中，新限制设置为 100 MB。
 
 #### 表单字段
 

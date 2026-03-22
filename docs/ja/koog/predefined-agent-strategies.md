@@ -30,6 +30,7 @@ Koogにおけるチャットエージェント戦略の実装は `chatAgentStrat
 ```
 ai.koog.agents.ext.agent.chatAgentStrategy
 ```
+<!--- KNIT example-predefined-strategies-01.txt -->
 
 この戦略を使用するには、以下のパターンに従ってAIエージェントを作成します。
 
@@ -135,7 +136,7 @@ KoogにおけるReAct戦略の実装は `reActStrategy` 関数を通じて行わ
 ```
 ai.koog.agents.ext.agent.reActStrategy
 ```
-<!--- KNIT example-predefined-strategies-03.kt -->
+<!--- KNIT example-predefined-strategies-02.txt -->
 
 この戦略を使用するには、以下のパターンに従ってAIエージェントを作成します。
 
@@ -164,7 +165,7 @@ val reActAgent = AIAgent(
     )
 )
 ```
-<!--- KNIT example-predefined-strategies-04.kt -->
+<!--- KNIT example-predefined-strategies-03.kt -->
 
 ### パラメータ
 
@@ -193,6 +194,7 @@ val reActAgent = AIAgent(
 2. 入金（正の金額）を除外する
 3. 合計支出額を計算する
 ```
+<!--- KNIT example-predefined-strategies-03.txt -->
 
 #### 3. アクションと実行（フェーズ1）
 
@@ -203,6 +205,7 @@ val reActAgent = AIAgent(
 ```text
 {tool: "get_transactions", args: {startDate: "2025-05-19", endDate: "2025-06-18"}}
 ```
+<!--- KNIT example-predefined-strategies-04.txt -->
 
 ツールは、以下のような結果を返します。
 
@@ -214,6 +217,7 @@ val reActAgent = AIAgent(
   {date: "2025-06-13", amount: -200.00, description: "Utilities"}
 ]
 ```
+<!--- KNIT example-predefined-strategies-05.txt -->
 
 #### 4. 推論
 
@@ -224,6 +228,7 @@ val reActAgent = AIAgent(
 1. +1000.00の給与振込を除外する
 2. 残りの取引を合計する
 ```
+<!--- KNIT example-predefined-strategies-06.txt -->
 
 #### 5. アクションと実行（フェーズ2）
 
@@ -232,20 +237,23 @@ val reActAgent = AIAgent(
 ```text
 {tool: "calculate_sum", args: {amounts: [-100.00, -500.00, -200.00]}}
 ```
+<!--- KNIT example-predefined-strategies-07.txt -->
 
 ツールは最終的な結果を返します。
 
 ```text
 -800.00
 ```
+<!--- KNIT example-predefined-strategies-08.txt -->
 
 #### 6. 最終レスポンス
 
 エージェントは、計算された合計額を含む最終的なレスポンス（アシスタントメッセージ）を返します。
 
 ```text
-先月は、食料品、家賃、公共料金に合計800ドル支出しました。
+先月は、食料品、家賃、公共料金に合計800.00ドル支出しました。
 ```
+<!--- KNIT example-predefined-strategies-09.txt -->
 
 ### ReAct戦略を使用すべきケース
 
@@ -300,4 +308,4 @@ suspend fun main() {
     val result = bankingAgent.run("先月はいくら使いましたか？")
 }
 ```
-<!--- KNIT example-predefined-strategies-05.kt -->
+<!--- KNIT example-predefined-strategies-04.kt -->

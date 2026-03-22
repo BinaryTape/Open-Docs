@@ -525,7 +525,7 @@ open class Base {
     open var b: Int
     
     init {
-        // 코틀린 2.0부터는 에러가 발생하지만 이전에는 성공적으로 컴파일됨
+        // 코틀린 2.0부터는 에러가 발생하지만 이전에는 성공적으로 컴파일됨 
         this.a = 1 // 에러: open val must have initializer
         // 항상 에러임
         this.b = 1 // 에러: open var must have initializer

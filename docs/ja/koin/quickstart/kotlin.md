@@ -9,6 +9,10 @@ title: Kotlin
 更新 - 2024-10-21
 :::
 
+:::tip
+このチュートリアルの**アノテーション版（annotations version）**をお探しですか？コンパイル時の検証と自動モジュール検出に Koin Annotations を使用する [Kotlin & Annotations](./kotlin-annotations.md) を確認してください。
+:::
+
 ## コードの取得
 
 :::info
@@ -38,26 +42,26 @@ dependencies {
 ユーザーのコレクションを管理します。データクラスは以下の通りです。
 
 ```kotlin
-data class User(val name : String)
+data class User(val name: String, val email: String)
 ```
 
 ユーザーのリストを管理（ユーザーの追加や名前による検索）するための「Repository」コンポーネントを作成します。以下は `UserRepository` インターフェースとその実装です。
 
 ```kotlin
 interface UserRepository {
-    fun findUser(name : String): User?
-    fun addUsers(users : List<User>)
+    fun findUserOrNull(name: String): User?
+    fun addUsers(users: List<User>)
 }
 
 class UserRepositoryImpl : UserRepository {
 
     private val _users = arrayListOf<User>()
 
-    override fun findUser(name: String): User? {
+    override fun findUserOrNull(name: String): User? {
         return _users.firstOrNull { it.name == name }
     }
 
-    override fun addUsers(users : List<User>) {
+    override fun addUsers(users: List<User>) {
         _users.addAll(users)
     }
 }
@@ -69,7 +73,7 @@ class UserRepositoryImpl : UserRepository {
 
 ```kotlin
 val appModule = module {
-    
+
 }
 ```
 
@@ -77,47 +81,73 @@ val appModule = module {
 
 ```kotlin
 val appModule = module {
-    single<UserRepository> { UserRepositoryImpl() }
+    single<UserRepositoryImpl>() bind UserRepository::class
 }
 ```
+
+:::info
+このチュートリアルでは、コンパイル時に自動ワイヤリング（auto-wiring）を提供する **Koin Compiler Plugin DSL** (`single<T>()`) を使用しています。設定については [Compiler Plugin Setup](/docs/setup/compiler-plugin) を参照してください。
+:::
 
 ## UserServiceコンポーネント
 
-デフォルトユーザーをリクエストするための `UserService` コンポーネントを作成します。
+ユーザー操作を管理するための `UserService` コンポーネントを作成します。
 
 ```kotlin
-class UserService(private val userRepository: UserRepository) {
+interface UserService {
+    fun getUserOrNull(name: String): User?
+    fun loadUsers()
+    fun prepareHelloMessage(user: User?): String
+}
 
-    fun getDefaultUser() : User = userRepository.findUser(DefaultData.DEFAULT_USER.name) ?: error("Can't find default user")
+class UserServiceImpl(
+    private val userRepository: UserRepository
+) : UserService {
+
+    override fun getUserOrNull(name: String): User? = userRepository.findUserOrNull(name)
+
+    override fun loadUsers() {
+        userRepository.addUsers(listOf(
+            User("Alice", "alice@example.com"),
+            User("Bob", "bob@example.com"),
+            User("Charlie", "charlie@example.com")
+        ))
+    }
+
+    override fun prepareHelloMessage(user: User?): String {
+        return user?.let { "Hello '${user.name}' (${user.email})! 👋" } ?: "❌ User not found"
+    }
 }
 ```
 
-> `UserRepository` は `UserService` のコンストラクタで参照されています。
+> `UserRepository` は `UserServiceImpl` のコンストラクタで参照されています。
 
 Koinモジュールで `UserService` を宣言します。`single` 定義として宣言します。
 
 ```kotlin
 val appModule = module {
-     single<UserRepository> { UserRepositoryImpl() }
-     single { UserService(get()) }
+    single<UserRepositoryImpl>() bind UserRepository::class
+    single<UserServiceImpl>() bind UserService::class
 }
 ```
 
-> `get()` 関数を使用すると、必要な依存関係を解決するようにKoinに要求できます。
-
 ## UserApplicationでの依存関係の注入
 
-`UserApplication` クラスは、Koinからインスタンスを起動（bootstrap）するのに役立ちます。`KoinComponent` インターフェースにより、`UserService` を解決できるようになります。これにより、`by inject()` デリゲート関数を使用して注入することが可能になります。
+`UserApplication` クラスは、Koinからインスタンスを起動（bootstrap）するのに役立ちます。コンストラクタ注入を通じて `UserService` を解決します。
 
 ```kotlin
-class UserApplication : KoinComponent {
+class UserApplication(
+    private val userService: UserService
+) {
 
-    private val userService : UserService by inject()
+    init {
+        userService.loadUsers()
+    }
 
     // データの表示
-    fun sayHello(){
-        val user = userService.getDefaultUser()
-        val message = "Hello '$user'!"
+    fun sayHello(name: String) {
+        val user = userService.getUserOrNull(name)
+        val message = userService.prepareHelloMessage(user)
         println(message)
     }
 }
@@ -126,42 +156,56 @@ class UserApplication : KoinComponent {
 これで、アプリケーションの準備が整いました。
 
 :::info
-`by inject()` 関数を使用すると、`KoinComponent` を拡張する任意のクラスでKoinインスタンスを取得できます。
+コンストラクタ注入は、Kotlinアプリケーションにおいて依存関係を注入する推奨される方法です。Koinは `UserApplication` を作成する際に、自動的に `UserService` を解決して注入します。
 :::
 
 ## Koinの開始
 
-アプリケーションでKoinを開始する必要があります。アプリケーションのメインエントリポイントである `main` 関数で `startKoin()` 関数を呼び出すだけです。
+アプリケーションでKoinを開始し、モジュールに `UserApplication` を追加する必要があります。アプリケーションのメインエントリポイントである `main` 関数で `startKoin()` 関数を呼び出すだけです。
 
 ```kotlin
+val appModule = module {
+    single<UserApplication>()
+    single<UserRepositoryImpl>() bind UserRepository::class
+    single<UserServiceImpl>() bind UserService::class
+}
+
 fun main() {
     startKoin {
         modules(appModule)
     }
 
-    UserApplication().sayHello()
+    val userApplication = KoinPlatform.getKoin().get<UserApplication>()
+    userApplication.sayHello("Alice")
 }
 ```
 
 :::info
-`startKoin` 内の `modules()` 関数は、指定されたモジュールのリストをロードします。
+`startKoin` 内の `modules()` 関数は、指定されたモジュールのリストをロードします。`KoinPlatform.getKoin().get<UserApplication>()` を使用して、Koinから `UserApplication` インスタンスを取得します。
 :::
 
-## Koinモジュール：クラシックDSLかコンストラクタDSLか？
+## Koinモジュール：DSLの比較
 
-このアプリのKoinモジュール宣言は以下の通りです。
+以下は、**クラシックDSL**（手動ワイヤリング）を使用したKoinモジュールの宣言です。
 
 ```kotlin
 val appModule = module {
+    single { UserApplication(get()) }
     single<UserRepository> { UserRepositoryImpl() }
-    single { UserService(get()) }
+    single<UserService> { UserServiceImpl(get()) }
 }
 ```
 
-コンストラクタを使用することで、より簡潔に記述することができます。
+**Compiler Plugin DSL**（コンパイル時の自動ワイヤリング）を使用した場合：
 
 ```kotlin
 val appModule = module {
-    singleOf(::UserRepositoryImpl) { bind<UserRepository>() }
-    singleOf(::UserService)
+    single<UserApplication>()
+    single<UserRepositoryImpl>() bind UserRepository::class
+    single<UserServiceImpl>() bind UserService::class
 }
+```
+
+:::tip
+Compiler Plugin DSLには [Koin Compiler Plugin](/docs/setup/compiler-plugin) が必要です。これにより、コンパイル時の依存関係解決と、よりクリーンな構文が提供されます。
+:::

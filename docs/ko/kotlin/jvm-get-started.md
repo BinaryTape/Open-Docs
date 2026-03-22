@@ -1,8 +1,10 @@
 [//]: # (title: 콘솔 앱 만들기 – 튜토리얼)
 
+<web-summary>IntelliJ IDEA에서 Kotlin 콘솔 앱을 만들고 Kotlin 컴파일러를 사용하여 실행해 봅니다.</web-summary>
+
 이 튜토리얼에서는 IntelliJ IDEA를 사용하여 콘솔 애플리케이션을 만드는 방법을 설명합니다.
 
-시작하려면 먼저 최신 버전의 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html)를 다운로드하여 설치하세요.
+시작하려면 먼저 최신 버전의 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)를 다운로드하여 설치하세요.
 
 ## 프로젝트 생성
 
@@ -68,7 +70,7 @@
 2. 이름을 묻고 사용자에게 `Hello`라고 인사하도록 코드를 수정합니다.
 
    * 입력 프롬프트를 만들고 [`readln()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/readln.html) 함수가 반환한 값을 `name` 변수에 할당합니다.
-   * 문자열 연결 대신 문자열 템플릿(string template)을 사용해 보겠습니다. 다음과 같이 텍스트 출력 시 변수 이름 앞에 달러 기호(`$`)를 직접 추가하면 됩니다: `$name`.
+   * 문자열 연결 대신 문자열 템플릿(string template)을 사용해 보겠습니다. 다음과 같이 텍스트 출력 시 변수 이름 앞에 달러 기호($)를 직접 추가하면 됩니다: `$name`.
    
    ```kotlin
    fun main() {
@@ -90,7 +92,7 @@
 
 ![Kotlin 실행 출력](jvm-output-1.png){width=600}
    
-이름을 입력하고 애플리케이션의 인사를 받아보세요!
+이름을 입력하고 애플리케이션의 인사를 받아보세요! 
 
 ![Kotlin 실행 출력](jvm-output-2.png){width=600}
 
@@ -100,5 +102,5 @@
 
 애플리케이션을 만들어 보았으니 이제 Kotlin 문법을 더 깊이 있게 살펴볼 수 있습니다.
 
-* [Kotlin 투어](kotlin-tour-welcome.md) 살펴보기
+* [Kotlin 투어](kotlin-tour-welcome.md) 살펴보기 
 * IntelliJ IDEA용 [JetBrains Academy 플러그인](https://plugins.jetbrains.com/plugin/10081-jetbrains-academy)을 설치하고 [Kotlin Koans 코스](https://plugins.jetbrains.com/plugin/10081-jetbrains-academy/docs/learner-start-guide.html?section=Kotlin%20Koans)의 연습 문제를 풀어보세요.

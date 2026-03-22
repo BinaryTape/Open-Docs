@@ -4,12 +4,12 @@ title: 在测试中注入
 
 ## 使用 KoinTest 让你的测试成为 KoinComponent
 
-*注意*：这不适用于 Android 仪器化测试。关于使用 Koin 进行仪器化测试，请参阅 [Android 仪器化测试](/docs/reference/koin-android/instrumented-testing.md)
+*注意*：这不适用于 Android 仪器化测试。关于使用 Koin 进行仪器化测试，请参阅 [Android 仪器化测试](/docs/reference/koin-android/instrumented-testing)
 
 通过为你的类标记 `KoinTest`，你的类将成为 `KoinComponent` 并为你带来：
 
 * `by inject()` 和 `get()` —— 从 Koin 获取实例的函数
-* `checkModules` —— 帮助你检查配置
+* `verify()` —— 帮助你验证模块配置
 * `declareMock` 和 `declare` —— 在当前上下文中声明一个 Mock 或新定义
 
 ```kotlin
@@ -145,16 +145,20 @@ class MyTest : KoinTest {
 
 ## 检查你的 Koin 模块
 
-Koin 提供了一种方法来测试你的 Koin 模块是否正常：`checkModules` —— 遍历你的定义树并检查每个定义是否已绑定。
+Koin 提供了一种方法来测试你的 Koin 模块是否正常：`verify()` —— 遍历你的定义树并检查每个定义是否已绑定。
 
 ```kotlin
-    @Test
-    fun `check MVP hierarchy`() {
-        checkModules {
-            modules(myModule1, myModule2 ...)
-        } 
-    }
+@Test
+fun checkKoinModules() {
+    myModule.verify()
+}
 ```
+
+:::info
+`checkModules()` API 已弃用。请改用 `verify()`。有关详细信息，请参阅[模块验证](/docs/reference/koin-test/verify)。
+
+这两种验证 API 都将被 Koin 编译器插件中的原生编译时安全性所取代。
+:::
 
 ## 为你的测试启动与停止 Koin
 

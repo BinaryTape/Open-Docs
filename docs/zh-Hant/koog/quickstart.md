@@ -12,7 +12,7 @@
 
 ??? tip "Nightly 版本"
 
-    來自 `develop` 分支的 Nightly 版本會發佈到 [JetBrains Grazie Maven](https://packages.jetbrains.team/maven/p/grazi/grazie-platform-public) 存儲庫。
+    來自 develop 分支的 Nightly 版本會發佈到 [JetBrains Grazie Maven](https://packages.jetbrains.team/maven/p/grazi/grazie-platform-public) 存儲庫。
     
     若要使用 Nightly 版本，請將以下存儲庫新增到您的組建組態：
     `https://packages.jetbrains.team/maven/p/grazi/grazie-platform-public`。
@@ -141,6 +141,7 @@ Koog 需要來自[受支援的 LLM 提供者](llm-providers.md)的 API 金鑰，
         ```cmd
         setx MISTRAL_API_KEY "your-api-key"
         ``` 
+        <!--- KNIT example-getting-started-01.txt -->
 
 === "Ollama"
 
@@ -152,30 +153,59 @@ Koog 需要來自[受支援的 LLM 提供者](llm-providers.md)的 API 金鑰，
 
     以下範例透過 OpenAI API，使用 [`GPT-4o`](https://platform.openai.com/docs/models/gpt-4o) 模型建立並執行一個簡單的 Koog Agent。
 
-    <!--- INCLUDE
-    import ai.koog.agents.core.agent.AIAgent
-    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-    import ai.koog.prompt.executor.clients.openai.OpenAIModels
-    import kotlinx.coroutines.runBlocking
-    -->
-    ```kotlin
-    fun main() = runBlocking {
-        // 從 OPENAI_API_KEY 環境變數取得 OpenAI API 金鑰
-        val apiKey = System.getenv("OPENAI_API_KEY")
-            ?: error("The API key is not set.")
+    === "Kotlin"
+
+        <!--- INCLUDE
+        import ai.koog.agents.core.agent.AIAgent
+        import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+        import ai.koog.prompt.executor.clients.openai.OpenAIModels
+        import kotlinx.coroutines.runBlocking
+        -->
+        ```kotlin
+        fun main() = runBlocking {
+            // 從 OPENAI_API_KEY 環境變數取得 OpenAI API 金鑰
+            val apiKey = System.getenv("OPENAI_API_KEY")
+                ?: error("The API key is not set.")
+            
+            // 建立 Agent
+            val agent = AIAgent(
+                promptExecutor = simpleOpenAIExecutor(apiKey),
+                llmModel = OpenAIModels.Chat.GPT4o
+            )
         
+            // 執行 Agent
+            val result = agent.run("Hello! How can you help me?")
+            println(result)
+        }
+        ```
+        <!--- KNIT example-getting-started-01.kt -->
+
+    === "Java"
+
+        <!--- INCLUDE
+        /**
+        -->
+        <!--- SUFFIX
+        **/
+        -->
+        ```java
+        // 從 OPENAI_API_KEY 環境變數取得 OpenAI API 金鑰
+        String apiKey = System.getenv("OPENAI_API_KEY");
+        if (apiKey == null) {
+            throw new RuntimeException("The API key is not set.");
+        }
+
         // 建立 Agent
-        val agent = AIAgent(
-            promptExecutor = simpleOpenAIExecutor(apiKey),
-            llmModel = OpenAIModels.Chat.GPT4o
-        )
-    
+        AIAgent<String, String> agent = AIAgent.builder()
+            .promptExecutor(simpleOpenAIExecutor(apiKey))
+            .llmModel(OpenAIModels.Chat.GPT4o)
+            .build();
+
         // 執行 Agent
-        val result = agent.run("Hello! How can you help me?")
-        println(result)
-    }
-    ```
-    <!--- KNIT example-getting-started-01.kt -->
+        String result = agent.run("Hello! How can you help me?");
+        System.out.println(result);
+        ```
+        <!--- KNIT example-getting-started-java-01.java -->
 
     該範例可能會產生以下輸出：
     
@@ -193,35 +223,65 @@ Koog 需要來自[受支援的 LLM 提供者](llm-providers.md)的 API 金鑰，
 
     Let me know what you need help with—I’m here for you!
     ```
+    <!--- KNIT example-getting-started-02.txt -->
 
 === "Anthropic"
 
     以下範例透過 Anthropic API，使用 [`Claude Opus 4.1`](https://www.anthropic.com/news/claude-opus-4-1) 模型建立並執行一個簡單的 Koog Agent。
 
-    <!--- INCLUDE
-    import ai.koog.agents.core.agent.AIAgent
-    import ai.koog.prompt.executor.llms.all.simpleAnthropicExecutor
-    import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
-    import kotlinx.coroutines.runBlocking
-    -->
-    ```kotlin
-    fun main() = runBlocking {
-        // 從 ANTHROPIC_API_KEY 環境變數取得 Anthropic API 金鑰
-        val apiKey = System.getenv("ANTHROPIC_API_KEY")
-            ?: error("The API key is not set.")
+    === "Kotlin"
+
+        <!--- INCLUDE
+        import ai.koog.agents.core.agent.AIAgent
+        import ai.koog.prompt.executor.llms.all.simpleAnthropicExecutor
+        import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
+        import kotlinx.coroutines.runBlocking
+        -->
+        ```kotlin
+        fun main() = runBlocking {
+            // 從 ANTHROPIC_API_KEY 環境變數取得 Anthropic API 金鑰
+            val apiKey = System.getenv("ANTHROPIC_API_KEY")
+                ?: error("The API key is not set.")
+            
+            // 建立 Agent
+            val agent = AIAgent(
+                promptExecutor = simpleAnthropicExecutor(apiKey),
+                llmModel = AnthropicModels.Opus_4_1
+            )
         
+            // 執行 Agent
+            val result = agent.run("Hello! How can you help me?")
+            println(result)
+        }
+        ```
+        <!--- KNIT example-getting-started-02.kt -->
+
+    === "Java"
+
+        <!--- INCLUDE
+        /**
+        -->
+        <!--- SUFFIX
+        **/
+        -->
+        ```java
+        // 從 ANTHROPIC_API_KEY 環境變數取得 Anthropic API 金鑰
+        String apiKey = System.getenv("ANTHROPIC_API_KEY");
+        if (apiKey == null) {
+            throw new RuntimeException("The API key is not set.");
+        }
+
         // 建立 Agent
-        val agent = AIAgent(
-            promptExecutor = simpleAnthropicExecutor(apiKey),
-            llmModel = AnthropicModels.Opus_4_1
-        )
-    
+        AIAgent<String, String> agent = AIAgent.builder()
+            .promptExecutor(simpleAnthropicExecutor(apiKey))
+            .llmModel(AnthropicModels.Opus_4_1)
+            .build();
+
         // 執行 Agent
-        val result = agent.run("Hello! How can you help me?")
-        println(result)
-    }
-    ```
-    <!--- KNIT example-getting-started-02.kt -->
+        String result = agent.run("Hello! How can you help me?");
+        System.out.println(result);
+        ```
+        <!--- KNIT example-getting-started-java-02.java -->
 
     該範例可能會產生以下輸出：
 
@@ -237,35 +297,65 @@ Koog 需要來自[受支援的 LLM 提供者](llm-providers.md)的 API 金鑰，
     
     What do you need help with today?
     ```
+    <!--- KNIT example-getting-started-03.txt -->
 
 === "Google"
 
     以下範例透過 Gemini API，使用 [`Gemini 2.5 Pro`](https://cloud.google.com/vertex-ai/generative-ai/docs/models/gemini/2-5-pro) 模型建立並執行一個簡單的 Koog Agent。
 
-    <!--- INCLUDE
-    import ai.koog.agents.core.agent.AIAgent
-    import ai.koog.prompt.executor.llms.all.simpleGoogleAIExecutor
-    import ai.koog.prompt.executor.clients.google.GoogleModels
-    import kotlinx.coroutines.runBlocking
-    -->
-    ```kotlin
-    fun main() = runBlocking {
-        // 從 GOOGLE_API_KEY 環境變數取得 Gemini API 金鑰
-        val apiKey = System.getenv("GOOGLE_API_KEY")
-            ?: error("The API key is not set.")
+    === "Kotlin"
+
+        <!--- INCLUDE
+        import ai.koog.agents.core.agent.AIAgent
+        import ai.koog.prompt.executor.llms.all.simpleGoogleAIExecutor
+        import ai.koog.prompt.executor.clients.google.GoogleModels
+        import kotlinx.coroutines.runBlocking
+        -->
+        ```kotlin
+        fun main() = runBlocking {
+            // 從 GOOGLE_API_KEY 環境變數取得 Gemini API 金鑰
+            val apiKey = System.getenv("GOOGLE_API_KEY")
+                ?: error("The API key is not set.")
+            
+            // 建立 Agent
+            val agent = AIAgent(
+                promptExecutor = simpleGoogleAIExecutor(apiKey),
+                llmModel = GoogleModels.Gemini2_5Pro
+            )
         
+            // 執行 Agent
+            val result = agent.run("Hello! How can you help me?")
+            println(result)
+        }
+        ```
+        <!--- KNIT example-getting-started-03.kt -->
+
+    === "Java"
+
+        <!--- INCLUDE
+        /**
+        -->
+        <!--- SUFFIX
+        **/
+        -->
+        ```java
+        // 從 GOOGLE_API_KEY 環境變數取得 Gemini API 金鑰
+        String apiKey = System.getenv("GOOGLE_API_KEY");
+        if (apiKey == null) {
+            throw new RuntimeException("The API key is not set.");
+        }
+
         // 建立 Agent
-        val agent = AIAgent(
-            promptExecutor = simpleGoogleAIExecutor(apiKey),
-            llmModel = GoogleModels.Gemini2_5Pro
-        )
-    
+        AIAgent<String, String> agent = AIAgent.builder()
+            .promptExecutor(simpleGoogleAIExecutor(apiKey))
+            .llmModel(GoogleModels.Gemini2_5Pro)
+            .build();
+
         // 執行 Agent
-        val result = agent.run("Hello! How can you help me?")
-        println(result)
-    }
-    ```
-    <!--- KNIT example-getting-started-03.kt -->
+        String result = agent.run("Hello! How can you help me?");
+        System.out.println(result);
+        ```
+        <!--- KNIT example-getting-started-java-03.java -->
 
     該範例可能會產生以下輸出：
 
@@ -281,111 +371,206 @@ Koog 需要來自[受支援的 LLM 提供者](llm-providers.md)的 API 金鑰，
 
     Just tell me what you need
     ```
+    <!--- KNIT example-getting-started-04.txt -->
 
 === "DeepSeek"
 
     以下範例透過 DeepSeek API，使用 `deepseek-chat` 模型建立並執行一個簡單的 Koog Agent。
 
-    <!--- INCLUDE
-    import ai.koog.agents.core.agent.AIAgent
-    import ai.koog.prompt.executor.clients.deepseek.DeepSeekLLMClient
-    import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
-    import ai.koog.prompt.executor.clients.deepseek.DeepSeekModels
-    import kotlinx.coroutines.runBlocking
-    -->
-    ```kotlin
-    fun main() = runBlocking {
-        // 從 DEEPSEEK_API_KEY 環境變數取得 DeepSeek API 金鑰
-        val apiKey = System.getenv("DEEPSEEK_API_KEY")
-            ?: error("The API key is not set.")
+    === "Kotlin"
+
+        <!--- INCLUDE
+        import ai.koog.agents.core.agent.AIAgent
+        import ai.koog.prompt.executor.clients.deepseek.DeepSeekLLMClient
+        import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
+        import ai.koog.prompt.executor.clients.deepseek.DeepSeekModels
+        import kotlinx.coroutines.runBlocking
+        -->
+        ```kotlin
+        fun main() = runBlocking {
+            // 從 DEEPSEEK_API_KEY 環境變數取得 DeepSeek API 金鑰
+            val apiKey = System.getenv("DEEPSEEK_API_KEY")
+                ?: error("The API key is not set.")
+            
+            // 建立 LLM 用戶端
+            val deepSeekClient = DeepSeekLLMClient(apiKey)
         
+            // 建立 Agent
+            val agent = AIAgent(
+                // 使用 LLM 用戶端建立提示詞執行器
+                promptExecutor = MultiLLMPromptExecutor(deepSeekClient),
+                // 提供模型
+                llmModel = DeepSeekModels.DeepSeekChat
+            )
+        
+            // 執行 Agent
+            val result = agent.run("Hello! How can you help me?")
+            println(result)
+        }
+        ```
+        <!--- KNIT example-getting-started-04.kt -->
+
+    === "Java"
+
+        <!--- INCLUDE
+        /**
+        -->
+        <!--- SUFFIX
+        **/
+        -->
+        ```java
+        // 從 DEEPSEEK_API_KEY 環境變數取得 DeepSeek API 金鑰
+        String apiKey = System.getenv("DEEPSEEK_API_KEY");
+        if (apiKey == null) {
+            throw new RuntimeException("The API key is not set.");
+        }
+
         // 建立 LLM 用戶端
-        val deepSeekClient = DeepSeekLLMClient(apiKey)
-    
+        DeepSeekLLMClient deepSeekClient = new DeepSeekLLMClient(apiKey);
+
         // 建立 Agent
-        val agent = AIAgent(
+        AIAgent<String, String> agent = AIAgent.builder()
             // 使用 LLM 用戶端建立提示詞執行器
-            promptExecutor = MultiLLMPromptExecutor(deepSeekClient),
+            .promptExecutor(new MultiLLMPromptExecutor(deepSeekClient))
             // 提供模型
-            llmModel = DeepSeekModels.DeepSeekChat
-        )
-    
+            .llmModel(DeepSeekModels.DeepSeekChat)
+            .build();
+
         // 執行 Agent
-        val result = agent.run("Hello! How can you help me?")
-        println(result)
-    }
-    ```
-    <!--- KNIT example-getting-started-04.kt -->
+        String result = agent.run("Hello! How can you help me?");
+        System.out.println(result);
+        ```
+        <!--- KNIT example-getting-started-java-04.java -->
 
     該範例可能會產生以下輸出：
 
     ```
     Hello! I'm here to assist you with a wide range of tasks, including answering questions, providing information, helping with problem-solving, offering creative ideas, and even just chatting. Whether you need help with research, writing, learning something new, or simply want to discuss a topic, feel free to ask—I’m happy to help! 😊
     ```
+    <!--- KNIT example-getting-started-05.txt -->
 
 === "OpenRouter"
 
     以下範例透過 OpenRouter API，使用 [`GPT-4o`](https://openrouter.ai/openai/gpt-4o) 模型建立並執行一個簡單的 Koog Agent。
 
-    <!--- INCLUDE
-    import ai.koog.agents.core.agent.AIAgent
-    import ai.koog.prompt.executor.llms.all.simpleOpenRouterExecutor
-    import ai.koog.prompt.executor.clients.openrouter.OpenRouterModels
-    import kotlinx.coroutines.runBlocking
-    -->
-    ```kotlin
-    fun main() = runBlocking {
-        // 從 OPENROUTER_API_KEY 環境變數取得 OpenRouter API 金鑰
-        val apiKey = System.getenv("OPENROUTER_API_KEY")
-            ?: error("The API key is not set.")
+    === "Kotlin"
+
+        <!--- INCLUDE
+        import ai.koog.agents.core.agent.AIAgent
+        import ai.koog.prompt.executor.llms.all.simpleOpenRouterExecutor
+        import ai.koog.prompt.executor.clients.openrouter.OpenRouterModels
+        import kotlinx.coroutines.runBlocking
+        -->
+        ```kotlin
+        fun main() = runBlocking {
+            // 從 OPENROUTER_API_KEY 環境變數取得 OpenRouter API 金鑰
+            val apiKey = System.getenv("OPENROUTER_API_KEY")
+                ?: error("The API key is not set.")
+            
+            // 建立 Agent
+            val agent = AIAgent(
+                promptExecutor = simpleOpenRouterExecutor(apiKey),
+                llmModel = OpenRouterModels.GPT4o
+            )
         
+            // 執行 Agent
+            val result = agent.run("Hello! How can you help me?")
+            println(result)
+        }
+        ```
+        <!--- KNIT example-getting-started-05.kt -->
+
+    === "Java"
+
+        <!--- INCLUDE
+        /**
+        -->
+        <!--- SUFFIX
+        **/
+        -->
+        ```java
+        // 從 OPENROUTER_API_KEY 環境變數取得 OpenRouter API 金鑰
+        String apiKey = System.getenv("OPENROUTER_API_KEY");
+        if (apiKey == null) {
+            throw new RuntimeException("The API key is not set.");
+        }
+
         // 建立 Agent
-        val agent = AIAgent(
-            promptExecutor = simpleOpenRouterExecutor(apiKey),
-            llmModel = OpenRouterModels.GPT4o
-        )
-    
+        AIAgent<String, String> agent = AIAgent.builder()
+            .promptExecutor(simpleOpenRouterExecutor(apiKey))
+            .llmModel(OpenRouterModels.GPT4o)
+            .build();
+
         // 執行 Agent
-        val result = agent.run("Hello! How can you help me?")
-        println(result)
-    }
-    ```
-    <!--- KNIT example-getting-started-05.kt -->
+        String result = agent.run("Hello! How can you help me?");
+        System.out.println(result);
+        ```
+        <!--- KNIT example-getting-started-java-05.java -->
 
     該範例可能會產生以下輸出：
 
     ```
     I can answer questions, help with writing, solve problems, organize tasks, and more—just let me know what you need!
     ```
+    <!--- KNIT example-getting-started-06.txt -->
 
 === "Bedrock"
 
     以下範例透過 Bedrock API，使用 [`Claude Sonnet 4.5`](https://www.anthropic.com/news/claude-sonnet-4-5) 模型建立並執行一個簡單的 Koog Agent。
-
-    <!--- INCLUDE
-    import ai.koog.agents.core.agent.AIAgent
-    import ai.koog.prompt.executor.llms.all.simpleBedrockExecutorWithBearerToken
-    import ai.koog.prompt.executor.clients.bedrock.BedrockModels
-    import kotlinx.coroutines.runBlocking
-    -->
-    ```kotlin
-    fun main() = runBlocking {
-        // 從 BEDROCK_API_KEY 環境變數取得 Bedrock API 金鑰
-        val apiKey = System.getenv("BEDROCK_API_KEY")
-            ?: error("The API key is not set.")
-        
-        // 建立 Agent
-        val agent = AIAgent(
-            promptExecutor = simpleBedrockExecutorWithBearerToken(apiKey),
-            llmModel = BedrockModels.AnthropicClaude4_5Sonnet
-        )
     
+    === "Kotlin"
+
+        <!--- INCLUDE
+        import ai.koog.agents.core.agent.AIAgent
+        import ai.koog.prompt.executor.llms.all.simpleBedrockExecutorWithBearerToken
+        import ai.koog.prompt.executor.clients.bedrock.BedrockModels
+        import kotlinx.coroutines.runBlocking
+        -->
+        ```kotlin
+        fun main() = runBlocking {
+            // 從 BEDROCK_API_KEY 環境變數取得 Bedrock API 金鑰
+            val apiKey = System.getenv("BEDROCK_API_KEY")
+                ?: error("The API key is not set.")
+            
+            // 建立 Agent
+            val agent = AIAgent(
+                promptExecutor = simpleBedrockExecutorWithBearerToken(apiKey),
+                llmModel = BedrockModels.AnthropicClaude4_5Sonnet
+            )
+        
+            // 執行 Agent
+            val result = agent.run("Hello! How can you help me?")
+            println(result)
+        }
+        ```
+        <!--- KNIT example-getting-started-06.kt -->
+
+    === "Java"
+
+        <!--- INCLUDE
+        /**
+        -->
+        <!--- SUFFIX
+        **/
+        -->
+        ```java
+        // 從 BEDROCK_API_KEY 環境變數取得 Bedrock API 金鑰
+        String apiKey = System.getenv("BEDROCK_API_KEY");
+        if (apiKey == null) {
+            throw new RuntimeException("The API key is not set.");
+        }
+
+        // 建立 Agent
+        AIAgent<String, String> agent = AIAgent.builder()
+            .promptExecutor(simpleBedrockExecutorWithBearerToken(apiKey, new BedrockClientSettings()))
+            .llmModel(BedrockModels.INSTANCE.getAnthropicClaude4_5Sonnet())
+            .build();
+
         // 執行 Agent
-        val result = agent.run("Hello! How can you help me?")
-        println(result)
-    }
-    ```
-    <!--- KNIT example-getting-started-06.kt -->
+        String result = agent.run("Hello! How can you help me?");
+        System.out.println(result);
+        ```
+        <!--- KNIT example-getting-started-java-06.java -->
 
     該範例可能會產生以下輸出：
 
@@ -403,35 +588,65 @@ Koog 需要來自[受支援的 LLM 提供者](llm-providers.md)的 API 金鑰，
     
      What would you like help with today?
     ```
+    <!--- KNIT example-getting-started-07.txt -->
 
 === "Mistral"
 
     以下範例透過 Mistral AI API，使用 [`Mistral Medium 3.1`](https://docs.mistral.ai/models/mistral-medium-3-1-25-08) 模型建立並執行一個簡單的 Koog Agent。
 
-    <!--- INCLUDE
-    import ai.koog.agents.core.agent.AIAgent
-    import ai.koog.prompt.executor.llms.all.simpleMistralAIExecutor
-    import ai.koog.prompt.executor.clients.mistralai.MistralAIModels
-    import kotlinx.coroutines.runBlocking
-    -->
-    ```kotlin
-    fun main() = runBlocking {
-        // 從 MISTRAL_API_KEY 環境變數取得 Mistral AI API 金鑰
-        val apiKey = System.getenv("MISTRAL_API_KEY")
-            ?: error("The API key is not set.")
+    === "Kotlin"
+
+        <!--- INCLUDE
+        import ai.koog.agents.core.agent.AIAgent
+        import ai.koog.prompt.executor.llms.all.simpleMistralAIExecutor
+        import ai.koog.prompt.executor.clients.mistralai.MistralAIModels
+        import kotlinx.coroutines.runBlocking
+        -->
+        ```kotlin
+        fun main() = runBlocking {
+            // 從 MISTRAL_API_KEY 環境變數取得 Mistral AI API 金鑰
+            val apiKey = System.getenv("MISTRAL_API_KEY")
+                ?: error("The API key is not set.")
+            
+            // 建立 Agent
+            val agent = AIAgent(
+                promptExecutor = simpleMistralAIExecutor(apiKey),
+                llmModel = MistralAIModels.Chat.MistralMedium31
+            )
         
-        // 建立 Agent
-        val agent = AIAgent(
-            promptExecutor = simpleMistralAIExecutor(apiKey),
-            llmModel = MistralAIModels.Chat.MistralMedium31
-        )
+            // 執行 Agent
+            val result = agent.run("Hello! How can you help me?")
+            println(result)
+        }
+        ```
+        <!--- KNIT example-getting-started-07.kt -->
     
+    === "Java"
+
+        <!--- INCLUDE
+        /**
+        -->
+        <!--- SUFFIX
+        **/
+        -->   
+        ```java
+        // 從 MISTRAL_API_KEY 環境變數取得 Mistral AI API 金鑰
+        String apiKey = System.getenv("MISTRAL_API_KEY");
+        if (apiKey == null) {
+            throw new RuntimeException("The API key is not set.");
+        }
+
+        // 建立 Agent
+        AIAgent<String, String> agent = AIAgent.builder()
+            .promptExecutor(simpleMistralAIExecutor(apiKey))
+            .llmModel(MistralAIModels.Chat.MistralMedium31)
+            .build();
+
         // 執行 Agent
-        val result = agent.run("Hello! How can you help me?")
-        println(result)
-    }
-    ```
-    <!--- KNIT example-getting-started-07.kt -->
+        String result = agent.run("Hello! How can you help me?");
+        System.out.println(result);
+        ```
+        <!--- KNIT example-getting-started-java-07.java -->
 
     該範例可能會產生以下輸出：
 
@@ -449,38 +664,63 @@ Koog 需要來自[受支援的 LLM 提供者](llm-providers.md)的 API 金鑰，
     
     What's on your mind? Is there something specific you'd like help with?
     ```
+    <!--- KNIT example-getting-started-08.txt -->
 
 === "Ollama"
 
     以下範例使用經由 Ollama 本機執行的 [`llama3.2`](https://ollama.com/library/llama3.2) 模型建立並執行一個簡單的 Koog Agent。
 
-    <!--- INCLUDE
-    import ai.koog.agents.core.agent.AIAgent
-    import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
-    import ai.koog.prompt.executor.ollama.client.OllamaModels
-    import kotlinx.coroutines.runBlocking
-    -->
-    ```kotlin
-    fun main() = runBlocking {
+    === "Kotlin"
+
+        <!--- INCLUDE
+        import ai.koog.agents.core.agent.AIAgent
+        import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
+        import ai.koog.prompt.executor.ollama.client.OllamaModels
+        import kotlinx.coroutines.runBlocking
+        -->
+        ```kotlin
+        fun main() = runBlocking {
+            // 建立 Agent
+            val agent = AIAgent(
+                promptExecutor = simpleOllamaAIExecutor(),
+                llmModel = OllamaModels.Meta.LLAMA_3_2
+            )
+
+            // 執行 Agent
+            val result = agent.run("Hello! How can you help me?")
+            println(result)
+        }
+        ```
+        <!--- KNIT example-getting-started-08.kt -->
+
+    === "Java"
+
+        <!--- INCLUDE
+        /**
+        -->
+        <!--- SUFFIX
+        **/
+        -->  
+        ```java
         // 建立 Agent
-        val agent = AIAgent(
-            promptExecutor = simpleOllamaAIExecutor(),
-            llmModel = OllamaModels.Meta.LLAMA_3_2
-        )
+        AIAgent<String, String> agent = AIAgent.builder()
+            .promptExecutor(simpleOllamaAIExecutor("http://localhost:11434"))
+            .llmModel(OllamaModels.Meta.LLAMA_3_2)
+            .build();
 
         // 執行 Agent
-        val result = agent.run("Hello! How can you help me?")
-        println(result)
-    }
-    ```
-    <!--- KNIT example-getting-started-08.kt -->
+        String result = agent.run("Hello! How can you help me?");
+        System.out.println(result);
+        ```
+        <!--- KNIT example-getting-started-java-08.java -->
 
     該範例可能會產生以下輸出：
 
     ```
     I can assist with various tasks such as answering questions, providing information, and even helping with language-related tasks like proofreading or writing suggestions. What's on your mind today?
     ```
+    <!--- KNIT example-getting-started-09.txt -->
 
 ## 後續步驟
 
-- 進一步了解[建立 Agent](agents/index.md)
+- 進一步了解 [Agent 類型](agents/index.md)

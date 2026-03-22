@@ -6,103 +6,204 @@ title: Androidでの注入
 
 ## Androidクラスでの準備
 
-`Activity`、`Fragment`、`Service` はKoinComponents拡張によって拡張されています。すべての `ComponentCallbacks` クラスでKoinの拡張機能が利用可能です。
-
-以下のKotlin拡張機能にアクセスできるようになります：
+`Activity`、`Fragment`、`Service` はKoinの拡張機能によって拡張されています。すべての `ComponentCallbacks` クラスで以下にアクセスできるようになります：
 
 * `by inject()` - Koinコンテナからの遅延評価（lazy）によるインスタンス取得
 * `get()` - Koinコンテナからの即時（eager）インスタンス取得
+* `by viewModel()` - ViewModelの遅延インスタンス取得
+* `getViewModel()` - ViewModelの即時インスタンス取得
 
-プロパティをLazy注入として宣言できます：
+## 依存関係の定義
+
+### コンパイラプラグインDSL
 
 ```kotlin
-module {
-    // Presenterの定義
-    factory { Presenter() }
+val appModule = module {
+    factory<Presenter>()
+    viewModel<UserViewModel>()
 }
 ```
+
+### アノテーション
+
+```kotlin
+@Factory
+class Presenter(private val repository: UserRepository)
+
+@KoinViewModel
+class UserViewModel(private val repository: UserRepository) : ViewModel()
+```
+
+### クラシックDSL
+
+```kotlin
+val appModule = module {
+    factory { Presenter(get()) }
+    viewModel { UserViewModel(get()) }
+}
+```
+
+## Activityでの注入
 
 ```kotlin
 class DetailActivity : AppCompatActivity() {
 
     // PresenterをLazy注入
-    override val presenter : Presenter by inject()
+    private val presenter: Presenter by inject()
+
+    // ViewModelをLazy注入
+    private val viewModel: UserViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        //...
+        super.onCreate(savedInstanceState)
+        // presenter と viewModel を使用
     }
 }
 ```
 
-あるいは、直接インスタンスを取得することもできます：
+## Fragmentでの注入
 
 ```kotlin
-override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
+class UserFragment : Fragment() {
 
-    // Presenterインスタンスの取得
-    val presenter : Presenter = get()
-}  
+    // Fragment自身のViewModel
+    private val viewModel: UserViewModel by viewModel()
+
+    // Activityと共有するViewModel
+    private val sharedViewModel: SharedViewModel by activityViewModel()
+
+    // 通常の依存関係
+    private val presenter: Presenter by inject()
+}
 ```
+
+## Serviceでの注入
+
+```kotlin
+class MyService : Service() {
+
+    private val repository: UserRepository by inject()
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        repository.doSomething()
+        return START_STICKY
+    }
+}
+```
+
+## 即時（Eager）注入 vs 遅延（Lazy）注入
+
+```kotlin
+class DetailActivity : AppCompatActivity() {
+
+    // Lazy - 初回アクセス時に作成
+    private val presenter: Presenter by inject()
+
+    // Eager - すぐに作成
+    private val service: MyService = get()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // あるいは関数内で即時取得
+        val anotherPresenter: Presenter = get()
+    }
+}
+```
+
+| メソッド | 作成タイミング | ユースケース |
+|--------|--------------|----------|
+| `by inject()` | 初回アクセス時 | ほとんどのケース。不要な作成を回避します |
+| `get()` | 即時 | インスタンスがすぐに必要な場合 |
 
 :::info
-クラスに拡張機能がない場合は、そのクラスに `KoinComponent` インターフェースを実装するだけで、別のクラスからインスタンスを `inject()` または `get()` できるようになります。
+クラスにKoinの拡張機能がない場合は、`KoinComponent` インターフェースを実装することで `inject()` や `get()` にアクセスできるようになります。
 :::
 
-## 定義内でのAndroid Contextの使用
+## パラメータを指定した注入
 
-`Application` クラスでKoinを設定したら、`androidContext` 関数を使用してAndroidのContextを注入できます。これにより、後にモジュール内で必要になったときに解決できるようになります：
+注入時にパラメータを渡します：
 
 ```kotlin
-class MainApplication : Application() {
+@Factory
+class UserPresenter(
+    @InjectedParam val userId: String,
+    val repository: UserRepository
+)
+```
 
-    override fun onCreate() {
-        super.onCreate()
+```kotlin
+class UserActivity : AppCompatActivity() {
 
-        startKoin {
-            // Android contextを注入
-            androidContext(this@MainApplication)
-            // ...
-        }
-        
-    }
+    private val presenter: UserPresenter by inject { parametersOf("user_123") }
 }
 ```
 
-定義内では、`androidContext()` および `androidApplication()` 関数を使用することで、Koinモジュール内で `Context` インスタンスを取得できます。これにより、`Application` インスタンスを必要とする式を簡単に記述できます。
+## クォリファイア（Qualifier）を使用した注入
+
+同じ型の定義が複数ある場合：
 
 ```kotlin
 val appModule = module {
+    single<Database>(named("local")) { LocalDatabase() }
+    single<Database>(named("remote")) { RemoteDatabase() }
+}
+```
 
-    // Androidの R.string.mystring リソースを注入してPresenterインスタンスを作成
+```kotlin
+class MyActivity : AppCompatActivity() {
+
+    private val localDb: Database by inject(named("local"))
+    private val remoteDb: Database by inject(named("remote"))
+}
+```
+
+## 定義内でのAndroid Contextの使用
+
+`Application` クラスで `androidContext` を使用してKoinを設定すると、定義内でそれを解決できるようになります。
+
+### アノテーション
+
+アノテーションを使用する場合、単に `Context` または `Application` パラメータを宣言するだけで、自動的に注入されます：
+
+```kotlin
+@Factory
+class MyPresenter(private val context: Context)
+
+@Singleton
+class MyRepository(private val application: Application)
+```
+
+### DSL
+
+モジュール内で `androidContext()` または `androidApplication()` 関数を使用します：
+
+```kotlin
+val appModule = module {
     factory {
-        MyPresenter(androidContext().resources.getString(R.string.mystring))
+        MyPresenter(androidContext())
+    }
+    single {
+        MyRepository(androidApplication())
     }
 }
 ```
 
-## AndroidのスコープとAndroid Contextの解決
+## AndroidのスコープとContextの解決
 
 `Context` 型をバインドしているスコープがある場合、異なるレベルから `Context` を解決する必要があるかもしれません。
 
-次の設定を例に見てみましょう：
-
 ```kotlin
-class MyPresenter(val context : Context)
+class MyPresenter(val context: Context)
 
-startKoin {
-  androidContext(context)
-  modules(
-    module {
-      scope<MyActivity> {
-        scoped { MyPresenter( <get() ???> ) }
-      }
+val appModule = module {
+    scope<MyActivity> {
+        scoped { MyPresenter(get()) }
     }
-  )
 }
 ```
 
-`MyPresenter` で正しい型を解決するには、以下を使用します：
-- `get()` は最も近い `Context` 定義を解決します。ここではソーススコープである `MyActivity` になります。
-- `androidContext()` も最も近い `Context` 定義を解決します。ここではソーススコープである `MyActivity` になります。
-- `androidApplication()` は `Application` 定義を解決します。ここではKoinのセットアップで定義されたソーススコープの `context` オブジェクトになります。
+Contextの解決：
+- `get()` - 最も近い `Context` を解決します。ここでは `MyActivity` になります。
+- `androidContext()` - 最も近い `Context` を解決します。ここでは `MyActivity` になります。
+- `androidApplication()` - Koinの設定から `Application` を解決します。

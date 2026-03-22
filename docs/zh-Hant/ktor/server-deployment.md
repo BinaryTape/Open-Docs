@@ -31,7 +31,7 @@ Ktor 允許您直接在應用程式中以所需的網路[引擎](server-engines.
 
 ### 配置：程式碼與配置檔案 {id="code-vs-config"}
 
-為部署配置獨立 Ktor 應用程式可能取決於[建立和配置伺服器](server-create-and-configure.topic)時所使用的方法：是在程式碼中或是透過[配置檔案](server-configuration-file.topic)。例如，託管提供者（hosting provider）可能要求指定用於監聽傳入請求的連接埠。在這種情況下，您需要透過程式碼或在 `application.conf`/`application.yaml` 中[配置](server-configuration-file.topic)連接埠。
+為部署配置獨立 Ktor 應用程式可能取決於[建立和配置伺服器](server-create-and-configure.topic)時所使用的方法：是在程式碼中或是透過[配置檔案](server-configuration-file.topic)。例如，[託管提供者](#publishing)可能要求指定用於監聽傳入請求的連接埠。在這種情況下，您需要透過程式碼或在 `application.conf`/`application.yaml` 中[配置](server-configuration-file.topic)連接埠。
 
 ## 封裝 {id="packaging"}
 
@@ -62,6 +62,7 @@ Ktor 允許您直接在應用程式中以所需的網路[引擎](server-engines.
 以下教學說明如何將 Ktor 應用程式部署到特定的雲端提供者：
 * [Google App Engine](google-app-engine.md)
 * [Heroku](heroku.md)
+* [Dokku](dokku.md)
 * [AWS Elastic Beanstalk](elastic-beanstalk.md)
 
 ## SSL {id="ssl"}

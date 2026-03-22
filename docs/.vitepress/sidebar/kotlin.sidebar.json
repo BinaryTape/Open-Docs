@@ -15,8 +15,8 @@
     "text": "kotlin.what-s-new-in-kotlin",
     "items": [
       {
-        "text": "kotlin.whatsnew-eap",
-        "link": "whatsnew-eap"
+        "text": "kotlin.whatsnew2320",
+        "link": "whatsnew2320"
       },
       {
         "text": "kotlin.whatsnew23",
@@ -1084,6 +1084,10 @@
           {
             "text": "kotlin.compiler-reference",
             "link": "compiler-reference"
+          },
+          {
+            "text": "kotlin.compiler-execution-strategy",
+            "link": "compiler-execution-strategy"
           }
         ],
         "collapsed": true

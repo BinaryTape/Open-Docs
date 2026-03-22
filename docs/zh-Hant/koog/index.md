@@ -1,9 +1,9 @@
 # 總覽
 
-Koog 是一個開源的 JetBrains 架構，專為 JVM 與 Kotlin 開發人員設計，用於透過慣用且型別安全 (type-safe) 的 Kotlin DSL 建置 AI agent。
-它讓您可以建立能與工具互動、處理複雜工作流程並與使用者溝通的 agent。
+Koog 是一個專為 JVM 生態系統設計，用於建置 AI agent 的開源 JetBrains 架構。
+它為 Kotlin 與 Java 開發人員提供了一流的開發體驗，具備慣用且型別安全 (type-safe) 的 Kotlin DSL 以及流暢的產生器樣式 (builder-style) Java API。
 
-您可以使用模組化功能系統自訂 agent 能力，並使用 Kotlin Multiplatform 將您的 agent 部署到 JVM、JS、WasmJS、Android 與 iOS 目標。
+雖然 Java 開發人員可以在 JVM 上利用慣用 API 發揮 Koog 的完整功能，但 Kotlin 開發人員還可以使用 Kotlin Multiplatform 將 agent 部署到 JS、WasmJS、Android 與 iOS 目標。
 
 <div class="grid cards" markdown>
 
@@ -37,9 +37,9 @@ Koog 是一個開源的 JetBrains 架構，專為 JVM 與 Kotlin 開發人員設
 
     ---
 
-    使用純 Kotlin 將自訂邏輯定義為 Lambda 函式 
+    使用純 Kotlin 或 Java 將自訂邏輯定義為 Lambda 函式
 
--   :material-graph-outline:{ .lg .middle } [**基於圖形的 agent**](agents/graph-based-agents.md)
+-   :material-state-machine:{ .lg .middle } [**基於圖形的 agent**](agents/graph-based-agents.md)
 
     ---
 
@@ -77,7 +77,7 @@ Koog 是一個開源的 JetBrains 架構，專為 JVM 與 Kotlin 開發人員設
 
     讓 agent 能夠與外部資料來源和服務互動
 
--   :material-toy-brick-outline:{ .lg .middle } [**功能**](features-overview.md)
+-   :material-toy-brick-outline:{ .lg .middle } [**功能**](features/index.md)
 
     ---
 
@@ -95,7 +95,7 @@ Koog 是一個開源的 JetBrains 架構，專為 JVM 與 Kotlin 開發人員設
 
     使用進階技術在長時間對話中保持內容關聯，同時最佳化語彙單元 (token) 使用量
 
--   :material-floppy:{ .lg .middle } [**Agent 持久化**](agent-persistence.md)
+-   :material-floppy:{ .lg .middle } [**Agent 持久化**](features/agent-persistence.md)
 
     ---
 
@@ -118,15 +118,15 @@ Koog 是一個開源的 JetBrains 架構，專為 JVM 與 Kotlin 開發人員設
 
     ---
 
-    使用 [向量嵌入 (vector embeddings)](embeddings.md)、[排序文件存儲](ranked-document-storage.md) 以及 [共享 agent 記憶體](agent-memory.md) 在對話之間保留與檢索知識
+    使用 [向量嵌入 (vector embeddings)](embeddings.md)、[排序文件存儲](ranked-document-storage.md) 以及 [共享 agent 記憶體](features/agent-memory.md) 在對話之間保留與檢索知識
 
--   :material-timeline-text:{ .lg .middle } [**追蹤**](tracing.md)
+-   :material-timeline-text:{ .lg .middle } [**追蹤**](features/tracing.md)
 
     ---
 
     透過詳細且可配置的追蹤功能來偵錯與監控 agent 執行
 
--   :material-timeline-text:{ .lg .middle } [**長期記憶**](long-term-memory.md)
+-   :material-timeline-text:{ .lg .middle } [**長期記憶**](features/long-term-memory.md)
 
     ---
 
@@ -156,7 +156,7 @@ Koog 是一個開源的 JetBrains 架構，專為 JVM 與 Kotlin 開發人員設
 
     將 Koog 與 Ktor 伺服器整合
 
--   :material-chart-timeline-variant:{ .lg .middle } [**OpenTelemetry**](opentelemetry-support.md)
+-   :material-chart-timeline-variant:{ .lg .middle } [**OpenTelemetry**](features/open-telemetry/index.md)
 
     ---
 

@@ -10,7 +10,7 @@
 
 결과물은 macOS와 Linux에서 실행하여 간단한 HTTP GET 요청을 보낼 수 있는 실행 가능한 명령줄 앱입니다.
 
-명령줄을 사용하여 직접 또는 스크립트 파일(`.sh` 또는 `.bat` 파일 등)을 사용하여 Kotlin 라이브러리를 생성할 수 있습니다. 하지만 이 방식은 수백 개의 파일과 라이브러리가 있는 대규모 프로젝트에는 적합하지 않습니다. 빌드 시스템을 사용하면 Kotlin/Native 컴파일러 바이너리와 전이 의존성(transitive dependencies)이 있는 라이브러리를 다운로드하고 캐싱할 뿐만 아니라 컴파일러와 테스트를 실행하여 프로세스를 간소화할 수 있습니다. Kotlin/Native는 [Kotlin 멀티플랫폼 플러그인](gradle-configure-project.md#targeting-multiple-platforms)을 통해 [Gradle](https://gradle.org) 빌드 시스템을 사용할 수 있습니다.
+명령줄을 사용하여 직접 또는 스크립트 파일(`.sh` 또는 `.bat` 파일 등)을 사용하여 Kotlin 라이브러리를 생성할 수 있습니다. 하지만 이 방식은 수백 개의 파일과 라이브러리가 있는 대규모 프로젝트에는 적합하지 않습니다. 빌드 시스템을 사용하면 Kotlin/Native 컴파일러 바이너리와 전이 의존성(transitive dependencies)이 있는 라이브러리를 다운로드하고 캐싱할 뿐만 아니라, 컴파일러와 테스트를 실행하여 프로세스를 간소화할 수 있습니다. Kotlin/Native는 [Kotlin 멀티플랫폼 플러그인](gradle-configure-project.md#targeting-multiple-platforms)을 통해 [Gradle](https://gradle.org) 빌드 시스템을 사용할 수 있습니다.
 
 ## 시작하기 전에
 
@@ -36,7 +36,6 @@
         val isMingwX64 = hostOs.startsWith("Windows")
         val nativeTarget = when {
             hostOs == "Mac OS X" && isArm64 -> macosArm64("native")
-            hostOs == "Mac OS X" && !isArm64 -> macosX64("native")
             hostOs == "Linux" && isArm64 -> linuxArm64("native")
             hostOs == "Linux" && !isArm64 -> linuxX64("native")
             isMingwX64 -> mingwX64("native")
@@ -54,7 +53,7 @@
     
     ```
 
-   * 타겟은 macOS, Linux, Windows를 위해 `macosArm64`, `macosX64`, `linuxArm64`, `linuxX64`, `mingwX64`를 사용하여 정의됩니다. [지원되는 플랫폼](native-target-support.md)의 전체 목록을 확인하세요.
+   * 타겟은 macOS, Linux, Windows를 위해 `macosArm64`, `linuxArm64`, `linuxX64`, `mingwX64`를 사용하여 정의됩니다. [지원되는 플랫폼](native-target-support.md)의 전체 목록을 확인하세요.
    * `binaries {}` 블록은 바이너리가 생성되는 방식과 애플리케이션의 엔트리 포인트(entry point)를 정의합니다. 기본값으로 유지해도 무방합니다.
    * C 상호 운용성(C interoperability)은 빌드의 추가 단계로 구성됩니다. 기본적으로 C의 모든 심볼은 `interop` 패키지로 가져옵니다. `.kt` 파일에서 전체 패키지를 가져오고 싶을 수 있습니다. [구성 방법](gradle-configure-project.md#targeting-multiple-platforms)에 대해 자세히 알아보세요.
 

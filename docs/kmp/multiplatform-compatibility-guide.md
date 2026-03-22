@@ -19,7 +19,8 @@ Kotlin 当前的稳定版本为 %kotlinVersion%。请注意特定变更相对于
 
 | Kotlin Multiplatform 插件版本 | Gradle                                | Android Gradle 插件                               | Xcode   |
 |-------------------------------------|---------------------------------------|-----------------------------------------------------|---------|
-| 2.3.10                              | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% | %xcode% |
+| 2.3.20                              | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% | %xcode% |
+| 2.3.10                              | 7.6.3–9.0.0                           | 8.2.2–9.0.0                                         | 26.0    |
 | 2.3.0                               | 7.6.3–9.0.0                           | 8.2.2–8.13.0                                        | 26.0    |
 | 2.2.21                              | 7.6.3–8.14                            | 7.3.1–8.11.1                                        | 26.0    |
 | 2.2.20                              | 7.6.3–8.14                            | 7.3.1–8.11.1                                        | 16.4    |
@@ -107,7 +108,7 @@ kotlin {
 
 从 Kotlin 2.1.20 开始，您可以从构建脚本中移除 `withJava()` 函数。
 
-此外，Gradle 现在仅在存在 Java 源代码时才运行 Java 编译任务，从而触发之前未曾运行的 JVM 验证诊断。如果您为 `KotlinJvmCompile` 任务或在 `compilerOptions` 内部显式配置了不兼容的 JVM 目标，该诊断将失败。有关确保 JVM 目标兼容性的指导，请参阅[检查相关编译任务的 JVM 目标兼容性](https://kotlinlang.org/docs/gradle-configure-project.html#check-for-jvm-target-compatibility-of-related-compile-tasks)。
+此外， Gradle 现在仅在存在 Java 源代码时才运行 Java 编译任务，从而触发之前未曾运行的 JVM 验证诊断。如果您为 `KotlinJvmCompile` 任务或在 `compilerOptions` 内部显式配置了不兼容的 JVM 目标，该诊断将失败。有关确保 JVM 目标兼容性的指导，请参阅[检查相关编译任务的 JVM 目标兼容性](https://kotlinlang.org/docs/gradle-configure-project.html#check-for-jvm-target-compatibility-of-related-compile-tasks)。
 
 如果您的项目使用高于 8.7 的 Gradle 版本，且不依赖于 Gradle Java 插件（如 [Java](https://docs.gradle.org/current/userguide/java_plugin.html)、[Java Library](https://docs.gradle.org/current/userguide/java_library_plugin.html) 或 [Application](https://docs.gradle.org/current/userguide/application_plugin.html)），或依赖于 Gradle Java 插件的第三方 Gradle 插件，您可以移除 `withJava()` 函数。
 
@@ -678,7 +679,7 @@ kotlin {
 * 1.9.0：在 `commonMain` 中使用 `dependsOn` 时报告警告
 * &gt;=1.9.20：在 `commonMain` 或 `commonTest` 中使用 `dependsOn` 时报告错误
 
-### Forward declaration（前向声明）的新方法 {initial-collapse-state="collapsed" collapsible="true"}
+### 前向声明的新方法 {initial-collapse-state="collapsed" collapsible="true"}
 
 **发生了什么变化？**
 

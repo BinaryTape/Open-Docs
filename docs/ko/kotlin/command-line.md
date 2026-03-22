@@ -53,7 +53,7 @@ sudo snap install --classic kotlin
 
 ## 애플리케이션 생성 및 실행
 
-1. `"Hello, World!"`를 출력하는 간단한 콘솔 JVM 애플리케이션을 Kotlin으로 작성합니다.
+1. `"Hello, World!"`를 출력하는 간단한 콘솔 JVM 애플리케이션을 Kotlin으로 작성합니다. 
    코드 에디터에서 다음 코드를 포함하는 `hello.kt`라는 새 파일을 만듭니다:
 
    ```kotlin

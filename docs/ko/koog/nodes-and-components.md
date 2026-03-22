@@ -20,24 +20,46 @@ graph LR
 
     classDef hidden display: none;
 ```
+<!--- KNIT example-nodes-and-component-01.txt -->
 
 다음은 문자열을 입력으로 받아 문자열의 길이(정수)를 출력으로 반환하는 노드를 정의하는 방법입니다.
 
-<!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
+=== "Kotlin"
+    <!--- INCLUDE
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    val strategy = strategy<String, String>("strategy_name") {
+    -->
+    <!--- SUFFIX
+    }
+    -->
+    ```kotlin
+    val nodeLength by node<String, Int> { input ->
+        input.length
+    }
+    ```
+    <!--- KNIT example-nodes-and-component-01.kt -->
 
-val strategy = strategy<String, String>("strategy_name") {
--->
-<!--- SUFFIX
-}
--->
-```kotlin
-val nodeLength by node<String, Int> { input ->
-    input.length
-}
-```
-<!--- KNIT example-nodes-and-component-01.kt -->
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    class exampleNodesAndComponentsJava01 {
+        public static void main(String[] args) {
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    var nodeLength = AIAgentNode.builder("nodeLength")
+        .withInput(String.class)
+        .withOutput(Integer.class)
+        .withAction((input, ctx) -> input.length())
+        .build();
+    ```
+    <!--- KNIT exampleNodesAndComponentsJava01.java -->
 
 더 자세한 정보는 [`node()`](api:agents-core::ai.koog.agents.core.dsl.builder.AIAgentSubgraphBuilderBase.node)를 참조하세요.
 
@@ -60,6 +82,7 @@ graph LR
 
     classDef hidden display: none;
 ```
+<!--- KNIT example-nodes-and-component-02.txt -->
 
 이 노드는 다음과 같은 목적으로 사용할 수 있습니다:
 
@@ -68,24 +91,48 @@ graph LR
 
 예시는 다음과 같습니다:
 
-<!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.forwardTo
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.agents.core.dsl.extension.nodeDoNothing
+=== "Kotlin"
 
-val strategy = strategy<String, String>("strategy_name") {
--->
-<!--- SUFFIX
-}
--->
-```kotlin
-val passthrough by nodeDoNothing<String>("passthrough")
+    <!--- INCLUDE
+    import ai.koog.agents.core.dsl.builder.forwardTo
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.agents.core.dsl.extension.nodeDoNothing
+    val strategy = strategy<String, String>("strategy_name") {
+    -->
+    <!--- SUFFIX
+    }
+    -->
+    ```kotlin
+    val passthrough by nodeDoNothing<String>("passthrough")
 
-edge(nodeStart forwardTo passthrough)
-edge(passthrough forwardTo nodeFinish)
-```
-<!--- KNIT example-nodes-and-component-02.kt -->
+    edge(nodeStart forwardTo passthrough)
+    edge(passthrough forwardTo nodeFinish)
+    ```
+    <!--- KNIT example-nodes-and-component-02.kt -->
+
+=== "Java"
+    
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    class exampleNodesAndComponentsJava02 {
+        public static void main(String[] args) {
+            var strategy = AIAgentGraphStrategy.builder("strategy_name")
+                .withInput(String.class)
+                .withOutput(String.class);
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    var passthrough = AIAgentNode.doNothing(String.class);
+
+    strategy.edge(strategy.nodeStart, passthrough);
+    strategy.edge(passthrough, strategy.nodeFinish);
+    ```
+    <!--- KNIT exampleNodesAndComponentsJava02.java -->
 
 ## LLM 노드
 
@@ -107,6 +154,7 @@ graph LR
 
     classDef hidden display: none;
 ```
+<!--- KNIT example-nodes-and-component-03.txt -->
 
 이 노드는 다음과 같은 목적으로 사용할 수 있습니다:
 
@@ -116,39 +164,87 @@ graph LR
 
 예시는 다음과 같습니다:
 
-<!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.forwardTo
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.agents.core.dsl.extension.nodeAppendPrompt
+=== "Kotlin"
 
-typealias Input = Unit
-typealias Output = Unit
+    <!--- INCLUDE
+    import ai.koog.agents.core.dsl.builder.forwardTo
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.agents.core.dsl.extension.nodeAppendPrompt
+    typealias Input = Unit
+    typealias Output = Unit
+    val strategy = strategy<String, String>("strategy_name") {
+    -->
+    <!--- SUFFIX
+    }
+    -->
+    ```kotlin
+    val firstNode by node<Input, Output> {
+        // 입력을 출력으로 변환
+    }
 
-val strategy = strategy<String, String>("strategy_name") {
--->
-<!--- SUFFIX
-}
--->
-```kotlin
-val firstNode by node<Input, Output> {
-    // 입력을 출력으로 변환
-}
+    val secondNode by node<Output, Output> {
+        // 출력을 출력으로 변환
+    }
 
-val secondNode by node<Output, Output> {
-    // 출력을 출력으로 변환
-}
+    // 이 노드는 이전 노드로부터 Output 타입의 값을 입력으로 받아 다음 노드로 전달합니다.
+    val setupContext by nodeAppendPrompt<Output>("setupContext") {
+        system("You are a helpful assistant specialized in Kotlin programming.")
+        user("I need help with Kotlin coroutines.")
+    }
 
-// 이 노드는 이전 노드로부터 Output 타입의 값을 입력으로 받아 다음 노드로 전달합니다.
-val setupContext by nodeAppendPrompt<Output>("setupContext") {
-    system("You are a helpful assistant specialized in Kotlin programming.")
-    user("I need help with Kotlin coroutines.")
-}
+    edge(firstNode forwardTo setupContext)
+    edge(setupContext forwardTo secondNode)
+    ```
+    <!--- KNIT example-nodes-and-component-03.kt -->
 
-edge(firstNode forwardTo setupContext)
-edge(setupContext forwardTo secondNode)
-```
-<!--- KNIT example-nodes-and-component-03.kt -->
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    class exampleNodesAndComponentsJava03 {
+        class Output {}
+        class Input extends Output { }
+        public static void main(String[] args) {
+            var strategy = AIAgentGraphStrategy.builder("strategy_name")
+                .withInput(String.class)
+                .withOutput(String.class);
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    var firstNode = AIAgentNode.builder()
+        .withInput(Input.class)
+        .withOutput(Output.class)
+        .withAction((input, ctx) -> {
+            // 입력을 출력으로 변환
+            return input;
+        })
+        .build();
+
+    var secondNode = AIAgentNode.builder()
+        .withInput(Output.class)
+        .withOutput(Output.class)
+        .withAction((output, ctx) -> {
+            // 출력을 출력으로 변환
+            return output;
+        })
+        .build();
+
+    var setupContext = AIAgentNode.builder()
+        .withInput(Output.class)
+        .appendPrompt(prompt -> {
+            prompt.system("You are a helpful assistant specialized in Kotlin programming.");
+            prompt.user("I need help with Kotlin coroutines.");
+        });
+
+    strategy.edge(firstNode, setupContext);
+    strategy.edge(setupContext, secondNode);
+    ```
+    <!--- KNIT exampleNodesAndComponentsJava03.java -->
 
 ### nodeLLMSendMessageOnlyCallingTools
 
@@ -167,6 +263,7 @@ graph LR
 
     classDef hidden display: none;
 ```
+<!--- KNIT example-nodes-and-component-04.txt -->
 
 ### nodeLLMSendMessageForceOneTool
 
@@ -185,6 +282,7 @@ graph LR
 
     classDef hidden display: none;
 ```
+<!--- KNIT example-nodes-and-component-05.txt -->
 
 ### nodeLLMRequest
 
@@ -203,6 +301,7 @@ graph LR
 
     classDef hidden display: none;
 ```
+<!--- KNIT example-nodes-and-component-06.txt -->
 
 이 노드는 다음과 같은 목적으로 사용할 수 있습니다:
 
@@ -210,24 +309,52 @@ graph LR
 
 예시는 다음과 같습니다:
 
-<!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.forwardTo
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.agents.core.dsl.extension.nodeLLMRequest
-import ai.koog.agents.core.dsl.extension.nodeDoNothing
+=== "Kotlin"
 
-val strategy = strategy<String, String>("strategy_name") {
-    val getUserQuestion by nodeDoNothing<String>()
--->
-<!--- SUFFIX
-}
--->
-```kotlin
-val requestLLM by nodeLLMRequest("requestLLM", allowToolCalls = true)
-edge(getUserQuestion forwardTo requestLLM)
-```
-<!--- KNIT example-nodes-and-component-04.kt -->
+    <!--- INCLUDE
+    import ai.koog.agents.core.dsl.builder.forwardTo
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.agents.core.dsl.extension.nodeLLMRequest
+    import ai.koog.agents.core.dsl.extension.nodeDoNothing
+    val strategy = strategy<String, String>("strategy_name") {
+        val getUserQuestion by nodeDoNothing<String>()
+    -->
+    <!--- SUFFIX
+    }
+    -->
+    ```kotlin
+    val requestLLM by nodeLLMRequest("requestLLM", allowToolCalls = true)
+    edge(getUserQuestion forwardTo requestLLM)
+    ```
+    <!--- KNIT example-nodes-and-component-04.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    class exampleNodesAndComponentsJava04 {
+        public static void main(String[] args) {
+            var strategy = AIAgentGraphStrategy.builder("strategy_name")
+                .withInput(String.class)
+                .withOutput(String.class);
+            var getUserQuestion = AIAgentNode.builder("getUserQuestion")
+                .withInput(String.class)
+                .withOutput(String.class)
+                .withAction((input, ctx) -> input)
+                .build();
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    var requestLLM = AIAgentNode.llmRequest(true, "requestLLM");
+
+    strategy.edge(getUserQuestion, requestLLM);
+    ```
+    <!--- KNIT exampleNodesAndComponentsJava04.java -->
 
 ### nodeLLMRequestStructured
 
@@ -246,6 +373,7 @@ graph LR
 
     classDef hidden display: none;
 ```
+<!--- KNIT example-nodes-and-component-07.txt -->
 
 ### nodeLLMRequestStreaming
 
@@ -264,6 +392,7 @@ graph LR
 
     classDef hidden display: none;
 ```
+<!--- KNIT example-nodes-and-component-08.txt -->
 
 ### nodeLLMRequestMultiple
 
@@ -282,6 +411,7 @@ graph LR
 
     classDef hidden display: none;
 ```
+<!--- KNIT example-nodes-and-component-09.txt -->
 
 이 노드는 다음과 같은 목적으로 사용할 수 있습니다:
 
@@ -291,24 +421,52 @@ graph LR
 
 예시는 다음과 같습니다:
 
-<!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.forwardTo
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.agents.core.dsl.extension.nodeLLMRequestMultiple
-import ai.koog.agents.core.dsl.extension.nodeDoNothing
+=== "Kotlin"
 
-val strategy = strategy<String, String>("strategy_name") {
-    val getComplexUserQuestion by nodeDoNothing<String>()
--->
-<!--- SUFFIX
-}
--->
-```kotlin
-val requestLLMMultipleTools by nodeLLMRequestMultiple()
-edge(getComplexUserQuestion forwardTo requestLLMMultipleTools)
-```
-<!--- KNIT example-nodes-and-component-05.kt -->
+    <!--- INCLUDE
+    import ai.koog.agents.core.dsl.builder.forwardTo
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.agents.core.dsl.extension.nodeLLMRequestMultiple
+    import ai.koog.agents.core.dsl.extension.nodeDoNothing
+    val strategy = strategy<String, String>("strategy_name") {
+        val getComplexUserQuestion by nodeDoNothing<String>()
+    -->
+    <!--- SUFFIX
+    }
+    -->
+    ```kotlin
+    val requestLLMMultipleTools by nodeLLMRequestMultiple()
+    edge(getComplexUserQuestion forwardTo requestLLMMultipleTools)
+    ```
+    <!--- KNIT example-nodes-and-component-05.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    class exampleNodesAndComponentsJava05 {
+        public static void main(String[] args) {
+            var strategy = AIAgentGraphStrategy.builder("strategy_name")
+                .withInput(String.class)
+                .withOutput(String.class);
+            var getComplexUserQuestion = AIAgentNode.builder("getComplexUserQuestion")
+                .withInput(String.class)
+                .withOutput(String.class)
+                .withAction((input, ctx) -> input)
+                .build();
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    var requestLLMMultipleTools = AIAgentNode.llmRequestMultiple("requestLLMMultipleTools");
+
+    strategy.edge(getComplexUserQuestion, requestLLMMultipleTools);
+    ```
+    <!--- KNIT exampleNodesAndComponentsJava05.java -->
 
 ### nodeLLMCompressHistory
 
@@ -328,6 +486,7 @@ graph LR
 
     classDef hidden display: none;
 ```
+<!--- KNIT example-nodes-and-component-10.txt -->
 
 히스토리 압축에 대해 더 자세히 알아보려면 [히스토리 압축](history-compression.md)을 참조하세요.
 
@@ -339,29 +498,59 @@ graph LR
 
 예시는 다음과 같습니다:
 
-<!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.forwardTo
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
-import ai.koog.agents.core.dsl.extension.nodeDoNothing
-import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
+=== "Kotlin"
 
-val strategy = strategy<String, String>("strategy_name") {
-    val generateHugeHistory by nodeDoNothing<String>()
--->
-<!--- SUFFIX
-}
--->
-```kotlin
-val compressHistory by nodeLLMCompressHistory<String>(
-    "compressHistory",
-    strategy = HistoryCompressionStrategy.FromLastNMessages(10),
-    preserveMemory = true
-)
-edge(generateHugeHistory forwardTo compressHistory)
-```
-<!--- KNIT example-nodes-and-component-06.kt -->
+    <!--- INCLUDE
+    import ai.koog.agents.core.dsl.builder.forwardTo
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
+    import ai.koog.agents.core.dsl.extension.nodeDoNothing
+    import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
+    val strategy = strategy<String, String>("strategy_name") {
+        val generateHugeHistory by nodeDoNothing<String>()
+    -->
+    <!--- SUFFIX
+    }
+    -->
+    ```kotlin
+    val compressHistory by nodeLLMCompressHistory<String>(
+        "compressHistory",
+        strategy = HistoryCompressionStrategy.FromLastNMessages(10),
+        preserveMemory = true
+    )
+    edge(generateHugeHistory forwardTo compressHistory)
+    ```
+    <!--- KNIT example-nodes-and-component-06.kt -->
+
+=== "Java"
+    
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    class exampleNodesAndComponentsJava06 {
+        public static void main(String[] args) {
+            var strategy = AIAgentGraphStrategy.builder("strategy_name")
+                .withInput(String.class)
+                .withOutput(String.class);
+            var generateHugeHistory = AIAgentNode.builder("generateHugeHistory")
+                .withInput(String.class)
+                .withOutput(String.class)
+                .withAction((input, ctx) -> input)
+                .build();
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    var compressHistory = AIAgentNode.llmCompressHistory("compressHistory")
+        .withInput(String.class)
+        .build();
+
+    strategy.edge(generateHugeHistory, compressHistory);
+    ```
+    <!--- KNIT exampleNodesAndComponentsJava06.java -->
 
 ## 도구 노드
 
@@ -382,6 +571,7 @@ graph LR
 
     classDef hidden display: none;
 ```
+<!--- KNIT example-nodes-and-component-11.txt -->
 
 이 노드는 다음과 같은 목적으로 사용할 수 있습니다:
 
@@ -391,25 +581,55 @@ graph LR
 
 예시는 다음과 같습니다:
 
-<!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.forwardTo
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.agents.core.dsl.extension.nodeExecuteTool
-import ai.koog.agents.core.dsl.extension.nodeLLMRequest
-import ai.koog.agents.core.dsl.extension.onToolCall
+=== "Kotlin"
 
-val strategy = strategy<String, String>("strategy_name") {
--->
-<!--- SUFFIX
-}
--->
-```kotlin
-val requestLLM by nodeLLMRequest()
-val executeTool by nodeExecuteTool()
-edge(requestLLM forwardTo executeTool onToolCall { true })
-```
-<!--- KNIT example-nodes-and-component-07.kt -->
+    <!--- INCLUDE
+    import ai.koog.agents.core.dsl.builder.forwardTo
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.agents.core.dsl.extension.nodeExecuteTool
+    import ai.koog.agents.core.dsl.extension.nodeLLMRequest
+    import ai.koog.agents.core.dsl.extension.onToolCall
+    val strategy = strategy<String, String>("strategy_name") {
+    -->
+    <!--- SUFFIX
+    }
+    -->
+    ```kotlin
+    val requestLLM by nodeLLMRequest()
+    val executeTool by nodeExecuteTool()
+    edge(requestLLM forwardTo executeTool onToolCall { true })
+    ```
+    <!--- KNIT example-nodes-and-component-07.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    import ai.koog.agents.core.agent.entity.AIAgentEdge;
+    import ai.koog.prompt.message.Message;
+    class exampleNodesAndComponentsJava07 {
+        public static void main(String[] args) {
+            var strategy = AIAgentGraphStrategy.builder("strategy_name")
+                .withInput(String.class)
+                .withOutput(String.class);
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    var requestLLM = AIAgentNode.llmRequest(true, "requestLLM");
+    var executeTool = AIAgentNode.executeTool("executeTool");
+
+    strategy.edge(AIAgentEdge.builder()
+        .from(requestLLM)
+        .to(executeTool)
+        .onIsInstance(Message.Tool.Call.class)
+        .build());
+    ```
+    <!--- KNIT exampleNodesAndComponentsJava07.java -->
 
 ### nodeLLMSendToolResult
 
@@ -428,6 +648,7 @@ graph LR
 
     classDef hidden display: none;
 ```
+<!--- KNIT example-nodes-and-component-12.txt -->
 
 이 노드는 다음과 같은 목적으로 사용할 수 있습니다:
 
@@ -437,24 +658,48 @@ graph LR
 
 예시는 다음과 같습니다:
 
-<!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.forwardTo
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.agents.core.dsl.extension.nodeExecuteTool
-import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
+=== "Kotlin"
 
-val strategy = strategy<String, String>("strategy_name") {
--->
-<!--- SUFFIX
-}
--->
-```kotlin
-val executeTool by nodeExecuteTool()
-val sendToolResultToLLM by nodeLLMSendToolResult()
-edge(executeTool forwardTo sendToolResultToLLM)
-```
-<!--- KNIT example-nodes-and-component-08.kt -->
+    <!--- INCLUDE
+    import ai.koog.agents.core.dsl.builder.forwardTo
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.agents.core.dsl.extension.nodeExecuteTool
+    import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
+    val strategy = strategy<String, String>("strategy_name") {
+    -->
+    <!--- SUFFIX
+    }
+    -->
+    ```kotlin
+    val executeTool by nodeExecuteTool()
+    val sendToolResultToLLM by nodeLLMSendToolResult()
+    edge(executeTool forwardTo sendToolResultToLLM)
+    ```
+    <!--- KNIT example-nodes-and-component-08.kt -->
+
+=== "Java"
+    
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    class exampleNodesAndComponentsJava08 {
+        public static void main(String[] args) {
+            var strategy = AIAgentGraphStrategy.builder("strategy_name")
+                .withInput(String.class)
+                .withOutput(String.class);
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    var executeTool = AIAgentNode.executeTool("executeTool");
+    var sendToolResultToLLM = AIAgentNode.llmSendToolResult("sendToolResultToLLM");
+
+    strategy.edge(executeTool, sendToolResultToLLM);
+    ```
+    <!--- KNIT exampleNodesAndComponentsJava08.java -->
 
 ### nodeExecuteMultipleTools
 
@@ -473,6 +718,7 @@ graph LR
 
     classDef hidden display: none;
 ```
+<!--- KNIT example-nodes-and-component-13.txt -->
 
 이 노드는 다음과 같은 목적으로 사용할 수 있습니다:
 
@@ -482,25 +728,61 @@ graph LR
 
 예시는 다음과 같습니다:
 
-<!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.forwardTo
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.agents.core.dsl.extension.nodeLLMRequestMultiple
-import ai.koog.agents.core.dsl.extension.nodeExecuteMultipleTools
-import ai.koog.agents.core.dsl.extension.onMultipleToolCalls
+=== "Kotlin"
 
-val strategy = strategy<String, String>("strategy_name") {
--->
-<!--- SUFFIX
-}
--->
-```kotlin
-val requestLLMMultipleTools by nodeLLMRequestMultiple()
-val executeMultipleTools by nodeExecuteMultipleTools()
-edge(requestLLMMultipleTools forwardTo executeMultipleTools onMultipleToolCalls { true })
-```
-<!--- KNIT example-nodes-and-component-09.kt -->
+    <!--- INCLUDE
+    import ai.koog.agents.core.dsl.builder.forwardTo
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.agents.core.dsl.extension.nodeLLMRequestMultiple
+    import ai.koog.agents.core.dsl.extension.nodeExecuteMultipleTools
+    import ai.koog.agents.core.dsl.extension.onMultipleToolCalls
+    val strategy = strategy<String, String>("strategy_name") {
+    -->
+    <!--- SUFFIX
+    }
+    -->
+    ```kotlin
+    val requestLLMMultipleTools by nodeLLMRequestMultiple()
+    val executeMultipleTools by nodeExecuteMultipleTools()
+    edge(requestLLMMultipleTools forwardTo executeMultipleTools onMultipleToolCalls { true })
+    ```
+    <!--- KNIT example-nodes-and-component-09.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    import ai.koog.agents.core.agent.entity.AIAgentEdge;
+    import ai.koog.prompt.message.Message;
+    class exampleNodesAndComponentsJava09 {
+        public static void main(String[] args) {
+            var strategy = AIAgentGraphStrategy.builder("strategy_name")
+                .withInput(String.class)
+                .withOutput(String.class);
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    var requestLLMMultipleTools = AIAgentNode.llmRequestMultiple("requestLLMMultipleTools");
+    var executeMultipleTools = AIAgentNode.executeMultipleTools(false, "executeMultipleTools");
+
+    // 응답 리스트에서 도구 호출 추출
+    strategy.edge(AIAgentEdge.builder()
+        .from(requestLLMMultipleTools)
+        .to(executeMultipleTools)
+        .onCondition(responses -> responses.stream()
+            .anyMatch(msg -> msg instanceof Message.Tool.Call))
+        .transformed(responses -> responses.stream()
+            .filter(msg -> msg instanceof Message.Tool.Call)
+            .map(msg -> (Message.Tool.Call) msg)
+            .toList())
+        .build());
+    ```
+    <!--- KNIT exampleNodesAndComponentsJava09.java -->
 
 ### nodeLLMSendMultipleToolResults
 
@@ -519,6 +801,7 @@ graph LR
 
     classDef hidden display: none;
 ```
+<!--- KNIT example-nodes-and-component-14.txt -->
 
 이 노드는 다음과 같은 목적으로 사용할 수 있습니다:
 
@@ -528,24 +811,49 @@ graph LR
 
 예시는 다음과 같습니다:
 
-<!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.forwardTo
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.agents.core.dsl.extension.nodeLLMSendMultipleToolResults
-import ai.koog.agents.core.dsl.extension.nodeExecuteMultipleTools
+=== "Kotlin"
 
-val strategy = strategy<String, String>("strategy_name") {
--->
-<!--- SUFFIX
-}
--->
-```kotlin
-val executeMultipleTools by nodeExecuteMultipleTools()
-val sendMultipleToolResultsToLLM by nodeLLMSendMultipleToolResults()
-edge(executeMultipleTools forwardTo sendMultipleToolResultsToLLM)
-```
-<!--- KNIT example-nodes-and-component-10.kt -->
+    <!--- INCLUDE
+    import ai.koog.agents.core.dsl.builder.forwardTo
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.agents.core.dsl.extension.nodeLLMSendMultipleToolResults
+    import ai.koog.agents.core.dsl.extension.nodeExecuteMultipleTools
+    val strategy = strategy<String, String>("strategy_name") {
+    -->
+    <!--- SUFFIX
+    }
+    -->
+    ```kotlin
+    val executeMultipleTools by nodeExecuteMultipleTools()
+    val sendMultipleToolResultsToLLM by nodeLLMSendMultipleToolResults()
+    edge(executeMultipleTools forwardTo sendMultipleToolResultsToLLM)
+    ```
+    <!--- KNIT example-nodes-and-component-10.kt -->
+
+=== "Java"
+    
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    import ai.koog.prompt.message.Message;
+    class exampleNodesAndComponentsJava10 {
+        public static void main(String[] args) {
+            var strategy = AIAgentGraphStrategy.builder("strategy_name")
+                .withInput(String.class)
+                .withOutput(String.class);
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    var executeMultipleTools = AIAgentNode.executeMultipleTools(false, "executeMultipleTools");
+    var sendMultipleToolResultsToLLM = AIAgentNode.llmSendMultipleToolResults("sendMultipleToolResultsToLLM");
+
+    strategy.edge(executeMultipleTools, sendMultipleToolResultsToLLM);
+    ```
+    <!--- KNIT exampleNodesAndComponentsJava10.java -->
 
 ## 노드 출력 변환
 
@@ -567,79 +875,164 @@ graph LR
 
     classDef hidden display: none;
 ```
+<!--- KNIT example-nodes-and-component-15.txt -->
 
 ### transform
 
 [`transform()`](api:agents-core::ai.koog.agents.core.dsl.builder.AIAgentNodeDelegate.transform) 함수는 원래 노드를 래핑하고 출력에 변환 함수를 적용하는 새로운 `AIAgentNodeDelegate`를 생성합니다.
 
-<!--- INCLUDE
-/**
--->
-<!--- SUFFIX
-**/
--->
-```kotlin
-inline fun <reified T> AIAgentNodeDelegate<Input, Output>.transform(
-    noinline transformation: suspend (Output) -> T
-): AIAgentNodeDelegate<Input, T>
-```
-<!--- KNIT example-nodes-and-component-11.kt -->
+=== "Kotlin"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```kotlin
+    inline fun <reified T> AIAgentNodeDelegate<Input, Output>.transform(
+        noinline transformation: suspend (Output) -> T
+    ): AIAgentNodeDelegate<Input, T>
+    ```
+    <!--- KNIT example-nodes-and-component-11.kt -->
+
+=== "Java"
+
+    ```java
+    // Java에서는 AIAgentNode.builder()와 명시적 타입 파라미터를 사용하여
+    // 변환 로직이 포함된 노드를 수동으로 구성해야 합니다.
+    // 노드 변환에 대한 Java 접근 방식은 아래 예시를 참조하세요.
+    ```
+    <!--- KNIT example-nodes-and-component-java-01.java -->
 
 #### 커스텀 노드 변환
 
 커스텀 노드의 출력을 다른 데이터 타입으로 변환합니다:
 
-<!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.forwardTo
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.agents.core.dsl.extension.nodeDoNothing
+=== "Kotlin"
 
-val strategy = strategy<String, Int>("strategy_name") {
--->
-<!--- SUFFIX
-}
--->
-```kotlin
-val textNode by nodeDoNothing<String>("textNode").transform<Int> { text ->
-    text.split(" ").filter { it.isNotBlank() }.size
-}
+    <!--- INCLUDE
+    import ai.koog.agents.core.dsl.builder.forwardTo
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.agents.core.dsl.extension.nodeDoNothing
+    val strategy = strategy<String, Int>("strategy_name") {
+    -->
+    <!--- SUFFIX
+    }
+    -->
+    ```kotlin
+    val textNode by nodeDoNothing<String>("textNode").transform<Int> { text ->
+        text.split(" ").filter { it.isNotBlank() }.size
+    }
 
-edge(nodeStart forwardTo textNode)
-edge(textNode forwardTo nodeFinish)
-```
-<!--- KNIT example-nodes-and-component-12.kt -->
+    edge(nodeStart forwardTo textNode)
+    edge(textNode forwardTo nodeFinish)
+    ```
+    <!--- KNIT example-nodes-and-component-12.kt -->
+
+=== "Java"
+    
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    class exampleNodesAndComponentsJava11 {
+        public static void main(String[] args) {
+            var strategy = AIAgentGraphStrategy.builder("strategy_name")
+                .withInput(String.class)
+                .withOutput(Integer.class);
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    var textNode = AIAgentNode.builder("textNode")
+        .withInput(String.class)
+        .withOutput(Integer.class)
+        .withAction((text, ctx) -> {
+            String[] words = text.split(" ");
+            int count = 0;
+            for (String word : words) {
+                if (!word.isBlank()) {
+                    count++;
+                }
+            }
+            return count;
+        })
+        .build();
+
+    strategy.edge(strategy.nodeStart, textNode);
+    strategy.edge(textNode, strategy.nodeFinish);
+    ```
+    <!--- KNIT exampleNodesAndComponentsJava11.java -->
 
 #### 내장 노드 변환
 
 `nodeLLMRequest`와 같은 내장 노드의 출력을 변환합니다:
 
-<!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.forwardTo
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.agents.core.dsl.extension.nodeLLMRequest
+=== "Kotlin"
 
-val strategy = strategy<String, Int>("strategy_name") {
--->
-<!--- SUFFIX
-}
--->
-```kotlin
-val lengthNode by nodeLLMRequest("llmRequest").transform<Int> { assistantMessage ->
-    assistantMessage.content.length
-}
+    <!--- INCLUDE
+    import ai.koog.agents.core.dsl.builder.forwardTo
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.agents.core.dsl.extension.nodeLLMRequest
+    val strategy = strategy<String, Int>("strategy_name") {
+    -->
+    <!--- SUFFIX
+    }
+    -->
+    ```kotlin
+    val lengthNode by nodeLLMRequest("llmRequest").transform<Int> { assistantMessage ->
+        assistantMessage.content.length
+    }
 
-edge(nodeStart forwardTo lengthNode)
-edge(lengthNode forwardTo nodeFinish)
-```
-<!--- KNIT example-nodes-and-component-13.kt -->
+    edge(nodeStart forwardTo lengthNode)
+    edge(lengthNode forwardTo nodeFinish)
+    ```
+    <!--- KNIT example-nodes-and-component-13.kt -->
+
+=== "Java"
+    
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    import ai.koog.prompt.message.Message;
+    class exampleNodesAndComponentsJava12 {
+        public static void main(String[] args) {
+            var strategy = AIAgentGraphStrategy.builder("strategy_name")
+                .withInput(String.class)
+                .withOutput(Integer.class);
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    var llmRequest = AIAgentNode.llmRequest(true, "llmRequest");
+    var lengthNode = AIAgentNode.builder("lengthNode")
+        .withInput(Message.Response.class)
+        .withOutput(Integer.class)
+        .withAction((assistantMessage, ctx) -> {
+            if (assistantMessage instanceof Message.Assistant) {
+                return ((Message.Assistant) assistantMessage).getContent().length();
+            }
+            return 0;
+        })
+        .build();
+
+    strategy.edge(strategy.nodeStart, llmRequest);
+    strategy.edge(llmRequest, lengthNode);
+    strategy.edge(lengthNode, strategy.nodeFinish);
+    ```
+    <!--- KNIT exampleNodesAndComponentsJava12.java -->
 
 ## 사전에 정의된 서브그래프
 
 프레임워크는 자주 사용되는 패턴과 워크플로를 캡슐화한 사전에 정의된 서브그래프를 제공합니다. 이러한 서브그래프는 베이스 노드와 에지의 생성을 자동으로 처리하여 복잡한 에이전트 전략의 개발을 단순화합니다.
 
-사전에 정의된 서브그래프를 사용하여 다음과 같은 다양한 인기 파이프라인을 구현할 수 있습니다:
+사전에 정의된 서브그래프를 사용하여 다음과 같은 다양한 인기 파이프라인을 구현할 수 있습니다. 예시는 다음과 같습니다:
 
 1. 데이터 준비.
 2. 작업 실행.
@@ -665,38 +1058,73 @@ API를 사용하면 다음과 같은 선택적 파라미터로 실행을 세밀�
 
 작업을 텍스트로 서브그래프에 제공하고, 필요한 경우 LLM을 구성하고 필요한 도구를 제공하면 서브그래프가 작업을 처리하고 해결합니다. 예시는 다음과 같습니다:
 
-<!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.agents.ext.tool.SayToUser
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.agents.ext.agent.subgraphWithTask
-import ai.koog.agents.core.agent.ToolCalls
+=== "Kotlin"
 
-val searchTool = SayToUser
-val calculatorTool = SayToUser
-val weatherTool = SayToUser
+    <!--- INCLUDE
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.agents.ext.tool.SayToUser
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.agents.ext.agent.subgraphWithTask
+    import ai.koog.agents.core.agent.ToolCalls
+    val searchTool = SayToUser
+    val calculatorTool = SayToUser
+    val weatherTool = SayToUser
+    val strategy = strategy<String, String>("strategy_name") {
+    -->
+    <!--- SUFFIX
+    }
+    -->
+    ```kotlin
+    val processQuery by subgraphWithTask<String, String>(
+        tools = listOf(searchTool, calculatorTool, weatherTool),
+        llmModel = OpenAIModels.Chat.GPT4o,
+        runMode = ToolCalls.SEQUENTIAL,
+        assistantResponseRepeatMax = 3,
+    ) { userQuery ->
+        """
+        You are a helpful assistant that can answer questions about various topics.
+        Please help with the following query:
+        $userQuery
+        """
+    }
+    ```
+    <!--- KNIT example-nodes-and-component-14.kt -->
 
-val strategy = strategy<String, String>("strategy_name") {
--->
-<!--- SUFFIX
-}
--->
-```kotlin
-val processQuery by subgraphWithTask<String, String>(
-    tools = listOf(searchTool, calculatorTool, weatherTool),
-    llmModel = OpenAIModels.Chat.GPT4o,
-    runMode = ToolCalls.SEQUENTIAL,
-    assistantResponseRepeatMax = 3,
-) { userQuery ->
-    """
-    You are a helpful assistant that can answer questions about various topics.
-    Please help with the following query:
-    $userQuery
-    """
-}
-```
-<!--- KNIT example-nodes-and-component-14.kt -->
+=== "Java"
+    
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
+    import ai.koog.agents.core.agent.entity.AIAgentSubgraph;
+    import ai.koog.agents.ext.tool.SayToUser;
+    import java.util.List;
+    class exampleNodesAndComponentsJava13 {
+        public static void main(String[] args) {
+            var strategy = AIAgentGraphStrategy.builder("strategy_name")
+                .withInput(String.class)
+                .withOutput(String.class);
+            SayToUser searchTool = SayToUser.INSTANCE;
+            SayToUser calculatorTool = SayToUser.INSTANCE;
+            SayToUser weatherTool = SayToUser.INSTANCE;
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    var processQuery = AIAgentSubgraph.builder("processQuery")
+        .limitedTools(List.of(searchTool, calculatorTool, weatherTool))
+        .withInput(String.class)
+        .withOutput(String.class)
+        .withTask(userQuery ->
+            "You are a helpful assistant that can answer questions about various topics.
+" +
+            "Please help with the following query:
+" +
+            userQuery)
+        .build();
+    ```
+    <!--- KNIT exampleNodesAndComponentsJava13.java -->
 
 ### subgraphWithVerification
 
@@ -712,42 +1140,82 @@ val processQuery by subgraphWithTask<String, String>(
 이 서브그래프는 워크플로의 끝에서 LLM이 검증 도구를 호출하여 작업이 성공적으로 완료되었는지 확인하도록 보장합니다. 이 검증이 마지막 단계로 수행되도록 보장하며, 작업의 성공 여부와 상세 피드백을 나타내는 `CriticResult`를 반환합니다.
 예시는 다음과 같습니다:
 
-<!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.agents.ext.tool.SayToUser
-import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
-import ai.koog.agents.ext.agent.subgraphWithVerification
-import ai.koog.agents.core.agent.ToolCalls
+=== "Kotlin"
 
-val runTestsTool = SayToUser
-val analyzeTool = SayToUser
-val readFileTool = SayToUser
+    <!--- INCLUDE
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.agents.ext.tool.SayToUser
+    import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
+    import ai.koog.agents.ext.agent.subgraphWithVerification
+    import ai.koog.agents.core.agent.ToolCalls
+    val runTestsTool = SayToUser
+    val analyzeTool = SayToUser
+    val readFileTool = SayToUser
+    val strategy = strategy<String, String>("strategy_name") {
+    -->
+    <!--- SUFFIX
+    }
+    -->
+    ```kotlin
+    val verifyCode by subgraphWithVerification<String>(
+        tools = listOf(runTestsTool, analyzeTool, readFileTool),
+        llmModel = AnthropicModels.Opus_4_6,
+        runMode = ToolCalls.SEQUENTIAL,
+        assistantResponseRepeatMax = 3,
+    ) { codeToVerify ->
+        """
+        You are a code reviewer. Please verify that the following code meets all requirements:
+        1. It compiles without errors
+        2. All tests pass
+        3. It follows the project's coding standards
 
-val strategy = strategy<String, String>("strategy_name") {
--->
-<!--- SUFFIX
-}
--->
-```kotlin
-val verifyCode by subgraphWithVerification<String>(
-    tools = listOf(runTestsTool, analyzeTool, readFileTool),
-    llmModel = AnthropicModels.Opus_4_6,
-    runMode = ToolCalls.SEQUENTIAL,
-    assistantResponseRepeatMax = 3,
-) { codeToVerify ->
-    """
-    You are a code reviewer. Please verify that the following code meets all requirements:
-    1. It compiles without errors
-    2. All tests pass
-    3. It follows the project's coding standards
+        Code to verify:
+        $codeToVerify
+        """
+    }
+    ```
+    <!--- KNIT example-nodes-and-component-15.kt -->
 
-    Code to verify:
-    $codeToVerify
-    """
-}
-```
-<!--- KNIT example-nodes-and-component-15.kt -->
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
+    import ai.koog.agents.core.agent.entity.AIAgentSubgraph;
+    import ai.koog.agents.ext.tool.SayToUser;
+    import java.util.List;
+    class exampleNodesAndComponentsJava14 {
+        public static void main(String[] args) {
+            var strategy = AIAgentGraphStrategy.builder("strategy_name")
+                .withInput(String.class)
+                .withOutput(String.class);
+            SayToUser runTestsTool = SayToUser.INSTANCE;
+            SayToUser analyzeTool = SayToUser.INSTANCE;
+            SayToUser readFileTool = SayToUser.INSTANCE;
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    var verifyCode = AIAgentSubgraph.builder("verifyCode")
+        .limitedTools(List.of(runTestsTool, analyzeTool, readFileTool))
+        .withInput(String.class)
+        .withVerification(codeToVerify ->
+            "You are a code reviewer. Please verify that the following code meets all requirements:
+" +
+            "1. It compiles without errors
+" +
+            "2. All tests pass
+" +
+            "3. It follows the project's coding standards
+\n" +
+            "Code to verify:
+" +
+            codeToVerify)
+        .build();
+    ```
+    <!--- KNIT exampleNodesAndComponentsJava14.java -->
 
 ## 사전에 정의된 전략 및 공통 전략 패턴
 
@@ -762,121 +1230,335 @@ val verifyCode by subgraphWithVerification<String>(
 
 복잡한 로직이 필요하지 않은 단순한 프로세스를 실행해야 할 때 이 전략을 사용할 수 있습니다.
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
-import ai.koog.agents.core.dsl.builder.forwardTo
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.agents.core.dsl.extension.*
+=== "Kotlin"
 
--->
-```kotlin
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
+    import ai.koog.agents.core.dsl.builder.forwardTo
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.agents.core.dsl.extension.*
+    -->
+    ```kotlin
+    public fun singleRunStrategy(): AIAgentGraphStrategy<String, String> = strategy("single_run") {
+        val nodeCallLLM by nodeLLMRequest("sendInput")
+        val nodeExecuteTool by nodeExecuteTool("nodeExecuteTool")
+        val nodeSendToolResult by nodeLLMSendToolResult("nodeSendToolResult")
 
-public fun singleRunStrategy(): AIAgentGraphStrategy<String, String> = strategy("single_run") {
-    val nodeCallLLM by nodeLLMRequest("sendInput")
-    val nodeExecuteTool by nodeExecuteTool("nodeExecuteTool")
-    val nodeSendToolResult by nodeLLMSendToolResult("nodeSendToolResult")
+        edge(nodeStart forwardTo nodeCallLLM)
+        edge(nodeCallLLM forwardTo nodeExecuteTool onToolCall { true })
+        edge(nodeCallLLM forwardTo nodeFinish onAssistantMessage { true })
+        edge(nodeExecuteTool forwardTo nodeSendToolResult)
+        edge(nodeSendToolResult forwardTo nodeFinish onAssistantMessage { true })
+        edge(nodeSendToolResult forwardTo nodeExecuteTool onToolCall { true })
+    }
+    ```
+    <!--- KNIT example-nodes-and-component-16.kt -->
 
-    edge(nodeStart forwardTo nodeCallLLM)
-    edge(nodeCallLLM forwardTo nodeExecuteTool onToolCall { true })
-    edge(nodeCallLLM forwardTo nodeFinish onAssistantMessage { true })
-    edge(nodeExecuteTool forwardTo nodeSendToolResult)
-    edge(nodeSendToolResult forwardTo nodeFinish onAssistantMessage { true })
-    edge(nodeSendToolResult forwardTo nodeExecuteTool onToolCall { true })
-}
-```
-<!--- KNIT example-nodes-and-component-16.kt -->
+=== "Java"
+    
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentEdge;
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    import ai.koog.prompt.message.Message;
+    class exampleNodesAndComponentsJava15 {
+    -->
+    <!--- SUFFIX
+        public static void main(String[] args) {
+        }
+    }
+    -->
+    ```java
+    public static AIAgentGraphStrategy<String, String> singleRunStrategy() {
+        var strategy = AIAgentGraphStrategy.builder("single_run")
+            .withInput(String.class)
+            .withOutput(String.class);
+
+        var nodeCallLLM = AIAgentNode.llmRequest(true, "sendInput");
+        var nodeExecuteTool = AIAgentNode.executeTool("nodeExecuteTool");
+        var nodeSendToolResult = AIAgentNode.llmSendToolResult("nodeSendToolResult");
+
+        strategy.edge(strategy.nodeStart, nodeCallLLM);
+
+        strategy.edge(AIAgentEdge.builder()
+            .from(nodeCallLLM)
+            .to(nodeExecuteTool)
+            .onIsInstance(Message.Tool.Call.class)
+            .build());
+
+        strategy.edge(AIAgentEdge.builder()
+            .from(nodeCallLLM)
+            .to(strategy.nodeFinish)
+            .onIsInstance(Message.Assistant.class)
+            .transformed(Message.Assistant::getContent)
+            .build());
+
+        strategy.edge(nodeExecuteTool, nodeSendToolResult);
+
+        strategy.edge(AIAgentEdge.builder()
+            .from(nodeSendToolResult)
+            .to(strategy.nodeFinish)
+            .onIsInstance(Message.Assistant.class)
+            .transformed(Message.Assistant::getContent)
+            .build());
+
+        strategy.edge(AIAgentEdge.builder()
+            .from(nodeSendToolResult)
+            .to(nodeExecuteTool)
+            .onIsInstance(Message.Tool.Call.class)
+            .build());
+
+        return strategy.build();
+    }
+    ```
+    <!--- KNIT exampleNodesAndComponentsJava15.java -->
 
 ### 도구 기반 전략 (Tool-based strategy)
 
 도구 기반 전략은 특정 작업을 수행하기 위해 도구에 크게 의존하는 워크플로를 위해 설계되었습니다.
 일반적으로 LLM의 결정에 따라 도구를 실행하고 결과를 처리합니다.
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
-import ai.koog.agents.core.dsl.builder.forwardTo
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.agents.core.dsl.extension.*
-import ai.koog.agents.core.tools.ToolRegistry
+=== "Kotlin"
 
--->
-```kotlin
-fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy<String, String> {
-    return strategy(name) {
-        val nodeSendInput by nodeLLMRequest()
-        val nodeExecuteTool by nodeExecuteTool()
-        val nodeSendToolResult by nodeLLMSendToolResult()
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
+    import ai.koog.agents.core.dsl.builder.forwardTo
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.agents.core.dsl.extension.*
+    import ai.koog.agents.core.tools.ToolRegistry
+    -->
+    ```kotlin
+    fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy<String, String> {
+        return strategy(name) {
+            val nodeSendInput by nodeLLMRequest()
+            val nodeExecuteTool by nodeExecuteTool()
+            val nodeSendToolResult by nodeLLMSendToolResult()
+
+            // 에이전트의 흐름 정의
+            edge(nodeStart forwardTo nodeSendInput)
+
+            // LLM이 메시지로 응답하면 종료
+            edge(
+                (nodeSendInput forwardTo nodeFinish)
+                        onAssistantMessage { true }
+            )
+
+            // LLM이 도구를 호출하면 실행
+            edge(
+                (nodeSendInput forwardTo nodeExecuteTool)
+                        onToolCall { true }
+            )
+
+            // 도구 결과를 다시 LLM에 전송
+            edge(nodeExecuteTool forwardTo nodeSendToolResult)
+
+            // LLM이 다른 도구를 호출하면 실행
+            edge(
+                (nodeSendToolResult forwardTo nodeExecuteTool)
+                        onToolCall { true }
+            )
+
+            // LLM이 메시지로 응답하면 종료
+            edge(
+                (nodeSendToolResult forwardTo nodeFinish)
+                        onAssistantMessage { true }
+            )
+        }
+    }
+    ```
+    <!--- KNIT example-nodes-and-component-17.kt -->
+
+=== "Java"
+    
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentEdge;
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    import ai.koog.prompt.message.Message;
+    import ai.koog.agents.core.tools.ToolRegistry;
+    class exampleNodesAndComponentsJava16 {
+    -->
+    <!--- SUFFIX
+        public static void main(String[] args) {
+        }
+    }
+    -->
+    ```java
+    public static AIAgentGraphStrategy<String, String> toolBasedStrategy(String name, ToolRegistry toolRegistry) {
+        var strategy = AIAgentGraphStrategy.builder(name)
+            .withInput(String.class)
+            .withOutput(String.class);
+
+        var nodeSendInput = AIAgentNode.llmRequest(true, "nodeSendInput");
+        var nodeExecuteTool = AIAgentNode.executeTool("nodeExecuteTool");
+        var nodeSendToolResult = AIAgentNode.llmSendToolResult("nodeSendToolResult");
 
         // 에이전트의 흐름 정의
-        edge(nodeStart forwardTo nodeSendInput)
+        strategy.edge(strategy.nodeStart, nodeSendInput);
 
         // LLM이 메시지로 응답하면 종료
-        edge(
-            (nodeSendInput forwardTo nodeFinish)
-                    onAssistantMessage { true }
-        )
+        strategy.edge(AIAgentEdge.builder()
+            .from(nodeSendInput)
+            .to(strategy.nodeFinish)
+            .onIsInstance(Message.Assistant.class)
+            .transformed(Message.Assistant::getContent)
+            .build());
 
         // LLM이 도구를 호출하면 실행
-        edge(
-            (nodeSendInput forwardTo nodeExecuteTool)
-                    onToolCall { true }
-        )
+        strategy.edge(AIAgentEdge.builder()
+            .from(nodeSendInput)
+            .to(nodeExecuteTool)
+            .onIsInstance(Message.Tool.Call.class)
+            .build());
 
         // 도구 결과를 다시 LLM에 전송
-        edge(nodeExecuteTool forwardTo nodeSendToolResult)
+        strategy.edge(nodeExecuteTool, nodeSendToolResult);
 
         // LLM이 다른 도구를 호출하면 실행
-        edge(
-            (nodeSendToolResult forwardTo nodeExecuteTool)
-                    onToolCall { true }
-        )
+        strategy.edge(AIAgentEdge.builder()
+            .from(nodeSendToolResult)
+            .to(nodeExecuteTool)
+            .onIsInstance(Message.Tool.Call.class)
+            .build());
 
         // LLM이 메시지로 응답하면 종료
-        edge(
-            (nodeSendToolResult forwardTo nodeFinish)
-                    onAssistantMessage { true }
-        )
+        strategy.edge(AIAgentEdge.builder()
+            .from(nodeSendToolResult)
+            .to(strategy.nodeFinish)
+            .onIsInstance(Message.Assistant.class)
+            .transformed(Message.Assistant::getContent)
+            .build());
+
+        return strategy.build();
     }
-}
-```
-<!--- KNIT example-nodes-and-component-17.kt -->
+    ```
+    <!--- KNIT exampleNodesAndComponentsJava16.java -->
 
 ### 스트리밍 데이터 전략 (Streaming data strategy)
 
 스트리밍 데이터 전략은 LLM으로부터 스트리밍 데이터를 처리하기 위해 설계되었습니다. 일반적으로 스트리밍 데이터를 요청하고, 이를 처리하며, 필요한 경우 처리된 데이터를 사용하여 도구를 호출합니다.
 
-<!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.forwardTo
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.agents.example.exampleStreamingApi03.Book
-import ai.koog.agents.example.exampleStreamingApi04.markdownBookDefinition
-import ai.koog.agents.example.exampleStreamingApi06.parseMarkdownStreamToBooks
--->
-```kotlin
-val agentStrategy = strategy<String, List<Book>>("library-assistant") {
-    // 출력 스트림 파싱을 포함하는 노드 정의
-    val getMdOutput by node<String, List<Book>> { booksDescription ->
-        val books = mutableListOf<Book>()
-        val mdDefinition = markdownBookDefinition()
+=== "Kotlin"
 
-        llm.writeSession { 
-            appendPrompt { user(booksDescription) }
-            // `mdDefinition` 정의 형식으로 응답 스트림 시작
-            val markdownStream = requestLLMStreaming(mdDefinition)
-            // 응답 스트림의 결과로 파서를 호출하고 결과에 대한 작업 수행
-            parseMarkdownStreamToBooks(markdownStream).collect { book ->
-                books.add(book)
-                println("Parsed Book: ${book.title} by ${book.author}")
+    <!--- INCLUDE
+    import ai.koog.agents.core.dsl.builder.forwardTo
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.agents.example.exampleStreamingApi05.Book
+    import ai.koog.agents.example.exampleStreamingApi06.markdownBookDefinition
+    import ai.koog.agents.example.exampleStreamingApi08.parseMarkdownStreamToBooks
+    -->
+    ```kotlin
+    val agentStrategy = strategy<String, List<Book>>("library-assistant") {
+        // 출력 스트림 파싱을 포함하는 노드 정의
+        val getMdOutput by node<String, List<Book>> { booksDescription ->
+            val books = mutableListOf<Book>()
+            val mdDefinition = markdownBookDefinition()
+
+            llm.writeSession {
+                appendPrompt { user(booksDescription) }
+                // `mdDefinition` 정의 형식으로 응답 스트림 시작
+                val markdownStream = requestLLMStreaming(mdDefinition)
+                // 응답 스트림의 결과로 파서를 호출하고 결과에 대한 작업 수행
+                parseMarkdownStreamToBooks(markdownStream).collect { book ->
+                    books.add(book)
+                    println("Parsed Book: ${book.title} by ${book.author}")
+                }
+            }
+
+            books
+        }
+        // 노드에 접근 가능한지 확인하며 에이전트의 그래프 정의
+        edge(nodeStart forwardTo getMdOutput)
+        edge(getMdOutput forwardTo nodeFinish)
+    }
+    ```
+    <!--- KNIT example-nodes-and-component-18.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    import ai.koog.prompt.streaming.StreamFrame;
+    import ai.koog.prompt.structure.StructureDefinition;
+    import ai.koog.prompt.structure.markdown.MarkdownStructureDefinition;
+    import ai.koog.serialization.TypeCapture;
+    import ai.koog.serialization.TypeToken;
+    import java.util.ArrayList;
+    import java.util.List;
+    import java.util.concurrent.Flow;
+    class exampleNodesAndComponentsJava17 {
+        class Book {
+            String getTitle() {
+                return "";
+            }
+            String getAuthor() {
+                return "";
             }
         }
-
-        books
+        public static MarkdownStructureDefinition markdownBookDefinition() {
+            return null;
+        }
+        public static Flow.Publisher<Book> parseMarkdownStreamToBooks(Flow.Publisher<StreamFrame> markdownStream) {
+            return null;
+        }
+        public static void main(String[] args) {
+    -->
+    <!--- SUFFIX
+        }
     }
-    // 노드에 접근 가능한지 확인하며 에이전트의 그래프 정의
-    edge(nodeStart forwardTo getMdOutput)
-    edge(getMdOutput forwardTo nodeFinish)
-}
-```
-<!--- KNIT example-nodes-and-component-18.kt -->
+    -->
+    ```java
+    var strategy = AIAgentGraphStrategy.builder()
+        .withInput(String.class)
+        .withOutput(List.class);
+
+    var getMdOutput = AIAgentNode.builder()
+        .withInput(String.class)
+        .<List<Book>>withOutput(TypeToken.of(new TypeCapture<List<Book>>() {}))
+        .withAction((booksDescription, ctx) -> {
+            var books = new ArrayList<Book>();
+            StructureDefinition mdDefinition = markdownBookDefinition();
+
+            ctx.getLlm().writeSession(session -> {
+                session.appendPrompt(prompt -> {
+                    prompt.user(booksDescription);
+                });
+
+                // `mdDefinition` 정의 형식으로 응답 스트림 시작
+                var markdownStream = session.requestLLMStreaming(mdDefinition);
+                // 응답 스트림의 결과로 파서를 호출하고 결과에 대한 작업 수행
+                parseMarkdownStreamToBooks(markdownStream).subscribe(new Flow.Subscriber<>() {
+                    @Override
+                    public void onSubscribe(Flow.Subscription subscription) {
+                    }
+
+                    @Override
+                    public void onNext(Book book) {
+                        books.add(book);
+                        System.out.println("Parsed Book: " + book.getTitle() + " by " + book.getAuthor());
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+
+                return null;
+            });
+
+            return books;
+        })
+        .build();
+
+    strategy.edge(strategy.nodeStart, getMdOutput);
+    strategy.edge(getMdOutput, strategy.nodeFinish);
+    ```
+    <!--- KNIT exampleNodesAndComponentsJava17.java -->

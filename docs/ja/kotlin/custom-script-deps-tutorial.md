@@ -1,7 +1,7 @@
 [//]: # (title: Kotlinカスタムスクリプティングを始める – チュートリアル)
 
 > Kotlinカスタムスクリプティングは[実験的（Experimental）](components-stability.md)な機能です。将来的に廃止または変更される可能性があります。
-> 評価目的でのみ使用してください。フィードバックは[YouTrack](https://kotl.in/issue)でお待ちしています。
+> 評価目的でのみ使用してください。フィードバックは [YouTrack](https://kotl.in/issue) でお待ちしています。
 >
 {style="warning"}
 
@@ -43,7 +43,7 @@ print(
 
 ## 始める前に
 
-最新バージョンの [IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html) をダウンロードしてインストールしてください。
+最新バージョンの [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) をダウンロードしてインストールしてください。
 
 ## プロジェクトの作成
 

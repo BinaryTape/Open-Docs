@@ -1,4 +1,4 @@
-[//]: # (title: Kotlin 2.3 相容性指南)
+[//]: # (title: Kotlin 2.3.x 相容性指南)
 
 _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kotlin-evolution-principles.md)_是 Kotlin 語言設計的基本原則。前者指出應移除阻礙語言演進的結構，後者則要求此類移除應事先進行良好溝通，以使程式碼遷移儘可能平滑。
 
@@ -544,7 +544,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 >
 > **組建**：Gradle
 >
-> **不相容變更類型**：原始碼
+> **不相容變改類型**：原始碼
 >
 > **簡短摘要**：`NodeJsExec` DSL 伴隨物件中的 `create()` 函式已棄用。請改用 `register()` 函式。
 >
@@ -644,7 +644,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 >
 > **棄用週期**：
 >
-> - 2.1.0：使用 `destinationDir` 屬時報告警告
+> - 2.1.0：使用 `destinationDir` 屬性時報告警告
 > - 2.2.0：將此警告提升為錯誤
 > - 2.3.0：隱藏 `destinationDir` 屬性
 
@@ -692,7 +692,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 >
 > **不相容變更類型**：原始碼
 >
-> **簡短摘要**：在 Kotlin 2.2.20 中，[`getPluginArtifactForNative()` 函式已被棄用](whatsnew2220.md#reduced-size-of-kotlin-native-distribution)。
+> **簡短摘要**：在 Kotlin 2.2.20 中，[`getPluginArtifactForNative()` 函式已被棄用](whatsnew2220.md#reduced-size-of-kotlin-native-distribution)。 
 > 請改用 [`getPluginArtifact()`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-compiler-plugin-support-plugin/get-plugin-artifact.html) 函式。
 >
 > **棄用週期**：
@@ -713,6 +713,94 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > **遷移建議**：
 > * 要註冊產生的原始碼，請使用 [`generatedKotlin`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/generated-kotlin.html) 屬性。
 > * 要存取所有原始碼（包括非產生的原始碼），請使用 [`allKotlinSources`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/all-kotlin-sources.html) 屬性。
+
+### 棄用 `kotlin.publishJvmEnvironmentAttribute` 屬性
+
+> **問題**：[KT-83678](https://youtrack.jetbrains.com/issue/KT-83678)
+>
+> **組建**：Gradle
+>
+> **不相容變更類型**：原始碼
+>
+> **簡短摘要**：在 Kotlin 2.3.20 中，`kotlin.publishJvmEnvironmentAttribute` 屬性已棄用。
+> 此屬性允許停用多平台程式庫中 `org.gradle.jvm.environment` 屬性的發佈。
+> 從 Kotlin 2.0.20 開始，預設會發佈 `org.gradle.jvm.environment` 以確保常規的相依性解析。
+>
+> **棄用週期**：
+>
+> - 2.3.20：報告警告
+> - 2.4.0：移除該屬性
+
+### 棄用 `CleanableStore` 介面和 `CleanDataTask` 類別
+
+> **問題**：[KT-78104](https://youtrack.jetbrains.com/issue/KT-78104)
+>
+> **組建**：Gradle
+>
+> **不相容變更類型**：原始碼
+>
+> **簡短摘要**：`CleanableStore` 介面和 `CleanDataTask` 類別已棄用，因為它們已不再使用。
+>
+> **棄用週期**：
+>
+> - 2.3.20：報告警告
+
+### 棄用 `kotlin.kmp.isolated-projects.support` Gradle 屬性
+
+> **問題**：[KT-79257](https://youtrack.jetbrains.com/issue/KT-79257)
+>
+> **組建**：Gradle
+>
+> **不相容變更類型**：原始碼
+>
+> **簡短摘要**：由於多平台專案預設與隔離專案 (isolated projects) 相容，且沒有其他選項，因此 `kotlin.kmp.isolated-projects.support` Gradle 屬性已棄用。
+>
+> **棄用週期**：
+>
+> - 2.3.20：報告警告
+
+### 棄用 `kotlin.mpp.enableKotlinToolingMetadataArtifact` Gradle 屬性
+
+> **問題**：[KT-79924](https://youtrack.jetbrains.com/issue/KT-79924)
+>
+> **組建**：Gradle
+>
+> **不相容變更類型**：原始碼
+>
+> **簡短摘要**：由於現在多平台專案總是會產生 `kotlin-tooling-metadata.json` 成品 (artifact)，因此 `kotlin.mpp.enableKotlinToolingMetadataArtifact` Gradle 屬性已棄用。
+>
+> **棄用週期**：
+>
+> - 2.3.20：報告警告
+> - 2.4.0：停止支援
+
+### 棄用 `LanguageSettings.enableLanguageFeature` DSL
+
+> **問題**：[KT-82323](https://youtrack.jetbrains.com/issue/KT-82323)
+>
+> **組建**：Gradle
+>
+> **不相容變更類型**：原始碼
+>
+> **簡短摘要**：`LanguageSettings.enableLanguageFeature` DSL 公開了一個僅供 Kotlin 編譯器測試使用的內部編譯器配置。因此，該 DSL 已被棄用。
+>
+> **棄用週期**：
+>
+> - 2.3.20：報告警告
+
+### 棄用「進程外」(out of process) 編譯器執行策略
+
+> **問題**：[KT-83125](https://youtrack.jetbrains.com/issue/KT-83125)
+>
+> **組建**：Gradle
+>
+> **不相容變更類型**：原始碼
+>
+> **簡短摘要**：「進程外」(out of process) [編譯器執行策略](compiler-execution-strategy.md) 不受 [建置工具 API](build-tools-api.md) 支援，且是現有最慢的策略。在 Kotlin 2.3.20 中，該策略已被棄用，建議改用「daemon」（常駐程式）和「進程內」(in process) 編譯器執行策略。
+>
+> **棄用週期**：
+>
+> - 2.3.20：報告警告
 
 ## 移除建置工具
 

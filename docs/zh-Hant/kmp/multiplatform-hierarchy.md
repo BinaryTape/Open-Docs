@@ -52,7 +52,7 @@ kotlin {
 
 有顏色的原始碼集是實際建立並存在於專案中的，而預設範本中灰色的原始碼集則被忽略。例如，Kotlin Gradle 外掛程式沒有建立 `watchos` 原始碼集，因為專案中沒有 watchOS 目標。
 
-如果您新增一個 watchOS 目標（例如 `watchosArm64`），則會建立 `watchos` 原始碼集，且來自 `apple`、`native` 與 `common` 原始碼集的程式碼也會編譯到 `watchosArm64`。
+如果您新增一個 watchOS 目標（例如 `watchosArm64`），則會建立 `watchos` 原始碼集，且來自 `apple`、`native` 與 `common` 原始碼集的程式碼也會編譯到 `watchosArm64` 目標。
 
 Kotlin Gradle 外掛程式為預設階層範本中的所有原始碼集提供了型別安全且靜態的存取器，因此與 [手動配置](#manual-configuration) 相比，您可以直接引用它們，而不需要使用 `by getting` 或 `by creating` 建構。
 
@@ -202,7 +202,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 
 #### 修改原始碼集
 
-**案例**：您已經擁有與範本生成的名稱完全相同的原始碼集，但在專案中是在不同的目標集之間共享。例如，`nativeMain` 原始碼集僅在桌面專用的目標之間共享：`linuxX64`、`mingwX64` 與 `macosX64`。
+**案例**：您已經擁有與範本生成的名稱完全相同的原始碼集，但在專案中是在不同的目標集之間共享。例如，`nativeMain` 原始碼集僅在桌面專用的目標之間共享：`linuxX64`、`mingwX64` 與 `macosArm64`。
 
 **解決方案**：目前無法修改範本原始碼集之間預設的 `dependsOn` 關係。同樣重要的是，原始碼集的實作與含義（例如 `nativeMain`）在所有專案中都應保持一致。
 
@@ -231,7 +231,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 
 您可以在原始碼集結構中手動引入中間原始碼。它將保存多個目標的共享程式碼。
 
-例如，如果您想在原生 Linux、Windows 與 macOS 目標（`linuxX64`、`mingwX64` 與 `macosX64`）之間共享程式碼，請執行以下操作：
+例如，如果您想在原生 Linux、Windows 與 macOS 目標（`linuxX64`、`mingwX64` 與 `macosArm64`）之間共享程式碼，請執行以下操作：
 
 1. 在共享模組的 `build.gradle(.kts)` 檔案中，新增中間原始碼集 `myDesktopMain`，它將保存這些目標的共享邏輯。
 2. 使用 `dependsOn` 關係設定原始碼集階層。將 `commonMain` 與 `myDesktopMain` 連接，然後將 `myDesktopMain` 與每個目標原始碼集連接：
@@ -243,7 +243,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
     kotlin {
         linuxX64()
         mingwX64()
-        macosX64()
+        macosArm64()
     
         sourceSets {
             val myDesktopMain by creating {
@@ -252,7 +252,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
     
             linuxX64Main.get().dependsOn(myDesktopMain)
             mingwX64Main.get().dependsOn(myDesktopMain)
-            macosX64Main.get().dependsOn(myDesktopMain)
+            macosArm64Main.get().dependsOn(myDesktopMain)
         }
     }
     ```
@@ -264,7 +264,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
     kotlin {
         linuxX64()
         mingwX64()
-        macosX64()
+        macosArm64()
     
         sourceSets {
             myDesktopMain {
@@ -276,7 +276,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
             mingwX64Main {
                 dependsOn(myDesktopMain)
             }
-            macosX64Main {
+            macosArm64Main {
                 dependsOn(myDesktopMain)
             }
         }

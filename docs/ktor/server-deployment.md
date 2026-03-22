@@ -5,7 +5,7 @@
 <tldr>
 <var name="example_name" value="deployment-ktor-plugin"/>
 <p>
-    <b>代码示例</b>:
+    <b>代码示例</b>：
     <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
@@ -62,6 +62,7 @@ Ktor 允许你直接在应用中通过所需的网络[引擎](server-engines.md)
 以下教程介绍了如何将 Ktor 应用部署到特定的云提供商：
 * [Google App Engine](google-app-engine.md)
 * [Heroku](heroku.md)
+* [Dokku](dokku.md)
 * [AWS Elastic Beanstalk](elastic-beanstalk.md)
 
 ## SSL {id="ssl"}

@@ -58,10 +58,10 @@
 
 ### AgentMemory 功能
 
-- **AgentMemory**：一种使 AI 智能体能够在对话中存储、检索和使用信息的功能。要了解更多信息，请参阅 [AgentMemory](agent-memory.md)。
+- **AgentMemory**：一种使 AI 智能体能够在对话中存储、检索和使用信息的功能。要了解更多信息，请参阅 [AgentMemory](features/agent-memory.md)。
 
-- **概念 (Concept)**：AgentMemory 功能中带有相关元数据的信息类别，包括关键字、描述和事实类型。概念是 AgentMemory 系统中智能体可以记住和回想的基础构建块。要了解更多信息，请参阅 [AgentMemory](agent-memory.md)。
+- **概念 (Concept)**：AgentMemory 功能中带有相关元数据的信息类别，包括关键字、描述和事实类型。概念是 AgentMemory 系统中智能体可以记住和回想的基础构建块。要了解更多信息，请参阅 [AgentMemory](features/agent-memory.md)。
 
-- **事实 (Fact)**：存储在 AgentMemory 系统中的单条信息。事实与概念相关联，可以具有单个值或多个值。要了解更多信息，请参阅 [AgentMemory](agent-memory.md)。
+- **事实 (Fact)**：存储在 AgentMemory 系统中的单条信息。事实与概念相关联，可以具有单个值或多个值。要了解更多信息，请参阅 [AgentMemory](features/agent-memory.md)。
 
-- **记忆作用域 (Memory scope)**：事实相关的上下文。要了解更多信息，请参阅 [AgentMemory](agent-memory.md)。
+- **记忆作用域 (Memory scope)**：事实相关的上下文。要了解更多信息，请参阅 [AgentMemory](features/agent-memory.md)。

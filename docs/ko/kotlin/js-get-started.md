@@ -13,7 +13,7 @@
 
 ## IntelliJ IDEA에서 애플리케이션 생성 
 
-Kotlin/JS 웹 애플리케이션을 만들려면 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/?section=mac)의 Community 또는 Ultimate 에디션을 사용할 수 있습니다.
+Kotlin/JS 웹 애플리케이션을 만들려면 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)의 Community 또는 Ultimate 에디션을 사용할 수 있습니다.
 
 ### 환경 설정
 
@@ -209,7 +209,7 @@ fun main() {
 * [`replace()` 함수](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/replace.html)는 이름에서 공백을 제거합니다.
 * [`let{}` 범위 함수(scope function)](scope-functions.md#let)는 객체 컨텍스트 내에서 함수를 실행합니다.
 * [문자열 템플릿(string template)](strings.md#string-templates) (`${it.length}`)은 달러 기호(`$`)를 접두사로 붙이고 중괄호(`{}`)로 감싸서 문자열 내에 단어의 길이를 삽입합니다.
-* 여기서 `it`은 [람다 파라미터(lambda parameter)](coding-conventions.md#lambda-parameters)의 기본 이름입니다.
+  여기서 `it`은 [람다 파라미터(lambda parameter)](coding-conventions.md#lambda-parameters)의 기본 이름입니다.
 
 #### 애플리케이션 실행
 
@@ -223,7 +223,7 @@ fun main() {
 
 #### 입력을 처리하여 중복되지 않는 글자 수 세기
 
-추가 연습으로, 입력을 처리하여 단어에서 중복되지 않는(unique) 글자의 수를 계산하고 표시해 보겠습니다.
+추가 연습으로, 입력을 처리하여 단어에서 중복되지 않는(unique) 글자의 수를 계산하고 표시해 보겠습니다:
 
 1. `src/jsMain/kotlin/Main.kt` 파일에서 `String`에 대한 `.countDistinctCharacters()` [확장 함수](extensions.md#extension-functions)를 추가합니다:
 
@@ -365,7 +365,7 @@ Gradle은 Kotlin/JS 및 Kotlin 멀티플랫폼 프로젝트의 기본 빌드 시
    </html>
    ```
 
-3. `$NAME_OF_YOUR_PROJECT_DIRECTORY` 플레이스홀더를 프로젝트 디렉터리의 이름으로 바꿉니다.
+3. `<$NAME_OF_YOUR_PROJECT_DIRECTORY>` 플레이스홀더를 프로젝트 디렉터리의 이름으로 바꿉니다.
 
 ### 프로젝트 빌드 및 실행
 

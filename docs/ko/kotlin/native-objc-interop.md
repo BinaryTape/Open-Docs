@@ -249,7 +249,7 @@ Swift/Objective-C 프레임워크로 컴파일할 때, `@Throws` 어노테이션
 
 Swift/Objective-C 코드에서 호출된 Kotlin 함수가 `@Throws`로 지정된 클래스 중 하나 또는 그 하위 클래스의 인스턴스인 예외를 던지면, 해당 예외는 `NSError`로 전파됩니다. Swift/Objective-C에 도달하는 다른 Kotlin 예외는 처리되지 않은 것으로 간주되어 프로그램 종료를 유발합니다.
 
-`@Throws`가 없는 `suspend` 함수는 `CancellationException`만 (`NSError`로) 전파합니다. `@Throws`가 없는 비 `suspend` 함수는 Kotlin 예외를 전혀 전파하지 않습니다.
+`suspend` 함수는 `@Throws`가 없어도 `CancellationException`만 (`NSError`로) 전파합니다. `@Throws`가 없는 비 `suspend` 함수는 Kotlin 예외를 전혀 전파하지 않습니다.
 
 반대 방향의 번역은 아직 구현되지 않았습니다. 즉, Swift/Objective-C의 오류 발생 메서드는 Kotlin으로 예외 발생 메서드로 가져오기 되지 않습니다.
 
@@ -444,8 +444,15 @@ foo {
 ```
 
 #### Objective-C 블록 타입의 명시적 매개변수 이름
+<primary-label ref="experimental-opt-in"/>
 
-Kotlin은 내보낸 Objective-C 헤더의 함수 타입에 명시적인 매개변수 이름을 추가합니다. 그러면 Xcode의 자동 완성 기능이 Objective-C 블록에서 Objective-C 함수를 호출할 때 이러한 이름을 제안합니다.
+내보낸 Objective-C 헤더의 Kotlin 함수 타입에 명시적인 매개변수 이름을 추가할 수 있습니다. 그러면 Xcode의 자동 완성 기능이 Objective-C 블록에서 Objective-C 함수를 호출할 때 이러한 이름을 제안합니다. 이는 생성된 블록에서 Clang 경고를 피하는 데 도움이 됩니다.
+
+명시적 매개변수 이름을 활성화하려면 `gradle.properties` 파일에 다음 [바이너리 옵션](native-binary-options.md)을 추가하세요.
+
+```none
+kotlin.native.binary.objcExportBlockExplicitParameterNames=true
+```
 
 예를 들어, 다음과 같은 Kotlin 코드는:
 
@@ -463,17 +470,9 @@ greetUserBlock:^(NSString *name) {
 };
 ```
 
-> 이 옵션은 Objective-C interop에만 영향을 미칩니다. Xcode에서 Objective-C로부터 생성된 Objective-C 코드를 호출할 때 적용되며, 일반적으로 Swift에서의 호출에는 영향을 미치지 않습니다.
+> 이 옵션은 Objective-C interop에만 영향을 미칩니다. Xcode에서 생성된 Objective-C 코드를 Objective-C로부터 호출할 때 적용되며, 일반적으로 Swift에서의 호출에는 영향을 미치지 않습니다.
 >
 {style="note"}
-
-문제가 발생하는 경우, `gradle.properties` 파일에서 다음 [바이너리 옵션](native-binary-options.md)을 사용하여 명시적 매개변수 이름을 비활성화할 수 있습니다.
-
-```none
-kotlin.native.binary.objcExportBlockExplicitParameterNames=false
-```
-
-문제가 있다면 이슈 트래커인 [YouTrack](https://kotl.in/issue)에 보고해 주세요.
 
 ### 제네릭(Generics)
 

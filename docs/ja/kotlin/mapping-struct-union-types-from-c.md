@@ -81,7 +81,6 @@ Cの構造体および共用体型がKotlin/Nativeにどのようにマッピン
     ```kotlin
     kotlin {
         macosArm64("native") {    // Apple Silicon搭載のmacOS
-        // macosX64("native") {   // x86_64プラットフォームのmacOS
         // linuxArm64("native") { // ARM64プラットフォームのLinux 
         // linuxX64("native") {   // x86_64プラットフォームのLinux
         // mingwX64("native") {   // Windows
@@ -103,7 +102,6 @@ Cの構造体および共用体型がKotlin/Nativeにどのようにマッピン
     ```groovy
     kotlin {
         macosArm64("native") {    // Apple Silicon搭載のmacOS
-        // macosX64("native") {   // x86_64プラットフォームのmacOS
         // linuxArm64("native") { // ARM64プラットフォームのLinux
         // linuxX64("native") {   // x86_64プラットフォームのLinux
         // mingwX64("native") {   // Windows
@@ -139,7 +137,7 @@ Cの構造体および共用体型がKotlin/Nativeにどのようにマッピン
 
 ## Kotlinから構造体および共用体型を使用する
 
-生成されたAPIのおかげで、KotlinからCの構造体および共用体型を使用するのは簡単です。唯一の問題は、これらの型の新しいインスタンスをどのように作成するかです。
+生成されたAPIのおかげで、KotlinからC의 構造体および共用体型を使用するのは簡単です。唯一の問題は、これらの型の新しいインスタンスをどのように作成するかです。
 
 `MyStruct` と `MyUnion` をパラメータとして受け取る生成された関数を見てみましょう。値渡しのパラメータは `kotlinx.cinterop.CValue<T>` として表現され、ポインタ型のパラメータは `kotlinx.cinterop.CValuesRef<T>?` を使用します。
 

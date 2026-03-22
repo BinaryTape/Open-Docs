@@ -44,29 +44,30 @@ dependencies {
 
 ## “User” 数据
 
-我们将管理一个 User 集合。以下是数据类： 
+我们将管理一个 User 集合。以下是数据类：
 
 ```kotlin
-data class User(val name : String)
+data class User(val name: String, val email: String)
 ```
 
 我们创建了一个 “Repository” 组件来管理用户列表（添加用户或按名称查找）。下面是 `UserRepository` 接口及其实现：
 
 ```kotlin
 interface UserRepository {
-    fun findUser(name : String): User?
-    fun addUsers(users : List<User>)
+    fun findUserOrNull(name: String): User?
+    fun addUsers(users: List<User>)
 }
 
+@Singleton
 class UserRepositoryImpl : UserRepository {
 
     private val _users = arrayListOf<User>()
 
-    override fun findUser(name: String): User? {
+    override fun findUserOrNull(name: String): User? {
         return _users.firstOrNull { it.name == name }
     }
 
-    override fun addUsers(users : List<User>) {
+    override fun addUsers(users: List<User>) {
         _users.addAll(users)
     }
 }
@@ -79,108 +80,119 @@ class UserRepositoryImpl : UserRepository {
 ```kotlin
 @Module
 @ComponentScan("org.koin.sample")
+@Configuration
 class AppModule
 ```
 
-`@ComponentScan("org.koin.sample")` 将帮助扫描目标软件包中的注解类。
+* `@Module` - 将其声明为一个 Koin 模块
+* `@ComponentScan("org.koin.sample")` - 扫描并注册来自该软件包的注解类
+* `@Configuration` - 通过 `@KoinApplication` 启用自动模块发现
 
-让我们声明第一个组件。我们希望通过创建 `UserRepositoryImpl` 实例来获得 `UserRepository` 的单例。我们使用 `@Single` 对其进行标记：
+:::note
+此项目使用 Koin 的 `@Singleton` 注解（来自 `org.koin.core.annotation`）来声明单例组件。
+:::
+
+让我们声明第一个组件。我们希望通过创建 `UserRepositoryImpl` 实例来获得 `UserRepository` 的单例。我们使用 `@Singleton` 对其进行标记：
 
 ```kotlin
-@Single
+@Singleton
 class UserRepositoryImpl : UserRepository
 ```
 
 ## UserService 组件
 
-让我们编写 `UserService` 组件来请求默认用户：
+让我们编写 `UserService` 组件来管理用户操作：
 
 ```kotlin
-class UserService(private val userRepository: UserRepository) {
-
-    fun getDefaultUser() : User = userRepository.findUser(DefaultData.DEFAULT_USER.name) ?: error("Can't find default user")
+interface UserService {
+    fun getUserOrNull(name: String): User?
+    fun loadUsers()
+    fun prepareHelloMessage(user: User?): String
 }
-```
 
-> UserRepository 在 `UserPresenter` 的构造函数中被引用
+@Singleton
+class UserServiceImpl(
+    private val userRepository: UserRepository
+) : UserService {
 
-我们在 Koin 模块中声明 `UserService`。我们使用 `@Single` 注解进行标记：
+    override fun getUserOrNull(name: String): User? = userRepository.findUserOrNull(name)
 
-```kotlin
-@Single
-class UserService(private val userRepository: UserRepository)
-```
+    override fun loadUsers() {
+        userRepository.addUsers(listOf(
+            User("Alice", "alice@example.com"),
+            User("Bob", "bob@example.com"),
+            User("Charlie", "charlie@example.com")
+        ))
+    }
 
-## HTTP 控制器
-
-最后，我们需要一个 HTTP 控制器来创建 HTTP 路由。在 Ktor 中，这将通过一个 Ktor 扩展函数来表达：
-
-```kotlin
-fun Application.main() {
-
-    // 延迟注入 HelloService
-    val service by inject<UserService>()
-
-    // 路由部分
-    routing {
-        get("/hello") {
-            call.respondText(service.sayHello())
-        }
+    override fun prepareHelloMessage(user: User?): String {
+        return user?.let { "Hello '${user.name}' (${user.email})! 👋" } ?: "❌ User not found"
     }
 }
 ```
 
-检查您的 `application.conf` 是否如下配置，以帮助启动 `Application.main` 函数：
+> UserRepository 在 `UserServiceImpl` 的构造函数中被引用
+
+我们使用 `@Singleton` 注解声明 `UserService`：
+
+## HTTP 控制器与 Koin 应用程序
+
+最后，我们需要创建一个 `@KoinApplication` 对象并配置我们的 HTTP 路由：
 
 ```kotlin
-ktor {
-    deployment {
-        port = 8080
-
-        // 出于开发目的
-        //autoreload = true
-        //watch = [org.koin.sample]
-    }
-
-    application {
-        modules = [ org.koin.sample.UserApplicationKt.main ]
-    }
-}
+@KoinApplication
+object KoinUserApplication
 ```
+
+`@KoinApplication` 注解将此标记为 Koin 基于注解配置的入口点。KSP 处理器生成的配置可以与 `withConfiguration<T>()` 配合使用以初始化 Koin。
 
 ## 启动与注入
 
-最后，让我们从 Ktor 启动 Koin：
+现在让我们为 Ktor 应用程序配置 Koin：
 
 ```kotlin
 fun Application.main() {
+    // 使用生成的配置安装 Koin
     install(Koin) {
         slf4jLogger()
-        modules(AppModule().module)
+        withConfiguration<KoinUserApplication>()
     }
 
-    // 延迟注入 HelloService
+    // 延迟注入 UserService
     val service by inject<UserService>()
-    service.saveDefaultUsers()
+    service.loadUsers()
 
     // 路由部分
     routing {
         get("/hello") {
-            call.respondText(service.sayHello())
+            val userName = call.queryParameters["name"] ?: "Alice"
+            val user = service.getUserOrNull(userName)
+            val message = service.prepareHelloMessage(user)
+            call.respondText(message)
         }
     }
 }
 ```
 
-通过编写 `AppModule().module`，我们使用了 `AppModule` 类上生成的扩展。
+**关键点：**
+* `withConfiguration<KoinUserApplication>()` - 使用来自被注解应用程序对象的生成 Koin 配置
+* 无需手动调用 `modules(AppModule().module)` —— 它已自动包含在内！
+* `/hello` 端点接受一个可选的 `name` 查询参数
 
 让我们启动 Ktor：
 
 ```kotlin
 fun main(args: Array<String>) {
-    // 启动 Ktor
-    embeddedServer(Netty, commandLineEnvironment(args)).start(wait = true)
+    embeddedServer(Netty, port = 8080) {
+        main()
+    }.start(wait = true)
 }
 ```
 
-就这样！您已准备就绪。检查 `http://localhost:8080/hello` 网址！
+就这样！您已准备就绪。检查这些 URL：
+- `http://localhost:8080/hello` - 向 Alice 致意（默认用户）
+- `http://localhost:8080/hello?name=Bob` - 向 Bob 致意
+
+:::info
+带有 `@Configuration` 的模块上的 `@KoinApplication` 注解会在编译时自动发现并加载所有被注解的依赖项。
+:::

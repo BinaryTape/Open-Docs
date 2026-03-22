@@ -1,8 +1,8 @@
 [//]: # (title: 參與 Kotlin 早期體驗預覽 (EAP))
 
 <tldr>
-    <!--<p>No preview versions are currently available.</p>-->
-    <p>最新 Kotlin EAP 版本：<strong>%kotlinEapVersion%</strong></p>
+    <p>目前沒有可用的預覽版本。</p>
+    <!--<p>最新 Kotlin EAP 版本：<strong>%kotlinEapVersion%</strong></p>-->
 </tldr>
 
 您可以參與 Kotlin 早期體驗預覽 (EAP)，在最新 Kotlin 特性發佈前進行試用。
@@ -35,8 +35,9 @@
 
 ## 組建詳細資訊
 
-<!-- _No preview versions are currently available._ -->
+_目前沒有可用的預覽版本。_
 
+<!--
  <table>
     <tr>
         <th>組建資訊</th>
@@ -52,4 +53,5 @@
             <p>如需更多詳細資訊，請參閱 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20-RC3">變更記錄</a>。</p>
         </td>
     </tr>
-</table>
+</table> 
+-->

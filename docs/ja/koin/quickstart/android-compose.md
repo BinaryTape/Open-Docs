@@ -2,11 +2,11 @@
 title: Android - Jetpack Compose
 ---
 
-> このチュートリアルでは、Androidアプリケーションを作成し、Koinの依存関係注入（dependency injection）を使用してコンポーネントを取得する方法を学びます。
+> このチュートリアルでは、Jetpack Compose UIを使用したAndroidアプリケーションを作成し、Koinの依存関係注入（dependency injection）を使用してコンポーネントを取得する方法を学びます。
 > 所要時間は約 **10分** です。
 
 :::note
-更新日 - 2024-10-21
+更新日 - 2024-11-28
 :::
 
 ## コードを入手する
@@ -17,48 +17,81 @@ title: Android - Jetpack Compose
 
 ## Gradleの設定
 
-以下のようにKoin Androidの依存関係を追加します。
+以下のようにKoin AndroidとKoin Composeの依存関係を追加します。
 
 ```groovy
 dependencies {
 
     // Koin for Android
-    implementation "io.insert-koin:koin-androidx-compose:$koin_version"
+    implementation("io.insert-koin:koin-android:$koin_version")
+    // Koin for Jetpack Compose
+    implementation("io.insert-koin:koin-androidx-compose:$koin_version")
 }
 ```
 
 ## アプリケーションの概要
 
-このアプリケーションの構成は、ユーザーのリストを管理し、PresenterまたはViewModelを使用して `MainActivity` クラスに表示するというものです。
+このアプリケーションの構成は、ユーザーのリストを管理し、ViewModelとJetpack Compose UIを使用して `MainActivity` クラスに表示するというものです。
 
-> Users -> UserRepository -> (Presenter または ViewModel) -> Composable
+> Users -> UserRepository -> UserService -> UserViewModel -> MainActivity (Compose UI)
 
 ## 「User」データ
 
 ユーザーのコレクションを管理します。データクラスは以下の通りです。
 
 ```kotlin
-data class User(val name : String)
+data class User(val name: String, val email: String)
 ```
 
 ユーザーのリストを管理（ユーザーの追加や名前による検索）するための「Repository」コンポーネントを作成します。以下は `UserRepository` インターフェースとその実装です。
 
 ```kotlin
 interface UserRepository {
-    fun findUser(name : String): User?
-    fun addUsers(users : List<User>)
+    fun findUserOrNull(name: String): User?
+    fun addUsers(users: List<User>)
 }
 
 class UserRepositoryImpl : UserRepository {
 
     private val _users = arrayListOf<User>()
 
-    override fun findUser(name: String): User? {
+    override fun findUserOrNull(name: String): User? {
         return _users.firstOrNull { it.name == name }
     }
 
-    override fun addUsers(users : List<User>) {
+    override fun addUsers(users: List<User>) {
         _users.addAll(users)
+    }
+}
+```
+
+## UserServiceコンポーネント
+
+ユーザー操作を管理するためのサービスコンポーネントを作成しましょう。
+
+```kotlin
+interface UserService {
+    fun getUserOrNull(name: String): User?
+    fun loadUsers()
+    fun prepareHelloMessage(user: User?): String
+}
+
+class UserServiceImpl(
+    private val userRepository: UserRepository
+) : UserService {
+
+    override fun getUserOrNull(name: String): User? = userRepository.findUserOrNull(name)
+
+    override fun loadUsers() {
+        userRepository.addUsers(listOf(
+            User("Alice", "alice@example.com"),
+            User("Bob", "bob@example.com"),
+            User("Charlie", "charlie@example.com")
+        ))
+    }
+
+    override fun prepareHelloMessage(user: User?): String {
+        return user?.let { "Hello '${user.name}' (${user.email})! 👋" } ?: "❌ User not found"
     }
 }
 ```
@@ -69,103 +102,135 @@ Koinモジュールを宣言するには `module` 関数を使用します。Koi
 
 ```kotlin
 val appModule = module {
-    
+
 }
 ```
 
-最初のコンポーネントを宣言しましょう。 `UserRepositoryImpl` のインスタンスを作成して、 `UserRepository` のシングルトンを作成します。
+コンポーネントを宣言しましょう。 `UserRepository` と `UserService` のシングルトンを作成します。
 
 ```kotlin
 val appModule = module {
-    singleOf(::UserRepositoryImpl) bind UserRepository::class
-}
-```
-
-## UserViewModelでユーザーを表示する
-
-### `UserViewModel` クラス
-
-ユーザーを表示するためのViewModelコンポーネントを作成します。
-
-```kotlin
-class UserViewModel(private val repository: UserRepository) : ViewModel() {
-
-    fun sayHello(name : String) : String{
-        val foundUser = repository.findUser(name)
-        return foundUser?.let { "Hello '$it' from $this" } ?: "User '$name' not found!"
-    }
-}
-```
-
-> UserRepositoryはUserViewModelのコンストラクタで参照されています。
-
-Koinモジュールで `UserViewModel` を宣言します。メモリ内にインスタンスを保持し続けないように（Androidのライフサイクルによるリークを避けるため）、 `viewModelOf` 定義として宣言します。
-
-```kotlin
-val appModule = module {
-     singleOf(::UserRepositoryImpl) { bind<UserRepository>() }
-    viewModelOf(::UserViewModel)
-}
-```
-
-> `get()` 関数を使用すると、Koinに必要な依存関係の解決を依頼できます。
-
-### ComposeでのViewModelの注入
-
-`UserViewModel` コンポーネントが作成され、それとともに `UserRepository` インスタンスが解決されます。これをActivityで使用するために、 `koinViewModel()` 関数を使って注入しましょう。
-
-```kotlin
-@Composable
-fun ViewModelInject(userName : String, viewModel: UserViewModel = koinViewModel()){
-    Text(text = viewModel.sayHello(userName), modifier = Modifier.padding(8.dp))
+    single<UserRepositoryImpl>() bind UserRepository::class
+    single<UserServiceImpl>() bind UserService::class
 }
 ```
 
 :::info
-`koinViewModel` 関数を使用すると、ViewModelのインスタンスを取得し、関連するViewModel Factoryを自動的に作成してライフサイクルにバインドすることができます。
+このチュートリアルでは、コンパイル時に自動配線（auto-wiring）を提供する **Koin Compiler Plugin DSL** (`single<T>()`, `viewModel<T>()`) を使用しています。設定については [Compiler Plugin Setup](/docs/setup/compiler-plugin) を参照してください。
 :::
 
-## UserStateHolderでユーザーを表示する
+## ViewModelでユーザーを表示する
 
-### `UserStateHolder` クラス
-
-ユーザーを表示するためのステートホルダー（State holder）コンポーネントを作成します。
+ユーザーを表示するためのViewModelコンポーネントを作成しましょう。
 
 ```kotlin
-class UserStateHolder(private val repository: UserRepository) {
+class UserViewModel(private val userService: UserService) : ViewModel() {
 
-    fun sayHello(name : String) : String{
-        val foundUser = repository.findUser(name)
-        return foundUser?.let { "Hello '$it' from $this" } ?: "User '$name' not found!"
+    fun sayHello(name: String): String {
+        val user = userService.getUserOrNull(name)
+        val message = userService.prepareHelloMessage(user)
+        return "[UserViewModel] $message"
     }
 }
 ```
 
-> UserRepositoryはUserViewModelのコンストラクタで参照されています。
+> UserServiceはUserViewModelのコンストラクタで参照されています。
 
-Koinモジュールで `UserStateHolder` を宣言します。メモリ内にインスタンスを保持し続けないように（Androidのライフサイクルによるリークを避けるため）、 `factoryOf` 定義として宣言します。
+Koinモジュールで `UserViewModel` を宣言します。メモリ内にインスタンスを保持し続けないように（Androidのライフサイクルによるリークを避けるため）、 `viewModel` 定義として宣言します。
 
 ```kotlin
 val appModule = module {
-    singleOf(::UserRepositoryImpl) { bind<UserRepository>() }
-    factoryOf(::UserStateHolder)
+    single<UserRepositoryImpl>() bind UserRepository::class
+    single<UserServiceImpl>() bind UserService::class
+    viewModel<UserViewModel>()
 }
 ```
 
-### ComposeでのUserStateHolderの注入
+## Jetpack ComposeでのViewModelの注入
 
-`UserStateHolder` コンポーネントが作成され、それとともに `UserRepository` インスタンスが解決されます。これをActivityで使用するために、 `koinInject()` 関数を使って注入しましょう。
+Jetpack Composeでは、 `AppCompatActivity` の代わりに `ComponentActivity` を使用し、XMLレイアウトの代わりにComposable関数を使用してUIを構築します。
+
+`UserViewModel` コンポーネントが作成され、それとともに `UserService` インスタンスが解決されます。これをCompose UIで使用するために、 `koinViewModel()` 関数を使って取得しましょう。
 
 ```kotlin
+class MainActivity : ComponentActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            MaterialTheme {
+                MainScreen()
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FactoryInject(userName : String, presenter: UserStateHolder = koinInject()){
-    Text(text = presenter.sayHello(userName), modifier = Modifier.padding(8.dp))
+fun MainScreen(
+    viewModel: UserViewModel = koinViewModel()
+) {
+    var nameInput by remember { mutableStateOf("") }
+    var greetingMessage by remember { mutableStateOf("") }
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Koin Sample") }
+            )
+        }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            OutlinedTextField(
+                value = nameInput,
+                onValueChange = { nameInput = it },
+                label = { Text("Enter name") },
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Button(
+                onClick = {
+                    val userName = nameInput.trim().ifEmpty { "Alice" }
+                    greetingMessage = viewModel.sayHello(userName)
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Say Hello")
+            }
+
+            if (greetingMessage.isNotEmpty()) {
+                Text(
+                    text = greetingMessage,
+                    style = MaterialTheme.typography.bodyLarge,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        }
+    }
 }
 ```
 
+これで、Composeアプリの準備が整いました！
+
 :::info
-`koinInject` 関数を使用すると、インスタンスを取得し、関連するViewModel Factoryを自動的に作成してライフサイクルにバインドすることができます。
+`koinViewModel()` 関数は、KoinからViewModelのインスタンスを取得し、Composeのライフサイクルに自動的にバインドします。これは、従来のAndroid Viewで使用されていた `by viewModel()` デリゲートに代わる、Compose特有のViewModel注入方法です。
 :::
+
+### Composeの主要な概念
+
+- **ComponentActivity**: Composeアプリのベースクラス（AppCompatActivityの代わり）
+- **setContent**: ComposableコンテンツをActivityのUIとして設定する
+- **@Composable**: UIを宣言的に構築する関数
+- **remember & mutableStateOf**: リアクティブなUI更新のためのCompose状態管理
+- **koinViewModel()**: ViewModel注入のためのKoinのCompose統合
 
 ## Koinの起動
 
@@ -175,7 +240,7 @@ AndroidアプリケーションでKoinを起動する必要があります。ア
 class MainApplication : Application(){
     override fun onCreate() {
         super.onCreate()
-        
+
         startKoin{
             androidLogger()
             androidContext(this@MainApplication)
@@ -189,72 +254,44 @@ class MainApplication : Application(){
 `startKoin` 内の `modules()` 関数は、指定されたモジュールのリストをロードします。
 :::
 
-Composeアプリケーションの起動時に、 `KoinAndroidContext` を使用してKoinを現在のComposeアプリケーションにリンクする必要があります。
+## Koinモジュール：DSLの比較
 
-```kotlin
-class MainActivity : AppCompatActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            MaterialTheme {
-                KoinAndroidContext {
-                    App()
-                }
-            }
-        }
-    }
-}
-```
-
-## Koinモジュール: クラシックDSLかコンストラクタDSLか？
-
-このアプリのKoinモジュール宣言は以下の通りです。
+こちらは **Classic DSL** （手動配線）を使用したKoinモジュールの宣言です。
 
 ```kotlin
 val appModule = module {
-    single<HelloRepository> { HelloRepositoryImpl() }
-    viewModel { MyViewModel(get()) }
+    single<UserRepository> { UserRepositoryImpl() }
+    single<UserService> { UserServiceImpl(get()) }
+    viewModel { UserViewModel(get()) }
 }
 ```
 
-コンストラクタを使用することで、よりコンパクトに記述することができます。
+ **Compiler Plugin DSL** （コンパイル時の自動配線）を使用した場合：
 
 ```kotlin
 val appModule = module {
-    singleOf(::UserRepositoryImpl) { bind<UserRepository>() }
-    viewModelOf(::UserViewModel)
+    single<UserRepositoryImpl>() bind UserRepository::class
+    single<UserServiceImpl>() bind UserService::class
+    viewModel<UserViewModel>()
 }
 ```
 
-## アプリの検証！
+:::tip
+Compiler Plugin DSLを使用するには [Koin Compiler Plugin](/docs/setup/compiler-plugin) が必要です。これにより、コンパイル時の依存関係解決と、よりクリーンな構文が提供されます。
+:::
 
-アプリを起動する前に、シンプルなJUnitテストを使用してKoinの設定を検証し、Koinの設定が正しいことを確認できます。
+## Compose と XML Viewの比較
 
-### Gradleの設定
+このチュートリアルでは、[Android ViewModelチュートリアル](./android-viewmodel.md)と同じ機能を示していますが、XMLレイアウトの代わりにJetpack Composeを使用しています。
 
-以下のようにKoin Androidのテスト用依存関係を追加します。
+| 項目 | XML View | Jetpack Compose |
+|--------|-----------|-----------------|
+| Activityのベース | `AppCompatActivity` | `ComponentActivity` |
+| UI定義 | XMLレイアウトファイル | `@Composable` 関数 |
+| ViewModelの注入 | `by viewModel()` デリゲート | `koinViewModel()` 関数 |
+| 状態管理 | LiveData/StateFlow | `remember` + `mutableStateOf` |
+| UIの更新 | View binding + observers | 自動リコンポジション（Automatic recomposition） |
 
-```groovy
-dependencies {
-    
-    // Koin for Tests
-    testImplementation "io.insert-koin:koin-test-junit4:$koin_version"
-}
-```
-
-### モジュールのチェック
-
-`verify()` 関数を使用すると、指定されたKoinモジュールを検証できます。
-
-```kotlin
-class CheckModulesTest : KoinTest {
-
-    @Test
-    fun checkAllModules() {
-        appModule.verify()
-    }
-}
-```
-
-JUnitテストを実行するだけで、定義の設定に不足がないかを確認できます。
+:::tip
+ComposeでKoin Annotationsを使用するバージョンについては、 [Compose Multiplatform Annotations tutorial](./compose-multiplatform-annotations.md) を参照してください。
+:::

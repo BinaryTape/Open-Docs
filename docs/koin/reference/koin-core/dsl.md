@@ -2,104 +2,147 @@
 title: Koin DSL
 ---
 
-感谢 Kotlin 语言的强大功能，Koin 提供了一个 DSL 来帮助您描述应用，而不是对其进行注解或为其生成代码。通过其 Kotlin DSL，Koin 提供了一个高效智能的函数式 API，用于准备您的依赖注入。
+Koin DSL 快速参考。有关详细指南，请参阅 **[核心 - 定义](/docs/reference/koin-core/definitions)** 和 **[核心 - 模块](/docs/reference/koin-core/modules)**。
 
-## Application 与 Module DSL
+## DSL 方案
 
-Koin 提供了几个关键字，让您描述 Koin 应用程序的元素：
+| 方案 | 语法 | 软件包 |
+|----------|--------|---------|
+| **经典 DSL** | `single { Class(get()) }` | `org.koin.dsl` |
+| **经典自动装配** | `singleOf(::Class)` | `org.koin.dsl` |
+| **编译器插件** | `single<Class>()` | `org.koin.plugin.module.dsl` |
 
-- Application DSL，用于描述 Koin 容器配置
-- Module DSL，用于描述必须被注入的组件
+:::tip
+**编译器插件 DSL** 提供自动装配和编译时安全性。请参阅 [编译器插件设置](/docs/setup/compiler-plugin)。
+:::
 
 ## Application DSL
 
-一个 `KoinApplication` 实例是一个 Koin 容器实例配置。这将让您配置日志记录、属性加载和模块。
+一个 `KoinApplication` 实例代表您配置好的 Koin 容器。这让您可以设置日志记录、加载属性并注册模块。
 
-要构建一个新的 `KoinApplication`，请使用以下函数：
+### 创建 KoinApplication
 
-* `koinApplication { }` - 创建一个 `KoinApplication` 容器配置 
-* `startKoin { }` - 创建一个 `KoinApplication` 容器配置，并将其注册到 `GlobalContext` 中，以允许使用 GlobalContext API
+在两种方案之间进行选择：
 
-要配置您的 `KoinApplication` 实例，您可以使用以下任何函数：
-
-* `logger( )` - 描述要使用的级别和 Logger 实现（默认使用 EmptyLogger）
-* `modules( )` - 设置要在容器中加载的 Koin 模块列表（列表或可变实参列表）
-* `properties()` - 将 HashMap 属性加载到 Koin 容器中
-* `fileProperties( )` - 从给定文件加载属性到 Koin 容器中
-* `environmentProperties( )` - 从操作系统环境变量加载属性到 Koin 容器中
-* `createEagerInstances()` - 创建饿汉式实例（标记为 `createdAtStart` 的 Single 定义）
-
-## KoinApplication 实例：全局 vs 本地
-
-正如您在上面看到的，我们可以通过两种方式描述 Koin 容器配置：`koinApplication` 或 `startKoin` 函数。 
-
-- `koinApplication` 描述一个 Koin 容器实例
-- `startKoin` 描述一个 Koin 容器实例，并将其注册到 Koin `GlobalContext` 中
-
-通过将您的容器配置注册到 `GlobalContext` 中，全局 API 可以直接使用它。任何 `KoinComponent` 都指向一个 `Koin` 实例。默认情况下，我们使用来自 `GlobalContext` 的实例。
-
-有关更多信息，请查看关于自定义 Koin 实例的章节。
-
-## 启动 Koin
-
-启动 Koin 意味着在 `GlobalContext` 中运行一个 `KoinApplication` 实例。
-
-要启动带有模块的 Koin 容器，我们可以像这样使用 `startKoin` 函数：
+* `koinApplication { }` - 创建一个独立的 `KoinApplication` 实例
+* `startKoin { }` - 创建一个 `KoinApplication` 并将其注册到 `GlobalContext` 中
 
 ```kotlin
-// 在全局上下文中启动 KoinApplication
+// 独立实例（对测试或自定义上下文很有用）
+val koinApp = koinApplication {
+    modules(myModule)
+}
+
+// 全局实例（应用程序的标准方式）
 startKoin {
-    // 声明使用的 logger
     logger()
-    // 声明使用的模块
-    modules(coffeeAppModule)
+    modules(myModule)
+}
+```
+
+### 配置函数
+
+在 `koinApplication` 或 `startKoin` 中，您可以使用：
+
+* `logger()` - 设置日志级别和 Logger 实现（默认：EmptyLogger）
+* `modules()` - 将模块加载到容器中（接受列表或可变实参）
+* `properties()` - 加载属性的 HashMap
+* `fileProperties()` - 从文件加载属性
+* `environmentProperties()` - 从操作系统环境变量加载属性
+* `createEagerInstances()` - 实例化所有标记为 `createdAtStart` 的定义
+* `allowOverride(Boolean)` - 启用/禁用定义重写（自 3.1.0 起默认为 true）
+
+### 全局 vs 本地上下文
+
+`koinApplication` 和 `startKoin` 之间的主要区别：
+
+- **`startKoin`** - 在 `GlobalContext` 中注册容器，使其可以通过 `KoinComponent`、`by inject()` 和其他全局 API 访问
+- **`koinApplication`** - 创建一个您直接控制的隔离实例
+
+```kotlin
+// 全局上下文 - 标准用法
+startKoin {
+    logger()
+    modules(appModule)
+}
+
+// 之后，在应用中的任何位置：
+class MyClass : KoinComponent {
+    val service: Service by inject() // 使用 GlobalContext
+}
+```
+
+```kotlin
+// 本地上下文 - 高级用法（测试、多上下文应用）
+val customKoin = koinApplication {
+    modules(testModule)
+}.koin
+
+val service = customKoin.get<Service>() // 使用特定实例
+```
+
+### 启动 Koin
+
+一个完整的 Koin 设置示例：
+
+```kotlin
+startKoin {
+    // 配置日志记录
+    logger(Level.INFO)
+
+    // 加载属性
+    environmentProperties()
+
+    // 声明模块
+    modules(
+        networkModule,
+        databaseModule,
+        repositoryModule,
+        viewModelModule
+    )
+
+    // 创建饿汉式单例
+    createEagerInstances()
 }
 ```
 
 ## Module DSL
 
-Koin 模块收集了您将为应用程序注入/组合的定义。要创建一个新模块，只需使用以下函数：
+有关全面的模块和定义文档，请参阅：
+- **[定义](/docs/reference/koin-core/definitions)** - 带有 DSL 和注解的所有定义类型
+- **[模块](/docs/reference/koin-core/modules)** - 模块组织和组合
+- **[定义参考](/docs/reference/koin-core/definitions)** - 快速查询表
 
-* `module { // module content }` - 创建一个 Koin 模块
-* `factory { //definition }` - 提供一个工厂 Bean 定义
-* `single { //definition  }` - 提供一个单例 Bean 定义（也称为 `bean`）
-* `get()` - 解析组件依赖项（也可以使用名称、作用域或形参）
-* `bind()` - 为给定的 Bean 定义添加要绑定的类型
-* `binds()` - 为给定的 Bean 定义添加类型数组
-* `scope { // scope group }` - 为 `scoped` 定义定义一个逻辑组 
-* `scoped { //definition }`- 提供一个仅在作用域内存在的 Bean 定义
+### 快速参考
 
-注意：`named()` 函数允许您通过字符串、枚举或类型提供限定符。它用于为您的定义命名。
+| 定义 | 经典 Lambda | 经典自动装配 | 编译器插件 |
+|------------|----------------|------------------|-----------------|
+| 单例 | `single { Class(get()) }` | `singleOf(::Class)` | `single<Class>()` |
+| 工厂 | `factory { Class(get()) }` | `factoryOf(::Class)` | `factory<Class>()` |
+| 作用域 | `scoped { Class(get()) }` | `scopedOf(::Class)` | `scoped<Class>()` |
+| ViewModel | `viewModel { VM(get()) }` | `viewModelOf(::VM)` | `viewModel<VM>()` |
 
-### 编写模块
-
-Koin 模块是 *声明所有组件的空间*。使用 `module` 函数来声明一个 Koin 模块：
+### 基础模块
 
 ```kotlin
 val myModule = module {
-   // 在此处定义您的依赖项
+    single<Database>()
+    single<UserRepository>()
+    factory<UserPresenter>()
 }
 ```
 
-在此模块中，您可以按照如下所述声明组件。
-
-### withOptions - DSL 选项（自 3.2 起）
-
-与新的 [构造函数 DSL](./dsl-update.md) 定义类似，您可以使用 `withOptions` 运算符在“常规”定义上指定定义选项：
+### 模块组合
 
 ```kotlin
-module {
-    single { ClassA(get()) } withOptions { 
-        named("qualifier")
-        createdAtStart()
-    }
+val appModule = module {
+    includes(networkModule, databaseModule)
+    single<AppConfig>()
+}
+
+startKoin {
+    modules(appModule)
 }
 ```
 
-在此选项 lambda 中，您可以指定以下选项：
-
-* `named("a_qualifier")` - 为定义提供一个字符串限定符
-* `named<MyType>()` - 为定义提供一个类型限定符
-* `bind<MyInterface>()` - 为给定的 Bean 定义添加要绑定的类型
-* `binds(arrayOf(...))` - 为给定的 Bean 定义添加类型数组
-* `createdAtStart()` - 在 Koin 启动时创建单例实例
+有关详细信息，请参阅 **[模块 - includes()](/docs/reference/koin-core/modules#module-composition-with-includes)**。

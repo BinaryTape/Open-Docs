@@ -4,12 +4,12 @@ title: テストでのインジェクション
 
 ## KoinTest でテストを KoinComponent にする
 
-*警告*: これは Android のインストゥルメンテッドテスト（Instrumented tests）には適用されません。Android でのインストゥルメンテッドテストについては、[Android Instrumented Testing](/docs/reference/koin-android/instrumented-testing.md) を参照してください。
+*警告*: これは Android のインストゥルメンテッドテスト（Instrumented tests）には適用されません。Android でのインストゥルメンテッドテストについては、[Android Instrumented Testing](/docs/reference/koin-android/instrumented-testing) を参照してください。
 
 クラスに `KoinTest` を付与することで、そのクラスは `KoinComponent` になり、以下の機能が利用可能になります：
 
 * `by inject()` & `get()` - Koin からインスタンスを取得するための関数
-* `checkModules` - 設定のチェックを支援
+* `verify()` - モジュール設定の検証を支援
 * `declareMock` & `declare` - 現在のコンテキストでモックや新しい定義を宣言する
 
 ```kotlin
@@ -145,16 +145,20 @@ class MyTest : KoinTest {
 
 ## Koin モジュールのチェック
 
-Koin は、Koin モジュールが正しいかどうかをテストする方法を提供しています：`checkModules` - 定義ツリーを走査し、各定義がバインドされているかチェックします。
+Koin は、Koin モジュールが正しいかどうかをテストする方法を提供しています：`verify()` - 定義ツリーを走査し、各定義がバインドされているかチェックします。
 
 ```kotlin
-    @Test
-    fun `check MVP hierarchy`() {
-        checkModules {
-            modules(myModule1, myModule2 ...)
-        } 
-    }
+@Test
+fun checkKoinModules() {
+    myModule.verify()
+}
 ```
+
+:::info
+`checkModules()` API は非推奨（Deprecated）になりました。代わりに `verify()` を使用してください。詳細は [Module Verification](/docs/reference/koin-test/verify) を参照してください。
+
+両方の検証 API は、Koin Compiler Plugin のネイティブなコンパイル時の安全性（compile-time safety）に置き換えられる予定です。
+:::
 
 ## テストでの Koin の開始と停止
 

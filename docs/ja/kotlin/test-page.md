@@ -326,7 +326,7 @@ jvmTest<Scope>
       <p>コード内の<code>Optional&lt;out T&gt;.toList()</code>において、<code>.toList()</code>は<code>Optional</code>の拡張関数です。拡張関数を使用すると、任意のクラスに新しい関数を追加できます。これは、ライブラリクラスの機能を拡張したい場合に特に便利です。</p>
    </def>
    <def title="折りたたみアイテム #2">
-      <p><a href="https://docs.spring.io/spring-data/jdbc/docs/current/reference/html/#jdbc.entity-persistence">この関数は</a>、新しいオブジェクトがデータベース内にIDを持っていないことを前提として動作します。したがって、挿入の際にはIDは<b>nullである必要</b>があります。</p>
+      <p><a href="https://docs.spring.io/spring-data/relational/reference/#jdbc.entity-persistence">この関数は</a>、新しいオブジェクトがデータベース内にIDを持っていないことを前提として動作します。したがって、挿入の際にはIDは<b>nullである必要</b>があります。</p>
       <p> IDが<i>null</i>でない場合、<code>CrudRepository</code>はそのオブジェクトがすでにデータベースに存在するとみなし、挿入（insert）操作ではなく更新（update）操作として扱います。挿入操作の後、<code>id</code>はデータストアによって生成され、<code>Message</code>インスタンスに再度割り当てられます。そのため、<code>id</code>プロパティは<code>var</code>キーワードを使用して宣言する必要があります。</p>
       <p></p>
    </def>

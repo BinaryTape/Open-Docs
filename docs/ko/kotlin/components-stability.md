@@ -83,7 +83,7 @@ Kotlin 언어와 툴셋은 JVM, JS, Native 대상을 위한 컴파일러, 표준
 | [No-arg](no-arg-plugin.md)                       | Stable       | 1.3.0                    |              |
 | [SAM-with-receiver](sam-with-receiver-plugin.md) | Stable       | 1.3.0                    |              |
 | [kapt](kapt.md)                                  | Stable       | 1.3.0                    |              |
-| [Lombok](lombok.md)                              | Experimental | 1.5.20                   |              |
+| [Lombok](lombok.md)                              | Alpha        | 2.3.20                   |              |
 | [Power-assert](power-assert.md)                  | Experimental | 2.0.0                    |              |
 
 ### Kotlin 라이브러리

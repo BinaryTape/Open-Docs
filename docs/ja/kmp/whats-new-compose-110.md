@@ -1,4 +1,4 @@
-[//]: # (title: Compose Multiplatform 1.10.2 の新機能)
+[//]: # (title: Compose Multiplatform 1.10.3 の新機能)
 
 この機能リリースの主なハイライトは以下の通りです：
 
@@ -101,7 +101,7 @@ Compose Multiplatform 1.10.0-beta01 は、Android 以外のターゲットで新
 
 * iOS では、[EndEdgePanGestureBehavior](https://github.com/JetBrains/compose-multiplatform-core/pull/2519) オプション（デフォルトは `Disabled`）を使用して、終了エッジの[パンジェスチャー（pan gestures）](https://developer.apple.com/documentation/uikit/handling-pan-gestures)によるナビゲーションを管理できるようになりました。
   ここで「終了エッジ（end edge）」とは、LTR インターフェースでは画面の右端、RTL では左端を指します。
-  開始エッジ（start edge）は終了エッジの反対側であり、常に戻るジェスチャーに紐付けられています。
+  開始エッジ（start edge）は終了エッジ의 反対側であり、常に戻るジェスチャーに紐付けられています。
 * Web アプリでは、デスクトップブラウザで **Esc** キーを押すと、デスクトップアプリと同様に、前の画面に戻る（およびダイアログ、ポップアップ、Material 3 の `SearchBar` などの一部のウィジェットを閉じる）ようになりました。
 * [ブラウザの履歴ナビゲーション](compose-navigation-routing.md#support-for-browser-navigation-in-web-apps)のサポートとアドレスバーでのデスティネーションの使用については、Compose Multiplatform 1.10 の Navigation 3 では拡張されません。
   これはマルチプラットフォームライブラリの将来のバージョンまで延期されました。
@@ -125,7 +125,7 @@ Compose Multiplatform は `WindowInsetsRulers` をサポートしました。
 
 [1.9.0 で導入された](whats-new-compose-190.md#ime-options) iOS 固有の IME カスタマイズに続き、このリリースでは `PlatformImeOptions` を使用してテキスト入力ビューを構成するための新しい API が追加されました。
 
-これらの新しい API を使用すると、フィールドがフォーカスを取得して IME がトリガーされたときの入力インターフェースをカスタマイズできます：
+これらの新しい API を使用すると、フィールドがフォーカスを取得して IME がトリガーされたときの入力インターフェースをカスタ備ズできます：
 
  * `UIResponder.inputView` は、デフォルトのシステムキーボードを置き換えるカスタム入力ビューを指定します。
  * `UIResponder.inputAccessoryView` は、IME アクティブ化時にシステムキーボードまたはカスタム `inputView` にアタッチされるカスタムアクセサリビューを定義します。
@@ -189,13 +189,13 @@ Compose Multiplatform は、Android Gradle Plugin (AGP) のバージョン 9.0.0
 
 | ライブラリ | Maven 座標 | ベースとなる Jetpack バージョン |
 |--------------------|------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
-| Runtime            | `org.jetbrains.compose.runtime:runtime*:1.10.2`                        | [Runtime 1.10.4](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.4)                                     |
-| UI                 | `org.jetbrains.compose.ui:ui*:1.10.2`                                  | [UI 1.10.4](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.4)                                               |
-| Foundation         | `org.jetbrains.compose.foundation:foundation*:1.10.2`                  | [Foundation 1.10.4](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.10.4)                               |
-| Material           | `org.jetbrains.compose.material:material*:1.10.2`                      | [Material 1.10.4](https://developer.android.com/jetpack/androidx/releases/compose-material#1.10.4)                                   |
+| Runtime            | `org.jetbrains.compose.runtime:runtime*:1.10.3`                        | [Runtime 1.10.5](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.10.5)                                     |
+| UI                 | `org.jetbrains.compose.ui:ui*:1.10.3`                                  | [UI 1.10.5](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.10.5)                                               |
+| Foundation         | `org.jetbrains.compose.foundation:foundation*:1.10.3`                  | [Foundation 1.10.5](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.10.5)                               |
+| Material           | `org.jetbrains.compose.material:material*:1.10.3`                      | [Material 1.10.5](https://developer.android.com/jetpack/androidx/releases/compose-material#1.10.5)                                   |
 | Material3          | `org.jetbrains.compose.material3:material3*:1.10.0-alpha05`            | [Material3 1.5.0-alpha08](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha08)                   |
 | Material3 Adaptive | `org.jetbrains.compose.material3.adaptive:adaptive*:1.3.0-alpha02`     | [Material3 Adaptive 1.3.0-alpha03](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.3.0-alpha03) |
-| Lifecycle          | `org.jetbrains.androidx.lifecycle:lifecycle-*:2.10.0-beta01`           | [Lifecycle 2.10.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0)                                         |
+| Lifecycle          | `org.jetbrains.androidx.lifecycle:lifecycle-*:2.10.0`                  | [Lifecycle 2.10.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0)                                         |
 | Navigation         | `org.jetbrains.androidx.navigation:navigation-*:2.9.2`                 | [Navigation 2.9.7](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.7)                                         |
 | Navigation3        | `org.jetbrains.androidx.navigation3:navigation3-*:1.0.0-alpha06`       | [Navigation3 1.0.0](https://developer.android.com/jetpack/androidx/releases/navigation3#1.0.0)                                       |
 | Navigation Event   | `org.jetbrains.androidx.navigationevent:navigationevent-compose:1.0.1` | [Navigation Event 1.0.2](https://developer.android.com/jetpack/androidx/releases/navigationevent#1.0.2)                              |

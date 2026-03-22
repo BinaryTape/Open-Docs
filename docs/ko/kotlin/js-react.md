@@ -18,7 +18,7 @@
 
 ## 시작하기 전에
 
-1. 최신 버전의 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html)를 다운로드하여 설치합니다.
+1. 최신 버전의 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)를 다운로드하여 설치합니다.
 2. [프로젝트 템플릿](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle)을 복제(clone)하고 IntelliJ IDEA에서 엽니다. 템플릿에는 필요한 모든 구성과 종속성이 포함된 기본 Kotlin 멀티플랫폼 Gradle 프로젝트가 포함되어 있습니다.
 
    * `build.gradle.kts` 파일의 종속성 및 태스크:

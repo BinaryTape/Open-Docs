@@ -568,8 +568,18 @@
         "link": "amper"
       },
       {
-        "text": "kmp.kmp-ci-tutorial",
-        "link": "kmp-ci-tutorial"
+        "text": "kmp.configure-ci-for-a-kmp-app",
+        "items": [
+          {
+            "text": "kmp.github-actions-for-kmp",
+            "link": "github-actions-for-kmp"
+          },
+          {
+            "text": "kmp.configure-teamcity-for-kmp",
+            "link": "configure-teamcity-for-kmp"
+          }
+        ],
+        "collapsed": true
       }
     ],
     "collapsed": true

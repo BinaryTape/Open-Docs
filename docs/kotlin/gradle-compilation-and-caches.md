@@ -6,8 +6,8 @@
 * [Gradle 配置缓存支持](#gradle-configuration-cache-support)
 * [Kotlin 守护进程及其在 Gradle 中的使用](#the-kotlin-daemon-and-how-to-use-it-with-gradle)
 * [回退到之前的编译器](#rolling-back-to-the-previous-compiler)
-* [定义 Kotlin 编译器执行策略](#defining-kotlin-compiler-execution-strategy)
-* [Kotlin 编译器回退策略](#kotlin-compiler-fallback-strategy)
+* [定义 Kotlin 编译器执行策略](compiler-execution-strategy.md)
+* [Kotlin 编译器回退策略](compiler-execution-strategy.md#fallback-strategy)
 * [尝试最新的语言版本](#trying-the-latest-language-version)
 * [构建报告](#build-reports)
 
@@ -236,124 +236,6 @@ Kotlin 守护进程具有以下默认 JVM 参数：
 
 要了解有关 K2 编译器优势的更多信息，请参阅 [K2 编译器迁移指南](k2-compiler-migration-guide.md)。
 
-## 定义 Kotlin 编译器执行策略
-
-*Kotlin 编译器执行策略*定义了 Kotlin 编译器的执行位置，以及在每种情况下是否支持增量编译。
-
-共有三种编译器执行策略：
-
-| 策略 | Kotlin 编译器的执行位置 | 增量编译 | 其他特征和说明 |
-|----------------|--------------------------------------------|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Kotlin 守护进程 | 在其自身的守护进程进程中 | 是 | *默认且最快的策略*。可以在不同的 Gradle 守护进程和多个并行编译之间共享。 |
-| 进程内（In process） | 在 Gradle 守护进程进程内 | 否 | 可能会与 Gradle 守护进程共享堆。 “进程内”执行策略比“守护进程”执行策略*更慢*。每个 [worker](https://docs.gradle.org/current/userguide/worker_api.html) 为每次编译创建一个单独的 Kotlin 编译器类加载器。 |
-| 进程外（Out of process） | 为每次编译在单独的进程中 | 否 | 最慢的执行策略。类似于“进程内”，但还会为每次编译在一个 Gradle worker 内创建一个单独的 Java 进程。 |
-
-要定义 Kotlin 编译器执行策略，您可以使用以下属性之一：
-* `kotlin.compiler.execution.strategy` Gradle 属性。
-* `compilerExecutionStrategy` 编译任务属性。
-
-任务属性 `compilerExecutionStrategy` 的优先级高于 Gradle 属性 `kotlin.compiler.execution.strategy`。
-
-`kotlin.compiler.execution.strategy` 属性的可用值为：
-1. `daemon`（默认）
-2. `in-process`
-3. `out-of-process`
-
-在 `gradle.properties` 中使用 Gradle 属性 `kotlin.compiler.execution.strategy`：
-
-```none
-kotlin.compiler.execution.strategy=out-of-process
-```
-
-`compilerExecutionStrategy` 任务属性的可用值为：
-1. `org.jetbrains.kotlin.gradle.tasks.KotlinCompilerExecutionStrategy.DAEMON`（默认）
-2. `org.jetbrains.kotlin.gradle.tasks.KotlinCompilerExecutionStrategy.IN_PROCESS`
-3. `org.jetbrains.kotlin.gradle.tasks.KotlinCompilerExecutionStrategy.OUT_OF_PROCESS`
-
-在您的构建脚本中使用任务属性 `compilerExecutionStrategy`：
-
-<tabs group="build-script">
-<tab title="Kotlin" group-key="kotlin">
-
-```kotlin
-import org.jetbrains.kotlin.gradle.tasks.CompileUsingKotlinDaemon
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompilerExecutionStrategy
-
-// ...
-
-tasks.withType<CompileUsingKotlinDaemon>().configureEach {
-    compilerExecutionStrategy.set(KotlinCompilerExecutionStrategy.IN_PROCESS)
-} 
-```
-
-</tab>
-<tab title="Groovy" group-key="groovy">
-
-```groovy
-import org.jetbrains.kotlin.gradle.tasks.CompileUsingKotlinDaemon
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompilerExecutionStrategy
-
-// ...
-
-tasks.withType(CompileUsingKotlinDaemon)
-    .configureEach {
-        compilerExecutionStrategy = KotlinCompilerExecutionStrategy.IN_PROCESS
-    }
-```
-
-</tab>
-</tabs>
-
-## Kotlin 编译器回退策略
-
-Kotlin 编译器的回退策略是，如果守护进程以某种方式失败，则在 Kotlin 守护进程之外运行编译。
-如果 Gradle 守护进程开启，编译器将使用[“进程内”策略](#defining-kotlin-compiler-execution-strategy)。
-如果 Gradle 守护进程关闭，编译器将使用“进程外”策略。
-
-当发生此回退时，您的 Gradle 构建输出中会出现以下警告行：
-
-```none
-Failed to compile with Kotlin daemon: java.lang.RuntimeException: Could not connect to Kotlin compile daemon
-[exception stacktrace]
-Using fallback strategy: Compile without Kotlin daemon
-Try ./gradlew --stop if this issue persists.
-```
-
-然而，静默回退到另一种策略可能会消耗大量系统资源或导致非确定性构建。
-在 [YouTrack 问题](https://youtrack.jetbrains.com/issue/KT-48843/Add-ability-to-disable-Kotlin-daemon-fallback-strategy)中阅读有关此内容的更多信息。
-为了避免这种情况，存在一个 Gradle 属性 `kotlin.daemon.useFallbackStrategy`，其默认值为 `true`。
-当值为 `false` 时，构建在守护进程启动或通信出现问题时会失败。在 `gradle.properties` 中声明此属性：
-
-```none
-kotlin.daemon.useFallbackStrategy=false
-```
-
-Kotlin 编译任务中还有一个 `useDaemonFallbackStrategy` 属性，如果您同时使用两者，它的优先级高于 Gradle 属性。
-
-<tabs group="build-script">
-<tab title="Kotlin" group-key="kotlin">
-
-```kotlin
-tasks {
-    compileKotlin {
-        useDaemonFallbackStrategy.set(false)
-    }   
-}
-```
-
-</tab>
-<tab title="Groovy" group-key="groovy">
-
-```groovy
-tasks.named("compileKotlin").configure {
-    useDaemonFallbackStrategy = false
-}
-```
-</tab>
-</tabs>
-
-如果运行编译所需的内存不足，您可以在日志中看到相关消息。
-
 ## 尝试最新的语言版本
 
 从 Kotlin 2.0.0 开始，要尝试最新的语言版本，请在您的 `gradle.properties` 文件中设置 `kotlin.experimental.tryNext` 属性。当您使用此属性时，Kotlin Gradle 插件会将语言版本增加到比您 Kotlin 版本的默认值高一个级别的版本。例如，在 Kotlin 2.0.0 中，默认语言版本是 2.0，因此该属性会将语言版本配置为 2.1。
@@ -457,7 +339,7 @@ kotlin.build.report.build_scan.custom_values_limit=500
 
 ### 关闭项目和系统属性的收集
 
-HTTP 构建统计日志可能包含一些项目和系统属性。这些属性可以改变构建的行为，因此在构建统计中记录它们很有用。
+HTTP 构建统计日志可能包含一些项目和系统属性。这些属性可以改变构建行为，因此在构建统计中记录它们很有用。
 这些属性可能会存储敏感数据，例如密码或项目的完整路径。
 
 您可以通过在 `gradle.properties` 中添加 `kotlin.build.report.http.verbose_environment` 属性来禁用这些统计信息的收集。
@@ -471,3 +353,4 @@ HTTP 构建统计日志可能包含一些项目和系统属性。这些属性可
 详细了解：
 * [Gradle 基础知识与特性](https://docs.gradle.org/current/userguide/userguide.html)。
 * [对 Gradle 插件变体的支持](gradle-plugin-variants.md)。
+* [编译器执行策略](compiler-execution-strategy.md)

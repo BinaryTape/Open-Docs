@@ -46,7 +46,7 @@
 1. [決定哪些程式碼要跨平台](#decide-what-code-to-make-cross-platform)
 2. [為跨平台程式碼建立共享模組](#create-a-shared-module-for-cross-platform-code)
 3. [測試程式碼共享](#add-code-to-the-shared-module)
-4. [在您的 Android 應用程式中新增對共享模組的相依性](#add-dependency-on-shared-module-to-android-app)
+4. [在您的 Android 應用程式中新增對共享模組的相依性](#add-a-dependency-on-the-shared-module-to-your-android-application)
 5. [使商業邏輯具備跨平台能力](#make-the-business-logic-cross-platform)
 6. [在 Android 上執行您的跨平台應用程式](#run-your-cross-platform-application-on-android)
 
@@ -373,9 +373,14 @@
    >
    {style="note"}
 
-9. 在 Xcode 中建置專案（主選單中的 **Product** | **Build**）。如果一切配置正確，專案應該建置成功（您可以放心地忽略 "build phase will be run during every build" 警告）。
+9. 編輯 `Info.plist` 檔案：
+
+   * 使用 `CADisableMinimumFrameDurationOnPhone` 金鑰啟用高重新整理率。
+   * 如果您的應用程式使用裝置的相機，請使用 `NSCameraUsageDescription` 金鑰授予相機存取權限。
+
+10. 在 Xcode 中建置專案（主選單中的 **Product** | **Build**）。如果一切配置正確，專案應該建置成功（您可以放心地忽略 "build phase will be run during every build" 警告）。
    
-    > 如果您在停用 **User Script Sandboxing** 選項之前建置了專案，建置可能會失敗：Gradle 精靈程序可能已被沙盒化，需要重新啟動。在專案目錄（在我們的範例中為 `kmp-integration-sample`）中執行以下指令以停止精靈程序，然後再次建置專案：
+    > 如果您在停用 **User Script Sandboxing** 選項之前建置了專案，建置可能會失敗：Gradle 精靈程序（daemon）可能已被沙盒化，需要重新啟動。在專案目錄（在我們的範例中為 `kmp-integration-sample`）中執行以下指令以停止精靈程序，然後再次建置專案：
     > 
     > ```shell
     > ./gradlew --stop

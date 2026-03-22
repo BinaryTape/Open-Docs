@@ -50,6 +50,8 @@ fun main() {
     ```bash
     ollama pull <ollama-model-id>
     ```
+    <!--- KNIT example-embeddings-01.txt -->
+
     将 `<ollama-model-id>` 替换为特定模型的 Ollama 标识符。有关可用嵌入模型及其标识符的更多信息，请参阅 [Ollama 模型概览](#ollama-models-overview)。
 
 ### Ollama 模型概览

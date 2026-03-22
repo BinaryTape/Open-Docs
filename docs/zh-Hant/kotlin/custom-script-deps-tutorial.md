@@ -43,7 +43,7 @@ print(
 
 ## 在您開始之前
 
-下載並安裝最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html)。
+下載並安裝最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)。
 
 ## 建立專案
 
@@ -72,7 +72,7 @@ print(
 
 1. 在 IntelliJ IDEA 中，選取 **File | New | Module**。
 2. 在左側面板中，選取 **New Module**。此模組將作為指令碼定義。
-3. 為新模組命名，並在必要時更改其位置。
+3. 為新模組命名，並在必要時更改其位置。 
 4. 從 **Language** 清單中，選取 **Java**。
 5. 選取 **Gradle** 建構系統；如果您想用 Kotlin 編寫建置指令碼，請在 **Gradle DSL** 選取 Kotlin。
 6. 選取根模組作為模組的父代 (parent)。

@@ -170,7 +170,7 @@ kotlin {
     android()
     iosArm64()   // 64비트 iPhone 기기
     macosArm64() // Apple 실리콘 기반의 최신 Mac
-    watchosX64() // 최신 64비트 Apple Watch 기기
+    watchosArm64() // 최신 64비트 Apple Watch 기기
     tvosArm64()  // 최신 Apple TV 기기
 }
 ```
@@ -188,7 +188,7 @@ fun randomUuidString(): String {
 
 이 함수를 `commonMain`에 추가할 수는 없습니다. `commonMain`은 Android를 포함하여 선언된 모든 타겟으로 컴파일되지만, `platform.Foundation.NSUUID`는 Android에서 사용할 수 없는 Apple 전용 API이기 때문입니다. `commonMain`에서 `NSUUID`를 참조하려고 하면 코틀린에서 오류를 표시합니다.
 
-이 코드를 각 Apple 전용 소스 세트인 `iosArm64Main`, `macosArm64Main`, `watchosX64Main`, `tvosArm64Main`에 복사하여 붙여넣을 수도 있습니다. 하지만 이러한 코드 중복은 오류가 발생하기 쉬우므로 권장되지 않습니다.
+이 코드를 각 Apple 전용 소스 세트인 `iosArm64Main`, `macosArm64Main`, `watchosArm64Main`, `tvosArm64Main`에 복사하여 붙여넣을 수도 있습니다. 하지만 이러한 코드 중복은 오류가 발생하기 쉬우므로 권장되지 않습니다.
 
 이 문제를 해결하기 위해 _중간 소스 세트(intermediate source sets)_를 사용할 수 있습니다. 중간 소스 세트는 프로젝트의 전체 타겟이 아닌 일부 타겟으로만 컴파일되는 코틀린 소스 세트입니다. 중간 소스 세트는 계층적 소스 세트(hierarchical source sets) 또는 단순히 계층 구조(hierarchies)라고 불리기도 합니다.
 

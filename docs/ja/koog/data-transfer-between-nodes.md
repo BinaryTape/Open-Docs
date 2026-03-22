@@ -12,9 +12,13 @@ Koogは、`AIAgentStorage`を使用してデータを保存および受け渡す
 
 ストレージは、データの保存と取得時に型安全性を確保するために、型指定されたキーシステムを使用します。
 
-- `AIAgentStorageKey<T>`: データの識別とアクセスに使用されるストレージキーを表すデータクラスです。`AIAgentStorageKey`クラスの主な特徴は以下の通りです。
-    - ジェネリック型パラメータ`T`は、このキーに関連付けられたデータの型を指定し、型安全性を確保します。
-    - 各キーには、ストレージキーを一意に表す文字列識別子である`name`プロパティがあります。
+`AIAgentStorageKey<T>`データクラスは、データの識別とアクセスに使用されるストレージキーを表します。このクラスの主な特徴は以下の通りです。
+
+- ジェネリック型パラメータ`T`は、このキーに関連付けられたデータの型を指定し、型安全性を確保します。
+
+- 各キーには、識別やデバッグを容易にするための文字列識別子である`name`プロパティがあります。
+
+- 各キーインスタンスは一意です。`name`は一意性を判断するためには使用されないため、同じ名前のキーを複数持つことができます。これにより、ストレージ内のデータを誤って上書きするリスクなく、既存のストラテジー（Strategy）コンポーネントを再利用できます。
 
 ## 使用例
 
@@ -24,13 +28,25 @@ Koogは、`AIAgentStorage`を使用してデータを保存および受け渡す
 
 データを保存して受け渡すための最初のステップは、そのデータを表すクラスを作成することです。以下は、基本的なユーザーデータを持つ単純なクラスの例です。
 
-```kotlin
-class UserData(
-   val name: String,
-   val age: Int
-)
-```
-<!--- KNIT example-data-transfer-between-nodes-01.kt -->
+=== "Kotlin"
+
+    ```kotlin
+    class UserData(
+       val name: String,
+       val age: Int
+    )
+    ```
+    <!--- KNIT example-data-transfer-between-nodes-01.kt -->
+
+=== "Java"
+
+    ```java
+    record UserData(
+        String name,
+        int age
+    ) {}
+    ```
+    <!--- KNIT exampleDataTransferBetweenNodesJava01.java -->
 
 定義が完了したら、以下で説明するように、このクラスを使用してストレージキーを作成します。
 
@@ -38,87 +54,157 @@ class UserData(
 
 定義したデータ構造に対して、型指定されたストレージキーを作成します。
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.entity.createStorageKey
+=== "Kotlin"
 
-class UserData(
-    val name: String,
-    val age: Int
-)
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.createStorageKey
+    class UserData(
+        val name: String,
+        val age: Int
+    )
+    -->
+    ```kotlin
+    val userDataKey = createStorageKey<UserData>("user-data")
+    ```
+    <!--- KNIT example-data-transfer-between-nodes-02.kt -->
 
-fun main() {
--->
-<!--- SUFFIX
-}
--->
-```kotlin
-val userDataKey = createStorageKey<UserData>("user-data")
-```
-<!--- KNIT example-data-transfer-between-nodes-02.kt -->
+=== "Java"
 
-`createStorageKey`関数は、キーを一意に識別する単一の文字列パラメータを受け取ります。
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentStorage;
+    import ai.koog.agents.core.agent.entity.AIAgentStorageKey;
+    class exampleDataTransferBetweenNodesJava02 {
+        record UserData(
+            String name,
+            int age
+        ) {}
+        public static void main(String[] args) {
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    AIAgentStorageKey<UserData> userDataKey = AIAgentStorage.createStorageKey("user-data");
+    ```
+    <!--- KNIT exampleDataTransferBetweenNodesJava02.java -->
+
+`createStorageKey`関数は、キーを識別する単一の文字列パラメータを受け取ります。
 
 ### データの保存
 
 作成したストレージキーを使用してデータを保存するには、ノード内で`storage.set(key: AIAgentStorageKey<T>, value: T)`メソッドを使用します。
 
-<!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.agents.core.agent.entity.createStorageKey
+=== "Kotlin"
 
-class UserData(
-   val name: String,
-   val age: Int
-)
-
-fun main() {
+    <!--- INCLUDE
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.agents.core.agent.entity.createStorageKey
+    class UserData(
+       val name: String,
+       val age: Int
+    )
     val userDataKey = createStorageKey<UserData>("user-data")
-
-    val str = strategy<Unit, Unit>("my-strategy") {
--->
-<!--- SUFFIX
+    -->
+    ```kotlin
+    val nodeSaveData by node<Unit, Unit> {
+        storage.set(userDataKey, UserData("John", 26))
     }
-}
--->
-```kotlin
-val nodeSaveData by node<Unit, Unit> {
-    storage.set(userDataKey, UserData("John", 26))
-}
-```
-<!--- KNIT example-data-transfer-between-nodes-03.kt -->
+    ```
+    <!--- KNIT example-data-transfer-between-nodes-03.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    import ai.koog.agents.core.agent.entity.AIAgentStorage;
+    import ai.koog.agents.core.agent.entity.AIAgentStorageKey;
+    public class exampleDataTransferBetweenNodesJava03 {
+        record UserData(
+            String name,
+            int age
+        ) {}
+        public static void main(String[] args) {
+            AIAgentStorageKey<UserData> userDataKey = AIAgentStorage.createStorageKey("user-data");
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    var nodeSaveData = AIAgentNode.builder("nodeSaveData")
+        .withInput(String.class)
+        .withOutput(String.class)
+        .withAction((input, ctx) -> {
+            ctx.getStorage().set(userDataKey, new UserData("John", 26));
+            return "";
+        })
+        .build();
+    ```
+    <!--- KNIT exampleDataTransferBetweenNodesJava03.java -->
 
 ### データの取得
 
 データを取得するには、ノード内で`storage.get`メソッドを使用します。
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.entity.createStorageKey
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
+=== "Kotlin"
 
-class UserData(
-    val name: String,
-    val age: Int
-)
-
-fun main() {
-    val userDataKey = createStorageKey<UserData>("user-data")
-
-    val str = strategy<String, Unit>("my-strategy") {
--->
-<!--- SUFFIX
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.createStorageKey
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    class UserData(
+        val name: String,
+        val age: Int
+    )
+    fun main() {
+        val userDataKey = createStorageKey<UserData>("user-data")
+        val str = strategy<String, Unit>("my-strategy") {
+    -->
+    <!--- SUFFIX
+        }
     }
-}
--->
-```kotlin
-val nodeRetrieveData by node<String, Unit> { message ->
-    storage.get(userDataKey)?.let { userFromStorage ->
-        println("Hello dear $userFromStorage, here's a message for you: $message")
+    -->
+    ```kotlin
+    val nodeRetrieveData by node<String, Unit> { message ->
+        storage.get(userDataKey)?.let { userFromStorage ->
+            println("Hello dear $userFromStorage, here's a message for you: $message")
+        }
     }
-}
-```
-<!--- KNIT example-data-transfer-between-nodes-04.kt -->
+    ```
+    <!--- KNIT example-data-transfer-between-nodes-04.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    import ai.koog.agents.core.agent.entity.AIAgentStorage;
+    import ai.koog.agents.core.agent.entity.AIAgentStorageKey;
+    public class exampleDataTransferBetweenNodesJava04 {
+        record UserData(
+            String name,
+            int age
+        ) {}
+        public static void main(String[] args) {
+            AIAgentStorageKey<UserData> userDataKey = AIAgentStorage.createStorageKey("user-data");
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    var nodeRetrieveData = AIAgentNode.builder("nodeRetrieveData")
+        .withInput(String.class)
+        .withOutput(String.class)
+        .withAction((message, ctx) -> {
+            var userData = ctx.getStorage().get(userDataKey);
+            System.out.println("Hello dear %s, here's a message for you: %s".formatted(userData, message));
+            return "";
+        })
+        .build();
+    ```
+    <!--- KNIT exampleDataTransferBetweenNodesJava04.java -->
 
 ## APIドキュメント
 
@@ -137,7 +223,6 @@ val nodeRetrieveData by node<String, Unit> { message ->
 ## 追加情報
 
 - `AIAgentStorage`はスレッドセーフであり、同時アクセスが適切に処理されるようにMutex（ミューテックス）を使用しています。
-- ストレージは、`Any`を継承する任意の型で動作するように設計されています。
 - 値を取得する際、型キャストは自動的に処理され、アプリケーション全体で型安全性が確保されます。
 - 値への非nullアクセスには、キーが存在しない場合に例外をスローする`getValue`メソッドを使用します。
 - `clear`メソッドを使用すると、ストレージを完全にクリアし、保存されているすべてのキーと値のペアを削除できます。

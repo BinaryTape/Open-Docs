@@ -2,108 +2,128 @@
 title: Fragment Factory
 ---
 
-由于 AndroidX 发布了 `androidx.fragment` 软件包系列，以扩展 Android `Fragment` 相关功能：
+Koin 与 [AndroidX FragmentFactory](https://developer.android.com/reference/kotlin/androidx/fragment/app/FragmentFactory) 集成，以在 Fragment 中实现构造函数注入。
 
-https://developer.android.com/jetpack/androidx/releases/fragment
+:::info
+Fragment Factory 仅支持 DSL。目前尚不支持注解和编译器插件 DSL。
+:::
 
-## Fragment Factory
+## 设置
 
-自 `2.1.0-alpha-3` 版本起，引入了 `FragmentFactory`，这是一个专门用于创建 `Fragment` 类实例的类：
+### 添加依赖项
 
-https://developer.android.com/reference/kotlin/androidx/fragment/app/FragmentFactory
+```groovy
+implementation "io.insert-koin:koin-android:$koin_version"
+```
 
-Koin 提供了 `KoinFragmentFactory` 来帮助您直接注入 `Fragment` 实例。
+### 配置 Fragment Factory
 
-## 设置 Fragment Factory
-
-在开始时，在您的 KoinApplication 声明中，使用 `fragmentFactory()` 关键字来设置默认的 `KoinFragmentFactory` 实例：
+在 Koin 配置中，启用 Fragment Factory：
 
 ```kotlin
- startKoin {
-    // 设置 KoinFragmentFactory 实例
+startKoin {
+    androidContext(this@MainApplication)
     fragmentFactory()
-
-    modules(...)
+    modules(appModule)
 }
 ```
 
-## 声明并注入您的 Fragment
+## 声明 Fragment
 
-要声明 `Fragment` 实例，只需在 Koin 模块中将其声明为 `fragment` 并使用*构造函数注入*。
-
-给定一个 `Fragment` 类：
+使用 `fragment` DSL 关键字配合构造函数注入：
 
 ```kotlin
-class MyFragment(val myService: MyService) : Fragment() {
+class MyFragment(
+    private val myService: MyService
+) : Fragment()
 
-}
-```
-
-```kotlin
 val appModule = module {
     single { MyService() }
     fragment { MyFragment(get()) }
 }
 ```
 
-## 获取您的 Fragment
+## 使用 Fragment
 
-在宿主 `Activity` 类中，使用 `setupKoinFragmentFactory()` 设置您的 Fragment 工厂：
+### 在 Activity 中设置
+
+在 `super.onCreate()` **之前**调用 `setupKoinFragmentFactory()`：
 
 ```kotlin
 class MyActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Koin Fragment Factory
+        // 必须在 super.onCreate() 之前调用
         setupKoinFragmentFactory()
 
         super.onCreate(savedInstanceState)
-        //...
+        setContentView(R.layout.activity_main)
     }
 }
 ```
 
-并使用您的 `supportFragmentManager` 检索 `Fragment`：
+### 添加 Fragment
+
+使用具体化扩展函数：
 
 ```kotlin
 supportFragmentManager.beginTransaction()
-            .replace<MyFragment>(R.id.mvvm_frame)
-            .commit()
+    .replace<MyFragment>(R.id.container)
+    .commit()
 ```
 
-使用重载的可选参数传递您的 `bundle` 或 `tag`：
+带有实参和标签：
 
 ```kotlin
 supportFragmentManager.beginTransaction()
-            .replace<MyFragment>(
-                containerViewId = R.id.mvvm_frame,
-                args = MyBundle(),
-                tag = MyString()
-            )
+    .replace<MyFragment>(
+        containerViewId = R.id.container,
+        args = bundleOf("key" to "value"),
+        tag = "my_fragment"
+    )
+    .commit()
 ```
 
-## Fragment Factory 与 Koin 作用域
+## 带有作用域的 Fragment Factory
 
-如果您想使用 Koin Activity 的作用域，您必须在作用域内将 Fragment 声明为 `scoped` 定义：
+要在 Fragment 中使用 Activity 作用域的依赖项：
 
 ```kotlin
 val appModule = module {
     scope<MyActivity> {
+        scoped { ActivityService() }
         fragment { MyFragment(get()) }
     }
 }
 ```
 
-并使用您的作用域设置 Koin Fragment Factory：`setupKoinFragmentFactory(lifecycleScope)`
+将作用域传递给 `setupKoinFragmentFactory()`：
 
 ```kotlin
-class MyActivity : AppCompatActivity() {
+class MyActivity : AppCompatActivity(), AndroidScopeComponent {
+
+    override val scope: Scope by activityScope()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Koin Fragment Factory
-        setupKoinFragmentFactory(lifecycleScope)
+        // 将作用域传递给 Fragment Factory
+        setupKoinFragmentFactory(scope)
 
         super.onCreate(savedInstanceState)
-        //...
     }
 }
+```
+
+## 快速参考
+
+| 操作 | 代码 |
+|--------|------|
+| 声明 Fragment | `fragment { MyFragment(get()) }` |
+| 设置全局工厂 | `setupKoinFragmentFactory()` |
+| 设置作用域 | `setupKoinFragmentFactory(scope)` |
+| 添加 Fragment | `.replace<MyFragment>(R.id.container)` |
+
+## 下一步
+
+- **[AndroidX Fragment](https://developer.android.com/guide/fragments)** - 官方 Fragment 文档
+- **[作用域](/docs/reference/koin-android/scope)** - Android 作用域
+- **[ViewModel](/docs/reference/koin-android/viewmodel)** - ViewModel 注入

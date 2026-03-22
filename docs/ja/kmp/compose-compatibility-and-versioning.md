@@ -38,7 +38,7 @@ Compose Multiplatform 1.8.0 以降、UI フレームワークは全面的に K2 
  * Compose Multiplatform ベースのライブラリに依存する場合は、それらが少なくとも Kotlin 2.1.0 でコンパイルされている場合にのみ使用してください。
  * iOS や Web など、サポートが急速に進化しているプラットフォームをターゲットとするプロジェクトの場合は、Kotlin **2.2.20** にアップグレードしてください。
  
-すべての依存関係が更新されるまでの後方互換性の問題に対する回避策として、`gradle.properties` ファイルに `kotlin.native.cacheKind=none` を追加して Gradle キャッシュを無効にすることができます。これにより古いライブラリとの互換性は確保されますが、コンパイル時間は増加します。
+すべての依存関係が更新されるまでの後方互換性の問題に対する回避策として、Gradle ビルドファイルで [`disableNativeCache`](multiplatform-dsl-reference.md#binaries) DSL を使用して Gradle キャッシュを無効にすることができます。これにより古いライブラリとの互換性は確保されますが、コンパイル時間は増加します。
 
 ## デスクトップ向け Compose Multiplatform の制限事項
 
@@ -80,7 +80,7 @@ Android 向けにアプリケーションをビルドする場合、Compose Mult
 
 | Compose Multiplatform バージョン                                                     | Jetpack Compose バージョン |
 |-----------------------------------------------------------------------------------|-------------------------|
-| [1.10.2](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.10.2) | 1.10.4                  |
+| [1.10.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.10.3) | 1.10.5                  |
 | [1.9.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.3)   | 1.9.4                   |
 | [1.8.2](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.8.2)   | 1.8.2                   |
 | [1.7.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.7.3)   | 1.7.6                   |

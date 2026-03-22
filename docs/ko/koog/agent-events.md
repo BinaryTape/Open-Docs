@@ -374,168 +374,205 @@ LLM 스트리밍 호출의 종료를 나타냅니다. 다음 필드를 포함합
 
 ### 에이전트 실행의 특정 부분만 트레이싱하려면 어떻게 해야 하나요?
 
-`messageFilter` 속성을 사용하여 이벤트를 필터링하세요. 예를 들어, LLM 호출만 트레이싱하려면 다음과 같이 합니다:
+`messageFilter` 속성을 사용하여 이벤트를 필터링하세요. 예를 들어, 노드 실행만 트레이싱하려면 다음과 같이 합니다:
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.events.LLMCallCompletedEvent
-import ai.koog.agents.core.feature.model.events.LLMCallStartingEvent
-import ai.koog.agents.example.exampleTracing01.outputPath
-import ai.koog.agents.features.tracing.feature.Tracing
-import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
-import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
-import ai.koog.prompt.executor.ollama.client.OllamaModels
-import kotlinx.coroutines.runBlocking
-import kotlinx.io.buffered
-import kotlinx.io.files.Path
-import kotlinx.io.files.SystemFileSystem
+=== "Kotlin"
 
-const val input = "What's the weather like in New York?"
-
-fun main() {
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.agents.core.feature.model.events.LLMCallCompletedEvent
+    import ai.koog.agents.core.feature.model.events.LLMCallStartingEvent
+    import ai.koog.agents.example.exampleTracing01.outputPath
+    import ai.koog.agents.features.tracing.feature.Tracing
+    import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
+    import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
+    import ai.koog.prompt.executor.ollama.client.OllamaModels
+    import kotlinx.coroutines.runBlocking
+    import kotlinx.io.buffered
+    import kotlinx.io.files.Path
+    import kotlinx.io.files.SystemFileSystem
+    const val input = "What's the weather like in New York?"
+    fun main() {
     runBlocking {
-        // Creating an agent
-        val agent = AIAgent(
-            promptExecutor = simpleOllamaAIExecutor(),
-            llmModel = OllamaModels.Meta.LLAMA_3_2,
-        ) {
-            val writer = TraceFeatureMessageFileWriter(
-                outputPath,
-                { path: Path -> SystemFileSystem.sink(path).buffered() }
-            )
--->
-<!--- SUFFIX
+    // Creating an agent
+    val agent = AIAgent(
+    promptExecutor = simpleOllamaAIExecutor(),
+    llmModel = OllamaModels.Meta.LLAMA_3_2,
+    ) {
+    val writer = TraceFeatureMessageFileWriter(
+    outputPath,
+    { path: Path -> SystemFileSystem.sink(path).buffered() }
+    )
+    -->
+    <!--- SUFFIX
+            }
         }
     }
-}
--->
-```kotlin
-install(Tracing) {
-    val fileWriter = TraceFeatureMessageFileWriter(
-        outputPath, 
-        { path: Path -> SystemFileSystem.sink(path).buffered() }
-    )
-    addMessageProcessor(fileWriter)
-    
-    // Only trace LLM calls
-    fileWriter.setMessageFilter { message ->
-        message is LLMCallStartingEvent || message is LLMCallCompletedEvent
+    -->
+    ```kotlin
+    install(Tracing) {
+        val fileWriter = TraceFeatureMessageFileWriter(
+            outputPath, 
+            { path: Path -> SystemFileSystem.sink(path).buffered() }
+        )
+        addMessageProcessor(fileWriter)
+        
+        // Only trace LLM calls
+        fileWriter.setMessageFilter { message ->
+            message is LLMCallStartingEvent || message is LLMCallCompletedEvent
+        }
     }
-}
-```
-<!--- KNIT example-events-01.kt -->
+    ```
+    <!--- KNIT example-events-01.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    ```
+    <!--- KNIT example-events-java-01.java -->
 
 ### 여러 개의 메시지 프로세서를 사용할 수 있나요?
 
 네, 여러 메시지 프로세서를 추가하여 여러 대상에 동시에 트레이싱할 수 있습니다:
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.remote.server.config.DefaultServerConnectionConfig
-import ai.koog.agents.example.exampleTracing01.outputPath
-import ai.koog.agents.features.tracing.feature.Tracing
-import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
-import ai.koog.agents.features.tracing.writer.TraceFeatureMessageLogWriter
-import ai.koog.agents.features.tracing.writer.TraceFeatureMessageRemoteWriter
-import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
-import ai.koog.prompt.executor.ollama.client.OllamaModels
-import io.github.oshai.kotlinlogging.KotlinLogging
-import kotlinx.coroutines.runBlocking
-import kotlinx.io.buffered
-import kotlinx.io.files.Path
-import kotlinx.io.files.SystemFileSystem
+=== "Kotlin"
 
-const val input = "What's the weather like in New York?"
-val syncOpener = { path: Path -> SystemFileSystem.sink(path).buffered() }
-val logger = KotlinLogging.logger {}
-val connectionConfig = DefaultServerConnectionConfig(host = ai.koog.agents.example.exampleTracing06.host, port = ai.koog.agents.example.exampleTracing06.port)
-
-fun main() {
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.agents.core.feature.remote.server.config.DefaultServerConnectionConfig
+    import ai.koog.agents.example.exampleTracing01.outputPath
+    import ai.koog.agents.features.tracing.feature.Tracing
+    import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter
+    import ai.koog.agents.features.tracing.writer.TraceFeatureMessageLogWriter
+    import ai.koog.agents.features.tracing.writer.TraceFeatureMessageRemoteWriter
+    import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
+    import ai.koog.prompt.executor.ollama.client.OllamaModels
+    import io.github.oshai.kotlinlogging.KotlinLogging
+    import kotlinx.coroutines.runBlocking
+    import kotlinx.io.buffered
+    import kotlinx.io.files.Path
+    import kotlinx.io.files.SystemFileSystem
+    const val input = "What's the weather like in New York?"
+    val syncOpener = { path: Path -> SystemFileSystem.sink(path).buffered() }
+    val logger = KotlinLogging.logger {}
+    val connectionConfig = DefaultServerConnectionConfig(host = ai.koog.agents.example.exampleTracing06.host, port = ai.koog.agents.example.exampleTracing06.port)
+    fun main() {
     runBlocking {
-        // Creating an agent
-        val agent = AIAgent(
-            promptExecutor = simpleOllamaAIExecutor(),
-            llmModel = OllamaModels.Meta.LLAMA_3_2,
-        ) {
--->
-<!--- SUFFIX
+    // Creating an agent
+    val agent = AIAgent(
+    promptExecutor = simpleOllamaAIExecutor(),
+    llmModel = OllamaModels.Meta.LLAMA_3_2,
+    ) {
+    -->
+    <!--- SUFFIX
+            }
         }
     }
-}
--->
-```kotlin
-install(Tracing) {
-    addMessageProcessor(TraceFeatureMessageLogWriter(logger))
-    addMessageProcessor(TraceFeatureMessageFileWriter(outputPath, syncOpener))
-    addMessageProcessor(TraceFeatureMessageRemoteWriter(connectionConfig))
-}
-```
-<!--- KNIT example-events-02.kt -->
+    -->
+    ```kotlin
+    install(Tracing) {
+        addMessageProcessor(TraceFeatureMessageLogWriter(logger))
+        addMessageProcessor(TraceFeatureMessageFileWriter(outputPath, syncOpener))
+        addMessageProcessor(TraceFeatureMessageRemoteWriter(connectionConfig))
+    }
+    ```
+    <!--- KNIT example-events-02.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    ```
+    <!--- KNIT example-events-java-02.java -->
 
 ### 커스텀 메시지 프로세서는 어떻게 만드나요?
 
 `FeatureMessageProcessor` 인터페이스를 구현하세요:
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.feature.model.events.NodeExecutionStartingEvent
-import ai.koog.agents.core.feature.model.events.LLMCallCompletedEvent
-import ai.koog.agents.core.feature.message.FeatureMessage
-import ai.koog.agents.core.feature.message.FeatureMessageProcessor
-import ai.koog.agents.features.tracing.feature.Tracing
-import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
-import ai.koog.prompt.executor.ollama.client.OllamaModels
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+=== "Kotlin"
 
-fun main() {
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.agents.core.feature.model.events.NodeExecutionStartingEvent
+    import ai.koog.agents.core.feature.model.events.LLMCallCompletedEvent
+    import ai.koog.agents.core.feature.message.FeatureMessage
+    import ai.koog.agents.core.feature.message.FeatureMessageProcessor
+    import ai.koog.agents.features.tracing.feature.Tracing
+    import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
+    import ai.koog.prompt.executor.ollama.client.OllamaModels
+    import kotlinx.coroutines.runBlocking
+    import kotlinx.coroutines.flow.MutableStateFlow
+    import kotlinx.coroutines.flow.StateFlow
+    import kotlinx.coroutines.flow.asStateFlow
+    fun main() {
     runBlocking {
-        // Creating an agent
-        val agent = AIAgent(
-            promptExecutor = simpleOllamaAIExecutor(),
-            llmModel = OllamaModels.Meta.LLAMA_3_2,
-        ) {
--->
-<!--- SUFFIX
+    // Creating an agent
+    val agent = AIAgent(
+    promptExecutor = simpleOllamaAIExecutor(),
+    llmModel = OllamaModels.Meta.LLAMA_3_2,
+    ) {
+    -->
+    <!--- SUFFIX
+            }
         }
     }
-}
--->
-```kotlin
-class CustomTraceProcessor : FeatureMessageProcessor() {
+    -->
+    ```kotlin
+    class CustomTraceProcessor : FeatureMessageProcessor() {
 
-    // Current open state of the processor
-    private var _isOpen = MutableStateFlow(false)
+        // Current open state of the processor
+        private var _isOpen = MutableStateFlow(false)
 
-    override val isOpen: StateFlow<Boolean>
-        get() = _isOpen.asStateFlow()
-    
-    override suspend fun processMessage(message: FeatureMessage) {
-        // Custom processing logic
-        when (message) {
-            is NodeExecutionStartingEvent -> {
-                // Process node start event
+        override val isOpen: StateFlow<Boolean>
+            get() = _isOpen.asStateFlow()
+        
+        override suspend fun processMessage(message: FeatureMessage) {
+            // Custom processing logic
+            when (message) {
+                is NodeExecutionStartingEvent -> {
+                    // Process node start event
+                }
+
+                is LLMCallCompletedEvent -> {
+                    // Process LLM call end event 
+                }
+                // Handle other event types 
             }
+        }
 
-            is LLMCallCompletedEvent -> {
-                // Process LLM call end event 
-            }
-            // Handle other event types 
+        override suspend fun close() {
+            // Close connections of established
         }
     }
 
-    override suspend fun close() {
-        // Close connections of established
+    // Use your custom processor
+    install(Tracing) {
+        addMessageProcessor(CustomTraceProcessor())
     }
-}
+    ```
+    <!--- KNIT example-events-03.kt -->
 
-// Use your custom processor
-install(Tracing) {
-    addMessageProcessor(CustomTraceProcessor())
-}
-```
-<!--- KNIT example-events-03.kt -->
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    ```
+    <!--- KNIT example-events-java-03.java -->
 
 메시지 프로세서에서 처리할 수 있는 기존 이벤트 유형에 대한 자세한 내용은 [사전 정의된 이벤트 유형](#predefined-event-types)을 참조하세요.

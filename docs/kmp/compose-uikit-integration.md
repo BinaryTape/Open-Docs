@@ -36,6 +36,12 @@ tabBarController.tabBar.items?[1].title = "UIKit"
 
 ![UIKit](uikit.png){width=300}
 
+> Compose Multiplatform 渲染需要显式启用高刷新率：
+> 在应用的 `Info.plist` 文件中添加 `CADisableMinimumFrameDurationOnPhone` 键。
+> 如果不添加该键，应用将在运行时崩溃。
+>
+{style="note"}
+
 在[示例项目](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/interop/ios-compose-in-uikit)中探索此代码。
 
 ## 在 Compose Multiplatform 中使用 UIKit
@@ -93,10 +99,10 @@ fun UseUITextField(modifier: Modifier = Modifier) {
 }
 ```
 
-* factory 参数包含 `editingChanged()` 函数和 `textField.addTarget()` 侦听器，用于检测 `UITextField` 的任何更改。
+* `factory` 参数包含 `editingChanged()` 函数和 `textField.addTarget()` 侦听器，用于检测 `UITextField` 的任何更改。
 * `editingChanged()` 函数使用了 `@ObjCAction` 注解，以便它可以与 Objective-C 代码互操作。
 * `addTarget()` 函数的 `action` 参数传递了 `editingChanged()` 函数的名称，从而响应 `UIControlEventEditingChanged` 事件并触发该函数。
-* 当可观察的 message 状态值发生变化时，会调用 `UIKitView()` 的 `update` 参数。
+* 当可观察的 `message` 状态值发生变化时，会调用 `UIKitView()` 的 `update` 参数。
 * 该函数更新 `UITextField` 的 `text` 属性，以便用户看到更新后的值。
 
 在我们的[示例项目](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/interop/ios-uikit-in-compose)中探索此示例的代码。
@@ -286,7 +292,7 @@ fun WebViewWithDelegate(
     UIKitView(
         modifier = modifier,
         factory = {
-            // 实例化 WKWebView 并设置其代理
+            // 实例化 WKWebView并设置其代理
             val webView = WKWebView().apply {
                 navigationDelegate = delegate
                 loadRequest(NSURLRequest(uRL = NSURL(string = initialUrl)))

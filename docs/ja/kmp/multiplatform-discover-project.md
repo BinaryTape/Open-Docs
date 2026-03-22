@@ -20,7 +20,7 @@ fun greeting() {
 
 プラットフォーム間で共有されるKotlinコードは、通常 `commonMain` ディレクトリに配置されます。コードファイルの場所は、そのコードがどのプラットフォーム向けにコンパイルされるかのリストに影響するため重要です。
 
-Kotlinコンパイラはソースコードを入力として受け取り、結果としてプラットフォーム固有のバイナリセットを生成します。マルチプラットフォームプロジェクトをコンパイラする際、同じコードから複数のバイナリを生成できます。たとえば、コンパイラは同じKotlinファイルからJVMの `.class` ファイルとネイティブの実行ファイルを生成できます。
+Kotlinコンパイラはソースコードを入力として受け取り、結果としてプラットフォーム固有のバイナリセットを生成します。マルチプラットフォームプロジェクトをコンパイルする際、同じコードから複数のバイナリを生成できます。たとえば、コンパイラは同じKotlinファイルからJVMの `.class` ファイルとネイティブの実行ファイルを生成できます。
 
 ![共通コード](common-code-diagram.svg){width=700}
 
@@ -170,7 +170,7 @@ kotlin {
     android()
     iosArm64()   // 64ビットiPhoneデバイス
     macosArm64() // Appleシリコン搭載の最新Mac
-    watchosX64() // 最新の64ビットApple Watchデバイス
+    watchosArm64() // 最新の64ビットApple Watchデバイス
     tvosArm64()  // 最新のApple TVデバイス  
 }
 ```
@@ -188,7 +188,7 @@ fun randomUuidString(): String {
 
 この関数を `commonMain` に追加することはできません。 `commonMain` はAndroidを含む宣言されたすべてのターゲットに対してコンパイルされますが、 `platform.Foundation.NSUUID` はAndroidでは利用できないApple固有のAPIだからです。 `commonMain` で `NSUUID` を参照しようとすると、Kotlinはエラーを表示します。
 
-このコードをコピーして、Apple固有の各ソースセット（`iosArm64Main`、 `macosArm64Main`、 `watchosX64Main`、 `tvosArm64Main`）に貼り付けることもできます。しかし、このようにコードを複製するとエラーが発生しやすくなるため、このアプローチは推奨されません。
+このコードをコピーして、Apple固有の各ソースセット（`iosArm64Main`、 `macosArm64Main`、 `watchosArm64Main`、 `tvosArm64Main`）に貼り付けることもできます。しかし、このようにコードを複製するとエラーが発生しやすくなるため、このアプローチは推奨されません。
 
 この問題を解決するために、「中間ソースセット（Intermediate source sets）」を使用できます。中間ソースセットは、プロジェクト内のすべてではなく、一部のターゲットに対してコンパイルされるKotlinソースセットです。中間ソースセットは「階層的ソースセット（Hierarchical source sets）」または単に「階層（Hierarchies）」と呼ばれることもあります。
 

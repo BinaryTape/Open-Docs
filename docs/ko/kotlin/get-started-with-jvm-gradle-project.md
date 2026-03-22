@@ -2,7 +2,7 @@
 
 이 튜토리얼에서는 IntelliJ IDEA와 Gradle을 사용하여 JVM 콘솔 애플리케이션을 만드는 방법을 설명합니다.
 
-시작하려면 먼저 최신 버전의 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html)를 다운로드하여 설치하세요.
+시작하려면 먼저 최신 버전의 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)를 다운로드하여 설치하세요.
 
 ## 프로젝트 생성
 

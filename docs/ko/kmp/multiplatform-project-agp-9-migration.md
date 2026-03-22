@@ -22,21 +22,28 @@ Android 애플리케이션 플러그인(`com.android.application`) 또는 Androi
 
 AGP 9.0부터 이러한 플러그인들은 KMP와 더 이상 호환되지 않으므로, KMP를 위해 특별히 제작된 새로운 Android-KMP 라이브러리 플러그인으로 마이그레이션해야 합니다.
 
-> 단기적으로 AGP 9.0에서 프로젝트를 작동시키려면 지원 중단된(deprecated) API를 수동으로 활성화할 수 있습니다.
-> 이를 위해 프로젝트의 `gradle.properties` 파일에 다음 프로퍼티를 추가하세요:
-> `android.enableLegacyVariantApi=true`.
->
-> 레거시 API는 2026년 하반기에 출시될 예정인 [AGP 10에서 완전히 제거](https://developer.android.com/build/releases/gradle-plugin-roadmap#agp-10)될 예정입니다.
-> 그전에 마이그레이션을 완료하시기 바랍니다.
->
-{style="note"}
+### 마이그레이션 방법
 
 라이브러리 마이그레이션 단계는 [Android 문서의 가이드](https://developer.android.com/kotlin/multiplatform/plugin#migrate)를 참조하세요.
 
 Android 앱 프로젝트를 마이그레이션하려면 Android 진입점과 공용 코드가 적절히 구성된 별도의 모듈에 있어야 합니다.
-다음은 샘플 앱 마이그레이션을 위한 일반적인 튜토리얼입니다:
+다음은 샘플 앱 마이그레이션을 위한 일반적인 튜토리얼로, 다음 내용을 확인할 수 있습니다:
 * [Android 앱 진입점을 별도의 모듈로 추출하는 방법](#android-app)
 * [공용 모듈의 구성을 업데이트하는 방법](#configure-the-shared-module-to-use-the-android-kmp-library-plugin)
+
+> [준비된 스킬(skill)](https://github.com/Kotlin/kotlin-agent-skills/blob/main/skills/kotlin-tooling-agp9-migration/SKILL.md)을 사용하여 원하는 AI 에이전트에게 마이그레이션을 맡길 수 있습니다. 
+> AI 처리 결과는 완전히 예측 가능하지 않을 수 있다는 점에 유의하세요.
+>
+{style="note"}
+
+### AGP 10 전까지 레거시 API 활성화
+
+단기적으로 AGP 9.0에서 프로젝트를 작동시키려면 지원 중단된(deprecated) API를 수동으로 활성화할 수 있습니다.
+이를 위해 프로젝트의 `gradle.properties` 파일에 다음 프로퍼티를 추가하세요:
+`android.enableLegacyVariantApi=true`.
+
+레거시 API는 2026년 하반기에 출시될 예정인 [AGP 10에서 완전히 제거](https://developer.android.com/build/releases/gradle-plugin-roadmap#agp-10)될 예정입니다.
+그전에 마이그레이션을 완료하시기 바랍니다.
 
 ## 샘플 앱 마이그레이션
 

@@ -99,13 +99,12 @@ Gradle 구성 캐시를 사용하려면 `gradle.properties` 파일에 `org.gradl
 
 ### 이전에 비활성화했던 기능 활성화하기
 
-Gradle 데몬과 컴파일러 캐시를 비활성화하는 Kotlin/Native 속성들이 있습니다.
+Gradle 데몬과 컴파일러 캐시를 비활성화하는 Kotlin/Native 옵션들이 있습니다.
 
 * `kotlin.native.disableCompilerDaemon=true`
-* `kotlin.native.cacheKind=none`
-* `kotlin.native.cacheKind.$target=none` (`$target`은 `iosSimulatorArm64`와 같은 Kotlin/Native 컴파일 타겟)
+* Gradle 빌드 파일의 `binaries {}` 블록에 있는 [`disableNativeCache`](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#binaries) DSL.
 
-이전에 이러한 기능에 문제가 있어 `gradle.properties` 파일이나 Gradle 인자에 해당 라인을 추가했다면, 이를 제거하고 빌드가 성공적으로 완료되는지 확인해 보세요. 이러한 속성들은 이미 해결된 문제들을 우회하기 위해 과거에 추가되었을 가능성이 큽니다.
+이전에 이러한 기능에 문제가 있어 `gradle.properties` 파일이나 Gradle 빌드 파일에 해당 라인을 추가했다면, 이를 제거하고 빌드가 성공적으로 완료되는지 확인해 보세요. 이러한 속성들은 이미 해결된 문제들을 우회하기 위해 과거에 추가되었을 가능성이 큽니다.
 
 ### klib 아티팩트의 증분 컴파일 시도
 

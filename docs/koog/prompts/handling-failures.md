@@ -5,39 +5,57 @@
 ## 重试功能
 
 在使用 LLM 提供程序时，可能会出现速率限制或临时服务不可用等瞬态错误。
-`RetryingLLMClient` 修饰器为任何 LLM 客户端添加了自动重试逻辑。
+`RetryingLLMClient` 修饰器为 Kotlin 和 Java 中的任何 LLM 客户端添加了自动重试逻辑。
 
 ### 基本用法
 
 为任何现有客户端包装重试功能：
 
-<!--- INCLUDE
-import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
-import ai.koog.prompt.dsl.prompt
-import kotlinx.coroutines.runBlocking
+=== "Kotlin"
 
-fun main() {
-    runBlocking {
-        val apiKey = System.getenv("OPENAI_API_KEY")
-        val prompt = prompt("test") {
-            user("Hello")
+    <!--- INCLUDE
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
+    import ai.koog.prompt.dsl.prompt
+    import kotlinx.coroutines.runBlocking
+    fun main() {
+        runBlocking {
+            val apiKey = System.getenv("OPENAI_API_KEY")
+            val prompt = prompt("test") {
+                user("Hello")
+            }
+    -->
+    <!--- SUFFIX
         }
--->
-<!--- SUFFIX
     }
-}
--->
-```kotlin
-// 为任何客户端包装重试功能
-val client = OpenAILLMClient(apiKey)
-val resilientClient = RetryingLLMClient(client)
+    -->
+    ```kotlin
+    // 为任何客户端包装重试功能
+    val client = OpenAILLMClient(apiKey)
+    val resilientClient = RetryingLLMClient(client)
 
-// 现在，所有操作都将在发生瞬态错误时自动进行重试
-val response = resilientClient.execute(prompt, OpenAIModels.Chat.GPT4o)
-```
-<!--- KNIT example-handling-failures-01.kt -->
+    // 现在，所有操作都将在发生瞬态错误时自动进行重试
+    val response = resilientClient.execute(prompt, OpenAIModels.Chat.GPT4o)
+    ```
+    <!--- KNIT example-handling-failures-01.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    OpenAILLMClient client = new OpenAILLMClient(apiKey);
+    RetryingLLMClient resilientClient = new RetryingLLMClient(client);
+
+    // 现在，所有操作都将在发生瞬态错误时自动进行重试
+    List<Message.Response> response = resilientClient.execute(prompt, OpenAIModels.Chat.GPT4o);
+    ```
+    <!--- KNIT example-handling-failures-java-01.java -->
 
 ### 配置重试行为
 
@@ -45,31 +63,50 @@ val response = resilientClient.execute(prompt, OpenAIModels.Chat.GPT4o)
 您可以使用传递给 `RetryingLLMClient` 的 `RetryConfig` 来指定不同的重试配置。
 例如：
 
-<!--- INCLUDE
-import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import ai.koog.prompt.executor.clients.retry.RetryConfig
-import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
+=== "Kotlin"
 
-val apiKey = System.getenv("OPENAI_API_KEY")
-val client = OpenAILLMClient(apiKey)
--->
-```kotlin
-// 使用预定义配置
-val conservativeClient = RetryingLLMClient(
-    delegate = client,
-    config = RetryConfig.CONSERVATIVE
-)
-```
-<!--- KNIT example-handling-failures-02.kt -->
+    <!--- INCLUDE
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+    import ai.koog.prompt.executor.clients.retry.RetryConfig
+    import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
+    val apiKey = System.getenv("OPENAI_API_KEY")
+    val client = OpenAILLMClient(apiKey)
+    -->
+    ```kotlin
+    // 使用预定义配置
+    val conservativeClient = RetryingLLMClient(
+        delegate = client,
+        config = RetryConfig.CONSERVATIVE
+    )
+    ```
+    <!--- KNIT example-handling-failures-02.kt -->
 
-Koog 提供了几种预定义的重试配置：
+=== "Java"
 
-| 配置 | 最大重试次数 | 初始延迟 | 最大延迟 | 用例 |
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    OpenAILLMClient client = new OpenAILLMClient(apiKey);
+    // 使用预定义配置
+    RetryingLLMClient conservativeClient = new RetryingLLMClient(
+        client,
+        RetryConfig.Companion.getCONSERVATIVE()
+    );
+    ```
+    <!--- KNIT example-handling-failures-java-02.java -->
+
+Koog 提供了几种预定义的重试配置，在 Kotlin 中可以通过 `RetryConfig` 获取，在 Java 中可以通过 `RetryConfig.Companion` 获取：
+
+| 配置 (Kotlin) | 最大重试次数 | 初始延迟 | 最大延迟 | 用例 |
 |----------------------------|--------------|---------------|-----------|----------------------------------------------------------------------------------------------------------|
 | `RetryConfig.DISABLED` | 1（不重试） | - | - | 开发、测试和调试。 |
-| `RetryConfig.CONSERVATIVE` | 3 | 2s | 30s | 可靠性比速度更重要的后台或计划任务。 |
-| `RetryConfig.AGGRESSIVE` | 5 | 500ms | 20s | 快速从瞬态错误中恢复比减少 API 调用更重要的关键操作。 |
-| `RetryConfig.PRODUCTION` | 3 | 1s | 20s | 通用生产环境使用。 |
+| `RetryConfig.CONSERVATIVE` | 3 | 2 秒 | 30 秒 | 可靠性比速度更重要的后台或计划任务。 |
+| `RetryConfig.AGGRESSIVE` | 5 | 500 毫秒 | 20 秒 | 快速从瞬态错误中恢复比减少 API 调用更重要的关键操作。 |
+| `RetryConfig.PRODUCTION` | 3 | 1 秒 | 20 秒 | 通用生产环境使用。 |
 
 您可以直接使用它们或创建自定义配置：
 
@@ -191,7 +228,6 @@ import ai.koog.prompt.executor.clients.retry.RetryConfig
 import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
 import ai.koog.prompt.dsl.prompt
 import kotlinx.coroutines.runBlocking
-
 fun main() {
     runBlocking {
         val baseClient = OpenAILLMClient(System.getenv("OPENAI_API_KEY"))
@@ -220,54 +256,92 @@ val stream = client.executeStreaming(prompt, OpenAIModels.Chat.GPT4o)
 
 ### 在 prompt 执行器中使用重试
 
-在使用 prompt 执行器时，您可以在创建执行器之前将底层的 LLM 客户端包装在重试机制中。
-要详细了解 prompt 执行器，请参阅 [Prompt 执行器](prompt-executors.md)。
+在 Kotlin 和 Java 中使用 prompt 执行器时，您都可以在创建执行器之前将底层的 LLM 客户端包装在重试机制中。
+要了解更多关于 prompt 执行器的信息，请参阅 [Prompt 执行器](prompt-executors.md)。
 
-<!--- INCLUDE
-import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
-import ai.koog.prompt.executor.clients.bedrock.BedrockLLMClient
-import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import ai.koog.prompt.executor.clients.retry.RetryConfig
-import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
-import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
-import ai.koog.prompt.llm.LLMProvider
-import aws.sdk.kotlin.runtime.auth.credentials.StaticCredentialsProvider
+=== "Kotlin"
 
--->
-```kotlin
-// 带重试的单提供程序执行器
-val resilientClient = RetryingLLMClient(
-    OpenAILLMClient(System.getenv("OPENAI_API_KEY")),
-    RetryConfig.PRODUCTION
-)
-val executor = MultiLLMPromptExecutor(resilientClient)
-
-// 具有灵活客户端配置的多提供程序执行器
-val multiExecutor = MultiLLMPromptExecutor(
-    LLMProvider.OpenAI to RetryingLLMClient(
+    <!--- INCLUDE
+    import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
+    import ai.koog.prompt.executor.clients.bedrock.BedrockLLMClient
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+    import ai.koog.prompt.executor.clients.retry.RetryConfig
+    import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
+    import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
+    import ai.koog.prompt.llm.LLMProvider
+    import aws.sdk.kotlin.runtime.auth.credentials.StaticCredentialsProvider
+    -->
+    ```kotlin
+    // 带重试的单提供程序执行器
+    val resilientClient = RetryingLLMClient(
         OpenAILLMClient(System.getenv("OPENAI_API_KEY")),
-        RetryConfig.CONSERVATIVE
-    ),
-    LLMProvider.Anthropic to RetryingLLMClient(
-        AnthropicLLMClient(System.getenv("ANTHROPIC_API_KEY")),
-        RetryConfig.AGGRESSIVE  
-    ),
-    // Bedrock 客户端已经内置了 AWS SDK 重试机制
-    LLMProvider.Bedrock to BedrockLLMClient(
-        identityProvider = StaticCredentialsProvider {
-            accessKeyId = System.getenv("AWS_ACCESS_KEY_ID")
-            secretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY")
-            sessionToken = System.getenv("AWS_SESSION_TOKEN")
-        },
-    ),
-)
-```
-<!--- KNIT example-handling-failures-07.kt -->
+        RetryConfig.PRODUCTION
+    )
+    val executor = MultiLLMPromptExecutor(resilientClient)
+
+    // 具有灵活客户端配置的多提供程序执行器
+    val multiExecutor = MultiLLMPromptExecutor(
+        LLMProvider.OpenAI to RetryingLLMClient(
+            OpenAILLMClient(System.getenv("OPENAI_API_KEY")),
+            RetryConfig.CONSERVATIVE
+        ),
+        LLMProvider.Anthropic to RetryingLLMClient(
+            AnthropicLLMClient(System.getenv("ANTHROPIC_API_KEY")),
+            RetryConfig.AGGRESSIVE  
+        ),
+        // Bedrock 客户端已经内置了 AWS SDK 重试机制 
+        LLMProvider.Bedrock to BedrockLLMClient(
+            identityProvider = StaticCredentialsProvider {
+                accessKeyId = System.getenv("AWS_ACCESS_KEY_ID")
+                secretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY")
+                sessionToken = System.getenv("AWS_SESSION_TOKEN")
+            },
+        ),
+    )
+    ```
+    <!--- KNIT example-handling-failures-07.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    // 带重试的单提供程序执行器 (Java)
+    RetryingLLMClient resilientClient = new RetryingLLMClient(
+        new OpenAILLMClient(System.getenv("OPENAI_API_KEY")),
+        RetryConfig.Companion.getPRODUCTION()
+    );
+
+    MultiLLMPromptExecutor executor = new MultiLLMPromptExecutor(resilientClient);
+
+    // 具有灵活客户端配置的多提供程序执行器 (Java)
+    LLMClient openai = new RetryingLLMClient(
+        new OpenAILLMClient(System.getenv("OPENAI_API_KEY")),
+        RetryConfig.Companion.getCONSERVATIVE()
+    );
+
+    LLMClient anthropic = new RetryingLLMClient(
+        new AnthropicLLMClient(System.getenv("ANTHROPIC_API_KEY")),
+        RetryConfig.Companion.getAGGRESSIVE()
+    );
+
+    Map<LLMProvider, LLMClient> clients = Map.of(
+        LLMProvider.OpenAI, openai,
+        LLMProvider.Anthropic, anthropic
+    );
+
+    MultiLLMPromptExecutor multiExecutor = new MultiLLMPromptExecutor(clients);
+    ```
+    <!--- KNIT example-handling-failures-java-03.java -->
 
 ## 超时配置
 
-所有 LLM 客户端都支持超时配置以防止请求挂起。
-您可以在创建客户端时使用 [`ConnectionTimeoutConfig`](api:prompt-executor-clients::ai.koog.prompt.executor.clients.ConnectionTimeoutConfig) 类指定网络连接的超时值。
+在 Kotlin 和 Java 中，所有 LLM 客户端都支持超时配置以防止请求挂起。
+您可以在使用 [`ConnectionTimeoutConfig`](api:prompt-executor-clients::ai.koog.prompt.executor.clients.ConnectionTimeoutConfig) 类创建客户端时指定网络连接的超时值。
 
 `ConnectionTimeoutConfig` 具有以下属性：
 
@@ -279,26 +353,55 @@ val multiExecutor = MultiLLMPromptExecutor(
 
 您可以根据特定需求自定义这些值。例如：
 
-<!--- INCLUDE
-import ai.koog.prompt.executor.clients.ConnectionTimeoutConfig
-import ai.koog.prompt.executor.clients.openai.OpenAIClientSettings
-import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+=== "Kotlin"
 
-val apiKey = System.getenv("OPENAI_API_KEY")    
--->
-```kotlin
-val client = OpenAILLMClient(
-    apiKey = apiKey,
-    settings = OpenAIClientSettings(
-        timeoutConfig = ConnectionTimeoutConfig(
-            connectTimeoutMillis = 5000,    // 5 秒建立连接
-            requestTimeoutMillis = 60000,    // 60 秒完成整个请求
-            socketTimeoutMillis = 120000   // 120 秒在套接字上等待数据
+    <!--- INCLUDE
+    import ai.koog.prompt.executor.clients.ConnectionTimeoutConfig
+    import ai.koog.prompt.executor.clients.openai.OpenAIClientSettings
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+    val apiKey = System.getenv("OPENAI_API_KEY")    
+    -->
+    ```kotlin
+    val client = OpenAILLMClient(
+        apiKey = apiKey,
+        settings = OpenAIClientSettings(
+            timeoutConfig = ConnectionTimeoutConfig(
+                connectTimeoutMillis = 5000,    // 5 秒建立连接
+                requestTimeoutMillis = 60000,    // 60 秒完成整个请求
+                socketTimeoutMillis = 120000   // 120 秒在套接字上等待数据
+            )
         )
     )
-)
-```
-<!--- KNIT example-handling-failures-08.kt -->
+    ```
+    <!--- KNIT example-handling-failures-08.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    String apiKey = System.getenv("OPENAI_API_KEY");
+    ConnectionTimeoutConfig timeouts = new ConnectionTimeoutConfig(
+        5000L,   // connectTimeoutMillis
+        60000L,  // requestTimeoutMillis
+        120000L  // socketTimeoutMillis
+    );
+    OpenAIClientSettings settings = new OpenAIClientSettings(
+        "https://api.openai.com", // baseUrl
+        timeouts,
+        "v1/chat/completions",    // chatCompletionsPath
+        "v1/responses",           // responsesAPIPath
+        "v1/embeddings",          // embeddingsPath
+        "v1/moderations",         // moderationsPath
+        "v1/models"               // modelsPath
+    );
+    OpenAILLMClient client = new OpenAILLMClient(apiKey, settings);
+    ```
+    <!--- KNIT example-handling-failures-java-04.java -->
 
 !!! tip
     对于长时间运行或流式调用，请为 `requestTimeoutMillis` 和 `socketTimeoutMillis` 设置更高的值。
@@ -312,55 +415,113 @@ val client = OpenAILLMClient(
 - **回退方案**用于关键操作。
 - **监控重试模式**以识别重复发生的问题。
 
-以下是错误处理的示例：
+以下是 Kotlin 和 Java 中的错误处理示例：
 
-<!--- INCLUDE
-import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
-import ai.koog.prompt.executor.clients.retry.RetryConfig
-import ai.koog.prompt.dsl.prompt
-import kotlinx.coroutines.runBlocking
-import org.slf4j.LoggerFactory
--->
-```kotlin
-fun main() {
-    runBlocking {
-        val logger = LoggerFactory.getLogger("Example")
-        val resilientClient = RetryingLLMClient(
-            OpenAILLMClient(System.getenv("OPENAI_API_KEY")),
-            RetryConfig.PRODUCTION
-        )
-        val prompt = prompt("test") { user("Hello") }
-        val model = OpenAIModels.Chat.GPT4o
+=== "Kotlin"
 
-        fun processResponse(response: Any) { /* 实现 */ }
-        fun scheduleRetryLater() { /* 实现 */ }
-        fun notifyAdministrator() { /* 实现 */ }
-        fun useDefaultResponse() { /* 实现 */ }
+    <!--- INCLUDE
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
+    import ai.koog.prompt.executor.clients.retry.RetryConfig
+    import ai.koog.prompt.dsl.prompt
+    import kotlinx.coroutines.runBlocking
+    import org.slf4j.LoggerFactory
+    fun main() {
+        runBlocking {
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```kotlin
+    val logger = LoggerFactory.getLogger("Example")
+    val resilientClient = RetryingLLMClient(
+        OpenAILLMClient(System.getenv("OPENAI_API_KEY")),
+        RetryConfig.PRODUCTION
+    )
+    val prompt = prompt("test") { user("Hello") }
+    val model = OpenAIModels.Chat.GPT4o
 
-        try {
-            val response = resilientClient.execute(prompt, model)
-            processResponse(response)
-        } catch (e: Exception) {
-            logger.error("LLM operation failed", e)
+    fun processResponse(response: Any) { /* 实现 */ }
+    fun scheduleRetryLater() { /* 实现 */ }
+    fun notifyAdministrator() { /* 实现 */ }
+    fun useDefaultResponse() { /* 实现 */ }
 
-            when {
-                e.message?.contains("rate limit") == true -> {
-                    // 专门处理速率限制
-                    scheduleRetryLater()
-                }
-                e.message?.contains("invalid api key") == true -> {
-                    // 处理身份验证错误
-                    notifyAdministrator()
-                }
-                else -> {
-                    // 回退到备选方案
-                    useDefaultResponse()
-                }
+    try {
+        val response = resilientClient.execute(prompt, model)
+        processResponse(response)
+    } catch (e: Exception) {
+        logger.error("LLM operation failed", e)
+
+        when {
+            e.message?.contains("rate limit") == true -> {
+                // 专门处理速率限制
+                scheduleRetryLater()
+            }
+            e.message?.contains("invalid api key") == true -> {
+                // 处理身份验证错误
+                notifyAdministrator()
+            }
+            else -> {
+                // 回退到备选方案
+                useDefaultResponse()
             }
         }
     }
-}
-```
-<!--- KNIT example-handling-failures-09.kt -->
+    ```
+    <!--- KNIT example-handling-failures-09.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.Prompt;
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient;
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels;
+    import ai.koog.prompt.executor.clients.retry.RetryConfig;
+    import ai.koog.prompt.executor.clients.retry.RetryingLLMClient;
+    import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor;
+    import ai.koog.prompt.message.Message;
+    import org.slf4j.Logger;
+    import org.slf4j.LoggerFactory;
+    import java.util.List;
+    import java.util.function.Consumer;
+    class exampleHandlingFailuresJava05 {
+        public static void main(String[] args) {
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    Logger logger = LoggerFactory.getLogger("Example");
+    RetryingLLMClient resilientClient = new RetryingLLMClient(
+            new OpenAILLMClient(System.getenv("OPENAI_API_KEY")),
+            RetryConfig.PRODUCTION
+    );
+    Prompt prompt = Prompt.builder("test")
+            .user("Hello")
+            .build();
+    MultiLLMPromptExecutor promptExecutor = new MultiLLMPromptExecutor(resilientClient);
+
+    Consumer<List<Message.Response>> processResponse = (resp) -> { /* 实现 */ };
+    Runnable scheduleRetryLater = () -> { /* 实现 */ };
+    Runnable notifyAdministrator = () -> { /* 实现 */ };
+    Runnable useDefaultResponse = () -> { /* 实现 */ };
+
+    try {
+        List<Message.Response> response = promptExecutor.execute(prompt, OpenAIModels.Chat.GPT4o);
+        processResponse.accept(response);
+    } catch (Exception e) {
+        logger.error("LLM operation failed", e);
+        String msg = e.getMessage() == null ? "" : e.getMessage().toLowerCase();
+        if (msg.contains("rate limit")) {
+            scheduleRetryLater.run();
+        } else if (msg.contains("invalid api key")) {
+            notifyAdministrator.run();
+        } else {
+            useDefaultResponse.run();
+        }
+    }
+    ```
+    <!--- KNIT example-handling-failures-java-05.java -->

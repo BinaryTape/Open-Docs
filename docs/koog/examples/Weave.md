@@ -19,7 +19,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Weav
 - 一个 Weave/W&B 帐号：https://wandb.ai
 - 从 https://wandb.ai/authorize 获取您的 API 密钥，并将其公开为环境变量：`WEAVE_API_KEY`
 - 您的 Weave 实体（团队或用户名）名称公开为 `WEAVE_ENTITY`
-    - 您可以在 W&B 仪表板上找到它：https://wandb.ai/home（左侧边栏“Teams”）
+  - 您可以在 W&B 仪表板上找到它：https://wandb.ai/home（左侧边栏“Teams”）
 - 一个公开为 `WEAVE_PROJECT_NAME` 的项目名称（如果未设置，本示例使用 `koog-tracing`）
 - 一个公开为 `OPENAI_API_KEY` 的 OpenAI API 密钥，用于运行 Koog agent
 
@@ -52,7 +52,6 @@ export OPENAI_API_KEY=...
 ```kotlin
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
-import ai.koog.agents.features.opentelemetry.integration.weave.addWeaveExporter
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 

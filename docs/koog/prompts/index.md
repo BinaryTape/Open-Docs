@@ -12,18 +12,39 @@ Prompt 是针对大型语言模型 (LLM) 的指令，用于引导其生成响应
 - `messages`：代表与 LLM 对话的消息列表。
 - `params`：可选的 [LLM 配置参数](prompt-creation/index.md#prompt-parameters)（例如 temperature、工具选择等）。
 
-虽然您可以直接实例化 `Prompt` 类，但推荐的创建方式是使用 [Kotlin DSL](prompt-creation/index.md)，它提供了一种结构化的方式来定义对话。
+虽然您可以直接实例化 `Prompt` 类，但推荐的创建方式是使用 [Kotlin DSL](prompt-creation/index.md) 或 Java builder API，它们提供了一种结构化的方式来定义对话。
 
-<!--- INCLUDE
-import ai.koog.prompt.dsl.prompt
--->
-```kotlin
-val myPrompt = prompt("hello-koog") {
-    system("You are a helpful assistant.")
-    user("What is Koog?")
-}
-```
-<!--- KNIT example-prompts-01.kt -->
+!!! note
+    本页中的 Kotlin 示例使用 Kotlin DSL。Java 示例使用 `Prompt.builder("id")` builder，并带有显式方法，如 `system(...)`、`user(...)`、`assistant(...)`、`toolCall(...)`、`toolResult(...)` 以及在适用情况下使用的 `withOutput(Foo.class)`。
+
+=== "Kotlin"
+
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.prompt
+    -->
+    ```kotlin
+    val myPrompt = prompt("hello-koog") {
+        system("You are a helpful assistant.")
+        user("What is Koog?")
+    }
+    ```
+    <!--- KNIT example-prompts-01.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    var myPrompt = Prompt.builder("hello-koog")
+        .system("You are a helpful assistant.")
+        .user("What is Koog?")
+        .build();
+    ```
+    <!--- KNIT example-prompts-java-01.java -->
 
 !!! note
     AI 智能体可以将简单的文本 prompt 作为输入。
@@ -38,7 +59,7 @@ Koog 为针对 LLM 运行 prompt 提供了两个抽象级别：LLM 客户端和 
 
 ```mermaid
 flowchart TB
-    A([使用 Kotlin DSL 构建的 Prompt])
+    A([使用 Kotlin DSL 或 Java builder 构建的 Prompt])
     B{LLM 客户端或 prompt 执行器}
     C[LLM 提供商]
     D([响应至您的应用程序])
@@ -48,6 +69,7 @@ flowchart TB
     C -->|"返回响应"| B
     B -->|"返回结果"| D
 ```
+<!--- KNIT example-prompts-01.txt -->
 
 <div class="grid cards" markdown>
 
@@ -101,35 +123,54 @@ Koog 允许您在运行 prompt 时优化性能并处理失败。
 
 ### 初始 prompt 设置
 
-当您[初始化智能体](../quickstart.md#create-your-first-koog-agent)时，需要定义一条[系统消息](prompt-creation/index.md#system-message)来设定智能体的行为。
+当您[初始化智能体](../quickstart.md#create-your-first-koog-agent)时，可以定义一条[系统消息](prompt-creation/index.md#system-message)来设定智能体的行为。
 然后，当您调用智能体的 `run()` 方法时，通常会提供一条初始[用户消息](prompt-creation/index.md#user-messages)作为输入。
 这些消息共同构成了智能体的初始 prompt。例如：
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import kotlinx.coroutines.runBlocking
+=== "Kotlin"
 
-val apiKey = System.getenv("OPENAI_API_KEY")
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    import kotlinx.coroutines.runBlocking
+    val apiKey = System.getenv("OPENAI_API_KEY")
+    fun main() = runBlocking {
+    -->
+    <!--- SUFFIX
+    }
+    -->
+    ```kotlin
+    // 创建智能体
+    val agent = AIAgent(
+        promptExecutor = simpleOpenAIExecutor(apiKey),
+        systemPrompt = "You are a helpful assistant.",
+        llmModel = OpenAIModels.Chat.GPT4o
+    )
+    
+    // 运行智能体
+    val result = agent.run("What is Koog?")
+    ```
+    <!--- KNIT example-prompts-02.kt -->
 
-fun main() = runBlocking {
--->
-<!--- SUFFIX
-}
--->
-```kotlin
-// 创建智能体
-val agent = AIAgent(
-    promptExecutor = simpleOpenAIExecutor(apiKey),
-    systemPrompt = "You are a helpful assistant.",
-    llmModel = OpenAIModels.Chat.GPT4o
-)
+=== "Java"
 
-// 运行智能体
-val result = agent.run("What is Koog?")
-```
-<!--- KNIT example-prompts-02.kt -->
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    AIAgent<String, String> agent = AIAgent.builder()
+        .promptExecutor(simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")))
+        .systemPrompt("You are a helpful assistant. Answer user questions concisely.")
+        .llmModel(OpenAIModels.Chat.GPT4o)
+        .build();
+
+    var result = agent.run("What is Koog?");
+    ```
+    <!--- KNIT example-prompts-java-02.java -->
 
 在示例中，智能体自动将文本 prompt 转换为 Prompt 对象并将其发送给 prompt 执行器：
 
@@ -151,6 +192,7 @@ flowchart TB
     E -->|"结果给"| B
     B -->|"结果给"| A
 ```
+<!--- KNIT example-prompts-02.txt -->
 
 对于更高级的配置，您还可以使用 [AIAgentConfig](api:agents-core::ai.koog.agents.core.agent.config.AIAgentConfig) 来定义智能体的初始 prompt。
 

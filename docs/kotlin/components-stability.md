@@ -27,7 +27,7 @@ Kotlin 语言和工具集被划分为许多组件，例如适用于 JVM、JS 和
 <a name="stable"/>
 
 **Stable** 意味着“即使在最保守的场景中也可以使用”：
-* 它已完成。我们将根据严格的 [向后兼容规则](https://kotlinfoundation.org/language-committee-guidelines/) 对其进行演进。
+* It's done. 我们将根据严格的 [向后兼容规则](https://kotlinfoundation.org/language-committee-guidelines/) 对其进行演进。
 
 请注意，稳定性级别并不代表组件多久会发布为 Stable。同样，它们也不指示组件在发布前会进行多少改动。它们仅说明组件的变化速度以及用户面临更新问题的风险程度。
 
@@ -83,7 +83,7 @@ Kotlin 语言和工具集被划分为许多组件，例如适用于 JVM、JS 和
 | [No-arg](no-arg-plugin.md)                     | Stable         | 1.3.0        |        |
 | [SAM-with-receiver](sam-with-receiver-plugin.md) | Stable         | 1.3.0        |        |
 | [kapt](kapt.md)                                | Stable         | 1.3.0        |        |
-| [Lombok](lombok.md)                            | Experimental   | 1.5.20       |        |
+| [Lombok](lombok.md)                            | Alpha          | 2.3.20       |        |
 | [Power-assert](power-assert.md)                | Experimental   | 2.0.0        |        |
 
 ### Kotlin 库
@@ -119,12 +119,12 @@ Kotlin 语言和工具集被划分为许多组件，例如适用于 JVM、JS 和
 
 ### 语言工具
 
-| **组件**                      | **状态** | **自该版本起的状态** | **备注**                                |
-|-----------------------------|--------|--------------|---------------------------------------|
-| 脚本语法和语义                     | Alpha  | 1.2.0        |                                       |
-| 脚本嵌入和扩展 API                 | Beta   | 1.5.0        |                                       |
-| 脚本 IDE 支持                   | Beta   |              | 适用于 IntelliJ IDEA 2023.1 及更高版本 |
-| CLI 脚本                      | Alpha  | 1.2.0        |                                       |
+| **组件**                      | **状态**         | **自该版本起的状态** | **备注**                                |
+|-----------------------------|----------------|--------------|---------------------------------------|
+| 脚本语法和语义                     | Alpha          | 1.2.0        |                                       |
+| 脚本嵌入和扩展 API                 | Beta           | 1.5.0        |                                       |
+| 脚本 IDE 支持                   | Beta           |              | 适用于 IntelliJ IDEA 2023.1 及更高版本 |
+| CLI 脚本                      | Alpha          | 1.2.0        |                                       |
 
 ## 语言功能和设计提案
 

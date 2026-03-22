@@ -1,8 +1,8 @@
 [//]: # (title: Kotlin Multiplatform 專案結構基礎)
 
-透過 Kotlin Multiplatform，您可以在不同平台之間共享程式碼。本文將說明通用程式碼的限制、如何區分程式碼中的共享部分與平台特定部分，以及如何指定這些共享程式碼運作的平台。
+透過 Kotlin Multiplatform，您可以在不同平台之間共享程式碼。本文將說明共享程式碼的限制、如何區分程式碼中的共享部分與平台特定部分，以及如何指定這些共享程式碼運作的平台。
 
-您還將學習 Kotlin Multiplatform 專案設定的核心概念，例如通用程式碼、目標 (targets)、平台特定原始碼集 (source sets) 與中間原始碼集，以及測試整合。這將有助於您日後建置自己的多平台專案。
+您還將學習 Kotlin Multiplatform 專案設定的核心概念，例如通用程式碼、目標 (targets)、平台特定原始碼集 (source sets) 與中間原始碼集，以及測試整合。這將有助於您日後設定自己的多平台專案。
 
 此處呈現的模型與 Kotlin 實際使用的模型相比有所簡化。然而，這個基礎模型對於大多數情況應該已經足夠。
 
@@ -157,7 +157,7 @@ fun jvmGreeting() {
 * 若要選擇儲存程式碼的目錄或原始檔，請先決定要在哪些目標之間共享程式碼：
 
     * 如果程式碼在所有目標之間共享，則應在 `commonMain` 中宣告。
-    * 如果程式碼僅用於一個目標，則應在該目標的平台特定原始碼集中定義（例如 JVM 的 `jvmMain`）。
+    * If the code is used for only one target, it should be defined in a platform-specific source set for that target (例如 JVM 的 `jvmMain`)。
 * 在平台特定原始碼集中編寫的程式碼可以存取通用原始碼集中的宣告。例如，`jvmMain` 中的程式碼可以使用 `commonMain` 中的程式碼。然而，反之則不然：`commonMain` 不能使用來自 `jvmMain` 的程式碼。
 * 在平台特定原始碼集中編寫的程式碼可以使用對應的平台相依性。例如，`jvmMain` 中的程式碼可以使用僅限 Java 的程式庫，如 [Guava](https://github.com/google/guava) 或 [Spring](https://spring.io/)。
 
@@ -175,7 +175,7 @@ kotlin {
     android()
     iosArm64()   // 64 位元 iPhone 裝置
     macosArm64() // 現代基於 Apple 晶片的 Mac
-    watchosX64() // 現代 64 位元 Apple Watch 裝置
+    watchosArm64() // 現代 64 位元 Apple Watch 裝置
     tvosArm64()  // 現代 Apple TV 裝置  
 }
 ```
@@ -193,7 +193,7 @@ fun randomUuidString(): String {
 
 您不能將此函式加入 `commonMain`。`commonMain` 會編譯到所有宣告的目標（包括 Android），但 `platform.Foundation.NSUUID` 是 Apple 特定的 API，在 Android 上無法使用。如果您嘗試在 `commonMain` 中引用 `NSUUID`，Kotlin 會顯示錯誤。
 
-您可以將此程式碼複製並貼上到每個 Apple 特定的原始碼集中：`iosArm64Main`、`macosArm64Main`、`watchosX64Main` 和 `tvosArm64Main`。但不建議這樣做，因為像這樣重複程式碼很容易出錯。
+您可以將此程式碼複製並貼上到每個 Apple 特定的原始碼集中：`iosArm64Main`、`macosArm64Main`、`watchosArm64Main` 和 `tvosArm64Main`。但不建議這樣做，因為像這樣重複程式碼很容易出錯。
 
 為了縮小此問題，您可以使用「中間原始碼集」。中間原始碼集是編譯到專案中部分（而非全部）目標的 Kotlin 原始碼集。您也可以看到中間原始碼集被稱為階層式原始碼集或簡稱為階層。
 

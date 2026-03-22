@@ -37,158 +37,352 @@ GOAP 规划器围绕三个核心概念工作：
 
 在以下示例中，GOAP 处理创建文章的高级规划（大纲 → 草稿 → 审核 → 发布），而 LLM 在每个操作中执行实际的内容生成。
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.agent.config.AIAgentConfig
-import ai.koog.agents.planner.AIAgentPlannerStrategy
-import ai.koog.agents.planner.goap.GoapAgentState
-import ai.koog.prompt.dsl.prompt
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
--->
-```kotlin
-// 为内容创作定义一个状态
-data class ContentState(
-    val topic: String,
-    val hasOutline: Boolean = false,
-    val outline: String = "",
-    val hasDraft: Boolean = false,
-    val draft: String = "",
-    val hasReview: Boolean = false,
-    val isPublished: Boolean = false
-): GoapAgentState<String, String>(topic) {
-    override fun provideOutput(): String = draft
-}
+=== "Kotlin"
 
-// 创建带有 LLM 驱动操作的 GOAP 规划器
-val planner = AIAgentPlannerStrategy.goap("content-planner", ::ContentState) {
-    // 定义带有前置条件和信念的操作
-    action(
-        name = "Create outline",
-        precondition = { state -> !state.hasOutline },
-        belief = { state -> state.copy(hasOutline = true, outline = "Outline") },
-        cost = { 1.0 }
-    ) { ctx, state ->
-        // 使用 LLM 创建大纲
-        val response = ctx.llm.writeSession {
-            appendPrompt {
-                user("Create a detailed outline for an article about: ${state.topic}")
-            }
-            requestLLM()
-        }
-        state.copy(hasOutline = true, outline = response.content)
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.agents.core.agent.config.AIAgentConfig
+    import ai.koog.agents.planner.AIAgentPlannerStrategy
+    import ai.koog.agents.planner.goap.GoapAgentState
+    import ai.koog.prompt.dsl.prompt
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    -->
+    ```kotlin
+    // 为内容创作定义一个状态
+    data class ContentState(
+        val topic: String,
+        val hasOutline: Boolean = false,
+        val outline: String = "",
+        val hasDraft: Boolean = false,
+        val draft: String = "",
+        val hasReview: Boolean = false,
+        val isPublished: Boolean = false
+    ): GoapAgentState<String, String>(topic) {
+        override fun provideOutput(): String = draft
     }
 
-    action(
-        name = "Write draft",
-        precondition = { state -> state.hasOutline && !state.hasDraft },
-        belief = { state -> state.copy(hasDraft = true, draft = "Draft") },
-        cost = { 2.0 }
-    ) { ctx, state ->
-        // 使用 LLM 撰写草稿
-        val response = ctx.llm.writeSession {
-            appendPrompt {
-                user("Write an article based on this outline:
+    // 创建带有 LLM 驱动操作的 GOAP 规划器
+    val planner = AIAgentPlannerStrategy.goap("content-planner", ::ContentState) {
+        // 定义带有前置条件和信念的操作
+        action(
+            name = "Create outline",
+            precondition = { state -> !state.hasOutline },
+            belief = { state -> state.copy(hasOutline = true, outline = "Outline") },
+            cost = { 1.0 }
+        ) { ctx, state ->
+            // 使用 LLM 创建大纲
+            val response = ctx.llm.writeSession {
+                appendPrompt {
+                    user("Create a detailed outline for an article about: ${state.topic}")
+                }
+                requestLLM()
+            }
+            state.copy(hasOutline = true, outline = response.content)
+        }
+
+        action(
+            name = "Write draft",
+            precondition = { state -> state.hasOutline && !state.hasDraft },
+            belief = { state -> state.copy(hasDraft = true, draft = "Draft") },
+            cost = { 2.0 }
+        ) { ctx, state ->
+            // 使用 LLM 撰写草稿
+            val response = ctx.llm.writeSession {
+                appendPrompt {
+                    user("Write an article based on this outline:
 ${state.outline}")
+                }
+                requestLLM()
             }
-            requestLLM()
+            state.copy(hasDraft = true, draft = response.content)
         }
-        state.copy(hasDraft = true, draft = response.content)
-    }
 
-    action(
-        name = "Review content",
-        precondition = { state -> state.hasDraft && !state.hasReview },
-        belief = { state -> state.copy(hasReview = true) },
-        cost = { 1.0 }
-    ) { ctx, state ->
-        // 使用 LLM 审核内容
-        val response = ctx.llm.writeSession {
-            appendPrompt {
-                user("Review this article and suggest improvements:
+        action(
+            name = "Review content",
+            precondition = { state -> state.hasDraft && !state.hasReview },
+            belief = { state -> state.copy(hasReview = true) },
+            cost = { 1.0 }
+        ) { ctx, state ->
+            // 使用 LLM 审核草稿
+            val response = ctx.llm.writeSession {
+                appendPrompt {
+                    user("Review this article and suggest improvements:
 ${state.draft}")
+                }
+                requestLLM()
             }
-            requestLLM()
+            println("Review feedback: ${response.content}")
+            state.copy(hasReview = true)
         }
-        println("Review feedback: ${response.content}")
-        state.copy(hasReview = true)
+
+        action(
+            name = "Publish",
+            precondition = { state -> state.hasReview && !state.isPublished },
+            belief = { state -> state.copy(isPublished = true) },
+            cost = { 1.0 }
+        ) { ctx, state ->
+            println("Publishing article...")
+            state.copy(isPublished = true)
+        }
+
+        // 定义带有完成条件的目标
+        goal(
+            name = "Published article",
+            description = "Complete and publish the article",
+            condition = { state -> state.isPublished }
+        )
     }
 
-    action(
-        name = "Publish",
-        precondition = { state -> state.hasReview && !state.isPublished },
-        belief = { state -> state.copy(isPublished = true) },
-        cost = { 1.0 }
-    ) { ctx, state ->
-        println("Publishing article...")
-        state.copy(isPublished = true)
-    }
-    
-    // 定义带有完成条件的目标
-    goal(
-        name = "Published article",
-        description = "Complete and publish the article",
-        condition = { state -> state.isPublished }
+    // 创建并运行智能体
+    val agentConfig = AIAgentConfig(
+        prompt = prompt("writer") {
+            system("You are a professional content writer.")
+        },
+        model = OpenAIModels.Chat.GPT4o,
+        maxAgentIterations = 20
     )
-}
 
-// 创建并运行智能体
-val agentConfig = AIAgentConfig(
-    prompt = prompt("writer") {
-        system("You are a professional content writer.")
-    },
-    model = OpenAIModels.Chat.GPT4o,
-    maxAgentIterations = 20
-)
+    val agent = AIAgent(
+        promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
+        strategy = planner,
+        agentConfig = agentConfig
+    )
 
-val agent = AIAgent(
-    promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
-    strategy = planner,
-    agentConfig = agentConfig
-)
+    suspend fun main() {
+        val result = agent.run("The Future of AI in Software Development")
+        println("Final state: $result")
+    }
+    ```
+    <!--- KNIT example-goap-agents-01.kt -->
 
-suspend fun main() {
-    val result = agent.run("The Future of AI in Software Development")
-    println("Final state: $result")
-}
-```
-<!--- KNIT example-goap-agents-01.kt -->
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent;
+    import ai.koog.agents.planner.AIAgentPlannerStrategy;
+    import ai.koog.agents.planner.goap.GoapAgentState;
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels;
+    import ai.koog.prompt.executor.model.PromptExecutor;
+    class exampleGoapAgents01 {
+    -->
+    <!--- SUFFIX
+    }
+    -->
+    ```java
+    // 为内容创作定义一个状态
+    static class ContentState extends GoapAgentState<String, String> {
+        public String topic;
+        public boolean hasOutline = false;
+        public String outline = "";
+        public boolean hasDraft = false;
+        public String draft = "";
+        public boolean hasReview = false;
+        public boolean isPublished = false;
+    
+        public ContentState(String topic) {
+            super(topic);
+            this.topic = topic;
+        }
+
+        public ContentState copy(boolean hasOutline, String outline, boolean hasDraft,
+                                 String draft, boolean hasReview, boolean isPublished) {
+            ContentState state = new ContentState(topic);
+            state.hasOutline = hasOutline;
+            state.outline = outline;
+            state.hasDraft = hasDraft;
+            state.draft = draft;
+            state.hasReview = hasReview;
+            state.isPublished = isPublished;
+            return state;
+        }
+
+        @Override
+        public String provideOutput() {
+            return draft;
+        }
+    }
+
+    public static void main(String[] args) {
+        var promptExecutor = PromptExecutor.builder()
+            .openAI("OPENAI_API_KEY")
+            .build();
+
+        var strategy = AIAgentPlannerStrategy.builder("content-planner")
+            .goap(ContentState::new)
+            .action("Create outline", builder -> builder
+                .precondition(state -> !state.hasOutline)
+                .belief(state -> state.copy(true, "Outline", false, "", false, false))
+                .cost(state -> 1.0)
+                .execute((context, state) -> {
+                    String response = context.llm().writeSession(session -> {
+                        session.appendPrompt(prompt -> {
+                            prompt.user("Create a detailed outline for an article about: " + state.topic);
+                            return null;
+                        });
+                        return session.requestLLM().getContent();
+                    });
+                    return state.copy(true, response, state.hasDraft, state.draft,
+                                    state.hasReview, state.isPublished);
+                })
+            )
+            .action("Write draft", builder -> builder
+                .precondition(state -> state.hasOutline && !state.hasDraft)
+                .belief(state -> state.copy(state.hasOutline, state.outline, true, "Draft", false, false))
+                .cost(state -> 2.0)
+                .execute((context, state) -> {
+                    String response = context.llm().writeSession(session -> {
+                        session.appendPrompt(prompt -> {
+                            prompt.user("Write an article based on this outline:
+" + state.outline);
+                            return null;
+                        });
+                        return session.requestLLM().getContent();
+                    });
+                    return state.copy(state.hasOutline, state.outline, true, response,
+                                    state.hasReview, state.isPublished);
+                })
+            )
+            .action("Review content", builder -> builder
+                .precondition(state -> state.hasDraft && !state.hasReview)
+                .belief(state -> state.copy(state.hasOutline, state.outline, state.hasDraft,
+                                           state.draft, true, false))
+                .cost(state -> 1.0)
+                .execute((context, state) -> {
+                    String response = context.llm().writeSession(session -> {
+                        session.appendPrompt(prompt -> {
+                            prompt.user("Review this article and suggest improvements:
+" + state.draft);
+                            return null;
+                        });
+                        return session.requestLLM().getContent();
+                    });
+                    System.out.println("Review feedback: " + response);
+                    return state.copy(state.hasOutline, state.outline, state.hasDraft,
+                                    state.draft, true, state.isPublished);
+                })
+            )
+            .action("Publish", builder -> builder
+                .precondition(state -> state.hasReview && !state.isPublished)
+                .belief(state -> state.copy(state.hasOutline, state.outline, state.hasDraft,
+                                           state.draft, state.hasReview, true))
+                .cost(state -> 1.0)
+                .execute((context, state) -> {
+                    System.out.println("Publishing article...");
+                    return state.copy(state.hasOutline, state.outline, state.hasDraft,
+                                    state.draft, state.hasReview, true);
+                })
+            )
+            .goal("Published article", builder -> builder
+                .description("Complete and publish the article")
+                .condition(state -> state.isPublished)
+            )
+            .build();
+
+        var agent = AIAgent.builder()
+            .plannerStrategy(strategy)
+            .promptExecutor(promptExecutor)
+            .llmModel(OpenAIModels.Chat.GPT4o)
+            .systemPrompt("You are a professional content writer.")
+            .maxIterations(20)
+            .build();
+
+        String result = agent.run("The Future of AI in Software Development");
+        System.out.println("Final state: " + result);
+    }
+    ```
+    <!--- KNIT exampleGoapAgentsJava01.java -->
+    
 
 ## 自定义代价函数
 
 由于 [A* 搜索] 使用代价作为寻找最优操作序列的一个因素，您可以为操作和目标定义自定义代价函数来引导规划器：
 
-<!--- INCLUDE
-import ai.koog.agents.planner.goap.GoapAgentState
-import ai.koog.agents.planner.AIAgentPlannerStrategy
+=== "Kotlin"
 
-data class MyState(
-    val topic: String,
-    val operationDone: Boolean = true,
-    val hasOptimization: Boolean = true
-): GoapAgentState<String, String>(topic) {
-    override fun provideOutput(): String = ""
-}
-
-val planner = AIAgentPlannerStrategy.goap("content-planner", ::MyState) {
------ SUFFIX
-}   
--->
-```kotlin
-action(
-    name = "Expensive operation",
-    precondition = { true },
-    belief = { state -> state.copy(operationDone = true) },
-    cost = { state ->
-        // 基于状态的动态代价
-        if (state.hasOptimization) 1.0 else 10.0
+    <!--- INCLUDE
+    import ai.koog.agents.planner.goap.GoapAgentState
+    import ai.koog.agents.planner.AIAgentPlannerStrategy
+    data class MyState(
+        val topic: String,
+        val operationDone: Boolean = true,
+        val hasOptimization: Boolean = true
+    ): GoapAgentState<String, String>(topic) {
+        override fun provideOutput(): String = ""
     }
-) { ctx, state ->
-    // 执行操作
-    state.copy(operationDone = true)
-}
-```
-<!--- KNIT example-goap-agents-02.kt -->
+    val planner = AIAgentPlannerStrategy.goap("content-planner", ::MyState) {
+    -->
+    <!--- SUFFIX
+    }
+    -->
+    ```kotlin
+    action(
+        name = "Expensive operation",
+        precondition = { true },
+        belief = { state -> state.copy(operationDone = true) },
+        cost = { state ->
+            // 基于状态的动态代价
+            if (state.hasOptimization) 1.0 else 10.0
+        }
+    ) { ctx, state ->
+        // 执行操作
+        state.copy(operationDone = true)
+    }
+    ```
+    <!--- KNIT example-goap-agents-02.kt -->
+
+=== "Java"
+    
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent;
+    import ai.koog.agents.planner.AIAgentPlannerStrategy;
+    import ai.koog.agents.planner.goap.GoapAgentState;
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels;
+    import ai.koog.prompt.executor.model.PromptExecutor;
+    class exampleGoapAgents02 {
+        public static class MyState extends GoapAgentState<String, String> {
+            public String topic;
+            public boolean operationDone = false;
+            public boolean hasOptimization = true;
+            public MyState(String topic) {
+                super(topic);
+                this.topic = topic;
+            }
+            public MyState copy(boolean operationDone) {
+                MyState state = new MyState(topic);
+                state.operationDone = operationDone;
+                state.hasOptimization = this.hasOptimization;
+                return state;
+            }
+            @Override
+            public String provideOutput() {
+                return "";
+            }
+        }
+        public static void main(String[] args) {
+            var planner = AIAgentPlannerStrategy.builder("content-planner")
+                .goap(MyState::new)
+    -->
+    <!--- SUFFIX
+            .build();
+        }
+    }
+    -->
+    ```java
+    .action("Expensive operation", builder -> builder
+        .precondition(state -> true)
+        .belief(state -> state.copy(true))
+        .cost(state -> {
+            // 基于状态的动态代价
+            return state.hasOptimization ? 1.0 : 10.0;
+        })
+        .execute((context, state) -> {
+            // 执行操作
+            return state.copy(true);
+        })
+    )
+    ```
+    <!--- KNIT exampleGoapAgentsJava02.java -->
 
 ## 状态信念与实际执行的比较
 
@@ -199,42 +393,99 @@ GOAP 区分了信念（乐观预测）和实际执行的概念：
 
 这使得规划器能够根据预期结果制定计划，同时妥善处理实际结果：
 
-<!--- INCLUDE
-import ai.koog.agents.planner.goap.GoapAgentState
-import ai.koog.agents.planner.AIAgentPlannerStrategy
+=== "Kotlin"
 
-data class MyState(
-    val topic: String,
-    val taskComplete: Boolean = true,
-    val attempts: Int = 0
-): GoapAgentState<String, String>(topic) {
-    override fun provideOutput(): String = ""
-}
+    <!--- INCLUDE
+    import ai.koog.agents.planner.goap.GoapAgentState
+    import ai.koog.agents.planner.AIAgentPlannerStrategy
+    data class MyState(
+        val topic: String,
+        val taskComplete: Boolean = true,
+        val attempts: Int = 0
+    ): GoapAgentState<String, String>(topic) {
+        override fun provideOutput(): String = ""
+    }
+    fun performComplexTask(): Boolean = true
+    val planner = AIAgentPlannerStrategy.goap("content-planner", ::MyState) {
+    -->
+    <!--- SUFFIX
+    }
+    -->
+    ```kotlin
+    action(
+        name = "Attempt complex task",
+        precondition = { state -> !state.taskComplete },
+        belief = { state ->
+            // 乐观信念：任务将会成功
+            state.copy(taskComplete = true)
+        },
+        cost = { 5.0 }
+    ) { ctx, state ->
+        // 实际执行可能会失败或产生不同的结果
+        val success = performComplexTask()
+        state.copy(
+            taskComplete = success,
+            attempts = state.attempts + 1
+        )
+    }
+    ```
+    <!--- KNIT example-goap-agents-03.kt -->
 
-fun performComplexTask(): Boolean = true
+=== "Java"
 
-val planner = AIAgentPlannerStrategy.goap("content-planner", ::MyState) {
------ SUFFIX
-}   
--->
-```kotlin
-action(
-    name = "Attempt complex task",
-    precondition = { state -> !state.taskComplete },
-    belief = { state ->
-        // 乐观信念：任务将会成功
-        state.copy(taskComplete = true)
-    },
-    cost = { 5.0 }
-) { ctx, state ->
-    // 实际执行可能会失败或产生不同的结果
-    val success = performComplexTask()
-    state.copy(
-        taskComplete = success,
-        attempts = state.attempts + 1
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent;
+    import ai.koog.agents.planner.AIAgentPlannerStrategy;
+    import ai.koog.agents.planner.goap.GoapAgentState;
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels;
+    import ai.koog.prompt.executor.model.PromptExecutor;
+    class exampleGoapAgents03 {
+        public static class MyState extends GoapAgentState<String, String> {
+            public String topic;
+            public boolean taskComplete = false;
+            public int attempts = 0;
+            public MyState(String topic) {
+                super(topic);
+                this.topic = topic;
+            }
+            public MyState copy(boolean taskComplete, int attempts) {
+                MyState state = new MyState(topic);
+                state.taskComplete = taskComplete;
+                state.attempts = attempts;
+                return state;
+            }
+            @Override
+            public String provideOutput() {
+                return "";
+            }
+        }
+        static boolean performComplexTask() {
+            return true;
+        }
+        public static void main(String[] args) {
+            var planner = AIAgentPlannerStrategy.builder("content-planner")
+                .goap(MyState::new)
+    -->
+    <!--- SUFFIX
+            .build();
+        }
+    }
+    -->
+    ```java
+    .action("Attempt complex task", builder -> builder
+        .precondition(state -> !state.taskComplete)
+        .belief(state -> {
+            // 乐观信念：任务将会成功
+            return state.copy(true, state.attempts);
+        })
+        .cost(state -> 5.0)
+        .execute((context, state) -> {
+            // 实际执行可能会失败或产生不同的结果
+            boolean success = performComplexTask();
+            return state.copy(success, state.attempts + 1);
+        })
     )
-}
-```
-<!--- KNIT example-goap-agents-03.kt -->
+    ```
+    <!--- KNIT exampleGoapAgentsJava03.java -->
 
 [A* 搜索]: https://en.wikipedia.org/wiki/A*_search_algorithm

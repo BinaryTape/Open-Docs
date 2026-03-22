@@ -187,6 +187,7 @@ val notNull: String = item // 允许，可能在运行时失败
   * Eclipse (`org.eclipse.jdt.annotation`)
   * [Lombok](lombok.md) (`lombok.NonNull`)
   * RxJava 3 (`io.reactivex.rxjava3.annotations`)
+  * [Vert.x](https://vertx.io/) (`io.vertx.codegen.annotations`)
 
 你可以通过以下编译器选项，指示编译器针对特定的为 null 性注解报告为 null 性不匹配：
 
@@ -205,6 +206,20 @@ val notNull: String = item // 允许，可能在运行时失败
 {style="note"}
 
 在 [Kotlin 编译器源代码](https://github.com/JetBrains/kotlin/blob/master/core/compiler.common.jvm/src/org/jetbrains/kotlin/load/java/JvmAnnotationNames.kt)中查看受支持的为 null 性注解的完整列表。
+
+### 可变性注解
+
+你可以使用可变性注解来标记 Java 声明，以指定返回的集合在 Kotlin 中是只读的还是可变的。
+如果你将该值赋值给具有不同可变性的集合类型，编译器将报告类型不匹配。诊断的严重程度取决于特定的可变性注解。
+
+编译器支持多种可变性注解，包括：
+
+* `kotlin.annotations.jvm.ReadOnly`
+* `kotlin.annotations.jvm.Mutable`
+* `org.jetbrains.annotations.Unmodifiable`
+* `org.jetbrains.annotations.UnmodifiableView`
+
+在 [Kotlin 编译器源代码](https://github.com/JetBrains/kotlin/blob/master/core/compiler.common.jvm/src/org/jetbrains/kotlin/load/java/JvmAnnotationNames.kt)中查看受支持的可变性注解的完整列表。
 
 ### 对类型实参与类型形参进行注解
 
@@ -289,7 +304,7 @@ class BaseWithBound<T : Number> {}
 
 因此，传递可空类型作为类型实参或类型形参会产生警告。
 
-对类型实参和类型形参进行注解适用于 Java 8 或更高版本。该功能要求为 null 性注解支持 `TYPE_USE` 目标（`org.jetbrains.annotations` 在 15 及以上版本中支持此功能）。
+对类型实参和类型形参进行注解适用于 Java 8 或更高目标。该功能要求为 null 性注解支持 `TYPE_USE` 目标（`org.jetbrains.annotations` 在 15 及以上版本中支持此功能）。
 
 > 如果为一个为 null 性注解除了 `TYPE_USE` 目标外还支持其他适用于该类型的目标，则 `TYPE_USE` 优先。例如，如果 `@Nullable` 同时具有 `TYPE_USE` 和 `METHOD` 目标，那么 Java 方法签名 `@Nullable String[] f()` 在 Kotlin 中会变为 `fun f(): Array<String?>!`。
 >
@@ -492,7 +507,8 @@ public class Test {}
 
 ## 映射类型
 
-Kotlin 会对某些 Java 类型进行特殊处理。此类类型不会“照原样”从 Java 加载，而是被“映射”到对应的 Kotlin 类型。映射仅在编译时起作用，运行时表示形式保持不变。Java 的原生类型被映射到对应的 Kotlin 类型（同时考虑到[平台类型](#null-safety-and-platform-types)）：
+Kotlin 会对某些 Java 类型进行特殊处理。此类类型不会“照原样”从 Java 加载，而是被“映射”到对应的 Kotlin 类型。映射仅在编译时起作用，运行时表示形式保持不变。
+ Java 的原生类型被映射到对应的 Kotlin 类型（同时考虑到[平台类型](#null-safety-and-platform-types)）：
 
 | **Java 类型** | **Kotlin 类型**  |
 |---------------|------------------|
@@ -536,7 +552,7 @@ Java 的装箱原生类型被映射到可空的 Kotlin 类型：
 
 集合类型在 Kotlin 中可以是只读的或可变的，因此 Java 的集合映射如下（下表中的所有 Kotlin 类型都位于 `kotlin.collections` 软件包中）：
 
-| **Java 类型** | **Kotlin 只读类型** | **Kotlin 可变类型** | **加载的平台类型** |
+| **Java 类型** | **Kotlin 只读类型**  | **Kotlin 可变类型** | **加载的平台类型** |
 |---------------|----------------------------|-------------------------|--------------------------|
 | `Iterator<T>`        | `Iterator<T>`        | `MutableIterator<T>`            | `(Mutable)Iterator<T>!`            |
 | `Iterable<T>`        | `Iterable<T>`        | `MutableIterable<T>`            | `(Mutable)Iterable<T>!`            |
@@ -549,7 +565,7 @@ Java 的装箱原生类型被映射到可空的 Kotlin 类型：
 
 Java 数组的映射如下面[下文](#java-arrays)所述：
 
-| **Java 类型** | **Kotlin 类型** |
+| **Java 类型** | **Kotlin 类型**                |
 |---------------|--------------------------------|
 | `int[]`       | `kotlin.IntArray!`             |
 | `String[]`    | `kotlin.Array<(out) String!>!` |

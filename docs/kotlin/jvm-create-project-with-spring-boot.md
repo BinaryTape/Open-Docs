@@ -15,7 +15,7 @@
 
 ## 开始之前
 
-下载并安装最新版本的 [IntelliJ IDEA Ultimate Edition](https://www.jetbrains.com/idea/download/index.html)。
+下载并安装最新版本的 [IntelliJ IDEA Ultimate Edition](https://www.jetbrains.com/idea/download/)。
 
 > 如果您使用的是 IntelliJ IDEA Community Edition 或其他 IDE，可以使用 [基于 Web 的项目生成器](https://start.spring.io/#!language=kotlin&type=gradle-project-kotlin) 来生成 Spring Boot 项目。
 > 

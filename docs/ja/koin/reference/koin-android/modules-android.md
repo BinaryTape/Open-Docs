@@ -1,162 +1,147 @@
 ---
-title: Androidにおける複数のKoinモジュール
+title: Androidにおけるモジュールのロード
 ---
 
-Koinを使用すると、モジュール内に定義を記述します。このセクションでは、モジュールの宣言、整理、およびリンクの方法について説明します。
-
-## 複数のモジュールの使用
-
-コンポーネントは必ずしも同じモジュール内にある必要はありません。モジュールは定義を整理するための論理的なスペースであり、別のモジュールの定義に依存することができます。定義は遅延（lazy）され、コンポーネントがそれらを要求したときにのみ解決されます。
-
-別のモジュールにあるコンポーネントをリンクする例を見てみましょう：
-
-```kotlin
-// ComponentB <- ComponentA
-class ComponentA()
-class ComponentB(val componentA : ComponentA)
-
-val moduleA = module {
-    // ComponentAのシングルトン
-    single { ComponentA() }
-}
-
-val moduleB = module {
-    // ComponentAのインスタンスをリンクしたComponentBのシングルトン
-    single { ComponentB(get()) }
-}
-```
-
-Koinコンテナを起動する際に、使用するモジュールのリストを宣言するだけです：
-
-```kotlin
-class MainApplication : Application() {
-
-    override fun onCreate() {
-        super.onCreate()
-
-        startKoin {
-            // ...
-
-            // モジュールのロード
-            modules(moduleA, moduleB)
-        }
-        
-    }
-}
-```
-
-Gradleモジュールごとに整理し、複数のKoinモジュールをまとめるかどうかはあなた次第です。
-
-> 詳細については [Koin Modules セクション](/docs/reference/koin-core/modules) を確認してください。
-
-## モジュールの包含（includes）（3.2以降）
-
-`Module` クラスで新しい関数 `includes()` が利用可能になりました。これにより、他のモジュールを整理された構造化された方法で含めることで、モジュールを構成できます。
-
-この新機能の主なユースケースは次の2つです：
-- 大きなモジュールを、より小さく、目的を絞ったモジュールに分割する。
-- モジュール化されたプロジェクトにおいて、モジュールの可視性をより細かく制御できる（以下の例を参照）。
-
-どのように動作するのでしょうか？いくつかのモジュールを例にとり、`parentModule` にモジュールを含めてみます：
-
-```kotlin
-// `:feature` モジュール
-val childModule1 = module {
-    /* ここに他の定義 */
-}
-val childModule2 = module {
-    /* ここに他の定義 */
-}
-val parentModule = module {
-    includes(childModule1, childModule2)
-}
-
-// `:app` モジュール
-startKoin { modules(parentModule) }
-```
-
-すべてのモジュールを明示的に設定する必要はないことに注意してください。`parentModule` を含めることで、`includes` で宣言されたすべてのモジュール（`childModule1` と `childModule2`）が自動的にロードされます。言い換えれば、Koinは実質的に `parentModule`、`childModule1`、`childModule2` をロードしています。
-
-注目すべき重要な詳細は、`includes` を使用して `internal` や `private` モジュールも追加できることです。これにより、モジュール化されたプロジェクトで何を公開するかについて柔軟性が得られます。
+このガイドでは、`androidContext()` および `androidLogger()` を使用した Android 特有のモジュールロードについて説明します。
 
 :::info
-モジュールのロードが最適化され、すべてのモジュールグラフがフラット化され、モジュールの重複定義が回避されるようになりました。
+コアモジュールの概念（宣言、包含、オーバーライド）については、[Modules](/docs/reference/koin-core/modules) を参照してください。遅延モジュールのロードについては、[Lazy Modules](/docs/reference/koin-core/lazy-modules) を参照してください。
 :::
 
-最後に、ネストされた複数のモジュールや重複するモジュールを含めることができ、Koinは重複を削除してすべての含まれるモジュールをフラット化します：
+## AndroidでのKoinの起動
+
+### アノテーションを使用する場合
 
 ```kotlin
-// :feature モジュール
-val dataModule = module {
-    /* ここに他の定義 */
-}
-val domainModule = module {
-    /* ここに他の定義 */
-}
-val featureModule1 = module {
-    includes(domainModule, dataModule)
-}
-val featureModule2 = module {
-    includes(domainModule, dataModule)
+@KoinApplication
+class MainApplication : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+
+        startKoin<MainApplication> {
+            androidLogger()
+            androidContext(this@MainApplication)
+        }
+    }
 }
 ```
 
+### DSLを使用する場合
+
 ```kotlin
-// `:app` モジュール
 class MainApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
 
         startKoin {
-            // ...
+            // Androidロガー
+            androidLogger()
+            // またはレベルを指定
+            androidLogger(Level.DEBUG)
 
-            // モジュールのロード
-             modules(featureModule1, featureModule2)
+            // Androidコンテキスト
+            androidContext(this@MainApplication)
+
+            // モジュール
+            modules(appModule, networkModule, dataModule)
         }
-        
     }
 }
 ```
 
-すべてのモジュール（`dataModule`、`domainModule`、`featureModule1`、`featureModule2`）が一度だけ含まれることに注意してください。
+## Android特有の関数
 
-## バックグラウンドでのモジュールロードによる起動時間の短縮
+| 関数 | 説明 |
+|----------|-------------|
+| `androidContext()` | 定義内で Application コンテキストを提供します |
+| `androidApplication()` | 定義内で Application インスタンスを提供します |
+| `androidLogger()` | Koin 用の Android Logcat ロガー |
 
-リソースの事前割り当てをトリガーせず、Koinの開始とともにバックグラウンドでロードする「lazy」なKoinモジュールを宣言できるようになりました。これにより、バックグラウンドでロードされるlazyモジュールを渡すことで、Androidの起動プロセスのブロックを回避できます。
-
-- `lazyModule` - KoinモジュールのLazy Kotlin版を宣言します。
-- `Module.includes` - lazyモジュールの包含を許可します。
-- `KoinApplication.lazyModules` - プラットフォームのデフォルトの Dispatchers に従い、コルーチンを使用してバックグラウンドでlazyモジュールをロードします。
-- `Koin.waitAllStartJobs` - 開始ジョブの完了を待ちます。
-- `Koin.runOnKoinStarted` - 開始完了後にコードブロックを実行します。
-
-理解を深めるための例を以下に示します：
+### Androidコンテキストの使用
 
 ```kotlin
+val androidModule = module {
+    single { DatabaseHelper(androidContext()) }
+    single { SharedPrefsManager(androidContext()) }
+    single { NotificationHelper(androidApplication()) }
+}
+```
 
-// 遅延ロードされるモジュール
-val m2 = lazyModule {
-    singleOf(::ClassB)
+## 動的なモジュールのロード
+
+Activity のライフサイクルに基づいて、実行時にモジュールをロードまたはアンロードします：
+
+```kotlin
+class FeatureActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        // 機能固有の依存関係をロード
+        loadKoinModules(featureModule)
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // 機能を離れる際にクリーンアップ
+        unloadKoinModules(featureModule)
+    }
+}
+```
+
+### ユースケース
+
+- **プレミアム機能** - ユーザーがサブスクリプションを持っている場合にのみロード
+- **デバッグツール** - デバッグビルドでのみロード
+- **オプション機能** - オンデマンドでロード
+
+```kotlin
+// プレミアム機能モジュール
+val premiumModule = module {
+    viewModel<PremiumViewModel>()
+    single<PremiumRepository>()
 }
 
-val m1 = module {
-    singleOf(::ClassA) { bind<IClassA>() }
+class PremiumActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        if (userHasPremium()) {
+            loadKoinModules(premiumModule)
+        }
+        super.onCreate(savedInstanceState)
+    }
 }
+```
 
-startKoin {
-    // 同期モジュールのロード
-    modules(m1)
-    // バックグラウンドでlazyモジュールをロード
-    lazyModules(m2)
+## Androidにおける遅延ロード（Lazy Loading）
+
+バックグラウンドでのモジュールロードには、lazy モジュールを使用します：
+
+```kotlin
+class MainApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+
+        startKoin {
+            androidLogger()
+            androidContext(this@MainApplication)
+
+            // クリティカルなモジュールは即座にロード
+            modules(coreModule)
+
+            // 非クリティカルなモジュールはバックグラウンドでロード
+            lazyModules(analyticsModule, syncModule)
+        }
+    }
 }
+```
 
-val koin = KoinPlatform.getKoin()
+:::info
+並列ロードを含む遅延モジュールの完全なドキュメントについては、[Lazy Modules](/docs/reference/koin-core/lazy-modules) を参照してください。
+:::
 
-// 開始の完了を待機
-koin.waitAllStartJobs()
+## 次のステップ
 
-// または開始後にコードを実行
-koin.runOnKoinStarted { koin ->
-    // バックグラウンドロード完了後に実行
-}
+- **[Modules](/docs/reference/koin-core/modules)** - コアモジュールの概念
+- **[Lazy Modules](/docs/reference/koin-core/lazy-modules)** - バックグラウンドロード
+- **[Multi-Module Apps](/docs/reference/koin-android/multi-module)** - Gradleマルチモジュールアーキテクチャ

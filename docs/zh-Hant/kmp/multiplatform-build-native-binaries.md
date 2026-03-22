@@ -115,7 +115,7 @@ binaries {
 </TabItem>
 </Tabs>
 
-第一個引數設定名稱字首，這是二進位檔案的預設名稱。例如，對於 Windows，程式碼會產生 `foo.exe` 與 `bar.exe` 檔案。您也可以使用名稱字首來[在組建指令碼中存取二進位檔](#access-binaries)。
+第一個引數設定名稱字首，這是二進位檔的預設名稱。例如，對於 Windows，程式碼會產生 `foo.exe` 與 `bar.exe` 檔案。您也可以使用名稱字首來[在組建指令碼中存取二進位檔](#access-binaries)。
 
 ## 存取二進位檔
 
@@ -217,7 +217,7 @@ kotlin {
             api("org.example:not-exported-library:1.0")
         }
     }
-    macosX64("macos").binaries {
+    macosArm64("macos").binaries {
         framework {
             export(project(":dependency"))
             export("org.example:exported-library:1.0")
@@ -245,7 +245,7 @@ kotlin {
             api 'org.example:not-exported-library:1.0'
         }
     }
-    macosX64("macos").binaries {
+    macosArm64("macos").binaries {
         framework {
             export project(':dependency')
             export 'org.example:exported-library:1.0'
@@ -456,7 +456,7 @@ undefined
 
 ## 自訂 Info.plist 檔案
 
-產生架構時，Kotlin/Native 編譯器會產生資訊內容列表檔案 `Info.plist`。您可以使用對應的二進位檔選項自訂其屬性：
+產生架構時，Kotlin/Native 編譯器會產生資訊屬性清單檔案 `Info.plist`。您可以使用對應的二進位檔選項自訂其屬性：
 
 | 屬性 | 二進位檔選項 |
 |------------------------------|----------------------------|

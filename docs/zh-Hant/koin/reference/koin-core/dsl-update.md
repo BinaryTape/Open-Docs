@@ -1,20 +1,28 @@
 ---
-title: 建構函式 DSL
+title: 自動佈線 (Autowire) DSL
 ---
 
-Koin 現在提供了一種新型態的 DSL 關鍵字，讓您可以直接針對類別建構函式，並避免必須在 Lambda 運算式中輸入定義。
+Koin 提供了一種自動佈線 (Autowire) DSL，讓您可以直接針對類別建構函式並自動佈線相依性。
+
+:::tip
+如果您正在使用 **Koin 編譯器外掛程式**，請考慮使用 [編譯器外掛程式 DSL](/docs/setup/compiler-plugin)，它提供了類似的自動佈線功能，並增加了編譯期安全性。
+:::
+
+## 經典自動佈線 DSL
 
 對於給定的類別 `ClassA` 及其相依性如下：
 
 ```kotlin
-class ClassA(val b : ClassB, val c : ClassC)
+class ClassA(val b: ClassB, val c: ClassC)
 class ClassB()
 class ClassC()
 ```
 
-現在您可以直接針對 `class constructor` 宣告這些組件：
+宣告針對類別建構函式的元件：
 
 ```kotlin
+import org.koin.dsl.*
+
 module {
     singleOf(::ClassA)
     singleOf(::ClassB)
@@ -22,23 +30,30 @@ module {
 }
 ```
 
-不再需要使用 `get()` 函式在建構函式中指定相依性了！ 🎉
+不再需要使用 `get()` 函式指定相依性了！
 
 :::info
-請務必在類別名稱前使用 `::`，以針對您的類別建構函式。
+請務必在類別名稱前使用 `::` 以針對建構函式。
 :::
 
 :::note
-您的建構函式會自動填入所有的 `get()`。請避免使用任何預設值，因為 Koin 會嘗試在目前的圖譜中尋找它。
+您的建構函式會自動填入所有必要的相依性。請避免使用預設值，因為 Koin 會嘗試解析所有參數。
 :::
 
-:::note
-如果您需要檢索一個「具名（named）」定義，則需要使用帶有 Lambda 運算式和 `get()` 的標準 DSL 來指定限定詞。
-:::
+## 與編譯器外掛程式 DSL 的比較
+
+| 經典自動佈線 | 編譯器外掛程式 |
+|------------------|-----------------|
+| `singleOf(::ClassA)` | `single<ClassA>()` |
+| `factoryOf(::ClassA)` | `factory<ClassA>()` |
+| `scopedOf(::ClassA)` | `scoped<ClassA>()` |
+| 套件： `org.koin.dsl` | 套件： `org.koin.plugin.module.dsl` |
+
+編譯器外掛程式 DSL 提供相同的自動佈線功能，並增加了編譯期驗證。
 
 ## 可用關鍵字
 
-以下是可用於從建構函式建立定義的關鍵字：
+以下是可用於從建構函式建立定義的自動佈線關鍵字：
 
 * `factoryOf` - 等同於 `factory { }` - 工廠定義
 * `singleOf` - 等同於 `single { }` - 單例定義
@@ -50,11 +65,11 @@ module {
 
 ## DSL 選項
 
-任何建構函式 DSL 定義也可以在 Lambda 運算式中開啟一些選項：
+任何自動佈線 DSL 定義也可以在 Lambda 運算式中開啟一些選項：
 
 ```kotlin
 module {
-    singleOf(::ClassA) { 
+    singleOf(::ClassA) {
         // 定義選項
         named("my_qualifier")
         bind<InterfaceA>()
@@ -67,8 +82,8 @@ module {
 
 * `named("a_qualifier")` - 替定義提供一個字串限定詞
 * `named<MyType>()` - 替定義提供一個型別限定詞
-* `bind<MyInterface>()` - 為指定的 Bean 定義新增要繫結的型別
-* `binds(listOf(...))` - 為指定的 Bean 定義新增型別列表
+* `bind<MyInterface>()` - 為指定的定義新增要繫結的型別
+* `binds(listOf(...))` - 為指定的定義新增型別列表
 * `createdAtStart()` - 在 Koin 啟動時建立單一執行個體
 
 您也可以使用 `bind` 或 `binds` 運算子，而不需要任何 Lambda 運算式：
@@ -81,7 +96,7 @@ module {
 
 ## 注入參數
 
-使用這類宣告，您仍然可以使用注入參數。Koin 會在注入參數和目前的相依性中尋找，嘗試注入您的建構函式。
+使用自動佈線 DSL 宣告，您仍然可以使用注入參數。Koin 會在注入參數和目前的相依性中尋找，嘗試注入您的建構函式。
 
 如下所示：
 
@@ -89,7 +104,7 @@ module {
 class MyFactory(val id : String)
 ```
 
-使用建構函式 DSL 宣告：
+使用自動佈線 DSL 宣告：
 
 ```kotlin
 module {
@@ -107,5 +122,5 @@ val factory = koin.get<MyFactory> { parametersOf(id)}
 ## 基於反射的 DSL (自 3.2 起棄用)
 
 :::caution
-Koin 反射 DSL 現已棄用。請使用上方的 Koin 建構函式 DSL。
+Koin 反射 DSL 現已棄用。請使用上方的 Koin 自動佈線 DSL。
 :::

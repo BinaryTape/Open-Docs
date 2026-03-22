@@ -2,107 +2,147 @@
 title: Koin DSL
 ---
 
-Kotlin 언어의 강력함 덕분에, Koin은 어노테이션을 달거나 코드를 생성하는 대신 앱을 설명하는 데 도움을 주는 DSL을 제공합니다. Koin은 Kotlin DSL을 통해 의존성 주입을 준비하기 위한 스마트하고 함수형인 API를 제공합니다.
+Koin DSL에 대한 빠른 참조 가이드입니다. 자세한 가이드는 **[Core - 정의(Definitions)](/docs/reference/koin-core/definitions)** 및 **[Core - 모듈(Modules)](/docs/reference/koin-core/modules)**을 참조하세요.
 
-## Application & Module DSL
+## DSL 방식 (DSL Approaches)
 
-Koin은 Koin 애플리케이션의 요소를 설명할 수 있는 여러 키워드를 제공합니다:
+| 방식 | 구문(Syntax) | 패키지 |
+|----------|--------|---------|
+| **클래식 DSL** | `single { Class(get()) }` | `org.koin.dsl` |
+| **클래식 오토와이어** | `singleOf(::Class)` | `org.koin.dsl` |
+| **컴파일러 플러그인** | `single<Class>()` | `org.koin.plugin.module.dsl` |
 
-- Application DSL: Koin 컨테이너 설정을 설명하기 위해 사용
-- Module DSL: 주입해야 할 컴포넌트를 설명하기 위해 사용
+:::tip
+**컴파일러 플러그인 DSL**은 자동 와이어링(auto-wiring)과 컴파일 타임 안전성을 제공합니다. [컴파일러 플러그인 설정](/docs/setup/compiler-plugin)을 확인하세요.
+:::
 
 ## Application DSL
 
-`KoinApplication` 인스턴스는 Koin 컨테이너 인스턴스 설정입니다. 이를 통해 로깅, 프로퍼티 로딩 및 모듈을 설정할 수 있습니다.
+`KoinApplication` 인스턴스는 설정된 Koin 컨테이너를 나타냅니다. 이를 통해 로깅 설정, 프로퍼티 로딩 및 모듈 등록을 할 수 있습니다.
 
-새로운 `KoinApplication`을 빌드하려면 다음 함수를 사용하세요:
+### KoinApplication 생성하기
 
-* `koinApplication { }` - `KoinApplication` 컨테이너 설정을 생성합니다.
-* `startKoin { }` - `KoinApplication` 컨테이너 설정을 생성하고, GlobalContext API를 사용할 수 있도록 `GlobalContext`에 등록합니다.
+두 가지 방식 중 하나를 선택하세요:
 
-`KoinApplication` 인스턴스를 설정하려면 다음 함수 중 어느 것이든 사용할 수 있습니다:
-
-* `logger( )` - 사용할 로그 레벨과 Logger 구현체를 설명합니다 (기본적으로 EmptyLogger를 사용함).
-* `modules( )` - 컨테이너에 로드할 Koin 모듈 목록을 설정합니다 (list 또는 vararg list).
-* `properties()` - HashMap 프로퍼티를 Koin 컨테이너로 로드합니다.
-* `fileProperties( )` - 주어진 파일의 프로퍼티를 Koin 컨테이너로 로드합니다.
-* `environmentProperties( )` - OS 환경 변수의 프로퍼티를 Koin 컨테이너로 로드합니다.
-* `createEagerInstances()` - 즉시 초기화되는 인스턴스(`createdAtStart`로 표시된 Single 정의)를 생성합니다.
-
-## KoinApplication instance: Global vs Local
-
-위에서 보았듯이, Koin 컨테이너 설정은 `koinApplication` 또는 `startKoin` 함수를 통해 두 가지 방식으로 설명할 수 있습니다. 
-
-- `koinApplication`은 Koin 컨테이너 인스턴스를 설명합니다.
-- `startKoin`은 Koin 컨테이너 인스턴스를 설명하고 이를 Koin `GlobalContext`에 등록합니다.
-
-컨테이너 설정을 `GlobalContext`에 등록하면 글로벌 API가 이를 직접 사용할 수 있습니다. 모든 `KoinComponent`는 `Koin` 인스턴스를 참조하며, 기본적으로 `GlobalContext`에 있는 인스턴스를 사용합니다.
-
-자세한 내용은 Custom Koin instance에 관한 장을 확인하세요.
-
-## Starting Koin
-
-Koin을 시작한다는 것은 `GlobalContext`에서 `KoinApplication` 인스턴스를 실행하는 것을 의미합니다.
-
-모듈과 함께 Koin 컨테이너를 시작하려면 다음과 같이 `startKoin` 함수를 사용하면 됩니다:
+* `koinApplication { }` - 독립적인 `KoinApplication` 인스턴스를 생성합니다.
+* `startKoin { }` - `KoinApplication`을 생성하고 이를 `GlobalContext`에 등록합니다.
 
 ```kotlin
-// Global context에서 KoinApplication 시작
+// 독립형 인스턴스 (테스트 또는 커스텀 컨텍스트에 유용)
+val koinApp = koinApplication {
+    modules(myModule)
+}
+
+// 글로벌 인스턴스 (애플리케이션을 위한 표준 방식)
 startKoin {
-    // 사용할 로거 선언
     logger()
-    // 사용할 모듈 선언
-    modules(coffeeAppModule)
+    modules(myModule)
+}
+```
+
+### 설정 함수 (Configuration Functions)
+
+`koinApplication` 또는 `startKoin` 내부에서 다음 함수들을 사용할 수 있습니다:
+
+* `logger()` - 로그 레벨과 로거(Logger) 구현체를 설정합니다 (기본값: EmptyLogger).
+* `modules()` - 컨테이너에 모듈을 로드합니다 (list 또는 vararg를 허용).
+* `properties()` - HashMap 프로퍼티를 로드합니다.
+* `fileProperties()` - 파일에서 프로퍼티를 로드합니다.
+* `environmentProperties()` - OS 환경 변수에서 프로퍼티를 로드합니다.
+* `createEagerInstances()` - `createdAtStart`로 표시된 모든 정의의 인스턴스를 생성합니다.
+* `allowOverride(Boolean)` - 정의 오버라이딩 활성화/비활성화 여부를 설정합니다 (3.1.0 버전부터 기본값은 true).
+
+### Global vs Local 컨텍스트
+
+`koinApplication`과 `startKoin`의 핵심적인 차이점은 다음과 같습니다:
+
+- **`startKoin`** - 컨테이너를 `GlobalContext`에 등록하여 `KoinComponent`, `by inject()` 및 기타 글로벌 API를 통해 접근할 수 있게 합니다.
+- **`koinApplication`** - 직접 제어하는 격리된 인스턴스를 생성합니다.
+
+```kotlin
+// 글로벌 컨텍스트 - 표준 사용법
+startKoin {
+    logger()
+    modules(appModule)
+}
+
+// 이후 애플리케이션 어디에서나:
+class MyClass : KoinComponent {
+    val service: Service by inject() // GlobalContext를 사용함
+}
+```
+
+```kotlin
+// 로컬 컨텍스트 - 고급 사용법 (테스트, 다중 컨텍스트 앱 등)
+val customKoin = koinApplication {
+    modules(testModule)
+}.koin
+
+val service = customKoin.get<Service>() // 특정 인스턴스를 사용함
+```
+
+### Koin 시작하기
+
+전체적인 Koin 설정 예시입니다:
+
+```kotlin
+startKoin {
+    // 로깅 설정
+    logger(Level.INFO)
+
+    // 프로퍼티 로드
+    environmentProperties()
+
+    // 모듈 선언
+    modules(
+        networkModule,
+        databaseModule,
+        repositoryModule,
+        viewModelModule
+    )
+
+    // 즉시 초기화되는 싱글톤 생성
+    createEagerInstances()
 }
 ```
 
 ## Module DSL
 
-Koin 모듈은 애플리케이션을 위해 주입하거나 결합할 정의(definition)들을 모읍니다. 새 모듈을 만들려면 다음 함수를 사용하세요:
+모듈 및 정의에 대한 종합적인 문서는 다음을 참조하세요:
+- **[정의(Definitions)](/docs/reference/koin-core/definitions)** - DSL 및 어노테이션을 사용한 모든 정의 타입
+- **[모듈(Modules)](/docs/reference/koin-core/modules)** - 모듈 조직화 및 구성
+- **[정의 참조(Definitions Reference)](/docs/reference/koin-core/definitions)** - 빠른 조회를 위한 테이블
 
-* `module { // module content }` - Koin 모듈을 생성합니다.
+### 빠른 참조 (Quick Reference)
 
-모듈 내의 콘텐츠를 설명하려면 다음 함수들을 사용할 수 있습니다:
+| 정의 | 클래식 람다 | 클래식 오토와이어 | 컴파일러 플러그인 |
+|------------|----------------|------------------|-----------------|
+| 싱글톤 (Singleton) | `single { Class(get()) }` | `singleOf(::Class)` | `single<Class>()` |
+| 팩토리 (Factory) | `factory { Class(get()) }` | `factoryOf(::Class)` | `factory<Class>()` |
+| 스코프 (Scoped) | `scoped { Class(get()) }` | `scopedOf(::Class)` | `scoped<Class>()` |
+| 뷰모델 (ViewModel) | `viewModel { VM(get()) }` | `viewModelOf(::VM)` | `viewModel<VM>()` |
 
-* `factory { //definition }` - 팩토리 빈 정의를 제공합니다.
-* `single { //definition  }` - 싱글톤 빈 정의를 제공합니다 (`bean`이라는 별칭으로도 사용 가능).
-* `get()` - 컴포넌트 의존성을 해결(resolve)합니다 (이름, 스코프 또는 파라미터도 사용할 수 있음).
-* `bind()` - 주어진 빈 정의에 바인딩할 타입을 추가합니다.
-* `binds()` - 주어진 빈 정의에 바인딩할 타입 배열을 추가합니다.
-* `scope { // scope group }` - `scoped` 정의를 위한 논리적 그룹을 정의합니다.
-* `scoped { //definition }`- 특정 스코프 내에서만 존재하는 빈 정의를 제공합니다.
-
-참고: `named()` 함수를 사용하면 문자열, 열거형(enum) 또는 타입을 통해 한정자(qualifier)를 지정할 수 있습니다. 이는 정의에 이름을 붙이는 데 사용됩니다.
-
-### 모듈 작성하기
-
-Koin 모듈은 *모든 컴포넌트를 선언하는 공간*입니다. `module` 함수를 사용하여 Koin 모듈을 선언하세요:
+### 기본 모듈
 
 ```kotlin
 val myModule = module {
-   // 여기에 의존성을 선언하세요
+    single<Database>()
+    single<UserRepository>()
+    factory<UserPresenter>()
 }
 ```
 
-이 모듈 내에서 아래에 설명된 대로 컴포넌트를 선언할 수 있습니다.
-
-### withOptions - DSL 옵션 (3.2 버전부터)
-
-새로운 [Constructor DSL](./dsl-update.md) 정의와 마찬가지로, `withOptions` 연산자를 사용하여 "일반적인(regular)" 정의에 옵션을 지정할 수 있습니다:
+### 모듈 구성 (Module Composition)
 
 ```kotlin
-module {
-    single { ClassA(get()) } withOptions { 
-        named("qualifier")
-        createdAtStart()
-    }
+val appModule = module {
+    includes(networkModule, databaseModule)
+    single<AppConfig>()
+}
+
+startKoin {
+    modules(appModule)
 }
 ```
 
-이 옵션 람다 내에서 다음과 같은 옵션들을 지정할 수 있습니다:
-
-* `named("a_qualifier")` - 정의에 문자열 한정자를 부여합니다.
-* `named<MyType>()` - 정의에 타입 한정자를 부여합니다.
-* `bind<MyInterface>()` - 주어진 빈 정의에 바인딩할 타입을 추가합니다.
-* `binds(arrayOf(...))` - 주어진 빈 정의에 바인딩할 타입 배열을 추가합니다.
-* `createdAtStart()` - Koin 시작 시 싱글톤 인스턴스를 생성합니다.
+자세한 내용은 **[Modules - includes()](/docs/reference/koin-core/modules#module-composition-with-includes)**를 참조하세요.

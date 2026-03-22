@@ -373,7 +373,12 @@ iOS 앱과 Kotlin 멀티플랫폼에 의해 빌드된 프레임워크 간의 통
    >
    {style="note"}
 
-9. Xcode에서 프로젝트를 빌드합니다(메인 메뉴의 **Product** | **Build**). 모든 설정이 올바르면 프로젝트가 성공적으로 빌드되어야 합니다 ("build phase will be run during every build" 경고는 무시해도 됩니다).
+9. `Info.plist` 파일을 편집합니다:
+
+   * `CADisableMinimumFrameDurationOnPhone` 키를 사용하여 높은 화면 재생률(high refresh rate)을 활성화합니다.
+   * 앱에서 기기의 카메라를 사용하는 경우, `NSCameraUsageDescription` 키를 사용하여 카메라 접근 권한을 부여합니다.
+
+10. Xcode에서 프로젝트를 빌드합니다(메인 메뉴의 **Product** | **Build**). 모든 설정이 올바르면 프로젝트가 성공적으로 빌드되어야 합니다 ("build phase will be run during every build" 경고는 무시해도 됩니다).
    
     > **User Script Sandboxing** 옵션을 비활성화하기 전에 프로젝트를 빌드했다면 빌드가 실패할 수 있습니다. Gradle 데몬 프로세스가 샌드박스에 갇혀 있을 수 있으므로 재시작해야 합니다. 프로젝트 디렉터리(`kmp-integration-sample`)에서 다음 명령을 실행하여 프로세스를 중지한 후 다시 빌드하세요.
     > 

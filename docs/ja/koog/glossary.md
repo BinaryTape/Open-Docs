@@ -58,10 +58,10 @@
 
 ### AgentMemory 機能
 
-- **AgentMemory**: AIエージェントが会話をまたいで情報を保存、取得、および使用できるようにする機能。詳細については、[AgentMemory](agent-memory.md) を参照。
+- **AgentMemory**: AIエージェントが会話をまたいで情報を保存、取得、および使用できるようにする機能。詳細については、[AgentMemory](features/agent-memory.md) を参照。
 
-- **コンセプト (Concept)**: キーワード、説明、およびファクトタイプを含む、`AgentMemory` 機能における関連メタデータを持つ情報のカテゴリ。コンセプトは、エージェントが記憶し、思い出すことができる `AgentMemory` システムの基本的な構成要素。詳細については、[AgentMemory](agent-memory.md) を参照。
+- **コンセプト (Concept)**: キーワード、説明、およびファクトタイプを含む、`AgentMemory` 機能における関連メタデータを持つ情報のカテゴリ。コンセプトは、エージェントが記憶し、思い出すことができる `AgentMemory` システムの基本的な構成要素。詳細については、[AgentMemory](features/agent-memory.md) を参照。
 
-- **ファクト (Fact)**: `AgentMemory` システムに保存される個々の情報。ファクトはコンセプトに関連付けられ、単一の値または複数の値を持つことができる。詳細については、[AgentMemory](agent-memory.md) を参照。
+- **ファクト (Fact)**: `AgentMemory` システムに保存される個々の情報。ファクトはコンセプトに関連付けられ、単一の値または複数の値を持つことができる。詳細については、[AgentMemory](features/agent-memory.md) を参照。
 
-- **メモリスコープ (Memory scope)**: ファクトが関連するコンテキスト。詳細については、[AgentMemory](agent-memory.md) を参照。
+- **メモリスコープ (Memory scope)**: ファクトが関連するコンテキスト。詳細については、[AgentMemory](features/agent-memory.md) を参照。

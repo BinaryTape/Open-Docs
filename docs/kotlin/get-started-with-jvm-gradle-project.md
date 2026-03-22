@@ -2,7 +2,7 @@
 
 本教程演示如何使用 IntelliJ IDEA 和 Gradle 创建 JVM 控制台应用程序。
 
-要开始使用，请首先下载并安装最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html)。
+要开始使用，请首先下载并安装最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)。
 
 ## 创建项目
 
@@ -41,7 +41,7 @@
    2. 取消勾选 **自动选择 (Auto-select)** 复选框。
    3. 从 **Gradle 版本 (Gradle version)** 列表中，选择您的 Gradle 版本。
 * **本地安装：**
-   1. 从 **Gradle 分发 (Gradle distribution)** 列表中，选择 **本地安装 (Local installation)**。
+   1. 从 **Gradle 分发 (Gradle distribution)** 列表中，选择 **本地安装 (Local installation)**。 
    2. 对于 **Gradle 位置 (Gradle location)**，指定您本地 Gradle 版本的路径。
 
    ![高级设置](jvm-new-gradle-project-advanced.png){width=700}
@@ -74,7 +74,7 @@ tasks.test { // 参见 4️⃣
 
 * 1️⃣ 详细了解 [依赖项来源](https://docs.gradle.org/current/userguide/declaring_repositories.html)。
 * 2️⃣ [Maven 中央仓库](https://central.sonatype.com/)。也可以是 [Google 的 Maven 仓库](https://maven.google.com/) 或您公司的私有仓库。
-* 3️⃣ 详细了解 [声明依赖项](https://docs.gradle.org/current/userguide/declaring_dependencies.html)。
+* 3️⃣ 详细了解 [声明依赖项](https://docs.gradle.org/current/userguide/declaring_dependencies.html)。 
 * 4️⃣ 详细了解 [任务 (tasks)](https://docs.gradle.org/current/dsl/org.gradle.api.Task.html)。
 * 5️⃣ [用于测试的 JUnitPlatform](https://docs.gradle.org/current/javadoc/org/gradle/api/tasks/testing/Test.html#useJUnitPlatform)。
 
@@ -82,7 +82,7 @@ tasks.test { // 参见 4️⃣
 
 1. 在 `plugins {}` 块中，有 `kotlin("jvm")` 构件。该插件定义了项目中要使用的 Kotlin 版本。
 
-2. 在 `dependencies {}` 块中，有 `testImplementation(kotlin("test"))`。
+2. 在 `dependencies {}` 块中，有 `testImplementation(kotlin("test"))`。 
    详细了解 [设置测试库依赖项](gradle-configure-project.md#set-dependencies-on-test-libraries)。
 
 ## 运行应用程序
@@ -95,7 +95,7 @@ tasks.test { // 参见 4️⃣
    这意味着 Gradle 成功构建了应用程序。
 
 3. 在 `src/main/kotlin` 中，打开 `Main.kt` 文件：
-   * `src` 目录包含 Kotlin 源文件和资源。
+   * `src` 目录包含 Kotlin 源文件和资源。 
    * `Main.kt` 文件包含将打印 `Hello World!` 的示例代码。
 
 4. 点击装订区域中的绿色 **运行 (Run)** 图标并选择 **运行 'MainKt' (Run 'MainKt')** 来运行应用程序。

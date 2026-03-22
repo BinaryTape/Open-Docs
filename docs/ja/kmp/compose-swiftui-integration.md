@@ -24,9 +24,9 @@ fun MainViewController(): UIViewController =
 
 [`ComposeUIViewController()`](https://github.com/JetBrains/compose-multiplatform-core/blob/5b487914cc20df24187f9ddf54534dfec30f6752/compose/ui/ui/src/uikitMain/kotlin/androidx/compose/ui/window/ComposeWindow.uikit.kt) は、composable関数を `content` 引数として受け取るCompose Multiplatformライブラリの関数です。この方法で渡された関数は、`Text()` などの他のcomposable関数を呼び出すことができます。
 
-> Composable関数は、`@Composable` アノテーションが付いた関数です。
+> Compose Multiplatformのレンダリングには、高リフレッシュレートを明示的に有効にする必要があります。アプリの `Info.plist` ファイルに `CADisableMinimumFrameDurationOnPhone` キーを追加してください。これがないと、実行時にアプリがクラッシュします。
 >
-{style="tip"}
+{style="note"}
 
 次に、SwiftUIでCompose Multiplatformを表現する構造体が必要です。`UIViewController` インスタンスをSwiftUIビューに変換する以下の構造体を作成します。
 

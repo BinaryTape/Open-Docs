@@ -4,7 +4,7 @@
 
 <tldr>
     <p>最新 Kotlin 版本：<strong>%kotlinVersion%</strong></p>
-    <p>參閱 <a href="%kotlinLatestWhatsnew%">Kotlin 2.3.0 的新功能</a>，並在 <a href="%kotlinLatestUrl%">變更日誌</a> 中查看錯誤修正詳情。</p>
+    <p>參閱 <a href="%kotlinLatestWhatsnew%">Kotlin 2.3.20 的新功能</a><!-- 並在 <a href="%kotlinLatestUrl%">變更日誌</a> 中查看錯誤修正詳情。--></p>
 </tldr>
 
 本頁面說明了 Kotlin 的發佈週期以及我們提供的不同發佈類型。其中也包含了過去與未來 Kotlin 發佈版本的詳細資訊，以及如何更新至特定版本的說明。
@@ -29,12 +29,12 @@
 
 以下是未來穩定版 Kotlin 發佈的大約時程：
 
-* **2.3.20**：預計於 2026 年 3 月至 4 月發佈
 * **2.4.0**：預計於 2026 年 6 月至 7 月發佈
+* **2.4.20**：預計於 2026 年 9 月發佈
 
 ## 更新至新的 Kotlin 版本
 
-若要將您的專案升級至新版本，請更新組建系統中的 Kotlin 版本。
+若要將您的專案升級至新版本，請在您的建構系統中更新 Kotlin 版本。
 
 ### Gradle
 
@@ -127,6 +127,16 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
     <tr>
         <th>組建資訊</th>
         <th>組建重點</th>
+    </tr>
+    <tr>
+        <td><strong>2.3.20</strong>
+            <p>發佈日期：<strong>2026 年 3 月 16 日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20" target="_blank">在 GitHub 上查看版本</a></p>
+        </td>
+        <td>
+            <p>工具發佈版本，包含效能改進、錯誤修正與工具更新。</p>
+            <p>如需更多詳細資訊，請參閱 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20">變更日誌</a>。</p>
+        </td>
     </tr>
     <tr>
         <td><strong>2.3.10</strong>
@@ -611,7 +621,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
     <tr>
         <td><strong>1.5.0</strong>
             <p>發佈日期：<strong>2021 年 5 月 5 日</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.0" target="_blank">在 GitHub 上查看版本</a></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.0" target="_blank">在 GitHub 上釋出版本</a></p>
         </td>
         <td>
             <p>功能發佈版本，包含新語言特性、效能改進，以及如穩定化實驗性 API 等演進性變更。</p>

@@ -1,48 +1,33 @@
 ---
-title: Kotlin 멀티플랫폼 - 정의 및 모듈 어노테이션
+title: Kotlin 멀티플랫폼
 ---
 
-## KSP 설정
+## 설정
 
-공식 문서인 [KSP with Kotlin Multiplatform](https://kotlinlang.org/docs/ksp-multiplatform.html)에 설명된 대로 KSP 설정을 진행해 주세요.
-
-또한 Koin 어노테이션의 기본 설정이 포함된 [Hello Koin KMP](https://github.com/InsertKoinIO/hello-kmp/tree/annotations) 프로젝트를 확인해 보실 수 있습니다.
-
-KSP 플러그인을 추가합니다:
+Koin 컴파일러 플러그인은 KMP 설정을 간소화합니다. 플러그인을 적용하기만 하면 됩니다.
 
 ```kotlin
+// shared/build.gradle.kts
 plugins {
-    alias(libs.plugins.ksp)
+    kotlin("multiplatform")
+    alias(libs.plugins.koin.compiler)
 }
-```
 
-common API에서 어노테이션 라이브러리를 사용합니다:
-
-```kotlin
-sourceSets {
-    commonMain.dependencies {
-        implementation(libs.koin.core)
-        api(libs.koin.annotations)
-        // ...
+kotlin {
+    sourceSets {
+        commonMain.dependencies {
+            implementation(libs.koin.core)
+            implementation(libs.koin.annotations)
+        }
     }
 }
 ```
 
-그리고 올바른 sourceSet에 KSP를 구성하는 것을 잊지 마세요:
-
-```kotlin
-dependencies {
-    add("kspCommonMainMetadata", libs.koin.ksp.compiler)
-    add("kspAndroid", libs.koin.ksp.compiler)
-    add("kspIosX64", libs.koin.ksp.compiler)
-    add("kspIosArm64", libs.koin.ksp.compiler)
-    add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
-}
-```
+이게 전부입니다! 플랫폼별 KSP 구성이 필요하지 않습니다.
 
 ## 공통 코드에서 정의 및 모듈 정의하기
 
-`commonMain` 소스 세트에서 모듈을 선언하거나, 정의(definition)를 스캔하거나, 일반적인 Kotlin Koin 선언과 같이 함수를 정의하세요. 자세한 내용은 [정의(Definitions)](./definitions.md) 및 [모듈(Modules)](./modules.md) 섹션을 참조하세요.
+`commonMain` 소스 세트에서 모듈을 선언하거나, 정의(definition)를 스캔하거나, 일반적인 Kotlin Koin 선언과 같이 함수를 정의하세요. [정의(Definitions)](./definitions) 및 [모듈(Modules)](./modules) 섹션을 참조하세요.
 
 ## 공유 패턴
 
@@ -67,7 +52,7 @@ Expect/Actual 클래스는 플랫폼별로 서로 다른 생성자를 가질 수
 
 이 첫 번째 전형적인 패턴의 경우, `@ComponentScan`을 사용한 정의 스캐닝을 사용하거나 모듈 클래스 함수로 정의를 선언할 수 있습니다.
 
-`expect/actual` 정의를 사용하려면 (기본 생성자든 커스텀 생성자든) 동일한 생성자를 사용해야 한다는 점에 유의하세요. 이 생성자는 모든 플랫폼에서 동일해야 합니다.
+`expect/actual` 정의를 사용하려면 동일한 생성자를 사용해야 한다는 점에 유의하세요 (기본 생성자든 커스텀 생성자든 상관없음). 이 생성자는 모든 플랫폼에서 동일해야 합니다.
 
 #### Expect/Actual 정의 스캐닝
 

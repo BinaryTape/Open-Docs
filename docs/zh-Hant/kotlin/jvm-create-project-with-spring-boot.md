@@ -15,7 +15,7 @@
 
 ## 開始之前
 
-下載並安裝最新版本的 [IntelliJ IDEA Ultimate Edition](https://www.jetbrains.com/idea/download/index.html)。
+下載並安裝最新版本的 [IntelliJ IDEA Ultimate Edition](https://www.jetbrains.com/idea/download/)。
 
 > 如果您使用 IntelliJ IDEA Community Edition 或其他 IDE，可以使用 [網頁版專案產生器](https://start.spring.io/#!language=kotlin&type=gradle-project-kotlin) 來產生 Spring Boot 專案。
 > 
@@ -91,7 +91,7 @@ plugins {
     kotlin("jvm") version "%springBootSupportedKotlinVersion%" // 要使用的 Kotlin 版本
     kotlin("plugin.spring") version "%springBootSupportedKotlinVersion%" // Kotlin Spring 外掛程式
     id("org.springframework.boot") version "%springBootVersion%"
-    id("io.spring.dependency-management") version "1.1.7"
+    id("id.spring.dependency-management") version "1.1.7"
 }
 
 group = "com.example"

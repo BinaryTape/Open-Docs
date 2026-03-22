@@ -2,299 +2,466 @@
 title: 정의
 ---
 
-Koin을 사용하면 모듈 내에 정의(definitions)를 기술합니다. 이 섹션에서는 모듈을 선언, 구성 및 연결하는 방법을 살펴봅니다.
+# 정의
 
-## 모듈 작성하기
+정의(Definitions)는 Koin이 의존성을 생성하고 관리하는 방법을 선언합니다. 이 가이드에서는 DSL과 어노테이션을 모두 사용하여 모든 정의 타입을 다룹니다.
 
-Koin 모듈은 *모든 컴포넌트를 선언하는 공간*입니다. `module` 함수를 사용하여 Koin 모듈을 선언하세요.
+## 정의 타입
+
+| 타입 | DSL | 어노테이션 | 생명주기 | 사용 사례 |
+|------|-----|------------|-----------|----------|
+| 싱글톤 (Singleton) | `single()` | `@Singleton` | 앱 수명 동안 하나의 인스턴스 유지 | 서비스, 레포지토리, 데이터베이스 |
+| 팩토리 (Factory) | `factory()` | `@Factory` | 요청 시마다 새로운 인스턴스 생성 | 프레젠터, 사용 사례(use cases), 상태를 가진 객체 |
+| 스코프 (Scoped) | `scoped()` | `@Scoped` | 스코프당 하나의 인스턴스 유지 | 액티비티 바인딩, 세션 바인딩 객체 |
+| 뷰모델 (ViewModel) | `viewModel()` | `@KoinViewModel` | 안드로이드 뷰모델 생명주기 | 뷰모델 |
+
+## 정의 선언하기
+
+### 컴파일러 플러그인 DSL (권장)
 
 ```kotlin
-val myModule = module {
-   // 여기에 의존성을 작성하세요
+import org.koin.plugin.module.dsl.*
+
+val appModule = module {
+    // 싱글톤
+    single<Database>()
+    single<UserRepository>()
+
+    // 팩토리 - 매번 새로운 인스턴스 생성
+    factory<UserPresenter>()
+
+    // 뷰모델
+    viewModel<UserViewModel>()
 }
 ```
 
-이 모듈 내에서는 아래에 설명된 대로 컴포넌트를 선언할 수 있습니다.
-
-## 싱글톤 정의하기
-
-싱글톤(singleton) 컴포넌트를 선언한다는 것은 Koin 컨테이너가 선언된 컴포넌트의 *고유한 인스턴스(unique instance)*를 유지한다는 것을 의미합니다. 모듈에서 `single` 함수를 사용하여 싱글톤을 선언하세요.
+### 어노테이션
 
 ```kotlin
-class MyService()
+@Singleton  // 또는 @Single
+class Database
 
-val myModule = module {
+@Singleton
+class UserRepository(private val database: Database)
 
-    // MyService 클래스에 대한 싱글 인스턴스 선언
-    single { MyService() }
+@Factory
+class UserPresenter(private val repository: UserRepository)
+
+@KoinViewModel
+class UserViewModel(private val repository: UserRepository) : ViewModel()
+```
+
+### 클래식 DSL
+
+```kotlin
+val appModule = module {
+    // 생성자 참조 사용 (자동 연결)
+    singleOf(::Database)
+    singleOf(::UserRepository)
+    factoryOf(::UserPresenter)
+    viewModelOf(::UserViewModel)
+
+    // 람다 사용 (수동 연결)
+    single { Database() }
+    single { UserRepository(get()) }
+    factory { UserPresenter(get()) }
+    viewModel { UserViewModel(get()) }
 }
 ```
 
-## 람다 내에서 컴포넌트 정의하기
+## 정의 비교
 
-`single`, `factory`, `scoped` 키워드는 람다 식을 통해 컴포넌트를 선언할 수 있게 해줍니다. 이 람다는 컴포넌트를 빌드하는 방법을 기술합니다. 보통 생성자를 통해 컴포넌트를 인스턴스화하지만, 어떠한 표현식도 사용할 수 있습니다.
-
-`single { Class constructor // Kotlin expression }`
-
-람다의 결과 타입이 컴포넌트의 메인 타입이 됩니다.
-
-## 팩토리 정의하기
-
-팩토리(factory) 컴포넌트 선언은 해당 정의를 요청할 때마다 *매번 새로운 인스턴스*를 제공하는 정의입니다 (이 인스턴스는 Koin 컨테이너에 의해 유지되지 않으며, 나중에 다른 정의에 이 인스턴스를 주입하지 않습니다). 컴포넌트를 빌드하려면 람다 식과 함께 `factory` 함수를 사용하세요.
-
-```kotlin
-class Controller()
-
-val myModule = module {
-
-    // Controller 클래스에 대한 팩토리 인스턴스 선언
-    factory { Controller() }
-}
-```
+| 개념 | 컴파일러 플러그인 DSL | 클래식 DSL | 어노테이션 |
+|---------|---------------------|-------------|------------|
+| 싱글톤 (Singleton) | `single<MyClass>()` | `singleOf(::MyClass)` | `@Singleton` / `@Single` |
+| 팩토리 (Factory) | `factory<MyClass>()` | `factoryOf(::MyClass)` | `@Factory` |
+| 스코프 (Scoped) | `scoped<MyClass>()` | `scopedOf(::MyClass)` | `@Scoped` |
+| 뷰모델 (ViewModel) | `viewModel<MyVM>()` | `viewModelOf(::MyVM)` | `@KoinViewModel` |
+| 워커 (Worker) | `worker<MyWorker>()` | `workerOf(::MyWorker)` | `@KoinWorker` |
 
 :::info
- Koin 컨테이너는 정의가 요청될 때마다 새로운 인스턴스를 제공하므로 팩토리 인스턴스를 유지하지 않습니다.
+컴파일러 플러그인은 클래스와 함수 파라미터를 분석하여, 더 이상 직접 작성할 필요가 없는 `get()` 함수를 사용한 적절한 Koin 호출을 생성합니다.
 :::
 
-## 의존성 해결 및 주입
+## Single (싱글톤)
 
-이제 컴포넌트 정의를 선언할 수 있으므로, 의존성 주입으로 인스턴스들을 연결하고자 합니다. Koin 모듈에서 *인스턴스를 해결(resolve)*하려면, `get()` 함수를 사용하여 필요한 컴포넌트 인스턴스를 요청하기만 하면 됩니다. 이 `get()` 함수는 보통 생성자 값을 주입하기 위해 생성자 내부에서 사용됩니다.
-
-:::info
- Koin 컨테이너로 의존성 주입을 하려면 *생성자 주입(constructor injection)* 스타일로 작성해야 합니다. 즉, 클래스 생성자에서 의존성을 해결해야 합니다. 이렇게 하면 Koin에서 주입된 인스턴스들로 해당 인스턴스가 생성됩니다.
-:::
-
-여러 클래스가 있는 예제를 살펴보겠습니다.
+앱 전체에서 재사용되는 단일 인스턴스를 생성합니다:
 
 ```kotlin
-// Presenter <- Service
-class Service()
-class Controller(val view : View)
+// DSL
+single<DatabaseHelper>()
 
-val myModule = module {
+// 어노테이션
+@Singleton
+class DatabaseHelper
+```
 
-    // Service를 싱글 인스턴스로 선언
-    single { Service() }
-    // Controller를 싱글 인스턴스로 선언하고, get()을 통해 View 인스턴스를 해결
-    single { Controller(get()) }
+두 방식 모두 모든 소비자들 사이에서 공유되는 단일 인스턴스라는 동일한 결과를 생성합니다.
+
+## Factory (팩토리)
+
+매번 새로운 인스턴스를 생성합니다:
+
+```kotlin
+// DSL
+factory<UserPresenter>()
+
+// 어노테이션
+@Factory
+class UserPresenter(private val repository: UserRepository)
+```
+
+## Scoped (스코프 정의)
+
+스코프당 하나의 인스턴스를 생성합니다:
+
+```kotlin
+// DSL
+scope<MyActivity> {
+    scoped<ActivityPresenter>()
+}
+
+// 어노테이션
+@Scoped(MyActivityScope::class)
+class ActivityPresenter
+```
+
+## ViewModel (뷰모델)
+
+적절한 생명주기를 가진 안드로이드 뷰모델:
+
+```kotlin
+// DSL
+viewModel<UserViewModel>()
+
+// 어노테이션
+@KoinViewModel
+class UserViewModel(private val repository: UserRepository) : ViewModel()
+```
+
+## 인터페이스 바인딩
+
+### 컴파일러 플러그인 DSL
+
+```kotlin
+single<UserRepositoryImpl>() bind UserRepository::class
+
+// 여러 바인딩
+single<MyServiceImpl>() binds arrayOf(ServiceA::class, ServiceB::class)
+```
+
+### 클래식 DSL
+
+```kotlin
+singleOf(::UserRepositoryImpl) bind UserRepository::class
+
+// 또는 람다 사용
+single<UserRepository> { UserRepositoryImpl(get()) }
+```
+
+### 어노테이션
+
+클래스가 인터페이스를 구현할 때 **인터페이스 바인딩은 자동으로 이루어집니다**:
+
+```kotlin
+@Singleton
+class UserRepositoryImpl(
+    private val database: Database
+) : UserRepository  // 자동으로 UserRepository에 바인딩됨
+```
+
+명시적 바인딩의 경우:
+
+```kotlin
+@Singleton
+@Binds(UserRepository::class)
+class UserRepositoryImpl : UserRepository
+```
+
+## 한정자 (이름이 지정된 정의)
+
+동일한 타입의 정의가 여러 개 있는 경우에 사용합니다. 인스턴스를 가져오는 방법은 [한정자를 사용한 주입](/docs/reference/koin-core/injection#injection-with-qualifiers) 섹션을 참조하세요.
+
+### 컴파일러 플러그인 DSL
+
+컴파일러 플러그인 DSL에서는 (이전에 `named()`를 사용했던 것과 같이) 문자열 한정자를 사용하기 위해 `@Named` 어노테이션을 붙여야 합니다.
+
+```kotlin
+@Named("local")
+class LocalDatabase : Database
+
+@Named("remote")
+class RemoteDatabase : Database
+
+class UserRepository(
+    @Named("local") private val localDb: Database,
+    @Named("remote") private val remoteDb: Database
+)
+
+single<LocalDatabase>()
+single<RemoteDatabase>()
+single<UserRepository>()
+
+// 사용법
+val localDb: Database = get(named("local"))
+```
+
+### 클래식 DSL
+
+```kotlin
+single<Database>(named("local")) { LocalDatabase() }
+single<Database>(named("remote")) { RemoteDatabase() }
+
+// 사용법
+val localDb: Database = get(named("local"))
+```
+
+### 어노테이션
+
+```kotlin
+@Singleton
+@Named("local")
+class LocalDatabase : Database
+
+@Singleton
+@Named("remote")
+class RemoteDatabase : Database
+
+// 소비자 측에서
+@Singleton
+class UserRepository(
+    @Named("local") private val localDb: Database,
+    @Named("remote") private val remoteDb: Database
+)
+```
+
+## 주입 파라미터
+
+주입 시점에 파라미터를 전달합니다:
+
+### 컴파일러 플러그인 DSL
+
+`@InjectedParam`을 사용하여 해당 파라미터가 주입 파라미터로 제공될 것임을 나타냅니다.
+
+```kotlin
+class UserPresenter(
+    @InjectedParam userId : String,
+    repository : UserRepository
+)
+
+factory<UserPresenter>()
+```
+
+### 클래식 DSL
+
+```kotlin
+class UserPresenter(
+    userId : String,
+    repository : UserRepository
+)
+
+factory { params ->
+    UserPresenter(
+        userId = params.get(),
+        repository = get()
+    )
 }
 ```
 
-## 정의: 인터페이스 바인딩
-
-`single` 또는 `factory` 정의는 제공된 람다 정의의 타입을 사용합니다. (예: `single { T }`)
-해당 정의와 매칭되는 타입은 이 표현식에서 유일하게 매칭되는 타입입니다.
-
-클래스와 구현된 인터페이스를 예로 들어 보겠습니다.
+### 어노테이션
 
 ```kotlin
-// Service 인터페이스
-interface Service{
+@Factory
+class UserPresenter(
+    @InjectedParam val userId: String,
+    val repository: UserRepository  // 자동 주입됨
+)
 
-    fun doSomething()
-}
+// 사용법
+val presenter: UserPresenter = get { parametersOf("user123") }
+```
 
-// Service 구현체
-class ServiceImp() : Service {
+## 선택적 의존성 (Optional Dependencies)
 
-    fun doSomething() { ... }
+### 컴파일러 플러그인 DSL
+
+```kotlin
+class MyService(
+    val required: RequiredDep,
+    val optional: OptionalDep?  // getOrNull()로 해결됨
+)
+
+single<MyService>()
+```
+
+### 클래식 DSL
+
+```kotlin
+single {
+    MyService(
+        required = get(),
+        optional = getOrNull()
+    )
 }
 ```
 
-Koin 모듈에서는 다음과 같이 Kotlin의 `as` 캐스트 연산자를 사용할 수 있습니다.
+### 어노테이션
+
+Nullable 파라미터는 자동으로 처리됩니다:
 
 ```kotlin
-val myModule = module {
+@Singleton
+class MyService(
+    val required: RequiredDep,
+    val optional: OptionalDep?  // getOrNull()로 해결됨
+)
+```
 
-    // ServiceImp 타입만 매칭됨
-    single { ServiceImp() }
+## 지연 주입 (Lazy Injection)
 
-    // Service 타입만 매칭됨
-    single { ServiceImp() as Service }
+인스턴스 생성을 지연시킵니다:
 
+### 컴파일러 플러그인 DSL
+
+```kotlin
+class MyService(
+    val lazyDep: Lazy<HeavyDependency>  // 생성이 지연됨
+)
+
+single<MyService>()
+```
+
+### 클래식 DSL
+
+```kotlin
+single {
+    MyService(
+        lazyDep = inject()  // Lazy<Dependency>
+    )
 }
 ```
 
-추론된 타입(inferred type) 표현식을 사용할 수도 있습니다.
+### 어노테이션
 
 ```kotlin
-val myModule = module {
+@Singleton
+class MyService(
+    val lazyDep: Lazy<HeavyDependency>  // 생성이 지연됨
+)
+```
 
-    // ServiceImp 타입만 매칭됨
-    single { ServiceImp() }
+## 프로퍼티 (Properties)
 
-    // Service 타입만 매칭됨
-    single<Service> { ServiceImp() }
+설정 값을 주입합니다:
 
+### 컴파일러 플러그인 DSL
+
+```kotlin
+class ApiClient(
+    @Property("api_url") val url: String,
+    @Property("api_key") val key: String
+)
+
+single<ApiClient>()
+```
+
+### 클래식 DSL
+
+```kotlin
+single {
+    ApiClient(
+        url = getProperty("api_url"),
+        key = getProperty("api_key", "default")
+    )
 }
 ```
 
-:::note
- 이 두 번째 선언 스타일이 더 선호되며, 문서의 나머지 부분에서도 이 방식이 사용될 것입니다.
-:::
-
-## 추가 타입 바인딩
-
-경우에 따라 하나의 정의에서 여러 타입을 매칭시키고 싶을 때가 있습니다.
-
-클래스와 인터페이스를 예로 들어 보겠습니다.
+### 어노테이션
 
 ```kotlin
-// Service 인터페이스
-interface Service{
+@Singleton
+class ApiClient(
+    @Property("api_url") val url: String,
+    @Property("api_key") val key: String
+)
+```
 
-    fun doSomething()
-}
+## 콜백
 
-// Service 구현체
-class ServiceImp() : Service{
+### onClose 콜백
 
-    fun doSomething() { ... }
+인스턴스가 해제될 때 코드를 실행합니다:
+
+```kotlin
+single {
+    Database()
+} onClose {
+    it?.close()  // Koin이 중지되거나 스코프가 닫힐 때 호출됨
 }
 ```
 
-정의가 추가 타입을 바인딩하게 하려면 클래스와 함께 `bind` 연산자를 사용합니다.
+### createdAtStart
+
+시작 시 인스턴스를 즉시 생성합니다:
 
 ```kotlin
-val myModule = module {
+// 컴파일러 플러그인 DSL
+single<ConfigManager>() withOptions {
+    createdAtStart()
+}
 
-    // ServiceImp 및 Service 타입과 매칭됨
-    single { ServiceImp() } bind Service::class
+// 클래식 DSL
+single(createdAtStart = true) {
+    ConfigManager()
 }
 ```
 
-여기서 `get()`을 통해 `Service` 타입을 직접 해결할 수 있다는 점에 유의하세요. 하지만 `Service`를 바인딩하는 정의가 여러 개 있는 경우 `bind<>()` 함수를 사용해야 합니다.
+## 정의 오버라이드 (Definition Override)
 
-## 정의: 이름 지정 및 기본 바인딩
-
-동일한 타입에 대한 두 정의를 구분하기 위해 정의에 이름을 지정할 수 있습니다.
-
-이름으로 정의를 요청하기만 하면 됩니다.
+### 기본값: 마지막 정의가 우선함
 
 ```kotlin
-val myModule = module {
-    single<Service>(named("default")) { ServiceImpl() }
-    single<Service>(named("test")) { ServiceImpl() }
+val prodModule = module {
+    single<ApiService> { ProductionApi() }
 }
 
-val service : Service by inject(qualifier = named("default"))
-```
-
-`get()`과 `by inject()` 함수를 사용하면 필요한 경우 정의 이름을 지정할 수 있습니다. 이 이름은 `named()` 함수에 의해 생성된 `qualifier`입니다.
-
-기본적으로 Koin은 타입으로 정의를 바인딩하거나, 해당 타입이 이미 다른 정의에 바인딩된 경우 이름으로 바인딩합니다.
-
-```kotlin
-val myModule = module {
-    single<Service> { ServiceImpl1() }
-    single<Service>(named("test")) { ServiceImpl2() }
-}
-```
-
-그 결과:
-
-- `val service : Service by inject()`는 `ServiceImpl1` 정의를 트리거합니다.
-- `val service : Service by inject(named("test"))`는 `ServiceImpl2` 정의를 트리거합니다.
-
-## 주입 파라미터 선언하기
-
-모든 정의에서 주입 파라미터(injection parameters)를 사용할 수 있습니다. 이는 주입되어 정의에서 사용될 파라미터입니다.
-
-```kotlin
-class Presenter(val view : View)
-
-val myModule = module {
-    single{ (view : View) -> Presenter(view) }
-}
-```
-
-해결된 의존성(`get()`으로 해결됨)과 반대로, 주입 파라미터는 *해결 API를 통해 전달되는 파라미터*입니다. 즉, 이 파라미터들은 `get()` 및 `by inject()` 호출 시 `parametersOf` 함수와 함께 전달되는 값입니다.
-
-```kotlin
-val presenter : Presenter by inject { parametersOf(view) }
-```
-
-자세한 내용은 [주입 파라미터 섹션](/docs/reference/koin-core/injection-parameters)을 참조하세요.
-
-## 정의 종료 - OnClose
-
-`onClose` 함수를 사용하면 정의에 콜백을 추가하여, 정의 종료(closing)가 호출될 때 실행되도록 할 수 있습니다.
-
-```kotlin
-class Presenter(val view : View)
-
-val myModule = module {
-    factory { (view : View) -> Presenter(view) } onClose { // 종료 콜백 - 대상은 Presenter입니다 }
-}
-```
-
-## 정의 플래그 사용하기
-
-Koin DSL은 몇 가지 플래그도 제공합니다.
-
-### 시작 시 인스턴스 생성하기
-
-정의나 모듈에 `CreatedAtStart` 플래그를 지정하여 시작 시(또는 원하는 시점) 생성되도록 할 수 있습니다. 먼저 모듈이나 정의에 `createdAtStart` 플래그를 설정하세요.
-
-정의에서의 CreatedAtStart 플래그:
-
-```kotlin
-val myModuleA = module {
-
-    single<Service> { ServiceImp() }
+val testModule = module {
+    single<ApiService> { MockApi() }  // 프로덕션 정의를 오버라이드함
 }
 
-val myModuleB = module {
-
-    // 이 정의에 대해 즉시 생성
-    single<Service>(createdAtStart=true) { TestServiceImp() }
-}
-```
-
-모듈에서의 CreatedAtStart 플래그:
-
-```kotlin
-val myModuleA = module {
-
-    single<Service> { ServiceImp() }
-}
-
-val myModuleB = module(createdAtStart=true) {
-
-    single<Service>{ TestServiceImp() }
-}
-```
-
-`startKoin` 함수는 `createdAtStart` 플래그가 설정된 정의 인스턴스들을 자동으로 생성합니다.
-
-```kotlin
-// Koin 모듈 시작
 startKoin {
-    modules(myModuleA,myModuleB)
+    modules(prodModule, testModule)
 }
 ```
 
-:::info
-특정 시점(예: UI 대신 백그라운드 스레드)에 정의를 로드해야 하는 경우, 해당 컴포넌트를 get/inject 하기만 하면 됩니다.
-:::
+### 명시적 오버라이드
 
-### 제네릭 처리하기
-
-Koin 정의는 제네릭 타입 인자를 고려하지 않습니다. 예를 들어, 아래 모듈은 두 가지 타입의 `List` 정의를 시도합니다.
+엄격 모드(strict mode)에서는 오버라이드를 명시적으로 표시하세요:
 
 ```kotlin
-module {
-    single { ArrayList<Int>() }
-    single { ArrayList<String>() }
+val testModule = module {
+    single<ApiService> { MockApi() }.override()
+}
+
+startKoin {
+    allowOverride(false)
+    modules(prodModule, testModule)
 }
 ```
 
-Koin은 이러한 정의로는 시작되지 않으며, 사용자가 한 정의를 다른 정의로 오버라이드하려는 것으로 이해합니다.
+## 권장 모범 사례 (Best Practices)
 
-두 정의를 모두 사용하려면 이름이나 위치(모듈)를 통해 구분해야 합니다. 예를 들어:
+1. **생성자 주입 선호** - Koin 없이도 코드를 테스트할 수 있게 만듭니다.
+2. **상태가 없는 서비스에는 `single` 사용** - 레포지토리, 클라이언트, 헬퍼 등.
+3. **상태가 있는 객체에는 `factory` 사용** - 프레젠터, 상태를 가진 사용 사례 등.
+4. **생명주기에 종속된 객체에는 `scoped` 사용** - 액티비티, 프래그먼트, 세션 등.
+5. **한정자 사용 최소화** - 가능하면 대신 다른 인터페이스를 사용하세요.
+6. **인터페이스에 바인딩** - 구현체가 아닌 추상화에 의존하세요.
+7. **외부 라이브러리에는 `create(::builder)` 사용** - 더 안전한 의존성 해결을 제공합니다.
 
-```kotlin
-module {
-    single(named("Ints")) { ArrayList<Int>() }
-    single(named("Strings")) { ArrayList<String>() }
-}
+## 다음 단계
+
+- **[주입 (Injection)](/docs/reference/koin-core/injection)** - 의존성 가져오기
+- **[한정자 (Qualifiers)](/docs/reference/koin-core/qualifiers)** - 이름 및 타입 한정자
+- **[고급 패턴 (Advanced Patterns)](/docs/reference/koin-core/advanced-patterns)** - 컬렉션, 데코레이터, 외부 라이브러리
+- **[스코프 (Scopes)](/docs/reference/koin-core/scopes)** - 생명주기 관리

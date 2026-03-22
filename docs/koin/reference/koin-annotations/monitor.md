@@ -2,7 +2,7 @@
 title: 使用 @Monitor 进行 Koin 内置性能监控
 ---
 
-`@Monitor`注解（自 Koin Annotations 2.2.0 起可用）通过 [Kotzilla 平台](https://kotzilla.io)（Koin 的官方工具平台）为您的 Koin 组件启用自动性能监控和跟踪。
+`@Monitor` 注解（自 Koin Annotations 2.2.0 起可用）通过 [Kotzilla 平台](https://kotzilla.io)（Koin 的官方工具平台）为您的 Koin 组件启用自动性能监控和跟踪。
 
 ## 设置
 
@@ -16,7 +16,7 @@ dependencies {
 
 在 Kotzilla 文档上查看[最新版本](https://doc.kotzilla.io/docs/releaseNotes/changelogSDK)。
 
-配置 `allOpen`插件以使被监控的类可扩展：
+配置 `allOpen` 插件以使被监控的类可扩展：
 
 ```kotlin
 plugins {
@@ -44,7 +44,7 @@ fun initKoin() {
 
 ## 基本用法
 
-只需使用 `@Monitor`为您 Koin 组件添加注解：
+只需使用 `@Monitor` 为您的 Koin 组件添加注解：
 
 ```kotlin
 @Monitor
@@ -108,7 +108,7 @@ class DetailViewModel(private val repository: Repository) : ViewModel() {
 - **使用分析**：了解哪些组件的使用频率最高
 - **性能警报**：获得性能退化的通知
 
-创建您的免费 Kotzilla 帐户并在您的 `kotzilla.json`文件中配置 API 密钥：
+创建您的免费 Kotzilla 帐户并在您的 `kotzilla.json` 文件中配置 API 密钥：
 
 ```json
 {
@@ -126,12 +126,12 @@ class DetailViewModel(private val repository: Repository) : ViewModel() {
 
 ## 要求
 
-- 使用 `@Monitor`注解的类必须是 open 的（由 `allOpen`插件自动处理）
+- 使用 `@Monitor` 注解的类必须是 open 的（由 `allOpen` 插件自动处理）
 - Kotzilla SDK 依赖项在运行时必须可用
 - 用于数据收集的有效 Kotzilla 平台帐户和 API 密钥
 
 :::info
-`@Monitor`注解仅跟踪被监控类本身的方法调用。除非也添加了 `@Monitor`注解，否则注入到被监控类中的依赖项不会被自动监控。
+`@Monitor` 注解仅跟踪被监控类本身的方法调用。除非也添加了 `@Monitor` 注解，否则注入到被监控类中的依赖项不会被自动监控。
 :::
 
 :::note

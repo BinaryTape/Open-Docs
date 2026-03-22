@@ -40,6 +40,50 @@ startKoin {
 }
 ```
 
+## 使用註解啟動 Koin
+
+使用 Koin Annotations 時，您可以使用 `startKoin<T>()` 來透過您有註解的模組類別啟動 Koin：
+
+```kotlin
+@KoinApplication
+class MainApplication : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+
+        startKoin<MainApplication> {
+            androidLogger()
+            androidContext(this@MainApplication)
+        }
+    }
+}
+```
+
+`startKoin<T>()` 函式會自動載入從您的 `@Module` 註解類別中產生的模組。
+
+對於多個模組：
+
+```kotlin
+@Module
+@Configuration
+@ComponentScan("com.myapp.data")
+class DataModule
+
+@Module
+@Configuration
+@ComponentScan("com.myapp.domain")
+class DomainModule
+
+@KoinApplication
+class MainApplication
+
+// 使用多個模組啟動
+startKoin<MainApplication> {
+    androidLogger()
+    androidContext(this@MainApplication)
+}
+```
+
 ## 額外配置
 
 在您的 Koin 配置中（在 `startKoin { }` 程式碼區塊內），您還可以配置 Koin 的多個部分。
@@ -70,7 +114,9 @@ startKoin {
 }
 ```
 
-## 透過 Androidx Startup (4.0.1) 啟動 Koin [實驗性]
+## 透過 AndroidX Startup (4.0.1) 啟動 Koin
+
+[AndroidX Startup](https://developer.android.com/topic/libraries/app-startup) 是一個提供直觀方式在應用程式啟動時初始化元件的程式庫。它使用單一 `ContentProvider` 來初始化所有相依性，避免了每個需要早期初始化的元件各自使用 `ContentProvider` 所帶來的開銷。
 
 透過使用 Gradle 套件 `koin-androidx-startup`，我們可以使用 `KoinStartup` 介面在您的 Application 類別中宣告 Koin 配置：
 
@@ -91,16 +137,17 @@ class MainApplication : Application(), KoinStartup {
 這取代了通常在 `onCreate` 中使用的 `startKoin` 函式。`koinConfiguration` 函式會回傳一個 `KoinConfiguration` 執行個體。
 
 :::info
-`KoinStartup` 避免在啟動期間阻塞主執行緒，並提供更好的效能。
+`KoinStartup` 與 AndroidX App Startup 整合，在 `Application.onCreate()` 之前透過 `ContentProvider` 初始化 Koin。當您需要管理與其他依賴於 Koin 的 `Initializer` 之間的初始化順序時，這非常有用。
 :::
 
-## Koin 的啟動相依性
+:::warning
+`KoinStartup` 在應用程式啟動期間於主執行緒上執行。如果您不使用 AndroidX App Startup 程式庫來管理其他 `Initializer`，則使用 `KoinStartup` 沒有任何好處 — 請改用標準的 `startKoin` 方式。關於將模組載入分派至背景執行緒，請參閱 [Lazy Modules](/docs/reference/koin-core/lazy-modules)。
+:::
 
-如果您需要設定 Koin 並允許注入相依性，可以讓您的 `Initializer` 依賴於 `KoinInitializer`：
+如果您有其他需要 Koin 的 `Initializer`，請讓它們依賴於 `KoinInitializer`：
 
 ```kotlin
 class CrashTrackerInitializer : Initializer<Unit>, KoinComponent {
-
     private val crashTrackerService: CrashTrackerService by inject()
 
     override fun create(context: Context) {
@@ -110,5 +157,12 @@ class CrashTrackerInitializer : Initializer<Unit>, KoinComponent {
     override fun dependencies(): List<Class<out Initializer<*>>> {
         return listOf(KoinInitializer::class.java)
     }
-
 }
+```
+
+## 後續步驟
+
+- **[JSR-330 相容性](/docs/reference/koin-android/jsr330)** – 使用標準的 `@Inject`、`@Singleton` 註解
+- **[在 Android 中進行注入](/docs/reference/koin-android/get-instances)** – 在 Activity、Fragment、Service 中獲取執行個體
+- **[Android ViewModel](/docs/reference/koin-android/viewmodel)** – ViewModel 注入與作用域限定
+- **[Hilt 遷移](/docs/reference/koin-android/hilt-migration)** – 從 Hilt 遷移至 Koin

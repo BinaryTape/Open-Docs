@@ -10,7 +10,7 @@
 
 輸出結果將是一個可執行的命令列應用程式，你可以在 macOS 和 Linux 上執行它並發送簡單的 HTTP GET 請求。
 
-你可以直接使用命令列或透過腳本檔案（如 `.sh` 或 `.bat` 檔案）來產生 Kotlin 程式庫。然而，對於擁有數百個檔案和程式庫的大型專案，這種方法的可擴充性並不理想。使用建置系統可以簡化程序，它能下載並快取具有遞移相依性的 Kotlin/Native 編譯器二進位檔案與程式庫，並執行編譯器和測試。Kotlin/Native 可以透過 [Kotlin 多平台外掛程式](gradle-configure-project.md#targeting-multiple-platforms)來使用 [Gradle](https://gradle.org) 建置系統。
+你可以直接使用命令列或透過指令碼檔案（如 `.sh` 或 `.bat` 檔案）來產生 Kotlin 程式庫。然而，對於擁有數百個檔案和程式庫的大型專案，這種方法的可擴充性並不理想。使用建置系統可以簡化程序，它能下載並快取具有遞移相依性的 Kotlin/Native 編譯器二進位檔案與程式庫，並執行編譯器和測試。Kotlin/Native 可以透過 [Kotlin 多平台外掛程式](gradle-configure-project.md#targeting-multiple-platforms)來使用 [Gradle](https://gradle.org) 建置系統。
 
 ## 開始之前
 
@@ -36,7 +36,6 @@
         val isMingwX64 = hostOs.startsWith("Windows")
         val nativeTarget = when {
             hostOs == "Mac OS X" && isArm64 -> macosArm64("native")
-            hostOs == "Mac OS X" && !isArm64 -> macosX64("native")
             hostOs == "Linux" && isArm64 -> linuxArm64("native")
             hostOs == "Linux" && !isArm64 -> linuxX64("native")
             isMingwX64 -> mingwX64("native")
@@ -54,7 +53,7 @@
     
     ```
 
-   * 目標是使用 `macosArm64`、`macosX64`、`linuxArm64`、`linuxX64` 和 `mingwX64` 分別為 macOS、Linux 和 Windows 定義的。請參閱 [受支援平台](native-target-support.md) 的完整清單。
+   * 目標是使用 `macosArm64`、`linuxArm64`、`linuxX64` 和 `mingwX64` 分別為 macOS、Linux 和 Windows 定義的。請參閱 [受支援平台](native-target-support.md) 的完整清單。
    * `binaries {}` 區塊定義了二進位檔案的產生方式以及應用程式的入口點。這些可以保留為預設值。
    * C 互通（C interoperability）被配置為建置中的一個額外步驟。預設情況下，所有來自 C 的符號都會匯入到 `interop` 套件中。你可能想要在 `.kt` 檔案中匯入整個套件。進一步了解[如何配置](gradle-configure-project.md#targeting-multiple-platforms)。
 
@@ -64,7 +63,7 @@
 
 Kotlin/Native 有助於取用標準 C 程式庫，從而開啟了一個功能齊全的生態系統，幾乎可以滿足你的任何需求。Kotlin/Native 已經隨附了一組預建的 [平台程式庫](native-platform-libs.md)，這些程式庫為標準函式庫提供了一些額外的通用功能。
 
-互通的理想情況是像呼叫 Kotlin 函式一樣呼叫 C 函式，並遵循相同的簽章與慣例。這就是 `cinterop` 工具派上用場的時候。它接收一個 C 程式庫並產生相對應的 Kotlin 繫結，以便該程式庫可以像 Kotlin 程式碼一樣被使用。
+互通的理想情況是像呼叫 C 函式一樣呼叫 Kotlin 函式，並遵循相同的簽章與慣例。這就是 `cinterop` 工具派上用場的時候。它接收一個 C 程式庫並產生相對應的 Kotlin 繫結，以便該程式庫可以像 Kotlin 程式碼一樣被使用。
 
 為了產生這些繫結，每個程式庫都需要一個定義檔，通常與程式庫同名。這是一個屬性檔案，精確描述了應如何取用該程式庫。
 
@@ -154,7 +153,7 @@ fun main(args: Array<String>) {
 }
 ```
 
-如你所見，在 Kotlin 版本中消除了顯式的變數宣告，但其他所有內容幾乎與 C 版本相同。你在 `libcurl` 程式庫中預期的所有呼叫在 Kotlin 對應版本中皆可使用。
+如你所見，在 Kotlin 版本中消除了明確的變數宣告，但其他所有內容幾乎與 C 版本相同。你在 `libcurl` 程式庫中預期的所有呼叫在 Kotlin 對應版本中皆可使用。
 
 > 這是一個逐行的字面翻譯。你也可以用更符合 Kotlin 慣用法的方式來編寫。
 >
@@ -170,7 +169,7 @@ fun main(args: Array<String>) {
 
    在這種情況下，由 `cinterop` 工具產生的部分會隱式地包含在建置中。
 
-2. 如果編譯過程中沒有錯誤，請點擊 `main()` 函式旁邊邊欄中的綠色 **Run** 圖示，或使用 <shortcut>Shift + Cmd + R</shortcut> / <shortcut>Shift + F10</shortcut> 快速鍵。
+2. 如果編譯過程中沒有錯誤，請點擊 `main()` 函式旁邊邊欄中的綠色 **Run** 圖示，或使用 <shortcut>Shift + Cmd + R</shortcut>/<shortcut>Shift + F10</shortcut> 快速鍵。
 
    IntelliJ IDEA 會開啟 **Run** 標籤並顯示輸出內容 — [example.com](https://example.com/) 的內容：
 

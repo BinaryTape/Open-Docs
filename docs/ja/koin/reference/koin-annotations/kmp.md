@@ -1,48 +1,33 @@
 ---
-title: Kotlin Multiplatform - 定義（Definitions）とモジュールの注釈（Annotations）
+title: Kotlin Multiplatform
 ---
 
-## KSPのセットアップ
+## セットアップ
 
-公式ドキュメントの説明に従ってKSPのセットアップを行ってください: [KSP with Kotlin Multiplatform](https://kotlinlang.org/docs/ksp-multiplatform.html)
-
-また、Koin Annotationsの基本的なセットアップについては、[Hello Koin KMP](https://github.com/InsertKoinIO/hello-kmp/tree/annotations) プロジェクトも確認できます。
-
-KSPプラグインを追加します：
+Koin Compiler Plugin は KMP のセットアップを簡略化します。プラグインを適用するだけです。
 
 ```kotlin
+// shared/build.gradle.kts
 plugins {
-    alias(libs.plugins.ksp)
+    kotlin("multiplatform")
+    alias(libs.plugins.koin.compiler)
 }
-```
 
-common APIで注釈ライブラリを使用します：
-
-```kotlin
-sourceSets {
-    commonMain.dependencies {
-        implementation(libs.koin.core)
-        api(libs.koin.annotations)
-        // ...
+kotlin {
+    sourceSets {
+        commonMain.dependencies {
+            implementation(libs.koin.core)
+            implementation(libs.koin.annotations)
+        }
     }
 }
 ```
 
-そして、適切な sourceSet で KSP を設定することを忘れないでください：
-
-```kotlin
-dependencies {
-    add("kspCommonMainMetadata", libs.koin.ksp.compiler)
-    add("kspAndroid", libs.koin.ksp.compiler)
-    add("kspIosX64", libs.koin.ksp.compiler)
-    add("kspIosArm64", libs.koin.ksp.compiler)
-    add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
-}
-```
+これだけです！プラットフォームごとの KSP 設定は不要です。
 
 ## 共通コードでの定義とモジュールの宣言
 
-`commonMain` sourceSet で、Module を宣言し、定義をスキャンするか、通常の Kotlin Koin 宣言として関数を定義します。[Definitions](./definitions.md) および [Modules](./modules.md) を参照してください。
+`commonMain` sourceSet で、Module を宣言し、定義をスキャンするか、通常の Kotlin Koin 宣言として関数を定義します。[Definitions](./definitions) および [Modules](./modules) を参照してください。
 
 ## 共有パターン
 

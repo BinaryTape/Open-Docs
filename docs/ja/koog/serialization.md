@@ -109,6 +109,7 @@ JSONElement
     ├── JSONLiteral  – 文字列、数値、または真偽値
     └── JSONNull     – JSONのnullシングルトン
 ```
+<!--- KNIT example-tool-serialization-01.txt -->
 
 ### ライブラリ型との変換
 
@@ -183,6 +184,7 @@ dependencies {
     implementation("ai.koog:serialization-jackson:<version>")
 }
 ```
+<!--- KNIT example-tool-serialization-02.txt -->
 
 その後、シリアライザーを作成します：
 
@@ -254,4 +256,4 @@ val agentConfig = AIAgentConfig(
 
 例えば、**永続化 (Persistence)** は、チェックポイントの作成やエージェント状態の復元時に、`AIAgentConfig` で設定された `JSONSerializer` を使用してノードの入出力をシリアライズおよびデシリアライズします。これは、永続化されるノードを流れるすべての型が、設定された `JSONSerializer` によってシリアライズ可能である必要があることを意味します。
 
-チェックポイントの作成と復元の詳細については、[Agent Persistence](agent-persistence.md) を参照してください。
+チェックポイントの作成と復元の詳細については、[Agent Persistence](features/agent-persistence.md) を参照してください。

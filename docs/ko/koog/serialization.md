@@ -109,6 +109,7 @@ JSONElement
     ├── JSONLiteral  – 문자열, 숫자 또는 불리언
     └── JSONNull     – JSON null 싱글톤
 ```
+<!--- KNIT example-tool-serialization-01.txt -->
 
 ### 라이브러리 타입과의 상호 변환
 
@@ -183,6 +184,7 @@ dependencies {
     implementation("ai.koog:serialization-jackson:<version>")
 }
 ```
+<!--- KNIT example-tool-serialization-02.txt -->
 
 그 다음 직렬화기를 생성합니다:
 
@@ -253,4 +255,4 @@ val agentConfig = AIAgentConfig(
 
 예를 들어, **지속성 (Persistence)** 기능은 체크포인트를 생성하고 에이전트 상태를 복구할 때 `AIAgentConfig`에 설정된 `JSONSerializer`를 사용하여 노드의 입력과 출력을 직렬화 및 역직렬화합니다. 즉, 지속성 노드를 통과하는 모든 타입은 구성된 `JSONSerializer`에 의해 직렬화 가능해야 합니다.
 
-체크포인트 생성 및 복구에 대한 자세한 내용은 [에이전트 지속성 (Agent Persistence)](agent-persistence.md)을 참조하세요.
+체크포인트 생성 및 복구에 대한 자세한 내용은 [에이전트 지속성 (Agent Persistence)](features/agent-persistence.md)을 참조하세요.

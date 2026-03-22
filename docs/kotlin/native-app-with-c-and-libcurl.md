@@ -36,7 +36,6 @@
         val isMingwX64 = hostOs.startsWith("Windows")
         val nativeTarget = when {
             hostOs == "Mac OS X" && isArm64 -> macosArm64("native")
-            hostOs == "Mac OS X" && !isArm64 -> macosX64("native")
             hostOs == "Linux" && isArm64 -> linuxArm64("native")
             hostOs == "Linux" && !isArm64 -> linuxX64("native")
             isMingwX64 -> mingwX64("native")
@@ -54,7 +53,7 @@
     
     ```
 
-   * 针对 macOS、Linux 和 Windows 平台，分别使用 `macosArm64`、`macosX64`、`linuxArm64`、`linuxX64` 和 `mingwX64` 定义目标。请参阅 [支持的平台](native-target-support.md) 完整列表。
+   * 针对 macOS、Linux 和 Windows 平台，分别使用 `macosArm64`、`linuxArm64`、`linuxX64` 和 `mingwX64` 定义目标。请参阅 [支持的平台](native-target-support.md) 完整列表。
    * `binaries {}` 块定义了如何生成二进制文件以及应用程序的入口点。这些可以保留默认值。
    * C 互操作性在构建中被配置为一个额外步骤。默认情况下，来自 C 的所有符号都会导入到 `interop` 软件包中。你可能希望在 `.kt` 文件中导入整个软件包。详细了解 [如何配置](gradle-configure-project.md#targeting-multiple-platforms)。
 
@@ -170,7 +169,7 @@ fun main(args: Array<String>) {
 
    在这种情况下，由 cinterop 工具生成的部分会被隐式包含在构建中。
 
-2. 如果编译过程中没有错误，请点击 `main()` 函数旁边装订区域中的绿色 **Run** 图标，或使用 <shortcut>Shift + Cmd + R</shortcut>/<shortcut>Shift + F10</shortcut> 快捷键。
+2. 如果编译过程中没有错误，请点击主函数旁边装订区域中的绿色 **Run** 图标，或使用 <shortcut>Shift + Cmd + R</shortcut>/<shortcut>Shift + F10</shortcut> 快捷键。
 
    IntelliJ IDEA 将打开 **Run** 选项卡并显示输出 —— [example.com](https://example.com/) 的内容：
 

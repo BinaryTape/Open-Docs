@@ -66,14 +66,19 @@ Kotlin/Native 编译器支持许多不同的目标，但对它们的支持程度
 | `mingwX64`              | `x86_64-pc-windows-gnu`          | ✅             | 使用 [MinGW](https://www.mingw-w64.org) 兼容层的 64 位 Windows 10 及更高版本 |
 | 仅限 Apple macOS 主机： |                                  |               |                                                                                          |
 | `watchosDeviceArm64`    | `aarch64-apple-watchos`          |               | ARM64 平台上的 Apple watchOS 7.0 及更高版本 |
-| `macosX64`              | `x86_64-apple-macos`             | ✅             | x86_64 平台上的 Apple macOS 11.0 及更高版本 |
 | `iosX64`                | `x86_64-apple-ios-simulator`     | ✅             | x86-64 平台上的 Apple iOS 模拟器 14.0 及更高版本 |
-| `watchosX64`            | `x86_64-apple-watchos-simulator` | ✅             | x86_64 平台上的 Apple watchOS 7.0 及更高版本的 64 位模拟器 |
-| `tvosX64`               | `x86_64-apple-tvos-simulator`    | ✅             | x86_64 平台上的 Apple tvOS 14.0 及更高版本的模拟器 |
 
 > `linuxArm32Hfp` 目标已被弃用，并将在未来的版本中移除。
 > 
 {style="note"}
+
+### 已弃用的目标
+
+从 Kotlin 2.3.20 开始，以下目标已弃用：
+
+* `macosX64`（x86_64 平台上的 Apple macOS 11.0 及更高版本）
+* `watchosX64`（x86_64 平台上的 Apple watchOS 7.0 及更高版本的 64 位模拟器）
+* `tvosX64`（x86_64 平台上的 Apple tvOS 14.0 及更高版本的模拟器）
 
 ### 对于库作者
 

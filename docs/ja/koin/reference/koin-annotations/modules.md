@@ -1,59 +1,53 @@
 ---
-title: アプリケーション、設定、およびモジュール
+title: アプリケーション、設定、およびモジュール 
 ---
 
 ## @KoinApplication によるアプリケーションのブートストラップ
 
-完全な Koin アプリケーションのブートストラップを作成するには、エントリポイントクラスで `@KoinApplication` アノテーションを使用できます。このアノテーションは、Koin アプリケーションのブートストラップ関数を生成するのに役立ちます。
+アプリケーションのエントリポイントを定義するには、`@KoinApplication` を使用します。
 
 ```kotlin
-@KoinApplication // デフォルト設定をロード
-object MyApp
+@KoinApplication(modules = [MyModule::class])
+class MyApp
+```
 
+型指定された API を使用して Koin を開始します。
+
+```kotlin
+fun main() {
+    startKoin<MyApp>()
+
+    // または設定を伴う場合
+    startKoin<MyApp> {
+        printLogger()
+    }
+}
+```
+
+### 利用可能な型指定された API
+
+| API | 説明 |
+|-----|-------------|
+| `startKoin<T>()` | Koin をグローバルに開始する |
+| `startKoin<T> { }` | 設定ブロックを使用して開始する |
+| `koinApplication<T>()` | 隔離された KoinApplication を作成する |
+| `koinConfiguration<T>()` | 設定を作成する（Compose、Ktor 用） |
+
+### @KoinApplication のパラメータ
+
+- `modules`: 含めるモジュールクラスの配列
+- `configurations`: ロードする設定ラベルの配列
+
+```kotlin
 @KoinApplication(
-    configurations = ["default", "production"], 
-    modules = [MyModule::class]
+    modules = [CoreModule::class],
+    configurations = ["production"]
 )
-object MyApp
+class ProdApp
 ```
-
-これにより、Koin アプリケーションを開始するための **2 つ** の関数が生成されます。
-
-```kotlin
-// 以下のインポートにより、生成された拡張関数にアクセスできるようになります
-import org.koin.ksp.generated.*
-
-fun main() {
-    // オプション 1: Koin を直接開始する
-    MyApp.startKoin()
-    
-    // オプション 2: KoinApplication インスタンスを取得する
-    val koinApp = MyApp.koinApplication()
-}
-```
-
-生成された両方の関数は、カスタム設定をサポートしています。
-
-```kotlin
-fun main() {
-    MyApp.startKoin {
-        printLogger()
-        // その他の Koin 設定を追加
-    }
-    
-    // または koinApplication を使用
-    MyApp.koinApplication {
-        printLogger()
-    }
-}
-```
-
-`@KoinApplication` アノテーションは以下をサポートしています：
-- `configurations`: スキャンしてロードする設定名の配列
-- `modules`: 直接含めるモジュールクラスの配列（設定に加えて追加されるもの）
 
 :::info
-設定が指定されていない場合、自動的に "default" 設定がロードされます。
+設定が指定されていない場合、`@Configuration`（デフォルトラベル）でマークされたモジュールが自動的にロードされます。
 :::
 
 ## @Configuration による設定管理
@@ -165,84 +159,33 @@ class SimpleApp
 - アノテーション内にリストすることで、モジュールを複数の設定に所属させることができます
 :::
 
-## デフォルトモジュール (1.3.0 以降非推奨)
+## モジュールによる整理
 
-:::warning
-デフォルトモジュールのアプローチは、Annotations 1.3.0 以降非推奨です。より適切な整理と明確化のために、`@Module` と `@Configuration` アノテーションを使用した明示的なモジュールを使用することをお勧めします。
-:::
-
-定義を使用する際、それらをモジュールに整理する必要がある場合とそうでない場合があります。以前は、明示的なモジュールなしで定義をホストするために、生成された「デフォルト」モジュールを使用することができました。
-
-モジュールを指定したくない場合、Koin はすべての定義をホストするためのデフォルトモジュールを提供します。`defaultModule` は直接使用できる状態になっています。
-
-```kotlin
-// 以下のインポートにより、生成された拡張関数にアクセスできるようになります
-import org.koin.ksp.generated.*
-
-fun main() {
-    startKoin {
-        defaultModule()
-    }
-}
-
-// または 
-
-fun main() {
-    startKoin {
-        modules(
-          defaultModule
-        )
-    }
-}
-```
-
-**推奨されるアプローチ**: デフォルトモジュールを使用する代わりに、定義を明示的なモジュールに整理してください。
-
-```kotlin
-@Module
-@Configuration
-class MyModule {
-    // ここに定義を記述
-}
-
-// その後 @KoinApplication を使用
-@KoinApplication
-object MyApp
-```
-
-:::info
-`org.koin.ksp.generated.*` のインポートを忘れないでください。
-:::
+定義は常に `@Module` を使用して明示的なモジュールに整理してください。
 
 ## @Module によるクラスモジュール
 
-モジュールを宣言するには、クラスに `@Module` アノテーションを付与するだけです。
+モジュールを宣言するには、クラスに `@Module` アノテーションを付与します。
 
 ```kotlin
 @Module
 class MyModule
 ```
 
-Koin でモジュールをロードするには、`@Module` クラスに対して生成された `.module` 拡張を使用します。モジュールの新しいインスタンス `MyModule().module` を作成するだけです。
+`@KoinApplication` 内でモジュールを参照します。
 
 ```kotlin
-// Koin Generation を使用
-import org.koin.ksp.generated.*
+@KoinApplication(modules = [MyModule::class])
+class MyApp
 
 fun main() {
-    startKoin {
-        modules(
-          MyModule().module
-        )
-    }
+    startKoin<MyApp>()
 }
 ```
 
-> `org.koin.ksp.generated.*` のインポートを忘れないでください。
-
 ## @ComponentScan によるコンポーネントスキャン
 
-アノテーションが付与されたコンポーネントをスキャンしてモジュールに集めるには、モジュールで `@ComponentScan` アノテーションを使用します。
+アノテーションが付与されたコンポーネントを自動的に検出するには、`@ComponentScan` を使用します。
 
 ```kotlin
 @Module
@@ -250,10 +193,16 @@ fun main() {
 class MyModule
 ```
 
-これにより、現在のパッケージおよびサブパッケージからアノテーション付きコンポーネントがスキャンされます。`@ComponentScan("com.my.package")` のように特定のパッケージを指定してスキャンすることもできます。
+これにより、現在のパッケージおよびサブパッケージからアノテーション付きコンポーネントがスキャンされます。次のようにパッケージを明示的に指定することもできます。
+
+```kotlin
+@Module
+@ComponentScan("com.myapp.features")
+class FeatureModule
+```
 
 :::info
-`@ComponentScan` アノテーションを使用すると、KSP は同じパッケージを対象にすべての Gradle モジュールを横断してスキャンします。（1.4 以降）
+`@ComponentScan` は同じパッケージを対象にすべての Gradle モジュールを横断してスキャンします。
 :::
 
 ## クラスモジュール内での定義
@@ -276,7 +225,7 @@ class MyModule {
 
 ## モジュールの包含 (Including Modules)
 
-他のクラスモジュールを自分のモジュールに含めるには、`@Module` アノテーションの `includes` 属性を使用します。
+モジュールを構成するには、`includes` 属性を使用します。
 
 ```kotlin
 @Module
@@ -286,17 +235,12 @@ class ModuleA
 class ModuleB
 ```
 
-このようにして、ルートとなるモジュールだけを実行できます。
+アプリケーションでルートモジュールを参照します。
 
 ```kotlin
-// Koin Generation を使用
-import org.koin.ksp.generated.*
+@KoinApplication(modules = [ModuleB::class])  // ModuleA が自動的に含まれます
+class MyApp
 
 fun main() {
-    startKoin {
-        modules(
-          // ModuleB と ModuleA がロードされます
-          ModuleB().module
-        )
-    }
+    startKoin<MyApp>()
 }

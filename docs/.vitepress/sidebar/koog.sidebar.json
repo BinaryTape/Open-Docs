@@ -25,16 +25,7 @@
       },
       {
         "text": "koog.quickstart",
-        "items": [
-          {
-            "text": "koog._0"
-          },
-          {
-            "text": "koog.chat-agent-with-memory",
-            "link": "quickstart/chat-agent"
-          }
-        ],
-        "collapsed": true
+        "link": "quickstart"
       },
       {
         "text": "koog.agents",
@@ -174,54 +165,65 @@
         "text": "koog.features",
         "items": [
           {
-            "text": "koog.overview",
-            "link": "features-overview"
+            "text": "koog._0"
           },
           {
             "text": "koog.event-handlers",
-            "link": "agent-event-handlers"
+            "link": "features/agent-event-handlers"
           },
           {
             "text": "koog.tracing",
-            "link": "tracing"
-          },
-          {
-            "text": "koog.memory",
-            "link": "agent-memory"
+            "link": "features/tracing"
           },
           {
             "text": "koog.chat-memory",
-            "link": "chat-memory"
+            "items": [
+              {
+                "text": "koog._0"
+              },
+              {
+                "text": "koog.chat-agent-with-memory",
+                "link": "features/chat-memory/chat-agent-with-memory"
+              },
+              {
+                "text": "koog.chat-backend-with-memory",
+                "link": "features/chat-memory/chat-backend-with-memory"
+              }
+            ],
+            "collapsed": true
+          },
+          {
+            "text": "koog.agent-memory",
+            "link": "features/agent-memory"
           },
           {
             "text": "koog.long-term-memory",
-            "link": "long-term-memory"
+            "link": "features/long-term-memory"
           },
           {
             "text": "koog.agent-persistence",
-            "link": "agent-persistence"
+            "link": "features/agent-persistence"
           },
           {
             "text": "koog.opentelemetry",
             "items": [
               {
-                "text": "koog.overview",
-                "link": "opentelemetry-support"
+                "text": "koog._0"
               },
               {
                 "text": "koog.langfuse-exporter",
-                "link": "opentelemetry-langfuse-exporter"
+                "link": "features/open-telemetry/opentelemetry-langfuse-exporter"
               },
               {
                 "text": "koog.weave-exporter",
-                "link": "opentelemetry-weave-exporter"
+                "link": "features/open-telemetry/opentelemetry-weave-exporter"
               }
             ],
             "collapsed": true
           },
           {
             "text": "koog.custom-features",
-            "link": "custom-features"
+            "link": "features/custom-features"
           }
         ],
         "collapsed": true
@@ -282,6 +284,10 @@
           {
             "text": "koog.spring-boot",
             "link": "spring-boot"
+          },
+          {
+            "text": "koog.spring-ai",
+            "link": "spring-ai-integration"
           }
         ],
         "collapsed": true

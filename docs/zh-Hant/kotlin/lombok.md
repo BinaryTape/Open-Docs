@@ -1,11 +1,11 @@
 [//]: # (title: Lombok 編譯器外掛程式)
-<primary-label ref="experimental-opt-in"/>
+<primary-label ref="alpha"/>
 
 Kotlin Lombok 編譯器外掛程式允許在同一個 Java/Kotlin 混合模組中，讓 Kotlin 程式碼產生並使用 Java 的 Lombok 宣告。
 如果您從另一個模組呼叫這些宣告，則不需要在該模組的編譯過程中使用此外掛程式。
 
 Lombok 編譯器外掛程式無法取代 [Lombok](https://projectlombok.org/)，但它能幫助 Lombok 在 Java/Kotlin 混合模組中運作。
-因此，使用此時外掛程式時，您仍需照常配置 Lombok。
+因此，使用此外掛程式時，您仍需照常配置 Lombok。
 進一步了解[如何配置 Lombok 編譯器外掛程式](#using-the-lombok-configuration-file)。
 
 ## 支援的註解

@@ -851,7 +851,7 @@ class UserService(private val userRepository: UserRepository) {
 | `@ViewModelScope` | `org.koin.core.annotation` | ViewModel スコープ | ViewModel スコープの依存関係 |
 | `@ActivityScope` | `org.koin.android.annotation` | Activity スコープ | Activity スコープの依存関係 |
 | `@ActivityRetainedScope` | `org.koin.android.annotation` | 保持される Activity スコープ | 設定変更に耐える依存関係 |
-| `@FragmentScope` | `org.koin.android.annotation` | Fragment スコープ | Fragment スコープの依存関係 |
+| `@FragmentScope` | `org.koin.android.annotation` | Fragment スコープ | Fragment スコープ의 依存関係 |
 | `@ScopeId` | `org.koin.core.annotation` | スコープ解決 | 特定のスコープから解決 |
 | `@KoinViewModel` | `org.koin.android.annotation` | ViewModel 定義 | Android/KMP/CMP ViewModel |
 | `@KoinWorker` | `org.koin.android.annotation` | Worker 定義 | WorkManager ワーカー |

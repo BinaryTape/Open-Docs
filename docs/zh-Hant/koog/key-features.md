@@ -2,13 +2,13 @@
 
 Koog 的主要特性包括：
 
-- **多平台開發**：使用 Kotlin Multiplatform 在 JVM、JS、WasmJS、Android 和 iOS 目標上部署代理。
+- **慣用的 Kotlin 與 Java 支援**：在型別安全的 Kotlin DSL 或專用的流暢 Java builder API 之間進行選擇。Java API 旨在讓 Java 團隊感到自然，使用標準的執行緒池執行器 (thread pool executor) 而不公開協同程式。
 - **可靠性與容錯能力**：透過內建重試機制處理失敗，並利用代理持久化功能在執行期間的特定點恢復代理狀態。
 - **智慧歷程記錄壓縮**：使用先進的內建歷程記錄壓縮技術，在長效對話中最佳化 token 使用量並同時保持上下文。
 - **企業級整合**：利用與 Spring Boot 和 Ktor 等熱門 JVM 架構的整合，將 Koog 嵌入到您的應用程式中。
-- **使用 OpenTelemetry 匯出器的可觀測性**：透過對熱門可觀測性提供者（W&B Weave、Langfuse）的內建支援來監控和偵錯應用程式。
+- **使用 OpenTelemetry 匯出器的可觀測性**：透過對熱門可觀測性提供者 (W&B Weave, Langfuse) 的內建支援來監控和偵錯應用程式。
 - **LLM 切換與無縫歷程記錄適應**：在任何時間點切換到不同的 LLM 而不會遺失現有的對話歷程記錄，或在多個 LLM 提供者之間重新路由。
-- **與 JVM 和 Kotlin 應用程式整合**：使用專為 JVM 和 Kotlin 開發人員設計的慣用且型別安全的 Kotlin DSL 建置 AI 代理。
+- **多平台開發**：對於使用 Kotlin 編寫的代理，使用 Kotlin Multiplatform 將其部署到 JVM、JS、WasmJS、Android 與 iOS 目標上。
 - **Model Context Protocol 整合**：在 AI 代理中使用 Model Context Protocol (MCP) 工具。
 - **知識檢索與記憶體**：使用向量嵌入、分級文件存儲和共享代理記憶體，在對話之間保留並檢索知識。
 - **強大的串流 API**：透過串流支援和平行工具呼叫即時處理回應。

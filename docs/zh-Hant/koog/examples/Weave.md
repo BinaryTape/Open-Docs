@@ -1,4 +1,4 @@
-# Koog Agent 的 Weave 執行緒
+# Koog agent 的 Weave 執行緒
 
 [:material-github: 在 GitHub 上開啟](
 https://github.com/JetBrains/koog/blob/develop/examples/notebooks/Weave.ipynb
@@ -7,7 +7,7 @@ https://github.com/JetBrains/koog/blob/develop/examples/notebooks/Weave.ipynb
 https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Weave.ipynb
 ){ .md-button }
 
-本筆記本示範如何使用 OpenTelemetry (OTLP) 將 Koog Agent 追蹤到 W&B Weave。
+本筆記本示範如何使用 OpenTelemetry (OTLP) 將 Koog agent 追蹤到 W&B Weave。
 您將建立一個簡單的 Koog `AIAgent`，啟用 Weave 匯出器，執行提示詞，並在
 Weave UI 中查看豐富的追蹤。
 
@@ -22,7 +22,7 @@ Weave UI 中查看豐富的追蹤。
 - 您的 Weave 實體（小組或使用者）名稱，設定為 `WEAVE_ENTITY`
   - 您可以在 W&B 儀表板中找到它：https://wandb.ai/home（左側邊欄的「Teams」）
 - 設定專案名稱為 `WEAVE_PROJECT_NAME`（如果未設定，此範例將使用 `koog-tracing`）
-- 設定 OpenAI API 金鑰為 `OPENAI_API_KEY` 以執行 Koog Agent
+- 設定 OpenAI API 金鑰為 `OPENAI_API_KEY` 以執行 Koog agent
 
 範例 (macOS/Linux)：
 ```bash
@@ -43,7 +43,7 @@ export OPENAI_API_KEY=...
 
 ```
 
-## 建立 Agent 並啟用 Weave 執行緒
+## 建立 agent 並啟用 Weave 執行緒
 
 我們建構一個極簡的 `AIAgent` 並安裝帶有 Weave 匯出器的 `OpenTelemetry` 功能。
 匯出器會使用您的環境設定將 OTLP Span 傳送到 Weave：
@@ -54,7 +54,6 @@ export OPENAI_API_KEY=...
 ```kotlin
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
-import ai.koog.agents.features.opentelemetry.integration.weave.addWeaveExporter
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 
@@ -76,10 +75,10 @@ val agent = AIAgent(
 
 ```
 
-## 執行 Agent 並在 Weave 中查看追蹤
+## 執行 agent 並在 Weave 中查看追蹤
 
 執行一個簡單的提示詞。完成後，開啟印出的連結以在 Weave 中查看追蹤。
-您應該會看到 Agent 執行、模型呼叫以及其他受檢測操作的 Span。
+您應該會看到 agent 執行、模型呼叫以及其他受檢測操作的 Span。
 
 ```kotlin
 import kotlinx.coroutines.runBlocking

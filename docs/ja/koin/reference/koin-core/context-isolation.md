@@ -2,75 +2,79 @@
 title: コンテキストの分離
 ---
 
-## コンテキストの分離とは？
+コンテキストの分離（Context isolation）を使用すると、SDK開発者はホストアプリケーションのKoinインスタンスと競合することなくKoinを使用できるようになります。
 
-SDK開発者の場合、Koinを非グローバルな方法で使用することもできます。ライブラリのDIにKoinを使用しつつ、ライブラリの利用者もKoinを使用している場合に発生する可能性のある競合を、コンテキストを分離することで回避できます。
+:::info
+標準的なKoinのセットアップについては、**[Koinの開始](/docs/reference/koin-core/starting-koin)**を参照してください。
+:::
 
-標準的な方法では、次のようにKoinを開始できます：
+## いつコンテキストの分離を使用するか
 
-```kotlin
-// KoinApplicationを起動し、グローバルコンテキストに登録する
-startKoin {
+- **SDK/ライブラリ開発** - ライブラリ内部でKoinを使用する場合
+- **競合の回避** - ホストアプリもKoinを使用している可能性がある場合
+- **カプセル化** - DIコンテナをプライベートに保つ場合
 
-    // 使用するモジュールを宣言する
-    modules(...)
-}
-```
+## 分離されたコンテキストの作成
 
-これは、デフォルトのKoinコンテキストを使用して依存関係を登録します。
-
-しかし、分離されたKoinインスタンスを使用したい場合は、インスタンスを宣言し、そのインスタンスを保持するためのクラスに保存する必要があります。
-ライブラリ内でKoin Applicationインスタンスを保持し続け、それをカスタムの `KoinComponent` 実装に渡す必要があります。
-
-以下の `MyIsolatedKoinContext` クラスは、Koinインスタンスを保持しています：
+`GlobalContext` に登録を行う `startKoin` を使用する代わりに、 `koinApplication` を使用します：
 
 ```kotlin
-// Koinインスタンスのコンテキストを取得する
-object MyIsolatedKoinContext {
+// SDK用の分離されたKoinコンテキスト
+object MySdkKoinContext {
 
     private val koinApp = koinApplication {
-        // 使用するモジュールを宣言する
-        modules(coffeeAppModule)
+        modules(sdkModule)
     }
 
-    val koin = koinApp.koin 
+    val koin = koinApp.koin
+}
+
+val sdkModule = module {
+    single<SdkService>()
+    single<SdkRepository>()
 }
 ```
 
-次に、 `MyIsolatedKoinContext` を使用して、分離されたコンテキストを使用する `KoinComponent` である `IsolatedKoinComponent` インターフェースを定義しましょう：
+## カスタムKoinComponent
+
+分離されたコンテキストを使用するカスタムの `KoinComponent` を作成します：
 
 ```kotlin
-internal interface IsolatedKoinComponent : KoinComponent {
+internal interface SdkKoinComponent : KoinComponent {
+    // 分離されたコンテキストを使用するようにオーバーライドする
+    override fun getKoin(): Koin = MySdkKoinContext.koin
+}
 
-    // デフォルトのKoinインスタンスをオーバーライドする
-    override fun getKoin(): Koin = MyIsolatedKoinContext.koin
+// SDKクラスでの使用例
+class MySdkClass : SdkKoinComponent {
+    private val service: SdkService by inject()  // 分離されたコンテキストを使用する
 }
 ```
 
-これで準備が整いました。あとは `IsolatedKoinComponent` を使用して、分離されたコンテキストからインスタンスを取得するだけです：
+## 分離されたコンテキストのテスト
+
+テストで分離されたコンテキストを使用するには、 `getKoin()` をオーバーライドします：
 
 ```kotlin
-class MyKoinComponent : IsolatedKoinComponent {
-    // inject と get は MyIsolatedKoinContext を対象にします
-}
-```
-
-## テスト
-
-`by inject()` デリゲートを使用して依存関係を取得しているクラスをテストするには、 `getKoin()` メソッドをオーバーライドし、カスタムのKoinモジュールを定義します：
-
-```kotlin
-class MyClassTest : KoinTest {
-    // 依存関係を取得するために使用されるKoinコンテキスト
-    override fun getKoin(): Koin = MyIsolatedKoinContext.koin
+class SdkTest : KoinTest {
+    override fun getKoin(): Koin = MySdkKoinContext.koin
 
     @Before
     fun setUp() {
-       // カスタムのKoinモジュールを定義する
-        val module = module {
-            // 依存関係を登録する
+        val testModule = module {
+            single<SdkService> { MockSdkService() }
         }
+        koin.loadModules(listOf(testModule))
+    }
 
-        koin.loadModules(listOf(module))
+    @After
+    fun tearDown() {
+        koin.unloadModules(listOf(testModule))
     }
 }
+```
+
+## 関連項目
+
+- **[Koinの開始](/docs/reference/koin-core/starting-koin)** - 標準的なKoinのセットアップ
+- **[Composeの分離されたコンテキスト](/docs/reference/koin-compose/isolated-context)** - Composeアプリにおける分離

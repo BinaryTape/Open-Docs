@@ -30,6 +30,7 @@ Koog 中聊天代理策略的实现是通过 `chatAgentStrategy` 函数完成的
 ```
 ai.koog.agents.ext.agent.chatAgentStrategy
 ```
+<!--- KNIT example-predefined-strategies-01.txt -->
 
 要使用该策略，请按照以下模式创建一个 AI 代理：
 
@@ -135,7 +136,7 @@ Koog 中 ReAct 策略的实现是通过 `reActStrategy` 函数完成的。要使
 ```
 ai.koog.agents.ext.agent.reActStrategy
 ```
-<!--- KNIT example-predefined-strategies-03.kt -->
+<!--- KNIT example-predefined-strategies-02.txt -->
 
 要使用该策略，请按照以下模式创建一个 AI 代理：
 
@@ -164,7 +165,7 @@ val reActAgent = AIAgent(
     )
 )
 ```
-<!--- KNIT example-predefined-strategies-04.kt -->
+<!--- KNIT example-predefined-strategies-03.kt -->
 
 ### 形参
 
@@ -193,6 +194,7 @@ val reActAgent = AIAgent(
 2. 过滤掉存款（正数金额）
 3. 计算总支出
 ```
+<!--- KNIT example-predefined-strategies-03.txt -->
 
 #### 3. 行动与执行，第一阶段
 
@@ -203,6 +205,7 @@ val reActAgent = AIAgent(
 ```text
 {tool: "get_transactions", args: {startDate: "2025-05-19", endDate: "2025-06-18"}}
 ```
+<!--- KNIT example-predefined-strategies-04.txt -->
 
 该工具返回的结果可能如下所示：
 
@@ -214,6 +217,7 @@ val reActAgent = AIAgent(
   {date: "2025-06-13", amount: -200.00, description: "Utilities"}
 ]
 ```
+<!--- KNIT example-predefined-strategies-05.txt -->
 
 #### 4. 推理
 
@@ -224,6 +228,7 @@ val reActAgent = AIAgent(
 1. 移除 +1000.00 的工资存款
 2. 对剩余交易进行求和
 ```
+<!--- KNIT example-predefined-strategies-06.txt -->
 
 #### 5. 行动与执行，第二阶段
 
@@ -232,12 +237,14 @@ val reActAgent = AIAgent(
 ```text
 {tool: "calculate_sum", args: {amounts: [-100.00, -500.00, -200.00]}}
 ```
+<!--- KNIT example-predefined-strategies-07.txt -->
 
 工具返回最终结果：
 
 ```text
 -800.00
 ```
+<!--- KNIT example-predefined-strategies-08.txt -->
 
 #### 6. 最终响应
 
@@ -246,6 +253,7 @@ val reActAgent = AIAgent(
 ```text
 您上个月在杂货、房租和公用事业上花费了 800.00 美元。
 ```
+<!--- KNIT example-predefined-strategies-09.txt -->
 
 ### 何时使用 ReAct 策略
 
@@ -300,4 +308,4 @@ suspend fun main() {
     val result = bankingAgent.run("上个月我花了多少钱？")
 }
 ```
-<!--- KNIT example-predefined-strategies-05.kt -->
+<!--- KNIT example-predefined-strategies-04.kt -->

@@ -2,75 +2,79 @@
 title: 上下文隔离
 ---
 
-## 什么是上下文隔离？
+上下文隔离允许 SDK 开发者在不与宿主应用程序的 Koin 实例冲突的情况下使用 Koin。
 
-对于 SDK 开发者，你也可以以非全局的方式使用 Koin：将 Koin 用于库的依赖注入，并通过隔离上下文来避免库的使用者在使用 Koin 时产生任何冲突。
+:::info
+有关一般 Koin 设置，请参阅 **[启动 Koin](/docs/reference/koin-core/starting-koin)**。
+:::
 
-在标准方式中，我们可以像这样启动 Koin：
+## 何时使用上下文隔离
 
-```kotlin
-// 启动一个 KoinApplication 并将其注册到全局上下文中
-startKoin {
+- **SDK/库开发** —— 你的库在内部使用 Koin
+- **避免冲突** —— 宿主应用也可能使用 Koin
+- **封装** —— 保持你的 DI 容器为私有
 
-    // 声明使用的模块
-    modules(...)
-}
-```
+## 创建隔离上下文
 
-这将使用默认 Koin 上下文来注册你的依赖项。
-
-但如果我们想要使用一个隔离的 Koin 实例，你需要声明一个实例并将其存储在一个类中以持有该实例。
-你必须让你的 Koin Application 实例在库中保持可用，并将其传递给你的自定义 `KoinComponent` 实现：
-
-这里的 `MyIsolatedKoinContext` 类持有了我们的 Koin 实例：
+不要使用 `startKoin`（它会在 `GlobalContext` 中注册），而是使用 `koinApplication`：
 
 ```kotlin
-// 获取你的 Koin 实例的上下文
-object MyIsolatedKoinContext {
+// 针对你的 SDK 的隔离 Koin 上下文
+object MySdkKoinContext {
 
     private val koinApp = koinApplication {
-        // 声明使用的模块
-        modules(coffeeAppModule)
+        modules(sdkModule)
     }
 
-    val koin = koinApp.koin 
+    val koin = koinApp.koin
+}
+
+val sdkModule = module {
+    single<SdkService>()
+    single<SdkRepository>()
 }
 ```
 
-让我们使用 `MyIsolatedKoinContext` 来定义我们的 `IsolatedKoinComponent` 类，这是一个将使用我们隔离上下文的 `KoinComponent`：
+## 自定义 KoinComponent
+
+创建一个使用你隔离上下文的自定义 `KoinComponent`：
 
 ```kotlin
-internal interface IsolatedKoinComponent : KoinComponent {
+internal interface SdkKoinComponent : KoinComponent {
+    // 重写以使用隔离上下文
+    override fun getKoin(): Koin = MySdkKoinContext.koin
+}
 
-    // 重写默认 Koin 实例
-    override fun getKoin(): Koin = MyIsolatedKoinContext.koin
+// 在你的 SDK 类中使用
+class MySdkClass : SdkKoinComponent {
+    private val service: SdkService by inject()  // 使用隔离上下文
 }
 ```
 
-一切就绪，只需使用 `IsolatedKoinComponent` 从隔离上下文中检索实例：
+## 测试隔离上下文
+
+在测试中重写 `getKoin()` 以使用隔离上下文：
 
 ```kotlin
-class MyKoinComponent : IsolatedKoinComponent {
-    // inject 和 get 将以 MyIsolatedKoinContext 为目标
-}
-```
-
-## 测试
-
-要测试使用 `by inject()` 委托检索依赖项的类，请重写 `getKoin()` 方法并定义自定义 Koin 模块：
-
-```kotlin
-class MyClassTest : KoinTest {
-    // 用于检索依赖项的 Koin 上下文
-    override fun getKoin(): Koin = MyIsolatedKoinContext.koin
+class SdkTest : KoinTest {
+    override fun getKoin(): Koin = MySdkKoinContext.koin
 
     @Before
     fun setUp() {
-       // 定义自定义 Koin 模块
-        val module = module {
-            // 注册依赖项
+        val testModule = module {
+            single<SdkService> { MockSdkService() }
         }
+        koin.loadModules(listOf(testModule))
+    }
 
-        koin.loadModules(listOf(module))
+    @After
+    fun tearDown() {
+        koin.unloadModules(listOf(testModule))
     }
 }
+```
+
+## 另请参阅
+
+- **[启动 Koin](/docs/reference/koin-core/starting-koin)** —— 标准 Koin 设置
+- **[Compose 上下文隔离](/docs/reference/koin-compose/isolated-context)** —— Compose 应用中的隔离

@@ -14,7 +14,7 @@
 
 然而在目前的設計中，`Application` 負責建立、擁有並初始化 `ApplicationEngine` 與 `ApplicationEnvironment`。
 
-此結構重整帶來了以下一系列的重大變更（breaking changes）：
+此結構重整帶來了以下一系列的重大變更 (breaking changes)：
 
 - [`ApplicationEngineEnvironmentBuilder` 與 `applicationEngineEnvironment` 類別已重新命名](#renamed-classes)。
 - [`start()` 與 `stop()` 方法已從 `ApplicationEngineEnvironment` 中移除](#ApplicationEnvironment)。
@@ -176,7 +176,7 @@ fun main(args: Array<String>) {
 
 #### 引入 `EmbeddedServer` {id="EmbeddedServer"}
 
-引入了 [`EmbeddedServer`](https://api.ktor.io/ktor-server-core/io.ktor.server.engine/-embedded-server/index.html) 類別，並用來取代 `ApplicationEngine` 作為 `embeddedServer()` 函式的回傳型別。
+引入了 [`EmbeddedServer`](https://api.ktor.io/ktor-server-core/io.ktor.server.engine/-embedded-server/index.html) 類別，並用來取代 `ApplicationEngine` 作為 `embeddedServer()` 函式的傳回型別。
 
 如需更多關於模型變更的詳細資訊，請參閱 [YouTrack 上的問題 KTOR-3857](https://youtrack.jetbrains.com/issue/KTOR-3857/Environment-Engine-Application-Design)。
 
@@ -184,7 +184,7 @@ fun main(args: Array<String>) {
 
 ##### `withTestApplication` 與 `withApplication` 已移除
 
-`withTestApplication` 與 `withApplication` 函式（[先前已在 `2.0.0` 版本中棄用](migration-to-20x.md#testing-api)）現在已從 `ktor-server-test-host` 軟體包中移除。
+`withTestApplication` 與 `withApplication` 函式（[先前已在 `2.0.0` 版本中棄用](migration-to-20x.md#testing-api)）現在已從 `ktor-server-test-host` 套件中移除。
 
 取而代之的是，請使用 `testApplication` 函式搭配現有的 [Ktor 用戶端](client-create-and-configure.md)執行個體，對您的伺服器發出請求並驗證結果。
 
@@ -390,9 +390,9 @@ install(WebSockets) {
 
 您可以根據需要對其他時間長度組態使用類似的 Kotlin 時間擴充屬性（`minutes`、`hours` 等）。如需更多資訊，請參閱 [Duration](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/) 文件。
 
-### 伺服器通訊端 `.bind()` 現在為掛起函式（suspending）
+### 伺服器通訊端 `.bind()` 現在為掛起函式 (suspending)
 
-為了支援 JS 與 WasmJS 環境中的非同步操作，[`TCPSocketBuilder`](https://api.ktor.io/ktor-network/io.ktor.network.sockets/-tcp-socket-builder/index.html) 與 [`UDPSocketBuilder`](https://api.ktor.io/ktor-network/io.ktor.network.sockets/-u-d-p-socket-builder/index.html) 中伺服器通訊端的 `.bind()` 函式已更新為掛起函式（suspending function）。這意味著現在必須在協同程式內呼叫 `.bind()`。
+為了支援 JS 與 WasmJS 環境中的非同步操作，[`TCPSocketBuilder`](https://api.ktor.io/ktor-network/io.ktor.network.sockets/-tcp-socket-builder/index.html) 與 [`UDPSocketBuilder`](https://api.ktor.io/ktor-network/io.ktor.network.sockets/-u-d-p-socket-builder/index.html) 中伺服器通訊端的 `.bind()` 函式已更新為掛起函式 (suspending function)。這意味著現在必須在協同程式內呼叫 `.bind()`。
 
 若要遷移，請確保僅在協同程式或掛起函式中呼叫 `.bind()`。以下是使用 `runBlocking` 的範例：
 
@@ -600,7 +600,7 @@ runBlocking {
 
 ### 屬性金鑰 (Attribute keys) 現在需要精確的型別比對
 
-在 Ktor 3.0.0 中，[`AttributeKey`](https://api.ktor.io/3.0.x/ktor-utils/io.ktor.util/-attribute-key.html) 執行個體現在透過識別（identity）進行比較，且在儲存與檢索值時需要精確的型別比對。這確保了型別安全性並防止因型別不符而導致的非預期行為。
+在 Ktor 3.0.0 中，[`AttributeKey`](https://api.ktor.io/3.0.x/ktor-utils/io.ktor.util/-attribute-key.html) 執行個體現在透過識別 (identity) 進行比較，且在儲存與檢索值時需要精確的型別比對。這確保了型別安全性並防止因型別不符而導致的非預期行為。
 
 先前，擷取屬性時使用的泛型型別可能與儲存時不同，例如使用 `getOrNull<Any>()` 來獲取 `AttributeKey<Boolean>`。
 

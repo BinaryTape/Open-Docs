@@ -11,8 +11,13 @@
 <b>필수 의존성</b>: <code>io.ktor:%artifact_name%</code>
 </p>
 <p>
-<b>코드 예제</b>: 
-<a href="https://github.com/ktorio/ktor-samples/tree/main/openapi">openapi</a>
+<b>코드 예제</b>:
+<a href="https://github.com/ktorio/ktor-documentation/tree/codeSnippets/snippets/openapi-spec-gen">
+    openapi-spec-gen
+</a>,
+<a href="https://github.com/ktorio/ktor-documentation/tree/codeSnippets/snippets/openapi-spec-gen-maven">
+    openapi-spec-gen-maven
+</a>
 </p>
 </tldr>
 
@@ -30,13 +35,135 @@ Ktor는 하나 이상의 문서 소스로부터 런타임에 OpenAPI 명세를 �
 
 ## 의존성 추가
 
-* OpenAPI 메타데이터 생성을 활성화하려면 프로젝트에 Ktor Gradle 플러그인을 적용하십시오:
+* OpenAPI 메타데이터 생성을 활성화하려면 프로젝트에 Ktor 컴파일러 플러그인을 적용하십시오.
 
-```kotlin
-plugins {
-    id("io.ktor.plugin") version "%ktor_version%"
-}
-```
+  <Tabs group="languages">
+    <TabItem title="Gradle (Kotlin)" group-key="kotlin" id="add-ktor-plugin-gradle-kotlin">
+
+    ```kotlin
+    plugins {
+        id("io.ktor.plugin") version "%ktor_version%"
+    }
+    ```
+
+    </TabItem>
+    <TabItem title="Gradle (Groovy)" group-key="groovy" id="add-ktor-plugin-gradle-groovy">
+
+    ```groovy
+    plugins {
+        id 'io.ktor.plugin' version "%ktor_version%"
+    }
+    ```
+
+    </TabItem>
+    <TabItem title="Maven" group-key="maven" id="add-ktor-plugin-maven">
+
+    Gradle과 달리, Maven은 Ktor 컴파일러 플러그인에 대한 기본 제공 통합을 제공하지 않습니다. OpenAPI 명세 생성을 활성화하려면 컴파일러 플러그인을 수동으로 설정해야 합니다.
+
+    1. Ktor Maven 플러그인을 적용하십시오 (애플리케이션 실행 및 패키징에 필요):
+       ```xml
+       <build>
+           <plugins>
+               <plugin>
+                   <groupId>io.ktor</groupId>
+                   <artifactId>ktor-maven-plugin</artifactId>
+                   <version>%ktor_version%</version>
+               </plugin>
+           </plugins>
+       </build>
+       ```
+    2. 컴파일러 플러그인은 JAR 파일로 제공되어야 합니다. 다음 설정을 추가하여 자동으로 다운로드하고 안정적인 위치로 복사하십시오:
+
+       ```xml
+       <plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-dependency-plugin</artifactId>
+           <version>3.9.0</version>
+           <executions>
+               <execution>
+                   <id>copy-ktor-compiler-plugin</id>
+                   <phase>generate-sources</phase>
+                   <goals>
+                       <goal>copy</goal>
+                   </goals>
+                   <configuration>
+                       <artifactItems>
+                           <artifactItem>
+                               <groupId>io.ktor</groupId>
+                               <artifactId>ktor-compiler-plugin</artifactId>
+                               <version>%ktor_version%</version>
+                               <outputDirectory>${project.build.directory}/kotlin-plugins</outputDirectory>
+                               <destFileName>ktor-compiler-plugin.jar</destFileName>
+                           </artifactItem>
+                       </artifactItems>
+                   </configuration>
+               </execution>
+           </executions>
+       </plugin>
+       ```
+  
+    3. Kotlin 컴파일러를 설정하십시오:
+
+       ```xml
+       <plugin>
+           <groupId>org.jetbrains.kotlin</groupId>
+           <artifactId>kotlin-maven-plugin</artifactId>
+           <version>%kotlin_version%</version>
+
+           <configuration>
+               <jvmTarget>21</jvmTarget>
+
+               <compilerPlugins>
+                   <plugin>kotlinx-serialization</plugin>
+               </compilerPlugins>
+
+               <args>
+                   <arg>-Xplugin=${project.build.directory}/kotlin-plugins/ktor-compiler-plugin.jar</arg>
+
+                   <arg>-P</arg>
+                   <arg>plugin:io.ktor.ktor-compiler-plugin:openApiEnabled=true</arg>
+
+                   <arg>-P</arg>
+                   <arg>plugin:io.ktor.ktor-compiler-plugin:openApiCodeInference=true</arg>
+
+                   <arg>-P</arg>
+                   <arg>plugin:io.ktor.ktor-compiler-plugin:openApiOnlyCommented=false</arg>
+               </args>
+           </configuration>
+
+           <dependencies>
+               <dependency>
+                   <groupId>io.ktor</groupId>
+                   <artifactId>ktor-compiler-plugin</artifactId>
+                   <version>%ktor_version%</version>
+               </dependency>
+               <dependency>
+                   <groupId>org.jetbrains.kotlin</groupId>
+                   <artifactId>kotlin-maven-serialization</artifactId>
+                   <version>${kotlin_version}</version>
+               </dependency>
+           </dependencies>
+           <executions>
+               <execution>
+                   <id>compile</id>
+                   <phase>compile</phase>
+                   <goals>
+                       <goal>compile</goal>
+                   </goals>
+               </execution>
+               <execution>
+                   <id>test-compile</id>
+                   <phase>test-compile</phase>
+                   <goals>
+                       <goal>test-compile</goal>
+                   </goals>
+               </execution>
+           </executions>
+       </plugin>
+       ```
+  
+   </TabItem>
+  </Tabs>
 
 * 런타임 라우트 어노테이션을 사용하려면 빌드 스크립트에 `%artifact_name%` 아티팩트를 추가하십시오:
 
@@ -126,7 +253,7 @@ routing {
 | Path Parameters     | 경로 파라미터 참조를 찾음                                      | `call.parameters["id"]`                                                    | `parameters { path("id") }`                                              |
 | Query Parameters    | 쿼리 파라미터 참조를 찾음                                      | `call.queryParameters["name"]`                                             | `parameters { query("name") }`                                           |
 | Request Headers     | 요청 헤더 참조를 찾음                                          | `call.request.headers["X-Foo"]`                                            | `parameters { header("X-Foo") }`                                         |
-| Resource API routes | Resources 라우팅 API의 호출 구조 추론                          | `call.get<List> { /**/ }; @Resource("/list") class List(val name: String)` | `parameters { query("name") }`                                           |
+| Resource API routes | Resource 라우팅 API의 호출 구조 추론                           | `call.get<List> { /**/ }; @Resource("/list") class List(val name: String)` | `parameters { query("name") }`                                           |
 
 추론은 가능한 경우 추출된 함수를 따라가며 일반적인 요청 및 응답 흐름에 대해 일관된 문서를 생성하려고 시도합니다.
 
@@ -300,10 +427,10 @@ OpenAPI 명세는 런타임에 라우트 어노테이션과 컴파일러 플러�
 일반적으로 라우트 핸들러 내에서 문서를 생성하고 직접 응답합니다:
 
 ```kotlin
-get("/docs.json") {
-    val doc = OpenApiDoc(info = OpenApiInfo("My API", "1.0")) + call.application.routingRoot.descendants()
-    call.respond(doc)
-}.hide()
+
+        get("/docs.json") {
+            val doc = OpenApiDoc(info = OpenApiInfo("My API", "1.0")) + call.application.routingRoot.descendants()
+            call.respond(doc)
 ```
 
 이 예제에서 OpenAPI 문서는 [`ContentNegotiation`](server-serialization.md) 플러그인을 사용하여 직렬화됩니다. 이는 JSON 직렬화기(예: `kotlinx.serialization`)가 설치되어 있다고 가정합니다.

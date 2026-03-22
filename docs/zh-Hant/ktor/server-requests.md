@@ -214,7 +214,7 @@ fun Application.main() {
 
 #### 預設檔案大小限制
 
-預設情況下，允許接收的二進位和檔案項目大小限制為 50MB。如果接收的檔案或二進位項目超過 50MB 限制，則會拋出 `IOException`。
+預設情況下，允許接收的二進位和檔案項目大小限制為 50 MiB。如果接收的檔案或二進位項目超過 50 MiB 限制，則會拋出 `IOException`。
 
 要覆寫預設表單欄位限制，請在呼叫 `.receiveMultipart()` 時傳遞 `formFieldLimit` 參數：
 
@@ -222,7 +222,7 @@ fun Application.main() {
 val multipartData = call.receiveMultipart(formFieldLimit = 1024 * 1024 * 100)
 ```
 
-在此範例中，新的限制設定為 100MB。
+在此範例中，新的限制設定為 100 MiB。
 
 #### 表單欄位
 

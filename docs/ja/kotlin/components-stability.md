@@ -83,7 +83,7 @@ Kotlin言語とツールセットは、JVM、JS、Nativeターゲット向けの
 | [No-arg](no-arg-plugin.md)                       | Stable       | 1.3.0                    |              |
 | [SAM-with-receiver](sam-with-receiver-plugin.md) | Stable       | 1.3.0                    |              |
 | [kapt](kapt.md)                                  | Stable       | 1.3.0                    |              |
-| [Lombok](lombok.md)                              | Experimental | 1.5.20                   |              |
+| [Lombok](lombok.md)                              | Alpha        | 2.3.20                   |              |
 | [Power-assert](power-assert.md)                  | Experimental | 2.0.0                    |              |
 
 ### Kotlinライブラリ

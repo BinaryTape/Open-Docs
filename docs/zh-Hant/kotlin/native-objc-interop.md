@@ -443,8 +443,15 @@ foo {
 ```
 
 #### Objective-C block 型別中的明確參數名稱
+<primary-label ref="experimental-opt-in"/>
 
-Kotlin 為匯出的 Objective-C 標頭檔中的函式型別加入明確的參數名稱。Xcode 的自動補全隨後會在 Objective-C block 中呼叫 Objective-C 函式時建議這些名稱。
+您可以為匯出的 Objective-C 標頭檔中的 Kotlin 函式型別加入明確的參數名稱。Xcode 的自動補全隨後會在 Objective-C block 中呼叫 Objective-C 函式時建議這些名稱。這有助於避免產生的 block 中出現 Clang 警告。
+
+要啟用明確參數名稱，請在 `gradle.properties` 檔案中加入以下[二進位選項](native-binary-options.md)：
+
+```none
+kotlin.native.binary.objcExportBlockExplicitParameterNames=true
+```
 
 例如，對於以下 Kotlin 程式碼：
 
@@ -465,14 +472,6 @@ greetUserBlock:^(NSString *name) {
 > 此選項僅影響 Objective-C 互通性。它適用於在 Xcode 中從 Objective-C 呼叫產生的 Objective-C 程式碼，通常不影響從 Swift 進行的呼叫。
 >
 {style="note"}
-
-如果您遇到問題，可以在 `gradle.properties` 檔案中使用以下[二進位選項](native-binary-options.md)停用明確參數名稱：
-
-```none
-kotlin.native.binary.objcExportBlockExplicitParameterNames=false
-```
-
-請在我們的問題追蹤器 [YouTrack](https://kotl.in/issue) 中回報此類問題。
 
 ### 泛型
 

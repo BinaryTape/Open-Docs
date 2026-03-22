@@ -8,7 +8,7 @@
 > 
 {style="tip"}
 
-從 2.2.0 版本開始，Kotlin Gradle 外掛程式支援二進位相容性驗證。啟用後，它會從目前程式碼產生應用程式二進位介面 (ABI) 傾印 (dumps)，並將其與之前的傾印進行比較以醒目提示差異。您可以檢閱這些變更，找出任何潛在的二進位不相容修改，並採取行動予以解決。
+Kotlin Gradle 外掛程式包含對二進位相容性驗證的支援。啟用後，它會從目前程式碼產生應用程式二進位介面 (ABI) 傾印 (dumps)，並將其與之前的傾印進行比較以醒目提示差異。您可以檢閱這些變更，找出任何潛在的二進位不相容修改，並採取行動予以解決。
 
 ## 如何啟用
 
@@ -45,20 +45,22 @@ kotlin {
 
 ## 檢查二進位相容性問題
 
-在對程式碼進行變更後，若要檢查潛在的二進位不相容問題，請在 IntelliJ IDEA 中執行 `checkLegacyAbi` Gradle 任務，或在專案目錄中使用以下指令：
+在對程式碼進行變更後，若要檢查潛在的二進位不相容問題，請在 IntelliJ IDEA 中執行 `checkKotlinAbi` Gradle 任務，或在專案目錄中使用以下指令：
 
 ```bash
-./gradlew checkLegacyAbi
+./gradlew checkKotlinAbi
 ```
 
 該任務會比較 ABI 傾印並將偵測到的任何差異輸出為錯誤。請仔細檢查輸出，以判斷是否需要修改程式碼以維持二進位相容性。
 
+預設情況下，[當您的專案啟用了二進位相容性驗證](#how-to-enable)且執行 `check` 任務時，Gradle 也會執行 `checkKotlinAbi` 任務。
+
 ## 更新參考 ABI 傾印
 
-若要更新 Gradle 用來檢查最新變更的參考 ABI 傾印，請在 IntelliJ IDEA 中執行 `updateLegacyAbi` 任務，或在專案目錄中使用以下指令：
+若要更新 Gradle 用來檢查最新變更的參考 ABI 傾印，請在 IntelliJ IDEA 中執行 `updateKotlinAbi` 任務，或在專案目錄中使用以下指令：
 
 ```bash
-./gradlew updateLegacyAbi
+./gradlew updateKotlinAbi
 ```
 
 僅當您確定變更與前一版本保持二進位相容性時，才更新參考傾印。
@@ -176,4 +178,4 @@ kotlin {
 </tab>
 </tabs>
 
-如果目標不受支援且推論已停用，則 `checkLegacyAbi` 任務會失敗，因為它無法產生完整的 ABI 傾印。如果您希望任務失敗，而不是冒著遺漏二進位不相容變更的風險，那麼此行為可能會很有用。
+如果目標不受支援且推論已停用，則 `checkKotlinAbi` 任務會失敗，因為它無法產生完整的 ABI 傾印。如果您希望任務失敗，而不是冒著遺漏二進位不相容變更的風險，那麼此行為可能會很有用。

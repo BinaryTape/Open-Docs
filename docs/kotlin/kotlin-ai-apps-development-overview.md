@@ -26,7 +26,7 @@ fun main() {
 }
 ```
 
-<a href="https://docs.koog.ai/getting-started/"><img src="get-started-with-koog.svg" width="700" alt="Koog 快速入门" style="block"/></a>
+<a href="https://docs.koog.ai/quickstart/"><img src="get-started-with-koog.svg" width="700" alt="Koog 快速入门" style="block"/></a>
 
 ### 关键功能
 
@@ -44,8 +44,8 @@ fun main() {
 ### 从哪里开始
 
 * 在[概览](https://docs.koog.ai/)中探索 Koog 的功能。
-* 通过[快速入门指南](https://docs.koog.ai/getting-started/)构建您的第一个 Koog 智能体。
-* 在 [Koog 发行说明](https://github.com/JetBrains/koog/blob/main/CHANGELOG.md)中查看最新更新。
+* 通过[快速入门指南](https://docs.koog.ai/quickstart/)构建您的第一个 Koog 智能体。
+* 在 [Koog 发行说明](https://github.com/JetBrains/koog/releases)中查看最新更新。
 * 通过[示例](https://docs.koog.ai/examples/)学习。
 
 ## 模型上下文协议 (MCP) Kotlin SDK

@@ -24,9 +24,11 @@ fun MainViewController(): UIViewController =
 
 [`ComposeUIViewController()`](https://github.com/JetBrains/compose-multiplatform-core/blob/5b487914cc20df24187f9ddf54534dfec30f6752/compose/ui/ui/src/uikitMain/kotlin/androidx/compose/ui/window/ComposeWindow.uikit.kt) 是一个 Compose Multiplatform 库函数，它接受一个可组合函数作为 `content` 实参。以这种方式传递的函数可以调用其他可组合函数，例如 `Text()`。
 
-> 可组合函数是带有 `@Composable` 注解的函数。
+> Compose Multiplatform 渲染需要显式启用高刷新率：
+> 请在应用的 `Info.plist` 文件中添加 `CADisableMinimumFrameDurationOnPhone` 键。
+> 如果不添加此项，应用将在运行时崩溃。
 >
-{style="tip"}
+{style="note"}
 
 接下来，您需要一个在 SwiftUI 中表示 Compose Multiplatform 的结构。
 创建以下结构，将 `UIViewController` 实例转换为 SwiftUI 视图：
@@ -99,7 +101,7 @@ Main_iosKt.ComposeEntryPointWithUIViewController(createUIViewController: { () ->
 
 ![UIView](uiview.png){width=300}
 
-在[示例项目](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/interop/ios-swiftui-in-compose)中探索此示例的代码。
+在[示例项目](https://githubTask/JetBrains/compose-multiplatform/tree/master/examples/interop/ios-swiftui-in-compose)中探索此示例的代码。
 
 ### 地图视图
 
@@ -299,7 +301,7 @@ Main_iosKt.ComposeEntryPointWithUIViewController(createUIViewController: {
 })
 ```
 
-现在，让我们看一个高级示例。这段代码为 Web 视图添加了导航跟踪和加载状态显示：
+Now，让我们看一个高级示例。这段代码为 Web 视图添加了导航跟踪和加载状态显示：
 
 ```swift
 import SwiftUI

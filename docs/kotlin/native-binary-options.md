@@ -1,6 +1,6 @@
 [//]: # (title: Kotlin/Native 二进制选项)
 
-本页列出了有助于配置 Kotlin/Native [最终二进制文件](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)的 Kotlin/Native 二进制选项，以及在项目中设置这些二进制选项的方法。
+本页列出了有助于配置 Kotlin/Native [最终二进制文件](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)的 Kotlin/Native 二进制选项，以及在项目中设置二进制选项的方法。
 
 ## 如何启用
 
@@ -73,12 +73,12 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td><a href="native-objc-interop.md#explicit-parameter-names-in-objective-c-block-types"><code>objcExportBlockExplicitParameterNames</code></a></td>
         <td>
             <list>
-                <li><code>true (默认)</code></li>
-                <li><code>false</code></li>
+                <li><code>true</code></li>
+                <li><code>false (默认)</code></li>
             </list>
         </td>
         <td>为导出的 Objective-C 头文件中的函数类型添加显式形参名称。</td>
-        <td>自 2.3.0 起为默认设置</td>
+        <td>自 2.2.20 起处于实验性阶段</td>
     </tr>
     <tr>
         <td><a href="whatsnew2220.md#smaller-binary-size-for-release-binaries"><code>smallBinary</code></a></td>

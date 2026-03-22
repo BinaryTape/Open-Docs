@@ -64,14 +64,19 @@ Kotlin/Native 컴파일러는 다양한 타겟을 지원하지만, 지원 수준
 | `mingwX64`              | `x86_64-pc-windows-gnu`          | ✅             | [MinGW](https://www.mingw-w64.org) 호환 레이어를 사용하는 64비트 Windows 10 이상 |
 | Apple macOS 호스트 전용: |                                  |               |                                                                                          |
 | `watchosDeviceArm64`    | `aarch64-apple-watchos`          |               | ARM64 플랫폼의 Apple watchOS 7.0 이상 |
-| `macosX64`              | `x86_64-apple-macos`             | ✅             | x86_64 플랫폼의 Apple macOS 11.0 이상 |
 | `iosX64`                | `x86_64-apple-ios-simulator`     | ✅             | x86-64 플랫폼의 Apple iOS 시뮬레이터 14.0 이상 |
-| `watchosX64`            | `x86_64-apple-watchos-simulator` | ✅             | x86_64 플랫폼의 Apple watchOS 7.0 이상 64비트 시뮬레이터 |
-| `tvosX64`               | `x86_64-apple-tvos-simulator`    | ✅             | x86_64 플랫폼의 Apple tvOS 14.0 이상 시뮬레이터 |
 
 > `linuxArm32Hfp` 타겟은 더 이상 사용되지 않으며(deprecated) 향후 릴리스에서 제거될 예정입니다.
 > 
 {style="note"}
+
+### 더 이상 사용되지 않는 타겟(Deprecated targets)
+
+Kotlin 2.3.20부터 다음 타겟은 더 이상 사용되지 않습니다:
+
+* `macosX64` (x86_64 플랫폼의 Apple macOS 11.0 이상)
+* `watchosX64` (x86_64 플랫폼의 Apple watchOS 7.0 이상 64비트 시뮬레이터)
+* `tvosX64` (x86_64 플랫폼의 Apple tvOS 14.0 이상 시뮬레이터)
 
 ### 라이브러리 작성자 가이드
 

@@ -3,7 +3,7 @@
 <web-summary>閱讀 Kotlin 1.7.0 發佈說明，內容涵蓋新語言特性、Kotlin Multiplatform、JVM、Native、JS 的更新，以及對 Gradle 和 Maven 的建置工具支援。</web-summary>
 
 <tldr>
-   <p>IntelliJ IDEA 2021.2、2021.3 和 2022.1 已支援 Kotlin 1.7.0 的 IDE。</p>
+   <p>IntelliJ IDEA 2021.2、2021.3 和 2022.1 已提供 Kotlin 1.7.0 的 IDE 支援。</p>
 </tldr>
 
 _[發佈日期：2022 年 6 月 9 日](releases.md#release-history)_
@@ -13,7 +13,7 @@ Kotlin 1.7.0 正式發佈。此版本揭曉了新 Kotlin/JVM K2 編譯器的 Alp
 以下是此版本的主要更新清單：
 
 * [新的 Kotlin K2 編譯器現已進入 Alpha 階段](#new-kotlin-k2-compiler-for-the-jvm-in-alpha)，並提供顯著的效能提升。目前僅適用於 JVM，且包括 kapt 在內的所有編譯器外掛程式均尚不支援。
-* [Gradle 增量編譯的新方法](#a-new-approach-to-incremental-compilation)。增量編譯現在也支援在依賴的非 Kotlin 模組內所做的變更，且與 Gradle 相容。
+* [Gradle 增量編譯的新方法](#a-new-approach-to-incremental-compilation)。增量編譯現在也支援在相依的非 Kotlin 模組內所做的變更，且與 Gradle 相容。
 * 我們穩定了 [opt-in 需求註解](#stable-opt-in-requirements)、[絕對不可為 null 型別](#stable-definitely-non-nullable-types) 以及 [建構器推論](#stable-builder-inference)。
 * [現在型別引數支援底線運算子](#underscore-operator-for-type-arguments)。當指定其他型別時，您可以使用它來自動推論引數的型別。
 * [此版本允許透過委任實作內嵌類別的內嵌值](#allow-implementation-by-delegation-to-an-inlined-value-of-an-inline-class)。您現在可以建立輕量級包裝函式，在大多數情況下不會分配記憶體。
@@ -477,7 +477,7 @@ fun main() {
 
 ### 基於內嵌類別的時間標記（用於預設時間源）
 
-Kotlin 1.7.0 藉由將 `TimeSource.Monotonic` 回傳的時間標記更改為內嵌值類別，改進了時間測量功能的效能。這意味著呼叫如 `markNow()`、`elapsedNow()`、`measureTime()` 和 `measureTimedValue()` 等函式時，不會為其 `TimeMark` 執行個體分配包裝類別。特別是在測量處於熱點路徑 (hot path) 中的程式碼時，這有助於最大程度地減少測量對效能的影響：
+Kotlin 1.7.0 藉由將 `TimeSource.Monotonic` 回傳的時間標記更改為內嵌值類別，改進了時間測量功能的效能。這意指呼叫如 `markNow()`、`elapsedNow()`、`measureTime()` 和 `measureTimedValue()` 等函式時，不會為其 `TimeMark` 執行個體分配包裝類別。特別是在測量處於熱點路徑 (hot path) 中的程式碼時，這有助於最大程度地減少測量對效能的影響：
 
 ```kotlin
 @OptIn(ExperimentalTime::class)
@@ -633,7 +633,7 @@ Kotlin 團隊非常感謝 [Ivan Gavrilovic](https://github.com/gavra0)、[Hung N
 ### Kotlin 編譯任務的建置報告
 
 > Kotlin 建置報告處於 [實驗性](components-stability.md) 階段。它們隨時可能被捨棄或更改。
-> 需要 opt-in（詳見下文）。僅出於評估目的使用它們。我們歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 中提供回饋。
+> 需要 opt-in（詳見下文）。僅出於評估目的使用它們。我們歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 中對其提供回饋。
 >
 {style="warning"}
 
@@ -778,7 +778,7 @@ plugins {
 
 ### 棄用 kotlin.compiler.execution.strategy 系統屬性
 
-Kotlin 1.6.20 [引入了用於定義 Kotlin 編譯器執行策略的新屬性](whatsnew1620.md#properties-for-defining-kotlin-compiler-execution-strategy)。在 Kotlin 1.7.0 中，舊的系統屬 `kotlin.compiler.execution.strategy` 已開始棄用週期，轉而使用新屬性。
+Kotlin 1.6.20 [引入了用於定義 Kotlin 編譯器執行策略的新屬性](whatsnew1620.md#properties-for-defining-kotlin-compiler-execution-strategy)。在 Kotlin 1.7.0 中，舊的系統屬性 `kotlin.compiler.execution.strategy` 已開始棄用週期，轉而使用新屬性。
 
 使用 `kotlin.compiler.execution.strategy` 系統屬性時，您將收到警告。此屬性將在未來版本中刪除。要保留舊行為，請將系統屬性替換為同名的 Gradle 屬性。例如，您可以在 `gradle.properties` 中執行此操作：
 
@@ -786,7 +786,7 @@ Kotlin 1.6.20 [引入了用於定義 Kotlin 編譯器執行策略的新屬性](w
 kotlin.compiler.execution.strategy=out-of-process
 ```
 
-您也可以使用編譯任務屬性 `compilerExecutionStrategy`。在 [Gradle 頁面](gradle-compilation-and-caches.md#defining-kotlin-compiler-execution-strategy) 上了解更多相關資訊。
+您也可以使用編譯任務屬性 `compilerExecutionStrategy`。在 [編譯器執行策略頁面](compiler-execution-strategy.md) 上了解更多相關資訊。
 
 ### 移除棄用的選項、方法和外掛程式
 

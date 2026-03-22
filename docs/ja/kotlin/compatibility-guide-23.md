@@ -1,4 +1,4 @@
-[//]: # (title: Kotlin 2.3 互換性ガイド)
+[//]: # (title: Kotlin 2.3.x 互換性ガイド)
 
 『[言語をモダンに保つ](kotlin-evolution-principles.md)』および『[快適なアップデート](kotlin-evolution-principles.md)』は、Kotlin 言語設計における基本原則のひとつです。前者は言語の進化を妨げる構成要素は削除されるべきであることを示し、後者はその削除を事前に十分に周知し、コードの移行を可能な限りスムーズに行えるようにすべきであることを示しています。
 
@@ -139,7 +139,7 @@
 
 > **Issue**: [KTLC-275](https://youtrack.jetbrains.com/issue/KTLC-275)
 >
-> **コンポーネント**: コア言語
+> **コンポーポネント**: コア言語
 >
 > **互換性のない変更の種類**: ソース
 >
@@ -400,7 +400,7 @@
 > * `CompositeDependency.dependencyName`、`CompositeDependency.dependencyVersion`、`CompositeDependency.includedBuildDir`。
 > * `KotlinNpmInstallTask.Companion.NAME`。
 > * `LockCopyTask.Companion.STORE_PACKAGE_LOCK_NAME`、`LockCopyTask.Companion.RESTORE_PACKAGE_LOCK_NAME`、`LockCopyTask.Companion.UPGRADE_PACKAGE_LOCK`。
-> * `Npm.npmExec()`。
+> * `Npm.npmExec()」。
 > * `NpmProject.require()`、`NpmProject.useTool()`。
 > * `PublicPackageJsonTask.jsIrCompilation`。
 > * `YarnBasics.yarnExec()`。
@@ -708,7 +708,95 @@
 > * 生成されたソースを登録するには、[`generatedKotlin`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/generated-kotlin.html) プロパティを使用します。
 > * 生成されていないソースを含むすべてのソースにアクセスするには、[`allKotlinSources`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/all-kotlin-sources.html) プロパティを使用します。
 
-## ビルドツールの削除
+### `kotlin.publishJvmEnvironmentAttribute` プロパティを非推奨化
+
+> **Issue**: [KT-83678](https://youtrack.jetbrains.com/issue/KT-83678)
+>
+> **コンポーネント**: Gradle
+>
+> **互換性のない変更の種類**: ソース
+>
+> **短い要約**: Kotlin 2.3.20 では、`kotlin.publishJvmEnvironmentAttribute` プロパティが非推奨になります。
+> このプロパティは、マルチプラットフォームライブラリに対する `org.gradle.jvm.environment` 属性の公開を無効にすることを可能にしていました。
+> Kotlin 2.0.20 以降、標準的な依存関係解決を保証するために `org.gradle.jvm.environment` はデフォルトで公開されます。
+>
+> **非推奨化サイクル**:
+>
+> - 2.3.20: 警告を報告
+> - 2.4.0: プロパティを削除
+
+### `CleanableStore` インターフェースおよび `CleanDataTask` クラスを非推奨化
+
+> **Issue**: [KT-78104](https://youtrack.jetbrains.com/issue/KT-78104)
+>
+> **コンポーネント**: Gradle
+>
+> **互換性のない変更の種類**: ソース
+>
+> **短い要約**: `CleanableStore` インターフェースおよび `CleanDataTask` クラスは使用されなくなったため、非推奨になりました。
+>
+> **非推奨化サイクル**:
+>
+> - 2.3.20: 警告を報告
+
+### `kotlin.kmp.isolated-projects.support` Gradle プロパティを非推奨化
+
+> **Issue**: [KT-79257](https://youtrack.jetbrains.com/issue/KT-79257)
+>
+> **コンポーネント**: Gradle
+>
+> **互換性のない変更の種類**: ソース
+>
+> **短い要約**: マルチプラットフォームプロジェクトはデフォルトで isolated projects と互換性があり、他のオプションがないため、`kotlin.kmp.isolated-projects.support` Gradle プロパティは非推奨になりました。
+>
+> **非推奨化サイクル**:
+>
+> - 2.3.20: 警告を報告
+
+### `kotlin.mpp.enableKotlinToolingMetadataArtifact` Gradle プロパティを非推奨化
+
+> **Issue**: [KT-79924](https://youtrack.jetbrains.com/issue/KT-79924)
+>
+> **コンポーネント**: Gradle
+>
+> **互換性のない変更の種類**: ソース
+>
+> **短い要約**: `kotlin-tooling-metadata.json` アーティファクトはマルチプラットフォームプロジェクトにおいて常に生成されるようになったため、`kotlin.mpp.enableKotlinToolingMetadataArtifact` Gradle プロパティは非推奨になりました。
+>
+> **非推奨化サイクル**:
+>
+> - 2.3.20: 警告を報告
+> - 2.4.0: サポートを削除
+
+### `LanguageSettings.enableLanguageFeature` DSL を非推奨化
+
+> **Issue**: [KT-82323](https://youtrack.jetbrains.com/issue/KT-82323)
+>
+> **コンポーネント**: Gradle
+>
+> **互換性のない変更の種類**: ソース
+>
+> **短い要約**: `LanguageSettings.enableLanguageFeature` DSL は、Kotlin コンパイラのテストのみを目的とした内部コンパイラ構成を公開していたため、非推奨になりました。
+>
+> **非推奨化サイクル**:
+>
+> - 2.3.20: 警告を報告
+
+### 「プロセス外 (out of process)」コンパイラ実行戦略を非推奨化
+
+> **Issue**: [KT-83125](https://youtrack.jetbrains.com/issue/KT-83125)
+>
+> **コンポーネント**: Gradle
+>
+> **互換性のない変更の種類**: ソース
+>
+> **短い要約**: 「プロセス外 (out of process)」[コンパイラ実行戦略](compiler-execution-strategy.md)は [Build tools API](build-tools-api.md) でサポートされておらず、利用可能な中で最も遅い戦略です。Kotlin 2.3.20 では、この戦略を「daemon」および「プロセス内 (in process)」コンパイラ実行戦略を優先して非推奨にします。
+>
+> **非推奨化サイクル**:
+>
+> - 2.3.20: 警告を報告
+
+## ビルドツールの削除 (Build tool removal)
 
 ### Ant のサポートを削除
 

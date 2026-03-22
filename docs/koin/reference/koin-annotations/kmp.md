@@ -1,48 +1,33 @@
 ---
-title: Kotlin Multiplatform - 定义与模块注解
+title: Kotlin Multiplatform
 ---
 
-## KSP 设置
+## 设置
 
-请按照官方文档中的描述进行 KSP 设置：[KSP 与 Kotlin Multiplatform](https://kotlinlang.org/docs/ksp-multiplatform.html)
-
-您还可以查看 [Hello Koin KMP](https://github.com/InsertKoinIO/hello-kmp/tree/annotations) 项目，其中包含 Koin 注解的基本设置。
-
-添加 KSP 插件
+Koin 编译器插件简化了 KMP 设置 - 只需应用该插件即可。
 
 ```kotlin
+// shared/build.gradle.kts
 plugins {
-    alias(libs.plugins.ksp)
+    kotlin("multiplatform")
+    alias(libs.plugins.koin.compiler)
 }
-```
 
-在通用 API 中使用注解库：
-
-```kotlin
-sourceSets {
-    commonMain.dependencies {
-        implementation(libs.koin.core)
-        api(libs.koin.annotations)
-        // ...
+kotlin {
+    sourceSets {
+        commonMain.dependencies {
+            implementation(libs.koin.core)
+            implementation(libs.koin.annotations)
+        }
     }
 }
 ```
 
-别忘了在正确的源集上配置 KSP：
-
-```kotlin
-dependencies {
-    add("kspCommonMainMetadata", libs.koin.ksp.compiler)
-    add("kspAndroid", libs.koin.ksp.compiler)
-    add("kspIosX64", libs.koin.ksp.compiler)
-    add("kspIosArm64", libs.koin.ksp.compiler)
-    add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
-}
-```
+就这么简单！不需要针对每个平台进行 KSP 配置。
 
 ## 在通用代码中定义定义与模块
 
-在您的 `commonMain` 源集中，声明您的模块、扫描定义或将函数定义为常规 Kotlin Koin 声明。请参阅 [定义](./definitions.md) 和 [模块](./modules.md)。
+在您的 `commonMain` 源集中，声明您的模块、扫描定义或将函数定义为常规 Kotlin Koin 声明。请参阅 [定义](./definitions) 和 [模块](./modules)。
 
 ## 共享模式
 

@@ -1,4 +1,4 @@
-[//]: # (title: Kotlin 2.3 兼容性指南)
+[//]: # (title: Kotlin 2.3.x 兼容性指南)
 
 “保持语言现代性”和“舒适更新”是 Kotlin 语言设计的基本原则。前者指出应当移除阻碍语言演进的构造，后者则强调这种移除应当事先进行良好的沟通，以使代码迁移尽可能顺畅。
 
@@ -39,7 +39,7 @@
 >
 > **不兼容变更类型**：源码
 >
-> **简要摘要**：以前，编译器从未报告有关推断类型的上界冲突约束的错误。这已在 Kotlin 2.3.0 中修复，以便在所有类型参数中一致地报告错误。
+> **简要摘要**：以前，编译器从未报告有关推断类型的上界冲突约束的错误。这已在 Kotlin 2.3.0 中修复，以便在所有类型形参中一致地报告错误。
 >
 > **弃用周期**：
 >
@@ -120,7 +120,7 @@
 >
 > - 2.3.0：引入新行为；不适用于渐进模式
 
-### 禁止将 reified 类型参数推断为相交类型
+### 禁止将 reified 类型形参推断为相交类型
 
 > **问题**：[KTLC-13](https://youtrack.jetbrains.com/issue/KTLC-13)
 >
@@ -128,14 +128,14 @@
 >
 > **不兼容变更类型**：源码
 >
-> **简要摘要**：Kotlin 2.3.0 禁止将 reified 类型参数推断为相交类型的情况，因为这可能导致错误的运行时行为。
+> **简要摘要**：Kotlin 2.3.0 禁止将 reified 类型形参推断为相交类型的情况，因为这可能导致错误的运行时行为。
 >
 > **弃用周期**：
 >
-> - 2.1.0：当 reified 类型参数被推断为相交类型时报告警告
+> - 2.1.0：当 reified 类型形参被推断为相交类型时报告警告
 > - 2.3.0：将警告提升为错误
 
-### 禁止通过类型参数边界暴露可见性较低的类型
+### 禁止通过类型形参边界暴露可见性较低的类型
 
 > **问题**：[KTLC-275](https://youtrack.jetbrains.com/issue/KTLC-275)
 >
@@ -143,11 +143,11 @@
 >
 > **不兼容变更类型**：源码
 >
-> **简要摘要**：Kotlin 2.3.0 禁止使用暴露比函数或声明本身更具限制性可见性的类型的类型参数边界，使函数的规则与已应用于类的规则保持一致。
+> **简要摘要**：Kotlin 2.3.0 禁止使用暴露比函数或声明本身更具限制性可见性的类型的类型形参边界，使函数的规则与已应用于类的规则保持一致。
 >
 > **弃用周期**：
 >
-> - 2.1.0：在有问题的类型参数边界上报告警告
+> - 2.1.0：在有问题的类型形参边界上报告警告
 > - 2.3.0：将警告提升为错误
 
 ## 标准库
@@ -405,7 +405,7 @@
 >
 > **弃用周期**：
 >
-> - 2.2.0 和 2.2.20：在使用这些函数或属性时报告警告
+> - 2.2.0 和 2.2.20：在使用 these 函数或属性时报告警告
 > - 2.3.0：将警告提升为错误
 
 ### 弃用对 PhantomJS 的支持
@@ -443,7 +443,8 @@
 > * `TypeScriptValidationTask`
 > * `YarnRootExtension`
 > 
-> 这些类从未打算被继承。所有继承的用例现在都应该由 Kotlin Gradle 插件 DSL 提供的配置块涵盖。如果这些任务的现有 API 无法满足你设置测试运行或 JavaScript 运行时的需求，请在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-75869) 中分享你的反馈。
+> 这些类从未打算被继承。所有继承的用例现在都应该由 Kotlin Gradle 插件 DSL 提供的配置块涵盖。
+> 如果这些任务的现有 API 无法满足你设置测试运行或 JavaScript 运行时的需求，请在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-75869) 中分享你的反馈。
 >
 > **弃用周期**：
 >
@@ -551,7 +552,9 @@
 >
 > **不兼容变更类型**：源码
 >
-> **简要摘要**：自 Kotlin 2.2.0 起，通过 `kotlinOptions` DSL 和相关的 `KotlinCompile<KotlinOptions>` 任务接口配置编译器选项的能力已被弃用，转而使用新的 `compilerOptions` DSL。Kotlin 2.3.0 继续对 `kotlinOptions` 接口中的所有属性进行弃用周期。要进行迁移，请使用 `compilerOptions` DSL 配置编译器选项。有关迁移指导，请参阅[从 `kotlinOptions {}` 迁移到 `compilerOptions {}`](gradle-compiler-options.md#migrate-from-kotlinoptions-to-compileroptions)。
+> **简要摘要**：自 Kotlin 2.2.0 起，通过 `kotlinOptions` DSL 和相关的 `KotlinCompile<KotlinOptions>` 任务接口配置编译器选项的能力已被弃用，转而使用新的 `compilerOptions` DSL。
+> Kotlin 2.3.0 继续对 `kotlinOptions` 接口中的所有属性进行弃用周期。
+> 要进行迁移，请使用 `compilerOptions` DSL 配置编译器选项。有关迁移指导，请参阅[从 `kotlinOptions {}` 迁移到 `compilerOptions {}`](gradle-compiler-options.md#migrate-from-kotlinoptions-to-compileroptions)。
 >
 > **弃用周期**：
 >
@@ -567,7 +570,8 @@
 >
 > **不兼容变更类型**：源码
 >
-> **简要摘要**：实验性的 `kotlinArtifacts` API 已弃用。请使用 Kotlin Gradle 插件中当前的 DSL 来[构建最终的原生二进制文件](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)。如果这不足以完成迁移，请在 [YouTrack 问题](https://youtrack.jetbrains.com/issue/KT-74953)中留下评论。
+> **简要摘要**：实验性的 `kotlinArtifacts` API 已弃用。请使用 Kotlin Gradle 插件中当前的 DSL 来[构建最终的原生二进制文件](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)。
+> 如果这不足以完成迁移，请在 [YouTrack 问题](https://youtrack.jetbrains.com/issue/KT-74953)中留下评论。
 >
 > **弃用周期**：
 >
@@ -626,7 +630,8 @@
 >
 > **不兼容变更类型**：源码
 >
-> **简要摘要**：`CInteropProcess` 任务中的 `destinationDir` 属性已弃用。请改用 `CInteropProcess.destinationDirectory.set()` 函数。
+> **简要摘要**：`CInteropProcess` 任务中的 `destinationDir` 属性已弃用。
+> 请改用 `CInteropProcess.destinationDirectory.set()` 函数。
 >
 > **弃用周期**：
 >
@@ -642,7 +647,8 @@
 >
 > **不兼容变更类型**：源码
 >
-> **简要摘要**：`CInteropProcess` 任务中的 `konanVersion` 属性已弃用。请改用 `CInteropProcess.kotlinNativeVersion`。
+> **简要摘要**：`CInteropProcess` 任务中的 `konanVersion` 属性已弃用。
+> 请改用 `CInteropProcess.kotlinNativeVersion`。
 >
 > **弃用周期**：
 >
@@ -658,13 +664,14 @@
 >
 > **不兼容变更类型**：源码
 >
-> **简要摘要**：`kotlin.incremental.useClasspathSnapshot` Gradle 属性已在 Kotlin 2.2.0 中移除。在 Kotlin 2.3.0 中，以下属性也被移除：
+> **简要摘要**：`kotlin.incremental.useClasspathSnapshot` Gradle 属性已在 Kotlin 2.2.0 中移除。
+> 在 Kotlin 2.3.0 中，以下属性也被移除：
 > * `KotlinCompile.classpathSnapshotProperties.useClasspathSnapshot`
 > * `KotlinCompile.classpathSnapshotProperties.classpath`
 >
 > **弃用周期**：
 >
-> - 2.0.20：报告警告弃用 `kotlin.incremental.useClasspathSnapshot` 属性
+> - 2.0.20：对 `kotlin.incremental.useClasspathSnapshot` 属性报告警告弃用
 > - 2.2.0：移除 `kotlin.incremental.useClasspathSnapshot` 属性
 > - 2.3.0：移除 `KotlinCompile.classpathSnapshotProperties.useClasspathSnapshot` 和 `KotlinCompile.classpathSnapshotProperties.classpath` 属性
 
@@ -676,7 +683,8 @@
 >
 > **不兼容变更类型**：源码
 >
-> **简要摘要**：在 Kotlin 2.2.20 中，[`getPluginArtifactForNative()` 函数已被弃用](whatsnew2220.md#reduced-size-of-kotlin-native-distribution)。请改用 [`getPluginArtifact()`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-compiler-plugin-support-plugin/get-plugin-artifact.html) 函数。
+> **简要摘要**：在 Kotlin 2.2.20 中，[`getPluginArtifactForNative()` 函数已被弃用](whatsnew2220.md#reduced-size-of-kotlin-native-distribution)。 
+> 请改用 [`getPluginArtifact()`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-compiler-plugin-support-plugin/get-plugin-artifact.html) 函数。
 >
 > **弃用周期**：
 >
@@ -696,6 +704,94 @@
 > **迁移建议**：
 > * 要注册生成的源码，请使用 [`generatedKotlin`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/generated-kotlin.html) 属性。
 > * 要访问所有源码（包括非生成的源码），请使用 [`allKotlinSources`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/all-kotlin-sources.html) 属性。
+
+### 弃用 `kotlin.publishJvmEnvironmentAttribute` 属性
+
+> **问题**：[KT-83678](https://youtrack.jetbrains.com/issue/KT-83678)
+>
+> **组件**：Gradle
+>
+> **不兼容变更类型**：源码
+>
+> **简要摘要**：在 Kotlin 2.3.20 中，`kotlin.publishJvmEnvironmentAttribute` 属性已被弃用。
+> 此属性允许禁用多平台库发布时的 `org.gradle.jvm.environment` 特性。
+> 从 Kotlin 2.0.20 开始，默认发布 `org.gradle.jvm.environment` 以确保常规依赖项解析。
+>
+> **弃用周期**：
+>
+> - 2.3.20：报告警告
+> - 2.4.0：移除该属性
+
+### 弃用 `CleanableStore` 接口和 `CleanDataTask` 类
+
+> **问题**：[KT-78104](https://youtrack.jetbrains.com/issue/KT-78104)
+>
+> **组件**：Gradle
+>
+> **不兼容变更类型**：源码
+>
+> **简要摘要**：`CleanableStore` 接口和 `CleanDataTask` 类已被弃用，因为它们不再被使用。
+>
+> **弃用周期**：
+>
+> - 2.3.20：报告警告
+
+### 弃用 `kotlin.kmp.isolated-projects.support` Gradle 属性
+
+> **问题**：[KT-79257](https://youtrack.jetbrains.com/issue/KT-79257)
+>
+> **组件**：Gradle
+>
+> **不兼容变更类型**：源码
+>
+> **简要摘要**：由于多平台项目默认与隔离项目兼容，且没有其他选项，因此 `kotlin.kmp.isolated-projects.support` Gradle 属性已被弃用。
+>
+> **弃用周期**：
+>
+> - 2.3.20：报告警告
+
+### 弃用 `kotlin.mpp.enableKotlinToolingMetadataArtifact` Gradle 属性
+
+> **问题**：[KT-79924](https://youtrack.jetbrains.com/issue/KT-79924)
+>
+> **组件**：Gradle
+>
+> **不兼容变更类型**：源码
+>
+> **简要摘要**：由于多平台项目现在始终生成 `kotlin-tooling-metadata.json` 构件，因此 `kotlin.mpp.enableKotlinToolingMetadataArtifact` Gradle 属性已被弃用。
+>
+> **弃用周期**：
+>
+> - 2.3.20：报告警告
+> - 2.4.0：移除支持
+
+### 弃用 `LanguageSettings.enableLanguageFeature` DSL
+
+> **问题**：[KT-82323](https://youtrack.jetbrains.com/issue/KT-82323)
+>
+> **组件**：Gradle
+>
+> **不兼容变更类型**：源码
+>
+> **简要摘要**：`LanguageSettings.enableLanguageFeature` DSL 暴露了一个仅用于 Kotlin 编译器测试的内部编译器配置。因此，该 DSL 已被弃用。
+>
+> **弃用周期**：
+>
+> - 2.3.20：报告警告
+
+### 弃用“进程外”编译器执行策略
+
+> **问题**：[KT-83125](https://youtrack.jetbrains.com/issue/KT-83125)
+>
+> **组件**：Gradle
+>
+> **不兼容变更类型**：源码
+>
+> **简要摘要**：“进程外”[编译器执行策略](compiler-execution-strategy.md)不受[构建工具 API](build-tools-api.md) 支持，且是当前可用的最慢策略。在 Kotlin 2.3.20 中，该策略已被弃用，建议改用“守护进程”和“进程内”编译器执行策略。
+>
+> **弃用周期**：
+>
+> - 2.3.20：报告警告
 
 ## 构建工具移除
 

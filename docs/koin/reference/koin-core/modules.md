@@ -2,173 +2,275 @@
 title: 模块
 ---
 
-通过使用 Koin，您可以在模块中描述定义。在本节中，我们将了解如何声明、组织和链接您的模块。
+# 模块
+
+Koin 模块是组织依赖注入配置的构建块。
 
 ## 什么是模块？
 
-Koin 模块是收集 Koin 定义的一个“空间”。它使用 `module` 函数进行声明。
+模块是一个用于对相关定义进行分组的逻辑容器：
 
 ```kotlin
-val myModule = module {
-    // 您的定义 ...
+val appModule = module {
+    single<Database>()
+    single<UserRepository>()
+    viewModel<UserViewModel>()
+}
+```
+
+模块可以帮助您：
+- 按功能或层级**组织**定义
+- **封装**相关的依赖项
+- 在不同上下文之间**复用**配置
+- 在多模块项目中**控制可见性**
+
+## 创建模块
+
+### 使用编译器插件 DSL
+
+```kotlin
+import org.koin.plugin.module.dsl.*
+
+val networkModule = module {
+    single<ApiClient>()
+    single<TokenManager>()
+}
+
+val databaseModule = module {
+    single<Database>()
+    single<UserDao>()
+}
+```
+
+### 使用注解
+
+```kotlin
+@Module
+@ComponentScan("com.myapp.network")
+class NetworkModule
+
+@Module
+@ComponentScan("com.myapp.database")
+class DatabaseModule
+```
+
+### 使用经典 DSL
+
+```kotlin
+val networkModule = module {
+    singleOf(::ApiClient)
+    singleOf(::TokenManager)
 }
 ```
 
 ## 使用多个模块
 
-组件不一定非得在同一个模块中。模块是一个逻辑空间，可以帮助您组织定义，并且可以依赖于其他模块中的定义。定义是延迟的，只有在组件请求它们时才会被解析。
-
-让我们来看一个例子，其中链接的组件位于不同的模块中：
+依赖项可以引用来自其他模块的定义：
 
 ```kotlin
-// ComponentB <- ComponentA
-class ComponentA()
-class ComponentB(val componentA : ComponentA)
-
-val moduleA = module {
-    // 单例 ComponentA
-    single { ComponentA() }
+// 数据层
+val dataModule = module {
+    single<Database>()
+    single<UserRepository>()  // 可以使用此模块中的 Database
 }
 
-val moduleB = module {
-    // 具有链接实例 ComponentA 的单例 ComponentB
-    single { ComponentB(get()) }
+// 表示层
+val viewModelModule = module {
+    viewModel<UserViewModel>()  // 可以使用来自 dataModule 的 UserRepository
+}
+
+// 加载两者
+startKoin {
+    modules(dataModule, viewModelModule)
 }
 ```
 
-:::info 
-Koin 没有任何导入概念。Koin 定义是延迟的：Koin 定义随 Koin 容器一起启动，但不会实例化。只有在对其类型发出请求时才会创建实例。
+:::info
+Koin 会自动解析所有已加载模块中的依赖项。不需要显式导入。
 :::
-
-我们只需要在启动 Koin 容器时声明所使用的模块列表：
-
-```kotlin
-// 使用 moduleA 和 moduleB 启动 Koin
-startKoin {
-    modules(moduleA,moduleB)
-}
-```
-
-然后，Koin 将解析所有给定模块中的依赖项。
-
-## 重写定义或模块 (3.1.0+)
-
-新的 Koin 重写策略默认允许重写任何定义。您不再需要在模块中指定 `override = true`。
-
-如果您在不同的模块中有 2 个具有相同映射的定义，则最后一个将重写当前的定义。
-
-```kotlin
-val myModuleA = module {
-    single<Service> { ServiceImp() }
-}
-val myModuleB = module {
-    single<Service> { TestServiceImp() }
-}
-
-startKoin {
-    // TestServiceImp 将重写 ServiceImp 定义
-    modules(myModuleA,myModuleB)
-}
-```
-
-您可以查看 Koin 日志，了解有关定义映射重写的信息。
-
-您可以在 Koin 应用程序配置中使用 `allowOverride(false)` 指定不允许重写：
-
-```kotlin
-startKoin {
-    // 禁止定义重写
-    allowOverride(false)
-}
-```
-
-在禁用重写的情况下，对于任何重写尝试，Koin 都会抛出 `DefinitionOverrideException` 异常。
-
-## 共享模块
-
-当使用 `module { }` 函数时，Koin 会预分配所有实例工厂。如果您需要共享模块，请考虑通过函数返回模块。 
-
-```kotlin
-fun sharedModule() = module {
-    // 您的定义 ...
-}
-```
-
-这样，您可以共享定义，并避免在变量中预分配工厂。
-
-## 重写定义或模块 (3.1.0 之前)
-
-Koin 不允许您重新定义已经存在的定义（类型、名称、路径等）。如果您尝试这样做，将会收到错误：
-
-```kotlin
-val myModuleA = module {
-
-    single<Service> { ServiceImp() }
-}
-
-val myModuleB = module {
-
-    single<Service> { TestServiceImp() }
-}
-
-// 将抛出 BeanOverrideException
-startKoin {
-    modules(myModuleA,myModuleB)
-}
-```
-
-要允许定义重写，您必须使用 `override` 参数：
-
-```kotlin
-val myModuleA = module {
-
-    single<Service> { ServiceImp() }
-}
-
-val myModuleB = module {
-
-    // 为此定义重写
-    single<Service>(override=true) { TestServiceImp() }
-}
-```
-
-```kotlin
-val myModuleA = module {
-
-    single<Service> { ServiceImp() }
-}
-
-// 允许重写模块中的所有定义
-val myModuleB = module(override=true) {
-
-    single<Service> { TestServiceImp() }
-}
-```
 
 :::note
-在列出模块和重写定义时，顺序很重要。您必须将执行重写的定义放在模块列表的最后。
+虽然直接列出模块是可行的，但请考虑使用 [`includes()`](#module-composition-with-includes) 将您的模块组织成层次结构，以获得更好的结构和优化的加载。
 :::
 
-## 链接模块的策略
+## 使用 `includes()` 进行模块组合
 
-*由于模块间的定义是延迟的*，我们可以使用模块来实现不同的策略：每个模块声明一个实现。
+`includes()` 函数是组织模块的**推荐方式**。它提供：
 
-让我们以 Repository 和 Datasource 为例。Repository 需要 Datasource，而 Datasource 可以通过两种方式实现：Local 或 Remote。
+- **模块层次结构** – 以清晰的父子关系组织您的模块
+- **优化加载** – Koin 会对包含的模块进行去重，防止重复注册
+- **更整洁的启动** – 加载单个根模块而不是一个长列表
+- **封装** – 内部模块可以隐藏在公共 API 模块之后
+
+:::tip
+**最佳做法：** 使用 `includes()` 构建模块层次结构，而不是在 `startKoin` 中列出所有模块。这可以改善组织结构并确保高效的模块加载。
+:::
 
 ```kotlin
-class Repository(val datasource : Datasource)
-interface Datasource
-class LocalDatasource() : Datasource
-class RemoteDatasource() : Datasource
+val networkModule = module {
+    single<ApiClient>()
+}
+
+val storageModule = module {
+    single<Database>()
+}
+
+// 父模块包含子模块
+val dataModule = module {
+    includes(networkModule, storageModule)
+    single<UserRepository>()
+}
+
+// ✅ 推荐：加载带有 includes 的根模块
+startKoin {
+    modules(dataModule)
+}
+
+// ❌ 避免：平铺模块列表
+startKoin {
+    modules(networkModule, storageModule, dataModule)
+}
 ```
 
-我们可以在 3 个模块中声明这些组件：Repository 模块和每个 Datasource 实现各一个模块：
+### `includes()` 如何优化加载
+
+当模块被多次包含时，Koin 仅加载它们一次：
+
+```kotlin
+val commonModule = module {
+    single<Logger>()
+}
+
+val featureAModule = module {
+    includes(commonModule)
+    single<FeatureA>()
+}
+
+val featureBModule = module {
+    includes(commonModule)  // 也包含 commonModule
+    single<FeatureB>()
+}
+
+val appModule = module {
+    includes(featureAModule, featureBModule)
+}
+
+// 即使 commonModule 被包含了两次，它也只会被加载一次
+startKoin {
+    modules(appModule)
+}
+```
+
+### 多模块项目
+
+使用可见性修饰符来控制暴露的内容：
+
+```kotlin
+// :feature:user 模块
+
+// 私有 - 对其他模块隐藏
+private val userDataModule = module {
+    single<UserDao>()
+    single<UserCache>()
+}
+
+// 公共 API
+val userFeatureModule = module {
+    includes(userDataModule)
+    viewModel<UserViewModel>()
+}
+```
+
+```kotlin
+// :app 模块
+startKoin {
+    modules(userFeatureModule)  // 只有这个是可访问的
+}
+```
+
+## 模块重写
+
+### 默认行为
+
+默认情况下，**最后加载的定义优先**：
+
+```kotlin
+val productionModule = module {
+    single<ApiService> { ProductionApi() }
+}
+
+val debugModule = module {
+    single<ApiService> { DebugApi() }
+}
+
+startKoin {
+    modules(productionModule, debugModule)  // DebugApi 胜出
+}
+```
+
+### 严格模式
+
+在生产环境中禁用重写：
+
+```kotlin
+startKoin {
+    allowOverride(false)  // 尝试重写时抛出异常
+    modules(productionModule)
+}
+```
+
+### 显式重写
+
+在严格模式下允许特定的重写：
+
+```kotlin
+val testModule = module {
+    single<ApiService> { MockApi() }.override()  // 允许重写
+}
+
+startKoin {
+    allowOverride(false)
+    modules(productionModule, testModule)
+}
+```
+
+## 预先创建模块 (Eager Module Creation)
+
+在启动时立即创建单例：
+
+```kotlin
+val coreModule = module(createdAtStart = true) {
+    single<ConfigManager>()
+    single<LoggingSystem>()
+}
+```
+
+## 参数化模块
+
+动态创建模块：
+
+```kotlin
+fun featureModule(debug: Boolean) = module {
+    single<Logger> {
+        if (debug) DebugLogger() else ProductionLogger()
+    }
+}
+
+startKoin {
+    modules(featureModule(debug = BuildConfig.DEBUG))
+}
+```
+
+## 策略模式
+
+使用模块来切换实现：
 
 ```kotlin
 val repositoryModule = module {
-    single { Repository(get()) }
+    single<UserRepository>()  // 依赖于 Datasource
 }
 
+// 策略选项
 val localDatasourceModule = module {
     single<Datasource> { LocalDatasource() }
 }
@@ -176,79 +278,90 @@ val localDatasourceModule = module {
 val remoteDatasourceModule = module {
     single<Datasource> { RemoteDatasource() }
 }
+
+// 生产环境
+startKoin {
+    modules(repositoryModule, remoteDatasourceModule)
+}
+
+// 离线模式
+startKoin {
+    modules(repositoryModule, localDatasourceModule)
+}
 ```
 
-然后我们只需要使用正确的模块组合启动 Koin：
+## 注解模块
+
+Koin 支持基于注解的模块配置，作为 DSL 的替代方案。
 
 ```kotlin
-// 加载 Repository + Local Datasource 定义
-startKoin {
-    modules(repositoryModule,localDatasourceModule)
-}
+@Module
+@ComponentScan("com.myapp.data")
+class DataModule
 
-// 加载 Repository + Remote Datasource 定义
-startKoin {
-    modules(repositoryModule,remoteDatasourceModule)
-}
+@Module
+@ComponentScan("com.myapp.network")
+class NetworkModule
+
+// 包含其他模块
+@Module(includes = [DataModule::class, NetworkModule::class])
+class AppModule
 ```
 
-## 模块包含 (自 3.2 起)
-
-`Module` 类中提供了一个新函数 `includes()`，它可以让您以有组织且结构化的方式通过包含其他模块来组合模块。
-
-该新功能的两个显著用例是：
-- 将大型模块拆分为更小、更专注的模块。
-- 在模块化项目中，它可以让您更精细地控制模块的可见性（参见下面的示例）。
-
-它是如何工作的？让我们来看一些模块，并在 `parentModule` 中包含这些模块：
-
-```kotlin
-// `:feature` 模块
-val childModule1 = module {
-    /* 此处为其他定义。 */
-}
-val childModule2 = module {
-    /* 此处为其他定义。 */
-}
-val parentModule = module {
-    includes(childModule1, childModule2)
-}
-
-// `:app` 模块
-startKoin { modules(parentModule) }
-```
-
-注意，我们不需要显式设置所有模块：通过包含 `parentModule`，在 `includes` 中声明的所有模块都将被自动加载（`childModule1` 和 `childModule2`）。换句话说，Koin 实际上加载了：`parentModule`、`childModule1` 和 `childModule2`。
-
-值得注意的一个重要细节是，您也可以使用 `includes` 来添加 `internal` 和 `private` 模块——这为您在模块化项目中暴露哪些内容提供了灵活性。
+主要特性：
+- `@Module` 将一个类标记为 Koin 模块
+- `@ComponentScan` 自动发现软件包中带有注解的类
+- `@Configuration` 在启动时启用自动发现
+- 模块函数提供外部库实例
 
 :::info
-模块加载现在已经过优化，可以扁平化您的所有模块图，并避免模块的重复定义。
+有关注解模块的完整文档，请参阅 [注解参考 - 模块](/docs/reference/koin-annotations/modules)。
 :::
 
-最后，您可以包含多个嵌套或重复的模块，Koin 将扁平化所有包含的模块并移除重复项：
+## 最佳做法
 
-```kotlin
-// :feature 模块
-val dataModule = module {
-    /* 此处为其他定义。 */
-}
-val domainModule = module {
-    /* 此处为其他定义。 */
-}
-val featureModule1 = module {
-    includes(domainModule, dataModule)
-}
-val featureModule2 = module {
-    includes(domainModule, dataModule)
-}
+### 组织结构
 
-// `:app` 模块
-startKoin { modules(featureModule1, featureModule2) }
-```
+1. **按功能/层分组**
+   ```kotlin
+   val authModule = module { /* 身份验证功能 */ }
+   val networkModule = module { /* 网络层 */ }
+   ```
 
-请注意，所有模块都将仅包含一次：`dataModule`、`domainModule`、`featureModule1`、`featureModule2`。
+2. **使用 `includes()` 构建模块层次结构**（推荐）
+   ```kotlin
+   // 创建一个包含所有功能的根模块
+   val appModule = module {
+       includes(
+           coreModule,
+           networkModule,
+           featureAModule,
+           featureBModule
+       )
+   }
 
-:::info
-如果您在包含来自同一个文件的模块时遇到任何编译问题，请在您的模块上使用 `get()` Kotlin 属性运算符，或者将每个模块拆分到不同的文件中。请参阅 https://github.com/InsertKoinIO/koin/issues/1341 中的临时解决方法。
-:::
+   // 通过单个模块实现整洁启动
+   startKoin {
+       modules(appModule)
+   }
+   ```
+
+3. **保持模块专注** – 每个模块单一职责
+
+### 命名
+
+- 使用描述性名称：`networkModule`、`userFeatureModule`
+- 相关分组：`authDataModule`、`authDomainModule`
+
+### 多模块项目
+
+1. **每个功能一个公共模块**
+2. **对实现模块使用 `private`/`internal`**
+3. **将共享模块放在 `:core` 中**
+
+## 后续步骤
+
+- **[定义](/docs/reference/koin-core/definitions)** – 创建定义
+- **[限定符](/docs/reference/koin-core/qualifiers)** – 命名和类型限定符
+- **[作用域](/docs/reference/koin-core/scopes)** – 使用作用域管理生命周期
+- **[故障排除](/docs/reference/koin-core/troubleshooting)** – 调试并修复常见问题

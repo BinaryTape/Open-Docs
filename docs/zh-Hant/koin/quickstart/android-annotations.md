@@ -12,7 +12,7 @@ title: Android 與註解
 ## 取得程式碼
 
 :::info
-[原始碼已發佈於 Github](https://github.com/InsertKoinIO/koin-getting-started/tree/main/android-annotations)
+[原始碼已發佈於 GitHub](https://github.com/InsertKoinIO/koin-getting-started/tree/main/android-annotations)
 :::
 
 ## Gradle 設定
@@ -45,88 +45,136 @@ ksp {
 
 這個應用程式的概念是管理一個使用者列表，並透過 Presenter 或 ViewModel 將其顯示在我們的 `MainActivity` 類別中：
 
-> Users -> UserRepository -> (Presenter 或 ViewModel) -> MainActivity
+> Users -> UserRepository -> UserService -> (Presenter 或 ViewModel) -> MainActivity
 
 ## 「User」資料
 
 我們將管理 User 的集合。這是資料類別：
 
 ```kotlin
-data class User(val name : String)
+data class User(val name: String, val email: String)
 ```
 
 我們建立一個「存儲庫」組建來管理使用者列表（新增使用者或按名稱尋找）。下方是 `UserRepository` 介面及其實作：
 
 ```kotlin
 interface UserRepository {
-    fun findUser(name : String): User?
-    fun addUsers(users : List<User>)
+    fun findUserOrNull(name: String): User?
+    fun addUsers(users: List<User>)
 }
 
+@Singleton
 class UserRepositoryImpl : UserRepository {
 
     private val _users = arrayListOf<User>()
 
-    override fun findUser(name: String): User? {
+    override fun findUserOrNull(name: String): User? {
         return _users.firstOrNull { it.name == name }
     }
 
-    override fun addUsers(users : List<User>) {
+    override fun addUsers(users: List<User>) {
         _users.addAll(users)
+    }
+}
+```
+
+## UserService 組建
+
+讓我們編寫一個服務組建來管理使用者操作：
+
+```kotlin
+interface UserService {
+    fun getUserOrNull(name: String): User?
+    fun loadUsers()
+    fun prepareHelloMessage(user: User?): String
+}
+
+@Singleton
+class UserServiceImpl(
+    private val userRepository: UserRepository
+) : UserService {
+
+    init {
+        loadUsers()
+    }
+
+    override fun getUserOrNull(name: String): User? = userRepository.findUserOrNull(name)
+
+    override fun loadUsers() {
+        userRepository.addUsers(listOf(
+            User("Alice", "alice@example.com"),
+            User("Bob", "bob@example.com"),
+            User("Charlie", "charlie@example.com")
+        ))
+    }
+
+    override fun prepareHelloMessage(user: User?): String {
+        return user?.let { "Hello '${user.name}' (${user.email})! 👋" } ?: "❌ User not found"
     }
 }
 ```
 
 ## Koin 模組
 
-讓我們如下宣告一個 `AppModule` 模組類別。
+讓我們如下宣告一個 `AppModule` 模組類別：
 
 ```kotlin
 @Module
 @ComponentScan("org.koin.sample")
+@Configuration
 class AppModule
 ```
 
-* 我們使用 `@Module` 將類別宣告為 Koin 模組
-* `@ComponentScan("org.koin.sample")` 允許掃描 `"org.koin.sample"` 套件中的任何 Koin 定義
+* `@Module` - 將此類別宣告為 Koin 模組
+* `@ComponentScan("org.koin.sample")` - 自動掃描並註冊 `"org.koin.sample"` 套件中的所有 Koin 定義
+* `@Configuration` - 與 `@KoinApplication` 配合使用時，啟用自動模組探索
 
-只需在 `UserRepositoryImpl` 類別上加上 `@Single`，即可將其宣告為單例：
+啟用組建掃描後，我們只需在類別中加入註解：
 
 ```kotlin
-@Single
+@Singleton
 class UserRepositoryImpl : UserRepository {
     // ...
 }
+
+@Singleton
+class UserServiceImpl(private val userRepository: UserRepository) : UserService {
+    // ...
+}
 ```
+
+`@Singleton` 註解將這些類別宣告為 Koin 中的單例。
 
 ## 使用 Presenter 顯示使用者
 
 讓我們編寫一個 Presenter 組建來顯示使用者：
 
 ```kotlin
-class UserPresenter(private val repository: UserRepository) {
+@Factory
+class UserPresenter(private val userService: UserService) {
 
-    fun sayHello(name : String) : String{
-        val foundUser = repository.findUser(name)
-        return foundUser?.let { "Hello '$it' from $this" } ?: "User '$name' not found!"
+    fun sayHello(name: String): String {
+        val user = userService.getUserOrNull(name)
+        val message = userService.prepareHelloMessage(user)
+        return "[UserPresenter] $message"
     }
 }
 ```
 
-> `UserRepository` 在 `UserPresenter` 的建構函式中被引用
+> `UserService` 在 `UserPresenter` 的建構函式中被引用
 
-我們在 Koin 模組中宣告 `UserPresenter`。我們使用 `@Factory` 註解將其宣告為 `factory` 定義，以避免在記憶體中保留任何執行個體（避免 Android 生命週期造成的任何記憶體洩漏）：
+我們使用 `@Factory` 註解宣告 `UserPresenter`，以便在每次請求時建立新執行個體（避免 Android 生命週期造成的記憶體洩漏）：
 
 ```kotlin
 @Factory
-class UserPresenter(private val repository: UserRepository) {
+class UserPresenter(private val userService: UserService) {
     // ...
 }
 ```
 
 ## 在 Android 中注入相依性
 
-將會建立 `UserPresenter` 組建，並隨之解析 `UserRepository` 執行個體。若要在 Activity 中取得它，讓我們使用 `by inject()` 委託函式進行注入：
+將會建立 `UserPresenter` 組建，並隨之解析 `UserService` 執行個體。若要在 Activity 中取得它，讓我們使用 `by inject()` 委託函式進行注入：
 
 ```kotlin
 class MainActivity : AppCompatActivity() {
@@ -149,29 +197,34 @@ class MainActivity : AppCompatActivity() {
 
 ## 啟動 Koin
 
-我們需要在 Android 應用程式中啟動 Koin。只需在應用程式的主要入口點，即我們的 `MainApplication` 類別中呼叫 `startKoin()` 函式：
+我們需要在 Android 應用程式中啟動 Koin。透過 `@KoinApplication` 註解，Koin 會自動探索並載入所有標記為 `@Configuration` 的模組：
 
 ```kotlin
-// 產生的
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.annotation.KoinApplication
 import org.koin.ksp.generated.*
 
-class MainApplication : Application(){
+@KoinApplication
+class MainApplication : Application() {
+
     override fun onCreate() {
         super.onCreate()
-        
-        startKoin{
-            androidLogger()
+
+        startKoin {
             androidContext(this@MainApplication)
-            modules(AppModule().module)
         }
     }
 }
 ```
 
-Koin 模組是從 `AppModule` 透過 `.module` 擴充產生的：只需使用 `AppModule().module` 運算式，即可從註解中取得 Koin 模組。
+**關鍵點：**
+* `@KoinApplication` - 自動探索所有標記有 `@Module` 與 `@Configuration` 的模組
+* 不需要手動呼叫 `modules(AppModule().module)` —— 模組會自動載入！
+* 需要 `import org.koin.ksp.generated.*` 才能使用產生的 Koin 內容
+* 您只需要配置 Android 特定的設定，例如 `androidContext`
 
 :::info
-需要 `import org.koin.ksp.generated.*` 才能使用產生的 Koin 模組內容
+`@KoinApplication` 註解配合模組上的 `@Configuration`，可透過 KSP 在編譯期自動探索並載入所有相依性。
 :::
 
 ## 使用 ViewModel 顯示使用者
@@ -180,22 +233,23 @@ Koin 模組是從 `AppModule` 透過 `.module` 擴充產生的：只需使用 `A
 
 ```kotlin
 @KoinViewModel
-class UserViewModel(private val repository: UserRepository) : ViewModel() {
+class UserViewModel(private val userService: UserService) : ViewModel() {
 
-    fun sayHello(name : String) : String{
-        val foundUser = repository.findUser(name)
-        return foundUser?.let { "Hello '$it' from $this" } ?: "User '$name' not found!"
+    fun sayHello(name: String): String {
+        val user = userService.getUserOrNull(name)
+        val message = userService.prepareHelloMessage(user)
+        return "[UserViewModel] $message"
     }
 }
 ```
 
-> `UserRepository` 在 `UserViewModel` 的建構函式中被引用
+> `UserService` 在 `UserViewModel` 的建構函式中被引用
 
-`UserViewModel` 標記有 `@KoinViewModel` 註解，用以宣告 Koin ViewModel 定義，且不在記憶體中保留任何執行個體（避免 Android 生命週期造成的任何記憶體洩漏）。
+`UserViewModel` 標記有 `@KoinViewModel` 註解，用以宣告 Koin ViewModel 定義。這可確保正確的生命週期管理並避免記憶體洩漏。
 
 ## 在 Android 中注入 ViewModel
 
-將會建立 `UserViewModel` 組建，並隨之解析 `UserRepository` 執行個體。若要在 Activity 中取得它，讓我們使用 `by viewModel()` 委託函式進行注入：
+將會建立 `UserViewModel` 組建，並隨之解析 `UserService` 執行個體。若要在 Activity 中取得它，讓我們使用 `by viewModel()` 委託函式進行注入：
 
 ```kotlin
 class MainActivity : AppCompatActivity() {
@@ -220,40 +274,6 @@ ksp {
 }
 ```
 
-## 驗證您的應用程式！
-
-在啟動應用程式之前，我們可以透過一個簡單的 JUnit 測試來驗證 Koin 配置，以確保配置正確。
-
-### Gradle 設定
-
-如下新增 Koin Android 相依性：
-
-```groovy
-// 如果需要，將 Maven Central 新增到您的存儲庫
-repositories {
-	mavenCentral()    
-}
-
-dependencies {
-    
-    // 用於測試的 Koin
-    testImplementation "io.insert-koin:koin-test-junit4:$koin_version"
-}
-```
-
-### 檢查您的模組
-
-`androidVerify()` 函式允許驗證指定的 Koin 模組：
-
-```kotlin
-class CheckModulesTest : KoinTest {
-
-    @Test
-    fun checkAllModules() {
-
-        AppModule().module.androidVerify()
-    }
-}
-```
-
-只需一個 JUnit 測試，您就可以確保您的定義配置沒有遺漏任何內容！
+:::note
+這個基於 KSP 的選項將被 **Koin 編譯器外掛程式**（Koin Compiler Plugin）取代，它將提供原生編譯期安全性。請參閱 [編譯器外掛程式](/docs/setup/compiler-plugin) 以了解未來的方法。
+:::

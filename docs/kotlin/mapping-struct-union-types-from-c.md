@@ -81,7 +81,6 @@ void union_by_pointer(MyUnion* u) {}
     ```kotlin
     kotlin {
         macosArm64("native") {    // Apple 芯片上的 macOS
-        // macosX64("native") {   // x86_64 平台上的 macOS
         // linuxArm64("native") { // ARM64 平台上的 Linux 
         // linuxX64("native") {   // x86_64 平台上的 Linux
         // mingwX64("native") {   // Windows 上
@@ -102,11 +101,10 @@ void union_by_pointer(MyUnion* u) {}
 
     ```groovy
     kotlin {
-        macosArm64("native") {    // Apple 芯片 macOS
-        // macosX64("native") {   // x86_64 平台上的 macOS
+        macosArm64("native") {    // Apple 芯片上的 macOS
         // linuxArm64("native") { // ARM64 平台上的 Linux
         // linuxX64("native") {   // x86_64 平台上的 Linux
-        // mingwX64("native") {   // Windows
+        // mingwX64("native") {   // Windows 上
             compilations.main.cinterops {
                 interop {   
                     definitionFile = project.file('src/nativeInterop/cinterop/interop.def')
@@ -133,7 +131,7 @@ void union_by_pointer(MyUnion* u) {}
    fun union_by_pointer(u: kotlinx.cinterop.CValuesRef<interop.MyUnion>?)
    ```
 
-从技术上讲，在 Kotlin 侧，struct 和 union 类型之间没有区别。cinterop工具会为 C 语言的 struct 和 union 声明生成 Kotlin 类型。
+从技术上讲，在 Kotlin 侧，struct 和 union 类型之间没有区别。cinterop 工具会为 C 语言的 struct 和 union 声明生成 Kotlin 类型。
 
 生成的 API 包含 `CValue<T>` 和 `CValuesRef<T>` 的完全限定包名，反映了它们在 `kotlinx.cinterop` 中的位置。`CValue<T>` 表示按值传递的结构体形参，而 `CValuesRef<T>?` 则用于传递指向结构体或 union 的指针。
 

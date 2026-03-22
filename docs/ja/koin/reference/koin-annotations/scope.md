@@ -6,7 +6,7 @@ title: Koin Annotationsにおけるスコープ
 
 ## @Scopeによるスコープの定義
 
-Koinではスコープを使用することができます。基本の詳細については、[Koin Scopes](/docs/reference/koin-core/scopes.md) セクションを参照してください。
+Koinではスコープを使用することができます。基本の詳細については、[Koin Scopes](/docs/reference/koin-core/scopes) セクションを参照してください。
 
 アノテーションでスコープを宣言するには、次のようにクラスに `@Scope` アノテーションを使用します。
 

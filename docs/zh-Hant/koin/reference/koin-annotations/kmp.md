@@ -1,48 +1,33 @@
 ---
-title: Kotlin Multiplatform - 定義與模組註解
+title: Kotlin Multiplatform
 ---
 
-## KSP 設定
+## 設定
 
-請按照官方文件中的說明進行 KSP 設定：[KSP with Kotlin Multiplatform](https://kotlinlang.org/docs/ksp-multiplatform.html)
-
-您也可以查看 [Hello Koin KMP](https://github.com/InsertKoinIO/hello-kmp/tree/annotations) 專案，其中包含 Koin 註解的基本設定。
-
-新增 KSP 外掛程式
+Koin 編譯器外掛程式簡化了 KMP 的設定 —— 只需要套用該外掛程式即可。
 
 ```kotlin
+// shared/build.gradle.kts
 plugins {
-    alias(libs.plugins.ksp)
+    kotlin("multiplatform")
+    alias(libs.plugins.koin.compiler)
 }
-```
 
-在共用 API 中使用註解程式庫：
-
-```kotlin
-sourceSets {
-    commonMain.dependencies {
-        implementation(libs.koin.core)
-        api(libs.koin.annotations)
-        // ...
+kotlin {
+    sourceSets {
+        commonMain.dependencies {
+            implementation(libs.koin.core)
+            implementation(libs.koin.annotations)
+        }
     }
 }
 ```
 
-並且不要忘記在正確的原始碼集（sourceSet）上配置 KSP：
-
-```kotlin
-dependencies {
-    add("kspCommonMainMetadata", libs.koin.ksp.compiler)
-    add("kspAndroid", libs.koin.ksp.compiler)
-    add("kspIosX64", libs.koin.ksp.compiler)
-    add("kspIosArm64", libs.koin.ksp.compiler)
-    add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
-}
-```
+就這樣！不需要針對每個平台進行 KSP 設定。
 
 ## 在共用程式碼中定義定義與模組
 
-在您的 `commonMain` 原始碼集中，宣告您的模組、掃描定義，或將函式定義為一般的 Kotlin Koin 宣告。請參閱 [定義](./definitions.md) 與 [模組](./modules.md)。
+在您的 `commonMain` 原始碼集中，宣告您的模組、掃描定義，或將函式定義為一般的 Kotlin Koin 宣告。請參閱 [定義](./definitions) 與 [模組](./modules)。
 
 ## 共享模式
 
@@ -289,7 +274,7 @@ actual class PlatformComponentA actual constructor(val ctx : ContextWrapper) {
 從共用模組依賴原生模組。
 :::
 
-在某些情況下，您不希望受到約束，並在每個原生端掃描組件。請在共用原始碼集（source set）中定義一個空的模組類別，並在每個平台上定義您的實作。
+在某些情況下，您不希望受到約束，並在每個原生端掃描組件。請在共用原始碼集中定義一個空的模組類別，並在每個平台上定義您的實作。
 
 :::info
 如果您在共用端定義一個空模組，每個原生模組實作將從每個原生目標產生，例如這允許掃描僅限原生的組件。

@@ -1,11 +1,11 @@
 [//]: # (title: Lombok 컴파일러 플러그인)
-<primary-label ref="experimental-opt-in"/>
+<primary-label ref="alpha"/>
 
 Kotlin Lombok 컴파일러 플러그인은 동일한 혼합 Java/Kotlin 모듈 내의 Kotlin 코드에서 Java Lombok 선언을 생성하고 사용할 수 있게 해줍니다.
 만약 다른 모듈에서 이러한 선언을 호출하는 경우, 해당 모듈을 컴파일할 때는 이 플러그인을 사용할 필요가 없습니다.
 
 Lombok 컴파일러 플러그인은 [Lombok](https://projectlombok.org/)을 대체할 수는 없지만, 혼합 Java/Kotlin 모듈에서 Lombok이 작동하도록 도와줍니다.
-따라서 이 플러그인을 사용할 때도 평소와 같이 Lombok을 구성해야 합니다.
+따라서 이 플러그인을 사용할 때도 평소와 같이 Lombok을 구성해야 합니다. 
 [Lombok 컴파일러 플러그인을 구성하는 방법](#using-the-lombok-configuration-file)에 대해 자세히 알아보세요.
 
 ## 지원되는 어노테이션
@@ -57,8 +57,8 @@ plugins {
 
 ### Lombok 설정 파일 사용하기
 
-[Lombok 설정 파일](https://projectlombok.org/features/configuration) `lombok.config`를 사용하는 경우, 플러그인이 파일을 찾을 수 있도록 파일 경로를 설정해야 합니다.
-경로는 모듈 디렉토리에 대한 상대 경로여야 합니다.
+[Lombok 설정 파일](https://projectlombok.org/features/configuration) `lombok.config`를 사용하는 경우, 플러그인이 파일을 찾을 수 있도록 파일 경로를 설정해야 합니다. 
+경로는 모듈 디렉토리에 대한 상대 경로여야 합니다. 
 예를 들어, `build.gradle(.kts)` 파일에 다음 코드를 추가하세요:
 
 <tabs group="build-script">
@@ -86,7 +86,7 @@ kotlinLombok {
 
 ## Maven
 
-Lombok 컴파일러 플러그인을 사용하려면 `compilerPlugins` 섹션에 `lombok` 플러그인을 추가하고, `dependencies` 섹션에 `kotlin-maven-lombok` 의존성을 추가하세요.
+Lombok 컴파일러 플러그인을 사용하려면 `compilerPlugins` 섹션에 `lombok` 플러그인을 추가하고, `dependencies` 섹션에 `kotlin-maven-lombok` 의존성을 추가하세요. 
 [Lombok 설정 파일](https://projectlombok.org/features/configuration) `lombok.config`를 사용하는 경우, `pluginOptions`에서 해당 파일의 경로를 플러그인에 제공하세요. `pom.xml` 파일에 다음 줄을 추가하세요:
 
 ```xml

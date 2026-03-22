@@ -2,105 +2,165 @@
 title: WorkManager
 ---
 
-`koin-androidx-workmanager` 项目致力于提供 Android WorkManager 功能。
+Koin 与 [Android WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager) 集成，以在 Worker 中启用构造函数注入。
 
-## WorkManager DSL
+## 设置
 
-## 设置 WorkManager
+### 添加依赖项
 
-在启动时，在你的 `KoinApplication` 声明中，使用 `workManagerFactory()` 关键字来设置自定义 WorkManager 实例：
+```groovy
+implementation "io.insert-koin:koin-android:$koin_version"
+implementation "io.insert-koin:koin-androidx-workmanager:$koin_version"
+```
+
+### 配置 WorkManager
+
+在您的 Application 中设置 Koin WorkManager 工厂：
 
 ```kotlin
-class MainApplication : Application(), KoinComponent {
+class MainApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
 
         startKoin {
-            // 设置一个 WorkManager 实例
+            androidContext(this@MainApplication)
             workManagerFactory()
-            modules(...)
+            modules(appModule)
         }
-
-        setupWorkManagerFactory()
+    }
 }
 ```
 
-同样重要的是，你需要编辑 `AndroidManifest.xml` 以防止 Android 初始化其默认的 `WorkManagerFactory`，如 https://developer.android.com/topic/libraries/architecture/workmanager/advanced/custom-configuration#remove-default 所示。如果不这样做，将导致应用崩溃。
+### 禁用默认初始值设定项
+
+将以下内容添加到您的 `AndroidManifest.xml` 以禁用默认的 WorkManager 初始值设定项：
 
 ```xml
-    <application . . .>
-        . . .
-        <provider
-            android:name="androidx.startup.InitializationProvider"
-            android:authorities="${applicationId}.androidx-startup"
-            android:exported="false"
-            tools:node="merge">
-            <meta-data
-                android:name="androidx.work.WorkManagerInitializer"
-                android:value="androidx.startup"
-                tools:node="remove" />
-        </provider>
-    </application>
+<provider
+    android:name="androidx.startup.InitializationProvider"
+    android:authorities="${applicationId}.androidx-startup"
+    android:exported="false"
+    tools:node="merge">
+    <meta-data
+        android:name="androidx.work.WorkManagerInitializer"
+        android:value="androidx.startup"
+        tools:node="remove" />
+</provider>
 ```
 
-## 声明 ListenableWorker
+## 声明 Worker
+
+### 编译器插件 DSL
+
+```kotlin
+class MyWorker(
+    context: Context,
+    workerParams: WorkerParameters,
+    private val myService: MyService
+) : CoroutineWorker(context, workerParams) {
+
+    override suspend fun doWork(): Result {
+        myService.performTask()
+        return Result.success()
+    }
+}
+
+val appModule = module {
+    single<MyService>()
+    worker<MyWorker>()
+}
+```
+
+### 注解
+
+```kotlin
+@KoinWorker
+class MyWorker(
+    context: Context,
+    workerParams: WorkerParameters,
+    private val myService: MyService
+) : CoroutineWorker(context, workerParams) {
+
+    override suspend fun doWork(): Result {
+        myService.performTask()
+        return Result.success()
+    }
+}
+
+@Singleton
+class MyService
+```
+
+### 经典 DSL
 
 ```kotlin
 val appModule = module {
     single { MyService() }
-    worker { MyListenableWorker(get()) }
-}
-```
-
-### 创建额外的 WorkManager 工厂
-
-你也可以编写一个 `WorkManagerFactory` 并将其交给 Koin。它将作为委托 (delegate) 被添加。
-
-```kotlin
-class MainApplication : Application(), KoinComponent {
-
-    override fun onCreate() {
-        super.onCreate()
-
-        startKoin {
-           workManagerFactory(workFactory1, workFactory2)
-           . . .
-        }
-
-        setupWorkManagerFactory()
+    worker { params ->
+        MyWorker(
+            context = params.get(),
+            workerParams = params.get(),
+            myService = get()
+        )
     }
 }
-
 ```
 
-如果 Koin 和 `workFactory1` 提供的 `WorkManagerFactory` 都能实例化 `ListenableWorker`，则将使用由 Koin 提供的工厂。
+## 将工作入队
 
-## 一些假设
+照常使用 WorkManager 将您的 Worker 入队：
 
-### 在 Koin 库本身中添加清单文件更改
-如果 `koin-androidx-workmanager` 自己的清单文件禁用了默认的 WorkManager，我们可以为应用开发者减少一个步骤。但是，这可能会引起混淆，因为如果应用开发者没有初始化 Koin 的 WorkManager 基础架构，他们最终将没有可用的 WorkManager 工厂。
-
-这是 `checkModules` 可以提供帮助的地方：如果项目中的任何类实现了 `ListenableWorker`，我们就检查清单文件和代码，并确保它们是有意义的？
-
-### DSL 改进选项：
 ```kotlin
+val workRequest = OneTimeWorkRequestBuilder<MyWorker>().build()
+WorkManager.getInstance(context).enqueue(workRequest)
+```
 
-val workerFactoryModule = module {
-   factory<WorkerFactory> { WorkerFactory1() }
-   factory<WorkerFactory> { WorkerFactory2() }
+## 带形参的 Worker
+
+通过 WorkManager 的输入数据传递形参：
+
+```kotlin
+@KoinWorker
+class SyncWorker(
+    context: Context,
+    workerParams: WorkerParameters,
+    private val repository: DataRepository
+) : CoroutineWorker(context, workerParams) {
+
+    override suspend fun doWork(): Result {
+        val userId = inputData.getString("USER_ID") ?: return Result.failure()
+        repository.syncUser(userId)
+        return Result.success()
+    }
 }
 ```
 
-然后让 Koin 内部执行类似以下的操作：
+使用数据入队：
 
 ```kotlin
-fun Application.setupWorkManagerFactory(
-  // WorkerFactory 不使用可变参数
-) {
-. . .
-            getKoin().getAll<WorkerFactory>()
-                .forEach {
-                    delegatingWorkerFactory.addFactory(it)
-                }
-}
+val workRequest = OneTimeWorkRequestBuilder<SyncWorker>()
+    .setInputData(workDataOf("USER_ID" to "123"))
+    .build()
+
+WorkManager.getInstance(context).enqueue(workRequest)
+```
+
+## 快速参考
+
+| 方式 | 声明 |
+|----------|-------------|
+| 编译器插件 DSL | `worker<MyWorker>()` |
+| 注解 | `@KoinWorker` |
+| 经典 DSL | `worker { params -> MyWorker(params.get(), params.get(), get()) }` |
+
+| 设置 | 代码 |
+|-------|------|
+| 启用工厂 | `startKoin` 中的 `workManagerFactory()` |
+| 禁用默认 | 在清单文件中移除 `WorkManagerInitializer` |
+
+## 后续步骤
+
+- **[Android WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager)** - WorkManager 官方文档
+- **[作用域 (Scopes)](/docs/reference/koin-android/scope)** - Android 作用域
+- **[ViewModel](/docs/reference/koin-android/viewmodel)** - ViewModel 注入

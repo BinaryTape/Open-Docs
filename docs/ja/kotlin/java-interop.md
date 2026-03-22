@@ -189,6 +189,7 @@ Null許容性アノテーションを持つJavaの型は、プラットフォー
   * Eclipse (`org.eclipse.jdt.annotation`)
   * [Lombok](lombok.md) (`lombok.NonNull`)
   * RxJava 3 (`io.reactivex.rxjava3.annotations`)
+  * [Vert.x](https://vertx.io/) (`io.vertx.codegen.annotations`)
 
 以下のコンパイラオプションを使用して、特定のNull許容性アノテーションに対してNull許容性の不一致を報告するようにコンパイラに指示できます：
 
@@ -208,6 +209,20 @@ Null許容性アノテーションを持つJavaの型は、プラットフォー
 {style="note"}
 
 サポートされているNull許容性アノテーションの完全なリストは、[Kotlinコンパイラのソースコード](https://github.com/JetBrains/kotlin/blob/master/core/compiler.common.jvm/src/org/jetbrains/kotlin/load/java/JvmAnnotationNames.kt)で確認できます。
+
+### ミュータビリティアノテーション (Mutability annotations)
+
+Javaの宣言にミュータビリティアノテーションを付けて、返されるコレクションがKotlinで読み取り専用かミュータブルかを指定できます。
+もしミュータビリティの異なるコレクション型に値を代入した場合、コンパイラは型不一致を報告します。診断の重要度は、特定のミュータビリティアノテーションによって異なります。
+
+コンパイラは、以下を含むいくつかのミュータビリティアノテーションをサポートしています：
+
+* `kotlin.annotations.jvm.ReadOnly`
+* `kotlin.annotations.jvm.Mutable`
+* `org.jetbrains.annotations.Unmodifiable`
+* `org.jetbrains.annotations.UnmodifiableView`
+
+サポートされているミュータビリティアノテーションの完全なリストは、[Kotlinコンパイラのソースコード](https://github.com/JetBrains/kotlin/blob/master/core/compiler.common.jvm/src/org/jetbrains/kotlin/load/java/JvmAnnotationNames.kt)で確認できます。
 
 ### 型引数と型パラメータへのアノテーション
 
@@ -454,7 +469,7 @@ package test;
 * `MigrationStatus.WARN`: 不適切な使用はエラーではなくコンパイル警告として報告されますが、アノテーションされた宣言の型はプラットフォーム型のままになります。
 * `MigrationStatus.IGNORE`: コンパイラにNull許容性アノテーションを完全に無視させます。
 
-ライブラリメンテナは、型クオリファイアのニックネームと型クオリファイアのデフォルトの両方に `@UnderMigration` ステータスを追加できます：
+ライブラリメンテナは、型クオリファイア의 ニックネームと型クオリファイアのデフォルトの両方に `@UnderMigration` ステータスを追加できます：
 
 ```java
 @Nonnull(when = When.ALWAYS)

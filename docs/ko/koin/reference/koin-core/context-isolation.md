@@ -2,74 +2,79 @@
 title: 컨텍스트 격리 (Context Isolation)
 ---
 
-## 컨텍스트 격리란 무엇인가요?
+컨텍스트 격리(Context isolation)는 SDK 개발자가 호스트 애플리케이션의 Koin 인스턴스와 충돌 없이 Koin을 사용할 수 있게 해줍니다.
 
-SDK 개발자는 전역 방식이 아닌 방식으로도 Koin을 사용할 수 있습니다. 라이브러리의 의존성 주입(DI)에 Koin을 사용하면서, 라이브러리 사용자와 Koin 간의 충돌을 방지하기 위해 컨텍스트를 격리할 수 있습니다.
+:::info
+일반적인 Koin 설정에 대해서는 **[Koin 시작하기 (Starting Koin)](/docs/reference/koin-core/starting-koin)**를 참고하세요.
+:::
 
-표준적인 방식으로는 다음과 같이 Koin을 시작할 수 있습니다:
+## 컨텍스트 격리를 사용하는 경우
 
-```kotlin
-// KoinApplication을 시작하고 전역 컨텍스트에 등록합니다.
-startKoin {
+- **SDK/라이브러리 개발** - 라이브러리 내부에서 Koin을 사용하는 경우
+- **충돌 방지** - 호스트 앱 또한 Koin을 사용하고 있을 수 있는 경우
+- **캡슐화** - DI 컨테이너를 비공개(private)로 유지하고 싶은 경우
 
-    // 사용할 모듈 선언
-    modules(...)
-}
-```
+## 격리된 컨텍스트 생성하기
 
-이 방식은 기본 Koin 컨텍스트를 사용하여 의존성을 등록합니다.
-
-하지만 격리된 Koin 인스턴스를 사용하려면, 인스턴스를 선언하고 이를 보유할 클래스에 저장해야 합니다. 라이브러리 내에서 Koin Application 인스턴스를 유지하고 이를 커스텀 `KoinComponent` 구현체에 전달해야 합니다.
-
-여기 `MyIsolatedKoinContext` 클래스가 Koin 인스턴스를 보유하고 있습니다:
+`GlobalContext`에 등록되는 `startKoin` 대신, `koinApplication`을 사용하세요:
 
 ```kotlin
-// Koin 인스턴스를 위한 컨텍스트 가져오기
-object MyIsolatedKoinContext {
+// SDK를 위한 격리된 Koin 컨텍스트
+object MySdkKoinContext {
 
     private val koinApp = koinApplication {
-        // 사용할 모듈 선언
-        modules(coffeeAppModule)
+        modules(sdkModule)
     }
 
-    val koin = koinApp.koin 
+    val koin = koinApp.koin
+}
+
+val sdkModule = module {
+    single<SdkService>()
+    single<SdkRepository>()
 }
 ```
 
-이제 `MyIsolatedKoinContext`를 사용하여 격리된 컨텍스트를 사용할 `IsolatedKoinComponent` 인터페이스를 정의해 보겠습니다:
+## 커스텀 KoinComponent
+
+격리된 컨텍스트를 사용하는 커스텀 `KoinComponent`를 생성합니다:
 
 ```kotlin
-internal interface IsolatedKoinComponent : KoinComponent {
+internal interface SdkKoinComponent : KoinComponent {
+    // 격리된 컨텍스트를 사용하도록 오버라이드
+    override fun getKoin(): Koin = MySdkKoinContext.koin
+}
 
-    // 기본 Koin 인스턴스 오버라이드
-    override fun getKoin(): Koin = MyIsolatedKoinContext.koin
+// SDK 클래스에서의 사용 예시
+class MySdkClass : SdkKoinComponent {
+    private val service: SdkService by inject()  // 격리된 컨텍스트를 사용합니다.
 }
 ```
 
-모든 준비가 끝났습니다. 이제 격리된 컨텍스트에서 인스턴스를 가져오기 위해 `IsolatedKoinComponent`를 사용하면 됩니다:
+## 격리된 컨텍스트 테스트하기
+
+테스트에서 격리된 컨텍스트를 사용하려면 `getKoin()`을 오버라이드하세요:
 
 ```kotlin
-class MyKoinComponent : IsolatedKoinComponent {
-    // inject 및 get은 MyIsolatedKoinContext를 대상으로 합니다.
-}
-```
-
-## 테스트 (Testing)
-
-`by inject()` 위임(delegate)을 통해 의존성을 조회하는 클래스를 테스트하려면 `getKoin()` 메서드를 오버라이드하고 커스텀 Koin 모듈을 정의하세요:
-
-```kotlin
-class MyClassTest : KoinTest {
-    // 의존성 조회를 위해 사용되는 Koin 컨텍스트
-    override fun getKoin(): Koin = MyIsolatedKoinContext.koin
+class SdkTest : KoinTest {
+    override fun getKoin(): Koin = MySdkKoinContext.koin
 
     @Before
     fun setUp() {
-       // 커스텀 Koin 모듈 정의
-        val module = module {
-            // 의존성 등록
+        val testModule = module {
+            single<SdkService> { MockSdkService() }
         }
+        koin.loadModules(listOf(testModule))
+    }
 
-        koin.loadModules(listOf(module))
+    @After
+    fun tearDown() {
+        koin.unloadModules(listOf(testModule))
     }
 }
+```
+
+## 함께 보기
+
+- **[Koin 시작하기 (Starting Koin)](/docs/reference/koin-core/starting-koin)** - 표준 Koin 설정
+- **[Compose 컨텍스트 격리 (Compose Isolated Context)](/docs/reference/koin-compose/isolated-context)** - Compose 앱에서의 격리 방식

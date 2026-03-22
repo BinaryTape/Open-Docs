@@ -10,6 +10,10 @@ title: Ktor
 更新 - 2024-10-21
 :::
 
+:::tip
+このチュートリアルの**アノテーション版**をお探しですか？コンパイル時の検証のために Jakarta `@Singleton` を伴う Koin Annotations を使用している [Ktor & Annotations](./ktor-annotations.md) を確認してください。
+:::
+
 ## コードを取得する
 
 :::info
@@ -39,26 +43,26 @@ dependencies {
 ユーザーのコレクションを管理します。データクラスは以下の通りです：
 
 ```kotlin
-data class User(val name : String)
+data class User(val name: String, val email: String)
 ```
 
 ユーザーリストを管理する（ユーザーの追加や名前による検索）ための「Repository」コンポーネントを作成します。以下に `UserRepository` インターフェースとその実装を示します：
 
 ```kotlin
 interface UserRepository {
-    fun findUser(name : String): User?
-    fun addUsers(users : List<User>)
+    fun findUserOrNull(name: String): User?
+    fun addUsers(users: List<User>)
 }
 
 class UserRepositoryImpl : UserRepository {
 
     private val _users = arrayListOf<User>()
 
-    override fun findUser(name: String): User? {
+    override fun findUserOrNull(name: String): User? {
         return _users.firstOrNull { it.name == name }
     }
 
-    override fun addUsers(users : List<User>) {
+    override fun addUsers(users: List<User>) {
         _users.addAll(users)
     }
 }
@@ -70,7 +74,7 @@ class UserRepositoryImpl : UserRepository {
 
 ```kotlin
 val appModule = module {
-    
+
 }
 ```
 
@@ -78,29 +82,53 @@ val appModule = module {
 
 ```kotlin
 val appModule = module {
-    singleOf(::UserRepositoryImpl) { bind<UserRepository>() }
+    single<UserRepositoryImpl>() bind UserRepository::class
 }
 ```
+
+:::info
+このチュートリアルでは、コンパイル時にオートワイヤリング（auto-wiring）を提供する **Koin Compiler Plugin DSL** (`single<T>()`) を使用しています。設定については [Compiler Plugin Setup](/docs/setup/compiler-plugin) を参照してください。
+:::
 
 ## UserServiceコンポーネント
 
-デフォルトユーザーをリクエストするための `UserService` コンポーネントを作成しましょう：
+ユーザー操作を管理するための `UserService` コンポーネントを作成しましょう：
 
 ```kotlin
-class UserService(private val userRepository: UserRepository) {
+interface UserService {
+    fun getUserOrNull(name: String): User?
+    fun loadUsers()
+    fun prepareHelloMessage(user: User?): String
+}
 
-    fun getDefaultUser() : User = userRepository.findUser(DefaultData.DEFAULT_USER.name) ?: error("Can't find default user")
+class UserServiceImpl(
+    private val userRepository: UserRepository
+) : UserService {
+
+    override fun getUserOrNull(name: String): User? = userRepository.findUserOrNull(name)
+
+    override fun loadUsers() {
+        userRepository.addUsers(listOf(
+            User("Alice", "alice@example.com"),
+            User("Bob", "bob@example.com"),
+            User("Charlie", "charlie@example.com")
+        ))
+    }
+
+    override fun prepareHelloMessage(user: User?): String {
+        return user?.let { "Hello '${user.name}' (${user.email})! 👋" } ?: "❌ User not found"
+    }
 }
 ```
 
-> UserRepositoryは `UserPresenter` のコンストラクタで参照されます
+> UserRepositoryは UserServiceImpl のコンストラクタで参照されます
 
-Koinモジュールで `UserService` を宣言します。`singleOf` 定義として宣言します：
+Koinモジュールで `UserService` を宣言します。`single` 定義として宣言します：
 
 ```kotlin
 val appModule = module {
-    singleOf(::UserRepositoryImpl) { bind<UserRepository>() }
-    singleOf(::UserService)
+    single<UserRepositoryImpl>() bind UserRepository::class
+    single<UserServiceImpl>() bind UserService::class
 }
 ```
 
@@ -113,33 +141,25 @@ fun Application.main() {
 
     // UserServiceをレイジー注入（Lazy inject）する
     val service by inject<UserService>()
+    service.loadUsers()
 
     // ルーティングセクション
     routing {
         get("/hello") {
-            call.respondText(service.sayHello())
+            val userName = call.queryParameters["name"] ?: "Alice"
+            val user = service.getUserOrNull(userName)
+            val message = service.prepareHelloMessage(user)
+            call.respondText(message)
         }
     }
 }
 ```
 
-`Application.main` 関数を起動しやすくするために、`application.conf` が以下のように設定されていることを確認してください：
+`/hello` エンドポイントは、オプションの `name` クエリパラメータを受け取ります。指定されない場合は、デフォルトで "Alice" になります。
 
-```kotlin
-ktor {
-    deployment {
-        port = 8080
-
-        // 開発用
-        //autoreload = true
-        //watch = [org.koin.sample]
-    }
-
-    application {
-        modules = [ org.koin.sample.UserApplicationKt.main ]
-    }
-}
-```
+リクエスト例：
+- `http://localhost:8080/hello` - Aliceに挨拶（デフォルト）
+- `http://localhost:8080/hello?name=Bob` - Bobに挨拶
 
 ## 依存関係を宣言する
 
@@ -147,8 +167,8 @@ ktor {
 
 ```kotlin
 val appModule = module {
-    singleOf(::UserRepositoryImpl) { bind<UserRepository>() }
-    singleOf(::UserService)
+    single<UserRepositoryImpl>() bind UserRepository::class
+    single<UserServiceImpl>() bind UserService::class
 }
 ```
 
@@ -158,19 +178,22 @@ val appModule = module {
 
 ```kotlin
 fun Application.main() {
+    // Koinをインストール
     install(Koin) {
-        slf4jLogger()
         modules(appModule)
     }
 
     // UserServiceをレイジー注入する
     val service by inject<UserService>()
-    service.saveDefaultUsers()
+    service.loadUsers()
 
     // ルーティングセクション
     routing {
         get("/hello") {
-            call.respondText(service.sayHello())
+            val userName = call.queryParameters["name"] ?: "Alice"
+            val user = service.getUserOrNull(userName)
+            val message = service.prepareHelloMessage(user)
+            call.respondText(message)
         }
     }
 }
@@ -180,9 +203,12 @@ Ktorを開始します：
 
 ```kotlin
 fun main(args: Array<String>) {
-    // Ktorを開始
-    embeddedServer(Netty, commandLineEnvironment(args)).start(wait = true)
+    embeddedServer(Netty, port = 8080) {
+        main()
+    }.start(wait = true)
 }
 ```
 
-以上です！これで準備が整いました。`http://localhost:8080/hello` のURLを確認してください！
+以上です！これで準備が整いました。以下のURLを確認してください：
+- `http://localhost:8080/hello` - Aliceに挨拶（デフォルトユーザー）
+- `http://localhost:8080/hello?name=Bob` - Bobに挨拶

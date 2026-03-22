@@ -4,7 +4,7 @@
 
 ## 도구 워크플로
 
-Koog 프레임워크는 도구 작업을 위한 다음과 같은 워크플로를 제공합니다:
+Koog 프레임워크는 Kotlin 및 Java에서 도구 작업을 위한 다음과 같은 워크플로를 제공합니다:
 
 1. 커스텀 도구를 생성하거나 내장 도구 중 하나를 사용합니다.
 2. 도구 레지스트리(tool registry)에 도구를 추가합니다.
@@ -34,68 +34,164 @@ Koog 프레임워크에는 세 가지 유형의 도구가 있습니다:
 
 다음은 도구 레지스트리를 생성하고 도구를 추가하는 예시입니다:
 
-<!--- INCLUDE
-import ai.koog.agents.core.tools.ToolRegistry
-import ai.koog.agents.ext.tool.SayToUser
--->
-```kotlin
-val toolRegistry = ToolRegistry {
-    tool(SayToUser)
-}
-```
-<!--- KNIT example-tools-overview-01.kt -->
+=== "Kotlin"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.tools.ToolRegistry
+    import ai.koog.agents.core.tools.annotations.Tool
+    import ai.koog.agents.core.tools.reflect.ToolSet
+    import ai.koog.agents.core.tools.reflect.tools
+    class MyToolSet : ToolSet {
+        @Tool
+        fun myTool(): String {
+            // 도구 구현
+            return "Result"
+        }
+    }
+    val myTool = MyToolSet()
+    -->
+    ```kotlin
+    val toolRegistry = ToolRegistry {
+        tools(myTool)
+    }
+    ```
+    <!--- KNIT example-tools-overview-01.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    // ToolSet 인스턴스 생성
+    MyToolSet myTool = new MyToolSet();
+
+    // ToolRegistry를 빌드하고 ToolSet에서 도구 등록
+    ToolRegistry toolRegistry = ToolRegistry.builder()
+        .tools(myTool)
+        .build();
+    ```
+    <!--- KNIT example-tools-overview-java-01.java -->
 
 여러 도구 레지스트리를 병합하려면 다음과 같이 하세요:
 
-<!--- INCLUDE
-import ai.koog.agents.core.tools.ToolRegistry
-import ai.koog.agents.ext.tool.AskUser
-import ai.koog.agents.ext.tool.SayToUser
+=== "Kotlin"
 
-typealias FirstSampleTool = AskUser
-typealias SecondSampleTool = SayToUser
--->
-```kotlin
-val firstToolRegistry = ToolRegistry {
-    tool(FirstSampleTool)
-}
+    <!--- INCLUDE
+    import ai.koog.agents.core.tools.ToolRegistry
+    import ai.koog.agents.core.tools.annotations.Tool
+    import ai.koog.agents.core.tools.reflect.ToolSet
+    import ai.koog.agents.core.tools.reflect.tools
+    class FirstToolSet : ToolSet {
+        @Tool
+        fun firstSampleTool(): String {
+            // 도구 구현
+            return "First result"
+        }
+    }
+    class SecondToolSet : ToolSet {
+        @Tool
+        fun secondSampleTool(): String {
+            // 도구 구현
+            return "Second result"
+        }
+    }
+    val firstSampleTool = FirstToolSet()
+    val secondSampleTool = SecondToolSet()
+    -->
+    ```kotlin
+    val firstToolRegistry = ToolRegistry {
+        tools(firstSampleTool)
+    }
+    
+    val secondToolRegistry = ToolRegistry {
+        tools(secondSampleTool)
+    }
+    
+    val newRegistry = firstToolRegistry + secondToolRegistry
+    ```
+    <!--- KNIT example-tools-overview-02.kt -->
 
-val secondToolRegistry = ToolRegistry {
-    tool(SecondSampleTool)
-}
+=== "Java"
 
-val newRegistry = firstToolRegistry + secondToolRegistry
-```
-<!--- KNIT example-tools-overview-02.kt -->
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    // ToolSet 인스턴스 생성
+    FirstToolSet firstSampleTool = new FirstToolSet();
+    SecondToolSet secondSampleTool = new SecondToolSet();
+
+    // 개별 도구 레지스트리 빌드
+    ToolRegistry firstToolRegistry = ToolRegistry.builder()
+        .tools(firstSampleTool)
+        .build();
+
+    ToolRegistry secondToolRegistry = ToolRegistry.builder()
+        .tools(secondSampleTool)
+        .build();
+
+    ToolRegistry newRegistry = firstToolRegistry.plus(secondToolRegistry);
+    ```
+    <!--- KNIT example-tools-overview-java-02.java -->
 
 ### 에이전트에 도구 전달하기
 
 에이전트가 도구를 사용할 수 있게 하려면, 에이전트를 생성할 때 해당 도구가 포함된 도구 레지스트리를 인자로 제공해야 합니다:
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.example.exampleToolsOverview01.toolRegistry
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
--->
-```kotlin
-// 에이전트 초기화
-val agent = AIAgent(
-    promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
-    systemPrompt = "You are a helpful assistant with strong mathematical skills.",
-    llmModel = OpenAIModels.Chat.GPT4o,
-    // 에이전트에 도구 레지스트리 전달
-    toolRegistry = toolRegistry
-)
-```
-<!--- KNIT example-tools-overview-03.kt -->
+=== "Kotlin"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.agents.example.exampleToolsOverview01.toolRegistry
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    -->
+    ```kotlin
+    // 에이전트 초기화
+    val agent = AIAgent(
+        promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
+        systemPrompt = "You are a helpful assistant with strong mathematical skills.",
+        llmModel = OpenAIModels.Chat.GPT4o,
+        // 에이전트에 도구 레지스트리 전달
+        toolRegistry = toolRegistry
+    )
+    ```
+    <!--- KNIT example-tools-overview-03.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    AIAgent<String, String> agent = AIAgent.builder()
+        .promptExecutor(simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")))
+        .systemPrompt("You are a helpful assistant with strong mathematical skills.")
+        .llmModel(OpenAIModels.Chat.GPT4o)
+        .toolRegistry(ToolRegistry.builder()
+            .tools(secondSampleTool)
+            .build()
+        )
+        .build();
+    ```
+    <!--- KNIT example-tools-overview-java-03.java -->
 
 ### 도구 호출하기
 
 에이전트 코드 내에서 도구를 호출하는 방법은 여러 가지가 있습니다. 권장되는 방법은 도구를 직접 호출하는 대신 에이전트 컨텍스트(context)에서 제공하는 메서드를 사용하는 것입니다. 이는 에이전트 환경 내에서 도구 작업이 적절하게 처리되도록 보장합니다.
 
 !!! tip
-    에이전트의 실패를 방지하기 위해 도구 내에 적절한 [오류 처리](agent-event-handlers.md)를 구현했는지 확인하세요.
+    에이전트의 실패를 방지하기 위해 도구 내에 적절한 [오류 처리](features/agent-event-handlers.md)를 구현했는지 확인하세요.
 
 도구는 `AIAgentLLMWriteSession`으로 표현되는 특정 세션 컨텍스트 내에서 호출됩니다.
 여기에서는 다음과 같이 도구를 호출할 수 있는 여러 메서드를 제공합니다:
@@ -106,60 +202,74 @@ val agent = AIAgent(
 - 지정된 유형의 도구를 주어진 인자와 함께 호출.
 - 원시 문자열(raw string) 결과를 반환하는 도구 호출.
 
-자세한 내용은 [API 레퍼런스](api:agents-core::ai.koog.agents.core.agent.session.AIAgentLLMWriteSession)를 참조하세요.
+자세한 내용은 [AIAgentLLMWriteSession](api:agents-core::ai.koog.agents.core.agent.session.AIAgentLLMWriteSession) API 레퍼런스를 참조하세요.
 
 #### 병렬 도구 호출
 
 `toParallelToolCallsRaw` 확장 기능을 사용하여 도구를 병렬로 호출할 수도 있습니다. 예시:
 
-<!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.agents.core.tools.SimpleTool
-import ai.koog.serialization.typeToken
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
-import kotlinx.serialization.Serializable
--->
-```kotlin
-@Serializable
-data class Book(
-    val title: String,
-    val author: String,
-    val description: String
-)
+=== "Kotlin"
 
-class BookTool() : SimpleTool<Book>(
-    argsType = typeToken<Book>(),
-    name = NAME,
-    description = "A tool to parse book information from Markdown"
-) {
-    companion object {
-        const val NAME = "book"
-    }
-
-    override suspend fun execute(args: Book): String {
-        println("${args.title} by ${args.author}:
+    <!--- INCLUDE
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.agents.core.tools.SimpleTool
+    import kotlinx.coroutines.flow.collect
+    import kotlinx.coroutines.flow.flow
+    import ai.koog.serialization.typeToken
+    import kotlinx.serialization.Serializable
+    -->
+    ```kotlin
+    @Serializable
+    data class Book(
+        val title: String,
+        val author: String,
+        val description: String
+    )
+    
+    class BookTool() : SimpleTool<Book>(
+        argsType = typeToken<Book>(),
+        name = NAME,
+        description = "A tool to parse book information from Markdown"
+    ) {
+        companion object {
+            const val NAME = "book"
+        }
+    
+        override suspend fun execute(args: Book): String {
+            println("${args.title} by ${args.author}:
  ${args.description}")
-        return "Done"
-    }
-}
-
-val strategy = strategy<Unit, Unit>("strategy-name") {
-
-    /*...*/
-
-    val myNode by node<Unit, Unit> { _ ->
-        llm.writeSession {
-            flow {
-                emit(Book("Book 1", "Author 1", "Description 1"))
-            }.toParallelToolCallsRaw(BookTool::class).collect()
+            return "Done"
         }
     }
-}
+    
+    val strategy = strategy<Unit, Unit>("strategy-name") {
+    
+        /*...*/
+    
+        val myNode by node<Unit, Unit> { _ ->
+            llm.writeSession {
+                flow {
+                    emit(Book("Book 1", "Author 1", "Description 1"))
+                }.toParallelToolCallsRaw(BookTool::class).collect()
+            }
+        }
+    }
+    
+    ```
+    <!--- KNIT example-tools-overview-04.kt -->
 
-```
-<!--- KNIT example-tools-overview-04.kt -->
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    ```
+    <!--- KNIT example-tools-overview-java-04.java -->
 
 #### 노드에서 도구 호출하기
 
@@ -184,67 +294,91 @@ val strategy = strategy<Unit, Unit>("strategy-name") {
 
 에이전트를 도구로 변환하려면 `AIAgentService`와 `createAgentTool()` 확장 함수를 사용합니다:
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.agent.AIAgentService
-import ai.koog.agents.core.agent.createAgentTool
-import ai.koog.agents.core.tools.ToolParameterDescriptor
-import ai.koog.agents.core.tools.ToolParameterType
-import ai.koog.agents.core.tools.ToolRegistry
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import ai.koog.serialization.typeToken
+=== "Kotlin"
 
-const val apiKey = ""
-val analysisToolRegistry = ToolRegistry {}
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.agents.core.agent.AIAgentService
+    import ai.koog.agents.core.agent.createAgentTool
+    import ai.koog.agents.core.tools.ToolParameterDescriptor
+    import ai.koog.agents.core.tools.ToolParameterType
+    import ai.koog.agents.core.tools.ToolRegistry
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    import ai.koog.serialization.typeToken
+    const val apiKey = ""
+    val analysisToolRegistry = ToolRegistry {}
+    -->
+    ```kotlin
+    // 금융 분석 에이전트 생성을 담당하는 전문 에이전트 서비스 생성
+    val analysisAgentService = AIAgentService(
+        promptExecutor = simpleOpenAIExecutor(apiKey),
+        llmModel = OpenAIModels.Chat.GPT4o,
+        systemPrompt = "You are a financial analysis specialist.",
+        toolRegistry = analysisToolRegistry
+    )
+    
+    // 호출 시 금융 분석 에이전트를 실행하는 도구 생성
+    val analysisAgentTool = analysisAgentService.createAgentTool(
+        agentName = "analyzeTransactions",
+        agentDescription = "Performs financial transaction analysis",
+        inputDescription = "Transaction analysis request",
+        inputType = typeToken<String>(),
+    )
+    ```
+    <!--- KNIT example-tools-overview-05.kt -->
 
--->
-```kotlin
-// 금융 분석 에이전트 생성을 담당하는 전문 에이전트 서비스 생성
-val analysisAgentService = AIAgentService(
-    promptExecutor = simpleOpenAIExecutor(apiKey),
-    llmModel = OpenAIModels.Chat.GPT4o,
-    systemPrompt = "You are a financial analysis specialist.",
-    toolRegistry = analysisToolRegistry
-)
+=== "Java"
 
-// 호출 시 금융 분석 에이전트를 실행하는 도구 생성
-val analysisAgentTool = analysisAgentService.createAgentTool(
-    agentName = "analyzeTransactions",
-    agentDescription = "Performs financial transaction analysis",
-    inputDescription = "Transaction analysis request",
-    inputType = typeToken<String>(),
-)
-```
-<!--- KNIT example-tools-overview-05.kt -->
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    ```
+    <!--- KNIT example-tools-overview-java-05.java -->
 
 ### 다른 에이전트에서 에이전트 도구 사용하기
 
 도구로 변환된 후에는 해당 에이전트 도구를 다른 에이전트의 도구 레지스트리에 추가할 수 있습니다:
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.tools.ToolRegistry
-import ai.koog.agents.example.exampleToolsOverview05.analysisAgentTool
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+=== "Kotlin"
 
-const val apiKey = ""
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.agents.core.tools.ToolRegistry
+    import ai.koog.agents.example.exampleToolsOverview05.analysisAgentTool
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    const val apiKey = ""
+    -->
+    ```kotlin
+    // 전문화된 에이전트를 도구로 사용할 수 있는 코디네이터 에이전트 생성
+    val coordinatorAgent = AIAgent(
+        promptExecutor = simpleOpenAIExecutor(apiKey),
+        llmModel = OpenAIModels.Chat.GPT4o,
+        systemPrompt = "You coordinate different specialized services.",
+        toolRegistry = ToolRegistry {
+            tool(analysisAgentTool)
+            // 필요에 따라 다른 도구 추가
+        }
+    )
+    ```
+    <!--- KNIT example-tools-overview-06.kt -->
 
--->
-```kotlin
-// 전문화된 에이전트를 도구로 사용할 수 있는 코디네이터 에이전트 생성
-val coordinatorAgent = AIAgent(
-    promptExecutor = simpleOpenAIExecutor(apiKey),
-    llmModel = OpenAIModels.Chat.GPT4o,
-    systemPrompt = "You coordinate different specialized services.",
-    toolRegistry = ToolRegistry {
-        tool(analysisAgentTool)
-        // 필요에 따라 다른 도구 추가
-    }
-)
-```
-<!--- KNIT example-tools-overview-06.kt -->
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    ```
+    <!--- KNIT example-tools-overview-java-06.java -->
 
 ### 에이전트 도구 실행
 

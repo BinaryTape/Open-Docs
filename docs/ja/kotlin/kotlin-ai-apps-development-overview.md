@@ -26,7 +26,7 @@ fun main() {
 }
 ```
 
-<a href="https://docs.koog.ai/getting-started/"><img src="get-started-with-koog.svg" width="700" alt="Get started with Koog" style="block"/></a>
+<a href="https://docs.koog.ai/quickstart/"><img src="get-started-with-koog.svg" width="700" alt="Get started with Koog" style="block"/></a>
 
 ### 主な機能
 
@@ -44,8 +44,8 @@ fun main() {
 ### どこから始めるか
 
 * [概要](https://docs.koog.ai/)で Koog の機能を確認する。
-* [スタートガイド](https://docs.koog.ai/getting-started/)で最初の Koog エージェントを作成する。
-* [Koog リリースノート](https://github.com/JetBrains/koog/blob/main/CHANGELOG.md)で最新のアップデートを確認する。
+* [スタートガイド](https://docs.koog.ai/quickstart/)で最初の Koog エージェントを作成する。
+* [Koog リリースノート](https://github.com/JetBrains/koog/releases)で最新のアップデートを確認する。
 * [サンプル](https://docs.koog.ai/examples/)から学ぶ。
 
 ## Model Context Protocol (MCP) Kotlin SDK

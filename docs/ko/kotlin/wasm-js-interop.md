@@ -146,6 +146,33 @@ external object Counter : JsAny {
 일반 클래스 및 인터페이스와 마찬가지로, 다른 외부 클래스를 확장하거나 외부 인터페이스를 구현하도록 외부 선언을 할 수 있습니다.
 그러나 동일한 타입 계층 구조 내에서 외부 선언과 비외부(non-external) 선언을 혼합하여 사용할 수는 없습니다.
 
+#### @nativeInvoke를 사용한 호출 가능한 JavaScript 객체
+<primary-label ref="experimental-opt-in"/>
+
+`external` 선언(클래스 또는 인터페이스)의 Kotlin 멤버 함수에 `@nativeInvoke` 어노테이션을 사용하여 JavaScript 함수처럼 호출할 수 있도록 만들 수 있습니다.
+
+이 어노테이션을 사용하면 Kotlin에서 해당 함수를 호출할 때마다 JavaScript 객체에 대한 직접 호출로 변환됩니다.
+
+```kotlin
+import kotlin.js.nativeInvoke
+
+@OptIn(ExperimentalWasmJsInterop::class)
+external class JsAction {
+    @nativeInvoke
+    operator fun invoke(data: String)
+}
+
+fun main() {
+    val action = JsAction() 
+    action("Run task")
+}
+```
+
+> `@nativeInvoke` 어노테이션은 안정적인 상호운용성을 위한 설계가 나오기 전까지의 일시적인 해결책입니다.
+> 현재 `@nativeInvoke`를 사용하면 컴파일러에서 경고를 보고합니다.
+>
+> {style="note"}
+
 ### JavaScript 코드가 포함된 Kotlin 함수
 
 함수 본문을 `= js("code")`로 정의하여 Kotlin/Wasm 코드에 JavaScript 스니펫을 추가할 수 있습니다.
@@ -254,7 +281,7 @@ import org.khronos.webgl.*
     val jsInt32Array: Int32Array = intArray.toInt32Array()
     
     // toIntArray()를 사용하여 JavaScript Int32Array를 다시 Kotlin IntArray로 변환
-    val kotlnIntArray: IntArray = jsInt32Array.toIntArray()
+    val kotlinIntArray: IntArray = jsInt32Array.toIntArray()
 ```
 
 ## JavaScript에서 Kotlin 코드 사용하기

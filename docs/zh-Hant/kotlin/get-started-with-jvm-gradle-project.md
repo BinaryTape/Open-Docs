@@ -2,7 +2,7 @@
 
 本教學示範如何使用 IntelliJ IDEA 與 Gradle 建立 JVM 主控台應用程式。
 
-若要開始使用，請先下載並安裝最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html)。
+若要開始使用，請先下載並安裝最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)。
 
 ## 建立專案
 
@@ -18,7 +18,7 @@
 
 4. 選取 **Gradle** 建構系統。
 5. 從 **JDK** 清單中，選取你想要在專案中使用的 [JDK](https://www.oracle.com/java/technologies/downloads/)。
-    * 如果電腦上已安裝 JDK，但尚未在 IDE 中定義，請選取 **Add JDK** 並指定 JDK 根目錄的路徑。
+    * 如果電腦上已安裝 JDK，但尚未在 IDE 中定義，請選取 **Add JDK**並指定 JDK 根目錄的路徑。
     * 如果電腦上沒有所需的 JDK，請選取 **Download JDK**。
 
 6. 為 Gradle 選取 **Kotlin** DSL。
@@ -38,7 +38,7 @@
 
 * **Gradle Wrapper：**
    1. 從 **Gradle distribution** 清單中，選取 **Wrapper**。
-   2. 取消勾選 **Auto-select** 核取方塊。
+   2. 停用 **Auto-select** 核取方塊。
    3. 從 **Gradle version** 清單中，選取你的 Gradle 版本。
 * **本機安裝：**
    1. 從 **Gradle distribution** 清單中，選取 **Local installation**。 

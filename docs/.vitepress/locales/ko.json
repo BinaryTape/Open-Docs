@@ -514,7 +514,7 @@
   "koog.event-handlers": "이벤트 핸들러",
   "kmp.kmp-tooling": "KMP 툴링",
   "kotlin.compose-multiplatform-material3": "Compose Multiplatform Material3",
-  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.2",
+  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.3",
   "kmp.earlier-versions": "이전 버전",
   "kotlin.language-guide": "언어 가이드",
   "kotlin.basic-syntax": "개요",
@@ -635,5 +635,12 @@
   "kmp.swiftpm-integration": "SwiftPM 통합",
   "kmp.multiplatform-spm-import": "SwiftPM 가져오기",
   "kmp.multiplatform-cocoapods-spm-migration": "CocoaPods에서 SwiftPM으로 마이그레이션",
-  "koog.serialization": "직렬화"
+  "koog.serialization": "직렬화",
+  "kotlin.whatsnew2320": "Kotlin 2.3.20",
+  "kmp.configure-ci-for-a-kmp-app": "KMP 앱을 위한 CI 구성",
+  "kmp.github-actions-for-kmp": "GitHub Actions 구성",
+  "kmp.configure-teamcity-for-kmp": "TeamCity 구성",
+  "koog.chat-backend-with-memory": "메모리가 포함된 채팅 백엔드",
+  "koog.agent-memory": "에이전트 메모리",
+  "koog.spring-ai": "Spring AI"
 }

@@ -41,54 +41,67 @@ RAG 解决了传统 LLM 的几个局限性：
 
 这一系列步骤代表了一个*相关性搜索*流程，它会返回给定用户查询的最相关文档。以下是一个代码示例，展示了如何实现上述整个步骤序列：
 
-<!--- INCLUDE
-import ai.koog.embeddings.local.LLMEmbedder
-import ai.koog.prompt.executor.ollama.client.OllamaModels
-import ai.koog.prompt.executor.ollama.client.OllamaClient
-import ai.koog.rag.base.mostRelevantDocuments
-import ai.koog.rag.vector.EmbeddingBasedDocumentStorage
-import ai.koog.rag.vector.InMemoryVectorStorage
-import ai.koog.rag.vector.JVMTextDocumentEmbedder
-import kotlinx.coroutines.runBlocking
-import java.nio.file.Path
+=== "Kotlin"
 
-fun main() {
-    runBlocking {
--->
-<!--- SUFFIX
+    <!--- INCLUDE
+    import ai.koog.embeddings.local.LLMEmbedder
+    import ai.koog.prompt.executor.ollama.client.OllamaModels
+    import ai.koog.prompt.executor.ollama.client.OllamaClient
+    import ai.koog.rag.base.mostRelevantDocuments
+    import ai.koog.rag.vector.EmbeddingBasedDocumentStorage
+    import ai.koog.rag.vector.InMemoryVectorStorage
+    import ai.koog.rag.vector.JVMTextDocumentEmbedder
+    import kotlinx.coroutines.runBlocking
+    import java.nio.file.Path
+    fun main() {
+        runBlocking {
+    -->
+    <!--- SUFFIX
+        }
     }
-}
--->
-```kotlin
-// 使用 Ollama 创建嵌入器
-val embedder = LLMEmbedder(OllamaClient(), OllamaModels.Embeddings.NOMIC_EMBED_TEXT)
-// 您也可以通过以下方式使用 OpenAI 嵌入：
-// val embedder = LLMEmbedder(OpenAILLMClient("API_KEY"), OpenAIModels.Embeddings.TextEmbeddingAda3Large)
+    -->
+    ```kotlin
+    // 使用 Ollama 创建嵌入器
+    val embedder = LLMEmbedder(OllamaClient(), OllamaModels.Embeddings.NOMIC_EMBED_TEXT)
+    // 您也可以通过以下方式使用 OpenAI 嵌入：
+    // val embedder = LLMEmbedder(OpenAILLMClient("API_KEY"), OpenAIModels.Embeddings.TextEmbeddingAda3Large)
 
-// 创建 JVM 特定的文档嵌入器
-val documentEmbedder = JVMTextDocumentEmbedder(embedder)
+    // 创建 JVM 特定的文档嵌入器
+    val documentEmbedder = JVMTextDocumentEmbedder(embedder)
 
-// 使用内存向量存储创建排序文档存储
-val rankedDocumentStorage = EmbeddingBasedDocumentStorage(documentEmbedder, InMemoryVectorStorage())
+    // 使用内存向量存储创建排序文档存储
+    val rankedDocumentStorage = EmbeddingBasedDocumentStorage(documentEmbedder, InMemoryVectorStorage())
 
-// 将文档存入存储
-rankedDocumentStorage.store(Path.of("./my/documents/doc1.txt"))
-rankedDocumentStorage.store(Path.of("./my/documents/doc2.txt"))
-rankedDocumentStorage.store(Path.of("./my/documents/doc3.txt"))
-// ... 根据需要存储更多文档
-rankedDocumentStorage.store(Path.of("./my/documents/doc100.txt"))
+    // 将文档存入存储
+    rankedDocumentStorage.store(Path.of("./my/documents/doc1.txt"))
+    rankedDocumentStorage.store(Path.of("./my/documents/doc2.txt"))
+    rankedDocumentStorage.store(Path.of("./my/documents/doc3.txt"))
+    // ... 根据需要存储更多文档
+    rankedDocumentStorage.store(Path.of("./my/documents/doc100.txt"))
 
-// 为用户查询查找最相关的文档
-val query = "I want to open a bank account but I'm getting a 404 when I open your website. I used to be your client with a different account 5 years ago before you changed your firm name"
-val relevantFiles = rankedDocumentStorage.mostRelevantDocuments(query, count = 3)
+    // 为用户查询查找最相关的文档
+    val query = "I want to open a bank account but I'm getting a 404 when I open your website. I used to be your client with a different account 5 years ago before you changed your firm name"
+    val relevantFiles = rankedDocumentStorage.mostRelevantDocuments(query, count = 3)
 
-// 处理相关文件
-relevantFiles.forEach { file ->
-    println("Relevant file: ${file.toAbsolutePath()}")
-    // 根据需要处理文件内容
-}
-```
-<!--- KNIT example-ranked-document-storage-01.kt -->
+    // 处理相关文件
+    relevantFiles.forEach { file ->
+        println("Relevant file: ${file.toAbsolutePath()}")
+        // 根据需要处理文件内容
+    }
+    ```
+    <!--- KNIT example-ranked-document-storage-01.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    ```
+    <!--- KNIT example-ranked-document-storage-java-01.java -->
 
 ### 为 AI 智能体提供相关性搜索
 
@@ -96,68 +109,77 @@ relevantFiles.forEach { file ->
 
 以下是一个示例，展示了如何为 AI 智能体实现定义的 RAG 系统，使其能够通过从文档存储中获取信息来回答查询：
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.agent.config.AIAgentConfig
-import ai.koog.embeddings.local.LLMEmbedder
-import ai.koog.prompt.executor.ollama.client.OllamaModels
-import ai.koog.prompt.dsl.prompt
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import ai.koog.prompt.executor.ollama.client.OllamaClient
-import ai.koog.rag.base.mostRelevantDocuments
-import ai.koog.rag.vector.EmbeddingBasedDocumentStorage
-import ai.koog.rag.vector.InMemoryVectorStorage
-import ai.koog.rag.vector.JVMTextDocumentEmbedder
-import kotlin.io.path.pathString
+=== "Kotlin"
 
-// 使用 Ollama 创建嵌入器
-val embedder = LLMEmbedder(OllamaClient(), OllamaModels.Embeddings.NOMIC_EMBED_TEXT)
-// 您也可以通过以下方式使用 OpenAI 嵌入：
-// val embedder = LLMEmbedder(OpenAILLMClient("API_KEY"), OpenAIModels.Embeddings.TextEmbeddingAda3Large)
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.agents.core.agent.config.AIAgentConfig
+    import ai.koog.embeddings.local.LLMEmbedder
+    import ai.koog.prompt.executor.ollama.client.OllamaModels
+    import ai.koog.prompt.dsl.prompt
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    import ai.koog.prompt.executor.ollama.client.OllamaClient
+    import ai.koog.rag.base.mostRelevantDocuments
+    import ai.koog.rag.vector.EmbeddingBasedDocumentStorage
+    import ai.koog.rag.vector.InMemoryVectorStorage
+    import ai.koog.rag.vector.JVMTextDocumentEmbedder
+    import kotlin.io.path.pathString
+    // 使用 Ollama 创建嵌入器
+    val embedder = LLMEmbedder(OllamaClient(), OllamaModels.Embeddings.NOMIC_EMBED_TEXT)
+    // 您也可以通过以下方式使用 OpenAI 嵌入：
+    // val embedder = LLMEmbedder(OpenAILLMClient("API_KEY"), OpenAIModels.Embeddings.TextEmbeddingAda3Large)
+    // 创建 JVM 特定的文档嵌入器
+    val documentEmbedder = JVMTextDocumentEmbedder(embedder)
+    // 使用内存向量存储创建排序文档存储
+    val rankedDocumentStorage = EmbeddingBasedDocumentStorage(documentEmbedder, InMemoryVectorStorage())
+    const val apiKey = "apikey"
+    -->
+    ```kotlin
+    suspend fun solveUserRequest(query: String) {
+        // 从文档提供程序中检索前 5 个文档
+        val relevantDocuments = rankedDocumentStorage.mostRelevantDocuments(query, count = 5)
 
-// 创建 JVM 特定的文档嵌入器
-val documentEmbedder = JVMTextDocumentEmbedder(embedder)
-
-// 使用内存向量存储创建排序文档存储
-val rankedDocumentStorage = EmbeddingBasedDocumentStorage(documentEmbedder, InMemoryVectorStorage())
-
-const val apiKey = "apikey"
-
--->
-```kotlin
-suspend fun solveUserRequest(query: String) {
-    // 从文档提供程序中检索前 5 个文档
-    val relevantDocuments = rankedDocumentStorage.mostRelevantDocuments(query, count = 5)
-
-    // 使用相关上下文创建 AI 智能体
-    val agentConfig = AIAgentConfig(
-        prompt = prompt("context") {
-            system("You are a helpful assistant. Use the provided context to answer the user's question accurately.")
-            user {
-                +"Relevant context:"
-                relevantDocuments.forEach {
-                    file(it.pathString, "text/plain")
+        // 使用相关上下文创建 AI 智能体
+        val agentConfig = AIAgentConfig(
+            prompt = prompt("context") {
+                system("You are a helpful assistant. Use the provided context to answer the user's question accurately.")
+                user {
+                    +"Relevant context:"
+                    relevantDocuments.forEach {
+                        file(it.pathString, "text/plain")
+                    }
                 }
-            }
-        },
-        model = OpenAIModels.Chat.GPT4o, // 或您选择的其他模型
-        maxAgentIterations = 100,
-    )
+            },
+            model = OpenAIModels.Chat.GPT4o, // 或您选择的其他模型
+            maxAgentIterations = 100,
+        )
 
-    val agent = AIAgent(
-        promptExecutor = simpleOpenAIExecutor(apiKey),
-        llmModel = OpenAIModels.Chat.GPT4o
-    )
+        val agent = AIAgent(
+            promptExecutor = simpleOpenAIExecutor(apiKey),
+            llmModel = OpenAIModels.Chat.GPT4o
+        )
 
-    // 运行智能体以获取响应
-    val response = agent.run(query)
+        // 运行智能体以获取响应
+        val response = agent.run(query)
 
-    // 返回或处理响应
-    println("Agent response: $response")
-}
-```
-<!--- KNIT example-ranked-document-storage-02.kt -->
+        // 返回或处理响应
+        println("Agent response: $response")
+    }
+    ```
+    <!--- KNIT example-ranked-document-storage-02.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    ```
+    <!--- KNIT example-ranked-document-storage-java-02.java -->
 
 ### 将相关性搜索作为工具提供
 
@@ -165,87 +187,96 @@ suspend fun solveUserRequest(query: String) {
 
 以下是一个如何实现相关性搜索工具的示例：
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.tools.ToolRegistry
-import ai.koog.agents.core.tools.annotations.LLMDescription
-import ai.koog.agents.core.tools.annotations.Tool
-import ai.koog.agents.core.tools.reflect.asTool
-import ai.koog.embeddings.local.LLMEmbedder
-import ai.koog.prompt.executor.ollama.client.OllamaModels
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import ai.koog.prompt.executor.ollama.client.OllamaClient
-import ai.koog.rag.base.mostRelevantDocuments
-import ai.koog.rag.vector.EmbeddingBasedDocumentStorage
-import ai.koog.rag.vector.InMemoryVectorStorage
-import ai.koog.rag.vector.JVMTextDocumentEmbedder
-import kotlinx.coroutines.runBlocking
-import java.nio.file.Files
+=== "Kotlin"
 
-// 使用 Ollama 创建嵌入器
-val embedder = LLMEmbedder(OllamaClient(), OllamaModels.Embeddings.NOMIC_EMBED_TEXT)
-// 您也可以通过以下方式使用 OpenAI 嵌入：
-// val embedder = LLMEmbedder(OpenAILLMClient("API_KEY"), OpenAIModels.Embeddings.TextEmbeddingAda3Large)
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.agents.core.tools.ToolRegistry
+    import ai.koog.agents.core.tools.annotations.LLMDescription
+    import ai.koog.agents.core.tools.annotations.Tool
+    import ai.koog.agents.core.tools.reflect.asTool
+    import ai.koog.embeddings.local.LLMEmbedder
+    import ai.koog.prompt.executor.ollama.client.OllamaModels
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    import ai.koog.prompt.executor.ollama.client.OllamaClient
+    import ai.koog.rag.base.mostRelevantDocuments
+    import ai.koog.rag.vector.EmbeddingBasedDocumentStorage
+    import ai.koog.rag.vector.InMemoryVectorStorage
+    import ai.koog.rag.vector.JVMTextDocumentEmbedder
+    import kotlinx.coroutines.runBlocking
+    import java.nio.file.Files
+    // 使用 Ollama 创建嵌入器
+    val embedder = LLMEmbedder(OllamaClient(), OllamaModels.Embeddings.NOMIC_EMBED_TEXT)
+    // 您也可以通过以下方式使用 OpenAI 嵌入：
+    // val embedder = LLMEmbedder(OpenAILLMClient("API_KEY"), OpenAIModels.Embeddings.TextEmbeddingAda3Large)
+    // 创建 JVM 特定的文档嵌入器
+    val documentEmbedder = JVMTextDocumentEmbedder(embedder)
+    // 使用内存向量存储创建排序文档存储
+    val rankedDocumentStorage = EmbeddingBasedDocumentStorage(documentEmbedder, InMemoryVectorStorage())
+    const val apiKey = "apikey"
+    -->
+    ```kotlin
+    @Tool
+    @LLMDescription("Search for relevant documents about any topic (if exists). Returns the content of the most relevant documents.")
+    suspend fun searchDocuments(
+        @LLMDescription("Query to search relevant documents about")
+        query: String,
+        @LLMDescription("Maximum number of documents")
+        count: Int
+    ): String {
+        val relevantDocuments =
+            rankedDocumentStorage.mostRelevantDocuments(query, count = count, similarityThreshold = 0.9).toList()
 
-// 创建 JVM 特定的文档嵌入器
-val documentEmbedder = JVMTextDocumentEmbedder(embedder)
-
-// 使用内存向量存储创建排序文档存储
-val rankedDocumentStorage = EmbeddingBasedDocumentStorage(documentEmbedder, InMemoryVectorStorage())
-
-const val apiKey = "apikey"
-
--->
-```kotlin
-@Tool
-@LLMDescription("Search for relevant documents about any topic (if exists). Returns the content of the most relevant documents.")
-suspend fun searchDocuments(
-    @LLMDescription("Query to search relevant documents about")
-    query: String,
-    @LLMDescription("Maximum number of documents")
-    count: Int
-): String {
-    val relevantDocuments =
-        rankedDocumentStorage.mostRelevantDocuments(query, count = count, similarityThreshold = 0.9).toList()
-
-    if (!relevantDocuments.isEmpty()) {
-        return "No relevant documents found for the query: $query"
-    }
-
-    val result = StringBuilder("Found ${relevantDocuments.size} relevant documents:
-\n")
-
-    relevantDocuments.forEachIndexed { index, document ->
-        val content = Files.readString(document)
-        result.append("Document ${index + 1}: ${document.fileName}
-")
-        result.append("Content: $content
-\n")
-    }
-
-    return result.toString()
-}
-
-fun main() {
-    runBlocking {
-        val tools = ToolRegistry {
-            tool(::searchDocuments.asTool())
+        if (!relevantDocuments.isEmpty()) {
+            return "No relevant documents found for the query: $query"
         }
 
-        val agent = AIAgent(
-            toolRegistry = tools,
-            promptExecutor = simpleOpenAIExecutor(apiKey),
-            llmModel = OpenAIModels.Chat.GPT4o
-        )
+        val result = StringBuilder("Found ${relevantDocuments.size} relevant documents:
+\n")
 
-        val response = agent.run("How to make a cake?")
-        println("Agent response: $response")
+        relevantDocuments.forEachIndexed { index, document ->
+            val content = Files.readString(document)
+            result.append("Document ${index + 1}: ${document.fileName}
+")
+            result.append("Content: $content
+\n")
+        }
 
+        return result.toString()
     }
-}
-```
-<!--- KNIT example-ranked-document-storage-03.kt -->
+
+    fun main() {
+        runBlocking {
+            val tools = ToolRegistry {
+                tool(::searchDocuments.asTool())
+            }
+
+            val agent = AIAgent(
+                toolRegistry = tools,
+                promptExecutor = simpleOpenAIExecutor(apiKey),
+                llmModel = OpenAIModels.Chat.GPT4o
+            )
+
+            val response = agent.run("How to make a cake?")
+            println("Agent response: $response")
+
+        }
+    }
+    ```
+    <!--- KNIT example-ranked-document-storage-03.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    ```
+    <!--- KNIT example-ranked-document-storage-java-03.java -->
 
 通过这种方法，智能体可以根据您的查询决定何时使用搜索工具。这对于可能需要来自多个文档的信息的复杂查询，或者当智能体需要搜索特定细节时特别有用。
 
@@ -259,14 +290,29 @@ fun main() {
 
 一个简单的内存实现，将文档及其向量嵌入存储在内存中。适用于测试或小规模应用。
 
-<!--- INCLUDE
-import ai.koog.rag.vector.InMemoryVectorStorage
-import java.nio.file.Path
--->
-```kotlin
-val inMemoryStorage = InMemoryVectorStorage<Path>()
-```
-<!--- KNIT example-ranked-document-storage-04.kt -->
+=== "Kotlin"
+
+    <!--- INCLUDE
+    import ai.koog.rag.vector.InMemoryVectorStorage
+    import java.nio.file.Path
+    -->
+    ```kotlin
+    val inMemoryStorage = InMemoryVectorStorage<Path>()
+    ```
+    <!--- KNIT example-ranked-document-storage-04.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    InMemoryVectorStorage<Path> inMemoryStorage = new InMemoryVectorStorage<>();
+    ```
+    <!--- KNIT example-ranked-document-storage-java-04.java -->
 
 有关更多信息，请参阅 [InMemoryVectorStorage](api:vector-storage::ai.koog.rag.vector.InMemoryVectorStorage) 参考。
 
@@ -274,20 +320,34 @@ val inMemoryStorage = InMemoryVectorStorage<Path>()
 
 一个基于文件的实现，将文档及其向量嵌入存储在磁盘上。适用于应用程序重启后的持久化存储。
 
-<!--- INCLUDE
-/*
--->
-<!--- SUFFIX
-*/
--->
-```kotlin
-val fileStorage = FileVectorStorage<Document, Path>(
-   documentReader = documentProvider,
-   fs = fileSystemProvider,
-   root = rootPath
-)
-```
-<!--- KNIT example-ranked-document-storage-05.kt -->
+=== "Kotlin"
+
+    <!--- INCLUDE
+    /*
+    -->
+    <!--- SUFFIX
+    */
+    -->
+    ```kotlin
+    val fileStorage = FileVectorStorage<Document, Path>(
+       documentReader = documentProvider,
+       fs = fileSystemProvider,
+       root = rootPath
+    )
+    ```
+    <!--- KNIT example-ranked-document-storage-05.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    ```
+    <!--- KNIT example-ranked-document-storage-java-05.java -->
 
 有关更多信息，请参阅 [FileVectorStorage](api:vector-storage::ai.koog.rag.vector.FileVectorStorage) 参考。
 
@@ -295,14 +355,28 @@ val fileStorage = FileVectorStorage<Document, Path>(
 
 `FileVectorStorage` 的 JVM 特定实现，适用于 `java.nio.file.Path`。
 
-<!--- INCLUDE
-import ai.koog.rag.vector.JVMFileVectorStorage
-import java.nio.file.Path
--->
-```kotlin
-val jvmFileStorage = JVMFileVectorStorage(root = Path.of("/path/to/storage"))
-```
-<!--- KNIT example-ranked-document-storage-06.kt -->
+=== "Kotlin"
+
+    <!--- INCLUDE
+    import ai.koog.rag.vector.JVMFileVectorStorage
+    import java.nio.file.Path
+    -->
+    ```kotlin
+    val jvmFileStorage = JVMFileVectorStorage(root = Path.of("/path/to/storage"))
+    ```
+    <!--- KNIT example-ranked-document-storage-06.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    ```
+    <!--- KNIT example-ranked-document-storage-java-06.java -->
 
 有关更多信息，请参阅 [JVMFileVectorStorage](api:vector-storage::ai.koog.rag.vector.JVMFileVectorStorage) 参考。
 
@@ -312,19 +386,29 @@ val jvmFileStorage = JVMFileVectorStorage(root = Path.of("/path/to/storage"))
 
 一个通用实现，适用于任何可以转换为文本的文档类型。
 
-<!--- INCLUDE
-/*
--->
-<!--- SUFFIX
-*/
--->
-```kotlin
-val textEmbedder = TextDocumentEmbedder<Document, Path>(
-   documentReader = documentProvider,
-   embedder = embedder
-)
-```
-<!--- KNIT example-ranked-document-storage-07.kt -->
+=== "Kotlin"
+
+    <!--- INCLUDE
+    /*
+    -->
+    <!--- SUFFIX
+    */
+    -->
+    ```kotlin
+    val textEmbedder = TextDocumentEmbedder<Document, Path>(
+       documentReader = documentProvider,
+       embedder = embedder
+    )
+    ```
+    <!--- KNIT example-ranked-document-storage-07.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    -->
+    ```java
+    ```
+    <!--- KNIT example-ranked-document-storage-java-07.java -->
 
 有关更多信息，请参阅 [TextDocumentEmbedder](api:vector-storage::ai.koog.rag.vector.TextDocumentEmbedder) 参考。
 
@@ -332,18 +416,33 @@ val textEmbedder = TextDocumentEmbedder<Document, Path>(
 
 适用于 `java.nio.file.Path` 的 JVM 特定实现。
 
-<!--- INCLUDE
-import ai.koog.embeddings.local.LLMEmbedder
-import ai.koog.prompt.executor.ollama.client.OllamaModels
-import ai.koog.prompt.executor.ollama.client.OllamaClient
-import ai.koog.rag.vector.JVMTextDocumentEmbedder
+=== "Kotlin"
 
--->
-```kotlin
-val embedder = LLMEmbedder(OllamaClient(), OllamaModels.Embeddings.NOMIC_EMBED_TEXT)
-val jvmTextEmbedder = JVMTextDocumentEmbedder(embedder = embedder)
-```
-<!--- KNIT example-ranked-document-storage-08.kt -->
+    <!--- INCLUDE
+    import ai.koog.embeddings.local.LLMEmbedder
+    import ai.koog.prompt.executor.ollama.client.OllamaModels
+    import ai.koog.prompt.executor.ollama.client.OllamaClient
+    import ai.koog.rag.vector.JVMTextDocumentEmbedder
+    -->
+    ```kotlin
+    val embedder = LLMEmbedder(OllamaClient(), OllamaModels.Embeddings.NOMIC_EMBED_TEXT)
+    val jvmTextEmbedder = JVMTextDocumentEmbedder(embedder = embedder)
+    ```
+    <!--- KNIT example-ranked-document-storage-08.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    LLMEmbedder embedder = new LLMEmbedder(new OllamaClient("http://localhost:11434"), OllamaModels.Embeddings.NOMIC_EMBED_TEXT);
+    JVMTextDocumentEmbedder jvmTextEmbedder = new JVMTextDocumentEmbedder(embedder);
+    ```
+    <!--- KNIT example-ranked-document-storage-java-08.java -->
 
 有关更多信息，请参阅 [JVMTextDocumentEmbedder](api:vector-storage::ai.koog.rag.vector.JVMTextDocumentEmbedder) 参考。
 
@@ -353,22 +452,42 @@ val jvmTextEmbedder = JVMTextDocumentEmbedder(embedder = embedder)
 
 结合了文档嵌入器和向量存储，为存储和排序文档提供完整的解决方案。
 
-<!--- INCLUDE
-import ai.koog.agents.example.exampleRankedDocumentStorage02.documentEmbedder
-import ai.koog.rag.vector.EmbeddingBasedDocumentStorage
-import ai.koog.rag.vector.InMemoryVectorStorage
-import java.nio.file.Path
+=== "Kotlin"
 
-val vectorStorage = InMemoryVectorStorage<Path>()
+    <!--- INCLUDE
+    import ai.koog.agents.example.exampleRankedDocumentStorage02.documentEmbedder
+    import ai.koog.rag.vector.EmbeddingBasedDocumentStorage
+    import ai.koog.rag.vector.InMemoryVectorStorage
+    import java.nio.file.Path
+    val vectorStorage = InMemoryVectorStorage<Path>()
+    -->
+    ```kotlin
+    val embeddingStorage = EmbeddingBasedDocumentStorage(
+        embedder = documentEmbedder,
+        storage = vectorStorage
+    )
+    ```
+    <!--- KNIT example-ranked-document-storage-09.kt -->
 
--->
-```kotlin
-val embeddingStorage = EmbeddingBasedDocumentStorage(
-    embedder = documentEmbedder,
-    storage = vectorStorage
-)
-```
-<!--- KNIT example-ranked-document-storage-09.kt -->
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    LLMEmbedder embedder = new LLMEmbedder(new OllamaClient("http://localhost:11434"), OllamaModels.Embeddings.NOMIC_EMBED_TEXT);
+    JVMTextDocumentEmbedder documentEmbedder = new JVMTextDocumentEmbedder(embedder);
+    InMemoryVectorStorage<Path> vectorStorage = new InMemoryVectorStorage<>();
+    
+    EmbeddingBasedDocumentStorage<Path> embeddingStorage = new EmbeddingBasedDocumentStorage<>(
+        documentEmbedder,
+        vectorStorage
+    );
+    ```
+    <!--- KNIT example-ranked-document-storage-java-09.java -->
 
 有关更多信息，请参阅 [EmbeddingBasedDocumentStorage](api:vector-storage::ai.koog.rag.vector.EmbeddingBasedDocumentStorage) 参考。
 
@@ -376,20 +495,37 @@ val embeddingStorage = EmbeddingBasedDocumentStorage(
 
 `EmbeddingBasedDocumentStorage` 的内存实现。
 
-<!--- INCLUDE
-import ai.koog.agents.example.exampleRankedDocumentStorage03.documentEmbedder
-import ai.koog.rag.vector.InMemoryDocumentEmbeddingStorage
-import java.nio.file.Path
+=== "Kotlin"
 
-typealias Document = Path
--->
-```kotlin
-val inMemoryEmbeddingStorage = InMemoryDocumentEmbeddingStorage<Document>(
-    embedder = documentEmbedder
-)
+    <!--- INCLUDE
+    import ai.koog.agents.example.exampleRankedDocumentStorage03.documentEmbedder
+    import ai.koog.rag.vector.InMemoryDocumentEmbeddingStorage
+    import java.nio.file.Path
+    typealias Document = Path
+    -->
+    ```kotlin
+    val inMemoryEmbeddingStorage = InMemoryDocumentEmbeddingStorage<Document>(
+        embedder = documentEmbedder
+    )
+    ```
+    <!--- KNIT example-ranked-document-storage-10.kt -->
 
-```
-<!--- KNIT example-ranked-document-storage-10.kt -->
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    LLMEmbedder embedder = new LLMEmbedder(new OllamaClient("http://localhost:11434"), OllamaModels.Embeddings.NOMIC_EMBED_TEXT);
+    JVMTextDocumentEmbedder documentEmbedder = new JVMTextDocumentEmbedder(embedder);
+
+    InMemoryDocumentEmbeddingStorage<Path> inMemoryEmbeddingStorage =
+        new InMemoryDocumentEmbeddingStorage<>(documentEmbedder);
+    ```
+    <!--- KNIT example-ranked-document-storage-java-10.java -->
 
 有关更多信息，请参阅 [InMemoryDocumentEmbeddingStorage](api:vector-storage::ai.koog.rag.vector.InMemoryDocumentEmbeddingStorage) 参考。
 
@@ -397,21 +533,35 @@ val inMemoryEmbeddingStorage = InMemoryDocumentEmbeddingStorage<Document>(
 
 `EmbeddingBasedDocumentStorage` 的基于文件的实现。
 
-<!--- INCLUDE
-/*
--->
-<!--- SUFFIX
-*/
--->
-```kotlin
-val fileEmbeddingStorage = FileDocumentEmbeddingStorage<Document, Path>(
-   embedder = documentEmbedder,
-   documentProvider = documentProvider,
-   fs = fileSystemProvider,
-   root = rootPath
-)
-```
-<!--- KNIT example-ranked-document-storage-11.kt -->
+=== "Kotlin"
+
+    <!--- INCLUDE
+    /*
+    -->
+    <!--- SUFFIX
+    */
+    -->
+    ```kotlin
+    val fileEmbeddingStorage = FileDocumentEmbeddingStorage<Document, Path>(
+       embedder = documentEmbedder,
+       documentProvider = documentProvider,
+       fs = fileSystemProvider,
+       root = rootPath
+    )
+    ```
+    <!--- KNIT example-ranked-document-storage-11.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    ```
+    <!--- KNIT example-ranked-document-storage-java-11.java -->
 
 有关更多信息，请参阅 [FileDocumentEmbeddingStorage](api:vector-storage::ai.koog.rag.vector.FileDocumentEmbeddingStorage) 参考。
 
@@ -419,18 +569,39 @@ val fileEmbeddingStorage = FileDocumentEmbeddingStorage<Document, Path>(
 
 `FileDocumentEmbeddingStorage` 的 JVM 特定实现。
 
-<!--- INCLUDE
-import ai.koog.agents.example.exampleRankedDocumentStorage03.documentEmbedder
-import ai.koog.rag.vector.JVMFileDocumentEmbeddingStorage
-import java.nio.file.Path
--->
-```kotlin
-val jvmFileEmbeddingStorage = JVMFileDocumentEmbeddingStorage(
-   embedder = documentEmbedder,
-   root = Path.of("/path/to/storage")
-)
-```
-<!--- KNIT example-ranked-document-storage-12.kt -->
+=== "Kotlin"
+
+    <!--- INCLUDE
+    import ai.koog.agents.example.exampleRankedDocumentStorage03.documentEmbedder
+    import ai.koog.rag.vector.JVMFileDocumentEmbeddingStorage
+    import java.nio.file.Path
+    -->
+    ```kotlin
+    val jvmFileEmbeddingStorage = JVMFileDocumentEmbeddingStorage(
+       embedder = documentEmbedder,
+       root = Path.of("/path/to/storage")
+    )
+    ```
+    <!--- KNIT example-ranked-document-storage-12.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    LLMEmbedder embedder = new LLMEmbedder(new OllamaClient("http://localhost:11434"), OllamaModels.Embeddings.NOMIC_EMBED_TEXT);
+    JVMTextDocumentEmbedder documentEmbedder = new JVMTextDocumentEmbedder(embedder);
+
+    JVMFileDocumentEmbeddingStorage jvmFileEmbeddingStorage = new JVMFileDocumentEmbeddingStorage(
+       documentEmbedder,
+       Path.of("/path/to/storage")
+    );
+    ```
+    <!--- KNIT example-ranked-document-storage-java-12.java -->
 
 有关更多信息，请参阅 [JVMFileDocumentEmbeddingStorage](api:vector-storage::ai.koog.rag.vector.JVMFileDocumentEmbeddingStorage) 参考。
 
@@ -438,18 +609,38 @@ val jvmFileEmbeddingStorage = JVMFileDocumentEmbeddingStorage(
 
 结合了 `JVMTextDocumentEmbedder` 和 `JVMFileVectorStorage` 的 JVM 特定实现。
 
-<!--- INCLUDE
-import ai.koog.agents.example.exampleRankedDocumentStorage08.embedder
-import ai.koog.rag.vector.JVMTextFileDocumentEmbeddingStorage
-import java.nio.file.Path
--->
-```kotlin
-val jvmTextFileEmbeddingStorage = JVMTextFileDocumentEmbeddingStorage(
-   embedder = embedder,
-   root = Path.of("/path/to/storage")
-)
-```
-<!--- KNIT example-ranked-document-storage-13.kt -->
+=== "Kotlin"
+
+    <!--- INCLUDE
+    import ai.koog.agents.example.exampleRankedDocumentStorage08.embedder
+    import ai.koog.rag.vector.JVMTextFileDocumentEmbeddingStorage
+    import java.nio.file.Path
+    -->
+    ```kotlin
+    val jvmTextFileEmbeddingStorage = JVMTextFileDocumentEmbeddingStorage(
+       embedder = embedder,
+       root = Path.of("/path/to/storage")
+    )
+    ```
+    <!--- KNIT example-ranked-document-storage-13.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    LLMEmbedder embedder = new LLMEmbedder(new OllamaClient("http://localhost:11434"), OllamaModels.Embeddings.NOMIC_EMBED_TEXT);
+
+    JVMTextFileDocumentEmbeddingStorage jvmTextFileEmbeddingStorage = new JVMTextFileDocumentEmbeddingStorage(
+       embedder,
+       Path.of("/path/to/storage")
+    );
+    ```
+    <!--- KNIT example-ranked-document-storage-java-13.java -->
 
 有关更多信息，请参阅 [JVMTextFileDocumentEmbeddingStorage](api:vector-storage::ai.koog.rag.vector.JVMTextFileDocumentEmbeddingStorage) 参考。
 
@@ -461,119 +652,133 @@ val jvmTextFileEmbeddingStorage = JVMTextFileDocumentEmbeddingStorage(
 
 以下是为 PDF 文档实现自定义文档嵌入器的示例：
 
-<!--- INCLUDE
-import ai.koog.embeddings.base.Embedder
-import ai.koog.embeddings.base.Vector
-import ai.koog.embeddings.local.LLMEmbedder
-import ai.koog.prompt.executor.ollama.client.OllamaModels
-import ai.koog.prompt.executor.ollama.client.OllamaClient
-import ai.koog.rag.base.RankedDocument
-import ai.koog.rag.base.RankedDocumentStorage
-import ai.koog.rag.base.files.DocumentProvider
-import ai.koog.rag.base.mostRelevantDocuments
-import ai.koog.rag.vector.DocumentEmbedder
-import ai.koog.rag.vector.InMemoryVectorStorage
-import ai.koog.rag.vector.VectorStorage
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import java.nio.file.Path
--->
-```kotlin
-// 定义 PDFDocument 类
-class PDFDocument(private val path: Path) {
-    fun readText(): String {
-        // 使用 PDF 库从 PDF 中提取文本
-        return "Text extracted from PDF at $path"
-    }
-}
+=== "Kotlin"
 
-// 为 PDFDocument 实现 DocumentProvider
-class PDFDocumentProvider : DocumentProvider<Path, PDFDocument> {
-    override suspend fun document(path: Path): PDFDocument? {
-        return if (path.toString().endsWith(".pdf")) {
-            PDFDocument(path)
-        } else {
-            null
+    <!--- INCLUDE
+    import ai.koog.embeddings.base.Embedder
+    import ai.koog.embeddings.base.Vector
+    import ai.koog.embeddings.local.LLMEmbedder
+    import ai.koog.prompt.executor.ollama.client.OllamaModels
+    import ai.koog.prompt.executor.ollama.client.OllamaClient
+    import ai.koog.rag.base.RankedDocument
+    import ai.koog.rag.base.RankedDocumentStorage
+    import ai.koog.rag.base.files.DocumentProvider
+    import ai.koog.rag.base.mostRelevantDocuments
+    import ai.koog.rag.vector.DocumentEmbedder
+    import ai.koog.rag.vector.InMemoryVectorStorage
+    import ai.koog.rag.vector.VectorStorage
+    import kotlinx.coroutines.flow.Flow
+    import kotlinx.coroutines.flow.flow
+    import java.nio.file.Path
+    -->
+    ```kotlin
+    // 定义 PDFDocument 类
+    class PDFDocument(private val path: Path) {
+        fun readText(): String {
+            // 使用 PDF 库从 PDF 中提取文本
+            return "Text extracted from PDF at $path"
         }
     }
 
-    override suspend fun text(document: PDFDocument): CharSequence {
-        return document.readText()
-    }
-}
+    // 为 PDFDocument 实现 DocumentProvider
+    class PDFDocumentProvider : DocumentProvider<Path, PDFDocument> {
+        override suspend fun document(path: Path): PDFDocument? {
+            return if (path.toString().endsWith(".pdf")) {
+                PDFDocument(path)
+            } else {
+                null
+            }
+        }
 
-// 为 PDFDocument 实现 DocumentEmbedder
-class PDFDocumentEmbedder(private val embedder: Embedder) : DocumentEmbedder<PDFDocument> {
-    override suspend fun embed(document: PDFDocument): Vector {
-        val text = document.readText()
-        return embed(text)
+        override suspend fun text(document: PDFDocument): CharSequence {
+            return document.readText()
+        }
     }
 
-    override suspend fun embed(text: String): Vector {
-        return embedder.embed(text)
+    // 为 PDFDocument 实现 DocumentEmbedder
+    class PDFDocumentEmbedder(private val embedder: Embedder) : DocumentEmbedder<PDFDocument> {
+        override suspend fun embed(document: PDFDocument): Vector {
+            val text = document.readText()
+            return embed(text)
+        }
+
+        override suspend fun embed(text: String): Vector {
+            return embedder.embed(text)
+        }
+
+        override fun diff(embedding1: Vector, embedding2: Vector): Double {
+            return embedder.diff(embedding1, embedding2)
+        }
     }
 
-    override fun diff(embedding1: Vector, embedding2: Vector): Double {
-        return embedder.diff(embedding1, embedding2)
-    }
-}
-
-// 为 PDF 文档创建自定义向量存储
-class PDFVectorStorage(
-    private val pdfProvider: PDFDocumentProvider,
-    private val embedder: PDFDocumentEmbedder,
-    private val storage: VectorStorage<PDFDocument>
-) : RankedDocumentStorage<PDFDocument> {
-    override fun rankDocuments(query: String): Flow<RankedDocument<PDFDocument>> = flow {
-        val queryVector = embedder.embed(query)
-        storage.allDocumentsWithPayload().collect { (document, documentVector) ->
-            emit(
-                RankedDocument(
-                    document = document,
-                    similarity = 1.0 - embedder.diff(queryVector, documentVector)
+    // 为 PDF 文档创建自定义向量存储
+    class PDFVectorStorage(
+        private val pdfProvider: PDFDocumentProvider,
+        private val embedder: PDFDocumentEmbedder,
+        private val storage: VectorStorage<PDFDocument>
+    ) : RankedDocumentStorage<PDFDocument> {
+        override fun rankDocuments(query: String): Flow<RankedDocument<PDFDocument>> = flow {
+            val queryVector = embedder.embed(query)
+            storage.allDocumentsWithPayload().collect { (document, documentVector) ->
+                emit(
+                    RankedDocument(
+                        document = document,
+                        similarity = 1.0 - embedder.diff(queryVector, documentVector)
+                    )
                 )
-            )
+            }
+        }
+
+        override suspend fun store(document: PDFDocument, data: Unit): String {
+            val vector = embedder.embed(document)
+            return storage.store(document, vector)
+        }
+
+        override suspend fun delete(documentId: String): Boolean {
+            return storage.delete(documentId)
+        }
+
+        override suspend fun read(documentId: String): PDFDocument? {
+            return storage.read(documentId)
+        }
+
+        override fun allDocuments(): Flow<PDFDocument> = flow {
+            storage.allDocumentsWithPayload().collect {
+                emit(it.document)
+            }
         }
     }
 
-    override suspend fun store(document: PDFDocument, data: Unit): String {
-        val vector = embedder.embed(document)
-        return storage.store(document, vector)
+    // 使用示例
+    suspend fun main() {
+        val pdfProvider = PDFDocumentProvider()
+        val embedder = LLMEmbedder(OllamaClient(), OllamaModels.Embeddings.NOMIC_EMBED_TEXT)
+        val pdfEmbedder = PDFDocumentEmbedder(embedder)
+        val storage = InMemoryVectorStorage<PDFDocument>()
+        val pdfStorage = PDFVectorStorage(pdfProvider, pdfEmbedder, storage)
+
+        // 存储 PDF 文档
+        val pdfDocument = PDFDocument(Path.of("./documents/sample.pdf"))
+        pdfStorage.store(pdfDocument)
+
+        // 查询相关的 PDF 文档
+        val relevantPDFs = pdfStorage.mostRelevantDocuments("information about climate change", count = 3)
+
     }
+    ```
+    <!--- KNIT example-ranked-document-storage-14.kt -->
 
-    override suspend fun delete(documentId: String): Boolean {
-        return storage.delete(documentId)
-    }
+=== "Java"
 
-    override suspend fun read(documentId: String): PDFDocument? {
-        return storage.read(documentId)
-    }
-
-    override fun allDocuments(): Flow<PDFDocument> = flow {
-        storage.allDocumentsWithPayload().collect {
-            emit(it.document)
-        }
-    }
-}
-
-// 使用示例
-suspend fun main() {
-    val pdfProvider = PDFDocumentProvider()
-    val embedder = LLMEmbedder(OllamaClient(), OllamaModels.Embeddings.NOMIC_EMBED_TEXT)
-    val pdfEmbedder = PDFDocumentEmbedder(embedder)
-    val storage = InMemoryVectorStorage<PDFDocument>()
-    val pdfStorage = PDFVectorStorage(pdfProvider, pdfEmbedder, storage)
-
-    // 存储 PDF 文档
-    val pdfDocument = PDFDocument(Path.of("./documents/sample.pdf"))
-    pdfStorage.store(pdfDocument)
-
-    // 查询相关的 PDF 文档
-    val relevantPDFs = pdfStorage.mostRelevantDocuments("information about climate change", count = 3)
-
-}
-```
-<!--- KNIT example-ranked-document-storage-14.kt -->
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    ```
+    <!--- KNIT example-ranked-document-storage-java-14.java -->
 
 ## 实现自定义的非嵌入式排序文档存储 (RankedDocumentStorage)
 
@@ -587,127 +792,155 @@ suspend fun main() {
 
 以下是一个使用简单的基于关键词排序方法的自定义 `RankedDocumentStorage` 实现示例：
 
-<!--- INCLUDE
-import ai.koog.rag.base.DocumentStorage
-import ai.koog.rag.base.RankedDocument
-import ai.koog.rag.base.RankedDocumentStorage
-import ai.koog.rag.base.files.DocumentProvider
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import java.nio.file.Path
--->
-```kotlin
-class KeywordBasedDocumentStorage<Document>(
-    private val documentProvider: DocumentProvider<Path, Document>,
-    private val storage: DocumentStorage<Document>
-) : RankedDocumentStorage<Document> {
+=== "Kotlin"
 
-    override fun rankDocuments(query: String): Flow<RankedDocument<Document>> = flow {
-        // 将查询拆分为关键词
-        val keywords = query.lowercase().split(Regex("\\W+")).filter { it.length > 2 }
+    <!--- INCLUDE
+    import ai.koog.rag.base.DocumentStorage
+    import ai.koog.rag.base.RankedDocument
+    import ai.koog.rag.base.RankedDocumentStorage
+    import ai.koog.rag.base.files.DocumentProvider
+    import kotlinx.coroutines.flow.Flow
+    import kotlinx.coroutines.flow.flow
+    import java.nio.file.Path
+    -->
+    ```kotlin
+    class KeywordBasedDocumentStorage<Document>(
+        private val documentProvider: DocumentProvider<Path, Document>,
+        private val storage: DocumentStorage<Document>
+    ) : RankedDocumentStorage<Document> {
 
-        // 处理每个文档
-        storage.allDocuments().collect { document ->
-            // 获取文档文本
-            val documentText = documentProvider.text(document).toString().lowercase()
+        override fun rankDocuments(query: String): Flow<RankedDocument<Document>> = flow {
+            // 将查询拆分为关键词
+            val keywords = query.lowercase().split(Regex("\\W+")).filter { it.length > 2 }
 
-            // 基于关键词频率计算简单的相似度分数
-            var similarity = 0.0
-            for (keyword in keywords) {
-                val count = countOccurrences(documentText, keyword)
-                if (count > 0) {
-                    similarity += count.toDouble() / documentText.length * 1000
+            // 处理每个文档
+            storage.allDocuments().collect { document ->
+                // 获取文档文本
+                val documentText = documentProvider.text(document).toString().lowercase()
+
+                // 基于关键词频率计算简单的相似度分数
+                var similarity = 0.0
+                for (keyword in keywords) {
+                    val count = countOccurrences(documentText, keyword)
+                    if (count > 0) {
+                        similarity += count.toDouble() / documentText.length * 1000
+                    }
+                }
+
+                // 发射带有相似度分数的文档
+                emit(RankedDocument(document, similarity))
+            }
+        }
+
+        private fun countOccurrences(text: String, keyword: String): Int {
+            var count = 0
+            var index = 0
+            while (index != -1) {
+                index = text.indexOf(keyword, index)
+                if (index != -1) {
+                    count++
+                    index += keyword.length
                 }
             }
+            return count
+        }
 
-            // 发射带有相似度分数的文档
-            emit(RankedDocument(document, similarity))
+        override suspend fun store(document: Document, data: Unit): String {
+            return storage.store(document)
+        }
+
+        override suspend fun delete(documentId: String): Boolean {
+            return storage.delete(documentId)
+        }
+
+        override suspend fun read(documentId: String): Document? {
+            return storage.read(documentId)
+        }
+
+        override fun allDocuments(): Flow<Document> {
+            return storage.allDocuments()
         }
     }
+    ```
+    <!--- KNIT example-ranked-document-storage-15.kt -->
 
-    private fun countOccurrences(text: String, keyword: String): Int {
-        var count = 0
-        var index = 0
-        while (index != -1) {
-            index = text.indexOf(keyword, index)
-            if (index != -1) {
-                count++
-                index += keyword.length
-            }
-        }
-        return count
-    }
+=== "Java"
 
-    override suspend fun store(document: Document, data: Unit): String {
-        return storage.store(document)
-    }
-
-    override suspend fun delete(documentId: String): Boolean {
-        return storage.delete(documentId)
-    }
-
-    override suspend fun read(documentId: String): Document? {
-        return storage.read(documentId)
-    }
-
-    override fun allDocuments(): Flow<Document> {
-        return storage.allDocuments()
-    }
-}
-```
-<!--- KNIT example-ranked-document-storage-15.kt -->
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    ```
+    <!--- KNIT example-ranked-document-storage-java-15.java -->
 
 该实现根据查询关键词在文档文本中出现的频率对文档进行排序。您可以使用更复杂的算法（如 TF-IDF（词频-逆文档频率）或 BM25）来扩展此方法。
 
 另一个示例是优先考虑近期文档的基于时间的排序系统：
 
-<!--- INCLUDE
-import ai.koog.rag.base.DocumentStorage
-import ai.koog.rag.base.RankedDocument
-import ai.koog.rag.base.RankedDocumentStorage
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import java.lang.System.currentTimeMillis
--->
-```kotlin
-class TimeBasedDocumentStorage<Document>(
-    private val storage: DocumentStorage<Document>,
-    private val getDocumentTimestamp: (Document) -> Long
-) : RankedDocumentStorage<Document> {
+=== "Kotlin"
 
-    override fun rankDocuments(query: String): Flow<RankedDocument<Document>> = flow {
-        val currentTime = System.currentTimeMillis()
+    <!--- INCLUDE
+    import ai.koog.rag.base.DocumentStorage
+    import ai.koog.rag.base.RankedDocument
+    import ai.koog.rag.base.RankedDocumentStorage
+    import kotlinx.coroutines.flow.Flow
+    import kotlinx.coroutines.flow.flow
+    import java.lang.System.currentTimeMillis
+    -->
+    ```kotlin
+    class TimeBasedDocumentStorage<Document>(
+        private val storage: DocumentStorage<Document>,
+        private val getDocumentTimestamp: (Document) -> Long
+    ) : RankedDocumentStorage<Document> {
 
-        storage.allDocuments().collect { document ->
-            val timestamp = getDocumentTimestamp(document)
-            val ageInHours = (currentTime - timestamp) / (1000.0 * 60 * 60)
+        override fun rankDocuments(query: String): Flow<RankedDocument<Document>> = flow {
+            val currentTime = System.currentTimeMillis()
 
-            // 基于时间计算衰减因子（越新的文档得分越高）
-            val decayFactor = Math.exp(-0.01 * ageInHours)
+            storage.allDocuments().collect { document ->
+                val timestamp = getDocumentTimestamp(document)
+                val ageInHours = (currentTime - timestamp) / (1000.0 * 60 * 60)
 
-            emit(RankedDocument(document, decayFactor))
+                // 基于时间计算衰减因子（越新的文档得分越高）
+                val decayFactor = Math.exp(-0.01 * ageInHours)
+
+                emit(RankedDocument(document, decayFactor))
+            }
+        }
+
+        // 实现 RankedDocumentStorage 的其他必需方法
+        override suspend fun store(document: Document, data: Unit): String {
+            return storage.store(document)
+        }
+
+        override suspend fun delete(documentId: String): Boolean {
+            return storage.delete(documentId)
+        }
+
+        override suspend fun read(documentId: String): Document? {
+            return storage.read(documentId)
+        }
+
+        override fun allDocuments(): Flow<Document> {
+            return storage.allDocuments()
         }
     }
+    ```
+    <!--- KNIT example-ranked-document-storage-16.kt -->
 
-    // 实现 RankedDocumentStorage 的其他必需方法
-    override suspend fun store(document: Document, data: Unit): String {
-        return storage.store(document)
-    }
+=== "Java"
 
-    override suspend fun delete(documentId: String): Boolean {
-        return storage.delete(documentId)
-    }
-
-    override suspend fun read(documentId: String): Document? {
-        return storage.read(documentId)
-    }
-
-    override fun allDocuments(): Flow<Document> {
-        return storage.allDocuments()
-    }
-}
-```
-<!--- KNIT example-ranked-document-storage-16.kt -->
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    ```
+    <!--- KNIT example-ranked-document-storage-java-16.java -->
 
 通过实现 `RankedDocumentStorage` 接口，您可以创建量身定制的自定义排序机制，同时仍能利用 RAG 基础架构的其余部分。
 

@@ -34,6 +34,10 @@ tabBarController.tabBar.items?[1].title = "UIKit"
 
 ![UIKit](uikit.png){width=300}
 
+> Compose Multiplatform 渲染需要明確啟用高重新整理率：在您的應用程式 `Info.plist` 檔案中加入 `CADisableMinimumFrameDurationOnPhone` 金鑰。若未加入，應用程式將在執行時崩潰。
+>
+{style="note"}
+
 在 [範例專案](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/interop/ios-compose-in-uikit)中探索此程式碼。
 
 ## 在 Compose Multiplatform 中使用 UIKit
@@ -93,7 +97,7 @@ fun UseUITextField(modifier: Modifier = Modifier) {
 
 * `factory` 參數包含 `editingChanged()` 函式與 `textField.addTarget()` 接聽程式，用以偵測 `UITextField` 的任何變更。
 * `editingChanged()` 函式標記有 `@ObjCAction` 註解，以便與 Objective-C 程式碼互通。
-* `addTarget()` 函式的 `action` 參數傳遞了 `editingChanged()` 函式的名稱，並觸發它以回應 `UIControlEventEditingChanged` 事件。
+* `addTarget()` 函式的 `action` 參數傳遞了 `editingChanged()` 函式的名稱，並在回應 `UIControlEventEditingChanged` 事件時觸發。
 * 當可觀察的 `message` 狀態值改變時，會呼叫 `UIKitView()` 的 `update` 參數。
 * 該函式會更新 `UITextField` 的 `text` 屬性，讓使用者看到更新後的值。
 
@@ -233,7 +237,7 @@ fun RealDeviceCamera(
 
 * 使用 `AVCaptureSession` 與 `AVCaptureVideoPreviewLayer` 設定原生相機預覽。
 * 建立一個承載自訂 `UIView` 子類別的 `UIKitView`，該子類別管理配置更新並嵌入預覽層。
-* 初始化 `AVCapturePhotoOutput` 並設定委派以處理相片擷取。
+* 初始化 `AVCapturePhotoOutput` 並配置一個委派來處理相片擷取。
 * 使用 `CLLocationManager` (透過 `locationManager`) 在擷取瞬間獲取 GPS 座標。
 * 將擷取的影像轉換為 `UIImage`，將其封裝為 `PlatformStorableImage`，並透過 `onCapture` 提供名稱、描述與 GPS 位置等元資料。
 * 顯示一個用於觸發擷取的圓形可組合按鈕。
@@ -304,7 +308,7 @@ fun WebViewWithDelegate(
 `WebViewWithDelegate` 可組合項執行以下任務：
 
 * 建立一個實作 `WKNavigationDelegateProtocol` 介面的穩定委派物件。此物件透過 Compose 的 `remember` 在重新組合之間保持。
-* 具現化 `WKWebView`，使用 `UIKitView` 嵌入它，並指派記憶的委派。
+* 具現化 `WKWebView`，使用 `UIKitView` 嵌入它，並透過指派記憶的委派來進行配置。
 * 載入由 `initialUrl` 參數提供的初始網頁。
 * 透過委派觀察導覽變更，並透過 `onNavigationChange` 回呼傳遞目前 URL。
 * 使用 `update` 參數來觀察請求 URL 的變更，並據此重新載入網頁。

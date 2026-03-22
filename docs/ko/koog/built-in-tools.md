@@ -1,6 +1,6 @@
 # 내장 도구
 
-Koog 프레임워크는 에이전트와 사용자 간의 상호작용에서 흔히 발생하는 시나리오를 처리하는 내장 도구(built-in tools)를 제공합니다.
+Koog 프레임워크는 에이전트와 사용자 간의 상호작용에서 흔히 발생하는 시나리오를 처리하는 Kotlin 및 Java용 내장 도구(built-in tools)를 제공합니다.
 
 사용 가능한 내장 도구는 다음과 같습니다:
 
@@ -56,5 +56,5 @@ val agent = AIAgent(
 ```
 <!--- KNIT example-built-in-tools-01.kt -->
 
-동일한 레지스트리 내에서 내장 도구와 커스텀 도구를 결합하여 에이전트를 위한 포괄적인 기능 세트를 구성할 수 있습니다.
+동일한 레지스트리 내에서 내장 도구와 커스텀 도구를 결합하여 Kotlin 및 Java 모두에서 에이전트를 위한 포괄적인 기능 세트를 구성할 수 있습니다.
 커스텀 도구에 대해 더 자세히 알아보려면 [어노테이션 기반 도구(Annotation-based tools)](annotation-based-tools.md) 및 [클래스 기반 도구(Class-based tools)](class-based-tools.md)를 참조하세요.

@@ -5,7 +5,7 @@
 <no-index/>
 
 <tldr>
-   <p>这是一个带有图片的区块（取自**Compose Multiplatform 入门**教程）。</p>
+   <p>这是一个带有图片的区块（取自 **Compose Multiplatform 入门**教程）。</p>
    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="jvm-create-project-with-spring-boot.md">使用 Kotlin 创建 Spring Boot 项目</a><br/>
       <img src="icon-2-done.svg" width="20" alt="Second step"/> <a href="jvm-spring-boot-add-data-class.md">向 Spring Boot 项目添加数据类</a><br/>
       <img src="icon-3.svg" width="20" alt="Third step"/> <strong>为 Spring Boot 项目添加数据库支持</strong><br/>
@@ -326,7 +326,7 @@ jvmTest<Scope>
       <p>在代码中，<code>Optional&lt;out T&gt;.toList()</code>，<code>.toList()</code> 是 <code>Optional</code> 的扩展方法。扩展方法允许您为任何类编写额外的函数，当您想要扩展某些库类的功能时，这特别有用。</p>
    </def>
    <def title="可折叠项 #2">
-      <p><a href="https://docs.spring.io/spring-data/jdbc/docs/current/reference/html/#jdbc.entity-persistence">此函数的工作前提</a>是数据库中尚不存在该新对象。因此，插入时的 id <b>应为 null</b>。</p>
+      <p><a href="https://docs.spring.io/spring-data/relational/reference/#jdbc.entity-persistence">此函数的工作前提</a>是数据库中尚不存在该新对象。因此，插入时的 id <b>应为 null</b>。</p>
       <p> 如果 id 不为 <i>null</i>，<code>CrudRepository</code> 会假定该对象已存在于数据库中，并且这是一次<i>更新</i> (update) 操作，而非<i>插入</i> (insert) 操作。在插入操作之后，<code>id</code> 将由数据存储生成并分配回 <code>Message</code> 实例。这就是为什么 <code>id</code> 属性应该使用 <code>var</code> 关键字声明的原因。</p>
       <p></p>
    </def>

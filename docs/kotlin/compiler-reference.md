@@ -1,5 +1,7 @@
 [//]: # (title: Kotlin 编译器选项)
 
+<show-structure depth="1"/>
+
 每个版本的 Kotlin 都包含适用于受支持目标的编译器：
 JVM、JavaScript，以及针对[受支持平台](native-overview.md#target-platforms)的原生二进制文件。
 
@@ -12,7 +14,7 @@ JVM、JavaScript，以及针对[受支持平台](native-overview.md#target-platf
 
 ## 编译器选项
 
-Kotlin 编译器具有许多用于定制构建过程的选项。
+Kotlin 编译器具有许多用于定制编译过程的选项。
 本页列出了针对不同目标的编译器选项以及每个选项的说明。
 
 有几种方法可以设置编译器选项及其值（*编译器实参*）：
@@ -50,7 +52,7 @@ Kotlin 编译器具有许多用于定制构建过程的选项。
 
 ### -verbose
 
-启用详细日志输出，其中包括构建过程的详细信息。
+启用详细日志输出，其中包括编译过程的详细信息。
 
 ### -script
 
@@ -363,6 +365,13 @@ kotlinc -Xcompiler-plugin-order=plugin.middle>plugin.last
 
 为 [-Xphases-to-dump-before`](#xphases-to-dump-before) 编译器选项配置转储文件目录。
 
+### -Xnullability-annotations
+<primary-label ref="experimental-general"/>
+
+配置 Kotlin 编译器如何解释来自特定 Java 软件包的为 null 性注解。
+
+有关受支持注解和配置选项的完整列表，请参阅[为 null 性注解](java-interop.md#nullability-annotations)。
+
 ## Kotlin/JS 编译器选项
 
 适用于 JS 的 Kotlin 编译器将 Kotlin 源文件编译为 JavaScript 代码。
@@ -444,6 +453,11 @@ kotlinc -Xcompiler-plugin-order=plugin.middle>plugin.last
 <primary-label ref="experimental-general"/>
 
 在编译为现代 JavaScript (ES2020) 时，启用对 JavaScript `BigInt` 类型的支持以表示 Kotlin `Long` 值。
+
+### -Xenable-implementing-interfaces-from-typescript
+<primary-label ref="experimental-general"/>
+
+允许从 JavaScript/TypeScript 中[实现 Kotlin 接口](whatsnew2320.md#implementing-kotlin-interfaces-from-javascript-typescript)，这些接口需使用 `@JsExport` 注解导出。
 
 ## Kotlin/Native 编译器选项
 
@@ -553,3 +567,8 @@ Kotlin/Native 编译器将 Kotlin 源文件编译为针对[受支持平台](nati
 ### -target _目标_
 
 设置硬件目标。要查看可用目标列表，请使用 [`-list-targets`](#list-targets) 选项。
+
+### -Xccall-mode
+<primary-label ref="experimental-general"/>
+
+为通过 cinterop 导入的 C 或 Objective-C 库启用[新的互操作模式](whatsnew2320.md#new-interoperability-mode-for-c-or-objective-c-libraries)。

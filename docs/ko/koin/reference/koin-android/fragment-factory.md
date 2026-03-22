@@ -2,108 +2,128 @@
 title: Fragment Factory
 ---
 
-AndroidX가 Android `Fragment` 관련 기능을 확장하기 위해 `androidx.fragment` 패키지 제품군을 출시함에 따라,
+Koin은 Fragment에서 생성자 주입(constructor injection)을 가능하게 하기 위해 [AndroidX FragmentFactory](https://developer.android.com/reference/kotlin/androidx/fragment/app/FragmentFactory)와 통합됩니다.
 
-https://developer.android.com/jetpack/androidx/releases/fragment
+:::info
+Fragment Factory는 DSL만 사용합니다. 어노테이션(Annotation) 및 컴파일러 플러그인(Compiler Plugin) DSL 지원은 아직 제공되지 않습니다.
+:::
 
-## Fragment Factory
+## 설정
 
-`2.1.0-alpha-3` 버전부터 `Fragment` 클래스의 인스턴스 생성을 전담하는 클래스인 `FragmentFactory`가 도입되었습니다.
+### 의존성 추가
 
-https://developer.android.com/reference/kotlin/androidx/fragment/app/FragmentFactory
+```groovy
+implementation "io.insert-koin:koin-android:$koin_version"
+```
 
-Koin은 `Fragment` 인스턴스를 직접 주입할 수 있도록 돕는 `KoinFragmentFactory`를 제공합니다.
+### Fragment Factory 설정
 
-## Fragment Factory 설정
-
-시작 시, `KoinApplication` 선언에서 `fragmentFactory()` 키워드를 사용하여 기본 `KoinFragmentFactory` 인스턴스를 설정합니다.
+Koin 설정에서 프래그먼트 팩토리를 활성화합니다:
 
 ```kotlin
- startKoin {
-    // KoinFragmentFactory 인스턴스 설정
+startKoin {
+    androidContext(this@MainApplication)
     fragmentFactory()
-
-    modules(...)
+    modules(appModule)
 }
 ```
 
-## Fragment 선언 및 주입
+## Fragment 선언
 
-`Fragment` 인스턴스를 선언하려면, Koin 모듈에서 `fragment`로 선언하고 *생성자 주입(constructor injection)*을 사용하면 됩니다.
-
-다음과 같은 `Fragment` 클래스가 있다고 가정해 봅시다.
+`fragment` DSL 키워드와 함께 생성자 주입을 사용합니다:
 
 ```kotlin
-class MyFragment(val myService: MyService) : Fragment() {
+class MyFragment(
+    private val myService: MyService
+) : Fragment()
 
-}
-```
-
-```kotlin
 val appModule = module {
     single { MyService() }
     fragment { MyFragment(get()) }
 }
 ```
 
-## Fragment 가져오기
+## Fragment 사용
 
-호스트 `Activity` 클래스에서 `setupKoinFragmentFactory()`를 사용하여 프래그먼트 팩토리를 설정합니다.
+### Activity에서 설정
+
+`super.onCreate()`를 호출하기 **전**에 `setupKoinFragmentFactory()`를 호출하세요:
 
 ```kotlin
 class MyActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Koin Fragment Factory 설정
+        // 반드시 super.onCreate() 호출 전에 호출해야 합니다.
         setupKoinFragmentFactory()
 
         super.onCreate(savedInstanceState)
-        //...
+        setContentView(R.layout.activity_main)
     }
 }
 ```
 
-그리고 `supportFragmentManager`를 통해 `Fragment`를 가져옵니다.
+### Fragment 추가
+
+구체화된(reified) 확장 함수를 사용합니다:
 
 ```kotlin
 supportFragmentManager.beginTransaction()
-            .replace<MyFragment>(R.id.mvvm_frame)
-            .commit()
+    .replace<MyFragment>(R.id.container)
+    .commit()
 ```
 
-오버로드된 선택적 파라미터를 사용하여 `bundle`이나 `tag`를 전달할 수 있습니다.
+인자(arguments) 및 태그(tag)와 함께 사용할 경우:
 
 ```kotlin
 supportFragmentManager.beginTransaction()
-            .replace<MyFragment>(
-                containerViewId = R.id.mvvm_frame,
-                args = MyBundle(),
-                tag = MyString()
-            )
+    .replace<MyFragment>(
+        containerViewId = R.id.container,
+        args = bundleOf("key" to "value"),
+        tag = "my_fragment"
+    )
+    .commit()
 ```
 
-## Fragment Factory와 Koin Scope
+## Scope와 함께 Fragment Factory 사용
 
-Koin Activity의 Scope를 사용하려면, 해당 scope 내에서 프래그먼트를 `scoped` 정의로 선언해야 합니다.
+Fragment에서 Activity 스코프(Activity-scoped) 의존성을 사용하려면 다음과 같이 합니다:
 
 ```kotlin
 val appModule = module {
     scope<MyActivity> {
+        scoped { ActivityService() }
         fragment { MyFragment(get()) }
     }
 }
 ```
 
-그리고 해당 scope를 사용하여 Koin Fragment Factory를 설정합니다: `setupKoinFragmentFactory(lifecycleScope)`
+`setupKoinFragmentFactory()`에 스코프를 전달합니다:
 
 ```kotlin
-class MyActivity : AppCompatActivity() {
+class MyActivity : AppCompatActivity(), AndroidScopeComponent {
+
+    override val scope: Scope by activityScope()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Koin Fragment Factory 설정
-        setupKoinFragmentFactory(lifecycleScope)
+        // 프래그먼트 팩토리에 스코프 전달
+        setupKoinFragmentFactory(scope)
 
         super.onCreate(savedInstanceState)
-        //...
     }
 }
+```
+
+## 빠른 참조
+
+| 작업 | 코드 |
+|--------|------|
+| Fragment 선언 | `fragment { MyFragment(get()) }` |
+| 전역 팩토리 설정 | `setupKoinFragmentFactory()` |
+| 스코프와 함께 설정 | `setupKoinFragmentFactory(scope)` |
+| Fragment 추가 | `.replace<MyFragment>(R.id.container)` |
+
+## 다음 단계
+
+- **[AndroidX Fragment](https://developer.android.com/guide/fragments)** - 공식 Fragment 문서
+- **[Scopes](/docs/reference/koin-android/scope)** - Android 스코프
+- **[ViewModel](/docs/reference/koin-android/viewmodel)** - ViewModel 주입

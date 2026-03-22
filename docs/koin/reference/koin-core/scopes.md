@@ -2,233 +2,416 @@
 title: 作用域
 ---
 
-Koin 提供了一个简单的 API，让您可以定义绑定到有限生命周期的实例。
+# 作用域
 
-## 什么是作用域？
+作用域控制依赖项的生命周期。本指南介绍如何定义、创建和管理作用域。
 
-作用域（Scope）是对象存在的固定时间段或方法调用周期。
-另一种理解方式是将作用域视为对象状态持续的时间量。
-当作用域上下文结束时，在该作用域下绑定的任何对象都无法再次注入（它们会从容器中丢弃）。
+## 理解作用域
 
-## 作用域定义
+| 作用域类型 | 生命周期 | 示例 |
+|------------|-----------|---------|
+| **Single** (单例) | 应用存续期 | 数据库、ApiClient |
+| **Factory** | 每次请求 | Presenter、用例 |
+| **Scoped** | 每个作用域 | Activity 绑定、会话绑定 |
 
-默认情况下，在 Koin 中有 3 种作用域：
+## 何时使用作用域
 
-- `single` 定义：创建一个在整个容器生命周期内持续存在的对象（无法被丢弃）。
-- `factory` 定义：每次都创建一个新对象。生命周期短。在容器中不具有持久性（无法共享）。
-- `scoped` 定义：创建一个持续时间与关联的作用域生命周期绑定的对象。
+在以下情况下请使用作用域：
+- 实例的存续时间比 `factory` 长，但比单例短
+- 在特定上下文（Activity、Fragment、会话）中共享状态
+- 在上下文结束时自动进行清理
 
-要声明一个 `scoped` 定义，请按如下方式使用 `scoped` 函数。作用域将 `scoped` 定义收集为一个逻辑时间单元。
+## 定义作用域定义
 
-为给定类型声明作用域，我们需要使用 `scope` 关键字：
+### DSL
 
 ```kotlin
-module {
-    scope<MyType>{
-        scoped { Presenter() }
-        // ...
+val appModule = module {
+    // MyActivity 的作用域
+    scope<MyActivity> {
+        scoped<Presenter>()
+        scoped<Navigator>()
+    }
+
+    // 命名作用域
+    scope(named("session")) {
+        scoped<SessionData>()
+        scoped<UserPreferences>()
     }
 }
 ```
 
-### 作用域 ID 与作用域名称
+### 注解
 
-Koin 作用域由以下部分定义：
+| 注解 | DSL 等效项 | 用途 |
+|------------|----------------|---------|
+| `@Scope` | `scope<T> { }` | 指定类所属的作用域 |
+| `@Scoped` | `scoped<T>()` | 定义一个作用域绑定 |
 
-- 作用域名称 - 作用域的限定符
-- 作用域 ID - 作用域实例的唯一标识符
-
-:::note
- `scope<A> { }` 等同于 `scope(named<A>()){ } `，但编写起来更方便。注意，您还可以使用字符串限定符，例如：`scope(named("SCOPE_NAME")) { }`
-:::
-
-从 `Koin` 实例中，您可以访问：
-
-- `createScope(id : ScopeID, scopeName : Qualifier)` - 使用给定的 ID 和作用域名称创建一个封闭的作用域实例
-- `getScope(id : ScopeID)` - 检索之前创建的具有给定 ID 的作用域
-- `getOrCreateScope(id : ScopeID, scopeName : Qualifier)` - 创建或检索（如果已创建）具有给定 ID 和作用域名称的封闭作用域实例
-
-:::note
-默认情况下，在对象上调用 `createScope` 不会传递作用域的“源（source）”。您需要将其作为参数传递：`T.createScope(<source>)`
-:::
-
-### 作用域组件：将作用域关联到组件 [2.2.0]
-
-Koin 具有 `KoinScopeComponent` 的概念，以帮助将作用域实例引入其类中：
+一个作用域类需要同时具备 `@Scoped` 和 `@Scope`：
 
 ```kotlin
-class A : KoinScopeComponent {
-    override val scope: Scope by lazy { createScope(this) }
-}
+@Scope(MyActivityScope::class)
+@Scoped
+class Presenter(private val repository: UserRepository)
 
-class B
+@Scope(MyActivityScope::class)
+@Scoped
+class Navigator
 ```
 
-`KoinScopeComponent` 接口带来了几个扩展：
-- `createScope` 用于从当前组件的作用域 ID 和名称创建作用域
-- `get`、`inject` - 用于从作用域解析实例（等同于 `scope.get()` 和 `scope.inject()`）
-
-让我们为 A 定义一个作用域，以解析 B：
+或者对通用的 Android 作用域使用作用域原型注解（无需 `@Scoped`）：
 
 ```kotlin
-module {
-    scope<A> {
-        scoped { B() } // 绑定到 A 的作用域
+// ViewModel 作用域
+@ViewModelScope
+class UserCache
+
+// Activity 作用域
+@ActivityScope
+class ActivityPresenter
+
+@ActivityRetainedScope
+class RetainedPresenter
+
+// Fragment 作用域
+@FragmentScope
+class FragmentPresenter
+```
+
+## 创建和使用作用域
+
+### 手动作用域管理
+
+```kotlin
+// 创建一个作用域
+val myScope = getKoin().createScope("my_scope_id", named("session"))
+
+// 从作用域获取实例
+val sessionData: SessionData = myScope.get()
+val prefs: UserPreferences = myScope.get()
+
+// 完成后关闭
+myScope.close()
+```
+
+### Android Activity 作用域
+
+```kotlin
+class MyActivity : AppCompatActivity(), AndroidScopeComponent {
+    // 基于 Activity 生命周期自动创建和销毁作用域
+    override val scope: Scope by activityScope()
+
+    // 作用域实例 - 每个 Activity 实例创建一个
+    private val presenter: Presenter by inject()
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // 作用域会自动关闭
     }
 }
 ```
 
-得益于 `org.koin.core.scope` 的 `get` 和 `inject` 扩展，我们可以直接解析 `B` 的实例：
+### Android Fragment 作用域
 
 ```kotlin
-class A : KoinScopeComponent {
-    override val scope: Scope by lazy { newScope(this) }
+class MyFragment : Fragment(), AndroidScopeComponent {
+    // 基于 Fragment 生命周期自动创建和销毁作用域
+    override val scope: Scope by fragmentScope()
 
-    // 通过 inject 解析 B
-    val b : B by inject() // 从作用域注入
+    private val presenter: Presenter by inject()
+}
+```
 
-    // 解析 B
-    fun doSomething(){
-        val b = get<B>()
-    }
+## 作用域类型
 
-    fun close(){
-        scope.close() // 不要忘记关闭当前作用域
+### 基于类型的作用域
+
+```kotlin
+scope<MyActivity> {
+    scoped<ActivityPresenter>()
+}
+```
+
+该作用域由类型 `MyActivity` 标识。此作用域仅由 `MyActivity` 触发，而 `activityScope` 是通用的。
+
+### 命名作用域
+
+```kotlin
+scope(named("user_session")) {
+    scoped<SessionManager>()
+}
+```
+
+当作用域未绑定到特定类型时使用。
+
+### 基于限定符的作用域
+
+```kotlin
+scope(named<MyQualifier>()) {
+    scoped<ScopedService>()
+}
+```
+
+## 作用域原型
+
+Koin 为通用的 Android 作用域模式提供了专用的 DSL。这些原型简化了 ViewModel、Activity 和 Fragment 的作用域定义。
+
+### ViewModel 作用域
+
+定义绑定到 ViewModel 生命周期的依赖项：
+
+```kotlin
+val appModule = module {
+    viewModelScope {
+        scoped<UserCache>()
+        scoped<UserRepository>()
+        viewModel<UserViewModel>()
     }
 }
 ```
 
-### 在作用域内解析依赖项
-
-要使用作用域的 `get` 和 `inject` 函数解析依赖项：`val presenter = scope.get<Presenter>()` 
-
-作用域的意义在于为 `scoped` 定义指定一个共同的逻辑时间单元。它还允许从给定的作用域内解析定义
+ViewModel 会自动获得对其作用域依赖项的访问权限：
 
 ```kotlin
-// 给定以下类
-class ComponentA
-class ComponentB(val a : ComponentA)
+class UserViewModel(
+    private val cache: UserCache,      // 作用域绑定到此 ViewModel
+    private val repository: UserRepository
+) : ViewModel()
+```
 
-// 包含作用域的模块
-module {
-    
-    scope<A> {
-        scoped { ComponentA() }
-        // 将从当前作用域实例中解析
-        scoped { ComponentB(get()) }
+### Activity 作用域
+
+定义绑定到 Activity 生命周期的依赖项：
+
+```kotlin
+val appModule = module {
+    activityScope {
+        scoped<ActivityPresenter>()
+        scoped<ActivityNavigator>()
     }
 }
 ```
 
-随后，依赖解析就变得非常直接：
+### Fragment 作用域
+
+定义绑定到 Fragment 生命周期的依赖项：
 
 ```kotlin
-// 创建作用域
-val myScope = koin.createScope<A>()
-
-// 从同一个作用域获取
-val componentA = myScope.get<ComponentA>()
-val componentB = myScope.get<ComponentB>()
+val appModule = module {
+    fragmentScope {
+        scoped<FragmentPresenter>()
+    }
+}
 ```
+
+### 对比
+
+| 原型 | DSL | 注解 | 生命周期 |
+|-----------|-----|------------|-----------|
+| ViewModel | `viewModelScope { }` | `@ViewModelScope` | ViewModel 已清除 |
+| Activity | `activityScope { }` | `@ActivityScope` | Activity 已销毁 |
+| Activity Retained | `activityRetainedScope { }` | `@ActivityRetainedScope` | Activity 已完成 |
+| Fragment | `fragmentScope { }` | `@FragmentScope` | Fragment 已销毁 |
 
 :::info
- 默认情况下，如果在当前作用域中找不到定义，所有作用域都会回退到主作用域中进行解析
+作用域原型在 Koin 4.0+ 中可用。相比于为通用的 Android 组件手动定义 `scope<T> { }`，它们提供了更整洁的语法。
 :::
+
+## 作用域链接
+
+链接作用域以访问父作用域定义：
+
+```kotlin
+val appModule = module {
+    // Activity 作用域
+    scope<MainActivity> {
+        scoped<ActivityData>()
+    }
+
+    // 链接到 Activity 的 Fragment 作用域
+    scope<UserFragment> {
+        scoped<FragmentPresenter>()
+    }
+}
+```
+
+```kotlin
+class UserFragment : Fragment(), AndroidScopeComponent {
+    override val scope: Scope by fragmentScope()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // 链接到父 Activity 作用域
+        scope.linkTo((requireActivity() as AndroidScopeComponent).scope)
+
+        // 现在可以访问 Fragment 和 Activity 作用域下的实例
+        val fragmentPresenter: FragmentPresenter by inject()
+        val activityData: ActivityData by inject()  // 来自链接的作用域
+    }
+}
+```
+
+## 作用域源
+
+注入感知其所属作用域的依赖项：
+
+```kotlin
+class Presenter(
+    val scope: Scope  // 由 Koin 注入
+) {
+    fun clearScope() {
+        scope.close()
+    }
+}
+
+scope<MyActivity> {
+    scoped { Presenter(get()) }  // 注入作用域
+}
+```
+
+## 作用域实例 ID
+
+每个作用域实例都有一个唯一的 ID：
+
+```kotlin
+// 使用显式 ID 创建
+val scope1 = getKoin().createScope("scope_1", named("session"))
+val scope2 = getKoin().createScope("scope_2", named("session"))
+
+// 不同的实例，相同的作用域类型
+scope1.get<SessionData>() !== scope2.get<SessionData>()
+```
+
+## 访问作用域实例
+
+### 从作用域内部
+
+```kotlin
+class MyActivity : AppCompatActivity(), AndroidScopeComponent {
+    override val scope: Scope by activityScope()
+
+    // 直接注入作用域实例
+    private val presenter: Presenter by inject()
+}
+```
+
+### 从作用域外部
+
+```kotlin
+// 获取或创建作用域
+val myScope = getKoin().getOrCreateScope("my_id", named("session"))
+
+// 获取实例
+val session: SessionData = myScope.get()
+```
+
+### 在 Compose 中
+
+```kotlin
+@Composable
+fun MyScreen() {
+    // 创建绑定到 Composable 生命周期的作用域
+    val scope = rememberKoinScope(named("screen_scope"))
+
+    // 获取作用域实例
+    val presenter: ScreenPresenter = scope.get()
+}
+```
+
+## 作用域生命周期
 
 ### 关闭作用域
 
-一旦您完成了作用域实例的使用，只需使用 `close()` 函数将其关闭：
+当作用域关闭时：
+1. 所有作用域实例都会被释放
+2. `onClose` 回调被触发
+3. 作用域变得不可用
 
 ```kotlin
-// 从 KoinComponent 中
-val scope = getKoin().createScope<A>()
+val scope = getKoin().createScope("my_scope", named("session"))
 
-// 使用它...
+// 使用作用域
+val data: SessionData = scope.get()
 
-// 关闭它
-scope.close()
+// 完成后关闭
+scope.close()  // SessionData 实例已释放
+
+// 这将抛出异常
+// scope.get<SessionData>()  // 错误：作用域已关闭
 ```
 
-:::info
- 请注意，您无法再从已关闭的作用域中注入实例。
-:::
-
-### 获取作用域的源值
-
-Koin 2.1.4 中的作用域 API 允许您在定义中传递作用域的原始源。让我们看下面的例子。
-假设有一个单例实例 `A`：
+### onClose 回调
 
 ```kotlin
-class A
-class BofA(val a : A)
-
-module {
-    single { A() }
-    scope<A> {
-        scoped { BofA(getSource() /* 甚至可以 get() */) }
-
+scope(named("session")) {
+    scoped {
+        SessionData()
+    } onClose {
+        it?.cleanup()  // 当作用域关闭时调用
     }
 }
 ```
 
-通过创建 A 的作用域，我们可以将作用域源（A 实例）的引用转发给作用域的底层定义：`scoped { BofA(getSource()) }` 甚至 `scoped { BofA(get()) }`。
+## 常见模式
 
-这样做是为了避免级联参数注入，只需在 `scoped` 定义中直接检索我们的源值。
+### 会话作用域
 
 ```kotlin
-val a = koin.get<A>()
-val b = a.scope.get<BofA>()
-assertTrue(b.a == a)
+val appModule = module {
+    scope(named("user_session")) {
+        scoped { SessionManager() }
+        scoped { UserPreferences(get()) }
+        scoped { CartRepository(get()) }
+    }
+}
+
+// 登录
+fun onLogin(userId: String) {
+    val sessionScope = getKoin().createScope(userId, named("user_session"))
+    // 会话实例现在可用
+}
+
+// 登出
+fun onLogout(userId: String) {
+    getKoin().getScopeOrNull(userId)?.close()
+    // 会话实例已释放
+}
 ```
 
-:::note
- `getSource()` 和 `get()` 之间的区别：`getSource` 将直接获取源值。`get` 将尝试解析任何定义，并在可能的情况下回退到源值。因此，`getSource()` 在性能方面更高效。
-:::
-
-### 作用域链接
-
-Koin 2.1 中的作用域 API 允许您将一个作用域链接到另一个作用域，从而允许解析合并的定义空间。让我们看一个例子。
-这里我们定义了 2 个作用域空间：A 的作用域和 B 的作用域。在 A 的作用域中，我们无法访问 C（定义在 B 的作用域中）。
+### 功能作用域
 
 ```kotlin
-module {
-    single { A() }
-    scope<A> {
-        scoped { B() }
+val appModule = module {
+    scope(named("checkout")) {
+        scoped { CheckoutNavigator() }
+        scoped { CheckoutPresenter(get()) }
     }
-    scope<B> {
-        scoped { C() }
+}
+
+class CheckoutActivity : AppCompatActivity(), AndroidScopeComponent {
+    override val scope: Scope by lazy {
+        getKoin().createScope("checkout_${hashCode()}", named("checkout"))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        scope.close()
     }
 }
 ```
 
-通过作用域链接 API，我们可以允许直接从 A 的作用域解析 B 的作用域实例 C。为此，我们在作用域实例上使用 `linkTo()`：
+## 最佳做法
 
-```kotlin
-val a = koin.get<A>()
-// 让我们从 A 的作用域中获取 B
-val b = a.scope.get<B>()
-// 让我们将 A 的作用域链接到 B 的作用域
-a.scope.linkTo(b.scope)
-// 我们从 A 或 B 的作用域中得到了相同的 C 实例
-assertTrue(a.scope.get<C>() == b.scope.get<C>())
-```
+1. **谨慎使用单例** - 仅用于真正应用级的依赖项
+2. **对共享状态进行作用域限定** - 当多个组件需要同一个实例时
+3. **显式关闭作用域** - 不要依赖垃圾回收
+4. **保持作用域职责专注** - 不要把所有内容都放入一个作用域
+5. **使用 Android 作用域组件** - 以实现自动生命周期管理
 
-### 作用域原型
+## 后续步骤
 
-作用域“原型（Archetypes）”是针对泛型类的作用域空间。例如，您可以拥有 Android（Activity、Fragment、ViewModel）甚至 Ktor（RequestScope）的作用域原型。
-作用域原型是传递给不同 API 的 Koin `TypeQualifier`，用于请求给定类型的作用域空间。
-
-一个原型由以下部分组成：
-- 模块 DSL 扩展，用于为给定类型声明作用域：
-```kotlin
-// 为 ActivityScopeArchetype (TypeQualifier(AppCompatActivity::class) 声明作用域原型
-fun Module.activityScope(scopeSet: ScopeDSL.() -> Unit) {
-    val qualifier = ActivityScopeArchetype
-    ScopeDSL(qualifier, this).apply(scopeSet)
-}
-```
-- 一个请求具有给定特定作用域原型 `TypeQualifier` 的作用域的 API：
-```kotlin
-// 使用 ActivityScopeArchetype 原型创建作用域
-val scope = getKoin().createScope(getScopeId(), getScopeName(), this, ActivityScopeArchetype)
+- **[Android 版 Koin](/docs/integrations/android/android-scopes)** - Android 特定作用域
+- **[Compose 版 Koin](/docs/integrations/compose/compose-modules)** - Compose 中的作用域
+- **[最佳做法](/docs/best-practices/custom-scopes)** - 作用域模式

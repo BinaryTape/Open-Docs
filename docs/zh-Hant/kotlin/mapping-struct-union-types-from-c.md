@@ -81,7 +81,6 @@ void union_by_pointer(MyUnion* u) {}
     ```kotlin
     kotlin {
         macosArm64("native") {    // Apple 晶片的 macOS
-        // macosX64("native") {   // x86_64 平台上的 macOS
         // linuxArm64("native") { // ARM64 平台上的 Linux 
         // linuxX64("native") {   // x86_64 平台上的 Linux
         // mingwX64("native") {   // Windows 上
@@ -103,7 +102,6 @@ void union_by_pointer(MyUnion* u) {}
     ```groovy
     kotlin {
         macosArm64("native") {    // Apple 晶片的 macOS
-        // macosX64("native") {   // x86_64 平台上的 macOS
         // linuxArm64("native") { // ARM64 平台上的 Linux
         // linuxX64("native") {   // x86_64 平台上的 Linux
         // mingwX64("native") {   // Windows
@@ -135,7 +133,7 @@ void union_by_pointer(MyUnion* u) {}
 
 從技術上講，在 Kotlin 端，結構與聯合型別之間沒有區別。cinterop 工具會為結構與聯合的 C 宣告產生 Kotlin 型別。
 
-產生的 API 包含 `CValue<T>` 與 `CValuesRef<T>` 的完全限定封裝名稱，反映了它們在 `kotlinx.cinterop` 中的位置。`CValue<T>` 代表按值傳遞的結構參數，而 `CValuesRef<T>?` 則用於傳遞指向結構或聯合的指標。
+產生的 API 包含 `CValue<T>` 與 `CValuesRef<T>` 的完全限定套件名稱，反映了它們在 `kotlinx.cinterop` 中的位置。`CValue<T>` 代表按值傳遞的結構參數，而 `CValuesRef<T>?` 則用於傳遞指向結構或聯合的指標。
 
 ## 從 Kotlin 使用結構與聯合型別
 

@@ -26,7 +26,7 @@ fun main() {
 }
 ```
 
-<a href="https://docs.koog.ai/getting-started/"><img src="get-started-with-koog.svg" width="700" alt="Get started with Koog" style="block"/></a>
+<a href="https://docs.koog.ai/quickstart/"><img src="get-started-with-koog.svg" width="700" alt="Get started with Koog" style="block"/></a>
 
 ### 主要功能
 
@@ -35,7 +35,7 @@ fun main() {
 * **針對長內容內建歷史記錄壓縮技術**。Koog 隨附進階策略，無需額外設定即可壓縮並管理長時間運行的對話。
 * **企業級整合**。Koog 與熱門的 JVM 架構整合，例如 [Spring Boot](https://spring.io/projects/spring-boot) 和 [Ktor](https://ktor.io)。
 * **透過 OpenTelemetry 匯出器實現可觀察性**。Koog 提供與 W&B Weave 和 Langfuse 等熱門可觀察性供應商的即用型整合，用於監控與偵錯 AI 應用程式。
-* **LLM 切換與無縫的歷史記錄適應**。Koog 允許在任何時間點切換到具有新工具集的不同 LLM，且不會遺失現有的對話歷史記錄。它還支援在多個 LLM 供應商之間進行重新路由，包括 OpenAI、Anthropic、Google 等。您可以透過 Koog 與 Ollama 的整合，在本地使用本地模型運行代理人。
+* **LLM 切換與無縫的歷史記錄適應**。Koog 允許在任何時間點切換到具有新工具集的不同 LLM，且不會遺失現有的對話歷史記錄。它還支援在多個 LLM 供應商之間進行重新路由，包括 OpenAI、Anthropic、Google 等。您可以透過 Koog 與 Ollama 的整合，在本機使用本機模型執行代理人。
 * **與 JVM 和 Kotlin 應用程式整合**。Koog 為 JVM 與 Kotlin 開發人員提供了慣用的、類型安全的 DSL。
 * **Model Context Protocol (MCP) 整合**。Koog 支援在代理人中使用 MCP 工具。
 * **知識檢索與記憶**。透過嵌入 (embeddings)、分級文件存儲以及共享的代理人記憶，Koog 本身會在對話中主動保留知識。
@@ -44,8 +44,8 @@ fun main() {
 ### 從何處開始
 
 * 在 [總覽 (Overview)](https://docs.koog.ai/) 中探索 Koog 的功能。
-* 參考 [快速入門指南](https://docs.koog.ai/getting-started/) 建構您的第一個 Koog 代理人。
-* 在 [Koog 版本說明](https://github.com/JetBrains/koog/blob/main/CHANGELOG.md) 中查看最新更新。
+* 參考 [快速入門指南](https://docs.koog.ai/quickstart/) 建構您的第一個 Koog 代理人。
+* 在 [Koog 版本說明](https://github.com/JetBrains/koog/releases) 中查看最新更新。
 * 從 [範例](https://docs.koog.ai/examples/) 中學習。
 
 ## Model Context Protocol (MCP) Kotlin SDK

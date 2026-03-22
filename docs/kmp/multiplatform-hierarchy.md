@@ -202,7 +202,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 
 #### 修改源集
 
-**案例**。你已经拥有与模板生成的名称完全相同的源集，但在项目中共享于不同的目标集。例如，`nativeMain` 源集仅在特定于桌面的目标之间共享：`linuxX64`、`mingwX64` 和 `macosX64`。
+**案例**。你已经拥有与模板生成的名称完全相同的源集，但在项目中共享于不同的目标集。例如，`nativeMain` 源集仅在特定于桌面的目标之间共享：`linuxX64`、`mingwX64` 和 `macosArm64`。
 
 **解决方案**。目前无法修改模板源集之间默认的 `dependsOn` 关系。同样重要的是，源集（例如 `nativeMain`）的实现和含义在所有项目中都是相同的。
 
@@ -231,7 +231,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 
 你可以手动在源集结构中引入中间源。它将保存多个目标的共享代码。
 
-例如，如果你想在原生 Linux、Windows 和 macOS 目标（`linuxX64`、`mingwX64` 和 `macosX64`）之间共享代码，操作如下：
+例如，如果你想在原生 Linux、Windows 和 macOS 目标（`linuxX64`、`mingwX64` 和 `macosArm64`）之间共享代码，操作如下：
 
 1. 在共享模块的 `build.gradle(.kts)` 文件中，添加中间源集 `myDesktopMain`，它将保存这些目标的共享逻辑。
 2. 使用 `dependsOn` 关系设置源集层次结构。将 `commonMain` 与 `myDesktopMain` 连接，然后将 `myDesktopMain` 与每个目标源集连接：
@@ -243,7 +243,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
     kotlin {
         linuxX64()
         mingwX64()
-        macosX64()
+        macosArm64()
     
         sourceSets {
             val myDesktopMain by creating {
@@ -252,7 +252,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
     
             linuxX64Main.get().dependsOn(myDesktopMain)
             mingwX64Main.get().dependsOn(myDesktopMain)
-            macosX64Main.get().dependsOn(myDesktopMain)
+            macosArm64Main.get().dependsOn(myDesktopMain)
         }
     }
     ```
@@ -264,7 +264,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
     kotlin {
         linuxX64()
         mingwX64()
-        macosX64()
+        macosArm64()
     
         sourceSets {
             myDesktopMain {
@@ -276,7 +276,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
             mingwX64Main {
                 dependsOn(myDesktopMain)
             }
-            macosX64Main {
+            macosArm64Main {
                 dependsOn(myDesktopMain)
             }
         }

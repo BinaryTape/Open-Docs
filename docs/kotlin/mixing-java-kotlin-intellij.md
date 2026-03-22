@@ -1,12 +1,14 @@
 [//]: # (title: 将 Kotlin 添加到 Java 项目 – 教程)
 
+<web-summary>将 Kotlin 集成到现有 Java 项目中 — 配置 Maven 或 Gradle 构建文件、组织源文件，并在 IntelliJ IDEA 中将 Java 代码转换为 Kotlin。</web-summary>
+
 Kotlin 与 Java 完全互操作，因此您可以逐步将其引入现有的 Java 项目，而无需重写所有内容。
 
 在本教程中，您将学习如何：
 
-* 设置 Maven 或 Gradle 构建工具来编译 Java 和 Kotlin 代码。
-* 在项目目录中组织 Java 和 Kotlin 源文件。
-* 使用 IntelliJ IDEA 将 Java 文件转换为 Kotlin。
+*   设置 Maven 或 Gradle 构建工具来编译 Java 和 Kotlin 代码。
+*   在项目目录中组织 Java 和 Kotlin 源文件。
+*   使用 IntelliJ IDEA 将 Java 文件转换为 Kotlin。
 
 > 您可以使用任何现有的 Java 项目来学习本教程，也可以克隆我们已设置好 Maven 和 Gradle 构建文件的公开[示例项目](https://github.com/kotlin-hands-on/kotlin-junit-sample/tree/main/complete)。
 >
@@ -26,33 +28,34 @@ Kotlin 与 Java 完全互操作，因此您可以逐步将其引入现有的 Jav
 
 要在 Maven 项目中同时使用 Kotlin 和 Java，请应用 Kotlin Maven 插件并在您的 `pom.xml` 文件中添加 Kotlin 依赖项：
 
-1. 在 `<properties>` 部分，添加 Kotlin 版本属性：
+1.  在 `<properties>` 部分，添加 Kotlin 版本属性：
 
     ```xml
     ```
    {src="jvm-test-tutorial/pom.xml" ignore-vars="false" include-lines="13,17,18"}
 
-2. 在 `<dependencies>` 部分，将所需的依赖项添加到 `<plugins>` 部分：
+2.  在 `<dependencies>` 部分，将所需的依赖项添加到 `<plugins>` 部分：
 
     ```xml
     ```
-   {src="jvm-test-tutorial/pom.xml" include-lines="32,38-43,45-49,62"}
+   {src="jvm-test-tutorial/pom.xml" include-lines="32,38-43,45-49,55"}
 
-3. 在 `<build><plugins>` 部分，添加 Kotlin 插件：
+3.  在 `<build><plugins>` 部分，添加 Kotlin 插件：
 
     ```xml
     ```
-   {src="jvm-test-tutorial/pom.xml" include-lines="64-66,102-104,105-137"}
+   {src="jvm-test-tutorial/pom.xml" include-lines="57-58,95-96,99-107"}
 
-   在此配置中：
+   在 Kotlin Maven 插件中启用 `<extensions>true</extensions>` 有助于：
 
-    * `<extensions>true</extensions>` 让 Maven 将 Kotlin 插件集成到构建生命周期中。
-    * 自定义执行阶段允许 Kotlin 插件先编译 Kotlin，再编译 Java。
-    * Kotlin 和 Java 代码可以通过配置的 `sourceDirs` 目录相互引用。
-    * 在使用带扩展功能的 Kotlin Maven 插件时，您不需要在 `<build><pluginManagement>` 部分使用单独的 `maven-compiler-plugin`。
+    *   自动向项目添加 `kotlin-stdlib` 依赖项。
+    *   配置执行阶段以先编译 Kotlin，再编译 Java。
+    *   在 Java 代码中引用 Kotlin 代码，反之亦然。
 
-4. 在 IDE 中重新加载 Maven 项目。
-5. 运行测试以验证配置：
+   在使用带扩展功能的 Kotlin Maven 插件时，您不需要在 `<build><pluginManagement>` 部分使用单独的 `maven-compiler-plugin`。
+
+4.  在 IDE 中重新加载 Maven 项目。
+5.  运行测试以验证配置：
 
     ```bash
     ./mvnw clean test
@@ -62,7 +65,7 @@ Kotlin 与 Java 完全互操作，因此您可以逐步将其引入现有的 Jav
 
 要在 Gradle 项目中同时使用 Kotlin 和 Java，请应用 Kotlin JVM 插件并在您的 `build.gradle.kts` 文件中添加 Kotlin 依赖项：
 
-1. 在 `plugins {}` 块中，添加 Kotlin JVM 插件：
+1.  在 `plugins {}` 块中，添加 Kotlin JVM 插件：
 
     ```kotlin
     plugins {
@@ -71,7 +74,7 @@ Kotlin 与 Java 完全互操作，因此您可以逐步将其引入现有的 Jav
     }
     ```
 
-2. 设置 JVM 工具链版本以匹配您的 Java 版本：
+2.  设置 JVM 工具链版本以匹配您的 Java 版本：
 
     ```kotlin
     kotlin {
@@ -79,9 +82,9 @@ Kotlin 与 Java 完全互操作，因此您可以逐步将其引入现有的 Jav
     }
     ```
 
-   这确保了 Kotlin 使用与 Java 代码相同的 JDK 版本。
+    这确保了 Kotlin 使用与 Java 代码相同的 JDK 版本。
 
-3. 在 `dependencies {}` 块中，添加 `kotlin("test")` 库，该库提供 Kotlin 测试工具并与 JUnit 集成：
+3.  在 `dependencies {}` 块中，添加 `kotlin("test")` 库，该库提供 Kotlin 测试工具并与 JUnit 集成：
 
     ```kotlin
     dependencies {
@@ -92,8 +95,8 @@ Kotlin 与 Java 完全互操作，因此您可以逐步将其引入现有的 Jav
     }
     ```
 
-4. 在 IDE 中重新加载 Gradle 项目。
-5. 运行您的测试以验证配置：
+4.  在 IDE 中重新加载 Gradle 项目。
+5.  运行您的测试以验证配置：
 
     ```bash
     ./gradlew clean test

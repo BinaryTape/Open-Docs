@@ -8,7 +8,7 @@
 > 
 {style="tip"}
 
-从 2.2.0 版本开始，Kotlin Gradle 插件支持二进制兼容性验证。启用后，它会从当前代码生成应用二进制接口 (ABI) 转储，并将其与之前的转储进行比较以突出显示差异。您可以审阅这些更改以发现任何潜在的二进制不兼容修改，并采取措施解决它们。
+Kotlin Gradle 插件支持二进制兼容性验证。启用后，它会从当前代码生成应用二进制接口 (ABI) 转储，并将其与之前的转储进行比较以突出显示差异。您可以审阅这些更改以发现任何潜在的二进制不兼容修改，并采取措施解决它们。
 
 ## 如何启用
 
@@ -45,20 +45,22 @@ kotlin {
 
 ## 检查二进制兼容性问题
 
-在对代码进行更改后，要检查潜在的二进制不兼容问题，请在 IntelliJ IDEA 中运行 `checkLegacyAbi` Gradle 任务，或在项目目录中使用以下命令：
+在对代码进行更改后，要检查潜在的二进制不兼容问题，请在 IntelliJ IDEA 中运行 `checkKotlinAbi` Gradle 任务，或在项目目录中使用以下命令：
 
 ```bash
-./gradlew checkLegacyAbi
+./gradlew checkKotlinAbi
 ```
 
 该任务会比较 ABI 转储并将检测到的任何差异作为错误打印出来。请仔细检查输出，以确定是否需要更改代码以保持二进制兼容性。
 
+默认情况下，[当项目中启用了二进制兼容性验证](#如何启用) 并且您运行 `check` 任务时，Gradle 也会运行 `checkKotlinAbi` 任务。
+
 ## 更新参考 ABI 转储
 
-要更新 Gradle 用于检查最新更改的参考 ABI 转储，请在 IntelliJ IDEA 中运行 `updateLegacyAbi` 任务，或在项目目录中使用以下命令：
+要更新 Gradle 用于检查最新更改的参考 ABI 转储，请在 IntelliJ IDEA 中运行 `updateKotlinAbi` 任务，或在项目目录中使用以下命令：
 
 ```bash
-./gradlew updateLegacyAbi
+./gradlew updateKotlinAbi
 ```
 
 请仅在确信您的更改与之前版本保持了二进制兼容性时才更新参考转储。
@@ -176,4 +178,4 @@ kotlin {
 </tab>
 </tabs>
 
-如果某个目标不受支持且推断功能已禁用，则 `checkLegacyAbi` 任务会失败，因为它无法生成完整的 ABI 转储。如果您宁愿任务失败也不愿冒错过二进制不兼容更改的风险，那么这种行为可能会很有用。
+如果某个目标不受支持且推断功能已禁用，则 `checkKotlinAbi` 任务会失败，因为它无法生成完整的 ABI 转储。如果您宁愿任务失败也不愿冒错过二进制不兼容更改的风险，那么这种行为可能会很有用。

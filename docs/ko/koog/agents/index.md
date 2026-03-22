@@ -9,7 +9,7 @@ Koog 에이전트는 다음과 같은 핵심 개념을 중심으로 구축됩니
 - [프롬프트 실행기(prompt executor)](../prompts/prompt-executors.md)는 프롬프트를 관리하고 실행하여 에이전트가 추론 및 의사 결정을 위해 LLM과 상호작용할 수 있도록 합니다.
 - [전략(strategy)](../nodes-and-components.md)은 에이전트의 워크플로를 정의합니다. 유향 그래프(directed graph), 함수 또는 플래너 형태가 될 수 있습니다. [에이전트 유형](#agent-types)을 참조하세요.
 - 에이전트는 외부 데이터 소스 및 서비스와 상호작용하기 위해 [도구](../tools-overview.md)를 사용할 수 있습니다.
-- [기능(features)](../features-overview.md)을 사용하여 AI 에이전트의 기능을 확장하고 강화할 수 있습니다.
+- [기능(features)](../features/index.md)을 사용하여 AI 에이전트의 기능을 확장하고 강화할 수 있습니다.
 
 !!! tip
 
@@ -34,52 +34,110 @@ Koog 에이전트는 다음과 같은 핵심 개념을 중심으로 구축됩니
 
 단순한 에이전트의 경우, 필수적인 프롬프트 실행기와 언어 모델 외에도 초기 시스템 프롬프트 및 기타 일부 파라미터를 에이전트 생성자에서 직접 지정할 수 있습니다:
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
--->
-```kotlin
-val agent = AIAgent(
-    promptExecutor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
-    llmModel = OpenAIModels.Chat.GPT4o,
-    systemPrompt = "You are a helpful assistant.",
-    temperature = 0.7,
-    maxIterations = 10
-)
-```
-<!--- KNIT example-agent-config-01.kt -->
+=== "Kotlin"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    -->
+    ```kotlin
+    val agent = AIAgent(
+        promptExecutor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
+        llmModel = OpenAIModels.Chat.GPT4o,
+        systemPrompt = "You are a helpful assistant.",
+        temperature = 0.7,
+        maxIterations = 10
+    )
+    ```
+    <!--- KNIT example-agent-config-01.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    AIAgent<String, String> agent = AIAgent.builder()
+        .promptExecutor(simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")))
+        .llmModel(OpenAIModels.Chat.GPT4o)
+        .systemPrompt("You are a helpful assistant.")
+        .temperature(0.7)
+        .maxIterations(10)
+        .build();
+    ```
+    <!--- KNIT example-agent-config-java-01.java -->
 
 또는, [`AIAgentConfig`](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.config/-a-i-agent-config/index.html)의 인스턴스를 생성하여 에이전트의 동작과 파라미터를 더 세밀하게 정의한 다음 에이전트 생성자에 전달할 수 있습니다. 이를 통해 여러 메시지가 포함된 복잡한 프롬프트, 대화 기록, LLM 파라미터 및 추가 실행 파라미터를 정의할 수 있습니다.
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.agent.config.AIAgentConfig
-import ai.koog.prompt.dsl.prompt
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import ai.koog.prompt.params.LLMParams
--->
-```kotlin
-val agentConfig = AIAgentConfig(
-    prompt = prompt(
-        id = "assistant",
-        params = LLMParams(
-            temperature = 0.7
-        )
-    ) {
-        system("You are a helpful assistant.")
-    },
-    model = OpenAIModels.Chat.GPT4o,
-    maxAgentIterations = 10
-)
+=== "Kotlin"
 
-val agent = AIAgent(
-    promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
-    agentConfig = agentConfig
-)
-```
-<!--- KNIT example-agent-config-02.kt -->
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.agents.core.agent.config.AIAgentConfig
+    import ai.koog.prompt.dsl.prompt
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    import ai.koog.prompt.params.LLMParams
+    -->
+    ```kotlin
+    val agentConfig = AIAgentConfig(
+        prompt = prompt(
+            id = "assistant",
+            params = LLMParams(
+                temperature = 0.7
+            )
+        ) {
+            system("You are a helpful assistant.")
+        },
+        model = OpenAIModels.Chat.GPT4o,
+        maxAgentIterations = 10
+    )
+
+    val agent = AIAgent(
+        promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
+        agentConfig = agentConfig
+    )
+    ```
+    <!--- KNIT example-agent-config-02.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    Prompt prompt = Prompt.builder("assistant")
+        .system("You are a helpful assistant.")
+        .build()
+        .withParams(new LLMParams(
+            0.7,         // temperature
+            null,        // maxTokens
+            1,           // numberOfChoices
+            null,        // speculation
+            null,        // schema
+            LLMParams.ToolChoice.Auto.INSTANCE, // toolChoice
+            null,        // user
+            null         // additionalProperties
+        ));
+
+    AIAgentConfig agentConfig = AIAgentConfig.builder(OpenAIModels.Chat.GPT4o)
+        .prompt(prompt)
+        .maxAgentIterations(10)
+        .build();
+
+    AIAgent<String, String> agent = AIAgent.builder()
+        .promptExecutor(simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")))
+        .agentConfig(agentConfig)
+        .build();
+    ```
+    <!--- KNIT example-agent-config-java-02.java -->
 
 `AIAgentConfig`의 파라미터는 다음과 같습니다:
 

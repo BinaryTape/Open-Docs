@@ -284,7 +284,7 @@ fun main(input: Rho) {
         // unknownObject 的类型是 Tau。调用 sigma() 函数 
         // 会抛出编译时错误。
         
-        // 在 Kotlin 2.0.0 中，编译器知道 unknownObject 的类型是
+        // 在 Kotlin 2.0.0 中，编译器 know unknownObject 的类型是
         // Sigma，因此调用 tau() 函数会抛出编译时 
         // 错误。
         unknownObject.tau()
@@ -441,7 +441,7 @@ fun whichFun(x: Int) = println("platform function")
 
 #### 预期声明和实际声明的不同可见性级别
 
-在 Kotlin 2.0.0 之前，如果您在 Kotlin Multiplatform 项目中使用[预期和实际声明](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)，它们必须具有相同的[可见性级别](visibility-modifiers.md)。Kotlin 2.0.0 现在也支持不同的可见性级别，但**仅当**实际声明比预期声明更具包容性（more permissive）时。例如：
+在 Kotlin 2.0.0 之前，如果您在 Kotlin Multiplatform 项目中使用[预期和实际声明](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)，它们必须具有相同的[可见性级别](visibility-modifiers.md)。Kotlin 2.0.0 现在也支持不同的可见性级别，但**仅当**实际声明比预期声明更具包容性 (more permissive) 时。例如：
 
 ```kotlin
 expect internal class Attribute // 可见性为 internal
@@ -630,15 +630,15 @@ fun execute(func: (Node<Int>) -> Unit) {}
 // 模块 3
 fun test() {
     // 在 Kotlin 2.0.0 中触发错误，因为隐式 
-    // lambda 参数 (it) 的类型解析为 Node，它是不可访问的
+    // lambda 形参 (it) 的类型解析为 Node，它是不可访问的
     execute {}
 
     // 在 Kotlin 2.0.0 中触发错误，因为未使用的 
-    // lambda 参数 (_) 的类型解析为 Node，它是不可访问的
+    // lambda 形参 (_) 的类型解析为 Node，它是不可访问的
     execute { _ -> }
 
     // 在 Kotlin 2.0.0 中触发错误，因为未使用的
-    // 匿名函数参数 (_) 的类型解析为 Node，它是不可访问的
+    // 匿名函数形参 (_) 的类型解析为 Node，它是不可访问的
     execute(fun (_) {})
 }
 ```
@@ -711,7 +711,7 @@ class IntNode(val value: Int)
 ```kotlin
 // 模块 2
 // 一个包含带有 `IntNode` 类型的 lambda 
-// 参数的函数
+// 形参的函数
 fun execute(func: (IntNode) -> Unit) {}
 
 class Container<C>(vararg val content: C)
@@ -968,8 +968,8 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-59138](https://youtrack.jetbrains.com/issue/KT-59138) | 更改 Kotlin 中基于 Java 类型形参的类型的默认表示形式 |
 | [KT-57178](https://youtrack.jetbrains.com/issue/KT-57178) | 将前缀自增的推断类型更改为 Getter 的返回值类型，而不是 inc() 运算符的返回值类型 |
 | [KT-57609](https://youtrack.jetbrains.com/issue/KT-57609) | K2：停止针对逆变参数依赖 @UnsafeVariance 的存在 |
-| [KT-57620](https://youtrack.jetbrains.com/issue/KT-57620) | K2：禁止对原生类型的包含成员进行解析 |
-| [KT-64641](https://youtrack.jetbrains.com/issue/KT-64641) | K2：正确推断带有扩展函数形参的可调用对象的可callable引用类型 |
+| [KT-57620](https://youtrack.jetbrains.com/issue/KT-57620) | K2：禁止在扩展类型中解析为归并成员 |
+| [KT-64641](https://youtrack.jetbrains.com/issue/KT-64641) | K2：正确推断带有扩展函数形参的可调用对象的可调用引用类型 |
 | [KT-57011](https://youtrack.jetbrains.com/issue/KT-57011) | 使析构变量的实际类型与指定的显式类型保持一致 |
 | [KT-38895](https://youtrack.jetbrains.com/issue/KT-38895) | K2：修复整数文字溢出的不一致行为 |
 | [KT-54862](https://youtrack.jetbrains.com/issue/KT-54862) | 匿名类型可以从类型实参的匿名函数中暴露出来 |
@@ -990,7 +990,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-61718](https://youtrack.jetbrains.com/issue/KT-61718) | 禁止使用具有自身上界和捕获类型的不合理代码 |
 | [KT-61749](https://youtrack.jetbrains.com/issue/KT-61749) | 禁止泛型外部类的泛型内部类中不合理的边界冲突 |
 | [KT-62923](https://youtrack.jetbrains.com/issue/KT-62923) | K2：为内部类的外部超类型的投影引入 PROJECTION_IN_IMMEDIATE_ARGUMENT_TO_SUPERTYPE |
-| [KT-63243](https://youtrack.jetbrains.com/issue/KT-63243) | 当继承自带有来自另一个超类型的额外专用实现的基元集合时，报告 MANY_IMPL_MEMBER_NOT_IMPLEMENTED |
+| [KT-63243](https://youtrack.jetbrains.com/issue/KT-63243) | 当继承自带有来自另一个超类型的额外专用实现的原生集合时，报告 MANY_IMPL_MEMBER_NOT_IMPLEMENTED |
 | [KT-60305](https://youtrack.jetbrains.com/issue/KT-60305) | K2：禁止在扩展类型中具有变体修饰符的类型别名上进行构造函数调用和继承 |
 | [KT-64965](https://youtrack.jetbrains.com/issue/KT-64965) | 修复由对具有自身上界的捕获类型处理不当导致的类型漏洞 |
 | [KT-64966](https://youtrack.jetbrains.com/issue/KT-64966) | 禁止对泛型形参使用错误类型的泛型委托构造函数调用 |
@@ -1047,7 +1047,7 @@ actual open class PlatformFileSystem : FileSystem {
 |------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
 | [KT-54521](https://youtrack.jetbrains.com/issue/KT-54521)* | [弃用在 Java 中注解为 Nullable 的数组类型的不安全用法](#improved-null-safety-for-java-primitive-arrays) |
 | [KT-41034](https://youtrack.jetbrains.com/issue/KT-41034) | K2：更改安全调用和约定运算符组合的求值语义 |
-| [KT-50850](https://youtrack.jetbrains.com/issue/KT-50850) | 超类型的顺序定义了继承函数的为 null 性参数 |
+| [KT-50850](https://youtrack.jetbrains.com/issue/KT-50850) | 超类型的顺序定义了继承函数的为 null 性形参 |
 | [KT-53982](https://youtrack.jetbrains.com/issue/KT-53982) | 在公共签名中近似局部类型时保持为 null 性 |
 | [KT-62998](https://youtrack.jetbrains.com/issue/KT-62998) | 禁止将可为 null 的值分配给非 null Java 字段作为不安全赋值的选择器 |
 | [KT-63209](https://youtrack.jetbrains.com/issue/KT-63209) | 针对警告级别 Java 类型的错误级别可为 null 的实参报告遗漏的错误 |
@@ -1059,7 +1059,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-53061](https://youtrack.jetbrains.com/issue/KT-53061) | 禁止源代码中具有相同 FQ 名称的 Java 和 Kotlin 类 |
 | [KT-49882](https://youtrack.jetbrains.com/issue/KT-49882) | 继承自 Java 集合的类根据超类型的顺序具有不一致的行为 |
 | [KT-66324](https://youtrack.jetbrains.com/issue/KT-66324) | K2：Java 类继承自 Kotlin 私有类时的未指定行为 |
-| [KT-66220](https://youtrack.jetbrains.com/issue/KT-66220) | 将 Java 可变参数方法传递给内联函数会导致运行时的数组之数组，而不仅仅是数组 |
+| [KT-66220](https://youtrack.jetbrains.com/issue/KT-66220) | 将 Java 可变实参方法传递给内联函数会导致运行时的数组之数组，而不仅仅是数组 |
 | [KT-66204](https://youtrack.jetbrains.com/issue/KT-66204) | 允许在 K-J-K 层次结构中重写内部成员 |
 
 #### 属性 {initial-collapse-state="collapsed" collapsible="true"}
@@ -1077,7 +1077,7 @@ actual open class PlatformFileSystem : FileSystem {
 | 问题 ID | 标题 |
 |-----------------------------------------------------------|--------------------------------------------------------------------------------------------|
 | [KT-56408](https://youtrack.jetbrains.com/issue/KT-56408) | K1 和 K2 之间类初始化块中 CFA 规则不一致 |
-| [KT-57871](https://youtrack.jetbrains.com/issue/KT-57871) | K1/K2 对括号中没有 else 分支的 if 条件语句的不一致 |
+| [KT-57871](https://youtrack.jetbrains.com/issue/KT-57871) | K1/K2 对圆括号中没有 else 分支的 if 条件语句的不一致 |
 | [KT-42995](https://youtrack.jetbrains.com/issue/KT-42995) | 在具有作用域函数初始化的 try/catch 块中误报 "VAL_REASSIGNMENT" |
 | [KT-65724](https://youtrack.jetbrains.com/issue/KT-65724) | 将数据流信息从 try 块传递到 catch 和 finally 块 |
 
@@ -1096,7 +1096,7 @@ actual open class PlatformFileSystem : FileSystem {
 |-----------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
 | [KT-52628](https://youtrack.jetbrains.com/issue/KT-52628) | 弃用在没有注解的情况下需要 OptIn 的 SAM 构造函数用法 |
 | [KT-57014](https://youtrack.jetbrains.com/issue/KT-57014) | 禁止从 JDK 函数接口的 SAM 构造函数的 lambda 返回具有不正确为 null 性的值 |
-| [KT-64342](https://youtrack.jetbrains.com/issue/KT-64342) | 可callable引用的形参类型的 SAM 转换会导致 CCE |
+| [KT-64342](https://youtrack.jetbrains.com/issue/KT-64342) | 可调用引用的形参类型的 SAM 转换会导致 CCE |
 
 #### 伴生对象 {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -1115,7 +1115,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-62019](https://youtrack.jetbrains.com/issue/KT-62019)  | [LC 问题] 禁止在语句位置使用带有 suspend 标记的匿名函数声明 |
 | [KT-55111](https://youtrack.jetbrains.com/issue/KT-55111)  | OptIn：禁止在标记下进行具有默认实参（具有默认值的形参）的构造函数调用 |
 | [KT-61182](https://youtrack.jetbrains.com/issue/KT-61182)  | 意外地允许 Unit 转换用于变量上的表达式 + 调用解析 |
-| [KT-55199](https://youtrack.jetbrains.com/issue/KT-55199)  | 禁止将带有自适应的可callable引用提升为 KFunction |
+| [KT-55199](https://youtrack.jetbrains.com/issue/KT-55199)  | 禁止将带有自适应的可调用引用提升为 KFunction |
 | [KT-65776](https://youtrack.jetbrains.com/issue/KT-65776)  | [LC] K2 破坏了 `false && ...` 和 `false || ...` |
 | [KT-65682](https://youtrack.jetbrains.com/issue/KT-65682)  | [LC] 弃用 `header`/`impl` 关键字 |
 | [KT-45375](https://youtrack.jetbrains.com/issue/KT-45375)  | 默认通过 invokedynamic + LambdaMetafactory 生成所有 Kotlin lambda |
@@ -1176,7 +1176,7 @@ actual open class PlatformFileSystem : FileSystem {
 
 #### 后端和前端编译器插件
 
-如果您的插件使用与前端相关的扩展点，则需要使用新的 K2 编译器 API 重写该插件。有关新 API 的介绍，请参阅 [FIR 插件 API](https://github.com/JetBrains/kotlin/blob/master/FIR/fir-plugins.md)。
+如果您的插件使用与前端相关的扩展点，则需要使用新的 K2 编译器 API 重写该插件。有关新 API 的介绍，请参阅 [FIR 插件 API](https://github.com/JetBrains/kotlin/blob/master/docs/fir/fir-plugins.md)。
 
 > 如果您对升级自定义编译器插件有疑问，请加入我们的 [#compiler](https://kotlinlang.slack.com/archives/C7L3JB43G) Slack 频道，我们将尽力为您提供帮助。
 >

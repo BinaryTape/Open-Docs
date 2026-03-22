@@ -47,7 +47,7 @@
 
 **目標：** `CLASS`, `FUNCTION`
 
-**說明：** 在 Koin 中將類別或函式宣告為 `single` (singleton) 定義。會在整個應用程式中建立並共用單一個執行個體。
+**說明：** 在 Koin 中將型別或函式宣告為 `single` (singleton) 定義。會在整個應用程式中建立並共用單一個執行個體。
 
 **參數：**
 - `binds: Array<KClass<*>> = [Unit::class]` - 要繫結至此定義的明確型別。系統會自動偵測父型別。
@@ -67,7 +67,7 @@ class MyClass(val d : MyDependency)
 single { MyClass(get()) }
 ```
 
-**使用明確繫結：**
+**搭配明確繫結：**
 ```kotlin
 @Single(binds = [MyInterface::class])
 class MyClass(val d : MyDependency) : MyInterface
@@ -87,7 +87,7 @@ class MyClass(val d : MyDependency)
 
 **目標：** `CLASS`, `FUNCTION`
 
-**說明：** 在 Koin 中將類別或函式宣告為 `factory` 定義。每次請求時都會建立一個新的執行個體。
+**說明：** 在 Koin 中將型別或函式宣告為 `factory` 定義。每次請求時都會建立一個新的執行個體。
 
 **參數：**
 - `binds: Array<KClass<*>> = [Unit::class]` - 要繫結至此定義的明確型別。系統會自動偵測父型別。
@@ -114,7 +114,7 @@ factory { MyClass(get()) }
 
 **目標：** `CLASS`, `FUNCTION`
 
-**說明：** 在 Koin 中將類別或函式宣告為 `scoped` 定義。必須與 `@Scope` 註解關聯。執行個體會在特定的作用域（scope）內共用。
+**說明：** 在 Koin 中將型別或函式宣告為 `scoped` 定義。必須與 `@Scope` 註解關聯。執行個體會在特定的作用域（scope）內共用。
 
 **參數：**
 - `binds: Array<KClass<*>> = [Unit::class]` - 要繫結至此定義的明確型別。系統會自動偵測父型別。
@@ -337,7 +337,7 @@ class MyClass(@ScopeId(MyScope::class) val d : MyDependency)
 
 **目標：** `CLASS`, `FUNCTION`
 
-**說明：** Koin 定義的 ViewModel 註解。在 Koin 中將類別或函式宣告為 `viewModel` 定義。
+**說明：** Koin 定義的 ViewModel 註解。在 Koin 中將型別或函式宣告為 `viewModel` 定義。
 
 **平台支援：**
 - ✅ Android
@@ -588,13 +588,13 @@ class MyModule {
 **行為：**
 掃描指定的套件以尋找標註的類別。支援精確的套件名稱和萬用字元模式。
 
-**萬用字元模式（Glob Pattern）支援：**
+**萬用字元模式 (Glob Pattern) 支援：**
 
 1. **精確套件名稱（無萬用字元）：**
    - `com.example.service` - 掃描套件及其所有子套件（相當於 `com.example**`）
 
 2. **包含根目錄的多層級掃描：**
-   - `com.example**` - 掃描 `com.example` 及其所有子套件
+   - `com.example**` - 掃描 `com.example` 和所有子套件
 
 3. **不包含根目錄的多層級掃描：**
    - `com.example.**` - 僅掃描 `com.example` 的子套件，不包含根目錄
@@ -656,7 +656,7 @@ class MyModule
 ```
 此模組在 "prod" 和 "test" 配置中皆可用。
 
-**包含預設配置：**
+**搭配預設配置：**
 ```kotlin
 @Module
 @Configuration("default", "test")
@@ -714,7 +714,7 @@ class MyApp
 ```kotlin
 MyApp.startKoin {
     printLogger()
-    // 其他配置
+    // 額外配置
 }
 ```
 
@@ -769,7 +769,7 @@ class UserService(private val userRepository: UserRepository) {
 
 **目標：** `CLASS`, `FIELD`, `FUNCTION`
 
-**說明：** 內部用於在產生的軟件包中進行元件探索。
+**說明：** 內部用於在產生的套件中進行元件探索。
 
 **參數：**
 - `value: String = ""` - 宣告定義的套件
@@ -834,7 +834,7 @@ class UserService(private val userRepository: UserRepository) {
 
 **狀態：** 已棄用 - ERROR 級別
 
-**替代方案：** 改用 `koin-jsr330` 軟件包中的 `@Singleton`
+**替代方案：** 改用 `koin-jsr330` 套件中的 `@Singleton`
 
 **說明：** 與 `@Single` 相同，但為了符合 JSR-330 標準而棄用。
 
@@ -868,5 +868,5 @@ class UserService(private val userRepository: UserRepository) {
 ---
 
 **文件版本：** 1.0
-**最後更新：** 2025-10-20
+**最後更新：** 20-10-2025
 **Koin Annotations 版本：** 2.2.x+

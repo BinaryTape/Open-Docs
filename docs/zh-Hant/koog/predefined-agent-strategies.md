@@ -30,6 +30,7 @@ Koog 中的 Chat agent 策略是透過 `chatAgentStrategy` 函式實作的。若
 ```
 ai.koog.agents.ext.agent.chatAgentStrategy
 ```
+<!--- KNIT example-predefined-strategies-01.txt -->
 
 若要使用該策略，請按照以下模式建立 AI agent：
 
@@ -135,7 +136,7 @@ Koog 中的 ReAct 策略是透過 `reActStrategy` 函式實作的。若要在您
 ```
 ai.koog.agents.ext.agent.reActStrategy
 ```
-<!--- KNIT example-predefined-strategies-03.kt -->
+<!--- KNIT example-predefined-strategies-02.txt -->
 
 若要使用該策略，請按照以下模式建立 AI agent：
 
@@ -164,7 +165,7 @@ val reActAgent = AIAgent(
     )
 )
 ```
-<!--- KNIT example-predefined-strategies-04.kt -->
+<!--- KNIT example-predefined-strategies-03.kt -->
 
 ### 參數
 
@@ -193,6 +194,7 @@ I need to follow these steps:
 2. Filter out deposits (positive amounts)
 3. Calculate total spending
 ```
+<!--- KNIT example-predefined-strategies-03.txt -->
 
 #### 3. 行動與執行，第一階段
 
@@ -203,6 +205,7 @@ I need to follow these steps:
 ```text
 {tool: "get_transactions", args: {startDate: "2025-05-19", endDate: "2025-06-18"}}
 ```
+<!--- KNIT example-predefined-strategies-04.txt -->
 
 工具傳回的結果可能如下所示：
 
@@ -214,6 +217,7 @@ I need to follow these steps:
   {date: "2025-06-13", amount: -200.00, description: "Utilities"}
 ]
 ```
+<!--- KNIT example-predefined-strategies-05.txt -->
 
 #### 4. 推理
 
@@ -224,6 +228,7 @@ I have the transactions. Now I need to:
 1. Remove the salary deposit of +1000.00
 2. Sum up the remaining transactions
 ```
+<!--- KNIT example-predefined-strategies-06.txt -->
 
 #### 5. 行動與執行，第二階段
 
@@ -232,12 +237,14 @@ I have the transactions. Now I need to:
 ```text
 {tool: "calculate_sum", args: {amounts: [-100.00, -500.00, -200.00]}}
 ```
+<!--- KNIT example-predefined-strategies-07.txt -->
 
 工具傳回最終結果：
 
 ```text
 -800.00
 ```
+<!--- KNIT example-predefined-strategies-08.txt -->
 
 #### 6. 最終回應
 
@@ -246,6 +253,7 @@ agent 傳回包含計算總和的最終回應（助理訊息）：
 ```text
 You spent $800.00 last month on groceries, rent, and utilities.
 ```
+<!--- KNIT example-predefined-strategies-09.txt -->
 
 ### 何時使用 ReAct 策略
 
@@ -300,4 +308,4 @@ suspend fun main() {
     val result = bankingAgent.run("How much did I spend last month?")
 }
 ```
-<!--- KNIT example-predefined-strategies-05.kt -->
+<!--- KNIT example-predefined-strategies-04.kt -->

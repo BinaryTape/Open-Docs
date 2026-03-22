@@ -73,12 +73,12 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td><a href="native-objc-interop.md#explicit-parameter-names-in-objective-c-block-types"><code>objcExportBlockExplicitParameterNames</code></a></td>
         <td>
             <list>
-                <li><code>true (기본값)</code></li>
-                <li><code>false</code></li>
+                <li><code>true</code></li>
+                <li><code>false (기본값)</code></li>
             </list>
         </td>
         <td>내보낸 Objective-C 헤더의 함수 타입에 명시적인 파라미터 이름을 추가합니다.</td>
-        <td>2.3.0부터 기본값</td>
+        <td>2.2.20부터 실험적(Experimental)</td>
     </tr>
     <tr>
         <td><a href="whatsnew2220.md#smaller-binary-size-for-release-binaries"><code>smallBinary</code></a></td>
@@ -264,6 +264,68 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         </td>
         <td>1.6.20부터 실험적(Experimental)</td>
     </tr>
+    <!-- <tr>
+        <td><code>objcExportReportNameCollisions</code></td>
+        <td>
+            <list>
+                <li><code>true</code></li>
+                <li><code>false</code> (기본값)</li>
+            </list>
+        </td>
+        <td>활성화되면 Objective-C 내보내기 중 이름 충돌이 발생하는 경우 경고를 보고합니다.</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><code>objcExportErrorOnNameCollisions</code></td>
+        <td>
+            <list>
+                <li><code>true</code></li>
+                <li><code>false</code> (기본값)</li>
+            </list>
+        </td>
+        <td><code>true</code>인 경우 Objective-C 내보내기 중 이름 충돌이 발생하는 경우 에러를 발생시킵니다.</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><code>debugCompilationDir</code></td>
+        <td><code>String</code></td>
+        <td>컴파일된 바이너리의 디버그 정보에 사용할 디렉터리 경로를 지정합니다.</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><code>fixedBlockPageSize</code></td>
+        <td><code>UInt</code></td>
+        <td>메모리 할당자에서 고정 메모리 블록의 페이지 크기를 제어합니다. 메모리 할당 성능과 파편화에 영향을 줍니다.</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><code>gcMutatorsCooperate</code></td>
+        <td>
+            <list>
+                <li><code>true</code></li>
+                <li><code>false</code> (기본값)</li>
+            </list>
+        </td>
+        <td>뮤테이터(mutator) 스레드와 가비지 컬렉터 간의 협력을 제어합니다.</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><code>auxGCThreads</code></td>
+        <td><code>UInt</code></td>
+        <td>가비지 컬렉션에 사용할 보조 스레드 수를 지정합니다.</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><code>sanitizer</code></td>
+        <td>
+            <list>
+                <li><code>address</code></li>
+                <li><code>thread</code></li>
+            </list>
+        </td>
+        <td>메모리 오류, 데이터 레이스(data race), 정의되지 않은 동작(undefined behavior)과 같은 다양한 문제를 감지하기 위한 런타임 새니타이저(sanitizer)를 활성화합니다.</td>
+        <td>실험적(Experimental)</td>
+    </tr> -->
 </table>
 
 > 안정성 수준에 대한 자세한 내용은 [문서](components-stability.md#stability-levels-explained)를 참조하세요.

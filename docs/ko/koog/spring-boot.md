@@ -11,20 +11,36 @@ Koog는 자동 구성(auto-configuration) 스타터를 통해 원활한 Spring B
 - Google
 - OpenRouter
 - DeepSeek
+- Mistral
 - Ollama
 
 ## 시작하기
 
 ### 1. 의존성 추가
 
-`build.gradle.kts` 또는 `pom.xml`에 Koog Spring Boot 스타터와 [Ktor Client Engine](https://ktor.io/docs/client-engines.html#jvm)을 추가합니다:
+Gradle 빌드 설정에 Koog Spring Boot 스타터를 추가합니다:
 
 ```kotlin
 dependencies {
     implementation("ai.koog:koog-spring-boot-starter:$koogVersion")
-    implementation("io.ktor:ktor-client-okhttp-jvm:$ktorVersion")
 }
 ```
+<!--- KNIT example-spring-boot-01.txt -->
+
+또는 Maven의 경우:
+```xml
+<dependency>
+    <groupId>ai.koog</groupId>
+    <artifactId>koog-spring-boot-starter</artifactId>
+    <version>$koogVersion</version>
+</dependency>
+```
+<!--- KNIT example-spring-boot-02.txt -->
+
+사용 중인 Kotlin 또는 Java 프로젝트가 다음 요구 사항을 충족하는지 확인하세요:
+- Spring Boot 3 (Java 17 이상 필요)
+- Kotlin 버전 2.3.10+
+- kotlinx-serialization 버전 1.10.0 (구체적으로 kotlinx-serialization-core-jvm 및 kotlinx-serialization-json-jvm)
 
 ### 2. 제공자 설정
 
@@ -51,10 +67,15 @@ ai.koog.openrouter.base-url=https://openrouter.ai
 ai.koog.deepseek.enabled=true
 ai.koog.deepseek.api-key=${DEEPSEEK_API_KEY}
 ai.koog.deepseek.base-url=https://api.deepseek.com
+# Mistral 설정
+ai.koog.mistral.enabled=true
+ai.koog.mistral.api-key=${MISTRALAI_API_KEY}
+ai.koog.mistral.base-url=https://api.mistral.ai
 # Ollama 설정 (로컬 - API 키 불필요)
 ai.koog.ollama.enabled=true
-ai.koog.ollama.base-url=http://localhost:11434
+ai.koog.ollama.base-url=http://127.0.0.1:11434
 ```
+<!--- KNIT example-spring-boot-03.txt -->
 
 또는 YAML 형식(`application.yml`)을 사용합니다:
 
@@ -81,10 +102,15 @@ ai:
             enabled: true
             api-key: ${DEEPSEEK_API_KEY}
             base-url: https://api.deepseek.com
+        mistral:
+            enabled: true
+            api-key: ${MISTRALAI_API_KEY}
+            base-url: https://api.mistral.ai
         ollama:
             enabled: true # 활성화하려면 명시적으로 `true`로 설정해야 합니다 !!!
-            base-url: http://localhost:11434
+            base-url: http://127.0.0.1:11434
 ```
+<!--- KNIT example-spring-boot-04.txt -->
 
 `ai.koog.PROVIDER.api-key`와 `ai.koog.PROVIDER.enabled` 속성은 모두 제공자를 활성화하는 데 사용됩니다.
 
@@ -95,6 +121,7 @@ Ollama와 같이 제공자가 API 키를 지원하지 않는 경우, `ai.koog.PR
 제공자의 기본 URL은 Spring Boot 스타터에 기본값으로 설정되어 있지만, 애플리케이션에서 이를 재정의할 수 있습니다.
 
 !!! tip "환경 변수"
+
     API 키를 안전하게 보호하고 버전 관리 시스템에 노출되지 않도록 환경 변수를 사용하는 것이 좋습니다.
     Spring 설정은 LLM 제공자의 잘 알려진 환경 변수를 사용합니다.
     예를 들어, 환경 변수 `OPENAI_API_KEY`를 설정하는 것만으로도 OpenAI Spring 설정이 활성화되기에 충분합니다.
@@ -106,158 +133,221 @@ Ollama와 같이 제공자가 API 키를 지원하지 않는 경우, `ai.koog.PR
 | Google       | `GOOGLE_API_KEY`      |
 | OpenRouter   | `OPENROUTER_API_KEY`  |
 | DeepSeek     | `DEEPSEEK_API_KEY`    |
+| Mistral      | `MISTRALAI_API_KEY`   |
 
-### 3. 주입 및 사용
+### 3. 프로젝트에서 사용하기
 
-자동 구성된 실행기(executor)를 서비스에 주입합니다:
+다음은 Spring MVC RestController에서 자동 구성된 실행기(executor)를 사용하는 예시입니다. 다음 사항들이 필요합니다:
+- spring-boot-starter-web 의존성
+- Kotlin의 경우 kotlinx-coroutines-core 및 kotlinx-coroutines-reactor 의존성 추가 필요 (Java 버전은 블로킹 `execute` 메서드를 호출함)
+- 속성을 통해 Anthropic 활성화 (ai.koog.anthropic.enabled=true)
 
-```kotlin
-@Service
-class AIService(
-    private val openAIExecutor: MultiLLMPromptExecutor?,
-    private val anthropicExecutor: MultiLLMPromptExecutor?
-) {
+=== "Kotlin"
 
-    suspend fun generateResponse(input: String): String {
-        val prompt = prompt {
-            system("You are a helpful AI assistant")
-            user(input)
-        }
+    ```kotlin
+    import ai.koog.prompt.dsl.prompt
+    import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
+    import ai.koog.prompt.executor.model.PromptExecutor
+    import org.springframework.http.ResponseEntity
+    import org.springframework.web.bind.annotation.PostMapping
+    import org.springframework.web.bind.annotation.RequestBody
+    import org.springframework.web.bind.annotation.RequestMapping
+    import org.springframework.web.bind.annotation.RestController
 
-        return when {
-            openAIExecutor != null -> {
-                val result = openAIExecutor.execute(prompt)
-                result.text
-            }
-            anthropicExecutor != null -> {
-                val result = anthropicExecutor.execute(prompt)
-                result.text
-            }
-            else -> throw IllegalStateException("No LLM provider configured")
-        }
-    }
-}
-```
+    @RestController
+    @RequestMapping("/api/chat")
+    class ChatController(private val anthropicExecutor: PromptExecutor) {
 
-## 고급 사용법
-
-### REST 컨트롤러 예시
-
-자동 구성된 실행기를 사용하여 채팅 엔드포인트를 생성합니다:
-
-```kotlin
-@RestController
-@RequestMapping("/api/chat")
-class ChatController(
-    private val anthropicExecutor: MultiLLMPromptExecutor?
-) {
-
-    @PostMapping
-    suspend fun chat(@RequestBody request: ChatRequest): ResponseEntity<ChatResponse> {
-        return if (anthropicExecutor != null) {
-            try {
-                val prompt = prompt {
+        @PostMapping
+        suspend fun chat(@RequestBody request: ChatRequest): ResponseEntity<ChatResponse> {
+            return try {
+                val prompt = prompt("chat") {
                     system("You are a helpful assistant")
                     user(request.message)
                 }
 
-                val result = anthropicExecutor.execute(prompt)
-                ResponseEntity.ok(ChatResponse(result.text))
+                val result = anthropicExecutor.execute(prompt, AnthropicModels.Haiku_4_5)
+                ResponseEntity.ok(ChatResponse(result.first().content))
             } catch (e: Exception) {
-                ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                ResponseEntity.internalServerError()
                     .body(ChatResponse("Error processing request"))
             }
-        } else {
-            ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
-                .body(ChatResponse("AI service not configured"))
         }
     }
-}
 
-data class ChatRequest(val message: String)
-data class ChatResponse(val response: String)
-```
+    data class ChatRequest(val message: String)
+    data class ChatResponse(val response: String)
+    ```
+    <!--- KNIT example-spring-boot-kotlin-01.txt -->
 
-### 다중 제공자 지원
+=== "Java"
 
-폴백(fallback) 로직을 사용하여 여러 제공자를 처리합니다:
+    ```java
+    import ai.koog.prompt.dsl.Prompt;
+    import ai.koog.prompt.executor.clients.anthropic.AnthropicModels;
+    import ai.koog.prompt.executor.model.PromptExecutor;
+    import ai.koog.prompt.message.Message;
+    import org.springframework.http.ResponseEntity;
+    import org.springframework.web.bind.annotation.PostMapping;
+    import org.springframework.web.bind.annotation.RequestBody;
+    import org.springframework.web.bind.annotation.RequestMapping;
+    import org.springframework.web.bind.annotation.RestController;
 
-```kotlin
-@Service
-class RobustAIService(
-    private val openAIExecutor: MultiLLMPromptExecutor?,
-    private val anthropicExecutor: MultiLLMPromptExecutor?,
-    private val openRouterExecutor: MultiLLMPromptExecutor?
-) {
+    import java.util.List;
 
-    suspend fun generateWithFallback(input: String): String {
-        val prompt = prompt {
-            system("You are a helpful AI assistant")
-            user(input)
+    @RestController
+    @RequestMapping("/api/chat")
+    public class ChatController {
+        private final PromptExecutor anthropicExecutor;
+
+        public ChatController(PromptExecutor anthropicExecutor) {
+            this.anthropicExecutor = anthropicExecutor;
         }
 
-        val executors = listOfNotNull(openAIExecutor, anthropicExecutor, openRouterExecutor)
-
-        for (executor in executors) {
+        @PostMapping
+        public ResponseEntity<ChatResponse> chat(@RequestBody ChatRequest request) {
             try {
-                val result = executor.execute(prompt)
-                return result.text
-            } catch (e: Exception) {
-                logger.warn("Executor failed, trying next: ${e.message}")
-                continue
+                Prompt prompt = Prompt.builder("chat")
+                        .system("You are a helpful assistant")
+                        .user(request.message())
+                        .build();
+
+                List<Message.Response> result = anthropicExecutor.execute(prompt, AnthropicModels.Haiku_4_5);
+                return ResponseEntity.ok(new ChatResponse(result.get(0).getContent()));
+            } catch (Exception e) {
+                return ResponseEntity.internalServerError()
+                        .body(new ChatResponse("Error processing request"));
             }
         }
-
-        throw IllegalStateException("All AI providers failed")
     }
 
-    companion object {
-        private val logger = LoggerFactory.getLogger(RobustAIService::class.java)
+    record ChatRequest(String message) {
     }
-}
-```
 
-### 구성 속성(Configuration Properties)
+    record ChatResponse(String response) {
+    }
+    ```
+    <!--- KNIT example-spring-boot-java-01.txt -->
 
-사용자 정의 로직을 위해 구성 속성을 주입할 수도 있습니다:
+Spring Framework는 빈 이름(`anthropicExecutor`)을 통해 Anthropic용 실행기를 주입했지만, `@Qualifier` 어노테이션을 사용하여 여러 개의 `PromptExecutor` 빈을 주입할 수도 있습니다 (아래 "중복 빈 오류" 섹션 참조).
 
-```kotlin
-@Service
-class ConfigurableAIService(
-    private val openAIExecutor: MultiLLMPromptExecutor?,
-    @Value("\${ai.koog.openai.api-key:}") private val openAIKey: String
-) {
+## 고급 사용법
+### LLM 제공자 폴백(Fallback)
 
-    fun isOpenAIConfigured(): Boolean = openAIKey.isNotBlank() && openAIExecutor != null
+여러 LLM 제공자를 구성한 후, `MultiLLMPromptExecutor`를 통해 여러 LLM에 요청을 보낼 수 있습니다:
 
-    suspend fun processIfConfigured(input: String): String? {
-        return if (isOpenAIConfigured()) {
-            val result = openAIExecutor!!.execute(prompt { user(input) })
-            result.text
-        } else {
-            null
+=== "Kotlin"
+
+    ```kotlin
+    import ai.koog.prompt.dsl.prompt
+    import ai.koog.prompt.executor.clients.anthropic.AnthropicModels.Haiku_4_5
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels.Chat.GPT4oMini
+    import ai.koog.prompt.executor.clients.openrouter.OpenRouterModels.Claude3Haiku
+    import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
+    import org.slf4j.Logger
+    import org.slf4j.LoggerFactory
+    import org.springframework.stereotype.Service
+
+    @Service
+    class RobustAIService(private val multiLLMPromptExecutor: MultiLLMPromptExecutor) {
+
+        private val llms = listOf(GPT4oMini, Haiku_4_5, Claude3Haiku)
+
+        suspend fun generateWithFallback(input: String): String {
+            val prompt = prompt("robust") {
+                system("You are a helpful AI assistant")
+                user(input)
+            }
+
+            for (llm in llms) {
+                try {
+                    val result = multiLLMPromptExecutor.execute(prompt, llm)
+                    return result.first().content
+                } catch (e: Exception) {
+                    logger.warn("{} executor failed, trying next: {}", llm.id, e.message)
+                }
+            }
+
+            throw IllegalStateException("All AI providers failed")
+        }
+
+        companion object {
+            private val logger = LoggerFactory.getLogger(RobustAIService::class.java)
         }
     }
-}
-```
+    ```
+    <!--- KNIT example-spring-boot-kotlin-02.txt -->
+
+=== "Java"
+
+    ```java
+    import ai.koog.prompt.dsl.Prompt;
+    import ai.koog.prompt.executor.clients.anthropic.AnthropicModels;
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels;
+    import ai.koog.prompt.executor.clients.openrouter.OpenRouterModels;
+    import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor;
+    import ai.koog.prompt.llm.LLModel;
+    import ai.koog.prompt.message.Message;
+    import org.slf4j.Logger;
+    import org.slf4j.LoggerFactory;
+    import org.springframework.stereotype.Service;
+
+    import java.util.List;
+
+    @Service
+    public class RobustAIService {
+        private static final Logger logger = LoggerFactory.getLogger(RobustAIService.class);
+
+        private final List<LLModel> llms = List.of(OpenAIModels.Chat.GPT4oMini, AnthropicModels.Haiku_4_5, OpenRouterModels.Claude3Haiku);
+
+        private final MultiLLMPromptExecutor multiLLMPromptExecutor;
+
+        public RobustAIService(MultiLLMPromptExecutor multiLLMPromptExecutor) {
+            this.multiLLMPromptExecutor = multiLLMPromptExecutor;
+        }
+
+        public String generateWithFallback(String input) {
+            Prompt prompt = Prompt.builder("robust")
+                .system("You are a helpful AI assistant")
+                .user(input)
+                .build();
+
+            for (LLModel llm : llms) {
+                try {
+                    List<Message.Response> result = multiLLMPromptExecutor.execute(prompt, llm);
+                    return result.get(0).getContent();
+                } catch (Exception e) {
+                    logger.warn("{} executor failed, trying next: {}", llm.getId(), e.getMessage());
+                }
+            }
+
+            throw new IllegalStateException("All AI providers failed");
+        }
+    }
+    ```
+    <!--- KNIT example-spring-boot-java-02.txt -->
+
+사용자 정의 `MultiLLMPromptExecutor` 빈을 직접 등록하고 `FallbackPromptExecutorSettings`를 전달할 수도 있습니다. 자동 구성을 재정의하려면 직접 만든 빈에 `@Primary` 어노테이션을 사용하면 됩니다.
 
 ## 구성 참조
 
 ### 사용 가능한 속성
 
 | 속성 | 설명 | 빈 조건 | 기본값 |
-|-------------------------------|---------------------|-----------------------------------------------------------------|---------------------------------------------|
-| `ai.koog.openai.api-key`      | OpenAI API 키      | `openAIExecutor` 빈을 위해 필수                              | -                                           |
-| `ai.koog.openai.base-url`     | OpenAI 기본 URL     | 선택 사항                                                        | `https://api.openai.com`                    |
-| `ai.koog.anthropic.api-key`   | Anthropic API 키   | `anthropicExecutor` 빈을 위해 필수                           | -                                           |
-| `ai.koog.anthropic.base-url`  | Anthropic 기본 URL  | 선택 사항                                                        | `https://api.anthropic.com`                 |
-| `ai.koog.google.api-key`      | Google API 키      | `googleExecutor` 빈을 위해 필수                              | -                                           |
-| `ai.koog.google.base-url`     | Google 기본 URL     | 선택 사항                                                        | `https://generativelanguage.googleapis.com` |
-| `ai.koog.openrouter.api-key`  | OpenRouter API 키  | `openRouterExecutor` 빈을 위해 필수                          | -                                           |
-| `ai.koog.openrouter.base-url` | OpenRouter 기본 URL | 선택 사항                                                        | `https://openrouter.ai`                     |
-| `ai.koog.deepseek.api-key`    | DeepSeek API 키    | `deepSeekExecutor` 빈을 위해 필수                            | -                                           |
-| `ai.koog.deepseek.base-url`   | DeepSeek 기본 URL   | 선택 사항                                                        | `https://api.deepseek.com`                  |
-| `ai.koog.ollama.base-url`     | Ollama 기본 URL     | 임의의 `ai.koog.ollama.*` 속성이 `ollamaExecutor` 빈을 활성화함 | `http://localhost:11434`                    |
+|-------------------------------|---------------------|----------------------------------------|---------------------------------------------|
+| `ai.koog.openai.api-key`      | OpenAI API 키      | `openAIExecutor` 빈을 위해 필수       | -                                           |
+| `ai.koog.openai.base-url`     | OpenAI 기본 URL     | 선택 사항                               | `https://api.openai.com`                    |
+| `ai.koog.anthropic.api-key`   | Anthropic API 키   | `anthropicExecutor` 빈을 위해 필수    | -                                           |
+| `ai.koog.anthropic.base-url`  | Anthropic 기본 URL  | 선택 사항                               | `https://api.anthropic.com`                 |
+| `ai.koog.google.api-key`      | Google API 키      | `googleExecutor` 빈을 위해 필수       | -                                           |
+| `ai.koog.google.base-url`     | Google 기본 URL     | 선택 사항                               | `https://generativelanguage.googleapis.com` |
+| `ai.koog.openrouter.api-key`  | OpenRouter API 키  | `openRouterExecutor` 빈을 위해 필수   | -                                           |
+| `ai.koog.openrouter.base-url` | OpenRouter 기본 URL | 선택 사항                               | `https://openrouter.ai`                     |
+| `ai.koog.deepseek.api-key`    | DeepSeek API 키    | `deepSeekExecutor` 빈을 위해 필수     | -                                           |
+| `ai.koog.deepseek.base-url`   | DeepSeek 기본 URL   | 선택 사항                               | `https://api.deepseek.com`                  |
+| `ai.koog.mistral.api-key`     | Mistral API 키     | `mistralAIExecutor` 빈을 위해 필수    | -                                           |
+| `ai.koog.mistral.base-url`    | Mistral 기본 URL    | 선택 사항                               | `https://api.mistral.ai`                    |
+| `ai.koog.ollama.base-url`     | Ollama 기본 URL     | 선택 사항                               | `http://127.0.0.1:11434`                    |
 
 ### 빈(Bean) 이름
 
@@ -268,50 +358,61 @@ class ConfigurableAIService(
 - `googleExecutor` - Google 실행기 (`ai.koog.google.api-key` 필요)
 - `openRouterExecutor` - OpenRouter 실행기 (`ai.koog.openrouter.api-key` 필요)
 - `deepSeekExecutor` - DeepSeek 실행기 (`ai.koog.deepseek.api-key` 필요)
-- `ollamaExecutor` - Ollama 실행기 (임의의 `ai.koog.ollama.*` 속성 필요)
+- `mistralAIExecutor` - Mistral AI 실행기 (`ai.koog.mistral.api-key` 필요)
+- `ollamaExecutor` - Ollama 실행기 (`ai.koog.ollama.enabled=true` 필요)
+- `multiLLMPromptExecutor` - MultiLLMPromptExecutor
 
 ## 문제 해결
 
 ### 일반적인 문제
 
-**빈을 찾을 수 없음 오류(Bean not found error):**
-
-```
-No qualifying bean of type 'MultiLLMPromptExecutor' available
-```
+**오류: No qualifying bean of type 'PromptExecutor' available**
 
 **해결 방법:** 속성 파일에 하나 이상의 제공자가 설정되어 있는지 확인하세요.
 
-**중복 빈 오류(Multiple beans error):**
-
-```
-Multiple qualifying beans of type 'MultiLLMPromptExecutor' available
-```
+**오류: Multiple qualifying beans of type 'PromptExecutor' available**
 
 **해결 방법:** `@Qualifier`를 사용하여 원하는 빈을 명시하세요:
 
-```kotlin
-@Service
-class MyService(
-    @Qualifier("openAIExecutor") private val openAIExecutor: MultiLLMPromptExecutor,
-    @Qualifier("anthropicExecutor") private val anthropicExecutor: MultiLLMPromptExecutor
-) {
-    // ...
-}
-```
+=== "Kotlin"
 
-**API 키 로드되지 않음:**
+    ```kotlin
+    @Service
+    class MyService(
+        @Qualifier("openAIExecutor") private val openAIExecutor: PromptExecutor,
+        @Qualifier("anthropicExecutor") private val anthropicExecutor: PromptExecutor
+    ) {
+        // ...
+    }
+    ```
+    <!--- KNIT example-spring-boot-kotlin-03.txt -->
 
-```
-API key is required but not provided
-```
+=== "Java"
+
+    ```java
+    @Service
+    public class MyService {
+        private final PromptExecutor openAIExecutor;
+        private final PromptExecutor anthropicExecutor;
+
+        public MyService(@Qualifier("openAIExecutor") PromptExecutor openAIExecutor,
+                         @Qualifier("anthropicExecutor") PromptExecutor anthropicExecutor) {
+            this.openAIExecutor = openAIExecutor;
+            this.anthropicExecutor = anthropicExecutor;
+        }
+        // ...
+    }
+    ```
+    <!--- KNIT example-spring-boot-java-03.txt -->
+
+**오류: API key is required but not provided**
 
 **해결 방법:** 환경 변수가 제대로 설정되었고 Spring Boot 애플리케이션에서 접근 가능한지 확인하세요.
 
 ## 권장 사항
 
 1. **환경 변수**: API 키에는 항상 환경 변수를 사용하세요.
-2. **Nullable 주입**: 제공자가 설정되지 않은 경우를 처리하려면 Nullable 타입(`MultiLLMPromptExecutor?`)을 사용하세요.
+2. **Nullable 주입**: 제공자가 설정되지 않은 경우를 처리하려면 Nullable 타입을 사용하세요.
 3. **폴백 로직**: 여러 제공자를 사용할 때는 폴백 메커니즘을 구현하세요.
 4. **예외 처리**: 프로덕션 코드에서는 항상 실행기 호출을 try-catch 블록으로 감싸세요.
 5. **테스트**: 실제 API 호출을 피하기 위해 테스트에서는 모의 객체(mock)를 사용하세요.

@@ -29,7 +29,7 @@ aside: false
         <misc>
             <cards narrow="false">
                 <title>注目のトピック</title>
-                <a href="whatsnew23.md" summary="新しい実験的機能および安定した機能、パフォーマンスの向上、バグ修正">Kotlin 2.3.0 の新機能</a>
+                <a href="whatsnew2320.md" summary="新しい実験的機能および安定した機能、パフォーマンスの向上、バグ修正">Kotlin 2.3.20 の新機能</a>
                 <a href="releases.md" summary="Kotlin のリリースサイクルと履歴について学びます">Kotlin のリリースプロセス</a>
                 <a href="https://kotlinlang.org/api/latest/jvm/stdlib/" summary="IO、ファイル、スレッド、コレクションなど、Kotlin を使用した日常業務に不可欠な要素">標準ライブラリ API リファレンス</a>
                 <a href="types-overview.md" summary="Kotlin の型システム：数値、文字列、配列、その他の組み込み型">型の概要</a>

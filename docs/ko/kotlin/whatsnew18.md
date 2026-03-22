@@ -4,7 +4,7 @@
 
 _[릴리스 날짜: 2022년 12월 28일](releases.md#release-history)_
 
-Kotlin 1.8.0이 출시되었습니다. 주요 주요 기능은 다음과 같습니다:
+Kotlin 1.8.0이 출시되었습니다. 주요 하이라이트는 다음과 같습니다:
 
 * [JVM을 위한 새로운 실험적 함수: 디렉토리 콘텐츠 재귀 복사 또는 삭제](#recursive-copying-or-deletion-of-directories)
 * [kotlin-reflect 성능 향상](#improved-kotlin-reflect-performance)

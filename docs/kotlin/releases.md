@@ -4,7 +4,7 @@
 
 <tldr>
     <p>最新 Kotlin 版本：<strong>%kotlinVersion%</strong></p>
-    <p>参见 <a href="%kotlinLatestWhatsnew%">Kotlin 2.3.0 最新变化</a>，并在 <a href="%kotlinLatestUrl%">变更日志</a> 中查看缺陷修复详情。</p>
+    <p>参见 <a href="%kotlinLatestWhatsnew%">Kotlin 2.3.20 最新变化</a><!-- 并可在 <a href="%kotlinLatestUrl%">变更日志</a> 中查看缺陷修复详情。--></p>
 </tldr>
 
 本页面说明了 Kotlin 的发布周期以及我们交付的不同发布类型。其中还包括有关过去和未来 Kotlin 发布的信息，以及如何更新至特定发布的说明。
@@ -29,8 +29,8 @@
 
 以下是即将发布的稳定版 Kotlin 的大致时间表：
 
-* **2.3.20**：计划于 2026 年 3 月至 4 月
 * **2.4.0**：计划于 2026 年 6 月至 7 月
+* **2.4.20**：计划于 2026 年 9 月
 
 ## 更新至新的 Kotlin 版本
 
@@ -129,12 +129,22 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
         <th>构建亮点</th>
     </tr>
     <tr>
+        <td><strong>2.3.20</strong>
+            <p>发布日期：<strong>2026 年 3 月 16 日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20" target="_blank">GitHub 上的发布</a></p>
+        </td>
+        <td>
+            <p>一个工具发布，包含性能改进、缺陷修复和工具更新。</p>
+            <p>欲了解更多详情，请参考 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20">变更日志</a>。</p>
+        </td>
+    </tr>
+    <tr>
         <td><strong>2.3.10</strong>
             <p>发布日期：<strong>2026 年 2 月 5 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.10" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 2.3.0 的缺陷修复发布，包含性能改进以及针对 <code>kotlinx.serialization</code> 罕见 <a href="https://youtrack.jetbrains.com/issue/KT-83984">竞态条件</a> 的重要修复。</p>
+            <p>针对 Kotlin 2.3.0 的缺陷修复发布，包含性能改进以及针对 <code>kotlinx.serialization</code> 罕见 <a href="https://youtrack.jetbrains.com/issue/KT-83984">竞态条件</a> 的重大修复。</p>
             <p>欲了解更多详情，请参考 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.10">变更日志</a>。</p>
         </td>
     </tr>
@@ -164,7 +174,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.20" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 2.2.0 的工具发布，包含 Web 开发的重要变更和其他改进。</p>
+            <p>针对 Kotlin 2.2.0 的工具发布，包含 Web 开发的重要变更和其他改进。</p>
             <p>在 <a href="whatsnew2220.md" target="_blank">Kotlin 2.2.20 最新变化</a> 中了解更多关于 Kotlin 2.2.20 的信息。</p>
         </td>
     </tr>
@@ -174,7 +184,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.10" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 2.2.0 的缺陷修复发布。</p>
+            <p>针对 Kotlin 2.2.0 的缺陷修复发布。</p>
             <p>欲了解更多详情，请参考 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.2.10">变更日志</a>。</p>
         </td>
     </tr>
@@ -194,7 +204,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.21" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 2.1.20 的缺陷修复发布。</p>
+            <p>针对 Kotlin 2.1.20 的缺陷修复发布。</p>
             <p>欲了解更多详情，请参考 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.21">变更日志</a>。</p>
         </td>
     </tr> 
@@ -204,7 +214,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.20" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-           <p>Kotlin 2.1.0 的工具发布，包含新的实验性功能、性能改进和缺陷修复。</p>
+           <p>针对 Kotlin 2.1.0 的工具发布，包含新的实验性功能、性能改进和缺陷修复。</p>
             <p>在 <a href="whatsnew2120.md" target="_blank">Kotlin 2.1.20 最新变化</a> 中了解更多关于 Kotlin 2.1.20 的信息。</p>
         </td>
     </tr>
@@ -214,7 +224,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.10" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 2.1.0 的缺陷修复发布。</p>
+            <p>针对 Kotlin 2.1.0 的缺陷修复发布。</p>
             <p>欲了解更多详情，请参考 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.10">变更日志</a>。</p>
         </td>
     </tr>
@@ -224,7 +234,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.0" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>引入新语言功能的语言发布。</p>
+            <p>引入新语言功能的功能发布。</p>
             <p>在 <a href="whatsnew21.md" target="_blank">Kotlin 2.1.0 最新变化</a> 中了解更多关于 Kotlin 2.1.0 的信息。</p>
         </td>
     </tr>
@@ -234,7 +244,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.0.21" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 2.0.20 的缺陷修复发布。</p>
+            <p>针对 Kotlin 2.0.20 的缺陷修复发布。</p>
             <p>欲了解更多详情，请参考 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.0.21">变更日志</a>。</p>
         </td>
     </tr>
@@ -244,7 +254,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.0.20" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-           <p>Kotlin 2.0.0 的工具发布，包含性能改进和缺陷修复。功能还包括 Kotlin/Native 垃圾回收器中的并发标记、Kotlin 通用标准库中的 UUID 支持、Compose 编译器更新以及对最高 Gradle 8.8 的支持。
+           <p>针对 Kotlin 2.0.0 的工具发布，包含性能改进和缺陷修复。功能还包括 Kotlin/Native 垃圾回收器中的并发标记、Kotlin 通用标准库中的 UUID 支持、Compose 编译器更新以及对最高 Gradle 8.8 的支持。
             </p>
             <p>在 <a href="whatsnew2020.md" target="_blank">Kotlin 2.0.20 最新变化</a> 中了解更多关于 Kotlin 2.0.20 的信息。</p>
         </td>
@@ -255,7 +265,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.0.10" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 2.0.0 的缺陷修复发布。</p>
+            <p>针对 Kotlin 2.0.0 的缺陷修复发布。</p>
             <p>在 <a href="whatsnew20.md" target="_blank">Kotlin 2.0.0 最新变化</a> 中了解更多关于 Kotlin 2.0.0 的信息。</p>
         </td>
     </tr>
@@ -275,7 +285,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.25" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 1.9.20、1.9.21、1.9.22、1.9.23 和 1.9.24 的缺陷修复发布。</p>
+            <p>针对 Kotlin 1.9.20、1.9.21、1.9.22、1.9.23 和 1.9.24 的缺陷修复发布。</p>
             <p>在 <a href="whatsnew1920.md" target="_blank">Kotlin 1.9.20 最新变化</a> 中了解更多关于 Kotlin 1.9.20 的信息。</p>
         </td>
     </tr>
@@ -285,7 +295,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.24" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 1.9.20、1.9.21、1.9.22 和 1.9.23 的缺陷修复发布。</p>
+            <p>针对 Kotlin 1.9.20、1.9.21、1.9.22 和 1.9.23 的缺陷修复发布。</p>
             <p>在 <a href="whatsnew1920.md" target="_blank">Kotlin 1.9.20 最新变化</a> 中了解更多关于 Kotlin 1.9.20 的信息。</p>
         </td>
     </tr>
@@ -295,7 +305,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.23" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 1.9.20、1.9.21 和 1.9.22 的缺陷修复发布。</p>
+            <p>针对 Kotlin 1.9.20、1.9.21 和 1.9.22 的缺陷修复发布。</p>
             <p>在 <a href="whatsnew1920.md" target="_blank">Kotlin 1.9.20 最新变化</a> 中了解更多关于 Kotlin 1.9.20 的信息。</p>
         </td>
     </tr>
@@ -305,7 +315,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.22" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 1.9.20 和 1.9.21 的缺陷修复发布。</p>
+            <p>针对 Kotlin 1.9.20 和 1.9.21 的缺陷修复发布。</p>
             <p>在 <a href="whatsnew1920.md" target="_blank">Kotlin 1.9.20 最新变化</a> 中了解更多关于 Kotlin 1.9.20 的信息。</p>
         </td>
     </tr>
@@ -315,7 +325,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.21" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 1.9.20 的缺陷修复发布。</p>
+            <p>针对 Kotlin 1.9.20 的缺陷修复发布。</p>
             <p>在 <a href="whatsnew1920.md" target="_blank">Kotlin 1.9.20 最新变化</a> 中了解更多关于 Kotlin 1.9.20 的信息。</p>
         </td>
     </tr>
@@ -338,7 +348,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.9.10" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 1.9.0 的缺陷修复发布。</p>
+            <p>针对 Kotlin 1.9.0 的缺陷修复发布。</p>
             <p>在 <a href="whatsnew19.md" target="_blank">Kotlin 1.9.0 最新变化</a> 中了解更多关于 Kotlin 1.9.0 的信息。</p>
             <note>对于 Android Studio Giraffe 和 Hedgehog，Kotlin 插件 1.9.10 将随即将发布的 Android Studio 更新一起交付。</note>
         </td>
@@ -364,7 +374,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.8.22" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 1.8.20 的缺陷修复发布。</p>
+            <p>针对 Kotlin 1.8.20 的缺陷修复发布。</p>
             <p>在 <a href="whatsnew1820.md" target="_blank">Kotlin 1.8.20 最新变化</a> 中了解更多关于 Kotlin 1.8.20 的信息。</p>
         </td>
     </tr>
@@ -374,7 +384,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.8.21" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 1.8.20 的缺陷修复发布。</p>
+            <p>针对 Kotlin 1.8.20 的缺陷修复发布。</p>
             <p>在 <a href="whatsnew1820.md" target="_blank">Kotlin 1.8.20 最新变化</a> 中了解更多关于 Kotlin 1.8.20 的信息。</p>
             <note>对于 Android Studio Flamingo 和 Giraffe，Kotlin 插件 1.8.21 将随即将发布的 Android Studio 更新一起交付。</note>
         </td>
@@ -400,7 +410,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.8.10" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 1.8.0 的缺陷修复发布。</p>
+            <p>针对 Kotlin 1.8.0 的缺陷修复发布。</p>
             <p>了解更多关于 <a href="https://github.com/JetBrains/kotlin/releases/tag/v1.8.0" target="_blank">Kotlin 1.8.0</a> 的信息。</p>
             <note>对于 Android Studio Electric Eel 和 Flamingo，Kotlin 插件 1.8.10 将随即将发布的 Android Studio 更新一起交付。</note>
         </td>
@@ -425,7 +435,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.7.21" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 1.7.20 的缺陷修复发布。</p>
+            <p>针对 Kotlin 1.7.20 的缺陷修复发布。</p>
             <p>在 <a href="whatsnew1720.md" target="_blank">Kotlin 1.7.20 最新变化</a> 中了解更多关于 Kotlin 1.7.20 的信息。</p>
             <note>对于 Android Studio Dolphin、Electric Eel 和 Flamingo，Kotlin 插件 1.7.21 将随即将发布的 Android Studio 更新一起交付。</note>
         </td>
@@ -453,7 +463,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.7.10" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 1.7.0 的缺陷修复发布。</p>
+            <p>针对 Kotlin 1.7.0 的缺陷修复发布。</p>
             <p>了解更多关于 <a href="https://github.com/JetBrains/kotlin/releases/tag/v1.7.0" target="_blank">Kotlin 1.7.0</a> 的信息。</p>
             <note>对于 Android Studio Dolphin (213) 和 Android Studio Electric Eel (221)，Kotlin 插件 1.7.10 将随即将发布的 Android Studio 更新一起交付。</note>
         </td>
@@ -479,7 +489,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.6.21" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 1.6.20 的缺陷修复发布。</p>
+            <p>针对 Kotlin 1.6.20 的缺陷修复发布。</p>
             <p>了解更多关于 <a href="whatsnew1620.md" target="_blank">Kotlin 1.6.20</a> 的信息。</p>
         </td>
     </tr>
@@ -507,7 +517,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.6.10" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 1.6.0 的缺陷修复发布。</p>
+            <p>针对 Kotlin 1.6.0 的缺陷修复发布。</p>
             <p>了解更多关于 <a href="https://github.com/JetBrains/kotlin/releases/tag/v1.6.0" target="_blank">Kotlin 1.6.0</a> 的信息。</p>
         </td>
     </tr>
@@ -532,7 +542,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.32" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 1.5.31 的缺陷修复发布。</p>
+            <p>针对 Kotlin 1.5.31 的缺陷修复发布。</p>
             <p>了解更多关于 <a href="whatsnew1530.md" target="_blank">Kotlin 1.5.30</a> 的信息。</p>
         </td>
     </tr>
@@ -542,7 +552,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.31" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 1.5.30 的缺陷修复发布。</p>
+            <p>针对 Kotlin 1.5.30 的缺陷修复发布。</p>
             <p>了解更多关于 <a href="whatsnew1530.md" target="_blank">Kotlin 1.5.30</a> 的信息。</p>
         </td>
     </tr>
@@ -574,7 +584,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.21" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 1.5.20 的缺陷修复发布。</p>
+            <p>针对 Kotlin 1.5.20 的缺陷修复发布。</p>
             <p>了解更多关于 <a href="whatsnew1520.md" target="_blank">Kotlin 1.5.20</a> 的信息。</p>
         </td>
     </tr>
@@ -605,7 +615,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.10" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 1.5.0 的缺陷修复发布。</p>
+            <p>针对 Kotlin 1.5.0 的缺陷修复发布。</p>
             <p>了解更多关于 <a href="https://blog.jetbrains.com/kotlin/2021/05/kotlin-1-5-0-released/" target="_blank">Kotlin 1.5.0</a> 的信息。</p>
         </td>
     </tr>
@@ -630,7 +640,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.32" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 1.4.30 的缺陷修复发布。</p>
+            <p>针对 Kotlin 1.4.30 的缺陷修复发布。</p>
             <p>了解更多关于 <a href="whatsnew1430.md" target="_blank">Kotlin 1.4.30</a> 的信息。</p>
         </td>
     </tr>
@@ -640,7 +650,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.31" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 1.4.30 的缺陷修复发布。</p>
+            <p>针对 Kotlin 1.4.30 的缺陷修复发布。</p>
             <p>了解更多关于 <a href="whatsnew1430.md" target="_blank">Kotlin 1.4.30</a> 的信息。</p>
         </td>
     </tr>
@@ -670,7 +680,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.21" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 1.4.20 的缺陷修复发布。</p>
+            <p>针对 Kotlin 1.4.20 的缺陷修复发布。</p>
             <p>了解更多关于 <a href="whatsnew1420.md" target="_blank">Kotlin 1.4.20</a> 的信息。</p>
         </td>
     </tr>
@@ -699,7 +709,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.4.10" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 1.4.0 的缺陷修复发布。</p>
+            <p>针对 Kotlin 1.4.0 的缺陷修复发布。</p>
             <p>了解更多关于 <a href="https://blog.jetbrains.com/kotlin/2020/08/kotlin-1-4-released-with-a-focus-on-quality-and-performance/" target="_blank">Kotlin 1.4.0</a> 的信息。</p>
          </td>
     </tr>
@@ -725,7 +735,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.3.72" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>Kotlin 1.3.70 的缺陷修复发布。</p>
+            <p>针对 Kotlin 1.3.70 的缺陷修复发布。</p>
             <p>了解更多关于 <a href="https://blog.jetbrains.com/kotlin/2020/03/kotlin-1-3-70-released/" target="_blank">Kotlin 1.3.70</a> 的信息。</p>
         </td>
     </tr>

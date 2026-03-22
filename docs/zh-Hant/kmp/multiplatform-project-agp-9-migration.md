@@ -26,15 +26,7 @@ Android 應用程式 (`com.android.application`) 或 Android 程式庫 (`com.and
 在 AGP 9.0 中，這些外掛程式不再與 KMP 相容，
 因此您需要遷移至專為 KMP 建置的新 Android-KMP 程式庫外掛程式。
 
-> 為了讓您的專案在短期內能與 AGP 9.0 搭配運作，您可以手動啟用已棄用的 API。
-> 為此，請在專案的 `gradle.properties` 檔案中加入以下屬性：
-> `android.enableLegacyVariantApi=true`。
->
-> 舊版 API 將在 [AGP 10 中被完全移除](https://developer.android.com/build/releases/gradle-plugin-roadmap#agp-10)，
-> 該版本很可能在 2026 年下半年發布。
-> 請確保在此之前完成遷移。
->
-{style="note"}
+### 如何遷移
 
 有關程式庫的遷移步驟，請參閱 [Android 文件中的指南](https://developer.android.com/kotlin/multiplatform/plugin#migrate)。
 
@@ -42,6 +34,21 @@ Android 應用程式 (`com.android.application`) 或 Android 程式庫 (`com.and
 以下是遷移範例應用程式的一般教學，您可以在其中看到：
 * [如何將 Android 應用程式入口點提取到獨立模組中](#android-app)
 * [如何更新共用模組的配置](#configure-the-shared-module-to-use-the-android-kmp-library-plugin)
+
+> 您可以使用我們[準備好的技能](https://github.com/Kotlin/kotlin-agent-skills/blob/main/skills/kotlin-tooling-agp9-migration/SKILL.md)，將遷移工作交給您選擇的 AI 代理程式 (AI agent)。
+> 請記住，AI 處理結果並非完全可預測。
+>
+{style="note"}
+
+### 在 AGP 10 之前啟用舊版 API
+
+為了讓您的專案在短期內能與 AGP 9.0 搭配運作，您可以手動啟用已棄用的 API。
+為此，請在專案的 `gradle.properties` 檔案中加入以下屬性：
+`android.enableLegacyVariantApi=true`。
+
+舊版 API 將在 [AGP 10 中被完全移除](https://developer.android.com/build/releases/gradle-plugin-roadmap#agp-10)，
+該版本很可能在 2026 年下半年發布。
+請確保在此之前完成遷移。
 
 ## 範例應用程式的遷移
 

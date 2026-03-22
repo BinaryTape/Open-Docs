@@ -142,6 +142,32 @@ external object Counter : JsAny {
 
 與一般類別和介面類似，你可以宣告外部宣告來擴充其他外部類別並實作外部介面。然而，你不能在同一個型別階層結構中混合使用外部與非外部宣告。
 
+#### 透過 `@nativeInvoke` 呼叫 JavaScript 物件
+<primary-label ref="experimental-opt-in"/>
+
+你可以在 `external` 宣告（類別或介面）的 Kotlin 成員函式上使用 `@nativeInvoke` 註解，使其可以像 JavaScript 函式一樣被呼叫。
+
+使用此註解後，在 Kotlin 中對該函式的每次呼叫都會轉換為對 JavaScript 物件的直接呼叫：
+
+```kotlin
+import kotlin.js.nativeInvoke
+
+@OptIn(ExperimentalWasmJsInterop::class)
+external class JsAction {
+    @nativeInvoke
+    operator fun invoke(data: String)
+}
+
+fun main() {
+    val action = JsAction() 
+    action("Run task")
+}
+```
+
+> `@nativeInvoke` 註解是在穩定互通性設計出爐之前的臨時解決方案。目前當你使用 `@nativeInvoke` 時，編譯器會回報警告。
+>
+{style="note"}
+
 ### 包含 JavaScript 程式碼的 Kotlin 函式
 
 你可以藉由定義一個包含 `= js("code")` 主體的函式，將 JavaScript 片段加入 Kotlin/Wasm 程式碼中：
@@ -248,7 +274,7 @@ import org.khronos.webgl.*
     val jsInt32Array: Int32Array = intArray.toInt32Array()
     
     // 使用 toIntArray() 將 JavaScript Int32Array 轉換回 Kotlin IntArray
-    val kotlnIntArray: IntArray = jsInt32Array.toIntArray()
+    val kotlinIntArray: IntArray = jsInt32Array.toIntArray()
 ```
 
 ## 在 JavaScript 中使用 Kotlin 程式碼

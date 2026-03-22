@@ -326,7 +326,7 @@ jvmTest<Scope>
       <p>코드에서 <code>Optional&lt;out T&gt;.toList()</code> 중 <code>.toList()</code>는 <code>Optional</code>에 대한 확장 함수입니다. 확장 함수를 사용하면 모든 클래스에 추가 함수를 작성할 수 있으며, 특히 일부 라이브러리 클래스의 기능을 확장하고 싶을 때 유용합니다.</p>
    </def>
    <def title="접이식 항목 #2">
-      <p><a href="https://docs.spring.io/spring-data/jdbc/docs/current/reference/html/#jdbc.entity-persistence">이 함수는</a> 새로운 객체가 데이터베이스에 ID를 가지고 있지 않다는 가정하에 작동합니다. 따라서 삽입을 위해서는 ID가 <b>null이어야 합니다</b>.</p>
+      <p><a href="https://docs.spring.io/spring-data/relational/reference/#jdbc.entity-persistence">이 함수는</a> 새로운 객체가 데이터베이스에 ID를 가지고 있지 않다는 가정하에 작동합니다. 따라서 삽입을 위해서는 ID가 <b>null이어야 합니다</b>.</p>
       <p> 만약 ID가 <i>null</i>이 아니면, <code>CrudRepository</code>는 객체가 이미 데이터베이스에 존재한다고 가정하고 이를 <i>삽입(insert)</i> 작업이 아닌 <i>수정(update)</i> 작업으로 간주합니다. 삽입 작업 후에는 데이터 저장소에 의해 <code>id</code>가 생성되어 <code>Message</code> 인스턴스에 다시 할당됩니다. 이것이 <code>id</code> 속성을 <code>var</code> 키워드를 사용하여 선언해야 하는 이유입니다.</p>
       <p></p>
    </def>

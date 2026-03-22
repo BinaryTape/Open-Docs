@@ -4,16 +4,16 @@
 
 在本教程中，您将使用以下工具：
 
-*   [Spring Boot](https://spring.io/projects/spring-boot) 作为配置和运行 Web 应用程序的基础。
-*   [Spring AI](https://spring.io/projects/spring-ai) 用于与 LLM 交互并执行基于上下文的检索。
-*   [IntelliJ IDEA](https://www.jetbrains.com/idea/) 用于生成项目并实现应用逻辑。
-*   [Qdrant](https://qdrant.tech/) 作为用于相似性搜索的矢量数据库。
-*   [Docker](https://www.docker.com/) 用于在本地运行 Qdrant。
-*   [OpenAI](https://platform.openai.com) 作为 LLM 提供商。
+* [Spring Boot](https://spring.io/projects/spring-boot) 作为配置和运行 Web 应用程序的基础。
+* [Spring AI](https://spring.io/projects/spring-ai) 用于与 LLM 交互并执行基于上下文的检索。
+* [IntelliJ IDEA](https://www.jetbrains.com/idea/) 用于生成项目并实现应用逻辑。
+* [Qdrant](https://qdrant.tech/) 作为用于相似性搜索的矢量数据库。
+* [Docker](https://www.docker.com/) 用于在本地运行 Qdrant。
+* [OpenAI](https://platform.openai.com) 作为 LLM 提供商。
 
 ## 开始之前
 
-1. 下载并安装最新版本的 [IntelliJ IDEA Ultimate 版](https://www.jetbrains.com/idea/download/index.html)。
+1. 下载并安装最新版本的 [IntelliJ IDEA Ultimate 版](https://www.jetbrains.com/idea/download/)。
 
     > 如果您使用的是 IntelliJ IDEA Community 版或其他 IDE，可以使用[基于 Web 的项目生成器](https://start.spring.io/#!language=kotlin&type=gradle-project-kotlin)生成 Spring Boot 项目。
     >
@@ -39,23 +39,23 @@
 2. 在左侧面板中，选择 **New Project** | **Spring Boot**。
 3. 在 **New Project** 窗口中指定以下字段和选项：
 
-    *   **Name**: springAIDemo
-    *   **Language**: Kotlin
-    *   **Type**: Gradle - Kotlin
+    * **Name**: springAIDemo
+    * **Language**: Kotlin
+    * **Type**: Gradle - Kotlin
 
       > 此选项指定了构建系统和 DSL。
       >
       {style="tip"}
 
-    *   **Package name**: com.example.springaidemo
-    *   **JDK**: Java JDK
+    * **Package name**: com.example.springaidemo
+    * **JDK**: Java JDK
 
       > 本教程使用 **Oracle OpenJDK 21.0.1 版本**。
       > 如果您尚未安装 JDK，可以从下拉列表中下载。
       >
       {style="note"}
 
-    *   **Java**: 17
+    * **Java**: 17
 
       > 如果您尚未安装 Java 17，可以从 JDK 下拉列表中下载。
       >
@@ -68,9 +68,9 @@
 
 6. 选择本教程所需的以下依赖项：
 
-    *   **Web | Spring Web**
-    *   **AI | OpenAI**
-    *   **SQL | Qdrant Vector Database**
+    * **Web | Spring Web**
+    * **AI | OpenAI**
+    * **SQL | Qdrant Vector Database**
 
    ![设置 Spring Boot 项目](spring-ai-dependencies.png){width=800}
 
@@ -86,8 +86,8 @@
 
 生成的 Gradle 项目符合 Maven 的标准目录布局：
 
-*   `main/kotlin` 文件夹下包含属于应用的软件包和类。
-*   应用的入口点是 `SpringAiDemoApplication.kt` 文件中的 `main()` 方法。
+* `main/kotlin` 文件夹下包含属于应用的软件包和类。
+* 应用的入口点是 `SpringAiDemoApplication.kt` 文件中的 `main()` 方法。
 
 ## 更新项目配置
 

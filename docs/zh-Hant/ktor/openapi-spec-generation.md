@@ -12,7 +12,12 @@
 </p>
 <p>
 <b>程式碼範例</b>：
-<a href="https://github.com/ktorio/ktor-samples/tree/main/openapi">openapi</a>
+<a href="https://github.com/ktorio/ktor-documentation/tree/codeSnippets/snippets/openapi-spec-gen">
+    openapi-spec-gen
+</a>,
+<a href="https://github.com/ktorio/ktor-documentation/tree/codeSnippets/snippets/openapi-spec-gen-maven">
+    openapi-spec-gen-maven
+</a>
 </p>
 </tldr>
 
@@ -30,15 +35,137 @@ Ktor 支援在執行時從一個或多個文件來源建置 OpenAPI 規格。
 
 ## 新增相依性
 
-* 要啟用 OpenAPI 元資料產生，請將 Ktor Gradle 外掛程式套用到您的專案：
+* 要啟用 OpenAPI 元資料產生，請將 Ktor 編譯器外掛程式套用到您的專案。
 
-```kotlin
-plugins {
-    id("io.ktor.plugin") version "%ktor_version%"
-}
-```
+  <Tabs group="languages">
+    <TabItem title="Gradle (Kotlin)" group-key="kotlin" id="add-ktor-plugin-gradle-kotlin">
 
-* 要使用執行時路由註解，請將 `%artifact_name%` 構件新增到您的建置指令碼：
+    ```kotlin
+    plugins {
+        id("io.ktor.plugin") version "%ktor_version%"
+    }
+    ```
+
+    </TabItem>
+    <TabItem title="Gradle (Groovy)" group-key="groovy" id="add-ktor-plugin-gradle-groovy">
+
+    ```groovy
+    plugins {
+        id 'io.ktor.plugin' version "%ktor_version%"
+    }
+    ```
+
+    </TabItem>
+    <TabItem title="Maven" group-key="maven" id="add-ktor-plugin-maven">
+
+    與 Gradle 不同，Maven 未提供 Ktor 編譯器外掛程式的內建整合。要啟用 OpenAPI 規格產生，您需要手動配置編譯器外掛程式。
+
+    1. 套用 Ktor Maven 外掛程式（執行和封裝應用程式時必要）：
+       ```xml
+       <build>
+           <plugins>
+               <plugin>
+                   <groupId>io.ktor</groupId>
+                   <artifactId>ktor-maven-plugin</artifactId>
+                   <version>%ktor_version%</version>
+               </plugin>
+           </plugins>
+       </build>
+       ```
+    2. 編譯器外掛程式必須以 JAR 檔案形式提供。新增以下配置以自動下載並將其複製到穩定位置：
+
+       ```xml
+       <plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-dependency-plugin</artifactId>
+           <version>3.9.0</version>
+           <executions>
+               <execution>
+                   <id>copy-ktor-compiler-plugin</id>
+                   <phase>generate-sources</phase>
+                   <goals>
+                       <goal>copy</goal>
+                   </goals>
+                   <configuration>
+                       <artifactItems>
+                           <artifactItem>
+                               <groupId>io.ktor</groupId>
+                               <artifactId>ktor-compiler-plugin</artifactId>
+                               <version>%ktor_version%</version>
+                               <outputDirectory>${project.build.directory}/kotlin-plugins</outputDirectory>
+                               <destFileName>ktor-compiler-plugin.jar</destFileName>
+                           </artifactItem>
+                       </artifactItems>
+                   </configuration>
+               </execution>
+           </executions>
+       </plugin>
+       ```
+  
+    3. 配置 Kotlin 編譯器：
+
+       ```xml
+       <plugin>
+           <groupId>org.jetbrains.kotlin</groupId>
+           <artifactId>kotlin-maven-plugin</artifactId>
+           <version>%kotlin_version%</version>
+
+           <configuration>
+               <jvmTarget>21</jvmTarget>
+
+               <compilerPlugins>
+                   <plugin>kotlinx-serialization</plugin>
+               </compilerPlugins>
+
+               <args>
+                   <arg>-Xplugin=${project.build.directory}/kotlin-plugins/ktor-compiler-plugin.jar</arg>
+
+                   <arg>-P</arg>
+                   <arg>plugin:io.ktor.ktor-compiler-plugin:openApiEnabled=true</arg>
+
+                   <arg>-P</arg>
+                   <arg>plugin:io.ktor.ktor-compiler-plugin:openApiCodeInference=true</arg>
+
+                   <arg>-P</arg>
+                   <arg>plugin:io.ktor.ktor-compiler-plugin:openApiOnlyCommented=false</arg>
+               </args>
+           </configuration>
+
+           <dependencies>
+               <dependency>
+                   <groupId>io.ktor</groupId>
+                   <artifactId>ktor-compiler-plugin</artifactId>
+                   <version>%ktor_version%</version>
+               </dependency>
+               <dependency>
+                   <groupId>org.jetbrains.kotlin</groupId>
+                   <artifactId>kotlin-maven-serialization</artifactId>
+                   <version>${kotlin_version}</version>
+               </dependency>
+           </dependencies>
+           <executions>
+               <execution>
+                   <id>compile</id>
+                   <phase>compile</phase>
+                   <goals>
+                       <goal>compile</goal>
+                   </goals>
+               </execution>
+               <execution>
+                   <id>test-compile</id>
+                   <phase>test-compile</phase>
+                   <goals>
+                       <goal>test-compile</goal>
+                   </goals>
+               </execution>
+           </executions>
+       </plugin>
+       ```
+  
+   </TabItem>
+  </Tabs>
+
+* 要使用執行時路由註解，請將 `%artifact_name%` 構件新增到您的組建指令碼：
 
   <Tabs group="languages">
       <TabItem title="Gradle (Kotlin)" group-key="kotlin">
@@ -298,10 +425,10 @@ OpenAPI 規格是在執行時根據執行時路由註解和編譯器外掛程式
 您通常從路由處理常式建構文件並直接對其進行回應：
 
 ```kotlin
-get("/docs.json") {
-    val doc = OpenApiDoc(info = OpenApiInfo("My API", "1.0")) + call.application.routingRoot.descendants()
-    call.respond(doc)
-}.hide()
+
+        get("/docs.json") {
+            val doc = OpenApiDoc(info = OpenApiInfo("My API", "1.0")) + call.application.routingRoot.descendants()
+            call.respond(doc)
 ```
 
 在此範例中，OpenAPI 文件使用 [`ContentNegotiation`](server-serialization.md) 外掛程式進行序列化。這假設已安裝了 JSON 序列化器（例如 `kotlinx.serialization`）。

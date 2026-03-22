@@ -2,7 +2,7 @@
 
 このチュートリアルでは、IntelliJ IDEA と Gradle を使用して JVM コンソールアプリケーションを作成する方法を説明します。
 
-始めるには、まず最新バージョンの [IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html) をダウンロードしてインストールしてください。
+始めるには、まず最新バージョンの [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) をダウンロードしてインストールしてください。
 
 ## プロジェクトの作成
 
@@ -82,7 +82,7 @@ tasks.test { // 4️⃣ を参照
 
 1. `plugins {}` ブロックには `kotlin("jvm")` アーティファクトがあります。このプラグインは、プロジェクトで使用される Kotlin のバージョンを定義します。
 
-2. `dependencies {}` ブロックには `testImplementation(kotlin("test"))` があります。
+2. `dependencies {}` ブロックには `testImplementation(kotlin("test"))` があります。 
    [テストライブラリへの依存関係の設定](gradle-configure-project.md#set-dependencies-on-test-libraries)の詳細については、こちらをご覧ください。
 
 ## アプリケーションを実行する
@@ -95,7 +95,7 @@ tasks.test { // 4️⃣ を参照
    これは、Gradle がアプリケーションのビルドに成功したことを意味します。
 
 3. `src/main/kotlin` で、`Main.kt` ファイルを開きます。
-   * `src` ディレクトリには、Kotlin のソースファイルとリソースが含まれています。
+   * `src` ディレクトリには、Kotlin のソースファイルとリソースが含まれています。 
    * `Main.kt` ファイルには、`Hello World!` を出力するサンプルコードが含まれています。
 
 4. エディタの左側（ガター）にある緑色の **Run** アイコンをクリックし、**Run 'MainKt'** を選択してアプリケーションを実行します。

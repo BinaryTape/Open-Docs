@@ -109,6 +109,7 @@ JSONElement
     ├── JSONLiteral  – 字串、數值或布林值
     └── JSONNull     – JSON null 單例
 ```
+<!--- KNIT example-tool-serialization-01.txt -->
 
 ### 與程式庫型別之間的轉換
 
@@ -183,6 +184,7 @@ dependencies {
     implementation("ai.koog:serialization-jackson:<version>")
 }
 ```
+<!--- KNIT example-tool-serialization-02.txt -->
 
 然後建立序列化器：
 
@@ -254,4 +256,4 @@ val agentConfig = AIAgentConfig(
 
 例如，**Persistence** 會使用在 `AIAgentConfig` 中配置的 `JSONSerializer`，在建立檢查點和還原代理程式狀態時，序列化和反序列化節點的輸入和輸出。這意味著流經持久化節點的任何型別都必須可由配置的 `JSONSerializer` 進行序列化。
 
-有關檢查點建立和還原的詳細資訊，請參閱 [Agent Persistence](agent-persistence.md)。
+有關檢查點建立和還原的詳細資訊，請參閱 [Agent Persistence](features/agent-persistence.md)。

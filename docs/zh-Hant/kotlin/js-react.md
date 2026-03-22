@@ -18,7 +18,7 @@
 
 ## 開始之前
 
-1. 下載並安裝最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html)。
+1. 下載並安裝最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)。
 2. 複製 [專案樣板](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle) 並在 IntelliJ IDEA 中開啟。該樣板包含一個基礎的 Kotlin 多平台 Gradle 專案，並已完成所有必要的配置與相依性設定。
 
    * `build.gradle.kts` 檔案中的相依性與任務：

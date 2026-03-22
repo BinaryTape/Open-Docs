@@ -172,7 +172,7 @@ kotlin {
     android()
     iosArm64()   // 64 位 iPhone 设备
     macosArm64() // 基于 Apple 芯片的现代 Mac
-    watchosX64() // 现代 64 位 Apple Watch 设备
+    watchosArm64() // 现代 64 位 Apple Watch 设备
     tvosArm64()  // 现代 Apple TV 设备  
 }
 ```
@@ -190,7 +190,7 @@ fun randomUuidString(): String {
 
 您不能将此函数添加到 `commonMain`。`commonMain` 会编译到所有声明的目标，包括 Android，但 `platform.Foundation.NSUUID` 是 Apple 特定的 API，在 Android 上不可用。如果您尝试在 `commonMain` 中引用 `NSUUID`，Kotlin 会报错。
 
-您可以将此代码复制并粘贴到每个 Apple 特定源集中：`iosArm64Main`、`macosArm64Main`、`watchosX64Main` 和 `tvosArm64Main`。但不推荐这种方法，因为此类重复代码容易出错。
+您可以将此代码复制并粘贴到每个 Apple 特定源集中：`iosArm64Main`、`macosArm64Main`、`watchosArm64Main` 和 `tvosArm64Main`。但不推荐这种方法，因为此类重复代码容易出错。
 
 为了解决这个问题，您可以使用“中间源集” (intermediate source sets)。中间源集是一个 Kotlin 源集，它编译到项目中的部分（而非全部）目标。您也可以看到中间源集被称为分层源集 (hierarchical source sets) 或简称为层次结构 (hierarchies)。
 

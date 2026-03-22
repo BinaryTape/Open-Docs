@@ -4,6 +4,10 @@ title: JUnit 測試
 
 > 本教學將帶領您測試 Kotlin 應用程式，並使用 Koin 注入與擷取您的組建。
 
+:::note
+更新 - 2025-01-28
+:::
+
 ## 取得程式碼
 
 :::info
@@ -28,50 +32,71 @@ dependencies {
 我們重複使用 `koin-core` 快速入門專案，以使用 koin 模組：
 
 ```kotlin
-val helloModule = module {
-    single { HelloMessageData() }
-    single { HelloServiceImpl(get()) as HelloService }
+val appModule = module {
+    single<UserApplication>()
+    single<UserRepositoryImpl>() bind UserRepository::class
+    single<UserServiceImpl>() bind UserService::class
 }
 ```
 
-## 編寫我們的第一個測試
+## 驗證您的模組
 
-為了進行我們的第一個測試，讓我們先編寫一個簡單的 JUnit 測試檔案並擴充（extend）`KoinTest`。接著我們就能夠使用 `by inject()` 運算子。
+測試 Koin 配置（configuration）最簡單的方法是驗證您的模組。`verify()` 函式會進行空載執行（dry-run）檢查，以確保所有相依性都能被解析：
 
 ```kotlin
-class HelloAppTest : KoinTest {
+class ModuleVerificationTest : AutoCloseKoinTest() {
 
-    val model by inject<HelloMessageData>()
-    val service by inject<HelloService>()
+    @Test
+    fun verifyModules() {
+        appModule.verify()
+    }
+}
+```
+
+如果任何相依性定義無效或缺少任何所需的相依性，此測試將會失敗。
+
+## 使用 KoinTestRule 編寫測試
+
+若要編寫注入相依性的測試，請擴充（extend） `KoinTest` 並使用 `KoinTestRule`：
+
+```kotlin
+class UserAppTest : KoinTest {
+
+    val userService by inject<UserService>()
+    val userRepository by inject<UserRepository>()
 
     @get:Rule
     val koinTestRule = KoinTestRule.create {
         printLogger()
-        modules(helloModule)
+        modules(appModule)
     }
 
     @Test
-    fun `unit test`() {
-        val helloApp = HelloApplication()
-        helloApp.sayHello()
+    fun `test user service`() {
+        // 透過服務載入使用者
+        userService.loadUsers()
 
-        assertEquals(service, helloApp.helloService)
-        assertEquals("Hey, ${model.message}", service.hello())
+        // 驗證是否能找到使用者
+        val user = userService.getUserOrNull("Alice")
+        assertNotNull(user)
+        assertEquals("Alice", user?.name)
     }
 }
 ```
 
-> 我們使用 Koin 的 KoinTestRule 規則來啟動/停止我們的 Koin 上下文
+> 我們使用 `KoinTestRule` 為每個測試啟動/停止我們的 Koin 上下文
 
-您甚至可以直接在 MyPresenter 中製作 Mock，或是測試 MyRepository。這些組建與 Koin API 沒有任何關聯。
+## 模擬（Mocking）相依性
+
+您可以在測試中使用 `declareMock` 來模擬相依性。這會將實際實作替換為模擬物件（mock）：
 
 ```kotlin
-class HelloMockTest : KoinTest {
+class UserMockTest : KoinTest {
 
     @get:Rule
     val koinTestRule = KoinTestRule.create {
         printLogger(Level.DEBUG)
-        modules(helloModule)
+        modules(appModule)
     }
 
     @get:Rule
@@ -81,12 +106,37 @@ class HelloMockTest : KoinTest {
 
     @Test
     fun `mock test`() {
-        val service = declareMock<HelloService> {
-            given(hello()).willReturn("Hello Mock")
+        // 為 UserRepository 宣告一個模擬物件
+        val repository = declareMock<UserRepository> {
+            given(findUserOrNull(anyString())).willReturn(
+                User("Mock", "mock@example.com")
+            )
         }
 
-        HelloApplication().sayHello()
+        // 使用具有模擬存儲庫的應用程式
+        getKoin().get<UserApplication>().sayHello("Mock")
 
-        Mockito.verify(service,times(1)).hello()
+        // 驗證模擬物件是否被呼叫
+        Mockito.verify(repository, times(1)).findUserOrNull(anyString())
     }
 }
+```
+
+`MockProviderRule` 將 Mockito 設定為模擬架構，而 `declareMock` 則將真實的 `UserRepository` 替換為回傳受控資料的模擬物件。
+
+## 關鍵測試概念
+
+| 概念 | 說明 |
+|---------|-------------|
+| `KoinTest` | 擴充以獲得 Koin 測試支援的介面 |
+| `AutoCloseKoinTest` | 在每個測試後自動關閉 Koin |
+| `KoinTestRule` | 啟動/停止 Koin 上下文的 JUnit 規則 |
+| `MockProviderRule` | 設定模擬架構 |
+| `verify()` | 在不執行的情況下驗證模組配置 |
+| `declareMock<T>()` | 將定義替換為模擬物件 |
+| `by inject<T>()` | 在測試中延遲注入相依性 |
+
+## 延伸閱讀
+
+- **[測試參考](/docs/reference/koin-test/testing)** - 完整的測試文件
+- **[模組驗證](/docs/reference/koin-test/verify)** - `verify()` 與 `checkModules()` 的詳細資訊

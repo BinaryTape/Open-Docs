@@ -8,7 +8,7 @@
 
 ### `ApplicationEngine`、`ApplicationEnvironment`、および `Application`
 
-`ApplicationEngine`、`ApplicationEnvironment`、および `Application` インスタンス間の分離をより明確にし、設定可能性を向上させるために、いくつかの設計変更が導入されました。
+設定可能性を向上させ、`ApplicationEngine`、`ApplicationEnvironment`、および `Application` インスタンス間の分離をより明確にするために、いくつかの設計変更が導入されました。
 
 v3.0.0 より前は、`ApplicationEngine` が `ApplicationEnvironment` を管理し、さらに `ApplicationEnvironment` が `Application` を管理していました。
 

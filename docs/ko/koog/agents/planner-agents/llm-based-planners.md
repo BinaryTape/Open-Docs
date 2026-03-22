@@ -27,49 +27,92 @@ Koog는 두 가지 간단한 플래너를 제공합니다:
 
 다음 예제는 `SimpleLLMPlanner`를 사용하여 간단한 플래너 에이전트를 생성하는 방법을 보여줍니다:
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.config.AIAgentConfig
-import ai.koog.agents.planner.AIAgentPlannerStrategy
-import ai.koog.agents.planner.PlannerAIAgent
-import ai.koog.agents.planner.llm.SimpleLLMPlanner
-import ai.koog.prompt.dsl.prompt
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import kotlinx.coroutines.runBlocking
--->
-```kotlin
-// 플래너 생성
-val planner = SimpleLLMPlanner()
+=== "Kotlin"
 
-// 플래너 전략으로 감싸기
-val strategy = AIAgentPlannerStrategy(
-    name = "simple-planner",
-    planner = planner
-)
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.config.AIAgentConfig
+    import ai.koog.agents.planner.AIAgentPlannerStrategy
+    import ai.koog.agents.planner.PlannerAIAgent
+    import ai.koog.agents.planner.llm.SimpleLLMPlanner
+    import ai.koog.prompt.dsl.prompt
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    import kotlinx.coroutines.runBlocking
+    -->
+    ```kotlin
+    // 플래너 생성
+    val planner = SimpleLLMPlanner()
 
-// 에이전트 구성
-val agentConfig = AIAgentConfig(
-    prompt = prompt("planner") {
-        system("You are a helpful planning assistant.")
-    },
-    model = OpenAIModels.Chat.GPT4o,
-    maxAgentIterations = 50
-)
+    // 플래너 전략으로 감싸기
+    val strategy = AIAgentPlannerStrategy(
+        name = "simple-planner",
+        planner = planner
+    )
 
-// 플래너 에이전트 생성
-val agent = PlannerAIAgent(
-    promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
-    strategy = strategy,
-    agentConfig = agentConfig
-)
+    // 에이전트 구성
+    val agentConfig = AIAgentConfig(
+        prompt = prompt("planner") {
+            system("You are a helpful planning assistant.")
+        },
+        model = OpenAIModels.Chat.GPT4o,
+        maxAgentIterations = 50
+    )
 
-suspend fun main() {
+    // 플래너 에이전트 생성
+    val agent = PlannerAIAgent(
+        promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
+        strategy = strategy,
+        agentConfig = agentConfig
+    )
+
+    suspend fun main() {
+        // 작업을 사용하여 에이전트 실행
+        val result = agent.run("Create a plan to organize a team meeting")
+        println(result)
+    }
+    ```
+    <!--- KNIT example-llm-based-planners-01.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent;
+    import ai.koog.agents.planner.AIAgentPlannerStrategy;
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels;
+    import ai.koog.prompt.executor.model.PromptExecutor;
+    class exampleLLMBasedPlanner01 {
+        public static void main(String[] args) {
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    // LLM 기반 플래너를 사용한 플래너 전략 생성
+    AIAgentPlannerStrategy<String, String, ?> strategy =
+        AIAgentPlannerStrategy.builder("simple-planner")
+            .llmBasedPlanner()
+            .build();
+
+    // OpenAI 실행기(executor) 생성
+    var promptExecutor = PromptExecutor.builder()
+        .openAI("OPENAI_API_KEY")
+        .build();
+
+    // AIAgent 빌더를 사용하여 플래너 에이전트 생성
+    AIAgent<String, String> agent = AIAgent.builder()
+        .plannerStrategy(strategy)
+        .promptExecutor(promptExecutor)
+        .llmModel(OpenAIModels.Chat.GPT4o)
+        .systemPrompt("You are a helpful planning assistant.")
+        .maxIterations(50)
+        .build();
+
     // 작업을 사용하여 에이전트 실행
-    val result = agent.run("Create a plan to organize a team meeting")
-    println(result)
-}
-```
-<!--- KNIT example-llm-based-planners-01.kt -->
+    String result = agent.run("Create a plan to organize a team meeting");
+    System.out.println(result);
+    ```
+     <!--- KNIT exampleLLMBasedPlannerJava01.java -->
 
 ## 다음 단계
 

@@ -12,7 +12,7 @@ Koog Agent 是圍繞以下核心概念建構的：
   它可以是有向圖、函式或規劃器 (planner) 的形式。
   請參閱 [Agent 類型](#agent-types)。
 - Agent 可以使用 [工具 (tools)](../tools-overview.md) 與外部資料源和服務互動。
-- 您可以使用 [功能 (features)](../features-overview.md) 來擴展和增強 AI Agent 的功能性。
+- 您可以使用 [功能 (features)](../features/index.md) 來擴展和增強 AI Agent 的功能性。
 
 !!! tip
 
@@ -40,60 +40,118 @@ Agent 配置 (configuration) 定義了 Agent 的執行參數，
 對於簡單的 Agent，除了必要的 Prompt 執行器和語言模型外，
 您可以直接在 Agent 建構函式中指定初始系統 Prompt 和其他一些參數：
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
--->
-```kotlin
-val agent = AIAgent(
-    promptExecutor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
-    llmModel = OpenAIModels.Chat.GPT4o,
-    systemPrompt = "You are a helpful assistant.",
-    temperature = 0.7,
-    maxIterations = 10
-)
-```
-<!--- KNIT example-agent-config-01.kt -->
+=== "Kotlin"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    -->
+    ```kotlin
+    val agent = AIAgent(
+        promptExecutor = simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")),
+        llmModel = OpenAIModels.Chat.GPT4o,
+        systemPrompt = "You are a helpful assistant.",
+        temperature = 0.7,
+        maxIterations = 10
+    )
+    ```
+    <!--- KNIT example-agent-config-01.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    AIAgent<String, String> agent = AIAgent.builder()
+        .promptExecutor(simpleOpenAIExecutor(System.getenv("YOUR_API_KEY")))
+        .llmModel(OpenAIModels.Chat.GPT4o)
+        .systemPrompt("You are a helpful assistant.")
+        .temperature(0.7)
+        .maxIterations(10)
+        .build();
+    ```
+    <!--- KNIT example-agent-config-java-01.java -->
 
 或者，您可以建立 [`AIAgentConfig`](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent.config/-a-i-agent-config/index.html) 的執行個體，
 以更細粒度地定義 Agent 的行為和參數，然後將其傳遞給 Agent 建構函式。
 這使您能夠定義包含多條訊息、對話歷史記錄、LLM 參數以及額外執行參數的複雜 Prompt。
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.agent.config.AIAgentConfig
-import ai.koog.prompt.dsl.prompt
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import ai.koog.prompt.params.LLMParams
--->
-```kotlin
-val agentConfig = AIAgentConfig(
-    prompt = prompt(
-        id = "assistant",
-        params = LLMParams(
-            temperature = 0.7
-        )
-    ) {
-        system("You are a helpful assistant.")
-    },
-    model = OpenAIModels.Chat.GPT4o,
-    maxAgentIterations = 10
-)
+=== "Kotlin"
 
-val agent = AIAgent(
-    promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
-    agentConfig = agentConfig
-)
-```
-<!--- KNIT example-agent-config-02.kt -->
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.agents.core.agent.config.AIAgentConfig
+    import ai.koog.prompt.dsl.prompt
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    import ai.koog.prompt.params.LLMParams
+    -->
+    ```kotlin
+    val agentConfig = AIAgentConfig(
+        prompt = prompt(
+            id = "assistant",
+            params = LLMParams(
+                temperature = 0.7
+            )
+        ) {
+            system("You are a helpful assistant.")
+        },
+        model = OpenAIModels.Chat.GPT4o,
+        maxAgentIterations = 10
+    )
+
+    val agent = AIAgent(
+        promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")),
+        agentConfig = agentConfig
+    )
+    ```
+    <!--- KNIT example-agent-config-02.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    Prompt prompt = Prompt.builder("assistant")
+        .system("You are a helpful assistant.")
+        .build()
+        .withParams(new LLMParams(
+            0.7,         // temperature
+            null,        // maxTokens
+            1,           // numberOfChoices
+            null,        // speculation
+            null,        // schema
+            LLMParams.ToolChoice.Auto.INSTANCE, // toolChoice
+            null,        // user
+            null         // additionalProperties
+        ));
+
+    AIAgentConfig agentConfig = AIAgentConfig.builder(OpenAIModels.Chat.GPT4o)
+        .prompt(prompt)
+        .maxAgentIterations(10)
+        .build();
+
+    AIAgent<String, String> agent = AIAgent.builder()
+        .promptExecutor(simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY")))
+        .agentConfig(agentConfig)
+        .build();
+    ```
+    <!--- KNIT example-agent-config-java-02.java -->
 
 以下是 `AIAgentConfig` 的參數：
 
 - `prompt` 定義初始 [Prompt](../prompts/prompt-creation/index.md) 和 [LLM 參數](../llm-parameters.md)。
 
-- `model` 指定 Agent 與之互動的語言模型。
+- `model` 指定 Agent 與之互動的 語言模型。
   您可以使用預定義模型之一，或 [建立自訂模型配置](../model-capabilities.md#creating-a-model-llmodel-configuration)。
 
 - `maxAgentIterations` 限制 Agent 在終止前可以執行的最大步數。
@@ -101,9 +159,9 @@ val agent = AIAgent(
 
 - `missingToolsConversionStrategy` 定義 Agent 執行期間處理缺失工具的策略。
 
-[//]: # (TODO write about missing tools in the TOols section and link from here)
+[//]: # (TODO 在工具章節中編寫關於缺失工具的內容，並從此處連結)
 
 - `responseProcessor` 可用於定義自訂回應處理器。
   例如，它可以審核並驗證回應內容、更改回應格式或記錄回應。
 
-[//]: # (TODO write about response processing somewhere?)
+[//]: # (TODO 在某處編寫關於回應處理的內容？)

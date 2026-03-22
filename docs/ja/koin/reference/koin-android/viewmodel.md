@@ -1,233 +1,290 @@
 ---
-title: Android ViewModel と Navigation
+title: Android ViewModel
 ---
 
-`koin-android` Gradle モジュールは、`single` や `factory` を補完する新しい `viewModel` DSL キーワードを導入しています。これは ViewModel コンポーネントを宣言し、Android コンポーネントのライフサイクルにバインドするのに役立ちます。また、コンストラクタを使用して ViewModel を宣言できる `viewModelOf` キーワードも利用可能です。
+このページでは、Android 特有の ViewModel 機能について説明します。コアの ViewModel DSL およびマルチプラットフォーム対応については、[ViewModel](/docs/reference/koin-core/viewmodel) を参照してください。
+
+## 概要
+
+[ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) は、構成変更（configuration changes）後も保持され、UI 関連のデータを管理するように設計されたアーキテクチャコンポーネントです。Koin は、ライフサイクルを認識した注入（lifecycle-aware injection）により、ViewModel の特別なサポートを提供します。
+
+### 主なコンセプト
+
+- **構成変更後も保持される** - ViewModel は回転やテーマの変更を越えて存続します。
+- **ライフサイクルにスコープされる** - Activity、Fragment、または Navigation グラフのライフサイクルに関連付けられます。
+- **Lazy 生成** - 最初にアクセスされたときにのみ作成されます。
+- **共有インスタンス** - Fragment とそのホスト Activity の間で共有できます。
+
+:::info
+**マルチプラットフォーム ViewModel** - Koin の ViewModel DSL は `koin-core-viewmodel` を通じて完全にマルチプラットフォームに対応しています。Compose Multiplatform については、[Compose ViewModel](/docs/reference/koin-compose/compose#viewmodel-for-composable) を参照してください。
+:::
+
+### ViewModel スコープの制限
+
+:::warning
+**重要：** ViewModel はルートの Koin スコープに対して作成されるため、Activity や Fragment にスコープされた依存関係には**アクセスできません**。これは、ViewModel が Activity や Fragment よりも長く生存するため、メモリリークを防ぐための仕様です。
+
+**ViewModel でスコープされた依存関係が必要な場合**は、[ViewModel Scope](/docs/reference/koin-core/scopes#viewmodel-scope) を使用して、ViewModel のライフサイクルに関連付けられた専用のスコープを作成してください。
+:::
+
+## ViewModel の宣言
+
+### コンパイラプラグイン DSL
 
 ```kotlin
 val appModule = module {
-
-    // 詳細画面用の ViewModel
-    viewModel { DetailViewModel(get(), get()) }
-
-    // またはコンストラクタを使用して直接宣言
-    viewModelOf(::DetailViewModel)
-
+    viewModel<DetailViewModel>()
+    viewModel<UserViewModel>()
 }
 ```
 
-宣言するコンポーネントは、少なくとも `android.arch.lifecycle.ViewModel` クラスを継承している必要があります。クラスの *コンストラクタ* をどのように注入するかを指定し、`get()` 関数を使用して依存関係を注入できます。
+### アノテーション
 
-:::info
-`viewModel`/`viewModelOf` キーワードは、ViewModel のファクトリインスタンスを宣言するのに役立ちます。このインスタンスは内部の ViewModelFactory によって処理され、必要に応じて ViewModel インスタンスを再アタッチします。また、パラメータの注入も可能です。
-:::
+```kotlin
+@KoinViewModel
+class DetailViewModel(
+    private val repository: DetailRepository
+) : ViewModel()
+
+@KoinViewModel
+class UserViewModel(
+    private val userRepository: UserRepository
+) : ViewModel()
+```
+
+### クラシック DSL
+
+```kotlin
+val appModule = module {
+    // コンストラクタ参照を使用する場合
+    viewModelOf(::DetailViewModel)
+
+    // ラムダを使用する場合
+    viewModel { DetailViewModel(get()) }
+}
+```
 
 ## ViewModel の注入
 
-`Activity`、`Fragment`、または `Service` で ViewModel を注入するには、以下を使用します。
+`Activity`、`Fragment`、または `Service` では以下を使用します：
 
-* `by viewModel()` - ViewModel をプロパティに注入するための lazy デリゲートプロパティ
-* `getViewModel()` - ViewModel インスタンスを直接取得する
+* `by viewModel()` - lazy デリゲートプロパティ
+* `getViewModel()` - インスタンスを直接取得（eager fetch）
 
 ```kotlin
 class DetailActivity : AppCompatActivity() {
 
     // ViewModel を Lazy 注入
-    val detailViewModel: DetailViewModel by viewModel()
+    private val viewModel: DetailViewModel by viewModel()
+
+    // または直接取得
+    // private val viewModel: DetailViewModel = getViewModel()
 }
 ```
 
-:::note
-ViewModel のキーは、Key および/または Qualifier に基づいて計算されます。
-:::
+## 共有 ViewModel (Activity)
 
-## Activity で共有される ViewModel
+Fragment とそのホスト Activity の間で ViewModel を共有します：
 
-1 つの ViewModel インスタンスを、複数の Fragment とそれらをホストする Activity の間で共有できます。
-
-`Fragment` で *共有* ViewModel を注入するには、以下を使用します。
-
-* `by activityViewModel()` - 共有 ViewModel インスタンスをプロパティに注入するための lazy デリゲートプロパティ
-* `getActivityViewModel()` - 共有 ViewModel インスタンスを直接取得する
-
-:::note
-`sharedViewModel` は `activityViewModel()` 関数のために非推奨となりました。後者の命名の方がより明示的です。
-:::
-
-ViewModel の宣言は一度だけで構いません：
-
-```kotlin
-val weatherAppModule = module {
-
-    // Weather View コンポーネント用の WeatherViewModel 宣言
-    viewModel { WeatherViewModel(get(), get()) }
-}
-```
-
-注：ViewModel の限定子（qualifier）は、ViewModel のタグとして扱われます。
-
-そして、Activity と Fragment で再利用します：
+* `by activityViewModel()` - 共有 ViewModel 用の lazy デリゲート
+* `getActivityViewModel()` - 直接取得
 
 ```kotlin
 class WeatherActivity : AppCompatActivity() {
-
-    /*
-     * Koin で WeatherViewModel を宣言し、コンストラクタによる依存性注入を許可する
-     */
-    private val weatherViewModel by viewModel<WeatherViewModel>()
+    private val weatherViewModel: WeatherViewModel by viewModel()
 }
 
 class WeatherHeaderFragment : Fragment() {
-
-    /*
-     * WeatherActivity と共有される WeatherViewModel を宣言
-     */
-    private val weatherViewModel by activityViewModel<WeatherViewModel>()
+    // Activity と共有
+    private val weatherViewModel: WeatherViewModel by activityViewModel()
 }
 
 class WeatherListFragment : Fragment() {
-
-    /*
-     * WeatherActivity と共有される WeatherViewModel を宣言
-     */
-    private val weatherViewModel by activityViewModel<WeatherViewModel>()
+    // WeatherHeaderFragment と同じインスタンス
+    private val weatherViewModel: WeatherViewModel by activityViewModel()
 }
 ```
 
-## コンストラクタへのパラメータの渡し方
+## パラメータの渡し方
 
-`viewModel` キーワード API は、注入パラメータに対応しています。
+### コンパイラプラグイン DSL
 
-モジュール内：
+```kotlin
+class DetailViewModel(
+    @InjectedParam val itemId: String,
+    private val repository: DetailRepository
+) : ViewModel()
+
+val appModule = module {
+    viewModel<DetailViewModel>()
+}
+```
+
+### アノテーション
+
+```kotlin
+@KoinViewModel
+class DetailViewModel(
+    @InjectedParam val itemId: String,
+    private val repository: DetailRepository
+) : ViewModel()
+```
+
+### クラシック DSL
 
 ```kotlin
 val appModule = module {
-
-    // パラメータ注入として id を持つ詳細画面用 ViewModel
-    viewModel { parameters -> DetailViewModel(id = parameters.get(), get(), get()) }
-    // グラフから解決される、パラメータ注入として id を持つ詳細画面用 ViewModel
-    viewModel { DetailViewModel(get(), get(), get()) }
-    // またはコンストラクタ DSL
-    viewModelOf(::DetailViewModel)
+    viewModel { params ->
+        DetailViewModel(
+            itemId = params.get(),
+            repository = get()
+        )
+    }
 }
 ```
 
-注入の呼び出し側：
+### 注入箇所
 
 ```kotlin
 class DetailActivity : AppCompatActivity() {
 
-    val id : String // ビューの ID
+    private val itemId: String by lazy { intent.getStringExtra("ITEM_ID")!! }
 
-    // id パラメータを使用して ViewModel を Lazy 注入
-    val detailViewModel: DetailViewModel by viewModel{ parametersOf(id)}
+    // 注入時にパラメータを渡す
+    private val viewModel: DetailViewModel by viewModel { parametersOf(itemId) }
 }
 ```
 
-## SavedStateHandle の注入 (3.3.0)
+## SavedStateHandle
 
-ViewModel の状態を処理するために、コンストラクタに `SavedStateHandle` 型の新しいプロパティを追加します。
+ViewModel のコンストラクタに `SavedStateHandle` を追加すると、Koin が自動的に注入します：
 
-```kotlin
-class MyStateVM(val handle: SavedStateHandle, val myService : MyService) : ViewModel()
-```
-
-Koin モジュールでは、`get()` またはパラメータを使用して解決します：
+### アノテーション
 
 ```kotlin
-viewModel { MyStateVM(get(), get()) }
+@KoinViewModel
+class MyStateViewModel(
+    private val handle: SavedStateHandle,
+    private val repository: MyRepository
+) : ViewModel()
 ```
 
-またはコンストラクタ DSL を使用します：
+### DSL
 
 ```kotlin
-viewModelOf(::MyStateVM)
+class MyStateViewModel(
+    private val handle: SavedStateHandle,
+    private val repository: MyRepository
+) : ViewModel()
+
+val appModule = module {
+    viewModel<MyStateViewModel>()  // コンパイラプラグイン DSL
+    // または
+    viewModelOf(::MyStateViewModel)  // クラシック DSL
+}
 ```
 
-`Activity` や `Fragment` で *状態（state）* ViewModel を注入するには、以下を使用します。
-
-* `by viewModel()` - 状態 ViewModel インスタンスをプロパティに注入するための lazy デリゲートプロパティ
-* `getViewModel()` - 状態 ViewModel インスタンスを直接取得する
+### 使用方法
 
 ```kotlin
 class DetailActivity : AppCompatActivity() {
-
-    // SavedStateHandle が注入された MyStateVM viewModel
-    val myStateVM: MyStateVM by viewModel()
+    // SavedStateHandle が自動的に注入される
+    private val viewModel: MyStateViewModel by viewModel()
 }
 ```
 
 :::info
-すべての `stateViewModel` 関数は非推奨になりました。`SavedStateHandle` を注入するには、通常の `viewModel` 関数を使用するだけです。
+すべての `stateViewModel` 関数は非推奨になりました。通常の `viewModel` 関数を使用してください。`SavedStateHandle` は自動的に注入されます。
 :::
 
 ## Navigation Graph ViewModel
 
-ViewModel インスタンスを Navigation グラフのスコープに含めることができます。`by koinNavGraphViewModel()` で取得するだけです。グラフの ID が必要です。
+ViewModel を Navigation グラフのスコープに含めます：
 
 ```kotlin
 class NavFragment : Fragment() {
 
-    val mainViewModel: NavViewModel by koinNavGraphViewModel(R.id.my_graph)
-
+    // Navigation グラフにスコープされる
+    private val navViewModel: NavViewModel by koinNavGraphViewModel(R.id.my_graph)
 }
 ```
 
-## ViewModel Scope API
+この ViewModel は：
+- グラフ内の最初の Fragment がアクセスしたときに作成される
+- グラフ内のすべての Fragment で共有される
+- Navigation グラフがバックスタックから破棄（popped）されたときに破棄される
 
-ViewModel と Scope で使用されるすべての API については、[ViewModel Scope](/docs/reference/koin-android/scope.md#viewmodel-scope-since-354) を参照してください。
+## スコープされた依存関係を持つ ViewModel
+
+ViewModel 自体にスコープされた依存関係が必要な場合は、[ViewModel Scope](/docs/reference/koin-core/scopes#viewmodel-scope) を使用します：
+
+```kotlin
+val appModule = module {
+    viewModelScope {
+        scoped<UserCache>()
+        scoped<UserRepository>()
+        viewModel<UserViewModel>()
+    }
+}
+```
+
+```kotlin
+@ViewModelScope
+class UserCache
+
+@ViewModelScope
+class UserRepository(private val cache: UserCache)
+
+@KoinViewModel
+@ViewModelScope
+class UserViewModel(
+    private val repository: UserRepository
+) : ViewModel()
+```
 
 ## ViewModel Generic API
 
-Koin は、ViewModel インスタンスを直接微調整するためのいくつかの「内部（under the hood）」API を提供しています。`ComponentActivity` と `Fragment` で利用可能な関数は `viewModelForClass` です。
+高度なユースケース向けに、Koin はより低レベルの API を提供しています：
 
 ```kotlin
-ComponentActivity.viewModelForClass(
-    clazz: KClass<T>,
-    qualifier: Qualifier? = null,
-    owner: ViewModelStoreOwner = this,
-    state: BundleDefinition? = null,
-    key: String? = null,
-    parameters: ParametersDefinition? = null,
-): Lazy<T>
+// ComponentActivity または Fragment から
+val viewModel = viewModelForClass(
+    clazz = MyViewModel::class,
+    qualifier = null,
+    owner = this,
+    key = null,
+    parameters = { parametersOf("param") }
+)
 ```
 
-:::note
-この関数は依然として `state: BundleDefinition` を使用していますが、内部で `CreationExtras` に変換されます。
-:::
+## Java 互換性
 
-また、どこからでも呼び出し可能なトップレベル関数にもアクセスできます。
-
-```kotlin
-fun <T : ViewModel> getLazyViewModelForClass(
-    clazz: KClass<T>,
-    owner: ViewModelStoreOwner,
-    scope: Scope = GlobalContext.get().scopeRegistry.rootScope,
-    qualifier: Qualifier? = null,
-    state: BundleDefinition? = null,
-    key: String? = null,
-    parameters: ParametersDefinition? = null,
-): Lazy<T>
-```
-
-## ViewModel API - Java 互換性
-
-Java の互換性を依存関係に追加する必要があります。
+互換性（compat）依存関係を追加します：
 
 ```groovy
-// Java Compatibility
 implementation "io.insert-koin:koin-android-compat:$koin_version"
 ```
 
-`ViewModelCompat` の `viewModel()` または `getViewModel()` 静的関数を使用して、Java コードベースに ViewModel インスタンスを注入できます。
+`ViewModelCompat` の静的メソッドを使用します：
 
-```kotlin
-@JvmOverloads
-@JvmStatic
-@MainThread
-fun <T : ViewModel> getViewModel(
-    owner: ViewModelStoreOwner,
-    clazz: Class<T>,
-    qualifier: Qualifier? = null,
-    parameters: ParametersDefinition? = null
-)
+```java
+MyViewModel viewModel = ViewModelCompat.getViewModel(this, MyViewModel.class);
+```
+
+## クイックリファレンス
+
+| アクション | コード |
+|--------|------|
+| ViewModel の宣言 | `viewModel<MyVM>()` / `@KoinViewModel` |
+| Activity/Fragment での注入 | `by viewModel()` |
+| Activity との共有 | `by activityViewModel()` |
+| パラメータの受け渡し | `by viewModel { parametersOf(id) }` |
+| Navigation グラフのスコープ | `by koinNavGraphViewModel(R.id.graph)` |
+| SavedStateHandle を使用する場合 | コンストラクタに追加するだけ |
+
+## 次のステップ
+
+- **[コア ViewModel](/docs/reference/koin-core/viewmodel)** - マルチプラットフォーム ViewModel DSL
+- **[スコープ](/docs/reference/koin-core/scopes#viewmodel-scope)** - スコープされた依存関係のための ViewModel Scope
+- **[テスト](/docs/reference/koin-test/testing)** - ViewModel のテスト
+- **[Compose](/docs/reference/koin-compose/compose)** - Compose における ViewModel

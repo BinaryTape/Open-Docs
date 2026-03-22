@@ -1,6 +1,6 @@
 # Koin 注解清单
 
-本文档提供了所有 Koin 注解及其参数、行为和用法示例的详尽清单。
+本文档提供了所有 Koin 注解及其形参、行为和用法示例的详尽清单。
 
 ## 目录
 
@@ -49,7 +49,7 @@
 
 **描述：** 在 Koin 中将类型或函数声明为 `single`（单例）定义。一个单例实例会被创建并在整个应用程序中共享。
 
-**参数：**
+**形参：**
 - `binds: Array<KClass<*>> = [Unit::class]` - 要绑定到此定义的显式类型。父类型会被自动检测。
 - `createdAtStart: Boolean = false` - 如果为 `true`，则在 Koin 启动时创建实例。
 
@@ -89,7 +89,7 @@ class MyClass(val d : MyDependency)
 
 **描述：** 在 Koin 中将类型或函数声明为 `factory`（工厂）定义。每次请求时都会创建一个新实例。
 
-**参数：**
+**形参：**
 - `binds: Array<KClass<*>> = [Unit::class]` - 要绑定到此定义的显式类型。父类型会被自动检测。
 
 **行为：**
@@ -116,7 +116,7 @@ factory { MyClass(get()) }
 
 **描述：** 在 Koin 中将类型或函数声明为 `scoped`（作用域）定义。必须与 `@Scope` 注解关联。实例在特定的作用域内共享。
 
-**参数：**
+**形参：**
 - `binds: Array<KClass<*>> = [Unit::class]` - 要绑定到此定义的显式类型。父类型会被自动检测。
 
 **行为：**
@@ -143,7 +143,7 @@ class MyClass(val d : MyDependency)
 
 **描述：** 在 Koin 作用域中声明一个类。作用域名称由值（类）或名称（字符串）描述。默认情况下，声明一个 `scoped` 定义。可以使用 `@Scoped`、`@Factory`、`@KoinViewModel` 注解进行重写以实现显式绑定。
 
-**参数：**
+**形参：**
 - `value: KClass<*> = Unit::class` - 作用域类值
 - `name: String = ""` - 作用域字符串值
 
@@ -179,7 +179,7 @@ class MyClass(val d : MyDependency)
 
 **描述：** 在 ViewModelScope Koin 作用域中声明一个类。这是应在 ViewModel 生命周期内生存的组件的作用域原型。
 
-**参数：** 无
+**形参：** 无
 
 **行为：**
 在 `viewModelScope` 内创建一个作用域定义。
@@ -210,7 +210,7 @@ viewModelScope {
 
 **描述：** 在 Activity Koin 作用域中声明一个类。
 
-**参数：** 无
+**形参：** 无
 
 **行为：**
 在 `activityScope` 内创建一个作用域定义。
@@ -241,7 +241,7 @@ activityScope {
 
 **描述：** 在 Activity Koin 作用域中声明一个类，但在配置更改后仍保留。
 
-**参数：** 无
+**形参：** 无
 
 **行为：**
 在 `activityRetainedScope` 内创建一个作用域定义。
@@ -272,7 +272,7 @@ activityRetainedScope {
 
 **描述：** 在 Fragment Koin 作用域中声明一个类。
 
-**参数：** 无
+**形参：** 无
 
 **行为：**
 在 `fragmentScope` 内创建一个作用域定义。
@@ -301,9 +301,9 @@ fragmentScope {
 
 **目标：** `VALUE_PARAMETER`
 
-**描述：** 注解类构造函数或函数中的参数，以请求使用作用域 ID 对给定作用域进行解析。
+**描述：** 注解类构造函数或函数中的形参，以请求使用作用域 ID 对给定作用域进行解析。
 
-**参数：**
+**形参：**
 - `value: KClass<*> = Unit::class` - 作用域类型
 - `name: String = ""` - 作用域字符串标识符
 
@@ -344,7 +344,7 @@ class MyClass(@ScopeId(MyScope::class) val d : MyDependency)
 - ✅ Kotlin 多平台 (KMP)
 - ✅ Compose 多平台 (CMP)
 
-**参数：**
+**形参：**
 - `binds: Array<KClass<*>> = []` - 要绑定到此定义的显式类型。父类型会被自动检测。
 
 **行为：**
@@ -380,7 +380,7 @@ viewModel { MyViewModel(get()) }
 
 **描述：** Koin 定义的 Worker 注解。将类型声明为 WorkManager worker 的 `worker` 定义。
 
-**参数：**
+**形参：**
 - `binds: Array<KClass<*>> = []` - 要绑定到此定义的显式类型。
 
 **行为：**
@@ -404,7 +404,7 @@ class MyWorker() : Worker()
 
 **描述：** 为给定定义定义限定符。生成 `StringQualifier("...")` 或基于类型的限定符。
 
-**参数：**
+**形参：**
 - `value: String = ""` - 字符串限定符
 - `type: KClass<*> = Unit::class` - 类限定符
 
@@ -418,7 +418,7 @@ class MyWorker() : Worker()
 class MyClass(val d : MyDependency)
 ```
 
-**在参数中用法：**
+**在形参中的用法：**
 ```kotlin
 @Single
 class Consumer(@Named("special") val myClass: MyClass)
@@ -439,9 +439,9 @@ class MyClass(val d : MyDependency)
 
 **目标：** `CLASS`, `FUNCTION`, `VALUE_PARAMETER`
 
-**描述：** 为给定定义定义限定符。与 `@Named` 类似，但参数优先级相反。
+**描述：** 为给定定义定义限定符。与 `@Named` 类似，但形参优先级相反。
 
-**参数：**
+**形参：**
 - `value: KClass<*> = Unit::class` - 类限定符
 - `name: String = ""` - 字符串限定符
 
@@ -465,13 +465,13 @@ class MyClass(val d : MyDependency)
 
 **目标：** `VALUE_PARAMETER`
 
-**描述：** 注解构造函数参数或函数参数，以作为 Koin 属性进行解析。
+**描述：** 注解构造函数形参或函数形参，以作为 Koin 属性进行解析。
 
-**参数：**
+**形参：**
 - `value: String` - 属性名称
 
 **行为：**
-从 Koin 属性而非依赖项注入中解析参数值。
+从 Koin 属性而非依赖项注入中解析形参值。
 
 **示例：**
 ```kotlin
@@ -508,7 +508,7 @@ factory { MyClass(getProperty("name", defaultName)) }
 
 **描述：** 注解将作为属性默认值的字段值。
 
-**参数：**
+**形参：**
 - `value: String` - 属性名称
 
 **行为：**
@@ -538,9 +538,9 @@ factory { MyClass(getProperty("name", defaultName)) }
 
 **目标：** `CLASS`
 
-**描述：** 辅助收集 Koin 模块内定义的类注解。每个函数都可以使用 Koin 定义注解进行注解。
+**描述：** 类注解，辅助收集 Koin 模块内定义的定义。每个函数都可以使用 Koin 定义注解进行注解。
 
-**参数：**
+**形参：**
 - `includes: Array<KClass<*>> = []` - 要包含的模块类
 - `createdAtStart: Boolean = false` - 如果为 `true`，则在启动时创建模块实例
 
@@ -582,7 +582,7 @@ class MyModule {
 
 **描述：** 收集使用 Koin 定义注解声明的定义。扫描当前软件包或显式软件包名称。
 
-**参数：**
+**形参：**
 - `value: vararg String = []` - 要扫描的软件包（支持通配符模式）
 
 **行为：**
@@ -634,7 +634,7 @@ class MyApp
 
 **描述：** 应用于 `@Module` 类，以将其与一个或多个配置（标签/变体）关联。
 
-**参数：**
+**形参：**
 - `value: vararg String = []` - 配置名称
 
 **行为：**
@@ -676,7 +676,7 @@ class MyModule
 
 **描述：** 将类标记为 Koin 应用程序入口点。通过 `startKoin()` 或 `koinApplication()` 函数生成 Koin 应用程序引导程序。
 
-**参数：**
+**形参：**
 - `configurations: Array<String> = []` - 要扫描的配置名称列表
 - `modules: Array<KClass<*>> = [Unit::class]` - 除配置外要加载的模块列表
 
@@ -730,7 +730,7 @@ MyApp.startKoin {
 
 **描述：** 将类或函数标记为通过 Kotzilla 平台（Koin 的官方工具平台）进行自动监控和性能跟踪。
 
-**参数：** 无
+**形参：** 无
 
 **行为：**
 - 应用于类时：生成一个 Koin 代理，监控所有公开方法调用。
@@ -751,7 +751,7 @@ class UserService(private val userRepository: UserRepository) {
 ```
 
 **资源：**
-- [Kotzilla 平台](https://kotzilla.io)
+- [Kotzilla Platform](https://kotzilla.io)
 - [完整文档](https://doc.kotzilla.io)
 - [最新版本](https://doc.kotzilla.io/docs/releaseNotes/changelogSDK)
 
@@ -769,9 +769,9 @@ class UserService(private val userRepository: UserRepository) {
 
 **目标：** `CLASS`, `FIELD`, `FUNCTION`
 
-**描述：** 内部使用，用于生成软件包中的组件发现。
+**描述：** 内部使用，用于在生成的软件包中发现组件。
 
-**参数：**
+**形参：**
 - `value: String = ""` - 声明定义的软件包
 
 ---
@@ -782,12 +782,12 @@ class UserService(private val userRepository: UserRepository) {
 
 **目标：** `CLASS`, `FUNCTION`, `PROPERTY`
 
-**描述：** 辅助表示定义元数据的元定义注解。
+**描述：** 元定义注解，辅助表示定义元数据。
 
-**参数：**
+**形参：**
 - `value: String = ""` - 定义完整路径
 - `moduleTagId: String = ""` - 模块标签 + ID（格式："module_id:module_tag"）
-- `dependencies: Array<String> = []` - 要检查的参数标签
+- `dependencies: Array<String> = []` - 要检查的形参标签
 - `binds: Array<String> = []` - 绑定类型
 - `qualifier: String = ""` - 限定符
 - `scope: String = ""` - 声明它的作用域
@@ -800,9 +800,9 @@ class UserService(private val userRepository: UserRepository) {
 
 **目标：** `CLASS`
 
-**描述：** 辅助表示模块元数据的元模块注解。
+**描述：** 元模块注解，辅助表示模块元数据。
 
-**参数：**
+**形参：**
 - `value: String = ""` - 模块完整路径
 - `id: String = ""` - 模块 ID
 - `includes: Array<String> = []` - 要检查的包含模块标签
@@ -817,9 +817,9 @@ class UserService(private val userRepository: UserRepository) {
 
 **目标：** `CLASS`
 
-**描述：** 辅助表示应用程序元数据的元应用注解。
+**描述：** 元应用注解，辅助表示应用程序元数据。
 
-**参数：**
+**形参：**
 - `value: String = ""` - 应用程序完整路径
 - `includes: Array<String> = []` - 要检查的所用模块标签
 - `configurations: Array<String> = []` - 要检查的所用配置模块
@@ -854,14 +854,14 @@ class UserService(private val userRepository: UserRepository) {
 | `@FragmentScope` | `org.koin.android.annotation` | Fragment 作用域 | Fragment 作用域内的依赖项 |
 | `@ScopeId` | `org.koin.core.annotation` | 作用域解析 | 从特定作用域解析 |
 | `@KoinViewModel` | `org.koin.android.annotation` | ViewModel 定义 | Android/KMP/CMP ViewModels |
-| `@KoinWorker` | `org.koin.android.annotation` | Worker 定义 | WorkManager workers |
+| `@KoinWorker` | `org.koin.android.annotation` | Worker 定义 | WorkManager worker |
 | `@Named` | `org.koin.core.annotation` | 字符串/类型限定符 | 区分同类型的 bean |
 | `@Qualifier` | `org.koin.core.annotation` | 类型/字符串限定符 | 区分同类型的 bean |
 | `@Property` | `org.koin.core.annotation` | 属性注入 | 配置值 |
 | `@PropertyValue` | `org.koin.core.annotation` | 属性默认值 | 默认配置值 |
 | `@Module` | `org.koin.core.annotation` | 模块声明 | 分组定义 |
 | `@ComponentScan` | `org.koin.core.annotation` | 软件包扫描 | 自动发现定义 |
-| `@Configuration` | `org.koin.core.annotation` | 模块配置 | 构建变体/变体 (flavors) |
+| `@Configuration` | `org.koin.core.annotation` | 模块配置 | 构建变体/变体 |
 | `@KoinApplication` | `org.koin.core.annotation` | 应用入口点 | 引导 Koin |
 | `@Monitor` | `org.koin.core.annotation` | 性能监控 | 生产环境监控 |
 

@@ -500,7 +500,7 @@
   "koog.a2a-server-implementation": "A2Aサーバー実装",
   "koog.a2a-client-implementation": "A2Aクライアント実装",
   "koog.a2a-and-koog-integration": "A2AとKoogの統合",
-  "koog.agent-persistence": "エージェント永続化",
+  "koog.agent-persistence": "エージェントの永続化",
   "kmp.kmp-overview": "Kotlin Multiplatformとは",
   "koog._0": "0",
   "koog.key-features": "主要機能",
@@ -514,7 +514,7 @@
   "koog.event-handlers": "イベントハンドラー",
   "kmp.kmp-tooling": "KMPツーリング",
   "kotlin.compose-multiplatform-material3": "Compose Multiplatform Material3",
-  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.2",
+  "kmp.whats-new-compose-110": "Compose Multiplatform 1.10.3",
   "kmp.earlier-versions": "以前のバージョン",
   "kotlin.language-guide": "言語ガイド",
   "kotlin.basic-syntax": "概要",
@@ -635,5 +635,12 @@
   "kmp.swiftpm-integration": "SwiftPM統合",
   "kmp.multiplatform-spm-import": "SwiftPMインポート",
   "kmp.multiplatform-cocoapods-spm-migration": "CocoaPodsからSwiftPMへの移行",
-  "koog.serialization": "シリアル化"
+  "koog.serialization": "シリアル化",
+  "kotlin.whatsnew2320": "Kotlin 2.3.20",
+  "kmp.configure-ci-for-a-kmp-app": "KMPアプリのCIを設定する",
+  "kmp.github-actions-for-kmp": "GitHub Actionsを設定する",
+  "kmp.configure-teamcity-for-kmp": "TeamCityを設定する",
+  "koog.chat-backend-with-memory": "メモリ機能付きチャットバックエンド",
+  "koog.agent-memory": "エージェントメモリ",
+  "koog.spring-ai": "Spring AI"
 }

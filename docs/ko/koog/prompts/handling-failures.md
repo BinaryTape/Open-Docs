@@ -5,39 +5,57 @@
 ## 재시도 기능
 
 LLM 제공업체를 이용할 때 레이트 리밋(rate limit)이나 일시적인 서비스 중단과 같은 일시적인 오류(transient errors)가 발생할 수 있습니다.
-`RetryingLLMClient` 데코레이터는 모든 LLM 클라이언트에 자동 재시도 로직을 추가합니다.
+`RetryingLLMClient` 데코레이터는 Kotlin과 Java 모두에서 모든 LLM 클라이언트에 자동 재시도 로직을 추가합니다.
 
 ### 기본 사용법
 
 기존 클라이언트를 재시도 기능으로 감쌉니다.
 
-<!--- INCLUDE
-import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
-import ai.koog.prompt.dsl.prompt
-import kotlinx.coroutines.runBlocking
+=== "Kotlin"
 
-fun main() {
-    runBlocking {
-        val apiKey = System.getenv("OPENAI_API_KEY")
-        val prompt = prompt("test") {
-            user("Hello")
+    <!--- INCLUDE
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
+    import ai.koog.prompt.dsl.prompt
+    import kotlinx.coroutines.runBlocking
+    fun main() {
+        runBlocking {
+            val apiKey = System.getenv("OPENAI_API_KEY")
+            val prompt = prompt("test") {
+                user("Hello")
+            }
+    -->
+    <!--- SUFFIX
         }
--->
-<!--- SUFFIX
     }
-}
--->
-```kotlin
-// 모든 클라이언트를 재시도 기능으로 감쌉니다.
-val client = OpenAILLMClient(apiKey)
-val resilientClient = RetryingLLMClient(client)
+    -->
+    ```kotlin
+    // 모든 클라이언트를 재시도 기능으로 감쌉니다.
+    val client = OpenAILLMClient(apiKey)
+    val resilientClient = RetryingLLMClient(client)
 
-// 이제 모든 작업이 일시적인 오류 발생 시 자동으로 재시도됩니다.
-val response = resilientClient.execute(prompt, OpenAIModels.Chat.GPT4o)
-```
-<!--- KNIT example-handling-failures-01.kt -->
+    // 이제 모든 작업이 일시적인 오류 발생 시 자동으로 재시도됩니다.
+    val response = resilientClient.execute(prompt, OpenAIModels.Chat.GPT4o)
+    ```
+    <!--- KNIT example-handling-failures-01.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    OpenAILLMClient client = new OpenAILLMClient(apiKey);
+    RetryingLLMClient resilientClient = new RetryingLLMClient(client);
+
+    // 이제 모든 작업이 일시적인 오류 발생 시 자동으로 재시도됩니다.
+    List<Message.Response> response = resilientClient.execute(prompt, OpenAIModels.Chat.GPT4o);
+    ```
+    <!--- KNIT example-handling-failures-java-01.java -->
 
 ### 재시도 동작 설정
 
@@ -45,26 +63,45 @@ val response = resilientClient.execute(prompt, OpenAIModels.Chat.GPT4o)
 `RetryingLLMClient`에 전달되는 `RetryConfig`를 사용하여 다른 재시도 설정을 지정할 수 있습니다.
 예를 들어:
 
-<!--- INCLUDE
-import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import ai.koog.prompt.executor.clients.retry.RetryConfig
-import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
+=== "Kotlin"
 
-val apiKey = System.getenv("OPENAI_API_KEY")
-val client = OpenAILLMClient(apiKey)
--->
-```kotlin
-// 미리 정의된 설정을 사용합니다.
-val conservativeClient = RetryingLLMClient(
-    delegate = client,
-    config = RetryConfig.CONSERVATIVE
-)
-```
-<!--- KNIT example-handling-failures-02.kt -->
+    <!--- INCLUDE
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+    import ai.koog.prompt.executor.clients.retry.RetryConfig
+    import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
+    val apiKey = System.getenv("OPENAI_API_KEY")
+    val client = OpenAILLMClient(apiKey)
+    -->
+    ```kotlin
+    // 미리 정의된 설정을 사용합니다.
+    val conservativeClient = RetryingLLMClient(
+        delegate = client,
+        config = RetryConfig.CONSERVATIVE
+    )
+    ```
+    <!--- KNIT example-handling-failures-02.kt -->
 
-Koog는 몇 가지 미리 정의된 재시도 설정을 제공합니다.
+=== "Java"
 
-| 설정 | 최대 시도 횟수 | 초기 지연 시간 | 최대 지연 시간 | 유스케이스 |
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    OpenAILLMClient client = new OpenAILLMClient(apiKey);
+    // 미리 정의된 설정을 사용합니다.
+    RetryingLLMClient conservativeClient = new RetryingLLMClient(
+        client,
+        RetryConfig.Companion.getCONSERVATIVE()
+    );
+    ```
+    <!--- KNIT example-handling-failures-java-02.java -->
+
+Koog는 Kotlin의 `RetryConfig`와 Java의 `RetryConfig.Companion`을 통해 몇 가지 미리 정의된 재시도 설정을 제공합니다.
+
+| 설정 (Kotlin) | 최대 시도 횟수 | 초기 지연 시간 | 최대 지연 시간 | 유스케이스 |
 |----------------------------|--------------|---------------|-----------|----------------------------------------------------------------------------------------------------------|
 | `RetryConfig.DISABLED`     | 1 (재시도 없음) | -             | -         | 개발, 테스트 및 디버깅. |
 | `RetryConfig.CONSERVATIVE` | 3            | 2s            | 30s       | 속도보다 신뢰성이 더 중요한 백그라운드 또는 예약된 작업. |
@@ -190,7 +227,6 @@ import ai.koog.prompt.executor.clients.retry.RetryConfig
 import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
 import ai.koog.prompt.dsl.prompt
 import kotlinx.coroutines.runBlocking
-
 fun main() {
     runBlocking {
         val baseClient = OpenAILLMClient(System.getenv("OPENAI_API_KEY"))
@@ -219,53 +255,91 @@ val stream = client.executeStreaming(prompt, OpenAIModels.Chat.GPT4o)
 
 ### 프롬프트 실행기와 함께 재시도 사용
 
-프롬프트 실행기를 사용할 때, 실행기를 생성하기 전에 기본 LLM 클라이언트를 재시도 메커니즘으로 감쌀 수 있습니다.
+프롬프트 실행기를 사용할 때, Kotlin과 Java 모두에서 실행기를 생성하기 전에 기본 LLM 클라이언트를 재시도 메커니즘으로 감쌀 수 있습니다.
 프롬프트 실행기에 대한 자세한 내용은 [프롬프트 실행기](prompt-executors.md)를 참조하세요.
 
-<!--- INCLUDE
-import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
-import ai.koog.prompt.executor.clients.bedrock.BedrockLLMClient
-import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import ai.koog.prompt.executor.clients.retry.RetryConfig
-import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
-import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
-import ai.koog.prompt.llm.LLMProvider
-import aws.sdk.kotlin.runtime.auth.credentials.StaticCredentialsProvider
+=== "Kotlin"
 
--->
-```kotlin
-// 재시도가 포함된 단일 제공자 실행기
-val resilientClient = RetryingLLMClient(
-    OpenAILLMClient(System.getenv("OPENAI_API_KEY")),
-    RetryConfig.PRODUCTION
-)
-val executor = MultiLLMPromptExecutor(resilientClient)
-
-// 유연한 클라이언트 설정이 포함된 다중 제공자 실행기
-val multiExecutor = MultiLLMPromptExecutor(
-    LLMProvider.OpenAI to RetryingLLMClient(
+    <!--- INCLUDE
+    import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
+    import ai.koog.prompt.executor.clients.bedrock.BedrockLLMClient
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+    import ai.koog.prompt.executor.clients.retry.RetryConfig
+    import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
+    import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
+    import ai.koog.prompt.llm.LLMProvider
+    import aws.sdk.kotlin.runtime.auth.credentials.StaticCredentialsProvider
+    -->
+    ```kotlin
+    // 재시도가 포함된 단일 제공자 실행기
+    val resilientClient = RetryingLLMClient(
         OpenAILLMClient(System.getenv("OPENAI_API_KEY")),
-        RetryConfig.CONSERVATIVE
-    ),
-    LLMProvider.Anthropic to RetryingLLMClient(
-        AnthropicLLMClient(System.getenv("ANTHROPIC_API_KEY")),
-        RetryConfig.AGGRESSIVE  
-    ),
-    // Bedrock 클라이언트는 이미 내장된 AWS SDK 재시도 기능을 가지고 있습니다. 
-    LLMProvider.Bedrock to BedrockLLMClient(
-        identityProvider = StaticCredentialsProvider {
-            accessKeyId = System.getenv("AWS_ACCESS_KEY_ID")
-            secretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY")
-            sessionToken = System.getenv("AWS_SESSION_TOKEN")
-        },
-    ),
-)
-```
-<!--- KNIT example-handling-failures-07.kt -->
+        RetryConfig.PRODUCTION
+    )
+    val executor = MultiLLMPromptExecutor(resilientClient)
+
+    // 유연한 클라이언트 설정이 포함된 다중 제공자 실행기
+    val multiExecutor = MultiLLMPromptExecutor(
+        LLMProvider.OpenAI to RetryingLLMClient(
+            OpenAILLMClient(System.getenv("OPENAI_API_KEY")),
+            RetryConfig.CONSERVATIVE
+        ),
+        LLMProvider.Anthropic to RetryingLLMClient(
+            AnthropicLLMClient(System.getenv("ANTHROPIC_API_KEY")),
+            RetryConfig.AGGRESSIVE  
+        ),
+        // Bedrock 클라이언트는 이미 내장된 AWS SDK 재시도 기능을 가지고 있습니다. 
+        LLMProvider.Bedrock to BedrockLLMClient(
+            identityProvider = StaticCredentialsProvider {
+                accessKeyId = System.getenv("AWS_ACCESS_KEY_ID")
+                secretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY")
+                sessionToken = System.getenv("AWS_SESSION_TOKEN")
+            },
+        ),
+    )
+    ```
+    <!--- KNIT example-handling-failures-07.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    // 재시도가 포함된 단일 제공자 실행기 (Java)
+    RetryingLLMClient resilientClient = new RetryingLLMClient(
+        new OpenAILLMClient(System.getenv("OPENAI_API_KEY")),
+        RetryConfig.Companion.getPRODUCTION()
+    );
+
+    MultiLLMPromptExecutor executor = new MultiLLMPromptExecutor(resilientClient);
+
+    // 유연한 클라이언트 설정이 포함된 다중 제공자 실행기 (Java)
+    LLMClient openai = new RetryingLLMClient(
+        new OpenAILLMClient(System.getenv("OPENAI_API_KEY")),
+        RetryConfig.Companion.getCONSERVATIVE()
+    );
+
+    LLMClient anthropic = new RetryingLLMClient(
+        new AnthropicLLMClient(System.getenv("ANTHROPIC_API_KEY")),
+        RetryConfig.Companion.getAGGRESSIVE()
+    );
+
+    Map<LLMProvider, LLMClient> clients = Map.of(
+        LLMProvider.OpenAI, openai,
+        LLMProvider.Anthropic, anthropic
+    );
+
+    MultiLLMPromptExecutor multiExecutor = new MultiLLMPromptExecutor(clients);
+    ```
+    <!--- KNIT example-handling-failures-java-03.java -->
 
 ## 타임아웃 설정
 
-모든 LLM 클라이언트는 요청이 중단되는 것을 방지하기 위해 타임아웃 설정을 지원합니다.
+모든 LLM 클라이언트는 요청이 중단되는 것을 방지하기 위해 Kotlin과 Java 모두에서 타임아웃 설정을 지원합니다.
 클라이언트를 생성할 때 [`ConnectionTimeoutConfig`](api:prompt-executor-clients::ai.koog.prompt.executor.clients.ConnectionTimeoutConfig) 클래스를 사용하여 네트워크 연결에 대한 타임아웃 값을 지정할 수 있습니다.
 
 `ConnectionTimeoutConfig`는 다음과 같은 속성을 가집니다.
@@ -278,26 +352,55 @@ val multiExecutor = MultiLLMPromptExecutor(
 
 특정 요구 사항에 맞게 이 값들을 사용자 정의할 수 있습니다. 예를 들어:
 
-<!--- INCLUDE
-import ai.koog.prompt.executor.clients.ConnectionTimeoutConfig
-import ai.koog.prompt.executor.clients.openai.OpenAIClientSettings
-import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+=== "Kotlin"
 
-val apiKey = System.getenv("OPENAI_API_KEY")    
--->
-```kotlin
-val client = OpenAILLMClient(
-    apiKey = apiKey,
-    settings = OpenAIClientSettings(
-        timeoutConfig = ConnectionTimeoutConfig(
-            connectTimeoutMillis = 5000,    // 연결 설정에 5초
-            requestTimeoutMillis = 60000,    // 전체 요청에 60초
-            socketTimeoutMillis = 120000   // 소켓 데이터 대기에 120초
+    <!--- INCLUDE
+    import ai.koog.prompt.executor.clients.ConnectionTimeoutConfig
+    import ai.koog.prompt.executor.clients.openai.OpenAIClientSettings
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+    val apiKey = System.getenv("OPENAI_API_KEY")    
+    -->
+    ```kotlin
+    val client = OpenAILLMClient(
+        apiKey = apiKey,
+        settings = OpenAIClientSettings(
+            timeoutConfig = ConnectionTimeoutConfig(
+                connectTimeoutMillis = 5000,    // 연결 설정에 5초
+                requestTimeoutMillis = 60000,    // 전체 요청에 60초
+                socketTimeoutMillis = 120000   // 소켓 데이터 대기에 120초
+            )
         )
     )
-)
-```
-<!--- KNIT example-handling-failures-08.kt -->
+    ```
+    <!--- KNIT example-handling-failures-08.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    /**
+    -->
+    <!--- SUFFIX
+    **/
+    -->
+    ```java
+    String apiKey = System.getenv("OPENAI_API_KEY");
+    ConnectionTimeoutConfig timeouts = new ConnectionTimeoutConfig(
+        5000L,   // connectTimeoutMillis
+        60000L,  // requestTimeoutMillis
+        120000L  // socketTimeoutMillis
+    );
+    OpenAIClientSettings settings = new OpenAIClientSettings(
+        "https://api.openai.com", // baseUrl
+        timeouts,
+        "v1/chat/completions",    // chatCompletionsPath
+        "v1/responses",           // responsesAPIPath
+        "v1/embeddings",          // embeddingsPath
+        "v1/moderations",         // moderationsPath
+        "v1/models"               // modelsPath
+    );
+    OpenAILLMClient client = new OpenAILLMClient(apiKey, settings);
+    ```
+    <!--- KNIT example-handling-failures-java-04.java -->
 
 !!! tip
     오래 걸리는 호출이나 스트리밍 호출의 경우, `requestTimeoutMillis`와 `socketTimeoutMillis`에 더 높은 값을 설정하세요.
@@ -311,55 +414,113 @@ val client = OpenAILLMClient(
 - 중요한 작업을 위한 **폴백(fallback)**.
 - 반복되는 문제를 식별하기 위한 **재시도 패턴 모니터링**.
 
-다음은 오류 처리의 예입니다.
+다음은 Kotlin과 Java에서의 오류 처리 예시입니다.
 
-<!--- INCLUDE
-import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
-import ai.koog.prompt.executor.clients.retry.RetryConfig
-import ai.koog.prompt.dsl.prompt
-import kotlinx.coroutines.runBlocking
-import org.slf4j.LoggerFactory
--->
-```kotlin
-fun main() {
-    runBlocking {
-        val logger = LoggerFactory.getLogger("Example")
-        val resilientClient = RetryingLLMClient(
-            OpenAILLMClient(System.getenv("OPENAI_API_KEY")),
-            RetryConfig.PRODUCTION
-        )
-        val prompt = prompt("test") { user("Hello") }
-        val model = OpenAIModels.Chat.GPT4o
+=== "Kotlin"
 
-        fun processResponse(response: Any) { /* 구현부 */ }
-        fun scheduleRetryLater() { /* 구현부 */ }
-        fun notifyAdministrator() { /* 구현부 */ }
-        fun useDefaultResponse() { /* 구현부 */ }
+    <!--- INCLUDE
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.executor.clients.retry.RetryingLLMClient
+    import ai.koog.prompt.executor.clients.retry.RetryConfig
+    import ai.koog.prompt.dsl.prompt
+    import kotlinx.coroutines.runBlocking
+    import org.slf4j.LoggerFactory
+    fun main() {
+        runBlocking {
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```kotlin
+    val logger = LoggerFactory.getLogger("Example")
+    val resilientClient = RetryingLLMClient(
+        OpenAILLMClient(System.getenv("OPENAI_API_KEY")),
+        RetryConfig.PRODUCTION
+    )
+    val prompt = prompt("test") { user("Hello") }
+    val model = OpenAIModels.Chat.GPT4o
 
-        try {
-            val response = resilientClient.execute(prompt, model)
-            processResponse(response)
-        } catch (e: Exception) {
-            logger.error("LLM operation failed", e)
+    fun processResponse(response: Any) { /* 구현부 */ }
+    fun scheduleRetryLater() { /* 구현부 */ }
+    fun notifyAdministrator() { /* 구현부 */ }
+    fun useDefaultResponse() { /* 구현부 */ }
 
-            when {
-                e.message?.contains("rate limit") == true -> {
-                    // 레이트 리밋(rate limit)을 구체적으로 처리합니다.
-                    scheduleRetryLater()
-                }
-                e.message?.contains("invalid api key") == true -> {
-                    // 인증 오류를 처리합니다.
-                    notifyAdministrator()
-                }
-                else -> {
-                    // 대안 해결책으로 폴백(fall back)합니다.
-                    useDefaultResponse()
-                }
+    try {
+        val response = resilientClient.execute(prompt, model)
+        processResponse(response)
+    } catch (e: Exception) {
+        logger.error("LLM operation failed", e)
+
+        when {
+            e.message?.contains("rate limit") == true -> {
+                // 레이트 리밋(rate limit)을 구체적으로 처리합니다.
+                scheduleRetryLater()
+            }
+            e.message?.contains("invalid api key") == true -> {
+                // 인증 오류를 처리합니다.
+                notifyAdministrator()
+            }
+            else -> {
+                // 대안 해결책으로 폴백(fall back)합니다.
+                useDefaultResponse()
             }
         }
     }
-}
-```
-<!--- KNIT example-handling-failures-09.kt -->
+    ```
+    <!--- KNIT example-handling-failures-09.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.Prompt;
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient;
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels;
+    import ai.koog.prompt.executor.clients.retry.RetryConfig;
+    import ai.koog.prompt.executor.clients.retry.RetryingLLMClient;
+    import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor;
+    import ai.koog.prompt.message.Message;
+    import org.slf4j.Logger;
+    import org.slf4j.LoggerFactory;
+    import java.util.List;
+    import java.util.function.Consumer;
+    class exampleHandlingFailuresJava05 {
+        public static void main(String[] args) {
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    Logger logger = LoggerFactory.getLogger("Example");
+    RetryingLLMClient resilientClient = new RetryingLLMClient(
+            new OpenAILLMClient(System.getenv("OPENAI_API_KEY")),
+            RetryConfig.PRODUCTION
+    );
+    Prompt prompt = Prompt.builder("test")
+            .user("Hello")
+            .build();
+    MultiLLMPromptExecutor promptExecutor = new MultiLLMPromptExecutor(resilientClient);
+
+    Consumer<List<Message.Response>> processResponse = (resp) -> { /* 구현부 */ };
+    Runnable scheduleRetryLater = () -> { /* 구현부 */ };
+    Runnable notifyAdministrator = () -> { /* 구현부 */ };
+    Runnable useDefaultResponse = () -> { /* 구현부 */ };
+
+    try {
+        List<Message.Response> response = promptExecutor.execute(prompt, OpenAIModels.Chat.GPT4o);
+        processResponse.accept(response);
+    } catch (Exception e) {
+        logger.error("LLM operation failed", e);
+        String msg = e.getMessage() == null ? "" : e.getMessage().toLowerCase();
+        if (msg.contains("rate limit")) {
+            scheduleRetryLater.run();
+        } else if (msg.contains("invalid api key")) {
+            notifyAdministrator.run();
+        } else {
+            useDefaultResponse.run();
+        }
+    }
+    ```
+    <!--- KNIT example-handling-failures-java-05.java -->

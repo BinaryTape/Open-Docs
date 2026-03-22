@@ -43,7 +43,7 @@ print(
 
 ## 시작하기 전에
 
-최신 버전의 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html)를 다운로드하여 설치하세요.
+최신 버전의 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)를 다운로드하여 설치하세요.
 
 ## 프로젝트 생성하기
 
@@ -72,7 +72,7 @@ print(
 
 1. IntelliJ IDEA에서 **File | New | Module**을 선택합니다.
 2. 왼쪽 패널에서 **New Module**을 선택합니다. 이 모듈은 스크립트 정의가 됩니다.
-3. 새 모듈의 이름을 지정하고 필요한 경우 위치를 변경합니다.
+3. 새 모듈의 이름을 지정하고 필요한 경우 위치를 변경합니다. 
 4. **Language** 목록에서 **Java**를 선택합니다.
 5. **Gradle** 빌드 시스템을 선택하고, 빌드 스크립트를 Kotlin으로 작성하려면 **Gradle DSL**에서 Kotlin을 선택합니다.
 6. 모듈의 상위(parent)로 루트 모듈을 선택합니다.

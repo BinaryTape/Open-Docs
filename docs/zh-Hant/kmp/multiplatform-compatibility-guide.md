@@ -19,7 +19,8 @@ Kotlin 目前的穩定版本為 %kotlinVersion%。請注意特定變更相對於
 
 | Kotlin Multiplatform 外掛程式版本 | Gradle                                | Android Gradle 外掛程式                             | Xcode   |
 |-------------------------------------|---------------------------------------|-----------------------------------------------------|---------|
-| 2.3.10                              | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% | %xcode% |
+| 2.3.20                              | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% | %xcode% |
+| 2.3.10                              | 7.6.3–9.0.0                           | 8.2.2–9.0.0                                         | 26.0    |
 | 2.3.0                               | 7.6.3–9.0.0                           | 8.2.2–8.13.0                                        | 26.0    |
 | 2.2.21                              | 7.6.3–8.14                            | 7.3.1–8.11.1                                        | 26.0    |
 | 2.2.20                              | 7.6.3–8.14                            | 7.3.1–8.11.1                                        | 16.4    |
@@ -285,7 +286,7 @@ undefined
 
 **發生了什麼變化？**
 
-在發展過程中，Kotlin 逐漸在多平台專案中引入了對[階層結構](multiplatform-hierarchy.md)的支援，這使得在通用原始碼集 `commonMain` 與任何特定平台原始碼集（例如 `jvmMain`）之間建立中間原始碼學整合為可能。
+在發展過程中，Kotlin 逐漸在多平台專案中引入了對[階層結構](multiplatform-hierarchy.md)的支援，這使得在通用原始碼集 `commonMain` 與任何特定平台原始碼集（例如 `jvmMain`）之間建立中間原始碼集整合為可能。
 
 在工具鏈尚未足夠穩定之前的過渡期，引入了一些 Gradle 屬性，允許細粒度的選擇加入 (opt-in) 或退出 (opt-out)。
 
@@ -411,7 +412,7 @@ Kotlin Gradle 外掛程式現在提供了一個內建的階層結構模板。自
 
 **問題何時修復？**
 
-我們計劃在 Kotlin 2.0.10 中修復此問題。您可以在[參與 Kotlin 早期體驗計劃](https://kotlinlang.org/docs/eap.html)章節中檢查 Kotlin 2.0.10 的任何預覽版本是否已可用。
+我們計劃在 Kotlin 2.0.10 中修復此問題。您可以在[參與 Kotlin 早期體驗計畫](https://kotlinlang.org/docs/eap.html)章節中檢查 Kotlin 2.0.10 的任何預覽版本是否已可用。
 
 如需詳細資訊，請參閱 [YouTrack 中的對應問題](https://youtrack.jetbrains.com/issue/KT-68257)。
 
@@ -446,7 +447,7 @@ kotlin {
 
 **現在的最佳實務是什麼？**
 
-若要替換 `KotlinCompilation.source(someSourceSet)`，請使用 `.srcDir()` 函式將您的原始碼直接加入適當的原始碼集。或者，您可以建立一個新的原始碼集，並加入從 `KotlinCompilation` 的預設原始碼集到 `someSourceSet` 的 `dependsOn` 關係。您也可以使用 [原始碼集慣例 (source set conventions)](https://kotlinlang.api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.dsl/-kotlin-multiplatform-source-set-conventions/) 直接引用原始碼，這對 IDE 較友善且被認為是最穩健的方法。最後，您可以使用 `KotlinCompilation.defaultSourceSet.dependsOn(someSourceSet)`，這在所有情況下都有效。
+若要替換 `KotlinCompilation.source(someSourceSet)`，請使用 `.srcDir()` 函式將您的原始碼直接加入適當的原始碼集。或者，您可以建立一個新的原始碼集，並加入從 `KotlinCompilation` 的預設原始碼集到 `someSourceSet` 的 `dependsOn` 關係。您也可以使用[原始碼集慣例 (source set conventions)](https://kotlinlang.api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.dsl/-kotlin-multiplatform-source-set-conventions/)直接引用原始碼，這對 IDE 較友善且被認為是最穩健的方法。最後，您可以使用 `KotlinCompilation.defaultSourceSet.dependsOn(someSourceSet)`，這在所有情況下都有效。
 
 您可以透過以下方式之一更改上述程式碼：
 

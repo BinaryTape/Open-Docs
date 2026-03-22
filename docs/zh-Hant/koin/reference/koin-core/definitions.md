@@ -2,298 +2,466 @@
 title: 定義
 ---
 
-使用 Koin，您可以在模組中描述定義。在此章節中，我們將了解如何宣告、組織和連結您的模組。
+# 定義
 
-## 撰寫模組
+定義宣告了 Koin 如何建立與管理您的相依性。本指南涵蓋了使用 DSL 和註解 (Annotation) 的所有定義型別。
 
-Koin 模組是**宣告您所有元件的空間**。使用 `module` 函式來宣告 Koin 模組：
+## 定義型別
+
+| 型別 | DSL | 註解 | 生命週期 | 使用案例 |
+|------|-----|------------|-----------|----------|
+| Singleton | `single()` | `@Singleton` | 在應用程式生命週期內僅有一個執行個體 | Service、存儲庫 (repository)、資料庫 |
+| Factory | `factory()` | `@Factory` | 每次請求時建立新執行個體 | Presenter、使用案例 (use case)、具狀態的物件 |
+| Scoped | `scoped()` | `@Scoped` | 每個作用域 (scope) 一個執行個體 | 繫結至 Activity 或工作階段 (session) 的物件 |
+| ViewModel | `viewModel()` | `@KoinViewModel` | Android ViewModel 生命週期 | ViewModel |
+
+## 宣告定義
+
+### 編譯器外掛程式 DSL（推薦）
 
 ```kotlin
-val myModule = module {
-   // 這裡放入您的相依性
+import org.koin.plugin.module.dsl.*
+
+val appModule = module {
+    // Singleton
+    single<Database>()
+    single<UserRepository>()
+
+    // Factory - 每次請求時建立新執行個體
+    factory<UserPresenter>()
+
+    // ViewModel
+    viewModel<UserViewModel>()
 }
 ```
 
-在此模組中，您可以依照下述方式宣告元件。
-
-## 定義 singleton
-
-宣告 singleton 元件意味著 Koin 容器將保留您所宣告元件的**單一執行個體**。在模組中使用 `single` 函式來宣告 singleton：
+### 註解
 
 ```kotlin
-class MyService()
+@Singleton  // 或 @Single
+class Database
 
-val myModule = module {
+@Singleton
+class UserRepository(private val database: Database)
 
-    // 為 MyService 類別宣告單一執行個體
-    single { MyService() }
+@Factory
+class UserPresenter(private val repository: UserRepository)
+
+@KoinViewModel
+class UserViewModel(private val repository: UserRepository) : ViewModel()
+```
+
+### 經典 DSL
+
+```kotlin
+val appModule = module {
+    // 使用建構函式參照（自動裝配）
+    singleOf(::Database)
+    singleOf(::UserRepository)
+    factoryOf(::UserPresenter)
+    viewModelOf(::UserViewModel)
+
+    // 使用 Lambda（手動裝配）
+    single { Database() }
+    single { UserRepository(get()) }
+    factory { UserPresenter(get()) }
+    viewModel { UserViewModel(get()) }
 }
 ```
 
-## 在 Lambda 運算式中定義元件
+## 定義比較
 
-`single`、`factory` 和 `scoped` 關鍵字可協助您透過 Lambda 運算式宣告元件。此 Lambda 描述了您建置元件的方式。通常我們透過建構函式來具現化元件，但您也可以使用任何運算式。
-
-`single { Class constructor // Kotlin 運算式 }`
-
-Lambda 運算式的傳回型別即為元件的主要型別。
-
-## 定義 factory
-
-factory 元件宣告是一種在**每次請求該定義時都會提供新執行個體**的定義（此執行個體不會被 Koin 容器保留，因為稍後它不會將此執行個體注入到其他定義中）。使用 `factory` 函式配合 Lambda 運算式來建置元件。
-
-```kotlin
-class Controller()
-
-val myModule = module {
-
-    // 為 Controller 類別宣告 factory 執行個體
-    factory { Controller() }
-}
-```
+| 概念 | 編譯器外掛程式 DSL | 經典 DSL | 註解 |
+|---------|---------------------|-------------|------------|
+| Singleton | `single<MyClass>()` | `singleOf(::MyClass)` | `@Singleton` / `@Single` |
+| Factory | `factory<MyClass>()` | `factoryOf(::MyClass)` | `@Factory` |
+| Scoped | `scoped<MyClass>()` | `scopedOf(::MyClass)` | `@Scoped` |
+| ViewModel | `viewModel<MyVM>()` | `viewModelOf(::MyVM)` | `@KoinViewModel` |
+| Worker | `worker<MyWorker>()` | `workerOf(::MyWorker)` | `@KoinWorker` |
 
 :::info
- Koin 容器不會保留 factory 執行個體，因為每次請求定義時它都會提供新的執行個體。
+編譯器外掛程式正在分析您的類別和函式參數，以產生對 Koin 的正確呼叫並使用 `get()` 函式，您不再需要手動撰寫。
 :::
 
-## 解析與注入相依性
+## Single (Singleton)
 
-現在我們可以宣告元件定義，我們希望透過相依注入來連結執行個體。要在 Koin 模組中**解析執行個體**，只需使用 `get()` 函式來請求所需的元件執行個體。此 `get()` 函式通常用於建構函式中，以注入建構函式的值。
-
-:::info
- 要使用 Koin 容器進行相依注入，我們必須以**建構函式注入**樣式撰寫：在類別建構函式中解析相依性。如此一來，您的執行個體將使用 Koin 注入的執行個體來建立。
-:::
-
-讓我們看一個包含多個類別的範例：
+建立一個在整個應用程式中重複使用的執行個體：
 
 ```kotlin
-// Presenter <- Service
-class Service()
-class Controller(val view : View)
+// DSL
+single<DatabaseHelper>()
 
-val myModule = module {
+// 註解
+@Singleton
+class DatabaseHelper
+```
 
-    // 將 Service 宣告為單一執行個體
-    single { Service() }
-    // 將 Controller 宣告為單一執行個體，使用 get() 解析 View 執行個體
-    single { Controller(get()) }
+兩者產生的結果相同：一個在所有取用者之間共用的單一執行個體。
+
+## Factory
+
+每次都建立一個新執行個體：
+
+```kotlin
+// DSL
+factory<UserPresenter>()
+
+// 註解
+@Factory
+class UserPresenter(private val repository: UserRepository)
+```
+
+## Scoped
+
+每個作用域建立一個執行個體：
+
+```kotlin
+// DSL
+scope<MyActivity> {
+    scoped<ActivityPresenter>()
+}
+
+// 註解
+@Scoped(MyActivityScope::class)
+class ActivityPresenter
+```
+
+## ViewModel
+
+具備適當生命週期的 Android ViewModel：
+
+```kotlin
+// DSL
+viewModel<UserViewModel>()
+
+// 註解
+@KoinViewModel
+class UserViewModel(private val repository: UserRepository) : ViewModel()
+```
+
+## 介面繫結
+
+### 編譯器外掛程式 DSL
+
+```kotlin
+single<UserRepositoryImpl>() bind UserRepository::class
+
+// 多重繫結
+single<MyServiceImpl>() binds arrayOf(ServiceA::class, ServiceB::class)
+```
+
+### 經典 DSL
+
+```kotlin
+singleOf(::UserRepositoryImpl) bind UserRepository::class
+
+// 或使用 Lambda
+single<UserRepository> { UserRepositoryImpl(get()) }
+```
+
+### 註解
+
+當您的類別實作介面時，**介面繫結是自動進行的**：
+
+```kotlin
+@Singleton
+class UserRepositoryImpl(
+    private val database: Database
+) : UserRepository  // 自動繫結至 UserRepository
+```
+
+對於明確繫結：
+
+```kotlin
+@Singleton
+@Binds(UserRepository::class)
+class UserRepositoryImpl : UserRepository
+```
+
+## 限定詞（命名定義）
+
+當您有相同型別的多個定義時。有關檢索方式，請參閱 [使用限定詞進行注入](/docs/reference/koin-core/injection#injection-with-qualifiers)。
+
+### 編譯器外掛程式 DSL
+
+使用編譯器外掛程式 DSL 時，您需要使用 `@Named` 進行註解以使用字串限定詞（就像您之前使用 `named()` 一樣）
+
+```kotlin
+@Named("local")
+class LocalDatabase : Database
+
+@Named("remote")
+class RemoteDatabase : Database
+
+class UserRepository(
+    @Named("local") private val localDb: Database,
+    @Named("remote") private val remoteDb: Database
+)
+
+single<LocalDatabase>()
+single<RemoteDatabase>()
+single<UserRepository>()
+
+// 用法
+val localDb: Database = get(named("local"))
+```
+
+### 經典 DSL
+
+```kotlin
+single<Database>(named("local")) { LocalDatabase() }
+single<Database>(named("remote")) { RemoteDatabase() }
+
+// 用法
+val localDb: Database = get(named("local"))
+```
+
+### 註解
+
+```kotlin
+@Singleton
+@Named("local")
+class LocalDatabase : Database
+
+@Singleton
+@Named("remote")
+class RemoteDatabase : Database
+
+// 在取用者中
+@Singleton
+class UserRepository(
+    @Named("local") private val localDb: Database,
+    @Named("remote") private val remoteDb: Database
+)
+```
+
+## 注入參數
+
+在注入時傳遞參數：
+
+### 編譯器外掛程式 DSL
+
+使用 `@InjectedParam` 來表示參數將由注入參數提供。
+
+```kotlin
+class UserPresenter(
+    @InjectedParam userId : String,
+    repository : UserRepository
+)
+
+factory<UserPresenter>()
+```
+
+### 經典 DSL
+
+```kotlin
+class UserPresenter(
+    userId : String,
+    repository : UserRepository
+)
+
+factory { params ->
+    UserPresenter(
+        userId = params.get(),
+        repository = get()
+    )
 }
 ```
 
-## 定義：繫結介面
-
-`single` 或 `factory` 定義使用其給定 Lambda 定義的型別，例如：`single { T }`。定義的相符型別是此運算式中唯一相符的型別。
-
-讓我們看一個類別與實作介面的範例：
+### 註解
 
 ```kotlin
-// Service 介面
-interface Service{
+@Factory
+class UserPresenter(
+    @InjectedParam val userId: String,
+    val repository: UserRepository  // 自動注入
+)
 
-    fun doSomething()
-}
+// 用法
+val presenter: UserPresenter = get { parametersOf("user123") }
+```
 
-// Service 實作
-class ServiceImp() : Service {
+## 選用相依性
 
-    fun doSomething() { ... }
+### 編譯器外掛程式 DSL
+
+```kotlin
+class MyService(
+    val required: RequiredDep,
+    val optional: OptionalDep?  // 使用 getOrNull() 解析
+)
+
+single<MyService>()
+```
+
+### 經典 DSL
+
+```kotlin
+single {
+    MyService(
+        required = get(),
+        optional = getOrNull()
+    )
 }
 ```
 
-在 Koin 模組中，我們可以如下使用 Kotlin 的 `as` 轉換運算子：
+### 註解
+
+可為 null 的參數會自動處理：
 
 ```kotlin
-val myModule = module {
+@Singleton
+class MyService(
+    val required: RequiredDep,
+    val optional: OptionalDep?  // 使用 getOrNull() 解析
+)
+```
 
-    // 僅會配對型別 ServiceImp
-    single { ServiceImp() }
+## 延遲注入
 
-    // 僅會配對型別 Service
-    single { ServiceImp() as Service }
+推遲執行個體建立：
 
+### 編譯器外掛程式 DSL
+
+```kotlin
+class MyService(
+    val lazyDep: Lazy<HeavyDependency>  // 延遲建立
+)
+
+single<MyService>()
+```
+
+### 經典 DSL
+
+```kotlin
+single {
+    MyService(
+        lazyDep = inject()  // Lazy<Dependency>
+    )
 }
 ```
 
-您也可以使用推論型別運算式：
+### 註解
 
 ```kotlin
-val myModule = module {
+@Singleton
+class MyService(
+    val lazyDep: Lazy<HeavyDependency>  // 延遲建立
+)
+```
 
-    // 僅會配對型別 ServiceImp
-    single { ServiceImp() }
+## 屬性
 
-    // 僅會配對型別 Service
-    single<Service> { ServiceImp() }
+注入組態值：
 
+### 編譯器外掛程式 DSL
+
+```kotlin
+class ApiClient(
+    @Property("api_url") val url: String,
+    @Property("api_key") val key: String
+)
+
+single<ApiClient>()
+```
+
+### 經典 DSL
+
+```kotlin
+single {
+    ApiClient(
+        url = getProperty("api_url"),
+        key = getProperty("api_key", "default")
+    )
 }
 ```
 
-:::note
- 偏好使用這第二種宣告樣式，且本文件的其餘部分都將使用此方式。
-:::
-
-## 額外型別繫結
-
-在某些情況下，我們希望從單一定義中配對多個型別。
-
-讓我們看一個類別與介面的範例：
+### 註解
 
 ```kotlin
-// Service 介面
-interface Service{
+@Singleton
+class ApiClient(
+    @Property("api_url") val url: String,
+    @Property("api_key") val key: String
+)
+```
 
-    fun doSomething()
-}
+## 回呼
 
-// Service 實作
-class ServiceImp() : Service{
+### onClose 回呼
 
-    fun doSomething() { ... }
+執行個體釋放時執行程式碼：
+
+```kotlin
+single {
+    Database()
+} onClose {
+    it?.close()  // 當 Koin 停止或作用域關閉時呼叫
 }
 ```
 
-為了讓定義繫結額外型別，我們對類別使用 `bind` 運算子：
+### createdAtStart
+
+在啟動時積極地建立執行個體：
 
 ```kotlin
-val myModule = module {
+// 編譯器外掛程式 DSL
+single<ConfigManager>() withOptions {
+    createdAtStart()
+}
 
-    // 將配對型別 ServiceImp 與 Service
-    single { ServiceImp() } bind Service::class
+// 經典 DSL
+single(createdAtStart = true) {
+    ConfigManager()
 }
 ```
 
-請注意，這裡我們可以直接使用 `get()` 解析 `Service` 型別。但如果我們有多個定義繫結 `Service`，則必須使用 `bind<>()` 函式。
+## 定義覆寫
 
-## 定義：命名與預設繫結
-
-您可以為定義指定名稱，以協助您區分相同型別的兩個定義：
-
-只需透過名稱請求您的定義：
+### 預設：最後一個勝出
 
 ```kotlin
-val myModule = module {
-    single<Service>(named("default")) { ServiceImpl() }
-    single<Service>(named("test")) { ServiceImpl() }
+val prodModule = module {
+    single<ApiService> { ProductionApi() }
 }
 
-val service : Service by inject(qualifier = named("default"))
-```
-
-`get()` 和 `by inject()` 函式可讓您在需要時指定定義名稱。此名稱是由 `named()` 函式產生的 `qualifier`（限定詞）。
-
-預設情況下，如果型別已經繫結到一個定義，Koin 將透過其型別或名稱來繫結定義。
-
-```kotlin
-val myModule = module {
-    single<Service> { ServiceImpl1() }
-    single<Service>(named("test")) { ServiceImpl2() }
-}
-```
-
-接著：
-
-- `val service : Service by inject()` 將觸發 `ServiceImpl1` 定義
-- `val service : Service by inject(named("test"))` 將觸發 `ServiceImpl2` 定義
-
-## 宣告注入參數
-
-在任何定義中，您都可以使用注入參數：這些參數將被注入並由您的定義使用：
-
-```kotlin
-class Presenter(val view : View)
-
-val myModule = module {
-    single{ (view : View) -> Presenter(view) }
-}
-```
-
-與已解析的相依性（使用 `get()` 解析）不同，注入參數是**透過解析 API 傳遞的參數**。這意味著這些參數是透過 `get()` 和 `by inject()` 搭配 `parametersOf` 函式傳遞的值：
-
-```kotlin
-val presenter : Presenter by inject { parametersOf(view) }
-```
-
-進一步閱讀請參閱 [注入參數章節](/docs/reference/koin-core/injection-parameters)
-
-## 定義結束 - OnClose
-
-您可以使用 `onClose` 函式在定義上新增回呼，當定義關閉被呼叫時執行：
-
-```kotlin
-class Presenter(val view : View)
-
-val myModule = module {
-    factory { (view : View) -> Presenter(view) } onClose { // 關閉回呼 - 物件為 Presenter }
-}
-```
-
-## 使用定義標記
-
-Koin DSL 還提供了一些標記。
-
-### 在啟動時建立執行個體
-
-定義或模組可以被標記為 `CreatedAtStart`，以便在啟動時（或您想要的時候）建立。首先在您的模組或定義上設定 `createdAtStart` 標記。
-
-定義上的 CreatedAtStart 標記
-
-```kotlin
-val myModuleA = module {
-
-    single<Service> { ServiceImp() }
+val testModule = module {
+    single<ApiService> { MockApi() }  // 覆寫生產環境
 }
 
-val myModuleB = module {
-
-    // 為此定義進行預先建立
-    single<Service>(createdAtStart=true) { TestServiceImp() }
-}
-```
-
-模組上的 CreatedAtStart 標記：
-
-```kotlin
-val myModuleA = module {
-
-    single<Service> { ServiceImp() }
-}
-
-val myModuleB = module(createdAtStart=true) {
-
-    single<Service>{ TestServiceImp() }
-}
-```
-
-`startKoin` 函式將自動建立標記有 `createdAtStart` 的定義執行個體。
-
-```kotlin
-// 啟動 Koin 模組
 startKoin {
-    modules(myModuleA,myModuleB)
+    modules(prodModule, testModule)
 }
 ```
 
-:::info
-如果您需要在特定時間載入某些定義（例如在背景工作執行緒中而不是在 UI 執行緒中），只需 get/inject 所需的元件即可。
-:::
+### 明確覆寫
 
-### 處理泛型
-
-Koin 定義不考慮泛型型別引數。例如，下方的模組嘗試定義 `List` 的兩個定義：
+在嚴格模式下，請明確標記覆寫：
 
 ```kotlin
-module {
-    single { ArrayList<Int>() }
-    single { ArrayList<String>() }
+val testModule = module {
+    single<ApiService> { MockApi() }.override()
+}
+
+startKoin {
+    allowOverride(false)
+    modules(prodModule, testModule)
 }
 ```
 
-Koin 無法使用此類定義啟動，因為它會認為您想用一個定義來覆寫另一個。
+## 最佳實務
 
-為了允許使用這兩個定義，您必須透過它們的名稱或位置（模組）來區分它們。例如：
+1. **偏好建構函式注入** – 讓程式碼在不依賴 Koin 的情況下即可進行測試
+2. **對無狀態 Service 使用 `single`** – 存儲庫、用戶端、幫助程式 (helper)
+3. **對具狀態物件使用 `factory`** – Presenter、具狀態的使用案例
+4. **對生命週期繫結物件使用 `scoped`** – Activity、Fragment、工作階段
+5. **盡量減少限定詞的使用** – 可行時改用不同的介面
+6. **繫結至介面** – 依賴於抽象而非實作
+7. **對外部程式庫使用 `create(::builder)`** – 更安全的相依性解析
 
-```kotlin
-module {
-    single(named("Ints")) { ArrayList<Int>() }
-    single(named("Strings")) { ArrayList<String>() }
-}
+## 後續步驟
+
+- **[注入](/docs/reference/koin-core/injection)** – 檢索相依性
+- **[限定詞](/docs/reference/koin-core/qualifiers)** – 命名與具型別的限定詞
+- **[進階模式](/docs/reference/koin-core/advanced-patterns)** – 集合、裝飾器、外部程式庫
+- **[作用域](/docs/reference/koin-core/scopes)** – 管理生命週期

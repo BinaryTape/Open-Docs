@@ -14,7 +14,7 @@
 
 Kotlin Notebook は [Kotlin Notebook プラグイン](https://plugins.jetbrains.com/plugin/16340-kotlin-notebook)に依存しています。このプラグインは、デフォルトで IntelliJ IDEA にバンドルされ、有効になっています。
 
-Kotlin Notebook を使用するには、最新バージョンの [IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html) をダウンロードしてインストールしてください。
+Kotlin Notebook を使用するには、最新バージョンの [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) をダウンロードしてインストールしてください。
 
 Kotlin Notebook の機能が利用できない場合は、プラグインが有効になっていることを確認してください：
 

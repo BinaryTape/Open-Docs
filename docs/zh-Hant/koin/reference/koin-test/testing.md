@@ -4,12 +4,12 @@ title: 在測試中進行注入
 
 ## 使用 KoinTest 讓您的測試成為 KoinComponent
 
-*警告*：這不適用於 Android Instrumented 測試。關於使用 Koin 進行 Instrumented 測試，請參閱 [Android Instrumented Testing](/docs/reference/koin-android/instrumented-testing.md)
+*警告*：這不適用於 Android Instrumented 測試。關於使用 Koin 進行 Instrumented 測試，請參閱 [Android Instrumented Testing](/docs/reference/koin-android/instrumented-testing)
 
 透過為您的類別標記 `KoinTest`，該類別將成為 `KoinComponent` 並為您帶來：
 
 * `by inject()` 與 `get()` —— 從 Koin 檢索執行個體的函式
-* `checkModules` —— 協助您檢查配置
+* `verify()` —— 協助您驗證模組配置
 * `declareMock` 與 `declare` —— 在目前上下文中宣告模擬物件或新的定義
 
 ```kotlin
@@ -126,7 +126,7 @@ class MyTest : KoinTest {
  `declareMock` 可以指定您想要的是單例（single）還是工廠（factory），以及是否要將其置於模組路徑中。
 :::
 
-## 即時宣告組建
+## 即時宣告組件
 
 當模擬物件不足以滿足需求，且不想僅為此建立模組時，您可以使用 `declare`：
 
@@ -145,29 +145,33 @@ class MyTest : KoinTest {
 
 ## 檢查您的 Koin 模組
 
-Koin 提供了一種測試 Koin 模組是否正確的方法：`checkModules` —— 遍歷您的定義樹並檢查每個定義是否已繫結
+Koin 提供了一種測試 Koin 模組是否正確的方法：`verify()` —— 遍歷您的定義樹並檢查每個定義是否已繫結。
 
 ```kotlin
-    @Test
-    fun `check MVP hierarchy`() {
-        checkModules {
-            modules(myModule1, myModule2 ...)
-        } 
-    }
+@Test
+fun checkKoinModules() {
+    myModule.verify()
+}
 ```
+
+:::info
+`checkModules()` API 已棄用。請改用 `verify()`。詳情請參閱 [Module Verification](/docs/reference/koin-test/verify)。
+
+這兩種驗證 API 都將被 Koin 編譯器外掛程式中的原生編譯期安全 (compile-time safety) 所取代。
+:::
 
 ## 為您的測試啟動與停止 Koin
 
 請注意在每個測試之間停止您的 Koin 執行個體（如果您在測試中使用 `startKoin`）。否則請確保使用 `koinApplication` 來處理區域 Koin 執行個體，或使用 `stopKoin()` 來停止目前的全局執行個體。
 
 ## 使用 JUnit5 進行測試
-JUnit 5 支援提供的 [擴充 (Extensions)](https://junit.org/junit5/docs/current/user-guide/#extensions) 將處理 Koin 上下文的啟動與停止。這意味著如果您使用該擴充，則不需要使用 `AutoCloseKoinTest`。
+JUnit 5 支援提供的 [擴充 (Extensions)](https://junit.org/junit5/docs/current/user-guide/#extensions) 將處理 Koin 上下文的啟動與停止。這代表如果您使用該擴充，則不需要使用 `AutoCloseKoinTest`。
 
 ### 相依性
 若要使用 JUnit5 進行測試，您需要使用 `koin-test-junit5` 相依性。
 
 ### 編寫測試
-您需要註冊 `KoinTestExtension` 並提供您的模組配置。完成此操作後，您可以在測試中獲取或注入您的組建。請記得在 `@RegisterExtension` 同時使用 `@JvmField`。
+您需要註冊 `KoinTestExtension` 並提供您的模組配置。完成此操作後，您可以在測試中獲取或注入您的組件。請記得在 `@RegisterExtension` 同時使用 `@JvmField`。
 
 ```kotlin
 class ExtensionTests: KoinTest {

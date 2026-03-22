@@ -26,7 +26,7 @@ fun main() {
 }
 ```
 
-<a href="https://docs.koog.ai/getting-started/"><img src="get-started-with-koog.svg" width="700" alt="Get started with Koog" style="block"/></a>
+<a href="https://docs.koog.ai/quickstart/"><img src="get-started-with-koog.svg" width="700" alt="Get started with Koog" style="block"/></a>
 
 ### 주요 기능
 
@@ -44,13 +44,13 @@ fun main() {
 ### 시작하기
 
 * [Overview](https://docs.koog.ai/)에서 Koog의 기능을 살펴보세요.
-* [Getting started guide](https://docs.koog.ai/getting-started/)를 통해 첫 번째 Koog 에이전트를 구축해 보세요.
-* [Koog 릴리스 노트](https://github.com/JetBrains/koog/blob/main/CHANGELOG.md)에서 최신 업데이트를 확인하세요.
+* [시작 가이드(Quickstart guide)](https://docs.koog.ai/quickstart/)를 통해 첫 번째 Koog 에이전트를 구축해 보세요.
+* [Koog 릴리스 노트](https://github.com/JetBrains/koog/releases)에서 최신 업데이트를 확인하세요.
 * [예제](https://docs.koog.ai/examples/)를 통해 학습하세요.
 
 ## 모델 컨텍스트 프로토콜(MCP) Kotlin SDK
 
-[MCP Kotlin SDK](https://github.com/modelcontextprotocol/kotlin-sdk)는 모델 컨텍스트 프로토콜(Model Context Protocol)의 Kotlin 멀티플랫폼 구현체입니다.
+[MCP Kotlin SDK](https://github.com/modelcontextprotocol/kotlin-sdk)는 모델 컨텍스트 프로토콜(Model Context Protocol)의 Kotlin 멀티플랫폼 구현체입니다. 
 이 SDK를 통해 개발자는 Kotlin으로 AI 기반 애플리케이션을 구축하고 JVM, WebAssembly 및 iOS 전반의 LLM 서피스(surface)와 통합할 수 있습니다.
 
 MCP Kotlin SDK로 다음과 같은 작업을 수행할 수 있습니다:
@@ -73,7 +73,7 @@ MCP Kotlin SDK로 다음과 같은 작업을 수행할 수 있습니다:
 Kotlin을 사용하여 다음과 같은 주요 모델 제공업체에 연결하세요:
 
 * [OpenAI](https://github.com/openai/openai-java) — OpenAI API용 공식 Java SDK입니다. 응답 및 채팅, 이미지, 오디오를 지원합니다.
-* [Anthropic (Claude)](https://github.com/anthropics/anthropic-sdk-java) — Claude Messages API용 공식 Java SDK입니다. Vertex AI 및 Bedrock 통합을 위한 모듈이 포함되어 있습니다.
+* [Anthropic (Claude)](https://github.com/anthropics/anthropic-sdk-java) — Claude Messages API용 공식 Java SDK입니다. Vertex AI 및 Bedrock 통합을 위한 모듈이 포함되어 있습니다. 
 * [Google AI (Gemini / Vertex AI)](https://github.com/googleapis/java-genai) — 단일 클라이언트로 Gemini API와 Vertex AI 간을 전환할 수 있는 공식 Java SDK입니다.
 * [Azure OpenAI](https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/openai/azure-ai-openai) — Azure OpenAI 서비스용 공식 Java 클라이언트입니다. 채팅 완성 및 임베딩을 지원합니다.
 * [AWS Bedrock](https://github.com/aws/aws-sdk-kotlin) — 파운데이션 모델을 호출하기 위한 공식 SDK입니다. Bedrock 및 Bedrock Runtime을 위한 Kotlin SDK와 Java SDK를 포함합니다.

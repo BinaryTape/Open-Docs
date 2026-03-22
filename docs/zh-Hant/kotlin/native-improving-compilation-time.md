@@ -10,7 +10,7 @@ Kotlin/Native 編譯器不斷收到改進其效能的更新。透過使用最新
 
 ### 使用最新版本的 Kotlin
 
-透過這種方式，您始終可以獲得最新的效能改進。最新的 Kotlin 版本是 %kotlinVersion%。
+透過這種方式，您始終可以獲得最新的效能改善。最新的 Kotlin 版本是 %kotlinVersion%。
 
 ### 避免建立巨大的類別
 
@@ -51,7 +51,7 @@ Kotlin/Native 編譯器不斷收到改進其效能的更新。透過使用最新
 
 與上述建議類似，請勿一次為所有原生平台建置二進位檔。例如，編譯 [XCFramework](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#build-xcframeworks)（使用 `*XCFramework` 任務）會為所有目標建置相同的程式碼，這比為單個目標建置花費的時間成比例增加。
 
-如果您確實需要 XCFramework 進行設置，則可以減少目標數量。例如，如果您不在基於 Intel 的 Mac 上的 iOS 模擬器上執行此專案，則不需要 `iosX64`。
+如果您確實需要 XCFramework 進行設定，則可以減少目標數量。例如，如果您不在基於 Intel 的 Mac 上的 iOS 模擬器上執行此專案，則不需要 `iosX64`。
 
 > 不同目標的二進位檔是使用 `linkDebug*$Target` 和 `linkRelease*$Target` Gradle 任務建置的。您可以透過使用 `--scan` 選項執行 Gradle 建置，在建置日誌或 [Gradle 建置掃描](https://docs.gradle.org/current/userguide/build_scans.html) 中查看已執行的任務。
 >
@@ -83,8 +83,8 @@ Kotlin/Native 支援兩種建置模式：[debug 和 release](https://kotlinlang.
 
 啟用 Gradle [建置快取](https://docs.gradle.org/current/userguide/build_cache.html) 功能：
 
-* **本機建置快取**。對於本機快取，請將 `org.gradle.caching=true` 新增到您的 `gradle.properties` 檔案中，或在命令列中使用 `--build-cache` 選項執行建置。
-* **遠端建置快取**。了解如何為持續整合環境 [配置遠端建置快取](https://docs.gradle.org/current/userguide/build_cache.html#sec:build_cache_configure_remote)。
+* **本機建置快取**：對於本機快取，請將 `org.gradle.caching=true` 新增到您的 `gradle.properties` 檔案中，或在命令列中使用 `--build-cache` 選項執行建置。
+* **遠端建置快取**：了解如何為持續整合環境 [配置遠端建置快取](https://docs.gradle.org/current/userguide/build_cache.html#sec:build_cache_configure_remote)。
 
 ### 使用 Gradle 設定快取
 
@@ -98,13 +98,12 @@ Gradle [設定快取](https://docs.gradle.org/current/userguide/configuration_ca
 
 ### 啟用先前停用的功能
 
-有一些 Kotlin/Native 屬性會停用 Gradle daemon 和編譯器快取：
+有一些 Kotlin/Native 選項會停用 Gradle daemon 和編譯器快取：
 
 * `kotlin.native.disableCompilerDaemon=true`
-* `kotlin.native.cacheKind=none`
-* `kotlin.native.cacheKind.$target=none`，其中 `$target` 是 Kotlin/Native 編譯目標，例如 `iosSimulatorArm64`。
+* Gradle 建置檔案中 `binaries {}` 區塊內的 [`disableNativeCache`](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#binaries) DSL。
 
-如果您以前在使用這些功能時遇到問題並將這些行新增到 `gradle.properties` 檔案或 Gradle 引數中，請將其移除並檢查建置是否成功完成。這些屬性可能是以前為了避開已修復的問題而新增的。
+如果您以前在使用這些功能時遇到問題並將這些行新增到 `gradle.properties` 檔案或 Gradle 建置檔案中，請將其移除並檢查建置是否成功完成。這些屬性可能是以前為了避開已修復的問題而新增的。
 
 ### 嘗試 klib 構件的增量編譯
 

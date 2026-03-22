@@ -7,7 +7,8 @@ https://github.com/JetBrains/koog/blob/develop/examples/notebooks/Weave.ipynb
 https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Weave.ipynb
 ){ .md-button }
 
-このノートブックでは、OpenTelemetry (OTLP) を使用して Koog エージェントを W&B Weave でトレースする方法を説明します。シンプルな Koog `AIAgent` を作成し、Weave エクスポーターを有効にしてプロンプトを実行し、Weave UI で詳細なトレースを確認します。
+このノートブックでは、OpenTelemetry (OTLP) を使用して Koog エージェントを W&B Weave でトレースする方法を説明します。
+シンプルな Koog `AIAgent` を作成し、Weave エクスポーターを有効にしてプロンプトを実行し、Weave UI で詳細なトレースを確認します。
 
 背景知識については、Weave OpenTelemetry のドキュメントを参照してください: https://weave-docs.wandb.ai/guides/tracking/otel/
 
@@ -42,7 +43,8 @@ export OPENAI_API_KEY=...
 
 ## エージェントの作成と Weave トレーシングの有効化
 
-最小限の `AIAgent` を構築し、Weave エクスポーターを使用して `OpenTelemetry` フィーチャー (feature) をインストールします。エクスポーターは、環境設定を使用して OTLP スパンを Weave に送信します：
+最小限の `AIAgent` を構築し、Weave エクスポーターを使用して `OpenTelemetry` フィーチャー (feature) をインストールします。
+エクスポーターは、環境設定を使用して OTLP スパンを Weave に送信します：
 - `WEAVE_API_KEY` — Weave への認証
 - `WEAVE_ENTITY` — どのチーム/ユーザーがトレースを所有するか
 - `WEAVE_PROJECT_NAME` — トレースを保存する Weave プロジェクト名
@@ -50,7 +52,6 @@ export OPENAI_API_KEY=...
 ```kotlin
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
-import ai.koog.agents.features.opentelemetry.integration.weave.addWeaveExporter
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 
@@ -74,7 +75,8 @@ val agent = AIAgent(
 
 ## エージェントの実行と Weave でのトレース確認
 
-シンプルなプロンプトを実行します。完了後、出力されたリンクを開いて Weave でトレースを確認してください。エージェントの実行、モデルの呼び出し、およびその他のインストルメント（計測）された操作のスパンが表示されます。
+シンプルなプロンプトを実行します。完了後、出力されたリンクを開いて Weave でトレースを確認してください。
+エージェントの実行、モデルの呼び出し、およびその他のインストルメント（計測）された操作のスパンが表示されます。
 
 ```kotlin
 import kotlinx.coroutines.runBlocking

@@ -15,7 +15,7 @@
 ## 始める前に
 
 1. 最新バージョンの [IntelliJ IDEA](https://www.jetbrains.com/idea/) をダウンロードしてインストールします。
-2. IntelliJ IDEA で **File | New | Project from Version Control** を選択し、以下の URL を使用して[プロジェクトテンプレート](https://github.com/Kotlin/kmp-native-wizard)をクローンします：
+2. IntelliJ IDEA で **File** | **New** | **Project from Version Control** を選択し、以下の URL を使用して[プロジェクトテンプレート](https://github.com/Kotlin/kmp-native-wizard)をクローンします：
 
    ```none
    https://github.com/Kotlin/kmp-native-wizard
@@ -36,7 +36,6 @@
         val isMingwX64 = hostOs.startsWith("Windows")
         val nativeTarget = when {
             hostOs == "Mac OS X" && isArm64 -> macosArm64("native")
-            hostOs == "Mac OS X" && !isArm64 -> macosX64("native")
             hostOs == "Linux" && isArm64 -> linuxArm64("native")
             hostOs == "Linux" && !isArm64 -> linuxX64("native")
             isMingwX64 -> mingwX64("native")
@@ -54,7 +53,7 @@
     
     ```
 
-   * ターゲットは、macOS、Linux、Windows 用に `macosArm64`、`macosX64`、`linuxArm64`、`linuxX64`、および `mingwX64` を使用して定義されています。[サポートされているプラットフォーム](native-target-support.md)の完全なリストを参照してください。
+   * ターゲットは、macOS、Linux、Windows 用に `macosArm64`、`linuxArm64`、`linuxX64`、および `mingwX64` を使用して定義されています。[サポートされているプラットフォーム](native-target-support.md)の完全なリストを参照してください。
    * `binaries {}` ブロックは、バイナリの生成方法とアプリケーションのエントリポイントを定義します。これらはデフォルト値のままで構いません。
    * C インターオペラビリティ（C interop）は、ビルドの追加ステップとして構成されます。デフォルトでは、C からのすべてのシンボルは `interop` パッケージにインポートされます。`.kt` ファイル内でパッケージ全体をインポートすることもできます。詳細な[構成方法](gradle-configure-project.md#targeting-multiple-platforms)についてはこちらをご覧ください。
 

@@ -4,16 +4,16 @@
 
 在本教學中，你將使用以下工具：
 
-*   [Spring Boot](https://spring.io/projects/spring-boot) 作為配置與執行 Web 應用程式的基礎。
-*   [Spring AI](https://spring.io/projects/spring-ai) 用於與 LLM 互動並執行基於內容的檢索。
-*   [IntelliJ IDEA](https://www.jetbrains.com/idea/) 用於產生專案並實作應用程式邏輯。
-*   [Qdrant](https://qdrant.tech/) 作為執行相似性搜尋的向量資料庫。
-*   [Docker](https://www.docker.com/) 用於在本機執行 Qdrant。
-*   [OpenAI](https://platform.openai.com) 作為 LLM 提供者。
+* [Spring Boot](https://spring.io/projects/spring-boot) 作為配置與執行 Web 應用程式的基礎。
+* [Spring AI](https://spring.io/projects/spring-ai) 用於與 LLM 互動並執行基於內容的檢索。
+* [IntelliJ IDEA](https://www.jetbrains.com/idea/) 用於產生專案並實作應用程式邏輯。
+* [Qdrant](https://qdrant.tech/) 作為執行相似性搜尋的向量資料庫。
+* [Docker](https://www.docker.com/) 用於在本機執行 Qdrant。
+* [OpenAI](https://platform.openai.com) 作為 LLM 提供者。
 
 ## 在你開始之前
 
-1. 下載並安裝最新版本的 [IntelliJ IDEA 旗艦版 (Ultimate Edition)](https://www.jetbrains.com/idea/download/index.html)。
+1. 下載並安裝最新版本的 [IntelliJ IDEA 旗艦版 (Ultimate Edition)](https://www.jetbrains.com/idea/download/)。
 
     > 如果你使用 IntelliJ IDEA 社群版 (Community Edition) 或其他 IDE，可以使用[網頁版專案產生器](https://start.spring.io/#!language=kotlin&type=gradle-project-kotlin)產生 Spring Boot 專案。
     >
@@ -29,7 +29,7 @@
 
 ## 建立專案
 
-> 你也可以使用 [Spring Boot 網頁版專案產生器](https://start.spring.io/) 來產生你的專案。
+> 你也可以使用 [Spring Boot 網頁版專案產生器](https://start.spring.io/) 作為產生專案的替代方案。
 >
 {style="note"}
 
@@ -39,23 +39,23 @@
 2. 在左側面板中，選取 **New Project** | **Spring Boot**。
 3. 在 **New Project** 視窗中指定以下欄位與選項：
 
-    *   **Name**: springAIDemo
-    *   **Language**: Kotlin
-    *   **Type**: Gradle - Kotlin
+    * **Name**: springAIDemo
+    * **Language**: Kotlin
+    * **Type**: Gradle - Kotlin
 
       > 此選項指定了建置系統與 DSL。
       >
       {style="tip"}
 
-    *   **Package name**: com.example.springaidemo
-    *   **JDK**: Java JDK
+    * **Package name**: com.example.springaidemo
+    * **JDK**: Java JDK
 
       > 本教學使用 **Oracle OpenJDK version 21.0.1**。
       > 如果你尚未安裝 JDK，可以從下拉式清單中下載。
       >
       {style="note"}
 
-    *   **Java**: 17
+    * **Java**: 17
 
       > 如果你尚未安裝 Java 17，可以從 JDK 下拉式清單中下載。
       >
@@ -68,9 +68,9 @@
 
 6. 選取本教學所需的以下相依性：
 
-    *   **Web | Spring Web**
-    *   **AI | OpenAI**
-    *   **SQL | Qdrant Vector Database**
+    * **Web | Spring Web**
+    * **AI | OpenAI**
+    * **SQL | Qdrant Vector Database**
 
    ![設定 Spring Boot 專案](spring-ai-dependencies.png){width=800}
 
@@ -86,8 +86,8 @@
 
 產生的 Gradle 專案對應於 Maven 的標準目錄配置：
 
-*   `main/kotlin` 資料夾下有用於應用程式的套件與類別。
-*   應用程式的進入點是 `SpringAiDemoApplication.kt` 檔案中的 `main()` 方法。
+* `main/kotlin` 資料夾下有用於應用程式的套件與類別。
+* 應用程式的進入點是 `SpringAiDemoApplication.kt` 檔案中的 `main()` 方法。
 
 ## 更新專案配置
 
@@ -245,7 +245,7 @@
 
    ![GET 請求結果](spring-ai-get-results.png){width="700"}
 
-> 你也可以在 [Qdrant 集合](http://localhost:6333/dashboard#/collections) 頁面查看結果。
+> 你也可以在 [Qdrant 集合 (collections)](http://localhost:6333/dashboard#/collections) 頁面查看結果。
 >
 {style="tip"}
 
