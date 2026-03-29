@@ -126,3 +126,117 @@ map.mapValues { (_, value) -> "$value!" }
 map.mapValues { (_, value): Map.Entry<Int, String> -> "$value!" }
 
 map.mapValues { (_, value: String) -> "$value!" }
+```
+
+## 基于名称的析构
+<primary-label ref="experimental-opt-in"/>
+
+Kotlin 支持*基于名称的析构声明*，
+其中变量通过名称匹配属性，而不是由*基于位置*的析构中的 `componentN()` 函数定义的物理位置匹配。
+
+> 有关基于名称的析构的更多信息，请参阅该功能的 [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0438-name-based-destructuring.md)。
+>
+{style="tip"}
+
+在基于位置的析构中，变量对应于 `componentN()` 函数的顺序，例如：
+
+```kotlin
+data class User(val username: String, val email: String)
+
+fun main() {
+    val user = User("alice", "alice@example.com")
+
+    val (email, username) = user
+
+    println(email)
+    // alice
+
+    println(username)
+    // alice@example.com
+}
+```
+{kotlin-runnable="true"}
+
+在此示例中，由于析构依赖于 `componentN()` 函数的顺序，因此 `email` 接收了 `username` 的值，而 `username` 接收了 `email` 的值。
+
+通过基于名称的析构，属性名称决定了提取哪些值，而不是 `componentN()` 函数的位置：
+
+```kotlin
+fun main() {
+    val user = User("alice", "alice@example.com")
+
+    // 使用显式形式的基于名称的析构
+    (val mail = email, val name = username) = user
+
+    println(name)
+    // alice
+
+    println(mail)
+    // alice@example.com
+}
+```
+
+基于名称的析构是[实验性的](components-stability.md#stability-levels-explained)。
+当你启用此功能时，它还会引入一种使用方括号的基于位置的析构的新语法。
+对于元素顺序很重要的类型，例如列表和其他有序集合，以及 `Pair` 或 `Triple` 等未命名的元组，请使用此语法：
+
+```kotlin
+val point = Pair(10, 20)
+
+// 使用基于位置的析构
+val [x, y] = point
+```
+
+你可以通过 `-Xname-based-destructuring` 编译器选项控制编译器如何解释析构声明。
+
+它具有以下模式：
+
+* `only-syntax` 启用基于名称的析构的显式形式，而不改变现有析构声明的行为。
+* `name-mismatch` 当数据类中的基于位置的析构使用的变量名与属性名不匹配时，报告警告。
+* `complete` 启用带圆括号的简短形式基于名称的析构，并继续支持带方括号语法的基于位置的析构。
+
+> 在启用 `complete` 模式之前，请查看并解决在 `name-mismatch` 模式下报告的警告。
+> 这些警告显示了编译器在 `complete` 模式下会以不同方式解释哪些析构声明，并包含相应重写这些声明的建议。
+> 
+{style="tip"}
+
+如果使用 `complete` 模式，带圆括号的简短形式析构语法将变量与属性名称匹配，而不是依赖位置：
+
+```kotlin
+val (email, username) = user
+```
+
+要在项目中启用基于名称的析构，请将编译器选项添加到你的构建配置文件中：
+
+<tabs group="build-system">
+<tab title="Gradle" group-key="gradle">
+
+```kotlin
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xname-based-destructuring=only-syntax")
+    }
+}
+```
+
+</tab> 
+<tab title="Maven" group-key="maven">
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-maven-plugin</artifactId>
+            <configuration>
+                <args>
+                    <arg>-Xname-based-destructuring=only-syntax</arg>
+                </args>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+
+</tab> 
+</tabs>

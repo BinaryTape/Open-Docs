@@ -1,4 +1,4 @@
-[//]: # (title: 在 Kotlin Notebook 中使用 Kandy 進行資料視覺化)
+[//]: # (title: 使用 Kandy 進行資料視覺化)
 
 Kotlin 為強大且靈活的資料視覺化提供了一站式解決方案，在深入研究複雜模型之前，提供了一種直觀的方式來呈現和探索資料。
 
@@ -77,7 +77,7 @@ DataFrame 的前四列包含柏林從一月到四月的氣溫記錄：
 ```kotlin
 df.plot {
     line {
-        // 存取用於 X 軸和 Y 軸的 DataFrame 欄位 
+        // 存取用於 X 軸 and Y 軸的 DataFrame 欄位 
         x(Month)
         y(Temperature)
         // 存取用於類別的 DataFrame 欄位，並為這些類別設定顏色 
@@ -106,7 +106,7 @@ df.plot {
 ```kotlin
 df.plot {
     points {
-        // 存取用於 X 軸和 Y 軸的 DataFrame 欄位 
+        // 存取用於 X 軸 and Y 軸的 DataFrame 欄位 
         x(Month) { axis.name = "Month" }
         y(Temperature) { axis.name = "Temperature" }
         // 自訂點的大小
@@ -136,7 +136,7 @@ df.groupBy { City }.plot {
     // 新增圖表標題
     layout.title = "Temperature per month"
     bars {
-        // 存取用於 X 軸和 Y 軸的 DataFrame 欄位 
+        // 存取用於 X 軸 and Y 軸的 DataFrame 欄位 
         x(Month)
         y(Temperature)
         // 存取用於類別的 DataFrame 欄位，並為這些類別設定顏色 

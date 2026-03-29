@@ -30,9 +30,9 @@ aside: false
             <cards narrow="false">
                 <title>特色主题</title>
                 <a href="whatsnew2320.md" summary="新的实验性功能与稳定功能、性能改进以及错误修复">Kotlin 2.3.20 最新变化</a>
-                <a href="releases.md" summary="了解 Kotlin 的发布周期与历史">Kotlin 发布流程</a>
                 <a href="https://kotlinlang.org/api/latest/jvm/stdlib/" summary="Kotlin 日常开发的必备工具：IO、文件、线程、集合等">标准库 API 参考</a>
-                <a href="types-overview.md" summary="Kotlin 类型系统：数字、字符串、数组及其他内置类型">类型概览</a>
+                <a href="gradle.md" summary="了解作为构建工具的 Gradle，用于自动化和管理项目构建">Gradle</a>
+                <a href="maven.md" summary="了解作为构建工具的 Maven，用于自动化和管理项目构建">Maven</a>
                 <a href="collections-overview.md" summary="集合：列表、集和映射">集合</a>
                 <a href="coroutines-overview.md" summary="并发：协程、流、通道">协程</a>
             </cards>

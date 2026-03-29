@@ -501,15 +501,11 @@
         "collapsed": true
       },
       {
-        "text": "kotlin.multiplatform",
-        "link": "multiplatform"
-      },
-      {
         "text": "kotlin.android-overview",
         "link": "android-overview"
       },
       {
-        "text": "kotlin.library-design",
+        "text": "kotlin.designing-your-library",
         "collapsed": true,
         "include": "api-guidelines"
       },
@@ -706,7 +702,7 @@
     "collapsed": true
   },
   {
-    "text": "kotlin.kotlin-powered-solutions",
+    "text": "kotlin.kotlin-for-data-analysis-and-ai",
     "items": [
       {
         "text": "kotlin.kotlin-for-data-analysis",
@@ -768,8 +764,18 @@
             "collapsed": true
           },
           {
-            "text": "kotlin.data-analysis-visualization",
-            "link": "data-analysis-visualization"
+            "text": "kotlin.visualizing-data",
+            "items": [
+              {
+                "text": "kotlin.data-analysis-visualization",
+                "link": "data-analysis-visualization"
+              },
+              {
+                "text": "kotlin.lets-plot",
+                "link": "lets-plot"
+              }
+            ],
+            "collapsed": true
           },
           {
             "text": "kotlin.data-analysis-libraries",
@@ -791,16 +797,12 @@
           }
         ],
         "collapsed": true
-      },
-      {
-        "text": "kotlin.competitive-programming",
-        "link": "competitive-programming"
       }
     ],
     "collapsed": true
   },
   {
-    "text": "kotlin.libraries",
+    "text": "kotlin.library-guides",
     "items": [
       {
         "text": "kotlin.standard-library",
@@ -934,11 +936,7 @@
       },
       {
         "text": "kotlin.ktor",
-        "href": "https://ktor.io/"
-      },
-      {
-        "text": "kotlin.lets-plot",
-        "link": "lets-plot"
+        "href": "https://ktor.io/docs/welcome.html"
       }
     ],
     "collapsed": true
@@ -1022,6 +1020,10 @@
           {
             "text": "kotlin.gradle-compilation-and-caches",
             "link": "gradle-compilation-and-caches"
+          },
+          {
+            "text": "kotlin.multiplatform-gradle-dsl",
+            "href": "https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html"
           },
           {
             "text": "kotlin.gradle-binary-compatibility-validation",
@@ -1219,81 +1221,9 @@
       {
         "text": "kotlin.releases",
         "link": "releases"
-      }
-    ],
-    "collapsed": true
-  },
-  {
-    "text": "kotlin.early-access-preview-eap",
-    "items": [
-      {
-        "text": "kotlin.eap",
-        "link": "eap"
       },
       {
-        "text": "kotlin.configure-build-for-eap",
-        "link": "configure-build-for-eap"
-      }
-    ],
-    "collapsed": true
-  },
-  {
-    "text": "kotlin.learning-materials",
-    "items": [
-      {
-        "text": "kotlin.learning-materials-overview",
-        "link": "learning-materials-overview"
-      },
-      {
-        "text": "kotlin.koans",
-        "link": "koans"
-      },
-      {
-        "text": "kotlin.kotlin-core-track",
-        "href": "https://hyperskill.org/tracks?category=4&utm_source=jbkotlin_hs&utm_medium=referral&utm_campaign=kotlinlang-docs&utm_content=button_1&utm_term=22.03.23"
-      },
-      {
-        "text": "kotlin.kotlin-hands-on",
-        "link": "kotlin-hands-on"
-      },
-      {
-        "text": "kotlin.kotlin-tips",
-        "link": "kotlin-tips"
-      },
-      {
-        "text": "kotlin.books",
-        "link": "books"
-      },
-      {
-        "text": "kotlin.advent-of-code",
-        "link": "advent-of-code"
-      },
-      {
-        "text": "kotlin.learn-in-ide-jetbrains-academy",
-        "items": [
-          {
-            "text": "kotlin.edu-tools-learner",
-            "link": "edu-tools-learner"
-          },
-          {
-            "text": "kotlin.edu-tools-educator",
-            "link": "edu-tools-educator"
-          }
-        ],
-        "collapsed": true
-      }
-    ],
-    "collapsed": true
-  },
-  {
-    "text": "kotlin.other-resources",
-    "items": [
-      {
-        "text": "kotlin.faq",
-        "link": "faq"
-      },
-      {
-        "text": "kotlin.earlier-kotlin-versions",
+        "text": "kotlin.earlier-kotlin-releases",
         "items": [
           {
             "text": "kotlin.kotlin-2-2-x",
@@ -1493,6 +1423,78 @@
           }
         ],
         "collapsed": true
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kotlin.early-access-preview-eap",
+    "items": [
+      {
+        "text": "kotlin.eap",
+        "link": "eap"
+      },
+      {
+        "text": "kotlin.configure-build-for-eap",
+        "link": "configure-build-for-eap"
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kotlin.learning-materials",
+    "items": [
+      {
+        "text": "kotlin.learning-materials-overview",
+        "link": "learning-materials-overview"
+      },
+      {
+        "text": "kotlin.kotlin-core-track",
+        "href": "https://hyperskill.org/tracks?category=4&utm_source=jbkotlin_hs&utm_medium=referral&utm_campaign=kotlinlang-docs&utm_content=button_1&utm_term=22.03.23"
+      },
+      {
+        "text": "kotlin.kotlin-hands-on",
+        "link": "kotlin-hands-on"
+      },
+      {
+        "text": "kotlin.kotlin-tips",
+        "link": "kotlin-tips"
+      },
+      {
+        "text": "kotlin.koans",
+        "link": "koans"
+      },
+      {
+        "text": "kotlin.books",
+        "link": "books"
+      },
+      {
+        "text": "kotlin.advent-of-code",
+        "link": "advent-of-code"
+      },
+      {
+        "text": "kotlin.learn-in-ide-jetbrains-academy",
+        "items": [
+          {
+            "text": "kotlin.edu-tools-learner",
+            "link": "edu-tools-learner"
+          },
+          {
+            "text": "kotlin.edu-tools-educator",
+            "link": "edu-tools-educator"
+          }
+        ],
+        "collapsed": true
+      }
+    ],
+    "collapsed": true
+  },
+  {
+    "text": "kotlin.other-resources",
+    "items": [
+      {
+        "text": "kotlin.faq",
+        "link": "faq"
       },
       {
         "text": "kotlin.kotlin-foundation",

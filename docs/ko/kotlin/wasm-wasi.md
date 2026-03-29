@@ -120,6 +120,5 @@ Kotlin Slack에서 Kotlin/Wasm 커뮤니티에 참여하세요:
 더 많은 Kotlin/Wasm 예제를 시도해 보세요:
 
 * [Compose image viewer](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/imageviewer)
-* [Jetsnack application](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/jetsnack)
 * [Node.js 예제](https://github.com/Kotlin/kotlin-wasm-nodejs-template)
 * [Compose 예제](https://github.com/Kotlin/kotlin-wasm-compose-template)

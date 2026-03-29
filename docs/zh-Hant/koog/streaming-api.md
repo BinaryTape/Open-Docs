@@ -58,7 +58,6 @@ Koog 的 **串流 API (Streaming API)** 讓您能以 `Flow<StreamFrame>` 的形�
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.prompt.streaming.StreamFrame
-    
     val strategy = strategy<String, String>("strategy_name") {
         val node by node<Unit, Unit> {
     -->
@@ -263,7 +262,6 @@ $fullText")
     import ai.koog.agents.features.eventHandler.feature.handleEvents
     import ai.koog.prompt.streaming.StreamFrame
     import ai.koog.prompt.structure.markdown.MarkdownStructureDefinition
-    
     fun GraphAIAgent.FeatureContext.installStreamingApi() {
     -->
     <!--- SUFFIX

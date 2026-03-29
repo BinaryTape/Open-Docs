@@ -131,7 +131,6 @@ kotlin {
 * 嘗試更多 Kotlin/Wasm 範例：
   * [KotlinConf 應用程式](https://github.com/JetBrains/kotlinconf-app)
   * [Compose 圖片檢視器](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/imageviewer)
-  * [Jetsnack 應用程式](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/jetsnack)
   * [Node.js 範例](https://github.com/Kotlin/kotlin-wasm-nodejs-template)
   * [WASI 範例](https://github.com/Kotlin/kotlin-wasm-wasi-template)
   * [Compose 範例](https://github.com/Kotlin/kotlin-wasm-compose-template)

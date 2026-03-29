@@ -334,8 +334,8 @@
             "link": "embeddings"
           },
           {
-            "text": "koog.ranked-document-storage",
-            "link": "ranked-document-storage"
+            "text": "koog.rag",
+            "link": "retrieval-augmented-generation"
           },
           {
             "text": "koog.serialization",

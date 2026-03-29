@@ -83,7 +83,7 @@ kotlin {
     > 对于 iOS，你可以直接在 KMP 项目中编辑该文件，或[使用 Xcode GUI 注册方案](https://developer.apple.com/documentation/xcode/defining-a-custom-url-scheme-for-your-app#Register-your-URL-scheme)。
     >
     {style="note"}
-* 对于 Windows 应用，可以通过[向 Windows 注册表添加包含必要信息的键](https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa767914(v=vs.85))（适用于 Windows 8 及更早版本）或在[包清单中指定扩展名](https://learn.microsoft.com/en-us/windows/apps/develop/launch/handle-uri-activation)（适用于 Windows 10 和 11）来声明深层链接方案。
+* 对于 Windows 应用，可以通过[向 Windows 注册表添加包含必要信息的键](https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa767914(v=vs.85))（对于 Windows 8 及更早版本）或在[包清单中指定扩展名](https://learn.microsoft.com/en-us/windows/apps/develop/launch/handle-uri-activation)（对于 Windows 10 和 11）来声明深层链接方案。
     这可以通过安装脚本或第三方分发包生成器（如 [Hydraulic Conveyor](https://conveyor.hydraulic.dev/)）来完成。
     Compose 跨平台不支持在项目内部配置此项。
     
@@ -362,3 +362,10 @@ internal fun App(navController: NavHostController = rememberNavController()) = A
   * 如果处理深层链接的应用已关闭，单例接收 URI 并将其缓存。
     当主可组合函数启动时，它会调用单例并导航到与缓存 URI 匹配的深层链接。
   * 如果处理深层链接的应用已打开，侦听器已经设置好，因此当单例接收到 URI 时，应用会立即导航到该链接。
+
+## 下一步
+
+查看展示 Compose 跨平台导航库实际运用的项目：
+
+* 基础示例：[nav_cupcake 项目](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/nav_cupcake)，该项目由 Android 实验课 [在 Compose 屏幕间导航](https://developer.android.com/codelabs/basic-android-kotlin-compose-navigation#0) 转换而来。
+* 进阶示例：官方 [KotlinConf](https://github.com/JetBrains/kotlinconf-app) 应用程序。

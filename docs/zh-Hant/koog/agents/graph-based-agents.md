@@ -157,7 +157,7 @@ graph TB
 邊也可以在將前一個節點的輸出傳遞給下一個節點之前對其進行轉換。
 這對於連接輸出與輸入型別不匹配的節點是必要的。
 
-在前面的範例中，`onToolCall { true }` 意味著只有在前一個節點回傳工具呼叫 `Message.Tool.Call` 時，才會遵循該邊。
+在前面的範例中，`onToolCall { true }` 意指只有在前一個節點回傳工具呼叫 `Message.Tool.Call` 時，才會遵循該邊。
 
 當使用 `onAssistantMessage { true }` 時，只有在前一個節點回傳助理訊息 `Message.Assistant` 時，才會遵循該邊。
 此函式還會提取助理訊息的內容，
@@ -316,9 +316,7 @@ The final answer is 193.
 ```
 <!--- KNIT example-graph-agents-02.txt -->
 
-然而，由於此代理沒有任何工具，LLM 永遠不會回傳工具呼叫，
-而只是簡單地產生整個答案。
-實際發生的情況如下：
+然而，由於此代理沒有任何工具，LLM 永遠不會回傳工具呼叫，而只是簡單地產生整個答案。實際發生的情況如下：
 
 ```mermaid
 ---
@@ -343,9 +341,7 @@ graph LR
 ```
 <!--- KNIT example-graph-agents-03.txt -->
 
-儘管在這種情況下結果是正確的，但答案將取決於底層 LLM 的算術能力。
-為了確保計算準確，我們應該為代理提供數學工具。
-這樣一來，LLM 就能夠決定呼叫工具來以確定性的方式執行計算。
+儘管在這種情況下結果是正確的，但答案將取決於底層 LLM 的算術能力。為了確保計算準確，我們應該為代理提供數學工具。這樣一來，LLM 就能夠決定呼叫工具來以確定性的方式執行計算。
 
 ## 新增工具
 
@@ -358,7 +354,6 @@ graph LR
     import ai.koog.agents.core.tools.annotations.LLMDescription
     import ai.koog.agents.core.tools.annotations.Tool
     import ai.koog.agents.core.tools.reflect.ToolSet
-    import ai.koog.agents.core.tools.reflect.tools
     -->
     ```kotlin
     @LLMDescription("用於執行數學運算的工具")
@@ -441,7 +436,6 @@ graph LR
     import ai.koog.agents.core.tools.annotations.LLMDescription
     import ai.koog.agents.core.tools.annotations.Tool
     import ai.koog.agents.core.tools.reflect.ToolSet
-    import ai.koog.agents.core.tools.reflect.tools
     import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
     import ai.koog.prompt.executor.ollama.client.OllamaModels
     import kotlinx.coroutines.runBlocking
@@ -598,14 +592,11 @@ Finally, 123 was added to the result:
 ```
 <!--- KNIT example-graph-agents-04.txt -->
 
-根據此輸出，代理正確地執行了計算，但它只呼叫了一次 `multiply` 工具，
-而不是針對每個運算呼叫對應的工具。
-我們可以透過描述代理的角色並在系統提示中提供使用適當工具的指令來協助代理。
+根據此輸出，代理正確地執行了計算，但它只呼叫了一次 `multiply` 工具，而不是針對每個運算呼叫對應的工具。我們可以透過描述代理的角色並在系統提示中提供使用適當工具的指令來協助代理。
 
 ## 提供系統提示
 
-[系統提示](../prompts/prompt-creation/index.md#system-message) 定義了代理的角色以及執行任務的指令。
-在我們的範例中，描述代理應如何處理複雜的多步驟計算非常重要：
+[系統提示](../prompts/prompt-creation/index.md#system-message) 定義了代理的角色以及執行任務的指令。在我們的範例中，描述代理應如何處理複雜的多步驟計算非常重要：
 
 === "Kotlin"
 
@@ -621,7 +612,6 @@ Finally, 123 was added to the result:
     import ai.koog.agents.core.tools.annotations.LLMDescription
     import ai.koog.agents.core.tools.annotations.Tool
     import ai.koog.agents.core.tools.reflect.ToolSet
-    import ai.koog.agents.core.tools.reflect.tools
     import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
     import ai.koog.prompt.executor.ollama.client.OllamaModels
     import kotlinx.coroutines.runBlocking
@@ -782,8 +772,7 @@ The final result is: 193
 ```
 <!--- KNIT example-graph-agents-05.txt -->
 
-如您所見，代理現在能正確地為每個運算呼叫適當的工具，
-確保其以確定性的方式執行計算，而不是冒著產生幻覺結果的風險。
+如您所見，代理現在能正確地為每個運算呼叫適當的工具，確保其以確定性的方式執行計算，而不是冒著產生幻覺結果的風險。
 
 ## 後續步驟
 

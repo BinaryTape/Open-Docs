@@ -340,7 +340,7 @@ dokka {
         </p>
         <p>
             此外，您可以使用 Dokka 的 
-            <a href="https://github.com/Kotlin/dokka/blob/v2.1.0/dokka-runners/dokka-gradle-plugin/src/main/kotlin/engine/parameters/HasConfigurableVisibilityModifiers.kt"><code>documentedVisibilities()</code> 函式</a> 
+            <a href="https://github.com/Kotlin/dokka/blob/v2.2.0/dokka-runners/dokka-gradle-plugin/src/main/kotlin/engine/parameters/HasConfigurableVisibilityModifiers.kt"><code>documentedVisibilities()</code> 函式</a> 
             來新增要記錄的可見性。
         </p>
         <p>這可以為每個個別套件進行配置。</p>

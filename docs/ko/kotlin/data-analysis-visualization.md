@@ -1,4 +1,4 @@
-[//]: # (title: Kandy를 사용한 Kotlin Notebook의 데이터 시각화)
+[//]: # (title: Kandy를 사용한 데이터 시각화)
 
 Kotlin은 강력하고 유연한 데이터 시각화를 위한 올인원 솔루션을 제공하여, 복잡한 모델을 다루기 전에 데이터를 직관적으로 제시하고 탐색할 수 있는 방법을 제공합니다.
 
@@ -58,7 +58,7 @@ val df = dataFrameOf(
 df.head(4)
 ```
 
-DataFrame에 Month, Temperature, City라는 세 개의 열이 있는 것을 확인할 수 있습니다.
+DataFrame에 Month, Temperature, City라는 세 개의 열이 있는 것을 확인할 수 있습니다. 
 DataFrame의 처음 4개 행에는 1월부터 4월까지 베를린의 기온 레코드가 포함되어 있습니다:
 
 ![Dataframe exploration](visualization-dataframe-temperature.png){width=600}
@@ -98,7 +98,7 @@ df.plot {
 
 ## 포인트 차트 생성
 
-이제 `df` DataFrame을 포인트(산점도, scatter) 차트로 시각화해 보겠습니다.
+이제 `df` DataFrame을 포인트(산점도, scatter) 차트로 시각화해 보겠습니다. 
 
 `plot()` 함수 내에서 `points` 차트 유형을 지정합니다. X축 및 Y축 값과 `df` 컬럼의 범주형(categorical) 값을 추가합니다. 차트에 제목을 포함할 수도 있습니다:
 
@@ -126,7 +126,7 @@ df.plot {
 
 ## 막대 차트 생성
 
-마지막으로, 이전 차트와 동일한 데이터를 사용하여 도시별로 그룹화된 막대 차트(bar chart)를 만들어 보겠습니다. 색상에는 16진수(hexadecimal) 코드를 사용할 수도 있습니다:
+마지막으로, 이전 차트와 동일한 데이터를 사용하여 도시별로 그룹화된 막대 차트(bar chart)를 만들어 보겠습니다. 색상에는 16진수(hexadecimal) 코드를 사용할 수도 있습니다: 
 
 ```kotlin
 // 도시(City)별로 그룹화합니다.

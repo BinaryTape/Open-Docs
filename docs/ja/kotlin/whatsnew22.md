@@ -1,5 +1,371 @@
 [//]: # (title: Kotlin 2.2.0 の新機能)
 
+<web-summary>新しい言語機能、Kotlin Multiplatform、JVM、Native、JS、Wasm へのアップデート、および Gradle と Maven のビルドツールサポートを含む Kotlin 2.2.0 のリリースノートをご覧ください。</web-summary>
+
+_[2025年6月23日リリース](releases.md#release-history)_
+
+Kotlin 2.2.0 がリリースされました！主なハイライトは以下の通りです：
+
+* **言語**: [コンテキストパラメータ (context parameters)](#preview-of-context-parameters) を含む、プレビュー段階の新しい言語機能。ガード条件、非ローカルな break と continue、マルチダラー補間など、[以前は実験的だったいくつかの機能が Stable（安定版）になりました](#stable-features-guard-conditions-non-local-break-and-continue-and-multi-dollar-interpolation)。
+* **Kotlin コンパイラ**: [コンパイラ警告の統一管理](#kotlin-compiler-unified-management-of-compiler-warnings)。
+* **Kotlin/JVM**: [インターフェース関数のデフォルトメソッド生成に関する変更](#changes-to-default-method-generation-for-interface-functions)。
+* **Kotlin/Native**: [LLVM 19 およびメモリ消費を追跡・調整するための新機能](#kotlin-native)。
+* **Kotlin/Wasm**: [Wasm ターゲットの分離](#build-infrastructure-for-wasm-target-separated-from-javascript-target) および [プロジェクトごとの Binaryen 設定](#per-project-binaryen-configuration) が可能に。
+* **Kotlin/JS**: [`@JsPlainObject` インターフェース向けに生成される `copy()` メソッドの修正](#fix-for-copy-in-jsplainobject-interfaces)。
+* **Gradle**: [Kotlin Gradle プラグインにおけるバイナリ互換性検証](#binary-compatibility-validation-included-in-kotlin-gradle-plugin)。
+* **標準ライブラリ**: [Base64 および HexFormat API の安定化](#stable-base64-encoding-and-decoding)。
+* **ドキュメント**: [Kotlin ドキュメントに重要な改善が行われました](#documentation-updates)。
+
+Kotlin 言語進化（Language Evolution）チームが新機能について議論し、質問に答えているこちらの動画もご覧いただけます：
+
+<video src="https://www.youtube.com/watch?v=jne3923lWtw" title="What's new in Kotlin 2.2.0"/>
+
+> Kotlin のリリースサイクルに関する情報は、[Kotlin のリリースプロセス](releases.md) を参照してください。
+>
+{style="tip"}
+
+## IDE サポート
+
+2.2.0 をサポートする Kotlin プラグインは、IntelliJ IDEA および Android Studio の最新バージョンにバンドルされています。IDE で Kotlin プラグインを個別にアップデートする必要はありません。ビルドスクリプト内の [Kotlin バージョンを 2.2.0 に変更](configure-build-for-eap.md#adjust-the-kotlin-version) するだけで利用可能です。
+
+詳細は [新しいリリースへのアップデート](releases.md#update-to-a-new-kotlin-version) を参照してください。
+
+## 言語
+
+本リリースでは、ガード条件、非ローカルな `break` と `continue`、およびマルチダラー補間が [Stable（安定版）](components-stability.md#stability-levels-explained) に [昇格](#stable-features-guard-conditions-non-local-break-and-continue-and-multi-dollar-interpolation) しました。さらに、[コンテキストパラメータ](#preview-of-context-parameters) や [コンテキスト依存の解決](#preview-of-context-sensitive-resolution) など、いくつかの機能がプレビューとして導入されました。
+
+### コンテキストパラメータのプレビュー
+<primary-label ref="experimental-general"/> 
+
+コンテキストパラメータ（context parameters）を使用すると、関数やプロパティが、周囲のコンテキストで暗黙的に利用可能な依存関係を宣言できるようになります。
+
+コンテキストパラメータを使用すると、一連の関数呼び出しの間で共有され、めったに変更されないサービスや依存関係などの値を、手動で受け渡す必要がなくなります。
+
+コンテキストパラメータは、コンテキストレシーバー（context receivers）と呼ばれていた古い実験的な機能を置き換えるものです。コンテキストレシーバーからコンテキストパラメータへの移行については、[ブログ投稿](https://blog.jetbrains.com/kotlin/2025/04/update-on-context-parameters/) で説明されている IntelliJ IDEA のアシスト機能を利用できます。
+
+主な違いは、コンテキストパラメータは関数の本体にレシーバーとして導入されない点です。そのため、コンテキストが暗黙的に利用可能だったコンテキストレシーバーとは異なり、コンテキストパラメータのメンバーにアクセスするには、そのパラメータ名を使用する必要があります。
+
+Kotlin におけるコンテキストパラメータは、簡素化された依存関係の注入（DI）、改善された DSL 設計、およびスコープ化された操作を通じて、依存関係の管理における重要な改善を象徴しています。詳細については、この機能の [KEEP](https://github.com/Kotlin/KEEP/blob/context-parameters/proposals/context-parameters.md) を参照してください。
+
+#### コンテキストパラメータを宣言する方法
+
+プロパティや関数のコンテキストパラメータを宣言するには、`context` キーワードに続けて、`name: Type` の形式のパラメータリストを記述します。以下は、`UserService` インターフェースへの依存関係を持つ例です：
+
+```kotlin
+// UserService はコンテキストで必要とされる依存関係を定義します
+interface UserService {
+    fun log(message: String)
+    fun findUserById(id: Int): String
+}
+
+// コンテキストパラメータを持つ関数を宣言します
+context(users: UserService)
+fun outputMessage(message: String) {
+    // コンテキストの log を使用します
+    users.log("Log: $message")
+}
+
+// コンテキストパラメータを持つプロパティを宣言します
+context(users: UserService)
+val firstUser: String
+    // コンテキストの findUserById を使用します    
+    get() = users.findUserById(1)
+```
+
+コンテキストパラメータ名として `_` を使用できます。この場合、パラメータの値は解決（resolution）には利用可能ですが、ブロック内から名前でアクセスすることはできません：
+
+```kotlin
+// "_" をコンテキストパラメータ名として使用します
+context(_: UserService)
+fun logWelcome() {
+    // UserService から適切な log 関数を見つけます
+    outputMessage("Welcome!")
+}
+```
+
+#### コンテキストパラメータを有効にする方法
+
+プロジェクトでコンテキストパラメータを有効にするには、コマンドラインで以下のコンパイラオプションを使用します：
+
+```Bash
+-Xcontext-parameters
+```
+
+または、Gradle ビルドファイルの `compilerOptions {}` ブロックに追加します：
+
+```kotlin
+// build.gradle.kts
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xcontext-parameters")
+    }
+}
+```
+
+> `-Xcontext-receivers` と `-Xcontext-parameters` の両方のコンパイラオプションを同時に指定するとエラーになります。
+>
+{style="warning"}
+
+#### フィードバックのお願い
+
+この機能は、将来の Kotlin リリースで安定化および改善される予定です。問題トラッカー [YouTrack](https://youtrack.jetbrains.com/issue/KT-10468/Context-Parameters-expanding-extension-receivers-to-work-with-scopes) へのフィードバックをお待ちしております。
+
+### コンテキスト依存の解決のプレビュー
+<primary-label ref="experimental-general"/> 
+
+Kotlin 2.2.0 では、コンテキスト依存の解決（context-sensitive resolution）の実装がプレビューとして導入されました。
+
+この機能の概要については、こちらの動画をご覧ください：
+
+<video src="https://www.youtube.com/v/aF8RYQrJI8Q" title="Context-sensitive resolution in Kotlin 2.2.0"/>
+
+これまでは、コンテキストから型が推論できる場合でも、列挙型（enum）のエントリやシールクラス（sealed class）のメンバーのフルネームを記述する必要がありました。例えば：
+
+```kotlin
+enum class Problem {
+    CONNECTION, AUTHENTICATION, DATABASE, UNKNOWN
+}
+
+fun message(problem: Problem): String = when (problem) {
+    Problem.CONNECTION -> "connection"
+    Problem.AUTHENTICATION -> "authentication"
+    Problem.DATABASE -> "database"
+    Problem.UNKNOWN -> "unknown"
+}
+```
+
+コンテキスト依存の解決を使用すると、期待される型がわかっているコンテキストでは型名を省略できるようになります：
+
+```kotlin
+enum class Problem {
+    CONNECTION, AUTHENTICATION, DATABASE, UNKNOWN
+}
+
+// problem の既知の型に基づいて enum エントリを解決します
+fun message(problem: Problem): String = when (problem) {
+    CONNECTION -> "connection"
+    AUTHENTICATION -> "authentication"
+    DATABASE -> "database"
+    UNKNOWN -> "unknown"
+}
+```
+
+コンパイラはこのコンテキスト上の型情報を使用して、正しいメンバーを解決します。この情報には、特に以下が含まれます：
+
+* `when` 式の対象
+* 明示的な戻り値の型
+* 宣言された変数型
+* 型チェック (`is`) およびキャスト (`as`)
+* シールクラス階層の既知の型
+* パラメータの宣言された型
+
+> コンテキスト依存の解決は、関数、パラメータを持つプロパティ、またはレシーバーを持つ拡張プロパティには適用されません。
+>
+{style="note"}
+
+プロジェクトでコンテキスト依存の解決を試すには、コマンドラインで以下のコンパイラオプションを使用します：
+
+```bash
+-Xcontext-sensitive-resolution
+```
+
+または、Gradle ビルドファイルの `compilerOptions {}` ブロックに追加します：
+
+```kotlin
+// build.gradle.kts
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xcontext-sensitive-resolution")
+    }
+}
+```
+
+この機能は将来の Kotlin リリースで安定化および改善する予定です。問題トラッカー [YouTrack](https://youtrack.jetbrains.com/issue/KT-16768/Context-sensitive-resolution) へのフィードバックをお待ちしております。
+
+### アノテーション使用箇所ターゲットに関する機能のプレビュー
+<primary-label ref="experimental-general"/>
+
+Kotlin 2.2.0 では、アノテーションの [使用箇所ターゲット (use-site targets)](annotations.md#annotation-use-site-targets) をより便利に扱えるようにするいくつかの機能が導入されました。
+
+#### プロパティ向けの `@all` メタターゲット
+<primary-label ref="experimental-general"/>
+
+Kotlin では、宣言の特定の部分にアノテーションを付加することができ、これは [使用箇所ターゲット](annotations.md#annotation-use-site-targets) として知られています。しかし、各ターゲットに個別にアノテーションを付けるのは複雑で間違いやすいものでした：
+
+```kotlin
+data class User(
+    val username: String,
+
+    @param:Email      // コンストラクタパラメータ
+    @field:Email      // バッキングフィールド
+    @get:Email        // ゲッターメソッド
+    @property:Email   // Kotlin プロパティ参照
+    val email: String,
+) {
+    @field:Email
+    @get:Email
+    @property:Email
+    val secondaryEmail: String? = null
+}
+```
+
+これを簡素化するため、Kotlin はプロパティ向けの新しい `@all` メタターゲットを導入しました。この機能は、プロパティのすべての関連部分にアノテーションを適用するようコンパイラに指示します。`@all` を使用すると、コンパイラは以下の部分へのアノテーション適用を試みます：
+
+* **`param`**: プライマリコンストラクタで宣言されている場合、そのコンストラクタパラメータ。
+
+* **`property`**: Kotlin プロパティ自体。
+
+* **`field`**: バッキングフィールドが存在する場合、そのフィールド。
+
+* **`get`**: ゲッターメソッド。
+
+* **`setparam`**: プロパティが `var` として定義されている場合、そのセッターメソッドのパラメータ。
+
+* **`RECORD_COMPONENT`**: クラスが `@JvmRecord` の場合、アノテーションは [Java レコードコンポーネント](#improved-support-for-annotating-jvm-records) に適用されます。この動作は、Java がレコードコンポーネント上のアノテーションを処理する方法を模倣しています。
+
+コンパイラは、指定されたプロパティのターゲットに対してのみアノテーションを適用します。
+
+以下の例では、`@Email` アノテーションが各プロパティのすべての関連ターゲットに適用されます：
+
+```kotlin
+data class User(
+    val username: String,
+
+    // @Email を param, property, field,
+    // get, および setparam (var の場合) に適用します
+    @all:Email val email: String,
+) {
+    // @Email を property, field, および get に適用します
+    // (コンストラクタに含まれないため param はありません)
+    @all:Email val secondaryEmail: String? = null
+}
+```
+
+`@all` メタターゲットは、プライマリコンストラクタ内および外のすべてのプロパティで使用できます。ただし、`@all` メタターゲットを [複数のアノテーション](https://kotlinlang.org/spec/syntax-and-grammar.html#grammar-rule-annotation) と併用することはできません。
+
+この新機能により構文が簡素化され、一貫性が確保され、Java レコードとの相互運用性が向上します。
+
+プロジェクトで `@all` メタターゲットを有効にするには、コマンドラインで以下のコンパイラオプションを使用します：
+
+```Bash
+-Xannotation-target-all
+```
+
+または、Gradle ビルドファイルの `compilerOptions {}` ブロックに追加します：
+
+```kotlin
+// build.gradle.kts
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xannotation-target-all")
+    }
+}
+```
+
+この機能はプレビュー段階です。問題が発生した場合は、問題トラッカー [YouTrack](https://kotl.in/issue) に報告してください。`@all` メタターゲットの詳細については、この [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-target-in-properties.md) プロポーザルを参照してください。
+
+#### 使用箇所アノテーションターゲットの新しいデフォルトルール
+<primary-label ref="experimental-general"/>
+
+Kotlin 2.2.0 では、アノテーションをパラメータ、フィールド、プロパティに伝播させるための新しいデフォルトルールが導入されました。これまでは、アノテーションはデフォルトで `param`、`property`、`field` のいずれか一つにしか適用されませんでしたが、新しいデフォルトではアノテーションに期待される動作により即したものになります。
+
+適用可能なターゲットが複数ある場合、以下のように一つ以上が選択されます：
+
+* コンストラクタパラメータターゲット (`param`) が適用可能な場合、それが使用されます。
+* プロパティターゲット (`property`) が適用可能な場合、それが使用されます。
+* `property` が適用可能でなく、フィールドターゲット (`field`) が適用可能な場合、`field` が使用されます。
+
+複数のターゲットがあり、`param`、`property`、`field` のいずれも適用可能でない場合、アノテーションはエラーになります。
+
+この機能を有効にするには、Gradle ビルドファイルの `compilerOptions {}` ブロックに以下を追加します：
+
+```kotlin
+// build.gradle.kts
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xannotation-default-target=param-property")
+    }
+}
+```
+
+または、コンパイラのコマンドライン引数を使用します：
+
+```Bash
+-Xannotation-default-target=param-property
+```
+
+古い動作を使用したい場合は、いつでも以下のように対応できます：
+
+* 特定のケースでは、`@Annotation` の代わりに `@param:Annotation` を使用するなど、必要なターゲットを明示的に定義します。
+* プロジェクト全体では、Gradle ビルドファイルで以下のフラグを使用します：
+
+    ```kotlin
+    // build.gradle.kts
+    kotlin {
+        compilerOptions {
+            freeCompilerArgs.add("-Xannotation-default-target=first-only")
+        }
+    }
+    ```
+
+この機能はプレビュー段階です。問題が発生した場合は、問題トラッカー [YouTrack](https://kotl.in/issue) に報告してください。使用箇所アノテーションターゲットの新しいデフォルトルールの詳細については、この [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-target-in-properties.md) プロポーザルを参照してください。
+
+### ネストされた型エイリアスのサポート
+<primary-label ref="beta"/>
+
+Kotlin 2.2.0 では、他の宣言の内部で型エイリアスを定義できるようになりました。
+
+この機能の概要については、こちらの動画をご覧ください：
+
+<video src="https://www.youtube.com/v/1W6d45IOwWk" title="Nested type aliases in Kotlin 2.2.0"/>
+
+これまでは、[型エイリアス (type aliases)](type-aliases.md) は Kotlin ファイルのトップレベルでしか宣言できませんでした。これは、内部的なものやドメイン固有の型エイリアスであっても、それらが使用されるクラスの外に配置しなければならないことを意味していました。
+
+2.2.0 からは、外側のクラスから型パラメータをキャプチャしない限り、他の宣言の内部で型エイリアスを定義できるようになります：
+
+```kotlin
+class Dijkstra {
+    typealias VisitedNodes = Set<Node>
+
+    private fun step(visited: VisitedNodes, ...) = ...
+}
+```
+
+ネストされた型エイリアスには、型パラメータに言及できないなどのいくつかの追加の制約があります。ルールの全セットについては [ドキュメント](type-aliases.md#nested-type-aliases) を確認してください。
+
+ネストされた型エイリアスを使用すると、カプセル化が改善され、パッケージレベルの煩雑さが軽減され、内部実装が簡素化されるため、よりクリーンで保守性の高いコードを作成できます。
+
+#### ネストされた型エイリアスを有効にする方法
+
+プロジェクトでネストされた型エイリアスを有効にするには、コマンドラインで以下のコンパイラオプションを使用します：
+
+```bash
+-Xnested-type-aliases
+```
+
+または、Gradle ビルドファイルの `compilerOptions {}` ブロックに追加します：
+
+```kotlin
+// build.gradle.kts
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xnested-type-aliases")
+    }
+}
+```
+
+#### フィードバックのお願い
+
+ネストされた型エイリアスは現在 [Beta（ベータ）](components-stability.md#stability-levels-explained) です。問題が発生した場合は、問題トラッカー [YouTrack](https://kotl.in/issue) に報告してください。この機能の詳細については、この [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/nested-typealias.md) プロポーザルを参照してください。
+
+### 安定した機能：ガード条件、非ローカルな `break` と `continue`、およびマルチダラー補間
+
+Kotlin 2.1.0 では、いくつかの新しい言語機能がプレビューとして導入されました。本リリースでは、以下の言語機能が [Stable（安定版）](components-stability.md#stability-levels-explained) になったことをお知らせします：
+
+* [対象（subject）を持つ `when` におけるガード条件](control-flow.md#guard-conditions-in-when-expressions)
+* [非ローカルな `break` と `continue`](inline-functions.md#break-and-continue)
+* [マルチダラー補間: 文字列リテラルにおける `$` の処理を改善](strings.md#multi-dollar-string-interpolation)
+
 [Kotlin 言語設計機能とプロポーザルの全リストを見る](kotlin-language-features-and-proposals.md)。
 
 ## Kotlin コンパイラ: コンパイラ警告の統一管理
@@ -335,7 +701,7 @@ Kotlin 2.2.0 以降、サポートされる Windows の最小バージョンが 
 
 本リリースでは、[Wasm ターゲットのビルドインフラストラクチャが JavaScript ターゲットから分離されました](#build-infrastructure-for-wasm-target-separated-from-javascript-target)。さらに、[Binaryen ツールをプロジェクトまたはモジュールごとに設定](#per-project-binaryen-configuration)できるようになりました。
 
-### Wasm ターゲットのビルドインフラストラクチャを JavaScript ターゲットから分離
+### Wasm ターゲット의 ビルドインフラストラクチャを JavaScript ターゲットから分離
 
 以前は、`wasmJs` ターゲットは `js` ターゲットと同じインフラストラクチャを共有していました。その結果、両方のターゲットは同じディレクトリ (`build/js`) にホストされ、同じ NPM タスクと設定を使用していました。
 
@@ -635,7 +1001,7 @@ KGP の場合、BTA を使用することで次のようなメリットがすで
 
 ### 改善された「プロセス内」コンパイラ実行戦略
 
-KGP は 3 つの [Kotlin コンパイラ実行戦略](gradle-compilation-and-caches.md#defining-kotlin-compiler-execution-strategy) をサポートしています。コンパイラを Gradle デーモンプロセス内で実行する「プロセス内（in process）」戦略は、以前はインクリメンタルコンパイルをサポートしていませんでした。
+KGP は 3 つの [Kotlin コンパイラ実行戦略](compiler-execution-strategy.md) をサポートしています。コンパイラを Gradle デーモンプロセス内で実行する「プロセス内（in process）」戦略は、以前はインクリメンタルコンパイルをサポートしていませんでした。
 
 今回、BTA を使用することで、「プロセス内」戦略がインクリメンタルコンパイルを **サポート** するようになりました。これを使用するには、`gradle.properties` ファイルに以下のプロパティを追加してください：
 

@@ -78,7 +78,7 @@ Kotlin Multiplatform Gradle プラグインをセットアップするには：
 
 ### KMP IDE プラグインのセットアップ
 
-KMP プロジェクトに推奨される [Kotlin Multiplatform IDE プラグイン]() を使用している場合は、KMP モジュールからビルドされる iOS プロジェクトへのパスを明示的に指定してください。
+KMP プロジェクトに推奨される [Kotlin Multiplatform IDE プラグイン](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform/) を使用している場合は、KMP モジュールからビルドされる iOS プロジェクトへのパスを明示的に指定してください。
 
 `iosTarget.binaries.framework` API を呼び出す `build.gradle.kts` ファイルで、パスを設定する API 呼び出しを追加します。
 

@@ -336,7 +336,7 @@ dokka {
         </p>
         <p>
             또한 Dokka의 
-            <a href="https://github.com/Kotlin/dokka/blob/v2.1.0/dokka-runners/dokka-gradle-plugin/src/main/kotlin/engine/parameters/HasConfigurableVisibilityModifiers.kt"><code>documentedVisibilities()</code> 함수</a>를 
+            <a href="https://github.com/Kotlin/dokka/blob/v2.2.0/dokka-runners/dokka-gradle-plugin/src/main/kotlin/engine/parameters/HasConfigurableVisibilityModifiers.kt"><code>documentedVisibilities()</code> 함수</a>를 
             사용하여 문서화할 가시성을 추가할 수 있습니다.
         </p>
         <p>이는 각 개별 패키지에 대해 설정할 수 있습니다.</p>

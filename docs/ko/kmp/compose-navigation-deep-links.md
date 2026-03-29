@@ -341,3 +341,10 @@ internal fun App(navController: NavHostController = rememberNavController()) = A
 사용자가 `demo://` URI를 열면 운영 체제는 이를 등록된 스키마와 일치시킵니다. 그런 다음:
   * 딥 링크를 처리하는 앱이 닫혀 있는 경우, 싱글톤이 URI를 수신하고 캐싱합니다. 메인 컴포저블 함수가 시작되면 싱글톤을 호출하고 캐싱된 URI와 일치하는 딥 링크로 이동합니다.
   * 딥 링크를 처리하는 앱이 열려 있는 경우, 리스너가 이미 설정되어 있으므로 싱글톤이 URI를 수신할 때 앱이 즉시 해당 링크로 이동합니다.
+
+## 다음 단계
+
+Compose Multiplatform 내비게이션 라이브러리가 실제로 작동하는 모습을 보여주는 다음 프로젝트들을 확인해 보세요:
+
+* 기본 예제: [Navigate between screens with Compose](https://developer.android.com/codelabs/basic-android-kotlin-compose-navigation#0) Android 코드랩에서 변환된 [nav_cupcake 프로젝트](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/nav_cupcake).
+* 심화 예제: 공식 [KotlinConf](https://github.com/JetBrains/kotlinconf-app) 애플리케이션.

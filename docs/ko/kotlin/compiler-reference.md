@@ -274,6 +274,17 @@ kotlinc -Xcompiler-plugin-order=plugin.middle>plugin.last
 
 IR 로워링(lowering) 컴파일 단계 후에 덤프 파일을 생성하려면 `ExternalPackageParentPatcherLowering`으로 설정하세요. Kotlin/JVM의 출력 디렉터리는 [`-Xdump-directory`](#xdump-directory) 컴파일러 옵션으로 구성합니다.
 
+### -Xname-based-destructuring
+<primary-label ref="experimental-opt-in"/>
+
+프로퍼티 이름을 기반으로 [구조 분해 선언(destructuring declarations)](destructuring-declarations.md#name-based-destructuring)을 컴파일러가 해석하는 방식을 구성합니다.
+
+이 옵션은 다음 모드를 지원합니다:
+
+* `only-syntax`: 기존 구조 분해 선언의 동작을 변경하지 않고 명시적인 형태의 이름 기반 구조 분해를 활성화합니다.
+* `name-mismatch`: 데이터 클래스의 위치 기반 구조 분해에서 변수 이름이 프로퍼티 이름과 일치하지 않을 때 경고를 보고합니다.
+* `complete`: 괄호를 사용하는 축약형 이름 기반 구조 분해를 활성화하며, 대괄호 구문을 사용하는 위치 기반 구조 분해를 계속 지원합니다.
+
 ## Kotlin/JVM 컴파일러 옵션
 
 JVM용 Kotlin 컴파일러는 Kotlin 소스 파일을 Java 클래스 파일로 컴파일합니다. 

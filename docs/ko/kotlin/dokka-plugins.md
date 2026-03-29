@@ -7,9 +7,10 @@
 
 Dokka는 처음부터 쉽게 확장하고 고도로 커스터마이징할 수 있도록 설계되었습니다. 이를 통해 커뮤니티에서는 기본적으로 제공되지 않는 누락되었거나 매우 특수한 기능을 위한 플러그인을 구현할 수 있습니다.
 
-Dokka 플러그인은 다른 프로그래밍 언어 소스 지원부터 이색적인 출력 형식에 이르기까지 그 범위가 매우 넓습니다. 고유한 KDoc 태그나 애노테이션에 대한 지원을 추가하거나, KDoc 설명에서 발견되는 다양한 DSL을 렌더링하는 방법을 Dokka에게 가르칠 수 있으며, Dokka 페이지를 시각적으로 재설계하여 회사의 웹사이트에 원활하게 통합하고, 다른 도구와 통합하는 등 훨씬 더 많은 작업을 수행할 수 있습니다.
+Dokka 플러그인은 다른 프로그래밍 언어 소스 지원부터 이색적인 출력 형식에 이르기까지 그 범위가 매우 넓습니다. 고유한 KDoc 태그나 애노테이션에 대한 지원을 추가하거나, KDoc 설명에서 발견되는 다양한 DSL을 렌더링하는 방법을 Dokka에게 가르칠 수 있으며, Dokka 페이지를 시각적으로 재설계하여 회사의 웹사이트에 원활하게 통합하고, 다른 도구와 통합하는 등 훨씬 더 많은 작업을 수행할 수 있습니다. 
 
-Dokka 플러그인을 만드는 방법을 배우려면 [개발자 가이드](https://kotlin.github.io/dokka/%dokkaVersion%/developer_guide/introduction/)를 참조하세요.
+Dokka 플러그인을 만드는 방법을 배우려면 
+[개발자 가이드](https://kotlin.github.io/dokka/%dokkaVersion%/developer_guide/introduction/)를 참조하세요.
 
 ## Dokka 플러그인 적용
 
@@ -110,7 +111,7 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 
 ## Dokka 플러그인 설정
 
-Dokka 플러그인은 자체적인 설정 옵션을 가질 수 있습니다. 어떤 옵션을 사용할 수 있는지 확인하려면 사용 중인 플러그인의 문서를 참조하세요.
+Dokka 플러그인은 자체적인 설정 옵션을 가질 수 있습니다. 어떤 옵션을 사용할 수 있는지 확인하려면 사용 중인 플러그인의 문서를 참조하세요. 
 
 커스텀 이미지 에셋 추가(`customAssets` 옵션), 커스텀 스타일 시트(`customStyleSheets` 옵션), 수정된 푸터 메시지(`footerMessage` 옵션)를 추가하여 내장 HTML 플러그인을 설정하는 방법을 살펴보겠습니다:
 
@@ -131,7 +132,7 @@ dokka {
 
 Dokka 플러그인 설정의 예는 [Dokka의 versioning 플러그인](https://github.com/Kotlin/dokka/tree/master/examples/gradle-v2/versioning-multimodule-example)을 참조하세요.
 
-Dokka를 사용하면 [커스텀 플러그인을 설정](https://github.com/Kotlin/dokka/blob/v2.1.0/examples/gradle-v2/custom-dokka-plugin-example/demo-library/build.gradle.kts)하여 기능을 확장하고 문서 생성 프로세스를 수정할 수 있습니다.
+Dokka를 사용하면 [커스텀 플러그인을 설정](https://github.com/Kotlin/dokka/blob/v2.2.0/examples/gradle-v2/custom-dokka-plugin-example/demo-library/build.gradle.kts)하여 기능을 확장하고 문서 생성 프로세스를 수정할 수 있습니다.
 
 </tab>
 <tab title="Gradle Groovy DSL" group-key="groovy">

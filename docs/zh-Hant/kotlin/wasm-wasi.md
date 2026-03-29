@@ -18,7 +18,7 @@
 
 1. 下載並安裝最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/)。
 
-2. 藉由在 IntelliJ IDEA 中選擇 **File | New | Project from Version Control** 來複製 [Kotlin/Wasm WASI 範本存儲庫](https://github.com/Kotlin/kotlin-wasm-wasi-template)。
+2. 透過在 IntelliJ IDEA 中選擇 **File | New | Project from Version Control** 來複製 [Kotlin/Wasm WASI 範本存儲庫](https://github.com/Kotlin/kotlin-wasm-wasi-template)。
 
    您也可以從命令列複製：
    
@@ -28,7 +28,7 @@
 
 ## 執行應用程式
 
-1. 藉由選擇 **View** | **Tool Windows** | **Gradle** 來開啟 **Gradle** 工具視窗。 
+1. 透過選擇 **View** | **Tool Windows** | **Gradle** 來開啟 **Gradle** 工具視窗。 
    
    當專案載入後，您可以在 **Gradle** 工具視窗中的 **kotlin-wasm-wasi-example** 下找到 Gradle 任務。
 
@@ -68,7 +68,7 @@
   ./gradlew wasmWasiWasmEdgeRun
   ```
 
-當您的應用程式建置成功時，終端將顯示一條訊息：
+當您的應用程式組建成功時，終端將顯示一條訊息：
 
 ![Kotlin/Wasm 與 WASI 應用程式](wasm-wasi-app-terminal.png){width=600}
 
@@ -117,6 +117,5 @@
 嘗試更多 Kotlin/Wasm 範例：
 
 * [Compose 圖片檢視器](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/imageviewer)
-* [Jetsnack 應用程式](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/jetsnack)
 * [Node.js 範例](https://github.com/Kotlin/kotlin-wasm-nodejs-template)
 * [Compose 範例](https://github.com/Kotlin/kotlin-wasm-compose-template)

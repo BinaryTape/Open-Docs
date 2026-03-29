@@ -218,12 +218,12 @@ documentedVisibilities.set(
     setOf(VisibilityModifier.Public)
 )
 
-// 또는
+// 또는 (OR)
 
 documentedVisibilities(VisibilityModifier.Public)
 ```
 
-또한, DGP v2의 [유틸리티 함수](https://github.com/Kotlin/dokka/blob/v2.1.0/dokka-runners/dokka-gradle-plugin/src/main/kotlin/engine/parameters/HasConfigurableVisibilityModifiers.kt#L14-L16)를 사용하여 문서화할 가시성을 추가할 수 있습니다:
+또한, DGP v2의 [유틸리티 함수](https://github.com/Kotlin/dokka/blob/v2.2.0/dokka-runners/dokka-gradle-plugin/src/main/kotlin/engine/parameters/HasConfigurableVisibilityModifiers.kt#L14-L16)를 사용하여 문서화할 가시성을 추가할 수 있습니다:
 
 ```kotlin
 fun documentedVisibilities(vararg visibilities: VisibilityModifier): Unit =
@@ -314,7 +314,7 @@ DGP v2의 설정:
 ```kotlin
 remoteUrl.set(URI("https://github.com/your-repo"))
 
-// 또는
+// 또는 (or)
 
 remoteUrl("https://github.com/your-repo")
 ```
@@ -325,7 +325,7 @@ remoteUrl("https://github.com/your-repo")
 fun remoteUrl(@Language("http-url-reference") value: String): Unit =
     remoteUrl.set(URI(value))
 
-// 그리고
+// 그리고 (and)
 
 fun remoteUrl(value: Provider<String>): Unit =
     remoteUrl.set(value.map(::URI))
@@ -663,7 +663,7 @@ DGP v1의 태스크:
 ```text
 ./gradlew dokkaHtml
 
-// 또는
+// 또는 (or)
 
 ./gradlew dokkaHtmlMultiModule
 ```
@@ -705,7 +705,7 @@ DGP v2의 기본 출력 형식은 HTML입니다. 하지만 API 문서를 HTML, J
 
 다음은 각 형식에 해당하는 플러그인 `id` 및 Gradle 태스크 목록입니다:
 
-|             | **HTML**                       | **Javadoc**                         | **둘 다**                          |
+|             | **HTML**                       | **Javadoc**                         | **둘 다 (Both)**                          |
 |-------------|--------------------------------|-------------------------------------|-----------------------------------|
 | 플러그인 `id` | `id("org.jetbrains.dokka")`    | `id("org.jetbrains.dokka-javadoc")` | HTML 및 Javadoc 플러그인 모두 사용 |
 | Gradle 태스크 | `./gradlew :dokkaGeneratePublicationHtml` | `./gradlew :dokkaGeneratePublicationJavadoc`   | `./gradlew :dokkaGenerate`        |

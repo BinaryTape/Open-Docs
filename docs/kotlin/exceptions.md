@@ -1,4 +1,4 @@
-[//]: # (title: 异常)
+[//]: # (title: 异常与错误处理)
 
 <web-summary>了解 Kotlin 如何使用异常来处理运行时错误。</web-summary>
 
@@ -23,7 +23,7 @@ Kotlin 默认将所有异常视为**不受检的** (unchecked)。
 抛出异常表示代码中发生了非预期的运行时错误。
 异常是[对象](classes.md#creating-instances)，抛出异常会创建异常类的一个实例。
 
-你可以抛出不带任何参数的异常： 
+你可以抛出不带任何形参的异常： 
 
 ```kotlin
 throw IllegalArgumentException()
@@ -183,7 +183,7 @@ fun main() {
 当异常被抛出时，它会中断程序的正常执行。
 你可以使用 `try` 和 `catch` 关键字优雅地处理异常，以保持程序的稳定性。
 `try` 块包含可能抛出异常的代码，而 `catch` 块则捕获并处理发生的异常。
-异常由第一个匹配其特定类型或异常 [基类](inheritance.md) 的 `catch` 块捕获。
+异常由第一个匹配其特定类型或异常[基类](inheritance.md)的 `catch` 块捕获。
 
 以下是同时使用 `try` 和 `catch` 关键字的方法：
 
@@ -374,7 +374,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-如你所见，无论是否发生异常，`finally` 块都能保证资源被关闭。
+如你所见，`finally` 块都能保证资源被关闭，无论是否发生异常。
 
 在 Kotlin 中，你可以根据具体需求灵活地仅使用 `catch` 块、仅使用 `finally` 块，或者两者都用，但 `try` 块必须始终伴随至少一个 `catch` 块或一个 `finally` 块。
 

@@ -131,7 +131,7 @@ dokka {
 
 Dokkaプラグイン設定の例については、[Dokkaのバージョニングプラグインの例](https://github.com/Kotlin/dokka/tree/master/examples/gradle-v2/versioning-multimodule-example)（英語）を参照してください。
 
-Dokkaでは、[カスタムプラグインを設定](https://github.com/Kotlin/dokka/blob/v2.1.0/examples/gradle-v2/custom-dokka-plugin-example/demo-library/build.gradle.kts)（英語）することで、機能を拡張し、ドキュメント生成プロセスを変更することができます。
+Dokkaでは、[カスタムプラグインを設定](https://github.com/Kotlin/dokka/blob/v2.2.0/examples/gradle-v2/custom-dokka-plugin-example/demo-library/build.gradle.kts)（英語）することで、機能を拡張し、ドキュメント生成プロセスを変更することができます。
 
 </tab>
 <tab title="Gradle Groovy DSL" group-key="groovy">

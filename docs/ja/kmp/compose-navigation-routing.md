@@ -26,6 +26,7 @@ kotlin {
 
 Compose Multiplatformのナビゲーションライブラリが実際に動作している様子を確認するには、[nav_cupcakeプロジェクト](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/nav_cupcake)をチェックしてください。
 これは、Androidのコードラボ「[Navigate between screens with Compose](https://developer.android.com/codelabs/basic-android-kotlin-compose-navigation#0)」から変換されたものです。
+より複雑な例については、公式の[KotlinConf](https://github.com/JetBrains/kotlinconf-app)アプリケーションを参照してください。
 
 Jetpack Composeと同様に、ナビゲーションを実装するには以下の手順が必要です。
 1. ナビゲーショングラフに含める[ルートをリストアップ](https://github.com/JetBrains/compose-multiplatform/blob/a6961385ccf0dee7b6d31e3f73d2c8ef91005f1a/examples/nav_cupcake/composeApp/src/commonMain/kotlin/org/jetbrains/nav_cupcake/CupcakeScreen.kt#L50)します。各ルートはパスを定義する一意の文字列である必要があります。

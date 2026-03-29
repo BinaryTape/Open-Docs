@@ -332,7 +332,7 @@ dokka {
         </p>
         <p>
             此外，您可以使用 Dokka 的 
-            <a href="https://github.com/Kotlin/dokka/blob/v2.1.0/dokka-runners/dokka-gradle-plugin/src/main/kotlin/engine/parameters/HasConfigurableVisibilityModifiers.kt"><code>documentedVisibilities()</code> 函数</a> 
+            <a href="https://github.com/Kotlin/dokka/blob/v2.2.0/dokka-runners/dokka-gradle-plugin/src/main/kotlin/engine/parameters/HasConfigurableVisibilityModifiers.kt"><code>documentedVisibilities()</code> 函数</a> 
             来添加记录的可见性。
         </p>
         <p>可以为每个单独的软件包配置此项。</p>

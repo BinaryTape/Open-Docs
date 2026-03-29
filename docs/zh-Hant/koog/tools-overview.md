@@ -39,7 +39,6 @@ Koog 架構中共有三種型別的工具：
     import ai.koog.agents.core.tools.ToolRegistry
     import ai.koog.agents.core.tools.annotations.Tool
     import ai.koog.agents.core.tools.reflect.ToolSet
-    import ai.koog.agents.core.tools.reflect.tools
     class MyToolSet : ToolSet {
         @Tool
         fun myTool(): String {
@@ -83,7 +82,6 @@ Koog 架構中共有三種型別的工具：
     import ai.koog.agents.core.tools.ToolRegistry
     import ai.koog.agents.core.tools.annotations.Tool
     import ai.koog.agents.core.tools.reflect.ToolSet
-    import ai.koog.agents.core.tools.reflect.tools
     class FirstToolSet : ToolSet {
         @Tool
         fun firstSampleTool(): String {

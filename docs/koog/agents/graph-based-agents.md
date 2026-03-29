@@ -337,7 +337,6 @@ graph LR
     import ai.koog.agents.core.tools.annotations.LLMDescription
     import ai.koog.agents.core.tools.annotations.Tool
     import ai.koog.agents.core.tools.reflect.ToolSet
-    import ai.koog.agents.core.tools.reflect.tools
     -->
     ```kotlin
     @LLMDescription("Tools for performing math operations")
@@ -420,7 +419,6 @@ graph LR
     import ai.koog.agents.core.tools.annotations.LLMDescription
     import ai.koog.agents.core.tools.annotations.Tool
     import ai.koog.agents.core.tools.reflect.ToolSet
-    import ai.koog.agents.core.tools.reflect.tools
     import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
     import ai.koog.prompt.executor.ollama.client.OllamaModels
     import kotlinx.coroutines.runBlocking
@@ -437,7 +435,7 @@ graph LR
         @Tool
         @LLMDescription("Multiplies two numbers and returns the result")
         fun multiply(a: Int, b: Int): Int {
-            // 这不是必须的，但它有助于在控制台输出中查看工具调用
+            // 这不是必须的，但 it 有助于在控制台输出中查看工具调用
             println("Multiplying $a and $b...")
             return a * b
         }
@@ -597,7 +595,6 @@ Finally, 123 was added to the result:
     import ai.koog.agents.core.tools.annotations.LLMDescription
     import ai.koog.agents.core.tools.annotations.Tool
     import ai.koog.agents.core.tools.reflect.ToolSet
-    import ai.koog.agents.core.tools.reflect.tools
     import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
     import ai.koog.prompt.executor.ollama.client.OllamaModels
     import kotlinx.coroutines.runBlocking

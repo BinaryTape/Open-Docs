@@ -12,7 +12,7 @@ DGP は、Kotlin の KDoc コメントと Java の Javadoc コメントの両方
 Dokka Gradle plugin v2 モードはデフォルトで有効になっており、Gradle のベストプラクティスに準拠しています。
 
 * Gradle の型を採用しており、パフォーマンスが向上しています。
-* 低レベルのタスクベースのセットアップではなく、直感的なトップレベルの DSL 設定を使用するため、ビルドスクリプトが簡素化され、可読性が向上します。
+* 低レベルのタスクベースのセットアップではなく、直感的なトップレベル DSL 設定を使用するため、ビルドスクリプトが簡素化され、可読性が向上します。
 * ドキュメントの集約に対してより宣言的なアプローチをとっており、マルチプロジェクトのドキュメント管理が容易になります。
 * 型安全なプラグイン設定を使用するため、ビルドスクリプトの信頼性とメンテナンス性が向上します。
 * Gradle の [コンフィギュレーションキャッシュ](https://docs.gradle.org/current/userguide/configuration_cache.html) および [ビルドキャッシュ](https://docs.gradle.org/current/userguide/build_cache.html) を完全にサポートしており、パフォーマンスを向上させ、ビルド作業を簡素化します。
@@ -223,7 +223,7 @@ documentedVisibilities.set(
 documentedVisibilities(VisibilityModifier.Public)
 ```
 
-さらに、DGP v2 の [ユーティリティ関数](https://github.com/Kotlin/dokka/blob/v2.1.0/dokka-runners/dokka-gradle-plugin/src/main/kotlin/engine/parameters/HasConfigurableVisibilityModifiers.kt#L14-L16) を使用して、ドキュメント化する可視性を追加できます。
+さらに、DGP v2 の [ユーティリティ関数](https://github.com/Kotlin/dokka/blob/v2.2.0/dokka-runners/dokka-gradle-plugin/src/main/kotlin/engine/parameters/HasConfigurableVisibilityModifiers.kt#L14-L16) を使用して、ドキュメント化する可視性を追加できます。
 
 ```kotlin
 fun documentedVisibilities(vararg visibilities: VisibilityModifier): Unit =
@@ -668,7 +668,7 @@ DGP v1 でのタスク:
 ./gradlew dokkaHtmlMultiModule
 ```
 
-DGP v2 でのタスク:
+DGP v2 ででのタスク:
 
 ```text
 ./gradlew :dokkaGenerate

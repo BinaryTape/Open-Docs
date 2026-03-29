@@ -99,7 +99,6 @@ Compose Multiplatform のロゴが表示されます。
 
   * [KotlinConf アプリケーション](https://github.com/JetBrains/kotlinconf-app)
   * [Compose image viewer](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/imageviewer)
-  * [Jetsnack アプリケーション](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/jetsnack)
   * [Node.js の例](https://github.com/Kotlin/kotlin-wasm-nodejs-template)
   * [WASI の例](https://github.com/Kotlin/kotlin-wasm-wasi-template)
   * [Compose の例](https://github.com/Kotlin/kotlin-wasm-compose-template)

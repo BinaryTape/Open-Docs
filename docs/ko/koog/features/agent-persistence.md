@@ -194,7 +194,6 @@
     import ai.koog.agents.core.agent.context.AIAgentContext
     import ai.koog.agents.snapshot.feature.persistence
     import ai.koog.serialization.typeToken
-    
     const val outputData = "some-output-data"
     val outputType = typeToken<String>()
     -->
@@ -478,7 +477,6 @@ Koog Persistence를 사용하면 `Persistence` 기능 설정에 `RollbackToolReg
     import ai.koog.agents.snapshot.feature.persistence
     import ai.koog.prompt.message.Message.User
     import ai.koog.serialization.JSONPrimitive
-    
     val customInput = JSONPrimitive("custom-input")
     val customOutput = JSONPrimitive("custom-output")
     val customMessageHistory = emptyList<User>()

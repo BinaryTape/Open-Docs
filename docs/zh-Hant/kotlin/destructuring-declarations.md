@@ -89,7 +89,7 @@ operator fun <K, V> Map.Entry<K, V>.component2() = getValue()
 val (_, status) = getResult()
 ```
 
-對於以此方式跳過的組建，不會呼叫其對應的 `componentN()` 運算子函式。
+對於以此方式跳過的組件，不會呼叫其對應的 `componentN()` 運算子函式。
 
 ## Lambda 中的解構
 
@@ -109,15 +109,125 @@ map.mapValues { (key, value) -> "$value!" }
 { (a, b), c -> ... } // 一個解構配對與另一個參數
 ```
 
-如果解構參數中的某個組建未被使用，你可以用底線替換它以避免構思名稱：
+如果解構參數中的某個組件未被使用，你可以用底線替換它以避免構思名稱：
 
 ```kotlin
 map.mapValues { (_, value) -> "$value!" }
 ```
 
-你可以為整個解構參數或特定組建分別指定型別：
+你可以為整個解構參數或特定組件分別指定型別：
 
 ```kotlin
 map.mapValues { (_, value): Map.Entry<Int, String> -> "$value!" }
 
 map.mapValues { (_, value: String) -> "$value!" }
+```
+
+## 以名稱為基礎的解構
+<primary-label ref="experimental-opt-in"/>
+
+Kotlin 支援*以名稱為基礎的解構宣告*（name-based destructuring declarations），其中變數會按名稱與屬性配對，而不是像*以位置為基礎*（position-based）的解構那樣由 `componentN()` 函式定義的位置來決定。
+
+> 若要進一步了解以名稱為基礎的解構，請參閱該功能的 [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0438-name-based-destructuring.md)。
+>
+{style="tip"}
+
+在以位置為基礎的解構中，變數對應於 `componentN()` 函式的順序，例如：
+
+```kotlin
+data class User(val username: String, val email: String)
+
+fun main() {
+    val user = User("alice", "alice@example.com")
+
+    val (email, username) = user
+
+    println(email)
+    // alice
+
+    println(username)
+    // alice@example.com
+}
+```
+{kotlin-runnable="true"}
+
+在此範例中，由於解構依賴於 `componentN()` 函式的順序，因此 `email` 接收的是 `username` 的值，而 `username` 接收的是 `email` 的值。
+
+使用以名稱為基礎的解構，是由屬性名稱決定提取哪些值，而不是 `componentN()` 函式的位置：
+
+```kotlin
+fun main() {
+    val user = User("alice", "alice@example.com")
+
+    // 使用帶有顯式形式的以名稱為基礎的解構
+    (val mail = email, val name = username) = user
+
+    println(name)
+    // alice
+
+    println(mail)
+    // alice@example.com
+}
+```
+
+以名稱為基礎的解構目前處於 [實驗功能](components-stability.md#stability-levels-explained) 階段。當你啟用此功能時，它還會為使用方括號的以位置為基礎的解構引入新語法。對於元素順序至關重要的型別，例如列表（list）和其他有序集合，以及像 `Pair` 或 `Triple` 這樣的未命名元組（unnamed tuple），請使用此語法：
+
+```kotlin
+val point = Pair(10, 20)
+
+// 使用以位置為基礎的解構
+val [x, y] = point
+```
+
+你可以使用 `-Xname-based-destructuring` 編譯器選項來控制編譯器如何解釋解構宣告。
+
+它具有以下模式：
+
+* `only-syntax` 啟用顯式形式的以名稱為基礎的解構，而不改變現有解構宣告的行為。
+* `name-mismatch` 當資料類別中的以位置為基礎的解構使用的變數名稱與屬性名稱不符時，報告警告。
+* `complete` 啟用帶有圓括號的短形式以名稱為基礎的解構，並繼續支援使用方括號語法的以位置為基礎的解構。
+
+> 在啟用 `complete` 模式之前，請先檢閱並解決在 `name-mismatch` 模式中報告的警告。這些警告顯示了編譯器在 `complete` 模式下會以不同方式解釋哪些解構宣告，並包含了相應重寫這些宣告的建議。
+> 
+{style="tip"}
+
+如果你使用 `complete` 模式，帶有圓括號的短形式解構語法會將變數與屬性名稱配對，而不是依賴位置：
+
+```kotlin
+val (email, username) = user
+```
+
+若要在專案中啟用以名稱為基礎的解構，請將編譯器選項新增到你的組建組態檔案中：
+
+<tabs group="build-system">
+<tab title="Gradle" group-key="gradle">
+
+```kotlin
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xname-based-destructuring=only-syntax")
+    }
+}
+```
+
+</tab> 
+<tab title="Maven" group-key="maven">
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-maven-plugin</artifactId>
+            <configuration>
+                <args>
+                    <arg>-Xname-based-destructuring=only-syntax</arg>
+                </args>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+
+</tab> 
+</tabs>

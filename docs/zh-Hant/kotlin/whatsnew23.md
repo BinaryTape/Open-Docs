@@ -444,7 +444,7 @@ Kotlin 2.3.0 預設啟用了 Kotlin/Wasm 目標的完全限定名稱、`wasmWasi
 以前只能存取類別名稱（不含套件），這對從 JVM 移植到 Wasm 目標的程式碼或在執行時預期完全限定名稱的程式庫造成了問題。
 
 在 Kotlin 2.3.0 中，`KClass.qualifiedName` 屬性在 Kotlin/Wasm 目標上預設啟用。
-這意味著 FQN 在執行時無需任何額外配置即可使用。
+這意指 FQN 在執行時無需任何額外配置即可使用。
 
 預設啟用 FQN 改進了程式碼的可移植性，並透過顯示完全限定名稱使執行時錯誤更具資訊性。
 
@@ -804,7 +804,7 @@ fun main() {
 
 Kotlin 2.3.0 引入了兩個用於產生 UUID 的新函式：`Uuid.generateV4()` 與 `Uuid.generateV7()`。
 
-使用 `Uuid.generateV4()` 函式產生第 4 版 UUID，使用 `Uuid.generateV7()` 函式產生第 7 版 UUID。
+使用 `Uuid.generateV4()` 函式產生第 4 版 UUID，或使用 `Uuid.generateV7()` 函式產生第 7 版 UUID。
 
 > `Uuid.random()` 函式保持不變，且仍會產生第 4 版 UUID，就像 `Uuid.generateV4()` 一樣。
 >

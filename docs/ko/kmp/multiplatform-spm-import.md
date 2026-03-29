@@ -6,7 +6,7 @@
    <p>이 문서에서는 KMP 프로젝트에서 SwiftPM 의존성을 설정하는 방법과, 필요한 경우 KMP 설정을 CocoaPods에서 SwiftPM으로 마이그레이션하는 방법을 배울 수 있습니다.</p>
 </tldr>
 
-> 이 기능은 [실험적(Experimental)](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained) 단계이며 프로덕션 용도로 권장되지 않습니다.
+> 이 기능은 [실험적(Experimental)](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained) 단계이며 프로덕션 용도로 **권장되지 않습니다**.
 > 문제나 의견이 있다면 전용 Kotlin Slack 채널인 [#kmp-swift-package-manager](https://kotlinlang.slack.com/archives/C09TW68099C)에서 공유해 주세요.
 >
 {style="warning"}
@@ -76,7 +76,7 @@ Kotlin Multiplatform Gradle 플러그인을 설정하려면 다음 단계를 따
 
 ### KMP IDE 플러그인 설정
 
-KMP 프로젝트에 권장되는 [Kotlin Multiplatform IDE 플러그인]()을 사용하는 경우, KMP 모듈에서 빌드되는 iOS 프로젝트의 경로를 명시적으로 지정해야 합니다.
+KMP 프로젝트에 권장되는 [Kotlin Multiplatform IDE 플러그인](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform/)을 사용하는 경우, KMP 모듈에서 빌드되는 iOS 프로젝트의 경로를 명시적으로 지정해야 합니다.
 
 `iosTarget.binaries.framework` API를 호출하는 `build.gradle.kts` 파일에 경로를 설정하는 API 호출을 추가합니다:
 

@@ -44,9 +44,7 @@ dependencies {
     <!--- INCLUDE
     import ai.koog.agents.core.tools.ToolRegistry
     import ai.koog.agents.testing.tools.getMockExecutor
-
     val toolRegistry = ToolRegistry {}
-
     -->
     ```kotlin
     // 创建模拟 LLM 执行器
@@ -87,7 +85,7 @@ dependencies {
 
 ### 模拟工具调用
 
-您可以模拟 LLM 根据输入模式调用特定的工具：
+您可以根据输入模式模拟 LLM 调用特定的工具：
 
 === "Kotlin"
 
@@ -99,7 +97,6 @@ dependencies {
     import ai.koog.serialization.typeToken
     import kotlinx.serialization.Serializable
     import ai.koog.agents.core.tools.annotations.LLMDescription
-
     public object CreateTool : Tool<CreateTool.Args, String>(
         argsType = typeToken<Args>(),
         resultType = typeToken<String>(),
@@ -107,19 +104,17 @@ dependencies {
         description = "Service tool, used by the agent to talk with user"
     ) {
         /**
-        * Represents the arguments for the [AskUser] tool
+        * 代表 [AskUser] 工具的实参
         *
-        * @property message The message to be used as an argument for the tool's execution.
+        * @property message 用作工具执行实参的消息。
         */
         @Serializable
         public data class Args(
-            @property:LLMDescription("Message from the agent")
+            @property:LLMDescription("来自代理的消息")
             val message: String
         )
-
         override suspend fun execute(args: Args): String = args.message
     }
-
     public object SearchTool : Tool<SearchTool.Args, String>(
         argsType = typeToken<Args>(),
         resultType = typeToken<String>(),
@@ -127,19 +122,17 @@ dependencies {
         description = "Service tool, used by the agent to talk with user"
     ) {
         /**
-        * Represents the arguments for the [AskUser] tool
+        * 代表 [AskUser] 工具的实参
         *
-        * @property message The message to be used as an argument for the tool's execution.
+        * @property message 用作工具执行实参的消息。
         */
         @Serializable
         public data class Args(
-            @property:LLMDescription("Message from the agent")
+            @property:LLMDescription("来自代理的消息")
             val query: String
         )
-
         override suspend fun execute(args: Args): String = args.query
     }
-
     public object AnalyzeTool : Tool<AnalyzeTool.Args, String>(
         argsType = typeToken<Args>(),
         resultType = typeToken<String>(),
@@ -147,22 +140,19 @@ dependencies {
         description = "Service tool, used by the agent to talk with user"
     ) {
         /**
-        * Represents the arguments for the [AskUser] tool
+        * 代表 [AskUser] 工具的实参
         *
-        * @property message The message to be used as an argument for the tool's execution.
+        * @property message 用作工具执行实参的消息。
         */
         @Serializable
         public data class Args(
-            @property:LLMDescription("Message from the agent")
+            @property:LLMDescription("来自代理的消息")
             val query: String
         )
-
         override suspend fun execute(args: Args): String = args.query
     }
-
     typealias PositiveToneTool = SayToUser
     typealias NegativeToneTool = SayToUser
-
     val mockLLMApi = getMockExecutor {
     -->
     <!--- SUFFIX
@@ -225,9 +215,7 @@ dependencies {
     import ai.koog.agents.example.exampleTesting02.toolRegistry
     import ai.koog.agents.testing.feature.withTesting
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
-
     val llmModel = OpenAIModels.Chat.GPT4o
-
     // 创建启用了测试模式的代理
     fun main() {
     -->
@@ -274,7 +262,6 @@ dependencies {
 === "Kotlin"
 
     <!--- INCLUDE
-
     import ai.koog.agents.core.agent.AIAgent
     import ai.koog.agents.core.environment.ReceivedToolResult
     import ai.koog.agents.example.exampleTesting03.mockLLMApi
@@ -282,11 +269,8 @@ dependencies {
     import ai.koog.agents.testing.feature.testGraph
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.message.Message
-
     val llmModel = OpenAIModels.Chat.GPT4o
-
     fun main() {
-
     -->
     <!--- SUFFIX
     }
@@ -341,7 +325,8 @@ dependencies {
 
 ### 测试节点行为
 
-节点行为测试允许您验证代理图中的节点是否针对给定输入产生了预期输出。这对于确保代理逻辑在不同场景下正常运行至关重要。
+节点行为测试允许您验证代理图中的节点是否针对给定输入产生了预期输出。
+这对于确保代理逻辑在不同场景下正常运行至关重要。
 
 #### 基础节点测试
 
@@ -359,11 +344,8 @@ dependencies {
     import ai.koog.agents.testing.feature.toolCallMessage
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.message.Message
-
     val llmModel = OpenAIModels.Chat.GPT4o
-
     fun main() {
-
         AIAgent(
             // 构造函数实参
             promptExecutor = mockLLMApi,
@@ -373,7 +355,6 @@ dependencies {
             testGraph<String, String>("test") {
                 assertNodes {
                     val askLLM = assertNodeByName<String, Message.Response>("callLLM")
-        
     -->
     <!--- SUFFIX
                 }
@@ -430,7 +411,6 @@ dependencies {
     import ai.koog.serialization.typeToken
     import kotlinx.serialization.Serializable
     import ai.koog.agents.core.tools.annotations.LLMDescription
-
     object SolveTool : SimpleTool<SolveTool.Args>(
         argsType = typeToken<Args>(),
         name = "message",
@@ -438,19 +418,15 @@ dependencies {
     ) {
         @Serializable
         data class Args(
-            @property:LLMDescription("Message from the agent")
+            @property:LLMDescription("来自代理的消息")
             val message: String
         )
-
         override suspend fun execute(args: Args): String {
             return args.message
         }
     }
-
     val llmModel = OpenAIModels.Chat.GPT4o
-
     fun main() {
-
         AIAgent(
             // 构造函数实参
             promptExecutor = mockLLMApi,
@@ -460,7 +436,6 @@ dependencies {
             testGraph<String, String>("test") {
                 assertNodes {
                     val callTool = assertNodeByName<Message.Tool.Call, ReceivedToolResult>("executeTool")
-        
     -->
     <!--- SUFFIX
                 }
@@ -513,28 +488,22 @@ dependencies {
     import ai.koog.serialization.typeToken
     import kotlinx.serialization.Serializable
     import ai.koog.agents.core.tools.annotations.LLMDescription
-
     object AnalyzeTool : Tool<AnalyzeTool.Args, String>(
         argsType = typeToken<Args>(),
         resultType = typeToken<String>(),
         name = "message",
         description = "Service tool, used by the agent to talk with user"
     ) {
-
         @Serializable
         data class Args(
-            @property:LLMDescription("Message from the agent")
+            @property:LLMDescription("来自代理的消息")
             val query: String,
             val depth: Int
         )
-
         override suspend fun execute(args: Args): String = args.query
     }
-
     val llmModel = OpenAIModels.Chat.GPT4o
-
     fun main() {
-
         AIAgent(
             // 构造函数实参
             promptExecutor = mockLLMApi,
@@ -594,7 +563,6 @@ dependencies {
     import ai.koog.prompt.message.Message
     import ai.koog.serialization.typeToken
     import kotlinx.serialization.Serializable
-
     object AnalyzeTool : Tool<AnalyzeTool.Args, AnalyzeTool.Result>(
         argsType = typeToken<Args>(),
         resultType = typeToken<Result>(),
@@ -606,14 +574,12 @@ dependencies {
             val query: String,
             val depth: Int
         )
-
         @Serializable
         data class Result(
             val analysis: String,
             val confidence: Double,
             val metadata: Map<String, String> = mapOf()
         )
-
         override suspend fun execute(args: Args): Result {
             return Result(
                 args.query, 0.95,
@@ -621,11 +587,8 @@ dependencies {
             )
         }
     }
-
     val llmModel = OpenAIModels.Chat.GPT4o
-
     fun main() {
-
         AIAgent(
             // 构造函数实参
             promptExecutor = mockLLMApi,
@@ -695,11 +658,8 @@ dependencies {
     import ai.koog.prompt.message.Message
     import kotlinx.serialization.KSerializer
     import kotlinx.serialization.Serializable
-
     val llmModel = OpenAIModels.Chat.GPT4o
-
     fun main() {
-
         AIAgent(
             // 构造函数实参
             promptExecutor = mockLLMApi,
@@ -760,11 +720,8 @@ dependencies {
     import ai.koog.agents.testing.feature.testGraph
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.message.Message
-
     val llmModel = OpenAIModels.Chat.GPT4o
-
     fun main() {
-
         AIAgent(
             // 构造函数实参
             promptExecutor = mockLLMApi,
@@ -820,11 +777,8 @@ dependencies {
     import ai.koog.agents.testing.feature.toolResult
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.message.Message
-
     val llmModel = OpenAIModels.Chat.GPT4o
-
     fun main() {
-
         AIAgent(
             // 构造函数实参
             promptExecutor = mockLLMApi,
@@ -880,11 +834,8 @@ dependencies {
     import ai.koog.agents.testing.feature.toolResult
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.message.Message
-
     val llmModel = OpenAIModels.Chat.GPT4o
-
     fun main() {
-
         AIAgent(
             // 构造函数实参
             promptExecutor = mockLLMApi,
@@ -1232,7 +1183,7 @@ ${it.stackTraceToString()}")
     val mockExecutor = getMockExecutor {
         mockTool(myTool) alwaysReturns myResult
 
-        // 或带条件
+        // 或带有条件
         mockTool(myTool) returns myResult onArguments myArgs
     }
     ```
@@ -1258,9 +1209,7 @@ ${it.stackTraceToString()}")
     import ai.koog.agents.example.exampleTesting02.toolRegistry
     import ai.koog.agents.testing.feature.testGraph
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
-
     val llmModel = OpenAIModels.Chat.GPT4o
-
     fun main() {
         AIAgent(
             // 构造函数实参
@@ -1314,7 +1263,6 @@ ${it.stackTraceToString()}")
 
     <!--- INCLUDE
     import ai.koog.agents.testing.tools.getMockExecutor
-
     val promptExecutor = 
     -->
     ```kotlin

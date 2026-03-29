@@ -40,7 +40,6 @@ Koog フレームワークには 3 種類のツールがあります：
     import ai.koog.agents.core.tools.ToolRegistry
     import ai.koog.agents.core.tools.annotations.Tool
     import ai.koog.agents.core.tools.reflect.ToolSet
-    import ai.koog.agents.core.tools.reflect.tools
     class MyToolSet : ToolSet {
         @Tool
         fun myTool(): String {
@@ -84,7 +83,6 @@ Koog フレームワークには 3 種類のツールがあります：
     import ai.koog.agents.core.tools.ToolRegistry
     import ai.koog.agents.core.tools.annotations.Tool
     import ai.koog.agents.core.tools.reflect.ToolSet
-    import ai.koog.agents.core.tools.reflect.tools
     class FirstToolSet : ToolSet {
         @Tool
         fun firstSampleTool(): String {

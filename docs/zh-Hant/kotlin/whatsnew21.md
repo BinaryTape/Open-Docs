@@ -38,7 +38,7 @@ Kotlin 2.1.0 正式發佈！以下是主要的重點內容：
 
 * [具有主體的 `when` 中的防護條件 (Guard conditions)](#guard-conditions-in-when-with-a-subject)
 * [非區域 (non-local) `break` 與 `continue`](#non-local-break-and-continue)
-* [多錢符號插值：改進字串常值中 `$` 符號的處理方式](#multi-dollar-string-interpolation)
+* [多錢符號插值：改進字串常值中錢符號 ($) 的處理方式](#multi-dollar-string-interpolation)
 
 > 所有的特性在啟用了 K2 模式的最新 2024.3 版本 IntelliJ IDEA 中都已獲得 IDE 支援。
 >
@@ -162,7 +162,7 @@ kotlin {
 ```
 
 我們計劃在未來的 Kotlin 版本中使此特性穩定。 
-如果您在使用非區域 `break` 與 `continue` 時遇到任何問題， 
+如果您在使用非區域 `break` 與 `continue`時遇到任何問題， 
 請回報至我們的 [問題追蹤器](https://youtrack.jetbrains.com/issue/KT-1436)。
 
 ### 多錢符號字串插值
@@ -222,7 +222,7 @@ kotlin {
 ```
 
 如果您的程式碼已經使用帶有單個錢符號的標準字串插值，則無需更改。
-每當您在字串中需要錢符號常值時，您可以使用 `$$`。
+每當您在字串中需要錢符號常值時，您可以使用 `$`。
 
 ### 支援要求選擇性啟用以擴展 API
 
@@ -260,7 +260,8 @@ interface MyImplementation: CoreLibraryApi
 {style="note"}
 
 有關如何在 API 中使用 `@SubclassOptInRequired` 註解的實際範例，
-請查看 `kotlinx.coroutines` 程式庫中的 [`SharedFlow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-shared-flow/) 介面。
+請查看 `kotlinx.coroutines` 程式庫中的 [`SharedFlow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-shared-flow/)
+介面。
 
 ### 改進具有泛型型別的函式的多載解析
 
@@ -338,7 +339,7 @@ fun <T : Result> render(result: T) = when (result) {
 這些是額外的宣告、運算式和型別檢查，通常對編譯來說不是至關重要的，
 但如果您想驗證以下情況，它們仍然很有用：
 
-| 檢查類型 | 說明 |
+| 檢查型別 | 說明 |
 |-------------------------------------------------------|------------------------------------------------------------------------------------------|
 | `REDUNDANT_NULLABLE` | 使用了 `Boolean??` 而不是 `Boolean?` |
 | `PLATFORM_CLASS_MAPPED_TO_KOTLIN` | 使用了 `java.lang.String` 而不是 `kotlin.String` |
@@ -702,7 +703,7 @@ Swift 匯出目前適用於使用 [直接整合](https://kotlinlang.org/docs/mul
 {style="warning"}
 
 Kotlin 編譯器會產生 `.klib` 成品以發佈 Kotlin 程式庫。
-以前，您可以從任何主機獲取必要的成品，但需要 Mac 電腦的 Apple 平台目標除外。 
+以前，您公以從任何主機獲取必要的成品，但需要 Mac 電腦的 Apple 平台目標除外。 
 這對針對 iOS、macOS、tvOS 和 watchOS 目標的 Kotlin Multiplatform 專案造成了特殊限制。
 
 Kotlin 2.1.0 取消了這項限制，增加了對交叉編譯的支援。
@@ -1376,7 +1377,7 @@ composeCompiler {
 ### 開放與覆寫的 @Composable 函式的變更
 
 虛擬（open、abstract 和覆寫）的 `@Composable` 函式不再具有可重啟性 (restartable)。
-可重啟組群的程式碼產生先前產生的呼叫在 [配合繼承時無法正常運作](https://issuetracker.google.com/329477544)，
+可重啟組群的程式碼產生先前產生的呼叫在 [配合繼承時無法正常運作](https://issuetracker.google.com/329477544) ，
 導致執行時期崩潰。
 
 這意味著虛擬函式將不會被重啟或跳過：
@@ -1567,7 +1568,6 @@ Kotlin 文件已進行了一些值得注意的更改：
 * 新的 [為多平台建立 Kotlin 程式庫](https://kotlinlang.org/docs/api-guidelines-build-for-multiplatform.html) 頁面 –
   了解如何為 Kotlin Multiplatform 設計您的 Kotlin 程式庫。
 * 新的 [Kotlin Multiplatform 入門](https://kotlinlang.org/docs/multiplatform/get-started.html) 頁面 – 了解 Kotlin Multiplatform 的核心概念、相依性、程式庫等。
-* 更新了 [Kotlin Multiplatform 概觀](multiplatform.topic) 頁面 – 導覽 Kotlin Multiplatform 的精華與熱門使用案例。
 * 新的 [iOS 整合](https://kotlinlang.org/docs/multiplatform/multiplatform-ios-integration-overview.html) 章節 – 了解如何將 Kotlin Multiplatform 共享模組整合到您的 iOS 應用程式中。
 * 新的 [Kotlin/Native 定義檔](native-definition-file.md) 頁面 – 了解如何建立定義檔以使用 C 和 Objective-C 程式庫。
 * [WASI 入門](wasm-wasi.md) –

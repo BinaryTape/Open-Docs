@@ -131,7 +131,6 @@ kotlin {
 * 더 많은 Kotlin/Wasm 예제를 살펴보세요:
   * [KotlinConf 애플리케이션](https://github.com/JetBrains/kotlinconf-app)
   * [Compose image viewer](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/imageviewer)
-  * [Jetsnack 애플리케이션](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/jetsnack)
   * [Node.js 예제](https://github.com/Kotlin/kotlin-wasm-nodejs-template)
   * [WASI 예제](https://github.com/Kotlin/kotlin-wasm-wasi-template)
   * [Compose 예제](https://github.com/Kotlin/kotlin-wasm-compose-template)

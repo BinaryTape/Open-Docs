@@ -21,10 +21,6 @@ Wasm 是一種用於堆疊式虛擬機的二進制指令格式。由於它在自
 
 對於 Web 平台，Compose Multiplatform 使用 Kotlin/Wasm 作為其編譯目標。使用 Kotlin/Wasm 和 Compose Multiplatform 建置的應用程式使用 `wasm-js` 目標並在瀏覽器中執行。
 
-[探索我們使用 Compose Multiplatform 與 Kotlin/Wasm 建置的應用程式線上展示](https://zal.im/wasm/jetsnack/)
-
-![Kotlin/Wasm 展示](wasm-demo.png){width=700}
-
 此外，您可以開箱即用地在 Kotlin/Wasm 中使用最受歡迎的 Kotlin 程式庫。如同在其他 Kotlin 和 Multiplatform 專案中一樣，您可以在組建指令碼中包含相依性宣告。如需更多資訊，請參閱 [新增多平台程式庫的相依性](https://kotlinlang.org/docs/multiplatform/multiplatform-add-dependencies.html)。
 
 您想親自嘗試嗎？

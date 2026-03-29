@@ -56,9 +56,7 @@ Agent 將執行工具並將結果回傳給 LLM。
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
-    
     import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
-
     class exampleBasicJava01 {
         public static void main(String[] args) {
     -->
@@ -125,9 +123,7 @@ Agent 將傳回通用的回答，例如：
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
-    
     import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
-
     class exampleBasicJava02 {
         public static void main(String[] args) {
     -->
@@ -181,9 +177,7 @@ Agent 將傳回通用的回答，例如：
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
-    
     import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
-
     class exampleBasicJava03 {
         public static void main(String[] args) {
     -->
@@ -245,7 +239,6 @@ Agent 可以使用[工具](../tools-overview.md)來執行特定任務。
     import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
     import ai.koog.agents.core.tools.annotations.LLMDescription
     import ai.koog.agents.core.tools.annotations.Tool
-    import ai.koog.agents.core.tools.reflect.tool
     -->
     ```kotlin
     @Tool
@@ -287,11 +280,8 @@ Agent 可以使用[工具](../tools-overview.md)來執行特定任務。
     import ai.koog.agents.core.tools.annotations.Tool;
     import ai.koog.agents.core.tools.reflect.ToolSet;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
-    
     import java.util.Scanner;
-    
     import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
-
     class exampleBasicJava04 {
         public static void main(String[] args) {
     -->
@@ -381,7 +371,6 @@ Doge 迷因的範例可能包括：
     import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
     import ai.koog.agents.core.tools.annotations.LLMDescription
     import ai.koog.agents.core.tools.annotations.Tool
-    import ai.koog.agents.core.tools.reflect.tool
     @Tool
     @LLMDescription("Asks the user a question by sending it to stdout and returns the answer from stdin")
     fun askUser(
@@ -415,11 +404,8 @@ Doge 迷因的範例可能包括：
     import ai.koog.agents.core.tools.annotations.Tool;
     import ai.koog.agents.core.tools.reflect.ToolSet;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
-    
     import java.util.Scanner;
-    
     import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
-
     class exampleBasicJava05 {
         public static void main(String[] args) {
     -->
@@ -483,7 +469,6 @@ Koog 提供了 [EventHandler](https://api.koog.ai/agents/agents-features/agents-
     import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
     import ai.koog.agents.core.tools.annotations.LLMDescription
     import ai.koog.agents.core.tools.annotations.Tool
-    import ai.koog.agents.core.tools.reflect.tool
     @Tool
     @LLMDescription("Asks the user a question by sending it to stdout and returns the answer from stdin")
     fun askUser(
@@ -526,12 +511,8 @@ Koog 提供了 [EventHandler](https://api.koog.ai/agents/agents-features/agents-
     import ai.koog.agents.core.tools.reflect.ToolSet;
     import ai.koog.agents.features.eventHandler.feature.EventHandler;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
-
-    
     import java.util.Scanner;
-    
     import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
-
     class exampleBasicJava06 {
         public static void main(String[] args) {
     -->

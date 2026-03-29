@@ -1,4 +1,4 @@
-[//]: # (title: 在 Kotlin Notebook 中使用 Kandy 进行数据可视化)
+[//]: # (title: 使用 Kandy 进行数据可视化)
 
 Kotlin 提供了一站式的高效且灵活的数据可视化解决方案，在深入研究复杂模型之前，为您提供了一种直观的方式来展示和探索数据。
 
@@ -62,8 +62,7 @@ df.head(4)
 
 ![探索数据帧](visualization-dataframe-temperature.png){width=600}
 
-> 使用 Kandy 和 Kotlin DataFrame 库时，有多种访问列记录的方法可以帮助您提高类型安全性。
-> 欲了解更多信息，请参阅[访问 API](https://kotlin.github.io/dataframe/apilevels.html)。
+> 使用 Kandy 和 Kotlin DataFrame 库时，有多种访问列记录的方法可以帮助您提高类型安全性。欲了解更多信息，请参阅[访问 API](https://kotlin.github.io/dataframe/apilevels.html)。
 >
 {style="tip"}
 
@@ -109,7 +108,7 @@ df.plot {
         y(Temperature) { axis.name = "Temperature" }
         // 自定义点的大小
         size = 5.5
-        // 访问用于分类的数据帧列，并为 these 分类设置颜色 
+        // 访问用于分类的数据帧列，并为这些分类设置颜色 
         color(City) {
             scale = categorical("Berlin" to Color.LIGHT_GREEN, "Madrid" to Color.BLACK, "Caracas" to Color.YELLOW)
         }

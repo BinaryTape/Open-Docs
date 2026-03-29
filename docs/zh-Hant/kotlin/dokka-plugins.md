@@ -38,7 +38,7 @@ dependencies {
 
 > * 內建外掛程式（如 HTML 和 Javadoc）一律自動套用。您只需配置它們，無需宣告對其的相依性。
 >
-> * 在為多模組專案（多專案建置）編寫文件時，您需要[在子專案之間共享 Dokka 配置和外掛程式](dokka-gradle.md#multi-project-configuration)。
+> * 在為多模組專案（多專案建置）編寫文件時，您需要 [在子專案之間共享 Dokka 配置和外掛程式](dokka-gradle.md#multi-project-configuration)。
 > 
 {style="note"}
 
@@ -130,7 +130,7 @@ dokka {
 
 關於 Dokka 外掛程式配置的範例，請參閱 [Dokka 的版本控制外掛程式](https://github.com/Kotlin/dokka/tree/master/examples/gradle-v2/versioning-multimodule-example)。
 
-Dokka 允許您透過 [配置自定義外掛程式](https://github.com/Kotlin/dokka/blob/v2.1.0/examples/gradle-v2/custom-dokka-plugin-example/demo-library/build.gradle.kts) 來擴充其功能並修改文件產生成程序。
+Dokka 允許您透過 [配置自定義外掛程式](https://github.com/Kotlin/dokka/blob/v2.2.0/examples/gradle-v2/custom-dokka-plugin-example/demo-library/build.gradle.kts) 來擴充其功能並修改文件產生成程序。
 
 </tab>
 <tab title="Gradle Groovy DSL" group-key="groovy">

@@ -194,7 +194,6 @@ Agent 持久化功能具有三個主要配置選項：
     import ai.koog.agents.core.agent.context.AIAgentContext
     import ai.koog.agents.snapshot.feature.persistence
     import ai.koog.serialization.typeToken
-    
     const val outputData = "some-output-data"
     val outputType = typeToken<String>()
     -->
@@ -481,7 +480,6 @@ Agent 持久化功能提供了便於處理檢查點的擴充函式：
     import ai.koog.agents.snapshot.feature.persistence
     import ai.koog.prompt.message.Message.User
     import ai.koog.serialization.JSONPrimitive
-    
     val customInput = JSONPrimitive("custom-input")
     val customOutput = JSONPrimitive("custom-output")
     val customMessageHistory = emptyList<User>()

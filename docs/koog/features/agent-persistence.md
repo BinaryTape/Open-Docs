@@ -1,6 +1,6 @@
 # Agent 持久化
 
-Agent Persistence（Agent 持久化）是 Koog 框架中为 AI Agent 提供检查点 (checkpoint) 功能的一项功能。
+Agent 持久化 (Agent Persistence) 是 Koog 框架中为 AI Agent 提供检查点 (checkpoint) 功能的一项功能。
 它可以让您在执行过程中的特定点保存和恢复 Agent 的状态，从而实现以下功能：
 
 - 从特定点恢复 Agent 执行
@@ -194,7 +194,6 @@ Agent 持久化功能有三个主要的配置选项：
     import ai.koog.agents.core.agent.context.AIAgentContext
     import ai.koog.agents.snapshot.feature.persistence
     import ai.koog.serialization.typeToken
-    
     const val outputData = "some-output-data"
     val outputType = typeToken<String>()
     -->
@@ -261,7 +260,7 @@ Agent 持久化功能有三个主要的配置选项：
     ```
     <!--- KNIT example-agent-persistence-java-05.java -->
 
-#### 回滚工具产生的所有副作用
+#### 回滚由工具产生的所有副作用
 
 某些工具产生副作用是很常见的。具体来说，当您在后端运行 Agent 时，某些工具可能会执行一些数据库事务。这使得 Agent 回溯时间变得更加困难。
 
@@ -478,7 +477,6 @@ Agent 持久化功能提供了用于处理检查点的便捷扩展函数：
     import ai.koog.agents.snapshot.feature.persistence
     import ai.koog.prompt.message.Message.User
     import ai.koog.serialization.JSONPrimitive
-    
     val customInput = JSONPrimitive("custom-input")
     val customOutput = JSONPrimitive("custom-output")
     val customMessageHistory = emptyList<User>()

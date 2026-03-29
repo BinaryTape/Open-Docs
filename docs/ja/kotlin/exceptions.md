@@ -1,4 +1,4 @@
-[//]: # (title: 例外)
+[//]: # (title: 例外とエラー処理)
 
 <web-summary>Kotlinがランタイムエラーを処理するためにどのように例外を使用するかについて学びます。</web-summary>
 
@@ -444,7 +444,7 @@ fun main() {
 これは、[抽象クラス](classes.md#abstract-classes) または [封印されたクラス（sealed class）](sealed-classes.md#constructors) を共通の例外機能のベースとして使用し、詳細な例外タイプのために具体的なサブクラスを作成することで実現できます。
 さらに、デフォルト値を持つパラメータを含むカスタム例外は柔軟性を提供し、さまざまなメッセージでの初期化を可能にし、よりきめ細かいエラー処理を可能にします。
 
-封印されたクラス `AccountException` を例外階層のベースとし、デフォルト値を持つパラメータの使用例を示すサブクラス `APIKeyExpiredException` を使用した例を見てみましょう：
+封印されたクラス `AccountException` を例外階層েরベースとし、デフォルト値を持つパラメータの使用例を示すサブクラス `APIKeyExpiredException` を使用した例を見てみましょう：
 
 ```kotlin
 //sampleStart

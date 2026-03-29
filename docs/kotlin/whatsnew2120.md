@@ -13,7 +13,7 @@ Kotlin 2.1.20 现已发布！以下是主要亮点：
 * **Gradle 支持**：[与 Gradle 的 Isolated Projects 以及自定义发布变体的兼容性](#gradle)
 * **标准库**：[通用原子类型、改进的 UUID 支持以及新的时间跟踪功能](#standard-library)
 * **Compose 编译器**：[放宽了对 `@Composable` 函数的限制及其他更新](#compose-compiler)
-* **文档**：[Kotlin 文档的显著改进](#documentation-updates)。
+* **文档**：[Kotlin 文档的显著改进](#documentation-updates)
 
 > 有关 Kotlin 发布周期的信息，请参阅 [Kotlin 发布流程](releases.md)。
 >
@@ -179,7 +179,7 @@ Kotlin 2.1.20 引入了对 Kotlin/Wasm 中 DWARF（debugging with arbitrary reco
 
 通过此更改，Kotlin/Wasm 编译器能够将 DWARF 数据嵌入到生成的 WebAssembly (Wasm) 二进制文件中。许多调试器和虚拟机可以读取这些数据，以提供对编译后代码的洞察。
 
-DWARF 主要用于在独立的 Wasm 虚拟机 (VM) 中调试 Kotlin/Wasm 应用程序。要使用此功能，Wasm VM 和调试器必须支持 DWARF。
+DWARF 主要用于在独立的 Wasm 虚拟机 (VM) 中调试 Kotlin/Wasm 应用程序。要使用此功能， Wasm VM 和调试器必须支持 DWARF。
 
 借助 DWARF 支持，您可以逐步执行 Kotlin/Wasm 应用程序、检查变量并获得代码洞察。要启用此功能，请使用以下编译器选项：
 

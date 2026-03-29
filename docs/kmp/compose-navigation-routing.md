@@ -1,6 +1,6 @@
 [//]: # (title: 导航与路由)
 
-导航是 UI 应用程序的关键部分，允许用户在不同的应用屏幕之间移动。Compose Multiplatform 采用了 [Jetpack Compose 的导航方式](https://developer.android.com/guide/navigation/design#frameworks)。
+导航是 UI 应用程序的关键部分，允许用户在应用的不同屏幕之间移动。Compose Multiplatform 采用了 [Jetpack Compose 的导航方式](https://developer.android.com/guide/navigation/design#frameworks)。
 
 ## 设置
 
@@ -23,16 +23,16 @@ kotlin {
 
 ## 示例项目
 
-要查看 Compose Multiplatform 导航库的实际应用，请查看 [nav_cupcake 项目](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/nav_cupcake)，该项目由 [Navigate between screens with Compose](https://developer.android.com/codelabs/basic-android-kotlin-compose-navigation#0) Android codelab 转换而来。
+要查看 Compose Multiplatform 导航库的实际应用，请查看 [nav_cupcake 项目](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/nav_cupcake)，该项目由 [Navigate between screens with Compose](https://developer.android.com/codelabs/basic-android-kotlin-compose-navigation#0) Android codelab 转换而来。有关更复杂的示例，请参阅官方 [KotlinConf](https://github.com/JetBrains/kotlinconf-app) 应用程序。
 
 与 Jetpack Compose 一样，要实现导航，您应该：
 1. [列出应包含在导航图中的路由](https://github.com/JetBrains/compose-multiplatform/blob/a6961385ccf0dee7b6d31e3f73d2c8ef91005f1a/examples/nav_cupcake/composeApp/src/commonMain/kotlin/org/jetbrains/nav_cupcake/CupcakeScreen.kt#L50)。每个路由必须是定义路径的唯一字符串。
-2. [创建一个 `NavHostController` 实例](https://github.com/JetBrains/compose-multiplatform/blob/a6961385ccf0dee7b6d31e3f73d2c8ef91005f1a/examples/nav_cupcake/composeApp/src/commonMain/kotlin/org/jetbrains/nav_cupcake/CupcakeScreen.kt#L89)作为您的主要可组合项属性来管理导航。
+2. [创建一个 `NavHostController` 实例](https://github.com/JetBrains/compose-multiplatform/blob/a6961385ccf0dee7b6d31e3f73d2c8ef91005f1a/examples/nav_cupcake/composeApp/src/commonMain/kotlin/org/jetbrains/nav_cupcake/CupcakeScreen.kt#L89)作为管理导航的主要可组合项属性。
 3. [在您的应用中添加一个 `NavHost` 可组合项](https://github.com/JetBrains/compose-multiplatform/blob/a6961385ccf0dee7b6d31e3f73d2c8ef91005f1a/examples/nav_cupcake/composeApp/src/commonMain/kotlin/org/jetbrains/nav_cupcake/CupcakeScreen.kt#L109)：
     1. 从您之前定义的路由列表中选择起始目的地。
     2. 创建导航图，可以直接作为创建 `NavHost` 的一部分，也可以使用 `NavController.createGraph()` 函数以编程方式创建。
 
-每个返回栈条目（导航图中包含的每个导航路由）都实现了 `LifecycleOwner` 接口。在应用的不同屏幕之间切换会导致其状态从 `RESUMED` 变为 `STARTED` 并返回。`RESUMED` 也被称为“settled”：当新屏幕准备就绪并处于活跃状态时，导航被认为已完成。有关 Compose Multiplatform 中当前实现的详细信息，请参阅 [Lifecycle](compose-lifecycle.md) 页面。
+每个返回栈条目（导航图中包含的每个导航路由）都实现了 `LifecycleOwner` 接口。在应用的不同屏幕之间切换会导致其状态从 `RESUMED` 变为 `STARTED` 并返回。`RESUMED` 也被称为 “settled”：当新屏幕准备就绪并处于活跃状态时，导航被认为已完成。有关 Compose Multiplatform 中当前实现的详细信息，请参阅 [Lifecycle](compose-lifecycle.md) 页面。
 
 ## Web 应用中的浏览器导航支持
 <primary-label ref="Experimental"/>

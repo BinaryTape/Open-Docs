@@ -58,7 +58,6 @@ Koog의 **스트리밍 API(Streaming API)**를 사용하면 **LLM 출력을 `Flo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.prompt.streaming.StreamFrame
-    
     val strategy = strategy<String, String>("strategy_name") {
         val node by node<Unit, Unit> {
     -->
@@ -262,7 +261,6 @@ $fullText")
     import ai.koog.agents.features.eventHandler.feature.handleEvents
     import ai.koog.prompt.streaming.StreamFrame
     import ai.koog.prompt.structure.markdown.MarkdownStructureDefinition
-    
     fun GraphAIAgent.FeatureContext.installStreamingApi() {
     -->
     <!--- SUFFIX
@@ -322,7 +320,7 @@ $fullText")
 1. **MarkdownStructureDefinition**: 마크다운 형식의 구조화된 데이터에 대한 스키마와 예시를 정의하는 데 도움을 주는 클래스입니다.
 2. **markdownStreamingParser**: 마크다운 청크 스트림을 처리하고 이벤트를 발생시키는 파서를 생성하는 함수입니다.
 
-아래 섹션에서는 구조화된 데이터 스트림을 처리하는 것과 관련된 단계별 지침과 코드 샘플을 제공합니다.
+아래 섹션에서는 구조화된 데이터 스트림을 처리하는 것과 관련된 단계별 지침과 코드 샘플을 제공합니다. 
 
 #### 1. 데이터 구조 정의하기 (Define your data structure)
 

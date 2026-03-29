@@ -25,14 +25,26 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
 エージェントに履歴の圧縮を実装するには、主に2つのアプローチがあります：
 
 - ストラテジーグラフ内。
-- カスタムノード内。
+- カスタムノード内 (Kotlin)。
+
+!!! warning
+    カスタムノードのロジック内での履歴圧縮は、Kotlinでのみ利用可能です。
 
 ### ストラテジーグラフでの履歴圧縮
 
-ストラテジーグラフで履歴を圧縮するには、`nodeLLMCompressHistory` ノードを使用する必要があります。
+ストラテジーグラフで履歴を圧縮するには、現在のメッセージ履歴を簡潔な要約に圧縮する、事前定義されたノードを使用する必要があります：
+
+* **Kotlin**: `nodeLLMCompressHistory`
+* **Java**: `AIAgentNode.llmCompressHistory()`
+
+詳細情報と具体的な例については、[History compression node](nodes-and-components.md#history-compression-node) を参照してください。
+
 圧縮を実行するステップに応じて、以下のシナリオが利用可能です：
 
-* 履歴が長くなりすぎたときに圧縮するには、ヘルパー関数を定義し、以下のロジックでストラテジーグラフに `nodeLLMCompressHistory` ノードを追加します。
+* 履歴が長くなりすぎたときに圧縮するには、エッジの条件でメッセージ数を確認し、履歴圧縮ノードを追加します。履歴の長さを確認するには、以下のように行います：
+
+* **Kotlin**: ヘルパー拡張（helper extension）を定義します。
+* **Java**: `.onCondition()` 内でインラインのラムダ式を使用します。
 
 === "Kotlin"
 
@@ -248,7 +260,10 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
 
 ### カスタムノードでの履歴圧縮
 
-カスタムノードを実装している場合は、以下のように `replaceHistoryWithTLDR()` 関数を使用して履歴を圧縮できます：
+!!! warning
+    カスタムノードのロジック内での履歴圧縮は、Kotlinでのみ利用可能です。
+
+カスタムノードを実装している場合は、以下のように `replaceHistoryWithTLDR()` 関数（Kotlin）を使用して履歴を圧縮できます：
 
 === "Kotlin"
 
@@ -271,25 +286,17 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     ```
     <!--- KNIT example-history-compression-03.kt -->
 
-=== "Java"
-
-    <!--- INCLUDE
-    /**
-    -->
-    <!--- SUFFIX
-    **/
-    -->
-    ```java
-    ```
-    <!--- KNIT example-history-compression-java-01.java -->
-
 このアプローチにより、特定の要件に基づいて、カスタムノードのロジック内の任意のポイントで柔軟に圧縮を実装できます。
 
 カスタムノードの詳細については、[Custom nodes](custom-nodes.md) を参照してください。
 
 ## 履歴圧縮の戦略（History compression strategies）
 
-`nodeLLMCompressHistory(strategy=...)` または `replaceHistoryWithTLDR(strategy=...)` にオプションの `strategy` パラメータを渡すことで、圧縮プロセスをカスタマイズできます。
+オプションの `strategy` パラメータを使用して、圧縮プロセスをカスタマイズできます：
+
+* **Kotlin**: `nodeLLMCompressHistory(strategy=...)` または `replaceHistoryWithTLDR(strategy=...)` に戦略を渡します。
+* **Java**: `.compressionStrategy()` ビルダーメソッドを使用します。
+
 フレームワークは、いくつかの組み込み戦略を提供しています。
 
 ### WholeHistory (デフォルト)
@@ -354,7 +361,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     ```
     <!--- KNIT exampleHistoryCompressionJava03.java -->
 
-* カスタムノード内：
+* カスタムノード内 (Kotlinのみ):
 
 === "Kotlin"
 
@@ -377,18 +384,6 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     }
     ```
     <!--- KNIT example-history-compression-05.kt -->
-
-=== "Java"
-
-    <!--- INCLUDE
-    /**
-    -->
-    <!--- SUFFIX
-    **/
-    -->
-    ```java
-    ```
-    <!--- KNIT example-history-compression-java-02.java -->
 
 ### FromLastNMessages
 
@@ -452,7 +447,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     ```
     <!--- KNIT exampleHistoryCompressionJava04.java -->
 
-* カスタムノード内：
+* カスタムノード内 (Kotlinのみ):
 
 === "Kotlin"
 
@@ -476,18 +471,6 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     }
     ```
     <!--- KNIT example-history-compression-07.kt -->
-
-=== "Java"
-
-    <!--- INCLUDE
-    /**
-    -->
-    <!--- SUFFIX
-    **/
-    -->
-    ```java
-    ```
-    <!--- KNIT example-history-compression-java-03.java -->
 
 ### Chunked
 
@@ -551,7 +534,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     ```
     <!--- KNIT exampleHistoryCompressionJava05.java -->
 
-* カスタムノード内：
+* カスタムノード内 (Kotlinのみ):
 
 === "Kotlin"
 
@@ -575,18 +558,6 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     }
     ```
     <!--- KNIT example-history-compression-09.kt -->
-
-=== "Java"
-
-    <!--- INCLUDE
-    /**
-    -->
-    <!--- SUFFIX
-    **/
-    -->
-    ```java
-    ```
-    <!--- KNIT example-history-compression-java-04.java -->
 
 ### RetrieveFactsFromHistory
 
@@ -693,7 +664,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     ```
     <!--- KNIT exampleHistoryCompressionJava06.java -->
 
-* カスタムノード内：
+* カスタムノード内 (Kotlinのみ):
 
 === "Kotlin"
 
@@ -735,7 +706,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
                     keyword = "issue_solved",
                     // LLMへの説明 -- 具体的に何を検索するか
                     description = "Was the initial user's issue resolved?",
-                    // LLMはこの質問に対する単一の回答を検索する：
+                    // LLMはこの質問に対する単一의回答を検索する：
                     factType = FactType.SINGLE
                 )
             )
@@ -744,19 +715,10 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     ```
     <!--- KNIT example-history-compression-11.kt -->
 
-=== "Java"
-
-    <!--- INCLUDE
-    /**
-    -->
-    <!--- SUFFIX
-    **/
-    -->
-    ```java
-    ```
-    <!--- KNIT example-history-compression-java-05.java -->
-
 ## カスタム履歴圧縮戦略の実装
+
+!!! warning
+    カスタム履歴圧縮戦略は、Kotlinでのみ利用可能です。
 
 `HistoryCompressionStrategy` 抽象クラスを継承し、`compress` メソッドを実装することで、独自の履歴圧縮戦略を作成できます。
 
@@ -802,18 +764,6 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     ```
     <!--- KNIT example-history-compression-12.kt -->
 
-=== "Java"
-
-    <!--- INCLUDE
-    /**
-    -->
-    <!--- SUFFIX
-    **/
-    -->
-    ```java
-    ```
-    <!--- KNIT example-history-compression-java-06.java -->
-
 この例では、カスタム戦略は "important" という単語を含むメッセージをフィルタリングし、それらのみを圧縮履歴に保持します。
 
 その後、以下のように使用できます：
@@ -841,18 +791,6 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     ```
     <!--- KNIT example-history-compression-13.kt -->
 
-=== "Java"
-
-    <!--- INCLUDE
-    /**
-    -->
-    <!--- SUFFIX
-    **/
-    -->
-    ```java
-    ```
-    <!--- KNIT example-history-compression-java-07.java -->
-
 * カスタムノード内：
 
 === "Kotlin"
@@ -878,24 +816,15 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     ```
     <!--- KNIT example-history-compression-14.kt -->
 
-=== "Java"
-
-    <!--- INCLUDE
-    /**
-    -->
-    <!--- SUFFIX
-    **/
-    -->
-    ```java
-    ```
-    <!--- KNIT example-history-compression-java-08.java -->
-
 ## 圧縮中のメモリ保持（Memory preservation during compression）
 
-すべての履歴圧縮メソッドには、圧縮中にメモリ関連のメッセージを保持するかどうかを決定する `preserveMemory` パラメータがあります。
+すべての履歴圧縮メソッドは、圧縮中にメモリ関連のメッセージを保持するかどうかを決定するメモリ保持（memory preservation）をサポートしています。Kotlinでは `preserveMemory` パラメータを使用し、Javaでは `.preserveMemory()` ビルダーメソッドを使用します。
 これらは、メモリから抽出された事実を含むメッセージや、メモリ機能が有効になっていないことを示すメッセージです。
 
-`preserveMemory` パラメータは以下のように使用できます：
+メモリ保持を有効にするには：
+
+* **Kotlin**: `preserveMemory` パラメータを使用します。
+* **Java**: `.preserveMemory()` ビルダーメソッドを使用します。
 
 * ストラテジーグラフ内：
 
@@ -952,7 +881,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     ```
     <!--- KNIT exampleHistoryCompressionJava07.java -->
 
-* カスタムノード内：
+* カスタムノード内 (Kotlinのみ):
 
 === "Kotlin"
 
@@ -979,15 +908,3 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     }
     ```
     <!--- KNIT example-history-compression-16.kt -->
-
-=== "Java"
-
-    <!--- INCLUDE
-    /**
-    -->
-    <!--- SUFFIX
-    **/
-    -->
-    ```java
-    ```
-    <!--- KNIT example-history-compression-java-09.java -->

@@ -2,6 +2,11 @@
 
 Kotlin Koans 是一系列主要为 Java 开发者设计的练习，旨在帮助您熟悉 Kotlin 语法。
 每个练习都以失败的单元测试形式创建，您的任务是使其通过。
+
+> 您可以在我们的 [GitHub 仓库](https://github.com/Kotlin/kotlin-koans-edu)中查看任务内容。
+> 
+{style="note"}
+
 您可以通过以下任一方式完成 Kotlin Koans 任务：
 
 * 您可以在线体验 [Koans 在线版](https://play.kotlinlang.org/koans)。

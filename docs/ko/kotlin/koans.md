@@ -2,6 +2,11 @@
 
 Kotlin Koans는 주로 Java 개발자가 Kotlin 구문에 익숙해질 수 있도록 설계된 일련의 연습 문제입니다.
 각 연습 문제는 실패하는 단위 테스트(unit test)로 구성되어 있으며, 여러분의 역할은 이 테스트를 통과하게 만드는 것입니다.
+
+> 과제 내용은 [GitHub 저장소](https://github.com/Kotlin/kotlin-koans-edu)에서 확인할 수 있습니다.
+> 
+{style="note"}
+
 Kotlin Koans 과제는 다음 중 한 가지 방법으로 진행할 수 있습니다:
 
 * [Koans 온라인](https://play.kotlinlang.org/koans)에서 직접 풀어볼 수 있습니다.

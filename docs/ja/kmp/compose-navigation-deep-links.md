@@ -343,3 +343,10 @@ internal fun App(navController: NavHostController = rememberNavController()) = A
 ユーザーが `demo://` URI を開くと、オペレーティングシステムがそれを登録されたスキーマと照合します。その後：
   * ディープリンクを処理するアプリが閉じている場合、シングルトンが URI を受信してキャッシュします。メインのコンポーザブル関数が開始されると、シングルトンを呼び出し、キャッシュされた URI に一致するディープリンクにナビゲートします。
   * ディープリンクを処理するアプリが開いている場合、リスナーはすでにセットアップされているため、シングルトンが URI を受信すると、アプリは即座にそのリンクにナビゲートします。
+
+## 次のステップ
+
+Compose Multiplatform ナビゲーションライブラリの実際の動作を確認できるプロジェクトをチェックしてください：
+
+* 基本的な例：[nav_cupcake プロジェクト](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/nav_cupcake)。これは、Android の [Navigate between screens with Compose](https://developer.android.com/codelabs/basic-android-kotlin-compose-navigation#0) コードラボから変換されたものです。
+* 高度な例：公式の [KotlinConf](https://github.com/JetBrains/kotlinconf-app) アプリケーション。

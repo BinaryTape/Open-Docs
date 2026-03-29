@@ -274,6 +274,17 @@ kotlinc -Xcompiler-plugin-order=plugin.middle>plugin.last
 
 IR lowering コンパイルステージの後にダンプファイルを作成するには、`ExternalPackageParentPatcherLowering` に設定します。Kotlin/JVM の出力ディレクトリは [`-Xdump-directory`](#xdump-directory) コンパイラオプションで設定します。
 
+### -Xname-based-destructuring
+<primary-label ref="experimental-opt-in"/>
+
+プロパティ名に基づく[分解宣言](destructuring-declarations.md#name-based-destructuring)をコンパイラがどのように解釈するかを構成します。
+
+このオプションは以下のモードをサポートしています：
+
+* `only-syntax`: 既存の分解宣言の動作を変更せずに、名前ベースの分解の明示的な形式を有効にします。
+* `name-mismatch`: データクラスでのポジションベース（位置ベース）の分解において、変数名がプロパティ名と一致しない場合に警告を報告します。
+* `complete`: 丸括弧を使用した短縮形式の名前ベースの分解を有効にし、角括弧構文によるポジションベースの分解のサポートを継続します。
+
 ## Kotlin/JVM コンパイラオプション
 
 JVM 用の Kotlin コンパイラは、Kotlin ソースファイルを Java クラスファイルにコンパイルします。

@@ -28,15 +28,6 @@ Kotlin 플러그인은 각 Android Studio 릴리스에 포함되어 있습니다
 
 Android Studio에 대한 자세한 내용은 [공식 문서](https://developer.android.com/studio/intro)에서 확인할 수 있습니다.
 
-## Eclipse
-
-[Eclipse](https://eclipseide.org/release/)를 사용하면 개발자가 Kotlin을 포함한 다양한 프로그래밍 언어로 애플리케이션을 작성할 수 있습니다. 또한 Kotlin 플러그인이 제공됩니다. 원래 JetBrains에서 개발했지만, 현재 Kotlin 플러그인은 Kotlin 커뮤니티 기여자들에 의해 지원됩니다.
-
-[마켓플레이스에서 수동으로 Kotlin 플러그인을 설치](https://marketplace.eclipse.org/content/kotlin-plugin-eclipse)할 수 있습니다.
-
-Kotlin 팀은 Eclipse용 Kotlin 플러그인의 개발 및 기여 프로세스를 관리합니다.
-플러그인에 기여하고 싶다면 [GitHub 저장소](https://github.com/Kotlin/kotlin-eclipse)에 풀 리퀘스트(pull request)를 보내주세요.
-
 ## Kotlin 언어 버전과의 호환성
 
 IntelliJ IDEA 및 Android Studio의 경우, Kotlin 플러그인은 각 릴리스에 포함되어 있습니다.
@@ -46,7 +37,7 @@ IntelliJ IDEA 및 Android Studio의 경우, Kotlin 플러그인은 각 릴리스
 ## 기타 IDE 지원
 
 JetBrains는 다른 IDE를 위한 Kotlin 플러그인을 제공하지 않습니다.
-하지만 Eclipse, Visual Studio Code 및 Atom과 같은 일부 다른 IDE 및 소스 에디터에는 Kotlin 커뮤니티에서 지원하는 자체 Kotlin 플러그인이 있습니다.
+하지만 Visual Studio Code와 같은 일부 다른 IDE 및 코드 에디터에는 Kotlin 커뮤니티에서 지원하는 자체 Kotlin 플러그인이 있습니다.
 
 모든 텍스트 에디터를 사용하여 Kotlin 코드를 작성할 수 있지만, 코드 포맷팅, 디버깅 도구 등과 같은 IDE 관련 기능은 사용할 수 없습니다.
 텍스트 에디터에서 Kotlin을 사용하려면 Kotlin [GitHub 릴리스](%kotlinLatestUrl%)에서 최신 Kotlin 커맨드 라인 컴파일러(`kotlin-compiler-%kotlinVersion%.zip`)를 다운로드하여 [수동으로 설치](command-line.md#manual-install)할 수 있습니다.

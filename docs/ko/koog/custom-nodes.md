@@ -1,6 +1,6 @@
 # 커스텀 노드 구현
 
-이 페이지에서는 Koog 프레임워크에서 자신만의 커스텀 노드(custom nodes)를 구현하는 방법에 대한 자세한 지침을 제공합니다. 
+이 페이지에서는 Koog 프레임워크에서 자신만의 커스텀 노드(custom nodes)를 구현하는 방법에 대한 자세한 지침을 제공합니다.
 커스텀 노드를 사용하면 특정 작업을 수행하는 재사용 가능한 구성 요소를 생성하여 에이전트 워크플로의 기능을 확장할 수 있습니다.
 
 그래프 노드가 무엇인지, 그 사용법 및 기존 기본 노드에 대해 자세히 알아보려면 [그래프 노드](nodes-and-components.md)를 참조하세요.
@@ -66,7 +66,9 @@
     ```
     <!--- KNIT exampleCustomNodesJava01.java -->
 
-위 코드는 미리 정의된 `Input` 및 `Output` 타입을 가진 커스텀 노드 `myNode`를 나타내며, 선택적으로 이름 문자열 파라미터(`node_name`)를 가집니다. 실제 예시로, 문자열 입력을 받아 문자열의 길이를 반환하는 간단한 노드는 다음과 같습니다.
+위 코드는 미리 정의된 `Input` 및 `Output` 타입을 가진 커스텀 노드 `myNode`를 나타내며, 선택적으로 이름 문자열 파라미터(`node_name`)를 가집니다. Kotlin에서는 `node` DSL 함수를 사용합니다. Java에서는 `AIAgentNode.builder()` 패턴을 사용합니다.
+
+실제 예시로, 문자열 입력을 받아 문자열의 길이를 반환하는 간단한 노드는 다음과 같습니다.
 
 === "Kotlin"
 
@@ -109,7 +111,7 @@
     ```
     <!--- KNIT exampleCustomNodesJava02.java -->
 
-Kotlin에서 커스텀 노드를 만드는 또 다른 방법은 `node` 함수를 호출하는 `AIAgentSubgraphBuilderBase`의 확장 함수를 정의하는 것입니다. Java에서는 노드 빌더 호출을 헬퍼 메서드(helper method)로 추출하여 동일한 재사용성을 확보할 수 있습니다.
+커스텀 노드를 만드는 또 다른 방법은 이를 재사용 가능한 함수로 추출하는 것입니다. Kotlin에서는 `node` 함수를 호출하는 `AIAgentSubgraphBuilderBase`의 확장 함수를 정의합니다. Java에서는 노드 빌더 호출을 헬퍼 메서드(helper method)로 추출합니다.
 
 === "Kotlin"
 
@@ -222,7 +224,7 @@ Kotlin에서 커스텀 노드를 만드는 또 다른 방법은 `node` 함수를
 
 ### 파라미터화된 노드
 
-입력 및 출력 파라미터를 가진 노드를 정의할 수 있습니다.
+제네릭 입력 및 출력 타입 파라미터를 가진 노드를 정의할 수 있습니다. Kotlin에서는 `reified` 타입 파라미터를 가진 `inline` 함수를 사용합니다. Java에서는 노드를 빌드할 때 타입을 명시적으로 지정합니다.
 
 === "Kotlin"
 
@@ -274,7 +276,7 @@ Kotlin에서 커스텀 노드를 만드는 또 다른 방법은 `node` 함수를
 
 ### 상태 유지 노드
 
-노드가 실행 간에 상태를 유지해야 하는 경우, 클로저 변수(closure variables)를 사용할 수 있습니다.
+노드가 실행 간에 상태를 유지해야 하는 경우, 클로저 변수(closure variables)를 사용할 수 있습니다. Kotlin에서는 감싸는 함수(enclosing function)에 변수를 선언합니다. Java에서는 람다 캡처 대상이 사실상 final(effectively final)이어야 하므로 `AtomicInteger`와 같은 스레드 안전한 래퍼를 사용합니다.
 
 === "Kotlin"
 
@@ -313,8 +315,7 @@ Kotlin에서 커스텀 노드를 만드는 또 다른 방법은 `node` 함수를
     }
     -->
     ```java
-    // Java에서는 람다 캡처 대상이 사실상 final(effectively final)이어야 하므로
-    // AtomicInteger(또는 유사한 클래스)를 사용합니다.
+    // Java에서는 람다 캡처 대상이 사실상 final이어야 하므로 AtomicInteger(또는 유사한 클래스)를 사용합니다.
     AtomicInteger counter = new AtomicInteger(0);
 
     var myStatefulNode = AIAgentNode.builder("node_name")
@@ -331,7 +332,7 @@ Kotlin에서 커스텀 노드를 만드는 또 다른 방법은 `node` 함수를
 
 ## 노드 입력 및 출력 타입
 
-노드는 제네릭 파라미터로 지정되는 서로 다른 입력 및 출력 타입을 가질 수 있습니다.
+노드는 서로 다른 입력 및 출력 타입을 가질 수 있습니다. Kotlin과 Java 모두에서 이는 제네릭 타입 파라미터로 지정됩니다.
 
 === "Kotlin"
 
@@ -440,7 +441,7 @@ Kotlin에서 커스텀 노드를 만드는 또 다른 방법은 `node` 함수를
 
 ### 변환 노드 (Transformation nodes)
 
-입력을 다른 형태의 출력으로 변환하는 노드입니다.
+입력 데이터를 변환하여 수정된 출력을 생성하는 노드입니다.
 
 === "Kotlin"
 
@@ -485,7 +486,7 @@ Kotlin에서 커스텀 노드를 만드는 또 다른 방법은 `node` 함수를
 
 ### LLM 상호작용 노드 (LLM interaction nodes)
 
-LLM과 상호작용하는 노드입니다.
+LLM과 상호작용하는 노드입니다. Kotlin에서는 LLM 세션에 대해 미세한 제어가 가능합니다. Java에서는 일반적으로 프롬프트 구성을 자동으로 처리하는 `AIAgentNode.llmRequest()`와 같은 미리 빌드된 팩토리 메서드를 사용합니다.
 
 === "Kotlin"
 
@@ -540,9 +541,11 @@ LLM과 상호작용하는 노드입니다.
     <!--- KNIT exampleCustomNodesJava10.java -->
 
 !!! note
-    위 Kotlin 예제는 LLM 세션에 대한 미세한 제어(커스텀 프롬프트 구성, 명시적 `requestLLMWithoutTools` 호출)를 보여줍니다. Java API는 프롬프트 구성을 자동으로 처리하는 `AIAgentNode.llmRequest()`와 같은 고수준 팩토리 메서드를 제공하며, 여기서는 입력 문자열이 사용자 메시지가 됩니다. 대부분의 사용 사례에서는 이것으로 충분하지만, 고급 프롬프트 커스터마이징이 필요한 경우 여러 노드를 구성하거나 커스텀 서브그래프를 사용하세요.
+    위 Kotlin 예제는 LLM 세션에 대한 미세한 제어(커스텀 프롬프트 구성, 명시적 `requestLLMWithoutTools` 호출)를 보여줍니다. Java API는 프롬프트 구성을 자동으로 처리하는 `AIAgentNode.llmRequest()`와 같은 고수준 팩토리 메서드를 제공하며, 여기서는 입력 문자열이 사용자 메시지가 됩니다. 고급 프롬프트 커스터마이징이 필요한 경우 여러 노드를 구성하거나 커스텀 서브그래프를 사용하세요.
 
 ### 도구 실행 노드 (Tool run node)
+
+도구를 실행하는 커스텀 노드입니다. Kotlin에서는 도구 호출을 수동으로 구성하고 실행할 수 있습니다. Java에서는 일반적으로 도구 조율을 LLM에 위임하는 서브그래프를 사용합니다.
 
 === "Kotlin"
 

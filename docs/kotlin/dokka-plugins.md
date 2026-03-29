@@ -130,7 +130,7 @@ dokka {
 
 有关 Dokka 插件配置的示例，请参阅 [Dokka 的版本控制插件](https://github.com/Kotlin/dokka/tree/master/examples/gradle-v2/versioning-multimodule-example)。
 
-Dokka 允许您通过 [配置自定义插件](https://github.com/Kotlin/dokka/blob/v2.1.0/examples/gradle-v2/custom-dokka-plugin-example/demo-library/build.gradle.kts) 来扩展其功能并修改文档生成过程。
+Dokka 允许您通过 [配置自定义插件](https://github.com/Kotlin/dokka/blob/v2.2.0/examples/gradle-v2/custom-dokka-plugin-example/demo-library/build.gradle.kts) 来扩展其功能并修改文档生成过程。
 
 </tab>
 <tab title="Gradle Groovy DSL" group-key="groovy">

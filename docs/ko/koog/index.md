@@ -118,7 +118,7 @@ Koog 에이전트의 핵심 구성 요소에 대해 자세히 알아보세요:
 
     ---
 
-    [벡터 임베딩](embeddings.md), [랭크된 문서 저장소](ranked-document-storage.md) 및 [공유 에이전트 메모리](features/agent-memory.md)를 사용하여 여러 대화에 걸쳐 지식을 유지하고 검색
+    [벡터 임베딩](embeddings.md), [RAG](retrieval-augmented-generation.md) 및 [공유 에이전트 메모리](features/agent-memory.md)를 사용하여 여러 대화에 걸쳐 지식을 유지하고 검색
 
 -   :material-timeline-text:{ .lg .middle } [**트레이싱**](features/tracing.md)
 

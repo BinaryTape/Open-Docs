@@ -21,10 +21,6 @@ Wasm 是一种基于栈的虚拟机的二进制指令格式。这种格式与平
 
 对于 Web 平台，Compose Multiplatform 使用 Kotlin/Wasm 作为其编译目标。使用 Kotlin/Wasm 和 Compose Multiplatform 构建的应用使用 `wasm-js` 目标并在浏览器中运行。
 
-[探索我们使用 Compose Multiplatform 和 Kotlin/Wasm 构建的应用在线示例](https://zal.im/wasm/jetsnack/)
-
-![Kotlin/Wasm 示例](wasm-demo.png){width=700}
-
 此外，您可以开箱即用地在 Kotlin/Wasm 中使用最流行的 Kotlin 库。与其他 Kotlin 和多平台项目一样，您可以在构建脚本中包含依赖项声明。欲了解更多信息，请参阅 [添加多平台库的依赖项](https://kotlinlang.org/docs/multiplatform/multiplatform-add-dependencies.html)。
 
 想要亲自尝试吗？

@@ -210,7 +210,7 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 ### Kotlin 契约选项
 <primary-label ref="experimental-general"/>
 
-以下选项启用实验性的 Kotlin 契约 (contract) 功能。
+以下选项启用实验性的 Kotlin 契约功能。
 
 #### -Xallow-contracts-on-more-functions
 
@@ -276,6 +276,17 @@ kotlinc -Xcompiler-plugin-order=plugin.middle>plugin.last
 <primary-label ref="experimental-general"/>
 
 设置为 `ExternalPackageParentPatcherLowering` 以在 IR lowering 编译阶段后创建转储文件。使用 [`-Xdump-directory`](#xdump-directory) 编译器选项配置 Kotlin/JVM 的输出目录。
+
+### -Xname-based-destructuring
+<primary-label ref="experimental-opt-in"/>
+
+配置编译器如何根据属性名称解释[析构声明](destructuring-declarations.md#name-based-destructuring)。
+
+该选项支持以下模式：
+
+* `only-syntax`：启用基于名称的析构的显式形式，而不改变现有析构声明的行为。
+* `name-mismatch`：当数据类中基于位置的析构使用的变量名称与属性名称不匹配时报告警告。
+* `complete`：启用带圆括号的短形式基于名称的析构，并继续支持带方括号语法的基于位置的析构。
 
 ## Kotlin/JVM 编译器选项
 

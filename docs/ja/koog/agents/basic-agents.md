@@ -54,9 +54,7 @@ LLMは、提供されたツールを呼び出すかどうかを決定します�
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
-    
     import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
-
     class exampleBasicJava01 {
         public static void main(String[] args) {
     -->
@@ -122,9 +120,7 @@ What's on your mind? Do you have a specific question, topic, or task you'd like 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
-    
     import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
-
     class exampleBasicJava02 {
         public static void main(String[] args) {
     -->
@@ -177,9 +173,7 @@ What's on your mind? Are you trying to understand a specific meme, need help fin
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
-    
     import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
-
     class exampleBasicJava03 {
         public static void main(String[] args) {
     -->
@@ -241,7 +235,6 @@ What's on your mind? Are you trying to understand a specific meme, need help fin
     import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
     import ai.koog.agents.core.tools.annotations.LLMDescription
     import ai.koog.agents.core.tools.annotations.Tool
-    import ai.koog.agents.core.tools.reflect.tool
     -->
     ```kotlin
     @Tool
@@ -282,11 +275,8 @@ What's on your mind? Are you trying to understand a specific meme, need help fin
     import ai.koog.agents.core.tools.annotations.Tool;
     import ai.koog.agents.core.tools.reflect.ToolSet;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
-    
     import java.util.Scanner;
-    
     import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
-
     class exampleBasicJava04 {
         public static void main(String[] args) {
     -->
@@ -375,7 +365,6 @@ The meme is known for its lighthearted and playful tone, and is often used to ex
     import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
     import ai.koog.agents.core.tools.annotations.LLMDescription
     import ai.koog.agents.core.tools.annotations.Tool
-    import ai.koog.agents.core.tools.reflect.tool
     @Tool
     @LLMDescription("Asks the user a question by sending it to stdout and returns the answer from stdin")
     fun askUser(
@@ -409,11 +398,8 @@ The meme is known for its lighthearted and playful tone, and is often used to ex
     import ai.koog.agents.core.tools.annotations.Tool;
     import ai.koog.agents.core.tools.reflect.ToolSet;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
-    
     import java.util.Scanner;
-    
     import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
-
     class exampleBasicJava05 {
         public static void main(String[] args) {
     -->
@@ -475,7 +461,6 @@ The meme is known for its lighthearted and playful tone, and is often used to ex
     import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
     import ai.koog.agents.core.tools.annotations.LLMDescription
     import ai.koog.agents.core.tools.annotations.Tool
-    import ai.koog.agents.core.tools.reflect.tool
     @Tool
     @LLMDescription("Asks the user a question by sending it to stdout and returns the answer from stdin")
     fun askUser(
@@ -518,12 +503,8 @@ The meme is known for its lighthearted and playful tone, and is often used to ex
     import ai.koog.agents.core.tools.reflect.ToolSet;
     import ai.koog.agents.features.eventHandler.feature.EventHandler;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
-
-    
     import java.util.Scanner;
-    
     import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
-
     class exampleBasicJava06 {
         public static void main(String[] args) {
     -->

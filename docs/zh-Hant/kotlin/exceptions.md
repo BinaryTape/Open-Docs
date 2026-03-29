@@ -1,4 +1,4 @@
-[//]: # (title: 例外)
+[//]: # (title: 例外與錯誤處理)
 
 <web-summary>了解 Kotlin 如何使用例外來處理執行階段錯誤。</web-summary>
 

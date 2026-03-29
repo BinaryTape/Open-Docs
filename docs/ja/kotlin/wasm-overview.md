@@ -21,10 +21,6 @@ Kotlinを使用すると、Compose MultiplatformとKotlin/Wasmを通じて、モ
 
 Webプラットフォーム向けには、Compose MultiplatformはコンパイルターゲットとしてKotlin/Wasmを使用します。Kotlin/WasmとCompose Multiplatformで構築されたアプリケーションは、`wasm-js`ターゲットを使用し、ブラウザで動作します。
 
-[Compose MultiplatformとKotlin/Wasmで構築されたアプリケーションのオンラインデモをご覧ください](https://zal.im/wasm/jetsnack/)
-
-![Kotlin/Wasm demo](wasm-demo.png){width=700}
-
 さらに、主要なKotlinライブラリの多くを、Kotlin/Wasmでそのまま（out of the box）使用できます。他のKotlinおよびマルチプラットフォームプロジェクトと同様に、ビルドスクリプトに依存関係の宣言を含めることができます。詳細については、[マルチプラットフォームライブラリへの依存関係の追加](https://kotlinlang.org/docs/multiplatform/multiplatform-add-dependencies.html)を参照してください。
 
 実際に試してみませんか？

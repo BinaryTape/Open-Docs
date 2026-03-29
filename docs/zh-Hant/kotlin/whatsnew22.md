@@ -17,7 +17,7 @@ Kotlin 2.2.0 正式發佈！以下是主要的亮點：
 * **Kotlin/JS**：[修正為 `@JsPlainObject` 介面產生的 `copy()` 方法](#fix-for-copy-in-jsplainobject-interfaces)。
 * **Gradle**：[Kotlin Gradle 外掛程式中包含二進位相容性驗證](#binary-compatibility-validation-included-in-kotlin-gradle-plugin)。
 * **標準程式庫**：[穩定的 Base64 與 HexFormat API](#stable-base64-encoding-and-decoding)。
-* **文件**：我們的 [文件調查現已開放](https://surveys.jetbrains.com/s3/Kotlin-Docs-2025)，並且 [對 Kotlin 文件進行了顯著改進](#documentation-updates)。
+* **文件**：[對 Kotlin 文件進行了顯著改進](#documentation-updates)。
 
 您也可以觀看這段影片，由 Kotlin 語言演進團隊討論新特性並回答問題：
 
@@ -227,15 +227,15 @@ data class User(
 此特性告訴編譯器將註解套用到屬性的所有相關部分。當您使用它時，
 `@all` 會嘗試將註解套用到：
 
-* **`param`**：建構函式參數（若在主建構函式中宣告）。
+* **`param`**：建構函式參數，若在主建構函式中宣告。
 
 * **`property`**：Kotlin 屬性本身。
 
-* **`field`**：支援欄位（若存在）。
+* **`field`**：支援欄位，若存在。
 
 * **`get`**：Getter 方法。
 
-* **`setparam`**：Setter 方法的參數（若屬性定義為 `var`）。
+* **`setparam`**：Setter 方法的參數，若屬性定義為 `var`。
 
 * **`RECORD_COMPONENT`**：若該類別為 `@JvmRecord`，則註解會套用到 [Java record 組件](#improved-support-for-annotating-jvm-records)。此行為模擬了 Java 處理 record 組件註解的方式。
 
@@ -268,7 +268,7 @@ data class User(
 -Xannotation-target-all
 ```
 
-維持在 Gradle 建置檔案的 `compilerOptions {}` 區塊中加入它：
+或將其加入 Gradle 建置檔案的 `compilerOptions {}` 區塊中：
 
 ```kotlin
 // build.gradle.kts
@@ -1197,7 +1197,7 @@ composeCompiler {
 ### 已棄用的特性旗標
 
 `StrongSkipping` 與 `IntrinsicRemember` 特性旗標現已棄用，並將在未來版本中移除。 
-如果您遇到任何需要您停用這些特性旗標的問題，請向 [Jetpack Compose 問題追蹤器](https://issuetracker.google.com/issues/new?component=610764&template=1424126) 回報。
+如果您遇到 any 問題需要您停用這些特性旗標，請向 [Jetpack Compose 問題追蹤器](https://issuetracker.google.com/issues/new?component=610764&template=1424126) 回報。
 
 ## 重大變更與棄用
 
@@ -1265,7 +1265,7 @@ composeCompiler {
 * [](metadata-jvm.md) – 探索關於讀取、修改與產生為 JVM 編譯之 Kotlin 類別元資料的指引。
 * [CocoaPods 整合](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html) – 透過教學與範例專案了解如何設定環境、加入 Pod 相依性，或將 Kotlin 專案用作 CocoaPod 相依性。
 * 支援 iOS 穩定版本的新 Compose Multiplatform 頁面：
-    * 特別是 [導覽](https://kotlinlang.org/docs/multiplatform/compose-navigation.html) 與 [深層連結](https://kotlinlang.org/docs/multiplatform/compose-navigation-deep-links.html)。
+    * [導覽](https://kotlinlang.org/docs/multiplatform/compose-navigation.html) 與 [深層連結](https://kotlinlang.org/docs/multiplatform/compose-navigation-deep-links.html) 等。
     * [在 Compose 中實作版面配置](https://kotlinlang.org/docs/multiplatform/compose-layout.html)。
     * [在地化字串](https://kotlinlang.org/docs/multiplatform/compose-localize-strings.html) 與其他 i18n 頁面，例如對 RTL 語言的支援。
 * [Compose 熱重載 (Hot Reload)](https://kotlinlang.org/docs/multiplatform/compose-hot-reload.html) – 了解如何在您的桌面目標上使用 Compose 熱重載，以及如何將其加入現有專案。

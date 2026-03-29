@@ -64,7 +64,7 @@ kotlin {
         commonMain.dependencies {
             // ...
             implementation(libs.androidx.navigation.compose)
-            implementation(libs.kotlinx-serialization-json)
+            implementation(libs.kotlinx.serialization.json)
         }
     }
 }
@@ -260,7 +260,7 @@ object ExternalUriHandler {
 // 匯入單例
 import org.company.app.ExternalUriHandler
 
-fun main(args: Array<String>) {
+fun main() {
     if(System.getProperty("os.name").indexOf("Mac") > -1) {
         Desktop.getDesktop().setOpenURIHandler { uri ->
             ExternalUriHandler.onNewUri(uri.uri.toString())
@@ -341,5 +341,12 @@ internal fun App(navController: NavHostController = rememberNavController()) = A
 現在您可以看到完整的流程：
 當使用者開啟 `demo://` URI 時，作業系統會將其與註冊的架構進行比對。
 接著：
-  * 如果處理深層連結的應用程式已關閉，單例會接收該 URI 並將其快取。當主 composable 函式啟動時，它會呼叫單例並導覽至與快取 URI 相符的深層連結。
+  * 如果處理深層連結的應用程式已關閉，單例會接收該 URIbing 並將其快取。當主 composable 函式啟動時，它會呼叫單例並導覽至與快取 URI 相符的深層連結。
   * 如果處理深層連結的應用程式已開啟，接聽程式已經設定好，因此當單例接收到 URI 時，應用程式會立即導覽至該處。
+
+## 下一步
+
+查看展示 Compose Multiplatform 導覽程式庫實際運作的專案：
+
+* 基礎範例：[nav_cupcake 專案](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/nav_cupcake)，該專案是從 [使用 Compose 在螢幕之間進行導覽](https://developer.android.com/codelabs/basic-android-kotlin-compose-navigation#0) Android 程式碼研究室轉換而來的。
+* 進階範例：官方 [KotlinConf](https://github.com/JetBrains/kotlinconf-app) 應用程式。

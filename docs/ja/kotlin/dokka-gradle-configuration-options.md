@@ -330,7 +330,7 @@ dokka {
         </p>
         <p>
             さらに、Dokka の 
-            <a href="https://github.com/Kotlin/dokka/blob/v2.1.0/dokka-runners/dokka-gradle-plugin/src/main/kotlin/engine/parameters/HasConfigurableVisibilityModifiers.kt"><code>documentedVisibilities()</code> 関数</a> 
+            <a href="https://github.com/Kotlin/dokka/blob/v2.2.0/dokka-runners/dokka-gradle-plugin/src/main/kotlin/engine/parameters/HasConfigurableVisibilityModifiers.kt"><code>documentedVisibilities()</code> 関数</a> 
             を使用して、ドキュメント化する可視性を追加することもできます。
         </p>
         <p>これはパッケージごとに個別に設定することも可能です。</p>

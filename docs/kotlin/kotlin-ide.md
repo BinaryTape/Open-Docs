@@ -28,15 +28,6 @@ Kotlin 插件随每个 Android Studio 版本内置。
 
 在[官方文档](https://developer.android.com/studio/intro)中详细了解有关 Android Studio 的信息。
 
-## Eclipse
-
-[Eclipse](https://eclipseide.org/release/) 允许开发者使用不同的编程语言（包括 Kotlin）编写应用程序。它也拥有 Kotlin 插件：该插件最初由 JetBrains 开发，现在由 Kotlin 社区贡献者支持。
-
-您可以[从 Marketplace 手动安装 Kotlin 插件](https://marketplace.eclipse.org/content/kotlin-plugin-eclipse)。
-
-Kotlin 团队负责管理 Eclipse 版 Kotlin 插件的开发和贡献流程。
-如果您想为该插件做出贡献，请向其 [GitHub 上的仓库](https://github.com/Kotlin/kotlin-eclipse)发送拉取请求 (PR)。
-
 ## 与 Kotlin 语言版本的兼容性
 
 对于 IntelliJ IDEA 和 Android Studio，Kotlin 插件随每个版本内置。
@@ -46,7 +37,7 @@ Kotlin 团队负责管理 Eclipse 版 Kotlin 插件的开发和贡献流程。
 ## 其他 IDE 支持
 
 JetBrains 不为其他 IDE 提供 Kotlin 插件。
-然而，其他一些 IDE 和源编辑器（如 Eclipse、Visual Studio Code 和 Atom）拥有由 Kotlin 社区支持的自有 Kotlin 插件。
+然而，其他一些 IDE 和代码编辑器（如 Visual Studio Code）拥有由 Kotlin 社区支持的 Kotlin 插件。
 
 您可以使用任何文本编辑器编写 Kotlin 代码，但没有 IDE 相关功能：代码格式设置、调试工具等。
 要在文本编辑器中使用 Kotlin，您可以从 Kotlin [GitHub Releases](%kotlinLatestUrl%) 下载最新的 Kotlin 命令行编译器 (`kotlin-compiler-%kotlinVersion%.zip`) 并[手动安装](command-line.md#manual-install)。

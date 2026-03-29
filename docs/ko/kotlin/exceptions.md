@@ -1,4 +1,4 @@
-[//]: # (title: 예외)
+[//]: # (title: 예외 및 에러 처리)
 
 <web-summary>Kotlin에서 런타임 오류를 처리하기 위해 예외를 사용하는 방법을 알아봅니다.</web-summary>
 

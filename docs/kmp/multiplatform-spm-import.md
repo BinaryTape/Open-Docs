@@ -2,7 +2,7 @@
 <primary-label ref="Experimental"/>
 
 <tldr>
-   <p>Swift Package Manager (SwiftPM) 扮演着与 CocoaPods 相同的角色：它可以让您透明地协调 iOS 应用的 native iOS 依赖项。</p>
+   <p>Swift Package Manager (SwiftPM) 扮演着与 CocoaPods 相同的角色：它可以让您透明地协调 iOS 应用的原生 iOS 依赖项。</p>
    <p>在这里，您可以学习如何在 KMP 项目中设置 SwiftPM 依赖项，以及在必要时如何将 KMP 配置从 CocoaPods 迁移到 SwiftPM。</p>
 </tldr>
 
@@ -13,7 +13,7 @@
 
 带有 SwiftPM 导入集成的 Kotlin Gradle 插件允许您使用为 Apple 目标声明的 SwiftPM 依赖项，从 Objective-C 和 Swift 代码中导入 Objective-C API。
 
-对于传递依赖项（依赖于使用 SwiftPM 导入的项目），Kotlin Gradle 插件会自动从 SwiftPM 依赖项中提供必要的机器码。例如，在运行 Kotlin/Native 测试或链接框架时，您不需要进行任何额外配置。
+对于传递依赖项（依赖于那些使用 SwiftPM 导入的项目的项目），Kotlin Gradle 插件会自动从 SwiftPM 依赖项中提供必要的机器码。例如，在运行 Kotlin/Native 测试或链接框架时，您不需要进行任何额外配置。
 
 > 目前尚不支持将使用 SwiftPM 导入的 KMP 模块本身作为 Swift 软件包[导出](multiplatform-spm-export.md)，且可能无法正常工作。
 > 有关更多详细信息，请参阅此 [YouTrack 问题](https://youtrack.jetbrains.com/issue/KT-84420)，并让我们了解您的用例。
@@ -75,7 +75,7 @@
 
 ### 设置 KMP IDE 插件
 
-如果您使用的是为 KMP 项目推荐的 [Kotlin 多平台 IDE 插件]()，请明确指定从 KMP 模块构建的 iOS 项目的路径。
+如果您使用的是为 KMP 项目推荐的 [Kotlin 多平台 IDE 插件](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform/)，请明确指定从 KMP 模块构建的 iOS 项目的路径。
 
 在调用 `iosTarget.binaries.framework` API 的 `build.gradle.kts` 文件中，添加设置路径的 API 调用：
 
@@ -105,7 +105,8 @@ kotlin {
 
 ## 添加并调用 SwiftPM 依赖项
 
-> 有关运行示例，请参阅我们的示例项目。在 `master` 分支上，每个项目都使用 CocoaPods 构建，而 `spm_import` 分支则使用 SwiftPM：
+> 有关运行示例，请参阅我们的示例项目。
+> 在 `master` 分支上，每个项目都使用 CocoaPods 构建，而 `spm_import` 分支则使用 SwiftPM：
 > 
 > * [SwiftUI 和 Firebase 示例应用](https://github.com/Kotlin/kmp-with-cocoapods-firebase-sample/tree/spm_import)
 > * [Compose Multiplatform iOS 示例应用](https://github.com/Kotlin/kmp-with-cocoapods-compose-sample/tree/spm_import)
@@ -142,7 +143,8 @@ kotlin {
 }
 ```
 
-SwiftPM 集成基于导入 Clang 模块。默认情况下，导入机制会自动发现指定 Swift 软件包中的 Clang 模块，并使所有可用模块对 Kotlin 代码可见——这类似于 API 可见性在 Swift 和 Objective-C 中的工作方式。
+SwiftPM 集成基于导入 Clang 模块。
+默认情况下，导入机制会自动发现指定 Swift 软件包中的 Clang 模块，并使所有可用模块对 Kotlin 代码可见——这类似于 API 可见性在 Swift 和 Objective-C 中的工作方式。
 <!-- TODO link to where it is explained? -->
 
 要禁用默认行为和自动模块发现，请将 `discoverClangModulesImplicitly` 设置为 `false`。当禁用模块发现时，SwiftPM 导入将使用产品名称作为 Clang 模块名称。

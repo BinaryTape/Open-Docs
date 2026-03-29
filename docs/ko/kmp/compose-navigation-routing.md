@@ -24,7 +24,7 @@ kotlin {
 
 ## 샘플 프로젝트
 
-Compose Multiplatform 내비게이션 라이브러리가 작동하는 모습을 확인하려면 [nav_cupcake 프로젝트](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/nav_cupcake)를 살펴보세요. 이 프로젝트는 [Compose를 사용한 화면 간 이동](https://developer.android.com/codelabs/basic-android-kotlin-compose-navigation#0) Android 코드랩에서 변환되었습니다.
+Compose Multiplatform 내비게이션 라이브러리가 작동하는 모습을 확인하려면 [nav_cupcake 프로젝트](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/nav_cupcake)를 살펴보세요. 이 프로젝트는 [Compose를 사용한 화면 간 이동](https://developer.android.com/codelabs/basic-android-kotlin-compose-navigation#0) Android 코드랩에서 변환되었습니다. 더 복잡한 예시는 공식 [KotlinConf](https://github.com/JetBrains/kotlinconf-app) 애플리케이션을 참고하세요.
 
 Jetpack Compose와 마찬가지로, 내비게이션을 구현하려면 다음을 수행해야 합니다:
 1. 내비게이션 그래프에 포함될 [경로(routes) 목록을 작성](https://github.com/JetBrains/compose-multiplatform/blob/a6961385ccf0dee7b6d31e3f73d2c8ef91005f1a/examples/nav_cupcake/composeApp/src/commonMain/kotlin/org/jetbrains/nav_cupcake/CupcakeScreen.kt#L50)합니다. 각 경로는 경로를 정의하는 고유한 문자열이어야 합니다.

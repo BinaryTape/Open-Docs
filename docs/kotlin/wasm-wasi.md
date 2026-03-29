@@ -118,6 +118,5 @@
 尝试更多 Kotlin/Wasm 示例：
 
 * [Compose 图像查看器](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/imageviewer)
-* [Jetsnack 应用程序](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/jetsnack)
 * [Node.js 示例](https://github.com/Kotlin/kotlin-wasm-nodejs-template)
 * [Compose 示例](https://github.com/Kotlin/kotlin-wasm-compose-template)

@@ -1,176 +1,9 @@
-[//]: # (title: Kotlin 2.1.0의 새로운 기능)
-
-<web-summary>새로운 언어 기능, Kotlin Multiplatform, JVM, Native, JS 및 Wasm의 업데이트, Gradle 및 Maven용 빌드 도구 지원 등을 다루는 Kotlin 2.1.0 릴리스 노트를 읽어보세요.</web-summary>
-
-_[출시일: 2024년 11월 27일](releases.md#release-history)_
-
-Kotlin 2.1.0 버전이 출시되었습니다! 주요 하이라이트는 다음과 같습니다.
-
-* **미리보기(Preview) 단계의 새로운 언어 기능**: [대상을 가진 `when`의 가드 조건(Guard conditions)](#guard-conditions-in-when-with-a-subject), [비로컬(Non-local) `break` 및 `continue`](#non-local-break-and-continue), [멀티 달러 문자열 보간(Multi-dollar string interpolation)](#multi-dollar-string-interpolation).
-* **K2 컴파일러 업데이트**: [컴파일러 검사에 대한 유연성 확대](#extra-compiler-checks) 및 [kapt 구현 개선](#improved-k2-kapt-implementation).
-* **Kotlin Multiplatform**: [Swift 내보내기(Swift export) 기본 지원](#basic-support-for-swift-export) 도입, [컴파일러 옵션을 위한 안정적인 Gradle DSL](#new-gradle-dsl-for-compiler-options-in-multiplatform-projects-promoted-to-stable) 등.
-* **Kotlin/Native**: [`iosArm64` 지원 수준이 티어 1으로 승격](#iosarm64-promoted-to-tier-1) 및 기타 업데이트.
-* **Kotlin/Wasm**: [증분 컴파일 지원](#support-for-incremental-compilation)을 포함한 다수의 업데이트.
-* **Gradle 지원**: [최신 버전의 Gradle 및 Android Gradle Plugin(AGP)과의 호환성 개선](#gradle-improvements), [Kotlin Gradle 플러그인 API 업데이트](#new-api-for-kotlin-gradle-plugin-extensions).
-* **문서**: [Kotlin 문서의 대대적인 개선](#documentation-updates).
-
-> Kotlin 출시 주기에 대한 자세한 정보는 [Kotlin 출시 프로세스](releases.md)를 참조하세요.
->
-{style="tip"}
-
-## IDE 지원
-
-Kotlin 2.1.0을 지원하는 Kotlin 플러그인은 최신 IntelliJ IDEA 및 Android Studio에 포함되어 있습니다.
-IDE에서 Kotlin 플러그인을 별도로 업데이트할 필요가 없습니다.
-빌드 스크립트에서 Kotlin 버전을 2.1.0으로 변경하기만 하면 됩니다.
-
-자세한 내용은 [새로운 Kotlin 버전으로 업데이트하기](releases.md#update-to-a-new-kotlin-version)를 참조하세요.
-
-## 언어
-
-K2 컴파일러가 도입된 Kotlin 2.0.0 출시 이후, JetBrains 팀은 새로운 기능을 통해 언어를 개선하는 데 집중하고 있습니다.
-이번 릴리스에서는 몇 가지 새로운 언어 설계 개선 사항을 발표하게 되어 기쁩니다.
-
-이 기능들은 미리보기로 제공되므로, 직접 사용해 보시고 피드백을 공유해 주시기 바랍니다.
-
-* [대상을 가진 `when`의 가드 조건](#guard-conditions-in-when-with-a-subject)
-* [비로컬(Non-local) `break` 및 `continue`](#non-local-break-and-continue)
-* [멀티 달러 보간: 문자열 리터럴의 `$` 처리 개선](#multi-dollar-string-interpolation)
-
-> 모든 기능은 K2 모드가 활성화된 IntelliJ IDEA 최신 2024.3 버전에서 IDE 지원을 제공합니다.
->
-> 자세한 내용은 [IntelliJ IDEA 2024.3 블로그 포스트](https://blog.jetbrains.com/idea/2024/11/intellij-idea-2024-3/)에서 확인하세요.
->
-{style="tip"}
-
-[Kotlin 언어 설계 기능 및 제안 전체 목록 보기](kotlin-language-features-and-proposals.md).
-
-이번 릴리스에는 다음과 같은 언어 업데이트도 포함되어 있습니다.
-
-* [API 확장을 위한 옵트인 요구 지원](#support-for-requiring-opt-in-to-extend-apis)
-* [제네릭 타입을 가진 함수에 대한 오버로드 해소 개선](#improved-overload-resolution-for-functions-with-generic-types)
-* [봉인된 클래스(Sealed classes)를 사용하는 when 표현식의 완전성 검사 개선](#improved-exhaustiveness-checks-for-when-expressions-with-sealed-classes)
-
-### 대상을 가진 when의 가드 조건
-
-> 이 기능은 [미리보기(In preview)](kotlin-evolution-principles.md#pre-stable-features) 단계이며, 옵트인이 필요합니다(자세한 내용은 아래 참조).
-> 
-> [YouTrack](https://youtrack.jetbrains.com/issue/KT-71140)을 통해 여러분의 피드백을 기다립니다.
->
-{style="warning"}
-
-Kotlin 2.1.0부터는 대상을 가진 `when` 표현식이나 문에서 가드 조건을 사용할 수 있습니다.
-
-가드 조건을 사용하면 `when` 표현식의 분기에 하나 이상의 조건을 포함할 수 있어, 복잡한 제어 흐름을 더 명시적이고 간결하게 만들 수 있으며 코드 구조를 평탄화할 수 있습니다.
-
-분기에 가드 조건을 포함하려면 주 조건 뒤에 `if`로 구분하여 배치하세요.
-
-```kotlin
-sealed interface Animal {
-    data class Cat(val mouseHunter: Boolean) : Animal {
-        fun feedCat() {}
-    }
-
-    data class Dog(val breed: String) : Animal {
-        fun feedDog() {}
-    }
-}
-
-fun feedAnimal(animal: Animal) {
-    when (animal) {
-        // 주 조건만 있는 분기. animal이 Dog일 때 feedDog() 호출
-        is Animal.Dog -> animal.feedDog()
-        // 주 조건과 가드 조건이 모두 있는 분기. animal이 Cat이고 mouseHunter가 아닐 때 feedCat() 호출
-        is Animal.Cat if !animal.mouseHunter -> animal.feedCat()
-        // 위 조건 중 일치하는 것이 없으면 "Unknown animal" 출력
-        else -> println("Unknown animal")
-    }
-}
-```
-
-단일 `when` 표현식에서 가드 조건이 있는 분기와 없는 분기를 혼합해서 사용할 수 있습니다.
-가드 조건이 있는 분기의 코드는 주 조건과 가드 조건이 모두 `true`인 경우에만 실행됩니다.
-주 조건이 일치하지 않으면 가드 조건은 평가되지 않습니다.
-또한 가드 조건은 `else if`를 지원합니다.
-
-프로젝트에서 가드 조건을 활성화하려면 명령줄에서 다음 컴파일러 옵션을 사용하세요.
-
-```bash
-kotlinc -Xwhen-guards main.kt
-```
-
-또는 Gradle 빌드 파일의 `compilerOptions {}` 블록에 추가하세요.
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xwhen-guards")
-    }
-}
-```
-
-### 비로컬 break 및 continue
-
-> 이 기능은 [미리보기(In preview)](kotlin-evolution-principles.md#pre-stable-features) 단계이며, 옵트인이 필요합니다(자세한 내용은 아래 참조).
-> 
-> [YouTrack](https://youtrack.jetbrains.com/issue/KT-1436)을 통해 여러분의 피드백을 기다립니다.
->
-{style="warning"}
-
-Kotlin 2.1.0에는 오랫동안 기다려온 또 다른 기능인 비로컬(Non-local) `break` 및 `continue` 사용 기능의 미리보기가 추가되었습니다.
-이 기능은 인라인 함수의 스코프 내에서 사용할 수 있는 도구 세트를 확장하고 프로젝트의 상용구(boilerplate) 코드를 줄여줍니다.
-
-이전에는 비로컬 반환(return)만 사용할 수 있었습니다.
-이제 Kotlin은 비로컬로 `break` 및 `continue` [점프 표현식](returns.md)을 지원합니다.
-즉, 루프를 감싸는 인라인 함수에 인자로 전달된 람다 내에서 이를 적용할 수 있습니다.
-
-```kotlin
-fun processList(elements: List<Int>): Boolean {
-    for (element in elements) {
-        val variable = element.nullableMethod() ?: run {
-            log.warning("Element is null or invalid, continuing...")
-            continue
-        }
-        if (variable == 0) return true // 변수가 0이면 true 반환
-    }
-    return false
-}
-```
-
-프로젝트에서 이 기능을 사용해 보려면 명령줄에서 `-Xnon-local-break-continue` 컴파일러 옵션을 사용하세요.
-
-```bash
-kotlinc -Xnon-local-break-continue main.kt
-```
-
-또는 Gradle 빌드 파일의 `compilerOptions {}` 블록에 추가하세요.
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xnon-local-break-continue")
-    }
-}
-```
-
-향후 Kotlin 릴리스에서 이 기능을 안정화(Stable)할 계획입니다.
-비로컬 `break` 및 `continue` 사용 중 이슈가 발생하면 [이슈 트래커](https://youtrack.jetbrains.com/issue/KT-1436)에 보고해 주세요.
-
-### 멀티 달러 문자열 보간
-
-> 이 기능은 [미리보기(In preview)](kotlin-evolution-principles.md#pre-stable-features) 단계이며, 옵트인이 필요합니다(자세한 내용은 아래 참조).
-> 
-> [YouTrack](https://youtrack.jetbrains.com/issue/KT-2425)을 통해 여러분의 피드백을 기다립니다.
->
-{style="warning"}
-
-Kotlin 2.1.0은 멀티 달러 문자열 보간(Multi-dollar string interpolation) 지원을 도입하여, 문자열 리터럴 내에서 달러 기호(`$`)가 처리되는 방식을 개선했습니다.
+)가 문자열 리터럴 내에서 처리되는 방식을 개선했습니다.
 이 기능은 템플릿 엔진, JSON 스키마 또는 기타 데이터 형식과 같이 여러 개의 달러 기호가 필요한 컨텍스트에서 유용합니다.
 
 Kotlin의 문자열 보간은 단일 달러 기호를 사용합니다.
-그러나 금융 데이터나 템플릿 시스템에서 흔히 볼 수 있듯이 문자열 내에서 달러 기호를 그대로 사용하려면 `${'$'}`와 같은 우회 방법이 필요했습니다.
+그러나 금융 데이터나 템플릿 시스템에서 흔히 볼 수 있듯이 문자열 내에서 달러 기호를 그대로 사용하려면 `${'
+'}`와 같은 우회 방법이 필요했습니다.
 멀티 달러 보간 기능을 활성화하면 보간을 트리거하는 달러 기호의 개수를 구성할 수 있으며, 그보다 적은 개수의 달러 기호는 일반 문자열 리터럴로 처리됩니다.
 
 다음은 멀티 달러 보간을 사용하여 자리표시자가 있는 JSON 스키마 멀티라인 문자열을 생성하는 예시입니다.
@@ -188,7 +21,7 @@ val KClass<*>.jsonSchema : String
     """
 ```
 
-이 예시에서 시작 부분의 `$`는 보간을 트리거하기 위해 **두 개의 달러 기호**(`$$`)가 필요함을 의미합니다.
+이 예시에서 시작 부분의 `$`는 보간을 트리거하기 위해 **두 개의 달러 기호**(`$`)가 필요함을 의미합니다.
 따라서 `$schema`, `$id`, `$dynamicAnchor`가 보간 마커로 해석되는 것을 방지합니다.
 
 이 접근 방식은 자리표시자 구문에 달러 기호를 사용하는 시스템과 함께 작업할 때 특히 유용합니다.
@@ -211,7 +44,7 @@ kotlin {
 ```
 
 코드가 이미 단일 달러 기호를 사용하는 표준 문자열 보간을 사용하고 있다면 변경할 필요가 없습니다.
-문자열에 리터럴 달러 기호가 필요할 때마다 `$$`를 사용할 수 있습니다.
+문자열에 리터럴 달러 기호가 필요할 때마다 `$`를 사용할 수 있습니다.
 
 ### API 확장을 위한 옵트인 요구 지원
 
@@ -308,23 +141,23 @@ Kotlin 2.1.0의 K2 컴파일러는 [컴파일러 검사](#extra-compiler-checks)
 Kotlin 2.1.0부터 K2 컴파일러에서 추가적인 검사를 활성화할 수 있습니다.
 이러한 검사들은 선언, 표현식, 타입에 대한 추가 검사로, 일반적으로 컴파일에 필수적이지는 않지만 다음과 같은 경우를 검증하려는 경우 유용할 수 있습니다.
 
-| 검사 유형                                             | 설명                                                                                     |
+| 검사 유형 | 설명 |
 |-------------------------------------------------------|------------------------------------------------------------------------------------------|
-| `REDUNDANT_NULLABLE`                                  | `Boolean?` 대신 `Boolean??`가 사용됨                                                |
-| `PLATFORM_CLASS_MAPPED_TO_KOTLIN`                     | `kotlin.String` 대신 `java.lang.String`이 사용됨                                    |
+| `REDUNDANT_NULLABLE` | `Boolean?` 대신 `Boolean??`가 사용됨 |
+| `PLATFORM_CLASS_MAPPED_TO_KOTLIN` | `kotlin.String` 대신 `java.lang.String`이 사용됨 |
 | `ARRAY_EQUALITY_OPERATOR_CAN_BE_REPLACED_WITH_EQUALS` | `arrayOf("").contentEquals(arrayOf(""))` 대신 `arrayOf("") == arrayOf("")`가 사용됨 |
-| `REDUNDANT_CALL_OF_CONVERSION_METHOD`                 | `42` 대신 `42.toInt()`가 사용됨                                                     |
-| `USELESS_CALL_ON_NOT_NULL`                            | `""` 대신 `"".orEmpty()`가 사용됨                                                   |
-| `REDUNDANT_SINGLE_EXPRESSION_STRING_TEMPLATE`         | `string` 대신 `"$string"`이 사용됨                                                  |
-| `UNUSED_ANONYMOUS_PARAMETER`                          | 람다 표현식에서 파라미터가 전달되었지만 전혀 사용되지 않음                               |
-| `REDUNDANT_VISIBILITY_MODIFIER`                       | `class Klass` 대신 `public class Klass`가 사용됨                                    |
-| `REDUNDANT_MODALITY_MODIFIER`                         | `class Klass` 대신 `final class Klass`가 사용됨                                     |
-| `REDUNDANT_SETTER_PARAMETER_TYPE`                     | `set(value)` 대신 `set(value: Int)`가 사용됨                                        |
-| `CAN_BE_VAL`                                          | `var local = 0`이 정의되었지만 다시 할당되지 않음, `val local = 42`로 변경 가능          |
-| `ASSIGNED_VALUE_IS_NEVER_READ`                        | `val local = 42`가 정의되었지만 이후 코드에서 사용되지 않음                               |
-| `UNUSED_VARIABLE`                                     | `val local = 0`이 정의되었지만 코드에서 전혀 사용되지 않음                               |
-| `REDUNDANT_RETURN_UNIT_TYPE`                          | `fun foo() {}` 대신 `fun foo(): Unit {}`이 사용됨                                   |
-| `UNREACHABLE_CODE`                                    | 코드 문이 존재하지만 절대 실행될 수 없음                                                |
+| `REDUNDANT_CALL_OF_CONVERSION_METHOD` | `42` 대신 `42.toInt()`가 사용됨 |
+| `USELESS_CALL_ON_NOT_NULL` | `""` 대신 `"".orEmpty()`가 사용됨 |
+| `REDUNDANT_SINGLE_EXPRESSION_STRING_TEMPLATE` | `string` 대신 `"$string"`이 사용됨 |
+| `UNUSED_ANONYMOUS_PARAMETER` | 람다 표현식에서 파라미터가 전달되었지만 전혀 사용되지 않음 |
+| `REDUNDANT_VISIBILITY_MODIFIER` | `class Klass` 대신 `public class Klass`가 사용됨 |
+| `REDUNDANT_MODALITY_MODIFIER` | `class Klass` 대신 `final class Klass`가 사용됨 |
+| `REDUNDANT_SETTER_PARAMETER_TYPE` | `set(value)` 대신 `set(value: Int)`가 사용됨 |
+| `CAN_BE_VAL` | `var local = 0`이 정의되었지만 다시 할당되지 않음, `val local = 42`로 변경 가능 |
+| `ASSIGNED_VALUE_IS_NEVER_READ` | `val local = 42`가 정의되었지만 이후 코드에서 사용되지 않음 |
+| `UNUSED_VARIABLE` | `val local = 0`이 정의되었지만 코드에서 전혀 사용되지 않음 |
+| `REDUNDANT_RETURN_UNIT_TYPE` | `fun foo() {}` 대신 `fun foo(): Unit {}`이 사용됨 |
+| `UNREACHABLE_CODE` | 코드 문이 존재하지만 절대 실행될 수 없음 |
 
 검사 결과가 참이면, 문제 해결 방법에 대한 제안과 함께 컴파일러 경고가 표시됩니다.
 
@@ -623,7 +456,7 @@ Swift 내보내기는 현재 iOS 프레임워크를 Xcode 프로젝트에 연결
    ./gradlew :<Shared 모듈 이름>:embedSwiftExportForXcode
    ```
 
-   ![Swift 내보내기 스크립트 추가](xcode-swift-export-run-script-phase.png){width=700}
+   ![Add the Swift export script](xcode-swift-export-run-script-phase.png){width=700}
 
 #### Swift 내보내기에 대한 피드백 남기기
 
@@ -1051,11 +884,11 @@ Kotlin 2.1.0부터 지원되는 최소 Gradle 버전은 7.6.3입니다.
 
 Kotlin 2.1.0은 Kotlin Gradle 플러그인 구성을 위한 자체 플러그인을 더 쉽게 만들 수 있도록 새로운 API를 도입했습니다. 이 변경으로 `KotlinTopLevelExtension` 및 `KotlinTopLevelExtensionConfig` 인터페이스는 지원 중단되었으며, 플러그인 작성자를 위해 다음 인터페이스가 도입되었습니다.
 
-| 이름                     | 설명                                                                                                                                                                                                                                                          |
+| 이름 | 설명 |
 |--------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `KotlinBaseExtension`    | 전체 프로젝트에 대해 공통 Kotlin JVM, Android 및 Multiplatform 플러그인 옵션을 구성하기 위한 플러그인 DSL 확장 타입:<list><li>`org.jetbrains.kotlin.jvm`</li><li>`org.jetbrains.kotlin.android`</li><li>`org.jetbrains.kotlin.multiplatform`</li></list> |
-| `KotlinJvmExtension`     | 전체 프로젝트에 대해 Kotlin **JVM** 플러그인 옵션을 구성하기 위한 플러그인 DSL 확장 타입.                                                                                                                                                                    |
-| `KotlinAndroidExtension` | 전체 프로젝트에 대해 Kotlin **Android** 플러그인 옵션을 구성하기 위한 플러그인 DSL 확장 타입.                                                                                                                                                                |
+| `KotlinBaseExtension` | 전체 프로젝트에 대해 공통 Kotlin JVM, Android 및 Multiplatform 플러그인 옵션을 구성하기 위한 플러그인 DSL 확장 타입:<list><li>`org.jetbrains.kotlin.jvm`</li><li>`org.jetbrains.kotlin.android`</li><li>`org.jetbrains.kotlin.multiplatform`</li></list> |
+| `KotlinJvmExtension` | 전체 프로젝트에 대해 Kotlin **JVM** 플러그인 옵션을 구성하기 위한 플러그인 DSL 확장 타입. |
+| `KotlinAndroidExtension` | 전체 프로젝트에 대해 Kotlin **Android** 플러그인 옵션을 구성하기 위한 플러그인 DSL 확장 타입. |
 
 예를 들어 JVM 및 Android 프로젝트 모두에 대해 컴파일러 옵션을 구성하려면 `KotlinBaseExtension`을 사용하세요.
 
@@ -1231,14 +1064,14 @@ composeCompiler {
 
 이 복사 작업이 제거되어 잠재적으로 더 빠른 컴파일 시간을 기대할 수 있습니다.
 
-## 표준 라이브러기
+## 표준 라이브러리
 
 ### 표준 라이브러리 API의 지원 중단 심각도 변경
 
 Kotlin 2.1.0에서는 여러 표준 라이브러리 API의 지원 중단 심각도 레벨을 경고(warning)에서 오류(error)로 격상합니다. 코드가 이러한 API에 의존하고 있다면 호환성을 유지하기 위해 업데이트해야 합니다. 주요 변경 사항은 다음과 같습니다.
 
 * **Locale에 민감한 `Char` 및 `String`의 대소문자 변환 함수 지원 중단:**
-  `Char.toLowerCase()`, `Char.toUpperCase()`, `String.toUpperCase()`, `String.toLowerCase()`와 같은 함수는 이제 지원이 중단되었으며, 이를 사용하면 오류가 발생합니다. 이를 Locale과 무관한 함수 대안이나 다른 대소문자 변환 메커니즘으로 교체하세요. 기본 Locale을 계속 사용하고 싶다면 `String.toLowerCase()` 대신 Locale을 명시적으로 지정하는 `String.lowercase(Locale.getDefault())`를 사용하세요. Locale과 무관한 변환을 원한다면 기본적으로 invariant locale을 사용하는 `String.lowercase()`로 교체하세요.
+  `Char.toLowerCase()`, `Char.toUpperCase()`, `String.toUpperCase()`, 및 `String.toLowerCase()`와 같은 함수는 이제 지원이 중단되었으며, 이를 사용하면 오류가 발생합니다. 이를 Locale과 무관한 함수 대안이나 다른 대소문자 변환 메커니즘으로 교체하세요. 기본 Locale을 계속 사용하고 싶다면 `String.toLowerCase()` 대신 Locale을 명시적으로 지정하는 `String.lowercase(Locale.getDefault())`를 사용하세요. Locale과 무관한 변환을 원한다면 기본적으로 invariant locale을 사용하는 `String.lowercase()`로 교체하세요.
 
 * **Kotlin/Native 프리징(freezing) API 지원 중단:**
   이전에는 `@FreezingIsDeprecated` 어노테이션이 표시되었던 프리징 관련 선언을 사용하면 이제 오류가 발생합니다. 이 변경은 스레드 간에 객체를 공유하기 위해 프리징이 필요했던 Kotlin/Native의 레거시 메모리 관리자로부터의 전환을 반영합니다. 새로운 메모리 모델에서 프리징 관련 API로부터 마이그레이션하는 방법은 [Kotlin/Native 마이그레이션 가이드](native-migration-guide.md#update-your-code)를 참조하세요. 자세한 내용은 [프리징 지원 중단에 대한 공지](whatsnew1720.md#freezing)를 참조하세요.
@@ -1364,7 +1197,7 @@ Kotlin 문서에 몇 가지 주목할 만한 변경 사항이 있었습니다.
 * 개선된 [Null 안전성](null-safety.md) 페이지 – 코드에서 `null` 값을 안전하게 처리하는 방법을 알아보세요.
 * 개선된 [객체 선언 및 표현식](object-declarations.md) 페이지 – 한 번에 클래스를 정의하고 인스턴스를 생성하는 방법을 알아보세요.
 * 개선된 [When 표현식 및 문](control-flow.md#when-expressions-and-statements) 섹션 – `when` 조건문과 사용법을 알아보세요.
-* 업데이트된 [Kotlin 로드맵](roadmap.md), [Kotlin 진화 원칙](kotlin-evolution-principles.md), [Kotlin 언어 기능 및 제안](kotlin-language-features-and-proposals.md) 페이지 – Kotlin의 계획, 현재 진행 중인 개발 및 가이드 원칙에 대해 알아보세요.
+* 업데이트된 [Kotlin 로드맵](roadmap.md), [Kotlin 진화 원칙](kotlin-evolution-principles.md), 및 [Kotlin 언어 기능 및 제안](kotlin-language-features-and-proposals.md) 페이지 – Kotlin의 계획, 현재 진행 중인 개발 및 가이드 원칙에 대해 알아보세요.
 
 ### Compose 컴파일러
 
@@ -1378,7 +1211,6 @@ Kotlin 문서에 몇 가지 주목할 만한 변경 사항이 있었습니다.
 
 * 새로운 [멀티플랫폼용 Kotlin 라이브러리 빌드](https://kotlinlang.org/docs/api-guidelines-build-for-multiplatform.html) 페이지 – Kotlin Multiplatform을 위한 Kotlin 라이브러리 설계 방법을 알아보세요.
 * 새로운 [Kotlin Multiplatform 시작하기](https://kotlinlang.org/docs/multiplatform/get-started.html) 페이지 – Kotlin Multiplatform의 핵심 개념, 종속성, 라이브러리 등을 알아보세요.
-* 업데이트된 [Kotlin Multiplatform 개요](multiplatform.topic) 페이지 – Kotlin Multiplatform의 필수 요소와 인기 있는 사용 사례를 확인해 보세요.
 * 새로운 [iOS 통합](https://kotlinlang.org/docs/multiplatform/multiplatform-ios-integration-overview.html) 섹션 – Kotlin Multiplatform 공유 모듈을 iOS 앱에 통합하는 방법을 알아보세요.
 * 새로운 [Kotlin/Native 정의 파일](native-definition-file.md) 페이지 – C 및 Objective-C 라이브러리를 사용하기 위해 정의 파일을 생성하는 방법을 알아보세요.
 * [WASI 시작하기](wasm-wasi.md) – 다양한 WebAssembly 가상 머신에서 WASI를 사용하여 간단한 Kotlin/Wasm 애플리케이션을 실행하는 방법을 알아보세요.

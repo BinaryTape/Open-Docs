@@ -332,7 +332,6 @@ public annotation class LLMDescription(val description: String)
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
     import ai.koog.agents.core.tools.ToolRegistry
-    import ai.koog.agents.core.tools.reflect.tools
     import ai.koog.agents.example.exampleAnnotationBasedTools06.MyFirstToolSet
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor

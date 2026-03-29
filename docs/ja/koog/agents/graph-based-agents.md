@@ -18,7 +18,7 @@
 
     --8<-- "quickstart-snippets.md:api-key"
 
-    このページのアドバイスは、Ollamaを介してLlama 3.2をローカルで実行していることを前提としています。
+    このページのエグザンプルは、Ollamaを介してLlama 3.2をローカルで実行していることを前提としています。
 
 このページでは、[基本的なエージェント](basic-agents.md)で使用されているストラテジーグラフを再作成する方法について説明します。
 このグラフは、LLMにリクエストを送信し、その後、応答を出力するか（LLMがアシスタントメッセージで応答した場合）、
@@ -360,7 +360,6 @@ graph LR
     import ai.koog.agents.core.tools.annotations.LLMDescription
     import ai.koog.agents.core.tools.annotations.Tool
     import ai.koog.agents.core.tools.reflect.ToolSet
-    import ai.koog.agents.core.tools.reflect.tools
     -->
     ```kotlin
     @LLMDescription("Tools for performing math operations")
@@ -443,7 +442,6 @@ graph LR
     import ai.koog.agents.core.tools.annotations.LLMDescription
     import ai.koog.agents.core.tools.annotations.Tool
     import ai.koog.agents.core.tools.reflect.ToolSet
-    import ai.koog.agents.core.tools.reflect.tools
     import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
     import ai.koog.prompt.executor.ollama.client.OllamaModels
     import kotlinx.coroutines.runBlocking
@@ -622,7 +620,6 @@ Finally, 123 was added to the result:
     import ai.koog.agents.core.tools.annotations.LLMDescription
     import ai.koog.agents.core.tools.annotations.Tool
     import ai.koog.agents.core.tools.reflect.ToolSet
-    import ai.koog.agents.core.tools.reflect.tools
     import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
     import ai.koog.prompt.executor.ollama.client.OllamaModels
     import kotlinx.coroutines.runBlocking

@@ -125,3 +125,116 @@ map.mapValues { (_, value) -> "$value!" }
 map.mapValues { (_, value): Map.Entry<Int, String> -> "$value!" }
 
 map.mapValues { (_, value: String) -> "$value!" }
+```
+
+## 이름 기반 구조 분해
+<primary-label ref="experimental-opt-in"/>
+
+Kotlin은 *이름 기반 구조 분해 선언(name-based destructuring declarations)*을 지원합니다. 이 방식에서는 *위치 기반(position-based)* 구조 분해에서 `componentN()` 함수에 의해 정의된 위치 대신, 이름에 따라 변수가 프로퍼티와 매칭됩니다.
+
+> 이름 기반 구조 분해에 대한 자세한 내용은 해당 기능의 [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0438-name-based-destructuring.md)을 참조하세요.
+>
+{style="tip"}
+
+위치 기반 구조 분해에서 변수는 `componentN()` 함수의 순서에 대응합니다. 예를 들면 다음과 같습니다:
+
+```kotlin
+data class User(val username: String, val email: String)
+
+fun main() {
+    val user = User("alice", "alice@example.com")
+
+    val (email, username) = user
+
+    println(email)
+    // alice
+
+    println(username)
+    // alice@example.com
+}
+```
+{kotlin-runnable="true"}
+
+이 예제에서는 구조 분해가 `componentN()` 함수의 순서에 의존하기 때문에, `email` 변수에는 `username` 값이 할당되고 `username` 변수에는 `email` 값이 할당됩니다.
+
+이름 기반 구조 분해를 사용하면 `componentN()` 함수의 위치가 아니라 프로퍼티 이름에 따라 추출할 값이 결정됩니다:
+
+```kotlin
+fun main() {
+    val user = User("alice", "alice@example.com")
+
+    // 명시적 형태(explicit form)의 이름 기반 구조 분해 사용
+    (val mail = email, val name = username) = user
+
+    println(name)
+    // alice
+
+    println(mail)
+    // alice@example.com
+}
+```
+
+이름 기반 구조 분해는 [실험적(Experimental)](components-stability.md#stability-levels-explained) 기능입니다.
+이 기능을 활성화하면 대괄호(`[]`)를 사용하는 위치 기반 구조 분해를 위한 새로운 구문도 도입됩니다.
+리스트나 다른 순서가 있는 컬렉션처럼 요소의 순서가 중요한 타입, 또는 `Pair`나 `Triple`과 같이 이름이 없는 튜플(tuple)에 대해서는 이 구문을 사용하세요:
+
+```kotlin
+val point = Pair(10, 20)
+
+// 위치 기반 구조 분해 사용
+val [x, y] = point
+```
+
+`-Xname-based-destructuring` 컴파일러 옵션을 사용하여 컴파일러가 구조 분해 선언을 해석하는 방식을 제어할 수 있습니다.
+
+다음과 같은 모드가 있습니다:
+
+* `only-syntax`: 기존 구조 분해 선언의 동작을 변경하지 않고 명시적 형태의 이름 기반 구조 분해만 활성화합니다.
+* `name-mismatch`: 데이터 클래스의 위치 기반 구조 분해에서 변수 이름이 프로퍼티 이름과 일치하지 않을 때 경고를 보고합니다.
+* `complete`: 소괄호를 사용하는 단축형(short-form) 이름 기반 구조 분해를 활성화하며, 대괄호 구문을 통한 위치 기반 구조 분해를 계속 지원합니다.
+
+> `complete` 모드를 활성화하기 전에 `name-mismatch` 모드에서 보고된 경고를 검토하고 해결하세요.
+> 이러한 경고는 `complete` 모드에서 컴파일러가 다르게 해석하게 될 구조 분해 선언을 보여주며, 해당 선언을 적절하게 다시 작성하기 위한 제안을 포함합니다.
+> 
+{style="tip"}
+
+`complete` 모드를 사용하면 소괄호를 사용하는 단축형 구조 분해 구문은 위치에 의존하는 대신 변수를 프로퍼티 이름과 매칭합니다:
+
+```kotlin
+val (email, username) = user
+```
+
+프로젝트에서 이름 기반 구조 분해를 활성화하려면 빌드 구성 파일에 컴파일러 옵션을 추가하세요:
+
+<tabs group="build-system">
+<tab title="Gradle" group-key="gradle">
+
+```kotlin
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xname-based-destructuring=only-syntax")
+    }
+}
+```
+
+</tab> 
+<tab title="Maven" group-key="maven">
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-maven-plugin</artifactId>
+            <configuration>
+                <args>
+                    <arg>-Xname-based-destructuring=only-syntax</arg>
+                </args>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+
+</tab> 
+</tabs>

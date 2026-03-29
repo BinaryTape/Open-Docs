@@ -1,7 +1,7 @@
 # 功能型代理 (Functional agents)
 
 使用功能型代理 (functional agents) 時，您將邏輯實作為一個函式，用於處理使用者輸入、與 LLM 互動、在必要時呼叫工具並產生最終輸出。
-與 [圖形化代理 (graph-based agents)](graph-based-agents.md) 相比，這通常意味著更快的原型製作 (prototyping)，但具有以下缺點：
+與 [圖形化代理 (graph-based agents)](graph-based-agents.md) 相比，這通常意者更快的原型製作 (prototyping)，但具有以下缺點：
 
 - 不易視覺化
 - 無狀態持久化 (state persistence)
@@ -174,7 +174,6 @@ To calculate the product of 12 and 9, we multiply these two numbers together.
     import ai.koog.agents.core.tools.annotations.LLMDescription
     import ai.koog.agents.core.tools.annotations.Tool
     import ai.koog.agents.core.tools.reflect.ToolSet
-    import ai.koog.agents.core.tools.reflect.tool
     import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
     import ai.koog.prompt.executor.ollama.client.OllamaModels
     import kotlinx.coroutines.runBlocking

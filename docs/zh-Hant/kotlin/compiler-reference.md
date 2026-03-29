@@ -10,7 +10,7 @@ JVM、JavaScript 以及[支援平台](native-overview.md#target-platforms)的原
 * 當你在主控台或 IDE 中呼叫 `gradle build` 時，Gradle 會使用編譯器。
 * 當你在主控台或 IDE 中呼叫 `mvn compile` 或 `mvn test-compile` 時，Maven 會使用編譯器。
 
-你也可以按照[使用命令列編譯器](command-line.md)教學中的說明，從命令列手動執行 Kotlin 編譯器。
+你也可以按照[使用命令列編譯器](command-line.md)教學中的說明，從主控台手動執行 Kotlin 編譯器。
 
 ## 編譯器選項
 
@@ -191,11 +191,11 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 
 你可以透過結合模組級規則與特定規則來調整專案中的警告回報：
 
-| 指令                                               | 說明                                                        |
+| 指令 | 說明 |
 |----------------------------------------------------|-------------------------------------------------------------|
-| `-nowarn -Xwarning-level=DIAGNOSTIC_NAME:warning`  | 隱藏除指定警告以外的所有警告。                                |
-| `-Werror -Xwarning-level=DIAGNOSTIC_NAME:warning`  | 將除指定警告以外的所有警告提升為錯誤。                         |
-| `-Wextra -Xwarning-level=DIAGNOSTIC_NAME:disabled` | 啟用除指定檢查以外的所有額外檢查。                             |
+| `-nowarn -Xwarning-level=DIAGNOSTIC_NAME:warning` | 隱藏除指定警告以外的所有警告。 |
+| `-Werror -Xwarning-level=DIAGNOSTIC_NAME:warning` | 將除指定警告以外的所有警告提升為錯誤。 |
+| `-Wextra -Xwarning-level=DIAGNOSTIC_NAME:disabled` | 啟用除指定檢查以外的所有額外檢查。 |
 
 如果你有許多警告要從一般規則中排除，可以使用 [`@argfile`](#argfile) 在單獨的檔案中列出它們。
 
@@ -258,20 +258,20 @@ kotlinc -Xcompiler-plugin-order=plugin.middle>plugin.last
 
 你可以透過外掛程式 ID 設定以下外掛程式：
 
-| 編譯器外掛程式              | 外掛程式 ID                                  |
+| 編譯器外掛程式 | 外掛程式 ID |
 |-----------------------------|--------------------------------------------|
-| `all-open`, `kotlin-spring` | `org.jetbrains.kotlin.allopen`             |
-| AtomicFU                    | `org.jetbrains.kotlinx.atomicfu`           |
-| Compose                     | `androidx.compose.compiler.plugins.kotlin` |
-| `js-plain-objects`          | `org.jetbrains.kotlinx.jspo`               |
-| `jvm-abi-gen`               | `org.jetbrains.kotlin.jvm.abi`             |
-| kapt                        | `org.jetbrains.kotlin.kapt3`               |
-| Lombok                      | `org.jetbrains.kotlin.lombok`              |
-| `no-arg`, `kotlin-jpa`      | `org.jetbrains.kotlin.noarg`               |
-| Parcelize                   | `org.jetbrains.kotlin.parcelize`           |
-| Power-assert                | `org.jetbrains.kotlin.powerassert`         |
-| SAM with receiver           | `org.jetbrains.kotlin.samWithReceiver`     |
-| Serialization               | `org.jetbrains.kotlinx.serialization`      |
+| `all-open`, `kotlin-spring` | `org.jetbrains.kotlin.allopen` |
+| AtomicFU | `org.jetbrains.kotlinx.atomicfu` |
+| Compose | `androidx.compose.compiler.plugins.kotlin` |
+| `js-plain-objects` | `org.jetbrains.kotlinx.jspo` |
+| `jvm-abi-gen` | `org.jetbrains.kotlin.jvm.abi` |
+| kapt | `org.jetbrains.kotlin.kapt3` |
+| Lombok | `org.jetbrains.kotlin.lombok` |
+| `no-arg`, `kotlin-jpa` | `org.jetbrains.kotlin.noarg` |
+| Parcelize | `org.jetbrains.kotlin.parcelize` |
+| Power-assert | `org.jetbrains.kotlin.powerassert` |
+| SAM with receiver | `org.jetbrains.kotlin.samWithReceiver` |
+| Serialization | `org.jetbrains.kotlinx.serialization` |
 
 此執行順序僅控制編譯器外掛程式的後端，而非前端。
 
@@ -280,6 +280,17 @@ kotlinc -Xcompiler-plugin-order=plugin.middle>plugin.last
 <primary-label ref="experimental-general"/>
 
 設定為 `ExternalPackageParentPatcherLowering` 以在 IR lowering 編譯階段後建立傾印檔案。使用 [`-Xdump-directory`](#xdump-directory) 編譯器選項設定 Kotlin/JVM 的輸出目錄。
+
+### -Xname-based-destructuring
+<primary-label ref="experimental-opt-in"/>
+
+設定編譯器如何根據屬性名稱解讀[解構宣告](destructuring-declarations.md#name-based-destructuring)。
+
+該選項支援以下模式：
+
+* `only-syntax`: 啟用顯式形式的名稱相關解構，而不變更現有解構宣告的行為。
+* `name-mismatch`: 當資料類別中的位置相關解構所使用的變數名稱與屬性名稱不符時，回報警告。
+* `complete`: 啟用使用圓括號的短形式名稱相關解構，並繼續支援使用方括號語法的位置相關解構。
 
 ## Kotlin/JVM 編譯器選項
 
@@ -357,11 +368,11 @@ Kotlin 到 JVM 編譯的命令列工具是 `kotlinc` 和 `kotlinc-jvm`。
 
 控制在介面中宣告的函式如何編譯為 JVM 上的預設方法。
 
-| 模式               | 說明                                                                                                                       |
+| 模式 | 說明 |
 |--------------------|-----------------------------------------------------------------------------------------------------------------------------------|
-| `enable`           | 在介面中產生預設實作，並在子類別和 `DefaultImpls` 類別中包含橋接函式。（預設） |
-| `no-compatibility` | 僅在介面中產生預設實作，跳過相容性橋接器和 `DefaultImpls` 類別。                  |
-| `disable`          | 僅產生相容性橋接器 and `DefaultImpls` 類別，跳過預設方法。                                        |
+| `enable` | 在介面中產生預設實作，並在子類別和 `DefaultImpls` 類別中包含橋接函式。（預設） |
+| `no-compatibility` | 僅在介面中產生預設實作，跳過相容性橋接器和 `DefaultImpls` 類別。 |
+| `disable` | 僅產生相容性橋接器 and `DefaultImpls` 類別，跳過預設方法。 |
 
 ### -Xdump-directory
 

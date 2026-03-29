@@ -125,3 +125,117 @@ map.mapValues { (_, value) -> "$value!" }
 map.mapValues { (_, value): Map.Entry<Int, String> -> "$value!" }
 
 map.mapValues { (_, value: String) -> "$value!" }
+```
+
+## 名前ベースの分解宣言
+<primary-label ref="experimental-opt-in"/>
+
+Kotlinは*名前ベースの分解宣言 (name-based destructuring declarations)* をサポートしています。
+これは、*位置ベースの (position-based)* 分解における `componentN()` 関数で定義された位置ではなく、名前によって変数をプロパティに一致させるものです。
+
+> 名前ベースの分解に関する詳細は、この機能の [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0438-name-based-destructuring.md) を参照してください。
+>
+{style="tip"}
+
+位置ベースの分解では、変数は `componentN()` 関数の順序に対応します。例えば：
+
+```kotlin
+data class User(val username: String, val email: String)
+
+fun main() {
+    val user = User("alice", "alice@example.com")
+
+    val (email, username) = user
+
+    println(email)
+    // alice
+
+    println(username)
+    // alice@example.com
+}
+```
+{kotlin-runnable="true"}
+
+この例では、分解が `componentN()` 関数の順序に依存しているため、`email` は `username` の値を、`username` は `email` の値を受け取ります。
+
+名前ベースの分解を使用すると、`componentN()` 関数の位置ではなく、プロパティ名によってどの値が抽出されるかが決定されます：
+
+```kotlin
+fun main() {
+    val user = User("alice", "alice@example.com")
+
+    // 明示的な形式の名前ベースの分解を使用
+    (val mail = email, val name = username) = user
+
+    println(name)
+    // alice
+
+    println(mail)
+    // alice@example.com
+}
+```
+
+名前ベースの分解は [試験的 (Experimental)](components-stability.md#stability-levels-explained) です。
+この機能を有効にすると、角括弧を使用した位置ベースの分解のための新しい構文も導入されます。
+この構文は、リストやその他の順序付けられたコレクションなど、要素の順序が重要な型や、`Pair` や `Triple` のような名前のないタプルに使用してください：
+
+```kotlin
+val point = Pair(10, 20)
+
+// 位置ベースの分解を使用
+val [x, y] = point
+```
+
+コンパイラが分解宣言をどのように解釈するかは、`-Xname-based-destructuring` コンパイラオプションで制御できます。
+
+以下のモードがあります：
+
+* `only-syntax` は、既存の分解宣言の振る舞いを変えることなく、名前ベースの分解の明示的な形式を有効にします。
+* `name-mismatch` は、データクラスにおける位置ベースの分解で、プロパティ名と一致しない変数名が使用されている場合に警告を報告します。
+* `complete` は、括弧を使用した短縮形式の名前ベースの分解を有効にし、角括弧構文による位置ベースの分解のサポートを継続します。
+
+> `complete` モードを有効にする前に、`name-mismatch` モードで報告される警告を確認し、解決してください。
+> これらの警告は、`complete` モードでコンパイラが異なる解釈をする分解宣言を示しており、それらを適切に書き換えるための提案が含まれています。
+> 
+{style="tip"}
+
+`complete` モードを使用すると、括弧を使用した短縮形式の分解構文は、位置に依存するのではなく、変数をプロパティ名に一致させます：
+
+```kotlin
+val (email, username) = user
+```
+
+プロジェクトで名前ベースの分解を有効にするには、ビルド構成ファイルにコンパイラオプションを追加してください：
+
+<tabs group="build-system">
+<tab title="Gradle" group-key="gradle">
+
+```kotlin
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xname-based-destructuring=only-syntax")
+    }
+}
+```
+
+</tab> 
+<tab title="Maven" group-key="maven">
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-maven-plugin</artifactId>
+            <configuration>
+                <args>
+                    <arg>-Xname-based-destructuring=only-syntax</arg>
+                </args>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+
+</tab> 
+</tabs>

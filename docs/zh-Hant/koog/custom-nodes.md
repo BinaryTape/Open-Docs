@@ -65,7 +65,9 @@
     ```
     <!--- KNIT exampleCustomNodesJava01.java -->
 
-上述程式碼代表一個具有預定義 `Input` 和 `Output` 型別的自訂節點 `myNode`，並帶有選用的名稱字串參數 (`node_name`)。在實際範例中，這是一個接收字串輸入並回傳輸入長度的簡單節點：
+上述程式碼代表一個具有預定義 `Input` 和 `Output` 型別的自訂節點 `myNode`，並帶有選用的名稱字串參數 (`node_name`)。在 Kotlin 中，您可以使用 `node` DSL 函式；在 Java 中，則使用 `AIAgentNode.builder()` 模式。
+
+在實際範例中，這是一個接收字串輸入並回傳輸入長度的簡單節點：
 
 === "Kotlin"
 
@@ -108,7 +110,7 @@
     ```
     <!--- KNIT exampleCustomNodesJava02.java -->
 
-在 Kotlin 中建立自訂節點的另一種方法是在 `AIAgentSubgraphBuilderBase` 上定義一個呼叫 `node` 函式的擴充函式。在 Java 中，您可以透過將節點建置器呼叫解構到幫助方法中來實現相同的可重複使用性：
+建立自訂節點的另一種方法是將其提取為可重複使用的函式。在 Kotlin 中，您可以在 `AIAgentSubgraphBuilderBase` 上定義一個呼叫 `node` 函式的擴充函式；在 Java 中，則將節點建置器呼叫提取到幫助方法中。
 
 === "Kotlin"
 
@@ -221,7 +223,7 @@
 
 ### 參數化節點
 
-您可以定義具有輸入和輸出參數的節點：
+您可以定義具有泛型輸入和輸出型別參數的節點。在 Kotlin 中，您可以使用帶有 `reified` 型別參數的 `inline` 函式；在 Java 中，則在建置節點時明確指定型別。
 
 === "Kotlin"
 
@@ -273,7 +275,7 @@
 
 ### 具狀態節點
 
-如果您的節點需要在執行之間維持狀態，您可以使用閉包變數：
+如果您的節點需要在執行之間維持狀態，您可以使用閉包變數。在 Kotlin 中，您在封閉函式中宣告變數；在 Java 中，由於 lambda 擷取必須是有效最終（effectively final）的，因此請使用 `AtomicInteger` 之類的執行緒安全包裝函式。
 
 === "Kotlin"
 
@@ -292,7 +294,7 @@
 
         return node(name) { input ->
             counter++
-            println("節點執行了 $counter 次")
+            println("Node executed $counter times")
             input
         }
     }
@@ -320,7 +322,7 @@
         .withOutput(String.class)
         .withAction((input, ctx) -> {
             int count = counter.incrementAndGet();
-            System.out.println("節點執行了 " + count + " 次");
+            System.out.println("Node executed " + count + " times");
             return input;
         })
         .build();
@@ -329,7 +331,7 @@
 
 ## 節點輸入與輸出型別
 
-節點可以具有不同的輸入和輸出型別，這些型別被指定為泛型參數：
+節點可以具有不同的輸入和輸出型別。在 Kotlin 和 Java 中，這些型別都被指定為泛型型別參數：
 
 === "Kotlin"
 
@@ -407,7 +409,7 @@
     -->
     ```kotlin
     val loggingNode by node<String, String>("node_name") { input ->
-        println("正在處理輸入：$input")
+        println("Processing input: $input")
         input // 將輸入作為輸出回傳
     }
     ```
@@ -429,7 +431,7 @@
         .withInput(String.class)
         .withOutput(String.class)
         .withAction((input, ctx) -> {
-            System.out.println("正在處理輸入：" + input);
+            System.out.println("Processing input: " + input);
             return input; // 將輸入作為輸出回傳
         })
         .build();
@@ -438,7 +440,7 @@
 
 ### 轉換節點
 
-將輸入轉換為不同輸出的節點。
+將輸入資料進行轉換並產生修改後輸出的節點。
 
 === "Kotlin"
 
@@ -452,7 +454,7 @@
     -->
     ```kotlin
     val upperCaseNode by node<String, String>("node_name") { input ->
-        println("正在處理輸入：$input")
+        println("Processing input: $input")
         input.uppercase() // 將輸入轉換為大寫
     }
     ```
@@ -474,7 +476,7 @@
         .withInput(String.class)
         .withOutput(String.class)
         .withAction((input, ctx) -> {
-            System.out.println("正在處理輸入：" + input);
+            System.out.println("Processing input: " + input);
             return input.toUpperCase(); // 將輸入轉換為大寫
         })
         .build();
@@ -483,7 +485,7 @@
 
 ### LLM 互動節點
 
-與 LLM 進行互動的節點。
+與 LLM 進行互動的節點。在 Kotlin 中，您可以對 LLM 工作階段進行細粒度控制；在 Java 中，通常使用預先建置的工廠方法（如 `AIAgentNode.llmRequest()`），這些方法會自動處理提示詞建構。
 
 === "Kotlin"
 
@@ -499,7 +501,7 @@
     val summarizeTextNode by node<String, String>("node_name") { input ->
         llm.writeSession {
             appendPrompt {
-                user("請總結以下文字：$input")
+                user("Please summarize the following text: $input")
             }
 
             val response = requestLLMWithoutTools()
@@ -538,9 +540,11 @@
     <!--- KNIT exampleCustomNodesJava10.java -->
 
 !!! note
-    上面的 Kotlin 範例顯示了對 LLM 工作階段的細粒度控制（自訂提示詞建構、顯式 `requestLLMWithoutTools` 呼叫）。Java API 提供較高階的工廠方法，例如 `AIAgentNode.llmRequest()`，可自動處理提示詞建構 — 輸入字串會成為使用者訊息。對於大多數使用案例，這已足夠；對於進階提示詞自訂，請組合多個節點或使用自訂子圖。
+    上面的 Kotlin 範例顯示了對 LLM 工作階段的細粒度控制（自訂提示詞建構、顯式 `requestLLMWithoutTools` 呼叫）。Java API 提供較高階的工廠方法，例如 `AIAgentNode.llmRequest()`，可自動處理提示詞建構 — 輸入字串會成為使用者訊息。對於進階提示詞自訂，請組合多個節點或使用自訂子圖。
 
 ### 工具執行節點
+
+執行工具的自訂節點。在 Kotlin 中，您可以手動建構工具呼叫並執行它們；在 Java 中，通常使用將工具編排委派給 LLM 的子圖。
 
 === "Kotlin"
 

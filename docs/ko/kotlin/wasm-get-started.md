@@ -97,7 +97,6 @@ Compose Multiplatform 로고가 나타납니다.
 
   * [KotlinConf 애플리케이션](https://github.com/JetBrains/kotlinconf-app)
   * [Compose 이미지 뷰어](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/imageviewer)
-  * [Jetsnack 애플리케이션](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/jetsnack)
   * [Node.js 예제](https://github.com/Kotlin/kotlin-wasm-nodejs-template)
   * [WASI 예제](https://github.com/Kotlin/kotlin-wasm-wasi-template)
   * [Compose 예제](https://github.com/Kotlin/kotlin-wasm-compose-template)

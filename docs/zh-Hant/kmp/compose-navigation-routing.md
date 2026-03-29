@@ -24,7 +24,7 @@ kotlin {
 
 ## 範例專案
 
-若要查看 Compose Multiplatform 導航程式庫的實際運作情況，請查看 [nav_cupcake 專案](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/nav_cupcake)，該專案是從 [使用 Compose 在螢幕之間導航](https://developer.android.com/codelabs/basic-android-kotlin-compose-navigation#0) Android codelab 轉換而來。
+若要查看 Compose Multiplatform 導航程式庫的實際運作情況，請查看 [nav_cupcake 專案](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/nav_cupcake)，該專案是從 [使用 Compose 在螢幕之間導航](https://developer.android.com/codelabs/basic-android-kotlin-compose-navigation#0) Android codelab 轉換而來。如需更複雜的範例，請參閱官方的 [KotlinConf](https://github.com/JetBrains/kotlinconf-app) 應用程式。
 
 就像 Jetpack Compose 一樣，若要實作導航，您應該：
 1. [列出路由](https://github.com/JetBrains/compose-multiplatform/blob/a6961385ccf0dee7b6d31e3f73d2c8ef91005f1a/examples/nav_cupcake/composeApp/src/commonMain/kotlin/org/jetbrains/nav_cupcake/CupcakeScreen.kt#L50)，這些路由應包含在導航圖中。每個路由都必須是定義路徑的唯一字串。
@@ -94,13 +94,13 @@ fun main() {
 * 瀏覽器中顯示的 URL 會反映目前的路由（在 URL 片段中，位於 `#` 字元之後）。
 * 應用程式會剖析手動輸入的 URL，將其轉換為應用程式內的目的地。
 
-預設情況下，使用型別安全導航時，目的地會根據 [`kotlinx.serialization` 預設值](https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-core/kotlinx.serialization/-serial-name/) 並附加參數，轉換為 URL 片段：
+預設情況下，使用型別安全導航時，目的地會根據 [`kotlinx.serialization` 預設值](https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-core/kotlinx.serialization/-serial-name/) 並附加引數，轉換為 URL 片段：
 `<app package>.<serializable type>/<argument1>/<argument2>`。
 例如：`example.org#org.example.app.StartScreen/123/Alice%2520Smith`。
 
 ### 自訂路由與 URL 之間的轉換
 
-由於 Compose Multiplatform 應用程式是單頁應用程式（SPA），該框架會操作網址列以模擬常見的 Web 導航。
+由於 Compose Multiplatform 應用程式是單頁應用程式 (SPA)，該框架會操作網址列以模擬常見的 Web 導航。
 如果您希望使您的 URL 更具可讀性並將實作與 URL 模式隔離，您可以直接為螢幕分配名稱，或為目的地路由開發完全自訂的處理方式：
 
 * 若要簡單地使 URL 具備可讀性，請使用 `@SerialName` 註解為可序列化物件或類別明確設定序列化名稱：
@@ -119,10 +119,10 @@ fun main() {
 1. 將選用的 `getBackStackEntryRoute` Lambda 傳遞給 `navController.bindToBrowserNavigation()` 函式，以指定必要時應如何將路由轉換為 URL 片段。
 2. 如果需要，新增程式碼以捕捉網址列中的 URL 片段（當有人點擊或貼上您應用程式的 URL 時），並將 URL 轉換為路由以據此引導使用者。
 
-以下是一個簡單的型別安全導航圖範例，用於後續的 Web 程式碼範例（`commonMain/kotlin/org.example.app/App.kt`）：
+以下是一個簡單的型別安全導航圖範例，用於後續的 Web 程式碼範例 (`commonMain/kotlin/org.example.app/App.kt`)：
 
 ```kotlin
-// 用於導航圖中路由參數的可序列化物件和類別
+// 用於導航圖中路由引數的可序列化物件和類別
 @Serializable data object StartScreen
 @Serializable data class Id(val id: Long)
 @Serializable data class Patient(val name: String, val age: Long)
@@ -189,7 +189,7 @@ fun main() {
                             "#start"
                         }
                         route.startsWith(Id.serializer().descriptor.serialName) -> {
-                            // 存取路由參數
+                            // 存取路由引數
                             val args = entry.toRoute<Id>()
 
                             // 將對應的 URL 片段設定為 "#find_id_222"
