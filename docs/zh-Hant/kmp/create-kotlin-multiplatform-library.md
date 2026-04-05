@@ -247,7 +247,7 @@ kotlin {
 
 我們鼓勵您進一步探索多平台開發：
 
-* [將您的程式庫發佈到 Maven Central](multiplatform-publish-libraries.md)
+* [將您的程式庫發佈到 Maven Central](multiplatform-publish-libraries-to-maven.md)
 * [查看程式庫作者指南](https://kotlinlang.org/docs/api-guidelines-introduction.html)
 
 加入社群：

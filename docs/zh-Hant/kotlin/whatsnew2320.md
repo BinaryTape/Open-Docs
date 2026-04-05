@@ -1,7 +1,3 @@
----
-title: Kotlin 2.3.20 的新功能
----
-
 [//]: # (title: Kotlin 2.3.20 的新功能)
 
 <show-structure depth="1"/>
@@ -18,6 +14,10 @@ Kotlin 2.3.20 正式發佈！以下是主要亮點：
 * **語言**：[支援以名稱為基礎的解構宣告](#name-based-destructuring)
 * **標準程式庫**：[用於建立 `Map.Entry` 不可變複本的新 API](#new-api-for-creating-immutable-copies-of-map-entry)
 * **Kotlin/Native**：[用於 C 和 Objective-C 程式庫的新互通模式](#new-interoperability-mode-for-c-or-objective-c-libraries)
+
+> 如需了解關於 Kotlin 發佈週期的資訊，請參閱 [Kotlin 發佈流程](releases.md)。
+>
+{style="tip"}
 
 ## 更新至 Kotlin 2.3.20
 
@@ -735,7 +735,7 @@ Kotlin 2.2.0 首次帶來了 [Kotlin Gradle 外掛程式中的二進制相容性
 <primary-label ref="experimental-general"/>
 <secondary-label ref="gradle"/>
 
-在 Kotlin 2.3.20 中，Kotlin Gradle 外掛程式中的 Kotlin/JVM 編譯預設使用 [建置工具 API](build-tools-api.md) (BTA)。這項內部編譯基礎設施的更動讓 Kotlin 編譯器的建置工具支援開發速度更快。
+在 Kotlin 2.3.20 中，Kotlin Gradle 外掛程式中的 Kotlin/JVM 編譯預設使用 [建置工具 API](build-tools-api.md) (BTA) by default. 這項內部編譯基礎設施的更動讓 Kotlin 編譯器的建置工具支援開發速度更快。
 
 如果您發現任何問題，請在我們的 [問題追蹤器](https://youtrack.jetbrains.com/newIssue?project=KT&summary=Kotlin+Gradle+plugin+BTA+migration+issue&description=Describe+the+problem+you+encountered+here.&c=tag+kgp-bta-migration) 中分享您的回饋。
 

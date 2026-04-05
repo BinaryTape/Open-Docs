@@ -2,12 +2,11 @@
 <primary-label ref="Experimental"/>
 
 <tldr>
-   <p>Swift Package Manager (SwiftPM) は CocoaPods と同じ役割を果たします。
-   これにより、iOS アプリのネイティブ iOS 依存関係を透過的にオーケストレート（管理）できます。</p>
+   <p>Swift Package Manager (SwiftPM) は CocoaPods と同じ役割を果たします。これにより、iOS アプリのネイティブ iOS 依存関係を透過的にオーケストレート（管理）できます。</p>
    <p>ここでは、KMP プロジェクトで SwiftPM 依存関係をセットアップする方法と、必要に応じて KMP のセットアップを CocoaPods から SwiftPM へ移行する方法について説明します。</p>
 </tldr>
 
-> この機能は[試験的（Experimental）](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained)であり、本番環境での使用を意図したものではありません。
+> この機能は[試験的（Experimental）](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained)です。
 > 発生した問題やフィードバックは、専用の Kotlin Slack チャンネル [#kmp-swift-package-manager](https://kotlinlang.slack.com/archives/C09TW68099C) で共有してください。
 >
 {style="warning"}
@@ -24,89 +23,23 @@ SwiftPM インポート統合を備えた Kotlin Gradle プラグインを使用
 
 プロジェクトを構成するには：
 
-1. [開発環境のセットアップ](#set-up-environment)
-2. [KMP モジュールへの SwiftPM 依存関係の追加](#add-and-call-swiftpm-dependencies)
-3. [インポートされた API の Kotlin コードでの使用](#use-imported-apis)
+1. [開発環境のセットアップ](#set-the-kotlin-multiplatform-gradle-plugin-version)
+2. [KMP モジュールでの SwiftPM 依存関係の追加と使用](#add-and-use-swiftpm-dependencies)
 
-## 開発環境のセットアップ
+## Kotlin Multiplatform Gradle プラグインのバージョン設定
 
-SwiftPM インポート機能を試すには、Kotlin の特定の開発バージョンを使用する必要があります。
-このバージョンは本番環境用ではないことに注意してください。
-<!-- This will be invalidated when 2.4.0-Beta1 comes out. This is when we specify the feature stability level and change the page label. -->
+SwiftPM インポート機能を試すには、Kotlin Multiplatform Gradle プラグインの **%kotlinEapVersion%** バージョンを使用していることを確認してください。
+`gradle/libs.versions.toml` ファイルの例：
 
-Kotlin Multiplatform Gradle プラグインをセットアップするには：
+```text
+[versions]
+kotlin = "%kotlinEapVersion%"
 
-1. `settings.gradle.kts` ファイルで、依存関係とプラグインの開発用パッケージリポジトリを追加します。
-
-    ```kotlin
-    dependencyResolutionManagement {
-        repositories {
-            maven("https://packages.jetbrains.team/maven/p/kt/dev")
-            mavenCentral()
-        }
-    }
-
-    pluginManagement {
-        repositories {
-            maven("https://packages.jetbrains.team/maven/p/kt/dev")
-            mavenCentral()
-            gradlePluginPortal()
-        }
-    }
-    ```
-
-2. バージョンカタログで、Kotlin Multiplatform Gradle プラグインの試験的バージョンを適用します。
-
-    ```text
-    kotlin = "%spmImport%"
-
-    [plugins]
-    kotlin-multiplatform = "%spmImport%"
-    ```
-
-3. Gradle ファイルを同期し、KMP モジュールの `build.gradle.kts` ファイルに `kotlin.swiftPMDependencies {}` ブロックを追加してみます。
-
-   `swiftPMDependencies` 名が解決できない場合は、ルートの `build.gradle.kts` ファイルに以下のブロックを追加して、試験的な Kotlin Multiplatform Gradle プラグインのバージョンを強制してください。
-
-    ```kotlin
-    buildscript {
-        dependencies.constraints {
-            "classpath"("org.jetbrains.kotlin:kotlin-gradle-plugin:%spmImport%")
-        }
-    }
-    ```
-
-### KMP IDE プラグインのセットアップ
-
-KMP プロジェクトに推奨される [Kotlin Multiplatform IDE プラグイン](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform/) を使用している場合は、KMP モジュールからビルドされる iOS プロジェクトへのパスを明示的に指定してください。
-
-`iosTarget.binaries.framework` API を呼び出す `build.gradle.kts` ファイルで、パスを設定する API 呼び出しを追加します。
-
-```kotlin
-kotlin {
-    // iOS ターゲット構成の例
-    listOf(
-        iosArm64(),
-        iosSimulatorArm64(),
-        iosX64(),
-    ).forEach { iosTarget ->
-            iosTarget.binaries.framework { 
-                baseName = "Shared"
-                isStatic = false
-            } 
-    }
-
-    swiftPMDependencies { 
-        // :embedAndSignAppleFrameworkForXcode 統合を使用する
-        // .xcodeproj ファイルへのパスを指定します
-        xcodeProjectPathForKmpIJPlugin.set(
-            layout.projectDirectory.file("../iosApp/iosApp.xcodeproj")
-        )
-    }
-}
+[plugins]
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 ```
 
-## SwiftPM 依存関係の追加と呼び出し
+## SwiftPM 依存関係の追加と使用
 
 > 動作する例については、サンプルプロジェクトを参照してください。
 > `master` ブランチでは各プロジェクトは CocoaPods を使用してセットアップされていますが、`spm_import` ブランチでは SwiftPM を使用しています。
@@ -116,9 +49,9 @@ kotlin {
 >
 {type="tip"}
 
-### ビルドファイルの構成
+### ビルドの構成
 
-特定の SwiftPM 依存関係は、Apple ターゲットが宣言されている `build.gradle.kts` ファイルの `swiftPMDependencies` ブロックに追加できます。
+特定の SwiftPM 依存関係は、Apple ターゲットが宣言されている `build.gradle.kts` ファイルの `swiftPMDependencies {}` ブロックに追加できます。
 例えば、Firebase の場合は以下のようになります。
 
 ```kotlin
@@ -135,7 +68,8 @@ kotlin {
             products = listOf(product("FirebaseAnalytics")),
         )
         // swift-protobuf は Firebase の推移的依存関係であるため、
-        // 特定のバージョンを使用したい場合にのみ含める必要があります
+        // 特定のバージョンを使用したい場合にのみ
+        // 含める必要があります
         swiftPackage(
             url = url("https://github.com/apple/swift-protobuf.git"),
             version = exact("1.32.0"),
@@ -185,7 +119,7 @@ kotlin {
 一部の SwiftPM 依存関係は、ビルドスクリプト内のすべてのターゲットに対してコンパイルできなかったり、有効な API を提供できなかったりする場合があります。
 例えば、Google Maps SDK は現在 iOS ターゲットのみをサポートしています。
 
-そのため、プロジェクトが iOS のみをターゲットとしている場合は、プラットフォームを明示的に宣言する必要はありません。
+プロジェクトが iOS のみをターゲットとしている場合は、プラットフォームを明示的に宣言する必要はありません。
 しかし、macOS などの別のターゲットを追加した場合は、各依存関係に対してプラットフォーム制約を指定する必要があります。
 
 依存関係が関連するコンパイルにのみ適用されるようにするには、`product` 指定の `platforms` パラメーターで正しいターゲットを指定します。
@@ -216,6 +150,21 @@ kotlin {
 }
 ```
 
+### SwiftPM 統合タスクの実行
+
+SwiftPM インポートツールは、現在の SwiftPM 依存関係のリストを追跡するための中間パッケージを生成します。
+プロジェクトに初めて SwiftPM 依存関係を追加するときは、生成されたパッケージを Xcode プロジェクトにリンクする必要があります。
+
+これを行うには、プロジェクトのディレクトリで以下のコマンドを使用して、専用の Gradle タスクを実行します。
+
+```shell
+XCODEPROJ_PATH='/path/to/project/iosApp/iosApp.xcodeproj' ./gradlew :kotlin-library:integrateLinkagePackage
+```
+
+このコマンドは SwiftPM パッケージを生成し、Xcode プロジェクトに必要な変更を加えます。生成されたパッケージと更新された Xcode プロジェクトは、必ずリポジトリにコミットしてください。
+
+最初の統合後は、SwiftPM 依存関係のセットやそのバージョンを変更するたびに、合成パッケージが自動的に更新されます。
+
 ### インポートされた API の使用
 
 インポートされた Objective-C API は、`swiftPMImport` プレフィックスで始まり、プロジェクトとそのグループの Gradle 名で終わる名前空間に含まれます。
@@ -228,13 +177,24 @@ group = "groupName"
 ```
 
 ここで、`groupName` はプロジェクトの Gradle グループ名であり、`subproject` はプロジェクト名です。
-これで、そのモジュールの `iosMain` ソースセットで Firebase API をインポートできます。
+これで、そのモジュールの `iosMain` ソースセットで Firebase API をインポートできます。例：
 
 ```kotlin
 // subproject/src/iosMain/kotlin/useFirebaseAnalytics.kt
 import swiftPMImport.groupName.subproject.FIRAnalytics
 import swiftPMImport.groupName.subproject.FIRApp
 ```
+
+## 生成される `Package.resolved` ファイル
+
+Swift パッケージに依存するビルドをより安定させるために、SwiftPM インポートツールはロックメカニズムを導入しています。最初のパッケージ解決中に生成された `Package.resolved` ファイルがプロジェクトのディレクトリにコピーされ、以降のビルドで再利用されます。
+
+このロックファイルは、ビルドスクリプトで SwiftPM 依存関係のセットやバージョンを変更すると自動的に更新されます。
+
+ロックファイルを手動で強制的に更新したい場合は：
+
+1. `build` ディレクトリと既存の `Package.resolved` ファイルを削除します。
+2. 依存関係解決タスクを再度実行します： `./gradlew :yourModuleName:fetchSyntheticImportProjectPackages`。
 
 ## 追加のインポートオプション
 
@@ -290,7 +250,7 @@ fun useExamplePackage() {
 }
 ```
 
-### 特定のデプロイメントバージョン
+### 特定のデプロイメントターゲット
 
 依存関係により高い[デプロイメントバージョン（deployment version）](https://developer.apple.com/documentation/packagedescription/supportedplatform)が必要な場合は、`*MinimumDeploymentTarget` パラメーターで指定します。例えば、iOS の場合は以下のようになります。
 

@@ -23,14 +23,14 @@
 
 ## 更新你的构建脚本
 
-要更新你的 `build.gradle.kts` 文件，请按照 SwiftPM 导入页面上的说明进行操作：
+要更新你的构建，请按照 SwiftPM 导入页面上的说明进行操作：
 
-1. [将 Kotlin Multiplatform Gradle 插件版本更改为 **%spmImport%**](multiplatform-spm-import.md#set-up-environment)
-2. [在不禁用 CocoaPods 插件或移除 CocoaPods 依赖项的情况下，添加必要的 SwiftPM 依赖项](multiplatform-spm-import.md#add-and-call-swiftpm-dependencies)
+1. [将 Kotlin Multiplatform Gradle 插件版本更改为 **%kotlinEapVersion%**](multiplatform-spm-import.md#set-the-kotlin-multiplatform-gradle-plugin-version)
+2. [在不禁用 CocoaPods 插件或移除 CocoaPods 依赖项的情况下，指定必要的 SwiftPM 依赖项](multiplatform-spm-import.md#add-and-use-swiftpm-dependencies)
 
 例如，如果你正在使用 `FirebaseAnalytics` pod：
 
-1. 确保你已[设置 Kotlin Multiplatform Gradle 插件](multiplatform-spm-import.md#set-up-environment)以使用版本 **%spmImport%**。 
+1. 确保你已设置 Kotlin Multiplatform Gradle 插件以使用版本 **%kotlinEapVersion%**。 
 2. 将 `FirebaseAnalytics` Swift 软件包添加到 `swiftPMDependencies {}` 块中：
 
    ```kotlin

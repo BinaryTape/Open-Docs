@@ -11,7 +11,11 @@
 
 Kotlin/Native 提供了與 [CocoaPods 相依性管理器](https://cocoapods.org/) 的整合。您可以新增對 Pod 程式庫的相依性，也可以將 Kotlin 專案作為 CocoaPods 相依性使用。
 
-您可以直接在 IntelliJ IDEA 或 Android Studio 中管理 Pod 相依性，並享有程式碼高亮顯示與補全等所有額外功能。您可以使用 Gradle 組建整個 Kotlin 專案，而無需切換到 Xcode。 
+> CocoaPods 整合方法無法與用於 [直接整合](multiplatform-direct-integration.md) 的 `embedAndSignAppleFrameworkForXcode` 機制同時使用。
+>
+{style="warning"}
+
+您可以直接在 IntelliJ IDEA 或 Android Studio 中管理 Pod 相依性，並享有程式碼醒目提示與補全等所有額外功能。您可以使用 Gradle 組建整個 Kotlin 專案，而無需切換到 Xcode。 
 
 只有在您想要變更 Swift/Objective-C 程式碼，或在 Apple 模擬器或裝置上執行應用程式時，才需要 Xcode。若要使用 Xcode，請先 [更新您的 Podfile](#update-podfile-for-xcode)。
 
@@ -181,7 +185,7 @@ sudo gem install cocoapods
     >
     {style="note"}
     
-3. 在 IntelliJ IDEA 中執行 **組建 (Build)** | **Reload All Gradle Projects**（或在 Android Studio 中執行 **File** | **Sync Project with Gradle Files**）以重新匯入專案。
+3. 在 IntelliJ IDEA 中執行 **Build** | **Reload All Gradle Projects**（或在 Android Studio 中執行 **File** | **Sync Project with Gradle Files**）以重新匯入專案。
 4. 產生 [Gradle 包裝函式](https://docs.gradle.org/current/userguide/gradle_wrapper.html) 以避免 Xcode 組建期間出現相容性問題。
 
 套用後，CocoaPods 外掛程式會執行以下操作：
@@ -225,7 +229,7 @@ sudo gem install cocoapods
 
    當您第一次執行 `pod install` 時，它會建立 `.xcworkspace` 檔案。此檔案包含您原本的 `.xcodeproj` 和 CocoaPods 專案。
 3. 關閉您的 `.xcodeproj` 並改為開啟新的 `.xcworkspace` 檔案。這樣可以避免專案相依性問題。
-4. 在 IntelliJ IDEA 中執行 **組建 (Build)** | **Reload All Gradle Projects**（或在 Android Studio 中執行 **File** | **Sync Project with Gradle Files**）以重新匯入專案。
+4. 在 IntelliJ IDEA 中執行 **Build** | **Reload All Gradle Projects**（或在 Android Studio 中執行 **File** | **Sync Project with Gradle Files**）以重新匯入專案。
 
 如果您未在 Podfile 中進行這些變更，`podInstall` 任務將會失敗，且 CocoaPods 外掛程式會在日誌中顯示錯誤訊息。
 

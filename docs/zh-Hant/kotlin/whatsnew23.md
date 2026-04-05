@@ -208,7 +208,7 @@ fun main() {
 }
 ```
 
-如需更多資訊，請參閱該特性的 [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0412-unused-return-value-checker.md)。
+如需更多資訊，請參閱該特性的 [KEEP]( https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0412-unused-return-value-checker.md)。
 
 我們歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-12719) 中提供意見回饋。
 
@@ -216,6 +216,10 @@ fun main() {
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.3.0 引入了明確支援欄位 (explicit backing fields) —— 這是一種用於明確宣告持有屬性值的底層欄位的新語法，與現有的隱式支援欄位形成對比。
+
+您可以在下方的影片中查看此功能的概覽：
+
+<video src="https://www.youtube.com/v/PU-VdH8HhVA" title="Explicit Backing Fields are experimental in Kotlin 2.3"/>
 
 當屬性的內部型別與其公開的 API 型別不同時，新的明確語法簡化了常見的支援屬性 (backing properties) 模式。例如，您可能會使用 `ArrayList`，但將其公開為唯讀的 `List` 或 `MutableList`。以前這需要一個額外的私有屬性。
 

@@ -144,7 +144,7 @@ fun displayDate() {
 @FlowPreview
 ```
 
-または、`@OptIn` を使用します。
+または、代わりに `@OptIn` を使用します。
 
 ```kotlin
 @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)

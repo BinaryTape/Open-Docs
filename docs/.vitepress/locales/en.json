@@ -51,7 +51,7 @@
   "kotlin.kotlin-overview": "Kotlin overview",
   "kotlin.what-s-new-in-kotlin": "What's new in Kotlin",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.3.20-RC3",
+  "kotlin.whatsnew-eap": "Kotlin 2.4.0-Beta1",
   "kotlin.earlier-versions": "Earlier versions",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -617,5 +617,6 @@
   "kotlin.multiplatform-gradle-dsl": "Multiplatform Gradle DSL",
   "kotlin.earlier-kotlin-releases": "Earlier Kotlin releases",
   "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-beta01",
-  "koog.rag": "RAG"
+  "koog.rag": "RAG",
+  "kotlin.backend-development": "Backend development"
 }

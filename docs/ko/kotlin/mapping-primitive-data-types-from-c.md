@@ -23,7 +23,7 @@
 * [내보내기(export) 시 해당 타입들을 사용하는 C 라이브러리 만들기](#create-a-c-library)
 * [C 라이브러리로부터 생성된 Kotlin API 검사하기](#inspect-generated-kotlin-apis-for-a-c-library)
 
-명령줄을 사용하여 직접 또는 스크립트 파일(`.sh` 또는 `.bat` 파일)을 통해 Kotlin 라이브러리를 생성할 수 있습니다. 하지만 이 방식은 수백 개의 파일과 라이브러리가 있는 대규모 프로젝트에는 적합하지 않습니다. 빌드 시스템을 사용하면 전이 의존성(transitive dependencies)이 포함된 Kotlin/Native 컴파일러 바이너리와 라이브러리를 다운로드하고 캐싱하며, 컴파일러와 테스트를 실행하는 과정을 간소화할 수 있습니다. Kotlin/Native는 [Kotlin 멀티플랫폼 플러그인](gradle-configure-project.md#targeting-multiple-platforms)을 통해 [Gradle](https://gradle.org) 빌드 시스템을 사용할 수 있습니다.
+명령줄을 사용하여 직접 또는 스크립체 파일(`.sh` 또는 `.bat` 파일)을 통해 Kotlin 라이브러리를 생성할 수 있습니다. 하지만 이 방식은 수백 개의 파일과 라이브러리가 있는 대규모 프로젝트에는 적합하지 않습니다. 빌드 시스템을 사용하면 전이 의존성(transitive dependencies)이 포함된 Kotlin/Native 컴파일러 바이너리와 라이브러리를 다운로드하고 캐싱하며, 컴파일러와 테스트를 실행하는 과정을 간소화할 수 있습니다. Kotlin/Native는 [Kotlin 멀티플랫폼 플러그인](gradle-configure-project.md#targeting-multiple-platforms)을 통해 [Gradle](https://gradle.org) 빌드 시스템을 사용할 수 있습니다.
 
 ## C 언어의 타입
 
@@ -103,28 +103,32 @@ C 라이브러리를 생성하려면:
     <tab title="Kotlin" group-key="kotlin">
 
     ```kotlin
+    import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
     plugins {
         kotlin("multiplatform") version "%kotlinVersion%"
     }
-    
+
     repositories {
         mavenCentral()
     }
-    
+
     kotlin {
-        macosArm64("native") {    // Apple Silicon 기반 macOS
-        // linuxArm64("native") { // ARM64 플랫폼 기반 Linux 
-        // linuxX64("native") {   // x86_64 플랫폼 기반 Linux
-        // mingwX64("native") {   // Windows
+        macosArm64()    // Apple Silicon 기반 macOS
+        // linuxArm64() // ARM64 플랫폼 기반 Linux
+        // linuxX64()   // x86_64 플랫폼 기반 Linux
+        // mingwX64()   // x86_64 플랫폼 기반 Windows
+
+        targets.withType<KotlinNativeTarget>().configureEach {
             val main by compilations.getting
             val interop by main.cinterops.creating
-        
+
             binaries {
                 executable()
             }
         }
     }
-    
+
     tasks.wrapper {
         gradleVersion = "%gradleVersion%"
         distributionType = Wrapper.DistributionType.BIN
@@ -135,29 +139,33 @@ C 라이브러리를 생성하려면:
     <tab title="Groovy" group-key="groovy">
 
     ```groovy
+    import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
     plugins {
         id 'org.jetbrains.kotlin.multiplatform' version '%kotlinVersion%'
     }
-    
+
     repositories {
         mavenCentral()
     }
-    
+
     kotlin {
-        macosArm64("native") {    // Apple Silicon macOS
-        // linuxArm64("native") { // ARM64 플랫폼 기반 Linux
-        // linuxX64("native") {   // x86_64 플랫폼 기반 Linux
-        // mingwX64("native") {   // Windows
+        macosArm64()    // Apple Silicon 기반 macOS
+        // linuxArm64() // ARM64 플랫폼 기반 Linux
+        // linuxX64()   // x86_64 플랫폼 기반 Linux
+        // mingwX64()   // Windows
+
+        targets.withType(KotlinNativeTarget).configureEach {
             compilations.main.cinterops {
-                interop 
+                interop
             }
-        
+
             binaries {
                 executable()
             }
         }
     }
-    
+
     wrapper {
         gradleVersion = '%gradleVersion%'
         distributionType = 'BIN'
@@ -183,7 +191,7 @@ C 라이브러리를 생성하려면:
     @OptIn(ExperimentalForeignApi::class)
     fun main() {
         println("Hello Kotlin/Native!")
-      
+
         ints(/* fix me*/)
         uints(/* fix me*/)
         doubles(/* fix me*/)
@@ -230,17 +238,17 @@ import kotlinx.cinterop.ExperimentalForeignApi
 @OptIn(ExperimentalForeignApi::class)
 fun main() {
     println("Hello Kotlin/Native!")
-  
+
     ints(1, 2, 3, 4)
     uints(5u, 6u, 7u, 8u)
     doubles(9.0f, 10.0)
 }
 ```
 
-모든 것이 예상대로 작동하는지 확인하려면 [IDE에서](native-get-started.md#build-and-run-the-application) `runDebugExecutableNative` Gradle 태스크를 실행하거나 다음 명령을 사용하여 코드를 실행합니다:
+모든 것이 예상대로 작동하는지 확인하려면 [IDE에서](native-get-started.md#build-and-run-the-application) `runDebugExecutable<YourTargetName>` Gradle 태스크를 실행하거나 터미널에서 다음 명령을 사용하여 코드를 실행합니다(이 예제의 경우):
 
 ```bash
-./gradlew runDebugExecutableNative
+./gradlew runDebugExecutableMacosArm64
 ```
 
 ## 다음 단계

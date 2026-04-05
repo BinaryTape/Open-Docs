@@ -12,7 +12,11 @@
 要新增 Pod 相依性，請在共用模組的 `build.gradle(.kts)` 檔案中呼叫 `pod()` 函式。
 每個相依性都需要單獨的函式呼叫。您可以在該函式的配置區塊中指定相依性的參數。
 
-* 當您新增相依性並在 IDE 中重新匯入專案時，該程式庫將會自動連接。
+> CocoaPods 整合方式無法與用於 [直接整合](multiplatform-direct-integration.md) 的 `embedAndSignAppleFrameworkForXcode` 機制同時使用。
+>
+{style="warning"}
+
+* 當您新增新的相依性並在 IDE 中重新匯入專案時，該程式庫將會自動連接。
 * 要在 Xcode 中使用您的 Kotlin 專案，請先[對專案的 Podfile 進行變更](multiplatform-cocoapods-overview.md#update-podfile-for-xcode)。
 
 > 如果您沒有指定最低部署目標版本，而相依的 Pod 需要更高的部署目標，則會發生錯誤。

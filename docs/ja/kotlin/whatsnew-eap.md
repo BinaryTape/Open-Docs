@@ -2,7 +2,9 @@
 
 <primary-label ref="eap"/>
 
-<web-summary>Kotlin Early Access Preview（EAP）のリリースノートを確認し、正式リリース前の最新の実験的機能を試してみましょう。</web-summary>
+<show-structure depth="1"/>
+
+<web-summary>Kotlin Early Access Preview (EAP) のリリースノートを確認し、正式リリース前の最新の実験的 Kotlin 機能を試してみましょう。</web-summary>
 
 _[リリース日: %kotlinEapReleaseDate%](eap.md#build-details)_
 
@@ -14,184 +16,301 @@ _[リリース日: %kotlinEapReleaseDate%](eap.md#build-details)_
 
 Kotlin %kotlinEapVersion% がリリースされました！この EAP リリースの主な内容は以下の通りです。
 
-* **Kotlin コンパイラプラグイン**: [Lombok が Alpha に昇格](#lombok-is-now-alpha)、[`kotlin.plugin.jpa` プラグインにおける JPA サポートの向上](#improved-jpa-support-in-the-kotlin-plugin-jpa-plugin)
-* **Kotlin/Native**: [C および Objective-C ライブラリ用の新しい相互運用モード](#kotlin-native-new-interoperability-mode-for-c-or-objective-c-libraries)
-* **Gradle**: [Gradle 9.3.0 との互換性](#compatibility-with-gradle-9-3-0)、[Kotlin/JVM コンパイルでデフォルトで BTA を使用](#kotlin-jvm-compilation-uses-build-tools-api-by-default)
-* **Maven**: [Kotlin プロジェクト向けのセットアップの簡素化](#maven-simplified-setup-for-kotlin-projects)
-* **標準ライブラリ**: [Map.Entry の不変コピーを作成するための新しい API](#standard-library-new-api-for-creating-immutable-copies-of-map-entry)
+* **言語**: [コンテキストパラメータの Stable 化と、アノテーションの使用箇所ターゲット向けの複数の機能](#stable-features-context-parameters-and-features-for-annotation-use-site-targets)
+* **標準ライブラリ**: [符号なし整数を `BigInteger` に変換するための新しい API](#new-api-for-converting-unsigned-integers-to-biginteger-on-the-jvm) および [ソート順を確認するためのサポート](#support-for-checking-sorted-order)
+* **Kotlin/JVM**: [Java 26 のサポート](#support-for-java-26) および [メタデータ内のアノテーションをデフォルトで有効化](#annotations-in-metadata-enabled-by-default)
+* **Kotlin/Native**: [依存関係としての Swift パッケージのサポート](#swift-package-import)
+* **Kotlin コンパイラ**: [`.klib` コンパイル中のより一貫したインライン関数の動作](#consistent-intra-module-function-inlining-during-klib-compilation)
 
 > Kotlin のリリースサイクルに関する情報は、[Kotlin のリリースプロセス](releases.md)を参照してください。
 >
 {style="tip"}
 
-## IDE サポート
+## Kotlin %kotlinEapVersion% へのアップデート
 
-%kotlinEapVersion% をサポートする Kotlin プラグインは、IntelliJ IDEA および Android Studio の最新バージョンに同梱されています。
-IDE で Kotlin プラグインを更新する必要はありません。
-ビルドスクリプト内の [Kotlin バージョンを %kotlinEapVersion% に変更](configure-build-for-eap.md)するだけで利用できます。
+最新バージョンの Kotlin は、最新バージョンの [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) および [Android Studio](https://developer.android.com/studio) に含まれています。
 
-詳細は [新しいリリースへのアップデート](releases.md#update-to-a-new-kotlin-version) を参照してください。
+新しい Kotlin バージョンにアップデートするには、IDE が最新バージョンに更新されていることを確認し、ビルドスクリプト内の [Kotlin バージョンを %kotlinEapVersion% に変更](releases.md#update-to-a-new-kotlin-version)してください。
 
-## Kotlin コンパイラプラグイン
+## 新機能 {id=new-stable-features}
+<primary-label ref="stable"/>
 
-Kotlin %kotlinEapVersion% では、Lombok および `kotlin.plugin.jpa` コンパイラプラグインに重要なアップデートが行われました。
+以前の Kotlin リリースでは、いくつかの新機能が実験的 (Experimental) として導入されました。以下の機能は、Kotlin %kotlinEapVersion% で [Stable (安定版)](components-stability.md#stability-levels-explained) に昇格したため、使用するためにオプトインする必要はなくなりました。
 
-### Lombok が Alpha になりました
-<primary-label ref="alpha"/>
+* [コンテキストパラメータ (Context parameters)](whatsnew22.md#preview-of-context-parameters)（ただし、[明示的なコンテキスト引数](#explicit-context-arguments-for-context-parameters)および [呼び出し可能参照](https://github.com/Kotlin/KEEP/blob/context-parameters/proposals/context-parameters.md#callable-references)を除く）
+* [アノテーションの使用箇所ターゲット向けの機能](whatsnew22.md#preview-of-features-for-annotation-use-site-targets)
+* [JVM 上で符号なし整数を `BigInteger` に変換するための新しい API](#new-api-for-converting-unsigned-integers-to-biginteger-on-the-jvm)
+* [ソート順を確認するためのサポート](#support-for-checking-sorted-order)
 
-Kotlin 1.5.20 では、Kotlin と Java のコードが混在するモジュールで [Java の Lombok 宣言](https://projectlombok.org/)を生成および使用できるようにする、実験的な [Lombok コンパイラプラグイン](lombok.md)が導入されました。
+## 新機能 {id=new-experimental-features}
+<primary-label ref="experimental-exp"/>
 
-%kotlinEapVersion% では、Lombok コンパイラプラグインが [Alpha](components-stability.md#stability-levels-explained) に昇格しました。これは、この機能を製品レベルに引き上げる計画があることを意味しますが、現在も開発中であることを示しています。
+* [コンテキストパラメータ向けの明示的なコンテキスト引数](#explicit-context-arguments-for-context-parameters)
+* [Swift パッケージのインポート](#swift-package-import)
 
-### `kotlin.plugin.jpa` プラグインにおける JPA サポートの向上
+## 言語
 
-`kotlin.plugin.jpa` プラグインは、既存の [`no-arg`](no-arg-plugin.md) サポートに加えて、新しく追加された組み込みの JPA プリセットを使用して [`all-open`](all-open-plugin.md) コンパイラプラグインを自動的に適用するようになりました。
+Kotlin %kotlinEapVersion% では、コンテキストパラメータとアノテーションの使用箇所ターゲット機能が [Stable](components-stability.md#stability-levels-explained) に昇格しました。また、このリリースでは[コンテキストパラメータ向けの明示的なコンテキスト引数](#explicit-context-arguments-for-context-parameters)が導入されています。
 
-以前は、`kotlin("plugin.jpa")` を使用すると JPA プリセットを使用した `no-arg` プラグインのみが有効になっていました。そのため、JPA エンティティを扱う際には、JPA エンティティクラスを `open` にするために、`all-open` プラグインを明示的に適用して設定する必要がありました。
+### Stable な機能: コンテキストパラメータとアノテーションの使用箇所ターゲット向けの機能
+<secondary-label ref="language"/>
 
-Kotlin %kotlinEapVersion% 以降では：
+Kotlin 2.2.0 では、いくつかの言語機能が [実験的 (Experimental)](components-stability.md#stability-levels-explained) として導入されました。本リリースにおいて、以下の言語機能が [Stable](components-stability.md#stability-levels-explained) になったことをお知らせします。
 
-* `all-open` コンパイラプラグインが JPA プリセットを提供します。
-* Gradle の `org.jetbrains.kotlin.plugin.jpa` プラグインは、JPA プリセットを有効にした状態で `org.jetbrains.kotlin.plugin.all-open` プラグインを自動的に適用します。
-* [Maven の JPA セットアップ](no-arg-plugin.md#jpa-support)では、デフォルトで JPA プリセットを使用した `all-open` が有効になります。
-* Maven 依存関係の `org.jetbrains.kotlin:kotlin-maven-noarg` に `org.jetbrains.kotlin:kotlin-maven-allopen` が暗黙的に含まれるようになったため、`<plugin><dependencies>` ブロックに明示的に追加する必要がなくなりました。
+* [コンテキストパラメータ](whatsnew22.md#preview-of-context-parameters)（ただし、[明示的なコンテキスト引数](#explicit-context-arguments-for-context-parameters)および [呼び出し可能参照](https://github.com/Kotlin/KEEP/blob/context-parameters/proposals/context-parameters.md#callable-references)を除く）
+* [アノテーションの使用箇所ターゲット向けの機能](whatsnew22.md#preview-of-features-for-annotation-use-site-targets)
 
-その結果、以下の注釈が付いた JPA エンティティは、追加の設定なしで自動的に `open` として扱われ、引数なしのコンストラクタが生成されます。
+[Kotlin の言語デザイン機能と提案の全リストについてはこちらをご覧ください](kotlin-language-features-and-proposals.md)。
 
-* `javax.persistence.Entity`
-* `javax.persistence.Embeddable`
-* `javax.persistence.MappedSuperclass`
-* `jakarta.persistence.Entity`
-* `jakarta.persistence.Embeddable`
-* `jakarta.persistence.MappedSuperclass`
-
-この変更により、ビルド構成が簡素化され、JPA フレームワークで Kotlin を使用する際の初期状態での使い勝手が向上します。
-
-## Kotlin/Native: C および Objective-C ライブラリ用の新しい相互運用モード
+### コンテキストパラメータ向けの明示的なコンテキスト引数
 <primary-label ref="experimental-opt-in"/>
+<secondary-label ref="language"/>
 
-Kotlin Multiplatform ライブラリまたはアプリケーションで C または Objective-C ライブラリを使用している場合は、新しい相互運用（interoperability）モードをテストし、結果を共有してください。
+Kotlin %kotlinEapVersion% では、[コンテキストパラメータ](context-parameters.md)に対して明示的なコンテキスト引数を渡せるようになりました。
 
-一般的に、Kotlin/Native では C および Objective-C ライブラリを Kotlin にインポートできます。しかし、Kotlin Multiplatform ライブラリの場合、この機能は現在、古いコンパイラバージョンとの KMP 互換性の問題による[影響を受けています](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import)。
+Kotlin 2.3.20 では、[コンテキストパラメータのオーバーロード解決が変更されました](whatsnew2320.md#changes-to-overload-resolution-for-context-parameters)。その結果、コンテキストパラメータのみが異なるオーバーロードの呼び出しが曖昧になる可能性があります。
 
-つまり、ある Kotlin バージョンでコンパイルされた Kotlin Multiplatform ライブラリを公開すると、C または Objective-C ライブラリをインポートしていることが原因で、それより前の Kotlin バージョンのプロジェクトでその Kotlin ライブラリを使用できなくなる可能性があります。
+呼び出し側で明示的なコンテキスト引数を渡すことで、この曖昧さを解決できるようになりました。
 
-この問題やその他の課題に対処するため、Kotlin チームは内部で使用されている相互運用メカニズムを刷新してきました。Kotlin 2.3.20-Beta1 以降、コンパイラオプションを通じてこの新しいモードを試すことができます。
+例を以下に示します。
 
-#### 試用方法
+```kotlin
+class EmailSender
+class SmsSender
 
-1. Gradle ビルドファイルに `cinterops {}` ブロックまたは `pod()` 依存関係があるか確認してください。これらがある場合、プロジェクトは C または Objective-C ライブラリを使用しています。
-2. プロジェクトで `2.3.20-Beta1` 以降のバージョンを使用していることを確認してください。
-3. 同じビルドファイルで、cinterop ツールの呼び出しに `-Xccall-mode` コンパイラオプションを追加します。
+context(emailSender: EmailSender)
+fun sendNotification() {
+    println("Sent email notification")
+}
 
-    ```kotlin
-    kotlin {
-        targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().configureEach {
-            compilations.configureEach {
-                cinterops.configureEach {
-                    extraOpts += listOf("-Xccall-mode", "direct")
-                }
-            }
-        }
+context(smsSender: SmsSender)
+fun sendNotification() {
+    println("Sent SMS notification")
+}
+
+context(defaultEmailSender: EmailSender, defaultSmsSender: SmsSender)
+fun notifyUser() {
+    
+    // EmailSender コンテキストパラメータを持つオーバーロードを選択します
+    sendNotification(emailSender = defaultEmailSender)
+
+    // SmsSender コンテキストパラメータを持つオーバーロードを選択します
+    sendNotification(smsSender = defaultSmsSender)
+}
+```
+
+また、`context()` 関数の代わりに明示的なコンテキスト引数を使用して、ネストを減らし、一部の呼び出しを読みやすくすることもできます。複数の呼び出しで同じコンテキスト引数を使用する必要がある場合は、引き続き `context()` 関数を使用してください。
+
+この機能は [実験的 (Experimental)](components-stability.md#stability-levels-explained) です。オプトインするには、ビルドファイルに以下のコンパイラオプションを追加してください。
+
+<tabs group="build-system">
+<tab title="Gradle" group-key="gradle">
+
+```kotlin
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xexplicit-context-arguments")
     }
-    ```
+}
+```
 
-4. 通常通り、ユニットテストやアプリの実行などを行ってプロジェクトをビルドおよびテストします。
-
-    `--continue` オプションを使用すると、失敗が発生しても Gradle がタスクの実行を継続できるため、一度に多くの問題を見つけるのに役立ちます。
-
-> 新しい相互運用モードはまだ [実験的（Experimental）](components-stability.md#stability-levels-explained) な段階であるため、このモードでコンパイルされたライブラリをまだ公開**しないでください**。
->
-{style="warning"}
-
-#### 結果の報告
-
-新しい相互運用モードは、ほとんどの場合、そのまま置き換え可能なもの（drop-in replacement）となる予定です。
-最終的にはデフォルトで有効にすることを計画しています。しかし、それを実現するためには、できるだけ確実に動作することを確認し、幅広いプロジェクトでテストする必要があります。その理由は以下の通りです。
-
-* 一部の C および Objective-C 宣言は、新しいモードではまだサポートされていません（主に互換性の問題と衝突するため）。これによる実環境への影響をより正確に把握し、今後のステップの優先順位を決定したいと考えています。
-* バグや考慮漏れがある可能性があります。多数の機能が相互に作用する言語のテストは困難であり、独自の機能セットを持つ言語間の相互作用をテストすることはさらに困難です。
-
-実世界のプロジェクトを調査し、困難なケースを特定するためにご協力ください。
-問題が発生したかどうかにかかわらず、結果を [この YouTrack イシュー](https://youtrack.jetbrains.com/issue/KT-83218) のコメントで共有してください。
-
-## Gradle
-
-Kotlin %kotlinEapVersion% は Gradle の新しいバージョンと互換性があり、Kotlin Gradle プラグインにおける Kotlin/JVM コンパイルに変更が含まれています。
-
-### Gradle 9.3.0 との互換性
-
-Kotlin %kotlinEapVersion% は Gradle 7.6.3 から 9.3.0 と完全に互換性があります。最新の Gradle リリースまでのバージョンも使用できますが、その場合は非推奨（deprecation）の警告が表示されたり、一部の新しい Gradle 機能が動作しなかったりする可能性があることに注意してください。
-
-### Kotlin/JVM コンパイルでデフォルトで Build tools API を使用
-<primary-label ref="experimental-general"/>
-
-Kotlin %kotlinEapVersion% では、Kotlin Gradle プラグインにおける Kotlin/JVM コンパイルで [Build tools API](build-tools-api.md) (BTA) がデフォルトで使用されます。内部コンパイル インフラストラクチャにおけるこの変更により、Kotlin コンパイラのビルドツール サポートをより迅速に開発できるようになります。
-
-問題に気付いた場合は、[イシュートラッカー](https://youtrack.jetbrains.com/newIssue?project=KT&summary=Kotlin+Gradle+plugin+BTA+migration+issue&description=Describe+the+problem+you+encountered+here.&c=tag+kgp-bta-migration) でフィードバックを共有してください。
-
-## Maven: Kotlin プロジェクト向けのセットアップの簡素化
-
-Kotlin %kotlinEapVersion% では、Maven プロジェクトでの Kotlin のセットアップがより簡単になります。Kotlin がソースルートと Kotlin 標準ライブラリの自動構成をサポートするようになりました。
-
-新しい構成により、Maven ビルドシステムで新しい Kotlin プロジェクトを作成したり、既存の Java Maven プロジェクトに Kotlin を導入したりする際に、POM ビルドファイルで手動でソースルートを作成したり、`kotlin-stdlib` の依存関係を追加したりする必要がなくなります。
-
-### 有効化の方法
-
-`pom.xml` ファイルで、Kotlin Maven プラグインの `<build><plugins>` セクションに `<extensions>true</extensions>` を追加します。
+</tab>
+<tab title="Maven" group-key="maven">
 
 ```xml
 <build>
     <plugins>
-         <plugin>
-             <groupId>org.jetbrains.kotlin</groupId>
-             <artifactId>kotlin-maven-plugin</artifactId>
-             <version>%kotlinEapVersion%</version>
-             <extensions>true</extensions> <!-- この拡張を追加 -->
-         </plugin>
+        <plugin>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-maven-plugin</artifactId>
+            <configuration>
+                <args>
+                    <arg>-Xexplicit-context-arguments</arg>
+                </args>
+            </configuration>
+        </plugin>
     </plugins>
 </build>
 ```
 
-この新しい拡張により、以下が自動的に行われます：
+</tab>
+</tabs>
 
-* 既存の Kotlin または Java のソースルートを変更することなく、`src/main/kotlin` および `src/test/kotlin` ディレクトリを作成します。
-* `kotlin-stdlib` の依存関係がまだ定義されていない場合、これを追加します。
+詳細については、この機能の [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0448-explicit-context-arguments.md) を参照してください。
 
-Kotlin 標準ライブラリの自動追加を無効にすることもできます。その場合は、`<properties>` セクションに以下を追加してください：
+## 標準ライブラリ
 
-```xml
-<project>
-    <properties>
-        <!-- プロパティを介してスマートデフォルトを無効化 -->
-        <kotlin.smart.defaults.enabled>false</kotlin.smart.defaults.enabled>
-    </properties>
-</project>
-```
+Kotlin %kotlinEapVersion% では、JVM 上で符号なし整数を `BigInteger` に変換するための新しい拡張関数が追加されました。また、iterable、配列、および sequence におけるソート順のチェックのサポートも追加されています。
 
-Kotlin プロジェクトにおける Maven 構成の詳細については、[Maven プロジェクトの構成](maven-configure-project.md)を参照してください。
+### JVM 上で符号なし整数を `BigInteger` に変換するための新しい API
+<secondary-label ref="standard-library"/>
 
-## 標準ライブラリ: Map.Entry の不変コピーを作成するための新しい API
-<primary-label ref="experimental-opt-in"/>
+Kotlin %kotlinEapVersion% では、JVM 上に `UInt.toBigInteger()` および `ULong.toBigInteger()` 拡張関数が導入されました。
 
-Kotlin %kotlinEapVersion% では、[`Map.Entry`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/-entry/) の不変コピーを作成するための `Map.Entry.copy()` 拡張関数が導入されました。
-この関数を使用すると、マップを変更した後に、あらかじめコピーしておいた [`Map.entries`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/entries.html) から取得したエントリを再利用できます。
+以前は、`UInt` や `ULong` の値を `BigInteger` に変換するには、文字列ベースのワークアラウンドやカスタムの変換ロジックが必要でした。Kotlin %kotlinEapVersion% 以降では、`.toBigInteger()` を使用して符号なし整数の値を直接 `BigInteger` に変換できます。
 
-`Map.Entry.copy()` は [実験的（Experimental）](components-stability.md#stability-levels-explained) です。オプトインするには、`@OptIn(ExperimentalStdlibApi::class)` 注釈を使用するか、コンパイラオプション `-opt-in=kotlin.ExperimentalStdlibApi` を使用してください。
-
-以下は、`Map.Entry.copy()` を使用して可変マップからエントリを削除する例です：
+例を以下に示します。
 
 ```kotlin
-@OptIn(ExperimentalStdlibApi::class)
 fun main() {
-    val map = mutableMapOf(1 to 1, 2 to 2, 3 to 3, 4 to 4)
+    val unsignedLong = Long.MAX_VALUE.toULong() + 1uL
+    val unsignedInt = UInt.MAX_VALUE
 
-    val toRemove = map.entries
-        .filter { it.key % 2 == 0 }
-        .map { it.copy() }
+    println(unsignedLong.toBigInteger())
+    // 9223372036854775808
 
-    map.entries.removeAll(toRemove)
-
-    println("map = $map")
-    // map = {1=1, 3=3}
+    println(unsignedInt.toBigInteger())
+    // 4294967295
 }
+```
+
+フィードバックを [YouTrack](https://youtrack.jetbrains.com/issue/KT-73111) でお待ちしております。
+
+### ソート順を確認するためのサポート
+<secondary-label ref="standard-library"/>
+
+Kotlin %kotlinEapVersion% では、iterable、配列、および sequence でソート順を確認するための新しい拡張関数が追加されました。
+
+これには以下の拡張関数が含まれます。
+
+* `.isSorted()`
+* `.isSortedDescending()`
+* `.isSortedWith(comparator)`
+* `.isSortedBy(selector)`
+* `.isSortedByDescending(selector)`
+
+これらの拡張関数を使用すると、要素を再度ソートしたり独自のヘルパー関数を作成したりすることなく、要素が既にソートされているかどうかを確認できます。要素が指定された順序である場合、または要素が 2 つ未満の場合は `true` を返し、それ以外の場合は `false` を返します。これらの関数は、順序どおりでないペアが見つかるとすぐに停止するため、大規模な入力に対して効率的です。
+
+`.isSorted()` および `.isSortedBy()` 関数を使用してソート順を確認する例を以下に示します。
+
+```kotlin
+data class User(val name: String, val age: Int)
+
+fun main() {
+    val numbers = listOf(1, 2, 3, 4)
+    println(numbers.isSorted())
+    // true
+
+    val users = listOf(
+        User("Alice", 24),
+        User("Bob", 31),
+        User("Charlie", 29),
+    )
+    println(users.isSortedBy(User::age))
+    // false
+}
+```
+
+フィードバックを [YouTrack](https://youtrack.jetbrains.com/issue/KT-78499) でお待ちしております。
+
+## Kotlin/JVM
+
+Kotlin %kotlinEapVersion% では、新しい Java バージョンをサポートし、メタデータ内のアノテーションがデフォルトで有効になりました。
+
+### Java 26 のサポート
+<secondary-label ref="jvm"/>
+
+Kotlin %kotlinEapVersion% 以降、コンパイラは Java 26 バイトコードを含むクラスを生成できます。
+
+### メタデータ内のアノテーションをデフォルトで有効化
+<secondary-label ref="jvm"/>
+
+Kotlin 2.2.0 の Kotlin Metadata JVM ライブラリでは、[Kotlin メタデータに保存されたアノテーションの読み取りサポートが導入されました](whatsnew22.md#support-for-reading-and-writing-annotations-in-kotlin-metadata)。このサポートにより、Kotlin コンパイラは JVM バイトコードと並行してメタデータにアノテーションを書き込み、Kotlin Metadata JVM ライブラリからアクセスできるようにします。その結果、アノテーションプロセッサやその他のツールは、リフレクションを使用したりソースコードを変更したりすることなく、メタデータレベルでこれらのアノテーションを理解し操作できるようになります。
+
+Kotlin %kotlinEapVersion% では、このサポートがデフォルトで有効になっています。
+
+## Kotlin/Native
+
+Kotlin %kotlinEapVersion% では、Swift パッケージのインポートがサポートされました。
+
+### Swift パッケージのインポート
+<secondary-label ref="native"/>
+
+<primary-label ref="experimental-general"/>
+
+Kotlin Multiplatform プロジェクトにおいて、Gradle 構成で iOS アプリの依存関係として [Swift パッケージ](https://docs.swift.org/swiftpm/documentation/packagemanagerdocs/)を宣言できるようになりました。
+
+```kotlin
+// build.gradle.kts
+kotlin {
+
+    swiftPMDependencies {
+        swiftPackage(
+            url = url("https://github.com/firebase/firebase-ios-sdk.git"),
+            version = from("12.11.0"),
+            products = listOf(
+                product("FirebaseAI"),
+                product("FirebaseAnalytics"),
+                ...
+}
+```
+{validate="false"}
+
+動作するサンプルや詳細な情報については、[SwiftPM インポート](https://kotlinlang.org/docs/multiplatform/multiplatform-spm-import.html) を参照してください。
+
+プロジェクトが CocoaPods の依存関係に依存している場合は、現在のセットアップを Swift パッケージを使用するように移行できます。KMP ツールはこのユースケースを考慮しており、プロジェクトの自動再構成を支援します。詳細については、[CocoaPods 移行ガイド](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-spm-migration.html) を参照してください。
+
+## Kotlin コンパイラ
+
+Kotlin %kotlinEapVersion% では、`.klib` コンパイル中に同じモジュール内で宣言されたインライン関数の一貫した動作が導入されました。
+
+### klib コンパイル中の一貫したモジュール内関数インライン化
+<secondary-label ref="compiler"/>
+
+以前は、[関数インライン化 (function inlining)](inline-functions.md) の動作は Kotlin のプラットフォームごとに異なっていました。JetBrains チームは、同じ互換性保証を確実にするために、サポートされているすべてのプラットフォームでこれを統一する作業を進めています。
+
+Kotlin/JVM では、関数のインライン化はコンパイル時に発生します。そのため、Kotlin ソースが Kotlin/JVM コンパイラでコンパイルされる際、生成されたクラスファイルのバイトコードにはインライン関数の呼び出しは含まれません。インライン関数の本体が呼び出し側にインライン化されるため、その動作はコンパイル時に確定します。
+
+それに対して、Kotlin/Native、Kotlin/JS、および Kotlin/Wasm では、ソースから klib へのコンパイル中には関数のインライン化は行われず、バイナリ生成時にのみ行われていました。その結果、インライン関数の動作は `.klib` コンパイル中に確定されず、`.klib` ライブラリは Kotlin/JVM が提供するようなインライン関数の互換性保証を提供していませんでした。
+
+Kotlin %kotlinEapVersion% では、`.klib` アーティファクトの生成時にモジュール内 (intra-module) のインライン化を有効にすることで、インライン関数の動作を統一するための第一歩を踏み出しました。
+
+```kotlin
+// 既存の logging.klib ライブラリ
+inline fun logDebug(message: String) {
+    println("[DEBUG] $message")
+}
+```
+
+```kotlin
+// 現在コンパイル中の App モジュール
+inline fun greetUser(name: String) {
+    println("Hello, $name!")
+}
+
+fun main() {
+    logDebug("App started") // インライン化されない: 別のモジュールで宣言されている
+    greetUser("Alice")      // インライン化される: 同じモジュールで宣言されている
+}
+```
+
+`.klib` にコンパイルされると、コードは以下のようになります。
+
+```kotlin
+// 疑似コード
+fun main() {
+    logDebug("App started")  // インライン化されない、別のモジュールで宣言されている
+    val tmp0 = "Alice"
+    println("Hello, $tmp0!") // greetUser() からインライン化された
+}
+```
+
+これは、`.klib` コンパイル中には同じモジュール内で宣言されたインライン関数のみがインライン化されることを意味します。この場合、他の関数はプラットフォーム固有のバイナリ生成中にインライン化されます。
+
+#### 有効にする方法
+
+%kotlinEapVersion% 以降、モジュール内のインライン化は Kotlin/Native、Kotlin/JS、および Kotlin/Wasm でデフォルトで有効になっています。
+
+この機能で予期しない問題が発生した場合は、コマンドラインで以下のコンパイラオプションを使用して無効にすることができます。
+
+```bash
+-Xklib-ir-inliner=disabled
+```
+
+次のステップは、プロジェクト内のすべてのインライン関数が一貫してインライン化されるように、モジュール間 (cross-module) のインライン化を有効にすることです。この変更は将来の Kotlin リリースで予定されていますが、コマンドラインで以下のコンパイラオプションを使用することで、既に試してみることができます。
+
+```bash
+-Xklib-ir-inliner=full
+```
+
+フィードバックの共有や問題の報告は、[YouTrack](https://kotl.in/issue) でお願いします。

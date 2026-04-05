@@ -85,7 +85,7 @@
   "kotlin.kotlin-overview": "Kotlin 개요",
   "kotlin.what-s-new-in-kotlin": "Kotlin의 새로운 기능",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.3.20-RC3",
+  "kotlin.whatsnew-eap": "Kotlin 2.4.0-Beta1",
   "kotlin.earlier-versions": "이전 버전",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -130,7 +130,7 @@
   "kotlin.kotlin-notebook-share": "Kotlin Notebook 공유",
   "kotlin.data-analysis-notebooks-output-formats": "Kotlin 노트북의 출력 형식",
   "kotlin.working-with-data-sources": "데이터 소스 작업",
-  "kotlin.data-analysis-visualization": "With Kandy",
+  "kotlin.data-analysis-visualization": "Kandy 사용",
   "kotlin.data-analysis-libraries": "데이터 분석 라이브러리",
   "kotlin.platforms": "플랫폼",
   "kotlin.jvm": "JVM",
@@ -199,7 +199,7 @@
   "kotlin.dokka": "Dokka",
   "kotlin.kotlin-ide": "Kotlin 개발용 IDE",
   "kotlin.code-style-migration-guide": "IntelliJ IDEA로 Kotlin 코드 스타일 마이그레이션",
-  "kotlin.lets-plot": "With Lets-Plot for Kotlin",
+  "kotlin.lets-plot": "Kotlin용 Lets-Plot 사용",
   "kotlin.kotlin-and-ci": "TeamCity",
   "kotlin.kotlin-doc": "KDoc",
   "kotlin.kotlin-osgi": "OSGi",
@@ -650,5 +650,6 @@
   "kotlin.multiplatform-gradle-dsl": "멀티플랫폼 Gradle DSL",
   "kotlin.earlier-kotlin-releases": "이전 Kotlin 릴리스",
   "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-beta01",
-  "koog.rag": "RAG"
+  "koog.rag": "RAG",
+  "kotlin.backend-development": "백엔드 개발"
 }

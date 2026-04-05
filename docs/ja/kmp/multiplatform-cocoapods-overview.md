@@ -11,6 +11,10 @@
 
 Kotlin/Native は [CocoaPods 依存関係マネージャー](https://cocoapods.org/)との統合を提供しています。Pod ライブラリへの依存関係を追加できるほか、Kotlin プロジェクトを CocoaPods の依存関係として使用することもできます。
 
+> CocoaPods 統合のアプローチは、[直接統合](multiplatform-direct-integration.md)で使用される `embedAndSignAppleFrameworkForXcode` メカニズムと一緒に使用することはできません。
+>
+{style="warning"}
+
 Pod の依存関係は IntelliJ IDEA または Android Studio で直接管理でき、コードハイライトや補完などの追加機能をすべて利用できます。Xcode に切り替えることなく、Gradle で Kotlin プロジェクト全体をビルドできます。
 
 Xcode が必要になるのは、Swift/Objective-C コードを変更する場合や、Apple のシミュレーターまたは実機でアプリケーションを実行する場合のみです。Xcode で作業するには、まず [Podfile を更新](#update-podfile-for-xcode)してください。

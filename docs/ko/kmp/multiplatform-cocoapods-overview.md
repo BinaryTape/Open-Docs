@@ -11,6 +11,10 @@
 
 Kotlin/Native는 [CocoaPods 의존성 관리자(dependency manager)](https://cocoapods.org/)와의 통합을 지원합니다. Pod 라이브러리에 대한 의존성을 추가하거나 Kotlin 프로젝트를 CocoaPods 의존성으로 사용할 수 있습니다.
 
+> CocoaPods 통합 방식은 [직접 통합(direct integration)](multiplatform-direct-integration.md)에 사용되는 `embedAndSignAppleFrameworkForXcode` 메커니즘과 함께 사용할 수 없습니다.
+>
+{style="warning"}
+
 IntelliJ IDEA 또는 Android Studio에서 직접 Pod 의존성을 관리하고 코드 하이라이팅 및 자동 완성 같은 추가 기능을 활용할 수 있습니다. Xcode로 전환하지 않고도 Gradle을 통해 전체 Kotlin 프로젝트를 빌드할 수 있습니다. 
 
 Swift/Objective-C 코드를 수정하거나 Apple 시뮬레이터 또는 기기에서 애플리케이션을 실행하려는 경우에만 Xcode가 필요합니다. Xcode에서 작업하려면 먼저 [Podfile을 업데이트](#update-podfile-for-xcode)하세요.

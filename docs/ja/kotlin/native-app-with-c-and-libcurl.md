@@ -19,7 +19,7 @@
 
    ```none
    https://github.com/Kotlin/kmp-native-wizard
-   ```  
+   ```
 
 3. プロジェクト構造を確認します：
 
@@ -30,19 +30,15 @@
 4. プロジェクト設定が含まれているビルドスクリプトである `build.gradle.kts` ファイルを開きます。ビルドファイル内の以下の部分に特に注目してください：
 
     ```kotlin
+    import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
     kotlin {
-        val hostOs = System.getProperty("os.name")
-        val isArm64 = System.getProperty("os.arch") == "aarch64"
-        val isMingwX64 = hostOs.startsWith("Windows")
-        val nativeTarget = when {
-            hostOs == "Mac OS X" && isArm64 -> macosArm64("native")
-            hostOs == "Linux" && isArm64 -> linuxArm64("native")
-            hostOs == "Linux" && !isArm64 -> linuxX64("native")
-            isMingwX64 -> mingwX64("native")
-            else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
-        }
-    
-        nativeTarget.apply {
+        macosArm64()
+        linuxArm64()
+        linuxX64()
+        mingwX64()
+
+        targets.withType<KotlinNativeTarget>().configureEach {
             binaries {
                 executable {
                     entryPoint = "main"
@@ -50,7 +46,6 @@
             }
         }
     }
-    
     ```
 
    * ターゲットは、macOS、Linux、Windows 用に `macosArm64`、`linuxArm64`、`linuxX64`、および `mingwX64` を使用して定義されています。[サポートされているプラットフォーム](native-target-support.md)の完全なリストを参照してください。
@@ -101,7 +96,7 @@ Kotlin/Native は標準の C ライブラリの利用をサポートしており
 ヘッダーファイルを使用するには、それらがビルドプロセスの一部として生成されるようにする必要があります。このために、以下の `compilations {}` ブロックを `build.gradle.kts` ファイルに追加します：
 
 ```kotlin
-nativeTarget.apply {
+targets.withType<KotlinNativeTarget>().configureEach {
     compilations.getByName("main") {
         cinterops {
             val libcurl by creating
@@ -161,10 +156,10 @@ fun main(args: Array<String>) {
 
 ## アプリケーションのコンパイルと実行
 
-1. アプリケーションをコンパイルします。そのためには、タスクリストから `runDebugExecutableNative` Gradle タスクを実行するか、ターミナルで次のコマンドを使用します：
+1. アプリケーションをコンパイルするには、タスクリストから `runDebugExecutable<YourTargetName>` Gradle タスクを実行するか、ターミナルでコンソールコマンドを使用します。例：
  
    ```bash
-   ./gradlew runDebugExecutableNative
+   ./gradlew runDebugExecutableMacosArm64
    ```
 
    この場合、cinterop ツールによって生成された部分はビルドに暗黙的に含まれます。

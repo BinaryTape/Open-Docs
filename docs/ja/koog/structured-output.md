@@ -205,7 +205,7 @@ Koogでは、構造化出力を使用できる3つの主要なレイヤーがあ
 このメソッドはプロンプトを実行し、以下の方法でレスポンスが適切に構造化されていることを保証します。
 
 - [モデルの機能](./model-capabilities.md)に基づいて、最適な構造化出力のアプローチを自動的に選択します。
-- 必要に応じて、元のプロンプトに構造化出力の指示を挿入します。
+- 必要に応じて、元のプロンプトに構造化出力の指示を注入します。
 - 利用可能な場合は、ネイティブの構造化出力サポートを使用します。
 - パースに失敗した場合は、オプションで補助LLMによる自動エラー修正（`fixingParser` パラメーター経由）を提供します。
 
@@ -550,6 +550,7 @@ import ai.koog.prompt.executor.model.StructureFixingParser
 import ai.koog.prompt.structure.json.JsonStructure
 import ai.koog.prompt.structure.json.generator.StandardJsonSchemaGenerator
 import ai.koog.prompt.executor.clients.openai.base.structure.OpenAIBasicJsonSchemaGenerator
+import ai.koog.prompt.executor.clients.anthropic.structure.AnthropicBasicJsonSchemaGenerator
 import ai.koog.prompt.llm.LLMProvider
 import kotlinx.coroutines.runBlocking
 import ai.koog.prompt.structure.StructuredRequestConfig
@@ -573,6 +574,11 @@ val openAiStructure = JsonStructure.create<WeatherForecast>(
     examples = exampleForecasts
 )
 
+val anthropicStructure = JsonStructure.create<WeatherForecast>(
+    schemaGenerator = AnthropicBasicJsonSchemaGenerator,
+    examples = exampleForecasts
+)
+
 val promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_KEY"))
 
 // 高度なAPIでは、単純なパラメーターの代わりに StructuredRequestConfig を使用します
@@ -585,6 +591,7 @@ val structuredResponse = promptExecutor.executeStructured(
     config = StructuredRequestConfig(
         byProvider = mapOf(
             LLMProvider.OpenAI to StructuredRequest.Native(openAiStructure),
+            LLMProvider.Anthropic to StructuredRequest.Native(anthropicStructure),
         ),
         default = StructuredRequest.Manual(genericStructure)
     ),
@@ -602,7 +609,7 @@ val structuredResponse = promptExecutor.executeStructured(
 
 - **StandardJsonSchemaGenerator**: ポリモーフィズム、定義、および再帰的参照をサポートする完全なJSONスキーマ。
 - **BasicJsonSchemaGenerator**: ポリモーフィズムをサポートしない簡略化されたスキーマで、より多くのモデルと互換性があります。
-- **プロバイダー固有のジェネレーター**: 特定のLLMプロバイダー（OpenAI、Googleなど）向けに最適化されたスキーマ。
+- **プロバイダー固有のジェネレーター**: 特定のLLMプロバイダー（OpenAI、Anthropic、Googleなど）向けに最適化されたスキーマ。
 
 ### すべてのレイヤーでの使用
 

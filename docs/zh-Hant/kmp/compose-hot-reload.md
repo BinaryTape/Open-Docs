@@ -13,7 +13,7 @@ Compose Hot Reload 直接將程式碼變更套用至執行中的應用程式。
 在我們探索為其他目標提供支援的同時，您已經可以將桌面應用程式作為沙盒，
 在不中斷流程的情況下，快速試驗共用程式碼中的 UI 變更。
 
-<img src="KotlinConf_hot_reload.animated.gif" alt="Compose Hot Reload" width="600" preview-src="KotlinConf_hot_reload.png"/>
+<img src="KotlinConf-hot-reload.animated.gif" alt="Compose Hot Reload" width="600" preview-src="KotlinConf-hot-reload.png"/>
 
 ## 將 Compose Hot Reload 新增至您的專案
 
@@ -35,14 +35,14 @@ Compose Hot Reload 可以透過以下兩種方式新增：
 
 ### 至現有專案
 
-從 Compose Multiplatform 1.10.0 開始，
+從 Compose Multiplatform 1.10.0 開始， 
 Compose Hot Reload 外掛程式已[內建](whats-new-compose-110.md#compose-hot-reload-integration) 
 並對所有包含 **桌面目標** 的專案預設啟用。 
 
-如果您的專案已經包含桌面目標，
+如果您的專案已經包含桌面目標， 
 您可以升級至 Compose Multiplatform 1.10.0 或更高版本，即可開箱即用享受 Compose Hot Reload 功能。 
 
-雖然它預設為啟用，
+雖然它預設為啟用， 
 您仍然可以明確宣告 Compose Hot Reload 外掛程式以使用特定的舊版本。
 
 #### 較早版本的 Compose Multiplatform {initial-collapse-state="collapsed" collapsible="true"}
@@ -58,7 +58,7 @@ Compose Hot Reload 外掛程式已[內建](whats-new-compose-110.md#compose-hot-
  
 2. 使用最新版本的 Compose Hot Reload 更新版本目錄（請參閱 [Releases](https://github.com/JetBrains/compose-hot-reload/releases)）。
    在 `gradle/libs.versions.toml` 中，新增以下程式碼：
-   ```kotlin
+   ```text
    composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload"}
    ```
 
@@ -96,7 +96,7 @@ Compose Hot Reload 外掛程式已[內建](whats-new-compose-110.md#compose-hot-
    }
    ```
 
-6. 點擊 **Sync Gradle Changes** 按鈕以同步 Gradle 檔案：![同步 Gradle 檔案](gradle-sync.png){width=50}
+6. 點擊 **Sync Gradle Changes** 按鈕以同步 Gradle 檔案： ![同步 Gradle 檔案](gradle-sync.png){width=50}
 
 ## 使用 Compose Hot Reload
 

@@ -125,46 +125,41 @@ val bigFractional = 1_234_567.7182818284
 
 ## 자바 가상 머신(JVM)에서의 숫자 박싱 및 캐싱
 
-JVM이 숫자를 저장하는 방식 때문에, 작은(바이트 크기) 숫자에 기본적으로 사용되는 캐시로 인해 코드가 직관적이지 않게 동작할 수 있습니다.
+JVM은 `int`, `long`, `double`과 같은 기본 타입(primitive types)을 사용하여 null이 될 수 없는(non-nullable) 숫자 값을 저장합니다.
+하지만 [제네릭 타입(generic types)](generics.md)을 사용하거나 `Int?`와 같이 nullable 숫자 타입을 사용할 때, 값은 박싱되어(boxed) 객체로 표현됩니다.
 
-JVM은 숫자를 `int`, `double` 등과 같은 기본 타입(primitive types)으로 저장합니다.
-[제네릭 타입(generic types)](generics.md)을 사용하거나 `Int?`와 같이 nullable 숫자 참조를 만들 때, 숫자는 `Integer`나 `Double`과 같은 자바 클래스로 박싱(boxed)됩니다.
+JVM은 작은 숫자의 박싱된 표현을 캐싱하여 [메모리 최적화 기법](https://docs.oracle.com/javase/specs/jls/se22/html/jls-5.html#jls-5.1.7)을 적용합니다. 결과적으로, 동일한 값을 가진 박싱된 숫자들은 [참조 동등성(referential equality)](equality.md#referential-equality)을 가질 수 있습니다.
 
-JVM은 `-128`에서 `127` 사이의 숫자를 나타내는 `Integer` 및 기타 객체에 대해 [메모리 최적화 기법](https://docs.oracle.com/javase/specs/jls/se22/html/jls-5.html#jls-5.1.7)을 적용합니다.
-이러한 객체에 대한 모든 nullable 참조는 동일한 캐시된 객체를 가리킵니다.
-예를 들어, 다음 코드의 nullable 객체들은 [참조 동등성(referential equality)](equality.md#referential-equality)을 가집니다:
+예를 들어, JVM은 `-128`에서 `127` 사이의 범위에 있는 박싱된 `Integer` 값을 캐싱합니다. 따라서 다음 코드는 `true`를 결과로 냅니다:
 
 ```kotlin
 fun main() {
 //sampleStart
-    val a: Int = 100
-    val boxedA: Int? = a
-    val anotherBoxedA: Int? = a
+    val score: Int = 100
+    val savedScore: Int? = score
+    val displayedScore: Int? = score
     
-    println(boxedA === anotherBoxedA) // true
+    println(savedScore === displayedScore) // true
 //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-이 범위를 벗어나는 숫자의 경우, nullable 객체들은 서로 다르지만 [구조적 동등성(structural equality)](equality.md#structural-equality)을 가집니다:
+캐싱된 범위를 벗어나는 숫자의 경우, 박싱된 값들은 별개의 객체입니다. 이 경우 값이 [구조적 동등성(structural equality)](equality.md#structural-equality)을 가지더라도 참조 동등성은 성립하지 않습니다. 이러한 이유로 숫자 값을 비교할 때는 `==`를 사용하세요:
 
 ```kotlin
 fun main() {
 //sampleStart
-    val b: Int = 10000
-    val boxedB: Int? = b
-    val anotherBoxedB: Int? = b
-    
-    println(boxedB === anotherBoxedB) // false
-    println(boxedB == anotherBoxedB) // true
+    val score: Int = 10000
+    val savedScore: Int? = score
+    val displayedScore: Int? = score
+
+    println(savedScore === displayedScore) // false
+    println(savedScore == displayedScore)  // true
 //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
-
-이러한 이유로 코틀린은 박싱 가능한 숫자 및 리터럴에 참조 동등성을 사용하는 것에 대해 다음과 같은 메시지로 경고합니다: `"Identity equality for arguments of types ... and ... is prohibited."`
-`Int`, `Short`, `Long`, `Byte` 타입(및 `Char`와 `Boolean`)을 비교할 때는 일관된 결과를 얻기 위해 구조적 동등성 검사를 사용하세요.
 
 ## 명시적 숫자 변환
 

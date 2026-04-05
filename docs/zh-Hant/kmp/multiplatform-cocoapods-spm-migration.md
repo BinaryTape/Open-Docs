@@ -23,14 +23,14 @@
 
 ## 更新您的建置指令碼
 
-要更新您的 `build.gradle.kts` 檔案，請按照 SwiftPM 匯入頁面上的說明操作：
+要更新您的建置，請按照 SwiftPM 匯入頁面上的說明操作：
 
-1. [將 Kotlin Multiplatform Gradle 外掛程式版本更改為 **%spmImport%**](multiplatform-spm-import.md#set-up-environment)
-2. [添加必要的 SwiftPM 相依性，而無需停用 CocoaPods 外掛程式或移除 CocoaPods 相依性](multiplatform-spm-import.md#add-and-call-swiftpm-dependencies)
+1. [將 Kotlin Multiplatform Gradle 外掛程式版本更改為 **%kotlinEapVersion%**](multiplatform-spm-import.md#set-the-kotlin-multiplatform-gradle-plugin-version)
+2. [指定必要的 SwiftPM 相依性，而無需停用 CocoaPods 外掛程式或移除 CocoaPods 相依性](multiplatform-spm-import.md#add-and-use-swiftpm-dependencies)
 
 例如，如果您正在使用 `FirebaseAnalytics` pod：
 
-1. 確保您已[設定 Kotlin Multiplatform Gradle 外掛程式](multiplatform-spm-import.md#set-up-environment)以使用版本 **%spmImport%**。
+1. 確保您已[設定 Kotlin Multiplatform Gradle 外掛程式](multiplatform-spm-import.md#set-the-kotlin-multiplatform-gradle-plugin-version)以使用版本 **%kotlinEapVersion%**。
 2. 將 `FirebaseAnalytics` Swift 套件添加到 `swiftPMDependencies {}` 區塊中：
 
    ```kotlin
@@ -84,7 +84,7 @@
    XCODEPROJ_PATH='/path/to/project/iosApp/iosApp.xcodeproj' GRADLE_PROJECT_PATH=':kotlin-library' '/path/to/project/gradlew' -p '/path/to/project' ':kotlin-library:integrateEmbedAndSign' ':kotlin-library:integrateLinkagePackage'
    ```
 
-   > 您可以在不開啟 Xcode 的情況下，透過從終端建置專案來產生相同的指令。
+   > 您可以在不開啟 Xcode 的情況下，透過從終端機建置專案來產生相同的指令。
    > 在 `/path/to/project/iosApp` 目錄中執行以下指令：
    > 
    > ```shell
@@ -94,7 +94,7 @@
 
     最後的 `grep` 呼叫會找到特定的錯誤訊息以及您需要執行的指令。
 
-4. 在 `/path/to/project/iosApp` 目錄中，在終端執行產生的指令。
+4. 在 `/path/to/project/iosApp` 目錄中，在終端機執行產生的指令。
    它會修改 `iosApp` 專案的 `.xcodeproj` 檔案，以在建置期間觸發 `embedAndSignAppleFrameworkForXcode` 任務，從而在您的 iOS 建置中插入一個 Kotlin Multiplatform 編譯階段。
 5. 在 IntelliJ IDEA 中，選擇 **Tools** | **Swift Package Manager** | **Resolve Dependencies** 以解析您在 `build.gradle.kts` 檔案中宣告的 SwiftPM 相依性。
 

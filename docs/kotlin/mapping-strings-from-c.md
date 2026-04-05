@@ -14,7 +14,7 @@
 > 随 Kotlin/Native 提供的原生平台库（如 Foundation、UIKit 和 POSIX）仅对部分 API 需要选择性加入。
 >
 {style="note"}
-
+ 
 在本系列的最后一部分中，让我们看看如何在 Kotlin/Native 中处理 C 字符串。
 
 在本教程中，您将学习如何：
@@ -99,9 +99,9 @@ C 语言中的字符串是以 null 结尾的，因此在字节序列的末尾会
    fun copy_string(str: kotlinx.cinterop.CValuesRef<kotlinx.cinterop.ByteVarOf<kotlin.Byte> /* from: kotlinx.cinterop.ByteVar */>?, size: kotlin.Int): kotlin.Int
    ```
 
-这些声明非常直观。在 Kotlin 中，C `char *` 指针在参数中映射为 `str: CValuesRef<ByteVarOf>?`，在返回值类型中映射为 `CPointer<ByteVarOf>?`。Kotlin 将 `char` 类型表示为 `kotlin.Byte`，因为它通常是一个 8 位有符号值。
+这些声明非常直观。在 Kotlin 中，C `char *` 指针在形参中映射为 `str: CValuesRef<ByteVarOf>?`，在返回值类型中映射为 `CPointer<ByteVarOf>?`。Kotlin 将 `char` 类型表示为 `kotlin.Byte`，因为它通常是一个 8 位有符号值。
 
-在生成的 Kotlin 声明中，`str` 被定义为 `CValuesRef<ByteVarOf<Byte>>?`。由于该类型是可为 null 的，因此您可以传递 `null` 作为实参值。
+在生成的 Kotlin 声明中，`str` 被定义为 `CValuesRef<ByteVarOf<Byte>>?`。由于该类型是可为 null 的，因此您可以传递 `null` 作为实参值。 
 
 ## 将 Kotlin 字符串传递给 C
 
@@ -138,9 +138,9 @@ fun passStringToC() {
 }
 ```
 
-在这里，[`.toKString()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/to-k-string.html) 扩展方法将 `return_string()` 函数返回的 C 字符串转换为 Kotlin 字符串。
+在这里，[`.toKString()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/to-k-string.html) 扩展函数将 `return_string()` 函数返回的 C 字符串转换为 Kotlin 字符串。
 
-根据编码的不同，Kotlin 提供了多个用于将 C `char *` 字符串转换为 Kotlin 字符串的扩展方法：
+根据编码的不同，Kotlin 提供了多个用于将 C `char *` 字符串转换为 Kotlin 字符串的扩展函数：
 
 ```kotlin
 fun CPointer<ByteVarOf<Byte>>.toKString(): String // UTF-8 字符串的标准函数
@@ -175,7 +175,7 @@ fun sendString() {
 }
 ```
 
-这里，首先将一个原生指针传递给 C 函数。[`.usePinned()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/use-pinned.html) 扩展方法会暂时固定字节数组的原生内存地址。C 函数用数据填充字节数组。另一个扩展方法 `ByteArray.decodeToString()` 将字节数组转换为 Kotlin 字符串（假设为 UTF-8 编码）。
+这里，首先将一个原生指针传递给 C 函数。[`.usePinned()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/use-pinned.html) 扩展函数会暂时固定字节数组的原生内存地址。C 函数用数据填充字节数组。另一个扩展函数 `ByteArray.decodeToString()` 将字节数组转换为 Kotlin 字符串（假设为 UTF-8 编码）。 
 
 ## 更新 Kotlin 代码
 
@@ -205,10 +205,10 @@ fun main() {
 }
 ```
 
-要验证一切是否按预期工作，请[在您的 IDE 中](native-get-started.md)运行 `runDebugExecutableNative` Gradle 任务，或使用以下命令运行代码：
+要验证一切是否按预期工作，请[在您的 IDE 中](native-get-started.md#build-and-run-the-application)运行 `runDebugExecutable<YourTargetName>` Gradle 任务，或在终端中使用控制台命令，在本示例中为：
 
 ```bash
-./gradlew runDebugExecutableNative
+./gradlew runDebugExecutableMacosArm64
 ```
 
 ## 下一步

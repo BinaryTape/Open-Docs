@@ -140,10 +140,10 @@ fun main() {
 }
 ```
 
-要驗證一切是否如預期運作，請[在你的 IDE 中](native-get-started.md#build-and-run-the-application)執行 `runDebugExecutableNative` Gradle 任務，或使用以下指令來執行程式碼：
+要驗證一切是否如預期運作，請[在你的 IDE 中](native-get-started.md#build-and-run-the-application)執行 `runDebugExecutable<YourTargetName>` Gradle 任務，或在此範例中使用終端機指令：
 
 ```bash
-./gradlew runDebugExecutableNative
+./gradlew runDebugExecutableMacosArm64
 ```
 
 ## 下一步

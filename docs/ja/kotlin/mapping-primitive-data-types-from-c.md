@@ -106,28 +106,32 @@ Cライブラリを作成するには：
     <tab title="Kotlin" group-key="kotlin">
 
     ```kotlin
+    import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
     plugins {
         kotlin("multiplatform") version "%kotlinVersion%"
     }
-    
+
     repositories {
         mavenCentral()
     }
-    
+
     kotlin {
-        macosArm64("native") {    // Apple Silicon搭載のmacOS
-        // linuxArm64("native") { // ARM64プラットフォーム上のLinux 
-        // linuxX64("native") {   // x86_64プラットフォーム上のLinux
-        // mingwX64("native") {   // Windows上
+        macosArm64()    // Apple Silicon搭載のmacOS
+        // linuxArm64() // ARM64プラットフォーム上のLinux
+        // linuxX64()   // x86_64プラットフォーム上のLinux
+        // mingwX64()   // x86_64プラットフォーム上のWindows
+
+        targets.withType<KotlinNativeTarget>().configureEach {
             val main by compilations.getting
             val interop by main.cinterops.creating
-        
+
             binaries {
                 executable()
             }
         }
     }
-    
+
     tasks.wrapper {
         gradleVersion = "%gradleVersion%"
         distributionType = Wrapper.DistributionType.BIN
@@ -138,29 +142,33 @@ Cライブラリを作成するには：
     <tab title="Groovy" group-key="groovy">
 
     ```groovy
+    import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
     plugins {
         id 'org.jetbrains.kotlin.multiplatform' version '%kotlinVersion%'
     }
-    
+
     repositories {
         mavenCentral()
     }
-    
+
     kotlin {
-        macosArm64("native") {    // Apple Silicon搭載のmacOS
-        // linuxArm64("native") { // ARM64プラットフォーム上のLinux
-        // linuxX64("native") {   // x86_64プラットフォーム上のLinux
-        // mingwX64("native") {   // Windows
+        macosArm64()    // Apple Silicon搭載のmacOS
+        // linuxArm64() // ARM64プラットフォーム上のLinux
+        // linuxX64()   // x86_64プラットフォーム上のLinux
+        // mingwX64()   // Windows
+
+        targets.withType(KotlinNativeTarget).configureEach {
             compilations.main.cinterops {
-                interop 
+                interop
             }
-        
+
             binaries {
                 executable()
             }
         }
     }
-    
+
     wrapper {
         gradleVersion = '%gradleVersion%'
         distributionType = 'BIN'
@@ -187,7 +195,7 @@ Cライブラリを作成するには：
     @OptIn(ExperimentalForeignApi::class)
     fun main() {
         println("Hello Kotlin/Native!")
-      
+
         ints(/* fix me*/)
         uints(/* fix me*/)
         doubles(/* fix me*/)
@@ -234,17 +242,17 @@ import kotlinx.cinterop.ExperimentalForeignApi
 @OptIn(ExperimentalForeignApi::class)
 fun main() {
     println("Hello Kotlin/Native!")
-  
+
     ints(1, 2, 3, 4)
     uints(5u, 6u, 7u, 8u)
     doubles(9.0f, 10.0)
 }
 ```
 
-すべてが期待通りに動作することを確認するには、[IDEで](native-get-started.md#build-and-run-the-application) `runDebugExecutableNative` Gradleタスクを実行するか、以下のコマンドを使用してコードを実行します：
+すべてが期待通りに動作することを確認するには、[IDEで](native-get-started.md#build-and-run-the-application) `runDebugExecutable<YourTargetName>` Gradleタスクを実行するか、ターミナルでコンソールコマンドを使用してコードを実行します。この例では以下の通りです：
 
 ```bash
-./gradlew runDebugExecutableNative
+./gradlew runDebugExecutableMacosArm64
 ```
 
 ## 次のステップ

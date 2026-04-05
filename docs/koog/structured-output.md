@@ -550,6 +550,7 @@ import ai.koog.prompt.executor.model.StructureFixingParser
 import ai.koog.prompt.structure.json.JsonStructure
 import ai.koog.prompt.structure.json.generator.StandardJsonSchemaGenerator
 import ai.koog.prompt.executor.clients.openai.base.structure.OpenAIBasicJsonSchemaGenerator
+import ai.koog.prompt.executor.clients.anthropic.structure.AnthropicBasicJsonSchemaGenerator
 import ai.koog.prompt.llm.LLMProvider
 import kotlinx.coroutines.runBlocking
 import ai.koog.prompt.structure.StructuredRequestConfig
@@ -573,6 +574,11 @@ val openAiStructure = JsonStructure.create<WeatherForecast>(
     examples = exampleForecasts
 )
 
+val anthropicStructure = JsonStructure.create<WeatherForecast>(
+    schemaGenerator = AnthropicBasicJsonSchemaGenerator,
+    examples = exampleForecasts
+)
+
 val promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_KEY"))
 
 // 高级 API 使用 StructuredRequestConfig 而非简单参数
@@ -585,6 +591,7 @@ val structuredResponse = promptExecutor.executeStructured(
     config = StructuredRequestConfig(
         byProvider = mapOf(
             LLMProvider.OpenAI to StructuredRequest.Native(openAiStructure),
+            LLMProvider.Anthropic to StructuredRequest.Native(anthropicStructure),
         ),
         default = StructuredRequest.Manual(genericStructure)
     ),
@@ -602,7 +609,7 @@ val structuredResponse = promptExecutor.executeStructured(
 
 - **StandardJsonSchemaGenerator**：完整的 JSON 架构，支持多态、定义和递归引用。
 - **BasicJsonSchemaGenerator**：不带多态支持的简化架构，与更多模型兼容。
-- **供应商特定生成器**：针对特定 LLM 供应商（OpenAI、Google 等）优化的架构。
+- **供应商特定生成器**：针对特定 LLM 供应商（OpenAI、Anthropic、Google 等）优化的架构。
 
 ### 跨层级用法
 

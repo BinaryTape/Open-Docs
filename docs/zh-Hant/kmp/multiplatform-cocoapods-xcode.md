@@ -9,6 +9,10 @@
 
 你可以將整個 Kotlin 專案作為 Pod 相依性使用。若要執行此操作，你需要在專案的 Podfile 中包含該相依性，並指定其名稱以及包含產生的 Podspec 的專案目錄路徑。
 
+> CocoaPods 整合方式無法與用於 [直接整合](multiplatform-direct-integration.md) 的 `embedAndSignAppleFrameworkForXcode` 機制同時使用。
+>
+{style="warning"}
+
 此相依性將與該專案一起自動組建（及重新組建）。這種方法簡化了匯入到 Xcode 的過程，因為不再需要手動編寫對應的 Gradle 任務和 Xcode 組建步驟。
 
 你可以在一個 Kotlin 專案與具有一個或多個目標的 Xcode 專案之間新增相依性。也可以在一個 Kotlin 專案與多個 Xcode 專案之間新增相依性。但是，在這種情況下，你需要為每個 Xcode 專案手動呼叫 `pod install`。對於單個 Xcode 專案，這是自動完成的。
@@ -131,5 +135,5 @@
 ## 接下來的操作
 
 * [在你的 Kotlin 專案中新增對 Pod 程式庫的相依性](multiplatform-cocoapods-libraries.md)
-* [查看如何將框架連接到你的 iOS 專案](multiplatform-direct-integration.md)
+* [查看如何將架構連接到你的 iOS 專案](multiplatform-direct-integration.md)
 * [查看完整的 CocoaPods Gradle 外掛程式 DSL 參考](multiplatform-cocoapods-dsl-reference.md)

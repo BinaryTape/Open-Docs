@@ -9,7 +9,7 @@
     </p>
 </tldr>
 
-> C 库导入目前处于 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 阶段。由 cinterop 工具从 C 库生成的。所有 Kotlin 声明都应包含 `@ExperimentalForeignApi` 注解。
+> C 库导入目前处于 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 阶段。由 cinterop 工具从 C 库生成的所有 Kotlin 声明都应包含 `@ExperimentalForeignApi` 注解。
 >
 > 随 Kotlin/Native 提供的原生平台库（如 Foundation、UIKit 和 POSIX）仅对某些 API 要求选择性使用（opt-in）。
 >
@@ -26,7 +26,7 @@
 
 为了理解 Kotlin 和 C 之间的映射，我们声明两个函数：一个接受函数指针作为形参，另一个返回函数指针。
 
-在[本系列的第一个部分](mapping-primitive-data-types-from-c.md)中，您已经创建了一个包含必要文件的 C 库。对于这一步，请在 `---` 分隔符之后更新 `interop.def` 文件中的声明：
+在[本系列的第一部分](mapping-primitive-data-types-from-c.md)中，您已经创建了一个包含必要文件的 C 库。对于这一步，请在 `---` 分隔符之后更新 `interop.def` 文件中的声明：
 
 ```c 
 
@@ -49,7 +49,7 @@ MyFun supply_fun() {
 
 `interop.def` 文件提供了编译、运行或在 IDE 中打开应用程序所需的一切。
 
-## 检查生成的 C 库 Kotlin API
+## 检查为 C 库生成的 Kotlin API
 
 让我们看看 C 函数指针是如何映射到 Kotlin/Native 的，并更新您的项目：
 
@@ -82,7 +82,7 @@ MyFun supply_fun() {
 
 ## 将 Kotlin 函数作为 C 函数指针传递
 
-是时候尝试从 Kotlin 代码中使用 C 函数了。调用 `accept_fun()` 函数并将 C 函数指针传递给 Kotlin lambda 表达式：
+是时候尝试从 Kotlin 代码中使用 C 函数了。调用 `accept_fun()` 函数并将 C 函数指针传递给 Kotlin lambda表达式：
 
 ```kotlin
 import interop.*
@@ -95,7 +95,7 @@ fun myFun() {
 }
 ```
 
-此调用使用 Kotlin/Native 的 `staticCFunction {}` 辅助函数将 Kotlin lambda 表达式函数包装为 C 函数指针。它仅允许非绑定且非捕获的 lambda 表达式。例如，它不能从函数中捕获局部变量，只能捕获全局可见的声明。
+此调用使用 Kotlin/Native 的 `staticCFunction {}` 辅助函数将 Kotlin lambda表达式包装为 C 函数指针。它仅允许非绑定且非捕获的 lambda表达式。例如，它不能从函数中捕获局部变量，只能捕获全局可见的声明。
 
 确保该函数不会抛出任何异常。从 `staticCFunction {}` 中抛出异常会导致不确定的副作用。
 
@@ -120,7 +120,8 @@ Kotlin 将函数指针返回值类型转换为可为 null 的 `CPointer<CFunctio
 
 ## 更新 Kotlin 代码
 
-既然您已经看过了所有的定义，请尝试在您的项目中使用它们。`hello.kt` 文件中的代码可能如下所示：
+既然您已经看过了所有的定义，请尝试在您的项目中使用它们。
+`hello.kt` 文件中的代码可能如下所示：
 
 ```kotlin
 import interop.*
@@ -140,10 +141,10 @@ fun main() {
 }
 ```
 
-要验证一切是否按预期运行，请[在您的 IDE 中](native-get-started.md#build-and-run-the-application)运行 `runDebugExecutableNative` Gradle 任务，或使用以下命令运行代码：
+要验证一切是否按预期运行，请[在您的 IDE 中](native-get-started.md#build-and-run-the-application)运行 `runDebugExecutable<YourTargetName>` Gradle 任务，或在您的终端中使用控制台命令，在本例中为：
 
 ```bash
-./gradlew runDebugExecutableNative
+./gradlew runDebugExecutableMacosArm64
 ```
 
 ## 下一步

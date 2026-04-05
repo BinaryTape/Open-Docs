@@ -11,6 +11,10 @@
 
 要添加 Pod 依赖项，请在共享模块的 `build.gradle(.kts)` 文件中调用 `pod()` 函数。每个依赖项都需要单独的函数调用。您可以在该函数的配置块中指定依赖项的参数。
 
+> CocoaPods 集成方式不能与用于[直接集成](multiplatform-direct-integration.md)的 `embedAndSignAppleFrameworkForXcode` 机制同时使用。
+>
+{style="warning"}
+
 * 当您添加新的依赖项并在 IDE 中重新导入项目时，该库将自动连接。
 * 要在 Xcode 中使用您的 Kotlin 项目，请先[修改项目的 Podfile](multiplatform-cocoapods-overview.md#update-podfile-for-xcode)。
 
@@ -211,7 +215,7 @@ import cocoapods.CocoaLumberjack.*
 >
 {style="note"}
 
-要在 Kotlin 代码中使用这些依赖项，请导入包 `cocoapods.<library-name>`：
+要在 Kotlin 代码中使用 these 依赖项，请导入包 `cocoapods.<library-name>`：
 
 ```kotlin
 import cocoapods.example.*

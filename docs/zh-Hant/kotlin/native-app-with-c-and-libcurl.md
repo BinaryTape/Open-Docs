@@ -19,30 +19,26 @@
 
    ```none
    https://github.com/Kotlin/kmp-native-wizard
-   ```  
+   ```
 
 3. 探索專案結構：
 
    ![原生應用程式專案結構](native-project-structure.png){width=700}
 
-   該樣板包含了一個專案，其中有你開始所需的所有檔案和資料夾。重要的是要了解，如果程式碼沒有特定平台的的需求，使用 Kotlin/Native 編寫的應用程式可以針對不同的平台。你的程式碼放置在 `nativeMain` 目錄中，並有相對應的 `nativeTest`。在本教學中，請保持資料夾結構不變。
+   該樣板包含了一個專案，其中有你開始所需的所有檔案和資料夾。重要的是要了解，如果程式碼沒有特定平台的需求，使用 Kotlin/Native 編寫的應用程式可以針對不同的平台。你的程式碼放置在 `nativeMain` 目錄中，並有相對應的 `nativeTest`。在本教學中，請保持資料夾結構不變。
 
 4. 開啟 `build.gradle.kts` 檔案，這是包含專案設定的建置指令碼。請特別注意建置檔案中的以下部分：
 
     ```kotlin
+    import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
     kotlin {
-        val hostOs = System.getProperty("os.name")
-        val isArm64 = System.getProperty("os.arch") == "aarch64"
-        val isMingwX64 = hostOs.startsWith("Windows")
-        val nativeTarget = when {
-            hostOs == "Mac OS X" && isArm64 -> macosArm64("native")
-            hostOs == "Linux" && isArm64 -> linuxArm64("native")
-            hostOs == "Linux" && !isArm64 -> linuxX64("native")
-            isMingwX64 -> mingwX64("native")
-            else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
-        }
-    
-        nativeTarget.apply {
+        macosArm64()
+        linuxArm64()
+        linuxX64()
+        mingwX64()
+
+        targets.withType<KotlinNativeTarget>().configureEach {
             binaries {
                 executable {
                     entryPoint = "main"
@@ -50,12 +46,11 @@
             }
         }
     }
-    
     ```
 
    * 目標是使用 `macosArm64`、`linuxArm64`、`linuxX64` 和 `mingwX64` 分別為 macOS、Linux 和 Windows 定義的。請參閱 [受支援平台](native-target-support.md) 的完整清單。
    * `binaries {}` 區塊定義了二進位檔案的產生方式以及應用程式的入口點。這些可以保留為預設值。
-   * C 互通（C interoperability）被配置為建置中的一個額外步驟。預設情況下，所有來自 C 的符號都會匯入到 `interop` 套件中。你可能想要在 `.kt` 檔案中匯入整個套件。進一步了解[如何配置](gradle-configure-project.md#targeting-multiple-platforms)。
+   * C 互通性被配置為建置中的一個額外步驟。預設情況下，所有來自 C 的符號都會匯入到 `interop` 套件中。你可能想要在 `.kt` 檔案中匯入整個套件。進一步了解[如何配置](gradle-configure-project.md#targeting-multiple-platforms)它。
 
 ## 建立定義檔
 
@@ -63,7 +58,7 @@
 
 Kotlin/Native 有助於取用標準 C 程式庫，從而開啟了一個功能齊全的生態系統，幾乎可以滿足你的任何需求。Kotlin/Native 已經隨附了一組預建的 [平台程式庫](native-platform-libs.md)，這些程式庫為標準函式庫提供了一些額外的通用功能。
 
-互通的理想情況是像呼叫 C 函式一樣呼叫 Kotlin 函式，並遵循相同的簽章與慣例。這就是 `cinterop` 工具派上用場的時候。它接收一個 C 程式庫並產生相對應的 Kotlin 繫結，以便該程式庫可以像 Kotlin 程式碼一樣被使用。
+互通性的理想情況是像呼叫 C 函式一樣呼叫 Kotlin 函式，並遵循相同的簽章與慣例。這就是 `cinterop` 工具派上用場的時候。它接收一個 C 程式庫並產生相對應的 Kotlin 繫結，以便該程式庫可以像 Kotlin 程式碼一樣被使用。
 
 為了產生這些繫結，每個程式庫都需要一個定義檔，通常與程式庫同名。這是一個屬性檔案，精確描述了應如何取用該程式庫。
 
@@ -101,7 +96,7 @@ Kotlin/Native 有助於取用標準 C 程式庫，從而開啟了一個功能齊
 要使用標頭檔，請確保它們是作為建置程序的一部分產生的。為此，請將以下 `compilations {}` 區塊新增至 `build.gradle.kts` 檔案中：
 
 ```kotlin
-nativeTarget.apply {
+targets.withType<KotlinNativeTarget>().configureEach {
     compilations.getByName("main") {
         cinterops {
             val libcurl by creating
@@ -161,10 +156,10 @@ fun main(args: Array<String>) {
 
 ## 編譯並執行應用程式
 
-1. 編譯應用程式。要執行此操作，請從任務清單中執行 `runDebugExecutableNative` Gradle 任務，或在終端機中使用以下指令：
+1. 要編譯應用程式，請從任務清單中執行 `runDebugExecutable<YourTargetName>` Gradle 任務，或在終端機中使用命令列指令，例如：
  
    ```bash
-   ./gradlew runDebugExecutableNative
+   ./gradlew runDebugExecutableMacosArm64
    ```
 
    在這種情況下，由 `cinterop` 工具產生的部分會隱式地包含在建置中。

@@ -552,12 +552,13 @@ fun main() {
 ## 可為 Null 的值與 Null 檢查
 
 當可能出現 `null` 值時，參照必須明確標記為可為 null。可為 null 的型別名稱末尾帶有 `?`。
+例如：`Int?`。
 
 如果 `str` 不包含整數，則傳回 `null`：
 
 ```kotlin
 fun parseInt(str: String): Int? {
-    // ...
+    return str.toIntOrNull()
 }
 ```
 

@@ -118,7 +118,7 @@ src/
 
 您可以手动创建这些目录，也可以在添加第一个 Kotlin 文件时由 IntelliJ IDEA 自动创建。
 
-Kotlin 插件会自动识别 `src/main/java` 和 `src/test/java` 目录，因此您可以将 `.kt` 和 `.java` 文件放在相同的目录中。
+Kotlin 插件自动识别 `src/main/java` 和 `src/test/java` 目录，因此您可以将 `.kt` 和 `.java` 文件放在相同的目录中。
 
 ## 将 Java 文件转换为 Kotlin
 
@@ -127,6 +127,18 @@ Kotlin 插件还捆绑了一个 Java 到 Kotlin 转换器 (_J2K_)，可自动将
 ![将 Java 转换为 Kotlin](convert-java-to-kotlin.png){width=500}
 
 虽然转换器并非万无一失，但在将大多数 Java 模板代码转换为 Kotlin 方面表现得相当不错。不过，有时仍需要进行一些手动调整。
+
+## 探索编译器插件 {initial-collapse-state="collapsed" collapsible="true"}
+
+如果您的项目较复杂，使用了 [Spring](https://spring.io/) 或 Java Persistence API (JPA)，可以使用 Kotlin 编译器插件，这些插件会自动使 Kotlin 的语言功能适应框架预期，从而减少模板代码：
+
+*   **[`all-open`](all-open-plugin.md)** 插件在使用特定注解时，会自动将类及其成员设为 `open`。这对于像 Spring 这样要求类为非 final 的框架特别有用。
+
+    对于 Spring，您可以使用专门的 [`kotlin-spring`](all-open-plugin.md#spring-support) 插件，它是 `all-open` 的包装器。它会自动指定 Spring 注解。
+*   **[`no-arg`](no-arg-plugin.md)** 插件会为带有特定注解的类生成一个额外的零参数构造函数。这允许 JPA 实例化那些本来没有默认构造函数的类。
+
+    您还可以使用 [`kotlin-jpa`](no-arg-plugin.md#jpa-support) 插件，它是 `no-arg` 的包装器。它会自动指定 no-arg 注解。
+*   **[`power-assert`](power-assert.md)** 插件通过为断言提供包含上下文信息的详细失败消息，改进了调试体验。它会显示中间值，并帮助您理解测试失败的原因。
 
 ## 下一步
 

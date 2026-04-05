@@ -9,6 +9,10 @@
 
 전체 Kotlin 프로젝트를 Pod 의존성으로 사용할 수 있습니다. 이를 위해 프로젝트의 Podfile에 해당 의존성을 포함하고, 이름과 생성된 Podspec이 있는 프로젝트 디렉토리 경로를 지정해야 합니다.
 
+> CocoaPods 통합 방식은 [직접 통합](multiplatform-direct-integration.md)에 사용되는 `embedAndSignAppleFrameworkForXcode` 메커니즘과 함께 사용할 수 없습니다.
+>
+{style="warning"}
+
 이 의존성은 해당 프로젝트와 함께 자동으로 빌드(및 재빌드)됩니다. 이러한 방식은 해당 Gradle 태스크와 Xcode 빌드 단계를 수동으로 작성할 필요를 없애주어 Xcode로의 임포트 과정을 간소화합니다.
 
 하나 또는 여러 개의 타겟이 있는 Xcode 프로젝트와 Kotlin 프로젝트 간에 의존성을 추가할 수 있습니다. 또한 Kotlin 프로젝트와 여러 Xcode 프로젝트 간에 의존성을 추가하는 것도 가능합니다. 하지만 이 경우 각 Xcode 프로젝트에 대해 `pod install`을 수동으로 호출해야 합니다. 단일 Xcode 프로젝트의 경우 자동으로 수행됩니다.

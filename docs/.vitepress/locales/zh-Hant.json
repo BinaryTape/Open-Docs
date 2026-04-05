@@ -85,7 +85,7 @@
   "kotlin.kotlin-overview": "Kotlin 概覽",
   "kotlin.what-s-new-in-kotlin": "Kotlin 新功能",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.3.20-RC3",
+  "kotlin.whatsnew-eap": "Kotlin 2.4.0-Beta1",
   "kotlin.earlier-versions": "更早版本",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -652,5 +652,6 @@
   "kotlin.multiplatform-gradle-dsl": "Multiplatform Gradle DSL",
   "kotlin.earlier-kotlin-releases": "更早的 Kotlin 版本",
   "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-beta01",
-  "koog.rag": "RAG"
+  "koog.rag": "RAG",
+  "kotlin.backend-development": "後端開發"
 }

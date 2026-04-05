@@ -12,7 +12,7 @@
 
 CocoaPods 의존성이 있는 KMP 모듈이 있고, [SwiftPM import](multiplatform-spm-import.md)를 사용하여 Swift 패키지로 전환하려는 경우 다음 단계를 따르세요:
 
-1. [SwiftPM 의존성 및 해당 설정을 포함하도록 빌드 스크립트를 업데이트합니다](#update-your-build-script)
+1. [빌드 스크립트를 업데이트하여 SwiftPM 의존성 및 해당 설정을 포함합니다](#update-your-build-script)
 2. [SwiftPM import 툴링의 도움을 받아 직접 통합(direct integration)을 사용하도록 Xcode 프로젝트를 재구성합니다](#reconfigure-your-xcode-project)
 3. [프로젝트 구조에 따라 CocoaPods 통합을 완전히 또는 부분적으로 비활성화합니다](#remove-the-cocoapods-kmp-integration)
 
@@ -23,14 +23,14 @@ CocoaPods 의존성이 있는 KMP 모듈이 있고, [SwiftPM import](multiplatfo
 
 ## 빌드 스크립트 업데이트
 
-`build.gradle.kts` 파일을 업데이트하려면 SwiftPM import 페이지의 지침을 따르세요:
+빌드를 업데이트하려면 SwiftPM import 페이지의 지침을 따르세요:
 
-1. [Kotlin 멀티플랫폼 Gradle 플러그인 버전을 **%spmImport%**로 변경합니다](multiplatform-spm-import.md#set-up-environment)
-2. [CocoaPods 플러그인을 비활성화하거나 CocoaPods 의존성을 제거하지 않은 상태에서 필요한 SwiftPM 의존성을 추가합니다](multiplatform-spm-import.md#add-and-call-swiftpm-dependencies)
+1. [Kotlin 멀티플랫폼 Gradle 플러그인 버전을 **%kotlinEapVersion%**으로 변경합니다](multiplatform-spm-import.md#set-the-kotlin-multiplatform-gradle-plugin-version)
+2. [CocoaPods 플러그인을 비활성화하거나 CocoaPods 의존성을 제거하지 않은 상태에서 필요한 SwiftPM 의존성을 지정합니다](multiplatform-spm-import.md#add-and-use-swiftpm-dependencies)
 
 예를 들어, `FirebaseAnalytics` 팟(pod)을 사용하는 경우:
 
-1. Kotlin 멀티플랫폼 Gradle 플러그인이 **%spmImport%** 버전을 사용하도록 [설정](multiplatform-spm-import.md#set-up-environment)되어 있는지 확인합니다.
+1. Kotlin 멀티플랫폼 Gradle 플러그인이 **%kotlinEapVersion%** 버전을 사용하도록 설정되어 있는지 확인합니다.
 2. `FirebaseAnalytics` Swift 패키지를 `swiftPMDependencies {}` 블록에 추가합니다:
 
    ```kotlin
@@ -102,7 +102,7 @@ CocoaPods Gradle 플러그인(`kotlin("native.cocoapods")`)을 사용 중인 경
 
 ## CocoaPods KMP 통합 제거
 
-모든 CocoaPods 의존성을 Swift 패키지로 교체했다면, `/path/to/project/iosApp` 디렉토리에서 다음 명령을 실행하여 팟 통합을 해제할 수 있습니다:
+모든 CocoaPods 의존성을 Swift 패키지로 교체했다면, 이제 `/path/to/project/iosApp` 디렉토리에서 다음 명령을 실행하여 팟 통합을 해제할 수 있습니다:
 
 ```shell
 pod deintegrate
@@ -119,7 +119,7 @@ target 'iosApp' do
 end
 ```
 
-마지막으로, Gradle 빌드 설정에서 CocoaPods 관련 내용을 제거합니다:
+마지막으로, Gradle 빌드 설정에서 CocoaPods 관련 언급을 제거합니다:
 
 1. 모든 의존성이 이제 SwiftPM import 툴링에 의해 관리되므로, 공유 코드 모듈의 `build.gradle.kts` 파일에서 `cocoapods {}` 블록 전체를 제거합니다.
 2. 프로젝트가 더 이상 CocoaPods에 의존하지 않는다면, 루트 `build.gradle.kts` 파일과 공유 모듈의 `build.gradle.kts` 파일 모두의 `plugins {}` 블록에서 CocoaPods Gradle 플러그인 참조를 제거합니다.

@@ -3,7 +3,7 @@
 您可以將多平台程式庫的發佈設定至不同位置：
 
 * [到本機 Maven 存儲庫](#publishing-to-a-local-maven-repository)
-* 到 Maven Central 存儲庫。在[我們的教學](multiplatform-publish-libraries.md)中了解如何設定帳戶憑據、自訂程式庫元資料以及設定發佈外掛程式。
+* 到 Maven Central 存儲庫。在[我們的教學](multiplatform-publish-libraries-to-maven.md)中了解如何設定帳戶憑據、自訂程式庫元資料以及設定發佈外掛程式。
 * 到 GitHub 存儲庫。如需更多資訊，請參閱 GitHub 關於 [GitHub Packages](https://docs.github.com/en/packages) 的文件。
 
 ## 發佈至本機 Maven 存儲庫
@@ -143,7 +143,7 @@ kotlin {
         minSdk = libs.versions.android.minSdk.get().toInt()
 
         // 啟用 Java 編譯支援。
-        // 當不需要 Java 編譯時，這可以縮短建置時間
+        // 當不需要 Java 編譯時，這可以改善建置時間
         withJava()
 
         compilations.configureEach {
@@ -242,5 +242,5 @@ kotlin {
 
 ## 下一步
 
-* [了解如何將您的 Kotlin 多平台程式庫發佈到 Maven Central 存儲庫](multiplatform-publish-libraries.md)
+* [了解如何將您的 Kotlin 多平台程式庫發佈到 Maven Central 存儲庫](multiplatform-publish-libraries-to-maven.md)
 * [參閱程式庫作者指南，了解為 Kotlin 多平台設計程式庫的最佳實務與技巧](https://kotlinlang.org/docs/api-guidelines-build-for-multiplatform.html)

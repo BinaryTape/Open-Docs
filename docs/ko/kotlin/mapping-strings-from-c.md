@@ -205,10 +205,10 @@ fun main() {
 }
 ```
 
-모든 것이 예상대로 작동하는지 확인하려면, [IDE에서](native-get-started.md) `runDebugExecutableNative` Gradle 태스크를 실행하거나 다음 명령을 사용하여 코드를 실행하세요:
+모든 것이 예상대로 작동하는지 확인하려면, [IDE에서](native-get-started.md#build-and-run-the-application) `runDebugExecutable<YourTargetName>` Gradle 태스크를 실행하거나 터미널에서 콘솔 명령을 사용하세요. 이 예제에서는 다음과 같습니다:
 
 ```bash
-./gradlew runDebugExecutableNative
+./gradlew runDebugExecutableMacosArm64
 ```
 
 ## 다음 단계

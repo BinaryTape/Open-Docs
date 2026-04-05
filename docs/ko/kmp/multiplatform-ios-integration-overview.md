@@ -22,31 +22,40 @@ Xcode 프로젝트에 특별한 스크립트를 추가하여 Kotlin Multiplatfor
 
 자세한 내용은 [직접 통합](multiplatform-direct-integration.md)을 참고하세요.
 
+### 로컬 패키지를 사용한 SwiftPM 통합
+
+KMP iOS 프레임워크는 [Swift 패키지 매니저(Swift Package Manager)](https://docs.swift.org/swiftpm/documentation/packagemanagerdocs/)를 통해 로컬 Swift 패키지에 의존할 수 있습니다.
+
+이 통합 방법은 다음과 같은 경우에 적합합니다:
+
+* Swift 패키지를 사용하는 iOS 프로젝트와 함께 모노레포(mono repository) 구성을 사용하는 경우.
+* Kotlin Multiplatform 프로젝트에 대체할 수 없는 CocoaPods 의존성이 없는 경우.
+
+프로젝트에 로컬 Swift 패키지 의존성을 추가하는 방법은 [Swift 패키지를 의존성으로 추가하기](multiplatform-spm-import.md#importing-local-swift-packages)를 참고하세요.
+
 ### 로컬 podspec을 사용한 CocoaPods 통합
 
 Swift 및 Objective-C 프로젝트에서 널리 사용되는 의존성 관리자인 [CocoaPods](https://cocoapods.org/)를 통해 Kotlin Multiplatform 프로젝트의 iOS 프레임워크를 연결할 수 있습니다.
 
 이 통합 방법은 다음과 같은 경우에 적합합니다:
 
-* CocoaPods를 사용하는 iOS 프로젝트와 함께 모노레포(mono repository) 구성을 사용하는 경우
-* Kotlin Multiplatform 프로젝트에서 CocoaPods 의존성을 임포트하는 경우
+* CocoaPods를 사용하는 iOS 프로젝트와 함께 모노레포(mono repository) 구성을 사용하는 경우.
+* Kotlin Multiplatform 프로젝트에서 CocoaPods 의존성을 임포트하는 경우.
 
-로컬 CocoaPods 의존성을 사용하는 워크플로를 설정하려면 스크립트를 수동으로 편집할 수 있습니다.
-
-자세한 내용은 [CocoaPods 개요 및 설정](multiplatform-cocoapods-overview.md)을 참고하세요.
+로컬 CocoaPods 의존성을 사용하는 워크플로를 설정하려면 [CocoaPods 개요 및 설정](multiplatform-cocoapods-overview.md)을 참고하세요.
 
 ## 원격 통합
 
 원격 통합의 경우, 프로젝트에서 Swift 패키지 매니저(SwiftPM) 또는 CocoaPods 의존성 관리자를 사용하여 Kotlin Multiplatform 프로젝트의 iOS 프레임워크를 연결할 수 있습니다.
 
-### XCFrameworks를 사용한 Swift 패키지 매니저(SPM)
+### XCFrameworks를 사용한 SwiftPM
 
-XCFrameworks를 사용하여 Swift 패키지 매니저(SPM) 의존성을 설정하고 Kotlin Multiplatform 프로젝트의 iOS 프레임워크를 연결할 수 있습니다.
-
-자세한 내용은 [Swift 패키지 내보내기 설정](multiplatform-spm-export.md)을 참고하세요.
+XCFramework를 Kotlin Multiplatform 프로젝트에서 내보내거나, 원격 Swift 패키지를 KMP 프로젝트의 의존성으로 임포트할 수 있습니다:
+* XCFramework로 Swift 패키지를 만들고 배포하는 방법에 대한 지침은 [Swift 패키지 내보내기 설정](multiplatform-spm-export.md)을 참고하세요.
+* Swift 패키지를 의존성으로 추가하는 방법은 [Swift PM 임포트 문서](multiplatform-spm-import.md)를 참고하세요.
 
 ### XCFrameworks를 사용한 CocoaPods 통합
 
-Kotlin CocoaPods Gradle 플러그인으로 XCFrameworks를 빌드한 다음, CocoaPods를 통해 프로젝트의 공유 부분을 모바일 앱과 별도로 배포할 수 있습니다.
+Kotlin CocoaPods Gradle 플러그인으로 XCFramework를 빌드한 다음, CocoaPods를 통해 프로젝트의 공유 부분을 모바일 앱과 별도로 배포할 수 있습니다.
 
-자세한 내용은 [최종 네이티브 바이너리 빌드](multiplatform-build-native-binaries.md#build-frameworks)를 참고하세요.
+자세한 내용은 [최종 네이티브 바이너리 빌드](multiplatform-build-native-binaries.md#build-xcframeworks)를 참고하세요.

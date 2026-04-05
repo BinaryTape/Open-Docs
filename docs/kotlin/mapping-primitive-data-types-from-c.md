@@ -48,7 +48,7 @@ C 语言中还有以下类型限定符：`const`、`volatile`、`restrict`、`at
 
 在本教程中，你不会创建 `lib.c` 源文件，只有在你想编译并运行 C 库时才需要它。对于此设置，你只需要一个用于运行 [cinterop 工具](native-c-interop.md)的 `.h` 头文件。
 
-cinterop 工具会为每组 `.h` 文件生成一个 Kotlin/Native 库（`.klib` 文件）。生成的库有助于桥接从 Kotlin/Native 到 C 的调用。它包含了与 `.h` 文件中的定义相对应的 Kotlin 声明。
+cinterop 工具会为每组 `.h` 文件生成一个 Kotlin/Native 库（一个 `.klib` 文件）。生成的库有助于桥接从 Kotlin/Native 到 C 的调用。它包含了与 `.h` 文件中的定义相对应的 Kotlin 声明。
 
 要创建一个 C 库：
 
@@ -103,28 +103,32 @@ cinterop 工具会为每组 `.h` 文件生成一个 Kotlin/Native 库（`.klib` 
     <tab title="Kotlin" group-key="kotlin">
 
     ```kotlin
+    import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
     plugins {
         kotlin("multiplatform") version "%kotlinVersion%"
     }
-    
+
     repositories {
         mavenCentral()
     }
-    
+
     kotlin {
-        macosArm64("native") {    // Apple 芯片上的 macOS
-        // linuxArm64("native") { // ARM64 平台上的 Linux 
-        // linuxX64("native") {   // x86_64 平台上的 Linux
-        // mingwX64("native") {   // Windows 上
+        macosArm64()    // Apple 芯片上的 macOS
+        // linuxArm64() // ARM64 平台上的 Linux
+        // linuxX64()   // x86_64 平台上的 Linux
+        // mingwX64()   // x86_64 平台上的 Windows
+
+        targets.withType<KotlinNativeTarget>().configureEach {
             val main by compilations.getting
             val interop by main.cinterops.creating
-        
+
             binaries {
                 executable()
             }
         }
     }
-    
+
     tasks.wrapper {
         gradleVersion = "%gradleVersion%"
         distributionType = Wrapper.DistributionType.BIN
@@ -135,29 +139,33 @@ cinterop 工具会为每组 `.h` 文件生成一个 Kotlin/Native 库（`.klib` 
     <tab title="Groovy" group-key="groovy">
 
     ```groovy
+    import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
     plugins {
         id 'org.jetbrains.kotlin.multiplatform' version '%kotlinVersion%'
     }
-    
+
     repositories {
         mavenCentral()
     }
-    
+
     kotlin {
-        macosArm64("native") {    // Apple 芯片上的 macOS
-        // linuxArm64("native") { // ARM64 平台上的 Linux
-        // linuxX64("native") {   // x86_64 平台上的 Linux
-        // mingwX64("native") {   // Windows
+        macosArm64()    // Apple 芯片上的 macOS
+        // linuxArm64() // ARM64 平台上的 Linux
+        // linuxX64()   // x86_64 平台上的 Linux
+        // mingwX64()   // Windows
+
+        targets.withType(KotlinNativeTarget).configureEach {
             compilations.main.cinterops {
-                interop 
+                interop
             }
-        
+
             binaries {
                 executable()
             }
         }
     }
-    
+
     wrapper {
         gradleVersion = '%gradleVersion%'
         distributionType = 'BIN'
@@ -184,7 +192,7 @@ cinterop 工具会为每组 `.h` 文件生成一个 Kotlin/Native 库（`.klib` 
     @OptIn(ExperimentalForeignApi::class)
     fun main() {
         println("Hello Kotlin/Native!")
-      
+
         ints(/* 请修复我 */)
         uints(/* 请修复我 */)
         doubles(/* 请修复我 */)
@@ -231,17 +239,17 @@ import kotlinx.cinterop.ExperimentalForeignApi
 @OptIn(ExperimentalForeignApi::class)
 fun main() {
     println("Hello Kotlin/Native!")
-  
+
     ints(1, 2, 3, 4)
     uints(5u, 6u, 7u, 8u)
     doubles(9.0f, 10.0)
 }
 ```
 
-要验证一切是否按预期工作，请[在你的编辑器中](native-get-started.md#build-and-run-the-application)运行 `runDebugExecutableNative` Gradle 任务，或者使用以下命令运行代码：
+要验证一切是否按预期工作，请[在你的编辑器中](native-get-started.md#build-and-run-the-application)运行 `runDebugExecutable<你的目标名称>` Gradle 任务，或者在你的终端中使用控制台命令，在本示例中为：
 
 ```bash
-./gradlew runDebugExecutableNative
+./gradlew runDebugExecutableMacosArm64
 ```
 
 ## 下一步

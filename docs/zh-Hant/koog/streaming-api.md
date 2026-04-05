@@ -1,6 +1,7 @@
 # 串流 API (Streaming API)
 
-Koog 的 **串流 API (Streaming API)** 讓您能以 `Flow<StreamFrame>` 的形式 **增量地** 取用 **LLM 輸出**。無須等待完整回應，您的程式碼可以：
+Koog 的 **串流 API (Streaming API)** 讓您能在 Kotlin 中以 `Flow<StreamFrame>` 或在 Java 中以 `Flow.Publisher<StreamFrame>` 的形式 **增量地** 取用 **LLM 輸出**。
+無須等待完整回應，您的程式碼可以：
 
 - 在助手文字到達時立即渲染，
 - 即時偵測 **工具呼叫 (tool call)** 並執行相應操作，
@@ -8,18 +9,41 @@ Koog 的 **串流 API (Streaming API)** 讓您能以 `Flow<StreamFrame>` 的形�
 
 該串流攜帶組織為兩個類別的 **具型別框架 (typed frame)**：
 
-**增量框架 (Delta frames)**（增量式／部分內容）：
-- `StreamFrame.TextDelta(text: String, index: Int?)` — 增量式的助手文字
-- `StreamFrame.ReasoningDelta(text: String?, summary: String?, index: Int?)` — 增量式的推理文字與摘要
-- `StreamFrame.ToolCallDelta(id: String?, name: String?, content: String?, index: Int?)` — 部分工具調用
+=== "Kotlin"
 
-**完整框架 (Complete frames)**（完整內容）：
-- `StreamFrame.TextComplete(text: String)` — 完整的助手文字
-- `StreamFrame.ReasoningComplete(text: List<String>, summary: List<String>?)` — 包含選用摘要的完整推理
-- `StreamFrame.ToolCallComplete(id: String?, name: String, content: String)` — 完整的工具調用
+    **增量框架 (Delta frames)**（增量式／部分內容）：
 
-**結束標記 (End marker)**：
-- `StreamFrame.End(finishReason: String?)` — 串流結束標記
+    - `StreamFrame.TextDelta(text: String, index: Int?)` — 增量式的助手文字
+    - `StreamFrame.ReasoningDelta(text: String?, summary: String?, index: Int?)` — 增量式的推理文字與摘要
+    - `StreamFrame.ToolCallDelta(id: String?, name: String?, content: String?, index: Int?)` — 部分工具調用
+
+    **完整框架 (Complete frames)**（完整內容）：
+
+    - `StreamFrame.TextComplete(text: String, index: Int?)` — 完整的助手文字
+    - `StreamFrame.ReasoningComplete(text: List<String>, summary: List<String>?, encrypted: String?, index: Int?)` — 包含選用摘要與加密內容的完整推理
+    - `StreamFrame.ToolCallComplete(id: String?, name: String, content: String, index: Int?)` — 完整的工具調用
+
+    **結束標記 (End marker)**：
+
+    - `StreamFrame.End(finishReason: String?, metaInfo: ResponseMetaInfo)` — 包含回應元資料的串流結束標記
+
+=== "Java"
+
+    **增量框架 (Delta frames)**（增量式／部分內容）：
+
+    - `StreamFrame.TextDelta` — 增量式的助手文字。欄位：`getText()`、`getIndex()`。
+    - `StreamFrame.ReasoningDelta` — 增量式的推理文字與摘要。欄位：`getText()`、`getSummary()`、`getIndex()`。
+    - `StreamFrame.ToolCallDelta` — 部分工具調用。欄位：`getId()`、`getName()`、`getContent()`、`getIndex()`。
+
+    **完整框架 (Complete frames)**（完整內容）：
+
+    - `StreamFrame.TextComplete` — 完整的助手文字。欄位：`getText()`、`getIndex()`。
+    - `StreamFrame.ReasoningComplete` — 包含選用摘要與加密內容的完整推理。欄位：`getText()`（回傳 `List<String>`）、`getSummary()`（回傳 `List<String>`）、`getEncrypted()`、`getIndex()`。
+    - `StreamFrame.ToolCallComplete` — 完整的工具調用。欄位：`getId()`、`getName()`、`getContent()`、`getIndex()`。此外也提供用於 JSON 剖析的 `getContentJson()` 和 `getContentJsonResult()`。
+
+    **結束標記 (End marker)**：
+
+    - `StreamFrame.End` — 串流結束標記。欄位：`getFinishReason()`、`getMetaInfo()`。
 
 系統提供了幫助程式 (helper) 來提取純文字、將框架轉換為 `Message.Response` 物件，以及安全地 **合併區塊化的工具呼叫**。
 
@@ -93,14 +117,70 @@ Koog 的 **串流 API (Streaming API)** 讓您能以 `Flow<StreamFrame>` 的形�
 === "Java"
 
     <!--- INCLUDE
-    /**
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    import ai.koog.prompt.streaming.StreamFrame;
+    import java.util.concurrent.Flow;
+    class exampleStreamingApiJava01 {
+        public static void main(String[] args) {
+            var node = AIAgentNode.builder("streamNode")
+                .withInput(String.class)
+                .withOutput(Void.class)
+                .withAction((input, ctx) -> {
     -->
     <!--- SUFFIX
-    **/
+                return null;
+            })
+            .build();
+        }
+    }
     -->
     ```java
+    ctx.getLlm().writeSession(session -> {
+        session.appendPrompt(prompt -> {
+            prompt.user("Tell me a joke, then call a tool with JSON args.");
+            return null;
+        });
+
+        Flow.Publisher<StreamFrame> stream = session.requestLLMStreaming();
+
+        stream.subscribe(new Flow.Subscriber<>() {
+            @Override
+            public void onSubscribe(Flow.Subscription subscription) {
+                subscription.request(Long.MAX_VALUE);
+            }
+
+            @Override
+            public void onNext(StreamFrame frame) {
+                if (frame instanceof StreamFrame.TextDelta delta) {
+                    System.out.print(delta.getText());
+                } else if (frame instanceof StreamFrame.ReasoningDelta reasoning) {
+                    System.out.print("[Reasoning] text=" + reasoning.getText()
+                        + " summary=" + reasoning.getSummary());
+                } else if (frame instanceof StreamFrame.ToolCallComplete toolCall) {
+                    System.out.println("
+Tool call: " + toolCall.getName()
+                        + " args=" + toolCall.getContent());
+                } else if (frame instanceof StreamFrame.End end) {
+                    System.out.println("
+[END] reason=" + end.getFinishReason());
+                }
+                // 處理其他框架類型 (TextComplete, ToolCallDelta 等)
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                System.err.println("Stream error: " + throwable.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+            }
+        });
+
+        return null;
+    });
     ```
-    <!--- KNIT example-streaming-api-java-01.java -->
+    <!--- KNIT exampleStreamingApiJava01.java -->
 
 值得注意的是，您可以透過直接處理原始字串串流來剖析輸出。
 這種方法在剖析過程中提供了更多的靈活性和控制權。
@@ -141,66 +221,195 @@ Koog 的 **串流 API (Streaming API)** 讓您能以 `Flow<StreamFrame>` 的形�
 === "Java"
 
     <!--- INCLUDE
-    /**
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    import ai.koog.prompt.streaming.StreamFrame;
+    import ai.koog.prompt.structure.StructureDefinition;
+    import java.util.concurrent.Flow;
+    class exampleStreamingApiJava02 {
+        static StructureDefinition markdownBookDefinition() { return null; }
+        public static void main(String[] args) {
+            var node = AIAgentNode.builder("streamNode")
+                .withInput(String.class)
+                .withOutput(Void.class)
+                .withAction((input, ctx) -> {
     -->
     <!--- SUFFIX
-    **/
+                return null;
+            })
+            .build();
+        }
+    }
     -->
     ```java
+    StructureDefinition mdDefinition = markdownBookDefinition();
+
+    ctx.getLlm().writeSession(session -> {
+        session.appendPrompt(prompt -> {
+            prompt.user(input);
+        });
+
+        Flow.Publisher<StreamFrame> stream = session.requestLLMStreaming(mdDefinition);
+
+        // 直接存取原始框架
+        stream.subscribe(new Flow.Subscriber<>() {
+            @Override
+            public void onSubscribe(Flow.Subscription subscription) {
+                subscription.request(Long.MAX_VALUE);
+            }
+
+            @Override
+            public void onNext(StreamFrame frame) {
+                // 在每個框架到達時進行處理
+                System.out.println("Received frame: " + frame);
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                System.err.println("Stream error: " + throwable.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+            }
+        });
+
+        return null;
+    });
     ```
-    <!--- KNIT example-streaming-api-java-02.java -->
+    <!--- KNIT exampleStreamingApiJava02.java -->
 
 ### 處理推理框架
 
 支援推理 (reasoning) 的模型（例如 Claude Sonnet 4.5 或 GPT-o1）會在串流過程中發送推理框架。您可以同時存取推理過程及其摘要：
 
-<!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.prompt.streaming.StreamFrame
+=== "Kotlin"
 
-val strategy = strategy<String, String>("strategy_name") {
-    val node by node<Unit, Unit> {
--->
-<!--- SUFFIX
-   }
-}
--->
-```kotlin
-llm.writeSession {
-    appendPrompt { user("Solve this complex problem: ...") }
+    <!--- INCLUDE
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.prompt.streaming.StreamFrame
 
-    val stream = requestLLMStreaming()
-    val reasoningSteps = mutableListOf<String>()
-    val summarySteps = mutableListOf<String>()
+    val strategy = strategy<String, String>("strategy_name") {
+        val node by node<Unit, Unit> {
+    -->
+    <!--- SUFFIX
+       }
+    }
+    -->
+    ```kotlin
+    llm.writeSession {
+        appendPrompt { user("Solve this complex problem: ...") }
 
-    stream.collect { frame ->
-        when (frame) {
-            is StreamFrame.ReasoningDelta -> {
-                frame.text?.let { 
-                    reasoningSteps.add(it)
-                    print(frame.text) // 在推理內容到達時立即顯示
+        val stream = requestLLMStreaming()
+        val reasoningSteps = mutableListOf<String>()
+        val summarySteps = mutableListOf<String>()
+
+        stream.collect { frame ->
+            when (frame) {
+                is StreamFrame.ReasoningDelta -> {
+                    frame.text?.let { 
+                        reasoningSteps.add(it)
+                        print(frame.text) // 在推理內容到達時立即顯示
+                    }
+                    frame.summary?.let {
+                        summarySteps.add(it)
+                        print(frame.summary) // 在推理摘要到達時立即顯示
+                    }
                 }
-                frame.summary?.let {
-                    summarySteps.add(it)
-                    print(frame.summary) // 在推理摘要到達時立即顯示
-                }
-            }
-            is StreamFrame.ReasoningComplete -> {
-                // 存取完整推理內容
-                println("
+                is StreamFrame.ReasoningComplete -> {
+                    // 存取完整推理內容
+                    println("
 Complete reasoning: ${frame.text.joinToString("")}")
-                println("Summary: ${frame.summary?.joinToString("") ?: "N/A"}")
-            }
-            is StreamFrame.TextDelta -> print(frame.text)
-            is StreamFrame.End -> println("
+                    println("Summary: ${frame.summary?.joinToString("") ?: "N/A"}")
+                }
+                is StreamFrame.TextDelta -> print(frame.text)
+                is StreamFrame.End -> println("
 [END]")
-            else -> {}
+                else -> {}
+            }
         }
     }
-}
-```
-<!--- KNIT example-streaming-api-reasoning-01.kt -->
+    ```
+    <!--- KNIT example-streaming-api-reasoning-01.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    import ai.koog.prompt.streaming.StreamFrame;
+    import java.util.ArrayList;
+    import java.util.List;
+    import java.util.concurrent.Flow;
+    import java.util.stream.Collectors;
+    class exampleStreamingApiReasoningJava01 {
+        public static void main(String[] args) {
+            var node = AIAgentNode.builder("reasoningNode")
+                .withInput(String.class)
+                .withOutput(Void.class)
+                .withAction((input, ctx) -> {
+    -->
+    <!--- SUFFIX
+                return null;
+            })
+            .build();
+        }
+    }
+    -->
+    ```java
+    ctx.getLlm().writeSession(session -> {
+        session.appendPrompt(prompt -> {
+            prompt.user("Solve this complex problem: ...");
+            return null;
+        });
+
+        Flow.Publisher<StreamFrame> stream = session.requestLLMStreaming();
+        List<String> reasoningSteps = new ArrayList<>();
+        List<String> summarySteps = new ArrayList<>();
+
+        stream.subscribe(new Flow.Subscriber<StreamFrame>() {
+            @Override
+            public void onSubscribe(Flow.Subscription subscription) {
+                subscription.request(Long.MAX_VALUE);
+            }
+
+            @Override
+            public void onNext(StreamFrame frame) {
+                if (frame instanceof StreamFrame.ReasoningDelta reasoning) {
+                    if (reasoning.getText() != null) {
+                        reasoningSteps.add(reasoning.getText());
+                        System.out.print(reasoning.getText());
+                    }
+                    if (reasoning.getSummary() != null) {
+                        summarySteps.add(reasoning.getSummary());
+                        System.out.print(reasoning.getSummary());
+                    }
+                } else if (frame instanceof StreamFrame.ReasoningComplete complete) {
+                    // 存取完整推理內容
+                    System.out.println("
+Complete reasoning: "
+                        + String.join("", complete.getText()));
+                    System.out.println("Summary: "
+                        + (complete.getSummary() != null
+                            ? String.join("", complete.getSummary()) : "N/A"));
+                } else if (frame instanceof StreamFrame.TextDelta delta) {
+                    System.out.print(delta.getText());
+                } else if (frame instanceof StreamFrame.End) {
+                    System.out.println("
+[END]");
+                }
+            }
+
+            @Override
+            public void onError(Throwable throwable) { }
+
+            @Override
+            public void onComplete() { }
+        });
+
+        return null;
+    });
+    ```
+    <!--- KNIT exampleStreamingApiReasoningJava01.java -->
 
 ### 處理原始文字串流（衍生）
 
@@ -240,14 +449,59 @@ $fullText")
 === "Java"
 
     <!--- INCLUDE
-    /**
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    import ai.koog.prompt.streaming.StreamFrame;
+    import java.util.concurrent.Flow;
+    class exampleStreamingApiJava03 {
+        public static void main(String[] args) {
+            var node = AIAgentNode.builder("streamNode")
+                .withInput(String.class)
+                .withOutput(Void.class)
+                .withAction((input, ctx) -> {
     -->
     <!--- SUFFIX
-    **/
+                return null;
+            })
+            .build();
+        }
+    }
     -->
     ```java
+    ctx.getLlm().writeSession(session -> {
+        Flow.Publisher<StreamFrame> frames = session.requestLLMStreaming();
+
+        // 在文字區塊進入時進行串流（相當於 filterTextOnly）：
+        StringBuilder fullText = new StringBuilder();
+        frames.subscribe(new Flow.Subscriber<>() {
+            @Override
+            public void onSubscribe(Flow.Subscription subscription) {
+                subscription.request(Long.MAX_VALUE);
+            }
+
+            @Override
+            public void onNext(StreamFrame frame) {
+                if (frame instanceof StreamFrame.TextDelta delta) {
+                    System.out.print(delta.getText());
+                    fullText.append(delta.getText());
+                }
+            }
+
+            @Override
+            public void onError(Throwable throwable) { }
+
+            @Override
+            public void onComplete() {
+                // fullText 現在包含所有文字（相當於 collectText）
+                System.out.println("
+---
+" + fullText);
+            }
+        });
+
+        return null;
+    });
     ```
-    <!--- KNIT example-streaming-api-java-03.java -->
+    <!--- KNIT exampleStreamingApiJava03.java -->
 
 ### 在事件處理常式中監聽串流事件
 
@@ -273,6 +527,7 @@ $fullText")
             println("
 🔧 Using ${context.toolName} with ${context.toolArgs}... ")
         }
+
         onLLMStreamingFrameReceived { context ->
             when (val frame = context.streamFrame) {
                 is StreamFrame.TextDelta -> print(frame.text)
@@ -280,9 +535,11 @@ $fullText")
                 else -> {} // 視需要處理其他框架類型
             }
         }
+
         onLLMStreamingFailed { context ->
             println("❌ Error: ${context.error}")
         }
+
         onLLMStreamingCompleted {
             println("🏁 Done")
         }
@@ -293,18 +550,54 @@ $fullText")
 === "Java"
 
     <!--- INCLUDE
-    /**
+    import ai.koog.agents.core.agent.AIAgent;
+    import ai.koog.agents.features.eventHandler.feature.EventHandler;
+    import ai.koog.prompt.streaming.StreamFrame;
+    import ai.koog.prompt.executor.model.PromptExecutor;
+    import ai.koog.prompt.executor.ollama.client.OllamaModels;
+    class exampleStreamingApiJava04 {
+        public static void main(String[] args) {
+            AIAgent.builder()
+                .promptExecutor(PromptExecutor.builder().ollama().build())
+                .llmModel(OllamaModels.Meta.LLAMA_3_2)
     -->
     <!--- SUFFIX
-    **/
+            .build();
+        }
+    }
     -->
     ```java
+    .install(EventHandler.Feature, config -> {
+        config.onToolCallStarting(ctx -> {
+            System.out.println("
+Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
+        });
+
+        config.onLLMStreamingFrameReceived(ctx -> {
+            StreamFrame frame = ctx.getStreamFrame();
+            if (frame instanceof StreamFrame.TextDelta delta) {
+                System.out.print(delta.getText());
+            } else if (frame instanceof StreamFrame.ReasoningDelta reasoning) {
+                System.out.print("[Reasoning] text=" + reasoning.getText()
+                    + " summary=" + reasoning.getSummary());
+            }
+        });
+
+        config.onLLMStreamingFailed(ctx -> {
+            System.out.println("Error: " + ctx.getError());
+        });
+
+        config.onLLMStreamingCompleted(ctx -> {
+            System.out.println("Done");
+        });
+    })
     ```
-    <!--- KNIT example-streaming-api-java-04.java -->
+    <!--- KNIT exampleStreamingApiJava04.java -->
 
 ### 將框架轉換為 `Message.Response`
 
 您可以將收集到的框架列表轉換為標準訊息物件：
+
 - `toAssistantMessageOrNull()` — 從文字框架提取 `Message.Assistant`
 - `toReasoningMessageOrNull()` — 從推理框架提取 `Message.Reasoning`
 - `toToolCallMessages()` — 從工具呼叫框架提取 `Message.Tool.Call`
@@ -346,26 +639,17 @@ $fullText")
 === "Java"
 
     <!--- INCLUDE
-    /**
+    class exampleStreamingApiJava05 {
+        public static void main(String[] args) {
     -->
     <!--- SUFFIX
-    **/
-    -->
-    ```java
-    // 一個簡單的 Java POJO，等同於 Kotlin 的 @Serializable 資料類別。
-    public class Book {
-        public final String title;
-        public final String author;
-        public final String description;
-
-        public Book(String title, String author, String description) {
-            this.title = title;
-            this.author = author;
-            this.description = description;
         }
     }
+    -->
+    ```java
+    // TODO Java 尚不支援
     ```
-    <!--- KNIT exampleStreamingApiJava01.java -->
+    <!--- KNIT exampleStreamingApiJava05.java -->
 
 #### 2. 定義 Markdown 結構
 
@@ -403,14 +687,17 @@ $fullText")
 === "Java"
 
     <!--- INCLUDE
-    /**
+    class exampleStreamingApiJava06 {
+        public static void main(String[] args) {
     -->
     <!--- SUFFIX
-    **/
+        }
+    }
     -->
     ```java
+    // TODO Java 尚不支援
     ```
-    <!--- KNIT example-streaming-api-java-05.java -->
+    <!--- KNIT exampleStreamingApiJava06.java -->
 
 #### 3. 為您的資料結構建立剖析器
 
@@ -449,14 +736,17 @@ $fullText")
 === "Java"
 
     <!--- INCLUDE
-    /**
+    class exampleStreamingApiJava07 {
+        public static void main(String[] args) {
     -->
     <!--- SUFFIX
-    **/
+        }
+    }
     -->
     ```java
+    // TODO Java 尚不支援
     ```
-    <!--- KNIT example-streaming-api-java-06.java -->
+    <!--- KNIT exampleStreamingApiJava07.java -->
 
 使用定義好的處理常式，您可以實作一個函式，透過 `markdownStreamingParser` 函式剖析 Markdown 串流並發送您的資料物件。
 
@@ -513,14 +803,17 @@ $fullText")
 === "Java"
 
     <!--- INCLUDE
-    /**
+    class exampleStreamingApiJava08 {
+        public static void main(String[] args) {
     -->
     <!--- SUFFIX
-    **/
+        }
+    }
     -->
     ```java
+    // TODO Java 尚不支援
     ```
-    <!--- KNIT example-streaming-api-java-07.java -->
+    <!--- KNIT exampleStreamingApiJava08.java -->
 
 #### 4. 在您的代理策略中使用剖析器
 
@@ -564,14 +857,17 @@ $fullText")
 === "Java"
 
     <!--- INCLUDE
-    /**
+    class exampleStreamingApiJava09 {
+        public static void main(String[] args) {
     -->
     <!--- SUFFIX
-    **/
+        }
+    }
     -->
     ```java
+    // TODO Java 尚不支援
     ```
-    <!--- KNIT example-streaming-api-java-08.java -->
+    <!--- KNIT exampleStreamingApiJava09.java -->
 
 ### 進階用法：搭配工具進行串流
 
@@ -617,10 +913,26 @@ $fullText")
 === "Java"
 
     <!--- INCLUDE
+    import ai.koog.agents.core.tools.reflect.ToolSet;
+    import ai.koog.agents.core.tools.annotations.Tool;
+    import ai.koog.agents.core.tools.annotations.LLMDescription;
     -->
     ```java
+    class BookTool implements ToolSet {
+        @Tool
+        @LLMDescription("A tool to parse book information from Markdown")
+        public String book(
+            @LLMDescription("Title of the book") String title,
+            @LLMDescription("Author of the book") String author,
+            @LLMDescription("Description of the book") String description
+        ) {
+            System.out.println(title + " by " + author + ":
+ " + description);
+            return "Done";
+        }
+    }
     ```
-    <!--- KNIT example-streaming-api-java-09.java -->
+    <!--- KNIT exampleStreamingApiJava10.java -->
 
 ### 2. 在串流資料中使用工具
 
@@ -669,37 +981,131 @@ $fullText")
 === "Java"
 
     <!--- INCLUDE
-    /**
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    import ai.koog.prompt.streaming.StreamFrame;
+    import ai.koog.prompt.structure.StructureDefinition;
+    import java.util.concurrent.Flow;
+    class exampleStreamingApiJava11 {
+        static StructureDefinition markdownBookDefinition() { return null; }
+        public static void main(String[] args) {
     -->
     <!--- SUFFIX
-    **/
+        }
+    }
     -->
     ```java
+    var strategy = AIAgentGraphStrategy.builder("library-assistant")
+        .withInput(String.class)
+        .withOutput(Void.class);
+
+    var getMdOutput = AIAgentNode.builder("getMdOutput")
+        .withInput(String.class)
+        .withOutput(Void.class)
+        .withAction((input, ctx) -> {
+            StructureDefinition mdDefinition = markdownBookDefinition();
+
+            ctx.getLlm().writeSession(session -> {
+                session.appendPrompt(prompt -> {
+                    prompt.user(input);
+                    return null;
+                });
+
+                Flow.Publisher<StreamFrame> markdownStream = session.requestLLMStreaming(mdDefinition);
+
+                // 處理串流框架，並在 ToolCallComplete 框架上呼叫工具
+                markdownStream.subscribe(new Flow.Subscriber<StreamFrame>() {
+                    @Override
+                    public void onSubscribe(Flow.Subscription subscription) {
+                        subscription.request(Long.MAX_VALUE);
+                    }
+
+                    @Override
+                    public void onNext(StreamFrame frame) {
+                        if (frame instanceof StreamFrame.ToolCallComplete toolCall) {
+                            System.out.println("Tool call: " + toolCall.getName()
+                                + " args=" + toolCall.getContent());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) { }
+
+                    @Override
+                    public void onComplete() { }
+                });
+
+                return null;
+            });
+
+            return null;
+        })
+        .build();
+
+    strategy.edge(strategy.nodeStart, getMdOutput);
+    strategy.edge(getMdOutput, strategy.nodeFinish);
     ```
-    <!--- KNIT example-streaming-api-java-10.java -->
+    <!--- KNIT exampleStreamingApiJava11.java -->
 
 ### 3. 在代理配置中註冊工具
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.tools.ToolRegistry
-import ai.koog.agents.example.exampleStreamingApi10.BookTool
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+=== "Kotlin"
 
--->
-```kotlin
-val toolRegistry = ToolRegistry {
-    tool(BookTool())
-}
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.agents.core.tools.ToolRegistry
+    import ai.koog.agents.example.exampleStreamingApi10.BookTool
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 
-val runner = AIAgent(
-    promptExecutor = simpleOpenAIExecutor("OPENAI_API_KEY"),
-    llmModel = OpenAIModels.Chat.GPT4o,
-    toolRegistry = toolRegistry
-)
-```
-<!--- KNIT example-streaming-api-12.kt -->
+    -->
+    ```kotlin
+    val toolRegistry = ToolRegistry {
+        tool(BookTool())
+    }
+
+    val runner = AIAgent(
+        promptExecutor = simpleOpenAIExecutor("OPENAI_API_KEY"),
+        llmModel = OpenAIModels.Chat.GPT4o,
+        toolRegistry = toolRegistry
+    )
+    ```
+    <!--- KNIT example-streaming-api-12.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent;
+    import ai.koog.agents.core.tools.ToolRegistry;
+    import ai.koog.agents.core.tools.reflect.ToolSet;
+    import ai.koog.agents.core.tools.annotations.Tool;
+    import ai.koog.agents.core.tools.annotations.LLMDescription;
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels;
+    import ai.koog.prompt.executor.model.PromptExecutor;
+    class exampleStreamingApiJava12 {
+        static class BookTool implements ToolSet {
+            @Tool
+            @LLMDescription("A tool to parse book information")
+            public String book(String title, String author, String description) { return "Done"; }
+        }
+        public static void main(String[] args) {
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    ToolRegistry toolRegistry = ToolRegistry.builder()
+        .tools(new BookTool())
+        .build();
+
+    AIAgent<String, String> runner = AIAgent.<String, String>builder()
+        .promptExecutor(PromptExecutor.builder().openAI("OPENAI_API_KEY").build())
+        .llmModel(OpenAIModels.Chat.GPT4o)
+        .toolRegistry(toolRegistry)
+        .build();
+    ```
+    <!--- KNIT exampleStreamingApiJava12.java -->
 
 ## 最佳實務
 

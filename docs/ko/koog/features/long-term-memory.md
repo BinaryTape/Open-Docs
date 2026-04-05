@@ -26,7 +26,7 @@
         install(LongTermMemory) {
             retrieval {
                 storage = myStorage
-                searchStrategy = KeywordSearchStrategy(topK = 5)
+                searchStrategy = SimilaritySearchStrategy(topK = 5)
             }
         }
     }
@@ -47,8 +47,8 @@
             config.retrieval(
                 new LongTermMemory.RetrievalSettingsBuilder()
                     .withStorage(myStorage)
-                    .withSearchStrategy(query ->
-                        new KeywordSearchRequest(query, 15, 0.5, null)
+                    .withSearchStrategy(
+                        SearchStrategy.builder().similarity().withTopK(5).build()
                     )
                     .build()
             );
@@ -96,13 +96,55 @@
 | `UserPromptAugmenter()` | 마지막 사용자 메시지 앞에 별도의 사용자 메시지로 컨텍스트를 삽입합니다 |
 | `PromptAugmenter { prompt, context -> ... }` | 람다를 통한 사용자 정의 보강 |
 
+### 쿼리 추출기 (Query Extractors)
+
+기본적으로 검색 흐름은 마지막 사용자 메시지를 검색 쿼리로 사용합니다. `QueryExtractor`를 제공하여 이를 사용자 정의할 수 있습니다:
+
+| 추출기 | 동작 |
+|---|---|
+| `LastUserMessageQueryExtractor()` | 마지막 사용자 메시지의 콘텐츠를 사용합니다 (기본값) |
+| `QueryExtractor { prompt -> ... }` | 람다를 통한 사용자 정의 추출 |
+
+=== "Kotlin"
+
+    ```kotlin
+    @OptIn(ExperimentalAgentsApi::class)
+    install(LongTermMemory) {
+        retrieval {
+            storage = myStorage
+            queryExtractor = QueryExtractor { prompt ->
+                // 마지막 두 사용자 메시지를 결합하여 검색 쿼리로 사용
+                prompt.messages
+                    .filter { it.role == Message.Role.User }
+                    .takeLast(2)
+                    .joinToString(" ") { it.content }
+                    .ifEmpty { null }
+            }
+        }
+    }
+    ```
+
+=== "Java"
+
+    ```java
+    var retrievalSettings = new LongTermMemory.RetrievalSettingsBuilder()
+        .withStorage(myStorage)
+        .withQueryExtractor(prompt -> {
+            var userMessages = prompt.getMessages().stream()
+                .filter(m -> m.getRole() == Message.Role.User)
+                .toList();
+            if (userMessages.isEmpty()) return null;
+            return userMessages.get(userMessages.size() - 1).getContent();
+        })
+        .build();
+    ```
+
 ### 검색 전략 (Search Strategies)
 
 | 전략 | 동작 |
 |-----------------------------------------------------------|--------------------------|
-| `KeywordSearchStrategy()` | 전체 텍스트/어휘 키워드 매칭 |
-| `SimilaritySearchStrategy()` | 벡터 유사성 기반 의미론적 검색 |
-| `query -> new KeywordSearchRequest(query, 20, 0.0, null)` | 람다를 통한 사용자 정의 검색 |
+| `SimilaritySearchStrategy()` | 벡터 유사성 기반 의미론적 검색 — **기본 및 권장 사항** |
+| `query -> new SimilaritySearchRequest(query, 20, 0, 0.0, null)` | 람다를 통한 사용자 정의 검색 |
 
 ## 수집 전용 (Ingestion Only)
 
@@ -116,7 +158,7 @@
         ingestion {
             storage = myVectorDbStorage
             namespace = "my-collection"  // 선택 사항: 특정 네임스페이스/컬렉션으로 범위를 제한
-            extractor = FilteringMemoryRecordExtractor(
+            extractionStrategy = FilteringExtractionStrategy(
                 messageRolesToExtract = setOf(Message.Role.User, Message.Role.Assistant)
             )
             timing = IngestionTiming.ON_LLM_CALL
@@ -129,8 +171,8 @@
     ```java
     var ingestionSettings = new LongTermMemory.IngestionSettingsBuilder()
         .withStorage(myVectorDbStorage)
-        .withExtractor(
-            MemoryRecordExtractor.builder()
+        .withExtractionStrategy(
+            ExtractionStrategy.builder()
                 .filtering()
                 .withExtractRoles(new HashSet<>(Arrays.asList(Message.Role.User, Message.Role.Assistant)))
                 .withLastMessageOnly(false)
@@ -144,10 +186,53 @@
 
 | 시점 | 동작 |
 |---|---|
-| `ON_LLM_CALL` | 각 LLM 호출/스트림 시 메시지를 수집합니다 (세션 내 RAG 가능) |
-| `ON_AGENT_COMPLETION` | 에이전트 실행이 완료될 때 모든 메시지를 한꺼번에 수집합니다 |
+| `ON_LLM_CALL` | 각 LLM 호출이 시작되기 전에 프롬프트 메시지를 수집하고, 완료 또는 스트림 완료 후에 어시스턴트 출력을 수집합니다. 세션 내 RAG를 가능하게 합니다. |
+| `ON_AGENT_COMPLETION` | 에이전트 실행이 완료될 때 최종 누적된 세션 프롬프트/히스토리를 한꺼번에 수집합니다. |
 
-## 전략 노드에서 장기 메모리 액세스하기
+## 자동 동작 비활성화 (Disabling Automatic Behavior)
+
+기본적으로 검색과 수집은 자동으로 실행됩니다 (각각 LLM 호출 전후). 자동 동작을 비활성화하면서도 전략 노드 내부에서 설정된 저장소 및 전략에 액세스할 수 있습니다:
+
+=== "Kotlin"
+
+    ```kotlin
+    @OptIn(ExperimentalAgentsApi::class)
+    install(LongTermMemory) {
+        retrieval {
+            storage = myStorage
+            enableAutomaticRetrieval = false  // 자동 프롬프트 보강 없음
+        }
+        ingestion {
+            storage = myStorage
+            enableAutomaticIngestion = false  // 자동 메시지 저장 없음
+        }
+    }
+    ```
+
+=== "Java"
+
+    ```java
+    config.retrieval(
+        new LongTermMemory.RetrievalSettingsBuilder()
+            .withStorage(myStorage)
+            .withEnableAutomaticRetrieval(false)
+            .build()
+    );
+    config.ingestion(
+        new LongTermMemory.IngestionSettingsBuilder()
+            .withStorage(myStorage)
+            .withEnableAutomaticIngestion(false)
+            .build()
+    );
+    ```
+
+이를 통해 세 가지 깔끔한 모드를 사용할 수 있습니다:
+
+1. **전체 자동 (Full automatic)** (기본값): 기능을 설치하고 저장소를 설정하면 검색과 수집이 자동으로 작동합니다.
+2. **수동 전용 (Manual only)**: `enableAutomaticRetrieval = false` / `enableAutomaticIngestion = false`로 설정하고 그래프 전략 노드에서 저장소와 전략을 사용합니다.
+3. **하이브리드 (Hybrid)**: 자동 수집과 수동 검색을 결합합니다 (또는 그 반대).
+
+## 전략 노드에서 장기 메모리 액세스하기 (Accessing Long-Term Memory from Strategy Nodes)
 
 전략 노드 내부에서 `withLongTermMemory { }`를 사용하여 직접 검색하거나 레코드를 추가할 수 있습니다:
 
@@ -157,11 +242,11 @@ val myNode by node<String, Unit> {
     withLongTermMemory {
         // 수동으로 레코드 추가
         val record = MemoryRecord(content = "중요한 사실")
-        this.getIngestionStorage()?.add(listOf(record), ingestionSettings?.namespace)
+        ingestionStorage?.add(listOf(record), namespace = "my-namespace")
 
         // 수동으로 검색
-        val request = SimilaritySearchRequest(query = input, limit = 5)
-        val results = this.getRetrievalStorage()?.search(request, retrievalSettings?.namespace)
+        val request = SimilaritySearchRequest(queryText = input, limit = 5)
+        val results = retrievalStorage?.search(request, namespace = "my-namespace")
     }
 }
 ```
@@ -172,17 +257,17 @@ val myNode by node<String, Unit> {
 @OptIn(ExperimentalAgentsApi::class)
 val myNode by node<String, Unit> {
     val memory = longTermMemory()
-    val storage = memory.getIngestionStorage()
+    val storage = memory.ingestionStorage
 }
 ```
 
-## 사용자 정의 메모리 레코드 추출기 (Custom Memory Record Extractor)
+## 사용자 정의 추출 전략 (Custom Extraction Strategy)
 
-`MemoryRecordExtractor`를 구현하여 저장 전에 메시지가 변환되는 방식을 제어할 수 있습니다:
+`ExtractionStrategy`를 구현하여 저장 전에 메시지가 변환되는 방식을 제어할 수 있습니다:
 
 ```kotlin
 @OptIn(ExperimentalAgentsApi::class)
-val summarizingExtractor = MemoryRecordExtractor { messages ->
+val summarizingExtractor = ExtractionStrategy { messages ->
     messages
         .filter { it.role == Message.Role.Assistant }
         .map { MemoryRecord(content = summarize(it.content)) }
@@ -191,29 +276,29 @@ val summarizingExtractor = MemoryRecordExtractor { messages ->
 install(LongTermMemory) {
     ingestion {
         storage = myStorage
-        extractor = summarizingExtractor
+        extractionStrategy = summarizingExtractor
     }
 }
 ```
 
 ## 사용자 정의 저장소 구현하기 (Implementing Custom Storage)
 
-`RetrievalStorage` 및/또는 `IngestionStorage`를 구현하여 벡터 데이터베이스에 연결할 수 있습니다:
+`SearchStorage` 및/또는 `WriteStorage`를 구현하여 벡터 데이터베이스에 연결할 수 있습니다:
 
 ```kotlin
-class MyVectorDbStorage : RetrievalStorage, IngestionStorage {
+class MyVectorDbStorage : SearchStorage<TextDocument, SearchRequest>, WriteStorage<TextDocument> {
     override suspend fun search(
         request: SearchRequest, namespace: String?
-    ): List<SearchResult> {
+    ): List<SearchResult<TextDocument>> {
         // 벡터 DB 쿼리 수행
     }
 
     override suspend fun add(
-        records: List<MemoryRecord>, namespace: String?
+        records: List<TextDocument>, namespace: String?
     ) {
         // 벡터 DB에 데이터 삽입/업데이트(Upsert)
     }
 }
 ```
 
-테스트를 위해서는 키워드 기반 검색을 지원하며 레코드를 메모리에 보관하는 기본 제공 `InMemoryRecordStorage`를 사용하십시오.
+테스트를 위해서는 레코드를 메모리에 보관하는 기본 제공 `InMemoryRecordStorage`를 사용하십시오. 이는 `KeywordSearchRequest`와 `SimilaritySearchRequest`를 모두 지원하지만, 두 가지 모두 단순한 대소문자 구분 없는 부분 문자열 매칭으로 구현되어 있습니다 (벡터 임베딩 없음).

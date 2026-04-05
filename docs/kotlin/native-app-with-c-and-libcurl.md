@@ -19,7 +19,7 @@
 
    ```none
    https://github.com/Kotlin/kmp-native-wizard
-   ```  
+   ```
 
 3. 浏览项目结构：
 
@@ -30,19 +30,15 @@
 4. 打开 `build.gradle.kts` 文件，这是包含项目设置的构建脚本。特别注意构建文件中的以下内容：
 
     ```kotlin
+    import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
     kotlin {
-        val hostOs = System.getProperty("os.name")
-        val isArm64 = System.getProperty("os.arch") == "aarch64"
-        val isMingwX64 = hostOs.startsWith("Windows")
-        val nativeTarget = when {
-            hostOs == "Mac OS X" && isArm64 -> macosArm64("native")
-            hostOs == "Linux" && isArm64 -> linuxArm64("native")
-            hostOs == "Linux" && !isArm64 -> linuxX64("native")
-            isMingwX64 -> mingwX64("native")
-            else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
-        }
-    
-        nativeTarget.apply {
+        macosArm64()
+        linuxArm64()
+        linuxX64()
+        mingwX64()
+
+        targets.withType<KotlinNativeTarget>().configureEach {
             binaries {
                 executable {
                     entryPoint = "main"
@@ -50,7 +46,6 @@
             }
         }
     }
-    
     ```
 
    * 针对 macOS、Linux 和 Windows 平台，分别使用 `macosArm64`、`linuxArm64`、`linuxX64` 和 `mingwX64` 定义目标。请参阅 [支持的平台](native-target-support.md) 完整列表。
@@ -101,7 +96,7 @@ Kotlin/Native 有助于取用标准 C 库，从而打开了几乎可以满足任
 要使用头文件，请确保它们是作为构建过程的一部分生成的。为此，请在 `build.gradle.kts` 文件中添加以下 `compilations {}` 块：
 
 ```kotlin
-nativeTarget.apply {
+targets.withType<KotlinNativeTarget>().configureEach {
     compilations.getByName("main") {
         cinterops {
             val libcurl by creating
@@ -161,10 +156,10 @@ fun main(args: Array<String>) {
 
 ## 编译并运行应用程序
 
-1. 编译应用程序。为此，请从任务列表中运行 `runDebugExecutableNative` Gradle 任务，或在终端中使用以下命令：
+1. 要编译应用程序，请从任务列表中运行 `runDebugExecutable<你的目标名称>` Gradle 任务，或在终端中使用控制台命令，例如：
  
    ```bash
-   ./gradlew runDebugExecutableNative
+   ./gradlew runDebugExecutableMacosArm64
    ```
 
    在这种情况下，由 cinterop 工具生成的部分会被隐式包含在构建中。

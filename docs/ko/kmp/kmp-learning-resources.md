@@ -871,7 +871,7 @@ GitHub
 </td>
 <td>
 
-[Maven Central에 배포하기](multiplatform-publish-libraries.md)
+[Maven Central에 배포하기](multiplatform-publish-libraries-to-maven.md)
 
 튜토리얼
 

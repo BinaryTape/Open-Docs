@@ -871,7 +871,7 @@ GitHub
 </td>
 <td>
 
-[Maven Centralへの公開](multiplatform-publish-libraries.md)
+[Maven Centralへの公開](multiplatform-publish-libraries-to-maven.md)
 
 チュートリアル
 

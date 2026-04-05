@@ -1,13 +1,12 @@
 [//]: # (title: kapt 컴파일러 플러그인)
 
-> kapt는 유지 관리 모드(maintenance mode)에 있습니다. 최신 Kotlin 및 Java 릴리스에 맞춰 업데이트를 유지하고 있지만, 새로운 기능을 구현할 계획은 없습니다. 어노테이션 처리를 위해 [Kotlin Symbol Processing API (KSP)](ksp-overview.md)를 사용해 주세요.
-> [KSP가 지원하는 라이브러리 목록 보기](ksp-overview.md#supported-libraries).
->
-{style="warning"}
-
-어노테이션 프로세서([JSR 269](https://jcp.org/en/jsr/detail?id=269) 참고)는 *kapt* 컴파일러 플러그인을 통해 Kotlin에서 지원됩니다.
+kapt 컴파일러 플러그인을 사용하면 Kotlin에서 Java 어노테이션 프로세서를 사용할 수 있습니다.
 
 간단히 말해, kapt는 Java 기반의 어노테이션 처리를 가능하게 함으로써 Kotlin 프로젝트에서 [Dagger](https://google.github.io/dagger/)나 [Data Binding](https://developer.android.com/topic/libraries/data-binding/index.html)과 같은 라이브러리를 사용할 수 있도록 돕습니다.
+
+> Kotlin용으로 제작된 어노테이션 프로세서를 사용하려면 [Kotlin Symbol Processing (KSP)](ksp-overview.md)을 사용하세요.
+>
+{style="note"}
 
 ## Gradle에서 사용하기
 

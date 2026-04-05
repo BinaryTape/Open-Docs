@@ -550,6 +550,7 @@ import ai.koog.prompt.executor.model.StructureFixingParser
 import ai.koog.prompt.structure.json.JsonStructure
 import ai.koog.prompt.structure.json.generator.StandardJsonSchemaGenerator
 import ai.koog.prompt.executor.clients.openai.base.structure.OpenAIBasicJsonSchemaGenerator
+import ai.koog.prompt.executor.clients.anthropic.structure.AnthropicBasicJsonSchemaGenerator
 import ai.koog.prompt.llm.LLMProvider
 import kotlinx.coroutines.runBlocking
 import ai.koog.prompt.structure.StructuredRequestConfig
@@ -573,6 +574,11 @@ val openAiStructure = JsonStructure.create<WeatherForecast>(
     examples = exampleForecasts
 )
 
+val anthropicStructure = JsonStructure.create<WeatherForecast>(
+    schemaGenerator = AnthropicBasicJsonSchemaGenerator,
+    examples = exampleForecasts
+)
+
 val promptExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_KEY"))
 
 // 고급 API는 단순한 매개변수 대신 StructuredRequestConfig를 사용합니다.
@@ -585,6 +591,7 @@ val structuredResponse = promptExecutor.executeStructured(
     config = StructuredRequestConfig(
         byProvider = mapOf(
             LLMProvider.OpenAI to StructuredRequest.Native(openAiStructure),
+            LLMProvider.Anthropic to StructuredRequest.Native(anthropicStructure),
         ),
         default = StructuredRequest.Manual(genericStructure)
     ),
@@ -602,7 +609,7 @@ val structuredResponse = promptExecutor.executeStructured(
 
 - **StandardJsonSchemaGenerator**: 다형성, 정의(definitions) 및 재귀적 참조를 지원하는 전체 JSON 스키마입니다.
 - **BasicJsonSchemaGenerator**: 다형성을 지원하지 않는 단순화된 스키마로, 더 많은 모델과 호환됩니다.
-- **제공자별 생성기 (Provider-specific generators)**: 특정 LLM 제공자(OpenAI, Google 등)에 최적화된 스키마입니다.
+- **제공자별 생성기 (Provider-specific generators)**: 특정 LLM 제공자(OpenAI, Anthropic, Google 등)에 최적화된 스키마입니다.
 
 ### 모든 계층에서의 사용 (Usage across all layers)
 

@@ -48,11 +48,11 @@ Kotlin 可用於任何類型的開發，無論是伺服器端開發、用戶端 
 
 是的。Kotlin 與 JVM 100% 相容，因此您可以使用任何現有的架構，例如 Spring Boot、vert.x 或 JSF。
 此外，還有專門用 Kotlin 編寫的架構，例如 [Ktor](https://github.com/kotlin/ktor)。
-如需更多資訊，請查看 [伺服器端開發資源](server-overview.md)。
+如需更多資訊，請查看[伺服器端開發概覽](server-overview.md)。
 
 ### 我可以將 Kotlin 用於 Web 開發嗎？
 
-是的。對於後端 Web 開發，Kotlin 與 [Ktor](https://ktor.io/) 和 [Spring](https://spring.io/) 等架構搭配良好，讓您能高效建置伺服器端應用程式。
+是的。對於伺服器端 Web 開發，Kotlin 與 [Ktor](https://ktor.io/) 和 [Spring](https://spring.io/) 等架構搭配良好，讓您能高效建置伺服器端應用程式。
 此外，您可以使用 Kotlin/Wasm 進行用戶端 Web 開發。
 了解如何[開始使用 Kotlin/Wasm](wasm-get-started.md)。
 
@@ -104,7 +104,7 @@ Kotlin 受到 Java、C#、JavaScript、Scala 和 Groovy 等現有語言的啟發
  
 ### 哪些公司正在使用 Kotlin？
  
-使用 Kotlin 的公司太多，無法一一列舉，但一些較知名且已公開宣佈使用 Kotlin 的公司（透過部落格文章、GitHub 儲存庫或演講）包括 [Square](https://medium.com/square-corner-blog/square-open-source-loves-kotlin-c57c21710a17)、[Pinterest](https://www.youtube.com/watch?v=mDpnc45WwlI) 以及 [Basecamp](https://signalvnoise.com/svn3/using-kotlin-to-make-android-apis-fun-again/)。
+使用 Kotlin 的公司太多，無法一一列舉，但一些較知名且已公開宣佈使用 Kotlin 的公司（透過部落格文章、GitHub 存儲庫或演講）包括 [Square](https://medium.com/square-corner-blog/square-open-source-loves-kotlin-c57c21710a17)、[Pinterest](https://www.youtube.com/watch?v=mDpnc45WwlI) 以及 [Basecamp](https://signalvnoise.com/svn3/using-kotlin-to-make-android-apis-fun-again/)。
  
 ### 誰開發了 Kotlin？
 

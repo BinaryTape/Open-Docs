@@ -15,6 +15,10 @@
     "text": "kotlin.what-s-new-in-kotlin",
     "items": [
       {
+        "text": "kotlin.whatsnew-eap",
+        "link": "whatsnew-eap"
+      },
+      {
         "text": "kotlin.whatsnew2320",
         "link": "whatsnew2320"
       },
@@ -303,7 +307,7 @@
     "text": "kotlin.development",
     "items": [
       {
-        "text": "kotlin.server-side-development",
+        "text": "kotlin.backend-development",
         "items": [
           {
             "text": "kotlin.server-overview",

@@ -15,6 +15,10 @@ Kotlin 2.3.20 正式发布！以下是主要亮点：
 * **标准库**：[用于创建 `Map.Entry` 不可变副本的新 API](#new-api-for-creating-immutable-copies-of-map-entry)
 * **Kotlin/Native**：[针对 C 和 Objective-C 库的新互操作性模式](#new-interoperability-mode-for-c-or-objective-c-libraries)
 
+> 有关 Kotlin 发布周期的信息，请参阅 [Kotlin 发布流程](releases.md)。
+>
+{style="tip"}
+
 ## 更新至 Kotlin 2.3.20
 
 最新版本的 Kotlin 已包含在最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Android Studio](https://developer.android.com/studio) 中。
@@ -573,7 +577,7 @@ Kotlin 2.3.20 提升了字符串操作的性能、编译时间及内存使用。
 ### 改进字符串性能
 <secondary-label ref="wasm"/>
 
-Kotlin/Wasm 现在对 `kotlin.String` 值使用 JS 字符串内建函数（JS String builtins）。
+Kotlin/Wasm 现在对 `kotlin.String` 值使用 JS 字符串内建函数 (JS String builtins)。
 这使得 Kotlin/Wasm 能够从浏览器和支持该提案的 Wasm 运行时的 JavaScript 引擎字符串优化中受益。
 该优化适用于拼接、插值、`StringBuilder.append()` 以及数字到字符串的转换等操作。
 
@@ -913,7 +917,7 @@ operation.compilerArguments[COMPILER_PLUGINS] = listOf(
   此更改使 Kotlin/Wasm 更加独立，并为 [ES 模块集成提案](https://github.com/WebAssembly/esm-integration)做好了准备。
 
   如果您使用 [`@EagerInitialization`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-eager-initialization/) 注解，如果相关代码在模块初始化完成之前运行，则可能会失败。我们建议除非确有必要，否则避免使用 `@EagerInitialization` 注解。
-* 实验性的上下文接收器（context receivers）不再受支持，并由[上下文参数](context-parameters.md)（context parameters）取代。
+* 实验性的上下文接收器（context receivers）不再受支持，并由[上下文参数](context-parameters.md)取代。
 * 此版本迈出了 [基于 Intel 芯片的 Apple 目标弃用周期](whatsnew2220.md#deprecation-of-x86-64-apple-targets) 的下一步。从 Kotlin 2.3.20 开始，我们弃用了 `macosX64`、`tvosX64` 和 `watchosX64` 目标。我们计划在下一个 Kotlin 版本中完全移除对这些目标的支持。
 
   由于许多第三方库仍依赖于 `iosX64` 目标，我们目前将其保留在支持层级 3。这意味着我们不保证 CI 测试，并且可能无法在不同的编译器版本之间提供源码和二进制兼容性。有关支持层级的更多信息，请参阅 [Kotlin/Native 目标支持](native-target-support.md)。

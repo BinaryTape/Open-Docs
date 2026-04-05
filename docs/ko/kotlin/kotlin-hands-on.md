@@ -3,11 +3,11 @@
 Kotlin을 사용하여 다양한 기술과 여러 플랫폼을 대상으로 애플리케이션을 제작해 볼 수 있는 일련의 핸즈온 튜토리얼입니다.
 각 실습은 여러 단계로 나뉘어 있으며, 각 섹션을 차근차근 따라갈 수 있도록 안내합니다.
 
-## Kotlin 코루틴과 RSocket을 사용한 리액티브 스프링 부트 애플리케이션 구축
+## Spring Boot와 Kotlin을 사용한 웹 앱 생성
 
-Spring Boot와 Kotlin을 사용하여 간단한 채팅 애플리케이션을 빌드하고, 구문(syntax) 관점에서 서버 측 개발에 Kotlin을 사용할 때의 이점을 알아봅니다.
+Spring Boot와 Kotlin을 사용하여 데이터베이스 기능이 포함된 간단한 애플리케이션을 빌드하고, 구문(syntax) 관점에서 백엔드 개발에 Kotlin을 사용할 때의 이점을 알아봅니다.
 
-[**시작하기**](https://spring.io/guides/tutorials/spring-webflux-kotlin-rsocket/)
+[**시작하기**](jvm-get-started-spring-boot.md)
 
 ## React와 Kotlin/JS를 사용한 웹 애플리케이션 구축
 

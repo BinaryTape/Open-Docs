@@ -68,6 +68,13 @@ Kotlin/Nativeは、[デバッグとリリースの2つのビルドモード](htt
 >
 {style="tip"}
 
+### リリースバイナリのサイズを削減する
+<primary-label ref="experimental-opt-in"/>
+
+リリースバイナリのサイズを削減し、ビルド時間を改善するには、[バイナリオプションを有効にする](native-binary-options.md#how-to-enable) `smallBinary` を試してください。
+
+これにより、LLVMコンパイルフェーズにおいて、コンパイラのデフォルトの最適化引数として `-Oz` が実質的に設定されます。このオプションはまだ[試験的（Experimental）](components-stability.md#stability-levels-explained)であり、場合によっては実行時のパフォーマンスに影響を与える可能性があります。
+
 ### Gradleデーモンを無効にしない
 
 正当な理由がない限り、[Gradleデーモン](https://docs.gradle.org/current/userguide/gradle_daemon.html)を無効にしないでください。デフォルトでは、[Kotlin/NativeはGradleデーモンから実行されます](https://blog.jetbrains.com/kotlin/2020/03/kotlin-1-3-70-released/#kotlin-native)。これが有効な場合、同じJVMプロセスが使用され、コンパイルごとにウォームアップする必要がありません。

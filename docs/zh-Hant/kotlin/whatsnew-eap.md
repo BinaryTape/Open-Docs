@@ -2,11 +2,13 @@
 
 <primary-label ref="eap"/>
 
-<web-summary>閱讀 Kotlin 早期體驗計劃 (EAP) 版本說明，並在正式發佈前試用最新的實驗性 Kotlin 功能。</web-summary>
+<show-structure depth="1"/>
+
+<web-summary>閱讀 Kotlin 早期體驗預覽 (EAP) 版本說明，並在正式發佈前試用最新的實驗性 Kotlin 功能。</web-summary>
 
 _[發佈日期：%kotlinEapReleaseDate%](eap.md#build-details)_
 
-> 本文件並未涵蓋早期體驗計劃 (EAP) 發佈版的所有功能，但重點介紹了一些重大改進。
+> 本文件並未涵蓋早期體驗預覽 (EAP) 發佈版的所有功能，但重點介紹了一些重大改進。
 >
 > 請參閱 [GitHub 變更日誌](https://github.com/JetBrains/kotlin/releases/tag/v%kotlinEapVersion%) 中的完整變更列表。
 >
@@ -14,185 +16,301 @@ _[發佈日期：%kotlinEapReleaseDate%](eap.md#build-details)_
 
 Kotlin %kotlinEapVersion% 版本已發佈！以下是此 EAP 版本的一些詳細資訊：
 
-* **Kotlin 編譯器外掛程式**：[Lombok 進入 Alpha 階段](#lombok-is-now-alpha) 以及 [在 `kotlin.plugin.jpa` 外掛程式中改進的 JPA 支援](#improved-jpa-support-in-the-kotlin-plugin-jpa-plugin)
-* **Kotlin/Native**：[適用於 C 和 Objective-C 程式庫的新互通性模式](#kotlin-native-new-interoperability-mode-for-c-or-objective-c-libraries)
-* **Gradle**：[與 Gradle 9.3.0 的相容性](#compatibility-with-gradle-9-3-0) 以及 [Kotlin/JVM 編譯預設使用 BTA](#kotlin-jvm-compilation-uses-build-tools-api-by-default)
-* **Maven**：[針對 Kotlin 專案的簡化設定](#maven-simplified-setup-for-kotlin-projects)
-* **標準函式庫**：[用於建立 `Map.Entry` 不可變副本的新 API](#standard-library-new-api-for-creating-immutable-copies-of-map-entry)
+* **語言**：[穩定版的上下文參數以及註解使用處目標的多項功能](#stable-features-context-parameters-and-features-for-annotation-use-site-targets)
+* **標準函式庫**：[用於將無符號整數轉換為 `BigInteger` 的新 API](#new-api-for-converting-unsigned-integers-to-biginteger-on-the-jvm) 以及 [支援檢查排序順序](#support-for-checking-sorted-order)
+* **Kotlin/JVM**：[支援 Java 26](#support-for-java-26) 以及 [預設啟用元資料中的註解](#annotations-in-metadata-enabled-by-default)
+* **Kotlin/Native**：[支援將 Swift 套件作為相依性](#swift-package-import)
+* **Kotlin 編譯器**：[在 `.klib` 編譯期間更一致的內嵌函式行為](#consistent-intra-module-function-inlining-during-klib-compilation)
 
 > 有關 Kotlin 發佈週期的資訊，請參閱 [Kotlin 發佈程序](releases.md)。
 >
 {style="tip"}
 
-## IDE 支援
+## 更新到 Kotlin %kotlinEapVersion%
 
-支援 %kotlinEapVersion% 的 Kotlin 外掛程式已隨附在最新版本的 IntelliJ IDEA 和 Android Studio 中。
-您不需要更新 IDE 中的 Kotlin 外掛程式。
-您只需要在建置指令碼中[將 Kotlin 版本更改](configure-build-for-eap.md)為 %kotlinEapVersion%。
+最新版本的 Kotlin 已包含在最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Android Studio](https://developer.android.com/studio) 中。
 
-詳情請參閱[更新到新版本](releases.md#update-to-a-new-kotlin-version)。
+若要更新到新的 Kotlin 版本，請確保您的 IDE 已更新至最新版本，並在建置指令碼中[將 Kotlin 版本更改](releases.md#update-to-a-new-kotlin-version)為 %kotlinEapVersion%。
 
-## Kotlin 編譯器外掛程式
+## 新功能 {id=new-stable-features}
+<primary-label ref="stable"/>
 
-Kotlin %kotlinEapVersion% 為 Lombok 和 `kotlin.plugin.jpa` 編譯器外掛程式帶來了重要的更新。
+在先前的 Kotlin 版本中，有幾項新功能是以實驗性身份引入的。以下功能現已在 Kotlin %kotlinEapVersion% 中晉升為[穩定](components-stability.md#stability-levels-explained)階段，因此您不再需要選擇加入即可使用它們：
 
-### Lombok 現在進入 Alpha 階段
-<primary-label ref="alpha"/>
+* [上下文參數](whatsnew22.md#preview-of-context-parameters)，除了[顯式上下文引數](#explicit-context-arguments-for-context-parameters)和[可呼叫參照](https://github.com/Kotlin/KEEP/blob/context-parameters/proposals/context-parameters.md#callable-references)之外
+* [註解使用處目標的功能](whatsnew22.md#preview-of-features-for-annotation-use-site-targets)
+* [在 JVM 上將無符號整數轉換為 `BigInteger` 的新 API](#new-api-for-converting-unsigned-integers-to-biginteger-on-the-jvm)
+* [支援檢查排序順序](#support-for-checking-sorted-order)
 
-Kotlin 1.5.20 引入了實驗性的 [Lombok 編譯器外掛程式](lombok.md)，讓您可以在混合使用 Kotlin 和 Java 程式碼的模組中產生並使用 [Java 的 Lombok 宣告](https://projectlombok.org/)。
+## 新功能 {id=new-experimental-features}
+<primary-label ref="experimental-exp"/>
 
-在 %kotlinEapVersion% 中，Lombok 編譯器外掛程式晉升為 [Alpha](components-stability.md#stability-levels-explained) 階段，因為我們計劃將此功能產品化，但它目前仍在開發中。
+* [內容參數的顯式上下文引數](#explicit-context-arguments-for-context-parameters)
+* [Swift 套件匯入](#swift-package-import)
 
-### 改進的 JPA 支援在 `kotlin.plugin.jpa` 外掛程式中
+## 語言
 
-除了現有的 [`no-arg`](no-arg-plugin.md) 支援外，`kotlin.plugin.jpa` 外掛程式現在會自動套用 [`all-open`](all-open-plugin.md) 編譯器外掛程式，並使用新增的內建 JPA 預設設定。
+Kotlin %kotlinEapVersion% 將上下文參數和註解使用處目標功能晉升為[穩定](components-stability.md#stability-levels-explained)階段。此版本還引入了[內容參數的顯式上下文引數](#explicit-context-arguments-for-context-parameters)。
 
-在此之前，使用 `kotlin("plugin.jpa")` 僅會啟用帶有 JPA 預設設定的 `no-arg` 外掛程式。而在處理 JPA 實體時，您必須明確套用並配置 `all-open` 外掛程式，才能讓 JPA 實體類別成為 `open`。
+### 穩定功能：上下文參數與註解使用處目標的功能
+<secondary-label ref="language"/>
 
-從 Kotlin %kotlinEapVersion% 開始：
+Kotlin 2.2.0 以[實驗性](components-stability.md#stability-levels-explained)身份引入了一些語言特性。我們很高興地宣佈，以下語言特性在此版本中已達到[穩定](components-stability.md#stability-levels-explained)階段：
 
-* `all-open` 編譯器外掛程式提供了一個 JPA 預設設定。
-* Gradle 的 `org.jetbrains.kotlin.plugin.jpa` 外掛程式會自動套用已啟用 JPA 預設設定的 `org.jetbrains.kotlin.plugin.all-open` 外掛程式。
-* [Maven JPA 設定](no-arg-plugin.md#jpa-support) 預設會啟用帶有 JPA 預設設定的 `all-open`。
-* Maven 相依性 `org.jetbrains.kotlin:kotlin-maven-noarg` 現在會隱含包含 `org.jetbrains.kotlin:kotlin-maven-allopen`，因此您不再需要在 `<plugin><dependencies>` 區塊中明確新增它。
+* [上下文參數](whatsnew22.md#preview-of-context-parameters)，除了[顯式上下文引數](#explicit-context-arguments-for-context-parameters)和[可呼叫參照](https://github.com/Kotlin/KEEP/blob/context-parameters/proposals/context-parameters.md#callable-references)之外
+* [註解使用處目標的功能](whatsnew22.md#preview-of-features-for-annotation-use-site-targets)
 
-因此，標註了以下註解的 JPA 實體
-將自動被視為 `open`，並且無需額外配置即可獲得無引數建構函式：
+[參見 Kotlin 語言設計功能與提案的完整列表](kotlin-language-features-and-proposals.md)。
 
-* `javax.persistence.Entity`
-* `javax.persistence.Embeddable`
-* `javax.persistence.MappedSuperclass`
-* `jakarta.persistence.Entity`
-* `jakarta.persistence.Embeddable`
-* `jakarta.persistence.MappedSuperclass`
-
-這項變更簡化了組建組態，並改善了在 JPA 架構中使用 Kotlin 的開箱即用體驗。
-
-## Kotlin/Native：適用於 C 或 Objective-C 程式庫的新互通性模式
+### 內容參數的顯式上下文引數
 <primary-label ref="experimental-opt-in"/>
+<secondary-label ref="language"/>
 
-如果您在 Kotlin Multiplatform 程式庫或應用程式中使用 C 或 Objective-C 程式庫，我們邀請您測試新的互通性模式並分享結果。
+Kotlin %kotlinEapVersion% 為[上下文參數](context-parameters.md)引入了顯式上下文引數。
 
-一般而言，Kotlin/Native 支援將 C 和 Objective-C 程式庫匯入 Kotlin。然而，對於 Kotlin Multiplatform 程式庫，此功能目前[受到](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) KMP 與舊版本編譯器相容性問題的影響。
+Kotlin 2.3.20 [更改了內容參數的多載解析](whatsnew2320.md#changes-to-overload-resolution-for-context-parameters)。因此，僅在內容參數上有所不同的多載呼叫可能會變得具有歧義。
 
-換句話說，如果您發佈了一個使用某個 Kotlin 版本編譯的 Kotlin Multiplatform 程式庫，匯入 C 或 Objective-C 程式庫可能會導致該 Kotlin 程式庫無法在具有較早 Kotlin 版本的專案中使用。
+現在，您可以透過在呼叫點傳遞顯式上下文引數來解決此歧義。
 
-為了理系此問題及其他問題，Kotlin 團隊一直在修訂底層使用的互通性機制。從 Kotlin 2.3.20-Beta1 開始，您可以透過編譯器選項試用新模式。
+範例如下：
 
-#### 如何試用
+```kotlin
+class EmailSender
+class SmsSender
 
-1. 在您的 Gradle 建置檔案中，檢查是否具有 `cinterops {}` 區塊或 `pod()` 相依性。如果存在這些內容，表示您的專案使用了 C 或 Objective-C 程式庫。
-2. 確保您的專案使用 `2.3.20-Beta1` 或更高版本。
-3. 在同一個建置檔案中，將 `-Xccall-mode` 編譯器選項新增至 cinterop 工具調用中：
+context(emailSender: EmailSender)
+fun sendNotification() {
+    println("Sent email notification")
+}
 
-    ```kotlin
-    kotlin {
-        targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().configureEach {
-            compilations.configureEach {
-                cinterops.configureEach {
-                    extraOpts += listOf("-Xccall-mode", "direct")
-                }
-            }
-        }
+context(smsSender: SmsSender)
+fun sendNotification() {
+    println("Sent SMS notification")
+}
+
+context(defaultEmailSender: EmailSender, defaultSmsSender: SmsSender)
+fun notifyUser() {
+    
+    // 選擇具有 EmailSender 內容參數的多載
+    sendNotification(emailSender = defaultEmailSender)
+
+    // 選擇具有 SmsSender 內容參數的多載
+    sendNotification(smsSender = defaultSmsSender)
+}
+```
+
+您還可以使用顯式上下文引數來代替 `context()` 函式，以減少嵌套並使某些呼叫更易於閱讀。如果您需要在多個呼叫中使用相同的上下文引數，請改用 `context()` 函式。
+
+此功能目前處於[實驗性](components-stability.md#stability-levels-explained)階段。若要選擇啟用，請在您的建置檔案中新增以下編譯器選項：
+
+<tabs group="build-system">
+<tab title="Gradle" group-key="gradle">
+
+```kotlin
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xexplicit-context-arguments")
     }
-    ```
+}
+```
 
-4. 像平常一樣執行單元測試、應用程式等，來建置並測試您的專案。
-
-    您還可以使用 `--continue` 選項，讓 Gradle 在失敗後繼續執行任務，幫助一次發現更多問題。
-
-> 請**不要**發佈使用新互通性模式編譯的程式庫，因為它目前仍處於[實驗性](components-stability.md#stability-levels-explained)階段。
->
-{style="warning"}
-
-#### 回報您的結果
-
-在大多數情況下，新的互通性模式應該是可以直接替換的。
-我們計劃最終預設啟用它。但為了達成這個目標，我們需要確保它的運作盡可能完善，並在廣泛的專案上進行測試，因為：
-
-* 新模式尚不支援某些 C 和 Objective-C 宣告（主要是因為它們與相容性問題發生衝突）。我們希望更深入地瞭解這在現實世界中的影響，並據此排定未來步驟的優先順序。
-* 可能存在我們沒有考慮到的錯誤或情況。測試具有眾多交互特性的語言具有挑戰性，而測試語言之間（各自具有一套獨特的特性）的交互更是如此。
-
-幫助我們檢視現實世界的專案並識別具有挑戰性的案例。
-無論您是否遇到任何問題，請在[此 YouTrack 問題](https://youtrack.jetbrains.com/issue/KT-83218)的評論中分享您的結果。
-
-## Gradle
-
-Kotlin %kotlinEapVersion% 與新版本的 Gradle 相容，並且包含 Kotlin Gradle 外掛程式中 Kotlin/JVM 編譯的變更。
-
-### 與 Gradle 9.3.0 的相容性
-
-Kotlin %kotlinEapVersion% 與 Gradle 7.6.3 至 9.3.0 完全相容。您也可以使用最高到最新發佈版本的 Gradle 版本。但是，請注意，這樣做可能會導致棄用警告，且某些新的 Gradle 功能可能無法運作。
-
-### Kotlin/JVM 編譯預設使用 Build tools API
-<primary-label ref="experimental-general"/>
-
-在 Kotlin %kotlinEapVersion% 中，Kotlin Gradle 外掛程式中的 Kotlin/JVM 編譯預設使用 [Build tools API](build-tools-api.md) (BTA)。內部編譯基礎結構的這項變更使得為 Kotlin 編譯器開發建置工具支援的速度更快。
-
-如果您發現任何問題，請在我們的[問題追蹤器](https://youtrack.jetbrains.com/newIssue?project=KT&summary=Kotlin+Gradle+plugin+BTA+migration+issue&description=Describe+the+problem+you+encountered+here.&c=tag+kgp-bta-migration)中分享您的回饋。
-
-## Maven：針對 Kotlin 專案的簡化設定
-
-Kotlin %kotlinEapVersion% 使得在 Maven 專案中設定 Kotlin 變得更加容易。現在 Kotlin 支援自動配置原始碼根目錄和 Kotlin 的標準函式庫。
-
-有了新的配置，當您使用 Maven 建置系統建立新的 Kotlin 專案，或將 Kotlin 引入現有的 Java Maven 專案時，您不需要手動建立原始碼根目錄或在 POM 建置檔案中新增 `kotlin-stdlib` 相依性。
-
-### 如何啟用
-
-在您的 `pom.xml` 檔案中，將 `<extensions>true</extensions>` 新增至 Kotlin Maven 外掛程式的 `<build><plugins>` 區段：
+</tab>
+<tab title="Maven" group-key="maven">
 
 ```xml
 <build>
     <plugins>
-         <plugin>
-             <groupId>org.jetbrains.kotlin</groupId>
-             <artifactId>kotlin-maven-plugin</artifactId>
-             <version>%kotlinEapVersion%</version>
-             <extensions>true</extensions> <!-- 新增此擴充功能  -->
-         </plugin>
+        <plugin>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-maven-plugin</artifactId>
+            <configuration>
+                <args>
+                    <arg>-Xexplicit-context-arguments</arg>
+                </args>
+            </configuration>
+        </plugin>
     </plugins>
 </build>
 ```
 
-新的擴充功能會自動：
+</tab>
+</tabs>
 
-* 建立 `src/main/kotlin` 和 `src/test/kotlin` 目錄，而不更改現有的 Kotlin 或 Java 原始碼根目錄。
-* 除非已經定義，否則會新增 `kotlin-stdlib` 相依性。
+如需更多資訊，請參閱該功能的 [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0448-explicit-context-arguments.md)。
 
-您也可以選擇不自動新增 Kotlin 的標準函式庫。為此，請將以下內容新增至 `<properties>` 區段：
+## 標準函式庫
 
-```xml
-<project>
-    <properties>
-        <!-- 透過屬性停用智慧預設 -->
-        <kotlin.smart.defaults.enabled>false</kotlin.smart.defaults.enabled>
-    </properties>
-</project>
-```
+Kotlin %kotlinEapVersion% 新增了用於在 JVM 上將無符號整數轉換為 `BigInteger` 的新擴充函式。它還新增了對可迭代對象、陣列和序列檢查排序順序的支援。
 
-有關 Kotlin 專案中 Maven 配置的更多資訊，請參閱[配置 Maven 專案](maven-configure-project.md)。
+### 在 JVM 上將無符號整數轉換為 `BigInteger` 的新 API
+<secondary-label ref="standard-library"/>
 
-## 標準函式庫：用於建立 `Map.Entry` 不可變副本的新 API
-<primary-label ref="experimental-opt-in"/>
+Kotlin %kotlinEapVersion% 在 JVM 上引入了 `UInt.toBigInteger()` 和 `ULong.toBigInteger()` 擴充函式。
 
-Kotlin %kotlinEapVersion% 引入了 `Map.Entry.copy()` 擴充方法，用於建立 [`Map.Entry`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/-entry/) 的不可變副本。
-此方法讓您可以在修改 map 後，透過先複製從 [`Map.entries`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/entries.html) 取得的項目來重複使用它們。
+在此之前，將 `UInt` 和 `ULong` 值轉換為 `BigInteger` 需要基於字串的權宜之計或自訂轉換邏輯。從 Kotlin %kotlinEapVersion% 開始，您現在可以使用 `.toBigInteger()` 直接將無符號整數值轉換為 `BigInteger`。
 
-`Map.Entry.copy()` 處於[實驗性](components-stability.md#stability-levels-explained)階段。若要選擇試用，請使用 `@OptIn(ExperimentalStdlibApi::class)` 註解或編譯器選項 `-opt-in=kotlin.ExperimentalStdlibApi`。
-
-以下是使用 `Map.Entry.copy()` 從可變 map 中移除項目的範例：
+範例如下：
 
 ```kotlin
-@OptIn(ExperimentalStdlibApi::class)
 fun main() {
-    val map = mutableMapOf(1 to 1, 2 to 2, 3 to 3, 4 to 4)
+    val unsignedLong = Long.MAX_VALUE.toULong() + 1uL
+    val unsignedInt = UInt.MAX_VALUE
 
-    val toRemove = map.entries
-        .filter { it.key % 2 == 0 }
-        .map { it.copy() }
+    println(unsignedLong.toBigInteger())
+    // 9223372036854775808
 
-    map.entries.removeAll(toRemove)
-
-    println("map = $map")
-    // map = {1=1, 3=3}
+    println(unsignedInt.toBigInteger())
+    // 4294967295
 }
+```
+
+歡迎在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-73111) 中向我們提供您的回饋。
+
+### 支援檢查排序順序
+<secondary-label ref="standard-library"/>
+
+Kotlin %kotlinEapVersion% 新增了新的擴充函式，用於檢查可迭代對象、陣列和序列中的排序順序。
+
+這包括以下擴充函式：
+
+* `.isSorted()`
+* `.isSortedDescending()`
+* `.isSortedWith(comparator)`
+* `.isSortedBy(selector)`
+* `.isSortedByDescending(selector)`
+
+您可以使用這些擴充函式來檢查元素是否已經排序，而無需再次進行排序或建立自己的輔助函式。如果元素按指定順序排列，或者元素少於兩個，則它們會回傳 `true`，否則回傳 `false`。這些函式在遇到無序配對時會立即停止，這使得它們處理大型輸入時非常高效。
+
+以下是使用 `.isSorted()` 和 `.isSortedBy()` 函式檢查排序順序的範例：
+
+```kotlin
+data class User(val name: String, val age: Int)
+
+fun main() {
+    val numbers = listOf(1, 2, 3, 4)
+    println(numbers.isSorted())
+    // true
+
+    val users = listOf(
+        User("Alice", 24),
+        User("Bob", 31),
+        User("Charlie", 29),
+    )
+    println(users.isSortedBy(User::age))
+    // false
+}
+```
+
+歡迎在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-78499) 中向我們提供您的回饋。
+
+## Kotlin/JVM
+
+Kotlin %kotlinEapVersion% 支援新的 Java 版本，並預設啟用元資料中的註解。
+
+### 支援 Java 26
+<secondary-label ref="jvm"/>
+
+從 Kotlin %kotlinEapVersion% 開始，編譯器可以產生包含 Java 26 位元組碼的類別。
+
+### 預設啟用元資料中的註解
+<secondary-label ref="jvm"/>
+
+Kotlin 2.2.0 中的 Kotlin Metadata JVM 程式庫[引入了對讀取存儲在 Kotlin 元資料中註解的支援](whatsnew22.md#support-for-reading-and-writing-annotations-in-kotlin-metadata)。有了這項支援，Kotlin 編譯器會將註解與 JVM 位元組碼一起寫入元資料中，使 Kotlin Metadata JVM 程式庫可以存取它們。因此，註解處理器和其他工具可以在元資料層級理解和操作這些註解，而無需使用反射或修改原始碼。
+
+在 Kotlin %kotlinEapVersion% 中，此支援已預設啟用。
+
+## Kotlin/Native
+
+Kotlin %kotlinEapVersion% 帶來了對 Swift 套件匯入的支援。
+
+### Swift 套件匯入
+<secondary-label ref="native"/>
+
+<primary-label ref="experimental-general"/>
+
+Kotlin Multiplatform 專案現在可以在其 Gradle 配置中，將 [Swift 套件](https://docs.swift.org/swiftpm/documentation/packagemanagerdocs/) 宣告為 iOS 應用程式的相依性：
+
+```kotlin
+// build.gradle.kts
+kotlin {
+
+    swiftPMDependencies {
+        swiftPackage(
+            url = url("https://github.com/firebase/firebase-ios-sdk.git"),
+            version = from("12.11.0"),
+            products = listOf(
+                product("FirebaseAI"),
+                product("FirebaseAnalytics"),
+                ...
+}
+```
+{validate="false"}
+
+有關操作範例和更詳細的資訊，請參閱 [SwiftPM 匯入](https://kotlinlang.org/docs/multiplatform/multiplatform-spm-import.html)。
+
+如果您的專案依賴 CocoaPods 相依性，您可以將目前的設定遷移為使用 Swift 套件。KMP 工具考慮到了這種使用案例，並能協助您自動重新設定專案。詳情請參閱我們的 [CocoaPods 遷移指南](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-spm-migration.html)。
+
+## Kotlin 編譯器
+
+Kotlin %kotlinEapVersion% 在 `.klib` 編譯期間，對宣告在同一模組中的內嵌函式提供了更一致的行為。
+
+### 在 klib 編譯期間一致的模組內函式內嵌
+<secondary-label ref="compiler"/>
+
+先前，[函式內嵌](inline-functions.md)在不同的 Kotlin 平台上的行為並不一致。JetBrains 小組正致力於在所有支援的平台上統一此行為，以確保相同的相容性保證。
+
+在 Kotlin/JVM 上，函式內嵌發生在編譯時期。因此，當使用 Kotlin/JVM 編譯器編譯 Kotlin 原始碼時，產生的類別檔案在位元組碼中沒有內嵌函式呼叫，因為內嵌函式的內容已內嵌到其呼叫點中，所以它們的行為在編譯期間就已固定。
+
+相反地，在 Kotlin/Native、Kotlin/JS 和 Kotlin/Wasm 上，函式內嵌並未發生在從原始碼到 klib 的編譯期間，而僅發生在二進制檔案產生期間。因此，內嵌函式的行為在 `.klib` 編譯期間並未固定，且 `.klib` 程式庫無法像 Kotlin/JVM 那樣為內嵌函式提供相同的相容性保證。
+
+Kotlin %kotlinEapVersion% 在產生 `.klib` 建置產物時啟用了模組內內嵌，邁出了統一內嵌函式行為的第一步：
+
+```kotlin
+// 現有的 logging.klib 程式庫
+inline fun logDebug(message: String) {
+    println("[DEBUG] $message")
+}
+```
+
+```kotlin
+// 目前編譯的 App 模組
+inline fun greetUser(name: String) {
+    println("Hello, $name!")
+}
+
+fun main() {
+    logDebug("App started") // 未內嵌：宣告在另一個模組中
+    greetUser("Alice")      // 已內嵌：宣告在同一個模組中
+}
+```
+
+編譯為 `.klib` 時，程式碼看起來如下所示：
+
+```kotlin
+// 虛擬程式碼
+fun main() {
+    logDebug("App started")  // 未內嵌，宣告在另一個模組中
+    val tmp0 = "Alice"
+    println("Hello, $tmp0!") // 從 greetUser() 內嵌
+}
+```
+
+這意味著只有在同一模組中宣告的內嵌函式會在 `.klib` 編譯期間被內嵌。在此情況下，其他函式則會在產生平台特定二進制檔案的過程中被內嵌。
+
+#### 如何啟用
+
+從 %kotlinEapVersion% 開始，Kotlin/Native、Kotlin/JS 和 Kotlin/Wasm 預設啟用模組內內嵌。
+
+如果您遇到此功能的意外問題，可以使用命令列中的以下編譯器選項將其停用：
+
+```bash
+-Xklib-ir-inliner=disabled
+```
+
+下一步是啟用跨模組內嵌，以確保專案中的所有內嵌函式都能一致地被內嵌。這項變更計劃在未來的 Kotlin 版本中推出，但您現在已經可以透過在命令列中使用以下編譯器選項來嘗試：
+
+```bash
+-Xklib-ir-inliner=full
+```
+
+請在 [YouTrack](https://kotl.in/issue) 中分享您的回饋並回報任何問題。

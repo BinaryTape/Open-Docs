@@ -12,7 +12,7 @@ IntelliJ IDEA 버전 2025.2.2 이상 및 Android Studio Otter 2025.2.1 이상에
 다른 타겟에 대한 지원 추가를 검토하는 동안, 데스크톱 앱을 샌드박스(sandbox)로 사용하여 
 흐름을 끊지 않고 공통 코드(common code)의 UI 변경 사항을 빠르게 실험해 볼 수 있습니다.
 
-<img src="KotlinConf_hot_reload.animated.gif" alt="Compose Hot Reload" width="600" preview-src="KotlinConf_hot_reload.png"/>
+<img src="KotlinConf-hot-reload.animated.gif" alt="Compose Hot Reload" width="600" preview-src="KotlinConf-hot-reload.png"/>
 
 ## 프로젝트에 Compose Hot Reload 추가하기
 
@@ -57,7 +57,7 @@ Compose Multiplatform 버전을 1.10.0 이상으로 업그레이드하여 별도
  
 2. 최신 버전의 Compose Hot Reload로 버전 카탈로그를 업데이트합니다([릴리스](https://github.com/JetBrains/compose-hot-reload/releases) 참조).
    `gradle/libs.versions.toml`에 다음 코드를 추가합니다:
-   ```kotlin
+   ```text
    composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload"}
    ```
 

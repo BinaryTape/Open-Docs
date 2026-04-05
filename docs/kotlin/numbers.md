@@ -2,7 +2,7 @@
 
 ## 整数类型
 
-Kotlin 提供了一组代表数字的内置类型。
+Kotlin 提供了一组代表数字的内置类型。  
 对于整数，有四种具有不同大小和值范围的类型：
 
 | 类型 | 大小（位） | 最小值 | 最大值 |
@@ -118,53 +118,49 @@ val bytes = 0b11010010_01101001_10010100_10010010
 val bigFractional = 1_234_567.7182818284
 ```
 
-> 无符号整数字面量也有特殊的后缀。
+> 无符号整数字面量也有特殊的后缀。  
 > 详细了解[无符号整数类型的字面量](unsigned-integer-types.md)。
 > 
 {style="tip"}
 
 ## Java 虚拟机上的数字装箱与缓存
 
-由于默认情况下对较小（Byte 大小）的数字使用缓存，JVM 存储数字的方式可能会导致代码的行为违反直觉。
+JVM 使用基本类型（如 `int`、`long` 或 `double`）存储不可空数值。
+然而，当你使用[泛型](generics.md)或创建可空数字类型（如 `Int?`）时，数值会被装箱并表示为一个对象。
 
-JVM 将数字存储为基本类型：`int`、`double` 等。
-当你使用[泛型](generics.md)或创建可空数字引用（如 `Int?`）时，数字会被装箱到 Java 类（如 `Integer` 或 `Double`）中。
+JVM 通过缓存小数字的装箱表示形式来应用[内存优化技术](https://docs.oracle.com/javase/specs/jls/se22/html/jls-5.html#jls-5.1.7)。因此，具有相同值的装箱数字可以是[引用相等](equality.md#referential-equality)的。
 
-JVM 对代表 `-128` 到 `127` 之间数字的 `Integer` 和其他对象应用了[内存优化技术](https://docs.oracle.com/javase/specs/jls/se22/html/jls-5.html#jls-5.1.7)。
-指向此类对象的所有可空引用都引用同一个缓存对象。
-例如，以下代码中的可空对象是[引用相等](equality.md#referential-equality)的：
+例如，JVM 缓存了 `-128` 到 `127` 范围内的装箱 `Integer` 值。因此，以下代码的结果为 `true`：
 
 ```kotlin
 fun main() {
 //sampleStart
-    val a: Int = 100
-    val boxedA: Int? = a
-    val anotherBoxedA: Int? = a
+    val score: Int = 100
+    val savedScore: Int? = score
+    val displayedScore: Int? = score
     
-    println(boxedA === anotherBoxedA) // true
+    println(savedScore === displayedScore) // true
 //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-对于此范围之外的数字，可空对象是不同的，但[结构相等](equality.md#structural-equality)：
+对于缓存范围之外的数字，装箱值是不同的对象。在这种情况下，它们不是引用相等的，即使它们的值是[结构相等](equality.md#structural-equality)的。
+因此，请使用 `==` 来比较数值：
 
 ```kotlin
 fun main() {
 //sampleStart
-    val b: Int = 10000
-    val boxedB: Int? = b
-    val anotherBoxedB: Int? = b
-    
-    println(boxedB === anotherBoxedB) // false
-    println(boxedB == anotherBoxedB) // true
+    val score: Int = 10000
+    val savedScore: Int? = score
+    val displayedScore: Int? = score
+
+    println(savedScore === displayedScore) // false
+    println(savedScore == displayedScore)  // true
 //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
-
-因此，Kotlin 会警告对可装箱数字和字面量使用引用相等比较，并显示以下消息：`"Identity equality for arguments of types ... and ... is prohibited."`（禁止对 ... 和 ... 类型参数进行身份相等性比较）。
-在比较 `Int`、`Short`、`Long` 和 `Byte` 类型（以及 `Char` 和 `Boolean`）时，请使用结构相等检查以获得一致的结果。
 
 ## 显式数字转换
 

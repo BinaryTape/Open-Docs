@@ -16,11 +16,22 @@
 
 通过在 Xcode 项目中添加专用脚本，您可以直接连接来自 Kotlin Multiplatform 项目的 iOS 框架。该脚本会集成到项目构建设置的构建阶段中。
 
-如果您**没有**在 Kotlin Multiplatform 项目中导入 CocoaPods 依赖项，这种集成方法可能适合您。
+如果您在 Kotlin Multiplatform 项目中**没有**导入 CocoaPods 依赖项，这种集成方法可能适合您。
 
 如果您使用 [Kotlin Multiplatform IDE 插件](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)，则默认应用直接集成。
 
 有关更多信息，请参阅[直接集成](multiplatform-direct-integration.md)。
+
+### 使用本地软件包的 SwiftPM 集成
+
+您的 KMP iOS 框架可以通过 [Swift Package Manager](https://docs.swift.org/swiftpm/documentation/packagemanagerdocs/) 依赖本地 Swift 软件包。
+
+这种集成方法适用于以下情况：
+
+* 您拥有包含使用 Swift 软件包的 iOS 项目的单仓库设置。
+* 您的 Kotlin Multiplatform 项目中没有不可替代的 CocoaPods 依赖项。
+
+要了解如何向您的项目添加本地 Swift 软件包依赖项，请参阅[添加 Swift 软件包作为依赖项](multiplatform-spm-import.md#importing-local-swift-packages)。
 
 ### 使用本地 podspec 的 CocoaPods 集成
 
@@ -28,12 +39,10 @@
 
 此集成方法适用于以下情况：
 
-* 您拥有包含使用 CocoaPods 的 iOS 项目的单仓库设置
-* 您在 Kotlin Multiplatform 项目中导入了 CocoaPods 依赖项
+* 您拥有包含使用 CocoaPods 的 iOS 项目的单仓库设置。
+* 您在 Kotlin Multiplatform 项目中导入了 CocoaPods 依赖项。
 
-要设置使用本地 CocoaPods 依赖项的工作流，您可以手动编辑脚本。
-
-有关更多信息，请参阅 [CocoaPods 概述与设置](multiplatform-cocoapods-overview.md)。
+要了解如何设置使用本地 CocoaPods 依赖项的工作流，请参阅 [CocoaPods 概述与设置](multiplatform-cocoapods-overview.md)。
 
 ## 远程集成
 
@@ -41,12 +50,12 @@
 
 ### 使用 XCFrameworks 的 SwiftPM
 
-您可以使用 XCFrameworks 设置 SwiftPM 依赖项，以连接来自 Kotlin Multiplatform 项目的 iOS 框架。
-
-有关更多信息，请参阅 [Swift 软件包导出设置](multiplatform-spm-export.md)。
+您既可以从 Kotlin Multiplatform 项目导出 XCFramework，也可以将远程 Swift 软件包作为依赖项导入 KMP 项目：
+* 有关如何根据您的 XCFramework 制作和分发 Swift 软件包的说明，请参阅 [Swift 软件包导出设置](multiplatform-spm-export.md)。
+* 要了解如何添加 Swift 软件包作为依赖项，请参阅 [Swift PM 导入文档](multiplatform-spm-import.md)。
 
 ### 使用 XCFrameworks 的 CocoaPods 集成
 
 您可以使用 Kotlin CocoaPods Gradle 插件构建 XCFrameworks，然后通过 CocoaPods 将项目的共享部分与移动应用分开分发。
 
-有关更多信息，请参阅[构建最终原生二进制文件](multiplatform-build-native-binaries.md#build-frameworks)。
+有关更多信息，请参阅[构建最终原生二进制文件](multiplatform-build-native-binaries.md#build-xcframeworks)。

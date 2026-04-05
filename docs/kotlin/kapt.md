@@ -1,13 +1,12 @@
 [//]: # (title: kapt 编译器插件)
 
-> kapt 处于维护模式。我们正在使其与最新的 Kotlin 和 Java 版本保持同步，但没有计划实现新功能。请使用 [Kotlin 符号处理 API (KSP)](ksp-overview.md) 进行注解处理。
-> [查看 KSP 支持的库列表](ksp-overview.md#supported-libraries)。
->
-{style="warning"}
-
-Kotlin 通过 *kapt* 编译器插件支持注解处理器（参见 [JSR 269](https://jcp.org/en/jsr/detail?id=269)）。
+kapt 编译器插件允许你在 Kotlin 中使用 Java 注解处理器。
 
 简而言之，kapt 通过启用基于 Java 的注解处理，帮助你在 Kotlin 项目中使用 [Dagger](https://google.github.io/dagger/) 和 [数据绑定](https://developer.android.com/topic/libraries/data-binding/index.html) 等库。
+
+> 要使用专为 Kotlin 开发的注解处理器，请使用 [Kotlin 符号处理 API (KSP)](ksp-overview.md)。
+>
+{style="note"}
 
 ## 在 Gradle 中使用
 

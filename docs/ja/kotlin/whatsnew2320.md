@@ -15,6 +15,10 @@ Kotlin 2.3.20 がリリースされました！主なハイライトは以下の
 * **標準ライブラリ**: [`Map.Entry` の不変コピーを作成するための新しい API](#new-api-for-creating-immutable-copies-of-map-entry)
 * **Kotlin/Native**: [C および Objective-C ライブラリ向けの新しい相互運用モード](#new-interoperability-mode-for-c-or-objective-c-libraries)
 
+> Kotlin のリリースサイクルに関する情報は、[Kotlin のリリースプロセス](releases.md) を参照してください。
+>
+{style="tip"}
+
 ## Kotlin 2.3.20 へのアップデート
 
 最新バージョンの Kotlin は、最新バージョンの [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) および [Android Studio](https://developer.android.com/studio) に含まれています。
@@ -498,7 +502,7 @@ fun main() {
 
 Kotlin 2.3.20 では、C および Objective-C ライブラリ向けの新しい実験的相互運用モード、クロスコンパイルチェッカー、および Kotlin/Native プロジェクトでコンパイルキャッシュを無効にするための新しい DSL が導入されました。
 
-### クロスコンパイルチェッカー
+###  クロスコンパイルチェッカー
 <secondary-label ref="native"/>
 
 Kotlin 2.3.20 では、特定のターゲットに対してクロスコンパイルがサポートされているかどうかを判断する方法が導入されました。

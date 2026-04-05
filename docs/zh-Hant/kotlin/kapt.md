@@ -1,13 +1,12 @@
 [//]: # (title: kapt 編譯器外掛程式)
 
-> kapt 處於維護模式。我們正使其與最近的 Kotlin 和 Java 版本保持同步，但目前沒有計畫實作新功能。請使用 [Kotlin Symbol Processing API (KSP)](ksp-overview.md) 進行註解處理。
-> [查看 KSP 支援的程式庫列表](ksp-overview.md#supported-libraries)。
->
-{style="warning"}
-
-Kotlin 透過 *kapt* 編譯器外掛程式支援註解處理器（參見 [JSR 269](https://jcp.org/en/jsr/detail?id=269)）。
+kapt 編譯器外掛程式允許您在 Kotlin 中使用 Java 註解處理器。
 
 簡而言之，kapt 透過啟用基於 Java 的註解處理，協助您在 Kotlin 專案中使用 [Dagger](https://google.github.io/dagger/) 和 [資料繫結](https://developer.android.com/topic/libraries/data-binding/index.html) 等程式庫。
+
+> 若要使用專為 Kotlin 製作的註解處理器，請使用 [Kotlin Symbol Processing (KSP)](ksp-overview.md)。
+>
+{style="note"}
 
 ## 在 Gradle 中使用
 
@@ -158,7 +157,7 @@ com.example.processor.TestingProcessor: total: 133 ms, init: 36 ms, 2 round(s): 
 com.example.processor.AnotherProcessor: total: 100 ms, init: 6 ms, 1 round(s): 93 ms
 ```
 
-您可以使用外掛程式選項 [`-Kapt-dump-processor-timings` (`org.jetbrains.kotlin.kapt3:dumpProcessorTimings`)](https://github.com/JetBrains/kotlin/pull/4280) 將此報告傾印到檔案中。以下指令將執行 kapt 並將統計資料傾印到 `ap-perf-report.file` 檔案中：
+您可以使用外掛程式選項 [`-Kapt-dump-processor-timings` (`org.jetbrains.kotlin.kapt3:dumpProcessorTimings`)](https://github.com/JetBrains/kotlin/pull/4280) 將此報告傾印到檔案中。以下指令將執行 kaptbing 並將統計資料傾印到 `ap-perf-report.file` 檔案中：
 
 ```bash
 kotlinc -cp $MY_CLASSPATH \

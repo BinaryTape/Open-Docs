@@ -1,13 +1,13 @@
-Koog 提供了一套抽象和实现，用于以不依赖供应商的方式处理来自各种大型语言模型（LLM）供应商的 LLM。该套件包含以下类：
+Koog 提供了一套抽象和实现，用于以不依赖供应商的方式处理来自各种大型语言模型 (LLM) 供应商的 LLM。该套件包含以下类：
 
 - **LLMCapability**：一个类层次结构，定义了 LLM 可以支持的各种功能，例如：
-    - 温度调节（Temperature adjustment），用于控制响应的随机性
-    - 工具集成（Tool integration），用于与外部系统交互
-    - 视觉处理（Vision processing），用于处理视觉数据
-    - 嵌入生成（Embedding generation），用于向量表示
-    - 补全（Completion），用于文本生成任务
-    - 架构支持（Schema support），用于结构化数据（包含简单和完整变体的 JSON）
-    - 推测（Speculation），用于探索性响应
+    - 温度调节 (Temperature adjustment)，用于控制响应的随机性
+    - 工具集成 (Tool integration)，用于与外部系统交互
+    - 视觉处理 (Vision processing)，用于处理视觉数据
+    - 嵌入生成 (Embedding generation)，用于向量表示
+    - 补全 (Completion)，用于文本生成任务
+    - 架构支持 (Schema support)，用于结构化数据（包含简单 (Simple) 和完整 (Full) 变体的 JSON）
+    - 推测 (Speculation)，用于探索性响应
 
 - **LLModel**：一个数据类，表示特定的 LLM 及其供应商、唯一标识符和支持的功能。
 
@@ -23,7 +23,7 @@ LLM 功能代表了大型语言模型可以支持的特定特性或功能。在 
 
 下面的列表包含了 Koog 框架中模型可用的核心、LLM 特有功能：
 
-- **推测** (`LLMCapability.Speculation`)：允许模型以不同的可能性程度生成推测性或探索性响应。适用于需要更广泛潜在结果的创意或假设场景。
+- **推测** (`LLMCapability.Speculation`)：允许模型以不同程度的可能性生成推测性或探索性响应。适用于需要更广泛潜在结果的创意或假设场景。
 
 - **温度** (`LLMCapability.Temperature`)：允许调节模型的响应随机性或创造力水平。较高的温度值会产生更多样化的输出，而较低的值会产生更集中且确定性的响应。
 
@@ -206,7 +206,7 @@ val hasFullJsonSupport = jsonCapability is LLMCapability.Schema.JSON.Standard //
 
 - `✓` 表示模型支持该功能
 - `-` 表示模型不支持该功能
-- 对于 JSON 架构，`Full`（完整）或 `Simple`（简单）表示模型支持哪种 JSON 架构功能变体
+- 对于 JSON 架构，`Full` (完整) 或 `Simple` (简单) 表示模型支持哪种 JSON 架构功能变体
 
 ??? "Google 模型"
     #### Google 模型
@@ -248,13 +248,14 @@ val hasFullJsonSupport = jsonCapability is LLMCapability.Schema.JSON.Standard //
 
     | 模型 | 温度 | JSON 架构 | 补全 | 工具 | 工具选择 | 视觉（图像） |
     |------------|-------------|-------------|------------|-------|-------------|----------------|
-    | Opus_4_6   | ✓           | -           | ✓          | ✓     | ✓           | ✓              |
-    | Opus_4_5   | ✓           | -           | ✓          | ✓     | ✓           | ✓              |
+    | Opus_4_6   | ✓           | Full        | ✓          | ✓     | ✓           | ✓              |
+    | Opus_4_5   | ✓           | Full        | ✓          | ✓     | ✓           | ✓              |
     | Opus_4_1   | ✓           | -           | ✓          | ✓     | ✓           | ✓              |
     | Opus_4     | ✓           | -           | ✓          | ✓     | ✓           | ✓              |
-    | Sonnet_4_5 | ✓           | -           | ✓          | ✓     | ✓           | ✓              |
+    | Sonnet_4_6 | ✓           | Full        | ✓          | ✓     | ✓           | ✓              |
+    | Sonnet_4_5 | ✓           | Full        | ✓          | ✓     | ✓           | ✓              |
     | Sonnet_4   | ✓           | -           | ✓          | ✓     | ✓           | ✓              |
-    | Haiku_4_5  | ✓           | -           | ✓          | ✓     | ✓           | ✓              |
+    | Haiku_4_5  | ✓           | Full        | ✓          | ✓     | ✓           | ✓              |
     | Haiku_3    | ✓           | -           | ✓          | ✓     | ✓           | ✓              |
 
 ??? "Ollama 模型"

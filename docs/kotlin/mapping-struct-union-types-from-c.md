@@ -80,15 +80,17 @@ void union_by_pointer(MyUnion* u) {}
 
     ```kotlin
     kotlin {
-        macosArm64("native") {    // Apple 芯片上的 macOS
-        // linuxArm64("native") { // ARM64 平台上的 Linux 
-        // linuxX64("native") {   // x86_64 平台上的 Linux
-        // mingwX64("native") {   // Windows 上
+        macosArm64()    // Apple 芯片上的 macOS
+        // linuxArm64() // ARM64 平台上的 Linux
+        // linuxX64()   // x86_64 平台上的 Linux
+        // mingwX64()   // Windows 上
+
+        targets.withType<KotlinNativeTarget>().configureEach {
             val main by compilations.getting
             val interop by main.cinterops.creating {
                 definitionFile.set(project.file("src/nativeInterop/cinterop/interop.def"))
             }
-        
+
             binaries {
                 executable()
             }
@@ -101,16 +103,18 @@ void union_by_pointer(MyUnion* u) {}
 
     ```groovy
     kotlin {
-        macosArm64("native") {    // Apple 芯片上的 macOS
-        // linuxArm64("native") { // ARM64 平台上的 Linux
-        // linuxX64("native") {   // x86_64 平台上的 Linux
-        // mingwX64("native") {   // Windows 上
+        macosArm64()    // Apple 芯片上的 macOS
+        // linuxArm64() // ARM64 平台上的 Linux
+        // linuxX64()   // x86_64 平台上的 Linux
+        // mingwX64()   // Windows 上
+
+        targets.withType(KotlinNativeTarget).configureEach {
             compilations.main.cinterops {
-                interop {   
+                interop {
                     definitionFile = project.file('src/nativeInterop/cinterop/interop.def')
                 }
             }
-        
+
             binaries {
                 executable()
             }
@@ -311,10 +315,10 @@ fun main() {
 }
 ```
 
-要验证一切是否如预期工作，请[在 IDE 中](native-get-started.md#build-and-run-the-application)运行 `runDebugExecutableNative` Gradle 任务，或使用以下命令运行代码：
+要验证一切是否如预期工作，请[在 IDE 中](native-get-started.md#build-and-run-the-application)运行 `runDebugExecutable<YourTargetName>` Gradle 任务，或在本示例中使用控制台命令：
 
 ```bash
-./gradlew runDebugExecutableNative
+./gradlew runDebugExecutableMacosArm64
 ```
 
 ## 下一步

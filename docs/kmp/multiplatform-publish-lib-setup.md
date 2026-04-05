@@ -3,7 +3,7 @@
 您可以将多平台库配置为发布到不同位置：
 
 * [到本地 Maven 仓库](#publishing-to-a-local-maven-repository)
-* 到 Maven Central 仓库。了解如何在[我们的教程](multiplatform-publish-libraries.md)中设置帐户凭据、自定义库元数据以及配置发布插件。
+* 到 Maven Central 仓库。了解如何在[我们的教程](multiplatform-publish-libraries-to-maven.md)中设置帐户凭据、自定义库元数据以及配置发布插件。
 * 到 GitHub 仓库。更多信息请参阅 GitHub 关于 [GitHub packages](https://docs.github.com/en/packages) 的文档。
 
 ## 发布到本地 Maven 仓库
@@ -242,5 +242,5 @@ kotlin {
 
 ## 下一步
 
-* [了解如何将您的 Kotlin 多平台库发布到 Maven Central 仓库](multiplatform-publish-libraries.md)
+* [了解如何将您的 Kotlin 多平台库发布到 Maven Central 仓库](multiplatform-publish-libraries-to-maven.md)
 * [参阅库作者指南，了解为 Kotlin 多平台设计库的最佳做法和技巧](https://kotlinlang.org/docs/api-guidelines-build-for-multiplatform.html)

@@ -1,13 +1,12 @@
 [//]: # (title: kapt コンパイラプラグイン)
 
-> kaptはメンテナンスモードです。最新のKotlinおよびJavaリリースへの対応は継続していますが、新機能の実装予定はありません。アノテーション処理には[Kotlin Symbol Processing API (KSP)](ksp-overview.md)を使用してください。
-> [KSPがサポートしているライブラリの一覧はこちら](ksp-overview.md#supported-libraries)をご覧ください。
->
-{style="warning"}
-
-アノテーションプロセッサ（[JSR 269](https://jcp.org/en/jsr/detail?id=269)参照）は、*kapt*コンパイラプラグインによってKotlinでサポートされています。
+kaptコンパイラプラグインを使用すると、KotlinでJavaアノテーションプロセッサを使用できます。
 
 簡単に言うと、kaptはJavaベースのアノテーション処理を有効にすることで、[Dagger](https://google.github.io/dagger/)や[データバインディング](https://developer.android.com/topic/libraries/data-binding/index.html)などのライブラリをKotlinプロジェクトで使用できるようにします。
+
+> Kotlin向けに作成されたアノテーションプロセッサを使用するには、[Kotlin Symbol Processing (KSP)](ksp-overview.md)を使用してください。
+>
+{style="note"}
 
 ## Gradleでの使用
 
@@ -268,7 +267,7 @@ dependencies {
  
 ## Javaコンパイラオプション
 
-kaptはアノテーションプロセッサの実行にJavaコンパイラを使用します。
+kaptはアノテーションプロセッサの実行に Java コンパイラを使用します。
 javacに任意のオプションを渡す方法は次のとおりです：
 
 ```groovy

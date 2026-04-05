@@ -1,28 +1,28 @@
 [//]: # (title: 为抢先体验计划 (EAP) 配置构建)
 
 <tldr>
-    <p>目前没有可用的预览版本。</p>
-    <!--<p>最新 Kotlin EAP 版本：<strong>%kotlinEapVersion%</strong></p>
-    <p><a href="eap.md#build-details">探索 Kotlin EAP 发布详情</a></p> -->
+    <!--<p>目前没有可用的预览版本。</p>-->
+    <p>最新 Kotlin EAP 版本：<strong>%kotlinEapVersion%</strong></p>
+    <p><a href="eap.md#build-details">探索 Kotlin EAP 发布详情</a></p> 
 </tldr>
 
 要将构建配置为使用 Kotlin 的抢先体验计划 (EAP) 版本，您需要： 
 
-*   指定 Kotlin 的 EAP 版本。[此处列出了可用的 EAP 版本](eap.md#build-details)。
-*   将依赖项的版本更改为 EAP 版本。
-    Kotlin 的 EAP 版本可能无法与之前发布的版本的库配合使用。 
+* 指定 Kotlin 的 EAP 版本。[此处列出了可用的 EAP 版本](eap.md#build-details)。
+* 将依赖项的版本更改为 EAP 版本。
+Kotlin 的 EAP 版本可能无法与之前发布的版本的库配合使用。 
 
 以下步骤说明了如何在 Gradle 和 Maven 中配置您的构建：
 
-*   [在 Gradle 中配置](#configure-in-gradle)
-*   [在 Maven 中配置](#configure-in-maven)
+* [在 Gradle 中配置](#configure-in-gradle)
+* [在 Maven 中配置](#configure-in-maven)
 
 ## 在 Gradle 中配置
 
 本节说明如何：
 
-*   [调整 Kotlin 版本](#adjust-the-kotlin-version)
-*   [调整依赖项中的版本](#adjust-versions-in-dependencies)
+* [调整 Kotlin 版本](#adjust-the-kotlin-version)
+* [调整依赖项中的版本](#adjust-versions-in-dependencies)
 
 ### 调整 Kotlin 版本
 
@@ -147,6 +147,6 @@ dependencies {
 
 ## 如果遇到任何问题
 
-*   向 [我们的问题跟踪器 YouTrack](https://kotl.in/issue) 报告问题。
-*   在 [Kotlin Slack 的 #eap 频道](https://app.slack.com/client/T09229ZC6/C0KLZSCHF) 寻求帮助 ([获取邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up))。
-*   回滚到最新的稳定版本：[在构建脚本文件中进行更改](#adjust-the-kotlin-version)。
+* 向 [我们的问题跟踪器 YouTrack](https://kotl.in/issue) 报告问题。
+* 在 [Kotlin Slack 的 #eap 频道](https://app.slack.com/client/T09229ZC6/C0KLZSCHF) 寻求帮助 ([获取邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up))。
+* 回滚到最新的稳定版本：[在构建脚本文件中进行更改](#adjust-the-kotlin-version)。

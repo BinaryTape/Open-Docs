@@ -80,15 +80,17 @@ Cの構造体および共用体型がKotlin/Nativeにどのようにマッピン
 
     ```kotlin
     kotlin {
-        macosArm64("native") {    // Apple Silicon搭載のmacOS
-        // linuxArm64("native") { // ARM64プラットフォームのLinux 
-        // linuxX64("native") {   // x86_64プラットフォームのLinux
-        // mingwX64("native") {   // Windows
+        macosArm64()    // Apple Silicon搭載のmacOS
+        // linuxArm64() // ARM64プラットフォームのLinux
+        // linuxX64()   // x86_64プラットフォームのLinux
+        // mingwX64()   // Windows
+
+        targets.withType<KotlinNativeTarget>().configureEach {
             val main by compilations.getting
             val interop by main.cinterops.creating {
                 definitionFile.set(project.file("src/nativeInterop/cinterop/interop.def"))
             }
-        
+
             binaries {
                 executable()
             }
@@ -101,16 +103,18 @@ Cの構造体および共用体型がKotlin/Nativeにどのようにマッピン
 
     ```groovy
     kotlin {
-        macosArm64("native") {    // Apple Silicon搭載のmacOS
-        // linuxArm64("native") { // ARM64プラットフォームのLinux
-        // linuxX64("native") {   // x86_64プラットフォームのLinux
-        // mingwX64("native") {   // Windows
+        macosArm64()    // Apple Silicon搭載のmacOS
+        // linuxArm64() // ARM64プラットフォームのLinux
+        // linuxX64()   // x86_64プラットフォームのLinux
+        // mingwX64()   // Windows
+
+        targets.withType(KotlinNativeTarget).configureEach {
             compilations.main.cinterops {
-                interop {   
+                interop {
                     definitionFile = project.file('src/nativeInterop/cinterop/interop.def')
                 }
             }
-        
+
             binaries {
                 executable()
             }
@@ -137,7 +141,7 @@ Cの構造体および共用体型がKotlin/Nativeにどのようにマッピン
 
 ## Kotlinから構造体および共用体型を使用する
 
-生成されたAPIのおかげで、KotlinからC의 構造体および共用体型を使用するのは簡単です。唯一の問題は、これらの型の新しいインスタンスをどのように作成するかです。
+生成されたAPIのおかげで、KotlinからCの構造体および共用体型を使用するのは簡単です。唯一の問題は、これらの型の新しいインスタンスをどのように作成するかです。
 
 `MyStruct` と `MyUnion` をパラメータとして受け取る生成された関数を見てみましょう。値渡しのパラメータは `kotlinx.cinterop.CValue<T>` として表現され、ポインタ型のパラメータは `kotlinx.cinterop.CValuesRef<T>?` を使用します。
 
@@ -311,10 +315,10 @@ fun main() {
 }
 ```
 
-すべてが期待通りに動作することを確認するには、[IDEで](native-get-started.md#build-and-run-the-application) `runDebugExecutableNative` Gradleタスクを実行するか、以下のコマンドを使用してコードを実行します：
+すべてが期待通りに動作することを確認するには、[IDEで](native-get-started.md#build-and-run-the-application) `runDebugExecutable<YourTargetName>` Gradleタスクを実行するか、ターミナルでコンソールコマンドを使用します（この例の場合）：
 
 ```bash
-./gradlew runDebugExecutableNative
+./gradlew runDebugExecutableMacosArm64
 ```
 
 ## 次のステップ

@@ -128,6 +128,18 @@ Kotlin 플러그인에는 Java 파일을 Kotlin으로 자동으로 변환해 주
 
 이 변환기가 완벽하지는 않지만, Java의 대부분의 보일러플레이트(boilerplate) 코드를 Kotlin으로 변환하는 데 꽤 훌륭한 역할을 합니다. 하지만 때때로 약간의 수동 수정이 필요할 수 있습니다.
 
+## 컴파일러 플러그인 살펴보기 {initial-collapse-state="collapsed" collapsible="true"}
+
+[Spring](https://spring.io/)이나 JPA(Java Persistence API)를 사용하는 더 복잡한 프로젝트가 있는 경우, Kotlin 언어 기능을 프레임워크 요구 사항에 맞게 자동으로 조정하여 보일러플레이트 코드를 줄여주는 Kotlin 컴파일러 플러그인을 사용할 수 있습니다:
+
+* **[`all-open`](all-open-plugin.md)** 플러그인은 특정 어노테이션과 함께 사용할 때 클래스와 그 멤버를 자동으로 `open`으로 만듭니다. 이는 클래스가 final이 아니어야 하는 Spring과 같은 프레임워크에서 특히 유용합니다.
+
+  Spring의 경우, `all-open`을 기반으로 하는 전용 [`kotlin-spring`](all-open-plugin.md#spring-support) 플러그인을 사용할 수 있습니다. 이 플러그인은 Spring 어노테이션을 자동으로 지정합니다.
+* **[`no-arg`](no-arg-plugin.md)** 플러그인은 특정 어노테이션이 있는 클래스에 대해 추가적인 인자 없는 생성자(zero-argument constructor)를 생성합니다. 이를 통해 JPA가 기본 생성자가 없는 클래스를 인스턴스화할 수 있도록 합니다.
+
+  또한 `no-arg`를 기반으로 하는 [`kotlin-jpa`](no-arg-plugin.md#jpa-support) 플러그인을 사용할 수도 있습니다. 이 플러그인은 no-arg 어노테이션을 자동으로 지정합니다.
+* **[`power-assert`](power-assert.md)** 플러그인은 어설션(assertion)에 대한 문맥 정보를 포함한 상세한 실패 메시지를 제공하여 디버깅 경험을 개선합니다. 중간 값을 보여주어 테스트가 실패한 이유를 이해하는 데 도움을 줍니다.
+
 ## 다음 단계
 
 Java 프로젝트에서 Kotlin을 사용하는 가장 쉬운 방법은 Kotlin 테스트를 먼저 추가하는 것입니다:

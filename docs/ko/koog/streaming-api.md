@@ -1,6 +1,7 @@
 # 스트리밍 API (Streaming API)
 
-Koog의 **스트리밍 API(Streaming API)**를 사용하면 **LLM 출력을 `Flow<StreamFrame>` 형태로 증분식으로(incrementally) 소비**할 수 있습니다. 전체 응답이 올 때까지 기다리는 대신, 코드를 통해 다음과 같은 작업을 수행할 수 있습니다.
+Koog의 **스트리밍 API(Streaming API)**를 사용하면 Kotlin에서는 `Flow<StreamFrame>`, Java에서는 `Flow.Publisher<StreamFrame>` 형태로 **LLM 출력을 증분식으로(incrementally) 소비**할 수 있습니다.
+전체 응답이 올 때까지 기다리는 대신, 코드를 통해 다음과 같은 작업을 수행할 수 있습니다:
 
 - 어시스턴트 텍스트가 도착하는 즉시 렌더링
 - **도구 호출(tool calls)**을 실시간으로 감지하고 실행
@@ -8,24 +9,47 @@ Koog의 **스트리밍 API(Streaming API)**를 사용하면 **LLM 출력을 `Flo
 
 스트림은 두 가지 카테고리로 분류되는 **타입이 지정된 프레임(typed frames)**을 전달합니다.
 
-**델타 프레임 (Delta frames)** (증분/부분 콘텐츠):
-- `StreamFrame.TextDelta(text: String, index: Int?)` — 증분형 어시스턴트 텍스트
-- `StreamFrame.ReasoningDelta(text: String?, summary: String?, index: Int?)` — 증분형 추론 텍스트 및 요약
-- `StreamFrame.ToolCallDelta(id: String?, name: String?, content: String?, index: Int?)` — 부분적 도구 호출
+=== "Kotlin"
 
-**컴플리트 프레임 (Complete frames)** (전체 콘텐츠):
-- `StreamFrame.TextComplete(text: String)` — 전체 어시스턴트 텍스트
-- `StreamFrame.ReasoningComplete(text: List<String>, summary: List<String>?)` — 선택적 요약을 포함한 전체 추론
-- `StreamFrame.ToolCallComplete(id: String?, name: String, content: String)` — 전체 도구 호출
+    **델타 프레임 (Delta frames)** (증분/부분 콘텐츠):
 
-**종료 마커 (End marker)**:
-- `StreamFrame.End(finishReason: String?)` — 스트림 종료 마커
+    - `StreamFrame.TextDelta(text: String, index: Int?)` — 증분형 어시스턴트 텍스트
+    - `StreamFrame.ReasoningDelta(text: String?, summary: String?, index: Int?)` — 증분형 추론 텍스트 및 요약
+    - `StreamFrame.ToolCallDelta(id: String?, name: String?, content: String?, index: Int?)` — 부분적 도구 호출
+
+    **컴플리트 프레임 (Complete frames)** (전체 콘텐츠):
+
+    - `StreamFrame.TextComplete(text: String, index: Int?)` — 전체 어시스턴트 텍스트
+    - `StreamFrame.ReasoningComplete(text: List<String>, summary: List<String>?, encrypted: String?, index: Int?)` — 선택적 요약 및 암호화된 콘텐츠를 포함한 전체 추론
+    - `StreamFrame.ToolCallComplete(id: String?, name: String, content: String, index: Int?)` — 전체 도구 호출
+
+    **종료 마커 (End marker)**:
+
+    - `StreamFrame.End(finishReason: String?, metaInfo: ResponseMetaInfo)` — 응답 메타데이터를 포함한 스트림 종료 마커
+
+=== "Java"
+
+    **델타 프레임 (Delta frames)** (증분/부분 콘텐츠):
+
+    - `StreamFrame.TextDelta` — 증분형 어시스턴트 텍스트. 필드: `getText()`, `getIndex()`.
+    - `StreamFrame.ReasoningDelta` — 증분형 추론 텍스트 및 요약. 필드: `getText()`, `getSummary()`, `getIndex()`.
+    - `StreamFrame.ToolCallDelta` — 부분적 도구 호출. 필드: `getId()`, `getName()`, `getContent()`, `getIndex()`.
+
+    **컴플리트 프레임 (Complete frames)** (전체 콘텐츠):
+
+    - `StreamFrame.TextComplete` — 전체 어시스턴트 텍스트. 필드: `getText()`, `getIndex()`.
+    - `StreamFrame.ReasoningComplete` — 선택적 요약 및 암호화된 콘텐츠를 포함한 전체 추론. 필드: `getText()` (`List<String>` 반환), `getSummary()` (`List<String>` 반환), `getEncrypted()`, `getIndex()`.
+    - `StreamFrame.ToolCallComplete` — 전체 도구 호출. 필드: `getId()`, `getName()`, `getContent()`, `getIndex()`. JSON 파싱을 위한 `getContentJson()` 및 `getContentJsonResult()`도 제공합니다.
+
+    **종료 마커 (End marker)**:
+
+    - `StreamFrame.End` — 스트림 종료 마커. 필드: `getFinishReason()`, `getMetaInfo()`.
 
 일반 텍스트를 추출하거나, 프레임을 `Message.Response` 객체로 변환하고, **청크된(chunked) 도구 호출을 안전하게 결합**할 수 있는 헬퍼 함수들이 제공됩니다.
 
 ## API 개요 (API overview)
 
-스트리밍을 통해 다음을 수행할 수 있습니다.
+스트리밍을 통해 다음을 수행할 수 있습니다:
 
 - 데이터가 도착하는 대로 처리 (UI 응답성 향상)
 - 구조화된 정보를 즉석에서 파싱 (마크다운/JSON 등)
@@ -37,7 +61,7 @@ Koog의 **스트리밍 API(Streaming API)**를 사용하면 **LLM 출력을 `Flo
 
 ### 델타 프레임 vs 컴플리트 프레임 (Delta vs Complete Frames)
 
-스트리밍 API는 두 종류의 프레임을 구분합니다.
+스트리밍 API는 두 종류의 프레임을 구분합니다:
 
 - **델타 프레임** (`DeltaFrame`) — 청크(chunk) 단위로 도착하는 증분/부분 콘텐츠입니다. 콘텐츠가 스트리밍될 때 실시간으로 화면에 표시하기에 적합합니다. 예: `TextDelta`, `ReasoningDelta`, `ToolCallDelta`.
 
@@ -93,19 +117,75 @@ Koog의 **스트리밍 API(Streaming API)**를 사용하면 **LLM 출력을 `Flo
 === "Java"
 
     <!--- INCLUDE
-    /**
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    import ai.koog.prompt.streaming.StreamFrame;
+    import java.util.concurrent.Flow;
+    class exampleStreamingApiJava01 {
+        public static void main(String[] args) {
+            var node = AIAgentNode.builder("streamNode")
+                .withInput(String.class)
+                .withOutput(Void.class)
+                .withAction((input, ctx) -> {
     -->
     <!--- SUFFIX
-    **/
+                return null;
+            })
+            .build();
+        }
+    }
     -->
     ```java
+    ctx.getLlm().writeSession(session -> {
+        session.appendPrompt(prompt -> {
+            prompt.user("Tell me a joke, then call a tool with JSON args.");
+            return null;
+        });
+
+        Flow.Publisher<StreamFrame> stream = session.requestLLMStreaming();
+
+        stream.subscribe(new Flow.Subscriber<>() {
+            @Override
+            public void onSubscribe(Flow.Subscription subscription) {
+                subscription.request(Long.MAX_VALUE);
+            }
+
+            @Override
+            public void onNext(StreamFrame frame) {
+                if (frame instanceof StreamFrame.TextDelta delta) {
+                    System.out.print(delta.getText());
+                } else if (frame instanceof StreamFrame.ReasoningDelta reasoning) {
+                    System.out.print("[Reasoning] text=" + reasoning.getText()
+                        + " summary=" + reasoning.getSummary());
+                } else if (frame instanceof StreamFrame.ToolCallComplete toolCall) {
+                    System.out.println("
+Tool call: " + toolCall.getName()
+                        + " args=" + toolCall.getContent());
+                } else if (frame instanceof StreamFrame.End end) {
+                    System.out.println("
+[END] reason=" + end.getFinishReason());
+                }
+                // 다른 프레임 타입 처리 (TextComplete, ToolCallDelta 등)
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                System.err.println("Stream error: " + throwable.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+            }
+        });
+
+        return null;
+    });
     ```
-    <!--- KNIT example-streaming-api-java-01.java -->
+    <!--- KNIT exampleStreamingApiJava01.java -->
 
 원시 문자열 스트림(raw string stream)을 직접 다루어 출력을 파싱할 수도 있다는 점에 유의하세요.
 이 방식은 파싱 프로세스에 대해 더 많은 유연성과 제어권을 제공합니다.
 
-다음은 출력 구조의 마크다운 정의를 사용하는 원시 문자열 스트림 예시입니다.
+다음은 출력 구조의 마크다운 정의를 사용하는 원시 문자열 스트림 예시입니다:
 
 === "Kotlin"
 
@@ -141,66 +221,195 @@ Koog의 **스트리밍 API(Streaming API)**를 사용하면 **LLM 출력을 `Flo
 === "Java"
 
     <!--- INCLUDE
-    /**
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    import ai.koog.prompt.streaming.StreamFrame;
+    import ai.koog.prompt.structure.StructureDefinition;
+    import java.util.concurrent.Flow;
+    class exampleStreamingApiJava02 {
+        static StructureDefinition markdownBookDefinition() { return null; }
+        public static void main(String[] args) {
+            var node = AIAgentNode.builder("streamNode")
+                .withInput(String.class)
+                .withOutput(Void.class)
+                .withAction((input, ctx) -> {
     -->
     <!--- SUFFIX
-    **/
+                return null;
+            })
+            .build();
+        }
+    }
     -->
     ```java
+    StructureDefinition mdDefinition = markdownBookDefinition();
+
+    ctx.getLlm().writeSession(session -> {
+        session.appendPrompt(prompt -> {
+            prompt.user(input);
+        });
+
+        Flow.Publisher<StreamFrame> stream = session.requestLLMStreaming(mdDefinition);
+
+        // 원시 프레임에 직접 액세스
+        stream.subscribe(new Flow.Subscriber<>() {
+            @Override
+            public void onSubscribe(Flow.Subscription subscription) {
+                subscription.request(Long.MAX_VALUE);
+            }
+
+            @Override
+            public void onNext(StreamFrame frame) {
+                // 프레임이 도착하는 대로 처리
+                System.out.println("Received frame: " + frame);
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                System.err.println("Stream error: " + throwable.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+            }
+        });
+
+        return null;
+    });
     ```
-    <!--- KNIT example-streaming-api-java-02.java -->
+    <!--- KNIT exampleStreamingApiJava02.java -->
 
 ### 추론 프레임 다루기 (Working with reasoning frames)
 
-추론을 지원하는 모델(예: Claude Sonnet 4.5 또는 GPT-o1)은 스트리밍 중에 추론 프레임을 내보냅니다. 추론 과정과 그 요약에 모두 액세스할 수 있습니다.
+추론을 지원하는 모델(예: Claude Sonnet 4.5 또는 GPT-o1)은 스트리밍 중에 추론 프레임을 내보냅니다. 추론 과정과 그 요약에 모두 액세스할 수 있습니다:
 
-<!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.strategy
-import ai.koog.agents.core.dsl.builder.node
-import ai.koog.prompt.streaming.StreamFrame
+=== "Kotlin"
 
-val strategy = strategy<String, String>("strategy_name") {
-    val node by node<Unit, Unit> {
--->
-<!--- SUFFIX
-   }
-}
--->
-```kotlin
-llm.writeSession {
-    appendPrompt { user("Solve this complex problem: ...") }
+    <!--- INCLUDE
+    import ai.koog.agents.core.dsl.builder.strategy
+    import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.prompt.streaming.StreamFrame
 
-    val stream = requestLLMStreaming()
-    val reasoningSteps = mutableListOf<String>()
-    val summarySteps = mutableListOf<String>()
+    val strategy = strategy<String, String>("strategy_name") {
+        val node by node<Unit, Unit> {
+    -->
+    <!--- SUFFIX
+       }
+    }
+    -->
+    ```kotlin
+    llm.writeSession {
+        appendPrompt { user("Solve this complex problem: ...") }
 
-    stream.collect { frame ->
-        when (frame) {
-            is StreamFrame.ReasoningDelta -> {
-                frame.text?.let { 
-                    reasoningSteps.add(it)
-                    print(frame.text) // 도착하는 대로 추론 과정 표시
+        val stream = requestLLMStreaming()
+        val reasoningSteps = mutableListOf<String>()
+        val summarySteps = mutableListOf<String>()
+
+        stream.collect { frame ->
+            when (frame) {
+                is StreamFrame.ReasoningDelta -> {
+                    frame.text?.let { 
+                        reasoningSteps.add(it)
+                        print(frame.text) // 도착하는 대로 추론 과정 표시
+                    }
+                    frame.summary?.let {
+                        summarySteps.add(it)
+                        print(frame.summary) // 도착하는 대로 추론 요약 표시
+                    }
                 }
-                frame.summary?.let {
-                    summarySteps.add(it)
-                    print(frame.summary) // 도착하는 대로 추론 요약 표시
-                }
-            }
-            is StreamFrame.ReasoningComplete -> {
-                // 전체 추론 과정에 액세스
-                println("
+                is StreamFrame.ReasoningComplete -> {
+                    // 전체 추론 과정에 액세스
+                    println("
 Complete reasoning: ${frame.text.joinToString("")}")
-                println("Summary: ${frame.summary?.joinToString("") ?: "N/A"}")
-            }
-            is StreamFrame.TextDelta -> print(frame.text)
-            is StreamFrame.End -> println("
+                    println("Summary: ${frame.summary?.joinToString("") ?: "N/A"}")
+                }
+                is StreamFrame.TextDelta -> print(frame.text)
+                is StreamFrame.End -> println("
 [END]")
-            else -> {}
+                else -> {}
+            }
         }
     }
-}
-```
-<!--- KNIT example-streaming-api-reasoning-01.kt -->
+    ```
+    <!--- KNIT example-streaming-api-reasoning-01.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    import ai.koog.prompt.streaming.StreamFrame;
+    import java.util.ArrayList;
+    import java.util.List;
+    import java.util.concurrent.Flow;
+    import java.util.stream.Collectors;
+    class exampleStreamingApiReasoningJava01 {
+        public static void main(String[] args) {
+            var node = AIAgentNode.builder("reasoningNode")
+                .withInput(String.class)
+                .withOutput(Void.class)
+                .withAction((input, ctx) -> {
+    -->
+    <!--- SUFFIX
+                return null;
+            })
+            .build();
+        }
+    }
+    -->
+    ```java
+    ctx.getLlm().writeSession(session -> {
+        session.appendPrompt(prompt -> {
+            prompt.user("Solve this complex problem: ...");
+            return null;
+        });
+
+        Flow.Publisher<StreamFrame> stream = session.requestLLMStreaming();
+        List<String> reasoningSteps = new ArrayList<>();
+        List<String> summarySteps = new ArrayList<>();
+
+        stream.subscribe(new Flow.Subscriber<StreamFrame>() {
+            @Override
+            public void onSubscribe(Flow.Subscription subscription) {
+                subscription.request(Long.MAX_VALUE);
+            }
+
+            @Override
+            public void onNext(StreamFrame frame) {
+                if (frame instanceof StreamFrame.ReasoningDelta reasoning) {
+                    if (reasoning.getText() != null) {
+                        reasoningSteps.add(reasoning.getText());
+                        System.out.print(reasoning.getText());
+                    }
+                    if (reasoning.getSummary() != null) {
+                        summarySteps.add(reasoning.getSummary());
+                        System.out.print(reasoning.getSummary());
+                    }
+                } else if (frame instanceof StreamFrame.ReasoningComplete complete) {
+                    // 전체 추론 과정에 액세스
+                    System.out.println("
+Complete reasoning: "
+                        + String.join("", complete.getText()));
+                    System.out.println("Summary: "
+                        + (complete.getSummary() != null
+                            ? String.join("", complete.getSummary()) : "N/A"));
+                } else if (frame instanceof StreamFrame.TextDelta delta) {
+                    System.out.print(delta.getText());
+                } else if (frame instanceof StreamFrame.End) {
+                    System.out.println("
+[END]");
+                }
+            }
+
+            @Override
+            public void onError(Throwable throwable) { }
+
+            @Override
+            public void onComplete() { }
+        });
+
+        return null;
+    });
+    ```
+    <!--- KNIT exampleStreamingApiReasoningJava01.java -->
 
 ### 파생된 원시 텍스트 스트림 다루기 (Working with a raw text stream (derived))
 
@@ -239,14 +448,59 @@ $fullText")
 === "Java"
 
     <!--- INCLUDE
-    /**
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    import ai.koog.prompt.streaming.StreamFrame;
+    import java.util.concurrent.Flow;
+    class exampleStreamingApiJava03 {
+        public static void main(String[] args) {
+            var node = AIAgentNode.builder("streamNode")
+                .withInput(String.class)
+                .withOutput(Void.class)
+                .withAction((input, ctx) -> {
     -->
     <!--- SUFFIX
-    **/
+                return null;
+            })
+            .build();
+        }
+    }
     -->
     ```java
+    ctx.getLlm().writeSession(session -> {
+        Flow.Publisher<StreamFrame> frames = session.requestLLMStreaming();
+
+        // 텍스트 청크가 오는 대로 스트리밍 (filterTextOnly와 동일):
+        StringBuilder fullText = new StringBuilder();
+        frames.subscribe(new Flow.Subscriber<>() {
+            @Override
+            public void onSubscribe(Flow.Subscription subscription) {
+                subscription.request(Long.MAX_VALUE);
+            }
+
+            @Override
+            public void onNext(StreamFrame frame) {
+                if (frame instanceof StreamFrame.TextDelta delta) {
+                    System.out.print(delta.getText());
+                    fullText.append(delta.getText());
+                }
+            }
+
+            @Override
+            public void onError(Throwable throwable) { }
+
+            @Override
+            public void onComplete() {
+                // 이제 fullText에 모든 텍스트가 포함됨 (collectText와 동일)
+                System.out.println("
+---
+" + fullText);
+            }
+        });
+
+        return null;
+    });
     ```
-    <!--- KNIT example-streaming-api-java-03.java -->
+    <!--- KNIT exampleStreamingApiJava03.java -->
 
 ### 이벤트 핸들러에서 스트림 이벤트 리스닝하기 (Listening to stream events in event handlers)
 
@@ -272,6 +526,7 @@ $fullText")
             println("
 🔧 Using ${context.toolName} with ${context.toolArgs}... ")
         }
+
         onLLMStreamingFrameReceived { context ->
             when (val frame = context.streamFrame) {
                 is StreamFrame.TextDelta -> print(frame.text)
@@ -279,9 +534,11 @@ $fullText")
                 else -> {} // 필요한 경우 다른 프레임 타입 처리
             }
         }
+
         onLLMStreamingFailed { context ->
             println("❌ Error: ${context.error}")
         }
+
         onLLMStreamingCompleted {
             println("🏁 Done")
         }
@@ -292,18 +549,54 @@ $fullText")
 === "Java"
 
     <!--- INCLUDE
-    /**
+    import ai.koog.agents.core.agent.AIAgent;
+    import ai.koog.agents.features.eventHandler.feature.EventHandler;
+    import ai.koog.prompt.streaming.StreamFrame;
+    import ai.koog.prompt.executor.model.PromptExecutor;
+    import ai.koog.prompt.executor.ollama.client.OllamaModels;
+    class exampleStreamingApiJava04 {
+        public static void main(String[] args) {
+            AIAgent.builder()
+                .promptExecutor(PromptExecutor.builder().ollama().build())
+                .llmModel(OllamaModels.Meta.LLAMA_3_2)
     -->
     <!--- SUFFIX
-    **/
+            .build();
+        }
+    }
     -->
     ```java
+    .install(EventHandler.Feature, config -> {
+        config.onToolCallStarting(ctx -> {
+            System.out.println("
+Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
+        });
+
+        config.onLLMStreamingFrameReceived(ctx -> {
+            StreamFrame frame = ctx.getStreamFrame();
+            if (frame instanceof StreamFrame.TextDelta delta) {
+                System.out.print(delta.getText());
+            } else if (frame instanceof StreamFrame.ReasoningDelta reasoning) {
+                System.out.print("[Reasoning] text=" + reasoning.getText()
+                    + " summary=" + reasoning.getSummary());
+            }
+        });
+
+        config.onLLMStreamingFailed(ctx -> {
+            System.out.println("Error: " + ctx.getError());
+        });
+
+        config.onLLMStreamingCompleted(ctx -> {
+            System.out.println("Done");
+        });
+    })
     ```
-    <!--- KNIT example-streaming-api-java-04.java -->
+    <!--- KNIT exampleStreamingApiJava04.java -->
 
 ### 프레임을 `Message.Response`로 변환하기 (Converting frames to `Message.Response`)
 
-수집된 프레임 리스트를 표준 메시지 객체로 변환할 수 있습니다.
+수집된 프레임 리스트를 표준 메시지 객체로 변환할 수 있습니다:
+
 - `toAssistantMessageOrNull()` — 텍스트 프레임에서 `Message.Assistant`를 추출합니다.
 - `toReasoningMessageOrNull()` — 추론 프레임에서 `Message.Reasoning`을 추출합니다.
 - `toToolCallMessages()` — 도구 호출 프레임에서 `Message.Tool.Call`을 추출합니다.
@@ -315,7 +608,7 @@ $fullText")
 
 원시 문자열 스트림을 직접 다루는 것도 가능하지만, [구조화된 데이터](structured-output.md)를 사용하는 것이 더 편리할 때가 많습니다.
 
-구조화된 데이터 접근 방식은 다음과 같은 주요 구성 요소를 포함합니다.
+구조화된 데이터 접근 방식은 다음과 같은 주요 구성 요소를 포함합니다:
 
 1. **MarkdownStructureDefinition**: 마크다운 형식의 구조화된 데이터에 대한 스키마와 예시를 정의하는 데 도움을 주는 클래스입니다.
 2. **markdownStreamingParser**: 마크다운 청크 스트림을 처리하고 이벤트를 발생시키는 파서를 생성하는 함수입니다.
@@ -324,7 +617,7 @@ $fullText")
 
 #### 1. 데이터 구조 정의하기 (Define your data structure)
 
-먼저, 구조화된 데이터를 나타낼 데이터 클래스를 정의합니다.
+먼저, 구조화된 데이터를 나타낼 데이터 클래스를 정의합니다:
 
 === "Kotlin"
 
@@ -344,30 +637,21 @@ $fullText")
 === "Java"
 
     <!--- INCLUDE
-    /**
+    class exampleStreamingApiJava05 {
+        public static void main(String[] args) {
     -->
     <!--- SUFFIX
-    **/
-    -->
-    ```java
-    // Kotlin의 @Serializable data 클래스와 동일한 간단한 Java POJO입니다.
-    public class Book {
-        public final String title;
-        public final String author;
-        public final String description;
-
-        public Book(String title, String author, String description) {
-            this.title = title;
-            this.author = author;
-            this.description = description;
         }
     }
+    -->
+    ```java
+    // TODO 아직 Java에서 지원되지 않음
     ```
-    <!--- KNIT exampleStreamingApiJava01.java -->
+    <!--- KNIT exampleStreamingApiJava05.java -->
 
 #### 2. 마크다운 구조 정의하기 (Define the Markdown structure)
 
-`MarkdownStructureDefinition` 클래스를 사용하여 마크다운에서 데이터가 어떻게 구조화되어야 하는지 명시하는 정의를 생성합니다.
+`MarkdownStructureDefinition` 클래스를 사용하여 마크다운에서 데이터가 어떻게 구조화되어야 하는지 명시하는 정의를 생성합니다:
 
 === "Kotlin"
 
@@ -401,18 +685,21 @@ $fullText")
 === "Java"
 
     <!--- INCLUDE
-    /**
+    class exampleStreamingApiJava06 {
+        public static void main(String[] args) {
     -->
     <!--- SUFFIX
-    **/
+        }
+    }
     -->
     ```java
+    // TODO 아직 Java에서 지원되지 않음
     ```
-    <!--- KNIT example-streaming-api-java-05.java -->
+    <!--- KNIT exampleStreamingApiJava06.java -->
 
 #### 3. 데이터 구조를 위한 파서 생성하기 (Create a parser for your data structure)
 
-`markdownStreamingParser`는 다양한 마크다운 요소에 대한 여러 핸들러를 제공합니다.
+`markdownStreamingParser`는 다양한 마크다운 요소에 대한 여러 핸들러를 제공합니다:
 
 === "Kotlin"
 
@@ -447,14 +734,17 @@ $fullText")
 === "Java"
 
     <!--- INCLUDE
-    /**
+    class exampleStreamingApiJava07 {
+        public static void main(String[] args) {
     -->
     <!--- SUFFIX
-    **/
+        }
+    }
     -->
     ```java
+    // TODO 아직 Java에서 지원되지 않음
     ```
-    <!--- KNIT example-streaming-api-java-06.java -->
+    <!--- KNIT exampleStreamingApiJava07.java -->
 
 정의된 핸들러를 사용하여 `markdownStreamingParser` 함수로 마크다운 스트림을 파싱하고 데이터 객체를 내보내는 함수를 구현할 수 있습니다.
 
@@ -511,14 +801,17 @@ $fullText")
 === "Java"
 
     <!--- INCLUDE
-    /**
+    class exampleStreamingApiJava08 {
+        public static void main(String[] args) {
     -->
     <!--- SUFFIX
-    **/
+        }
+    }
     -->
     ```java
+    // TODO 아직 Java에서 지원되지 않음
     ```
-    <!--- KNIT example-streaming-api-java-07.java -->
+    <!--- KNIT exampleStreamingApiJava08.java -->
 
 #### 4. 에이전트 전략에서 파서 사용하기 (Use the parser in your agent strategy)
 
@@ -562,14 +855,17 @@ $fullText")
 === "Java"
 
     <!--- INCLUDE
-    /**
+    class exampleStreamingApiJava09 {
+        public static void main(String[] args) {
     -->
     <!--- SUFFIX
-    **/
+        }
+    }
     -->
     ```java
+    // TODO 아직 Java에서 지원되지 않음
     ```
-    <!--- KNIT example-streaming-api-java-08.java -->
+    <!--- KNIT exampleStreamingApiJava09.java -->
 
 ### 고급 사용법: 도구를 사용한 스트리밍 (Advanced usage: Streaming with tools)
 
@@ -615,10 +911,26 @@ $fullText")
 === "Java"
 
     <!--- INCLUDE
+    import ai.koog.agents.core.tools.reflect.ToolSet;
+    import ai.koog.agents.core.tools.annotations.Tool;
+    import ai.koog.agents.core.tools.annotations.LLMDescription;
     -->
     ```java
+    class BookTool implements ToolSet {
+        @Tool
+        @LLMDescription("A tool to parse book information from Markdown")
+        public String book(
+            @LLMDescription("Title of the book") String title,
+            @LLMDescription("Author of the book") String author,
+            @LLMDescription("Description of the book") String description
+        ) {
+            System.out.println(title + " by " + author + ":
+ " + description);
+            return "Done";
+        }
+    }
     ```
-    <!--- KNIT example-streaming-api-java-09.java -->
+    <!--- KNIT exampleStreamingApiJava10.java -->
 
 ### 2. 스트리밍 데이터와 함께 도구 사용하기 (Use the tool with streaming data)
 
@@ -667,37 +979,131 @@ $fullText")
 === "Java"
 
     <!--- INCLUDE
-    /**
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    import ai.koog.prompt.streaming.StreamFrame;
+    import ai.koog.prompt.structure.StructureDefinition;
+    import java.util.concurrent.Flow;
+    class exampleStreamingApiJava11 {
+        static StructureDefinition markdownBookDefinition() { return null; }
+        public static void main(String[] args) {
     -->
     <!--- SUFFIX
-    **/
+        }
+    }
     -->
     ```java
+    var strategy = AIAgentGraphStrategy.builder("library-assistant")
+        .withInput(String.class)
+        .withOutput(Void.class);
+
+    var getMdOutput = AIAgentNode.builder("getMdOutput")
+        .withInput(String.class)
+        .withOutput(Void.class)
+        .withAction((input, ctx) -> {
+            StructureDefinition mdDefinition = markdownBookDefinition();
+
+            ctx.getLlm().writeSession(session -> {
+                session.appendPrompt(prompt -> {
+                    prompt.user(input);
+                    return null;
+                });
+
+                Flow.Publisher<StreamFrame> markdownStream = session.requestLLMStreaming(mdDefinition);
+
+                // 스트리밍된 프레임을 처리하고 ToolCallComplete 프레임에서 도구 호출
+                markdownStream.subscribe(new Flow.Subscriber<StreamFrame>() {
+                    @Override
+                    public void onSubscribe(Flow.Subscription subscription) {
+                        subscription.request(Long.MAX_VALUE);
+                    }
+
+                    @Override
+                    public void onNext(StreamFrame frame) {
+                        if (frame instanceof StreamFrame.ToolCallComplete toolCall) {
+                            System.out.println("Tool call: " + toolCall.getName()
+                                + " args=" + toolCall.getContent());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) { }
+
+                    @Override
+                    public void onComplete() { }
+                });
+
+                return null;
+            });
+
+            return null;
+        })
+        .build();
+
+    strategy.edge(strategy.nodeStart, getMdOutput);
+    strategy.edge(getMdOutput, strategy.nodeFinish);
     ```
-    <!--- KNIT example-streaming-api-java-10.java -->
+    <!--- KNIT exampleStreamingApiJava11.java -->
 
 ### 3. 에이전트 구성에 도구 등록하기 (Register the tool in your agent configuration)
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.agents.core.tools.ToolRegistry
-import ai.koog.agents.example.exampleStreamingApi10.BookTool
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+=== "Kotlin"
 
--->
-```kotlin
-val toolRegistry = ToolRegistry {
-    tool(BookTool())
-}
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.agents.core.tools.ToolRegistry
+    import ai.koog.agents.example.exampleStreamingApi10.BookTool
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 
-val runner = AIAgent(
-    promptExecutor = simpleOpenAIExecutor("OPENAI_API_KEY"),
-    llmModel = OpenAIModels.Chat.GPT4o,
-    toolRegistry = toolRegistry
-)
-```
-<!--- KNIT example-streaming-api-12.kt -->
+    -->
+    ```kotlin
+    val toolRegistry = ToolRegistry {
+        tool(BookTool())
+    }
+
+    val runner = AIAgent(
+        promptExecutor = simpleOpenAIExecutor("OPENAI_API_KEY"),
+        llmModel = OpenAIModels.Chat.GPT4o,
+        toolRegistry = toolRegistry
+    )
+    ```
+    <!--- KNIT example-streaming-api-12.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent;
+    import ai.koog.agents.core.tools.ToolRegistry;
+    import ai.koog.agents.core.tools.reflect.ToolSet;
+    import ai.koog.agents.core.tools.annotations.Tool;
+    import ai.koog.agents.core.tools.annotations.LLMDescription;
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels;
+    import ai.koog.prompt.executor.model.PromptExecutor;
+    class exampleStreamingApiJava12 {
+        static class BookTool implements ToolSet {
+            @Tool
+            @LLMDescription("A tool to parse book information")
+            public String book(String title, String author, String description) { return "Done"; }
+        }
+        public static void main(String[] args) {
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    ToolRegistry toolRegistry = ToolRegistry.builder()
+        .tools(new BookTool())
+        .build();
+
+    AIAgent<String, String> runner = AIAgent.<String, String>builder()
+        .promptExecutor(PromptExecutor.builder().openAI("OPENAI_API_KEY").build())
+        .llmModel(OpenAIModels.Chat.GPT4o)
+        .toolRegistry(toolRegistry)
+        .build();
+    ```
+    <!--- KNIT exampleStreamingApiJava12.java -->
 
 ## 권장 사항 (Best practices)
 

@@ -67,6 +67,13 @@ Kotlin/Native 支持两种构建模式：[debug 和 release](https://kotlinlang.
 >
 {style="tip"}
 
+### 减少 release 二进制文件的大小
+<primary-label ref="experimental-opt-in"/>
+
+要减小 release 二进制文件的大小并提高构建时间，请尝试 [启用二进制选项](native-binary-options.md#how-to-enable) `smallBinary`。
+
+它会有效地将 `-Oz` 设置为编译器在 LLVM 编译阶段的默认优化参数。该选项仍处于 [实验性](components-stability.md#stability-levels-explained) 阶段，在某些情况下可能会影响运行时性能。
+
 ### 不要禁用 Gradle daemon
 
 如果没有充分的理由，请不要禁用 [Gradle daemon](https://docs.gradle.org/current/userguide/gradle_daemon.html)。默认情况下，[Kotlin/Native 在 Gradle daemon 中运行](https://blog.jetbrains.com/kotlin/2020/03/kotlin-1-3-70-released/#kotlin-native)。启用它后，将使用相同的 JVM 进程，无需为每次编译重新预热。

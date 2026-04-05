@@ -67,9 +67,16 @@ Kotlin/Native 支援兩種建置模式：[debug 和 release](https://kotlinlang.
 >
 {style="tip"}
 
+### 縮小 release 二進位檔的大小
+<primary-label ref="experimental-opt-in"/>
+
+要縮小 release 二進位檔的大小並改善建置時間，請嘗試 [啟用二進位檔選項](native-binary-options.md#how-to-enable) `smallBinary`。
+
+這會有效地將 `-Oz` 設定為編譯器在 LLVM 編譯階段的預設優化引數。此選項仍處於 [實驗階段](components-stability.md#stability-levels-explained)，且在某些情況下可能會影響執行時間效能。
+
 ### 不要停用 Gradle daemon
 
-除非有充分的理由，否則請勿停用 [Gradle daemon](https://docs.gradle.org/current/userguide/gradle_daemon.html)。預設情況下，[Kotlin/Native 會從 Gradle daemon 執行](https://blog.jetbrains.com/kotlin/2020/03/kotlin-1-3-70-released/#kotlin-native)。啟用後，將使用同一個 JVM 程序，無需為每次編譯都進行預熱。
+除非有充分的理由，否則請勿停用 [Gradle daemon](https://docs.gradle.org/current/userguide/gradle_daemon.html)。預設情況下， [Kotlin/Native 會從 Gradle daemon 執行](https://blog.jetbrains.com/kotlin/2020/03/kotlin-1-3-70-released/#kotlin-native)。啟用後，將使用同一個 JVM 程序，無需為每次編譯都進行預熱。
 
 ### 不要使用傳遞性匯出 (transitive export)
 

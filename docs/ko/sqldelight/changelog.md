@@ -16,6 +16,7 @@
 ### 수정됨
 - [컴파일러] 그룹화되지 않은 집계 결과 집합(non-grouped aggregate result set)의 다른 컬럼들은 항상 널 허용(nullable)임
 - [PostgreSQL 다이얼렉트] `coalesce` 및 `ifnull`에 대한 널 허용 여부(nullability)를 올바르게 해결
+- [PostgreSQL 다이얼렉트] PostgreSQL 다이얼렉트의 IDE 통합 수정
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -76,7 +77,7 @@
 - [PostgreSQL 다이얼렉트] SQL 표현식을 JSON으로 파싱할 수 있는지 확인하는 조건자(predicate) 추가 (#5843 by @griffio)
 - [PostgreSQL 다이얼렉트] PostgreSql `Comment On` 문 제한적 지원 추가 (#5808 by @griffio)
 - [MySQL 다이얼렉트] 인덱스 가시성 옵션 지원 추가 (#5785 by @orenkislev-faire)
-- [PostgreSQL 다이얼렉트] `TSQUERY` 데이터 타입 지원 추가 (#5779 by @griffio)
+- [PostgreSql 다이얼렉트] `TSQUERY` 데이터 타입 지원 추가 (#5779 by @griffio)
 - [Gradle 플러그인] 모듈 추가 시 버전 카탈로그(version catalogs) 지원 추가 (#5755 by @DRSchlaubi)
 
 ### 변경됨
@@ -370,7 +371,7 @@
 - [RDBC 드라이버] R2DBC 1.0 지원 (by @hfhbd)
 - [PostgreSQL 다이얼렉트] Postgres: 타입 파라미터가 없는 Array 수정 (by @hfhbd)
 - [IDE 플러그인] IntelliJ를 221.6008.13으로 업데이트 (by @hfhbd)
-- [컴파일러] 순수 View로부터 재귀적 원본 테이블 해결 (#hfhbd)
+- [컴파일러] 순수 View로부터 재귀적 원본 테이블 해결 (by @hfhbd)
 - [컴파일러] 테이블 외래 키 절에서 가치 클래스(value classes) 사용 (by @hfhbd)
 - [컴파일러] 괄호 없는 바인드 표현식을 지원하도록 `SelectQueryGenerator` 수정 (by @bellatoris)
 - [컴파일러] 트랜잭션 사용 시 `${name}Indexes` 변수의 중복 생성 수정 (by @sachera)
@@ -484,7 +485,7 @@ sqldelight {
 - [Gradle 플러그인] 멀티플랫폼 구성 단순화 (#3246 by @mbonnin)
 - [Gradle 플러그인] js 전용 프로젝트 지원 (#3310 by @hfhbd)
 - [IDE 플러그인] Gradle 툴링 API를 위해 Java Home 사용 (#3078)
-- [IDE 플러그인] IDE 플러그인 내부에서 올바른 `classLoader`로 JDBC 드라이버 로드 (#3080)
+- [IDE 플러그인] IDE 플러그 내부에서 올바른 `classLoader`로 JDBC 드라이버 로드 (#3080)
 - [IDE 플러그인] 이미 존재하는 PSI 변경 중 에러를 방지하기 위해 무효화 전 파일 요소를 널로 표시 (#3082)
 - [IDE 플러그인] `ALTER TABLE` 문에서 새로운 테이블 이름의 사용처를 찾을 때 발생하는 크래시 수정 (#3106)
 - [IDE 플러그인] 인스펙터를 최적화하고 예상되는 예외 타입에 대해 조용히 실패하도록 활성화 (#3121)
@@ -595,7 +596,7 @@ sqldelight {
 
 현재 지원되는 다이얼렉트는 `mysql-dialect`, `postgresql-dialect`, `hsql-dialect`, `sqlite-3-18-dialect`, `sqlite-3-24-dialect`, `sqlite-3-25-dialect`, `sqlite-3-30-dialect`, `sqlite-3-35-dialect`입니다.
 
-- 원시 타입은 이제 명시적으로 임포트해야 합니다(예: `INTEGER AS Boolean`을 쓰려면 `import kotlin.Boolean` 필요). 이전에 지원되던 일부 타입은 이제 어댑터가 필요합니다. 대부분의 변환을 위한 원시 어댑터는 `app.cash.sqldelight:primitive-adapters:2.0.0-alpha01`에서 제공됩니다(예: `Integer AS kotlin.Int`를 위한 `IntColumnAdapter`).
+- 원시 타입은 이제 명시적으로 임포트해야 합니다(예: `INTEGER AS Boolean`을 쓰려면 `import kotlin.Boolean` 필요). 이전에 지원되던 일부 타입은 이제 어댑터가 필요합니다. 대부분의 변환을 위한 원시 어댑터는 `app.cash.sqldelight:primitive-adapters:2.0.0-alpha01`에서 제공됩니다(예: `IntColumnAdapter`를 위한 `Integer AS kotlin.Int`).
 
 ### 추가됨
 - [IDE 플러그인] 기본적인 마이그레이션 제안 (by @aperfilyev)
@@ -1136,7 +1137,7 @@ sqldelight {
 ## [0.4.2] - 2016-06-16
 [0.4.2]: https://github.com/sqldelight/sqldelight/releases/tag/0.4.2
 
- * 신규: Factory로부터 Marshal 생성 가능.
+ * 신규: Marshal 가 Factory 로부터 생성 가능.
  * 수정: IntelliJ 플러그인이 적절한 제네릭 순서로 팩토리 메서드를 생성함.
  * 수정: 함수 이름에 대소문자 구분 없이 사용 가능.
 

@@ -542,8 +542,12 @@
         "link": "multiplatform-publish-lib-setup"
       },
       {
-        "text": "kmp.multiplatform-publish-libraries",
-        "link": "multiplatform-publish-libraries"
+        "text": "kmp.multiplatform-publish-libraries-to-maven",
+        "link": "multiplatform-publish-libraries-to-maven"
+      },
+      {
+        "text": "kmp.multiplatform-publish-libraries-to-npm",
+        "link": "multiplatform-publish-libraries-to-npm"
       },
       {
         "text": "kmp.multiplatform-privacy-manifest",

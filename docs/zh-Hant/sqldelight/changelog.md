@@ -16,6 +16,7 @@
 ### 修復
 - [編譯器] 非群組聚合結果集中的其他列一律為可 null
 - [PostgreSQL 方言] 正確解析 `coalesce` 與 `ifnull` 的可 null 性
+- [PostgreSQL 方言] 修復 PostgreSQL 方言的 IDE 整合
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -24,7 +25,7 @@
 - [PostgreSQL 方言] 改進對 ALTER TABLE ALTER TYPE USING 運算式的支援（#6116 由 @griffio 提供）
 - [PostgreSQL 方言] 新增對 DROP COLUMN IF EXISTS 的支援（#6112 由 @griffio 提供）
 - [Gradle 外掛程式] 新增 `expandSelectStar` 旗標以關閉 Select 萬用字元展開（#5813 由 @griffio 提供）
-- [MySQL 方言] 新增對視窗函式的支援（#6086 由 @griffio 提供）
+- [MySQL 方言] 新增對視窗函式 (Window Functions) 的支援（#6086 由 @griffio 提供）
 - [Gradle 外掛程式] 修復當起始架構版本不為 1 且 `verifyMigrations` 為 true 時的組建失敗（#6017 由 @neilgmiller 提供）
 - [Gradle 外掛程式] 讓 `SqlDelightWorkerTask` 具備更多可配置性，並更新預設配置以支援在 Windows 上開發（#5215 由 @MSDarwish2000 提供）
 - [SQLite 方言] 新增對 FTS5 虛擬表中合成列的支援（#5986 由 @watbe 提供）
@@ -34,7 +35,7 @@
 - [執行階段] 新增了 `SuspendingTransacter.TransactionDispatcher`，提供一種用於控制交易的 `CoroutineContext` 的機制（#5967 由 @eygraber 提供）
 - [Gradle 外掛程式] 完全相容 Android Gradle Plugin 9.0 的新 DSL。（#6140）
 - [PostgreSQL 方言] 支援 PostgreSql CREATE TABLE 儲存參數（#6148 由 @griffio 提供）
-- [PostgreSQL 方言] 修復 PostgreSql 唯一資料表約束的可為 null 結果列（#6167 由 @griffio 提供）
+- [PostgreSQL 方言] 修復 PostgreSql 唯一資料表約束的可 null 結果列（#6167 由 @griffio 提供）
 
 ### 變更
 - [編譯器] 將編譯器輸出型別從 java.lang.Void 變更為 kotlin.Nothing（#6099 由 @griffio 提供）
@@ -45,7 +46,7 @@
 
 ### 修復
 - [IntelliJ 外掛程式] 修復在 VFS 重新整理事件期間，因在 EDT 上阻塞檔案型別偵測而導致的 IDE 凍結。
-- [SQLite 方言] 修復 SQLite 3.38 編譯錯誤時使用 JSON 路徑運算子的問題（#6070 由 @griffio 提供）
+- [SQLite 方言] 修復使用 JSON 路徑運算子時的 SQLite 3.38 編譯錯誤（#6070 由 @griffio 提供）
 - [SQLite 方言] 使用自訂列型別時，為 `group_concat` 函式使用 String 型別（#6082 由 @griffio 提供）
 - [Gradle 外掛程式] 提升 `VerifyMigrationTask` 的效能，防止其在複雜架構上掛起（#6073 由 @Lightwood13 提供）
 - [Intellij 外掛程式] 修復外掛程式初始化例外狀況並更新已棄用的方法（#6040 由 @griffio 提供）
@@ -116,11 +117,11 @@
 - [PostgreSQL 方言] PostgreSql ILIKE 運算子（#5330 由 @griffio 提供）
 - [PostgreSQL 方言] PostgreSql XML 型別（#5331 由 @griffio 提供）
 - [PostgreSQL 方言] PostgreSql AT TIME ZONE（#5243 由 @griffio 提供）
-- [PostgreSQL 方言] 支援 PostgreSql order by nulls（#5199 由 @griffio 提供）
+- [PostgreSQL 方言] 支援 PostgreSQL order by nulls（#5199 由 @griffio 提供）
 - [PostgreSQL 方言] 新增 PostgreSQL 目前日期/時間函式支援（#5226 由 @drewd 提供）
 - [PostgreSQL 方言] PostgreSql 正規表示式運算子（#5137 由 @griffio 提供）
 - [PostgreSQL 方言] 新增 brin gist（#5059 由 @griffio 提供）
-- [MySQL 方言] 為 MySql 方言支援 RENAME INDEX（#5212 由 @orenkislev-faire 提供）
+- [MySQL 方言] 為 MySQL 方言支援 RENAME INDEX（#5212 由 @orenkislev-faire 提供）
 - [JSON 擴充套件] 為 json 資料表函式新增別名（#5372 由 @griffio 提供）
 
 ### 變更
@@ -203,7 +204,7 @@
 [2.0.1]: https://github.com/sqldelight/sqldelight/releases/tag/2.0.1
 
 ### 新增
-- [編譯器] 執行 SELECT 時新增對多列運算式的支援（#4453 由 @Adriel-M 提供）
+- [編譯器] 執行 SELECT 時新增對多列運算式 (multi-column-expr) 的支援（#4453 由 @Adriel-M 提供）
 - [PostgreSQL 方言] 新增對 PostgreSQL CREATE INDEX CONCURRENTLY 的支援（#4531 由 @griffio 提供）
 - [PostgreSQL 方言] 允許 PostgreSQL CTE 輔助陳述式互相參考（#4493 由 @griffio 提供）
 - [PostgreSQL 方言] 新增對二元運算式與總和的 PostgreSQL 型別支援（#4539 由 @Adriel-M 提供）
@@ -218,7 +219,7 @@
 - [JDBC 驅動程式] 新增語言註解以獲得更愉快的 SQL 編輯體驗（#4602 由 @MariusVolkhart 提供）
 - [原生驅動程式] 原生驅動程式：新增對 linuxArm64 的支援（#4792 由 @hfhbd 提供）
 - [Android 驅動程式] 為 AndroidSqliteDriver 新增 windowSizeBytes 參數（#4804 由 @BoD 提供）
-- [Paging3 擴充套件] 特性：為 OffsetQueryPagingSource 新增 initialOffset（#4802 由 @MohamadJaara 提供）
+- [分頁 3 擴充套件] 特性：為 OffsetQueryPagingSource 新增 `initialOffset`（#4802 由 @MohamadJaara 提供）
 
 ### 變更
 - [編譯器] 在適當的情況下偏好使用 Kotlin 型別（#4517 由 @eygraber 提供）
@@ -327,7 +328,7 @@
 - [執行階段] 強制要求同步驅動程式必須使用同步架構初始化器（#4013）
 - [執行階段] 改進游標的非同步支援（#4102）
 - [執行階段] 移除已棄用的目標（#4149 由 @hfhbd 提供）
-- [執行階段] 移除對舊版 MM 的支援（#4148 由 @hfhbd 提供）
+- [執行階段] 移除對舊版記憶體模型 (MM) 的支援（#4148 由 @hfhbd 提供）
 
 ### 修復
 - [R2DBC 驅動程式] R2DBC：等待關閉驅動程式（#4139 由 @hfhbd 提供）
@@ -358,16 +359,16 @@
 - [PostgreSQL 方言] 在 PostgreSQL 中支援 UPDATE FROM（由 @eygraber 提供）
 
 ### 變更
-- [RDBC 驅動程式] 公開連線（由 @hfhbd 提供）
+- [R2DBC 驅動程式] 公開連線（由 @hfhbd 提供）
 - [執行階段] 將遷移回呼移至主要的 `migrate` 函式
 - [Gradle 外掛程式] 對下游專案隱藏組態
 - [Gradle 外掛程式] 僅遮蔽 Intellij（由 @hfhbd 提供）
 - [Gradle 外掛程式] 支援 Kotlin 1.8.0-Beta 並新增多版本 Kotlin 測試（由 @hfhbd 提供）
 
 ### 修復
-- [RDBC 驅動程式] 改為使用 `javaObjectType`（由 @hfhbd 提供）
-- [RDBC 驅動程式] 修復 `bindStatement` 中的原始 null 值（由 @hfhbd 提供）
-- [RDBC 驅動程式] 支援 R2DBC 1.0（由 @hfhbd 提供）
+- [R2DBC 驅動程式] 改為使用 `javaObjectType`（由 @hfhbd 提供）
+- [R2DBC 驅動程式] 修復 `bindStatement` 中的原始 null 值（由 @hfhbd 提供）
+- [R2DBC 驅動程式] 支援 R2DBC 1.0（由 @hfhbd 提供）
 - [PostgreSQL 方言] Postgres：修復不含型別參數的 Array（由 @hfhbd 提供）
 - [IDE 外掛程式] 將 intellij 提升至 221.6008.13（由 @hfhbd 提供）
 - [編譯器] 從純檢視解析遞迴原始資料表（由 @hfhbd 提供）
@@ -390,7 +391,7 @@
 
 ### 重大變更
 
-- Paging 3 擴充套件 API 已變更，僅允許 int 型別用於計數。
+- 分頁 3 擴充套件 API 已變更，僅允許 int 型別用於計數。
 - 協同程式擴充套件現在需要傳入分派器，不再提供預設值。
 - 方言與驅動程式類別現在是最終類別 (final)，請改用委派。
 
@@ -431,7 +432,7 @@
 - [編譯器] 一律建立資料庫實作（#3540 由 @hfhbd 提供）
 - [編譯器] 放寬 JavaDoc 並將其也新增至自訂對應函式（#3554 @hfhbd 提供）
 - [編譯器] 修復繫結中的 DEFAULT（由 @hfhbd 提供）
-- [分頁] 修復 Paging 3（#3396）
+- [分頁] 修復分頁 3 (#3396)
 - [分頁] 允許使用 Long 建構 `OffsetQueryPagingSource`（#3409）
 - [分頁] 不要靜態切換 `Dispatchers.Main`（#3428）
 
@@ -472,7 +473,7 @@ sqldelight {
 - [執行階段] 開放方言與解析器以支援第三方實作（#3232 由 @hfhbd 提供）
 - [編譯器] 在失敗報告中包含用於編譯的方言（#3086）
 - [編譯器] 跳過未使用的配接器（#3162 由 @eygraber 提供）
-- [編譯器] 在 `PrepareStatement` 中使用以零為起始的索引（#3269 由 @hfhbd 提供）
+- [編譯器] 在 PrepareStatement 中使用以零為起始的索引（#3269 由 @hfhbd 提供）
 - [Gradle 外掛程式] 同樣將方言設為適當的 Gradle 相依項，而非字串（#3085）
 - [Gradle 外掛程式] Gradle 驗證任務：缺少資料庫檔案時拋出錯誤。（#3126 由 @vanniktech 提供）
 
@@ -595,7 +596,7 @@ sqldelight {
 
 目前支援的方言包括 `mysql-dialect`、`postgresql-dialect`、`hsql-dialect`、`sqlite-3-18-dialect`、`sqlite-3-24-dialect`、`sqlite-3-25-dialect`、`sqlite-3-30-dialect` 以及 `sqlite-3-35-dialect`
 
-- 現在必須匯入原始型別（例如 `INTEGER AS Boolean` 必須 `import kotlin.Boolean`），一些先前支援的型別現在需要配接器。大多數轉換的原始配接器可在 `app.cash.sqldelight:primitive-adapters:2.0.0-alpha01` 中找到（例如用於 `Integer AS kotlin.Int` 的 `IntColumnAdapter`）。
+- 原始型別現在必須匯入（例如 `INTEGER AS Boolean` 必須 `import kotlin.Boolean`），一些先前支援的型別現在需要配接器。大多數轉換的原始配接器可在 `app.cash.sqldelight:primitive-adapters:2.0.0-alpha01` 中找到（例如用於 `Integer AS kotlin.Int` 的 `IntColumnAdapter`）。
 
 ### 新增
 - [IDE 外掛程式] 基礎建議遷移（由 @aperfilyev 提供）
@@ -659,7 +660,7 @@ sqldelight {
 - [協同程式擴充套件] 為協同程式擴充套件新增 M1 目標（由 @PhilipDukhov 提供）
 
 ### 變更
-- [Paging3 擴充套件] 將 `sqldelight-android-paging3` 作為 JAR 而非 AAR 發佈（#2634 由 @julioromano 提供）
+- [分頁 3 擴充套件] 將 `sqldelight-android-paging3` 作為 JAR 而非 AAR 發佈（#2634 由 @julioromano 提供）
 - 同時也是軟關鍵字的屬性名稱現在將以底線結尾。例如 `value` 將公開為 `value_`
 
 ### 修復
@@ -738,7 +739,7 @@ sqldelight {
 
 ### 變更
 - [原生驅動程式] 透過在可能時避免凍結與可共用資料結構來改進原生交易效能（由 @andersio 提供）
-- [Paging 3] 將 Paging3 版本提升至 3.0.0 穩定版
+- [分頁 3] 將 Paging3 版本提升至 3.0.0 穩定版
 - [JS 驅動程式] 將 sql.js 升級至 1.5.0
 
 ### 修復
@@ -746,7 +747,7 @@ sqldelight {
 - [RX 擴充套件] 修復訂閱 / 處置競態洩漏（#2403 由 @pyricau 提供）
 - [協同程式擴充套件] 確保我們在通知前註冊查詢接聽程式
 - [編譯器] 對 `notifyQueries` 進行排序以獲得一致的 Kotlin 輸出檔案（由 @thomascjy 提供）
-- [編譯器] 不要使用 @JvmField 標註選擇查詢類別屬性（由 @eygraber 提供）
+- [編譯器] 不要為選擇查詢類別屬性加上 @JvmField 註解（由 @eygraber 提供）
 - [IDE 外掛程式] 修復匯入最佳化程式（#2350 由 @aperfilyev 提供）
 - [IDE 外掛程式] 修復未使用的列檢查（由 @aperfilyev 提供）
 - [IDE 外掛程式] 為匯入檢查與類別標註程式新增巢狀類別支援（由 @aperfilyev 提供）
@@ -759,7 +760,7 @@ sqldelight {
 
 ### 新增
 - [SQLite Javascript 驅動程式] 啟用 sqljs-driver 發佈（#1667 由 @dellisd 提供）
-- [Paging3 擴充套件] 用於 Android Paging 3 程式庫的擴充套件（#1786 由 @kevincianfarini 提供）
+- [分頁 3 擴充套件] 用於 Android Paging 3 程式庫的擴充套件（#1786 由 @kevincianfarini 提供）
 - [MySQL 方言] 增加對 mysql 的 ON DUPLICATE KEY UPDATE 衝突解決的支援。（由 @rharter 提供）
 - [SQLite 方言] 為 SQLite `offsets()` 新增編譯器支援（由 @qjroberts 提供）
 - [IDE 外掛程式] 為未知型別新增匯入快速修正（#683 由 @aperfilyev 提供）
@@ -799,8 +800,8 @@ sqldelight {
 - [JDBC 驅動程式] 確保在發生例外時關閉連線（#2306）
 - [IDE 外掛程式] 修復因路徑分隔符號錯誤導致在 Windows 上 GoToDeclaration/FindUsages 毀損的問題（#2054 由 @angusholder 提供）
 - [IDE 外掛程式] 在 IDE 中忽略 Gradle 錯誤而不是當機。
-- [IDE 外掛程式] 如果 SQLDelight 檔案被移至非 SQLDelight 模組，請勿嘗試產生程式碼
-- [IDE 外掛程式] 在 IDE 中忽略程式碼產生錯誤
+- [IDE 外掛程式] 如果 SQLDelight 檔案被移至 non-sqldelight 模組，請勿嘗試產生程式碼
+- [IDE 外掛程式] 忽略 IDE 中的程式碼產生錯誤
 - [IDE 外掛程式] 確保我們不嘗試負數子字串（#2068）
 - [IDE 外掛程式] 同時確保在執行 Gradle 操作前專案未處置（#2155）
 - [IDE 外掛程式] 可 null 型別上的算術運算也應為可 null（#1853）
@@ -808,7 +809,7 @@ sqldelight {
 - [IDE 外掛程式] 如果 Kotlin 解析在 GoTo 期間失敗，請勿嘗試前往 SQLDelight 檔案
 - [IDE 外掛程式] 如果 IntelliJ 在 SQLDelight 建立索引期間遇到例外，請勿當機
 - [IDE 外掛程式] 處理在 IDE 中產生程式碼前偵測錯誤時發生的例外
-- [IDE 外掛程式] 讓 IDE 外掛程式相容於動態外掛程式（#1536）
+- [IDE 外掛程式] 讓 IDE 外掛程式相容於動態外掛程式 (Dynamic Plugins)（#1536）
 - [Gradle 外掛程式] 使用 `WorkerApi` 產生資料庫時的競態條件（#2062 由 @stephanenicolas 提供）
 - [Gradle 外掛程式] `classLoaderIsolation` 防止自訂 JDBC 使用（#2048 由 @benasher44 提供）
 - [Gradle 外掛程式] 改進遺漏 `packageName` 的錯誤訊息（由 @vanniktech 提供）
@@ -954,7 +955,7 @@ sqldelight {
 ## [1.3.0] - 2020-04-03
 [1.3.0]: https://github.com/sqldelight/sqldelight/releases/tag/1.3.0
 
-* 新功能：[Gradle] 用於指定要針對哪個 SQL 方言進行編譯的 Dialect 屬性。
+* 新功能：[Gradle] 方言屬性，用於指定要針對哪個 SQL 方言進行編譯。
 * 新功能：[編譯器] #1009 對 mysql 方言的實驗性支援。
 * 新功能：[編譯器] #1436 支援 sqlite:3.24 方言與 upsert。
 * 新功能：[JDBC 驅動程式] 將 JDBC 驅動程式從 sqlite jvm 驅動程式中分離出來。
@@ -971,7 +972,7 @@ sqldelight {
 * 修復：[IntelliJ 外掛程式] 尋找檔案套件名稱時不要搜尋相依項。
 * 修復：[Gradle] #862 將 Gradle 中的驗證器記錄變更為偵錯層級。
 * 增強：[Gradle] 將 `GenerateSchemaTask` 轉換為使用 Gradle 背景工作程序。
-* 注意：`sqldelight-runtime` 產物已重新命名為 `runtime`。
+* 注意：sqldelight-runtime 成品已重新命名為執行階段 (runtime)。
 
 ## [1.2.1] - 2019-12-11
 [1.2.1]: https://github.com/sqldelight/sqldelight/releases/tag/1.2.1
@@ -980,7 +981,7 @@ sqldelight {
 * 修復：[Gradle] #1287 同步時發出警告。
 * 修復：[編譯器] #1469 為查詢建立 `SynetheticAccessor`。
 * 修復：[JVM 驅動程式] 修復記憶體洩漏。
-* 注意：協同程式擴充套件產物需要將 kotlinx bintray maven 儲存庫新增至您的 buildscript。
+* 注意：協同程式擴充套件成品需要將 kotlinx bintray maven 儲存庫新增至您的 buildscript。
 
 ## [1.2.0] - 2019-08-30
 [1.2.0]: https://github.com/sqldelight/sqldelight/releases/tag/1.2.0
@@ -995,12 +996,12 @@ sqldelight {
 ## [1.1.4] - 2019-07-11
 [1.1.4]: https://github.com/sqldelight/sqldelight/releases/tag/1.1.4
 
-* 新功能：[執行階段] 實驗性 kotlin Flow API。
+* 新功能：[執行階段] 實驗性 Kotlin Flow API。
 * 修復：[Gradle] Kotlin/Native 1.3.40 相容性。
 * 修復：[Gradle] #1243 在 Gradle 隨需配置下使用 SQLDelight 的修復。
 * 修復：[Gradle] #1385 在累加註解處理下使用 SQLDelight 的修復。
 * 修復：[Gradle] 允許 Gradle 任務快取。
-* 修復：[Gradle] #1274 啟用 SQLDelight 擴充功能與 kotlin dsl 的配合使用。
+* 修復：[Gradle] #1274 啟用 SQLDelight 擴充功能與 Kotlin dsl 的配合使用。
 * 修復：[編譯器] 為每個查詢具決定性地產生唯一識別碼。
 * 修復：[編譯器] 僅在交易完成時通知接聽查詢。
 * 修復：[JVM 驅動程式] #1370 強制 `JdbcSqliteDriver` 使用者提供資料庫 URL。
@@ -1043,7 +1044,7 @@ sqldelight {
 ## [1.0.2] - 2019-01-26
 [1.0.2]: https://github.com/sqldelight/sqldelight/releases/tag/1.0.2
 
-* 修復：[Gradle 外掛程式] 更新至 kotlin 1.3.20。
+* 修復：[Gradle 外掛程式] 更新至 Kotlin 1.3.20。
 * 修復：[執行階段] 交易不再吞掉例外。
 
 ## [1.0.1] - 2019-01-21
@@ -1059,11 +1060,11 @@ sqldelight {
 ## [1.0.0] - 2019-01-08
 [1.0.0]: https://github.com/sqldelight/sqldelight/releases/tag/1.0.0
 
-* 新功能：產生的程式碼全面翻新，現在使用 kotlin。
-* 新功能：RxJava2 擴充套件產物。
-* 新功能：Android 分頁擴充套件產物。
+* 新功能：產生的程式碼全面翻新，現在使用 Kotlin。
+* 新功能：RxJava2 擴充套件成品。
+* 新功能：Android 分頁擴充套件成品。
 * 新功能：Kotlin 多平台支援。
-* 新功能：Android、iOS 與 JVM SQLite 驅動程式產物。
+* 新功能：Android、iOS 與 JVM SQLite 驅動程式成品。
 * 新功能：交易 API。
 
 ## [0.7.0] - 2018-02-12
@@ -1108,7 +1109,7 @@ sqldelight {
 
  * 新功能：SQLite 引數可以透過工廠進行型別安全傳遞
  * 新功能：IntelliJ 外掛程式對 .sq 檔案執行格式化
- * 新功能：支援 SQLite 時間戳記字面值
+ * 新功能：支援 SQLite timestamp 字面值
  * 修復：參數化型別可以在 IntelliJ 中點擊跳轉
  * 修復：逸出的列名從游標抓取時不再拋出 RuntimeException。
  * 修復：Gradle 外掛程式嘗試列印例外時不會當機。
@@ -1116,7 +1117,7 @@ sqldelight {
 ## [0.4.4] - 2016-07-20
 [0.4.4]: https://github.com/sqldelight/sqldelight/releases/tag/0.4.4
 
- * 新功能：原生支援 short 作為列 java 型別
+ * 新功能：原生支援 short 作為列 Java 型別
  * 新功能：產生的對應器與工廠方法上的 Javadoc
  * 修復：`group_concat` 與 `nullif` 函式具有正確的可 null 性
  * 修復：與 Android Studio 2.2-alpha 的相容性
@@ -1132,13 +1133,13 @@ sqldelight {
  * 修復：來自 union 的產生程式碼具有正確的型別與可 null 性，以支援所有可能的列。
  * 修復：sum 與 round SQLite 函式在產生的程式碼中具有正確型別。
  * 修復：CAST、內部 select 的修復。
- * 修復：`CREATE TABLE` 陳述式中的自動補全。
+ * 修復：CREATE TABLE 陳述式中的自動補全。
  * 修復：SQLite 關鍵字可用於套件。
 
 ## [0.4.2] - 2016-06-16
 [0.4.2]: https://github.com/sqldelight/sqldelight/releases/tag/0.4.2
 
- * 新功能：編組程式 (Marshal) 可以從工廠建立。
+ * 新功能：Marshal 可以從工廠建立。
  * 修復：IntelliJ 外掛程式產生具有正確泛型順序的工廠方法。
  * 修復：函式名稱可以使用任何大小寫。
 
@@ -1174,7 +1175,7 @@ sqldelight {
 ## [0.3.0] - 2016-04-26
 [0.3.0]: https://github.com/sqldelight/sqldelight/releases/tag/0.3.0
 
-  * 新功能：列定義使用 SQLite 型別，並可具有額外的「AS」約束來指定 java 型別。
+  * 新功能：列定義使用 SQLite 型別，並可具有額外的「AS」約束來指定 Java 型別。
   * 新功能：可以從 IDE 傳送錯誤報告。
   * 修復：自動補全功能正常運作。
   * 修復：SQLDelight 模型檔案隨 .sq 檔案編輯而更新。
@@ -1183,7 +1184,7 @@ sqldelight {
 ## [0.2.2] - 2016-03-07
 [0.2.2]: https://github.com/sqldelight/sqldelight/releases/tag/0.2.2
 
- * 新功能：對 insert、update、delete、index 與 trigger 陳述式所使用的列進行編譯時驗證。
+ * 新功能：編譯時驗證插入、更新、刪除、索引與觸發器陳述式所使用的列。
  * 修復：在檔案移動/建立時不會使 IDE 外掛程式當機。
 
 ## [0.2.1] - 2016-03-07

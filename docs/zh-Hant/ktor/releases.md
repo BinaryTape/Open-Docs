@@ -36,6 +36,18 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。
 </tr>
 
 <tr>
+<td>3.4.2</td><td>2026 年 3 月 27 日</td><td>
+<p>
+一個修正版本，透過分配優化與 WebSocket 修正改進了用戶端與引擎效能，並解決了涉及 OpenAPI、記錄功能、GraalVM 相容性、Netty、Darwin、相依注入、壓縮、憑證固定以及 Kotlin/Native 的一系列廣泛問題。
+</p>
+<var name="version" value="3.4.2"/>
+<p>
+    <a href="https://github.com/ktorio/ktor/releases/tag/%version%">在 GitHub 上查看變更記錄</a>
+</p>
+</td>
+</tr>
+
+<tr>
 <td>3.4.1</td><td>2026 年 3 月 4 日</td><td>
 <p>
 一個修正版本，包含重要的迴歸修正，包括解決了<a href="whats-new-340.md#use-engine-dispatcher">使用引擎分派器 (dispatcher) 執行 HttpStatement</a> 的問題，並恢復了正確的 <code>StreamResetException</code> 傳遞。它還包含效能改進、OpenAPI 增強，以及跨引擎與平台的多項穩定性修正。
@@ -168,7 +180,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。
 
 <tr>
 <td>3.1.2</td><td>2025 年 3 月 27 日</td><td><p>
-一個修正版本，將 Kotlin 更新至 2.1.20 並修正了各種問題，包括 Base64 解碼、驗證權杖清除、Android 伺服器啟動錯誤、WebSocket 標頭格式化以及 SSE 工作階段取消。
+一個修正版本，將 Kotlin 更新至 2.1.20 並修正了各種問題，包括 Base64 解碼、驗證權杖清除、Android 伺服器啟動錯誤、WebSocket 標頭格式化以及 SSE 工作階段取消。 
 </p>
 <var name="version" value="3.1.2"/>
 <p>
@@ -212,7 +224,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。
 
 <tr>
 <td>3.0.2</td><td>2024 年 12 月 4 日</td><td><p>
-一個修正版本，解決了與回應損壞、主體截斷、連線處理以及錯誤標頭相關的多個錯誤，並擴展了二進位編碼支援和 Android 的效能增強。
+一個修正版本，解決了與回應損壞、主體截斷、連線處理以及錯誤標頭相關的多個錯誤，並擴展了二進位編碼支援和 Android 的效能增強。 
 </p>
 <var name="version" value="3.0.2"/>
 <p>
@@ -223,7 +235,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。
 
 <tr>
 <td>2.3.13</td><td>2024 年 11 月 20 日</td><td><p>
-一個包含錯誤修正、安全性修正與改進的修正版本，包括新增對 <code>watchosDeviceArm64</code> 目標的支援。
+一個包含錯誤修正、安全性修正與改進的修正版本，包括新增對 <code>watchosDeviceArm64</code> 目標的支援。  
 </p>
 <var name="version" value="2.3.13"/>
 <p>
@@ -234,7 +246,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。
 
 <tr>
 <td>3.0.1</td><td>2024 年 10 月 29 日</td><td><p>
-一個包含用戶端與伺服器記錄功能改進以及各種錯誤修正的修正版本。
+一個包含用戶端與伺服器記錄功能改進以及各種錯誤修正的修正版本。  
 </p>
 <var name="version" value="3.0.1"/>
 <p>

@@ -1,8 +1,8 @@
 [//]: # (title: 参与 Kotlin 抢先体验预览)
 
 <tldr>
-    <p>目前没有可用的预览版本。</p>
-    <!--<p>最新 Kotlin EAP 版本：<strong>%kotlinEapVersion%</strong></p>-->
+    <!--<p>目前没有可用的预览版本。</p>-->
+    <p>最新 Kotlin EAP 版本：<strong>%kotlinEapVersion%</strong></p>
 </tldr>
 
 您可以参与 Kotlin 抢先体验预览 (EAP)，在最新的 Kotlin 功能发布之前对其进行试用。
@@ -29,29 +29,29 @@
 
 * **为稳定版本做好准备**。如果您在一个复杂的多模块项目中工作，参与 EAP 可以简化您采用稳定版本的体验。您越早更新到稳定版本，就能越早利用其性能改进和新语言功能。 
 
-  大型复杂项目的迁移可能需要一段时间，这不仅是因为项目规模庞大，还因为某些特定的用例可能尚未被 Kotlin 团队覆盖。通过参与 EAP 并持续测试新版本的 Kotlin，您可以向我们提供有关您特定用例的早期反馈。这将帮助我们解决尽可能多的问题，并确保您在正式版发布时可以安全地更新到稳定版本。[了解 Slack 如何从测试 Android、Kotlin 和 Gradle 的预发布版本中受益](https://slack.engineering/shadow-jobs/)。
+  大型复杂项目的迁移可能需要一段时间，不仅是因为项目规模庞大，还因为某些特定的用例可能尚未被 Kotlin 团队覆盖。通过参与 EAP 并持续测试新版本的 Kotlin，您可以向我们提供有关您特定用例的早期反馈。这将帮助我们解决尽可能多的问题，并确保您在正式版发布时可以安全地更新到稳定版本。[了解 Slack 如何从测试 Android、Kotlin 和 Gradle 的预发布版本中受益](https://slack.engineering/shadow-jobs/)。
 * **保持您的库处于最新状态**。如果您是一位库作者，更新到新的 Kotlin 版本至关重要。使用旧版本可能会阻止您的用户在他们的项目中更新 Kotlin。使用 EAP 版本让您能够在稳定版本发布时几乎立即在您的库中支持最新的 Kotlin 版本，这会让您的用户更满意，也能让您的库更受欢迎。
 * **分享经验**。如果您是 Kotlin 爱好者，并且乐于通过创建教学内容来为 Kotlin 生态系统做出贡献，那么在 Kotlin EAP 中尝试新功能可以让您成为首批向社区分享新酷功能使用经验的人之一。
 
 ## 构建详情
 
-_目前没有可用的预览版本。_
-
 <!--
+_目前没有可用的预览版本。_
+-->
+
  <table>
     <tr>
         <th>构建信息</th>
         <th>构建亮点</th>
     </tr>
     <tr>
-        <td><strong>2.3.20-RC3</strong>
-            <p>发布日期：<strong>2026 年 3 月 10 日</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20-RC3" target="_blank">GitHub 上的发布版本</a></p>
+        <td><strong>2.4.0-Beta1</strong>
+            <p>发布日期：<strong>2026 年 3 月 31 日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.0-Beta1" target="_blank">GitHub 上的发布版本</a></p>
         </td>
         <td>
-            <p>这是一个工具版本，包含性能改进、错误修复和工具更新。</p>
-            <p>有关更多详细信息，请参阅<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20-RC3">变更日志</a>。</p>
+            <p>这是一个语言版本，包含语言方面的重大变更以及工具更新。</p>
+            <p>有关更多详细信息，请参阅<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.0-Beta1">变更日志</a>或<a href="whatsnew-eap.md">Kotlin 2.4.0-Beta1 中的最新变化</a>。</p>
         </td>
     </tr>
-</table> 
--->
+</table>

@@ -15,7 +15,7 @@
 >
 {style="note"}
 
-讓我們探索哪些 C 結構（struct）與聯合（union）型別宣告在 Kotlin 中是可見的，並查看 Kotlin/Native 與 [多平台](gradle-configure-project.md#targeting-multiple-platforms) Gradle 組建中進階的 C 互通相關使用案例。
+讓我們探索哪些 C 結構（struct）與聯合（union）宣告在 Kotlin 中是可見的，並查看 Kotlin/Native 與 [多平台](gradle-configure-project.md#targeting-multiple-platforms) Gradle 組建中進階的 C 互通相關使用案例。
 
 在本教學中，您將學習：
 
@@ -80,15 +80,17 @@ void union_by_pointer(MyUnion* u) {}
 
     ```kotlin
     kotlin {
-        macosArm64("native") {    // Apple 晶片的 macOS
-        // linuxArm64("native") { // ARM64 平台上的 Linux 
-        // linuxX64("native") {   // x86_64 平台上的 Linux
-        // mingwX64("native") {   // Windows 上
+        macosArm64()    // Apple 晶片的 macOS
+        // linuxArm64() // ARM64 平台上的 Linux
+        // linuxX64()   // x86_64 平台上的 Linux
+        // mingwX64()   // Windows 上
+
+        targets.withType<KotlinNativeTarget>().configureEach {
             val main by compilations.getting
             val interop by main.cinterops.creating {
                 definitionFile.set(project.file("src/nativeInterop/cinterop/interop.def"))
             }
-        
+
             binaries {
                 executable()
             }
@@ -101,16 +103,18 @@ void union_by_pointer(MyUnion* u) {}
 
     ```groovy
     kotlin {
-        macosArm64("native") {    // Apple 晶片的 macOS
-        // linuxArm64("native") { // ARM64 平台上的 Linux
-        // linuxX64("native") {   // x86_64 平台上的 Linux
-        // mingwX64("native") {   // Windows
+        macosArm64()    // Apple 晶片的 macOS
+        // linuxArm64() // ARM64 平台上的 Linux
+        // linuxX64()   // x86_64 平台上的 Linux
+        // mingwX64()   // Windows
+
+        targets.withType(KotlinNativeTarget).configureEach {
             compilations.main.cinterops {
-                interop {   
+                interop {
                     definitionFile = project.file('src/nativeInterop/cinterop/interop.def')
                 }
             }
-        
+
             binaries {
                 executable()
             }
@@ -311,10 +315,10 @@ fun main() {
 }
 ```
 
-若要驗證一切是否如預期運作，請 [在您的 IDE 中](native-get-started.md#build-and-run-the-application) 執行 `runDebugExecutableNative` Gradle 任務，或使用以下指令來執行程式碼：
+若要驗證一切是否如預期運作，請 [在您的 IDE 中](native-get-started.md#build-and-run-the-application) 執行 `runDebugExecutable<YourTargetName>` Gradle 任務，或在您的終端機中使用命令列指令，在此範例中為：
 
 ```bash
-./gradlew runDebugExecutableNative
+./gradlew runDebugExecutableMacosArm64
 ```
 
 ## 下一步

@@ -31,7 +31,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-hello-world"}
 
-`main` 的另一种形式接受可变实参数量的 `String` 实参： 
+`main` 的另一种形式接受可变实参数量 的 `String` 实参： 
 
 ```kotlin
 fun main(args: Array<String>) {
@@ -259,7 +259,7 @@ class Rectangle(val height: Double, val length: Double) {
 }
 ```
 
-类声明中列出的带参数默认构造函数可自动使用：
+类声明中列出的带形参默认构造函数可自动使用：
 
 ```kotlin
 class Rectangle(val height: Double, val length: Double) {
@@ -552,12 +552,13 @@ fun main() {
 ## 可空值与 null 检查
 
 当可能出现 `null` 值时，引用必须显式标记为可空。可空类型的名称末尾带有 `?`。
+例如，`Int?`。
 
 如果 `str` 不包含整数，则返回 `null`：
 
 ```kotlin
 fun parseInt(str: String): Int? {
-    // ...
+    return str.toIntOrNull()
 }
 ```
 

@@ -3,11 +3,11 @@
 一系列实战教程，您可以使用 Kotlin 结合多种技术并针对多个平台创建应用程序。
 这些练习分为一系列步骤，引导您完成每个部分。
 
-## 使用 Kotlin 协程和 RSocket 构建响应式 Spring Boot 应用程序
+## 使用 Spring Boot 和 Kotlin 创建 Web 应用程序
 
-使用 Spring Boot 和 Kotlin 构建一个简单的聊天应用程序，并从语法角度了解使用 Kotlin 进行服务器端开发的优势。
+使用 Spring Boot 和 Kotlin 构建一个具有数据库功能的简单应用程序，并从语法角度了解使用 Kotlin 进行后端开发的优势。
 
-[**开始**](https://spring.io/guides/tutorials/spring-webflux-kotlin-rsocket/)
+[**开始**](jvm-get-started-spring-boot.md)
 
 ## 使用 React 和 Kotlin/JS 构建 Web 应用程序
 

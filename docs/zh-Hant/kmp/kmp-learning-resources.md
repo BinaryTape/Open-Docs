@@ -351,7 +351,7 @@ LinkedIn Learning
 Compose Multiplatform 與原生 UI 之間的架構選擇、Swift 互通性基礎，以及用於網路連線、持續性與相依注入之必備 KMP 生態系統的完整概覽。
 </td>
 <td>
-每月約 30–40 美元
+約 30–40 美元/月
 </td>
 <td>
 3 小時
@@ -488,7 +488,7 @@ YouTube
 </td>
 
 <td>
-如何使用整潔架構從頭開始組建完整的生產級閱讀應用程式，涵蓋現代化 KMP 堆疊，包括用於網路連線的 Ktor、用於本機資料庫的 Room、用於相依注入的 Koin 以及多平台導航。
+如何使用整潔架構從頭開始組建完整的生產級閱讀應用程式，涵蓋現代化 KMP 堆疊，包括用於網路連線的 Ktor、用於本機資料庫的 Room、用於相依注入的 Koin 以及多平台導覽。
 </td>
 <td>
 免費
@@ -665,7 +665,7 @@ LinkedIn Learning
 如何組建全端 Kotlin 應用程式：首先建立並將安全的 Ktor 後端部署至 AWS，然後使用 Kotlin Multiplatform 搭配共享程式碼來組建呼叫該 API 的原生用戶端。
 </td>
 <td>
-每月約 30–40 美元
+約 30–40 美元/月
 </td>
 <td>
 2-3 小時
@@ -871,7 +871,7 @@ GitHub
 </td>
 <td>
 
-[發佈至 Maven Central](multiplatform-publish-libraries.md)
+[發佈至 Maven Central](multiplatform-publish-libraries-to-maven.md)
 
 教學
 
@@ -910,7 +910,7 @@ LinkedIn Learning
 建立 KMP 程式庫的完整生命週期，從有效的 API 設計與程式碼共享策略，到最終發佈與最佳實務。
 </td>
 <td>
-每月約 30–40 美元
+約 30–40 美元/月
 </td>
 <td>
 2-3 小時

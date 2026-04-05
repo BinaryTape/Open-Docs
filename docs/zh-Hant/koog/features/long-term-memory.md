@@ -26,7 +26,7 @@
         install(LongTermMemory) {
             retrieval {
                 storage = myStorage
-                searchStrategy = KeywordSearchStrategy(topK = 5)
+                searchStrategy = SimilaritySearchStrategy(topK = 5)
             }
         }
     }
@@ -47,8 +47,8 @@
             config.retrieval(
                 new LongTermMemory.RetrievalSettingsBuilder()
                     .withStorage(myStorage)
-                    .withSearchStrategy(query ->
-                        new KeywordSearchRequest(query, 15, 0.5, null)
+                    .withSearchStrategy(
+                        SearchStrategy.builder().similarity().withTopK(5).build()
                     )
                     .build()
             );
@@ -96,13 +96,55 @@
 | `UserPromptAugmenter()` | 在最後一則使用者訊息前插入上下文作為獨立的使用者訊息 |
 | `PromptAugmenter { prompt, context -> ... }` | 透過 Lambda 進行自訂增強 |
 
+### 查詢擷取器 (Query Extractors)
+
+預設情況下，檢索流程使用最後一則使用者訊息作為搜尋查詢。您可以透過提供 `QueryExtractor` 來自訂此行為：
+
+| 擷取器 | 行為 |
+|---|---|
+| `LastUserMessageQueryExtractor()` | 使用最後一則使用者訊息的內容（預設） |
+| `QueryExtractor { prompt -> ... }` | 透過 Lambda 進行自訂擷取 |
+
+=== "Kotlin"
+
+    ```kotlin
+    @OptIn(ExperimentalAgentsApi::class)
+    install(LongTermMemory) {
+        retrieval {
+            storage = myStorage
+            queryExtractor = QueryExtractor { prompt ->
+                // 合併最後兩則使用者訊息作為搜尋查詢
+                prompt.messages
+                    .filter { it.role == Message.Role.User }
+                    .takeLast(2)
+                    .joinToString(" ") { it.content }
+                    .ifEmpty { null }
+            }
+        }
+    }
+    ```
+
+=== "Java"
+
+    ```java
+    var retrievalSettings = new LongTermMemory.RetrievalSettingsBuilder()
+        .withStorage(myStorage)
+        .withQueryExtractor(prompt -> {
+            var userMessages = prompt.getMessages().stream()
+                .filter(m -> m.getRole() == Message.Role.User)
+                .toList();
+            if (userMessages.isEmpty()) return null;
+            return userMessages.get(userMessages.size() - 1).getContent();
+        })
+        .build();
+    ```
+
 ### 搜尋策略 (Search Strategies)
 
 | 策略 | 行為 |
 |-----------------------------------------------------------|--------------------------|
-| `KeywordSearchStrategy()` | 全文/詞法關鍵字比對 |
-| `SimilaritySearchStrategy()` | 向量相似度語義搜尋 |
-| `query -> new KeywordSearchRequest(query, 20, 0.0, null)` | 透過 Lambda 進行自訂搜尋 |
+| `SimilaritySearchStrategy()` | 向量相似度語義搜尋 — **預設且建議使用** |
+| `query -> new SimilaritySearchRequest(query, 20, 0, 0.0, null)` | 透過 Lambda 進行自訂搜尋 |
 
 ## 僅攝取
 
@@ -116,7 +158,7 @@
         ingestion {
             storage = myVectorDbStorage
             namespace = "my-collection"  // 選填：限定於特定的命名空間/集合
-            extractor = FilteringMemoryRecordExtractor(
+            extractionStrategy = FilteringExtractionStrategy(
                 messageRolesToExtract = setOf(Message.Role.User, Message.Role.Assistant)
             )
             timing = IngestionTiming.ON_LLM_CALL
@@ -129,8 +171,8 @@
     ```java
     var ingestionSettings = new LongTermMemory.IngestionSettingsBuilder()
         .withStorage(myVectorDbStorage)
-        .withExtractor(
-            MemoryRecordExtractor.builder()
+        .withExtractionStrategy(
+            ExtractionStrategy.builder()
                 .filtering()
                 .withExtractRoles(new HashSet<>(Arrays.asList(Message.Role.User, Message.Role.Assistant)))
                 .withLastMessageOnly(false)
@@ -144,8 +186,51 @@
 
 | 時機 | 行為 |
 |---|---|
-| `ON_LLM_CALL` | 在每次 LLM 呼叫/串流時攝取訊息（啟用工作階段內 RAG） |
-| `ON_AGENT_COMPLETION` | 在代理執行完成時一次攝取所有訊息 |
+| `ON_LLM_CALL` | 提示詞訊息會在每次 LLM 呼叫開始前攝取；助手輸出則在完成或串流完成後攝取。啟用工作階段內 RAG。 |
+| `ON_AGENT_COMPLETION` | 最終累積的工作階段提示詞/歷程記錄會在代理執行完成時攝取一次。 |
+
+## 停用自動行為
+
+預設情況下，檢索和攝取會自動執行（分別在 LLM 呼叫之前和之後）。您可以停用自動行為，同時仍可從策略節點內存取已配置的存儲和策略：
+
+=== "Kotlin"
+
+    ```kotlin
+    @OptIn(ExperimentalAgentsApi::class)
+    install(LongTermMemory) {
+        retrieval {
+            storage = myStorage
+            enableAutomaticRetrieval = false  // 不進行自動提示詞增強
+        }
+        ingestion {
+            storage = myStorage
+            enableAutomaticIngestion = false  // 不進行自動訊息持久化
+        }
+    }
+    ```
+
+=== "Java"
+
+    ```java
+    config.retrieval(
+        new LongTermMemory.RetrievalSettingsBuilder()
+            .withStorage(myStorage)
+            .withEnableAutomaticRetrieval(false)
+            .build()
+    );
+    config.ingestion(
+        new LongTermMemory.IngestionSettingsBuilder()
+            .withStorage(myStorage)
+            .withEnableAutomaticIngestion(false)
+            .build()
+    );
+    ```
+
+這為您提供了三種純淨模式：
+
+1. **全自動**（預設）：安裝功能、配置存儲 — 檢索和攝取會自動運作。
+2. **僅手動**：設定 `enableAutomaticRetrieval = false` / `enableAutomaticIngestion = false`，並在您的圖表策略節點中使用存儲和策略。
+3. **混合**：將自動攝取與手動檢索結合（反之亦然）。
 
 ## 從策略節點存取長期記憶
 
@@ -157,11 +242,11 @@ val myNode by node<String, Unit> {
     withLongTermMemory {
         // 手動新增記錄
         val record = MemoryRecord(content = "重要事實")
-        this.getIngestionStorage()?.add(listOf(record), ingestionSettings?.namespace)
+        ingestionStorage?.add(listOf(record), namespace = "my-namespace")
 
         // 手動搜尋
-        val request = SimilaritySearchRequest(query = input, limit = 5)
-        val results = this.getRetrievalStorage()?.search(request, retrievalSettings?.namespace)
+        val request = SimilaritySearchRequest(queryText = input, limit = 5)
+        val results = retrievalStorage?.search(request, namespace = "my-namespace")
     }
 }
 ```
@@ -172,17 +257,17 @@ val myNode by node<String, Unit> {
 @OptIn(ExperimentalAgentsApi::class)
 val myNode by node<String, Unit> {
     val memory = longTermMemory()
-    val storage = memory.getIngestionStorage()
+    val storage = memory.ingestionStorage
 }
 ```
 
-## 自訂記憶記錄擷取器
+## 自訂擷取策略
 
-實作 `MemoryRecordExtractor` 以控制訊息在存儲前的轉換方式：
+實作 `ExtractionStrategy` 以控制訊息在存儲前的轉換方式：
 
 ```kotlin
 @OptIn(ExperimentalAgentsApi::class)
-val summarizingExtractor = MemoryRecordExtractor { messages ->
+val summarizingExtractor = ExtractionStrategy { messages ->
     messages
         .filter { it.role == Message.Role.Assistant }
         .map { MemoryRecord(content = summarize(it.content)) }
@@ -191,29 +276,29 @@ val summarizingExtractor = MemoryRecordExtractor { messages ->
 install(LongTermMemory) {
     ingestion {
         storage = myStorage
-        extractor = summarizingExtractor
+        extractionStrategy = summarizingExtractor
     }
 }
 ```
 
 ## 實作自訂存儲
 
-實作 `RetrievalStorage` 和/或 `IngestionStorage` 以連接到您的向量資料庫：
+實作 `SearchStorage` 和/或 `WriteStorage` 以連接到您的向量資料庫：
 
 ```kotlin
-class MyVectorDbStorage : RetrievalStorage, IngestionStorage {
+class MyVectorDbStorage : SearchStorage<TextDocument, SearchRequest>, WriteStorage<TextDocument> {
     override suspend fun search(
         request: SearchRequest, namespace: String?
-    ): List<SearchResult> {
+    ): List<SearchResult<TextDocument>> {
         // 查詢您的向量資料庫
     }
 
     override suspend fun add(
-        records: List<MemoryRecord>, namespace: String?
+        records: List<TextDocument>, namespace: String?
     ) {
         // 更新或插入（Upsert）至您的向量資料庫
     }
 }
 ```
 
-進行測試時，請使用內建的 `InMemoryRecordStorage`，它將記錄保留在記憶體中並支援基於關鍵字的搜尋。
+進行測試時，請使用內建的 `InMemoryRecordStorage`，它將記錄保留在記憶體中。它同時接受 `KeywordSearchRequest` 和 `SimilaritySearchRequest`，但兩者皆實作為簡單的不區分大小寫的子字串比對（不含向量嵌入）。

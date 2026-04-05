@@ -31,15 +31,15 @@ Kotlin은 더 간결합니다. 대략적으로 코드 줄 수를 약 40% 정도 
 
 ### Kotlin을 어디에 사용할 수 있나요?
 
-Kotlin은 서버 측, 클라이언트 측 웹, Android 또는 멀티플랫폼 라이브러리 등 모든 종류의 개발에 사용할 수 있습니다. 현재 개발 중인 Kotlin/Native를 통해 임베디드 시스템, macOS 및 iOS와 같은 다른 플랫폼도 지원합니다. 사람들은 모바일 및 서버 측 애플리케이션, JavaScript 또는 JavaFX를 사용한 클라이언트 측 개발, 데이터 과학 등 다양한 분야에서 Kotlin을 사용하고 있습니다.
+Kotlin은 백엔드, 클라이언트 측 웹, Android 또는 멀티플랫폼 라이브러리 등 모든 종류의 개발에 사용할 수 있습니다. 현재 개발 중인 Kotlin/Native를 통해 임베디드 시스템, macOS 및 iOS와 같은 다른 플랫폼도 지원합니다. 사람들은 모바일 및 서버 측 애플리케이션, JavaScript 또는 JavaFX를 사용한 클라이언트 측 개발, 데이터 과학 등 다양한 분야에서 Kotlin을 사용하고 있습니다.
 
 ### Android 개발에 Kotlin을 사용할 수 있나요?
 
 네. Kotlin은 Android에서 최우선 지원 언어(first-class language)로 지원됩니다. Basecamp, Pinterest 등 이미 수백 개의 애플리케이션이 Android용 Kotlin을 사용하고 있습니다. 자세한 내용은 [Android 개발 관련 자료](android-overview.md)를 확인하세요.
 
-### 서버 측 개발에 Kotlin을 사용할 수 있나요?
+### 백엔드 개발에 Kotlin을 사용할 수 있나요?
 
-네. Kotlin은 JVM과 100% 호환되므로 Spring Boot, vert.x 또는 JSF와 같은 기존 프레임워크를 모두 사용할 수 있습니다. 또한 [Ktor](https://github.com/kotlin/ktor)와 같이 Kotlin으로 작성된 전용 프레임워크도 있습니다. 자세한 내용은 [서버 측 개발 관련 자료](server-overview.md)를 확인하세요.
+네. Kotlin은 JVM과 100% 호환되므로 Spring Boot, vert.x 또는 JSF와 같은 기존 프레임워크를 모두 사용할 수 있습니다. 또한 [Ktor](https://github.com/kotlin/ktor)와 같이 Kotlin으로 작성된 전용 프레임워크도 있습니다. 자세한 내용은 [백엔드 개발 개요](server-overview.md)를 확인하세요.
 
 ### 웹 개발에 Kotlin을 사용할 수 있나요?
 

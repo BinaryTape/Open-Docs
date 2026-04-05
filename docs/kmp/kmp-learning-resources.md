@@ -678,7 +678,7 @@ LinkedIn Learning
 </td>
 <td>
 
-[全栈游戏开发 - Kotlin 和 Compose Multiplatform](https://www.udemy.com/course/full-stack-game-development-kotlin-compose-multiplatform/)
+[全栈 game 开发 - Kotlin 和 Compose Multiplatform](https://www.udemy.com/course/full-stack-game-development-kotlin-compose-multiplatform/)
 
 视频课程
 
@@ -871,7 +871,7 @@ GitHub
 </td>
 <td>
 
-[发布到 Maven Central](multiplatform-publish-libraries.md)
+[发布到 Maven Central](multiplatform-publish-libraries-to-maven.md)
 
 教程
 

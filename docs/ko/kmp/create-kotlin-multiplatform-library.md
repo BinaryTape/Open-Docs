@@ -247,7 +247,7 @@ kotlin {
 
 멀티플랫폼 개발에 대해 더 자세히 알아보시기를 권장합니다:
 
-* [Maven Central에 라이브러리 배포하기](multiplatform-publish-libraries.md)
+* [Maven Central에 라이브러리 배포하기](multiplatform-publish-libraries-to-maven.md)
 * [라이브러리 작성자 가이드 확인하기](https://kotlinlang.org/docs/api-guidelines-introduction.html)
 
 커뮤니티에 참여하세요:

@@ -353,7 +353,7 @@ annotation class MyDateTime
 Opt-in 需求註解必須符合幾個要求。它們必須具備：
 
 * `BINARY` 或 `RUNTIME` [保留 (retention)](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-retention/)。
-* `EXPRESSION`、`FILE`、`TYPE` 或 `TYPE_PARAMETER` 作為 [目標 (target)](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-target/)。
+* 沒有 `EXPRESSION`、`FILE`、`TYPE` 或 `TYPE_PARAMETER` 作為 [目標 (target)](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-target/)。
 * 沒有參數。
 
 Opt-in 需求可以具有兩種嚴重性 [等級 (levels)](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-requires-opt-in/-level/) 之一：
@@ -405,8 +405,8 @@ fun getTime(): Time {}
 在這種情況下，您可以要求使用者在進一步擴充您的 API 之前先進行 Opt-in。使用者可以透過繼承 API 或實作抽象函式來擴充您的 API。透過使用 [`@SubclassOptInRequired`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-subclass-opt-in-required/) 註解，
 您可以對 [open](inheritance.md) 或 [抽象類別](classes.md#abstract-classes) 以及 [非功能性介面](interfaces.md) 強制執行此 Opt-in 要求。
 
-要將 Opt-in 需求加入 API 元素，請使用 [`@SubclassOptInRequired`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-subclass-opt-in-required/)
-註解並參照註解類別：
+To add the opt-in requirement to an API element, use the [`@SubclassOptInRequired`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-subclass-opt-in-required/)
+annotation with a reference to the annotation class:
 
 ```kotlin
 @RequiresOptIn(
@@ -425,13 +425,13 @@ interface CoreLibraryApi
 
 有關如何在您的 API 中使用 `@SubclassOptInRequired` 註解的實際範例，請查看 `kotlinx.coroutines` 程式庫中的 [`SharedFlow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-shared-flow/) 介面。
 
-## 預先穩定（Pre-stable）API 的 Opt-in 需求
+## 預先穩定 (Pre-stable) API 的 Opt-in 需求
 
-如果您對尚未穩定的功能使用 Opt-in 需求，請謹慎處理 API 晉升，以避免
+如果您對尚未穩定的功能使用 Opt-in 需求，請謹慎處理 API 晉進，以避免
 破壞用戶端程式碼。
 
 一旦您的預先穩定 API 晉升並以穩定狀態發布，請從您的宣告中移除 Opt-in 需求註解。
-客戶端隨後可以不受限制地使用它們。但是，您應該將註解類別留在模組中，
+用戶端隨後可以不受限制地使用它們。但是，您應該將註解類別留在模組中，
 以便現有的用戶端程式碼保持相容。
 
 為了鼓勵 API 使用者更新他們的模組（透過從其程式碼中移除任何註解並重新編譯），請將註解標記為 [`@Deprecated`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-deprecated/)，並在棄用訊息中提供說明。

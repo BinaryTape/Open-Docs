@@ -101,7 +101,7 @@ C 語言中的字串是以 null 結尾的，因此在位元組序列的末尾會
 
 這些宣告非常直觀。在 Kotlin 中，C `char *` 指標在參數中被對應為 `str: CValuesRef<ByteVarOf>?`，而在傳回型別中被對應為 `CPointer<ByteVarOf>?`。Kotlin 將 `char` 型別表示為 `kotlin.Byte`，因為它通常是一個 8 位元有號值。
 
-在產生的 Kotlin 宣告中，`str` 被定義為 `CValuesRef<ByteVarOf<Byte>>?`。由於此型別是可為 null 的，您可以傳遞 `null` 作為引數值。
+在產生的 Kotlin 宣告中，`str` 被定義為 `CValuesRef<ByteVarOf<Byte>>?`。由於此型別是可為 null 的，您可以傳遞 `null` 作為引數值。 
 
 ## 將 Kotlin 字串傳遞給 C
 
@@ -175,7 +175,7 @@ fun sendString() {
 }
 ```
 
-在這裡，首先將原生指標傳遞給 C 函式。[`.usePinned()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/use-pinned.html) 擴充函式會暫時固定位元組陣列的原生記憶體位址。C 函式會用資料填充位元組陣列。另一個擴充函式 `ByteArray.decodeToString()` 則將位元組陣列轉換為 Kotlin 字串（假設為 UTF-8 編碼）。
+在這裡，首先將原生指標傳遞給 C 函式。[`.usePinned()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/use-pinned.html) 擴充函式會暫時固定位元組陣列的原生記憶體位址。C 函式會用資料填充位元組陣列。另一個擴充函式 `ByteArray.decodeToString()` 則將位元組陣列轉換為 Kotlin 字串（假設為 UTF-8 編碼）。 
 
 ## 更新 Kotlin 程式碼
 
@@ -205,10 +205,10 @@ fun main() {
 }
 ```
 
-要驗證一切是否如預期運作，請[在您的 IDE 中](native-get-started.md)執行 `runDebugExecutableNative` Gradle 任務，或使用以下指令來執行程式碼：
+要驗證一切是否如預期運作，請[在您的 IDE 中](native-get-started.md#build-and-run-the-application)執行 `runDebugExecutable<YourTargetName>` Gradle 任務，或在您的終端機中使用命令列指令，在此範例中為：
 
 ```bash
-./gradlew runDebugExecutableNative
+./gradlew runDebugExecutableMacosArm64
 ```
 
 ## 下一步

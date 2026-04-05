@@ -124,52 +124,44 @@ val bigFractional = 1_234_567.7182818284
 
 ## Java 虛擬機上的數字裝箱與快取
 
-由於預設情況下對於小型（Byte 大小）數字會使用快取，JVM 儲存數字的方式可能會讓你的程式碼行為不符合直覺。
+JVM 使用原始型別（如 `int`、`long` 或 `double`）來儲存不可為 null 的數值。然而，當你使用 [泛型](generics.md) 或 `Int?` 等可為 null 的數字型別時，數值會被裝箱並以物件表示。
 
-JVM 將數字儲存為原始型別：`int`、`double` 等。
-當你使用 [泛型](generics.md) 或建立可為 null 的數字參照（如 `Int?`）時，數字會被裝箱（boxed）在 Java 類別中，例如 `Integer` 或 `Double`。
+JVM 對於代表小型數字的裝箱表示套用 [記憶體優化技術](https://docs.oracle.com/javase/specs/jls/se22/html/jls-5.html#jls-5.1.7) 進行快取。因此，具有相同值的裝箱數字在 [參照相等性](equality.md#referential-equality) 上可能是相等的。
 
-JVM 對於代表 `-128` 到 `127` 之間數字的 `Integer` 與其他物件套用 [記憶體優化技術](https://docs.oracle.com/javase/specs/jls/se22/html/jls-5.html#jls-5.1.7)。
-指向此類物件的所有可為 null 參照都會指向同一個快取物件。
-例如，以下程式碼中的可為 null 物件在 [參照相等性](equality.md#referential-equality) 上是相等的：
+例如，JVM 會快取 `-128` 到 `127` 範圍內的裝箱 `Integer` 值。因此，以下程式碼的結果為 `true`：
 
 ```kotlin
 fun main() {
 //sampleStart
-    val a: Int = 100
-    val boxedA: Int? = a
-    val anotherBoxedA: Int? = a
+    val score: Int = 100
+    val savedScore: Int? = score
+    val displayedScore: Int? = score
     
-    println(boxedA === anotherBoxedA) // true
+    println(savedScore === displayedScore) // true
 //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-對於此範圍之外的數字，可為 null 物件是不同的，但在 [結構相等性](equality.md#structural-equality) 上是相等的：
+對於快取範圍之外的數字，裝箱值是不同的物件。在這種情況下，即使它們的值在 [結構相等性](equality.md#structural-equality) 上相等，它們在參照上也是不相等的。出於這個原因，請使用 `==` 來比較數值：
 
 ```kotlin
 fun main() {
 //sampleStart
-    val b: Int = 10000
-    val boxedB: Int? = b
-    val anotherBoxedB: Int? = b
-    
-    println(boxedB === anotherBoxedB) // false
-    println(boxedB == anotherBoxedB) // true
+    val score: Int = 10000
+    val savedScore: Int? = score
+    val displayedScore: Int? = score
+
+    println(savedScore === displayedScore) // false
+    println(savedScore == displayedScore)  // true
 //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
-
-出於這個原因，Kotlin 會對可裝箱數字和常值使用參照相等性發出警告，並顯示以下訊息：`"Identity equality for arguments of types ... and ... is prohibited."`（禁止對 ... 和 ... 型別的引數進行同一性相等檢查）。
-比較 `Int`、`Short`、`Long` 和 `Byte` 型別（以及 `Char` 和 `Boolean`）時，請使用結構相等性檢查以獲得一致的結果。
 
 ## 明確數字轉換
 
-由於表示方式不同，數字型別 *並非* 彼此的子型別。
-因此，較小的型別 *不會* 隱式轉換為較大的型別，反之亦然。
-例如，將 `Byte` 型別的值指派給 `Int` 變數需要進行明確轉換：
+由於表示方式不同，數字型別 *並非* 彼此的子型別。因此，較小的型別 *不會* 隱式轉換為較大的型別，反之亦然。例如，將 `Byte` 型別的值指派給 `Int` 變數需要進行明確轉換：
 
 ```kotlin
 fun main() {
@@ -213,8 +205,7 @@ fun main() {
 
 Kotlin 不支援隱式轉換，因為它們可能會導致非預期的行為。
 
-如果不同型別的數字被隱式轉換，有時我們會默默地失去相等性和同一性。
-例如，假設 `Int` 是 `Long` 的子型別：
+如果不同型別的數字被隱式轉換，有時我們會默默地失去相等性和同一性。例如，假設 `Int` 是 `Long` 的子型別：
 
 ```kotlin
 // 假設的程式碼，實際上無法編譯：
