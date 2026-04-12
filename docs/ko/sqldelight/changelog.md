@@ -17,6 +17,8 @@
 - [컴파일러] 그룹화되지 않은 집계 결과 집합(non-grouped aggregate result set)의 다른 컬럼들은 항상 널 허용(nullable)임
 - [PostgreSQL 다이얼렉트] `coalesce` 및 `ifnull`에 대한 널 허용 여부(nullability)를 올바르게 해결
 - [PostgreSQL 다이얼렉트] PostgreSQL 다이얼렉트의 IDE 통합 수정
+- [PostgreSQL 다이얼렉트] PostgreSQL 다이얼렉트용 IDE 플러그인 개선 (#6209 by @griffio)
+- [Intellij 플러그인] IDE 플러그인이 모든 다이얼렉트에 대해 코드 완성(code completions)을 수행할 수 있음 (#6210 by @griffio)
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -81,7 +83,7 @@
 - [Gradle 플러그인] 모듈 추가 시 버전 카탈로그(version catalogs) 지원 추가 (#5755 by @DRSchlaubi)
 
 ### 변경됨
-- 개발 중인 스냅샷이 이제 https://central.sonatype.com/repository/maven-snapshots/ 의 Central Portal Snapshots 저장소에 게시됩니다.
+- 개발 중인 스냅샷이 이제 [https://central.sonatype.com/repository/maven-snapshots/](https://central.sonatype.com/repository/maven-snapshots/) 의 Central Portal Snapshots 저장소에 게시됩니다.
 - [컴파일러] 생성자 참조(constructor references)를 사용하여 기본 생성 쿼리 단순화 (#5814 by @jonapoul)
 
 ### 수정됨
@@ -936,7 +938,7 @@ sqldelight {
 - [컴파일러] 합성 컬럼(synthesized columns)에 대한 값 삽입 활성화 (#1351)
 - [컴파일러] 디렉토리 이름 새니타이징(sanitizing)의 불일치 수정 (by @ZacSweers)
 - [컴파일러] 합성 컬럼이 조인 전체에서 널 허용 여부를 유지해야 함 (#1656)
-- [컴파일러] delete 키워드에 delete 문을 고정(#1643)
+- [컴파일러] delete 키워드에 delete 문을 고정 (#1643)
 - [컴파일러] 따옴표 처리 수정 (#1525 by @angusholder)
 - [컴파일러] `between` 연산자가 표현식으로 적절히 재귀하도록 수정 (#1279)
 - [컴파일러] 인덱스 생성 시 누락된 테이블/컬럼에 대해 더 나은 에러 제공 (#1372)

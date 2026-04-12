@@ -1,81 +1,25 @@
-[//]: # (title: KSP 퀵스타트)
+[//]: # (title: KSP 시작하기)
+[//]: # (description: 프로젝트에 Kotlin 심볼 프로세싱(KSP) 기반의 어노테이션 프로세서를 추가하거나, KSP API를 사용하여 직접 어노테이션 프로세서를 만드는 방법을 알아봅니다.)
 
-빠른 시작을 위해 직접 프로세서를 만들거나 [샘플 프로세서](https://github.com/google/ksp/tree/main/examples/playground)를 가져올 수 있습니다.
+이 가이드에서 배울 내용은 다음과 같습니다:
 
-## 프로세서 추가하기
+* 프로젝트에 KSP 기반 어노테이션 프로세서를 추가하는 방법
+* KSP API를 사용하여 직접 어노테이션 프로세서를 만드는 방법
+* 프로세서에 의해 생성된 코드를 찾는 위치
 
-프로세서를 추가하려면 KSP Gradle 플러그인을 포함하고 프로세서에 대한 의존성을 추가해야 합니다:
+## 프로젝트에 KSP 기반 프로세서 추가하기
 
-1. KSP Gradle 플러그인 `com.google.devtools.ksp`를 `build.gradle(.kts)` 파일에 추가합니다:
-
-   <tabs group="build-script">
-   <tab title="Kotlin" group-key="kotlin">
-   
-   ```kotlin
-   plugins {
-       id("com.google.devtools.ksp") version "%kspVersion%"
-   }
-   ```
-   
-   </tab>
-   <tab title="Groovy" group-key="groovy">
-   
-   ```groovy
-   plugins {
-       id 'com.google.devtools.ksp' version '%kspVersion%'
-   }
-   ```
-   
-   </tab>
-   </tabs>
-
-2. 프로세서에 대한 의존성을 추가합니다.
-이 예제에서는 [Dagger](https://dagger.dev/dev-guide/ksp.html)를 사용합니다. 이를 추가하려는 프로세서로 교체하세요.
-
-   <tabs group="build-script">
-   <tab title="Kotlin" group-key="kotlin">
-   
-   ```kotlin
-   dependencies {
-       implementation("com.google.dagger:dagger-compiler:2.51.1")
-       ksp("com.google.dagger:dagger-compiler:2.51.1")
-   }
-   ```
-   
-   </tab>
-   <tab title="Groovy" group-key="groovy">
-   
-   ```groovy
-   dependencies {
-       implementation 'com.google.dagger:dagger-compiler:2.51.1'
-       ksp 'com.google.dagger:dagger-compiler:2.51.1'
-   }
-   ```
-   
-   </tab>
-   </tabs>
-
-3. `./gradlew build`를 실행합니다. 생성된 코드는 `build/generated/ksp` 디렉터리에서 확인할 수 있습니다.
-
-전체 예제는 다음과 같습니다:
+프로젝트에서 외부 프로세서를 사용하려면, `build.gradle(.kts)` 파일의 [`plugins {}` 블록](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block)에 KSP를 추가하세요. 특정 모듈에서만 프로세서가 필요한 경우, 해당 모듈의 `build.gradle(.kts)` 파일에 추가하면 됩니다.
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
 
 ```kotlin
-plugins {
+// build.gradle.kts
+
+plugins {  
+    kotlin("jvm") version "%kotlinVersion%"  
     id("com.google.devtools.ksp") version "%kspVersion%"
-    kotlin("jvm")
-}
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    implementation(kotlin("stdlib-jdk8"))
-    implementation("com.google.dagger:dagger-compiler:2.51.1")
-    ksp("com.google.dagger:dagger-compiler:2.51.1")
 }
 ```
 
@@ -83,19 +27,42 @@ dependencies {
 <tab title="Groovy" group-key="groovy">
 
 ```groovy
-plugins {
-    id 'com.google.devtools.ksp' version '%kspSupportedKotlinVersion%-%%'
-    id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
-}
+// build.gradle
 
-repositories {
-    mavenCentral()
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
+    id 'com.google.devtools.ksp' version '%kspVersion%'
 }
+```
+
+</tab>
+</tabs>
+
+> 최신 KSP 버전은 GitHub [Releases](https://github.com/google/ksp/releases)에서 확인할 수 있습니다.
+> 
+{style="tip"}
+
+최상위 `dependencies {}` 블록에 사용하려는 프로세서를 추가합니다. 이 예제에서는 [Moshi](https://github.com/square/moshi?tab=readme-ov-file#codegen)를 사용하지만, 다른 프로세서의 경우에도 방식은 동일합니다.
+
+<tabs group="build-script">
+<tab title="Kotlin" group-key="kotlin">
+
+```kotlin
+// build.gradle.kts
 
 dependencies {
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:%kotlinVersion%'
-    implementation 'com.google.dagger:dagger-compiler:2.51.1'
-    ksp 'com.google.dagger:dagger-compiler:2.51.1'
+    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.2")
+}
+```
+
+</tab>
+<tab title="Groovy" group-key="groovy">
+
+```groovy
+// build.gradle
+
+dependencies {
+    ksp 'com.squareup.moshi:moshi-kotlin-codegen:1.15.2'
 }
 ```
 
@@ -104,315 +71,370 @@ dependencies {
 
 ## 직접 프로세서 만들기
 
-1. 빈 Gradle 프로젝트를 생성합니다.
-2. 다른 프로젝트 모듈에서 사용할 수 있도록 루트 프로젝트에 Kotlin 플러그인 버전 `%kspSupportedKotlinVersion%`을 지정합니다:
+다음 단계에 따라 `helloWorld()` 함수를 생성하는 간단한 어노테이션 프로세서를 만들어 보겠습니다. 실무에서 아주 유용한 예제는 아니지만, 직접 프로세서와 어노테이션을 만드는 기본 원리를 보여줍니다.
 
-   <tabs group="build-script">
-   <tab title="Kotlin" group-key="kotlin">
-   
-   ```kotlin
-   plugins {
-       kotlin("jvm") version "%kspSupportedKotlinVersion%" apply false
-   }
-   
-   buildscript {
-       dependencies {
-           classpath(kotlin("gradle-plugin", version = "%kspSupportedKotlinVersion%"))
-       }
-   }
-   ```
-   
-   </tab>
-   <tab title="Groovy" group-key="groovy">
-   
-   ```groovy
-   plugins {
-       id 'org.jetbrains.kotlin.jvm' version '%kspSupportedKotlinVersion%' apply false
-   }
-   
-   buildscript {
-       dependencies {
-           classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:%kspSupportedKotlinVersion%'
-       }
-   }
-   ```
-   
-   </tab>
-   </tabs>
+### 프로젝트에 KSP 추가하기
 
-3. 프로세서를 호스팅할 모듈을 추가합니다.
+새 Kotlin 프로젝트를 생성하고 KSP 플러그인을 추가합니다:
 
-4. 모듈의 빌드 스크립트에서 Kotlin 플러그인을 적용하고 `dependencies` 블록에 KSP API를 추가합니다.
+1. IntelliJ IDEA에서 **File** | **New** | **Project**를 선택합니다.
+2. 왼쪽 목록에서 **Kotlin**을 선택합니다.
+3. 빌드 시스템으로 **Gradle**을 선택하고 **Create**를 클릭합니다.
 
-   <tabs group="build-script">
-   <tab title="Kotlin" group-key="kotlin">
-   
-   ```kotlin
-   plugins {
-       kotlin("jvm")
-   }
-   
-   repositories {
-       mavenCentral()
-   }
-   
-   dependencies {
-       implementation("com.google.devtools.ksp:symbol-processing-api:%kspVersion%")
-   }
-   ```
-   
-   </tab>
-   <tab title="Groovy" group-key="groovy">
-   
-   ```groovy
-   plugins {
-       id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
-   }
-   
-   repositories {
-       mavenCentral()
-   }
-   
-   dependencies {
-       implementation 'com.google.devtools.ksp:symbol-processing-api:%kspVersion%'
-   }
-   ```
-   
-   </tab>
-   </tabs>
+    ![Creating a new project](ksp-new-project.png){width=700}
 
-5. [`com.google.devtools.ksp.processing.SymbolProcessor`](https://github.com/google/ksp/tree/main/api/src/main/kotlin/com/google/devtools/ksp/processing/SymbolProcessor.kt)와 [`com.google.devtools.ksp.processing.SymbolProcessorProvider`](https://github.com/google/ksp/tree/main/api/src/main/kotlin/com/google/devtools/ksp/processing/SymbolProcessorProvider.kt)를 구현해야 합니다.
-   구현한 `SymbolProcessorProvider`는 사용자가 구현한 `SymbolProcessor`를 인스턴스화하기 위한 서비스로 로드됩니다.
-   다음 사항에 유의하세요:
-    * `SymbolProcessor`를 생성하려면 [`SymbolProcessorProvider.create()`](https://github.com/google/ksp/blob/master/api/src/main/kotlin/com/google/devtools/ksp/processing/SymbolProcessorProvider.kt)를 구현하세요. `SymbolProcessorProvider.create()`의 파라미터를 통해 프로세서에 필요한 의존성(`CodeGenerator`, 프로세서 옵션 등)을 전달합니다.
-    * 주요 로직은 [`SymbolProcessor.process()`](https://github.com/google/ksp/blob/master/api/src/main/kotlin/com/google/devtools/ksp/processing/SymbolProcessor.kt) 메서드에 있어야 합니다.
-    * 어노테이션의 정규화된 이름(fully-qualified name)이 주어졌을 때 처리하고자 하는 심볼을 가져오려면 `resolver.getSymbolsWithAnnotation()`을 사용하세요.
-    * KSP의 일반적인 사용 사례는 심볼 작업을 위해 맞춤형 비지터(visitor, `com.google.devtools.ksp.symbol.KSVisitor` 인터페이스)를 구현하는 것입니다. 단순한 템플릿 비지터로 `com.google.devtools.ksp.symbol.KSDefaultVisitor`가 있습니다.
-    * `SymbolProcessorProvider` 및 `SymbolProcessor` 인터페이스의 구현 샘플은 샘플 프로젝트의 다음 파일들을 참조하세요.
-        * `src/main/kotlin/BuilderProcessor.kt`
-        * `src/main/kotlin/TestProcessor.kt`
-    * 프로세서를 작성한 후, `src/main/resources/META-INF/services/com.google.devtools.ksp.processing.SymbolProcessorProvider`에 프로세서 프로바이더의 정규화된 이름을 포함하여 패키지에 등록하세요.
+4. `build.gradle(.kts)` 파일에 KSP 플러그인을 추가합니다:
 
-## 프로젝트에서 직접 만든 프로세서 사용하기
-
-1. 프로세서를 테스트해 볼 워크로드가 포함된 다른 모듈을 생성합니다.
-
-   <tabs group="build-script">
-   <tab title="Kotlin" group-key="kotlin">
-   
-   ```kotlin
-   pluginManagement { 
-       repositories { 
-           gradlePluginPortal()
-       }
-   }
-   ```
-   
-   </tab>
-   <tab title="Groovy" group-key="groovy">
-   
-   ```groovy
-   pluginManagement {
-       repositories {
-           gradlePluginPortal()
-       }
-   }
+    <tabs group="build-script">
+    <tab title="Kotlin" group-key="kotlin">
+    
+    ```kotlin
+    // build.gradle.kts
+    
+    plugins { 
+        kotlin("jvm") version "%kotlinVersion%"
+        id("com.google.devtools.ksp") version "%kspVersion%" apply false
+    }
     ```
+    
+    </tab>
+    <tab title="Groovy" group-key="groovy">
+    
+    ```groovy
+    // build.gradle
+    
+    plugins {
+        id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
+        id 'com.google.devtools.ksp' version '%kspVersion%' apply false
+    }
+    ```
+    
+    </tab>
+    </tabs>
+
+### 어노테이션 생성하기
+
+프로젝트 루트에 새 모듈을 생성하고 어노테이션을 선언합니다:
+
+1. **File** | **New** | **Module**을 선택합니다.
+2. 왼쪽 목록에서 **Kotlin**을 선택합니다.
+3. 다음 필드를 지정하고 **create**를 클릭합니다:
+
+    * **Name**: annotations
+    * **Build system**: Gradle
+
+    ![Creating a new module](ksp-new-module.png){width=700}
+
+4. 모듈에서 `HelloWorldAnnotation.kt` 파일을 생성하고 `HelloWorldAnnotation`이라는 어노테이션을 선언합니다:
+
+    ```kotlin
+    // annotations/src/main/kotlin/com/example/annotations/HelloWorldAnnotation.kt
+    
+    package com.example.annotations
+    
+    annotation class HelloWorldAnnotation
+    ```
+
+### 프로세서 생성 및 등록하기
+
+1. 프로젝트 루트에 **processor**라는 이름의 모듈을 하나 더 생성합니다.
+
+2. 해당 모듈의 `build.gradle(.kts)` 파일에 KSP API와 선언한 어노테이션을 의존성으로 추가합니다:
+
+    <tabs group="build-script">
+    <tab title="Kotlin" group-key="kotlin">
+    
+    ```kotlin
+    // processor/build.gradle.kts
+        
+    plugins {  
+        kotlin("jvm")
+    }
+        
+    dependencies {
+        implementation(project(":annotations"))
+        implementation("com.google.devtools.ksp:symbol-processing-api:2.3.6")  
+    }
+    ```
+    
+    </tab>
+    <tab title="Groovy" group-key="groovy">
+    
+    ```groovy
+    // processor/build.gradle
+    
+    plugins {
+        id 'org.jetbrains.kotlin.jvm'
+    }
+    
+    dependencies {
+        implementation project ':annotations'
+        implementation 'com.google.devtools.ksp:symbol-processing-api:2.3.6'
+    }
+    ```
+
+    </tab>
+    </tabs>
+
+3. processor 모듈에 `HelloWorldProcessor.kt` 파일을 새로 만들고 다음 코드를 추가합니다:
+
+    ```kotlin
+    // processor/src/main/kotlin/HelloWorldProcessor.kt
+
+    class HelloWorldProcessor(val codeGenerator: CodeGenerator) : SymbolProcessor {
+        // 1️⃣ process() 함수
+        override fun process(resolver: Resolver): List<KSAnnotated> {
+            resolver
+                .getSymbolsWithAnnotation("com.example.annotations.HelloWorldAnnotation")
+                .filter { it.validate() }
+                .filterIsInstance<KSFunctionDeclaration>()
+                .forEach { it.accept(HelloWorldVisitor(), Unit) }
+        
+           return emptyList()
+        }
+        
+       // 2️⃣ 비지터
+       inner class HelloWorldVisitor : KSVisitorVoid() {
+           override fun visitFunctionDeclaration(function: KSFunctionDeclaration, data: Unit) {
+               createNewFileFrom(function).use { file ->
+                   file.write(
+                       """
+                           fun helloWorld(): Unit {
+                               println("Hello world from function generated by KSP")
+                           }
+                       """.trimIndent()
+                   ) 
+               } 
+           } 
+       }
+            
+       // 3️⃣ createNewFileFrom() 함수
+       private fun createNewFileFrom(function: KSFunctionDeclaration): OutputStream { 
+           return codeGenerator.createNewFile(
+              dependencies = createDependencyOn(function),
+              packageName = "",
+              fileName = "GeneratedHelloWorld"
+           )
+       }
+        
+       // 3️⃣ createDependencyOn() 함수
+       private fun createDependencyOn(function: KSFunctionDeclaration): Dependencies {
+           return Dependencies(aggregating = false, function.containingFile!!)
+       }
+    }
+    
+    // 문자열을 OutputStream에 쓰기 위한 유틸리티 함수
+    fun OutputStream.write(string: String): Unit {
+        this.write(string.toByteArray())
+    }
+    ```
+
+    IDE에서 제안하는 import를 추가하세요. `com.google.devtools.ksp.processing`에서 `Resolver`와 `Dependencies` 클래스를 import해야 합니다. 또는 `HelloWorldProcessor.kt` 상단에 다음 라인들을 복사해 넣으세요:
+
+    ```kotlin
+    // processor/src/main/kotlin/HelloWorldProcessor.kt
    
-   </tab>
-   </tabs>
-
-2. 모듈의 빌드 스크립트에서 지정된 버전의 `com.google.devtools.ksp` 플러그인을 적용하고 의존성 목록에 직접 만든 프로세서를 추가합니다.
-
-   <tabs group="build-script">
-   <tab title="Kotlin" group-key="kotlin">
+    import com.google.devtools.ksp.processing.CodeGenerator
+    import com.google.devtools.ksp.processing.Dependencies
+    import com.google.devtools.ksp.processing.Resolver
+    import com.google.devtools.ksp.processing.SymbolProcessor
+    import com.google.devtools.ksp.symbol.KSAnnotated
+    import com.google.devtools.ksp.symbol.KSFunctionDeclaration
+    import com.google.devtools.ksp.symbol.KSVisitorVoid
+    import com.google.devtools.ksp.validate
+    import java.io.OutputStream
+    ```
+    {collapsible="true" collapsed-title="Import statements"}
    
-   ```kotlin
-   plugins {
-       id("com.google.devtools.ksp") version "%kspVersion%"
-   }
+
+    코드를 살펴보겠습니다:
+    
+    * 1️⃣ `process()` 함수는 프로세서의 주요 로직을 포함합니다. `HelloWorldAnnotation`이 달린 모든 심볼을 가져와 각각에 대해 `HelloWorldVisitor`를 호출합니다.
+    
+        `process()` 함수는 나중 라운드에서 처리할 처리되지 않은 심볼 목록을 반환합니다. 이 예제에서는 안전하게 `emptyList()`를 반환합니다. 자세한 내용은 [다중 라운드 처리](ksp-multi-round.md)를 참조하세요.
+    
+    * 2️⃣ 프로세서는 비지터를 사용하여 KSP의 Kotlin 추상 구문 트리(AST) 뷰를 탐색합니다. `HelloWorldProcessor` 클래스 내부의 `HelloWorldVisitor` 클래스가 비지터 역할을 합니다. `HelloWorldAnnotation`은 함수에만 사용되므로 `visitFunctionDeclaration()`만 오버라이드합니다.
+    
+        > `KSVisitorVoid`는 KSP에서 제공하는 비지터 클래스 중 하나로, 이를 오버라이드하여 필요에 맞게 조정할 수 있습니다. [`KSVisitor<D, R>` 인터페이스](https://github.com/google/ksp/blob/main/api/src/main/kotlin/com/google/devtools/ksp/symbol/KSVisitor.kt)를 구현하여 직접 비지터를 만들 수도 있습니다.
+        > 
+        {style="tip"}
+    
+    * 3️⃣ `createNewFileFrom()`은 KSP가 코드를 생성할 파일을 만듭니다. `createDependencyOn()`은 출력 파일이 어노테이션이 사용된 소스 파일에 의존하도록 설정합니다.
+
+        > KSP가 파일을 생성하고 관리하는 방법에 대해 자세히 알아보려면 [`CodeGenerator` 인터페이스](https://github.com/google/ksp/blob/main/api/src/main/kotlin/com/google/devtools/ksp/processing/CodeGenerator.kt)의 소스 코드를 확인하세요.
+        > 
+        {style="tip"} 
+
+4. `HelloWorldProcessorProvider.kt` 파일을 생성합니다. 그 안에 `SymbolProcessorProvider`를 상속받는 `HelloWorldProcessorProvider` 클래스를 선언합니다:
+
+    ```kotlin
+    // processor/src/main/kotlin/HelloWorldProcessorProvider.kt
+    
+    import com.google.devtools.ksp.processing.SymbolProcessor
+    import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
+    import com.google.devtools.ksp.processing.SymbolProcessorProvider
+
+    class HelloWorldProcessorProvider : SymbolProcessorProvider {  
+        override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor {  
+            return HelloWorldProcessor(environment.codeGenerator)  
+        }  
+    }
+    ```
+
+5. 프로세서 프로바이더를 등록합니다. `resources/META-INF/services` 디렉터리에 `com.google.devtools.ksp.processing.SymbolProcessorProvider` 파일을 생성하고 프로바이더의 정규화된 이름(fully qualified name)을 추가합니다:
+
+    ```text
+    ## processor/src/main/resources/META-INF/services/com.google.devtools.ksp.processing.SymbolProcessorProvider
+        
+    HelloWorldProcessorProvider
+    ```
+
+### 직접 만든 프로세서 사용하기
+
+이제 프로세서를 테스트할 준비가 되었습니다. 다음 단계에 따라 클라이언트 모듈을 생성하고, 어노테이션이 달린 요소를 기반으로 프로세서가 코드를 생성하도록 설정해 보겠습니다:
+
+1. 프로젝트 루트에 `app`이라는 모듈을 생성합니다. 
+2. 모듈의 `build.gradle(.kts)` 파일에서:
+
+    * `plugins {}` 블록에 KSP 플러그인을 추가합니다.
+    * `dependencies {}` 블록에 직접 만든 프로세서와 어노테이션을 추가합니다.
+
+    예를 들어:
+
+    <tabs group="build-script">
+    <tab title="Kotlin" group-key="kotlin">
+
+    ```kotlin
+    // app/build.gradle.kts
+
+    plugins {
+        kotlin("jvm")
+        id("com.google.devtools.ksp")
+    }
+
+    dependencies { 
+        implementation(project(":annotations"))
+        ksp(project(":processor"))
+    }
+    ```
+
+    </tab>
+    <tab title="Groovy" group-key="groovy">
+    
+    ```groovy
+    // app/build.gradle
+    
+    plugins {
+        id 'com.google.devtools.ksp'
+    }
+    
+    dependencies {
+        implementation project (':annotations')
+        ksp project (':processor')
+    }
+    ```
+    
+    </tab>
+    </tabs>
+
+3. 프로젝트 수준의 `settings.gradle(.kts)` 파일에서 모든 서브모듈이 자동으로 포함되었는지 확인합니다:
+    
+    <tabs group="build-script">
+    <tab title="Kotlin" group-key="kotlin">
+    
+    ```kotlin
+    // settings.gradle.kts
+    
+    include("annotations")
+    include("app")
+    include("processor")
+    ```
+    
+    </tab>
+    <tab title="Groovy" group-key="groovy">
+    
+    ```groovy
+    // settings.gradle
+    
+    include 'processor'
+    include 'annotations'
+    include 'app'
+    ```
+    
+    </tab>
+    </tabs>
+
+4. `app` 모듈에서 `Main.kt` 파일을 생성하고 다음 코드를 추가합니다:
+
+    ```kotlin
+    // app/src/main/kotlin/Main.kt
    
-   dependencies {
-       implementation(kotlin("stdlib-jdk8"))
-       implementation(project(":test-processor"))
-       ksp(project(":test-processor"))
-   }
-   ```
+    import com.example.annotations.HelloWorldAnnotation
+    
+    @HelloWorldAnnotation
+    fun main() {
+        helloWorld()
+    }
+    ```
+
+    > `main()` 함수는 아직 존재하지 않는 `helloWorld()`를 호출합니다. IDE는 `helloWorld()`를 정의되지 않은 참조로 강조 표시할 것입니다. 이는 의도된 것으로, 프로젝트를 빌드하고 실행할 때 KSP가 `helloWorld()` 함수를 생성합니다.
+    >
+    {style="note"}
+
+5. 프로그램을 실행합니다. 콘솔에서 `helloWorld()` 함수의 출력을 확인할 수 있습니다:
+
+    ```text
+    Hello world from function generated by KSP
+    ```
+
+    KSP는 `GeneratedHelloWorld.kt` 파일에 코드를 생성합니다:
    
-   </tab>
-   <tab title="Groovy" group-key="groovy">
-   
-   ```groovy
-   plugins {
-       id 'com.google.devtools.ksp' version '%kspVersion%'
-   }
-   
-   dependencies {
-       implementation 'org.jetbrains.kotlin:kotlin-stdlib:%kotlinVersion%'
-       implementation project(':test-processor')
-       ksp project(':test-processor')
-   }
-   ```
-   
-   </tab>
-   </tabs>
+    ```text
+    app/build/generated/ksp/main/kotlin/GeneratedHelloWorld.kt
+    ```
 
-3. `./gradlew build`를 실행합니다. 생성된 코드는 `build/generated/ksp` 아래에서 확인할 수 있습니다.
+### 프로젝트 구조 살펴보기
 
-다음은 워크로드에 KSP 플러그인을 적용하는 샘플 빌드 스크립트입니다:
-
-<tabs group="build-script">
-<tab title="Kotlin" group-key="kotlin">
-
-```kotlin
-plugins {
-    id("com.google.devtools.ksp") version "%kspVersion%"
-    kotlin("jvm") 
-}
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    implementation(kotlin("stdlib-jdk8"))
-    implementation(project(":test-processor"))
-    ksp(project(":test-processor"))
-}
-```
-
-</tab>
-<tab title="Groovy" group-key="groovy">
-
-```groovy
-plugins {
-    id 'com.google.devtools.ksp' version '%kspVersion%'
-    id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
-}
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:%kotlinVersion%'
-    implementation project(':test-processor')
-    ksp project(':test-processor')
-}
-```
-
-</tab>
-</tabs>
-
-## 프로세서에 옵션 전달하기
-
-`SymbolProcessorEnvironment.options`의 프로세서 옵션은 Gradle 빌드 스크립트에서 지정합니다:
-
-```none
-ksp {
-    arg("option1", "value1")
-    arg("option2", "value2")
-    ...
-}
-```
-
-## IDE가 생성된 코드를 인식하도록 설정하기
-
-> 생성된 소스 파일은 KSP 1.8.0-1.0.9부터 자동으로 등록됩니다.
-> KSP 1.0.9 이상 버전을 사용 중이고 생성된 리소스를 IDE에 인식시킬 필요가 없다면 이 섹션은 건너뛰어도 됩니다.
->
-{style="note"}
-
-기본적으로 IntelliJ IDEA 또는 다른 IDE는 생성된 코드를 인식하지 못합니다. 따라서 생성된 심볼에 대한 참조를 해결할 수 없는 것으로 표시합니다. IDE가 생성된 심볼을 분석할 수 있도록 다음 경로를 생성된 소스 루트(generated source roots)로 표시하세요:
+프로젝트의 최종 파일 구조는 다음과 같습니다:
 
 ```text
-build/generated/ksp/main/kotlin/
-build/generated/ksp/main/java/
+.
+├── app  
+│   ├── build.gradle.kts  
+│   └── src  
+│       └── main  
+│           └── kotlin  
+│               └── Main.kt   
+├── annotations  
+│   ├── build.gradle.kts  
+│   └── src  
+│       └── main  
+│           └── kotlin
+|				└── com  
+|	                └── example
+|						└── annotations
+|							└── HelloWorldAnnotation.kt  
+├── processor  
+│   ├── build.gradle.kts  
+│   └── src  
+│       └── main  
+│           ├── kotlin  
+│           │   ├── HelloWorldProcessor.kt  
+│           │   └── HelloWorldProcessorProvider.kt  
+│           └── resources/META-INF/services
+|				└── com.google.devtools.ksp.processing.SymbolProcessorProvider 
+├── build.gradle.kts  
+└── settings.gradle.kts
+
 ```
+{collapsible="true" collapsed-title="프로젝트 구조"}
 
-IDE가 리소스 디렉터리를 지원하는 경우 다음 경로도 표시하세요:
+> 추가적인 파일이나 디렉터리가 있을 수 있습니다.
+> 
+{style="tip"}
 
-```text
-build/generated/ksp/main/resources/
-```
+## 다음 단계
 
-또한 KSP 소비(consumer) 모듈의 빌드 스크립트에서 이러한 디렉터리를 구성해야 할 수도 있습니다:
-
-<tabs group="build-script">
-<tab title="Kotlin" group-key="kotlin">
-
-```kotlin
-kotlin {
-    sourceSets.main {
-        kotlin.srcDir("build/generated/ksp/main/kotlin")
-    }
-    sourceSets.test {
-        kotlin.srcDir("build/generated/ksp/test/kotlin")
-    }
-}
-```
-
-</tab>
-<tab title="Groovy" group-key="groovy">
-
-```groovy
-kotlin {
-    sourceSets {
-        main.kotlin.srcDirs += 'build/generated/ksp/main/kotlin'
-        test.kotlin.srcDirs += 'build/generated/ksp/test/kotlin'
-    }
-}
-```
-
-</tab>
-</tabs>
-
-IntelliJ IDEA를 사용 중이고 Gradle 플러그인 내에서 KSP를 사용하는 경우, 위 코드 조각은 다음과 같은 경고를 발생시킵니다:
-```text
-Execution optimizations have been disabled for task ':publishPluginJar' to ensure correctness due to the following reasons:
-Gradle detected a problem with the following location: '../build/generated/ksp/main/kotlin'. 
-Reason: Task ':publishPluginJar' uses this output of task ':kspKotlin' without declaring an explicit or implicit dependency.
-```
-
-이 경우 대신 다음 스크립트를 사용하세요:
-
-<tabs group="build-script">
-<tab title="Kotlin" group-key="kotlin">
-
-```kotlin
-plugins {
-    // ...
-    idea
-}
-
-idea {
-    module {
-        // https://github.com/gradle/gradle/issues/8749 로 인해 += 를 사용하지 않음
-        sourceDirs = sourceDirs + file("build/generated/ksp/main/kotlin") // 또는 tasks["kspKotlin"].destination
-        testSourceDirs = testSourceDirs + file("build/generated/ksp/test/kotlin")
-        generatedSourceDirs = generatedSourceDirs + file("build/generated/ksp/main/kotlin") + file("build/generated/ksp/test/kotlin")
-    }
-}
-```
-
-</tab>
-<tab title="Groovy" group-key="groovy">
-
-```groovy
-plugins {
-    // ...
-    id 'idea'
-}
-
-idea {
-    module {
-        // https://github.com/gradle/gradle/issues/8749 로 인해 += 를 사용하지 않음
-        sourceDirs = sourceDirs + file('build/generated/ksp/main/kotlin') // 또는 tasks["kspKotlin"].destination
-        testSourceDirs = testSourceDirs + file('build/generated/ksp/test/kotlin')
-        generatedSourceDirs = generatedSourceDirs + file('build/generated/ksp/main/kotlin') + file('build/generated/ksp/test/kotlin')
-    }
-}
-```
-
-</tab>
-</tabs>
+* [KSP 저장소](https://github.com/google/ksp/tree/main/examples/hello-world)에서 이 예제의 전체 코드를 확인해 보세요.
+* [KSP 저장소](https://github.com/google/ksp/blob/main/examples/playground/test-processor/src/main/kotlin/BuilderProcessor.kt)에서 더 복잡하고 실용적인 예제들을 찾아보세요.
+* [KSP 지원 라이브러리](ksp-overview.md#supported-libraries) 목록을 살펴보세요.

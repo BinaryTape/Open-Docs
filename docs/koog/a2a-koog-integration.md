@@ -195,7 +195,7 @@ install(A2AAgentServer) {
 ```
 
 为了从 Koog agent 策略访问这些实体，该功能提供了一个 `withA2AAgentServer` 函数，允许 agent 节点在其执行上下文中访问 A2A 服务器能力。
-它会检索已安装的 `A2AAgentServer` 功能，并将其作为 action 块的接收器（receiver）提供。
+它会检索已安装的 `A2AAgentServer` 功能，并将其作为 action 块的接收器 (receiver) 提供。
 
 ```kotlin
 // 在 agent 节点内使用

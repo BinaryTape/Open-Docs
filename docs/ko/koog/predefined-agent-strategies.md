@@ -34,28 +34,56 @@ ai.koog.agents.ext.agent.chatAgentStrategy
 
 이 전략을 사용하려면 아래 패턴에 따라 AI 에이전트를 생성하세요:
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import ai.koog.agents.ext.agent.chatAgentStrategy
-import ai.koog.agents.core.tools.ToolRegistry
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
+=== "Kotlin"
 
-val apiKey = System.getenv("OPENAI_API_KEY") ?: error("Please set OPENAI_API_KEY environment variable")
-val promptExecutor =simpleOpenAIExecutor(apiKey)
-val toolRegistry = ToolRegistry.EMPTY
-val model =  OpenAIModels.Chat.O4Mini
--->
-```kotlin
-val chatAgent = AIAgent(
-    promptExecutor = promptExecutor,
-    toolRegistry = toolRegistry,
-    llmModel = model,
-    // chatAgentStrategy를 에이전트 전략으로 설정
-    strategy = chatAgentStrategy()
-)
-```
-<!--- KNIT example-predefined-strategies-01.kt -->
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    import ai.koog.agents.ext.agent.chatAgentStrategy
+    import ai.koog.agents.core.tools.ToolRegistry
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+
+    val apiKey = System.getenv("OPENAI_API_KEY") ?: error("Please set OPENAI_API_KEY environment variable")
+    val promptExecutor =simpleOpenAIExecutor(apiKey)
+    val toolRegistry = ToolRegistry.EMPTY
+    val model =  OpenAIModels.Chat.O4Mini
+    -->
+    ```kotlin
+    val chatAgent = AIAgent(
+        promptExecutor = promptExecutor,
+        toolRegistry = toolRegistry,
+        llmModel = model,
+        // chatAgentStrategy를 에이전트 전략으로 설정
+        strategy = chatAgentStrategy()
+    )
+    ```
+    <!--- KNIT example-predefined-strategies-01.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent;
+    import ai.koog.agents.core.tools.ToolRegistry;
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels;
+    import ai.koog.prompt.executor.model.PromptExecutor;
+    import ai.koog.agents.ext.agent.AIAgentStrategies;
+    class examplePredefinedStrategiesJava01 {
+        public static void main(String[] args) {
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    AIAgent<String, String> chatAgent = AIAgent.builder()
+        .promptExecutor(PromptExecutor.builder().openAI("OPENAI_API_KEY").build())
+        .llmModel(OpenAIModels.Chat.O4Mini)
+        .toolRegistry(ToolRegistry.builder().build())
+        // chatAgentStrategy를 에이전트 전략으로 설정
+        .graphStrategy(AIAgentStrategies.chatAgentStrategy())
+        .build();
+    ```
+    <!--- KNIT examplePredefinedStrategiesJava01.java -->
 
 ### 채팅 에이전트 전략을 사용하는 경우
 
@@ -70,42 +98,93 @@ val chatAgent = AIAgent(
 
 다음은 사전 정의된 채팅 에이전트 전략(`chatAgentStrategy`)과 에이전트가 사용할 수 있는 도구를 구현한 AI 에이전트의 코드 샘플입니다:
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import ai.koog.agents.ext.agent.chatAgentStrategy
-import ai.koog.agents.core.tools.ToolRegistry
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.agents.ext.tool.AskUser
-import ai.koog.agents.ext.tool.SayToUser
+=== "Kotlin"
 
-typealias searchTool = AskUser
-typealias weatherTool = SayToUser
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    import ai.koog.agents.ext.agent.chatAgentStrategy
+    import ai.koog.agents.core.tools.ToolRegistry
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.agents.ext.tool.AskUser
+    import ai.koog.agents.ext.tool.SayToUser
 
-val apiKey = System.getenv("OPENAI_API_KEY") ?: error("Please set OPENAI_API_KEY environment variable")
-val promptExecutor =simpleOpenAIExecutor(apiKey)
-val toolRegistry = ToolRegistry.EMPTY
-val model =  OpenAIModels.Chat.O4Mini
--->
-```kotlin
-val chatAgent = AIAgent(
-    promptExecutor = promptExecutor,
-    llmModel = model,
-    // chatAgentStrategy를 에이전트 전략으로 사용
-    strategy = chatAgentStrategy(),
-    // 에이전트가 사용할 수 있는 도구 추가
-    toolRegistry = ToolRegistry {
-        tool(searchTool)
-        tool(weatherTool)
+    typealias searchTool = AskUser
+    typealias weatherTool = SayToUser
+
+    val apiKey = System.getenv("OPENAI_API_KEY") ?: error("Please set OPENAI_API_KEY environment variable")
+    val promptExecutor =simpleOpenAIExecutor(apiKey)
+    val toolRegistry = ToolRegistry.EMPTY
+    val model =  OpenAIModels.Chat.O4Mini
+    -->
+    ```kotlin
+    val chatAgent = AIAgent(
+        promptExecutor = promptExecutor,
+        llmModel = model,
+        // chatAgentStrategy를 에이전트 전략으로 사용
+        strategy = chatAgentStrategy(),
+        // 에이전트가 사용할 수 있는 도구 추가
+        toolRegistry = ToolRegistry {
+            tool(searchTool)
+            tool(weatherTool)
+        }
+    )
+
+    suspend fun main() { 
+        // 사용자 쿼리로 에이전트 실행
+        val result = chatAgent.run("오늘 날씨는 어때? 우산을 챙겨야 할까?")
     }
-)
+    ```
+    <!--- KNIT example-predefined-strategies-02.kt -->
 
-suspend fun main() { 
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent;
+    import ai.koog.agents.core.tools.ToolRegistry;
+    import ai.koog.agents.core.tools.reflect.ToolSet;
+    import ai.koog.agents.core.tools.annotations.Tool;
+    import ai.koog.agents.core.tools.annotations.LLMDescription;
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels;
+    import ai.koog.prompt.executor.model.PromptExecutor;
+    import ai.koog.agents.ext.agent.AIAgentStrategies;
+    class examplePredefinedStrategiesJava02 {
+        static class SearchAndWeatherTools implements ToolSet {
+            @Tool
+            @LLMDescription("정보 검색")
+            public String search(@LLMDescription("검색 쿼리") String query) {
+                return "검색 결과: " + query;
+            }
+            @Tool
+            @LLMDescription("날씨 정보 조회")
+            public String weather(@LLMDescription("위치") String location) {
+                return location + "의 날씨: 맑음";
+            }
+        }
+        public static void main(String[] args) {
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    // 에이전트가 사용할 수 있는 도구 추가
+    ToolRegistry toolRegistry = ToolRegistry.builder()
+        .tools(new SearchAndWeatherTools())
+        .build();
+
+    AIAgent<String, String> chatAgent = AIAgent.builder()
+        .promptExecutor(PromptExecutor.builder().openAI("OPENAI_API_KEY").build())
+        .llmModel(OpenAIModels.Chat.O4Mini)
+        // chatAgentStrategy를 에이전트 전략으로 사용
+        .graphStrategy(AIAgentStrategies.chatAgentStrategy())
+        .toolRegistry(toolRegistry)
+        .build();
+
     // 사용자 쿼리로 에이전트 실행
-    val result = chatAgent.run("오늘 날씨는 어때? 우산을 챙겨야 할까?")
-}
-```
-<!--- KNIT example-predefined-strategies-02.kt -->
+    String result = chatAgent.run("오늘 날씨는 어때? 우산을 챙겨야 할까?");
+    ```
+    <!--- KNIT examplePredefinedStrategiesJava02.java -->
 
 ## ReAct 전략
 
@@ -131,41 +210,68 @@ ReAct 전략의 흐름도는 다음과 같습니다:
 
 ### 설정 및 의존성
 
-Koog에서 ReAct 전략은 `reActStrategy` 함수를 통해 구현됩니다. 에이전트 코드에서 이 함수를 사용하려면 다음 의존성을 추가하세요:
-
-```
-ai.koog.agents.ext.agent.reActStrategy
-```
-<!--- KNIT example-predefined-strategies-02.txt -->
+Koog에서 ReAct 전략은 `reActStrategy` 함수를 통해 구현됩니다.
 
 이 전략을 사용하려면 아래 패턴에 따라 AI 에이전트를 생성하세요:
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import ai.koog.agents.ext.agent.reActStrategy
-import ai.koog.agents.core.tools.ToolRegistry
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
+=== "Kotlin"
 
-val apiKey = System.getenv("OPENAI_API_KEY") ?: error("Please set OPENAI_API_KEY environment variable")
-val promptExecutor = simpleOpenAIExecutor(apiKey)
-val toolRegistry = ToolRegistry.EMPTY
-val model =  OpenAIModels.Chat.O4Mini
--->
-```kotlin hl_lines="5-10"
-val reActAgent = AIAgent(
-    promptExecutor = promptExecutor,
-    toolRegistry = toolRegistry,
-    llmModel = model,
-    // reActStrategy를 에이전트 전략으로 설정
-    strategy = reActStrategy(
-        // 선택적 파라미터 값 설정
-        reasoningInterval = 1,
-        name = "react_agent"
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    import ai.koog.agents.ext.agent.reActStrategy
+    import ai.koog.agents.core.tools.ToolRegistry
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+
+    val apiKey = System.getenv("OPENAI_API_KEY") ?: error("Please set OPENAI_API_KEY environment variable")
+    val promptExecutor = simpleOpenAIExecutor(apiKey)
+    val toolRegistry = ToolRegistry.EMPTY
+    val model =  OpenAIModels.Chat.O4Mini
+    -->
+    ```kotlin hl_lines="5-10"
+    val reActAgent = AIAgent(
+        promptExecutor = promptExecutor,
+        toolRegistry = toolRegistry,
+        llmModel = model,
+        // reActStrategy를 에이전트 전략으로 설정
+        strategy = reActStrategy(
+            // 선택적 파라미터 값 설정
+            reasoningInterval = 1,
+            name = "react_agent"
+        )
     )
-)
-```
-<!--- KNIT example-predefined-strategies-03.kt -->
+    ```
+    <!--- KNIT example-predefined-strategies-03.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent;
+    import ai.koog.agents.core.tools.ToolRegistry;
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels;
+    import ai.koog.prompt.executor.model.PromptExecutor;
+    import ai.koog.agents.ext.agent.AIAgentStrategies;
+    class examplePredefinedStrategiesJava03 {
+        public static void main(String[] args) {
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    AIAgent<String, String> reActAgent = AIAgent.builder()
+        .promptExecutor(PromptExecutor.builder().openAI("OPENAI_API_KEY").build())
+        .llmModel(OpenAIModels.Chat.O4Mini)
+        .toolRegistry(ToolRegistry.builder().build())
+        // reActStrategy를 에이전트 전략으로 설정
+        .graphStrategy(AIAgentStrategies.reActStrategy(
+            // 선택적 파라미터 값 설정
+            1, // reasoningInterval
+            "react_agent" // name
+        ))
+        .build();
+    ```
+    
 
 ### 파라미터
 
@@ -194,7 +300,7 @@ val reActAgent = AIAgent(
 2. 입금 내역(양수 금액)을 제외합니다.
 3. 총 지출액을 계산합니다.
 ```
-<!--- KNIT example-predefined-strategies-03.txt -->
+<!--- KNIT example-predefined-strategies-02.txt -->
 
 #### 3. 액션 및 실행 (Action and execution), 1단계
 
@@ -205,7 +311,7 @@ val reActAgent = AIAgent(
 ```text
 {tool: "get_transactions", args: {startDate: "2025-05-19", endDate: "2025-06-18"}}
 ```
-<!--- KNIT example-predefined-strategies-04.txt -->
+<!--- KNIT example-predefined-strategies-03.txt -->
 
 도구는 다음과 같은 결과를 반환할 수 있습니다:
 
@@ -217,7 +323,7 @@ val reActAgent = AIAgent(
   {date: "2025-06-13", amount: -200.00, description: "Utilities"}
 ]
 ```
-<!--- KNIT example-predefined-strategies-05.txt -->
+<!--- KNIT example-predefined-strategies-04.txt -->
 
 #### 4. 추론 (Reasoning)
 
@@ -228,7 +334,7 @@ val reActAgent = AIAgent(
 1. +1000.00의 급여 입금 내역을 제거합니다.
 2. 남은 거래 내역을 합산합니다.
 ```
-<!--- KNIT example-predefined-strategies-06.txt -->
+<!--- KNIT example-predefined-strategies-05.txt -->
 
 #### 5. 액션 및 실행 (Action and execution), 2단계
 
@@ -237,14 +343,14 @@ val reActAgent = AIAgent(
 ```text
 {tool: "calculate_sum", args: {amounts: [-100.00, -500.00, -200.00]}}
 ```
-<!--- KNIT example-predefined-strategies-07.txt -->
+<!--- KNIT example-predefined-strategies-06.txt -->
 
 도구가 최종 결과를 반환합니다:
 
 ```text
 -800.00
 ```
-<!--- KNIT example-predefined-strategies-08.txt -->
+<!--- KNIT example-predefined-strategies-07.txt -->
 
 #### 6. 최종 응답
 
@@ -253,7 +359,7 @@ val reActAgent = AIAgent(
 ```text
 지난달에 식료품, 월세, 공과금으로 총 $800.00를 지출하셨습니다.
 ```
-<!--- KNIT example-predefined-strategies-09.txt -->
+<!--- KNIT example-predefined-strategies-08.txt -->
 
 ### ReAct 전략을 사용하는 경우
 
@@ -268,44 +374,98 @@ ReAct 전략은 특히 다음과 같은 경우에 유용합니다:
 
 다음은 사전 정의된 ReAct 전략(`reActStrategy`)과 에이전트가 사용할 수 있는 도구를 구현한 AI 에이전트의 코드 샘플입니다:
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import ai.koog.agents.ext.agent.reActStrategy
-import ai.koog.agents.core.tools.ToolRegistry
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.agents.ext.tool.AskUser
-import ai.koog.agents.ext.tool.SayToUser
+=== "Kotlin"
 
-typealias Input = String
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    import ai.koog.agents.ext.agent.reActStrategy
+    import ai.koog.agents.core.tools.ToolRegistry
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.agents.ext.tool.AskUser
+    import ai.koog.agents.ext.tool.SayToUser
 
-typealias getTransactions = AskUser
-typealias calculateSum = SayToUser
+    typealias Input = String
 
-val apiKey = System.getenv("OPENAI_API_KEY") ?: error("Please set OPENAI_API_KEY environment variable")
-val promptExecutor = simpleOpenAIExecutor(apiKey)
-val toolRegistry = ToolRegistry.EMPTY
-val model =  OpenAIModels.Chat.O4Mini
--->
-```kotlin
-val bankingAgent = AIAgent(
-    promptExecutor = promptExecutor,
-    llmModel = model,
-    // reActStrategy를 에이전트 전략으로 사용
-    strategy = reActStrategy(
-        reasoningInterval = 1,
-        name = "banking_agent"
-    ),
-    // 에이전트가 사용할 수 있는 도구 추가
-    toolRegistry = ToolRegistry {
-        tool(getTransactions)
-        tool(calculateSum)
+    typealias getTransactions = AskUser
+    typealias calculateSum = SayToUser
+
+    val apiKey = System.getenv("OPENAI_API_KEY") ?: error("Please set OPENAI_API_KEY environment variable")
+    val promptExecutor = simpleOpenAIExecutor(apiKey)
+    val toolRegistry = ToolRegistry.EMPTY
+    val model =  OpenAIModels.Chat.O4Mini
+    -->
+    ```kotlin
+    val bankingAgent = AIAgent(
+        promptExecutor = promptExecutor,
+        llmModel = model,
+        // reActStrategy를 에이전트 전략으로 사용
+        strategy = reActStrategy(
+            reasoningInterval = 1,
+            name = "banking_agent"
+        ),
+        // 에이전트가 사용할 수 있는 도구 추가
+        toolRegistry = ToolRegistry {
+            tool(getTransactions)
+            tool(calculateSum)
+        }
+    )
+
+    suspend fun main() { 
+        // 사용자 쿼리로 에이전트 실행
+        val result = bankingAgent.run("지난달에 내가 얼마나 썼어?")
     }
-)
+    ```
+    <!--- KNIT example-predefined-strategies-04.kt -->
 
-suspend fun main() { 
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent;
+    import ai.koog.agents.core.tools.ToolRegistry;
+    import ai.koog.agents.core.tools.reflect.ToolSet;
+    import ai.koog.agents.core.tools.annotations.Tool;
+    import ai.koog.agents.core.tools.annotations.LLMDescription;
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels;
+    import ai.koog.prompt.executor.model.PromptExecutor;
+    import ai.koog.agents.ext.agent.AIAgentStrategies;
+    class examplePredefinedStrategiesJava04 {
+        static class BankingTools implements ToolSet {
+            @Tool
+            @LLMDescription("날짜 범위에 대한 거래 내역 조회")
+            public String getTransactions(
+                @LLMDescription("시작 날짜") String startDate,
+                @LLMDescription("종료 날짜") String endDate
+            ) {
+                return "[{amount: -100.00}, {amount: +1000.00}, {amount: -500.00}]";
+            }
+            @Tool
+            @LLMDescription("금액 합계 계산")
+            public String calculateSum(@LLMDescription("합산할 금액들") String amounts) {
+                return "-800.00";
+            }
+        }
+        public static void main(String[] args) {
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    // 에이전트가 사용할 수 있는 도구 추가
+    ToolRegistry toolRegistry = ToolRegistry.builder()
+        .tools(new BankingTools())
+        .build();
+
+    AIAgent<String, String> bankingAgent = AIAgent.<String, String>builder()
+        .promptExecutor(PromptExecutor.builder().openAI("OPENAI_API_KEY").build())
+        .llmModel(OpenAIModels.Chat.O4Mini)
+        // reActStrategy를 에이전트 전략으로 사용
+        .graphStrategy(AIAgentStrategies.reActStrategy(1, "banking_agent"))
+        .toolRegistry(toolRegistry)
+        .build();
+
     // 사용자 쿼리로 에이전트 실행
-    val result = bankingAgent.run("지난달에 내가 얼마나 썼어?")
-}
-```
-<!--- KNIT example-predefined-strategies-04.kt -->
+    String result = bankingAgent.run("지난달에 내가 얼마나 썼어?");
+    ```
+    <!--- KNIT examplePredefinedStrategiesJava03.java -->

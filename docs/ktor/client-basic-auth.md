@@ -13,9 +13,11 @@
 </p>
 </tldr>
 
-基本[身份验证方案](client-auth.md)可用于登录用户。在该方案中，用户凭据以使用 Base64 编码的用户名/密码对的形式进行传输。
+基本[身份验证方案](client-auth.md)可用于登录用户。在该方案中，用户凭据以使用 Base64 编码的用户名/密码对的形式进行传输。 
 
 > 在服务器端，Ktor 提供了 [Authentication](server-basic-auth.md) 插件来处理基本身份验证。
+
+undefined
 
 ## 基本身份验证流程 {id="flow"}
 
@@ -29,7 +31,7 @@
    ```
    {style="block"}
 
-   Ktor 客户端允许您通过使用 [`sendWithoutRequest()`](#configure) 函数抢先发送凭据，而无需等待 `WWW-Authenticate` 标头。
+   Ktor 客户端允许您通过使用 [`sendWithoutRequest()` 函数](#configure)抢先发送凭据，而无需等待 `WWW-Authenticate` 标头。
 
 3. 客户端通常会提示用户输入凭据。然后，它发起带有 `Authorization` 标头的请求，该标头包含使用 Base64 编码的用户名和密码对，例如：
 

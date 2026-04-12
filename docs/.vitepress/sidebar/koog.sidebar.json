@@ -211,6 +211,10 @@
                 "text": "koog._0"
               },
               {
+                "text": "koog.datadog-exporter",
+                "link": "features/open-telemetry/opentelemetry-datadog-exporter"
+              },
+              {
                 "text": "koog.langfuse-exporter",
                 "link": "features/open-telemetry/opentelemetry-langfuse-exporter"
               },

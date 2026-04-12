@@ -23,7 +23,7 @@
 ## 开始之前
 
 1. 下载并安装最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html)。
-2. 在欢迎屏幕上选择 **Get from VCS** 或选择 **File | New | Project from Version Control** 来克隆[项目模板](http://github.com/kotlin-hands-on/intro-coroutines)。
+2. 在欢迎界面上选择 **Get from VCS** 或选择 **File | New | Project from Version Control** 来克隆[项目模板](http://github.com/kotlin-hands-on/intro-coroutines)。
 
    您也可以通过命令行进行克隆：
 
@@ -82,7 +82,7 @@ interface GitHubService {
 
 `loadContributorsBlocking()` 函数使用此 API 来获取给定组织的贡献者列表。
 
-1. 打开 `src/tasks/Request1Blocking.kt` 查看其实理：
+1. 打开 `src/tasks/Request1Blocking.kt` 查看其实现：
 
     ```kotlin
     fun loadContributorsBlocking(
@@ -193,7 +193,7 @@ interface GitHubService {
 
 ### 使用后台线程
 
-1. 打开 `src/tasks/Request2Background.kt` 查看其实理。首先，整个计算被移动到不同的线程。`thread()` 函数会启动一个新线程：
+1. 打开 `src/tasks/Request2Background.kt` 查看其实现。首先，整个计算被移动到不同的线程。`thread()` 函数会启动一个新线程：
 
     ```kotlin
     thread {
@@ -226,7 +226,7 @@ interface GitHubService {
 
     通过调用 `SwingUtilities.invokeLater`，您可以确保更新结果的 `updateResults()` 调用发生在主 UI 线程（AWT 事件分发线程）上。
 
-然而，如果您尝试通过 `BACKGROUND` 选项加载贡献者，您会发现日志已更新但 UI 没有任何变化。
+然而，如果您尝试通过 `BACKGROUND` 选项加载贡献者，您会发现列表已更新但 UI 没有任何变化。
 
 ### 任务 2
 
@@ -357,7 +357,7 @@ val countDownLatch = CountDownLatch(repos.size)
 for (repo in repos) {
     service.getRepoContributorsCall(req.org, repo.name)
         .onResponse { responseUsers ->
-            // processing repository
+            // 处理仓库
             countDownLatch.countDown()
         }
 }
@@ -395,7 +395,7 @@ interface GitHubService {
 
 ```kotlin
 interface GitHubService {
-    // getOrgReposCall & getRepoContributorsCall declarations
+    // getOrgReposCall 和 getRepoContributorsCall 声明
 
     @GET("orgs/{org}/repos?per_page=100")
     suspend fun getOrgRepos(
@@ -591,7 +591,7 @@ suspend fun loadContributorsConcurrent(
 ```kotlin
 val deferreds: List<Deferred<List<User>>> = repos.map { repo ->
     async {
-        // load contributors for each repo
+        // 为每个仓库加载贡献者
     }
 }
 deferreds.awaitAll() // List<List<User>>
@@ -747,7 +747,7 @@ fun main() = runBlocking { /* this: CoroutineScope */
        async {
            log("starting loading for ${repo.name}")
            delay(3000)
-           // load repo contributors
+           // 加载仓库贡献者
        }
        // ...
    }
@@ -766,7 +766,7 @@ fun main() = runBlocking { /* this: CoroutineScope */
         // ...
         GlobalScope.async {   // #2
             log("starting loading for ${repo.name}")
-            // load repo contributors
+            // 加载仓库贡献者
         }
         // ...
         return deferreds.awaitAll().flatten().aggregate()  // #3
@@ -784,8 +784,8 @@ fun main() = runBlocking { /* this: CoroutineScope */
     2901 [DefaultDispatcher-worker-2 @coroutine#4] INFO  Contributors - starting loading for kotlin-koans
     ...
     2909 [DefaultDispatcher-worker-5 @coroutine#36] INFO  Contributors - starting loading for mpp-example
-    /* click on 'cancel' */
-    /* no requests are sent */
+    /* 点击 'cancel' */
+    /* 没有请求被发送 */
     ```
 
 6. 重复步骤 5，但这次选择 `NOT_CANCELLABLE` 选项：
@@ -795,8 +795,8 @@ fun main() = runBlocking { /* this: CoroutineScope */
     2579 [DefaultDispatcher-worker-1 @coroutine#4] INFO  Contributors - starting loading for kotlin-koans
     ...
     2586 [DefaultDispatcher-worker-6 @coroutine#36] INFO  Contributors - starting loading for mpp-example
-    /* click on 'cancel' */
-    /* but all the requests are still sent: */
+    /* 点击 'cancel' */
+    /* 但所有的请求仍然被发送： */
     6402 [DefaultDispatcher-worker-5 @coroutine#4] INFO  Contributors - kotlin-koans: loaded 45 contributors
     ...
     9555 [DefaultDispatcher-worker-8 @coroutine#36] INFO  Contributors - mpp-example: loaded 8 contributors
@@ -824,16 +824,16 @@ fun main() = runBlocking { /* this: CoroutineScope */
         private fun Job.setUpCancellation() {
             val loadingJob = this              // #2
     
-            // cancel the loading job if the 'cancel' button was clicked:
+            // 如果点击了 'cancel' 按钮，取消加载作业：
             val listener = ActionListener {
                 loadingJob.cancel()            // #3
                 updateLoadingStatus(CANCELED)
             }
-            // add a listener to the 'cancel' button:
+            // 为 'cancel' 按钮添加监听器：
             addCancelListener(listener)
     
-            // update the status and remove the listener
-            // after the loading job is completed
+            // 在加载作业完成后，
+            // 更新状态并移除监听器
         }
     }   
     ```
@@ -859,7 +859,7 @@ job.setUpCancellation()
 现在是时候了解如何使用外部作用域的调度器了。由 `coroutineScope` 或协程构建器创建的新作用域总是从外部作用域继承上下文。在这种情况下，外部作用域是调用 `suspend loadContributorsConcurrent()` 函数的作用域：
 
 ```kotlin
-launch(Dispatchers.Default) {  // outer scope
+launch(Dispatchers.Default) {  // 外部作用域
     val users = loadContributorsConcurrent(service, req)
     // ...
 }
@@ -871,9 +871,9 @@ launch(Dispatchers.Default) {  // outer scope
 suspend fun loadContributorsConcurrent(
     service: GitHubService, req: RequestData
 ): List<User> = coroutineScope {
-    // this scope inherits the context from the outer scope
+    // 此作用域从外部作用域继承上下文
     // ...
-    async {   // nested coroutine started with the inherited context
+    async {   // 使用继承的上下文启动嵌套协程
         // ...
     }
     // ...
@@ -902,8 +902,8 @@ suspend fun loadContributorsProgress(
     req: RequestData,
     updateResults: suspend (List<User>, completed: Boolean) -> Unit
 ) {
-    // loading the data
-    // calling `updateResults()` on intermediate states
+    // 加载数据
+    // 在中间状态调用 `updateResults()`
 }
 ```
 
@@ -1009,21 +1009,21 @@ interface Channel<E> : SendChannel<E>, ReceiveChannel<E>
 对于所有的通道类型，`receive()` 调用表现相似：如果通道不为空，它就接收一个元素；否则，它将被挂起。
 
 <deflist collapsible="true">
-   <def title="无限制 (Unlimited) 通道">
+   <def title="无限制 (Unlimited) 通道" id="unlimited-channel">
        <p>无限制通道是队列最接近的模拟：生产者可以将元素发送到此通道，它将无限增长。<code>send()</code> 调用永远不会被挂起。如果程序耗尽内存，您将收到 <code>OutOfMemoryException</code>。无限制通道与队列的区别在于，当消费者尝试从空通道接收时，它会被挂起，直到发送了新元素。</p>
        <img src="unlimited-channel.png" alt="Unlimited channel" width="500"/>
    </def>
-   <def title="缓冲 (Buffered) 通道">
-       <p>缓冲通道的大小由指定的数字约束。生产者可以向此通道发送元素，直到达到大小限制。所有的元素都存储在内部。当通道满时，下一次 <code>send</code> 调用将被挂起，直到腾出更多空间。</p>
+   <def title="缓冲 (Buffered) 通道" id="buffered-channel">
+       <p>缓冲通道的大小由指定的数字约束。生产者可以向此通道发送元素，直到达到大小限制。所有的元素都存储在内部。当通道满时，下一次 <code>send()</code> 调用将被挂起，直到腾出更多空间。</p>
        <img src="buffered-channel.png" alt="Buffered channel" width="500"/>
    </def>
-   <def title="会合 (Rendezvous) 通道">
+   <def title="会合 (Rendezvous) 通道" id="rendezvous-channel">
        <p>“会合 (Rendezvous)”通道是一个没有缓冲区的通道，等同于大小为零的缓冲通道。其中一个函数 (<code>send()</code> 或 <code>receive()</code>) 始终被挂起，直到另一个被调用。</p>
        <p>如果调用了 <code>send()</code> 函数且没有准备好处理该元素的被挂起的 <code>receive()</code> 调用，则 <code>send()</code> 将被挂起。类似地，如果调用了 <code>receive()</code> 函数且通道为空，或者换句话说，没有准备好发送元素的被挂起的 <code>send()</code> 调用，则 <code>receive()</code> 调用将被挂起。</p>
        <p>“会合”名称（“在约定时间和地点见面”）指的是 <code>send()</code> 和 <code>receive()</code> 应该 “按时见面” 的事实。</p>
        <img src="rendezvous-channel.png" alt="Rendezvous channel" width="500"/>
    </def>
-   <def title="合并 (Conflated) 通道">
+   <def title="合并 (Conflated) 通道" id="conflated-channel">
        <p>发送到合并通道的新元素将覆盖之前发送的元素，因此接收者始终只能获得最新的元素。<code>send()</code> 调用永远不会被挂起。</p>
        <img src="conflated-channel.gif" alt="Conflated channel" width="500"/>
    </def>
@@ -1155,7 +1155,7 @@ suspend fun loadContributorsChannels(
 在接下来的任务中，您将比较解决方案的总运行时间。您将模拟 GitHub 服务，并使此服务在给定的超时后返回结果：
 
 ```text
-repos request - 在 1000 毫秒延迟内返回答案
+repos 请求 - 在 1000 毫秒延迟内返回答案
 repo-1 - 1000 毫秒延迟
 repo-2 - 1200 毫秒延迟
 repo-3 - 800 毫秒延迟
@@ -1254,10 +1254,10 @@ compileTestKotlin {
 
 重构 `tests/tasks/` 中的以下测试，以使用虚拟时间代替实时时间：
 
-* Request4SuspendKtTest.kt
-* Request5ConcurrentKtTest.kt
-* Request6ProgressKtTest.kt
-* Request7ChannelsKtTest.kt
+* `Request4SuspendKtTest.kt`
+* `Request5ConcurrentKtTest.kt`
+* `Request6ProgressKtTest.kt`
+* `Request7ChannelsKtTest.kt`
 
 比较应用重构前后的总运行时间。
 

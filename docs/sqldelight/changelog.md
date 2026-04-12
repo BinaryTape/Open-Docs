@@ -17,6 +17,8 @@
 - [编译器] 非分组聚合结果集中的其他列始终为可为 null
 - [PostgreSQL 方言] 正确解析 `coalesce` 和 `ifnull` 的为 null 性
 - [PostgreSQL 方言] 修复了 PostgreSQL 方言的 IDE 集成
+- [PostgreSQL 方言] 改进了 PostgreSQL 方言的 IDE 插件 (#6209 由 @griffio 贡献)
+- [Intellij 插件] IDE 插件可以为所有方言执行代码补全 (#6210 由 @griffio 贡献)
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -289,7 +291,7 @@
 
 ### 已变更
 - [Gradle 插件] 为 Android API 34 添加了自动方言支持 (#4251)
-- [Paging 扩展] 在 `QueryPagingSource` 中添加了对 `SuspendingTransacter` 的支持 (#4292 由 @daio)
+- [Paging 扩展] 在 `QueryPagingSource` 中添加了对 `SuspendingTransacter` 的支持 (#4292 由 @daio 贡献)
 - [运行时] 改进了 `addListener` API (#4244 由 @hfhbd 贡献)
 - [运行时] 使用 `Long` 作为迁移版本 (#4297 由 @hfhbd 贡献)
 
@@ -356,10 +358,10 @@
 - [Paging] 多平台 Paging 扩展 (由 @jeffdgr8 贡献)
 - [运行时] 为 `Listener` 接口添加了 `fun` 修饰符。
 - [SQLite 方言] 添加了 SQLite 3.33 支持 (`UPDATE FROM`) (由 @eygraber 贡献))
-- [PostgreSQL 方言] 在 PostgreSQL 中支持 `UPDATE FROM` (由 @eygraber 贡献))
+- [PostgreSQL 方言] 支持 PostgreSql 中的 `UPDATE FROM` (由 @eygraber 贡献))
 
 ### 已变更
-- [RDBC 驱动程序] 公开了连接 (由 @hfhbd 贡献)
+- [RDBC 驱动程序] 公开连接 (由 @hfhbd 贡献)
 - [运行时] 将迁移回调移动到主 `migrate` 函数中
 - [Gradle 插件] 对下游项目隐藏配置
 - [Gradle 插件] 仅着色 IntelliJ (由 @hfhbd 贡献)
@@ -1154,7 +1156,7 @@ sqldelight {
 
  * 新增：映射器按查询生成，而非按表生成。
  * 新增：Java 类型可以导入 .sq 文件。
- * 新增：验证 SQLite 函数。
+ * 新增：SQLite 函数进行验证。
  * 修复：移除了重复的错误。
  * 修复：大写列名和 Java 关键字列名不会报错。
 

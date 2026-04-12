@@ -166,7 +166,7 @@ interface GitHubService {
 
 このタスクを実装した後、「kotlin」組織の結果リストは以下のようになるはずです：
 
-!["kotlin" 組織のリスト](aggregate.png){width=500}
+![ "kotlin" 組織のリスト](aggregate.png){width=500}
 
 #### タスク 1 の解決策 {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -478,7 +478,7 @@ launch {
 
 計算を続行する準備が整うと、スレッド（必ずしも同じスレッドとは限りません）に戻されます。
 
-`loadContributorsSuspend()` の例では、各 "contributors" リクエストが中断メカニズムを使用して結果を待ちます。まず、新しいリクエストが送信されます。次に、レスポンスを待つ間、`launch` 関数によって開始された「コントリビューター読み込み」コルーチン全体が中断されます。
+`loadContributorsSuspend()` の例では、各 "contributors" リクエストが中断メカズムを使用して結果を待ちます。まず、新しいリクエストが送信されます。次に、レスポンスを待つ間、`launch` 関数によって開始された「コントリビューター読み込み」コルーチン全体が中断されます。
 
 コルーチンは、対応するレスポンスが受信された後にのみ再開されます：
 
@@ -670,7 +670,7 @@ deferreds.awaitAll() // List<List<User>>
     ```
 
     * 新しいコルーチンをメインスレッドで開始するときにメインスレッドがビジーな場合、コルーチンは中断され、このスレッドでの実行がスケジュールされます。コルーチンは、スレッドが空いたときにのみ再開されます。
-    * 各エンドポイントでディスパッチャを明示的に指定するのではなく、外側のスコープのディスパッチャを使用するのが良い習慣とされています。`Dispatchers.Default` を引数として渡さずに `loadContributorsConcurrent()` を定義すれば、任意のコンテキスト（`Default` ディスパッチャ、メイン UI スレッド、またはカスタムディスパッチャ）でこの関数を呼び出すことができます。
+    * 各エンドポイントでディスパッチャを明示的に指定するのではなく、外側のスコープのディスパッチャを使用するのが良い習慣とされています。`loadContributorsConcurrent()` を定義するときに `Dispatchers.Default` を引数として渡さなければ、任意のコンテキスト（`Default` ディスパッチャ、メイン UI スレッド、またはカスタムディスパッチャ）でこの関数を呼び出すことができます。
     * 後で見るように、テストから `loadContributorsConcurrent()` を呼び出す場合、`TestDispatcher` を持つコンテキストで呼び出すことができ、テストが簡素化されます。これにより、この解決策ははるかに柔軟になります。
 
 2. 呼び出し側でディスパッチャを指定するには、`loadContributorsConcurrent` が継承されたコンテキストでコルーチンを開始するようにしたまま、プロジェクトに以下の変更を適用します：
@@ -1011,21 +1011,21 @@ interface Channel<E> : SendChannel<E>, ReceiveChannel<E>
 すべてのチャネルタイプにおいて、`receive()` 呼び出しは同様に動作します。チャネルが空でなければ要素を受信し、空であれば中断されます。
 
 <deflist collapsible="true">
-   <def title="Unlimited channel (無制限チャネル)">
+   <def title="Unlimited channel (無制限チャネル)" id="unlimited-channel">
        <p>無制限チャネルはキューに最も近いものです。プロデューサーはこのチャネルに要素を送信でき、チャネルは無期限に成長し続けます。<code>send()</code> 呼び出しが中断されることはありません。プログラムがメモリ不足になると、<code>OutOfMemoryException</code> が発生します。無制限チャネルとキューの違いは、コンシューマーが空のチャネルから受信しようとすると、新しい要素が送信されるまで中断されることです。</p>
        <img src="unlimited-channel.png" alt="Unlimited channel" width="500"/>
    </def>
-   <def title="Buffered channel (バッファ付きチャネル)">
-       <p>バッファ付きチャネルのサイズは、指定された数によって制限されます。プロデューサーはサイズ制限に達するまでこのチャネルに要素を送信できます。すべての要素は内部的に保存されます。チャネルがいっぱいになると、空きスペースができるまで次の <code>send</code> 呼び出しは中断されます。</p>
+   <def title="Buffered channel (バッファ付きチャネル)" id="buffered-channel">
+       <p>バッファ付きチャネルのサイズは、指定された数によって制限されます。プロデューサーはサイズ制限に達するまでこのチャネルに要素を送信できます。すべての要素は内部的に保存されます。チャネルがいっぱいになると、空きスペースができるまで次の <code>send()</code> 呼び出しは中断されます。</p>
        <img src="buffered-channel.png" alt="Buffered channel" width="500"/>
    </def>
-   <def title="Rendezvous channel (ランデブーチャネル)">
+   <def title="Rendezvous channel (ランデブーチャネル)" id="rendezvous-channel">
        <p>「ランデブー」チャネルはバッファのないチャネルで、サイズがゼロのバッファ付きチャネルと同じです。一方の関数（<code>send()</code> または <code>receive()</code>）は、もう一方が呼び出されるまで常に中断されます。</p>
        <p><code>send()</code> 関数が呼び出され、要素を処理する準備ができている中断された <code>receive()</code> 呼び出しがない場合、<code>send()</code> は中断されます。同様に、<code>receive()</code> 関数が呼び出され、チャネルが空である（つまり、要素を送信する準備ができている中断された <code>send()</code> 呼び出しがない）場合、<code>receive()</code> 呼び出しは中断されます。</p>
        <p>「ランデブー」という名前（「合意された時間と場所での会合」）は、<code>send()</code> と <code>receive()</code> が「時間通りに出会う」必要があるという事実に由来しています。</p>
        <img src="rendezvous-channel.png" alt="Rendezvous channel" width="500"/>
    </def>
-   <def title="Conflated channel (合流チャネル)">
+   <def title="Conflated channel (合流チャネル)" id="conflated-channel">
        <p>合流チャネルに送信された新しい要素は、以前に送信された要素を上書きするため、受信側は常に最新の要素のみを受け取ります。<code>send()</code> 呼び出しが中断されることはありません。</p>
        <img src="conflated-channel.gif" alt="Conflated channel" width="500"/>
    </def>
@@ -1232,7 +1232,7 @@ suspend fun bar() = coroutineScope {
 
 上記の例で `launch` が `Dispatchers.Default` のコンテキストで呼び出されると、テストは失敗します。ジョブがまだ完了していないという例外が発生します。
 
-`loadContributorsConcurrent()` 関数をこの方法でテストできるのは、`Dispatchers.Default` ディスパッチャを使用してコンテキストを変更せずに、継承されたコンテキストで子コルーチンを開始する場合のみです。
+`loadContributorsConcurrent()` 関数をこの方法でテストできるのは、継承されたコンテキストで子コルーチンを開始する場合のみです。`Dispatchers.Default` ディスパッチャを使用してコンテキストを変更してはいけません。
 
 ディスパッチャのようなコンテキスト要素は、関数を*定義*するときではなく*呼び出す*ときに指定できるため、柔軟性が高まり、テストが容易になります。
 
@@ -1257,10 +1257,10 @@ compileTestKotlin {
 
 `tests/tasks/` 内の以下のテストを、リアルタイムではなく仮想時間を使用するようにリファクタリングしてください：
 
-* Request4SuspendKtTest.kt
-* Request5ConcurrentKtTest.kt
-* Request6ProgressKtTest.kt
-* Request7ChannelsKtTest.kt
+* `Request4SuspendKtTest.kt`
+* `Request5ConcurrentKtTest.kt`
+* `Request6ProgressKtTest.kt`
+* `Request7ChannelsKtTest.kt`
 
 リファクタリングを適用する前と後の総実行時間を比較してください。
 

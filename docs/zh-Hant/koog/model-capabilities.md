@@ -90,113 +90,242 @@ LLM 功能代表大型語言模型可以支援的特定特性或功能性。在 
 
 下方的程式碼代表一個具有核心功能的基礎 LLM 配置：
 
-<!--- INCLUDE
-import ai.koog.prompt.llm.LLMCapability
-import ai.koog.prompt.llm.LLMProvider
-import ai.koog.prompt.llm.LLModel
+=== "Kotlin"
 
--->
+    <!--- INCLUDE
+    import ai.koog.prompt.llm.LLMCapability
+    import ai.koog.prompt.llm.LLMProvider
+    import ai.koog.prompt.llm.LLModel
 
-```kotlin
-val basicModel = LLModel(
-    provider = LLMProvider.OpenAI,
-    id = "gpt-4-turbo",
-    capabilities = listOf(
-        LLMCapability.Temperature,
-        LLMCapability.Tools,
-        LLMCapability.Schema.JSON.Standard
-    ),
-    contextLength = 128_000
-)
-```
+    -->
+    ```kotlin
+    val basicModel = LLModel(
+        provider = LLMProvider.OpenAI,
+        id = "gpt-4-turbo",
+        capabilities = listOf(
+            LLMCapability.Temperature,
+            LLMCapability.Tools,
+            LLMCapability.Schema.JSON.Standard
+        ),
+        contextLength = 128_000
+    )
+    ```
+    <!--- KNIT example-model-capabilities-01.kt -->
 
-<!--- KNIT example-model-capabilities-01.kt -->
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.prompt.llm.LLMCapability;
+    import ai.koog.prompt.llm.LLMProvider;
+    import ai.koog.prompt.llm.LLModel;
+    import java.util.List;
+
+    class ExampleModelCapabilities01 {
+    -->
+    ```java
+    LLModel basicModel = new LLModel(
+        LLMProvider.OpenAI,
+        "gpt-4-turbo",
+        List.of(
+            LLMCapability.Temperature.INSTANCE,
+            LLMCapability.Tools.INSTANCE,
+            LLMCapability.Schema.JSON.Standard.INSTANCE
+        ),
+        128_000L
+    );
+    ```
+    <!--- SUFFIX
+    }
+    -->
+    <!--- KNIT example-model-capabilities-java-01.java -->
 
 下方的模型配置是一個具有視覺功能的多模態 LLM：
 
-<!--- INCLUDE
-import ai.koog.prompt.llm.LLMCapability
-import ai.koog.prompt.llm.LLMProvider
-import ai.koog.prompt.llm.LLModel
+=== "Kotlin"
 
--->
+    <!--- INCLUDE
+    import ai.koog.prompt.llm.LLMCapability
+    import ai.koog.prompt.llm.LLMProvider
+    import ai.koog.prompt.llm.LLModel
 
-```kotlin
-val visionModel = LLModel(
-    provider = LLMProvider.OpenAI,
-    id = "gpt-4-vision",
-    capabilities = listOf(
-        LLMCapability.Temperature,
-        LLMCapability.Vision.Image,
-        LLMCapability.MultipleChoices
-    ),
-    contextLength = 1_047_576,
-    maxOutputTokens = 32_768
-)
-```
+    -->
+    ```kotlin
+    val visionModel = LLModel(
+        provider = LLMProvider.OpenAI,
+        id = "gpt-4-vision",
+        capabilities = listOf(
+            LLMCapability.Temperature,
+            LLMCapability.Vision.Image,
+            LLMCapability.MultipleChoices
+        ),
+        contextLength = 1_047_576,
+        maxOutputTokens = 32_768
+    )
+    ```
+    <!--- KNIT example-model-capabilities-02.kt -->
 
-<!--- KNIT example-model-capabilities-02.kt -->
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.prompt.llm.LLMCapability;
+    import ai.koog.prompt.llm.LLMProvider;
+    import ai.koog.prompt.llm.LLModel;
+    import java.util.List;
+
+    class ExampleModelCapabilities02 {
+    -->
+    ```java
+    LLModel visionModel = new LLModel(
+        LLMProvider.OpenAI,
+        "gpt-4-vision",
+        List.of(
+            LLMCapability.Temperature.INSTANCE,
+            LLMCapability.Vision.Image.INSTANCE,
+            LLMCapability.MultipleChoices.INSTANCE
+        ),
+        1_047_576L,
+        32_768L
+    );
+    ```
+    <!--- SUFFIX
+    }
+    -->
+    <!--- KNIT example-model-capabilities-java-02.java -->
 
 一個具有音訊處理功能的 LLM：
 
-<!--- INCLUDE
-import ai.koog.prompt.llm.LLMCapability
-import ai.koog.prompt.llm.LLMProvider
-import ai.koog.prompt.llm.LLModel
+=== "Kotlin"
 
--->
+    <!--- INCLUDE
+    import ai.koog.prompt.llm.LLMCapability
+    import ai.koog.prompt.llm.LLMProvider
+    import ai.koog.prompt.llm.LLModel
 
-```kotlin
-val audioModel = LLModel(
-    provider = LLMProvider.Anthropic,
-    id = "claude-3-opus",
-    capabilities = listOf(
-        LLMCapability.Audio,
-        LLMCapability.Temperature,
-        LLMCapability.PromptCaching
-    ),
-    contextLength = 200_000
-)
-```
+    -->
+    ```kotlin
+    val audioModel = LLModel(
+        provider = LLMProvider.Anthropic,
+        id = "claude-3-opus",
+        capabilities = listOf(
+            LLMCapability.Audio,
+            LLMCapability.Temperature,
+            LLMCapability.PromptCaching
+        ),
+        contextLength = 200_000
+    )
+    ```
+    <!--- KNIT example-model-capabilities-03.kt -->
 
-<!--- KNIT example-model-capabilities-03.kt -->
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.prompt.llm.LLMCapability;
+    import ai.koog.prompt.llm.LLMProvider;
+    import ai.koog.prompt.llm.LLModel;
+    import java.util.List;
+
+    class ExampleModelCapabilities03 {
+    -->
+    ```java
+    LLModel audioModel = new LLModel(
+        LLMProvider.Anthropic,
+        "claude-3-opus",
+        List.of(
+            LLMCapability.Audio.INSTANCE,
+            LLMCapability.Temperature.INSTANCE,
+            LLMCapability.PromptCaching.INSTANCE
+        ),
+        200_000L
+    );
+    ```
+    <!--- SUFFIX
+    }
+    -->
+    <!--- KNIT example-model-capabilities-java-03.java -->
 
 除了將模型建立為 `LLModel` 執行個體並必須指定所有相關參數外，Koog 還包含了一組預定義模型及其支援功能的配置。
 若要使用預定義的 Ollama 模型，請按如下方式指定：
 
-<!--- INCLUDE
-import ai.koog.prompt.executor.ollama.client.OllamaModels
+=== "Kotlin"
 
--->
+    <!--- INCLUDE
+    import ai.koog.prompt.executor.ollama.client.OllamaModels
 
-```kotlin
-val metaModel = OllamaModels.Meta.LLAMA_3_2
-```
+    -->
+    ```kotlin
+    val metaModel = OllamaModels.Meta.LLAMA_3_2
+    ```
+    <!--- KNIT example-model-capabilities-04.kt -->
 
-<!--- KNIT example-model-capabilities-04.kt -->
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.prompt.executor.ollama.client.OllamaModels;
+    import ai.koog.prompt.llm.LLModel;
+
+    class ExampleModelCapabilities04 {
+    -->
+    ```java
+    LLModel metaModel = OllamaModels.Meta.LLAMA_3_2;
+    ```
+    <!--- SUFFIX
+    }
+    -->
+    <!--- KNIT example-model-capabilities-java-04.java -->
 
 若要檢查模型是否支援特定功能，請使用 `contains` 方法來檢查 `capabilities` 列表中是否存在該功能：
 
-<!--- INCLUDE
-import ai.koog.prompt.llm.LLMCapability
-import ai.koog.prompt.executor.ollama.client.OllamaModels
+=== "Kotlin"
 
-val basicModel = OllamaModels.Meta.LLAMA_3_2
-val visionModel = OllamaModels.Meta.LLAMA_3_2
+    <!--- INCLUDE
+    import ai.koog.prompt.llm.LLMCapability
+    import ai.koog.prompt.executor.ollama.client.OllamaModels
 
--->
+    val basicModel = OllamaModels.Meta.LLAMA_3_2
+    val visionModel = OllamaModels.Meta.LLAMA_3_2
 
-```kotlin
-// 檢查模型是否支援特定功能
-val supportsTools = basicModel.supports(LLMCapability.Tools) // true
-val supportsVideo = visionModel.supports(LLMCapability.Vision.Video) // false
+    -->
+    ```kotlin
+    // 檢查模型是否支援特定功能
+    val supportsTools = basicModel.supports(LLMCapability.Tools) // true
+    val supportsVideo = visionModel.supports(LLMCapability.Vision.Video) // false
 
-// 檢查架構功能
-val jsonCapability = basicModel.capabilities?.filterIsInstance<LLMCapability.Schema.JSON>()?.firstOrNull()
-val hasFullJsonSupport = jsonCapability is LLMCapability.Schema.JSON.Standard // true
-```
+    // 檢查架構功能
+    val jsonCapability = basicModel.capabilities?.filterIsInstance<LLMCapability.Schema.JSON>()?.firstOrNull()
+    val hasFullJsonSupport = jsonCapability is LLMCapability.Schema.JSON.Standard // true
+    ```
+    <!--- KNIT example-model-capabilities-05.kt -->
 
-<!--- KNIT example-model-capabilities-05.kt -->
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.prompt.llm.LLMCapability;
+    import ai.koog.prompt.llm.LLModel;
+    import ai.koog.prompt.executor.ollama.client.OllamaModels;
+    import java.util.Objects;
+
+    class ExampleModelCapabilities05 {
+
+    LLModel basicModel = OllamaModels.Meta.LLAMA_3_2;
+    LLModel visionModel = OllamaModels.Meta.LLAMA_3_2;
+    -->
+    ```java
+    // 檢查模型是否支援特定功能
+    boolean supportsTools = basicModel.supports(LLMCapability.Tools.INSTANCE); // true
+    boolean supportsVideo = visionModel.supports(LLMCapability.Vision.Video.INSTANCE); // false
+
+    // 檢查架構功能
+    LLMCapability jsonCapability = basicModel.getCapabilities().stream()
+        .filter(c -> c instanceof LLMCapability.Schema.JSON)
+        .map(c -> (LLMCapability.Schema.JSON) c)
+        .findFirst()
+        .orElse(null);
+    boolean hasFullJsonSupport = jsonCapability instanceof LLMCapability.Schema.JSON.Standard; // true
+    ```
+    <!--- SUFFIX
+    }
+    -->
+    <!--- KNIT example-model-capabilities-java-05.java -->
 
 ### 各模型的 LLM 功能
 

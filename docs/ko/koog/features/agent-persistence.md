@@ -53,13 +53,14 @@
 
     <!--- INCLUDE
     /**
+    var executor = SimplePromptExecutorsKt.simpleOllamaAIExecutor("http://localhost:11434")
     -->
     <!--- SUFFIX
     **/
     -->
     ```java
-    AIAgent<String, String> agent = AIAgent.<String, String>builder()
-        .promptExecutor(SimplePromptExecutorsKt.simpleOllamaAIExecutor("http://localhost:11434"))
+    AIAgent<String, String> agent = AIAgent.builder()
+        .promptExecutor(executor)
         .llmModel(OllamaModels.Meta.LLAMA_3_2)
         .install(Persistence.Feature, cfg -> {
             // 스냅샷을 위해 인메모리 스토리지를 사용합니다.
@@ -108,13 +109,14 @@
 
     <!--- INCLUDE
     /**
+    var executor = SimplePromptExecutorsKt.simpleOllamaAIExecutor("http://localhost:11434")
     -->
     <!--- SUFFIX
     **/
     -->
     ```java
-    AIAgent<String, String> agent = AIAgent.<String, String>builder()
-        .promptExecutor(SimplePromptExecutorsKt.simpleOllamaAIExecutor("http://localhost:11434"))
+    AIAgent<String, String> agent = AIAgent.builder()
+        .promptExecutor(executor)
         .llmModel(OllamaModels.Meta.LLAMA_3_2)
         .install(Persistence.Feature, cfg -> {
             cfg.setStorage(new InMemoryPersistenceStorageProvider());
@@ -165,13 +167,14 @@
 
     <!--- INCLUDE
     /**
+    var executor = SimplePromptExecutorsKt.simpleOllamaAIExecutor("http://localhost:11434")
     -->
     <!--- SUFFIX
     **/
     -->
     ```java
-    AIAgent<String, String> agent = AIAgent.<String, String>builder()
-        .promptExecutor(SimplePromptExecutorsKt.simpleOllamaAIExecutor("http://localhost:11434"))
+    AIAgent<String, String> agent = AIAgent.builder()
+        .promptExecutor(executor)
         .llmModel(OllamaModels.Meta.LLAMA_3_2)
         .install(Persistence.Feature, cfg -> {
             cfg.setEnableAutomaticPersistence(true);
@@ -224,6 +227,21 @@
     **/
     -->
     ```java
+    // PersistenceKt.persistence()는 Kotlin 확장 함수의 Java 접근용 형태입니다.
+    Persistence persistence = PersistenceKt.persistence(context);
+
+    // 현재 상태로 체크포인트 생성
+    AgentCheckpointData checkpoint = persistence.createCheckpointAfterNode(
+        context,
+        context.getExecutionInfo().path(),
+        outputData,
+        TypeToken.of(String.class),
+        0L,
+        context.getRunId()
+    );
+
+    // 나중에 사용하기 위해 체크포인트 ID를 저장할 수 있습니다.
+    String checkpointId = checkpoint != null ? checkpoint.getCheckpointId() : null;
     ```
     <!--- KNIT example-agent-persistence-java-04.java -->
 
@@ -257,6 +275,13 @@
     **/
     -->
     ```java
+    Persistence persistence = PersistenceKt.persistence(context);
+
+    // 특정 체크포인트로 롤백
+    persistence.rollbackToCheckpoint(checkpointId, context);
+
+    // 또는 최신 체크포인트로 롤백
+    persistence.rollbackToLatestCheckpoint(context);
     ```
     <!--- KNIT example-agent-persistence-java-05.java -->
 
@@ -317,11 +342,28 @@ Koog Persistence를 사용하면 `Persistence` 기능 설정에 `RollbackToolReg
 
     <!--- INCLUDE
     /**
+    var executor = SimplePromptExecutorsKt.simpleOllamaAIExecutor("http://localhost:11434")
     -->
     <!--- SUFFIX
     **/
     -->
     ```java
+    AIAgent<String, String> agent = AIAgent.builder()
+        .promptExecutor(executor)
+        .llmModel(OllamaModels.Meta.LLAMA_3_2)
+        .install(Persistence.Feature, cfg -> {
+            cfg.setEnableAutomaticPersistence(true);
+            cfg.setRollbackToolRegistry(
+                RollbackToolRegistry.builder()
+                    // 롤백 시 UserToolSet의 모든 도구에 대해 
+                    // UserRollbackToolSet의 대응하는 롤백 도구가 역순으로 호출됩니다.
+                    // UserRollbackToolSet 메서드는 UserToolSet의 해당 도구와 
+                    // 연결하기 위해 @Reverts 어노테이션을 지정해야 합니다.
+                    .registerRollbacks(new UserToolSet(), new UserRollbackToolSet())
+                    .build()
+            );
+        })
+        .build();
     ```
     <!--- KNIT example-agent-persistence-java-06.java -->
 
@@ -368,6 +410,18 @@ Koog Persistence를 사용하면 `Persistence` 기능 설정에 `RollbackToolReg
     **/
     -->
     ```java
+    // PersistenceKt(Kotlin 확장 함수)를 통해 지속성 기능에 액세스
+    Persistence persistence = PersistenceKt.persistence(context);
+
+    // 지속성 기능을 직접 사용하여 체크포인트 생성
+    persistence.createCheckpointAfterNode(
+        context,
+        context.getExecutionInfo().path(),
+        outputData,
+        TypeToken.of(String.class),
+        0L,
+        context.getRunId()
+    );
     ```
     <!--- KNIT example-agent-persistence-java-07.java -->
 
@@ -414,6 +468,25 @@ Koog Persistence를 사용하면 `Persistence` 기능 설정에 `RollbackToolReg
     **/
     -->
     ```java
+    class MyCustomStorageProvider extends AsyncPersistenceStorageProvider<Object> {
+        @Override
+        public CompletableFuture<List<AgentCheckpointData>> getCheckpointsAsync(
+                String agentId, Object filter) {
+            throw new UnsupportedOperationException("아직 구현되지 않음");
+        }
+
+        @Override
+        public CompletableFuture<Boolean> saveCheckpointAsync(
+                String agentId, AgentCheckpointData checkpointData) {
+            throw new UnsupportedOperationException("아직 구현되지 않음");
+        }
+
+        @Override
+        public CompletableFuture<AgentCheckpointData> getLatestCheckpointAsync(
+                String agentId, Object filter) {
+            throw new UnsupportedOperationException("아직 구현되지 않음");
+        }
+    }
     ```
     <!--- KNIT example-agent-persistence-java-08.java -->
 
@@ -458,11 +531,19 @@ Koog Persistence를 사용하면 `Persistence` 기능 설정에 `RollbackToolReg
 
     <!--- INCLUDE
     /**
+    var executor = SimplePromptExecutorsKt.simpleOllamaAIExecutor("http://localhost:11434")
     -->
     <!--- SUFFIX
     **/
     -->
     ```java
+    AIAgent<String, String> agent = AIAgent.builder()
+        .promptExecutor(executor)
+        .llmModel(OllamaModels.Meta.LLAMA_3_2)
+        .install(Persistence.Feature, cfg -> {
+            cfg.setStorage(new MyCustomStorageProvider());
+        })
+        .build();
     ```
     <!--- KNIT example-agent-persistence-java-09.java -->
 
@@ -512,6 +593,23 @@ Koog Persistence를 사용하면 `Persistence` 기능 설정에 `RollbackToolReg
     **/
     -->
     ```java
+    Persistence persistence = PersistenceKt.persistence(context);
+
+    // 특정 노드 이전으로 실행 지점을 설정하고 해당 노드에 대한 입력을 제공합니다.
+    persistence.setExecutionPoint(
+        context,
+        context.getExecutionInfo().path(),
+        customMessageHistory,
+        customInput
+    );
+
+    // 또는 특정 노드 이후로 실행 지점을 설정하고 해당 노드의 출력을 제공합니다.
+    persistence.setExecutionPointAfterNode(
+        context,
+        context.getExecutionInfo().path(),
+        customMessageHistory,
+        customOutput
+    );
     ```
     <!--- KNIT example-agent-persistence-java-10.java -->
 

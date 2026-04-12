@@ -185,7 +185,7 @@
   "kotlin.compose-compiler-options": "Compiler options",
   "kotlin.kotlin-symbol-processing-api": "Kotlin Symbol Processing API",
   "kotlin.ksp-overview": "KSP overview",
-  "kotlin.ksp-quickstart": "Quickstart",
+  "kotlin.ksp-quickstart": "Getting started",
   "kotlin.ksp-examples": "Examples",
   "kotlin.ksp-reference": "Reference for Java annotation processor authors",
   "kotlin.ksp-faq": "FAQ",
@@ -616,7 +616,9 @@
   "kotlin.library-guides": "Library guides",
   "kotlin.multiplatform-gradle-dsl": "Multiplatform Gradle DSL",
   "kotlin.earlier-kotlin-releases": "Earlier Kotlin releases",
-  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-beta01",
+  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-beta02",
   "koog.rag": "RAG",
-  "kotlin.backend-development": "Backend development"
+  "kotlin.backend-development": "Backend development",
+  "kotlin.running-ksp-from-the-command-line": "Running KSP from the command line",
+  "koog.datadog-exporter": "Datadog Exporter"
 }

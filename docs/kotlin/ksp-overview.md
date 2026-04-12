@@ -143,7 +143,7 @@ class HelloFunctionFinderProcessor : SymbolProcessor() {
 * [增量处理说明](ksp-incremental.md)
 * [多轮处理说明](ksp-multi-round.md)
 * [多平台项目中的 KSP](ksp-multiplatform.md)
-* [从命令行运行 KSP](ksp-command-line.md)
+* [从命令行运行 KSP](https://github.com/google/ksp/blob/main/docs/ksp2cmdline.md)
 * [常见问题解答](ksp-faq.md)
 
 ## 支持的库
@@ -169,6 +169,7 @@ class HelloFunctionFinderProcessor : SymbolProcessor() {
 | SealedX          | [官方支持](https://github.com/skydoves/sealedx)                                       |
 | Ktorfit          | [官方支持](https://github.com/Foso/Ktorfit)                                           |
 | Mockative        | [官方支持](https://github.com/mockative/mockative)                                    |
+| Kotest           | [官方支持](https://github.com/kotest/kotest)                                          |
 | DeeplinkDispatch | [通过 airbnb/DeepLinkDispatch#323 支持](https://github.com/airbnb/DeepLinkDispatch/pull/323)  |
 | Dagger           | [Alpha](https://dagger.dev/dev-guide/ksp)                                                         |
 | Motif            | [Alpha](https://github.com/uber/motif)                                                            |

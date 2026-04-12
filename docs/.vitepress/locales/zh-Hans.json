@@ -218,7 +218,7 @@
   "kotlin.compose-compiler-options": "编译器选项",
   "kotlin.kotlin-symbol-processing-api": "Kotlin Symbol Processing API",
   "kotlin.ksp-overview": "KSP 概览",
-  "kotlin.ksp-quickstart": "快速入门",
+  "kotlin.ksp-quickstart": "入门",
   "kotlin.ksp-examples": "示例",
   "kotlin.ksp-reference": "Java 注解处理器作者参考",
   "kotlin.ksp-faq": "常见问题",
@@ -536,7 +536,6 @@
   "kotlin.wasm-overview": "概览",
   "kotlin.kotlin-js": "Kotlin/JS",
   "kotlin.js-overview": "概览",
-  "kotlin.native-development": "原生开发",
   "kotlin.native-overview": "概览",
   "kotlin.multiplatform": "多平台开发",
   "kotlin.android-overview": "Android 开发",
@@ -649,7 +648,9 @@
   "kotlin.library-guides": "库指南",
   "kotlin.multiplatform-gradle-dsl": "多平台 Gradle DSL",
   "kotlin.earlier-kotlin-releases": "更早的 Kotlin 版本",
-  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-beta01",
+  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-beta02",
   "koog.rag": "RAG",
-  "kotlin.backend-development": "后端开发"
+  "kotlin.backend-development": "后端开发",
+  "kotlin.running-ksp-from-the-command-line": "从命令行运行 KSP",
+  "koog.datadog-exporter": "Datadog Exporter"
 }

@@ -58,7 +58,7 @@ Ktor 支持在运行时从一个或多个文档源构建 OpenAPI 规范。
     </TabItem>
     <TabItem title="Maven" group-key="maven" id="add-ktor-plugin-maven">
 
-    与 Gradle 不同，Maven 不提供对 Ktor 编译器插件的内置集成。要启用 OpenAPI 规范生成，您需要手动配置编译器插件。
+    与 Gradle 不同， Maven 不提供对 Ktor 编译器插件的内置集成。要启用 OpenAPI 规范生成，您需要手动配置编译器插件。
 
     1. 应用 Ktor Maven 插件（运行和打包应用程序所需）：
        ```xml
@@ -208,9 +208,7 @@ ktor {
 </def>
 <def>
 <title><code>codeInferenceEnabled</code></title>
-控制编译器是否尝试从路由代码中推断 OpenAPI 元数据。默认为 <code>true</code>。
-如果推断产生的结果不正确，或者您更倾向于使用注解显式定义元数据，请禁用此选项。
-更多详情请参阅 <a href="#code-inference">代码推断规则</a>。
+控制编译器是否尝试从路由代码中推断 OpenAPI 元数据。默认为 <code>true</code>。如果推断产生的结果不正确，或者您更倾向于使用注解显式定义元数据，请禁用此选项。更多详情请参阅 <a href="#code-inference">代码推断规则</a>。
 </def>
 <def>
 <title><code>onlyCommented</code></title>
@@ -408,6 +406,55 @@ get("/routes") {
 这对于不应公开的内部、管理或诊断端点非常有用，包括用于[生成 OpenAPI 规范](#assemble-and-serve-the-specification)本身的路由。
 
 OpenAPI 和 Swagger UI 插件会自动调用 `.hide()`，因此它们的路由会从生成的文档中排除。
+
+## 架构推断
+
+Ktor 在构建 OpenAPI 规范时会自动为请求和响应类型生成 JSON 架构。默认情况下，架构是从数据类上的 `kotlinx-serialization` 描述符通过类型引用推断出来的。这使得大多数常见数据模型无需额外工作即可被记录。
+
+### 通过注解自定义架构
+
+您可以通过在数据类中添加 [`@JsonSchema`](https://api.ktor.io/ktor-openapi-schema/io.ktor.openapi/-json-schema/index.html) 注解来覆盖自动生成的 JSON 架构字段。这允许您添加描述、将字段标记为必填等：
+
+```kotlin
+@JsonSchema.Description("表示一篇新闻文章")
+data class Article(
+    val title: String,
+    val content: String
+)
+```
+
+### 使用基于反射的架构推断
+
+对于使用 Jackson 或 Gson 而非 `kotlinx-serialization` 的项目，您可以使用基于反射的架构推断。为此，请在 OpenAPI 或 SwaggerUI 插件的 `Routing` 源中设置 `schemaInference` 字段：
+
+```kotlin
+openAPI("docs") {
+    outputPath = "docs/routes"
+    info = OpenApiInfo("来自路由的 Books API", "1.0.0")
+    source = OpenApiDocSource.Routing(
+        contentType = ContentType.Application.Json,
+        schemaInference = ReflectionJsonSchemaInference.Default,
+    )
+}
+```
+
+### 自定义反射行为
+
+您可以提供一个自定义的 `SchemaReflectionAdapter` 来处理不被直接支持的注解或命名约定。
+
+`SchemaReflectionAdapter` 是 `ReflectionJsonSchemaInference` 的一个字段，允许您覆盖默认行为，例如属性名称、忽略的字段或可为 null 性规则。
+
+例如，您可以自定义行为以支持 Gson 的 `@SerializedName` 注解：
+
+```kotlin
+ReflectionJsonSchemaInference(object : SchemaReflectionAdapter {
+    override fun getName(type: KType): String? {
+        return (type.classifier as? KClass<*>)?.let {
+            findAnnotations(SerializedName::class)?.value ?: it.simpleName
+        }
+    }
+})
+```
 
 ## 生成并提供规范
 

@@ -208,7 +208,7 @@ ktor {
 </def>
 <def>
 <title><code>codeInferenceEnabled</code></title>
-控制編譯器是否嘗試從路由程式碼推論 OpenAPI 元資料。預設為 <code>true</code>。如果推論產生錯誤的結果，或者您偏好使用註解明確定義元資料，請停用此選項。如需更多詳細資訊，請參閱<a href="#code-inference">程式碼推論規則</a>。
+控制編譯器是否嘗試從路由程式碼推論 OpenAPI 元資料。預設為 <code>true</code>。如果推論產生不正確的結果，或者您偏好使用註解明確定義元資料，請停用此選項。如需更多詳細資訊，請參閱<a href="#code-inference">程式碼推論規則</a>。
 </def>
 <def>
 <title><code>onlyCommented</code></title>
@@ -407,6 +407,55 @@ get("/routes") {
 
 OpenAPI 和 Swagger UI 外掛程式會自動呼叫 `.hide()`，因此它們的路由會從產生的文件中排除。
 
+## 架構推論
+
+Ktor 在建置 OpenAPI 規格時會自動為請求和回應型別產生 JSON 架構。預設情況下，架構是透過使用資料類別上的 `kotlinx-serialization` 描述符從型別參考中推論出來的。這使得大多數常見的資料模型無需額外努力即可被記錄。
+
+### 使用註解自訂架構
+
+您可以透過在資料類別中加入 [`@JsonSchema`](https://api.ktor.io/ktor-openapi-schema/io.ktor.openapi/-json-schema/index.html) 註解來覆寫自動產生的 JSON 架構欄位。這允許您新增描述、將欄位標記為必填等：
+
+```kotlin
+@JsonSchema.Description("Represents a news article")
+data class Article(
+    val title: String,
+    val content: String
+)
+```
+
+### 使用基於反射的架構推論
+
+對於使用 Jackson 或 Gson 而非 `kotlinx-serialization` 的專案，您可以使用基於反射的架構推論。要執行此操作，請在 OpenAPI 或 SwaggerUI 外掛程式的 `Routing` 來源中設定 `schemaInference` 欄位：
+
+```kotlin
+openAPI("docs") {
+    outputPath = "docs/routes"
+    info = OpenApiInfo("Books API from routes", "1.0.0")
+    source = OpenApiDocSource.Routing(
+        contentType = ContentType.Application.Json,
+        schemaInference = ReflectionJsonSchemaInference.Default,
+    )
+}
+```
+
+### 自訂反射行為
+
+您可以提供自訂的 `SchemaReflectionAdapter` 來處理不直接支援的註解或命名慣例。
+
+`SchemaReflectionAdapter` 是 `ReflectionJsonSchemaInference` 的一個欄位，它允許您覆寫預設行為，例如屬性名稱、被忽略的欄位或可 null 性規則。
+
+例如，您可以自訂行為以支援 Gson 的 `@SerializedName` 註解：
+
+```kotlin
+ReflectionJsonSchemaInference(object : SchemaReflectionAdapter {
+    override fun getName(type: KType): String? {
+        return (type.classifier as? KClass<*>)?.let {
+            findAnnotations(SerializedName::class)?.value ?: it.simpleName
+        }
+    }
+})
+```
+
 ## 產生並提供規格
 
 OpenAPI 規格是在執行時根據執行時路由註解和編譯器外掛程式產生的元資料組合而成的。
@@ -433,7 +482,7 @@ OpenAPI 規格是在執行時根據執行時路由註解和編譯器外掛程式
 
 在此範例中，OpenAPI 文件使用 [`ContentNegotiation`](server-serialization.md) 外掛程式進行序列化。這假設已安裝了 JSON 序列化器（例如 `kotlinx.serialization`）。
 
-不需要額外的建置或產生步驟。下次請求規格時，對路由或註解的更改將自動反映出來。
+不需要額外的組建或產生步驟。下次請求規格時，對路由或註解的更改將自動反映出來。
 
 > 如果您想使序列化更明確，或避免依賴 `ContentNegotiation`，您可以手動對文件進行編碼並回應 JSON：
 > 

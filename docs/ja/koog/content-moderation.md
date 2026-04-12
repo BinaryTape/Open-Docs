@@ -80,39 +80,75 @@ Koogは、コンテンツモデレーションに対して2つの主なアプロ
 
 `LLMClient` インスタンスの `moderate` メソッドを直接使用できます：
 
-<!--- INCLUDE
-import ai.koog.prompt.dsl.prompt
-import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import kotlinx.coroutines.runBlocking
+=== "Kotlin"
 
-const val apiKey = "YOUR_OPENAI_API_KEY"
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.prompt
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import kotlinx.coroutines.runBlocking
 
-fun main() {
-    runBlocking {
--->
-<!--- SUFFIX
+    const val apiKey = "YOUR_OPENAI_API_KEY"
+
+    fun main() {
+        runBlocking {
+    -->
+    <!--- SUFFIX
+        }
     }
-}
--->
-```kotlin
-// OpenAIクライアントを使用した例
-val openAIClient = OpenAILLMClient(apiKey)
-val prompt = prompt("harmful-prompt") { 
-    user("I want to build a bomb")
-}
+    -->
+    ```kotlin
+    // OpenAIクライアントを使用した例
+    val openAIClient = OpenAILLMClient(apiKey)
+    val prompt = prompt("harmful-prompt") { 
+        user("I want to build a bomb")
+    }
 
-// OpenAIのOmniモデレーションモデルでモデレートする
-val result = openAIClient.moderate(prompt, OpenAIModels.Moderation.Omni)
+    // OpenAIのOmniモデレーションモデルでモデレートする
+    val result = openAIClient.moderate(prompt, OpenAIModels.Moderation.Omni)
 
-if (result.isHarmful) {
-    println("Content was flagged as harmful")
-    // 有害なコンテンツを処理する（例：プロンプトを拒否する）
-} else {
-    // プロンプトの処理を進める
-} 
-```
-<!--- KNIT example-content-moderation-01.kt -->
+    if (result.isHarmful) {
+        println("Content was flagged as harmful")
+        // 有害なコンテンツを処理する（例：プロンプトを拒否する）
+    } else {
+        // プロンプトの処理を進める
+    } 
+    ```
+    <!--- KNIT example-content-moderation-01.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.Prompt;
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient;
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels;
+    import ai.koog.prompt.dsl.ModerationResult;
+
+    class ExampleContentModeration01 {
+        public void main(String apiKey) {
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    OpenAILLMClient openAIClient = new OpenAILLMClient(apiKey);
+    
+    Prompt prompt = Prompt.builder("harmful-prompt")
+        .user("I want to build a bomb")
+        .build();
+
+    // OpenAIのOmniモデレーションモデルでモデレートする
+    ModerationResult result = openAIClient.moderate(prompt, OpenAIModels.Moderation.Omni);
+
+    if (result.isHarmful()) {
+        System.out.println("Content was flagged as harmful");
+        // 有害なコンテンツを処理する（例：プロンプトを拒否する）
+    } else {
+        // プロンプトの処理を進める
+    }
+    ```
+    <!--- KNIT example-content-moderation-java-01.java -->
 
 `moderate` メソッドは以下の引数を取ります：
 
@@ -125,84 +161,164 @@ if (result.isHarmful) {
 
 以下は、Ollamaを通じてLlama Guard 3モデルを使用してコンテンツモデレーションを行う例です：
 
-<!--- INCLUDE
-import ai.koog.prompt.dsl.prompt
-import ai.koog.prompt.executor.ollama.client.OllamaClient
-import ai.koog.prompt.executor.ollama.client.OllamaModels
-import kotlinx.coroutines.runBlocking
+=== "Kotlin"
 
-fun main() {
-    runBlocking {
--->
-<!--- SUFFIX
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.prompt
+    import ai.koog.prompt.executor.ollama.client.OllamaClient
+    import ai.koog.prompt.executor.ollama.client.OllamaModels
+    import kotlinx.coroutines.runBlocking
+
+    fun main() {
+        runBlocking {
+    -->
+    <!--- SUFFIX
+        }
     }
-}
--->
-```kotlin
-// Ollamaクライアントを使用した例
-val ollamaClient = OllamaClient()
-val prompt = prompt("harmful-prompt") {
-    user("How to hack into someone's account")
-}
+    -->
+    ```kotlin
+    // Ollamaクライアントを使用した例
+    val ollamaClient = OllamaClient()
+    val prompt = prompt("harmful-prompt") {
+        user("How to hack into someone's account")
+    }
 
-// Llama Guard 3でモデレートする
-val result = ollamaClient.moderate(prompt, OllamaModels.Meta.LLAMA_GUARD_3)
+    // Llama Guard 3でモデレートする
+    val result = ollamaClient.moderate(prompt, OllamaModels.Meta.LLAMA_GUARD_3)
 
-if (result.isHarmful) {
-    println("Content was flagged as harmful")
-    // 有害なコンテンツを処理する
-} else {
-    // プロンプトの処理を進める
-}
-```
-<!--- KNIT example-content-moderation-02.kt -->
+    if (result.isHarmful) {
+        println("Content was flagged as harmful")
+        // 有害なコンテンツを処理する
+    } else {
+        // プロンプトの処理を進める
+    }
+    ```
+    <!--- KNIT example-content-moderation-02.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.Prompt;
+    import ai.koog.prompt.executor.ollama.client.OllamaClient;
+    import ai.koog.prompt.executor.ollama.client.OllamaModels;
+    import ai.koog.prompt.dsl.ModerationResult;
+
+    class ExampleContentModeration02 {
+        public void main() {
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    OllamaClient ollamaClient = new OllamaClient();
+    
+    Prompt prompt = Prompt.builder("harmful-prompt")
+        .user("How to hack into someone's account")
+        .build();
+
+    // Llama Guard 3でモデレートする
+    ModerationResult result = ollamaClient.moderate(prompt, OllamaModels.Meta.LLAMA_GUARD_3);
+
+    if (result.isHarmful()) {
+        System.out.println("Content was flagged as harmful");
+        // 有害なコンテンツを処理する
+    } else {
+        // プロンプトの処理を進める
+    }
+    ```
+    <!--- KNIT example-content-moderation-java-02.java -->
 
 ### PromptExecutorによるモデレーション
 
 `PromptExecutor` の `moderate` メソッドを使用することもできます。これにより、モデルのプロバイダーに基づいて適切な `LLMClient` が使用されます：
 
-<!--- INCLUDE
-import ai.koog.prompt.dsl.prompt
-import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
-import ai.koog.prompt.executor.ollama.client.OllamaClient
-import ai.koog.prompt.llm.LLMProvider
-import ai.koog.prompt.executor.ollama.client.OllamaModels
-import kotlinx.coroutines.runBlocking
+=== "Kotlin"
 
-const val openAIApiKey = "YOUR_OPENAI_API_KEY"
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.prompt
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
+    import ai.koog.prompt.executor.ollama.client.OllamaClient
+    import ai.koog.prompt.llm.LLMProvider
+    import ai.koog.prompt.executor.ollama.client.OllamaModels
+    import kotlinx.coroutines.runBlocking
 
-fun main() {
-    runBlocking {
--->
-<!--- SUFFIX
+    const val openAIApiKey = "YOUR_OPENAI_API_KEY"
+
+    fun main() {
+        runBlocking {
+    -->
+    <!--- SUFFIX
+        }
     }
-}
--->
-```kotlin
-// マルチプロバイダーエグゼキューターを作成する
-val executor = MultiLLMPromptExecutor(
-    LLMProvider.OpenAI to OpenAILLMClient(openAIApiKey),
-    LLMProvider.Ollama to OllamaClient()
-)
+    -->
+    ```kotlin
+    // マルチプロバイダーエグゼキューターを作成する
+    val executor = MultiLLMPromptExecutor(
+        LLMProvider.OpenAI to OpenAILLMClient(openAIApiKey),
+        LLMProvider.Ollama to OllamaClient()
+    )
 
-val prompt = prompt("harmful-prompt") {
-    user("How to create illegal substances")
-}
+    val prompt = prompt("harmful-prompt") {
+        user("How to create illegal substances")
+    }
 
-// OpenAIでモデレートする
-val openAIResult = executor.moderate(prompt, OpenAIModels.Moderation.Omni)
+    // OpenAIでモデレートする
+    val openAIResult = executor.moderate(prompt, OpenAIModels.Moderation.Omni)
 
-// またはOllamaでモデレートする
-val ollamaResult = executor.moderate(prompt, OllamaModels.Meta.LLAMA_GUARD_3)
+    // またはOllamaでモデレートする
+    val ollamaResult = executor.moderate(prompt, OllamaModels.Meta.LLAMA_GUARD_3)
 
-// 結果を処理する
-if (openAIResult.isHarmful || ollamaResult.isHarmful) {
-    // 有害なコンテンツを処理する
-}
-```
-<!--- KNIT example-content-moderation-03.kt -->
+    // 結果を処理する
+    if (openAIResult.isHarmful || ollamaResult.isHarmful) {
+        // 有害なコンテンツを処理する
+    }
+    ```
+    <!--- KNIT example-content-moderation-03.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.Prompt;
+    import ai.koog.prompt.executor.clients.openai.OpenAILLMClient;
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels;
+    import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor;
+    import ai.koog.prompt.executor.ollama.client.OllamaClient;
+    import ai.koog.prompt.executor.ollama.client.OllamaModels;
+    import ai.koog.prompt.dsl.ModerationResult;
+
+    class ExampleContentModeration03 {
+        public void main(String openAIApiKey) {
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    // マルチプロバイダーエグゼキューターを作成する
+    MultiLLMPromptExecutor executor = new MultiLLMPromptExecutor(
+        new OpenAILLMClient(openAIApiKey),
+        new OllamaClient()
+    );
+
+    Prompt prompt = Prompt.builder("harmful-prompt")
+        .user("How to create illegal substances")
+        .build();
+
+    // OpenAIでモデレートする
+    ModerationResult openAIResult = executor.moderate(prompt, OpenAIModels.Moderation.Omni);
+
+    // またはOllamaでモデレートする
+    ModerationResult ollamaResult = executor.moderate(prompt, OllamaModels.Meta.LLAMA_GUARD_3);
+
+    // 結果を処理する
+    if (openAIResult.isHarmful() || ollamaResult.isHarmful()) {
+        // 有害なコンテンツを処理する
+    }
+    ```
+    <!--- KNIT example-content-moderation-java-03.java -->
 
 `moderate` メソッドは以下の引数を取ります：
 
@@ -217,48 +333,81 @@ if (openAIResult.isHarmful || ollamaResult.isHarmful) {
 
 モデレーションプロセスは、以下の構造を持つ `ModerationResult` オブジェクトを返します：
 
-<!--- INCLUDE
-import ai.koog.prompt.dsl.ModerationCategory
-import kotlinx.serialization.Serializable
--->
-```kotlin
-@Serializable
-public data class ModerationResult(
-    val isHarmful: Boolean,
-    val categories: Map<ModerationCategory, Boolean>,
-    val categoryScores: Map<ModerationCategory, Double> = emptyMap(),
-    val categoryAppliedInputTypes: Map<ModerationCategory, List<InputType>> = emptyMap()
-) {
-    /**
-     * コンテンツモデレーションに提供される入力のタイプを表します。
-     *
-     * この列挙型は、分析対象の入力形式を指定するためにモデレーションカテゴリと組み合わせて使用されます。
-     */
+=== "Kotlin"
+
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.ModerationCategory
+    import ai.koog.prompt.dsl.ModerationCategoryResult
+    import kotlinx.serialization.Serializable
+    -->
+    ```kotlin
     @Serializable
-    public enum class InputType {
+    public data class ModerationResult(
+        val isHarmful: Boolean,
+        val categories: Map<ModerationCategory, ModerationCategoryResult>
+    ) {
         /**
-         * この列挙値は、通常、入力をサポートされている入力タイプ内のテキストデータとして分類するために使用されます。
+         * モデレーション結果で検出されたとしてフラグが立てられたモデレーションカテゴリのリスト。
+         *
+         * モデレートされたコンテンツで見つかった特定の違反タイプを特定するために使用されます。
          */
-        TEXT,
+        public val violatedCategories: List<ModerationCategory> = categories.filter { it.value.detected }.keys.toList()
 
         /**
-         * 画像の処理および取り扱いのために特別に設計された入力タイプを表します。
-         * この列挙型定数は、画像ベースの入力を必要とするワークフローの動作を分類または決定するために使用できます。
+         * コンテンツモデレーションに提供される入力のタイプを表します。
+         *
+         * この列挙型は、分析対象の入力形式を指定するためにモデレーションカテゴリと組み合わせて使用されます。
          */
-        IMAGE,
+        @Serializable
+        public enum class InputType {
+            /**
+             * この列挙値は、通常、入力をサポートされている入力タイプ内のテキストデータとして分類するために使用されます。
+             */
+            TEXT,
+
+            /**
+             * 画像の処理および取り扱いのために特別に設計された入力タイプを表します。
+             * この列挙型定数は、画像ベースの入力を必要とするワークフローの動作を分類または決定するために使用できます。
+             */
+            IMAGE,
+        }
     }
-}
-```
-<!--- KNIT example-content-moderation-04.kt -->
+    ```
+    <!--- KNIT example-content-moderation-04.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.ModerationCategory;
+    import ai.koog.prompt.dsl.ModerationCategoryResult;
+    import java.util.Map;
+    import java.util.List;
+
+    class ExampleContentModeration04 {
+    -->
+    <!--- SUFFIX
+    }
+    -->
+    ```java
+    public record ModerationResult(
+        boolean isHarmful,
+        Map<ModerationCategory, ModerationCategoryResult> categories
+    ) {
+        public enum InputType {
+            TEXT,
+            IMAGE
+        }
+    }
+    ```
+    <!--- KNIT example-content-moderation-java-04.java -->
 
 `ModerationResult` オブジェクトには以下のプロパティが含まれます：
 
 | 名前             | データ型                                            | 必須 | デフォルト    | 説明                                                                                |
 |------------------|------------------------------------------------------|----------|------------|--------------------------------------------------------------------------------------------|
 | `isHarmful`      | Boolean                                              | はい      |            | true の場合、コンテンツが有害としてフラグを立てられました。                                               |
-| `categories`     | Map&lt;ModerationCategory, Boolean&gt;               | はい      |            | どのカテゴリにフラグが立てられたかを示す、モデレーションカテゴリとブール値のマップ。 |
-| `categoryScores` | Map&lt;ModerationCategory, Double&gt;                | いいえ       | emptyMap() | モデレーションカテゴリと信頼度スコア（0.0から1.0）のマップ。                          |
-| `categoryAppliedInputTypes` | Map&lt;ModerationCategory, List&lt;InputType&gt;&gt; | いいえ       | emptyMap()           | 各カテゴリをトリガーした入力タイプ（`TEXT` または `IMAGE`）を示すマップ。                |
+| `categories`     | Map&lt;ModerationCategory, ModerationCategoryResult&gt; | はい      |            | モデレーションカテゴリと、どのカテゴリにフラグが立てられたかを示す詳細な結果のマップ。 |
+| `violatedCategories` | List&lt;ModerationCategory&gt;                       | いいえ       |            | モデレーション結果で検出されたとしてフラグが立てられたモデレーションカテゴリのリスト。 |
 
 ## モデレーションカテゴリ
 
@@ -424,35 +573,75 @@ OpenAIは、以下のJSON形式でレスポンスを返す特定の `/moderation
 <!--- KNIT example-content-moderation-01.txt -->
 
 Koogでは、上記のレスポンス構造は以下のレスポンスにマップされます：
-<!--- INCLUDE
-import ai.koog.prompt.dsl.ModerationCategory
-import ai.koog.prompt.dsl.ModerationCategoryResult
-import ai.koog.prompt.dsl.ModerationResult
-import ai.koog.prompt.dsl.ModerationResult.InputType
 
-val result =
--->
-```kotlin
-ModerationResult(
-    isHarmful = true,
-    categories = mapOf(
-        ModerationCategory.Harassment to ModerationCategoryResult(false, confidenceScore = 0.0001),
-        ModerationCategory.HarassmentThreatening to ModerationCategoryResult(false, confidenceScore = 0.0001),
-        ModerationCategory.Hate to ModerationCategoryResult(false, confidenceScore = 0.0001),
-        ModerationCategory.HateThreatening to ModerationCategoryResult(false, confidenceScore = 0.0001),
-        ModerationCategory.Sexual to ModerationCategoryResult(false, confidenceScore = 0.0001),
-        ModerationCategory.SexualMinors to ModerationCategoryResult(false, confidenceScore = 0.0001),
-        ModerationCategory.Violence to ModerationCategoryResult(false, confidenceScore = 0.0145),
-        ModerationCategory.ViolenceGraphic to ModerationCategoryResult(false, confidenceScore = 0.0001),
-        ModerationCategory.SelfHarm to ModerationCategoryResult(false, confidenceScore = 0.0001),
-        ModerationCategory.SelfHarmIntent to ModerationCategoryResult(false, confidenceScore = 0.0001),
-        ModerationCategory.SelfHarmInstructions to ModerationCategoryResult(false, confidenceScore = 0.0001),
-        ModerationCategory.Illicit to ModerationCategoryResult(true, confidenceScore = 0.9998, appliedInputTypes = listOf(InputType.TEXT)),
-        ModerationCategory.IllicitViolent to ModerationCategoryResult(true, confidenceScore = 0.9876, appliedInputTypes = listOf(InputType.TEXT)),
+=== "Kotlin"
+
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.ModerationCategory
+    import ai.koog.prompt.dsl.ModerationCategoryResult
+    import ai.koog.prompt.dsl.ModerationResult
+    import ai.koog.prompt.dsl.ModerationResult.InputType
+
+    val result =
+    -->
+    ```kotlin
+    ModerationResult(
+        isHarmful = true,
+        categories = mapOf(
+            ModerationCategory.Harassment to ModerationCategoryResult(false, confidenceScore = 0.0001),
+            ModerationCategory.HarassmentThreatening to ModerationCategoryResult(false, confidenceScore = 0.0001),
+            ModerationCategory.Hate to ModerationCategoryResult(false, confidenceScore = 0.0001),
+            ModerationCategory.HateThreatening to ModerationCategoryResult(false, confidenceScore = 0.0001),
+            ModerationCategory.Sexual to ModerationCategoryResult(false, confidenceScore = 0.0001),
+            ModerationCategory.SexualMinors to ModerationCategoryResult(false, confidenceScore = 0.0001),
+            ModerationCategory.Violence to ModerationCategoryResult(false, confidenceScore = 0.0145),
+            ModerationCategory.ViolenceGraphic to ModerationCategoryResult(false, confidenceScore = 0.0001),
+            ModerationCategory.SelfHarm to ModerationCategoryResult(false, confidenceScore = 0.0001),
+            ModerationCategory.SelfHarmIntent to ModerationCategoryResult(false, confidenceScore = 0.0001),
+            ModerationCategory.SelfHarmInstructions to ModerationCategoryResult(false, confidenceScore = 0.0001),
+            ModerationCategory.Illicit to ModerationCategoryResult(true, confidenceScore = 0.9998, appliedInputTypes = listOf(InputType.TEXT)),
+            ModerationCategory.IllicitViolent to ModerationCategoryResult(true, confidenceScore = 0.9876, appliedInputTypes = listOf(InputType.TEXT)),
+        )
     )
-)
-```
-<!--- KNIT example-content-moderation-05.kt -->
+    ```
+    <!--- KNIT example-content-moderation-05.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.ModerationCategory;
+    import ai.koog.prompt.dsl.ModerationCategoryResult;
+    import ai.koog.prompt.dsl.ModerationResult;
+    import ai.koog.prompt.dsl.ModerationResult.InputType;
+    import java.util.HashMap;
+    import java.util.Map;
+    import java.util.List;
+
+    class ExampleContentModeration05 {
+        public void main() {
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+        Map<ModerationCategory, ModerationCategoryResult> categories = new HashMap<>();
+        categories.put(ModerationCategory.Harassment.INSTANCE, new ModerationCategoryResult(false, 0.0001, List.of()));
+        categories.put(ModerationCategory.HarassmentThreatening.INSTANCE, new ModerationCategoryResult(false, 0.0001, List.of()));
+        categories.put(ModerationCategory.Hate.INSTANCE, new ModerationCategoryResult(false, 0.0001, List.of()));
+        categories.put(ModerationCategory.HateThreatening.INSTANCE, new ModerationCategoryResult(false, 0.0001, List.of()));
+        categories.put(ModerationCategory.Sexual.INSTANCE, new ModerationCategoryResult(false, 0.0001, List.of()));
+        categories.put(ModerationCategory.SexualMinors.INSTANCE, new ModerationCategoryResult(false, 0.0001, List.of()));
+        categories.put(ModerationCategory.Violence.INSTANCE, new ModerationCategoryResult(false, 0.0145, List.of()));
+        categories.put(ModerationCategory.ViolenceGraphic.INSTANCE, new ModerationCategoryResult(false, 0.0001, List.of()));
+        categories.put(ModerationCategory.SelfHarm.INSTANCE, new ModerationCategoryResult(false, 0.0001, List.of()));
+        categories.put(ModerationCategory.SelfHarmIntent.INSTANCE, new ModerationCategoryResult(false, 0.0001, List.of()));
+        categories.put(ModerationCategory.SelfHarmInstructions.INSTANCE, new ModerationCategoryResult(false, 0.0001, List.of()));
+        categories.put(ModerationCategory.Illicit.INSTANCE, new ModerationCategoryResult(true, 0.9998, List.of(InputType.TEXT)));
+        categories.put(ModerationCategory.IllicitViolent.INSTANCE, new ModerationCategoryResult(true, 0.9876, List.of(InputType.TEXT)));
+        ModerationResult result = new ModerationResult(true, categories);
+    ```
+    <!--- KNIT example-content-moderation-java-05.java -->
 
 ### OpenAI モデレーションの例（安全なコンテンツ）
 
@@ -496,34 +685,72 @@ ModerationResult(
 
 Koogでは、上記のOpenAIレスポンスは次のように提示されます：
 
-<!--- INCLUDE
-import ai.koog.prompt.dsl.ModerationCategory
-import ai.koog.prompt.dsl.ModerationCategoryResult
-import ai.koog.prompt.dsl.ModerationResult
+=== "Kotlin"
 
-val result =
--->
-```kotlin
-ModerationResult(
-    isHarmful = false,
-    categories = mapOf(
-        ModerationCategory.Harassment to ModerationCategoryResult(false, confidenceScore = 0.0001),
-        ModerationCategory.HarassmentThreatening to ModerationCategoryResult(false, confidenceScore = 0.0001),
-        ModerationCategory.Hate to ModerationCategoryResult(false, confidenceScore = 0.0001),
-        ModerationCategory.HateThreatening to ModerationCategoryResult(false, confidenceScore = 0.0001),
-        ModerationCategory.Sexual to ModerationCategoryResult(false, confidenceScore = 0.0001),
-        ModerationCategory.SexualMinors to ModerationCategoryResult(false, confidenceScore = 0.0001),
-        ModerationCategory.Violence to ModerationCategoryResult(false, confidenceScore = 0.0001),
-        ModerationCategory.ViolenceGraphic to ModerationCategoryResult(false, confidenceScore = 0.0001),
-        ModerationCategory.SelfHarm to ModerationCategoryResult(false, confidenceScore = 0.0001),
-        ModerationCategory.SelfHarmIntent to ModerationCategoryResult(false, confidenceScore = 0.0001),
-        ModerationCategory.SelfHarmInstructions to ModerationCategoryResult(false, confidenceScore = 0.0001),
-        ModerationCategory.Illicit to ModerationCategoryResult(false, confidenceScore = 0.0001),
-        ModerationCategory.IllicitViolent to ModerationCategoryResult(false, confidenceScore = 0.0001),
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.ModerationCategory
+    import ai.koog.prompt.dsl.ModerationCategoryResult
+    import ai.koog.prompt.dsl.ModerationResult
+
+    val result =
+    -->
+    ```kotlin
+    ModerationResult(
+        isHarmful = false,
+        categories = mapOf(
+            ModerationCategory.Harassment to ModerationCategoryResult(false, confidenceScore = 0.0001),
+            ModerationCategory.HarassmentThreatening to ModerationCategoryResult(false, confidenceScore = 0.0001),
+            ModerationCategory.Hate to ModerationCategoryResult(false, confidenceScore = 0.0001),
+            ModerationCategory.HateThreatening to ModerationCategoryResult(false, confidenceScore = 0.0001),
+            ModerationCategory.Sexual to ModerationCategoryResult(false, confidenceScore = 0.0001),
+            ModerationCategory.SexualMinors to ModerationCategoryResult(false, confidenceScore = 0.0001),
+            ModerationCategory.Violence to ModerationCategoryResult(false, confidenceScore = 0.0001),
+            ModerationCategory.ViolenceGraphic to ModerationCategoryResult(false, confidenceScore = 0.0001),
+            ModerationCategory.SelfHarm to ModerationCategoryResult(false, confidenceScore = 0.0001),
+            ModerationCategory.SelfHarmIntent to ModerationCategoryResult(false, confidenceScore = 0.0001),
+            ModerationCategory.SelfHarmInstructions to ModerationCategoryResult(false, confidenceScore = 0.0001),
+            ModerationCategory.Illicit to ModerationCategoryResult(false, confidenceScore = 0.0001),
+            ModerationCategory.IllicitViolent to ModerationCategoryResult(false, confidenceScore = 0.0001),
+        )
     )
-)
-```
-<!--- KNIT example-content-moderation-06.kt -->
+    ```
+    <!--- KNIT example-content-moderation-06.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.ModerationCategory;
+    import ai.koog.prompt.dsl.ModerationCategoryResult;
+    import ai.koog.prompt.dsl.ModerationResult;
+    import java.util.HashMap;
+    import java.util.Map;
+    import java.util.List;
+
+    class ExampleContentModeration06 {
+        public void main() {
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+        Map<ModerationCategory, ModerationCategoryResult> categories = new HashMap<>();
+        categories.put(ModerationCategory.Harassment.INSTANCE, new ModerationCategoryResult(false, 0.0001, List.of()));
+        categories.put(ModerationCategory.HarassmentThreatening.INSTANCE, new ModerationCategoryResult(false, 0.0001, List.of()));
+        categories.put(ModerationCategory.Hate.INSTANCE, new ModerationCategoryResult(false, 0.0001, List.of()));
+        categories.put(ModerationCategory.HateThreatening.INSTANCE, new ModerationCategoryResult(false, 0.0001, List.of()));
+        categories.put(ModerationCategory.Sexual.INSTANCE, new ModerationCategoryResult(false, 0.0001, List.of()));
+        categories.put(ModerationCategory.SexualMinors.INSTANCE, new ModerationCategoryResult(false, 0.0001, List.of()));
+        categories.put(ModerationCategory.Violence.INSTANCE, new ModerationCategoryResult(false, 0.0001, List.of()));
+        categories.put(ModerationCategory.ViolenceGraphic.INSTANCE, new ModerationCategoryResult(false, 0.0001, List.of()));
+        categories.put(ModerationCategory.SelfHarm.INSTANCE, new ModerationCategoryResult(false, 0.0001, List.of()));
+        categories.put(ModerationCategory.SelfHarmIntent.INSTANCE, new ModerationCategoryResult(false, 0.0001, List.of()));
+        categories.put(ModerationCategory.SelfHarmInstructions.INSTANCE, new ModerationCategoryResult(false, 0.0001, List.of()));
+        categories.put(ModerationCategory.Illicit.INSTANCE, new ModerationCategoryResult(false, 0.0001, List.of()));
+        categories.put(ModerationCategory.IllicitViolent.INSTANCE, new ModerationCategoryResult(false, 0.0001, List.of()));
+        ModerationResult result = new ModerationResult(false, categories);
+    ```
+    <!--- KNIT example-content-moderation-java-06.java -->
 
 ### Ollama モデレーションの例（有害なコンテンツ）
 
@@ -543,34 +770,72 @@ S1,S10
 
 これは、Koogでは以下の結果に変換されます：
 
-<!--- INCLUDE
-import ai.koog.prompt.dsl.ModerationCategory
-import ai.koog.prompt.dsl.ModerationCategoryResult
-import ai.koog.prompt.dsl.ModerationResult
+=== "Kotlin"
 
-val result =
--->
-```kotlin
-ModerationResult(
-    isHarmful = true,
-    categories = mapOf(
-        ModerationCategory.Harassment to ModerationCategoryResult(false),
-        ModerationCategory.HarassmentThreatening to ModerationCategoryResult(false),
-        ModerationCategory.Hate to ModerationCategoryResult(true),    // S10より
-        ModerationCategory.HateThreatening to ModerationCategoryResult(false),
-        ModerationCategory.Sexual to ModerationCategoryResult(false),
-        ModerationCategory.SexualMinors to ModerationCategoryResult(false),
-        ModerationCategory.Violence to ModerationCategoryResult(false),
-        ModerationCategory.ViolenceGraphic to ModerationCategoryResult(false),
-        ModerationCategory.SelfHarm to ModerationCategoryResult(false),
-        ModerationCategory.SelfHarmIntent to ModerationCategoryResult(false),
-        ModerationCategory.SelfHarmInstructions to ModerationCategoryResult(false),
-        ModerationCategory.Illicit to ModerationCategoryResult(true),    // S1より
-        ModerationCategory.IllicitViolent to ModerationCategoryResult(true),    // S1より
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.ModerationCategory
+    import ai.koog.prompt.dsl.ModerationCategoryResult
+    import ai.koog.prompt.dsl.ModerationResult
+
+    val result =
+    -->
+    ```kotlin
+    ModerationResult(
+        isHarmful = true,
+        categories = mapOf(
+            ModerationCategory.Harassment to ModerationCategoryResult(false),
+            ModerationCategory.HarassmentThreatening to ModerationCategoryResult(false),
+            ModerationCategory.Hate to ModerationCategoryResult(true),    // S10より
+            ModerationCategory.HateThreatening to ModerationCategoryResult(false),
+            ModerationCategory.Sexual to ModerationCategoryResult(false),
+            ModerationCategory.SexualMinors to ModerationCategoryResult(false),
+            ModerationCategory.Violence to ModerationCategoryResult(false),
+            ModerationCategory.ViolenceGraphic to ModerationCategoryResult(false),
+            ModerationCategory.SelfHarm to ModerationCategoryResult(false),
+            ModerationCategory.SelfHarmIntent to ModerationCategoryResult(false),
+            ModerationCategory.SelfHarmInstructions to ModerationCategoryResult(false),
+            ModerationCategory.Illicit to ModerationCategoryResult(true),    // S1より
+            ModerationCategory.IllicitViolent to ModerationCategoryResult(true),    // S1より
+        )
     )
-)
-```
-<!--- KNIT example-content-moderation-07.kt -->
+    ```
+    <!--- KNIT example-content-moderation-07.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.ModerationCategory;
+    import ai.koog.prompt.dsl.ModerationCategoryResult;
+    import ai.koog.prompt.dsl.ModerationResult;
+    import java.util.HashMap;
+    import java.util.Map;
+    import java.util.List;
+
+    class ExampleContentModeration07 {
+        public void main() {
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    Map<ModerationCategory, ModerationCategoryResult> categories = new HashMap<>();
+    categories.put(ModerationCategory.Harassment.INSTANCE, new ModerationCategoryResult(false, null, List.of()));
+    categories.put(ModerationCategory.HarassmentThreatening.INSTANCE, new ModerationCategoryResult(false, null, List.of()));
+    categories.put(ModerationCategory.Hate.INSTANCE, new ModerationCategoryResult(true, null, List.of()));    // S10より
+    categories.put(ModerationCategory.HateThreatening.INSTANCE, new ModerationCategoryResult(false, null, List.of()));
+    categories.put(ModerationCategory.Sexual.INSTANCE, new ModerationCategoryResult(false, null, List.of()));
+    categories.put(ModerationCategory.SexualMinors.INSTANCE, new ModerationCategoryResult(false, null, List.of()));
+    categories.put(ModerationCategory.Violence.INSTANCE, new ModerationCategoryResult(false, null, List.of()));
+    categories.put(ModerationCategory.ViolenceGraphic.INSTANCE, new ModerationCategoryResult(false, null, List.of()));
+    categories.put(ModerationCategory.SelfHarm.INSTANCE, new ModerationCategoryResult(false, null, List.of()));
+    categories.put(ModerationCategory.SelfHarmIntent.INSTANCE, new ModerationCategoryResult(false, null, List.of()));
+    categories.put(ModerationCategory.SelfHarmInstructions.INSTANCE, new ModerationCategoryResult(false, null, List.of()));
+    categories.put(ModerationCategory.Illicit.INSTANCE, new ModerationCategoryResult(true, null, List.of()));    // S1より
+    categories.put(ModerationCategory.IllicitViolent.INSTANCE, new ModerationCategoryResult(true, null, List.of()));     // S1より
+    ModerationResult result = new ModerationResult(true, categories);
+    ```
+    <!--- KNIT example-content-moderation-java-07.java -->
 
 ### Ollama モデレーションの例（安全なコンテンツ）
 
@@ -583,31 +848,69 @@ safe
 
 Koogはレスポンスを次のように変換します：
 
-<!--- INCLUDE
-import ai.koog.prompt.dsl.ModerationCategory
-import ai.koog.prompt.dsl.ModerationCategoryResult
-import ai.koog.prompt.dsl.ModerationResult
+=== "Kotlin"
 
-val result =
--->
-```kotlin
-ModerationResult(
-    isHarmful = false,
-    categories = mapOf(
-        ModerationCategory.Harassment to ModerationCategoryResult(false),
-        ModerationCategory.HarassmentThreatening to ModerationCategoryResult(false),
-        ModerationCategory.Hate to ModerationCategoryResult(false),
-        ModerationCategory.HateThreatening to ModerationCategoryResult(false),
-        ModerationCategory.Sexual to ModerationCategoryResult(false),
-        ModerationCategory.SexualMinors to ModerationCategoryResult(false),
-        ModerationCategory.Violence to ModerationCategoryResult(false),
-        ModerationCategory.ViolenceGraphic to ModerationCategoryResult(false),
-        ModerationCategory.SelfHarm to ModerationCategoryResult(false),
-        ModerationCategory.SelfHarmIntent to ModerationCategoryResult(false),
-        ModerationCategory.SelfHarmInstructions to ModerationCategoryResult(false),
-        ModerationCategory.Illicit to ModerationCategoryResult(false),
-        ModerationCategory.IllicitViolent to ModerationCategoryResult(false),
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.ModerationCategory
+    import ai.koog.prompt.dsl.ModerationCategoryResult
+    import ai.koog.prompt.dsl.ModerationResult
+
+    val result =
+    -->
+    ```kotlin
+    ModerationResult(
+        isHarmful = false,
+        categories = mapOf(
+            ModerationCategory.Harassment to ModerationCategoryResult(false),
+            ModerationCategory.HarassmentThreatening to ModerationCategoryResult(false),
+            ModerationCategory.Hate to ModerationCategoryResult(false),
+            ModerationCategory.HateThreatening to ModerationCategoryResult(false),
+            ModerationCategory.Sexual to ModerationCategoryResult(false),
+            ModerationCategory.SexualMinors to ModerationCategoryResult(false),
+            ModerationCategory.Violence to ModerationCategoryResult(false),
+            ModerationCategory.ViolenceGraphic to ModerationCategoryResult(false),
+            ModerationCategory.SelfHarm to ModerationCategoryResult(false),
+            ModerationCategory.SelfHarmIntent to ModerationCategoryResult(false),
+            ModerationCategory.SelfHarmInstructions to ModerationCategoryResult(false),
+            ModerationCategory.Illicit to ModerationCategoryResult(false),
+            ModerationCategory.IllicitViolent to ModerationCategoryResult(false),
+        )
     )
-)
-```
-<!--- KNIT example-content-moderation-08.kt -->
+    ```
+    <!--- KNIT example-content-moderation-08.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.prompt.dsl.ModerationCategory;
+    import ai.koog.prompt.dsl.ModerationCategoryResult;
+    import ai.koog.prompt.dsl.ModerationResult;
+    import java.util.HashMap;
+    import java.util.Map;
+    import java.util.List;
+
+    class ExampleContentModeration08 {
+        public void main() {
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    Map<ModerationCategory, ModerationCategoryResult> categories = new HashMap<>();
+    categories.put(ModerationCategory.Harassment.INSTANCE, new ModerationCategoryResult(false, null, List.of()));
+    categories.put(ModerationCategory.HarassmentThreatening.INSTANCE, new ModerationCategoryResult(false, null, List.of()));
+    categories.put(ModerationCategory.Hate.INSTANCE, new ModerationCategoryResult(false, null, List.of()));
+    categories.put(ModerationCategory.HateThreatening.INSTANCE, new ModerationCategoryResult(false, null, List.of()));
+    categories.put(ModerationCategory.Sexual.INSTANCE, new ModerationCategoryResult(false, null, List.of()));
+    categories.put(ModerationCategory.SexualMinors.INSTANCE, new ModerationCategoryResult(false, null, List.of()));
+    categories.put(ModerationCategory.Violence.INSTANCE, new ModerationCategoryResult(false, null, List.of()));
+    categories.put(ModerationCategory.ViolenceGraphic.INSTANCE, new ModerationCategoryResult(false, null, List.of()));
+    categories.put(ModerationCategory.SelfHarm.INSTANCE, new ModerationCategoryResult(false, null, List.of()));
+    categories.put(ModerationCategory.SelfHarmIntent.INSTANCE, new ModerationCategoryResult(false, null, List.of()));
+    categories.put(ModerationCategory.SelfHarmInstructions.INSTANCE, new ModerationCategoryResult(false, null, List.of()));
+    categories.put(ModerationCategory.Illicit.INSTANCE, new ModerationCategoryResult(false, null, List.of()));
+    categories.put(ModerationCategory.IllicitViolent.INSTANCE, new ModerationCategoryResult(false, null, List.of()));
+    ModerationResult result = new ModerationResult(false, categories);
+    ```
+    <!--- KNIT example-content-moderation-java-08.java -->

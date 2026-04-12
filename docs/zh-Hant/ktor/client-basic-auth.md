@@ -17,6 +17,8 @@
 
 > 在伺服器上，Ktor 提供了 [Authentication](server-basic-auth.md) 外掛程式來處理基本驗證。
 
+undefined
+
 ## 基本驗證流程 {id="flow"}
 
 基本驗證流程如下所示：

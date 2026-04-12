@@ -17,18 +17,15 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
 
 履歴の圧縮は、エージェントのワークフローにおける特定のステップで実行されます：
 
-- エージェント戦略の論理的なステップ（サブグラフ）の間。
+- 戦略の論理的なステップ（サブグラフ）の間。
 - コンテキストが長くなりすぎたとき。
 
 ## 履歴圧縮の実装
 
 エージェントに履歴の圧縮を実装するには、主に2つのアプローチがあります：
 
-- ストラテジーグラフ内。
-- カスタムノード内 (Kotlin)。
-
-!!! warning
-    カスタムノードのロジック内での履歴圧縮は、Kotlinでのみ利用可能です。
+- ストラテジーグラフ内
+- カスタムノード内
 
 ### ストラテジーグラフでの履歴圧縮
 
@@ -260,9 +257,6 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
 
 ### カスタムノードでの履歴圧縮
 
-!!! warning
-    カスタムノードのロジック内での履歴圧縮は、Kotlinでのみ利用可能です。
-
 カスタムノードを実装している場合は、以下のように `replaceHistoryWithTLDR()` 関数（Kotlin）を使用して履歴を圧縮できます：
 
 === "Kotlin"
@@ -271,7 +265,6 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.builder.subgraph
-    import ai.koog.agents.core.dsl.extension.replaceHistoryWithTLDR
     val strategy = strategy<String, String>("strategy_name") {
         val node by node<Unit, Unit> {
     -->
@@ -304,7 +297,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
 履歴全体を、これまでに達成された内容を要約する1つのTLDRメッセージに圧縮するデフォルトの戦略です。
 この戦略は、トークン使用量を削減しながら、会話全体のコンテキストを把握し続けたいほとんどの一般的なユースケースに適しています。
 
-以下のように使用できます： 
+以下のように使用できます：
 
 * ストラテジーグラフ内：
 
@@ -361,7 +354,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     ```
     <!--- KNIT exampleHistoryCompressionJava03.java -->
 
-* カスタムノード内 (Kotlinのみ):
+* カスタムノード内：
 
 === "Kotlin"
 
@@ -370,7 +363,6 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.builder.subgraph
     import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
-    import ai.koog.agents.core.dsl.extension.replaceHistoryWithTLDR
     val strategy = strategy<String, String>("strategy_name") {
         val node by node<Unit, Unit> {
     -->
@@ -384,6 +376,38 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     }
     ```
     <!--- KNIT example-history-compression-05.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    import ai.koog.agents.core.agent.entity.AIAgentSubgraph;
+    import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy;
+    class exampleHistoryCompressionJava05 {
+        public static void main(String[] args) {
+            var graph = AIAgentGraphStrategy.builder("execute-with-history-compression")
+                .withInput(String.class)
+                .withOutput(String.class);
+        var compressHistory = AIAgentNode.builder()
+            .withInput(String.class)
+            .withOutput(String.class)
+            .withAction((input, ctx) -> {
+    -->
+    <!--- SUFFIX
+                    return null;
+            })
+            .build();
+        }
+    }
+    -->
+    ```java
+    ctx.getLlm().writeSession(session -> {
+        session.replaceHistoryWithTLDR(HistoryCompressionStrategy.WholeHistory);
+        return null;
+    });
+    ```
+    <!--- KNIT exampleHistoryCompressionJava05.java -->
 
 ### FromLastNMessages
 
@@ -447,7 +471,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     ```
     <!--- KNIT exampleHistoryCompressionJava04.java -->
 
-* カスタムノード内 (Kotlinのみ):
+* カスタムノード内：
 
 === "Kotlin"
 
@@ -456,7 +480,6 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.builder.subgraph
     import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
-    import ai.koog.agents.core.dsl.extension.replaceHistoryWithTLDR
     typealias ProcessedInput = String
     val strategy = strategy<String, String>("strategy_name") {
     val node by node<Unit, Unit> {
@@ -471,6 +494,38 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     }
     ```
     <!--- KNIT example-history-compression-07.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    import ai.koog.agents.core.agent.entity.AIAgentSubgraph;
+    import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy;
+    class exampleHistoryCompressionJava07 {
+        public static void main(String[] args) {
+            var graph = AIAgentGraphStrategy.builder("execute-with-history-compression")
+                .withInput(String.class)
+                .withOutput(String.class);
+        var compressHistory = AIAgentNode.builder()
+            .withInput(String.class)
+            .withOutput(String.class)
+            .withAction((input, ctx) -> {
+    -->
+    <!--- SUFFIX
+                    return null;
+            })
+            .build();
+        }
+    }
+    -->
+    ```java
+    ctx.getLlm().writeSession(session -> {
+        session.replaceHistoryWithTLDR(HistoryCompressionStrategy.FromLastNMessages(5));
+        return null;
+    });
+    ```
+    <!--- KNIT exampleHistoryCompressionJava07.java -->
 
 ### Chunked
 
@@ -511,7 +566,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     import ai.koog.agents.core.agent.entity.AIAgentNode;
     import ai.koog.agents.core.agent.entity.AIAgentSubgraph;
     import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy;
-    class exampleHistoryCompressionJava05 {
+    class exampleHistoryCompressionJava08 {
     public static void main(String[] args) {
         var graph = AIAgentGraphStrategy.builder("execute-with-history-compression")
             .withInput(String.class)
@@ -532,9 +587,9 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     // 注：この例はノードの作成のみを示しています。
     // グラフを完成させるには、エッジや他のノードを追加する必要があります。
     ```
-    <!--- KNIT exampleHistoryCompressionJava05.java -->
+    <!--- KNIT exampleHistoryCompressionJava08.java -->
 
-* カスタムノード内 (Kotlinのみ):
+* カスタムノード内：
 
 === "Kotlin"
 
@@ -543,7 +598,6 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.builder.subgraph
     import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
-    import ai.koog.agents.core.dsl.extension.replaceHistoryWithTLDR
     typealias ProcessedInput = String
     val strategy = strategy<String, String>("strategy_name") {
     val node by node<Unit, Unit> {
@@ -558,6 +612,38 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     }
     ```
     <!--- KNIT example-history-compression-09.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    import ai.koog.agents.core.agent.entity.AIAgentSubgraph;
+    import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy;
+    class exampleHistoryCompressionJava09 {
+        public static void main(String[] args) {
+            var graph = AIAgentGraphStrategy.builder("execute-with-history-compression")
+                .withInput(String.class)
+                .withOutput(String.class);
+        var compressHistory = AIAgentNode.builder()
+            .withInput(String.class)
+            .withOutput(String.class)
+            .withAction((input, ctx) -> {
+    -->
+    <!--- SUFFIX
+                    return null;
+            })
+            .build();
+        }
+    }
+    -->
+    ```java
+    ctx.getLlm().writeSession(session -> {
+        session.replaceHistoryWithTLDR(HistoryCompressionStrategy.Chunked(10));
+        return null;
+    });
+    ```
+    <!--- KNIT exampleHistoryCompressionJava09.java -->
 
 ### RetrieveFactsFromHistory
 
@@ -617,7 +703,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     <!--- KNIT example-history-compression-10.kt -->
 
 === "Java"
-    
+
     <!--- INCLUDE
     import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
     import ai.koog.agents.core.agent.entity.AIAgentNode;
@@ -664,7 +750,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     ```
     <!--- KNIT exampleHistoryCompressionJava06.java -->
 
-* カスタムノード内 (Kotlinのみ):
+* カスタムノード内：
 
 === "Kotlin"
 
@@ -672,7 +758,6 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.builder.subgraph
-    import ai.koog.agents.core.dsl.extension.replaceHistoryWithTLDR
     import ai.koog.agents.memory.feature.history.RetrieveFactsFromHistory
     import ai.koog.agents.memory.model.Concept
     import ai.koog.agents.memory.model.FactType
@@ -706,7 +791,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
                     keyword = "issue_solved",
                     // LLMへの説明 -- 具体的に何を検索するか
                     description = "Was the initial user's issue resolved?",
-                    // LLMはこの質問に対する単一의回答を検索する：
+                    // LLMはこの質問に対する単一の回答を検索する：
                     factType = FactType.SINGLE
                 )
             )
@@ -714,6 +799,63 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     }
     ```
     <!--- KNIT example-history-compression-11.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    import ai.koog.agents.core.agent.entity.AIAgentSubgraph;
+    import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy;
+    import ai.koog.agents.memory.feature.history.RetrieveFactsFromHistory;
+    import ai.koog.agents.memory.model.Concept;
+    import ai.koog.agents.memory.model.FactType;
+    class exampleHistoryCompressionJava11 {
+        public static void main(String[] args) {
+            var graph = AIAgentGraphStrategy.builder("execute-with-history-compression")
+                .withInput(String.class)
+                .withOutput(String.class);
+        var compressHistory = AIAgentNode.builder()
+            .withInput(String.class)
+            .withOutput(String.class)
+            .withAction((input, ctx) -> {
+    -->
+    <!--- SUFFIX
+                    return null;
+            })
+            .build();
+        }
+    }
+    -->
+    ```java
+    ctx.getLlm().writeSession(session -> {
+        session.replaceHistoryWithTLDR(new RetrieveFactsFromHistory(
+                new Concept(
+                    "user_preferences", 
+                    // LLMへの説明 -- 具体的に何を検索するか
+                    "User's preferences for the recommendation system, including the preferred conversation style, theme in the application, etc.",
+                    // LLMはこのコンセプトに関連する複数の関連事実を検索する：
+                    FactType.MULTIPLE
+                ),
+                new Concept(
+                    "product_details",
+                    // LLMへの説明 -- 具体的に何を検索するか
+                    "Brief details about products in the catalog the user has been checking",
+                    // LLMはこのコンセプトに関連する複数の関連事実を検索する：
+                    FactType.MULTIPLE
+                ),
+                new Concept(
+                    "issue_solved",
+                    // LLMへの説明 -- 具体的に何を検索するか
+                    "Was the initial user's issue resolved?",
+                    // LLMはこの質問に対する単一の回答を検索する：
+                    FactType.SINGLE
+                )
+            ));
+        return null;
+    });
+    ```
+    <!--- KNIT exampleHistoryCompressionJava11.java -->
 
 ## カスタム履歴圧縮戦略の実装
 
@@ -799,7 +941,6 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.builder.subgraph
-    import ai.koog.agents.core.dsl.extension.replaceHistoryWithTLDR
     import ai.koog.agents.example.exampleHistoryCompression12.MyCustomCompressionStrategy
     typealias ProcessedInput = String
     val strategy = strategy<String, String>("strategy_name") {
@@ -857,7 +998,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     import ai.koog.agents.core.agent.entity.AIAgentNode;
     import ai.koog.agents.core.agent.entity.AIAgentSubgraph;
     import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy;
-    class exampleHistoryCompressionJava07 {
+    class exampleHistoryCompressionJava15 {
     public static void main(String[] args) {
         var graph = AIAgentGraphStrategy.builder("execute-with-history-compression")
             .withInput(String.class)
@@ -879,9 +1020,9 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     // 注：この例はノードの作成のみを示しています。
     // グラフを完成させるには、エッジや他のノードを追加する必要があります。
     ```
-    <!--- KNIT exampleHistoryCompressionJava07.java -->
+    <!--- KNIT exampleHistoryCompressionJava15.java -->
 
-* カスタムノード内 (Kotlinのみ):
+* カスタムノード内：
 
 === "Kotlin"
 
@@ -890,7 +1031,6 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.builder.subgraph
     import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
-    import ai.koog.agents.core.dsl.extension.replaceHistoryWithTLDR
     typealias ProcessedInput = String
     val strategy = strategy<String, String>("strategy_name") {
     val node by node<Unit, Unit> {
@@ -908,3 +1048,38 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     }
     ```
     <!--- KNIT example-history-compression-16.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
+    import ai.koog.agents.core.agent.entity.AIAgentNode;
+    import ai.koog.agents.core.agent.entity.AIAgentSubgraph;
+    import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy;
+    class exampleHistoryCompressionJava16 {
+        public static void main(String[] args) {
+            var graph = AIAgentGraphStrategy.builder("execute-with-history-compression")
+                .withInput(String.class)
+                .withOutput(String.class);
+        var compressHistory = AIAgentNode.builder()
+            .withInput(String.class)
+            .withOutput(String.class)
+            .withAction((input, ctx) -> {
+    -->
+    <!--- SUFFIX
+                    return null;
+            })
+            .build();
+        }
+    }
+    -->
+    ```java
+    ctx.getLlm().writeSession(session -> {
+        session.replaceHistoryWithTLDR(
+            /** strategy */ HistoryCompressionStrategy.WholeHistory,
+            /** preserveMemory */ true
+        );
+        return null;
+    });
+    ```
+    <!--- KNIT exampleHistoryCompressionJava16.java -->

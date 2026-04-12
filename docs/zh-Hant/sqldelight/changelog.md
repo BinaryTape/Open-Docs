@@ -17,6 +17,8 @@
 - [編譯器] 非群組聚合結果集中的其他列一律為可 null
 - [PostgreSQL 方言] 正確解析 `coalesce` 與 `ifnull` 的可 null 性
 - [PostgreSQL 方言] 修復 PostgreSQL 方言的 IDE 整合
+- [PostgreSQL 方言] 改進 PostgreSQL 方言的 IDE 外掛程式（#6209 由 @griffio 提供）
+- [Intellij 外掛程式] IDE 外掛程式可以為所有方言執行程式碼補全（#6210 由 @griffio 提供）
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -46,7 +48,7 @@
 
 ### 修復
 - [IntelliJ 外掛程式] 修復在 VFS 重新整理事件期間，因在 EDT 上阻塞檔案型別偵測而導致的 IDE 凍結。
-- [SQLite 方言] 修復使用 JSON 路徑運算子時的 SQLite 3.38 編譯錯誤（#6070 由 @griffio 提供）
+- [SQLite 方言] 修復 SQLite 3.38 編譯錯誤時使用 JSON 路徑運算子的問題（#6070 由 @griffio 提供）
 - [SQLite 方言] 使用自訂列型別時，為 `group_concat` 函式使用 String 型別（#6082 由 @griffio 提供）
 - [Gradle 外掛程式] 提升 `VerifyMigrationTask` 的效能，防止其在複雜架構上掛起（#6073 由 @Lightwood13 提供）
 - [Intellij 外掛程式] 修復外掛程式初始化例外狀況並更新已棄用的方法（#6040 由 @griffio 提供）
@@ -303,7 +305,7 @@
 ### 新增
 - [分頁] 為分頁擴充套件新增 JS 瀏覽器目標（#3843 由 @sproctor 提供）
 - [分頁] 為 androidx-paging3 擴充套件新增 iosSimulatorArm64 目標（#4117）
-- [PostgreSQL 方言] 新增 gen_random_uuid() 的支援與測試（#3855 由 @davidwheeler123 提供）
+- [PostgreSQL 方言] 新增對 gen_random_uuid() 的支援與測試（#3855 由 @davidwheeler123 提供）
 - [PostgreSQL 方言] Alter table add constraint postgres（#4116 由 @griffio 提供）
 - [PostgreSQL 方言] Alter table add constraint check（#4120 由 @griffio 提供）
 - [PostgreSQL 方言] 新增 PostgreSql 字元長度函式（#4121 由 @griffio 提供）
@@ -799,7 +801,7 @@ sqldelight {
 - [JDBC 驅動程式] JDBC 驅動程式假定 `autoCommit` 為 true（#2041）
 - [JDBC 驅動程式] 確保在發生例外時關閉連線（#2306）
 - [IDE 外掛程式] 修復因路徑分隔符號錯誤導致在 Windows 上 GoToDeclaration/FindUsages 毀損的問題（#2054 由 @angusholder 提供）
-- [IDE 外掛程式] 在 IDE 中忽略 Gradle 錯誤而不是當機。
+- [IDE 外掛程式] 忽略 Gradle 錯誤而不是當機。
 - [IDE 外掛程式] 如果 SQLDelight 檔案被移至 non-sqldelight 模組，請勿嘗試產生程式碼
 - [IDE 外掛程式] 忽略 IDE 中的程式碼產生錯誤
 - [IDE 外掛程式] 確保我們不嘗試負數子字串（#2068）
@@ -850,7 +852,7 @@ sqldelight {
 - [IDE 外掛程式] 對於無效型別，優雅地失敗（#1943）
 - [IDE 外掛程式] 遇到未知運算式時拋出更好的錯誤訊息（#1958）
 - [Gradle 外掛程式] SQLDelight 將 IntelliJ 相依項流失至 buildscript 類別路徑（#1998）
-- [Gradle 外掛程式] 在 *.sq 檔案中新增方法文件時出現「找不到 JavadocIntegrationKt」編譯錯誤（#1982）
+- [Gradle 外掛程式] 在 *.sq 檔案中新增方法文件時出現「找不到 Javadoc Integration Kt」編譯錯誤（#1982）
 - [Gradle 外掛程式] SqlDeslight gradle 外掛程式不支援組態快取 (CoCa)。（#1947 由 @stephanenicolas 提供）
 - [SQLite JDBC 驅動程式] SQLException：資料庫處於自動提交模式（#1832）
 - [協同程式擴充套件] 修復協同程式擴充套件的 IR 後端（#1918 由 @dellisd 提供）
@@ -1119,7 +1121,7 @@ sqldelight {
 
  * 新功能：原生支援 short 作為列 Java 型別
  * 新功能：產生的對應器與工廠方法上的 Javadoc
- * 修復：`group_concat` 與 `nullif` 函式具有正確的可 null 性
+ * 修復：group_concat 與 nullif 函式具有正確的可 null 性
  * 修復：與 Android Studio 2.2-alpha 的相容性
  * 修復：WITH RECURSIVE 不再使外掛程式當機
 
@@ -1130,7 +1132,7 @@ sqldelight {
  * 新功能：右鍵點擊將 SQLDelight 程式碼複製為有效的 SQLite。
  * 新功能：具名陳述式上的 Javadoc 將出現在產生的字串上。
  * 修復：產生的檢視模型包含可 null 性註解。
- * 修復：來自 union 的產生程式碼具有正確的型別與可 null 性，以支援所有可能的列。
+ * 修復：產生的程式碼具有正確的型別與可 null 性，以支援所有可能的列。
  * 修復：sum 與 round SQLite 函式在產生的程式碼中具有正確型別。
  * 修復：CAST、內部 select 的修復。
  * 修復：CREATE TABLE 陳述式中的自動補全。

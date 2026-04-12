@@ -219,7 +219,7 @@
   "kotlin.compose-compiler-options": "컴파일러 옵션",
   "kotlin.kotlin-symbol-processing-api": "Kotlin Symbol Processing API",
   "kotlin.ksp-overview": "KSP 개요",
-  "kotlin.ksp-quickstart": "빠른 시작",
+  "kotlin.ksp-quickstart": "시작하기",
   "kotlin.ksp-examples": "예제",
   "kotlin.ksp-reference": "Java 어노테이션 프로세서 작성자를 위한 참조",
   "kotlin.ksp-faq": "FAQ",
@@ -649,7 +649,9 @@
   "kotlin.library-guides": "라이브러리 가이드",
   "kotlin.multiplatform-gradle-dsl": "멀티플랫폼 Gradle DSL",
   "kotlin.earlier-kotlin-releases": "이전 Kotlin 릴리스",
-  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-beta01",
+  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-beta02",
   "koog.rag": "RAG",
-  "kotlin.backend-development": "백엔드 개발"
+  "kotlin.backend-development": "백엔드 개발",
+  "kotlin.running-ksp-from-the-command-line": "명령줄에서 KSP 실행하기",
+  "koog.datadog-exporter": "Datadog 익스포터"
 }

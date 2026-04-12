@@ -219,7 +219,7 @@
   "kotlin.compose-compiler-options": "編譯器選項",
   "kotlin.kotlin-symbol-processing-api": "Kotlin 符號處理 API",
   "kotlin.ksp-overview": "KSP 概覽",
-  "kotlin.ksp-quickstart": "快速入門",
+  "kotlin.ksp-quickstart": "開始使用",
   "kotlin.ksp-examples": "範例",
   "kotlin.ksp-reference": "Java 註解處理器作者參考",
   "kotlin.ksp-faq": "常見問題",
@@ -474,8 +474,8 @@
   "koog.backend-framework-integrations": "後端架構整合",
   "koog.ktor": "Ktor",
   "koog.spring-boot": "Spring Boot",
-  "koog.langfuse-exporter": "Langfuse Exporter",
-  "koog.weave-exporter": "Weave Exporter",
+  "koog.langfuse-exporter": "Langfuse 匯出器",
+  "koog.weave-exporter": "Weave 匯出器",
   "koog.attachments": "附件",
   "koog.banking": "銀行業務",
   "koog.bedrockagent": "BedrockAgent",
@@ -651,7 +651,9 @@
   "kotlin.library-guides": "程式庫指南",
   "kotlin.multiplatform-gradle-dsl": "Multiplatform Gradle DSL",
   "kotlin.earlier-kotlin-releases": "更早的 Kotlin 版本",
-  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-beta01",
+  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-beta02",
   "koog.rag": "RAG",
-  "kotlin.backend-development": "後端開發"
+  "kotlin.backend-development": "後端開發",
+  "kotlin.running-ksp-from-the-command-line": "從命令列執行 KSP",
+  "koog.datadog-exporter": "Datadog 匯出器"
 }

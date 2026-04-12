@@ -409,6 +409,55 @@ get("/routes") {
 
 OpenAPI 및 Swagger UI 플러그인은 `.hide()`를 자동으로 호출하므로 해당 라우트들은 결과 문서에서 제외됩니다.
 
+## 스키마 추론
+
+Ktor는 OpenAPI 명세를 빌드할 때 요청 및 응답 타입에 대한 JSON 스키마를 자동으로 생성합니다. 기본적으로 스키마는 데이터 클래스의 `kotlinx-serialization` 디스크립터를 사용하는 타입 참조로부터 추론됩니다. 이를 통해 추가적인 노력 없이 대부분의 일반적인 데이터 모델을 문서화할 수 있습니다.
+
+### 어노테이션을 사용한 스키마 커스터마이징
+
+데이터 클래스에 [`@JsonSchema`](https://api.ktor.io/ktor-openapi-schema/io.ktor.openapi/-json-schema/index.html) 어노테이션을 추가하여 자동으로 생성된 JSON 스키마 필드를 오버라이드할 수 있습니다. 이를 통해 설명을 추가하거나 필드를 필수(required)로 표시하는 등의 작업이 가능합니다:
+
+```kotlin
+@JsonSchema.Description("Represents a news article")
+data class Article(
+    val title: String,
+    val content: String
+)
+```
+
+### 리플렉션 기반 스키마 추론 사용
+
+`kotlinx-serialization` 대신 Jackson 또는 Gson을 사용하는 프로젝트의 경우, 리플렉션 기반 스키마 추론을 사용할 수 있습니다. 이를 위해 OpenAPI 또는 SwaggerUI 플러그인의 `Routing` 소스에서 `schemaInference` 필드를 설정하십시오:
+
+```kotlin
+openAPI("docs") {
+    outputPath = "docs/routes"
+    info = OpenApiInfo("Books API from routes", "1.0.0")
+    source = OpenApiDocSource.Routing(
+        contentType = ContentType.Application.Json,
+        schemaInference = ReflectionJsonSchemaInference.Default,
+    )
+}
+```
+
+### 리플렉션 동작 커스터마이징
+
+직접적으로 지원되지 않는 어노테이션이나 명명 규칙을 처리하기 위해 커스텀 `SchemaReflectionAdapter`를 제공할 수 있습니다.
+
+`SchemaReflectionAdapter`는 `ReflectionJsonSchemaInference`의 필드로, 프로퍼티 이름, 무시된 필드 또는 null 허용 여부 규칙과 같은 기본 동작을 오버라이드할 수 있게 해줍니다.
+
+예를 들어, Gson의 `@SerializedName` 어노테이션을 지원하도록 동작을 커스터마이징할 수 있습니다:
+
+```kotlin
+ReflectionJsonSchemaInference(object : SchemaReflectionAdapter {
+    override fun getName(type: KType): String? {
+        return (type.classifier as? KClass<*>)?.let {
+            findAnnotations(SerializedName::class)?.value ?: it.simpleName
+        }
+    }
+})
+```
+
 ## 명세 생성 및 제공
 
 OpenAPI 명세는 런타임에 라우트 어노테이션과 컴파일러 플러그인에서 생성된 메타데이터를 조합하여 런타임에 구성됩니다.

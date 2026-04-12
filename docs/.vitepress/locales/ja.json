@@ -649,7 +649,9 @@
   "kotlin.library-guides": "ライブラリガイド",
   "kotlin.multiplatform-gradle-dsl": "Multiplatform Gradle DSL",
   "kotlin.earlier-kotlin-releases": "以前のKotlinリリース",
-  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-beta01",
+  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-beta02",
   "koog.rag": "RAG",
-  "kotlin.backend-development": "バックエンド開発"
+  "kotlin.backend-development": "バックエンド開発",
+  "kotlin.running-ksp-from-the-command-line": "コマンドラインからKSPを実行する",
+  "koog.datadog-exporter": "Datadog Exporter"
 }

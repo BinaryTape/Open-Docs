@@ -34,28 +34,56 @@ ai.koog.agents.ext.agent.chatAgentStrategy
 
 要使用该策略，请按照以下模式创建一个 AI 代理：
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import ai.koog.agents.ext.agent.chatAgentStrategy
-import ai.koog.agents.core.tools.ToolRegistry
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
+=== "Kotlin"
 
-val apiKey = System.getenv("OPENAI_API_KEY") ?: error("Please set OPENAI_API_KEY environment variable")
-val promptExecutor =simpleOpenAIExecutor(apiKey)
-val toolRegistry = ToolRegistry.EMPTY
-val model =  OpenAIModels.Chat.O4Mini
--->
-```kotlin
-val chatAgent = AIAgent(
-    promptExecutor = promptExecutor,
-    toolRegistry = toolRegistry,
-    llmModel = model,
-    // 将 chatAgentStrategy 设置为代理策略
-    strategy = chatAgentStrategy()
-)
-```
-<!--- KNIT example-predefined-strategies-01.kt -->
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    import ai.koog.agents.ext.agent.chatAgentStrategy
+    import ai.koog.agents.core.tools.ToolRegistry
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+
+    val apiKey = System.getenv("OPENAI_API_KEY") ?: error("Please set OPENAI_API_KEY environment variable")
+    val promptExecutor =simpleOpenAIExecutor(apiKey)
+    val toolRegistry = ToolRegistry.EMPTY
+    val model =  OpenAIModels.Chat.O4Mini
+    -->
+    ```kotlin
+    val chatAgent = AIAgent(
+        promptExecutor = promptExecutor,
+        toolRegistry = toolRegistry,
+        llmModel = model,
+        // 将 chatAgentStrategy 设置为代理策略
+        strategy = chatAgentStrategy()
+    )
+    ```
+    <!--- KNIT example-predefined-strategies-01.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent;
+    import ai.koog.agents.core.tools.ToolRegistry;
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels;
+    import ai.koog.prompt.executor.model.PromptExecutor;
+    import ai.koog.agents.ext.agent.AIAgentStrategies;
+    class examplePredefinedStrategiesJava01 {
+        public static void main(String[] args) {
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    AIAgent<String, String> chatAgent = AIAgent.builder()
+        .promptExecutor(PromptExecutor.builder().openAI("OPENAI_API_KEY").build())
+        .llmModel(OpenAIModels.Chat.O4Mini)
+        .toolRegistry(ToolRegistry.builder().build())
+        // 将 chatAgentStrategy 设置为代理策略
+        .graphStrategy(AIAgentStrategies.chatAgentStrategy())
+        .build();
+    ```
+    <!--- KNIT examplePredefinedStrategiesJava01.java -->
 
 ### 何时使用聊天代理策略
 
@@ -70,42 +98,93 @@ val chatAgent = AIAgent(
 
 以下是一个实现预定义聊天代理策略 (`chatAgentStrategy`) 以及代理可能使用的工具的 AI 代理代码示例：
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import ai.koog.agents.ext.agent.chatAgentStrategy
-import ai.koog.agents.core.tools.ToolRegistry
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.agents.ext.tool.AskUser
-import ai.koog.agents.ext.tool.SayToUser
+=== "Kotlin"
 
-typealias searchTool = AskUser
-typealias weatherTool = SayToUser
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    import ai.koog.agents.ext.agent.chatAgentStrategy
+    import ai.koog.agents.core.tools.ToolRegistry
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.agents.ext.tool.AskUser
+    import ai.koog.agents.ext.tool.SayToUser
 
-val apiKey = System.getenv("OPENAI_API_KEY") ?: error("Please set OPENAI_API_KEY environment variable")
-val promptExecutor =simpleOpenAIExecutor(apiKey)
-val toolRegistry = ToolRegistry.EMPTY
-val model =  OpenAIModels.Chat.O4Mini
--->
-```kotlin
-val chatAgent = AIAgent(
-    promptExecutor = promptExecutor,
-    llmModel = model,
-    // 使用 chatAgentStrategy 作为代理策略
-    strategy = chatAgentStrategy(),
-    // 添加代理可以使用的工具
-    toolRegistry = ToolRegistry {
-        tool(searchTool)
-        tool(weatherTool)
+    typealias searchTool = AskUser
+    typealias weatherTool = SayToUser
+
+    val apiKey = System.getenv("OPENAI_API_KEY") ?: error("Please set OPENAI_API_KEY environment variable")
+    val promptExecutor =simpleOpenAIExecutor(apiKey)
+    val toolRegistry = ToolRegistry.EMPTY
+    val model =  OpenAIModels.Chat.O4Mini
+    -->
+    ```kotlin
+    val chatAgent = AIAgent(
+        promptExecutor = promptExecutor,
+        llmModel = model,
+        // 使用 chatAgentStrategy 作为代理策略
+        strategy = chatAgentStrategy(),
+        // 添加代理可以使用的工具
+        toolRegistry = ToolRegistry {
+            tool(searchTool)
+            tool(weatherTool)
+        }
+    )
+
+    suspend fun main() { 
+        // 使用用户查询运行代理
+        val result = chatAgent.run("今天天气怎么样，我应该带伞吗？")
     }
-)
+    ```
+    <!--- KNIT example-predefined-strategies-02.kt -->
 
-suspend fun main() { 
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent;
+    import ai.koog.agents.core.tools.ToolRegistry;
+    import ai.koog.agents.core.tools.reflect.ToolSet;
+    import ai.koog.agents.core.tools.annotations.Tool;
+    import ai.koog.agents.core.tools.annotations.LLMDescription;
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels;
+    import ai.koog.prompt.executor.model.PromptExecutor;
+    import ai.koog.agents.ext.agent.AIAgentStrategies;
+    class examplePredefinedStrategiesJava02 {
+        static class SearchAndWeatherTools implements ToolSet {
+            @Tool
+            @LLMDescription("搜索信息")
+            public String search(@LLMDescription("搜索查询") String query) {
+                return "搜索结果: " + query;
+            }
+            @Tool
+            @LLMDescription("获取天气信息")
+            public String weather(@LLMDescription("地点") String location) {
+                return location + "的天气: 晴朗";
+            }
+        }
+        public static void main(String[] args) {
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    // 添加代理可以使用的工具
+    ToolRegistry toolRegistry = ToolRegistry.builder()
+        .tools(new SearchAndWeatherTools())
+        .build();
+
+    AIAgent<String, String> chatAgent = AIAgent.builder()
+        .promptExecutor(PromptExecutor.builder().openAI("OPENAI_API_KEY").build())
+        .llmModel(OpenAIModels.Chat.O4Mini)
+        // 使用 chatAgentStrategy 作为代理策略
+        .graphStrategy(AIAgentStrategies.chatAgentStrategy())
+        .toolRegistry(toolRegistry)
+        .build();
+
     // 使用用户查询运行代理
-    val result = chatAgent.run("今天天气怎么样，我应该带伞吗？")
-}
-```
-<!--- KNIT example-predefined-strategies-02.kt -->
+    String result = chatAgent.run("今天天气怎么样，我应该带伞吗？");
+    ```
+    <!--- KNIT examplePredefinedStrategiesJava02.java -->
 
 ## ReAct 策略
 
@@ -131,41 +210,68 @@ ReAct 策略实现了一种模式，在此模式下代理执行以下操作：
 
 ### 设置与依赖项
 
-Koog 中 ReAct 策略的实现是通过 `reActStrategy` 函数完成的。要使该函数在您的代理代码中可用，请添加以下依赖项导入：
-
-```
-ai.koog.agents.ext.agent.reActStrategy
-```
-<!--- KNIT example-predefined-strategies-02.txt -->
+Koog 中 ReAct 策略的实现是通过 `reActStrategy` 函数完成的。
 
 要使用该策略，请按照以下模式创建一个 AI 代理：
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import ai.koog.agents.ext.agent.reActStrategy
-import ai.koog.agents.core.tools.ToolRegistry
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
+=== "Kotlin"
 
-val apiKey = System.getenv("OPENAI_API_KEY") ?: error("Please set OPENAI_API_KEY environment variable")
-val promptExecutor = simpleOpenAIExecutor(apiKey)
-val toolRegistry = ToolRegistry.EMPTY
-val model =  OpenAIModels.Chat.O4Mini
--->
-```kotlin hl_lines="5-10"
-val reActAgent = AIAgent(
-    promptExecutor = promptExecutor,
-    toolRegistry = toolRegistry,
-    llmModel = model,
-    // 将 reActStrategy 设置为代理策略
-    strategy = reActStrategy(
-        // 设置可选形参值
-        reasoningInterval = 1,
-        name = "react_agent"
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    import ai.koog.agents.ext.agent.reActStrategy
+    import ai.koog.agents.core.tools.ToolRegistry
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+
+    val apiKey = System.getenv("OPENAI_API_KEY") ?: error("Please set OPENAI_API_KEY environment variable")
+    val promptExecutor = simpleOpenAIExecutor(apiKey)
+    val toolRegistry = ToolRegistry.EMPTY
+    val model =  OpenAIModels.Chat.O4Mini
+    -->
+    ```kotlin hl_lines="5-10"
+    val reActAgent = AIAgent(
+        promptExecutor = promptExecutor,
+        toolRegistry = toolRegistry,
+        llmModel = model,
+        // 将 reActStrategy 设置为代理策略
+        strategy = reActStrategy(
+            // 设置可选形参值
+            reasoningInterval = 1,
+            name = "react_agent"
+        )
     )
-)
-```
-<!--- KNIT example-predefined-strategies-03.kt -->
+    ```
+    <!--- KNIT example-predefined-strategies-03.kt -->
+
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent;
+    import ai.koog.agents.core.tools.ToolRegistry;
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels;
+    import ai.koog.prompt.executor.model.PromptExecutor;
+    import ai.koog.agents.ext.agent.AIAgentStrategies;
+    class examplePredefinedStrategiesJava03 {
+        public static void main(String[] args) {
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    AIAgent<String, String> reActAgent = AIAgent.builder()
+        .promptExecutor(PromptExecutor.builder().openAI("OPENAI_API_KEY").build())
+        .llmModel(OpenAIModels.Chat.O4Mini)
+        .toolRegistry(ToolRegistry.builder().build())
+        // 将 reActStrategy 设置为代理策略
+        .graphStrategy(AIAgentStrategies.reActStrategy(
+            // 设置可选形参值
+            1, // reasoningInterval
+            "react_agent" // name
+        ))
+        .build();
+    ```
+    
 
 ### 形参
 
@@ -194,7 +300,7 @@ val reActAgent = AIAgent(
 2. 过滤掉存款（正数金额）
 3. 计算总支出
 ```
-<!--- KNIT example-predefined-strategies-03.txt -->
+<!--- KNIT example-predefined-strategies-02.txt -->
 
 #### 3. 行动与执行，第一阶段
 
@@ -205,7 +311,7 @@ val reActAgent = AIAgent(
 ```text
 {tool: "get_transactions", args: {startDate: "2025-05-19", endDate: "2025-06-18"}}
 ```
-<!--- KNIT example-predefined-strategies-04.txt -->
+<!--- KNIT example-predefined-strategies-03.txt -->
 
 该工具返回的结果可能如下所示：
 
@@ -217,7 +323,7 @@ val reActAgent = AIAgent(
   {date: "2025-06-13", amount: -200.00, description: "Utilities"}
 ]
 ```
-<!--- KNIT example-predefined-strategies-05.txt -->
+<!--- KNIT example-predefined-strategies-04.txt -->
 
 #### 4. 推理
 
@@ -228,7 +334,7 @@ val reActAgent = AIAgent(
 1. 移除 +1000.00 的工资存款
 2. 对剩余交易进行求和
 ```
-<!--- KNIT example-predefined-strategies-06.txt -->
+<!--- KNIT example-predefined-strategies-05.txt -->
 
 #### 5. 行动与执行，第二阶段
 
@@ -237,14 +343,14 @@ val reActAgent = AIAgent(
 ```text
 {tool: "calculate_sum", args: {amounts: [-100.00, -500.00, -200.00]}}
 ```
-<!--- KNIT example-predefined-strategies-07.txt -->
+<!--- KNIT example-predefined-strategies-06.txt -->
 
 工具返回最终结果：
 
 ```text
 -800.00
 ```
-<!--- KNIT example-predefined-strategies-08.txt -->
+<!--- KNIT example-predefined-strategies-07.txt -->
 
 #### 6. 最终响应
 
@@ -253,7 +359,7 @@ val reActAgent = AIAgent(
 ```text
 您上个月在杂货、房租和公用事业上花费了 800.00 美元。
 ```
-<!--- KNIT example-predefined-strategies-09.txt -->
+<!--- KNIT example-predefined-strategies-08.txt -->
 
 ### 何时使用 ReAct 策略
 
@@ -268,44 +374,98 @@ ReAct 策略特别适用于：
 
 以下是一个实现预定义 ReAct 策略 (`reActStrategy`) 以及代理可能使用的工具的 AI 代理代码示例：
 
-<!--- INCLUDE
-import ai.koog.agents.core.agent.AIAgent
-import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-import ai.koog.agents.ext.agent.reActStrategy
-import ai.koog.agents.core.tools.ToolRegistry
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.agents.ext.tool.AskUser
-import ai.koog.agents.ext.tool.SayToUser
+=== "Kotlin"
 
-typealias Input = String
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent
+    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    import ai.koog.agents.ext.agent.reActStrategy
+    import ai.koog.agents.core.tools.ToolRegistry
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.agents.ext.tool.AskUser
+    import ai.koog.agents.ext.tool.SayToUser
 
-typealias getTransactions = AskUser
-typealias calculateSum = SayToUser
+    typealias Input = String
 
-val apiKey = System.getenv("OPENAI_API_KEY") ?: error("Please set OPENAI_API_KEY environment variable")
-val promptExecutor = simpleOpenAIExecutor(apiKey)
-val toolRegistry = ToolRegistry.EMPTY
-val model =  OpenAIModels.Chat.O4Mini
--->
-```kotlin
-val bankingAgent = AIAgent(
-    promptExecutor = promptExecutor,
-    llmModel = model,
-    // 使用 reActStrategy 作为代理策略
-    strategy = reActStrategy(
-        reasoningInterval = 1,
-        name = "banking_agent"
-    ),
-    // 添加代理可以使用的工具
-    toolRegistry = ToolRegistry {
-        tool(getTransactions)
-        tool(calculateSum)
+    typealias getTransactions = AskUser
+    typealias calculateSum = SayToUser
+
+    val apiKey = System.getenv("OPENAI_API_KEY") ?: error("Please set OPENAI_API_KEY environment variable")
+    val promptExecutor = simpleOpenAIExecutor(apiKey)
+    val toolRegistry = ToolRegistry.EMPTY
+    val model =  OpenAIModels.Chat.O4Mini
+    -->
+    ```kotlin
+    val bankingAgent = AIAgent(
+        promptExecutor = promptExecutor,
+        llmModel = model,
+        // 使用 reActStrategy 作为代理策略
+        strategy = reActStrategy(
+            reasoningInterval = 1,
+            name = "banking_agent"
+        ),
+        // 添加代理可以使用的工具
+        toolRegistry = ToolRegistry {
+            tool(getTransactions)
+            tool(calculateSum)
+        }
+    )
+
+    suspend fun main() { 
+        // 使用用户查询运行代理
+        val result = bankingAgent.run("上个月我花了多少钱？")
     }
-)
+    ```
+    <!--- KNIT example-predefined-strategies-04.kt -->
 
-suspend fun main() { 
+=== "Java"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.AIAgent;
+    import ai.koog.agents.core.tools.ToolRegistry;
+    import ai.koog.agents.core.tools.reflect.ToolSet;
+    import ai.koog.agents.core.tools.annotations.Tool;
+    import ai.koog.agents.core.tools.annotations.LLMDescription;
+    import ai.koog.prompt.executor.clients.openai.OpenAIModels;
+    import ai.koog.prompt.executor.model.PromptExecutor;
+    import ai.koog.agents.ext.agent.AIAgentStrategies;
+    class examplePredefinedStrategiesJava04 {
+        static class BankingTools implements ToolSet {
+            @Tool
+            @LLMDescription("获取日期范围内的交易记录")
+            public String getTransactions(
+                @LLMDescription("开始日期") String startDate,
+                @LLMDescription("结束日期") String endDate
+            ) {
+                return "[{amount: -100.00}, {amount: +1000.00}, {amount: -500.00}]";
+            }
+            @Tool
+            @LLMDescription("计算金额总和")
+            public String calculateSum(@LLMDescription("待求和的金额") String amounts) {
+                return "-800.00";
+            }
+        }
+        public static void main(String[] args) {
+    -->
+    <!--- SUFFIX
+        }
+    }
+    -->
+    ```java
+    // 添加代理可以使用的工具
+    ToolRegistry toolRegistry = ToolRegistry.builder()
+        .tools(new BankingTools())
+        .build();
+
+    AIAgent<String, String> bankingAgent = AIAgent.<String, String>builder()
+        .promptExecutor(PromptExecutor.builder().openAI("OPENAI_API_KEY").build())
+        .llmModel(OpenAIModels.Chat.O4Mini)
+        // 使用 reActStrategy 作为代理策略
+        .graphStrategy(AIAgentStrategies.reActStrategy(1, "banking_agent"))
+        .toolRegistry(toolRegistry)
+        .build();
+
     // 使用用户查询运行代理
-    val result = bankingAgent.run("上个月我花了多少钱？")
-}
-```
-<!--- KNIT example-predefined-strategies-04.kt -->
+    String result = bankingAgent.run("上个月我花了多少钱？");
+    ```
+    <!--- KNIT examplePredefinedStrategiesJava03.java -->

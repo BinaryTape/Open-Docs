@@ -388,9 +388,6 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
     import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
     import ai.koog.prompt.executor.ollama.client.OllamaModels
     import kotlinx.coroutines.runBlocking
-    import kotlinx.io.buffered
-    import kotlinx.io.files.Path
-    import kotlinx.io.files.SystemFileSystem
     const val input = "What's the weather like in New York?"
     fun main() {
     runBlocking {
@@ -399,10 +396,6 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
     promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
     ) {
-    val writer = TraceFeatureMessageFileWriter(
-    outputPath,
-    { path: Path -> SystemFileSystem.sink(path).buffered() }
-    )
     -->
     <!--- SUFFIX
             }
@@ -411,10 +404,7 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
     -->
     ```kotlin
     install(Tracing) {
-        val fileWriter = TraceFeatureMessageFileWriter(
-            outputPath, 
-            { path: Path -> SystemFileSystem.sink(path).buffered() }
-        )
+        val fileWriter = TraceFeatureMessageFileWriter.create(outputPath)
         addMessageProcessor(fileWriter)
         
         // 仅跟踪 LLM 调用
@@ -428,14 +418,39 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 === "Java"
 
     <!--- INCLUDE
-    /**
+    import ai.koog.agents.core.agent.AIAgent;
+    import ai.koog.agents.core.feature.model.events.LLMCallCompletedEvent;
+    import ai.koog.agents.core.feature.model.events.LLMCallStartingEvent;
+    import ai.koog.agents.features.tracing.feature.Tracing;
+    import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter;
+    import ai.koog.prompt.executor.model.PromptExecutor;
+    import ai.koog.prompt.executor.ollama.client.OllamaModels;
+    import java.nio.file.Files;
+    import java.nio.file.Path;
+    public class exampleEventsJava01 {
+        public static void main(String[] args) {
+            var outputPath = Path.of("/path/to/trace.log");
+            var agent = AIAgent.builder()
+                .promptExecutor(PromptExecutor.builder().ollama().build())
+                .llmModel(OllamaModels.Meta.LLAMA_3_2)
     -->
     <!--- SUFFIX
-    **/
+            .build();
+        }
+    }
     -->
     ```java
+    .install(Tracing.Feature, config -> {
+        var fileWriter = TraceFeatureMessageFileWriter.create(outputPath);
+        config.addMessageProcessor(fileWriter);
+
+        // 仅跟踪 LLM 调用
+        fileWriter.setMessageFilter(message ->
+            message instanceof LLMCallStartingEvent || message instanceof LLMCallCompletedEvent
+        );
+    })
     ```
-    <!--- KNIT example-events-java-01.java -->
+    <!--- KNIT exampleEventsJava01.java -->
 
 ### 我可以使用多个消息处理器吗？
 
@@ -459,7 +474,6 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
     import kotlinx.io.files.Path
     import kotlinx.io.files.SystemFileSystem
     const val input = "What's the weather like in New York?"
-    val syncOpener = { path: Path -> SystemFileSystem.sink(path).buffered() }
     val logger = KotlinLogging.logger {}
     val connectionConfig = DefaultServerConnectionConfig(host = ai.koog.agents.example.exampleTracing06.host, port = ai.koog.agents.example.exampleTracing06.port)
     fun main() {
@@ -478,7 +492,7 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
     ```kotlin
     install(Tracing) {
         addMessageProcessor(TraceFeatureMessageLogWriter(logger))
-        addMessageProcessor(TraceFeatureMessageFileWriter(outputPath, syncOpener))
+        addMessageProcessor(TraceFeatureMessageFileWriter.create(outputPath))
         addMessageProcessor(TraceFeatureMessageRemoteWriter(connectionConfig))
     }
     ```
@@ -487,14 +501,37 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 === "Java"
 
     <!--- INCLUDE
-    /**
+    import ai.koog.agents.core.agent.AIAgent;
+    import ai.koog.agents.features.tracing.feature.Tracing;
+    import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter;
+    import ai.koog.agents.features.tracing.writer.TraceFeatureMessageLogWriter;
+    import ai.koog.agents.features.tracing.writer.TraceFeatureMessageRemoteWriter;
+    import ai.koog.prompt.executor.model.PromptExecutor;
+    import ai.koog.prompt.executor.ollama.client.OllamaModels;
+    import org.slf4j.LoggerFactory;
+    import java.nio.file.Files;
+    import java.nio.file.Path;
+    public class exampleEventsJava02 {
+        public static void main(String[] args) {
+            var logger = LoggerFactory.getLogger("tracing");
+            var outputPath = Path.of("/path/to/trace.log");
+            var agent = AIAgent.builder()
+                .promptExecutor(PromptExecutor.builder().ollama().build())
+                .llmModel(OllamaModels.Meta.LLAMA_3_2)
     -->
     <!--- SUFFIX
-    **/
+            .build();
+        }
+    }
     -->
     ```java
+    .install(Tracing.Feature, config -> {
+        config.addMessageProcessor(TraceFeatureMessageLogWriter.create(logger));
+        config.addMessageProcessor(TraceFeatureMessageFileWriter.create(outputPath));
+        config.addMessageProcessor(new TraceFeatureMessageRemoteWriter());
+    })
     ```
-    <!--- KNIT example-events-java-02.java -->
+    <!--- KNIT exampleEventsJava02.java -->
 
 ### 我该如何创建自定义消息处理器？
 
@@ -511,54 +548,44 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
     import ai.koog.agents.features.tracing.feature.Tracing
     import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
     import ai.koog.prompt.executor.ollama.client.OllamaModels
-    import kotlinx.coroutines.runBlocking
     import kotlinx.coroutines.flow.MutableStateFlow
     import kotlinx.coroutines.flow.StateFlow
     import kotlinx.coroutines.flow.asStateFlow
+    import kotlinx.coroutines.runBlocking
     fun main() {
     runBlocking {
-    // Creating an agent
-    val agent = AIAgent(
-    promptExecutor = simpleOllamaAIExecutor(),
-    llmModel = OllamaModels.Meta.LLAMA_3_2,
-    ) {
     -->
     <!--- SUFFIX
-            }
         }
     }
     -->
     ```kotlin
     class CustomTraceProcessor : FeatureMessageProcessor() {
 
-        // 处理器当前的开启状态
-        private var _isOpen = MutableStateFlow(false)
-
-        override val isOpen: StateFlow<Boolean>
-            get() = _isOpen.asStateFlow()
-        
         override suspend fun processMessage(message: FeatureMessage) {
             // 自定义处理逻辑
-            when (message) {
-                is NodeExecutionStartingEvent -> {
-                    // 处理节点开始事件
-                }
-
-                is LLMCallCompletedEvent -> {
-                    // 处理 LLM 调用结束事件 
-                }
-                // 处理其他事件类型 
+            if (message is NodeExecutionStartingEvent) {
+                // 处理节点开始事件
+            } else if (message is LLMCallCompletedEvent) {
+                // 处理 LLM 调用结束事件
+            } else {
+                // 处理其他事件类型
             }
         }
 
         override suspend fun close() {
-            // 关闭已建立的连接
+            // 如果已建立连接，则关闭它们
         }
     }
 
-    // 使用您的自定义处理器
-    install(Tracing) {
-        addMessageProcessor(CustomTraceProcessor())
+    val agent = AIAgent(
+        promptExecutor = simpleOllamaAIExecutor(),
+        llmModel = OllamaModels.Meta.LLAMA_3_2,
+    ) {
+        install(Tracing) {
+            // 使用您的自定义处理器
+            addMessageProcessor(CustomTraceProcessor())
+        }
     }
     ```
     <!--- KNIT example-events-03.kt -->
@@ -566,13 +593,52 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 === "Java"
 
     <!--- INCLUDE
-    /**
+    import ai.koog.agents.core.agent.AIAgent;
+    import ai.koog.agents.core.feature.message.FeatureMessage;
+    import ai.koog.agents.core.feature.message.FeatureMessageProcessor;
+    import ai.koog.agents.core.feature.model.events.NodeExecutionStartingEvent;
+    import ai.koog.agents.core.feature.model.events.LLMCallCompletedEvent;
+    import ai.koog.agents.features.tracing.feature.Tracing;
+    import ai.koog.prompt.executor.model.PromptExecutor;
+    import ai.koog.prompt.executor.ollama.client.OllamaModels;
+    public class exampleEventsJava03 {
+        public static void main(String[] args) {
     -->
     <!--- SUFFIX
-    **/
+        }
+    }
     -->
     ```java
+    class CustomTraceProcessor extends FeatureMessageProcessor {
+
+        @Override
+        protected void handleMessage(FeatureMessage message) {
+            // 自定义处理逻辑
+            if (message instanceof NodeExecutionStartingEvent) {
+                // 处理节点开始事件
+            } else if (message instanceof LLMCallCompletedEvent) {
+                // 处理 LLM 调用结束事件
+            } else {
+                // 处理其他事件类型
+            }
+        }
+
+        @Override
+        public void handleClose() {
+            // 如果已建立连接，则关闭它们
+        }
+    }
+
+    var agent = AIAgent.builder()
+        .promptExecutor(PromptExecutor.builder().ollama().build())
+        .llmModel(OllamaModels.Meta.LLAMA_3_2)
+
+        .install(Tracing.Feature, config -> {
+            // 使用您的自定义处理器
+            config.addMessageProcessor(new CustomTraceProcessor());
+        })
+        .build();
     ```
-    <!--- KNIT example-events-java-03.java -->
+    <!--- KNIT exampleEventsJava03.java -->
 
 有关可由消息处理器处理的现有事件类型的更多信息，请参阅 [预定义事件类型](#predefined-event-types)。

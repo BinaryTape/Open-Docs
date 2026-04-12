@@ -160,7 +160,7 @@ interface GitHubService {
 
 해당 테스트 파일인 `test/tasks/AggregationKtTest.kt`에서 예상 결과의 예를 확인할 수 있습니다.
 
-> [IntelliJ IDEA 단축키](https://www.jetbrains.com/help/idea/create-tests.html#test-code-navigation) `Ctrl+Shift+T` / `Wait ⌘ T`를 사용하여 소스 코드와 테스트 클래스 사이를 자동으로 이동할 수 있습니다.
+> [IntelliJ IDEA 단축키](https://www.jetbrains.com/help/idea/create-tests.html#test-code-navigation) `Ctrl+Shift+T` / `⇧ ⌘ T`를 사용하여 소스 코드와 테스트 클래스 사이를 자동으로 이동할 수 있습니다.
 >
 {style="tip"}
 
@@ -295,7 +295,7 @@ fun loadContributorsCallbacks(
 
 #### 과제 3에 대한 첫 번째 시도 {initial-collapse-state="collapsed" collapsible="true"}
 
-현재 해결책에서는 많은 요청이 동시에 시작되어 전체 로딩 시간이 단축됩니다. 하지만 결과가 로드되지 않습니다. 이는 `allUsers` 리스트에 데이터가 채워지기 전, 모든 로딩 요청이 시작된 직후에 `updateResults()` 콜백이 호출되기 때문입니다.
+현재 해결책에서는 많은 요청이 동시에 시작되어 전체 로딩 시간이 단축됩니다. 하지만 결과가 로드되지 않습니다. 이는 `updateResults()` 콜백이 모든 로딩 요청이 시작된 직후, `allUsers` 리스트에 데이터가 채워지기 전에 호출되기 때문입니다.
 
 다음과 같이 수정하여 이를 해결하려고 시도할 수 있습니다:
 

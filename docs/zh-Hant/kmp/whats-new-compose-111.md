@@ -1,11 +1,12 @@
-[//]: # (title: Compose Multiplatform 1.11.0-beta01 的新功能)
+[//]: # (title: Compose Multiplatform 1.11.0-beta02 的新功能)
 
 以下是此早期體驗體計劃（EAP）功能發佈的亮點：
 
 * [原生 iOS 文字輸入](#native-text-input)
+* [Compose UI 測試 API v2 版本](#compose-ui-tests-v2)
 * [改進 Web 目標上的捲動](#scroll-on-web-targets-brought-in-line-with-native-ui)
 
-您可以在 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.11.0-beta01) 上找到完整的變更清單。
+您可以在 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.11.0-beta02) 上找到完整的變更清單。
 此版本的特定元件版本列在[相依性](#dependencies)部分。
 
 ## 破壞性變更與棄用
@@ -34,6 +35,14 @@ Compose Multiplatform 不再支援 Apple x86_64 目標，因為這些目標在 K
 * `Key.Home` 已被棄用，因為其對應錯誤。請使用 `Key.MoveHome` 進行鍵盤導覽，或使用 `Key.SystemHome` 進行系統級操作。
 
 ## 跨平台
+
+### Compose UI 測試 v2
+
+Compose Multiplatform 在非 Android 目標上引入了對 [v2 `ComposeUiTest` API](https://developer.android.com/develop/ui/compose/testing/migrate-v2) 的支援。這些新 API 使用 `StandardTestDispatcher` 作為預設測試分配器，而非 `UnconfinedTestDispatcher`。此變更確保協同程式（coroutine）根據事件佇列（event queue）按順序執行，從而提高測試的可靠性並與正式環境行為保持一致。
+
+我們還在 Compose UI 測試 v2 中增加了對 `effectContext` 參數的支援。此參數允許您在執行組合（composition）時指定自訂的協同程式內容（coroutine context）。
+
+先前提供的測試 API，例如 `runComposeUiTest`、`runSkikoComposeUiTest` 和 `runDesktopComposeUiTest`，現在已被棄用，建議改用其 v2 版本。
 
 ### Skia 更新至 Milestone 144
 
@@ -81,15 +90,15 @@ BasicTextField(
 
 | 程式庫 | Maven 座標 | 基於 Jetpack 版本 |
 |--------------------|--------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
-| Runtime            | `org.jetbrains.compose.runtime:runtime*:1.11.0-beta01`                         | [Runtime 1.11.0-beta01](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.11.0-beta01)                       |
-| UI                 | `org.jetbrains.compose.ui:ui*:1.11.0-beta01`                                   | [UI 1.11.0-beta01](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.11.0-beta01)                                 |
-| Foundation         | `org.jetbrains.compose.foundation:foundation*:1.11.0-beta01`                   | [Foundation 1.11.0-beta01](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.11.0-beta01)                 |
-| Material           | `org.jetbrains.compose.material:material*:1.11.0-beta01`                       | [Material 1.11.0-beta01](https://developer.android.com/jetpack/androidx/releases/compose-material#1.11.0-beta01)                     |
-| Material3          | `org.jetbrains.compose.material3:material3*:1.11.0-alpha05`                    | [Material3 1.5.0-alpha15](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha15)                   |
+| Runtime            | `org.jetbrains.compose.runtime:runtime*:1.11.0-beta02`                         | [Runtime 1.11.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.11.0-beta02)                       |
+| UI                 | `org.jetbrains.compose.ui:ui*:1.11.0-beta02`                                   | [UI 1.11.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.11.0-beta02)                                 |
+| Foundation         | `org.jetbrains.compose.foundation:foundation*:1.11.0-beta02`                   | [Foundation 1.11.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.11.0-beta02)                 |
+| Material           | `org.jetbrains.compose.material:material*:1.11.0-beta02`                       | [Material 1.11.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-material#1.11.0-beta02)                     |
+| Material3          | `org.jetbrains.compose.material3:material3*:1.11.0-alpha06`                    | [Material3 1.5.0-alpha16](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha16)                   |
 | Material3 Adaptive | `org.jetbrains.compose.material3.adaptive:adaptive*:1.3.0-alpha06`             | [Material3 Adaptive 1.3.0-alpha09](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.3.0-alpha09) |
-| Lifecycle          | `org.jetbrains.androidx.lifecycle:lifecycle-*:2.11.0-alpha02`                  | [Lifecycle 2.11.0-alpha02](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.11.0-alpha02)                         |
+| Lifecycle          | `org.jetbrains.androidx.lifecycle:lifecycle-*:2.11.0-alpha03`                  | [Lifecycle 2.11.0-alpha03](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.11.0-alpha03)                         |
 | Navigation         | `org.jetbrains.androidx.navigation:navigation-*:2.9.2`                         | [Navigation 2.9.7](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.7)                                         |
-| Navigation3        | `org.jetbrains.androidx.navigation3:navigation3-*:1.1.0-beta01`                | [Navigation3 1.1.0-beta01](https://developer.android.com/jetpack/androidx/releases/navigation3#1.1.0-beta01)                         |
+| Navigation3        | `org.jetbrains.androidx.navigation3:navigation3-*:1.1.0-rc01`                  | [Navigation3 1.1.0-rc01](https://developer.android.com/jetpack/androidx/releases/navigation3#1.1.0-rc01)                             |
 | Navigation Event   | `org.jetbrains.androidx.navigationevent:navigationevent-compose:1.1.0-alpha01` | [Navigation Event 1.1.0-alpha01](https://developer.android.com/jetpack/androidx/releases/navigationevent#1.1.0-alpha01)              |
 | Savedstate         | `org.jetbrains.androidx.savedstate:savedstate*:1.4.0`                          | [Savedstate 1.4.0](https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0)                                         |
 | WindowManager Core | `org.jetbrains.androidx.window:window-core:1.5.1`                              | [WindowManager 1.5.1](https://developer.android.com/jetpack/androidx/releases/window#1.5.1)                                          |

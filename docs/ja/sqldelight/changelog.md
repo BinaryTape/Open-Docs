@@ -17,6 +17,8 @@
 - [コンパイラ] グループ化されていない集計結果セット内の他のカラムが、常に Null 許容になるように修正
 - [PostgreSQLダイアレクト] `coalesce` および `ifnull` の Null 許容性を正しく解決するように修正
 - [PostgreSQLダイアレクト] PostgreSQL ダイアレクトの IDE 統合を修正
+- [PostgreSQLダイアレクト] PostgreSQL ダイアレクトの IDE プラグインを改善 (#6209 by @griffio)
+- [Intellijプラグイン] IDE プラグインがすべてのダイアレクトでコード補完を実行可能に改善 (#6210 by @griffio)
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -92,7 +94,7 @@
 - [コンパイラ] カラム参照時の FTS スタックオーバーフローを修正 (#5896 by @griffio)
 - [コンパイラ] `WITH RECURSIVE` のスタックオーバーフローを修正 (#5892 by @griffio)
 - [コンパイラ] `INSERT`|`UPDATE`|`DELETE RETURNING` 文の Notify を修正 (#5851 by @griffio)
-- [コンパイラ] `Long` を返すトランザクションブロック की 非同期リザルト型を修正 (#5836 by @griffio)
+- [コンパイラ] `Long` を返すトランザクションブロックの非同期リザルト型を修正 (#5836 by @griffio)
 - [コンパイラ] SQL パラメータバインディングの計算量を O(n²) から O(n) に最適化 (#5898 by @chenf7)
 - [SQLiteダイアレクト] Sqlite 3.18 で欠落していた関数を修正 (#5759 by @griffio)
 
@@ -114,7 +116,7 @@
 - [PostgreSQLダイアレクト] PostgreSql `DROP CONSTRAINT` (#5288 by @griffio)
 - [PostgreSQLダイアレクト] PostgreSql 型キャスト (#5089 by @griffio)
 - [PostgreSQLダイアレクト] サブクエリのための PostgreSql `LATERAL JOIN` 演算子 (#5122 by @griffio)
-- [PostgreSQLダイアレクト] PostgreSql `ILIKE` 演算子 (#5330 by @griffio)
+- [PostgreSQLダイアレクト] PostgreSQL `ILIKE` 演算子 (#5330 by @griffio)
 - [PostgreSQLダイアレクト] PostgreSql `XML` 型 (#5331 by @griffio)
 - [PostgreSQLダイアレクト] PostgreSql `AT TIME ZONE` (#5243 by @griffio)
 - [PostgreSQLダイアレクト] PostgreSql の `ORDER BY NULLS` をサポート (#5199 by @griffio)
@@ -146,12 +148,12 @@
 - [ランタイム] 実際のドライバが非同期の場合の `LogSqliteDriver` におけるクラッシュを修正 (#5723 by @edenman)
 - [ランタイム] `StringBuilder` の容量を修正 (#5192 by @janbina)
 - [PostgreSQLダイアレクト] PostgreSql `CREATE OR REPLACE VIEW` (#5407 by @griffio)
-- [PostgreSQLダイアレクト] PostgreSql `to_json` (#5606 by @griffio)
+- [PostgreSQLダイアレクト] PostgreSQL `to_json` (#5606 by @griffio)
 - [PostgreSQLダイアレクト] PostgreSql 数値リゾルバを修正 (#5399 by @griffio)
 - [PostgreSQLダイアレクト] sqlite ウィンドウ関数を修正 (#2799 by @griffio)
 - [PostgreSQLダイアレクト] PostgreSql `SELECT DISTINCT ON` (#5345 by @griffio)
 - [PostgreSQLダイアレクト] `ALTER TABLE ADD COLUMN IF NOT EXISTS` (#5309 by @griffio)
-- [PostgreSQLダイアレクト] PostgreSql 非同期バインドパラメータ (#5313 by @griffio)
+- [PostgreSQLダイアレクト] PostgreSQL 非同期バインドパラメータ (#5313 by @griffio)
 - [PostgreSQLダイアレクト] PostgreSql boolean リテラル (#5262 by @griffio)
 - [PostgreSQLダイアレクト] PostgreSql ウィンドウ関数 (#5155 by @griffio)
 - [PostgreSQLダイアレクト] PostgreSql `isNull`/`isNotNull` 型 (#5173 by @griffio)
@@ -389,7 +391,7 @@ Kotlin 1.7.20 および AGP 7.3.0 との互換性アップデート。
 ## [2.0.0-alpha04] - 2022-10-03
 [2.0.0-alpha04]: https://github.com/sqldelight/sqldelight/releases/tag/2.0.0-alpha04
 
-### Breaking Changes
+### 破壊的変更
 
 - Paging 3 拡張 API が変更され、count には int 型のみが許可されるようになりました。
 - コルーチン拡張で、ディスパッチャのデフォルト設定がなくなり、渡すことが必須になりました。
@@ -439,7 +441,7 @@ Kotlin 1.7.20 および AGP 7.3.0 との互換性アップデート。
 ## [2.0.0-alpha03] - 2022-06-17
 [2.0.0-alpha03]: https://github.com/sqldelight/sqldelight/releases/tag/2.0.0-alpha03
 
-### Breaking Changes
+### 破壊的変更
 
 - ダイアレクトは、実際の Gradle 依存関係のように参照されるようになりました。
 ```groovy
@@ -506,7 +508,7 @@ sqldelight {
 ## [2.0.0-alpha02] - 2022-04-13
 [2.0.0-alpha02]: https://github.com/sqldelight/sqldelight/releases/tag/2.0.0-alpha02
 
-### Breaking Changes
+### 破壊的変更
 
 - すべての `app.cash.sqldelight.runtime.rx` を `app.cash.sqldelight.rx2` に置換する必要があります。
 
@@ -576,7 +578,7 @@ sqldelight {
 
 2.0 の最初のアルファリリースであり、いくつかの破壊的変更が含まれています。今後も ABI の破壊的変更が予想されるため、このリリースに依存するライブラリは公開しないでください（アプリケーションでの利用は問題ありません）。
 
-### Breaking Changes
+### 破壊的変更
 
 - まず、すべての `com.squareup.sqldelight` を `app.cash.sqldelight` に置換する必要があります。
 - 次に、すべての `app.cash.sqldelight.android` を `app.cash.sqldelight.driver.android` に置換する必要があります。
@@ -743,7 +745,7 @@ sqldelight {
 - [JSドライバ] sql.js を 1.5.0 にアップグレード
 
 ### Fixed
-- [JDBC SQLiteドライバ] `ThreadLocal` をクリアする前に接続の `close()` を呼び出すように修正 (#2444 by @hannesstruss)
+- [JDBC SQLiteドライバ] 接続の `close()` を呼び出す前に `ThreadLocal` をクリアするように修正 (#2444 by @hannesstruss)
 - [RX拡張] サブスクリプション/破棄のレースリークを修正 (#2403 by @pyricau)
 - [コルーチン拡張] 通知前にクエリリスナーを登録するように修正
 - [コンパイラ] Kotlin 出力ファイルを一貫させるため `notifyQueries` をソート (by @thomascjy)
@@ -818,6 +820,8 @@ sqldelight {
 - [Gradleプラグイン] Gradle プラグインで `kotlin-native-utils` に依存しないように修正 (by @ilmat192)
 - [Gradleプラグイン] マイグレーションファイルのみが存在する場合でもデータベースを書き出すように修正 (#2094)
 - [Gradleプラグイン] 最終的なコンパイルユニットでダイヤモンド依存関係が 1 回だけ取得されるように修正 (#1455)
+
+SQLDelight のインフラ改善に多大な貢献をした @3flex に感謝します。
 
 ## [1.4.4] - 2020-10-08
 [1.4.4]: https://github.com/sqldelight/sqldelight/releases/tag/1.4.4
@@ -1110,7 +1114,7 @@ sqldelight {
  * 新機能: SQLite タイムスタンプリテラルのサポート。
  * 修正: パラメータ化された型が IntelliJ でクリック可能になるように修正。
  * 修正: エスケープされたカラム名が Cursor から取得した際に、`RuntimeException` を投げないように修正。
- * 修正: 例外出力時に Gradle プラグインがクラッシュしないように修正。
+ * 修正: Gradle プラグインが例外出力時にクラッシュしないように修正。
 
 ## [0.4.4] - 2016-07-20
 [0.4.4]: https://github.com/sqldelight/sqldelight/releases/tag/0.4.4

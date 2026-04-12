@@ -388,9 +388,6 @@ LLM 스트리밍 호출의 종료를 나타냅니다. 다음 필드를 포함합
     import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
     import ai.koog.prompt.executor.ollama.client.OllamaModels
     import kotlinx.coroutines.runBlocking
-    import kotlinx.io.buffered
-    import kotlinx.io.files.Path
-    import kotlinx.io.files.SystemFileSystem
     const val input = "What's the weather like in New York?"
     fun main() {
     runBlocking {
@@ -399,10 +396,6 @@ LLM 스트리밍 호출의 종료를 나타냅니다. 다음 필드를 포함합
     promptExecutor = simpleOllamaAIExecutor(),
     llmModel = OllamaModels.Meta.LLAMA_3_2,
     ) {
-    val writer = TraceFeatureMessageFileWriter(
-    outputPath,
-    { path: Path -> SystemFileSystem.sink(path).buffered() }
-    )
     -->
     <!--- SUFFIX
             }
@@ -411,13 +404,10 @@ LLM 스트리밍 호출의 종료를 나타냅니다. 다음 필드를 포함합
     -->
     ```kotlin
     install(Tracing) {
-        val fileWriter = TraceFeatureMessageFileWriter(
-            outputPath, 
-            { path: Path -> SystemFileSystem.sink(path).buffered() }
-        )
+        val fileWriter = TraceFeatureMessageFileWriter.create(outputPath)
         addMessageProcessor(fileWriter)
         
-        // Only trace LLM calls
+        // LLM 호출만 트레이싱
         fileWriter.setMessageFilter { message ->
             message is LLMCallStartingEvent || message is LLMCallCompletedEvent
         }
@@ -428,14 +418,39 @@ LLM 스트리밍 호출의 종료를 나타냅니다. 다음 필드를 포함합
 === "Java"
 
     <!--- INCLUDE
-    /**
+    import ai.koog.agents.core.agent.AIAgent;
+    import ai.koog.agents.core.feature.model.events.LLMCallCompletedEvent;
+    import ai.koog.agents.core.feature.model.events.LLMCallStartingEvent;
+    import ai.koog.agents.features.tracing.feature.Tracing;
+    import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter;
+    import ai.koog.prompt.executor.model.PromptExecutor;
+    import ai.koog.prompt.executor.ollama.client.OllamaModels;
+    import java.nio.file.Files;
+    import java.nio.file.Path;
+    public class exampleEventsJava01 {
+        public static void main(String[] args) {
+            var outputPath = Path.of("/path/to/trace.log");
+            var agent = AIAgent.builder()
+                .promptExecutor(PromptExecutor.builder().ollama().build())
+                .llmModel(OllamaModels.Meta.LLAMA_3_2)
     -->
     <!--- SUFFIX
-    **/
+            .build();
+        }
+    }
     -->
     ```java
+    .install(Tracing.Feature, config -> {
+        var fileWriter = TraceFeatureMessageFileWriter.create(outputPath);
+        config.addMessageProcessor(fileWriter);
+
+        // LLM 호출만 트레이싱
+        fileWriter.setMessageFilter(message ->
+            message instanceof LLMCallStartingEvent || message instanceof LLMCallCompletedEvent
+        );
+    })
     ```
-    <!--- KNIT example-events-java-01.java -->
+    <!--- KNIT exampleEventsJava01.java -->
 
 ### 여러 개의 메시지 프로세서를 사용할 수 있나요?
 
@@ -459,7 +474,6 @@ LLM 스트리밍 호출의 종료를 나타냅니다. 다음 필드를 포함합
     import kotlinx.io.files.Path
     import kotlinx.io.files.SystemFileSystem
     const val input = "What's the weather like in New York?"
-    val syncOpener = { path: Path -> SystemFileSystem.sink(path).buffered() }
     val logger = KotlinLogging.logger {}
     val connectionConfig = DefaultServerConnectionConfig(host = ai.koog.agents.example.exampleTracing06.host, port = ai.koog.agents.example.exampleTracing06.port)
     fun main() {
@@ -478,7 +492,7 @@ LLM 스트리밍 호출의 종료를 나타냅니다. 다음 필드를 포함합
     ```kotlin
     install(Tracing) {
         addMessageProcessor(TraceFeatureMessageLogWriter(logger))
-        addMessageProcessor(TraceFeatureMessageFileWriter(outputPath, syncOpener))
+        addMessageProcessor(TraceFeatureMessageFileWriter.create(outputPath))
         addMessageProcessor(TraceFeatureMessageRemoteWriter(connectionConfig))
     }
     ```
@@ -487,14 +501,37 @@ LLM 스트리밍 호출의 종료를 나타냅니다. 다음 필드를 포함합
 === "Java"
 
     <!--- INCLUDE
-    /**
+    import ai.koog.agents.core.agent.AIAgent;
+    import ai.koog.agents.features.tracing.feature.Tracing;
+    import ai.koog.agents.features.tracing.writer.TraceFeatureMessageFileWriter;
+    import ai.koog.agents.features.tracing.writer.TraceFeatureMessageLogWriter;
+    import ai.koog.agents.features.tracing.writer.TraceFeatureMessageRemoteWriter;
+    import ai.koog.prompt.executor.model.PromptExecutor;
+    import ai.koog.prompt.executor.ollama.client.OllamaModels;
+    import org.slf4j.LoggerFactory;
+    import java.nio.file.Files;
+    import java.nio.file.Path;
+    public class exampleEventsJava02 {
+        public static void main(String[] args) {
+            var logger = LoggerFactory.getLogger("tracing");
+            var outputPath = Path.of("/path/to/trace.log");
+            var agent = AIAgent.builder()
+                .promptExecutor(PromptExecutor.builder().ollama().build())
+                .llmModel(OllamaModels.Meta.LLAMA_3_2)
     -->
     <!--- SUFFIX
-    **/
+            .build();
+        }
+    }
     -->
     ```java
+    .install(Tracing.Feature, config -> {
+        config.addMessageProcessor(TraceFeatureMessageLogWriter.create(logger));
+        config.addMessageProcessor(TraceFeatureMessageFileWriter.create(outputPath));
+        config.addMessageProcessor(new TraceFeatureMessageRemoteWriter());
+    })
     ```
-    <!--- KNIT example-events-java-02.java -->
+    <!--- KNIT exampleEventsJava02.java -->
 
 ### 커스텀 메시지 프로세서는 어떻게 만드나요?
 
@@ -511,54 +548,44 @@ LLM 스트리밍 호출의 종료를 나타냅니다. 다음 필드를 포함합
     import ai.koog.agents.features.tracing.feature.Tracing
     import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
     import ai.koog.prompt.executor.ollama.client.OllamaModels
-    import kotlinx.coroutines.runBlocking
     import kotlinx.coroutines.flow.MutableStateFlow
     import kotlinx.coroutines.flow.StateFlow
     import kotlinx.coroutines.flow.asStateFlow
+    import kotlinx.coroutines.runBlocking
     fun main() {
     runBlocking {
-    // Creating an agent
-    val agent = AIAgent(
-    promptExecutor = simpleOllamaAIExecutor(),
-    llmModel = OllamaModels.Meta.LLAMA_3_2,
-    ) {
     -->
     <!--- SUFFIX
-            }
         }
     }
     -->
     ```kotlin
     class CustomTraceProcessor : FeatureMessageProcessor() {
 
-        // Current open state of the processor
-        private var _isOpen = MutableStateFlow(false)
-
-        override val isOpen: StateFlow<Boolean>
-            get() = _isOpen.asStateFlow()
-        
         override suspend fun processMessage(message: FeatureMessage) {
-            // Custom processing logic
-            when (message) {
-                is NodeExecutionStartingEvent -> {
-                    // Process node start event
-                }
-
-                is LLMCallCompletedEvent -> {
-                    // Process LLM call end event 
-                }
-                // Handle other event types 
+            // 커스텀 처리 로직
+            if (message is NodeExecutionStartingEvent) {
+                // 노드 시작 이벤트 처리
+            } else if (message is LLMCallCompletedEvent) {
+                // LLM 호출 종료 이벤트 처리
+            } else {
+                // 다른 이벤트 유형 처리
             }
         }
 
         override suspend fun close() {
-            // Close connections of established
+            // 연결이 수립된 경우 종료
         }
     }
 
-    // Use your custom processor
-    install(Tracing) {
-        addMessageProcessor(CustomTraceProcessor())
+    val agent = AIAgent(
+        promptExecutor = simpleOllamaAIExecutor(),
+        llmModel = OllamaModels.Meta.LLAMA_3_2,
+    ) {
+        install(Tracing) {
+            // 커스텀 프로세서 사용
+            addMessageProcessor(CustomTraceProcessor())
+        }
     }
     ```
     <!--- KNIT example-events-03.kt -->
@@ -566,13 +593,52 @@ LLM 스트리밍 호출의 종료를 나타냅니다. 다음 필드를 포함합
 === "Java"
 
     <!--- INCLUDE
-    /**
+    import ai.koog.agents.core.agent.AIAgent;
+    import ai.koog.agents.core.feature.message.FeatureMessage;
+    import ai.koog.agents.core.feature.message.FeatureMessageProcessor;
+    import ai.koog.agents.core.feature.model.events.NodeExecutionStartingEvent;
+    import ai.koog.agents.core.feature.model.events.LLMCallCompletedEvent;
+    import ai.koog.agents.features.tracing.feature.Tracing;
+    import ai.koog.prompt.executor.model.PromptExecutor;
+    import ai.koog.prompt.executor.ollama.client.OllamaModels;
+    public class exampleEventsJava03 {
+        public static void main(String[] args) {
     -->
     <!--- SUFFIX
-    **/
+        }
+    }
     -->
     ```java
+    class CustomTraceProcessor extends FeatureMessageProcessor {
+
+        @Override
+        protected void handleMessage(FeatureMessage message) {
+            // 커스텀 처리 로직
+            if (message instanceof NodeExecutionStartingEvent) {
+                // 노드 시작 이벤트 처리
+            } else if (message instanceof LLMCallCompletedEvent) {
+                // LLM 호출 종료 이벤트 처리
+            } else {
+                // 다른 이벤트 유형 처리
+            }
+        }
+
+        @Override
+        public void handleClose() {
+            // 연결이 수립된 경우 종료
+        }
+    }
+
+    var agent = AIAgent.builder()
+        .promptExecutor(PromptExecutor.builder().ollama().build())
+        .llmModel(OllamaModels.Meta.LLAMA_3_2)
+
+        .install(Tracing.Feature, config -> {
+            // 커스텀 프로세서 사용
+            config.addMessageProcessor(new CustomTraceProcessor());
+        })
+        .build();
     ```
-    <!--- KNIT example-events-java-03.java -->
+    <!--- KNIT exampleEventsJava03.java -->
 
 메시지 프로세서에서 처리할 수 있는 기존 이벤트 유형에 대한 자세한 내용은 [사전 정의된 이벤트 유형](#predefined-event-types)을 참조하세요.

@@ -1,6 +1,6 @@
 [//]: # (title: Ktor Client 中的 Bearer 驗證)
 
-<show-structure for="chapter" depth="2"/>
+<show-structure for="chapter" depth="3"/>
 
 <tldr>
 <p>
@@ -15,134 +15,162 @@
 </p>
 </tldr>
 
-Bearer 驗證涉及稱為 Bearer 權杖（bearer token）的安全性權杖。舉例來說，這些權杖可作為 OAuth 流程的一部分，透過 Google、Facebook、Twitter 等外部提供者來授權應用程式的使用者。您可以從 Ktor 伺服器的 [OAuth 授權流程](server-oauth.md#flow) 章節了解 OAuth 流程的運作方式。
+Bearer 驗證使用稱為 _Bearer 權杖 (bearer token)_ 的安全性權杖。這些權杖通常用於 OAuth 2.0 流程，透過 Google、Facebook 和 X 等外部提供者來授權使用者。
+
+您可以在 [Ktor 伺服器文件的 OAuth 授權流程章節](server-oauth.md#flow) 中進一步了解 OAuth 流程。
 
 > 在伺服器上，Ktor 提供了 [Authentication](server-bearer-auth.md) 外掛程式來處理 Bearer 驗證。
 
 ## 配置 Bearer 驗證 {id="configure"}
 
-Ktor 用戶端允許您配置在使用 `Bearer` 方案的 `Authorization` 標頭中傳送的權杖。您也可以指定當舊權杖無效時重新整理權杖的邏輯。要配置 `bearer` 提供者，請遵循以下步驟：
+Ktor 用戶端允許您使用 `Bearer` 方案在 `Authorization` 標頭中傳送權杖。您也可以定義當權杖過期時重新整理權杖的邏輯。
 
-1. 在 `install` 區塊內呼叫 `bearer` 函式。
-   ```kotlin
-   import io.ktor.client.*
-   import io.ktor.client.engine.cio.*
-   import io.ktor.client.plugins.auth.*
-   //...
-   val client = HttpClient(CIO) {
-       install(Auth) {
-          bearer {
-             // 配置 Bearer 驗證
-          }
+要配置 Bearer 驗證，請安裝 `Auth` 外掛程式並配置 `bearer` 提供者：
+
+```kotlin
+import io.ktor.client.*
+import io.ktor.client.engine.cio.*
+import io.ktor.client.plugins.auth.*
+//...
+val client = HttpClient(CIO) {
+   install(Auth) {
+      bearer {
+         // 配置 Bearer 驗證
+      }
+   }
+}
+```
+
+### 載入權杖
+
+使用 `loadTokens {}` 回呼提供初始存取與重新整理權杖。通常，此回呼會從本機儲存空間載入快取的權杖，並將其作為 `BearerTokens` 執行個體傳回。
+
+```kotlin
+install(Auth) {
+   bearer {
+       loadTokens {
+           // 從本機儲存空間載入權杖並將其作為 'BearerTokens' 執行個體傳回
+           BearerTokens("abc123", "xyz111")
        }
    }
-   ```
-   
-2. 使用 `loadTokens` 回呼配置如何取得初始存取與重新整理權杖。此回呼旨在從本機儲存空間載入快取的權杖，並將其作為 `BearerTokens` 執行個體傳回。
+}
+```
 
-   ```kotlin
-   install(Auth) {
-       bearer {
-           loadTokens {
-               // 從本機儲存空間載入權杖並將其作為 'BearerTokens' 執行個體傳回
-               BearerTokens("abc123", "xyz111")
-           }
+在此範例中，用戶端在 `Authorization` 標頭中傳送 `abc123` 存取權杖：
+
+```HTTP
+GET http://localhost:8080/
+Authorization: Bearer abc123
+```
+
+### 重新整理權杖
+
+當目前的存取權杖變為無效時，使用 `refreshTokens {}` 回呼來定義用戶端如何獲取新權杖：
+
+```kotlin
+install(Auth) {
+   bearer {
+       // 載入權杖 ...
+       refreshTokens { // this: RefreshTokensParams
+           // 重新整理權杖並將其作為 'BearerTokens' 執行個體傳回
+           BearerTokens("def456", "xyz111")
        }
    }
-   ```
+}
+```
    
-   `abc123` 存取權杖會隨每個 [請求](client-requests.md) 在使用 `Bearer` 方案的 `Authorization` 標頭中傳送：
-   ```HTTP
-   GET http://localhost:8080/
-   Authorization: Bearer abc123
-   ```
+重新整理程序運作如下：
    
-3. 使用 `refreshTokens` 指定當舊權杖無效時如何取得新權杖。
+1. 用戶端使用無效的存取權杖向受保護的資源發出請求。
+2. 資源伺服器傳回 `401 Unauthorized` 回應。
+3. 用戶端自動叫用 `refreshTokens {}` 回呼以獲取新權杖。
+4. 用戶端使用新權杖重試對受保護資源的請求。
 
-   ```kotlin
-   install(Auth) {
-       bearer {
-           // 載入權杖 ...
-           refreshTokens { // this: RefreshTokensParams
-               // 重新整理權杖並將其作為 'BearerTokens' 執行個體傳回
-               BearerTokens("def456", "xyz111")
-           }
+當多個請求同時因 `401 Unauthorized` 失敗時，用戶端僅執行一次權杖重新整理。第一個收到 `401` 回應的請求會觸發 `refreshTokens {}` 回呼。其他請求則等待重新整理操作完成，然後使用新權杖進行重試。
+
+> 如果安裝了[多個提供者](client-auth.md#realm)，回應應包含 `WWW-Authenticate` 標頭。
+> 如果用戶端僅安裝了一個驗證提供者，即使遺失 `WWW-Authenticate` 標頭或指定了不同的方案，Ktor 仍會針對 `401 Unauthorized` 回應嘗試該提供者。
+>
+{style="tip"}
+
+### 無需等待 401 即可傳送憑據
+
+預設情況下，用戶端僅在收到 `401 Unauthorized` 回應後才傳送憑據。
+
+您可以使用 `sendWithoutRequest {}` 回呼函式來覆寫此行為。此回呼決定用戶端是否應在傳送請求之前附加憑據。
+
+例如，以下配置在存取 Google API 時一律傳送權杖：
+
+```kotlin
+install(Auth) {
+   bearer {
+       // 載入與重新整理權杖 ...
+       sendWithoutRequest { request ->
+           request.url.host == "www.googleapis.com"
        }
    }
-   ```
-   
-   此回呼的運作方式如下：
-   
-   a. 用戶端使用無效的存取權杖向受保護的資源發出請求，並獲得 `401` (Unauthorized) 回應。
-     > 如果安裝了 [多個提供者](client-auth.md#realm)，回應應包含 `WWW-Authenticate` 標頭。
-   
-   b. 用戶端自動呼叫 `refreshTokens` 以取得新權杖。
+}
+```
 
-   c. 用戶端這次會自動使用新權杖再次向受保護的資源發出請求。
+### 快取權杖
 
-4. （選用）指定在不等待 `401` (Unauthorized) 回應的情況下傳送憑據的條件。例如，您可以檢查請求是否發送到指定的主機。
+使用 `cacheTokens` 屬性來控制是否在請求之間快取 Bearer 權杖。
 
-   ```kotlin
-   install(Auth) {
-       bearer {
-           // 載入與重新整理權杖 ...
-           sendWithoutRequest { request ->
-               request.url.host == "www.googleapis.com"
-           }
-       }
-   }
-   ```
-
-5. （選用）使用 `cacheTokens` 選項來控制是否在請求之間快取 Bearer 權杖。停用快取會強制用戶端針對每個請求重新載入權杖，這在權杖頻繁變更時非常有用：
+如果停用快取，用戶端會針對每個請求呼叫 `loadTokens {}` 函式：
    
-    ```kotlin
-   install(Auth) {
-        bearer {
-            cacheTokens = false   // 針對每個請求重新載入權杖
-            loadTokens {
-                loadDynamicTokens()
-            }
+```kotlin
+install(Auth) {
+    bearer {
+        cacheTokens = false   // 針對每個請求重新載入權杖
+        loadTokens {
+            loadDynamicTokens()
         }
     }
-    ```
+}
+```
+
+當權杖頻繁變更時，停用快取可能會很有用。
    
-    > 有關以程式化方式清除快取憑據的詳細資訊，請參閱通用的 [權杖快取與快取控制](client-auth.md#token-caching) 章節。
+> 有關以程式化方式清除快取憑據的詳細資訊，請參閱通用的[權杖快取與快取控制](client-auth.md#token-caching)文件。
+> 
+{style="tip"}
 
 ## 範例：使用 Bearer 驗證存取 Google API {id="example-oauth-google"}
 
-讓我們來看看如何使用 Bearer 驗證來存取使用 [OAuth 2.0 協定](https://developers.google.com/identity/protocols/oauth2) 進行驗證與授權的 Google API。我們將研究獲取 Google 個人資料資訊的 [client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-auth-oauth-google) 主控台應用程式。
+此範例示範如何對 Google API 使用 Bearer 驗證，Google API 使用 [OAuth 2.0 協定](https://developers.google.com/identity/protocols/oauth2)進行驗證與授權。
+
+範例應用程式 [client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-auth-oauth-google) 會抓取使用者的 Google 個人資料資訊。
 
 ### 取得用戶端憑據 {id="google-client-credentials"}
-要存取 Google API，您首先需要 OAuth 用戶端憑據：
+
+要存取 Google API，您首先需要取得 OAuth 用戶端憑據：
+
 1. 建立或登入 Google 帳戶。
-2. 開啟 [Google Cloud Console](https://console.cloud.google.com/apis/credentials) 並建立一個應用程式類型為 `Android` 的 `OAuth 用戶端 ID`。此用戶端 ID 將用於取得 [授權許可](#step1)。
+2. 開啟 [Google Cloud Console](https://console.cloud.google.com/apis/credentials)。
+3. 建立一個應用程式類型為 `Android` 的 `OAuth 用戶端 ID`。您將使用此用戶端 ID 來取得[授權許可](#step1)。
 
 ### OAuth 授權流程 {id="oauth-flow"}
 
-OAuth 授權流程如下所示：
+OAuth 授權流程包含以下步驟：
 
-```Console
-(1)  --> 授權請求                             資源擁有者
-(2)  <-- 授權許可 (代碼)                       資源擁有者
-(3)  --> 授權許可 (代碼)                       授權伺服器
-(4)  <-- 存取與重新整理權杖                    授權伺服器
-(5)  --> 使用有效權杖發出請求                  資源伺服器
-(6)  <-- 受保護的資源                         資源伺服器
-⌛⌛⌛    權杖已過期
-(7)  --> 使用過期權杖發出請求                  資源伺服器
-(8)  <-- 401 Unauthorized 回應                資源伺服器
-(9)  --> 授權許可 (重新整理權杖)               授權伺服器
-(10) <-- 存取與重新整理權杖                    授權伺服器
-(11) --> 使用新權杖發出請求                    資源伺服器
-(12) <-- 受保護的資源                         資源伺服器
-```
-{disable-links="false"}
+1. 用戶端向資源擁有者傳送[授權請求](#step1)。
+2. 資源擁有者[傳回授權碼](#step2)。
+3. 用戶端將[授權碼傳送](#step3)至授權伺服器。
+4. 授權伺服器[傳回存取與重新整理權杖](#step4)。
+5. 用戶端[使用存取權杖向資源伺服器傳送請求](#step5)。
+6. 資源伺服器[傳回受保護的資源](#step6)。
+7. 在存取權杖過期後，用戶端[使用過期的權杖傳送請求](#step7)。
+8. 資源伺服器[回應 401 Unauthorized](#step8)。
+9. 用戶端將[重新整理權杖傳送](#step9)至授權伺服器。
+10. 授權伺服器[傳回新的存取與重新整理權杖](#step10)。
+11. 用戶端[使用新的存取權杖向資源伺服器傳送新請求](#step11)。
+12. 資源伺服器[傳回受保護的資源](#step12)。
 
-接下來的章節將說明每個步驟是如何實作的，以及 `Bearer` 驗證提供者如何協助存取 API。
+以下章節將說明 Ktor 用戶端如何實作每個步驟。
 
-### (1) -> 授權請求 {id="step1"}
+#### 授權請求 {id="step1"}
 
-第一步是構建用於請求必要權限的授權 URL。這是透過附加所需的查詢參數來完成的：
+首先，構建用於請求必要權限的授權 URL。這是透過附加所需的查詢參數來完成的：
 
 ```kotlin
 val authorizationUrlQuery = parameters {
@@ -156,25 +184,25 @@ println("https://accounts.google.com/o/oauth2/auth?$authorizationUrlQuery")
 println("開啟上方連結，取得授權碼，將其插入下方，然後按 Enter 鍵。")
 ```
 
-- `client_id`：先前[取得](#google-client-credentials)的用戶端 ID，用於存取 Google API。
-- `scope`：Ktor 應用程式所需資源的範圍。在此案例中，應用程式請求有關使用者個人資料的資訊。
-- `response_type`：用於取得存取權杖的授權類型。在此案例中，它被設定為 `"code"` 以取得授權碼。
-- `redirect_uri`：`http://127.0.0.1:8080` 值表示使用 _迴圈回送 IP 位址 (Loopback IP address)_ 流程來取得授權碼。
+- `client_id`：用於存取 Google API 的 [OAuth 用戶端 ID](#google-client-credentials)。
+- `scope`：應用程式請求的權限。在此案例中，是關於使用者個人資料的資訊。
+- `response_type`：用於獲取存取權杖的授權類型。設定為 `"code"` 以獲取授權碼。
+- `redirect_uri`：`http://127.0.0.1:8080` 值表示使用 _迴圈回送 IP 位址 (Loopback IP address)_ 流程來獲取授權碼。
    > 要使用此 URL 接收授權碼，您的應用程式必須在該本機 Web 伺服器上進行監聽。
-   > 例如，您可以使用 [Ktor 伺服器](server-create-and-configure.topic) 來取得作為查詢參數的授權碼。
+   > 例如，您可以使用 [Ktor 伺服器](server-create-and-configure.topic) 來獲取作為查詢參數的授權碼。
 - `access_type`：設定為 `offline`，以便應用程式在使用者不在瀏覽器前時也能重新整理存取權杖。
 
-### (2)  <- 授權許可 (代碼) {id="step2"}
+#### 授權許可 (代碼) {id="step2"}
 
-從瀏覽器複製授權碼，貼到主控台中，並將其儲存在變數中：
+在授權存取後，瀏覽器會傳回一個授權碼。複製該程式碼並將其儲存在變數中：
 
 ```kotlin
 val authorizationCode = readln()
 ```
 
-### (3)  -> 授權許可 (代碼) {id="step3"}
+#### 用授權碼交換權杖 {id="step3"}
 
-接下來，用授權碼交換權杖。為此，請建立一個用戶端並安裝具有 `json` 序列化程式的 [ContentNegotiation](client-serialization.md) 外掛程式。此序列化程式是用來還原序列化從 Google OAuth 權杖端點收到的權杖。
+接下來，用授權碼交換權杖。為此，請建立一個用戶端並安裝具有 JSON 序列化程式的 [`ContentNegotiation`](client-serialization.md) 外掛程式：
 
 ```kotlin
 val client = HttpClient(CIO) {
@@ -184,7 +212,9 @@ val client = HttpClient(CIO) {
 }
 ```
 
-使用建立的用戶端，您可以安全地將授權碼和其他必要選項作為 [表單參數](client-requests.md#form_parameters) 傳遞給權杖端點：
+此序列化程式是將從 Google OAuth 權杖端點收到的權杖還原序列化所必需的。
+
+使用建立的用戶端，將授權碼和其他必要選項作為[表單參數](client-requests.md#form_parameters)傳遞給權杖端點：
 
 ```kotlin
 val tokenInfo: TokenInfo = client.submitForm(
@@ -199,7 +229,7 @@ val tokenInfo: TokenInfo = client.submitForm(
 ).body()
 ```
 
-結果，權杖端點會傳送一個 JSON 物件形式的權杖，並使用已安裝的 `json` 序列化程式將其還原序列化為 `TokenInfo` 類別執行個體。`TokenInfo` 類別如下所示：
+權杖端點傳回一個 JSON 回應，用戶端將其還原序列化為 `TokenInfo` 執行個體。`TokenInfo` 類別如下所示：
 
 ```kotlin
 import kotlinx.serialization.*
@@ -215,9 +245,9 @@ data class TokenInfo(
 )
 ```
 
-### (4)  <- 存取與重新整理權杖 {id="step4"}
+#### 儲存權杖 {id="step4"}
 
-收到權杖後，將其儲存，以便提供給 `loadTokens` 和 `refreshTokens` 回呼。在此範例中，儲存空間是一個 `BearerTokens` 的可變清單：
+收到權杖後，將其儲存，以便提供給 `loadTokens {}` 和 `refreshTokens {}` 回呼。在此範例中，儲存空間是一個 `BearerTokens` 的可變清單：
 
 ```kotlin
         val bearerTokenStorage = mutableListOf<BearerTokens>()
@@ -225,13 +255,15 @@ data class TokenInfo(
         bearerTokenStorage.add(BearerTokens(tokenInfo.accessToken, tokenInfo.refreshToken!!))
 ```
 
-> 請注意，`bearerTokenStorage` 應在 [初始化用戶端](#step3) 之前建立，因為它將在用戶端配置內使用。
+> 請在[初始化用戶端](#step3)之前建立權杖儲存空間，因為它將在用戶端配置內使用。
+>
+{style="note"}
 
-### (5)  -> 使用有效權杖發出請求 {id="step5"}
+#### 使用有效權杖傳送請求 {id="step5"}
 
 既然有了有效的權杖，用戶端就可以向受保護的 Google API 發出請求並檢索使用者資訊。
 
-在此之前，您需要調整用戶端 [配置](#step3)：
+在此之前，配置用戶端使用 Bearer 驗證：
 
 ```kotlin
         val client = HttpClient(CIO) {
@@ -254,11 +286,8 @@ data class TokenInfo(
 
 指定了以下設定： 
 
-- 已安裝的帶有 `json` 序列化程式的 [ContentNegotiation](client-serialization.md) 外掛程式是必要的，用於將從資源伺服器收到的 JSON 格式使用者資訊還原序列化。
-
-- 帶有 `bearer` 提供者的 [Auth](client-auth.md) 外掛程式配置如下：
-  * `loadTokens` 回呼從 [儲存空間](#step4) 載入權杖。
-  * `sendWithoutRequest` 回呼在存取 Google 受保護的 API 時，無需等待 `401 Unauthorized` 回應即可傳送存取權杖。
+* `loadTokens` 回呼從[儲存空間](#step4)檢索權杖。
+* `sendWithoutRequest {}` 回呼在呼叫 Google API 時，無需等待 `401 Unauthorized` 回應即可傳送存取權杖。
 
 有了這個用戶端，您現在可以向受保護的資源發出請求：
 
@@ -281,7 +310,7 @@ while (true) {
 }
 ```
 
-### (6)  <- 受保護的資源 {id="step6"}
+#### 存取受保護的資源 {id="step6"}
 
 資源伺服器以 JSON 格式傳回使用者的資訊。您可以將回應還原序列化為 `UserInfo` 類別執行個體並顯示個人化問候：
 
@@ -306,19 +335,21 @@ data class UserInfo(
 )
 ```
 
-### (7)  -> 使用過期權杖發出請求 {id="step7"}
+#### 使用過期權杖發出請求 {id="step7"}
 
-在某些時候，用戶端會重複 [步驟 5](#step5) 的請求，但使用的是已過期的存取權杖。
+在某些時候，用戶端會重複[步驟 5](#step5) 的請求，但使用的是已過期的存取權杖。
 
-### (8)  <- 401 Unauthorized 回應 {id="step8"}
+#### 401 Unauthorized 回應 {id="step8"}
 
-當權杖不再有效時，資源伺服器會傳回 `401 Unauthorized` 回應。用戶端接著會叫用 `refreshTokens` 回呼，該回呼負責取得新權杖。
+當權杖不再有效時，資源伺服器會傳回 `401 Unauthorized` 回應。用戶端接著會叫用 `refreshTokens {}` 回呼，該回呼負責獲取新權杖。
 
-> `401` 回應會傳回包含錯誤詳細資訊的 JSON 資料。這需要在 [接收回應時處理](#step12)。
+> `401 Unauthorized` 回應會傳回包含錯誤詳細資訊的 JSON 資料。這需要在[接收回應時處理](#step12)。
+>
+{style="tip"}
 
-### (9)  -> 授權許可 (重新整理權杖) {id="step9"}
+#### 重新整理存取權杖 {id="step9"}
 
-要取得新的存取權杖，您需要配置 `refreshTokens` 以向權杖端點發出另一個請求。這一次，使用的是 `refresh_token` 授權類型，而不是 `authorization_code`：
+要獲取新的存取權杖，配置 `refreshTokens {}` 回呼以向權杖端點發出另一個請求。這一次，使用的是 `refresh_token` 授權類型，而不是 `authorization_code`：
 
 ```kotlin
 install(Auth) {
@@ -337,15 +368,14 @@ install(Auth) {
 }
 ```
 
-`refreshTokens` 回呼使用 `RefreshTokensParams` 作為接收者 (receiver)，並允許您存取以下設定：
-- `client` 執行個體，可用於提交表單參數。
-- `oldTokens` 屬性，用於存取重新整理權杖並將其傳送到權杖端點。
+`refreshTokens {}` 回呼使用 `RefreshTokensParams` 作為接收者 (receiver)，並允許您存取以下設定：
+* `client` 執行個體，可用於提交表單參數。
+* `oldTokens` 屬性用於存取重新整理權杖並將其傳送到權杖端點。
+* `HttpRequestBuilder` 提供的 `.markAsRefreshTokenRequest()` 函式可將請求標記為重新整理驗證權杖，從而對其進行特殊處理。
 
-> `HttpRequestBuilder` 提供的 `markAsRefreshTokenRequest` 函式可以對用於取得重新整理權杖的請求進行特殊處理。
+#### 儲存重新整理後的權杖 {id="step10"}
 
-### (10) <- 存取與重新整理權杖 {id="step10"}
-
-收到新權杖後，需要將其儲存在 [權杖儲存空間](#step4) 中。至此，`refreshTokens` 回呼如下所示：
+收到新權杖後，將其儲存在[權杖儲存空間](#step4)中。至此，`refreshTokens {}` 回呼如下所示：
 
 ```kotlin
 refreshTokens {
@@ -362,16 +392,16 @@ refreshTokens {
 }
 ```
 
-### (11) -> 使用新權杖發出請求 {id="step11"}
+#### 使用新權杖發出請求 {id="step11"}
 
 隨著儲存了重新整理後的存取權杖，下一次對受保護資源的請求應該會成功：
 ```kotlin
 val response: HttpResponse = client.get("https://www.googleapis.com/oauth2/v2/userinfo")
 ```
 
-### (12) <-- 受保護的資源 {id="step12"}
+#### 處理 API 錯誤 {id="step12"}
 
-鑑於 [401 回應](#step8) 傳回包含錯誤詳細資訊的 JSON 資料，請更新範例以將錯誤回應讀取為 `ErrorInfo` 物件：
+鑑於 [`401 Unauthorized` 回應](#step8) 傳回包含錯誤詳細資訊的 JSON 資料，請更新範例以將錯誤回應讀取為 `ErrorInfo` 物件：
 
 ```kotlin
 val response: HttpResponse = client.get("https://www.googleapis.com/oauth2/v2/userinfo")
@@ -400,4 +430,6 @@ data class ErrorDetails(
 )
 ```
 
-有關完整範例，請參閱 [client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-auth-oauth-google)。
+> 有關完整範例，請參閱 [client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-auth-oauth-google)。
+> 
+{style="tip"}

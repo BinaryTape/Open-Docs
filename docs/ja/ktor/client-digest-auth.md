@@ -17,6 +17,8 @@
 
 > サーバー側では、Ktor はダイジェスト認証を処理するための [Authentication](server-digest-auth.md) プラグインを提供しています。
 
+undefined
+
 ## ダイジェスト認証のフロー {id="flow"}
 
 ダイジェスト認証のフローは以下の通りです。

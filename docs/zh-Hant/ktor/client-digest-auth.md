@@ -17,6 +17,8 @@
 
 > 在伺服器端，Ktor 提供了 [Authentication](server-digest-auth.md) 外掛程式來處理 Digest 驗證。
 
+undefined
+
 ## Digest 驗證流程 {id="flow"}
 
 Digest 驗證流程如下：

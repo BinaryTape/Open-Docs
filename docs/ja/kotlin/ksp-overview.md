@@ -25,7 +25,7 @@ KSP の別の捉え方として、Kotlin プログラムのプリプロセッサ
 2. プロセッサがコードまたはその他の形式の出力を生成する。
 3. Kotlin コンパイラが、ソースプログラムを生成されたコードと一緒にコンパイルする。
 
-本格的なコンパイラプラグインとは異なり、プロセッサはコードを変更することはできません。言語のセマンティクス（意味論）を変更するコンパイラプラグインは、時に非常に混乱を招くことがあります。KSP は、ソースプログラムを読み取り専用として扱うことで、その問題を回避しています。
+本格的なコンパイラプラグインとは異なり, プロセッサはコードを変更することはできません。言語のセマンティクス（意味論）を変更するコンパイラプラグインは、時に非常に混乱を招くことがあります。KSP は、ソースプログラムを読み取り専用として扱うことで、その問題を回避しています。
 
 KSP の概要については、こちらの動画（英語）でもご確認いただけます：
 
@@ -143,7 +143,7 @@ class HelloFunctionFinderProcessor : SymbolProcessor() {
 * [インクリメンタル処理に関するメモ](ksp-incremental.md)
 * [マルチラウンド処理に関するメモ](ksp-multi-round.md)
 * [マルチプラットフォームプロジェクトでの KSP](ksp-multiplatform.md)
-* [コマンドラインからの KSP の実行](ksp-command-line.md)
+* [コマンドラインからの KSP の実行](https://github.com/google/ksp/blob/main/docs/ksp2cmdline.md)
 * [FAQ](ksp-faq.md)
 
 ## サポートされているライブラリ
@@ -169,6 +169,7 @@ class HelloFunctionFinderProcessor : SymbolProcessor() {
 | SealedX          | [公式サポート済み](https://github.com/skydoves/sealedx)                                       |
 | Ktorfit          | [公式サポート済み](https://github.com/Foso/Ktorfit)                                           |
 | Mockative        | [公式サポート済み](https://github.com/mockative/mockative)                                    |
+| Kotest           | [公式サポート済み](https://github.com/kotest/kotest)                                          |
 | DeeplinkDispatch | [airbnb/DeepLinkDispatch#323 経由でサポート](https://github.com/airbnb/DeepLinkDispatch/pull/323)  |
 | Dagger           | [アルファ](https://dagger.dev/dev-guide/ksp)                                                         |
 | Motif            | [アルファ](https://github.com/uber/motif)                                                            |

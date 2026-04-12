@@ -17,6 +17,8 @@ Basic [인증 체계(authentication scheme)](client-auth.md)는 사용자의 로
 
 > 서버 측에서 Ktor는 Basic 인증을 처리하기 위한 [Authentication](server-basic-auth.md) 플러그인을 제공합니다.
 
+undefined
+
 ## Basic 인증 흐름 {id="flow"}
 
 Basic 인증 흐름은 다음과 같습니다:
