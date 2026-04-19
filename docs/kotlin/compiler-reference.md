@@ -22,7 +22,7 @@ Kotlin 编译器具有许多用于定制编译过程的选项。
 * 如果您使用 Gradle，请在 Kotlin 编译任务的 `compilerOptions` 属性中指定编译器实参。
 有关详细信息，请参阅 [Gradle 编译器选项](gradle-compiler-options.md#how-to-define-options)。
 * 如果您使用 Maven，请在 Maven 插件节点的 `<configuration>` 元素中指定编译器实参。
-有关详细信息，请参阅 [Maven](maven-compile-package.md#specify-compiler-options)。
+有关详细信息，请参阅 [Maven](maven-kotlin-compiler.md#specify-compiler-options)。
 * 如果运行命令行编译器，请直接在实用工具调用中添加编译器实参，或将其写入 [实参文件 (argfile)](#argfile)。
 
   例如：
@@ -205,7 +205,7 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 ### -Xallow-reified-type-in-catch
 <primary-label ref="experimental-general"/>
 
-在 `inline` 函数的 `catch` 子句中启用对具体化 (reified) `Throwable` 类型形参的支持。
+在 `inline` 函数的 `catch` 子句中启用对具体化 (reified) `Throwable` 类型实参的支持。
 
 ### Kotlin 契约选项
 <primary-label ref="experimental-general"/>
@@ -321,7 +321,7 @@ kotlinc -Xcompiler-plugin-order=plugin.middle>plugin.last
 自动设置 [`-jvm-target version`](#jvm-target-version)。
 可选值为 `1.8`、`9`、`10`、……、`25`。
 
-> 此选项[不保证](https://youtrack.jetbrains.com/issue/KT-29974)对每个 JDK 分行版都有效。
+> 此选项[不保证](https://youtrack.jetbrains.com/issue/KT-29974)对每个 JDK 发行版都有效。
 >
 {style="note"}
 

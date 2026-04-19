@@ -252,7 +252,7 @@ YouTube
 </td>
 <td>
 
-[面向 Android 开发者的 KMP](https://nsmirosh.gumroad.com/l/tmmqwa)
+[面向 Android 开发者的 KMP](https://learnkmp.com/)
 
 视频课程
 
@@ -264,7 +264,7 @@ Gumroad
 </td>
 
 <td>
-如何通过掌握 expect/actual 和源集等 KMP 基础知识，以及使用 Ktor 进行网络连接和 Room 进行持久化等现代库构建完整的应用栈，将您现有的 Android 开发技能扩展到 iOS。
+如何通过掌握 expect/actual 和源集等 KMP 基础知识，以及使用 Ktor 进行网络连接、Koin 进行依赖注入、Nav3 和使用 Room 进行持久化构建完整的应用栈，将您现有的 Android 开发技能扩展到 iOS。
 </td>
 <td>
 约 $60
@@ -678,7 +678,7 @@ LinkedIn Learning
 </td>
 <td>
 
-[全栈 game 开发 - Kotlin 和 Compose Multiplatform](https://www.udemy.com/course/full-stack-game-development-kotlin-compose-multiplatform/)
+[全栈游戏开发 - Kotlin 和 Compose Multiplatform](https://www.udemy.com/course/full-stack-game-development-kotlin-compose-multiplatform/)
 
 视频课程
 

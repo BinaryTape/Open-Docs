@@ -11,7 +11,7 @@ public record Person (String name, int age) {}
 编译器会自动生成一个继承自 [`java.lang.Record`](https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Record.html) 的 final 类，其中包含以下成员：
 * 为每个 record 组件提供一个私有的 final 字段
 * 一个包含所有字段参数的公有构造函数
-* 一组实现结构相等的的方法：`equals()`、`hashCode()`、`toString()`
+* 一组实现结构相等的方法：`equals()`、`hashCode()`、`toString()`
 * 为读取每个 record 组件提供一个公有方法
 
 Record 与 Kotlin 的[数据类](data-classes.md)非常相似。
@@ -63,7 +63,7 @@ data class Person(val name: String, val age: Int)
 
 JVM record 要求生成的 JVM 字节码目标版本为 `16` 或更高。
 
-要显式指定该版本，请在 [Gradle](gradle-compiler-options.md#attributes-specific-to-jvm) 或 [Maven](maven-compile-package.md#attributes-specific-to-jvm) 中使用 `jvmTarget` 编译器选项。
+要显式指定该版本，请在 [Gradle](gradle-compiler-options.md#attributes-specific-to-jvm) 或 [Maven](maven-kotlin-compiler.md#attributes-specific-to-jvm) 中使用 `jvmTarget` 编译器选项。
 
 ## 在 Kotlin 中为 record 组件添加注解
 

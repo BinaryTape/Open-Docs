@@ -101,7 +101,7 @@ Kotlin %kotlinVersion%으로 업데이트하려면 `pom.xml` 파일에서 버전
 </plugins>
 ```
 
-이전 Kotlin 버전으로 생성된 프로젝트가 있는 경우, [kotlinx 라이브러리의 버전도 업데이트](maven-configure-project.md#dependency-on-a-kotlinx-library)해야 하는지 확인하세요.
+이전 Kotlin 버전으로 생성된 프로젝트가 있는 경우, [kotlinx 라이브러리의 버전도 업데이트](maven-set-dependencies.md#dependency-on-a-kotlinx-library)해야 하는지 확인하세요.
 
 > 프로젝트에서 Maven을 사용하는 방법에 대해 자세히 알아보려면 [Maven](maven.md)을 참조하세요.
 >

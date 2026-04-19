@@ -22,7 +22,7 @@ Kotlin 編譯器有許多用於自訂編譯過程的選項。
 * 如果你使用 Gradle，請在 Kotlin 編譯任務的 `compilerOptions` 屬性中指定編譯器引數。
 如需詳細資訊，請參閱 [Gradle 編譯器選項](gradle-compiler-options.md#how-to-define-options)。
 * 如果你使用 Maven，請在 Maven 外掛程式節點的 `<configuration>` 元素中指定編譯器引數。
-如需詳細資訊，請參閱 [Maven](maven-compile-package.md#specify-compiler-options)。
+如需詳細資訊，請參閱 [Maven](maven-kotlin-compiler.md#specify-compiler-options)。
 * 如果你執行命令列編譯器，請直接在公用程式呼叫中加入編譯器引數，或將其寫入 [argfile](#argfile)。
 
   例如：

@@ -457,7 +457,7 @@ class Expanded                                  // 기본 가시성이 public이
 
 코틀린 2.0.0 버전부터 코틀린 K2 컴파일러가 기본적으로 활성화됩니다.
 
-코틀린 버전을 업그레이드하려면 [Gradle](gradle-configure-project.md#apply-the-plugin) 또는 [Maven](maven-configure-project.md#enable-and-configure-the-plugin) 빌드 스크립트에서 버전을 2.0.0 이상으로 변경하세요.
+코틀린 버전을 업그레이드하려면 [Gradle](gradle-configure-project.md#apply-the-plugin) 또는 [Maven](maven-configure-project.md) 빌드 스크립트에서 버전을 2.0.0 이상으로 변경하세요.
 
 ### Gradle에서 코틀린 빌드 보고서 사용
 

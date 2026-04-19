@@ -175,6 +175,9 @@ Dokkaには、あなたや読者の体験をカスタマイズするための多
             <file>/path/to/dir</file>
             <file>/path/to/file</file>
         </suppressedFiles>
+        <suppressAnnotatedWith>
+            <annotation>com.example.SuppressMe</annotation>
+        </suppressAnnotatedWith>
         <jdkVersion>8</jdkVersion>
         <languageVersion>1.7</languageVersion>
         <apiVersion>1.7</apiVersion>
@@ -306,6 +309,12 @@ Dokkaには、あなたや読者の体験をカスタマイズするための多
             除外（抑制）するディレクトリまたは個別のファイル。これらの宣言はドキュメント化されません。
         </p>
     </def>
+    <def title="suppressAnnotatedWith">
+        <p>指定されたアノテーションが付加された宣言を除外するための、アノテーション完全修飾名（FQN）のリスト。</p>
+        <p>
+            これらのアノテーションのいずれかが付加された宣言は、生成されるドキュメントから除外されます。
+        </p>
+    </def>
     <def title="jdkVersion">
         <p>Java型の外部リンクを生成する際に使用するJDKバージョン。</p>
         <p>
@@ -320,7 +329,7 @@ Dokkaには、あなたや読者の体験をカスタマイズするための多
             解析および <a href="https://kotlinlang.org/docs/kotlin-doc.html#sample-identifier">@sample</a>
             環境の設定に使用される <a href="https://kotlinlang.org/docs/compatibility-modes.html">Kotlin言語バージョン</a>。
         </p>
-        <p>デフォルトでは、Dokkaの組み込みコンパイラで使用可能な最新の言語バージョンが使用されます。</p>
+        <p>デフォルトでは、Dokka의 組み込みコンパイラで使用可能な最新の言語バージョンが使用されます。</p>
     </def>
     <def title="apiVersion">
         <p>
@@ -419,6 +428,51 @@ Dokkaには、あなたや読者の体験をカスタマイズするための多
             <li>GitLab: <code>#L</code></li>
             <li>Bitbucket: <code>#lines-</code></li>
             </list>
+    </def>
+</deflist>
+
+### 外部ドキュメントリンク設定
+
+`externalDocumentationLinks` ブロックを使用すると、依存関係の外部でホストされているドキュメントへのリンクを作成できます。
+
+例えば、`kotlinx.serialization` の型を使用している場合、デフォルトではドキュメント内でそれらは解決されず、クリックできない状態になります。しかし、`kotlinx.serialization` の API リファレンスドキュメントは Dokka でビルドされ、[kotlinlang.org で公開](https://kotlinlang.org/api/kotlinx.serialization/)されているため、それに対する外部ドキュメントリンクを設定できます。これにより、Dokka はそのライブラリの型のリンクを生成し、正常に解決してクリック可能にすることができます。
+
+デフォルトでは、Kotlin 標準ライブラリと JDK の外部ドキュメントリンクが設定されています。
+
+```xml
+<plugin>
+    <groupId>org.jetbrains.dokka</groupId>
+    <artifactId>dokka-maven-plugin</artifactId>
+    <!--  ...  -->
+    <configuration>
+        <externalDocumentationLinks>
+            <link>
+                <url>https://kotlinlang.org/api/kotlinx.serialization/</url>
+                <packageListUrl>file:/${project.basedir}/serialization.package.list</packageListUrl>
+            </link>
+        </externalDocumentationLinks>
+    </configuration>
+</plugin>
+```
+
+<deflist collapsible="true">
+    <def title="url">
+        <p>リンク先のドキュメントのルートURL。末尾にスラッシュ（<code>/</code>）を含める<b>必要があります</b>。</p>
+        <p>
+            Dokka は、指定された URL に対して <code>package-list</code> を自動的に探し、宣言をリンクさせるために最善を尽くします。
+        </p>
+        <p>
+            自動解決が失敗する場合や、代わりにローカルにキャッシュされたファイルを使用したい場合は、<code>packageListUrl</code> オプションの設定を検討してください。
+        </p>
+    </def>
+    <def title="packageListUrl">
+        <p>
+            <code>package-list</code> の正確な場所。これは Dokka による自動解決に頼る代わりの方法です。
+        </p>
+        <p>
+            パッケージリストには、モジュール名やパッケージ名など、ドキュメントやプロジェクト自体に関する情報が含まれています。
+        </p>
+        <p>ネットワーク通信を避けるために、ローカルにキャッシュされたファイルを指定することも可能です。</p>
     </def>
 </deflist>
 

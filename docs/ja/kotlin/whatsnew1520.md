@@ -16,19 +16,19 @@ Kotlin 1.5.20 には、1.5.0 の新機能で見つかった問題の修正が含
 
 ## Kotlin/JVM
 
-Kotlin 1.5.20 では、JVM プラットフォーム向けに以下のアップデートが行われています：
+Kotlin 1.5.20 では、JVM プラットフォーム向けに以下のアップデートが行われています： 
 * [invokedynamic による文字列連結](#string-concatenation-via-invokedynamic)
 * [JSpecify nullness アノテーションのサポート](#support-for-jspecify-nullness-annotations)
 * [Kotlin と Java のコードが混在するモジュール内での Java の Lombok 生成メソッドの呼び出しサポート](#support-for-calling-java-s-lombok-generated-methods-within-modules-that-have-kotlin-and-java-code)
 
 ### invokedynamic による文字列連結
 
-Kotlin 1.5.20 は、最新の Java バージョンに追随するため、JVM 9+ ターゲットにおいて文字列連結を[動的呼び出し](https://docs.oracle.com/javase/7/docs/technotes/guides/vm/multiple-language-support.html#invokedynamic)（`invokedynamic`）にコンパイルします。
+Kotlin 1.5.20 は、最新の Java バージョンに追随するため、JVM 9+ ターゲットにおいて文字列連結を[動的呼び出し](https://docs.oracle.com/javase/7/docs/technotes/guides/vm/multiple-language-support.html#invokedynamic) (`invokedynamic`) にコンパイルします。
 より正確には、文字列連結に [`StringConcatFactory.makeConcatWithConstants()`](https://docs.oracle.com/javase/9/docs/api/java/lang/invoke/StringConcatFactory.html#makeConcatWithConstants-java.lang.invoke.MethodHandles.Lookup-java.lang.String-java.lang.invoke.MethodType-java.lang.String-java.lang.Object...-) を使用します。
 
 以前のバージョンで使用されていた [`StringBuilder.append()`](https://docs.oracle.com/javase/9/docs/api/java/lang/StringBuilder.html#append-java.lang.String-) による連結に戻すには、コンパイラオプション `-Xstring-concat=inline` を追加してください。
 
-コンパイラオプションの追加方法は、[Gradle](gradle-compiler-options.md)、[Maven](maven-compile-package.md#specify-compiler-options)、および[コマンドラインコンパイラ](compiler-reference.md#compiler-options)で確認できます。
+コンパイラオプションの追加方法は、[Gradle](gradle-compiler-options.md)、[Maven](maven-kotlin-compiler.md#specify-compiler-options)、および[コマンドラインコンパイラ](compiler-reference.md#compiler-options)で確認できます。
 
 ### JSpecify nullness アノテーションのサポート
 

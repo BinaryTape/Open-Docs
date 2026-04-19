@@ -55,13 +55,13 @@ _現在、プレビューバージョンは利用できません。_
         </td>
     </tr>
     <tr>
-        <td><strong>2.3.21-RC</strong>
-            <p>リリース日: <strong>2026年4月7日</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.21-RC" target="_blank">GitHub でのリリース</a></p>
+        <td><strong>2.3.21-RC2</strong>
+            <p>リリース日: <strong>2026年4月16日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.21-RC2" target="_blank">GitHub でのリリース</a></p>
         </td>
         <td>
             <p>Kotlin 2.3.20 のパフォーマンス向上を含むバグ修正リリースです。</p>
-            <p>詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.21-RC">チェンジログ</a> を参照してください。</p>
+            <p>詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.21-RC2">チェンジログ</a> または <a href="whatsnew2320.md">Kotlin 2.3.20 の新機能</a> を参照してください。</p>
         </td>
     </tr>
 </table>

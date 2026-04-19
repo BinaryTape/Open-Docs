@@ -1,8 +1,8 @@
 [//]: # (title: Dokka Gradle 配置選項)
 
-Dokka 提供許多配置選項來自訂您與讀者的體驗。
+Dokka 提供許多配置選項來建立您與讀者的體驗。
 
-以下是每個配置區塊的詳細說明與一些範例。
+以下是每個配置區塊的詳細說明與一些範例。 
 您也可以找到套用了 [所有配置選項](#完整配置) 的範例。
 
 有關為單專案與多專案組建套用配置區塊的更多詳細資訊，
@@ -10,7 +10,7 @@ Dokka 提供許多配置選項來自訂您與讀者的體驗。
 
 ### 一般配置
 
-以下是一般 Dokka Gradle 外掛程式配置的範例：
+以下是一般 Dokka Gradle 外掛程式配置的範例： 
 
 * 使用最上層的 `dokka {}` DSL 配置。
 * 在 DGP 中，您在 `dokkaPublications{}` 區塊中宣告 Dokka 發佈配置。
@@ -166,7 +166,7 @@ dokka {
     <def title="suppressInheritedMembers">
         <p>是否隱藏未在給定類別中明確覆寫的繼承成員。</p>
         <p>
-            注意：
+            注意： 
             這會隱藏諸如 <code>equals</code>、<code>hashCode</code> 與 <code>toString</code> 之類的函式，
             但不會隱藏諸如 <code>dataClass.componentN</code> 與 
             <code>dataClass.copy</code> 的合成函式。對此類函式請使用 <code>suppressObviousFunctions</code>。
@@ -380,6 +380,12 @@ dokka {
         </p>
         <p>預設值：<code>true</code></p>
     </def>
+    <def title="suppressAnnotatedWith">
+        <p>一組用於隱藏標註有特定註解之宣告的註解完全限定名稱 (FQNs)。</p>
+        <p>
+            任何標註有這些註解之一的宣告都會從產生的文件中排除。
+        </p>
+    </def>
     <def title="jdkVersion">
         <p>為 Java 型別產生外部文件連結時要使用的 JDK 版本。</p>
         <p>
@@ -510,7 +516,7 @@ dokka {
     <def title="remoteUrl">
         <p>
             文件讀者可以存取的原始碼代管服務網址，
-            例如 GitHub、GitLab、Bitbucket，或任何提供原始碼檔案穩定網址的代管服務。
+            例如 GitHub、GitLab、Bitbucket，或任何提供原始碼檔案穩定網址的代管服務。 
             此網址用於產生宣告的原始碼連結。
         </p>
     </def>
@@ -670,11 +676,11 @@ dokka {
     <def title="url">
         <p>要連結到的文件的根網址。它<b>必須</b>包含尾隨斜槓。</p>
         <p>
-            Dokka 會盡力自動尋找給定網址的 <code>package-list</code>，
+            Dokka 會盡力自動尋找給定網址的 <code>package-list</code>， 
             並將宣告連結在一起。
         </p>
         <p>
-            如果自動解析失敗，或者如果您想要改用本機快取的檔案，
+            如果自動解析失敗，或者如果您想要改用本機快取的檔案， 
             請考慮設定 <code>packageListUrl</code> 選項。
         </p>
     </def>
@@ -683,7 +689,7 @@ dokka {
             <code>package-list</code> 的確切位置。這是依靠 Dokka 自動解析之外的另一種選擇。
         </p>
         <p>
-            套件清單包含有關文件與專案本身的資訊，
+            套件清單包含有關文件與專案本身的資訊， 
             例如子專案與套件名稱。
         </p>
         <p>這也可以是本機快取的檔案，以避免網路呼叫。</p>

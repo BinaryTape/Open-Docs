@@ -1,12 +1,14 @@
 [//]: # (title: 設定 Maven 專案)
 
-若要使用 Maven 組建 Kotlin 專案，您需要將 Kotlin Maven 外掛程式新增至您的 `pom.xml` 建置檔案中，宣告存儲庫並設定專案的相依性。
+當您將 Kotlin 引入現有的 Java Maven 專案或建立新的 Kotlin Maven 專案時，您需要新增用於編譯 Kotlin 原始碼與模組的 Kotlin Maven 外掛程式。
 
-## 啟用並設定外掛程式
+目前僅支援 Maven v3。
 
-`kotlin-maven-plugin` 用於編譯 Kotlin 原始碼與模組。目前僅支援 Maven v3。
+## 自動設定
 
-若要套用 Kotlin Maven 外掛程式，請按照以下方式更新您的 `pom.xml` 建置檔案：
+您可以使用 `<extensions>` 選項簡化混合 Java-Kotlin 專案以及純 Kotlin 專案中的 Maven 設定。這種方法可以節省您的時間，因為您不需要手動設定 Maven 編譯器外掛程式。
+
+若要套用帶有 `<extensions>` 的 Kotlin Maven 外掛程式，請按照以下方式更新您的 `pom.xml` 建置檔案：
 
 1. 在 `<properties>` 區塊中，於 `kotlin.version` 屬性內定義您想要使用的 Kotlin 版本：
 
@@ -16,37 +18,218 @@
    </properties>
    ```
 
-2. 在 `<build><plugins>` 區塊中，新增 Kotlin Maven 外掛程式：
+2. 在 `<build><plugins>` 區塊中，新增啟用 `<extensions>` 選項的 Kotlin Maven 外掛程式：
 
    ```xml
    <build>
        <plugins>
+           <!-- Kotlin 編譯器外掛程式設定 -->
            <plugin>
                <groupId>org.jetbrains.kotlin</groupId>
                <artifactId>kotlin-maven-plugin</artifactId>
                <version>${kotlin.version}</version>
+               <extensions>true</extensions> <!-- 啟用此擴充套件 -->
            </plugin>
+           <!-- 使用 extensions 時不需要設定 Maven 編譯器外掛程式 -->
        </plugins>
    </build>
    ```
 
-3. <p id="extension">(選填) 您也可以啟用 <code>extensions</code> 選項來簡化專案設定。若要這麼做，請更新您 `pom.xml` 檔案中的 Kotlin Maven 外掛程式區塊：</p>
+`<extensions>` 選項會執行以下操作：
 
-   ```xml
-   <plugins>
-       <plugin>
-           <groupId>org.jetbrains.kotlin</groupId>
-           <artifactId>kotlin-maven-plugin</artifactId>
-           <version>${kotlin.version}</version>
-           <extensions>true</extensions> <!-- 新增此擴充套件 -->
-       </plugin>
-   </plugins>
-   ```
+* 如果 `src/main/kotlin` 與 `src/test/kotlin` 目錄已經存在，但未在外掛程式組態中指定，則自動將其註冊為原始碼根目錄。
+* 如果專案中尚未定義 [`kotlin-stdlib` 相依性](maven-set-dependencies.md#dependency-on-the-standard-library)，則自動新增。
+* 將 `compile`、`test-compile`、`kapt` 與 `test-kapt` 的執行新增至您的建置中，並繫結至適當的 [生命週期階段](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)。因此，您不需要手動設定帶有 `<id>` 與 `<goals>` 的 `<executions>` 區塊。
+   
+如果您擁有混合 Java 與 Kotlin 的專案，此設定可確保：
 
-   Kotlin Maven 外掛程式中的 `extensions` 選項會自動執行以下操作：
+* Kotlin 程式碼優先編譯。
+* Java 程式碼在 Kotlin 之後編譯，並可以參考 Kotlin 類別。
+* 預設的 Maven 行為不會覆蓋外掛程式順序。
 
-   * 如果 `src/main/kotlin` 與 `src/test/kotlin` 目錄已經存在，但未在外掛程式組態中指定，則自動將其註冊為原始碼根目錄。
-   * 如果專案中尚未定義 [`kotlin-stdlib` 相依性](#dependency-on-the-standard-library)，則自動新增。
+擴充套件設定會取代整個 `<executions>` 區塊。如果您需要自訂執行，請參閱 [編譯 Kotlin 與 Java 原始碼](#compile-kotlin-and-java-sources) 中的範例。
+
+> 如果有多個建置外掛程式覆寫了預設生命週期，且您也啟用了 `<extensions>` 選項，則 `<build>` 區塊中的最後一個外掛程式在生命週期設定上具有優先權。所有先前對生命週期設定的變更都將被忽略。
+>
+{style="note"}
+
+### 更改 Maven 編譯器版本
+
+目前，與 `<extensions>` 搭配使用的 Maven 編譯器外掛程式預設版本為 **%mavenExtensionsVersion%**。您可以單獨設定不同的版本：
+
+```xml
+<build>
+    <plugins>
+        <!-- Kotlin 編譯器外掛程式設定 -->
+        <plugin>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-maven-plugin</artifactId>
+            <version>${kotlin.version}</version>
+            <extensions>true</extensions>
+        </plugin>
+        <!-- 用於 Java 類別的 Maven 編譯器外掛程式設定 -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>%mavenPluginVersion%</version>
+        </plugin>
+    </plugins>
+</build>
+```
+
+## 手動設定
+
+若不啟用 Kotlin Maven 外掛程式中的 `<extensions>`，您需要手動設定專案以確保原始碼正確編譯。
+
+您可以設定您的 Maven 專案來編譯 [Java 與 Kotlin 原始碼的組合](#compile-kotlin-and-java-sources) 或 [純 Kotlin 原始碼](#compile-kotlin-only-sources)。
+
+### 編譯 Kotlin 與 Java 原始碼
+
+若要編譯同時包含 Kotlin 與 Java 原始檔的專案，請確保 Kotlin 編譯器在 Java 編譯器之前執行。
+
+在 Kotlin 類別被編譯成 `.class` 檔案之前，Java 編譯器無法看見它們。如果您的 Java 程式碼使用了 Kotlin 類別，則必須先編譯這些類別以避免 `cannot find symbol` 錯誤。
+
+Maven 根據兩個主要因素決定外掛程式執行順序：
+
+* `pom.xml` 檔案中外掛程式宣告的順序。
+* 內建的預設執行（例如 `default-compile` 與 `default-testCompile`），無論它們在 `pom.xml` 檔案中的位置為何，它們總是在使用者定義的執行之前執行。
+
+若要控制執行順序：
+
+* 在 `maven-compiler-plugin` 之前宣告 `kotlin-maven-plugin`。
+* 停用 Java 編譯器外掛程式的預設執行。
+* 新增自訂執行以明確控制編譯階段。
+
+> 您可以在 Maven 中使用特殊的 `none` 階段來停用預設執行。
+>
+{style="note"}
+
+若要套用 Kotlin Maven 外掛程式，請按照以下方式更新您的 `pom.xml` 建置檔案：
+
+```xml
+<build>
+    <plugins>
+        <!-- Kotlin 編譯器外掛程式設定 -->
+        <plugin>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-maven-plugin</artifactId>
+            <version>${kotlin.version}</version>
+            <executions>
+                <execution>
+                    <id>kotlin-compile</id>
+                    <phase>compile</phase>
+                    <goals>
+                        <goal>compile</goal>
+                    </goals>
+                    <configuration>
+                        <sourceDirs>
+                            <sourceDir>src/main/kotlin</sourceDir>
+                            <!-- 確保 Kotlin 程式碼可以參考 Java 程式碼 -->
+                            <sourceDir>src/main/java</sourceDir>
+                        </sourceDirs>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>kotlin-test-compile</id>
+                    <phase>test-compile</phase>
+                    <goals>
+                        <goal>test-compile</goal>
+                    </goals>
+                    <configuration>
+                        <sourceDirs>
+                            <sourceDir>src/test/kotlin</sourceDir>
+                            <sourceDir>src/test/java</sourceDir>
+                        </sourceDirs>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+
+        <!-- Maven 編譯器外掛程式設定 -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.15.0</version>
+            <executions>
+                <!-- 停用預設執行 -->
+                <execution>
+                    <id>default-compile</id>
+                    <phase>none</phase>
+                </execution>
+                <execution>
+                    <id>default-testCompile</id>
+                    <phase>none</phase>
+                </execution>
+
+                <!-- 定義自訂執行 -->
+                <execution>
+                    <id>java-compile</id>
+                    <phase>compile</phase>
+                    <goals>
+                        <goal>compile</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>java-test-compile</id>
+                    <phase>test-compile</phase>
+                    <goals>
+                        <goal>testCompile</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+```
+
+此設定可確保：
+
+* Kotlin 程式碼優先編譯。
+* Java 程式碼在 Kotlin 之後編譯，並可以參考 Kotlin 類別。
+* 預設的 Maven 行為不會覆蓋外掛程式順序。
+
+如需更多關於 Maven 如何處理外掛程式執行的詳細資訊，請參閱 Maven 官方文件中的 [預設外掛程式執行 ID 指南](https://maven.apache.org/guides/mini/guide-default-execution-ids.html)。
+
+### 編譯純 Kotlin 原始碼
+
+若要編譯僅包含 Kotlin 原始檔的專案，請宣告原始碼根目錄並設定 Kotlin Maven 外掛程式：
+
+1. 在 `<build>` 區塊中指定原始碼目錄：
+
+    ```xml
+    <build>
+        <sourceDirectory>src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>src/test/kotlin</testSourceDirectory>
+    </build>
+    ```
+
+2. 確保套用了 Kotlin Maven 外掛程式：
+
+    ```xml
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <version>${kotlin.version}</version>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test-compile</id>
+                        <goals>
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    ```
 
 ### 使用 JDK 17
 
@@ -57,144 +240,6 @@
 --add-opens=java.base/java.io=ALL-UNNAMED
 ```
 
-## 宣告存儲庫
-
-根據預設，`mavenCentral` 存儲庫可用於所有 Maven 專案。若要存取其他存儲庫中的構件，請在 `<repositories>` 區塊中為存儲庫名稱指定自訂 ID 及其 URL：
-
-```xml
-<repositories>
-    <repository>
-        <id>spring-repo</id>
-        <url>https://repo.spring.io/release</url>
-    </repository>
-</repositories>
-```
-
-> 如果您在 Gradle 專案中將 `mavenLocal()` 宣告為存儲庫，則在 Gradle 與 Maven 專案之間切換時可能會遇到問題。若要了解更多資訊，請參閱 [宣告存儲庫](gradle-configure-project.md#declare-repositories)。
->
-{style="note"}
-
-## 設定相依性
-
-若要新增對程式庫的相依性，請將其包含在 `<dependencies>` 區塊中：
-
-```xml
-<dependencies>
-    <dependency>
-        <groupId>org.jetbrains.kotlinx</groupId>
-        <artifactId>kotlinx-serialization-json</artifactId>
-        <version>%serializationVersion%</version>
-    </dependency>
-</dependencies>
-```
-
-### 對標準函式庫的相依性
-
-Kotlin 擁有豐富的標準函式庫，可供您在應用程式中使用。您可以手動新增標準函式庫相依性，或者啟用 [`extensions` 選項](#extension) 以便在缺失時自動設定。
-
-#### 手動設定
-
-若要手動將 Kotlin 標準函式庫新增至您的專案，請使用以下內容更新 `pom.xml` 檔案中的 `dependencies` 區塊：
-
-```xml
-<dependencies>
-    <dependency>
-        <groupId>org.jetbrains.kotlin</groupId>
-        <artifactId>kotlin-stdlib</artifactId>
-        <!-- 使用在 <properties/> 中指定的
-             kotlin.version 屬性： --> 
-        <version>${kotlin.version}</version>
-    </dependency>
-</dependencies>
-```
-
-> 如果您的目標是 JDK 7 或 8，且使用的 Kotlin 版本早於：
-> * 1.8，請分別使用 `kotlin-stdlib-jdk7` 或 `kotlin-stdlib-jdk8`。
-> * 1.2，請分別使用 `kotlin-stdlib-jre7` 或 `kotlin-stdlib-jre8`。
->
-{style="note"}
-
-### 自動設定
-
-您可以使用 Kotlin Maven 外掛程式提供的 [`extensions` 選項](#extension) 來避免手動設定。當專案中未定義 `kotlin-stdlib` 相依性時，它會自動新增，例如當您建立新的 Kotlin Maven 專案或將 Kotlin 引入現有的 Java Maven 專案時。
-
-您也可以選擇停用自動新增標準函式庫。為此，請將以下內容新增至 `<properties>` 區塊：
-
-```xml
-<project>
-    <properties>
-        <kotlin.smart.defaults.enabled>false</kotlin.smart.defaults.enabled>         
-    </properties>
-</project>
-```
-
-請注意，此屬性會停用所有簡化設定功能，包括原始碼根路徑的註冊。
-
-### 對測試函式庫的相依性
-
-如果您的專案使用 [Kotlin 反射](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.full/) 或測試框架，請新增相關的相依性。反射函式庫請使用 `kotlin-reflect`，測試函式庫請使用 `kotlin-test` 與 `kotlin-test-junit5`：
-
-```xml
-<dependencies>
-    <dependency>
-        <groupId>org.jetbrains.kotlin</groupId>
-        <artifactId>kotlin-reflect</artifactId>
-        <version>${kotlin.version}</version>
-    </dependency>
-    <dependency>
-        <groupId>org.jetbrains.kotlin</groupId>
-        <artifactId>kotlin-test-junit5</artifactId>
-        <scope>test</scope>
-    </dependency>
-</dependencies>
-```
-
-### 對 kotlinx 程式庫的相依性
-
-對於 kotlinx 程式庫，您可以新增基礎構件名稱，或是帶有 `-jvm` 字尾的名稱。請參閱 [klibs.io](https://klibs.io/) 上該程式庫的 README 檔案。
-
-例如，若要新增對 [`kotlinx.coroutines`](https://kotlinlang.org/api/kotlinx.coroutines/) 程式庫的相依性：
-
-```xml
-<dependencies>
-    <dependency>
-        <groupId>org.jetbrains.kotlinx</groupId>
-        <artifactId>kotlinx-coroutines-core</artifactId>
-        <version>%coroutinesVersion%</version>
-    </dependency>
-</dependencies>
-```
-
-若要新增對 [`kotlinx-datetime`](https://kotlinlang.org/api/kotlinx-datetime/) 程式庫的相依性：
-
-```xml
-<dependencies>
-    <dependency>
-        <groupId>org.jetbrains.kotlinx</groupId>
-        <artifactId>kotlinx-datetime-jvm</artifactId>
-        <version>%dateTimeVersion%</version>
-    </dependency>
-</dependencies>
-```
-
-### 使用 BOM 相依性機制
-
-若要使用 Kotlin [物料清單 (BOM)](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms)，請新增對 [`kotlin-bom`](https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-bom) 的相依性：
-
-```xml
-<dependencyManagement>
-    <dependencies>  
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-bom</artifactId>
-            <version>%kotlinVersion%</version>
-            <type>pom</type>
-            <scope>import</scope>
-        </dependency>
-    </dependencies>
-</dependencyManagement>
-```
-
 ## 接下來要做什麼？
 
-[編譯並封裝您的 Kotlin Maven 專案](maven-compile-package.md)
+[在您的 Kotlin Maven 專案中設定相依性](maven-set-dependencies.md)

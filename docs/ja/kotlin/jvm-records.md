@@ -63,7 +63,7 @@ data class Person(val name: String, val age: Int)
 
 JVM レコードには、生成される JVM バイトコードのターゲットバージョン 16 以上が必要です。
 
-これを明示的に指定するには、[Gradle](gradle-compiler-options.md#attributes-specific-to-jvm) または [Maven](maven-compile-package.md#attributes-specific-to-jvm) で `jvmTarget` コンパイラオプションを使用します。
+これを明示的に指定するには、[Gradle](gradle-compiler-options.md#attributes-specific-to-jvm) または [Maven](maven-kotlin-compiler.md#attributes-specific-to-jvm) で `jvmTarget` コンパイラオプションを使用します。
 
 ## Kotlin でのレコードコンポーネントへのアノテーション付与
 

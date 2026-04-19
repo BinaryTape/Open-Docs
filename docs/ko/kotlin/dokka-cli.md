@@ -16,7 +16,7 @@ CLI 러너는 별도의 실행 가능한 아티팩트로 Maven Central에 배포
 java -jar dokka-cli-%dokkaVersion%.jar -help
 ```
 
-`-sourceSet`과 같은 중첩된 옵션에 대해서도 작동합니다.
+`-sourceSet`과 같은 일부 중첩된 옵션에 대해서도 작동합니다.
 
 ```Bash
 java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
@@ -192,6 +192,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 | `noStdlibLink`               | Kotlin 표준 라이브러리에 대한 링크를 생성할지 여부입니다.                                                                                                                      | 
 | `noJdkLink`                  | JDK Javadoc에 대한 링크를 생성할지 여부입니다.                                                                                                                                 | 
 | `suppressedFiles`            | 제외할 파일들의 경로입니다. 세미콜론으로 구분된 여러 경로를 허용합니다.                                                                                                        |
+| `suppressAnnotatedWith`      | 해당 어노테이션이 달린 선언을 숨기기 위한 어노테이션의 전체 경로 이름(FQNs) 목록입니다. 세미콜론으로 구분된 여러 값을 허용합니다.                                              |
 | `analysisPlatform`           | 분석 설정에 사용되는 플랫폼입니다.                                                                                                                                             |
 | `perPackageOptions`          | `matchingRegexp,-deprecated,-privateApi,+warnUndocumented,+suppress;...` 형식의 패키지 소스 세트 구성 목록입니다. 세미콜론으로 구분된 여러 값을 허용합니다.                    |
 | `externalDocumentationLinks` | `{url}^{packageListUrl}` 형식의 외부 문서 링크입니다. `^^`로 구분된 여러 값을 허용합니다.                                                                                      |
@@ -511,6 +512,12 @@ Kotlin [소스 세트](https://kotlinlang.org/docs/multiplatform-discover-projec
     <def title="suppressedFiles">
         <p>문서 생성 시 제외할 파일들입니다.</p>
     </def>
+    <def title="suppressAnnotatedWith">
+        <p>해당 어노테이션이 달린 선언을 숨기기 위한 어노테이션의 전체 경로 이름(FQNs) 목록입니다.</p>
+        <p>
+            이 어노테이션들 중 하나가 달린 모든 선언은 생성된 문서에서 제외됩니다.
+        </p>
+    </def>
     <def title="sourceLinks">
         <p>이 소스 세트에만 적용되는 소스 링크 파라미터 집합입니다.</p>
         <p>가능한 옵션 목록은 <a href="#source-link-configuration">소스 링크 구성</a>을 참고하세요.</p>
@@ -683,6 +690,9 @@ Kotlin [소스 세트](https://kotlinlang.org/docs/multiplatform-discover-projec
   "suppressObviousFunctions": true,
   "suppressInheritedMembers": false,
   "offlineMode": false,
+  "suppressAnnotatedWith": [
+    "com.example.SuppressMe"
+  ],
   "sourceLinks": [
     {
       "localDirectory": "src/main/kotlin",
@@ -747,6 +757,9 @@ Kotlin [소스 세트](https://kotlinlang.org/docs/multiplatform-discover-projec
       ],
       "suppressedFiles": [
         "src/main/kotlin/org/jetbrains/dokka/Suppressed.kt"
+      ],
+      "suppressAnnotatedWith": [
+        "com.example.SuppressMe"
       ],
       "sourceLinks": [
         {

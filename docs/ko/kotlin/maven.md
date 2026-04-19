@@ -6,12 +6,11 @@ Maven의 기초 및 세부 사항에 대한 자세한 내용은 [Maven](https://
 
 Kotlin Maven 프로젝트를 작업할 때의 일반적인 워크플로는 다음과 같습니다.
 
-1. [Kotlin Maven 플러그인 적용](maven-configure-project.md#enable-and-configure-the-plugin)
-2. [레포지토리(Repository) 선언](maven-configure-project.md#declare-repositories)
-3. [프로젝트 의존성 설정](maven-configure-project.md#set-dependencies)
-4. [소스 코드 컴파일 구성](maven-compile-package.md#configure-source-code-compilation)
-5. [Kotlin 컴파일러 구성](maven-compile-package.md#configure-kotlin-compiler)
-6. [애플리케이션 패키징](maven-compile-package.md#package-your-project)
+1. [Java 또는 Kotlin 프로젝트 구성](maven-configure-project.md)
+2. [레포지토리(Repository) 선언](maven-set-dependencies.md#declare-repositories)
+3. [프로젝트 의존성 설정](maven-set-dependencies.md)
+4. [Kotlin 컴파일러 구성](maven-kotlin-compiler.md)
+5. [애플리케이션 패키징](maven-compile-package.md)
 
 시작하려면 다음의 단계별 튜토리얼을 참고하세요.
 

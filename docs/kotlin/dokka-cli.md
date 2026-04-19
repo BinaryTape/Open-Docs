@@ -192,6 +192,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 | `noStdlibLink`               | 是否生成指向 Kotlin 标准库的链接。                                                                                                                                            | 
 | `noJdkLink`                  | 是否生成指向 JDK Javadoc 的链接。                                                                                                                                              | 
 | `suppressedFiles`            | 要抑制的文件路径。接受由分号分隔的多个路径。                                                                                                                                   |
+| `suppressAnnotatedWith`      | 用于抑制带有指定注解声明的注解完全限定名 (FQNs)。接受由分号分隔的多个值。                                                                                                       |
 | `analysisPlatform`           | 用于设置分析的平台。                                                                                                                                                          |
 | `perPackageOptions`          | 软件包源集配置列表，格式为 `matchingRegexp,-deprecated,-privateApi,+warnUndocumented,+suppress;...`。接受由分号分隔的多个值。                                                   |
 | `externalDocumentationLinks` | 外部文档链接，格式为 `{url}^{packageListUrl}`。接受由 `^^` 分隔的多个值。                                                                                                       |
@@ -520,6 +521,12 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
     <def title="suppressedFiles">
         <p>生成文档时要抑制的文件。</p>
     </def>
+    <def title="suppressAnnotatedWith">
+        <p>用于抑制带有指定注解声明的注解完全限定名 (FQNs) 列表。</p>
+        <p>
+            任何带有这些注解之一的声明都将从生成的文档中排除。
+        </p>
+    </def>
     <def title="sourceLinks">
         <p>仅应用于此源集的源码链接参数集。</p>
         <p>有关可能选项的列表，请参阅<a href="#源码链接配置">源码链接配置</a>。</p>
@@ -576,7 +583,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
         </p>
         <p>
             数字本身会附加到指定的后缀。例如，
-            如果此选项设置为 <code>#L</code> 且行号为 10，则生成的 URL 后缀
+            如果此选项设置为 <code>#L</code> 和行号为 10，则生成的 URL 后缀
             为 <code>#L10</code>。
         </p>
         <p>
@@ -700,6 +707,9 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
   "suppressObviousFunctions": true,
   "suppressInheritedMembers": false,
   "offlineMode": false,
+  "suppressAnnotatedWith": [
+    "com.example.SuppressMe"
+  ],
   "sourceLinks": [
     {
       "localDirectory": "src/main/kotlin",
@@ -764,6 +774,9 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
       ],
       "suppressedFiles": [
         "src/main/kotlin/org/jetbrains/dokka/Suppressed.kt"
+      ],
+      "suppressAnnotatedWith": [
+        "com.example.SuppressMe"
       ],
       "sourceLinks": [
         {

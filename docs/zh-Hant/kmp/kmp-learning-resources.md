@@ -236,7 +236,7 @@ YouTube
 </td>
 
 <td>
-在 KMP 應用程式中使用平台專屬程式碼的最佳實務。
+在 KMP 應用程式中使用 platform-specific 程式碼的最佳實務。
 </td>
 <td>
 免費
@@ -252,7 +252,7 @@ YouTube
 </td>
 <td>
 
-[給 Android 開發者的 KMP 課程](https://nsmirosh.gumroad.com/l/tmmqwa)
+[給 Android 開發者的 KMP 課程](https://learnkmp.com/)
 
 影片課程
 
@@ -264,7 +264,7 @@ Gumroad
 </td>
 
 <td>
-如何透過掌握 KMP 基礎（如 expect/actual 與原始碼集），以及使用 Ktor 進行網路連線與 Room 進行持續性等現代化程式庫組建完整的應用程式堆疊，將現有的 Android 開發技能擴展至 iOS。
+如何透過掌握 KMP 基礎（如 expect/actual 與原始碼集），以及使用 Ktor 進行網路連線、Koin 進行相依注入、Nav3 與 Room 進行持續性等現代化程式庫組建完整的應用程式堆疊，將現有的 Android 開發技能擴展至 iOS。
 </td>
 <td>
 約 60 美元

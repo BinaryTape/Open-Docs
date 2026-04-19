@@ -202,7 +202,7 @@ Kotlin/JVM 編譯的預設目標版本為 `1.8`。`1.6` 目標已移除。
 請遷移至 JVM 目標 1.8 或更高版本。了解如何更新以下環境的 JVM 目標版本：
 
 * [Gradle](gradle-compiler-options.md#attributes-specific-to-jvm)
-* [Maven](maven-compile-package.md#attributes-specific-to-jvm)
+* [Maven](maven-kotlin-compiler.md#attributes-specific-to-jvm)
 * [命令列編譯器](compiler-reference.md#jvm-target-version)
 
 ## Kotlin/Native
@@ -610,7 +610,7 @@ fun dateReplace() {
 >
 {style="warning"}
 
-在 Kotlin 1.7.0 中，我們重新設計了跨模組變更的增量編譯。現在，對於在相依的非 Kotlin 模組內所做的變更也支援增量編譯，並且它與 [Gradle 建置快取](https://docs.gradle.org/current/userguide/build_cache.html) 相容。對編譯規避 (compilation avoidance) 的支援也得到了改進。
+In Kotlin 1.7.0 中，我們重新設計了跨模組變更的增量編譯。現在，對於在相依的非 Kotlin 模組內所做的變更也支援增量編譯，並且它與 [Gradle 建置快取](https://docs.gradle.org/current/userguide/build_cache.html) 相容。對編譯規避 (compilation avoidance) 的支援也得到了改進。
 
 我們預計，如果您使用建置快取或經常在非 Kotlin Gradle 模組中進行更改，您將看到新方法最顯著的好處。我們在 `kotlin-gradle-plugin` 模組上對 Kotlin 專案進行的測試顯示，快取命中後的更改改進了 80% 以上。
 
@@ -713,7 +713,7 @@ Kotlin Gradle 外掛程式 API 構件經歷了多項改進：
   ```
   您可以在 [此 YouTrack 票證](https://youtrack.jetbrains.com/issue/KT-48008/Consider-offering-a-KotlinBasePlugin) 中留下關於 `KotlinBasePlugin` 的回饋。
 
-* 我們為 Android Gradle 外掛程式在其內部配置 Kotlin 編譯奠定了基礎，這意味著您將不需要在建置中加入 Kotlin Android Gradle 外掛程式。請關注 [Android Gradle 外掛程式發佈公告](https://developer.android.com/studio/releases/gradle-plugin) 以了解新增的支援並嘗試一下！
+* 我們為 Android Gradle 外掛程式在其內部配置 Kotlin 編譯奠定了基礎，這意指您將不需要在建置中加入 Kotlin Android Gradle 外掛程式。請關注 [Android Gradle 外掛程式發佈公告](https://developer.android.com/studio/releases/gradle-plugin) 以了解新增的支援並嘗試一下！
 
 ### 可透過外掛程式 API 使用 sam-with-receiver 外掛程式
 
@@ -829,7 +829,7 @@ sourceSets {
 
 #### 移除棄用的協同程式 DSL 選項和屬性
 
-我們移除了棄用的 `kotlin.experimental.coroutines` Gradle DSL 選項以及在 `gradle.properties` 中使用的 `kotlin.coroutines` 屬性。現在您可以直接使用 _[暫停函式](coroutines-basics.md)_ 或在建置指令碼中 [加入 `kotlinx.coroutines` 相依性](gradle-configure-project.md#set-a-dependency-on-a-kotlinx-library)。
+我們移除了棄用的 `kotlin.experimental.coroutines` Gradle DSL 選項以及在 `gradle.properties` 中使用的 `kotlin.coroutines` 屬性。現在您可以直接使用 _[暫停函式](coroutines-basics.md)_ 或在建置指令碼中 [加入 `kotlinx.coroutines` 相依性](gradle-configure-project.md#set-a-dependency-on-a-kotlinx-library) 到您的建置指令碼中。
 
 在 [協同程式指南](coroutines-guide.md) 中了解更多關於協同程式的資訊。
 

@@ -27,7 +27,7 @@ Kotlin 1.5.20 在 JVM 9+ 目标上将字符串串联编译为[动态调用](http
 
 要切换回以前版本中使用的通过 [`StringBuilder.append()`](https://docs.oracle.com/javase/9/docs/api/java/lang/StringBuilder.html#append-java.lang.String-) 进行串联的方式，请添加编译器选项 `-Xstring-concat=inline`。
 
-了解如何在 [Gradle](gradle-compiler-options.md)、[Maven](maven-compile-package.md#specify-compiler-options) 和[命令行编译器](compiler-reference.md#compiler-options)中添加编译器选项。
+了解如何在 [Gradle](gradle-compiler-options.md)、[Maven](maven-kotlin-compiler.md#specify-compiler-options) 和[命令行编译器](compiler-reference.md#compiler-options)中添加编译器选项。
 
 ### 支持 JSpecify 为 null 性注解
 

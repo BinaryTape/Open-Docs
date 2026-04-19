@@ -719,7 +719,7 @@ kotlin {
 <primary-label ref="experimental-opt-in"/>
 <secondary-label ref="js"/>
 
-从 Kotlin 2.3.20 开始，Kotlin/JS 支持 [SWC](https://swc.rs/) 编译平台。
+从 Kotlin 2.3.20 开始， Kotlin/JS 支持 [SWC](https://swc.rs/) 编译平台。
 它有助于将较新版本的 JavaScript/TypeScript 代码转译为更旧且更兼容的 JavaScript 代码。
 
 将代码转换工作委托给外部工具使我们能够减少 Kotlin/JS 编译器生成的变体数量，并加快编译器现代化进程，只专注于支持最新的 JavaScript 功能。
@@ -772,7 +772,7 @@ Kotlin 2.2.0 首次带来了对 [Kotlin Gradle 插件中的二进制兼容性验
 
 旧的任务名称在 Kotlin 2.3.20 中仍然存在，以便平稳过渡到新名称。
 
-其次，如果您在项目中启用了二进制兼容性验证，Gradle 现在会在您运行 `check` 任务时自动运行 `checkKotlinAbi` 任务。
+其次，如果您在项目中启用了二进制兼容性验证， Gradle 现在会在您运行 `check` 任务时自动运行 `checkKotlinAbi` 任务。
 以前，尽管 `check` 任务理应运行所有验证任务，但 Gradle 并不运行 `checkKotlinAbi` 任务。
 这导致了 Gradle 项目中的行为不一致。
 
@@ -780,7 +780,7 @@ Kotlin 2.2.0 首次带来了对 [Kotlin Gradle 插件中的二进制兼容性验
 <primary-label ref="experimental-general"/>
 <secondary-label ref="gradle"/>
 
-在 Kotlin 2.3.20 中，Kotlin Gradle 插件中的 Kotlin/JVM 编译默认使用[构建工具 API](build-tools-api.md) (BTA)。
+在 Kotlin 2.3.20 中， Kotlin Gradle 插件中的 Kotlin/JVM 编译默认使用[构建工具 API](build-tools-api.md) (BTA)。
 这一内部编译基础设施的更改使得 Kotlin 编译器的构建工具支持开发更加迅速。
 
 如果您发现任何问题，请在我们的[问题跟踪器](https://youtrack.jetbrains.com/newIssue?project=KT&summary=Kotlin+Gradle+plugin+BTA+migration+issue&description=Describe+the+problem+you+encountered+here.&c=tag+kgp-bta-migration)中分享您的反馈。
@@ -800,7 +800,7 @@ Kotlin 2.3.20 为希望使用构建工具 API (BTA) 将其构建系统与 Kotlin
 
 ### 构建操作的改进
 
-在此版本中，BTA 改进了构建工具管理构建操作的方式。
+在此版本中， BTA 改进了构建工具管理构建操作的方式。
 构建操作允许构建工具与 Kotlin 编译器进行交互。
 每个构建操作都是 [`BuildOperation`](https://github.com/JetBrains/kotlin/blob/v2.3.20/compiler/build-tools/kotlin-build-tools-api/src/main/kotlin/org/jetbrains/kotlin/buildtools/api/BuildOperation.kt#L25) 接口的一个实现。
 
@@ -852,7 +852,7 @@ fun prepareBuildOperation(toolchains: KotlinToolchains, sources: List<Path>, des
 在 Kotlin 2.3.20 之前，构建指标基础设施以 Gradle 为中心，这影响了部分基础设施，如指标名称。
 此外，并非所有指标都适用于不同的[编译器执行策略](compiler-execution-strategy.md)。
 
-在 Kotlin 2.3.20 中，BTA 为 JVM 提供了与构建工具无关的指标收集。
+在 Kotlin 2.3.20 中， BTA 为 JVM 提供了与构建工具无关的指标收集。
 BTA 还引入了一套一致的指标，无论编译器执行策略如何。
 特定于某种编译方法或编译器执行策略的指标仅在适用时报告。
 例如，增量编译指标仅适用于增量构建，而特定于守护进程的指标仅在使用 Kotlin 守护进程时提供。
@@ -875,7 +875,7 @@ operation[BuildOperation.METRICS_COLLECTOR] = object : BuildMetricsCollector {
 
 ### 构建工具更容易配置编译器插件
 
-在 Kotlin 2.3.20 中，BTA 提供了一种新的且更简单的方法供构建工具配置编译器插件。
+在 Kotlin 2.3.20 中， BTA 提供了一种新的且更简单的方法供构建工具配置编译器插件。
 这种方法允许构建工具直接向其用户传播配置。
 
 构建工具可以使用 `kotlin.buildtools.api.arguments.CommonCompilerArguments.COMPILER_PLUGINS` 选项来配置代表编译器插件配置的对象列表，而不是通过命令行使用实验性编译器选项来配置编译器插件：
@@ -913,7 +913,7 @@ operation.compilerArguments[COMPILER_PLUGINS] = listOf(
 
 本节重点介绍重要的重大更改和弃用。有关 Kotlin 2.3.0 和 2.3.20 中弃用的更多信息，请参阅[兼容性指南](compatibility-guide-23.md)。
 
-* 在 Kotlin 2.3.20 中，Kotlin/Wasm 模块初始化作为 Wasm 模块实例化的一部分执行，而不是依赖外部 JavaScript 随后调用 `_initialize()` 函数。
+* 在 Kotlin 2.3.20 中， Kotlin/Wasm 模块初始化作为 Wasm 模块实例化的一部分执行，而不是依赖外部 JavaScript 随后调用 `_initialize()` 函数。
   此更改使 Kotlin/Wasm 更加独立，并为 [ES 模块集成提案](https://github.com/WebAssembly/esm-integration)做好了准备。
 
   如果您使用 [`@EagerInitialization`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-eager-initialization/) 注解，如果相关代码在模块初始化完成之前运行，则可能会失败。我们建议除非确有必要，否则避免使用 `@EagerInitialization` 注解。
@@ -921,7 +921,7 @@ operation.compilerArguments[COMPILER_PLUGINS] = listOf(
 * 此版本迈出了 [基于 Intel 芯片的 Apple 目标弃用周期](whatsnew2220.md#deprecation-of-x86-64-apple-targets) 的下一步。从 Kotlin 2.3.20 开始，我们弃用了 `macosX64`、`tvosX64` 和 `watchosX64` 目标。我们计划在下一个 Kotlin 版本中完全移除对这些目标的支持。
 
   由于许多第三方库仍依赖于 `iosX64` 目标，我们目前将其保留在支持层级 3。这意味着我们不保证 CI 测试，并且可能无法在不同的编译器版本之间提供源码和二进制兼容性。有关支持层级的更多信息，请参阅 [Kotlin/Native 目标支持](native-target-support.md)。
-* 在 Kotlin 2.3.20 中，Kotlin Multiplatform 中更严格的依赖匹配可能会在 common 和平台源集之间的依赖解析不同时导致元数据编译失败。有关详细信息和解决方法，请参阅 [YouTrack](https://youtrack.jetbrains.com/issue/KT-84533#tldr-workaround) 中的问题。
+* 在 Kotlin 2.3.20 中， Kotlin Multiplatform 中更严格的依赖匹配可能会在 common 和平台源集之间的依赖解析不同时导致元数据编译失败。有关详细信息和解决方法，请参阅 [YouTrack](https://youtrack.jetbrains.com/issue/KT-84533#tldr-workaround) 中的问题。
 
 ## 文档更新
 

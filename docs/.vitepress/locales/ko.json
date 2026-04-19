@@ -595,7 +595,7 @@
   "kotlin.native-lib-import-stability": "외부 라이브러리 가져오기",
   "kotlin.maven": "개요",
   "kotlin.maven-configure-project": "프로젝트 구성",
-  "kotlin.maven-compile-package": "컴파일 및 패키징",
+  "kotlin.maven-compile-package": "프로젝트 패키징",
   "kotlin.kotlin-2-2-x": "Kotlin 2.2.x",
   "kotlin.compatibility-guide-22": "호환성 가이드",
   "kmp.compose-navigation-3": "Compose의 내비게이션 3",
@@ -653,5 +653,7 @@
   "koog.rag": "RAG",
   "kotlin.backend-development": "백엔드 개발",
   "kotlin.running-ksp-from-the-command-line": "명령줄에서 KSP 실행하기",
-  "koog.datadog-exporter": "Datadog 익스포터"
+  "koog.datadog-exporter": "Datadog 익스포터",
+  "kotlin.maven-set-dependencies": "리포지토리 및 종속성 설정",
+  "kotlin.maven-kotlin-compiler": "Kotlin 컴파일러 구성"
 }

@@ -374,6 +374,12 @@ dokka {
         </p>
         <p>기본값: <code>true</code></p>
     </def>
+    <def title="suppressAnnotatedWith">
+        <p>특정 어노테이션이 달린 선언을 억제하기 위한 어노테이션 정규화된 이름(FQNs) 세트입니다.</p>
+        <p>
+            이 어노테이션들 중 하나가 달린 모든 선언은 생성된 문서에서 제외됩니다.
+        </p>
+    </def>
     <def title="jdkVersion">
         <p>Java 타입에 대한 외부 문서 링크를 생성할 때 사용할 JDK 버전입니다.</p>
         <p>

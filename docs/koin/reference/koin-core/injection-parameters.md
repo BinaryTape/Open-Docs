@@ -118,3 +118,7 @@ params.get<String>() == "a_string"
 :::note
   你可以通过 `parametersOf` 或 `parameterArrayOf` 进行“级联”参数注入，从而根据索引消耗值。或者使用 `parametersOf` 或 `parameterSetOf` 根据待解析的类型进行级联。 
 :::
+
+:::caution
+如果通过 `parametersOf` 传递的值与请求的定义具有相同的类型，Koin 将直接返回该值并跳过工厂代码块。当参数可能与定义的返回值类型发生冲突时，请为该参数使用包装类型（例如值类）。
+:::

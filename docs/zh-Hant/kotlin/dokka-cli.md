@@ -49,7 +49,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 你至少需要提供以下選項：
 
 * `-pluginsClasspath` - 下載的相依性之絕對／相對路徑清單，以分號 `;` 分隔
-* `-sourceSet` - 要為其產生文件的程式碼源路徑
+* `-sourceSet` - 要為其產生文件的原始碼絕對路徑
 * `-outputDir` - 文件輸出目錄的絕對／相對路徑
 
 ```Bash
@@ -149,7 +149,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -help
 | `outputDir`                  | 輸出目錄路徑，預設為 `./dokka`。 |
 | `sourceSet`                  | Dokka 原始碼集的配置。包含嵌套的配置選項。 |
 | `pluginsConfiguration`       | Dokka 外掛程式的配置。 |
-| `pluginsClasspath`           | 包含 Dokka 外掛程式及其相依性的 jar 清單。接受以分號分隔的多個路徑。 |
+| `pluginsClasspath`           | 包含 Dokka 外掛程式及其相依性的 JAR 清單。接受以分號分隔的多個路徑。 |
 | `offlineMode`                | 是否透過網路解析遠端檔案／連結。 |
 | `failOnWarning`              | 當 Dokka 發出警告或錯誤時，是否讓文件產生失敗。 |
 | `delayTemplateSubstitution`  | 是否延遲某些元素的替換。用於多模組專案的增量建置。 |
@@ -192,6 +192,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 | `noStdlibLink`               | 是否產生指向 Kotlin 標準函式庫的連結。 |
 | `noJdkLink`                  | 是否產生指向 JDK Javadocs 的連結。 |
 | `suppressedFiles`            | 要隱藏的檔案路徑。接受以分號分隔的多個路徑。 |
+| `suppressAnnotatedWith`      | 用於隱藏標記有該註解之宣告的註解完全限定名稱 (FQN)。接受以分號分隔的多個值。 |
 | `analysisPlatform`           | 用於設定分析的平台。 |
 | `perPackageOptions`          | 格式為 `matchingRegexp,-deprecated,-privateApi,+warnUndocumented,+suppress;...` 的套件原始碼集配置清單。接受以分號分隔的多個值。 |
 | `externalDocumentationLinks` | 格式為 `{url}^{packageListUrl}` 的外部文件連結。接受以 `^^` 分隔的多個值。 |
@@ -325,7 +326,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
     </def>
     <def title="externalDocumentationLinks">
         <p>外部文件連結的全域配置，無論它們在哪個原始碼集中被使用。</p>
-        <p>有關可能選項的清單，請參閱 <a href="#external-documentation-links-configuration">外部文件連結配置</a>。</p>
+        <p>有關 possible 選項的清單，請參閱 <a href="#external-documentation-links-configuration">外部文件連結配置</a>。</p>
     </def>
     <def title="pluginsClasspath">
         <p>包含 Dokka 外掛程式及其相依性的 JAR 檔案清單。</p>
@@ -461,7 +462,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
     </def>
     <def title="apiVersion">
         <p>
-            用於設定分析和 <a href="https://kotlinlang.org/docs/kotlin-doc.html#sample-identifier">@sample</a>
+            用於設定分析 and <a href="https://kotlinlang.org/docs/kotlin-doc.html#sample-identifier">@sample</a>
             環境的 <a href="https://kotlinlang.org/docs/compatibility-modes.html">Kotlin API 版本</a>。
         </p>
     </def>
@@ -518,6 +519,12 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
     </def>
     <def title="suppressedFiles">
         <p>產生文件時要隱藏的檔案。</p>
+    </def>
+    <def title="suppressAnnotatedWith">
+        <p>用於隱藏標記有該註解之宣告的註解完全限定名稱 (FQN) 清單。</p>
+        <p>
+            任何標記有這些註解之一的宣告都將從產生的文件中排除。
+        </p>
     </def>
     <def title="sourceLinks">
         <p>僅套用於此原始碼集的原始碼連結參數集合。</p>
@@ -646,7 +653,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 
 `externalDocumentationLinks` 區塊允許建立指向相依性之外部代管文件的連結。
 
-例如，如果你正在使用來自 `kotlinx.serialization` 的型別，預設情況下它們在你的文件中是不可點擊的，就好像它們未解析一樣。但是，由於 `kotlinx.serialization` 的 API 參考文件是由 Dokka 建置並 [發佈在 kotlinlang.org 上](https://kotlinlang.org/api/kotlinx.serialization/)，你可以為其配置外部文件連結。從而允許 Dokka 為庫中的型別產生連結，使其成功解析並可點擊。
+例如，如果你正在使用來自 `kotlinx.serialization` 的型別，預設情況下它們在你的文件中是不可點擊的，就好像它們未解析一樣。但是，由於 `kotlinx.serialization` 的 API 參考文件是由 Dokka 建置並 [發佈在 kotlinlang.org 上](https://kotlinlang.org/api/kotlinx.serialization/)，你可以為其配置外部文件連結。從而允許 Dokka 為程式庫中的型別產生連結，使其成功解析並可點擊。
 
 你可以同時為所有原始碼集配置外部文件連結，也可以 [個別配置](#source-set-configuration)：
 
@@ -698,6 +705,9 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
   "suppressObviousFunctions": true,
   "suppressInheritedMembers": false,
   "offlineMode": false,
+  "suppressAnnotatedWith": [
+    "com.example.SuppressMe"
+  ],
   "sourceLinks": [
     {
       "localDirectory": "src/main/kotlin",
@@ -762,6 +772,9 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
       ],
       "suppressedFiles": [
         "src/main/kotlin/org/jetbrains/dokka/Suppressed.kt"
+      ],
+      "suppressAnnotatedWith": [
+        "com.example.SuppressMe"
       ],
       "sourceLinks": [
         {

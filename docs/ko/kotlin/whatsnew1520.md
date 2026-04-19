@@ -28,7 +28,7 @@ Kotlin 1.5.20은 JVM 9+ 타겟에서 문자열 연결(string concatenation)을 [
 
 이전 버전에서 사용하던 [`StringBuilder.append()`](https://docs.oracle.com/javase/9/docs/api/java/lang/StringBuilder.html#append-java.lang.String-)를 통한 연결 방식으로 되돌리려면, 컴파일러 옵션 `-Xstring-concat=inline`을 추가하세요.
 
-[Gradle](gradle-compiler-options.md), [Maven](maven-compile-package.md#specify-compiler-options), [커맨드 라인 컴파일러](compiler-reference.md#compiler-options)에서 컴파일러 옵션을 추가하는 방법을 알아볼 수 있습니다.
+[Gradle](gradle-compiler-options.md), [Maven](maven-kotlin-compiler.md#specify-compiler-options), [커맨드 라인 컴파일러](compiler-reference.md#compiler-options)에서 컴파일러 옵션을 추가하는 방법을 알아볼 수 있습니다.
 
 ### JSpecify 널 허용성 어노테이션 지원
 

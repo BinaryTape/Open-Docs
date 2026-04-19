@@ -192,6 +192,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 | `noStdlibLink`               | Kotlin 標準ライブラリへのリンクを生成するかどうか。                                                                                                                      | 
 | `noJdkLink`                  | JDK の Javadoc へのリンクを生成するかどうか。                                                                                                                                     | 
 | `suppressedFiles`            | 抑制するファイルへのパス。セミコロンで区切られた複数のパスを受け入れます。                                                                                               |
+| `suppressAnnotatedWith`      | 指定されたアノテーションが付加された宣言を抑制するための、アノテーションの完全修飾名（FQN）。セミコロンで区切られた複数の値を受け入れます。                                              |
 | `analysisPlatform`           | 解析のセットアップに使用されるプラットフォーム。                                                                                                                                         |
 | `perPackageOptions`          | `matchingRegexp,-deprecated,-privateApi,+warnUndocumented,+suppress;...` 形式のパッケージソースセット設定のリスト。セミコロンで区切られた複数の値を受け入れます。 |
 | `externalDocumentationLinks` | `{url}^{packageListUrl}` 形式の外部ドキュメントリンク。`^^` で区切られた複数の値を受け入れます。                                                                    |
@@ -507,6 +508,12 @@ Kotlin [ソースセット](https://kotlinlang.org/docs/multiplatform-discover-p
     <def title="suppressedFiles">
         <p>ドキュメント生成時に抑制（除外）するファイルです。</p>
     </def>
+    <def title="suppressAnnotatedWith">
+        <p>指定されたアノテーションが付加された宣言を抑制するための、アノテーションの完全修飾名（FQN）のリストです。</p>
+        <p>
+            これらのアノテーションのいずれかが付加された宣言は、生成されるドキュメントから除外されます。
+        </p>
+    </def>
     <def title="sourceLinks">
         <p>このソースセットにのみ適用されるソースリンクのパラメータセットです。</p>
         <p>指定可能なオプションのリストについては、<a href="#ソースリンクの設定">ソースリンクの設定</a>を参照してください。</p>
@@ -676,6 +683,9 @@ Kotlin [ソースセット](https://kotlinlang.org/docs/multiplatform-discover-p
   "suppressObviousFunctions": true,
   "suppressInheritedMembers": false,
   "offlineMode": false,
+  "suppressAnnotatedWith": [
+    "com.example.SuppressMe"
+  ],
   "sourceLinks": [
     {
       "localDirectory": "src/main/kotlin",
@@ -740,6 +750,9 @@ Kotlin [ソースセット](https://kotlinlang.org/docs/multiplatform-discover-p
       ],
       "suppressedFiles": [
         "src/main/kotlin/org/jetbrains/dokka/Suppressed.kt"
+      ],
+      "suppressAnnotatedWith": [
+        "com.example.SuppressMe"
       ],
       "sourceLinks": [
         {

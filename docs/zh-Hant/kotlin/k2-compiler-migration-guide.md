@@ -306,7 +306,7 @@ K2 編譯器在 Kotlin 多平台相關領域有以下改進：
 
 #### 編譯期間通用原始碼與平台原始碼的分離
 
-以前，Kotlin 編譯器的設計使其無法在編譯時將通用原始碼集和平台原始碼集分開。因此，通用程式碼可以存取平台程式碼，這導致了平台之間的行為差異。此外，來自通用程式碼的一些編譯器設定和相依性過去會洩漏到平台程式碼中。
+以前，Kotlin 編譯器的設計使其無法在編譯時將通用原始碼集 and 平台原始碼集分開。因此，通用程式碼可以存取平台程式碼，這導致了平台之間的行為差異。此外，來自通用程式碼的一些編譯器設定和相依性過去會洩漏到平台程式碼中。
 
 在 Kotlin 2.0.0 中，我們對新 Kotlin K2 編譯器的實作包含了對編譯方案的重新設計，以確保通用原始碼集和平台原始碼集之間的嚴格分離。當您使用[預期函式和實際函式](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html#expected-and-actual-functions)時，這種變化最為明顯。以前，通用程式碼中的函式呼叫有可能解析為平台程式碼中的函式。例如：
 
@@ -462,7 +462,7 @@ class Expanded                                  // 預設可見性為 public，
 
 從 Kotlin 2.0.0 開始，Kotlin K2 編譯器預設為啟用。
 
-要升級 Kotlin 版本，請在您的 [Gradle](gradle-configure-project.md#apply-the-plugin) 和 [Maven](maven-configure-project.md#enable-and-configure-the-plugin) 組建指令碼中將其更改為 2.0.0 或更高版本。
+要升級 Kotlin 版本，請在您的 [Gradle](gradle-configure-project.md#apply-the-plugin) 和 [Maven](maven-configure-project.md) 組建指令碼中將其更改為 2.0.0 或更高版本。
 
 ### 在 Gradle 中使用 Kotlin 建置報告
 
@@ -801,7 +801,7 @@ fun main() {
 >
 {style="note"}
 
-一般規則是子類別具有優先權。前面的範例證明了這一點，因為 `Derived` 類別中的 Kotlin 屬性 `a` 被解析，這是因為 `Derived` 是 `Base` Java 類別的子類別。
+一般規則是子類別具有優先權。前面的範例證明了這一點，因為 `Derived` 類別中的 Kotlin 屬性 `a` 被解析，這是因為 `Derived` 類別是 `Base` Java 類別的子類別。
 
 如果繼承關係反轉，Java 類別繼承自 Kotlin 類別，則子類別中的 Java 欄位優先於同名的 Kotlin 屬性。
 
@@ -906,7 +906,7 @@ dataService.fetchData()[0]
 
 由於 K2 編譯器在編譯期間對通用原始碼與平台原始碼進行了分離，我們對預期類別中的抽象成員實施了更嚴格的規則。
 
-使用以前的編譯器，預期的非抽象類別有可能在不[覆寫函式](inheritance.md#overriding-rules)的情況下繼承抽象函式。由於編譯器可以同時存取通用程式碼和平台程式碼，編譯器可以查看抽象函式在實際類別中是否有對應的覆寫 and 定義。
+使用以前的編譯器，預期的非抽象類別有可能在不[覆寫函式](inheritance.md#overriding-rules)的情況下繼承抽象函式。由於編譯器可以同時存取通用程式碼和平台程式碼，編譯器可以查看抽象函式在實際類別中是否有對應的覆寫和定義。
 
 既然通用原始碼和平台原始碼是分開編譯的，繼承的函式必須在預期類別中明確覆寫，以便編譯器知道該函式不是抽象的。否則，編譯器會回報 `ABSTRACT_MEMBER_NOT_IMPLEMENTED` 錯誤。
 
@@ -1005,7 +1005,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-57750](https://youtrack.jetbrains.com/issue/KT-57750) | 解析型別且具有星號匯入的同名類別時，回報歧義錯誤 |
 | [KT-63558](https://youtrack.jetbrains.com/issue/KT-63558) | K2：遷移圍繞 COMPATIBILITY_WARNING 的解析 |
 | [KT-51194](https://youtrack.jetbrains.com/issue/KT-51194) | 當相依性類別包含在同一個相依性的兩個不同版本中時，發生 False negative CONFLICTING_INHERITED_MEMBERS |
-| [KT-37592](https://youtrack.jetbrains.com/issue/KT-37592) | 具有接收器的功能型別屬性呼叫 (Property invoke) 優於擴充函式呼叫 |
+| [KT-37592](https://youtrack.jetbrains.com/issue/KT-37592) | 具有接收器的函式型別屬性呼叫 (Property invoke) 優於擴充函式呼叫 |
 | [KT-51666](https://youtrack.jetbrains.com/issue/KT-51666) | 限定的 this：引入／優先考慮型別限定的 this 情況 |
 | [KT-54166](https://youtrack.jetbrains.com/issue/KT-54166) | 確認類別路徑中 FQ 名稱衝突時的未指定行為 |
 | [KT-64431](https://youtrack.jetbrains.com/issue/KT-64431) | K2：禁止在匯入中將型別別名用作限定符 |
@@ -1089,7 +1089,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-52802](https://youtrack.jetbrains.com/issue/KT-52802) | 回報屬性／欄位與列舉項目之間解析的歧義 |
 | [KT-47310](https://youtrack.jetbrains.com/issue/KT-47310) | 當伴隨屬性優於列舉項目時，更改限定符解析行為 |
 
-#### 功能 (SAM) 介面 {initial-collapse-state="collapsed" collapsible="true"}
+#### 函式 (SAM) 介面 {initial-collapse-state="collapsed" collapsible="true"}
 
 | Issue ID | 標題 |
 |---|---|

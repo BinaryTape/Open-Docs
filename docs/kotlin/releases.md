@@ -101,7 +101,7 @@ plugins {
 </plugins>
 ```
 
-如果您有使用早期 Kotlin 版本创建的项目，请检查是否还需要[更新任何 kotlinx 库的版本](maven-configure-project.md#dependency-on-a-kotlinx-library)。
+如果您有使用早期 Kotlin 版本创建的项目，请检查是否还需要[更新任何 kotlinx 库的版本](maven-set-dependencies.md#dependency-on-a-kotlinx-library)。
 
 > 要了解有关如何在项目中使用 Maven 的更多信息，请参阅 [Maven](maven.md)。
 >
@@ -693,7 +693,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p>包含多项改进的增量发布，例如：</p>
             <list>
                 <li>支持新的 JVM 功能，如通过 <code>invokedynamic</code> 进行字符串串联</li>
-                <li>改进 Kotlin Multiplatform Mobile 项目的性能和异常处理</li>
+                <li>改进 Kotlin Multiplatform Mobile 项目的性能 and 异常处理</li>
                 <li>JDK Path 扩展：<code>Path("dir") / "file.txt"</code></li>
             </list>
             <p>了解更多：</p>

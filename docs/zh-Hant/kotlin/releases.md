@@ -38,7 +38,7 @@
 
 ### Gradle
 
-要更新至 Kotlin %kotlinVersion%，請修改 `build.gradle(.kts)` 檔案中 Kotlin Gradle 外掛程式的版本：
+要更新至 Kotlin %kotlinVersion%，請修改您的 `build.gradle(.kts)` 檔案中 Kotlin Gradle 外掛程式的版本：
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -101,7 +101,7 @@ plugins {
 </plugins>
 ```
 
-如果您有使用較早 Kotlin 版本建立的專案，請檢查是否也需要 [更新任何 kotlinx 程式庫的版本](maven-configure-project.md#dependency-on-a-kotlinx-library)。
+如果您有使用較早 Kotlin 版本建立的專案，請檢查是否也需要 [更新任何 kotlinx 程式庫的版本](maven-set-dependencies.md#dependency-on-a-kotlinx-library)。
 
 > 若要進一步了解如何在專案中使用 Maven，請參閱 [Maven](maven.md)。
 >
@@ -593,7 +593,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.20" target="_blank">在 GitHub 上查看版本</a></p>
         </td>
         <td>
-            <p>包含多項改進的增量發佈版本，例如：</p>
+            <p>包含多項改進 of 增量發佈版本，例如：</p>
             <list>
                 <li>JVM 上預設透過 <code>invokedynamic</code> 進行字串連接</li>
                 <li>對 Lombok 的改進支援以及對 JSpecify 的支援</li>
@@ -621,7 +621,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
     <tr>
         <td><strong>1.5.0</strong>
             <p>發佈日期：<strong>2021 年 5 月 5 日</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.0" target="_blank">在 GitHub 上釋出版本</a></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.0" target="_blank">在 GitHub 上查看版本</a></p>
         </td>
         <td>
             <p>功能發佈版本，包含新語言特性、效能改進，以及如穩定化實驗性 API 等演進性變更。</p>

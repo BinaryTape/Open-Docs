@@ -368,6 +368,12 @@ dokka {
         </p>
         <p>デフォルト：<code>true</code></p>
     </def>
+    <def title="suppressAnnotatedWith">
+        <p>指定されたアノテーションが付与された宣言を抑制するための、アノテーションの完全修飾名（FQN）のセットです。</p>
+        <p>
+            これらのアノテーションのいずれかが付与された宣言は、生成されたドキュメントから除外されます。
+        </p>
+    </def>
     <def title="jdkVersion">
         <p>Java 型の外部ドキュメントリンクを生成する際に使用する JDK バージョンです。</p>
         <p>
@@ -491,7 +497,7 @@ dokka {
     </def>
     <def title="remoteUrl">
         <p>
-            GitHub、GitLab、Bitbucket、またはソースファイルへの不変な URL を提供するホスティングサービスなど、ドキュメントの読者がアクセスできるソースコードホスティングサービスの URL です。この URL は、宣言のソースコードリンクを生成するために使用されます。
+            GitHub、GitLab、Bitbucket、またはソースファイルへの不変な URL を提供するホスティングサービスなど、ドキュメント의 読者がアクセスできるソースコードホスティングサービスの URL です。この URL は、宣言のソースコードリンクを生成するために使用されます。
         </p>
     </def>
     <def title="remoteLineSuffix">

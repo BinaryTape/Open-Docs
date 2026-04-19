@@ -202,7 +202,7 @@ Kotlin/JVM 컴파일의 기본 타겟 버전은 `1.8`입니다. `1.6` 타겟은 
 JVM 타겟 1.8 이상으로 마이그레이션하세요. 다음 도구들에 대한 JVM 타겟 버전 업데이트 방법은 아래를 참고하세요:
 
 * [Gradle](gradle-compiler-options.md#attributes-specific-to-jvm)
-* [Maven](maven-compile-package.md#attributes-specific-to-jvm)
+* [Maven](maven-kotlin-compiler.md#attributes-specific-to-jvm)
 * [명령줄 컴파일러](compiler-reference.md#jvm-target-version)
 
 ## Kotlin/Native

@@ -3,11 +3,11 @@
 <web-summary>Kotlin Multiplatform (KMP) 向けに TeamCity Cloud またはオンプレミス（On-Premises）プロジェクトを設定する方法を学びます。
 このチュートリアルでは、オンザフライでの YAML 設定編集と直感的なビジュアルエディターをサポートする TeamCity パイプラインを使用します。</web-summary>
 
-この記事では、KMP アプリケーションをビルド、テスト、デプロイするために [TeamCity](https://www.jetbrains.com/teamcity/) を設定する方法を説明します。
+この記事では、KMP アプリケーションをビルド、テスト、デプロイするために [TeamCity](https://www.jetbrains.com/teamcity/?source=google&medium=cpc&campaign=EMEA_en_DE_TeamCity_Branded&term=jetbrains%20teamcity&content=771411250243&gad_source=1&gad_campaignid=12704027475&gbraid=0AAAAADloJzi5LQxd_2GSPDer8jKk00xHY&gclid=CjwKCAjwyMnNBhBNEiwA-Kcgu9u9Gprgz8eDZs4p-aG14ZSEn3A3JARU_VXxZaEFPMrxGydCbvNJdxoCmToQAvD_BwE) を設定する方法を説明します。
 TeamCity は主要なすべての VCS プロバイダー（GitHub、GitLab、Bitbucket、Azure DevOps、Perforce など）をサポートしており、
 ローカルエージェントとクラウドエージェントの両方を使用した高度にスケーラブルなハイブリッドワークフローを可能にします。また、高可用性のためのマルチノードセットアップ、高度なユーザー管理、課題トラッカーの統合、AI アシスタントなどの強力な機能が含まれています。
 
-TeamCity の無料トライアルは[こちら](https://www.jetbrains.com/teamcity/download/)から入手できます。
+TeamCity の[無料トライアル](https://www.jetbrains.com/teamcity/download/)を入手してください：
 主要なビルドツールや SDK が事前設定された JetBrains ホスト型エージェントを備えた Cloud バージョンを選択するか、最大限の制御が可能で無料の無期限 Professional ライセンスが付属する TeamCity オンプレミスを選択してください。
 
 このチュートリアルは、[JetCaster KMP サンプル](https://github.com/kotlin-hands-on/jetcaster-kmp-migration/)に基づいています。
@@ -119,7 +119,7 @@ jobs:
     parallelism: 3
 ```
 
-**Allow reuse** 最適化オプションは、パイプライン設定やソースコードに変更がない場合に、TeamCity がタスクの再実行をスキップするかどうかを指定します。
+**Allow reuse** 最適化オプションは、パイプライン設定やソースコードに変更がない場合に、TeamCity がタスク의 再実行をスキップするかどうかを指定します。
 
 詳細については、[ジョブ設定](https://www.jetbrains.com/help/teamcity/job-settings.html)および [Gradle ビルドステップ](https://www.jetbrains.com/help/teamcity/gradle.html)を参照してください。
 

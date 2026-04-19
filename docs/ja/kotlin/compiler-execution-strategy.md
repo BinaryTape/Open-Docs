@@ -126,4 +126,4 @@ tasks.named("compileKotlin").configure {
 
 ## Mavenでの設定
 
-<include from ="maven-compile-package.md" element-id="maven-configure-execution-strategy"/>
+<include from ="maven-kotlin-compiler.md" element-id="maven-configure-execution-strategy"/>

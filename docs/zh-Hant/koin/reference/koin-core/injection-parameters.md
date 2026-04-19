@@ -16,7 +16,7 @@ val myModule = module {
 }
 ```
 
-參數透過 `parametersOf()` 函式傳送到您的定義中（每個值以逗號分隔）：
+參數透過 `parametersOf()` 函式傳送至您的定義中（每個值以逗號分隔）：
 
 ```kotlin
 class MyComponent : View, KoinComponent {
@@ -31,7 +31,7 @@ class MyComponent : View, KoinComponent {
 
 ## 定義「注入參數」
 
-以下是注入參數的範例。我們確定需要一個 `view` 參數來建立 `Presenter` 類別。我們使用 `params` 函式引數來協助擷取我們的注入參數：
+以下是注入參數的範例。我們確定需要一個 `view` 參數來建置 `Presenter` 類別。我們使用 `params` 函式引數來協助擷取注入參數：
 
 ```kotlin
 class Presenter(val view : View)
@@ -84,7 +84,7 @@ val myModule = module {
 
 除了 `parametersOf` 之外，還可以使用以下 API：
 
-- `parameterArrayOf`: 使用值陣列，且資料將透過其索引使用
+- `parameterArrayOf`：使用值陣列，且資料將透過其索引使用
 
 ```kotlin
 val params = parameterArrayOf(1,2,3)
@@ -94,7 +94,7 @@ params.get<Int>() == 3
 params.get<Int>() == 3
 ```
 
-- `parameterSetOf`: 使用一組具有不同種類的值。不使用索引來輪詢值。
+- `parameterSetOf`：使用一組具有不同種類的值。不使用索引來輪詢值。
 
 ```kotlin
 val params = parameterSetOf("a_string", 42)
@@ -116,5 +116,9 @@ params.get<String>() == "a_string"
 ```
 
 :::note
- 您可以使用 `parametersOf` 或 `parameterArrayOf` 來「級聯（cascade）」參數注入，以便根據索引取用值。或者使用 `parametersOf` 或 `parameterSetOf` 根據型別進行級聯解析。
+  您可以使用 `parametersOf` 或 `parameterArrayOf` 來「級聯」參數注入，以便根據索引取用值。或者使用 `parametersOf` 或 `parameterSetOf` 根據型別進行級聯解析。 
+:::
+
+:::caution
+如果透過 `parametersOf` 傳遞的值與要求的定義具有相同的型別，Koin 會直接回傳該值並略過工廠區塊。當參數可能與定義的回傳型別衝突時，請為參數使用包裝型別（例如 `value class`）。
 :::

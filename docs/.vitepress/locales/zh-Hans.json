@@ -594,7 +594,7 @@
   "kotlin.native-lib-import-stability": "外部库导入",
   "kotlin.maven": "概览",
   "kotlin.maven-configure-project": "配置项目",
-  "kotlin.maven-compile-package": "编译与打包",
+  "kotlin.maven-compile-package": "打包您的项目",
   "kotlin.kotlin-2-2-x": "Kotlin 2.2.x",
   "kotlin.compatibility-guide-22": "兼容性指南",
   "kmp.compose-navigation-3": "Compose 中的导航 3",
@@ -652,5 +652,7 @@
   "koog.rag": "RAG",
   "kotlin.backend-development": "后端开发",
   "kotlin.running-ksp-from-the-command-line": "从命令行运行 KSP",
-  "koog.datadog-exporter": "Datadog Exporter"
+  "koog.datadog-exporter": "Datadog Exporter",
+  "kotlin.maven-set-dependencies": "设置仓库与依赖项",
+  "kotlin.maven-kotlin-compiler": "配置 Kotlin 编译器"
 }

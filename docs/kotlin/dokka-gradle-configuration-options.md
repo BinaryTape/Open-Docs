@@ -371,6 +371,12 @@ dokka {
         </p>
         <p>默认值：<code>true</code></p>
     </def>
+    <def title="suppressAnnotatedWith">
+        <p>用于隐藏带有所述注解的声明的注解完全限定名 (FQN) 集合。</p>
+        <p>
+            任何带有所列注解之一的声明都将从生成的文档中排除。
+        </p>
+    </def>
     <def title="jdkVersion">
         <p>为 Java 类型生成外部文档链接时要使用的 JDK 版本。</p>
         <p>
@@ -491,7 +497,7 @@ dokka {
 <deflist collapsible="true">
     <def title="localDirectory">
         <p>
-            本地源目录的路径。路径必须相对于当前项目的根目录。
+            本地源 directory 的路径。路径必须相对于当前项目的根目录。
         </p>
     </def>
     <def title="remoteUrl">

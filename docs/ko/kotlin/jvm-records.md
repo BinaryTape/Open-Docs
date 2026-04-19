@@ -63,7 +63,7 @@ data class Person(val name: String, val age: Int)
 
 JVM record는 생성된 JVM 바이트코드의 타겟 버전이 `16` 이상이어야 합니다.
 
-이를 명시적으로 지정하려면 [Gradle](gradle-compiler-options.md#attributes-specific-to-jvm) 또는 [Maven](maven-compile-package.md#attributes-specific-to-jvm)에서 `jvmTarget` 컴파일러 옵션을 사용하세요.
+이를 명시적으로 지정하려면 [Gradle](gradle-compiler-options.md#attributes-specific-to-jvm) 또는 [Maven](maven-kotlin-compiler.md#attributes-specific-to-jvm)에서 `jvmTarget` 컴파일러 옵션을 사용하세요.
 
 ## Kotlin에서 record 구성 요소에 어노테이션 달기
 
@@ -93,7 +93,7 @@ data class Person(val name: String, @all:Positive val age: Int)
 
 `@JvmRecord`를 `@all:`과 함께 사용하면 Kotlin은 다음을 수행합니다:
 
-* 어노테이션을 프로퍼티, 백킹 필, 생성자 파라미터, getter 및 setter로 전파합니다.
+* 어노테이션을 프로퍼티, 백킹 필드, 생성자 파라미터, getter 및 setter로 전파합니다.
 * 어노테이션이 Java의 `RECORD_COMPONENT`를 지원하는 경우, record 구성 요소에도 어노테이션을 적용합니다.
 
 ## 어노테이션을 record 구성 요소와 함께 작동하게 만들기

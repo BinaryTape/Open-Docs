@@ -87,6 +87,6 @@ kotlin.compiler.execution.strategy=in-process
 
 ## 与 Maven 集成
 
-BTA 使 [`kotlin-maven-plugin`](maven.md) 能够支持 [Kotlin 守护进程](kotlin-daemon.md)，这是默认的 [编译器执行策略](maven-compile-package.md#choose-execution-strategy)。`kotlin-maven-plugin` 默认使用 BTA，因此无需进行任何配置。
+BTA 使 [`kotlin-maven-plugin`](maven.md) 能够支持 [Kotlin 守护进程](kotlin-daemon.md)，这是默认的 [编译器执行策略](maven-kotlin-compiler.md#choose-execution-strategy)。`kotlin-maven-plugin` 默认使用 BTA，因此无需进行任何配置。
 
 BTA 使得在未来交付更多功能（如 [增量编译稳定性](https://youtrack.jetbrains.com/issue/KT-77086)）成为可能。

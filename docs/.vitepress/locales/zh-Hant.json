@@ -80,7 +80,7 @@
   "sqldelight.custom-workers": "自訂 Worker",
   "sqldelight.sqljs-driver": "SQL.js 驅動程式",
   "kotlin.home": "首頁",
-  "kotlin.getting-started": "開始",
+  "kotlin.getting-started": "開始使用",
   "kotlin.kotlin-tour-welcome": "歡迎體驗 Kotlin 之旅",
   "kotlin.kotlin-overview": "Kotlin 概覽",
   "kotlin.what-s-new-in-kotlin": "Kotlin 新功能",
@@ -597,7 +597,7 @@
   "kotlin.native-lib-import-stability": "外部程式庫匯入",
   "kotlin.maven": "概覽",
   "kotlin.maven-configure-project": "配置專案",
-  "kotlin.maven-compile-package": "編譯與打包",
+  "kotlin.maven-compile-package": "封裝您的專案",
   "kotlin.kotlin-2-2-x": "Kotlin 2.2.x",
   "kotlin.compatibility-guide-22": "相容性指南",
   "kmp.compose-navigation-3": "Compose 中的導航 3",
@@ -655,5 +655,7 @@
   "koog.rag": "RAG",
   "kotlin.backend-development": "後端開發",
   "kotlin.running-ksp-from-the-command-line": "從命令列執行 KSP",
-  "koog.datadog-exporter": "Datadog 匯出器"
+  "koog.datadog-exporter": "Datadog 匯出器",
+  "kotlin.maven-set-dependencies": "設定存儲庫與相依性",
+  "kotlin.maven-kotlin-compiler": "配置 Kotlin 編譯器"
 }

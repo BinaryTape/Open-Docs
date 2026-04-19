@@ -562,7 +562,7 @@
   "kotlin.native-lib-import-stability": "External library import",
   "kotlin.maven": "Overview",
   "kotlin.maven-configure-project": "Configure project",
-  "kotlin.maven-compile-package": "Compile and package",
+  "kotlin.maven-compile-package": "Package your project",
   "kotlin.kotlin-2-2-x": "Kotlin 2.2.x",
   "kotlin.compatibility-guide-22": "Compatibility guide",
   "kmp.compose-navigation-3": "Navigation 3 in Compose",
@@ -620,5 +620,7 @@
   "koog.rag": "RAG",
   "kotlin.backend-development": "Backend development",
   "kotlin.running-ksp-from-the-command-line": "Running KSP from the command line",
-  "koog.datadog-exporter": "Datadog Exporter"
+  "koog.datadog-exporter": "Datadog Exporter",
+  "kotlin.maven-set-dependencies": "Set repositories and dependencies",
+  "kotlin.maven-kotlin-compiler": "Configure Kotlin compiler"
 }

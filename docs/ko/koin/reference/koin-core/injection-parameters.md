@@ -118,3 +118,7 @@ params.get<String>() == "a_string"
 :::note
   `parametersOf` 또는 `parameterArrayOf`를 사용하여 인덱스를 기반으로 값을 소비하도록 매개변수 주입을 "계층화(cascade)"할 수 있습니다. 또는 `parametersOf`나 `parameterSetOf`를 사용하여 해결할 타입을 기반으로 계층화할 수도 있습니다. 
 :::
+
+:::caution
+`parametersOf`를 통해 전달된 값이 요청된 정의(definition)와 동일한 타입인 경우, Koin은 해당 값을 직접 반환하고 팩토리 블록(factory block)을 건너뜁니다. 매개변수가 정의의 반환 타입과 충돌할 가능성이 있는 경우, 매개변수에 래퍼 타입(예: value 클래스)을 사용하세요.
+:::

@@ -27,7 +27,7 @@ Kotlin 1.5.20 在 JVM 9+ 目標上將字串連接編譯為 [dynamic invocation](
 
 若要切換回先前版本使用的透過 [`StringBuilder.append()`](https://docs.oracle.com/javase/9/docs/api/java/lang/StringBuilder.html#append-java.lang.String-) 進行的連接方式，請加入編譯器選項 `-Xstring-concat=inline`。
 
-了解如何在 [Gradle](gradle-compiler-options.md)、[Maven](maven-compile-package.md#specify-compiler-options) 和 [命令列編譯器](compiler-reference.md#compiler-options) 中加入編譯器選項。
+了解如何在 [Gradle](gradle-compiler-options.md)、[Maven](maven-kotlin-compiler.md#specify-compiler-options) 和 [命令列編譯器](compiler-reference.md#compiler-options) 中加入編譯器選項。
 
 ### 支援 JSpecify 可 null 性註解
 

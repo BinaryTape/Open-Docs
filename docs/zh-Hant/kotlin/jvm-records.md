@@ -63,7 +63,7 @@ data class Person(val name: String, val age: Int)
 
 JVM Record 需要產生的 JVM 位元組碼目標版本為 `16` 或更高。
 
-若要明確指定，請在 [Gradle](gradle-compiler-options.md#attributes-specific-to-jvm) 或 [Maven](maven-compile-package.md#attributes-specific-to-jvm) 中使用 `jvmTarget` 編譯器選項。
+若要明確指定，請在 [Gradle](gradle-compiler-options.md#attributes-specific-to-jvm) 或 [Maven](maven-kotlin-compiler.md#attributes-specific-to-jvm) 中使用 `jvmTarget` 編譯器選項。
 
 ## 在 Kotlin 中為 Record 元件加上註解
 

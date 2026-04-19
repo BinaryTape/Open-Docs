@@ -75,7 +75,7 @@ Kotlin/Native 允许您使用 C 和 Objective-C 库，让您能够在 Kotlin 中
 | [`excludedFunctions`](#忽略特定函数)                                   | 应该忽略的空格分隔的函数名称列表。                                                                                                                                                         |                                              
 | [`staticLibraries`](#包含静态库)                                      | [实验性](components-stability.md#stability-levels-explained)。将静态库包含到 `.klib` 中。                                                                                                              |
 | [`libraryPaths`](#包含静态库)                                         | [实验性](components-stability.md#stability-levels-explained)。`cinterop` 工具在其中搜索要包含在 `.klib` 中的库的空格分隔的目录列表。                                    |
-| `packageName`                                                                       | 生成的 Kotlin API 的包前缀。                                                                                                                                                                             |
+| `package`                                                                       | 生成的 Kotlin API 的包前缀。                                                                                                                                                                             |
 | [`headerFilter`](#通过-glob-筛选头文件)                                          | 通过 glob 筛选头文件，并在导入库时仅包含它们。                                                                                                                                                |
 | [`excludeFilter`](#排除头文件)                                                 | 导入库时排除特定的头文件，优先级高于 `headerFilter`。                                                                                                                               |
 | [`strictEnums`](#配置枚举生成)                                        | 应该作为 [Kotlin 枚举](enum-classes.md)生成的空格分隔的枚举列表。                                                                                                                             |
@@ -112,7 +112,7 @@ Glob 应用于相对于相应 include 路径元素的头文件路径，
 headerFilter = SomeLibrary/**
 ```
 
-如果未提供 `headerFilter`，则包含所有头文件。但是，我们鼓励您使用 `headerFilter`
+如果未提供 `headerFilter`，则包含所有头文件制。但是，我们鼓励您使用 `headerFilter`
 并尽可能精确地指定 glob。在这种情况下，生成的库仅包含必要的声明。
 这有助于避免在升级开发环境中的 Kotlin 或工具时出现各种问题。
 
@@ -194,7 +194,7 @@ libraryPaths = /opt/local/lib /usr/local/opt/curl/lib
 
 ### 允许调用非指定初始化器
 
-默认情况下，Kotlin/Native 编译器不允许将非指定的 Objective-C 初始化器作为 `super()`
+默认情况下，Kotlin/Native 编译器不允许将 non-designated Objective-C 初始化器作为 `super()`
 构造函数调用。如果库中未正确标记指定的 Objective-C 初始化器，此行为可能会带来不便。
 要禁用这些编译器检查，请使用 `disableDesignatedInitializerChecks` 属性。
 
@@ -204,7 +204,7 @@ libraryPaths = /opt/local/lib /usr/local/opt/curl/lib
 Kotlin 代码，程序将会崩溃。
 
 要将 Objective-C 异常传播到 Kotlin，请通过 `foreignExceptionMode = objc-wrap` 属性启用包装。
-在这种情况下，Objective-C 异常会被转换为获得 `ForeignException` 类型的 Kotlin 异常。
+在这种情况下， Objective-C 异常会被转换为获得 `ForeignException` 类型的 Kotlin 异常。
 
 ### 帮助解决链接器错误
 

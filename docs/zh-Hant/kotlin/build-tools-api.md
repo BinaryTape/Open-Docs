@@ -76,7 +76,8 @@ BTA 支援：
 
 ### 使用 「in-process」 策略啟用增量編譯
 
-KGP 支援三種 [編譯器執行策略](compiler-execution-strategy.md)。通常情況下，「in-process」策略（在 Gradle 背景程式中執行編譯器）不支援增量編譯。
+KGP 支援三種 [編譯器執行策略](compiler-execution-strategy.md)。
+通常情況下，「in-process」策略（在 Gradle 背景程式中執行編譯器）不支援增量編譯。
 
 透過 BTA，「in-process」策略現在已支援增量編譯。若要啟用，請在您的 `gradle.properties` 檔案中加入以下屬性：
 
@@ -86,6 +87,6 @@ kotlin.compiler.execution.strategy=in-process
 
 ## 與 Maven 整合
 
-BTA 使 [`kotlin-maven-plugin`](maven.md) 能夠支援 [Kotlin 背景程式 (daemon)](kotlin-daemon.md)，這是預設的 [編譯器執行策略](maven-compile-package.md#choose-execution-strategy)。`kotlin-maven-plugin` 預設使用 BTA，因此無需進行任何設定。
+BTA 使 [`kotlin-maven-plugin`](maven.md) 能夠支援 [Kotlin 背景程式 (daemon)](kotlin-daemon.md)，這是預設的 [編譯器執行策略](maven-kotlin-compiler.md#choose-execution-strategy)。`kotlin-maven-plugin` 預設使用 BTA，因此無需進行任何設定。
 
 BTA 使得未來能夠提供更多特性，例如 [增量編譯穩定化](https://youtrack.jetbrains.com/issue/KT-77086)。

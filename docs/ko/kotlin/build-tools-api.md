@@ -87,6 +87,6 @@ kotlin.compiler.execution.strategy=in-process
 
 ## Maven과의 통합
 
-BTA는 [`kotlin-maven-plugin`](maven.md)이 기본 [컴파일러 실행 전략](maven-compile-package.md#choose-execution-strategy)인 [Kotlin 데몬](kotlin-daemon.md)을 지원할 수 있도록 합니다. `kotlin-maven-plugin`은 기본적으로 BTA를 사용하므로 별도의 구성이 필요하지 않습니다.
+BTA는 [`kotlin-maven-plugin`](maven.md)이 기본 [컴파일러 실행 전략](maven-kotlin-compiler.md#choose-execution-strategy)인 [Kotlin 데몬](kotlin-daemon.md)을 지원할 수 있도록 합니다. `kotlin-maven-plugin`은 기본적으로 BTA를 사용하므로 별도의 구성이 필요하지 않습니다.
 
 BTA를 통해 향후 [증분 컴파일 안정화](https://youtrack.jetbrains.com/issue/KT-77086)와 같은 더 많은 기능을 제공할 수 있게 될 것입니다.

@@ -175,6 +175,9 @@ Dokka 具有許多配置選項，可量身打造您和讀者的體驗。
             <file>/path/to/dir</file>
             <file>/path/to/file</file>
         </suppressedFiles>
+        <suppressAnnotatedWith>
+            <annotation>com.example.SuppressMe</annotation>
+        </suppressAnnotatedWith>
         <jdkVersion>8</jdkVersion>
         <languageVersion>1.7</languageVersion>
         <apiVersion>1.7</apiVersion>
@@ -207,7 +210,7 @@ Dokka 具有許多配置選項，可量身打造您和讀者的體驗。
         <p>預設值：<code>false</code></p>
     </def>
     <def title="moduleName">
-        <p>用於指代專案/模組的顯示名稱。它用於目錄、導覽、日誌記錄等。</p>
+        <p>用於指代專案/模組的顯示名稱。它用於目錄、導覽、記錄等。</p>
         <p>預設值：<code>{project.artifactId}</code></p>
     </def>
     <def title="outputDir">
@@ -216,7 +219,7 @@ Dokka 具有許多配置選項，可量身打造您和讀者的體驗。
     </def>
     <def title="failOnWarning">
         <p>
-            如果 Dokka 發出了警告或錯誤，是否使文件產生失敗。該程序會先等待所有錯誤和警告都發出後再結束。
+            如果 Dokka 發出了警告或錯誤，是否使文件產生失敗。該程序會先等待所有錯誤—和警告都發出後再結束。
         </p>
         <p>此設定與 <code>reportUndocumented</code> 配合良好。</p>
         <p>預設值：<code>false</code></p>
@@ -305,6 +308,12 @@ Dokka 具有許多配置選項，可量身打造您和讀者的體驗。
     <def title="suppressedFiles">
         <p>
             應隱藏的目錄或個別檔案，這意味著這些檔案中的宣告將不被記錄。
+        </p>
+    </def>
+    <def title="suppressAnnotatedWith">
+        <p>用於隱藏標註有特定註解之宣告的註解完全限定名稱 (FQN) 列表。</p>
+        <p>
+            任何標註有這些註解之一的宣告都將從產生的文件中排除。
         </p>
     </def>
     <def title="jdkVersion">

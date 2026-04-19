@@ -1052,6 +1052,14 @@
             "link": "maven-configure-project"
           },
           {
+            "text": "kotlin.maven-set-dependencies",
+            "link": "maven-set-dependencies"
+          },
+          {
+            "text": "kotlin.maven-kotlin-compiler",
+            "link": "maven-kotlin-compiler"
+          },
+          {
             "text": "kotlin.maven-compile-package",
             "link": "maven-compile-package"
           }

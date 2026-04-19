@@ -55,13 +55,13 @@ _현재 사용 가능한 프리뷰 버전이 없습니다._
         </td>
     </tr>
     <tr>
-        <td><strong>2.3.21-RC</strong>
-            <p>출시일: <strong>2026년 4월 7일</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.21-RC" target="_blank">GitHub에서 릴리스 보기</a></p>
+        <td><strong>2.3.21-RC2</strong>
+            <p>출시일: <strong>2026년 4월 16일</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.21-RC2" target="_blank">GitHub에서 릴리스 보기</a></p>
         </td>
         <td>
             <p>Kotlin 2.3.20에 대한 성능 향상 및 버그 수정이 포함된 릴리스입니다.</p>
-            <p>자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.21-RC">변경 로그(changelog)</a>를 참고하세요.</p>
+            <p>자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.21-RC2">변경 로그(changelog)</a> 또는 <a href="whatsnew2320.md">Kotlin 2.3.20의 새로운 기능</a>을 참고하세요.</p>
         </td>
     </tr>
 </table>
