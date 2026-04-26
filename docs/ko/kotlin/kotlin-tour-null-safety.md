@@ -12,13 +12,8 @@
         <img src="icon-7.svg" width="20" alt="마지막 단계" /> <strong>널 안전성</strong><br /></p>
 </tldr>
 
-> 읽는 데 약 6분 소요
->
-{style="tip"}
-
 Kotlin에서는 `null` 값을 가질 수 있습니다. Kotlin은 무언가 누락되었거나 아직 설정되지 않았을 때 `null` 값을 사용합니다.
-이미 [컬렉션](kotlin-tour-collections.md#kotlin-tour-map-no-key) 장에서 맵(map)에 존재하지 않는 키로 키-값 쌍에 접근하려고 했을 때 Kotlin이 `null` 값을 반환하는 예시를 보았습니다.
-이런 방식으로 `null` 값을 사용하는 것은 유용하지만, 코드가 이를 처리할 준비가 되어 있지 않다면 문제에 직면할 수 있습니다.
+이미 [컬렉션](kotlin-tour-collections.md#kotlin-tour-map-no-key) 장에서 맵(map)에 존재하지 않는 키로 키-값 쌍에 접근하려고 했을 때 Kotlin이 `null` 값을 반환하는 예시를 보았습니다. 이런 방식으로 `null` 값을 사용하는 것은 유용하지만, 코드가 이를 처리할 준비가 되어 있지 않다면 문제에 직면할 수 있습니다.
 
 프로그램에서 `null` 값으로 인한 문제를 방지하기 위해 Kotlin은 **널 안전성(Null safety)**을 갖추고 있습니다. 널 안전성은 `null` 값과 관련된 잠재적인 문제들을 런타임(run time)이 아닌 컴파일 시점(compile time)에 감지합니다.
 

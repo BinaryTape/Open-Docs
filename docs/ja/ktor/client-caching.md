@@ -6,7 +6,7 @@
 <var name="example_name" value="client-caching"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -34,7 +34,8 @@ val client = HttpClient(CIO) {
 ```
 
 これだけで、クライアントが以前に取得したリソースをメモリ内キャッシュに保存できるようになります。
-例えば、`Cache-Control`ヘッダーが設定されたリソースに対して2回連続で[リクエスト](client-requests.md)を送信した場合、データはすでにキャッシュに保存されているため、クライアントは最初のリクエストのみを実行し、2回目はスキップします。
+例えば、`Cache-Control`ヘッダーが設定されたリソースに対して2回連続で[リクエスト](client-requests.md)を送信した場合、
+データはすでにキャッシュに保存されているため、クライアントは最初のリクエストのみを実行し、2回目はスキップします。
 
 ## 永続キャッシュ {id="persistent_cache"}
 
@@ -53,4 +54,4 @@ val client = HttpClient(CIO) {
 }
 ```
 
-> 完全な例はこちらにあります: [client-caching](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-caching)。
+> 完全な例はこちらにあります: [client-caching](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-caching)。

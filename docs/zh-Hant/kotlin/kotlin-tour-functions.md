@@ -12,10 +12,6 @@
         <img src="icon-7-todo.svg" width="20" alt="最後一步" /> <a href="kotlin-tour-null-safety.md">Null 安全性</a></p>
 </tldr>
 
-> 閱讀時間 14 min
->
-{style="tip"}
-
 您可以使用 `fun` 關鍵字在 Kotlin 中宣告自己的函式。
 
 ```kotlin
@@ -69,7 +65,7 @@ fun main() {
 
 為了使程式碼簡潔，呼叫函式時可以不包含參數名稱。然而，包含參數名稱確實能讓程式碼更容易閱讀。這稱為使用 **命名引數**。如果您包含參數名稱，則可以按任意順序撰寫參數。
 
-> 在以下範例中，使用了 [字串範本](strings.md#string-templates) (`$`) 來存取參數值，將其轉換為 `String` 型別，然後連接成一個字串進行列印。
+> 在以下範例中，使用了 [字串範本](strings.md#string-templates) (`) 用於存取參數值，將其轉換為 `String` 型別，然後連接成一個字串以進行列印。
 > 
 {style="tip"}
 
@@ -403,7 +399,7 @@ fun main() {
 > val positives = numbers.filter { x -> x > 0 }
 > ```
 > 
-> 這是 **尾隨 Lambda** 的一個例子，在本章末尾將進行更詳細的討論。
+> 這是 [尾隨 Lambda](#trailing-lambdas) 的一個例子，在本章末尾將進行更詳細的討論。
 >
 {style="note"}
 

@@ -85,7 +85,7 @@
   "kotlin.kotlin-overview": "Kotlin 概覽",
   "kotlin.what-s-new-in-kotlin": "Kotlin 新功能",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.4.0-Beta1",
+  "kotlin.whatsnew-eap": "Kotlin 2.4.0-Beta2",
   "kotlin.earlier-versions": "更早版本",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -651,11 +651,13 @@
   "kotlin.library-guides": "程式庫指南",
   "kotlin.multiplatform-gradle-dsl": "Multiplatform Gradle DSL",
   "kotlin.earlier-kotlin-releases": "更早的 Kotlin 版本",
-  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-beta02",
+  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-beta03",
   "koog.rag": "RAG",
   "kotlin.backend-development": "後端開發",
   "kotlin.running-ksp-from-the-command-line": "從命令列執行 KSP",
   "koog.datadog-exporter": "Datadog 匯出器",
   "kotlin.maven-set-dependencies": "設定存儲庫與相依性",
-  "kotlin.maven-kotlin-compiler": "配置 Kotlin 編譯器"
+  "kotlin.maven-kotlin-compiler": "配置 Kotlin 編譯器",
+  "kmp.build-ios-android-app": "如何建置 Android 與 iOS 應用程式",
+  "koog.cache-control": "快取控制"
 }

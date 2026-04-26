@@ -410,11 +410,11 @@ JS および WasmJS 環境での非同期操作をサポートするため、[`T
 
 ### バイナリおよびファイル項目の新しいデフォルト制限
 
-Ktor 3.0.0 では、[`ApplicationCall.receiveMultipart()`](https://api.ktor.io/3.0.x/ktor-server-core/io.ktor.server.request/receive-multipart.html) を使用してバイナリおよびファイル項目を受信する際のデフォルト制限として 50MB が導入されました。受信したファイルまたはバイナリ項目が 50MB の制限を超えると、`IOException` がスローされます。
+Ktor 3.0.0 では、[`ApplicationCall.receiveMultipart()`](https://api.ktor.io/3.0.x/ktor-server-core/io.ktor.server.request/receive-multipart.html) を使用してバイナリおよびファイル項目を受信する際のデフォルト制限として 50MiB が導入されました。受信したファイルまたはバイナリ項目が 50MiB の制限を超えると、`IOException` がスローされます。
 
 #### デフォルト制限のオーバーライド
 
-明示的な設定なしに 50MB を超えるファイルを処理していたアプリケーションの場合は、予期しない動作を避けるためにコードを更新する必要があります。
+明示的な設定なしに 50MiB を超えるファイルを処理していたアプリケーションの場合は、予期しない動作を避けるためにコードを更新する必要があります。
 
 デフォルトの制限をオーバーライドするには、`.receiveMultipart()` を呼び出す際に `formFieldLimit` パラメータを渡します。
 
@@ -594,7 +594,7 @@ Ktor 3.x では、`ByteReadChannel.readRemaining()` が `Source` を返すよう
 
 このアプローチでは、チャネルからファイルのシンクへ直接データを転送するため、メモリ割り当てを最小限に抑え、パフォーマンスが向上します。
 
-完全な例については、[client-download-streaming](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-download-streaming) を参照してください。
+完全な例については、[client-download-streaming](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-download-streaming) を参照してください。
 
 > API の置き換えに関する詳細は、[`kotlinx-io` ドキュメント](https://kotlinlang.org/api/kotlinx-io/)を参照してください。
 

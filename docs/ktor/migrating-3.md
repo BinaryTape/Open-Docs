@@ -8,7 +8,7 @@
 
 ### `ApplicationEngine`、`ApplicationEnvironment` 和 `Application`
 
-为了提高可配置性，并在 `ApplicationEngine`、`ApplicationEnvironment` 和 `Application` 实例之间提供更明确的分隔，引入了几项设计变更。
+引入了几项设计变更，以提高可配置性，并在 `ApplicationEngine`、`ApplicationEnvironment` 和 `Application` 实例之间提供更明确的分隔。
 
 在 v3.0.0 之前，`ApplicationEngine` 管理 `ApplicationEnvironment`，而后者又管理 `Application`。
 
@@ -593,7 +593,7 @@ runBlocking {
 
 这种方法将数据直接从通道传输到文件的 Sink 中，最大限度地减少了内存分配并提高了性能。
 
-有关完整示例，请参阅 [client-download-streaming](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-download-streaming)。
+有关完整示例，请参阅 [client-download-streaming](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-download-streaming)。
 
 > 有关 API 替换的更多详情，请参阅 [`kotlinx-io` 文档](https://kotlinlang.org/api/kotlinx-io/)。
 

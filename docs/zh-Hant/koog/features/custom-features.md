@@ -21,7 +21,7 @@ Koog 提供了以下介面，您可以透過擴充這些介面來實作自訂功
 
 1. 建立一個功能類別。
 2. 定義一個配置類別。配置類別是 [FeatureConfig](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.feature.config/-feature-config/index.html) 類別的擴充。
-3. 建立一個實作以下部分或全部介面的伴隨物件：[AIAgentGraphFeature](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.feature/-a-i-agent-graph-feature/index.html)、[AIAgentFunctionalFeature](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.feature/-a-i-agent-functional-feature/index.html)、[AIAgentPlannerFeature](https://api.koog.ai/agents/agents-planner/ai.koog.agents.planner/-a-i-agent-planner-feature/index.html)。
+3. 建立一個伴隨物件，實作以下部分或全部介面：[AIAgentGraphFeature](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.feature/-a-i-agent-graph-feature/index.html)、[AIAgentFunctionalFeature](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.feature/-a-i-agent-functional-feature/index.html)、[AIAgentPlannerFeature](https://api.koog.ai/agents/agents-planner/ai.koog.agents.planner/-a-i-agent-planner-feature/index.html)。
 4. 為您的功能提供一個唯一的儲存金鑰（storage key），用於在代理管線中進行功能識別與擷取。該金鑰用於代理管線內部的 Map，該 Map 包含代理所有已註冊的功能。當您執行代理時，它需要處理所有已註冊的功能，而金鑰則用於從該 Map 中擷取功能。
 5. 實作必要的方法。
 
@@ -129,6 +129,7 @@ val agent = AIAgent(
 LLM 呼叫生命週期：
 
 - `interceptLLMCallStarting`：在 LLM 呼叫之前叫用。
+- `interceptLLMCallFailed`：在 LLM 呼叫失敗時叫用（底層提示執行器或審核呼叫拋出例外）。
 - `interceptLLMCallCompleted`：在 LLM 呼叫之後叫用。
 
 LLM 串流生命週期：

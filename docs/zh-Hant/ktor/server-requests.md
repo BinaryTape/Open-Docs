@@ -126,7 +126,7 @@ Hello, world!
 >
 {style="tip"}
 
-> 如需完整範例，請參閱 [post-raw-data](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/post-raw-data)。
+> 如需完整範例，請參閱 [post-raw-data](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/post-raw-data)。
 
 ### 物件 {id="objects"}
 
@@ -162,7 +162,7 @@ post("/signup") {
 }
 ```
 
-> 如需完整範例，請參閱 [post-form-parameters](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/post-form-parameters)。
+> 如需完整範例，請參閱 [post-form-parameters](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/post-form-parameters)。
 
 ### 多部分表單資料 (Multipart form data) {id="form_data"}
 
@@ -269,4 +269,4 @@ post("/upload") {
 part.dispose()
 ```
 
-> 要了解如何執行此範例，請參閱 [upload-file](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/upload-file)。
+> 要了解如何執行此範例，請參閱 [upload-file](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/upload-file)。

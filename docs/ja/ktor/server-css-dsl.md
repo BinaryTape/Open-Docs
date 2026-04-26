@@ -7,7 +7,7 @@
 <var name="example_name" value="css-dsl"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -97,4 +97,4 @@ get("/html-dsl") {
 }
 ```
 
-完全な例はこちらで見つけることができます: [css-dsl](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/css-dsl)。
+完全な例はこちらで見つけることができます: [css-dsl](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/css-dsl)。

@@ -4,7 +4,7 @@
 
 <tldr>
     <p>Kotlinの最新バージョン: <strong>%kotlinVersion%</strong></p>
-    <p><a href="%kotlinLatestWhatsnew%">Kotlin 2.3.20の新機能</a>を参照してください。<!-- バグ修正の詳細については<a href="%kotlinLatestUrl%">変更履歴</a>で確認できます。--></p>
+    <p><a href="%kotlinLatestWhatsnew%">Kotlin 2.3.20の新機能</a>を参照してください。また、バグ修正の詳細については<a href="%kotlinLatestUrl%">変更履歴</a>で確認できます。</p>
 </tldr>
 
 このページでは、Kotlinのリリースサイクルと、提供している各種リリースタイプについて説明します。また、過去および今後のKotlinリリースに関する詳細と、特定のリリースにアップデートする方法についても記載しています。
@@ -127,6 +127,16 @@ Kotlinは、JetBrainsが開発した公式のKotlinプラグインにより、[I
     <tr>
         <th>ビルド情報</th>
         <th>ビルドのハイライト</th>
+    </tr>
+    <tr>
+        <td><strong>2.3.21</strong>
+            <p>リリース日: <strong>2026年4月23日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.21" target="_blank">GitHubでのリリース</a></p>
+        </td>
+        <td>
+            <p>Kotlin 2.3.20のバグ修正リリースです。</p>
+            <p>詳細は<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.21">変更履歴</a>を参照してください。</p>
+        </td>
     </tr>
     <tr>
         <td><strong>2.3.20</strong>

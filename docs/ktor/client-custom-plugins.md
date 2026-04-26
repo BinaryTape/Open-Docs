@@ -6,7 +6,7 @@
 <var name="example_name" value="client-custom-plugin"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -592,7 +592,7 @@ data class User(val name: String, val age: Int)
 </TabItem>
 </Tabs>
 
-您可以在此处找到完整示例：[client-custom-plugin-data-transformation](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-custom-plugin-data-transformation)。
+您可以在此处找到完整示例：[client-custom-plugin-data-transformation](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-custom-plugin-data-transformation)。
 
 ### 身份验证 {id="authentication"}
 
@@ -661,4 +661,4 @@ fun main() {
 </TabItem>
 </Tabs>
 
-您可以在此处找到完整示例：[client-custom-plugin-auth](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-custom-plugin-auth)。
+您可以在此处找到完整示例：[client-custom-plugin-auth](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-custom-plugin-auth)。

@@ -6,7 +6,7 @@
 <var name="example_name" value="server-websockets-serialization"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -20,7 +20,7 @@ kotlinx.serialization コンバーターを使用する前に、[セットアッ
 
 #### JSON {id="add_json_dependency"}
 
-JSON データのシリアライズ/デシリアライズには、kotlinx.serialization、Gson、Jackson のいずれかのライブラリを選択できます。
+JSON データのシリアライズ/デシリアライズには、kotlinx.serialization、Gson、Jackson のいずれかのライブラリを選択できます。 
 
 <Tabs group="json-libraries">
 <TabItem title="kotlinx.serialization" group-key="kotlinx">
@@ -246,4 +246,4 @@ webSocket("/customer/1") {
 }
 ```
 
-> 完全な例はこちらで確認できます: [server-websockets-serialization](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/server-websockets-serialization)。
+> 完全な例はこちらで確認できます: [server-websockets-serialization](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/server-websockets-serialization)。

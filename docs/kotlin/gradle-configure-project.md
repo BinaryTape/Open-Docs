@@ -49,7 +49,7 @@ plugins {
 
 | KGP 版本        | Gradle 最小和最大版本                  | AGP 最小和最大版本                                   |
 |---------------|---------------------------------------|-----------------------------------------------------|
-| 2.3.20        | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
+| 2.3.20–2.3.21 | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
 | 2.3.10        | 7.6.3–9.0.0                           | 8.2.2–9.0.0                                         |
 | 2.3.0         | 7.6.3–9.0.0                           | 8.2.2–8.13.0                                        |
 | 2.2.20–2.2.21 | 7.6.3–8.14                            | 7.3.1–8.11.1                                        |
@@ -101,7 +101,7 @@ plugins {
 
 | Gradle 属性                                          | 描述                                                                                                                                       |
 |-----------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
-| `kotlin.project.persistent.dir`                     | 配置存储项目级数据的路径。默认值：`<project-root-directory>/.kotlin`                                      |
+| `kotlin.project.persistent.dir`                     | 配置存储项目级数据的位置。默认值：`<project-root-directory>/.kotlin`                                      |
 | `kotlin.project.persistent.dir.gradle.disableWrite` | 控制是否禁用将 Kotlin 数据写入 `.gradle` 目录（为了与旧版本 IDEA 向后兼容）。默认值：false |
 
 ## 以 JVM 为目标

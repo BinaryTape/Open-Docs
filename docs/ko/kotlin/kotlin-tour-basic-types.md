@@ -12,10 +12,6 @@
         <img src="icon-7-todo.svg" width="20" alt="마지막 단계" /> <a href="kotlin-tour-null-safety.md">널 안전성</a></p>
 </tldr>
 
-> 3분 소요
->
-{style="tip"}
-
 코틀린의 모든 변수와 데이터 구조에는 타입이 있습니다. 타입은 컴파일러에게 해당 변수나 데이터 구조로 무엇을 할 수 있는지, 즉 어떤 함수와 프로퍼티를 가지고 있는지 알려주기 때문에 중요합니다.
 
 이전 장의 예제에서 코틀린은 `customers`가 [`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/) 타입임을 식별할 수 있었습니다. 타입을 **추론**하는 코틀린의 이러한 능력을 **타입 추론(type inference)**이라고 합니다. `customers`에 정수 값이 할당되었기 때문에, 코틀린은 `customers`가 숫자 타입인 `Int`를 가진다고 추론합니다. 그 결과, 컴파일러는 `customers`를 사용하여 산술 연산을 수행할 수 있다는 것을 알게 됩니다.

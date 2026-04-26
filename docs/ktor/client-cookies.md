@@ -6,21 +6,21 @@
 <var name="example_name" value="client-cookies"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
 </tldr>
 
 <link-summary>
-HttpCookies 插件会自动处理 Cookie，并将其保存在存储中以便在调用之间保持。
+HttpCookies 插件会自动处理 Cookie，并将其在调用之间保存在存储中。
 </link-summary>
 
 Ktor 客户端允许您通过以下方式手动处理 Cookie：
 * `cookie` 函数允许您向[特定请求](client-requests.md#cookies)追加 Cookie。
 * `setCookie` 函数使您能够解析在[响应](client-responses.md#headers)中收到的 `Set-Cookie` 标头值。
 
-[HttpCookies](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins.cookies/-http-cookies/index.html) 插件会自动处理 Cookie，并将其在调用之间保存在存储中。
+[HttpCookies](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins.cookies/-http-cookies/index.html) 插件会自动处理 Cookie，并将其在调用之间保存在存储中。 
 默认情况下，它使用内存存储，但您也可以使用 [CookiesStorage](#custom_storage) 实现持久化存储。
 
 ## 添加依赖项 {id="add_dependencies"}
@@ -35,7 +35,7 @@ val client = HttpClient(CIO) {
 }
 ```
 
-这足以让 Ktor 客户端在请求之间保持 Cookie。您可以在此处找到完整示例：[client-cookies](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-cookies)。
+这足以让 Ktor 客户端在请求之间保持 Cookie。您可以在此处找到完整示例：[client-cookies](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-cookies)。
 
 `HttpCookies` 插件还允许您通过使用 `ConstantCookiesStorage` 为每个请求添加一组特定的 Cookie。这在验证服务器响应的测试用例中可能很有用。下面的示例展示了如何为特定域的所有请求添加指定的 Cookie：
 

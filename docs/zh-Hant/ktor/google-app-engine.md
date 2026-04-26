@@ -4,10 +4,10 @@
 
 <tldr>
 <p>
-<control>初始專案</control>：<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main">engine-main</a>
+<control>初始專案</control>：<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main">engine-main</a>
 </p>
 <p>
-<control>最終專案</control>：<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/google-appengine-standard">google-appengine-standard</a>
+<control>最終專案</control>：<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/google-appengine-standard">google-appengine-standard</a>
 </p>
 </tldr>
 
@@ -19,7 +19,7 @@
 了解如何將您的專案部署到 Google App Engine 標準環境。
 </link-summary>
 
-在本教學中，我們將向您展示如何準備 Ktor 專案並將其部署到 Google App Engine 標準環境。本教學使用 [engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main) 範例專案作為起始專案。
+在本教學中，我們將向您展示如何準備 Ktor 專案並將其部署到 Google App Engine 標準環境。本教學使用 [engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main) 範例專案作為起始專案。
 
 ## 先決條件 {id="prerequisites"}
 在開始本教學之前，您需要執行以下步驟：
@@ -32,8 +32,8 @@
 
 ## 複製範例應用程式 {id="clone"}
 若要開啟範例應用程式，請遵循以下步驟：
-1. 複製 Ktor 文件存儲庫並開啟 [codeSnippets](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets) 專案。
-2. 開啟 [engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main) 模組。
+1. 複製 Ktor 文件存儲庫並開啟 [codeSnippets](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets) 專案。
+2. 開啟 [engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main) 模組。
    > 請注意，Ktor 提供兩種[建立與配置伺服器](server-create-and-configure.topic)的方法：透過程式碼或使用配置檔案。在本教學中，兩種方法的部署程序是相同的。
 
 ## 準備應用程式 {id="prepare-app"}
@@ -41,7 +41,7 @@
 本教學展示如何使用 [fat JAR](server-fatjar.md) 將應用程式部署到 Google App Engine。若要產生 fat JAR，您需要套用 Shadow 外掛程式。開啟 `build.gradle.kts` 檔案並將外掛程式新增至 `plugins` 區塊：
 ```kotlin
 plugins {
-    id("com.gradleup.shadow") version "8.3.9"
+    id("com.gradleup.shadow") version "8.3.10"
 }
 ```
 
@@ -130,4 +130,4 @@ plugins {
    >
    {type="note"}
 
-您可以在此處找到完整的範例：[google-appengine-standard](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/google-appengine-standard)。
+您可以在此處找到完整的範例：[google-appengine-standard](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/google-appengine-standard)。

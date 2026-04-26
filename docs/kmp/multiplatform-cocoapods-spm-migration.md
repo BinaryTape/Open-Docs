@@ -16,7 +16,7 @@
 2. [借助 SwiftPM 导入工具的帮助重新配置你的 Xcode 项目以使用直接集成](#reconfigure-your-xcode-project)
 3. [根据你的项目结构，完全或部分禁用 CocoaPods 集成](#remove-the-cocoapods-kmp-integration)
 
-> 你可以使用我们[准备好的技能](https://github.com/Kotlin/kmp-cocoapods-to-spm-migration/blob/master/SKILL.md)将 CocoaPods 到 SwiftPM 的迁移工作交给选定的 AI 代理 (agent)。
+> 你可以使用我们[准备好的技能](https://github.com/Kotlin/kotlin-agent-skills/tree/main/skills/kotlin-tooling-cocoapods-spm-migration)将 CocoaPods 到 SwiftPM 的迁移工作交给选定的 AI 代理 (agent)。
 > 请记住，AI 处理结果并不完全可预测。
 >
 {style="note"}
@@ -98,7 +98,7 @@ SwiftPM 导入工具可以生成 shell 命令，以对你的 `.xcodeproj` 文件
     末尾的 `grep` 调用会找到特定的错误消息以及你需要运行的命令。
 
 4. 在 `/path/to/project/iosApp` 目录中，在终端里运行生成的命令。
-   它会修改 `iosApp` 项目的 `.xcodeproj` 文件，以便在构建期间触发 `embedAndSignAppleFrameworkForXcode` 任务，
+   它会修改 `iosApp` 项目c的 `.xcodeproj` 文件，以便在构建期间触发 `embedAndSignAppleFrameworkForXcode` 任务，
    这会将 Kotlin Multiplatform 编译阶段插入到你的 iOS 构建中。
 5. 在 IntelliJ IDEA 中，选择 **Tools** | **Swift Package Manager** | **Resolve Dependencies** 以解析你在 `build.gradle.kts` 文件中声明的 SwiftPM 依赖项。
 

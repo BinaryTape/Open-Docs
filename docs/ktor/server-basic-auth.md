@@ -9,10 +9,10 @@
 <b>所需依赖项</b>：<code>io.ktor:%artifact_name%</code>
 </p>
 <p>
-<b>代码示例</b>：<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-basic">auth-basic</a>，<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-basic-hash-table">auth-basic-hash-table</a>
+<b>代码示例</b>：<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-basic">auth-basic</a>，<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-basic-hash-table">auth-basic-hash-table</a>
 </p>
 <p>
-    <b><Links href="/ktor/server-native" summary="Ktor 支持 Kotlin/原生，并允许您在没有额外运行时或虚拟机的情况下运行服务器。">原生服务器</Links> 支持</b>：✅
+    <b><Links href="/ktor/server-native" summary="Ktor 支持 Kotlin/Native，并允许您在没有额外运行时或虚拟机的情况下运行服务器。">原生服务器</Links> 支持</b>：✅
 </p>
 </tldr>
 

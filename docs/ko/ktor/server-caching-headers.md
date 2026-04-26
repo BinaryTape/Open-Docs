@@ -14,7 +14,7 @@
 <var name="example_name" value="caching-headers"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -74,7 +74,7 @@
 `%plugin_name%`을 설치한 후, 다양한 콘텐츠 유형에 대해 캐싱 설정을 [구성](#configure)할 수 있습니다.
 
 ## 캐싱 구성 {id="configure"}
-`%plugin_name%` 플러그인을 구성하려면, 주어진 `ApplicationCall` 및 콘텐츠 유형에 대해 지정된 캐싱 옵션을 제공하는 [options](https://api.ktor.io/ktor-server-caching-headers/io.ktor.server.plugins.cachingheaders/-caching-headers-config/options.html) 함수를 정의해야 합니다. [caching-headers](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/caching-headers) 예제의 코드 스니펫은 일반 텍스트와 HTML에 대해 `max-age` 옵션과 함께 `Cache-Control` 헤더를 추가하는 방법을 보여줍니다:
+`%plugin_name%` 플러그인을 구성하려면, 주어진 `ApplicationCall` 및 콘텐츠 유형에 대해 지정된 캐싱 옵션을 제공하는 [options](https://api.ktor.io/ktor-server-caching-headers/io.ktor.server.plugins.cachingheaders/-caching-headers-config/options.html) 함수를 정의해야 합니다. [caching-headers](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/caching-headers) 예제의 코드 스니펫은 일반 텍스트와 HTML에 대해 `max-age` 옵션과 함께 `Cache-Control` 헤더를 추가하는 방법을 보여줍니다:
 
 ```kotlin
 fun Application.module() {

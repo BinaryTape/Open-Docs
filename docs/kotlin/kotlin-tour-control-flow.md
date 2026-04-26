@@ -12,15 +12,11 @@
         <img src="icon-7-todo.svg" width="20" alt="最后一步" /> <a href="kotlin-tour-null-safety.md">空安全</a></p>
 </tldr>
 
-> 阅读时间 10 分钟
->
-{style="tip"}
-
 与其他编程语言类似，Kotlin 能够根据一段代码的求值结果是否为 true 来做出决策。这类代码被称为 **条件表达式**。Kotlin 还能创建并遍历循环。
 
 ## 条件表达式
 
-Kotlin 提供了 `if` 和 `when` 来检查条件表达式。
+Kotlin 提供了 `if` 和 `when` 来检查条件表达式。 
 
 > 如果必须在 `if` 和 `when` 之间做出选择，我们建议使用 `when`，因为它：
 > 
@@ -266,7 +262,8 @@ fun main() {
 
 要以相反顺序声明区间，请使用 [`downTo`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.ranges/down-to.html)。例如，`4 downTo 1` 等同于 `4, 3, 2, 1`。
 
-要声明一个增量不是 1 的区间，请使用 [`step`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.ranges/step.html) 和您所需的增量值。例如，`1..5 step 2` 等同于 `1, 3, 5`。
+要声明一个增量不是 1 的区间，请使用 [`step`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.ranges/step.html) 和您所需的增量值。
+例如，`1..5 step 2` 等同于 `1, 3, 5`。
 
 您也可以对 `Char`（字符）区间执行相同的操作：
 
@@ -323,7 +320,7 @@ fun main() {
 
 在第一种使用场景 (`while`) 中：
 
-* 在圆括号 `()` 内声明 `while` 循环继续执行的条件表达式。
+* 在圆括号 `()` 内声明 `while` 循环继续执行的条件表达式。 
 * 在花括号 `{}` 内添加您想要完成的操作。
 
 > 以下示例使用[增量运算符](operator-overloading.md#increments-and-decrements) `++` 来增加 `cakesEaten` 变量的值。

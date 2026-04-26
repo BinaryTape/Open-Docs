@@ -563,7 +563,7 @@ Agentの永続化機能は、チェックポイントを操作するための便
     val customMessageHistory = emptyList<User>()
     -->
     ```kotlin
-    fun example(context: AIAgentContext) {
+    suspend fun example(context: AIAgentContext) {
         // ノードの前に実行ポイントを設定し、そのノードへの入力を提供できます
         context.persistence().setExecutionPoint(
             agentContext = context,

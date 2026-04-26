@@ -13,7 +13,7 @@
 
 ## 建立範例應用程式 {id="create-sample-app"}
 
-按照 [建立、開啟並執行新的 Ktor 專案](server-create-a-new-project.topic) 中的說明建立範例應用程式。此範例展示了基於以下專案的程式碼與指令：[embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server) 與 [engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main)。
+按照 [建立、開啟並執行新的 Ktor 專案](server-create-a-new-project.topic) 中的說明建立範例應用程式。此範例展示了基於以下專案的程式碼與指令：[embedded-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server) 與 [engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main)。
 
 > 上述教學提供了兩種配置應用程式的方式：直接在程式碼中指定值，或使用設定檔。在這兩種情況下，關鍵配置都是伺服器監聽傳入請求的 port。
 
@@ -118,7 +118,7 @@ azurewebapp {
 有關可用配置屬性的詳細說明，請參閱 [Webapp 配置文件](https://github.com/microsoft/azure-gradle-plugins/wiki/Webapp-Configuration)。
 
 * `pricingTier`（服務方案）的值可以在 [Linux 版](https://azure.microsoft.com/en-us/pricing/details/app-service/linux/) 和 [Windows 版](https://azure.microsoft.com/en-us/pricing/details/app-service/windows/) 中找到。
-* `region` 的值列表可以透過以下 Azure CLI 指令取得：`az account list-locations --query "[].name" --output tsv`，或是在 [產品可用性表](https://go.microsoft.com/fwlink/?linkid=2300348&clcid=0x409) 中搜尋 "App Service"。
+* `region` 的值清單可以透過以下 Azure CLI 指令取得：`az account list-locations --query "[].name" --output tsv`，或是在 [產品可用性表](https://go.microsoft.com/fwlink/?linkid=2300348&clcid=0x409) 中搜尋 "App Service"。
 
 ## 部署應用程式 {id="deploy-app"}
 

@@ -1,4 +1,4 @@
-[//]: # (title: Compose Multiplatform 1.11.0-beta02의 새로운 기능)
+[//]: # (title: Compose Multiplatform 1.11.0-beta03의 새로운 기능)
 
 이번 EAP 기능 릴리스의 주요 하이라이트는 다음과 같습니다.
 
@@ -6,7 +6,7 @@
 * [Compose UI 테스트 API v2 버전](#compose-ui-tests-v2)
 * [웹 타겟의 스크롤 성능 개선](#scroll-on-web-targets-brought-in-line-with-native-ui)
 
-전체 변경 사항 목록은 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.11.0-beta02)에서 확인할 수 있습니다.
+전체 변경 사항 목록은 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.11.0-beta03)에서 확인할 수 있습니다.
 이번 릴리스의 구체적인 컴포넌트 버전은 [의존성(Dependencies)](#dependencies) 섹션에 나열되어 있습니다.
 
 ## 주요 변경 사항 및 지원 중단(Deprecations)
@@ -89,16 +89,16 @@ Compose Multiplatform에서 웹의 스크롤 성능은 네이티브 UI에 비해
 ## 의존성(Dependencies)
 
 | 라이브러리 | Maven 좌표 | 기반 Jetpack 버전 |
-|--------------------|--------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
-| Runtime            | `org.jetbrains.compose.runtime:runtime*:1.11.0-beta02`                         | [Runtime 1.11.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.11.0-beta02)                       |
-| UI                 | `org.jetbrains.compose.ui:ui*:1.11.0-beta02`                                   | [UI 1.11.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.11.0-beta02)                                 |
-| Foundation         | `org.jetbrains.compose.foundation:foundation*:1.11.0-beta02`                   | [Foundation 1.11.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.11.0-beta02)                 |
-| Material           | `org.jetbrains.compose.material:material*:1.11.0-beta02`                       | [Material 1.11.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-material#1.11.0-beta02)                     |
-| Material3          | `org.jetbrains.compose.material3:material3*:1.11.0-alpha06`                    | [Material3 1.5.0-alpha16](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha16)                   |
-| Material3 Adaptive | `org.jetbrains.compose.material3.adaptive:adaptive*:1.3.0-alpha06`             | [Material3 Adaptive 1.3.0-alpha09](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.3.0-alpha09) |
-| Lifecycle          | `org.jetbrains.androidx.lifecycle:lifecycle-*:2.11.0-alpha03`                  | [Lifecycle 2.11.0-alpha03](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.11.0-alpha03)                         |
-| Navigation         | `org.jetbrains.androidx.navigation:navigation-*:2.9.2`                         | [Navigation 2.9.7](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.7)                                         |
-| Navigation3        | `org.jetbrains.androidx.navigation3:navigation3-*:1.1.0-rc01`                  | [Navigation3 1.1.0-rc01](https://developer.android.com/jetpack/androidx/releases/navigation3#1.1.0-rc01)                             |
-| Navigation Event   | `org.jetbrains.androidx.navigationevent:navigationevent-compose:1.1.0-alpha01` | [Navigation Event 1.1.0-alpha01](https://developer.android.com/jetpack/androidx/releases/navigationevent#1.1.0-alpha01)              |
-| Savedstate         | `org.jetbrains.androidx.savedstate:savedstate*:1.4.0`                          | [Savedstate 1.4.0](https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0)                                         |
-| WindowManager Core | `org.jetbrains.androidx.window:window-core:1.5.1`                              | [WindowManager 1.5.1](https://developer.android.com/jetpack/androidx/releases/window#1.5.1)                                          |
+|--------------------|-------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| Runtime            | `org.jetbrains.compose.runtime:runtime*:1.11.0-beta03`                        | [Runtime 1.11.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.11.0-rc01)                           |
+| UI                 | `org.jetbrains.compose.ui:ui*:1.11.0-beta03`                                  | [UI 1.11.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.11.0-rc01)                                     |
+| Foundation         | `org.jetbrains.compose.foundation:foundation*:1.11.0-beta03`                  | [Foundation 1.11.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.11.0-rc01)                     |
+| Material           | `org.jetbrains.compose.material:material*:1.11.0-beta03`                      | [Material 1.11.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-material#1.11.0-rc01)                         |
+| Material3          | `org.jetbrains.compose.material3:material3*:1.11.0-alpha07`                   | [Material3 1.5.0-alpha17](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha17)                   |
+| Material3 Adaptive | `org.jetbrains.compose.material3.adaptive:adaptive*:1.3.0-alpha07`            | [Material3 Adaptive 1.3.0-alpha10](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.3.0-alpha10) |
+| Lifecycle          | `org.jetbrains.androidx.lifecycle:lifecycle-*:2.11.0-alpha03`                 | [Lifecycle 2.11.0-alpha03](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.11.0-alpha03)                         |
+| Navigation         | `org.jetbrains.androidx.navigation:navigation-*:2.9.2`                        | [Navigation 2.9.7](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.7)                                         |
+| Navigation3        | `org.jetbrains.androidx.navigation3:navigation3-*:1.1.0`                      | [Navigation3 1.1.0](https://developer.android.com/jetpack/androidx/releases/navigation3#1.1.0)                                       |
+| Navigation Event   | `org.jetbrains.androidx.navigationevent:navigationevent-compose:1.1.0-beta01` | [Navigation Event 1.1.0-rc01](https://developer.android.com/jetpack/androidx/releases/navigationevent#1.1.0-rc01)                    |
+| Savedstate         | `org.jetbrains.androidx.savedstate:savedstate*:1.4.0`                         | [Savedstate 1.4.0](https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0)                                         |
+| WindowManager Core | `org.jetbrains.androidx.window:window-core:1.5.1`                             | [WindowManager 1.5.1](https://developer.android.com/jetpack/androidx/releases/window#1.5.1)                                          |

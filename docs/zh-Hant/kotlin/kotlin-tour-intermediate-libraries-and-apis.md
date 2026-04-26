@@ -14,10 +14,6 @@
         <img src="icon-9.svg" width="20" alt="第九步" /> <strong>程式庫與 API</strong><br /></p>
 </tldr>
 
-> 閱讀時間約 8 分鐘
->
-{style="tip"}
-
 為了充分發揮 Kotlin 的優勢，請使用現有的程式庫與 API，這樣您就能將更多時間花在編寫程式碼上，而不是浪費時間在重複造輪子。
 
 程式庫負責散布可重用的程式碼，能簡化常見的任務。在程式庫中，會有套件與物件來對相關的類別、函式及工具進行分組。程式庫將 API (應用程式編程介面) 公開為一組函式、類別或屬性，供開發人員在自己的程式碼中使用。
@@ -163,7 +159,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-libraries-apis"}
 
-這是最簡單的選擇性加入方式，但還有其他方法。若要了解更多，請參閱 [選擇性加入需求 (Opt-in requirements)](opt-in-requirements.md)。
+這是最簡單的選擇性加入方式，但還有其他方法。若要了解更多，請參閱[選擇性加入需求 (Opt-in requirements)](opt-in-requirements.md)。
 
 ## 練習
 

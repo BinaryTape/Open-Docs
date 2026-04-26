@@ -117,7 +117,7 @@ fun Application.module() {
 </TabItem>
 </Tabs>
 
-> 전체 코드 예제는 [engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main)을 참조하세요.
+> 전체 코드 예제는 [engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main)을 참조하세요.
 
 ## JUnit 테스트 클래스 설정 {id="junit-test-class"}
 
@@ -302,7 +302,7 @@ fun testHello() = testApplication {
 }
 ```
    
-> 전체 테스트 예제는 [auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-oauth-google)을 참조하세요.
+> 전체 테스트 예제는 [auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-oauth-google)을 참조하세요.
 
 ### 환경 사용자 정의 {id="environment"}
 
@@ -354,7 +354,7 @@ fun testHello() = testApplication {
 }
 ```
 
-> 전체 테스트 예제는 [auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-oauth-google)을 참조하세요.
+> 전체 테스트 예제는 [auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-oauth-google)을 참조하세요.
 
 ## 클라이언트 구성 {id="configure-client"}
 
@@ -401,7 +401,7 @@ fun testPostCustomer() = testApplication {
 }
 ```
 
-> 전체 테스트 예제는 [json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/json-kotlinx)를 참조하세요.
+> 전체 테스트 예제는 [json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/json-kotlinx)를 참조하세요.
 
 ## 결과 검증 {id="assert"}
 
@@ -491,7 +491,7 @@ fun Application.main() {
 </TabItem>
 </Tabs>
 
-> 전체 코드 예제는 [post-form-parameters](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/post-form-parameters)를 참조하세요.
+> 전체 코드 예제는 [post-form-parameters](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/post-form-parameters)를 참조하세요.
 
 #### 멀티파트 폼 데이터 {id="multipart-form-data"}
 
@@ -596,7 +596,7 @@ fun Application.main() {
 </TabItem>
 </Tabs>
 
-> 전체 코드 예제는 [upload-file](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/upload-file)을 참조하세요.
+> 전체 코드 예제는 [upload-file](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/upload-file)을 참조하세요.
 
 ### JSON 데이터 전송 {id="json-data"}
 
@@ -674,7 +674,7 @@ data class Customer(val id: Int, val firstName: String, val lastName: String)
 </TabItem>
 </Tabs>
 
-> 전체 예제는 [json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/json-kotlinx)를 참조하세요.
+> 전체 예제는 [json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/json-kotlinx)를 참조하세요.
 
 ## 테스트 중 쿠키 유지하기 {id="preserving-cookies"}
 
@@ -764,11 +764,11 @@ fun Application.main() {
 </TabItem>
 </Tabs>
 
-> 전체 예제는 [session-cookie-client](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/session-cookie-client)를 참조하세요.
+> 전체 예제는 [session-cookie-client](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-cookie-client)를 참조하세요.
 
 ## HTTPS 테스트 {id="https"}
 
-[HTTPS 엔드포인트](server-ssl.md)를 테스트하려면 `URLBuilder.protocol` 프로퍼티를 사용하여 요청 프로토콜을 설정하세요:
+[HTTPS 엔드포인트](server-ssl.md)를 테스트하려면 [`URLBuilder.protocol`](client-requests.md#url) 프로퍼티를 사용하여 요청 프로토콜을 설정하세요:
 
 ```kotlin
 package com.example
@@ -796,7 +796,7 @@ class ApplicationTest {
 
 ```
 
-> 전체 예제는 [ssl-engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/ssl-engine-main)을 참조하세요.
+> 전체 예제는 [ssl-engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/ssl-engine-main)을 참조하세요.
 
 ## WebSocket 테스트 {id="testing-ws"}
 
@@ -859,4 +859,4 @@ class EmbeddedServerTest: TestServer() {
 }
 ```
 
-> 완전한 엔드투엔드 테스트 예제는 [embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server) 및 [e2e](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/e2e)를 참조하세요.
+> 완전한 엔드투엔드 테스트 예제는 [embedded-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server) 및 [e2e](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/e2e)를 참조하세요.

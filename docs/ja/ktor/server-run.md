@@ -24,7 +24,7 @@ Ktorアプリケーションの実行は、[サーバーの作成](server-create
 ### EngineMainの起動: GradleおよびMavenの詳細 {id="gradle-maven"}
 
 `EngineMain`を使用してサーバーを作成する場合、目的の[エンジン](server-engines.md)でサーバーを起動するための`main`関数を指定する必要があります。
-以下の[例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main)は、Nettyエンジンでサーバーを実行するために使用される`main`関数を示しています。
+以下の[例](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main)は、Nettyエンジンでサーバーを実行するために使用される`main`関数を示しています。
 
 ```kotlin
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)

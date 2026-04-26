@@ -4,7 +4,7 @@
 
 <tldr>
 <p>
-<b>코드 예제</b>: <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/http2-netty">http2-netty</a>, <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/http2-jetty">http2-jetty</a>
+<b>코드 예제</b>: <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/http2-netty">http2-netty</a>, <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/http2-jetty">http2-jetty</a>
 </p>
 </tldr>
 
@@ -94,7 +94,7 @@ Java 8부터 ALPN API가 지원되므로 Jetty 엔진은 HTTP/2를 사용하기 
 2. [SSL 인증서](#ssl_certificate) 섹션의 설명에 따라 SSL 설정을 추가합니다.
 3. `sslPort`를 설정합니다.
 
-[http2-jetty](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/http2-jetty) 실행 예제에서 Jetty의 HTTP/2 지원을 확인할 수 있습니다.
+[http2-jetty](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/http2-jetty) 실행 예제에서 Jetty의 HTTP/2 지원을 확인할 수 있습니다.
 
 ### Netty {id="netty"}
 
@@ -120,7 +120,7 @@ dependencies {
 ```
 
 `tc.native.classifier`는 `linux-x86_64`, `osx-x86_64`, 또는 `windows-x86_64` 중 하나여야 합니다.
-[http2-netty](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/http2-netty) 실행 예제에서 Netty의 HTTP/2 지원을 활성화하는 방법을 확인할 수 있습니다.
+[http2-netty](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/http2-netty) 실행 예제에서 Netty의 HTTP/2 지원을 활성화하는 방법을 확인할 수 있습니다.
 
 #### TLS 없는 HTTP/2
 

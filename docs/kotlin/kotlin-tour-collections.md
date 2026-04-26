@@ -12,10 +12,6 @@
         <img src="icon-7-todo.svg" width="20" alt="最后一步" /> <a href="kotlin-tour-null-safety.md">null 安全</a></p>
 </tldr>
 
-> 阅读时间：10 分钟
->
-{style="tip"}
-
 在编程时，能够将数据分组到结构中以便后续处理是非常有用的。Kotlin 提供的集合正是为了这一目的。
 
 Kotlin 拥有以下用于对项进行分组的集合类型：
@@ -489,7 +485,7 @@ fun main() {
 fun main() {
     val number2word = // 在此处编写你的代码
     val n = 2
-    println("$n is spelt as '${<在此处编写你的代码 >}'")
+    println("$n is spelled as '${<在此处编写你的代码 >}'")
 }
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-collections-exercise-3"}

@@ -143,7 +143,7 @@
 
 | Strategy                                                  | 動作                 |
 |-----------------------------------------------------------|--------------------------|
-| `SimilaritySearchStrategy()`                              | ベクトル類似性によるセマンティック検索 — **デフォルトかつ推奨** |
+| `SimilaritySearchStrategy()`                              | ベクトル類似性によるセマンティック検索 — **デフォルト** |
 | `query -> new SimilaritySearchRequest(query, 20, 0, 0.0, null)` | ラムダによるカスタム検索 |
 
 ## Ingestionのみ

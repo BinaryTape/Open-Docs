@@ -6,7 +6,7 @@
 <var name="example_name" value="logging"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -86,7 +86,7 @@ Ktor 根據所使用的平台提供不同的方式來記錄您的應用程式：
 </configuration>
 ```
 
-您可以在此處找到完整的範例：[logging](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/logging)。
+您可以在此處找到完整的範例：[logging](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/logging)。
 
 ## Native {id="native"}
 

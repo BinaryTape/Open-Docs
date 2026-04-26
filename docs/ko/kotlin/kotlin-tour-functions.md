@@ -12,10 +12,6 @@
         <img src="icon-7-todo.svg" width="20" alt="마지막 단계" /> <a href="kotlin-tour-null-safety.md">널 안전성(Null safety)</a></p>
 </tldr>
 
-> 읽는 데 약 14분 소요
->
-{style="tip"}
-
 Kotlin에서는 `fun` 키워드를 사용하여 자신만의 함수를 선언할 수 있습니다.
 
 ```kotlin
@@ -69,7 +65,7 @@ fun main() {
 
 코드를 간결하게 만들기 위해 함수를 호출할 때 파라미터 이름을 생략할 수 있습니다. 하지만 파라미터 이름을 포함하면 코드를 더 읽기 쉽게 만들 수 있습니다. 이를 **이름 붙은 인자(named arguments)**라고 합니다. 파라미터 이름을 포함하는 경우, 파라미터의 순서를 자유롭게 작성할 수 있습니다.
 
-> 다음 예제에서는 파라미터 값에 접근하고, 이를 `String` 타입으로 변환한 뒤, 출력을 위해 문자열로 결합하는 데 [문자열 템플릿](strings.md#string-templates) (`$`)이 사용되었습니다.
+> 다음 예제에서는 파라미터 값에 접근하고, 이를 `String` 타입으로 변환한 뒤, 출력을 위해 문자열로 결합하는 데 [문자열 템플릿](strings.md#string-templates)이 사용되었습니다.
 > 
 {style="tip"}
 
@@ -403,7 +399,7 @@ fun main() {
 > val positives = numbers.filter { x -> x > 0 }
 > ```
 > 
-> 이것은 **후행 람다(trailing lambda)**의 한 예이며, 이 장의 끝부분에서 더 자세히 다룹니다.
+> 이것은 [후행 람다](#trailing-lambdas)의 한 예이며, 이 장의 끝부분에서 더 자세히 다룹니다.
 >
 {style="note"}
 

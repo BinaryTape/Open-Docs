@@ -6,7 +6,7 @@
 <var name="example_name" value="client-websockets-serialization"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -257,4 +257,4 @@ client.webSocket(method = HttpMethod.Get, host = "127.0.0.1", port = 8080, path 
 
 若要從 [incoming](client-websockets.topic#incoming) 通道接收反序列化後的框架，請使用 [WebsocketContentConverter.deserialize](https://api.ktor.io/ktor-serialization/io.ktor.serialization/-websocket-content-converter/deserialize.html) 函式。`WebsocketContentConverter` 可透過 `DefaultClientWebSocketSession.converter` 屬性取得。
 
-> 您可以在此處找到完整的範例：[client-websockets-serialization](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-websockets-serialization)。
+> 您可以在此處找到完整的範例：[client-websockets-serialization](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-websockets-serialization)。

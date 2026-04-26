@@ -14,7 +14,7 @@
 <var name="example_name" value="request-validation"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -135,7 +135,7 @@ install(StatusPages) {
 }
 ```
 
-您可以在此处找到完整示例：[request-validation](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/request-validation)。
+您可以在此处找到完整示例：[request-validation](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/request-validation)。
 
 ## 示例：验证对象属性 {id="example-object"}
 

@@ -13,7 +13,7 @@
 <var name="example_name" value="client-type-safe-requests"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -49,9 +49,9 @@ Ktor 提供 `%plugin_name%` 外掛程式，讓您能夠實作型別安全[請求
         <code-block lang="XML" code="            &lt;dependency&gt;&#10;                &lt;groupId&gt;io.ktor&lt;/groupId&gt;&#10;                &lt;artifactId&gt;%artifact_name%-jvm&lt;/artifactId&gt;&#10;                &lt;version&gt;${ktor_version}&lt;/version&gt;&#10;            &lt;/dependency&gt;"/>
     </TabItem>
 </Tabs>
-<p>
-    您可以從<Links href="/ktor/client-dependencies" summary="了解如何向現有專案新增用戶端相依性。">新增用戶端相依性</Links>進一步了解 Ktor 用戶端所需的構件。
-</p>
+<tip>
+    若要進一步了解 Ktor 用戶端所需的構件，請參閱 <Links href="/ktor/client-dependencies" summary="了解如何向現有專案新增用戶端相依性。">新增用戶端相依性</Links>。
+</tip>
 
 ## 安裝 %plugin_name% {id="install_plugin"}
 
@@ -106,7 +106,7 @@ class Articles() {
 
 ### 具備路徑參數的資源 {id="resource_path_param"}
 
-下列範例展示了如何新增巢狀的 `{id}` 整數[路徑參數](server-routing.md#path_parameter)，該參數會配對路徑區段並將其擷取為名為 `id` 的參數。
+下列範例展示了如何新增[巢狀](#resource_nested)的 `{id}` 整數[路徑參數](server-routing.md#path_parameter)，該參數會配對路徑區段並將其擷取為名為 `id` 的參數。
 
 ```kotlin
 @Resource("/articles")
@@ -138,7 +138,7 @@ class Articles() {
 
 此資源可用於列出所有文章、發佈新文章、編輯文章等。我們將在下一節中介紹如何對此資源[發送型別安全請求](#make_requests)。
 
-> 您可以在此處找到完整的範例：[client-type-safe-requests](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-type-safe-requests)。
+> 您可以在此處找到完整的範例：[client-type-safe-requests](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-type-safe-requests)。
 
 ## 發送型別安全請求 {id="make_requests"}
 
@@ -184,6 +184,6 @@ fun main() {
 }
 ```
 
-`defaultRequest` 函式用於為所有請求指定預設 URL。
+[defaultRequest](client-default-request.md) 函式用於為所有請求指定預設 URL。
 
-> 您可以在此處找到完整的範例：[client-type-safe-requests](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-type-safe-requests)。
+> 您可以在此處找到完整的範例：[client-type-safe-requests](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-type-safe-requests)。

@@ -11,7 +11,7 @@
 <var name="example_name" value="client-content-encoding"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -24,7 +24,7 @@ ContentEncoding 外掛程式允許您啟用指定的壓縮演算法（例如 'gz
 Ktor 用戶端提供 [`ContentEncoding`](https://api.ktor.io/ktor-client-encoding/io.ktor.client.plugins.compression/-content-encoding) 
 外掛程式，允許您啟用指定的壓縮演算法（例如 `gzip` 和 `deflate`）並配置其設定。 
 
-此外掛程式提供以下功能：
+此外掛程式提供以下功能性：
 * 使用指定的品質值設定 `Accept-Encoding` 標頭。
 * 可選擇性地對請求主體進行編碼。
 * 對[從伺服器接收的內容](client-responses.md#body)進行解碼，以取得原始負載。
@@ -44,9 +44,9 @@ Ktor 用戶端提供 [`ContentEncoding`](https://api.ktor.io/ktor-client-encodin
         <code-block lang="XML" code="            &lt;dependency&gt;&#10;                &lt;groupId&gt;io.ktor&lt;/groupId&gt;&#10;                &lt;artifactId&gt;%artifact_name%-jvm&lt;/artifactId&gt;&#10;                &lt;version&gt;${ktor_version}&lt;/version&gt;&#10;            &lt;/dependency&gt;"/>
     </TabItem>
 </Tabs>
-<p>
+<tip>
     您可以從<Links href="/ktor/client-dependencies" summary="了解如何向現有專案新增用戶端相依性。">新增用戶端相依性</Links>中了解更多關於 Ktor 用戶端所需構件的資訊。
-</p>
+</tip>
 
 ## 安裝 ContentEncoding {id="install_plugin"}
 
@@ -68,7 +68,7 @@ val client = HttpClient(CIO) {
 
 您可以配置支援哪些編碼器並指定其品質值（用於 `Accept-Encoding` 標頭）。
 
-下面的[範例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-content-encoding)展示了如何以自訂品質值啟用 `deflate` 和 `gzip` 編碼器：
+下面的[範例](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-content-encoding)展示了如何以自訂品質值啟用 `deflate` 和 `gzip` 編碼器：
 
 ```kotlin
 val client = HttpClient(CIO) {

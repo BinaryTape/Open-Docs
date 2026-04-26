@@ -11,7 +11,7 @@
 </p>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -23,7 +23,9 @@
 </p>
 </tldr>
 
-デフォルトでは、Ktorはクライアントが切断された場合でもリクエストの処理を継続します。[`%plugin_name%`](https://api.ktor.io/ktor-http/io.ktor.http/-http-request-lifecycle.html)プラグインを使用すると、クライアントが切断されるとすぐにリクエスト処理をキャンセルできます。
+デフォルトでは、Ktorはクライアントが切断された場合でもリクエストの処理を継続します。
+[`%plugin_name%`](https://api.ktor.io/ktor-http/io.ktor.http/-http-request-lifecycle.html)
+プラグインを使用すると、クライアントが切断されるとすぐにリクエスト処理をキャンセルできます。
 
 これは、クライアントが応答を待たなくなったときに実行を停止すべき、長時間実行されるリクエストやリソースを大量に消費するリクエストに役立ちます。
 
@@ -72,12 +74,15 @@ fun Application.module() {
 }
 ```
 
-> コルーチンのキャンセルは協調的（cooperative）です。ブロッキングコードやCPU負荷の高いコードは自動的には中断されません。リクエスト処理で長時間実行される作業を行う場合は、`call.coroutineContext.ensureActive()`を呼び出してキャンセルに対応してください。
+> コルーチンのキャンセルは協調的（cooperative）です。ブロッキングコードやCPU負荷の高いコードは自動的には中断されません。
+> リクエスト処理で長時間実行される作業を行う場合は、
+> `call.coroutineContext.ensureActive()`を呼び出してキャンセルに対応してください。
 >
-> 詳細については、[コルーチンのキャンセル](https://kotlinlang.org/docs/cancellation-and-timeouts.html)を参照してください。
+> 詳細については、
+> [コルーチンのキャンセル](https://kotlinlang.org/docs/cancellation-and-timeouts.html)を参照してください。
 {style="note"}
 
-> 完全な例については、[%example_name%](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%)を参照してください。
+> 完全な例については、[%example_name%](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%)を参照してください。
 
 ## 制限事項
 

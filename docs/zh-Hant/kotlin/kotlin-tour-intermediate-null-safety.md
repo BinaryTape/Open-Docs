@@ -14,10 +14,6 @@
         <img src="icon-9-todo.svg" width="20" alt="Ninth step" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">程式庫與 API</a></p>
 </tldr>
 
-> 15 分鐘閱讀時間
->
-{style="tip"}
-
 在初學者導覽中，您學習了如何在程式碼中處理 `null` 值。本章節將介紹 Null 安全特性的常見使用案例，以及如何充分利用這些特性。
 
 ## 智慧轉換與安全轉換
@@ -534,7 +530,7 @@ fun main() {
 
 ### 練習 3 {initial-collapse-state="collapsed" collapsible="true" id="null-safety-exercise-3"}
 
-您正在開發一個社群媒體平台，其中使用者具有使用者名稱和帳號狀態。您想要查看目前啟用的使用者名稱列表。完成 `getActiveUsernames()` 函式，使 [`mapNotNull()` 函式](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/map-not-null.html) 具有一個述句，如果該使用者是啟用的則傳回其使用者名稱，否則傳回 `null` 值：
+您正在開發一個社群媒體平台，其中使用者具有使用者名稱 and 帳號狀態。您想要查看目前啟用的使用者名稱列表。完成 `getActiveUsernames()` 函式，使 [`mapNotNull()` 函式](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/map-not-null.html) 具有一個述句，如果該使用者是啟用的則傳回其使用者名稱，否則傳回 `null` 值：
 
 |--|--|
 

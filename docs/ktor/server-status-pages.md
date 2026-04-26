@@ -14,7 +14,7 @@
 <var name="example_name" value="status-pages"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -49,7 +49,7 @@
 ## 安装 %plugin_name% {id="install_plugin"}
 
 <p>
-    要将 <code>%plugin_name%</code> 插件安装到应用程序中，请将其传递给指定 <Links href="/ktor/server-modules" summary="Modules allow you to structure your application by grouping routes.">模块</Links> 中的 <code>install</code> 函数。
+    要将 <code>%plugin_name%</code> 插件<a href="#install">安装</a>到应用程序中，请将其传递给指定 <Links href="/ktor/server-modules" summary="Modules allow you to structure your application by grouping routes.">模块</Links> 中的 <code>install</code> 函数。
     下面的代码片段展示了如何安装 <code>%plugin_name%</code> ...
 </p>
 <list>
@@ -126,4 +126,4 @@ install(StatusPages) {
 
 `statusFile` 处理程序会将配置的状态列表中的任何 `#` 字符替换为状态码的值。
 
-> 您可以在此处找到完整示例：[status-pages](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/status-pages)。
+> 您可以在此处找到完整示例：[status-pages](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/status-pages)。

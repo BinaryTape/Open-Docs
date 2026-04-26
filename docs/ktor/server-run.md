@@ -24,7 +24,7 @@
 ### 启动 EngineMain：Gradle 与 Maven 细节 {id="gradle-maven"}
 
 如果您使用 `EngineMain` 创建服务器，则需要指定 `main` 函数，以便使用所需的[引擎](server-engines.md)启动服务器。
-下面的[示例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main)演示了用于运行带 Netty 引擎的服务器的 `main` 函数：
+下面的[示例](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main)演示了用于运行带 Netty 引擎的服务器的 `main` 函数：
 
 ```kotlin
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)

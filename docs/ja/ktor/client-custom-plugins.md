@@ -6,7 +6,7 @@
 <var name="example_name" value="client-custom-plugin"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -286,7 +286,7 @@ v2.2.0以降、Ktorはカスタムクライアント[プラグイン](client-plu
 </td>
 <td>
 <p>
-<code>Send</code>フックは、レスポンスを検査し、必要に応じて追加のリクエストを開始する機能を提供します。
+<code>Send</code>フックは、レスポンスを検査し、必要に応じて追加のリクエストを開始する機能を提供します。 
 これは、リダイレクトの処理、リクエストの再試行、認証などに役立ちます。
 </p>
 <p>
@@ -381,7 +381,9 @@ v2.2.0以降、Ktorはカスタムクライアント[プラグイン](client-plu
 
 ### 呼び出し状態の共有 {id="call-state"}
 
-カスタムプラグインを使用すると、呼び出しに関連する任意の値を共有できるため、その呼び出しを処理する任意のハンドラー内でこの値にアクセスできます。この値は、`call.attributes`コレクション内の一意のキーを持つ属性として保存されます。以下の例では、属性を使用してリクエストの送信からレスポンスの受信までの時間を計算する方法を示します。
+カスタムプラグインを使用すると、呼び出しに関連する任意の値を共有できるため、その呼び出しを処理する任意のハンドラー内でこの値にアクセスできます。
+この値は、`call.attributes`コレクション内の一意のキーを持つ属性として保存されます。
+以下の例では、属性を使用してリクエストの送信からレスポンスの受信までの時間を計算する方法を示します。
 
 ```kotlin
 import io.ktor.client.plugins.api.*
@@ -432,7 +434,7 @@ package com.example.plugins
 
 import io.ktor.client.plugins.api.*
 
-val CustomHeaderConfigurablePlugin = createClientPlugin("CustomHeaderConfigurablePlugin", ::AuthPluginConfig) {
+val CustomHeaderConfigurablePlugin = createClientPlugin("CustomHeaderConfigurablePlugin", ::CustomHeaderPluginConfig) {
     val headerName = pluginConfig.headerName
     val headerValue = pluginConfig.headerValue
 
@@ -591,7 +593,7 @@ data class User(val name: String, val age: Int)
 </TabItem>
 </Tabs>
 
-完全な例はこちらにあります: [client-custom-plugin-data-transformation](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-custom-plugin-data-transformation)。
+完全な例はこちらにあります: [client-custom-plugin-data-transformation](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-custom-plugin-data-transformation)。
 
 ### 認証 {id="authentication"}
 
@@ -660,4 +662,4 @@ fun main() {
 </TabItem>
 </Tabs>
 
-完全な例はこちらにあります: [client-custom-plugin-auth](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-custom-plugin-auth)。
+完全な例はこちらにあります: [client-custom-plugin-auth](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-custom-plugin-auth)。

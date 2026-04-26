@@ -13,7 +13,7 @@
 <var name="example_name" value="ssl-engine-main-redirect"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -81,4 +81,4 @@ install(HttpsRedirect) {
 }
 ```
 
-전체 예제는 여기에서 찾을 수 있습니다: [ssl-engine-main-redirect](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/ssl-engine-main-redirect).
+전체 예제는 여기에서 찾을 수 있습니다: [ssl-engine-main-redirect](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/ssl-engine-main-redirect).

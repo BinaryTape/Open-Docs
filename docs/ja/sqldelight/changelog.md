@@ -19,6 +19,7 @@
 - [PostgreSQLダイアレクト] PostgreSQL ダイアレクトの IDE 統合を修正
 - [PostgreSQLダイアレクト] PostgreSQL ダイアレクトの IDE プラグインを改善 (#6209 by @griffio)
 - [Intellijプラグイン] IDE プラグインがすべてのダイアレクトでコード補完を実行可能に改善 (#6210 by @griffio)
+- [Gradleプラグイン] データベース検証タスク実行時の循環依存エラーを修正 (#6221 by @griffio)
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -410,7 +411,7 @@ Kotlin 1.7.20 および AGP 7.3.0 との互換性アップデート。
 - [Paging] `KeyedQueryPagingSource` をベースとする `QueryPagingSource` 関数にデフォルトのディスパッチャを追加 (#3385)
 - [Paging] `OffsetQueryPagingSource` が `Int` でのみ動作するように変更 (#3386)
 - [Asyncランタイム] `await*` を親クラスの `ExecutableQuery` に移動 (#3524 by @hfhbd)
-- [コルーチン拡張] Flow 拡張からデフォルトパラメータを削除 (#3489)
+- [コルーチン拡張] Flow 拡張 from デフォルトパラメータを削除 (#3489)
 
 ### Fixed
 - [Gradleプラグイン] Kotlin 1.7.20 に更新 (#3542 by @zacsweers)
@@ -516,7 +517,7 @@ sqldelight {
 - [コンパイラ] グループ化されたステートメントの末尾での `RETURNING` をサポート
 - [コンパイラ] ダイアレクトモジュールによるコンパイラ拡張をサポートし、SQLite JSON 拡張を追加 (#1379, #2087)
 - [コンパイラ] 値を返す `PRAGMA` 文をサポート (#1106)
-- [コンパイラ] マークされたカラムに対する値型の生成をサポート
+- [コンパイラ] マークされたカラムに対する value 型の生成をサポート
 - [コンパイラ] 楽観的ロックとバリデーションのサポートを追加 (#1952)
 - [コンパイラ] マルチアップデート文をサポート
 - [PostgreSQL] Postgres の `RETURNING` 文をサポート

@@ -11,7 +11,7 @@
 </p>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -23,7 +23,9 @@
 </p>
 </tldr>
 
-預設情況下，即使用戶端斷開連線，Ktor 仍會繼續處理請求。[`%plugin_name%`](https://api.ktor.io/ktor-http/io.ktor.http/-http-request-lifecycle.html) 外掛程式可讓您在用戶端斷開連線時立即取消請求處理。
+預設情況下，即使用戶端斷開連線，Ktor 仍會繼續處理請求。
+[`%plugin_name%`](https://api.ktor.io/ktor-http/io.ktor.http/-http-request-lifecycle.html)
+外掛程式可讓您在用戶端斷開連線時立即取消請求處理。
 
 這對於長時間執行或資源密集型的請求非常有用，因為當用戶端不再等待回應時，這些請求應該停止執行。
 
@@ -72,12 +74,15 @@ fun Application.module() {
 }
 ```
 
-> 協同程式取消是協作式的。阻塞或 CPU 密集型程式碼不會自動中斷。如果請求處理執行長時間運行的工作，請呼叫 `call.coroutineContext.ensureActive()` 以回應取消。
+> 協同程式取消是協作式的。阻塞或 CPU 密集型程式碼不會自動中斷。
+> 如果請求處理執行長時間運行的工作，請呼叫
+> `call.coroutineContext.ensureActive()` 以回應取消。
 >
-> 若要了解更多，請參閱 [協同程式取消](https://kotlinlang.org/docs/cancellation-and-timeouts.html)。
+> 若要了解更多，請參閱
+> [協同程式取消](https://kotlinlang.org/docs/cancellation-and-timeouts.html)。
 {style="note"}
 
-> 如需完整範例，請參閱 [%example_name%](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%)。
+> 如需完整範例，請參閱 [%example_name%](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%)。
 
 ## 限制
 

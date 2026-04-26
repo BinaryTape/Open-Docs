@@ -16,7 +16,7 @@
 
 ![渐进式采用 KMP 的插图：共享部分逻辑但不共享 UI、共享所有逻辑但不共享 UI、共享逻辑和 UI](kmp-graphic.png){width="700"}
 
-跨平台开发已不再是一种妥协，而是一种战略选择。在探索当今的跨平台技术之前，让我们回顾一下为什么它们会成为构建 iOS 和 Android 应用团队的变革者。
+跨平台开发已不再是一种妥协，而是一种战略选择。在探索当今的跨平台技术之前，让我们回顾一下为什么它们会成为构建 [iOS 和 Android 应用](build-ios-android-app.topic) 团队的变革者。
 
 [![探索 Kotlin Multiplatform](discover-kmp.svg){width="700" style="block"}](https://www.jetbrains.com/kotlin-multiplatform/)
 
@@ -60,7 +60,7 @@ React Native 和 Flutter 等跨平台框架旨在通过提供运行在 iOS 和 A
 
 Kotlin Multiplatform 是来自 JetBrains 的开源技术，可让您在 Android、iOS、桌面端、Web 和服务器端共享代码，同时保留原生开发的优势。
 
-[KMP 已在生产环境中使用](https://kotlinlang.org/case-studies/?type=multiplatform)，用户涵盖了从初创公司到 Google、Duolingo、Forbes、Philips、McDonald's、Bolt、H&M、Baidu、Kuaishou 和 Bilibili 等科技巨头。他们选择 KMP 是因为它的适应性、原生性能、交付原生用户体验的能力、成本效益，以及易于渐进式采用的特点。
+[KMP 已在生产环境中使用](https://kotlinlang.org/case-studies/?type=multiplatform)，用户涵盖了从初创公司到科技巨头，如 Google、Duolingo、Forbes、Philips、McDonald's、Bolt、H&M、Baidu、Kuaishou 和 Bilibili。他们选择 KMP 是因为它的适应性、原生性能、交付原生用户体验的能力、成本效益，以及易于渐进式采用的特点。
 
 **是什么让 Kotlin Multiplatform 与其他跨平台技术不同？**
 

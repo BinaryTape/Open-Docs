@@ -8,15 +8,11 @@
         <img src="icon-3-done.svg" width="20" alt="第三步" /> <a href="kotlin-tour-intermediate-lambdas-receiver.md">帶接收者的 Lambda 運算式</a><br />
         <img src="icon-4-done.svg" width="20" alt="第四步" /> <a href="kotlin-tour-intermediate-classes-interfaces.md">類別與介面</a><br />
         <img src="icon-5-done.svg" width="20" alt="第五步" /> <a href="kotlin-tour-intermediate-objects.md">物件</a><br />
-        <img src="icon-6.svg" width="20" alt="第四步" /> <strong>Open 與特殊類別</strong><br />
+        <img src="icon-6.svg" width="20" alt="第六步" /> <strong>Open 與特殊類別</strong><br />
         <img src="icon-7-todo.svg" width="20" alt="第七步" /> <a href="kotlin-tour-intermediate-properties.md">屬性</a><br />
         <img src="icon-8-todo.svg" width="20" alt="第八步" /> <a href="kotlin-tour-intermediate-null-safety.md">可 Null 性安全</a><br />
         <img src="icon-9-todo.svg" width="20" alt="第九步" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">程式庫與 API</a></p>
 </tldr>
-
-> 閱讀時間：13 分鐘
->
-{style="tip"}
 
 在本章中，您將了解 open 類別、它們如何與介面搭配運作，以及 Kotlin 中提供的其他特殊類別型別。
 
@@ -155,7 +151,7 @@ open class Vehicle(val make: String, val model: String)
 // 子類別
 open class Car(make: String, model: String, val numberOfDoors: Int) : Vehicle(make, model)
 
-// 繼承自 Car 並實作兩個介面新類別
+// 繼承自 Car 並實作兩個介面的新類別
 class ElectricCar(
     make: String,
     model: String,
@@ -267,10 +263,10 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-enum-classes"}
 
-列舉類別可以像普通類別一樣擁有屬性和成員函數。
+列舉類別可以像普通類別一樣擁有屬性和成員函數。 
 
-例如，假設您正在處理 HTML，並想建立一個包含某些顏色的列舉類別。
-您希望每種顏色都有一個屬性，我們稱之為 `rgb`，其中包含它們作為十六進位的 RGB 值。
+例如，假設您正在處理 HTML，並想建立一個包含某些顏色的列舉類別。 
+您希望每種顏色都有一個屬性，我們稱之為 `rgb`，其中包含它們作為十六進位的 RGB 值。 
 建立列舉常數時，您必須使用此屬性對其進行初始化：
 
 ```kotlin

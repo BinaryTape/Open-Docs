@@ -14,10 +14,6 @@
         <img src="icon-9-todo.svg" width="20" alt="아홉 번째 단계" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">라이브러리 및 API</a></p>
 </tldr>
 
-> 15분 소요
->
-{style="tip"}
-
 초보자 과정에서 코드의 `null` 값을 처리하는 방법을 배웠습니다. 이 장에서는 널 안전성(null safety) 기능의 일반적인 사용 사례와 이를 최대한 활용하는 방법을 다룹니다.
 
 ## 스마트 캐스트와 안전한 캐스트

@@ -13,7 +13,7 @@
 
 ## サンプルアプリケーションの作成 {id="create-sample-app"}
 
-[Ktor プロジェクトの作成、オープン、および実行](server-create-a-new-project.topic)の説明に従って、サンプルアプリケーションを作成します。この例では、[embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server) および [engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main) のプロジェクトに基づいたコードとコマンドを示します。
+[Ktor プロジェクトの作成、オープン、および実行](server-create-a-new-project.topic)の説明に従って、サンプルアプリケーションを作成します。この例では、[embedded-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server) および [engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main) のプロジェクトに基づいたコードとコマンドを示します。
 
 > 上記のチュートリアルでは、アプリケーションを設定する 2 つの方法が示されています。コード内で値を直接指定する方法と、設定ファイルを使用する方法です。どちらの場合も、重要な設定はサーバーが受信リクエストをリッスンするポートです。
 
@@ -23,7 +23,7 @@
 
 Azure App Service では、環境変数 `PORT` に受信リクエスト用に開放されているポート番号が含まれています。[Ktor サーバーの設定](server-create-and-configure.topic)でアプリケーションをどのように作成したかに応じて、次の 2 つの場所のいずれかでこの環境変数を読み込むようにコードを更新する必要があります。
 
-* ポート設定を**コード内**で行う例を使用した場合は、`System.getenv()` で `PORT` 環境変数を読み込み、`.toIntOrNull()` で整数にパースできます。`Application.kt` ファイルを開き、以下のようにポート番号を変更します。
+* ポート設定を**コード内**で行う例を使用した場合は、`PORT` 環境変数は `System.getenv()` で読み込み、`.toIntOrNull()` で整数にパースできます。`Application.kt` ファイルを開き、以下のようにポート番号を変更します。
 
    ```kotlin
    fun runBasicServer() {

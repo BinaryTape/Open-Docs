@@ -12,15 +12,11 @@
         <img src="icon-7-todo.svg" width="20" alt="最后一步" /> <a href="kotlin-tour-null-safety.md">null 安全</a></p>
 </tldr>
 
-> 阅读耗时：8 分钟
->
-{style="tip"}
-
 Kotlin 支持使用类和对象进行面向对象编程。对象对于在程序中存储数据非常有用。
 类允许您为对象声明一组特征。从类创建对象时，您可以节省
 时间和精力，因为您不必每次都声明这些特征。
 
-要声明类，请使用 `class` 关键字：
+要声明类，请使用 `class` 关键字： 
 
 ```kotlin
 class Customer

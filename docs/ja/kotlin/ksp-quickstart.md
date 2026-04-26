@@ -437,5 +437,5 @@ dependencies {
 ## 次のステップ
 
 * この例の完全なコードは [KSP リポジトリ](https://github.com/google/ksp/tree/main/examples/hello-world)で確認できます。
-* より複雑で実践的な例については、[KSP リポジトリ](https://github.com/google/ksp/blob/main/examples/playground/test-processor/src/main/kotlin/BuilderProcessor.kt)を参照してください。
+* より複雑で実践的な例については、[KSP リポジトリ](https://github.com/google/ksp/tree/main/examples)を参照してください。
 * [KSP サポートライブラリ](ksp-overview.md#supported-libraries)のリストを確認してください。

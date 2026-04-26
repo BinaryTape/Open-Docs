@@ -14,7 +14,7 @@
 <var name="example_name" value="caching-headers"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -47,7 +47,7 @@
 ## 安装 %plugin_name% {id="install_plugin"}
 
 <p>
-    要将 <code>%plugin_name%</code> 插件安装到应用，请在指定的 <Links href="/ktor/server-modules" summary="模块允许您通过对路由进行分组来构建应用程序结构。">模块</Links> 中将其传递给 <code>install</code> 函数。
+    要向应用<a href="#install">安装</a> <code>%plugin_name%</code> 插件，请在指定的 <Links href="/ktor/server-modules" summary="模块允许您通过对路由进行分组来构建应用程序结构。">模块</Links> 中将其传递给 <code>install</code> 函数。
     下方的代码片段展示了如何安装 <code>%plugin_name%</code> ...
 </p>
 <list>
@@ -74,7 +74,7 @@
 安装 `%plugin_name%` 后，您可以为各种内容类型[配置](#configure)缓存设置。
 
 ## 配置缓存 {id="configure"}
-要配置 `%plugin_name%` 插件，您需要定义 [options](https://api.ktor.io/ktor-server-caching-headers/io.ktor.server.plugins.cachingheaders/-caching-headers-config/options.html) 函数，以为给定的 `ApplicationCall` 和内容类型提供指定的缓存选项。来自 [caching-headers](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/caching-headers) 示例的代码片段展示了如何为纯文本和 HTML 添加带有 `max-age` 选项的 `Cache-Control` 标头：
+要配置 `%plugin_name%` 插件，您需要定义 [options](https://api.ktor.io/ktor-server-caching-headers/io.ktor.server.plugins.cachingheaders/-caching-headers-config/options.html) 函数，以为给定的 `ApplicationCall` 和内容类型提供指定的缓存选项。来自 [caching-headers](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/caching-headers) 示例的代码片段展示了如何为纯文本和 HTML 添加带有 `max-age` 选项的 `Cache-Control` 标头：
 
 ```kotlin
 fun Application.module() {

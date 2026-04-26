@@ -12,10 +12,6 @@
         <img src="icon-7-todo.svg" width="20" alt="最終步" /> <a href="kotlin-tour-null-safety.md">Null 安全性</a></p>
 </tldr>
 
-> 閱讀時間 3 分鐘
-> 
-{style="tip"}
-
 這是一個印出 "Hello, world!" 的簡單程式：
 
 ```kotlin

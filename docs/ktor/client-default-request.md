@@ -7,7 +7,7 @@
 <var name="example_name" value="client-default-request"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -189,4 +189,4 @@ val response: HttpResponse = client.get("welcome.html")
 println(response.status)
 ```
 
-您可以在此处找到完整示例：[client-default-request](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-default-request)。
+您可以在此处找到完整示例：[client-default-request](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-default-request)。

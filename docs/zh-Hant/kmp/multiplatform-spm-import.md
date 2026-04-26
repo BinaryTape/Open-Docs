@@ -4,8 +4,8 @@
 <tldr>
    <p>Swift 封裝管理員 (SwiftPM) 扮演與 CocoaPods 相同的角色：
    它讓你能透明地編排 iOS 應用程式的原生 iOS 相依性。</p>
-   <p>在此你可以了解如何在 KMP 專案中設定 SwiftPM 相依性，
-   以及必要時如何將 KMP 設定從 CocoaPods 遷移至 SwiftPM。</p>
+   <p>在此你可以了解如何在 KMP 專案中配置 SwiftPM 相依性，
+   以及必要時如何將 KMP 配置從 CocoaPods 遷移至 SwiftPM。</p>
 </tldr>
 
 > 此功能為 [實驗性](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained)。
@@ -24,10 +24,10 @@
 
 要配置你的專案：
 
-1. [設定你的開發環境](#set-the-kotlin-multiplatform-gradle-plugin-version)
+1. [配置你的開發環境](#set-the-kotlin-multiplatform-gradle-plugin-version)
 2. [將 SwiftPM 相依性新增至你的 KMP 模組並使用它](#add-and-use-swiftpm-dependencies)
 
-## 設定 Kotlin Multiplatform Gradle 外掛程式版本
+## 配置 Kotlin Multiplatform Gradle 外掛程式版本
 
 要嘗試 SwiftPM 匯入功能，請確保你使用的是 Kotlin Multiplatform Gradle 外掛程式的 **%kotlinEapVersion%** 版本。
 `gradle/libs.versions.toml` 檔案範例如下：
@@ -43,14 +43,14 @@ kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref 
 ## 新增並使用 SwiftPM 相依性
 
 > 有關實際運作的範例，請參閱我們的範例專案。
-> 在 `master` 分支 上，每個專案都使用 CocoaPods 設定，而 `spm_import` 分支 則使用 SwiftPM：
+> 在 `master` 分支 上，每個專案都使用 CocoaPods 配置，而 `spm_import` 分支 則使用 SwiftPM：
 > 
 > * [SwiftUI 與 Firebase 範例應用程式](https://github.com/Kotlin/kmp-with-cocoapods-firebase-sample/tree/spm_import)
 > * [Compose Multiplatform iOS 範例應用程式](https://github.com/Kotlin/kmp-with-cocoapods-compose-sample/tree/spm_import)
 >
 {type="tip"}
 
-### 配置建置
+### 配置組建
 
 特定的 SwiftPM 相依性可以新增在 `build.gradle.kts` 檔案的 `swiftPMDependencies {}` 區塊中，即宣告 Apple 目標 的位置。
 例如，對於 Firebase：
@@ -84,7 +84,7 @@ SwiftPM 整合基於匯入 Clang 模組。
 預設情況下，匯入機制會自動發現指定 Swift 軟件包 中的 Clang 模組，並使所有可用的 模組 都能被 Kotlin 程式碼存取 —— 類似於 API 可見性在 Swift 和 Objective-C 中的運作方式。
 <!-- TODO link to where it is explained? -->
 
-要停用預設行為和自動 模組 發現，請將 `discoverClangModulesImplicitly` 設定為 `false`。
+要停用預設行為和自動 模組 發現，請將 `discoverClangModulesImplicitly` 配置為 `false`。
 當 模組 發現被停用時，SwiftPM 匯入會使用產品名稱作為 Clang 模組 名稱。
 
 要匯入名稱與產品名稱不同的 Clang 模組，請使用 `importedClangModules` 參數，例如：
@@ -115,9 +115,9 @@ kotlin {
 }
 ```
 
-### 設定平台約束
+### 配置平台約束
 
-某些 SwiftPM 相依性可能無法在你的建置 指令碼 中的所有 目標 上編譯或提供有效的 API。
+某些 SwiftPM 相依性可能無法在你的 組建 指令碼 中的所有 目標 上編譯或提供有效的 API。
 例如，Google Maps SDK 目前僅支援 iOS 目標。
 
 如果你的專案僅針對 iOS，你不需要明確宣告平台。
@@ -170,7 +170,7 @@ XCODEPROJ_PATH='/path/to/project/iosApp/iosApp.xcodeproj' ./gradlew :kotlin-libr
 
 匯入的 Objective-C API 包含在以 `swiftPMImport` 前綴開始，並以專案及其群組的 Gradle 名稱結尾的 命名空間 中。
 
-例如，Kotlin 建置 指令碼 指定群組名稱如下：
+例如，Kotlin 組建 指令碼 指定群組名稱如下：
 
 ```kotlin
 // subproject/build.gradle.kts
@@ -187,15 +187,119 @@ import swiftPMImport.groupName.subproject.FIRApp
 
 ## 產生的 `Package.resolved` 檔案
 
-為了使相依於 Swift 軟件包 的建置更穩定，SwiftPM 匯入工具引入了一種鎖定機制：
-初始 軟件包 解析期間產生的 `Package.resolved` 檔案會被複製到專案目錄中，並在後續建置中重複使用。
+為了使相依於 Swift 軟件包 的 組建 更穩定，SwiftPM 匯入工具引入了一種鎖定機制：
+在初始 軟件包 解析期間會為每個子專案產生 `Package.resolved` 檔案。
 
-當你在建置 指令碼 中變更 SwiftPM 相依性集合或 版本 時，鎖定檔案會自動更新。
+預設情況下，這些檔案會合併為單個 `Package.resolved` 檔案，放置於 `.swiftpm-locks/default/swiftImport` 目錄中的合成 軟件包 內。
+此共用鎖定檔案隨後用於 組建 專案，確保所有子專案使用相同 版本 的 Swift 軟件包。
+你可以透過 [將子專案分組或將其排除在同步之外](#customize-aggregation-of-swift-package-versions) 來自訂鎖定檔案合併行為。
+
+你應該將鎖定檔案提交至你的 存儲庫，以確保所有 組建 使用相同的相依性。
+為了簡化 檔案 管理，你可以將整個 `.swiftpm-locks` 目錄提交至你的 存儲庫。
+雖然只有 `Package.resolved` 檔案對於相依性同步至關重要，
+但保留整個目錄可以加速第一次 組建 期間的解析。
+
+當你在 組建 指令碼 中變更 SwiftPM 相依性集合或 版本 時，鎖定檔案會自動更新。
+你也可以 [手動強制更新鎖定檔案](#force-an-update-of-the-lock-file)。
+
+### 自訂 Swift 軟件包 版本聚合
+
+與其為所有子專案使用 `default` 群組，
+你可以定義自訂群組，以便為每個群組產生獨立的 `Package.resolved` 鎖定檔案。
+
+合併行為由 `swiftDependencies {}` 區塊中的 `packageResolvedSynchronization` 選項控制：
+
+```kotlin
+kotlin {
+    swiftDependencies {
+        // When no value is set for `packageResolvedSynchronization`, 
+        // the subproject is assigned a default group identifier
+        // as if it were set like this: 
+        // packageResolvedSynchronization = identifier("default")
+    }
+}
+```
+
+要自訂合併行為，請為每個子專案分配一個非預設的群組識別碼。
+在以下範例中，子專案 `one` 和 `two` 使用相同的 `custom` 軟件包 版本集，
+而子專案 `three` 使用預設集合：
+
+<Tabs>
+<TabItem title="子專案 &quot;one&quot;">
+
+```kotlin
+// one/build.gradle.kts
+
+kotlin {
+    swiftDependencies {
+        packageResolvedSynchronization = identifier("custom"),
+        ...
+    }
+}
+```
+</TabItem>
+
+<TabItem title="子專案 &quot;two&quot;">
+
+```kotlin
+// two/build.gradle.kts
+
+kotlin {
+    swiftDependencies {
+        packageResolvedSynchronization = identifier("custom"),
+        ...
+    }
+}
+```
+
+</TabItem>
+
+<TabItem title="子專案 &quot;three&quot;">
+
+```kotlin
+// three/build.gradle.kts
+
+kotlin {
+    swiftDependencies {
+        // The default identifier is used, as if the following is set:
+        // packageResolvedSynchronization = identifier("default")
+        ...
+    }
+}
+```
+
+</TabItem>
+
+</Tabs>
+
+如果你想完全停用某個子專案的同步機制，
+請使用 `noSynchronization()` 呼叫而不是 `identifier()`：
+
+```kotlin
+kotlin {
+    swiftDependencies { 
+        // The Package.resolved file for this subproject
+        // won't be merged with any other
+        packageResolvedSynchronization = noSynchronization()
+    }
+}
+```
+
+停用同步的子專案將擁有自己的 `Package.resolved` 鎖定檔案，
+放置在子專案目錄中 `build.gradle.kts` 檔案旁邊。
+
+與預設同步一樣，自訂子專案的所有 `Package.resolved` 檔案都應提交至你的 存儲庫。
+
+### 強制更新鎖定檔案
 
 如果你想手動強制更新鎖定檔案：
 
-1. 刪除 `build` 目錄和現有的 `Package.resolved` 檔案。
-2. 再次執行相依性解析任務：`./gradlew :yourModuleName:fetchSyntheticImportProjectPackages`。
+1. 刪除應更新鎖定檔案的每個子專案的 `build` 目錄。
+2. 移除現有的 `Package.resolved` 檔案：
+   * 對於沒有特定同步 配置 的子專案，刪除 `.swiftpm-locks/default/` 目錄。
+   * 對於具有 [自訂同步群組](#customize-aggregation-of-swift-package-versions) 的子專案，尋找並刪除 `.swiftpm-locks/<group-name>/` 目錄。
+   * 對於設定了 `noSynchronization()` 的子專案，尋找並刪除子專案目錄中的 `Package.resolved` 檔案。
+3. 再次執行相依性解析任務：`./gradlew :yourModuleName:fetchSyntheticImportProjectPackages`。
 
 ## 其他匯入選項
 
@@ -224,7 +328,7 @@ let package = Package(
 ```
 {collapsible="true" collapsed-title-line-number="3"}
 
-要在你的 Kotlin 建置 指令碼 中匯入它，請使用 `localSwiftPackage` API：
+要在你的 Kotlin 組建 指令碼 中匯入它，請使用 `localSwiftPackage` API：
 
 ```kotlin
 // <projectDir>/shared/build.gradle.kts
@@ -267,7 +371,7 @@ kotlin {
 
 與 `Package.swift` 資訊清單檔案類似，你可以在 `swiftPackage()` 呼叫中指定 Swift 軟件包 的位置和 版本。兩者都有幾個互斥的選項。 
 
-要設定位置，你可以使用 URL 或 [SwiftPM 登錄 ID](https://docs.swift.org/swiftpm/documentation/packagemanagerdocs/usingswiftpackageregistry)：
+要配置位置，你可以使用 URL 或 [SwiftPM 登錄 ID](https://docs.swift.org/swiftpm/documentation/packagemanagerdocs/usingswiftpackageregistry)：
 
 ```kotlin
 swiftPackage(
@@ -303,7 +407,7 @@ swiftPackage(
 
 ## 動態 Kotlin/Native 架構 的已知限制
 
-目前，SwiftPM 匯入整合不支援產生動態 Kotlin/Native 架構 時可能出現的所有 邊緣情況。你可能會在 Xcode 建置期間遇到問題，或在 執行階段 看到警告，例如：
+目前，SwiftPM 匯入整合不支援產生動態 Kotlin/Native 架構 時可能出現的所有 邊緣情況。你可能會在 Xcode 組建 期間遇到問題，或在 執行階段 看到警告，例如：
 
 * `Undefined symbols for architecture ...: "...", referenced from: ld: symbol(s) not found ...`
 * `dyld: Symbol not found: ...`
@@ -328,7 +432,7 @@ kotlin {
 }
 ```
 
-如果你遇到任何這些問題、需要保持 `isStatic=false`，或者更改此 屬性 無助於解決建置失敗，請在我們的 Slack 頻道中告知我們。獲取 [邀請](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 並加入 [#kmp-swift-package-manager](https://kotlinlang.slack.com/archives/C09TW68099C)。
+如果你遇到任何這些問題、需要保持 `isStatic=false`，或者變更此 屬性 無助於解決 組建 失敗，請在我們的 Slack 頻道中告知我們。獲取 [邀請](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 並加入 [#kmp-swift-package-manager](https://kotlinlang.slack.com/archives/C09TW68099C)。
 
 ## 下一步
 

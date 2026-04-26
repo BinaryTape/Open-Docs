@@ -12,10 +12,6 @@
         <img src="icon-7-todo.svg" width="20" alt="Final step" /> <a href="kotlin-tour-null-safety.md">空安全</a></p>
 </tldr>
 
-> 阅读需 3 分钟
-> 
-{style="tip"}
-
 这是一个打印 "Hello, world!" 的简单程序：
 
 ```kotlin

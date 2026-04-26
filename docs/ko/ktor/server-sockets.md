@@ -10,9 +10,9 @@
 <b>필수 의존성</b>: <code>io.ktor:ktor-network</code>, <code>io.ktor:ktor-network-tls</code>
 </p>
 <p><b>코드 예제</b>:
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/sockets-server">sockets-server</a>,
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/sockets-client">sockets-client</a>,
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/sockets-client-tls">sockets-client-tls</a>
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/sockets-server">sockets-server</a>,
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/sockets-client">sockets-client</a>,
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/sockets-client-tls">sockets-client-tls</a>
 </p>
 <p>
     <b><Links href="/ktor/server-native" summary="Ktor는 Kotlin/Native를 지원하며 추가 런타임이나 가상 머신 없이 서버를 실행할 수 있게 해줍니다.">네이티브 서버</Links> 지원</b>: ✅
@@ -129,7 +129,7 @@ fun main(args: Array<String>) {
         println("Server is listening at ${serverSocket.localAddress}")
         while (true) {
             val socket = serverSocket.accept()
-            println("Accepted $socket")
+            println("Accepted ${socket.remoteAddress}")
             launch {
                 val receiveChannel = socket.openReadChannel()
                 val sendChannel = socket.openWriteChannel(autoFlush = true)
@@ -151,7 +151,7 @@ fun main(args: Array<String>) {
 
 ```
 
-전체 예제는 여기서 확인할 수 있습니다: [sockets-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/sockets-server).
+전체 예제는 여기서 확인할 수 있습니다: [sockets-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/sockets-server).
 
 ## 클라이언트 {id="client"}
 
@@ -168,7 +168,7 @@ val socket = aSocket(selectorManager).tcp().connect("127.0.0.1", 9002)
 
 ### 보안 소켓 생성 (SSL/TLS) {id="secure"}
 
-보안 소켓을 사용하면 TLS 연결을 설정할 수 있습니다.
+보안 소켓을 사용하면 TLS 연결을 설정할 수 있습니다. 
 보안 소켓을 사용하려면 [ktor-network-tls](#add_dependencies) 의존성을 추가해야 합니다.
 그런 다음 연결된 소켓에서 `Socket.tls` 함수를 호출하십시오:
 
@@ -190,7 +190,7 @@ val socket = aSocket(selectorManager).tcp().connect("youtrack.jetbrains.com", po
 }
 ```
 
-전체 예제는 여기서 확인할 수 있습니다: [sockets-client-tls](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/sockets-client-tls).
+전체 예제는 여기서 확인할 수 있습니다: [sockets-client-tls](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/sockets-client-tls).
 
 ### 데이터 수신 {id="client_receive"}
 
@@ -278,4 +278,4 @@ fun main(args: Array<String>) {
 
 ```
 
-전체 예제는 여기서 확인할 수 있습니다: [sockets-client](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/sockets-client).
+전체 예제는 여기서 확인할 수 있습니다: [sockets-client](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/sockets-client).

@@ -6,7 +6,7 @@
 <var name="example_name" value="events"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -52,7 +52,7 @@ Ktor 提供以下與應用程式生命週期相關的預定義事件：
   > [自訂事件](#custom-events) 章節展示了如何引發自訂事件。
 
 `subscribe` / `unsubscribe` 函式接受 `EventDefinition` 執行個體，並將 `T` 值作為 Lambda 引數。
-下方的範例展示了如何訂閱 `ApplicationStarted` 事件並在事件處理常式中[記錄](server-logging.md)訊息：
+下方的範例展示了如何訂閱 `ApplicationStarted` 事件並在事件處理常式中 [記錄](server-logging.md) 訊息：
 
 ```kotlin
 fun Application.module() {
@@ -75,7 +75,7 @@ fun Application.module() {
 }
 ```
 
-如需完整範例，請參閱 [events](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/events)。
+如需完整範例，請參閱 [events](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/events)。
 
 ## 在自訂外掛程式中處理事件 {id="handle-events-plugin"}
 
@@ -101,7 +101,7 @@ val ApplicationMonitoringPlugin = createApplicationPlugin(name = "ApplicationMon
 }
 ```
 
-您可以在此處找到完整範例：[events](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/events)。
+您可以在此處找到完整範例：[events](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/events)。
 
 ## 自訂事件 {id="custom-events"}
 
@@ -148,4 +148,4 @@ val ApplicationMonitoringPlugin = createApplicationPlugin(name = "ApplicationMon
    }
    ```
 
-如需完整範例，請參閱 [events](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/events)。
+如需完整範例，請參閱 [events](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/events)。

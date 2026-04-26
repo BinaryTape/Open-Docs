@@ -11,7 +11,7 @@
 <var name="example_name" value="client-content-encoding"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -30,7 +30,7 @@ Ktor 客户端提供了 [`ContentEncoding`](https://api.ktor.io/ktor-client-enco
 
 ## 添加依赖项 {id="add_dependencies"}
 
-要使用 `ContentEncoding`，请在构建脚本中包含 `%artifact_name%` 构件：
+要使用 `ContentEncoding`，请在构建脚本中添加 `%artifact_name%` 构件：
 
 <Tabs group="languages">
     <TabItem title="Gradle (Kotlin)" group-key="kotlin">
@@ -43,9 +43,9 @@ Ktor 客户端提供了 [`ContentEncoding`](https://api.ktor.io/ktor-client-enco
         <code-block lang="XML" code="            &lt;dependency&gt;&#10;                &lt;groupId&gt;io.ktor&lt;/groupId&gt;&#10;                &lt;artifactId&gt;%artifact_name%-jvm&lt;/artifactId&gt;&#10;                &lt;version&gt;${ktor_version}&lt;/version&gt;&#10;            &lt;/dependency&gt;"/>
     </TabItem>
 </Tabs>
-<p>
-    您可以从 <Links href="/ktor/client-dependencies" summary="了解如何将客户端依赖项添加到现有项目。">添加客户端依赖项</Links> 中了解更多关于 Ktor 客户端所需构件的信息。
-</p>
+<tip>
+    要了解更多关于 Ktor 客户端所需构件的信息，请参阅 <Links href="/ktor/client-dependencies" summary="了解如何将客户端依赖项添加到现有项目。">添加客户端依赖项</Links>。
+</tip>
 
 ## 安装 ContentEncoding {id="install_plugin"}
 
@@ -67,7 +67,7 @@ val client = HttpClient(CIO) {
 
 您可以配置支持哪些编码器，并指定它们的质量值（用于 `Accept-Encoding` 标头）。
 
-下面的 [示例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-content-encoding) 展示了如何启用具有自定义质量值的 `deflate` 和 `gzip` 编码器：
+下面的 [示例](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-content-encoding) 展示了如何启用具有自定义质量值的 `deflate` 和 `gzip` 编码器：
 
 ```kotlin
 val client = HttpClient(CIO) {

@@ -12,10 +12,6 @@
         <img src="icon-7-todo.svg" width="20" alt="最後のステップ" /> <a href="kotlin-tour-null-safety.md">Null安全性</a></p>
 </tldr>
 
-> 読了時間: 3分
->
-{style="tip"}
-
 Kotlinのすべての変数とデータ構造には型があります。型は重要です。なぜなら、その変数やデータ構造に対して何ができるかをコンパイラに伝えるからです。言い換えれば、どのような関数やプロパティを持っているかを示します。
 
 前章の例では、Kotlinは `customers` が [`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/) 型であることを判断できました。Kotlinが型を**推論（infer）**するこの機能は、**型推論（type inference）**と呼ばれます。`customers` には整数値が代入されています。これにより、Kotlinは `customers` が数値型である `Int` であると推論します。その結果、コンパイラは `customers` に対して算術演算を実行できることを認識します。

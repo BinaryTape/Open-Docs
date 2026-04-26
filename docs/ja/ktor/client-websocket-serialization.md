@@ -6,7 +6,7 @@
 <var name="example_name" value="client-websockets-serialization"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -257,4 +257,4 @@ client.webSocket(method = HttpMethod.Get, host = "127.0.0.1", port = 8080, path 
 
 [incoming](client-websockets.topic#incoming) チャネルからデシリアライズされたフレームを受信するには、[WebsocketContentConverter.deserialize](https://api.ktor.io/ktor-serialization/io.ktor.serialization/-websocket-content-converter/deserialize.html) 関数を使用します。`WebsocketContentConverter` は `DefaultClientWebSocketSession.converter` プロパティ経由で利用可能です。
 
-> 完全な例はこちらで確認できます: [client-websockets-serialization](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-websockets-serialization)。
+> 完全な例はこちらで確認できます: [client-websockets-serialization](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-websockets-serialization)。

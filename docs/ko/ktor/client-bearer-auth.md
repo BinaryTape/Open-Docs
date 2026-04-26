@@ -9,7 +9,7 @@
 <var name="example_name" value="client-auth-oauth-google"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -139,7 +139,7 @@ install(Auth) {
 
 이 예제는 인증 및 권한 부여를 위해 [OAuth 2.0 프로토콜](https://developers.google.com/identity/protocols/oauth2)을 사용하는 Google API에 Bearer 인증을 사용하는 방법을 보여줍니다.
 
-예제 애플리케이션인 [client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-auth-oauth-google)은 사용자의 Google 프로필 정보를 가져옵니다.
+예제 애플리케이션인 [client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-auth-oauth-google)은 사용자의 Google 프로필 정보를 가져옵니다.
 
 ### 클라이언트 자격 증명 얻기 {id="google-client-credentials"}
 
@@ -429,6 +429,6 @@ data class ErrorDetails(
 )
 ```
 
-> 전체 예제는 [client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-auth-oauth-google)을 참조하세요.
+> 전체 예제는 [client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-auth-oauth-google)을 참조하세요.
 > 
 {style="tip"}

@@ -79,6 +79,10 @@
               },
               {
                 "text": "koog.multimodal-content",
+                "link": "prompts/prompt-creation/cache-control"
+              },
+              {
+                "text": "koog.cache-control",
                 "link": "prompts/prompt-creation/multimodal-content"
               }
             ],

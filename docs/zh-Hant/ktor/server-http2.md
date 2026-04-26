@@ -4,7 +4,7 @@
 
 <tldr>
 <p>
-<b>程式碼範例</b>：<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/http2-netty">http2-netty</a>、<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/http2-jetty">http2-jetty</a>
+<b>程式碼範例</b>：<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/http2-netty">http2-netty</a>、<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/http2-jetty">http2-jetty</a>
 </p>
 </tldr>
 
@@ -94,7 +94,7 @@ HTTP/2 需要啟用 ALPN（[應用層協定協商](https://en.wikipedia.org/wiki
 2. 按照 [SSL 憑證](#ssl_certificate) 中的說明新增 SSL 配置。
 3. 配置 `sslPort`。
 
-[http2-jetty](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/http2-jetty) 可執行範例展示了 Jetty 的 HTTP/2 支援。
+[http2-jetty](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/http2-jetty) 可執行範例展示了 Jetty 的 HTTP/2 支援。
 
 ### Netty {id="netty"}
 
@@ -119,8 +119,8 @@ dependencies {
 }
 ```
 
-`tc.native.classifier` 應為以下之一：`linux-x86_64`、`osx-x86_64` 或 `windows-x86_64`。 
-[http2-netty](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/http2-netty) 可執行範例展示了如何啟用 Netty 的 HTTP/2 支援。
+`tc.native.classifier` 應為以下之一：`linux-x86_64`、`osx-x86_64` 或 `windows-x86_64`。
+[http2-netty](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/http2-netty) 可執行範例展示了如何啟用 Netty 的 HTTP/2 支援。
 
 #### 不具備 TLS 的 HTTP/2
 

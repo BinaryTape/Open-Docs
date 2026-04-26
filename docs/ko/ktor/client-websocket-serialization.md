@@ -6,7 +6,7 @@
 <var name="example_name" value="client-websockets-serialization"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -257,4 +257,4 @@ client.webSocket(method = HttpMethod.Get, host = "127.0.0.1", port = 8080, path 
 
 [incoming](client-websockets.topic#incoming) 채널에서 역직렬화된 프레임을 수신하려면, [WebsocketContentConverter.deserialize](https://api.ktor.io/ktor-serialization/io.ktor.serialization/-websocket-content-converter/deserialize.html) 함수를 사용하세요. `WebsocketContentConverter`는 `DefaultClientWebSocketSession.converter` 속성을 통해 사용할 수 있습니다.
 
-> 전체 예제는 여기에서 확인할 수 있습니다: [client-websockets-serialization](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-websockets-serialization).
+> 전체 예제는 여기에서 확인할 수 있습니다: [client-websockets-serialization](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-websockets-serialization).

@@ -13,7 +13,7 @@
 <var name="example_name" value="ssl-engine-main-redirect"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -27,7 +27,7 @@
 ## 新增相依性 {id="add_dependencies"}
 
 <p>
-    要使用 <code>%plugin_name%</code>，您需要在建置腳本中包含 <code>%artifact_name%</code> 構件：
+    要使用 <code>%plugin_name%</code>，您需要在建置指令碼中包含 <code>%artifact_name%</code> 構件：
 </p>
 <Tabs group="languages">
     <TabItem title="Gradle (Kotlin)" group-key="kotlin">
@@ -60,13 +60,13 @@
         <code-block lang="kotlin" code="            import io.ktor.server.engine.*&#10;            import io.ktor.server.netty.*&#10;            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;&#10;            fun main() {&#10;                embeddedServer(Netty, port = 8080) {&#10;                    install(%plugin_name%)&#10;                    // ...&#10;                }.start(wait = true)&#10;            }"/>
     </TabItem>
     <TabItem title="module">
-        <code-block lang="kotlin" code="            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;            // ...&#10;            fun Application.module() {&#10;                install(%plugin_name%)&#10;                // ...&#10;            }"/>
+        <code-block lang="kotlin" code="            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;            // ...&#10;            fun Application.module() {&#10;                install(%plugin_name%)&#10;                // ...&#10;                // ...&#10;            }"/>
     </TabItem>
 </Tabs>
 
 上述程式碼會以預設配置安裝 `%plugin_name%` 外掛程式。
 
-> 當位於反向代理後方時，您需要安裝 `ForwardedHeader` 或 `XForwardedHeader` 外掛程式以正確偵測 HTTPS 請求。如果您在安裝這些外掛程式之一後遇到無限次重新導向，請參閱 [此 FAQ 項目](FAQ.topic#infinite-redirect) 以了解更多詳細資訊。
+> 當位於反向代理後方時，您需要安裝 `ForwardedHeader` 或 `XForwardedHeader` 外掛程式以正確偵測 HTTPS 請求。如果您在安裝這些外掛程式之一後遇到無限次重新導向，請參閱 [此常見問題項目](FAQ.topic#infinite-redirect) 以了解更多詳細資訊。
 >
 {type="note"}
 
@@ -81,4 +81,4 @@ install(HttpsRedirect) {
 }
 ```
 
-您可以在此處找到完整的範例：[ssl-engine-main-redirect](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/ssl-engine-main-redirect)。
+您可以在此處找到完整的範例：[ssl-engine-main-redirect](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/ssl-engine-main-redirect)。

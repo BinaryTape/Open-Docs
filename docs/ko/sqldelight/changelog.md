@@ -19,6 +19,7 @@
 - [PostgreSQL 다이얼렉트] PostgreSQL 다이얼렉트의 IDE 통합 수정
 - [PostgreSQL 다이얼렉트] PostgreSQL 다이얼렉트용 IDE 플러그인 개선 (#6209 by @griffio)
 - [Intellij 플러그인] IDE 플러그인이 모든 다이얼렉트에 대해 코드 완성(code completions)을 수행할 수 있음 (#6210 by @griffio)
+- [Gradle 플러그인] 데이터베이스 검증(verify database) 태스크 실행 중 발생하는 순환 의존성(circular dependency) 에러 수정 (#6221 by @griffio)
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -358,7 +359,7 @@
 - [페이징] 멀티플랫폼 페이징 확장 (by @jeffdgr8)
 - [런타임] `Listener` 인터페이스에 `fun` 수식어 추가.
 - [SQLite 다이얼렉트] SQLite 3.33 지원 추가 (`UPDATE FROM`) (by @eygraber))
-- [PostgreSQL 다이얼렉트] PostgreSQL에서 `UPDATE FROM` 지원 (by @eygraber))
+- [PostgreSQL 다이얼렉트] 지원 UPDATE FROM in postgresql (by @eygraber))
 
 ### 변경됨
 - [RDBC 드라이버] 커넥션 노출 (by @hfhbd)
@@ -741,7 +742,7 @@ sqldelight {
 
 ### 변경됨
 - [Native 드라이버] 가능한 경우 프리징(freezing) 및 공유 가능 데이터 구조를 피하여 네이티브 트랜잭션 성능 개선 (by @andersio)
-- [Paging 3] Paging3 버전을 3.0.0 stable로 상향
+- [Paging 3] Paging 3 버전을 3.0.0 stable로 상향
 - [JS 드라이버] sql.js를 1.5.0으로 업그레이드
 
 ### 수정됨
@@ -1109,7 +1110,7 @@ sqldelight {
 
  * 신규: SQLite 인자를 Factory를 통해 타입 세이프하게 전달 가능
  * 신규: IntelliJ 플러그인이 .sq 파일에서 포맷팅 수행
- * 신규: SQLite timestamp 리터럴 지원
+ * 신규: 지원을 위해 SQLite timestamp 리터럴
  * 수정: IntelliJ에서 파라미터화된 타입을 클릭하여 이동 가능
  * 수정: 이스케이프된 컬럼 이름이 Cursor에서 가져올 때 더 이상 `RuntimeException`을 발생시키지 않음.
  * 수정: Gradle 플러그인이 예외를 출력하려고 할 때 크래시 나지 않음.

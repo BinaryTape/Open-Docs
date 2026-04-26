@@ -84,7 +84,7 @@ val httpResponse: HttpResponse = client.get("https://ktor.io/")
 val byteArrayBody: ByteArray = httpResponse.body()
 ```
 
-下面的[可运行示例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-download-file)展示了如何将响应获取为 `ByteArray` 并将其保存到文件中：
+下面的[可运行示例](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-download-file)展示了如何将响应获取为 `ByteArray` 并将其保存到文件中：
 
 ```kotlin
     val client = HttpClient()
@@ -232,7 +232,7 @@ Ktor 提供了几种使用 [`ByteReadChannel`](https://api.ktor.io/ktor-io/io.kt
 
 使用 `ByteReadChannel.readRemaining()` 获取通道中所有可用的字节，而 `Source.transferTo()` 则直接将数据写入文件，从而减少了不必要的分配。
 
-> 有关完整的流式示例，请参阅 [client-download-streaming](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-download-streaming)。
+> 有关完整的流式示例，请参阅 [client-download-streaming](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-download-streaming)。
 
 #### 直接将响应写入文件
 

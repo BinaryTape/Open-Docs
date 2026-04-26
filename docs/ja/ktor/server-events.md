@@ -6,7 +6,7 @@
 <var name="example_name" value="events"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -75,7 +75,7 @@ fun Application.module() {
 }
 ```
 
-完全な例については、[events](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/events)を参照してください。
+完全な例については、[events](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/events)を参照してください。
 
 ## カスタムプラグインでのイベント処理 {id="handle-events-plugin"}
 
@@ -101,7 +101,7 @@ val ApplicationMonitoringPlugin = createApplicationPlugin(name = "ApplicationMon
 }
 ```
 
-完全な例は[こちら](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/events)にあります。
+完全な例は[こちら](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/events)にあります。
 
 ## カスタムイベント {id="custom-events"}
 
@@ -148,4 +148,4 @@ val ApplicationMonitoringPlugin = createApplicationPlugin(name = "ApplicationMon
    }
    ```
 
-完全な例については、[events](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/events)を参照してください。
+完全な例については、[events](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/events)を参照してください。

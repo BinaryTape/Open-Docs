@@ -19,6 +19,7 @@
 - [PostgreSQL 方言] 修复了 PostgreSQL 方言的 IDE 集成
 - [PostgreSQL 方言] 改进了 PostgreSQL 方言的 IDE 插件 (#6209 由 @griffio 贡献)
 - [Intellij 插件] IDE 插件可以为所有方言执行代码补全 (#6210 由 @griffio 贡献)
+- [Gradle 插件] 修复了运行验证数据库任务时的循环依赖错误 (#6221 由 @griffio 贡献)
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -152,7 +153,7 @@
 - [PostgreSQL 方言] PostgreSql 数字解析器 (#5399 由 @griffio 贡献)
 - [PostgreSQL 方言] SQLite 窗口函数 (#2799 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSql `SELECT DISTINCT ON` (#5345 由 @griffio 贡献)
-- [PostgreSQL 方言] `alter table add column if not exists` (#5309 由 @griffio 贡献)
+- [PostgreSQL 方院] `alter table add column if not exists` (#5309 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSQL 异步绑定参数 (#5313 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSql 布尔文字 (#5262 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSql 窗口函数 (#5155 由 @griffio 贡献)
@@ -748,7 +749,7 @@ sqldelight {
 - [JDBC SQLite 驱动程序] 在清除 `ThreadLocal` 之前在连接上调用 `close()` (#2444 由 @hannesstruss 贡献)
 - [RX 扩展] 修复了订阅/销毁竞态泄漏 (#2403 由 @pyricau 贡献)
 - [协程扩展] 确保在通知之前注册查询监听器
-- [编译器] 对 `notifyQueries` 进行排序以获得一致的 Kotlin 输出文件 (由 @thomascjy 贡献)
+- [编译器] 对 `notifyQueries` 进行排序以获得一致 the Kotlin 输出文件 (由 @thomascjy 贡献)
 - [编译器] 不要使用 `@JvmField` 注解选择查询类属性 (由 @eygraber 贡献)
 - [IDE 插件] 修复了导入优化器 (#2350 由 @aperfilyev 贡献)
 - [IDE 插件] 修复了未使用的列检查 (由 @aperfilyev 贡献)

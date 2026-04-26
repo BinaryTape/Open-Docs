@@ -8,7 +8,7 @@
 <var name="example_name" value="html"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -132,7 +132,7 @@ get("/login") {
 </TabItem>
 </Tabs>
 
-전체 예제는 [auth-form-html-dsl](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-form-html-dsl)에서 확인할 수 있습니다.
+전체 예제는 [auth-form-html-dsl](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-form-html-dsl)에서 확인할 수 있습니다.
 
 > 서버 측에서 폼 파라미터를 받는 방법에 대해 자세히 알아보려면 [폼 파라미터(Form parameters)](server-requests.md#form_parameters)를 참조하세요.
 > 
@@ -196,7 +196,7 @@ fun Application.module() {
     
 
 ### 예제 {id="example"}
-템플릿을 사용하여 계층적 레이아웃을 만드는 [예제](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/html-templates)를 살펴보겠습니다. 다음과 같은 HTML이 있다고 가정해 보겠습니다.
+템플릿을 사용하여 계층적 레이아웃을 만드는 [예제](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/html-templates)를 살펴보겠습니다. 다음과 같은 HTML이 있다고 가정해 보겠습니다.
 ```html
 <body>
 <h1>Ktor</h1>
@@ -318,4 +318,4 @@ fun Application.module() {
    }
    ```
 
-전체 예제는 여기에서 확인할 수 있습니다: [html-templates](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/html-templates).
+전체 예제는 여기에서 확인할 수 있습니다: [html-templates](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/html-templates).

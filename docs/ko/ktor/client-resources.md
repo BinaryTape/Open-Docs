@@ -13,7 +13,7 @@
 <var name="example_name" value="client-type-safe-requests"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -49,9 +49,9 @@ Ktor는 타입 세이프한 [요청](client-requests.md)을 구현할 수 있게
         <code-block lang="XML" code="            &lt;dependency&gt;&#10;                &lt;groupId&gt;io.ktor&lt;/groupId&gt;&#10;                &lt;artifactId&gt;%artifact_name%-jvm&lt;/artifactId&gt;&#10;                &lt;version&gt;${ktor_version}&lt;/version&gt;&#10;            &lt;/dependency&gt;"/>
     </TabItem>
 </Tabs>
-<p>
+<tip>
     Ktor 클라이언트에 필요한 아티팩트에 대한 자세한 내용은 <Links href="/ktor/client-dependencies" summary="기존 프로젝트에 클라이언트 의존성을 추가하는 방법을 알아봅니다.">클라이언트 의존성 추가</Links>에서 확인할 수 있습니다.
-</p>
+</tip>
 
 ## %plugin_name% 설치 {id="install_plugin"}
 
@@ -138,7 +138,7 @@ class Articles() {
 
 이 리소스는 모든 기사 목록 조회, 새 기사 게시, 수정 등에 사용할 수 있습니다. 다음 섹션에서 이 리소스에 대해 [타입 세이프 요청을 보내는 방법](#make_requests)을 살펴보겠습니다.
 
-> 전체 예제는 여기에서 확인할 수 있습니다: [client-type-safe-requests](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-type-safe-requests).
+> 전체 예제는 여기에서 확인할 수 있습니다: [client-type-safe-requests](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-type-safe-requests).
 
 ## 타입 세이프 요청 보내기 {id="make_requests"}
 
@@ -159,7 +159,7 @@ fun main() {
 }
 ```
 
-아래 예제는 [CRUD 작업을 위한 리소스 예제](#example_crud)에서 생성한 `Articles` 리소스에 대해 타입 세이프 요청을 보내는 방법을 보여줍니다. 
+아래 예제는 [예제: CRUD 작업을 위한 리소스](#example_crud)에서 생성한 `Articles` 리소스에 대해 타입 세이프 요청을 보내는 방법을 보여줍니다. 
 
 ```kotlin
 fun main() {
@@ -186,4 +186,4 @@ fun main() {
 
 [defaultRequest](client-default-request.md) 함수는 모든 요청에 대한 기본 URL을 지정하는 데 사용됩니다.
 
-> 전체 예제는 여기에서 확인할 수 있습니다: [client-type-safe-requests](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-type-safe-requests).
+> 전체 예제는 여기에서 확인할 수 있습니다: [client-type-safe-requests](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-type-safe-requests).

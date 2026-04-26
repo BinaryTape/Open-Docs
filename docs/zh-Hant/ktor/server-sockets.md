@@ -10,12 +10,12 @@
 <b>必要相依性</b>：<code>io.ktor:ktor-network</code>, <code>io.ktor:ktor-network-tls</code>
 </p>
 <p><b>程式碼範例</b>：
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/sockets-server">sockets-server</a>,
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/sockets-client">sockets-client</a>,
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/sockets-client-tls">sockets-client-tls</a>
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/sockets-server">sockets-server</a>,
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/sockets-client">sockets-client</a>,
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/sockets-client-tls">sockets-client-tls</a>
 </p>
 <p>
-    <b><Links href="/ktor/server-native" summary="Ktor 支援 Kotlin/Native，並允許您在沒有額外運行時或虛擬機的情況下執行伺服器。">Native 伺服器</Links> 支援</b>：✅
+    <b><Links href="/ktor/server-native" summary="Ktor 支援 Kotlin/Native，並允許您在沒有額外執行階段或虛擬機的情況下執行伺服器。">Native 伺服器</Links> 支援</b>：✅
 </p>
 </tldr>
 
@@ -129,7 +129,7 @@ fun main(args: Array<String>) {
         println("Server is listening at ${serverSocket.localAddress}")
         while (true) {
             val socket = serverSocket.accept()
-            println("Accepted $socket")
+            println("Accepted ${socket.remoteAddress}")
             launch {
                 val receiveChannel = socket.openReadChannel()
                 val sendChannel = socket.openWriteChannel(autoFlush = true)
@@ -151,7 +151,7 @@ fun main(args: Array<String>) {
 
 ```
 
-您可以在此處找到完整的範例：[sockets-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/sockets-server)。
+您可以在此處找到完整的範例：[sockets-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/sockets-server)。
 
 ## 用戶端 {id="client"}
 
@@ -168,7 +168,7 @@ val socket = aSocket(selectorManager).tcp().connect("127.0.0.1", 9002)
 
 ### 建立安全 Socket (SSL/TLS) {id="secure"}
 
-安全 Socket 允許您建立 TLS 連線。
+安全 Socket 允許您建立 TLS 連線。 
 若要使用安全 Socket，您需要加入 [ktor-network-tls](#add_dependencies) 相依性。
 然後，在已連線的 Socket 上呼叫 `Socket.tls` 函式：
 
@@ -190,7 +190,7 @@ val socket = aSocket(selectorManager).tcp().connect("youtrack.jetbrains.com", po
 }
 ```
 
-您可以在此處找到完整的範例：[sockets-client-tls](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/sockets-client-tls)。
+您可以在此處找到完整的範例：[sockets-client-tls](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/sockets-client-tls)。
 
 ### 接收資料 {id="client_receive"}
 
@@ -278,4 +278,4 @@ fun main(args: Array<String>) {
 
 ```
 
-您可以在此處找到完整的範例：[sockets-client](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/sockets-client)。
+您可以在此處找到完整的範例：[sockets-client](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/sockets-client)。

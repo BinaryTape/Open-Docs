@@ -35,6 +35,18 @@ IntelliJ Ktor 插件允许您将 Ktor 项目迁移到最新版本。
 </tr>
 
 <tr>
+<td>3.4.3</td><td>2026 年 4 月 22 日</td><td>
+<p>
+一个修订版本，专注于稳定性，修复了 OpenAPI 架构推断、客户端引擎生命周期问题以及多个并发和特定于平台的错误。
+</p>
+<var name="version" value="3.4.3"/>
+<p>
+    <a href="https://github.com/ktorio/ktor/releases/tag/%version%">在 GitHub 上查看变更日志</a>
+</p>
+</td>
+</tr>
+
+<tr>
 <td>3.4.2</td><td>2026 年 3 月 27 日</td><td>
 <p>
 一个修订版本，通过分配优化和 WebSocket 修复提升了客户端和引擎的性能，同时解决了一系列涉及 OpenAPI、日志记录、GraalVM 兼容性、Netty、Darwin、依赖注入、压缩、证书锁定以及 Kotlin/Native 的问题。
@@ -190,7 +202,7 @@ IntelliJ Ktor 插件允许您将 Ktor 项目迁移到最新版本。
 
 <tr>
 <td>3.1.1</td><td>2025 年 2 月 24 日</td><td><p>
-一个修订版本，改进了日志记录bing修复了 WebSocket 超时处理。它修复了多个错误，包括 HTTP 缓存不一致、表单数据复制错误、gzip 处理崩溃以及导致段池损坏的并发问题。
+一个修订版本，改进了日志记录并修复了 WebSocket 超时处理。它修复了多个错误，包括 HTTP 缓存不一致、表单数据复制错误、gzip 处理崩溃以及导致段池损坏的并发问题。
 </p>
 <var name="version" value="3.1.1"/>
 <p>

@@ -14,10 +14,6 @@
         <img src="icon-9-todo.svg" width="20" alt="ステップ9" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">ライブラリとAPI</a></p>
 </tldr>
 
-> 読了時間：13 分
->
-{style="tip"}
-
 この章では、オープンクラス（open classes）、それらがインターフェースとどのように連携するか、そしてKotlinで利用可能なその他の特殊な型のクラスについて学びます。
 
 ## オープンクラス (Open classes)

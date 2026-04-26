@@ -4,10 +4,10 @@
 
 <tldr>
 <p>
-<control>시작 프로젝트</control>: <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main">engine-main</a>
+<control>시작 프로젝트</control>: <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main">engine-main</a>
 </p>
 <p>
-<control>최종 프로젝트</control>: <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/google-appengine-standard">google-appengine-standard</a>
+<control>최종 프로젝트</control>: <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/google-appengine-standard">google-appengine-standard</a>
 </p>
 </tldr>
 
@@ -19,7 +19,7 @@
 프로젝트를 Google App Engine 표준 환경에 배포하는 방법을 알아보세요.
 </link-summary>
 
-이 튜토리얼에서는 Ktor 프로젝트를 Google App Engine 표준 환경(standard environment)에 준비하고 배포하는 방법을 보여줍니다. 이 튜토리얼은 [engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main) 샘플 프로젝트를 시작 프로젝트로 사용합니다.
+이 튜토리얼에서는 Ktor 프로젝트를 Google App Engine 표준 환경(standard environment)에 준비하고 배포하는 방법을 보여줍니다. 이 튜토리얼은 [engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main) 샘플 프로젝트를 시작 프로젝트로 사용합니다.
 
 ## 사전 준비 사항 {id="prerequisites"}
 이 튜토리얼을 시작하기 전에 아래 단계를 수행해야 합니다:
@@ -32,8 +32,8 @@
 
 ## 샘플 애플리케이션 클론하기 {id="clone"}
 샘플 애플리케이션을 열려면 아래 단계를 따르세요:
-1. Ktor 문서 저장소를 클론하고 [codeSnippets](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets) 프로젝트를 엽니다.
-2. [engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main) 모듈을 엽니다.
+1. Ktor 문서 저장소를 클론하고 [codeSnippets](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets) 프로젝트를 엽니다.
+2. [engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main) 모듈을 엽니다.
    > Ktor는 [서버를 생성하고 구성](server-create-and-configure.topic)하는 두 가지 방법(코드에서 생성하거나 설정 파일을 사용)을 제공합니다. 이 튜토리얼에서 배포 프로세스는 두 방식 모두 동일합니다.
 
 ## 애플리케이션 준비하기 {id="prepare-app"}
@@ -41,7 +41,7 @@
 이 튜토리얼에서는 [fat JAR](server-fatjar.md)를 사용하여 애플리케이션을 Google App Engine에 배포하는 방법을 보여줍니다. fat JAR를 생성하려면 Shadow 플러그인을 적용해야 합니다. `build.gradle.kts` 파일을 열고 `plugins` 블록에 플러그인을 추가하세요:
 ```kotlin
 plugins {
-    id("com.gradleup.shadow") version "8.3.9"
+    id("com.gradleup.shadow") version "8.3.10"
 }
 ```
 
@@ -130,4 +130,4 @@ plugins {
    >
    {type="note"}
 
-완성된 예제는 여기에서 확인할 수 있습니다: [google-appengine-standard](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/google-appengine-standard).
+완성된 예제는 여기에서 확인할 수 있습니다: [google-appengine-standard](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/google-appengine-standard).

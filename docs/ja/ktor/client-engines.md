@@ -391,7 +391,7 @@ Ktor は、[Kotlin/Native](https://kotlinlang.org/docs/native-overview.html) タ
    }
    ```
 
-   完全な例については、[client-engine-darwin](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-engine-darwin) を参照してください。
+   完全な例については、[client-engine-darwin](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-engine-darwin) を参照してください。
 
 ### WinHttp {id="winhttp"}
 
@@ -429,7 +429,7 @@ Ktor は、[Kotlin/Native](https://kotlinlang.org/docs/native-overview.html) タ
    }
    ```
 
-   完全な例については、[client-engine-winhttp](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-engine-winhttp) を参照してください。
+   完全な例については、[client-engine-winhttp](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-engine-winhttp) を参照してください。
 
 ### Curl {id="curl"}
 
@@ -467,7 +467,7 @@ Ktor は、[Kotlin/Native](https://kotlinlang.org/docs/native-overview.html) タ
    }
    ```
 
-   完全な例については、[client-engine-curl](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-engine-curl) を参照してください。
+   完全な例については、[client-engine-curl](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-engine-curl) を参照してください。
 
 ## JVM, Android, Native, JS および WasmJs {id="jvm-android-native-wasm-js"}
 
@@ -529,7 +529,7 @@ CIO エンジンは、JVM、Android、Native、JavaScript、および WebAssembl
 
 ## JavaScript {id="js"}
 
-`Js` エンジンは [JavaScript プロジェクト](https://kotlinlang.org/docs/js-overview.html)で使用できます。ブラウザアプリケーションでは [fetch API](https://developer.mozilla.org/ja/docs/Web/API/Fetch_API) を、Node.js では `node-fetch` を使用します。これを使用するには、以下の手順に従ってください。
+`Js` エンジンは [JavaScript プロジェクト](https://kotlinlang.org/docs/js-overview.html)で使用できます。ブラウザアプリケーションでは [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) を、Node.js では `node-fetch` を使用します。これを使用するには、以下の手順に従ってください。
 
 1. `ktor-client-js` 依存関係を追加します。
 
@@ -561,7 +561,7 @@ CIO エンジンは、JVM、Android、Native、JavaScript、および WebAssembl
    val client = JsClient()
    ```
 
-完全な例については、[client-engine-js](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-engine-js) を参照してください。
+完全な例については、[client-engine-js](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-engine-js) を参照してください。
 
 ## 制限事項 {id="limitations"}
 

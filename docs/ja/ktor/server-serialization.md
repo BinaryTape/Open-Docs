@@ -14,7 +14,7 @@
 <var name="example_name" value="json-kotlinx"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -62,7 +62,7 @@ kotlinx.serialization コンバーターを使用する前に、[Setup](https://
 
 #### JSON {id="add_json_dependency"}
 
-JSON データをシリアライズ/デシリアライズするには、kotlinx.serialization、Gson、Jackson のいずれかのライブラリを選択できます。
+JSON データをシリアライズ/デシリアライズするには、kotlinx.serialization、Gson、Jackson のいずれかのライブラリを選択できます。 
 
 <Tabs group="json-libraries">
 <TabItem title="kotlinx.serialization" group-key="kotlinx">
@@ -441,7 +441,7 @@ Content-Type: application/xml
 </TabItem>
 </Tabs>
 
-完全な例はこちらにあります：[json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/json-kotlinx)。
+完全な例はこちらにあります：[json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/json-kotlinx)。
 
 ### データの送信 {id="send_data"}
 レスポンスでデータオブジェクトを渡すには、`respond` メソッドを使用できます。
@@ -453,7 +453,7 @@ routing {
         call.respond(customer)
 ```
 
-この場合、Ktor は `Accept` ヘッダーを使用して必要な [シリアライザー](#configure_serializer) を選択します。完全な例はこちらにあります：[json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/json-kotlinx)。
+この場合、Ktor は `Accept` ヘッダーを使用して必要な [シリアライザー](#configure_serializer) を選択します。完全な例はこちらにあります：[json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/json-kotlinx)。
 
 ## カスタムシリアライザーの実装 {id="implement_custom_serializer"}
 

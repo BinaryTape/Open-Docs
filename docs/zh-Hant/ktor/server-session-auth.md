@@ -9,7 +9,7 @@
 <var name="example_name" value="auth-form-session"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -18,7 +18,7 @@
 </p>
 </tldr>
 
-[工作階段 (Sessions)](server-sessions.md) 提供了一種在不同 HTTP 請求之間持久化資料的機制。典型的使用案例包括儲存已登入使用者的 ID、購物車內容，或在用戶端保留使用者偏好設定。
+[工作階段 (Sessions)](server-sessions.md) 提供了一種在不同 HTTP 請求之間持久化資料的機制。典型的使用案例包括儲存已登入使用者的 ID、購物車內容，或在用戶端保留使用者偏好設定。 
 
 在 Ktor 中，已經具有關聯工作階段的使用者可以使用 `session` 提供者進行驗證。例如，當使用者第一次使用 [Web 表單 (web form)](server-form-based-auth.md) 登入時，您可以將使用者名稱儲存到 cookie 工作階段中，並在後續請求中使用 `session` 提供者對該使用者進行授權。
 
@@ -86,7 +86,7 @@ install(Authentication) {
 本節示範如何透過 [表單型驗證 (form-based authentication)](server-form-based-auth.md) 驗證使用者，將該使用者的資訊儲存到 cookie 工作階段中，然後在後續請求中使用 `session` 提供者對該使用者進行授權。
 
 > 如需完整範例，請參閱
-> [auth-form-session](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-form-session)。
+> [auth-form-session](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-form-session)。
 
 ### 步驟 1：建立資料類別 {id="data-class"}
 
@@ -99,7 +99,7 @@ data class UserSession(val name: String, val count: Int)
 
 ### 步驟 2：安裝與配置工作階段 {id="install-session"}
 
-建立資料類別後，您需要安裝並配置 `Sessions` 外掛程式。下面的範例安裝並配置了一個具有指定 cookie 路徑和過期時間的 cookie 工作階段。
+建立資料類別後，您需要安裝並配置 `Sessions` 外掛程式。下面的範例安裝並配置了一個具有指定 cookie 路徑 and 過期時間的 cookie 工作階段。
 
 ```kotlin
 install(Sessions) {
@@ -171,4 +171,4 @@ authenticate("auth-session") {
 ```
 
 > 如需完整範例，請參閱
-> [auth-form-session](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-form-session)。
+> [auth-form-session](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-form-session)。

@@ -3,8 +3,8 @@
 <tldr>
 <p>
 <b>코드 예제</b>: 
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server-modules">embedded-server-modules</a>, 
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main-modules">engine-main-modules</a>
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server-modules">embedded-server-modules</a>, 
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main-modules">engine-main-modules</a>
 </p>
 </tldr>
 
@@ -84,7 +84,7 @@ fun Application.module2() {
 
 ```
 
-전체 예제는 여기에서 확인할 수 있습니다: [embedded-server-modules](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server-modules).
+전체 예제는 여기에서 확인할 수 있습니다: [embedded-server-modules](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server-modules).
 
 ### 설정 파일 {id="hocon"}
 
@@ -176,7 +176,7 @@ ktor:
 </TabItem>
 </Tabs>
 
-전체 예제는 여기에서 확인할 수 있습니다: [engine-main-modules](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main-modules).
+전체 예제는 여기에서 확인할 수 있습니다: [engine-main-modules](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main-modules).
 
 ## 모듈 의존성
 

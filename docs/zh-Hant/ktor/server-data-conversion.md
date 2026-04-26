@@ -10,7 +10,7 @@
 <tldr>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -48,7 +48,7 @@ Ktor 伺服器的 %plugin_name% 外掛程式可讓您針對值的清單序列化
 ## 安裝 %plugin_name% {id="install_plugin"}
 
 <p>
-    若要將 <code>%plugin_name%</code> 外掛程式安裝到應用程式，請將其傳遞給指定 <Links href="/ktor/server-modules" summary="模組允許您透過分組路由來建構您的應用程式。">模組</Links> 中的 <code>install</code> 函式。
+    若要將 <code>%plugin_name%</code> 外掛程式<a href="#install">安裝</a>到應用程式，請將其傳遞給指定 <Links href="/ktor/server-modules" summary="模組允許您透過分組路由來建構您的應用程式。">模組</Links> 中的 <code>install</code> 函式。
     下方的程式碼片段展示了如何安裝 <code>%plugin_name%</code> ...
 </p>
 <list>
@@ -70,9 +70,9 @@ Ktor 伺服器的 %plugin_name% 外掛程式可讓您針對值的清單序列化
 
 ## 新增轉換器 {id="add-converters"}
 
-您可以在 `%plugin_name%` 配置中定義型別轉換。為指定的型別提供 `convert<T>` 方法，並使用可用的函式來序列化與反序列化值的列表：
+您可以在 `%plugin_name%` 配置中定義型別轉換。為指定的型別提供 `convert<T>` 方法，並使用可用的函式來序列化與反序列化值的清單：
 
-* 使用 `decode()` 函式來反序列化值的列表。它接收一個字串清單（代表 URL 中重複的值），並回傳解碼後的值。
+* 使用 `decode()` 函式來反序列化值的清單。它接收一個字串清單（代表 URL 中重複的值），並回傳解碼後的值。
 
   ```kotlin
   decode { values -> // converter: (values: List<String>) -> Any?
@@ -134,4 +134,4 @@ val encodedDate = application.conversionService.toValues(call.parameters["date"]
 val decodedDate = application.conversionService.fromValues(encodedDate, typeInfo<LocalDate>())
 ```
 
-如需完整範例，請參閱 [%example_name%](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%)
+如需完整範例，請參閱 [%example_name%](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%)

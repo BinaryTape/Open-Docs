@@ -13,7 +13,7 @@
 <var name="example_name" value="double-receive"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -97,7 +97,7 @@ post("/") {
 }
 ```
 
-完全な例はこちらにあります: [double-receive](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/double-receive)
+完全な例はこちらにあります: [double-receive](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/double-receive)。
 
 ## %plugin_name% の設定 {id="configure"}
 デフォルトの設定では、`%plugin_name%` はリクエストボディを以下の型として[受信する機能](server-requests.md#body_contents)を提供します：

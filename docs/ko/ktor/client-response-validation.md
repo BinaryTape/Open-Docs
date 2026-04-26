@@ -4,8 +4,8 @@
 
 <tldr>
 <p><b>코드 예제</b>:
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-validate-2xx-response">client-validate-2xx-response</a>,
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-validate-non-2xx-response">client-validate-non-2xx-response</a>
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-validate-2xx-response">client-validate-2xx-response</a>,
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-validate-non-2xx-response">client-validate-non-2xx-response</a>
 </p>
 </tldr>
 
@@ -16,7 +16,7 @@
 기본적으로 Ktor HTTP 클라이언트는 HTTP 상태 코드에 따라 응답을 검증하지 않습니다.
 필요한 경우, 다음과 같은 전략을 사용하여 응답 검증을 활성화하고 커스텀할 수 있습니다.
 
-* [expectSuccess 속성을 사용하여 2xx가 아닌 응답에 대해 예외를 발생시킵니다.](#default)
+* [`expectSuccess` 속성을 사용하여 2xx가 아닌 응답에 대해 예외를 발생시킵니다.](#default)
 * [2xx 응답에 대해 더 엄격한 검증을 추가합니다.](#2xx)
 * [2xx가 아닌 응답에 대한 검증을 커스텀합니다.](#non-2xx)
 
@@ -75,7 +75,7 @@ val client = HttpClient(CIO) {
 }
 ```
 
-> 전체 예제는 [client-validate-2xx-response](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-validate-2xx-response)를 참조하세요.
+> 전체 예제는 [client-validate-2xx-response](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-validate-2xx-response)를 참조하세요.
 > 
 {style="tip"}
 
@@ -118,6 +118,6 @@ fun main() {
 }
 ```
 
-> 전체 예제는 [client-validate-non-2xx-response](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-validate-non-2xx-response)를 참조하세요.
+> 전체 예제는 [client-validate-non-2xx-response](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-validate-non-2xx-response)를 참조하세요.
 > 
 {style="tip"}

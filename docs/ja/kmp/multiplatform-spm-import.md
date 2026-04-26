@@ -23,8 +23,8 @@ SwiftPM インポート統合を備えた Kotlin Gradle プラグインを使用
 
 プロジェクトを構成するには：
 
-1. [開発環境のセットアップ](#set-the-kotlin-multiplatform-gradle-plugin-version)
-2. [KMP モジュールでの SwiftPM 依存関係の追加と使用](#add-and-use-swiftpm-dependencies)
+1. [開発環境のセットアップ](#kotlin-multiplatform-gradle-プラグインのバージョン設定)
+2. [KMP モジュールでの SwiftPM 依存関係の追加と使用](#swiftpm-依存関係の追加と使用)
 
 ## Kotlin Multiplatform Gradle プラグインのバージョン設定
 
@@ -187,14 +187,109 @@ import swiftPMImport.groupName.subproject.FIRApp
 
 ## 生成される `Package.resolved` ファイル
 
-Swift パッケージに依存するビルドをより安定させるために、SwiftPM インポートツールはロックメカニズムを導入しています。最初のパッケージ解決中に生成された `Package.resolved` ファイルがプロジェクトのディレクトリにコピーされ、以降のビルドで再利用されます。
+Swift パッケージに依存するビルドをより安定させるために、SwiftPM インポートツールは `Package.resolved` ファイルによるロックメカニズムを導入しています。これらは初回のパッケージ解決中に、各サブプロジェクトに対して生成されます。
 
-このロックファイルは、ビルドスクリプトで SwiftPM 依存関係のセットやバージョンを変更すると自動的に更新されます。
+デフォルトでは、これらのファイルは単一の `Package.resolved` ファイルにマージされ、`.swiftpm-locks/default/swiftImport` ディレクトリ内の合成パッケージ内に配置されます。この共有ロックファイルはプロジェクトのビルドに使用され、すべてのサブプロジェクトが同じバージョンの Swift パッケージを使用することを保証します。サブプロジェクトをグループ化したり、同期から除外したりすることで、[ロックファイルのマージ動作をカスタマイズ](#swift-パッケージバージョンの集約設定のカスタマイズ)できます。
+
+すべてのビルドで同じ依存関係が使用されるように、ロックファイルをリポジトリにコミットする必要があります。ファイル管理を簡素化するために、`.swiftpm-locks` ディレクトリ全体をリポジトリにコミットすることもできます。依存関係の同期に不可欠なのは `Package.resolved` ファイルだけですが、ディレクトリ全体を保持することで最初のビルド時の解決プロセスを高速化できます。
+
+ロックファイルは、ビルドスクリプトで SwiftPM 依存関係のセットやバージョンを変更すると自動的に更新されます。
+また、[手動でロックファイルの更新を強制する](#ロックファイルの手動更新)こともできます。
+
+### Swift パッケージバージョンの集約設定のカスタマイズ
+
+すべてのサブプロジェクトに `default` グループを使用する代わりに、カスタムグループを定義して、グループごとに個別の `Package.resolved` ロックファイルを生成できます。
+
+マージの挙動は、`swiftDependencies {}` ブロックの `packageResolvedSynchronization` オプションで制御されます。
+
+```kotlin
+kotlin {
+    swiftDependencies {
+        // `packageResolvedSynchronization` に値が設定されていない場合、
+        // サブプロジェクトには以下のように設定された場合と同様に
+        // デフォルトのグループ識別子が割り当てられます：
+        // packageResolvedSynchronization = identifier("default")
+    }
+}
+```
+
+マージの挙動をカスタマイズするには、各サブプロジェクトにデフォルト以外のグループ識別子を割り当てます。
+以下の例では、サブプロジェクト `one` と `two` は同じ `custom` パッケージバージョンのセットを使用し、サブプロジェクト `three` はデフォルトのセットを使用します。
+
+<Tabs>
+<TabItem title="サブプロジェクト &quot;one&quot;">
+
+```kotlin
+// one/build.gradle.kts
+
+kotlin {
+    swiftDependencies {
+        packageResolvedSynchronization = identifier("custom"),
+        ...
+    }
+}
+```
+</TabItem>
+
+<TabItem title="サブプロジェクト &quot;two&quot;">
+
+```kotlin
+// two/build.gradle.kts
+
+kotlin {
+    swiftDependencies {
+        packageResolvedSynchronization = identifier("custom"),
+        ...
+    }
+}
+```
+
+</TabItem>
+
+<TabItem title="サブプロジェクト &quot;three&quot;">
+
+```kotlin
+// three/build.gradle.kts
+
+kotlin {
+    swiftDependencies {
+        // 以下が設定されている場合と同様に、デフォルトの識別子が使用されます：
+        // packageResolvedSynchronization = identifier("default")
+        ...
+    }
+}
+```
+
+</TabItem>
+
+</Tabs>
+
+サブプロジェクトの同期メカニズムを完全に無効にしたい場合は、`identifier()` の代わりに `noSynchronization()` 呼び出しを使用します。
+
+```kotlin
+kotlin {
+    swiftDependencies { 
+        // このサブプロジェクトの Package.resolved ファイルは
+        // 他のファイルとマージされません
+        packageResolvedSynchronization = noSynchronization()
+    }
+}
+```
+
+同期が無効化されたサブプロジェクトは、独自の `Package.resolved` ロックファイルを保持し、それはサブプロジェクトディレクトリ内の `build.gradle.kts` ファイルの隣に配置されます。
+
+デフォルトの同期の場合と同様に、カスタマイズされたサブプロジェクトのすべての `Package.resolved` ファイルをリポジトリにコミットする必要があります。
+
+### ロックファイルの手動更新
 
 ロックファイルを手動で強制的に更新したい場合は：
 
-1. `build` ディレクトリと既存の `Package.resolved` ファイルを削除します。
-2. 依存関係解決タスクを再度実行します： `./gradlew :yourModuleName:fetchSyntheticImportProjectPackages`。
+1. ロックファイルを更新する必要があるすべてのサブプロジェクトの `build` ディレクトリを削除します。
+2. 既存の `Package.resolved` ファイルを削除します。
+   * 特定の同期設定がないサブプロジェクトの場合は、`.swiftpm-locks/default/` ディレクトリを削除します。
+   * [カスタム同期グループ](#swift-パッケージバージョンの集約設定のカスタマイズ)を持つサブプロジェクトの場合は、`.swiftpm-locks/<group-name>/` ディレクトリを探して削除します。
+   * `noSynchronization()` が設定されているサブプロジェクトの場合は、サブプロジェクトディレクトリ内の `Package.resolved` ファイルを探して削除します。
+3. 依存関係解決タスクを再度実行します： `./gradlew :yourModuleName:fetchSyntheticImportProjectPackages`。
 
 ## 追加のインポートオプション
 

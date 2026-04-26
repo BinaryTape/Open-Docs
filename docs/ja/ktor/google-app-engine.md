@@ -4,10 +4,10 @@
 
 <tldr>
 <p>
-<control>初期プロジェクト</control>: <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main">engine-main</a>
+<control>初期プロジェクト</control>: <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main">engine-main</a>
 </p>
 <p>
-<control>完成プロジェクト</control>: <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/google-appengine-standard">google-appengine-standard</a>
+<control>完成プロジェクト</control>: <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/google-appengine-standard">google-appengine-standard</a>
 </p>
 </tldr>
 
@@ -19,7 +19,7 @@
 プロジェクトをGoogle App Engineのスタンダード環境にデプロイする方法を学びます。
 </link-summary>
 
-このチュートリアルでは、KtorプロジェクトをGoogle App Engineのスタンダード環境（standard environment）向けに準備し、デプロイする方法を紹介します。このチュートリアルでは、[engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main) サンプルプロジェクトをスタータープロジェクトとして使用します。
+このチュートリアルでは、KtorプロジェクトをGoogle App Engineのスタンダード環境（standard environment）向けに準備し、デプロイする方法を紹介します。このチュートリアルでは、[engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main) サンプルプロジェクトをスタータープロジェクトとして使用します。
 
 ## 前提条件 {id="prerequisites"}
 このチュートリアルを始める前に、以下の手順を完了しておく必要があります。
@@ -32,8 +32,8 @@
 
 ## サンプルアプリケーションのクローン {id="clone"}
 サンプルアプリケーションを開くには、以下の手順に従ってください。
-1. Ktorドキュメントのリポジトリをクローンし、[codeSnippets](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets) プロジェクトを開きます。
-2. [engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main) モジュールを開きます。
+1. Ktorドキュメントのリポジトリをクローンし、[codeSnippets](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets) プロジェクトを開きます。
+2. [engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main) モジュールを開きます。
    > Ktorには、コード内で、または設定ファイルを使用して[サーバーを作成および設定する](server-create-and-configure.topic)ための2つのアプローチがあることに注意してください。このチュートリアルでは、デプロイのプロセスはいずれのアプローチでも同じです。
 
 ## アプリケーションの準備 {id="prepare-app"}
@@ -41,7 +41,7 @@
 このチュートリアルでは、[fat JAR](server-fatjar.md)を使用してGoogle App Engineにアプリケーションをデプロイする方法を示します。fat JARを生成するには、Shadowプラグインを適用する必要があります。`build.gradle.kts`ファイルを開き、`plugins`ブロックにプラグインを追加します。
 ```kotlin
 plugins {
-    id("com.gradleup.shadow") version "8.3.9"
+    id("com.gradleup.shadow") version "8.3.10"
 }
 ```
 
@@ -130,4 +130,4 @@ plugins {
    >
    {type="note"}
 
-完成した例はこちらで確認できます: [google-appengine-standard](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/google-appengine-standard)
+完成した例はこちらで確認できます: [google-appengine-standard](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/google-appengine-standard)

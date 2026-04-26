@@ -13,7 +13,7 @@
 <var name="example_name" value="ssl-engine-main-hsts"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -92,4 +92,4 @@ install(HSTS) {
 }
 ```
 
-完全な例はこちらにあります: [ssl-engine-main-hsts](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/ssl-engine-main-hsts)
+完全な例はこちらにあります: [ssl-engine-main-hsts](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/ssl-engine-main-hsts)

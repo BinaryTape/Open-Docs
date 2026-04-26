@@ -219,7 +219,7 @@ install(Authentication) {
    }
    ```
 
-> 如需完整範例，請參閱 [auth-form-session-nested](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-form-session-nested)。
+> 如需完整範例，請參閱 [auth-form-session-nested](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-form-session-nested)。
 
 ### 步驟 5：在路由處理常式中獲取委託主體 {id="get-principal"}
 

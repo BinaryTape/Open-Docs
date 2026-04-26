@@ -13,7 +13,7 @@
 <var name="example_name" value="forwarded-header"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -149,7 +149,7 @@ get("/hello") {
 | `origin.remoteHost`    | _proxy_                  | _client_              |
 | `origin.remotePort`    | _32864_                  | _32864_               |
 
-> 전체 예제는 여기에서 확인할 수 있습니다: [forwarded-header](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/forwarded-header).
+> 전체 예제는 여기에서 확인할 수 있습니다: [forwarded-header](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/forwarded-header).
 
 ## ForwardedHeaders 설정 {id="configure"}
 
@@ -160,7 +160,7 @@ get("/hello") {
 X-Forwarded-For: <client>, <proxy1>, <proxy2>
 ```
 
-기본적으로 `XForwardedHeader`는 `X-Forwarded-For`의 첫 번째 항목을 `call.request.origin.remoteHost` 속성에 할당합니다.
+기본적으로 `XForwardedHeader`는 `X-Forward-For`의 첫 번째 항목을 `call.request.origin.remoteHost` 속성에 할당합니다.
 [IP 주소 선택](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For#selecting_an_ip_address)을 위한 사용자 정의 로직을 제공할 수도 있습니다.
 [XForwardedHeadersConfig](https://api.ktor.io/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-x-forwarded-headers-config/index.html)는 이를 위해 다음과 같은 API를 노출합니다:
 

@@ -4,7 +4,7 @@
 <var name="example_name" value="deployment-ktor-plugin"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -21,7 +21,7 @@ fat JARをビルドするには、まずKtorプラグインを設定する必要
 1. `build.gradle.kts`ファイルを開き、`plugins`ブロックにプラグインを追加します。
    ```kotlin
    plugins {
-       id("io.ktor.plugin") version "3.4.0"
+       id("io.ktor.plugin") version "3.4.3"
    }
    ```
 
@@ -56,4 +56,4 @@ Ktorプラグインは、fat JARの作成と実行のために以下のタスク
 - `buildFatJar`: プロジェクトとランタイム依存関係を組み合わせたJARをビルドします。このビルドが完了すると、`build/libs`ディレクトリに`***-all.jar`ファイルが生成されます。
 - `runFatJar`: プロジェクトのfat JARをビルドして実行します。
 
-> ProGuardを使用して生成されたJARを最小化する方法については、[proguard](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/proguard)のサンプルを参照してください。
+> ProGuardを使用して生成されたJARを最小化する方法については、[proguard](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/proguard)のサンプルを参照してください。

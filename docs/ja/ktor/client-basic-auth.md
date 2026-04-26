@@ -7,13 +7,13 @@
 <var name="example_name" value="client-auth-basic"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
 </tldr>
 
-ベーシック[認証スキーム](client-auth.md)は、ユーザーのログインに使用できます。このスキームでは、ユーザーの認証情報は、Base64を使用してエンコードされたユーザー名とパスワードのペアとして送信されます。
+ベーシック[認証スキーム](client-auth.md)は、ユーザーのログインに使用できます。このスキームでは、ユーザーの認証情報は、Base64を使用してエンコードされたユーザー名とパスワードのペアとして送信されます。 
 
 > サーバー側では、Ktorはベーシック認証を処理するための[Authentication](server-basic-auth.md)プラグインを提供しています。
 
@@ -85,4 +85,4 @@
 
     > プログラムでキャッシュされた認証情報をクリアする方法の詳細については、一般的な[トークンのキャッシュとキャッシュ制御](client-auth.md#token-caching)セクションを参照してください。
 
-> Ktor Clientにおけるベーシック認証の完全な例については、[client-auth-basic](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-auth-basic)を参照してください。
+> Ktor Clientにおけるベーシック認証の完全な例については、[client-auth-basic](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-auth-basic)を参照してください。

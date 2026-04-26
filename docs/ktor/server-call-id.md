@@ -14,7 +14,7 @@
 <var name="example_name" value="call-id"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -58,7 +58,7 @@
 ## 安装 %plugin_name% {id="install_plugin"}
 
 <p>
-    要将 <code>%plugin_name%</code> 插件安装到应用程序，请将其传递给指定的<Links href="/ktor/server-modules" summary="模块允许您通过对路由进行分组来构建应用程序结构。">模块</Links>中的 <code>install</code> 函数。
+    要将 <code>%plugin_name%</code> 插件<a href="#install">安装</a>到应用程序，请将其传递给指定的<Links href="/ktor/server-modules" summary="模块允许您通过对路由进行分组来构建应用程序结构。">模块</Links>中的 <code>install</code> 函数。
     下面的代码片段显示了如何安装 <code>%plugin_name%</code> ...
 </p>
 <list>
@@ -138,7 +138,7 @@ install(CallId) {
 }
 ```
 
-您可以在此处找到完整示例：[call-id](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/call-id)。
+您可以在此处找到完整示例：[call-id](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/call-id)。
 
 ### 将调用 ID 发送到客户端 {id="send"}
 
@@ -152,7 +152,7 @@ install(CallId) {
    }
    ```
 
-  您可以在此处找到完整示例：[call-id](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/call-id)。
+  您可以在此处 find 完整示例：[call-id](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/call-id)。
 
 * `replyToHeader` 函数在指定的标头中发送调用 ID：
    ```kotlin
@@ -161,7 +161,7 @@ install(CallId) {
    }
    ```
 
-* 如果需要，您可以使用 `ApplicationCall` 在[响应](server-responses.md)中发送调用 ID：
+* If required, you can use `ApplicationCall` to send a call ID in a [response](server-responses.md):
    ```kotlin
    reply { call, callId ->
        call.response.header(HttpHeaders.XRequestId, callId)
@@ -187,4 +187,4 @@ install(CallLogging) {
 </appender>
 ```
 
-您可以在此处找到完整示例：[call-id](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/call-id)。
+您可以在此处找到完整示例：[call-id](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/call-id)。

@@ -143,7 +143,7 @@
 
 | 전략 | 동작 |
 |-----------------------------------------------------------|--------------------------|
-| `SimilaritySearchStrategy()` | 벡터 유사성 기반 의미론적 검색 — **기본 및 권장 사항** |
+| `SimilaritySearchStrategy()` | 벡터 유사성 기반 의미론적 검색 — **기본값** |
 | `query -> new SimilaritySearchRequest(query, 20, 0, 0.0, null)` | 람다를 통한 사용자 정의 검색 |
 
 ## 수집 전용 (Ingestion Only)

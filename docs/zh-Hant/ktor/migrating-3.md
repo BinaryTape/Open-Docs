@@ -22,7 +22,7 @@
 - [引入 `ServerConfigBuilder`](#ServerConfigBuilder)。
 - [`embeddedServer()` 傳回 `EmbeddedServer`](#EmbeddedServer) 而非 `ApplicationEngine`。
 
-這些變更將影響依賴於先前模型的現有程式碼。
+這些變更將影響依賴於先前模型的現有原始碼。
 
 #### 重新命名的類別 {id="renamed-classes"}
 
@@ -293,7 +293,7 @@ fun testHello() = testApplication {
 
 由於拼字錯誤，[`CallLogging`](https://api.ktor.io/ktor-server-call-logging/io.ktor.server.plugins.calllogging/index.html) 外掛程式套件已重新命名。
 
-| 2.x.x | 3.0.x |
+| 2.x.x                               | 3.0.x                                |
 |-------------------------------------|--------------------------------------|
 | `io.ktor.server.plugins.callloging` | `io.ktor.server.plugins.calllogging` |
 
@@ -390,7 +390,7 @@ install(WebSockets) {
 
 您可以根據需要對其他時間長度組態使用類似的 Kotlin 時間擴充屬性（`minutes`、`hours` 等）。如需更多資訊，請參閱 [Duration](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/) 文件。
 
-### 伺服器通訊端 `.bind()` 現在為掛起函式 (suspending)
+### 伺服器通訊端 `.bind()` 現在為掛起函式
 
 為了支援 JS 與 WasmJS 環境中的非同步操作，[`TCPSocketBuilder`](https://api.ktor.io/ktor-network/io.ktor.network.sockets/-tcp-socket-builder/index.html) 與 [`UDPSocketBuilder`](https://api.ktor.io/ktor-network/io.ktor.network.sockets/-u-d-p-socket-builder/index.html) 中伺服器通訊端的 `.bind()` 函式已更新為掛起函式 (suspending function)。這意味著現在必須在協同程式內呼叫 `.bind()`。
 
@@ -488,7 +488,7 @@ install(Sessions) {
     transform(
       SessionTransportTransformerEncrypt(
         secretEncryptKey, // 此處填寫您的加密金鑰
-        secretSignKey, // 此處填寫您的簽名金鑰
+        secretSignKey, // 此處填寫您的簽署金鑰
         backwardCompatibleRead = true
       )
     )
@@ -504,7 +504,7 @@ install(Sessions) {
 
 在 Ktor 3.0.0 之前，[`HttpResponse`](https://api.ktor.io/ktor-client-core/io.ktor.client.statement/-http-response/index.html) 的 `content` 屬性提供了一個原始的 `ByteReadChannel`，用於讀取來自網路的回應內容。從 Ktor 3.0.0 開始，`content` 屬性已重新命名為 `rawContent`，以更精確地反映其用途。
 
-### `SocketTimeoutException` 現在是一個型別別名 (typealias)
+### `SocketTimeoutException` 現在是一個型別別名
 
 來自 `io.ktor.client.network.sockets` 套件的 [`SocketTimeoutException`](https://api.ktor.io/3.0.x/ktor-client-core/io.ktor.client.network.sockets/-socket-timeout-exception/index.html) 已從 Kotlin 類別轉換為 Java 類別的別名。此變更在某些情況下可能會導致 `NoClassDefFoundError`，並可能需要更新現有程式碼。
 
@@ -594,11 +594,11 @@ runBlocking {
 
 此方法將資料直接從通道傳輸至檔案的接收器 (sink)，從而大幅減少記憶體分配並提高效能。
 
-如需完整範例，請參閱 [client-download-streaming](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-download-streaming)。
+如需完整範例，請參閱 [client-download-streaming](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-download-streaming)。
 
 > 如需更多關於 API 替換的詳細資訊，請參閱 [`kotlinx-io` 文件](https://kotlinlang.org/api/kotlinx-io/)。
 
-### 屬性金鑰 (Attribute keys) 現在需要精確的型別比對
+### 屬性金鑰現在需要精確的型別比對
 
 在 Ktor 3.0.0 中，[`AttributeKey`](https://api.ktor.io/3.0.x/ktor-utils/io.ktor.util/-attribute-key.html) 執行個體現在透過識別 (identity) 進行比較，且在儲存與檢索值時需要精確的型別比對。這確保了型別安全性並防止因型別不符而導致的非預期行為。
 
@@ -613,7 +613,7 @@ attrs.put(AttributeKey<Boolean>("key"), true)
 attrs.getOrNull<Boolean>("key")
 ```
 
-### 移除空白構件 (Empty artifact)
+### 移除空白構件
 
 自 Ktor 1.0.0 以來，空白構件 `io.ktor:ktor` 曾被誤發布至 [Maven](https://repo1.maven.org/maven2/io/ktor/ktor/)。從 Ktor 3.0.0 開始，該構件已被移除。
 

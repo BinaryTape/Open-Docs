@@ -13,7 +13,7 @@
 <var name="example_name" value="forwarded-header"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -147,7 +147,7 @@ get("/hello") {
 | `origin.remoteHost`    | _proxy_                  | _client_              |
 | `origin.remotePort`    | _32864_                  | _32864_               |
 
-> 完全な例はこちらで見つけることができます: [forwarded-header](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/forwarded-header)
+> 完全な例はこちらで見つけることができます: [forwarded-header](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/forwarded-header)。
 
 ## ForwardedHeadersの構成 {id="configure"}
 

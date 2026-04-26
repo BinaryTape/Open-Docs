@@ -3,8 +3,8 @@
 <tldr>
 <p>
 <b>程式碼範例</b>： 
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server-modules">embedded-server-modules</a>, 
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main-modules">engine-main-modules</a>
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server-modules">embedded-server-modules</a>, 
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main-modules">engine-main-modules</a>
 </p>
 </tldr>
 
@@ -84,7 +84,7 @@ fun Application.module2() {
 
 ```
 
-您可以在此處找到完整的範例：[embedded-server-modules](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server-modules)。
+您可以在此處找到完整的範例：[embedded-server-modules](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server-modules)。
 
 ### 配置檔案 {id="hocon"}
 
@@ -176,7 +176,7 @@ ktor:
 </TabItem>
 </Tabs>
 
-您可以在此處找到完整的範例：[engine-main-modules](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main-modules)。
+您可以在此處找到完整的範例：[engine-main-modules](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main-modules)。
 
 ## 模組相依性
 

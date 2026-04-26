@@ -2,7 +2,7 @@
 
 Koog 提供了一種使用 `AIAgentStorage` 存儲和傳遞資料的方式，這是一個鍵值存儲系統，旨在以型別安全的方式在不同節點甚至子圖之間傳遞資料。
 
-存儲可以透過代理節點中提供的 `storage` 屬性（`storage: AIAgentStorage`）存取，從而實現在 AI 代理系統的不同元件之間無縫共用資料。
+存儲空間可透過代理節點中提供的 `storage` 屬性（`storage: AIAgentStorage`）存取，從而實現在 AI 代理系統的不同元件之間無縫共用資料。
 
 ## 鍵值結構
 
@@ -12,7 +12,7 @@ Koog 提供了一種使用 `AIAgentStorage` 存儲和傳遞資料的方式，這
 
 存儲使用類型化金鑰系統，以確保在存儲和檢索資料時的型別安全。
 
-`AIAgentStorageKey<T>` 資料類別代表用於識別和存取資料的存儲金鑰。以下是此類別的主要特性：
+`AIAgentStorageKey<T>` 類別代表用於識別和存取資料的存儲金鑰。以下是此類別的主要特性：
 
 - 泛型型別參數 `T` 指定了與此金鑰相關聯的資料型別，確保型別安全。
 
@@ -89,7 +89,7 @@ Koog 提供了一種使用 `AIAgentStorage` 存儲和傳遞資料的方式，這
     ```
     <!--- KNIT exampleDataTransferBetweenNodesJava02.java -->
 
-`createStorageKey` 函式接受單個字串參數，用於唯一識別該金鑰。
+`createStorageKey` 函式接受單個字串參數，用於識別和偵錯目的。
 
 ### 存儲資料
 

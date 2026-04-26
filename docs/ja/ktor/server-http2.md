@@ -4,7 +4,7 @@
 
 <tldr>
 <p>
-<b>コード例</b>: <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/http2-netty">http2-netty</a>, <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/http2-jetty">http2-jetty</a>
+<b>コード例</b>: <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/http2-netty">http2-netty</a>, <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/http2-jetty">http2-jetty</a>
 </p>
 </tldr>
 
@@ -94,7 +94,7 @@ ALPN API は Java 8 以降でサポートされているため、Jetty エンジ
 2. [SSL 証明書](#ssl_certificate) で説明されているように SSL 設定を追加します。
 3. `sslPort` を設定します。
 
-[http2-jetty](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/http2-jetty) の実行可能なサンプルで、Jetty の HTTP/2 サポートを確認できます。
+[http2-jetty](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/http2-jetty) の実行可能なサンプルで、Jetty の HTTP/2 サポートを確認できます。
 
 ### Netty {id="netty"}
 
@@ -120,7 +120,7 @@ dependencies {
 ```
 
 `tc.native.classifier` は、`linux-x86_64`、`osx-x86_64`、`windows-x86_64` のいずれかである必要があります。
-[http2-netty](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/http2-netty) の実行可能なサンプルで、Netty の HTTP/2 サポートを有効にする方法を確認できます。
+[http2-netty](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/http2-netty) の実行可能なサンプルで、Netty の HTTP/2 サポートを有効にする方法を確認できます。
 
 #### TLS なしの HTTP/2
 

@@ -13,7 +13,7 @@
 <var name="example_name" value="forwarded-header"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -22,7 +22,7 @@
 </p>
 </tldr>
 
-當 Ktor 伺服器位於反向代理之後時，`ForwardedHeaders` 與 `XForwardedHeaders` 外掛程式可讓您處理反向代理標頭，以取得原始請求 (request) 的相關資訊。這對於[記錄](server-logging.md)目的可能非常有用。
+[ForwardedHeaders](https://api.ktor.io/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-forwarded-headers.html) 與 [XForwardedHeaders](https://api.ktor.io/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-x-forwarded-headers.html) 外掛程式可讓您處理反向代理標頭，以取得 Ktor 伺服器位於反向代理之後時原始[請求](server-requests.md) (request) 的相關資訊。這對於[記錄](server-logging.md)目的可能非常有用。
 
 * `ForwardedHeaders` 處理 `Forwarded` 標頭 ([RFC 7239](https://tools.ietf.org/html/rfc7239))
 * `XForwardedHeaders` 處理以下 `X-Forwarded-` 標頭：
@@ -147,7 +147,7 @@ get("/hello") {
 | `origin.remoteHost`    | _proxy_                  | _client_              |
 | `origin.remotePort`    | _32864_                  | _32864_               |
 
-> 您可以在此處找到完整的範例：[forwarded-header](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/forwarded-header)。
+> 您可以在此處找到完整的範例：[forwarded-header](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/forwarded-header)。
 
 ## 設定 ForwardedHeaders {id="configure"}
 
@@ -166,11 +166,11 @@ X-Forwarded-For: <client>, <proxy1>, <proxy2>
 - `skipLastProxies` 從右側開始跳過指定數量的項目，並取得下一個項目。
    例如，如果 `proxiesCount` 參數等於 `3`，對於下方的標頭，`origin.remoteHost` 將回傳 `10.0.0.123`：
    ```HTTP
-   X-Forwarded-For: 10.0.0.123, proxy-1, proxy-2, proxy-3
+   X-Forward-For: 10.0.0.123, proxy-1, proxy-2, proxy-3
    ```
 - `skipKnownProxies` 從清單中移除指定的項目並取得最後一個項目。
    例如，如果您將 `listOf("proxy-1", "proxy-3")` 傳遞給此函式，對於下方的標頭，`origin.remoteHost` 將回傳 `proxy-2`：
    ```HTTP
-   X-Forwarded-For: 10.0.0.123, proxy-1, proxy-2, proxy-3
+   X-Forward-For: 10.0.0.123, proxy-1, proxy-2, proxy-3
    ```
 - `extractEdgeProxy` 允許您提供從 `X-Forward-*` 標頭中擷取值的自訂邏輯。

@@ -129,6 +129,7 @@ val agent = AIAgent(
 LLM 调用生命周期：
 
 - `interceptLLMCallStarting`：在 LLM 调用前调用。
+- `interceptLLMCallFailed`：在 LLM 调用失败时调用（底层 prompt 执行器或审查调用抛出异常）。
 - `interceptLLMCallCompleted`：在 LLM 调用后调用。
 
 LLM 流式传输生命周期：

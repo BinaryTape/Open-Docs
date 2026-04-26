@@ -12,10 +12,6 @@
         <img src="icon-7-todo.svg" width="20" alt="最終ステップ" /> <a href="kotlin-tour-null-safety.md">Null安全 (Null safety)</a></p>
 </tldr>
 
-> 読了時間: 3 分
-> 
-{style="tip"}
-
 以下は、"Hello, world!" を出力するシンプルなプログラムです。
 
 ```kotlin

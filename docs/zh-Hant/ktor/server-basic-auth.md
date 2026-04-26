@@ -9,7 +9,7 @@
 <b>必要相依性</b>：<code>io.ktor:%artifact_name%</code>
 </p>
 <p>
-<b>程式碼範例</b>：<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-basic">auth-basic</a>、<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-basic-hash-table">auth-basic-hash-table</a>
+<b>程式碼範例</b>：<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-basic">auth-basic</a>、<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-basic-hash-table">auth-basic-hash-table</a>
 </p>
 <p>
     <b><Links href="/ktor/server-native" summary="Ktor 支援 Kotlin/Native，可讓您在不使用額外執行階段或虛擬機的情況下執行伺服器。">原生伺服器</Links> 支援</b>：✅
@@ -101,7 +101,7 @@ install(Authentication) {
 }
 ```
    
-`validate` 函式會檢查 `UserPasswordCredential`，並在身份驗證成功時回傳 `UserIdPrincipal`，若身份驗證失敗則回傳 `null`。
+`validate` 函式會檢查 `UserPasswordCredential`，並在身份驗證成功時回傳 `UserIdPrincipal`，若身份驗證失敗則回傳 `null`。 
 > 您也可以使用 [UserHashedTableAuth](#validate-user-hash) 來驗證儲存在記憶體內表格中的使用者，該表格保存了使用者名稱和密碼雜湊。
 
 ### 步驟 2：保護特定資源 {id="authenticate-route"}

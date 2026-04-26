@@ -126,13 +126,13 @@ Hello, world!
 >
 {style="tip"}
 
-> 有关完整示例，请参阅 [post-raw-data](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/post-raw-data)。
+> 有关完整示例，请参阅 [post-raw-data](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/post-raw-data)。
 
 ### 对象 {id="objects"}
 
 Ktor 提供了 [ContentNegotiation](server-serialization.md) 插件来协商请求的媒体类型并将内容反序列化为所需类型的对象。
 
-要为请求接收并转换内容，请调用 [`ApplicationCall.receive()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/receive.html) 函数，该函数接受一个数据类作为参数：
+要为请求接收并转换内容，请调用 [`ApplicationCall.receive()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/receive.html) 函数，该函数接受一个数据类作为形参：
 
 ```kotlin
 post("/customer") {
@@ -162,7 +162,7 @@ post("/signup") {
 }
 ```
 
-> 有关完整示例，请参阅 [post-form-parameters](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/post-form-parameters)。
+> 有关完整示例，请参阅 [post-form-parameters](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/post-form-parameters)。
 
 ### 多部分表单数据 {id="form_data"}
 
@@ -269,4 +269,4 @@ post("/upload") {
 part.dispose()
 ```
 
-> 要了解如何运行此示例，请参阅 [upload-file](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/upload-file)。
+> 要了解如何运行此示例，请参阅 [upload-file](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/upload-file)。

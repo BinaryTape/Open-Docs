@@ -12,10 +12,6 @@
         <img src="icon-7-todo.svg" width="20" alt="Final step" /> <a href="kotlin-tour-null-safety.md">널 안전성(Null safety)</a></p>
 </tldr>
 
-> 읽는 시간 10분
->
-{style="tip"}
-
 프로그래밍을 할 때, 나중에 처리하기 위해 데이터를 구조로 그룹화할 수 있다면 유용합니다. 코틀린은 정확히 이 목적을 위해 컬렉션(collections)을 제공합니다.
 
 코틀린에는 아이템을 그룹화하기 위한 다음과 같은 컬렉션 타입이 있습니다:

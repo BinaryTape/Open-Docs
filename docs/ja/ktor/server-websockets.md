@@ -14,7 +14,7 @@
 <var name="example_name" value="server-websockets"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -164,7 +164,7 @@ routing {
 }
 ```
 
-完全な例については、[server-websockets](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/server-websockets)を参照してください。
+完全な例については、[server-websockets](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/server-websockets)を参照してください。
 
 ### 例: 複数セッションの処理 {id="handle-multiple-session"}
 
@@ -210,7 +210,7 @@ val sharedFlow = messageResponseFlow.asSharedFlow()
 
 このパターンを使用すると、個々の接続を手動で追跡することなく、複数のWebSocketセッションを効率的に管理できます。このアプローチは、多くの同時接続を持つアプリケーションでも適切にスケールし、メッセージのブロードキャストを処理するためのクリーンでリアクティブな方法を提供します。
 
-完全な例については、[server-websockets-sharedflow](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/server-websockets-sharedflow)を参照してください。
+完全な例については、[server-websockets-sharedflow](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/server-websockets-sharedflow)を参照してください。
 
 ## WebSocket APIとKtor {id="websocket-api"}
 

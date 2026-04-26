@@ -14,7 +14,7 @@
 <var name="example_name" value="call-id"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -139,7 +139,7 @@ install(CallId) {
 }
 ```
 
-전체 예제는 여기에서 확인할 수 있습니다: [call-id](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/call-id).
+전체 예제는 여기에서 확인할 수 있습니다: [call-id](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/call-id).
 
 ### 클라이언트에게 호출 ID 전송 {id="send"}
 
@@ -153,7 +153,7 @@ install(CallId) {
    }
    ```
 
-  전체 예제는 여기에서 확인할 수 있습니다: [call-id](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/call-id).
+  전체 예제는 여기에서 확인할 수 있습니다: [call-id](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/call-id).
 
 * `replyToHeader` 함수는 지정된 헤더에 호출 ID를 담아 보냅니다:
    ```kotlin
@@ -188,4 +188,4 @@ install(CallLogging) {
 </appender>
 ```
 
-전체 예제는 여기에서 확인할 수 있습니다: [call-id](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/call-id).
+전체 예제는 여기에서 확인할 수 있습니다: [call-id](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/call-id).

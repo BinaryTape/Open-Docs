@@ -9,7 +9,7 @@
 <var name="example_name" value="auth-form-session"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -85,7 +85,7 @@ install(Authentication) {
 
 이 섹션에서는 [폼 기반 인증](server-form-based-auth.md)으로 사용자를 인증하고, 이 사용자에 대한 정보를 쿠키 세션에 저장한 다음, `session` 프로바이더를 사용하여 이후 요청에서 이 사용자를 인증하는 방법을 설명합니다.
 
-> 전체 예제는 [auth-form-session](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-form-session)을 참조하세요.
+> 전체 예제는 [auth-form-session](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-form-session)을 참조하세요.
 
 ### 1단계: 데이터 클래스 생성 {id="data-class"}
 
@@ -169,4 +169,4 @@ authenticate("auth-session") {
 }
 ```
 
-> 전체 예제는 [auth-form-session](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-form-session)을 참조하세요.
+> 전체 예제는 [auth-form-session](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-form-session)을 참조하세요.

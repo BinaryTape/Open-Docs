@@ -14,7 +14,7 @@
 <var name="example_name" value="resource-routing"/>
 <p>
     <b>代码示例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -33,7 +33,7 @@ Ktor 提供了 [Resources](https://api.ktor.io/ktor-resources/io.ktor.resources/
 
 ### 添加 kotlinx.serialization {id="add_serialization"}
 
-鉴于[资源类](#resource_classes)应具有 `@Serializable` 行为，您需要按照[设置 (Setup)](https://github.com/Kotlin/kotlinx.serialization#setup) 部分的说明添加 Kotlin 序列化插件。
+鉴于[资源类](#resource_classes)应具有 `@Serializable` 行为，您需要按照 [设置 (Setup)](https://github.com/Kotlin/kotlinx.serialization#setup) 部分的说明添加 Kotlin 序列化插件。
 
 ### 添加 %plugin_name% 依赖项 {id="add_plugin_dependencies"}
 
@@ -151,7 +151,7 @@ class Articles(val sort: String? = "new") {
 
 此资源可用于列出所有文章、发布新文章、编辑文章等。我们将在下一章中看到如何为此资源[定义路由处理程序](#define_route)。
 
-> 您可以在此处找到完整示例：[resource-routing](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/resource-routing)。
+> 您可以在此处找到完整示例：[resource-routing](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/resource-routing)。
 
 ## 定义路由处理程序 {id="define_route"}
 
@@ -239,7 +239,7 @@ fun Application.module() {
 
    此路由处理程序删除具有指定标识符的文章。
 
-您可以在此处找到完整示例：[resource-routing](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/resource-routing)。
+您可以在此处找到完整示例：[resource-routing](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/resource-routing)。
 
 ## 从资源构建链接 {id="resource_links"}
 
@@ -307,4 +307,4 @@ get {
 }
 ```
 
-您可以在此处找到完整示例：[resource-routing](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/resource-routing)。
+您可以在此处找到完整示例：[resource-routing](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/resource-routing)。

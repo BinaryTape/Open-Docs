@@ -11,7 +11,7 @@
 <var name="example_name" value="client-content-encoding"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -43,9 +43,9 @@ Ktorクライアントは、指定した圧縮アルゴリズム（`gzip`や`def
         <code-block lang="XML" code="            &lt;dependency&gt;&#10;                &lt;groupId&gt;io.ktor&lt;/groupId&gt;&#10;                &lt;artifactId&gt;%artifact_name%-jvm&lt;/artifactId&gt;&#10;                &lt;version&gt;${ktor_version}&lt;/version&gt;&#10;            &lt;/dependency&gt;"/>
     </TabItem>
 </Tabs>
-<p>
+<tip>
     Ktorクライアントに必要なアーティファクトの詳細については、<Links href="/ktor/client-dependencies" summary="既存のプロジェクトにクライアントの依存関係を追加する方法を学びます。">クライアントの依存関係の追加</Links>を参照してください。
-</p>
+</tip>
 
 ## ContentEncodingのインストール {id="install_plugin"}
 
@@ -67,7 +67,7 @@ val client = HttpClient(CIO) {
 
 どのエンコーダーをサポートするかを構成し、それらの品質値（`Accept-Encoding`ヘッダーで使用）を指定できます。
 
-以下の[例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-content-encoding)は、カスタム品質値を使用して`deflate`および`gzip`エンコーダーを有効にする方法を示しています：
+以下の[例](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-content-encoding)は、カスタム品質値を使用して`deflate`および`gzip`エンコーダーを有効にする方法を示しています：
 
 ```kotlin
 val client = HttpClient(CIO) {

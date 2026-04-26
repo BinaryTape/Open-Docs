@@ -13,7 +13,7 @@
 <var name="example_name" value="conditional-headers"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -90,4 +90,4 @@ install(ConditionalHeaders) {
 }
 ```
 
-전체 예제는 여기에서 찾을 수 있습니다: [conditional-headers](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/conditional-headers).
+전체 예제는 여기에서 찾을 수 있습니다: [conditional-headers](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/conditional-headers).

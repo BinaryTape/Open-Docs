@@ -6,7 +6,7 @@
 <var name="example_name" value="logging"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -86,7 +86,7 @@ Log4j を使用するには、`org.apache.logging.log4j:log4j-core` と `org.apa
 </configuration>
 ```
 
-完全な例はこちらにあります：[logging](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/logging)
+完全な例はこちらにあります：[logging](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/logging)
 
 ## Native {id="native"}
 

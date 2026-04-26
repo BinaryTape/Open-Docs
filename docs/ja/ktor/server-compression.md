@@ -14,7 +14,7 @@
 <var name="example_name" value="compression"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -149,7 +149,7 @@ install(Compression) {
 }
 ```
 
-完全な例はこちらにあります：[compression](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/compression)
+完全な例はこちらにあります：[compression](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/compression)
 
 ### レスポンスサイズの構成 {id="configure_response_size"}
 

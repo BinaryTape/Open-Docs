@@ -49,7 +49,7 @@ plugins {
 
 | KGP 버전      | Gradle 최소 및 최대 버전               | AGP 최소 및 최대 버전                               |
 |---------------|---------------------------------------|-----------------------------------------------------|
-| 2.3.20        | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
+| 2.3.20–2.3.21 | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
 | 2.3.10        | 7.6.3–9.0.0                           | 8.2.2–9.0.0                                         |
 | 2.3.0         | 7.6.3–9.0.0                           | 8.2.2–8.13.0                                        |
 | 2.2.20–2.2.21 | 7.6.3–8.14                            | 7.3.1–8.11.1                                        |
@@ -688,7 +688,7 @@ plugins {
 
 * **`wasmJs`**: 브라우저 또는 Node.js에서 실행용
 * **`wasmJs`**: 브라우저 또는 Node.js에서 실행용
-* **`wasmWasi`**: Wasmtime, WasmEdge 등과 같이 [WASI (WebAssembly System Interface)](https://wasi.dev/)를 지원하는 Wasm 환경에서 실행용
+* **`wasmWasi`**: Wasmtime, WasmEdge 등과 같이 [WASI (WebAssembly System Interface)](https://wasi.dev/)를 지원하는 Wasm environment에서 실행용
 
 웹 브라우저 또는 Node.js를 위한 `wasmJs` 타겟을 구성합니다:
 

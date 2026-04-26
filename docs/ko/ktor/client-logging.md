@@ -10,7 +10,7 @@
 <var name="example_name" value="client-logging"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -89,9 +89,9 @@ Ktor는 [Logging](https://api.ktor.io/ktor-client-logging/io.ktor.client.plugins
           <code-block lang="XML" code="              &lt;dependency&gt;&#10;                  &lt;groupId&gt;io.ktor&lt;/groupId&gt;&#10;                  &lt;artifactId&gt;%artifact_name%-jvm&lt;/artifactId&gt;&#10;                  &lt;version&gt;${ktor_version}&lt;/version&gt;&#10;              &lt;/dependency&gt;"/>
       </TabItem>
   </Tabs>
-  <p>
+  <tip>
       Ktor 클라이언트에 필요한 아티팩트에 대한 자세한 정보는 <Links href="/ktor/client-dependencies" summary="기존 프로젝트에 클라이언트 의존성을 추가하는 방법을 알아보세요.">클라이언트 의존성 추가하기</Links>에서 확인할 수 있습니다.
-  </p>
+  </tip>
 
 ## 로깅 설치 {id="install_plugin"}
 
@@ -153,7 +153,7 @@ fun main() {
 }
 ```
 
-전체 예제는 [client-logging](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-logging)을 참조하세요.
+전체 예제는 [client-logging](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-logging)을 참조하세요.
 
 ### 사용자 정의 로거 제공 {id="custom_logger"}
 
@@ -190,4 +190,4 @@ fun main() {
 
 ```
 
-전체 예제는 [client-logging-napier](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-logging-napier)를 참조하세요.
+전체 예제는 [client-logging-napier](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-logging-napier)를 참조하세요.

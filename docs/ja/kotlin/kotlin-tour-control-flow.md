@@ -12,10 +12,6 @@
         <img src="icon-7-todo.svg" width="20" alt="最終ステップ" /> <a href="kotlin-tour-null-safety.md">Null安全</a></p>
 </tldr>
 
-> 所要時間：10 分
->
-{style="tip"}
-
 他のプログラミング言語と同様に、Kotlinはコードの一部が真（true）と評価されるかどうかに基づいて決定を下すことができます。このようなコードの一部を**条件式 (conditional expressions)**と呼びます。また、Kotlinはループを作成して反復処理を行うこともできます。
 
 ## 条件式

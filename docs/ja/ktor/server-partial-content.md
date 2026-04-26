@@ -12,16 +12,16 @@
 </p>
 <p>
 <b>サーバーの例</b>:
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/download-file">download-file</a>,
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/download-file">download-file</a>,
 <b>クライアントの例</b>:
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-download-file-range">client-download-file-range</a>
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-download-file-range">client-download-file-range</a>
 </p>
 <p>
     <b><Links href="/ktor/server-native" summary="Ktor supports Kotlin/Native and allows you to run a server without an additional runtime or virtual machine.">ネイティブサーバー</Links>のサポート</b>: ✅
 </p>
 </tldr>
 
-[%plugin_name%](https://api.ktor.io/ktor-server-partial-content/io.ktor.server.plugins.partialcontent/-partial-content.html)プラグインは、HTTPメッセージの一部のみをクライアントに返送するために使用される[HTTPレンジリクエスト](https://developer.mozilla.org/ja/docs/Web/HTTP/Range_requests)の処理のサポートを追加します。このプラグインは、コンテンツのストリーミングや、中断されたダウンロードの再開に役立ちます。
+[%plugin_name%](https://api.ktor.io/ktor-server-partial-content/io.ktor.server.plugins.partialcontent/-partial-content.html)プラグインは、HTTPメッセージの一部のみをクライアントに返送するために使用される[HTTPレンジリクエスト](https://developer.mozilla.org/en-US/docs/Web/HTTP/Range_requests)の処理のサポートを追加します。このプラグインは、コンテンツのストリーミングや、中断されたダウンロードの再開に役立ちます。
 
 `%plugin_name%`には以下の制限事項があります：
 - `HEAD`および`GET`リクエストに対してのみ動作し、クライアントが他のメソッドで`Range`ヘッダーを使用しようとすると`405 Method Not Allowed`を返します。

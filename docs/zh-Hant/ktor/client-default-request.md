@@ -7,7 +7,7 @@
 <var name="example_name" value="client-default-request"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -94,7 +94,7 @@ defaultRequest {
 val response: HttpResponse = client.get("welcome.html")
 ```
 
-...產生的 URL 將如下所示：`https://ktor.io/docs/welcome.html`。
+... 產生的 URL 將如下所示：`https://ktor.io/docs/welcome.html`。
 若要了解基礎 URL 與請求 URL 如何合併，請參閱 [DefaultRequest](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/-default-request/index.html)。
 
 ### URL 參數 {id="url-params"}
@@ -187,4 +187,4 @@ val response: HttpResponse = client.get("welcome.html")
 println(response.status)
 ```
 
-您可以在此處找到完整的範例：[client-default-request](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-default-request)。
+您可以在此處找到完整的範例：[client-default-request](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-default-request)。

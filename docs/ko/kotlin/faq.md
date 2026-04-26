@@ -6,7 +6,7 @@
 
 Kotlin은 JVM, Android, JavaScript, Wasm 및 Native를 대상으로 하는 오픈 소스 정적 타입(statically typed) 프로그래밍 언어입니다. 
 [JetBrains](https://www.jetbrains.com)에서 개발했습니다. 이 프로젝트는 2010년에 시작되었으며 초기부터 오픈 소스로 공개되었습니다. 
-공식적인 첫 1.0 릴리스는 2016년 2월이었습니다.
+공식적인 첫 1.0 릴리스는 2016년 2월이었습니다. 
 
 ### Kotlin의 현재 버전은 무엇인가요?
 
@@ -107,7 +107,6 @@ JetBrains Academy의 [Kotlin Core 트랙](https://hyperskill.org/tracks?category
 수강할 수 있는 다른 강의들은 다음과 같습니다:
 * [Pluralsight 강의: Getting Started with Kotlin](https://www.pluralsight.com/courses/kotlin-getting-started) (Kevin Jones)
 * [O'Reilly 강의: Introduction to Kotlin Programming](https://www.oreilly.com/library/view/introduction-to-kotlin/9781491964125/) (Hadi Hariri)
-* [Udemy 강의: 10 Kotlin Tutorials for Beginners](https://petersommerhoff.com/dev/kotlin/kotlin-beginner-tutorial/) (Peter Sommerhoff)
 
 또한 [YouTube 채널](https://www.youtube.com/c/Kotlin)에서 다른 튜토리얼과 콘텐츠도 확인하실 수 있습니다.
 

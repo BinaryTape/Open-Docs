@@ -8,7 +8,7 @@
 <var name="example_name" value="html"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -132,7 +132,7 @@ get("/login") {
 </TabItem>
 </Tabs>
 
-完全な例については、[auth-form-html-dsl](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-form-html-dsl) を参照してください。
+完全な例については、[auth-form-html-dsl](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-form-html-dsl) を参照してください。
 
 > サーバー側でフォームパラメータを受け取る方法の詳細については、[フォームパラメータ](server-requests.md#form_parameters)を参照してください。
 > 
@@ -196,7 +196,7 @@ fun Application.module() {
     
 
 ### 例 {id="example"}
-テンプレートを使用して階層的なレイアウトを作成する方法の[例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/html-templates)を見てみましょう。次のような HTML があると仮定します。
+テンプレートを使用して階層的なレイアウトを作成する方法の[例](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/html-templates)を見てみましょう。次のような HTML があると仮定します。
 ```html
 <body>
 <h1>Ktor</h1>
@@ -317,4 +317,4 @@ fun Application.module() {
    }
    ```
 
-完全な例はこちらで見つけることができます: [html-templates](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/html-templates)。
+完全な例はこちらで見つけることができます: [html-templates](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/html-templates)。

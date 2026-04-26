@@ -7,7 +7,7 @@
 라우팅은 서버 애플리케이션에서 들어오는 요청을 처리하기 위한 핵심 플러그인입니다.
 </link-summary>
 
-라우팅(Routing)은 서버 애플리케이션에서 들어오는 요청을 처리하기 위한 핵심 Ktor [플러그인](server-plugins.md)입니다. 클라이언트가 특정 URL(예: `/hello`)로 요청을 보낼 때, 라우팅 메커니즘을 통해 이 요청을 어떻게 처리할지 정의할 수 있습니다.
+라우팅(Routing)은 서버 애플리케이션에서 들어오는 요청을 처리하기 위한 핵심 Ktor [플러그인](server-plugins.md)입니다. 클라이언트가 특정 URL(예: `/hello`)로 요청을 보낼 때, 라우팅 메커니즘을 통해 이 요청을 어떻게 처리할지 정의할 수 있습니다. 
 
 ## 라우팅 설치 {id="install_plugin"}
 
@@ -130,7 +130,7 @@ get("/user/{login}") {
 
 ### 정규 표현식 {id="regular_expression"}
 
-정규 표현식은 `route`, `get`, `post` 등 모든 라우트 핸들러 정의 함수와 함께 사용할 수 있습니다.
+정규 표현식은 `route`, `get`, `post` 등 모든 라우트 핸들러 정의 함수와 함께 사용할 수 있습니다. 
 
 > 정규 표현식에 대해 더 자세히 알아보려면 [Kotlin 문서](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/)를 참조하세요.
 
@@ -236,7 +236,7 @@ routing {
 
 ### 중첩된 라우트 {id="nested_routes"}
 
-그룹화 방식과 관계없이, Ktor는 `route` 함수의 파라미터로 하위 라우트(sub-routes)를 가질 수 있도록 허용합니다.
+그룹화 방식과 관계없이, Ktor는 `route` 함수의 파라미터로 하위 라우트(sub-routes)를 가질 수 있도록 허용합니다. 
 이는 논리적으로 다른 리소스의 자식인 리소스를 정의할 때 유용할 수 있습니다.
 다음 예시는 `/order/shipment`에 대한 `GET` 및 `POST` 요청에 응답하는 방법을 보여줍니다:
 
@@ -289,7 +289,7 @@ fun Route.totalizeOrderRoute() {
 }
 ```
 
-이 접근 방식을 보여주는 전체 예시는 [legacy-interactive-website](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/legacy-interactive-website)를 참조하세요.
+이 접근 방식을 보여주는 전체 예시는 [legacy-interactive-website](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/legacy-interactive-website)를 참조하세요.
 
 > 유지보수 측면에서 애플리케이션의 규모를 확장하려면 특정 [구조화 패턴(structuring patterns)](server-routing-organization.md)을 따르는 것이 권장됩니다.
 

@@ -14,7 +14,7 @@
 <var name="example_name" value="status-pages"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -126,4 +126,4 @@ install(StatusPages) {
 
 `statusFile` ハンドラーは、設定されたステータスのリスト内で `#` 文字をステータスコードの値に置き換えます。
 
-> 完全な例はこちらで確認できます: [status-pages](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/status-pages)
+> 完全な例はこちらで確認できます: [status-pages](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/status-pages)。

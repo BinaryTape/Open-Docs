@@ -3,8 +3,8 @@
 <tldr>
 <p>
 <b>コード例</b>: 
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server-modules">embedded-server-modules</a>, 
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main-modules">engine-main-modules</a>
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server-modules">embedded-server-modules</a>, 
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main-modules">engine-main-modules</a>
 </p>
 </tldr>
 
@@ -84,7 +84,7 @@ fun Application.module2() {
 
 ```
 
-完全な例はこちらで確認できます: [embedded-server-modules](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server-modules)
+完全な例はこちらで確認できます: [embedded-server-modules](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server-modules)。
 
 ### 設定ファイル {id="hocon"}
 
@@ -176,7 +176,7 @@ ktor:
 </TabItem>
 </Tabs>
 
-完全な例はこちらで確認できます: [engine-main-modules](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main-modules)
+完全な例はこちらで確認できます: [engine-main-modules](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main-modules)。
 
 ## モジュールの依存関係
 

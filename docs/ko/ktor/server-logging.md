@@ -6,7 +6,7 @@
 <var name="example_name" value="logging"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -86,7 +86,7 @@ Log4j를 사용하려면 `org.apache.logging.log4j:log4j-core` 및 `org.apache.l
 </configuration>
 ```
 
-전체 예제는 여기에서 찾을 수 있습니다: [logging](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/logging).
+전체 예제는 여기에서 찾을 수 있습니다: [logging](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/logging).
 
 ## 네이티브 {id="native"}
 

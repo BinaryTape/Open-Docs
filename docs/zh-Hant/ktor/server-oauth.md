@@ -13,7 +13,7 @@
 <var name="example_name" value="auth-oauth-google"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -26,7 +26,7 @@
 
 `oauth` 提供者支援授權碼流程。您可以在一個地方設定 OAuth 參數，Ktor 將會自動使用必要的參數向指定的授權伺服器發送請求。
 
-> 您可以在 [Ktor Server 中的身份驗證與授權](server-auth.md) 章節中獲取有關 Ktor 身份驗證與授權的一般資訊。
+> 您可以在 [Ktor Server 中的身分驗證與授權](server-auth.md) 章節中獲取有關 Ktor 身分驗證與授權的一般資訊。
 
 ## 新增相依性 {id="add_dependencies"}
 
@@ -87,7 +87,7 @@ Ktor 應用程式中的 OAuth 授權流程可能如下所示：
 
 ## 安裝 OAuth {id="install"}
 
-要安裝 `oauth` 身份驗證提供者，請在 `install` 區塊內呼叫 [oauth](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/oauth.html) 函式。您可以選擇 [指定提供者名稱](server-auth.md#provider-name)。
+要安裝 `oauth` 身分驗證提供者，請在 `install` 區塊內呼叫 [oauth](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/oauth.html) 函式。您可以選擇 [指定提供者名稱](server-auth.md#provider-name)。
 例如，要安裝名稱為 "auth-oauth-google" 的 `oauth` 提供者，程式碼如下所示：
 
 ```kotlin
@@ -107,7 +107,7 @@ fun Application.main(httpClient: HttpClient = applicationHttpClient) {
 ## 設定 OAuth {id="configure-oauth"}
 
 本節演示如何設定 `oauth` 提供者，以便使用 Google 授權您的應用程式使用者。
-如需完整的可執行範例，請參閱 [auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-oauth-google)。
+如需完整的可執行範例，請參閱 [auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-oauth-google)。
 
 ### 先決條件：建立授權憑據 {id="authorization-credentials"}
 
@@ -126,7 +126,7 @@ fun Application.main(httpClient: HttpClient = applicationHttpClient) {
 
 ### 步驟 1：建立 HTTP 用戶端 {id="create-http-client"}
 
-在設定 `oauth` 提供者之前，您需要建立 [HttpClient](client-create-and-configure.md)，伺服器將使用它向 OAuth 伺服器發送請求。需要具有 JSON 序列化器的 [ContentNegotiation](client-serialization.md) 用戶端外掛程式，以便在 [請求 API 之後](#request-api) 反序列化接收到的 JSON 資料。
+在設定 `oauth` 提供者之前，您需要建立 [HttpClient](client-create-and-configure.md)，伺服器將使用它向 OAuth 伺服器發送請求。需要具有 JSON 序列化程式的 [ContentNegotiation](client-serialization.md) 用戶端外掛程式，以便在 [請求 API 之後](#request-api) 反序列化接收到的 JSON 資料。
 
 ```kotlin
 val applicationHttpClient = HttpClient(CIO) {
@@ -240,7 +240,7 @@ routing {
 
 在此範例中，接收到權杖後執行以下操作：
 
-* 權杖儲存在 [Session](server-sessions.md) 中，其內容可以在其他路由中存取。
+* 權杖儲存在 [工作階段](server-sessions.md) 中，其內容可以在其他路由中存取。
 * 使用者被重新導向至下一個路由，並在該處向 Google API 發送請求。
 * 如果找不到請求的路由，使用者將被重新導向至 `/home` 路由。
 
@@ -273,4 +273,4 @@ get("/{path}") {
 }
 ```
 
-如需完整的可執行範例，請參閱 [auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-oauth-google)。
+如需完整的可執行範例，請參閱 [auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-oauth-google)。

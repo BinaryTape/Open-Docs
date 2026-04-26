@@ -143,7 +143,7 @@
 
 | 策略 | 行為 |
 |-----------------------------------------------------------|--------------------------|
-| `SimilaritySearchStrategy()` | 向量相似度語義搜尋 — **預設且建議使用** |
+| `SimilaritySearchStrategy()` | 向量相似度語義搜尋 — **預設** |
 | `query -> new SimilaritySearchRequest(query, 20, 0, 0.0, null)` | 透過 Lambda 進行自訂搜尋 |
 
 ## 僅攝取
@@ -296,7 +296,7 @@ class MyVectorDbStorage : SearchStorage<TextDocument, SearchRequest>, WriteStora
     override suspend fun add(
         records: List<TextDocument>, namespace: String?
     ) {
-        // 更新或插入（Upsert）至您的向量資料庫
+        // 更新或插入 (Upsert) 至您的向量資料庫
     }
 }
 ```

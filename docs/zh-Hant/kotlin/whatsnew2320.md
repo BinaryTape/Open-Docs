@@ -6,6 +6,10 @@
 
 _[發佈日期：2026 年 3 月 16 日](releases.md#release-history)_
 
+<tldr>
+    <p>關於修復錯誤版本 2.3.21 的詳細資訊，請參閱 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.21">變更日誌</a></p>
+</tldr>
+
 Kotlin 2.3.20 正式發佈！以下是主要亮點：
 
 * **Gradle**：[相容於 Gradle 9.3.0](#compatibility-with-gradle-9-3-0) 且 [Kotlin/JVM 編譯預設使用 BTA](#kotlin-jvm-compilation-uses-build-tools-api-by-default)
@@ -559,7 +563,7 @@ Kotlin 2.3.20 提升了字串操作的效能、編譯時間和記憶體使用量
 <secondary-label ref="wasm"/>
 
 Kotlin/Wasm 現在針對 `kotlin.String` 值的操作使用 JS 字串內建功能 (JS String builtins)。
-這讓 Kotlin/Wasm 能從瀏覽器和支援該提案的 Wasm 執行環境中的 JavaScript 引擎字串優化中受益。
+這讓 Kotlin/Wasm 能從瀏覽器和支援該提案的 Wasm執行環境中的 JavaScript 引擎字串優化中受益。
 此優化適用於連接 (concatenation)、插值 (interpolation)、`StringBuilder.append()` 以及數字轉字串等操作。
 
 其結果包括：
@@ -761,7 +765,7 @@ Kotlin 2.2.0 首次帶來了 [Kotlin Gradle 外掛程式中的二進制相容性
 <primary-label ref="experimental-general"/>
 <secondary-label ref="gradle"/>
 
-在 Kotlin 2.3.20 中，Kotlin Gradle 外掛程式中的 Kotlin/JVM 編譯預設使用[建置工具 API](build-tools-api.md) (BTA)。這項內部編譯基礎設施的更動讓 Kotlin 編譯器的建置工具支援開發速度更快。
+在 Kotlin 2.3.20 中，Kotlin/JVM 編譯在 Kotlin Gradle 外掛程式中預設使用[建置工具 API](build-tools-api.md) (BTA)。這項內部編譯基礎設施的更動讓 Kotlin 編譯器的建置工具支援開發速度更快。
 
 如果您發現任何問題，請在我們的 [問題追蹤器](https://youtrack.jetbrains.com/newIssue?project=KT&summary=Kotlin+Gradle+plugin+BTA+migration+issue&description=Describe+the+problem+you+encountered+here.&c=tag+kgp-bta-migration) 中分享您的回饋。
 
@@ -855,7 +859,7 @@ operation[BuildOperation.METRICS_COLLECTOR] = object : BuildMetricsCollector {
 
 ### 建置工具更容易配置編譯器外掛程式
 
-In Kotlin 2.3.20 中，BTA 提供了一種全新且更簡單的方式供建置工具配置編譯器外掛程式。
+在 Kotlin 2.3.20 中，BTA 提供了一種全新且更簡單的方式供建置工具配置編譯器外掛程式。
 此方法允許建置工具直接將配置傳遞給其用戶。
 
 建置工具不再需要透過命令列使用實驗性編譯器選項配置編譯器外掛程式，而是可以使用 `kotlin.buildtools.api.arguments.CommonCompilerArguments.COMPILER_PLUGINS` 選項來配置代表編譯器外掛程式組態的物件列表：

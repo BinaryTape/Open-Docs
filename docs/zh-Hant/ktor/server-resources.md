@@ -14,7 +14,7 @@
 <var name="example_name" value="resource-routing"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -149,9 +149,9 @@ class Articles(val sort: String? = "new") {
 }
 ```
 
-此資源可用於列出所有文章、發布新文章、編輯文章等。我們將在下一章中了解如何為此資源 [定義路由處理常式](#define_route)。
+此資源可用於列出所有文章、發布新文章、編輯文章等。我們將在下一章中了解如何為此資源 [定義路由處理常式](#define_route) 。
 
-> 您可以在此處找到完整範例：[resource-routing](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/resource-routing)。
+> 您可以在此處找到完整範例：[resource-routing](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/resource-routing)。
 
 ## 定義路由處理常式 {id="define_route"}
 
@@ -239,7 +239,7 @@ fun Application.module() {
 
    此路由處理常式會刪除具有指定識別碼的文章。
 
-您可以在此處找到完整範例：[resource-routing](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/resource-routing)。
+您可以在此處找到完整範例：[resource-routing](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/resource-routing)。
 
 ## 從資源建立連結 {id="resource_links"}
 
@@ -307,4 +307,4 @@ get {
 }
 ```
 
-您可以在此處找到完整範例：[resource-routing](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/resource-routing)。
+您可以在此處找到完整範例：[resource-routing](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/resource-routing)。

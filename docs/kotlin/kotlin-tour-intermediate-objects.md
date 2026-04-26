@@ -14,10 +14,6 @@
         <img src="icon-9-todo.svg" width="20" alt="第九步" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">库与 API</a></p>
 </tldr>
 
-> 阅读时长：8 分钟
->
-{style="tip"}
-
 在本章节中，你将通过探索对象声明来扩展你对类的理解。这些知识将帮助你在项目中高效地管理行为。
 
 ## 对象声明

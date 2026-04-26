@@ -13,7 +13,7 @@
 <var name="example_name" value="conditional-headers"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -54,7 +54,7 @@
         ... 在 <code>embeddedServer</code> 函式呼叫中。
     </li>
     <li>
-        ... 在明確定義的 <code>module</code> 中，該模組是 <code>Application</code> 類別的擴充方法。
+        ... 在明確定義的 <code>module</code> 中，該模組是 <code>Application</code> 類別的擴充函式。
     </li>
 </list>
 <Tabs>
@@ -90,4 +90,4 @@ install(ConditionalHeaders) {
 }
 ```
 
-您可以在此處找到完整範例：[conditional-headers](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/conditional-headers)。
+您可以在此處找到完整範例：[conditional-headers](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/conditional-headers)。

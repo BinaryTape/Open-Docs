@@ -4,7 +4,7 @@
 <var name="example_name" value="embedded-server-native"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -73,7 +73,7 @@ sourceSets {
         }
 ```
 
-您可以在此處找到完整的範例：[embedded-server-native](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server-native)。
+您可以在此處找到完整的範例：[embedded-server-native](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server-native)。
 
 ## 建立伺服器 {id="create-server"}
 

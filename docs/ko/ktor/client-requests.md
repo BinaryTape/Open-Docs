@@ -8,7 +8,7 @@
 <var name="example_name" value="client-configure-request"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -277,7 +277,7 @@ val response: HttpResponse = client.submitForm(
 * `url`은 요청을 보내기 위한 URL을 지정합니다.
 * `formParameters`는 `parameters`를 사용하여 구축된 폼 파라미터 세트입니다.
 
-전체 예제는 [client-submit-form](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-submit-form)을 참조하세요.
+전체 예제는 [client-submit-form](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-submit-form)을 참조하세요.
 
 > URL에 인코딩된 폼 파라미터를 보내려면 `encodeInQuery`를 `true`로 설정하세요.
 
@@ -309,7 +309,7 @@ val response: HttpResponse = client.submitForm(
         )
 ```
 
-전체 예제는 [client-upload](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-upload)를 참조하세요.
+전체 예제는 [client-upload](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-upload)를 참조하세요.
 
 #### `MultiPartFormDataContent` 사용하기
 
@@ -359,7 +359,7 @@ fun customMultiPartMixedDataContent(parts: List<PartData>): MultiPartFormDataCon
 }
 ```
 
-전체 예제는 [client-upload-progress](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-upload-progress)를 참조하세요.
+전체 예제는 [client-upload-progress](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-upload-progress)를 참조하세요.
 
 ### 바이너리 데이터 {id="binary"}
 
@@ -371,7 +371,7 @@ val response = client.post("http://0.0.0.0:8080/upload") {
 }
 ```
 
-전체 예제는 [client-upload-binary-data](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-upload-binary-data)를 참조하세요.
+전체 예제는 [client-upload-binary-data](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-upload-binary-data)를 참조하세요.
 
 ## 병렬 요청 {id="parallel_requests"}
 
@@ -387,7 +387,7 @@ coroutineScope {
 }
 ```
 
-전체 예제는 [client-parallel-requests](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-parallel-requests)를 참조하세요.
+전체 예제는 [client-parallel-requests](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-parallel-requests)를 참조하세요.
 
 ## 요청 취소 {id="cancel-request"}
 

@@ -10,8 +10,8 @@
 </p>
 <p>
 <b>コード例</b>:
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-form-html-dsl">auth-form-html-dsl</a>,
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-form-session">auth-form-session</a>
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-form-html-dsl">auth-form-html-dsl</a>,
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-form-session">auth-form-session</a>
 </p>
 <p>
     <b><Links href="/ktor/server-native" summary="Ktor supports Kotlin/Native and allows you to run a server without an additional runtime or virtual machine.">Nativeサーバー</Links>のサポート</b>: ✅
@@ -49,7 +49,7 @@ Ktorでウェブフォームを作成するには、[HTML DSL](server-html-dsl.m
    
    ```kotlin
    POST http://localhost:8080/login
-   Content-Type: application/x-form-urlencoded
+   Content-Type: application/x-www-form-urlencoded
    
    username=jetbrains&password=foobar
    

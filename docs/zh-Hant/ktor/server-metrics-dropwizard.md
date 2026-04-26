@@ -14,7 +14,7 @@
 <var name="example_name" value="dropwizard-metrics"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -87,11 +87,11 @@
 
 ## 配置 %plugin_name% {id="configure_plugin"}
 
-`%plugin_name%` 允許您透過 `registry` 屬性使用任何受支援的[指標報告器](http://metrics.dropwizard.io/)。讓我們來看看如何配置 SLF4J 和 JMX 報告器。
+`%plugin_name%` 讓您可以透過 `registry` 屬性使用任何受支援的[指標報告器](http://metrics.dropwizard.io/)。讓我們來看看如何配置 SLF4J 和 JMX 報告器。
 
 ### SLF4J 報告器 {id="slf4j"}
 
-SLF4J 報告器允許您定期向 SLF4J 支援的任何輸出發送報告。
+SLF4J 報告器讓您可以定期向 SLF4J 支援的任何輸出發送報告。
 例如，要每 10 秒輸出一次指標，您可以：
 
 ```kotlin
@@ -105,7 +105,7 @@ install(DropwizardMetrics) {
 }
 ```
 
-您可以在這裡找到完整範例：[dropwizard-metrics](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/dropwizard-metrics)。
+您可以在這裡找到完整範例：[dropwizard-metrics](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/dropwizard-metrics)。
 
 如果您執行應用程式並開啟 [http://0.0.0.0:8080](http://0.0.0.0:8080)，輸出將如下所示：
 
@@ -122,7 +122,7 @@ install(DropwizardMetrics) {
 
 ### JMX 報告器 {id="jmx"}
 
-JMX 報告器允許您將所有指標公開給 JMX，讓您可以使用 `jconsole` 查看這些指標。
+JMX 報告器讓您可以將所有指標公開給 JMX，讓您可以使用 `jconsole` 查看這些指標。
 
 ```kotlin
 install(DropwizardMetrics) {
@@ -134,7 +134,7 @@ install(DropwizardMetrics) {
 }
 ```
 
-您可以在這裡找到完整範例：[dropwizard-metrics](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/dropwizard-metrics)。
+您可以在這裡找到完整範例：[dropwizard-metrics](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/dropwizard-metrics)。
 
 如果您執行應用程式並使用 [JConsole](https://docs.oracle.com/en/java/javase/17/management/using-jconsole.html) 連接到其程序，指標將如下所示：
 
@@ -180,4 +180,4 @@ install(DropwizardMetrics) {
 }
 ```
 
-您可以在這裡找到完整範例：[dropwizard-metrics](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/dropwizard-metrics)。
+您可以在這裡找到完整範例：[dropwizard-metrics](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/dropwizard-metrics)。

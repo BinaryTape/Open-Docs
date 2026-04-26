@@ -14,10 +14,6 @@
         <img src="icon-9-todo.svg" width="20" alt="第九步" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">函式庫與 API</a></p>
 </tldr>
 
-> 閱讀時間：4 分鐘
->
-{style="tip"}
-
 在本章中，你將探索特殊的 Kotlin 函式，它們能讓你的程式碼更簡潔且易讀。了解它們如何幫助你使用高效的設計模式，將你的專案提升到新的境界。
 
 ## 擴充函式

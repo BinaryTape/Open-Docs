@@ -7,7 +7,7 @@
 <var name="example_name" value="client-auth-basic"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -87,4 +87,4 @@ Basic 인증 흐름은 다음과 같습니다:
 
     > 프로그래밍 방식으로 캐싱된 자격 증명을 지우는 방법에 대한 자세한 내용은 일반적인 [토큰 캐싱 및 캐시 제어(Token caching and cache control)](client-auth.md#token-caching) 섹션을 참조하세요.
 
-> Ktor Client의 Basic 인증에 대한 전체 예제는 [client-auth-basic](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-auth-basic)에서 확인할 수 있습니다.
+> Ktor Client의 Basic 인증에 대한 전체 예제는 [client-auth-basic](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-auth-basic)에서 확인할 수 있습니다.

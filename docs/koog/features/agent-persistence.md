@@ -562,7 +562,7 @@ Agent 持久化功能提供了用于处理检查点的便捷扩展函数：
     val customMessageHistory = emptyList<User>()
     -->
     ```kotlin
-    fun example(context: AIAgentContext) {
+    suspend fun example(context: AIAgentContext) {
         // 您可以在某个节点之前设置执行点并为其提供输入：
         context.persistence().setExecutionPoint(
             agentContext = context,

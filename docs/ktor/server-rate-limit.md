@@ -15,7 +15,7 @@
 <var name="example_name" value="rate-limit"/>
 <p>
     <b>代码示例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -268,4 +268,4 @@ fun Application.module() {
 
 ```
 
-你可以在此处找到完整的示例：[rate-limit](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/rate-limit)。
+你可以在此处找到完整的示例：[rate-limit](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/rate-limit)。

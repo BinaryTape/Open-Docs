@@ -14,7 +14,7 @@
 <var name="example_name" value="server-websockets"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -24,7 +24,7 @@
 </tldr>
 
 <link-summary>
-Websockets 插件允许您在服务器和客户端之间创建多路通信会话。
+WebSockets 插件允许您在服务器和客户端之间创建多路通信会话。
 </link-summary>
 
 <snippet id="websockets-description">
@@ -110,7 +110,7 @@ install(WebSockets) {
 
 ### API 概览 {id="api-overview"}
 
-安装并配置 `WebSockets` 插件后，您可以定义一个端点来处理 Websocket 会话。要在服务器上定义 WebSocket 端点，请在 [routing](server-routing.md#define_route) 代码块中调用 `webSocket` 函数：
+安装并配置 `WebSockets` 插件后，您可以定义一个端点来处理 WebSocket 会话。要在服务器上定义 WebSocket 端点，请在 [routing](server-routing.md#define_route) 代码块中调用 `webSocket` 函数：
 
 ```kotlin
 routing { 
@@ -164,7 +164,7 @@ routing {
 }
 ```
 
-有关完整示例，请参阅 [server-websockets](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/server-websockets)。
+有关完整示例，请参阅 [server-websockets](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/server-websockets)。
 
 ### 示例：处理多个会话 {id="handle-multiple-session"}
 
@@ -211,14 +211,14 @@ val sharedFlow = messageResponseFlow.asSharedFlow()
 
 通过使用此模式，您可以高效地管理多个 WebSocket 会话，而无需手动跟踪单个连接。这种方法非常适合具有许多并发 WebSocket 连接的应用，并提供了一种干净、响应式的方式来处理消息广播。
 
-有关完整示例，请参阅 [server-websockets-sharedflow](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/server-websockets-sharedflow)。
+有关完整示例，请参阅 [server-websockets-sharedflow](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/server-websockets-sharedflow)。
 
 ## WebSocket API 与 Ktor {id="websocket-api"}
 
 来自 [WebSocket API 的标准事件](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) 以以下方式映射到 Ktor：
 
 * `onConnect` 发生在代码块开始处。
-* `onMessage` 发生在成功读取消息（例如，使用 `incoming.receive()`）或使用 `for(frame in incoming)` 进行挂起迭代之后。
+* `onMessage` 发生在成功读取消息（例如，使用 `incoming.receive()`）或使用挂起迭代 `for(frame in incoming)` 之后。
 * `onClose` 发生在 `incoming` 通道关闭时。这将完成挂起迭代，或者在尝试接收消息时抛出 `ClosedReceiveChannelException`。
 * `onError` 等同于其他异常。
 

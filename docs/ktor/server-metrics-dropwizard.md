@@ -14,7 +14,7 @@
 <var name="example_name" value="dropwizard-metrics"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -43,7 +43,7 @@
       </TabItem>
   </Tabs>
 
-* 可选地，为特定报告器添加所需的依赖项。以下示例展示了如何添加通过 JMX 报告指标所需的构件：
+* （可选）为特定报告器添加所需的依赖项。以下示例展示了如何添加通过 JMX 报告指标所需的构件：
 
   <var name="group_id" value="io.dropwizard.metrics"/>
   <var name="artifact_name" value="metrics-jmx"/>
@@ -65,7 +65,7 @@
 ## 安装 %plugin_name% {id="install_plugin"}
 
 <p>
-    要在应用程序中安装 <code>%plugin_name%</code> 插件，请将其传递给指定<Links href="/ktor/server-modules" summary="模块允许您通过对路由进行分组来构建应用程序结构。">模块</Links>中的 <code>install</code> 函数。
+    要在应用程序中<a href="#install">安装</a> <code>%plugin_name%</code> 插件，请将其传递给指定<Links href="/ktor/server-modules" summary="模块允许您通过对路由进行分组来构建应用程序结构。">模块</Links>中的 <code>install</code> 函数。
     以下代码片段展示了如何安装 <code>%plugin_name%</code> ...
 </p>
 <list>
@@ -105,7 +105,7 @@ install(DropwizardMetrics) {
 }
 ```
 
-您可以在此处找到完整示例：[dropwizard-metrics](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/dropwizard-metrics)。
+您可以在此处找到完整示例：[dropwizard-metrics](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/dropwizard-metrics)。
 
 如果您运行应用程序并打开 [http://0.0.0.0:8080](http://0.0.0.0:8080)，输出将如下所示：
 
@@ -134,7 +134,7 @@ install(DropwizardMetrics) {
 }
 ```
 
-您可以在此处找到完整示例：[dropwizard-metrics](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/dropwizard-metrics)。
+您可以在此处找到完整示例：[dropwizard-metrics](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/dropwizard-metrics)。
 
 如果您运行应用程序并使用 [JConsole](https://docs.oracle.com/en/java/javase/17/management/using-jconsole.html) 连接到其进程，指标将如下所示：
 
@@ -180,4 +180,4 @@ install(DropwizardMetrics) {
 }
 ```
 
-您可以在此处找到完整示例：[dropwizard-metrics](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/dropwizard-metrics)。
+您可以在此处找到完整示例：[dropwizard-metrics](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/dropwizard-metrics)。

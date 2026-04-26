@@ -14,10 +14,6 @@
         <img src="icon-9-todo.svg" width="20" alt="第九步" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">库与 API</a></p>
 </tldr>
 
-> 阅读时长：7 分钟
->
-{style="tip"}
-
 在本章中，你将学习如何将接收者与其他类型的函数（即 lambda 表达式）结合使用，以及它们如何帮助你创建领域专用语言 (DSL)。
 
 ## 带接收者的 lambda 表达式

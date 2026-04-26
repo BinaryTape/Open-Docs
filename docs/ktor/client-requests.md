@@ -8,14 +8,14 @@
 <var name="example_name" value="client-configure-request"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
 </tldr>
 
 <link-summary>
-了解如何发送请求并指定各种请求参数：请求 URL、HTTP 方法、标头和请求体。
+了解如何发送请求并指定各种请求参数：请求 URL、HTTP 方法、标头以及请求体。
 </link-summary>
 
 在[配置客户端](client-create-and-configure.md)之后，你就可以开始发送 HTTP 请求了。实现这一点的首要方式是使用接受 URL 作为参数的 [`.request()`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/request.html) 函数。在该函数内部，你可以配置各种请求参数：
@@ -107,7 +107,7 @@ client.get("https://ktor.io") {
 
 ### 查询参数 {id="query_parameters"}
 
-要添加<emphasis tooltip="query_string">查询字符串</emphasis>参数，请使用 `URLBuilder.parameters` 属性：
+要添加 <emphasis tooltip="query_string">查询字符串</emphasis> 参数，请使用 `URLBuilder.parameters` 属性：
 
 ```kotlin
 client.get("https://ktor.io") {
@@ -276,7 +276,7 @@ val response: HttpResponse = client.submitForm(
 * `url` 指定发送请求的 URL。
 * `formParameters` 是使用 `parameters` 构建的一组表单参数。
 
-有关完整示例，请参阅 [client-submit-form](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-submit-form)。
+有关完整示例，请参阅 [client-submit-form](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-submit-form)。
 
 > 要发送 URL 编码的表单参数，请将 `encodeInQuery` 设置为 `true`。
 
@@ -308,7 +308,7 @@ val response: HttpResponse = client.submitForm(
         )
 ```
 
-有关完整示例，请参阅 [client-upload](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-upload)。
+有关完整示例，请参阅 [client-upload](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-upload)。
 
 #### 使用 `MultiPartFormDataContent`
 
@@ -358,7 +358,7 @@ fun customMultiPartMixedDataContent(parts: List<PartData>): MultiPartFormDataCon
 }
 ```
 
-有关完整示例，请参阅 [client-upload-progress](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-upload-progress)。
+有关完整示例，请参阅 [client-upload-progress](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-upload-progress)。
 
 ### 二进制数据 {id="binary"}
 
@@ -371,7 +371,7 @@ val response = client.post("http://0.0.0.0:8080/upload") {
 }
 ```
 
-有关完整示例，请参阅 [client-upload-binary-data](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-upload-binary-data)。
+有关完整示例，请参阅 [client-upload-binary-data](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-upload-binary-data)。
 
 ## 并行请求 {id="parallel_requests"}
 
@@ -387,7 +387,7 @@ coroutineScope {
 }
 ```
 
-有关完整示例，请参阅 [client-parallel-requests](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-parallel-requests)。
+有关完整示例，请参阅 [client-parallel-requests](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-parallel-requests)。
 
 ## 取消请求 {id="cancel-request"}
 

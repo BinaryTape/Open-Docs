@@ -10,7 +10,7 @@
 <var name="example_name" value="client-logging"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -92,9 +92,9 @@ Ktor 提供了使用 [Logging](https://api.ktor.io/ktor-client-logging/io.ktor.c
           <code-block lang="XML" code="              &lt;dependency&gt;&#10;                  &lt;groupId&gt;io.ktor&lt;/groupId&gt;&#10;                  &lt;artifactId&gt;%artifact_name%-jvm&lt;/artifactId&gt;&#10;                  &lt;version&gt;${ktor_version}&lt;/version&gt;&#10;              &lt;/dependency&gt;"/>
       </TabItem>
   </Tabs>
-  <p>
-      您可以从 <Links href="/ktor/client-dependencies" summary="了解如何向现有项目添加客户端依赖项。">添加客户端依赖项</Links> 中详细了解 Ktor 客户端所需的构件。
-  </p>
+  <tip>
+      要了解更多关于 Ktor 客户端所需构件的信息，请参阅 <Links href="/ktor/client-dependencies" summary="了解如何向现有项目添加客户端依赖项。">添加客户端依赖项</Links>。
+  </tip>
 
 ## 安装 Logging {id="install_plugin"}
 
@@ -156,7 +156,7 @@ fun main() {
 }
 ```
 
-有关完整示例，请参阅 [client-logging](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-logging)。
+有关完整示例，请参阅 [client-logging](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-logging)。
 
 ### 提供自定义日志记录器 {id="custom_logger"}
 
@@ -194,4 +194,4 @@ fun main() {
 
 ```
 
-有关完整示例，请参阅 [client-logging-napier](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-logging-napier)。
+有关完整示例，请参阅 [client-logging-napier](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-logging-napier)。

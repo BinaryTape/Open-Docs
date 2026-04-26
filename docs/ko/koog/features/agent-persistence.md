@@ -4,7 +4,7 @@
 이 기능을 사용하면 실행 중 특정 시점의 에이전트 상태를 저장하고 복원할 수 있어 다음과 같은 작업이 가능해집니다.
 
 - 특정 시점부터 에이전트 실행 재개
-- 이전 상태로 롤백(Rollback)
+- 이전 상태로 롤백(Rolling back)
 - 세션 간 에이전트 상태 유지
 
 ## 핵심 개념 (Key concepts)
@@ -563,7 +563,7 @@ Koog Persistence를 사용하면 `Persistence` 기능 설정에 `RollbackToolReg
     val customMessageHistory = emptyList<User>()
     -->
     ```kotlin
-    fun example(context: AIAgentContext) {
+    suspend fun example(context: AIAgentContext) {
         // 특정 노드 이전으로 실행 지점을 설정하고 해당 노드에 대한 입력을 제공할 수 있습니다.
         context.persistence().setExecutionPoint(
             agentContext = context,

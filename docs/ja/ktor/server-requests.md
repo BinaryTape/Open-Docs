@@ -128,7 +128,7 @@ Hello, world!
 >
 {style="tip"}
 
-> 完全な例については、[post-raw-data](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/post-raw-data)を参照してください。
+> 完全な例については、[post-raw-data](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/post-raw-data)を参照してください。
 
 ### オブジェクト {id="objects"}
 
@@ -164,7 +164,7 @@ post("/signup") {
 }
 ```
 
-> 完全な例については、[post-form-parameters](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/post-form-parameters)を参照してください。
+> 完全な例については、[post-form-parameters](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/post-form-parameters)を参照してください。
 
 ### マルチパートフォームデータ {id="form_data"}
 
@@ -216,7 +216,7 @@ fun Application.main() {
 
 #### デフォルトのファイルサイズ制限
 
-デフォルトでは、受信可能なバイナリおよびファイル項目の許容サイズは50MBに制限されています。受信したファイルまたはバイナリ項目が50MBの制限を超えると、`IOException`がスローされます。
+デフォルトでは、受信可能なバイナリおよびファイル項目の許容サイズは50MiBに制限されています。受信したファイルまたはバイナリ項目が50MiBの制限を超えると、`IOException`がスローされます。
 
 デフォルトのフォームフィールド制限を上書きするには、`.receiveMultipart()`を呼び出すときに`formFieldLimit`パラメータを渡します。
 
@@ -224,7 +224,7 @@ fun Application.main() {
 val multipartData = call.receiveMultipart(formFieldLimit = 1024 * 1024 * 100)
 ```
 
-この例では、新しい制限が100MBに設定されています。
+この例では、新しい制限が100MiBに設定されています。
 
 #### フォームフィールド
 
@@ -271,4 +271,4 @@ post("/upload") {
 part.dispose()
 ```
 
-> このサンプルの実行方法については、[upload-file](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/upload-file)を参照してください。
+> このサンプルの実行方法については、[upload-file](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/upload-file)を参照してください。

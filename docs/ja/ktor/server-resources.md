@@ -14,7 +14,7 @@
 <var name="example_name" value="resource-routing"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -152,7 +152,7 @@ class Articles(val sort: String? = "new") {
 
 このリソースは、すべての記事の一覧表示、新しい記事の投稿、編集などに使用できます。このリソースに対する[ルートハンドラーの定義](#define_route)については、次の章で説明します。
 
-> 完全な例はこちらにあります: [resource-routing](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/resource-routing)
+> 完全な例はこちらにあります: [resource-routing](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/resource-routing)
 
 ## ルートハンドラーの定義 {id="define_route"}
 
@@ -240,7 +240,7 @@ fun Application.module() {
 
    このルートハンドラーは、指定された識別子を持つ記事を削除します。
 
-完全な例はこちらにあります: [resource-routing](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/resource-routing)
+完全な例はこちらにあります: [resource-routing](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/resource-routing)
 
 ## リソースからのリンク構築 {id="resource_links"}
 
@@ -308,4 +308,4 @@ get {
 }
 ```
 
-完全な例はこちらにあります: [resource-routing](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/resource-routing)
+完全な例はこちらにあります: [resource-routing](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/resource-routing)

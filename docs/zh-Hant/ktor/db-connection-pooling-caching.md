@@ -6,7 +6,7 @@
 <var name="example_name" value="tutorial-website-interactive-persistence-advanced"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -22,7 +22,7 @@
 
 ## 新增相依性 {id="add-dependencies"}
 
-首先，您需要新增 HikariCP 與 Ehcache 函式庫的相依性。
+首先，您需要新增 HikariCP 與 Ehcache 函式庫的相依性。 
 開啟 `gradle.properties` 檔案並指定函式庫版本：
 
 ```kotlin
@@ -102,7 +102,7 @@ HikariCP 提供了實作 `DataSource` 介面的 `HikariDataSource` 類別。
 
 ## 快取 {id="caching"}
 
-您可以使用資料庫快取來補充資料庫。
+您可以使用資料庫快取來補充資料庫。 
 快取是一種技術，能夠將常用資料儲存在暫時記憶體中，並可以減少資料庫的工作負載，以及讀取常用資料的時間。
 
 在本教學中，我們將使用 Ehcache 函式庫來在檔案中組織快取。
@@ -130,7 +130,7 @@ HikariCP 提供了實作 `DataSource` 介面的 `HikariDataSource` 類別。
 
    以下是此程式碼範例的簡要概述：
      - 為了初始化與配置快取，我們定義了一個 Ehcache `CacheManager` 執行個體。我們提供 `storagePath` 作為磁碟儲存使用的根目錄。
-     - 我們為項目的儲存建立了一個快取，該快取按文章的 ID 儲存文章：`articlesCache` 將 `Int` 鍵對應到 `Article` 值。
+     - 我們為項目的儲存建立了一個快取，該快取按文章的 ID 儲存文章：`articlesCache` 將 `Int` 鍵對應到 `Article` 值。 
      - 然後我們為本機記憶體與磁碟資源提供大小約束。您可以在 [Ehcache 文件](https://www.ehcache.org/documentation/2.8/configuration/cache-size.html)中閱讀有關這些參數的更多資訊。
      - 最後，我們透過呼叫 `cacheManager.getCache()` 並提供名稱、鍵與值型別來獲取已建立的快取。
 
@@ -141,7 +141,7 @@ HikariCP 提供了實作 `DataSource` 介面的 `HikariDataSource` 類別。
    
    ```
 
-3. 現在我們準備好實作 `DAOFacade` 的成員了。
+3. 現在我們準備好實作 `DAOFacade` 的成員了。 
    回到 `DAOFacadeCacheImpl.kt`，新增以下方法：
 
    ```kotlin
@@ -166,7 +166,7 @@ HikariCP 提供了實作 `DataSource` 介面的 `HikariDataSource` 類別。
    
    ```
 
-   大功告成。
+   大功告成。 
    您現在可以[執行應用程式](db-persistence.md#run_app)並確保一切運作如常。
 
-> 您可以在此處找到包含連線池化與快取的完整範例：[tutorial-website-interactive-persistence-advanced](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/tutorial-website-interactive-persistence-advanced)。
+> 您可以在此處找到包含連線池化與快取的完整範例：[tutorial-website-interactive-persistence-advanced](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/tutorial-website-interactive-persistence-advanced)。

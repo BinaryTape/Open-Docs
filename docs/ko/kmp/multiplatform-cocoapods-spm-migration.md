@@ -16,7 +16,7 @@ CocoaPods 의존성이 있는 KMP 모듈이 있고, [SwiftPM import](multiplatfo
 2. [SwiftPM import 툴링의 도움을 받아 직접 통합(direct integration)을 사용하도록 Xcode 프로젝트를 재구성합니다](#reconfigure-your-xcode-project)
 3. [프로젝트 구조에 따라 CocoaPods 통합을 완전히 또는 부분적으로 비활성화합니다](#remove-the-cocoapods-kmp-integration)
 
-> [준비된 스킬(prepared skill)](https://github.com/Kotlin/kmp-cocoapods-to-spm-migration/blob/master/SKILL.md)을 사용하여 원하는 AI 에이전트에게 CocoaPods에서 SwiftPM으로의 마이그레이션을 맡길 수 있습니다.
+> [준비된 스킬(prepared skill)](https://github.com/Kotlin/kotlin-agent-skills/tree/main/skills/kotlin-tooling-cocoapods-spm-migration)을 사용하여 원하는 AI 에이전트에게 CocoaPods에서 SwiftPM으로의 마이그레이션을 맡길 수 있습니다.
 > AI 처리 결과는 완전히 예측 가능하지 않을 수 있다는 점에 유의하세요.
 >
 {style="note"}

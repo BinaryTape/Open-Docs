@@ -2,12 +2,12 @@
 
 <tldr>
 <p>
-<b>必要相依項</b>：<code>io.ktor:ktor-client-auth</code>
+<b>必要相依性</b>：<code>io.ktor:ktor-client-auth</code>
 </p>
 <var name="example_name" value="client-auth-basic"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -87,4 +87,4 @@ undefined
 
     > 有關以程式化方式清除快取憑據的詳細資訊，請參閱通用的 [權杖快取與快取控制](client-auth.md#token-caching) 章節。
 
-> 有關 Ktor Client 中基本驗證的完整範例，請參閱 [client-auth-basic](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-auth-basic)。
+> 有關 Ktor Client 中基本驗證的完整範例，請參閱 [client-auth-basic](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-auth-basic)。

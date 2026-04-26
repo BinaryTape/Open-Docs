@@ -97,9 +97,9 @@ routing {
         call.respond(customer)
 ```
 
-전체 예제는 [json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/json-kotlinx)를 참조하세요.
+전체 예제는 [json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/json-kotlinx)를 참조하세요.
 
-[//]: # (TODO: LocalPathFile에 대한 링크 확인)
+[//]: # (TODO: Check link for LocalPathFile)
 
 ### 파일 {id="file"}
 
@@ -146,11 +146,11 @@ fun Application.main() {
     }
 ```
 
-이 샘플은 두 가지 플러그인을 사용합니다:
+이 샘플은 두 가지 플러그인을 사용함에 유의하세요:
 - [`PartialContent`](server-partial-content.md)는 서버가 `Range` 헤더가 포함된 요청에 응답하고 콘텐츠의 일부만 보낼 수 있도록 합니다.
 - [`AutoHeadResponse`](server-autoheadresponse.md)는 `GET`이 정의된 모든 라우트에 대해 `HEAD` 요청에 자동으로 응답하는 기능을 제공합니다. 이를 통해 클라이언트 애플리케이션은 `Content-Length` 헤더 값을 읽어 파일 크기를 결정할 수 있습니다.
 
-전체 코드 샘플은 [download-file](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/download-file)을 참조하세요.
+전체 코드 샘플은 [download-file](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/download-file)을 참조하세요.
 
 ### 리소스
 
@@ -222,7 +222,7 @@ get("/") {
 
 ### 콘텐츠 타입 {id="content-type"}
 
-[ContentNegotiation](server-serialization.md) 플러그인이 설치되어 있으면 Ktor가 자동으로 콘텐츠 타입을 선택합니다. 필요한 경우 해당 파라미터를 전달하여 수동으로 콘텐츠 타입을 지정할 수 있습니다.
+[ContentNegotiation](server-serialization.md) 플러그인이 설치되어 있으면 Ktor가 자동으로 콘텐츠 타입을 선택합니다. 필요한 경우 해당 파라미터를 전달하여 수동으로 콘텐츠 타입을 지정할 수 있습니다. 
 
 아래 예제에서 `call.respondText()` 함수는 `ContentType.Text.Plain`을 파라미터로 받습니다:
 

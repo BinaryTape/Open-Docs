@@ -9,7 +9,7 @@
 <var name="example_name" value="auth-ldap"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -108,6 +108,6 @@ routing {
 }
 ```
 
-実行可能な完全な例はこちらで確認できます：[auth-ldap](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-ldap)。
+実行可能な完全な例はこちらで確認できます：[auth-ldap](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-ldap)。
 
 > 現在のLDAP実装は同期（synchronous）であることに注意してください。

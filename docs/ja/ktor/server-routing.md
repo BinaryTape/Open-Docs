@@ -80,7 +80,7 @@ routing {
 
 [ルーティング](#define_route)関数（`route`、`get`、`post` など）に渡されるパスパターンは、URLの「パス」コンポーネントとのマッチングに使用されます。パスには、スラッシュ `/` 文字で区切られた一連のパスセグメントを含めることができます。
 
-> Ktorは、末尾にスラッシュがあるパスとないパスを区別することに注意してください。この動作は、`IgnoreTrailingSlash` プラグインを[インストール](server-plugins.md#install)することで変更できます。
+> Ktorは、末尾のスラッシュがあるパスとないパスを区別することに注意してください。この動作は、`IgnoreTrailingSlash` プラグインを[インストール](server-plugins.md#install)することで変更できます。
 
 以下は、いくつかのパスの例です。
 * `/hello`  
@@ -108,7 +108,7 @@ routing {
 「パスパラメータ」 (`{param}`) は1つのパスセグメントにマッチし、それを `param` という名前のパラメータとしてキャプチャします。このパスセグメントは必須ですが、疑問符を追加して `{param?}` とすることでオプションにできます。例えば：
 * `/user/{login}` は `/user/john` にはマッチしますが、`/user` にはマッチしません。
 * `/user/{login?}` は `/user/john` と `/user` の両方にマッチします。
-   > オプションのパスパラメータ `{param?}` は、パスの最後にのみ使用できます。
+   > オプションのパスパラメータ `{param?}` は、パスの最後にのみ使用できることに注意してください。
    >
    {type="note"}
 
@@ -289,7 +289,7 @@ fun Route.totalizeOrderRoute() {
 }
 ```
 
-このアプローチを示す完全な例については、[legacy-interactive-website](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/legacy-interactive-website) を参照してください。
+このアプローチを示す完全な例については、[legacy-interactive-website](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/legacy-interactive-website) を参照してください。
 
 > アプリケーションの保守性を高めるためには、特定の[構造化パターン](server-routing-organization.md)に従うことが推奨されます。
 

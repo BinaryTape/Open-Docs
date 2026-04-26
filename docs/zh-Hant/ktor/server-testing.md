@@ -12,7 +12,7 @@
 了解如何使用特殊的測試引擎來測試您的伺服器應用程式。
 </link-summary>
 
-Ktor 提供了一個測試引擎，可以直接執行應用程式呼叫，而無需啟動真實的 Web 伺服器或繫結到通訊端（sockets）。請求是在內部處理的，這使得測試與執行完整伺服器相比，速度更快且更可靠。
+Ktor 提供了一個測試引擎，可以直接執行應用程式呼叫，而無需啟動真實的 Web 伺服器或繫結到通訊端 (sockets)。請求是在內部處理的，這使得測試與執行完整伺服器相比，速度更快且更可靠。
 
 ## 新增相依性 {id="add-dependencies"}
 
@@ -117,7 +117,7 @@ fun Application.module() {
 </TabItem>
 </Tabs>
 
-> 如需完整的程式碼範例，請參閱 [engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main)。
+> 如需完整的程式碼範例，請參閱 [engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main)。
 
 ## 設定 JUnit 測試類別 {id="junit-test-class"}
 
@@ -302,7 +302,7 @@ fun testHello() = testApplication {
 }
 ```
    
-> 如需完整的測試範例，請參閱 [auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-oauth-google)。
+> 如需完整的測試範例，請參閱 [auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-oauth-google)。
 
 ### 自訂環境 {id="environment"}
 
@@ -354,13 +354,13 @@ fun testHello() = testApplication {
 }
 ```
 
-> 如需完整的測試範例，請參閱 [auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-oauth-google)。
+> 如需完整的測試範例，請參閱 [auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-oauth-google)。
 
 ## 配置用戶端 {id="configure-client"}
 
 `testApplication {}` 函式透過 `client` 屬性提供了一個已配置的 HTTP 用戶端。若要自訂用戶端並安裝額外的外掛程式，請使用 `createClient {}` 函式。
 
-例如，您可以安裝 [`ContentNegotiation`](client-serialization.md) 外掛程式，以便在 `POST/PUT` 請求中 [發送 JSON 資料](#json-data)：
+例如，您可以安裝 [`ContentNegotiation`](client-serialization.md) 外掛程式，以便在 `POST/PUT` 請求中 [發送 JSON 資料](#json-data) ：
 
 ```kotlin
 @Test
@@ -400,7 +400,7 @@ fun testPostCustomer() = testApplication {
 }
 ```
 
-> 如需完整的測試範例，請參閱 [json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/json-kotlinx)。
+> 如需完整的測試範例，請參閱 [json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/json-kotlinx)。
 
 ## 斷言結果 {id="assert"}
 
@@ -490,7 +490,7 @@ fun Application.main() {
 </TabItem>
 </Tabs>
 
-> 如需完整的程式碼範例，請參閱 [post-form-parameters](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/post-form-parameters)。
+> 如需完整的程式碼範例，請參閱 [post-form-parameters](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/post-form-parameters)。
 
 #### 多部分表單資料 (Multipart form data) {id="multipart-form-data"}
 
@@ -595,7 +595,7 @@ fun Application.main() {
 </TabItem>
 </Tabs>
 
-> 如需完整的程式碼範例，請參閱 [upload-file](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/upload-file)。
+> 如需完整的程式碼範例，請參閱 [upload-file](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/upload-file)。
 
 ### 傳送 JSON 資料 {id="json-data"}
 
@@ -673,7 +673,7 @@ data class Customer(val id: Int, val firstName: String, val lastName: String)
 </TabItem>
 </Tabs>
 
-> 如需完整範例，請參閱 [json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/json-kotlinx)。
+> 如需完整範例，請參閱 [json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/json-kotlinx)。
 
 ## 在測試期間保留 Cookie {id="preserving-cookies"}
 
@@ -763,7 +763,7 @@ fun Application.main() {
 </TabItem>
 </Tabs>
 
-> 如需完整範例，請參閱 [session-cookie-client](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/session-cookie-client)。
+> 如需完整範例，請參閱 [session-cookie-client](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-cookie-client)。
 
 ## 測試 HTTPS {id="https"}
 
@@ -795,7 +795,7 @@ class ApplicationTest {
 
 ```
 
-> 如需完整範例，請參閱 [ssl-engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/ssl-engine-main)。
+> 如需完整範例，請參閱 [ssl-engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/ssl-engine-main)。
 
 ## 測試 WebSockets {id="testing-ws"}
 
@@ -858,4 +858,4 @@ class EmbeddedServerTest: TestServer() {
 }
 ```
 
-> 如需完整的端對端測試範例，請參閱 [embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server) 和 [e2e](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/e2e)。
+> 如需完整的端對端測試範例，請參閱 [embedded-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server) 和 [e2e](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/e2e)。

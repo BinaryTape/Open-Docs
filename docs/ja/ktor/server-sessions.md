@@ -12,9 +12,9 @@
 <b>必要な依存関係</b>: <code>io.ktor:%artifact_name%</code>
 </p>
 <p><b>コード例</b>:
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/session-cookie-client">session-cookie-client</a>,
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/session-cookie-server">session-cookie-server</a>,
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/session-header-server">session-header-server</a>
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-cookie-client">session-cookie-client</a>,
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-cookie-server">session-cookie-server</a>,
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-header-server">session-header-server</a>
 </p>
 <p>
     <b><Links href="/ktor/server-native" summary="Ktor supports Kotlin/Native and allows you to run a server without an additional runtime or virtual machine.">Native サーバー</Links> のサポート</b>: ✅
@@ -171,7 +171,7 @@ cookie<CartSession>("cart_session", SessionStorageMemory()) {
 }
 ```
 
-完全な例はこちらにあります: [session-cookie-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/session-cookie-server)
+完全な例はこちらにあります: [session-cookie-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-cookie-server)。
 
 > `SessionStorageMemory` は開発目的のみを意図していることに注意してください。
 
@@ -183,7 +183,7 @@ header<CartSession>("cart_session", directorySessionStorage(File("build/.session
 }
 ```
 
-完全な例はこちらにあります: [session-header-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/session-header-server)
+完全な例はこちらにあります: [session-header-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-header-server)。
 
 ### カスタムストレージ {id="custom_storage"}
 
@@ -214,7 +214,7 @@ install(Sessions) {
 }
 ```
 
-`SessionTransportTransformerMessageAuthentication` はデフォルトの認証アルゴリズムとして `HmacSHA256` を使用しますが、これは変更可能です。
+`SessionTransportTransformerMessageAuthentication` はデフォルトの認証アルゴリズムとして `HmacSHA256` を使用しますが、これは変更可能です。 
 
 ### セッションデータの署名と暗号化 {id="sign_encrypt_session"}
 
@@ -237,7 +237,7 @@ install(Sessions) {
 >
 {style="note"}
 
-デフォルトでは、`SessionTransportTransformerEncrypt` は `AES` および `HmacSHA256` アルゴリズムを使用しますが、これらは変更可能です。
+デフォルトでは、`SessionTransportTransformerEncrypt` は `AES` および `HmacSHA256` アルゴリズムを使用しますが、これらは変更可能です。 
 
 > 署名/暗号化キーはコード内に直接記述すべきではないことに注意してください。[設定ファイル](server-configuration-file.topic#configuration-file-overview)のカスタムグループを使用して署名/暗号化キーを保存し、[環境変数](server-configuration-file.topic#environment-variables)を使用してそれらを初期化することができます。
 >
@@ -285,7 +285,7 @@ get("/logout") {
 }
 ```
 
-完全な例はこちらにあります: [session-cookie-client](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/session-cookie-client)
+完全な例はこちらにあります: [session-cookie-client](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-cookie-client)。
 
 ## 遅延セッション取得
 
@@ -301,6 +301,6 @@ System.setProperty("io.ktor.server.sessions.deferred", "true")
 
 以下の実行可能な例は、`%plugin_name%` プラグインの使用方法を示しています。
 
-- [session-cookie-client](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/session-cookie-client) は、[署名および暗号化された](#sign_encrypt_session)セッションペイロードを [クッキー](#cookie) を使用して [クライアント](#client_server) に渡す方法を示しています。
-- [session-cookie-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/session-cookie-server) は、セッションペイロードを [サーバーメモリ](#in_memory_storage) に保持し、[署名済み](#sign_session) のセッション ID を [クッキー](#cookie) を使用してクライアントに渡す方法を示しています。
-- [session-header-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/session-header-server) は、サーバー上の [ディレクトリ・ストレージ](#directory_storage) にセッションペイロードを保持し、[署名済み](#sign_session) のセッション ID を [カスタムヘッダー](#header) を使用してクライアントに渡す方法を示しています。
+- [session-cookie-client](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-cookie-client) は、[署名および暗号化された](#sign_encrypt_session)セッションペイロードを [クッキー](#cookie) を使用して [クライアント](#client_server) に渡す方法を示しています。
+- [session-cookie-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-cookie-server) は、セッションペイロードを [サーバーメモリ](#in_memory_storage) に保持し、[署名済み](#sign_session) のセッション ID を [クッキー](#cookie) を使用してクライアントに渡す方法を示しています。
+- [session-header-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-header-server) は、サーバー上の [ディレクトリ・ストレージ](#directory_storage) にセッションペイロードを保持し、[署名済み](#sign_session) のセッション ID を [カスタムヘッダー](#header) を使用してクライアントに渡す方法を示しています。

@@ -14,10 +14,6 @@
         <img src="icon-9-todo.svg" width="20" alt="Ninth step" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">库与 API</a></p>
 </tldr>
 
-> 阅读时间：17 分钟
->
-{style="tip"}
-
 在初级教程中，你学习了如何使用类和数据类来存储数据，并维护可以在代码中共享的特征集合。最终，你会希望创建一个层次结构，以便在项目中高效地共享代码。本章将解释 Kotlin 为共享代码提供的选项，以及它们如何使你的代码更安全、更易于维护。
 
 ## 类继承

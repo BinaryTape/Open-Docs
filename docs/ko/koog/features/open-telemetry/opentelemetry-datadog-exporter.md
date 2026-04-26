@@ -1,33 +1,27 @@
 # Datadog 익스포터
 
-Koog는 전용 LLM 관찰성(Observability) 기능을 갖춘 모니터링 및 분석 플랫폼인 [Datadog](https://www.datadoghq.com/)으로 에이전트 트레이스(trace)를 내보낼 수 있는 기본 지원을 제공합니다.
-Datadog 통합을 통해 Koog 에이전트가 LLM, API 및 기타 구성 요소와 상호 작용하는 방식을 시각화, 분석 및 디버깅할 수 있습니다.
+Koog는 관찰성(observability) 데이터에 대한 오픈 표준인 [OpenTelemetry](https://opentelemetry.io/)를 사용하여 에이전트 트레이스(trace)를 내보냅니다.
+이러한 트레이스를 [Datadog](https://www.datadoghq.com/)으로 전송하기 위해 Koog에는 별도의 수동 인스트루멘테이션(instrumentation) 없이 사용할 수 있는 기본 제공 OpenTelemetry 익스포터가 포함되어 있습니다.
 
-Koog의 OpenTelemetry 지원에 대한 배경 지식은 [OpenTelemetry 지원](https://docs.koog.ai/opentelemetry-support/) 문서를 참조하세요.
+연결이 완료되면 Datadog의 [OpenTelemetry 지원](https://docs.datadoghq.com/opentelemetry/)을 통해 에이전트가 LLM, 도구 및 외부 API와 상호 작용하는 방식을 시각화, 분석 및 디버깅할 수 있습니다.
 
 ---
 
 ## 설정 지침
 
-1) [https://www.datadoghq.com/](https://www.datadoghq.com/)에서 Datadog 계정을 생성합니다.
+1. [https://www.datadoghq.com/](https://www.datadoghq.com/)에서 Datadog 계정을 생성합니다.
 
-2) [Organization Settings > API Keys](https://app.datadoghq.com/organization-settings/api-keys)에서 API 키를 가져옵니다.
+2. [Organization Settings > API Keys](https://app.datadoghq.com/organization-settings/api-keys)에서 API 키를 가져옵니다.
 
-3) Datadog 익스포터에 Datadog API 키를 전달합니다.
-이는 `addDatadogExporter()` 함수의 파라미터로 제공하거나, 환경 변수를 설정하여 수행할 수 있습니다.
-
+3. [`addDatadogExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter) 함수의 파라미터로 제공하거나, 환경 변수를 통해 API 키를 전달합니다.
 ```bash
 export DD_API_KEY="<your-api-key>"
 ```
-
-4) (선택 사항) Datadog 사이트를 구성합니다. Datadog은 여러 리전에서 운영됩니다. 기본적으로 익스포터는 트레이스를 `datadoghq.com`(US1 리전)으로 전송합니다.
-다른 리전을 사용하려면 `DD_SITE` 환경 변수를 설정하거나 `addDatadogExporter()`에 `datadogSite` 파라미터를 전달하세요.
-
+4. (선택 사항) US1(`datadoghq.com`) 이외의 Datadog 리전을 사용하려면 [`addDatadogExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter)에 사이트를 파라미터로 전달하거나 환경 변수를 설정하세요.
 ```bash
 export DD_SITE="datadoghq.eu"
 ```
-
-일반적인 사이트 값:
+지원되는 사이트:
 
 | 사이트 | 리전 |
 |------|--------|
@@ -41,10 +35,9 @@ export DD_SITE="datadoghq.eu"
 
 ## 구성
 
-Datadog 내보내기를 활성화하려면 **OpenTelemetry 기능(feature)**을 설치하고 `DatadogExporter`를 추가하세요.
-익스포터는 내부적으로 `OtlpHttpSpanExporter`를 사용하여 Datadog의 OTLP 인테이크(intake) 엔드포인트로 트레이스를 직접 전송합니다.
+Datadog 내보내기를 활성화하려면 **OpenTelemetry 기능(feature)**을 설치하고 [`addDatadogExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter)를 호출하세요.
 
-### 예시: Datadog 트레이싱을 사용한 에이전트
+### 기본 예시
 
 === "Kotlin"
 
@@ -75,7 +68,7 @@ Datadog 내보내기를 활성화하려면 **OpenTelemetry 기능(feature)**을 
 See traces in Datadog LLM Observability")
     }
     ```
-    <!--- TODO: Enable KNIT after PR #1591 is merged: KNIT example-datadog-exporter-01.kt -->
+    <!--- KNIT example-datadog-exporter-01.kt -->
 
 === "Java"
 
@@ -110,17 +103,19 @@ See traces in Datadog LLM Observability")
 See traces in Datadog LLM Observability");
     }
     ```
-    <!--- TODO: Enable KNIT after PR #1591 is merged: KNIT exampleDatadogExporterJava01.java -->
+    <!--- KNIT exampleDatadogExporterJava01.java -->
 
 ## 트레이스 속성 (Trace attributes)
 
-`addDatadogExporter` 함수는 리소스 수준 속성 맵을 받는 `traceAttributes` 파라미터를 지원합니다.
-이러한 속성은 내보내는 모든 스팬(span)에 추가되며, 애플리케이션별 메타데이터로 트레이스에 태그를 지정하는 데 유용합니다.
+Koog가 에이전트 활동을 Datadog으로 보낼 때, 이는 *스팬(span)*의 연속으로 수행됩니다. 스팬은 LLM 호출이나 도구 실행과 같은 개별 작업 기록입니다. 관련 스팬들은 하나의 *트레이스(trace)*로 그룹화되며, 이는 시작부터 끝까지 전체 에이전트 실행을 나타냅니다.
+
+[`addDatadogExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter)는 트레이스를 내보내는 애플리케이션을 설명하는 키-값 쌍의 맵인 `traceAttributes` 파라미터를 허용합니다. 이러한 속성은 모든 스팬에 추가되어, Datadog에서 환경(environment)이나 버전(version)과 같은 속성별로 트레이스를 필터링하고 그룹화하기 쉽게 해줍니다.
 
 일반적인 속성:
-- **env**: 환경 이름 (예: `production`, `staging`, `development`)
+
+- **env**: 환경 이름 (예: `production`, `staging` 또는 `development`)
 - **service.name**: 서비스 또는 애플리케이션 이름
-- **version**: 배포 추적을 위한 애플리케이션 버전
+- **version**: 배포 간의 동작을 비교하는 데 유용한 애플리케이션 버전
 
 ### 트레이스 속성을 사용한 예시
 
@@ -158,7 +153,7 @@ See traces in Datadog LLM Observability");
         agent.run("What is Kotlin?")
     }
     ```
-    <!--- TODO: Enable KNIT after PR #1591 is merged: KNIT example-datadog-exporter-02.kt -->
+    <!--- KNIT example-datadog-exporter-02.kt -->
 
 === "Java"
 
@@ -200,23 +195,25 @@ See traces in Datadog LLM Observability");
         agent.run("What is Kotlin?");
     }
     ```
-    <!--- TODO: Enable KNIT after PR #1591 is merged: KNIT exampleDatadogExporterJava02.java -->
+    <!--- KNIT exampleDatadogExporterJava02.java -->
 
 ## 커스텀 익스포터 래핑 (Custom exporter wrapping)
 
-익스포터를 등록하기 전에 커스텀 데코레이터로 감싸야 하는 경우 `buildDatadogExporter()` 함수를 사용할 수 있습니다.
+익스포터를 등록하기 전에 추가 처리 로직으로 감싸기 위해 익스포터 객체에 직접 접근해야 하는 경우 [`buildDatadogExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.datadog.buildDatadogExporter)를 사용하세요.
+예를 들어, `SpanExporter.composite()`를 사용하여 트레이스를 여러 백엔드로 동시에 보낼 수 있습니다.
 
 === "Kotlin"
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
     import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+    import ai.koog.agents.features.opentelemetry.integration.datadog.buildDatadogExporter
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    import io.opentelemetry.exporter.otlp.http.trace.OtlpHttpSpanExporter
     import io.opentelemetry.sdk.trace.export.SpanExporter
     import kotlinx.coroutines.runBlocking
     val promptExecutor = simpleOpenAIExecutor("openai-api-key")
-    class MyCustomSpanExporter(private val delegate: SpanExporter) : SpanExporter by delegate
     fun main() = runBlocking {
         val agent = AIAgent(
             promptExecutor = promptExecutor,
@@ -230,101 +227,28 @@ See traces in Datadog LLM Observability");
     -->
     ```kotlin
     install(OpenTelemetry) {
-        val exporter = buildDatadogExporter()
-        val wrapped = MyCustomSpanExporter(exporter) // 예: 속성 후처리
-        addSpanExporter(wrapped)
+        val datadogExporter = buildDatadogExporter()
+        val localExporter = OtlpHttpSpanExporter.builder()
+            .setEndpoint("http://localhost:4318/v1/traces")
+            .build()
+        addSpanExporter(SpanExporter.composite(datadogExporter, localExporter))
     }
     ```
-    <!--- TODO: Enable KNIT after PR #1591 is merged: KNIT example-datadog-exporter-04.kt -->
+    <!--- KNIT example-datadog-exporter-03.kt -->
 
 ## 트레이싱 대상
 
-활성화되면 Datadog 익스포터는 다음을 포함하여 Koog의 일반 OpenTelemetry 통합과 동일한 스팬을 캡처합니다.
+Datadog 익스포터는 Koog의 일반 OpenTelemetry 통합과 동일한 활동을 캡처합니다.
+캡처되는 스팬의 전체 목록과 LLM 프롬프트 및 응답 콘텐츠를 포함하는 방법은 [트레이싱 대상](index.md#what-gets-traced)을 참조하세요.
 
-- **에이전트 라이프사이클 이벤트**: 에이전트 시작, 중지, 오류
-- **LLM 상호작용**: 프롬프트, 응답, 토큰 사용량, 지연 시간(latency)
-- **도구 호출**: 도구 호출에 대한 실행 트레이스
-- **시스템 컨텍스트**: 모델 이름, 환경, Koog 버전과 같은 메타데이터
-
-익스포터에는 스팬을 Datadog의 LLM Observability 제품으로 라우팅하기 위해 `dd-otlp-source: llmobs` 헤더가 포함됩니다.
-
-보안상의 이유로 OpenTelemetry 스팬의 일부 콘텐츠는 기본적으로 마스킹됩니다.
-Datadog에서 콘텐츠를 사용할 수 있게 하려면 OpenTelemetry 구성에서 [setVerbose](opentelemetry-support.md#setverbose) 메서드를 사용하고 다음과 같이 `verbose` 인수를 `true`로 설정하세요.
-
-=== "Kotlin"
-
-    <!--- INCLUDE
-    import ai.koog.agents.core.agent.AIAgent
-    import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
-    import ai.koog.prompt.executor.clients.openai.OpenAIModels
-    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-    val promptExecutor = simpleOpenAIExecutor("openai-api-key")
-    val agent = AIAgent(
-        promptExecutor = promptExecutor,
-        llmModel = OpenAIModels.Chat.GPT4o,
-        systemPrompt = "You are a helpful assistant."
-    ) {
-    -->
-    <!--- SUFFIX
-    }
-    -->
-    ```kotlin
-    install(OpenTelemetry) {
-        addDatadogExporter()
-        setVerbose(true)
-    }
-    ```
-    <!--- TODO: Enable KNIT after PR #1591 is merged: KNIT example-datadog-exporter-03.kt -->
-
-=== "Java"
-
-    <!--- INCLUDE
-    import ai.koog.agents.core.agent.AIAgent;
-    import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry;
-    import ai.koog.prompt.executor.clients.openai.OpenAIModels;
-    import ai.koog.prompt.executor.model.PromptExecutor;
-    public class exampleDatadogExporterJava03 {
-        public static void main(String[] args) {
-            var promptExecutor = PromptExecutor.builder()
-                .openAI("openai-api-key")
-                .build();
-            var agent = AIAgent.builder()
-                .promptExecutor(promptExecutor)
-                .systemPrompt("You are a helpful assistant.")
-                .llmModel(OpenAIModels.Chat.GPT4oMini)
-                .
-    -->
-    <!--- SUFFIX
-            .build();
-        }
-    }
-    -->
-    ```java
-    install(OpenTelemetry.Feature, config -> {
-        config.addDatadogExporter();
-        config.setVerbose(true);
-    })
-    ```
-    <!--- TODO: Enable KNIT after PR #1591 is merged: KNIT exampleDatadogExporterJava03.java -->
-
-Datadog의 LLM Observability 및 OpenTelemetry 지원에 대한 자세한 내용은 다음을 참조하세요.
-
-- [Datadog LLM Observability 문서](https://docs.datadoghq.com/llm_observability/)
-- [Datadog OTLP API 인테이크](https://docs.datadoghq.com/opentelemetry/guide/otlp_api/)
+Datadog의 OpenTelemetry 지원에 대한 자세한 내용은 [Datadog OTLP API 인테이크](https://docs.datadoghq.com/opentelemetry/guide/otlp_api/)를 참조하세요.
 
 ---
 
 ## 문제 해결
 
-### Datadog에 트레이스가 나타나지 않음
-- 환경에 `DD_API_KEY`가 설정되어 있는지 다시 확인하세요.
-- Datadog 리전에 맞는 올바른 `DD_SITE`를 사용하고 있는지 확인하세요 (미국은 `datadoghq.com`, 유럽은 `datadoghq.eu`).
-- API 키에 트레이스를 보낼 수 있는 필요한 권한이 있는지 확인하세요.
+- **트레이스가 나타나지 않음**: `DD_API_KEY` 및 `DD_SITE`가 올바르게 설정되었는지 확인하세요 ([설정 지침](#setup-instructions) 참조).
+- **인증 오류**: [Organization Settings > API Keys](https://app.datadoghq.com/organization-settings/api-keys)에서 키가 활성 상태인지 확인하세요.
+- **연결 문제**: 사용자 환경에서 `https://otlp.<DD_SITE>/v1/traces`에 접속할 수 있는지 확인하세요. 예를 들어, US1의 경우 `https://otlp.datadoghq.com/v1/traces`입니다.
 
-### 인증 오류
-- `DD_API_KEY`가 유효하고 활성 상태인지 확인하세요.
-- API 키는 [Organization Settings > API Keys](https://app.datadoghq.com/organization-settings/api-keys)에서 확인할 수 있습니다.
-
-### 연결 문제
-- 사용자 환경에서 Datadog OTLP 인테이크 엔드포인트(`https://otlp.<site>/v1/traces`)에 대한 네트워크 접근 권한이 있는지 확인하세요.
-- 아웃바운드 연결을 차단할 수 있는 방화벽이나 프록시 설정을 확인하세요.
+일반적인 문제 해결 방법은 [문제 해결](index.md#troubleshooting)을 참조하세요.

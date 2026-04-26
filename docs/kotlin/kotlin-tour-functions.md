@@ -12,10 +12,6 @@
         <img src="icon-7-todo.svg" width="20" alt="最后一步" /> <a href="kotlin-tour-null-safety.md">空安全</a></p>
 </tldr>
 
-> 预计阅读时间：14 分钟
->
-{style="tip"}
-
 在 Kotlin 中，你可以使用 `fun` 关键字声明你自己的函数。
 
 ```kotlin
@@ -403,7 +399,7 @@ fun main() {
 > val positives = numbers.filter { x -> x > 0 }
 > ```
 > 
-> 这是一个 **尾随 lambda** 的示例，本章末尾将更详细地讨论它。
+> 这是一个[尾随 lambda](#尾随-lambda) 的示例，本章末尾将更详细地讨论它。
 >
 {style="note"}
 
@@ -516,7 +512,7 @@ fun main() {
 ```kotlin
 fun main() {
     //sampleStart
-    // 初始值为零。
+    // 初始值为零。 
     // 该操作累积地将初始值与列表中的每个项相加。
     println(listOf(1, 2, 3).fold(0, { x, item -> x + item })) // 6
 
@@ -529,7 +525,7 @@ fun main() {
 
 有关 lambda表达式 的更多信息，请参阅 [lambda表达式与匿名函数](lambdas.md#lambda-expressions-and-anonymous-functions)。
 
-我们旅程的下一步是学习 Kotlin 中的 [类](kotlin-tour-classes.md)。
+我们旅程的下一步是学习 Kotlin 中的[类](kotlin-tour-classes.md)。
 
 ## lambda表达式练习
 

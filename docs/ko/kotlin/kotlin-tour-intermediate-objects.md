@@ -14,10 +14,6 @@
         <img src="icon-9-todo.svg" width="20" alt="아홉 번째 단계" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">라이브러리와 API</a></p>
 </tldr>
 
-> 읽는 시간: 8분
->
-{style="tip"}
-
 이 장에서는 객체 선언(object declarations)을 살펴보며 클래스에 대한 이해를 넓혀보겠습니다. 이 지식은 프로젝트 전반에서 동작을 효율적으로 관리하는 데 도움이 될 것입니다.
 
 ## 객체 선언

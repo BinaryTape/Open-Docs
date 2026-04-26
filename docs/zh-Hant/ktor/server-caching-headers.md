@@ -14,7 +14,7 @@
 <var name="example_name" value="caching-headers"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -47,7 +47,7 @@
 ## 安裝 %plugin_name% {id="install_plugin"}
 
 <p>
-    若要將 <code>%plugin_name%</code> 外掛程式安裝到應用程式中，請將其傳遞給指定<Links href="/ktor/server-modules" summary="模組允許您透過分組路由來結構化您的應用程式。">模組</Links>中的 <code>install</code> 函式。
+    若要將 <code>%plugin_name%</code> 外掛程式<a href="#install">安裝</a>到應用程式中，請將其傳遞給指定<Links href="/ktor/server-modules" summary="模組允許您透過分組路由來結構化您的應用程式。">模組</Links>中的 <code>install</code> 函式。
     下方的程式碼片段展示了如何安裝 <code>%plugin_name%</code> ...
 </p>
 <list>
@@ -74,7 +74,7 @@
 安裝 `%plugin_name%` 後，您可以為各種內容類型[配置](#configure)快取設定。
 
 ## 配置快取 {id="configure"}
-若要配置 `%plugin_name%` 外掛程式，您需要定義 [options](https://api.ktor.io/ktor-server-caching-headers/io.ktor.server.plugins.cachingheaders/-caching-headers-config/options.html) 函式，以便為特定的 `ApplicationCall` 和內容類型提供指定的快取選項。來自 [caching-headers](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/caching-headers) 範例的程式碼片段展示了如何為純文字和 HTML 加入具有 `max-age` 選項的 `Cache-Control` 標頭：
+若要配置 `%plugin_name%` 外掛程式，您需要定義 [options](https://api.ktor.io/ktor-server-caching-headers/io.ktor.server.plugins.cachingheaders/-caching-headers-config/options.html) 函式，以便為特定的 `ApplicationCall` 和內容類型提供指定的快取選項。來自 [caching-headers](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/caching-headers) 範例的程式碼片段展示了如何為純文字和 HTML 加入具有 `max-age` 選項的 `Cache-Control` 標頭：
 
 ```kotlin
 fun Application.module() {

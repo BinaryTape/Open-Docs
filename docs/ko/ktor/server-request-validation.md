@@ -14,7 +14,7 @@
 <var name="example_name" value="request-validation"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -66,7 +66,7 @@
         <code-block lang="kotlin" code="            import io.ktor.server.engine.*&#10;            import io.ktor.server.netty.*&#10;            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;&#10;            fun main() {&#10;                embeddedServer(Netty, port = 8080) {&#10;                    install(%plugin_name%)&#10;                    // ...&#10;                }.start(wait = true)&#10;            }"/>
     </TabItem>
     <TabItem title="module">
-        <code-block lang="kotlin" code="            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;            // ...&#10;            fun Application.module() {&#10;                install(%plugin_name%)&#10;                // ...&#10;                // ...&#10;            }"/>
+        <code-block lang="kotlin" code="            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;            // ...&#10;            fun Application.module() {&#10;                install(%plugin_name%)&#10;                // ...&#10;            }"/>
     </TabItem>
 </Tabs>
 <p>
@@ -97,7 +97,7 @@ routing {
 
 ### 2. 유효성 검사 함수 설정 {id="validation-function"}
 
-요청 본문을 유효성 검사하려면 `validate` 함수를 사용하세요.
+요청 본문을 유효성 검사하려면 `validate` 함수를 사용하세요. 
 이 함수는 유효성 검사의 성공 또는 실패 결과를 나타내는 `ValidationResult` 객체를 반환합니다.
 실패한 결과의 경우, **[RequestValidationException](#validation-exception)**이 발생합니다.
 
@@ -135,7 +135,7 @@ install(StatusPages) {
 }
 ```
 
-전체 예제는 여기에서 찾을 수 있습니다: [request-validation](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/request-validation).
+전체 예제는 여기에서 찾을 수 있습니다: [request-validation](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/request-validation).
 
 ## 예제: 객체 속성 유효성 검사 {id="example-object"}
 

@@ -16,7 +16,7 @@
 2. [在 SwiftPM 匯入工具的幫助下，重新配置您的 Xcode 專案以使用直接整合](#reconfigure-your-xcode-project)
 3. [完全或部分停用 CocoaPods 整合，具體取決於您的專案結構](#remove-the-cocoapods-kmp-integration)
 
-> 您可以使用我們[準備好的技能](https://github.com/Kotlin/kmp-cocoapods-to-spm-migration/blob/master/SKILL.md)，將 CocoaPods 到 SwiftPM 的遷移工作移交給您選擇的 AI 代理。
+> 您可以使用我們[準備好的技能](https://github.com/Kotlin/kotlin-agent-skills/tree/main/skills/kotlin-tooling-cocoapods-spm-migration)，將 CocoaPods 到 SwiftPM 的遷移工作移交給您選擇的 AI 代理。
 > 請記住，AI 處理結果並非完全可預測。
 >
 {style="note"}
@@ -122,4 +122,4 @@ end
 最後，從您的 Gradle 組建組態中移除對 CocoaPods 的提及：
 
 1. 從共用程式碼模組的 `build.gradle.kts` 檔案中移除整個 `cocoapods {}` 區塊，因為現在所有相依性都由 SwiftPM 匯入工具管理。
-2. 如果您的專案不再依賴 CocoaPods，請從根 `build.gradle.kts` 檔案和共用模組中的 `build.gradle.kts` 的 `plugins {}` 區塊中移除對 CocoaPods Gradle 外掛程式的引用。
+2. If your project does not rely on CocoaPods anymore, remove references to the CocoaPods Gradle plugin from the `plugins {}` block in both the root `build.gradle.kts` file and `build.gradle.kts` in the shared module.

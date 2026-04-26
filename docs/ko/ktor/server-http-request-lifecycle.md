@@ -11,7 +11,7 @@
 </p>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -63,11 +63,11 @@ fun Application.module() {
             try {
                 while (isActive) {
                     delay(10_000)
-                    log.info("매우 중요한 작업.")
+                    log.info("Very important work.")
                 }
                 call.respond("Completed")
             } catch (e: CancellationException) {
-                log.info("리소스 정리 중.")
+                log.info("Cleaning up resources.")
             }
         }
     }
@@ -82,7 +82,7 @@ fun Application.module() {
 > [코루틴 취소(Coroutine cancellation)](https://kotlinlang.org/docs/cancellation-and-timeouts.html)를 참조하십시오.
 {style="note"}
 
-> 전체 예제는 [%example_name%](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%)에서 확인할 수 있습니다.
+> 전체 예제는 [%example_name%](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%)에서 확인할 수 있습니다.
 
 ## 제한 사항
 

@@ -4,8 +4,8 @@
 
 <tldr>
 <p><b>コード例</b>:
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-validate-2xx-response">client-validate-2xx-response</a>,
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-validate-non-2xx-response">client-validate-non-2xx-response</a>
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-validate-2xx-response">client-validate-2xx-response</a>,
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-validate-non-2xx-response">client-validate-non-2xx-response</a>
 </p>
 </tldr>
 
@@ -59,7 +59,8 @@ val client = HttpClient(CIO) {
 
 デフォルトのバリデーションは、2xx以外のレスポンスに対してのみ例外をスローします。アプリケーションでより厳格なバリデーションが必要な場合は、[`validateResponse {}`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/-http-call-validator-config/validate-response.html) 関数を使用して成功レスポンスを検証できます。
 
-以下の例では、サーバーはJSON形式のエラーペイロードを含む2xxレスポンスを返します。`validateResponse {}` ブロックはレスポンスボディを検査し、エラーが検出された場合にカスタム例外をスローします。
+以下の例では、サーバーはJSON形式のエラーペイロードを含む2xxレスポンスを返します。
+`validateResponse {}` ブロックはレスポンスボディを検査し、エラーが検出された場合にカスタム例外をスローします。
 
 ```kotlin
 val client = HttpClient(CIO) {
@@ -75,7 +76,7 @@ val client = HttpClient(CIO) {
 }
 ```
 
-> 完全な例については、[client-validate-2xx-response](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-validate-2xx-response) を参照してください。
+> 完全な例については、[client-validate-2xx-response](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-validate-2xx-response) を参照してください。
 > 
 {style="tip"}
 
@@ -118,6 +119,6 @@ fun main() {
 }
 ```
 
-> 完全な例については、[client-validate-non-2xx-response](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-validate-non-2xx-response) を参照してください。
+> 完全な例については、[client-validate-non-2xx-response](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-validate-non-2xx-response) を参照してください。
 > 
 {style="tip"}

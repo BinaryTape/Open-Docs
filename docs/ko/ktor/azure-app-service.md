@@ -13,7 +13,7 @@
 
 ## 샘플 애플리케이션 생성 {id="create-sample-app"}
 
-[새 Ktor 프로젝트 생성, 열기 및 실행](server-create-a-new-project.topic)에 설명된 대로 샘플 애플리케이션을 생성합니다. 이 예제는 [embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server) 및 [engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main) 프로젝트를 기반으로 코드와 명령어를 보여줍니다.
+[새 Ktor 프로젝트 생성, 열기 및 실행](server-create-a-new-project.topic)에 설명된 대로 샘플 애플리케이션을 생성합니다. 이 예제는 [embedded-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server) 및 [engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main) 프로젝트를 기반으로 코드와 명령어를 보여줍니다.
 
 > 위 튜토리얼은 애플리케이션을 설정하는 두 가지 방법을 제공합니다. 코드에서 직접 값을 지정하거나 설정 파일을 사용하는 방법입니다. 두 경우 모두 핵심 설정은 서버가 들어오는 요청을 대기하는 포트(port)입니다.
 

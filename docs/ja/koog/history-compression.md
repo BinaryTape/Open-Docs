@@ -283,7 +283,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
 
 カスタムノードの詳細については、[Custom nodes](custom-nodes.md) を参照してください。
 
-## 履歴圧縮の戦略（History compression strategies）
+## 履歴圧縮の戦略
 
 オプションの `strategy` パラメータを使用して、圧縮プロセスをカスタマイズできます：
 
@@ -407,7 +407,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
         return null;
     });
     ```
-    <!--- KNIT exampleHistoryCompressionJava05.java -->
+    <!--- KNIT exampleHistoryCompressionJava04.java -->
 
 ### FromLastNMessages
 
@@ -469,7 +469,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     // 注：この例はノードの作成のみを示しています。
     // グラフを完成させるには、エッジや他のノードを追加する必要があります。
     ```
-    <!--- KNIT exampleHistoryCompressionJava04.java -->
+    <!--- KNIT exampleHistoryCompressionJava05.java -->
 
 * カスタムノード内：
 
@@ -525,7 +525,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
         return null;
     });
     ```
-    <!--- KNIT exampleHistoryCompressionJava07.java -->
+    <!--- KNIT exampleHistoryCompressionJava06.java -->
 
 ### Chunked
 
@@ -587,7 +587,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     // 注：この例はノードの作成のみを示しています。
     // グラフを完成させるには、エッジや他のノードを追加する必要があります。
     ```
-    <!--- KNIT exampleHistoryCompressionJava08.java -->
+    <!--- KNIT exampleHistoryCompressionJava07.java -->
 
 * カスタムノード内：
 
@@ -643,7 +643,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
         return null;
     });
     ```
-    <!--- KNIT exampleHistoryCompressionJava09.java -->
+    <!--- KNIT exampleHistoryCompressionJava08.java -->
 
 ### RetrieveFactsFromHistory
 
@@ -748,7 +748,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
         // 注：この例はノードの作成のみを示しています。
         // グラフを完成させるには、エッジや他のノードを追加する必要があります。
     ```
-    <!--- KNIT exampleHistoryCompressionJava06.java -->
+    <!--- KNIT exampleHistoryCompressionJava09.java -->
 
 * カスタムノード内：
 
@@ -855,7 +855,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
         return null;
     });
     ```
-    <!--- KNIT exampleHistoryCompressionJava11.java -->
+    <!--- KNIT exampleHistoryCompressionJava10.java -->
 
 ## カスタム履歴圧縮戦略の実装
 
@@ -957,7 +957,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     ```
     <!--- KNIT example-history-compression-14.kt -->
 
-## 圧縮中のメモリ保持（Memory preservation during compression）
+## 圧縮中のメモリ保持
 
 すべての履歴圧縮メソッドは、圧縮中にメモリ関連のメッセージを保持するかどうかを決定するメモリ保持（memory preservation）をサポートしています。Kotlinでは `preserveMemory` パラメータを使用し、Javaでは `.preserveMemory()` ビルダーメソッドを使用します。
 これらは、メモリから抽出された事実を含むメッセージや、メモリ機能が有効になっていないことを示すメッセージです。
@@ -1020,7 +1020,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     // 注：この例はノードの作成のみを示しています。
     // グラフを完成させるには、エッジや他のノードを追加する必要があります。
     ```
-    <!--- KNIT exampleHistoryCompressionJava15.java -->
+    <!--- KNIT exampleHistoryCompressionJava11.java -->
 
 * カスタムノード内：
 
@@ -1082,4 +1082,4 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
         return null;
     });
     ```
-    <!--- KNIT exampleHistoryCompressionJava16.java -->
+    <!--- KNIT exampleHistoryCompressionJava12.java -->

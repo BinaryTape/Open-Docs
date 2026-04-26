@@ -6,7 +6,7 @@
 <var name="example_name" value="client-http-send"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -28,4 +28,4 @@ client.plugin(HttpSend).intercept { request ->
 }
 ```
 
-完全なサンプルはこちらで確認できます: [client-http-send](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-http-send)
+完全なサンプルはこちらで確認できます: [client-http-send](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-http-send).

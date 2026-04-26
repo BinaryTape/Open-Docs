@@ -6,7 +6,7 @@
 <var name="example_name" value="tutorial-website-interactive-persistence"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -225,7 +225,7 @@ IntelliJ IDEA 在 `dao` 套件中建立了 `DAOFacadeImpl.kt` 檔案。讓我們
 
 ```
 
-> 您可以在此處找到本教學的最終專案：[tutorial-website-interactive-persistence](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/tutorial-website-interactive-persistence)。
+> 您可以在此處找到本教學的最終專案：[tutorial-website-interactive-persistence](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/tutorial-website-interactive-persistence)。
 
 ## 執行應用程式 {id="run_app"}
 

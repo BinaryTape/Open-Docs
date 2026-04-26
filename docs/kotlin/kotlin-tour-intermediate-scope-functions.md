@@ -14,10 +14,6 @@
         <img src="icon-9-todo.svg" width="20" alt="Ninth step" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">库与 API</a></p>
 </tldr>
 
-> 13 分钟阅读时长
->
-{style="tip"}
-
 在本章中，你将在对扩展函数的理解之上，学习如何使用作用域函数来编写更地道的代码。
 
 ## 作用域函数
@@ -66,7 +62,7 @@ fun main() {
 * `sendNotification()`，具有函数形参 `recipientAddress` 并返回一个字符串。
 * `getNextAddress()`，没有函数形参并返回一个字符串。
 
-该示例创建了一个具有可空 `String` 类型的变量 `address`。但当你调用 `sendNotification()` 函数时，这会成为一个问题，因为该函数不期望 `address` 可能为 `null` 值。编译器因此会报告错误：
+该示例创建了一个具有可空 `String` 类型的变量 `address`。但当你调用 `sendNotification()` 函数时，这会成为一个问题，因为该函数不期望 `address` 可能为 `null` 值。编译器因此会报告错误： 
 
 ```text
 Argument type mismatch: actual type is 'String?', but 'String' was expected.
@@ -319,7 +315,7 @@ fun main() {
 
 ### With
 
-与其他作用域函数不同，`with` 不是扩展函数，因此语法有所不同。你将接收者对象作为实参传递给 `with`。
+与其他作用域函数不同，`with` 不是扩展函数，因此语法有所不同。你将接收者对象作为实参传递给 `with`。 
 
 当你想要在一个对象上调用多个函数时，请使用 `with` 作用域函数。
 
@@ -393,13 +389,13 @@ fun main() {
 
 本节介绍了 Kotlin 中可用的不同作用域函数及其使代码更地道的主要用例。你可以将此表作为快速参考。需要注意的是，你不需要完全理解这些函数的工作原理即可在代码中使用它们。
 
-| 函数     | 访问 `x` 方式 | 返回值          | 用例                                                         |
-|----------|---------------|-----------------|--------------------------------------------------------------|
-| `let`    | `it`          | Lambda 结果     | 在代码中执行 null 检查，并随后对返回的对象执行进一步操作。 |
-| `apply`  | `this`        | `x`             | 在创建时初始化对象。                                         |
-| `run`    | `this`        | Lambda 结果     | 在创建时初始化对象 **且** 计算结果。                         |
-| `also`   | `it`          | `x`             | 在返回对象之前完成额外操作。                                 |
-| `with`   | `this`        | Lambda 结果     | 对一个对象调用多个函数。                                     |
+| 函数 | 访问 `x` 方式 | 返回值 | 用例 |
+|----------|-------------------|---------------|----------------------------------------------------------------------------------------------|
+| `let` | `it` | Lambda 结果 | 在代码中执行 null 检查，并随后对返回的对象执行进一步操作。 |
+| `apply` | `this` | `x` | 在创建时初始化对象。 |
+| `run` | `this` | Lambda 结果 | 在创建时初始化对象 **且** 计算结果。 |
+| `also` | `it` | `x` | 在返回对象之前完成额外操作。 |
+| `with` | `this` | Lambda 结果 | 对一个对象调用多个函数。 |
 
 有关作用域函数的更多信息，请参阅[作用域函数](scope-functions.md)。
 
@@ -490,7 +486,7 @@ fun main() {
 ```kotlin
 data class User(val id: Int, var email: String)
 
-fun updateEmail(user: User, newEmail: String): User = // Write your code here
+fun updateEmail(user: User, newEmail: String): User = // 在此处编写你的代码
 
 fun main() {
     val user = User(1, "old_email@example.com")

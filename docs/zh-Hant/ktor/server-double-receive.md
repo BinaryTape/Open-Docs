@@ -13,7 +13,7 @@
 <var name="example_name" value="double-receive"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -97,7 +97,7 @@ post("/") {
 }
 ```
 
-您可以在此處找到完整的範例：[double-receive](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/double-receive)。
+您可以在此處找到完整的範例：[double-receive](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/double-receive)。
 
 ## 組態 %plugin_name% {id="configure"}
 在預設組態下，`%plugin_name%` 提供了將 [接收請求主體](server-requests.md#body_contents) 轉換為以下型別的能力：
@@ -105,7 +105,7 @@ post("/") {
 - `ByteArray` 
 - `String`
 - `Parameters` 
-- 被 `ContentNegotiation` 外掛程式使用的 [資料類別 (data classes)](server-serialization.md#create_data_class)
+- 被 `ContentNegotiation` 外掛程式使用的 [資料類別 (data class)](server-serialization.md#create_data_class)
 
 預設情況下，`%plugin_name%` 不支援：
 

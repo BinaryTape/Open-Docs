@@ -8,7 +8,7 @@
 <var name="example_name" value="client-configure-request"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -285,7 +285,7 @@ val response: HttpResponse = client.submitForm(
 * `url` はリクエストを行うためのURLを指定します。
 * `formParameters` は`parameters`を使用して構築されたフォームパラメータのセットです。
 
-完全な例については、[client-submit-form](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-submit-form)を参照してください。
+完全な例については、[client-submit-form](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-submit-form)を参照してください。
 
 > URLにエンコードされたフォームパラメータを送信するには、`encodeInQuery`を`true`に設定してください。
 
@@ -317,7 +317,7 @@ val response: HttpResponse = client.submitForm(
         )
 ```
 
-完全な例については、[client-upload](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-upload)を参照してください。
+完全な例については、[client-upload](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-upload)を参照してください。
 
 #### `MultiPartFormDataContent` を使用する
 
@@ -367,7 +367,7 @@ fun customMultiPartMixedDataContent(parts: List<PartData>): MultiPartFormDataCon
 }
 ```
 
-完全な例については、[client-upload-progress](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-upload-progress)を参照してください。
+完全な例については、[client-upload-progress](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-upload-progress)を参照してください。
 
 ### バイナリデータ {id="binary"}
 
@@ -380,7 +380,7 @@ val response = client.post("http://0.0.0.0:8080/upload") {
 }
 ```
 
-完全な例については、[client-upload-binary-data](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-upload-binary-data)を参照してください。
+完全な例については、[client-upload-binary-data](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-upload-binary-data)を参照してください。
 
 ## 並列リクエスト {id="parallel_requests"}
 
@@ -399,7 +399,7 @@ coroutineScope {
 }
 ```
 
-完全な例については、[client-parallel-requests](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-parallel-requests)を参照してください。
+完全な例については、[client-parallel-requests](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-parallel-requests)を参照してください。
 
 ## リクエストのキャンセル {id="cancel-request"}
 

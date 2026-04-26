@@ -14,10 +14,6 @@
         <img src="icon-9-todo.svg" width="20" alt="아홉 번째 단계" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">라이브러리와 API</a></p>
 </tldr>
 
-> 읽는 시간: 13분
->
-{style="tip"}
-
 이 장에서는 오픈(open) 클래스, 오픈 클래스가 인터페이스와 함께 작동하는 방식, 그리고 Kotlin에서 사용할 수 있는 다른 특별한 유형의 클래스들에 대해 알아봅니다.
 
 ## 오픈 클래스 (Open classes)
@@ -490,7 +486,7 @@ fun main() {
     handleStatus(status1)
     // Network issue
     handleStatus(status2)
-    // Data received: [Data1, Data2]
+    // Data received: [Data1, [Data2]]
 }
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-special-classes-exercise-2"}

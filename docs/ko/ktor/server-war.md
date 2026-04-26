@@ -5,9 +5,9 @@
 <tldr>
 <p>
 <b>코드 예제</b>: 
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/jetty-war">jetty-war</a>, 
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/tomcat-war">tomcat-war</a>,
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/tomcat-war-ssl">tomcat-war-ssl</a>
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/jetty-war">jetty-war</a>, 
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/tomcat-war">tomcat-war</a>,
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/tomcat-war-ssl">tomcat-war-ssl</a>
 </p>
 </tldr>
 
@@ -31,7 +31,7 @@ Ktor를 사용하면 애플리케이션에서 직접 특정 엔진(Netty, Jetty 
 
 > 서블릿 컨테이너 내에서 실행할 때는 [구성 파일에 정의된 Ktor 연결 및 SSL 설정](server-configuration-file.topic)이 적용되지 않습니다.
 > 
-> Tomcat에서 SSL을 구성하는 방법은 [tomcat-war-ssl](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/tomcat-war-ssl) 샘플을 참조하세요.
+> Tomcat에서 SSL을 구성하는 방법은 [tomcat-war-ssl](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/tomcat-war-ssl) 샘플을 참조하세요.
 > 
 {style="note"}
 
@@ -150,7 +150,7 @@ plugins {
 
 ## 애플리케이션 실행 {id="run"}
 
-`run` 태스크를 사용하여 [구성된 Gretty 플러그인](#configure-gretty)과 함께 서블릿 애플리케이션을 실행할 수 있습니다. 예를 들어, [`jetty-war`](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/jetty-war) 샘플 프로젝트를 실행하려면 다음 명령을 실행하세요.
+`run` 태스크를 사용하여 [구성된 Gretty 플러그인](#configure-gretty)과 함께 서블릿 애플리케이션을 실행할 수 있습니다. 예를 들어, [`jetty-war`](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/jetty-war) 샘플 프로젝트를 실행하려면 다음 명령을 실행하세요.
 
 ```Bash
 ./gradlew :jetty-war:run
@@ -158,7 +158,7 @@ plugins {
 
 ## WAR 아카이브 생성 및 배포 {id="generate-war"}
 
-[`War`](#configure-war) 플러그인을 사용하여 WAR 아카이브를 생성하려면 `war` 태스크를 실행하세요. [`jetty-war`](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/jetty-war) 샘플 프로젝트의 경우 명령은 다음과 같습니다.
+[`War`](#configure-war) 플러그인을 사용하여 WAR 아카이브를 생성하려면 `war` 태스크를 실행하세요. [`jetty-war`](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/jetty-war) 샘플 프로젝트의 경우 명령은 다음과 같습니다.
 
 ```Bash
 ./gradlew :jetty-war:war
@@ -197,4 +197,4 @@ CMD ["catalina.sh", "run"]
 </TabItem>
 </Tabs>
 
-전체 예제는 [jetty-war](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/jetty-war) 및 [tomcat-war](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/tomcat-war)를 참조하세요.
+전체 예제는 [jetty-war](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/jetty-war) 및 [tomcat-war](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/tomcat-war)를 참조하세요.

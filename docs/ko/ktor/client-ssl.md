@@ -7,7 +7,7 @@
 <var name="example_name" value="client-ssl-config"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -54,7 +54,7 @@ object SslSettings {
 ## Ktor에서 SSL 설정 {id="configure-ssl"}
 
 이 섹션에서는 각 엔진별로 SSL을 설정하는 방법을 살펴보겠습니다.
-전체 예제는 여기에서 확인할 수 있습니다: [client-ssl-config](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-ssl-config).
+전체 예제는 여기에서 확인할 수 있습니다: [client-ssl-config](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-ssl-config).
 
 ### JVM {id="jvm"}
 
@@ -118,7 +118,7 @@ val cioClient = HttpClient(CIO) {
 }
 ```
 
-> [sockets-client-tls](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/sockets-client-tls) 예제는 모든 인증서를 신뢰하는 방법을 보여줍니다.
+> [sockets-client-tls](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/sockets-client-tls) 예제는 모든 인증서를 신뢰하는 방법을 보여줍니다.
 > 이 방식은 개발 목적으로만 사용해야 합니다.
 
 #### Android {id="android"}

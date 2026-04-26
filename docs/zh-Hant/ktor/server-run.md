@@ -24,7 +24,7 @@
 ### 啟動 EngineMain：Gradle 與 Maven 的細節 {id="gradle-maven"}
 
 如果你使用 `EngineMain` 建立伺服器，則需要指定 `main` 函式，以便使用所需的[引擎](server-engines.md)啟動伺服器。
-下方的[範例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main)示範了用於執行 Netty 引擎伺服器的 `main` 函式：
+下方的[範例](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main)示範了用於執行 Netty 引擎伺服器的 `main` 函式：
 
 ```kotlin
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
@@ -77,7 +77,7 @@ Ktor 允許你直接在應用程式中透過所需的引擎（例如 Netty、Jet
 
 ### 執行封裝好的應用程式 {id="package"}
 
-在部署應用程式之前，你需要以 [Packaging](server-deployment.md#packaging) 章節中描述的其中一種方式對其進行封裝。
+在部署應用程式之前，你需要以 [Packaging](server-deployment.md#packaging) 章節中描述的其中一種方式對其進行封裝。 
 從產出的套件執行 Ktor 應用程式取決於套件類型，可能如下所示：
 * 若要執行封裝在 fat JAR 中的 Ktor 伺服器並覆寫配置的連接埠，請執行以下指令：
    ```Bash
@@ -95,3 +95,6 @@ Ktor 允許你直接在應用程式中透過所需的引擎（例如 Netty、Jet
    </Tabs>
   
 * 若要執行 servlet Ktor 應用程式，請使用 [Gretty](server-war.md#run) 外掛程式的 `run` 任務。
+
+    ```bash
+    ./gradlew run

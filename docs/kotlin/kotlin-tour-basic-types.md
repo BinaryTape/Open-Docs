@@ -12,13 +12,9 @@
         <img src="icon-7-todo.svg" width="20" alt="Final step" /> <a href="kotlin-tour-null-safety.md">空安全</a></p>
 </tldr>
 
-> 3 分钟阅读
->
-{style="tip"}
-
 Kotlin 中的每个变量和数据结构都有一个类型。类型非常重要，因为它们会告知编译器你被允许对该变量或数据结构执行的操作。换句话说，即它拥有哪些函数和属性。
 
-在上一章中，Kotlin 在之前的示例中能够判断出 `customers` 的类型为 `Int`。Kotlin **推断**类型的能力被称为**类型推断**。`customers` 被分配了一个整数值。由此，Kotlin 推断出 `customers` 具有数值类型 `Int`。因此，编译器知道你可以对 `customers` 执行算术运算：
+在上一章中，Kotlin 在之前的示例中能够判断出 `customers` 的类型为 [`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/)。Kotlin **推断**类型的能力被称为**类型推断**。`customers` 被分配了一个整数值。由此，Kotlin 推断出 `customers` 具有数值类型 `Int`。因此，编译器知道你可以对 `customers` 执行算术运算：
 
 ```kotlin
 fun main() {

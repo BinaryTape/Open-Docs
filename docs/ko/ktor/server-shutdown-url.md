@@ -6,7 +6,7 @@
 <var name="example_name" value="shutdown-url"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -56,4 +56,4 @@ install(ShutDownUrl.ApplicationCallPlugin) {
 }
 ```
 
-전체 예제는 [shutdown-url](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/shutdown-url)을 확인하세요.
+전체 예제는 [shutdown-url](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/shutdown-url)을 확인하세요.

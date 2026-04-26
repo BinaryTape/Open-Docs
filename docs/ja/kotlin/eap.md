@@ -45,23 +45,13 @@ _現在、プレビューバージョンは利用できません。_
         <th>ビルドのハイライト</th>
     </tr>
     <tr>
-        <td><strong>2.4.0-Beta1</strong>
-            <p>リリース日: <strong>2026年3月31日</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.0-Beta1" target="_blank">GitHub でのリリース</a></p>
+        <td><strong>2.4.0-Beta2</strong>
+            <p>リリース日: <strong>2026年4月22日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.0-Beta2" target="_blank">GitHub でのリリース</a></p>
         </td>
         <td>
             <p>言語の主要な変更とツールのアップデートを含む言語リリースです。</p>
-            <p>詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.0-Beta1">チェンジログ</a> または <a href="whatsnew-eap.md">Kotlin 2.4.0-Beta1 の新機能</a> を参照してください。</p>
-        </td>
-    </tr>
-    <tr>
-        <td><strong>2.3.21-RC2</strong>
-            <p>リリース日: <strong>2026年4月16日</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.21-RC2" target="_blank">GitHub でのリリース</a></p>
-        </td>
-        <td>
-            <p>Kotlin 2.3.20 のパフォーマンス向上を含むバグ修正リリースです。</p>
-            <p>詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.21-RC2">チェンジログ</a> または <a href="whatsnew2320.md">Kotlin 2.3.20 の新機能</a> を参照してください。</p>
+            <p>詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.0-Beta2">チェンジログ</a> または <a href="whatsnew-eap.md">Kotlin 2.4.0-Beta2 の新機能</a> を参照してください。</p>
         </td>
     </tr>
 </table>

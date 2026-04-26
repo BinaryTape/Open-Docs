@@ -6,7 +6,7 @@
 <var name="example_name" value="server-websockets-serialization"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -20,7 +20,7 @@ kotlinx.serialization 컨버터를 사용하기 전에, [설정(Setup)](https://
 
 #### JSON {id="add_json_dependency"}
 
-JSON 데이터를 직렬화/역직렬화하려면 kotlinx.serialization, Gson, Jackson 중 하나를 선택할 수 있습니다.
+JSON 데이터를 직렬화/역직렬화하려면 kotlinx.serialization, Gson, Jackson 중 하나를 선택할 수 있습니다. 
 
 <Tabs group="json-libraries">
 <TabItem title="kotlinx.serialization" group-key="kotlinx">
@@ -246,4 +246,4 @@ webSocket("/customer/1") {
 }
 ```
 
-> 전체 예제는 여기에서 찾을 수 있습니다: [server-websockets-serialization](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/server-websockets-serialization).
+> 전체 예제는 여기에서 찾을 수 있습니다: [server-websockets-serialization](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/server-websockets-serialization).

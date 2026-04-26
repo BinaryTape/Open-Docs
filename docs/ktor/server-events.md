@@ -6,7 +6,7 @@
 <var name="example_name" value="events"/>
 <p>
     <b>代码示例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -75,7 +75,7 @@ fun Application.module() {
 }
 ```
 
-有关完整示例，请参阅 [events](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/events)。
+有关完整示例，请参阅 [events](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/events)。
 
 ## 在自定义插件中处理事件 {id="handle-events-plugin"}
 
@@ -101,7 +101,7 @@ val ApplicationMonitoringPlugin = createApplicationPlugin(name = "ApplicationMon
 }
 ```
 
-您可以在此处找到完整示例：[events](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/events)。
+您可以在此处找到完整示例：[events](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/events)。
 
 ## 自定义事件 {id="custom-events"}
 
@@ -148,4 +148,4 @@ val ApplicationMonitoringPlugin = createApplicationPlugin(name = "ApplicationMon
    }
    ```
 
-有关完整示例，请参阅 [events](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/events)。
+有关完整示例，请参阅 [events](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/events)。

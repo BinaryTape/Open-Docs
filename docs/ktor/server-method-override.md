@@ -13,7 +13,7 @@
 <var name="example_name" value="json-kotlinx-method-override"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -50,7 +50,7 @@
 ## 安装 %plugin_name% {id="install_plugin"}
 
 <p>
-    要将 <code>%plugin_name%</code> 插件安装到应用，请将其传递给指定 <Links href="/ktor/server-modules" summary="模块允许您通过对路由进行分组来构建应用程序结构。">模块</Links> 中的 <code>install</code> 函数。
+    要将 <code>%plugin_name%</code> 插件<a href="#install">安装</a>到应用，请将其传递给指定 <Links href="/ktor/server-modules" summary="模块允许您通过对路由进行分组来构建应用程序结构。">模块</Links> 中的 <code>install</code> 函数。
     以下代码片段展示了如何安装 <code>%plugin_name%</code> ...
 </p>
 <list>
@@ -135,4 +135,4 @@ fun Application.main() {
 
 ```
 
-您可以在此处找到完整示例：[json-kotlinx-method-override](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/json-kotlinx-method-override)。
+您可以在此处找到完整示例：[json-kotlinx-method-override](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/json-kotlinx-method-override)。

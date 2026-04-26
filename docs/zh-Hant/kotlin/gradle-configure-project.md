@@ -49,7 +49,7 @@ plugins {
 
 | KGP 版本       | Gradle 最小與最大版本                 | AGP 最小與最大版本                                  |
 |---------------|---------------------------------------|-----------------------------------------------------|
-| 2.3.20        | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
+| 2.3.20–2.3.21 | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
 | 2.3.10        | 7.6.3–9.0.0                           | 8.2.2–9.0.0                                         |
 | 2.3.0         | 7.6.3–9.0.0                           | 8.2.2–8.13.0                                        |
 | 2.2.20–2.2.21 | 7.6.3–8.14                            | 7.3.1–8.11.1                                        |
@@ -67,7 +67,7 @@ plugins {
 >
 {style="warning"}
 
-您也可以使用最新版本的 Gradle 和 AGP，但若這樣做，請記住您可能會遇到棄用警告，或者某些新功能可能無法運作。
+您也可以使用最新發佈版本的 Gradle 和 AGP，但若這樣做，請記住您可能會遇到棄用警告，或者某些新功能可能無法運作。
 
 例如，Kotlin Gradle 外掛程式和 `kotlin-multiplatform` 外掛程式 %kotlinVersion% 要求專案編譯的最小 Gradle 版本為 %minGradleVersion%。
 
@@ -251,7 +251,7 @@ plugins {
 </tab>
 </tabs>
 
-當組建指令碼中沒有關於 `jvmTarget` 值的明確資訊時，其預設值為 `null`，編譯器將其轉換為預設值 `1.8`。`targetCompatibility` 等於目前 Gradle 的 JDK 版本，這等於您的 JDK 版本（除非您使用 [Java 工具鏈方法](gradle-configure-project.md#gradle-java-toolchains-support)）。假設您的 JDK 版本為 `%jvmLTSVersionSupportedByKotlin%`，您發佈的構件將 [宣告其與 JDK %jvmLTSVersionSupportedByKotlin%+ 相容](https://docs.gradle.org/current/userguide/publishing_gradle_module_metadata.html)：`org.gradle.jvm.version=%jvmLTSVersionSupportedByKotlin%`，這是錯誤的。在這種情況下，您必須在主專案中使用 Java %jvmLTSVersionSupportedByKotlin% 才能新增此程式庫，即使位元組碼的版本是 `1.8`。請 [配置工具鏈](gradle-configure-project.md#gradle-java-toolchains-support) 來解決此問題。
+當組建指令碼中沒有關於 `jvmTarget` 值的明確資訊時，其預設值為 `null`，編譯器將其轉換為預設值 `1.8`。`targetCompatibility` 等於目前 Gradle 的 JDK 版本，這等於您的 JDK 版本（除非您使用 [Java 工具鏈方法](gradle-configure-project.md#gradle-java-toolchains-support)）。假設您的 JDK 版本為 `%jvmLTSVersionSupportedByKotlin%`，您發佈的程式庫構件將 [宣告其與 JDK %jvmLTSVersionSupportedByKotlin%+ 相容](https://docs.gradle.org/current/userguide/publishing_gradle_module_metadata.html)：`org.gradle.jvm.version=%jvmLTSVersionSupportedByKotlin%`，這是錯誤的。在這種情況下，您必須在主專案中使用 Java %jvmLTSVersionSupportedByKotlin% 才能新增此程式庫，即使位元組碼的版本是 `1.8`。請 [配置工具鏈](gradle-configure-project.md#gradle-java-toolchains-support) 來解決此問題。
 
 ### Gradle Java 工具鏈支援
 

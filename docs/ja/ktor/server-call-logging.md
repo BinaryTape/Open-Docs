@@ -1,4 +1,4 @@
-[//]: # (title: Call logging)
+[//]: # (title: コールロギング)
 
 <show-structure for="chapter" depth="2"/>
 <primary-label ref="server-plugin"/>
@@ -14,7 +14,7 @@
 <var name="example_name" value="logging"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -109,7 +109,7 @@ install(CallLogging) {
 }
 ```
 
-完全な例はこちらで確認できます: [logging](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/logging)
+完全な例はこちらで確認できます: [logging](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/logging)
 
 ### MDCにコールパラメータを設定する {id="mdc"}
 

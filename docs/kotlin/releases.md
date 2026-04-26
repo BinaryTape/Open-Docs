@@ -4,7 +4,7 @@
 
 <tldr>
     <p>最新 Kotlin 版本：<strong>%kotlinVersion%</strong></p>
-    <p>参见 <a href="%kotlinLatestWhatsnew%">Kotlin 2.3.20 最新变化</a><!-- 并可在 <a href="%kotlinLatestUrl%">变更日志</a> 中查看缺陷修复详情。--></p>
+    <p>参见 <a href="%kotlinLatestWhatsnew%">Kotlin 2.3.20 最新变化</a>并可在 <a href="%kotlinLatestUrl%">变更日志</a> 中查看缺陷修复详情。</p>
 </tldr>
 
 本页面说明了 Kotlin 的发布周期以及我们交付的不同发布类型。其中还包括有关过去和未来 Kotlin 发布的信息，以及如何更新至特定发布的说明。
@@ -129,6 +129,16 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
         <th>构建亮点</th>
     </tr>
     <tr>
+        <td><strong>2.3.21</strong>
+            <p>发布日期：<strong>2026 年 4 月 23 日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.21" target="_blank">GitHub 上的发布</a></p>
+        </td>
+        <td>
+            <p>针对 Kotlin 2.3.20 的缺陷修复发布。</p>
+            <p>欲了解更多详情，请参考 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.21">变更日志</a>。</p>
+        </td>
+    </tr>
+    <tr>
         <td><strong>2.3.20</strong>
             <p>发布日期：<strong>2026 年 3 月 16 日</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.20" target="_blank">GitHub 上的发布</a></p>
@@ -234,7 +244,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.0" target="_blank">GitHub 上的发布</a></p>
         </td>
         <td>
-            <p>引入新语言功能的功能发布。</p>
+            <p>一个引入新语言功能的功能发布。</p>
             <p>在 <a href="whatsnew21.md" target="_blank">Kotlin 2.1.0 最新变化</a> 中了解更多关于 Kotlin 2.1.0 的信息。</p>
         </td>
     </tr>
@@ -693,7 +703,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p>包含多项改进的增量发布，例如：</p>
             <list>
                 <li>支持新的 JVM 功能，如通过 <code>invokedynamic</code> 进行字符串串联</li>
-                <li>改进 Kotlin Multiplatform Mobile 项目的性能 and 异常处理</li>
+                <li>改进 Kotlin Multiplatform Mobile 项目的性能与异常处理</li>
                 <li>JDK Path 扩展：<code>Path("dir") / "file.txt"</code></li>
             </list>
             <p>了解更多：</p>

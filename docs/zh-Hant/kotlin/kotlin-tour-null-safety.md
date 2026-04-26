@@ -12,10 +12,6 @@
         <img src="icon-7.svg" width="20" alt="最後一步" /> <strong>空值安全</strong><br /></p>
 </tldr>
 
-> 閱讀時間 6 分鐘
->
-{style="tip"}
-
 在 Kotlin 中，變數是有可能包含 `null` 值的。當某些內容缺失或尚未設定時，Kotlin 會使用 `null` 值。
 你已經在[集合](kotlin-tour-collections.md#kotlin-tour-map-no-key)章節看過 Kotlin 傳回 `null` 值的範例：當你嘗試使用 Map 中不存在的鍵（key）來存取鍵值對時。雖然以這種方式使用 `null` 值很有用，但如果你的程式碼沒有準備好處理它們，就可能會遇到問題。
 

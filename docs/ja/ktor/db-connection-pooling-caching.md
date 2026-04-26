@@ -6,7 +6,7 @@
 <var name="example_name" value="tutorial-website-interactive-persistence-advanced"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -169,4 +169,4 @@ HikariCPは、`DataSource`インターフェースを実装する`HikariDataSour
    以上です。 
    これで[アプリケーションを実行](db-persistence.md#run_app)し、すべてが以前と同じように動作することを確認できます。
 
-> コネクションポーリングとキャッシュを含む完全な例は、こちらで見つけることができます：[tutorial-website-interactive-persistence-advanced](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/tutorial-website-interactive-persistence-advanced)
+> コネクションポーリングとキャッシュを含む完全な例は、こちらで見つけることができます：[tutorial-website-interactive-persistence-advanced](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/tutorial-website-interactive-persistence-advanced)

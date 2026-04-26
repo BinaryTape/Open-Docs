@@ -14,10 +14,6 @@
         <img src="icon-9-todo.svg" width="20" alt="第九步" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">库与 API</a></p>
 </tldr>
 
-> 阅读时长约 4 分钟
->
-{style="tip"}
-
 在本章中，你将探索特殊的 Kotlin 函数，它们能让你的代码更加简洁易读。了解它们如何帮助你使用高效的设计模式，从而将你的项目提升到新的水平。
 
 ## 扩展函数
@@ -34,7 +30,7 @@
 在这个例子中，`main()` 函数调用了 [`.first()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/first.html) 函数来返回列表中的第一个元素。
 `.first()` 函数是在 `readOnlyShapes` 变量**上**调用的，因此 `readOnlyShapes` 变量就是接收者。
 
-要创建一个扩展函数，请先写出你想要扩展的类名，后跟 `.` 和你的函数名。接着完成函数声明的其余部分，包括其实参和返回值类型。
+要创建一个扩展函数，请先写出你想要扩展的类名，后跟 `.` 和你的函数名。接着完成函数声明的其余部分，包括其形参和返回值类型。
 
 例如：
 
@@ -83,7 +79,7 @@ fun HttpClient.post(url: String): HttpResponse = request("POST", url, emptyMap()
 ```
 {validate="false"}
 
-这些 `.get()` 和 `.post()` 函数扩展了 `HttpClient` 类。它们可以直接使用 `HttpClient` 类中的 `request()` 函数，因为它们是在 `HttpClient` 类的实例（作为接收者）上调用的。你可以使用 these 扩展函数来通过适当的 HTTP 方法调用 `request()` 函数，这简化了你的代码并使其更易于理解：
+这些 `.get()` 和 `.post()` 函数扩展了 `HttpClient` 类。它们可以直接使用 `HttpClient` 类中的 `request()` 函数，因为它们是在 `HttpClient` 类的实例（作为接收者）上调用的。你可以使用这些扩展函数来通过适当的 HTTP 方法调用 `request()` 函数，这简化了你的代码并使其更易于理解：
 
 ```kotlin
 class HttpClient {

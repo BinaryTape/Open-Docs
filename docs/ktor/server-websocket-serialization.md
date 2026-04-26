@@ -6,7 +6,7 @@
 <var name="example_name" value="server-websockets-serialization"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -126,7 +126,7 @@
         <code-block lang="Kotlin" code="            implementation(&quot;io.ktor:%artifact_name%:$ktor_version&quot;)"/>
     </TabItem>
     <TabItem title="Gradle (Groovy)" group-key="groovy">
-        <code-block lang="Groovy" code="            implementation &quot;io.ktor &quot;%artifact_name%:$ktor_version&quot;"/>
+        <code-block lang="Groovy" code="            implementation &quot;io.ktor:%artifact_name%:$ktor_version&quot;"/>
     </TabItem>
     <TabItem title="Maven" group-key="maven">
         <code-block lang="XML" code="            &lt;dependency&gt;&#10;                &lt;groupId&gt;io.ktor&lt;/groupId&gt;&#10;                &lt;artifactId&gt;%artifact_name%-jvm&lt;/artifactId&gt;&#10;                &lt;version&gt;${ktor_version}&lt;/version&gt;&#10;            &lt;/dependency&gt;"/>
@@ -246,4 +246,4 @@ webSocket("/customer/1") {
 }
 ```
 
-> 您可以在此处找到完整示例：[server-websockets-serialization](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/server-websockets-serialization)。
+> 您可以在此处找到完整示例：[server-websockets-serialization](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/server-websockets-serialization)。

@@ -141,7 +141,7 @@ fun main(args: Array<String>) {
 
 </compare>
 
-`embeddedServer`를 사용한 명령줄 구성에 대한 자세한 내용은 [코드로 구성하기(Configuration in code)](server-configuration-code.topic#command-line) 주제를 참조하세요.
+명령줄 구성에 대한 자세한 내용은 [코드로 구성하기(Configuration in code)](server-configuration-code.topic#command-line) 주제를 참조하세요.
 
 #### `ServerConfigBuilder` 도입 {id="ServerConfigBuilder"}
 
@@ -591,7 +591,7 @@ Ktor 3.x에서 `ByteReadChannel.readRemaining()`은 이제 `Source`를 반환하
 
 이 접근 방식은 데이터를 채널에서 파일의 싱크(sink)로 직접 전송하여 메모리 할당을 최소화하고 성능을 개선합니다.
 
-전체 예제는 [client-download-streaming](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-download-streaming)을 참조하세요.
+전체 예제는 [client-download-streaming](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-download-streaming)을 참조하세요.
 
 > API 대체에 대한 자세한 내용은 [`kotlinx-io` 문서](https://kotlinlang.org/api/kotlinx-io/)를 참조하세요.
 

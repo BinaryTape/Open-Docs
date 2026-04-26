@@ -14,7 +14,7 @@
 <var name="example_name" value="compression"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -149,7 +149,7 @@ install(Compression) {
 }
 ```
 
-您可以在此處找到完整的範例：[compression](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/compression)。
+您可以在此處找到完整的範例：[compression](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/compression)。
 
 ### 設定回應大小 {id="configure_response_size"}
 
@@ -205,5 +205,5 @@ install(Compression) {
 
 ## 實作自訂編碼器 {id="custom_encoder"}
 
-如有必要，您可以透過實作 [ContentEncoder](https://api.ktor.io/ktor-utils/io.ktor.util/-content-encoder/index.html) 介面來提供自己的編碼器。
+如有必要，您透過實作 [ContentEncoder](https://api.ktor.io/ktor-utils/io.ktor.util/-content-encoder/index.html) 介面來提供自己的編碼器。
 請參閱 [GzipEncoder](https://github.com/ktorio/ktor/blob/b5b59ca3ae61601e6175f334e6a1252609638e61/ktor-server/ktor-server-plugins/ktor-server-compression/jvm/src/io/ktor/server/plugins/compression/Encoders.kt#L41) 作為實作範例。

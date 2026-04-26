@@ -14,7 +14,7 @@
 <var name="example_name" value="micrometer-metrics"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -76,7 +76,7 @@
         ... <code>embeddedServer</code> 함수 호출 내부에서 설치.
     </li>
     <li>
-        ... <code>Application</code> 클래스의 확장 함수인 명시적으로 정의된 <code>module</code> 내부에서 설치.
+        ... Application 클래스의 확장 함수인 명시적으로 정의된 <code>module</code> 내부에서 설치.
     </li>
 </list>
 <Tabs>
@@ -177,4 +177,4 @@ Prometheus를 모니터링 시스템으로 사용하는 경우, Prometheus 스�
    }
    ```
 
-   전체 예제는 여기에서 확인할 수 있습니다: [micrometer-metrics](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/micrometer-metrics).
+   전체 예제는 여기에서 확인할 수 있습니다: [micrometer-metrics](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/micrometer-metrics).

@@ -9,7 +9,7 @@
 <var name="example_name" value="auth-form-session"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -85,7 +85,7 @@ install(Authentication) {
 
 このセクションでは、[フォームベースの認証](server-form-based-auth.md)を使用してユーザーを認証し、そのユーザーに関する情報をクッキーセッションに保存し、その後のリクエストで `session` プロバイダーを使用してこのユーザーを認可する方法を説明します。
 
-> 完全な例については、[auth-form-session](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-form-session) を参照してください。
+> 完全な例については、[auth-form-session](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-form-session) を参照してください。
 
 ### ステップ 1: データクラスの作成 {id="data-class"}
 
@@ -113,10 +113,13 @@ install(Sessions) {
 
 ### ステップ 3: セッション認証の設定 {id="configure-session-auth"}
 
-`session` 認証プロバイダーは、[`SessionAuthenticationProvider.Config`](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-session-authentication-provider/-config/index.html) クラスを通じて設定を公開します。以下の例では、次の設定が指定されています。
+`session` 認証プロバイダーは、[
+`SessionAuthenticationProvider.Config`](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-session-authentication-provider/-config/index.html)
+クラスを通じて設定を公開します。以下の例では、次の設定が指定されています。
 
 * `validate()` 関数は、[セッションインスタンス](#data-class)をチェックし、認証に成功した場合は `Any` 型のプリンシパルを返します。
-* `challenge()` 関数は、認証が失敗したときに実行されるアクションを指定します。例えば、ログインページにリダイレクトしたり、[`UnauthorizedResponse`](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-unauthorized-response/index.html) を送信したりできます。
+* `challenge()` 関数は、認証が失敗したときに実行されるアクションを指定します。例えば、ログインページにリダイレクトしたり、[
+  `UnauthorizedResponse`](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-unauthorized-response/index.html) を送信したりできます。
 
 ```kotlin
 install(Authentication) {
@@ -137,7 +140,9 @@ install(Authentication) {
 
 ### ステップ 4: セッションにユーザーデータを保存する {id="save-session"}
 
-ログインしたユーザーに関する情報をセッションに保存するには、[`call.sessions.set()`](server-sessions.md#use_sessions) 関数を使用します。
+ログインしたユーザーに関する情報をセッションに保存するには、[
+`call.sessions.set()`](server-sessions.md#use_sessions)
+関数を使用します。
 
 以下の例は、ウェブフォームを使用したシンプルな認証フローを示しています。
 
@@ -155,7 +160,7 @@ authenticate("auth-form") {
 
 ### ステップ 5: 特定のリソースを保護する {id="authenticate-route"}
 
-`session` プロバイダーを設定した後、[`authenticate()`](server-auth.md#authenticate-route) 関数を使用してアプリケーション内の特定のリソースを保護できます。
+`session` プロバイダーを設定した後、アプリケーション内の特定のリソースを [`authenticate()`](server-auth.md#authenticate-route) 関数を使用して保護できます。
 
 認証に成功すると、ルートハンドラー内で `call.principal()` 関数を使用して、認証されたプリンシパル（この場合は [`UserSession`](#data-class) インスタンス）を取得できます。
 
@@ -169,4 +174,4 @@ authenticate("auth-session") {
 }
 ```
 
-> 完全な例については、[auth-form-session](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-form-session) を参照してください。
+> 完全な例については、[auth-form-session](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-form-session) を参照してください。

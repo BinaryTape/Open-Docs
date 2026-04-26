@@ -14,7 +14,7 @@
 <var name="example_name" value="request-validation"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -134,7 +134,7 @@ install(StatusPages) {
 }
 ```
 
-完全な例はこちらにあります: [request-validation](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/request-validation)
+完全な例はこちらにあります: [request-validation](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/request-validation)
 
 ## 例：オブジェクトプロパティのバリデーション {id="example-object"}
 

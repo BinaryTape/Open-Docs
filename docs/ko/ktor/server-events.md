@@ -6,7 +6,7 @@
 <var name="example_name" value="events"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -72,7 +72,7 @@ fun Application.module() {
 }
 ```
 
-전체 예제는 [events](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/events)를 참조하세요.
+전체 예제는 [events](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/events)를 참조하세요.
 
 ## 사용자 정의 플러그인에서 이벤트 처리 {id="handle-events-plugin"}
 
@@ -97,7 +97,7 @@ val ApplicationMonitoringPlugin = createApplicationPlugin(name = "ApplicationMon
 }
 ```
 
-전체 예제는 여기에서 찾을 수 있습니다: [events](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/events).
+전체 예제는 여기에서 찾을 수 있습니다: [events](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/events).
 
 ## 사용자 정의 이벤트 {id="custom-events"}
 
@@ -144,4 +144,4 @@ val ApplicationMonitoringPlugin = createApplicationPlugin(name = "ApplicationMon
    }
    ```
 
-전체 예제는 [events](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/events)를 참조하세요.
+전체 예제는 [events](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/events)를 참조하세요.

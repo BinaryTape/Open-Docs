@@ -14,10 +14,6 @@
         <img src="icon-9-todo.svg" width="20" alt="ステップ9" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">ライブラリとAPI</a></p>
 </tldr>
 
-> 所要時間：15 分
->
-{style="tip"}
-
 初級編のツアーでは、コード内で `null` 値を扱う方法を学びました。この章では、Null安全機能の一般的なユースケースと、それらを最大限に活用する方法について説明します。
 
 ## スマートキャストと安全なキャスト

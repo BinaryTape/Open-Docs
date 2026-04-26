@@ -9,8 +9,8 @@
 </p>
 <p>
 <b>程式碼範例</b>： 
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/ssl-engine-main">ssl-engine-main</a>, 
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/ssl-embedded-server">ssl-embedded-server</a>
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/ssl-engine-main">ssl-engine-main</a>, 
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/ssl-embedded-server">ssl-embedded-server</a>
 </p>
 </tldr>
 
@@ -61,7 +61,7 @@ private fun ApplicationEngine.Configuration.envConfig() {
 ```
 
 由於 Ktor 在啟動時需要憑證，因此您必須在啟動伺服器之前建立憑證。
-您可以在此處找到完整的範例：[ssl-embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/ssl-embedded-server)。
+您可以在此處找到完整的範例：[ssl-embedded-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/ssl-embedded-server)。
 
 ### 使用 keytool 產生憑證 {id="self-signed-keytool"}
 
@@ -165,7 +165,7 @@ keytool -keystore keystore.jks -alias sampleAlias -genkeypair -keyalg RSA -keysi
    </TabItem>
    </Tabs>
 
-如需完整範例，請參閱 [ssl-engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/ssl-engine-main)。
+如需完整範例，請參閱 [ssl-engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/ssl-engine-main)。
 
 ### embeddedServer {id="embedded-server"}
 
@@ -213,4 +213,4 @@ private fun ApplicationEngine.Configuration.envConfig() {
 }
 ```
 
-如需完整範例，請參閱 [ssl-embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/ssl-embedded-server)。
+如需完整範例，請參閱 [ssl-embedded-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/ssl-embedded-server)。

@@ -6,6 +6,10 @@
 
 _[릴리스일: 2026년 3월 16일](releases.md#release-history)_
 
+<tldr>
+    <p>버그 수정 릴리스인 2.3.21에 대한 자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.21">변경 로그(changelog)</a>를 참조하세요.</p>
+</tldr>
+
 Kotlin 2.3.20 버전이 릴리스되었습니다! 이번 버전의 주요 하이라이트는 다음과 같습니다.
 
 * **Gradle**: [Gradle 9.3.0 호환성](#compatibility-with-gradle-9-3-0) 및 [Kotlin/JVM 컴파일 시 BTA 기본 사용](#kotlin-jvm-compilation-uses-build-tools-api-by-default)

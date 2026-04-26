@@ -12,10 +12,6 @@
         <img src="icon-7-todo.svg" width="20" alt="最後一步" /> <a href="kotlin-tour-null-safety.md">Null 安全</a></p>
 </tldr>
 
-> 3 min 閱讀時間
->
-{style="tip"}
-
 Kotlin 中的每個變數與資料結構都有一個型別。型別非常重要，因為它們會告訴編譯器你被允許對該變數或資料結構執行哪些操作。換句話說，即它具有哪些函式與屬性。
 
 在上一章的範例中，Kotlin 能夠判斷出 `customers` 的型別為 [`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/)。

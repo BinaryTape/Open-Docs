@@ -14,7 +14,7 @@
 <var name="example_name" value="dropwizard-metrics"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -106,7 +106,7 @@ install(DropwizardMetrics) {
 }
 ```
 
-전체 예제는 여기에서 찾을 수 있습니다: [dropwizard-metrics](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/dropwizard-metrics).
+전체 예제는 여기에서 찾을 수 있습니다: [dropwizard-metrics](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/dropwizard-metrics).
 
 애플리케이션을 실행하고 [http://0.0.0.0:8080](http://0.0.0.0:8080)을 열면, 출력은 다음과 같습니다:
 
@@ -135,11 +135,11 @@ install(DropwizardMetrics) {
 }
 ```
 
-전체 예제는 여기에서 찾을 수 있습니다: [dropwizard-metrics](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/dropwizard-metrics).
+전체 예제는 여기에서 찾을 수 있습니다: [dropwizard-metrics](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/dropwizard-metrics).
 
 애플리케이션을 실행하고 [JConsole](https://docs.oracle.com/en/java/javase/17/management/using-jconsole.html)을 사용하여 해당 프로세스에 연결하면, 메트릭은 다음과 같이 표시됩니다:
 
-![Ktor 메트릭: JMX](jmx.png){width="758"}
+![Ktor Metrics: JMX](jmx.png){width="758"}
 
 ## 노출된 메트릭 {id="exposed-metrics"}
 
@@ -181,4 +181,4 @@ install(DropwizardMetrics) {
 }
 ```
 
-전체 예제는 여기에서 찾을 수 있습니다: [dropwizard-metrics](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/dropwizard-metrics).
+전체 예제는 여기에서 찾을 수 있습니다: [dropwizard-metrics](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/dropwizard-metrics).

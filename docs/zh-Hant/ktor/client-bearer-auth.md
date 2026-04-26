@@ -9,7 +9,7 @@
 <var name="example_name" value="client-auth-oauth-google"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -65,7 +65,7 @@ Authorization: Bearer abc123
 
 ### 重新整理權杖
 
-當目前的存取權杖變為無效時，使用 `refreshTokens {}` 回呼來定義用戶端如何獲取新權杖：
+使用 `refreshTokens {}` 回呼來定義當目前的存取權杖變為無效時，用戶端如何獲取新權杖：
 
 ```kotlin
 install(Auth) {
@@ -139,7 +139,7 @@ install(Auth) {
 
 此範例示範如何對 Google API 使用 Bearer 驗證，Google API 使用 [OAuth 2.0 協定](https://developers.google.com/identity/protocols/oauth2)進行驗證與授權。
 
-範例應用程式 [client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-auth-oauth-google) 會抓取使用者的 Google 個人資料資訊。
+範例應用程式 [client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-auth-oauth-google) 會抓取使用者的 Google 個人資料資訊。
 
 ### 取得用戶端憑據 {id="google-client-credentials"}
 
@@ -368,7 +368,7 @@ install(Auth) {
 }
 ```
 
-`refreshTokens {}` 回呼使用 `RefreshTokensParams` 作為接收者 (receiver)，並允許您存取以下設定：
+`refreshTokens {}` 回呼使用 `RefreshTokensParams` 作為接收者，並允許您存取以下設定：
 * `client` 執行個體，可用於提交表單參數。
 * `oldTokens` 屬性用於存取重新整理權杖並將其傳送到權杖端點。
 * `HttpRequestBuilder` 提供的 `.markAsRefreshTokenRequest()` 函式可將請求標記為重新整理驗證權杖，從而對其進行特殊處理。
@@ -430,6 +430,6 @@ data class ErrorDetails(
 )
 ```
 
-> 有關完整範例，請參閱 [client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-auth-oauth-google)。
+> 有關完整範例，請參閱 [client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-auth-oauth-google)。
 > 
 {style="tip"}

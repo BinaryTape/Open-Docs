@@ -14,10 +14,6 @@
         <img src="icon-9-todo.svg" width="20" alt="第九步" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">程式庫與 API</a></p>
 </tldr>
 
-> 閱讀時間：17 分鐘
->
-{style="tip"}
-
 在入門導覽中，您學習了如何使用類別和資料類別來儲存資料，並維護可以在程式碼中共享的一組特性。最終，您會想要建立一個階層來更有效率地在專案中共享程式碼。本章節將說明 Kotlin 提供的程式碼共享選項，以及它們如何讓您的程式碼更安全、更容易維護。
 
 ## 類別繼承

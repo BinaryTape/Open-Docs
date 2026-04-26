@@ -7,7 +7,7 @@
 路由是处理服务器应用程序中传入请求的核心插件。
 </link-summary>
 
-路由是 Ktor 中用于处理服务器应用程序中传入请求的核心[插件](server-plugins.md)。当客户端向特定 URL（例如 `/hello`）发起请求时，路由机制允许我们定义如何为该请求提供服务。
+路由是用于处理服务器应用程序中传入请求的核心 Ktor [插件](server-plugins.md)。当客户端向特定 URL（例如 `/hello`）发起请求时，路由机制允许我们定义如何为该请求提供服务。 
 
 ## 安装路由 {id="install_plugin"}
 
@@ -130,7 +130,7 @@ get("/user/{login}") {
 
 ### 正则表达式 {id="regular_expression"}
 
-正则表达式可以与所有定义路由处理程序的函数配合使用：`route`、`get`、`post` 等。
+正则表达式可以与所有定义路由处理程序的函数配合使用：`route`、`get`、`post` 等。 
 
 > 要了解有关正则表达式的更多信息，请参阅 [Kotlin 文档](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/)。
 
@@ -288,7 +288,7 @@ fun Route.totalizeOrderRoute() {
 }
 ```
 
-有关演示此方法的完整示例，请参阅 [legacy-interactive-website](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/legacy-interactive-website)。
+有关演示此方法的完整示例，请参阅 [legacy-interactive-website](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/legacy-interactive-website)。
 
 > 为了使我们的应用程序在可维护性方面能够扩展，建议遵循某些[结构化模式](server-routing-organization.md)。
 

@@ -4,7 +4,7 @@
 
 <tldr>
     <p>최신 Kotlin 버전: <strong>%kotlinVersion%</strong></p>
-    <p><a href="%kotlinLatestWhatsnew%">Kotlin 2.3.20의 새로운 기능</a>을 확인해 보세요.<!-- 및 <a href="%kotlinLatestUrl%">변경 로그(changelog)</a>에서 버그 수정 세부 정보를 찾아보세요.--></p>
+    <p><a href="%kotlinLatestWhatsnew%">Kotlin 2.3.20의 새로운 기능</a>을 확인해 보세요. <a href="%kotlinLatestUrl%">변경 로그(changelog)</a>에서 버그 수정 세부 정보를 찾아보세요.</p>
 </tldr>
 
 이 페이지에서는 Kotlin의 릴리스 주기와 제공되는 다양한 릴리스 유형에 대해 설명합니다. 또한 과거 및 향후 Kotlin 릴리스에 대한 세부 정보와 특정 릴리스로 업데이트하는 방법에 대한 지침도 포함되어 있습니다.
@@ -127,6 +127,16 @@ Kotlin은 JetBrains에서 개발한 공식 Kotlin 플러그인을 통해 [Intell
     <tr>
         <th>빌드 정보</th>
         <th>빌드 주요 사항</th>
+    </tr>
+    <tr>
+        <td><strong>2.3.21</strong>
+            <p>출시일: <strong>2026년 4월 23일</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.21" target="_blank">GitHub에서 릴리스 보기</a></p>
+        </td>
+        <td>
+            <p>Kotlin 2.3.20에 대한 버그 수정 릴리스입니다.</p>
+            <p>자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.21">변경 로그</a>를 참조하세요.</p>
+        </td>
     </tr>
     <tr>
         <td><strong>2.3.20</strong>

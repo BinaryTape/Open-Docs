@@ -6,7 +6,7 @@
 <var name="example_name" value="client-custom-plugin"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -112,11 +112,11 @@
 - `onRequest` 和 `onResponse` 分別允許您處理請求與回應。
 - `transformRequestBody` 和 `transformResponseBody` 可用於對請求和回應主體應用必要的轉換。
 
-還有 `on(...)` 處理常式，允許您叫用特定的掛勾，這對於處理呼叫的其他階段可能很有用。
+還有 `on(...)` 處理常式，允許您叫用特定的掛勾（hooks），這對於處理呼叫的其他階段可能很有用。
 下表按執行順序列出了所有處理常式：
 
 <Tabs>
-<TabItem title="基本掛勾">
+<TabItem title="基本掛鉤">
 
 <table>
 
@@ -211,7 +211,7 @@
 </table>
 
 </TabItem>
-<TabItem title="所有掛勾">
+<TabItem title="所有掛鉤">
 
 <table>
 
@@ -229,7 +229,7 @@
 <code>on(SetupRequest)</code>
 </td>
 <td>
-<code>SetupRequest</code> 掛勾在請求處理中首先執行。
+<code>SetupRequest</code> 掛鉤在請求處理中首先執行。
 </td>
 </tr>
 
@@ -283,7 +283,7 @@
 </td>
 <td>
 <p>
-<code>Send</code> 掛勾提供了檢查回應並在需要時啟動額外請求的能力。這對於處理重新導向、重試請求、身分驗證等可能很有用。
+<code>Send</code> 掛鉤提供了檢查回應並在需要時啟動額外請求的能力。這對於處理重新導向、重試請求、身分驗證等可能很有用。
 </p>
 <p>
 <emphasis>
@@ -299,7 +299,7 @@
 </td>
 <td>
 <p>
-<code>SendingRequest</code> 掛勾會針對每個請求執行，即使它不是由使用者啟動的。
+<code>SendingRequest</code> 掛鉤會針對每個請求執行，即使它不是由使用者啟動的。
 例如，如果一個請求導致了重新導向，<code>onRequest</code> 處理常式將僅針對原始請求執行，而 <code>on(SendingRequest)</code> 將針對原始請求和重新導向的請求都執行。
 同樣地，如果您使用 <code>on(Send)</code> 啟動了額外請求，處理常式的順序將如下：
 </p>
@@ -503,7 +503,7 @@ val ResponseTimePlugin = createClientPlugin("ResponseTimePlugin") {
 
 ### 資料轉換 {id="data-transformation"}
 
-顯示如何使用 `transformRequestBody` 和 `transformResponseBody` 掛勾來轉換請求和回應主體：
+顯示如何使用 `transformRequestBody` 和 `transformResponseBody` 掛鉤來轉換請求和回應主體：
 
 <Tabs>
 <TabItem title="DataTransformation.kt">
@@ -584,11 +584,11 @@ data class User(val name: String, val age: Int)
 </TabItem>
 </Tabs>
 
-您可以在這裡找到完整的範例：[client-custom-plugin-data-transformation](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-custom-plugin-data-transformation)。
+您可以在這裡找到完整的範例：[client-custom-plugin-data-transformation](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-custom-plugin-data-transformation)。
 
 ### 身分驗證 {id="authentication"}
 
-一個範例 Ktor 專案，顯示如何使用 `on(Send)` 掛勾，在收到來自伺服器的未經授權回應時，將載體權杖（bearer token）新增至 `Authorization` 標頭：
+一個範例 Ktor 專案，顯示如何使用 `on(Send)` 掛鉤，在收到來自伺服器的未經授權回應時，將載體權杖（bearer token）新增至 `Authorization` 標頭：
 
 <Tabs>
 <TabItem title="Auth.kt">
@@ -653,4 +653,4 @@ fun main() {
 </TabItem>
 </Tabs>
 
-您可以在這裡找到完整的範例：[client-custom-plugin-auth](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-custom-plugin-auth)。
+您可以在這裡找到完整的範例：[client-custom-plugin-auth](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-custom-plugin-auth)。

@@ -436,5 +436,5 @@ dependencies {
 ## 下一步
 
 * 在 [KSP 存儲庫](https://github.com/google/ksp/tree/main/examples/hello-world) 中探索此範例的完整程式碼。
-* 在 [KSP 存儲庫](https://github.com/google/ksp/blob/main/examples/playground/test-processor/src/main/kotlin/BuilderProcessor.kt) 中尋找更複雜的實際範例。
+* 在 [KSP 存儲庫](https://github.com/google/ksp/tree/main/examples) 中尋找更複雜的實際範例。
 * 瀏覽 [KSP 支援的程式庫](ksp-overview.md#supported-libraries) 清單。

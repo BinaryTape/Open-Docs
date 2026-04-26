@@ -117,7 +117,7 @@ fun Application.module() {
 </TabItem>
 </Tabs>
 
-> 有关完整的代码示例，请参阅 [engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main)。
+> 有关完整的代码示例，请参阅 [engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main)。
 
 ## 设置 JUnit 测试类 {id="junit-test-class"}
 
@@ -302,7 +302,7 @@ fun testHello() = testApplication {
 }
 ```
    
-> 有关完整的测试示例，请参阅 [auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-oauth-google)。
+> 有关完整的测试示例，请参阅 [auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-oauth-google)。
 
 ### 自定义环境 {id="environment"}
 
@@ -354,11 +354,11 @@ fun testHello() = testApplication {
 }
 ```
 
-> 有关完整的测试示例，请参阅 [auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-oauth-google)。
+> 有关完整的测试示例，请参阅 [auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-oauth-google)。
 
 ## 配置客户端 {id="configure-client"}
 
-`testApplication {}` 函数通过 `client` 属性提供了一个已配置的 HTTP 客户端。
+`testApplication {}` 函数通过 `client` 属性提供了一个已配置的 HTTP 客户端。 
 要自定义客户端并安装其他插件，请使用 `createClient {}` 函数。
 
 例如，您可以安装 [`ContentNegotiation`](client-serialization.md) 插件，以便在 `POST/PUT` 请求中[发送 JSON 数据](#json-data)：
@@ -401,7 +401,7 @@ fun testPostCustomer() = testApplication {
 }
 ```
 
-> 有关完整的测试示例，请参阅 [json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/json-kotlinx)。
+> 有关完整的测试示例，请参阅 [json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/json-kotlinx)。
 
 ## 验证结果 {id="assert"}
 
@@ -491,7 +491,7 @@ fun Application.main() {
 </TabItem>
 </Tabs>
 
-> 有关完整代码示例，请参阅 [post-form-parameters](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/post-form-parameters)。
+> 有关完整代码示例，请参阅 [post-form-parameters](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/post-form-parameters)。
 
 #### 多部分表单数据 {id="multipart-form-data"}
 
@@ -596,7 +596,7 @@ fun Application.main() {
 </TabItem>
 </Tabs>
 
-> 有关完整代码示例，请参阅 [upload-file](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/upload-file)。
+> 有关完整代码示例，请参阅 [upload-file](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/upload-file)。
 
 ### 发送 JSON 数据 {id="json-data"}
 
@@ -674,7 +674,7 @@ data class Customer(val id: Int, val firstName: String, val lastName: String)
 </TabItem>
 </Tabs>
 
-> 有关完整示例，请参阅 [json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/json-kotlinx)。
+> 有关完整示例，请参阅 [json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/json-kotlinx)。
 
 ## 在测试期间保留 Cookie {id="preserving-cookies"}
 
@@ -764,7 +764,7 @@ fun Application.main() {
 </TabItem>
 </Tabs>
 
-> 有关完整示例，请参阅 [session-cookie-client](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/session-cookie-client)。
+> 有关完整示例，请参阅 [session-cookie-client](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-cookie-client)。
 
 ## 测试 HTTPS {id="https"}
 
@@ -796,7 +796,7 @@ class ApplicationTest {
 
 ```
 
-> 有关完整示例，请参阅 [ssl-engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/ssl-engine-main)。
+> 有关完整示例，请参阅 [ssl-engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/ssl-engine-main)。
 
 ## 测试 WebSockets {id="testing-ws"}
 
@@ -859,4 +859,4 @@ class EmbeddedServerTest: TestServer() {
 }
 ```
 
-> 有关完整的端到端测试示例，请参阅 [embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server) 和 [e2e](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/e2e)。
+> 有关完整的端到端测试示例，请参阅 [embedded-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server) 和 [e2e](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/e2e)。

@@ -7,7 +7,7 @@
 <var name="example_name" value="client-ssl-config"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -54,7 +54,7 @@ object SslSettings {
 ## 在 Ktor 中配置 SSL {id="configure-ssl"}
 
 在本節中，我們將了解如何為不同的引擎配置 SSL。
-您可以在這裡找到完整的範例：[client-ssl-config](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-ssl-config)。
+您可以在這裡找到完整的範例：[client-ssl-config](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-ssl-config)。
 
 ### JVM {id="jvm"}
 
@@ -118,12 +118,12 @@ val cioClient = HttpClient(CIO) {
 }
 ```
 
-> [sockets-client-tls](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/sockets-client-tls) 範例展示了如何信任所有憑證。
+> [sockets-client-tls](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/sockets-client-tls) 範例展示了如何信任所有憑證。
 > 這種方法應僅用於開發目的。
 
 #### Android {id="android"}
 
-Android 引擎使用 `sslManager` 屬性來配置 SSL 設定。
+Android 引擎使用 `sslManager` 屬性來配置 SSL 設定。 
 此屬性接受 `HttpsURLConnection` 作為參數，允許您傳遞 `SSLSocketFactory`：
 
 ```kotlin

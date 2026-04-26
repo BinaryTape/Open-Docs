@@ -6,9 +6,9 @@
 
 在本教學中，您將學習如何準備並將 Ktor 應用程式部署到 [Sevalla](https://sevalla.com/)。根據[建立 Ktor 伺服器](server-create-and-configure.topic)的方式，您可以使用以下初始專案之一：
 
-* [embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server)
+* [embedded-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server)
 
-* [Engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main)
+* [Engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main)
 
 ## 先決條件 {id="prerequisites"}
 
@@ -19,8 +19,8 @@
 若要開啟範例應用程式，請遵循以下步驟：
 
 1. 複製 [Ktor 文件存儲庫](https://github.com/ktorio/ktor-documentation)。
-2. 開啟 [codeSnippets](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets) 專案。
-3. 開啟 [embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server) 或 [engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main) 範例，這些範例展示了兩種不同的 Ktor 伺服器設定方式 — 無論是直接在程式碼中配置，或是透過外部配置文件進行配置。部署這些專案的唯一區別在於如何指定用於監聽傳入請求的連接埠。
+2. 開啟 [codeSnippets](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets) 專案。
+3. 開啟 [embedded-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server) 或 [engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main) 範例，這些範例展示了兩種不同的 Ktor 伺服器設定方式 — 無論是直接在程式碼中配置，或是透過外部配置文件進行配置。部署這些專案的唯一區別在於如何指定用於監聽傳入請求的連接埠。
 
 ## 準備應用程式 {id="prepare-app"}
 
@@ -28,7 +28,7 @@
 
 Sevalla 會使用 `PORT` 環境變數注入一個隨機連接埠。您的應用程式必須配置為監聽該連接埠。
 
-如果您選擇了在程式碼中指定伺服器配置的 [embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server) 範例，您可以使用 `System.getenv()` 取得環境變數的值。開啟位於 <Path>src/main/kotlin/com/example</Path> 資料夾中的 <Path>Application.kt</Path> 檔案，並如下所示修改 `embeddedServer()` 函式的 port 參數值：
+如果您選擇了在程式碼中指定伺服器配置的 [embedded-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server) 範例，您可以使用 `System.getenv()` 取得環境變數的值。開啟位於 <Path>src/main/kotlin/com/example</Path> 資料夾中的 <Path>Application.kt</Path> 檔案，並如下所示修改 `embeddedServer()` 函式的 port 參數值：
 
 ```kotlin
 fun main() {
@@ -39,7 +39,7 @@ fun main() {
 }
 ```
 
-如果您選擇了在 <Path>application.conf</Path> 檔案中指定伺服器配置的 [engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main) 範例，您可以使用 `${ENV}` 語法將環境變數指派給 port 參數。開啟位於 <Path>src/main/resources</Path> 的 <Path>application.conf</Path> 檔案，並如下所示進行更新：
+如果您選擇了在 <Path>application.conf</Path> 檔案中指定伺服器配置的 [engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main) 範例，您可以使用 `${ENV}` 語法將環境變數指派給 port 參數。開啟位於 <Path>src/main/resources</Path> 的 <Path>application.conf</Path> 檔案，並如下所示進行更新：
 
 ```hocon
 ktor {

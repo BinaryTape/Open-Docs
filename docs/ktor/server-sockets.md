@@ -10,9 +10,9 @@
 <b>必需依赖项</b>：<code>io.ktor:ktor-network</code>, <code>io.ktor:ktor-network-tls</code>
 </p>
 <p><b>代码示例</b>：
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/sockets-server">sockets-server</a>,
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/sockets-client">sockets-client</a>,
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/sockets-client-tls">sockets-client-tls</a>
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/sockets-server">sockets-server</a>,
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/sockets-client">sockets-client</a>,
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/sockets-client-tls">sockets-client-tls</a>
 </p>
 <p>
     <b><Links href="/ktor/server-native" summary="Ktor supports Kotlin/Native and allows you to run a server without an additional runtime or virtual machine.">Native 服务器</Links>支持</b>：✅
@@ -129,7 +129,7 @@ fun main(args: Array<String>) {
         println("Server is listening at ${serverSocket.localAddress}")
         while (true) {
             val socket = serverSocket.accept()
-            println("Accepted $socket")
+            println("Accepted ${socket.remoteAddress}")
             launch {
                 val receiveChannel = socket.openReadChannel()
                 val sendChannel = socket.openWriteChannel(autoFlush = true)
@@ -151,7 +151,7 @@ fun main(args: Array<String>) {
 
 ```
 
-您可以在此处找到完整的示例：[sockets-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/sockets-server)。
+您可以在此处找到完整的示例：[sockets-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/sockets-server)。
 
 ## 客户端 {id="client"}
 
@@ -190,7 +190,7 @@ val socket = aSocket(selectorManager).tcp().connect("youtrack.jetbrains.com", po
 }
 ```
 
-您可以在此处找到完整的示例：[sockets-client-tls](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/sockets-client-tls)。
+您可以在此处找到完整的示例：[sockets-client-tls](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/sockets-client-tls)。
 
 ### 接收数据 {id="client_receive"}
 
@@ -278,4 +278,4 @@ fun main(args: Array<String>) {
 
 ```
 
-您可以在此处找到完整的示例：[sockets-client](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/sockets-client)。
+您可以在此处找到完整的示例：[sockets-client](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/sockets-client)。

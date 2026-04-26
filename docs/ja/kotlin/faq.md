@@ -129,7 +129,6 @@ JetBrains Academyの[Kotlin Coreトラック](https://hyperskill.org/tracks?cate
 他にも受講可能なコースがいくつかあります：
 * [Pluralsight Course: Getting Started with Kotlin](https://www.pluralsight.com/courses/kotlin-getting-started)（講師：Kevin Jones）
 * [O'Reilly Course: Introduction to Kotlin Programming](https://www.oreilly.com/library/view/introduction-to-kotlin/9781491964125/)（講師：Hadi Hariri）
-* [Udemy Course: 10 Kotlin Tutorials for Beginners](https://petersommerhoff.com/dev/kotlin/kotlin-beginner-tutorial/)（講師：Peter Sommerhoff）
 
 また、私たちの[YouTubeチャンネル](https://www.youtube.com/c/Kotlin)にある他のチュートリアルやコンテンツもチェックしてみてください。
 

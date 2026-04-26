@@ -7,7 +7,7 @@
 <var name="example_name" value="client-auth-basic"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -87,4 +87,4 @@ undefined
 
     > 有关以编程方式清除缓存凭据的详细信息，请参阅通用的[令牌缓存与缓存控制](client-auth.md#token-caching)部分。
 
-> 有关 Ktor Client 中基本身份验证的完整示例，请参阅 [client-auth-basic](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-auth-basic)。
+> 有关 Ktor Client 中基本身份验证的完整示例，请参阅 [client-auth-basic](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-auth-basic)。

@@ -12,10 +12,6 @@
         <img src="icon-7-todo.svg" width="20" alt="最後一步" /> <a href="kotlin-tour-null-safety.md">空值安全</a></p>
 </tldr>
 
-> 閱讀時間 10 分鐘
->
-{style="tip"}
-
 如同其他程式語言，Kotlin 能夠根據一段程式碼的求值結果是否為 true 來做出決策。這類程式碼被稱為**條件運算式**（conditional expression）。Kotlin 也能夠建立並疊代迴圈。
 
 ## 條件運算式

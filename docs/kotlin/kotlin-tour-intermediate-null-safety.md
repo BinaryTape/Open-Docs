@@ -14,10 +14,6 @@
         <img src="icon-9-todo.svg" width="20" alt="第九步" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">库与 API</a></p>
 </tldr>
 
-> 阅读时长 15 min
->
-{style="tip"}
-
 在初学者教程中，你已经学习了如何在代码中处理 `null` 值。本章将涵盖 Null 安全功能的常见用例，以及如何充分利用这些功能。
 
 ## 智能转换与安全转换

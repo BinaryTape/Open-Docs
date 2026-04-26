@@ -12,9 +12,9 @@
 <b>필수 의존성</b>: <code>io.ktor:%artifact_name%</code>
 </p>
 <p><b>코드 예제</b>:
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/session-cookie-client">session-cookie-client</a>,
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/session-cookie-server">session-cookie-server</a>,
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/session-header-server">session-header-server</a>
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-cookie-client">session-cookie-client</a>,
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-cookie-server">session-cookie-server</a>,
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-header-server">session-header-server</a>
 </p>
 <p>
     <b><Links href="/ktor/server-native" summary="Ktor는 Kotlin/Native를 지원하며 추가 런타임이나 가상 머신 없이 서버를 실행할 수 있게 해줍니다.">Native 서버</Links> 지원</b>: ✅
@@ -64,7 +64,7 @@ Sessions 플러그인은 서로 다른 HTTP 요청 간에 데이터를 유지하
         <code-block lang="kotlin" code="            import io.ktor.server.engine.*&#10;            import io.ktor.server.netty.*&#10;            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;&#10;            fun main() {&#10;                embeddedServer(Netty, port = 8080) {&#10;                    install(%plugin_name%)&#10;                    // ...&#10;                }.start(wait = true)&#10;            }"/>
     </TabItem>
     <TabItem title="module">
-        <code-block lang="kotlin" code="            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;            // ...&#10;            fun Application.module() {&#10;                install(%plugin_name%)&#10;                // ...&#10;                // ...&#10;            }"/>
+        <code-block lang="kotlin" code="            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;            // ...&#10;            fun Application.module() {&#10;                install(%plugin_name%)&#10;                // ...&#10;            }"/>
     </TabItem>
 </Tabs>
 <p>
@@ -138,7 +138,7 @@ install(Sessions) {
 }
 ```
 
-위의 예에서 세션 데이터는 `cart_session` 커스텀 헤더를 사용하여 클라이언트에 전달됩니다.
+위의 예에서 세션 데이터는 `cart_session` 커스텀 헤더를 사용하여 클라이언트에 전달됩니다. 
 클라이언트 측에서는 세션 데이터를 가져오기 위해 각 요청에 이 헤더를 추가해야 합니다.
 
 > [CORS](server-cors.md) 플러그인을 사용하여 교차 출처 요청을 처리하는 경우, 다음과 같이 `CORS` 구성에 커스텀 헤더를 추가하세요.
@@ -171,7 +171,7 @@ cookie<CartSession>("cart_session", SessionStorageMemory()) {
 }
 ```
 
-전체 예제는 여기에서 확인할 수 있습니다: [session-cookie-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/session-cookie-server).
+전체 예제는 여기에서 확인할 수 있습니다: [session-cookie-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-cookie-server).
 
 > `SessionStorageMemory`는 개발 용도로만 사용해야 합니다.
 
@@ -183,7 +183,7 @@ header<CartSession>("cart_session", directorySessionStorage(File("build/.session
 }
 ```
 
-전체 예제는 여기에서 확인할 수 있습니다: [session-header-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/session-header-server).
+전체 예제는 여기에서 확인할 수 있습니다: [session-header-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-header-server).
 
 ### 커스텀 저장소(Custom storage) {id="custom_storage"}
 
@@ -214,7 +214,7 @@ install(Sessions) {
 }
 ```
 
-`SessionTransportTransformerMessageAuthentication`은 기본 인증 알고리즘으로 `HmacSHA256`을 사용하며, 이는 변경할 수 있습니다.
+`SessionTransportTransformerMessageAuthentication`은 기본 인증 알고리즘으로 `HmacSHA256`을 사용하며, 이는 변경할 수 있습니다. 
 
 ### 세션 데이터 서명 및 암호화 {id="sign_encrypt_session"}
 
@@ -239,7 +239,7 @@ install(Sessions) {
 >
 {style="note"}
 
-기본적으로 `SessionTransportTransformerEncrypt`는 `AES` 및 `HmacSHA256` 알고리즘을 사용하며, 이는 변경할 수 있습니다.
+기본적으로 `SessionTransportTransformerEncrypt`는 `AES` 및 `HmacSHA256` 알고리즘을 사용하며, 이는 변경할 수 있습니다. 
 
 > 서명/암호화 키는 코드에 직접 명시해서는 안 됩니다. [구성 파일](server-configuration-file.topic#configuration-file-overview)에서 커스텀 그룹을 사용하여 서명/암호화 키를 저장하고 [환경 변수](server-configuration-file.topic#environment-variables)를 사용하여 초기화할 수 있습니다.
 >
@@ -287,7 +287,7 @@ get("/logout") {
 }
 ```
 
-전체 예제는 여기에서 확인할 수 있습니다: [session-cookie-client](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/session-cookie-client).
+전체 예제는 여기에서 확인할 수 있습니다: [session-cookie-client](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-cookie-client).
 
 ## 세션 지연 조회(Deferred session retrieval)
 
@@ -303,6 +303,6 @@ System.setProperty("io.ktor.server.sessions.deferred", "true")
 
 아래의 실행 가능한 예제들은 `%plugin_name%` 플러그인을 사용하는 방법을 보여줍니다.
 
-- [session-cookie-client](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/session-cookie-client)는 [쿠키](#cookie)를 사용하여 [서명 및 암호화된](#sign_encrypt_session) 세션 페이로드를 [클라이언트](#client_server)에 전달하는 방법을 보여줍니다.
-- [session-cookie-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/session-cookie-server)는 [서버 메모리](#in_memory_storage)에 세션 페이로드를 보관하고 [쿠키](#cookie)를 사용하여 [서명된](#sign_session) 세션 ID를 클라이언트에 전달하는 방법을 보여줍니다.
-- [session-header-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/session-header-server)는 서버의 [디렉터리 저장소](#directory_storage)에 세션 페이로드를 보관하고 [커스텀 헤더](#header)를 사용하여 [서명된](#sign_session) 세션 ID를 클라이언트에 전달하는 방법을 보여줍니다.
+- [session-cookie-client](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-cookie-client)는 [쿠키](#cookie)를 사용하여 [서명 및 암호화된](#sign_encrypt_session) 세션 페이로드를 [클라이언트](#client_server)에 전달하는 방법을 보여줍니다.
+- [session-cookie-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-cookie-server)는 [서버 메모리](#in_memory_storage)에 세션 페이로드를 보관하고 [쿠키](#cookie)를 사용하여 [서명된](#sign_session) 세션 ID를 클라이언트에 전달하는 방법을 보여줍니다.
+- [session-header-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-header-server)는 서버의 [디렉터리 저장소](#directory_storage)에 세션 페이로드를 보관하고 [커스텀 헤더](#header)를 사용하여 [서명된](#sign_session) 세션 ID를 클라이언트에 전달하는 방법을 보여줍니다.

@@ -13,7 +13,7 @@
 <var name="example_name" value="webjars"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -112,4 +112,4 @@ fun Application.module() {
 
 `%plugin_name%` を使用すると、アセットの読み込みに使用するパスを変更することなく、依存関係のバージョンを変更できることに注目してください。
 
-> 完全な例はこちらで見つけることができます: [webjars](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/webjars)
+> 完全な例はこちらで見つけることができます: [webjars](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/webjars)。

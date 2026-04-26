@@ -6,7 +6,7 @@
 <var name="example_name" value="client-websockets-serialization"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -20,7 +20,7 @@
 
 #### JSON {id="add_json_dependency"}
 
-要序列化/反序列化 JSON 数据，您可以从以下库中任选其一：kotlinx.serialization、Gson 或 Jackson。
+要序列化/反序列化 JSON 数据，您可以从以下库中任选其一：kotlinx.serialization、Gson 或 Jackson。 
 
 <Tabs group="json-libraries">
 <TabItem title="kotlinx.serialization" group-key="kotlinx">
@@ -257,4 +257,4 @@ client.webSocket(method = HttpMethod.Get, host = "127.0.0.1", port = 8080, path 
 
 要从 [incoming](client-websockets.topic#incoming) 通道接收反序列化帧，请使用 [WebsocketContentConverter.deserialize](https://api.ktor.io/ktor-serialization/io.ktor.serialization/-websocket-content-converter/deserialize.html) 函数。`WebsocketContentConverter` 可通过 `DefaultClientWebSocketSession.converter` 属性获取。
 
-> 您可以在此处找到完整示例：[client-websockets-serialization](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-websockets-serialization)。
+> 您可以在此处找到完整示例：[client-websockets-serialization](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-websockets-serialization)。

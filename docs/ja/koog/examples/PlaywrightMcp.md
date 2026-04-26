@@ -33,7 +33,7 @@ val openAIApiToken = System.getenv("OPENAI_API_KEY") ?: error("OPENAI_API_KEY en
 
 ```
 
-## 2) Playwright MCPサーバーの起動
+## 2) Start the Playwright MCP server
 `npx` を使用して、ローカルでPlaywrightのMCPサーバーを起動します。デフォルトでは、Koogから接続可能なSSEエンドポイントが公開されます。
 
 ```kotlin
@@ -56,7 +56,7 @@ import kotlinx.coroutines.runBlocking
 runBlocking {
     println("Connecting to Playwright MCP server...")
     val toolRegistry = McpToolRegistryProvider.fromTransport(
-        transport = McpToolRegistryProvider.defaultSseTransport("http://localhost:8931")
+        transport = McpToolRegistryProvider.defaultSseTransport("http://localhost:8931/sse")
     )
     println("Successfully connected to Playwright MCP server")
 

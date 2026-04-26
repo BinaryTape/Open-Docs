@@ -13,7 +13,7 @@
 <var name="example_name" value="auth-oauth-google"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -107,7 +107,7 @@ fun Application.main(httpClient: HttpClient = applicationHttpClient) {
 ## OAuth 구성 {id="configure-oauth"}
 
 이 섹션에서는 Google을 사용하여 애플리케이션 사용자를 인증하도록 `oauth` 제공자를 구성하는 방법을 보여줍니다.
-전체 실행 가능한 예제는 [auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-oauth-google)을 참조하세요.
+전체 실행 가능한 예제는 [auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-oauth-google)을 참조하세요.
 
 ### 사전 준비: 권한 부여 자격 증명 생성 {id="authorization-credentials"}
 
@@ -273,4 +273,4 @@ get("/{path}") {
 }
 ```
 
-전체 실행 가능한 예제는 [auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-oauth-google)을 참조하세요.
+전체 실행 가능한 예제는 [auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-oauth-google)을 참조하세요.

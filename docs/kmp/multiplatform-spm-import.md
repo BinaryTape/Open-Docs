@@ -187,14 +187,113 @@ import swiftPMImport.groupName.subproject.FIRApp
 
 ## 生成的 `Package.resolved` 文件
 
-为了使依赖于 Swift 软件包的构建更加稳定，SwiftPM 导入工具引入了一种锁定机制：在初始软件包解析期间生成的 `Package.resolved` 文件会被复制到项目目录中，并在后续构建中重复使用。
+为了使依赖于 Swift 软件包的构建更加稳定，SwiftPM 导入工具引入了一种使用 `Package.resolved` 文件的锁定机制。这些文件会在初始软件包解析期间为每个子项目生成。
+
+默认情况下，这些文件会合并到一个 `Package.resolved` 文件中，该文件位于 `.swiftpm-locks/default/swiftImport` 目录下的合成软件包内。
+然后使用此共享锁定文件来构建项目，以确保所有子项目都使用相同版本的 Swift 软件包。
+您可以通过[对子项目进行分组或将其从同步中排除](#customize-aggregation-of-swift-package-versions)来自定义锁定文件合并行为。
+
+您应该将锁定文件提交到您的仓库，以确保所有构建都使用相同的依赖项。
+为了简化文件管理，您可以将整个 `.swiftpm-locks` 目录提交到您的仓库。
+虽然只有 `Package.resolved` 文件对依赖项同步至关重要，但保留整个目录可以加快第一次构建期间的解析速度。
 
 当您在构建脚本中更改 SwiftPM 依赖项集或版本时，锁定文件会自动更新。
+您也可以[手动强制更新锁定文件](#force-an-update-of-the-lock-file)。
+
+### 自定义 Swift 软件包版本的聚合
+
+除了对所有子项目使用 `default` 组之外，您还可以定义自定义组，以便为每个组生成单独的 `Package.resolved` 锁定文件。
+
+合并行为由 `swiftDependencies {}` 块中的 `packageResolvedSynchronization` 选项控制：
+
+```kotlin
+kotlin {
+    swiftDependencies {
+        // 当未为 `packageResolvedSynchronization` 设置值时，
+        // 子项目将被分配一个默认组标识符，
+        // 就像这样设置一样：
+        // packageResolvedSynchronization = identifier("default")
+    }
+}
+```
+
+要自定义合并行为，请为每个子项目分配一个非默认组标识符。
+在以下示例中，子项目 `one` 和 `two` 使用相同的 `custom` 软件包版本集，而子项目 `three` 使用默认集合：
+
+<Tabs>
+<TabItem title="子项目 &quot;one&quot;">
+
+```kotlin
+// one/build.gradle.kts
+
+kotlin {
+    swiftDependencies {
+        packageResolvedSynchronization = identifier("custom"),
+        ...
+    }
+}
+```
+</TabItem>
+
+<TabItem title="子项目 &quot;two&quot;">
+
+```kotlin
+// two/build.gradle.kts
+
+kotlin {
+    swiftDependencies {
+        packageResolvedSynchronization = identifier("custom"),
+        ...
+    }
+}
+```
+
+</TabItem>
+
+<TabItem title="子项目 &quot;three&quot;">
+
+```kotlin
+// three/build.gradle.kts
+
+kotlin {
+    swiftDependencies {
+        // 使用默认标识符，就像设置了以下内容一样：
+        // packageResolvedSynchronization = identifier("default")
+        ...
+    }
+}
+```
+
+</TabItem>
+
+</Tabs>
+
+如果您想完全禁用某个子项目的同步机制，请使用 `noSynchronization()` 调用而不是 `identifier()`：
+
+```kotlin
+kotlin {
+    swiftDependencies { 
+        // 此子项目的 Package.resolved 文件
+        // 不会与任何其他文件合并
+        packageResolvedSynchronization = noSynchronization()
+    }
+}
+```
+
+禁用同步的子项目将拥有自己的 `Package.resolved` 锁定文件，该文件位于子项目目录中 `build.gradle.kts` 文件的旁边。
+
+与默认同步一样，自定义子项目的所有 `Package.resolved` 文件都应提交到您的仓库。
+
+### 强制更新锁定文件
 
 如果您想手动强制更新锁定文件：
 
-1. 删除 `build` 目录和现有的 `Package.resolved` 文件。
-2. 再次运行依赖项解析任务：`./gradlew :yourModuleName:fetchSyntheticImportProjectPackages`。
+1. 删除每个需要更新锁定文件的子项目的 `build` 目录。
+2. 移除现有的 `Package.resolved` 文件：
+   * 对于没有特定同步配置的子项目，删除 `.swiftpm-locks/default/` 目录。
+   * 对于具有[自定义同步组](#customize-aggregation-of-swift-package-versions)的子项目，找到并删除 `.swiftpm-locks/<group-name>/` 目录。
+   * 对于设置了 `noSynchronization()` 的子项目，找到并删除子项目目录中的 `Package.resolved` 文件。
+3. 再次运行依赖项解析任务：`./gradlew :yourModuleName:fetchSyntheticImportProjectPackages`。
 
 ## 其他导入选项
 

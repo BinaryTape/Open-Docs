@@ -6,9 +6,9 @@
 
 このチュートリアルでは、Ktorアプリケーションを[Sevalla](https://sevalla.com/)に準備およびデプロイする方法を学びます。[Ktorサーバーの作成方法](server-create-and-configure.topic)に応じて、以下のいずれかの初期プロジェクトを使用できます。
 
-* [embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server)
+* [embedded-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server)
 
-* [Engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main)
+* [Engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main)
 
 ## 前提条件 {id="prerequisites"}
 
@@ -19,8 +19,8 @@
 サンプルアプリケーションを開くには、以下の手順に従ってください。
 
 1. [Ktorドキュメントのリポジトリ](https://github.com/ktorio/ktor-documentation)をクローンします。
-2. [codeSnippets](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets)プロジェクトを開きます。
-3. [embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server)または[engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main)サンプルを開きます。これらは、コード内で直接構成するか、外部構成ファイルを介して構成するかの、Ktorサーバーをセットアップする2つの異なるアプローチを示しています。これらのプロジェクトのデプロイにおける唯一の違いは、受信リクエストをリッスンするために使用するポートの指定方法です。
+2. [codeSnippets](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets)プロジェクトを開きます。
+3. [embedded-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server)または[engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main)サンプルを開きます。これらは、コード内で直接構成するか、外部構成ファイルを介して構成するかの、Ktorサーバーをセットアップする2つの異なるアプローチを示しています。これらのプロジェクトのデプロイにおける唯一の違いは、受信リクエストをリッスンするために使用するポートの指定方法です。
 
 ## アプリケーションの準備 {id="prepare-app"}
 
@@ -28,7 +28,7 @@
 
 Sevallaは、`PORT`環境変数を使用してランダムなポートを注入します。アプリケーションはそのポートでリッスンするように構成されている必要があります。
 
-サーバー構成がコードで指定されている[embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server)サンプルを選択した場合は、`System.getenv()`を使用して環境変数の値を取得できます。<Path>src/main/kotlin/com/example</Path>フォルダにある<Path>Application.kt</Path>ファイルを開き、以下に示すように`embeddedServer()`関数のポートパラメータ値を変更します。
+サーバー構成がコードで指定されている[embedded-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server)サンプルを選択した場合は、`System.getenv()`を使用して環境変数の値を取得できます。<Path>Application.kt</Path>ファイル（<Path>src/main/kotlin/com/example</Path>フォルダ内）を開き、以下に示すように`embeddedServer()`関数のポートパラメータ値を変更します。
 
 ```kotlin
 fun main() {
@@ -39,7 +39,7 @@ fun main() {
 }
 ```
 
-サーバー構成が<Path>application.conf</Path>ファイルで指定されている[engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main)サンプルを選択した場合は、`${ENV}`構文を使用して環境変数をポートパラメータに割り当てることができます。<Path>src/main/resources</Path>にある<Path>application.conf</Path>ファイルを開き、以下のように更新します。
+サーバー構成が<Path>application.conf</Path>ファイルで指定されている[engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main)サンプルを選択した場合は、`${ENV}`構文を使用して環境変数をポートパラメータに割り当てることができます。<Path>src/main/resources</Path>にある<Path>application.conf</Path>ファイルを開き、以下のように更新します。
 
 ```hocon
 ktor {

@@ -4,7 +4,7 @@
 <var name="example_name" value="embedded-server-native"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -73,7 +73,7 @@ Nativeサーバーを[テスト](server-testing.md)するには、`nativeTest`�
         }
 ```
 
-完全な例はこちらで確認できます: [embedded-server-native](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server-native)
+完全な例はこちらで確認できます: [embedded-server-native](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server-native)。
 
 ## サーバーの作成 {id="create-server"}
 

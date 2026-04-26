@@ -97,7 +97,7 @@ routing {
         call.respond(customer)
 ```
 
-完全な例については、[json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/json-kotlinx) を参照してください。
+完全な例については、[json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/json-kotlinx) を参照してください。
 
 [//]: # (TODO: Check link for LocalPathFile)
 
@@ -150,7 +150,7 @@ fun Application.main() {
 - [`PartialContent`](server-partial-content.md): サーバーが `Range` ヘッダーを含むリクエストに応答し、コンテンツの一部のみを送信できるようにします。
 - [`AutoHeadResponse`](server-autoheadresponse.md): `GET` が定義されているすべてのルートに対して、自動的に `HEAD` リクエストに応答する機能を提供します。これにより、クライアントアプリケーションは `Content-Length` ヘッダー値を読み取ることでファイルサイズを判断できます。
 
-完全なコードサンプルについては、[download-file](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/download-file) を参照してください。
+完全なコードサンプルについては、[download-file](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/download-file) を参照してください。
 
 ### リソース
 

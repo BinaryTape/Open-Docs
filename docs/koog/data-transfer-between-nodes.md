@@ -12,7 +12,7 @@ Koog 提供了一种使用 `AIAgentStorage` 存储和传递数据的方式。这
 
 该存储使用类型化的键系统，以在存储和检索数据时提供类型安全性。
 
-`AIAgentStorageKey<T>` 数据类代表用于标识和访问数据的存储键。以下是该类的主要特性：
+`AIAgentStorageKey<T>` 类代表用于标识和访问数据的存储键。以下是该类的主要特性：
 
 - 泛型类型形参 `T` 指定了与此键关联的数据类型，从而提供类型安全性。
 
@@ -89,7 +89,7 @@ Koog 提供了一种使用 `AIAgentStorage` 存储和传递数据的方式。这
     ```
     <!--- KNIT exampleDataTransferBetweenNodesJava02.java -->
 
-`createStorageKey` 函数接受一个唯一标识该键的字符串参数。
+`createStorageKey` 函数接受一个用于标识和调试目的的字符串参数。
 
 ### 存储数据
 

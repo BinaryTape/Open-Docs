@@ -8,7 +8,7 @@
 <var name="example_name" value="client-configure-request"/>
 <p>
     <b>程式碼範例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -39,7 +39,7 @@ val response: HttpResponse = client.request("https://ktor.io/") {
 
 {interpolate-variables="true" disable-links="false"}
 
-`.request()` 函式會將回應以 `HttpResponse` 物件形式傳回。`HttpResponse` 提供了獲取各種格式回應主體（例如字串、JSON 物件等）所需的 API，以及檢索回應參數（例如狀態碼、內容類型和標頭）。如需更多資訊，請參閱[接收回應](client-responses.md)。
+`.request()` 函式會將回應以 `HttpResponse` 物件形式傳回。`HttpResponse` 提供了獲取各種格式回應主體（例如字串、JSON 物件等）所需的 API，以及檢索回應參數（例如狀態碼、內容類型和標頭）。如需更多資訊，請參閱 [Receiving responses](client-responses.md)。
 
 > `.request()` 是一個掛起函式（suspending function），這意味著它必須從協同程式（coroutine）或其他掛起函式中呼叫。要了解更多關於掛起函式的資訊，請參閱 [Coroutines basics](https://kotlinlang.org/docs/coroutines-basics.html)。
 
@@ -123,7 +123,7 @@ client.get("https://ktor.io") {
 
 ### URL 片段 {id="url-fragment"}
 
-井字號 `#` 在 URL 結尾附近引入選用的片段（fragment）。您可以使用 `fragment` 屬性配置 URL 片段。
+井字號 `#` 在 URL 結尾附近引入選用的片段 (fragment)。您可以使用 `fragment` 屬性配置 URL 片段。
 
 ```kotlin
 client.get("https://ktor.io") {
@@ -204,7 +204,7 @@ client.get("https://ktor.io") {
 
 `basicAuth` 和 `bearerAuth` 函式會新增帶有對應 HTTP 配置的 `Authorization` 標頭。
 
-> 有關進階身分驗證配置，請參閱 [Ktor Client 中的身分驗證與授權](client-auth.md)。
+> 有關進階身分驗證配置，請參閱 [Authentication and authorization in Ktor Client](client-auth.md)。
 
 ### Cookies {id="cookies"}
 
@@ -254,7 +254,7 @@ val response: HttpResponse = client.post("http://localhost:8080/customer") {
 }
 ```
 
-如需更多資訊，請參閱 [Ktor Client 中的內容協商與序列化](client-serialization.md)。
+如需更多資訊，請參閱 [Content negotiation and serialization in Ktor Client](client-serialization.md)。
 
 ### 表單參數 {id="form_parameters"}
 
@@ -276,9 +276,9 @@ val response: HttpResponse = client.submitForm(
 * `url` 指定發送請求的 URL。
 * `formParameters` 是一組使用 `parameters` 建置的表單參數。
 
-有關完整範例，請參閱 [client-submit-form](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-submit-form)。
+有關完整範例，請參閱 [client-submit-form](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-submit-form)。
 
-> 要發送在 URL 中編碼的表單參數，請將 `encodeInQuery` 設定為 `true`。
+> 若要發送在 URL 中編碼的表單參數，請將 `encodeInQuery` 設定為 `true`。
 
 ### 上傳檔案 {id="upload_file"}
 
@@ -308,11 +308,11 @@ val response: HttpResponse = client.submitForm(
         )
 ```
 
-有關完整範例，請參閱 [client-upload](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-upload)。
+有關完整範例，請參閱 [client-upload](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-upload)。
 
 #### 使用 `MultiPartFormDataContent`
 
-要有效地串流大型或動態內容，您可以將 `MultiPartFormDataContent` 與 `InputProvider` 配合使用。`InputProvider` 允許您以緩衝串流的形式提供檔案資料，而不是將其完整載入記憶體，因此非常適合大型檔案。使用 `MultiPartFormDataContent`，您還可以使用 `onUpload` 回呼來監控上傳進度。
+要有效地串流大型或動態內容，您可以將 `MultiPartFormDataContent` 與 `InputProvider` 配合使用。`InputProvider` 允許您以緩衝串流的形式提供檔案資料，而不是將其完整載入記憶體，因此非常適合大型檔案。使用 `MultiPartFormDataContent`，您還可以使用 `onUpload` 回調來監控上傳進度。
 
 ```kotlin
         val client = HttpClient(CIO)
@@ -358,7 +358,7 @@ fun customMultiPartMixedDataContent(parts: List<PartData>): MultiPartFormDataCon
 }
 ```
 
-有關完整範例，請參閱 [client-upload-progress](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-upload-progress)。
+有關完整範例，請參閱 [client-upload-progress](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-upload-progress)。
 
 ### 二進位資料 {id="binary"}
 
@@ -371,7 +371,7 @@ val response = client.post("http://0.0.0.0:8080/upload") {
 }
 ```
 
-有關完整範例，請參閱 [client-upload-binary-data](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-upload-binary-data)。
+有關完整範例，請參閱 [client-upload-binary-data](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-upload-binary-data)。
 
 ## 平行請求 {id="parallel_requests"}
 
@@ -387,7 +387,7 @@ coroutineScope {
 }
 ```
 
-有關完整範例，請參閱 [client-parallel-requests](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-parallel-requests)。
+有關完整範例，請參閱 [client-parallel-requests](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-parallel-requests)。
 
 ## 取消請求 {id="cancel-request"}
 
@@ -403,4 +403,4 @@ val job = launch {
 job.cancel()
 ```
 
-如需更多詳細資訊，請參閱 [Cancellation and timeouts](https://kotlinlang.org/docs/cancellation-and-timeouts.html)。
+若要了解更多詳情，請參閱 [Cancellation and timeouts](https://kotlinlang.org/docs/cancellation-and-timeouts.html)。

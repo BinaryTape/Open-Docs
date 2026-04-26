@@ -8,9 +8,9 @@
 <b>所需依赖项</b>：<code>io.ktor:ktor-network-tls-certificates</code>
 </p>
 <p>
-<b>代码示例</b>：
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/ssl-engine-main">ssl-engine-main</a>, 
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/ssl-embedded-server">ssl-embedded-server</a>
+<b>代码示例</b>： 
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/ssl-engine-main">ssl-engine-main</a>, 
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/ssl-embedded-server">ssl-embedded-server</a>
 </p>
 </tldr>
 
@@ -19,7 +19,7 @@
 
 如有必要，您可以通过提供证书路径将 Ktor 配置为直接提供 SSL 服务。
 Ktor 使用 [Java KeyStore (JKS)](https://docs.oracle.com/javase/8/docs/api/java/security/KeyStore.html) 作为证书的存储设施。
-您可以使用 [keytool](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/keytool.html) 来转换和管理存储在 KeyStore 中的证书。
+您可以使用 [keytool](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/keytool.html) 来转换和管理存储在密钥库中的证书。
 如果您需要将证书颁发机构颁发的 PEM 证书转换为 Ktor 支持的 JKS 格式，这可能会非常有用。
 
 > 您可以使用 _Let's Encrypt_ 获取免费证书，以便在 Ktor 中处理 `https://` 和 `wss://` 请求。
@@ -61,7 +61,7 @@ private fun ApplicationEngine.Configuration.envConfig() {
 ```
 
 由于 Ktor 在启动时需要证书，因此您必须在启动服务器之前创建证书。
-您可以在此处找到完整的示例：[ssl-embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/ssl-embedded-server)。
+您可以在此处找到完整的示例：[ssl-embedded-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/ssl-embedded-server)。
 
 ### 使用 keytool 生成证书 {id="self-signed-keytool"}
 
@@ -165,7 +165,7 @@ keytool -keystore keystore.jks -alias sampleAlias -genkeypair -keyalg RSA -keysi
    </TabItem>
    </Tabs>
 
-有关完整示例，请参阅 [ssl-engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/ssl-engine-main)。
+有关完整示例，请参阅 [ssl-engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/ssl-engine-main)。
 
 ### embeddedServer {id="embedded-server"}
 
@@ -213,4 +213,4 @@ private fun ApplicationEngine.Configuration.envConfig() {
 }
 ```
 
-有关完整示例，请参阅 [ssl-embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/ssl-embedded-server)。
+有关完整示例，请参阅 [ssl-embedded-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/ssl-embedded-server)。

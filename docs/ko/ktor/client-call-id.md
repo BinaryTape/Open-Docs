@@ -14,7 +14,7 @@
 <var name="example_name" value="client-call-id"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -30,7 +30,7 @@
 
 또한, 범위에 호출 ID가 없는 경우 플러그인을 [설정](#configure)하여 새 호출 ID를 생성하고 적용하도록 할 수 있습니다.
 
-> 서버 측에서 Ktor는 클라이언트 요청을 추적하기 위해 [CallId](server-call-id.md) 플러그인 제공합니다.
+> 서버 측에서 Ktor는 클라이언트 요청을 추적하기 위해 [CallId](server-call-id.md) 플러그인을 제공합니다.
 
 ## 의존성 추가 {id="add_dependencies"}
 
@@ -80,7 +80,7 @@
 
 다음 중 한 가지 방법을 사용하여 특정 요청에 대한 호출 ID를 생성합니다:
 
-*   기본적으로 활성화되어 있는 `useCoroutineContext` 프로퍼티는 현재 `CoroutineContext`를 사용하여 호출 ID를 검색하는 생성기(generator)를 추가합니다. 이 기능을 비활성화하려면 `useCoroutineContext`를 `false`로 설정하세요.
+* 기본적으로 활성화되어 있는 `useCoroutineContext` 프로퍼티는 현재 `CoroutineContext`를 사용하여 호출 ID를 검색하는 생성기(generator)를 추가합니다. 이 기능을 비활성화하려면 `useCoroutineContext`를 `false`로 설정하세요.
 
  ```kotlin
  install(CallId) {
@@ -90,7 +90,7 @@
 
 > Ktor 서버에서는 [CallId 플러그인](server-call-id.md)을 사용하여 `CoroutineContext`에 호출 ID를 추가합니다.
 
-*   `generate()` 함수를 사용하면 외부로 나가는 요청에 대한 호출 ID를 생성할 수 있습니다. 호출 ID 생성에 실패하면 `null`을 반환합니다.
+* `generate()` 함수를 사용하면 외부로 나가는 요청에 대한 호출 ID를 생성할 수 있습니다. 호출 ID 생성에 실패하면 `null`을 반환합니다.
 
  ```kotlin
  install(CallId) {
@@ -104,7 +104,7 @@
 
 호출 ID를 가져온 후, 이를 요청에 추가하기 위해 다음과 같은 옵션을 사용할 수 있습니다.
 
-*   `intercept()` 함수를 사용하면 `CallIdInterceptor`를 사용하여 요청에 호출 ID를 추가할 수 있습니다.
+* `intercept()` 함수를 사용하면 `CallIdInterceptor`를 사용하여 요청에 호출 ID를 추가할 수 있습니다.
 
  ```kotlin
  install(ClientCallId) {
@@ -114,7 +114,7 @@
  }
  ```
 
-*   `addToHeader()` 함수는 지정된 헤더에 호출 ID를 추가합니다. 헤더를 매개변수로 받으며, 기본값은 `HttpHeaders.XRequestId`입니다.
+* `addToHeader()` 함수는 지정된 헤더에 호출 ID를 추가합니다. 헤더를 매개변수로 받으며, 기본값은 `HttpHeaders.XRequestId`입니다.
 
  ```kotlin
  install(CallId) {
@@ -147,4 +147,4 @@ Ktor 서버에서는 [서버용 CallId 플러그인](server-call-id.md)의 [retr
 
 이러한 방식으로 Ktor 서버는 요청의 지정된 헤더에서 ID를 검색하고 이를 호출의 `callId` 프로퍼티에 적용합니다.
 
-전체 예제는 [client-call-id](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-call-id)를 참조하세요.
+전체 예제는 [client-call-id](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-call-id)를 참조하세요.

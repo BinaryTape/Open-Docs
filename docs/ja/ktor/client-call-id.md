@@ -14,7 +14,7 @@
 <var name="example_name" value="client-call-id"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -147,4 +147,4 @@ Ktor サーバーでは、[サーバー用の CallId プラグイン](server-cal
 
 このようにして、Ktor サーバーはリクエストの指定されたヘッダーから ID を取得し、コールの `callId` プロパティに適用します。
 
-完全な例については、[client-call-id](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-call-id) を参照してください。
+完全な例については、[client-call-id](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-call-id) を参照してください。

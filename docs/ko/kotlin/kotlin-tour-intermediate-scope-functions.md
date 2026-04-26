@@ -14,10 +14,6 @@
         <img src="icon-9-todo.svg" width="20" alt="Ninth step" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">라이브러리와 API</a></p>
 </tldr>
 
-> 읽는 데 약 13분 소요
->
-{style="tip"}
-
 이 장에서는 확장 함수에 대한 이해를 바탕으로, 더 관용적인(idiomatic) 코드를 작성하기 위해 범위 지정 함수(Scope functions)를 사용하는 방법을 알아봅니다.
 
 ## 범위 지정 함수 (Scope functions)

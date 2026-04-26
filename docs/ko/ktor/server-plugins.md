@@ -29,7 +29,7 @@ Ktor의 전형적인 요청/응답 파이프라인(pipeline)은 다음과 같습
 
 ## 라우팅은 플러그인입니다 {id="routing"}
 
-플러그인은 최대한의 유연성을 제공하도록 설계되었으며, 요청/응답 파이프라인의 모든 세그먼트에 존재할 수 있습니다. 사실, 지금까지 `routing`이라고 불러온 것은 하나의 플러그인에 불과합니다.
+플러그인은 최대한의 유연성을 제공하도록 설계되었으며, 요청/응답 파이프라인의 모든 세그먼트에 존재할 수 있습니다. 사실, 지금까지 `routing`이라고 불러온 것은 하나의 플러그인에 불과합니다. 
 
 ![Routing as a Plugin](plugin-pipeline-routing.png){width="600"}
 
@@ -93,7 +93,7 @@ install(Sessions) {
 
 ### 특정 라우트에 플러그인 설치하기 {id="install-route"}
 
-Ktor에서는 전역뿐만 아니라 특정 [라우트(routes)](server-routing.md)에도 플러그인을 설치할 수 있습니다. 이는 서로 다른 애플리케이션 리소스에 대해 서로 다른 플러그인 구성이 필요한 경우 유용할 수 있습니다. 예를 들어, 아래의 [예제](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/caching-headers-routes)는 `/index` 라우트에 특정 [캐싱 헤더(caching header)](server-caching-headers.md)를 추가하는 방법을 보여줍니다:
+Ktor에서는 전역뿐만 아니라 특정 [라우트(routes)](server-routing.md)에도 플러그인을 설치할 수 있습니다. 이는 서로 다른 애플리케이션 리소스에 대해 서로 다른 플러그인 구성이 필요한 경우 유용할 수 있습니다. 예를 들어, 아래의 [예제](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/caching-headers-routes)는 `/index` 라우트에 특정 [캐싱 헤더(caching header)](server-caching-headers.md)를 추가하는 방법을 보여줍니다:
 
 ```kotlin
 route("/index") {
@@ -108,7 +108,7 @@ route("/index") {
 
 동일한 플러그인을 여러 번 설치할 때는 다음 규칙이 적용됩니다:
 * 특정 라우트에 설치된 플러그인 구성은 [전역 구성](#install)보다 우선합니다.
-* 라우팅은 동일한 라우트에 대한 설치를 병합하며, 마지막 설치가 적용됩니다. 예를 들어, 다음과 같은 애플리케이션의 경우...
+* 라우팅은 동일한 라우트에 대한 설치를 병합하며, 마지막 설치가 적용됩니다. 예를 들어, 다음과 같은 애플리케이션의 경우... 
    
    ```kotlin
    routing {

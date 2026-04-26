@@ -8,7 +8,7 @@
 <var name="example_name" value="html"/>
 <p>
     <b>代码示例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -132,7 +132,7 @@ get("/login") {
 </TabItem>
 </Tabs>
 
-有关完整示例，请参阅 [auth-form-html-dsl](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-form-html-dsl)。
+有关完整示例，请参阅 [auth-form-html-dsl](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-form-html-dsl)。
 
 > 要了解更多关于在服务器端接收表单参数的信息，请参阅[表单参数](server-requests.md#form_parameters)。
 > 
@@ -196,7 +196,7 @@ fun Application.module() {
     
 
 ### 示例 {id="example"}
-让我们通过[示例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/html-templates)来看看如何使用模板创建分层布局。假设我们有以下 HTML：
+让我们通过[示例](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/html-templates)来看看如何使用模板创建分层布局。假设我们有以下 HTML：
 ```html
 <body>
 <h1>Ktor</h1>
@@ -318,4 +318,4 @@ fun Application.module() {
    }
    ```
 
-您可以在此处找到完整示例：[html-templates](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/html-templates)。
+您可以在此处找到完整示例：[html-templates](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/html-templates)。

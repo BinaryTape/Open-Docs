@@ -9,7 +9,7 @@
 <var name="example_name" value="auth-form-session"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -18,7 +18,7 @@
 </p>
 </tldr>
 
-[Session](server-sessions.md) 提供了一种在不同 HTTP 请求之间持久化数据的机制。典型用例包括存储已登录用户的 ID、购物车内容或在客户端保留用户偏好。
+[Session](server-sessions.md) 提供了一种在不同 HTTP 请求之间持久化数据的机制。典型用例包括存储已登录用户的 ID、购物车内容或在客户端保留用户偏好。 
 
 在 Ktor 中，已经有关联 session 的用户可以使用 `session` 提供程序进行身份验证。例如，当用户第一次使用 [Web 表单](server-form-based-auth.md)登录时，您可以将用户名保存到 cookie session 中，并在后续请求中使用 `session` 提供程序对该用户进行授权。
 
@@ -85,7 +85,7 @@ install(Authentication) {
 
 本节演示了如何使用 [基于表单的身份验证](server-form-based-auth.md)对用户进行身份验证，将有关该用户的信息保存到 cookie session 中，然后在后续请求中使用 `session` 提供程序对该用户进行授权。
 
-> 有关完整示例，请参阅 [auth-form-session](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-form-session)。
+> 有关完整示例，请参阅 [auth-form-session](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-form-session)。
 
 ### 第 1 步：创建数据类 {id="data-class"}
 
@@ -109,13 +109,13 @@ install(Sessions) {
 }
 ```
 
-> 要详细了解如何配置 session，请参阅 [Session 配置概览](server-sessions.md#configuration_overview)。
+> 要了解有关配置 session 的更多信息，请参阅 [Session 配置概览](server-sessions.md#configuration_overview)。
 
 ### 第 3 步：配置 session 身份验证 {id="configure-session-auth"}
 
 `session` 身份验证提供程序通过 [`SessionAuthenticationProvider.Config`](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-session-authentication-provider/-config/index.html) 类公开其设置。在下面的示例中，指定了以下设置：
 
-* `validate()` 函数检查 [session 实例](#data-class)，并在身份验证成功的情况下返回 `Any` 类型的项目主体。
+* `validate()` 函数检查 [session 实例](#data-class)并在身份验证成功的情况下返回 `Any` 类型的项目主体。
 * `challenge()` 函数指定了身份验证失败时执行的操作。例如，您可以重定向回登录页面或发送 [`UnauthorizedResponse`](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-unauthorized-response/index.html)。
 
 ```kotlin
@@ -169,4 +169,4 @@ authenticate("auth-session") {
 }
 ```
 
-> 有关完整示例，请参阅 [auth-form-session](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-form-session)。
+> 有关完整示例，请参阅 [auth-form-session](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-form-session)。

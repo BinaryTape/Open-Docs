@@ -10,8 +10,8 @@
 </p>
 <p>
 <b>程式碼範例</b>：
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-form-html-dsl">auth-form-html-dsl</a>、
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-form-session">auth-form-session</a>
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-form-html-dsl">auth-form-html-dsl</a>、
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-form-session">auth-form-session</a>
 </p>
 <p>
     <b><Links href="/ktor/server-native" summary="Ktor 支援 Kotlin/Native，允許您在不使用額外執行階段或虛擬機的情況下執行伺服器。">Native 伺服器</Links> 支援</b>：✅
@@ -45,7 +45,7 @@
 1. 未經驗證的用戶端向伺服器應用程式中的特定 [路由](server-routing.md) 發送請求。
 2. 伺服器傳回一個 HTML 頁面，其中至少包含一個 HTML Web 表單，提示使用者輸入使用者名稱和密碼。 
    > Ktor 允許您使用 [Kotlin DSL](server-html-dsl.md) 建置表單，或者您也可以在各種 JVM 範本引擎（如 FreeMarker、Velocity 等）中進行選擇。
-3. 當使用者提交使用者名稱和密碼時，用戶端會向伺服器發送一個包含 Web 表單資料（包括使用者名稱和密碼）的請求。
+3. 當使用者提交使用者名稱和密碼時，用戶端會向伺服器發送一個包含 Web 表單資料（包括使用者名稱 and 密碼）的請求。
    
    ```kotlin
    POST http://localhost:8080/login

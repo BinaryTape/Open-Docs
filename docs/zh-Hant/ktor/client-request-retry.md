@@ -7,7 +7,7 @@
 <var name="example_name" value="client-retry"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -51,7 +51,7 @@ val client = HttpClient(CIO) {
 
 ### 基本重試配置 {id="basic_config"}
 
-下方的 [可執行範例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-retry) 顯示了如何配置基本的重試策略：
+下方的 [可執行範例](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-retry) 顯示了如何配置基本的重試策略：
 
 ```kotlin
 val client = HttpClient(CIO) {

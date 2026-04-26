@@ -94,7 +94,7 @@ install(Sessions) {
 
 ### 將外掛程式安裝到特定路由 {id="install-route"}
 
-在 Ktor 中，您不僅可以全域安裝外掛程式，還可以將其安裝到特定的[路由](server-routing.md)。如果您需要為不同的應用程式資源提供不同的外掛程式配置，這會非常有用。例如，下方的[範例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/caching-headers-routes)顯示了如何為 `/index` 路由加入指定的[快取標頭](server-caching-headers.md)：
+在 Ktor 中，您不僅可以全域安裝外掛程式，還可以將其安裝到特定的[路由](server-routing.md)。如果您需要為不同的應用程式資源提供不同的外掛程式配置，這會非常有用。例如，下方的[範例](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/caching-headers-routes)顯示了如何為 `/index` 路由加入指定的[快取標頭](server-caching-headers.md)：
 
 ```kotlin
 route("/index") {

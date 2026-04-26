@@ -7,7 +7,7 @@
 <var name="example_name" value="client-retry"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -51,7 +51,7 @@ val client = HttpClient(CIO) {
 
 ### 基本的な再試行設定 {id="basic_config"}
 
-以下の[実行可能な例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-retry)は、基本的な再試行ポリシーの構成方法を示しています。
+以下の[実行可能な例](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-retry)は、基本的な再試行ポリシーの構成方法を示しています。
 
 ```kotlin
 val client = HttpClient(CIO) {

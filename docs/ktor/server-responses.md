@@ -97,7 +97,7 @@ routing {
         call.respond(customer)
 ```
 
-有关完整示例，请参阅 [json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/json-kotlinx)。
+有关完整示例，请参阅 [json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/json-kotlinx)。
 
 [//]: # (TODO: Check link for LocalPathFile)
 
@@ -150,7 +150,7 @@ fun Application.main() {
 - [`PartialContent`](server-partial-content.md) 允许服务器响应带有 `Range` 标头的请求，并仅发送内容的一部分。
 - [`AutoHeadResponse`](server-autoheadresponse.md) 提供了自动响应每个定义了 `GET` 的路由的 `HEAD` 请求的能力。这允许客户端应用程序通过读取 `Content-Length` 标头值来确定文件大小。
 
-有关完整代码示例，请参阅 [download-file](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/download-file)。
+有关完整代码示例，请参阅 [download-file](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/download-file)。
 
 ### 资源
 

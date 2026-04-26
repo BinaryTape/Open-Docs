@@ -7,7 +7,7 @@
 <var name="example_name" value="client-retry"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -51,7 +51,7 @@ val client = HttpClient(CIO) {
 
 ### 기본 재시도 설정 {id="basic_config"}
 
-아래의 [실행 가능한 예제](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-retry)는 기본적인 재시도 정책을 구성하는 방법을 보여줍니다:
+아래의 [실행 가능한 예제](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-retry)는 기본적인 재시도 정책을 구성하는 방법을 보여줍니다:
 
 ```kotlin
 val client = HttpClient(CIO) {

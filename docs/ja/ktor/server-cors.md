@@ -14,7 +14,7 @@
 <var name="example_name" value="cors"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -111,7 +111,7 @@ install(CORS) {
 }
 ```
 
-完全な例はこちらにあります: [cors](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/cors)
+完全な例はこちらにあります: [cors](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/cors)。
 
 ### ホスト {id="hosts"}
 

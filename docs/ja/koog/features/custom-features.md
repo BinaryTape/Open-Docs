@@ -129,6 +129,7 @@ val agent = AIAgent(
 LLM呼び出しのライフサイクル：
 
 - `interceptLLMCallStarting`: LLM呼び出しの前に呼び出されます。
+- `interceptLLMCallFailed`: LLM呼び出しが失敗したときに呼び出されます（基底のプロンプトエグゼキューターまたはモデレーション呼び出しが例外をスローした際）。
 - `interceptLLMCallCompleted`: LLM呼び出しの後に呼び出されます。
 
 LLMストリーミングのライフサイクル：
@@ -288,16 +289,16 @@ class LoggingFeature(val loggerName: String) {
             logger: KLogger,
         ) {
             pipeline.interceptAgentStarting(this) { e ->
-                logger.info { "エージェント開始: runId=${e.runId}" }
+                logger.info { "Agent starting: runId=${e.runId}" }
             }
             pipeline.interceptStrategyStarting(this) { e ->
-                logger.info { "戦略 ${e.strategy.name} 開始" }
+                logger.info { "Strategy ${e.strategy.name} starting" }
             }
             pipeline.interceptLLMCallStarting(this) { e ->
-                logger.info { "${e.tools.size} 個のツールを使用して LLM を呼び出し中" }
+                logger.info { "Making LLM call with ${e.tools.size} tools" }
             }
             pipeline.interceptLLMCallCompleted(this) { e ->
-                logger.info { "${e.responses.size} 個のレスポンスを受信" }
+                logger.info { "Received ${e.responses.size} response(s)" }
             }
         }
 
@@ -308,10 +309,10 @@ class LoggingFeature(val loggerName: String) {
             installCommon(pipeline, logger)
 
             pipeline.interceptNodeExecutionStarting(this) { e ->
-                logger.info { "ノード ${e.node.name} 入力: ${e.input}" }
+                logger.info { "Node ${e.node.name} input: ${e.input}" }
             }
             pipeline.interceptNodeExecutionCompleted(this) { e ->
-                logger.info { "ノード ${e.node.name} 出力: ${e.output}" }
+                logger.info { "Node ${e.node.name} output: ${e.output}" }
             }
         }
 
@@ -398,16 +399,16 @@ class LoggingFeature(val loggerName: String) {
             logger: KLogger,
         ) {
             pipeline.interceptAgentStarting(this) { e ->
-                logger.info { "エージェント開始: runId=${e.runId}" }
+                logger.info { "Agent starting: runId=${e.runId}" }
             }
             pipeline.interceptStrategyStarting(this) { e ->
-                logger.info { "戦略 ${e.strategy.name} 開始" }
+                logger.info { "Strategy ${e.strategy.name} starting" }
             }
             pipeline.interceptLLMCallStarting(this) { e ->
-                logger.info { "${e.tools.size} 個のツールを使用して LLM を呼び出し中" }
+                logger.info { "Making LLM call with ${e.tools.size} tools" }
             }
             pipeline.interceptLLMCallCompleted(this) { e ->
-                logger.info { "${e.responses.size} 個のレスポンスを受信" }
+                logger.info { "Received ${e.responses.size} response(s)" }
             }
         }
 
@@ -418,10 +419,10 @@ class LoggingFeature(val loggerName: String) {
             installCommon(pipeline, logger)
 
             pipeline.interceptNodeExecutionStarting(this) { e ->
-                logger.info { "ノード ${e.node.name} 入力: ${e.input}" }
+                logger.info { "Node ${e.node.name} input: ${e.input}" }
             }
             pipeline.interceptNodeExecutionCompleted(this) { e ->
-                logger.info { "ノード ${e.node.name} 出力: ${e.output}" }
+                logger.info { "Node ${e.node.name} output: ${e.output}" }
             }
         }
 

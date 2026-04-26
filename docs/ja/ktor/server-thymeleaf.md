@@ -14,7 +14,7 @@
 <var name="example_name" value="thymeleaf"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -150,4 +150,4 @@ data class User(val id: Int, val name: String)
 
 ```
 
-完全な例はこちらにあります: [thymeleaf-auto-reload](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/thymeleaf-auto-reload)
+完全な例はこちらにあります: [thymeleaf-auto-reload](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/thymeleaf-auto-reload)

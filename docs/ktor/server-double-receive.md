@@ -13,7 +13,7 @@
 <var name="example_name" value="double-receive"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -97,7 +97,7 @@ post("/") {
 }
 ```
 
-您可以在此处找到完整的示例：[double-receive](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/double-receive)。
+您可以在此处找到完整的示例：[double-receive](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/double-receive)。
 
 ## 配置 %plugin_name% {id="configure"}
 在默认配置下，`%plugin_name%` 支持将[请求正文](server-requests.md#body_contents)接收为以下类型：

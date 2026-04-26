@@ -13,7 +13,7 @@
 <var name="example_name" value="webjars"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -111,4 +111,4 @@ fun Application.module() {
 
 請注意，`%plugin_name%` 允許您在不變更載入路徑的情況下更改相依性的版本。
 
-> 您可以在此處找到完整的範例：[webjars](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/webjars)。
+> 您可以在此處找到完整的範例：[webjars](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/webjars)。

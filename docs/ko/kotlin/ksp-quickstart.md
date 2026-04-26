@@ -9,7 +9,7 @@
 
 ## 프로젝트에 KSP 기반 프로세서 추가하기
 
-프로젝트에서 외부 프로세서를 사용하려면, `build.gradle(.kts)` 파일의 [`plugins {}` 블록](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block)에 KSP를 추가하세요. 특정 모듈에서만 프로세서가 필요한 경우, 해당 모듈의 `build.gradle(.kts)` 파일에 추가하면 됩니다.
+프로젝트에서 외부 프로세서를 사용하려면, `build.gradle(.kts)` 파일의 [`plugins {}` 블록](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block)에 KSP를 추가하세요. 특정 모듈에서만 프로세서가 필요한 경우, 해당 모듈의 `build.gradle(.kts)` 파일에 대신 추가하면 됩니다:
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -42,7 +42,7 @@ plugins {
 > 
 {style="tip"}
 
-최상위 `dependencies {}` 블록에 사용하려는 프로세서를 추가합니다. 이 예제에서는 [Moshi](https://github.com/square/moshi?tab=readme-ov-file#codegen)를 사용하지만, 다른 프로세서의 경우에도 방식은 동일합니다.
+최상위 `dependencies {}` 블록에 사용하려는 프로세서를 추가합니다. 이 예제에서는 [Moshi](https://github.com/square/moshi?tab=readme-ov-file#codegen)를 사용하지만, 다른 프로세서의 경우에도 방식은 동일합니다: 
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -77,7 +77,7 @@ dependencies {
 
 새 Kotlin 프로젝트를 생성하고 KSP 플러그인을 추가합니다:
 
-1. IntelliJ IDEA에서 **File** | **New** | **Project**를 선택합니다.
+1. IntelliJ IDEA에서 **File** | **New** | **Project**를 선택합니다. 
 2. 왼쪽 목록에서 **Kotlin**을 선택합니다.
 3. 빌드 시스템으로 **Gradle**을 선택하고 **Create**를 클릭합니다.
 
@@ -116,7 +116,7 @@ dependencies {
 
 프로젝트 루트에 새 모듈을 생성하고 어노테이션을 선언합니다:
 
-1. **File** | **New** | **Module**을 선택합니다.
+1. **File** | **New** | **Module**을 선택합니다. 
 2. 왼쪽 목록에서 **Kotlin**을 선택합니다.
 3. 다음 필드를 지정하고 **create**를 클릭합니다:
 
@@ -436,5 +436,5 @@ dependencies {
 ## 다음 단계
 
 * [KSP 저장소](https://github.com/google/ksp/tree/main/examples/hello-world)에서 이 예제의 전체 코드를 확인해 보세요.
-* [KSP 저장소](https://github.com/google/ksp/blob/main/examples/playground/test-processor/src/main/kotlin/BuilderProcessor.kt)에서 더 복잡하고 실용적인 예제들을 찾아보세요.
+* [KSP 저장소](https://github.com/google/ksp/tree/main/examples)에서 더 복잡하고 실용적인 예제들을 찾아보세요.
 * [KSP 지원 라이브러리](ksp-overview.md#supported-libraries) 목록을 살펴보세요.

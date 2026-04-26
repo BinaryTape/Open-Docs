@@ -14,10 +14,6 @@
         <img src="icon-9-todo.svg" width="20" alt="Ninth step" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">ライブラリとAPI</a></p>
 </tldr>
 
-> 読了時間：17分
->
-{style="tip"}
-
 初心者向けツアーでは、クラスのインスタンスの特性を宣言するためにプロパティがどのように使用されるか、またそれらにアクセスする方法を学びました。この章では、Kotlinにおけるプロパティの仕組みをさらに深く掘り下げ、コードでプロパティを活用する他の方法について探ります。
 
 ## バッキングフィールド（Backing fields）

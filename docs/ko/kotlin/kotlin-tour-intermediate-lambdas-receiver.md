@@ -14,10 +14,6 @@
         <img src="icon-9-todo.svg" width="20" alt="Ninth step" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">라이브러리와 API</a></p>
 </tldr>
 
-> 읽는 시간: 7분
->
-{style="tip"}
-
 이 장에서는 또 다른 유형의 함수인 람다 식에서 수신 객체(receiver)를 사용하는 방법과, 이를 통해 도메인 특화 언어(DSL)를 만드는 방법을 알아봅니다.
 
 ## 수신 객체가 있는 람다 식

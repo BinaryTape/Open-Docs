@@ -14,7 +14,7 @@
 <var name="example_name" value="cors"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -120,7 +120,7 @@ install(CORS) {
 }
 ```
 
-您可以在此處找到完整的範例：[cors](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/cors)。
+您可以在此處找到完整的範例：[cors](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/cors)。
 
 ### 主機 {id="hosts"}
 

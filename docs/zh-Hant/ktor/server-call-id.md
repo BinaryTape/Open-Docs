@@ -14,7 +14,7 @@
 <var name="example_name" value="call-id"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -34,7 +34,7 @@
 2. 接下來，Ktor 會使用預定義字典[驗證](#verify)擷取/產生的呼叫 ID。您也可以提供自己的條件來驗證呼叫 ID。
 3. 最後，您可以在特定標頭（例如 `X-Request-Id`）中將呼叫 ID [傳送](#send)至用戶端。
 
-將 `%plugin_name%` 與 [CallLogging](server-call-logging.md) 配合使用，可將[呼叫 ID 放入 MDC 上下文中](#put-call-id-mdc)，並配置記錄器以顯示每個請求的呼叫 ID，從而協助您對呼叫進行疑難排解。
+將 `%plugin_name%` 與 [CallLogging](server-call-logging.md) 配合使用，可將[呼叫 ID 放入 MDC 上下文中](#put-call-id-mdc)並配置記錄器以顯示每個請求的呼叫 ID，從而協助您對呼叫進行疑難排解。
 
 > 在用戶端，Ktor 提供了 [CallId](client-call-id.md) 外掛程式來追蹤用戶端請求。
 
@@ -58,7 +58,7 @@
 ## 安裝 %plugin_name% {id="install_plugin"}
 
 <p>
-    若要將 <code>%plugin_name%</code> 外掛程式安裝到應用程式中，請將其傳遞給指定的 <Links href="/ktor/server-modules" summary="模組允許您透過分組路由來建構您的應用程式。">模組</Links> 中的 <code>install</code> 函式。
+    若要將 <code>%plugin_name%</code> 外掛程式<a href="#install">安裝</a>到應用程式中，請將其傳遞給指定的 <Links href="/ktor/server-modules" summary="模組允許您透過分組路由來建構您的應用程式。">模組</Links> 中的 <code>install</code> 函式。
     以下程式碼片段顯示如何安裝 <code>%plugin_name%</code> ...
 </p>
 <list>
@@ -138,7 +138,7 @@ install(CallId) {
 }
 ```
 
-您可以在此處找到完整的範例：[call-id](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/call-id)。
+您可以在此處找到完整的範例：[call-id](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/call-id)。
 
 ### 將呼叫 ID 傳送至用戶端 {id="send"}
 
@@ -152,7 +152,7 @@ install(CallId) {
    }
    ```
 
-  您可以在此處找到完整的範例：[call-id](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/call-id)。
+  您可以在此處找到完整的範例：[call-id](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/call-id)。
 
 * `replyToHeader` 函式會在指定的標頭中傳送呼叫 ID：
    ```kotlin
@@ -187,4 +187,4 @@ install(CallLogging) {
 </appender>
 ```
 
-您可以在此處找到完整的範例：[call-id](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/call-id)。
+您可以在此處找到完整的範例：[call-id](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/call-id)。

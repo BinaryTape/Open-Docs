@@ -36,6 +36,18 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。
 </tr>
 
 <tr>
+<td>3.4.3</td><td>2026 年 4 月 22 日</td><td>
+<p>
+一個專注於穩定性的修正版本，修正了 OpenAPI 架構推斷、用戶端引擎生命週期問題，以及數個並行與平台特定錯誤。
+</p>
+<var name="version" value="3.4.3"/>
+<p>
+    <a href="https://github.com/ktorio/ktor/releases/tag/%version%">在 GitHub 上查看變更記錄</a>
+</p>
+</td>
+</tr>
+
+<tr>
 <td>3.4.2</td><td>2026 年 3 月 27 日</td><td>
 <p>
 一個修正版本，透過分配優化與 WebSocket 修正改進了用戶端與引擎效能，並解決了涉及 OpenAPI、記錄功能、GraalVM 相容性、Netty、Darwin、相依注入、壓縮、憑證固定以及 Kotlin/Native 的一系列廣泛問題。
@@ -50,7 +62,8 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。
 <tr>
 <td>3.4.1</td><td>2026 年 3 月 4 日</td><td>
 <p>
-一個修正版本，包含重要的迴歸修正，包括解決了<a href="whats-new-340.md#use-engine-dispatcher">使用引擎分派器 (dispatcher) 執行 HttpStatement</a> 的問題，並恢復了正確的 <code>StreamResetException</code> 傳遞。它還包含效能改進、OpenAPI 增強，以及跨引擎與平台的多項穩定性修正。
+一個修正版本，包含重要的迴歸修正，包括解決了
+<a href="whats-new-340.md#use-engine-dispatcher">使用引擎分派器 (dispatcher) 執行 HttpStatement</a> 的問題，並恢復了正確的 <code>StreamResetException</code> 傳遞。它還包含效能改進、OpenAPI 增強，以及跨引擎與平台的多項穩定性修正。
 </p>
 <var name="version" value="3.4.1"/>
 <p>
@@ -191,7 +204,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。
 
 <tr>
 <td>3.1.1</td><td>2025 年 2 月 24 日</td><td><p>
-一個修正版本，改進了記錄功能並修正了 WebSocket 逾時處理。它修正了多個錯誤，包括 HTTP 快取不一致、表單資料複製錯誤、gzip 處理當機以及導致區段池損壞的並行問題。
+一個修正版本，改進了記錄功能並修正了 WebSocket 逾時處理。它修正了多個錯誤，包括 HTTP 快氣不一致、表單資料複製錯誤、gzip 處理當機以及導致區段池損壞的並行問題。
 </p>
 <var name="version" value="3.1.1"/>
 <p>

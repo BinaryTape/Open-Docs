@@ -14,7 +14,7 @@
 <var name="example_name" value="json-kotlinx"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -441,7 +441,7 @@ Content-Type: application/xml
 </TabItem>
 </Tabs>
 
-전체 예제는 여기에서 찾을 수 있습니다: [json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/json-kotlinx).
+전체 예제는 여기에서 찾을 수 있습니다: [json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/json-kotlinx).
 
 ### 데이터 전송 {id="send_data"}
 응답으로 데이터 객체를 전달하려면 `respond` 메서드를 사용할 수 있습니다:
@@ -453,7 +453,7 @@ routing {
         call.respond(customer)
 ```
 
-이 경우 Ktor는 `Accept` 헤더를 사용하여 필요한 [직렬화 도구](#configure_serializer)를 선택합니다. 전체 예제는 여기에서 찾을 수 있습니다: [json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/json-kotlinx).
+이 경우 Ktor는 `Accept` 헤더를 사용하여 필요한 [직렬화 도구](#configure_serializer)를 선택합니다. 전체 예제는 여기에서 찾을 수 있습니다: [json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/json-kotlinx).
 
 ## 커스텀 직렬화 도구 구현 {id="implement_custom_serializer"}
 

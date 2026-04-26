@@ -12,10 +12,6 @@
         <img src="icon-7.svg" width="20" alt="最終ステップ" /> <strong>Null 安全性</strong><br /></p>
 </tldr>
 
-> 所要時間: 6 分
->
-{style="tip"}
-
 Kotlin では、`null` 値を持つことが可能です。Kotlin は、何かが欠落している場合や、まだ設定されていない場合に `null` 値を使用します。
 [コレクション](kotlin-tour-collections.md#kotlin-tour-map-no-key)の章で、マップに存在しないキーを使用してキーと値のペアにアクセスしようとしたときに、Kotlin が `null` 値を返す例を既に見ました。このように `null` 値を使用することは便利ですが、コードがそれらを処理するように準備されていない場合、問題が発生する可能性があります。
 

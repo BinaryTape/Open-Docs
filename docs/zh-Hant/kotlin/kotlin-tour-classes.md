@@ -12,14 +12,10 @@
         <img src="icon-7-todo.svg" width="20" alt="最後一步" /> <a href="kotlin-tour-null-safety.md">Null 安全</a></p>
 </tldr>
 
-> 閱讀時間 8 分鐘
->
-{style="tip"}
-
 Kotlin 透過類別與物件支援物件導向程式設計。物件在程式中對於儲存資料非常有用。
 類別允許您為物件宣告一組特性。當您從類別建立物件時，可以節省時間和精力，因為您不必每次都宣告這些特性。
 
-要宣告類別，請使用 `class` 關鍵字：
+要宣告類別，請使用 `class` 關鍵字： 
 
 ```kotlin
 class Customer
@@ -82,7 +78,7 @@ fun main() {
 
 Kotlin 類別可以有多個建構函式，包括您自己定義的建構函式。若要進一步了解如何宣告多個建構函式，請參閱[建構函式](classes.md#constructors-and-initializer-blocks)。
 
-## 存取屬性
+## 存替屬性
 
 要存取執行個體的屬性，請在執行個體名稱後加上句點 `.`，然後寫上屬性名稱：
 

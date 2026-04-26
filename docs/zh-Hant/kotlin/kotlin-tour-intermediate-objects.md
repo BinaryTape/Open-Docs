@@ -14,10 +14,6 @@
         <img src="icon-9-todo.svg" width="20" alt="第九步" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">程式庫與 API</a></p>
 </tldr>
 
-> 閱讀時間 8 分鐘
->
-{style="tip"}
-
 在本章節中，您將透過探索物件宣告來擴展對類別的理解。這些知識將幫助您在專案中高效地管理行為。
 
 ## 物件宣告

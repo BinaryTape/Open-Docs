@@ -13,7 +13,7 @@
 
 ## 创建示例应用程序 {id="create-sample-app"}
 
-按照[创建、打开并运行新的 Ktor 项目](server-create-a-new-project.topic)中的说明创建一个示例应用程序。本示例展示的代码和命令基于以下项目：[embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server) 和 [engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main)。
+按照[创建、打开并运行新的 Ktor 项目](server-create-a-new-project.topic)中的说明创建一个示例应用程序。本示例展示的代码和命令基于以下项目：[embedded-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server) 和 [engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main)。
 
 > 上述教程提供了两种配置应用程序的方式：直接在代码中指定值，或使用配置文件。在这两种情况下，关键配置都是服务器侦听传入请求的端口。
 
@@ -33,7 +33,7 @@
       }.start(wait = true)
    }
     ```
-*   如果服务器配置定义在**配置文件** `application.conf` 中，请按照以下示例将其更新为读取 `PORT` 环境变量：
+*   如果服务器配置定义在**配置文件** `application.conf` 中，请将其更新为读取 `PORT` 环境变量，如下例所示：
 
    ```
    ktor {
@@ -117,7 +117,7 @@ azurewebapp {
 
 有关可用配置属性的详细说明，请参阅 [Webapp 配置文档](https://github.com/microsoft/azure-gradle-plugins/wiki/Webapp-Configuration)。
 
-*   `pricingTier`（服务方案）的值可以在[此处（Linux）](https://azure.microsoft.com/en-us/pricing/details/app-service/linux/)和[此处（Windows）](https://azure.microsoft.com/en-us/pricing/details/app-service/windows/)找到。
+*   `pricingTier`（服务方案）的值可以在 [Linux 版](https://azure.microsoft.com/en-us/pricing/details/app-service/linux/)和 [Windows 版](https://azure.microsoft.com/en-us/pricing/details/app-service/windows/)中找到。
 *   `region` 的值列表可以通过以下 Azure CLI 命令获取：`az account list-locations --query "[].name" --output tsv`，或者在[产品可用性表](https://go.microsoft.com/fwlink/?linkid=2300348&clcid=0x409)中搜索“App Service”。
 
 ## 部署应用程序 {id="deploy-app"}
@@ -140,7 +140,7 @@ Azure Web 应用部署插件使用的身份验证方式是 Azure CLI。如果您
 此任务将创建资源组、方案和 Web 应用，然后部署 fat JAR。当部署成功时，您应该会看到如下输出：
 
 ```text
-> Task : :embedded-server:azureWebAppDeploy
+> Task: :embedded-server:azureWebAppDeploy
 Auth type: AZURE_CLI
 Username: some.username@example.com
 Subscription: Some Subscription(13936cf1-cc18-40be-a0d4-177fe532b3dd)

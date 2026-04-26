@@ -14,7 +14,7 @@
 <var name="example_name" value="server-websockets"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -24,7 +24,7 @@
 </tldr>
 
 <link-summary>
-Websockets 外掛程式可讓您在伺服器與用戶端之間建立多向通訊工作階段。
+WebSockets 外掛程式可讓您在伺服器與用戶端之間建立多向通訊工作階段。
 </link-summary>
 
 <snippet id="websockets-description">
@@ -164,7 +164,7 @@ routing {
 }
 ```
 
-如需完整範例，請參閱 [server-websockets](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/server-websockets)。
+如需完整範例，請參閱 [server-websockets](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/server-websockets)。
 
 ### 範例：處理多個工作階段 {id="handle-multiple-session"}
 
@@ -210,14 +210,14 @@ val sharedFlow = messageResponseFlow.asSharedFlow()
 
 透過使用此模式，您可以有效地管理多個 WebSocket 工作階段，而無需手動追蹤個別連線。這種方法非常適合具有許多並行 WebSocket 連線的應用程式，並提供了一種乾淨、反應式的方法來處理訊息廣播。
 
-如需完整範例，請參閱 [server-websockets-sharedflow](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/server-websockets-sharedflow)。
+如需完整範例，請參閱 [server-websockets-sharedflow](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/server-websockets-sharedflow)。
 
 ## WebSocket API 與 Ktor {id="websocket-api"}
 
 來自 [WebSocket API 的標準事件](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) 以以下方式對應到 Ktor：
 
 * `onConnect` 發生在區塊的開頭。
-* `onMessage` 發生在成功讀取訊息（例如透過 `incoming.receive()`）或使用 `for(frame in incoming)` 進行暫停的反覆運算之後。
+* `onMessage` 發生在成功讀取訊息（例如透過 `incoming.receive()`）或使用暫停的反覆運算（suspended iteration）與 `for(frame in incoming)` 之後。
 * `onClose` 發生在 `incoming` 通道關閉時。這會完成暫停的反覆運算，或在嘗試接收訊息時拋出 `ClosedReceiveChannelException`。
 * `onError` 等同於其他例外。
 

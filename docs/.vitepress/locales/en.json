@@ -51,7 +51,7 @@
   "kotlin.kotlin-overview": "Kotlin overview",
   "kotlin.what-s-new-in-kotlin": "What's new in Kotlin",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.4.0-Beta1",
+  "kotlin.whatsnew-eap": "Kotlin 2.4.0-Beta2",
   "kotlin.earlier-versions": "Earlier versions",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -616,11 +616,13 @@
   "kotlin.library-guides": "Library guides",
   "kotlin.multiplatform-gradle-dsl": "Multiplatform Gradle DSL",
   "kotlin.earlier-kotlin-releases": "Earlier Kotlin releases",
-  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-beta02",
+  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-beta03",
   "koog.rag": "RAG",
   "kotlin.backend-development": "Backend development",
   "kotlin.running-ksp-from-the-command-line": "Running KSP from the command line",
   "koog.datadog-exporter": "Datadog Exporter",
   "kotlin.maven-set-dependencies": "Set repositories and dependencies",
-  "kotlin.maven-kotlin-compiler": "Configure Kotlin compiler"
+  "kotlin.maven-kotlin-compiler": "Configure Kotlin compiler",
+  "kmp.build-ios-android-app": "How to build Android and iOS apps",
+  "koog.cache-control": "Cache control"
 }

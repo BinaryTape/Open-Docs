@@ -4,17 +4,17 @@
 
 <tldr>
 <p>
-<control>初始项目</control>：<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server">embedded-server</a> 或 
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main">engine-main</a>
+<control>初始项目</control>：<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server">embedded-server</a> 或 
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main">engine-main</a>
 </p>
 <p>
-<control>最终项目</control>：<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/aws-elastic-beanstalk">aws-elastic-beanstalk</a>
+<control>最终项目</control>：<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/aws-elastic-beanstalk">aws-elastic-beanstalk</a>
 </p>
 </tldr>
 
 在本教程中，我们将向您展示如何准备 Ktor 应用程序并将其部署到 AWS Elastic Beanstalk。根据[创建 Ktor 服务器](server-create-and-configure.topic)所采用的方式，您可以使用以下初始项目之一：
-* [embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server)
-* [engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main)
+* [embedded-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server)
+* [engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main)
 
 > 请从 [Elastic Beanstalk 文档](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_Java.html)详细了解如何部署 Java 应用程序。
 
@@ -24,15 +24,15 @@
 ## 克隆示例应用程序 {id="clone"}
 要打开示例应用程序，请按照以下步骤操作：
 
-1. 克隆 Ktor 文档仓库并打开 [codeSnippets](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets) 项目。
-2. 打开 [embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server) 或 [engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main) 示例。这些示例演示了[创建和配置 Ktor 服务器](server-create-and-configure.topic)的不同方法：在代码中或使用配置文件。部署这些项目的唯一区别在于如何[指定端口](#port)来侦听传入请求。
+1. 克隆 Ktor 文档仓库并打开 [codeSnippets](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets) 项目。
+2. 打开 [embedded-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server) 或 [engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main) 示例。这些示例演示了[创建和配置 Ktor 服务器](server-create-and-configure.topic)的不同方法：在代码中或使用配置文件。部署这些项目的唯一区别在于如何[指定端口](#port)来侦听传入请求。
 
 ## 准备应用程序 {id="prepare-app"}
 
 ### 步骤 1：配置端口 {id="port"}
 
 首先，您需要指定用于侦听传入请求的端口。Elastic Beanstalk 会在 5000 端口上将请求转发到您的应用程序。此外，您也可以通过设置 `PORT` 环境变量来重写默认端口。根据[配置 Ktor 服务器](server-create-and-configure.topic)的方式，您可以通过以下方式之一配置端口：
-* 如果您选择了在代码中指定服务器配置的 [embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server) 示例，则可以使用 `System.getenv` 获取环境变量值，或者在未指定环境变量的情况下使用默认值 _5000_。打开位于 `src/main/kotlin/com/example` 文件夹中的 `Application.kt` 文件，并按照如下所示更改 `embeddedServer` 函数的 `port` 参数值：
+* 如果您选择了在代码中指定服务器配置的 [embedded-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server) 示例，则可以使用 `System.getenv` 获取环境变量值，或者在未指定环境变量的情况下使用默认值 _5000_。打开位于 `src/main/kotlin/com/example` 文件夹中的 `Application.kt` 文件，并按照如下所示更改 `embeddedServer` 函数的 `port` 参数值：
    ```kotlin
    fun main() {
       embeddedServer(Netty, port = (System.getenv("PORT")?:"5000").toInt()) {
@@ -41,7 +41,7 @@
    }
     ```
 
-* 如果您选择了在 `application.conf` 文件中指定服务器配置的 [engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main) 示例，则可以使用 `${ENV}` 语法将环境变量分配给 `port` 参数。打开位于 `src/main/resources` 中的 `application.conf` 文件，并按如下所示进行更新：
+* 如果您选择了在 `application.conf` 文件中指定服务器配置的 [engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main) 示例，则可以使用 `${ENV}` 语法将环境变量分配给 `port` 参数。打开位于 `src/main/resources` 中的 `application.conf` 文件，并按如下所示进行更新：
    ```
    ktor {
        deployment {
@@ -55,7 +55,7 @@
 本教程将展示如何使用 [fat JAR](server-fatjar.md) 将应用程序部署到 Elastic Beanstalk。要生成 fat JAR，您需要应用 Ktor 插件。打开 `build.gradle.kts` 文件并将插件添加到 `plugins` 块中：
 ```groovy
 plugins {
-    id("io.ktor.plugin") version "3.4.0"
+    id("io.ktor.plugin") version "3.4.3"
 }
 ```
 

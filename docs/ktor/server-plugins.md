@@ -35,7 +35,7 @@ Ktor 中典型的请求/响应流水线如下所示：
 ![作为插件的路由](plugin-pipeline-routing.png){width="600"}
 
 ## 添加插件依赖项 {id="dependency"}
-大多数插件需要特定的依赖项。例如，`CORS` 插件需要由构建脚本中添加 `ktor-server-cors` 构件：
+大多数插件需要特定的依赖项。例如，`CORS` 插件需要通过在构建脚本中添加 `ktor-server-cors` 构件：
 
 <var name="artifact_name" value="ktor-server-cors"/>
 <Tabs group="languages">
@@ -94,7 +94,7 @@ install(Sessions) {
 
 ### 为特定路由安装插件 {id="install-route"}
 
-在 Ktor 中，您不仅可以全局安装插件，还可以为特定的[路由](server-routing.md)安装插件。如果您需要为不同的应用程序资源使用不同的插件配置，这会非常有用。例如，下面的[示例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/caching-headers-routes)显示了如何为 `/index` 路由添加指定的[缓存标头](server-caching-headers.md)：
+在 Ktor 中，您不仅可以全局安装插件，还可以为特定的[路由](server-routing.md)安装插件。如果您需要为不同的应用程序资源使用不同的插件配置，这会非常有用。例如，下面的[示例](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/caching-headers-routes)显示了如何为 `/index` 路由添加指定的[缓存标头](server-caching-headers.md)：
 
 ```kotlin
 route("/index") {

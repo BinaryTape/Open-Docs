@@ -126,7 +126,7 @@ Hello, world!
 >
 {style="tip"}
 
-> 전체 예제는 [post-raw-data](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/post-raw-data)를 참조하세요.
+> 전체 예제는 [post-raw-data](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/post-raw-data)를 참조하세요.
 
 ### 객체 {id="objects"}
 
@@ -162,7 +162,7 @@ post("/signup") {
 }
 ```
 
-> 전체 예제는 [post-form-parameters](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/post-form-parameters)를 참조하세요.
+> 전체 예제는 [post-form-parameters](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/post-form-parameters)를 참조하세요.
 
 ### 멀티파트 폼 데이터 {id="form_data"}
 
@@ -214,7 +214,7 @@ fun Application.main() {
 
 #### 기본 파일 크기 제한
 
-기본적으로 수신 가능한 바이너리 및 파일 항목의 허용 크기는 50MB로 제한됩니다. 수신된 파일 또는 바이너리 항목이 50MB 제한을 초과하면 `IOException`이 발생합니다.
+기본적으로 수신 가능한 바이너리 및 파일 항목의 허용 크기는 50MiB로 제한됩니다. 수신된 파일 또는 바이너리 항목이 50MiB 제한을 초과하면 `IOException`이 발생합니다.
 
 기본 폼 필드 제한을 재정의하려면 `.receiveMultipart()`를 호출할 때 `formFieldLimit` 파라미터를 전달하세요:
 
@@ -222,7 +222,7 @@ fun Application.main() {
 val multipartData = call.receiveMultipart(formFieldLimit = 1024 * 1024 * 100)
 ```
 
-이 예제에서 새로운 제한은 100MB로 설정되었습니다.
+이 예제에서 새로운 제한은 100MiB로 설정되었습니다.
 
 #### 폼 필드
 
@@ -269,4 +269,4 @@ post("/upload") {
 part.dispose()
 ```
 
-> 이 샘플을 실행하는 방법을 알아보려면 [upload-file](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/upload-file)을 참조하세요.
+> 이 샘플을 실행하는 방법을 알아보려면 [upload-file](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/upload-file)을 참조하세요.

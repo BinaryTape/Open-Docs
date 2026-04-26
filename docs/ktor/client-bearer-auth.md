@@ -9,7 +9,7 @@
 <var name="example_name" value="client-auth-oauth-google"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -139,7 +139,7 @@ install(Auth) {
 
 此示例演示了如何对 Google API 使用 bearer 身份验证，该 API 使用 [OAuth 2.0 协议](https://developers.google.com/identity/protocols/oauth2)进行身份验证和授权。
 
-示例应用程序 [client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-auth-oauth-google) 会检索用户的 Google 个人资料信息。
+示例应用程序 [client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-auth-oauth-google) 会检索用户的 Google 个人资料信息。
 
 ### 获取客户端凭据 {id="google-client-credentials"}
 
@@ -430,6 +430,6 @@ data class ErrorDetails(
 )
 ```
 
-> 有关完整示例，请参阅 [client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-auth-oauth-google)。
+> 有关完整示例，请参阅 [client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-auth-oauth-google)。
 > 
 {style="tip"}

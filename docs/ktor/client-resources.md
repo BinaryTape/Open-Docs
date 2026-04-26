@@ -13,7 +13,7 @@
 <var name="example_name" value="client-type-safe-requests"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -49,9 +49,9 @@ Ktor 提供了 `%plugin_name%` 插件，允许您实现类型安全 [请求](cli
         <code-block lang="XML" code="            &lt;dependency&gt;&#10;                &lt;groupId&gt;io.ktor&lt;/groupId&gt;&#10;                &lt;artifactId&gt;%artifact_name%-jvm&lt;/artifactId&gt;&#10;                &lt;version&gt;${ktor_version}&lt;/version&gt;&#10;            &lt;/dependency&gt;"/>
     </TabItem>
 </Tabs>
-<p>
-    您可以从 <Links href="/ktor/client-dependencies" summary="了解如何向现有项目添加客户端依赖项。">添加客户端依赖项</Links> 中详细了解 Ktor 客户端所需的工件。
-</p>
+<tip>
+    要详细了解 Ktor 客户端所需的工件，请参阅 <Links href="/ktor/client-dependencies" summary="了解如何向现有项目添加客户端依赖项。">添加客户端依赖项</Links>。
+</tip>
 
 ## 安装 %plugin_name% {id="install_plugin"}
 
@@ -69,7 +69,7 @@ val client = HttpClient(CIO) {
 ## 创建资源类 {id="resource_classes"}
 
 每个资源类都应具有 `@Resource` 注解。
-下面，我们将查看几个资源类的示例——定义单个路径段、查询和路径参数等。
+下面，我们将查看几个资源类的示例——定义单个路径段、查询参数和路径参数等。
 
 ### 资源 URL {id="resource_url"}
 
@@ -138,7 +138,7 @@ class Articles() {
 
 此资源可用于列出所有文章、发布新文章、编辑文章等。我们将在下一节中看到如何向此资源 [发出类型安全请求](#make_requests)。
 
-> 您可以在此处找到完整示例：[client-type-safe-requests](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-type-safe-requests)。
+> 您可以在此处找到完整示例：[client-type-safe-requests](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-type-safe-requests)。
 
 ## 发出类型安全请求 {id="make_requests"}
 
@@ -186,4 +186,4 @@ fun main() {
 
 [defaultRequest](client-default-request.md) 函数用于为所有请求指定默认 URL。
 
-> 您可以在此处找到完整示例：[client-type-safe-requests](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-type-safe-requests)。
+> 您可以在此处找到完整示例：[client-type-safe-requests](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-type-safe-requests)。

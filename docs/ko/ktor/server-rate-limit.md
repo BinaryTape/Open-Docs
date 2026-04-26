@@ -15,7 +15,7 @@
 <var name="example_name" value="rate-limit"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -268,4 +268,4 @@ fun Application.module() {
 
 ```
 
-전체 예제는 여기에서 확인할 수 있습니다: [rate-limit](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/rate-limit).
+전체 예제는 여기에서 확인할 수 있습니다: [rate-limit](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/rate-limit).

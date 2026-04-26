@@ -14,7 +14,7 @@
 <var name="example_name" value="compression"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -71,7 +71,7 @@ Ktor 提供了通过使用 [`Compression`](https://api.ktor.io/ktor-server-compr
 ## 安装 %plugin_name% {id="install_plugin"}
 
 <p>
-    要将 <code>%plugin_name%</code> 插件安装到应用程序，请将其传递给指定<Links href="/ktor/server-modules" summary="Modules allow you to structure your application by grouping routes.">模块</Links>中的 <code>install</code> 函数。以下代码片段展示了如何安装 <code>%plugin_name%</code> ...
+    要将 <code>%plugin_name%</code> 插件<a href="#install">安装</a>到应用程序，请将其传递给指定 <Links href="/ktor/server-modules" summary="Modules allow you to structure your application by grouping routes.">模块</Links> 中的 <code>install</code> 函数。以下代码片段展示了如何安装 <code>%plugin_name%</code> ...
 </p>
 <list>
     <li>
@@ -145,7 +145,7 @@ install(Compression) {
 }
 ```
 
-您可以在此处找到完整示例：[compression](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/compression)。
+您可以在此处找到完整示例：[compression](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/compression)。
 
 ### 配置响应大小 {id="configure_response_size"}
 

@@ -11,8 +11,8 @@
 </p>
 <p>
 <b>코드 예제</b>: 
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-jwt-hs256">auth-jwt-hs256</a>, 
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-jwt-rs256">auth-jwt-rs256</a>
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-jwt-hs256">auth-jwt-hs256</a>, 
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-jwt-rs256">auth-jwt-rs256</a>
 </p>
 <p>
     <b><Links href="/ktor/server-native" summary="Ktor는 Kotlin/Native를 지원하며 추가적인 런타임이나 가상 머신 없이 서버를 실행할 수 있게 해줍니다.">네이티브 서버</Links> 지원</b>: ✖️
@@ -91,7 +91,7 @@ install(Authentication) {
 * 지정된 공유 비밀 키와 함께 `HS256` 사용
 * 공개/개인 키 쌍과 함께 `RS256` 사용
 
-전체 프로젝트는 여기에서 찾을 수 있습니다: [auth-jwt-hs256](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-jwt-hs256), [auth-jwt-rs256](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-jwt-rs256).
+전체 프로젝트는 여기에서 찾을 수 있습니다: [auth-jwt-hs256](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-jwt-hs256), [auth-jwt-rs256](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-jwt-rs256).
 
 ### 1단계: JWT 설정 구성 {id="jwt-settings"}
 
@@ -199,7 +199,7 @@ post("/login") {
 </TabItem>
 </Tabs>
 
-1. `post("/login")`은 `POST` 요청을 받기 위한 인증 [라우트](server-routing.md)를 정의합니다.
+1. `post("/login")`은 `POST` 요청을 받기 위한 인증 [라우트(route)](server-routing.md)를 정의합니다.
 2. `call.receive<User>()`는 JSON 객체로 전송된 사용자 자격 증명을 [수신(receive)](server-serialization.md#receive_data)하여 `User` 클래스 객체로 변환합니다.
 3. `JWT.create()`는 지정된 JWT 설정으로 토큰을 생성하고, 수신된 사용자 이름을 커스텀 클레임(claim)으로 추가하며, 지정된 알고리즘으로 토큰에 서명합니다:
    * `HS256`의 경우, 공유 비밀 키를 사용하여 토큰에 서명합니다.

@@ -10,7 +10,7 @@
 <tldr>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -135,4 +135,4 @@ val encodedDate = application.conversionService.toValues(call.parameters["date"]
 val decodedDate = application.conversionService.fromValues(encodedDate, typeInfo<LocalDate>())
 ```
 
-完全な例については、[%example_name%](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%) を参照してください。
+完全な例については、[%example_name%](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%) を参照してください。

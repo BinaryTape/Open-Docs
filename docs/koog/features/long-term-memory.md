@@ -143,7 +143,7 @@
 
 | 策略 | 行为 |
 |-----------------------------------------------------------|--------------------------|
-| `SimilaritySearchStrategy()` | 向量相似度语义搜索 — **默认且推荐** |
+| `SimilaritySearchStrategy()` | 向量相似度语义搜索 — **默认** |
 | `query -> new SimilaritySearchRequest(query, 20, 0, 0.0, null)` | 通过 lambda表达式进行自定义搜索 |
 
 ## 仅摄取
@@ -301,4 +301,4 @@ class MyVectorDbStorage : SearchStorage<TextDocument, SearchRequest>, WriteStora
 }
 ```
 
-为了进行测试，可以使用内置的 `InMemoryRecordStorage`，它将记录保存在内存中。它同时接受 `KeywordSearchRequest` 和 `SimilaritySearchRequest`，但两者都实现为简单的区分大小写的子字符串匹配（无向量嵌入）。
+为了进行测试，可以使用内置的 `InMemoryRecordStorage`，它将记录保存在内存中。它同时接受 `KeywordSearchRequest` 和 `SimilaritySearchRequest`，但两者都实现为简单的不区分大小写的子字符串匹配（无向量嵌入）。

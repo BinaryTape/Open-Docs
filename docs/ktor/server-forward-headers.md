@@ -13,7 +13,7 @@
 <var name="example_name" value="forwarded-header"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -22,7 +22,7 @@
 </p>
 </tldr>
 
-[ForwardedHeaders](https://api.ktor.io/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-forwarded-headers.html) 和 [XForwardedHeaders](https://api.ktor.io/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-x-forwarded-headers.html) 插件允许您在 Ktor 服务器位于反向代理之后时，通过处理反向代理标头来获取有关原始请求的信息。这对于 [日志](server-logging.md) 记录很有用。
+[ForwardedHeaders](https://api.ktor.io/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-forwarded-headers.html) 和 [XForwardedHeaders](https://api.ktor.io/ktor-server-forwarded-header/io.ktor.server.plugins.forwardedheaders/-x-forwarded-headers.html) 插件允许您在 Ktor 服务器位于反向代理之后时，通过处理反向代理标头来获取有关原始[请求](server-requests.md)的信息。这对于[日志](server-logging.md)记录很有用。
 
 * `ForwardedHeaders` 处理 `Forwarded` 标头 ([RFC 7239](https://tools.ietf.org/html/rfc7239))
 * `XForwardedHeaders` 处理以下 `X-Forwarded-` 标头：
@@ -58,7 +58,7 @@
 
 <var name="plugin_name" value="ForwardedHeaders"/>
 <p>
-    要将 <code>%plugin_name%</code> 插件安装到应用，
+    要将 <code>%plugin_name%</code> 插件<a href="#install">安装</a>到应用，
     请将其传递给指定 <Links href="/ktor/server-modules" summary="Modules allow you to structure your application by grouping routes.">模块</Links> 中的 <code>install</code> 函数。
     以下代码片段展示了如何安装 <code>%plugin_name%</code> ...
 </p>
@@ -85,7 +85,7 @@
 
 <var name="plugin_name" value="XForwardedHeaders"/>
 <p>
-    要将 <code>%plugin_name%</code> 插件安装到应用，
+    要将 <code>%plugin_name%</code> 插件<a href="#install">安装</a>到应用，
     请将其传递给指定 <Links href="/ktor/server-modules" summary="Modules allow you to structure your application by grouping routes.">模块</Links> 中的 <code>install</code> 函数。
     以下代码片段展示了如何安装 <code>%plugin_name%</code> ...
 </p>
@@ -109,13 +109,13 @@
 </TabItem>
 </Tabs>
 
-安装 `ForwardedHeaders`/`XForwardedHeaders` 后，您可以使用 `call.request.origin` 属性获取有关原始请求的信息。
+安装 `ForwardedHeaders`/`XForwardedHeaders` 后，您可以使用 [call.request.origin](#request_info) 属性获取有关原始请求的信息。
 
 ## 获取请求信息 {id="request_info"}
 
 ### 代理请求信息 {id="proxy_request_info"}
 
-要获取有关代理请求的信息，请在 [路由处理程序](server-routing.md#define_route) 中使用 [call.request.local](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/local.html) 属性。
+要获取有关代理请求的信息，请在[路由处理程序](server-routing.md#define_route)中使用 [call.request.local](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/local.html) 属性。
 以下代码片段展示了如何获取有关代理地址和发出请求的主机的信息：
 
 ```kotlin
@@ -149,7 +149,7 @@ get("/hello") {
 | `origin.remoteHost`    | _proxy_                  | _client_              |
 | `origin.remotePort`    | _32864_                  | _32864_               |
 
-> 您可以在此处找到完整示例：[forwarded-header](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/forwarded-header)。
+> 您可以在此处找到完整示例：[forwarded-header](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/forwarded-header)。
 
 ## 配置 ForwardedHeaders {id="configure"}
 

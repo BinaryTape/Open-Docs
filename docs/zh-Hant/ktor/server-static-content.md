@@ -1,16 +1,12 @@
----
-title: 服務靜態內容
----
-
 [//]: # (title: 服務靜態內容)
 
 <show-structure for="chapter" depth="2"/>
 
 <tldr>
 <p><b>程式碼範例</b>：
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/static-files">static-files</a>,
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/static-resources">static-resources</a>,
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/static-zip">static-zip</a>
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/static-files">static-files</a>,
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/static-resources">static-resources</a>,
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/static-zip">static-zip</a>
 </p>
 </tldr>
 
@@ -38,7 +34,7 @@ title: 服務靜態內容
 在上述範例中，任何來自 `/resources` 的請求都會被對應到目前工作目錄中名為 `files` 的實體資料夾。
 只要 URL 路徑與實體檔名相符，Ktor 就會遞迴地服務來自 `files` 的任何檔案。
 
-如需完整範例，請參閱 [static-files](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/static-files)。
+如需完整範例，請參閱 [static-files](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/static-files)。
 
 ## ZIP 檔案 {id="zipped"}
 
@@ -57,7 +53,7 @@ title: 服務靜態內容
 
 `staticZip()` 函式也支援自動重新載入。如果在 ZIP 檔案的父目錄中偵測到任何變更，ZIP 檔案系統會在下一次請求時重新載入。這確保了服務的內容保持最新狀態，而無需重新啟動伺服器。
 
-如需完整範例，請參閱 [static-zip](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/static-zip)。
+如需完整範例，請參閱 [static-zip](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/static-zip)。
 
 ## 資源 {id="resources"}
 
@@ -74,7 +70,7 @@ routing {
 這會將任何來自 `/resources` 的請求對應到應用程式資源中的 `static` 套件。
 在這種情況下，只要 URL 路徑與資源路徑相符，Ktor 就會遞迴地服務來自 `static` 套件的任何檔案。
 
-如需完整範例，請參閱 [static-resources](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/static-resources)。
+如需完整範例，請參閱 [static-resources](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/static-resources)。
 
 ## 額外配置 {id="configuration"}
 

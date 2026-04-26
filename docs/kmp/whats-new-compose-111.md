@@ -1,4 +1,4 @@
-[//]: # (title: Compose Multiplatform 1.11.0-beta02 的最新变化)
+[//]: # (title: Compose Multiplatform 1.11.0-beta03 的最新变化)
 
 以下是该抢先体验计划 (EAP) 功能版本的亮点：
 
@@ -6,14 +6,14 @@
 * [Compose UI 测试 API 的 v2 版本](#compose-ui-tests-v2)
 * [改进了 Web 目标的滚动性能](#scroll-on-web-targets-brought-in-line-with-native-ui)
 
-您可以在 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.11.0-beta02) 上找到完整的变更列表。
+您可以在 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.11.0-beta03) 上找到完整的变更列表。
 此版本的特定组件版本列在 [依赖项](#dependencies) 部分。
 
 ## 破坏性变更与弃用
 
-### 针对非 Android 目标的 Shader 包装器
+### 针对 non-Android 目标的 Shader 包装器
 
-对于非 Android 目标，`Shader` 类型已从 `org.jetbrains.skia.Shader` 的 `actual typealias` 重构为 Compose 特有的包装类。这一更改将公共 API 与直接的 Skia/Skiko 依赖项解耦。
+对于 non-Android 目标，`Shader` 类型已从 `org.jetbrains.skia.Shader` 的 `actual typealias` 重构为 Compose 特有的包装类。这一更改将公共 API 与直接的 Skia/Skiko 依赖项解耦。
 
 迁移步骤：
 
@@ -38,7 +38,7 @@ Compose Multiplatform 不再支持 Apple x86_64 目标，因为它们在 Kotlin 
 
 ### Compose UI 测试 v2
 
-Compose Multiplatform 在非 Android 目标上引入了对 [v2 `ComposeUiTest` API](https://developer.android.com/develop/ui/compose/testing/migrate-v2) 的支持。这些新 API 使用 `StandardTestDispatcher` 作为默认测试调度器，而不是 `UnconfinedTestDispatcher`。这一更改确保了协程根据事件队列顺序执行，从而提高了测试的可靠性并与生产环境行为保持一致。
+Compose Multiplatform 在 non-Android 目标上引入了对 [v2 `ComposeUiTest` API](https://developer.android.com/develop/ui/compose/testing/migrate-v2) 的支持。这些新 API 使用 `StandardTestDispatcher` 作为默认测试调度器，而不是 `UnconfinedTestDispatcher`。这一更改确保了协程根据事件队列顺序执行，从而提高了测试的可靠性并与生产环境行为保持一致。
 
 我们还在 Compose UI 测试 v2 中添加了对 `effectContext` 形参的支持。该形参允许您在运行 composition 时指定自定义协程上下文。
 
@@ -89,16 +89,16 @@ BasicTextField(
 ## 依赖项
 
 | 库 | Maven 坐标 | 基于 Jetpack 版本 |
-|--------------------|--------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
-| Runtime | `org.jetbrains.compose.runtime:runtime*:1.11.0-beta02` | [Runtime 1.11.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.11.0-beta02) |
-| UI | `org.jetbrains.compose.ui:ui*:1.11.0-beta02` | [UI 1.11.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.11.0-beta02) |
-| Foundation | `org.jetbrains.compose.foundation:foundation*:1.11.0-beta02` | [Foundation 1.11.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.11.0-beta02) |
-| Material | `org.jetbrains.compose.material:material*:1.11.0-beta02` | [Material 1.11.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-material#1.11.0-beta02) |
-| Material3 | `org.jetbrains.compose.material3:material3*:1.11.0-alpha06` | [Material3 1.5.0-alpha16](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha16) |
-| Material3 Adaptive | `org.jetbrains.compose.material3.adaptive:adaptive*:1.3.0-alpha06` | [Material3 Adaptive 1.3.0-alpha09](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.3.0-alpha09) |
+|--------------------|-------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| Runtime | `org.jetbrains.compose.runtime:runtime*:1.11.0-beta03` | [Runtime 1.11.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.11.0-rc01) |
+| UI | `org.jetbrains.compose.ui:ui*:1.11.0-beta03` | [UI 1.11.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.11.0-rc01) |
+| Foundation | `org.jetbrains.compose.foundation:foundation*:1.11.0-beta03` | [Foundation 1.11.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.11.0-rc01) |
+| Material | `org.jetbrains.compose.material:material*:1.11.0-beta03` | [Material 1.11.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-material#1.11.0-rc01) |
+| Material3 | `org.jetbrains.compose.material3:material3*:1.11.0-alpha07` | [Material3 1.5.0-alpha17](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha17) |
+| Material3 Adaptive | `org.jetbrains.compose.material3.adaptive:adaptive*:1.3.0-alpha07` | [Material3 Adaptive 1.3.0-alpha10](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.3.0-alpha10) |
 | Lifecycle | `org.jetbrains.androidx.lifecycle:lifecycle-*:2.11.0-alpha03` | [Lifecycle 2.11.0-alpha03](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.11.0-alpha03) |
 | Navigation | `org.jetbrains.androidx.navigation:navigation-*:2.9.2` | [Navigation 2.9.7](https://developer.android.com/jetpack/androidx/releases/navigation#2.9.7) |
-| Navigation3 | `org.jetbrains.androidx.navigation3:navigation3-*:1.1.0-rc01` | [Navigation3 1.1.0-rc01](https://developer.android.com/jetpack/androidx/releases/navigation3#1.1.0-rc01) |
-| Navigation Event | `org.jetbrains.androidx.navigationevent:navigationevent-compose:1.1.0-alpha01` | [Navigation Event 1.1.0-alpha01](https://developer.android.com/jetpack/androidx/releases/navigationevent#1.1.0-alpha01) |
+| Navigation3 | `org.jetbrains.androidx.navigation3:navigation3-*:1.1.0` | [Navigation3 1.1.0](https://developer.android.com/jetpack/androidx/releases/navigation3#1.1.0) |
+| Navigation Event | `org.jetbrains.androidx.navigationevent:navigationevent-compose:1.1.0-beta01` | [Navigation Event 1.1.0-rc01](https://developer.android.com/jetpack/androidx/releases/navigationevent#1.1.0-rc01) |
 | Savedstate | `org.jetbrains.androidx.savedstate:savedstate*:1.4.0` | [Savedstate 1.4.0](https://developer.android.com/jetpack/androidx/releases/savedstate#1.4.0) |
 | WindowManager Core | `org.jetbrains.androidx.window:window-core:1.5.1` | [WindowManager 1.5.1](https://developer.android.com/jetpack/androidx/releases/window#1.5.1) |

@@ -1,33 +1,27 @@
 # Datadog エクスポーター
 
-Koogは、専用のLLMオブザーバビリティ（LLM Observability）機能を備えたモニタリングおよび分析プラットフォームである[Datadog](https://www.datadoghq.com/)へのエージェントトレースのエクスポートを組み込みでサポートしています。
-Datadogと連携することで、KoogエージェントがLLM、API、およびその他のコンポーネントとどのように相互作用するかを可視化、分析、デバッグできます。
+Koogは、オブザーバビリティデータのオープン標準である[OpenTelemetry](https://opentelemetry.io/)を使用して、エージェントトレースを出力します。
+これらのトレースを[Datadog](https://www.datadoghq.com/)に送信するために、Koogには組み込みのOpenTelemetryエクスポーターが含まれており、手動での計装（instrumentation）は不要です。
 
-KoogのOpenTelemetryサポートに関する背景については、[OpenTelemetryサポート](https://docs.koog.ai/opentelemetry-support/)を参照してください。
+接続されると、Datadogの[OpenTelemetryサポート](https://docs.datadoghq.com/opentelemetry/)により、エージェントがLLM、ツール、および外部APIとどのように相互作用するかを可視化、分析、およびデバッグできるようになります。
 
 ---
 
 ## セットアップ手順
 
-1) [https://www.datadoghq.com/](https://www.datadoghq.com/) でDatadogアカウントを作成します。
+1. [https://www.datadoghq.com/](https://www.datadoghq.com/) でDatadogアカウントを作成します。
 
-2) [Organization Settings > API Keys](https://app.datadoghq.com/organization-settings/api-keys) からAPIキーを取得します。
+2. [Organization Settings > API Keys](https://app.datadoghq.com/organization-settings/api-keys) からAPIキーを取得します。
 
-3) Datadog APIキーをDatadogエクスポーターに渡します。
-これは、`addDatadogExporter()` 関数のパラメータとして渡すか、環境変数を設定することで行えます。
-
+3. APIキーを提供します。[`addDatadogExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter) のパラメータとして渡すか、環境変数を介して行います。
 ```bash
 export DD_API_KEY="<your-api-key>"
 ```
-
-4) (任意) Datadogサイトを設定します。Datadogは複数のリージョンで運用されています。デフォルトでは、エクスポーターは `datadoghq.com` (US1リージョン) にトレースを送信します。
-別のリージョンを使用するには、`DD_SITE` 環境変数を設定するか、`addDatadogExporter()` に `datadogSite` パラメータを渡します。
-
+4. (任意) US1 (`datadoghq.com`) 以外のDatadogリージョンを使用するには、サイトを [`addDatadogExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter) のパラメータとして渡すか、環境変数を設定します。
 ```bash
 export DD_SITE="datadoghq.eu"
 ```
-
-一般的なサイトの値：
+サポートされているサイト：
 
 | サイト | リージョン |
 |------|--------|
@@ -41,10 +35,9 @@ export DD_SITE="datadoghq.eu"
 
 ## 設定
 
-Datadogへのエクスポートを有効にするには、**OpenTelemetry機能**をインストールし、`DatadogExporter`を追加します。
-このエクスポーターは、内部で `OtlpHttpSpanExporter` を使用して、DatadogのOTLPインテークエンドポイントに直接トレースを送信します。
+Datadogへのエクスポートを有効にするには、**OpenTelemetry機能**をインストールし、[`addDatadogExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter) を呼び出します。
 
-### 例：Datadogトレースを有効にしたエージェント
+### 基本的な例
 
 === "Kotlin"
 
@@ -75,7 +68,7 @@ Datadogへのエクスポートを有効にするには、**OpenTelemetry機能*
 See traces in Datadog LLM Observability")
     }
     ```
-    <!--- TODO: Enable KNIT after PR #1591 is merged: KNIT example-datadog-exporter-01.kt -->
+    <!--- KNIT example-datadog-exporter-01.kt -->
 
 === "Java"
 
@@ -110,17 +103,19 @@ See traces in Datadog LLM Observability")
 See traces in Datadog LLM Observability");
     }
     ```
-    <!--- TODO: Enable KNIT after PR #1591 is merged: KNIT exampleDatadogExporterJava01.java -->
+    <!--- KNIT exampleDatadogExporterJava01.java -->
 
 ## トレース属性
 
-`addDatadogExporter` 関数は、リソースレベルの属性のマップを受け取る `traceAttributes` パラメータをサポートしています。
-これらの属性は、エクスポートされるすべてのスパンに追加され、トレースにアプリケーション固有のメタデータをタグ付けするのに役立ちます。
+KoogがエージェントのアクティビティをDatadogに送信する際、それは一連の「スパン（span）」として行われます。スパンは、LLMの呼び出しやツールの実行といった個々の作業記録です。関連するスパンは「トレース（trace）」にグループ化され、これは開始から終了までの完全なエージェントの実行を表します。
 
-一般的な属性：
+[`addDatadogExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter) は `traceAttributes` パラメータを受け取ります。これはトレースを出力するアプリケーションを記述するキーと値のペアのマップです。これらはすべてのスパンに付与されるため、Datadog上で環境やバージョンなどのプロパティによってトレースを簡単にフィルタリングしたりグループ化したりできるようになります。
+
+含めるべき一般的な属性：
+
 - **env**: 環境名 (例: `production`, `staging`, `development`)
 - **service.name**: サービスまたはアプリケーションの名前
-- **version**: デプロイを追跡するためのアプリケーションバージョン
+- **version**: アプリケーションのバージョン。デプロイをまたいだ動作の比較に役立ちます。
 
 ### トレース属性を使用した例
 
@@ -158,7 +153,7 @@ See traces in Datadog LLM Observability");
         agent.run("What is Kotlin?")
     }
     ```
-    <!--- TODO: Enable KNIT after PR #1591 is merged: KNIT example-datadog-exporter-02.kt -->
+    <!--- KNIT example-datadog-exporter-02.kt -->
 
 === "Java"
 
@@ -200,23 +195,25 @@ See traces in Datadog LLM Observability");
         agent.run("What is Kotlin?");
     }
     ```
-    <!--- TODO: Enable KNIT after PR #1591 is merged: KNIT exampleDatadogExporterJava02.java -->
+    <!--- KNIT exampleDatadogExporterJava02.java -->
 
 ## カスタムエクスポーターのラッピング
 
-登録前にエクスポーターをカスタムデコレーターでラップする必要がある場合は、`buildDatadogExporter()` 関数を使用できます。
+エクスポーターを登録する前に追加の処理ロジックでラップするために、エクスポーターオブジェクトに直接アクセスする必要がある場合は、[`buildDatadogExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.datadog.buildDatadogExporter) を使用します。
+例えば、`SpanExporter.composite()` を使用して、トレースを複数のバックエンドに同時に送信できます。
 
 === "Kotlin"
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
     import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+    import ai.koog.agents.features.opentelemetry.integration.datadog.buildDatadogExporter
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+    import io.opentelemetry.exporter.otlp.http.trace.OtlpHttpSpanExporter
     import io.opentelemetry.sdk.trace.export.SpanExporter
     import kotlinx.coroutines.runBlocking
     val promptExecutor = simpleOpenAIExecutor("openai-api-key")
-    class MyCustomSpanExporter(private val delegate: SpanExporter) : SpanExporter by delegate
     fun main() = runBlocking {
         val agent = AIAgent(
             promptExecutor = promptExecutor,
@@ -230,101 +227,28 @@ See traces in Datadog LLM Observability");
     -->
     ```kotlin
     install(OpenTelemetry) {
-        val exporter = buildDatadogExporter()
-        val wrapped = MyCustomSpanExporter(exporter) // 例：属性の後処理など
-        addSpanExporter(wrapped)
+        val datadogExporter = buildDatadogExporter()
+        val localExporter = OtlpHttpSpanExporter.builder()
+            .setEndpoint("http://localhost:4318/v1/traces")
+            .build()
+        addSpanExporter(SpanExporter.composite(datadogExporter, localExporter))
     }
     ```
-    <!--- TODO: Enable KNIT after PR #1591 is merged: KNIT example-datadog-exporter-04.kt -->
+    <!--- KNIT example-datadog-exporter-03.kt -->
 
 ## トレースの対象
 
-有効にすると、DatadogエクスポーターはKoogの一般的なOpenTelemetry統合と同じスパンをキャプチャします。これには以下が含まれます。
+Datadogエクスポーターは、Koogの一般的なOpenTelemetry統合と同じアクティビティをキャプチャします。
+キャプチャされるスパンの全リスト、およびLLMのプロンプトとレスポンスの内容を含める方法については、[トレースの対象](index.md#what-gets-traced)を参照してください。
 
-- **エージェントのライフサイクルイベント**: エージェントの開始、停止、エラー
-- **LLMとのインタラクション**: プロンプト、レスポンス、トークン使用量、レイテンシ
-- **ツール呼び出し**: ツール実行のトレース
-- **システムコンテキスト**: モデル名、環境、Koogバージョンなどのメタデータ
-
-エクスポーターには、スパンをDatadogのLLMオブザーバビリティ製品にルーティングするために `dd-otlp-source: llmobs` ヘッダーが含まれています。
-
-セキュリティ上の理由から、OpenTelemetryスパンの一部の内容はデフォルトでマスキングされています。
-Datadogで内容を利用可能にするには、OpenTelemetry設定で [setVerbose](opentelemetry-support.md#setverbose) メソッドを使用し、次のように `verbose` 引数を `true` に設定してください。
-
-=== "Kotlin"
-
-    <!--- INCLUDE
-    import ai.koog.agents.core.agent.AIAgent
-    import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
-    import ai.koog.prompt.executor.clients.openai.OpenAIModels
-    import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
-    val promptExecutor = simpleOpenAIExecutor("openai-api-key")
-    val agent = AIAgent(
-        promptExecutor = promptExecutor,
-        llmModel = OpenAIModels.Chat.GPT4o,
-        systemPrompt = "You are a helpful assistant."
-    ) {
-    -->
-    <!--- SUFFIX
-    }
-    -->
-    ```kotlin
-    install(OpenTelemetry) {
-        addDatadogExporter()
-        setVerbose(true)
-    }
-    ```
-    <!--- TODO: Enable KNIT after PR #1591 is merged: KNIT example-datadog-exporter-03.kt -->
-
-=== "Java"
-
-    <!--- INCLUDE
-    import ai.koog.agents.core.agent.AIAgent;
-    import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry;
-    import ai.koog.prompt.executor.clients.openai.OpenAIModels;
-    import ai.koog.prompt.executor.model.PromptExecutor;
-    public class exampleDatadogExporterJava03 {
-        public static void main(String[] args) {
-            var promptExecutor = PromptExecutor.builder()
-                .openAI("openai-api-key")
-                .build();
-            var agent = AIAgent.builder()
-                .promptExecutor(promptExecutor)
-                .systemPrompt("You are a helpful assistant.")
-                .llmModel(OpenAIModels.Chat.GPT4oMini)
-                .
-    -->
-    <!--- SUFFIX
-            .build();
-        }
-    }
-    -->
-    ```java
-    install(OpenTelemetry.Feature, config -> {
-        config.addDatadogExporter();
-        config.setVerbose(true);
-    })
-    ```
-    <!--- TODO: Enable KNIT after PR #1591 is merged: KNIT exampleDatadogExporterJava03.java -->
-
-DatadogのLLMオブザーバビリティおよびOpenTelemetryサポートの詳細については、以下を参照してください。
-
-- [Datadog LLM Observability ドキュメント](https://docs.datadoghq.com/llm_observability/)
-- [Datadog OTLP API Intake](https://docs.datadoghq.com/opentelemetry/guide/otlp_api/)
+DatadogのOpenTelemetryサポートの詳細については、[Datadog OTLP API Intake](https://docs.datadoghq.com/opentelemetry/guide/otlp_api/)を参照してください。
 
 ---
 
 ## トラブルシューティング
 
-### Datadogにトレースが表示されない
-- `DD_API_KEY` が環境変数に設定されているか再確認してください。
-- Datadogリージョンに対して正しい `DD_SITE` を使用しているか確認してください（USは `datadoghq.com`、EUは `datadoghq.eu`）。
-- APIキーにトレースを送信するために必要な権限があることを確認してください。
+- **トレースが表示されない**: `DD_API_KEY` と `DD_SITE` が正しく設定されていることを確認してください（[セットアップ手順](#setup-instructions)を参照）。
+- **認証エラー**: [Organization Settings > API Keys](https://app.datadoghq.com/organization-settings/api-keys) で、キーがアクティブであることを確認してください。
+- **接続の問題**: 環境が `https://otlp.<DD_SITE>/v1/traces` に到達できることを確認してください。例えば、US1の場合は `https://otlp.datadoghq.com/v1/traces` です。
 
-### 認証エラー
-- `DD_API_KEY` が有効でアクティブであることを確認してください。
-- APIキーは [Organization Settings > API Keys](https://app.datadoghq.com/organization-settings/api-keys) で確認できます。
-
-### 接続の問題
-- 環境がDatadog OTLPインテークエンドポイント (`https://otlp.<site>/v1/traces`) へのネットワークアクセス権を持っていることを確認してください。
-- アウトバウンド接続をブロックする可能性のあるファイアウォールやプロキシの設定を確認してください。
+全般的なトラブルシューティングについては、[トラブルシューティング](index.md#troubleshooting)を参照してください。

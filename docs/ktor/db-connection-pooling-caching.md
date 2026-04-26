@@ -6,7 +6,7 @@
 <var name="example_name" value="tutorial-website-interactive-persistence-advanced"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -103,7 +103,7 @@ HikariCP 提供了实现 `DataSource` 接口的 `HikariDataSource` 类。
 
 ## 缓存 {id="caching"}
 
-您可以使用数据库缓存来补充数据库。
+您可以使用数据库缓存来补充数据库。 
 缓存是一种能够将常用数据存储在临时内存中的技术，
 可以减轻数据库的工作负载并减少读取常用数据的时间。
 
@@ -168,7 +168,7 @@ HikariCP 提供了实现 `DataSource` 接口的 `HikariDataSource` 类。
    
    ```
 
-   大功告成。
+   大功告成。 
    您现在可以[运行应用程序](db-persistence.md#run_app)并确保一切运行如初。
 
-> 您可以在此处找到包含连接池和缓存的完整示例：[tutorial-website-interactive-persistence-advanced](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/tutorial-website-interactive-persistence-advanced)。
+> 您可以在此处找到包含连接池和缓存的完整示例：[tutorial-website-interactive-persistence-advanced](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/tutorial-website-interactive-persistence-advanced)。

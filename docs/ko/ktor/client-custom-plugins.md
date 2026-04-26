@@ -6,7 +6,7 @@
 <var name="example_name" value="client-custom-plugin"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -65,7 +65,7 @@ v2.2.0부터 Ktor는 커스텀 클라이언트 [플러그인](client-plugins.md)
 
 ## 플러그인 설정 제공 {id="plugin-configuration"}
 
-[이전 섹션](#first-plugin)에서는 각 응답에 미리 정의된 커스텀 헤더를 추가하는 플러그인을 만드는 방법을 보여주었습니다. 이제 이 플러그인을 더 유용하게 만들기 위해, 임의의 헤더 이름과 값을 전달할 수 있는 설정을 제공해 보겠습니다.
+[이전 섹션](#first-plugin)에서는 각 요청에 미리 정의된 커스텀 헤더를 추가하는 플러그인을 만드는 방법을 보여주었습니다. 이제 이 플러그인을 더 유용하게 만들기 위해, 임의의 헤더 이름과 값을 전달할 수 있는 설정을 제공해 보겠습니다.
 
 1. 먼저, 설정 클래스를 정의해야 합니다.
 
@@ -432,7 +432,7 @@ package com.example.plugins
 
 import io.ktor.client.plugins.api.*
 
-val CustomHeaderConfigurablePlugin = createClientPlugin("CustomHeaderConfigurablePlugin", ::AuthPluginConfig) {
+val CustomHeaderConfigurablePlugin = createClientPlugin("CustomHeaderConfigurablePlugin", ::CustomHeaderPluginConfig) {
     val headerName = pluginConfig.headerName
     val headerValue = pluginConfig.headerValue
 
@@ -591,7 +591,7 @@ data class User(val name: String, val age: Int)
 </TabItem>
 </Tabs>
 
-전체 예제는 여기에서 확인할 수 있습니다: [client-custom-plugin-data-transformation](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-custom-plugin-data-transformation).
+전체 예제는 여기에서 확인할 수 있습니다: [client-custom-plugin-data-transformation](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-custom-plugin-data-transformation).
 
 ### 인증 {id="authentication"}
 
@@ -660,4 +660,4 @@ fun main() {
 </TabItem>
 </Tabs>
 
-전체 예제는 여기에서 확인할 수 있습니다: [client-custom-plugin-auth](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-custom-plugin-auth).
+전체 예제는 여기에서 확인할 수 있습니다: [client-custom-plugin-auth](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-custom-plugin-auth).

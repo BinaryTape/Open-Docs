@@ -36,6 +36,18 @@ IntelliJ Ktor 플러그인을 사용하여 Ktor 프로젝트를 최신 버전으
 </tr>
 
 <tr>
+<td>3.4.3</td><td>2026년 4월 22일</td><td>
+<p>
+OpenAPI 스키마 추론, 클라이언트 엔진 생명주기 문제, 그리고 여러 동시성 및 플랫폼 특정 버그 수정을 포함하여 안정성에 집중한 패치 릴리스입니다.
+</p>
+<var name="version" value="3.4.3"/>
+<p>
+    <a href="https://github.com/ktorio/ktor/releases/tag/%version%">GitHub에서 변경 로그 확인</a>
+</p>
+</td>
+</tr>
+
+<tr>
 <td>3.4.2</td><td>2026년 3월 27일</td><td>
 <p>
 할당 최적화 및 WebSocket 수정을 통해 클라이언트 및 엔진 성능을 개선하고, OpenAPI, 로깅, GraalVM 호환성, Netty, Darwin, 의존성 주입(dependency injection), 압축, 인증서 핀닝(certificate pinning) 및 Kotlin/Native 전반의 광범위한 문제를 해결한 패치 릴리스입니다.

@@ -11,7 +11,7 @@
 </p>
 <p>
     <b>代码示例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -82,7 +82,7 @@ fun Application.module() {
 > [协程取消](https://kotlinlang.org/docs/cancellation-and-timeouts.html)。
 {style="note"}
 
-> 有关完整示例，请参阅 [%example_name%](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%)。
+> 有关完整示例，请参阅 [%example_name%](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%)。
 
 ## 限制
 

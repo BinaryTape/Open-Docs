@@ -4,9 +4,9 @@
 
 <tldr>
 <p><b>代码示例</b>：
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/static-files">static-files</a>,
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/static-resources">static-resources</a>,
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/static-zip">static-zip</a>
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/static-files">static-files</a>,
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/static-resources">static-resources</a>,
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/static-zip">static-zip</a>
 </p>
 </tldr>
 
@@ -34,7 +34,7 @@
 在上面的示例中，任何来自 `/resources` 的请求都会映射到当前工作目录中的 `files` 物理文件夹。
 只要 URL 路径和物理文件名匹配，Ktor 就会递归地提供 `files` 中的任何文件。
 
-有关完整示例，请参阅 [static-files](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/static-files)。
+有关完整示例，请参阅 [static-files](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/static-files)。
 
 ## ZIP 文件 {id="zipped"}
 
@@ -53,7 +53,7 @@
 
 `staticZip()` 函数还支持自动重载。如果在 ZIP 文件的父目录中检测到任何更改，ZIP 文件系统将在下一次请求时重新加载。这确保了所提供的内容保持最新，而无需重启服务器。
 
-有关完整示例，请参阅 [static-zip](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/static-zip)。
+有关完整示例，请参阅 [static-zip](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/static-zip)。
 
 ## 资源 {id="resources"}
 
@@ -70,7 +70,7 @@ routing {
 这会将来自 `/resources` 的任何请求映射到应用程序资源中的 `static` 软件包。
 在这种情况下，只要 URL 路径与资源路径匹配，Ktor 就会递归地提供 `static` 软件包中的任何文件。
 
-有关完整示例，请参阅 [static-resources](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/static-resources)。
+有关完整示例，请参阅 [static-resources](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/static-resources)。
 
 ## 额外配置 {id="configuration"}
 

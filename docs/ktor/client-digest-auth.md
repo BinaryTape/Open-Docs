@@ -7,7 +7,7 @@
 <var name="example_name" value="client-auth-digest"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -16,6 +16,8 @@
 在 Digest 身份验证方案中，用户名和密码在通过网络发送之前会应用哈希函数。
 
 > 在服务器端，Ktor 提供了 [身份验证](server-digest-auth.md) 插件来处理 Digest 身份验证。
+
+undefined
 
 ## Digest 身份验证流程 {id="flow"}
 
@@ -75,4 +77,4 @@ val client = HttpClient(CIO) {
 }
 ```
 
-> 您可以在此处找到完整的示例：[client-auth-digest](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-auth-digest)。
+> 您可以在此处找到完整的示例：[client-auth-digest](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-auth-digest)。

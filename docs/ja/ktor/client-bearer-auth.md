@@ -9,7 +9,7 @@
 <var name="example_name" value="client-auth-oauth-google"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -139,7 +139,7 @@ install(Auth) {
 
 この例では、認証と認可に [OAuth 2.0 プロトコル](https://developers.google.com/identity/protocols/oauth2) を使用する Google API で Bearer 認証を使用する方法を示します。
 
-例となるアプリケーション [client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-auth-oauth-google) は、ユーザーの Google プロファイル情報を取得します。
+例となるアプリケーション [client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-auth-oauth-google) は、ユーザーの Google プロファイル情報を取得します。
 
 ### クライアント認証情報の取得 {id="google-client-credentials"}
 
@@ -430,6 +430,6 @@ data class ErrorDetails(
 )
 ```
 
-> 完全な例については、[client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-auth-oauth-google) を参照してください。
+> 完全な例については、[client-auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-auth-oauth-google) を参照してください。
 > 
 {style="tip"}

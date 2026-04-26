@@ -13,7 +13,7 @@
 <var name="example_name" value="webjars"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -112,4 +112,4 @@ fun Application.module() {
 
 `%plugin_name%`을 사용하면 라이브러리를 로드하는 데 사용되는 경로를 변경하지 않고도 의존성 버전을 변경할 수 있다는 점에 유의하십시오.
 
-> 전체 예제는 여기에서 확인할 수 있습니다: [webjars](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/webjars).
+> 전체 예제는 여기에서 확인할 수 있습니다: [webjars](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/webjars).

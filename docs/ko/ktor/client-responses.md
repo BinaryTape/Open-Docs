@@ -84,7 +84,7 @@ val httpResponse: HttpResponse = client.get("https://ktor.io/")
 val byteArrayBody: ByteArray = httpResponse.body()
 ```
 
-아래의 [실행 가능한 예제](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-download-file)는 응답을 `ByteArray`로 가져와 파일로 저장하는 방법을 보여줍니다:
+아래의 [실행 가능한 예제](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-download-file)는 응답을 `ByteArray`로 가져와 파일로 저장하는 방법을 보여줍니다:
 
 ```kotlin
     val client = HttpClient()
@@ -232,7 +232,7 @@ Ktor는 [`ByteReadChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-r
 
 `ByteReadChannel.readRemaining()`을 사용하면 채널에서 사용 가능한 모든 바이트를 가져오며, `Source.transferTo()`는 데이터를 파일에 직접 써서 불필요한 할당을 줄입니다.
 
-> 전체 스트리밍 예제는 [client-download-streaming](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-download-streaming)을 참조하십시오.
+> 전체 스트리밍 예제는 [client-download-streaming](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-download-streaming)을 참조하십시오.
 
 #### 응답을 파일에 직접 쓰기
 

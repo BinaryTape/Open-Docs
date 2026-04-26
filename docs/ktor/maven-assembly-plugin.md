@@ -2,7 +2,7 @@
 
 <tldr>
 <p>
-<control>示例项目</control>：<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/tutorial-server-get-started-maven">tutorial-server-get-started-maven</a>
+<control>示例项目</control>：<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/tutorial-server-get-started-maven">tutorial-server-get-started-maven</a>
 </p>
 </tldr>
 

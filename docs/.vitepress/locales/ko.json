@@ -85,7 +85,7 @@
   "kotlin.kotlin-overview": "Kotlin 개요",
   "kotlin.what-s-new-in-kotlin": "Kotlin의 새로운 기능",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.4.0-Beta1",
+  "kotlin.whatsnew-eap": "Kotlin 2.4.0-Beta2",
   "kotlin.earlier-versions": "이전 버전",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -649,11 +649,13 @@
   "kotlin.library-guides": "라이브러리 가이드",
   "kotlin.multiplatform-gradle-dsl": "멀티플랫폼 Gradle DSL",
   "kotlin.earlier-kotlin-releases": "이전 Kotlin 릴리스",
-  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-beta02",
+  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-beta03",
   "koog.rag": "RAG",
   "kotlin.backend-development": "백엔드 개발",
   "kotlin.running-ksp-from-the-command-line": "명령줄에서 KSP 실행하기",
   "koog.datadog-exporter": "Datadog 익스포터",
   "kotlin.maven-set-dependencies": "리포지토리 및 종속성 설정",
-  "kotlin.maven-kotlin-compiler": "Kotlin 컴파일러 구성"
+  "kotlin.maven-kotlin-compiler": "Kotlin 컴파일러 구성",
+  "kmp.build-ios-android-app": "Android 및 iOS 앱 빌드 방법",
+  "koog.cache-control": "캐시 제어"
 }

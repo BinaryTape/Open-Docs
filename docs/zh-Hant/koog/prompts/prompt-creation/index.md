@@ -428,7 +428,7 @@ Kotlin DSL 與 Java builder API 支援以下類型的訊息，每一種都對應
 - `maxTokens`：限制回應中的 token 數量。
 - `speculation`：提供關於預期回應格式的提示（僅特定模型支援）。
 
-如需更多資訊，請參閱 [LLM 參數](../../llm-parameters.md)。
+若要了解更多，請參閱 [LLM 參數](../../llm-parameters.md)。
 
 ## 擴充現有提示
 
@@ -481,3 +481,4 @@ Kotlin DSL 與 Java builder API 支援以下類型的訊息，每一種都對應
 - 了解如何處理 [多模態內容](multimodal-content.md)。
 - 如果您使用單一 LLM 提供者，請使用 [LLM 用戶端](../llm-clients.md) 執行提示。
 - 如果您使用多個 LLM 提供者，請使用 [提示執行器](../prompt-executors.md) 執行提示。
+- 了解如何透過 [快取控制](cache-control.md) 使用 LLM 快取。

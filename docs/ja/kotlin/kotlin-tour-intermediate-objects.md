@@ -14,10 +14,6 @@
         <img src="icon-9-todo.svg" width="20" alt="Ninth step" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">ライブラリとAPI</a></p>
 </tldr>
 
-> 読了時間 約8分
->
-{style="tip"}
-
 この章では、オブジェクト宣言について学習し、クラスへの理解を深めます。この知識は、プロジェクト全体で振る舞いを効率的に管理するのに役立ちます。
 
 ## オブジェクト宣言

@@ -7,7 +7,7 @@
 <var name="example_name" value="client-ssl-config"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -54,7 +54,7 @@ object SslSettings {
 ## Ktor での SSL 構成 {id="configure-ssl"}
 
 このセクションでは、さまざまなエンジンに対して SSL を構成する方法を見ていきます。
-完全な例はこちらで見ることができます: [client-ssl-config](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-ssl-config)
+完全な例はこちらで見ることができます: [client-ssl-config](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-ssl-config)
 
 ### JVM {id="jvm"}
 
@@ -118,7 +118,7 @@ val cioClient = HttpClient(CIO) {
 }
 ```
 
-> [sockets-client-tls](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/sockets-client-tls) の例では、すべての証明書を信頼する方法を示しています。
+> [sockets-client-tls](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/sockets-client-tls) の例では、すべての証明書を信頼する方法を示しています。
 > このアプローチは開発目的のみに使用してください。
 
 #### Android {id="android"}

@@ -13,7 +13,7 @@
 <var name="example_name" value="double-receive"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -97,7 +97,7 @@ post("/") {
 }
 ```
 
-전체 예제는 여기에서 확인할 수 있습니다: [double-receive](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/double-receive).
+전체 예제는 여기에서 확인할 수 있습니다: [double-receive](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/double-receive).
 
 ## %plugin_name% 구성 {id="configure"}
 기본 구성을 사용하면 `%plugin_name%`은 [요청 본문](server-requests.md#body_contents)을 다음과 같은 타입으로 수신할 수 있는 기능을 제공합니다:

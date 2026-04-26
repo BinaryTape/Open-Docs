@@ -14,10 +14,6 @@
         <img src="icon-9-todo.svg" width="20" alt="第九步" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">程式庫與 API</a></p>
 </tldr>
 
-> 閱讀時間 13 分鐘
->
-{style="tip"}
-
 在本章節中，你將基於對擴充方法的理解，學習如何使用作用域函式（scope functions）來撰寫更道地的程式碼。
 
 ## 作用域函式 (Scope functions)

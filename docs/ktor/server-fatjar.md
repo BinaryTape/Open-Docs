@@ -4,7 +4,7 @@
 <var name="example_name" value="deployment-ktor-plugin"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -21,7 +21,7 @@
 1. 打开 `build.gradle.kts` 文件并将插件添加到 `plugins` 块中：
    ```kotlin
    plugins {
-       id("io.ktor.plugin") version "3.4.0"
+       id("io.ktor.plugin") version "3.4.3"
    }
    ```
 
@@ -56,4 +56,4 @@ Ktor 插件提供了以下用于创建和运行 fat JAR 的任务：
 - `buildFatJar`：构建项目和运行时依赖项的组合 JAR。构建完成后，您应该会在 `build/libs` 目录中看到 `***-all.jar` 文件。
 - `runFatJar`：构建项目的 fat JAR 并运行它。
 
-> 要了解如何使用 ProGuard 最小化生成的 JAR，请参阅 [proguard](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/proguard) 示例。
+> 要了解如何使用 ProGuard 最小化生成的 JAR，请参阅 [proguard](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/proguard) 示例。

@@ -6,7 +6,7 @@
 <var name="example_name" value="tutorial-website-interactive-persistence"/>
 <p>
     <b>코드 예제</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -225,7 +225,7 @@ IntelliJ IDEA가 `dao` 패키지 내에 `DAOFacadeImpl.kt` 파일을 생성합�
 
 ```
 
-> 이 튜토리얼의 결과 프로젝트는 여기에서 확인할 수 있습니다: [tutorial-website-interactive-persistence](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/tutorial-website-interactive-persistence).
+> 이 튜토리얼의 결과 프로젝트는 여기에서 확인할 수 있습니다: [tutorial-website-interactive-persistence](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/tutorial-website-interactive-persistence).
 
 ## 애플리케이션 실행 {id="run_app"}
 

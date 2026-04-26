@@ -12,10 +12,6 @@
         <img src="icon-7.svg" width="20" alt="最后一步" /> <strong>空安全</strong><br /></p>
 </tldr>
 
-> 阅读耗时：6 min
->
-{style="tip"}
-
 在 Kotlin 中，可以使用 `null` 值。Kotlin 在某些内容缺失或尚未设置时使用 `null` 值。
 在 [集合](kotlin-tour-collections.md#kotlin-tour-map-no-key) 章节中，当你尝试使用 map 中不存在的键来访问键值对时，已经看到过 Kotlin 返回 `null` 值的示例。虽然以这种方式使用 `null` 值很有用，但如果你的代码没有做好处理它们的准备，就可能会遇到问题。
 

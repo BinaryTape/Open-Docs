@@ -14,10 +14,6 @@
         <img src="icon-9-todo.svg" width="20" alt="第九步" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">程式庫與 API</a></p>
 </tldr>
 
-> 閱讀時間 7 分鐘
->
-{style="tip"}
-
 在本章節中，您將學習如何將接收者與另一種函式類型——Lambda 運算式結合使用，以及它們如何幫助您建立領域特定語言 (DSL)。
 
 ## 帶接收者的 Lambda 運算式

@@ -289,7 +289,7 @@ fun Route.totalizeOrderRoute() {
 }
 ```
 
-有關示範此方法的完整範例，請參閱 [legacy-interactive-website](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/legacy-interactive-website)。
+有關示範此方法的完整範例，請參閱 [legacy-interactive-website](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/legacy-interactive-website)。
 
 > 為了讓應用程式在可維護性方面具有擴展性，建議遵循特定的[結構化模式](server-routing-organization.md)。
 

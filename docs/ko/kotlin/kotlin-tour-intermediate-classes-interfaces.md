@@ -14,10 +14,6 @@
         <img src="icon-9-todo.svg" width="20" alt="아홉 번째 단계" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">라이브러리 및 API</a></p>
 </tldr>
 
-> 읽는 시간 약 17분
->
-{style="tip"}
-
 초급 투어에서는 클래스와 데이터 클래스를 사용하여 데이터를 저장하고 코드에서 공유할 수 있는 일련의 특성을 유지하는 방법을 배웠습니다. 결국 프로젝트 내에서 코드를 효율적으로 공유하기 위해 계층 구조를 만들고 싶을 것입니다. 이 장에서는 코드를 공유하기 위해 코틀린이 제공하는 옵션과 이러한 옵션이 코드를 더 안전하고 유지 관리하기 쉽게 만드는 방법을 설명합니다.
 
 ## 클래스 상속
@@ -187,7 +183,7 @@ class CreditCardPayment(val cardNumber: String, val cardHolderName: String, val 
 fun main() {
     val paymentMethod = CreditCardPayment("1234 5678 9012 3456", "John Doe", "12/25")
     println(paymentMethod.initiatePayment(100.0))
-    // Payment of 100.0 initiated using Credit Card ending in 3456.
+    // Payment of $100.0 initiated using Credit Card ending in 3456.
 }
 ```
 {kotlin-runnable="true" id="kotlin-tour-interface-inheritance"}
@@ -230,7 +226,7 @@ class CreditCardPayment(val cardNumber: String, val cardHolderName: String, val 
 fun main() {
     val paymentMethod = CreditCardPayment("1234 5678 9012 3456", "John Doe", "12/25")
     println(paymentMethod.initiatePayment(100.0))
-    // Payment of 100.0 initiated using Credit Card ending in 3456.
+    // Payment of $100.0 initiated using Credit Card ending in 3456.
 
     println("Payment is by ${paymentMethod.paymentType}")
     // Payment is by Credit Card

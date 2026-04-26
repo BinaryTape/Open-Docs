@@ -13,7 +13,7 @@
 <var name="example_name" value="auth-oauth-google"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -107,7 +107,7 @@ fun Application.main(httpClient: HttpClient = applicationHttpClient) {
 ## 配置 OAuth {id="configure-oauth"}
 
 本节演示如何配置 `oauth` 提供程序，以便通过 Google 授权应用程序的用户。
-如需完整的可运行示例，请参阅 [auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-oauth-google)。
+如需完整的可运行示例，请参阅 [auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-oauth-google)。
 
 ### 前提条件：创建授权凭据 {id="authorization-credentials"}
 
@@ -273,4 +273,4 @@ get("/{path}") {
 }
 ```
 
-如需完整的可运行示例，请参阅 [auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-oauth-google)。
+如需完整的可运行示例，请参阅 [auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-oauth-google)。

@@ -117,7 +117,7 @@ fun Application.module() {
 </TabItem>
 </Tabs>
 
-> 完全なコード例については、[engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main) を参照してください。
+> 完全なコード例については、[engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main) を参照してください。
 
 ## JUnit テストクラスのセットアップ {id="junit-test-class"}
 
@@ -302,7 +302,7 @@ fun testHello() = testApplication {
 }
 ```
    
-> 完全なテスト例については、[auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-oauth-google) を参照してください。
+> 完全なテスト例については、[auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-oauth-google) を参照してください。
 
 ### 環境のカスタマイズ {id="environment"}
 
@@ -354,7 +354,7 @@ fun testHello() = testApplication {
 }
 ```
 
-> 完全なテスト例については、[auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-oauth-google) を参照してください。
+> 完全なテスト例については、[auth-oauth-google](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-oauth-google) を参照してください。
 
 ## クライアントの設定 {id="configure-client"}
 
@@ -400,7 +400,7 @@ fun testPostCustomer() = testApplication {
 }
 ```
 
-> 完全なテスト例については、[json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/json-kotlinx) を参照してください。
+> 完全なテスト例については、[json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/json-kotlinx) を参照してください。
 
 ## 結果の検証 (Assert) {id="assert"}
 
@@ -490,7 +490,7 @@ fun Application.main() {
 </TabItem>
 </Tabs>
 
-> 完全なコード例については、[post-form-parameters](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/post-form-parameters) を参照してください。
+> 完全なコード例については、[post-form-parameters](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/post-form-parameters) を参照してください。
 
 #### マルチパートフォームデータ (Multipart form data) {id="multipart-form-data"}
 
@@ -595,7 +595,7 @@ fun Application.main() {
 </TabItem>
 </Tabs>
 
-> 完全なコード例については、[upload-file](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/upload-file) を参照してください。
+> 完全なコード例については、[upload-file](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/upload-file) を参照してください。
 
 ### JSON データの送信 {id="json-data"}
 
@@ -673,7 +673,7 @@ data class Customer(val id: Int, val firstName: String, val lastName: String)
 </TabItem>
 </Tabs>
 
-> 完全な例については、[json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/json-kotlinx) を参照してください。
+> 完全な例については、[json-kotlinx](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/json-kotlinx) を参照してください。
 
 ## テスト中のクッキーの保持 {id="preserving-cookies"}
 
@@ -763,7 +763,7 @@ fun Application.main() {
 </TabItem>
 </Tabs>
 
-> 完全な例については、[session-cookie-client](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/session-cookie-client) を参照してください。
+> 完全な例については、[session-cookie-client](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-cookie-client) を参照してください。
 
 ## HTTPS のテスト {id="https"}
 
@@ -795,7 +795,7 @@ class ApplicationTest {
 
 ```
 
-> 完全な例については、[ssl-engine-main](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/ssl-engine-main) を参照してください。
+> 完全な例については、[ssl-engine-main](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/ssl-engine-main) を参照してください。
 
 ## WebSocket のテスト {id="testing-ws"}
 
@@ -858,4 +858,4 @@ class EmbeddedServerTest: TestServer() {
 }
 ```
 
-> 完全なエンドツーエンドテストの例については、[embedded-server](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server) および [e2e](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/e2e) を参照してください。
+> 完全なエンドツーエンドテストの例については、[embedded-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server) および [e2e](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/e2e) を参照してください。

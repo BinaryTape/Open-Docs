@@ -9,7 +9,7 @@
 <var name="example_name" value="auth-ldap"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -41,7 +41,7 @@ LDAP 是一種用於處理各種可儲存使用者資訊之目錄服務的協定
 
 ### 步驟 1：選擇驗證提供者 {id="choose-auth"}
 
-若要驗證 LDAP 使用者，您首先需要選擇一個用於使用者名稱與密碼校驗的驗證提供者。在 Ktor 中，`basic`、`digest` 或 `form-based` 提供者均可用於此目的。例如，若要使用 `basic` 驗證提供者，請在 `install` 區塊中呼叫 [basic](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/basic.html) 函式。
+若要驗證 LDAP 使用者，您首先需要選擇一個用於使用者名稱與密碼校驗的驗證提供者。在 Ktor 中，[basic](server-basic-auth.md)、[digest](server-digest-auth.md) 或 [form-based](server-form-based-auth.md) 提供者均可用於此目的。例如，若要使用 `basic` 驗證提供者，請在 `install` 區塊中呼叫 [basic](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/basic.html) 函式。
 
 ```kotlin
 import io.ktor.server.application.*
@@ -74,7 +74,7 @@ install(Authentication) {
 }
 ```
 
-`validate` 函式在驗證成功時會傳回 [UserIdPrincipal]，若驗證失敗則傳回 `null`。
+`validate` 函式在驗證成功時會傳回 [UserIdPrincipal](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)，若驗證失敗則傳回 `null`。
 
 您可以選擇性地為已驗證使用者新增額外的校驗。
 
@@ -96,7 +96,7 @@ install(Authentication) {
 
 ### 步驟 3：保護特定資源 {id="authenticate-route"}
 
-設定 LDAP 後，您可以使用 **[authenticate](server-auth.md#authenticate-route)** 函式來保護應用程式中的特定資源。在驗證成功的情況下，您可以在路由處理常式中使用 `call.principal` 函式取得已驗證的 [UserIdPrincipal]，並獲取已驗證使用者的名稱。
+設定 LDAP 後，您可以使用 **[authenticate](server-auth.md#authenticate-route)** 函式來保護應用程式中的特定資源。在驗證成功的情況下，您可以在路由處理常式中使用 `call.principal` 函式取得已驗證的 [UserIdPrincipal](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-user-id-principal/index.html)，並獲取已驗證使用者的名稱。
 
 ```kotlin
 routing {
@@ -108,6 +108,6 @@ routing {
 }
 ```
 
-您可以在此處找到完整的可執行範例：[auth-ldap](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-ldap)。
+您可以在此處找到完整的可執行範例：[auth-ldap](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-ldap)。
 
 > 請記住，目前的 LDAP 實作是同步的。

@@ -8,7 +8,7 @@
 <var name="example_name" value="html"/>
 <p>
     <b>程式碼範例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -132,7 +132,7 @@ get("/login") {
 </TabItem>
 </Tabs>
 
-如需完整範例，請參閱 [auth-form-html-dsl](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-form-html-dsl)。
+如需完整範例，請參閱 [auth-form-html-dsl](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-form-html-dsl)。
 
 > 若要進一步了解在伺服器端接收表單參數，請參閱[表單參數](server-requests.md#form_parameters)。
 > 
@@ -196,7 +196,7 @@ fun Application.module() {
     
 
 ### 範例 {id="example"}
-讓我們透過[範例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/html-templates)來看看如何使用範本建立階層式配置。想像我們有以下 HTML：
+讓我們透過[範例](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/html-templates)來看看如何使用範本建立階層式配置。想像我們有以下 HTML：
 ```html
 <body>
 <h1>Ktor</h1>
@@ -318,4 +318,4 @@ fun Application.module() {
    }
    ```
 
-您可以在這裡找到完整範例：[html-templates](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/html-templates)。
+您可以在這裡找到完整範例：[html-templates](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/html-templates)。

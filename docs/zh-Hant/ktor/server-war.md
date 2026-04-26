@@ -5,9 +5,9 @@
 <tldr>
 <p>
 <b>程式碼範例</b>：
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/jetty-war">jetty-war</a>、
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/tomcat-war">tomcat-war</a>、
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/tomcat-war-ssl">tomcat-war-ssl</a>
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/jetty-war">jetty-war</a>、
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/tomcat-war">tomcat-war</a>、
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/tomcat-war-ssl">tomcat-war-ssl</a>
 </p>
 </tldr>
 
@@ -18,20 +18,20 @@
 您可以在 Tomcat 或 Jetty 等 Servlet 容器中執行 Ktor 應用程式。為此，您需要將應用程式封裝為 WAR 封存檔，並將其部署到支援 WAR 部署的伺服器或雲端服務。
 
 在本主題中，您將學習如何：
-* [設定](#configure-ktor) Ktor 以用於 Servlet 應用程式。
+* [配置 Ktor](#configure-ktor) 以用於 Servlet 應用程式。
 * 套用 [Gretty](#configure-gretty) 與 [War](#configure-war) 外掛程式來執行與封裝 WAR 應用程式。
 * [在 Servlet 容器中執行 Ktor 應用程式](#run)。
 * [產生並部署 WAR 封存檔](#generate-war)。
 
 ## 在 Servlet 應用程式中配置 Ktor {id="configure-ktor"}
 
-Ktor 允許您在應用程式中直接使用特定引擎（例如 Netty、Jetty 或 Tomcat）[建立並配置伺服器](server-create-and-configure.topic)。在此設定中，您的應用程式會控制引擎配置、連線與 SSL 設定。
+Ktor 允許您在應用程式中直接使用特定引擎（例如 Netty、Jetty 或 Tomcat）[建立並啟動伺服器](server-create-and-configure.topic)。在此設定中，您的應用程式會控制引擎配置、連線與 SSL 設定。
 
 當部署到 Servlet 容器時，容器會控制應用程式生命週期與連線配置。為此，Ktor 提供了 [`ServletApplicationEngine`](https://api.ktor.io/ktor-server-servlet-jakarta/io.ktor.server.servlet.jakarta/-servlet-application-engine/index.html) 引擎，這會將應用程式的控制權委託給 Servlet 容器。
 
 > 在 Servlet 容器內執行時，[在配置檔案中定義](server-configuration-file.topic)的 Ktor 連線與 SSL 設定將不會生效。
 > 
-> 有關在 Tomcat 中配置 SSL 的資訊，請參閱 [tomcat-war-ssl](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/tomcat-war-ssl) 範例。
+> 有關在 Tomcat 中配置 SSL 的資訊，請參閱 [tomcat-war-ssl](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/tomcat-war-ssl) 範例。
 > 
 {style="note"}
 
@@ -136,9 +136,21 @@ afterEvaluate {
 }
 ```
 
+## 配置 War 外掛程式 {id="configure-war"}
+
+War 外掛程式允許您[產生](#generate-war)用於部署至 Servlet 容器的 WAR 封存檔。
+
+要套用此外掛程式，請開啟您的 <Path>build.gradle.kts</Path> 檔案，並將以下項目新增至 `plugins` 區塊：
+
+```groovy
+plugins {
+    id("war")
+}
+```
+
 ## 執行應用程式 {id="run"}
 
-您可以使用 `run` 任務執行已[配置 Gretty 外掛程式](#configure-gretty)的 Servlet 應用程式。例如，要執行 [`jetty-war`](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/jetty-war) 範例專案，請執行以下指令：
+您可以使用 `run` 任務執行已[配置 Gretty 外掛程式](#configure-gretty)的 Servlet 應用程式。例如，要執行 [`jetty-war`](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/jetty-war) 範例專案，請執行以下指令：
 
 ```Bash
 ./gradlew :jetty-war:run
@@ -146,7 +158,7 @@ afterEvaluate {
 
 ## 產生並部署 WAR 封存檔 {id="generate-war"}
 
-要使用 [`War`](#configure-war) 外掛程式產生 WAR 封存檔，請執行 `war` 任務。對於 [`jetty-war`](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/jetty-war) 範例專案，指令如下：
+要使用 [`War`](#configure-war) 外掛程式產生 WAR 封存檔，請執行 `war` 任務。對於 [`jetty-war`](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/jetty-war) 範例專案，指令如下：
 
 ```Bash
 ./gradlew :jetty-war:war
@@ -185,4 +197,4 @@ CMD ["catalina.sh", "run"]
 </TabItem>
 </Tabs>
 
-有關完整的範例，請參閱 [jetty-war](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/jetty-war) 與 [tomcat-war](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/tomcat-war)。
+有關完整的範例，請參閱 [jetty-war](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/jetty-war) 與 [tomcat-war](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/tomcat-war)。

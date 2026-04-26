@@ -14,7 +14,7 @@
 <var name="example_name" value="client-call-id"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -147,4 +147,4 @@
 
 通过这种方式，Ktor 服务器将检索请求中指定标头的 ID，并将其应用于调用的 `callId` 属性。
 
-有关完整示例，请参阅 [client-call-id](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-call-id)
+有关完整示例，请参阅 [client-call-id](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-call-id)

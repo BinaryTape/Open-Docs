@@ -14,7 +14,7 @@
 <var name="example_name" value="client-call-id"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -52,7 +52,7 @@
 ## 安裝 %plugin_name% {id="install_plugin"}
 
 <p>
-    要將 <code>%plugin_name%</code> 外掛程式安裝到應用程式，請將其傳遞給指定<Links href="/ktor/server-modules" summary="模組允許您透過將路由分組來建構應用程式。">模組</Links>中的 <code>install</code> 函式。
+    要將 <code>%plugin_name%</code> 外掛程式<a href="#install">安裝</a>到應用程式，請將其傳遞給指定<Links href="/ktor/server-modules" summary="模組允許您透過將路由分組來建構應用程式。">模組</Links>中的 <code>install</code> 函式。
     下方的程式碼片段展示了如何安裝 <code>%plugin_name%</code> ...
 </p>
 <list>
@@ -147,4 +147,4 @@
 
 透過這種方式，Ktor 伺服器會檢索請求中指定標頭的 ID，並將其套用到呼叫的 `callId` 屬性。
 
-有關完整範例，請參閱 [client-call-id](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-call-id)
+有關完整範例，請參閱 [client-call-id](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-call-id)

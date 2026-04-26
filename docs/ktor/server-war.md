@@ -5,9 +5,9 @@
 <tldr>
 <p>
 <b>代码示例</b>：
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/jetty-war">jetty-war</a>、
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/tomcat-war">tomcat-war</a>、
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/tomcat-war-ssl">tomcat-war-ssl</a>
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/jetty-war">jetty-war</a>、
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/tomcat-war">tomcat-war</a>、
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/tomcat-war-ssl">tomcat-war-ssl</a>
 </p>
 </tldr>
 
@@ -25,13 +25,13 @@
 
 ## 在 servlet 应用程序中配置 Ktor {id="configure-ktor"}
 
-Ktor 允许您直接在应用程序中使用特定引擎（如 Netty、Jetty 或 Tomcat）[创建和配置服务器](server-create-and-configure.topic)。在这种设置中，由您的应用程序控制引擎配置、连接和 SSL 设置。
+Ktor 允许您直接在应用程序中使用特定引擎（如 Netty、Jetty 或 Tomcat）[创建和启动服务器](server-create-and-configure.topic)。在这种设置中，由您的应用程序控制引擎配置、连接和 SSL 设置。
 
 当部署到 servlet 容器时，容器将控制应用程序生命周期和连接配置。为此，Ktor 提供了 [`ServletApplicationEngine`](https://api.ktor.io/ktor-server-servlet-jakarta/io.ktor.server.servlet.jakarta/-servlet-application-engine/index.html) 引擎，它将应用程序的控制权委托给 servlet 容器。
 
 > 在 servlet 容器内部运行时，[在配置文件中定义的 Ktor 连接和 SSL 设置](server-configuration-file.topic)将不会生效。
 > 
-> 有关在 Tomcat 中配置 SSL 的信息，请参阅 [tomcat-war-ssl](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/tomcat-war-ssl) 示例。
+> 有关在 Tomcat 中配置 SSL 的信息，请参阅 [tomcat-war-ssl](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/tomcat-war-ssl) 示例。
 > 
 {style="note"}
 
@@ -150,7 +150,7 @@ plugins {
 
 ## 运行应用程序 {id="run"}
 
-您可以使用 `run` 任务运行配置了 [Gretty 插件](#configure-gretty)的 servlet 应用程序。例如，要运行 [`jetty-war`](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/jetty-war) 示例项目，请运行以下命令：
+您可以使用 `run` 任务运行配置了 [Gretty 插件](#configure-gretty)的 servlet 应用程序。例如，要运行 [`jetty-war`](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/jetty-war) 示例项目，请运行以下命令：
 
 ```Bash
 ./gradlew :jetty-war:run
@@ -158,13 +158,13 @@ plugins {
 
 ## 生成并部署 WAR 归档文件 {id="generate-war"}
 
-要使用 [`War`](#configure-war) 插件生成 WAR 归档文件，请运行 `war` 任务。对于 [`jetty-war`](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/jetty-war) 示例项目，命令如下所示：
+要使用 [`War`](#configure-war) 插件生成 WAR 归档文件，请运行 `war` 任务。对于 [`jetty-war`](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/jetty-war) 示例项目，命令如下所示：
 
 ```Bash
 ./gradlew :jetty-war:war
 ```
 
-任务完成后，`jetty-war.war` 将在相应模块的 <Path>build/libs</Path> 目录中可用。
+任务完成后，`jetty-war.war` 将在对应模块的 <Path>build/libs</Path> 目录中可用。
 
 要部署生成的归档文件，请将文件复制到 servlet 容器中的 <Path>jetty/webapps</Path> 目录。
 
@@ -197,4 +197,4 @@ CMD ["catalina.sh", "run"]
 </TabItem>
 </Tabs>
 
-有关完整示例，请参阅 [jetty-war](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/jetty-war) 和 [tomcat-war](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/tomcat-war)。
+有关完整示例，请参阅 [jetty-war](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/jetty-war) 和 [tomcat-war](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/tomcat-war)。

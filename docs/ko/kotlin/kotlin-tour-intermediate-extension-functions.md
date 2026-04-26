@@ -14,10 +14,6 @@
         <img src="icon-9-todo.svg" width="20" alt="Ninth step" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">라이브러리와 API</a></p>
 </tldr>
 
-> 읽는 데 약 4분 소요
->
-{style="tip"}
-
 이 장에서는 코드를 더 간결하고 읽기 쉽게 만들어 주는 특별한 Kotlin 함수를 살펴봅니다. 효율적인 디자인 패턴을 사용하여 프로젝트를 한 단계 더 발전시키는 방법을 배워보세요.
 
 ## 확장 함수 (Extension functions)
@@ -32,7 +28,7 @@
 ![송신자와 수신자의 예시](receiver-highlight.png){width="500"}
 
 이 예시에서 `main()` 함수는 리스트의 첫 번째 요소를 반환하기 위해 [`.first()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/first.html) 함수를 호출합니다.
-`.first()` 함수는 `readOnlyShapes` 변수**에 대해** 호출되므로, `readOnlyShapes` 변수가 수신 객체가 됩니다.
+`.first()` 함수는 `readOnlyShapes` 변수**에 대해** 호출되므로, `readOnlyShapes` 변수가 수신 객체입니다.
 
 확장 함수를 만들려면 확장하려는 클래스 이름 뒤에 `.`과 함수 이름을 적습니다. 그 다음 매개변수와 반환 타입을 포함한 나머지 함수 선언을 작성합니다.
 

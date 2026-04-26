@@ -12,10 +12,6 @@
         <img src="icon-7-todo.svg" width="20" alt="最後のステップ" /> <a href="kotlin-tour-null-safety.md">Null安全</a></p>
 </tldr>
 
-> 読了時間の目安: 10分
->
-{style="tip"}
-
 プログラミングにおいて、後で処理するためにデータを構造体にグループ化できると便利です。Kotlinでは、まさにこの目的のためにコレクションを提供しています。
 
 Kotlinには、項目をグループ化するための以下のコレクションがあります：
@@ -414,7 +410,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-map-in"}
 
-コレクションでできることについての詳細は、[コレクションの概要](collections-overview.md)を参照してください。
+コレクションでできることについての詳細は、[コレクション](collections-overview.md)を参照してください。
 
 基本型とコレクションの管理方法について学んだので、次はプログラムで使用できる [制御フロー](kotlin-tour-control-flow.md) について見ていきましょう。
 
@@ -486,7 +482,7 @@ fun main() {
 fun main() {
     val number2word = // ここにコードを書いてください
     val n = 2
-    println("$n is spelt as '${<ここにコードを書いてください >}'")
+    println("$n is spelled as '${<ここにコードを書いてください >}'")
 }
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-collections-exercise-3"}

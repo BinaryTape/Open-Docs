@@ -14,7 +14,7 @@
 <var name="example_name" value="dropwizard-metrics"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -105,7 +105,7 @@ install(DropwizardMetrics) {
 }
 ```
 
-完全な例はこちらで確認できます: [dropwizard-metrics](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/dropwizard-metrics)
+完全な例はこちらで確認できます: [dropwizard-metrics](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/dropwizard-metrics)。
 
 アプリケーションを実行して[http://0.0.0.0:8080](http://0.0.0.0:8080)を開くと、出力は以下のようになります。
 
@@ -134,7 +134,7 @@ install(DropwizardMetrics) {
 }
 ```
 
-完全な例はこちらで確認できます: [dropwizard-metrics](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/dropwizard-metrics)
+完全な例はこちらで確認できます: [dropwizard-metrics](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/dropwizard-metrics)。
 
 アプリケーションを実行し、[JConsole](https://docs.oracle.com/en/java/javase/17/management/using-jconsole.html)を使用してそのプロセスに接続すると、メトリクスは以下のようになります。
 
@@ -180,4 +180,4 @@ install(DropwizardMetrics) {
 }
 ```
 
-完全な例はこちらで確認できます: [dropwizard-metrics](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/dropwizard-metrics)
+完全な例はこちらで確認できます: [dropwizard-metrics](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/dropwizard-metrics)。

@@ -84,7 +84,7 @@ val httpResponse: HttpResponse = client.get("https://ktor.io/")
 val byteArrayBody: ByteArray = httpResponse.body()
 ```
 
-以下の[実行可能な例](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-download-file)は、レスポンスを`ByteArray`として取得し、ファイルに保存する方法を示しています。
+以下の[実行可能な例](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-download-file)は、レスポンスを`ByteArray`として取得し、ファイルに保存する方法を示しています。
 
 ```kotlin
     val client = HttpClient()
@@ -231,7 +231,7 @@ Ktorは、[`ByteReadChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte
 
 `ByteReadChannel.readRemaining()`を使用するとチャネル内の利用可能なすべてのバイトを取得し、`Source.transferTo()`はデータをファイルに直接書き込むため、不要な割り当てを減らすことができます。
 
-> ストリーミングの完全な例については、[client-download-streaming](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-download-streaming)を参照してください。
+> ストリーミングの完全な例については、[client-download-streaming](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-download-streaming)を参照してください。
 
 #### レスポンスをファイルに直接書き込む
 
@@ -273,4 +273,5 @@ println("A file saved to ${file.path}")
 `.copyAndClose()`とは異なり、シンクは書き込み後も開いたままになり、転送中にエラーが発生した場合にのみ自動的に閉じられます。
 
 > Ktorチャネルと`RawSink`、`RawSource`、`OutputStream`などの型との間の変換については、[I/Oの相互運用性](io-interoperability.md)を参照してください。
+>
 {style="tip"}

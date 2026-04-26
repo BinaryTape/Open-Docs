@@ -14,7 +14,7 @@
 <var name="example_name" value="caching-headers"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -63,7 +63,7 @@
         <code-block lang="kotlin" code="            import io.ktor.server.engine.*&#10;            import io.ktor.server.netty.*&#10;            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;&#10;            fun main() {&#10;                embeddedServer(Netty, port = 8080) {&#10;                    install(%plugin_name%)&#10;                    // ...&#10;                }.start(wait = true)&#10;            }"/>
     </TabItem>
     <TabItem title="module">
-        <code-block lang="kotlin" code="            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;            // ...&#10;            fun Application.module() {&#10;                install(%plugin_name%)&#10;                // ...&#10;                // ...&#10;            }"/>
+        <code-block lang="kotlin" code="            import io.ktor.server.application.*&#10;            import %package_name%.*&#10;            // ...&#10;            fun Application.module() {&#10;                install(%plugin_name%)&#10;                // ...&#10;            }"/>
     </TabItem>
 </Tabs>
 <p>
@@ -74,7 +74,7 @@
 `%plugin_name%` をインストールした後、さまざまなコンテンツタイプに対してキャッシング設定を[構成](#configure)できます。
 
 ## キャッシングの設定 {id="configure"}
-`%plugin_name%` プラグインを設定するには、特定の `ApplicationCall` とコンテンツタイプに対して指定されたキャッシングオプションを提供するために、[options](https://api.ktor.io/ktor-server-caching-headers/io.ktor.server.plugins.cachingheaders/-caching-headers-config/options.html) 関数を定義する必要があります。[caching-headers](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/caching-headers) の例のコードスニペットは、プレーンテキストと HTML に対して `max-age` オプションを含む `Cache-Control` ヘッダーを追加する方法を示しています：
+`%plugin_name%` プラグインを設定するには、特定の `ApplicationCall` とコンテンツタイプに対して指定されたキャッシングオプションを提供するために、[options](https://api.ktor.io/ktor-server-caching-headers/io.ktor.server.plugins.cachingheaders/-caching-headers-config/options.html) 関数を定義する必要があります。[caching-headers](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/caching-headers) の例のコードスニペットは、プレーンテキストと HTML に対して `max-age` オプションを含む `Cache-Control` ヘッダーを追加する方法を示しています：
 
 ```kotlin
 fun Application.module() {

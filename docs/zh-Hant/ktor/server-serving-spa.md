@@ -6,7 +6,7 @@
 <var name="example_name" value="single-page-application"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -101,4 +101,4 @@ fun Application.module() {
 - `defaultPage`：指定將 `main.html` 作為預設提供的資源。
 - `ignoreFiles`：忽略結尾為 `.txt` 的路徑。
 
-您可以在此處找到完整範例：[single-page-application](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/single-page-application)。
+您可以在此處找到完整範例：[single-page-application](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/single-page-application)。

@@ -4,8 +4,8 @@
 
 <tldr>
 <p><b>程式碼範例</b>：
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-validate-2xx-response">client-validate-2xx-response</a>,
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-validate-non-2xx-response">client-validate-non-2xx-response</a>
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-validate-2xx-response">client-validate-2xx-response</a>,
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-validate-non-2xx-response">client-validate-non-2xx-response</a>
 </p>
 </tldr>
 
@@ -35,7 +35,7 @@ val client = HttpClient(CIO) {
 }
 ```
 
-或者，您也可以針對各別請求啟用 `expectSuccess`。在這種情況下，針對非 2xx 的錯誤回應會拋出以下例外：
+或者，您也可以針對個別請求啟用 `expectSuccess`。在這種情況下，針對非 2xx 的錯誤回應會拋出以下例外：
 
 * [`RedirectResponseException`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/-redirect-response-exception/index.html) 針對 3xx 回應。
 * [`ClientRequestException`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/-client-request-exception/index.html) 針對 4xx 回應。
@@ -45,7 +45,7 @@ val client = HttpClient(CIO) {
 
 除了預設驗證行為外，您還可以使用 [`HttpCallValidator`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/-http-call-validator) 外掛程式來定義自訂的回應驗證邏輯。這可讓您驗證成功 (2xx) 的回應，或覆蓋非 2xx 回應的處理方式。
 
-要安裝 `HttpCallValidator`，請在 [用戶端配置區塊](client-create-and-configure.md#configure-client) 中呼叫 [`HttpResponseValidator`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/-http-response-validator.html) 函式：
+要安裝 `HttpCallValidator`，請在 [用戶端配置區塊](client-create-and-configure.md#configure-client) 中呼叫 [`HttpResponseValidator`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/-http-call-validator.html) 函式：
 
 ```kotlin
 val client = HttpClient(CIO) {
@@ -75,7 +75,7 @@ val client = HttpClient(CIO) {
 }
 ```
 
-> 有關完整的範例，請參閱 [client-validate-2xx-response](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-validate-2xx-response)。
+> 有關完整的範例，請參閱 [client-validate-2xx-response](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-validate-2xx-response)。
 > 
 {style="tip"}
 
@@ -118,6 +118,6 @@ fun main() {
 }
 ```
 
-> 有關完整的範例，請參閱 [client-validate-non-2xx-response](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-validate-non-2xx-response)。
+> 有關完整的範例，請參閱 [client-validate-non-2xx-response](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-validate-non-2xx-response)。
 > 
 {style="tip"}

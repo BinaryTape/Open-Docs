@@ -14,10 +14,6 @@
         <img src="icon-9-todo.svg" width="20" alt="ステップ9" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">ライブラリとAPI</a></p>
 </tldr>
 
-> 読了時間：約 7 分
->
-{style="tip"}
-
 この章では、別の種類の関数であるレシーバ付きラムダ式の使い方と、それがドメイン固有言語（DSL）の作成にどのように役立つかを学びます。
 
 ## レシーバ付きラムダ式

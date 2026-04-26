@@ -13,7 +13,7 @@
 <var name="example_name" value="webjars"/>
 <p>
     <b>代码示例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -67,7 +67,7 @@
 
 <p>
     要将 <code>%plugin_name%</code> 插件安装到应用，
-    请将其传递给指定<Links href="/ktor/server-modules" summary="模块允许您通过对路由进行分组来构建应用程序。">模块</Links>中的 <code>install</code> 函数。
+    请将其传递给指定<Links href="/ktor/server-modules" summary="模块允许您通过对路由进行分组来构建应用程序。">模块</Links>中的 <a href="#install">install</a> 函数。
     以下代码段展示了如何安装 <code>%plugin_name%</code> ...
 </p>
 <list>
@@ -112,4 +112,4 @@ fun Application.module() {
 
 请注意，`%plugin_name%` 允许您更改依赖项的版本，而无需更改用于加载它们的路径。
 
-> 您可以在此处找到完整示例：[webjars](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/webjars)。
+> 您可以在此处找到完整示例：[webjars](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/webjars)。

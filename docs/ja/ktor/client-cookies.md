@@ -6,7 +6,7 @@
 <var name="example_name" value="client-cookies"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -35,7 +35,7 @@ val client = HttpClient(CIO) {
 }
 ```
 
-これだけで、Ktorクライアントはリクエスト間でクッキーを保持できるようになります。完全な例はこちらで確認できます: [client-cookies](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-cookies)。
+これだけで、Ktorクライアントはリクエスト間でクッキーを保持できるようになります。完全な例はこちらで確認できます: [client-cookies](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-cookies)。
 
 `HttpCookies`プラグインでは、`ConstantCookiesStorage`を使用して各リクエストに特定のクッキーセットを追加することもできます。これは、サーバーのレスポンスを検証するテストケースなどで役立ちます。以下の例は、特定のドメインに対するすべてのリクエストに指定したクッキーを追加する方法を示しています。
 

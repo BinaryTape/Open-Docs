@@ -14,10 +14,6 @@
         <img src="icon-9-todo.svg" width="20" alt="Ninth step" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">ライブラリとAPI</a></p>
 </tldr>
 
-> 読了時間: 4分
->
-{style="tip"}
-
 この章では、コードをより簡潔で読みやすくするKotlinの特殊な関数について学習します。プロジェクトを次のレベルに引き上げるために、効率的なデザインパターンを使用するのにこれらがどのように役立つかを学びましょう。
 
 ## 拡張関数

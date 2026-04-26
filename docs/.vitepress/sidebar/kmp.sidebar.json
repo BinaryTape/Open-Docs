@@ -638,6 +638,10 @@
         "link": "ios-android-app-development"
       },
       {
+        "text": "kmp.build-ios-android-app",
+        "link": "build-ios-android-app"
+      },
+      {
         "text": "kmp.use-cases-examples",
         "link": "use-cases-examples"
       },

@@ -10,7 +10,7 @@
 <var name="example_name" value="client-logging"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -95,9 +95,9 @@ Ktor 提供了使用 [Logging](https://api.ktor.io/ktor-client-logging/io.ktor.c
           <code-block lang="XML" code="              &lt;dependency&gt;&#10;                  &lt;groupId&gt;io.ktor&lt;/groupId&gt;&#10;                  &lt;artifactId&gt;%artifact_name%-jvm&lt;/artifactId&gt;&#10;                  &lt;version&gt;${ktor_version}&lt;/version&gt;&#10;              &lt;/dependency&gt;"/>
       </TabItem>
   </Tabs>
-  <p>
-      您可以從 <Links href="/ktor/client-dependencies" summary="了解如何將用戶端相依性新增至現有專案。">新增用戶端相依性</Links> 進一步了解 Ktor 用戶端所需的構件。
-  </p>
+  <tip>
+      若要進一步了解 Ktor 用戶端所需的構件，請參閱 <Links href="/ktor/client-dependencies" summary="了解如何將用戶端相依性新增至現有專案。">新增用戶端相依性</Links>。
+  </tip>
 
 ## 安裝 Logging {id="install_plugin"}
 
@@ -159,7 +159,7 @@ fun main() {
 }
 ```
 
-如需完整範例，請參閱 [client-logging](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-logging)。
+如需完整範例，請參閱 [client-logging](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-logging)。
 
 ### 提供自訂日誌記錄器 {id="custom_logger"}
 
@@ -197,4 +197,4 @@ fun main() {
 
 ```
 
-如需完整範例，請參閱 [client-logging-napier](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-logging-napier)。
+如需完整範例，請參閱 [client-logging-napier](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-logging-napier)。

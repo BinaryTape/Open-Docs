@@ -14,7 +14,7 @@
 <var name="example_name" value="call-id"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -28,7 +28,6 @@
 </link-summary>
 
 [%plugin_name%](https://api.ktor.io/ktor-server-call-id/io.ktor.server.plugins.callid/-call-id.html) プラグインを使用すると、一意のリクエスト ID またはコール ID を使用して、クライアントリクエストをエンドツーエンド (end-to-end) でトレースできます。通常、Ktor でコール ID を操作する流れは次のようになります。
-
 1. まず、以下のいずれかの方法で特定のリクエストのコール ID を取得する必要があります。
    * Nginx などのリバースプロキシ (reverse proxy) や [Heroku](heroku.md) などのクラウドプロバイダー (cloud provider) が、`X-Request-Id` などの特定のヘッダーにコール ID を追加している場合があります。この場合、Ktor でその ID を[取得](#retrieve)できます。
    * リクエストにコール ID が含まれていない場合は、Ktor サーバー側で[生成](#generate)できます。
@@ -139,7 +138,7 @@ install(CallId) {
 }
 ```
 
-完全な例はこちらで確認できます: [call-id](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/call-id)
+完全な例はこちらで確認できます: [call-id](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/call-id)
 
 ### クライアントへのコール ID の送信 {id="send"}
 
@@ -153,7 +152,7 @@ install(CallId) {
    }
    ```
 
-  完全な例はこちらで確認できます: [call-id](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/call-id)
+  完全な例はこちらで確認できます: [call-id](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/call-id)
 
 * `replyToHeader` 関数は、指定されたヘッダーでコール ID を送信します。
    ```kotlin
@@ -188,4 +187,4 @@ install(CallLogging) {
 </appender>
 ```
 
-完全な例はこちらで確認できます: [call-id](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/call-id).
+完全な例はこちらで確認できます: [call-id](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/call-id)

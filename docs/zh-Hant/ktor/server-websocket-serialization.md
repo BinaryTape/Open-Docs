@@ -6,7 +6,7 @@
 <var name="example_name" value="server-websockets-serialization"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -20,7 +20,7 @@
 
 #### JSON {id="add_json_dependency"}
 
-要序列化/反序列化 JSON 資料，您可以選擇以下其中一個程式庫：kotlinx.serialization、Gson 或 Jackson。
+要序列化/反序列化 JSON 資料，您可以選擇以下其中一個程式庫：kotlinx.serialization、Gson 或 Jackson。 
 
 <Tabs group="json-libraries">
 <TabItem title="kotlinx.serialization" group-key="kotlinx">
@@ -246,4 +246,4 @@ webSocket("/customer/1") {
 }
 ```
 
-> 您可以在此處找到完整的範例：[server-websockets-serialization](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/server-websockets-serialization)。
+> 您可以在此處找到完整的範例：[server-websockets-serialization](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/server-websockets-serialization)。

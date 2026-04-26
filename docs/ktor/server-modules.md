@@ -2,9 +2,9 @@
 
 <tldr>
 <p>
-<b>代码示例</b>：
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server-modules">embedded-server-modules</a>, 
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main-modules">engine-main-modules</a>
+<b>代码示例</b>： 
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server-modules">embedded-server-modules</a>, 
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main-modules">engine-main-modules</a>
 </p>
 </tldr>
 
@@ -44,7 +44,9 @@ fun Application.module1() {
 ## 加载模块 {id="loading-modules"}
 ### 嵌入式服务器 {id="embedded-server"}
 
-通常，`embeddedServer` 函数隐式地接受一个模块作为 lambda 实参。您可以在[代码配置](server-create-and-configure.topic#embedded-server)部分查看示例。您还可以将应用程序逻辑提取到单独的模块中，并将该模块的引用作为 `module` 形参传递：
+通常，`embeddedServer` 函数隐式地接受一个模块作为 lambda 实参。 
+您可以在[代码配置](server-create-and-configure.topic#embedded-server)部分查看示例。
+您还可以将应用程序逻辑提取到单独的模块中，并将该模块的引用作为 `module` 形参传递：
 
 ```kotlin
 package com.example
@@ -82,11 +84,11 @@ fun Application.module2() {
 
 ```
 
-您可以在此处找到完整示例：[embedded-server-modules](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/embedded-server-modules)。
+您可以在此处找到完整示例：[embedded-server-modules](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/embedded-server-modules)。
 
 ### 配置文件 {id="hocon"}
 
-如果您使用 `application.conf` 或 `application.yaml` 文件来配置服务器，则需要使用 `ktor.application.modules` 属性指定要加载的模块。
+如果您使用 `application.conf` 或 `application.yaml` 文件来配置服务器，则需要使用 `ktor.application.modules` 属性指定要加载的模块。 
 
 假设您在两个软件包中定义了三个模块：两个模块在 `com.example` 软件包中，一个在 `org.sample` 软件包中。
 
@@ -143,7 +145,8 @@ fun Application.module3() {
 </TabItem>
 </Tabs>
 
-要在配置文件中引用这些模块，您需要提供它们的完全限定名称。完全限定模块名称包括类的完全限定名称和扩展函数名称。
+要在配置文件中引用这些模块，您需要提供它们的完全限定名称。
+完全限定模块名称包括类的完全限定名称和扩展函数名称。
 
 <Tabs group="config">
 <TabItem title="application.conf" group-key="hocon">
@@ -173,7 +176,7 @@ ktor:
 </TabItem>
 </Tabs>
 
-您可以在此处找到完整示例：[engine-main-modules](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/engine-main-modules)。
+您可以在此处找到完整示例：[engine-main-modules](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main-modules)。
 
 ## 模块依赖项
 
@@ -232,7 +235,8 @@ suspend fun Application.installEvents() {
 }
 ```
 
-您还可以独立启动所有应用程序模块，这样当一个模块挂起时，其他模块不会被阻塞。这允许依赖注入进行非顺序加载，并在某些情况下加快加载速度。
+您还可以独立启动所有应用程序模块，这样当一个模块挂起时，其他模块不会被阻塞。
+这允许依赖注入进行非顺序加载，并在某些情况下加快加载速度。
 
 ### 配置选项
 

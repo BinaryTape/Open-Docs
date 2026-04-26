@@ -6,6 +6,10 @@
 
 _[リリース日: 2026年3月16日](releases.md#release-history)_
 
+<tldr>
+    <p>バグ修正リリース 2.3.21 の詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.21">変更ログ</a> を参照してください。</p>
+</tldr>
+
 Kotlin 2.3.20 がリリースされました！主なハイライトは以下の通りです：
 
 * **Gradle**: [Gradle 9.3.0 との互換性](#compatibility-with-gradle-9-3-0) および [Kotlin/JVM コンパイルでデフォルトで BTA を使用](#kotlin-jvm-compilation-uses-build-tools-api-by-default)
@@ -91,7 +95,7 @@ Kotlin Maven プロジェクトの設定に関する詳細は、[Maven プロジ
 
 * [コンパイラ: Lombok が Alpha に](#lombok-is-now-alpha)
 * [言語: 名前ベースの分解](#name-based-destructuring)
-* [標準ライブラリ: `Map.Entry` の不変コピーを作成するための新しい API](#new-api-for-creating-immutable-copies-of-map-entry)
+* [標準ライブラリ: Map.Entry の不変コピーを作成するための新しい API](#new-api-for-creating-immutable-copies-of-map-entry)
 * [Kotlin/Native: C または Objective-C ライブラリ向けの新しい相互運用モード](#new-interoperability-mode-for-c-or-objective-c-libraries)
 
 <snippet id="lombok-is-now-alpha-content">
@@ -470,7 +474,7 @@ kotlin {
 ### Java 不変コレクションアノテーションのサポート
 <secondary-label ref="jvm"/>
 
-Kotlin 2.3.20 では、Java の [`org.jetbrains.annotations.Unmodifiable`](https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/Unmodifiable.html) および [`org.jetbrains.annotations.UnmodifiableView`](https://javadoc.io/doc/org.jetbrains/annotations/24.0.1/org/jetbrains/annotations/UnmodifiableView.html) アノテーションেরサポートが追加されました。
+Kotlin 2.3.20 では、Java の [`org.jetbrains.annotations.Unmodifiable`](https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/Unmodifiable.html) および [`org.jetbrains.annotations.UnmodifiableView`](https://javadoc.io/doc/org.jetbrains/annotations/24.0.1/org/jetbrains/annotations/UnmodifiableView.html) アノテーションのサポートが追加されました。
 
 Kotlin 2.3.20 以降、これらのアノテーションが付けられた Java 宣言から返されるコレクションは、Kotlin で読み取り専用として扱われます。これらをミュータブルなコレクション型に代入すると、型の不一致警告が発生します。この警告は Kotlin 2.5.0 でエラーになる予定です。
 
@@ -568,7 +572,7 @@ kotlin {
 ## Kotlin/Wasm
 
 Kotlin 2.3.20 では、文字列操作のパフォーマンス、コンパイル時間、およびメモリ使用量が改善されました。
-また、Kotlin のオブジェクトやクラスを JavaScript の関数のよう呼び出すことができる、実験的な `@nativeInvoke` アノテーションのサポートが追加されました。
+また、Kotlin のオブジェクトやクラスを JavaScript の関数のように呼び出すことができる、実験的な `@nativeInvoke` アノテーションのサポートが追加されました。
 
 ### 文字列パフォーマンスの向上
 <secondary-label ref="wasm"/>

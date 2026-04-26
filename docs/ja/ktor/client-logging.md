@@ -10,7 +10,7 @@
 <var name="example_name" value="client-logging"/>
 <p>
     <b>コード例</b>:
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
@@ -94,9 +94,9 @@ Ktor は、[Logging](https://api.ktor.io/ktor-client-logging/io.ktor.client.plug
           <code-block lang="XML" code="              &lt;dependency&gt;&#10;                  &lt;groupId&gt;io.ktor&lt;/groupId&gt;&#10;                  &lt;artifactId&gt;%artifact_name%-jvm&lt;/artifactId&gt;&#10;                  &lt;version&gt;${ktor_version}&lt;/version&gt;&#10;              &lt;/dependency&gt;"/>
       </TabItem>
   </Tabs>
-  <p>
+  <tip>
       Ktor クライアントに必要なアーティファクトの詳細については、<Links href="/ktor/client-dependencies" summary="既存のプロジェクトにクライアントの依存関係を追加する方法を学びます。">クライアントの依存関係の追加</Links>を参照してください。
-  </p>
+  </tip>
 
 ## Logging のインストール {id="install_plugin"}
 
@@ -158,7 +158,7 @@ fun main() {
 }
 ```
 
-完全な例については、[client-logging](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-logging) を参照してください。
+完全な例については、[client-logging](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-logging) を参照してください。
 
 ### カスタムロガーの提供 {id="custom_logger"}
 
@@ -196,4 +196,4 @@ fun main() {
 
 ```
 
-完全な例については、[client-logging-napier](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-logging-napier) を参照してください。
+完全な例については、[client-logging-napier](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-logging-napier) を参照してください。

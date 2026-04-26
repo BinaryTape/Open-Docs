@@ -211,7 +211,7 @@ install(Authentication) {
    }
    ```
 
-> 전체 예제는 [auth-form-session-nested](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/auth-form-session-nested)를 참조하십시오.
+> 전체 예제는 [auth-form-session-nested](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/auth-form-session-nested)를 참조하십시오.
 
 ### 5단계: 라우트 핸들러 내에서 프린시펄 가져오기 {id="get-principal"}
 

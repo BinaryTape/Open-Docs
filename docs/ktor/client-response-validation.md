@@ -4,8 +4,8 @@
 
 <tldr>
 <p><b>代码示例</b>：
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-validate-2xx-response">client-validate-2xx-response</a>,
-<a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-validate-non-2xx-response">client-validate-non-2xx-response</a>
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-validate-2xx-response">client-validate-2xx-response</a>,
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-validate-non-2xx-response">client-validate-non-2xx-response</a>
 </p>
 </tldr>
 
@@ -48,7 +48,7 @@ val client = HttpClient(CIO) {
 
 除了默认的验证行为外，你还可以使用 [`HttpCallValidator`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/-http-call-validator) 插件定义自定义响应验证逻辑。这允许你验证成功 (2xx) 的响应或覆盖非 2xx 响应的处理方式。
 
-要安装 `HttpCallValidator`，请在 [客户端配置块](client-create-and-configure.md#configure-client) 内调用 [`HttpResponseValidator`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/-http-response-validator.html) 函数：
+要安装 `HttpCallValidator`，请在 [客户端配置块](client-create-and-configure.md#configure-client) 内调用 [`HttpResponseValidator`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/-http-reponse-validator.html) 函数：
 
 ```kotlin
 val client = HttpClient(CIO) {
@@ -78,7 +78,7 @@ val client = HttpClient(CIO) {
 }
 ```
 
-> 有关完整示例，请参阅 [client-validate-2xx-response](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-validate-2xx-response)。
+> 有关完整示例，请参阅 [client-validate-2xx-response](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-validate-2xx-response)。
 > 
 {style="tip"}
 
@@ -121,6 +121,6 @@ fun main() {
 }
 ```
 
-> 有关完整示例，请参阅 [client-validate-non-2xx-response](https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/client-validate-non-2xx-response)。
+> 有关完整示例，请参阅 [client-validate-non-2xx-response](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-validate-non-2xx-response)。
 > 
 {style="tip"}

@@ -185,14 +185,106 @@ import swiftPMImport.groupName.subproject.FIRApp
 
 ## 생성된 `Package.resolved` 파일
 
-Swift 패키지에 의존하는 빌드를 더 안정적으로 만들기 위해, SwiftPM 임포트 도구는 잠금 메커니즘(locking mechanism)을 도입했습니다. 초기 패키지 확인(resolution) 중에 생성된 `Package.resolved` 파일이 프로젝트 디렉토리에 복사되어 이후 빌드에서 재사용됩니다.
+Swift 패키지에 의존하는 빌드를 더 안정적으로 만들기 위해, SwiftPM 임포트 도구는 `Package.resolved` 파일을 이용한 잠금 메커니즘(locking mechanism)을 도입했습니다. 이 파일들은 초기 패키지 확인(resolution) 중에 각 서브프로젝트에 대해 생성됩니다.
 
-이 잠금 파일은 빌드 스크립트에서 SwiftPM 의존성 구성이나 버전을 변경할 때 자동으로 업데이트됩니다.
+기본적으로 이러한 파일들은 `.swiftpm-locks/default/swiftImport` 디렉토리 내의 합성 패키지 안에 위치한 단일 `Package.resolved` 파일로 병합됩니다. 이 공유 잠금 파일은 프로젝트를 빌드할 때 사용되며, 모든 서브프로젝트가 동일한 버전의 Swift 패키지를 사용하도록 보장합니다. [서브프로젝트를 그룹화하거나 동기화에서 제외](#swift-패키지-버전-집계-사용자-정의하기)하여 잠금 파일 병합 동작을 사용자 정의할 수 있습니다.
+
+모든 빌드에서 동일한 의존성을 사용하도록 잠금 파일을 저장소에 커밋해야 합니다. 파일 관리를 단순화하기 위해 전체 `.swiftpm-locks` 디렉토리를 저장소에 커밋할 수 있습니다. 의존성 동기화에는 `Package.resolved` 파일만 필수적이지만, 디렉토리 전체를 유지하면 첫 빌드 시 의존성 확인 속도를 높일 수 있습니다.
+
+잠금 파일은 빌드 스크립트에서 SwiftPM 의존성 구성이나 버전을 변경할 때 자동으로 업데이트됩니다. [잠금 파일을 수동으로 강제 업데이트](#잠금-파일-강제-업데이트)할 수도 있습니다.
+
+### Swift 패키지 버전 집계 사용자 정의하기
+
+모든 서브프로젝트에 `default` 그룹을 사용하는 대신, 커스텀 그룹을 정의하여 각 그룹에 대해 별도의 `Package.resolved` 잠금 파일을 생성할 수 있습니다.
+
+병합 동작은 `swiftDependencies {}` 블록의 `packageResolvedSynchronization` 옵션으로 제어됩니다:
+
+```kotlin
+kotlin {
+    swiftDependencies {
+        // `packageResolvedSynchronization`에 값이 설정되지 않은 경우,
+        // 서브프로젝트에는 다음과 같이 기본 그룹 식별자가 할당됩니다:
+        // packageResolvedSynchronization = identifier("default")
+    }
+}
+```
+
+병합 동작을 사용자 정의하려면 각 서브프로젝트에 기본값이 아닌 그룹 식별자를 할당하세요. 다음 예제에서 서브프로젝트 `one`과 `two`는 동일한 `custom` 패키지 버전 세트를 사용하고, 서브프로젝트 `three`는 기본 세트를 사용합니다:
+
+<Tabs>
+<TabItem title="서브프로젝트 &quot;one&quot;">
+
+```kotlin
+// one/build.gradle.kts
+
+kotlin {
+    swiftDependencies {
+        packageResolvedSynchronization = identifier("custom"),
+        ...
+    }
+}
+```
+</TabItem>
+
+<TabItem title="서브프로젝트 &quot;two&quot;">
+
+```kotlin
+// two/build.gradle.kts
+
+kotlin {
+    swiftDependencies {
+        packageResolvedSynchronization = identifier("custom"),
+        ...
+    }
+}
+```
+
+</TabItem>
+
+<TabItem title="서브프로젝트 &quot;three&quot;">
+
+```kotlin
+// three/build.gradle.kts
+
+kotlin {
+    swiftDependencies {
+        // 다음과 같이 설정된 것과 같이 기본 식별자가 사용됩니다:
+        // packageResolvedSynchronization = identifier("default")
+        ...
+    }
+}
+```
+
+</TabItem>
+
+</Tabs>
+
+서브프로젝트에 대해 동기화 메커니즘을 완전히 비활성화하려면 `identifier()` 대신 `noSynchronization()` 호출을 사용하세요:
+
+```kotlin
+kotlin {
+    swiftDependencies { 
+        // 이 서브프로젝트의 Package.resolved 파일은
+        // 다른 파일과 병합되지 않습니다.
+        packageResolvedSynchronization = noSynchronization()
+    }
+}
+```
+
+동기화가 비활성화된 서브프로젝트는 자체 `Package.resolved` 잠금 파일을 가지며, 이는 `build.gradle.kts` 파일 옆의 서브프로젝트 디렉토리에 위치합니다.
+
+기본 동기화와 마찬가지로, 사용자 정의된 서브프로젝트의 모든 `Package.resolved` 파일은 저장소에 커밋되어야 합니다.
+
+### 잠금 파일 강제 업데이트
 
 잠금 파일을 수동으로 강제 업데이트하려면 다음 단계를 따르세요:
 
-1. `build` 디렉토리와 기존 `Package.resolved` 파일을 삭제합니다.
-2. 의존성 확인 태스크를 다시 실행합니다: `./gradlew :yourModuleName:fetchSyntheticImportProjectPackages`
+1. 잠금 파일을 업데이트해야 하는 모든 서브프로젝트의 `build` 디렉토리를 삭제합니다.
+2. 기존 `Package.resolved` 파일을 제거합니다:
+   * 특정 동기화 구성이 없는 서브프로젝트의 경우, `.swiftpm-locks/default/` 디렉토리를 삭제합니다.
+   * [커스텀 동기화 그룹](#swift-패키지-버전-집계-사용자-정의하기)이 있는 서브프로젝트의 경우, `.swiftpm-locks/<group-name>/` 디렉토리를 찾아 삭제합니다.
+   * `noSynchronization()`이 설정된 서브프로젝트의 경우, 서브프로젝트 디렉토리에서 `Package.resolved` 파일을 찾아 삭제합니다.
+3. 의존성 확인 태스크를 다시 실행합니다: `./gradlew :yourModuleName:fetchSyntheticImportProjectPackages`
 
 ## 추가 임포트 옵션
 

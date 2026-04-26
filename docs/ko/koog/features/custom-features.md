@@ -129,6 +129,7 @@ val agent = AIAgent(
 LLM 호출 생명주기:
 
 - `interceptLLMCallStarting`: LLM 호출 전에 호출됩니다.
+- `interceptLLMCallFailed`: LLM 호출이 실패했을 때 호출됩니다(기저의 프롬프트 실행기 또는 모더레이션 호출에서 예외가 발생한 경우).
 - `interceptLLMCallCompleted`: LLM 호출 후에 호출됩니다.
 
 LLM 스트리밍 생명주기:
