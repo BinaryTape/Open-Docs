@@ -159,3 +159,7 @@ search:
 # --8<-- [start:safePrompt]
 | `safePrompt` | Boolean | 指定是否在所有对话之前注入安全提示词。安全提示词用于执行护栏并防止有害内容。有关更多信息，请参阅 Mistral 的 [Moderation & Guardarailing](https://docs.mistral.ai/capabilities/guardrailing) 文档。 |
 # --8<-- [end:safePrompt]
+
+# --8<-- [start:think]
+| `think` | Boolean | 激活 Ollama 扩展思维的配置。激活后，响应还包括思维内容块。有关更多信息，请参阅 [Ollama 扩展思维](https://docs.ollama.com/capabilities/thinking#enable-thinking-in-api-calls) 的 API 参考。 |
+# --8<-- [end:think]

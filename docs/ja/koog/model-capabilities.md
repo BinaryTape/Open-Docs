@@ -462,3 +462,86 @@ LLMの機能は、Large Language Modelがサポートできる特定の機能や
     | Gemini2_5FlashLite | ✓ | Full | ✓ | ✓ | ✓ | ✓ | ✓ |
     | Gemini2_5Flash | ✓ | Full | ✓ | ✓ | ✓ | ✓ | ✓ |
     | Gemini2_5Pro | ✓ | Full | ✓ | ✓ | ✓ | ✓ | ✓ |
+
+??? "Bedrockモデル"
+    #### Bedrockモデル
+
+    BedrockモデルはAWS Bedrock経由でアクセスされ、InvokeModelまたはConverse APIのいずれかを使用します。
+    **(C)** が付いているモデルはConverse専用であり、`BedrockAPIMethod.Converse`が必要です。
+
+    ##### Anthropic Claude (Bedrock経由)
+
+    | モデル | Temperature | JSON Schema | 補完 | ツール | ツール選択 | ビジョン (画像) | ドキュメント |
+    |-----------------------------|-------------|-------------|------------|-------|-------------|----------------|----------|
+    | AnthropicClaude47Opus | ✓ | - | ✓ | ✓ | ✓ | ✓ | ✓ |
+    | AnthropicClaude46Opus | ✓ | - | ✓ | ✓ | ✓ | ✓ | ✓ |
+    | AnthropicClaude45Opus | ✓ | - | ✓ | ✓ | ✓ | ✓ | ✓ |
+    | AnthropicClaude41Opus | ✓ | - | ✓ | ✓ | ✓ | ✓ | ✓ |
+    | AnthropicClaude4Opus | ✓ | - | ✓ | ✓ | ✓ | ✓ | ✓ |
+    | AnthropicClaude4_6Sonnet | ✓ | - | ✓ | ✓ | ✓ | ✓ | ✓ |
+    | AnthropicClaude4_5Sonnet | ✓ | - | ✓ | ✓ | ✓ | ✓ | ✓ |
+    | AnthropicClaude4Sonnet | ✓ | - | ✓ | ✓ | ✓ | ✓ | ✓ |
+    | AnthropicClaude4_5Haiku | ✓ | - | ✓ | ✓ | ✓ | ✓ | ✓ |
+    | AnthropicClaude3Haiku | ✓ | - | ✓ | ✓ | ✓ | ✓ | ✓ |
+
+    ##### Amazon Nova
+
+    | モデル | Temperature | JSON Schema | 補完 | ツール | ツール選択 | ビジョン (画像) | ドキュメント |
+    |------------------|-------------|-------------|------------|-------|-------------|----------------|----------|
+    | AmazonNovaMicro | ✓ | - | ✓ | ✓ | - | - | - |
+    | AmazonNovaLite | ✓ | - | ✓ | ✓ | - | - | - |
+    | AmazonNovaPro | ✓ | - | ✓ | ✓ | - | - | - |
+    | AmazonNovaPremier| ✓ | - | ✓ | ✓ | - | - | - |
+
+    ##### Meta Llama (Bedrock経由)
+
+    | モデル | Temperature | JSON Schema | 補完 | ツール | ツール選択 | ビジョン (画像) | ドキュメント |
+    |--------------------------|-------------|-------------|------------|-------|-------------|----------------|----------|
+    | MetaLlama3_3_70BInstruct | ✓ | - | ✓ | ✓ | ✓ | - | - |
+    | MetaLlama3_2_90BInstruct | ✓ | - | ✓ | ✓ | ✓ | ✓ | ✓ |
+    | MetaLlama3_2_11BInstruct | ✓ | - | ✓ | ✓ | ✓ | ✓ | ✓ |
+    | MetaLlama3_2_3BInstruct | ✓ | - | ✓ | - | - | - | - |
+    | MetaLlama3_2_1BInstruct | ✓ | - | ✓ | - | - | - | - |
+    | MetaLlama3_1_405BInstruct| ✓ | - | ✓ | - | - | - | - |
+    | MetaLlama3_1_70BInstruct | ✓ | - | ✓ | - | - | - | - |
+    | MetaLlama3_1_8BInstruct | ✓ | - | ✓ | - | - | - | - |
+    | MetaLlama3_0_70BInstruct | ✓ | - | ✓ | - | - | - | - |
+    | MetaLlama3_0_8BInstruct | ✓ | - | ✓ | - | - | - | - |
+
+    ##### Moonshot Kimi (Converse専用)
+
+    | モデル | Temperature | JSON Schema | 補完 | ツール | ツール選択 | ビジョン (画像) | ドキュメント |
+    |--------------------------------|-------------|-------------|------------|-------|-------------|----------------|----------|
+    | MoonshotKimiK2_5 **(C)** | ✓ | - | ✓ | ✓ | ✓ | ✓ | - |
+    | MoonshotKimiK2Thinking **(C)** | ✓ | - | ✓ | ✓ | ✓ | - | - |
+
+    ##### MiniMax (Converse専用)
+
+    | モデル | Temperature | JSON Schema | 補完 | ツール | ツール選択 | ビジョン (画像) | ドキュメント |
+    |---------------------|-------------|-------------|------------|-------|-------------|----------------|----------|
+    | MiniMaxM2_5 **(C)** | ✓ | - | ✓ | ✓ | ✓ | - | - |
+
+    ##### OpenAI GPT-OSS (Converse専用)
+
+    | モデル | Temperature | JSON Schema | 補完 | ツール | ツール選択 | ビジョン (画像) | ドキュメント |
+    |--------------------------|-------------|-------------|------------|-------|-------------|----------------|----------|
+    | OpenAIGptOss120B **(C)** | ✓ | Full | ✓ | ✓ | ✓ | - | - |
+    | OpenAIGptOss20B **(C)** | ✓ | Full | ✓ | ✓ | ✓ | - | - |
+
+    ##### Google Gemma 3 (Converse専用)
+
+    | モデル | Temperature | JSON Schema | 補完 | ツール | ツール選択 | ビジョン (画像) | ドキュメント |
+    |----------------------------|-------------|-------------|------------|-------|-------------|----------------|----------|
+    | GoogleGemma3_27BIt **(C)** | ✓ | Full | ✓ | ✓ | ✓ | ✓ | ✓ |
+    | GoogleGemma3_12BIt **(C)** | ✓ | Full | ✓ | ✓ | ✓ | ✓ | ✓ |
+    | GoogleGemma3_4BIt **(C)** | ✓ | - | ✓ | ✓ | ✓ | ✓ | - |
+
+    ##### 埋め込みモデル
+
+    | モデル | 埋め込み |
+    |----------------------------|-------|
+    | CohereEmbedV4 | ✓ |
+    | CohereEmbedEnglishV3 | ✓ |
+    | CohereEmbedMultilingualV3 | ✓ |
+    | AmazonTitanEmbedTextV2 | ✓ |
+    | AmazonTitanEmbedText | ✓ |

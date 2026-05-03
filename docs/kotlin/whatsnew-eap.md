@@ -368,6 +368,7 @@ fun main() {
     // false
 }
 ```
+{kotlin-runnable="true" kotlin-min-compiler-version="2.4.0-Beta2" id="kotlin-2-4-0-check-sorted-order"}
 
 我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-78499) 中提供反馈。
 
@@ -383,6 +384,7 @@ Kotlin %kotlinEapVersion% 在 JVM 上引入了 `UInt.toBigInteger()` 和 `ULong.
 
 ```kotlin
 fun main() {
+    //sampleStart
     val unsignedLong = Long.MAX_VALUE.toULong() + 1uL
     val unsignedInt = UInt.MAX_VALUE
 
@@ -391,8 +393,10 @@ fun main() {
 
     println(unsignedInt.toBigInteger())
     // 4294967295
+   //sampleEnd
 }
 ```
+{kotlin-runnable="true" kotlin-min-compiler-version="2.4.0-Beta2" id="kotlin-2-4-0-convert-unsigned-int"}
 
 我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-73111) 中提供反馈。
 
@@ -534,7 +538,7 @@ Kotlin %kotlinEapVersion% 增加了对将 value class 导出到 JavaScript/TypeS
 此前，只有常规的 Kotlin 类可以导出到 JavaScript/TypeScript。
 Kotlin %kotlinEapVersion% 解除了这一限制。您现在可以将 Kotlin 的[内联 value class](inline-classes.md) 导出为常规的 TypeScript 类。
 
-要导出 value class，请在 Kotlin 端使用 `@JsExport` 注解进行标记：
+To export a value class, mark it with the `@JsExport` annotation on the Kotlin side:
 
 ```Kotlin
 // Kotlin

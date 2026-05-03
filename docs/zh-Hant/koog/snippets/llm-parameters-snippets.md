@@ -149,7 +149,7 @@ search:
 # --8<-- [end:enableThinking]
 
 # --8<-- [start:randomSeed]
-| `randomSeed` | Integer | 用於隨機取樣的種子。如果設定，具有相同參數和相同種子值的不同呼叫將產生確定性的結果。 |
+| `randomSeed` | Integer | 用於隨機取樣的種子。如果設定，具有相同參數 and 相同種子值的不同呼叫將產生確定性的結果。 |
 # --8<-- [end:randomSeed]
 
 # --8<-- [start:promptMode]
@@ -159,3 +159,7 @@ search:
 # --8<-- [start:safePrompt]
 | `safePrompt` | Boolean | 指定是否在所有對話之前注入安全提示。安全提示用於執行護欄 (guardrails) 並防止有害內容。如需詳細資訊，請參閱 Mistral 的 [審核與護欄 (Moderation & Guardarailing)](https://docs.mistral.ai/capabilities/guardrailing) 文件。 |
 # --8<-- [end:safePrompt]
+
+# --8<-- [start:think]
+| `think` | Boolean | 啟動 Ollama 擴充思考的配置。啟動後，回應還會包含思考內容區塊。如需詳細資訊，請參閱 [Ollama thinking](https://docs.ollama.com/capabilities/thinking#enable-thinking-in-api-calls) 的 API 參考。 |
+# --8<-- [end:think]

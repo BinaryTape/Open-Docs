@@ -1174,6 +1174,10 @@
             "link": "ksp-why-ksp"
           },
           {
+            "text": "kotlin.ksp-kapt-migration",
+            "link": "ksp-kapt-migration"
+          },
+          {
             "text": "kotlin.ksp-examples",
             "link": "ksp-examples"
           },

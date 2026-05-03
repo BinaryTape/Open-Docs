@@ -6,7 +6,7 @@ Koog 提供了一套抽象和实现，用于以不依赖供应商的方式处理
     - 视觉处理 (Vision processing)，用于处理视觉数据
     - 嵌入生成 (Embedding generation)，用于向量表示
     - 补全 (Completion)，用于文本生成任务
-    - 架构支持 (Schema support)，用于结构化数据（包含简单 (Simple) 和完整 (Full) 变体的 JSON）
+    - 架构支持 (Schema support)，用于结构化数据（包含基础 (Simple) 和完整 (Full) 变体的 JSON）
     - 推测 (Speculation)，用于探索性响应
 
 - **LLModel**：一个数据类，表示特定的 LLM 及其供应商、唯一标识符和支持的功能。
@@ -453,7 +453,7 @@ LLM 功能代表了大型语言模型可以支持的特定特性或功能。在 
     | GPT35Turbo          | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | -              |
     | Llama3              | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | -              |
     | Llama3Instruct      | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | -              |
-    |激进派 (Mistral7B)    | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | -              |
+    | Mistral7B           | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | -              |
     | Mixtral8x7B         | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | -              |
     | Claude3VisionSonnet | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
     | Claude3VisionOpus   | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
@@ -462,3 +462,86 @@ LLM 功能代表了大型语言模型可以支持的特定特性或功能。在 
     | Gemini2_5FlashLite  | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
     | Gemini2_5Flash      | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
     | Gemini2_5Pro        | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
+
+??? "Bedrock 模型"
+    #### Bedrock 模型
+
+    Bedrock 模型通过 AWS Bedrock 访问，并使用 InvokeModel 或 Converse API。
+    标记为 **(C)** 的模型仅支持 Converse，且需要 `BedrockAPIMethod.Converse`。
+
+    ##### Anthropic Claude (通过 Bedrock)
+
+    | 模型 | 温度 | JSON 架构 | 补全 | 工具 | 工具选择 | 视觉（图像） | 文档 |
+    |-----------------------------|-------------|-------------|------------|-------|-------------|----------------|----------|
+    | AnthropicClaude47Opus       | ✓           | -           | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | AnthropicClaude46Opus       | ✓           | -           | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | AnthropicClaude45Opus       | ✓           | -           | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | AnthropicClaude41Opus       | ✓           | -           | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | AnthropicClaude4Opus        | ✓           | -           | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | AnthropicClaude4_6Sonnet    | ✓           | -           | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | AnthropicClaude4_5Sonnet    | ✓           | -           | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | AnthropicClaude4Sonnet      | ✓           | -           | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | AnthropicClaude4_5Haiku     | ✓           | -           | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | AnthropicClaude3Haiku       | ✓           | -           | ✓          | ✓     | ✓           | ✓              | ✓        |
+
+    ##### Amazon Nova
+
+    | 模型 | 温度 | JSON 架构 | 补全 | 工具 | 工具选择 | 视觉（图像） | 文档 |
+    |------------------|-------------|-------------|------------|-------|-------------|----------------|----------|
+    | AmazonNovaMicro  | ✓           | -           | ✓          | ✓     | -           | -              | -        |
+    | AmazonNovaLite   | ✓           | -           | ✓          | ✓     | -           | -              | -        |
+    | AmazonNovaPro    | ✓           | -           | ✓          | ✓     | -           | -              | -        |
+    | AmazonNovaPremier| ✓           | -           | ✓          | ✓     | -           | -              | -        |
+
+    ##### Meta Llama (通过 Bedrock)
+
+    | 模型 | 温度 | JSON 架构 | 补全 | 工具 | 工具选择 | 视觉（图像） | 文档 |
+    |--------------------------|-------------|-------------|------------|-------|-------------|----------------|----------|
+    | MetaLlama3_3_70BInstruct | ✓           | -           | ✓          | ✓     | ✓           | -              | -        |
+    | MetaLlama3_2_90BInstruct | ✓           | -           | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | MetaLlama3_2_11BInstruct | ✓           | -           | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | MetaLlama3_2_3BInstruct  | ✓           | -           | ✓          | -     | -           | -              | -        |
+    | MetaLlama3_2_1BInstruct  | ✓           | -           | ✓          | -     | -           | -              | -        |
+    | MetaLlama3_1_405BInstruct| ✓           | -           | ✓          | -     | -           | -              | -        |
+    | MetaLlama3_1_70BInstruct | ✓           | -           | ✓          | -     | -           | -              | -        |
+    | MetaLlama3_1_8BInstruct  | ✓           | -           | ✓          | -     | -           | -              | -        |
+    | MetaLlama3_0_70BInstruct | ✓           | -           | ✓          | -     | -           | -              | -        |
+    | MetaLlama3_0_8BInstruct  | ✓           | -           | ✓          | -     | -           | -              | -        |
+
+    ##### Moonshot Kimi (仅限 Converse)
+
+    | 模型 | 温度 | JSON 架构 | 补全 | 工具 | 工具选择 | 视觉（图像） | 文档 |
+    |--------------------------------|-------------|-------------|------------|-------|-------------|----------------|----------|
+    | MoonshotKimiK2_5 **(C)**       | ✓           | -           | ✓          | ✓     | ✓           | ✓              | -        |
+    | MoonshotKimiK2Thinking **(C)** | ✓           | -           | ✓          | ✓     | ✓           | -              | -        |
+
+    ##### MiniMax (仅限 Converse)
+
+    | 模型 | 温度 | JSON 架构 | 补全 | 工具 | 工具选择 | 视觉（图像） | 文档 |
+    |---------------------|-------------|-------------|------------|-------|-------------|----------------|----------|
+    | MiniMaxM2_5 **(C)** | ✓           | -           | ✓          | ✓     | ✓           | -              | -        |
+
+    ##### OpenAI GPT-OSS (仅限 Converse)
+
+    | 模型 | 温度 | JSON 架构 | 补全 | 工具 | 工具选择 | 视觉（图像） | 文档 |
+    |--------------------------|-------------|-------------|------------|-------|-------------|----------------|----------|
+    | OpenAIGptOss120B **(C)** | ✓           | Full        | ✓          | ✓     | ✓           | -              | -        |
+    | OpenAIGptOss20B **(C)**  | ✓           | Full        | ✓          | ✓     | ✓           | -              | -        |
+
+    ##### Google Gemma 3 (仅限 Converse)
+
+    | 模型 | 温度 | JSON 架构 | 补全 | 工具 | 工具选择 | 视觉（图像） | 文档 |
+    |----------------------------|-------------|-------------|------------|-------|-------------|----------------|----------|
+    | GoogleGemma3_27BIt **(C)** | ✓           | Full        | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | GoogleGemma3_12BIt **(C)** | ✓           | Full        | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | GoogleGemma3_4BIt **(C)**  | ✓           | -           | ✓          | ✓     | ✓           | ✓              | -        |
+
+    ##### 嵌入模型
+
+    | 模型 | 嵌入 |
+    |----------------------------|-------|
+    | CohereEmbedV4              | ✓     |
+    | CohereEmbedEnglishV3       | ✓     |
+    | CohereEmbedMultilingualV3  | ✓     |
+    | AmazonTitanEmbedTextV2     | ✓     |
+    | AmazonTitanEmbedText       | ✓     |

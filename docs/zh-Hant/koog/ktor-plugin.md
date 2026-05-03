@@ -69,7 +69,7 @@ koog:
 ```kotlin
 fun Application.module() {
     install(Koog) {
-        // 您也可以透過程式碼配置提供者（見下文）
+        // 您也可以透過程式化方式配置提供者（見下文）
     }
 
     routing {
@@ -211,7 +211,7 @@ install(Koog) {
 - Anthropic：`anthropic.sonnet_4_5`、`anthropic.opus_4`、`anthropic.haiku_4_5`
 - Google：`google.gemini2_5pro`、`google.gemini2_0flash001`
 - OpenRouter：`openrouter.gpt4o`、`openrouter.gpt4`、`openrouter.claude3sonnet`
-- DeepSeek：`deepseek.deepseek-chat`、`deepseek.deepseek-reasoner`
+- DeepSeek：`deepseek.deepseek-v4-flash`、`deepseek.deepseek-v4-pro`、`deepseek.deepseek-chat`、`deepseek.deepseek-reasoner`
 - Ollama：`ollama.meta.llama3.2`、`ollama.alibaba.qwq:32b`、`ollama.groq.llama3-grok-tool-use:8b`
 
 備註

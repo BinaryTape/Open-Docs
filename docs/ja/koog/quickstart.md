@@ -375,7 +375,7 @@ Koog を使用するには、[サポートされている LLM プロバイダー
 
 === "DeepSeek"
 
-    以下の例では、DeepSeek API を介して `deepseek-chat` モデルを使用し、シンプルな Koog エージェントを作成して実行します。
+    以下の例では、DeepSeek API を介して `deepseek-v4-flash` モデルを使用し、シンプルな Koog エージェントを作成して実行します。
 
     === "Kotlin"
 
@@ -400,7 +400,7 @@ Koog を使用するには、[サポートされている LLM プロバイダー
                 // LLM クライアントを使用してプロンプトエグゼキューターを作成します
                 promptExecutor = MultiLLMPromptExecutor(deepSeekClient),
                 // モデルを指定します
-                llmModel = DeepSeekModels.DeepSeekChat
+                llmModel = DeepSeekModels.DeepSeekV4Flash
             )
         
             // エージェントを実行します
@@ -433,7 +433,7 @@ Koog を使用するには、[サポートされている LLM プロバイダー
             // LLM クライアントを使用してプロンプトエグゼキューターを作成します
             .promptExecutor(new MultiLLMPromptExecutor(deepSeekClient))
             // モデルを指定します
-            .llmModel(DeepSeekModels.DeepSeekChat)
+            .llmModel(DeepSeekModels.DeepSeekV4Flash)
             .build();
 
         // エージェントを実行します

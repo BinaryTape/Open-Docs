@@ -159,3 +159,7 @@ search:
 # --8<-- [start:safePrompt]
 | `safePrompt` | Boolean | すべての会話の前にセーフティプロンプトを注入するかどうかを指定します。セーフティプロンプトは、ガードレールを適用し、有害なコンテンツから保護するために使用されます。詳細については、Mistralの [Moderation & Guardarailing](https://docs.mistral.ai/capabilities/guardrailing) ドキュメントを参照してください。 |
 # --8<-- [end:safePrompt]
+
+# --8<-- [start:think]
+| `think` | Boolean | Ollamaの拡張思考（extended thinking）を有効にするための設定。有効にすると、レスポンスに思考コンテンツブロックも含まれます。詳細については、[Ollama thinking](https://docs.ollama.com/capabilities/thinking#enable-thinking-in-api-calls) のAPIリファレンスを参照してください。 |
+# --8<-- [end:think]

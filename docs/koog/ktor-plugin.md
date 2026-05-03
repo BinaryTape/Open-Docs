@@ -2,7 +2,7 @@
 
 Koog 自然地融入您的 Ktor 服务器，允许您在两端使用惯用的 Kotlin API 编写服务器端 AI 应用。
 
-只需安装一次 Koog 插件，在 application.conf/YAML 或代码中配置您的 LLM 提供者，然后直接从您的路由中调用 Agent。不再需要跨模块连接 LLM 客户端——您的路由只需请求一个 Agent 即可准备就绪。
+只需安装一次 Koog 插件，在 `application.conf`/YAML 或代码中配置您的 LLM 提供者，然后直接从您的路由中调用 Agent。不再需要跨模块连接 LLM 客户端——您的路由只需请求一个 Agent 即可准备就绪。
 
 ## 概览
 
@@ -92,7 +92,7 @@ fun Application.module() {
 注意事项
 
 - aiAgent 需要一个具体的模型 (LLModel) —— 按路由或按用途选择。
-- 对于更底层的 LLM 访问，直接使用 llm() (PromptExecutor)。
+- 对于更底层的 LLM 访问，直接使用 llm() (PromptExecutor) 。
 
 ## 直接从路由使用 LLM
 
@@ -211,7 +211,7 @@ install(Koog) {
 - Anthropic: anthropic.sonnet_4_5, anthropic.opus_4, anthropic.haiku_4_5
 - Google: google.gemini2_5pro, google.gemini2_0flash001
 - OpenRouter: openrouter.gpt4o, openrouter.gpt4, openrouter.claude3sonnet
-- DeepSeek: deepseek.deepseek-chat, deepseek.deepseek-reasoner
+- DeepSeek: deepseek.deepseek-v4-flash, deepseek.deepseek-v4-pro, deepseek.deepseek-chat, deepseek.deepseek-reasoner
 - Ollama: ollama.meta.llama3.2, ollama.alibaba.qwq:32b, ollama.groq.llama3-grok-tool-use:8b
 
 注意

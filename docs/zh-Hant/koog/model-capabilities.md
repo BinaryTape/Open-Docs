@@ -462,3 +462,86 @@ LLM 功能代表大型語言模型可以支援的特定特性或功能性。在 
     | Gemini2_5FlashLite  | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
     | Gemini2_5Flash      | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
     | Gemini2_5Pro        | ✓           | Full        | ✓          | ✓           | ✓     | ✓           | ✓              |
+
+??? "Bedrock 模型"
+    #### Bedrock 模型
+
+    Bedrock 模型透過 AWS Bedrock 存取，並使用 InvokeModel 或 Converse API。
+    標記為 **(C)** 的模型僅支援 Converse，且需要 `BedrockAPIMethod.Converse`。
+
+    ##### Anthropic Claude (透過 Bedrock)
+
+    | 模型 | 溫度 | JSON 架構 | 補全 | 工具 | 工具選擇 | 視覺 (圖像) | 文件 |
+    |-----------------------------|-------------|-------------|------------|-------|-------------|----------------|----------|
+    | AnthropicClaude47Opus       | ✓           | -           | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | AnthropicClaude46Opus       | ✓           | -           | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | AnthropicClaude45Opus       | ✓           | -           | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | AnthropicClaude41Opus       | ✓           | -           | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | AnthropicClaude4Opus        | ✓           | -           | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | AnthropicClaude4_6Sonnet    | ✓           | -           | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | AnthropicClaude4_5Sonnet    | ✓           | -           | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | AnthropicClaude4Sonnet      | ✓           | -           | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | AnthropicClaude4_5Haiku     | ✓           | -           | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | AnthropicClaude3Haiku       | ✓           | -           | ✓          | ✓     | ✓           | ✓              | ✓        |
+
+    ##### Amazon Nova
+
+    | 模型 | 溫度 | JSON 架構 | 補全 | 工具 | 工具選擇 | 視覺 (圖像) | 文件 |
+    |------------------|-------------|-------------|------------|-------|-------------|----------------|----------|
+    | AmazonNovaMicro  | ✓           | -           | ✓          | ✓     | -           | -              | -        |
+    | AmazonNovaLite   | ✓           | -           | ✓          | ✓     | -           | -              | -        |
+    | AmazonNovaPro    | ✓           | -           | ✓          | ✓     | -           | -              | -        |
+    | AmazonNovaPremier| ✓           | -           | ✓          | ✓     | -           | -              | -        |
+
+    ##### Meta Llama (透過 Bedrock)
+
+    | 模型 | 溫度 | JSON 架構 | 補全 | 工具 | 工具選擇 | 視覺 (圖像) | 文件 |
+    |--------------------------|-------------|-------------|------------|-------|-------------|----------------|----------|
+    | MetaLlama3_3_70BInstruct | ✓           | -           | ✓          | ✓     | ✓           | -              | -        |
+    | MetaLlama3_2_90BInstruct | ✓           | -           | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | MetaLlama3_2_11BInstruct | ✓           | -           | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | MetaLlama3_2_3BInstruct  | ✓           | -           | ✓          | -     | -           | -              | -        |
+    | MetaLlama3_2_1BInstruct  | ✓           | -           | ✓          | -     | -           | -              | -        |
+    | MetaLlama3_1_405BInstruct| ✓           | -           | ✓          | -     | -           | -              | -        |
+    | MetaLlama3_1_70BInstruct | ✓           | -           | ✓          | -     | -           | -              | -        |
+    | MetaLlama3_1_8BInstruct  | ✓           | -           | ✓          | -     | -           | -              | -        |
+    | MetaLlama3_0_70BInstruct | ✓           | -           | ✓          | -     | -           | -              | -        |
+    | MetaLlama3_0_8BInstruct  | ✓           | -           | ✓          | -     | -           | -              | -        |
+
+    ##### Moonshot Kimi (僅支援 Converse)
+
+    | 模型 | 溫度 | JSON 架構 | 補全 | 工具 | 工具選擇 | 視覺 (圖像) | 文件 |
+    |--------------------------------|-------------|-------------|------------|-------|-------------|----------------|----------|
+    | MoonshotKimiK2_5 **(C)**       | ✓           | -           | ✓          | ✓     | ✓           | ✓              | -        |
+    | MoonshotKimiK2Thinking **(C)** | ✓           | -           | ✓          | ✓     | ✓           | -              | -        |
+
+    ##### MiniMax (僅支援 Converse)
+
+    | 模型 | 溫度 | JSON 架構 | 補全 | 工具 | 工具選擇 | 視覺 (圖像) | 文件 |
+    |---------------------|-------------|-------------|------------|-------|-------------|----------------|----------|
+    | MiniMaxM2_5 **(C)** | ✓           | -           | ✓          | ✓     | ✓           | -              | -        |
+
+    ##### OpenAI GPT-OSS (僅支援 Converse)
+
+    | 模型 | 溫度 | JSON 架構 | 補全 | 工具 | 工具選擇 | 視覺 (圖像) | 文件 |
+    |--------------------------|-------------|-------------|------------|-------|-------------|----------------|----------|
+    | OpenAIGptOss120B **(C)** | ✓           | Full        | ✓          | ✓     | ✓           | -              | -        |
+    | OpenAIGptOss20B **(C)**  | ✓           | Full        | ✓          | ✓     | ✓           | -              | -        |
+
+    ##### Google Gemma 3 (僅支援 Converse)
+
+    | 模型 | 溫度 | JSON 架構 | 補全 | 工具 | 工具選擇 | 視覺 (圖像) | 文件 |
+    |----------------------------|-------------|-------------|------------|-------|-------------|----------------|----------|
+    | GoogleGemma3_27BIt **(C)** | ✓           | Full        | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | GoogleGemma3_12BIt **(C)** | ✓           | Full        | ✓          | ✓     | ✓           | ✓              | ✓        |
+    | GoogleGemma3_4BIt **(C)**  | ✓           | -           | ✓          | ✓     | ✓           | ✓              | -        |
+
+    ##### 嵌入模型
+
+    | 模型 | 嵌入 (Embed) |
+    |----------------------------|-------|
+    | CohereEmbedV4              | ✓     |
+    | CohereEmbedEnglishV3       | ✓     |
+    | CohereEmbedMultilingualV3  | ✓     |
+    | AmazonTitanEmbedTextV2     | ✓     |
+    | AmazonTitanEmbedText       | ✓     |

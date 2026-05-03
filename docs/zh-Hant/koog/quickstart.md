@@ -375,7 +375,7 @@ Koog 需要來自[受支援的 LLM 提供者](llm-providers.md)的 API 金鑰，
 
 === "DeepSeek"
 
-    以下範例透過 DeepSeek API，使用 `deepseek-chat` 模型建立並執行一個簡單的 Koog Agent。
+    以下範例透過 DeepSeek API，使用 `deepseek-v4-flash` 模型建立並執行一個簡單的 Koog Agent。
 
     === "Kotlin"
 
@@ -400,7 +400,7 @@ Koog 需要來自[受支援的 LLM 提供者](llm-providers.md)的 API 金鑰，
                 // 使用 LLM 用戶端建立提示詞執行器
                 promptExecutor = MultiLLMPromptExecutor(deepSeekClient),
                 // 提供模型
-                llmModel = DeepSeekModels.DeepSeekChat
+                llmModel = DeepSeekModels.DeepSeekV4Flash
             )
         
             // 執行 Agent
@@ -433,7 +433,7 @@ Koog 需要來自[受支援的 LLM 提供者](llm-providers.md)的 API 金鑰，
             // 使用 LLM 用戶端建立提示詞執行器
             .promptExecutor(new MultiLLMPromptExecutor(deepSeekClient))
             // 提供模型
-            .llmModel(DeepSeekModels.DeepSeekChat)
+            .llmModel(DeepSeekModels.DeepSeekV4Flash)
             .build();
 
         // 執行 Agent

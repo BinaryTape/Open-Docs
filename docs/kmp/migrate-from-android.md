@@ -228,12 +228,12 @@ flowchart TB
   %% classDef Module fill:#e6f7ff,stroke:#0086c9,stroke-width:1px,color:#003a52
 
   %% Modules
-  M_MOBILE[":mobile ."]
-  M_CORE_DATA[":core:data ."]
-  M_CORE_DATA_TESTING[":core:data-testing .."]
-  M_CORE_DOMAIN[":core:domain ."]
-  M_CORE_DOMAIN_TESTING[":core:domain-testing .."]
-  M_CORE_DESIGNSYSTEM[":core:designsystem ."]
+  M_MOBILE[":mobile"]
+  M_CORE_DATA[":core:data"]
+  M_CORE_DATA_TESTING[":core:data-testing"]
+  M_CORE_DOMAIN[":core:domain"]
+  M_CORE_DOMAIN_TESTING[":core:domain-testing"]
+  M_CORE_DESIGNSYSTEM[":core:designsystem"]
 
   class M_MOBILE,M_CORE_DATA,M_CORE_DATA_TESTING,M_CORE_DOMAIN,M_CORE_DOMAIN_TESTING,M_CORE_DESIGNSYSTEM Module
 
@@ -328,10 +328,10 @@ config:
 ---
 flowchart TB
   %% Nodes (plain labels, no quotes/parentheses/braces)
-  %% Start[Start .]
-  Home[主页 .]
+  %% Start[Start]
+  Home[主页]
   Player[播放器]
-  PodcastDetailsRoute[播客详情 .]
+  PodcastDetailsRoute[播客详情]
   %% DeepLinkEpisodes[Deep link to player]
   %% DeepLinkPodcasts[Deep link to podcast]
 

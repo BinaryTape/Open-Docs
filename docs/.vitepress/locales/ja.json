@@ -256,7 +256,7 @@
   "api-guidelines.api-guidelines-informative-documentation": "情報性の高いドキュメント",
   "api-guidelines.api-guidelines-build-for-multiplatform": "マルチプラットフォーム向け構築",
   "kmp.get-started": "はじめに",
-  "kmp.kotlin-multiplatform-overview": "Kotlin Multiplatformの概要",
+  "kmp.kotlin-multiplatform-overview": "Kotlin Multiplatform의 概要",
   "kmp.why-kotlin-multiplatform": "Kotlin Multiplatformを使用する理由",
   "kmp.supported-platforms": "サポートされているプラットフォーム",
   "kmp.multiplatform-samples": "サンプル",

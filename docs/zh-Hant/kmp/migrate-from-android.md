@@ -7,12 +7,11 @@
 <p>本教學使用 IntelliJ IDEA，但您也可以在 Android Studio 中進行。這兩款 IDE 具有相同的核心功能與 Kotlin Multiplatform 支援。</p>
 </tldr>
 
-本指南關於將一個僅限 Android 的應用程式，從商業邏輯到 UI 的整個技術棧遷移至多平台。
+本指南關於將一個僅限 Android 的應用程式，從商業邏輯到 UI 的整個技術堆疊遷移至多平台。
 它透過一個進階的 Compose 範例展示了常見的挑戰與解決方案。
 您可以緊跟提交（commit）順序，或是瀏覽一般的遷移步驟，並深入研究您感興趣的任何部分。
 
-初始應用程式為 [Jetcaster](https://github.com/android/compose-samples/tree/main/Jetcaster)，
-這是一個使用 Jetpack Compose 為 Android 建置的 Podcast 範例應用程式。
+初始應用程式為 [Jetcaster](https://github.com/android/compose-samples/tree/main/Jetcaster)，這是一個使用 Jetpack Compose 為 Android 建置的 Podcast 範例應用程式。
 該範例是一個功能齊全的應用程式，依賴於：
 * 多個模組（module）。
 * Android 資源管理。
@@ -33,8 +32,7 @@
    更重要的是，您將看到如何逐一畫面（screen by screen）地漸進式實作此轉換。
 
 最終的應用程式可在 Android、iOS 與桌面端執行。
-桌面端應用程式同時也作為 [Compose Hot Reload](compose-hot-reload.md) 的範例：
-這是一種快速迭代 UI 行為的方法。
+桌面端應用程式同時也作為 [Compose Hot Reload](compose-hot-reload.md) 的範例：這是一種快速迭代 UI 行為的方法。
 
 ## 潛在 Kotlin Multiplatform 遷移的檢查清單
 
@@ -71,11 +69,11 @@
 
 對於 Jetcaster，這些程式庫的清單如下：
 
-* Dagger/Hilt：一種流行的相依注入解決方案（替換為 [Koin](https://insert-koin.io/)）
+* Dagger/Hilt：一種流行的相依注入解決方案（替換為 [Koin](https://insert-koin.io/)）。
 
   Koin 是一個可靠的多平台 DI 架構。如果它不符合您的需求或所需的重寫工作量太大，還有其他解決方案。
   [Metro](https://zacsweers.github.io/metro/latest/) 架構也是多平台的。它透過支援[與其他註解的互通性](https://zacsweers.github.io/metro/latest/interop/)（包括 Dagger 與 Kotlin Inject）來協助減輕遷移負擔。
-* Coil 2：一個圖片載入程式庫（在 [第 3 版中變為多平台](https://coil-kt.github.io/coil/upgrading_to_coil3/)）。
+* Coil 2：一個圖片載入程式庫（在[第 3 版中變為多平台](https://coil-kt.github.io/coil/upgrading_to_coil3/)）。
 * ROME：一個 RSS 架構（替換為多平台的 [RSS Parser](https://github.com/prof18/RSS-Parser)）。
 * JUnit：一個測試架構（替換為 [kotlin-test](https://kotlinlang.org/api/core/kotlin-test/)）。
 
@@ -196,12 +194,12 @@ flowchart TB
   %% classDef Module fill:#e6f7ff,stroke:#0086c9,stroke-width:1px,color:#003a52
 
   %% Modules
-  M_MOBILE[":mobile ."]
-  M_CORE_DATA[":core:data ."]
-  M_CORE_DATA_TESTING[":core:data-testing .."]
-  M_CORE_DOMAIN[":core:domain ."]
-  M_CORE_DOMAIN_TESTING[":core:domain-testing .."]
-  M_CORE_DESIGNSYSTEM[":core:designsystem ."]
+  M_MOBILE[":mobile"]
+  M_CORE_DATA[":core:data"]
+  M_CORE_DATA_TESTING[":core:data-testing"]
+  M_CORE_DOMAIN[":core:domain"]
+  M_CORE_DOMAIN_TESTING[":core:domain-testing"]
+  M_CORE_DESIGNSYSTEM[":core:designsystem"]
 
   class M_MOBILE,M_CORE_DATA,M_CORE_DATA_TESTING,M_CORE_DOMAIN,M_CORE_DOMAIN_TESTING,M_CORE_DESIGNSYSTEM Module
 
@@ -285,10 +283,10 @@ config:
 ---
 flowchart TB
   %% Nodes (plain labels, no quotes/parentheses/braces)
-  %% Start[Start .]
-  Home[Home .]
-  Player[Player]
-  PodcastDetailsRoute[PodcastDetails .]
+  %% Start[開始]
+  Home[主畫面]
+  Player[播放器]
+  PodcastDetailsRoute[Podcast詳情]
 
   %% Start and primary navigation
   %% Start --> Home

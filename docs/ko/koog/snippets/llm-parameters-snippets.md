@@ -159,3 +159,7 @@ search:
 # --8<-- [start:safePrompt]
 | `safePrompt` | Boolean | 모든 대화 전에 안전 프롬프트(safety prompt)를 주입할지 여부를 지정합니다. 안전 프롬프트는 가드레일을 적용하고 유해한 콘텐츠로부터 보호하는 데 사용됩니다. 자세한 내용은 Mistral의 [Moderation & Guardarailing](https://docs.mistral.ai/capabilities/guardrailing) 문서를 확인하세요. |
 # --8<-- [end:safePrompt]
+
+# --8<-- [start:think]
+| `think` | Boolean | Ollama의 확장 사고(extended thinking) 활성화를 위한 구성입니다. 활성화되면 응답에 사고 콘텐츠 블록도 포함됩니다. 자세한 내용은 [Ollama thinking](https://docs.ollama.com/capabilities/thinking#enable-thinking-in-api-calls) API 참조를 확인하세요. |
+# --8<-- [end:think]

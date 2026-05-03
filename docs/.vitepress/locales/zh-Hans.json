@@ -341,7 +341,7 @@
   "koog.getting-started": "入门",
   "koog.single-run-agents": "单次运行代理",
   "koog.complex-workflow-agents": "复杂工作流代理",
-  "koog.prompt-api": "Prompt API",
+  "koog.prompt-api": "提示词 API",
   "koog.tools": "工具",
   "koog.built-in-tools": "内置工具",
   "koog.annotation-based-tools": "基于注解的工具",
