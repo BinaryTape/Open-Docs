@@ -1,12 +1,20 @@
 [//]: # (title: kapt 编译器插件)
 
-kapt 编译器插件允许你在 Kotlin 中使用 Java 注解处理器。
+<tldr>
 
-简而言之，kapt 通过启用基于 Java 的注解处理，帮助你在 Kotlin 项目中使用 [Dagger](https://google.github.io/dagger/) 和 [数据绑定](https://developer.android.com/topic/libraries/data-binding/index.html) 等库。
+* 在以下情况下使用 **kapt**：
+   * 你使用的是 Maven 项目。
+   * 你使用的是 Gradle 项目，但所需的 Java 注解处理器尚不支持 KSP。[查看支持的库列表](ksp-overview.md#supported-libraries)。
+* 在以下情况下使用 **[KSP](ksp-overview.md)**：
+   * 你使用的是 Gradle 项目，且所需的 Java 注解处理器支持 KSP。
+   * 你想要创建自己的注解处理器。
 
-> 要使用专为 Kotlin 开发的注解处理器，请使用 [Kotlin 符号处理 API (KSP)](ksp-overview.md)。
->
-{style="note"}
+</tldr>
+
+kapt 编译器插件允许你在 Kotlin 中使用现有的 Java 注解处理器，并同时支持 Maven 和 Gradle。
+它从 Kotlin 源代码生成存根文件，然后在这些存根上运行 Java 注解处理器。
+
+这使得在你的 Kotlin 项目中可以为 [MapStruct](https://mapstruct.org/) 和 [数据绑定](https://developer.android.com/topic/libraries/data-binding/index.html) 等库启用基于 Java 的注解处理。
 
 ## 在 Gradle 中使用
 
@@ -76,7 +84,10 @@ kapt {
 
 ## Gradle 构建缓存支持
 
-kapt 注解处理任务默认在 [Gradle 中缓存](https://guides.gradle.org/using-build-cache/)。然而，注解处理器可以运行任意代码，这些代码可能无法可靠地将任务输入转换为输出，或者可能会访问和修改 Gradle 无法跟踪的文件。如果构建中使用的注解处理器无法被正确缓存，你可以通过在构建脚本中指定 `useBuildCache` 属性来完全禁用 kapt 的缓存。这有助于防止 kapt 任务出现误报的缓存命中：
+kapt 注解处理任务默认在 [Gradle 中缓存](https://guides.gradle.org/using-build-cache/)。
+然而，注解处理器可以运行任意代码，这些代码可能无法可靠地将任务输入转换为输出，或者可能会访问和修改 Gradle 无法跟踪的文件。
+如果构建中使用的注解处理器无法被正确缓存，你可以通过在构建脚本中指定 `useBuildCache` 属性来完全禁用 kapt 的缓存。
+这有助于防止 kapt 任务出现误报的缓存命中：
 
 ```groovy
 kapt {
@@ -242,19 +253,19 @@ kapt.incremental.apt=false
 
 你可以在一个单独的 Gradle 配置中定义一组通用的注解处理器作为超配置，并在子项目中专门针对 kapt 的配置进一步扩展它。
 
-例如，对于使用 [Dagger](https://dagger.dev/) 的子项目，在你的 `build.gradle(.kts)` 文件中使用以下配置：
+例如，对于使用 [MapStruct](https://mapstruct.org/) 的子项目，在你的 `build.gradle(.kts)` 文件中使用以下配置：
 
 ```kotlin
 val commonAnnotationProcessors by configurations.creating
 configurations.named("kapt") { extendsFrom(commonAnnotationProcessors) }
 
 dependencies {
-    implementation("com.google.dagger:dagger:2.48.1")
-    commonAnnotationProcessors("com.google.dagger:dagger-compiler:2.48.1")
+    implementation("org.mapstruct:mapstruct:1.6.3")
+    commonAnnotationProcessors("org.mapstruct:mapstruct-processor:1.6.3")
 }
 ```
 
-在此示例中，`commonAnnotationProcessors` Gradle 配置是你希望在所有项目中使用的通用注解处理超配置。你使用 [`extendsFrom()`](https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.Configuration.html#org.gradle.api.artifacts.Configuration:extendsFrom) 方法将 `commonAnnotationProcessors` 添加为超配置。kapt 识别到 `commonAnnotationProcessors` Gradle 配置对 Dagger 注解处理器有依赖。因此，kapt 在其注解处理配置中包含了 Dagger 注解处理器。
+在此示例中，`commonAnnotationProcessors` Gradle 配置是你希望在所有项目中使用的通用注解处理超配置。你使用 [`extendsFrom()`](https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.Configuration.html#org.gradle.api.artifacts.Configuration:extendsFrom) 方法将 `commonAnnotationProcessors` 添加为超配置。kapt 识别到 `commonAnnotationProcessors` Gradle 配置对 MapStruct 注解处理器有依赖。因此，kapt 在其注解处理配置中包含了 MapStruct 注解处理器。
  
 ## Java 编译器选项
 
@@ -273,7 +284,8 @@ kapt {
 
 ## 不存在的类型修正
 
-某些注解处理器（如 `AutoFactory`）依赖于声明签名中的精确类型。默认情况下，kapt 会将每个未知类型（包括生成的类的类型）替换为 `NonExistentClass`，但你可以更改此行为。在 `build.gradle(.kts)` 文件中添加该选项，以启用在存根中的错误类型推断：
+某些注解处理器（如 `AutoFactory`）依赖于声明签名中的精确类型。
+默认情况下，kapt 会将每个未知类型（包括生成的类的类型）替换为 `NonExistentClass`，但你可以更改此行为。在 `build.gradle(.kts)` 文件中添加该选项，以启用在存根中的错误类型推断：
 
 ```groovy
 kapt {
@@ -300,9 +312,9 @@ kapt {
         <annotationProcessorPaths>
             <!-- 在此处指定你的注解处理器 -->
             <annotationProcessorPath>
-                <groupId>com.google.dagger</groupId>
-                <artifactId>dagger-compiler</artifactId>
-                <version>2.9</version>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>1.6.3</version>
             </annotationProcessorPath>
         </annotationProcessorPaths>
     </configuration>
@@ -400,7 +412,8 @@ fun encodeList(options: Map<String, String>): String {
 
 ## 保留 Java 编译器的注解处理器
 
-默认情况下，kapt 运行所有注解处理器并禁用 javac 的注解处理。然而，你可能需要一些 javac 的注解处理器正常工作（例如 [Lombok](https://projectlombok.org/)）。
+默认情况下，kapt 运行所有注解处理器并禁用 javac 的注解处理。
+然而，你可能需要一些 javac 的注解处理器正常工作（例如 [Lombok](https://projectlombok.org/)）。
 
 在 Gradle 构建文件中，使用选项 `keepJavacAnnotationProcessors`：
 
@@ -410,4 +423,9 @@ kapt {
 }
 ```
 
-如果你使用 Maven，则需要指定具体的插件设置。参见这个 [Lombok 编译器插件设置示例](lombok.md#using-with-kapt)。
+如果你使用 Maven，则需要显式配置该插件。
+参见这个 [Lombok 编译器插件设置示例](lombok.md#using-with-kapt)。
+
+## 下一步
+
+* [了解如何从 kapt 迁移到 KSP](ksp-kapt-migration.md)

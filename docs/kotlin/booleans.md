@@ -94,7 +94,7 @@ val d = true && true  // true
 
 > 如果第一个操作数为 `false`，则 `&&` 运算符会跳过第二个操作数。
 > 若要计算两个操作数，请改用 `and` [中缀函数](functions.md#infix-notation)。
-> 
+>
 {style="note"}
 
 ### 逻辑或 (OR)
@@ -129,10 +129,10 @@ val d = true xor true   // false
 ```
 
 > `xor` 是一个[中缀函数](functions.md#infix-notation)，而不是运算符。
-> 
+>
 > 要了解有关 `Boolean` 函数的更多信息，请参阅 [API 参考文档](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/)。
 >
-{style="note"} 
+{style="note"}
 
 ## 运算符优先级
 
@@ -155,7 +155,7 @@ fun main() {
 //sampleEnd    
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false"}
 
 要使计算顺序显式化，请使用圆括号：
 
@@ -167,7 +167,7 @@ fun main() {
 //sampleEnd    
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false"}
 
 ## 条件中的 `Boolean`
 

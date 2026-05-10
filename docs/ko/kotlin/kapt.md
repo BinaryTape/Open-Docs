@@ -1,12 +1,20 @@
 [//]: # (title: kapt 컴파일러 플러그인)
 
-kapt 컴파일러 플러그인을 사용하면 Kotlin에서 Java 어노테이션 프로세서를 사용할 수 있습니다.
+<tldr>
 
-간단히 말해, kapt는 Java 기반의 어노테이션 처리를 가능하게 함으로써 Kotlin 프로젝트에서 [Dagger](https://google.github.io/dagger/)나 [Data Binding](https://developer.android.com/topic/libraries/data-binding/index.html)과 같은 라이브러리를 사용할 수 있도록 돕습니다.
+* 다음과 같은 경우 **kapt**를 사용하세요:
+   * Maven 프로젝트를 사용하는 경우.
+   * Gradle 프로젝트를 사용하지만, 필요한 Java 어노테이션 프로세서가 아직 KSP를 지원하지 않는 경우. [지원되는 라이브러리 목록 보기](ksp-overview.md#supported-libraries).
+* 다음과 같은 경우 **[KSP](ksp-overview.md)**를 사용하세요:
+   * Gradle 프로젝트를 사용하고, 필요한 Java 어노테이션 프로세서가 KSP를 지원하는 경우.
+   * 직접 어노테이션 프로세서를 만들려는 경우.
 
-> Kotlin용으로 제작된 어노테이션 프로세서를 사용하려면 [Kotlin Symbol Processing (KSP)](ksp-overview.md)을 사용하세요.
->
-{style="note"}
+</tldr>
+
+kapt 컴파일러 플러그인을 사용하면 Kotlin에서 기존 Java 어노테이션 프로세서를 사용할 수 있으며, Maven과 Gradle 모두에서 작동합니다.
+kapt는 Kotlin 소스 코드에서 스텁(stub) 파일을 생성한 다음, 해당 스텁에 대해 Java 어노테이션 프로세서를 실행합니다.
+
+이를 통해 Kotlin 프로젝트에서 [MapStruct](https://mapstruct.org/)나 [Data Binding](https://developer.android.com/topic/libraries/data-binding/index.html)과 같은 라이브러리를 위한 Java 기반 어노테이션 처리가 가능해집니다.
 
 ## Gradle에서 사용하기
 
@@ -247,19 +255,19 @@ kapt.incremental.apt=false
 
 별도의 Gradle 구성을 상위 구성으로 정의하여 공통 어노테이션 프로세서 세트를 구성하고, 이를 하위 프로젝트의 kapt 전용 구성에서 확장하여 사용할 수 있습니다.
 
-예를 들어, [Dagger](https://dagger.dev/)를 사용하는 하위 프로젝트의 경우 `build.gradle(.kts)` 파일에서 다음과 같이 구성합니다:
+예를 들어, [MapStruct](https://mapstruct.org/)를 사용하는 하위 프로젝트의 경우 `build.gradle(.kts)` 파일에서 다음과 같이 구성합니다:
 
 ```kotlin
 val commonAnnotationProcessors by configurations.creating
 configurations.named("kapt") { extendsFrom(commonAnnotationProcessors) }
 
 dependencies {
-    implementation("com.google.dagger:dagger:2.48.1")
-    commonAnnotationProcessors("com.google.dagger:dagger-compiler:2.48.1")
+    implementation("org.mapstruct:mapstruct:1.6.3")
+    commonAnnotationProcessors("org.mapstruct:mapstruct-processor:1.6.3")
 }
 ```
 
-이 예제에서 `commonAnnotationProcessors` Gradle 구성은 모든 프로젝트에서 사용하고자 하는 공통 어노테이션 처리 상위 구성입니다. [`extendsFrom()`](https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.Configuration.html#org.gradle.api.artifacts.Configuration:extendsFrom) 메서드를 사용하여 `commonAnnotationProcessors`를 상위 구성으로 추가합니다. kapt는 `commonAnnotationProcessors` 구성이 Dagger 어노테이션 프로세서에 의존하고 있음을 인식하고, 이를 자신의 어노테이션 처리 구성에 포함시킵니다.
+이 예제에서 `commonAnnotationProcessors` Gradle 구성은 모든 프로젝트에서 사용하고자 하는 공통 어노테이션 처리 상위 구성입니다. [`extendsFrom()`](https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.Configuration.html#org.gradle.api.artifacts.Configuration:extendsFrom) 메서드를 사용하여 `commonAnnotationProcessors`를 상위 구성으로 추가합니다. kapt는 `commonAnnotationProcessors` 구성이 MapStruct 어노테이션 프로세서에 의존하고 있음을 인식하고, 이를 자신의 어노테이션 처리 구성에 포함시킵니다.
  
 ## Java 컴파일러 옵션
 
@@ -306,9 +314,9 @@ kapt {
         <annotationProcessorPaths>
             <!-- 여기에 어노테이션 프로세서를 지정하세요 -->
             <annotationProcessorPath>
-                <groupId>com.google.dagger</groupId>
-                <artifactId>dagger-compiler</artifactId>
-                <version>2.9</version>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>1.6.3</version>
             </annotationProcessorPath>
         </annotationProcessorPaths>
     </configuration>
@@ -419,3 +427,7 @@ kapt {
 
 Maven을 사용하는 경우 구체적인 플러그인 설정을 지정해야 합니다.
 이 [Lombok 컴파일러 플러그인 설정 예시](lombok.md#using-with-kapt)를 참고하세요.
+
+## 다음 단계
+
+* [kapt에서 KSP로 마이그레이션하는 방법 보기](ksp-kapt-migration.md)

@@ -1,5 +1,18 @@
 # 更新日誌
 
+## [3.5.0-beta01] - 2026 年 5 月 4 日
+
+- 移除 `iosX64` 與 `macosX64` 目標。([#3386](https://github.com/coil-kt/coil/pull/3386))
+- 將 Android 的最低 SDK 版本提升至 23。([#3283](https://github.com/coil-kt/coil/pull/3283))
+- 在 JS/WASM 上加入快速 WebP 大小擷取，以避免回退至完整的 Skia 解碼。([#3341](https://github.com/coil-kt/coil/pull/3341))
+- 修正 `CacheStrategy` 實作無法重新整理已快取的失敗回應（例如過期的快取 `404` 回應）。([#3401](https://github.com/coil-kt/coil/pull/3401))
+- 更新編譯 SDK 至 36。
+- 更新 Kotlin 至 2.3.21。
+- 更新 Compose 至 1.11.0-beta03。
+- 更新 Okio 至 3.17.0。
+- 更新 Skiko 至 0.144.5。
+- 更新 `androidx.annotation` 至 1.10.0。
+
 ## [3.4.0] - 2026 年 2 月 24 日
 
 - **新增**：加入 `ConcurrentRequestStrategy` 以支援為相同金鑰合併進行中的網路請求。([#2995](https://github.com/coil-kt/coil/pull/2995), [#3326](https://github.com/coil-kt/coil/pull/3326))
@@ -14,7 +27,7 @@
     - `ImageRequest.Builder.preferEndFirstIntrinsicSize` 讓 `CrossfadePainter` 優先使用結束繪製器的原生大小。
 - **新增**：在 `coil-gif` 中加入 `ImageLoader.Builder.repeatCount(Int)` 以設定全域動畫影像重複次數。([#3143](https://github.com/coil-kt/coil/pull/3143))
 - **新增**：在 `coil-video` 中加入對優先使用內嵌影片縮圖的支援。([#3107](https://github.com/coil-kt/coil/pull/3107))
-- **新增**：隨 `coil-core` 發佈 `coil-lint`，並加入 Lint 分析以擷取 `ImageRequest.Builder` 區塊中意外的 `kotlin.error()` 呼叫。([#3304](https://github.com/coil-kt/coil/pull/3304))
+- **新增**：隨 `coil-core` 發佈 `coil-lint`，並加入 Lint 檢查以擷取 `ImageRequest.Builder` 區塊中意外的 `kotlin.error()` 呼叫。([#3304](https://github.com/coil-kt/coil/pull/3304))
 - 將 Kotlin 語言版本設定為 2.1。([#3302](https://github.com/coil-kt/coil/pull/3302))
 - 讓 `BitmapFetcher` 在通用程式碼中可用。([#3286](https://github.com/coil-kt/coil/pull/3286))
 - 在 Android 上建立單例 `ImageLoader` 時使用 `applicationContext`。([#3246](https://github.com/coil-kt/coil/pull/3246))
@@ -316,7 +329,7 @@ AsyncImage(
 
 ## [3.0.0-alpha02] - 2024 年 1 月 10 日
 
-- **破壞性變更**：更新了 `coil-gif`、`coil-network`、`coil-svg` 與 `coil-video` 的套件，使其所有類別分別成為 `coil.gif`、`coil.network`、`coil.svg` 與 `coil.video` 的一部分。這有助於避免與其他構件的類別名稱衝突。
+- **破壞性變更**：`coil-gif`、`coil-network`、`coil-svg` 與 `coil-video` 的套件已更新，使其所有類別分別屬於 `coil.gif`、`coil.network`、`coil.svg` 與 `coil.video`。這有助於避免與其他構件的類別名稱衝突。
 - **破壞性變更**：`ImageDecoderDecoder` 已重新命名為 `AnimatedImageDecoder`。
 - **新增**：`coil-gif`、`coil-network`、`coil-svg` 與 `coil-video` 的元件現在會自動加入各個 `ImageLoader` 的 `ComponentRegistry` 中。
     - 需明確說明的是，與 `3.0.0-alpha01` 不同，**您不需要手動將 `NetworkFetcher.Factory()` 加入您的 `ComponentRegistry`**。只需匯入 `io.coil-kt.coil3:coil-network:[version]` 與 [Ktor 引擎](https://ktor.io/docs/http-client-engines.html#dependencies) 即可載入網路影像。
@@ -343,7 +356,7 @@ AsyncImage(
 - 修正：`FakeImageEngine` 未更新攔截器鏈的請求。([#1905](https://github.com/coil-kt/coil/pull/1905))
 - 更新編譯 SDK 至 34。
 - 更新 Kotlin 至 1.9.10。
-- 更新協同程式 至 1.7.3。
+- 更新協同程式至 1.7.3。
 - 更新 `accompanist-drawablepainter` 至 0.32.0。
 - 更新 `androidx.annotation` 至 1.7.0。
 - 更新 `androidx.compose.foundation` 至 1.5.4。
@@ -362,7 +375,7 @@ AsyncImage(
 - 修正：修正發佈 `coil-bom` 的問題。
 - 修正：修正若停用硬體位元圖時，位元圖配置一律設為 `ARGB_8888` 的問題。
 - 更新 Kotlin 至 1.8.21。
-- 更新 協同程式 至 1.7.1。
+- 更新協同程式至 1.7.1。
 - 更新 `accompanist-drawablepainter` 至 0.30.1。
 - 更新 `androidx.compose.foundation` 至 1.4.3。
 - 更新 `androidx.profileinstaller:profileinstaller` 至 1.3.1。
@@ -410,7 +423,7 @@ AsyncImage(
 - 修正：若傳遞具有未定義維度的大小，不要在 `RoundedCornersTransformation` 中拋出例外。
 - 修正：將 GIF 的影格延遲讀取為兩個無符號位元組，而非一個有符號位元組。
 - 更新 Kotlin 至 1.7.10。
-- 更新 協同程式 至 1.6.4。
+- 更新協同程式至 1.6.4。
 - 更新 Compose 至 1.2.1。
 - 更新 OkHttp 至 4.10.0。
 - 更新 Okio 至 3.2.0。
@@ -502,7 +515,7 @@ AsyncImage(
 - 將 `Size` 建構函式轉換為函式。
 - 將 `Dimension.Pixels` 的 `toString` 變更為僅包含其像素值。
 - 防範 `SystemCallbacks.onTrimMemory` 中罕見的崩潰。
-- 更新 協同程式 至 1.6.1。
+- 更新協同程式至 1.6.1。
 
 ## [2.0.0-rc02] - 2022 年 3 月 20 日
 
@@ -604,7 +617,7 @@ AsyncImage(
 - 修正當 `loading`、`success` 與 `error` 都設定時，`AsyncImage` 未使用 `DefaultContent` 的問題。([#1026](https://github.com/coil-kt/coil/pull/1026))
 - 使用 androidx `LruCache` 取代平台 `LruCache`。([#1047](https://github.com/coil-kt/coil/pull/1047))
 - 更新 Kotlin 至 1.6.10。
-- 更新 協同程式 至 1.6.0。
+- 更新協同程式至 1.6.0。
 - 更新 Compose 至 1.1.0-rc01。
 - 更新 `accompanist-drawablepainter` 至 0.22.0-rc。
 - 更新 `androidx.collection` 至 1.2.0。
@@ -770,7 +783,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 - 將 `ImagePainter.ExecuteCallback` 提升為穩定 API。([#927](https://github.com/coil-kt/coil/pull/927))
 - 更新 compileSdk 至 31。
 - 更新 Kotlin 至 1.5.30。
-- 更新 協同程式 至 1.5.2。
+- 更新協同程式至 1.5.2。
 - 更新 Compose 至 1.0.3。
 
 ## [1.3.2] - 2021 年 8 月 4 日
@@ -779,7 +792,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
     - `compose.ui` 是一個較小的相依性，因其為 `compose.foundation` 的子集。
 - 更新 Jetpack Compose 至 1.0.1。
 - 更新 Kotlin 至 1.5.21。
-- 更新 協同程式 至 1.5.1。
+- 更新協同程式至 1.5.1。
 - 更新 `androidx.exifinterface:exifinterface` 至 1.3.3。
 
 ## [1.3.1] - 2021 年 7 月 28 日
@@ -806,7 +819,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 - 修正 API 26 與 27 上檢查無可用檔案描述符的邏輯。
 - 修正對平台向量可繪製資源支援的錯誤版本檢查。([#751](https://github.com/coil-kt/coil/pull/751))
 - 更新 Kotlin (1.5.10)。
-- 更新 協同程式 (1.5.0)。
+- 更新協同程式 (1.5.0)。
 - 更新 `androidx.appcompat:appcompat-resources` 至 1.3.0。
 - 更新 `androidx.core:core-ktx` 至 1.5.0。
 
@@ -823,7 +836,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 - **新增**：支援使用來源內容而非僅靠 MIME 類型來自動偵測 SVG。([#654](https://github.com/coil-kt/coil/pull/654))
 - **新增**：支援使用 `ImageLoader.newBuilder()` 共享資源。([#653](https://github.com/coil-kt/coil/pull/653))
     - 重要地是，這支援在 `ImageLoader` 執行個體之間共享記憶體快取。
-- **新增**：使用 `AnimatedTransformation` 加入對動畫影像轉換的支援。([#659](https://github.com/coil-kt/coil/pull/659))
+- **新增**：加入對使用 `AnimatedTransformation` 的動畫影像轉換的支援。([#659](https://github.com/coil-kt/coil/pull/659))
 - **新增**：加入對動畫可繪製對象起始/結束回呼的支援。([#676](https://github.com/coil-kt/coil/pull/676))
 
 ---
@@ -838,7 +851,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 
 - 使用 JVM IR 後端進行組建。([#670](https://github.com/coil-kt/coil/pull/670))
 - 更新 Kotlin (1.4.32)。
-- 更新 協同程式 (1.4.3)。
+- 更新協同程式 (1.4.3)。
 - 更新 OkHttp (3.12.13)。
 - 更新 `androidx.lifecycle:lifecycle-common-java8` 至 2.3.1。
 
@@ -849,7 +862,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
     - 使用 `ImageRequest.dispatcher(Dispatchers.Main.immediate)` 強制在主執行緒執行的請求將失敗並拋出 `NetworkOnMainThreadException`，除非將 `ImageRequest.networkCachePolicy` 設定為 `CachePolicy.DISABLED` 或 `CachePolicy.WRITE_ONLY`。
 - 若影片包含旋轉元資料，則旋轉來自 `VideoFrameFetcher` 的影片影格。
 - 更新 Kotlin (1.4.21)。
-- 更新 協同程式 (1.4.2)。
+- 更新協同程式 (1.4.2)。
 - 更新 Okio (2.10.0)。
 - 更新 `androidx.exifinterface:exifinterface` (1.3.2)。
 
@@ -857,7 +870,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 
 - **重要**：變更 `CENTER` 與 `MATRIX` 的 `ImageView` 縮放類型使其解析為 `OriginalSize`。([#587](https://github.com/coil-kt/coil/pull/587))
     - 此變更僅影響未明確指定請求大小時的隱式大小解析演算法。
-    - 此變更是為了確保影像請求的視覺結果與 `ImageView.setImageResource`/`ImageView.setImageURI` 一致。若要恢復舊有行為，請在建構請求時設定 `ViewSizeResolver`。
+    - 此變則是為了確保影像請求的視覺結果與 `ImageView.setImageResource`/`ImageView.setImageURI` 一致。若要恢復舊有行為，請在建構請求時設定 `ViewSizeResolver`。
 - **重要**：若視圖的版面配置參數為 `WRAP_CONTENT`，則從 `ViewSizeResolver` 傳回顯示器大小。([#562](https://github.com/coil-kt/coil/pull/562))
     - 先前我們僅在視圖已完全佈置時才傳回顯示器大小。此變更使典型行為更一致且直觀。
 - 加入控制 Alpha 預乘的功能。([#569](https://github.com/coil-kt/coil/pull/569))
@@ -871,14 +884,14 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 - 修正：變更 `CrossfadeDrawable` 中的起始/結束可繪製對象。([#572](https://github.com/coil-kt/coil/pull/572))
 - 修正：修正 GIF 在第二次載入時不播放的問題。([#577](https://github.com/coil-kt/coil/pull/534))
 - 更新 Kotlin (1.4.20) 並遷移至 `kotlin-parcelize` 外掛程式。
-- 更新 協同程式 (1.4.1)。
+- 更新協同程式 (1.4.1)。
 
 ## [1.0.0] - 2020 年 10 月 22 日
 
 自 `0.13.0` 以來的變更：
 - 加入 `Context.imageLoader` 擴充函式。([#534](https://github.com/coil-kt/coil/pull/534))
 - 加入 `ImageLoader.executeBlocking` 擴充函式。([#537](https://github.com/coil-kt/coil/pull/537))
-- 若先前的單例影像載入器被替換，不要將其關閉。([#533](https://github.com/coil-kt/coil/pull/533))
+- 若先前的單例影像載入器被替換，不要將其關閉。[#533](https://github.com/coil-kt/coil/pull/533)
 
 自 `1.0.0-rc3` 以來的變更：
 - 修正：防範遺失/無效的 ActivityManager。([#541](https://github.com/coil-kt/coil/pull/541))
@@ -925,7 +938,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 ---
 
 - 更新 Kotlin 至 1.4.0。
-- 更新 協同程式 至 1.3.9。
+- 更新協同程式 至 1.3.9。
 - 更新 Okio 至 2.8.0。
 
 ## [1.0.0-rc1] - 2020 年 8 月 18 日
@@ -935,7 +948,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
     - **[請參閱此處](https://coil-kt.github.io/coil/faq/#how-do-i-target-java-8)了解如何在您的組建檔案中啟用 `-Xjvm-default=all`。**
     - 這會為預設的 Kotlin 介面方法產生 Java 8 預設方法。
 - 移除 0.12.0 中所有現有的棄用方法。
-- 更新 協同程式 至 1.3.9。
+- 更新協同程式 至 1.3.9。
 
 ## [0.12.0] - 2020 年 8 月 18 日
 
@@ -950,7 +963,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
     - `coil.DefaultRequestOptions` -> `coil.request.DefaultRequestOptions`
 - **破壞性變更**：[`SparseIntArraySet`](https://github.com/coil-kt/coil/blob/f52addd039f0195b66f93cb0f1cad59b0832f784/coil-core/src/main/java/coil/collection/SparseIntArraySet.kt) 已從公開 API 中移除。
 - **破壞性變更**：`TransitionTarget` 不再實作 `ViewTarget`。
-- **破壞性變更**：`ImageRequest.Listener.onSuccess` 的特徵已更改為傳回 `ImageResult.Metadata` 而非僅傳回 `DataSource`。
+- **破壞性變更**：`ImageRequest.Listener.onSuccess` 的簽章已更改為傳回 `ImageResult.Metadata` 而非僅傳回 `DataSource`。
 - **破壞性變更**：移除對 `LoadRequest.aliasKeys` 的支援。此 API 透過對記憶體快取的直接讀寫存取能得到更好的處理。
 
 ---
@@ -986,7 +999,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 ---
 
 - 使用 SDK 30 編譯。
-- 更新 協同程式 至 1.3.8。
+- 更新協同程式 至 1.3.8。
 - 更新 OkHttp 至 3.12.12。
 - 更新 Okio 至 2.7.0。
 - 更新 AndroidX 相依性：
@@ -1014,7 +1027,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 
 - 將預設記憶體快取大小降至 20%。([#390](https://github.com/coil-kt/coil/pull/390))
     - 若要恢復現有行為，請在建立 `ImageLoader` 時設定 `ImageLoaderBuilder.availableMemoryPercentage(0.25)`。
-- 更新 協同程式 至 1.3.6。
+- 更新協同程式 至 1.3.6。
 - 更新 OkHttp 至 3.12.11。
 
 ## [0.10.1] - 2020 年 4 月 26 日
@@ -1070,7 +1083,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
     - 若您使用 `io.coil-kt:coil` 構件，您可以呼叫 `Coil.execute(request)` 來使用單例 `ImageLoader` 執行請求。
 
 - **`ImageLoader` 現在擁有一個弱參照記憶體快取**，用於在影像從強參照記憶體快取中逐出後追蹤其弱參照。
-    - 這意味著只要仍有強參照存在，影像就一律會從 `ImageLoader` 的記憶體快取中傳回。
+    - 這意指只要仍有強參照存在，影像就一律會從 `ImageLoader` 的記憶體快取中傳回。
     - 一般而言，這應會使記憶體快取更可預測並提高其命中率。
     - 此行為可透過 `ImageLoaderBuilder.trackWeakReferences` 啟用/停用。
 
@@ -1107,7 +1120,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 - **新增**：改善 Java 相容性。([#262](https://github.com/coil-kt/coil/pull/262))
 - **新增**：支援設定預設的 `CachePolicy`。([#307](https://github.com/coil-kt/coil/pull/307))
 - **新增**：支援設定預設的 `Bitmap.Config`。([#342](https://github.com/coil-kt/coil/pull/342))
-- **新增**：加入 `ImageLoader.invalidate(key)` 以清除單個記憶體快取項目 ([#55](https://github.com/coil-kt/coil/pull/55))
+- **新增**：加入 `ImageLoader.invalidate(key)` 以清除單個記憶體快取項目。([#55](https://github.com/coil-kt/coil/pull/55))
 - **新增**：加入偵錯日誌以解釋為何快取的影像未被重複使用。([#346](https://github.com/coil-kt/coil/pull/346))
 - **新增**：支援 get 請求的 `error` 與 `fallback` 可繪製對象。
 
@@ -1121,7 +1134,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 - 修正：修正與 Android R SDK 的不相容問題。([#337](https://github.com/coil-kt/coil/pull/337))
 - 修正：僅在 `ImageView` 具有相符的 `SizeResolver` 時才啟用非精確大小。([#344](https://github.com/coil-kt/coil/pull/344))
 - 修正：允許快取的影像與請求的大小最多有一像素的落差。([#360](https://github.com/coil-kt/coil/pull/360))
-- 修正：若視圖不可見，則跳過淡入淡出轉換。([#361](https://github.com/coil-kt/coil/pull/361))
+- 修正：若視圖不可見，則跳過淡入淡出過渡。([#361](https://github.com/coil-kt/coil/pull/361))
 
 ---
 
@@ -1134,7 +1147,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 ---
 
 - 更新 Kotlin 至 1.3.72。
-- 更新 協同程式 至 1.3.5。
+- 更新協同程式 至 1.3.5。
 - 更新 OkHttp 至 3.12.10。
 - 更新 Okio 至 2.5.0。
 - 更新 AndroidX 相依性：
@@ -1156,7 +1169,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 ---
 
 - 先前只要位元圖的配置大於或等於請求中指定的配置，就會從記憶體快取傳回位元圖。例如，若您請求一個 `ARGB_8888` 位元圖，系統可能會從記憶體快取中傳回一個 `RGBA_F16` 位元圖。現在，快取的配置與請求的配置必須相等。
-- 將 `CrossfadeDrawable` 與 `CrossfadeTransition` 中的 `scale` 與 `durationMillis` 設為公開。
+- 將 `scale` 與 `durationMillis` 設為 `CrossfadeDrawable` 與 `CrossfadeTransition` 中的公開項。
 
 ## [0.9.3] - 2020 年 2 月 1 日
 
@@ -1209,11 +1222,11 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 
 ---
 
-- **新增**：支援自訂轉換。 [詳情請見此處](https://coil-kt.github.io/coil/transitions/)。由於 API 尚在醞釀中，轉換功能被標記為實驗性。
+- **新增**：支援自訂過渡。 [詳情請見此處](https://coil-kt.github.io/coil/transitions/)。由於 API 尚在醞釀中，過渡功能被標記為實驗性。
 - **新增**：加入 `RequestDisposable.await` 以支援在 `LoadRequest` 進行時暫停。
 - **新增**：支援在請求資料為 null 時設定 `fallback` 可繪製對象。
 - **新增**：加入 `Precision`。這使得輸出 `Drawable` 的大小精確，同時為支援縮放的目標（例如 `ImageViewTarget`）啟用縮放最佳化。詳情請見[其文件](https://github.com/coil-kt/coil/blob/main/coil-core/src/main/java/coil/size/Precision.kt)。
-- **新增**：加入 `RequestBuilder.aliasKeys` 以支援多個快取金鑰配對。
+- **新增**：加入 `RequestBuilder.aliasKeys` 以支援比對多個快取金鑰。
 
 ---
 
@@ -1240,7 +1253,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 
 ## [0.8.0] - 2019 年 10 月 22 日
 
-- **破壞性變更**：已移除 `SvgDrawable`。取而代之的是現在由 `SvgDecoder` 將 SVG 預先渲染為 `BitmapDrawable`。這使得 SVG **在主執行緒上的渲染成本大幅降低**。此外，`SvgDecoder` 現在在其建構函式中需要一個 `Context`。
+- **破壞性變更**：已移除 `SvgDrawable`。取而代之的是現在由 `SvgDecoder` 將 SVG 預先渲染為 `BitmapDrawable`s。這使得 SVG **在主執行緒上的渲染成本大幅降低**。此外，`SvgDecoder` 現在在其建構函式中需要一個 `Context`。
 - **破壞性變更**：`SparseIntArraySet` 擴充函式已移至 `coil.extension` 套件。
 
 ---
@@ -1327,7 +1340,7 @@ val imageLoader = ImageLoader(context) {
 - 將 `appcompat` 替換為 `appcompat-resources` 作為選用的 `compileOnly` 相依性。`appcompat-resources` 是一個小得多的構件。
 
 ## [0.6.1] - 2019 年 8 月 16 日
-- 新增：為 `RequestBuilder` 加入 `transformations(List<Transformation>)`。
+- **新增**：為 `RequestBuilder` 加入 `transformations(List<Transformation>)`。
 - 修正：為檔案 Uri 的快取金鑰加入最後修改日期。
 - 修正：確保視圖維度評估為至少 1px。
 - 修正：在影格之間清除 `MovieDrawable` 的畫布。

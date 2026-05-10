@@ -8,10 +8,11 @@
 - [PostgreSQL 方言] 新增基礎陣列常值 (Array literal) 支援（#5997 由 @griffio 提供）
 - [PostgreSQL 方言] 新增基礎 LTREE 支援（#5880 由 @yesitskev @griffio 提供）
 - [MySQL 方言] 新增對 INET 函式的支援（#5072 由 @mcxinyu 提供）
+- [SQLite 方言] 新增對 SQLite 3.44 聚合函式 (aggregate functions) DISTINCT、ORDER BY 與 FILTER 的支援（#6236 由 @griffio 提供）
 
 ### 變更
 - [PostgreSQL 方言] 將 `arrayIntermediateType` 的可見性變更為 public（#5835 由 @griffio 提供）
-- [Gradle 外掛程式] 實作更嚴格的 `MigrationFile` 版本控控管（#5730 由 @madisp 提供）
+- [Gradle 外掛程式] 實作更嚴格的 `MigrationFile` 版本控管（#5730 由 @madisp 提供）
 
 ### 修復
 - [編譯器] 非群組聚合結果集中的其他列一律為可 null
@@ -20,13 +21,14 @@
 - [PostgreSQL 方言] 改進 PostgreSQL 方言的 IDE 外掛程式（#6209 由 @griffio 提供）
 - [Intellij 外掛程式] IDE 外掛程式可以為所有方言執行程式碼補全（#6210 由 @griffio 提供）
 - [Gradle 外掛程式] 修復執行驗證資料庫任務時的循環相依性錯誤（#6221 由 @griffio 提供）
+- [編譯器] 修復多列更新的樂觀鎖 (optimistic lock)（#6240 由 @griffio 提供）
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
 
 ### 新增
 - [PostgreSQL 方言] 改進對 ALTER TABLE ALTER TYPE USING 運算式的支援（#6116 由 @griffio 提供）
-- [PostgreSQL 方方言] 新增對 DROP COLUMN IF EXISTS 的支援（#6112 由 @griffio 提供）
+- [PostgreSQL 方言] 新增對 DROP COLUMN IF EXISTS 的支援（#6112 由 @griffio 提供）
 - [Gradle 外掛程式] 新增 `expandSelectStar` 旗標以關閉 Select 萬用字元展開（#5813 由 @griffio 提供）
 - [MySQL 方言] 新增對視窗函式 (Window Functions) 的支援（#6086 由 @griffio 提供）
 - [Gradle 外掛程式] 修復當起始架構版本不為 1 且 `verifyMigrations` 為 true 時的組建失敗（#6017 由 @neilgmiller 提供）
@@ -196,7 +198,7 @@
 - [PostgreSQL 方言] 修復 5040 的 JSON 運算子繫結（#5100 由 @griffio 提供）
 - [PostgreSQL 方言] 修復 5082 tsvector（#5104 由 @griffio 提供）
 - [PostgreSQL 方言] 修復 5032 PostgreSql UPDATE FROM 陳述式的列相鄰性（#5035 由 @griffio 提供）
-- [SQLite 方言] 修復 4897 SQLite alter table rename column（#4899 由 @griffio 提供）
+- [SQLite 方言] 修復 SQLite 3.18 遺漏的函式（#4897 由 @griffio 提供）
 - [IDE 外掛程式] 修復錯誤處理常式當機（#4988 由 @aperfilyev 提供）
 - [IDE 外掛程式] BugSnag 無法在 IDEA 2023.3 中初始化（由 @aperfilyev 提供）
 - [IDE 外掛程式] 透過外掛程式在 IntelliJ 中開啟 .sq 檔案時出現 PluginException（由 @aperfilyev 提供）
@@ -401,7 +403,7 @@
 ### 新增
 - [HSQL 方言] Hsql：支援在 Insert 中為產生的列使用 DEFAULT（#3372 由 @hfhbd 提供）
 - [PostgreSQL 方言] PostgreSQL：支援在 INSERT 中為產生的列使用 DEFAULT (#3373 由 @hfhbd 提供)
-- [PostgreSQL 方言] 為 PostgreSQL 新增 NOW()（#3403 由 @hfhbd 提供）
+- [PostgreSQL 方言] 新增 NOW()（#3403 由 @hfhbd 提供）
 - [PostgreSQL 方言] PostgreSQL 新增 NOT 運算子（#3504 由 @hfhbd 提供）
 - [分頁] 允許將 `CoroutineContext` 傳遞給 `*QueryPagingSource`（#3384）
 - [Gradle 外掛程式] 為方言提供更好的版本型錄支援（#3435）
@@ -487,7 +489,7 @@ sqldelight {
 - [Gradle 外掛程式] 不要將 kotlin-stdlib 新增為 Gradle 外掛程式的執行階段相依項（#3245 由 @mbonnin 提供）
 - [Gradle 外掛程式] 簡化多平台組態（#3246 由 @mbonnin 提供）
 - [Gradle 外掛程式] 支援純 JS 專案（#3310 由 @hfhbd 提供）
-- [IDE 外掛程式] 為 Gradle 工具 API 使用 Java Home（#3078）
+- [IDE 外掛程式] 使用 Java Home 為 Gradle 工具 API（#3078）
 - [IDE 外掛程式] 在 IDE 外掛程式內正確的類別載入器上載入 JDBC 驅動程式（#3080）
 - [IDE 外掛程式] 在失效前將檔案元素標記為 null，以避免在已存在的 PSI 變更期間發生錯誤（#3082）
 - [IDE 外掛程式] 在 ALTER TABLE 陳述式中尋找新資料表名稱用法時不會當機（#3106）
@@ -724,7 +726,7 @@ sqldelight {
 
 ### 新增
 - [PostgreSQL 方言] PostgreSQL JSONB 與 ON Conflict Do Nothing (由 @satook 提供)
-- [PostgreSQL 方言] 增加對 PostgreSQL ON CONFLICT (column, ...) DO UPDATE 的支援 (由 @satook 提供)
+- [PostgreSQL 方言] 增加對 PostgreSQL ON CONFLICT (column, ...) DO UPDATE (by @satook 提供)
 - [MySQL 方言] 支援 MySQL 產生的列 (由 @JGulbronson 提供)
 - [原生驅動程式] 新增 watchosX64 支援
 - [IDE 外掛程式] 新增參數型別與註解 (由 @aperfilyev 提供)

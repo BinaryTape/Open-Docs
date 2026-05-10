@@ -651,7 +651,7 @@
   "kotlin.library-guides": "程式庫指南",
   "kotlin.multiplatform-gradle-dsl": "Multiplatform Gradle DSL",
   "kotlin.earlier-kotlin-releases": "更早的 Kotlin 版本",
-  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-beta03",
+  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-rc01",
   "koog.rag": "RAG",
   "kotlin.backend-development": "後端開發",
   "kotlin.running-ksp-from-the-command-line": "從命令列執行 KSP",
@@ -659,5 +659,7 @@
   "kotlin.maven-set-dependencies": "設定存儲庫與相依性",
   "kotlin.maven-kotlin-compiler": "配置 Kotlin 編譯器",
   "kmp.build-ios-android-app": "如何建置 Android 與 iOS 應用程式",
-  "koog.cache-control": "快取控制"
+  "koog.cache-control": "快取控制",
+  "kotlin.jvm-test-maven": "使用 Maven 進行測試",
+  "kotlin.jvm-annotation-processors": "使用註解處理器"
 }

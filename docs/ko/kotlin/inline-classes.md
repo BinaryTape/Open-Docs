@@ -18,7 +18,7 @@ JVM 백엔드용 인라인 클래스를 선언하려면 클래스 선언 앞에 
 value class Password(private val s: String)
 ```
 
-인라인 클래스는 주 생성자에서 초기화되는 단일 프로퍼티가 있어야 합니다. 런타임에 인라인 클래스의 인스턴스는 이 단일 프로퍼티를 사용하여 표현됩니다(런타임 표현 방식에 대한 자세한 내용은 [아래](#representation)를 참조하세요).
+인라인 클래스는 주 생성자에서 초기화되는 단일 프로퍼티가 있어야 합니다. 런타임에 인라인 클래스의 인스턴스는 이 단일 프로퍼티를 사용하여 표현됩니다(런타임 표현 방식에 대한 자세한 내용은 [아래](#representation)를 참조하세요):
 
 ```kotlin
 // 'Password' 클래스의 실제 인스턴스화는 일어나지 않음
@@ -30,7 +30,7 @@ val securePassword = Password("Don't try this in production")
 
 ## 멤버
 
-인라인 클래스는 일반 클래스의 일부 기능을 지원합니다. 특히 프로퍼티와 함수를 선언할 수 있으며, `init` 블록과 [보조 생성자(secondary constructors)](classes.md#secondary-constructors)를 가질 수 있습니다.
+인라인 클래스는 일반 클래스의 일부 기능을 지원합니다. 특히 프로퍼티와 함수를 선언할 수 있으며, `init` 블록과 [보조 생성자(secondary constructors)](classes.md#secondary-constructors)를 가질 수 있습니다:
 
 ```kotlin
 @JvmInline
@@ -90,7 +90,7 @@ fun main() {
 
 ## 표현 방식 (Representation)
 
-생성된 코드에서 코틀린 컴파일러는 각 인라인 클래스에 대한 **래퍼(wrapper)**를 유지합니다. 인라인 클래스 인스턴스는 런타임에 래퍼 또는 기저 타입(underlying type)으로 표현될 수 있습니다. 이는 `Int`가 원시 타입 `int` 또는 래퍼 `Integer`로 [표현](numbers.md#boxing-and-caching-numbers-on-the-java-virtual-machine)될 수 있는 방식과 유사합니다.
+생성된 코드에서 코틀린 컴파일러는 각 인라인 클래스에 대한 **래퍼(wrapper)**를 유지합니다. 인라인 클래스 인스턴스는 런타임에 래퍼 또는 기저 타입(underlying type)으로 표현될 수 있습니다. 이는 `Int`가 원시 타입 `int` 또는 래퍼 `Integer`로 [표현](numbers.md#boxing-and-caching-numbers-on-the-jvm)될 수 있는 방식과 유사합니다.
 
 코틀린 컴파일러는 가장 성능이 좋고 최적화된 코드를 생성하기 위해 래퍼 대신 기저 타입을 사용하는 것을 선호합니다. 하지만 때로는 래퍼를 유지해야 할 때가 있습니다. 원칙적으로 인라인 클래스가 다른 타입으로 사용될 때마다 박싱(boxed)됩니다.
 

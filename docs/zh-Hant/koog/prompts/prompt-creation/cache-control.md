@@ -312,13 +312,11 @@ Amazon Bedrock 透過 Converse API 使用區塊層級快取模型。
     import ai.koog.prompt.executor.clients.bedrock.BedrockRegions
     import ai.koog.prompt.executor.clients.bedrock.StaticBearerTokenProvider
     import kotlinx.coroutines.runBlocking
-    import kotlin.time.Clock
     
     fun main() = runBlocking {
         val client = BedrockLLMClient(
             identityProvider = StaticBearerTokenProvider(token = "test-token"),
             settings = BedrockClientSettings(region = BedrockRegions.US_EAST_1.regionCode),
-            clock = Clock.System
         )
     -->
     <!--- SUFFIX
@@ -367,13 +365,11 @@ Amazon Bedrock 透過 Converse API 使用區塊層級快取模型。
     import ai.koog.prompt.executor.clients.bedrock.BedrockRegions
     import ai.koog.prompt.executor.clients.bedrock.StaticBearerTokenProvider
     import kotlinx.coroutines.runBlocking
-    import kotlin.time.Clock
     
     fun main() = runBlocking {
         val client = BedrockLLMClient(
             identityProvider = StaticBearerTokenProvider(token = "test-token"),
             settings = BedrockClientSettings(region = BedrockRegions.US_EAST_1.regionCode),
-            clock = Clock.System
         )
     -->
     <!--- SUFFIX

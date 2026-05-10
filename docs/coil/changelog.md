@@ -1,5 +1,18 @@
 # 更新日志
 
+## [3.5.0-beta01] - 2026年5月4日
+
+- 移除 `iosX64` 和 `macosX64` 目标。([#3386](https://github.com/coil-kt/coil/pull/3386))
+- 将 Android 的最低 SDK 版本提升至 23。([#3283](https://github.com/coil-kt/coil/pull/3283))
+- 在 JS/WASM 上添加快速 WebP 尺寸提取，以避免回退到完整的 Skia 解码。([#3341](https://github.com/coil-kt/coil/pull/3341))
+- 修复 `CacheStrategy` 实现无法刷新已缓存的失败响应（例如：已过期的 `404` 缓存响应）的问题。([#3401](https://github.com/coil-kt/coil/pull/3401))
+- 更新编译 SDK 至 36。
+- 更新 Kotlin 至 2.3.21。
+- 更新 Compose 至 1.11.0-beta03。
+- 更新 Okio 至 3.17.0。
+- 更新 Skiko 至 0.144.5。
+- 更新 `androidx.annotation` 至 1.10.0。
+
 ## [3.4.0] - 2026年2月24日
 
 - **新增**：添加 `ConcurrentRequestStrategy` 以支持合并针对相同 key 的在途网络请求。([#2995](https://github.com/coil-kt/coil/pull/2995), [#3326](https://github.com/coil-kt/coil/pull/3326))
@@ -150,7 +163,7 @@
 ## [3.0.1] - 2024年11月7日
 
 - 修复使用硬件位图支持的 `BitmapImage` 调用 `Image.toBitmap` 时发生崩溃的问题。
-- 修复 `AsyncImageModelEqualityDelegate.Default` 对非 `ImageRequest` 模型进行不正确的相等性比较的问题。
+- 修复 `AsyncImageModelEqualityDelegate.Default` 对 non-`ImageRequest` 模型进行不正确的相等性比较的问题。
 
 ## [3.0.0] - 2024年11月4日
 
@@ -277,7 +290,7 @@ AsyncImage(
     - `Image` API 是实验性的，在 alpha 版本之间可能会发生变化。
 - 更新 `ContentPainterModifier` 以实现 `Modifier.Node`。
 - 修复：在后台线程上延迟注册组件回调和网络观察程序。这修复了通常在主线程上发生的初始化缓慢问题。
-- 修复：修复 `ImageRequest` 未使用 `ImageLoader.Builder.placeholder/error/fallback` 的问题。
+- 修复：修复 `ImageLoader.Builder.placeholder/error/fallback` 未被 `ImageRequest` 使用的问题。
 - 更新 Compose 至 1.6.0。
 - 更新 Coroutines 至 1.8.0。
 - 更新 Okio 至 3.8.0。
@@ -740,13 +753,13 @@ Coil 2.0.0 是该库的下一个主要迭代，具有新功能、性能改进、
     - 位图池化[容易出错](https://github.com/coil-kt/coil/issues/546)。分配一个新位图比尝试重新使用可能仍在使用的位图要安全得多。
 - `MemoryCache` 已重构为更加灵活。
 - 禁用生成运行时非空断言。
-    - 如果您使用 Java，将 null 作为具有非空注解的参数传递给函数将不再立即抛出 `NullPointerException`。如果您使用 Kotlin，基本上没有变化。
+    - 如果您使用 Java，将 null 作为带有非空注解的参数传递给函数将不再立即抛出 `NullPointerException`。如果您使用 Kotlin，基本上没有变化。
     - 此更改允许库的大小更小。
 - 从库中移除了 `VideoFrameFileFetcher` 和 `VideoFrameUriFetcher`。请改用支持所有数据源的 `VideoFrameDecoder`。
 - 添加 `bitmapFactoryMaxParallelism` 支持，限制正在进行的 `BitmapFactory` 操作的最大数量。此值默认为 4，可提高 UI 性能。
 - 添加对 `interceptorDispatcher`、`fetcherDispatcher`、`decoderDispatcher` 和 `transformationDispatcher` 的支持。
 - `Disposable` 已重构并暴露底层 `ImageRequest` 的作业。
-- 将 `Transition.transition` 更改为非挂起函数，因为不再需要挂起过渡直到其完成。
+- 将 `Transition.transition` 更改为 non-挂起 函数，因为不再需要挂起过渡直到其完成。
 - 添加 `GenericViewTarget`，处理通用的 `ViewTarget` 逻辑。
 - 从库中移除了 [`BlurTransformation`](https://github.com/coil-kt/coil/blob/845f39383f332428077c666e3567b954675ce248/coil-core/src/main/java/coil/transform/BlurTransformation.kt) 和 [`GrayscaleTransformation`](https://github.com/coil-kt/coil/blob/845f39383f332428077c666e3567b954675ce248/coil-core/src/main/java/coil/transform/GrayscaleTransformation.kt)。
     - 如果您使用它们，可以将它们的代码复制到您的项目中。
@@ -812,7 +825,7 @@ Coil 2.0.0 是该库的下一个主要迭代，具有新功能、性能改进、
 
 ## [1.2.1] - 2021年4月27日
 
-- 修复 `VideoFrameUriFetcher` 尝试处理 http/https URI 的问题。([#734](https://github.com/coil-kt/coil/pull/734))
+- 修复 `VideoFrameUriFetcher` 尝试处理 http/https URI 的问题。([#734](https://github.com/coil-kt/coil/pull/734)
 
 ## [1.2.0] - 2021年4月12日
 
@@ -913,13 +926,13 @@ Coil 2.0.0 是该库的下一个主要迭代，具有新功能、性能改进、
 ---
 
 - 修复：修复如果请求是在处于分离状态的 fragment 中的 `ViewTarget` 上启动，可能导致的内存泄漏。([#518](https://github.com/coil-kt/coil/pull/518))
-- 修复：使用 `ImageRequest.context` 加载资源 URI。([#517](https://github.com/coil-kt/coil/pull/517))
+- 修复：使用 `ImageRequest.context` 加载资源 URI。[#517](https://github.com/coil-kt/coil/pull/517)
 - 修复：修复可能会导致后续请求无法保存到磁盘缓存的竞态条件。([#510](https://github.com/coil-kt/coil/pull/510))
 - 修复：在 API 18 上使用 `blockCountLong` 和 `blockSizeLong`。
 
 ---
 
-- 使 `ImageLoaderFactory` 成为函数式接口。
+- 使 `ImageLoaderFactory` 成为一个函数式接口。
 - 添加 `ImageLoader.Builder.addLastModifiedToFileCacheKey`，允许您启用/禁用为从 `File` 加载的图像在内存缓存键中添加最后修改时间戳。
 
 ---
@@ -1156,7 +1169,7 @@ Coil 2.0.0 是该库的下一个主要迭代，具有新功能、性能改进、
 ---
 
 - 此前，只要位图的配置大于或等于请求中指定的配置，就会从内存缓存中返回位图。例如，如果您请求一个 `ARGB_8888` 位图，可能会从内存缓存中为您返回一个 `RGBA_F16` 位图。现在，缓存配置和请求配置必须相等。
-- 使 `CrossfadeDrawable` 和 `CrossfadeTransition` 中的 `scale` 和 `durationMillis` 成为公开属性。
+- 使 `scale` 和 `durationMillis` 成为公开属性。
 
 ## [0.9.3] - 2020年2月1日
 
@@ -1245,7 +1258,7 @@ Coil 2.0.0 是该库的下一个主要迭代，具有新功能、性能改进、
 
 ---
 
-- **新增**：支持按请求设置网络标头。[点此获取更多信息](https://github.com/coil-kt/coil/pull/120)。
+- **新增**：支持设置按请求设置网络标头。[点此获取更多信息](https://github.com/coil-kt/coil/pull/120)。
 - **新增**：添加新的 `Parameters` API 以支持在图像流水线中传递自定义数据。
 - **新增**：在 `RoundedCornersTransformation` 中支持单独的圆角半径。感谢 @khatv911。
 - **新增**：添加 `ImageView.clear()` 以支持主动释放资源。

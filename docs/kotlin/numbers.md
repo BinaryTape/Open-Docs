@@ -1,100 +1,46 @@
 [//]: # (title: 数字)
+[//]: # (description: 了解如何在 Kotlin 中使用数字，包括数值类型、字面量、转换、算术操作、溢出以及 JVM 特定行为。)
+
+Kotlin 的数字类型表示：
+* 整数值（[Byte](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-byte/)、
+  [Short](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-short/)、
+  [Int](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/)
+  和 [Long](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/)）
+* 浮点值（[Float](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/)
+  和 [Double](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/)）
+
+使用数字类型来存储和处理数值数据，例如在算术、计数器、测量和其他计算中。
+
+## 选择数字类型
+
+在大多数情况下，你可以参考以下规则来为你的任务确定正确的数字类型：
+
+* 使用 `Int` 表示整数。
+* 使用 `Long` 表示超出 `Int` 范围的整数。
+* 使用 `Double` 表示十进制数字。
+* 当可以接受或需要较低精度时，使用 `Float`。
+* 当 API 或数据格式有要求时，使用 `Byte` 和 `Short`。
+
+> Kotlin 还提供 [](unsigned-integer-types.md) 作为 Beta 功能。 
+>
+{style="tip"}
 
 ## 整数类型
 
-Kotlin 提供了一组代表数字的内置类型。  
-对于整数，有四种具有不同大小和值范围的类型：
+Kotlin 提供了四种具有不同大小和值范围的整数类型：
 
-| 类型 | 大小（位） | 最小值 | 最大值 |
+| 类型	    | 大小（位） | 最小值                                    | 最大值                                      |
 |----------|-------------|----------------------------------------------|------------------------------------------------|
-| `Byte` | 8 | -128 | 127 |
-| `Short` | 16 | -32768 | 32767 |
-| `Int` | 32 | -2,147,483,648 (-2<sup>31</sup>) | 2,147,483,647 (2<sup>31</sup> - 1) |
-| `Long` | 64 | -9,223,372,036,854,775,808 (-2<sup>63</sup>) | 9,223,372,036,854,775,807 (2<sup>63</sup> - 1) |
+| `Byte`	  | 8           | -128                                         | 127                                            |
+| `Short`	 | 16          | -32768                                       | 32767                                          |
+| `Int`	   | 32          | -2,147,483,648 (-2<sup>31</sup>)             | 2,147,483,647 (2<sup>31</sup> - 1)             |
+| `Long`	  | 64          | -9,223,372,036,854,775,808 (-2<sup>63</sup>) | 9,223,372,036,854,775,807 (2<sup>63</sup> - 1) |
 
-> 除了有符号整数类型外，Kotlin 还提供无符号整数类型。
-> 由于无符号整数针对的是另一类用例，因此会单独介绍。
-> 参见 [](unsigned-integer-types.md)。
-> 
-{style="tip"}
+### 声明整数值
 
-在不指定显式类型的情况下初始化变量时，编译器会自动从 `Int` 开始推断出足以表示该值的最小范围类型。如果没有超过 `Int` 的范围，则类型为 `Int`。如果超过了该范围，则类型为 `Long`。要显式指定 `Long` 值，请在值后添加 `L` 后缀。要使用 `Byte` 或 `Short` 类型，请在声明中显式指定。
-显式类型指定会触发编译器检查该值是否超过了指定类型的范围。
-
-```kotlin
-val one = 1 // Int
-val threeBillion = 3000000000 // Long
-val oneLong = 1L // Long
-val oneByte: Byte = 1
-```
-
-## 浮点类型
-
-对于实数，Kotlin 提供了符合 [IEEE 754 标准](https://en.wikipedia.org/wiki/IEEE_754)的浮点类型 `Float` 和 `Double`。
-`Float` 反映了 IEEE 754 *单精度*，而 `Double` 反映了*双精度*。
-
-这些类型的大小不同，并为具有不同精度的浮点数提供存储：
-
-| 类型 | 大小（位） | 有效位数 | 指数位数 | 十进制位数 |
-|----------|-------------|------------------|---------------|----------------|
-| `Float` | 32 | 24 | 8 | 6-7 |
-| `Double` | 64 | 53 | 11 | 15-16 |    
-
-只能使用带有小数部分的数字来初始化 `Double` 和 `Float` 变量。
-使用句点（`.`）将小数部分与整数部分分隔开。
-
-对于使用小数初始化的变量，编译器会推断为 `Double` 类型：
-
-```kotlin
-val pi = 3.14          // Double
-
-val one: Double = 1    // 推断为 Int
-// Initializer type mismatch（初始值设定项类型不匹配）
-
-val oneDouble = 1.0    // Double
-```
-{validate="false"}
-
-要为某个值显式指定 `Float` 类型，请添加 `f` 或 `F` 后缀。
-如果以这种方式提供的值包含超过 7 位十进制数字，它将被舍入：
-
-```kotlin
-val e = 2.7182818284          // Double
-val eFloat = 2.7182818284f    // Float，实际值为 2.7182817
-```
-
-与其他一些语言不同，Kotlin 中的数字没有隐式的拓宽转换。
-例如，具有 `Double` 形参的函数只能对 `Double` 值调用，而不能对 `Float`、`Int` 或其他数值调用：
-
-```kotlin
-fun main() {
-//sampleStart
-    fun printDouble(x: Double) { print(x) }
-
-    val x = 1.0
-    val xInt = 1    
-    val xFloat = 1.0f 
-
-    printDouble(x)
-    
-    printDouble(xInt)   
-    // Argument type mismatch（实参类型不匹配）
-    
-    printDouble(xFloat)
-    // Argument type mismatch（实参类型不匹配）
-//sampleEnd
-}
-```
-{kotlin-runnable="true" validate="false"}
-
-要将数值转换为不同的类型，请使用[显式转换](#explicit-number-conversions)。
-
-## 数字字面量常量
-
-整数值有以下几种字面量常量：
+Kotlin 支持以下整数值的字面量形式：
 
 * 十进制：`123`
-* Long 类型，以大写字母 `L` 结尾：`123L`
 * 十六进制：`0x0F`
 * 二进制：`0b00001011`
 
@@ -102,35 +48,386 @@ fun main() {
 >
 {style="note"}
 
-Kotlin 还支持浮点数的常规表示法：
-
-* Double 类型（默认，当小数部分不以字母结尾时）：`123.5`、`123.5e10`
-* Float 类型，以字母 `f` 或 `F` 结尾：`123.5f`
-
-你可以使用下划线使数字常量更具可读性：
+要声明数值，请显式指定类型： 
 
 ```kotlin
-val oneMillion = 1_000_000
-val creditCardNumber = 1234_5678_9012_3456L
-val socialSecurityNumber = 999_99_9999L
-val hexBytes = 0xFF_EC_DE_5E
-val bytes = 0b11010010_01101001_10010100_10010010
-val bigFractional = 1_234_567.7182818284
+val one: Int = 1
+
+// 使用下划线提高可读性
+val oneBillion: Long = 1_000_000_000
+val hexBytes: Int = 0xFF_EC_DE_5E
+val bytes: Int = 0b11010010_01101001_10010100_10010010
+
+val oneByte: Byte = 1
+val oneShort: Short = 1
 ```
 
-> 无符号整数字面量也有特殊的后缀。  
-> 详细了解[无符号整数类型的字面量](unsigned-integer-types.md)。
-> 
+你也可以添加 `L` 后缀来声明 `Long` 值：
+
+```kotlin
+val oneLong = 1L
+```
+
+当你显式声明数值类型时，编译器会检查该值是否符合该类型的范围：
+
+```kotlin
+// 值符合 Byte 范围
+val oneByte: Byte = 1
+
+// 错误：该值不符合 Byte 范围
+val tooBig: Byte = 128
+```
+
+当你未指定数值类型时，如果该值符合 `Int` 范围，Kotlin 会推断为 `Int`。否则，Kotlin 会推断为 `Long`：
+
+```kotlin
+val million = 1_000_000 // Int
+val threeBillion = 3_000_000_000 // Long
+```
+
+如果某个值可能缺失，请使用可空类型：
+
+```kotlin
+val maybeAbsent: Int? = null
+```
+
+## 浮点类型
+
+对于带有小数部分的数字，Kotlin 提供了 `Float` 和 `Double`。
+
+浮点类型遵循 [IEEE 754 标准](https://en.wikipedia.org/wiki/IEEE_754)。
+`Float` 反映了*单精度*。`Double` 反映了*双精度*。
+
+这些浮点类型的大小和精度不同：
+
+| 类型	    | 大小（位） | 有效位数 | 指数位数 | 十进制位数 |
+|----------|-------------|------------------|---------------|----------------|
+| `Float`	 | 32          | 24               | 8             | 6-7            |
+| `Double` | 64          | 53               | 11            | 15-16          |    
+
+### 声明浮点值
+
+要声明浮点字面量，请包含小数点 (`.`) 或使用指数表示法：
+
+```kotlin
+val pi = 3.14
+val avogadro = 6.02214076e23
+```
+
+默认情况下，Kotlin 将浮点字面量推断为 `Double`。 
+要声明 `Float`，请添加 `f` 或 `F` 后缀：
+
+```kotlin
+val pi = 3.14 // Double         
+val eFloat = 2.7182818284f // Float
+```
+
+> Kotlin 会对包含超过 `Float` 所能存储精度的 `Float` 字面量进行舍入。
+>
+{style="note"}
+
+如果某个值可能缺失，请使用可空类型：
+
+```kotlin
+val maybeAbsent: Double? = null
+```
+
+## 算术操作
+
+Kotlin 支持对数字的标准算术操作：`+`、`-`、`*`、`/` 和 `%`。
+
+使用这些运算符执行常用计算：
+
+```kotlin
+fun main() {
+//sampleStart
+    println(1 + 2) // 3
+    println(2_500_000_000L - 1L) // 2499999999
+    println(3.14 * 2.71) // 8.5094
+    println(10.0 / 3) // 3.3333333333333335
+//sampleEnd
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+
+结果类型取决于操作数的类型。详情请参阅 [](#mixed-numeric-expressions)。
+
+> 你可以在自定义数字类中重写这些运算符。
+> 有关更多信息，请参阅[运算符重载](operator-overloading.md)。
+>
 {style="tip"}
 
-## Java 虚拟机上的数字装箱与缓存
+### 整数除法
 
-JVM 使用基本类型（如 `int`、`long` 或 `double`）存储不可空数值。
-然而，当你使用[泛型](generics.md)或创建可空数字类型（如 `Int?`）时，数值会被装箱并表示为一个对象。
+整数值之间的除法始终返回整数结果。编译器会丢弃小数部分：
 
-JVM 通过缓存小数字的装箱表示形式来应用[内存优化技术](https://docs.oracle.com/javase/specs/jls/se22/html/jls-5.html#jls-5.1.7)。因此，具有相同值的装箱数字可以是[引用相等](equality.md#referential-equality)的。
+```kotlin
+fun main() {
+//sampleStart
+    val intValue = 5 / 2
+    println(intValue) // 2
+    
+    val longValue = 5L / 2
+    println(longValue) // 2
+//sampleEnd
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-例如，JVM 缓存了 `-128` 到 `127` 范围内的装箱 `Integer` 值。因此，以下代码的结果为 `true`：
+要返回浮点结果，请使至少一个操作数为 `Float` 或 `Double`：
+
+```kotlin
+fun main() {
+//sampleStart
+    val a = 5 / 2.0
+    println(a) // 2.5
+    
+    val b = 5 / 2.toDouble()
+    println(b) // 2.5
+//sampleEnd
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+
+## 类型转换
+
+数值类型不是彼此的子类型。Kotlin 要求进行显式转换，以避免静默数据丢失和意外行为。
+
+例如，一个期望 `Double` 的函数不能在不转换的情况下接受 `Int` 或 `Float` 值：
+
+```kotlin
+fun main() {
+//sampleStart
+    fun printDouble(x: Double) { 
+        print(x) 
+    }
+
+    val x = 1.0
+    val xInt = 1    
+    val xFloat = 1.0f
+    val one: Double = 1 // 错误：初始值设定项类型不匹配
+
+    printDouble(x) // 成功
+    printDouble(xInt) // 错误：实参类型不匹配
+    printDouble(xFloat) // 错误：实参类型不匹配
+//sampleEnd
+}
+```
+{kotlin-runnable="true" validate="false"}
+
+所有数字类型都支持转换为其他数字类型。
+要将数字转换为另一种类型，请使用显式转换函数：
+
+* `toByte()`
+* `toShort()`
+* `toInt()`
+* `toLong()`
+* `toFloat()`
+* `toDouble()`
+
+例如，以下代码将 `Int` 值转换为 `Double`：
+
+```kotlin
+fun main() {
+//sampleStart
+    val intValue: Int = 1
+    val doubleValue = intValue.toDouble()
+    
+    println(doubleValue) // 1.0
+//sampleEnd
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+
+当你将浮点值转换为整数类型时，编译器会丢弃小数部分：
+
+```kotlin
+fun main() {
+//sampleStart
+    val d: Double = 1.5
+    val l: Long = d.toLong()
+    
+    println(l) // 1
+//sampleEnd    
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+
+### 混合数值表达式
+
+Kotlin 不支持赋值或函数实参的隐式转换。 
+但是，你可以在算术表达式中组合不同的数字类型。在这种情况下， 
+Kotlin 会根据操作数类型确定结果类型， 
+且算术运算符会自动处理转换：
+
+```kotlin
+val intNumber: Int = 1
+val longNumber: Long = 1000
+val result = intNumber + longNumber // 1001, Long
+```
+
+如果你尝试将结果赋值给较小的类型，编译器会报错：
+
+```kotlin
+val intNumber: Int = 1
+val longNumber: Long = 1000
+val result: Int = intNumber + longNumber 
+// 错误：初始值设定项类型不匹配
+```
+
+## 数据溢出
+
+数字类型只能表示其定义范围内的值。
+
+如果操作结果超出该范围，则会发生溢出。 
+如果你将一个值转换为较小的数字类型，转换后的值可能无法保留 
+原始数值。
+
+即使编译器接受了这种行为，它也可能影响你的代码结果。
+
+### 操作中的溢出
+
+每种整数类型只能存储其定义范围内的值。当算术操作的结果超过该范围时， 
+会发生*数据溢出*：
+
+```kotlin
+fun main(){
+//sampleStart
+    val intNumber: Int = 2147483647
+    // Int 的最大值是 2147483647
+    println(intNumber + 1) // -2147483648
+//sampleEnd    
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+
+在这里，结果发生了回绕，因为该值不再能容纳在 `Int` 中。
+
+> 发生整数溢出时，编译器不会自动报错。
+>
+{style="note"}
+
+### 取负中的溢出
+
+在取负期间也可能发生溢出。 
+例如，你无法将 `Int.MIN_VALUE` 的正数对应值表示为 `Int`。
+
+```kotlin
+fun main(){
+//sampleStart
+    val min = Int.MIN_VALUE
+    println(-min) // -2147483648
+//sampleEnd    
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+
+### 缩窄转换
+
+当你将一个值转换为较小的整数类型时， 
+结果可能无法保留原始数值：
+
+```kotlin
+fun main() {
+//sampleStart
+    val large: Int = 130
+    val narrowed: Byte = large.toByte()
+
+    println(narrowed) // -126
+//sampleEnd
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+
+然而，由于浮点类型遵循 [IEEE 754 标准](https://en.wikipedia.org/wiki/IEEE_754)， 
+非常大的结果可能会变成 `Infinity`（无穷大）：
+
+```kotlin
+fun main() {
+//sampleStart
+    println(Double.MAX_VALUE * 2) // Infinity
+//sampleEnd    
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+
+## 按位操作
+
+Kotlin 为 `Int` 和 `Long` 提供了*按位操作*。这些操作由一组[中缀函数](functions.md#infix-notation)和 `inv()` 表示。
+
+```kotlin
+fun main() {
+//sampleStart
+    val x = 1
+    
+    println(x shl 2) // 4 
+    println(x and 0x000FF000) // 0
+//sampleEnd
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+
+按位操作包括：
+
+* `shl()` – 有符号左移
+* `shr()` – 有符号右移
+* `ushr()` – 无符号右移
+* `and()` – 按位**与**
+* `or()` – 按位**或**
+* `xor()` – 按位**异或**
+* `inv()` – 按位取反
+
+## 浮点数比较
+
+在 Kotlin 中，浮点数比较取决于操作数的静态类型。
+
+当操作数被静态已知为 `Float` 或 `Double` 时， 
+对数字及其形成的区间的操作 
+遵循 [IEEE 754 浮点算术标准](https://en.wikipedia.org/wiki/IEEE_754)。
+
+然而，在泛型用例中（例如 `Any`、`Comparable<...>` 或 `Collection<T>`）， 
+对于非静态类型为浮点数的操作数，其行为会有所不同。在这些情况下，Kotlin 
+使用 `Float` 和 `Double` 的 `equals()` 和 `compareTo()` 实现。 
+
+因此：
+
+* `NaN` 被认为等于其自身
+* `NaN` 被认为大于包括 `POSITIVE_INFINITY` 在内的任何其他元素
+* `-0.0` 被认为小于 `0.0`
+
+以下示例显示了静态类型为浮点数的操作数 
+与通过泛型类型使用的操作数之间的区别：
+
+```kotlin
+//sampleStart  
+fun generalizedEquals(a: Any, b: Any): Boolean {
+    return a == b
+}
+
+fun main() {
+    // 静态类型为浮点数的操作数
+    println(Double.NaN == Double.NaN) // false
+    println(0.0 == -0.0) // true
+
+    // 通过非浮点静态类型使用的操作数
+    println(generalizedEquals(Double.NaN, Double.NaN)) // true
+    println(generalizedEquals(0.0, -0.0)) // false
+//sampleEnd  
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-numbers-floating-comp"}
+
+## JVM 上的数字装箱与缓存
+
+在 JVM 上，不可空数值通常使用基本类型存储，例如 `int`、`long` 或 `double`。 
+然而，当你使用[泛型](generics.md)或像 `Int?` 这样的可空数值类型时，该值会被装箱并 
+表示为一个对象。
+
+JVM 通过缓存小数字的装箱表示形式来应用[内存优化技术](https://docs.oracle.com/javase/specs/jls/se22/html/jls-5.html#jls-5.1.7)。因此， 
+具有相同值的装箱数字可以是[引用相等](equality.md#referential-equality)的。
+
+例如，JVM 缓存了 `-128` 到 `127` 范围内的装箱 `Integer` 值。因此，以下 
+代码返回 `true`：
 
 ```kotlin
 fun main() {
@@ -143,10 +440,11 @@ fun main() {
 //sampleEnd
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false"}
 
-对于缓存范围之外的数字，装箱值是不同的对象。在这种情况下，它们不是引用相等的，即使它们的值是[结构相等](equality.md#structural-equality)的。
-因此，请使用 `==` 来比较数值：
+对于缓存范围之外的值，装箱值是独立的对象。在这种情况下， 
+即使它们的值是[结构相等](equality.md#structural-equality)的，它们也不是引用相等的。 
+出于这个原因，请使用 `==` 来比较数值：
 
 ```kotlin
 fun main() {
@@ -156,204 +454,8 @@ fun main() {
     val displayedScore: Int? = score
 
     println(savedScore === displayedScore) // false
-    println(savedScore == displayedScore)  // true
-//sampleEnd
-}
-```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
-
-## 显式数字转换
-
-由于表示方式不同，数字类型**不**是彼此的子类型。
-因此，较小的类型**不会**隐式转换为较大的类型，反之亦然。
-例如，将 `Byte` 类型的值赋值给 `Int` 变量需要显式转换：
-
-```kotlin
-fun main() {
-//sampleStart
-    val byte: Byte = 1
-    // 成功，字面量会进行静态检查
-    
-    val intAssignedByte: Int = byte 
-    // Initializer type mismatch（初始值设定项类型不匹配）
-    
-    val intConvertedByte: Int = byte.toInt()
-    
-    println(intConvertedByte)
+    println(savedScore == displayedScore) // true
 //sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false"}
-
-所有数字类型都支持转换为其他类型：
-
-* `toByte(): Byte`（针对 [Float](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/to-byte.html) 和 [Double](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/to-byte.html) 已弃用）
-* `toShort(): Short`
-* `toInt(): Int`
-* `toLong(): Long`
-* `toFloat(): Float`
-* `toDouble(): Double`
-
-在许多情况下，不需要显式转换，因为类型会从上下文中推断出来，并且算术运算符经过重载，可以自动处理转换。例如：
-
-```kotlin
-fun main() {
-//sampleStart
-    val l = 1L + 3       // Long + Int => Long
-    println(l is Long)   // true
-//sampleEnd
-}
-```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.5"}
-
-### 反对隐式转换的原因
-
-Kotlin 不支持隐式转换，因为它们可能导致意外行为。
-
-如果不同类型的数字可以隐式转换，我们有时会在无意中失去相等性和身份一致性。
-例如，假设 `Int` 是 `Long` 的子类型：
-
-```kotlin
-// 假设的代码，实际上无法编译：
-val a: Int? = 1    // 一个装箱的 Int (java.lang.Integer)
-val b: Long? = a   // 隐式转换产生一个装箱的 Long (java.lang.Long)
-print(b == a)      // 打印 "false"，因为 Long.equals() 不仅检查值，还检查另一个数字是否也是 Long
-```
-
-## 数字操作
-
-Kotlin 支持对数字的标准算术操作集：`+`、`-`、`*`、`/`、`%`。它们被声明为相应类的成员：
-
-```kotlin
-fun main() {
-//sampleStart
-    println(1 + 2)
-    println(2_500_000_000L - 1L)
-    println(3.14 * 2.71)
-    println(10.0 / 3)
-//sampleEnd
-}
-```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
-
-你可以在自定义数字类中重写这些运算符。
-详情请参阅[运算符重载](operator-overloading.md)。
-
-### 整数除法
-
-整数之间的除法始终返回整数。任何小数部分都会被丢弃。
-
-```kotlin
-fun main() {
-//sampleStart
-    val x = 5 / 2
-    println(x == 2.5) 
-    // 运算符 '==' 不能应用于 'Int' 和 'Double'
-    
-    println(x == 2)   
-    // true
-//sampleEnd
-}
-```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false"}
-
-对于任何两个整数类型之间的除法都是如此：
-
-```kotlin
-fun main() {
-//sampleStart
-    val x = 5L / 2
-    println (x == 2)
-    // 错误，因为 Long (x) 无法与 Int (2) 进行比较
-    
-    println(x == 2L)
-    // true
-//sampleEnd
-}
-```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false"}
-
-要返回带有小数部分的除法结果，请显式将其中一个实参转换为浮点类型：
-
-```kotlin
-fun main() {
-//sampleStart
-    val x = 5 / 2.toDouble()
-    println(x == 2.5)
-//sampleEnd
-}
-```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
-
-### 按位操作
-
-Kotlin 提供了一组对整数执行的*按位操作*。它们直接在数字表示的二进制位级别上运行。
-按位操作由可以通过中缀形式调用的函数表示。它们只能应用于 `Int` 和 `Long`：
-
-```kotlin
-fun main() {
-//sampleStart
-    val x = 1
-    val xShiftedLeft = (x shl 2)
-    println(xShiftedLeft)  
-    // 4
-    
-    val xAnd = x and 0x000FF000
-    println(xAnd)          
-    // 0
-//sampleEnd
-}
-```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
-
-完整的按位操作列表：
-
-* `shl(bits)` – 有符号左移
-* `shr(bits)` – 有符号右移
-* `ushr(bits)` – 无符号右移
-* `and(bits)` – 按位**与 (AND)**
-* `or(bits)` – 按位**或 (OR)**
-* `xor(bits)` – 按位**异或 (XOR)**
-* `inv()` – 按位取反
-
-### 浮点数比较
-
-本节讨论的浮点数操作包括：
-
-* 相等性检查：`a == b` 和 `a != b`
-* 比较运算符：`a < b`、`a > b`、`a <= b`、`a >= b`
-* 区间实例化和区间检查：`a..b`、`x in a..b`、`x !in a..b`
-
-当操作数 `a` 和 `b` 静态已知为 `Float` 或 `Double` 或它们的可空对应物（类型已声明、被推断或者是[智能转换](typecasts.md#smart-casts)的结果）时，对数字及其形成的区间的操作遵循 [IEEE 754 浮点算术标准](https://en.wikipedia.org/wiki/IEEE_754)。
-
-然而，为了支持泛型用例并提供全序，对于**不**静态类型为浮点数的运算数，其行为会有所不同。例如 `Any`、`Comparable<...>` 或 `Collection<T>` 类型。在这种情况下，操作会使用 `Float` 和 `Double` 的 `equals` 和 `compareTo` 实现。其结果如下：
-
-* `NaN` 被认为等于其自身
-* `NaN` 被认为大于包括 `POSITIVE_INFINITY` 在内的任何其他元素
-* `-0.0` 被认为小于 `0.0`
-
-下面是一个示例，展示了静态类型为浮点数的操作数 (`Double.NaN`) 与**非**静态类型为浮点数的操作数 (`listOf(T)`) 之间的行为差异。
-
-```kotlin
-fun main() {
-    //sampleStart
-    // 静态类型为浮点数的操作数
-    println(Double.NaN == Double.NaN)                 // false
-    
-    // 非静态类型为浮点数的操作数
-    // 因此 NaN 等于其自身
-    println(listOf(Double.NaN) == listOf(Double.NaN)) // true
-
-    // 静态类型为浮点数的操作数
-    println(0.0 == -0.0)                              // true
-    
-    // 非静态类型为浮点数的操作数
-    // 因此 -0.0 小于 0.0
-    println(listOf(0.0) == listOf(-0.0))              // false
-
-    println(listOf(Double.NaN, Double.POSITIVE_INFINITY, 0.0, -0.0).sorted())
-    // [-0.0, 0.0, Infinity, NaN]
-    //sampleEnd
-}
-```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-numbers-floating-comp"}

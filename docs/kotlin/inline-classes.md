@@ -134,7 +134,7 @@ fun compute(s: UserId<String>) {} // 编译器生成 fun compute-<hashcode>(s: A
 
 ### 修饰
 
-由于内联类被编译为其底层类型，这可能会导致各种难以发现的错误，例如意外的平台签名冲突：
+由于内联类被编译为其底层类型，这可能会导致各种难以发现的错误，例如意外平台签名冲突：
 
 ```kotlin
 @JvmInline

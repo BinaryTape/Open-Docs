@@ -2,7 +2,7 @@
 
 <show-structure depth="3"/>
 
-Compose Multiplatform 與 [SwiftUI](https://developer.apple.com/xcode/swiftui/) 架構具有互通性。
+Compose Multiplatform 與 [SwiftUI](https://developer.apple.com/swiftui/) 架構具有互通性。
 您可以將 Compose Multiplatform 嵌入 SwiftUI 應用程式中，也可以將原生 SwiftUI 組件嵌入 Compose Multiplatform UI 中。本頁面提供在 SwiftUI 中使用 Compose Multiplatform 以及在 Compose Multiplatform 應用程式中嵌入 SwiftUI 的範例。
 
 > 若要了解 UIKit 互通性，請參閱 [與 UIKit 架構整合](compose-uikit-integration.md) 一文。

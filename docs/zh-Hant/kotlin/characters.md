@@ -41,7 +41,7 @@ val maybeAbsent: Char? = null
 ```
 
 > 在 JVM 上，當需要時會對可為 null 的 `Char` 值進行裝箱 (boxed)。這同樣適用於
-> [數值型別](numbers.md#boxing-and-caching-numbers-on-the-java-virtual-machine)。
+> [數值型別](numbers.md#boxing-and-caching-numbers-on-the-jvm)。
 >
 {style="note"}
 
@@ -54,7 +54,7 @@ Kotlin 將 `Char` 值表示為 UTF-16 程式碼單元。這意味著單個 `Char
 單個 `Char` 可以儲存從 `\u0000` 到 `\uFFFF` 範圍內的值。
 此範圍涵蓋了基本多語言平面 (Basic Multilingual Plane, BMP)，其中包括幾乎所有現代語言的字元以及大量的符號。
 
-若要透過 Unicode 值指定字元，請使用 `\u` 後接來自 [Unicode 表](https://www.unicode.org/charts/) 的四位十六進制值：
+若要透過 Unicode 值指定字元，請使用 `\u` 後接來自 [Unicode 表](https://www.unicode.org/charts/) 的四位十六進位值：
 
 ```kotlin
 val unicodeNumber = '\u0031' // 等於 '1'
@@ -103,7 +103,7 @@ fun main() {
 ```kotlin
 val newLine = '
 '
-val dollar = '$'
+val dollar = '\$'
 val backslash = '\\'
 ```
 

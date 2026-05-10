@@ -44,6 +44,7 @@ Datadogへのエクスポートを有効にするには、**OpenTelemetry機能*
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
     import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+    import ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
     import kotlinx.coroutines.runBlocking
@@ -75,6 +76,7 @@ See traces in Datadog LLM Observability")
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
     import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry;
+    import ai.koog.agents.features.opentelemetry.integration.datadog.DatadogKt;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import ai.koog.prompt.executor.model.PromptExecutor;
     public class exampleDatadogExporterJava01 {
@@ -92,7 +94,7 @@ See traces in Datadog LLM Observability")
             .llmModel(OpenAIModels.Chat.GPT4oMini)
             .systemPrompt("You are a code assistant. Provide concise code examples.")
             .install(OpenTelemetry.Feature, config ->
-                config.addDatadogExporter()
+                DatadogKt.addDatadogExporter(config)
             )
             .build();
 
@@ -105,11 +107,11 @@ See traces in Datadog LLM Observability");
     ```
     <!--- KNIT exampleDatadogExporterJava01.java -->
 
-## トレース属性
+## リソース属性
 
 KoogがエージェントのアクティビティをDatadogに送信する際、それは一連の「スパン（span）」として行われます。スパンは、LLMの呼び出しやツールの実行といった個々の作業記録です。関連するスパンは「トレース（trace）」にグループ化され、これは開始から終了までの完全なエージェントの実行を表します。
 
-[`addDatadogExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter) は `traceAttributes` パラメータを受け取ります。これはトレースを出力するアプリケーションを記述するキーと値のペアのマップです。これらはすべてのスパンに付与されるため、Datadog上で環境やバージョンなどのプロパティによってトレースを簡単にフィルタリングしたりグループ化したりできるようになります。
+[`addDatadogExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter) は `resourceAttributes` パラメータを受け取ります。これはトレースを出力するアプリケーションを記述するキーと値のペアのマップです。これらはすべてのスパンに付与されるため、Datadog上で環境やバージョンなどのプロパティによってトレースを簡単にフィルタリングしたりグループ化したりできるようになります。
 
 含めるべき一般的な属性：
 
@@ -117,13 +119,14 @@ KoogがエージェントのアクティビティをDatadogに送信する際、
 - **service.name**: サービスまたはアプリケーションの名前
 - **version**: アプリケーションのバージョン。デプロイをまたいだ動作の比較に役立ちます。
 
-### トレース属性を使用した例
+### リソース属性を使用した例
 
 === "Kotlin"
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
     import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+    import ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
     import kotlinx.coroutines.runBlocking
@@ -138,8 +141,8 @@ KoogがエージェントのアクティビティをDatadogに送信する際、
         ) {
             install(OpenTelemetry) {
                 addDatadogExporter(
-                    datadogSite = "datadoghq.eu",  // EUリージョンを使用
-                    traceAttributes = mapOf(
+                    url = "datadoghq.eu",  // EUリージョンを使用
+                    resourceAttributes = mapOf(
                         "env" to "production",
                         "service.name" to "my-agent",
                         "version" to "1.0.0"
@@ -160,9 +163,9 @@ KoogがエージェントのアクティビティをDatadogに送信する際、
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
     import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry;
+    import ai.koog.agents.features.opentelemetry.integration.datadog.DatadogKt;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import ai.koog.prompt.executor.model.PromptExecutor;
-    import java.util.Map;
     public class exampleDatadogExporterJava02 {
         static PromptExecutor promptExecutor = PromptExecutor.builder()
             .openAI("openai-api-key")
@@ -178,15 +181,10 @@ KoogがエージェントのアクティビティをDatadogに送信する際、
             .systemPrompt("You are a helpful assistant.")
             .llmModel(OpenAIModels.Chat.GPT4oMini)
             .install(OpenTelemetry.Feature, config ->
-                config.addDatadogExporter(
-                    null,                           // DD_API_KEY環境変数を使用
-                    "datadoghq.eu",                 // EUリージョンを使用
-                    null,                           // デフォルトのタイムアウト
-                    Map.of(
-                        "env", "production",
-                        "service.name", "my-agent",
-                        "version", "1.0.0"
-                    )
+                DatadogKt.addDatadogExporter(
+                    config,
+                    null,                            // datadogApiKey: DD_API_KEY環境変数を使用
+                    "datadoghq.eu"                   // url: EUリージョンを使用
                 ))
             .build();
 
@@ -197,21 +195,24 @@ KoogがエージェントのアクティビティをDatadogに送信する際、
     ```
     <!--- KNIT exampleDatadogExporterJava02.java -->
 
-## カスタムエクスポーターのラッピング
+    !!! note
+        Javaから `resourceAttributes` を設定することは現在サポートされていません。これは、基盤となるKotlin関数が [`kotlin.time.Duration`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/) パラメータ（valueクラス）を保持しており、それ以降のパラメータを含むすべてのオーバーロードにおいてJVM名のマングリング（mangling）を引き起こすためです。`resourceAttributes` が必要な場合は、上記のKotlinの例を使用してください。
 
-エクスポーターを登録する前に追加の処理ロジックでラップするために、エクスポーターオブジェクトに直接アクセスする必要がある場合は、[`buildDatadogExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.datadog.buildDatadogExporter) を使用します。
-例えば、`SpanExporter.composite()` を使用して、トレースを複数のバックエンドに同時に送信できます。
+## 複数のバックエンドへの送信
+
+トレースをDatadogと別のバックエンドに同時に送信するには、[`addDatadogExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter) を通じてDatadogを登録し、[`addSpanExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.feature.OpenTelemetryConfig.addSpanExporter) を通じて2つ目のエクスポーターを追加します。
+各呼び出しは独立したバッチスパンプロセッサを登録するため、2つのバックエンドは並行してエクスポートされます。
 
 === "Kotlin"
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
     import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
-    import ai.koog.agents.features.opentelemetry.integration.datadog.buildDatadogExporter
+    import ai.koog.agents.features.opentelemetry.feature.OpenTelemetryConfigJvm.addSpanExporter
+    import ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
     import io.opentelemetry.exporter.otlp.http.trace.OtlpHttpSpanExporter
-    import io.opentelemetry.sdk.trace.export.SpanExporter
     import kotlinx.coroutines.runBlocking
     val promptExecutor = simpleOpenAIExecutor("openai-api-key")
     fun main() = runBlocking {
@@ -227,11 +228,12 @@ KoogがエージェントのアクティビティをDatadogに送信する際、
     -->
     ```kotlin
     install(OpenTelemetry) {
-        val datadogExporter = buildDatadogExporter()
-        val localExporter = OtlpHttpSpanExporter.builder()
-            .setEndpoint("http://localhost:4318/v1/traces")
-            .build()
-        addSpanExporter(SpanExporter.composite(datadogExporter, localExporter))
+        addDatadogExporter()
+        addSpanExporter(
+            OtlpHttpSpanExporter.builder()
+                .setEndpoint("http://localhost:4318/v1/traces")
+                .build()
+        )
     }
     ```
     <!--- KNIT example-datadog-exporter-03.kt -->

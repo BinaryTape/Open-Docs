@@ -41,7 +41,7 @@ val maybeAbsent: Char? = null
 ```
 
 > JVM 上では、必要に応じて Null 許容な `Char` 値はボックス化されます。これは
-> [数値型](numbers.md#boxing-and-caching-numbers-on-the-java-virtual-machine)にも当てはまります。
+> [数値型](numbers.md#boxing-and-caching-numbers-on-the-jvm)にも当てはまります。
 >
 {style="note"}
 
@@ -103,7 +103,7 @@ fun main() {
 ```kotlin
 val newLine = '
 '
-val dollar = '$'
+val dollar = '\$'
 val backslash = '\\'
 ```
 

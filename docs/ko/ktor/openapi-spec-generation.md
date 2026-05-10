@@ -12,10 +12,10 @@
 </p>
 <p>
 <b>코드 예제</b>:
-<a href="https://github.com/ktorio/ktor-documentation/tree/codeSnippets/snippets/openapi-spec-gen">
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/openapi-spec-gen">
     openapi-spec-gen
 </a>,
-<a href="https://github.com/ktorio/ktor-documentation/tree/codeSnippets/snippets/openapi-spec-gen-maven">
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/openapi-spec-gen-maven">
     openapi-spec-gen-maven
 </a>
 </p>

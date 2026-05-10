@@ -540,7 +540,7 @@
     <!--- KNIT exampleCustomNodesJava10.java -->
 
 !!! note
-    上面的 Kotlin 示例展示了对 LLM 会话的精细控制（自定义提示词构建、显式调用 `requestLLMWithoutTools`）。Java API 提供了更高级别的工厂方法（如 `AIAgentNode.llmRequest()`），这些方法会自动处理提示词构建 —— 输入字符串会直接成为用户消息。对于大多数用例，这已经足够了；对于高级提示词自定义，请组合多个节点或使用自定义子图。
+    上面的 Kotlin 示例展示了对 LLM 会话的精细控制（自定义提示词构建、显式调用 `requestLLMWithoutTools`）。Java API 提供了更高级别的工厂方法（如 `AIAgentNode.llmRequest()`），这些方法会自动处理提示词构建 —— 输入字符串会直接成为用户消息。对于高级提示词自定义，请组合多个节点或使用自定义子图。
 
 ### 工具运行节点
 
@@ -553,7 +553,7 @@
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.prompt.message.Message
     import ai.koog.prompt.message.ResponseMetaInfo
-    import kotlin.time.Clock
+    import ai.koog.utils.time.KoogClock
     import kotlinx.serialization.Serializable
     import kotlinx.serialization.json.Json
     import java.util.*
@@ -570,7 +570,7 @@
         val toolCall = Message.Tool.Call(
             id = UUID.randomUUID().toString(),
             tool = toolName,
-            metaInfo = ResponseMetaInfo.create(Clock.System),
+            metaInfo = ResponseMetaInfo.create(KoogClock.System),
             content = Json.encodeToString(ToolArgs(arg1 = input, arg2 = 42)) // 使用输入作为工具实参
         )
 

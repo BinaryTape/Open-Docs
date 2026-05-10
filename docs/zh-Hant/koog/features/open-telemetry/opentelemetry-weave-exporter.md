@@ -1,6 +1,7 @@
 # W&B Weave 匯出器
 
-Koog 使用 [OpenTelemetry](https://opentelemetry.io/) 發送 agent 追蹤 (trace)，這是一種用於觀測性資料的開放標準。為了將這些追蹤傳送至 [W&B Weave](https://wandb.ai/site/weave/)，Koog 包含了一個內建的 OpenTelemetry 匯出器 —— 無需手動檢測 (instrumentation)。
+Koog 使用 [OpenTelemetry](https://opentelemetry.io/) 發送 agent 追蹤 (trace)，這是一種用於觀測性資料的開放標準。
+為了將這些追蹤傳送至 [W&B Weave](https://wandb.ai/site/weave/)，Koog 包含了一個內建的 OpenTelemetry 匯出器 —— 無需手動檢測 (instrumentation)。
 
 連接後，Weave 的 [OpenTelemetry 支援](https://weave-docs.wandb.ai/guides/tracking/otel/) 讓您可以視覺化、分析並偵錯您的 agent 與 LLM、工具及外部 API 的互動方式。
 
@@ -32,6 +33,7 @@ export WEAVE_PROJECT_NAME="koog-tracing"
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
     import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+    import ai.koog.agents.features.opentelemetry.integration.weave.addWeaveExporter
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
     import kotlinx.coroutines.runBlocking
@@ -69,6 +71,7 @@ See traces on https://wandb.ai/$entity/$projectName/weave/traces")
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
     import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry;
+    import ai.koog.agents.features.opentelemetry.integration.weave.WeaveKt;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import ai.koog.prompt.executor.model.PromptExecutor;
     import java.util.Optional;
@@ -95,10 +98,11 @@ See traces on https://wandb.ai/$entity/$projectName/weave/traces")
             .llmModel(OpenAIModels.Chat.GPT4oMini)
             .systemPrompt("You are a helpful assistant.")
             .install(OpenTelemetry.Feature, config ->
-                config.addWeaveExporter(
-                    null,   // OTel 端點 URL (備援至 WEAVE_URL，預設為 https://trace.wandb.ai)
+                WeaveKt.addWeaveExporter(
+                    config,
+                    null,        // weaveOtelBaseUrl: 備援至 WEAVE_URL，預設為 https://trace.wandb.ai
                     entity,
-                    projectName
+                    projectName  // 其餘參數 (apiKey, timeout) 使用預設值
                 )
             )
             .build();
@@ -114,7 +118,8 @@ See traces on https://wandb.ai/" + entity + "/" + projectName + "/weave/traces")
 
 ## 哪些內容會被追蹤
 
-Weave 匯出器擷取的活動與 Koog 的一般 OpenTelemetry 整合相同。如需擷取的 span 完整清單，以及如何包含 LLM 提示與回應內容，請參閱[哪些內容會被追蹤](index.md#what-gets-traced)。
+Weave 匯出器擷取的活動與 Koog 的一般 OpenTelemetry 整合相同。
+如需擷取的 span 完整清單，以及如何包含 LLM 提示與回應內容，請參閱[哪些內容會被追蹤](index.md#what-gets-traced)。
 
 在 W&B Weave 中視覺化時，追蹤如下所示：
 ![W&B Weave 追蹤](../../img/opentelemetry-weave-exporter-light.png#only-light)

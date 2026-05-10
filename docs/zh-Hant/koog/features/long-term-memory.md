@@ -1,22 +1,16 @@
 # 長期記憶
 
-功能（實驗性）
-
 `LongTermMemory` 功能透過兩組獨立的設定為 Koog AI 代理增加持久性記憶：
-- **Retrieval**（檢索） — 使用來自記憶存儲（檢索增強生成，即 RAG）的相關上下文來增強 LLM 提示詞。
-- **Ingestion**（攝取） — 將對話訊息持久化到記憶存儲中，以供未來檢索。
+- **Retrieval**（檢索） — 使用來自記憶儲存空間的相關上下文（檢索增強生成，即 RAG）來增強 LLM 提示詞。
+- **Ingestion**（攝取） — 將對話訊息持久化到記憶儲存空間中，以供未來檢索。
 
 ## 快速入門
-
-> **注意：** `LongTermMemory` 是實驗性 API。請在您的程式碼標註 `@OptIn(ExperimentalAgentsApi::class)`，或在檔案頂部加入 `@file:OptIn(ExperimentalAgentsApi::class)`。
 
 === "Kotlin"
 
     ```kotlin
-    @OptIn(ExperimentalAgentsApi::class)
     val myStorage = InMemoryRecordStorage() // 或您的向量資料庫適配器
 
-    @OptIn(ExperimentalAgentsApi::class)
     val agent = AIAgent(
         promptExecutor = executor,
         strategy = singleRunStrategy(),
@@ -65,7 +59,6 @@
 === "Kotlin"
 
     ```kotlin
-    @OptIn(ExperimentalAgentsApi::class)
     install(LongTermMemory) {
         retrieval {
             storage = myVectorDbStorage
@@ -94,25 +87,24 @@
 |---|---|
 | `SystemPromptAugmenter()` | 在提示詞開頭插入上下文作為系統訊息（若無系統訊息則不執行任何操作） |
 | `UserPromptAugmenter()` | 在最後一則使用者訊息前插入上下文作為獨立的使用者訊息 |
-| `PromptAugmenter { prompt, context -> ... }` | 透過 Lambda 進行自訂增強 |
+| `PromptAugmenter { prompt, context -> ... }` | 透過 lambda 進行自訂增強 |
 
-### 查詢擷取器 (Query Extractors)
+### 搜尋查詢提供者 (Search Query Providers)
 
-預設情況下，檢索流程使用最後一則使用者訊息作為搜尋查詢。您可以透過提供 `QueryExtractor` 來自訂此行為：
+預設情況下，檢索流程使用最後一則使用者訊息作為搜尋查詢。您可以透過提供 `SearchQueryProvider` 來自訂此行為：
 
-| 擷取器 | 行為 |
+| 提供者 | 行為 |
 |---|---|
-| `LastUserMessageQueryExtractor()` | 使用最後一則使用者訊息的內容（預設） |
-| `QueryExtractor { prompt -> ... }` | 透過 Lambda 進行自訂擷取 |
+| `LastUserMessageQueryProvider()` | 使用最後一則使用者訊息的內容（預設） |
+| `SearchQueryProvider { prompt -> ... }` | 透過 lambda 進行自訂查詢衍生 |
 
 === "Kotlin"
 
     ```kotlin
-    @OptIn(ExperimentalAgentsApi::class)
     install(LongTermMemory) {
         retrieval {
             storage = myStorage
-            queryExtractor = QueryExtractor { prompt ->
+            searchQueryProvider = SearchQueryProvider { prompt ->
                 // 合併最後兩則使用者訊息作為搜尋查詢
                 prompt.messages
                     .filter { it.role == Message.Role.User }
@@ -129,7 +121,7 @@
     ```java
     var retrievalSettings = new LongTermMemory.RetrievalSettingsBuilder()
         .withStorage(myStorage)
-        .withQueryExtractor(prompt -> {
+        .withSearchQueryProvider(prompt -> {
             var userMessages = prompt.getMessages().stream()
                 .filter(m -> m.getRole() == Message.Role.User)
                 .toList();
@@ -144,24 +136,22 @@
 | 策略 | 行為 |
 |-----------------------------------------------------------|--------------------------|
 | `SimilaritySearchStrategy()` | 向量相似度語義搜尋 — **預設** |
-| `query -> new SimilaritySearchRequest(query, 20, 0, 0.0, null)` | 透過 Lambda 進行自訂搜尋 |
+| `query -> new SimilaritySearchRequest(query, 20, 0, 0.0, null)` | 透過 lambda 進行自訂搜尋 |
 
 ## 僅攝取
 
-使用不含檢索的攝取來隨著時間建立記憶存儲：
+使用不含檢索的攝取來隨著時間建立記憶儲存空間：
 
 === "Kotlin"
 
     ```kotlin
-    @OptIn(ExperimentalAgentsApi::class)
     install(LongTermMemory) {
         ingestion {
             storage = myVectorDbStorage
             namespace = "my-collection"  // 選填：限定於特定的命名空間/集合
-            extractionStrategy = FilteringExtractionStrategy(
+            documentExtractor = MessagePassingDocumentExtractor(
                 messageRolesToExtract = setOf(Message.Role.User, Message.Role.Assistant)
             )
-            timing = IngestionTiming.ON_LLM_CALL
         }
     }
     ```
@@ -171,32 +161,24 @@
     ```java
     var ingestionSettings = new LongTermMemory.IngestionSettingsBuilder()
         .withStorage(myVectorDbStorage)
-        .withExtractionStrategy(
-            ExtractionStrategy.builder()
+        .withDocumentExtractor(
+            DocumentExtractor.builder()
                 .filtering()
                 .withExtractRoles(new HashSet<>(Arrays.asList(Message.Role.User, Message.Role.Assistant)))
-                .withLastMessageOnly(false)
                 .build()
         )
-        .withTiming(IngestionTiming.ON_LLM_CALL)
         .build();
     ```
 
-### 攝取時機 (Ingestion Timing)
-
-| 時機 | 行為 |
-|---|---|
-| `ON_LLM_CALL` | 提示詞訊息會在每次 LLM 呼叫開始前攝取；助手輸出則在完成或串流完成後攝取。啟用工作階段內 RAG。 |
-| `ON_AGENT_COMPLETION` | 最終累積的工作階段提示詞/歷程記錄會在代理執行完成時攝取一次。 |
+攝取會在代理執行完成時執行一次：最終累積的工作階段提示詞/歷程記錄會以單一批次的形式傳遞給配置的 `documentExtractor`。
 
 ## 停用自動行為
 
-預設情況下，檢索和攝取會自動執行（分別在 LLM 呼叫之前和之後）。您可以停用自動行為，同時仍可從策略節點內存取已配置的存儲和策略：
+預設情況下，檢索和攝取會自動執行（檢索在每次 LLM 呼叫之前執行；攝取在代理完成時執行一次）。您可以停用自動行為，同時仍可從策略節點內存取已配置的儲存空間和策略：
 
 === "Kotlin"
 
     ```kotlin
-    @OptIn(ExperimentalAgentsApi::class)
     install(LongTermMemory) {
         retrieval {
             storage = myStorage
@@ -228,8 +210,8 @@
 
 這為您提供了三種純淨模式：
 
-1. **全自動**（預設）：安裝功能、配置存儲 — 檢索和攝取會自動運作。
-2. **僅手動**：設定 `enableAutomaticRetrieval = false` / `enableAutomaticIngestion = false`，並在您的圖表策略節點中使用存儲和策略。
+1. **全自動**（預設）：安裝功能、配置儲存空間 — 檢索和攝取會自動運作。
+2. **僅手動**：設定 `enableAutomaticRetrieval = false` / `enableAutomaticIngestion = false`，並在您的圖表策略節點中使用儲存空間和策略。
 3. **混合**：將自動攝取與手動檢索結合（反之亦然）。
 
 ## 從策略節點存取長期記憶
@@ -237,7 +219,6 @@
 在策略節點內使用 `withLongTermMemory { }` 來直接搜尋或新增記錄：
 
 ```kotlin
-@OptIn(ExperimentalAgentsApi::class)
 val myNode by node<String, Unit> {
     withLongTermMemory {
         // 手動新增記錄
@@ -254,20 +235,18 @@ val myNode by node<String, Unit> {
 使用 `longTermMemory()` 直接獲取功能執行個體：
 
 ```kotlin
-@OptIn(ExperimentalAgentsApi::class)
 val myNode by node<String, Unit> {
     val memory = longTermMemory()
     val storage = memory.ingestionStorage
 }
 ```
 
-## 自訂擷取策略
+## 自訂文件擷取器
 
-實作 `ExtractionStrategy` 以控制訊息在存儲前的轉換方式：
+實作 `DocumentExtractor` 以控制訊息在儲存前的轉換方式：
 
 ```kotlin
-@OptIn(ExperimentalAgentsApi::class)
-val summarizingExtractor = ExtractionStrategy { messages ->
+val summarizingExtractor = DocumentExtractor { messages ->
     messages
         .filter { it.role == Message.Role.Assistant }
         .map { MemoryRecord(content = summarize(it.content)) }
@@ -276,12 +255,12 @@ val summarizingExtractor = ExtractionStrategy { messages ->
 install(LongTermMemory) {
     ingestion {
         storage = myStorage
-        extractionStrategy = summarizingExtractor
+        documentExtractor = summarizingExtractor
     }
 }
 ```
 
-## 實作自訂存儲
+## 實作自訂儲存空間
 
 實作 `SearchStorage` 和/或 `WriteStorage` 以連接到您的向量資料庫：
 
@@ -295,10 +274,10 @@ class MyVectorDbStorage : SearchStorage<TextDocument, SearchRequest>, WriteStora
 
     override suspend fun add(
         records: List<TextDocument>, namespace: String?
-    ) {
-        // 更新或插入 (Upsert) 至您的向量資料庫
+    ): List<String> {
+        // 更新或插入 (Upsert) 至您的向量資料庫並傳回新增記錄的 ID
     }
 }
 ```
 
-進行測試時，請使用內建的 `InMemoryRecordStorage`，它將記錄保留在記憶體中。它同時接受 `KeywordSearchRequest` 和 `SimilaritySearchRequest`，但兩者皆實作為簡單的不區分大小寫的子字串比對（不含向量嵌入）。
+進行測試時，請使用內建的 `InMemoryRecordStorage`，它將記錄保留在記憶體中。它同時支援 `KeywordSearchRequest`（實作方式為不區分大小寫的子字串比對）和 `SimilaritySearchRequest`（實作方式為對不區分大小寫的單字集進行 Jaccard 係數計算）；不使用向量嵌入 (vector embeddings)。

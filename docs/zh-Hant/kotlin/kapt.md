@@ -1,12 +1,20 @@
 [//]: # (title: kapt 編譯器外掛程式)
 
-kapt 編譯器外掛程式允許您在 Kotlin 中使用 Java 註解處理器。
+<tldr>
 
-簡而言之，kapt 透過啟用基於 Java 的註解處理，協助您在 Kotlin 專案中使用 [Dagger](https://google.github.io/dagger/) 和 [資料繫結](https://developer.android.com/topic/libraries/data-binding/index.html) 等程式庫。
+* 在以下情況使用 **kapt**：
+   * 您有 Maven 專案。
+   * 您有 Gradle 專案，但所需的 Java 註解處理器尚不支援 KSP。[請參閱支援的程式庫列表](ksp-overview.md#supported-libraries)。
+* 在以下情況使用 **[KSP](ksp-overview.md)**：
+   * 您有 Gradle 專案，且所需的 Java 註解處理器支援 KSP。
+   * 您想要建立自己的註解處理器。
 
-> 若要使用專為 Kotlin 製作的註解處理器，請使用 [Kotlin Symbol Processing (KSP)](ksp-overview.md)。
->
-{style="note"}
+</tldr>
+
+kapt 編譯器外掛程式允許您在 Kotlin 中使用現有的 Java 註解處理器，並可與 Maven 及 Gradle 搭配運作。
+它會從 Kotlin 原始碼產生虛設常式檔案，然後在這些虛設常式上執行 Java 註解處理器。
+
+這讓您在 Kotlin 專案中能針對 [MapStruct](https://mapstruct.org/) 和 [資料繫結](https://developer.android.com/topic/libraries/data-binding/index.html) 等程式庫啟用基於 Java 的註解處理。
 
 ## 在 Gradle 中使用
 
@@ -157,7 +165,7 @@ com.example.processor.TestingProcessor: total: 133 ms, init: 36 ms, 2 round(s): 
 com.example.processor.AnotherProcessor: total: 100 ms, init: 6 ms, 1 round(s): 93 ms
 ```
 
-您可以使用外掛程式選項 [`-Kapt-dump-processor-timings` (`org.jetbrains.kotlin.kapt3:dumpProcessorTimings`)](https://github.com/JetBrains/kotlin/pull/4280) 將此報告傾印到檔案中。以下指令將執行 kaptbing 並將統計資料傾印到 `ap-perf-report.file` 檔案中：
+您可以使用外掛程式選項 [`-Kapt-dump-processor-timings` (`org.jetbrains.kotlin.kapt3:dumpProcessorTimings`)](https://github.com/JetBrains/kotlin/pull/4280) 將此報告傾印到檔案中。以下指令將執行 kapt 並將統計資料傾印到 `ap-perf-report.file` 檔案中：
 
 ```bash
 kotlinc -cp $MY_CLASSPATH \
@@ -195,7 +203,7 @@ sample/src/main/
    kapt.verbose=true
    ```
 
-> 您也可以透過 [命令列選項 `verbose`](#在-cli-中使用) 啟用詳細輸出。
+> 您也可以透過 [命令列選項 `verbose`](#在-命令列中使用) 啟用詳細輸出。
 >
 {style="note"}
 
@@ -242,19 +250,19 @@ kapt.incremental.apt=false
 
 您可以在單獨的 Gradle 配置中定義一組通用的註解處理器作為父配置，並在子專案的 kapt 專屬配置中進一步延伸它。
 
-例如，對於使用 [Dagger](https://dagger.dev/) 的子專案，在您的 `build.gradle(.kts)` 檔案中使用以下配置：
+例如，對於使用 [MapStruct](https://mapstruct.org/) 的子專案，在您的 `build.gradle(.kts)` 檔案中使用以下配置：
 
 ```kotlin
 val commonAnnotationProcessors by configurations.creating
 configurations.named("kapt") { extendsFrom(commonAnnotationProcessors) }
 
 dependencies {
-    implementation("com.google.dagger:dagger:2.48.1")
-    commonAnnotationProcessors("com.google.dagger:dagger-compiler:2.48.1")
+    implementation("org.mapstruct:mapstruct:1.6.3")
+    commonAnnotationProcessors("org.mapstruct:mapstruct-processor:1.6.3")
 }
 ```
 
-在此範例中，`commonAnnotationProcessors` Gradle 配置是您希望用於所有專案的通用註解處理父配置。您使用 [`extendsFrom()`](https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.Configuration.html#org.gradle.api.artifacts.Configuration:extendsFrom) 方法將 `commonAnnotationProcessors` 加入為父配置。kapt 會看到 `commonAnnotationProcessors` Gradle 配置對 Dagger 註解處理器具有相依性。因此，kapt 會在其註解處理配置中包含 Dagger 註解處理器。
+在此範例中，`commonAnnotationProcessors` Gradle 配置是您希望用於所有專案的通用註解處理父配置。您使用 [`extendsFrom()`](https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.Configuration.html#org.gradle.api.artifacts.Configuration:extendsFrom) 方法將 `commonAnnotationProcessors` 加入為父配置。kapt 會看到 `commonAnnotationProcessors` Gradle 配置對 MapStruct 註解處理器具有相依性。因此，kapt 會在其註解處理配置中包含 MapStruct 註解處理器。
  
 ## Java 編譯器選項
 
@@ -299,9 +307,9 @@ kapt {
         <annotationProcessorPaths>
             <!-- 在此處指定您的註解處理器 -->
             <annotationProcessorPath>
-                <groupId>com.google.dagger</groupId>
-                <artifactId>dagger-compiler</artifactId>
-                <version>2.9</version>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>1.6.3</version>
             </annotationProcessorPath>
         </annotationProcessorPaths>
     </configuration>
@@ -344,8 +352,8 @@ kapt 編譯器外掛程式包含在 Kotlin 編譯器的二進位發行版中。
 * `stubs` (*必填*): 虛設常式檔案的輸出路徑。換句話說，就是某些暫時目錄。
 * `incrementalData`: 二進位虛設常式的輸出路徑。
 * `apclasspath` (*可重複*): 註解處理器 JAR 的路徑。根據您擁有的 JAR 數量傳遞多個 `apclasspath` 選項。
-* `apoptions`: Base64 編碼的註解處理器選項列表。有關更多資訊，請參閱 [AP/javac 選項編碼](#apjavac-選項編碼)。
-* `javacArguments`: Base64 編碼的傳遞給 javac 的選項列表。有關更多資訊，請參閱 [AP/javac 選項編碼](#apjavac-選項編碼)。
+* `apoptions`: Base64 編碼的註解處理器選項列表。有關更多資訊，請參閱 [AP/Javac 選項編碼](#ap-javac-選項編碼)。
+* `javacArguments`: Base64 編碼的傳遞給 javac 的選項列表。有關更多資訊，請參閱 [AP/Javac 選項編碼](#ap-javac-選項編碼)。
 * `processors`: 以逗號分隔的註解處理器合格類別名稱列表。如果指定，kapt 將不會嘗試在 `apclasspath` 中尋找註解處理器。
 * `verbose`: 啟用詳細輸出。
 * `aptMode` (*必填*)
@@ -409,3 +417,7 @@ kapt {
 ```
 
 如果您使用 Maven，則需要指定具體的外掛程式設定。請參閱這份 [Lombok 編譯器外掛程式設定範例](lombok.md#using-with-kapt)。
+
+## 下一步
+
+* [參閱如何從 kapt 遷移到 KSP](ksp-kapt-migration.md)

@@ -1,6 +1,7 @@
 # 自訂節點實作
 
-本頁面提供如何在 Koog 架構中實作自訂節點的詳細說明。自訂節點可讓您透過建立執行特定作業的可重複使用組件，來擴充 agent 工作流程的功能。
+本頁面提供如何在 Koog 架構中實作自訂節點的詳細說明。
+自訂節點可讓您透過建立執行特定作業的可重複使用元件，來擴充 agent 工作流程的功能。
 
 若要進一步了解圖形節點是什麼、其用法以及現有的預設節點，請參閱[圖形節點](nodes-and-components.md)。
 
@@ -553,7 +554,7 @@
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.prompt.message.Message
     import ai.koog.prompt.message.ResponseMetaInfo
-    import kotlin.time.Clock
+    import ai.koog.utils.time.KoogClock
     import kotlinx.serialization.Serializable
     import kotlinx.serialization.json.Json
     import java.util.*
@@ -570,7 +571,7 @@
         val toolCall = Message.Tool.Call(
             id = UUID.randomUUID().toString(),
             tool = toolName,
-            metaInfo = ResponseMetaInfo.create(Clock.System),
+            metaInfo = ResponseMetaInfo.create(KoogClock.System),
             content = Json.encodeToString(ToolArgs(arg1 = input, arg2 = 42)) // 使用輸入作為工具引數
         )
 

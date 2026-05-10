@@ -15,9 +15,9 @@
 </p>
 </tldr>
 
-Bearer 身份验证使用称为 bearer token 的安全令牌。这些令牌通常用于 OAuth 2.0 流程中，通过 Google、Facebook 和 X 等外部提供商来授权用户。
+Bearer 身份验证使用称为 _bearer token_ 的安全令牌。这些令牌通常用于 OAuth 2.0 流程中，通过 Google、Facebook 和 X 等外部提供商来授权用户。
 
-您可以从 [Ktor 服务器文档的 OAuth 授权流程部分](server-oauth.md#flow) 详细了解 OAuth 流程。
+您可以从 [Ktor 服务器文档的 OAuth 授权流程部分](server-oauth.md#flow)详细了解 OAuth 流程。
 
 > 在服务器上，Ktor 提供了 [Authentication](server-bearer-auth.md) 插件来处理 bearer 身份验证。
 
@@ -189,7 +189,7 @@ println("Open a link above, get the authorization code, insert it below, and pre
 - `response_type`：用于获取访问令牌的许可类型。设置为 `"code"` 以获取授权码。
 - `redirect_uri`：`http://127.0.0.1:8080` 值表示使用 *Loopback IP address* 流程来获取授权码。
    > 要使用此 URL 接收授权码，您的应用程序必须侦听本地 Web 服务器。
-   > 例如，您可以使用 [Ktor 服务器](server-create-and-configure.topic) 来获取授权码作为查询参数。
+   > 例如，您可以使用 [Ktor 服务器](server-create-and-configure.topic)来获取授权码作为查询参数。
 - `access_type`：设置为 `offline`，以便应用程序可以在用户不在浏览器前时刷新访问令牌。
 
 #### 授权许可 (授权码) {id="step2"}
@@ -369,9 +369,10 @@ install(Auth) {
 ```
 
 `refreshTokens {}` 回调使用 `RefreshTokensParams` 作为接收者，并允许您访问以下设置：
+
 * `client` 实例，可用于提交表单参数。
 * `oldTokens` 属性用于访问刷新令牌并将其发送到令牌端点。
-* `HttpRequestBuilder` 公开的 `.markAsRefreshTokenRequest()` 函数将请求标记为刷新身份验证令牌，从而对其进行特殊处理。
+* `HttpRequestBuilder.markAsRefreshTokenRequest()` 函数将请求标记为令牌刷新请求。以这种方式标记的请求将被排除在身份验证重试机制之外。这可以防止在刷新请求本身因 `401 Unauthorized` 失败时客户端再次尝试刷新令牌，从而避免无限刷新循环。
 
 #### 保存刷新的令牌 {id="step10"}
 

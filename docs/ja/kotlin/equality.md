@@ -32,7 +32,7 @@ fun main() {
     // true
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false"}
 
 `null` と明示的に比較する場合、コードを最適化しても意味がないことに注意してください。`a == null` は自動的に `a === null` に変換されます。
 
@@ -87,7 +87,7 @@ fun main() {
 
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false"}
 
 実行時にプリミティブ型で表される値（たとえば `Int`）の場合、`===` による等価性チェックは `==` チェックと同等です。
 
@@ -105,7 +105,7 @@ fun main() {
 * `NaN` は他のどの要素（`POSITIVE_INFINITY` を含む）よりも大きい 
 * `-0.0` は `0.0` と等しくない
 
-詳細については、[浮動小数点数の比較](numbers.md#floating-point-numbers-comparison)を参照してください。
+詳細については、[浮動小数点数の比較](numbers.md#floating-point-number-comparison)を参照してください。
 
 ## 配列の等価性
 

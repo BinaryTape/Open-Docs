@@ -616,7 +616,7 @@
   "kotlin.library-guides": "Library guides",
   "kotlin.multiplatform-gradle-dsl": "Multiplatform Gradle DSL",
   "kotlin.earlier-kotlin-releases": "Earlier Kotlin releases",
-  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-beta03",
+  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-rc01",
   "koog.rag": "RAG",
   "kotlin.backend-development": "Backend development",
   "kotlin.running-ksp-from-the-command-line": "Running KSP from the command line",
@@ -624,5 +624,7 @@
   "kotlin.maven-set-dependencies": "Set repositories and dependencies",
   "kotlin.maven-kotlin-compiler": "Configure Kotlin compiler",
   "kmp.build-ios-android-app": "How to build Android and iOS apps",
-  "koog.cache-control": "Cache control"
+  "koog.cache-control": "Cache control",
+  "kotlin.jvm-test-maven": "Testing with Maven",
+  "kotlin.jvm-annotation-processors": "Use annotation processors"
 }

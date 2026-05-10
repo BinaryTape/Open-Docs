@@ -94,7 +94,7 @@ val d = true && true  // true
 
 > 最初のオペランドが `false` の場合、`&&` 演算子は 2 番目のオペランドの評価をスキップします。
 > 両方のオペランドを評価するには、代わりに `and` [中置関数](functions.md#infix-notation)を使用してください。
-> 
+>
 {style="note"}
 
 ### 論理和 (OR)
@@ -129,10 +129,10 @@ val d = true xor true   // false
 ```
 
 > `xor` は演算子ではなく[中置関数](functions.md#infix-notation)です。
-> 
+>
 > Boolean 関数の詳細については、[API リファレンス](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/)を参照してください。
 >
-{style="note"} 
+{style="note"}
 
 ## 演算子の優先順位
 
@@ -155,7 +155,7 @@ fun main() {
 //sampleEnd    
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false"}
 
 評価順序を明示的にするには、括弧を使用します：
 
@@ -167,7 +167,7 @@ fun main() {
 //sampleEnd    
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false"}
 
 ## 条件式での Boolean
 

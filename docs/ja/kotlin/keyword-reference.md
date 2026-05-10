@@ -133,7 +133,7 @@ Kotlinは以下の演算子と特殊記号をサポートしています。
      - [パラメータのデフォルト値](functions.md#parameters-with-default-values)を指定するためにも使用されます。
  * `+=`, `-=`, `*=`, `/=`, `%=` - [累算代入演算子](operator-overloading.md#augmented-assignments)。
  * `++`, `--` - [増分および減分演算子](operator-overloading.md#increments-and-decrements)。
- * `&&`, `||`, `!` - 論理「AND」、「OR」、「NOT」演算子（ビット演算には、対応する[中置関数](numbers.md#operations-on-numbers)を代わりに使用してください）。
+ * `&&`, `||`, `!` - 論理「AND」、「OR」、「NOT」演算子（ビット演算には、対応する[中置関数](numbers.md#bitwise-operations)を代わりに使用してください）。
  * `==`, `!=` - [等価演算子](operator-overloading.md#equality-and-inequality-operators)（非プリミティブ型では `equals()` の呼び出しに変換されます）。
  * `===`, `!==` - [参照等価演算子](equality.md#referential-equality)。
  * `<`, `>`, `<=`, `>=` - [比較演算子](operator-overloading.md#comparison-operators)（非プリミティブ型では `compareTo()` の呼び出しに変換されます）。

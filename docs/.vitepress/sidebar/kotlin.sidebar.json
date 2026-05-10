@@ -322,6 +322,14 @@
             "link": "jvm-test-using-junit"
           },
           {
+            "text": "kotlin.jvm-test-maven",
+            "link": "jvm-test-maven"
+          },
+          {
+            "text": "kotlin.jvm-annotation-processors",
+            "link": "jvm-annotation-processors"
+          },
+          {
             "text": "kotlin.create-a-web-app-with-kotlin-and-spring-boot",
             "items": [
               {

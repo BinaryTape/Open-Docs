@@ -1,6 +1,6 @@
 # 커스텀 노드 구현
 
-이 페이지에서는 Koog 프레임워크에서 자신만의 커스텀 노드(custom nodes)를 구현하는 방법에 대한 자세한 지침을 제공합니다.
+이 페이지에서는 Koog 프레임워크에서 자신만의 커스텀 노드(custom nodes)를 구현하는 방법에 대한 자세한 지침을 제공합니다. 
 커스텀 노드를 사용하면 특정 작업을 수행하는 재사용 가능한 구성 요소를 생성하여 에이전트 워크플로의 기능을 확장할 수 있습니다.
 
 그래프 노드가 무엇인지, 그 사용법 및 기존 기본 노드에 대해 자세히 알아보려면 [그래프 노드](nodes-and-components.md)를 참조하세요.
@@ -554,7 +554,7 @@ LLM과 상호작용하는 노드입니다. Kotlin에서는 LLM 세션에 대해 
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.prompt.message.Message
     import ai.koog.prompt.message.ResponseMetaInfo
-    import kotlin.time.Clock
+    import ai.koog.utils.time.KoogClock
     import kotlinx.serialization.Serializable
     import kotlinx.serialization.json.Json
     import java.util.*
@@ -571,7 +571,7 @@ LLM과 상호작용하는 노드입니다. Kotlin에서는 LLM 세션에 대해 
         val toolCall = Message.Tool.Call(
             id = UUID.randomUUID().toString(),
             tool = toolName,
-            metaInfo = ResponseMetaInfo.create(Clock.System),
+            metaInfo = ResponseMetaInfo.create(KoogClock.System),
             content = Json.encodeToString(ToolArgs(arg1 = input, arg2 = 42)) // 입력을 도구 인자로 사용
         )
 

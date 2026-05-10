@@ -277,7 +277,7 @@ Kotlin/JS Gradle 外掛程式現在為瀏覽器目標使用 webpack 5，而非 w
 
 在致力於 Kotlin/JS 編譯器的基於 IR 的後端的同時，我們鼓勵並幫助程式庫作者以 `both` 模式建置其專案。這意味著他們能夠為兩種 Kotlin/JS 編譯器產出構件，從而壯大新編譯器的生態系統。
 
-許多知名架構和程式庫已支援 IR 後端：[KVision](https://kvision.io/)、[fritz2](https://www.fritz2.dev/)、[doodle](https://github.com/nacular/doodle) 等。如果您在專案中使用它們，則已經可以使用 IR 後端進行建置並查看其帶來的優點。
+許多知名架構和程式庫已支援 IR 後端：[KVision](https://kvision.io/)、[fritz2](https://www.fritz2.dev/)、[doodle](https://github.com/nacular/doodle) 等。如果您在專案中使用它們，則已經可以使用 IR 後端進行建兒並查看其帶來的優點。
 
 如果您正在編寫自己的程式庫，請以 'both' 模式編譯，以便您的客戶也可以將其與新編譯器一起使用。
 
@@ -396,7 +396,7 @@ val kotlinFiles: List<Path> = Path("/home/user").listDirectoryEntries("*.kt")
 * `floorDiv()` 傳回 [向下取整除法](https://en.wikipedia.org/wiki/Floor_and_ceiling_functions) 的結果。它適用於整數型別。
 * `mod()` 傳回向下取整除法的餘數（_modulus_）。它適用於所有數值型別。
 
-這些運算看起來與現有的 [整數除法](numbers.md#operations-on-numbers) 和 [rem()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/rem.html) 函式（或 `%` 運算子）非常相似，但在負數上的運作方式不同：
+這些運算看起來與現有的 [整數除法](numbers.md#integer-division) 和 [rem()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/rem.html) 函式（或 `%` 運算子）非常相似，但在負數上的運作方式不同：
 * `a.floorDiv(b)` 與一般的 `/` 不同之處在於，`floorDiv` 將結果向下取整（朝向較小的整數），而 `/` 則將結果截斷為更接近 0 的整數。
 * `a.mod(b)` 是 `a` 與 `a.floorDiv(b) * b` 之間的差值。它要麼為零，要麼與 `b` 符號相同，而 `a % b` 的符號則可能不同。
 

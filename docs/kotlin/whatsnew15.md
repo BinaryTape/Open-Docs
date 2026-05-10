@@ -398,7 +398,7 @@ val kotlinFiles: List<Path> = Path("/home/user").listDirectoryEntries("*.kt")
 * `floorDiv()` 返回 [向下取整除法](https://en.wikipedia.org/wiki/Floor_and_ceiling_functions) 的结果。适用于整数类型。
 * `mod()` 返回向下取整除法的余数（_模数_）。适用于所有数值类型。
 
-这些操作看起来与现有的 [整数除法](numbers.md#operations-on-numbers) 和 [rem()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/rem.html) 函数（或 `%` 运算符）非常相似，但它们在负数上的工作方式不同：
+这些操作看起来与现有的 [整数除法](numbers.md#integer-division) 和 [rem()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/rem.html) 函数（或 `%` 运算符）非常相似，但它们在负数上的工作方式不同：
 * `a.floorDiv(b)` 与普通的 `/` 不同之处在于 `floorDiv` 将结果向下舍入（向较小的整数方向），而 `/` 将结果截断为更接近 0 的整数。
 * `a.mod(b)` 是 `a` 与 `a.floorDiv(b) * b` 之间的差值。它的结果要么为零，要么与 `b` 符号相同，而 `a % b` 的符号可能不同。
 
@@ -657,7 +657,7 @@ tasks {
   ```kotlin
   @Test
   fun test() {
-      val sampleList = hexOf<String>("sample", "sample2")
+      val sampleList = listOf<String>("sample", "sample2")
       val sampleString = "sample"
       assertContains(sampleList, sampleString)  // 集合中的元素
       assertContains(sampleString, "amp")       // 字符串中的子串
@@ -688,7 +688,7 @@ tasks {
 ### Coroutines 1.5.0-RC
 
 `kotlinx.coroutines` [1.5.0-RC](https://github.com/Kotlin/kotlinx.coroutines/releases/tag/1.5.0-RC) 已经发布，包含：
-* [新的通道 (Channels) API](channels.md)
+* [新的通道 API](channels.md)
 * 稳定的 [响应式集成](async-programming.md#reactive-extensions)
 * 以及更多
 

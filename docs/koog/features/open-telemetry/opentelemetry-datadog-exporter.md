@@ -44,6 +44,7 @@ export DD_SITE="datadoghq.eu"
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
     import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+    import ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
     import kotlinx.coroutines.runBlocking
@@ -75,6 +76,7 @@ See traces in Datadog LLM Observability")
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
     import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry;
+    import ai.koog.agents.features.opentelemetry.integration.datadog.DatadogKt;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import ai.koog.prompt.executor.model.PromptExecutor;
     public class exampleDatadogExporterJava01 {
@@ -92,7 +94,7 @@ See traces in Datadog LLM Observability")
             .llmModel(OpenAIModels.Chat.GPT4oMini)
             .systemPrompt("You are a code assistant. Provide concise code examples.")
             .install(OpenTelemetry.Feature, config ->
-                config.addDatadogExporter()
+                DatadogKt.addDatadogExporter(config)
             )
             .build();
 
@@ -107,9 +109,9 @@ See traces in Datadog LLM Observability");
 
 ## 跟踪属性
 
-当 Koog 将 agent 活动发送到 Datadog 时，它以一系列 *span*（跨度）的形式发送 —— 即单个工作的记录，例如一次 LLM 调用或工具执行。相关的 span 被分组到一个 *trace*（跟踪）中，它代表了从开始到结束的完整 agent 运行。
+当 Koog 将 agent 活动发送到 Datadog 时，它以一系列 *span* 的形式发送 —— 即单个工作的记录，例如一次 LLM 调用或工具执行。相关的 span 被分组到一个 *trace*（跟踪）中，它代表了从开始到结束的完整 agent 运行。
 
-[`addDatadogExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter) 接受 `traceAttributes` 参数 —— 这是一个描述发送跟踪的应用程序的键值对映射。这些属性会被附加到每个 span，从而方便在 Datadog 中按环境或版本等属性对跟踪进行过滤和分组。
+[`addDatadogExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter) 接受一个 `resourceAttributes` 参数 —— 这是一个描述发送跟踪的应用程序的键值对映射。这些属性会被附加到每个 span，从而方便在 Datadog 中按环境或版本等属性对跟踪进行过滤和分组。
 
 常用的属性包括：
 
@@ -124,6 +126,7 @@ See traces in Datadog LLM Observability");
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
     import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+    import ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
     import kotlinx.coroutines.runBlocking
@@ -138,8 +141,8 @@ See traces in Datadog LLM Observability");
         ) {
             install(OpenTelemetry) {
                 addDatadogExporter(
-                    datadogSite = "datadoghq.eu",  // 使用欧洲地区
-                    traceAttributes = mapOf(
+                    url = "datadoghq.eu",  // 使用欧洲地区
+                    resourceAttributes = mapOf(
                         "env" to "production",
                         "service.name" to "my-agent",
                         "version" to "1.0.0"
@@ -160,9 +163,9 @@ See traces in Datadog LLM Observability");
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
     import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry;
+    import ai.koog.agents.features.opentelemetry.integration.datadog.DatadogKt;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import ai.koog.prompt.executor.model.PromptExecutor;
-    import java.util.Map;
     public class exampleDatadogExporterJava02 {
         static PromptExecutor promptExecutor = PromptExecutor.builder()
             .openAI("openai-api-key")
@@ -178,15 +181,10 @@ See traces in Datadog LLM Observability");
             .systemPrompt("You are a helpful assistant.")
             .llmModel(OpenAIModels.Chat.GPT4oMini)
             .install(OpenTelemetry.Feature, config ->
-                config.addDatadogExporter(
-                    null,                           // 使用 DD_API_KEY 环境变量
-                    "datadoghq.eu",                 // 使用欧洲地区
-                    null,                           // 默认超时
-                    Map.of(
-                        "env", "production",
-                        "service.name", "my-agent",
-                        "version", "1.0.0"
-                    )
+                DatadogKt.addDatadogExporter(
+                    config,
+                    null,                            // datadogApiKey: 使用 DD_API_KEY 环境变量
+                    "datadoghq.eu"                   // url: 使用欧洲地区
                 ))
             .build();
 
@@ -197,21 +195,23 @@ See traces in Datadog LLM Observability");
     ```
     <!--- KNIT exampleDatadogExporterJava02.java -->
 
-## 自定义导出器包装
+    !!! note
+        目前不支持从 Java 设置 `resourceAttributes`，因为底层的 Kotlin 函数携带了一个 [`kotlin.time.Duration`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/) 参数（一个值类），这会导致包括其后参数在内的所有重载出现 JVM 名称修饰 (name mangling)。当需要 `resourceAttributes` 时，请使用上面的 Kotlin 示例。
 
-当您需要直接访问导出器对象，以便在注册之前使用额外的处理逻辑对其进行包装时，请使用 [`buildDatadogExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.datadog.buildDatadogExporter)。
-例如，使用 `SpanExporter.composite()` 同时将跟踪发送到多个后端：
+## 发送到多个后端
+
+要同时将跟踪发送到 Datadog 和另一个后端，请通过 [`addDatadogExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter) 注册 Datadog，并通过 [`addSpanExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.feature.OpenTelemetryConfig.addSpanExporter) 添加第二个导出器。每次调用都会注册一个独立的批量 span 处理程序，因此这两个后端将并行导出：
 
 === "Kotlin"
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
     import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
-    import ai.koog.agents.features.opentelemetry.integration.datadog.buildDatadogExporter
+    import ai.koog.agents.features.opentelemetry.feature.OpenTelemetryConfigJvm.addSpanExporter
+    import ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
     import io.opentelemetry.exporter.otlp.http.trace.OtlpHttpSpanExporter
-    import io.opentelemetry.sdk.trace.export.SpanExporter
     import kotlinx.coroutines.runBlocking
     val promptExecutor = simpleOpenAIExecutor("openai-api-key")
     fun main() = runBlocking {
@@ -227,11 +227,12 @@ See traces in Datadog LLM Observability");
     -->
     ```kotlin
     install(OpenTelemetry) {
-        val datadogExporter = buildDatadogExporter()
-        val localExporter = OtlpHttpSpanExporter.builder()
-            .setEndpoint("http://localhost:4318/v1/traces")
-            .build()
-        addSpanExporter(SpanExporter.composite(datadogExporter, localExporter))
+        addDatadogExporter()
+        addSpanExporter(
+            OtlpHttpSpanExporter.builder()
+                .setEndpoint("http://localhost:4318/v1/traces")
+                .build()
+        )
     }
     ```
     <!--- KNIT example-datadog-exporter-03.kt -->

@@ -94,7 +94,7 @@ val d = true && true  // true
 
 > 如果第一個運算元為 `false`，`&&` 運算子就會跳過第二個運算元的評估。
 > 若要評估兩個運算元，請改用 `and` [中綴函式](functions.md#infix-notation)。
-> 
+>
 {style="note"}
 
 ### 邏輯 OR（析取）
@@ -129,10 +129,10 @@ val d = true xor true   // false
 ```
 
 > `xor` 是一個 [中綴函式](functions.md#infix-notation)，而不是運算子。
-> 
+>
 > 在 [API 參考文件](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/) 中了解更多關於 `Boolean` 函式的資訊。
 >
-{style="note"} 
+{style="note"}
 
 ## 運算子優先級
 
@@ -155,7 +155,7 @@ fun main() {
 //sampleEnd    
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false"}
 
 要使評估順序更明確，請使用圓括號：
 
@@ -167,7 +167,7 @@ fun main() {
 //sampleEnd    
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false"}
 
 ## 條件中的 `Boolean`
 

@@ -32,7 +32,7 @@ fun main() {
     // true
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false"}
 
 請注意，當明確與 `null` 進行比較時，優化程式碼是沒有意義的：
 `a == null` 會被自動轉換為 `a === null`。
@@ -89,7 +89,7 @@ fun main() {
 
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false"}
 
 對於在執行階段由內建型別表示的值（例如 `Int`），`===` 相等檢查等同於 `==` 檢查。
 
@@ -107,7 +107,7 @@ fun main() {
 * `NaN` 大於任何其他元素（包括 `POSITIVE_INFINITY`） 
 * `-0.0` 不等於 `0.0`
 
-如需更多資訊，請參閱[浮點數比較](numbers.md#floating-point-numbers-comparison)。
+如需更多資訊，請參閱[浮點數比較](numbers.md#floating-point-number-comparison)。
 
 ## 陣列相等
 

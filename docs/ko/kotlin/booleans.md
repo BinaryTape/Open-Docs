@@ -3,7 +3,7 @@
 
 <show-structure depth="1"/>
 
-[`Boolean`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/) 타입은 
+[`Boolean`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/) 타입은
 논리 값인 `true`와 `false`를 나타냅니다.
 
 예-아니오 질문에 답하는 함수나 `while`, `if`, `when` 조건문에서 `Boolean` 값을 사용하세요.
@@ -67,12 +67,12 @@ fun main() {
 
 ## `Boolean` 연산
 
-Kotlin은 `Boolean` 값을 다루기 위한 연산자와 중위(infix) 함수를 제공합니다. 
+Kotlin은 `Boolean` 값을 다루기 위한 연산자와 중위(infix) 함수를 제공합니다.
 이를 사용해 `Boolean` 값을 반전시키거나 여러 `Boolean` 값을 하나의 결과로 결합할 수 있습니다.
 
 ### 부정 (NOT)
 
-NOT 연산자는 `Boolean` 값을 반전시킵니다. 
+NOT 연산자는 `Boolean` 값을 반전시킵니다.
 
 NOT을 사용하려면 `Boolean` 값 앞에 `!` 연산자를 배치하세요:
 
@@ -83,7 +83,7 @@ val isOff = !isOn // isOff는 false
 
 ### 논리곱 (AND)
 
-AND 연산자는 두 피연산자가 모두 `true`인 경우에만 `true`를 반환합니다. 
+AND 연산자는 두 피연산자가 모두 `true`인 경우에만 `true`를 반환합니다.
 
 논리곱(AND)을 사용하려면 피연산자 사이에 `&&` 연산자를 배치하세요:
 
@@ -95,8 +95,8 @@ val d = true && true  // true
 ```
 
 > 첫 번째 피연산자가 `false`이면 `&&` 연산자는 두 번째 피연산자를 건너뜁니다.
-> 두 피연산자를 모두 평가하려면 대신 `and` [중위 함수(infix function)](functions.md#infix-notation)를 사용하세요. 
-> 
+> 두 피연산자를 모두 평가하려면 대신 `and` [중위 함수(infix function)](functions.md#infix-notation)를 사용하세요.
+>
 {style="note"}
 
 ### 논리합 (OR)
@@ -130,17 +130,17 @@ val c = true xor false  // true
 val d = true xor true   // false
 ```
 
-> `xor`은 연산자가 아니라 [중위 함수(infix function)](functions.md#infix-notation)입니다. 
-> 
+> `xor`은 연산자가 아니라 [중위 함수(infix function)](functions.md#infix-notation)입니다.
+>
 > [API 레퍼런스](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/)에서 `Boolean` 함수에 대해 더 자세히 알아보세요.
 >
-{style="note"} 
+{style="note"}
 
 ## 연산자 우선순위
 
-식에 여러 논리 연산이 포함되어 있고 평가 순서를 지정하는 괄호가 없는 경우, 
-Kotlin은 우선순위 규칙을 적용합니다. 우선순위가 높은 연산이 
-우선순위가 낮은 연산보다 먼저 평가됩니다. 
+식에 여러 논리 연산이 포함되어 있고 평가 순서를 지정하는 괄호가 없는 경우,
+Kotlin은 우선순위 규칙을 적용합니다. 우선순위가 높은 연산이
+우선순위가 낮은 연산보다 먼저 평가됩니다.
 
 이 섹션에서 설명하는 `Boolean` 연산의 우선순위 순서는 다음과 같습니다:
 
@@ -159,7 +159,7 @@ fun main() {
 //sampleEnd    
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false"}
 
 평가 순서를 명시적으로 나타내려면 괄호를 사용하세요:
 
@@ -171,12 +171,12 @@ fun main() {
 //sampleEnd    
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false"}
 
 ## 조건문의 `Boolean`
 
-[`if`](control-flow.md#if-expression), [`when`](control-flow.md#when-expressions-and-statements), 
-[`while`](control-flow.md#while-loops)은 `Boolean` 식을 평가하여 프로그램의 흐름을 제어합니다.
+[`if`](control-flow.md#if-expression), [`when`](control-flow.md#when-expressions-and-statements),
+그리고 [`while`](control-flow.md#while-loops)은 `Boolean` 식을 평가하여 프로그램의 흐름을 제어합니다.
 
 ### `if` 식
 

@@ -144,7 +144,7 @@
   "kotlin.java-to-kotlin-migration-guides": "Java 到 Kotlin 迁移指南",
   "kotlin.java-to-kotlin-idioms-strings": "字符串",
   "kotlin.java-to-kotlin-collections-guide": "集合",
-  "kotlin.java-to-kotlin-nullability-guide": "可空性",
+  "kotlin.java-to-kotlin-nullability-guide": "为 null 性",
   "kotlin.native": "原生",
   "kotlin.native-c-interop-stability": "C 和 Objective-C 库互操作稳定性",
   "kotlin.c-interop": "C 互操作",
@@ -648,7 +648,7 @@
   "kotlin.library-guides": "库指南",
   "kotlin.multiplatform-gradle-dsl": "多平台 Gradle DSL",
   "kotlin.earlier-kotlin-releases": "更早的 Kotlin 版本",
-  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-beta03",
+  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-rc01",
   "koog.rag": "RAG",
   "kotlin.backend-development": "后端开发",
   "kotlin.running-ksp-from-the-command-line": "从命令行运行 KSP",
@@ -656,5 +656,7 @@
   "kotlin.maven-set-dependencies": "设置仓库与依赖项",
   "kotlin.maven-kotlin-compiler": "配置 Kotlin 编译器",
   "kmp.build-ios-android-app": "如何构建 Android 与 iOS 应用",
-  "koog.cache-control": "缓存控制"
+  "koog.cache-control": "缓存控制",
+  "kotlin.jvm-test-maven": "使用 Maven 进行测试",
+  "kotlin.jvm-annotation-processors": "使用注解处理器"
 }

@@ -40,7 +40,7 @@ val invalidEmpty = '' // 오류
 val maybeAbsent: Char? = null
 ```
 
-> JVM에서 널 허용 `Char` 값은 필요할 때 박싱됩니다. 이는 [숫자 타입](numbers.md#boxing-and-caching-numbers-on-the-java-virtual-machine)에도 동일하게 적용됩니다.
+> JVM에서 널 허용 `Char` 값은 필요할 때 박싱됩니다. 이는 [숫자 타입](numbers.md#boxing-and-caching-numbers-on-the-jvm)에도 동일하게 적용됩니다.
 >
 {style="note"}
 
@@ -60,7 +60,7 @@ val unicodeNumber = '\u0031' // '1'과 같음
 
 ### 보충 문자
 
-이모지나 일부 역사적 문자와 같은 BMP 외부의 유니코드 문자는 단일 `Char`로 표현할 수 없습니다. UTF-16에서 이러한 문자는 *서로게이트 쌍(surrogate pair)*으로 인코딩되며, 두 개의 `Char` 값이 합쳐져 `String` 내에서 하나의 유니코드 문자를 나타냅니다.
+이모지나 일부 역사적 문자와 같은 BMP 외부의 유니코드 문자는 단일 `Char`로 표현할 수 없습니다. UTF-16에서 이러한 문자는 _서로게이트 쌍(surrogate pair)_으로 인코딩되며, 두 개의 `Char` 값이 합쳐져 `String` 내에서 하나의 유니코드 문자를 나타냅니다.
 
 ```kotlin
 fun main() {
@@ -124,7 +124,8 @@ val equal = 'A' == 'A' // true
 
 ### 문자 처리
 
-Kotlin은 문자 값의 검사 및 대소문자 변환을 위한 함수를 제공합니다. 예를 들어:
+Kotlin은 문자 값의 검사 및 대소문자 변환을 위한 함수를 제공합니다.
+예를 들어:
 
 ```kotlin
 fun main() {
@@ -192,7 +193,7 @@ fun main() {
 
 `Char`를 숫자 타입으로 변환하려면 명시적 변환을 사용하세요.
 
-* 문자의 유니코드 숫자 값을 얻으려면 `.code` 속성을 사용하세요.
+* `.code`를 사용하여 문자의 유니코드 숫자 값을 얻으세요.
 
   ```kotlin
   fun main() { 

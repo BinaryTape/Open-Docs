@@ -2,7 +2,7 @@
 
 <show-structure depth="3"/>
 
-Compose Multiplatformは[SwiftUI](https://developer.apple.com/xcode/swiftui/)フレームワークと相互運用可能です。
+Compose Multiplatformは[SwiftUI](https://developer.apple.com/swiftui/)フレームワークと相互運用可能です。
 SwiftUIアプリケーション内にCompose Multiplatformを埋め込むことも、Compose Multiplatform UI内にネイティブのSwiftUIコンポーネントを埋め込むこともできます。このページでは、SwiftUI内でCompose Multiplatformを使用する例と、Compose Multiplatformアプリ内でSwiftUIを埋め込む例の両方を紹介します。
 
 > UIKitとの相互運用性については、[UIKitフレームワークとの統合](compose-uikit-integration.md)の記事を参照してください。

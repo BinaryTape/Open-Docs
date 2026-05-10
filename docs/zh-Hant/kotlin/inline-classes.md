@@ -91,7 +91,7 @@ fun main() {
 
 ## 表示方式 (Representation)
 
-在產生的程式碼中，Kotlin 編譯器會為每個內嵌類別保留一個 *包裝器（wrapper）*。內嵌類別執行個體在執行時可以表示為包裝器或底層型別。這與 `Int` 可以被 [表示](numbers.md#boxing-and-caching-numbers-on-the-java-virtual-machine) 為基本型別 `int` 或包裝器 `Integer` 的方式類似。
+在產生的程式碼中，Kotlin 編譯器會為每個內嵌類別保留一個 *包裝器（wrapper）*。內嵌類別執行個體在執行時可以表示為包裝器或底層型別。這與 `Int` 可以被 [表示](numbers.md#boxing-and-caching-numbers-on-the-jvm) 為基本型別 `int` 或包裝器 `Integer` 的方式類似。
 
 Kotlin 編譯器會優先使用底層型別而非包裝器，以產出最高效且經過最佳化的程式碼。然而，有時必須保留包裝器。根據經驗法則，每當內嵌類別被當作另一種型別使用時，它們就會被裝箱（boxed）。
 
@@ -164,14 +164,14 @@ fun compute(x: Int) { }
 fun compute(x: UInt) { }
 ```
 
-預設情況下，Kotlin 使用 **未裝箱表示方式（unboxed representations）** 編譯內嵌類別，這使得它們難以從 Java 存取。
+預設情況下，轉 Kotlin 使用 **未裝箱表示方式（unboxed representations）** 編譯內嵌類別，這使得它們難以從 Java 存取。
 要了解如何將內嵌類別編譯為可從 Java 存取的 **裝箱表示方式（boxed representations）**，請參閱 [從 Java 呼叫 Kotlin](java-to-kotlin-interop.md#inline-value-classes) 指南。
 
 ## 內嵌類別 vs 型別別名
 
 乍看之下，內嵌類別似乎與 [型別別名](type-aliases.md) 非常相似。確實，兩者看起來都引入了新型別，且在執行時都會被表示為底層型別。
 
-然而，關鍵區別在於型別別名與其底層型別（以及具有相同底層型別的其他型別別名）是 *賦值相容（assignment-compatible）* 的，而內嵌類別則不然。
+然而，關鍵區別在於型別別名與其底層型別（以及具有相同底層型別的其他型別別名）是 *指派相容（assignment-compatible）* 的，而內嵌類別則不然。
 
 換句話說，內嵌類別引入了一個真正的 *新* 型別，而型別別名僅僅是為現有型別引入了一個替代名稱（別名）：
 

@@ -369,9 +369,10 @@ install(Auth) {
 ```
 
 `refreshTokens {}` 回呼使用 `RefreshTokensParams` 作為接收者，並允許您存取以下設定：
+
 * `client` 執行個體，可用於提交表單參數。
 * `oldTokens` 屬性用於存取重新整理權杖並將其傳送到權杖端點。
-* `HttpRequestBuilder` 提供的 `.markAsRefreshTokenRequest()` 函式可將請求標記為重新整理驗證權杖，從而對其進行特殊處理。
+* `HttpRequestBuilder.markAsRefreshTokenRequest()` 函式可將請求標記為重新整理權杖請求。以此方式標記的請求會排除在驗證重試機制之外。這可以防止當重新整理請求本身因 `401 Unauthorized` 失敗時，用戶端嘗試再次重新整理權杖，進而避免無限重新整理迴圈。
 
 #### 儲存重新整理後的權杖 {id="step10"}
 

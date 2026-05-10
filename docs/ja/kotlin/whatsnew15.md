@@ -228,7 +228,7 @@ Kotlin/Native はよりパフォーマンスが高く、安定しました。主
 
 ### パフォーマンスの向上
 
-1.5.0 では、Kotlin/Native においてコンパイルと実行の両方を高速化する一連 performance の改善が行われました。
+1.5.0 では、Kotlin/Native においてコンパイルと実行の両方を高速化する一連のパフォーマンスの改善が行われました。
 
 [コンパイラキャッシュ](https://blog.jetbrains.com/kotlin/2020/03/kotlin-1-3-70-released/#kotlin-native) が、`linuxX64`（Linux ホスト上のみ）および `iosArm64` ターゲットのデバッグモードでサポートされるようになりました。コンパイラキャッシュを有効にすると、初回のコンパイルを除き、ほとんどのデバッグコンパイルが大幅に高速化されます。テストプロジェクトの測定では、約 200% の速度向上が確認されました。
 
@@ -396,7 +396,7 @@ val kotlinFiles: List<Path> = Path("/home/user").listDirectoryEntries("*.kt")
 * `floorDiv()` は[床関数除算 (floored division)](https://en.wikipedia.org/wiki/Floor_and_ceiling_functions) の結果を返します。整数型で利用可能です。
 * `mod()` は床関数除算の余り（*modulus*）を返します。すべての数値型で利用可能です。
 
-これらの演算は既存の[整数の除算](numbers.md#operations-on-numbers)や [rem()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/rem.html) 関数（または `%` 演算子）とよく似ていますが、負の数に対して異なる動作をします。
+これらの演算は既存の[整数の除算](numbers.md#integer-division)や [rem()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/rem.html) 関数（または `%` 演算子）とよく似ていますが、負の数に対して異なる動作をします。
 * `a.floorDiv(b)` は通常の `/` と異なり、`floorDiv` は結果を切り下げ（より小さい整数に向かって）ますが、`/` は結果を 0 に近い方の整数に切り捨てます。
 * `a.mod(b)` は `a` と `a.floorDiv(b) * b` の差です。これは 0 か、`b` と同じ符号になりますが、`a % b` は異なる符号になることがあります。
 
@@ -433,7 +433,7 @@ import kotlin.time.ExperimentalTime
 fun main() {
 //sampleStart
     val duration = Duration.milliseconds(120000)
-    println("120,000 ミリ秒（2分）には、${duration.inWholeSeconds} 秒あります")
+    println("${duration.inWholeMinutes} 分には、${duration.inWholeSeconds} 秒あります")
 //sampleEnd
 }
 ```

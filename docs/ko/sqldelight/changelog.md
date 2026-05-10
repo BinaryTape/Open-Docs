@@ -8,6 +8,7 @@
 - [PostgreSQL 다이얼렉트] 기본적인 배열 리터럴(Array literal) 지원 추가 (#5997 by @griffio)
 - [PostgreSQL 다이얼렉트] 기본적인 LTREE 지원 추가 (#5880 by @yesitskev @griffio)
 - [MySQL 다이얼렉트] INET 함수 지원 추가 (#5072 by @mcxinyu)
+- [SQLite 다이얼렉트] SQLite 3.44 집계 함수 `DISTINCT`, `ORDER BY`, `FILTER` 지원 추가 (#6236 by @griffio)
 
 ### 변경됨
 - [PostgreSQL 다이얼렉트] `arrayIntermediateType` 가시성을 public으로 변경 (#5835 by @griffio)
@@ -20,6 +21,7 @@
 - [PostgreSQL 다이얼렉트] PostgreSQL 다이얼렉트용 IDE 플러그인 개선 (#6209 by @griffio)
 - [Intellij 플러그인] IDE 플러그인이 모든 다이얼렉트에 대해 코드 완성(code completions)을 수행할 수 있음 (#6210 by @griffio)
 - [Gradle 플러그인] 데이터베이스 검증(verify database) 태스크 실행 중 발생하는 순환 의존성(circular dependency) 에러 수정 (#6221 by @griffio)
+- [컴파일러] 다중 행 업데이트(multirow update)에 대한 낙관적 락(optimistic lock) 수정 (#6240 by @griffio)
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -359,7 +361,7 @@
 - [페이징] 멀티플랫폼 페이징 확장 (by @jeffdgr8)
 - [런타임] `Listener` 인터페이스에 `fun` 수식어 추가.
 - [SQLite 다이얼렉트] SQLite 3.33 지원 추가 (`UPDATE FROM`) (by @eygraber))
-- [PostgreSQL 다이얼렉트] 지원 UPDATE FROM in postgresql (by @eygraber))
+- [PostgreSQL 다이얼렉트] PostgreSQL에서 `UPDATE FROM` 지원 (by @eygraber))
 
 ### 변경됨
 - [RDBC 드라이버] 커넥션 노출 (by @hfhbd)
@@ -736,7 +738,7 @@ sqldelight {
 - [IDE 플러그인] 컬럼 이름, 문 식별자, 함수 이름 하이라이트 추가 (by @aperfilyev)
 - [IDE 플러그인] 남은 쿼리 생성 액션들 추가 (#489 by @aperfilyev)
 - [IDE 플러그인] insert-stmt의 파라미터 힌트 표시 (by @aperfilyev)
-- [IDE 플러그인] 테이블 에일리언스 의도 액션 (by @aperfilyev)
+- [IDE 플러그인] 테이블 에일리어스 의도 액션 (by @aperfilyev)
 - [IDE 플러그인] 컬럼 이름 한정(qualify) 의도 추가 (by @aperfilyev)
 - [IDE 플러그인] Kotlin 프로퍼티 선언으로 이동 추가 (by @aperfilyev)
 
@@ -821,6 +823,8 @@ sqldelight {
 - [Gradle 플러그인] Gradle 플러그인에서 `kotlin-native-utils`에 의존하지 않도록 수정 (by @ilmat192)
 - [Gradle 플러그인] 마이그레이션 파일만 있는 경우에도 데이터베이스를 쓰도록 보장 (#2094)
 - [Gradle 플러그인] 다이아몬드 의존성이 최종 컴파일 단위에서 한 번만 선택되도록 보장 (#1455)
+
+또한 이번 릴리스에서 SQLDelight 인프라 개선을 위해 많은 노력을 기울인 @3flex 님께 감사의 말씀을 전합니다.
 
 ## [1.4.4] - 2020-10-08
 [1.4.4]: https://github.com/sqldelight/sqldelight/releases/tag/1.4.4
@@ -1110,7 +1114,7 @@ sqldelight {
 
  * 신규: SQLite 인자를 Factory를 통해 타입 세이프하게 전달 가능
  * 신규: IntelliJ 플러그인이 .sq 파일에서 포맷팅 수행
- * 신규: 지원을 위해 SQLite timestamp 리터럴
+ * 신규: SQLite timestamp 리터럴 지원
  * 수정: IntelliJ에서 파라미터화된 타입을 클릭하여 이동 가능
  * 수정: 이스케이프된 컬럼 이름이 Cursor에서 가져올 때 더 이상 `RuntimeException`을 발생시키지 않음.
  * 수정: Gradle 플러그인이 예외를 출력하려고 할 때 크래시 나지 않음.

@@ -396,7 +396,7 @@ val kotlinFiles: List<Path> = Path("/home/user").listDirectoryEntries("*.kt")
 * `floorDiv()`는 [내림 나눗셈(floored division)](https://en.wikipedia.org/wiki/Floor_and_ceiling_functions)의 결과를 반환합니다. 정수 타입에 대해 사용할 수 있습니다.
 * `mod()`는 내림 나눗셈의 나머지(_modulus_)를 반환합니다. 모든 수치 타입에 대해 사용할 수 있습니다.
 
-이러한 연산은 기존의 [정수 나눗셈](numbers.md#operations-on-numbers) 및 [rem()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/rem.html) 함수(또는 `%` 연산자)와 매우 유사해 보이지만, 음수에 대해 다르게 작동합니다.
+이러한 연산은 기존의 [정수 나눗셈](numbers.md#integer-division) 및 [rem()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/rem.html) 함수(또는 `%` 연산자)와 매우 유사해 보이지만, 음수에 대해 다르게 작동합니다.
 * `a.floorDiv(b)`는 `floorDiv`가 결과를 내림(더 작은 정수 쪽으로)하는 반면, `/`는 결과를 0에 더 가까운 정수로 자른다(truncate)는 점에서 일반적인 `/`와 다릅니다.
 * `a.mod(b)`는 `a`와 `a.floorDiv(b) * b` 사이의 차이입니다. 결과는 0이거나 `b`와 같은 부호를 갖는 반면, `a % b`는 다른 부호를 가질 수 있습니다.
 

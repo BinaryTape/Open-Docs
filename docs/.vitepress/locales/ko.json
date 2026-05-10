@@ -649,13 +649,15 @@
   "kotlin.library-guides": "라이브러리 가이드",
   "kotlin.multiplatform-gradle-dsl": "멀티플랫폼 Gradle DSL",
   "kotlin.earlier-kotlin-releases": "이전 Kotlin 릴리스",
-  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-beta03",
+  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-rc01",
   "koog.rag": "RAG",
   "kotlin.backend-development": "백엔드 개발",
   "kotlin.running-ksp-from-the-command-line": "명령줄에서 KSP 실행하기",
   "koog.datadog-exporter": "Datadog 익스포터",
-  "kotlin.maven-set-dependencies": "리포지토리 및 종속성 설정",
   "kotlin.maven-kotlin-compiler": "Kotlin 컴파일러 구성",
   "kmp.build-ios-android-app": "Android 및 iOS 앱 빌드 방법",
-  "koog.cache-control": "캐시 제어"
+  "koog.cache-control": "캐시 제어",
+  "kotlin.maven-set-dependencies": "리포지토리 및 종속성 설정",
+  "kotlin.jvm-test-maven": "Maven을 사용한 테스트",
+  "kotlin.jvm-annotation-processors": "어노테이션 프로세서 사용"
 }

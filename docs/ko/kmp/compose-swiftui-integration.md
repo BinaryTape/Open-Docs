@@ -2,7 +2,7 @@
 
 <show-structure depth="3"/>
 
-Compose Multiplatform은 [SwiftUI](https://developer.apple.com/xcode/swiftui/) 프레임워크와 상호 운용이 가능합니다.
+Compose Multiplatform은 [SwiftUI](https://developer.apple.com/swiftui/) 프레임워크와 상호 운용이 가능합니다.
 SwiftUI 애플리케이션 내에 Compose Multiplatform을 임베드할 수 있을 뿐만 아니라, Compose Multiplatform UI 내에 네이티브 SwiftUI 컴포넌트를 임베드할 수도 있습니다. 이 페이지에서는 SwiftUI 내부에서 Compose Multiplatform을 사용하는 방법과 Compose Multiplatform 앱 내부에 SwiftUI를 임베드하는 방법 모두에 대한 예제를 제공합니다.
 
 > UIKit 상호 운용성에 대해 알아보려면 [UIKit 프레임워크와의 통합](compose-uikit-integration.md) 문서를 참조하세요.
@@ -30,7 +30,8 @@ fun MainViewController(): UIViewController =
 >
 {style="note"}
 
-다음으로, SwiftUI에서 Compose Multiplatform을 나타내는 구조체가 필요합니다. `UIViewController` 인스턴스를 SwiftUI 뷰로 변환하는 다음 구조체를 생성합니다:
+다음으로, SwiftUI에서 Compose Multiplatform을 나타내는 구조체가 필요합니다.
+`UIViewController` 인스턴스를 SwiftUI 뷰로 변환하는 다음 구조체를 생성합니다:
 
 ```swift
 struct ComposeViewController: UIViewControllerRepresentable {
@@ -84,7 +85,8 @@ fun ComposeEntryPointWithUIViewController(
     }
 ```
 
-Swift 코드에서 `createUIViewController`를 진입점 함수로 전달합니다. SwiftUI 뷰를 래핑하기 위해 `UIHostingController` 인스턴스를 사용할 수 있습니다:
+Swift 코드에서 `createUIViewController`를 진입점 함수로 전달합니다.
+SwiftUI 뷰를 래핑하기 위해 `UIHostingController` 인스턴스를 사용할 수 있습니다:
 
 ```swift
 Main_iosKt.ComposeEntryPointWithUIViewController(createUIViewController: { () -> UIViewController in
@@ -386,7 +388,7 @@ struct WebViewContainer: View {
 * 내비게이션 이벤트에 따라 UI를 동적으로 업데이트하기 위해 SwiftUI의 `@State` 바인딩을 사용합니다.
 * 페이지가 로딩되는 동안 `ProgressView` 스피너를 표시합니다.
 * `Text` 컴포넌트를 사용하여 뷰 상단에 현재 URL을 표시합니다.
-* `UIHostingController`를 사용하여 이 컴포넌트를 Compose UI에 통합합니다.
+* `UIHostingController` 사용하여 이 컴포넌트를 Compose UI에 통합합니다.
 
 ## 다음 단계
 

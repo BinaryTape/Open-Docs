@@ -2,7 +2,7 @@
 
 <show-structure depth="3"/>
 
-Compose Multiplatform 与 [SwiftUI](https://developer.apple.com/xcode/swiftui/) 框架具有互操作性。
+Compose Multiplatform 与 [SwiftUI](https://developer.apple.com/swiftui/) 框架具有互操作性。
 您可以将 Compose Multiplatform 嵌入到 SwiftUI 应用程序中，也可以在 Compose Multiplatform UI 中嵌入原生的 SwiftUI 组件。本页面提供了在 SwiftUI 中使用 Compose Multiplatform 以及在 Compose Multiplatform 应用中嵌入 SwiftUI 的示例。
 
 > 要了解 UIKit 的互操作性，请参阅[与 UIKit 框架的集成](compose-uikit-integration.md)一文。
@@ -101,7 +101,7 @@ Main_iosKt.ComposeEntryPointWithUIViewController(createUIViewController: { () ->
 
 ![UIView](uiview.png){width=300}
 
-在[示例项目](https://githubTask/JetBrains/compose-multiplatform/tree/master/examples/interop/ios-swiftui-in-compose)中探索此示例的代码。
+在[示例项目](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/interop/ios-swiftui-in-compose)中探索此示例的代码。
 
 ### 地图视图
 
@@ -301,7 +301,7 @@ Main_iosKt.ComposeEntryPointWithUIViewController(createUIViewController: {
 })
 ```
 
-Now，让我们看一个高级示例。这段代码为 Web 视图添加了导航跟踪和加载状态显示：
+现在，让我们看一个高级示例。这段代码为 Web 视图添加了导航跟踪和加载状态显示：
 
 ```swift
 import SwiftUI

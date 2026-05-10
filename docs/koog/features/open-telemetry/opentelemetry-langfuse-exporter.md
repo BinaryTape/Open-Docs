@@ -31,6 +31,7 @@ Koog 使用 [OpenTelemetry](https://opentelemetry.io/) 发送 agent 跟踪，Ope
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
     import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+    import ai.koog.agents.features.opentelemetry.integration.langfuse.addLangfuseExporter
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
     import kotlinx.coroutines.runBlocking
@@ -62,6 +63,7 @@ See traces on the Langfuse instance")
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
     import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry;
+    import ai.koog.agents.features.opentelemetry.integration.langfuse.LangfuseKt;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import ai.koog.prompt.executor.model.PromptExecutor;
     public class exampleLangfuseExporterJava01 {
@@ -79,7 +81,7 @@ See traces on the Langfuse instance")
             .llmModel(OpenAIModels.Chat.GPT4oMini)
             .systemPrompt("You are a code assistant. Provide concise code examples.")
             .install(OpenTelemetry.Feature, config ->
-                config.addLangfuseExporter()
+                LangfuseKt.addLangfuseExporter(config)
             )
             .build();
 
@@ -114,6 +116,7 @@ See traces on the Langfuse instance");
     import ai.koog.agents.core.agent.AIAgent
     import ai.koog.agents.features.opentelemetry.attribute.CustomAttribute
     import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+    import ai.koog.agents.features.opentelemetry.integration.langfuse.addLangfuseExporter
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
     import kotlinx.coroutines.runBlocking
@@ -150,51 +153,8 @@ See traces on the Langfuse instance");
 
 === "Java"
 
-    <!--- INCLUDE
-    import ai.koog.agents.core.agent.AIAgent;
-    import ai.koog.agents.features.opentelemetry.attribute.CustomAttribute;
-    import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry;
-    import ai.koog.prompt.executor.clients.openai.OpenAIModels;
-    import ai.koog.prompt.executor.model.PromptExecutor;
-    import java.util.List;
-    import java.util.UUID;
-    public class exampleLangfuseExporterJava02 {
-        static PromptExecutor promptExecutor = PromptExecutor.builder()
-            .openAI("openai-api-key")
-            .build();
-    -->
-    <!--- SUFFIX
-    }
-    -->
-    ```java
-    public static void main(String[] args) {
-        var sessionId = UUID.randomUUID().toString();
-
-        var agent = AIAgent.builder()
-            .promptExecutor(promptExecutor)
-            .systemPrompt("You are a helpful assistant.")
-            .llmModel(OpenAIModels.Chat.GPT4oMini)
-            .install(OpenTelemetry.Feature, config ->
-                config.addLangfuseExporter(
-                    null,           // Langfuse 主机 (回退至 LANGFUSE_HOST)
-                    null,           // 公钥 (回退至 LANGFUSE_PUBLIC_KEY)
-                    null,           // 密钥 (回退至 LANGFUSE_SECRET_KEY)
-                    null,           // 超时 (使用默认值)
-                    List.of(
-                        new CustomAttribute("langfuse.session.id", sessionId),
-                        new CustomAttribute("langfuse.trace.tags", List.of("chat", "java", "production"))
-                    )
-                ))
-            .build();
-
-        System.out.println("Running agent with Langfuse tracing");
-
-        // 使用相同会话 ID 的多次运行将在 Langfuse 中进行分组
-        agent.run("How to setup Langfuse integration in Koog agent?");
-        agent.run("Show me a Java API example");
-    }
-    ```
-    <!--- KNIT exampleLangfuseExporterJava02.java -->
+    !!! note
+        目前不支持从 Java 设置 `traceAttributes`，因为底层的 Kotlin 函数携带了一个 [`kotlin.time.Duration`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/) 参数（一个值类），这会导致包括其后参数在内的所有重载出现 JVM 名称修饰（mangling）问题。需要 `traceAttributes` 时，请使用上面的 Kotlin 示例。
 
 ## 跟踪的内容
 

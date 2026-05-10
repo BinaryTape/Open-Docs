@@ -37,6 +37,7 @@ docker-compose down
 ```kotlin
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+import ai.koog.agents.features.opentelemetry.feature.OpenTelemetryConfigJvm.addSpanExporter
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
 import io.opentelemetry.exporter.logging.LoggingSpanExporter
@@ -47,10 +48,10 @@ import io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter
 ## 設定 OpenTelemetry 匯出器
 
 在下一個資料格中，我們：
-- 建立一個 Koog `AIAgent`
-- 安裝 `OpenTelemetry` 功能
+- 建立一個 Koog AIAgent
+- 安裝 OpenTelemetry 功能
 - 加入兩個 span 匯出器：
-  - `LoggingSpanExporter` 用於主控台記錄
+  - LoggingSpanExporter 用於主控台記錄
   - OTLP gRPC 匯出器，發送到 http://localhost:4317 (Collector)
 
 這呼應了範例說明：主控台記錄用於本機偵錯，而 OTLP 用於在 Jaeger 中查看追蹤。
@@ -78,7 +79,7 @@ val agent = AIAgent(
 ## 執行代理程式並在 Jaeger 中查看追蹤
 
 執行下一個資料格以觸發一個簡單的提示詞。您應該會看到：
-- 來自 `LoggingSpanExporter` 的主控台 span 記錄
+- 來自 LoggingSpanExporter 的主控台 span 記錄
 - 匯出到您本機 OpenTelemetry Collector 並可在 Jaeger (http://localhost:16686) 中查看的追蹤
 
 提示：在您執行資料格後，使用 Jaeger 搜尋功能來尋找最近的追蹤。

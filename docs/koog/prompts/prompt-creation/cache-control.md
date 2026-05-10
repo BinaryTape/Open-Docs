@@ -311,13 +311,11 @@ Amazon Bedrock 通过 Converse API 使用块级缓存模型。当在消息或工
     import ai.koog.prompt.executor.clients.bedrock.BedrockRegions
     import ai.koog.prompt.executor.clients.bedrock.StaticBearerTokenProvider
     import kotlinx.coroutines.runBlocking
-    import kotlin.time.Clock
     
     fun main() = runBlocking {
         val client = BedrockLLMClient(
             identityProvider = StaticBearerTokenProvider(token = "test-token"),
             settings = BedrockClientSettings(region = BedrockRegions.US_EAST_1.regionCode),
-            clock = Clock.System
         )
     -->
     <!--- SUFFIX
@@ -366,13 +364,11 @@ Amazon Bedrock 通过 Converse API 使用块级缓存模型。当在消息或工
     import ai.koog.prompt.executor.clients.bedrock.BedrockRegions
     import ai.koog.prompt.executor.clients.bedrock.StaticBearerTokenProvider
     import kotlinx.coroutines.runBlocking
-    import kotlin.time.Clock
     
     fun main() = runBlocking {
         val client = BedrockLLMClient(
             identityProvider = StaticBearerTokenProvider(token = "test-token"),
             settings = BedrockClientSettings(region = BedrockRegions.US_EAST_1.regionCode),
-            clock = Clock.System
         )
     -->
     <!--- SUFFIX

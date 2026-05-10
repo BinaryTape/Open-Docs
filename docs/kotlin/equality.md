@@ -32,7 +32,7 @@ fun main() {
     // true
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false"}
 
 请注意，在显式与 `null` 进行比较时，优化代码没有意义：`a == null` 会被自动转换为 `a === null`。
 
@@ -87,7 +87,7 @@ fun main() {
 
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false"}
 
 对于在运行时由原生类型表示的值（例如 `Int`），`===` 相等检查等同于 `==` 检查。
 

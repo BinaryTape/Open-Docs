@@ -32,7 +32,7 @@ fun main() {
     // true
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false"}
 
 `null`과 명시적으로 비교할 때 코드를 최적화할 필요가 없다는 점에 유의하세요. `a == null`은 자동으로 `a === null`로 변환됩니다.
 
@@ -87,7 +87,7 @@ fun main() {
 
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false"}
 
 런타임에 원시 타입(primitive types)으로 표현되는 값(예: `Int`)의 경우, `===` 동등성 검사는 `==` 검사와 동일합니다.
 
@@ -102,10 +102,10 @@ fun main() {
 부동 소수점 숫자로 정적 타입이 지정되지 않은 피연산자의 경우에는 동작이 다릅니다. 이 경우 구조적 동등성이 구현됩니다. 결과적으로 정적 타입이 부동 소수점 숫자가 아닌 피연산자와의 검사는 IEEE 표준과 다릅니다. 이 시나리오에서는 다음과 같습니다.
 
 * `NaN`은 자기 자신과 같습니다.
-* `NaN`은 다른 모든 요소( `POSITIVE_INFINITY` 포함)보다 큽니다.
+* `NaN`은 다른 모든 요소(`POSITIVE_INFINITY` 포함)보다 큽니다.
 * `-0.0`은 `0.0`과 같지 않습니다.
 
-자세한 정보는 [부동 소수점 숫자 비교](numbers.md#floating-point-numbers-comparison)를 참조하세요.
+자세한 정보는 [부동 소수점 숫자 비교](numbers.md#floating-point-number-comparison)를 참조하세요.
 
 ## 배열 동등성
 

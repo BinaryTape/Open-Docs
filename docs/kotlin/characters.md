@@ -40,7 +40,7 @@ val invalidEmpty = '' // 错误
 val maybeAbsent: Char? = null
 ```
 
-> 在 JVM 上，当需要时，可为空的 `Char` 值会被装箱。这同样适用于[数字类型](numbers.md#boxing-and-caching-numbers-on-the-java-virtual-machine)。
+> 在 JVM 上，当需要时，可为空的 `Char` 值会被装箱。这同样适用于[数字类型](numbers.md#boxing-and-caching-numbers-on-the-jvm)。
 >
 {style="note"}
 
@@ -111,7 +111,7 @@ val backslash = '\\'
 
 ### 字符比较
 
-要比较 `Char` 值，请使用标准[运算符](keyword-reference.md#operators-and-special-symbols)，如 `==`、`!=`、`<`、`>`、`<=` 和 `>=`。
+要比较 `Char` 值，请使用标准[比较运算符](keyword-reference.md#operators-and-special-symbols)，如 `==`、`!=`、`<`、`>`、`<=` 和 `>=`。
 
 Kotlin 根据字符的 Unicode 数值进行比较，并返回一个 `Boolean` 值：
 
@@ -162,7 +162,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-> 这些操作遵循 Unicode 值，而不是特定语言的字母表规则。
+> 这些操作遵循 Unicode 数值，而不是特定语言的字母表规则。
 >
 {style="note"}
 

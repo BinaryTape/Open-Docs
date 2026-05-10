@@ -8,6 +8,7 @@
 - [PostgreSQL 方言] 添加了基础数组文字 (Array literal) 支持 (#5997 由 @griffio 贡献)
 - [PostgreSQL 方言] 添加了基础 LTREE 支持 (#5880 由 @yesitskev @griffio 贡献)
 - [MySQL 方言] 添加了对 INET 函数的支持 (#5072 由 @mcxinyu 贡献)
+- [SQLite 方言] 添加了对 SQLite 3.44 聚合函数 `DISTINCT`、`ORDER BY` 和 `FILTER` 的支持 (#6236 由 @griffio 贡献)
 
 ### 已变更
 - [PostgreSQL 方言] 将 `arrayIntermediateType` 的可见性更改为 public (#5835 由 @griffio 贡献)
@@ -20,6 +21,7 @@
 - [PostgreSQL 方言] 改进了 PostgreSQL 方言的 IDE 插件 (#6209 由 @griffio 贡献)
 - [Intellij 插件] IDE 插件可以为所有方言执行代码补全 (#6210 由 @griffio 贡献)
 - [Gradle 插件] 修复了运行验证数据库任务时的循环依赖错误 (#6221 由 @griffio 贡献)
+- [编译器] 修复了多行更新的乐观锁问题 (#6240 由 @griffio 贡献)
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -143,9 +145,9 @@
 - [编译器] 在排序初始化语句时考虑外键表约束 (#5325 由 @TheMrMilchmann 贡献)
 - [编译器] 在涉及制表符时正确对齐错误波浪下划线 (#5224 由 @drewd 贡献)
 - [JDBC 驱动程序] 修复了事务结束期间 `connectionManager` 的内存泄漏问题
-- [JDBC 驱动程序] 按照文档所述在事务内运行 SQLite 迁移 (#5218 由 @morki 贡献)
-- [JDBC 驱动程序] 修复了事务提交/回滚后泄漏连接的问题 (#5205 由 @morki 贡献)
-- [Gradle 插件] 在 `GenerateSchemaTask` 之前执行 `DriverInitializer` (#5562 由 @nwagu 贡献)
+- [JDBC 驱动程序] 按照文档所述在事务内运行 SQLite 迁移 (#5218 由 @morki)
+- [JDBC 驱动程序] 修复了事务提交/回滚后泄漏连接的问题 (#5205 由 @morki)
+- [Gradle 插件] 在 `GenerateSchemaTask` 之前执行 `DriverInitializer` (#5562 由 @nwagu)
 - [运行时] 修复了当真实驱动程序为 `Async` 时 `LogSqliteDriver` 中的崩溃问题 (#5723 由 @edenman 贡献)
 - [运行时] 修复了 `StringBuilder` 容量问题 (#5192 由 @janbina 贡献)
 - [PostgreSQL 方言] PostgreSql 创建或替换视图 (#5407 由 @griffio 贡献)
@@ -153,7 +155,7 @@
 - [PostgreSQL 方言] PostgreSql 数字解析器 (#5399 由 @griffio 贡献)
 - [PostgreSQL 方言] SQLite 窗口函数 (#2799 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSql `SELECT DISTINCT ON` (#5345 由 @griffio 贡献)
-- [PostgreSQL 方院] `alter table add column if not exists` (#5309 由 @griffio 贡献)
+- [PostgreSQL 方言] `alter table add column if not exists` (#5309 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSQL 异步绑定参数 (#5313 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSql 布尔文字 (#5262 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSql 窗口函数 (#5155 由 @griffio 贡献)
@@ -242,7 +244,7 @@
 - [IDE 插件] 修复了一些与 2023.2 的兼容性问题
 - [Gradle 插件] 修正了 `verifyMigrationTask` Gradle 任务的文档 (#4713 由 @joshfriend 贡献)
 - [Gradle 插件] 添加了 Gradle 任务输出消息，以帮助用户在验证数据库之前生成数据库 (#4684 由 @jingwei99 贡献)
-- [PostgreSQL 方言] 修复了多次重命名 PostgreSQL 列的问题 (#4566 由 @griffio 贡献)
+- [PostgreSQL 方院] 修复了多次重命名 PostgreSQL 列的问题 (#4566 由 @griffio 贡献)
 - [PostgreSQL 方言] 修复了 4714 PostgreSQL 修改列为 null 性 (#4831 由 @griffio 贡献)
 - [PostgreSQL 方言] 修复了 4837 修改表修改列 (#4846 由 @griffio 贡献)
 - [PostgreSQL 方言] 修复了 4501 PostgreSql 序列 (#4528 由 @griffio 贡献)
@@ -358,14 +360,14 @@
 ### 已添加
 - [Paging] 多平台 Paging 扩展 (由 @jeffdgr8 贡献)
 - [运行时] 为 `Listener` 接口添加了 `fun` 修饰符。
-- [SQLite 方言] 添加了 SQLite 3.33 支持 (`UPDATE FROM`) (由 @eygraber 贡献))
-- [PostgreSQL 方言] 支持 PostgreSql 中的 `UPDATE FROM` (由 @eygraber 贡献))
+- [SQLite 方言] 添加了 SQLite 3.33 支持 (`UPDATE FROM`) (由 @eygraber 贡献)
+- [PostgreSQL 方言] 支持 PostgreSql 中的 `UPDATE FROM` (由 @eygraber 贡献)
 
 ### 已变更
 - [RDBC 驱动程序] 公开连接 (由 @hfhbd 贡献)
 - [运行时] 将迁移回调移动到主 `migrate` 函数中
 - [Gradle 插件] 对下游项目隐藏配置
-- [Gradle 插件] 仅着色 IntelliJ (由 @hfhbd 贡献)
+- [Gradle 插件] 仅着色 Intellij (由 @hfhbd 贡献)
 - [Gradle 插件] 支持 Kotlin 1.8.0-Beta 并添加了多版本 Kotlin 测试 (由 @hfhbd 贡献)
 
 ### 已修复
@@ -373,7 +375,7 @@
 - [RDBC 驱动程序] 修复了 `bindStatement` 中的基本类型 null 值 (由 @hfhbd 贡献)
 - [RDBC 驱动程序] 支持 R2DBC 1.0 (由 @hfhbd 贡献)
 - [PostgreSQL 方言] Postgres：修复了不带类型形参的数组 (由 @hfhbd 贡献)
-- [IDE 插件] 将 IntelliJ 版本提升至 221.6008.13 (由 @hfhbd 贡献)
+- [IDE 插件] 将 intellij 版本提升至 221.6008.13 (由 @hfhbd 贡献)
 - [编译器] 从纯视图解析递归原始表 (由 @hfhbd 贡献)
 - [编译器] 使用来自表外键子句的值类 (由 @hfhbd 贡献)
 - [编译器] 修复了 `SelectQueryGenerator` 以支持不带圆括号的绑定表达式 (由 @bellatoris 贡献)
@@ -394,7 +396,7 @@
 
 ### 破坏性变更
 
-- Paging 3 扩展 API 已更改，仅允许对计数使用 `Int` 类型。
+- Paging 3 扩展 API 已更改，仅允许对计数使用 `int` 类型。
 - 协程扩展现在要求传入一个调度程序，而不再使用默认值。
 - 方言和驱动程序类现在是 `final` 的，请改用委托。
 
@@ -433,7 +435,7 @@
 - [编译器] 不允许 `ABS("foo")` (#3430 由 @hfhbd 贡献)
 - [编译器] 支持从其他参数推断 Kotlin 类型 (#3431 由 @hfhbd 贡献)
 - [编译器] 始终创建数据库实现 (#3540 由 @hfhbd 贡献)
-- [编译器] 放宽 JavaDoc 并将其也添加到自定义映射器函数中 (#3554 @hfhbd)
+- [编译器] 放宽 JavaDoc 并将其也添加到自定义映射器函数中 (#3554 由 @hfhbd 贡献)
 - [编译器] 修复了绑定中的 `DEFAULT` (由 @hfhbd 贡献)
 - [Paging] 修复了 Paging 3 (#3396)
 - [Paging] 允许使用 `Long` 构造 `OffsetQueryPagingSource` (#3409)
@@ -489,8 +491,8 @@ sqldelight {
 - [Gradle 插件] 支持仅限 JS 的项目 (#3310 由 @hfhbd 贡献)
 - [IDE 插件] 为 Gradle 工具 API 使用 Java Home (#3078)
 - [IDE 插件] 在 IDE 插件内部的正确类加载器上加载 JDBC 驱动程序 (#3080)
-- [IDE 插件] 在失效前将文件元素标记为 `null`，以避免在已有的 PSI 更改期间出错 (#3082)
-- [IDE 插件] 修复了在 `ALTER TABLE` 语句中查找新表名用法时的崩溃问题 (#3106)
+- [IDE 插件] 在失效前将文件元素标记为 `null`，以避免在已有的 PSI 架构更改期间出错 (#3082)
+- [IDE 插件] 不要崩溃查找 `ALTER TABLE` 语句中新表名的用法 (#3106)
 - [IDE 插件] 优化了检查器并使其能够针对预期的异常类型静默失败 (#3121)
 - [IDE 插件] 删除应为生成目录的文件 (#3198)
 - [IDE 插件] 修复了一个非安全的运算符调用
@@ -520,8 +522,8 @@ sqldelight {
 - [编译器] 支持为标记的列生成值类型
 - [编译器] 添加了对乐观锁和验证的支持 (#1952)
 - [编译器] 支持多更新语句
-- [PostgreSQL] 支持 Postgres 返回语句
-- [PostgreSQL] 支持 Postgres 日期类型
+- [PostgreSQL] 支持 postgres 返回语句
+- [PostgreSQL] 支持 postgres 日期类型
 - [PostgreSQL] 支持 Postgres 间隔 (Interval)
 - [PostgreSQL] 支持 Postgres 布尔值并修复了修改表上的插入操作
 - [PostgreSQL] 支持 Postgres 中的可选限制 (Limit)
@@ -644,7 +646,7 @@ sqldelight {
 - [IDE 插件] 在文件解析期间正确脱离主线程，仅在写入时切回
 - [IDE 插件] 改进了与旧版 IntelliJ 版本的兼容性 (由 @3flex 贡献)
 - [IDE 插件] 使用更快的注解 API
-- [Gradle 插件] 添加运行时时显式支持 JS/Android 插件 (由 @ZacSweers 贡献)
+- [Gradle 插件] 添加运行时时显式支持 js/android 插件 (由 @ZacSweers 贡献)
 - [Gradle 插件] 注册迁移输出任务而不从迁移中推导架构 (#2744 由 @kevincianfarini 贡献)
 - [Gradle 插件] 如果迁移任务崩溃，打印崩溃时运行的文件
 - [Gradle 插件] 在生成代码时对文件进行排序以确保输出幂等 (由 @ZacSweers 贡献)
@@ -749,7 +751,7 @@ sqldelight {
 - [JDBC SQLite 驱动程序] 在清除 `ThreadLocal` 之前在连接上调用 `close()` (#2444 由 @hannesstruss 贡献)
 - [RX 扩展] 修复了订阅/销毁竞态泄漏 (#2403 由 @pyricau 贡献)
 - [协程扩展] 确保在通知之前注册查询监听器
-- [编译器] 对 `notifyQueries` 进行排序以获得一致 the Kotlin 输出文件 (由 @thomascjy 贡献)
+- [编译器] 对 `notifyQueries` 进行排序以获得一致的 Kotlin 输出文件 (由 @thomascjy 贡献)
 - [编译器] 不要使用 `@JvmField` 注解选择查询类属性 (由 @eygraber 贡献)
 - [IDE 插件] 修复了导入优化器 (#2350 由 @aperfilyev 贡献)
 - [IDE 插件] 修复了未使用的列检查 (由 @aperfilyev 贡献)

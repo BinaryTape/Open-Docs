@@ -33,6 +33,7 @@ export WEAVE_PROJECT_NAME="koog-tracing"
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
     import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
+    import ai.koog.agents.features.opentelemetry.integration.weave.addWeaveExporter
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
     import kotlinx.coroutines.runBlocking
@@ -70,6 +71,7 @@ See traces on https://wandb.ai/$entity/$projectName/weave/traces")
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
     import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry;
+    import ai.koog.agents.features.opentelemetry.integration.weave.WeaveKt;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import ai.koog.prompt.executor.model.PromptExecutor;
     import java.util.Optional;
@@ -96,10 +98,11 @@ See traces on https://wandb.ai/$entity/$projectName/weave/traces")
             .llmModel(OpenAIModels.Chat.GPT4oMini)
             .systemPrompt("You are a helpful assistant.")
             .install(OpenTelemetry.Feature, config ->
-                config.addWeaveExporter(
-                    null,   // OTel 端点 URL (回退到 WEAVE_URL，默认为 https://trace.wandb.ai)
+                WeaveKt.addWeaveExporter(
+                    config,
+                    null,        // weaveOtelBaseUrl: 回退到 WEAVE_URL，默认为 https://trace.wandb.ai
                     entity,
-                    projectName
+                    projectName  // 其余参数 (apiKey, timeout) 使用默认值
                 )
             )
             .build();

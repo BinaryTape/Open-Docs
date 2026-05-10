@@ -1,22 +1,16 @@
 # 장기 메모리 (Long-term memory)
 
-기능 (실험적)
-
 `LongTermMemory` 기능은 두 가지 독립적인 설정 그룹을 통해 Koog AI 에이전트에 영구 메모리를 추가합니다:
 - **Retrieval (검색)** — 메모리 저장소에서 관련 컨텍스트를 가져와 LLM 프롬프트를 보강합니다 (검색 증강 생성 또는 RAG)
 - **Ingestion (수집)** — 나중에 검색할 수 있도록 대화 메시지를 메모리 저장소에 저장합니다
 
 ## 빠른 시작 (Quick Start)
 
-> **참고:** `LongTermMemory`는 실험적 API입니다. 코드에 `@OptIn(ExperimentalAgentsApi::class)` 어노테이션을 추가하거나 파일 상단에 `@file:OptIn(ExperimentalAgentsApi::class)`를 추가하세요.
-
 === "Kotlin"
 
     ```kotlin
-    @OptIn(ExperimentalAgentsApi::class)
     val myStorage = InMemoryRecordStorage() // 또는 사용 중인 벡터 DB 어댑터
 
-    @OptIn(ExperimentalAgentsApi::class)
     val agent = AIAgent(
         promptExecutor = executor,
         strategy = singleRunStrategy(),
@@ -65,7 +59,6 @@
 === "Kotlin"
 
     ```kotlin
-    @OptIn(ExperimentalAgentsApi::class)
     install(LongTermMemory) {
         retrieval {
             storage = myVectorDbStorage
@@ -96,23 +89,22 @@
 | `UserPromptAugmenter()` | 마지막 사용자 메시지 앞에 별도의 사용자 메시지로 컨텍스트를 삽입합니다 |
 | `PromptAugmenter { prompt, context -> ... }` | 람다를 통한 사용자 정의 보강 |
 
-### 쿼리 추출기 (Query Extractors)
+### 검색 쿼리 제공자 (Search Query Providers)
 
-기본적으로 검색 흐름은 마지막 사용자 메시지를 검색 쿼리로 사용합니다. `QueryExtractor`를 제공하여 이를 사용자 정의할 수 있습니다:
+기본적으로 검색 흐름은 마지막 사용자 메시지를 검색 쿼리로 사용합니다. `SearchQueryProvider`를 제공하여 이를 사용자 정의할 수 있습니다:
 
-| 추출기 | 동작 |
+| 제공자 | 동작 |
 |---|---|
-| `LastUserMessageQueryExtractor()` | 마지막 사용자 메시지의 콘텐츠를 사용합니다 (기본값) |
-| `QueryExtractor { prompt -> ... }` | 람다를 통한 사용자 정의 추출 |
+| `LastUserMessageQueryProvider()` | 마지막 사용자 메시지의 콘텐츠를 사용합니다 (기본값) |
+| `SearchQueryProvider { prompt -> ... }` | 람다를 통한 사용자 정의 쿼리 파생 |
 
 === "Kotlin"
 
     ```kotlin
-    @OptIn(ExperimentalAgentsApi::class)
     install(LongTermMemory) {
         retrieval {
             storage = myStorage
-            queryExtractor = QueryExtractor { prompt ->
+            searchQueryProvider = SearchQueryProvider { prompt ->
                 // 마지막 두 사용자 메시지를 결합하여 검색 쿼리로 사용
                 prompt.messages
                     .filter { it.role == Message.Role.User }
@@ -129,7 +121,7 @@
     ```java
     var retrievalSettings = new LongTermMemory.RetrievalSettingsBuilder()
         .withStorage(myStorage)
-        .withQueryExtractor(prompt -> {
+        .withSearchQueryProvider(prompt -> {
             var userMessages = prompt.getMessages().stream()
                 .filter(m -> m.getRole() == Message.Role.User)
                 .toList();
@@ -153,15 +145,13 @@
 === "Kotlin"
 
     ```kotlin
-    @OptIn(ExperimentalAgentsApi::class)
     install(LongTermMemory) {
         ingestion {
             storage = myVectorDbStorage
             namespace = "my-collection"  // 선택 사항: 특정 네임스페이스/컬렉션으로 범위를 제한
-            extractionStrategy = FilteringExtractionStrategy(
+            documentExtractor = MessagePassingDocumentExtractor(
                 messageRolesToExtract = setOf(Message.Role.User, Message.Role.Assistant)
             )
-            timing = IngestionTiming.ON_LLM_CALL
         }
     }
     ```
@@ -171,32 +161,24 @@
     ```java
     var ingestionSettings = new LongTermMemory.IngestionSettingsBuilder()
         .withStorage(myVectorDbStorage)
-        .withExtractionStrategy(
-            ExtractionStrategy.builder()
+        .withDocumentExtractor(
+            DocumentExtractor.builder()
                 .filtering()
                 .withExtractRoles(new HashSet<>(Arrays.asList(Message.Role.User, Message.Role.Assistant)))
-                .withLastMessageOnly(false)
                 .build()
         )
-        .withTiming(IngestionTiming.ON_LLM_CALL)
         .build();
     ```
 
-### 수집 시점 (Ingestion Timing)
-
-| 시점 | 동작 |
-|---|---|
-| `ON_LLM_CALL` | 각 LLM 호출이 시작되기 전에 프롬프트 메시지를 수집하고, 완료 또는 스트림 완료 후에 어시스턴트 출력을 수집합니다. 세션 내 RAG를 가능하게 합니다. |
-| `ON_AGENT_COMPLETION` | 에이전트 실행이 완료될 때 최종 누적된 세션 프롬프트/히스토리를 한꺼번에 수집합니다. |
+수집은 에이전트 실행이 완료될 때 한 번 실행됩니다: 최종 누적된 세션 프롬프트/기록이 단일 배치로 설정된 `documentExtractor`에 전달됩니다.
 
 ## 자동 동작 비활성화 (Disabling Automatic Behavior)
 
-기본적으로 검색과 수집은 자동으로 실행됩니다 (각각 LLM 호출 전후). 자동 동작을 비활성화하면서도 전략 노드 내부에서 설정된 저장소 및 전략에 액세스할 수 있습니다:
+기본적으로 검색과 수집은 자동으로 실행됩니다 (검색은 각 LLM 호출 전에 실행되고, 수집은 에이전트가 완료될 때 한 번 실행됩니다). 자동 동작을 비활성화하면서도 전략 노드 내부에서 설정된 저장소 및 전략에 액세스할 수 있습니다:
 
 === "Kotlin"
 
     ```kotlin
-    @OptIn(ExperimentalAgentsApi::class)
     install(LongTermMemory) {
         retrieval {
             storage = myStorage
@@ -237,7 +219,6 @@
 전략 노드 내부에서 `withLongTermMemory { }`를 사용하여 직접 검색하거나 레코드를 추가할 수 있습니다:
 
 ```kotlin
-@OptIn(ExperimentalAgentsApi::class)
 val myNode by node<String, Unit> {
     withLongTermMemory {
         // 수동으로 레코드 추가
@@ -254,20 +235,18 @@ val myNode by node<String, Unit> {
 `longTermMemory()`를 사용하여 기능 인스턴스를 직접 가져올 수 있습니다:
 
 ```kotlin
-@OptIn(ExperimentalAgentsApi::class)
 val myNode by node<String, Unit> {
     val memory = longTermMemory()
     val storage = memory.ingestionStorage
 }
 ```
 
-## 사용자 정의 추출 전략 (Custom Extraction Strategy)
+## 사용자 정의 문서 추출기 (Custom Document Extractor)
 
-`ExtractionStrategy`를 구현하여 저장 전에 메시지가 변환되는 방식을 제어할 수 있습니다:
+`DocumentExtractor`를 구현하여 저장 전에 메시지가 변환되는 방식을 제어할 수 있습니다:
 
 ```kotlin
-@OptIn(ExperimentalAgentsApi::class)
-val summarizingExtractor = ExtractionStrategy { messages ->
+val summarizingExtractor = DocumentExtractor { messages ->
     messages
         .filter { it.role == Message.Role.Assistant }
         .map { MemoryRecord(content = summarize(it.content)) }
@@ -276,7 +255,7 @@ val summarizingExtractor = ExtractionStrategy { messages ->
 install(LongTermMemory) {
     ingestion {
         storage = myStorage
-        extractionStrategy = summarizingExtractor
+        documentExtractor = summarizingExtractor
     }
 }
 ```
@@ -295,10 +274,10 @@ class MyVectorDbStorage : SearchStorage<TextDocument, SearchRequest>, WriteStora
 
     override suspend fun add(
         records: List<TextDocument>, namespace: String?
-    ) {
-        // 벡터 DB에 데이터 삽입/업데이트(Upsert)
+    ): List<String> {
+        // 벡터 DB에 데이터 삽입/업데이트(Upsert)하고 추가된 레코드의 ID를 반환합니다.
     }
 }
 ```
 
-테스트를 위해서는 레코드를 메모리에 보관하는 기본 제공 `InMemoryRecordStorage`를 사용하십시오. 이는 `KeywordSearchRequest`와 `SimilaritySearchRequest`를 모두 지원하지만, 두 가지 모두 단순한 대소문자 구분 없는 부분 문자열 매칭으로 구현되어 있습니다 (벡터 임베딩 없음).
+테스트를 위해서는 레코드를 메모리에 보관하는 기본 제공 `InMemoryRecordStorage`를 사용하십시오. 이는 `KeywordSearchRequest`(대소문자 구분 없는 부분 문자열 매칭으로 구현됨)와 `SimilaritySearchRequest`(대소문자 구분 없는 단어 집합에 대한 자카드 계수(Jaccard coefficient)로 구현됨)를 모두 지원하며, 벡터 임베딩은 사용되지 않습니다.

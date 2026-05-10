@@ -12,10 +12,10 @@
 </p>
 <p>
 <b>代码示例</b>：
-<a href="https://github.com/ktorio/ktor-documentation/tree/codeSnippets/snippets/openapi-spec-gen">
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/openapi-spec-gen">
     openapi-spec-gen
 </a>,
-<a href="https://github.com/ktorio/ktor-documentation/tree/codeSnippets/snippets/openapi-spec-gen-maven">
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/openapi-spec-gen-maven">
     openapi-spec-gen-maven
 </a>
 </p>
@@ -58,7 +58,7 @@ Ktor 支持在运行时从一个或多个文档源构建 OpenAPI 规范。
     </TabItem>
     <TabItem title="Maven" group-key="maven" id="add-ktor-plugin-maven">
 
-    与 Gradle 不同， Maven 不提供对 Ktor 编译器插件的内置集成。要启用 OpenAPI 规范生成，您需要手动配置编译器插件。
+    与 Gradle 不同，Maven 不提供对 Ktor 编译器插件的内置集成。要启用 OpenAPI 规范生成，您需要手动配置编译器插件。
 
     1. 应用 Ktor Maven 插件（运行和打包应用程序所需）：
        ```xml
