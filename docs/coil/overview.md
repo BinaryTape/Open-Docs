@@ -1,4 +1,4 @@
-![Coil](logo.svg)
+<img src="/coil/coil_logo_colored.svg" alt="Coil"/>
 
 一个适用于 [Android](https://www.android.com/) 和 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 的图片加载库。Coil 具有以下特点：
 

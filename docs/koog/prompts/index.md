@@ -177,10 +177,10 @@ Koog 允许您在运行 prompt 时优化性能并处理失败。
 ```mermaid
 flowchart TB
     A([您的应用程序])
-    B{{配置的 AI 智能体}}
+    B[[配置的 AI 智能体]]
     C["文本 prompt"]
     D["Prompt 对象"]
-    E{{Prompt 执行器}}
+    E[[Prompt 执行器]]
     F[LLM 提供商]
 
     A -->|"使用文本运行 run()"| B

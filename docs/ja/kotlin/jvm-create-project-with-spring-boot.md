@@ -173,23 +173,17 @@ fun main(args: Array<String>) {
       <p>Kotlinでは、クラスにメンバー（プロパティや関数）が含まれていない場合、クラス本体（<code>{}</code>）を省略できます。</p>
    </def>
    <def title="@SpringBootApplication アノテーション">
-      <p><a href="https://docs.spring.io/spring-boot/reference/using/using-the-springbootapplication-annotation.html#using.using-the-springbootapplication-annotation"><code>@SpringBootApplication</code> アノテーション</a> は、Spring Bootアプリケーションにおける便利なアノテーションです。
-      これにより、Spring Bootの <a href="https://docs.spring.io/spring-boot/reference/using/auto-configuration.html#using.auto-configuration">自動設定（auto-configuration）</a>、<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/ComponentScan.html">コンポーネントスキャン</a> が有効になり、"アプリケーションクラス"上で追加の設定を定義できるようになります。
-      </p>
+      <p><a href="https://docs.spring.io/spring-boot/reference/using/using-the-springbootapplication-annotation.html#using.using-the-springbootapplication-annotation"><code>@SpringBootApplication</code> アノテーション</a> は、Spring Bootアプリケーションにおける便利なアノテーションです。これにより、Spring Bootの <a href="https://docs.spring.io/spring-boot/reference/using/auto-configuration.html#using.auto-configuration">自動設定（auto-configuration）</a>、<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/ComponentScan.html">コンポーネントスキャン</a> が有効になり、"アプリケーションクラス"上で追加の設定を定義できるようになります。</p>
    </def>
    <def title="プログラムの開始点 – main()">
       <p><a href="basic-syntax.md#program-entry-point"><code>main()</code></a> 関数は、アプリケーションの開始点（エントリーポイント）です。</p>
-      <p>これは <code>DemoApplication</code> クラスの外側で <a href="functions.md#function-scope">トップレベル関数</a> として宣言されています。<code>main()</code> 関数はSpringの <code>runApplication(*args)</code> 関数を呼び出し、Spring Frameworkでアプリケーションを開始します。</p>
+      <p>これは <code>DemoApplication</code> クラスの外側で <a href="functions.md#function-scope">トップレベル関数</a> として宣言されています。<code>main()</code> 関数はSpringの <code>runApplication(&#42;args)</code> 関数を呼び出し、Spring Frameworkでアプリケーションを開始します。</p>
    </def>
    <def title="可変長引数 – args: Array&lt;String&gt;">
-      <p><code>runApplication()</code> 関数の宣言を確認すると、関数のパラメータに <a href="functions.md#variable-number-of-arguments-varargs"><code>vararg</code> 修飾子</a> が付いていることがわかります（<code>vararg args: String</code>）。
-        これは、関数に可変個のString引数を渡せることを意味します。
-      </p>
+      <p><code>runApplication()</code> 関数の宣言を確認すると、関数のパラメータに <a href="functions.md#variable-number-of-arguments-varargs"><code>vararg</code> 修飾子</a> が付いていることがわかります（<code>vararg args: String</code>）。これは、関数に可変個のString引数を渡せることを意味します。</p>
    </def>
    <def title="スプレッド演算子 – (*args)">
-      <p><code>args</code> は、文字列の配列として宣言された <code>main()</code> 関数のパラメータです。
-        文字列の配列があり、その内容を関数に渡したい場合は、スプレッド演算子（配列の前にアスタリスク <code>*</code> を付ける）を使用します。
-      </p>
+      <p><code>args</code> は、文字列の配列として宣言された <code>main()</code> 関数のパラメータです。文字列の配列があり、その内容を関数に渡したい場合は、スプレッド演算子（配列の前にアスタリスク <code>&#42;</code> を付ける）を使用します。</p>
    </def>
 </deflist>
 

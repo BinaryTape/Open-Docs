@@ -179,7 +179,7 @@ fun main(args: Array<String>) {
    </def>
    <def title="프로그램 진입점 – main()">
       <p><a href="basic-syntax.md#program-entry-point"><code>main()</code></a> 함수는 애플리케이션의 진입점입니다.</p>
-      <p>이 함수는 <code>DemoApplication</code> 클래스 외부의 <a href="functions.md#function-scope">최상위 함수(top-level function)</a>로 선언되었습니다. <code>main()</code> 함수는 Spring의 <code>runApplication(*args)</code> 함수를 호출하여 Spring Framework로 애플리케이션을 시작합니다.</p>
+      <p>이 함수는 <code>DemoApplication</code> 클래스 외부의 <a href="functions.md#function-scope">최상위 함수(top-level function)</a>로 선언되었습니다. <code>main()</code> 함수는 Spring의 <code>runApplication(&#42;args)</code> 함수를 호출하여 Spring Framework로 애플리케이션을 시작합니다.</p>
    </def>
    <def title="가변 인자 – args: Array&lt;String&gt;">
       <p><code>runApplication()</code> 함수의 선언을 확인해 보면, 함수의 파라미터가 <a href="functions.md#variable-number-of-arguments-varargs"><code>vararg</code> 변경자</a>로 표시된 것을 볼 수 있습니다: <code>vararg args: String</code>.
@@ -188,7 +188,7 @@ fun main(args: Array<String>) {
    </def>
    <def title="스프레드 연산자 – (*args)">
       <p><code>args</code>는 <code>main()</code> 함수의 파라미터로, String 배열로 선언되어 있습니다.
-        이 String 배열의 내용을 함수에 전달하고 싶으므로, 스프레드(spread) 연산자(배열 앞에 별표 <code>*</code> 기호)를 사용합니다.
+        이 String 배열의 내용을 함수에 전달하고 싶으므로, 스프레드(spread) 연산자(배열 앞에 별표 <code>&#42;</code> 기호)를 사용합니다.
       </p>
    </def>
 </deflist>

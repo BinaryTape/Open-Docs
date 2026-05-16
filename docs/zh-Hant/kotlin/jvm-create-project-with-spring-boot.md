@@ -177,13 +177,13 @@ fun main(args: Array<String>) {
    </def>
    <def title="程式進入點 – main()">
       <p><a href="basic-syntax.md#program-entry-point"><code>main()</code></a> 函式是應用程式的進入點。</p>
-      <p>它被宣告為 <code>DemoApplication</code> 類別之外的 <a href="functions.md#function-scope">頂層函式</a>。<code>main()</code> 函式會調用 Spring 的 <code>runApplication(*args)</code> 函式，以透過 Spring Framework 啟動應用程式。</p>
+      <p>它被宣告為 <code>DemoApplication</code> 類別之外的 <a href="functions.md#function-scope">頂層函式</a>。<code>main()</code> 函式會調用 Spring 的 <code>runApplication(&#42;args)</code> 函式，以透過 Spring Framework 啟動應用程式。</p>
    </def>
    <def title="可變參數 – args: Array&lt;String&gt;">
       <p>如果您查看 <code>runApplication()</code> 函式的宣告，會發現該函式的參數標有 <a href="functions.md#variable-number-of-arguments-varargs"><code>vararg</code> 修飾詞</a>：<code>vararg args: String</code>。這意味著您可以向該函式傳遞可變數量的字串引數。</p>
    </def>
    <def title="展開運算子 – (*args)">
-      <p><code>args</code> 是 <code>main()</code> 函式的參數，宣告為字串陣列。由於這是一個字串陣列，而您希望將其內容傳遞給函式，請使用展開運算子（在陣列前加上星號 <code>*</code>）。</p>
+      <p><code>args</code> 是 <code>main()</code> 函式的參數，宣告為字串陣列。由於這是一個字串陣列，而您希望將其內容傳遞給函式，請使用展開運算子（在陣列前加上星號 <code>&#42;</code>）。</p>
    </def>
 </deflist>
 
