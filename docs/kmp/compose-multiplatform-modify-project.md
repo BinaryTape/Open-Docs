@@ -26,10 +26,17 @@
 
 要使用 `kotlinx-datetime` 库：
 
-1. 打开 `composeApp/build.gradle.kts` 文件并将依赖项添加到项目中：
+1. 打开 `gradle/libs.versions.toml` 文件并将 `kotlinx-datetime` 依赖项添加到版本编目中：
 
-    * 将主要的 `kotlinx-datetime` 依赖项添加到配置公共代码源集的路径中。为了简单起见，你可以直接包含版本号，而不是将其添加到版本编目中。
-    * 对于 Web 目标，时区支持需要 `js-joda` 库。在 `webMain` 依赖项中添加对 `js-joda` npm 软件包的引用。
+    ```text
+    [versions]
+    kotlinx-datetime = "0.8.0"
+    
+    [libraries]
+    kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
+    ```
+
+2. 打开 `shared/build.gradle.kts` 文件，并在配置公共代码源集的区域添加对该库条目的引用：
       
     ```kotlin
     kotlin {
@@ -38,27 +45,39 @@
             // ...
             commonMain.dependencies {
                 // ...
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:%dateTimeVersion%")
-            }
-            webMain.dependencies {
-                implementation(npm("@js-joda/timezone", "2.22.0"))
+                implementation(libs.kotlinx.datetime)
             }
         }
     }
     
     ```
-    
-2. 添加依赖项后，系统会提示你重新同步项目。点击 **Sync Gradle Changes** 按钮以同步 Gradle 文件：![同步 Gradle 文件](gradle-sync.png){width=50}
+3. 对于 Web 目标，时区支持需要 `js-joda` 库。在 `webApp/build.gradle.kts` 文件中添加对 `js-joda` npm 软件包的引用：
 
-3. 在 **Terminal** 工具窗口中，运行以下命令：
+    ```kotlin
+    kotlin {
+        // ...
+        sourceSets {
+            // ...
+            commonMain.dependencies {
+                // ...
+                implementation(npm("@js-joda/timezone", "2.25.1"))
+            }
+        }
+    }
+    
+    ```
+
+    将依赖项添加到 `webMain` 源集会使该库对 `wasmJs` 和 `js` 目标均可用。
+
+4. 添加依赖项后，接受 IDE 的建议以同步 Gradle 配置，或按两次 **Shift** 键并执行 **Sync Project with Gradle Files** 命令。
+
+5. 在 **Terminal** 工具窗口中，运行以下命令以确保 `yarn.lock` 文件已更新为最新的依赖项版本：
 
     ```shell
     ./gradlew kotlinUpgradeYarnLock kotlinWasmUpgradeYarnLock
     ```
-
-   此 Gradle 任务可确保 `yarn.lock` 文件更新为最新的依赖项版本。
  
-4. 在 `webMain` 源集中，使用 `@JsModule` 注解导入 `js-joda` npm 软件包： 
+6. 在 `webApp/src/webMain/kotlin/.../main.kt` 文件中，使用 `@JsModule` 注解导入 `js-joda` npm 软件包： 
 
     ```kotlin
     import androidx.compose.ui.ExperimentalComposeUiApi
@@ -81,9 +100,13 @@
     ```
    {initial-collapse-state="collapsed" collapsible="true" collapsed-title='@JsModule("@js-joda/timezone")'}
 
+> 将项目提交到版本控制时，请包含在 `kotlin-js-store` 目录中生成的 `yarn.lock` 文件。这有助于确保在任何构建项目的地方都使用相同版本的 JavaScript 依赖项。
+> 
+{style="note"}
+
 ## 改进用户界面
 
-1. 打开 `composeApp/src/commonMain/kotlin/App.kt` 文件并添加以下函数，该函数返回一个包含当前日期的字符串：
+1. 打开 `shared/src/commonMain/kotlin/App.kt` 文件，在 `App()` 可组合项之后添加以下函数，该函数返回一个包含当前日期的字符串：
 
    ```kotlin
    fun todaysDate(): String {
@@ -94,7 +117,9 @@
        return now.toLocalDateTime(zone).format()
    }
    ```
-2. 添加 IDE 建议的导入。确保从 `kotlin.time` 导入 `Clock` 类，**而不是** `kotlinx.datetime`。 
+2. 添加 IDE 建议的导入。
+   
+   确保从 `kotlin.time` 导入 `Clock` 类，而**不是** `kotlinx.datetime`。 
 3. 在同一文件中，修改 `App()` 可组合项以包含调用此函数并显示结果的 `Text()` 可组合项：
    
     ```kotlin
@@ -130,23 +155,23 @@
     }
     ```
 
-4. 按照 IDE 的建议导入缺失的依赖项。确保从更新的软件包中导入 `todaysDate()` 函数的所有缺失依赖项，并在 IDE 提示时启用 (opt in) 相应功能。
+4. 按照 IDE 的建议导入缺失的依赖项。
 
    ![未解析的引用](compose-unresolved-references.png)
 
 ## 重新运行应用程序
 
-你现在可以针对 Android、iOS、桌面和 Web 使用相同的运行配置[重新运行应用程序](compose-multiplatform-create-first-app.md#run-your-application)：
+你现在可以使用相同的运行配置针对 Android、iOS、桌面和 Web [重新运行应用程序](compose-multiplatform-create-first-app.md#run-your-application)：
 
 <Tabs>
     <TabItem id="mobile-app" title="Android 和 iOS">
         <img src="first-compose-project-on-android-ios-2.png" alt="Android 和 iOS 上的第一个 Compose Multiplatform 应用" width="500"/>
     </TabItem>
     <TabItem id="desktop-app" title="桌面">
-        <img src="first-compose-project-on-desktop-2.png" alt="桌面上的第一个 Compose Multiplatform 应用" width="400"/>
+        <img src="first-compose-project-on-desktop-2.png" alt="桌面上的第一个 Compose Multiplatform 应用" width="600"/>
     </TabItem>
     <TabItem id="web-app" title="Web">
-        <img src="first-compose-project-on-web-2.png" alt="Web 上的第一个 Compose Multiplatform 应用" width="400"/>
+        <img src="first-compose-project-on-web-2.png" alt="Web 上的第一个 Compose Multiplatform 应用" width="600"/>
     </TabItem>
 </Tabs>
 

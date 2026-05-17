@@ -51,13 +51,14 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.builder.subgraph
-    import ai.koog.agents.core.dsl.extension.nodeExecuteTool
+    import ai.koog.agents.core.dsl.extension.asUserMessage
+    import ai.koog.agents.core.dsl.extension.nodeExecuteToolsAndGetResults
     import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
     import ai.koog.agents.core.dsl.extension.nodeLLMRequest
-    import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
-    import ai.koog.agents.core.dsl.extension.onAssistantMessage
-    import ai.koog.agents.core.dsl.extension.onToolCall
-    import ai.koog.agents.core.environment.ReceivedToolResult
+    import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResults
+    import ai.koog.agents.core.dsl.extension.onTextMessage
+    import ai.koog.agents.core.dsl.extension.onToolCalls
+    import ai.koog.agents.core.dsl.extension.ReceivedToolResults
     -->
     ```kotlin
     // メッセージ数が100件を超えている場合に履歴が長すぎると定義する
@@ -65,15 +66,15 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     
     val strategy = strategy<String, String>("execute-with-history-compression") {
         val callLLM by nodeLLMRequest()
-        val executeTool by nodeExecuteTool()
-        val sendToolResult by nodeLLMSendToolResult()
+        val executeTool by nodeExecuteToolsAndGetResults()
+        val sendToolResult by nodeLLMSendToolResults()
     
-        // LLMの履歴を圧縮し、現在のReceivedToolResultを次のノードのために保持する
-        val compressHistory by nodeLLMCompressHistory<ReceivedToolResult>()
+        // LLMの履歴を圧縮し、現在のReceivedToolResultsを次のノードのために保持する
+        val compressHistory by nodeLLMCompressHistory<ReceivedToolResults>()
     
-        edge(nodeStart forwardTo callLLM)
-        edge(callLLM forwardTo nodeFinish onAssistantMessage { true })
-        edge(callLLM forwardTo executeTool onToolCall { true })
+        edge(nodeStart forwardTo callLLM asUserMessage { it })
+        edge(callLLM forwardTo nodeFinish onTextMessage { true })
+        edge(callLLM forwardTo executeTool onToolCalls { true })
     
         // 履歴が長すぎる場合、ツールの実行後に履歴を圧縮する 
         edge(executeTool forwardTo compressHistory onCondition { historyIsTooLong() })
@@ -81,8 +82,8 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
         // そうでない場合は、次のLLMリクエストに進む
         edge(executeTool forwardTo sendToolResult onCondition { !historyIsTooLong() })
     
-        edge(sendToolResult forwardTo executeTool onToolCall { true })
-        edge(sendToolResult forwardTo nodeFinish onAssistantMessage { true })
+        edge(sendToolResult forwardTo executeTool onToolCalls { true })
+        edge(sendToolResult forwardTo nodeFinish onTextMessage { true })
     }
     ```
     <!--- KNIT example-history-compression-01.kt -->
@@ -93,7 +94,6 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     import ai.koog.agents.core.agent.entity.AIAgentEdge;
     import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
     import ai.koog.agents.core.agent.entity.AIAgentNode;
-    import ai.koog.agents.core.environment.ReceivedToolResult;
     import ai.koog.prompt.message.Message;
     class exampleHistoryCompressionJava01 {
         public static void main(String[] args) {
@@ -107,39 +107,42 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
         .withInput(String.class)
         .withOutput(String.class);
 
-    var callLLM = AIAgentNode.llmRequest();
-    var executeTool = AIAgentNode.executeTool();
-    var sendToolResult = AIAgentNode.llmSendToolResult();
+    var callLLM = AIAgentNode.llmRequest(null);
+    var executeTool = AIAgentNode.executeTools(null);
+    var sendToolResult = AIAgentNode.llmRequest("sendToolResult");
 
-    // LLMの履歴を圧縮し、現在のReceivedToolResultを次のノードのために保持する
+    // LLMの履歴を圧縮する。保持された Message.User が次のノードに流れる。
     var compressHistory = AIAgentNode
         .llmCompressHistory("compressHistory")
-        .withInput(ReceivedToolResult.class)
+        .withInput(Message.User.class)
         .build();
 
     // startからcallLLMへのエッジ
-    graph.edge(graph.nodeStart, callLLM);
+    graph.edge(AIAgentEdge.builder()
+        .from(graph.nodeStart)
+        .to(callLLM)
+        .asUserMessage(s -> s)
+        .build());
 
-    // アシスタントメッセージ時にcallLLMからfinishへのエッジ
+    // テキスト応答時にcallLLMからfinishへのエッジ
     graph.edge(AIAgentEdge.builder()
         .from(callLLM)
         .to(graph.nodeFinish)
-        .onIsInstance(Message.Assistant.class)
-        .transformed(Message.Assistant::getContent)
+        .onTextMessage()
         .build());
 
     // ツール呼び出し時にcallLLMからexecuteToolへのエッジ
     graph.edge(AIAgentEdge.builder()
         .from(callLLM)
         .to(executeTool)
-        .onIsInstance(Message.Tool.Call.class)
+        .onToolCalls(call -> true)
         .build());
 
     // 履歴が長すぎる場合、ツールの実行後に履歴を圧縮する
     graph.edge(AIAgentEdge.builder()
         .from(executeTool)
         .to(compressHistory)
-        .onCondition((toolResult, ctx) ->
+        .onCondition((message, ctx) ->
             ctx.getLlm().readSession(session ->
                 session.getPrompt().getMessages().size() > 100
             )
@@ -152,7 +155,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     graph.edge(AIAgentEdge.builder()
         .from(executeTool)
         .to(sendToolResult)
-        .onCondition((toolResult, ctx) ->
+        .onCondition((message, ctx) ->
             ctx.getLlm().readSession(session ->
                 session.getPrompt().getMessages().size() <= 100
             )
@@ -163,15 +166,14 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     graph.edge(AIAgentEdge.builder()
         .from(sendToolResult)
         .to(executeTool)
-        .onIsInstance(Message.Tool.Call.class)
+        .onToolCalls(call -> true)
         .build());
 
-    // アシスタントメッセージ時にsendToolResultからfinishへのエッジ
+    // テキスト応答時にsendToolResultからfinishへのエッジ
     graph.edge(AIAgentEdge.builder()
         .from(sendToolResult)
         .to(graph.nodeFinish)
-        .onIsInstance(Message.Assistant.class)
-        .transformed(Message.Assistant::getContent)
+        .onTextMessage()
         .build());
     ```
     <!--- KNIT exampleHistoryCompressionJava01.java -->
@@ -645,7 +647,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     ```
     <!--- KNIT exampleHistoryCompressionJava08.java -->
 
-### RetrieveFactsFromHistory
+### FactRetrievalHistoryCompressionStrategy
 
 この戦略は、履歴の中から提供されたコンセプトのリストに関連する特定の事実を検索して抽出します。
 履歴全体をこれらの事実のみに変更し、将来のLLMリクエストのためのコンテキストとして残します。
@@ -662,9 +664,9 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.builder.subgraph
     import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
-    import ai.koog.agents.memory.feature.history.RetrieveFactsFromHistory
-    import ai.koog.agents.memory.model.Concept
-    import ai.koog.agents.memory.model.FactType
+    import ai.koog.agents.core.dsl.extension.FactRetrievalHistoryCompressionStrategy
+    import ai.koog.agents.core.dsl.extension.Concept
+    import ai.koog.agents.core.dsl.extension.FactType
     typealias ProcessedInput = String
     val strategy = strategy<String, String>("strategy_name") {
     val node by node<Unit, Unit> {
@@ -675,7 +677,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     -->
     ```kotlin
     val compressHistory by nodeLLMCompressHistory<ProcessedInput>(
-        strategy = RetrieveFactsFromHistory(
+        strategy = FactRetrievalHistoryCompressionStrategy(
             Concept(
                 keyword = "user_preferences",
                 // LLMへの説明 -- 具体的に何を検索するか
@@ -708,9 +710,9 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
     import ai.koog.agents.core.agent.entity.AIAgentNode;
     import ai.koog.agents.core.environment.ReceivedToolResult;
-    import ai.koog.agents.memory.feature.history.RetrieveFactsFromHistory;
-    import ai.koog.agents.memory.model.Concept;
-    import ai.koog.agents.memory.model.FactType;
+    import ai.koog.agents.core.dsl.extension.FactRetrievalHistoryCompressionStrategy;
+    import ai.koog.agents.core.dsl.extension.Concept;
+    import ai.koog.agents.core.dsl.extension.FactType;
     class exampleHistoryCompressionJava06 {
     public static void main(String[] args) {
         var graph = AIAgentGraphStrategy.builder("execute-with-history-compression")
@@ -722,11 +724,11 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     }
     -->
     ```java
-    // RetrieveFactsFromHistory戦略を使用して特定の事実を抽出する
+    // FactRetrievalHistoryCompressionStrategy戦略を使用して特定の事実を抽出する
     var compressHistory = AIAgentNode
         .llmCompressHistory("compressHistory")
         .withInput(ReceivedToolResult.class)
-        .compressionStrategy(new RetrieveFactsFromHistory(
+        .compressionStrategy(new FactRetrievalHistoryCompressionStrategy(
             new Concept(
                 "user_preferences",
                 "User's preferences for the recommendation system, including the preferred conversation style, theme in the application, etc.",
@@ -758,9 +760,9 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.builder.subgraph
-    import ai.koog.agents.memory.feature.history.RetrieveFactsFromHistory
-    import ai.koog.agents.memory.model.Concept
-    import ai.koog.agents.memory.model.FactType
+    import ai.koog.agents.core.dsl.extension.FactRetrievalHistoryCompressionStrategy
+    import ai.koog.agents.core.dsl.extension.Concept
+    import ai.koog.agents.core.dsl.extension.FactType
     typealias ProcessedInput = String
     val strategy = strategy<String, String>("strategy_name") {
     val node by node<Unit, Unit> {
@@ -772,7 +774,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     ```kotlin
     llm.writeSession {
         replaceHistoryWithTLDR(
-            strategy = RetrieveFactsFromHistory(
+            strategy = FactRetrievalHistoryCompressionStrategy(
                 Concept(
                     keyword = "user_preferences", 
                     // LLMへの説明 -- 具体的に何を検索するか
@@ -807,9 +809,9 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     import ai.koog.agents.core.agent.entity.AIAgentNode;
     import ai.koog.agents.core.agent.entity.AIAgentSubgraph;
     import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy;
-    import ai.koog.agents.memory.feature.history.RetrieveFactsFromHistory;
-    import ai.koog.agents.memory.model.Concept;
-    import ai.koog.agents.memory.model.FactType;
+    import ai.koog.agents.core.dsl.extension.FactRetrievalHistoryCompressionStrategy;
+    import ai.koog.agents.core.dsl.extension.Concept;
+    import ai.koog.agents.core.dsl.extension.FactType;
     class exampleHistoryCompressionJava11 {
         public static void main(String[] args) {
             var graph = AIAgentGraphStrategy.builder("execute-with-history-compression")
@@ -829,7 +831,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     -->
     ```java
     ctx.getLlm().writeSession(session -> {
-        session.replaceHistoryWithTLDR(new RetrieveFactsFromHistory(
+        session.replaceHistoryWithTLDR(new FactRetrievalHistoryCompressionStrategy(
                 new Concept(
                     "user_preferences", 
                     // LLMへの説明 -- 具体的に何を検索するか
@@ -872,6 +874,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     import ai.koog.agents.core.agent.session.AIAgentLLMWriteSession
     import ai.koog.agents.core.dsl.extension.HistoryCompressionStrategy
     import ai.koog.prompt.message.Message
+    import ai.koog.prompt.message.MessagePart
     -->
     ```kotlin
     class MyCustomCompressionStrategy : HistoryCompressionStrategy() {
@@ -887,10 +890,12 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
             val originalMessages = llmSession.prompt.messages
             
             // 実装例：
-            val importantMessages = llmSession.prompt.messages.filter {
-                // カスタムのフィルタリングロジック
-                it.content.contains("important")
-            }.filterIsInstance<Message.Response>()
+            val importantMessages = llmSession.prompt.messages
+                .filterIsInstance<Message.Assistant>()
+                .filter { message ->
+                    // カスタムのフィルタリングロジック
+                    message.parts.filterIsInstance<MessagePart.Text>().any { it.text.contains("important") }
+                }
             
             // 注：`llmSession` を使用してLLMリクエストを行い、LLMに作業を依頼することもできます（例：`llmSession.requestLLMWithoutTools()`）
             // または、現在のモデルを変更することも可能です：`llmSession.model = AnthropicModels.Opus_4_6` として別のLLMモデルに依頼する。ただし、後で戻すのを忘れないでください。

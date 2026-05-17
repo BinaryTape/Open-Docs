@@ -280,7 +280,7 @@ iOS の場合、Swift コードで着信 URI を処理する `application()` バ
 
 ```swift
 // シングルトンにアクセスするために KMP モジュールをインポート
-import ComposeApp
+import SharedUI
 
 func application(
     _ application: UIApplication,

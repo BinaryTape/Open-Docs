@@ -1,7 +1,7 @@
 # 功能型代理 (Functional agents)
 
 使用功能型代理 (functional agents) 時，您將邏輯實作為一個函式，用於處理使用者輸入、與 LLM 互動、在必要時呼叫工具並產生最終輸出。
-與 [圖形化代理 (graph-based agents)](graph-based-agents.md) 相比，這通常意者更快的原型製作 (prototyping)，但具有以下缺點：
+與 [圖形化代理 (graph-based agents)](graph-based-agents.md) 相比，這通常意味著更快的原型製作 (prototyping)，但具有以下缺點：
 
 - 不易視覺化
 - 無狀態持久化 (state persistence)
@@ -30,6 +30,7 @@
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
     import ai.koog.agents.core.agent.functionalStrategy
+    import ai.koog.prompt.message.MessagePart
     import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
     import ai.koog.prompt.executor.ollama.client.OllamaModels
     import kotlinx.coroutines.runBlocking
@@ -37,7 +38,8 @@
     ```kotlin
     val strategy = functionalStrategy<String, String> { input ->
         val response = requestLLM(input)
-        response.asAssistantMessage().content
+        response.parts.filterIsInstance<MessagePart.Text>().joinToString("
+") { it.text }
     }
 
     val mathAgent = AIAgent(
@@ -94,15 +96,21 @@ The answer to 12 × 9 is 108.
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.functionalStrategy
+    import ai.koog.prompt.message.Message
+    import ai.koog.prompt.message.MessagePart
     -->
     ```kotlin
+    fun Message.Assistant.text(): String =
+        parts.filterIsInstance<MessagePart.Text>().joinToString("
+") { it.text }
+
     val strategy = functionalStrategy<String, String> { input ->
         // 第一次 LLM 呼叫根據使用者輸入產生初步草案
-        val draft = requestLLM("Draft: $input").asAssistantMessage().content
+        val draft = requestLLM("Draft: $input").text()
         // 第二次 LLM 呼叫改進初步草案
-        val improved = requestLLM("Improve and clarify.").asAssistantMessage().content
+        val improved = requestLLM("Improve and clarify.").text()
         // 最後一次 LLM 呼叫將改進後的文字格式化並傳回結果
-        requestLLM("Format the result as bold.").asAssistantMessage().content
+        requestLLM("Format the result as bold.").text()
     }
     ```
     <!--- KNIT example-functional-agent-02.kt -->
@@ -174,6 +182,7 @@ To calculate the product of 12 and 9, we multiply these two numbers together.
     import ai.koog.agents.core.tools.annotations.LLMDescription
     import ai.koog.agents.core.tools.annotations.Tool
     import ai.koog.agents.core.tools.reflect.ToolSet
+    import ai.koog.prompt.message.MessagePart
     import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
     import ai.koog.prompt.executor.ollama.client.OllamaModels
     import kotlinx.coroutines.runBlocking
@@ -196,20 +205,21 @@ To calculate the product of 12 and 9, we multiply these two numbers together.
 
     val strategy = functionalStrategy<String, String> { input ->
         // 將使用者輸入傳送至 LLM
-        var responses = requestLLMMultiple(input)
+        var response = requestLLM(input)
 
         // 僅在 LLM 要求工具時進行迴圈
-        while (responses.containsToolCalls()) {
-            // 從回應中提取工具呼叫
-            val pendingCalls = extractToolCalls(responses)
+        var toolCalls = response.parts.filterIsInstance<MessagePart.Tool.Call>()
+        while (toolCalls.isNotEmpty()) {
             // 執行工具並傳回結果
-            val results = executeMultipleTools(pendingCalls)
+            val results = executeTools(toolCalls)
             // 將工具結果傳送回 LLM。LLM 可能會呼叫更多工具或傳回最終輸出
-            responses = sendMultipleToolResults(results)
+            response = sendToolResults(results)
+            toolCalls = response.parts.filterIsInstance<MessagePart.Tool.Call>()
         }
 
         // 當沒有剩餘工具呼叫時，從回應中提取並傳回助理訊息內容
-        responses.single().asAssistantMessage().content
+        response.parts.filterIsInstance<MessagePart.Text>().joinToString("
+") { it.text }
     }
 
     val mathAgentWithTools = AIAgent(
@@ -263,7 +273,7 @@ To calculate the product of 12 and 9, we multiply these two numbers together.
                 // 僅在 LLM 要求工具時進行迴圈
                 while (context.containsToolCalls(responses)) {
                     // 從回應中提取工具呼叫
-                    List<Message.Tool.Call> pendingCalls = context.extractToolCalls(responses);
+                    List<MessagePart.Tool.Call> pendingCalls = context.extractToolCalls(responses);
                     // 執行工具並傳回結果
                     List<ReceivedToolResult> results = context.executeMultipleTools(pendingCalls, false);
                     // 將工具結果傳送回 LLM

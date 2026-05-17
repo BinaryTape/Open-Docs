@@ -398,7 +398,7 @@ val agent = AIAgent(
 
 - **モデルの選択**: 高品質なチェスプレイのために `OpenAIModels.Chat.O3Mini` を使用。
 - **Temperature**: 決定論的で戦略的な指し手のために 0.0 に設定。
-- **システムプロンプト**: 合法的な指し手と適切な振る舞いを強調するように注意深く作成された指示。
+- **System Prompt**: 合法的な指し手と適切な振る舞いを強調するように注意深く作成された指示。
 - **ツールレジストリ**: エージェントに `Move` ツールへのアクセスを提供。
 - **最大反復回数 (Max Iterations)**: 終局まで対局できるように 200 に設定。
 
@@ -430,10 +430,50 @@ runBlocking {
     4 * * * * P * * *
     3 * * * * * * * *
     2 P P P P * P P P
-    1 R N B Q K B n r
+    1 R N B Q K B N R
       a b c d e f g h
     -----------------
-    ... (中略) ...
+    8 r n b q k b n r
+    7 p p p p * p p p
+    6 * * * * * * * *
+    5 * * * * p * * *
+    4 * * * * P * * *
+    3 * * * * * * * *
+    2 P P P P * P P P
+    1 R N B Q K B N R
+      a b c d e f g h
+    -----------------
+    8 r n b q k b n r
+    7 p p p p * p p p
+    6 * * * * * * * *
+    5 * * * * p * * *
+    4 * * * * P * * *
+    3 * * * * * N * *
+    2 P P P P * P P P
+    1 R N B Q K B * R
+      a b c d e f g h
+    -----------------
+    8 r n b q k b * r
+    7 p p p p * p p p
+    6 * * * * * n * *
+    5 * * * * p * * *
+    4 * * * * P * * *
+    3 * * * * * N * *
+    2 P P P P * P P P
+    1 R N B Q K B * R
+      a b c d e f g h
+    -----------------
+    8 r n b q k b * r
+    7 p p p p * p p p
+    6 * * * * * n * *
+    5 * * * * p * * *
+    4 * * * * P * * *
+    3 * * N * * N * *
+    2 P P P P * P P P
+    1 R * B Q K B * R
+      a b c d e f g h
+    -----------------
+
     The execution was interrupted
 
 この基本エージェントは自律的に動作し、自動的に指し手を選択します。ゲームの出力には、AIが自分自身と対局する際の指し手のシーケンスとボードの状態が表示されます。
@@ -538,7 +578,7 @@ val strategy = strategy<String, String>("chess_strategy") {
 
 val askChoiceStrategy = AskUserChoiceSelectionStrategy(promptShowToUser = { prompt ->
     val lastMessage = prompt.messages.last()
-    if (lastMessage is Message.Tool.Call) {
+    if (lastMessage is MessagePart.Tool.Call) {
         lastMessage.content
     } else {
         ""
@@ -613,11 +653,53 @@ runBlocking {
     Chess Game started!
     
     利用可能なLLMの選択肢
-    選択肢番号 1: [Call(id=call_K46Upz7XoBIG5RchDh7bZE8F, tool=move, content={"notation": "p-e2-e4"}, ...)]
-    選択肢番号 2: [Call(id=call_zJ6OhoCHrVHUNnKaxZkOhwoU, tool=move, content={"notation": "p-e2-e4"}, ...)]
-    選択肢番号 3: [Call(id=call_nwX6ZMJ3F5AxiNUypYlI4BH4, tool=move, content={"notation": "p-e2-e4"}, ...)]
-    選択肢を選んでください。1 から 3 の間の数字を入力してください: 1
-    ... (対局の進行) ...
+    選択肢番号 1: [Call(id=call_K46Upz7XoBIG5RchDh7bZE8F, tool=move, content={"notation": "p-e2-e4"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:40.368252Z, totalTokensCount=773, inputTokensCount=315, outputTokensCount=458, additionalInfo={}))]
+    選択肢番号 2: [Call(id=call_zJ6OhoCHrVHUNnKaxZkOhwoU, tool=move, content={"notation": "p-e2-e4"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:40.368252Z, totalTokensCount=773, inputTokensCount=315, outputTokensCount=458, additionalInfo={}))]
+    選択肢番号 3: [Call(id=call_nwX6ZMJ3F5AxiNUypYlI4BH4, tool=move, content={"notation": "p-e2-e4"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:40.368252Z, totalTokensCount=773, inputTokensCount=315, outputTokensCount=458, additionalInfo={}))]
+    選択肢を選んでください。1 から 3 の間の数字を入力してください: 
+    8 r n b q k b n r
+    7 p p p p p p p p
+    6 * * * * * * * *
+    5 * * * * * * * *
+    4 * * * * P * * *
+    3 * * * * * * * *
+    2 P P P P * P P P
+    1 R N B Q K B N R
+      a b c d e f g h
+    -----------------
+    
+    利用可能なLLMの選択肢
+    選択肢番号 1: [Call(id=call_2V93GXOcIe0fAjUAIFEk9h5S, tool=move, content={"notation": "p-e7-e5"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:47.949303Z, totalTokensCount=1301, inputTokensCount=341, outputTokensCount=960, additionalInfo={}))]
+    選択肢番号 2: [Call(id=call_INM59xRzKMFC1w8UAV74l9e1, tool=move, content={"notation": "p-e7-e5"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:47.949303Z, totalTokensCount=1301, inputTokensCount=341, outputTokensCount=960, additionalInfo={}))]
+    選択肢番号 3: [Call(id=call_r4QoiTwn0F3jizepHH5ia8BU, tool=move, content={"notation": "p-e7-e5"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:47.949303Z, totalTokensCount=1301, inputTokensCount=341, outputTokensCount=960, additionalInfo={}))]
+    選択肢を選んでください。1 から 3 の間の数字を入力してください: 
+    8 r n b q k b n r
+    7 p p p p * p p p
+    6 * * * * * * * *
+    5 * * * * p * * *
+    4 * * * * P * * *
+    3 * * * * * * * *
+    2 P P P P * P P P
+    1 R N B Q K B N R
+      a b c d e f g h
+    -----------------
+    
+    利用可能なLLMの選択肢
+    選択肢番号 1: [Call(id=call_f9XTizn41svcrtvnmkCfpSUQ, tool=move, content={"notation": "n-g1-f3"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:55.467712Z, totalTokensCount=917, inputTokensCount=341, outputTokensCount=576, additionalInfo={}))]
+    選択肢番号 2: [Call(id=call_c0Dfce5RcSbN3cOOm5ESYriK, tool=move, content={"notation": "n-g1-f3"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:55.467712Z, totalTokensCount=917, inputTokensCount=341, outputTokensCount=576, additionalInfo={}))]
+    選択肢番号 3: [Call(id=call_Lr4Mdro1iolh0fDyAwZsutrW, tool=move, content={"notation": "n-g1-f3"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:55.467712Z, totalTokensCount=917, inputTokensCount=341, outputTokensCount=576, additionalInfo={}))]
+    選択肢を選んでください。1 から 3 の間の数字を入力してください: 
+    8 r n b q k b n r
+    7 p p p p * p p p
+    6 * * * * * * * *
+    5 * * * * p * * *
+    4 * * * * P * * *
+    3 * * * * * N * *
+    2 P P P P * P P P
+    1 R N B Q K B * R
+      a b c d e f g h
+    -----------------
+
     The execution was interrupted
 
 ```kotlin
@@ -688,6 +770,68 @@ runBlocking {
     agent.run(initialMessage)
 }
 ```
+
+    Chess Game started!
+    8 r n b q k b n r
+    7 p p p p p p p p
+    6 * * * * * * * *
+    5 * * * * * * * *
+    4 * * * * P * * *
+    3 * * * * * * * *
+    2 P P P P * P P P
+    1 R N B Q K B N R
+      a b c d e f g h
+    -----------------
+    
+    利用可能なLLMの選択肢
+    選択肢番号 1: [Call(id=call_gqMIar0z11CyUl5nup3zbutj, tool=move, content={"notation": "p-e7-e5"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:17.313548Z, totalTokensCount=917, inputTokensCount=341, outputTokensCount=576, additionalInfo={}))]
+    選択肢番号 2: [Call(id=call_6niUGnZPPJILRFODIlJsCKax, tool=move, content={"notation": "p-e7-e5"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:17.313548Z, totalTokensCount=917, inputTokensCount=341, outputTokensCount=576, additionalInfo={}))]
+    選択肢番号 3: [Call(id=call_q1b8ZmIBph0EoVaU3Ic9A09j, tool=move, content={"notation": "p-e7-e5"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:17.313548Z, totalTokensCount=917, inputTokensCount=341, outputTokensCount=576, additionalInfo={}))]
+    選択肢を選んでください。1 から 3 の間の数字を入力してください: 
+    8 r n b q k b n r
+    7 p p p p * p p p
+    6 * * * * * * * *
+    5 * * * * p * * *
+    4 * * * * P * * *
+    3 * * * * * * * *
+    2 P P P P * P P P
+    1 R N B Q K B N R
+      a b c d e f g h
+    -----------------
+    
+    利用可能なLLMの選択肢
+    選択肢番号 1: [Call(id=call_pdBIX7MVi82MyWwawTm1Q2ef, tool=move, content={"notation": "n-g1-f3"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:24.505344Z, totalTokensCount=1237, inputTokensCount=341, outputTokensCount=896, additionalInfo={}))]
+    選択肢番号 2: [Call(id=call_oygsPHaiAW5OM6pxhXhtazgp, tool=move, content={"notation": "n-g1-f3"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:24.505344Z, totalTokensCount=1237, inputTokensCount=341, outputTokensCount=896, additionalInfo={}))]
+    選択肢番号 3: [Call(id=call_GJTEsZ8J8cqOKZW4Tx54RqCh, tool=move, content={"notation": "n-g1-f3"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:24.505344Z, totalTokensCount=1237, inputTokensCount=341, outputTokensCount=896, additionalInfo={}))]
+    選択肢を選んでください。1 から 3 の間の数字を入力してください: 
+    8 r n b q k b n r
+    7 p p p p * p p p
+    6 * * * * * * * *
+    5 * * * * p * * *
+    4 * * * * P * * *
+    3 * * * * * N * *
+    2 P P P P * P P P
+    1 R N B Q K B * R
+      a b c d e f g h
+    -----------------
+    
+    利用可能なLLMの選択肢
+    選択肢番号 1: [Call(id=call_5C7HdlTU4n3KdXcyNogE4rGb, tool=move, content={"notation": "n-g8-f6"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:34.646667Z, totalTokensCount=1621, inputTokensCount=341, outputTokensCount=1280, additionalInfo={}))]
+    選択肢番号 2: [Call(id=call_EjCcyeMLQ88wMa5yh3vmeJ2w, tool=move, content={"notation": "n-g8-f6"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:34.646667Z, totalTokensCount=1621, inputTokensCount=341, outputTokensCount=1280, additionalInfo={}))]
+    選択肢番号 3: [Call(id=call_NBMMSwmFIa8M6zvfbPw85NKh, tool=move, content={"notation": "n-g8-f6"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:18:34.646667Z, totalTokensCount=1621, inputTokensCount=341, outputTokensCount=1280, additionalInfo={}))]
+    選択肢を選んでください。1 から 3 の間の数字を入力してください: 
+    8 r n b q k b * r
+    7 p p p p * p p p
+    6 * * * * * n * *
+    5 * * * * p * * *
+    4 * * * * P * * *
+    3 * * * * * N * *
+    2 P P P P * P P P
+    1 R N B Q K B * R
+      a b c d e f g h
+    -----------------
+
+    The execution was interrupted
 
 インタラクティブな例は、ユーザーがAIの意思決定プロセスをどのようにガイドできるかを示しています。出力では以下のことが確認できます：
 

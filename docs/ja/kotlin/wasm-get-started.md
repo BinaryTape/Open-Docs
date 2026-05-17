@@ -18,9 +18,8 @@
 
    * **Name:** WasmDemo
    * **Group:** wasm.project.demo
-   * **Artifact:** wasmdemo
 
-   > ウェブウィザードを使用する場合は、Project Name に「WasmDemo」、Project ID に「wasm.project.demo」を指定してください。
+   > ウェブウィザードを使用する場合は、**Project Name** に「WasmDemo」、**Project ID** に「wasm.project.demo」を指定してください。
    >
    {style="note"}
 
@@ -31,9 +30,9 @@
 
 ## アプリケーションの実行
 
-プロジェクトがロードされたら、実行構成のリストから **composeApp [wasmJs]** を選択し、**Run** をクリックします。
+プロジェクトがロードされたら、実行構成のリストから **webApp [wasmJs]** を選択し、**Run** をクリックします。
 
-![Run the Compose Multiplatform app on web](compose-run-web-black.png){width=300}
+![Run the Compose Multiplatform app on web](compose-run-web-light.png){width=300}
 
 ウェブアプリケーションがブラウザで自動的に開きます。あるいは、実行が完了した後にブラウザで以下の URL を開くこともできます。
 
@@ -72,14 +71,14 @@ Compose Multiplatform のロゴが表示されます。
     ./gradlew wasmJsBrowserDistribution
     ```
 
-アプリケーションタスクが完了すると、生成されたアーティファクトを `composeApp/build/dist/wasmJs/productionExecutable` ディレクトリで見つけることができます。
+アプリケーションタスクが完了すると、生成されたアーティファクトを `webApp/build/dist/wasmJs/productionExecutable` ディレクトリで見つけることができます。
 
 ![Artifacts directory](wasm-composeapp-directory.png){width=400}
 
 ## アプリケーションの公開
 
-生成されたアーティファクトを使用して、Kotlin/Wasm アプリケーションをデプロイします。
-お好みの公開オプションを選択し、手順に従ってアーティファクトをデプロイしてください。
+生成されたアーティファクトを使用して、Kotlin/Wasm アプリケーションをデプロイします。 
+お好みの公開オプションを選択し、手順に従ってアーティファクトをデプロイしてください。 
 いくつかの選択肢を以下に示します。
 
 * [GitHub pages](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#creating-your-site)
@@ -97,11 +96,11 @@ Compose Multiplatform のロゴが表示されます。
 * [Compose Multiplatform を使用して iOS と Android 間で UI を共有する方法を学ぶ](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-create-first-app.html)
 * 他の Kotlin/Wasm の例を試してみる:
 
-  * [KotlinConf アプリケーション](https://github.com/JetBrains/kotlinconf-app)
+  * [KotlinConf application](https://github.com/JetBrains/kotlinconf-app)
   * [Compose image viewer](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/imageviewer)
-  * [Node.js の例](https://github.com/Kotlin/kotlin-wasm-nodejs-template)
-  * [WASI の例](https://github.com/Kotlin/kotlin-wasm-wasi-template)
-  * [Compose の例](https://github.com/Kotlin/kotlin-wasm-compose-template)
+  * [Node.js example](https://github.com/Kotlin/kotlin-wasm-nodejs-template)
+  * [WASI example](https://github.com/Kotlin/kotlin-wasm-wasi-template)
+  * [Compose example](https://github.com/Kotlin/kotlin-wasm-compose-template)
 
 * Kotlin Slack の Kotlin/Wasm コミュニティに参加する:
 

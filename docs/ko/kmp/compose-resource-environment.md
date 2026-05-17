@@ -160,7 +160,7 @@
             ...
         </head>
         <body></body>
-        <script src="composeApp.js"></script>
+        <script src="webApp.js"></script>
     </html>
     ```  
 

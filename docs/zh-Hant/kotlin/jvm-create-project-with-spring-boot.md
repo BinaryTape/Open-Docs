@@ -15,17 +15,17 @@
 
 ## 開始之前
 
-下載並安裝最新版本的 [IntelliJ IDEA Ultimate Edition](https://www.jetbrains.com/idea/download/)。
+下載並安裝最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 並使用 Ultimate 訂閱。
 
-> 如果您使用 IntelliJ IDEA Community Edition 或其他 IDE，可以使用 [網頁版專案產生器](https://start.spring.io/#!language=kotlin&type=gradle-project-kotlin) 來產生 Spring Boot 專案。
+> 如果您沒有 IntelliJ IDEA Ultimate 訂閱或使用其他 IDE，可以使用 [網頁版專案產生器](https://start.spring.io/#!language=kotlin&type=gradle-project-kotlin) 來產生 Spring Boot 專案。
 > 
 {style="tip"}
 
 ## 建立 Spring Boot 專案
 
-在 IntelliJ IDEA Ultimate Edition 中使用專案產生器建立新的 Kotlin Spring Boot 專案：
+在 IntelliJ IDEA 中使用專案產生器建立新的 Kotlin Spring Boot 專案：
 
-1. 在 IntelliJ IDEA 中，選取 **File** | **New** | **Project**。
+1. 在 IntelliJ IDEA 中，選取 **File** | **New** | **Project**。 
 2. 在左側面板的 **Generators** 區段中選取 **Spring Boot**。
 3. 在 **New Project** 視窗中指定以下欄位與選項：
    
@@ -41,13 +41,13 @@
    * **JDK**: Java JDK
      
      > 本教學使用 **Amazon Corretto version 23**。
-     > 如果您尚未安裝 JDK，可以從下拉式功能表中下載。
+     > 如果您尚未安裝 JDK，可以從下拉式清單中下載。
      >
      {style="note"}
    
    * **Java**: 17
    
-     > 如果您尚未安裝 Java 17，可以從 JDK 下拉式功能表中下載。
+     > 如果您尚未安裝 Java 17，可以從 JDK 下拉式清單中下載。
      >
      {style="tip"}
 
@@ -79,7 +79,7 @@
 
 ## 探索專案 Gradle 組建檔案 {initial-collapse-state="collapsed" collapsible="true"}
 
-開啟 `build.gradle.kts` 檔案：這是 Gradle Kotlin 組建指令碼，其中包含應用程式所需的相依性列表。
+開啟 `build.gradle.kts` 檔案：這是 Gradle Kotlin 組建指令碼，其中包含應用程式所需的相依性清單。
 
 此 Gradle 檔案對於 Spring Boot 來說是標準格式，但也包含了必要的 Kotlin 相依性，包括 kotlin-spring Gradle 外掛程式 – `kotlin("plugin.spring")`。
 
@@ -91,7 +91,7 @@ plugins {
     kotlin("jvm") version "%springBootSupportedKotlinVersion%" // 要使用的 Kotlin 版本
     kotlin("plugin.spring") version "%springBootSupportedKotlinVersion%" // Kotlin Spring 外掛程式
     id("org.springframework.boot") version "%springBootVersion%"
-    id("id.spring.dependency-management") version "1.1.7"
+    id("io.spring.dependency-management") version "1.1.7"
 }
 
 group = "com.example"
@@ -173,17 +173,23 @@ fun main(args: Array<String>) {
       <p>在 Kotlin 中，如果類別不包含任何成員（屬性或函式），您可以直接省略類別主體 (<code>{}</code>)。</p>
    </def>
    <def title="@SpringBootApplication 註解">
-      <p><a href="https://docs.spring.io/spring-boot/reference/using/using-the-springbootapplication-annotation.html#using.using-the-springbootapplication-annotation"><code>@SpringBootApplication 註解</code></a> 是 Spring Boot 應用程式中的一個便利註解。它啟用了 Spring Boot 的 <a href="https://docs.spring.io/spring-boot/reference/using/auto-configuration.html#using.auto-configuration">自動配置</a>、<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/ComponentScan.html">組件掃描</a>，並能夠在「應用程式類別」上定義額外組態。</p>
+      <p><a href="https://docs.spring.io/spring-boot/reference/using/using-the-springbootapplication-annotation.html#using.using-the-springbootapplication-annotation"><code>@SpringBootApplication 註解</code></a> 是 Spring Boot 應用程式中的一個便利註解。
+      它啟用了 Spring Boot 的 <a href="https://docs.spring.io/spring-boot/reference/using/auto-configuration.html#using.auto-configuration">自動配置</a>、<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/ComponentScan.html">組件掃描</a>，並能夠在「應用程式類別」上定義額外組態。
+      </p>
    </def>
    <def title="程式進入點 – main()">
-      <p><a href="basic-syntax.md#program-entry-point"><code>main()</code></a> 函式是應用程式的進入點。</p>
-      <p>它被宣告為 <code>DemoApplication</code> 類別之外的 <a href="functions.md#function-scope">頂層函式</a>。<code>main()</code> 函式會調用 Spring 的 <code>runApplication(&#42;args)</code> 函式，以透過 Spring Framework 啟動應用程式。</p>
+      <p> <a href="basic-syntax.md#program-entry-point"><code>main()</code></a> 函式是應用程式的進入點。</p>
+      <p>它被宣告為 <code>DemoApplication</code> 類別之外的 <a href="functions.md#function-scope">頂層函式</a>。<code>main()</code> 函式會調用 Spring 的 <code>runApplication(*args)</code> 函式，以透過 Spring Framework 啟動應用程式。</p>
    </def>
    <def title="可變參數 – args: Array&lt;String&gt;">
-      <p>如果您查看 <code>runApplication()</code> 函式的宣告，會發現該函式的參數標有 <a href="functions.md#variable-number-of-arguments-varargs"><code>vararg</code> 修飾詞</a>：<code>vararg args: String</code>。這意味著您可以向該函式傳遞可變數量的字串引數。</p>
+      <p>如果您查看 <code>runApplication()</code> 函式的宣告，會發現該函式的參數標有 <a href="functions.md#variable-number-of-arguments-varargs"><code>vararg</code> 修飾詞</a>：<code>vararg args: String</code>。
+        這意味著您可以向該函式傳遞可變數量的字串引數。
+      </p>
    </def>
    <def title="展開運算子 – (*args)">
-      <p><code>args</code> 是 <code>main()</code> 函式的參數，宣告為字串陣列。由於這是一個字串陣列，而您希望將其內容傳遞給函式，請使用展開運算子（在陣列前加上星號 <code>&#42;</code>）。</p>
+      <p><code>args</code> 是 <code>main()</code> 函式的參數，宣告為字串陣列。
+        由於這是一個字串陣列，而您希望將其內容傳遞給函式，請使用展開運算子（在陣列前加上星號 <code>*</code>）。
+      </p>
    </def>
 </deflist>
 
@@ -192,7 +198,7 @@ fun main(args: Array<String>) {
 應用程式已準備好執行，但讓我們先更新其邏輯。
 
 在 Spring 應用程式中，控制器用於處理 Web 請求。
-在同一個套件中，於 `DemoApplication.kt` 檔案旁邊建立 `MessageController.kt` 檔案，內容如下：
+在同一個套件中，於 `DemoApplication.kt` 檔案旁邊建立 `MessageController.kt` 檔案，並包含如下的 `MessageController` 類別：
 
 ```kotlin
 // MessageController.kt

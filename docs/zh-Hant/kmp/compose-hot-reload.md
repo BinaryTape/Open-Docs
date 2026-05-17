@@ -72,7 +72,7 @@ Compose Hot Reload 外掛程式已[內建](whats-new-compose-110.md#compose-hot-
    ```
    這可以防止 Compose Hot Reload 外掛程式在您的每個子專案中被多次載入。
 
-4. 在包含多平台應用程式的子專案 `build.gradle.kts` (`ComposeDemo/composeApp/build.gradle.kts`) 中，將以下程式碼新增至 `plugins {}` 區塊：
+4. 在包含多平台應用程式的子專案 `build.gradle.kts` (`ComposeDemo/sharedUI/build.gradle.kts`) 中，將以下程式碼新增至 `plugins {}` 區塊：
    ```kotlin
    plugins { 
        alias(libs.plugins.composeHotReload)

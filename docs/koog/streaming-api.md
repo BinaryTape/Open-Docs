@@ -20,7 +20,7 @@ Koog 的**流式传输 API** 允许您以 Kotlin 中的 `Flow<StreamFrame>` 或 
     **完整帧 (Complete frames)**（完整内容）：
 
     - `StreamFrame.TextComplete(text: String, index: Int?)` — 完整助手文本
-    - `StreamFrame.ReasoningComplete(text: List<String>, summary: List<String>?, encrypted: String?, index: Int?)` — 带有可选摘要和加密内容的完整推理内容
+    - `StreamFrame.ReasoningComplete(content: List<String>, summary: List<String>?, encrypted: String?, index: Int?)` — 带有可选摘要和加密内容的完整推理内容
     - `StreamFrame.ToolCallComplete(id: String?, name: String, content: String, index: Int?)` — 完整工具调用
 
     **结束标记**：
@@ -51,7 +51,7 @@ Koog 的**流式传输 API** 允许您以 Kotlin 中的 `Flow<StreamFrame>` 或 
 
 通过流式传输，您可以：
 
-- 在数据到达时立即处理（提高 UI 响应性）
+- 在数据到达时立即处理（提高 UI 响应）
 - 实时解析结构化信息（Markdown/JSON 等）
 - 在对象完成时立即发送
 - 实时触发工具
@@ -319,7 +319,7 @@ Koog 的**流式传输 API** 允许您以 Kotlin 中的 `Flow<StreamFrame>` 或 
                 is StreamFrame.ReasoningComplete -> {
                     // 访问完整的推理内容
                     println("
-完整推理过程: ${frame.text.joinToString("")}")
+完整推理过程: ${frame.content.joinToString("")}")
                     println("摘要: ${frame.summary?.joinToString("") ?: "无"}")
                 }
                 is StreamFrame.TextDelta -> print(frame.text)
@@ -387,7 +387,7 @@ Koog 的**流式传输 API** 允许您以 Kotlin 中的 `Flow<StreamFrame>` 或 
                     // 访问完整的推理内容
                     System.out.println("
 完整推理过程: "
-                        + String.join("", complete.getText()));
+                        + String.join("", complete.getContent()));
                     System.out.println("摘要: "
                         + (complete.getSummary() != null
                             ? String.join("", complete.getSummary()) : "无"));
@@ -599,8 +599,8 @@ $fullText")
 您可以将收集到的帧列表转换为标准消息对象：
 
 - `toAssistantMessageOrNull()` — 从文本帧中提取 `Message.Assistant`
-- `toReasoningMessageOrNull()` — 从推理帧中提取 `Message.Reasoning`
-- `toToolCallMessages()` — 从工具调用帧中提取 `Message.Tool.Call`
+- `toReasoningMessageOrNull()` — 从推理帧中提取 `MessagePart.Reasoning`
+- `toToolCallMessages()` — 从工具调用帧中提取 `MessagePart.Tool.Call`
 - `toMessageResponses()` — 将所有完整帧转换为其对应的 `Message.Response` 对象
 
 ## 示例

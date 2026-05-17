@@ -236,7 +236,7 @@ YouTube
 </td>
 
 <td>
-在 KMP 應用程式中使用 platform-specific 程式碼的最佳實務。
+在 KMP 應用程式中使用平台專屬程式碼的最佳實務。
 </td>
 <td>
 免費
@@ -260,14 +260,14 @@ YouTube
 <td>
 Mykola Miroshnychenko
 
-Gumroad
+PayHip
 </td>
 
 <td>
 如何透過掌握 KMP 基礎（如 expect/actual 與原始碼集），以及使用 Ktor 進行網路連線、Koin 進行相依注入、Nav3 與 Room 進行持續性等現代化程式庫組建完整的應用程式堆疊，將現有的 Android 開發技能擴展至 iOS。
 </td>
 <td>
-約 60 美元
+39 美元
 </td>
 <td>
 8–12 小時

@@ -3,7 +3,7 @@
 <tldr>
    这是一种本地集成方法。如果满足以下条件，该方法可能适合您：<br/>
 
-   * 您已经在本地机器上设置了一个以 iOS 为目标的 Kotlin 多平台项目。
+   * 您已经在本地计算机上设置了一个以 iOS 为目标的 Kotlin 多平台项目。
    * 您的 Kotlin 多平台项目没有 CocoaPods 依赖项。<br/>
 
    [选择最适合您的集成方法](multiplatform-ios-integration-overview.md)
@@ -64,7 +64,7 @@
    ```
 
    * 在 `cd` 命令中，指定 Kotlin 多平台项目根目录的路径，例如 `$SRCROOT/..`。
-   * 在 `./gradlew` 命令中，指定共享模块的名称，例如 `:shared` 或 `:composeApp`。
+   * 在 `./gradlew` 命令中，指定共享模块的名称，例如 `:shared` 或 `:sharedUI`。
    
    当您启动 iOS 运行配置时，IntelliJ IDEA 和 Android Studio 会在开始 Xcode 构建之前构建 Kotlin 框架依赖项，并将 `OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED` 环境变量设置为 "YES"。提供的 shell 脚本会检查此变量，并防止从 Xcode 再次构建 Kotlin 框架。
      

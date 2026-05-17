@@ -9,12 +9,12 @@
 {style="tip"}
 
 JUnit ベースのテストを実際に見てみるために、[Kotlin Multiplatform ウィザード](https://kmp.jetbrains.com/) で生成されたプロジェクトから始めましょう。
-既存のプロジェクトにテストを追加する場合は、パスやコマンド内の `composeApp` を、テスト対象のモジュール名（例: `shared`）に置き換える必要があるかもしれません。
+既存のプロジェクトにテストを追加する場合は、パスやコマンド内の `shared` を、テスト対象のモジュール名に置き換える必要があるかもしれません。
 
 テストソースセットを作成し、必要な依存関係を追加します。
 
-1. テスト用のディレクトリ `composeApp/src/desktopTest/kotlin` を作成します。
-2. `composeApp/build.gradle.kts` ファイルに、以下の依存関係を追加します。
+1. テスト用のディレクトリ `shared/src/desktopTest/kotlin` を作成します。
+2. `shared/build.gradle.kts` ファイルに、以下の依存関係を追加します。
 
    ```kotlin
    kotlin { 
@@ -39,7 +39,7 @@ JUnit ベースのテストを実際に見てみるために、[Kotlin Multiplat
     import androidx.compose.ui.Modifier
     import androidx.compose.ui.test.*
     import androidx.compose.ui.platform.testTag
-    import androidx.compose.ui.test.junit4.createComposeRule
+    import androidx.compose.ui.test.junit4.v2.createComposeRule
     import org.junit.Rule
     import org.junit.Test
     

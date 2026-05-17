@@ -19,7 +19,7 @@ JetBrains 的 Compose Multiplatform 團隊為這些程式庫產出了適用於 A
 例如，「iOS 版 Navigation 構件」是指以下多平台構件的集合：
 * `org.jetbrains.androidx.navigation.navigation-compose-uikitarm64`
 * `org.jetbrains.androidx.navigation.navigation-compose-uikitsimarm64`
-* `org.jetbrains.androidx.navigation.navigation-common-iosx64`
+* `org.jetbrains.androidx.navigation.navigation-common-iosarm64`
 * `org.jetbrains.androidx.navigation.navigation-runtime-iossimulatorarm64`
 * 依此類推。
 

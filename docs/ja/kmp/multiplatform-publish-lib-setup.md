@@ -51,7 +51,6 @@ version = "1.0"
 
 kotlin {
     jvm()
-    iosX64()
     iosArm64()
 }
 ```
@@ -61,7 +60,6 @@ kotlin {
 **ターゲット固有の公開物**
 
 * `jvm` ターゲット用：`test:lib-jvm:1.0`
-* `iosX64` ターゲット用：`test:lib-iosx64:1.0`
 * `iosArm64` ターゲット用：`test:lib-iosarm64:1.0`
 
 各ターゲット固有の公開物は独立しています。例えば、`publishJvmPublicationTo<MavenRepositoryName>` を実行するとJVMモジュールのみが公開され、他のモジュールは公開されないままになります。

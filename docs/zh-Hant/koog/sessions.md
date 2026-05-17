@@ -242,15 +242,13 @@ Koog 架構提供了兩種類型的工作階段：
 
 發送 LLM 請求最常用的方法有：
 
-1. `requestLLM()`：使用目前的提示詞與工具向 LLM 發送請求，傳回單一回應。
+1. `requestLLM()`：使用目前的提示詞與工具向 LLM 發送請求，傳回回應。
 
-2. `requestLLMMultiple()`：使用目前的提示詞與工具向 LLM 發送請求，傳回多個回應。
+2. `requestLLMWithoutTools()`：使用目前的提示詞但不帶任何工具向 LLM 發送請求，傳回單一回應。
 
-3. `requestLLMWithoutTools()`：使用目前的提示詞但不帶任何工具向 LLM 發送請求，傳回單一回應。
+3. `requestLLMForceOneTool()`：使用目前的提示詞與工具向 LLM 發送請求，強制使用一個工具。
 
-4. `requestLLMForceOneTool()`：使用目前的提示詞與工具向 LLM 發送請求，強制使用一個工具。
-
-5. `requestLLMOnlyCallingTools()`：向 LLM 發送僅應透過使用工具來處理的請求。
+4. `requestLLMOnlyCallingTools()`：向 LLM 發送僅應透過使用工具來處理的請求。
 
 範例：
 
@@ -274,9 +272,6 @@ Koog 架構提供了兩種類型的工作階段：
 
         // 在不使用工具的情況下發送請求
         val responseWithoutTools = requestLLMWithoutTools()
-
-        // 發送傳回多個回應的請求
-        val responses = requestLLMMultiple()
     }
     ```
     <!--- KNIT example-sessions-04.kt -->
@@ -308,8 +303,6 @@ Koog 架構提供了兩種類型的工作階段：
         // 在不使用工具的情況下發送請求
         var responseWithoutTools = session.requestLLMWithoutTools();
 
-        // 發送傳回多個回應的請求
-        var responses = session.requestLLMMultiple();
         return null;
     });
     ```
@@ -332,7 +325,7 @@ Koog 架構提供了兩種類型的工作階段：
     <!--- INCLUDE
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
-    import ai.koog.prompt.message.Message
+    import ai.koog.prompt.message.MessagePart
 
     val strategy = strategy<Unit, Unit>("strategy-name") {
         val node by node<Unit, Unit> {
@@ -345,8 +338,9 @@ Koog 架構提供了兩種類型的工作階段：
     llm.writeSession {
         val response = requestLLM()
 
-        // 回應可能是工具呼叫或文字回應
-        if (response is Message.Tool.Call) {
+        // 回應可能包含工具呼叫及／或文字
+        val toolCalls = response.parts.filterIsInstance<MessagePart.Tool.Call>()
+        if (toolCalls.isNotEmpty()) {
             // 處理工具呼叫
         } else {
             // 處理文字回應
@@ -360,6 +354,7 @@ Koog 架構提供了兩種類型的工作階段：
     <!--- INCLUDE
     import ai.koog.agents.core.agent.entity.AIAgentNode;
     import ai.koog.prompt.message.Message;
+    import ai.koog.prompt.message.MessagePart;
     class exampleSessionsJava05 {
         public static void main(String[] args) {
             var node = AIAgentNode.builder("node_name")
@@ -378,8 +373,10 @@ Koog 架構提供了兩種類型的工作階段：
     ctx.getLlm().writeSession(session -> {
         var response = session.requestLLM();
 
-        // 回應可能是工具呼叫或文字回應
-        if (response instanceof Message.Tool.Call) {
+        // 回應部分可能包含工具呼叫或文字內容
+        boolean hasToolCall = response.getParts().stream()
+            .anyMatch(p -> p instanceof MessagePart.Tool.Call);
+        if (hasToolCall) {
             // 處理工具呼叫
         } else {
             // 處理文字回應
@@ -473,15 +470,12 @@ Koog 架構提供了兩種類型的工作階段：
     <!--- INCLUDE
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
-    import ai.koog.prompt.message.Message
-    import ai.koog.prompt.message.RequestMetaInfo
-    import kotlin.time.Clock
+    import ai.koog.prompt.message.MessagePart
 
-    val myToolResult = Message.Tool.Result(
+    val myToolResult = MessagePart.Tool.Result(
         id = "",
         tool = "",
-        content = "",
-        metaInfo = RequestMetaInfo(Clock.System.now())
+        output = "",
     )
 
     val strategy = strategy<Unit, Unit>("strategy-name") {
@@ -504,9 +498,7 @@ Koog 架構提供了兩種類型的工作階段：
             assistant("Of course! What's your question?")
 
             // 新增工具結果
-            tool {
-                result(myToolResult)
-            }
+            toolResult(myToolResult)
         }
     }
     ```
@@ -793,8 +785,8 @@ Koog 架構提供了兩種類型的工作階段：
     -->
     ```java
     // Java 在圖策略中使用專用的工具執行節點。
-    var executeTool = AIAgentNode.executeTool("executeTool");
-    var sendToolResult = AIAgentNode.llmSendToolResult("sendToolResult");
+    var executeTool = AIAgentNode.executeTools("executeTool");
+    var sendToolResult = AIAgentNode.llmRequest("sendToolResult");
     ```
     <!--- KNIT exampleSessionsJava11.java -->
 
@@ -849,8 +841,8 @@ Koog 架構提供了兩種類型的工作階段：
     }
     -->
     ```java
-    // Java 中對應的多工具並行執行方式：使用 executeMultipleTools 節點。
-    var executeMultipleTools = AIAgentNode.executeMultipleTools(true, "executeMultipleTools");
+    // Java 中對應的多工具執行方式：使用 executeTools 節點。
+    var executeMultipleTools = AIAgentNode.executeTools("executeMultipleTools");
     ```
     <!--- KNIT exampleSessionsJava12.java -->
 

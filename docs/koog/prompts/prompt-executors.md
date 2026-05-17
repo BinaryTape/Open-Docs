@@ -44,7 +44,7 @@ Koog 提供了三种主要类型的提示执行器，它们实现了 [`PromptExe
     **/
     -->
     ```java
-    OpenAILLMClient openAIClient = new OpenAILLMClient(System.getenv("OPENAI_API_KEY"));
+    OpenAILLMClient openAIClient = openAIClient(System.getenv("OPENAI_API_KEY"));
     MultiLLMPromptExecutor promptExecutor = new MultiLLMPromptExecutor(openAIClient);
     ```
     <!--- KNIT example-prompt-executors-java-01.java -->
@@ -85,8 +85,8 @@ Koog 提供了三种主要类型的提示执行器，它们实现了 [`PromptExe
     **/
     -->
     ```java
-    OpenAILLMClient openAIClient = new OpenAILLMClient(System.getenv("OPENAI_API_KEY"));
-    OllamaClient ollamaClient = new OllamaClient();
+    OpenAILLMClient openAIClient = openAIClient(System.getenv("OPENAI_API_KEY"));
+    OllamaClient ollamaClient = ollamaClient();
 
     MultiLLMPromptExecutor promptExecutor = new MultiLLMPromptExecutor(openAIClient, ollamaClient);
     ```
@@ -138,9 +138,9 @@ Koog 提供了三种主要类型的提示执行器，它们实现了 [`PromptExe
     -->
     ```java
     // 创建多个客户端实例
-    OpenAILLMClient openAI1 = new OpenAILLMClient("openai-key-1");
-    OpenAILLMClient openAI2 = new OpenAILLMClient("openai-key-2");
-    AnthropicLLMClient anthropic = new AnthropicLLMClient("anthropic-key");
+    OpenAILLMClient openAI1 = openAIClient("openai-key-1");
+    OpenAILLMClient openAI2 = openAIClient("openai-key-2");
+    AnthropicLLMClient anthropic = anthropicClient("anthropic-key");
 
     // 使用轮询策略创建路由器
     RoundRobinRouter router = new RoundRobinRouter(openAI1, openAI2, anthropic);
@@ -153,7 +153,7 @@ Koog 提供了三种主要类型的提示执行器，它们实现了 [`PromptExe
 当您使用此执行器执行提示时，发往 OpenAI 模型的请求将在 `openAI1` 和 `openAI2` 之间轮流切换（使用轮询策略）。
 发往 Anthropic 模型的请求将始终转到单个 `anthropic` 客户端，因为轮询策略会为每个提供商维护独立的计数器。
 
-您还可以通过创建一个实现 [`LLMClientRouter`](api:prompt-executor-model::ai.koog.prompt.executor.model.LLMClientRouter) 接口的类来实现自定义路由策略。
+您还可以通过创建一个实现 [`LLMClientRouter`](api:prompt-executor-model::ai.koog.prompt.executor.llms.LLMClientRouter) 接口的类来实现自定义路由策略。
 
 ## 预定义提示执行器
 
@@ -334,9 +334,9 @@ the predefined executors will return a PromptExecutor instance configured with a
     -->
     ```java
     // 为 OpenAI、Anthropic 和 Google 提供商创建 LLM 客户端
-    OpenAILLMClient openAIClient = new OpenAILLMClient("OPENAI_API_KEY");
-    AnthropicLLMClient anthropicClient = new AnthropicLLMClient("ANTHROPIC_API_KEY");
-    GoogleLLMClient googleClient = new GoogleLLMClient("GOOGLE_API_KEY");
+    OpenAILLMClient openAIClient = openAIClient("OPENAI_API_KEY");
+    AnthropicLLMClient anthropicClient = anthropicClient("ANTHROPIC_API_KEY");
+    GoogleLLMClient googleClient = googleClient("GOOGLE_API_KEY");
 
     // 创建一个将 LLM 提供商映射到 LLM 客户端的 MultiLLMPromptExecutor
     MultiLLMPromptExecutor promptExecutor = new MultiLLMPromptExecutor(
@@ -402,8 +402,8 @@ the predefined executors will return a PromptExecutor instance configured with a
     **/
     -->
     ```java
-    OpenAILLMClient openAIClient = new OpenAILLMClient(System.getenv("OPENAI_API_KEY"));
-    OllamaClient ollamaClient = new OllamaClient();
+    OpenAILLMClient openAIClient = openAIClient(System.getenv("OPENAI_API_KEY"));
+    OllamaClient ollamaClient = ollamaClient();
 
     MultiLLMPromptExecutor multiExecutor = new MultiLLMPromptExecutor(
         Map.of(

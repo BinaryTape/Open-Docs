@@ -109,7 +109,8 @@ post("/llm-chat") {
     )
 
     // 모든 어시스턴트 메시지를 하나의 문자열로 결합합니다.
-    val text = messages.joinToString(separator = "") { it.content }
+    val text = messages.joinToString(separator = "
+") { it.content }
     call.respond(HttpStatusCode.OK, text)
 }
 ```
@@ -239,7 +240,6 @@ install(Koog) {
     }
 }
 ```
-
 ## 왜 Koog + Ktor인가요?
 
 - 서버에서 에이전트를 개발하기 위한 Kotlin 우선의 타입 안전한 환경

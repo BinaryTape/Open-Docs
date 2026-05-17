@@ -13,7 +13,7 @@
 
 ## IntelliJ IDEA에서 애플리케이션 생성 
 
-Kotlin/JS 웹 애플리케이션을 만들려면 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)의 Community 또는 Ultimate 에디션을 사용할 수 있습니다.
+Kotlin/JS 웹 애플리케이션을 만들려면 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)를 사용할 수 있습니다.
 
 ### 환경 설정
 
@@ -78,7 +78,7 @@ Kotlin/JS 웹 애플리케이션을 만들려면 [IntelliJ IDEA](https://www.jet
 
 ![Gradle 실행 구성](js-run-config.png){width=500}
 
-> IntelliJ IDEA Ultimate에서는
+> IntelliJ IDEA Ultimate 버전에서는
 > [JS 디버거(JS Debugger)](https://www.jetbrains.com/help/idea/configuring-javascript-debugger.html)를 사용하여
 > IDE에서 직접 코드를 디버깅할 수 있습니다.
 > 
@@ -208,7 +208,7 @@ fun main() {
 
 * [`replace()` 함수](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/replace.html)는 이름에서 공백을 제거합니다.
 * [`let{}` 범위 함수(scope function)](scope-functions.md#let)는 객체 컨텍스트 내에서 함수를 실행합니다.
-* [문자열 템플릿(string template)](strings.md#string-templates) (`${it.length}`)은 달러 기호(`$`)를 접두사로 붙이고 중괄호(`{}`)로 감싸서 문자열 내에 단어의 길이를 삽입합니다.
+* [문자열 템플릿(string template)](strings.md#string-templates) (`${it.length}`)은 달러 기호($)를 접두사로 붙이고 중괄호(`{}`)로 감싸서 문자열 내에 단어의 길이를 삽입합니다.
   여기서 `it`은 [람다 파라미터(lambda parameter)](coding-conventions.md#lambda-parameters)의 기본 이름입니다.
 
 #### 애플리케이션 실행

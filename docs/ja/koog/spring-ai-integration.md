@@ -365,9 +365,9 @@ koog.spring.ai.embedding.embedding-model-bean-name=openAiEmbeddingModel
 プレーンテキストの `System`、`User`、および `Assistant` メッセージのみが永続化されます。
 保存時に以下のメッセージは黙って破棄されます：
 
-- `Message.Tool.Call`
-- `Message.Tool.Result`
-- `Message.Reasoning`
+- `MessagePart.Tool.Call`
+- `MessagePart.Tool.Result`
+- `MessagePart.Reasoning`
 - 添付ファイル（attachments）を持つすべてのメッセージ
 
 読み込み時、Spring AIの `TOOL` 行は黙ってスキップされます。

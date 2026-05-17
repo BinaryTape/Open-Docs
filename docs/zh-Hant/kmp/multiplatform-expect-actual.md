@@ -11,26 +11,26 @@
 
 要定義 `expect` 與 `actual` 宣告，請遵循以下規則：
 
-1. 在 common 原始碼集中，宣告一個標準的 Kotlin 結構。這可以是函式、屬性、類別、介面、列舉或註解。
-2. 使用 `expect` 關鍵字標記此結構。這就是您的 *expect 宣告*。這些宣告可以在通用程式碼中使用，但不應包含任何實作。相反地，平台特定的程式碼會提供此實作。
-3. 在每個平台特定的原始碼集中，於相同的套件中宣告相同的結構，並使用 `actual` 關鍵字標記。這就是您的 *actual 宣告*，它通常包含使用平台特定程式庫的實作。
+1.  在 common 原始碼集中，宣告一個標準的 Kotlin 結構。這可以是函式、屬性、類別、介面、列舉或註解。
+2.  使用 `expect` 關鍵字標記此結構。這就是您的 *expect 宣告*。這些宣告可以在通用程式碼中使用，但不應包含任何實作。相反地，平台特定的程式碼會提供此實作。
+3.  在每個平台特定的原始碼集中，於相同的套件中宣告相同的結構，並使用 `actual` 關鍵字標記。這就是您的 *actual 宣告*，它通常包含使用平台特定程式庫的實作。
 
 在為特定目標進行編譯期間，編譯器會嘗試將它找到的每個 *actual* 宣告與通用程式碼中相應的 *expect* 宣告進行比對。編譯器會確保：
 
-* common 原始碼集中的每個 `expect` 宣告在每個平台特定的原始碼集中都有一個匹配的 `actual` 宣告。
-* `expect` 宣告不包含任何實作。
-* 每個 `actual` 宣告與對應的 `expect` 宣告共享相同的套件，例如 `org.mygroup.myapp.MyType`。
+*   common 原始碼集中的每個 `expect` 宣告在每個平台特定的原始碼集中都有一個匹配的 `actual` 宣告。
+*   `expect` 宣告不包含任何實作。
+*   每個 `actual` 宣告與對應的 `expect` 宣告共享相同的套件，例如 `org.mygroup.myapp.MyType`。
 
 在為不同平台產生結果程式碼時，Kotlin 編譯器會合併彼此對應的 `expect` 與 `actual` 宣告。它會為每個平台產生一個帶有其實際實作的宣告。通用程式碼中對 `expect` 宣告的每次使用都會呼叫結果平台程式碼中正確的 `actual` 宣告。
 
-當您使用在不同目標平台之間共享的中間原始碼集時，可以宣告 `actual` 宣告。例如，假設 `iosMain` 作為在 `iosX64Main`、`iosArm64Main` 和 `iosSimulatorArm64Main` 平台原始碼集之間共享的中間原始碼集。通常只有 `iosMain` 包含 `actual` 宣告，而平台原始碼集則不包含。然後，Kotlin 編譯器將使用這些 `actual` 宣告來產生相應平台的結果程式碼。
+當您使用在不同目標平台之間共享的中間原始碼集時，可以宣告 `actual` 宣告。例如，假設 `iosMain` 作為在 `iosArm64Main` 和 `iosSimulatorArm64Main` 平台原始碼集之間共享的中間原始碼集。通常只有 `iosMain` 包含 `actual` 宣告，而平台原始碼集則不包含。然後，Kotlin 編譯器將使用這些 `actual` 宣告來產生相應平台的結果程式碼。
 
 IDE 會協助處理常見問題，包括：
 
-* 遺漏宣告
-* 包含實作的 `expect` 宣告
-* 宣告簽章不符
-* 不同套件中的宣告
+*   遺漏宣告
+*   包含實作的 `expect` 宣告
+*   宣告簽章不符
+*   不同套件中的宣告
 
 您還可以使用 IDE 從 `expect` 導覽至 `actual` 宣告。選取裝訂邊圖示以檢視 `actual` 宣告，或使用[快速鍵](https://www.jetbrains.com/help/idea/navigating-through-the-source-code.html#go_to_implementation)。
 
@@ -46,46 +46,46 @@ IDE 會協助處理常見問題，包括：
 
 您可以定義一個 `Identity` 型別和一個工廠函式 `buildIdentity()`，該函式在 common 原始碼集中宣告，並在平台原始碼集中以不同方式實作：
 
-1. 在 `commonMain` 中，宣告一個簡單型別並預期一個工廠函式：
+1.  在 `commonMain` 中，宣告一個簡單型別並預期一個工廠函式：
 
-   ```kotlin
-   package identity
+    ```kotlin
+    package identity
 
-   class Identity(val userName: String, val processID: Long)
+    class Identity(val userName: String, val processID: Long)
   
-   expect fun buildIdentity(): Identity
-   ```
+    expect fun buildIdentity(): Identity
+    ```
 
-2. 在 `jvmMain` 原始碼集中，使用標準 Java 程式庫實作解決方案：
+2.  在 `jvmMain` 原始碼集中，使用標準 Java 程式庫實作解決方案：
 
-   ```kotlin
-   package identity
+    ```kotlin
+    package identity
   
-   import java.lang.System
-   import java.lang.ProcessHandle
+    import java.lang.System
+    import java.lang.ProcessHandle
 
-   actual fun buildIdentity() = Identity(
-       System.getProperty("user.name") ?: "None",
-       ProcessHandle.current().pid()
-   )
-   ```
+    actual fun buildIdentity() = Identity(
+        System.getProperty("user.name") ?: "None",
+        ProcessHandle.current().pid()
+    )
+    ```
 
-3. 在 `nativeMain` 原始碼集中，使用原生相依性透過 [POSIX](https://en.wikipedia.org/wiki/POSIX) 實作解決方案：
+3.  在 `nativeMain` 原始碼集中，使用原生相依性透過 [POSIX](https://en.wikipedia.org/wiki/POSIX) 實作解決方案：
 
-   ```kotlin
-   package identity
+    ```kotlin
+    package identity
   
-   import kotlinx.cinterop.toKString
-   import platform.posix.getlogin
-   import platform.posix.getpid
+    import kotlinx.cinterop.toKString
+    import platform.posix.getlogin
+    import platform.posix.getpid
 
-   actual fun buildIdentity() = Identity(
-       getlogin()?.toKString() ?: "None",
-       getpid().toLong()
-   )
-   ```
+    actual fun buildIdentity() = Identity(
+        getlogin()?.toKString() ?: "None",
+        getpid().toLong()
+    )
+    ```
 
-  在這裡，平台函式會傳回平台特定的 `Identity` 執行個體。
+    在這裡，平台函式會傳回平台特定的 `Identity` 執行個體。
 
 > 從 Kotlin 1.9.0 開始，使用 `getlogin()` 和 `getpid()` 函式需要 `@OptIn` 註解。
 >
@@ -97,39 +97,39 @@ IDE 會協助處理常見問題，包括：
 
 `buildIdentity()` 工廠函式應傳回 `Identity`，但這次，它是實作通用介面的物件：
 
-1. 在 `commonMain` 中，定義 `Identity` 介面和 `buildIdentity()` 工廠函式：
+1.  在 `commonMain` 中，定義 `Identity` 介面和 `buildIdentity()` 工廠函式：
 
-   ```kotlin
-   // 在 commonMain 原始碼集中：
-   expect fun buildIdentity(): Identity
+    ```kotlin
+    // 在 commonMain 原始碼集中：
+    expect fun buildIdentity(): Identity
    
-   interface Identity {
-       val userName: String
-       val processID: Long
-   }
-   ```
+    interface Identity {
+        val userName: String
+        val processID: Long
+    }
+    ```
 
-2. 建立介面的平台特定實作，而無需額外使用 `expect` 與 `actual` 宣告：
+2.  建立介面的平台特定實作，而無需額外使用 `expect` 與 `actual` 宣告：
 
-   ```kotlin
-   // 在 jvmMain 原始碼集中：
-   actual fun buildIdentity(): Identity = JVMIdentity()
+    ```kotlin
+    // 在 jvmMain 原始碼集中：
+    actual fun buildIdentity(): Identity = JVMIdentity()
 
-   class JVMIdentity(
-       override val userName: String = System.getProperty("user.name") ?: "none",
-       override val processID: Long = ProcessHandle.current().pid()
-   ) : Identity
-   ```
+    class JVMIdentity(
+        override val userName: String = System.getProperty("user.name") ?: "none",
+        override val processID: Long = ProcessHandle.current().pid()
+    ) : Identity
+    ```
 
-   ```kotlin
-   // 在 nativeMain 原始碼集中：
-   actual fun buildIdentity(): Identity = NativeIdentity()
+    ```kotlin
+    // 在 nativeMain 原始碼集中：
+    actual fun buildIdentity(): Identity = NativeIdentity()
   
-   class NativeIdentity(
-       override val userName: String = getlogin()?.toKString() ?: "None",
-       override val processID: Long = getpid().toLong()
-   ) : Identity
-   ```
+    class NativeIdentity(
+        override val userName: String = getlogin()?.toKString() ?: "None",
+        override val processID: Long = getpid().toLong()
+    ) : Identity
+    ```
 
 這些平台函式會傳回平台特定的 `Identity` 執行個體，這些執行個體實作為 `JVMIdentity` 和 `NativeIdentity` 平台型別。
 
@@ -279,32 +279,32 @@ open class Identity {
 
 為了適應現有的程式碼庫和架構，您對 `Identity` 型別的實作可以繼承自此型別並重用其功能：
 
-1. 要解決此問題，請在 `commonMain` 中使用 `expect` 關鍵字宣告一個類別：
+1.  要解決此問題，請在 `commonMain` 中使用 `expect` 關鍵字宣告一個類別：
 
-   ```kotlin
-   expect class CommonIdentity() {
-       val userName: String
-       val processID: Long
-   }
-   ```
+    ```kotlin
+    expect class CommonIdentity() {
+        val userName: String
+        val processID: Long
+    }
+    ```
 
-2. 在 `nativeMain` 中，提供一個實作功能的 `actual` 宣告：
+2.  在 `nativeMain` 中，提供一個實作功能的 `actual` 宣告：
 
-   ```kotlin
-   actual class CommonIdentity {
-       actual val userName = getlogin()?.toKString() ?: "None"
-       actual val processID = getpid().toLong()
-   }
-   ```
+    ```kotlin
+    actual class CommonIdentity {
+        actual val userName = getlogin()?.toKString() ?: "None"
+        actual val processID = getpid().toLong()
+    }
+    ```
 
-3. 在 `jvmMain` 中，提供一個繼承自平台特定基底類別的 `actual` 宣告：
+3.  在 `jvmMain` 中，提供一個繼承自平台特定基底類別的 `actual` 宣告：
 
-   ```kotlin
-   actual class CommonIdentity : Identity() {
-       actual val userName = login
-       actual val processID = pid
-   }
-   ```
+    ```kotlin
+    actual class CommonIdentity : Identity() {
+        actual val userName = login
+        actual val processID = pid
+    }
+    ```
 
 在這裡，`CommonIdentity` 型別與您自己的設計相容，同時利用了 JVM 上現有的型別。
 

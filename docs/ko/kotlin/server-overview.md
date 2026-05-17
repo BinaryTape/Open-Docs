@@ -8,7 +8,7 @@ Kotlin은 서버 측 애플리케이션 개발에 매우 적합합니다. Kotlin
 
 Kotlin은 대규모 코드베이스를 Java에서 Kotlin으로 점진적으로 마이그레이션하는 것을 지원합니다. 프로젝트의 다른 부분은 Java로 유지하면서 테스트나 새로운 프로덕션 코드를 Kotlin으로 작성하기 시작할 수 있습니다.
 
-Java 프로젝트에서 Kotlin을 사용할 수 있도록 설정하고, IntelliJ IDEA에 포함된 자동 Java-to-Kotlin 변환기를 활용해 보세요.
+Java 프로젝트에서 Kotlin을 사용할 수 있도록 설정하고, IntelliJ IDEA에 포함된 자동 Java-to-Kotlin 변환기를 활용해 보세요:
 
 <a href="mixing-java-kotlin-intellij.md"><img src="backend-get-started-button.svg" alt="Introduce Kotlin to your Java project" style="block"/></a>
 
@@ -47,7 +47,7 @@ Kotlin 애플리케이션은 Amazon Web Services (AWS), Google Cloud Platform (G
 
 * **AWS**는 서비스와 상호 작용하기 위한 전용 [Kotlin용 SDK](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/home.html)를 제공합니다. 서버리스 배포의 경우, [Kotlin용 AWS Lambda 코드 예제](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/kotlin_lambda_code_examples.html)를 참조할 수 있습니다.
 * **Ktor**를 사용하면 Kotlin 애플리케이션을 다양한 클라우드 제공업체에 게시할 수 있습니다. 예를 들어, Ktor 튜토리얼을 따라 [Google App Engine](https://ktor.io/docs/google-app-engine.html) 및 기타 서비스로의 배포에 대해 자세히 알아볼 수 있습니다.
-* **Spring** 애플리케이션 역시 대부분의 대중적인 클라우드 제공업체와 호환됩니다. [공식 Spring 문서](https://spring.io/projects/spring-boot)에서 Spring Boot 애플리케이션을 클라우드에 배포하는 방법을 확인하세요.
+* **Spring** 애플리케이션 역시 대부분의 대중적인 클라우드 제공업체와 호환됩니다. [공식 Spring 문서](https://docs.spring.io/spring-boot/how-to/deployment/cloud.html)에서 Spring Boot 애플리케이션을 클라우드에 배포하는 방법을 확인하세요.
 
 ## 다음 단계
 

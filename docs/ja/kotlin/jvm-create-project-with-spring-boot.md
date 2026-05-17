@@ -15,15 +15,15 @@
 
 ## 始める前に
 
-最新バージョンの [IntelliJ IDEA Ultimate Edition](https://www.jetbrains.com/idea/download/) をダウンロードしてインストールしてください。
+最新バージョンの [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) をダウンロードしてインストールし、Ultimateサブスクリプションを使用してください。
 
-> IntelliJ IDEA Community Editionまたは別のIDEを使用している場合は、[ウェブベースのプロジェクトジェネレーター](https://start.spring.io/#!language=kotlin&type=gradle-project-kotlin)を使用してSpring Bootプロジェクトを生成できます。
+> IntelliJ IDEA Ultimate Editionを使用していない場合、または別のIDEを使用している場合は、[ウェブベースのプロジェクトジェネレーター](https://start.spring.io/#!language=kotlin&type=gradle-project-kotlin)を使用してSpring Bootプロジェクトを生成できます。
 > 
 {style="tip"}
 
 ## Spring Bootプロジェクトの作成
 
-IntelliJ IDEA Ultimate Editionのプロジェクトウィザードを使用して、Kotlinによる新しいSpring Bootプロジェクトを作成します。
+IntelliJ IDEAのプロジェクトウィザードを使用して、Kotlinによる新しいSpring Bootプロジェクトを作成します。
 
 1. IntelliJ IDEAで、**File** | **New** | **Project** を選択します。 
 2. 左側のパネルの **Generators** セクションで **Spring Boot** を選択します。

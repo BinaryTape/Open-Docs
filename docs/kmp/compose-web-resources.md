@@ -19,7 +19,7 @@
 1. 构建应用程序的 Web 分发：
 
 ```console
-   ./gradlew :composeApp:wasmJsBrowserDistribution
+   ./gradlew :shared:wasmJsBrowserDistribution
 ```
 
 2. 在生成的 `dist` 目录中找到所需的资源并保存路径。
@@ -27,7 +27,7 @@
 4. 将 `href` 属性设置为资源路径：
 
 ```html
-<link rel="preload" href="./composeResources/username.composeapp.generated.resources/font/FiraMono-Regular.ttf" as="fetch" type="font/ttf" crossorigin/>
+<link rel="preload" href="./composeResources/username.shared.generated.resources/font/FiraMono-Regular.ttf" as="fetch" type="font/ttf" crossorigin/>
 ```
 
 ### 使用 Compose Multiplatform 预加载 API 预加载资源

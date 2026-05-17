@@ -16,7 +16,7 @@ JetBrains의 Compose Multiplatform 팀은 이러한 라이브러리에 대해 An
 예를 들어, "iOS용 Navigation 아티팩트"는 다음 멀티플랫폼 아티팩트들의 모음을 의미합니다:
 * `org.jetbrains.androidx.navigation.navigation-compose-uikitarm64`
 * `org.jetbrains.androidx.navigation.navigation-compose-uikitsimarm64`
-* `org.jetbrains.androidx.navigation.navigation-common-iosx64`
+* `org.jetbrains.androidx.navigation.navigation-common-iosarm64`
 * `org.jetbrains.androidx.navigation.navigation-runtime-iossimulatorarm64`
 * 기타 등등.
 

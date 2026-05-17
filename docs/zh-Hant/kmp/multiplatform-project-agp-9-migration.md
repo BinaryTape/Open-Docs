@@ -18,7 +18,7 @@ Kotlin Multiplatform Gradle 外掛程式將不再相容於 `com.android.applicat
 
 ## 遷移至 Android-KMP 程式庫外掛程式
 
-先前在多平台模組中配置 Android 目標時，您需要同時使用 
+先前，在多平台模組中配置 Android 目標時，您需要同時使用 
 KMP 外掛程式 (`org.jetbrains.kotlin.multiplatform`) 
 以及 
 Android 應用程式 (`com.android.application`) 或 Android 程式庫 (`com.android.library`) 外掛程式。
@@ -61,12 +61,8 @@ Android 應用程式 (`com.android.application`) 或 Android 程式庫 (`com.and
   分支中取得。
 該分支還包含其他平台隔離應用程式模組的範例。
 
-<!-- When the new structure is implemented in the wizard, this is going to change: 
-     following the tutorial will bring you to the new structure already.
-     So when the update hits we update with the following:
-
-The sample with an example of older structure is in the [old-project-structure](https://github.com/kotlin-hands-on/get-started-with-cm/tree/old-project-structure)
-branch of the sample repository. -->
+先前作為預設結構配置的專案範例可在 [old-project-structure](https://github.com/kotlin-hands-on/get-started-with-cm/tree/old-project-structure) 
+分支中取得。
 
 該範例包含一個 Gradle 模組 (`composeApp`)，其中包含所有共用程式碼與 KMP 入口點，
 以及一個包含 iOS 特定程式碼與配置的 `iosApp` 專案。
@@ -145,9 +141,11 @@ branch of the sample repository. -->
    `androidApp/build.gradle.kts` 檔案的 `target {}` 區塊：
 
     ```kotlin
-    target {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+    kotlin {
+        target {
+            compilerOptions {
+                jvmTarget.set(JvmTarget.JVM_11)
+            }
         }
     }
     ```
@@ -193,7 +191,7 @@ branch of the sample repository. -->
    2. 在 **Android** 類別中找到 **composeApp** 配置。
    3. 在 **General | Module** 欄位中，將 `demo.composeApp` 更改為 `demo.androidApp`。
 5. 啟動新的執行配置以確保應用程式如預期執行。
-6. 如果一切運作正常，請在 `composeApp/build.gradle.kts` 檔案中移除 `kotlin.sourceSets.androidMain.dependencies {}` 區塊。
+6. If everything works correctly, in the `composeApp/build.gradle.kts` file, remove the `kotlin.sourceSets.androidMain.dependencies {}` block.
 
 您已將 Android 入口點提取到獨立模組。
 現在請更新共用程式碼模組以使用新的 Android-KMP 程式庫外掛程式。 
@@ -275,6 +273,8 @@ branch of the sample repository. -->
         androidLibrary {
             namespace = "compose.project.demo.composedemolibrary"
             // ...
+        }
+    }
     ```
    
 6. 在建置指令碼編輯器中選擇 **Build | Sync Project with Gradle Files**，或點擊 Gradle 重新整理按鈕。
@@ -283,8 +283,7 @@ branch of the sample repository. -->
 
 恭喜！您已成功升級專案以相容於 AGP 9.0。
 
-<!-- Commented out for now
-## What's next
+## 下一步
 
-Check out the [recommended project structure](multiplatform-project-recommended-structure.md)
-which follows the logic of separating entry points for any app target you might have. -->
+請參閱[推薦的專案結構](multiplatform-project-recommended-structure.md)，
+該結構遵循了為任何應用程式目標分離入口點的邏輯。

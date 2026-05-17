@@ -51,7 +51,7 @@
   "kotlin.kotlin-overview": "Kotlin overview",
   "kotlin.what-s-new-in-kotlin": "What's new in Kotlin",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.4.0-Beta2",
+  "kotlin.whatsnew-eap": "Kotlin 2.4.0-RC",
   "kotlin.earlier-versions": "Earlier versions",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -616,7 +616,7 @@
   "kotlin.library-guides": "Library guides",
   "kotlin.multiplatform-gradle-dsl": "Multiplatform Gradle DSL",
   "kotlin.earlier-kotlin-releases": "Earlier Kotlin releases",
-  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-rc01",
+  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0",
   "koog.rag": "RAG",
   "kotlin.backend-development": "Backend development",
   "kotlin.running-ksp-from-the-command-line": "Running KSP from the command line",
@@ -626,5 +626,6 @@
   "kmp.build-ios-android-app": "How to build Android and iOS apps",
   "koog.cache-control": "Cache control",
   "kotlin.jvm-test-maven": "Testing with Maven",
-  "kotlin.jvm-annotation-processors": "Use annotation processors"
+  "kotlin.jvm-annotation-processors": "Use annotation processors",
+  "kmp.multiplatform-project-recommended-structure": "General structure recommendations"
 }

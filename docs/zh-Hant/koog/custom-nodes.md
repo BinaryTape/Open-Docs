@@ -493,6 +493,7 @@
     <!--- INCLUDE
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.prompt.message.MessagePart
     val strategy = strategy<String, String>("strategy_name") {
     -->
     <!--- SUFFIX
@@ -506,7 +507,8 @@
             }
 
             val response = requestLLMWithoutTools()
-            response.content
+            response.parts.filterIsInstance<MessagePart.Text>().joinToString("
+") { it.text }
         }
     }
     ```
@@ -517,6 +519,8 @@
     <!--- INCLUDE
     import ai.koog.agents.core.agent.entity.AIAgentNode;
     import ai.koog.prompt.message.Message;
+    import ai.koog.prompt.message.MessagePart;
+    import java.util.stream.Collectors;
     class exampleCustomNodesJava10 {
         public static void main(String[] args) {
     -->
@@ -529,13 +533,16 @@
     // AIAgentNode.llmRequest() 會建立一個節點，將輸入字串作為使用者
     // 訊息發送到 LLM 並回傳回應。提示詞文字是在圖形中執行時
     // 作為節點的輸入提供的。
-    var summarizeTextNode = AIAgentNode.llmRequest(true, "node_name");
+    var summarizeTextNode = AIAgentNode.llmRequest("node_name");
 
     // 若要從 LLM 回應中提取文字內容，請串接一個單獨的節點：
     var extractContent = AIAgentNode.builder("extract-content")
-        .withInput(Message.Response.class)
+        .withInput(Message.Assistant.class)
         .withOutput(String.class)
-        .withAction((response, ctx) -> response.getContent())
+        .withAction((response, ctx) -> response.getParts().stream()
+            .filter(p -> p instanceof MessagePart.Text)
+            .map(p -> ((MessagePart.Text) p).getText())
+            .collect(Collectors.joining()))
         .build();
     ```
     <!--- KNIT exampleCustomNodesJava10.java -->
@@ -552,9 +559,7 @@
     <!--- INCLUDE
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
-    import ai.koog.prompt.message.Message
-    import ai.koog.prompt.message.ResponseMetaInfo
-    import ai.koog.utils.time.KoogClock
+    import ai.koog.prompt.message.MessagePart
     import kotlinx.serialization.Serializable
     import kotlinx.serialization.json.Json
     import java.util.*
@@ -568,15 +573,14 @@
     -->
     ```kotlin
     val nodeExecuteCustomTool by node<String, String>("node_name") { input ->
-        val toolCall = Message.Tool.Call(
+        val toolCall = MessagePart.Tool.Call(
             id = UUID.randomUUID().toString(),
             tool = toolName,
-            metaInfo = ResponseMetaInfo.create(KoogClock.System),
-            content = Json.encodeToString(ToolArgs(arg1 = input, arg2 = 42)) // 使用輸入作為工具引數
+            args = Json.encodeToString(ToolArgs(arg1 = input, arg2 = 42)) // 使用輸入作為工具引數
         )
 
         val result = environment.executeTool(toolCall)
-        result.content
+        result.output
     }
     ```
     <!--- KNIT example-custom-nodes-11.kt -->
@@ -605,4 +609,4 @@
     <!--- KNIT exampleCustomNodesJava11.java -->
 
 !!! note
-    Kotlin 範例示範了透過手動建構 `Message.Tool.Call` 並呼叫 `environment.executeTool()` 來進行低階工具執行。Java API 鼓勵使用帶有 `withTask()` 的子圖這種較高階的方法，由 LLM 自動編排工具呼叫。若要限制哪些工具可用，請在 `.withInput()` 之前串接 `.limitedTools(List.of(myTool))`。
+    Kotlin 範例示範了透過手動建構 `MessagePart.Tool.Call` 並呼叫 `environment.executeTool()` 來進行低階工具執行。Java API 鼓勵使用帶有 `withTask()` 的子圖這種較高階的方法，由 LLM 自動編排工具呼叫。若要限制哪些工具可用，請在 `.withInput()` 之前串接 `.limitedTools(List.of(myTool))`。

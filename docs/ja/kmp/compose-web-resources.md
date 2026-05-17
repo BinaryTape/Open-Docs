@@ -21,7 +21,7 @@
 1. アプリケーションの Web 配布物をビルドします：
 
 ```console
-   ./gradlew :composeApp:wasmJsBrowserDistribution
+   ./gradlew :shared:wasmJsBrowserDistribution
 ```
 
 2. 生成された `dist` ディレクトリから必要なリソースを見つけ、そのパスを保存します。
@@ -29,7 +29,7 @@
 4. `href` 属性にリソースのパスを設定します：
 
 ```html
-<link rel="preload" href="./composeResources/username.composeapp.generated.resources/font/FiraMono-Regular.ttf" as="fetch" type="font/ttf" crossorigin/>
+<link rel="preload" href="./composeResources/username.shared.generated.resources/font/FiraMono-Regular.ttf" as="fetch" type="font/ttf" crossorigin/>
 ```
 
 ### Compose Multiplatform プリロード API を使用したリソースのプリロード

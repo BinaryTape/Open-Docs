@@ -15,7 +15,8 @@
     </p>
 </tldr>
 
-您已經建立了第一個跨平台的 Kotlin Multiplatform 專案！現在讓我們學習如何新增對第三方連結庫的相依性，這對於建置成功的跨平台應用程式至關重要。
+您已經建立並調整了第一個 Kotlin Multiplatform 專案！
+現在讓我們學習如何新增對第三方程式庫的相依性，這對於建置成功的跨平台應用程式至關重要。
 
 ## 相依性類型
 
@@ -23,41 +24,55 @@
 
 * _多平台相依性 (Multiplatform dependencies)_。這些是支援多個目標的多平台程式庫，可以在共通原始碼集 `commonMain` 中使用。
 
-  許多現代 Android 程式庫已經支援多平台，例如 [Koin](https://insert-koin.io/)、[Apollo](https://www.apollographql.com/) 和 [Okio](https://square.github.io/okio/)。您可以在 [klibs.io](https://klibs.io/) 上找到更多多平台程式庫，這是由 JetBrains 提供的實驗性搜尋服務，用於探索 Kotlin Multiplatform 程式庫。
+  許多現代 Android 程式庫已經支援多平台，例如 [Koin](https://insert-koin.io/)、[Coil](https://coil-kt.github.io/coil/) 和 [SQLDelight](https://sqldelight.github.io/sqldelight/latest/)。您可以在 [klibs.io](https://klibs.io/) 上找到更多多平台程式庫，這是由 JetBrains 提供的搜尋服務，用於探索 Kotlin Multiplatform 程式庫。
 
-* _原生相依性 (Native dependencies)_。這些是來自相關生態系統的常規程式庫。在原生專案中，您通常在 Android 中使用 Gradle，在 iOS 中使用 CocoaPods 或其他相依管理器來處理它們。 
+* _原生相依性 (Native dependencies)_。這些是來自特定生態系統的常規程式庫。
+  在原生專案中，您通常會使用它們，例如在 Android 中使用 Gradle，在 iOS 中使用 Swift Package Manager。 
   
-  當您處理共享模組時，通常在想要使用平台 API（如安全存儲）時，仍需要原生相依性。您可以將原生相依性新增到原生原始碼集 `androidMain` 和 `iosMain` 中。
+  當您處理多平台專案模組時，通常仍需要原生相依性來使用平台 API，例如安全儲存、特定的系統呼叫等等。
+  在建置指令碼中，您可以在原生原始碼集（例如 `androidMain` 和 `iosMain`）的配置中指定原生相依性。
 
-對於這兩種類型的相依性，您都可以使用本機和外部存儲庫。
+對於這兩種類型的相依性，您都可以使用本機和外部儲存庫。
 
 ## 新增多平台相依性
 
-> 如果您有開發 Android 應用程式的經驗，新增多平台相依性與在一般 Android 專案中新增 Gradle 相依性非常相似。唯一的區別在於您需要指定原始碼集。
+> 如果您有開發 Android 應用程式的經驗，新增多平台相依性與在一般 Android 專案中新增 Gradle 相依性非常相似。唯一的區別在於您需要將其新增至特定的原始碼集。
 >
 {style="tip"}
 
-讓我們回到應用程式，讓問候語更具節日氛圍。除了裝置資訊外，再新增一個功能來顯示距離元旦還有多少天。`kotlinx-datetime` 程式庫具有完整的多平台支援，是在共享程式碼中處理日期的最便捷方式。
+讓我們讓問候語更具節日氛圍：
+除了作業系統版本外，再新增一個功能來顯示距離元旦還有多少天。
+`kotlinx-datetime` 程式庫具有完整的多平台支援，是在共享程式碼中處理日期的最便捷方式。
 
-1. 開啟位於 `shared` 目錄中的 `build.gradle.kts` 檔案。
-2. 在 `commonMain` 原始碼集相依性中新增以下相依性以及 Kotlin 時間 opt-in：
+1. 開啟 `gradle/libs.versions.toml` 檔案，將 `kotlinx-datetime` 相依性新增至版本目錄：
+    ```text
+    [versions]
+    kotlinx-datetime = "0.8.0"
+    
+    [libraries]
+    kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
+    ```
+2. 開啟 `sharedLogic/build.gradle.kts` 檔案，在配置共通程式碼原始碼集的區段中新增該程式庫項目的參考：
 
     ```kotlin
     kotlin {
         //... 
         sourceSets {
-            all { languageSettings.optIn("kotlin.time.ExperimentalTime") }
-   
             commonMain.dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:%dateTimeVersion%")
+                implementation(libs.kotlinx.datetime)
             } 
         }
     }
     ```
 
 3. 選取 **Build | Sync Project with Gradle Files** 功能表項目，或點擊建置指令碼編輯器中的 **Sync Gradle Changes** 按鈕以同步 Gradle 檔案： ![同步 Gradle 檔案](gradle-sync.png){width=50}
-4. 在 `shared/src/commonMain/.../greetingkmp` 目錄上按右鍵，然後選取 **New | Kotlin Class/File** 以建立一個新檔案 `NewYear.kt`。
-5. 使用 `datetime` 的日期運算，更新該檔案並加入一個計算從今天到新年天數的簡短函式：
+
+## 呼叫 kotlinx-datetime API
+
+新增相依性後，您可以在共通程式碼中加入日期和時間計算：
+
+1. 在 `sharedLogic/src/commonMain/.../greetingkmp` 目錄上按右鍵，然後選取 **New | Kotlin Class/File** 以建立一個新檔案 `NewYear.kt`。
+2. 在 `NewYear.kt` 中，新增兩個函式，使用 `datetime` 的日期運算來計算從今天到明年開始的天數，並組成要顯示的語句：
    
    ```kotlin
    fun daysUntilNewYear(): Int {
@@ -68,9 +83,9 @@
    
    fun daysPhrase(): String = "There are only ${daysUntilNewYear()} days left until New Year! 🎆"
    ```
-6. 根據 IDE 的建議新增所有必要的匯入。
-   確保您從 `kotlin.time` 套件匯入 `Clock` 類別。
-7. 在 `Greeting.kt` 檔案中，更新 `Greeting` 類別以查看結果：
+3. 根據 IDE 的建議新增所有必要的匯入。
+   確保匯入的是 `kotlin.time.Clock`，而不是 `kotlinx.datetime.Clock`。 
+4. 在 `Greeting.kt` 檔案中，更新 `Greeting` 類別以查看結果：
     
     ```kotlin
     class Greeting {
@@ -84,9 +99,9 @@
     }
     ```
 
-8. 要查看結果，請從 IntelliJ IDEA 重新執行您的 **composeApp** 和 **iosApp** 執行組態：
+5. 要查看結果，請從 IntelliJ IDEA 重新執行您的 **androidApp** 和 **iosApp** 執行組態：
 
-![已更新且包含外部相依性的行動多平台應用程式](first-multiplatform-project-3.png){width=500}
+![已更新且包含外部相依性的行動多平台應用程式](first-multiplatform-project-3.png){width=600}
 
 ## 下一步
 

@@ -52,12 +52,7 @@ Android 앱 프로젝트를 마이그레이션하려면 Android 진입점과 공
 * `androidApp`이 분리된 앱의 최종 상태는 [new-project-structure](https://github.com/kotlin-hands-on/get-started-with-cm/tree/new-project-structure) 브랜치에서 확인할 수 있습니다.
 이 브랜치에는 다른 플랫폼을 위해 분리된 앱 모듈의 예제도 포함되어 있습니다.
 
-<!-- When the new structure is implemented in the wizard, this is going to change: 
-     following the tutorial will bring you to the new structure already.
-     So when the update hits we update with the following:
-
-The sample with an example of older structure is in the [old-project-structure](https://github.com/kotlin-hands-on/get-started-with-cm/tree/old-project-structure)
-branch of the sample repository. -->
+이전에 기본적으로 구성되었던 프로젝트 구조의 예제는 [old-project-structure](https://github.com/kotlin-hands-on/get-started-with-cm/tree/old-project-structure) 브랜치에 있습니다.
 
 이 샘플은 모든 공용 코드와 KMP 진입점을 포함하는 단일 Gradle 모듈(`composeApp`)과 iOS 전용 코드 및 구성이 포함된 `iosApp` 프로젝트로 구성되어 있습니다.
 
@@ -133,9 +128,11 @@ Android 앱 모듈(`androidApp`)을 생성하려면 다음을 수행하세요:
 6. `composeApp/build.gradle.kts` 파일의 `androidTarget {}` 블록에서 컴파일러 옵션을 `androidApp/build.gradle.kts` 파일의 `target {}` 블록으로 복사합니다:
 
     ```kotlin
-    target {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+    kotlin {
+        target {
+            compilerOptions {
+                jvmTarget.set(JvmTarget.JVM_11)
+            }
         }
     }
     ```
@@ -253,6 +250,8 @@ Android 앱 모듈(`androidApp`)을 생성하려면 다음을 수행하세요:
         androidLibrary {
             namespace = "compose.project.demo.composedemolibrary"
             // ...
+        }
+    }
     ```
    
 6. 빌드 스크립트 에디터에서 메인 메뉴의 **Build | Sync Project with Gradle Files**를 선택하거나 Gradle 새로고침 버튼을 클릭합니다.
@@ -261,8 +260,6 @@ Android 앱 모듈(`androidApp`)을 생성하려면 다음을 수행하세요:
 
 축하합니다! 프로젝트를 AGP 9.0과 호환되도록 업그레이드했습니다.
 
-<!-- Commented out for now
-## What's next
+## 다음 단계
 
-Check out the [recommended project structure](multiplatform-project-recommended-structure.md)
-which follows the logic of separating entry points for any app target you might have. -->
+앱 타겟의 진입점을 분리하는 로직을 따르는 [권장 프로젝트 구조](multiplatform-project-recommended-structure.md)를 확인해 보세요.

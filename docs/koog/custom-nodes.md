@@ -485,13 +485,14 @@
 
 ### LLM 交互节点
 
-与 LLM 进行交互的节点。在 Kotlin 中，您可以对 LLM 会话进行精细控制。在 Java 中，您通常使用预构建的工厂方法（如 `AIAgentNode.llmRequest()`），这些方法会自动处理提示词构建。
+与 LLM 进行交互的节点。在 Kotlin 中，您对 LLM 会话进行精细控制。在 Java 中，您通常使用预构建的工厂方法（如 `AIAgentNode.llmRequest()`），这些方法会自动处理提示词构建。
 
 === "Kotlin"
 
     <!--- INCLUDE
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.prompt.message.MessagePart
     val strategy = strategy<String, String>("strategy_name") {
     -->
     <!--- SUFFIX
@@ -505,7 +506,8 @@
             }
 
             val response = requestLLMWithoutTools()
-            response.content
+            response.parts.filterIsInstance<MessagePart.Text>().joinToString("
+") { it.text }
         }
     }
     ```
@@ -516,6 +518,8 @@
     <!--- INCLUDE
     import ai.koog.agents.core.agent.entity.AIAgentNode;
     import ai.koog.prompt.message.Message;
+    import ai.koog.prompt.message.MessagePart;
+    import java.util.stream.Collectors;
     class exampleCustomNodesJava10 {
         public static void main(String[] args) {
     -->
@@ -528,13 +532,16 @@
     // AIAgentNode.llmRequest() 会创建一个节点，该节点将输入字符串作为用户消息
     // 发送到 LLM 并返回响应。在图中执行该节点时，提示词文本将作为
     // 该节点的输入提供。
-    var summarizeTextNode = AIAgentNode.llmRequest(true, "node_name");
+    var summarizeTextNode = AIAgentNode.llmRequest("node_name");
 
     // 要从 LLM 响应中提取文本内容，请链接一个单独的节点：
     var extractContent = AIAgentNode.builder("extract-content")
-        .withInput(Message.Response.class)
+        .withInput(Message.Assistant.class)
         .withOutput(String.class)
-        .withAction((response, ctx) -> response.getContent())
+        .withAction((response, ctx) -> response.getParts().stream()
+            .filter(p -> p instanceof MessagePart.Text)
+            .map(p -> ((MessagePart.Text) p).getText())
+            .collect(Collectors.joining()))
         .build();
     ```
     <!--- KNIT exampleCustomNodesJava10.java -->
@@ -551,9 +558,7 @@
     <!--- INCLUDE
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
-    import ai.koog.prompt.message.Message
-    import ai.koog.prompt.message.ResponseMetaInfo
-    import ai.koog.utils.time.KoogClock
+    import ai.koog.prompt.message.MessagePart
     import kotlinx.serialization.Serializable
     import kotlinx.serialization.json.Json
     import java.util.*
@@ -567,15 +572,14 @@
     -->
     ```kotlin
     val nodeExecuteCustomTool by node<String, String>("node_name") { input ->
-        val toolCall = Message.Tool.Call(
+        val toolCall = MessagePart.Tool.Call(
             id = UUID.randomUUID().toString(),
             tool = toolName,
-            metaInfo = ResponseMetaInfo.create(KoogClock.System),
-            content = Json.encodeToString(ToolArgs(arg1 = input, arg2 = 42)) // 使用输入作为工具实参
+            args = Json.encodeToString(ToolArgs(arg1 = input, arg2 = 42)) // 使用输入作为工具实参
         )
 
         val result = environment.executeTool(toolCall)
-        result.content
+        result.output
     }
     ```
     <!--- KNIT example-custom-nodes-11.kt -->
@@ -603,4 +607,4 @@
     <!--- KNIT exampleCustomNodesJava11.java -->
 
 !!! note
-    Kotlin 示例通过手动构造 `Message.Tool.Call` 并调用 `environment.executeTool()` 演示了低级工具执行。Java API 鼓励使用带有 `withTask()` 的子图这种更高级的方法，由 LLM 自动编排工具调用。若要限制可用的工具，请在 `.withInput()` 之前链接 `.limitedTools(List.of(myTool))`。
+    Kotlin 示例通过手动构造 `MessagePart.Tool.Call` 并调用 `environment.executeTool()` 演示了低级工具执行。Java API 鼓励使用带有 `withTask()` 的子图这种更高级的方法，由 LLM 自动编排工具调用。若要限制可用的工具，请在 `.withInput()` 之前链接 `.limitedTools(List.of(myTool))`。

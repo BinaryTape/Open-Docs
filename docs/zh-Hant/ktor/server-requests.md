@@ -4,15 +4,22 @@
 
 <link-summary>了解如何在路由處理常式中處理傳入的請求。</link-summary>
 
-Ktor 允許您在 [路由處理常式](server-routing.md#define_route) 中處理傳入的請求並傳送 [回應](server-responses.md)。處理請求時，您可以執行各種操作：
+Ktor 允許您在 [路由處理常式](server-routing.md#define_route) 中處理傳入的請求並傳送 [回應](server-responses.md)。
 
-* 獲取 [請求資訊](#request_information)，例如頁首、Cookies 等。
+路由處理常式在 [`ApplicationCall`](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-call/index.html) 上運作，其代表用戶端與伺服器之間的一次 HTTP 交換。在路由處理常式中，可以透過 `call` 屬性存取它，其中包含傳入的請求 (`ApplicationRequest`) 和傳出的回應 (`ApplicationResponse`)。
+
+在路由處理常式中，您可以使用 `ApplicationCall` 來：
+
+* 存取 [請求資訊](#request_information)，例如頁首、Cookies 和連線詳細資訊。
 * 獲取 [路徑參數](#path_parameters) 值。
-* 獲取 [查詢字串](#query_parameters) 的參數。
-* 接收 [主體內容](#body_contents)，例如資料物件、表單參數和檔案。
+* 獲取 [查詢參數](#query_parameters)。
+* 接收 [請求主體內容](#body_contents)，例如資料物件、表單參數和檔案。
 
 ## 一般請求資訊 {id="request_information"}
-在路由處理常式中，您可以使用 [`call.request`](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-call/request.html) 屬性存取請求。這會傳回 [`ApplicationRequest`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/index.html) 執行個體，並提供對各種請求參數的存取。例如，下方的程式碼片段顯示如何獲取請求 URI：
+
+您可以使用 [`call.request`](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-call/request.html) 屬性存取請求資料。這會傳回 [`ApplicationRequest`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/index.html) 執行個體，並提供對底層 HTTP 請求資訊的存取。
+
+例如，您可以在 GET 請求處理常式中使用 `call.request.uri` 獲取請求 URI：
 
 ```kotlin
 routing {
@@ -22,28 +29,39 @@ routing {
     }
 }
 ```
-[`call.respondText()`](server-responses.md#plain-text) 方法用於將回應傳回給用戶端。
 
-[`ApplicationRequest`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/index.html) 物件允許您存取各種請求資料，例如：
+[`call.respondText()`](server-responses.md#plain-text) 函式會將純文字回應傳回給用戶端。
 
-* **頁首 (Headers)**
+### 頁首 {id="headers"}
 
-  要存取所有請求頁首，請使用 [`ApplicationRequest.headers`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/headers.html) 屬性。您也可以使用專用的擴充函式存取特定的頁首，例如 `acceptEncoding`、`contentType`、`cacheControl` 等。
+要存取所有 HTTP 請求頁首，請使用 [`ApplicationRequest.headers`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/headers.html) 屬性。
 
-* **Cookies**  
+為了方便起見，Ktor 還提供了專用的擴充函式來存取常用的頁首，例如 
+[`.acceptEncoding()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/accept-encoding.html)、
+[`.contentType()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/content-type.html) 和
+[`.cacheControl()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/cache-control.html)。
 
-  [`ApplicationRequest.cookies`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/cookies.html) 屬性提供對請求相關 Cookies 的存取。要了解如何使用 Cookies 處理工作階段，請參閱 [Sessions](server-sessions.md) 章節。
+### Cookies {id="cookies"}
 
-* **連線詳細資訊**
+要存取隨請求傳送的 Cookies，請使用 [`ApplicationRequest.cookies`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/cookies.html) 屬性。
 
-  使用 [`ApplicationRequest.local`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/local.html) 屬性來存取連線詳細資訊，例如主機名稱、埠 (port)、scheme 等。
+> 關於使用 Cookies 處理工作階段的更多資訊，請參閱 [Sessions](server-sessions.md) 章節。
+> 
+{style="tip"}
 
-* **`X-Forwarded-` 頁首**
+### 連線詳細資訊
 
-  要獲取透過 HTTP 代理或負載平衡器傳遞的請求資訊，請安裝 [Forwarded headers](server-forward-headers.md) 外掛程式並使用 [`ApplicationRequest.origin`](https://api.ktor.io/ktor-server-core/io.ktor.server.plugins/origin.html) 屬性。
+使用 [`ApplicationRequest.local`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/local.html) 屬性來獲取連線詳細資訊，例如主機名稱、埠 (port) 和 scheme。
+
+### `X-Forwarded-` 頁首
+
+要獲取透過 HTTP 代理或負載平衡器傳遞的請求資訊，請安裝 [Forwarded headers](server-forward-headers.md) 外掛程式並使用 [`ApplicationRequest.origin`](https://api.ktor.io/ktor-server-core/io.ktor.server.plugins/origin.html) 屬性。
 
 ## 路徑參數 {id="path_parameters"}
-處理請求時，您可以使用 `call.parameters` 屬性存取 [路徑參數](server-routing.md#path_parameter) 值。例如，在下方的程式碼片段中，對於 `/user/admin` 路徑，`call.parameters["login"]` 將傳回 _admin_：
+
+處理請求時，您可以使用 `ApplicationCall.parameters` 屬性獲取 [路徑參數](server-routing.md#path_parameter) 值。
+
+例如，在下方的程式碼片段中，對於 `/user/admin` 路徑，`call.parameters["login"]` 將傳回 `"admin"`：
 
 ```kotlin
 get("/user/{login}") {
@@ -55,7 +73,9 @@ get("/user/{login}") {
 
 ## 查詢參數 {id="query_parameters"}
 
-要存取 <emphasis tooltip="query_string">查詢字串</emphasis> 的參數，您可以使用 [`ApplicationRequest.queryParameters()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/query-parameters.html) 屬性。例如，如果請求傳送到 `/products?price=asc`，您可以用以下方式存取 `price` 查詢參數：
+要獲取 URL 查詢字串的參數，您可以使用 [`ApplicationRequest.queryParameters`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/query-parameters.html) 屬性。
+
+以下範例存取對 `/products?price=asc` 請求中的 `price` 查詢參數：
 
 ```kotlin
 get("/products") {
@@ -66,6 +86,31 @@ get("/products") {
 ```
 
 您也可以使用 [`ApplicationRequest.queryString()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/query-string.html) 函式獲取整個查詢字串。
+
+## 必要的請求參數
+
+處理請求時，通常會從 [路徑參數](#path_parameters)、[查詢參數](#query_parameters)、[頁首](#headers) 或 [Cookies](#cookies) 中提取值，並在繼續處理請求之前驗證它們是否存在。
+
+Ktor 提供以下輔助函式來簡化必要請求資料的存取，而不是在每個路由處理常式中手動檢查缺失的值：
+
+[//]: # (TODO: Add API links)
+
+* `ApplicationCall.requireQueryParameter()` — 從請求 URL 中獲取必要的查詢參數。若參數缺失則會拋出例外。
+* `ApplicationCall.requireHeader()` — 獲取必要的 HTTP 頁首值。若請求中不存在該頁首則會拋出例外。
+* `ApplicationCall.requireCookie()` — 獲取必要的 Cookie 值，並可選擇使用指定的編碼對其進行解碼。若 Cookie 缺失則會拋出例外。
+* `RoutingCall.requirePathParameter()` — 從路由定義中獲取必要的路徑參數。若匹配的路由中不存在該參數則會拋出例外。
+
+每個函式都會傳回非 null 值，或在值缺失時拋出 `MissingRequestParameterException`。
+
+```kotlin
+post("/checkout/{cartId}") {
+    val userId = call.requireCookie("userId")
+    val cartId = call.requirePathParameter("cartId")
+    val amount = call.requireQueryParameter("amount").toLong()
+
+    // 業務邏輯
+}
+```
 
 ## 主體內容 {id="body_contents"}
 本節說明如何接收隨 `POST`、`PUT` 或 `PATCH` 傳送的主體內容。

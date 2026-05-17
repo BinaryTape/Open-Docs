@@ -426,7 +426,7 @@ Koog を使用するには、[サポートされている LLM プロバイダー
         }
 
         // LLM クライアントを作成します
-        DeepSeekLLMClient deepSeekClient = new DeepSeekLLMClient(apiKey);
+        DeepSeekLLMClient deepSeekClient = deepSeekClient(apiKey);
 
         // エージェントを作成します
         AIAgent<String, String> agent = AIAgent.builder()

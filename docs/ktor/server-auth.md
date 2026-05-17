@@ -48,8 +48,11 @@ HTTP 为访问控制和认证提供了一个 [通用框架](https://developer.mo
 [会话](server-sessions.md) 提供了一种在不同 HTTP 请求之间持久化数据的机制。典型用例包括存储已登录用户的 ID、购物车内容或在客户端保留用户偏好设置。在 Ktor 中，已经拥有关联会话的用户可以使用 `session` 提供者进行认证。详细了解如何从 [Ktor Server 中的会话认证](server-session-auth.md) 执行此操作。
 
 ### 自定义 {id="custom"}
-Ktor 还提供了用于创建 [自定义插件](server-custom-plugins.md) 的 API，可用于实现你自己的插件来处理认证与授权。
-例如，在检查认证凭据后执行 `AuthenticationChecked` [钩子](server-custom-plugins.md#call-handling)，它允许你实现授权：[custom-plugin-authorization](https://github.com/ktorio/ktor-documentation/blob/%ktor_version%/codeSnippets/snippets/custom-plugin-authorization)。
+
+Ktor 提供了两种方式来自定义认证与授权行为：
+
+* 使用 [自定义认证提供者](#custom-auth-provider)。
+* 使用 [自定义插件](server-custom-plugins.md) 来实现授权逻辑。例如，你可以使用 `AuthenticationChecked` [钩子](server-custom-plugins.md#call-handling) 来验证访问权限。更多信息请参阅 [custom-plugin-authorization](https://github.com/ktorio/ktor-documentation/blob/%ktor_version%/codeSnippets/snippets/custom-plugin-authorization) 示例。
 
 ## 添加依赖项 {id="add_dependencies"}
 
@@ -112,6 +115,10 @@ install(Authentication) {
 ```
 
 在此函数内部，你可以 [配置](#configure-provider) 该提供者特有的设置。
+
+> 如果内置提供者不符合你的要求，你可以实现 [自定义认证提供者](#custom-auth-provider)。
+> 
+{style="note"}
 
 ### 步骤 2：指定提供者名称 {id="provider-name"}
 
@@ -249,3 +256,29 @@ authenticate("auth-session", strategy = AuthenticationStrategy.Required) {
         }
     }
 }
+```
+
+## 自定义认证提供者 {id="custom-auth-provider"}
+
+当内置提供者不符合你的要求时，请使用 [`provider()`](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-authentication-config/provider.html) 函数来实现自定义认证逻辑：
+
+```kotlin
+provider("custom") {
+  authenticate { context ->
+    val exampleHeader = context.call.request.headers["Example-Header"]
+    if (exampleHeader == null) {
+      val cause = AuthenticationFailedCause.Error("No example header found")
+      context.challenge(key = this, cause) { challenge, call ->
+        call.respondText("Challenge")
+        challenge.complete()
+      }
+    }
+  }
+}
+```
+
+在上述示例中，`provider("custom")` 函数注册了一个命名的认证提供者，稍后可以使用 `authenticate("custom")` 将其应用于路由。
+
+在提供者内部，`authenticate {}` 块针对每个传入请求执行，并允许你通过上下文对象完全控制认证过程。这包括访问当前调用 (`context.call`) 以及检查标头、参数或其他请求数据的能力。
+
+你可以使用 [`DynamicProviderConfig`](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-dynamic-provider-config/index.html) 类提供的选项来配置额外的提供者行为。

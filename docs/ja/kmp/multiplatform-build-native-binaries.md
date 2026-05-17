@@ -34,7 +34,7 @@ kotlin {
     linuxX64 { // 代わりに自身のターゲットを定義してください。
         binaries {
             executable {
-                // バイナリの設定
+                // バイナリの設定。
             }
         }
     }
@@ -57,7 +57,7 @@ binaries {
 ```kotlin
 binaries {
     executable(listOf(DEBUG)) {
-        // バイナリの設定
+        // バイナリの設定。
     }
 }
 ```
@@ -68,7 +68,7 @@ binaries {
 ```groovy
 binaries {
     executable([DEBUG]) {
-        // バイナリの設定
+        // バイナリの設定。
     }
 }
 ```
@@ -84,13 +84,13 @@ binaries {
 ```kotlin
 binaries {
     executable("foo", listOf(DEBUG)) {
-        // バイナリの設定
+        // バイナリの設定。
     }
 
     // ビルドタイプのリストを省略することも可能です
     //（この場合、利用可能なすべてのビルドタイプが使用されます）。
     executable("bar") {
-        // バイナリの設定
+        // バイナリの設定。
     }
 }
 ```
@@ -101,13 +101,13 @@ binaries {
 ```groovy
 binaries {
     executable('foo', [DEBUG]) {
-        // バイナリの設定
+        // バイナリの設定。
     }
 
     // ビルドタイプのリストを省略することも可能です
     //（この場合、利用可能なすべてのビルドタイプが使用されます）。
     executable('bar') {
-        // バイナリの設定
+        // バイナリの設定。
     }
 }
 ```
@@ -123,7 +123,7 @@ binaries {
 
 バイナリは一意の名前で取得できます。この名前は、名前のプレフィックス（指定されている場合）、ビルドタイプ、およびバイナリの種類に基づき、`<optional-name-prefix><build-type><binary-kind>` というパターンに従います。例えば、`releaseFramework` や `testDebugExecutable` のようになります。
 
-> 静的ライブラリと共有ライブラリには、それぞれ `static` と `shared` というサフィックスが付きます。例えば、`fooDebugStatic` や `barReleaseShared` です。
+> 静的ライブラリと共有ライブラリには、それぞれ static と shared というサフィックスが付きます。例えば、`fooDebugStatic` や `barReleaseShared` です。
 >
 {style="note"}
 
@@ -397,7 +397,7 @@ plugins {
 
 kotlin {
     val xcf = XCFramework()
-    val iosTargets = listOf(iosX64(), iosArm64(), iosSimulatorArm64())
+    val iosTargets = listOf(iosArm64(), iosSimulatorArm64())
     
     iosTargets.forEach {
         it.binaries.framework {
@@ -420,7 +420,7 @@ plugins {
 
 kotlin {
     def xcf = new XCFrameworkConfig(project)
-    def iosTargets = [iosX64(), iosArm64(), iosSimulatorArm64()]
+    def iosTargets = [iosArm64(), iosSimulatorArm64()]
     
     iosTargets.forEach {
         it.binaries.framework {

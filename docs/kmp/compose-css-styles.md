@@ -24,13 +24,13 @@ html, body {
 ```kotlin
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
-    ComposeViewport(viewportContainerId = "composeApp") {
+    ComposeViewport(viewportContainerId = "webApp") {
         App()
     }
 }
 ```
 
-> 之前使用的 `CanvasBasedWindow` 现已弃用。它曾会自动将 CSS 样式直接插入页面的 HTML 元素中，以强制 canvas 填满浏览器窗口。 
+> 之前使用的 `CanvasBasedWindow` 现已弃用。它会自动将 CSS 样式直接插入页面的 HTML 元素中，以强制 canvas 填满浏览器窗口。 
 > 虽然对于独立应用来说更简单，但这种方法使得将 Compose 嵌入现有 Web 布局变得困难。 
 > `ComposeViewport` 是一种更灵活的方法，它依赖于标准的基于 CSS 的布局管理。
 

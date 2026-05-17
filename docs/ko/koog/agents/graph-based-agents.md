@@ -56,12 +56,12 @@ graph TB
     end
     
     Input --String--> llmRequest
-    llmRequest --Message.Response--> onToolCall{{onToolCall}}
-    llmRequest --Message.Response--> onAssistantMessage{{onAssistantMessage}}
-    onAssistantMessage --String--> Output
-    onToolCall --Message.Tool.Call--> executeTool --ReceivedToolResult--> sendToolResult
-    sendToolResult --Message.Response--> onToolCall
-    sendToolResult --Message.Response--> onAssistantMessage
+    llmRequest --Message.Assistant--> onToolCalls{{onToolCalls}}
+    llmRequest --Message.Assistant--> onTextMessage{{onTextMessage}}
+    onTextMessage --String--> Output
+    onToolCalls --ToolCalls--> executeTool --ReceivedToolResults--> sendToolResult
+    sendToolResult --Message.Assistant--> onToolCalls
+    sendToolResult --Message.Assistant--> onTextMessage
 ```
 <!--- KNIT example-graph-agents-01.txt -->
 
@@ -86,15 +86,15 @@ Koog에서는 [`AIAgentGraphStrategyBuilder`](https://api.koog.ai/agents/agents-
     ```kotlin
     val calculatorAgentStrategy = strategy<String, String>("Simple calculator") {
         val nodeSendInput by nodeLLMRequest()
-        val nodeExecuteTool by nodeExecuteTool()
-        val nodeSendToolResult by nodeLLMSendToolResult()
+        val nodeExecuteTool by nodeExecuteToolsAndGetResults()
+        val nodeSendToolResult by nodeLLMSendToolResults()
         
-        edge(nodeStart forwardTo nodeSendInput)
-        edge(nodeSendInput forwardTo nodeFinish onAssistantMessage { true })
-        edge(nodeSendInput forwardTo nodeExecuteTool onToolCall { true })
+        edge(nodeStart forwardTo nodeSendInput asUserMessage { it })
+        edge(nodeSendInput forwardTo nodeFinish onTextMessage { true })
+        edge(nodeSendInput forwardTo nodeExecuteTool onToolCalls { true })
         edge(nodeExecuteTool forwardTo nodeSendToolResult)
-        edge(nodeSendToolResult forwardTo nodeFinish onAssistantMessage { true })
-        edge(nodeSendToolResult forwardTo nodeExecuteTool onToolCall { true })
+        edge(nodeSendToolResult forwardTo nodeFinish onTextMessage { true })
+        edge(nodeSendToolResult forwardTo nodeExecuteTool onToolCalls { true })
     }
     ```
     <!--- KNIT example-graph-agents-01.kt -->
@@ -106,6 +106,8 @@ Koog에서는 [`AIAgentGraphStrategyBuilder`](https://api.koog.ai/agents/agents-
     import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
     import ai.koog.agents.core.agent.entity.AIAgentNode;
     import ai.koog.prompt.message.Message;
+    import ai.koog.prompt.message.MessagePart;
+    import java.util.stream.Collectors;
     class exampleGraphAgentsJava01 {
         public static void main(String[] args) {
     -->
@@ -118,33 +120,35 @@ Koog에서는 [`AIAgentGraphStrategyBuilder`](https://api.koog.ai/agents/agents-
         .withInput(String.class)
         .withOutput(String.class);
 
-    var nodeSendInput = AIAgentNode.llmRequest(true, "nodeSendInput");
-    var nodeExecuteTool = AIAgentNode.executeTool("nodeExecuteTool");
-    var nodeSendToolResult = AIAgentNode.llmSendToolResult("nodeSendToolResult");
+    var nodeSendInput = AIAgentNode.llmRequest("nodeSendInput");
+    var nodeExecuteTool = AIAgentNode.executeTools("nodeExecuteTool");
+    var nodeSendToolResult = AIAgentNode.llmRequest("nodeSendToolResult");
 
-    calculatorAgentStrategy.edge(calculatorAgentStrategy.nodeStart, nodeSendInput);
     calculatorAgentStrategy.edge(AIAgentEdge.builder()
-        .from(nodeSendInput)   
+        .from(calculatorAgentStrategy.nodeStart)
+        .to(nodeSendInput)
+        .asUserMessage(input -> input)
+        .build());
+    calculatorAgentStrategy.edge(AIAgentEdge.builder()
+        .from(nodeSendInput)
         .to(calculatorAgentStrategy.nodeFinish)
-        .onIsInstance(Message.Assistant.class)
-        .transformed(Message.Assistant::getContent)
+        .onTextMessage()
         .build());
     calculatorAgentStrategy.edge(AIAgentEdge.builder()
         .from(nodeSendInput)
         .to(nodeExecuteTool)
-        .onIsInstance(Message.Tool.Call.class)
+        .onToolCalls(call -> true)
         .build());
     calculatorAgentStrategy.edge(nodeExecuteTool, nodeSendToolResult);
     calculatorAgentStrategy.edge(AIAgentEdge.builder()
         .from(nodeSendToolResult)
         .to(calculatorAgentStrategy.nodeFinish)
-        .onIsInstance(Message.Assistant.class)
-        .transformed(Message.Assistant::getContent)
+        .onTextMessage()
         .build());
     calculatorAgentStrategy.edge(AIAgentEdge.builder()
         .from(nodeSendToolResult)
         .to(nodeExecuteTool)
-        .onIsInstance(Message.Tool.Call.class)
+        .onToolCalls(call -> true)
         .build());
     ```
     <!--- KNIT exampleGraphAgentsJava01.java -->
@@ -157,38 +161,40 @@ Koog에서는 [`AIAgentGraphStrategyBuilder`](https://api.koog.ai/agents/agents-
 또한 에지는 이전 노드의 출력을 다음 노드로 전달하기 전에 변환할 수도 있습니다.
 이는 출력과 입력 타입이 일치하지 않는 노드들을 연결하는 데 필요합니다.
 
-이전 예제에서 `onToolCall { true }`는 이전 노드가 도구 호출 `Message.Tool.Call`을 반환한 경우에만
-해당 에지를 따라간다는 것을 의미합니다.
+이전 예제에서 `onToolCalls { true }`는 이전 노드가 최소 하나 이상의 도구 호출(`MessagePart.Tool.Call`)을 포함한 어시스턴트 메시지를 반환한 경우에만 해당 에지를 따라간다는 것을 의미합니다.
 
-`onAssistantMessage { true }`를 사용하면 이전 노드가 어시스턴트 메시지 `Message.Assistant`를 반환한 경우에만
-에지를 따라갑니다. 이 함수는 또한 어시스턴트 메시지의 내용을 추출하여,
-`nodeFinish`가 문자열을 기대하기 때문에 `Message.Assistant`를 `String`으로 효과적으로 변환합니다.
+`onTextMessage { true }`를 사용하면 이전 노드가 텍스트 부분(`MessagePart.Text`)을 포함한 어시스턴트 메시지를 반환한 경우에만 에지를 따라갑니다. 이 함수는 또한 해당 텍스트 내용들을 추출하고 결합하여, `nodeFinish`가 문자열을 기대하기 때문에 `Message.Assistant`를 `String`으로 효과적으로 변환합니다.
 
 !!! tip
 
-    `onAssistantMessage {true}` 대신 다음과 같이 할 수 있습니다.
+    `onTextMessage { true }` 대신 다음과 같이 할 수 있습니다.
 
     <!--- INCLUDE
+    import ai.koog.prompt.message.MessagePart
     /**
     -->
     <!--- SUFFIX
     **/
     -->
     ```kotlin
-    onIsInstance(Message.Assistant::class) transformed { it.content }
+    onMessageParts(MessagePart.Text::class) transformed { it.joinToString("
+") { part -> part.text } }
     ```
     <!--- KNIT example-graph-agents-02.kt -->
 
     또는:
 
     <!--- INCLUDE
+    import ai.koog.prompt.message.Message
+    import ai.koog.prompt.message.MessagePart
     /**
     -->
     <!--- SUFFIX
     **/
     -->
     ```kotlin
-    onCondition { it is Message.Assistant } transformed { it.asAssistantMessage().content }
+    onCondition { it is Message.Assistant } transformed { (it as Message.Assistant).parts.filterIsInstance<MessagePart.Text>().joinToString("
+") { part -> part.text } }
     ```
     <!--- KNIT example-graph-agents-03.kt -->
 
@@ -203,9 +209,9 @@ Koog에서는 [`AIAgentGraphStrategyBuilder`](https://api.koog.ai/agents/agents-
     import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.extension.*
-    import ai.koog.agents.core.dsl.extension.nodeExecuteTool
+    import ai.koog.agents.core.dsl.extension.nodeExecuteToolsAndGetResults
     import ai.koog.agents.core.dsl.extension.nodeLLMRequest
-    import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
+    import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResults
     import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
     import ai.koog.prompt.executor.ollama.client.OllamaModels
     import kotlinx.coroutines.runBlocking
@@ -213,15 +219,15 @@ Koog에서는 [`AIAgentGraphStrategyBuilder`](https://api.koog.ai/agents/agents-
     ```kotlin
     val calculatorAgentStrategy = strategy<String, String>("Simple calculator") {
         val nodeSendInput by nodeLLMRequest()
-        val nodeExecuteTool by nodeExecuteTool()
-        val nodeSendToolResult by nodeLLMSendToolResult()
+        val nodeExecuteTool by nodeExecuteToolsAndGetResults()
+        val nodeSendToolResult by nodeLLMSendToolResults()
     
-        edge(nodeStart forwardTo nodeSendInput)
-        edge(nodeSendInput forwardTo nodeFinish onAssistantMessage { true })
-        edge(nodeSendInput forwardTo nodeExecuteTool onToolCall { true })
+        edge(nodeStart forwardTo nodeSendInput asUserMessage { it })
+        edge(nodeSendInput forwardTo nodeFinish onTextMessage { true })
+        edge(nodeSendInput forwardTo nodeExecuteTool onToolCalls { true })
         edge(nodeExecuteTool forwardTo nodeSendToolResult)
-        edge(nodeSendToolResult forwardTo nodeFinish onAssistantMessage { true })
-        edge(nodeSendToolResult forwardTo nodeExecuteTool onToolCall { true })
+        edge(nodeSendToolResult forwardTo nodeFinish onTextMessage { true })
+        edge(nodeSendToolResult forwardTo nodeExecuteTool onToolCalls { true })
     }
     
     val mathAgent = AIAgent(
@@ -246,7 +252,9 @@ Koog에서는 [`AIAgentGraphStrategyBuilder`](https://api.koog.ai/agents/agents-
     import ai.koog.agents.core.agent.entity.AIAgentNode;
     import ai.koog.prompt.executor.ollama.client.OllamaModels;
     import ai.koog.prompt.message.Message;
+    import ai.koog.prompt.message.MessagePart;
     import ai.koog.prompt.executor.model.PromptExecutor;
+    import java.util.stream.Collectors;
     class exampleGraphAgentsJava02 {
         public static void main(String[] args) {
     -->
@@ -259,33 +267,35 @@ Koog에서는 [`AIAgentGraphStrategyBuilder`](https://api.koog.ai/agents/agents-
         .withInput(String.class)
         .withOutput(String.class);
 
-    var nodeSendInput = AIAgentNode.llmRequest(true, "nodeSendInput");
-    var nodeExecuteTool = AIAgentNode.executeTool("nodeExecuteTool");
-    var nodeSendToolResult = AIAgentNode.llmSendToolResult("nodeSendToolResult");
+    var nodeSendInput = AIAgentNode.llmRequest("nodeSendInput");
+    var nodeExecuteTool = AIAgentNode.executeTools("nodeExecuteTool");
+    var nodeSendToolResult = AIAgentNode.llmRequest("nodeSendToolResult");
 
-    calculatorAgentStrategy.edge(calculatorAgentStrategy.nodeStart, nodeSendInput);
     calculatorAgentStrategy.edge(AIAgentEdge.builder()
-        .from(nodeSendInput)   
+        .from(calculatorAgentStrategy.nodeStart)
+        .to(nodeSendInput)
+        .asUserMessage(input -> input)
+        .build());
+    calculatorAgentStrategy.edge(AIAgentEdge.builder()
+        .from(nodeSendInput)
         .to(calculatorAgentStrategy.nodeFinish)
-        .onIsInstance(Message.Assistant.class)
-        .transformed(Message.Assistant::getContent)
+        .onTextMessage()
         .build());
     calculatorAgentStrategy.edge(AIAgentEdge.builder()
         .from(nodeSendInput)
         .to(nodeExecuteTool)
-        .onIsInstance(Message.Tool.Call.class)
+        .onToolCalls(call -> true)
         .build());
     calculatorAgentStrategy.edge(nodeExecuteTool, nodeSendToolResult);
     calculatorAgentStrategy.edge(AIAgentEdge.builder()
         .from(nodeSendToolResult)
         .to(calculatorAgentStrategy.nodeFinish)
-        .onIsInstance(Message.Assistant.class)
-        .transformed(Message.Assistant::getContent)
+        .onTextMessage()
         .build());
     calculatorAgentStrategy.edge(AIAgentEdge.builder()
         .from(nodeSendToolResult)
         .to(nodeExecuteTool)
-        .onIsInstance(Message.Tool.Call.class)
+        .onToolCalls(call -> true)
         .build());
 
     var promptExecutor = PromptExecutor.builder()
@@ -340,7 +350,7 @@ graph LR
         llmRequest(Request LLM)
     end
     
-    Input --String--> llmRequest --Message.Response--> onAssistantMessage{{onAssistantMessage}} --String--> Output
+    Input --String--> llmRequest --Message.Assistant--> onTextMessage{{onTextMessage}} --String--> Output
 ```
 <!--- KNIT example-graph-agents-03.txt -->
 
@@ -392,7 +402,7 @@ graph LR
     import ai.koog.agents.core.tools.annotations.LLMDescription;
     import ai.koog.agents.core.tools.annotations.Tool;
     import ai.koog.agents.core.tools.reflect.ToolSet;
-    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOllamaAIExecutor;
+    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutors.simpleOllamaAIExecutor;
     class exampleGraphAgentsJava03 {
     -->
     <!--- SUFFIX
@@ -434,9 +444,9 @@ graph LR
     import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.extension.*
-    import ai.koog.agents.core.dsl.extension.nodeExecuteTool
+    import ai.koog.agents.core.dsl.extension.nodeExecuteToolsAndGetResults
     import ai.koog.agents.core.dsl.extension.nodeLLMRequest
-    import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
+    import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResults
     import ai.koog.agents.core.tools.ToolRegistry
     import ai.koog.agents.core.tools.annotations.LLMDescription
     import ai.koog.agents.core.tools.annotations.Tool
@@ -469,15 +479,15 @@ graph LR
     
     val calculatorAgentStrategy = strategy<String, String>("Simple calculator") {
         val nodeSendInput by nodeLLMRequest()
-        val nodeExecuteTool by nodeExecuteTool()
-        val nodeSendToolResult by nodeLLMSendToolResult()
+        val nodeExecuteTool by nodeExecuteToolsAndGetResults()
+        val nodeSendToolResult by nodeLLMSendToolResults()
     
-        edge(nodeStart forwardTo nodeSendInput)
-        edge(nodeSendInput forwardTo nodeFinish onAssistantMessage { true })
-        edge(nodeSendInput forwardTo nodeExecuteTool onToolCall { true })
+        edge(nodeStart forwardTo nodeSendInput asUserMessage { it })
+        edge(nodeSendInput forwardTo nodeFinish onTextMessage { true })
+        edge(nodeSendInput forwardTo nodeExecuteTool onToolCalls { true })
         edge(nodeExecuteTool forwardTo nodeSendToolResult)
-        edge(nodeSendToolResult forwardTo nodeFinish onAssistantMessage { true })
-        edge(nodeSendToolResult forwardTo nodeExecuteTool onToolCall { true })
+        edge(nodeSendToolResult forwardTo nodeFinish onTextMessage { true })
+        edge(nodeSendToolResult forwardTo nodeExecuteTool onToolCalls { true })
     }
     -->
     ```kotlin
@@ -508,7 +518,9 @@ graph LR
     import ai.koog.agents.core.tools.reflect.ToolSet;
     import ai.koog.prompt.executor.ollama.client.OllamaModels;
     import ai.koog.prompt.message.Message;
+    import ai.koog.prompt.message.MessagePart;
     import ai.koog.prompt.executor.model.PromptExecutor;
+    import java.util.stream.Collectors;
     class exampleGraphAgentsJava04 {
         @LLMDescription("Tools for performing math operations")
         public static class MathTools implements ToolSet {
@@ -534,32 +546,34 @@ graph LR
             var calculatorAgentStrategy = AIAgentGraphStrategy.builder("Simple calculator")
                 .withInput(String.class)
                 .withOutput(String.class);
-            var nodeSendInput = AIAgentNode.llmRequest(true, "nodeSendInput");
-            var nodeExecuteTool = AIAgentNode.executeTool("nodeExecuteTool");
-            var nodeSendToolResult = AIAgentNode.llmSendToolResult("nodeSendToolResult");
-            calculatorAgentStrategy.edge(calculatorAgentStrategy.nodeStart, nodeSendInput);
+            var nodeSendInput = AIAgentNode.llmRequest("nodeSendInput");
+            var nodeExecuteTool = AIAgentNode.executeTools("nodeExecuteTool");
+            var nodeSendToolResult = AIAgentNode.llmRequest("nodeSendToolResult");
             calculatorAgentStrategy.edge(AIAgentEdge.builder()
-                .from(nodeSendInput)   
+                .from(calculatorAgentStrategy.nodeStart)
+                .to(nodeSendInput)
+                .asUserMessage(input -> input)
+                .build());
+            calculatorAgentStrategy.edge(AIAgentEdge.builder()
+                .from(nodeSendInput)
                 .to(calculatorAgentStrategy.nodeFinish)
-                .onIsInstance(Message.Assistant.class)
-                .transformed(Message.Assistant::getContent)
+                .onTextMessage()
                 .build());
             calculatorAgentStrategy.edge(AIAgentEdge.builder()
                 .from(nodeSendInput)
                 .to(nodeExecuteTool)
-                .onIsInstance(Message.Tool.Call.class)
+                .onToolCalls(call -> true)
                 .build());
             calculatorAgentStrategy.edge(nodeExecuteTool, nodeSendToolResult);
             calculatorAgentStrategy.edge(AIAgentEdge.builder()
                 .from(nodeSendToolResult)
                 .to(calculatorAgentStrategy.nodeFinish)
-                .onIsInstance(Message.Assistant.class)
-                .transformed(Message.Assistant::getContent)
+                .onTextMessage()
                 .build());
             calculatorAgentStrategy.edge(AIAgentEdge.builder()
                 .from(nodeSendToolResult)
                 .to(nodeExecuteTool)
-                .onIsInstance(Message.Tool.Call.class)
+                .onToolCalls(call -> true)
                 .build());
             var promptExecutor = PromptExecutor.builder()
                 .ollama("http://localhost:11434")
@@ -612,9 +626,9 @@ Finally, 123 was added to the result:
     import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.extension.*
-    import ai.koog.agents.core.dsl.extension.nodeExecuteTool
+    import ai.koog.agents.core.dsl.extension.nodeExecuteToolsAndGetResults
     import ai.koog.agents.core.dsl.extension.nodeLLMRequest
-    import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
+    import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResults
     import ai.koog.agents.core.tools.ToolRegistry
     import ai.koog.agents.core.tools.annotations.LLMDescription
     import ai.koog.agents.core.tools.annotations.Tool
@@ -647,15 +661,15 @@ Finally, 123 was added to the result:
     
     val calculatorAgentStrategy = strategy<String, String>("Simple calculator") {
         val nodeSendInput by nodeLLMRequest()
-        val nodeExecuteTool by nodeExecuteTool()
-        val nodeSendToolResult by nodeLLMSendToolResult()
+        val nodeExecuteTool by nodeExecuteToolsAndGetResults()
+        val nodeSendToolResult by nodeLLMSendToolResults()
     
-        edge(nodeStart forwardTo nodeSendInput)
-        edge(nodeSendInput forwardTo nodeFinish onAssistantMessage { true })
-        edge(nodeSendInput forwardTo nodeExecuteTool onToolCall { true })
+        edge(nodeStart forwardTo nodeSendInput asUserMessage { it })
+        edge(nodeSendInput forwardTo nodeFinish onTextMessage { true })
+        edge(nodeSendInput forwardTo nodeExecuteTool onToolCalls { true })
         edge(nodeExecuteTool forwardTo nodeSendToolResult)
-        edge(nodeSendToolResult forwardTo nodeFinish onAssistantMessage { true })
-        edge(nodeSendToolResult forwardTo nodeExecuteTool onToolCall { true })
+        edge(nodeSendToolResult forwardTo nodeFinish onTextMessage { true })
+        edge(nodeSendToolResult forwardTo nodeExecuteTool onToolCalls { true })
     }
     -->
     ```kotlin
@@ -693,7 +707,9 @@ Finally, 123 was added to the result:
     import ai.koog.agents.core.tools.reflect.ToolSet;
     import ai.koog.prompt.executor.ollama.client.OllamaModels;
     import ai.koog.prompt.message.Message;
+    import ai.koog.prompt.message.MessagePart;
     import ai.koog.prompt.executor.model.PromptExecutor;
+    import java.util.stream.Collectors;
     class exampleGraphAgentsJava05 {
         @LLMDescription("Tools for performing math operations")
         public static class MathTools implements ToolSet {
@@ -713,38 +729,40 @@ Finally, 123 was added to the result:
             }
         }
         public static void main(String[] args) {
-            ToolRegistry toolRegistry = ToolRegistry.builder()
+            ToolRegistry toolRegistry = toolRegistry.builder()
                 .tools(new MathTools())
                 .build();
             var calculatorAgentStrategy = AIAgentGraphStrategy.builder("Simple calculator")
                 .withInput(String.class)
                 .withOutput(String.class); 
-            var nodeSendInput = AIAgentNode.llmRequest(true, "nodeSendInput");
-            var nodeExecuteTool = AIAgentNode.executeTool("nodeExecuteTool");
-            var nodeSendToolResult = AIAgentNode.llmSendToolResult("nodeSendToolResult"); 
-            calculatorAgentStrategy.edge(calculatorAgentStrategy.nodeStart, nodeSendInput);
+            var nodeSendInput = AIAgentNode.llmRequest("nodeSendInput");
+            var nodeExecuteTool = AIAgentNode.executeTools("nodeExecuteTool");
+            var nodeSendToolResult = AIAgentNode.llmRequest("nodeSendToolResult"); 
             calculatorAgentStrategy.edge(AIAgentEdge.builder()
-                .from(nodeSendInput)   
+                .from(calculatorAgentStrategy.nodeStart)
+                .to(nodeSendInput)
+                .asUserMessage(input -> input)
+                .build());
+            calculatorAgentStrategy.edge(AIAgentEdge.builder()
+                .from(nodeSendInput)
                 .to(calculatorAgentStrategy.nodeFinish)
-                .onIsInstance(Message.Assistant.class)
-                .transformed(Message.Assistant::getContent)
+                .onTextMessage()
                 .build());
             calculatorAgentStrategy.edge(AIAgentEdge.builder()
                 .from(nodeSendInput)
                 .to(nodeExecuteTool)
-                .onIsInstance(Message.Tool.Call.class)
+                .onToolCalls(call -> true)
                 .build());
             calculatorAgentStrategy.edge(nodeExecuteTool, nodeSendToolResult);
             calculatorAgentStrategy.edge(AIAgentEdge.builder()
                 .from(nodeSendToolResult)
                 .to(calculatorAgentStrategy.nodeFinish)
-                .onIsInstance(Message.Assistant.class)
-                .transformed(Message.Assistant::getContent)
+                .onTextMessage()
                 .build());
             calculatorAgentStrategy.edge(AIAgentEdge.builder()
                 .from(nodeSendToolResult)
                 .to(nodeExecuteTool)
-                .onIsInstance(Message.Tool.Call.class)
+                .onToolCalls(call -> true)
                 .build());
             var promptExecutor = PromptExecutor.builder()
                 .ollama("http://localhost:11434")

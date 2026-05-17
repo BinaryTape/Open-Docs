@@ -129,11 +129,11 @@ IDE ウィザードで作成されたプロジェクトには、iOS、Android、
 <Tabs>
 <TabItem title="Android">
 
-Android アプリを実行するには、**composeApp** 実行構成を開始します。
+Android アプリを実行するには、**androidApp** 実行構成を開始します。
 
 ![Android 実行構成がハイライトされたドロップダウン](run-android-configuration.png){width=250}
 
-Android 実行構成を手動で作成するには、実行構成テンプレートとして **Android App** を選択し、モジュール **[プロジェクト名].composeApp** を選択します。
+Android 実行構成を手動で作成するには、実行構成テンプレートとして **Android App** を選択し、モジュール **[プロジェクト名].androidApp** を選択します。
 
 デフォルトでは、最初に使用可能な仮想デバイスで実行されます。
 
@@ -158,14 +158,14 @@ iOS アプリを実行すると、バックグラウンドで Xcode を使用し
 </TabItem>
 <TabItem title="Desktop">
 
-デスクトップアプリのデフォルトの実行構成は、**composeApp [desktop]** として作成されます。
+デスクトップアプリのデフォルトの実行構成は、**desktopApp [hot] 🔥** として作成されます。
 
 ![デフォルトのデスクトップ実行構成がハイライトされたドロップダウン](run-desktop-configuration.png){width=250}
 
-デスクトップ実行構成を手動で作成するには、**Gradle** 実行構成テンプレートを選択し、**[アプリ名]:composeApp** Gradle プロジェクトを指すようにして、次のコマンドを指定します。
+ホットリロード（Hot Reload）を使用したデスクトップ実行構成を手動で作成するには、**Gradle** 実行構成テンプレートを選択し、**[アプリ名]:desktopApp** Gradle プロジェクトを指すようにして、次のコマンドを指定します。
 
 ```shell
-desktopRun -DmainClass=com.example.myapplication.MainKt --quiet
+hotRun --mainClass "com.example.demo.MainKt"
 ```
 
 この構成により、JVM デスクトップアプリを実行できます。
@@ -175,11 +175,11 @@ desktopRun -DmainClass=com.example.myapplication.MainKt --quiet
 </TabItem>
 <TabItem title="Web">
 
-ウェブアプリのデフォルトの実行構成は、**composeApp [wasmJs]** として作成されます。
+ウェブアプリのデフォルトの実行構成は、**webApp [wasmJs]** として作成されます。
 
 ![デフォルトの Wasm 実行構成がハイライトされたドロップダウン](run-wasm-configuration.png){width=250}
 
-ウェブ実行構成を手動で作成するには、**Gradle** 実行構成テンプレートを選択し、**[アプリ名]:composeApp** Gradle プロジェクトを指すようにして、次のコマンドを指定します。
+ウェブ実行構成を手動で作成するには、**Gradle** 実行構成テンプレートを選択し、**[アプリ名]:webApp** Gradle プロジェクトを指すようにして、次のコマンドを指定します。
 
 ```shell
 wasmJsBrowserDevelopmentRun

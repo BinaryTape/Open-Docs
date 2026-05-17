@@ -31,8 +31,8 @@ Koog는 두 가지 간단한 플래너를 제공합니다:
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.config.AIAgentConfig
-    import ai.koog.agents.planner.AIAgentPlannerStrategy
-    import ai.koog.agents.planner.PlannerAIAgent
+    import ai.koog.agents.core.planner.AIAgentPlannerStrategy
+    import ai.koog.agents.core.planner.PlannerAIAgent
     import ai.koog.agents.planner.llm.SimpleLLMPlanner
     import ai.koog.prompt.dsl.prompt
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
@@ -77,7 +77,8 @@ Koog는 두 가지 간단한 플래너를 제공합니다:
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
-    import ai.koog.agents.planner.AIAgentPlannerStrategy;
+    import ai.koog.agents.core.planner.AIAgentPlannerStrategy;
+    import ai.koog.agents.planner.Planners;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import ai.koog.prompt.executor.model.PromptExecutor;
     class exampleLLMBasedPlanner01 {
@@ -89,9 +90,8 @@ Koog는 두 가지 간단한 플래너를 제공합니다:
     -->
     ```java
     // LLM 기반 플래너를 사용한 플래너 전략 생성
-    AIAgentPlannerStrategy<String, String, ?> strategy =
-        AIAgentPlannerStrategy.builder("simple-planner")
-            .llmBasedPlanner()
+    AIAgentPlannerStrategy<String, String> strategy =
+        Planners.llmBased("simple-planner")
             .build();
 
     // OpenAI 실행기(executor) 생성

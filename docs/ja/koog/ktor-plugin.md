@@ -109,7 +109,8 @@ post("/llm-chat") {
     )
 
     // すべてのアシスタントメッセージを単一の文字列に結合する
-    val text = messages.joinToString(separator = "") { it.content }
+    val text = messages.joinToString(separator = "
+") { it.content }
     call.respond(HttpStatusCode.OK, text)
 }
 ```

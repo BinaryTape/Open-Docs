@@ -297,7 +297,7 @@ fun main() {
 
 ```swift
 // 导入 KMP 模块以访问单例
-import ComposeApp
+import SharedUI
 
 func application(
     _ application: UIApplication,
@@ -367,5 +367,5 @@ internal fun App(navController: NavHostController = rememberNavController()) = A
 
 查看展示 Compose 跨平台导航库实际运用的项目：
 
-* 基础示例：[nav_cupcake 项目](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/nav_cupcake)，该项目由 Android 实验课 [在 Compose 屏幕间导航](https://developer.android.com/codelabs/basic-android-kotlin-compose-navigation#0) 转换而来。
+* 基础示例：[nav_cupcake 项目](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/nav_cupcake)，该项目由 Android 实验课 [在 Compose 屏幕间导航](https://developer.android.com/codelabs/basic-android-kotlin-compose-navigation#0) 转换而来。 
 * 进阶示例：官方 [KotlinConf](https://github.com/JetBrains/kotlinconf-app) 应用程序。

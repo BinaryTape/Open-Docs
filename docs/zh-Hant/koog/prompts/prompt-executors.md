@@ -45,7 +45,7 @@ Koog 提供三類實作了 [`PromptExecutor`](api:prompt-executor-model::ai.koog
     **/
     -->
     ```java
-    OpenAILLMClient openAIClient = new OpenAILLMClient(System.getenv("OPENAI_API_KEY"));
+    OpenAILLMClient openAIClient = openAIClient(System.getenv("OPENAI_API_KEY"));
     MultiLLMPromptExecutor promptExecutor = new MultiLLMPromptExecutor(openAIClient);
     ```
     <!--- KNIT example-prompt-executors-java-01.java -->
@@ -86,8 +86,8 @@ Koog 提供三類實作了 [`PromptExecutor`](api:prompt-executor-model::ai.koog
     **/
     -->
     ```java
-    OpenAILLMClient openAIClient = new OpenAILLMClient(System.getenv("OPENAI_API_KEY"));
-    OllamaClient ollamaClient = new OllamaClient();
+    OpenAILLMClient openAIClient = openAIClient(System.getenv("OPENAI_API_KEY"));
+    OllamaClient ollamaClient = ollamaClient();
 
     MultiLLMPromptExecutor promptExecutor = new MultiLLMPromptExecutor(openAIClient, ollamaClient);
     ```
@@ -139,9 +139,9 @@ Koog 提供三類實作了 [`PromptExecutor`](api:prompt-executor-model::ai.koog
     -->
     ```java
     // Create multiple client instances
-    OpenAILLMClient openAI1 = new OpenAILLMClient("openai-key-1");
-    OpenAILLMClient openAI2 = new OpenAILLMClient("openai-key-2");
-    AnthropicLLMClient anthropic = new AnthropicLLMClient("anthropic-key");
+    OpenAILLMClient openAI1 = openAIClient("openai-key-1");
+    OpenAILLMClient openAI2 = openAIClient("openai-key-2");
+    AnthropicLLMClient anthropic = anthropicClient("anthropic-key");
 
     // Create router with round-robin strategy
     RoundRobinRouter router = new RoundRobinRouter(openAI1, openAI2, anthropic);
@@ -151,7 +151,7 @@ Koog 提供三類實作了 [`PromptExecutor`](api:prompt-executor-model::ai.koog
     ```
     <!--- KNIT example-prompt-executors-java-03.java -->
 
-當您使用此執行器執行 Prompt 時，對 OpenAI 模型的請求將根據輪詢（round-robin）策略在 `openAI1` 與 `openAI2` 之間交替切換。
+當您使用此執行器執行 Prompt 時，對 OpenAI 模型的請求將根據輪詢 (round-robin) 策略在 `openAI1` 與 `openAI2` 之間交替切換。
 對 Anthropic 模型的請求一律會發送到單一的 `anthropic` 用戶端，因為輪詢策略會為每個提供者維護獨立的計數器。
 
 您也可以透過建立一個實作了 [`LLMClientRouter`](api:prompt-executor-model::ai.koog.prompt.executor.llms.LLMClientRouter) 介面的類別來實作自訂路由策略。
@@ -339,9 +339,9 @@ the predefined executors will return a PromptExecutor instance configured with a
     -->
     ```java
     // Create LLM clients for OpenAI, Anthropic, and Google providers
-    OpenAILLMClient openAIClient = new OpenAILLMClient("OPENAI_API_KEY");
-    AnthropicLLMClient anthropicClient = new AnthropicLLMClient("ANTHROPIC_API_KEY");
-    GoogleLLMClient googleClient = new GoogleLLMClient("GOOGLE_API_KEY");
+    OpenAILLMClient openAIClient = openAIClient("OPENAI_API_KEY");
+    AnthropicLLMClient anthropicClient = anthropicClient("ANTHROPIC_API_KEY");
+    GoogleLLMClient googleClient = googleClient("GOOGLE_API_KEY");
 
     // Create a MultiLLMPromptExecutor that maps LLM providers to LLM clients
     MultiLLMPromptExecutor promptExecutor = new MultiLLMPromptExecutor(
@@ -408,8 +408,8 @@ the predefined executors will return a PromptExecutor instance configured with a
     **/
     -->
     ```java
-    OpenAILLMClient openAIClient = new OpenAILLMClient(System.getenv("OPENAI_API_KEY"));
-    OllamaClient ollamaClient = new OllamaClient();
+    OpenAILLMClient openAIClient = openAIClient(System.getenv("OPENAI_API_KEY"));
+    OllamaClient ollamaClient = ollamaClient();
 
     MultiLLMPromptExecutor multiExecutor = new MultiLLMPromptExecutor(
         Map.of(

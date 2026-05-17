@@ -79,7 +79,7 @@ LLM 客户端旨在直接与 LLM 提供者交互。
     ```java
     // 创建 OpenAI 客户端
     String apiKey = System.getenv("OPENAI_API_KEY");
-    OpenAILLMClient client = new OpenAILLMClient(apiKey);
+    OpenAILLMClient client = openAIClient(apiKey);
 
     // 创建 prompt
     Prompt prompt = Prompt.builder("prompt_name")
@@ -169,7 +169,7 @@ LLM 客户端旨在直接与 LLM 提供者交互。
     ```java
     // 使用你的 API 密钥设置 OpenAI 客户端
     String token = System.getenv("OPENAI_API_KEY");
-    OpenAILLMClient client = new OpenAILLMClient(token);
+    OpenAILLMClient client = openAIClient(token);
 
     Prompt prompt = Prompt.builder("stream_demo")
                 .user("以短块形式流式传输此响应。")
@@ -229,6 +229,7 @@ LLM 客户端旨在直接与 LLM 提供者交互。
     import ai.koog.prompt.dsl.prompt
     import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.message.MessagePart
     import ai.koog.prompt.params.LLMParams
     import kotlinx.coroutines.runBlocking
     -->
@@ -246,7 +247,7 @@ LLM 客户端旨在直接与 LLM 提供者交互。
         )
 
         choices.forEachIndexed { i, choice ->
-            val text = choice.joinToString(" ") { it.content }
+            val text = choice.parts.filterIsInstance<MessagePart.Text>().joinToString(" ") { it.text }
             println("第 #${i + 1} 行：$text")
         }
     }
@@ -263,7 +264,7 @@ LLM 客户端旨在直接与 LLM 提供者交互。
     -->
     ```java
     String apiKey = System.getenv("OPENAI_API_KEY");
-    OpenAILLMClient client = new OpenAILLMClient(apiKey);
+    OpenAILLMClient client = openAIClient(apiKey);
 
     // 配置参数（LLMParams 构造函数在 Java 中需要全部 8 个参数）
     LLMParams params = new LLMParams(
@@ -337,7 +338,7 @@ LLM 客户端旨在直接与 LLM 提供者交互。
     -->
     ```java
     String apiKey = System.getenv("OPENAI_API_KEY");
-    OpenAILLMClient client = new OpenAILLMClient(apiKey);
+    OpenAILLMClient client = openAIClient(apiKey);
 
     List<LLModel> models = client.models();
     for (LLModel model : models) {
@@ -417,7 +418,7 @@ fun main() = runBlocking {
     -->
     ```java
     String apiKey = System.getenv("OPENAI_API_KEY");
-    OpenAILLMClient client = new OpenAILLMClient(apiKey);
+    OpenAILLMClient client = openAIClient(apiKey);
 
     Prompt prompt = Prompt.builder("moderation")
         .user("这是一条可能包含攻击性内容的测试消息。")

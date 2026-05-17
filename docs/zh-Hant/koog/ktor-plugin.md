@@ -53,7 +53,7 @@ koog:
     baseUrl: http://localhost:11434
 ```
 
-選用：配置當請求的提供者未配置時，直接呼叫 LLM 所使用的備援（fallback）。
+選用：配置當要求的第一提供者未配置時，直接呼叫 LLM 所使用的備援（fallback）。
 
 ```yaml
 koog:
@@ -109,7 +109,8 @@ post("/llm-chat") {
     )
 
     // 將所有助手訊息連接成單一字串
-    val text = messages.joinToString(separator = "") { it.content }
+    val text = messages.joinToString(separator = "
+") { it.content }
     call.respond(HttpStatusCode.OK, text)
 }
 ```
@@ -241,7 +242,7 @@ install(Koog) {
 ```
 ## 為什麼選擇 Koog + Ktor？
 
-- Kotlin 優先、類型安全的伺服器端 Agent 開發
+- Kotlin 優先、型別安全的伺服器端 Agent 開發
 - 集中化配置與簡潔且可測試的路由程式碼
 - 為每個路由使用正確的模型，或在直接呼叫 LLM 時自動執行備援
 - 生產就緒的功能：工具、內容審核、串流與追蹤

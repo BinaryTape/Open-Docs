@@ -13,7 +13,7 @@
 使用 `onKeyEvent` 修飾符可以處理單個按鍵動作，而 `onPreviewKeyEvent` 則更適合用於定義快速鍵。
 
 以下範例示範了 `TextField` 的互動，根據按住 <shortcut>Ctrl</shortcut> 鍵時按下的按鍵而執行不同的操作。
-將此程式碼新增至 `composeApp/src/jvmMain/kotlin` 中的 `main.kt` 檔案：
+將此程式碼新增至 `sharedUI/src/jvmMain/kotlin` 中的 `main.kt` 檔案：
 
 ```kotlin
 import androidx.compose.foundation.layout.fillMaxSize
@@ -75,7 +75,7 @@ fun main() = singleWindowApplication (title = "Key events") {
 它們的區別在於事件未被消耗時的派送方式：`onPreviewKeyEvent` 將事件派送給其第一個子元件，而 `onKeyEvent` 則將事件派送給該可組合項的父元件。通常，攔截事件時偏好使用 `onPreviewKeyEvent`，因為它甚至可以實作全視窗範圍的鍵盤快速鍵。
 
 以下範例示範了視窗互動，例如透過按下 `Escape` 鍵關閉彈出對話方塊，以及透過按下 <shortcut>Ctrl+Shift+C</shortcut> 快速鍵更改視窗內容。
-將此程式碼新增至 `composeApp/src/jvmMain/kotlin` 中的 `main.kt` 檔案：
+將此程式碼新增至 `sharedUI/src/jvmMain/kotlin` 中的 `main.kt` 檔案：
 
 ```kotlin
 import androidx.compose.foundation.layout.Arrangement

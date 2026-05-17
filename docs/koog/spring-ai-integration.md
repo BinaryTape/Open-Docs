@@ -5,7 +5,7 @@ Koog 提供了 Spring AI 集成 Starter，将 Spring AI 的抽象与 Koog 代理
 
 ## 与 `koog-spring-boot-starter` 的区别
 
-| | `koog-spring-boot-starter` | `koog-spring-ai` Starters |
+| | `koog-spring-boot-starter` | `koog-spring-ai` Starter |
 |---|---|---|
 | **LLM 传输** | Koog 自有的 HTTP 客户端 | 委托给 Spring AI Bean，如 `ChatModel` 和 `EmbeddingModel` |
 | **配置** | 每个提供商的 `ai.koog.*` 属性 | 由 Spring AI Starter 管理的标准 `spring.ai.*` 属性，以及 `koog.spring.ai.*` 适配器属性 |
@@ -223,7 +223,7 @@ koog.spring.ai.chat.moderation-model-bean-name=openAiModerationModel
 
 ### 添加依赖项
 
-在添加任何 Spring AI 嵌入模型 Starter 的同时添加此依赖项：
+在添加 any Spring AI 嵌入模型 Starter 的同时添加此依赖项：
 
 === "Gradle (Kotlin DSL)"
 
@@ -367,9 +367,9 @@ koog.spring.ai.embedding.embedding-model-bean-name=openAiEmbeddingModel
 仅持久化纯文本的 `System`、`User` 和 `Assistant` 消息。
 以下内容在存储时会被静默丢弃：
 
-- `Message.Tool.Call`
-- `Message.Tool.Result`
-- `Message.Reasoning`
+- `MessagePart.Tool.Call`
+- `MessagePart.Tool.Result`
+- `MessagePart.Reasoning`
 - 任何带有附件的消息
 
 在加载时，Spring AI 的 `TOOL` 行将被静默跳过。

@@ -40,6 +40,19 @@ WASI 提供了一個安全的標準介面，用於在不同環境中執行編譯
 >
 {style="tip"}
 
+### WebAssembly 元件模型
+<primary-label ref="experimental-general"/>
+
+> 對 WebAssembly 元件模型的支援目前僅在 EAP 版本中提供：[Kotlin %kotlinEapVersion%](whatsnew-eap.md)。
+>
+{style="note"}
+
+WASI 0.2 建基於 [WebAssembly 元件模型 (WebAssembly Component Model)](https://github.com/WebAssembly/component-model) 之上，該模型定義了使用標準化介面與型別從 Wasm 模組建置元件的方法。此模型允許您在應用程式或程式庫中定義與語言無關的元件。您還可以將 Wasm 模組和現有元件組合成新的元件。
+
+若要探索 WebAssembly 元件模型與 Kotlin/Wasm 的可能性，請查看此 [使用 `wasi:http` 建置的簡單伺服器](https://github.com/Kotlin/sample-wasi-http-kotlin/) 範例。
+
+<img src="kotlin-wasm-wasi-http.gif" alt="使用 WebAssembly 元件模型的 Kotlin/Wasm" width="600"/>
+
 ## Kotlin/Wasm 效能
 
 雖然 Kotlin/Wasm 仍處於 Beta 階段，但在 Kotlin/Wasm 上執行的 Compose Multiplatform 已經展現出令人鼓舞的效能特性。您可以看到其執行速度超越了 JavaScript，並接近 JVM 的水準：

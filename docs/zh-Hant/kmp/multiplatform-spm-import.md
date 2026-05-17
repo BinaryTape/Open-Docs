@@ -59,18 +59,17 @@ kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref 
 kotlin {
     iosArm64()
     iosSimulatorArm64()
-    iosX64()
 
     swiftPMDependencies {
-        // Import FirebaseAnalytics into your Kotlin code
+        // 將 FirebaseAnalytics 匯入你的 Kotlin 程式碼中
         swiftPackage(
             url = url("https://github.com/firebase/firebase-ios-sdk.git"),
             version = from("12.5.0"),
             products = listOf(product("FirebaseAnalytics")),
         )
-        // swift-protobuf is a transitive Firebase dependency,
-        // so you only need to include it
-        // if you want to use a specific version
+        // swift-protobuf 是 Firebase 的遞移相依性，
+        // 因此只有在你想要使用特定版本時，
+        // 才需要包含它
         swiftPackage(
             url = url("https://github.com/apple/swift-protobuf.git"),
             version = exact("1.32.0"),
@@ -92,11 +91,11 @@ SwiftPM 整合基於匯入 Clang 模組。
 ```kotlin
 kotlin {
     swiftPMDependencies {
-        // If 'discoverClangModulesImplicitly' was set to 'true',
-        // the 'importedClangModules' parameter below would be ignored
+        // 如果 'discoverClangModulesImplicitly' 被設定為 'true'，
+        // 則下方的 'importedClangModules' 參數將會被忽略
         discoverClangModulesImplicitly = false
 
-        // Imported packages, their products, and Clang modules
+        // 匯入的軟件包、其產品以及 Clang 模組
         swiftPackage(
             url = url("https://github.com/firebase/firebase-ios-sdk.git"),
             version = from("12.5.0"),
@@ -106,8 +105,8 @@ kotlin {
             ),
             importedClangModules = listOf(
                 "FirebaseAnalytics", 
-                // Objective-C APIs of FirebaseFirestore are located
-                // in the 'FirebaseFirestoreInternal' Clang module
+                // FirebaseFirestore 的 Objective-C API 位於
+                // 'FirebaseFirestoreInternal' Clang 模組中
                 "FirebaseFirestoreInternal"
             ),
         )
@@ -129,7 +128,6 @@ kotlin {
 kotlin {
     iosArm64()
     iosSimulatorArm64()
-    iosX64()
     macosArm64()
 
     swiftPMDependencies {
@@ -140,8 +138,8 @@ kotlin {
                 product(
                     "GoogleMaps", 
                     platforms = setOf(
-                        // The `GoogleMaps` package will be visible
-                        // only to iOS compilations
+                        // `GoogleMaps` 軟件包將僅對
+                        // iOS 編譯可見
                         iOS()
                     )
                 )
@@ -212,9 +210,9 @@ import swiftPMImport.groupName.subproject.FIRApp
 ```kotlin
 kotlin {
     swiftDependencies {
-        // When no value is set for `packageResolvedSynchronization`, 
-        // the subproject is assigned a default group identifier
-        // as if it were set like this: 
+        // 當未為 `packageResolvedSynchronization` 設定值時，
+        // 該子專案會被分配一個預設群組識別碼，
+        // 就像這樣設定一樣：
         // packageResolvedSynchronization = identifier("default")
     }
 }
@@ -261,7 +259,7 @@ kotlin {
 
 kotlin {
     swiftDependencies {
-        // The default identifier is used, as if the following is set:
+        // 使用預設識別碼，就像設定了以下內容一樣：
         // packageResolvedSynchronization = identifier("default")
         ...
     }
@@ -278,8 +276,8 @@ kotlin {
 ```kotlin
 kotlin {
     swiftDependencies { 
-        // The Package.resolved file for this subproject
-        // won't be merged with any other
+        // 此子專案的 Package.resolved 檔案
+        // 不會與任何其他檔案合併
         packageResolvedSynchronization = noSynchronization()
     }
 }
@@ -321,7 +319,7 @@ let package = Package(
     .package(url: "https://github.com/grpc/grpc-swift.git", exact: "1.27.0",),
   ],
   targets: [
-    // This target can be implemented in Swift with @objc API or in Objective-C
+    // 此目標可以透過 @objc API 在 Swift 中實作，或在 Objective-C 中實作
     .target(name: "ExamplePackage", dependencies: [.product(name: "GRPC", package: "grpc-swift")]),
   ]
 )
@@ -349,8 +347,8 @@ kotlin {
 
 @OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 fun useExamplePackage() {
-    // If the Swift package is successfully imported,
-    // the IDE suggests the correct import for the class
+    // 如果 Swift 軟件包已成功匯入，
+    // IDE 會為該類別建議正確的匯入
     HelloFromExamplePackage().hello()
 }
 ```
@@ -375,12 +373,12 @@ kotlin {
 
 ```kotlin
 swiftPackage(
-    // Option 1, URL string
-    // Points to the Git repository of the package
+    // 選項 1，URL 字串
+    // 指向軟件包的 Git 存儲庫
     url = url("https://github.com/firebase/firebase-ios-sdk.git")
 
-    // Option 2, Swift Package Registry ID
-    // See Apple documentation on using a package registry linked above  
+    // 選項 2，Swift 軟件包登錄 ID
+    // 請參閱上方連結中關於使用軟件包登錄的 Apple 文件
     repository = id("...")
 )
 ```
@@ -389,18 +387,18 @@ swiftPackage(
 
 ```kotlin
 swiftPackage(
-    // Similar to the Gradle 'require' version constraint,
-    // starting with the specified version
+    // 類似於 Gradle 的 'require' 版本約束，
+    // 從指定版本開始
     version = from("1.0")
 
-    // Similar to the Gradle 'strict' version constraint,
-    // exactly matching the specified version
+    // 類似於 Gradle 的 'strict' 版本約束，
+    // 完全符合指定版本
     version = exact("2.0")
 
-    // Git-specific version specification,
-    // matching the specified branch or revision
+    // Git 特定的版本規格，
+    // 符合指定的 分支 或修訂版
     version = branch("master")
-    // Or
+    // 或者
     version = revision("e74b07278b926c9ec6f9643455ea00d1ce04a021")
 )
 ```
@@ -425,7 +423,7 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "Shared"
 
-            // Set this property to "true"
+            // 將此屬性設定為 "true"
             isStatic = true
         }
     }

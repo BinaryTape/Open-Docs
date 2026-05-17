@@ -61,8 +61,16 @@ Koog フレームワークは定義済みのノードを提供しており、`no
             var strategy = AIAgentGraphStrategy.builder("strategyName")
                 .withInput(String.class)
                 .withOutput(String.class);
-            var sourceNode = AIAgentNode.doNothing(String.class);
-            var targetNode = AIAgentNode.doNothing(String.class);
+            var sourceNode = AIAgentNode.builder("source")
+                .withInput(String.class)
+                .withOutput(String.class)
+                .withAction((input, ctx) -> input)
+                .build();
+            var targetNode = AIAgentNode.builder("target")
+                .withInput(String.class)
+                .withOutput(String.class)
+                .withAction((input, ctx) -> input)
+                .build();
     -->
     <!--- SUFFIX
         }
@@ -80,9 +88,8 @@ Koog フレームワークは定義済みのノードを提供しており、`no
 | 条件タイプ | 説明 |
 |---------------------|------------------------------------------------------------------------------------------|
 | `onCondition` | boolean 値を返すラムダ式を受け取る汎用的な条件。 |
-| `onToolCall` | LLM がツールを呼び出したときに一致する条件。 |
-| `onAssistantMessage` | LLM がメッセージで応答したときに一致する条件。 |
-| `onMultipleToolCalls` | LLM が複数のツールを呼び出したときに一致する条件。 |
+| `onToolCalls` | LLM が 1 つ以上のツールを呼び出したときに一致する条件。 |
+| `onTextMessage` | LLM がテキストメッセージで応答したときに一致する条件。 |
 | `onToolNotCalled` | LLM がツールを呼び出さなかったときに一致する条件。 |
 
 `transformed` 関数を使用すると、ターゲットノードに渡す前に出力を変換できます。
@@ -121,8 +128,16 @@ Koog フレームワークは定義済みのノードを提供しており、`no
             var strategy = AIAgentGraphStrategy.builder("strategyName")
                 .withInput(String.class)
                 .withOutput(String.class);
-            var sourceNode = AIAgentNode.doNothing(String.class);
-            var targetNode = AIAgentNode.doNothing(String.class);
+            var sourceNode = AIAgentNode.builder("source")
+                .withInput(String.class)
+                .withOutput(String.class)
+                .withAction((input, ctx) -> input)
+                .build();
+            var targetNode = AIAgentNode.builder("target")
+                .withInput(String.class)
+                .withOutput(String.class)
+                .withAction((input, ctx) -> input)
+                .build();
     -->
     <!--- SUFFIX
         }
@@ -283,24 +298,25 @@ Koog フレームワークは定義済みのノードを提供しており、`no
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.builder.parallel
     import ai.koog.agents.core.dsl.builder.subgraph
-    import ai.koog.agents.core.dsl.extension.nodeExecuteTool
+    import ai.koog.agents.core.dsl.extension.asUserMessage
+    import ai.koog.agents.core.dsl.extension.nodeExecuteToolsAndGetResults
     import ai.koog.agents.core.dsl.extension.nodeLLMRequest
-    import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
-    import ai.koog.agents.core.dsl.extension.onAssistantMessage
-    import ai.koog.agents.core.dsl.extension.onToolCall
+    import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResults
+    import ai.koog.agents.core.dsl.extension.onTextMessage
+    import ai.koog.agents.core.dsl.extension.onToolCalls
     -->
     ```kotlin
     val myStrategy = strategy<String, String>("my-strategy") {
         val nodeCallLLM by nodeLLMRequest()
-        val executeToolCall by nodeExecuteTool()
-        val sendToolResult by nodeLLMSendToolResult()
+        val executeToolCall by nodeExecuteToolsAndGetResults()
+        val sendToolResult by nodeLLMSendToolResults()
     
-        edge(nodeStart forwardTo nodeCallLLM)
-        edge(nodeCallLLM forwardTo nodeFinish onAssistantMessage { true })
-        edge(nodeCallLLM forwardTo executeToolCall onToolCall { true })
+        edge(nodeStart forwardTo nodeCallLLM asUserMessage { it })
+        edge(nodeCallLLM forwardTo nodeFinish onTextMessage { true })
+        edge(nodeCallLLM forwardTo executeToolCall onToolCalls { true })
         edge(executeToolCall forwardTo sendToolResult)
-        edge(sendToolResult forwardTo nodeFinish onAssistantMessage { true })
-        edge(sendToolResult forwardTo executeToolCall onToolCall { true })
+        edge(sendToolResult forwardTo nodeFinish onTextMessage { true })
+        edge(sendToolResult forwardTo executeToolCall onToolCalls { true })
     }
     ```
     <!--- KNIT example-custom-strategy-graphs-05.kt -->
@@ -312,6 +328,8 @@ Koog フレームワークは定義済みのノードを提供しており、`no
     import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
     import ai.koog.agents.core.agent.entity.AIAgentNode;
     import ai.koog.prompt.message.Message;
+    import ai.koog.prompt.message.MessagePart;
+    import java.util.stream.Collectors;
     class exampleCustomStrategyGraphsJava05 {
         public static void main(String[] args) {
     -->
@@ -324,23 +342,26 @@ Koog フレームワークは定義済みのノードを提供しており、`no
         .withInput(String.class)
         .withOutput(String.class);
 
-    var nodeCallLLM = AIAgentNode.llmRequest(true, "sendInput");
-    var nodeExecuteTool = AIAgentNode.executeTool("nodeExecuteTool");
-    var nodeSendToolResult = AIAgentNode.llmSendToolResult("nodeSendToolResult");
+    var nodeCallLLM = AIAgentNode.llmRequest("sendInput");
+    var nodeExecuteTool = AIAgentNode.executeTools("nodeExecuteTool");
+    var nodeSendToolResult = AIAgentNode.llmRequest("nodeSendToolResult");
 
-    graph.edge(graph.nodeStart, nodeCallLLM);
+    graph.edge(AIAgentEdge.builder()
+        .from(graph.nodeStart)
+        .to(nodeCallLLM)
+        .asUserMessage(input -> input)
+        .build());
 
     graph.edge(AIAgentEdge.builder()
         .from(nodeCallLLM)
         .to(nodeExecuteTool)
-        .onIsInstance(Message.Tool.Call.class)
+        .onToolCalls(call -> true)
         .build());
 
     graph.edge(AIAgentEdge.builder()
         .from(nodeCallLLM)
         .to(graph.nodeFinish)
-        .onIsInstance(Message.Assistant.class)
-        .transformed(Message.Assistant::getContent)
+        .onTextMessage()
         .build());
 
     graph.edge(nodeExecuteTool, nodeSendToolResult);
@@ -348,14 +369,13 @@ Koog フレームワークは定義済みのノードを提供しており、`no
     graph.edge(AIAgentEdge.builder()
         .from(nodeSendToolResult)
         .to(graph.nodeFinish)
-        .onIsInstance(Message.Assistant.class)
-        .transformed(Message.Assistant::getContent)
+        .onTextMessage()
         .build());
 
     graph.edge(AIAgentEdge.builder()
         .from(nodeSendToolResult)
         .to(nodeExecuteTool)
-        .onIsInstance(Message.Tool.Call.class)
+        .onToolCalls(call -> true)
         .build());
 
     var strategy = graph.build();
@@ -377,22 +397,23 @@ JVM では、戦略グラフの [Mermaid 状態遷移図 (state diagram)](https:
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.builder.parallel
     import ai.koog.agents.core.dsl.builder.subgraph
-    import ai.koog.agents.core.dsl.extension.nodeExecuteTool
+    import ai.koog.agents.core.dsl.extension.asUserMessage
+    import ai.koog.agents.core.dsl.extension.nodeExecuteToolsAndGetResults
     import ai.koog.agents.core.dsl.extension.nodeLLMRequest
-    import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
-    import ai.koog.agents.core.dsl.extension.onAssistantMessage
-    import ai.koog.agents.core.dsl.extension.onToolCall
+    import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResults
+    import ai.koog.agents.core.dsl.extension.onTextMessage
+    import ai.koog.agents.core.dsl.extension.onToolCalls
     fun main() {
-        val myStrategy = strategy("my-strategy") {
+        val myStrategy = strategy<String, String>("my-strategy") {
             val nodeCallLLM by nodeLLMRequest()
-            val executeToolCall by nodeExecuteTool()
-            val sendToolResult by nodeLLMSendToolResult()
-            edge(nodeStart forwardTo nodeCallLLM)
-            edge(nodeCallLLM forwardTo nodeFinish onAssistantMessage { true })
-            edge(nodeCallLLM forwardTo executeToolCall onToolCall { true })
+            val executeToolCall by nodeExecuteToolsAndGetResults()
+            val sendToolResult by nodeLLMSendToolResults()
+            edge(nodeStart forwardTo nodeCallLLM asUserMessage { it })
+            edge(nodeCallLLM forwardTo nodeFinish onTextMessage { true })
+            edge(nodeCallLLM forwardTo executeToolCall onToolCalls { true })
             edge(executeToolCall forwardTo sendToolResult)
-            edge(sendToolResult forwardTo nodeFinish onAssistantMessage { true })
-            edge(sendToolResult forwardTo executeToolCall onToolCall { true })
+            edge(sendToolResult forwardTo nodeFinish onTextMessage { true })
+            edge(sendToolResult forwardTo executeToolCall onToolCalls { true })
         }
     -->
     <!--- SUFFIX
@@ -455,7 +476,7 @@ stateDiagram
 
 ### ツールの並列実行
 
-複数のツールを並列に実行する必要があるワークフローでは、`nodeExecuteMultipleTools` ノードを使用できます。
+複数のツールを並列に実行する必要があるワークフローでは、`nodeExecuteToolsAndGetResults` ノードで `parallel = true` を使用できます。
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.forwardTo
@@ -463,19 +484,19 @@ import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.core.dsl.builder.parallel
 import ai.koog.agents.core.dsl.builder.subgraph
-import ai.koog.agents.core.dsl.extension.nodeExecuteMultipleTools
-import ai.koog.agents.core.dsl.extension.nodeLLMSendMultipleToolResults
-import ai.koog.prompt.message.Message
+import ai.koog.agents.core.dsl.extension.ToolCalls
+import ai.koog.agents.core.dsl.extension.nodeExecuteToolsAndGetResults
+import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResults
 
 val strategy = strategy<String, String>("strategy_name") {
-    val someNode by node<String, List<Message.Tool.Call>> { emptyList() }
+    val someNode by node<String, ToolCalls> { ToolCalls(emptyList()) }
 -->
 <!--- SUFFIX
 }
 -->
 ```kotlin
-val executeMultipleTools by nodeExecuteMultipleTools()
-val processMultipleResults by nodeLLMSendMultipleToolResults()
+val executeMultipleTools by nodeExecuteToolsAndGetResults(parallel = true)
+val processMultipleResults by nodeLLMSendToolResults()
 
 edge(someNode forwardTo executeMultipleTools)
 edge(executeMultipleTools forwardTo processMultipleResults)
@@ -529,7 +550,7 @@ val calc by parallel<String, Int>(
 
 上記のコードは、`nodeCalcTokens`、`nodeCalcSymbols`、および `nodeCalcWords` ノードを並列に実行し、その結果を `AsyncParallelResult` のインスタンスとして返す `calc` という名前のノードを作成します。
 
-ノードの並列実行に関する詳細情報とリファレンスについては、「[ノードの並列実行](parallel-node-execution.md)」を参照してください。
+ノードの並列実行に関する詳細情報と詳細なリファレンスについては、「[ノードの並列実行](parallel-node-execution.md)」を参照してください。
 
 ### 条件分岐
 
@@ -596,36 +617,37 @@ import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.builder.node
 import ai.koog.agents.core.dsl.builder.parallel
 import ai.koog.agents.core.dsl.builder.subgraph
-import ai.koog.agents.core.dsl.extension.nodeExecuteTool
+import ai.koog.agents.core.dsl.extension.ReceivedToolResults
+import ai.koog.agents.core.dsl.extension.asUserMessage
+import ai.koog.agents.core.dsl.extension.nodeExecuteToolsAndGetResults
 import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
 import ai.koog.agents.core.dsl.extension.nodeLLMRequest
-import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
-import ai.koog.agents.core.dsl.extension.onAssistantMessage
-import ai.koog.agents.core.dsl.extension.onToolCall
-import ai.koog.agents.core.environment.ReceivedToolResult
+import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResults
+import ai.koog.agents.core.dsl.extension.onTextMessage
+import ai.koog.agents.core.dsl.extension.onToolCalls
 import ai.koog.agents.core.tools.ToolRegistry
 -->
 ```kotlin
 fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy<String, String> {
     return strategy(name) {
         val nodeSendInput by nodeLLMRequest()
-        val nodeExecuteTool by nodeExecuteTool()
-        val nodeSendToolResult by nodeLLMSendToolResult()
-        val nodeCompressHistory by nodeLLMCompressHistory<ReceivedToolResult>()
+        val nodeExecuteTool by nodeExecuteToolsAndGetResults()
+        val nodeSendToolResult by nodeLLMSendToolResults()
+        val nodeCompressHistory by nodeLLMCompressHistory<ReceivedToolResults>()
 
         // エージェントのフローを定義
-        edge(nodeStart forwardTo nodeSendInput)
+        edge(nodeStart forwardTo nodeSendInput asUserMessage { it })
 
         // LLM がメッセージで応答した場合、終了
         edge(
             (nodeSendInput forwardTo nodeFinish)
-                    onAssistantMessage { true }
+                onTextMessage { true }
         )
 
         // LLM がツールを呼び出した場合、それを実行
         edge(
             (nodeSendInput forwardTo nodeExecuteTool)
-                    onToolCall { true }
+                    onToolCalls { true }
         )
 
         // 履歴が大きくなりすぎた場合、圧縮する
@@ -645,13 +667,13 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy
         // LLM が別のツールを呼び出した場合、それを実行
         edge(
             (nodeSendToolResult forwardTo nodeExecuteTool)
-                    onToolCall { true }
+                    onToolCalls { true }
         )
 
         // LLM がメッセージで応答した場合、終了
         edge(
             (nodeSendToolResult forwardTo nodeFinish)
-                    onAssistantMessage { true }
+                onTextMessage { true }
         )
     }
 }

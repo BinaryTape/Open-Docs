@@ -197,10 +197,6 @@
             "collapsed": true
           },
           {
-            "text": "koog.agent-memory",
-            "link": "features/agent-memory"
-          },
-          {
             "text": "koog.long-term-memory",
             "link": "features/long-term-memory"
           },

@@ -265,7 +265,7 @@ val structuredResponse = promptExecutor.executeStructured<WeatherForecast>(
 |----------------|------------------------|----------|---------------|-----------------------------------------------------------------------------------------------------------------|
 | `prompt` | Prompt | はい | | 実行するプロンプト。詳細については[Prompts](prompts/index.md)を参照。 |
 | `model` | LLModel | はい | | プロンプトを実行するメインモデル。 |
-| `examples` | `List<T>` | いいえ | `emptyList()` | モデルが期待されるフォーマットを理解するのを助けるための、オプションの例のリスト。 |
+| `examples` | List<T> | いいえ | `emptyList()` | モデルが期待されるフォーマットを理解するのを助けるための、オプションの例のリスト。 |
 | `fixingParser` | StructureFixingParser? | いいえ | `null` | 補助LLMを使用してパースエラーをインテリジェントに修正することで、不正な形式のレスポンスを処理するオプションのパーサー。指定された場合、エラー修正を伴うパース失敗の再試行を自動的に行います。 |
 
 このメソッドは、正常にパースされた構造化データまたはエラーを含む `Result<StructuredResponse<T>>` を返します。
@@ -321,6 +321,7 @@ val structuredResponse = llm.writeSession {
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.extension.asUserMessage
 import ai.koog.agents.core.dsl.extension.nodeLLMRequest
 import ai.koog.agents.example.exampleStructuredData03.WeatherForecast
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
@@ -328,10 +329,10 @@ import ai.koog.prompt.message.Message
 import ai.koog.prompt.executor.model.StructureFixingParser
 -->
 ```kotlin
-val agentStrategy = strategy("weather-forecast") {
+val agentStrategy = strategy<String, String>("weather-forecast") {
     val setup by nodeLLMRequest()
 
-    val getStructuredForecast by node<Message.Response, String> { _ ->
+    val getStructuredForecast by node<Message.Assistant, String> { _ ->
         val structuredResponse = llm.writeSession {
             requestLLMStructured<WeatherForecast>(
                 fixingParser = StructureFixingParser(
@@ -347,7 +348,7 @@ val agentStrategy = strategy("weather-forecast") {
         """.trimIndent()
     }
 
-    edge(nodeStart forwardTo setup)
+    edge(nodeStart forwardTo setup asUserMessage { it })
     edge(setup forwardTo getStructuredForecast)
     edge(getStructuredForecast forwardTo nodeFinish)
 }
@@ -370,6 +371,7 @@ val agentStrategy = strategy("weather-forecast") {
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.extension.asUserMessage
 import ai.koog.agents.core.dsl.extension.nodeLLMRequest
 import ai.koog.agents.core.dsl.extension.nodeLLMRequestStructured
 import ai.koog.agents.example.exampleStructuredData03.WeatherForecast
@@ -379,7 +381,7 @@ import ai.koog.prompt.structure.StructuredResponse
 import ai.koog.prompt.executor.model.StructureFixingParser
 -->
 ```kotlin
-val agentStrategy = strategy("weather-forecast") {
+val agentStrategy = strategy<Unit, String>("weather-forecast") {
     val setup by node<Unit, String> { _ ->
         "Please provide a weather forecast for Amsterdam"
     }
@@ -408,7 +410,7 @@ val agentStrategy = strategy("weather-forecast") {
     }
 
     edge(nodeStart forwardTo setup)
-    edge(setup forwardTo getWeatherForecast)
+    edge(setup forwardTo getWeatherForecast asUserMessage { it })
     edge(getWeatherForecast forwardTo processResult)
     edge(processResult forwardTo nodeFinish)
 }
@@ -425,6 +427,7 @@ import ai.koog.agents.core.agent.config.AIAgentConfig
 import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.builder.node
+import ai.koog.agents.core.dsl.extension.asUserMessage
 import ai.koog.agents.core.dsl.extension.nodeLLMRequest
 import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.agents.core.tools.annotations.LLMDescription
@@ -476,10 +479,10 @@ fun main(): Unit = runBlocking {
     )
 
     // エージェントストラテジーを定義
-    val agentStrategy = strategy("weather-forecast") {
+    val agentStrategy = strategy<String, String>("weather-forecast") {
         val setup by nodeLLMRequest()
   
-        val getStructuredForecast by node<Message.Response, String> { _ ->
+        val getStructuredForecast by node<Message.Assistant, String> { _ ->
             val structuredResponse = llm.writeSession {
                 requestLLMStructured<SimpleWeatherForecast>()
             }
@@ -490,7 +493,7 @@ fun main(): Unit = runBlocking {
             """.trimIndent()
         }
   
-        edge(nodeStart forwardTo setup)
+        edge(nodeStart forwardTo setup asUserMessage { it })
         edge(setup forwardTo getStructuredForecast)
         edge(getStructuredForecast forwardTo nodeFinish)
     }

@@ -1,6 +1,6 @@
 # クラスベースのツール
 
-このセクションでは、高い柔軟性とカスタマイズされた動作を必要とするシナリオ向けに設計されたAPIについて説明します。
+このセクションでは、高度な柔軟性とカスタマイズされた動作を必要とするシナリオ向けに設計されたAPIについて説明します。
 Kotlinでは、このアプローチにより、パラメータ、メタデータ、実行ロジック、およびツールの登録と呼び出し方法を含め、ツールを完全に制御できます。Javaでは、アノテーションベースのメソッドとリフレクションベースの登録を使用してツールを作成します。
 
 このレベルの制御は、基本的なユースケースを拡張する高度なツールを作成し、エージェントのセッションやワークフローへのシームレスな統合を可能にするのに最適です。
@@ -94,6 +94,87 @@ Javaの場合：
 ツールを実装した後は、それをツールレジストリに追加し、エージェントで使用する必要があります。詳細は [Tool registry](tools-overview.md#tool-registry) を参照してください。
 
 詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/index.html) を参照してください。
+
+#### ツールからエージェントのコンテキストを読み取る
+
+エージェントの完全な状態（LLMコンテキスト、実行ID、設定、ストレージなど）を必要とするツールは、`Tool<Args, Result>` の代わりに `AgentContextAwareTool<Args, Result>` を継承します。フレームワークは呼び出しを駆動する有効な `AIAgentContext` を注入し、ツールはそれを引数のスキーマから読み取るのではなく、型指定されたパラメータとして受け取ります。
+
+=== "Kotlin"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.context.AIAgentContext
+    import ai.koog.agents.core.agent.tools.AgentContextAwareTool
+    import ai.koog.agents.core.tools.annotations.LLMDescription
+    import ai.koog.serialization.typeToken
+    import kotlinx.serialization.Serializable
+    -->
+    ```kotlin
+    // 呼び出しを駆動する有効な AIAgentContext を読み取るツール。
+    object TracingCalculatorTool : AgentContextAwareTool<TracingCalculatorTool.Args, Int>(
+        argsType = typeToken<Args>(),
+        resultType = typeToken<Int>(),
+        name = "tracing_calculator",
+        description = "Adds two digits and emits a log line tagged with the agent run id."
+    ) {
+        @Serializable
+        data class Args(
+            @property:LLMDescription("The first digit to add (0-9)")
+            val digit1: Int,
+            @property:LLMDescription("The second digit to add (0-9)")
+            val digit2: Int
+        )
+
+        override suspend fun execute(args: Args, context: AIAgentContext): Int {
+            val runId = context.runId
+            // ... 横断的コンテキスト（ロギング、トレーシング、相関）のために runId を使用する
+            return args.digit1 + args.digit2
+        }
+    }
+    ```
+    <!--- KNIT example-class-based-tools-metadata-01.kt -->
+
+`AgentContextAwareTool` は、フレームワークがツールの代わりに行うコールごとの `ToolCallMetadata` サイドチャネルを介して、フレームワークによってディスパッチされます。このようなツールをエージェントの実行外で呼び出すと、`AIAgentContext` が注入されていないため `IllegalStateException` がスローされます。本番コードは常に `ContextualAgentEnvironment` を経由する必要があり、ユニットテストでは `ToolCallMetadata.of(AgentContextAwareTool.AgentContextKey to context)` を介して明示的にコンテキストを提供できます。
+
+#### 生のコールごとのメタデータを読み取る
+
+少数のツールでは、エージェントコンテキスト*ではない*、呼び出し元または機能によって提供されたエントリ（例：オブザーバビリティ機能によって提供された分散トレーシングのスパンID）を読み取りたい場合があります。これらのツールは `ToolBase<Args, Result>` を直接継承し、完全な `ToolCallMetadata` バッグを公開します。
+
+=== "Kotlin"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.tools.ToolBase
+    import ai.koog.agents.core.tools.ToolCallMetadata
+    import ai.koog.agents.core.tools.annotations.LLMDescription
+    import ai.koog.serialization.typeToken
+    import kotlinx.serialization.Serializable
+    -->
+    ```kotlin
+    object SpanAwareCalculatorTool : ToolBase<SpanAwareCalculatorTool.Args, Int>(
+        argsType = typeToken<Args>(),
+        resultType = typeToken<Int>(),
+        name = "span_aware_calculator",
+        description = "Adds two digits, propagating a tracing span id from caller or feature metadata."
+    ) {
+        @Serializable
+        data class Args(
+            @property:LLMDescription("The first digit to add (0-9)")
+            val digit1: Int,
+            @property:LLMDescription("The second digit to add (0-9)")
+            val digit2: Int
+        )
+
+        override suspend fun execute(args: Args, metadata: ToolCallMetadata): Int {
+            val traceSpanId = metadata["trace.span.id"] as? String
+            // ... 横断的コンテキスト（ロギング、トレーシング、相関）のために traceSpanId を使用する
+            return args.digit1 + args.digit2
+        }
+    }
+    ```
+    <!--- KNIT example-class-based-tools-metadata-02.kt -->
+
+呼び出し元は `SafeTool.execute(args, serializer, metadata)` を通じて、または直接 `AIAgentEnvironment.executeTool(toolCall, metadata)` を通じてメタデータを渡すことができます。機能は、インストール中に `pipeline.provideToolCallMetadata(this) { eventContext -> mapOf(...) }` を呼び出すことで、すべてのツール呼び出しに対してメタデータを提供できます。キーが衝突した場合、呼び出し元が指定したメタデータが常に機能による提供よりも優先されます。
+
+`Tool<Args, Result>` を継承し、`execute(args)` をオーバーライドしている既存のツールは、変更なしで引き続き動作します。フレームワークはそれらを同じパスを通じてディスパッチし、`ToolCallMetadata` を破棄します。メタデータをオプトインするには、`AgentContextAwareTool`（型指定されたコンテキストアクセス）または `ToolBase`（生のバッグアクセス）に切り替えてください。
 
 ### SimpleTool クラス (Kotlin)
 

@@ -160,7 +160,7 @@ kotlin {
 
 1. 多平台依赖项会沿着 `dependsOn` 结构向下传播。当你向 `commonMain` 添加依赖项时，它将自动添加到所有直接或间接在 `commonMain` 中声明 `dependsOn` 关系的源集中。
 
-   在本例中，依赖项确实被自动添加到了所有 `*Main` 源集中：`iosMain`、`jvmMain`、`iosSimulatorArm64Main` 和 `iosX64Main`。所有这些源集都继承了来自 `commonMain` 源集的 `kotlin-coroutines-core` 依赖项，因此你无需在所有源集中手动复制粘贴它：
+   在本例中，依赖项确实被自动添加到了所有 `*Main` 源集中：`iosMain`、`jvmMain`、`iosSimulatorArm64Main` 和 `iosArm64Main`。所有这些源集都继承了来自 `commonMain` 源集的 `kotlin-coroutines-core` 依赖项，因此你无需在所有源集中手动复制粘贴它：
 
    ![多平台依赖项的传播](dependency-propagation-diagram.svg){width=700}
 
@@ -180,12 +180,12 @@ kotlin {
 
 3. Kotlin 获取每个依赖项关系，并将其解析为来自依赖项的源集集合。该集合中的每个依赖源集必须具有 *兼容目标*。如果一个依赖源集编译到的目标 *至少包含* 消费源集所编译的目标，则该依赖源集具有兼容目标。
 
-   考虑一个示例，其中示例项目中的 `commonMain` 编译到 `android`、`iosX64` 和 `iosSimulatorArm64`：
+   考虑一个示例，其中示例项目中的 `commonMain` 编译到 `android`、`iosArm64` 和 `iosSimulatorArm64`：
 
-    * 首先，它解析对 `kotlinx-coroutines-core.commonMain` 的依赖。这是因为 `kotlinx-coroutines-core` 编译到所有可能的 Kotlin 目标。因此，它的 `commonMain` 编译到所有可能的目标，包括所需的 `android`、`iosX64` 和 `iosSimulatorArm64`。
-    * 其次，`commonMain` 依赖于 `kotlinx-coroutines-core.concurrentMain`。由于 `kotlinx-coroutines-core` 中的 `concurrentMain` 编译到除 JS 之外的所有目标，它与消费项目的 `commonMain` 的目标相匹配。
+    * 首先，它解析对 `kotlinx-coroutines-core.commonMain` 的依赖。这是因为 `kotlinx-coroutines-core` 编译到所有可能的 Kotlin 目标。因此，它的 `commonMain` 编译到所有可能的目标，包括所需的 `android`、`iosArm64` 和 `iosSimulatorArm64`。
+    * 第二，`commonMain` 依赖于 `kotlinx-coroutines-core.concurrentMain`。由于 `kotlinx-coroutines-core` 中的 `concurrentMain` 编译到除 JS 之外的所有目标，它与消费项目的 `commonMain` 的目标相匹配。
 
-   然而，来自协程库的 `iosX64Main` 等源集与消费者的 `commonMain` 不兼容。即使 `iosX64Main` 编译到 `commonMain` 的其中一个目标（即 `iosX64`），它也不编译到 `android` 或 `iosSimulatorArm64`。
+   然而，来自协程库的 `iosArm64Main` 等源集与消费者的 `commonMain` 不兼容。即使 `iosArm64Main` 编译到 `commonMain` 的其中一个目标（即 `iosArm64`），它也不编译到 `android` 或 `iosSimulatorArm64`。
 
    依赖项解析的结果直接影响 `kotlinx-coroutines-core` 中哪些代码是可见的：
 

@@ -20,6 +20,7 @@ Kotlin 또는 Java에서 캐싱된 프롬프트 실행기를 생성하려면 다
     import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
     import ai.koog.prompt.executor.cached.CachedPromptExecutor
     import ai.koog.prompt.cache.files.FilePromptCache
+    import ai.koog.prompt.message.MessagePart
     import kotlin.system.measureTimeMillis
     import ai.koog.prompt.dsl.prompt
     import kotlin.io.path.Path
@@ -49,7 +50,9 @@ Kotlin 또는 Java에서 캐싱된 프롬프트 실행기를 생성하려면 다
     // 이 과정에서 실제 LLM 요청이 수행됩니다.
     val firstTime = measureTimeMillis {
         val firstResponse = cachedExecutor.execute(prompt, OpenAIModels.Chat.GPT4o)
-        println("First response: ${firstResponse.first().content}")
+        val text = firstResponse.parts.filterIsInstance<MessagePart.Text>().joinToString("
+") { it.text }
+        println("First response: $text")
     }
     println("First execution took: ${firstTime}ms")
 
@@ -57,7 +60,9 @@ Kotlin 또는 Java에서 캐싱된 프롬프트 실행기를 생성하려면 다
     // 캐시에서 즉시 결과를 반환합니다.
     val secondTime = measureTimeMillis {
         val secondResponse = cachedExecutor.execute(prompt, OpenAIModels.Chat.GPT4o)
-        println("Second response: ${secondResponse.first().content}")
+        val text = secondResponse.parts.filterIsInstance<MessagePart.Text>().joinToString("
+") { it.text }
+        println("Second response: $text")
     }
     println("Second execution took: ${secondTime}ms")
     ```
@@ -78,7 +83,7 @@ Kotlin 또는 Java에서 캐싱된 프롬프트 실행기를 생성하려면 다
             .build();
 
     // 프롬프트 실행기 생성
-    OpenAILLMClient client = new OpenAILLMClient(System.getenv("OPENAI_API_KEY"));
+    OpenAILLMClient client = openAIClient(System.getenv("OPENAI_API_KEY"));
     MultiLLMPromptExecutor promptExecutor = new MultiLLMPromptExecutor(client);
 
     // 캐싱된 프롬프트 실행기 생성

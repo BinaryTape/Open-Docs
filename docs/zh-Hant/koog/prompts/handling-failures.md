@@ -49,7 +49,7 @@
     **/
     -->
     ```java
-    OpenAILLMClient client = new OpenAILLMClient(apiKey);
+    OpenAILLMClient client = openAIClient(apiKey);
     RetryingLLMClient resilientClient = new RetryingLLMClient(client);
 
     // 現在所有作業在遇到暫時性錯誤時都會自動重試
@@ -91,7 +91,7 @@
     **/
     -->
     ```java
-    OpenAILLMClient client = new OpenAILLMClient(apiKey);
+    OpenAILLMClient client = openAIClient(apiKey);
     // 使用預定義的配置
     RetryingLLMClient conservativeClient = new RetryingLLMClient(
         client,
@@ -315,7 +315,7 @@ val stream = client.executeStreaming(prompt, OpenAIModels.Chat.GPT4o)
     ```java
     // 具有重試功能的單一供應商執行器 (Java)
     RetryingLLMClient resilientClient = new RetryingLLMClient(
-        new OpenAILLMClient(System.getenv("OPENAI_API_KEY")),
+        openAIClient(System.getenv("OPENAI_API_KEY")),
         RetryConfig.Companion.getPRODUCTION()
     );
 
@@ -323,12 +323,12 @@ val stream = client.executeStreaming(prompt, OpenAIModels.Chat.GPT4o)
 
     // 具有靈活用戶端配置的多供應商執行器 (Java)
     LLMClient openai = new RetryingLLMClient(
-        new OpenAILLMClient(System.getenv("OPENAI_API_KEY")),
+        openAIClient(System.getenv("OPENAI_API_KEY")),
         RetryConfig.Companion.getCONSERVATIVE()
     );
 
     LLMClient anthropic = new RetryingLLMClient(
-        new AnthropicLLMClient(System.getenv("ANTHROPIC_API_KEY")),
+        anthropicClient(System.getenv("ANTHROPIC_API_KEY")),
         RetryConfig.Companion.getAGGRESSIVE()
     );
 
@@ -402,7 +402,7 @@ Kotlin 和 Java 中的所有 LLM 用戶端都支援逾時配置，以防止請�
         "v1/moderations",         // moderationsPath
         "v1/models"               // modelsPath
     );
-    OpenAILLMClient client = new OpenAILLMClient(apiKey, settings);
+    OpenAILLMClient client = openAIClient(apiKey, settings);
     ```
     <!--- KNIT example-handling-failures-java-04.java -->
 
@@ -489,6 +489,7 @@ Kotlin 和 Java 中的所有 LLM 用戶端都支援逾時配置，以防止請�
     import org.slf4j.LoggerFactory;
     import java.util.List;
     import java.util.function.Consumer;
+    import static ai.koog.prompt.executor.clients.openai.OpenAIClientFactory.openAIClient;
     class exampleHandlingFailuresJava05 {
         public static void main(String[] args) {
     -->
@@ -499,7 +500,7 @@ Kotlin 和 Java 中的所有 LLM 用戶端都支援逾時配置，以防止請�
     ```java
     Logger logger = LoggerFactory.getLogger("Example");
     RetryingLLMClient resilientClient = new RetryingLLMClient(
-            new OpenAILLMClient(System.getenv("OPENAI_API_KEY")),
+            openAIClient(System.getenv("OPENAI_API_KEY")),
             RetryConfig.PRODUCTION
     );
     Prompt prompt = Prompt.builder("test")
@@ -507,13 +508,13 @@ Kotlin 和 Java 中的所有 LLM 用戶端都支援逾時配置，以防止請�
             .build();
     MultiLLMPromptExecutor promptExecutor = new MultiLLMPromptExecutor(resilientClient);
 
-    Consumer<List<Message.Response>> processResponse = (resp) -> { /* 實作 */ };
+    Consumer<Message.Assistant> processResponse = (resp) -> { /* 實作 */ };
     Runnable scheduleRetryLater = () -> { /* 實作 */ };
     Runnable notifyAdministrator = () -> { /* 實作 */ };
     Runnable useDefaultResponse = () -> { /* 實作 */ };
 
     try {
-        List<Message.Response> response = promptExecutor.execute(prompt, OpenAIModels.Chat.GPT4o);
+        Message.Assistant response = promptExecutor.execute(prompt, OpenAIModels.Chat.GPT4o);
         processResponse.accept(response);
     } catch (Exception e) {
         logger.error("LLM 作業失敗", e);

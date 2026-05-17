@@ -60,7 +60,7 @@ Ktor 支持在运行时从一个或多个文档源构建 OpenAPI 规范。
 
     与 Gradle 不同，Maven 不提供对 Ktor 编译器插件的内置集成。要启用 OpenAPI 规范生成，您需要手动配置编译器插件。
 
-    1. 应用 Ktor Maven 插件（运行和打包应用程序所需）：
+    1. 应用 Ktor Maven 插件（运行和打包您的应用程序所需）：
        ```xml
        <build>
            <plugins>
@@ -456,6 +456,14 @@ ReflectionJsonSchemaInference(object : SchemaReflectionAdapter {
 })
 ```
 
+### 提供自定义架构 {id="custom-schemas"}
+
+如果自动架构推断或注解不足以满足需求，您可以使用 [`JsonSchema`](https://api.ktor.io/ktor-openapi-schema/io.ktor.openapi/-json-schema/index.html) 类手动构建 JSON 架构。
+
+这允许您显式定义所有受支持的架构属性，例如类型、格式、嵌套结构，或高级构造（如用于类似元组的数组定义的 `prefixItems`）。
+
+有关可用属性的完整列表，请参阅 [`JsonSchema` API 文档](https://api.ktor.io/ktor-openapi-schema/io.ktor.openapi/-json-schema/index.html)。
+
 ## 生成并提供规范
 
 OpenAPI 规范在运行时根据运行时路由注解和编译器插件生成的元数据进行组装。
@@ -500,8 +508,8 @@ OpenAPI 规范在运行时根据运行时路由注解和编译器插件生成的
 要通过交互式 UI 公开 OpenAPI 规范，请使用 [OpenAPI](server-openapi.md) 和 [Swagger UI](server-swagger-ui.md) 插件。
 
 这两个插件都在运行时组装规范，并能直接从路由树读取元数据。它们的区别在于文档的渲染方式：
-- **OpenAPI 插件**在服务器上渲染文档并提供预生成的 HTML。
-- **Swagger UI 插件**以 JSON 或 YAML 格式提供 OpenAPI 规范，并使用 Swagger UI 在浏览器中渲染 UI。
+- OpenAPI 插件在服务器上渲染文档并提供预生成的 HTML。
+- Swagger UI 插件以 JSON 或 YAML 格式提供 OpenAPI 规范，并使用 Swagger UI 在浏览器中渲染 UI。
 
 ```kotlin
 // 提供 OpenAPI UI

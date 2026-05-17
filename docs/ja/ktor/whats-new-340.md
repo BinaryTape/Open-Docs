@@ -30,7 +30,7 @@ install(Authentication) {
     oauth("login") {
         client = ...
         urlProvider = ...
-        providerLookup = { ... }
+        settings = ...
         fallback = { cause ->
             if (cause is OAuth2RedirectError) {
                 respondRedirect("/login-after-fallback")
@@ -41,6 +41,12 @@ install(Authentication) {
     }
 }
 ```
+
+### 静的な OAuth プロバイダー設定
+
+Ktor 3.4.0 では、[OAuth](server-oauth.md) 認証プロバイダーに `settings` プロパティが導入されました。`oauth` ブロック内で静的な OAuth プロバイダー設定を直接構成するためにこれを使用します。静的なプロバイダー構成には、`providerLookup` よりも `settings` を優先してください。これにより、Ktor は生成された [OpenAPI 仕様](openapi-spec-generation.md)のメタデータを推論できるようになります。
+
+`providerLookup` プロパティは、特定のコールに対して OAuth 設定を動的に解決するために引き続き利用可能です。
 
 ### Zstd 圧縮のサポート
 

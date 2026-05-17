@@ -14,11 +14,29 @@
 체크포인트는 실행 중 특정 시점의 에이전트 전체 상태를 캡처하며, 다음 내용을 포함합니다.
 
 - 메시지 기록 (사용자, 시스템, 어시스턴트, 도구 간의 모든 상호작용)
-- 현재 실행 중인 노드 (Node)
-- 현재 노드에 대한 입력 데이터
+- 성공적으로 실행된 마지막 노드 (Node)
+- 해당 노드의 출력 데이터
+- 선택된 LLM
+- 일반적인 LLM 파라미터
+- 선택된 도구 (Tools)
+- `AIAgentStorage` 콘텐츠 (실행 중 저장된 키-값 데이터)
 - 생성 타임스탬프
 
 체크포인트는 고유 ID로 식별되며 특정 에이전트와 연결됩니다.
+
+### `AIAgentStorage` 지속성 (`AIAgentStorage` persistence)
+
+체크포인트가 생성될 때, 프레임워크는 현재 `AIAgentStorage`에 저장된 모든 값을 직렬화하여 체크포인트에 포함합니다.
+복원 시, 해당 값들은 역직렬화되어 체크포인트 시점의 상태 그대로 재개된 에이전트에서 사용할 수 있게 됩니다.
+
+**직렬화 가능한 값만 지속됩니다.**
+사용되는 직렬화기는 `AIAgentConfig`의 `serializer` 프로퍼티를 통해 설정된 것입니다.
+해당 직렬화기로 인코딩할 수 없는 값은 자동으로 무시되며 복원된 스토리지에 존재하지 않게 됩니다.
+
+비직렬화 가능(Non-serializable) 값은 체크포인트가 작성될 때 자동으로 삭제됩니다.
+체크포인트에서 복원한 후 값이 누락되었다면, 해당 타입이 설정된 직렬화기에 의해 직렬화 가능한지 확인하세요.
+
+자세한 내용은 [직렬화(Serialization)](../serialization.md)를 참조하세요.
 
 ## 설치 (Installation)
 
@@ -53,7 +71,7 @@
 
     <!--- INCLUDE
     /**
-    var executor = SimplePromptExecutorsKt.simpleOllamaAIExecutor("http://localhost:11434")
+    var executor = SimplePromptExecutors.simpleOllamaAIExecutor("http://localhost:11434")
     -->
     <!--- SUFFIX
     **/
@@ -109,7 +127,7 @@
 
     <!--- INCLUDE
     /**
-    var executor = SimplePromptExecutorsKt.simpleOllamaAIExecutor("http://localhost:11434")
+    var executor = SimplePromptExecutors.simpleOllamaAIExecutor("http://localhost:11434")
     -->
     <!--- SUFFIX
     **/
@@ -167,7 +185,7 @@
 
     <!--- INCLUDE
     /**
-    var executor = SimplePromptExecutorsKt.simpleOllamaAIExecutor("http://localhost:11434")
+    var executor = SimplePromptExecutors.simpleOllamaAIExecutor("http://localhost:11434")
     -->
     <!--- SUFFIX
     **/
@@ -342,7 +360,7 @@ Koog Persistence를 사용하면 `Persistence` 기능 설정에 `RollbackToolReg
 
     <!--- INCLUDE
     /**
-    var executor = SimplePromptExecutorsKt.simpleOllamaAIExecutor("http://localhost:11434")
+    var executor = SimplePromptExecutors.simpleOllamaAIExecutor("http://localhost:11434")
     -->
     <!--- SUFFIX
     **/
@@ -531,7 +549,7 @@ Koog Persistence를 사용하면 `Persistence` 기능 설정에 `RollbackToolReg
 
     <!--- INCLUDE
     /**
-    var executor = SimplePromptExecutorsKt.simpleOllamaAIExecutor("http://localhost:11434")
+    var executor = SimplePromptExecutors.simpleOllamaAIExecutor("http://localhost:11434")
     -->
     <!--- SUFFIX
     **/

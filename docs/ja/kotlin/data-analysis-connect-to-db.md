@@ -1,9 +1,21 @@
 [//]: # (title: データベースへの接続とデータの取得)
+[//]: # (description: SQLデータベースへの接続、テーブルスキーマの検査、Kotlin DataFrameを使用したデータ取得の方法について説明します。)
 
-[Kotlin Notebook](kotlin-notebook-overview.md)は、MariaDB、PostgreSQL、MySQL、SQLiteなどのさまざまな種類のSQLデータベースへの接続と、そこからのデータ取得機能を提供しています。
+[Kotlin Notebook](kotlin-notebook-overview.md)は、最も一般的なSQLデータベースをサポートしています。
+
+* [DuckDB](https://kotlin.github.io/dataframe/duckdb.html)
+* [H2](https://kotlin.github.io/dataframe/h2.html)
+* [MariaDB](https://kotlin.github.io/dataframe/mariadb.html)
+* [Microsoft SQL Server](https://kotlin.github.io/dataframe/microsoft-sql-server.html)
+* [MySQL](https://kotlin.github.io/dataframe/mysql.html)
+* [PostgreSQL](https://kotlin.github.io/dataframe/postgresql.html)
+* [SQLite](https://kotlin.github.io/dataframe/sqlite.html)
+
 [Kotlin DataFrameライブラリ](https://kotlin.github.io/dataframe/home.html)を活用することで、Kotlin Notebookはデータベースへの接続を確立し、SQLクエリを実行し、その結果をインポートしてさらなる操作を行うことができます。
 
-詳細な例については、[KotlinDataFrame SQL ExamplesのGitHubリポジトリにあるNotebook](https://github.com/zaleslaw/KotlinDataFrame-SQL-Examples/blob/master/notebooks/imdb.ipynb)を参照してください。
+> 詳細な例については、[KotlinDataFrame SQL ExamplesのGitHubリポジトリにあるNotebook](https://github.com/zaleslaw/KotlinDataFrame-SQL-Examples/blob/master/notebooks/imdb.ipynb)を参照してください。
+>
+{style="tip"}
 
 ## 始める前に
 
@@ -11,157 +23,158 @@ Kotlin Notebookは[Kotlin Notebookプラグイン](https://plugins.jetbrains.com
 
 Kotlin Notebookの機能が利用できない場合は、プラグインが有効になっていることを確認してください。詳細については、[環境のセットアップ](kotlin-notebook-set-up-env.md)を参照してください。
 
-新しいKotlin Notebookを作成します。
+このチュートリアルに従うには：
+1. [新しいKotlin Notebookを作成します](kotlin-notebook-create.md)。
+2. Notebookの最初のセルで、使用するデータベースのJDBC（Java Database Connectivity）ドライバの依存関係を追加します。
+   
+   例えば、MariaDBデータベースに接続するには、以下を追加します：
 
-1. **File** | **New** | **Kotlin Notebook** を選択します。
-
-2. MariaDBやMySQLなどのSQLデータベースへのアクセス権があることを確認してください。
-
-## データベースへの接続
-
-[Kotlin DataFrameライブラリ](https://kotlin.github.io/dataframe/home.html)の特定の関数を使用して、SQLデータベースに接続し、対話することができます。
-`DatabaseConfiguration`を使用してデータベースへの接続を確立し、`getSchemaForAllSqlTables()`を使用してその中のすべてのテーブルのスキーマを取得できます。
-
-例を見てみましょう：
-
-1. Kotlin Notebookファイル（`.ipynb`）を開きます。
-2. JDBC（Java Database Connectivity）ドライバの依存関係を追加し、JDBCドライバのバージョンを指定します。
-この例ではMariaDBを使用します。
-
-   ```kotlin
+   ```kotlin 
    USE {
       dependencies("org.mariadb.jdbc:mariadb-java-client:$version")
    }
    ```
-
-3. データ操作タスクに不可欠なKotlin DataFrameライブラリと、SQL接続およびユーティリティ関数に必要なJavaライブラリをインポートします。
+3. Kotlin DataFrameをインポートします。
 
    ```kotlin
    %use dataframe
-   import java.sql.DriverManager
-   import java.util.*
    ```
 
-4. `DatabaseConfiguration`クラスを使用して、URL、ユーザー名、パスワードを含むデータベースの接続パラメータを定義します。
+> DataFrameライブラリとそのAPIをNotebookで利用できるようにするため、他のどのコードセルよりも先に`%use dataframe`の行を含むコードセルを実行してください。
+>
+{style="note"}
+
+## データベースへの接続
+
+データベースに接続するには、`DbConnectionConfig()`関数を使用して接続設定を作成します。
+
+1. 以下の機能をインポートします：
+   
+   ```kotlin
+   import org.jetbrains.kotlinx.dataframe.io.DbConnectionConfig
+   import org.jetbrains.kotlinx.dataframe.schema.DataFrameSchema
+   ```
+
+2. `DbConnectionConfig()`関数を使用して、接続パラメータ（URL、ユーザー名、パスワード）を定義します。
 
    ```kotlin
    val URL = "YOUR_URL"
    val USER_NAME = "YOUR_USERNAME"
    val PASSWORD = "YOUR_PASSWORD"
    
-   val dbConfig = DatabaseConfiguration(URL, USER_NAME, PASSWORD)
+   val dbConfig = DbConnectionConfig(URL, USER_NAME, PASSWORD)
    ```
 
-5. 接続されたら、`getSchemaForAllSqlTables()`関数を使用して、データベース内の各テーブルのスキーマ情報を取得して表示します。
+> SQLデータベースへの接続の詳細については、[Kotlin DataFrameドキュメントの「Read from SQL databases」](https://kotlin.github.io/dataframe/readsqldatabases.html)を参照してください。
+>
+{style="tip"}
 
-   ```kotlin
-   val dataschemas = DataFrame.getSchemaForAllSqlTables(dbConfig)
-   
-   dataschemas.forEach { 
-       println("---Yet another table schema---")
-       println(it)
-       println()
-   }
-   ```
+## データベーススキーマの検査
 
-   > SQLデータベースへの接続の詳細については、[Kotlin DataFrameドキュメントの「Read from SQL databases」](https://kotlin.github.io/dataframe/readsqldatabases.html)を参照してください。
-   > 
-   {style="tip"}
+データを読み込む前に、データベーススキーマを検査して、どのようなテーブルがあり、どのような列が含まれているかを把握します。スキーマを確認することで、どのテーブルをDataFrameに読み込むかを決定できます。
 
-## データの取得と操作
+データベース内のすべてのユーザー作成テーブルのスキーマを取得するには、`DataFrameSchema.readAllSqlTables()`関数を使用します。
 
-[データベースへの接続を確立](#connect-to-database)した後、Kotlin DataFrameライブラリを活用して、Kotlin Notebookでデータを取得および操作できます。
-データの取得には`readSqlTable()`関数を使用できます。データの操作には、[`filter`](https://kotlin.github.io/dataframe/filter.html)、[`groupBy`](https://kotlin.github.io/dataframe/groupby.html)、[`convert`](https://kotlin.github.io/dataframe/convert.html)などのメソッドを使用できます。
+```kotlin
+val dataSchemas = DataFrameSchema.readAllSqlTables(dbConfig)
 
-IMDBデータベースに接続し、クエンティン・タランティーノが監督した映画に関するデータを取得する例を見てみましょう：
+dataSchemas.forEach { (tableName, schema) ->
+    println("---Schema for table: $tableName---")
+    println(schema)
+    println()
+}
+```
 
-1. `readSqlTable()`関数を使用して「movies」テーブルからデータを取得します。効率化のために、クエリを最初の100レコードに制限する`limit`を設定します。
+## データの読み込み
 
-   ```kotlin
-   val dfs = DataFrame.readSqlTable(dbConfig, tableName = "movies", limit = 100)
-   ```
+データベーススキーマを検査してデータを選択したら、そのデータをDataFrameに読み込みます。
 
-2. SQLクエリを使用して、クエンティン・タランティーノ監督の映画に関連する特定のデータセットを取得します。
+Kotlin DataFrameは、データベースからデータを読み込むための2つの方法を提供しています：
+
+* テーブルから直接データを読み込む。
+* カスタムSQLクエリの結果を読み込む。
+
+どちらのアプローチも、Kotlin Notebookで検査、変換、分析が可能なDataFrameを返します。
+
+### テーブルからデータを読み込む
+
+テーブルからデータを読み込むには、[`DataFrame.readSqlTable()`](https://kotlin.github.io/dataframe/readsqldatabases.html#reading-specific-tables)関数を使用します。
+
+以下の例では、`movies`テーブルから最初の100行を読み込みます。
+
+```kotlin
+val moviesDf = DataFrame.readSqlTable(
+    dbConfig = dbConfig,
+    tableName = "movies",
+    limit = 100
+)
+
+moviesDf
+```
+
+### SQLクエリでデータを読み込む
+
+データベースに対して特定のSQLクエリを実行するには、[`DataFrame.readSqlQuery()`](https://kotlin.github.io/dataframe/readsqldatabases.html#executing-sql-queries)関数を使用します。
+このアプローチは、特定の列の読み込み、テーブルの結合、行のフィルタリング、またはデータベース内でのデータの集計が必要な場合に便利です。
+
+クエンティン・タランティーノが監督した映画に関する特定のデータセットを取得してみましょう。
 このクエリは映画の詳細を選択し、各映画のジャンルを結合します。
 
-   ```kotlin
-   val props = Properties()
-   props.setProperty("user", USER_NAME)
-   props.setProperty("password", PASSWORD)
+```kotlin
+val TARANTINO_FILMS_SQL_QUERY = """
+    SELECT name, year, rank, GROUP_CONCAT(genre) as "genres"
+    FROM movies JOIN movies_directors ON movie_id = movies.id
+    JOIN directors ON directors.id=director_id LEFT JOIN movies_genres ON movies.id = movies_genres.movie_id
+    WHERE directors.first_name = "Quentin" AND directors.last_name = "Tarantino"
+    GROUP BY name, year, rank
+    ORDER BY year
+    """
+
+val tarantinoMoviesDf = DataFrame.readSqlQuery(dbConfig, TARANTINO_FILMS_SQL_QUERY)
+
+tarantinoMoviesDf
+```
+
+## データの処理
+
+データベースをDataFrameに読み込んだ後、DataFrameの操作を使用して取得したデータを処理できます。
+
+例えば、前のセクションのデータを操作してみましょう。以下のコードは：
+1. [`.fillNA()`](https://kotlin.github.io/dataframe/fill.html#fillna)関数を使用して`year`列の欠損値を置き換えます。
+2. [`.convert()`](https://kotlin.github.io/dataframe/convert.html)関数を使用して列を`Int`に変換します。
+3. [`.filter()`](https://kotlin.github.io/dataframe/filter.html)関数を使用して、2000年以降に公開された映画のみを保持します。
+
+```kotlin
+val filteredTarantinoMovies = tarantinoMoviesDf
+    .fillNA { year }.with { 0 }
+    .convert { year }.toInt()
+    .filter { year > 2000 }
+
+filteredTarantinoMovies
+```
+
+## データの分析
+
+[Kotlin Notebook](kotlin-notebook-overview.md)と[DataFrameライブラリ](https://kotlin.github.io/dataframe/home.html)を使用して、データのグループ化、ソート、集計を行い、データ内のパターンを発見し理解することができます。
+
+例えば、`actors`テーブルからアクターデータを読み込み、最も一般的なアクターの名前（first name）の上位20個を見つけてみましょう：
+
+```kotlin
+// actorsテーブルからデータを抽出
+val actorDf = DataFrame.readSqlTable(dbConfig, "actors", 10000)
+val top20ActorNames = actorDf
+   // first_name列でデータをグループ化
+   .groupBy { first_name }
    
-   val TARANTINO_FILMS_SQL_QUERY = """
-       SELECT name, year, rank, GROUP_CONCAT(genre) as "genres"
-       FROM movies JOIN movies_directors ON movie_id = movies.id
-       JOIN directors ON directors.id=director_id LEFT JOIN movies_genres ON movies.id = movies_genres.movie_id
-       WHERE directors.first_name = "Quentin" AND directors.last_name = "Tarantino"
-       GROUP BY name, year, rank
-       ORDER BY year
-       """
+   // 各ユニークな名前の出現回数をカウント
+   .count()
    
-   // 名前、年、ランク、および全ジャンルの連結文字列を含む、クエンティン・タランティーノの映画リストを取得します。
-   // 結果は名前、年、ランクでグループ化され、年順にソートされます。
-   
-   var dfTarantinoMovies: DataFrame<*>
-   
-   DriverManager.getConnection(URL, props).use { connection ->
-      connection.createStatement().use { st ->
-         st.executeQuery(TARANTINO_FILMS_SQL_QUERY).use { rs ->
-            val dfTarantinoFilmsSchema = DataFrame.getSchemaForResultSet(rs, connection)
-            dfTarantinoFilmsSchema.print()
-   
-            dfTarantinoMovies = DataFrame.readResultSet(rs, connection)
-            dfTarantinoMovies
-         }
-      }
-   }
-   ```
-
-3. タランティーノ映画のデータセットを取得した後、さらにデータの操作やフィルタリングを行うことができます。
-
-   ```kotlin
-   val df = dfTarantinoMovies
-       // 「year」列の欠損値を0に置き換えます。
-       .fillNA { year }.with { 0 }
-       
-       // 「year」列を整数に変換します。
-       .convert { year }.toInt()
-   
-       // 2000年以降に公開された映画のみを含むようにデータをフィルタリングします。
-       .filter { year > 2000 }
-   df
-   ```
-
-結果として出力されるのは、[`fillNA`](https://kotlin.github.io/dataframe/fill.html#fillna)メソッドを使用してyear列の欠損値が0に置き換えられたDataFrameです。year列は[`convert`](https://kotlin.github.io/dataframe/convert.html)メソッドで整数値に変換され、[`filter`](https://kotlin.github.io/dataframe/filter.html)メソッドを使用して2000年以降の行のみが含まれるようにフィルタリングされています。
-
-## Kotlin Notebookでのデータ分析
-
-[データベースへの接続を確立](#connect-to-database)した後、[Kotlin DataFrameライブラリ](https://kotlin.github.io/dataframe/home.html)を活用して、Kotlin Notebookで詳細なデータ分析を行うことができます。これには、データのグループ化、ソート、集計のための関数が含まれており、データ内のパターンを発見し理解するのに役立ちます。
-
-映画データベースのアクターデータを分析し、最も頻繁に登場するアクターのの名前に焦点を当てた例を見てみましょう：
-
-1. [`readSqlTable()`](https://kotlin.github.io/dataframe/readsqldatabases.html#reading-specific-tables)関数を使用して「actors」テーブルからデータを抽出します。
-
-   ```kotlin
-   val actorDf = DataFrame.readSqlTable(dbConfig, "actors", 10000)
-   ```
-
-2. 取得したデータを処理して、最も一般的なアクターの名前の上位20個を特定します。この分析には、いくつかのDataFrameメソッドを使用します。
-
-   ```kotlin
-   val top20ActorNames = actorDf
-       // first_name列でデータをグループ化し、アクターの名前に基づいて整理します。
-      .groupBy { first_name }
-   
-       // 各ユニークな名前の出現回数をカウントし、頻度分布を提供します。
-      .count()
-   
-       // カウントの降順で結果をソートし、最も一般的な名前を特定します。
-      .sortByDesc("count")
-   
-       // 分析のために上位20個の最も頻繁な名前を選択します。
-      .take(20)
-   top20ActorNames
-   ```
+    // カウントの降順で結果をソート
+   .sortByDesc("count")
+    
+   // 分析のために上位20個の最も頻繁な名前を選択
+   .take(20)
+```
 
 ## 次のステップ
 

@@ -11,7 +11,7 @@
 
 一个典型的场景是为 `TextField` 等活跃控件定义键盘处理程序。要在按键事件触发默认操作之前对其进行拦截，您可以使用 `onKeyEvent` 和 `onPreviewKeyEvent` 修饰符。使用 `onKeyEvent` 修饰符可以处理单个按键操作，而 `onPreviewKeyEvent` 则更适合用于定义快捷键。
 
-以下示例演示了 `TextField` 的交互，根据按住 <shortcut>Ctrl</shortcut> 时按下的按键执行不同的操作。请将此代码添加到 `composeApp/src/jvmMain/kotlin` 中的 `main.kt` 文件：
+以下示例演示了 `TextField` 的交互，根据按住 <shortcut>Ctrl</shortcut> 时按下的按键执行不同的操作。请将此代码添加到 `sharedUI/src/jvmMain/kotlin` 中的 `main.kt` 文件：
 
 ```kotlin
 import androidx.compose.foundation.layout.fillMaxSize
@@ -71,7 +71,7 @@ fun main() = singleWindowApplication (title = "Key events") {
 
 要定义在当前窗口中始终处于活跃状态的键盘事件处理程序，请使用 `Window`、`singleWindowApplication` 和 `Dialog` 函数中提供的 `onPreviewKeyEvent` 和 `onKeyEvent` 参数。它们的区别在于当事件未被消耗时如何进行分发：`onPreviewKeyEvent` 将事件分发给它的第一个子项，而 `onKeyEvent` 则将事件分发给该可组合项的父项。通常，拦截事件首选 `onPreviewKeyEvent`，因为它甚至可以实现全屏范围的键盘快捷键。
 
-以下示例演示了窗口交互，例如通过按下 `Escape` 关闭弹出对话框，以及通过按下 <shortcut>Ctrl+Shift+C</shortcut> 快捷键更改窗口内容。请将此代码添加到 `composeApp/src/jvmMain/kotlin` 中的 `main.kt` 文件：
+以下示例演示了窗口交互，例如通过按下 `Escape` 关闭弹出对话框，以及通过按下 <shortcut>Ctrl+Shift+C</shortcut> 快捷键更改窗口内容。请将此代码添加到 `sharedUI/src/jvmMain/kotlin` 中的 `main.kt` 文件：
 
 ```kotlin
 import androidx.compose.foundation.layout.Arrangement

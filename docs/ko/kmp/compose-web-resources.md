@@ -1,7 +1,7 @@
 [//]: # (title: 웹 리소스 처리)
 
 여기에서는 브라우저 기능과 `preload` API를 사용한 리소스 프리로딩(preloading) 및 웹 리소스 캐싱에 대한 정보를 확인할 수 있습니다.
-
+  
 ## 웹 타겟을 위한 리소스 프리로딩
 
 폰트나 이미지와 같은 웹 리소스는 [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)를 사용하여 비동기적으로 로드됩니다.
@@ -21,7 +21,7 @@
 1. 애플리케이션의 웹 배포판을 빌드합니다.
 
 ```console
-   ./gradlew :composeApp:wasmJsBrowserDistribution
+   ./gradlew :shared:wasmJsBrowserDistribution
 ```
 
 2. 생성된 `dist` 디렉토리에서 필요한 리소스를 찾아 경로를 저장합니다.
@@ -29,7 +29,7 @@
 4. `href` 속성을 리소스 경로로 설정합니다.
 
 ```html
-<link rel="preload" href="./composeResources/username.composeapp.generated.resources/font/FiraMono-Regular.ttf" as="fetch" type="font/ttf" crossorigin/>
+<link rel="preload" href="./composeResources/username.shared.generated.resources/font/FiraMono-Regular.ttf" as="fetch" type="font/ttf" crossorigin/>
 ```
 
 ### Compose Multiplatform 프리로드 API를 사용하여 리소스 프리로딩하기

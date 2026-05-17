@@ -11,7 +11,7 @@
 您可以使用 `maven-publish` Gradle 插件将多平台库发布到本地 Maven 仓库：
 
 1. 在 `shared/build.gradle.kts` 文件中，添加 [`maven-publish` Gradle 插件](https://docs.gradle.org/current/userguide/publishing_maven.html)。
-2. 为库指定组（group）和版本（version），以及应当发布到的[仓库](https://docs.gradle.org/current/userguide/publishing_maven.html#publishing_maven:repositories)：
+2. 为库指定组 (group) 和版本 (version)，以及应当发布到的[仓库](https://docs.gradle.org/current/userguide/publishing_maven.html#publishing_maven:repositories)：
 
    ```kotlin
    plugins {
@@ -50,7 +50,6 @@ version = "1.0"
 
 kotlin {
     jvm()
-    iosX64()
     iosArm64()
 }
 ```
@@ -60,7 +59,6 @@ kotlin {
 **目标特定发布**
 
 * 对于 `jvm` 目标：`test:lib-jvm:1.0`
-* 对于 `iosX64` 目标：`test:lib-iosx64:1.0`
 * 对于 `iosArm64` 目标：`test:lib-iosarm64:1.0`
 
 每个目标特定发布都是独立的。例如，运行 `publishJvmPublicationTo<MavenRepositoryName>` 仅发布 JVM 模块，其他模块保持未发布状态。

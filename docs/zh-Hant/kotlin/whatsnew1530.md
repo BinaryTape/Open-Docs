@@ -159,7 +159,7 @@ kotlin {
 >
 {style="warning"}
 
-函式庫的作者可以將實驗性 API 標記為 [需要選擇性使用](opt-in-requirements.md#create-opt-in-requirement-annotations)，以告知使用者其處於實驗狀態。當使用該 API 時，編譯器會發出警告或錯誤，並需要 [明確同意](https://kotlinlang.org/docs/opt-in-requirements.html#opt-in-to-api) 才能隱藏。
+函式庫的作者可以將實驗性 API 標記為 [需要選擇性使用](opt-in-requirements.md#create-opt-in-requirement-annotations) 以告知使用者其處於實驗狀態。當使用該 API 時，編譯器會發出警告或錯誤，並需要 [明確同意](opt-in-requirements.md#opt-in-to-api) 才能隱藏。
 
 在 Kotlin 1.5.30 中，編譯器會將任何在簽章中包含實驗性型別的宣告視為實驗性的。也就是說，即使是隱式使用實驗性 API，它也要求選擇性使用。例如，如果函式的回傳型別被標記為實驗性 API 元素，則即便該宣告本身未被明確標記為需要選擇性使用，使用該函式仍需要您進行選擇性使用。
 
@@ -310,7 +310,7 @@ Kotlin/Native 獲得了多項變更與改進：
 * [改進的 CocoaPods Gradle 外掛程式 Kotlin DSL](#improved-kotlin-dsl-for-the-cocoapods-gradle-plugin)
 * [與 Swift 5.5 async/await 的實驗性互通性](#experimental-interoperability-with-swift-5-5-async-await)
 * [改進的物件與隨伴物件的 Swift/Objective-C 對應](#improved-swift-objective-c-mapping-for-objects-and-companion-objects)
-* [棄用 MinGW 目標中不含匯入程式庫的 DLL 連結](#deprecation-of-linkage-against-dlls-without-import libraries-for-mingw-targets)
+* [棄用 MinGW 目標中不含匯入程式庫的 DLL 連結](#deprecation-of-linkage-against-dlls-without-import-libraries-for-mingw-targets)
 
 ### Apple 晶片支援
 
@@ -375,7 +375,7 @@ cocoapods {
 }
 ```
 
-此參數不會出於 Podspec 檔案中。當 Xcode 執行 Gradle 建置程序時，Kotlin CocoaPods Gradle 外掛程式將選擇必要的原生建置類型。
+此參數不會出現在 Podspec 檔案中。當 Xcode 執行 Gradle 建置程序時，Kotlin CocoaPods Gradle 外掛程式將選擇必要的原生建置類型。
 
 > 不需要宣告 `Debug` 和 `Release` 配置，因為它們預設已受支援。
 >
@@ -392,7 +392,7 @@ cocoapods {
 
 對於具有可 null 回傳型別的掛起函式，Kotlin/Native 編譯器現在會在產生的 Objective-C 標頭中發出 `_Nullable_result` 屬性。這使得從 Swift 將它們作為具有正確可 null 性的 `async` 函式進行呼叫成為可能。
 
-請注意，此功能是實驗性的，未來可能會受到 Kotlin 和 Swift 變更的影響。目前，我們提供此功能的預覽，該預覽具有某些限制，我們渴望聽到您的想法。了解其目前狀態並在 [此 YouTrack 問題](https://youtrack.jetbrains.com/issue/KT-47610) 中留下您的回饋。
+請注意，此功能是實驗性的，未來可能會受到 Kotlin 和 Swift 變更的影響編譯器。目前，我們提供此功能的預覽，該預覽具有某些限制，我們渴望聽到您的想法。了解其目前狀態並在 [此 YouTrack 問題](https://youtrack.jetbrains.com/issue/KT-47610) 中留下您的回饋。
 
 ### 改進的物件與隨伴物件的 Swift/Objective-C 對應
 
@@ -547,7 +547,7 @@ kotlin {
 ## Kotlin/JS
 
 Kotlin/JS 1.5.30 帶來了兩項主要改進：
-* [JS IR 編編譯器後端進入 Beta 階段](#js-ir-compiler-backend-reaches-beta)
+* [JS IR 編譯器後端進入 Beta 階段](#js-ir-compiler-backend-reaches-beta)
 * [使用 Kotlin/JS IR 後端的應用程式擁有更好的偵錯體驗](#better-debugging-experience-for-applications-with-the-kotlin-js-ir-backend)
 
 ### JS IR 編譯器後端進入 Beta 階段
@@ -560,7 +560,7 @@ Kotlin/JS 的 [基於 IR 的編譯器後端](whatsnew14.md#unified-backends-and-
 
 Kotlin 1.5.30 為 Kotlin/JS IR 後端帶來了 JavaScript 原始碼對應檔產生功能。這將在啟用 IR 後端時改善 Kotlin/JS 偵錯體驗，提供完整的偵錯支援，包括中斷點、單步執行，以及具有正確原始碼參照的可讀堆疊追蹤。
 
-了解如何 [在瀏覽器或 IntelliJ IDEA Ultimate 中偵錯 Kotlin/JS](js-debugging.md)。
+了解如何 [在瀏覽器或 IntelliJ IDEA 中偵錯 Kotlin/JS](js-debugging.md)。
 
 ## Gradle
 

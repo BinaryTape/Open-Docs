@@ -48,8 +48,11 @@ HTTP는 접근 제어 및 인증을 위한 [일반적인 프레임워크](https:
 [세션(Sessions)](server-sessions.md)은 서로 다른 HTTP 요청 간에 데이터를 유지하는 메커니즘을 제공합니다. 일반적인 사용 사례로는 로그인한 사용자의 ID, 장바구니 내용 저장 또는 클라이언트에 사용자 기본 설정 유지 등이 있습니다. Ktor에서 이미 연결된 세션이 있는 사용자는 `session` 프로바이더를 사용하여 인증될 수 있습니다. 자세한 방법은 [Ktor Server의 세션 인증](server-session-auth.md)에서 확인하세요.
 
 ### 커스텀 {id="custom"}
-Ktor는 또한 인증 및 인가 처리를 위한 고유한 플러그인을 구현하는 데 사용할 수 있는 [커스텀 플러그인](server-custom-plugins.md) 제작용 API를 제공합니다.
-예를 들어, `AuthenticationChecked` [훅(hook)](server-custom-plugins.md#call-handling)은 인증 크리덴셜이 확인된 후에 실행되며, 이를 통해 인가를 구현할 수 있습니다: [custom-plugin-authorization](https://github.com/ktorio/ktor-documentation/blob/%ktor_version%/codeSnippets/snippets/custom-plugin-authorization).
+
+Ktor는 인증 및 인가 동작을 커스터마이징하는 두 가지 방법을 제공합니다:
+
+* [커스텀 인증 프로바이더](#custom-auth-provider)를 사용합니다.
+* [커스텀 플러그인](server-custom-plugins.md)을 사용하여 인가 로직을 구현합니다. 예를 들어, `AuthenticationChecked` [훅(hook)](server-custom-plugins.md#call-handling)을 사용하여 접근 권한을 확인할 수 있습니다. 자세한 내용은 [custom-plugin-authorization](https://github.com/ktorio/ktor-documentation/blob/%ktor_version%/codeSnippets/snippets/custom-plugin-authorization) 예제를 참조하십시오.
 
 ## 의존성 추가 {id="add_dependencies"}
 
@@ -112,6 +115,10 @@ install(Authentication) {
 ```
 
 이 함수 내부에서 해당 프로바이더에 특정한 설정을 [구성](#configure-provider)할 수 있습니다.
+
+> 기본 제공 프로바이더가 요구 사항에 맞지 않는 경우, [커스텀 인증 프로바이더](#custom-auth-provider)를 구현할 수 있습니다.
+> 
+{style="note"}
 
 ### 2단계: 프로바이더 이름 지정 {id="provider-name"}
 
@@ -249,3 +256,29 @@ authenticate("auth-session", strategy = AuthenticationStrategy.Required) {
         }
     }
 }
+```
+
+## 커스텀 인증 프로바이더 {id="custom-auth-provider"}
+
+기본 제공 프로바이더가 요구 사항에 맞지 않는 경우, [`provider()`](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-authentication-config/provider.html) 함수를 사용하여 커스텀 인증 로직을 구현하십시오:
+
+```kotlin
+provider("custom") {
+  authenticate { context ->
+    val exampleHeader = context.call.request.headers["Example-Header"]
+    if (exampleHeader == null) {
+      val cause = AuthenticationFailedCause.Error("No example header found")
+      context.challenge(key = this, cause) { challenge, call ->
+        call.respondText("Challenge")
+        challenge.complete()
+      }
+    }
+  }
+}
+```
+
+위의 예제에서 `provider("custom")` 함수는 나중에 `authenticate("custom")`를 사용하여 라우트에 적용할 수 있는 이름이 지정된 인증 프로바이더를 등록합니다.
+
+프로바이더 내부의 `authenticate {}` 블록은 모든 들어오는 요청에 대해 실행되며, 컨텍스트 객체를 통해 인증 프로세스에 대한 전체 제어권을 부여합니다. 여기에는 현재 호출(`context.call`)에 대한 접근과 헤더, 매개변수 또는 기타 요청 데이터를 검사할 수 있는 기능이 포함됩니다.
+
+[`DynamicProviderConfig`](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-dynamic-provider-config/index.html) 클래스에서 제공하는 옵션을 사용하여 추가적인 프로바이더 동작을 구성할 수 있습니다.

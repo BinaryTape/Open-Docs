@@ -14,7 +14,7 @@ Kotlin 支援將大型程式碼庫從 Java 逐漸遷移到 Kotlin。您可以開
 
 ## 探索架構
 
-Kotlin 與所有基於 Java 的架構完全相容，因此您可以在享受 Kotlin 語法優點的同時，繼續使用熟悉的技術堆疊。除了優異的 IDE 支援外，Kotlin 還針對特定架構提供專屬工具，例如 IntelliJ IDEA Ultimate 中對 Spring 和 Ktor 的支援。
+Kotlin 與所有基於 Java 的架構完全相容，因此您可以在享受 Kotlin 語法優點的同時，繼續使用熟悉的技術堆疊。除了優異的 IDE 支援外，Kotlin 還針對特定架構提供專屬工具，例如 IntelliJ IDEA Ultimate 訂閱中對 Spring 和 Ktor 的支援。
 
 ### Spring
 
@@ -34,12 +34,12 @@ Kotlin 與所有基於 Java 的架構完全相容，因此您可以在享受 Kot
 
 | 架構 | 描述 |
 |--------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Quarkus](https://quarkus.io/guides/kotlin) | 一個為使用 Kotlin 提供一流支援的開源架構。Quarkus 是專為 Kubernetes 從頭打造的，透過利用數百個不斷增加的頂級程式庫，提供了一個具有凝聚力的全端架構。 |
-| [Vert.x](https://vertx.io) | 是一個在 JVM 上建置回應式 Web 應用程式的架構。Vert.x 為 Kotlin 提供 [專屬支援](https://github.com/vert-x3/vertx-lang-kotlin)，包括 [與 Kotlin 協同程式的整合](https://vertx.io/docs/vertx-lang-kotlin-coroutines/kotlin/)。 |
+| [Quarkus](https://quarkus.io/guides/kotlin)            | 一個為使用 Kotlin 提供一流支援的開源架構。Quarkus 是專為 Kubernetes 從頭打造的，透過利用數百個不斷增加的頂級程式庫，提供了一個具有凝聚力的全端架構。 |
+| [Vert.x](https://vertx.io)                             | 是一個在 JVM 上建置回應式 Web 應用程式的架構。Vert.x 為 Kotlin 提供 [專屬支援](https://github.com/vert-x3/vertx-lang-kotlin)，包括 [與 Kotlin 協同程式的整合](https://vertx.io/docs/vertx-lang-kotlin-coroutines/kotlin/)。 |
 | [kotlinx.html](https://github.com/kotlin/kotlinx.html) | 是一個可用於在 Web 應用程式中建置 HTML 的 DSL。它可以作為 JSP 和 FreeMarker 等傳統範本系統的替代方案。 |
-| [Micronaut](https://micronaut.io/) | 是一個現代化的基於 JVM 的全端架構，用於建置模組化、易於測試的微服務和無伺服器應用程式。觀看在線講座 [“Micronaut for microservices with Kotlin”](https://micronaut.io/2020/12/03/webinar-micronaut-for-microservices-with-kotlin/) 並探索詳細的 [指南](https://guides.micronaut.io/latest/micronaut-kotlin-extension-fns.html)，了解如何在 Micronaut 架構中使用 [Kotlin 擴充方法](extensions.md#extension-functions)。 |
-| [http4k](https://http4k.org/) | 是一個純 Kotlin 編寫、占用空間極小的 Kotlin HTTP 應用程式功能性工具集。http4k 提供了 [支援命令列介面 (CLI) 的工具箱](https://toolbox.http4k.org) 以產生完整的專案樣板，以及一個 Web 型 [專案精靈](https://toolbox.http4k.org/project) 來引導並建立包含所選後端、模組和建置工具的 http4k 應用程式。 |
-| [Javalin](https://javalin.io) | 是一個非常輕量級的 Kotlin 和 Java Web 架構，支援 WebSockets、HTTP2 和非同步請求。 |
+| [Micronaut](https://micronaut.io/)                     | 是一個現代化的基於 JVM 的全端架構，用於建置模組化、易於測試的微服務和無伺服器應用程式。觀看在線講座 [“Micronaut for microservices with Kotlin”](https://micronaut.io/2020/12/03/webinar-micronaut-for-microservices-with-kotlin/) 並探索詳細的 [指南](https://guides.micronaut.io/latest/micronaut-kotlin-extension-fns.html)，了解如何在 Micronaut 架構中使用 [Kotlin 擴充方法](extensions.md#extension-functions)。 |
+| [http4k](https://http4k.org/)                          | 是一個純 Kotlin 編寫、占用空間極小的 Kotlin HTTP 應用程式功能性工具集。http4k 提供了 [支援命令列介面 (CLI) 的工具箱](https://toolbox.http4k.org) 以產生完整的專案樣板，以及一個 Web 型 [專案精靈](https://toolbox.http4k.org/project) 來引導並建立包含所選後端、模組和建置工具的 http4k 應用程式。 |
+| [Javalin](https://javalin.io)                          | 是一個非常輕量級的 Kotlin 和 Java Web 架構，支援 WebSockets、HTTP2 和非同步請求。 |
 
 ## 部署您的應用程式
 

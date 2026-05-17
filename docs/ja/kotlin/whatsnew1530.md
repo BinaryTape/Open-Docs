@@ -28,7 +28,7 @@ Kotlin 1.5.30 では、将来の言語変更のプレビューを紹介し、オ
 * [実験的 API の暗黙的な使用に対するオプトイン要求](#requiring-opt-in-on-implicit-usages-of-experimental-apis)
 * [異なるターゲットでのオプトイン要求アノテーションの使用に関する変更](#changes-to-using-opt-in-requirement-annotations-with-different-targets)
 * [再帰的ジェネリック型の型推論の改善](#improvements-to-type-inference-for-recursive-generic-types)
-* [ビルダー推論の制限の撤廃](#eliminating-builder-inference-restrictions)
+* [ビルダー推論의 制限の撤廃](#eliminating-builder-inference-restrictions)
 
 ### sealed および Boolean な対象に対する網羅的な when ステートメント
 
@@ -180,7 +180,7 @@ class DateProvider // オプトインが必要なクラス
 fun createDateSource(): DateProvider { /* ... */ }
 
 fun getDate(): Date {
-    val dateSource = createDateSource() // これも警告: 実験적 API の使用
+    val dateSource = createDateSource() // これも警告: 実験的 API の使用
     // ... 
 }
 ```

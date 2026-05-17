@@ -430,7 +430,7 @@ runBlocking {
     4 * * * * P * * *
     3 * * * * * * * *
     2 P P P P * P P P
-    1 R N B Q K B n R
+    1 R N B Q K B N R
       a b c d e f g h
     -----------------
     8 r n b q k b n r
@@ -440,7 +440,7 @@ runBlocking {
     4 * * * * P * * *
     3 * * * * * * * *
     2 P P P P * P P P
-    1 R N B Q K B n R
+    1 R N B Q K B N R
       a b c d e f g h
     -----------------
     8 r n b q k b n r
@@ -576,7 +576,7 @@ val strategy = strategy<String, String>("chess_strategy") {
 
 val askChoiceStrategy = AskUserChoiceSelectionStrategy(promptShowToUser = { prompt ->
     val lastMessage = prompt.messages.last()
-    if (lastMessage is Message.Tool.Call) {
+    if (lastMessage is MessagePart.Tool.Call) {
         lastMessage.content
     } else {
         ""
@@ -831,7 +831,7 @@ runBlocking {
 
     执行已中断
 
-交互式示例展示了用户如何引导 AI 的决策过程。在输出中，你可以看到：
+这些交互式示例展示了用户如何引导 AI 的决策过程。在输出中，你可以看到：
 
 1. **多个选项**：AI 生成 3 个不同的着法选项。
 2. **用户选择**：用户输入数字 1-3 来选择他们喜欢的着法。
@@ -845,7 +845,7 @@ runBlocking {
 
 1. **领域建模**：结构良好的数据模型对于复杂应用至关重要。
 2. **工具集成**：自定义工具使智能体能够有效地与外部系统交互。
-3. **内存管理**：战略性的历史记录修剪优化了长对话的性能。
+3. **内存管理**：策略性的历史记录修剪优化了长对话的性能。
 4. **策略图**：Koog 基于图的方法提供了灵活的控制流。
 5. **交互式 AI**：选项选择实现了人机协作和透明度。
 

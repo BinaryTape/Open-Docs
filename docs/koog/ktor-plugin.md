@@ -1,6 +1,6 @@
 # Ktor 集成：Koog 插件
 
-Koog 自然地融入您的 Ktor 服务器，允许您在两端使用惯用的 Kotlin API 编写服务器端 AI 应用。
+Koog 自然地融入您的 Ktor 服务器，允许您在两端使用惯用的 Kotlin API 编写服务器端 AI 应用程序。
 
 只需安装一次 Koog 插件，在 `application.conf`/YAML 或代码中配置您的 LLM 提供者，然后直接从您的路由中调用 Agent。不再需要跨模块连接 LLM 客户端——您的路由只需请求一个 Agent 即可准备就绪。
 
@@ -69,7 +69,7 @@ koog:
 ```kotlin
 fun Application.module() {
     install(Koog) {
-        // 您也可以通过编程方式配置提供者（见下文）
+        // 您也可以通过代码编程方式配置提供者（见下文）
     }
 
     routing {
@@ -92,7 +92,7 @@ fun Application.module() {
 注意事项
 
 - aiAgent 需要一个具体的模型 (LLModel) —— 按路由或按用途选择。
-- 对于更底层的 LLM 访问，直接使用 llm() (PromptExecutor) 。
+- 对于更底层的 LLM 访问，直接使用 llm() (PromptExecutor)。
 
 ## 直接从路由使用 LLM
 
@@ -109,7 +109,8 @@ post("/llm-chat") {
     )
 
     // 将所有助手消息连接成一个字符串
-    val text = messages.joinToString(separator = "") { it.content }
+    val text = messages.joinToString(separator = "
+") { it.content }
     call.respond(HttpStatusCode.OK, text)
 }
 ```
@@ -239,6 +240,7 @@ install(Koog) {
     }
 }
 ```
+
 ## 为什么选择 Koog + Ktor？
 
 - 在服务器中使用 Kotlin 优先、类型安全的方式开发 Agent

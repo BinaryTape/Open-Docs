@@ -8,7 +8,10 @@
 - [PostgreSQL 다이얼렉트] 기본적인 배열 리터럴(Array literal) 지원 추가 (#5997 by @griffio)
 - [PostgreSQL 다이얼렉트] 기본적인 LTREE 지원 추가 (#5880 by @yesitskev @griffio)
 - [MySQL 다이얼렉트] INET 함수 지원 추가 (#5072 by @mcxinyu)
+- [PostgreSQL 다이얼렉트] `ALTER INDEX` 지원 추가 (#6224 by @griffio)
 - [SQLite 다이얼렉트] SQLite 3.44 집계 함수 `DISTINCT`, `ORDER BY`, `FILTER` 지원 추가 (#6236 by @griffio)
+- [SQLite 다이얼렉트] SQLite 3.37 `STRICT` 테이블 지원 추가 (#6230 by @griffio)
+- [컴파일러] 스키마에 `allTableNames` 함수 추가 (#6245 by @edenman)
 
 ### 변경됨
 - [PostgreSQL 다이얼렉트] `arrayIntermediateType` 가시성을 public으로 변경 (#5835 by @griffio)
@@ -22,6 +25,7 @@
 - [Intellij 플러그인] IDE 플러그인이 모든 다이얼렉트에 대해 코드 완성(code completions)을 수행할 수 있음 (#6210 by @griffio)
 - [Gradle 플러그인] 데이터베이스 검증(verify database) 태스크 실행 중 발생하는 순환 의존성(circular dependency) 에러 수정 (#6221 by @griffio)
 - [컴파일러] 다중 행 업데이트(multirow update)에 대한 낙관적 락(optimistic lock) 수정 (#6240 by @griffio)
+- [Intellij 플러그인] IDEA 2026.2에서 크래시를 유발하는 지원 중단(deprecations) 관련 수정 (#6247 by @griffio)
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2

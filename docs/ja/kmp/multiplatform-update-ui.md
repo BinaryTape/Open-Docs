@@ -20,18 +20,17 @@
 
 ## Android 部分を更新する
 
-`composeApp` モジュールには Android アプリケーションが含まれており、そのメインアクティビティと UI ビューを定義し、`shared` モジュールを通常の Android ライブラリとして使用します。アプリケーションの UI は Compose Multiplatform フレームワークを使用しています。
+`androidApp` モジュールには Android アプリケーションが含まれており、そのメインアクティビティを定義します。UI コードの大部分は `sharedUI` モジュールに含まれており、Android アプリはこれを Android ライブラリとして使用します。UI は Compose Multiplatform フレームワークを使用して実装されています。
 
 変更を加えて、UI にどのように反映されるかを確認してみましょう。
 
-1. `composeApp/src/androidMain/.../greetingkmp` ディレクトリにある `App.kt` ファイルに移動します。
-2. `Greeting` クラスの呼び出しを見つけます。`greet()` 関数を選択し、右クリックして **Go To** | **Declaration or Usages** を選択します。
-   これが、前のステップで編集した `shared` モジュールにあるのと同じクラスであることがわかります。
+1. `sharedUI/src/commonMain/.../greetingkmp` ディレクトリにある `App.kt` ファイルに移動します。
+2. `Greeting().greet()` 関数呼び出しを見つけます。`greet()` を右クリックして **Go To** | **Declaration or Usages** を選択します。
+   IDE が `sharedLogic/src/commonMain/.../Greeting.kt` ファイルを開きます。
 3. `Greeting.kt` ファイルで、`greet()` 関数が文字列のリストを返すように `Greeting` クラスを更新します。
 
    ```kotlin
    class Greeting {
-   
        private val platform: Platform = getPlatform()
    
        fun greet(): List<String> = buildList {
@@ -40,8 +39,8 @@
        }
    }
    ```
-
-4. `App.kt` ファイルに戻り、`App()` の実装を更新します。
+4. IDE の提案に従って `kotlin.random.Random` パッケージをインポートします。
+5. `sharedUI/src/commonMain/.../App.kt` ファイルに戻り、文字列のリストを表示するように `App()` の実装を更新します。
 
    ```kotlin
    @Composable
@@ -68,23 +67,22 @@
 
    ここでは、`Column` コンポーザブルが各 `Text` アイテムを表示し、それらの周囲にパディングを追加し、アイテム間にスペースを追加しています。
 
-5. IntelliJ IDEA の提案に従って、不足している依存関係をインポートします。
-6. これで Android アプリを実行して、文字列のリストがどのように表示されるかを確認できます。
+6. IDE の提案に従って、不足している依存関係をインポートします。
+7. これで Android アプリを実行して、文字列のリストがどのように表示されるかを確認できます。
 
    ![Android マルチプラットフォームアプリの更新された UI](first-multiplatform-project-on-android-2.png){width=300}
 
-## iOS モジュールで作業する
+## iOS 部分を更新する
 
-`iosApp` ディレクトリは iOS アプリケーションとしてビルドされます。これは `shared` モジュールを iOS フレームワークとして依存・使用します。アプリの UI は Swift で記述されています。
+`iosApp` ディレクトリは iOS アプリケーションとしてビルドされます。これは `sharedLogic` モジュールを iOS フレームワークとして依存・使用します。アプリの UI は Swift で記述されています。
 
-Android アプリと同じ変更を実装します。
+共通コードの更新を反映するために、Android アプリと同じ変更を実装します。
 
 1. IntelliJ IDEA の **Project** ツールウィンドウで、プロジェクトのルートにある `iosApp/iosApp` フォルダを見つけます。
-2. `iosApp/ContentView.swift` ファイルを開き、`Greeting().greet()` 呼び出しを右クリックして **Go To** | **Definition** を選択します。
-
-    `shared` モジュールで定義された Kotlin 関数の Objective-C 宣言が表示されます。Kotlin の型は、Objective-C/Swift から使用される場合、Objective-C の型として表されます。ここでは、`greet()` 関数は Kotlin では `List<String>` を返しますが、Swift からは `NSArray<NSString>` を返すように見えます。型マッピングの詳細については、[Interoperability with Swift/Objective-C](https://kotlinlang.org/docs/native-objc-interop.html) を参照してください。
-
-3. Android アプリと同じ方法でアイテムのリストを表示するように SwiftUI のコードを更新します。
+2. `iosApp/ContentView.swift` ファイルを開き、`Greeting().greet()` 呼び出しを右クリックして **Go To** | **Declaration or Usages** を選択します。
+   IDEA が Swift の呼び出しを Kotlin の宣言と正しく照合していることがわかります。
+3. `ContentView.swift` ファイルに戻ります。
+   Android アプリと同じ方法で文字列のリストを表示するには、`ContentView` 構造体のコードを以下に置き換えます。
 
     ```Swift
     struct ContentView: View {
@@ -103,13 +101,13 @@ Android アプリと同じ変更を実装します。
 
 4. iOS の実行構成（Run Configuration）を開始して、変更を確認します。
 
-    ![iOS マルチプラットフォームアプリの更新された UI](first-multiplatform-project-on-ios-2.png){width=300}
+    ![iOS マルチプラットフォームアプリの更新された UI](first-multiplatform-project-on-ios-2.png){width=350}
 
 ## 発生する可能性のある問題と解決策
 
 ### Xcode が共有フレームワークを呼び出すコードでエラーを報告する
 
-Xcode を使用している場合、Xcode プロジェクトがまだ古いバージョンのフレームワークを使用している可能性があります。これを解決するには、IntelliJ IDEA に戻ってプロジェクトを再ビルドするか、iOS の実行構成を開始してください。
+Xcode で作業している場合、Xcode プロジェクトが古いバージョンのフレームワークを使用している可能性があります。これを解決するには、IntelliJ IDEA に戻ってプロジェクトを再ビルドするか、iOS の実行構成を開始してください。
 
 ### Xcode が共有フレームワークのインポート時にエラーを報告する
 

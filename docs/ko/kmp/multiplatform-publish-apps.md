@@ -2,7 +2,7 @@
 
 애플리케이션을 출시할 준비가 되었다면, 이제 이를 게시하여 사용자에게 전달할 차례입니다.
 
-모바일 앱의 경우 각 플랫폼마다 여러 스토어를 이용할 수 있습니다. 하지만 이 문서에서는 공식 스토어인 [Google Play Store](https://play.google.com/store)와 [Apple App Store](https://www.apple.com/ios/app-store/)에 집중하겠습니다. 웹 앱의 경우에는 [GitHub pages](https://pages.github.com/)를 사용합니다.
+모바일 앱의 경우 각 플랫폼마다 여러 스토어를 이용할 수 있습니다. 하지만 이 문서에서는 공식 스토어인 [Google Play Store](https://play.google.com/store)와 [Apple App Store](https://www.apple.com/ios/app-store/)에 집중하겠습니다. 웹 앱의 경우에는 [GitHub pages](https://pages.github.com/)를 사용합니다. 
 
 이 문서에서는 코틀린 멀티플랫폼(Kotlin Multiplatform) 애플리케이션의 게시 준비 방법을 알아보고, 이 과정에서 특별히 주의를 기울여야 할 부분들을 짚어보겠습니다.
 
@@ -15,7 +15,7 @@
 코틀린 멀티플랫폼 프로젝트의 iOS 앱은 전형적인 Xcode 프로젝트에서 빌드되므로, 게시와 관련된 주요 단계는 [iOS 개발자 문서](https://developer.apple.com/ios/submit/)에 설명된 내용과 동일합니다.
 
 > 2024년 봄 App Store 정책 변경으로 인해, 개인정보 보호 매니페스트(privacy manifests)가 누락되거나 불완전할 경우 앱에 대한 경고가 발생하거나 심지어 거부될 수 있습니다.
-> 특히 코틀린 멀티플랫폼 앱에 대한 자세한 내용과 해결 방법은 [iOS 앱용 개인정보 보호 매니페스트](https://kotlinlang.org/docs/apple-privacy-manifest.html)를 참조하세요.
+> 특히 코틀린 멀티플랫폼 앱에 대한 자세한 내용과 해결 방법은 [iOS 앱용 개인정보 보호 매니페스트](https://kotlinlang.org/docs/apple-privacy-manifest.html)를 참조하세요. 
 >
 {style="note"}
 
@@ -82,7 +82,7 @@ iOS는 개발자가 앱을 개선하는 데 도움이 되도록 앱 크래시를
 
 ![Wasm 배포 태스크 실행](compose-run-wasm-distribution-task.png){width=350}
 
-태스크가 완료되면 `composeApp/build/dist/wasmJs/productionExecutable` 디렉터리에서 생성된 아티팩트를 확인할 수 있습니다:
+태스크가 완료되면 `sharedUI/build/dist/wasmJs/productionExecutable` 디렉터리에서 생성된 아티팩트를 확인할 수 있습니다:
 
 ![아티팩트 디렉터리](compose-web-artifacts.png){width=400}
 
@@ -91,7 +91,7 @@ iOS는 개발자가 앱을 개선하는 데 도움이 되도록 앱 크래시를
 아티팩트가 준비되면 웹 호스팅 플랫폼에 애플리케이션을 배포할 수 있습니다:
 
 1. `productionExecutable` 디렉터리의 내용을 사이트를 생성하려는 저장소(repository)로 복사합니다.
-2. GitHub의 [사이트 생성 안내](https://docs.github.com/ko/pages/getting-started-with-github-pages/creating-a-github-pages-site#creating-your-site)를 따릅니다.
+2. GitHub의 [사이트 생성 안내](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#creating-your-site)를 따릅니다.
 
    > 변경 사항을 GitHub에 푸시한 후 사이트가 게시되기까지 최대 10분이 걸릴 수 있습니다.
    >

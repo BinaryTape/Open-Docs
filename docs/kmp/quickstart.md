@@ -128,11 +128,11 @@ IDE 向导创建的项目包含为 iOS、Android、桌面和 Web 应用程序生
 <Tabs>
 <TabItem title="Android">
 
-要运行 Android 应用，请启动 **composeApp** 运行配置：
+要运行 Android 应用，请启动 **androidApp** 运行配置：
 
 ![高亮显示 Android 运行配置的下拉菜单](run-android-configuration.png){width=250}
 
-若要手动创建 Android 运行配置，请选择 **Android App** 作为运行配置模板，并选择模块 **[项目名称].composeApp**。
+若要手动创建 Android 运行配置，请选择 **Android App** 作为运行配置模板，并选择模块 **[项目名称].androidApp**。
 
 默认情况下，它在第一个可用的虚拟设备上运行：
 
@@ -156,14 +156,14 @@ IDE 向导创建的项目包含为 iOS、Android、桌面和 Web 应用程序生
 </TabItem>
 <TabItem title="Desktop">
 
-桌面应用的默认运行配置创建为 **composeApp [desktop]**：
+桌面应用的默认运行配置创建为 **desktopApp [hot] 🔥**：
 
 ![高亮显示默认桌面运行配置的下拉菜单](run-desktop-configuration.png){width=250}
 
-若要手动创建桌面运行配置，请选择 **Gradle** 运行配置模板，并使用以下命令指向 **[应用名称]:composeApp** Gradle 项目：
+若要手动创建带 Hot Reload 的桌面运行配置，请选择 **Gradle** 运行配置模板，并使用以下命令指向 **[应用名称]:desktopApp** Gradle 项目：
 
 ```shell
-desktopRun -DmainClass=com.example.myapplication.MainKt --quiet
+hotRun --mainClass "com.example.demo.MainKt"
 ```
 
 使用此配置，您可以运行 JVM 桌面应用：
@@ -173,11 +173,11 @@ desktopRun -DmainClass=com.example.myapplication.MainKt --quiet
 </TabItem>
 <TabItem title="Web">
 
-Web 应用的默认运行配置创建为 **composeApp [wasmJs]**：
+Web 应用的默认运行配置创建为 **webApp [wasmJs]**：
 
 ![高亮显示默认 Wasm 运行配置的下拉菜单](run-wasm-configuration.png){width=250}
 
-若要手动创建 Web 运行配置，请选择 **Gradle** 运行配置模板，并使用以下命令指向 **[应用名称]:composeApp** Gradle 项目：
+若要手动创建 Web 运行配置，请选择 **Gradle** 运行配置模板，并使用以下命令指向 **[应用名称]:webApp** Gradle 项目：
 
 ```shell
 wasmJsBrowserDevelopmentRun

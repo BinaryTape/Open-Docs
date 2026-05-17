@@ -11,7 +11,7 @@
 
 일반적인 시나리오는 `TextField`와 같은 활성 컨트롤에 대해 키보드 핸들러를 정의하는 것입니다. 기본 동작이 트리거되기 전에 키 이벤트를 가로채려면 `onKeyEvent`와 `onPreviewKeyEvent` Modifier를 모두 사용할 수 있습니다. `onKeyEvent` Modifier를 사용하면 개별 키 누름을 처리할 수 있으며, 단축키를 정의할 때는 `onPreviewKeyEvent`를 사용하는 것이 좋습니다.
 
-다음 예제는 <shortcut>Ctrl</shortcut> 키를 누른 상태에서 누르는 키에 따라 서로 다른 동작을 수행하는 `TextField` 상호작용을 보여줍니다. 이 코드를 `composeApp/src/jvmMain/kotlin` 경로의 `main.kt` 파일에 추가하세요:
+다음 예제는 <shortcut>Ctrl</shortcut> 키를 누른 상태에서 누르는 키에 따라 서로 다른 동작을 수행하는 `TextField` 상호작용을 보여줍니다. 이 코드를 `sharedUI/src/jvmMain/kotlin` 경로의 `main.kt` 파일에 추가하세요:
 
 ```kotlin
 import androidx.compose.foundation.layout.fillMaxSize
@@ -71,7 +71,7 @@ fun main() = singleWindowApplication (title = "Key events") {
 
 현재 윈도우 내에서 항상 활성화되는 키보드 이벤트 핸들러를 정의하려면 `Window`, `singleWindowApplication` 및 `Dialog` 함수에서 사용할 수 있는 `onPreviewKeyEvent` 및 `onKeyEvent` 파라미터를 사용하세요. 이들은 이벤트가 소비되지 않았을 때 이벤트가 전달(dispatch)되는 방식에서 차이가 있습니다. `onPreviewKeyEvent`는 이벤트를 첫 번째 자식에게 전달하고, `onKeyEvent`는 이벤트를 컴포저블의 부모에게 전달합니다. 일반적으로 `onPreviewKeyEvent`는 화면 전체의 키보드 단축키까지 구현할 수 있어 이벤트를 가로채는 데 선호됩니다.
 
-다음 샘플은 `Escape`를 눌러 팝업 다이얼로그를 닫거나 <shortcut>Ctrl+Shift+C</shortcut> 단축키를 눌러 윈도우 콘텐츠를 변경하는 등의 윈도우 상호작용을 보여줍니다. 이 코드를 `composeApp/src/jvmMain/kotlin` 경로의 `main.kt` 파일에 추가하세요:
+다음 샘플은 `Escape`를 눌러 팝업 다이얼로그를 닫거나 <shortcut>Ctrl+Shift+C</shortcut> 단축키를 눌러 윈도우 콘텐츠를 변경하는 등의 윈도우 상호작용을 보여줍니다. 이 코드를 `sharedUI/src/jvmMain/kotlin` 경로의 `main.kt` 파일에 추가하세요:
 
 ```kotlin
 import androidx.compose.foundation.layout.Arrangement

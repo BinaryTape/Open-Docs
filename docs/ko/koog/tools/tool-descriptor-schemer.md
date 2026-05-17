@@ -214,8 +214,8 @@ fun generate(toolDescriptor: ToolDescriptor): JsonObject
     **/
     -->
     ```java
-    // 커스텀 스키머를 확장하는 OpenAI 호환 스키머는 문서상 Kotlin 전용입니다. Java 예시에서는 위에서 정의한 MinimalSchemer를 재사용합니다.
-    OpenAILLMClient client = new OpenAILLMClient(System.getenv("OPENAI_API_KEY"), new OpenAIClientSettings(), null, null, new OpenAICompatibleToolDescriptorSchemaGenerator());
+    // OpenAI 호환 스키머를 확장하는 커스텀 스키머는 문서상 Kotlin 전용입니다. Java 예시에서는 위에서 정의한 MinimalSchemer를 재사용합니다.
+    OpenAILLMClient client = openAIClient(System.getenv("OPENAI_API_KEY"), new OpenAIClientSettings(), null, null, new OpenAICompatibleToolDescriptorSchemaGenerator());
     
     ToolDescriptor getUserTool = new ToolDescriptor(
         "get_user",
@@ -236,7 +236,7 @@ fun generate(toolDescriptor: ToolDescriptor): JsonObject
     ```
     <!--- KNIT example-tool-descriptor-schemer-java-02.java -->
 
-생성된 스키마에 직접 접근해야 하는 경우(디버깅 또는 커스텀 전송 용도), 특정 제공자의 스키머를 인스턴스화하여 직접 JSON을 직렬화할 수 있습니다.
+생성된 스키마에 직접 접근해야 하는 경우(디버깅 또는 커스텀 전송 용도), 특정 제공자의 스키머를 인스턴스화하여 직접 JSON을 직렬화할 수 있습니다:
 
 === "Kotlin"
 

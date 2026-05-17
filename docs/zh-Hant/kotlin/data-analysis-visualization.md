@@ -1,4 +1,7 @@
-[//]: # (title: 使用 Kandy 進行資料視覺化)
+---
+title: 使用 Kandy 進行資料視覺化
+description: 了解如何透過建立折線圖、點狀圖和長條圖，使用 Kandy 和 Kotlin DataFrame 進行資料視覺化。
+---
 
 Kotlin 為強大且靈活的資料視覺化提供了一站式解決方案，在深入研究複雜模型之前，提供了一種直觀的方式來呈現和探索資料。
 
@@ -10,22 +13,23 @@ Kotlin Notebook 依賴於 [Kotlin Notebook 外掛程式](https://plugins.jetbrai
 
 如果 Kotlin Notebook 功能無法使用，請確保已啟用該外掛程式。若要了解更多資訊，請參閱[設定環境](kotlin-notebook-set-up-env.md)。
 
-建立一個新的 Kotlin Notebook：
+若要按照本教學進行操作：
 
-1. 選擇 **File** | **New** | **Kotlin Notebook**。
+1. 建立一個[新的 Kotlin Notebook](kotlin-notebook-create.md)。
+2. 在您的 notebook 中，匯入 [Kandy](https://kotlin.github.io/kandy/welcome.html) 和 [Kotlin DataFrame](https://kotlin.github.io/dataframe/home.html)：
 
-2. 在您的 notebook 中，執行以下指令來匯入 Kandy 和 Kotlin DataFrame 程式庫：
+   ```kotlin
+   %use kandy
+   %use dataframe
+   ```
 
-    ```kotlin
-    %use kandy
-    %use dataframe
-    ```
+> 在執行任何其他程式碼資料格之前，請先執行包含 `%use dataframe` 行的程式碼資料格，以確保 DataFrame 程式庫及其 API 在 notebook 中可用。
+>
+{style="note"}
 
-## 產生 DataFrame
+## 建立 DataFrame
 
-首先產生包含要視覺化之記錄的 DataFrame。此 DataFrame 儲存了柏林、馬德里和卡拉卡斯三個城市每月平均氣溫的模擬數值。
-
-使用 Kotlin DataFrame 程式庫中的 `dataFrameOf()` 函式來產生 DataFrame。在 Kotlin Notebook 中執行以下程式碼片段：
+首先，讓我們建立一個包含要視覺化資料的 DataFrame。此 DataFrame 儲存了柏林、馬德里和卡拉卡斯三個城市模擬的每月平均氣溫：
 
 ```kotlin
 // months 變數儲存包含一年 12 個月的列表
@@ -36,30 +40,32 @@ val months = listOf(
     "September", "October", "November",
     "December"
 )
-// tempBerlin、tempMadrid 和 tempCaracas 變數分別儲存每個城市的每月氣溫值列表
+// tempBerlin、tempMadrid 和 tempCaracas 變數分別儲存
+// 每個城市的每月氣溫值列表
 val tempBerlin =
     listOf(-0.5, 0.0, 4.8, 9.0, 14.3, 17.5, 19.2, 18.9, 14.5, 9.7, 4.7, 1.0)
 val tempMadrid =
     listOf(6.3, 7.9, 11.2, 12.9, 16.7, 21.1, 24.7, 24.2, 20.3, 15.4, 9.9, 6.6)
 val tempCaracas =
     listOf(27.5, 28.9, 29.6, 30.9, 31.7, 35.1, 33.8, 32.2, 31.3, 29.4, 28.9, 27.6)
+```
 
-// df 變數儲存一個包含三欄的 DataFrame，包括月份、氣溫和城市的記錄
+現在讓我們建立一個新變數 (`df`)，並使用 [`dataFrameOf()`](https://kotlin.github.io/dataframe/createdataframe.html#dataframeof) 函式來產生一個包含三欄（Month、Temperature 和 City）的 DataFrame：
+
+```kotlin
 val df = dataFrameOf(
     "Month" to months + months + months,
     "Temperature" to tempBerlin + tempMadrid + tempCaracas,
     "City" to List(12) { "Berlin" } + List(12) { "Madrid" } + List(12) { "Caracas" }
 )
 ```
-
-透過查看前四列來探索新 DataFrame 的結構：
+若要預覽資料，請使用 [`.head()`](https://kotlin.github.io/dataframe/head.html) 函式：
 
 ```kotlin
-df.head(4)
+df.head(4) // 傳回前四列
 ```
 
-您可以看到 DataFrame 有三欄：Month、Temperature 和 City。
-DataFrame 的前四列包含柏林從一月到四月的氣溫記錄：
+在我們的資料集中，前四列儲存了柏林從一月到四月的氣溫：
 
 ![DataFrame 探索](visualization-dataframe-temperature.png){width=600}
 
@@ -70,25 +76,31 @@ DataFrame 的前四列包含柏林從一月到四月的氣溫記錄：
 
 ## 建立折線圖
 
-讓我們使用上一節中的 `df` DataFrame 在 Kotlin Notebook 中建立折線圖。
+讓我們使用上一節中的 `df` DataFrame 在 Kotlin Notebook 中建立折線圖：
 
-使用 Kandy 程式庫中的 `plot()` 函式。在 `plot()` 函式中，指定圖表類型（在本例中為 `line`）以及 X 軸和 Y 軸的值。您可以自訂顏色和大小：
+1. 呼叫 Kandy 程式庫中的 `.plot()` 函式。
+2. 套用 `line()` 圖層。
+3. 將 `Month` 和 `Temperature` 欄位分別對應到 `X` 軸和 `Y` 軸。
+4. （選填）自訂顏色和大小。
 
 ```kotlin
 df.plot {
-    line {
-        // 存取用於 X 軸 and Y 軸的 DataFrame 欄位 
-        x(Month)
-        y(Temperature)
-        // 存取用於類別的 DataFrame 欄位，並為這些類別設定顏色 
-        color(City) {
-            scale = categorical("Berlin" to Color.PURPLE, "Madrid" to Color.ORANGE, "Caracas" to Color.GREEN)
-        }
-        // 自訂線條寬度
-        width = 1.5
-    }
-    // 自訂圖表佈局大小
-    layout.size = 1000 to 450
+   line {
+      x(Month)
+      y(Temperature)
+
+      color(City) {
+         scale = categorical(
+            "Berlin" to Color.hex("#6F4E37"),
+            "Madrid" to Color.hex("#C2D4AB"),
+            "Caracas" to Color.hex("#B5651D")
+         )
+      }
+      width = 1.5
+   }
+   layout {
+      size = 1000 to 450
+   }
 }
 ```
 
@@ -98,27 +110,37 @@ df.plot {
 
 ## 建立點狀圖
 
-現在，讓我們在點狀（散佈）圖中視覺化 `df` DataFrame。
+現在，讓我們在點狀（散佈）圖中視覺化 `df` DataFrame：
 
-在 `plot()` 函式內，指定 `points` 圖表類型。加入 X 軸和 Y 軸的值以及來自 `df` 欄位的類別值。
-您還可以為圖表加入標題：
+1. 呼叫 Kandy 程式庫中的 `.plot()` 函式。
+2. 套用 `points()` 圖層。
+3. 將 `Month` 和 `Temperature` 欄位分別對應到 `X` 軸和 `Y` 軸。
+4. （選填）自訂顏色、軸標籤、點大小和圖表標題。
 
 ```kotlin
 df.plot {
-    points {
-        // 存取用於 X 軸 and Y 軸的 DataFrame 欄位 
-        x(Month) { axis.name = "Month" }
-        y(Temperature) { axis.name = "Temperature" }
-        // 自訂點的大小
-        size = 5.5
-        // 存取用於類別的 DataFrame 欄位，並為這些類別設定顏色 
-        color(City) {
-            scale = categorical("Berlin" to Color.LIGHT_GREEN, "Madrid" to Color.BLACK, "Caracas" to Color.YELLOW)
-        }
-    }
-    // 新增圖表標題
-    layout.title = "Temperature per month"
+   points {
+      x(Month) {
+         axis.name = "Month"
+      }
+      y(Temperature) {
+         axis.name = "Temperature"
+      }
+
+      color(City) {
+         scale = categorical(
+            "Berlin" to Color.hex("#6F4E37"),
+            "Madrid" to Color.hex("#C2D4AB"),
+            "Caracas" to Color.hex("#B5651D")
+         )
+      }
+      size = 5.5
+   }
+   layout {
+      title = "Temperature per month"
+   }
 }
+
 ```
 
 這是結果：
@@ -127,19 +149,19 @@ df.plot {
 
 ## 建立長條圖
 
-最後，讓我們使用與先前圖表相同的資料，建立一個依城市分組的長條圖。
-對於顏色，您也可以使用十六進位代碼：
+最後，讓我們為每個城市建立一個長條圖：
+
+1. 使用 `.groupBy()` 函式依 `City` 欄位對 DataFrame 進行分組。
+2. 呼叫 Kandy 程式庫中的 `plot()` 函式。
+3. 套用 `bars()` 圖層。
+4. （選填）新增圖表標題，自訂顏色。
 
 ```kotlin
-// 依城市分組  
 df.groupBy { City }.plot {
-    // 新增圖表標題
-    layout.title = "Temperature per month"
     bars {
-        // 存取用於 X 軸 and Y 軸的 DataFrame 欄位 
         x(Month)
         y(Temperature)
-        // 存取用於類別的 DataFrame 欄位，並為這些類別設定顏色 
+        
         fillColor(City) {
             scale = categorical(
                 "Berlin" to Color.hex("#6F4E37"),
@@ -147,6 +169,9 @@ df.groupBy { City }.plot {
                 "Caracas" to Color.hex("#B5651D")
             )
         }
+    }
+    layout.title {
+       title = "Temperature per month"
     }
 }
 ```

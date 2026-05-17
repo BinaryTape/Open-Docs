@@ -83,7 +83,7 @@ CocoaPods プラグインから移行するには：
    ```
 
    * `cd` コマンドでは、Kotlin Multiplatform プロジェクトのルートへのパスを指定します（例：`$SRCROOT/..`）。
-   * `./gradlew` コマンドでは、共有モジュールの名前を指定します（例：`:shared` または `:composeApp`）。
+   * `./gradlew` コマンドでは、共有モジュールの名前を指定します（例：`:shared` または `:sharedLogic`）。
   
 4. **Provide build settings from** セクションで、アプリのターゲットを選択します：
 

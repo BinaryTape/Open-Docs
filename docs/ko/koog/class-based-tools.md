@@ -95,6 +95,87 @@ Java의 경우:
 
 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/index.html)를 참조하세요.
 
+#### 도구에서 에이전트 컨텍스트 읽기
+
+에이전트의 전체 상태(LLM 컨텍스트, 실행 ID(run id), 설정, 스토리지 등)가 필요한 도구는 `Tool<Args, Result>` 대신 `AgentContextAwareTool<Args, Result>`를 상속합니다. 프레임워크는 호출을 구동하는 활성 `AIAgentContext`를 주입하며, 도구는 이를 인자 스키마(argument schema)에서 읽는 대신 타입이 지정된 파라미터로 받습니다.
+
+=== "Kotlin"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.context.AIAgentContext
+    import ai.koog.agents.core.agent.tools.AgentContextAwareTool
+    import ai.koog.agents.core.tools.annotations.LLMDescription
+    import ai.koog.serialization.typeToken
+    import kotlinx.serialization.Serializable
+    -->
+    ```kotlin
+    // 호출을 구동하는 활성 AIAgentContext를 읽는 도구.
+    object TracingCalculatorTool : AgentContextAwareTool<TracingCalculatorTool.Args, Int>(
+        argsType = typeToken<Args>(),
+        resultType = typeToken<Int>(),
+        name = "tracing_calculator",
+        description = "Adds two digits and emits a log line tagged with the agent run id."
+    ) {
+        @Serializable
+        data class Args(
+            @property:LLMDescription("The first digit to add (0-9)")
+            val digit1: Int,
+            @property:LLMDescription("The second digit to add (0-9)")
+            val digit2: Int
+        )
+
+        override suspend fun execute(args: Args, context: AIAgentContext): Int {
+            val runId = context.runId
+            // ... 횡단 관심사 컨텍스트(로깅, 트레이싱, 상관관계)를 위해 runId를 사용합니다.
+            return args.digit1 + args.digit2
+        }
+    }
+    ```
+    <!--- KNIT example-class-based-tools-metadata-01.kt -->
+
+`AgentContextAwareTool`은 프레임워크가 도구를 대신하여 관리하는 호출별 `ToolCallMetadata` 사이드 채널을 통해 프레임워크에 의해 디스패치됩니다. 에이전트 실행 외부에서 이러한 도구를 호출하면 `AIAgentContext`가 주입되지 않았으므로 `IllegalStateException`이 발생합니다. 프로덕션 코드는 항상 `ContextualAgentEnvironment`를 거쳐야 하며, 유닛 테스트는 `ToolCallMetadata.of(AgentContextAwareTool.AgentContextKey to context)`를 통해 명시적으로 컨텍스트를 제공할 수 있습니다.
+
+#### 원시 호출별 메타데이터 읽기
+
+일부 도구는 에이전트 컨텍스트가 *아닌* 호출자 또는 기능(feature)이 기여한 항목(예: 관찰 가능성 기능에서 제공하는 분산 추적 스팬 ID)을 읽고 싶어 할 수 있습니다. 이러한 도구는 전체 `ToolCallMetadata` 백(bag)을 노출하는 `ToolBase<Args, Result>`를 직접 확장합니다.
+
+=== "Kotlin"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.tools.ToolBase
+    import ai.koog.agents.core.tools.ToolCallMetadata
+    import ai.koog.agents.core.tools.annotations.LLMDescription
+    import ai.koog.serialization.typeToken
+    import kotlinx.serialization.Serializable
+    -->
+    ```kotlin
+    object SpanAwareCalculatorTool : ToolBase<SpanAwareCalculatorTool.Args, Int>(
+        argsType = typeToken<Args>(),
+        resultType = typeToken<Int>(),
+        name = "span_aware_calculator",
+        description = "Adds two digits, propagating a tracing span id from caller or feature metadata."
+    ) {
+        @Serializable
+        data class Args(
+            @property:LLMDescription("The first digit to add (0-9)")
+            val digit1: Int,
+            @property:LLMDescription("The second digit to add (0-9)")
+            val digit2: Int
+        )
+
+        override suspend fun execute(args: Args, metadata: ToolCallMetadata): Int {
+            val traceSpanId = metadata["trace.span.id"] as? String
+            // ... 횡단 관심사 컨텍스트(로깅, 트레이싱, 상관관계)를 위해 traceSpanId를 사용합니다.
+            return args.digit1 + args.digit2
+        }
+    }
+    ```
+    <!--- KNIT example-class-based-tools-metadata-02.kt -->
+
+호출자는 `SafeTool.execute(args, serializer, metadata)`를 통해 또는 `AIAgentEnvironment.executeTool(toolCall, metadata)`를 통해 직접 메타데이터를 전달할 수 있습니다. 기능(feature)은 설치 중에 `pipeline.provideToolCallMetadata(this) { eventContext -> mapOf(...) }`를 호출하여 모든 도구 호출에 대한 메타데이터를 기여할 수 있습니다. 키 충돌 시 호출자가 제공한 메타데이터가 항상 기능 기여분보다 우선합니다.
+
+`Tool<Args, Result>`를 확장하고 `execute(args)`를 오버라이드하는 기존 도구는 변경 없이 계속 작동합니다. 프레임워크는 이를 동일한 경로를 통해 디스패치하고 모든 `ToolCallMetadata`를 무시합니다. 메타데이터 기능을 사용하려면 `AgentContextAwareTool`(타입이 지정된 컨텍스트 접근) 또는 `ToolBase`(원시 백 접근)로 전환하세요.
+
 ### SimpleTool 클래스 (Kotlin)
 
 [`SimpleTool<Args>`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-simple-tool/index.html) 추상 클래스는 `Tool<Args, ToolResult.Text>`를 확장하며 텍스트 결과를 반환하는 도구의 생성을 단순화합니다.

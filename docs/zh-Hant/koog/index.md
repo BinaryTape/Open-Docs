@@ -118,7 +118,7 @@ Koog 是一個專為 JVM 生態系統設計，用於建置 AI agent 的開源 Je
 
     ---
 
-    使用 [向量嵌入 (vector embeddings)](embeddings.md)、[RAG](retrieval-augmented-generation.md) 以及 [共享 agent 記憶體](features/agent-memory.md) 在對話之間保留與檢索知識
+    使用 [向量嵌入 (vector embeddings)](embeddings.md) 與 [RAG](retrieval-augmented-generation.md) 在對話之間保留與檢索知識
 
 -   :material-timeline-text:{ .lg .middle } [**追蹤**](features/tracing.md)
 

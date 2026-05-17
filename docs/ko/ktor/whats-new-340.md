@@ -28,7 +28,7 @@ install(Authentication) {
     oauth("login") {
         client = ...
         urlProvider = ...
-        providerLookup = { ... }
+        settings = ...
         fallback = { cause ->
             if (cause is OAuth2RedirectError) {
                 respondRedirect("/login-after-fallback")
@@ -39,6 +39,12 @@ install(Authentication) {
     }
 }
 ```
+
+### 정적 OAuth 프로바이더 설정
+
+Ktor 3.4.0은 [OAuth](server-oauth.md) 인증 프로바이더를 위한 `settings` 속성을 도입했습니다. 이를 사용하여 `oauth` 블록에서 직접 정적인 OAuth 프로바이더 설정을 구성할 수 있습니다. 정적 프로바이더 구성의 경우 `providerLookup`보다 `settings`를 권장하는데, 이는 Ktor가 생성된 [OpenAPI 사양](openapi-spec-generation.md)을 위한 메타데이터를 추론할 수 있게 해주기 때문입니다.
+
+`providerLookup` 속성은 특정 호출에 대해 동적으로 OAuth 설정을 해결해야 하는 경우를 위해 여전히 사용할 수 있습니다.
 
 ### Zstd 압축 지원
 

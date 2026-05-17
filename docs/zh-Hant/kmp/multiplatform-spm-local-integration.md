@@ -14,7 +14,7 @@
 
 ![直接整合圖示](direct-integration-scheme.svg){width=700}
 
-要設定整合，您將新增一個特殊的指令碼，該指令碼使用 `embedAndSignAppleFrameworkForXcode` Gradle 任務作為您專案組建設定中的預置操作 (pre-action)。要查看通用程式碼中所做的變更反映在您的 Xcode 專案中，您只需要重新組建 Kotlin Multiplatform 專案即可。
+要設定整合，您將新增一個特殊的指令碼，該指令碼使用 `embedAndSignAppleFrameworkForXcode` Gradle 任務作為您專案組建組態中的預置操作 (pre-action)。要查看通用程式碼中所做的變更反映在您的 Xcode 專案中，您只需要重新組建 Kotlin Multiplatform 專案即可。
 
 透過這種方式，您可以輕鬆地在本機 Swift 軟件包中使用 Kotlin 程式碼，與一般的直接整合方法相比，後者將指令碼新增到組建階段，並且需要重新組建 Kotlin Multiplatform 和 iOS 專案才能從通用程式碼獲取變更。
 
@@ -83,7 +83,7 @@
    ```
 
    * 在 `cd` 指令中，指定 Kotlin Multiplatform 專案根目錄的路徑，例如 `$SRCROOT/..`。
-   * 在 `./gradlew` 指令中，指定共用模組的名稱，例如 `:shared` 或 `:composeApp`。
+   * 在 `./gradlew` 指令中，指定共用模組的名稱，例如 `:shared` 或 `:sharedLogic`。
   
 4. 在 **Provide build settings from** 區段中選擇您應用程式的目標：
 
@@ -128,11 +128,9 @@
    
 7. 在 Xcode 中組建專案。如果一切設定正確，專案組建將會成功。
    
-還有一些值得考慮的因素：
+還有一些值得考慮的因素： 
 
 * 如果您有不同於預設 `Debug` 或 `Release` 的自訂組建組態，請在 **Build Settings** 分頁的 **User-Defined** 下新增 `KOTLIN_FRAMEWORK_BUILD_TYPE` 設定，並將其設定為 `Debug` 或 `Release`。
-* If you encounter an error with script sandboxing, open the iOS project settings by double-clicking the project name,
-  then on the **Build Settings** tab, disable the **User Script Sandboxing** under **Build Options**.
 * 如果您遇到指令碼沙盒化錯誤，請透過按兩下專案名稱開啟 iOS 專案設定，然後在 **Build Settings** 分頁中，停用 **Build Options** 下的 **User Script Sandboxing**。
 
 ## 下一步

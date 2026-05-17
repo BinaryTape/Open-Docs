@@ -37,7 +37,7 @@
     }
     ```
 
-2. 在 `android` 原始碼集中，新增使用 `context.resources.configuration.locale` 的 `actual` 實作：
+2. 在 Android 原始碼集中，新增使用 `context.resources.configuration.locale` 的 `actual` 實作：
 
     ```kotlin
     actual object LocalAppLocale {
@@ -67,7 +67,7 @@
     }
     ```
 
-3. 在 `ios` 原始碼集中，新增修改 `NSLocale.preferredLanguages` 的 `actual` 實作：
+3. 在 iOS 原始碼集中，新增修改 `NSLocale.preferredLanguages` 的 `actual` 實作：
  
     ```kotlin
     @OptIn(InternalComposeUiApi::class)
@@ -91,7 +91,7 @@
     }
     ```
 
-4. 在 `desktop` 原始碼集中，新增使用 `Locale.getDefault()` 更新 JVM 預設地區設定的 `actual` 實作：
+4. 在桌面原始碼集中，新增使用 `Locale.getDefault()` 更新 JVM 預設地區設定的 `actual` 實作：
 
     ```kotlin
     actual object LocalAppLocale {
@@ -160,7 +160,7 @@
             ...
         </head>
         <body></body>
-        <script src="composeApp.js"></script>
+        <script src="webApp.js"></script>
     </html>
     ```  
 

@@ -25,7 +25,7 @@ Ktor 提供
 > 在用戶端，Ktor 提供了 [Authentication](client-auth.md) 外掛程式來處理身份驗證與授權。
 
 ## 支援的身份驗證類型 {id="supported"}
-Ktor 支援以下身份驗證與授權機制：
+Ktor 支援以下身份驗證與授權配置：
 
 ### HTTP 身份驗證 {id="http-auth"}
 HTTP 為存取控制和身份驗證提供了一個[通用架構](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication)。在 Ktor 中，您可以使用以下 HTTP 身份驗證機制：
@@ -51,8 +51,11 @@ HTTP 為存取控制和身份驗證提供了一個[通用架構](https://develop
 [Sessions](server-sessions.md)（工作階段）提供了一種在不同 HTTP 請求之間持久化資料的機制。典型使用案例包括儲存已登入使用者的 ID、購物車內容，或在用戶端保留使用者偏好。在 Ktor 中，已經擁有相關聯工作階段的使用者可以使用 `session` 提供者進行驗證。請從 [Ktor Server 中的 Session 身份驗證](server-session-auth.md)了解如何操作。
 
 ### 自訂 {id="custom"}
-Ktor 還提供用於建立[自訂外掛程式](server-custom-plugins.md)的 API，可用於實作您自己的身份驗證與授權處理外掛程式。
-例如，`AuthenticationChecked` [hook](server-custom-plugins.md#call-handling) 會在檢查身份驗證憑據後執行，它允許您實作授權：[custom-plugin-authorization](https://github.com/ktorio/ktor-documentation/blob/%ktor_version%/codeSnippets/snippets/custom-plugin-authorization)。
+
+Ktor 提供兩種自訂身份驗證與授權行為的方式：
+
+* 使用[自訂身份驗證提供者](#custom-auth-provider)。
+* 使用[自訂外掛程式](server-custom-plugins.md)來實作授權邏輯。例如，您可以使用 `AuthenticationChecked` [hook](server-custom-plugins.md#call-handling) 來驗證存取權限。如需更多資訊，請參閱 [custom-plugin-authorization](https://github.com/ktorio/ktor-documentation/blob/%ktor_version%/codeSnippets/snippets/custom-plugin-authorization) 範例。
 
 ## 新增相依性 {id="add_dependencies"}
 
@@ -118,6 +121,10 @@ install(Authentication) {
 ```
 
 在此函式內，您可以[配置](#configure-provider)該提供者特定的設定。
+
+> 如果內建提供者不符合您的需求，您可以實作[自訂身份驗證提供者](#custom-auth-provider)。
+> 
+{style="note"}
 
 ### 步驟 2：指定提供者名稱 {id="provider-name"}
 
@@ -257,3 +264,29 @@ authenticate("auth-session", strategy = AuthenticationStrategy.Required) {
         }
     }
 }
+```
+
+## 自訂身份驗證提供者 {id="custom-auth-provider"}
+
+當內建提供者不符合您的需求時，請使用 [`provider()`](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-authentication-config/provider.html) 函式實作自訂身份驗證邏輯：
+
+```kotlin
+provider("custom") {
+  authenticate { context ->
+    val exampleHeader = context.call.request.headers["Example-Header"]
+    if (exampleHeader == null) {
+      val cause = AuthenticationFailedCause.Error("No example header found")
+      context.challenge(key = this, cause) { challenge, call ->
+        call.respondText("Challenge")
+        challenge.complete()
+      }
+    }
+  }
+}
+```
+
+在上述範例中，`provider("custom")` 函式註冊了一個具名的身份驗證提供者，稍後可以透過 `authenticate("custom")` 套用於路由。
+
+在提供者內部，`authenticate {}` 區塊會針對每個傳入請求執行，並讓您透過內容物件完全控制身份驗證程序。這包括存取當前呼叫 (`context.call`)，以及檢查標頭、參數或其他請求資料的能力。
+
+您可以使用 [`DynamicProviderConfig`](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-dynamic-provider-config/index.html) 類別提供的選項來配置額外的提供者行為。

@@ -98,7 +98,7 @@ private fun createAgent(
         }
 
         // 執行工具
-        val nodeProcessTool by node<Message.Tool.Call, Unit> { toolCall ->
+        val nodeProcessTool by node<MessagePart.Tool.Call, Unit> { toolCall ->
             withA2AAgentServer {
                 sendTaskUpdate("Executing tool: ${toolCall.content}", TaskState.Working)
             }
@@ -249,7 +249,7 @@ client.connect()
 ```
 
 ### 建立 Koog Agent 並將 A2A 用戶端新增至 A2AAgentClient 功能
-若要從您的 Koog Agent 連接至 A2A agent，您可以使用 `A2AAgentClient` 功能，它提供了連接至 A2A agent 的用戶端 API。
+若要從您的 Koog agent 連接至 A2A agent，您可以使用 `A2AAgentClient` 功能，它提供了連接至 A2A agent 的用戶端 API。
 用戶端的原理與伺服器相同：您安裝該功能，並傳入 `A2AAgentClient` 功能以及 `RequestContext` 與 `SessionEventProcessor`。
 
 ```kotlin

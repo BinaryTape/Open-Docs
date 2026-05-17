@@ -1,10 +1,11 @@
 [//]: # (title: Kotlin Notebook)
+[//]: # (description: 在 IntelliJ IDEA 中建立與編輯互動式 Kotlin notebook，以執行程式碼、視覺化資料、原型設計想法並分享結果。)
 
 Kotlin Notebook 提供了一個互動式環境來建立和編輯 notebook，充分發揮 Kotlin 的所有潛能。 
 Kotlin Notebook 依賴 [Kotlin Notebook 外掛程式](https://plugins.jetbrains.com/plugin/16340-kotlin-notebook)，該外掛程式已隨附並[在 IntelliJ IDEA 中預設啟用](kotlin-notebook-set-up-env.md)。
 
 Notebook 是一種互動式文件，您可以在其中將可執行的 Kotlin 程式碼與文字、結果和視覺化內容結合在一起。 
-您可以將其視為 Kotlin REPL 的擴充，具備將程式碼整理成程式碼資料格、使用 Markdown 編寫文件，並在產生程式碼的旁邊立即顯示輸出（從文字到圖表）的能力。
+您可以將其視為 Kotlin REPL 的延伸，具備將程式碼整理成程式碼資料格、使用 Markdown 編寫文件，並在產生程式碼的旁邊立即顯示輸出（從文字到圖表）的能力。
 
 準備好享受無縫的編碼體驗，您可以在 IntelliJ IDEA 生態系統中開發和實驗 Kotlin 程式碼、接收即時輸出，並整合程式碼、視覺效果和文字。
 
@@ -33,11 +34,12 @@ Kotlin Notebook 基於我們的 [Kotlin Kernel for Jupyter Notebooks](https://gi
 
 無論您是進行初步資料探索還是完成端到端資料分析專案，Kotlin Notebook 都有適合您的工具。
 
-在 Kotlin Notebook 中，您可以直觀地整合[程式庫](data-analysis-libraries.md)，讓您擷取、轉換、繪圖和建模資料，同時獲得操作的即時輸出。
+在 Kotlin Notebook 中，您可以直觀地整合[程式庫](data-analysis-libraries.md)，讓您擷取、轉換、繪製和建模資料，同時獲得操作的即時輸出。
 
 對於分析相關任務，[Kotlin DataFrame](https://kotlin.github.io/dataframe/overview.html) 程式庫提供了強大的解決方案。此程式庫有助於載入、建立、篩選和清理結構化資料。
 
-Kotlin DataFrame 還支援與 SQL 資料庫的無縫連接，並能直接在 IDE 中讀取不同檔案格式的資料，包括 CSV、JSON 和 TXT。
+Kotlin DataFrame 還支援與 SQL 資料庫的無縫連接，並能直接在 IDE 中讀取來自不同資料來源的資料，包括 CSV、JSON 和 TXT。 
+請參閱 [DataFrame 文件](https://kotlin.github.io/dataframe/data-sources.html)以了解所有支援的格式。
 
 [Kandy](https://kotlin.github.io/kandy/welcome.html) 是一個開源 Kotlin 程式庫，可讓您建立各種類型的圖表。Kandy 的慣用法、易讀且型別安全的特性讓您可以有效地視覺化資料並獲得寶貴的洞察。
 
@@ -69,11 +71,11 @@ Kotlin Notebook 提供了在程式碼資料格中呼叫 API 以及使用 OpenAPI
 
 鑑於 Kotlin Notebook 遵循通用的 Jupyter 格式，您可以在不同的 notebook 之間分享程式碼和輸出。您可以使用任何 Jupyter 用戶端（如 [Jupyter Notebook](https://jupyter.org/) 或 [Jupyter Lab](https://jupyterlab.readthedocs.io/en/latest/)）開啟、編輯和執行您的 Kotlin Notebook。
 
-您還可以透過與任何 notebook Web 檢視器共用 `.ipynb` notebook 檔案來發佈您的工作。其中一個選擇是 [GitHub](https://github.com/)，它原生支援渲染此格式。另一個選擇是 [JetBrains 的 Datalore](https://datalore.jetbrains.com/) 平台，它具有排程執行 notebook 等進階功能，便於分享、執行和編輯 notebook。
+您還可以透過與任何 notebook Web 檢視器分享 `.ipynb` notebook 檔案來發佈您的工作。其中一個選擇是 [GitHub](https://github.com/)，它原生支援渲染此格式。另一個選擇是 [JetBrains 的 Datalore](https://datalore.jetbrains.com/) 平台，它具有排程執行 notebook 等進階功能，便於分享、執行和編輯 notebook。
 
 ![kotlin-notebook-sharing-datalore](kotlin-notebook-sharing-datalore.png){width=700}
 
-或者，您可以快速將目前的 notebook 分享為 [GitHub Gist](https://gist.github.com/)。點擊工具列上的 **Create Gist** 按鈕。 
+或者，您可以快速將目前的 notebook 分享為 [GitHub 程式片段 (gist)](https://gist.github.com/)。點擊工具列上的 **Create Gist** 按鈕。 
 
 ![notebook-github-gist](notebook-github-gist.png){width=400}
 

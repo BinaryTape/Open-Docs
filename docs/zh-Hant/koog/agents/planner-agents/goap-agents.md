@@ -42,9 +42,10 @@ GOAP 規劃器涉及三個主要概念：
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
     import ai.koog.agents.core.agent.config.AIAgentConfig
-    import ai.koog.agents.planner.AIAgentPlannerStrategy
+    import ai.koog.agents.planner.goap
     import ai.koog.agents.planner.goap.GoapAgentState
     import ai.koog.prompt.dsl.prompt
+    import ai.koog.prompt.message.MessagePart
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
     -->
@@ -58,12 +59,13 @@ GOAP 規劃器涉及三個主要概念：
         val draft: String = "",
         val hasReview: Boolean = false,
         val isPublished: Boolean = false
-    ): GoapAgentState<String, String>(topic) {
+    ): GoapAgentState<String, String>() {
+        override val agentInput = topic
         override fun provideOutput(): String = draft
     }
 
     // 建立具有 LLM 驅動操作的 GOAP 規劃器
-    val planner = AIAgentPlannerStrategy.goap("content-planner", ::ContentState) {
+    val planner = goap("content-planner", ::ContentState) {
         // 定義具有前提條件和信念的操作
         action(
             name = "Create outline",
@@ -78,7 +80,8 @@ GOAP 規劃器涉及三個主要概念：
                 }
                 requestLLM()
             }
-            state.copy(hasOutline = true, outline = response.content)
+            state.copy(hasOutline = true, outline = response.parts.filterIsInstance<MessagePart.Text>().joinToString("
+") { it.text })
         }
 
         action(
@@ -95,7 +98,8 @@ ${state.outline}")
                 }
                 requestLLM()
             }
-            state.copy(hasDraft = true, draft = response.content)
+            state.copy(hasDraft = true, draft = response.parts.filterIsInstance<MessagePart.Text>().joinToString("
+") { it.text })
         }
 
         action(
@@ -112,7 +116,8 @@ ${state.draft}")
                 }
                 requestLLM()
             }
-            println("審查回饋：${response.content}")
+            println("審查回饋：${response.parts.filterIsInstance<MessagePart.Text>().joinToString("
+") { it.text }}")
             state.copy(hasReview = true)
         }
 
@@ -160,10 +165,12 @@ ${state.draft}")
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
-    import ai.koog.agents.planner.AIAgentPlannerStrategy;
+    import ai.koog.agents.planner.Planners;
     import ai.koog.agents.planner.goap.GoapAgentState;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import ai.koog.prompt.executor.model.PromptExecutor;
+    import ai.koog.prompt.message.MessagePart;
+    import java.util.stream.Collectors;
     class exampleGoapAgents01 {
     -->
     <!--- SUFFIX
@@ -181,8 +188,12 @@ ${state.draft}")
         public boolean isPublished = false;
     
         public ContentState(String topic) {
-            super(topic);
             this.topic = topic;
+        }
+
+        @Override
+        public String getAgentInput() {
+            return topic;
         }
 
         public ContentState copy(boolean hasOutline, String outline, boolean hasDraft,
@@ -208,8 +219,7 @@ ${state.draft}")
             .openAI("OPENAI_API_KEY")
             .build();
 
-        var strategy = AIAgentPlannerStrategy.builder("content-planner")
-            .goap(ContentState::new)
+        var strategy = Planners.goap("content-planner", ContentState::new)
             .action("Create outline", builder -> builder
                 .precondition(state -> !state.hasOutline)
                 .belief(state -> state.copy(true, "Outline", false, "", false, false))
@@ -220,7 +230,10 @@ ${state.draft}")
                             prompt.user("為關於以下主題的文章建立詳細大綱：" + state.topic);
                             return null;
                         });
-                        return session.requestLLM().getContent();
+                        return session.requestLLM().getParts().stream()
+                            .filter(p -> p instanceof MessagePart.Text)
+                            .map(p -> ((MessagePart.Text) p).getText())
+                            .collect(Collectors.joining());
                     });
                     return state.copy(true, response, state.hasDraft, state.draft,
                                     state.hasReview, state.isPublished);
@@ -237,7 +250,10 @@ ${state.draft}")
 " + state.outline);
                             return null;
                         });
-                        return session.requestLLM().getContent();
+                        return session.requestLLM().getParts().stream()
+                            .filter(p -> p instanceof MessagePart.Text)
+                            .map(p -> ((MessagePart.Text) p).getText())
+                            .collect(Collectors.joining());
                     });
                     return state.copy(state.hasOutline, state.outline, true, response,
                                     state.hasReview, state.isPublished);
@@ -255,7 +271,10 @@ ${state.draft}")
 " + state.draft);
                             return null;
                         });
-                        return session.requestLLM().getContent();
+                        return session.requestLLM().getParts().stream()
+                            .filter(p -> p instanceof MessagePart.Text)
+                            .map(p -> ((MessagePart.Text) p).getText())
+                            .collect(Collectors.joining());
                     });
                     System.out.println("審查回饋：" + response);
                     return state.copy(state.hasOutline, state.outline, state.hasDraft,
@@ -302,15 +321,16 @@ ${state.draft}")
 
     <!--- INCLUDE
     import ai.koog.agents.planner.goap.GoapAgentState
-    import ai.koog.agents.planner.AIAgentPlannerStrategy
+    import ai.koog.agents.planner.goap
     data class MyState(
         val topic: String,
         val operationDone: Boolean = true,
         val hasOptimization: Boolean = true
-    ): GoapAgentState<String, String>(topic) {
+    ): GoapAgentState<String, String>() {
+        override val agentInput = topic
         override fun provideOutput(): String = ""
     }
-    val planner = AIAgentPlannerStrategy.goap("content-planner", ::MyState) {
+    val planner = goap("content-planner", ::MyState) {
     -->
     <!--- SUFFIX
     }
@@ -335,7 +355,7 @@ ${state.draft}")
     
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
-    import ai.koog.agents.planner.AIAgentPlannerStrategy;
+    import ai.koog.agents.planner.Planners;
     import ai.koog.agents.planner.goap.GoapAgentState;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import ai.koog.prompt.executor.model.PromptExecutor;
@@ -345,8 +365,11 @@ ${state.draft}")
             public boolean operationDone = false;
             public boolean hasOptimization = true;
             public MyState(String topic) {
-                super(topic);
                 this.topic = topic;
+            }
+            @Override
+            public String getAgentInput() {
+                return topic;
             }
             public MyState copy(boolean operationDone) {
                 MyState state = new MyState(topic);
@@ -360,8 +383,7 @@ ${state.draft}")
             }
         }
         public static void main(String[] args) {
-            var planner = AIAgentPlannerStrategy.builder("content-planner")
-                .goap(MyState::new)
+            var planner = Planners.goap("content-planner", MyState::new)
     -->
     <!--- SUFFIX
             .build();
@@ -397,16 +419,17 @@ GOAP 區分了信念（樂觀預測）和實際執行的概念：
 
     <!--- INCLUDE
     import ai.koog.agents.planner.goap.GoapAgentState
-    import ai.koog.agents.planner.AIAgentPlannerStrategy
+    import ai.koog.agents.planner.goap
     data class MyState(
         val topic: String,
         val taskComplete: Boolean = true,
         val attempts: Int = 0
-    ): GoapAgentState<String, String>(topic) {
+    ): GoapAgentState<String, String>() {
+        override val agentInput = topic
         override fun provideOutput(): String = ""
     }
     fun performComplexTask(): Boolean = true
-    val planner = AIAgentPlannerStrategy.goap("content-planner", ::MyState) {
+    val planner = goap("content-planner", ::MyState) {
     -->
     <!--- SUFFIX
     }
@@ -435,7 +458,7 @@ GOAP 區分了信念（樂觀預測）和實際執行的概念：
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
-    import ai.koog.agents.planner.AIAgentPlannerStrategy;
+    import ai.koog.agents.planner.Planners;
     import ai.koog.agents.planner.goap.GoapAgentState;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import ai.koog.prompt.executor.model.PromptExecutor;
@@ -445,8 +468,11 @@ GOAP 區分了信念（樂觀預測）和實際執行的概念：
             public boolean taskComplete = false;
             public int attempts = 0;
             public MyState(String topic) {
-                super(topic);
                 this.topic = topic;
+            }
+            @Override
+            public String getAgentInput() {
+                return topic;
             }
             public MyState copy(boolean taskComplete, int attempts) {
                 MyState state = new MyState(topic);
@@ -463,8 +489,7 @@ GOAP 區分了信念（樂觀預測）和實際執行的概念：
             return true;
         }
         public static void main(String[] args) {
-            var planner = AIAgentPlannerStrategy.builder("content-planner")
-                .goap(MyState::new)
+            var planner = Planners.goap("content-planner", MyState::new)
     -->
     <!--- SUFFIX
             .build();

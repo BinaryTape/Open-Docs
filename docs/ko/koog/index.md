@@ -3,7 +3,7 @@
 Koog는 JVM 에코시스템을 위해 특별히 설계된 AI 에이전트 구축용 오픈 소스 JetBrains 프레임워크입니다.
 관용적이고 타입 안전한(type-safe) Kotlin DSL과 유연한(fluent) 빌더 스타일의 Java API를 제공하여, Kotlin과 Java 개발자 모두에게 최상의 개발 경험을 선사합니다.
 
-Java 개발자는 관용적인 API를 사용하여 JVM에서 Koog의 모든 기능을 활용할 수 있으며, Kotlin 개발자는 Kotlin Multiplatform을 사용하여 JS, WasmJS, Android 및 iOS 타겟에 에이전트를 배포할 수 있습니다.
+Java 개발자는 관용적인 API를 사용하여 JVM에서 Koog의 모든 기능을 활용할 수 있으며, Kotlin 개발자는 Kotlin Multiplatform을 사용하여 JS, WasmJS, Android 및 iOS 타겟에 에이전트를 배포할 수도 있습니다.
 
 <div class="grid cards" markdown>
 
@@ -118,7 +118,7 @@ Koog 에이전트의 핵심 구성 요소에 대해 자세히 알아보세요:
 
     ---
 
-    [벡터 임베딩](embeddings.md), [RAG](retrieval-augmented-generation.md) 및 [공유 에이전트 메모리](features/agent-memory.md)를 사용하여 여러 대화에 걸쳐 지식을 유지하고 검색
+    [벡터 임베딩](embeddings.md) 및 [RAG](retrieval-augmented-generation.md)를 사용하여 여러 대화에 걸쳐 지식을 유지하고 검색
 
 -   :material-timeline-text:{ .lg .middle } [**트레이싱**](features/tracing.md)
 
@@ -130,7 +130,7 @@ Koog 에이전트의 핵심 구성 요소에 대해 자세히 알아보세요:
 
     ---
 
-    RAG 및 영구 메모리를 위한 벡터 데이터베이스 및 메모리 제공자 통합
+    RAG 및 영구 메모리를 위한 벡터 데이터베이스 및 메모리 제공자 통합.
 
 </div>
 

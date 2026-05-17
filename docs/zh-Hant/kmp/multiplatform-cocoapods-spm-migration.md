@@ -5,7 +5,7 @@
 
 * 要從 CocoaPods Gradle 外掛程式切換到 SwiftPM，您需要先重新配置您的 Xcode 專案。
 * 請查看這些範例專案，它們在 `main` 分支中使用 CocoaPods，而在 `spm-import` 分支中使用 SwiftPM：
-  * [Firebase 範例](https://github.com/Kotlin/kmp-with-cocoapods-multitarget-xcode-sample)
+  * [Firebase 範例](https://github.com/Kotlin/kmp-with-cocoapods-firebase-sample/)
   * [Compose Multiplatform 範例](https://github.com/Kotlin/kmp-with-cocoapods-compose-sample/)
 
 </tldr>
@@ -67,8 +67,8 @@
 5. 如果您在建置指令碼中使用了 `cocoapods.framework {}` 區塊，請將該配置移至 `binaries.framework {}` 區塊，例如：
 
    <compare type="left-right">
-   <code-block lang="kotlin" code="   kotlin {&#10;       iosArm64()&#10;       iosSimulatorArm64()&#10;       iosX64()&#10;&#10;       cocoapods {&#10;           framework {&#10;               baseName = &quot;Shared&quot;&#10;               isStatic = true&#10;           }&#10;       }&#10;   }"/>
-   <code-block lang="kotlin" code="   kotlin {&#10;       listOf(&#10;           iosArm64(),&#10;           iosSimulatorArm64(),&#10;           iosX64(),&#10;       ).forEach { iosTarget -&gt;&#10;           iosTarget.binaries.framework {&#10;               baseName = &quot;Shared&quot;&#10;               isStatic = true&#10;           }&#10;       }&#10;   }"/>
+   <code-block lang="kotlin" code="   kotlin {&#10;       iosArm64()&#10;       iosSimulatorArm64()&#10;&#10;       cocoapods {&#10;           framework {&#10;               baseName = &quot;Shared&quot;&#10;               isStatic = true&#10;           }&#10;       }&#10;   }"/>
+   <code-block lang="kotlin" code="   kotlin {&#10;       listOf(&#10;           iosArm64(),&#10;           iosSimulatorArm64(),&#10;       ).forEach { iosTarget -&gt;&#10;           iosTarget.binaries.framework {&#10;               baseName = &quot;Shared&quot;&#10;               isStatic = true&#10;           }&#10;       }&#10;   }"/>
    </compare>
 
 ## 重新配置您的 Xcode 專案
@@ -122,4 +122,4 @@ end
 最後，從您的 Gradle 組建組態中移除對 CocoaPods 的提及：
 
 1. 從共用程式碼模組的 `build.gradle.kts` 檔案中移除整個 `cocoapods {}` 區塊，因為現在所有相依性都由 SwiftPM 匯入工具管理。
-2. If your project does not rely on CocoaPods anymore, remove references to the CocoaPods Gradle plugin from the `plugins {}` block in both the root `build.gradle.kts` file and `build.gradle.kts` in the shared module.
+2. 如果您的專案不再依賴 CocoaPods，請從根目錄的 `build.gradle.kts` 檔案和共用模組中的 `build.gradle.kts` 檔案的 `plugins {}` 區塊中移除對 CocoaPods Gradle 外掛程式的引用。

@@ -18,74 +18,52 @@
 
 ## 實作 composable 函式
 
-在 `composeApp/src/commonMain/kotlin/App.kt` 檔案中，查看 `App()` 函式：
+在 `shared/src/commonMain/kotlin/App.kt` 檔案中，查看 `App()` 函式：
 
-```kotlin
-@Composable
-@Preview
-fun App() {
-    MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        Column(
-            modifier = Modifier
-                .background(MaterialTheme.colorScheme.primaryContainer)
-                .safeContentPadding()
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
-                }
-            }
-        }
-    }
-}
-```
+undefined
 
-`App()` 函式是一個帶有 `@Composable` 註解的正規 Kotlin 函式。這類函式被稱為 _composable 函式_ 或簡稱為 _composables_。它們是基於 Compose Multiplatform 的 UI 構建區塊。
+`App()` 函式是一個帶有 `@Composable` 註解的正規 Kotlin 函式。這類函式被稱為 _composable 函式_ 或簡稱為 _composables_。它們是基於 Jetpack Compose 或 Compose Multiplatform 的 UI 構建區塊。
 
-composable 函式具有以下一般結構：
+此 `App()` 函式被用作應用程式 UI 架構的基礎，具有以下結構：
 
-* `MaterialTheme` 設定應用程式的外觀。預設設定可以自訂。例如，您可以選擇顏色、形狀與排版。
-* `Column` composable 控制應用程式的配置。在這裡，它在 `AnimatedVisibility` composable 之上顯示一個 `Button`。
-* `Button` 包含 `Text` composable，用於呈現文字。
-* `AnimatedVisibility` 使用動畫顯示和隱藏 `Image`。
-* `painterResource` 載入儲存在 XML 資源中的向量圖示。
+* `MaterialTheme()` 設定應用程式的外觀。預設設定可以自訂。例如，您可以選擇顏色、形狀與排版。
+* `Column()` composable 控制應用程式的配置。在這裡，它在 `AnimatedVisibility()` composable 之上顯示一個 `Button`。
+* `Button()` 包含 `Text` composable，用於在按鈕上方呈現文字。
+* `AnimatedVisibility()` 呼叫被設定為在按下按鈕時，使用動畫顯示和隱藏 `Image`。
+* `painterResource()` 載入儲存為 XML 檔案的向量圖示。
 
-`Column` 的 `horizontalAlignment` 參數會將其內容居中。但為了使其產生效果，該 column 應該佔滿其容器的完整寬度。這是透過 `modifier` 參數實現的。
+`Column()` 函式的 `horizontalAlignment` 參數會將 column 的內容居中。為了使其產生效果，該 column 應該佔滿其容器的完整寬度。您可以透過使用 `modifier` 參數來實現此目的。
 
-Modifier 是 Compose Multiplatform 的關鍵組建。這是您用來調整 UI 中 composable 外觀或行為的主要機制。Modifier 是使用 `Modifier` 型別的方法建立的。當您鏈結這些方法時，每次呼叫都可以更改前一次呼叫傳回的 `Modifier`，這使得順序變得非常重要。請參閱 [JetPack Compose 文件](https://developer.android.com/jetpack/compose/modifiers)以了解更多詳細資訊。
+Modifier 是 Jetpack Compose 與 Compose Multiplatform 的關鍵組建。它們提供了調整 UI 中 composable 外觀或行為的主要機制。Modifier 是使用 `Modifier` 型別的方法建立的。當您鏈結這些方法時，每次呼叫都可以更改前一次呼叫傳回的 `Modifier`，這使得順序變得非常重要。請參閱 [Compose Multiplatform modifier 介紹](https://kotlinlang.org/docs/multiplatform/compose-layout-modifiers.html#built-in-modifiers)與詳盡的 [Jetpack Compose modifier 文件](https://developer.android.com/jetpack/compose/modifiers)以了解更多詳細資訊。
 
-### 管理狀態
+## 管理狀態
 
-範例 composable 的最後一個面向是狀態的管理方式。`App` composable 中的 `showContent` 屬性是使用 `mutableStateOf()` 函式建構的，這意味著它是一個可以被觀察的狀態物件：
+載入的圖片具有持久性：除非使用者點擊按鈕，否則它應該在重組 (recomposition) 過程中始終保持顯示或隱藏。`App()` composable 中的 `showContent` 屬性是使用 `mutableStateOf()` 函式建構的，這意味著它是一個可以被觀察的狀態物件：
 
 ```kotlin
 var showContent by remember { mutableStateOf(false) }
 ```
 
-狀態物件被包裝在對 `remember()` 函式的呼叫中，這意味著它僅建構一次，然後由架構保留。透過執行此操作，您建立了一個屬性，其值是包含布林值的狀態物件。架構會快取此狀態物件，允許 composable 觀察它。
+狀態物件被包裝在 `remember()` 呼叫中，這意味著它僅建構一次，然後由架構保留。透過這種方式，`showContent` 屬性具有一個值，該值是包含布林值的狀態物件。架構會快取此狀態物件，允許 composable 觀察它。
 
 當狀態的值發生變化時，任何觀察它的 composable 都會被重新叫用。這使得它們產生的任何小工具都能夠被重新繪製。這被稱為 _重組 (recomposition)_。
 
-在您的應用程式中，唯一改變狀態的地方是在按鈕的點擊事件中。`onClick` 事件處理常式會反轉 `showContent` 屬性的值。因此，由於父層 `AnimatedVisibility` composable 觀察了 `showContent`，圖片會隨著 `Greeting().greet()` 呼叫一起顯示或隱藏。
+唯一改變狀態的地方是在 `Button()` 呼叫的 `onClick` 參數中。事件處理常式會反轉 `showContent` 屬性的值。因此，由於父層 `AnimatedVisibility()` composable 觀察了 `showContent`，圖片會隨著 `Greeting().greet()` 呼叫一起顯示或隱藏。
 
 ## 在不同平台啟動 UI
 
-每個平台的 `App()` 函式執行方式都不同。在 Android 上，它由 activity 管理；在 iOS 上，由 view controller 管理；在桌面上，由視窗管理；在 web 上，則由容器管理。讓我們逐一檢查。
+每個平台的 `App()` 函式執行方式都不同：
+
+* 在 Android 上，它由 activity 管理。
+* 在 iOS 上，由 view controller 管理。
+* 在桌面上，由視窗管理。
+* 在 web 上，由容器管理。
+
+讓我們逐一檢查。
 
 ### 在 Android 上
 
-對於 Android，開啟 `composeApp/src/androidMain/kotlin` 中的 `MainActivity.kt` 檔案：
+對於 Android，開啟 `androidApp/src/main/kotlin` 中的 `MainActivity.kt` 檔案：
 
 ```kotlin
 class MainActivity : ComponentActivity() {
@@ -100,39 +78,42 @@ class MainActivity : ComponentActivity() {
 }
 ```
 
-這是一個名為 `MainActivity` 的 [Android activity](https://developer.android.com/guide/components/activities/intro-activities)，它會呼叫 `App` composable。
+這是一個名為 `MainActivity` 的 [Android activity](https://developer.android.com/guide/components/activities/intro-activities)，它會叫用宣告在共用程式碼中的 `App()` composable。
 
 ### 在 iOS 上
 
-對於 iOS，開啟 `composeApp/src/iosMain/kotlin` 中的 `MainViewController.kt` 檔案：
+對於 iOS，開啟 `shared/src/iosMain/kotlin` 中的 `MainViewController.kt` 檔案：
 
 ```kotlin
 fun MainViewController() = ComposeUIViewController { App() }
 ```
 
-這是一個 [view controller](https://developer.apple.com/documentation/uikit/view_controllers)，其扮演的角色與 Android 上的 activity 相同。請注意，iOS 和 Android 型別都只是單純地叫用 `App` composable。
+這是一個 [view controller](https://developer.apple.com/documentation/uikit/view_controllers)，其扮演的角色與 Android 上的 activity 相同。請注意，iOS 和 Android 型別都只是單純地叫用共用程式碼中的 `App()` composable。
 
 ### 在桌面上
 
-對於桌面，查看 `composeApp/src/jvmMain/kotlin` 中的 `main()` 函式：
+對於桌面，在 `desktopApp/src/main/kotlin` 中尋找 `main.kt` 檔案：
 
 ```kotlin
 fun main() = application {
-    Window(onCloseRequest = ::exitApplication, title = "ComposeDemo") {
+    Window(
+        onCloseRequest = ::exitApplication,
+        title = "ComposeDemo"
+    ) {
         App()
     }
 }
 ```
 
-* 在這裡，`application()` 函式啟動一個新的桌面應用程式。
-* 此函式接受一個 lambda，您可以在其中初始化 UI。通常，您會建立一個 `Window` 並指定屬性與指令，以決定程式在視窗關閉時應如何反應。在此案例中，整個應用程式會關閉。
-* 在此視窗內，您可以放置內容。與 Android 和 iOS 一樣，唯一的內容是 `App()` 函式。
+* 在這裡，`application()` 函式啟動一個新的桌面應用程式。此函式接受一個 lambda，用於初始化 UI。
+* 通常，在 `application()` 函式內，您會建立一個 `Window` 並指定其屬性，以及程式在視窗關閉時應執行的指令 (`onCloseRequest`)。在預設專案中，整個應用程式會關閉 (`::exitApplication`)。
+* 在視窗內，您可以放置內容。與 Android 和 iOS 一樣，唯一的內容是 `App()` composable 提供的 UI 配置。
 
-目前，`App` 函式沒有宣告任何參數。在較大的應用程式中，您通常會將參數傳遞給平台特定的相依性。這些相依性可以手動建立，或使用相依注入程式庫建立。
+在此範例中，`App()` 函式不接受任何參數。在較大的應用程式中，您通常會將參數傳遞給平台特定的相依性。這些相依性可以手動編寫，或使用相依注入程式庫傳遞。
 
 ### 在 web 上
 
-在 `composeApp/src/webMain/kotlin/main.kt` 檔案中，查看 `main()` 函式：
+在 `webApp/src/webMain/kotlin/` 目錄下的 `main.kt` 檔案中，查看 `main()` 函式：
 
 ```kotlin
 @OptIn(ExperimentalComposeUiApi::class)
@@ -143,12 +124,10 @@ fun main() {
 }
 ```
 
-* `@OptIn(ExperimentalComposeUiApi::class)` 註解告訴編譯器，您正在使用被標記為實驗性的 API，且可能會在未來版本中發生變化。
+* `@OptIn(ExperimentalComposeUiApi::class)` 註解告訴編譯器，您正在使用被標記為實驗性的 Compose API，且可能會在未來版本中發生變化。
 * `ComposeViewport{}` 函式為應用程式設定 Compose 環境。
 * web 應用程式會插入到作為 `ComposeViewport` 函式參數指定的容器中。
 * `App()` 函式負責使用 Jetpack Compose 建構應用程式的 UI 組建。
-
-`main.kt` 檔案位於 `webMain` 目錄中，該目錄包含 web 目標的共用程式碼。
 
 ## 下一步
 

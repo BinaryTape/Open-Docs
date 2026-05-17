@@ -99,6 +99,7 @@ fun Application.main(httpClient: HttpClient = applicationHttpClient) {
         oauth("auth-oauth-google") {
             // oauth 인증 구성
             urlProvider = { "http://localhost:8080/callback" }
+            client = httpClient
         }
     }
 }
@@ -148,6 +149,7 @@ fun Application.main(httpClient: HttpClient = applicationHttpClient) {
 ### 2단계: OAuth 제공자 구성 {id="configure-oauth-provider"}
 
 아래 코드 스니펫은 `auth-oauth-google`이라는 이름으로 `oauth` 제공자를 생성하고 구성하는 방법을 보여줍니다.
+고정된 OAuth 설정이 있는 제공자의 경우 `settings` 속성을 사용하세요.
 
 ```kotlin
 val redirects = ConcurrentMap<String, String>()
@@ -155,14 +157,13 @@ install(Authentication) {
     oauth("auth-oauth-google") {
         // oauth 인증 구성
         urlProvider = { "http://localhost:8080/callback" }
-        providerLookup = {
-            OAuthServerSettings.OAuth2ServerSettings(
+        settings = OAuthServerSettings.OAuth2ServerSettings(
                 name = "google",
                 authorizeUrl = "https://accounts.google.com/o/oauth2/auth",
                 accessTokenUrl = "https://accounts.google.com/o/oauth2/token",
                 requestMethod = HttpMethod.Post,
-                clientId = System.getenv("GOOGLE_CLIENT_ID"),
-                clientSecret = System.getenv("GOOGLE_CLIENT_SECRET"),
+                clientId = System.getenv("GOOGLE_CLIENT_ID").orEmpty(),
+                clientSecret = System.getenv("GOOGLE_CLIENT_SECRET").orEmpty(),
                 defaultScopes = listOf("https://www.googleapis.com/auth/userinfo.profile"),
                 extraAuthParameters = listOf("access_type" to "offline"),
                 onStateCreated = { call, state ->
@@ -172,7 +173,6 @@ install(Authentication) {
                     }
                 }
             )
-        }
         fallback = { cause ->
             if (cause is OAuth2RedirectError) {
                 respondRedirect("/login-after-fallback")
@@ -187,13 +187,15 @@ install(Authentication) {
 
 * `urlProvider`는 권한 부여가 완료되었을 때 호출될 [리다이렉트 라우트](#redirect-route)를 지정합니다.
   > 이 라우트가 [**승인된 리다이렉션 URI**](#authorization-credentials) 목록에 추가되어 있는지 확인하세요.
-* `providerLookup`을 사용하면 필요한 제공자에 대한 OAuth 설정을 지정할 수 있습니다. 이 설정은 [OAuthServerSettings](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-o-auth-server-settings/index.html) 클래스로 표현되며 Ktor가 OAuth 서버에 자동 요청을 보낼 수 있도록 합니다.
+* `settings` 속성은 제공자에 대한 정적인 OAuth 설정을 지정합니다. 이 설정은 [OAuthServerSettings](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-o-auth-server-settings/index.html) 클래스로 표현되며 Ktor가 OAuth 서버에 자동 요청을 보낼 수 있도록 합니다. 정적인 제공자 구성의 경우 `providerLookup`보다 `settings`를 사용하는 것이 좋습니다. 이는 Ktor가 생성된 [OpenAPI 사양(OpenAPI specifications)](openapi-spec-generation.md)에 대한 메타데이터를 추론할 수 있게 해주기 때문입니다.
 * `fallback` 속성은 리다이렉트나 커스텀 응답을 통해 OAuth 플로우 오류를 처리합니다.
 * `client` 속성은 Ktor가 OAuth 서버에 요청을 보낼 때 사용할 [HttpClient](#create-http-client)를 지정합니다.
 
+> `providerLookup` 속성은 특정 호출에 대해 동적으로 OAuth 설정을 결정해야 하는 경우 여전히 지원됩니다. 테넌트별 자격 증명이나 엔드포인트와 같이 제공자 구성이 요청 데이터에 따라 달라지는 경우에 사용하세요.
+
 ### 3단계: 로그인 라우트 추가 {id="login-route"}
 
-`oauth` 제공자를 구성한 후, `oauth` 제공자의 이름을 인자로 받는 `authenticate` 함수 내부에 [보호된 로그인 라우트를 생성](server-auth.md#authenticate-route)해야 합니다. Ktor가 이 라우트에 대한 요청을 받으면, [providerLookup](#configure-oauth-provider)에 정의된 `authorizeUrl`로 자동 리다이렉트됩니다.
+`oauth` 제공자를 구성한 후, `oauth` 제공자의 이름을 인자로 받는 `authenticate` 함수 내부에 [보호된 로그인 라우트를 생성](server-auth.md#authenticate-route)해야 합니다. Ktor가 이 라우트에 대한 요청을 받으면, [settings](#configure-oauth-provider)에 정의된 `authorizeUrl`로 자동 리다이렉트됩니다.
 
 ```kotlin
 routing {
@@ -205,7 +207,7 @@ routing {
 }
 ```
 
-사용자는 Ktor 애플리케이션에 필요한 권한 수준이 표시된 권한 부여 페이지를 보게 됩니다. 이 권한은 [providerLookup](#configure-oauth-provider)에 지정된 `defaultScopes`에 따라 달라집니다.
+사용자는 Ktor 애플리케이션에 필요한 권한 수준이 표시된 권한 부여 페이지를 보게 됩니다. 이 권한은 [settings](#configure-oauth-provider)에 지정된 `defaultScopes`에 따라 달라집니다.
 
 ### 4단계: 리다이렉트 라우트 추가 {id="redirect-route"}
 

@@ -254,7 +254,7 @@ kotlin {
 | `entryPoint`         | 可执行二进制文件的入口点函数。默认情况下，它是根软件包中的 `main()`。                                                                                                    |
 | `outputFile`         | 访问输出文件。                                                                                                                                                           |
 | `linkTask`           | 访问链接任务。                                                                                                                                                           |
-| `runTask`            | 访问可执行二进制文件的运行任务。对于 `linuxX64`、`macosX64` 或 `mingwX64` 以外的目标，该值为 `null`。                                                                  |
+| `runTask`            | 访问可执行二进制文件的运行任务。对于 `linuxX64`、`macosArm64` 或 `mingwX64` 以外的目标，该值为 `null`。                                                                |
 | `isStatic`           | 用于 Objective-C 框架。包含静态库而不是动态库。                                                                                                                          |
 | `disableNativeCache` | <p>禁用编译缓存。由于会增加编译时间，请仅在特殊情况下使用。</p><p>必须包含禁用了缓存的 Kotlin `version` 以及 `reason`（原因）。（可选）可以指定指向问题跟踪器中 `issue` 的 URL。</p> |
 
@@ -723,7 +723,7 @@ kotlin {
 | `defaultSourceSet`       | 编译的默认源集。                                                                                                                                   |
 | `kotlinSourceSets`       | 参与编译的源集。                                                                                                                                   |
 | `allKotlinSourceSets`    | 参与编译的源集及其通过 `dependsOn()` 建立的连接。                                                                                                  |
-| `compilerOptions`        | 应用于编译的编译器选项。有关可用选项的列表，请参阅 [编译器选项](#compiler-options)。                                                               |
+| `compilerOptions`        | 应用于编译的编译器选项。有关可用选项的列表，请参阅 [编译器选项](https://kotlinlang.org/docs/gradle-compiler-options.html)。                                                               |
 | `compileKotlinTask`      | 用于编译 Kotlin 源代码的 Gradle 任务。                                                                                                             |
 | `compileKotlinTaskName`  | `compileKotlinTask` 的名称。                                                                                                                       |
 | `compileAllTaskName`     | 用于编译某个编译中所有源代码的 Gradle 任务名称。                                                                                                   |

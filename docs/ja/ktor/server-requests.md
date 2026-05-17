@@ -4,15 +4,22 @@
 
 <link-summary>ルートハンドラー内で受信リクエストを処理する方法について説明します。</link-summary>
 
-Ktorでは、[ルートハンドラー](server-routing.md#define_route)内で入力リクエストを処理し、[レスポンス](server-responses.md)を送信できます。リクエストの処理時には、以下のようなさまざまなアクションを実行できます。
+Ktorでは、[ルートハンドラー](server-routing.md#define_route)内で入力リクエストを処理し、[レスポンス](server-responses.md)を送信できます。
 
-* ヘッダーやCookieなどの[リクエスト情報](#request_information)を取得する。
+ルートハンドラーは、クライアントとサーバー間の単一のHTTPエクスチェンジを表す[`ApplicationCall`](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-call/index.html)上で動作します。これはルートハンドラー内で`call`プロパティを通じて利用でき、受信リクエスト（`ApplicationRequest`）と送信レスポンス（`ApplicationResponse`）の両方が含まれています。
+
+ルートハンドラー内では、`ApplicationCall`を使用して以下のようなアクションを実行できます。
+
+* ヘッダー、Cookie、接続の詳細などの[リクエスト情報](#request_information)を取得する。
 * [パスパラメータ](#path_parameters)の値を取得する。
-* [クエリ文字列](#query_parameters)のパラメータを取得する。
-* データオブジェクト、フォームパラメータ、ファイルなどの[ボディの内容](#body_contents)を受信する。
+* [クエリパラメータ](#query_parameters)を取得する。
+* データオブジェクト、フォームパラメータ、ファイルなどの[リクエストボディの内容](#body_contents)を受信する。
 
 ## 一般的なリクエスト情報 {id="request_information"}
-ルートハンドラー内では、[`call.request`](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-call/request.html)プロパティを使用してリクエストにアクセスできます。これは[`ApplicationRequest`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/index.html)インスタンスを返し、さまざまなリクエストパラメータへのアクセスを提供します。たとえば、以下のコードスニペットはリクエストURIを取得する方法を示しています。
+
+[`call.request`](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-call/request.html)プロパティを使用してリクエストデータにアクセスできます。これは[`ApplicationRequest`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/index.html)インスタンスを返し、低レベルのHTTPリクエスト情報へのアクセスを提供します。
+
+たとえば、GETリクエストハンドラー内で`call.request.uri`を使用してリクエストURIを取得できます。
 
 ```kotlin
 routing {
@@ -22,29 +29,36 @@ routing {
     }
 }
 ```
-[`call.respondText()`](server-responses.md#plain-text)メソッドは、クライアントにレスポンスを返送するために使用されます。
 
-[`ApplicationRequest`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/index.html)オブジェクトを使用すると、以下のようなさまざまなリクエストデータにアクセスできます。
+[`call.respondText()`](server-responses.md#plain-text)関数は、クライアントにプレーンテキストのレスポンスを返送します。
 
-* **ヘッダー**
+### ヘッダー {id="headers"}
 
-  すべてのリクエストヘッダーにアクセスするには、[`ApplicationRequest.headers`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/headers.html)プロパティを使用します。
-  また、`acceptEncoding`、`contentType`、`cacheControl`などの専用の拡張関数を使用して、特定のヘッダーにアクセスすることもできます。
+すべてのHTTPリクエストヘッダーにアクセスするには、[`ApplicationRequest.headers`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/headers.html)プロパティを使用します。
 
-* **Cookie**  
+便宜上、Ktorはよく使用されるヘッダーにアクセスするための専用の拡張関数も提供しています。たとえば、[`.acceptEncoding()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/accept-encoding.html)、[`.contentType()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/content-type.html)、[`.cacheControl()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/cache-control.html)などがあります。
 
-  [`ApplicationRequest.cookies`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/cookies.html)プロパティは、リクエストに関連するCookieへのアクセスを提供します。Cookieを使用したセッションの処理方法については、[セッション](server-sessions.md)セクションを参照してください。
+### Cookie {id="cookies"}
 
-* **接続の詳細**
+リクエストと一緒に送信されたCookieにアクセスするには、[`ApplicationRequest.cookies`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/cookies.html)プロパティを使用します。
 
-  ホスト名、ポート、スキームなどの接続の詳細にアクセスするには、[`ApplicationRequest.local`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/local.html)プロパティを使用します。
+> Cookieを使用したセッションの処理方法の詳細については、[セッション](server-sessions.md)セクションを参照してください。
+> 
+{style="tip"}
 
-* **`X-Forwarded-` ヘッダー**
+### 接続の詳細
 
-  HTTPプロキシまたはロードバランサーを経由したリクエストに関する情報を取得するには、[Forwarded headers](server-forward-headers.md)プラグインをインストールし、[`ApplicationRequest.origin`](https://api.ktor.io/ktor-server-core/io.ktor.server.plugins/origin.html)プロパティを使用します。
+ホスト名、ポート、スキームなどの接続の詳細にアクセスするには、[`ApplicationRequest.local`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/local.html)プロパティを使用します。
+
+### `X-Forwarded-` ヘッダー
+
+HTTPプロキシまたはロードバランサーを経由したリクエストに関する情報を取得するには、[Forwarded headers](server-forward-headers.md)プラグインをインストールし、[`ApplicationRequest.origin`](https://api.ktor.io/ktor-server-core/io.ktor.server.plugins/origin.html)プロパティを使用します。
 
 ## パスパラメータ {id="path_parameters"}
-リクエストを処理する際、`call.parameters`プロパティを使用して[パスパラメータ](server-routing.md#path_parameter)の値にアクセスできます。たとえば、以下のコードスニペットの`call.parameters["login"]`は、パス`/user/admin`に対して _admin_ を返します。
+
+リクエストを処理する際、`ApplicationCall.parameters`プロパティを使用して[パスパラメータ](server-routing.md#path_parameter)の値を取得できます。
+
+たとえば、以下のコードスニペットでは、パス`/user/admin`に対して`call.parameters["login"]`は`"admin"`を返します。
 
 ```kotlin
 get("/user/{login}") {
@@ -56,7 +70,9 @@ get("/user/{login}") {
 
 ## クエリパラメータ {id="query_parameters"}
 
-<emphasis tooltip="query_string">クエリ文字列</emphasis>のパラメータにアクセスするには、[`ApplicationRequest.queryParameters()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/query-parameters.html)プロパティを使用できます。たとえば、`/products?price=asc`へのリクエストが行われた場合、次のようにして`price`クエリパラメータにアクセスできます。
+URLクエリ文字列のパラメータを取得するには、[`ApplicationRequest.queryParameters`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/query-parameters.html)プロパティを使用できます。
+
+以下の例では、`/products?price=asc`へのリクエストから`price`クエリパラメータにアクセスしています。
 
 ```kotlin
 get("/products") {
@@ -67,6 +83,31 @@ get("/products") {
 ```
 
 また、[`ApplicationRequest.queryString()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/query-string.html)関数を使用してクエリ文字列全体を取得することもできます。
+
+## 必須のリクエストパラメータ
+
+リクエストを処理する際、[パスパラメータ](#path_parameters)、[クエリパラメータ](#query_parameters)、[ヘッダー](#headers)、または[Cookie](#cookies)から値を取得し、リクエスト処理を続行する前にそれらが存在することを確認するのが一般的です。
+
+すべてのルートハンドラーで欠落している値を手動でチェックする代わりに、Ktorは必須のリクエストデータへのアクセスを簡素化する以下のヘルパー関数を提供しています。
+
+[//]: # (TODO: APIリンクを追加)
+
+* `ApplicationCall.requireQueryParameter()` — リクエストURLから必須のクエリパラメータを取得します。パラメータがない場合は例外をスローします。
+* `ApplicationCall.requireHeader()` — 必須のHTTPヘッダー値を取得します。リクエストにヘッダーが存在しない場合は例外をスローします。
+* `ApplicationCall.requireCookie()` — 必須のCookie値を取得します。オプションで指定されたエンコーディングを使用してデコードします。Cookieがない場合は例外をスローします。
+* `RoutingCall.requirePathParameter()` — ルート定義から必須のパスパラメータを取得します。一致したルートにパラメータが存在しない場合は例外をスローします。
+
+各関数は非null値を返すか、値が欠けている場合に`MissingRequestParameterException`をスローします。
+
+```kotlin
+post("/checkout/{cartId}") {
+    val userId = call.requireCookie("userId")
+    val cartId = call.requirePathParameter("cartId")
+    val amount = call.requireQueryParameter("amount").toLong()
+
+    // ビジネスロジック
+}
+```
 
 ## ボディの内容 {id="body_contents"}
 このセクションでは、`POST`、`PUT`、または`PATCH`で送信されたボディの内容を受信する方法を説明します。
@@ -82,7 +123,7 @@ Content-Type: text/plain
 Hello, world!
 ```
 
-このリクエストのボディは、以下のいずれかの方法で指定した型のオブジェクトとして受信できます。
+このリクエストのボディは、以下のいずれかの方法で、指定した型のオブジェクトとして受信できます。
 
 - **String**
 
@@ -124,7 +165,7 @@ Hello, world!
    }
    ```
 
-> Ktorのチャンネルと`RawSink`、`RawSource`、または`OutputStream`などの型との間の変換については、[I/O相互運用性](io-interoperability.md)を参照してください。
+> Ktorのチャンネルと、`RawSink`、`RawSource`、`OutputStream`などの型との間の変換については、[I/O相互運用性](io-interoperability.md)を参照してください。
 >
 {style="tip"}
 

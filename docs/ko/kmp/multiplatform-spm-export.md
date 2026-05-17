@@ -10,9 +10,9 @@
    [가장 적합한 통합 방식을 선택하세요](multiplatform-ios-integration-overview.md)
 </tldr>
 
-Apple 타겟에 대한 Kotlin/Native 출력을 Swift 패키지 관리자(SPM) 의존성으로 사용할 수 있도록 설정할 수 있습니다.
+Apple 타겟에 대한 Kotlin/Native 출력을 Swift 패키지 관리자(SwiftPM) 의존성으로 사용할 수 있도록 설정할 수 있습니다.
 
-iOS 타겟이 있는 Kotlin Multiplatform 프로젝트를 가정해 보겠습니다. 이 iOS 바이너리를 네이티브 Swift 프로젝트에서 작업하는 iOS 개발자가 의존성으로 사용할 수 있게 만들고 싶을 수 있습니다. Kotlin Multiplatform 도구를 사용하면 Xcode 프로젝트와 원활하게 통합되는 아티팩트를 제공할 수 있습니다.
+iOS 타겟이 있는 Kotlin Multiplatform 프로젝트를 가정해 보겠습니다. 이 iOS 바이너리를 네이티브 Swift 프로젝트에서 작업하는 iOS 개발자가 의존성으로 사용할 수 있게 만들고 싶을 수 있습니다. Kotlin Multiplatform 도구를 사용하면 Xcode 프로젝트와 원활하게 통합되는 아티팩트(artifact)를 제공할 수 있습니다.
 
 이 튜토리얼에서는 Kotlin Gradle 플러그인으로 [XCFrameworks](multiplatform-build-native-binaries.md#build-xcframeworks)를 빌드하여 이를 수행하는 방법을 보여줍니다.
 
@@ -30,8 +30,8 @@ iOS 타겟이 있는 Kotlin Multiplatform 프로젝트를 가정해 보겠습니
 하지만 프로젝트를 다르게 구성할 수도 있습니다. Git 저장소를 구성하기 위한 다음 옵션들을 고려해 보세요:
 
 * `Package.swift` 파일과 XCFramework로 패키징할 코드를 별도의 Git 저장소에 저장합니다. 이를 통해 Swift 매니페스트를 파일이 설명하는 프로젝트와 별도로 버저닝할 수 있습니다. 이것이 권장되는 방식입니다. 확장이 가능하고 일반적으로 유지 관리가 더 쉽기 때문입니다.
-* `Package.swift` 파일을 Kotlin Multiplatform 코드 옆에 둡니다. 이는 더 간단한 방식이지만, 이 경우 Swift 패키지와 코드가 동일한 버저닝을 사용하게 된다는 점에 유의하세요. SPM은 패키지 버저닝을 위해 Git 태그를 사용하며, 이는 프로젝트에서 사용하는 태그와 충돌할 수 있습니다.
-* `Package.swift` 파일을 소비자(consumer) 프로젝트의 저장소 내에 저장합니다. 이는 버저닝 및 유지 관리 문제를 피하는 데 도움이 됩니다. 하지만 이 방식은 소비자 프로젝트의 멀티 저장소 SPM 설정 및 추가 자동화에서 문제를 일으킬 수 있습니다:
+* `Package.swift` 파일을 Kotlin Multiplatform 코드 옆에 둡니다. 이는 더 간단한 방식이지만, 이 경우 Swift 패키지와 코드가 동일한 버저닝을 사용하게 된다는 점에 유의하세요. SwiftPM은 패키지 버저닝을 위해 Git 태그를 사용하며, 이는 프로젝트에서 사용하는 태그와 충돌할 수 있습니다.
+* `Package.swift` 파일을 소비자(consumer) 프로젝트의 저장소 내에 저장합니다. 이는 버저닝 및 유지 관리 문제를 피하는 데 도움이 됩니다. 하지만 이 방식은 소비자 프로젝트의 멀티 저장소 SwiftPM 설정 및 추가 자동화에서 문제를 일으킬 수 있습니다:
 
   * 멀티 패키지 프로젝트에서는 (프로젝트 내의 의존성 충돌을 피하기 위해) 하나의 소비자 패키지만 외부 모듈에 의존할 수 있습니다. 따라서 Kotlin Multiplatform 모듈에 의존하는 모든 로직은 특정 소비자 패키지에 캡슐화되어야 합니다.
   * 자동 CI 프로세스를 사용하여 Kotlin Multiplatform 프로젝트를 게시하는 경우, 이 프로세스에 업데이트된 `Package.swift` 파일을 소비자 저장소에 게시하는 과정이 포함되어야 합니다. 이는 소비자 저장소의 업데이트 충돌로 이어질 수 있으므로 CI의 이러한 단계는 유지 관리가 어려울 수 있습니다.
@@ -55,7 +55,6 @@ XCFramework 게시를 설정하려면:
        val xcf = XCFramework(xcframeworkName)
    
        listOf(
-           iosX64(),
            iosArm64(),
            iosSimulatorArm64(),
        ).forEach { 
@@ -83,16 +82,16 @@ XCFramework 게시를 설정하려면:
    > Compose Multiplatform 프로젝트에서 작업하는 경우 다음 Gradle 태스크를 사용하세요:
    >
    > ```shell
-   > ./gradlew :composeApp:assembleSharedXCFramework
+   > ./gradlew :sharedUI:assembleSharedXCFramework
    > ```
    >
-   > 결과 프레임워크는 `composeApp/build/XCFrameworks/release/Shared.xcframework` 폴더에서 찾을 수 있습니다.
+   > 결과 프레임워크는 `sharedUI/build/XCFrameworks/release/Shared.xcframework` 폴더에서 찾을 수 있습니다.
    >
    {style="tip"}
 
 ### XCFramework 및 Swift 패키지 매니페스트 준비
 
-1. `Shared.xcframework` 폴더를 ZIP 파일로 압축하고 결과 아카이브의 체크섬을 계산합니다. 예:
+1. `Shared.xcframework` 폴더를 ZIP 파일로 압축하고 결과 아카이브의 체크섬(checksum)을 계산합니다. 예:
    
    `swift package compute-checksum Shared.xcframework.zip`
 
@@ -219,7 +218,6 @@ XCFramework 게시를 설정하려면:
         val xcf = XCFramework(frameworkName)
     
         listOf(
-            iosX64(),
             iosArm64(),
             iosSimulatorArm64()
         ).forEach { iosTarget ->
@@ -252,7 +250,6 @@ XCFramework 게시를 설정하려면:
             //...
         }
         
-        iosX64()
         iosArm64()
         iosSimulatorArm64()
         
@@ -260,7 +257,7 @@ XCFramework 게시를 설정하려면:
     }
     ```
 
-3. `together` 폴더 안에 빈 Kotlin 파일을 생성합니다 (예: `together/src/commonMain/kotlin/Together.kt`). 이는 현재 Gradle 스크립트가 내보낸 모듈에 소스 코드가 없는 경우 프레임워크를 어셈블할 수 없는 문제를 해결하기 위한 임시 방편입니다.
+3. `together` 폴더 안에 빈 Kotlin 파일을 생성합니다 (예: `together/src/commonMain/kotlin/Together.kt`). 이는 현재 Gradle 스크립트가 내보낸 모듈에 소스 코드가 없는 경우 프레임워크를 어셈블할 수 없는 문제를 해결하기 위한 임시 방편(workaround)입니다.
 
 4. 프레임워크를 어셈블하는 Gradle 태스크를 실행합니다:
 

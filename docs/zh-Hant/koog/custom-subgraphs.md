@@ -1,6 +1,6 @@
 ## 建立與配置子圖
 
-以下章節提供在建立代理式工作流程（agentic workflows）子圖時的程式碼範本與常用模式。
+以下章節提供在建立代理式工作流程 (agentic workflows) 子圖時的程式碼範本與常用模式。
 
 ### 基本子圖建立
 
@@ -163,13 +163,13 @@
        ) {
             // 為此子圖定義節點與邊
             val sendInput by nodeLLMRequest()
-            val executeToolCall by nodeExecuteTool()
-            val sendToolResult by nodeLLMSendToolResult()
+            val executeToolCall by nodeExecuteToolsAndGetResults()
+            val sendToolResult by nodeLLMSendToolResults()
 
-            edge(nodeStart forwardTo sendInput)
-            edge(sendInput forwardTo executeToolCall onToolCall { true })
+            edge(nodeStart forwardTo sendInput asUserMessage { it })
+            edge(sendInput forwardTo executeToolCall onToolCalls { true })
             edge(executeToolCall forwardTo sendToolResult)
-            edge(sendToolResult forwardTo nodeFinish onAssistantMessage { true })
+            edge(sendToolResult forwardTo nodeFinish onTextMessage { true })
         }
     }
     ```
@@ -185,7 +185,9 @@
     import ai.koog.agents.ext.tool.AskUser;
     import ai.koog.agents.ext.tool.SayToUser;
     import ai.koog.prompt.message.Message;
+    import ai.koog.prompt.message.MessagePart;
     import java.util.List;
+    import java.util.stream.Collectors;
     class exampleCustomSubgraphsJava03 {
         public static void main(String[] args) {
             var firstTool = SayToUser.INSTANCE;
@@ -200,9 +202,9 @@
             .withInput(String.class)
             .withOutput(String.class);
 
-    var sendInput = AIAgentNode.llmRequest();
-    var executeToolCall = AIAgentNode.executeTool();
-    var sendToolResult = AIAgentNode.llmSendToolResult();
+    var sendInput = AIAgentNode.llmRequest(null);
+    var executeToolCall = AIAgentNode.executeTools(null);
+    var sendToolResult = AIAgentNode.llmRequest(null);
 
     var mySubgraph = AIAgentSubgraph.builder()
         .limitedTools(List.of(firstTool, secondTool))
@@ -211,19 +213,23 @@
         .define(subgraph -> {
             // 為此子圖定義節點與邊
             subgraph
-                .edge(subgraph.nodeStart, sendInput)
+                .edge(AIAgentEdge.builder()
+                    .from(subgraph.nodeStart)
+                    .to(sendInput)
+                    .asUserMessage(input -> input)
+                    .build()
+                )
                 .edge(AIAgentEdge.builder()
                     .from(sendInput)
                     .to(executeToolCall)
-                    .onIsInstance(Message.Tool.Call.class)
+                    .onToolCalls(call -> true)
                     .build()
                 )
                 .edge(executeToolCall, sendToolResult)
                 .edge(AIAgentEdge.builder()
                     .from(sendToolResult)
                     .to(subgraph.nodeFinish)
-                    .onIsInstance(Message.Assistant.class)
-                    .transformed(Message.Assistant::getContent)
+                    .onTextMessage()
                     .build()
                 )
                 .build();
@@ -553,11 +559,12 @@
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.builder.subgraph
-    import ai.koog.agents.core.dsl.extension.nodeExecuteTool
+    import ai.koog.agents.core.dsl.extension.asUserMessage
+    import ai.koog.agents.core.dsl.extension.nodeExecuteToolsAndGetResults
     import ai.koog.agents.core.dsl.extension.nodeLLMRequest
-    import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult
-    import ai.koog.agents.core.dsl.extension.onAssistantMessage
-    import ai.koog.agents.core.dsl.extension.onToolCall
+    import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResults
+    import ai.koog.agents.core.dsl.extension.onTextMessage
+    import ai.koog.agents.core.dsl.extension.onToolCalls
     import ai.koog.agents.core.tools.SimpleTool
     import ai.koog.agents.core.tools.ToolDescriptor
     import ai.koog.prompt.dsl.prompt
@@ -607,14 +614,14 @@
             tools = listOf(WebSearchTool())
         ) {
             val nodeCallLLM by nodeLLMRequest("call_llm")
-            val nodeExecuteTool by nodeExecuteTool()
-            val nodeSendToolResult by nodeLLMSendToolResult()
+            val nodeExecuteTool by nodeExecuteToolsAndGetResults()
+            val nodeSendToolResult by nodeLLMSendToolResults()
 
-            edge(nodeStart forwardTo nodeCallLLM)
-            edge(nodeCallLLM forwardTo nodeExecuteTool onToolCall { true })
+            edge(nodeStart forwardTo nodeCallLLM asUserMessage { it })
+            edge(nodeCallLLM forwardTo nodeExecuteTool onToolCalls { true })
             edge(nodeExecuteTool forwardTo nodeSendToolResult)
-            edge(nodeSendToolResult forwardTo nodeExecuteTool onToolCall { true })
-            edge(nodeCallLLM forwardTo nodeFinish onAssistantMessage { true })
+            edge(nodeSendToolResult forwardTo nodeExecuteTool onToolCalls { true })
+            edge(nodeCallLLM forwardTo nodeFinish onTextMessage { true })
         }
 
         val planSubgraph by subgraph(
@@ -637,8 +644,8 @@
             val nodeCallLLM by nodeLLMRequest("call_llm")
 
             edge(nodeStart forwardTo nodeUpdatePrompt)
-            edge(nodeUpdatePrompt forwardTo nodeCallLLM transformed { "Task: $agentInput" })
-            edge(nodeCallLLM forwardTo nodeFinish onAssistantMessage { true })
+            edge(nodeUpdatePrompt forwardTo nodeCallLLM transformed { "Task: $agentInput" } asUserMessage { it })
+            edge(nodeCallLLM forwardTo nodeFinish onTextMessage { true })
         }
 
         val executeSubgraph by subgraph<String, String>(
@@ -660,15 +667,15 @@
                 }
             }
             val nodeCallLLM by nodeLLMRequest("call_llm")
-            val nodeExecuteTool by nodeExecuteTool()
-            val nodeSendToolResult by nodeLLMSendToolResult()
+            val nodeExecuteTool by nodeExecuteToolsAndGetResults()
+            val nodeSendToolResult by nodeLLMSendToolResults()
 
             edge(nodeStart forwardTo nodeUpdatePrompt)
-            edge(nodeUpdatePrompt forwardTo nodeCallLLM transformed { "Task: $agentInput" })
-            edge(nodeCallLLM forwardTo nodeExecuteTool onToolCall { true })
+            edge(nodeUpdatePrompt forwardTo nodeCallLLM transformed { "Task: $agentInput" } asUserMessage { it })
+            edge(nodeCallLLM forwardTo nodeExecuteTool onToolCalls { true })
             edge(nodeExecuteTool forwardTo nodeSendToolResult)
-            edge(nodeSendToolResult forwardTo nodeExecuteTool onToolCall { true })
-            edge(nodeCallLLM forwardTo nodeFinish onAssistantMessage { true })
+            edge(nodeSendToolResult forwardTo nodeExecuteTool onToolCalls { true })
+            edge(nodeCallLLM forwardTo nodeFinish onTextMessage { true })
         }
 
         nodeStart then researchSubgraph then planSubgraph then executeSubgraph then nodeFinish
@@ -688,7 +695,9 @@
     import ai.koog.agents.core.tools.reflect.ToolSet;
     import ai.koog.prompt.dsl.Prompt;
     import ai.koog.prompt.message.Message;
+    import ai.koog.prompt.message.MessagePart;
     import java.util.Collections;
+    import java.util.stream.Collectors;
     public class exampleCustomSubgraphsJava08 {
         static class WebSearchToolSet implements ToolSet {
             @Tool
@@ -722,9 +731,9 @@
         .withOutput(String.class);
 
     // 包含工具呼叫的子圖
-    var nodeCallLLM = AIAgentNode.llmRequest();
-    var nodeExecuteTool = AIAgentNode.executeTool();
-    var nodeSendToolResult = AIAgentNode.llmSendToolResult();
+    var nodeCallLLM = AIAgentNode.llmRequest(null);
+    var nodeExecuteTool = AIAgentNode.executeTools(null);
+    var nodeSendToolResult = AIAgentNode.llmRequest(null);
 
     var researchSubgraph = AIAgentSubgraph.builder("research_subgraph")
         .limitedTools(new WebSearchToolSet())
@@ -732,25 +741,33 @@
         .withOutput(String.class)
         .define(subgraph -> {
             subgraph
-                .edge(subgraph.nodeStart, nodeCallLLM)
+                .edge(AIAgentEdge.builder()
+                    .from(subgraph.nodeStart)
+                    .to(nodeCallLLM)
+                    .asUserMessage(s -> s)
+                    .build()
+                )
                 .edge(AIAgentEdge.builder()
                     .from(nodeCallLLM)
                     .to(nodeExecuteTool)
-                    .onIsInstance(Message.Tool.Call.class)
+                    .onToolCalls(call -> true)
                     .build()
                 )
                 .edge(nodeExecuteTool, nodeSendToolResult)
                 .edge(AIAgentEdge.builder()
                     .from(nodeSendToolResult)
                     .to(nodeExecuteTool)
-                    .onIsInstance(Message.Tool.Call.class)
+                    .onToolCalls(call -> true)
                     .build()
                 )
                 .edge(AIAgentEdge.builder()
                     .from(nodeCallLLM)
                     .to(subgraph.nodeFinish)
                     .onIsInstance(Message.Assistant.class)
-                    .transformed(Message.Assistant::getContent)
+                    .transformed(m -> ((Message.Assistant) m).getParts().stream()
+                        .filter(p -> p instanceof MessagePart.Text)
+                        .map(p -> ((MessagePart.Text) p).getText())
+                        .collect(Collectors.joining()))
                     .build()
                 )
                 .build();
@@ -774,7 +791,7 @@
             return "Task: " + ctx.getAgentInput();
         })
         .build();
-    var nodeCallLLMPlan = AIAgentNode.llmRequest();
+    var nodeCallLLMPlan = AIAgentNode.llmRequest(null);
 
     var planSubgraph = AIAgentSubgraph.builder("plan_subgraph")
         .limitedTools(Collections.emptyList())
@@ -783,12 +800,20 @@
         .define(subgraph -> {
             subgraph
                 .edge(subgraph.nodeStart, nodeUpdatePrompt)
-                .edge(nodeUpdatePrompt, nodeCallLLMPlan)
+                .edge(AIAgentEdge.builder()
+                    .from(nodeUpdatePrompt)
+                    .to(nodeCallLLMPlan)
+                    .asUserMessage(s -> s)
+                    .build()
+                )
                 .edge(AIAgentEdge.builder()
                     .from(nodeCallLLMPlan)
                     .to(subgraph.nodeFinish)
                     .onIsInstance(Message.Assistant.class)
-                    .transformed(Message.Assistant::getContent)
+                    .transformed(m -> ((Message.Assistant) m).getParts().stream()
+                        .filter(p -> p instanceof MessagePart.Text)
+                        .map(p -> ((MessagePart.Text) p).getText())
+                        .collect(Collectors.joining()))
                     .build()
                 )
                 .build();
@@ -814,9 +839,9 @@
         })
         .build();
 
-    var nodeCallLLMExecute = AIAgentNode.llmRequest();
-    var nodeExecuteToolExecute = AIAgentNode.executeTool();
-    var nodeSendToolResultExecute = AIAgentNode.llmSendToolResult();
+    var nodeCallLLMExecute = AIAgentNode.llmRequest(null);
+    var nodeExecuteToolExecute = AIAgentNode.executeTools(null);
+    var nodeSendToolResultExecute = AIAgentNode.llmRequest(null);
 
     var executeSubgraph = AIAgentSubgraph.builder("execute_subgraph")
         .limitedTools(new ActionToolSet())
@@ -825,25 +850,33 @@
         .define(subgraph -> {
             subgraph
                 .edge(subgraph.nodeStart, nodeUpdatePromptExecute)
-                .edge(nodeUpdatePromptExecute, nodeCallLLMExecute)
+                .edge(AIAgentEdge.builder()
+                    .from(nodeUpdatePromptExecute)
+                    .to(nodeCallLLMExecute)
+                    .asUserMessage(s -> s)
+                    .build()
+                )
                 .edge(AIAgentEdge.builder()
                     .from(nodeCallLLMExecute)
                     .to(nodeExecuteToolExecute)
-                    .onIsInstance(Message.Tool.Call.class)
+                    .onToolCalls(call -> true)
                     .build()
                 )
                 .edge(nodeExecuteToolExecute, nodeSendToolResultExecute)
                 .edge(AIAgentEdge.builder()
                     .from(nodeSendToolResultExecute)
                     .to(nodeExecuteToolExecute)
-                    .onIsInstance(Message.Tool.Call.class)
+                    .onToolCalls(call -> true)
                     .build()
                 )
                 .edge(AIAgentEdge.builder()
                     .from(nodeCallLLMExecute)
                     .to(subgraph.nodeFinish)
                     .onIsInstance(Message.Assistant.class)
-                    .transformed(Message.Assistant::getContent)
+                    .transformed(m -> ((Message.Assistant) m).getParts().stream()
+                        .filter(p -> p instanceof MessagePart.Text)
+                        .map(p -> ((MessagePart.Text) p).getText())
+                        .collect(Collectors.joining()))
                     .build()
                 )
                 .build();

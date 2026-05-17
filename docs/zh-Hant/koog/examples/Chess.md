@@ -7,7 +7,7 @@ https://github.com/JetBrains/koog/blob/develop/examples/notebooks/Chess.ipynb
 https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Chess.ipynb
 ){ .md-button }
 
-本教學示範如何使用 Koog 架構建置一個智慧西洋棋代理程式。我們將探索關鍵概念，包括工具整合、代理程式策略、記憶體優化以及互動式 AI 決策。
+本教學示範如何使用 Koog 架構建置一個智慧西洋棋下棋代理程式。我們將探索關鍵概念，包括工具整合、代理程式策略、記憶體優化以及互動式 AI 決策。
 
 ## 你將學到什麼
 
@@ -156,8 +156,8 @@ class ChessGame {
     private val board: ChessBoard = ChessBoard()
     private var currentPlayer: Player = Player.White
     val moveNotation: String = """
-        0-0 - 短入堡
-        0-0-0 - 長入堡
+        0-0 - 短入堡 (short castle)
+        0-0-0 - 長入堡 (long castle)
         <piece>-<from>-<to> - 一般移動。例如：p-e2-e4
         <piece>-<from>-<to>-<promotion> - 升變移動。例如：p-e7-e8-q。
         棋子名稱：
@@ -277,13 +277,13 @@ ${game.getBoard()}
 `Move` 工具展示了 Koog 架構的工具整合模式：
 
 1. **擴充 SimpleTool**：繼承基礎工具功能與型別安全的引數處理
-2. **可序列化引數**：使用 Kotlin 序列化來定義工具的輸入參數
+2. **可序列化引數**：使用 Kotlin 序列化來定義工具'的輸入參數
 3. **豐富的文件說明**：`ToolDescriptor` 為 LLM 提供關於工具用途與參數的詳細資訊
 4. **建構函式參數**：將 `argsSerializer` 與 `descriptor` 傳遞給建構函式
 5. **執行邏輯**：`execute` 方法處理實際的移動執行並提供格式化的回饋
 
 關鍵設計面向：
-- **內容主體注入**：工具接收 `ChessGame` 執行個體，使其能修改遊戲狀態
+- **背景注入 (Context Injection)**：工具接收 `ChessGame` 執行個體，使其能修改遊戲狀態
 - **回饋迴圈**：傳回目前的棋盤狀態並提示下一位玩家，維持對話流
 - **錯誤處理**：依賴遊戲類別進行移動驗證與錯誤回報
 
@@ -413,16 +413,16 @@ val agent = AIAgent(
 ```kotlin
 import kotlinx.coroutines.runBlocking
 
-println("西洋棋遊戲開始！")
+println("Chess Game started!")
 
-val initialMessage = "起始位置為 ${game.getBoard()}。白棋請出招！"
+val initialMessage = "Starting position is ${game.getBoard()}. White to move!"
 
 runBlocking {
     agent.run(initialMessage)
 }
 ```
 
-    西洋棋遊戲開始！
+    Chess Game started!
     8 r n b q k b n r
     7 p p p p p p p p
     6 * * * * * * * *
@@ -576,7 +576,7 @@ val strategy = strategy<String, String>("chess_strategy") {
 
 val askChoiceStrategy = AskUserChoiceSelectionStrategy(promptShowToUser = { prompt ->
     val lastMessage = prompt.messages.last()
-    if (lastMessage is Message.Tool.Call) {
+    if (lastMessage is MessagePart.Tool.Call) {
         lastMessage.content
     } else {
         ""
@@ -639,16 +639,16 @@ val agent = AIAgent(
 ### 執行互動式代理程式
 
 ```kotlin
-println("西洋棋遊戲開始！")
+println("Chess Game started!")
 
-val initialMessage = "起始位置為 ${game.getBoard()}。白棋請出招！"
+val initialMessage = "Starting position is ${game.getBoard()}. White to move!"
 
 runBlocking {
     agent.run(initialMessage)
 }
 ```
 
-    西洋棋遊戲開始！
+    Chess Game started!
     
     可用的 LLM 選項
     選項編號 1：[Call(id=call_K46Upz7XoBIG5RchDh7bZE8F, tool=move, content={"notation": "p-e2-e4"}, metaInfo=ResponseMetaInfo(timestamp=2025-08-18T21:17:40.368252Z, totalTokensCount=773, inputTokensCount=315, outputTokensCount=458, additionalInfo={}))]
@@ -760,16 +760,16 @@ val agent = AIAgent(
 ```
 
 ```kotlin
-println("西洋棋遊戲開始！")
+println("Chess Game started!")
 
-val initialMessage = "起始位置為 ${game.getBoard()}。白棋請出招！"
+val initialMessage = "Starting position is ${game.getBoard()}. White to move!"
 
 runBlocking {
     agent.run(initialMessage)
 }
 ```
 
-    西洋棋遊戲開始！
+    Chess Game started!
     8 r n b q k b n r
     7 p p p p p p p p
     6 * * * * * * * *
@@ -777,7 +777,7 @@ runBlocking {
     4 * * * * P * * *
     3 * * * * * * * *
     2 P P P P * P P P
-    1 R N B Q K B N R
+    1 R N B Q K B n r
       a b c d e f g h
     -----------------
     
@@ -831,7 +831,7 @@ runBlocking {
 
     執行已中斷
 
-互動式範例顯示了使用者如何引導 AI 的決策過程。在輸出中，您可以看到：
+這些互動式範例顯示了使用者如何引導 AI 的決策過程。在輸出中，你可以看到：
 
 1. **多個選項**：AI 產生了 3 個不同的移動選項
 2. **使用者選取**：使用者輸入數字 1-3 以選擇其偏好的移動

@@ -73,6 +73,7 @@ Koogは、`AIAgentStorage`を使用してデータを保存および受け渡す
     <!--- INCLUDE
     import ai.koog.agents.core.agent.entity.AIAgentStorage;
     import ai.koog.agents.core.agent.entity.AIAgentStorageKey;
+    import ai.koog.serialization.TypeToken;
     class exampleDataTransferBetweenNodesJava02 {
         record UserData(
             String name,
@@ -85,11 +86,11 @@ Koogは、`AIAgentStorage`を使用してデータを保存および受け渡す
     }
     -->
     ```java
-    AIAgentStorageKey<UserData> userDataKey = AIAgentStorage.createStorageKey("user-data");
+    AIAgentStorageKey<UserData> userDataKey = AIAgentStorage.createStorageKey("user-data", TypeToken.of(UserData.class));
     ```
     <!--- KNIT exampleDataTransferBetweenNodesJava02.java -->
 
-`createStorageKey`関数は、識別やデバッグの目的で使用される単一の文字列パラメータを受け取ります。
+`createStorageKey`関数は、識別やデバッグの目的で使用される文字列パラメータと、値の型を表す`TypeToken`を受け取ります（Javaの場合。Kotlinでは自動的に具現化された型パラメータ（reified generics）が使用されます）。
 
 ### データの保存
 
@@ -120,13 +121,14 @@ Koogは、`AIAgentStorage`を使用してデータを保存および受け渡す
     import ai.koog.agents.core.agent.entity.AIAgentNode;
     import ai.koog.agents.core.agent.entity.AIAgentStorage;
     import ai.koog.agents.core.agent.entity.AIAgentStorageKey;
+    import ai.koog.serialization.TypeToken;
     public class exampleDataTransferBetweenNodesJava03 {
         record UserData(
             String name,
             int age
         ) {}
         public static void main(String[] args) {
-            AIAgentStorageKey<UserData> userDataKey = AIAgentStorage.createStorageKey("user-data");
+            AIAgentStorageKey<UserData> userDataKey = AIAgentStorage.createStorageKey("user-data", TypeToken.of(UserData.class));
     -->
     <!--- SUFFIX
         }
@@ -181,13 +183,14 @@ Koogは、`AIAgentStorage`を使用してデータを保存および受け渡す
     import ai.koog.agents.core.agent.entity.AIAgentNode;
     import ai.koog.agents.core.agent.entity.AIAgentStorage;
     import ai.koog.agents.core.agent.entity.AIAgentStorageKey;
+    import ai.koog.serialization.TypeToken;
     public class exampleDataTransferBetweenNodesJava04 {
         record UserData(
             String name,
             int age
         ) {}
         public static void main(String[] args) {
-            AIAgentStorageKey<UserData> userDataKey = AIAgentStorage.createStorageKey("user-data");
+            AIAgentStorageKey<UserData> userDataKey = AIAgentStorage.createStorageKey("user-data", TypeToken.of(UserData.class));
     -->
     <!--- SUFFIX
         }

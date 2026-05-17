@@ -31,13 +31,13 @@
 用意したリソースを使用するには、生成されたクラスをインポートします。例：
 
 ```kotlin
-import project.composeapp.generated.resources.Res
-import project.composeapp.generated.resources.example_image
+import project.shared.generated.resources.Res
+import project.shared.generated.resources.example_image
 ```
 
 ここで：
 * `project` はプロジェクトの名前です。
-* `composeapp` はリソースディレクトリを配置したモジュールです。
+* `shared` はリソースディレクトリを配置したモジュールです。
 * `Res` は生成されたクラスのデフォルト名です。
 * `example_image` は `composeResources/drawable` ディレクトリにある画像ファイルの名前です（例：`example_image.png`）。
 

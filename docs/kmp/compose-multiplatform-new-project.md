@@ -16,7 +16,7 @@
 
 既然你已经探索并增强了由向导创建的示例项目，你就可以利用已经掌握的概念并引入一些新概念，从头开始创建自己的应用。
 
-你将创建一个“本地时间应用”，用户可以在其中输入国家和城市，应用将显示该国家该城市的时间。Compose 跨平台应用的所有功能都将使用跨平台库在公共代码中实现。它将在下拉菜单中加载并显示图片，并将使用事件、样式、主题、修饰符和布局。
+你将创建一个“本地时间应用”，用户可以在其中输入国家和城市，应用将显示该国家首都的时间。Compose 跨平台应用的所有功能都将使用跨平台库在公共代码中实现。它将在下拉菜单中加载并显示图片，并将使用事件、样式、主题、修饰符和布局。
 
 在每个阶段，你都可以在所有三个平台（iOS、Android 和桌面端）上运行应用，或者你可以专注于最适合你需求的特定平台。
 
@@ -26,9 +26,9 @@
 
 ## 奠定基础
 
-首先，实现一个新的 `App` 可组合项：
+首先，实现一个新的 `App()` 可组合项：
 
-1. 在 `composeApp/src/commonMain/kotlin` 中，打开 `App.kt` 文件，并用以下 `App` 可组合项替换其中的代码：
+1. 在 `shared/src/commonMain/kotlin` 中，打开 `App.kt` 文件，并用以下 `App()` 可组合项替换其中的代码：
 
     ```kotlin
     @Composable
@@ -59,34 +59,30 @@
 
    ![Android 和 iOS 上的新 Compose 跨平台应用](first-compose-project-on-android-ios-3.png){width=500}
 
-   当你运行应用并点击按钮时，会显示硬编码的时间。
+   当你运行应用并点击按钮时，会显示硬编码的时间 13:30。
 
-3. 使用 [Compose 实时重新加载 (Hot Reload)](compose-hot-reload.md) 在桌面端运行应用：
-   1. 在 `composeApp/src/jvmMain/kotlin/main.kt` 文件中，点击装订区域中的 **Run** 图标。
-   2. 选择 **Run 'composeApp [jvm]' with Compose Hot Reload**。
-   ![从装订区域运行 Compose 实时重新加载 (Hot Reload)](compose-hot-reload-gutter-run.png){width=350 style="block"}
-
-   应用可以运行，但窗口对于 UI 来说显然太大了：
+3. 通过启动 **desktopApp [hot] 🔥** 运行配置，使用 [Compose 实时重新加载 (Hot Reload)](compose-hot-reload.md) 在桌面端运行应用。
+   应用可以运行，但窗口对于 UI 来说显然不匹配：
 
    ![桌面端的新 Compose 跨平台应用](first-compose-project-on-desktop-3.png){width=400}
 
-4. 为了修复这个问题，如下更新 `main.kt` 文件：
+4. 为了修复这个问题，如下更新 `desktopApp/src/kotlin` 目录中的 `main.kt` 文件：
 
     ```kotlin
-   fun main() = application {
-       val state = rememberWindowState(
-           size = DpSize(400.dp, 350.dp),
-           position = WindowPosition(300.dp, 300.dp)
-       )
-       Window(
-           title = "Local Time App", 
-           onCloseRequest = ::exitApplication, 
-           state = state,
-           alwaysOnTop = true
-       ) {
-           App()
-       }
-   }
+    fun main() = application {
+        val state = rememberWindowState(
+            size = DpSize(400.dp, 350.dp),
+            position = WindowPosition(300.dp, 300.dp)
+        )
+        Window(
+            title = "Local Time App", 
+            onCloseRequest = ::exitApplication, 
+            state = state,
+            alwaysOnTop = true
+        ) {
+            App()
+        }
+    }
     ```
 
     在这里，你设置了窗口标题，并使用 `WindowState` 类型在屏幕上给出了窗口的初始大小和位置。
@@ -95,7 +91,7 @@
 
 6. 要查看应用自动更新，请保存任何修改过的文件（<shortcut>⌘ S</shortcut> / <shortcut>Ctrl+S</shortcut>）。它的外观应该会有所改善：
 
-   ![桌面端 Compose 跨平台应用外观改进](first-compose-project-on-desktop-4.png){width=350}
+   ![桌面端 Compose 跨平台应用窗口缩小](first-compose-project-on-desktop-4.png){width=350}
 
    ![Compose 实时重新加载 (Hot Reload)](compose-hot-reload-resize.gif)
 
@@ -130,8 +126,8 @@
 
     新代码同时添加了 `TextField` 和 `location` 属性。当用户在文本字段中输入时，该属性的值会通过 `onValueChange` 事件处理程序逐步更新。
 
-2. 按照 IDE 的指示导入缺失的依赖项。
-3. 在你针对的每个平台上运行应用：
+2. 按照 IDE 的建议导入缺失的依赖项。
+3. 在你针对的每个平台上运行应用。显示的时间仍然是硬编码的，但现在你可以在文本字段中输入时区： 
 
 <Tabs>
     <TabItem id="mobile-user-input" title="Android 和 iOS">
@@ -140,13 +136,16 @@
     <TabItem id="desktop-user-input" title="桌面端">
         <img src="first-compose-project-on-desktop-5.png" alt="桌面端 Compose 跨平台应用中的用户输入" width="350"/>
     </TabItem>
+    <TabItem id="web-user-input" title="Web">
+        <img src="first-compose-project-on-web-3.png" alt="Web 上 Compose 跨平台应用中的用户输入" width="500"/>
+    </TabItem>
 </Tabs>
 
 ## 计算时间
 
 下一步是使用给定的输入来计算时间。为此，创建一个 `currentTimeAt()` 函数：
 
-1. 返回 `App.kt` 文件并添加以下函数：
+1. 返回 `shared/src/commonMain/kotlin/compose.project.demo/App.kt` 文件并添加以下函数：
 
     ```kotlin
    fun currentTimeAt(location: String): String? {
@@ -164,24 +163,12 @@
     ```
 
     此函数类似于你之前创建且不再需要的 `todaysDate()`。
-    如果尚未将 [kotlinx-datetime](https://github.com/Kotlin/kotlinx-datetime) 库添加到项目中，请打开 `composeApp/build.gradle.kts` 文件，并将 `kotlinx-datetime` 依赖项添加到配置公共代码源集的片段中。
-    为简单起见，你可以直接包含版本号，而不是将其添加到版本目录中：
 
-    ```kotlin
-    kotlin {
-        // ...
-        sourceSets {
-            // ...
-            commonMain.dependencies {
-                // ...
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:%dateTimeVersion%")
-            }
-        }
-    }
-    ```
-   {initial-collapse-state="collapsed" collapsible="true" collapsed-title='implementation("org.jetbrains.kotlinx:kotlinx-datetime:%dateTimeVersion%")'}
+    > 如果尚未将 [kotlinx-datetime](https://github.com/Kotlin/kotlinx-datetime) 库添加到项目中，请按照[添加新依赖项](compose-multiplatform-modify-project.md#add-a-new-dependency)部分中的说明进行操作。
+    >
+    {style="note"}
    
-2. 按照 IDE 的指示导入缺失的依赖项。
+2. 按照 IDE 的指示导入缺失的依赖项。 
    确保从 `kotlin.time` 导入 `Clock` 类，而不是 `kotlinx.datetime`。
 3. 调整你的 `App` 可组合项以调用 `currentTimeAt()`：
 
@@ -217,6 +204,9 @@
     </TabItem>
     <TabItem id="desktop-time-display" title="桌面端">
         <img src="first-compose-project-on-desktop-6.png" alt="桌面端 Compose 跨平台应用中的时间显示" width="350"/>
+    </TabItem>
+    <TabItem id="web-time-display" title="Web">
+        <img src="first-compose-project-on-web-4.png" alt="Web 上 Compose 跨平台应用中的时间显示" width="500"/>
     </TabItem>
 </Tabs>
 
@@ -267,7 +257,6 @@
     * `style` 参数自定义了 `Text` 的外观。
 
 2. 按照 IDE 的指示导入缺失的依赖项。
-    对于 `Alignment`，请使用 `androidx.compose.ui` 版本。
 
 3. 运行应用以查看外观是如何改进的：
 
@@ -278,19 +267,16 @@
     <TabItem id="desktop-improved-style" title="桌面端">
         <img src="first-compose-project-on-desktop-7.png" alt="桌面端 Compose 跨平台应用外观改进" width="350"/>
     </TabItem>
+    <TabItem id="web-improved-style" title="Web">
+        <img src="first-compose-project-on-web-5.png" alt="Web 上 Compose 跨平台应用外观改进" width="500"/>
+    </TabItem>
 </Tabs>
 
-<!--
-> 你可以在我们的 [GitHub 仓库](https://github.com/kotlin-hands-on/get-started-with-cm/tree/main/ComposeDemoStage2)中找到此阶段的项目状态。
->
-{style="tip"}
--->
-
-## 重构设计
+## 重构 UI
 
 应用运行正常，但容易受到拼写错误的影响。例如，如果用户输入 "Franse" 而不是 "France"，应用将无法处理该输入。最好是让用户从预定义的列表中选择国家。
 
-1. 为此，请更改 `App` 可组合项中的设计：
+1. 为此，请更新 `App()` 可组合项和 `currentTimeAt()` 函数，并添加一个辅助数据类：
 
     ```kotlin
     data class Country(val name: String, val zone: TimeZone)
@@ -363,6 +349,7 @@
    * `DropdownMenu` 取代了 `TextField`。`showCountries` 属性的值决定了 `DropdownMenu` 的可见性。每个国家都有一个 `DropdownMenuItem`。
 
 2. 按照 IDE 的指示导入缺失的依赖项。
+   导入 `Row()` 时，请选择 `@Composable` 版本。
 3. 运行应用以查看重新设计后的版本：
 
 <Tabs>
@@ -372,13 +359,10 @@
     <TabItem id="desktop-country-list" title="桌面端">
         <img src="first-compose-project-on-desktop-8.png" alt="桌面端 Compose 跨平台应用中的国家列表" width="350"/>
     </TabItem>
+   <TabItem id="web-country-list" title="Web">
+        <img src="first-compose-project-on-web-6.png" alt="Web 上 Compose 跨平台应用中的国家列表" width="500"/>
+    </TabItem>
 </Tabs>
-
-<!--
-> 你可以在我们的 [GitHub 仓库](https://github.com/kotlin-hands-on/get-started-with-cm/tree/main/ComposeDemoStage3)中找到此阶段的项目状态。
->
-{style="tip"}
--->
 
 > 你可以使用依赖注入框架（如 [Koin](https://insert-koin.io/)）来构建和注入位置表，从而进一步改进设计。如果数据存储在外部，你可以使用 [Ktor](https://ktor.io/docs/create-client.html) 库通过网络获取数据，或者使用 [SQLDelight](https://github.com/cashapp/sqldelight) 库从数据库获取数据。
 >
@@ -386,7 +370,8 @@
 
 ## 引入图片
 
-国家名称列表可以运行，但视觉效果不佳。你可以通过用国旗图片替换名称来改进它。
+国家名称列表可以运行，但用户体验不佳。
+你可以通过在国家名称旁边添加国旗图片来改进列表。
 
 Compose 跨平台提供了一个库，用于通过所有平台的公共代码访问资源。Kotlin Multiplatform 向导已经添加并配置了此库，因此你可以直接开始加载资源，而无需修改构建文件。
 
@@ -495,6 +480,9 @@ Compose 跨平台提供了一个库，用于通过所有平台的公共代码访
     </TabItem>
     <TabItem id="desktop-flags" title="桌面端">
         <img src="first-compose-project-on-desktop-9.png" alt="桌面端 Compose 跨平台应用中的国旗" width="350"/>
+    </TabItem>
+   <TabItem id="web-flags" title="Web">
+        <img src="first-compose-project-on-web-7.png" alt="Web 上 Compose 跨平台应用中的国旗" width="500"/>
     </TabItem>
 </Tabs>
 

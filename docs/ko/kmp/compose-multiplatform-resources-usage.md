@@ -30,13 +30,13 @@
 준비된 리소스를 사용하려면 생성된 클래스를 임포트하세요. 예를 들면 다음과 같습니다:
 
 ```kotlin
-import project.composeapp.generated.resources.Res
-import project.composeapp.generated.resources.example_image
+import project.shared.generated.resources.Res
+import project.shared.generated.resources.example_image
 ```
 
 여기서:
 * `project`는 프로젝트의 이름입니다.
-* `composeapp`은 리소스 디렉터리를 배치한 모듈입니다.
+* `shared`는 리소스 디렉터리를 배치한 모듈입니다.
 * `Res`는 생성된 클래스의 기본 이름입니다.
 * `example_image`는 `composeResources/drawable` 디렉터리에 있는 이미지 파일의 이름입니다 (예: `example_image.png`).
 

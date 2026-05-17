@@ -1,165 +1,181 @@
 [//]: # (title: 连接数据库并获取数据)
+[//]: # (description: 了解如何连接到 SQL 数据库、检查表架构，并使用 Kotlin DataFrame 获取数据。)
 
-[Kotlin Notebook](kotlin-notebook-overview.md)提供了连接各种类型的SQL数据库并从中获取数据的功能，例如MariaDB、PostgreSQL、MySQL和SQLite。利用[Kotlin DataFrame库](https://kotlin.github.io/dataframe/home.html)，Kotlin Notebook可以建立数据库连接、执行SQL查询并导入结果以进行后续操作。
+[Kotlin Notebook](kotlin-notebook-overview.md) 为最常见的 SQL 数据库提供支持：
 
-有关详细示例，请参阅[KotlinDataFrame SQL示例GitHub仓库中的Notebook](https://github.com/zaleslaw/KotlinDataFrame-SQL-Examples/blob/master/notebooks/imdb.ipynb)。
+* [DuckDB](https://kotlin.github.io/dataframe/duckdb.html)
+* [H2](https://kotlin.github.io/dataframe/h2.html)
+* [MariaDB](https://kotlin.github.io/dataframe/mariadb.html)
+* [Microsoft SQL Server](https://kotlin.github.io/dataframe/microsoft-sql-server.html)
+* [MySQL](https://kotlin.github.io/dataframe/mysql.html)
+* [PostgreSQL](https://kotlin.github.io/dataframe/postgresql.html)
+* [SQLite](https://kotlin.github.io/dataframe/sqlite.html)
+
+利用 [Kotlin DataFrame 库](https://kotlin.github.io/dataframe/home.html)，Kotlin Notebook 可以建立数据库连接、执行 SQL 查询，并导入结果以进行后续操作。
+
+> 有关详细示例，请探索 [KotlinDataFrame SQL 示例 GitHub 仓库中的 Notebook](https://github.com/zaleslaw/KotlinDataFrame-SQL-Examples/blob/master/notebooks/imdb.ipynb)。
+>
+{style="tip"}
 
 ## 开始之前
 
-Kotlin Notebook依赖于[Kotlin Notebook插件](https://plugins.jetbrains.com/plugin/16340-kotlin-notebook)，该插件在IntelliJ IDEA中默认捆绑并启用。
+Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com/plugin/16340-kotlin-notebook)，该插件在 IntelliJ IDEA 中默认捆绑并启用。
 
-如果Kotlin Notebook功能不可用，请确保已启用该插件。要了解更多信息，请参阅[设置环境](kotlin-notebook-set-up-env.md)。
+如果 Kotlin Notebook 功能不可用，请确保已启用该插件。要了解更多信息，请参阅[设置环境](kotlin-notebook-set-up-env.md)。
 
-创建一个新的Kotlin Notebook：
+要学习本教程，请执行以下操作：
+1. [新建 Kotlin Notebook](kotlin-notebook-create.md)。
+2. 在 Notebook 的第一个单元格中为您的数据库添加 Java Database Connectivity (JDBC) 驱动程序依赖项。
+   
+   例如，要连接到 MariaDB 数据库，请添加：
 
-1. 选择**File** | **New** | **Kotlin Notebook**。
-
-2. 确保您可以访问SQL数据库，例如MariaDB或MySQL。
-
-## 连接数据库
-
-您可以使用[Kotlin DataFrame库](https://kotlin.github.io/dataframe/home.html)中的特定函数连接SQL数据库并与之交互。您可以使用`DatabaseConfiguration`建立数据库连接，并使用`getSchemaForAllSqlTables()`获取其中所有表的架构。
-
-让我们来看一个示例：
-
-1. 打开您的Kotlin Notebook文件 (`.ipynb`)。
-2. 添加JDBC（Java Database Connectivity）驱动程序依赖项，并指定JDBC驱动程序版本。本示例使用MariaDB：
-
-   ```kotlin
+   ```kotlin 
    USE {
       dependencies("org.mariadb.jdbc:mariadb-java-client:$version")
    }
    ```
-
-3. 导入Kotlin DataFrame库（这对于数据操作任务至关重要），以及必要的SQL连接Java库和工具函数： 
+3. 导入 Kotlin DataFrame：
 
    ```kotlin
    %use dataframe
-   import java.sql.DriverManager
-   import java.util.*
    ```
 
-4. 使用`DatabaseConfiguration`类定义数据库的连接参数，包括URL、用户名和密码：
+> 在运行任何其他代码单元之前，先运行包含 `%use dataframe` 行的代码单元，以确保 DataFrame 库及其 API 在 Notebook 中可用。
+>
+{style="note"}
+
+## 连接数据库
+
+要连接到数据库，请使用 `DbConnectionConfig()` 函数创建连接配置：
+
+1. 导入以下功能：
+   
+   ```kotlin
+   import org.jetbrains.kotlinx.dataframe.io.DbConnectionConfig
+   import org.jetbrains.kotlinx.dataframe.schema.DataFrameSchema
+   ```
+
+2. 使用 `DbConnectionConfig()` 函数定义连接参数（URL、用户名、密码）：
 
    ```kotlin
    val URL = "YOUR_URL"
    val USER_NAME = "YOUR_USERNAME"
    val PASSWORD = "YOUR_PASSWORD"
    
-   val dbConfig = DatabaseConfiguration(URL, USER_NAME, PASSWORD)
+   val dbConfig = DbConnectionConfig(URL, USER_NAME, PASSWORD)
    ```
 
-5. 连接成功后，使用`getSchemaForAllSqlTables()`函数获取并显示数据库中每个表的架构信息：
+> 有关连接 SQL 数据库的更多信息，请参阅 [Kotlin DataFrame 文档中的从 SQL 数据库读取](https://kotlin.github.io/dataframe/readsqldatabases.html)。
+>
+{style="tip"}
 
-   ```kotlin
-   val dataschemas = DataFrame.getSchemaForAllSqlTables(dbConfig)
+## 检查数据库架构
+
+在加载数据之前，请检查数据库架构以了解您拥有哪些表以及它们包含哪些列。您可以使用这些架构来决定将哪个表加载到 DataFrame 中。
+
+要获取数据库中所有用户创建表的架构，请使用 `DataFrameSchema.readAllSqlTables()` 函数：
+
+```kotlin
+val dataSchemas = DataFrameSchema.readAllSqlTables(dbConfig)
+
+dataSchemas.forEach { (tableName, schema) ->
+    println("---Schema for table: $tableName---")
+    println(schema)
+    println()
+}
+```
+
+## 加载数据
+
+在检查数据库架构并选择数据后，将数据加载到 DataFrame 中。
+
+Kotlin DataFrame 提供了两种从数据库加载数据的方法：
+
+* 直接从表加载数据。
+* 加载自定义 SQL 查询的结果。
+
+这两种方法都会返回一个 DataFrame，您可以在 Kotlin Notebook 中对其进行检查、转换和分析。
+
+### 从表加载数据
+
+要从表加载数据，请使用 [`DataFrame.readSqlTable()`](https://kotlin.github.io/dataframe/readsqldatabases.html#reading-specific-tables) 函数。
+
+以下示例从 `movies` 表中加载前 100 行：
+
+```kotlin
+val moviesDf = DataFrame.readSqlTable(
+    dbConfig = dbConfig,
+    tableName = "movies",
+    limit = 100
+)
+
+moviesDf
+```
+
+### 使用 SQL 查询加载数据
+
+要对数据库执行特定的 SQL 查询，请使用 [`DataFrame.readSqlQuery()`](https://kotlin.github.io/dataframe/readsqldatabases.html#executing-sql-queries) 函数。当您需要加载特定列、连接表、筛选行或在数据库中聚合数据时，此方法非常有用。
+
+让我们获取一个与 Quentin Tarantino 导演的电影相关的特定数据集。此查询选择电影详细信息并合并每部电影的类型：
+
+```kotlin
+val TARANTINO_FILMS_SQL_QUERY = """
+    SELECT name, year, rank, GROUP_CONCAT(genre) as "genres"
+    FROM movies JOIN movies_directors ON movie_id = movies.id
+    JOIN directors ON directors.id=director_id LEFT JOIN movies_genres ON movies.id = movies_genres.movie_id
+    WHERE directors.first_name = "Quentin" AND directors.last_name = "Tarantino"
+    GROUP BY name, year, rank
+    ORDER BY year
+    """
+
+val tarantinoMoviesDf = DataFrame.readSqlQuery(dbConfig, TARANTINO_FILMS_SQL_QUERY)
+
+tarantinoMoviesDf
+```
+
+## 处理数据
+
+将数据库加载到 DataFrame 后，您可以使用 DataFrame 操作来处理获取的数据。
+
+例如，让我们操作上一节中的数据。以下代码：
+1. 使用 [`.fillNA()`](https://kotlin.github.io/dataframe/fill.html#fillna) 函数替换 `year` 列中的缺失值。
+2. 使用 [`.convert()`](https://kotlin.github.io/dataframe/convert.html) 函数将该列转换为 `Int`。
+3. 使用 [`.filter()`](https://kotlin.github.io/dataframe/filter.html) 函数仅保留 2000 年以后上映的电影。
+
+```kotlin
+val filteredTarantinoMovies = tarantinoMoviesDf
+    .fillNA { year }.with { 0 }
+    .convert { year }.toInt()
+    .filter { year > 2000 }
+
+filteredTarantinoMovies
+```
+
+## 分析数据
+
+使用 [Kotlin Notebook](kotlin-notebook-overview.md) 和 [DataFrame 库](https://kotlin.github.io/dataframe/home.html)对数据进行分组、排序和聚合，以便您可以发现并理解数据中的模式。
+
+例如，让我们从 `actors` 表中读取演员数据并找出 20 个最常见的名字：
+
+```kotlin
+// 从 actors 表中提取数据
+val actorDf = DataFrame.readSqlTable(dbConfig, "actors", 10000)
+val top20ActorNames = actorDf
+   // 按 first_name 列对数据进行分组
+   .groupBy { first_name }
    
-   dataschemas.forEach { 
-       println("---Yet another table schema---")
-       println(it)
-       println()
-   }
-   ```
-
-   > 有关连接SQL数据库的更多信息，请参阅[Kotlin DataFrame文档中的从SQL数据库读取](https://kotlin.github.io/dataframe/readsqldatabases.html)。
-   > 
-   {style="tip"}
-
-## 获取并操作数据
-
-在[建立数据库连接](#connect-to-database)后，您可以利用Kotlin DataFrame库在Kotlin Notebook中获取和操作数据。您可以使用`readSqlTable()`函数来获取数据。要操作数据，您可以使用[`filter`](https://kotlin.github.io/dataframe/filter.html)、[`groupBy`](https://kotlin.github.io/dataframe/groupby.html)和[`convert`](https://kotlin.github.io/dataframe/convert.html)等方法。 
-
-让我们看一个连接到IMDB数据库并获取Quentin Tarantino导演的电影数据的示例：
-
-1. 使用`readSqlTable()`函数从"movies"表中获取数据，设置`limit`以将查询限制为前100条记录以提高效率：
-
-   ```kotlin
-   val dfs = DataFrame.readSqlTable(dbConfig, tableName = "movies", limit = 100)
-   ```
-
-2. 使用SQL查询获取与Quentin Tarantino导演的电影相关的特定数据集。此查询选择电影详细信息并合并每部电影的类型：
-
-   ```kotlin
-   val props = Properties()
-   props.setProperty("user", USER_NAME)
-   props.setProperty("password", PASSWORD)
+   // 计算每个唯一名字的出现次数
+   .count()
    
-   val TARANTINO_FILMS_SQL_QUERY = """
-       SELECT name, year, rank, GROUP_CONCAT(genre) as "genres"
-       FROM movies JOIN movies_directors ON movie_id = movies.id
-       JOIN directors ON directors.id=director_id LEFT JOIN movies_genres ON movies.id = movies_genres.movie_id
-       WHERE directors.first_name = "Quentin" AND directors.last_name = "Tarantino"
-       GROUP BY name, year, rank
-       ORDER BY year
-       """
-   
-   // 获取Quentin Tarantino的电影列表，包括名称、年份、评分以及所有类型的串联字符串。 
-   // 结果按名称、年份、评分分组，并按年份排序。
-   
-   var dfTarantinoMovies: DataFrame<*>
-   
-   DriverManager.getConnection(URL, props).use { connection ->
-      connection.createStatement().use { st ->
-         st.executeQuery(TARANTINO_FILMS_SQL_QUERY).use { rs ->
-            val dfTarantinoFilmsSchema = DataFrame.getSchemaForResultSet(rs, connection)
-            dfTarantinoFilmsSchema.print()
-   
-            dfTarantinoMovies = DataFrame.readResultSet(rs, connection)
-            dfTarantinoMovies
-         }
-      }
-   }
-   ```
-
-3. 获取Tarantino电影数据集后，您可以进一步操作和筛选数据。
-
-   ```kotlin
-   val df = dfTarantinoMovies
-       // 将'year'列中任何缺失的值替换为0。
-       .fillNA { year }.with { 0 }
-       
-       // 将'year'列转换为整数。
-       .convert { year }.toInt()
-   
-       // 筛选数据以仅包含2000年以后上映的电影。
-       .filter { year > 2000 }
-   df
-   ```
-
-最终输出是一个DataFrame，其中使用[`fillNA`](https://kotlin.github.io/dataframe/fill.html#fillna)方法将年份列中的缺失值替换为0。年份列通过[`convert`](https://kotlin.github.io/dataframe/convert.html)方法转换为整数值，并使用[`filter`](https://kotlin.github.io/dataframe/filter.html)方法筛选数据以仅包含2000年及以后的行。
-
-## 在Kotlin Notebook中分析数据
-
-在[建立数据库连接](#connect-to-database)后，您可以利用[Kotlin DataFrame库](https://kotlin.github.io/dataframe/home.html)在Kotlin Notebook中进行深入的数据分析。这包括用于分组、排序和聚合数据的函数，帮助您发现并理解数据中的模式。
-
-让我们深入研究一个涉及分析电影数据库中演员数据的示例，重点关注最常出现的演员名：
-
-1. 使用[`readSqlTable()`](https://kotlin.github.io/dataframe/readsqldatabases.html#reading-specific-tables)函数从"actors"表中提取数据：
-
-   ```kotlin
-   val actorDf = DataFrame.readSqlTable(dbConfig, "actors", 10000)
-   ```
-
-2. 处理获取的数据以识别前20个最常见的演员名。此分析涉及多个DataFrame方法：
-
-   ```kotlin
-   val top20ActorNames = actorDf
-       // 按first_name列对数据进行分组，以根据演员的名字组织数据。
-      .groupBy { first_name }
-   
-       // 计算每个唯一名字的出现次数，提供频率分布。
-      .count()
-   
-       // 按次数降序对结果进行排序，以识别最常见的名字。
-      .sortByDesc("count")
-   
-       // 选择出现频率最高的前20个名字进行分析。
-      .take(20)
-   top20ActorNames
-   ```
+    // 按计数降序对结果进行排序
+   .sortByDesc("count")
+    
+   // 选择出现频率最高的前 20 个名字进行分析。
+   .take(20)
+```
 
 ## 下一步
 
-* 使用[Kandy库](https://kotlin.github.io/kandy/examples.html)探索数据可视化
-* 在[使用Kandy在Kotlin Notebook中进行数据可视化](data-analysis-visualization.md)中查找有关数据可视化的更多信息
-* 有关Kotlin中可用于数据科学和分析的工具和资源的广泛概述，请参阅[用于数据分析的Kotlin和Java库](data-analysis-libraries.md)
+* 使用 [Kandy 库](https://kotlin.github.io/kandy/examples.html)探索数据可视化
+* 在[使用 Kandy 在 Kotlin Notebook 中进行数据可视化](data-analysis-visualization.md)中查找有关数据可视化的更多信息
+* 有关 Kotlin 中可用于数据科学和分析的工具和资源的广泛概述，请参阅[用于数据分析的 Kotlin 和 Java 库](data-analysis-libraries.md)

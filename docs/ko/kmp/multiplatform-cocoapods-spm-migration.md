@@ -5,7 +5,7 @@
 
 * CocoaPods Gradle 플러그인에서 SwiftPM으로 전환하려면 먼저 Xcode 프로젝트를 재구성해야 합니다.
 * `main` 브랜치에서는 CocoaPods를 사용하고 `spm-import` 브랜치에서는 SwiftPM을 사용하는 다음 샘플 프로젝트들을 확인해 보세요:
-  * [Firebase 샘플](https://github.com/Kotlin/kmp-with-cocoapods-multitarget-xcode-sample)
+  * [Firebase 샘플](https://github.com/Kotlin/kmp-with-cocoapods-firebase-sample/)
   * [Compose Multiplatform 샘플](https://github.com/Kotlin/kmp-with-cocoapods-compose-sample/)
 
 </tldr>
@@ -67,8 +67,8 @@ CocoaPods 의존성이 있는 KMP 모듈이 있고, [SwiftPM import](multiplatfo
 5. 빌드 스크립트에서 `cocoapods.framework {}` 블록을 사용 중이라면, 해당 설정을 `binaries.framework {}` 블록으로 이동하세요. 예시:
 
    <compare type="left-right">
-   <code-block lang="kotlin" code="   kotlin {&#10;       iosArm64()&#10;       iosSimulatorArm64()&#10;       iosX64()&#10;&#10;       cocoapods {&#10;           framework {&#10;               baseName = &quot;Shared&quot;&#10;               isStatic = true&#10;           }&#10;       }&#10;   }"/>
-   <code-block lang="kotlin" code="   kotlin {&#10;       listOf(&#10;           iosArm64(),&#10;           iosSimulatorArm64(),&#10;           iosX64(),&#10;       ).forEach { iosTarget -&gt;&#10;           iosTarget.binaries.framework {&#10;               baseName = &quot;Shared&quot;&#10;               isStatic = true&#10;           }&#10;       }&#10;   }"/>
+   <code-block lang="kotlin" code="   kotlin {&#10;       iosArm64()&#10;       iosSimulatorArm64()&#10;&#10;       cocoapods {&#10;           framework {&#10;               baseName = &quot;Shared&quot;&#10;               isStatic = true&#10;           }&#10;       }&#10;   }"/>
+   <code-block lang="kotlin" code="   kotlin {&#10;       listOf(&#10;           iosArm64(),&#10;           iosSimulatorArm64(),&#10;       ).forEach { iosTarget -&gt;&#10;           iosTarget.binaries.framework {&#10;               baseName = &quot;Shared&quot;&#10;               isStatic = true&#10;           }&#10;       }&#10;   }"/>
    </compare>
 
 ## Xcode 프로젝트 재구성

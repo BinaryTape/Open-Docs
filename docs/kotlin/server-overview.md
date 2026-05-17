@@ -14,7 +14,7 @@ Kotlin 支持将大型代码库从 Java 逐步迁移到 Kotlin。您可以开始
 
 ## 探索框架
 
-Kotlin 与所有基于 Java 的框架完全兼容，因此您可以在沿用熟悉的技术栈的同时，从 Kotlin 语法中获益。除了出色的 IDE 支持外，Kotlin 还提供针对特定框架的工具支持，例如 IntelliJ IDEA Ultimate 中对 Spring 和 Ktor 的支持。
+Kotlin 与所有基于 Java 的框架完全兼容，因此您可以在沿用熟悉的技术栈的同时，从 Kotlin 语法中获益。除了出色的 IDE 支持外，Kotlin 还提供针对特定框架的工具支持，例如 IntelliJ IDEA Ultimate 订阅中对 Spring 和 Ktor 的支持。
 
 ### Spring
 

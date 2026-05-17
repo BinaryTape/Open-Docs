@@ -130,11 +130,11 @@
 <Tabs>
 <TabItem title="Android">
 
-要執行 Android 應用程式，請啟動 **composeApp** 运行配置：
+要執行 Android 應用程式，請啟動 **androidApp** 运行配置：
 
 ![醒目提示 Android 运行配置的下拉式功能表](run-android-configuration.png){width=250}
 
-若要手動建立 Android 运行配置，請選擇 **Android App** 作為 运行配置 樣板，並選取模組 **[專案名稱].composeApp**。
+若要手動建立 Android 运行配置，請選擇 **Android App** 作為 运行配置 樣板，並選取模組 **[專案名稱].androidApp**。
 
 預設情況下，它會在第一個可用的虛擬裝置上執行：
 
@@ -159,14 +159,14 @@
 </TabItem>
 <TabItem title="Desktop">
 
-桌面應用程式的預設 运行配置 建立為 **composeApp [desktop]**：
+桌面應用程式的預設 运行配置 建立為 **desktopApp [hot] 🔥**：
 
 ![醒目提示預設桌面 运行配置 的下拉式功能表](run-desktop-configuration.png){width=250}
 
-若要手動建立桌面 运行配置，請選擇 **Gradle** 运行配置 樣板，並使用以下指令指向 **[應用程式名稱]:composeApp** Gradle 專案：
+若要手動建立帶有 Hot Reload 的桌面 运行配置，請選擇 **Gradle** 运行配置 樣板，並使用以下指令指向 **[應用程式名稱]:desktopApp** Gradle 專案：
 
 ```shell
-desktopRun -DmainClass=com.example.myapplication.MainKt --quiet
+hotRun --mainClass "com.example.demo.MainKt"
 ```
 
 使用此設定，您可以執行 JVM 桌面應用程式：
@@ -176,11 +176,11 @@ desktopRun -DmainClass=com.example.myapplication.MainKt --quiet
 </TabItem>
 <TabItem title="Web">
 
-Web 應用程式的預設 运行配置 建立為 **composeApp [wasmJs]**：
+Web 應用程式的預設 运行配置 建立為 **webApp [wasmJs]**：
 
 ![醒目提示預設 Wasm 运行配置 的下拉式功能表](run-wasm-configuration.png){width=250}
 
-若要手動建立 Web 运行配置，請選擇 **Gradle** 运行配置 樣板，並使用以下指令指向 **[應用程式名稱]:composeApp** Gradle 專案：
+若要手動建立 Web 运行配置，請選擇 **Gradle** 运行配置 樣板，並使用以下指令指向 **[應用程式名稱]:webApp** Gradle 專案：
 
 ```shell
 wasmJsBrowserDevelopmentRun
@@ -201,7 +201,7 @@ wasmJsBrowserDevelopmentRun
 
 * 某些工具可能找不到要執行的 Java 版本，或使用了錯誤的版本。
   解決方法：
-    * 將 `JAVA_HOME` 環境變數 設定為安裝適當 JDK 的目錄。
+    * 將 `環境變數` `JAVA_HOME` 設定為安裝適當 JDK 的目錄。
   
       > 我們建議使用 [JetBrains Runtime](https://github.com/JetBrains/JetBrainsRuntime)，
       > 這是一個支援類別重新定義的 OpenJDK 分支。

@@ -12,7 +12,7 @@
 
 멀티플랫폼 프로젝트에서 리소스에 액세스하려면 라이브러리 의존성을 추가하고 프로젝트 디렉터리 내에 파일을 구성해야 합니다.
 
-1. `composeApp` 디렉터리의 `build.gradle.kts` 파일에서 `commonMain` 소스 세트에 의존성을 추가합니다:
+1. `sharedUI` 디렉터리의 `build.gradle.kts` 파일에서 `commonMain` 소스 세트에 의존성을 추가합니다:
 
    ```kotlin
    kotlin {

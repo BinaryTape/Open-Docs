@@ -74,15 +74,15 @@ kotlin {
 
 각 운영 체제마다 딥 링크를 처리하는 고유한 방식이 있습니다. 특정 타겟 플랫폼의 문서를 참조하는 것이 가장 확실합니다:
 
-* Android 앱의 경우, 딥 링크 스키마는 `AndroidManifest.xml` 파일에 인텐트 필터(intent filter)로 선언됩니다. 인텐트 필터를 올바르게 설정하는 방법은 [Android 문서](https://developer.android.com/training/app-links/deep-linking?hl=ko#adding-filters)를 참조하세요.
+* Android 앱의 경우, 딥 링크 스키마는 `AndroidManifest.xml` 파일에 인텐트 필터(intent filter)로 선언됩니다. 인텐트 필터를 올바르게 설정하는 방법은 [Android 문서](https://developer.android.com/training/app-links/deep-linking?hl=en#adding-filters)를 참조하세요.
 * iOS 및 macOS 앱의 경우, 딥 링크 스키마는 `Info.plist` 파일의 [CFBundleURLTypes](https://developer.apple.com/documentation/bundleresources/information-property-list/cfbundleurltypes) 키에 선언됩니다.
 
     > Compose Multiplatform은 macOS 앱의 `Info.plist`에 값을 추가할 수 있는 [Gradle DSL을 제공](compose-native-distribution.md#information-property-list-on-macos)합니다. iOS의 경우 KMP 프로젝트에서 파일을 직접 편집하거나 [Xcode GUI를 사용하여 스키마를 등록](https://developer.apple.com/documentation/xcode/defining-a-custom-url-scheme-for-your-app#Register-your-URL-scheme)할 수 있습니다.
     >
     {style="note"}
-* Windows 앱의 경우, [Windows 레지스트리에 필요한 정보가 포함된 키를 추가](https://learn.microsoft.com/ko-kr/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa767914(v=vs.85))하거나(Windows 8 및 이전 버전), [패키지 매니페스트에 확장을 지정](https://learn.microsoft.com/ko-kr/windows/apps/develop/launch/handle-uri-activation)하여(Windows 10 및 11) 딥 링크 스키마를 선언할 수 있습니다. 이는 설치 스크립트나 [Hydraulic Conveyor](https://conveyor.hydraulic.dev/)와 같은 서드파티 배포 패키지 생성기를 통해 수행할 수 있습니다. Compose Multiplatform은 프로젝트 내에서 직접 이 설정을 구성하는 것을 지원하지 않습니다.
+* Windows 앱의 경우, [Windows 레지스트리에 필요한 정보가 포함된 키를 추가](https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa767914(v=vs.85))하거나(Windows 8 및 이전 버전), [패키지 매니페스트에 확장을 지정](https://learn.microsoft.com/en-us/windows/apps/develop/launch/handle-uri-activation)하여(Windows 10 및 11) 딥 링크 스키마를 선언할 수 있습니다. 이는 설치 스크립트나 [Hydraulic Conveyor](https://conveyor.hydraulic.dev/)와 같은 서드파티 배포 패키지 생성기를 통해 수행할 수 있습니다. Compose Multiplatform은 프로젝트 내에서 직접 이 설정을 구성하는 것을 지원하지 않습니다.
     
-    > [Windows에서 예약된 스키마](https://learn.microsoft.com/ko-kr/windows/apps/develop/launch/reserved-uri-scheme-names#reserved-uri-scheme-names)를 사용하고 있지 않은지 확인하세요.
+    > [Windows에서 예약된 스키마](https://learn.microsoft.com/en-us/windows/apps/develop/launch/reserved-uri-scheme-names#reserved-uri-scheme-names)를 사용하고 있지 않은지 확인하세요.
     >
     {style="tip"}
 * Linux의 경우, 배포판에 포함된 `.desktop` 파일에 딥 링크 스키마를 등록할 수 있습니다.
@@ -279,7 +279,7 @@ iOS의 경우, Swift 코드에서 들어오는 URI를 처리하는 `application(
 
 ```swift
 // 싱글톤에 액세스하기 위해 KMP 모듈을 임포트
-import ComposeApp
+import SharedUI
 
 func application(
     _ application: UIApplication,

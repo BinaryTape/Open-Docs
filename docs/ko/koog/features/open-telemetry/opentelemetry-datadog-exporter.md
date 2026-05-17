@@ -207,7 +207,6 @@ Datadog과 다른 백엔드에 동시에 트레이스를 보내려면, [`addData
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
     import ai.koog.agents.features.opentelemetry.feature.OpenTelemetry
-    import ai.koog.agents.features.opentelemetry.feature.OpenTelemetryConfigJvm.addSpanExporter
     import ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor

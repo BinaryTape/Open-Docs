@@ -13,9 +13,9 @@
 
 ## 시작하기 전에
 
-1. 최신 버전의 [IntelliJ IDEA Ultimate Edition](https://www.jetbrains.com/idea/download/)을 다운로드하고 설치하세요.
+1. 최신 버전의 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)를 다운로드하고 설치한 뒤 Ultimate 구독을 사용하세요.
 
-    > IntelliJ IDEA Community Edition 또는 다른 IDE를 사용하는 경우, [웹 기반 프로젝트 생성기](https://start.spring.io/#!language=kotlin&type=gradle-project-kotlin)를 사용하여 Spring Boot 프로젝트를 생성할 수 있습니다.
+    > Ultimate 구독 없이 IntelliJ IDEA를 사용하거나 다른 IDE를 사용하는 경우, [웹 기반 프로젝트 생성기](https://start.spring.io/#!language=kotlin&type=gradle-project-kotlin)를 사용하여 Spring Boot 프로젝트를 생성할 수 있습니다.
     >
     {style="tip"}
 

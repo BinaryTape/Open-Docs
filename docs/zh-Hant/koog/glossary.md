@@ -30,7 +30,7 @@
 
 - **條件 (Conditions)**：決定何時遵循特定邊的規則。
 
-- **子圖 (Subgraph)**：代理策略中一個獨立的處理單元，擁有自己的一組工具、上下文和職責。關於子圖操作的資訊可以封裝在子圖內，或使用 AgentMemory 功能在子圖之間傳輸。
+- **子圖 (Subgraph)**：代理策略中一個獨立的處理單元，擁有自己的一組工具、上下文和職責。
 
 ## 工具 (Tools)
 
@@ -55,13 +55,3 @@
 ### EventHandler 功能
 
 - **EventHandler**：一種能夠監控並回應各種代理事件的功能，提供攔截器 (hooks) 用於追蹤代理生命週期、處理錯誤，以及在整個工作流程中處理工具調用。
-
-### AgentMemory 功能
-
-- **AgentMemory**：一種使 AI 代理能夠在跨對話中儲存、檢索和使用資訊的功能。若要了解更多，請參閱 [AgentMemory](features/agent-memory.md)。
-
-- **概念 (Concept)**：AgentMemory 功能中具有相關元資料的資訊類別，包括關鍵字、描述和事實類型。概念是 AgentMemory 系統的基本建構元素，代理可以記住並召回。若要了解更多，請參閱 [AgentMemory](features/agent-memory.md)。
-
-- **事實 (Fact)**：存儲在 AgentMemory 系統中的單條資訊。事實與概念相關聯，可以具有單個值或多個值。若要了解更多，請參閱 [AgentMemory](features/agent-memory.md)。
-
-- **記憶體範圍 (Memory scope)**：事實相關的上下文。若要了解更多，請參閱 [AgentMemory](features/agent-memory.md)。

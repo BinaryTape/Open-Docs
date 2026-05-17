@@ -85,7 +85,7 @@
   "kotlin.kotlin-overview": "Kotlin 概览",
   "kotlin.what-s-new-in-kotlin": "Kotlin 新特性",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.4.0-Beta2",
+  "kotlin.whatsnew-eap": "Kotlin 2.4.0-RC",
   "kotlin.earlier-versions": "更早版本",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -648,7 +648,7 @@
   "kotlin.library-guides": "库指南",
   "kotlin.multiplatform-gradle-dsl": "多平台 Gradle DSL",
   "kotlin.earlier-kotlin-releases": "更早的 Kotlin 版本",
-  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0-rc01",
+  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0",
   "koog.rag": "RAG",
   "kotlin.backend-development": "后端开发",
   "kotlin.running-ksp-from-the-command-line": "从命令行运行 KSP",
@@ -658,5 +658,6 @@
   "kmp.build-ios-android-app": "如何构建 Android 与 iOS 应用",
   "koog.cache-control": "缓存控制",
   "kotlin.jvm-test-maven": "使用 Maven 进行测试",
-  "kotlin.jvm-annotation-processors": "使用注解处理器"
+  "kotlin.jvm-annotation-processors": "使用注解处理器",
+  "kmp.multiplatform-project-recommended-structure": "通用项目结构建议"
 }

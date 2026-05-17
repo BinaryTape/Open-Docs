@@ -83,7 +83,7 @@
    ```
 
    * 在 `cd` 命令中，指定 Kotlin Multiplatform 项目根目录的路径，例如 `$SRCROOT/..`。
-   * 在 `./gradlew` 命令中，指定共享模块的名称，例如 `:shared` 或 `:composeApp`。
+   * 在 `./gradlew` 命令中，指定共享模块的名称，例如 `:shared` 或 `:sharedLogic`。
   
 4. 在 **Provide build settings from** 部分中选择应用的目标：
 
@@ -91,7 +91,7 @@
 
 5. 现在您可以将共享模块导入本地 Swift 软件包并使用 Kotlin 代码。
 
-   在 Xcode 中，导航至您的本地 Swift 软件包，并定义一个带有模块导入的函数，例如：
+   In Xcode, navigate to your local Swift package and define a function with a module import, for example:
 
    ```Swift
    import Shared

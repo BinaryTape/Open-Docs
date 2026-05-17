@@ -20,16 +20,23 @@ Kotlin Multiplatform 마법사로 생성된 코드를 수정하여 `App` composa
 
 플랫폼별 라이브러리와 [expect/actual 선언](multiplatform-expect-actual.md)을 사용하여 날짜를 가져올 수도 있습니다. 하지만 Kotlin Multiplatform 라이브러리를 사용할 수 없는 경우에만 이 방식을 사용하는 것을 권장합니다. 이 예제에서는 [kotlinx-datetime](https://github.com/Kotlin/kotlinx-datetime) 라이브러리를 사용할 수 있습니다.
 
-> JetBrains에서 제공하는 실험적인 멀티플랫폼 라이브러리 검색 서비스인 [klibs.io](https://klibs.io/)에서 타겟 플랫폼에 사용할 수 있는 Kotlin Multiplatform 라이브러리를 찾아볼 수 있습니다.
+> JetBrains에서 제공하는 멀티플랫폼 라이브러리 검색 서비스인 [klibs.io](https://klibs.io/)에서 타겟 플랫폼에 사용할 수 있는 Kotlin Multiplatform 라이브러리를 찾아볼 수 있습니다.
 >
 {style="tip"}
 
 `kotlinx-datetime` 라이브러리를 사용하려면 다음 단계를 따르세요:
 
-1. `composeApp/build.gradle.kts` 파일을 열고 프로젝트에 의존성을 추가합니다:
+1. `gradle/libs.versions.toml` 파일을 열고 버전 카탈로그에 `kotlinx-datetime` 의존성을 추가합니다:
 
-    * 공통 코드 소스 세트(common code source set)를 설정하는 섹션에 메인 `kotlinx-datetime` 의존성을 추가합니다. 편의상 버전 카탈로그에 추가하는 대신 버전 번호를 직접 포함할 수 있습니다.
-    * 웹 타겟의 경우, 시간대(timezone) 지원을 위해 `js-joda` 라이브러리가 필요합니다. `webMain` 의존성에 `js-joda` npm 패키지에 대한 참조를 추가합니다.
+    ```text
+    [versions]
+    kotlinx-datetime = "0.8.0"
+    
+    [libraries]
+    kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
+    ```
+
+2. `shared/build.gradle.kts` 파일을 열고 공통 코드 소스 세트(common code source set)를 설정하는 섹션에 해당 라이브러리 항목에 대한 참조를 추가합니다:
       
     ```kotlin
     kotlin {
@@ -38,27 +45,40 @@ Kotlin Multiplatform 마법사로 생성된 코드를 수정하여 `App` composa
             // ...
             commonMain.dependencies {
                 // ...
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:%dateTimeVersion%")
-            }
-            webMain.dependencies {
-                implementation(npm("@js-joda/timezone", "2.22.0"))
+                implementation(libs.kotlinx.datetime)
             }
         }
     }
     
     ```
-    
-2. 의존성이 추가되면 프로젝트를 다시 동기화하라는 메시지가 표시됩니다. **Sync Gradle Changes** 버튼을 클릭하여 Gradle 파일을 동기화합니다: ![Gradle 파일 동기화](gradle-sync.png){width=50}
+3. 웹 타겟의 경우, 시간대(timezone) 지원을 위해 `js-joda` 라이브러리가 필요합니다.
+   `webApp/build.gradle.kts` 파일에 `js-joda` npm 패키지에 대한 참조를 추가합니다:
 
-3. **Terminal** 도구 창에서 다음 명령어를 실행합니다:
+    ```kotlin
+    kotlin {
+        // ...
+        sourceSets {
+            // ...
+            commonMain.dependencies {
+                // ...
+                implementation(npm("@js-joda/timezone", "2.25.1"))
+            }
+        }
+    }
+    
+    ```
+
+    `webMain` 소스 세트에 의존성을 추가하면 `wasmJs`와 `js` 타겟 모두에서 라이브러리를 사용할 수 있습니다.
+
+4. 의존성이 추가되면 IDE에서 제안하는 Gradle 설정 동기화를 수락하거나, **Shift**를 두 번 누르고 **Sync Project with Gradle Files** 명령을 실행합니다.
+
+5. **Terminal** 도구 창에서 다음 명령어를 실행하여 `yarn.lock` 파일이 최신 의존성 버전으로 업데이트되도록 합니다:
 
     ```shell
     ./gradlew kotlinUpgradeYarnLock kotlinWasmUpgradeYarnLock
     ```
-
-   이 Gradle 태스크는 `yarn.lock` 파일이 최신 의존성 버전으로 업데이트되도록 합니다.
  
-4. `webMain` 소스 세트에서 `@JsModule` 어노테이션을 사용하여 `js-joda` npm 패키지를 임포트합니다: 
+6. `webApp/src/webMain/kotlin/.../main.kt` 파일에서 `@JsModule` 어노테이션을 사용하여 `js-joda` npm 패키지를 임포트합니다: 
 
     ```kotlin
     import androidx.compose.ui.ExperimentalComposeUiApi
@@ -81,9 +101,13 @@ Kotlin Multiplatform 마법사로 생성된 코드를 수정하여 `App` composa
     ```
    {initial-collapse-state="collapsed" collapsible="true" collapsed-title='@JsModule("@js-joda/timezone")'}
 
+> 프로젝트를 버전 관리 시스템(version control)에 커밋할 때, `kotlin-js-store` 디렉토리에 생성된 `yarn.lock` 파일들을 포함하세요. 이는 프로젝트를 빌드하는 모든 곳에서 동일한 버전의 JavaScript 의존성이 사용되도록 보장하는 데 도움이 됩니다.
+> 
+{style="note"}
+
 ## 사용자 인터페이스 개선하기
 
-1. `composeApp/src/commonMain/kotlin/App.kt` 파일을 열고 현재 날짜를 포함하는 문자열을 반환하는 다음 함수를 추가합니다:
+1. `shared/src/commonMain/kotlin/App.kt` 파일을 열고 `App()` composable 뒤에 현재 날짜를 포함하는 문자열을 반환하는 다음 함수를 추가합니다:
 
    ```kotlin
    fun todaysDate(): String {
@@ -94,7 +118,9 @@ Kotlin Multiplatform 마법사로 생성된 코드를 수정하여 `App` composa
        return now.toLocalDateTime(zone).format()
    }
    ```
-2. IDE에서 제안하는 임포트를 추가합니다. `kotlinx.datetime`이 **아닌** `kotlin.time`에서 `Clock` 클래스를 임포트해야 합니다. 
+2. IDE에서 제안하는 임포트를 추가합니다.
+   
+   `kotlinx.datetime`이 **아닌** `kotlin.time`에서 `Clock` 클래스를 임포트해야 합니다. 
 3. 같은 파일에서 `App()` composable을 수정하여 이 함수를 호출하고 결과를 표시하는 `Text()` composable을 포함합니다:
    
     ```kotlin
@@ -131,7 +157,6 @@ Kotlin Multiplatform 마법사로 생성된 코드를 수정하여 `App` composa
     ```
 
 4. IDE의 제안에 따라 누락된 의존성을 임포트합니다.
-   업데이트된 패키지에서 `todaysDate()` 함수에 필요한 모든 누락된 의존성을 임포트하고, IDE에서 요청하면 opt-in을 수락합니다.
 
    ![미해결 참조](compose-unresolved-references.png)
 
@@ -144,10 +169,10 @@ Kotlin Multiplatform 마법사로 생성된 코드를 수정하여 `App` composa
         <img src="first-compose-project-on-android-ios-2.png" alt="Android 및 iOS에서의 첫 Compose Multiplatform 앱" width="500"/>
     </TabItem>
     <TabItem id="desktop-app" title="Desktop">
-        <img src="first-compose-project-on-desktop-2.png" alt="데스크톱에서의 첫 Compose Multiplatform 앱" width="400"/>
+        <img src="first-compose-project-on-desktop-2.png" alt="데스크톱에서의 첫 Compose Multiplatform 앱" width="600"/>
     </TabItem>
     <TabItem id="web-app" title="Web">
-        <img src="first-compose-project-on-web-2.png" alt="웹에서의 첫 Compose Multiplatform 앱" width="400"/>
+        <img src="first-compose-project-on-web-2.png" alt="웹에서의 첫 Compose Multiplatform 앱" width="600"/>
     </TabItem>
 </Tabs>
 

@@ -353,9 +353,9 @@ koog.spring.ai.embedding.embedding-model-bean-name=openAiEmbeddingModel
 
 僅會持久化純文字的 `System`、`User` 與 `Assistant` 訊息。儲存時會自動捨棄以下內容：
 
-- `Message.Tool.Call`
-- `Message.Tool.Result`
-- `Message.Reasoning`
+- `MessagePart.Tool.Call`
+- `MessagePart.Tool.Result`
+- `MessagePart.Reasoning`
 - 任何攜帶附件的訊息
 
 在載入時，Spring AI 的 `TOOL` 列將會被自動跳過。時間戳記、Token 數量、結束原因與自訂元資料等元資料將不會被保留。
@@ -520,7 +520,7 @@ koog.spring.ai.chat-memory.chat-memory-repository-bean-name=jdbcChatMemoryReposi
 
 ### 支援的供應商
 
-此 starter 適用於任何公開 `VectorStore` 的 Spring AI 實作，包括 PgVector, Azure AI Search, Cassandra, Chroma, Elasticsearch, Milvus, MongoDB Atlas, Neo4j, OpenSearch, Oracle, Pinecone, Qdrant, Redis, Typesense 與 Weaviate。
+此 starter 適用於 any Spring AI 實作，只要它公開了 `VectorStore`，包括 PgVector, Azure AI Search, Cassandra, Chroma, Elasticsearch, Milvus, MongoDB Atlas, Neo4j, OpenSearch, Oracle, Pinecone, Qdrant, Redis, Typesense 與 Weaviate。
 
 ### 配置
 

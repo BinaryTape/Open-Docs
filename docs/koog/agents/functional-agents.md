@@ -30,6 +30,7 @@
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
     import ai.koog.agents.core.agent.functionalStrategy
+    import ai.koog.prompt.message.MessagePart
     import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
     import ai.koog.prompt.executor.ollama.client.OllamaModels
     import kotlinx.coroutines.runBlocking
@@ -37,7 +38,8 @@
     ```kotlin
     val strategy = functionalStrategy<String, String> { input ->
         val response = requestLLM(input)
-        response.asAssistantMessage().content
+        response.parts.filterIsInstance<MessagePart.Text>().joinToString("
+") { it.text }
     }
 
     val mathAgent = AIAgent(
@@ -94,15 +96,21 @@ The answer to 12 × 9 is 108.
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.functionalStrategy
+    import ai.koog.prompt.message.Message
+    import ai.koog.prompt.message.MessagePart
     -->
     ```kotlin
+    fun Message.Assistant.text(): String =
+        parts.filterIsInstance<MessagePart.Text>().joinToString("
+") { it.text }
+
     val strategy = functionalStrategy<String, String> { input ->
         // 第一次 LLM 调用根据用户输入生成初稿
-        val draft = requestLLM("Draft: $input").asAssistantMessage().content
+        val draft = requestLLM("Draft: $input").text()
         // 第二次 LLM 调用改进初稿
-        val improved = requestLLM("Improve and clarify.").asAssistantMessage().content
+        val improved = requestLLM("Improve and clarify.").text()
         // 最后一次 LLM 调用对改进后的文本进行格式设置并返回结果
-        requestLLM("Format the result as bold.").asAssistantMessage().content
+        requestLLM("Format the result as bold.").text()
     }
     ```
     <!--- KNIT example-functional-agent-02.kt -->
@@ -175,6 +183,7 @@ To calculate the product of 12 and 9, we multiply these two numbers together.
     import ai.koog.agents.core.tools.annotations.LLMDescription
     import ai.koog.agents.core.tools.annotations.Tool
     import ai.koog.agents.core.tools.reflect.ToolSet
+    import ai.koog.prompt.message.MessagePart
     import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
     import ai.koog.prompt.executor.ollama.client.OllamaModels
     import kotlinx.coroutines.runBlocking
@@ -197,20 +206,21 @@ To calculate the product of 12 and 9, we multiply these two numbers together.
 
     val strategy = functionalStrategy<String, String> { input ->
         // 将用户输入发送给 LLM
-        var responses = requestLLMMultiple(input)
+        var response = requestLLM(input)
 
         // 仅在 LLM 请求工具时循环
-        while (responses.containsToolCalls()) {
-            // 从响应中提取工具调用
-            val pendingCalls = extractToolCalls(responses)
+        var toolCalls = response.parts.filterIsInstance<MessagePart.Tool.Call>()
+        while (toolCalls.isNotEmpty()) {
             // 执行工具并返回结果
-            val results = executeMultipleTools(pendingCalls)
+            val results = executeTools(toolCalls)
             // 将工具结果发送回 LLM。LLM 可能会调用更多工具或返回最终输出
-            responses = sendMultipleToolResults(results)
+            response = sendToolResults(results)
+            toolCalls = response.parts.filterIsInstance<MessagePart.Tool.Call>()
         }
 
         // 当不再有工具调用时，从响应中提取并返回助手消息内容
-        responses.single().asAssistantMessage().content
+        response.parts.filterIsInstance<MessagePart.Text>().joinToString("
+") { it.text }
     }
 
     val mathAgentWithTools = AIAgent(
@@ -264,7 +274,7 @@ To calculate the product of 12 and 9, we multiply these two numbers together.
                 // 仅在 LLM 请求工具时循环
                 while (context.containsToolCalls(responses)) {
                     // 从响应中提取工具调用
-                    List<Message.Tool.Call> pendingCalls = context.extractToolCalls(responses);
+                    List<MessagePart.Tool.Call> pendingCalls = context.extractToolCalls(responses);
                     // 执行工具并返回结果
                     List<ReceivedToolResult> results = context.executeMultipleTools(pendingCalls, false);
                     // 将工具结果发送回 LLM

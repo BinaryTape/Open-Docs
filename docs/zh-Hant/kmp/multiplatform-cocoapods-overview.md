@@ -114,7 +114,7 @@ sudo gem install cocoapods
    alias(libs.plugins.kotlinCocoapods) apply false
    ```
 
-4. 開啟您想要整合 CocoaPods 的模組（例如 `composeApp` 模組），並在 `build.gradle.kts` 檔案的 `plugins {}` 區塊中新增以下別名：
+4. 開啟您想要整合 CocoaPods 的模組（例如 `sharedLogic` 模組），並在 `build.gradle.kts` 檔案的 `plugins {}` 區塊中新增以下別名：
 
    ```kotlin
    alias(libs.plugins.kotlinCocoapods)

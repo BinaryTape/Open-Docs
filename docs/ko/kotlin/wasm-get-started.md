@@ -18,9 +18,8 @@
 
    * **Name:** WasmDemo
    * **Group:** wasm.project.demo
-   * **Artifact:** wasmdemo
 
-   > 웹 마법사를 사용하는 경우, Project Name으로 "WasmDemo"를, Project ID로 "wasm.project.demo"를 지정하세요.
+   > 웹 마법사를 사용하는 경우, **Project Name**으로 "WasmDemo"를, **Project ID**로 "wasm.project.demo"를 지정하세요.
    >
    {style="note"}
 
@@ -31,9 +30,9 @@
 
 ## 애플리케이션 실행하기
 
-프로젝트가 로드되면 실행 구성 목록에서 **composeApp [wasmJs]**를 선택하고 **Run**을 클릭합니다.
+프로젝트가 로드되면 실행 구성 목록에서 **webApp [wasmJs]**를 선택하고 **Run**을 클릭합니다.
 
-![웹에서 Compose Multiplatform 앱 실행](compose-run-web-black.png){width=300}
+![웹에서 Compose Multiplatform 앱 실행](compose-run-web-light.png){width=300}
 
 웹 애플리케이션이 브라우저에서 자동으로 열립니다. 또는 실행이 완료된 후 브라우저에서 다음 URL을 직접 열 수 있습니다.
 
@@ -47,7 +46,7 @@
 
 "Click me!" 버튼을 클릭해 보세요.
 
-![Click me 버튼](wasm-composeapp-browser-clickme.png){width=600}
+![Click me](wasm-composeapp-browser-clickme.png){width=600}
 
 Compose Multiplatform 로고가 나타납니다.
 
@@ -72,7 +71,7 @@ Compose Multiplatform 로고가 나타납니다.
     ./gradlew wasmJsBrowserDistribution
     ```
 
-애플리케이션 태스크가 완료되면 `composeApp/build/dist/wasmJs/productionExecutable` 디렉터리에서 생성된 아티팩트를 확인할 수 있습니다.
+애플리케이션 태스크가 완료되면 `webApp/build/dist/wasmJs/productionExecutable` 디렉터리에서 생성된 아티팩트를 확인할 수 있습니다.
 
 ![아티팩트 디렉터리](wasm-composeapp-directory.png){width=400}
 

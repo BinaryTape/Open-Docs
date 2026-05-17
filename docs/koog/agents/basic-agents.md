@@ -54,7 +54,7 @@ Agent 然后输出该响应。
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
-    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
+    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutors.simpleOpenAIExecutor;
     class exampleBasicJava01 {
         public static void main(String[] args) {
     -->
@@ -120,7 +120,7 @@ What's on your mind? Do you have a specific question, topic, or task you'd like 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
-    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
+    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutors.simpleOpenAIExecutor;
     class exampleBasicJava02 {
         public static void main(String[] args) {
     -->
@@ -173,7 +173,7 @@ What's on your mind? Are you trying to understand a specific meme, need help fin
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
-    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
+    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutors.simpleOpenAIExecutor;
     class exampleBasicJava03 {
         public static void main(String[] args) {
     -->
@@ -276,7 +276,7 @@ Agent 可以使用[工具](../tools-overview.md)来执行特定任务。
     import ai.koog.agents.core.tools.reflect.ToolSet;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import java.util.Scanner;
-    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
+    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutors.simpleOpenAIExecutor;
     class exampleBasicJava04 {
         public static void main(String[] args) {
     -->
@@ -399,7 +399,7 @@ The meme is known for its lighthearted and playful tone, and is often used to ex
     import ai.koog.agents.core.tools.reflect.ToolSet;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import java.util.Scanner;
-    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
+    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutors.simpleOpenAIExecutor;
     class exampleBasicJava05 {
         public static void main(String[] args) {
     -->
@@ -504,7 +504,7 @@ The meme is known for its lighthearted and playful tone, and is often used to ex
     import ai.koog.agents.features.eventHandler.feature.EventHandler;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import java.util.Scanner;
-    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
+    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutors.simpleOpenAIExecutor;
     class exampleBasicJava06 {
         public static void main(String[] args) {
     -->
@@ -530,7 +530,7 @@ The meme is known for its lighthearted and playful tone, and is often used to ex
     // 在 main 方法中：
     UserConversationTools askUser = new UserConversationTools();
 
-    ToolRegistry toolRegistry = ToolRegistry.builder()
+    ToolRegistry toolRegistry = toolRegistry.builder()
             .tools(askUser)
             .build();
 

@@ -57,7 +57,6 @@ Apple 타겟이 선언된 `build.gradle.kts` 파일의 `swiftPMDependencies {}` 
 kotlin {
     iosArm64()
     iosSimulatorArm64()
-    iosX64()
 
     swiftPMDependencies {
         // Kotlin 코드에 FirebaseAnalytics 임포트
@@ -84,7 +83,7 @@ SwiftPM 통합은 Clang 모듈을 임포트하는 방식에 기반합니다.
 이 기본 동작과 자동 모듈 검색 기능을 비활성화하려면 `discoverClangModulesImplicitly`를 `false`로 설정하세요.
 모듈 검색이 비활성화되면 SwiftPM 임포트는 제품(product) 이름을 Clang 모듈 이름으로 사용합니다.
 
-제품 이름과 다른 이름의 Clang 모듈을 임포트하려면 `importedClangModules` 파라미터를 사용하세요:
+제품 이름과 다른 이름의 Clang 모듈을 임포트하려면 `importedClangModules` 파라미터를 사용하세요. 예시는 다음과 같습니다:
 
 ```kotlin
 kotlin {
@@ -126,7 +125,6 @@ kotlin {
 kotlin {
     iosArm64()
     iosSimulatorArm64()
-    iosX64()
     macosArm64()
 
     swiftPMDependencies {
@@ -175,7 +173,7 @@ group = "groupName"
 ```
 
 여기서 `groupName`은 프로젝트의 Gradle 그룹 이름이고 `subproject`는 프로젝트 이름입니다.
-이제 해당 모듈의 `iosMain` 소스 세트에서 Firebase API를 임포트할 수 있습니다:
+이제 해당 모듈의 `iosMain` 소스 세트에서 Firebase API를 임포트할 수 있습니다. 예시는 다음과 같습니다:
 
 ```kotlin
 // subproject/src/iosMain/kotlin/useFirebaseAnalytics.kt

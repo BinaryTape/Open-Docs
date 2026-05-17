@@ -10,7 +10,7 @@
    [自分に最適な統合方法を選択する](multiplatform-ios-integration-overview.md)
 </tldr>
 
-Apple ターゲット向けの Kotlin/Native 出力を、Swift Package Manager (SPM) の依存関係として利用できるように設定できます。
+Apple ターゲット向けの Kotlin/Native 出力を、Swift Package Manager (SwiftPM) の依存関係として利用できるように設定できます。
 
 iOS ターゲットを持つ Kotlin Multiplatform プロジェクトを想定してください。この iOS バイナリを、ネイティブの Swift プロジェクトで作業している iOS 開発者が依存関係として利用できるようにしたい場合があります。Kotlin Multiplatform のツールを使用すると、Xcode プロジェクトにシームレスに統合できるアーティファクトを提供できます。
 
@@ -30,8 +30,8 @@ iOS ターゲットを持つ Kotlin Multiplatform プロジェクトを想定し
 ただし、プロジェクトを異なる方法で構成することもできます。Git リポジトリの構成については、以下のオプションを検討してください：
 
 * `Package.swift` ファイルと、XCFramework にパッケージ化されるコードを別々の Git リポジトリに保存する。これにより、Swift マニフェストをプロジェクト自体とは別にバージョン管理できるようになります。これが推奨されるアプローチです。スケーリングが可能で、一般的にメンテナンスが容易になります。
-* `Package.swift` ファイルを Kotlin Multiplatform のコードと同じ場所に置く。これはより直接的なアプローチですが、この場合、Swift パッケージとコードが同じバージョニングを使用することに注意してください。SPM はパッケージのバージョニングに Git タグを使用するため、プロジェクトで使用されるタグと競合する可能性があります。
-* `Package.swift` ファイルを利用側のプロジェクトのリポジトリ内に保存する。これにより、バージョニングやメンテナンスの問題を回避できます。ただし、このアプローチは、利用側プロジェクトのマルチリポジトリ SPM セットアップや、さらなる自動化において問題を引き起こす可能性があります：
+* `Package.swift` ファイルを Kotlin Multiplatform のコードと同じ場所に置く。これはより直接的なアプローチですが、この場合、Swift パッケージとコードが同じバージョニングを使用することに注意してください。SwiftPM はパッケージのバージョニングに Git タグを使用するため、プロジェクトで使用されるタグと競合する可能性があります。
+* `Package.swift` ファイルを利用側のプロジェクトのリポジトリ内に保存する。これにより、バージョニングやメンテナンスの問題を回避できます。ただし、このアプローチは、利用側プロジェクトのマルチリポジトリ SwiftPM セットアップや、さらなる自動化において問題を引き起こす可能性があります：
 
   * マルチパッケージプロジェクトでは、プロジェクト内での依存関係の競合を避けるために、1 つのコンシューマーパッケージのみが外部モジュールに依存できます。そのため、Kotlin Multiplatform モジュールに依存するすべてのロジックは、特定のコンシューマーパッケージにカプセル化される必要があります。
   * 自動化された CI プロセスを使用して Kotlin Multiplatform プロジェクトを公開する場合、このプロセスには更新された `Package.swift` ファイルを利用側のリポジトリに公開する工程を含める必要があります。これにより、利用側リポジトリでの更新の競合が発生する可能性があり、CI におけるそのようなフェーズの維持が困難になる場合があります。
@@ -55,7 +55,6 @@ XCFramework の公開を設定するには：
        val xcf = XCFramework(xcframeworkName)
    
        listOf(
-           iosX64(),
            iosArm64(),
            iosSimulatorArm64(),
        ).forEach { 
@@ -83,10 +82,10 @@ XCFramework の公開を設定するには：
    > Compose Multiplatform プロジェクトを使用している場合は、次の Gradle タスクを使用してください：
    >
    > ```shell
-   > ./gradlew :composeApp:assembleSharedXCFramework
+   > ./gradlew :sharedUI:assembleSharedXCFramework
    > ```
    >
-   > 生成されたフレームワークは `composeApp/build/XCFrameworks/release/Shared.xcframework` フォルダにあります。
+   > 生成されたフレームワークは `sharedUI/build/XCFrameworks/release/Shared.xcframework` フォルダにあります。
    >
    {style="tip"}
 
@@ -207,7 +206,7 @@ XCFramework の公開を設定するには：
 
 ## 複数のモジュールを XCFramework としてエクスポートする
 
-複数の Kotlin Multiplatform モジュールのコードを iOS バイナリとして利用可能にするには、これらのモジュールを単一のアンブレラ（umbrella）モジュールに統合します。その後、そのアンブレラモジュールの XCFramework をビルドしてエクスポートします。
+複数の Kotlin Multiplatform モジュールのコードを iOS バイナリとして利用可能にするには、これらのモジュールを単一のアンブレラ (umbrella) モジュールに統合します。その後、そのアンブレラモジュールの XCFramework をビルドしてエクスポートします。
 
 例えば、`network` モジュールと `database` モジュールがあり、これらを `together` モジュールに統合する場合：
 
@@ -219,8 +218,7 @@ XCFramework の公開を設定するには：
         val xcf = XCFramework(frameworkName)
     
         listOf(
-            iosX64(),
-            ios Arm64(),
+            iosArm64(),
             iosSimulatorArm64()
         ).forEach { iosTarget ->
             // 上記の例と同様ですが、
@@ -252,7 +250,6 @@ XCFramework の公開を設定するには：
             //...
         }
         
-        iosX64()
         iosArm64()
         iosSimulatorArm64()
         

@@ -12,7 +12,7 @@
 
 若要在多平台專案中存取資源，請新增程式庫相依性並在專案目錄中組織檔案：
 
-1. 在 `composeApp` 目錄下的 `build.gradle.kts` 檔案中，將相依性新增至 `commonMain` 原始碼集：
+1. 在 `sharedUI` 目錄下的 `build.gradle.kts` 檔案中，將相依性新增至 `commonMain` 原始碼集：
 
    ```kotlin
    kotlin {

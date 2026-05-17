@@ -61,12 +61,7 @@ AGP 10 可能会在 2026 年下半年发布。
   分支中获得。
   该分支还包含其他平台隔离应用模块的示例。
 
-<!-- When the new structure is implemented in the wizard, this is going to change: 
-     following the tutorial will bring you to the new structure already.
-     So when the update hits we update with the following:
-
-The sample with an example of older structure is in the [old-project-structure](https://github.com/kotlin-hands-on/get-started-with-cm/tree/old-project-structure)
-branch of the sample repository. -->
+该示例包含以前默认结构的项目示例，位于 [old-project-structure](https://github.com/kotlin-hands-on/get-started-with-cm/tree/old-project-structure) 分支。
 
 该示例包含一个包含所有共享代码和 KMP 入口点的单个 Gradle 模块 (`composeApp`)，
 以及包含 iOS 特定代码和配置的 `iosApp` 项目。
@@ -144,9 +139,11 @@ branch of the sample repository. -->
    `androidApp/build.gradle.kts` 文件的 `target {}` 块中：
 
     ```kotlin
-    target {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+    kotlin {
+        target {
+            compilerOptions {
+                jvmTarget.set(JvmTarget.JVM_11)
+            }
         }
     }
     ```
@@ -275,6 +272,8 @@ branch of the sample repository. -->
         androidLibrary {
             namespace = "compose.project.demo.composedemolibrary"
             // ...
+        }
+    }
     ```
    
 6. 在构建脚本编辑器中选择 **Build | Sync Project with Gradle Files**，或点击 Gradle 刷新按钮。
@@ -283,8 +282,7 @@ branch of the sample repository. -->
 
 恭喜！您已成功升级项目以兼容 AGP 9.0。
 
-<!-- Commented out for now
 ## 下一步
 
 查看[推荐的项目结构](multiplatform-project-recommended-structure.md)，
-它遵循为您可能拥有的任何应用目标分离入口点的逻辑。 -->
+它遵循为您可能拥有的任何应用目标分离入口点的逻辑。

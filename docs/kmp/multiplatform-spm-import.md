@@ -57,7 +57,6 @@ kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref 
 kotlin {
     iosArm64()
     iosSimulatorArm64()
-    iosX64()
 
     swiftPMDependencies {
         // 将 FirebaseAnalytics 导入您的 Kotlin 代码
@@ -127,7 +126,6 @@ kotlin {
 kotlin {
     iosArm64()
     iosSimulatorArm64()
-    iosX64()
     macosArm64()
 
     swiftPMDependencies {

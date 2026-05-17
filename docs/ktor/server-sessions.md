@@ -98,7 +98,7 @@ data class UserSession(val id: String, val count: Int)
 ## 传递会话数据：Cookie 与标头 {id="cookie_header"}
 
 ### Cookie {id="cookie"}
-要使用 Cookie 传递会话数据，请在 `install(Sessions)` 块中调用 `cookie` 函数，并指定名称和数据类：
+要使用 Cookie 传递会话数据，请在 `install(Sessions)` 块中调用 `cookie` 函数，并指定名称 and 数据类：
 ```kotlin
 install(Sessions) {
     cookie<UserSession>("user_session")
@@ -149,6 +149,22 @@ install(Sessions) {
 > }
 > ```
 
+### 仅在修改时发送会话数据 {id="send_only_if_modified"}
+
+默认情况下，Ktor 会在每个响应中发送会话数据，即使它没有改变。
+
+若要仅在会话数据被修改时发送它，请在会话配置中启用 `sendOnlyIfModified` 标志：
+
+```kotlin
+install(Sessions) {
+    cookie<MySession>("SESSION") {
+        sendOnlyIfModified = true
+    }
+}
+```
+
+此选项对于基于 [Cookie](#cookie) 和 [标头](#header) 的会话均可用。
+
 ## 存储会话有效负载：客户端与服务器 {id="client_server"}
 
 在 Ktor 中，您可以通过两种方式管理会话数据：
@@ -183,7 +199,7 @@ header<CartSession>("cart_session", directorySessionStorage(File("build/.session
 }
 ```
 
-您可以在此处找到完整示例：[session-header-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-header-server)。
+You can find the full example here: [session-header-server](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-header-server).
 
 ### 自定义存储 {id="custom_storage"}
 

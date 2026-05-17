@@ -298,7 +298,7 @@ class LoggingFeature(val loggerName: String) {
                 logger.info { "正在使用 ${e.tools.size} 個工具進行 LLM 呼叫" }
             }
             pipeline.interceptLLMCallCompleted(this) { e ->
-                logger.info { "已收到 ${e.responses.size} 個回應" }
+                logger.info { "已收到回應：${e.response != null}" }
             }
         }
 
@@ -408,7 +408,7 @@ class LoggingFeature(val loggerName: String) {
                 logger.info { "正在使用 ${e.tools.size} 個工具進行 LLM 呼叫" }
             }
             pipeline.interceptLLMCallCompleted(this) { e ->
-                logger.info { "已收到 ${e.responses.size} 個回應" }
+                logger.info { "已收到回應：${e.response != null}" }
             }
         }
 

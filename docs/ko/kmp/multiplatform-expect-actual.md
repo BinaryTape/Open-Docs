@@ -23,7 +23,7 @@ expect 및 actual 선언을 정의하려면 다음 규칙을 따르세요.
 
 서로 다른 플랫폼을 위한 결과 코드를 생성하는 동안, Kotlin 컴파일러는 서로 대응하는 expect 및 actual 선언을 병합합니다. 각 플랫폼에 대해 실제 구현이 포함된 하나의 선언을 생성합니다. 공통 코드에서 expect 선언을 사용할 때마다 결과 플랫폼 코드의 올바른 actual 선언이 호출됩니다.
 
-서로 다른 타겟 플랫폼 간에 공유되는 중간 소스 세트(intermediate source sets)를 사용할 때 actual 선언을 선언할 수 있습니다. 예를 들어, `iosMain`을 `iosX64Main`, `iosArm64Main`, `iosSimulatorArm64Main` 플랫폼 소스 세트 간에 공유되는 중간 소스 세트로 고려해 보세요. 일반적으로 플랫폼 소스 세트가 아니라 `iosMain`에만 actual 선언이 포함됩니다. 그러면 Kotlin 컴파일러는 이러한 actual 선언을 사용하여 해당 플랫폼에 대한 결과 코드를 생성합니다.
+서로 다른 타겟 플랫폼 간에 공유되는 중간 소스 세트(intermediate source sets)를 사용할 때 actual 선언을 선언할 수 있습니다. 예를 들어, `iosMain`을 `iosArm64Main` 및 `iosSimulatorArm64Main` 플랫폼 소스 세트 간에 공유되는 중간 소스 세트로 고려해 보세요. 일반적으로 플랫폼 소스 세트가 아니라 `iosMain`에만 actual 선언이 포함됩니다. 그러면 Kotlin 컴파일러는 이러한 actual 선언을 사용하여 해당 플랫폼에 대한 결과 코드를 생성합니다.
 
 IDE는 다음을 포함한 일반적인 문제를 해결하도록 도와줍니다.
 

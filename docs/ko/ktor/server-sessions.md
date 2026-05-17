@@ -81,7 +81,7 @@ Sessions 플러그인은 서로 다른 HTTP 요청 간에 데이터를 유지하
    세션 페이로드를 서버에 저장하려는 경우, *[저장 방법](#storages)*을 선택할 수 있습니다: 서버 메모리 또는 폴더에 저장합니다. 세션 데이터를 보관하기 위해 커스텀 저장소를 구현할 수도 있습니다.
 4. *[세션 데이터 보호](#protect_session)*: 클라이언트에 전달되는 민감한 세션 데이터를 보호하려면 세션 페이로드를 서명하고 암호화해야 합니다.
 
-`%plugin_name%`을 설정한 후에는 [라우트 핸들러](server-routing.md#define_route) 내부에서 [세션 데이터를 가져오고 설정](#use_sessions)할 수 있습니다.
+After configuring `%plugin_name%`을 설정한 후에는 [라우트 핸들러](server-routing.md#define_route) 내부에서 [세션 데이터를 가져오고 설정](#use_sessions)할 수 있습니다.
 
 ## 데이터 클래스 생성 {id="data_class"}
 
@@ -148,6 +148,22 @@ install(Sessions) {
 >     exposeHeader("cart_session")
 > }
 > ```
+
+### 수정된 경우에만 세션 데이터 전송 {id="send_only_if_modified"}
+
+기본적으로 Ktor는 세션 데이터가 변경되지 않았더라도 모든 응답에 세션 데이터를 전송합니다.
+
+세션 데이터가 수정된 경우에만 전송하려면 세션 구성에서 `sendOnlyIfModified` 플래그를 활성화하세요.
+
+```kotlin
+install(Sessions) {
+    cookie<MySession>("SESSION") {
+        sendOnlyIfModified = true
+    }
+}
+```
+
+이 옵션은 [쿠키](#cookie) 및 [헤더 기반](#header) 세션 모두에서 사용할 수 있습니다.
 
 ## 세션 페이로드 저장: 클라이언트 vs 서버 {id="client_server"}
 

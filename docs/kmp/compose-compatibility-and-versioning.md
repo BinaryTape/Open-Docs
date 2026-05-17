@@ -12,8 +12,8 @@ Compose Multiplatform %org.jetbrains.compose% 支持以下平台：
 | 平台 | 最低版本 |
 |----------|------------------------------------------------------------------------------------------------------|
 | Android  | Android 5.0（API 级别 21） |
-| iOS      | iOS 13 |
-| macOS    | macOS 12 x64, macOS 13 arm64 |
+| iOS      | iOS 14 |
+| macOS    | macOS 13 arm64 |
 | Windows  | Windows 10 (x86-64, arm64) |
 | Linux    | Ubuntu 20.04 (x86-64, arm64) |
 | Web      | 支持 [WasmGC](https://kotlinlang.org/docs/wasm-configuration.html#browser-versions) 的浏览器 |
@@ -83,6 +83,7 @@ maven("https://redirector.kotlinlang.org/maven/compose-dev")
 
 | Compose Multiplatform 版本 | Jetpack Compose 版本 |
 |-----------------------------------------------------------------------------------|-------------------------|
+| [1.11.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.11.0) | 1.11.1                  |
 | [1.10.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.10.3) | 1.10.5                  |
 | [1.9.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.3)   | 1.9.4                   |
 | [1.8.2](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.8.2)   | 1.8.2                   |

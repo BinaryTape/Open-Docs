@@ -24,7 +24,7 @@ html, body {
 ```kotlin
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
-    ComposeViewport(viewportContainerId = "composeApp") {
+    ComposeViewport(viewportContainerId = "webApp") {
         App()
     }
 }

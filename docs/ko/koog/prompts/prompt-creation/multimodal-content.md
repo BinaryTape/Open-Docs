@@ -83,7 +83,7 @@ Kotlin에서 `+` 연산자는 첨부 파일과 함께 텍스트 콘텐츠를 사
     <!--- INCLUDE
     import ai.koog.prompt.dsl.prompt
     import ai.koog.prompt.message.AttachmentContent
-    import ai.koog.prompt.message.ContentPart
+    import ai.koog.prompt.message.AttachmentSource
     val prompt = prompt("custom_image") {
     -->
     <!--- SUFFIX
@@ -94,7 +94,7 @@ Kotlin에서 `+` 연산자는 첨부 파일과 함께 텍스트 콘텐츠를 사
     user {
         +"Describe this image"
         image(
-            ContentPart.Image(
+            AttachmentSource.Image(
                 content = AttachmentContent.URL("https://example.com/capture.png"),
                 format = "png",
                 mimeType = "image/png",

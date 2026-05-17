@@ -569,4 +569,4 @@ iOS 앱 진입점은 별도의 Gradle 모듈로 빌드되지 않으므로 소스
 
 3. Xcode에서 앱을 실행하거나 IntelliJ IDEA의 **iosApp** 실행 구성을 사용하여 실행합니다.
 
-[//]: # (TODO ## What's next: up for suggestions here — the first thought is to link platform-specific guidance)
+<!-- ## What's next -->

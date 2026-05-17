@@ -260,14 +260,14 @@ YouTube
 <td>
 Mykola Miroshnychenko
 
-Gumroad
+PayHip
 </td>
 
 <td>
 如何通过掌握 expect/actual 和源集等 KMP 基础知识，以及使用 Ktor 进行网络连接、Koin 进行依赖注入、Nav3 和使用 Room 进行持久化构建完整的应用栈，将您现有的 Android 开发技能扩展到 iOS。
 </td>
 <td>
-约 $60
+$39
 </td>
 <td>
 8–12 小时
@@ -678,7 +678,7 @@ LinkedIn Learning
 </td>
 <td>
 
-[全栈游戏开发 - Kotlin 和 Compose Multiplatform](https://www.udemy.com/course/full-stack-game-development-kotlin-compose-multiplatform/)
+[全栈 game 开发 - Kotlin 和 Compose Multiplatform](https://www.udemy.com/course/full-stack-game-development-kotlin-compose-multiplatform/)
 
 视频课程
 
@@ -690,7 +690,7 @@ Udemy
 </td>
 
 <td>
-如何使用 Compose Multiplatform 构建完整的 2D 游戏，涵盖物理引擎、碰撞检测和精灵图动画，以及如何将其部署到 Android、iOS、桌面端和 Web（通过 Kotlin/Wasm）。
+如何使用 Compose Multiplatform 构建完整的 2D 游戏，涵盖物理引擎、碰撞检测和精灵图动画，以及如何将其部署到 Android、iOS、桌面端 e 且 Web（通过 Kotlin/Wasm）。
 </td>
 <td>
 约 €99

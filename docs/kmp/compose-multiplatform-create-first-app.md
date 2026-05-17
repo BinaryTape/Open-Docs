@@ -38,12 +38,7 @@
 4. 在 **New Project** 窗口中指定以下字段：
 
     * **Name**: ComposeDemo
-    * **Group**: compose.project
-    * **Artifact**: demo
-
-    > 如果使用 Web 向导，请指定 "ComposeDemo" 作为 **Project Name**，"compose.project.demo" 作为 **Project ID**。
-    >
-    {style="note"}
+    * **Project ID**（用作软件包名称）：compose.project.demo
 
 5. 选择 **Android**、**iOS**、**Desktop** 和 **Web** 目标。
     确保为 iOS 和 Web 选中了 **Share UI** 选项。
@@ -62,32 +57,37 @@
 >
 {style="note"}
 
-该项目包含两个模块：
+该项目包含以下模块：
 
-* _composeApp_ 是一个 Kotlin 模块，包含 Android、桌面端、iOS 和 Web 应用之间共享的逻辑——即您在所有平台中使用的代码。它使用 [Gradle](https://kotlinlang.org/docs/gradle.html) 作为构建系统，帮助您自动化构建过程。
-* _iosApp_ 是一个 Xcode 项目，可构建为 iOS 应用。它依赖并使用共享模块作为 iOS 框架。
+* **shared** 是一个 Kotlin Multiplatform 模块，包含 Android、桌面端、iOS 和 Web 应用之间共享的逻辑——即您在所有平台中使用的代码。它使用 [Gradle](https://kotlinlang.org/docs/gradle.html) 作为构建系统，帮助您自动化构建过程。
+* **androidApp** 是构建为 Android 应用的模块。
+* **iosApp** 是一个 Xcode 项目，可构建为 iOS 应用。它依赖并使用共享模块作为 iOS 框架。
+* **desktopApp** 是构建为桌面 JVM 应用的模块。它依赖于 `shared` 模块。
+* **webApp** 是构建为 Web 应用（包括 Kotlin/JS 和 Kotlin/Wasm）的模块。
 
-  ![Compose Multiplatform 项目结构](compose-project-structure.png)
+![Compose Multiplatform 项目结构](compose-project-structure.png){width=400}
 
-**composeApp** 模块由以下源集组成：`androidMain`、`commonMain`、`iosMain`、`jsMain`、`jvmMain`、`wasmJsMain` 和 `webMain`（如果您选择包含测试，还会有 `commonTest`）。
-_源集_ 是一个 Gradle 概念，指一组在逻辑上组合在一起的文件，每组都有自己的依赖项。在 Kotlin Multiplatform 中，不同的源集可以针对不同的平台。
+**shared** 模块包含以下源集：`androidMain`、`commonMain`、`iosMain`、`jsMain`、`jvmMain` 和 `wasmJsMain`（如果您选择包含测试，还会有 `-Test` 对应的源集）。
+
+_源集_ 是一个 Gradle 概念，指一组在逻辑上组合在一起的文件，每组都有自己的依赖项。在 Kotlin Multiplatform 中，不同的源集通常针对不同的平台。
 
 `commonMain` 源集使用通用的 Kotlin 代码，而平台源集使用针对每个目标的特定 Kotlin 代码：
 
-* `jvmMain` 是桌面端的源文件，使用 Kotlin/JVM。
-* `androidMain` 同样使用 Kotlin/JVM。
-* `iosMain` 使用 Kotlin/Native。
-* `jsMain` 使用 Kotlin/JS。
-* `wasmJsMain` 使用 Kotlin/Wasm。
-* `webMain` 是 Web [中间源集](multiplatform-hierarchy.md#manual-configuration)，包含了 `jsMain` 和 `wasmJsMain`。
+* `jvmMain` 包含桌面端目标的源文件，使用 Kotlin/JVM。
+* `androidMain` 包含 Android 源文件，并针对 Kotlin/JVM。
+* `iosMain` 包含针对 iOS 的 Kotlin 代码，并针对 Kotlin/Native。
+* `jsMain` 包含 JavaScript 特定的 Kotlin 代码，并针对 Kotlin/JS。
+* `wasmJsMain` 包含 Wasm 特定的 Kotlin 代码，并针对 Kotlin/Wasm。
 
-当共享模块被构建为 Android 库时，通用的 Kotlin 代码会被视为 Kotlin/JVM。当它被构建为 iOS 框架时，通用的 Kotlin 代码会被视为 Kotlin/Native。当共享模块被构建为 Web 应用时，通用的 Kotlin 代码可以被视为 Kotlin/Wasm 和 Kotlin/JS。
+这样，当 `shared` 模块被构建为 Android 库时，通用的 Kotlin 代码会被视为 Kotlin/JVM；而当它被构建为 iOS 框架时，通用的 Kotlin 代码会被视为 Kotlin/Native。
+当共享模块被构建为 Web 应用时，通用的 Kotlin 代码可以根据需要被视为 Kotlin/Wasm 或 Kotlin/JS。
 
 ![通用 Kotlin、Kotlin/JVM 和 Kotlin/Native](module-structure.svg){width=700}
 
-通常，只要有可能，请将实现编写为通用代码，而不是在平台特定的源集中重复功能。
+通常，只要有可能，请将实现编写为通用代码，以利用“一次实现即可在各平台运行相同功能”的优势。
+理想情况下，平台特定的源集仅包含平台特定的 API 调用和 UX 流程。
 
-在 `composeApp/src/commonMain/kotlin` 目录中，打开 `App.kt` 文件。它包含 `App()` 函数，该函数实现了一个极简但完整的 Compose Multiplatform UI：
+在 `shared/src/commonMain/kotlin` 目录中，打开 `App.kt` 文件。它包含 `App()` 函数，该函数实现了一个极简但完整的 Compose Multiplatform UI：
 
 ```kotlin
 @Composable
@@ -119,7 +119,7 @@ fun App() {
     }
 }
 ```
-{initial-collapse-state="collapsed" collapsible="true"  collapsed-title="fun App()"}
+{id="common-app-composable"}
 
 让我们在所有支持的平台上运行该应用。
 
@@ -127,19 +127,19 @@ fun App() {
 
 您可以在 Android、iOS、桌面端和 Web 上运行该应用。您不必按任何特定顺序运行这些应用，因此可以从您最熟悉的任何平台开始。
 
-> 您不需要使用 Gradle 构建任务。在多平台应用中，这将构建所有受支持目标的调试版和发布版。根据在 Multiplatform 向导中选择的平台，这可能会花费一些时间。
-> 使用运行配置要快得多；在这种情况下，只有选定的目标会被构建。
+> 提供的运行配置比通用的 Gradle 构建任务更高效。
+> 运行配置仅触发相应目标的构建，而默认的 Gradle 任务会构建所有目标的调试版和发布版。
 >
 {style="tip"}
 
 ### 在 Android 上运行应用
 
-1. 在运行配置列表中，选择 **composeApp**。
+1. 在运行配置列表中，选择 **androidApp**。
 2. 选择您的 Android 虚拟设备，然后点击 **Run**：如果选定的虚拟设备处于关机状态，IDE 将启动它并运行应用。
 
-![在 Android 上运行 Compose Multiplatform 应用](compose-run-android.png){width=350}
+![在 Android 上运行 Compose Multiplatform 应用](compose-run-android.png){width=352}
 
-![Android 上的第一个 Compose Multiplatform 项目](first-compose-project-on-android-1.png){width=300}
+![Android 上的第一个 Compose Multiplatform 应用](first-compose-project-on-android-1.png){width=352}
 
 <snippet id="run_android_other_devices">
 
@@ -158,30 +158,12 @@ fun App() {
 如果您在初始设置中未启动过 Xcode，请在运行 iOS 应用之前启动它。
 
 在 IntelliJ IDEA 中，在运行配置列表中选择 **iosApp**，在运行配置旁边选择一个模拟设备，然后点击 **Run**。
-如果列表中没有可用的 iOS 配置，请添加一个[新的运行配置](#run-on-a-new-ios-simulated-device)。
 
-![在 iOS 上运行 Compose Multiplatform 应用](compose-run-ios.png){width=350}
+![在 iOS 上运行 Compose Multiplatform 应用](compose-run-ios.png){width=405}
 
-![iOS 上的第一个 Compose Multiplatform 项目](first-compose-project-on-ios-1.png){width=300}
+![iOS 上的第一个 Compose Multiplatform 应用](first-compose-project-on-ios-1.png){width=411}
 
 <snippet id="run_ios_other_devices">
-
-#### 在新的 iOS 模拟设备上运行 {initial-collapse-state="collapsed" collapsible="true"}
-
-如果您想在模拟设备上运行应用，可以添加一个新的运行配置。
-
-1. 在运行配置列表中，点击 **Edit Configurations**。
-
-   ![编辑运行配置](ios-edit-configurations.png){width=450}
-
-2. 点击配置列表上方的 **+** 按钮，然后选择 **Xcode Application**。
-
-   ![iOS 应用的新运行配置](ios-new-configuration.png)
-
-3. 为您的配置命名。
-4. 选择 **Working directory**。为此，请导航到您的项目（例如 **KotlinMultiplatformSandbox**）中的 `iosApp` 文件夹。
-
-5. 点击 **Run** 以在新的模拟设备上运行您的应用。
 
 #### 在真实的 iOS 设备上运行 {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -189,82 +171,63 @@ fun App() {
 
 ##### 设置您的 Team ID
 
-要在项目中设置 Team ID，您可以使用 IntelliJ IDEA 中的 KDoctor 工具，也可以在 Xcode 中选择您的团队。
+要首次为您的项目设置新的 Team ID，请在 Xcode 中打开项目（**File | Open Project in Xcode**）：
 
-对于 KDoctor：
-
-1. 在 IntelliJ IDEA 中，在终端运行以下命令：
-
-   ```none
-   kdoctor --team-ids 
-   ```
-
-   KDoctor 将列出您系统上当前配置的所有 Team ID，例如：
-
-   ```text
-   3ABC246XYZ (Max Sample)
-   ZABCW6SXYZ (SampleTech Inc.)
-   ```
-
-2. 在 IntelliJ IDEA 中，打开 `iosApp/Configuration/Config.xcconfig` 并指定您的 Team ID。
-
-或者，在 Xcode 中选择团队：
-
-1. 转到 Xcode 并选择 **Open a project or file**。
-2. 导航到项目的 `iosApp/iosApp.xcworkspace` 文件。
-3. 在左侧菜单中，选择 `iosApp`。
-4. 导航到 **Signing & Capabilities**。
-5. 在 **Team** 列表中，选择您的团队。
+1. 在左侧的项目导航器中，选择 **iosApp**。
+2. 在 **Targets** 下选择 **iosApp**，然后切换到 **Signing & Capabilities** 选项卡。
+3. 在 **Team** 列表中，选择您的团队。
 
    如果您尚未设置团队，请使用 **Team** 列表中的 **Add an Account** 选项并按照 Xcode 的说明进行操作。
 
-6. 确保 Bundle Identifier 是唯一的，并且 Signing Certificate 已成功分配。
+4. 确保 Bundle Identifier 是唯一的，并且已成功分配 Signing Certificate。
+
+在 Xcode 中设置好团队后，您可以在 IntelliJ IDEA 中设置或更改团队：
+
+1. 编辑 **iosApp** 的运行配置：
+
+   ![编辑 iOS 运行配置](ios-edit-configurations.png){width=450}
+
+2. 切换到 **Options** 选项卡，在 **Development team** 下拉菜单中进行必要的更改，然后点击 **OK**。
 
 ##### 运行应用
 
 用电缆连接您的 iPhone。如果您已经在 Xcode 中注册了该设备，IntelliJ IDEA 应该会将其显示在运行配置列表中。运行相应的 `iosApp` 配置。
 
-如果您尚未在 Xcode 中注册您的 iPhone，请按照 [Apple 的建议](https://developer.apple.com/documentation/xcode/running-your-app-in-simulator-or-on-device/)进行操作。
+如果您尚未在 Xcode 中注册您的 iPhone，请按照 [Apple 的建议](https://developer.apple.com/documentation/xcode/running-your-app-in-simulator-or-on-a-device/)进行操作。
 简而言之，您应该：
 
 1. 用电缆连接您的 iPhone。
 2. 在您的 iPhone 上，通过 **Settings** | **Privacy & Security** 启用开发者模式。
 3. 在 Xcode 中，转到顶部菜单并选择 **Window** | **Devices and Simulators**。
-4. 点击加号。选择您连接的 iPhone，然后点击 **Add**。
-5. 使用您的 Apple ID 登录以在设备上启用开发功能。
-6. 按照屏幕上的说明完成配对过程。
+4. 如果您的 iPhone 未显示为已连接，点击左下角的加号并选择它。
+5. 按照屏幕上的说明完成配对过程。
 
-在 Xcode 中注册 iPhone 后，在 IntelliJ IDEA 中[创建一个新的运行配置](#run-on-a-new-ios-simulated-device)，并在 **Execution target** 列表中选择您的设备。运行相应的 `iosApp` 配置。
+在 Xcode 中注册 iPhone 后，当您选择 **iosApp** 运行配置时，它将出现在 IntelliJ IDEA 的可用设备列表中。
 
 </snippet>
 
 ### 在桌面端运行应用
 
-在运行配置列表中选择 **composeApp [desktop]**，然后点击 **Run**。默认情况下，运行配置会在其自己的操作系统窗口中启动桌面应用：
+在运行配置列表中选择 **desktopApp [hot] 🔥**，然后点击 **Run**。
+默认情况下，运行配置会在其自己的操作系统窗口中启动桌面应用，并运行 [Compose Hot Reload (热重载)](compose-hot-reload.md)：
 
 ![在桌面端运行 Compose Multiplatform 应用](compose-run-desktop.png){width=350}
 
-![桌面端上的第一个 Compose Multiplatform 项目](first-compose-project-on-desktop-1.png){width=500}
+![桌面端上的第一个 Compose Multiplatform 应用](first-compose-project-on-desktop-1.png){width=500}
 
 ### 运行 Web 应用
 
 1. 在运行配置列表中，选择：
 
-   * **composeApp[js]**：运行您的 Kotlin/JS 应用。
-   * **composeApp[wasmJs]**：运行您的 Kotlin/Wasm 应用。
-
-   ![在 Web 上运行 Compose Multiplatform 应用](web-run-configuration.png){width=400}
+   * **webApp[js]**：运行您的 Kotlin/JS 应用。
+   * **webApp[wasmJs]**：运行您的 Kotlin/Wasm 应用。
 
 2. 点击 **Run**。
 
-Web 应用会自动在您的浏览器中打开。 
-或者，您可以在运行完成后在浏览器中输入以下 URL：
+Web 应用会自动在您的默认浏览器中打开，默认情况下可以通过 `http://localhost:8080/` 访问。
 
-```shell
-   http://localhost:8080/
-```
 > 端口号可能会有所不同，因为 8080 端口可能不可用。
-> 您可以在 Gradle 构建控制台中找到实际的端口号。
+> 您可以在 Gradle 构建控制台中搜索短语 "Project is running at" 来找到实际的端口号。
 >
 {style="tip"}
 
@@ -278,8 +241,8 @@ Web 应用会自动在您的浏览器中打开。
 
 要为您的 Web 应用启用兼容模式：
 
-1. 选择 **View | Tool Windows | Gradle** 打开 Gradle 工具窗口。
-2. 在 **composedemo | Tasks | compose** 中，选择并运行 **composeCompatibilityBrowserDistribution** 任务。
+1. 通过选择 **View | Tool Windows | Gradle** 打开 Gradle 工具窗口。
+2. 在 **ComposeDemo | Tasks | compose** 中，选择并运行 **composeCompatibilityBrowserDistribution** 任务。
 
    > 您至少需要 Java 11 作为 Gradle JVM 才能成功加载任务，通常我们建议为 Compose Multiplatform 项目至少使用 JetBrains Runtime 17。
    >

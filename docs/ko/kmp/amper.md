@@ -23,7 +23,7 @@ Amper를 사용하면 플랫폼별 애플리케이션과 공유 코틀린 라이
 ```yaml
 product:
   type: lib
-  platforms: [ jvm, android, iosArm64, iosSimulatorArm64, iosX64 ]
+  platforms: [ jvm, android, iosArm64, iosSimulatorArm64 ]
 
 # Shared Compose Multiplatform dependencies:
 dependencies:

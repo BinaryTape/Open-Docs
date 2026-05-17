@@ -30,7 +30,7 @@ Compose Hot Reload는 다음 두 가지 방법으로 추가할 수 있습니다:
 3. 왼쪽 패널에서 **Kotlin Multiplatform**을 선택합니다.
 4. **New Project** 창에서 **Name**, **Group**, **Artifact** 필드를 지정합니다.
 5. **Desktop** 타겟을 선택하고 **Create**를 클릭합니다.
-   ![데스크톱 타겟이 포함된 멀티플랫폼 프로젝트 생성](create-desktop-project.png){width=600 style="block"}
+   ![Create multiplatform project with desktop target](create-desktop-project.png){width=600 style="block"}
 
 ### 기존 프로젝트에 추가하기 {#to-an-existing-project}
 
@@ -71,7 +71,7 @@ Compose Multiplatform 버전을 1.10.0 이상으로 업그레이드하여 별도
    ```
    이렇게 하면 각 하위 프로젝트에서 Compose Hot Reload 플러그인이 여러 번 로드되는 것을 방지할 수 있습니다.
 
-4. 멀티플랫폼 애플리케이션이 포함된 하위 프로젝트의 `build.gradle.kts`(`ComposeDemo/composeApp/build.gradle.kts`)에서 `plugins {}` 블록에 다음 코드를 추가합니다:
+4. 멀티플랫폼 애플리케이션이 포함된 하위 프로젝트의 `build.gradle.kts`(`ComposeDemo/sharedUI/build.gradle.kts`)에서 `plugins {}` 블록에 다음 코드를 추가합니다:
    ```kotlin
    plugins { 
        alias(libs.plugins.composeHotReload)
@@ -95,7 +95,7 @@ Compose Multiplatform 버전을 1.10.0 이상으로 업그레이드하여 별도
    }
    ```
 
-6. **Sync Gradle Changes** 버튼을 클릭하여 Gradle 파일을 동기화합니다: ![Gradle 파일 동기화](gradle-sync.png){width=50}
+6. **Sync Gradle Changes** 버튼을 클릭하여 Gradle 파일을 동기화합니다: ![Synchronize Gradle files](gradle-sync.png){width=50}
 
 ## Compose Hot Reload 사용하기
 
@@ -130,12 +130,12 @@ Compose Multiplatform 버전을 1.10.0 이상으로 업그레이드하여 별도
     }
    ```
 
-4. `main.kt` 파일을 열고 거터(gutter)에 있는 **Run** 아이콘을 클릭합니다. 
-   **Run 'composeApp [jvm]' with Compose Hot Reload**를 선택합니다.
+4.  `main.kt` 파일을 열고 거터(gutter)에 있는 **Run** 아이콘을 클릭합니다. 
+    **Run 'composeApp [jvm]' with Compose Hot Reload**를 선택합니다.
 
-    ![거터에서 Compose Hot Reload 실행](compose-hot-reload-gutter-run.png){width=350}
+    ![Run Compose Hot Reload from gutter](compose-hot-reload-gutter-run.png){width=350}
 
-    ![데스크톱 앱에서의 첫 Compose Hot Reload](compose-hot-reload-hello.png){width=500}
+    ![First Compose Hot Reload on desktop app](compose-hot-reload-hello.png){width=500}
 
 5. `greet()` 함수에서 반환되는 문자열을 업데이트한 다음, 모든 파일을 저장(<shortcut>⌘ S</shortcut> / <shortcut>Ctrl+S</shortcut>)하면 데스크톱 앱이 자동으로 업데이트되는 것을 확인할 수 있습니다.
 

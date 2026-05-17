@@ -425,7 +425,7 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
         }
 
         // 创建 LLM 客户端
-        DeepSeekLLMClient deepSeekClient = new DeepSeekLLMClient(apiKey);
+        DeepSeekLLMClient deepSeekClient = deepSeekClient(apiKey);
 
         // 创建智能体
         AIAgent<String, String> agent = AIAgent.builder()

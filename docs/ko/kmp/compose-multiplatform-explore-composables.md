@@ -18,75 +18,56 @@ Kotlin Multiplatform 마법사가 생성한 샘플 컴포저블을 자세히 살
 
 ## 컴포저블 함수 구현하기
 
-`composeApp/src/commonMain/kotlin/App.kt` 파일에서 `App()` 함수를 살펴보세요.
+`shared/src/commonMain/kotlin/App.kt` 파일에서 `App()` 함수를 살펴보세요.
 
-```kotlin
-@Composable
-@Preview
-fun App() {
-    MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        Column(
-            modifier = Modifier
-                .background(MaterialTheme.colorScheme.primaryContainer)
-                .safeContentPadding()
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
-                }
-            }
-        }
-    }
-}
-```
+undefined
 
-`App()` 함수는 `@Composable` 어노테이션이 달린 일반적인 Kotlin 함수입니다. 이러한 종류의 함수를 *컴포저블 함수(composable functions)* 또는 간단히 *컴포저블(composables)*이라고 합니다. 이들은 Compose Multiplatform 기반 UI의 기본 구성 요소가 됩니다.
+`App()` 함수는 `@Composable` 어노테이션이 달린 일반적인 Kotlin 함수입니다. 이러한 종류의 함수를 *컴포저블 함수(composable functions)* 또는 간단히 *컴포저블(composables)*이라고 합니다. 이들은 Jetpack Compose 또는 Compose Multiplatform 기반 UI의 기본 구성 요소가 됩니다.
 
-컴포저블 함수는 다음과 같은 일반적인 구조를 가집니다.
+이 `App()` 함수는 앱 UI 아키텍처의 기반으로 사용되며 다음과 같은 구조를 가집니다.
 
-* `MaterialTheme`은 애플리케이션의 디자인을 설정합니다. 기본 설정을 맞춤화할 수 있으며, 예를 들어 색상, 모양 및 타이포그래피를 선택할 수 있습니다.
-* `Column` 컴포저블은 애플리케이션의 레이아웃을 제어합니다. 여기서는 `AnimatedVisibility` 컴포저블 위에 `Button`을 표시합니다.
-* `Button`은 텍스트를 렌더링하는 `Text` 컴포저블을 포함합니다.
-* `AnimatedVisibility`는 애니메이션을 사용하여 `Image`를 표시하거나 숨깁니다.
-* `painterResource`는 XML 리소스에 저장된 벡터 아이콘을 로드합니다.
+* `MaterialTheme()`은 애플리케이션의 디자인을 설정합니다. 기본 설정을 맞춤화할 수 있으며, 예를 들어 색상, 모양 및 타이포그래피를 선택할 수 있습니다.
+* `Column()` 컴포저블은 애플리케이션의 레이아웃을 제어합니다. 여기서는 `AnimatedVisibility()` 컴포저블 위에 `Button`을 표시합니다.
+* `Button()`은 버튼 위에 텍스트를 렌더링하는 `Text` 컴포저블을 포함합니다.
+* `AnimatedVisibility()` 호출은 버튼을 눌렀을 때 애니메이션을 사용하여 `Image`를 표시하거나 숨기도록 설정되어 있습니다.
+* `painterResource()`는 XML 파일로 저장된 벡터 이미지를 로드합니다.
 
-`Column`의 `horizontalAlignment` 매개변수는 콘텐츠를 중앙에 배치합니다. 하지만 이 설정이 효과를 내려면 열(column)이 컨테이너의 전체 너비를 차지해야 합니다. 이는 `modifier` 매개변수를 사용하여 수행됩니다.
+`Column()` 함수의 `horizontalAlignment` 매개변수는 열의 콘텐츠를 중앙에 배치합니다. 이 설정이 효과를 내려면 열이 컨테이너의 전체 너비를 차지해야 합니다. 이는 `modifier` 매개변수를 사용하여 수행할 수 있습니다.
 
-수정자(Modifiers)는 Compose Multiplatform의 핵심 구성 요소입니다. 이는 UI에서 컴포저블의 모양이나 동작을 조정하는 데 사용하는 기본 메커니즘입니다. 수정자는 `Modifier` 타입의 메서드를 사용하여 생성됩니다. 이러한 메서드들을 체이닝(chaining)할 때, 각 호출은 이전 호출에서 반환된 `Modifier`를 변경할 수 있으므로 호출 순서가 중요합니다.
-더 자세한 내용은 [JetPack Compose 문서](https://developer.android.com/jetpack/compose/modifiers)를 참조하세요.
+수정자(Modifiers)는 Jetpack Compose 및 Compose Multiplatform의 핵심 구성 요소입니다. 이는 UI에서 컴포저블의 모양이나 동작을 조정하는 데 사용하는 기본 메커니즘입니다. 수정자는 `Modifier` 타입의 메서드를 사용하여 생성됩니다. 이러한 메서드들을 체이닝(chaining)할 때, 각 호출은 이전 호출에서 반환된 `Modifier`를 변경할 수 있으므로 호출 순서가 중요합니다.
+더 자세한 내용은 [Compose Multiplatform 수정자 소개](https://kotlinlang.org/docs/multiplatform/compose-layout-modifiers.html#built-in-modifiers) 및 방대한 [Jetpack Compose 수정자 문서](https://developer.android.com/jetpack/compose/modifiers)를 참조하세요.
 
-### 상태 관리하기
+## 상태 관리하기
 
-샘플 컴포저블의 마지막 측면은 상태(state)가 관리되는 방식입니다. `App` 컴포저블의 `showContent` 속성은 `mutableStateOf()` 함수를 사용하여 작성되었으며, 이는 관찰 가능한 상태 객체임을 의미합니다.
+로드된 이미지는 영속적인 특성을 가집니다. 즉, 사용자가 버튼을 클릭하지 않는 한 리컴포지션 전반에 걸쳐 일관되게 표시되거나 숨겨진 상태를 유지해야 합니다.
+`App()` 컴포저블의 `showContent` 속성은 `mutableStateOf()` 함수를 사용하여 작성되었으며, 이는 관찰 가능한 상태 객체임을 의미합니다.
 
 ```kotlin
 var showContent by remember { mutableStateOf(false) }
 ```
 
-상태 객체는 `remember()` 함수 호출로 감싸져 있습니다. 즉, 객체가 한 번 생성된 후 프레임워크에 의해 유지(retain)됩니다. 이를 실행함으로써 값이 불리언(boolean)인 상태 객체를 포함하는 속성을 생성하게 됩니다. 프레임워크는 이 상태 객체를 캐시하여 컴포저블이 이를 관찰할 수 있도록 합니다.
+상태 객체는 `remember()` 호출로 감싸져 있습니다. 즉, 객체가 한 번 생성된 후 프레임워크에 의해 유지(retain)됩니다. 이를 통해 `showContent` 속성은 불리언(boolean) 값을 포함하는 상태 객체를 가지게 됩니다. 프레임워크는 이 상태 객체를 캐시하여 컴포저블이 이를 관찰할 수 있도록 합니다.
 
 상태 값이 변경되면 이를 관찰하는 모든 컴포저블이 다시 호출됩니다. 이를 통해 컴포저블이 생성하는 모든 위젯이 다시 그려질 수 있습니다. 이를 *리컴포지션(recomposition)*이라고 합니다.
 
-애플리케이션에서 상태가 변경되는 유일한 곳은 버튼의 클릭 이벤트입니다. `onClick` 이벤트 핸들러는 `showContent` 속성의 값을 반전시킵니다. 결과적으로 부모인 `AnimatedVisibility` 컴포저블이 `showContent`를 관찰하고 있기 때문에 `Greeting().greet()` 호출과 함께 이미지가 표시되거나 숨겨집니다.
+상태가 변경되는 유일한 곳은 `Button()` 호출의 `onClick` 매개변수입니다.
+이벤트 핸들러는 `showContent` 속성의 값을 반전시킵니다.
+결과적으로 부모인 `AnimatedVisibility()` 컴포저블이 `showContent`를 관찰하고 있기 때문에 `Greeting().greet()` 호출과 함께 이미지가 표시되거나 숨겨집니다.
 
 ## 다양한 플랫폼에서 UI 실행하기
 
-`App()` 함수 실행은 플랫폼마다 다릅니다. Android에서는 액티비티(activity), iOS에서는 뷰 컨트롤러(view controller), 데스크톱에서는 윈도우(window), 웹에서는 컨테이너(container)에 의해 관리됩니다. 각 플랫폼을 살펴보겠습니다.
+`App()` 함수는 각 플랫폼에서 다르게 실행됩니다.
+
+* Android에서는 액티비티(activity)에 의해 관리됩니다.
+* iOS에서는 뷰 컨트롤러(view controller)에 의해 관리됩니다.
+* 데스크톱에서는 윈도우(window)에 의해 관리됩니다.
+* 웹에서는 컨테이너(container)에 의해 관리됩니다.
+
+각 플랫폼을 살펴보겠습니다.
 
 ### Android에서
 
-Android의 경우 `composeApp/src/androidMain/kotlin`에 있는 `MainActivity.kt` 파일을 엽니다.
+Android의 경우 `androidApp/src/main/kotlin`에 있는 `MainActivity.kt` 파일을 엽니다.
 
 ```kotlin
 class MainActivity : ComponentActivity() {
@@ -101,39 +82,42 @@ class MainActivity : ComponentActivity() {
 }
 ```
 
-이것은 `App` 컴포저블을 호출하는 `MainActivity`라는 [Android 액티비티](https://developer.android.com/guide/components/activities/intro-activities)입니다.
+이것은 공통 코드에 선언된 `App()` 컴포저블을 호출하는 `MainActivity`라는 [Android 액티비티](https://developer.android.com/guide/components/activities/intro-activities)입니다.
 
 ### iOS에서
 
-iOS의 경우 `composeApp/src/iosMain/kotlin`에 있는 `MainViewController.kt` 파일을 엽니다.
+iOS의 경우 `shared/src/iosMain/kotlin`에 있는 `MainViewController.kt` 파일을 엽니다.
 
 ```kotlin
 fun MainViewController() = ComposeUIViewController { App() }
 ```
 
-이것은 Android의 액티비티와 동일한 역할을 수행하는 [뷰 컨트롤러(view controller)](https://developer.apple.com/documentation/uikit/view_controllers)입니다. iOS와 Android 타입 모두 단순히 `App` 컴포저블을 호출한다는 점에 유의하세요.
+이것은 Android의 액티비티와 동일한 역할을 수행하는 [뷰 컨트롤러(view controller)](https://developer.apple.com/documentation/uikit/view_controllers)입니다. iOS와 Android 타입 모두 단순히 공통 코드의 `App()` 컴포저블을 호출한다는 점에 유의하세요.
 
 ### 데스크톱에서
 
-데스크톱의 경우 `composeApp/src/jvmMain/kotlin`의 `main()` 함수를 확인하세요.
+데스크톱의 경우 `desktopApp/src/main/kotlin`에 있는 `main.kt` 파일을 확인하세요.
 
 ```kotlin
 fun main() = application {
-    Window(onCloseRequest = ::exitApplication, title = "ComposeDemo") {
+    Window(
+        onCloseRequest = ::exitApplication,
+        title = "ComposeDemo"
+    ) {
         App()
     }
 }
 ```
 
-* 여기서 `application()` 함수는 새로운 데스크톱 애플리케이션을 실행합니다.
-* 이 함수는 UI를 초기화하는 람다를 인자로 받습니다. 일반적으로 `Window`를 생성하고 윈도우가 닫힐 때 프로그램이 어떻게 반응해야 하는지에 대한 속성과 지침을 지정합니다. 이 경우 전체 애플리케이션이 종료됩니다.
-* 이 윈도우 안에 콘텐츠를 배치할 수 있습니다. Android 및 iOS와 마찬가지로, 유일한 콘텐츠는 `App()` 함수입니다.
+* 여기서 `application()` 함수는 새로운 데스크톱 애플리케이션을 실행합니다. 이 함수는 UI를 초기화하는 람다를 인자로 받습니다.
+* 일반적으로 `application()` 함수 내에서 `Window`를 생성하고 윈도우가 닫힐 때 실행되어야 하는 프로그램 지침(`onCloseRequest`)과 속성을 지정합니다. 기본 프로젝트에서는 전체 애플리케이션이 종료됩니다(`::exitApplication`).
+* 윈도우 안에 콘텐츠를 배치할 수 있습니다. Android 및 iOS와 마찬가지로, 유일한 콘텐츠는 `App()` 컴포저블이 제공하는 UI 레이아웃입니다.
 
-현재 `App` 함수는 어떠한 매개변수도 선언하지 않습니다. 규모가 큰 애플리케이션에서는 일반적으로 플랫폼별 종속성(dependencies)을 매개변수로 전달합니다. 이러한 종속성은 직접 생성하거나 의존성 주입(dependency injection) 라이브러리를 사용하여 생성할 수 있습니다.
+이 예제에서 `App()` 함수는 어떠한 매개변수도 받지 않습니다. 규모가 큰 애플리케이션에서는 일반적으로 플랫폼별 종속성(dependencies)을 매개변수로 전달합니다. 이러한 종속성은 직접 작성하거나 의존성 주입(dependency injection) 라이브러리를 사용하여 전달할 수 있습니다.
 
 ### 웹에서
 
-`composeApp/src/webMain/kotlin/main.kt` 파일에서 `main()` 함수를 살펴보세요.
+`webApp/src/webMain/kotlin/` 디렉토리 내의 `main.kt` 파일에서 `main()` 함수를 살펴보세요.
 
 ```kotlin
 @OptIn(ExperimentalComposeUiApi::class)
@@ -144,12 +128,10 @@ fun main() {
 }
 ```
 
-* `@OptIn(ExperimentalComposeUiApi::class)` 어노테이션은 실험용(experimental)으로 표시된 API를 사용하고 있으며 향후 릴리스에서 변경될 수 있음을 컴파일러에 알립니다.
+* `@OptIn(ExperimentalComposeUiApi::class)` 어노테이션은 실험용(experimental)으로 표시된 Compose API를 사용하고 있으며 향후 릴리스에서 변경될 수 있음을 컴파일러에 알립니다.
 * `ComposeViewport{}` 함수는 애플리케이션을 위한 Compose 환경을 설정합니다.
 * 웹 앱은 `ComposeViewport` 함수의 매개변수로 지정된 컨테이너에 삽입됩니다.
 * `App()` 함수는 Jetpack Compose를 사용하여 애플리케이션의 UI 컴포넌트를 빌드하는 역할을 합니다.
-
-`main.kt` 파일은 웹 타겟을 위한 공통 코드가 포함된 `webMain` 디렉토리에 있습니다.
 
 ## 다음 단계
 

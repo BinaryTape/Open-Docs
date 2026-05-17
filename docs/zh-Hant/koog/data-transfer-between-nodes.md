@@ -48,7 +48,7 @@ Koog 提供了一種使用 `AIAgentStorage` 存儲和傳遞資料的方式，這
     ```
     <!--- KNIT exampleDataTransferBetweenNodesJava01.java -->
 
-定義完成後，請按照下述說明使用該類別建立存儲金鑰。
+定義完成後，請使用該類別建立存儲金鑰，如下所述。
 
 ### 建立存儲金鑰
 
@@ -73,6 +73,7 @@ Koog 提供了一種使用 `AIAgentStorage` 存儲和傳遞資料的方式，這
     <!--- INCLUDE
     import ai.koog.agents.core.agent.entity.AIAgentStorage;
     import ai.koog.agents.core.agent.entity.AIAgentStorageKey;
+    import ai.koog.serialization.TypeToken;
     class exampleDataTransferBetweenNodesJava02 {
         record UserData(
             String name,
@@ -85,11 +86,11 @@ Koog 提供了一種使用 `AIAgentStorage` 存儲和傳遞資料的方式，這
     }
     -->
     ```java
-    AIAgentStorageKey<UserData> userDataKey = AIAgentStorage.createStorageKey("user-data");
+    AIAgentStorageKey<UserData> userDataKey = AIAgentStorage.createStorageKey("user-data", TypeToken.of(UserData.class));
     ```
     <!--- KNIT exampleDataTransferBetweenNodesJava02.java -->
 
-`createStorageKey` 函式接受單個字串參數，用於識別和偵錯目的。
+`createStorageKey` 函式接受一個用於識別和偵錯目的的字串參數，以及一個代表值型別的 `TypeToken`（在 Java 中使用；Kotlin 則會自動使用具體化泛型）。
 
 ### 存儲資料
 
@@ -120,13 +121,14 @@ Koog 提供了一種使用 `AIAgentStorage` 存儲和傳遞資料的方式，這
     import ai.koog.agents.core.agent.entity.AIAgentNode;
     import ai.koog.agents.core.agent.entity.AIAgentStorage;
     import ai.koog.agents.core.agent.entity.AIAgentStorageKey;
+    import ai.koog.serialization.TypeToken;
     public class exampleDataTransferBetweenNodesJava03 {
         record UserData(
             String name,
             int age
         ) {}
         public static void main(String[] args) {
-            AIAgentStorageKey<UserData> userDataKey = AIAgentStorage.createStorageKey("user-data");
+            AIAgentStorageKey<UserData> userDataKey = AIAgentStorage.createStorageKey("user-data", TypeToken.of(UserData.class));
     -->
     <!--- SUFFIX
         }
@@ -181,13 +183,14 @@ Koog 提供了一種使用 `AIAgentStorage` 存儲和傳遞資料的方式，這
     import ai.koog.agents.core.agent.entity.AIAgentNode;
     import ai.koog.agents.core.agent.entity.AIAgentStorage;
     import ai.koog.agents.core.agent.entity.AIAgentStorageKey;
+    import ai.koog.serialization.TypeToken;
     public class exampleDataTransferBetweenNodesJava04 {
         record UserData(
             String name,
             int age
         ) {}
         public static void main(String[] args) {
-            AIAgentStorageKey<UserData> userDataKey = AIAgentStorage.createStorageKey("user-data");
+            AIAgentStorageKey<UserData> userDataKey = AIAgentStorage.createStorageKey("user-data", TypeToken.of(UserData.class));
     -->
     <!--- SUFFIX
         }

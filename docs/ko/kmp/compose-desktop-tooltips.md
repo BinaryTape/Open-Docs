@@ -8,7 +8,7 @@
 * `tooltipPlacement`: 툴팁의 위치를 정의합니다. 앵커(마우스 커서 또는 컴포넌트), 오프셋, 그리고 정렬을 지정할 수 있습니다.
 * `delayMillis`: 툴팁이 표시되기까지의 시간(밀리초 단위)입니다. 기본값은 500ms입니다.
 
-다음 예제는 각각 `TooltipArea`로 감싸진 버튼 목록을 포함하는 간단한 창을 만드는 방법을 보여줍니다. 버튼 위에 마우스를 올리면 버튼의 이름이 적힌 툴팁이 나타납니다. 이 코드를 `composeApp/src/jvmMain/kotlin`에 있는 `main.kt` 파일에 추가하세요:
+다음 예제는 각각 `TooltipArea`로 감싸진 버튼 목록을 포함하는 간단한 창을 만드는 방법을 보여줍니다. 버튼 위에 마우스를 올리면 버튼의 이름이 적힌 툴팁이 나타납니다. 이 코드를 `jvmMain/kotlin`에 있는 `main.kt` 파일에 추가하세요:
 
 ```kotlin
 import androidx.compose.foundation.ExperimentalFoundationApi

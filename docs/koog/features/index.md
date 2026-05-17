@@ -30,12 +30,6 @@ Koog 框架提供以下开箱即用的功能：
 
     在代理运行之间存储和检索聊天消息历史记录
 
--   :material-chip:{ .lg .middle } [代理内存](agent-memory.md)
-
-    ---
-
-    在代理运行期间及运行之间存储、检索和使用任意数据
-
 -   :material-database-clock:{ .lg .middle } [长期内存](long-term-memory.md)
 
     ---

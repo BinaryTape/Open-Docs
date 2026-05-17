@@ -71,7 +71,7 @@ val process = ProcessBuilder(
 import kotlinx.coroutines.runBlocking
 
 runBlocking {
-    // Create the ToolRegistry with tools from the MCP server
+    // 使用來自 MCP 伺服器的工具建立 ToolRegistry
     val toolRegistry = McpToolRegistryProvider.fromTransport(
         transport = McpToolRegistryProvider.defaultStdioTransport(process)
     )
@@ -84,7 +84,7 @@ runBlocking {
     val strategy = strategy<String, String>("unity_interaction") {
         val nodePlanIngredients by nodeLLMRequest(allowToolCalls = false)
         val interactionWithUnity by subgraphWithTask<String, String>(
-            // work with plan
+            // 使用計畫進行工作
             tools = toolRegistry.tools,
         ) { input ->
             "Start interacting with Unity according to the plan: $input"
@@ -123,7 +123,7 @@ description:" + it.descriptor
 
                 onAgentCompleted { eventContext ->
                     println(
-                        "OnAgentCompleted (agent id: ${eventContext.agentId}, result: ${eventContext.result})"
+                        "OnAgentCompleted (agent id: ${eventContext.agent.id}, result: ${eventContext.result})"
                     )
                 }
             }
@@ -143,5 +143,5 @@ description:" + it.descriptor
 在執行結束時，請務必清理外部 Unity MCP 伺服器程序。
 
 ```kotlin
-// Shutdown the Unity MCP process
+// 關閉 Unity MCP 程序
 process.destroy()

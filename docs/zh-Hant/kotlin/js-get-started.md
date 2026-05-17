@@ -13,7 +13,7 @@
 
 ## 在 IntelliJ IDEA 中建立您的應用程式
 
-要建立您的 Kotlin/JS Web 應用程式，您可以使用 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 的 Community 或 Ultimate 版本。
+要建立您的 Kotlin/JS Web 應用程式，您可以使用 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)。
 
 ### 設定環境
 
@@ -78,7 +78,7 @@ Web 應用程式會自動在您的瀏覽器中開啟。
 
 ![Gradle 运行配置](js-run-config.png){width=500}
 
-> 在 IntelliJ IDEA Ultimate 中，
+> 在具有 Ultimate 訂閱的 IntelliJ IDEA 中，
 > 您可以使用 [JS 偵錯工具](https://www.jetbrains.com/help/idea/configuring-javascript-debugger.html)
 > 直接從 IDE 偵錯程式碼。
 > 
@@ -235,8 +235,8 @@ fun main() {
 
    * [`.lowercase()` 函式](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/lowercase.html) 將名稱轉換為小寫。
    * [`toList()` 函式](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/to-list.html) 將輸入字串轉換為字元列表。
-   * [`distinct()` 函式](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/distinct.html) 從單字中僅選取不重複的字元。
-   * [`count()` 函式](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/count.html) 計算不重複字元的數量。
+   * [`distinct()` 函式](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/distinct.html) 從單字中僅選取不重複的字元。
+   * [`count()` 函式](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/count.html) 計算不重複字元的數量。
 
 2. 在 `main()` 中呼叫 `.countDistinctCharacters()` 函式。它會計算您名字中不重複字母的數量：
 
@@ -256,7 +256,7 @@ fun main() {
    }
    ```
 
-3. 按照步驟[執行應用程式並輸入您的名字](#組建並執行應用程式)。
+3. 按照步驟[執行應用程式並輸入您的名字](#執行應用程式)。
 
 您可以看到結果：
 
@@ -390,7 +390,7 @@ gradle jsNodeDevelopmentRun
 
 ![應用程式輸出](js-output-gutter-4.png){width=600}
 
-如果您使用的是 `nodejs` 環境，您可以看到終端機列印出 `"Hello, Kotlin/JS!"`。
+如果您使用的是 `nodejs`環境，您可以看到終端機列印出 `"Hello, Kotlin/JS!"`。
 
 ![應用程式輸出](js-output-gutter-5.png){width=500}
 

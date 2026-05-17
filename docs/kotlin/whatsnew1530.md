@@ -41,7 +41,7 @@ Kotlin 1.5.30 提供了未来语言变化的预览，并对选择加入要求机
 
 我们计划很快禁止非详尽的 `when` 语句，以使行为与 `when` 表达式保持一致。为了确保顺利迁移，您可以配置编译器，使其针对使用密封类或布尔值的非详尽 `when` 语句报告警告。此类警告将在 Kotlin 1.6 中默认出现，并将在以后变为错误。
 
-> 枚举（Enums）已经会收到警告。
+> 枚举已经会收到警告。
 >
 {style="note"}
 
@@ -56,7 +56,7 @@ fun main() {
     when (x) { 
         Mode.ON -> println("ON")
     }
-// 警告：密封类/接口上的非详尽 'when' 语句
+// 警告：密封类/接口上的非详尽 'when' 语句 
 // 将在 1.7 中被禁止，请改为添加 'OFF' 或 'else' 分支
 
     val y: Boolean = true
@@ -197,7 +197,7 @@ fun getDate(): Date {
 
 Kotlin 1.5.30 提出了在不同 [目标 (targets)](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-target/) 上使用和声明选择加入要求注解的新规则。编译器现在会对在编译时难以处理的使用场景报告错误。在 Kotlin 1.5.30 中：
 * 在使用位置禁止用选择加入要求注解标记局部变量和值参数。
-* 仅当重写（override）的基本声明也被标记时，才允许标记该重写。
+* 仅当重写 (override) 的基本声明也被标记时，才允许标记该重写。
 * 禁止标记支持字段和 getter。您可以改为标记基本属性。
 * 在选择加入要求注解声明位置禁止设置 `TYPE` 和 `TYPE_PARAMETER` 注解目标。
 
@@ -310,7 +310,7 @@ Kotlin/Native 获得了各种更改和改进：
 * [针对 CocoaPods Gradle 插件改进的 Kotlin DSL](#improved-kotlin-dsl-for-the-cocoapods-gradle-plugin)
 * [与 Swift 5.5 async/await 的实验性互操作性](#experimental-interoperability-with-swift-5-5-async-await)
 * [改进的对象和伴生对象的 Swift/Objective-C 映射](#improved-swift-objective-c-mapping-for-objects-and-companion-objects)
-* [弃用针对没有导入库的 MinGW 目标的 DLL 链接](#deprecation-of-linkage-against-dlls-without-import libraries-for-mingw-targets)
+* [弃用针对没有导入库的 MinGW 目标的 DLL 链接](#deprecation-of-linkage-against-dlls-without-import-libraries-for-mingw-targets)
 
 ### Apple 芯片支持
 
@@ -438,7 +438,7 @@ MyClass.Companion.shared
 
 ### 在共享原生代码中使用自定义 cinterop 库的能力
 
-Kotlin 多平台为您提供了一个 [选项](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#connect-platform-specific-libraries)，可以在共享源集中使用平台相关的互操作库。在 1.5.30 之前，这仅适用于随 Kotlin/Native 分发版提供的 [平台库](native-platform-libs.md)。从 1.5.30 开始，您可以将其用于自定义 `cinterop` 库。要启用此功能，请在您的 `gradle.properties` 中添加 `kotlin.mpp.enableCInteropCommonization=true` 属性：
+Kotlin 多平台为您提供了一个 [选项](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#connect-platform-specific-libraries) 在共享源集中使用平台相关的互操作库。在 1.5.30 之前，这仅适用于随 Kotlin/Native 分发版提供的 [平台库](native-platform-libs.md)。从 1.5.30 开始，您可以将其用于自定义 `cinterop` 库。要启用此功能，请在您的 `gradle.properties` 中添加 `kotlin.mpp.enableCInteropCommonization=true` 属性：
 
 ```none
 kotlin.mpp.enableGranularSourceSetsMetadata=true
@@ -540,7 +540,7 @@ kotlin {
 
 在 1.5.30 之前，生成的发布 [元数据](https://docs.gradle.org/current/userguide/publishing_gradle_module_metadata.html) 包含每个发布的 Android 变体的构建类型属性，使其仅与库使用者使用的相同构建类型兼容。Kotlin 1.5.30 引入了新的默认发布设置：
 * 如果项目发布的所有 Android 变体具有相同的构建类型属性，则发布的变体将不具有构建类型属性，并将与任何构建类型兼容。
-* 如果发布的变体具有不同的构建类型属性，则只有那些具有 `release` 值的变体将在不带构建类型属性的情况下发布。这使得发布变体在使用者端与任何构建类型兼容，而显式非发布变体将仅与匹配的使用者构建类型兼容。
+* If the published variants have different build type attributes, then only those with the `release` value will be published without the build type attribute. 这使得发布变体在使用者端与任何构建类型兼容，而显式非发布变体将仅与匹配的使用者构建类型兼容。
 
 要退出并为所有变体保留构建类型属性，可以设置此 Gradle 属性：`kotlin.android.buildTypeAttribute.keep=true`。
 
@@ -560,13 +560,13 @@ kotlin {
 
 Kotlin 1.5.30 为 Kotlin/JS IR 后端带来了 JavaScript 源代码映射生成。启用 IR 后端时，这将改进 Kotlin/JS 调试体验，提供完整的调试支持，包括断点、步进以及带有正确源引用的可读堆栈跟踪。
 
-了解如何 [在浏览器或 IntelliJ IDEA Ultimate 中调试 Kotlin/JS](js-debugging.md)。
+了解如何 [在浏览器或 IntelliJ IDEA 中调试 Kotlin/JS](js-debugging.md)。
 
 ## Gradle
 
 作为我们 [改进 Kotlin Gradle 插件用户体验](https://youtrack.jetbrains.com/issue/KT-45778) 使命的一部分，我们实现了以下功能：
 * [支持 Java 工具链](#support-for-java-toolchains)，其中包括针对旧版 Gradle 版本 [使用 `UsesKotlinJavaToolchain` 接口指定 JDK home 的能力](#ability-to-specify-jdk-home-with-useskotlinjavatoolchain-interface)
-* [显式指定 Kotlin 守护进程的 JVM 参数的更简单方法](#easier-way-to-explicitly-specify-kotlin-daemon-jvm-arguments)
+* [显式指定 Kotlin 守护进程 JVM 参数的更简单方法](#easier-way-to-explicitly-specify-kotlin-daemon-jvm-arguments)
 
 ### 支持 Java 工具链
 

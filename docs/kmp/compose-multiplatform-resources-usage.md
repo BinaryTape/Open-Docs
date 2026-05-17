@@ -30,13 +30,13 @@
 要使用准备好的资源，请导入生成的类，例如：
 
 ```kotlin
-import project.composeapp.generated.resources.Res
-import project.composeapp.generated.resources.example_image
+import project.shared.generated.resources.Res
+import project.shared.generated.resources.example_image
 ```
 
 这里：
 * `project` 是你的项目名称
-* `composeapp` 是你放置资源目录的模块
+* `shared` 是你放置资源目录的模块
 * `Res` 是生成的类的默认名称
 * `example_image` 是 `composeResources/drawable` 目录中的图像文件名（例如 `example_image.png`）。
 
@@ -307,7 +307,7 @@ coroutineScope.launch {
 </TabItem>
 </Tabs>
 
-> 你可以使用类 Emmet 的语法快速定义字符串数组。使用 `string-array`、`sa` 或 `>` 运算符生成空的数组模板。对于具有预定义项目数量和起始文本的命名数组，请输入 `test>2{Hello}` 并按 **Tab** 键：
+> 你可以使用类 Emmet 的语法快速定义字符串数组。使用 `string-array`、`sa` 或 `>` 运算符生成空的数组模板。对于具有预定义项目数量和起始文本的命名数组，请输入 `test>2{Hello}`并按 **Tab** 键：
 > ```xml
 > <string-array name="test">
 >    <item>Hello</item>

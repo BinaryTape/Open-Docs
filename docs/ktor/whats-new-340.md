@@ -30,7 +30,7 @@ install(Authentication) {
     oauth("login") {
         client = ...
         urlProvider = ...
-        providerLookup = { ... }
+        settings = ...
         fallback = { cause ->
             if (cause is OAuth2RedirectError) {
                 respondRedirect("/login-after-fallback")
@@ -41,6 +41,12 @@ install(Authentication) {
     }
 }
 ```
+
+### 静态 OAuth 提供程序设置
+
+Ktor 3.4.0 为 [OAuth](server-oauth.md) 身份验证提供程序引入了 `settings` 属性。可以使用它直接在 `oauth` 块中配置静态 OAuth 提供程序设置。对于静态提供程序配置，建议优先使用 `settings` 而非 `providerLookup`，因为这允许 Ktor 为生成的 [OpenAPI 规范](openapi-spec-generation.md)推断元数据。
+
+`providerLookup` 属性仍然可用于为特定调用动态解析 OAuth 设置。
 
 ### Zstd 压缩支持
 
@@ -271,6 +277,7 @@ Ktor 3.4.0 引入了新的函数和配置选项，让您可以显式且便捷地
 
 您现在可以直接从客户端访问身份验证提供程序，并在需要时清除其缓存的令牌。
 
+To clear the token for a specific provider, use the `.clearToken()` function:
 要清除特定提供程序的令牌，请使用 `.clearToken()` 函数：
 
 ```kotlin

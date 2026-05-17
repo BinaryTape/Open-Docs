@@ -254,7 +254,7 @@ kotlin {
 | `entryPoint`         | 実行可能バイナリのエントリポイント関数。デフォルトではルートパッケージの `main()` です。                                                                                                                                                             |
 | `outputFile`         | 出力ファイルへのアクセス。                                                                                                                                                                                                                                   |
 | `linkTask`           | リンクタスクへのアクセス。                                                                                                                                                                                                                                     |
-| `runTask`            | 実行可能バイナリの実行タスクへのアクセス。`linuxX64`、`macosX64`、`mingwX64` 以外のターゲットの場合、値は `null` です。                                                                                                                            |
+| `runTask`            | 実行可能バイナリの実行タスクへのアクセス。`linuxX64`、`macosArm64`、`mingwX64` 以外のターゲットの場合、値は `null` です。                                                                                                                            |
 | `isStatic`           | Objective-C フレームワーク用。動的ライブラリの代わりに静的ライブラリを含めます。                                                                                                                                                                              |
 | `disableNativeCache` | <p>コンパイルキャッシュを無効にします。コンパイル時間が増加するため、例外的な場合にのみ使用してください。</p><p>キャッシュを無効にする Kotlin の `version` と `reason`（理由）を含める必要があります。オプションで、バグトラッカーの `issue`（課題）への URL を指定できます。</p> |
 
@@ -288,7 +288,7 @@ binaries {
     }
 
     framework("my_framework" listOf(RELEASE)) {
-        // フレームワークに動的ライブラリの代わりに静的ライブラリを含める。
+        // フレームワークに動的ライブラリ의 代わりに静的ライブラリを含める。
         isStatic = true
 
         // このバイナリのコンパイルキャッシュを無効にする
@@ -599,7 +599,7 @@ kotlin {
 
 ## コンパイル
 
-ターゲットは、製品用やテスト用など、1 つ以上のコンパイルを持つことができます。ターゲット의 作成時に自動的に追加される [定義済みコンパイル](#定義済みコンパイル) があります。さらに [カスタムコンパイル](#カスタムコンパイル) を作成することもできます。
+ターゲットは、製品用やテスト用など、1 つ以上のコンパイルを持つことができます。ターゲットの作成時に自動的に追加される [定義済みコンパイル](#定義済みコンパイル) があります。さらに [カスタムコンパイル](#カスタムコンパイル) を作成することもできます。
 
 ターゲットのすべてまたは一部の特定のコンパイルを参照するには、`compilations` オブジェクトコレクションを使用します。
 `compilations` から、名前によってコンパイルを参照できます。
@@ -1062,8 +1062,8 @@ kotlin {
 | `languageVersion`       | 指定されたバージョンの Kotlin とのソース互換性を提供します。                                                                                                             |
 | `apiVersion`            | 指定されたバージョンの Kotlin バンドルライブラリの宣言のみを使用できるようにします。                                                                                          |
 | `enableLanguageFeature` | 指定された言語機能を有効にします。利用可能な値は、現在実験的な、あるいはかつて実験的として導入された言語機能に対応しています。 |
-| `optIn`                 | 指定された [オプトインアノテーション（opt-in annotation）](https://kotlinlang.org/docs/opt-in-requirements.html) の使用を許可します。                                                                           |
-| `progressiveMode`       | [プログレッシブモード（progressive mode）](https://kotlinlang.org/docs/whatsnew13.html#progressive-mode) を有効にします。                                                                                   |
+| `optIn`                 | 指定された [オプトインアノテーション](https://kotlinlang.org/docs/opt-in-requirements.html) の使用を許可します。                                                                           |
+| `progressiveMode`       | [プログレッシブモード](https://kotlinlang.org/docs/whatsnew13.html#progressive-mode) を有効にします。                                                                                   |
 
 <Tabs group="build-script">
 <TabItem title="Kotlin" group-key="kotlin">

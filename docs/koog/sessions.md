@@ -242,15 +242,13 @@ Koog 框架提供了两种类型的会话：
 
 最常用的发起 LLM 请求的方法是：
 
-1. `requestLLM()`：使用当前的 prompt 和工具向 LLM 发起请求，返回单个响应。
+1. `requestLLM()`：使用当前的 prompt 和工具向 LLM 发起请求，返回一个响应。
 
-2. `requestLLMMultiple()`：使用当前的 prompt 和工具向 LLM 发起请求，返回多个响应。
+2. `requestLLMWithoutTools()`：使用当前的 prompt 但不使用任何工具向 LLM 发起请求，返回单个响应。
 
-3. `requestLLMWithoutTools()`：使用当前的 prompt 但不使用任何工具向 LLM 发起请求，返回单个响应。
+3. `requestLLMForceOneTool()`：使用当前的 prompt 和工具向 LLM 发起请求，强制使用一个工具。
 
-4. `requestLLMForceOneTool()`：使用当前的 prompt 和工具向 LLM 发起请求，强制使用一个工具。
-
-5. `requestLLMOnlyCallingTools()`：向 LLM 发起请求，且该请求应仅通过使用工具来处理。
+4. `requestLLMOnlyCallingTools()`：向 LLM 发起请求，且该请求应仅通过使用工具来处理。
 
 示例：
 
@@ -274,9 +272,6 @@ Koog 框架提供了两种类型的会话：
 
         // 在不使用工具的情况下发起请求
         val responseWithoutTools = requestLLMWithoutTools()
-
-        // 发送返回多个响应的请求
-        val responses = requestLLMMultiple()
     }
     ```
     <!--- KNIT example-sessions-04.kt -->
@@ -308,8 +303,6 @@ Koog 框架提供了两种类型的会话：
         // 在不使用工具的情况下发起请求
         var responseWithoutTools = session.requestLLMWithoutTools();
 
-        // 发送返回多个响应的请求
-        var responses = session.requestLLMMultiple();
         return null;
     });
     ```
@@ -332,7 +325,7 @@ Koog 框架提供了两种类型的会话：
     <!--- INCLUDE
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
-    import ai.koog.prompt.message.Message
+    import ai.koog.prompt.message.MessagePart
 
     val strategy = strategy<Unit, Unit>("strategy-name") {
         val node by node<Unit, Unit> {
@@ -345,8 +338,9 @@ Koog 框架提供了两种类型的会话：
     llm.writeSession {
         val response = requestLLM()
 
-        // 响应可能是工具调用或文本响应
-        if (response is Message.Tool.Call) {
+        // 响应可能包含工具调用和/或文本
+        val toolCalls = response.parts.filterIsInstance<MessagePart.Tool.Call>()
+        if (toolCalls.isNotEmpty()) {
             // 处理工具调用
         } else {
             // 处理文本响应
@@ -360,6 +354,7 @@ Koog 框架提供了两种类型的会话：
     <!--- INCLUDE
     import ai.koog.agents.core.agent.entity.AIAgentNode;
     import ai.koog.prompt.message.Message;
+    import ai.koog.prompt.message.MessagePart;
     class exampleSessionsJava05 {
         public static void main(String[] args) {
             var node = AIAgentNode.builder("node_name")
@@ -378,8 +373,10 @@ Koog 框架提供了两种类型的会话：
     ctx.getLlm().writeSession(session -> {
         var response = session.requestLLM();
 
-        // 响应可能是工具调用或文本响应
-        if (response instanceof Message.Tool.Call) {
+        // 响应部分可能包含工具调用或文本内容
+        boolean hasToolCall = response.getParts().stream()
+            .anyMatch(p -> p instanceof MessagePart.Tool.Call);
+        if (hasToolCall) {
             // 处理工具调用
         } else {
             // 处理文本响应
@@ -456,7 +453,7 @@ Koog 框架提供了两种类型的会话：
 
         // 发起流式请求
         var responseStream = session.requestLLMStreaming();
-        // 从 Flow.Publisher<StreamFrame> 处理分块
+        // 处理来自 Flow.Publisher<StreamFrame> 的分块
         return null;
     });
     ```
@@ -473,15 +470,12 @@ Koog 框架提供了两种类型的会话：
     <!--- INCLUDE
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
-    import ai.koog.prompt.message.Message
-    import ai.koog.prompt.message.RequestMetaInfo
-    import kotlin.time.Clock
+    import ai.koog.prompt.message.MessagePart
 
-    val myToolResult = Message.Tool.Result(
+    val myToolResult = MessagePart.Tool.Result(
         id = "",
         tool = "",
-        content = "",
-        metaInfo = RequestMetaInfo(Clock.System.now())
+        output = "",
     )
 
     val strategy = strategy<Unit, Unit>("strategy-name") {
@@ -504,9 +498,7 @@ Koog 框架提供了两种类型的会话：
             assistant("Of course! What's your question?")
 
             // 添加工具结果
-            tool {
-                result(myToolResult)
-            }
+            toolResult(myToolResult)
         }
     }
     ```
@@ -793,8 +785,8 @@ Koog 框架提供了两种类型的会话：
     -->
     ```java
     // Java 在图策略中使用专用的工具执行节点。
-    var executeTool = AIAgentNode.executeTool("executeTool");
-    var sendToolResult = AIAgentNode.llmSendToolResult("sendToolResult");
+    var executeTool = AIAgentNode.executeTools("executeTool");
+    var sendToolResult = AIAgentNode.llmRequest("sendToolResult");
     ```
     <!--- KNIT exampleSessionsJava11.java -->
 
@@ -849,8 +841,8 @@ Koog 框架提供了两种类型的会话：
     }
     -->
     ```java
-    // Java 中并行执行多个工具的等效方式：使用 executeMultipleTools 节点。
-    var executeMultipleTools = AIAgentNode.executeMultipleTools(true, "executeMultipleTools");
+    // Java 中并行执行多个工具的等效方式：使用 executeTools 节点。
+    var executeMultipleTools = AIAgentNode.executeTools("executeMultipleTools");
     ```
     <!--- KNIT exampleSessionsJava12.java -->
 

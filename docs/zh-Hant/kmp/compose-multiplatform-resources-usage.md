@@ -30,13 +30,13 @@
 若要使用準備好的資源，請匯入產生的類別，例如：
 
 ```kotlin
-import project.composeapp.generated.resources.Res
-import project.composeapp.generated.resources.example_image
+import project.shared.generated.resources.Res
+import project.shared.generated.resources.example_image
 ```
 
 這裡：
 * `project` 是您的專案名稱
-* `composeapp` 是您放置資源目錄的模組
+* `shared` 是您放置資源目錄的模組
 * `Res` 是產生類別的預設名稱
 * `example_image` 是 `composeResources/drawable` 目錄中圖像檔案的名稱（例如 `example_image.png`）。
 
@@ -221,7 +221,7 @@ coroutineScope.launch {
 * `\t` – 用於定位符號 (tab)
 * `\uXXXX` – 用於特定的 Unicode 字元
 
-您不需要像 [Android 字串](https://developer.android.com/guide/topics/resources/string-resource#escaping_quotes) 那樣對 "@" 或 "?" 等特殊 XML 字元進行轉義。
+您不需要像 [Android 字串](https://developer.android.com/guide/topics/resources/string-resource#escaping_quotes) 那樣對 "@" 或 "?" 等特殊 XML 字元進行轉義。 
 
 > 使用類 Emmet 的語法並按下 **Tab** 以將縮寫展開為字串標籤：
 > * `test` → `<string name="test"></string>`

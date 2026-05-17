@@ -1,9 +1,21 @@
 [//]: # (title: 데이터베이스 연결 및 데이터 가져오기)
+[//]: # (description: Kotlin DataFrame을 사용하여 SQL 데이터베이스에 연결하고, 테이블 스키마를 검사하며, 데이터를 가져오는 방법을 알아봅니다.)
 
-[Kotlin Notebook](kotlin-notebook-overview.md)은 MariaDB, PostgreSQL, MySQL, SQLite와 같은 다양한 유형의 SQL 데이터베이스에 연결하고 데이터를 가져오는 기능을 제공합니다.
+[Kotlin Notebook](kotlin-notebook-overview.md)은 다음과 같이 가장 일반적인 SQL 데이터베이스들을 지원합니다:
+
+* [DuckDB](https://kotlin.github.io/dataframe/duckdb.html)
+* [H2](https://kotlin.github.io/dataframe/h2.html)
+* [MariaDB](https://kotlin.github.io/dataframe/mariadb.html)
+* [Microsoft SQL Server](https://kotlin.github.io/dataframe/microsoft-sql-server.html)
+* [MySQL](https://kotlin.github.io/dataframe/mysql.html)
+* [PostgreSQL](https://kotlin.github.io/dataframe/postgresql.html)
+* [SQLite](https://kotlin.github.io/dataframe/sqlite.html)
+
 [Kotlin DataFrame 라이브러리](https://kotlin.github.io/dataframe/home.html)를 활용하면 Kotlin Notebook에서 데이터베이스 연결을 설정하고, SQL 쿼리를 실행하며, 이후 작업을 위해 결과를 가져올 수 있습니다.
 
-자세한 예제는 [KotlinDataFrame SQL Examples GitHub 저장소의 Notebook](https://github.com/zaleslaw/KotlinDataFrame-SQL-Examples/blob/master/notebooks/imdb.ipynb)을 참조하세요.
+> 자세한 예제는 [KotlinDataFrame SQL Examples GitHub 저장소의 Notebook](https://github.com/zaleslaw/KotlinDataFrame-SQL-Examples/blob/master/notebooks/imdb.ipynb)을 참조하세요.
+>
+{style="tip"}
 
 ## 시작하기 전에
 
@@ -11,156 +23,158 @@ Kotlin Notebook은 [Kotlin Notebook 플러그인](https://plugins.jetbrains.com/
 
 Kotlin Notebook 기능을 사용할 수 없는 경우 플러그인이 활성화되어 있는지 확인하세요. 자세한 내용은 [환경 설정](kotlin-notebook-set-up-env.md)을 참조하세요.
 
-새 Kotlin Notebook을 생성합니다:
+이 튜토리얼을 따라 하려면 다음 단계를 수행하세요:
+1. [새 Kotlin Notebook을 생성](kotlin-notebook-create.md)합니다.
+2. 노트북의 첫 번째 셀에 데이터베이스용 JDBC(Java Database Connectivity) 드라이버 의존성을 추가합니다.
+   
+   예를 들어, MariaDB 데이터베이스에 연결하려면 다음과 같이 추가합니다:
 
-1. **File** | **New** | **Kotlin Notebook**을 선택합니다.
-
-2. MariaDB나 MySQL과 같은 SQL 데이터베이스에 접근할 수 있는지 확인합니다.
-
-## 데이터베이스 연결
-
-[Kotlin DataFrame 라이브러리](https://kotlin.github.io/dataframe/home.html)의 특정 함수를 사용하여 SQL 데이터베이스에 연결하고 상호작용할 수 있습니다.
-`DatabaseConfiguration`을 사용하여 데이터베이스 연결을 설정하고, `getSchemaForAllSqlTables()`를 사용하여 데이터베이스 내의 모든 테이블 스키마(schema)를 가져올 수 있습니다.
-
-예제를 살펴보겠습니다:
-
-1. Kotlin Notebook 파일(`.ipynb`)을 엽니다.
-2. JDBC(Java Database Connectivity) 드라이버에 대한 의존성을 추가하고 JDBC 드라이버 버전을 지정합니다.
-이 예제에서는 MariaDB를 사용합니다:
-
-   ```kotlin
+   ```kotlin 
    USE {
       dependencies("org.mariadb.jdbc:mariadb-java-client:$version")
    }
    ```
-
-3. 데이터 조작 작업에 필수적인 Kotlin DataFrame 라이브러리와 SQL 연결 및 유틸리티 함수에 필요한 Java 라이브러리를 임포트(import)합니다:
+3. Kotlin DataFrame을 임포트(import)합니다:
 
    ```kotlin
    %use dataframe
-   import java.sql.DriverManager
-   import java.util.*
    ```
 
-4. `DatabaseConfiguration` 클래스를 사용하여 URL, 사용자 이름, 비밀번호를 포함한 데이터베이스 연결 파라미터를 정의합니다:
+> DataFrame 라이브러리와 관련 API를 노트북에서 사용할 수 있도록 다른 코드 셀보다 먼저 `%use dataframe` 라인이 포함된 코드 셀을 실행하세요.
+>
+{style="note"}
+
+## 데이터베이스 연결
+
+데이터베이스에 연결하려면 `DbConnectionConfig()` 함수를 사용하여 연결 설정을 생성합니다:
+
+1. 다음 기능들을 임포트합니다:
+   
+   ```kotlin
+   import org.jetbrains.kotlinx.dataframe.io.DbConnectionConfig
+   import org.jetbrains.kotlinx.dataframe.schema.DataFrameSchema
+   ```
+
+2. `DbConnectionConfig()` 함수를 사용하여 연결 파라미터(URL, 사용자 이름, 비밀번호)를 정의합니다:
 
    ```kotlin
    val URL = "YOUR_URL"
    val USER_NAME = "YOUR_USERNAME"
    val PASSWORD = "YOUR_PASSWORD"
    
-   val dbConfig = DatabaseConfiguration(URL, USER_NAME, PASSWORD)
+   val dbConfig = DbConnectionConfig(URL, USER_NAME, PASSWORD)
    ```
 
-5. 연결이 완료되면 `getSchemaForAllSqlTables()` 함수를 사용하여 데이터베이스의 각 테이블에 대한 스키마 정보를 가져와 표시합니다:
+> SQL 데이터베이스 연결에 대한 자세한 내용은 [Kotlin DataFrame 문서의 Read from SQL databases](https://kotlin.github.io/dataframe/readsqldatabases.html)를 참조하세요.
+>
+{style="tip"}
 
-   ```kotlin
-   val dataschemas = DataFrame.getSchemaForAllSqlTables(dbConfig)
+## 데이터베이스 스키마 검사
+
+데이터를 로드하기 전에 데이터베이스 스키마(schema)를 검사하여 어떤 테이블이 있고 어떤 컬럼이 포함되어 있는지 파악합니다. 스키마를 확인하여 어떤 테이블을 DataFrame으로 로드할지 결정할 수 있습니다.
+
+데이터베이스 내의 모든 사용자 생성 테이블에 대한 스키마를 가져오려면 `DataFrameSchema.readAllSqlTables()` 함수를 사용합니다:
+
+```kotlin
+val dataSchemas = DataFrameSchema.readAllSqlTables(dbConfig)
+
+dataSchemas.forEach { (tableName, schema) ->
+    println("---Schema for table: $tableName---")
+    println(schema)
+    println()
+}
+```
+
+## 데이터 로드
+
+데이터베이스 스키마를 검사하고 데이터를 선택한 후, 데이터를 DataFrame으로 로드합니다.
+
+Kotlin DataFrame은 데이터베이스에서 데이터를 로드하는 두 가지 방법을 제공합니다:
+
+* 테이블에서 직접 데이터 로드.
+* 커스텀 SQL 쿼리 결과 로드.
+
+두 방법 모두 Kotlin Notebook에서 검사, 변환 및 분석할 수 있는 DataFrame을 반환합니다.
+
+### 테이블에서 데이터 로드
+
+테이블에서 데이터를 로드하려면 [`DataFrame.readSqlTable()`](https://kotlin.github.io/dataframe/readsqldatabases.html#reading-specific-tables) 함수를 사용합니다.
+
+다음 예제는 `movies` 테이블에서 첫 100개 행을 로드합니다:
+
+```kotlin
+val moviesDf = DataFrame.readSqlTable(
+    dbConfig = dbConfig,
+    tableName = "movies",
+    limit = 100
+)
+
+moviesDf
+```
+
+### SQL 쿼리로 데이터 로드
+
+데이터베이스에서 특정 SQL 쿼리를 실행하려면 [`DataFrame.readSqlQuery()`](https://kotlin.github.io/dataframe/readsqldatabases.html#executing-sql-queries) 함수를 사용합니다.
+이 방법은 특정 컬럼만 로드하거나, 테이블을 조인(join)하고, 행을 필터링하거나, 데이터베이스 내에서 데이터를 집계해야 할 때 유용합니다.
+
+쿠엔틴 타란티노(Quentin Tarantino)가 감독한 영화와 관련된 특정 데이터셋을 가져와 보겠습니다.
+이 쿼리는 영화 상세 정보를 선택하고 각 영화의 장르를 결합합니다:
+
+```kotlin
+val TARANTINO_FILMS_SQL_QUERY = """
+    SELECT name, year, rank, GROUP_CONCAT(genre) as "genres"
+    FROM movies JOIN movies_directors ON movie_id = movies.id
+    JOIN directors ON directors.id=director_id LEFT JOIN movies_genres ON movies.id = movies_genres.movie_id
+    WHERE directors.first_name = "Quentin" AND directors.last_name = "Tarantino"
+    GROUP BY name, year, rank
+    ORDER BY year
+    """
+
+val tarantinoMoviesDf = DataFrame.readSqlQuery(dbConfig, TARANTINO_FILMS_SQL_QUERY)
+
+tarantinoMoviesDf
+```
+
+## 데이터 처리
+
+데이터베이스를 DataFrame으로 로드한 후, DataFrame 연산을 사용하여 가져온 데이터를 처리할 수 있습니다.
+
+예를 들어, 이전 섹션의 데이터를 조작해 보겠습니다. 다음 코드는:
+1. [`.fillNA()`](https://kotlin.github.io/dataframe/fill.html#fillna) 함수를 사용하여 `year` 컬럼의 누락된 값을 대체합니다.
+2. [`.convert()`](https://kotlin.github.io/dataframe/convert.html) 함수를 사용하여 컬럼을 `Int`로 변환합니다.
+3. [`.filter()`](https://kotlin.github.io/dataframe/filter.html) 함수를 사용하여 2000년 이후에 개봉된 영화만 유지합니다.
+
+```kotlin
+val filteredTarantinoMovies = tarantinoMoviesDf
+    .fillNA { year }.with { 0 }
+    .convert { year }.toInt()
+    .filter { year > 2000 }
+
+filteredTarantinoMovies
+```
+
+## 데이터 분석
+
+[Kotlin Notebook](kotlin-notebook-overview.md)과 [DataFrame 라이브러리](https://kotlin.github.io/dataframe/home.html)를 사용하여 데이터를 그룹화, 정렬, 집계함으로써 데이터 내의 패턴을 발견하고 이해할 수 있습니다.
+
+예를 들어, `actors` 테이블에서 배우 데이터를 읽어 가장 흔한 이름(first name) 상위 20개를 찾아보겠습니다:
+
+```kotlin
+// actors 테이블에서 데이터를 추출합니다.
+val actorDf = DataFrame.readSqlTable(dbConfig, "actors", 10000)
+val top20ActorNames = actorDf
+   // first_name 컬럼을 기준으로 데이터를 그룹화합니다.
+   .groupBy { first_name }
    
-   dataschemas.forEach { 
-       println("---Yet another table schema---")
-       println(it)
-       println()
-   }
-   ```
-
-   > SQL 데이터베이스 연결에 대한 자세한 내용은 [Kotlin DataFrame 문서의 Read from SQL databases](https://kotlin.github.io/dataframe/readsqldatabases.html)를 참조하세요.
-   > 
-   {style="tip"}
-
-## 데이터 가져오기 및 조작
-
-[SQL 데이터베이스 연결을 설정](#데이터베이스-연결)한 후에는 Kotlin DataFrame 라이브러리를 사용하여 Kotlin Notebook에서 데이터를 가져오고 조작할 수 있습니다.
-`readSqlTable()` 함수를 사용하여 데이터를 가져올 수 있으며, 데이터를 조작하기 위해 [`filter`](https://kotlin.github.io/dataframe/filter.html), [`groupBy`](https://kotlin.github.io/dataframe/groupby.html), [`convert`](https://kotlin.github.io/dataframe/convert.html)와 같은 메서드를 사용할 수 있습니다.
-
-IMDB 데이터베이스에 연결하여 쿠엔틴 타란티노(Quentin Tarantino)가 감독한 영화 데이터를 가져오는 예제를 살펴보겠습니다:
-
-1. `readSqlTable()` 함수를 사용하여 "movies" 테이블에서 데이터를 가져옵니다. 효율성을 위해 `limit`를 설정하여 쿼리 결과를 첫 100개 레코드로 제한합니다:
-
-   ```kotlin
-   val dfs = DataFrame.readSqlTable(dbConfig, tableName = "movies", limit = 100)
-   ```
-
-2. SQL 쿼리를 사용하여 쿠엔틴 타란티노가 감독한 영화와 관련된 특정 데이터셋을 가져옵니다. 이 쿼리는 영화 상세 정보를 선택하고 각 영화의 장르를 결합합니다:
-
-   ```kotlin
-   val props = Properties()
-   props.setProperty("user", USER_NAME)
-   props.setProperty("password", PASSWORD)
+   // 각 고유한 이름의 발생 횟수를 계산합니다.
+   .count()
    
-   val TARANTINO_FILMS_SQL_QUERY = """
-       SELECT name, year, rank, GROUP_CONCAT(genre) as "genres"
-       FROM movies JOIN movies_directors ON movie_id = movies.id
-       JOIN directors ON directors.id=director_id LEFT JOIN movies_genres ON movies.id = movies_genres.movie_id
-       WHERE directors.first_name = "Quentin" AND directors.last_name = "Tarantino"
-       GROUP BY name, year, rank
-       ORDER BY year
-       """
-   
-   // 쿠엔틴 타란티노의 영화 목록(이름, 연도, 순위, 모든 장르가 결합된 문자열 포함)을 가져옵니다.
-   // 결과는 이름, 연도, 순위별로 그룹화되고 연도순으로 정렬됩니다.
-   
-   var dfTarantinoMovies: DataFrame<*>
-   
-   DriverManager.getConnection(URL, props).use { connection ->
-      connection.createStatement().use { st ->
-         st.executeQuery(TARANTINO_FILMS_SQL_QUERY).use { rs ->
-            val dfTarantinoFilmsSchema = DataFrame.getSchemaForResultSet(rs, connection)
-            dfTarantinoFilmsSchema.print()
-   
-            dfTarantinoMovies = DataFrame.readResultSet(rs, connection)
-            dfTarantinoMovies
-         }
-      }
-   }
-   ```
-
-3. 타란티노 영화 데이터셋을 가져온 후, 데이터를 추가로 조작하고 필터링할 수 있습니다.
-
-   ```kotlin
-   val df = dfTarantinoMovies
-       // 'year' 컬럼의 누락된 값을 0으로 대체합니다.
-       .fillNA { year }.with { 0 }
-       
-       // 'year' 컬럼을 정수형(Int)으로 변환합니다.
-       .convert { year }.toInt()
-   
-       // 2000년 이후에 개봉된 영화만 포함하도록 데이터를 필터링합니다.
-       .filter { year > 2000 }
-   df
-   ```
-
-결과 출력은 [`fillNA`](https://kotlin.github.io/dataframe/fill.html#fillna) 메서드를 사용하여 year 컬럼의 누락된 값을 0으로 대체하고, [`convert`](https://kotlin.github.io/dataframe/convert.html) 메서드로 year 컬럼을 정수 값으로 변환하며, [`filter`](https://kotlin.github.io/dataframe/filter.html) 메서드를 사용하여 2000년 이후의 행만 포함하도록 필터링된 DataFrame입니다.
-
-## Kotlin Notebook에서 데이터 분석
-
-[SQL 데이터베이스 연결을 설정](#데이터베이스-연결)한 후, [Kotlin DataFrame 라이브러리](https://kotlin.github.io/dataframe/home.html)를 활용하여 Kotlin Notebook에서 심층적인 데이터 분석을 수행할 수 있습니다. 여기에는 데이터 그룹화, 정렬, 집계 함수가 포함되어 데이터 내의 패턴을 발견하고 이해하는 데 도움을 줍니다.
-
-영화 데이터베이스에서 배우 데이터를 분석하여 가장 자주 등장하는 배우의 이름을 찾는 예제를 살펴보겠습니다:
-
-1. [`readSqlTable()`](https://kotlin.github.io/dataframe/readsqldatabases.html#reading-specific-tables) 함수를 사용하여 "actors" 테이블에서 데이터를 추출합니다:
-
-   ```kotlin
-   val actorDf = DataFrame.readSqlTable(dbConfig, "actors", 10000)
-   ```
-
-2. 가져온 데이터를 처리하여 가장 흔한 배우 이름 상위 20개를 식별합니다. 이 분석에는 여러 DataFrame 메서드가 사용됩니다:
-
-   ```kotlin
-   val top20ActorNames = actorDf
-       // 배우 이름을 기준으로 정리하기 위해 first_name 컬럼으로 데이터를 그룹화합니다.
-      .groupBy { first_name }
-   
-       // 각 고유한 이름의 발생 횟수를 계산하여 빈도 분포를 제공합니다.
-      .count()
-   
-       // 가장 흔한 이름을 식별하기 위해 개수(count)를 기준으로 내림차순 정렬합니다.
-      .sortByDesc("count")
-   
-       // 분석을 위해 상위 20개의 빈번한 이름을 선택합니다.
-      .take(20)
-   top20ActorNames
-   ```
+    // 개수(count)를 기준으로 내림차순 정렬합니다.
+   .sortByDesc("count")
+    
+   // 분석을 위해 상위 20개의 빈번한 이름을 선택합니다.
+   .take(20)
+```
 
 ## 다음 단계
 

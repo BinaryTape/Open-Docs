@@ -59,7 +59,6 @@
        val xcf = XCFramework(xcframeworkName)
    
        listOf(
-           iosX64(),
            iosArm64(),
            iosSimulatorArm64(),
        ).forEach { 
@@ -87,10 +86,10 @@
    > 若您使用的是 Compose Multiplatform 專案，請使用以下 Gradle 任務：
    >
    > ```shell
-   > ./gradlew :composeApp:assembleSharedXCFramework
+   > ./gradlew :sharedUI:assembleSharedXCFramework
    > ```
    >
-   > 接著您可以在 `composeApp/build/XCFrameworks/release/Shared.xcframework` 目錄中找到產生的架構。
+   > 接著您可以在 `sharedUI/build/XCFrameworks/release/Shared.xcframework` 目錄中找到產生的架構。
    >
    {style="tip"}
 
@@ -122,7 +121,7 @@
        </def>
    </deflist>
 
-3. [建議] 檢查連結是否有效且檔案是否可以下載。在終端中執行以下指令：
+3. [建議] 檢查連結是否有效且檔案是否可以下載。在終端機中執行以下指令：
 
     ```none
     curl <上傳的 XCFramework ZIP 檔案下載連結>
@@ -224,7 +223,6 @@
         val xcf = XCFramework(frameworkName)
     
         listOf(
-            iosX64(),
             iosArm64(),
             iosSimulatorArm64()
         ).forEach { iosTarget ->
@@ -257,7 +255,6 @@
             //...
         }
         
-        iosX64()
         iosArm64()
         iosSimulatorArm64()
         

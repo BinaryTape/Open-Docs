@@ -3,7 +3,7 @@
 Koog 的 **串流 API (Streaming API)** 讓您能在 Kotlin 中以 `Flow<StreamFrame>` 或在 Java 中以 `Flow.Publisher<StreamFrame>` 的形式 **增量地** 取用 **LLM 輸出**。
 無須等待完整回應，您的程式碼可以：
 
-- 在助手文字到達時立即渲染，
+- 在助手文字到達時立即呈現 (render)，
 - 即時偵測 **工具呼叫 (tool call)** 並執行相應操作，
 - 了解串流何時 **結束** 以及結束的原因。
 
@@ -15,13 +15,13 @@ Koog 的 **串流 API (Streaming API)** 讓您能在 Kotlin 中以 `Flow<StreamF
 
     - `StreamFrame.TextDelta(text: String, index: Int?)` — 增量式的助手文字
     - `StreamFrame.ReasoningDelta(text: String?, summary: String?, index: Int?)` — 增量式的推理文字與摘要
-    - `StreamFrame.ToolCallDelta(id: String?, name: String?, content: String?, index: Int?)` — 部分工具調用
+    - `StreamFrame.ToolCallDelta(id: String?, name: String?, content: String?, index: Int?)` — 部分工具調用 (tool invocation)
 
     **完整框架 (Complete frames)**（完整內容）：
 
     - `StreamFrame.TextComplete(text: String, index: Int?)` — 完整的助手文字
-    - `StreamFrame.ReasoningComplete(text: List<String>, summary: List<String>?, encrypted: String?, index: Int?)` — 包含選用摘要與加密內容的完整推理
-    - `StreamFrame.ToolCallComplete(id: String?, name: String, content: String, index: Int?)` — 完整的工具調用
+    - `StreamFrame.ReasoningComplete(content: List<String>, summary: List<String>?, encrypted: String?, index: Int?)` — 包含選用摘要與加密內容的完整推理
+    - `StreamFrame.ToolCallComplete(id: String?, name: String, content: String, index: Int?)` — 完整的工具調用 (tool invocation)
 
     **結束標記 (End marker)**：
 
@@ -33,13 +33,13 @@ Koog 的 **串流 API (Streaming API)** 讓您能在 Kotlin 中以 `Flow<StreamF
 
     - `StreamFrame.TextDelta` — 增量式的助手文字。欄位：`getText()`、`getIndex()`。
     - `StreamFrame.ReasoningDelta` — 增量式的推理文字與摘要。欄位：`getText()`、`getSummary()`、`getIndex()`。
-    - `StreamFrame.ToolCallDelta` — 部分工具調用。欄位：`getId()`、`getName()`、`getContent()`、`getIndex()`。
+    - `StreamFrame.ToolCallDelta` — 部分工具調用 (tool invocation)。欄位：`getId()`、`getName()`、`getContent()`、`getIndex()`。
 
     **完整框架 (Complete frames)**（完整內容）：
 
     - `StreamFrame.TextComplete` — 完整的助手文字。欄位：`getText()`、`getIndex()`。
     - `StreamFrame.ReasoningComplete` — 包含選用摘要與加密內容的完整推理。欄位：`getText()`（回傳 `List<String>`）、`getSummary()`（回傳 `List<String>`）、`getEncrypted()`、`getIndex()`。
-    - `StreamFrame.ToolCallComplete` — 完整的工具調用。欄位：`getId()`、`getName()`、`getContent()`、`getIndex()`。此外也提供用於 JSON 剖析的 `getContentJson()` 和 `getContentJsonResult()`。
+    - `StreamFrame.ToolCallComplete` — 完整的工具調用 (tool invocation)。欄位：`getId()`、`getName()`、`getContent()`、`getIndex()`。此外也提供用於 JSON 剖析的 `getContentJson()` 和 `getContentJsonResult()`。
 
     **結束標記 (End marker)**：
 
@@ -63,7 +63,7 @@ Koog 的 **串流 API (Streaming API)** 讓您能在 Kotlin 中以 `Flow<StreamF
 
 串流 API 區分了兩種框架類型：
 
-- **增量框架 (Delta frames)** (`DeltaFrame`) — 以區塊形式到達的增量／部分內容。這些非常適合在內容串流進入時進行即時顯示。例如：`TextDelta`、`ReasoningDelta`、`ToolCallDelta`。
+- **增量框架 (Delta frames)** (`DeltaFrame`) — 以區塊 (chunks) 形式到達的增量／部分內容。這些非常適合在內容串流進入時進行即時顯示。例如：`TextDelta`、`ReasoningDelta`、`ToolCallDelta`。
 
 - **完整框架 (Complete frames)** (`CompleteFrame`) — 在該內容類型的所有增量框架接收完畢後發送的完整內容。這些對於最終處理以及轉換為 `Message.Response` 物件非常有用。例如：`TextComplete`、`ReasoningComplete`、`ToolCallComplete`。
 
@@ -209,7 +209,7 @@ Tool call: " + toolCall.getName()
 
     llm.writeSession {
         val stream = requestLLMStreaming(mdDefinition)
-        // 直接存取原始字串區塊
+        // 直接存取原始字串區塊 (chunks)
         stream.collect { chunk ->
             // 在每個文字區塊到達時進行處理
             println("Received chunk: $chunk") // 這些區塊組合後將成為符合 mdDefinition 架構的結構化文字
@@ -319,7 +319,7 @@ Tool call: " + toolCall.getName()
                 is StreamFrame.ReasoningComplete -> {
                     // 存取完整推理內容
                     println("
-Complete reasoning: ${frame.text.joinToString("")}")
+Complete reasoning: ${frame.content.joinToString("")}")
                     println("Summary: ${frame.summary?.joinToString("") ?: "N/A"}")
                 }
                 is StreamFrame.TextDelta -> print(frame.text)
@@ -387,7 +387,7 @@ Complete reasoning: ${frame.text.joinToString("")}")
                     // 存取完整推理內容
                     System.out.println("
 Complete reasoning: "
-                        + String.join("", complete.getText()));
+                        + String.join("", complete.getContent()));
                     System.out.println("Summary: "
                         + (complete.getSummary() != null
                             ? String.join("", complete.getSummary()) : "N/A"));
@@ -599,8 +599,8 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
 您可以將收集到的框架列表轉換為標準訊息物件：
 
 - `toAssistantMessageOrNull()` — 從文字框架提取 `Message.Assistant`
-- `toReasoningMessageOrNull()` — 從推理框架提取 `Message.Reasoning`
-- `toToolCallMessages()` — 從工具呼叫框架提取 `Message.Tool.Call`
+- `toReasoningMessageOrNull()` — 從推理框架提取 `MessagePart.Reasoning`
+- `toToolCallMessages()` — 從工具呼叫框架提取 `MessagePart.Tool.Call`
 - `toMessageResponses()` — 將所有完整框架轉換為其對應的 `Message.Response` 物件
 
 ## 範例
@@ -613,7 +613,7 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
 結構化資料方法包含以下關鍵組件：
 
 1. **MarkdownStructureDefinition**：一個幫助您以 Markdown 格式定義結構化資料的架構與範例的類別。
-2. **markdownStreamingParser**：一個用於建立剖析器的函式，該剖析器處理 Markdown 區塊串流並發送事件。
+2. **markdownStreamingParser**：一個用於建立剖析器的函式，該剖析器處理 Markdown 區塊 (chunks) 串流並發送事件。
 
 以下章節提供了處理結構化資料串流的逐步說明與程式碼範例。
 
@@ -1119,6 +1119,6 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
 
 5. **處理錯誤**：針對格式錯誤的 Markdown 或非預期的資料實作適當的錯誤處理。
 
-6. **測試**：使用各種輸入情境測試您的剖析器，包括部分區塊和格式錯誤的輸入。
+6. **測試**：使用各種輸入情境測試您的剖析器，包括部分區塊 (chunks) 和格式錯誤的輸入。
 
 7. **並行處理**：對於獨立的資料項目，請考慮使用並行工具呼叫以獲得更好的效能。

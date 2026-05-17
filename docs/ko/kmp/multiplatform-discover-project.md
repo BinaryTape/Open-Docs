@@ -217,13 +217,13 @@ fun randomUuidString(): String {
 코틀린 멀티플랫폼을 사용하여 iOS 모바일 애플리케이션을 개발할 때는 보통 `iosMain` 소스 세트를 사용합니다. 이것이 `ios` 타겟을 위한 플랫폼별 소스 세트라고 생각할 수 있지만, 단일 `ios` 타겟이라는 것은 존재하지 않습니다. 대부분의 모바일 프로젝트에는 최소 두 개의 타겟이 필요합니다.
 
 * **기기 타겟(Device target)**은 iOS 기기에서 실행할 수 있는 바이너리를 생성하는 데 사용됩니다. 현재 iOS용 기기 타겟은 `iosArm64` 하나뿐입니다.
-* **시뮬레이터 타겟(Simulator target)**은 사용자의 머신에서 실행되는 iOS 시뮬레이터용 바이너리를 생성하는 데 사용됩니다. Apple 실리콘 Mac 컴퓨터를 사용하는 경우 시뮬레이터 타겟으로 `iosSimulatorArm64`를 선택하세요. Intel 기반 Mac 컴퓨터를 사용하는 경우 `iosX64`를 사용하세요.
+* **시뮬레이터 타겟(Simulator target)**은 사용자의 머신에서 실행되는 iOS 시뮬레이터용 바이너리를 생성하는 데 사용됩니다. Apple 실리콘 Mac 컴퓨터를 사용하는 경우 시뮬레이터 타겟으로 `iosSimulatorArm64`를 선택하세요.
 
 `iosArm64` 기기 타겟만 선언하면 로컬 머신에서 애플리케이션과 테스트를 실행하고 디버깅할 수 없습니다.
 
-`iosArm64Main`, `iosSimulatorArm64Main`, `iosX64Main`과 같은 플랫폼별 소스 세트는 보통 비어 있습니다. iOS 기기와 시뮬레이터용 코틀린 코드는 대개 동일하기 때문입니다. 모든 타겟 간에 코드를 공유하려면 `iosMain` 중간 소스 세트만 사용하면 됩니다.
+`iosArm64Main` 및 `iosSimulatorArm64Main`과 같은 플랫폼별 소스 세트는 보통 비어 있습니다. iOS 기기와 시뮬레이터용 코틀린 코드는 대개 동일하기 때문입니다. 모든 타겟 간에 코드를 공유하려면 `iosMain` 중간 소스 세트만 사용하면 됩니다.
 
-이는 Mac이 아닌 다른 Apple 타겟에도 동일하게 적용됩니다. 예를 들어, Apple TV용 `tvosArm64` 기기 타겟과 Apple 실리콘 및 Intel 기반 기기의 Apple TV 시뮬레이터용 `tvosSimulatorArm64` 및 `tvosX64` 시뮬레이터 타겟이 있는 경우, 이들 모두에 대해 `tvosMain` 중간 소스 세트를 사용할 수 있습니다.
+이는 Mac이 아닌 다른 Apple 타겟에도 동일하게 적용됩니다. 예를 들어, Apple TV용 `tvosArm64` 기기 타겟과 Apple 실리콘 기기의 Apple TV 시뮬레이터용 `tvosSimulatorArm64` 시뮬레이터 타겟이 있는 경우, 이들 모두에 대해 `tvosMain` 중간 소스 세트를 사용할 수 있습니다.
 
 ## 테스트 통합 (Integration with tests)
 

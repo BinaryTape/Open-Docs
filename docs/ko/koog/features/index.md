@@ -30,12 +30,6 @@ Koog 프레임워크는 다음과 같은 기능을 기본적으로(Out of the bo
 
     에이전트 실행 간의 채팅 메시지 기록을 저장하고 조회합니다.
 
--   :material-chip:{ .lg .middle } [에이전트 메모리 (Agent memory)](agent-memory.md)
-
-    ---
-
-    에이전트 실행 도중 및 실행 간에 임의의 데이터를 저장, 조회 및 사용합니다.
-
 -   :material-database-clock:{ .lg .middle } [장기 메모리 (Long-term memory)](long-term-memory.md)
 
     ---

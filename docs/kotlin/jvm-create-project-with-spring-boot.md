@@ -15,15 +15,15 @@
 
 ## 开始之前
 
-下载并安装最新版本的 [IntelliJ IDEA Ultimate Edition](https://www.jetbrains.com/idea/download/)。
+下载并安装最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 并使用 Ultimate 订阅。
 
-> 如果您使用的是 IntelliJ IDEA Community Edition 或其他 IDE，可以使用 [基于 Web 的项目生成器](https://start.spring.io/#!language=kotlin&type=gradle-project-kotlin) 来生成 Spring Boot 项目。
+> 如果您使用的 IntelliJ IDEA 没有 Ultimate 订阅或者您使用的是其他 IDE，可以使用 [基于 Web 的项目生成器](https://start.spring.io/#!language=kotlin&type=gradle-project-kotlin) 来生成 Spring Boot 项目。
 > 
 {style="tip"}
 
 ## 创建 Spring Boot 项目
 
-通过 IntelliJ IDEA Ultimate Edition 中的项目向导创建一个新的 Kotlin Spring Boot 项目：
+通过 IntelliJ IDEA 中的项目向导创建一个新的 Kotlin Spring Boot 项目：
 
 1. 在 IntelliJ IDEA 中，选择 **File** | **New** | **Project**。 
 2. 在左侧面板的 **Generators** 部分中，选择 **Spring Boot**。
@@ -177,13 +177,13 @@ fun main(args: Array<String>) {
    </def>
    <def title="程序入口点 – main()">
       <p><a href="basic-syntax.md#program-entry-point"><code>main()</code></a> 函数是应用程序的入口点。</p>
-      <p>它被声明为 <code>DemoApplication</code> 类之外的 <a href="functions.md#function-scope">顶层函数</a>。<code>main()</code> 函数调用 Spring 的 <code>runApplication(&#42;args)</code> 函数，以便通过 Spring 框架启动应用程序。</p>
+      <p>它被声明为 <code>DemoApplication</code> 类之外的 <a href="functions.md#function-scope">顶层函数</a>。<code>main()</code> 函数调用 Spring 的 <code>runApplication(*args)</code> 函数，以便通过 Spring 框架启动应用程序。</p>
    </def>
    <def title="可变数量参数 – args: Array&lt;String&gt;">
       <p>如果您查看 <code>runApplication()</code> 函数的声明，会发现该函数的形参被标记了 <a href="functions.md#variable-number-of-arguments-varargs"><code>vararg</code> 修饰符</a>：<code>vararg args: String</code>。这意味着您可以向该函数传递可变数量的 String 实参。</p>
    </def>
    <def title="扩展运算符 – (*args)">
-      <p><code>args</code> 是 <code>main()</code> 函数的一个形参，被声明为字符串数组。由于您有一个字符串数组，并且希望将其内容传递给函数，请使用扩展运算符（在数组前加星号 <code>&#42;</code>）。</p>
+      <p><code>args</code> 是 <code>main()</code> 函数的一个形参，被声明为字符串数组。由于您有一个字符串数组，并且希望将其内容传递给函数，请使用扩展运算符（在数组前加星号 <code>*</code>）。</p>
    </def>
 </deflist>
 

@@ -4,15 +4,22 @@
 
 <link-summary>라우트 핸들러 내에서 들어오는 요청을 처리하는 방법을 알아봅니다.</link-summary>
 
-Ktor를 사용하면 [라우트 핸들러](server-routing.md#define_route) 내에서 들어오는 요청을 처리하고 [응답](server-responses.md)을 보낼 수 있습니다. 요청을 처리할 때 다음과 같은 다양한 작업을 수행할 수 있습니다:
+Ktor를 사용하면 [라우트 핸들러](server-routing.md#define_route) 내에서 들어오는 요청을 처리하고 [응답](server-responses.md)을 보낼 수 있습니다.
 
-* 헤더, 쿠키 등과 같은 [요청 정보](#request_information) 가져오기.
+라우트 핸들러는 클라이언트와 서버 간의 단일 HTTP 교환을 나타내는 [`ApplicationCall`](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-call/index.html)에서 작동합니다. 이는 라우트 핸들러 내에서 `call` 속성을 통해 사용할 수 있으며, 들어오는 요청(`ApplicationRequest`)과 나가는 응답(`ApplicationResponse`)을 모두 포함합니다.
+
+라우트 핸들러 내에서 `ApplicationCall`을 사용하여 다음과 같은 작업을 수행할 수 있습니다:
+
+* 헤더, 쿠키, 연결 세부 정보와 같은 [요청 정보](#request_information) 가져오기.
 * [경로 파라미터(path parameter)](#path_parameters) 값 가져오기.
-* [쿼리 문자열(query string)](#query_parameters)의 파라미터 가져오기.
+* [쿼리 파라미터(query parameters)](#query_parameters) 가져오기.
 * 데이터 객체, 폼 파라미터, 파일과 같은 [바디 콘텐츠(body contents)](#body_contents) 수신하기.
 
 ## 일반적인 요청 정보 {id="request_information"}
-라우트 핸들러 내에서 [`call.request`](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-call/request.html) 속성을 사용하여 요청에 접근할 수 있습니다. 이는 [`ApplicationRequest`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/index.html) 인스턴스를 반환하며 다양한 요청 파라미터에 대한 접근을 제공합니다. 예를 들어, 아래 코드 스니펫은 요청 URI를 가져오는 방법을 보여줍니다:
+
+[`call.request`](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-call/request.html) 속성을 통해 요청 데이터에 접근할 수 있습니다. 이는 로우 레벨(low-level) HTTP 요청 정보에 대한 접근을 제공하는 [`ApplicationRequest`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/index.html) 인스턴스를 반환합니다.
+
+예를 들어, GET 요청 핸들러에서 `call.request.uri`를 사용하여 요청 URI를 가져올 수 있습니다:
 
 ```kotlin
 routing {
@@ -22,28 +29,36 @@ routing {
     }
 }
 ```
-[`call.respondText()`](server-responses.md#plain-text) 메서드는 클라이언트에 응답을 다시 보내는 데 사용됩니다.
 
-[`ApplicationRequest`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/index.html) 객체를 사용하면 다음과 같은 다양한 요청 데이터에 접근할 수 있습니다:
+[`call.respondText()`](server-responses.md#plain-text) 함수는 클라이언트에 일반 텍스트 응답을 다시 보냅니다.
 
-* **헤더(Headers)**
+### 헤더(Headers) {id="headers"}
 
-  모든 요청 헤더에 접근하려면 [`ApplicationRequest.headers`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/headers.html) 속성을 사용하세요. 또한 `acceptEncoding`, `contentType`, `cacheControl` 등과 같은 전용 확장 함수를 사용하여 특정 헤더에 접근할 수도 있습니다.
+모든 HTTP 요청 헤더에 접근하려면 [`ApplicationRequest.headers`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/headers.html) 속성을 사용하세요.
 
-* **쿠키(Cookies)**  
+편의를 위해 Ktor는 [`.acceptEncoding()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/accept-encoding.html), [`.contentType()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/content-type.html), [`.cacheControl()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/cache-control.html)과 같이 자주 사용되는 헤더에 접근하기 위한 전용 확장 함수도 제공합니다.
 
-  [`ApplicationRequest.cookies`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/cookies.html) 속성은 요청과 관련된 쿠키에 대한 접근을 제공합니다. 쿠키를 사용하여 세션을 처리하는 방법을 알아보려면 [Sessions](server-sessions.md) 섹션을 참조하세요.
+### 쿠키(Cookies) {id="cookies"}
 
-* **연결 세부 정보(Connection details)**
+요청과 함께 전송된 쿠키에 접근하려면 [`ApplicationRequest.cookies`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/cookies.html) 속성을 사용하세요.
 
-  호스트 이름, 포트, 스키마 등과 같은 연결 세부 정보에 접근하려면 [`ApplicationRequest.local`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/local.html) 속성을 사용하세요.
+> 쿠키를 사용하여 세션을 처리하는 방법에 대한 자세한 내용은 [Sessions](server-sessions.md) 섹션을 참조하세요.
+> 
+{style="tip"}
 
-* **`X-Forwarded-` 헤더**
+### 연결 세부 정보(Connection details)
 
-  HTTP 프록시나 로드 밸런서를 통해 전달된 요청에 대한 정보를 가져오려면, [Forwarded headers](server-forward-headers.md) 플러그인을 설치하고 [`ApplicationRequest.origin`](https://api.ktor.io/ktor-server-core/io.ktor.server.plugins/origin.html) 속성을 사용하세요.
+호스트 이름, 포트, 스키마 등과 같은 연결 세부 정보에 접근하려면 [`ApplicationRequest.local`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/local.html) 속성을 사용하세요.
+
+### `X-Forwarded-` 헤더
+
+HTTP 프록시나 로드 밸런서를 통해 전달된 요청에 대한 정보를 가져오려면, [Forwarded headers](server-forward-headers.md) 플러그인을 설치하고 [`ApplicationRequest.origin`](https://api.ktor.io/ktor-server-core/io.ktor.server.plugins/origin.html) 속성을 사용하세요.
 
 ## 경로 파라미터 {id="path_parameters"}
-요청을 처리할 때 `call.parameters` 속성을 사용하여 [경로 파라미터](server-routing.md#path_parameter) 값에 접근할 수 있습니다. 예를 들어, 아래 코드 스니펫에서 `call.parameters["login"]`은 `/user/admin` 경로에 대해 _admin_을 반환합니다:
+
+요청을 처리할 때 `ApplicationCall.parameters` 속성을 사용하여 [경로 파라미터](server-routing.md#path_parameter) 값에 접근할 수 있습니다.
+
+예를 들어, 아래 코드 스니펫에서 `call.parameters["login"]`은 `/user/admin` 경로에 대해 `"admin"`을 반환합니다:
 
 ```kotlin
 get("/user/{login}") {
@@ -55,7 +70,9 @@ get("/user/{login}") {
 
 ## 쿼리 파라미터 {id="query_parameters"}
 
-<emphasis tooltip="query_string">쿼리 문자열(query string)</emphasis>의 파라미터에 접근하려면 [`ApplicationRequest.queryParameters()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/query-parameters.html) 속성을 사용할 수 있습니다. 예를 들어, `/products?price=asc`로 요청이 들어오면 다음과 같은 방식으로 `price` 쿼리 파라미터에 접근할 수 있습니다:
+URL 쿼리 문자열의 파라미터에 접근하려면 [`ApplicationRequest.queryParameters`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/query-parameters.html) 속성을 사용할 수 있습니다.
+
+다음 예제는 `/products?price=asc`로 들어온 요청에서 `price` 쿼리 파라미터에 접근합니다:
 
 ```kotlin
 get("/products") {
@@ -66,6 +83,31 @@ get("/products") {
 ```
 
 [`ApplicationRequest.queryString()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/query-string.html) 함수를 사용하여 전체 쿼리 문자열을 가져올 수도 있습니다.
+
+## 필수 요청 파라미터
+
+요청을 처리할 때, [경로 파라미터](#path_parameters), [쿼리 파라미터](#query_parameters), [헤더](#headers) 또는 [쿠키](#cookies)에서 값을 추출하고 요청 처리를 계속하기 전에 해당 값이 존재하는지 검증하는 것이 일반적입니다.
+
+모든 라우트 핸들러에서 누락된 값을 수동으로 확인하는 대신, Ktor는 필수 요청 데이터에 더 쉽게 접근할 수 있도록 다음과 같은 헬퍼 함수를 제공합니다:
+
+[//]: # (TODO: Add API links)
+
+* `ApplicationCall.requireQueryParameter()` — 요청 URL에서 필수 쿼리 파라미터를 가져옵니다. 파라미터가 누락된 경우 예외를 발생시킵니다.
+* `ApplicationCall.requireHeader()` — 필수 HTTP 헤더 값을 가져옵니다. 요청에 해당 헤더가 없는 경우 예외를 발생시킵니다.
+* `ApplicationCall.requireCookie()` — 필수 쿠키 값을 가져오며, 선택적으로 지정된 인코딩을 사용하여 디코딩합니다. 쿠키가 누락된 경우 예외를 발생시킵니다.
+* `RoutingCall.requirePathParameter()` — 라우트 정의에서 필수 경로 파라미터를 가져옵니다. 매치된 라우트에 해당 파라미터가 없는 경우 예외를 발생시킵니다.
+
+각 함수는 null이 아닌 값을 반환하거나, 값이 누락된 경우 `MissingRequestParameterException`을 발생시킵니다.
+
+```kotlin
+post("/checkout/{cartId}") {
+    val userId = call.requireCookie("userId")
+    val cartId = call.requirePathParameter("cartId")
+    val amount = call.requireQueryParameter("amount").toLong()
+
+    // 비즈니스 로직
+}
+```
 
 ## 바디 콘텐츠 {id="body_contents"}
 이 섹션에서는 `POST`, `PUT` 또는 `PATCH`로 전송된 바디 콘텐츠를 수신하는 방법을 보여줍니다.

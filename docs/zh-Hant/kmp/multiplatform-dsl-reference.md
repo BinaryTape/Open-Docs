@@ -254,7 +254,7 @@ kotlin {
 | `entryPoint`         | 可執行二進位檔的入口點函式。預設情況下，它是根套件中的 `main()`。                                                                                                                                                                                            |
 | `outputFile`         | 存取輸出檔案。                                                                                                                                                                                                                                                |
 | `linkTask`           | 存取連結任務。                                                                                                                                                                                                                                                |
-| `runTask`            | 存取可執行二進位檔的執行任務。對於 `linuxX64`、`macosX64` 或 `mingwX64` 以外的目標，該值為 `null`。                                                                                                                                                          |
+| `runTask`            | 存取可執行二進位檔的執行任務。對於 `linuxX64`、`macosArm64` 或 `mingwX64` 以外的目標，該值為 `null`。                                                                                                                                                          |
 | `isStatic`           | 用於 Objective-C 架構。包含靜態程式庫而非動態程式庫。                                                                                                                                                                                                        |
 | `disableNativeCache` | <p>停用編譯快取。僅在特殊情況下使用，因為它會增加編譯時間。</p><p>必須包含要停用快取的 Kotlin `version` 以及 `reason`（原因）。您可以選擇性地指定指向錯誤追蹤器中 `issue` 的 URL。</p> |
 

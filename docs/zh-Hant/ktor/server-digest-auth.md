@@ -11,18 +11,22 @@
 <var name="example_name" value="auth-digest"/>
 <p>
     <b>程式碼範例</b>：
-    <a href="https://github.com/ktorio/ktor-documentation/tree/%ktor_version%/codeSnippets/snippets/%example_name%">
+    <a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%">
         %example_name%
     </a>
 </p>
 <p>
-    <b><Links href="/ktor/server-native" summary="Ktor 支援 Kotlin/Native，允許您在沒有額外執行階段或虛擬機的情況下執行伺服器。">原生伺服器 (Native server)</Links> 支援</b>：✖️
+    <b><Links href="/ktor/server-native" summary="Ktor 支援 Kotlin/Native，允許您在不使用額外執行階段或虛擬機的情況下執行伺服器。">原生伺服器 (Native server)</Links> 支援</b>：✖️
 </p>
 </tldr>
 
 Digest 驗證方案是 [HTTP 架構](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication) 的一部分，用於存取控制與驗證。在此方案中，在透過網路傳送使用者名稱與密碼之前，會先對其套用雜湊函式。
 
+Ktor 支援 [RFC 7616](https://datatracker.ietf.org/doc/html/rfc7616) (HTTP Digest Access Authentication)，其透過現代安全特性增強了舊版的 RFC 2617，包括更強的雜湊演算法、品質保護 (Quality of Protection) 選項以及用於隱私保護的使用者名稱雜湊。
+
 Ktor 允許您使用 Digest 驗證來登入使用者並保護特定的 [路由 (routes)](server-routing.md)。您可以在 [Ktor Server 中的驗證與授權](server-auth.md) 章節中取得關於 Ktor 驗證的一般資訊。
+
+> Digest 驗證提供比 [Basic 驗證](server-basic-auth.md) 更強的安全性，因為密碼絕不會以純文字形式傳送。然而，仍建議在生產環境中使用 [HTTPS/TLS](server-ssl.md) 以增加傳輸層級的安全性。
 
 ## 新增相依性 {id="add_dependencies"}
 若要啟用 `digest` 驗證，您需要在建置指令碼中包含 `%artifact_name%` 構件：
@@ -50,11 +54,12 @@ Digest 驗證流程如下所示：
    WWW-Authenticate: Digest
            realm="Access to the '/' path",
            nonce="e4549c0548886bc2",
-           algorithm="MD5"
+           algorithm=SHA-512-256,
+           qop="auth"
    ```
    {style="block"}
 
-   在 Ktor 中，您可以在 [配置](#configure-provider) `digest` 驗證提供者時指定領域 (realm) 以及產生 nonce 值的方式。
+   在 Ktor 中，您可以在 [配置](#configure-provider) `digest` 驗證提供者時指定領域 (realm)、支援的演算法、品質保護以及產生 nonce 值的方式。
 
 3. 通常用戶端會顯示一個登入對話方塊，讓使用者輸入憑據。接著，用戶端會發送帶有以下 `Authorization` 標頭的請求：
 
@@ -63,21 +68,24 @@ Digest 驗證流程如下所示：
            realm="Access to the '/' path",
            nonce="e4549c0548886bc2",
            uri="/",
-           algorithm=MD5,
-           response="6299988bb4f05c0d8ad44295873858cf"
+           algorithm=SHA-512-256,
+           qop=auth,
+           nc=00000001,
+           cnonce="0a4f113b",
+           response="6629fae49393a05397450978507c4ef1"
    ```
    {style="block"}
 
    `response` 值的產生方式如下：
-   
-   a. `HA1 = MD5(username:realm:password)`
-   > 此部分 [儲存](#digest-table) 在伺服器上，Ktor 可用來驗證使用者憑據。
-   
-   b. `HA2 = MD5(method:digestURI)`
-   
-   c. `response = MD5(HA1:nonce:HA2)`
 
-4. 伺服器 [驗證](#configure-provider) 用戶端傳送的憑據，並回應所請求的內容。
+   * `HA1 = H(username:realm:password)`，其中 `H` 為配置的雜湊演算法（例如 SHA-512-256）
+   > 此部分 [儲存](#digest-table) 在伺服器上，Ktor 可用來驗證使用者憑據。
+
+   * `HA2 = H(method:digestURI)`（針對 `qop=auth`）或 `HA2 = H(method:digestURI:H(entityBody))`（針對 `qop=auth-int`）
+
+   * `response = H(HA1:nonce:nc:cnonce:qop:HA2)`
+
+4. 伺服器 [驗證](#configure-provider) 用戶端傳送的憑據，並回應所請求的內容。在成功完成帶有 QoP 的驗證後，伺服器還會傳回 `Authentication-Info` 標頭以進行相互驗證。
 
 ## 安裝 Digest 驗證 {id="install"}
 若要安裝 `digest` 驗證提供者，請在 `install` 區塊內呼叫 [digest](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/digest.html) 函式：
@@ -98,25 +106,69 @@ install(Authentication) {
 
 若要了解如何在 Ktor 中配置不同驗證提供者的一般概念，請參閱 [配置驗證](server-auth.md#configure)。在本節中，我們將探討 `digest` 驗證提供者的特定配置。
 
-### 步驟 1：提供包含 Digest 的使用者表 {id="digest-table"}
+### 步驟 1：選擇雜湊演算法 {id="choose-algorithms"}
 
-`digest` 驗證提供者使用 Digest 訊息的 `HA1` 部分來驗證使用者憑據。因此，您可以提供一個包含使用者名稱及其對應 `HA1` 雜湊值的使用者表。在下面的範例中，使用 `getMd5Digest` 函式來產生 `HA1` 雜湊值：
+Ktor 支援多種用於 Digest 驗證的雜湊演算法。您可以使用 `algorithms` 屬性來配置伺服器接受哪些演算法：
+
+| 演算法 | 常數 | 安全等級 | 備註 |
+|------------------|------------------------------------|-----------------|-------------------------------------------------|
+| SHA-512-256      | `DigestAlgorithm.SHA_512_256`      | **建議** | 最強安全性，用於新實作 |
+| SHA-512-256-sess | `DigestAlgorithm.SHA_512_256_SESS` | **建議** | 工作階段變體 - 在 HA1 中包含用戶端 nonce |
+| SHA-256          | `DigestAlgorithm.SHA_256`          | 良好 | 生產環境的最低建議演算法 |
+| SHA-256-sess     | `DigestAlgorithm.SHA_256_SESS`     | 良好 | 工作階段變體 - 在 HA1 中包含用戶端 nonce |
+| MD5              | `DigestAlgorithm.MD5`              | **棄用** | 僅用於向後相容性 |
+| MD5-sess         | `DigestAlgorithm.MD5_SESS`         | **棄用** | 工作階段變體 - 僅用於舊版相容性 |
 
 ```kotlin
-fun getMd5Digest(str: String): ByteArray = MessageDigest.getInstance("MD5").digest(str.toByteArray(UTF_8))
-
-val myRealm = "Access to the '/' path"
-val userTable: Map<String, ByteArray> = mapOf(
-    "jetbrains" to getMd5Digest("jetbrains:$myRealm:foobar"),
-    "admin" to getMd5Digest("admin:$myRealm:password")
-)
+install(Authentication) {
+    digest("auth-digest") {
+        realm = "Access to the '/' path"
+        algorithms = listOf(DigestAlgorithm.SHA_512_256, DigestAlgorithm.MD5)
+        // ...
+    }
+}
 ```
 
-### 步驟 2：配置 Digest 提供者 {id="configure-provider"}
+配置多個演算法時，伺服器會發送多個 `WWW-Authenticate` 標頭，允許用戶端選擇其支援的最強演算法。
+
+> 預設演算法為 `SHA-512-256` 與 `MD5`（用於與舊版用戶端的向後相容性）。
+
+#### 工作階段演算法 (-sess 變體) {id="sess-algorithms"}
+
+`-sess` 演算法變體（例如 `SHA-512-256-sess`, `SHA-256-sess`, `MD5-sess`）會修改 `HA1` 雜湊的計算方式。工作階段演算法不會直接儲存 `H(username:realm:password)`，而是計算 `H(H(username:realm:password):nonce:cnonce)`，其中 `cnonce` 是用戶端提供的 nonce。
+
+**優點：**
+- 特定於工作階段的雜湊可防止預先計算的字典攻擊。
+- 洩漏一個工作階段的雜湊不會暴露密碼，也不會對其他工作階段造成威脅。
+
+**缺點：**
+- 伺服器必須為每個驗證請求計算雜湊（無法使用預先計算的值）。
+
+對於大多數應用程式，標準（非工作階段）演算法已足夠，特別是與 SHA-512-256 等強雜湊函式一起使用時。
+
+### 步驟 2：提供包含 Digest 的使用者表 {id="digest-table"}
+
+`digest` 驗證提供者使用 Digest 訊息的 `HA1` 部分來驗證使用者憑據，因此您可以提供一個包含使用者名稱及其對應 `HA1` 雜湊值的使用者表。
+
+由於不同的演算法會產生不同的雜湊值，您需要為支援的每個演算法儲存適當的雜湊，或者根據用戶端請求的演算法動態計算雜湊：
+
+```kotlin
+val userPasswords: Map<String, String> = mapOf(
+    "jetbrains" to "foobar",
+    "admin" to "password"
+)
+
+fun computeHash(userName: String, realm: String, password: String, algorithm: DigestAlgorithm): ByteArray =
+    algorithm.toDigester().digest("$userName:$realm:$password".toByteArray(UTF_8))
+
+```
+
+### 步驟 3：配置 Digest 提供者 {id="configure-provider"}
 
 `digest` 驗證提供者透過 [DigestAuthenticationProvider.Config](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-digest-authentication-provider/-config/index.html) 類別公開其設定。在下面的範例中，指定了以下設定：
 * `realm` 屬性設定要在 `WWW-Authenticate` 標頭中傳遞的領域。
-* `digestProvider` 函式為指定的使用者名稱獲取 Digest 的 `HA1` 部分。
+* `algorithms` 屬性指定要接受哪些雜湊演算法。
+* `digestProvider` 函式為指定的使用者名稱和演算法獲取 Digest 的 `HA1` 部分。
 * （選用）`validate` 函式允許您將憑據映射到自訂的 Principal。
 
 ```kotlin
@@ -124,8 +176,13 @@ fun Application.main() {
     install(Authentication) {
         digest("auth-digest") {
             realm = myRealm
-            digestProvider { userName, realm ->
-                userTable[userName]
+            // 支援現代 SHA-512-256 和舊版 MD5 用戶端
+            algorithms = listOf(DigestAlgorithm.SHA_512_256, DigestAlgorithm.MD5)
+            digestProvider { userName, realm, algorithm ->
+                // 使用要求的演算法計算 H(username:realm:password)
+                userPasswords[userName]?.let { password ->
+                    computeHash(userName, realm, password, algorithm)
+                }
             }
             validate { credentials ->
                 if (credentials.userName.isNotEmpty()) {
@@ -141,17 +198,134 @@ fun Application.main() {
 data class CustomPrincipal(val userName: String, val realm: String)
 ```
 
+`digestProvider` 函式接收三個參數：
+- `userName` - 來自用戶端請求的使用者名稱
+- `realm` - 配置的領域
+- `algorithm` - 用戶端正在使用的雜湊演算法
+
+您應該回傳使用指定演算法計算出的 `HA1` 雜湊，如果找不到該使用者則回傳 `null`。
+
 您也可以使用 [nonceManager](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-digest-authentication-provider/-config/nonce-manager.html) 屬性來指定產生 nonce 值的方式。
 
-### 步驟 3：保護特定資源 {id="authenticate-route"}
+### 步驟 4：配置品質保護 (Quality of Protection) {id="configure-qop"}
+
+品質保護 (QoP) 決定了 Digest 計算中包含的內容：
+
+- `DigestQop.AUTH` - 僅驗證（預設）。Digest 包含請求方法和 URI。
+- `DigestQop.AUTH_INT` - 具有完整性保護的驗證。Digest 還包含請求主體，提供防篡改保護。
+
+```kotlin
+install(Authentication) {
+    digest("auth-digest") {
+        realm = "Secure API"
+        supportedQop = listOf(DigestQop.AUTH, DigestQop.AUTH_INT)
+        // ...
+    }
+}
+```
+
+> 使用 `auth-int` 時，請求主體會在驗證期間被消耗。如果您需要在路由處理常式中存取主體，請安裝 [DoubleReceive](server-double-receive.md) 外掛程式。
+
+### 步驟 5：保護特定資源 {id="authenticate-route"}
 
 配置完 `digest` 提供者後，您可以使用 **[authenticate](server-auth.md#authenticate-route)** 函式來保護應用程式中的特定資源。在驗證成功的情況下，您可以在路由處理常式中使用 `call.principal` 函式擷取已驗證的 [Principal](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-principal/index.html)，並取得已驗證使用者的名稱。
 
 ```kotlin
-routing {
-    authenticate("auth-digest") {
-        get("/") {
-            call.respondText("Hello, ${call.principal<CustomPrincipal>()?.userName}!")
+        authenticate("auth-digest") {
+            get("/") {
+                call.respondText("Hello, ${call.principal<CustomPrincipal>()?.userName}!")
+            }
         }
     }
 }
+
+data class CustomPrincipal(val userName: String, val realm: String)
+```
+
+## 進階配置 {id="advanced"}
+
+### 使用者雜湊支援 {id="userhash"}
+
+RFC 7616 引入了使用者名稱雜湊 (`userhash`) 以保護隱私。啟用後，用戶端可以發送使用者名稱的雜湊版本，而不是純文字使用者名稱。
+
+若要支援使用者名稱雜湊，請配置 `userHashResolver`：
+
+```kotlin
+val users = listOf("alice", "bob", "charlie")
+
+install(Authentication) {
+    digest("auth-digest") {
+        realm = "Private API"
+        userHashResolver { userhash, realm, algorithm ->
+            // 從雜湊中尋找實際的使用者名稱
+            users.find { username ->
+                val digester = algorithm.toDigester()
+                val computedHash = hex(digester.digest("$username:$realm".toByteArray()))
+                computedHash == userhash
+            }
+        }
+        digestProvider { userName, realm, algorithm ->
+            // ...
+        }
+    }
+}
+```
+
+配置 `userHashResolver` 後，伺服器會在 `WWW-Authenticate` 質問標頭中宣告 `userhash=true`。
+
+### 嚴格 RFC 7616 模式 {id="strict-mode"}
+
+為了在沒有舊版用戶端需求的新應用程式中獲得最大安全性，請使用 `strictRfc7616Mode()`：
+
+```kotlin
+install(Authentication) {
+    digest("auth-digest") {
+        realm = "Secure Zone"
+        strictRfc7616Mode()
+        digestProvider { userName, realm, algorithm ->
+            // 在嚴格模式下，演算法絕不會是 MD5
+        }
+    }
+}
+```
+
+嚴格模式：
+- 移除 MD5 演算法（僅允許 SHA-256、SHA-512-256 及其工作階段變體）。
+- 強制使用 UTF-8 字元集。
+
+### UTF-8 字元集支援 {id="charset"}
+
+`digest` 驗證提供者支援 UTF-8 字元集，適用於包含非 ASCII 字元的使用者名稱與密碼：
+
+```kotlin
+install(Authentication) {
+    digest("auth-digest") {
+        realm = "My App"
+        charset = Charsets.UTF_8  // 此為預設值
+        // ...
+    }
+}
+```
+
+### Authentication-Info 標頭 {id="auth-info"}
+
+在成功完成帶有 QoP 的驗證後，伺服器會自動傳回包含以下內容的 `Authentication-Info` 標頭：
+- `rspauth` - 用於相互驗證的回應驗證值。
+- `nextnonce` - 用戶端下一次使用的 nonce。
+- `qop`, `nc`, `cnonce` - 驗證參數的回顯。
+
+這允許用戶端驗證伺服器的身分（相互驗證）。
+
+## 安全建議 {id="security"}
+
+1. **使用 SHA-512-256 或 SHA-256** - 避免在生產環境中使用 MD5；它僅包含用於向後相容性。
+
+2. **使用 `strictRfc7616Mode()`** - 用於沒有舊版用戶端需求的新應用程式。
+
+3. **實作正確的 nonce 管理** – 使用自訂 `NonceManager` 以防止分散式環境中的重放攻擊。
+
+4. **考慮使用 `auth-int`** - 當請求主體完整性對您的應用程式很重要時。
+
+5. **啟用 `userhash`** - 用於使用者名稱的隱私保護。
+
+6. **務必使用 HTTPS** – 單靠 Digest 驗證並不會加密流量；在生產環境中務必使用 TLS。

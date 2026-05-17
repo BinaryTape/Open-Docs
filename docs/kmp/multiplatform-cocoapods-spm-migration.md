@@ -5,7 +5,7 @@
 
 * 要从 CocoaPods Gradle 插件切换到 SwiftPM，你首先需要重新配置你的 Xcode 项目。
 * 查看这些示例项目，它们在 `main` 分支中使用 CocoaPods，在 `spm-import` 分支中使用 SwiftPM：
-  * [Firebase 示例](https://github.com/Kotlin/kmp-with-cocoapods-multitarget-xcode-sample)
+  * [Firebase 示例](https://github.com/Kotlin/kmp-with-cocoapods-firebase-sample/)
   * [Compose Multiplatform 示例](https://github.com/Kotlin/kmp-with-cocoapods-compose-sample/)
 
 </tldr>
@@ -68,8 +68,8 @@
    请将该配置移至 `binaries.framework {}` 块，例如：
 
    <compare type="left-right">
-   <code-block lang="kotlin" code="   kotlin {&#10;       iosArm64()&#10;       iosSimulatorArm64()&#10;       iosX64()&#10;&#10;       cocoapods {&#10;           framework {&#10;               baseName = &quot;Shared&quot;&#10;               isStatic = true&#10;           }&#10;       }&#10;   }"/>
-   <code-block lang="kotlin" code="   kotlin {&#10;       listOf(&#10;           iosArm64(),&#10;           iosSimulatorArm64(),&#10;           iosX64(),&#10;       ).forEach { iosTarget -&gt;&#10;           iosTarget.binaries.framework {&#10;               baseName = &quot;Shared&quot;&#10;               isStatic = true&#10;           }&#10;       }&#10;   }"/>
+   <code-block lang="kotlin" code="   kotlin {&#10;       iosArm64()&#10;       iosSimulatorArm64()&#10;&#10;       cocoapods {&#10;           framework {&#10;               baseName = &quot;Shared&quot;&#10;               isStatic = true&#10;           }&#10;       }&#10;   }"/>
+   <code-block lang="kotlin" code="   kotlin {&#10;       listOf(&#10;           iosArm64(),&#10;           iosSimulatorArm64(),&#10;       ).forEach { iosTarget -&gt;&#10;           iosTarget.binaries.framework {&#10;               baseName = &quot;Shared&quot;&#10;               isStatic = true&#10;           }&#10;       }&#10;   }"/>
    </compare>
 
 ## 重新配置你的 Xcode 项目
@@ -98,7 +98,7 @@ SwiftPM 导入工具可以生成 shell 命令，以对你的 `.xcodeproj` 文件
     末尾的 `grep` 调用会找到特定的错误消息以及你需要运行的命令。
 
 4. 在 `/path/to/project/iosApp` 目录中，在终端里运行生成的命令。
-   它会修改 `iosApp` 项目c的 `.xcodeproj` 文件，以便在构建期间触发 `embedAndSignAppleFrameworkForXcode` 任务，
+   它会修改 `iosApp` 项目的 `.xcodeproj` 文件，以便在构建期间触发 `embedAndSignAppleFrameworkForXcode` 任务，
    这会将 Kotlin Multiplatform 编译阶段插入到你的 iOS 构建中。
 5. 在 IntelliJ IDEA 中，选择 **Tools** | **Swift Package Manager** | **Resolve Dependencies** 以解析你在 `build.gradle.kts` 文件中声明的 SwiftPM 依赖项。
 

@@ -229,7 +229,7 @@ Kotlin DSL 與 Java builder API 支援以下類型的訊息，每一種都對應
     LLM 在執行期間產生工具呼叫。
     預先填入這些內容對於少樣本學習或示範工具的預期使用方式很有幫助。
 
-要建立工具訊息，請在 Kotlin 中呼叫 `tool()` 函式，或在 Java 中呼叫 `toolCall()` 與 `toolResult()` 方法：
+要建立工具訊息，請在 Kotlin 中呼叫 `toolCall()` 與 `toolResult()` 函式，或在 Java 中呼叫 `toolCall()` 與 `toolResult()` 方法：
 
 === "Kotlin"
 
@@ -241,21 +241,18 @@ Kotlin DSL 與 Java builder API 支援以下類型的訊息，每一種都對應
     val prompt = prompt("calculator_example") {
         system("You are a helpful assistant with access to tools.")
         user("What is 5 + 3?")
-        tool {
-            // 工具呼叫
-            call(
-                id = "calculator_tool_id",
-                tool = "calculator",
-                content = """{"operation": "add", "a": 5, "b": 3}"""
-            )
-
-            // 工具結果
-            result(
-                id = "calculator_tool_id",
-                tool = "calculator",
-                content = "8"
-            )
-        }
+        // 工具呼叫
+        toolCall(
+            id = "calculator_tool_id",
+            tool = "calculator",
+            args = """{"operation": "add", "a": 5, "b": 3}"""
+        )
+        // 工具結果
+        toolResult(
+            id = "calculator_tool_id",
+            tool = "calculator",
+            output = "8"
+        )
 
         // 基於工具結果的 LLM 回應
         assistant("The result of 5 + 3 is 8.")

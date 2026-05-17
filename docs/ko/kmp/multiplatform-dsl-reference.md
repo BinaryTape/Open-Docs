@@ -227,8 +227,8 @@ kotlin {
 |--------------|------------------------|
 | `executable` | 프로덕션 실행 파일입니다.    |
 | `test`       | 테스트 실행 파일입니다.       |
-| `sharedLib`  | 공유 라이브러리(Shared library)입니다.       |
-| `staticLib`  | 정적 라이브러리(Static library)입니다.       |
+| `sharedLib`  | 공유 라이브러리입니다.       |
+| `staticLib`  | 정적 라이브러리입니다.       |
 | `framework`  | Objective-C 프레임워크입니다. |
 
 ```kotlin
@@ -253,7 +253,7 @@ kotlin {
 | `entryPoint`         | 실행 바이너리의 진입점 함수입니다. 기본적으로 루트 패키지의 `main()`입니다.                                                                                                                                                             |
 | `outputFile`         | 출력 파일에 대한 액세스를 제공합니다.                                                                                                                                                                                                                                   |
 | `linkTask`           | 링크 태스크에 대한 액세스를 제공합니다.                                                                                                                                                                                                                                     |
-| `runTask`            | 실행 바이너리의 실행 태스크에 대한 액세스를 제공합니다. `linuxX64`, `macosX64`, `mingwX64` 이외의 타겟에서는 값이 `null`입니다.                                                                                                                            |
+| `runTask`            | 실행 바이너리의 실행 태스크에 대한 액세스를 제공합니다. `linuxX64`, `macosArm64`, `mingwX64` 이외의 타겟에서는 값이 `null`입니다.                                                                                                                            |
 | `isStatic`           | Objective-C 프레임워크용입니다. 동적 라이브러리 대신 정적 라이브러리를 포함합니다.                                                                                                                                                                              |
 | `disableNativeCache` | <p>컴파일 캐시를 비활성화합니다. 컴파일 시간이 늘어나므로 예외적인 경우에만 사용하세요.</p><p>캐시가 비활성화된 Kotlin `version`과 `reason`이 반드시 포함되어야 합니다. 선택적으로 버그 트래커의 `issue` URL을 지정할 수 있습니다.</p> |
 
@@ -335,7 +335,7 @@ binaries {
 
         // 이 바이너리에 대한 컴파일 캐시 비활성화
         disableNativeCache(
-            version = DisableCacheInKotlinVersion.2_3_0,
+            version = DisableCacheInKotlinVersion .2_3_0,
             reason = 'Cache bug',
             issue = URI('https://youtrack.com/YY-1111')
         )
@@ -462,7 +462,7 @@ kotlin {
 >
 {style="note"}
 
-## 소스 세트 (Source sets)
+## 소스 세트
 
 `sourceSets {}` 블록은 프로젝트의 소스 세트를 설명합니다. 소스 세트에는 함께 컴파일되는 Kotlin 소스 파일과 해당 리소스 및 의존성이 포함됩니다.
 
@@ -949,7 +949,7 @@ kotlin {
 
 Kotlin 2.2.0 이전에는 `kotlinOptions {}` 블록을 사용하여 컴파일러 옵션을 구성할 수 있었습니다. Kotlin 2.2.0부터 `kotlinOptions {}` 블록은 지원 중단(deprecated)되었으므로 빌드 스크립트에서 대신 `compilerOptions {}` 블록을 사용해야 합니다. 자세한 정보는 [`kotlinOptions{}`에서 `compilerOptions{}`로 마이그레이션](https://kotlinlang.org/docs/gradle-compiler-options.html#migrate-from-kotlinoptions-to-compileroptions)을 참조하세요.
 
-## 의존성 (Dependencies)
+## 의존성
 
 소스 세트 선언의 `dependencies {}` 블록은 해당 소스 세트의 의존성을 포함합니다.
 
@@ -1048,7 +1048,7 @@ kotlin {
 
 이 기능에 대한 피드백은 [YouTrack](https://youtrack.jetbrains.com/issue/KT-76446)에서 공유할 수 있습니다.
 
-## 언어 설정 (Language settings)
+## 언어 설정
 
 소스 세트의 `languageSettings {}` 블록은 프로젝트 분석 및 컴파일의 특정 측면을 정의합니다. `languageSettings {}` 블록은 공유 소스 세트에 특별히 적용되는 설정을 구성할 때만 사용하세요. 그 외의 모든 경우에는 `compilerOptions {}` 블록을 사용하여 확장 또는 타겟 수준에서 [컴파일러 옵션을 구성](#compiler-options)하세요.
 
@@ -1069,8 +1069,8 @@ kotlin {
 kotlin {
     sourceSets.all {
         languageSettings.apply {
-            languageVersion = "%languageVersion%" // 가능한 값: "2.0", "2.1", "2.2", "2.3", "2.4" (실험적)
-            apiVersion = "%apiVersion%" // 가능한 값: "2.0", "2.1", "2.2", "2.3", "2.4" (실험적)
+            languageVersion = "%languageVersion%" // 가능한 값: "2.0", "2.1", "2.2", "2.3", "2.4" (EXPERIMENTAL)
+            apiVersion = "%apiVersion%" // 가능한 값: "2.0", "2.1", "2.2", "2.3", "2.4" (EXPERIMENTAL)
             enableLanguageFeature("InlineClasses") // 언어 기능 이름
             optIn("kotlin.ExperimentalUnsignedTypes") // 어노테이션 정규화 이름(FQ-name)
             progressiveMode = true // 기본값은 false
@@ -1086,8 +1086,8 @@ kotlin {
 kotlin {
     sourceSets.all {
         languageSettings {
-            languageVersion = '%languageVersion%' // 가능한 값: '2.0', '2.1', '2.2', '2.3', '2.4' (실험적)
-            apiVersion = '%apiVersion%' // 가능한 값: '2.0', '2.1', '2.2', '2.3', '2.4' (실험적)
+            languageVersion = '%languageVersion%' // 가능한 값: '2.0', '2.1', '2.2', '2.3', '2.4' (EXPERIMENTAL)
+            apiVersion = '%apiVersion%' // 가능한 값: '2.0', '2.1', '2.2', '2.3', '2.4' (EXPERIMENTAL)
             enableLanguageFeature('InlineClasses') // 언어 기능 이름
             optIn('kotlin.ExperimentalUnsignedTypes') // 어노테이션 정규화 이름(FQ-name)
             progressiveMode = true // 기본값은 false

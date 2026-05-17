@@ -20,18 +20,19 @@
 
 ## 更新 Android 部分
 
-`composeApp` 模块包含一个 Android 应用程序，定义了其主 Activity 和 UI 视图，并像使用常规 Android 库一样使用 `shared` 模块。该应用程序的 UI 使用了 Compose Multiplatform 框架。
+`androidApp` 模块包含一个 Android 应用程序并定义了其主 Activity。
+UI 代码主要包含在 `sharedUI` 模块中，Android 应用将其作为 Android 库使用。
+UI 是使用 Compose Multiplatform 框架实现的。
 
 进行一些更改并观察它们如何反映在 UI 中：
 
-1. 导航到 `composeApp/src/androidMain/.../greetingkmp` 目录下的 `App.kt` 文件。
-2. 找到 `Greeting` 类调用。选中 `greet()` 函数，右键点击它，然后选择 **转到** | **声明或用法**。
-   您将看到它就是您在前面的步骤中编辑的 `shared` 模块中的同一个类。
+1. 导航到 `sharedUI/src/commonMain/.../greetingkmp` 目录下的 `App.kt` 文件。
+2. 找到 `Greeting().greet()` 函数调用。右键点击 `greet()`，然后选择 **转到** | **声明或用法**。
+   IDE 将打开 `sharedLogic/src/commonMain/.../Greeting.kt` 文件。
 3. 在 `Greeting.kt` 文件中，更新 `Greeting` 类，使 `greet()` 函数返回一个字符串列表：
 
    ```kotlin
    class Greeting {
-   
        private val platform: Platform = getPlatform()
    
        fun greet(): List<String> = buildList {
@@ -40,8 +41,8 @@
        }
    }
    ```
-
-4. 返回 `App.kt` 文件并更新 `App()` 实现：
+4. 按照 IDE 的建议导入 `kotlin.random.Random` 软件包。
+5. 返回 `sharedUI/src/commonMain/.../App.kt` 文件，并更新 `App()` 实现以显示字符串列表：
 
    ```kotlin
    @Composable
@@ -68,23 +69,24 @@
 
    此处 `Column` 可组合项显示了每个 `Text` 项，并在其周围添加了内边距，在项之间添加了间距。
 
-5. 按照 IntelliJ IDEA 的建议导入缺失的依赖项。
-6. 现在您可以运行 Android 应用，查看它是如何显示字符串列表的：
+6. 按照 IDE 的建议导入缺失的依赖项。
+7. 现在您可以运行 Android 应用，查看它是如何显示字符串列表的：
 
    ![更新后的 Android 多平台应用 UI](first-multiplatform-project-on-android-2.png){width=300}
 
-## 处理 iOS 模块
+## 更新 iOS 部分
 
-`iosApp` 目录构建为一个 iOS 应用程序。它依赖并使用 `shared` 模块作为 iOS 框架。该应用的 UI 是使用 Swift 编写的。
+`iosApp` 目录构建为一个 iOS 应用程序。
+它依赖并使用 `sharedLogic` 模块作为 iOS 框架。
+该应用的 UI 是使用 Swift 编写的。
 
-实现与 Android 应用相同的更改：
+实现与 Android 应用相同的更改，以适应公共代码的更新：
 
 1. 在 IntelliJ IDEA 的 **项目**工具窗口中，找到项目根目录下的 `iosApp/iosApp` 文件夹。
-2. 打开 `iosApp/ContentView.swift` 文件，右键点击 `Greeting().greet()` 调用，然后选择 **转到** | **定义**。
-
-    您将看到 `shared` 模块中定义的 Kotlin 函数的 Objective-C 声明。从 Objective-C/Swift 使用时，Kotlin 类型会表示为 Objective-C 类型。在这里，`greet()` 函数在 Kotlin 中返回 `List<String>`，而在 Swift 中则被视为返回 `NSArray<NSString>`。有关类型映射的更多信息，请参阅[与 Swift/Objective-C 的互操作性](https://kotlinlang.org/docs/native-objc-interop.html)。
-
-3. 更新 SwiftUI 代码，以与 Android 应用相同的方式显示项目列表：
+2. 打开 `iosApp/ContentView.swift` 文件，右键点击 `Greeting().greet()` 调用，然后选择 **转到** | **声明或用法**。
+   您可以看到 IDEA 正确地将 Swift 调用与 Kotlin 声明进行了匹配。
+3. 返回 `ContentView.swift` 文件。
+   要以与 Android 应用相同的方式显示字符串列表，请将 `ContentView` 结构的代码替换为以下内容：
 
     ```Swift
     struct ContentView: View {
@@ -103,13 +105,13 @@
 
 4. 启动 iOS 运行配置以查看更改：
 
-    ![更新后的 iOS 多平台应用 UI](first-multiplatform-project-on-ios-2.png){width=300}
+    ![更新后的 iOS 多平台应用 UI](first-multiplatform-project-on-ios-2.png){width=350}
 
 ## 可能的问题与解决方案
 
 ### Xcode 报告调用共享框架的代码中存在错误
 
-如果您正在使用 Xcode，您的 Xcode 项目可能仍在使用旧版本的框架。
+如果您在 Xcode 中工作，您的 Xcode 项目可能仍在使用旧版本的框架。
 要解决此问题，请返回 IntelliJ IDEA 并重新构建项目或启动 iOS 运行配置。
 
 ### Xcode 在导入共享框架时报告错误

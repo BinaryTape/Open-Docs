@@ -8,7 +8,10 @@
 - [PostgreSQL 方言] 添加了基础数组文字 (Array literal) 支持 (#5997 由 @griffio 贡献)
 - [PostgreSQL 方言] 添加了基础 LTREE 支持 (#5880 由 @yesitskev @griffio 贡献)
 - [MySQL 方言] 添加了对 INET 函数的支持 (#5072 由 @mcxinyu 贡献)
+- [PostgreSQL 方言] 添加了对 `ALTER INDEX` 的支持 (#6224 由 @griffio 贡献)
 - [SQLite 方言] 添加了对 SQLite 3.44 聚合函数 `DISTINCT`、`ORDER BY` 和 `FILTER` 的支持 (#6236 由 @griffio 贡献)
+- [SQLite 方言] 添加了对 SQLite 3.37 STRICT 表的支持 (#6230 由 @griffio 贡献)
+- [编译器] 在架构 (schema) 中添加了 `allTableNames` 函数 (#6245 由 @edenman 贡献)
 
 ### 已变更
 - [PostgreSQL 方言] 将 `arrayIntermediateType` 的可见性更改为 public (#5835 由 @griffio 贡献)
@@ -22,6 +25,7 @@
 - [Intellij 插件] IDE 插件可以为所有方言执行代码补全 (#6210 由 @griffio 贡献)
 - [Gradle 插件] 修复了运行验证数据库任务时的循环依赖错误 (#6221 由 @griffio 贡献)
 - [编译器] 修复了多行更新的乐观锁问题 (#6240 由 @griffio 贡献)
+- [Intellij 插件] 修复了在 IDEA 2026.2 中导致崩溃的弃用 (deprecation) 问题 (#6247 由 @griffio 贡献)
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -139,7 +143,7 @@
 - [编译器] 修复：执行带结果的分组语句时通知查询 (#5006 由 @vitorhugods 贡献)
 - [编译器] 修复了 `SqlDelightModule` 类型解析器 (#5625 由 @griffio 贡献)
 - [编译器] 修复了 5501 插入对象转义列的问题 (#5503 由 @griffio 贡献)
-- [编译器] 编译器：改进了错误消息，使路径链接在正确的行和字符位置可点击。 (#5604 由 @vanniktech 贡献)
+- [编译器] 编译器：改进了错误消息，使路径链接在正确的行和字符位置可点击 (#5604 由 @vanniktech 贡献)
 - [编译器] 修复问题 5298：允许将关键字用作表名
 - [编译器] 修复命名的执行并添加测试
 - [编译器] 在排序初始化语句时考虑外键表约束 (#5325 由 @TheMrMilchmann 贡献)
@@ -224,7 +228,7 @@
 - [JDBC 驱动程序] 添加了语言注解以提供更愉快的 SQL 编辑体验 (#4602 由 @MariusVolkhart 贡献)
 - [原生驱动程序] 原生驱动程序：添加了对 `linuxArm64` 的支持 (#4792 由 @hfhbd 贡献)
 - [Android 驱动程序] 为 `AndroidSqliteDriver` 添加了 `windowSizeBytes` 参数 (#4804 由 @BoD 贡献)
-- [Paging3 扩展] 功能：为 `OffsetQueryPagingSource` 添加了 `initialOffset` (#4802 由 @MohamadJaara 贡献)
+- [Paging3 扩展] 已添加：为 `OffsetQueryPagingSource` 添加了 `initialOffset` (#4802 由 @MohamadJaara 贡献)
 
 ### 已变更
 - [编译器] 在适当的情况下优先使用 Kotlin 类型 (#4517 由 @eygraber 贡献)
@@ -244,7 +248,7 @@
 - [IDE 插件] 修复了一些与 2023.2 的兼容性问题
 - [Gradle 插件] 修正了 `verifyMigrationTask` Gradle 任务的文档 (#4713 由 @joshfriend 贡献)
 - [Gradle 插件] 添加了 Gradle 任务输出消息，以帮助用户在验证数据库之前生成数据库 (#4684 由 @jingwei99 贡献)
-- [PostgreSQL 方院] 修复了多次重命名 PostgreSQL 列的问题 (#4566 由 @griffio 贡献)
+- [PostgreSQL 方言] 修复了多次重命名 PostgreSQL 列的问题 (#4566 由 @griffio 贡献)
 - [PostgreSQL 方言] 修复了 4714 PostgreSQL 修改列为 null 性 (#4831 由 @griffio 贡献)
 - [PostgreSQL 方言] 修复了 4837 修改表修改列 (#4846 由 @griffio 贡献)
 - [PostgreSQL 方言] 修复了 4501 PostgreSql 序列 (#4528 由 @griffio 贡献)
@@ -751,7 +755,7 @@ sqldelight {
 - [JDBC SQLite 驱动程序] 在清除 `ThreadLocal` 之前在连接上调用 `close()` (#2444 由 @hannesstruss 贡献)
 - [RX 扩展] 修复了订阅/销毁竞态泄漏 (#2403 由 @pyricau 贡献)
 - [协程扩展] 确保在通知之前注册查询监听器
-- [编译器] 对 `notifyQueries` 进行排序以获得一致的 Kotlin 输出文件 (由 @thomascjy 贡献)
+- [编译器] 对 `notifyQueries` 进行排序以获得一致 the Kotlin 输出文件 (由 @thomascjy 贡献)
 - [编译器] 不要使用 `@JvmField` 注解选择查询类属性 (由 @eygraber 贡献)
 - [IDE 插件] 修复了导入优化器 (#2350 由 @aperfilyev 贡献)
 - [IDE 插件] 修复了未使用的列检查 (由 @aperfilyev 贡献)

@@ -64,7 +64,7 @@
    ```
 
    * 在 `cd` 指令中，指定您的 Kotlin Multiplatform 專案根目錄路徑，例如 `$SRCROOT/..`。
-   * 在 `./gradlew` 指令中，指定共享模組的名稱，例如 `:shared` 或 `:composeApp`。
+   * 在 `./gradlew` 指令中，指定共享模組的名稱，例如 `:shared` 或 `:sharedUI`。
    
    當您啟動 iOS 執行配置時，IntelliJ IDEA 和 Android Studio 會在開始 Xcode 組建之前組建 Kotlin 架構相依性，並將 `OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED` 環境變數設為「YES」。提供的 Shell 指令碼會檢查此變數，並防止從 Xcode 二次組建 Kotlin 架構。
      

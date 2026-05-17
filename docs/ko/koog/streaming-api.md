@@ -20,7 +20,7 @@ Koog의 **스트리밍 API(Streaming API)**를 사용하면 Kotlin에서는 `Flo
     **컴플리트 프레임 (Complete frames)** (전체 콘텐츠):
 
     - `StreamFrame.TextComplete(text: String, index: Int?)` — 전체 어시스턴트 텍스트
-    - `StreamFrame.ReasoningComplete(text: List<String>, summary: List<String>?, encrypted: String?, index: Int?)` — 선택적 요약 및 암호화된 콘텐츠를 포함한 전체 추론
+    - `StreamFrame.ReasoningComplete(content: List<String>, summary: List<String>?, encrypted: String?, index: Int?)` — 선택적 요약 및 암호화된 콘텐츠를 포함한 전체 추론
     - `StreamFrame.ToolCallComplete(id: String?, name: String, content: String, index: Int?)` — 전체 도구 호출
 
     **종료 마커 (End marker)**:
@@ -319,7 +319,7 @@ Tool call: " + toolCall.getName()
                 is StreamFrame.ReasoningComplete -> {
                     // 전체 추론 과정에 액세스
                     println("
-Complete reasoning: ${frame.text.joinToString("")}")
+Complete reasoning: ${frame.content.joinToString("")}")
                     println("Summary: ${frame.summary?.joinToString("") ?: "N/A"}")
                 }
                 is StreamFrame.TextDelta -> print(frame.text)
@@ -387,7 +387,7 @@ Complete reasoning: ${frame.text.joinToString("")}")
                     // 전체 추론 과정에 액세스
                     System.out.println("
 Complete reasoning: "
-                        + String.join("", complete.getText()));
+                        + String.join("", complete.getContent()));
                     System.out.println("Summary: "
                         + (complete.getSummary() != null
                             ? String.join("", complete.getSummary()) : "N/A"));
@@ -598,8 +598,8 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
 수집된 프레임 리스트를 표준 메시지 객체로 변환할 수 있습니다:
 
 - `toAssistantMessageOrNull()` — 텍스트 프레임에서 `Message.Assistant`를 추출합니다.
-- `toReasoningMessageOrNull()` — 추론 프레임에서 `Message.Reasoning`을 추출합니다.
-- `toToolCallMessages()` — 도구 호출 프레임에서 `Message.Tool.Call`을 추출합니다.
+- `toReasoningMessageOrNull()` — 추론 프레임에서 `MessagePart.Reasoning`을 추출합니다.
+- `toToolCallMessages()` — 도구 호출 프레임에서 `MessagePart.Tool.Call`을 추출합니다.
 - `toMessageResponses()` — 모든 컴플리트 프레임을 해당 `Message.Response` 객체로 변환합니다.
 
 ## 예제 (Examples)

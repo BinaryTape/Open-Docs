@@ -461,6 +461,14 @@ ReflectionJsonSchemaInference(object : SchemaReflectionAdapter {
 })
 ```
 
+### カスタムスキーマの提供 {id="custom-schemas"}
+
+自動スキーマ推論やアノテーションが不十分な場合は、[`JsonSchema`](https://api.ktor.io/ktor-openapi-schema/io.ktor.openapi/-json-schema/index.html)クラスを使用して手動でJSONスキーマを構築できます。
+
+これにより、型、フォーマット、ネストされた構造、またはタプル形式の配列定義用の`prefixItems`などの高度な構成要素を含む、サポートされているすべてのスキーマプロパティを明示的に定義できます。
+
+利用可能なプロパティの完全なリストについては、[`JsonSchema` APIドキュメント](https://api.ktor.io/ktor-openapi-schema/io.ktor.openapi/-json-schema/index.html)を参照してください。
+
 ## 仕様の生成と提供
 
 OpenAPI仕様は、実行時ルートアノテーションとコンパイラプラグインによって生成されたメタデータから実行時に組み立てられます。

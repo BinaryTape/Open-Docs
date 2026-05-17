@@ -493,6 +493,7 @@ LLM과 상호작용하는 노드입니다. Kotlin에서는 LLM 세션에 대해 
     <!--- INCLUDE
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
+    import ai.koog.prompt.message.MessagePart
     val strategy = strategy<String, String>("strategy_name") {
     -->
     <!--- SUFFIX
@@ -506,7 +507,8 @@ LLM과 상호작용하는 노드입니다. Kotlin에서는 LLM 세션에 대해 
             }
 
             val response = requestLLMWithoutTools()
-            response.content
+            response.parts.filterIsInstance<MessagePart.Text>().joinToString("
+") { it.text }
         }
     }
     ```
@@ -517,6 +519,8 @@ LLM과 상호작용하는 노드입니다. Kotlin에서는 LLM 세션에 대해 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.entity.AIAgentNode;
     import ai.koog.prompt.message.Message;
+    import ai.koog.prompt.message.MessagePart;
+    import java.util.stream.Collectors;
     class exampleCustomNodesJava10 {
         public static void main(String[] args) {
     -->
@@ -529,13 +533,16 @@ LLM과 상호작용하는 노드입니다. Kotlin에서는 LLM 세션에 대해 
     // AIAgentNode.llmRequest()는 입력 문자열을 LLM에 사용자 메시지로 보내고
     // 그 응답을 반환하는 노드를 생성합니다. 프롬프트 텍스트는 노드가 그래프에서
     // 실행될 때 노드의 입력으로 제공됩니다.
-    var summarizeTextNode = AIAgentNode.llmRequest(true, "node_name");
+    var summarizeTextNode = AIAgentNode.llmRequest("node_name");
 
     // LLM 응답에서 텍스트 콘텐츠를 추출하려면 별도의 노드를 체이닝합니다.
     var extractContent = AIAgentNode.builder("extract-content")
-        .withInput(Message.Response.class)
+        .withInput(Message.Assistant.class)
         .withOutput(String.class)
-        .withAction((response, ctx) -> response.getContent())
+        .withAction((response, ctx) -> response.getParts().stream()
+            .filter(p -> p instanceof MessagePart.Text)
+            .map(p -> ((MessagePart.Text) p).getText())
+            .collect(Collectors.joining()))
         .build();
     ```
     <!--- KNIT exampleCustomNodesJava10.java -->
@@ -552,9 +559,7 @@ LLM과 상호작용하는 노드입니다. Kotlin에서는 LLM 세션에 대해 
     <!--- INCLUDE
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
-    import ai.koog.prompt.message.Message
-    import ai.koog.prompt.message.ResponseMetaInfo
-    import ai.koog.utils.time.KoogClock
+    import ai.koog.prompt.message.MessagePart
     import kotlinx.serialization.Serializable
     import kotlinx.serialization.json.Json
     import java.util.*
@@ -568,15 +573,14 @@ LLM과 상호작용하는 노드입니다. Kotlin에서는 LLM 세션에 대해 
     -->
     ```kotlin
     val nodeExecuteCustomTool by node<String, String>("node_name") { input ->
-        val toolCall = Message.Tool.Call(
+        val toolCall = MessagePart.Tool.Call(
             id = UUID.randomUUID().toString(),
             tool = toolName,
-            metaInfo = ResponseMetaInfo.create(KoogClock.System),
-            content = Json.encodeToString(ToolArgs(arg1 = input, arg2 = 42)) // 입력을 도구 인자로 사용
+            args = Json.encodeToString(ToolArgs(arg1 = input, arg2 = 42)) // 입력을 도구 인자로 사용
         )
 
         val result = environment.executeTool(toolCall)
-        result.content
+        result.output
     }
     ```
     <!--- KNIT example-custom-nodes-11.kt -->
@@ -605,4 +609,4 @@ LLM과 상호작용하는 노드입니다. Kotlin에서는 LLM 세션에 대해 
     <!--- KNIT exampleCustomNodesJava11.java -->
 
 !!! note
-    Kotlin 예제는 `Message.Tool.Call`을 수동으로 생성하고 `environment.executeTool()`을 호출하여 저수준 도구 실행을 수행하는 방식을 보여줍니다. Java API는 LLM이 도구 호출을 자동으로 조율하는 `withTask()`와 함께 서브그래프를 사용하는 고수준 접근 방식을 권장합니다. 사용 가능한 도구를 제한하려면 `.withInput()` 전에 `.limitedTools(List.of(myTool))`를 체이닝하세요.
+    Kotlin 예제는 `MessagePart.Tool.Call`을 수동으로 생성하고 `environment.executeTool()`을 호출하여 저수준 도구 실행을 수행하는 방식을 보여줍니다. Java API는 LLM이 도구 호출을 자동으로 조율하는 `withTask()`와 함께 서브그래프를 사용하는 고수준 접근 방식을 권장합니다. 사용 가능한 도구를 제한하려면 `.withInput()` 전에 `.limitedTools(List.of(myTool))`를 체이닝하세요.

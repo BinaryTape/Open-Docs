@@ -51,12 +51,12 @@
         "text": "kmp.what-s-new",
         "items": [
           {
-            "text": "kmp.whats-new-compose-110",
-            "link": "whats-new-compose-110"
-          },
-          {
             "text": "kmp.whats-new-compose-111",
             "link": "whats-new-compose-111"
+          },
+          {
+            "text": "kmp.whats-new-compose-110",
+            "link": "whats-new-compose-110"
           },
           {
             "text": "kmp.earlier-versions",
@@ -406,6 +406,10 @@
       {
         "text": "kmp.multiplatform-advanced-project-structure",
         "link": "multiplatform-advanced-project-structure"
+      },
+      {
+        "text": "kmp.multiplatform-project-recommended-structure",
+        "link": "multiplatform-project-recommended-structure"
       },
       {
         "text": "kmp.multiplatform-project-configuration",

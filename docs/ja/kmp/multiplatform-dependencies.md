@@ -15,7 +15,8 @@
     </p>
 </tldr>
 
-最初のクロスプラットフォーム Kotlin マルチプラットフォーム プロジェクトを作成できました！次は、成功するクロスプラットフォーム アプリケーションを構築するために不可欠な、サードパーティ ライブラリへの依存関係を追加する方法を学びましょう。
+最初の Kotlin マルチプラットフォーム プロジェクトを作成し、微調整を行いました！
+次は、成功するクロスプラットフォーム アプリケーションを構築するために不可欠な、サードパーティ ライブラリへの依存関係を追加する方法を学びましょう。
 
 ## 依存関係の種類
 
@@ -23,41 +24,54 @@ Kotlin マルチプラットフォーム プロジェクトで使用できる依
 
 *   **マルチプラットフォームの依存関係 (Multiplatform dependencies)**: 複数のターゲットをサポートし、共通ソースセット `commonMain` で使用できるマルチプラットフォーム ライブラリです。
 
-    [Koin](https://insert-koin.io/)、[Apollo](https://www.apollographql.com/)、[Okio](https://square.github.io/okio/) など、最新の Android ライブラリの多くはすでにマルチプラットフォームをサポートしています。その他のマルチプラットフォーム ライブラリについては、JetBrains の実験的な検索サービスである [klibs.io](https://klibs.io/) で探すことができます。
+    [Koin](https://insert-koin.io/)、[Coil](https://coil-kt.github.io/coil/)、[SQLDelight](https://sqldelight.github.io/sqldelight/latest/) など、最新の Android ライブラリの多くはすでにマルチプラットフォームをサポートしています。その他のマルチプラットフォーム ライブラリについては、JetBrains の実験的な検索サービスである [klibs.io](https://klibs.io/) で探すことができます。
 
-*   **ネイティブの依存関係 (Native dependencies)**: 関連するエコシステムの通常のライブラリです。ネイティブ プロジェクトでは通常、Android の場合は Gradle を、iOS の場合は CocoaPods やその他の依存関係マネージャーを使用してこれらを扱います。
-
-    共有モジュール（shared module）を扱う際、通常、セキュリティ ストレージなどのプラットフォーム API を使用したい場合には、依然としてネイティブの依存関係が必要になります。ネイティブの依存関係は、ネイティブ ソースセットである `androidMain` や `iosMain` に追加できます。
+*   **ネイティブの依存関係 (Native dependencies)**: 関連するエコシステムの通常のライブラリです。
+    ネイティブ プロジェクトでは通常、Android の場合は Gradle を、iOS の場合は Swift Package Manager を使用してこれらを扱います。
+  
+    マルチプラットフォーム プロジェクト モジュールを扱う際、通常、セキュリティ ストレージや特定のシステムコールなどのプラットフォーム API を使用したい場合には、依然としてネイティブの依存関係が必要になります。ビルドスクリプトでは、`androidMain` や `iosMain` などのネイティブ ソースセットの構成でネイティブの依存関係を指定します。
 
 どちらのタイプの依存関係についても、ローカルおよび外部のリポジトリを使用できます。
 
 ## マルチプラットフォーム依存関係の追加
 
-> Android アプリの開発経験がある場合、マルチプラットフォーム依存関係の追加は、通常の Android プロジェクトで Gradle 依存関係を追加するのと似ています。唯一の違いは、ソースセットを指定する必要がある点です。
+> Android アプリの開発経験がある場合、マルチプラットフォーム依存関係の追加は、通常の Android プロジェクトで Gradle 依存関係を追加するのと似ています。唯一の違いは、特定のソースセットに追加する必要がある点です。
 >
 {style="tip"}
 
-アプリに戻って、挨拶をもう少し華やかにしてみましょう。デバイス情報に加えて、元旦までの残り日数を表示する機能を追加します。完全にマルチプラットフォームをサポートしている `kotlinx-datetime` ライブラリは、共有コードで日付を扱うための最も便利な方法です。
+挨拶をもう少し華やかにしてみましょう：
+OS のバージョンに加えて、元旦までの残り日数を表示する機能を追加します。
+完全にマルチプラットフォームをサポートしている `kotlinx-datetime` ライブラリは、共有コードで日付を扱うための最も便利な方法です。
 
-1. `shared` ディレクトリにある `build.gradle.kts` ファイルを開きます。
-2. `commonMain` ソースセットの依存関係に、以下の依存関係と Kotlin time のオプトインを追加します。
+1. `gradle/libs.versions.toml` ファイルを開き、バージョンカタログに `kotlinx-datetime` の依存関係を追加します。
+    ```text
+    [versions]
+    kotlinx-datetime = "0.8.0"
+    
+    [libraries]
+    kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
+    ```
+2. `sharedLogic/build.gradle.kts` ファイルを開き、共通コード ソースセットを構成するセクションにそのライブラリ エントリへの参照を追加します。
 
     ```kotlin
     kotlin {
         //... 
         sourceSets {
-            all { languageSettings.optIn("kotlin.time.ExperimentalTime") }
-   
             commonMain.dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:%dateTimeVersion%")
+                implementation(libs.kotlinx.datetime)
             } 
         }
     }
     ```
 
 3. **Build | Sync Project with Gradle Files** メニュー項目を選択するか、ビルドスクリプトエディターの **Sync Gradle Changes** ボタンをクリックして Gradle ファイルを同期します： ![Gradle ファイルを同期する](gradle-sync.png){width=50}
-4. `shared/src/commonMain/.../greetingkmp` ディレクトリを右クリックし、**New | Kotlin Class/File** を選択して、新しいファイル `NewYear.kt` を作成します。
-5. `datetime` の日付演算を使用して、今日から新年までの日数を計算する短い関数でファイルを更新します。
+
+## kotlinx-datetime API の呼び出し
+
+依存関係が追加されたので、共通コードに日付と時刻の計算を追加できます。
+
+1. `sharedLogic/src/commonMain/.../greetingkmp` ディレクトリを右クリックし、**New | Kotlin Class/File** を選択して、新しいファイル `NewYear.kt` を作成します。
+2. `NewYear.kt` に、`datetime` の日付演算を使用して今日から来年の初めまでの日数を計算し、表示するフレーズを作成する 2 つの関数を追加します。
    
    ```kotlin
    fun daysUntilNewYear(): Int {
@@ -68,9 +82,9 @@ Kotlin マルチプラットフォーム プロジェクトで使用できる依
    
    fun daysPhrase(): String = "There are only ${daysUntilNewYear()} days left until New Year! 🎆"
    ```
-6. IDE の提案に従って、必要なインポートをすべて追加します。
-   `Clock` クラスは `kotlin.time` パッケージからインポートするようにしてください。
-7. `Greeting.kt` ファイルで `Greeting` クラスを更新して、結果を確認します。
+3. IDE の提案に従って、必要なインポートをすべて追加します。
+   `kotlinx.datetime.Clock` ではなく、`kotlin.time.Clock` をインポートするようにしてください。 
+4. `Greeting.kt` ファイルで `Greeting` クラスを更新して、結果を確認します。
     
     ```kotlin
     class Greeting {
@@ -84,9 +98,9 @@ Kotlin マルチプラットフォーム プロジェクトで使用できる依
     }
     ```
 
-8. 結果を確認するには、IntelliJ IDEA から **composeApp** と **iosApp** の構成を再実行します。
+5. 結果を確認するには、IntelliJ IDEA から **androidApp** と **iosApp** の実行構成を再実行します。
 
-![外部依存関係を追加して更新されたモバイル マルチプラットフォーム アプリ](first-multiplatform-project-3.png){width=500}
+![外部依存関係を追加して更新されたモバイル マルチプラットフォーム アプリ](first-multiplatform-project-3.png){width=600}
 
 ## 次のステップ
 
@@ -96,11 +110,11 @@ Kotlin マルチプラットフォーム プロジェクトで使用できる依
 
 ### 関連項目
 
-*   あらゆる種類のマルチプラットフォーム依存関係を扱う方法を確認してください: [Kotlin ライブラリ、Kotlin マルチプラットフォーム ライブラリ、およびその他のマルチプラットフォーム プロジェクト](multiplatform-add-dependencies.md)
-*   プラットフォーム固有のソースセットで使用するための [Android 依存関係の追加](multiplatform-android-dependencies.md) および [CocoaPods を使用する/使用しない iOS 依存関係の追加](multiplatform-ios-dependencies.md) について学びます。
-*   サンプルプロジェクトで [Android および iOS ライブラリを使用する方法](multiplatform-samples.md) の例を確認してください。
+* あらゆる種類のマルチプラットフォーム依存関係を扱う方法を確認してください：[Kotlin ライブラリ、Kotlin マルチプラットフォーム ライブラリ、およびその他のマルチプラットフォーム プロジェクト](multiplatform-add-dependencies.md)
+* プラットフォーム固有のソースセットで使用するための [Android 依存関係の追加](multiplatform-android-dependencies.md) および [CocoaPods を使用する/使用しない iOS 依存関係の追加](multiplatform-ios-dependencies.md) について学びます。
+* サンプルプロジェクトで [Android および iOS ライブラリを使用する方法](multiplatform-samples.md) の例を確認してください。
 
 ## ヘルプの利用
 
-*   **Kotlin Slack**: [招待](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)を受け取り、[#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) チャンネルに参加してください。
-*   **Kotlin 課題トラッカー**: [新しい課題を報告](https://youtrack.jetbrains.com/newIssue?project=KT)してください。
+* **Kotlin Slack**: [招待](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)を受け取り、[#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) チャンネルに参加してください。
+* **Kotlin 課題トラッカー**: [新しい課題を報告](https://youtrack.jetbrains.com/newIssue?project=KT)してください。

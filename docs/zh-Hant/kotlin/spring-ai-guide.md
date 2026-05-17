@@ -13,9 +13,9 @@
 
 ## 在你開始之前
 
-1. 下載並安裝最新版本的 [IntelliJ IDEA 旗艦版 (Ultimate Edition)](https://www.jetbrains.com/idea/download/)。
+1. 下載並安裝最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 並使用旗艦版 (Ultimate) 訂閱。
 
-    > 如果你使用 IntelliJ IDEA 社群版 (Community Edition) 或其他 IDE，可以使用[網頁版專案產生器](https://start.spring.io/#!language=kotlin&type=gradle-project-kotlin)產生 Spring Boot 專案。
+    > 如果你使用的 IntelliJ IDEA 沒有旗艦版訂閱，或者你使用其他 IDE，可以使用[網頁版專案產生器](https://start.spring.io/#!language=kotlin&type=gradle-project-kotlin)產生 Spring Boot 專案。
     >
     {style="tip"}
 
@@ -208,7 +208,7 @@
     ```
    {collapsible="true"}
 
-2. 更新 `SpringAiDemoApplication.kt` 檔案以宣告一個 `RestTemplate` Bean：
+2. 更新 `SpringAiDemoApplication.kt` 檔案以宣告一個 `RestTemplate` bean：
 
    ```kotlin
    package org.example.springaidemo

@@ -54,7 +54,7 @@ LLM은 제공된 도구(tools)를 호출하기로 결정할 수 있습니다.
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
-    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
+    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutors.simpleOpenAIExecutor;
     class exampleBasicJava01 {
         public static void main(String[] args) {
     -->
@@ -120,7 +120,7 @@ What's on your mind? Do you have a specific question, topic, or task you'd like 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
-    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
+    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutors.simpleOpenAIExecutor;
     class exampleBasicJava02 {
         public static void main(String[] args) {
     -->
@@ -173,7 +173,7 @@ LLM의 동작을 커스텀하기 위해 에이전트 생성자(Kotlin)에 몇 �
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
-    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
+    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutors.simpleOpenAIExecutor;
     class exampleBasicJava03 {
         public static void main(String[] args) {
     -->
@@ -276,7 +276,7 @@ LLM의 동작을 커스텀하기 위해 에이전트 생성자(Kotlin)에 몇 �
     import ai.koog.agents.core.tools.reflect.ToolSet;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import java.util.Scanner;
-    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
+    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutors.simpleOpenAIExecutor;
     class exampleBasicJava04 {
         public static void main(String[] args) {
     -->
@@ -399,7 +399,7 @@ The meme is known for its lighthearted and playful tone, and is often used to ex
     import ai.koog.agents.core.tools.reflect.ToolSet;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import java.util.Scanner;
-    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
+    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutors.simpleOpenAIExecutor;
     class exampleBasicJava05 {
         public static void main(String[] args) {
     -->
@@ -504,7 +504,7 @@ The meme is known for its lighthearted and playful tone, and is often used to ex
     import ai.koog.agents.features.eventHandler.feature.EventHandler;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import java.util.Scanner;
-    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
+    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutors.simpleOpenAIExecutor;
     class exampleBasicJava06 {
         public static void main(String[] args) {
     -->

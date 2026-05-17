@@ -138,7 +138,7 @@ install(Sessions) {
 }
 ```
 
-在上述範例中，session 資料將透過 `cart_session` 自訂 header 傳遞給用戶端。
+在上述範例中， session 資料將透過 `cart_session` 自訂 header 傳遞給用戶端。
 在用戶端，您需要在每個請求中附加此 header 以獲取 session 資料。
 
 > 如果您使用 [CORS](server-cors.md) 外掛程式來處理跨來源請求，請將您的自訂 header 新增至 `CORS` 配置中，如下所示：
@@ -148,6 +148,22 @@ install(Sessions) {
 >     exposeHeader("cart_session")
 > }
 > ```
+
+### 僅在修改時傳送 session 資料 {id="send_only_if_modified"}
+
+預設情況下，Ktor 會在每次回應時傳送 session 資料，即使資料未曾變動。
+
+若要僅在修改時傳送 session 資料，請在 session 配置中啟用 `sendOnlyIfModified` 旗標：
+
+```kotlin
+install(Sessions) {
+    cookie<MySession>("SESSION") {
+        sendOnlyIfModified = true
+    }
+}
+```
+
+此選項對於基於 [cookie](#cookie) 和 [header](#header) 的 session 皆適用。
 
 ## 存儲 session 內容：用戶端 vs 伺服器端 {id="client_server"}
 
@@ -289,7 +305,7 @@ get("/logout") {
 
 ## 延遲獲取 session
 
-預設情況下，Ktor 會嘗試為每個包含 session 的請求從存儲中讀取 session，而不論路由是否真的需要它。這種行為可能會導致不必要的開銷——尤其是在使用自訂 session 存儲的應用程式中。
+預設情況下，Ktor 會嘗試為每個包含 session 的請求從存儲中讀取 session，而不論路由是否真的需要它。這種行為可能會導致不必要的開銷 —— 尤其是在使用自訂 session 存儲的應用程式中。
 
 您可以透過啟用 `io.ktor.server.sessions.deferred` 系統屬性來延遲載入 session：
 

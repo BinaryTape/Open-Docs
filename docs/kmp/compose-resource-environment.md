@@ -3,20 +3,20 @@
 您可能需要管理应用内设置，允许用户自定义其体验，例如更改语言或主题。
 要动态更新应用程序的资源环境，您可以配置应用程序使用的以下资源相关设置：
 
-*   [区域性（语言和地区）](#locale)
-*   [主题](#theme)
-*   [分辨率密度](#density)
+* [区域性（语言和地区）](#locale)
+* [主题](#theme)
+* [分辨率密度](#density)
 
 ## 区域性
 
 每个平台对语言和地区等区域性设置的处理方式各不相同。作为一种临时解决方法，在实现通用的公共 API 之前，您需要在共享代码中定义一个通用入口点。然后，使用平台特定 API 为每个平台提供相应的声明：
 
-*   **Android**：[`context.resources.configuration.locale`](https://developer.android.com/reference/android/content/res/Configuration#setLocale(java.util.Locale))
-*   **iOS**：[`NSLocale.preferredLanguages`](https://developer.apple.com/documentation/foundation/nslocale/preferredlanguages)
-*   **桌面**：[`Locale.getDefault()`](https://developer.android.com/reference/java/util/Locale#getDefault(java.util.Locale.Category))
-*   **Web**：[`window.navigator.languages`](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/languages)
+* **Android**：[`context.resources.configuration.locale`](https://developer.android.com/reference/android/content/res/Configuration#setLocale(java.util.Locale))
+* **iOS**：[`NSLocale.preferredLanguages`](https://developer.apple.com/documentation/foundation/nslocale/preferredlanguages)
+* **桌面**：[`Locale.getDefault()`](https://developer.android.com/reference/java/util/Locale#getDefault(java.util.Locale.Category))
+* **Web**：[`window.navigator.languages`](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/languages)
 
-1.  在通用源集中，使用 `expect` 关键字定义预期的 `LocalAppLocale` 对象：
+1. 在通用源集中，使用 `expect` 关键字定义预期的 `LocalAppLocale` 对象：
 
     ```kotlin
     var customAppLocale by mutableStateOf<String?>(null)
@@ -37,7 +37,7 @@
     }
     ```
 
-2.  在 Android 源集中，添加使用 `context.resources.configuration.locale` 的 `actual` 实现：
+2. 在 Android 源集中，添加使用 `context.resources.configuration.locale` 的 `actual` 实现：
 
     ```kotlin
     actual object LocalAppLocale {
@@ -67,7 +67,7 @@
     }
     ```
 
-3.  在 iOS 源集中，添加修改 `NSLocale.preferredLanguages` 的 `actual` 实现：
+3. 在 iOS 源集中，添加修改 `NSLocale.preferredLanguages` 的 `actual` 实现：
  
     ```kotlin
     @OptIn(InternalComposeUiApi::class)
@@ -91,7 +91,7 @@
     }
     ```
 
-4.  在桌面源集中，添加使用 `Locale.getDefault()` 来更新 JVM 默认区域性的 `actual` 实现：
+4. 在桌面源集中，添加使用 `Locale.getDefault()` 来更新 JVM 默认区域性的 `actual` 实现：
 
     ```kotlin
     actual object LocalAppLocale {
@@ -115,7 +115,7 @@
     }
     ```
 
-5.  对于 Web 平台，绕过 `window.navigator.languages` 属性的只读限制，引入自定义区域性逻辑：
+5. 对于 Web 平台，绕过 `window.navigator.languages` 属性的只读限制，引入自定义区域性逻辑：
 
     ```kotlin
     external object window {
@@ -160,7 +160,7 @@
             ...
         </head>
         <body></body>
-        <script src="composeApp.js"></script>
+        <script src="webApp.js"></script>
     </html>
     ```  
 
@@ -168,15 +168,15 @@
 
 Compose Multiplatform 通过 `isSystemInDarkTheme()` 定义当前主题。各平台对主题的处理方式各不相同：
 
-*   Android 通过以下按位运算定义主题：
+* Android 通过以下按位运算定义主题： 
     ```kotlin
         Resources.getConfiguration().uiMode and Configuration.UI_MODE_NIGHT_MASK
     ```
-*   iOS、桌面和 Web 平台使用 `LocalSystemTheme.current`。
+* iOS、桌面和 Web 平台使用 `LocalSystemTheme.current`。
 
 作为一种临时解决方法，在实现通用的公共 API 之前，您可以使用 `expect-actual` 机制来管理平台特定的主题自定义：
 
-1.  在通用代码中，使用 `expect` 关键字定义预期的 `LocalAppTheme` 对象：
+1. 在通用代码中，使用 `expect` 关键字定义预期的 `LocalAppTheme` 对象：
  
     ```kotlin
     var customAppThemeIsDark by mutableStateOf<Boolean?>(null)
@@ -197,7 +197,7 @@ Compose Multiplatform 通过 `isSystemInDarkTheme()` 定义当前主题。各平
     }
     ```
 
-2.  在 Android 代码中，添加使用 `LocalConfiguration` API 的 `actual` 实现：
+2. 在 Android 代码中，添加使用 `LocalConfiguration` API 的 `actual` 实现：
 
    ```kotlin
     actual object LocalAppTheme {
@@ -221,7 +221,7 @@ Compose Multiplatform 通过 `isSystemInDarkTheme()` 定义当前主题。各平
     }
     ```
 
-3.  在 iOS、桌面和 Web 平台上，您可以直接更改 `LocalSystemTheme`：
+3. 在 iOS、桌面和 Web 平台上，您可以直接更改 `LocalSystemTheme`：
 
     ```kotlin
     @OptIn(InternalComposeUiApi::class)

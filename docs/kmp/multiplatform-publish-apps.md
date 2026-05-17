@@ -2,7 +2,8 @@
 
 一旦您的应用准备好发布，就可以通过发布它们将其交付给用户。
 
-对于移动应用，每个平台都有多个商店可用。不过，在本文中，我们将重点关注官方商店：[Google Play 商店](https://play.google.com/store) 和 [Apple App Store](https://www.apple.com/ios/app-store/)。对于 Web 应用，我们将使用 [GitHub Pages](https://pages.github.com/)。
+对于移动应用，每个平台都有多个商店可用。不过，在本文中，我们将重点关注官方商店：
+[Google Play 商店](https://play.google.com/store) 和 [Apple App Store](https://www.apple.com/ios/app-store/)。对于 Web 应用，我们将使用 [GitHub Pages](https://pages.github.com/)。
 
 您将学习如何为发布准备 Kotlin Multiplatform 应用程序，我们将重点介绍此流程中值得特别关注的部分。
 
@@ -81,7 +82,7 @@ Kotlin Multiplatform 项目的特殊之处在于将共享的 Kotlin 模块编译
 
 ![运行 Wasm 分发任务](compose-run-wasm-distribution-task.png){width=350}
 
-任务完成后，您可以在 `composeApp/build/dist/wasmJs/productionExecutable` 目录中找到生成的工件：
+任务完成后，您可以在 `sharedUI/build/dist/wasmJs/productionExecutable` 目录中找到生成的工件：
 
 ![工件目录](compose-web-artifacts.png){width=400}
 

@@ -59,7 +59,6 @@
        val xcf = XCFramework(xcframeworkName)
    
        listOf(
-           iosX64(),
            iosArm64(),
            iosSimulatorArm64(),
        ).forEach { 
@@ -87,10 +86,10 @@
    > 如果您使用的是 Compose Multiplatform 项目，请使用以下 Gradle 任务：
    >
    > ```shell
-   > ./gradlew :composeApp:assembleSharedXCFramework
+   > ./gradlew :sharedUI:assembleSharedXCFramework
    > ```
    >
-   > 然后，您可以在 `composeApp/build/XCFrameworks/release/Shared.xcframework` 文件夹中找到生成的框架。
+   > 然后，您可以在 `sharedUI/build/XCFrameworks/release/Shared.xcframework` 文件夹中找到生成的框架。
    >
    {style="tip"}
 
@@ -223,7 +222,6 @@
         val xcf = XCFramework(frameworkName)
     
         listOf(
-            iosX64(),
             iosArm64(),
             iosSimulatorArm64()
         ).forEach { iosTarget ->
@@ -256,7 +254,6 @@
             //...
         }
         
-        iosX64()
         iosArm64()
         iosSimulatorArm64()
         

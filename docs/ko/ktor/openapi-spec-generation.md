@@ -458,6 +458,14 @@ ReflectionJsonSchemaInference(object : SchemaReflectionAdapter {
 })
 ```
 
+### 커스텀 스키마 제공 {id="custom-schemas"}
+
+자동 스키마 추론이나 어노테이션으로 충분하지 않은 경우, [`JsonSchema`](https://api.ktor.io/ktor-openapi-schema/io.ktor.openapi/-json-schema/index.html) 클래스를 사용하여 JSON 스키마를 수동으로 구성할 수 있습니다.
+
+이를 통해 타입, 포맷, 중첩 구조 또는 튜플과 같은 배열 정의를 위한 `prefixItems`와 같이 지원되는 모든 스키마 프로퍼티를 명시적으로 정의할 수 있습니다.
+
+사용 가능한 프로퍼티의 전체 목록은 [`JsonSchema` API 문서](https://api.ktor.io/ktor-openapi-schema/io.ktor.openapi/-json-schema/index.html)를 참조하십시오.
+
 ## 명세 생성 및 제공
 
 OpenAPI 명세는 런타임에 라우트 어노테이션과 컴파일러 플러그인에서 생성된 메타데이터를 조합하여 런타임에 구성됩니다.

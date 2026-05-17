@@ -32,7 +32,7 @@
 
 - **조건 (Conditions)**: 특정 엣지를 따라갈 시점을 결정하는 규칙입니다.
 
-- **서브그래프 (Subgraph)**: 에이전트 전략 내에서 자체적인 도구 세트, 컨텍스트 및 책임을 가진 독립적인 처리 단위입니다. 서브그래프 작업에 관한 정보는 서브그래프 내에 캡슐화되거나 `AgentMemory` 기능을 사용하여 서브그래프 간에 전달될 수 있습니다.
+- **서브그래프 (Subgraph)**: 에이전트 전략 내에서 자체적인 도구 세트, 컨텍스트 및 책임을 가진 독립적인 처리 단위입니다.
 
 ## 도구 (Tools)
 
@@ -58,16 +58,3 @@
 ### EventHandler 기능
 
 - **EventHandler**: 워크플로 전반에 걸쳐 에이전트 수명 주기 추적, 오류 처리 및 도구 호출 처리를 위한 훅(hook)을 제공하여 다양한 에이전트 이벤트를 모니터링하고 응답할 수 있게 하는 기능입니다.
-
-### AgentMemory 기능
-
-- **AgentMemory**: AI 에이전트가 대화 전반에 걸쳐 정보를 저장, 조회 및 사용할 수 있게 하는 기능입니다. 자세한 내용은 [AgentMemory](features/agent-memory.md)를 참고하세요.
-
-- **개념 (Concept)**: 키워드, 설명 및 사실 유형을 포함하여 AgentMemory 기능에서 관련 메타데이터가 있는 정보 카테고리입니다. 개념(Concept)은 에이전트가 기억하고 회상할 수 있는 AgentMemory 시스템의 기본 구성 요소입니다.
-자세한 내용은 [AgentMemory](features/agent-memory.md)를 참고하세요.
-
-- **사실 (Fact)**: AgentMemory 시스템에 저장된 개별 정보 조각입니다.
-사실(Fact)은 개념과 연결되며 단일 값 또는 다중 값을 가질 수 있습니다.
-자세한 내용은 [AgentMemory](features/agent-memory.md)를 참고하세요.
-
-- **메모리 범위 (Memory scope)**: 사실이 유효한 컨텍스트입니다. 자세한 내용은 [AgentMemory](features/agent-memory.md)를 참고하세요.

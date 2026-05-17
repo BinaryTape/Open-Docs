@@ -9,13 +9,12 @@
 {style="tip"}
 
 실제로 동작하는 JUnit 기반 테스트를 확인하기 위해, [Kotlin Multiplatform wizard](https://kmp.jetbrains.com/)로 생성된 프로젝트부터 시작해 보겠습니다. 
-기존 프로젝트에 테스트를 추가하는 경우, 경로와 명령에 있는 `composeApp`을 테스트하려는 모듈 이름(예: `shared`)으로 
-바꿔야 할 수도 있습니다.
+기존 프로젝트에 테스트를 추가하는 경우, 경로와 명령에 있는 `shared`를 테스트하려는 모듈 이름으로 바꿔야 할 수도 있습니다.
 
 테스트 소스 세트를 생성하고 필요한 의존성을 추가합니다:
 
-1. 테스트를 위한 디렉터리를 생성합니다: `composeApp/src/desktopTest/kotlin`.
-2. `composeApp/build.gradle.kts` 파일에 다음 의존성을 추가합니다:
+1. 테스트를 위한 디렉터리를 생성합니다: `shared/src/desktopTest/kotlin`.
+2. `shared/build.gradle.kts` 파일에 다음 의존성을 추가합니다:
 
    ```kotlin
    kotlin { 
@@ -40,7 +39,7 @@
     import androidx.compose.ui.Modifier
     import androidx.compose.ui.test.*
     import androidx.compose.ui.platform.testTag
-    import androidx.compose.ui.test.junit4.createComposeRule
+    import androidx.compose.ui.test.junit4.v2.createComposeRule
     import org.junit.Rule
     import org.junit.Test
     

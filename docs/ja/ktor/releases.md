@@ -35,6 +35,19 @@ IntelliJ Ktorプラグインを使用すると、Ktorプロジェクトを最新
 </tr>
 
 <tr>
+<td>3.5.0</td><td>2026年5月15日</td><td>
+<p>
+RFC 7616 Digest認証のサポート、OkHttpおよびApache5向けのカスタムDNSリゾルバー設定、リクエストパラメータのヘルパー関数、および設定、セッション、JavaScript互換性にわたるその他の改善を導入したマイナーリリースです。
+詳細は「<Links href="/ktor/whats-new-350" summary="undefined">Ktor 3.5.0の新機能</Links>」をご覧ください。
+</p>
+<var name="version" value="3.5.0"/>
+<p>
+    <a href="https://github.com/ktorio/ktor/releases/tag/%version%">GitHubで変更履歴を確認する</a>
+</p>
+</td>
+</tr>
+
+<tr>
 <td>3.4.3</td><td>2026年4月22日</td><td>
 <p>
 OpenAPIスキーマ推論、クライアントエンジンのライフサイクル問題、およびいくつかの並行性とプラットフォーム固有のバグ修正に焦点を当てた、安定性重視のパッチリリースです。

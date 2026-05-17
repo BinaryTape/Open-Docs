@@ -4,15 +4,22 @@
 
 <link-summary>了解如何在路由处理程序内部处理传入的请求。</link-summary>
 
-Ktor 允许您在[路由处理程序](server-routing.md#define_route)内部处理传入的请求并发送[响应](server-responses.md)。在处理请求时，您可以执行各种操作：
+Ktor 允许您在[路由处理程序](server-routing.md#define_route)内部处理传入的请求并发送[响应](server-responses.md)。
 
-* 获取[请求信息](#request_information)，例如标头、Cookie 等。
+路由处理程序在 [`ApplicationCall`](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-call/index.html) 上运行，该对象表示客户端与服务器之间的单个 HTTP 交换。它在路由处理程序中通过 `call` 属性可用，并且包含传入的请求 (`ApplicationRequest`) 和传出的响应 (`ApplicationResponse`)。
+
+在路由处理程序内部，您可以使用 `ApplicationCall` 执行以下操作：
+
+* 获取[请求信息](#request_information)，例如标头、Cookie 和连接详情。
 * 获取[路径形参](#path_parameters)的值。
-* 获取[查询字符串](#query_parameters)的形参。
-* 接收[正文内容](#body_contents)，例如数据对象、表单形参和文件。
+* 获取[查询形参](#query_parameters)。
+* 接收[请求正文内容](#body_contents)，例如数据对象、表单形参和文件。
 
 ## 通用请求信息 {id="request_information"}
-在路由处理程序内部，您可以使用 [`call.request`](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-call/request.html) 属性访问请求。这将返回 [`ApplicationRequest`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/index.html) 实例，并提供对各种请求形参的访问。例如，下面的代码段显示了如何获取请求 URI：
+
+您可以通过 [`call.request`](https://api.ktor.io/ktor-server-core/io.ktor.server.application/-application-call/request.html) 属性访问请求数据。这将返回一个 [`ApplicationRequest`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/index.html) 实例，该实例提供对底层 HTTP 请求信息的访问。
+
+例如，您可以使用 `call.request.uri` 在 GET 请求处理程序中获取请求 URI：
 
 ```kotlin
 routing {
@@ -22,28 +29,36 @@ routing {
     }
 }
 ```
-[`call.respondText()`](server-responses.md#plain-text) 方法用于将响应发送回客户端。
 
-[`ApplicationRequest`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/index.html) 对象允许您访问各种请求数据，例如：
+[`call.respondText()`](server-responses.md#plain-text) 函数用于将纯文本响应发送回客户端。
 
-* **标头**
+### 标头 {id="headers"}
 
-  要访问所有请求标头，请使用 [`ApplicationRequest.headers`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/headers.html) 属性。您还可以使用专用的扩展函数访问特定标头，例如 `acceptEncoding`、`contentType`、`cacheControl` 等。
+要访问所有 HTTP 请求标头，请使用 [`ApplicationRequest.headers`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/headers.html) 属性。
 
-* **Cookie**  
+为了方便起见，Ktor 还提供了专用的扩展函数来访问常用的标头，例如 [`.acceptEncoding()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/accept-encoding.html)、[`.contentType()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/content-type.html) 和 [`.cacheControl()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/cache-control.html)。
 
-  [`ApplicationRequest.cookies`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/cookies.html) 属性提供了对请求相关 Cookie 的访问。要了解如何使用 Cookie 处理会话，请参阅[会话](server-sessions.md)部分。
+### Cookie {id="cookies"}
 
-* **连接详情**
+要访问随请求发送的 Cookie，请使用 [`ApplicationRequest.cookies`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/cookies.html) 属性。
 
-  使用 [`ApplicationRequest.local`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/local.html) 属性可以访问连接详情，例如主机名、端口、方案等。
+> 有关使用 Cookie 处理会话的更多信息，请参阅[会话](server-sessions.md)部分。
+> 
+{style="tip"}
 
-* **`X-Forwarded-` 标头**
+### 连接详情
 
-  要获取通过 HTTP 代理或负载均衡器传递的请求信息，请安装 [Forwarded headers](server-forward-headers.md) 插件并使用 [`ApplicationRequest.origin`](https://api.ktor.io/ktor-server-core/io.ktor.server.plugins/origin.html) 属性。
+使用 [`ApplicationRequest.local`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/local.html) 属性可以访问连接详情，例如主机名、端口和方案。
+
+### `X-Forwarded-` 标头
+
+要获取通过 HTTP 代理或负载均衡器传递的请求信息，请安装 [Forwarded headers](server-forward-headers.md) 插件并使用 [`ApplicationRequest.origin`](https://api.ktor.io/ktor-server-core/io.ktor.server.plugins/origin.html) 属性。
 
 ## 路径形参 {id="path_parameters"}
-处理请求时，您可以使用 `call.parameters` 属性访问[路径形参](server-routing.md#path_parameter)的值。例如，在下面的代码段中，对于 `/user/admin` 路径，`call.parameters["login"]` 将返回 _admin_：
+
+处理请求时，您可以使用 `ApplicationCall.parameters` 属性获取[路径形参](server-routing.md#path_parameter)的值。
+
+例如，在下面的代码段中，对于 `/user/admin` 路径，`call.parameters["login"]` 将返回 `"admin"`：
 
 ```kotlin
 get("/user/{login}") {
@@ -55,7 +70,9 @@ get("/user/{login}") {
 
 ## 查询形参 {id="query_parameters"}
 
-要访问 <emphasis tooltip="query_string">查询字符串</emphasis> 的形参，可以使用 [`ApplicationRequest.queryParameters()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/query-parameters.html) 属性。例如，如果向 `/products?price=asc` 发起请求，您可以通过以下方式访问 `price` 查询形参：
+要获取 URL 查询字符串的形参，可以使用 [`ApplicationRequest.queryParameters`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/query-parameters.html) 属性。
+
+以下示例访问了对 `/products?price=asc` 发起的请求中的 `price` 查询形参：
 
 ```kotlin
 get("/products") {
@@ -67,8 +84,33 @@ get("/products") {
 
 您还可以使用 [`ApplicationRequest.queryString()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/query-string.html) 函数获取整个查询字符串。
 
+## 必选请求形参
+
+处理请求时，通常会从[路径形参](#path_parameters)、[查询形参](#query_parameters)、[标头](#headers)或 [Cookie](#cookies) 中提取值，并在继续处理请求之前验证它们是否存在。
+
+Ktor 提供了一系列辅助函数来简化对必选请求数据的访问，从而避免在每个路由处理程序中手动检查缺失值：
+
+[//]: # (TODO: Add API links)
+
+* `ApplicationCall.requireQueryParameter()` — 从请求 URL 中检索所需的查询形参。如果该形参缺失，则抛出异常。
+* `ApplicationCall.requireHeader()` — 检索所需的 HTTP 标头值。如果请求中不存在该标头，则抛出异常。
+* `ApplicationCall.requireCookie()` — 检索所需的 Cookie 值，（可选）使用指定的编码进行解码。如果 Cookie 缺失，则抛出异常。
+* `RoutingCall.requirePathParameter()` — 从路由定义中检索所需的路径形参。如果匹配的路由中不存在该形参，则抛出异常。
+
+每个函数都会返回一个非空值，或者在值缺失时抛出 `MissingRequestParameterException`。
+
+```kotlin
+post("/checkout/{cartId}") {
+    val userId = call.requireCookie("userId")
+    val cartId = call.requirePathParameter("cartId")
+    val amount = call.requireQueryParameter("amount").toLong()
+
+    // 业务逻辑
+}
+```
+
 ## 正文内容 {id="body_contents"}
-本节介绍如何接收通过 `POST`、`PUT` 或 `PATCH` 发送的正文内容。
+本节介绍如何接收随 `POST`、`PUT` 或 `PATCH` 发送的正文内容。
 
 ### 原始载荷 {id="raw"}
 
@@ -142,7 +184,7 @@ post("/customer") {
 }
 ```
 
-> 更多信息请参阅 [Ktor Server 中的内容协商与序列化](server-serialization.md)。
+> 欲了解更多信息，请参阅 [Ktor Server 中的内容协商与序列化](server-serialization.md)。
 
 ### 表单形参 {id="form_parameters"}
 Ktor 允许您使用 [receiveParameters](https://api.ktor.io/ktor-server-core/io.ktor.server.request/receive-parameters.html) 函数接收通过 `x-www-form-urlencoded` 和 `multipart/form-data` 类型发送的表单形参。下面的示例展示了一个 [HTTP 客户端](https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html) `POST` 请求，其中表单形参在正文中传递：
@@ -214,7 +256,7 @@ fun Application.main() {
 
 #### 默认文件大小限制
 
-默认情况下，可以接收的二进制项和文件项的允许大小限制为 50 MB。如果接收到的文件或二进制项超过 50 MB 限制，则会抛出 `IOException`。
+默认情况下，可以接收的二进制项和文件项的允许大小限制为 50 MiB。如果接收到的文件或二进制项超过 50 MiB 限制，则会抛出 `IOException`。
 
 要替代默认的表单字段限制，请在调用 `.receiveMultipart()` 时传递 `formFieldLimit` 形参：
 
@@ -222,7 +264,7 @@ fun Application.main() {
 val multipartData = call.receiveMultipart(formFieldLimit = 1024 * 1024 * 100)
 ```
 
-在此示例中，新限制设置为 100 MB。
+在此示例中，新限制设置为 100 MiB。
 
 #### 表单字段
 

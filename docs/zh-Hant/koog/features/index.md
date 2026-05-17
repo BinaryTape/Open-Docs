@@ -1,6 +1,6 @@
 # 功能
 
-Agent 功能提供了一種擴展和增強 AI Agent 功能的方法。
+Agent 功能提供了一種擴充與增強 AI Agent 功能的方法。
 透過功能，您可以：
 
 - 為 Agent 增加新能力
@@ -29,12 +29,6 @@ Koog 架構提供了以下開箱即用的功能：
     ---
 
     在 Agent 執行之間儲存並檢索聊天訊息歷程記錄
-
--   :material-chip:{ .lg .middle } [Agent 記憶](agent-memory.md)
-
-    ---
-
-    在 Agent 執行期間和執行之間儲存、檢索並使用任意資料
 
 -   :material-database-clock:{ .lg .middle } [長期記憶](long-term-memory.md)
 

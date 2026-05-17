@@ -13,9 +13,9 @@
 
 ## 开始之前
 
-1. 下载并安装最新版本的 [IntelliJ IDEA Ultimate 版](https://www.jetbrains.com/idea/download/)。
+1. 下载并安装最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 并使用 Ultimate 订阅。
 
-    > 如果您使用的是 IntelliJ IDEA Community 版或其他 IDE，可以使用[基于 Web 的项目生成器](https://start.spring.io/#!language=kotlin&type=gradle-project-kotlin)生成 Spring Boot 项目。
+    > 如果您使用的是不带 Ultimate 订阅的 IntelliJ IDEA 或其他 IDE，可以使用[基于 Web 的项目生成器](https://start.spring.io/#!language=kotlin&type=gradle-project-kotlin)生成 Spring Boot 项目。
     >
     {style="tip"}
 
@@ -33,7 +33,7 @@
 >
 {style="note"}
 
-在 IntelliJ IDEA Ultimate 版中创建一个新的 Spring Boot 项目：
+在带有 Ultimate 订阅的 IntelliJ IDEA 中创建一个新的 Spring Boot 项目：
 
 1. 在 IntelliJ IDEA 中，选择 **File** | **New** | **Project**。
 2. 在左侧面板中，选择 **New Project** | **Spring Boot**。

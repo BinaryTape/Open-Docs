@@ -219,7 +219,7 @@
     3. 在 **Gradle project** 欄位中，將 `ComposeDemo:composeApp` 更改為 `ComposeDemo:webApp`。
 4. 對 **composeApp [js]** 重複上述步驟，以便也能執行 JavaScript 版本。
 5. 啟動运行配置以確保應用程式按預期執行。
-6. If everything works correctly:
+6. 如果一切運作正常：
     * 刪除 `composeApp/src/webMain` 目錄。
     * 在 `composeApp/build.gradle.kts` 檔案中，移除與 Web 相關的程式碼：
         * Kotlin `sourceSets {}` 區塊內的 `webMain.dependencies {}` 區塊，
@@ -236,7 +236,7 @@
 
 以下是必要的更改：
 
-1. 在 `gradle/libs.versions.toml` 中，將 Android-KMP 程式庫外掛程式新增至您的版本目錄：
+1. 在 `gradle/libs.versions.toml` 中，將 Android-KMP 程式庫外掛程式新增至您的版本目錄 (version catalog)：
 
     ```text
     [plugins]
@@ -567,5 +567,3 @@
        如果您在 `shared/build.gradle.kts` 檔案中更改了架構名稱，則需要相應地更改匯入指令。
 
 3. 從 Xcode 執行應用程式，或使用 IntelliJ IDEA 中的 **iosApp** 运行配置進行執行。
-
-[//]: # (TODO ## What's next: up for suggestions here — the first thought is to link platform-specific guidance)

@@ -79,7 +79,7 @@ LLM 用戶端旨在與 LLM 供應商進行直接互動。
     ```java
     // 建立 OpenAI 用戶端
     String apiKey = System.getenv("OPENAI_API_KEY");
-    OpenAILLMClient client = new OpenAILLMClient(apiKey);
+    OpenAILLMClient client = openAIClient(apiKey);
 
     // 建立 prompt
     Prompt prompt = Prompt.builder("prompt_name")
@@ -169,7 +169,7 @@ Tool call: ${frame.name}")
     ```java
     // 使用您的 API 金鑰設定 OpenAI 用戶端
     String token = System.getenv("OPENAI_API_KEY");
-    OpenAILLMClient client = new OpenAILLMClient(token);
+    OpenAILLMClient client = openAIClient(token);
 
     Prompt prompt = Prompt.builder("stream_demo")
                 .user("Stream this response in short chunks.")
@@ -229,6 +229,7 @@ Tool call: " + toolCall.getName());
     import ai.koog.prompt.dsl.prompt
     import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
+    import ai.koog.prompt.message.MessagePart
     import ai.koog.prompt.params.LLMParams
     import kotlinx.coroutines.runBlocking
     -->
@@ -246,7 +247,7 @@ Tool call: " + toolCall.getName());
         )
 
         choices.forEachIndexed { i, choice ->
-            val text = choice.joinToString(" ") { it.content }
+            val text = choice.parts.filterIsInstance<MessagePart.Text>().joinToString(" ") { it.text }
             println("Line #${i + 1}: $text")
         }
     }
@@ -263,7 +264,7 @@ Tool call: " + toolCall.getName());
     -->
     ```java
     String apiKey = System.getenv("OPENAI_API_KEY");
-    OpenAILLMClient client = new OpenAILLMClient(apiKey);
+    OpenAILLMClient client = openAIClient(apiKey);
 
     // 配置參數（LLMParams 建構函式在 Java 中需要全部 8 個引數）
     LLMParams params = new LLMParams(
@@ -337,7 +338,7 @@ Tool call: " + toolCall.getName());
     -->
     ```java
     String apiKey = System.getenv("OPENAI_API_KEY");
-    OpenAILLMClient client = new OpenAILLMClient(apiKey);
+    OpenAILLMClient client = openAIClient(apiKey);
 
     List<LLModel> models = client.models();
     for (LLModel model : models) {
@@ -417,7 +418,7 @@ fun main() = runBlocking {
     -->
     ```java
     String apiKey = System.getenv("OPENAI_API_KEY");
-    OpenAILLMClient client = new OpenAILLMClient(apiKey);
+    OpenAILLMClient client = openAIClient(apiKey);
 
     Prompt prompt = Prompt.builder("moderation")
         .user("This is a test message that may contain offensive content.")

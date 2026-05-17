@@ -29,7 +29,7 @@ install(Authentication) {
     oauth("login") {
         client = ...
         urlProvider = ...
-        providerLookup = { ... }
+        settings = ...
         fallback = { cause ->
             if (cause is OAuth2RedirectError) {
                 respondRedirect("/login-after-fallback")
@@ -40,6 +40,12 @@ install(Authentication) {
     }
 }
 ```
+
+### 靜態 OAuth 提供者設定
+
+Ktor 3.4.0 為 [OAuth](server-oauth.md) 驗證提供者引入了 `settings` 屬性。使用它直接在 `oauth` 區塊中配置靜態 OAuth 提供者設定。對於靜態提供者配置，建議優先使用 `settings` 而非 `providerLookup`，因為這允許 Ktor 為產生的 [OpenAPI 規格](openapi-spec-generation.md)推論中繼資料。
+
+`providerLookup` 屬性仍可用於為特定呼叫動態解析 OAuth 設定。
 
 ### Zstd 壓縮支援
 
@@ -263,7 +269,7 @@ val forceSplit = headers.getSplitValues("X-Quoted", splitInsideQuotes = true)
 
 在 Ktor 3.4.0 之前，使用 [Basic](client-basic-auth.md) 和 [Bearer 驗證](client-bearer-auth.md)提供者的應用程式，在使用者登出或更新其驗證資料後，可能會繼續傳送過時的權杖或憑據。這是因為每個提供者都會透過負責儲存已載入驗證權杖的內部組件，在內部快取 `loadTokens()` 函式的結果，而此快取會保持有效直到手動清除。
 
-Ktor 3.4.0 引入了新的函式和配置選項，讓您可以對權杖快取行為進行明確且便利的控制。
+Ktor 3.4.0 引入了新的函式 and 配置選項，讓您可以對權杖快取行為進行明確且便利的控制。
 
 #### 存取並清除驗證權杖
 
@@ -370,7 +376,7 @@ val client = HttpClient(Apache5) {
 
 </compare>
 
-新的 `configureConnectionManager {}` 函式讓 Ktor 保持控制，同時允許您調整參數，例如每個路由的最大連線數（`maxConnPerRoute`）和總最大連線數（`maxConnTotal`）。
+新的 `configureConnectionManager {}` 函式讓 Ktor 保持控制，同時允許您調整參數，例如每個路由的最大連線數（`maxConnPerRoute`） and 總最大連線數（`maxConnTotal`）。
 
 ### 原生用戶端引擎的 Dispatcher 配置
 
@@ -514,7 +520,7 @@ println("A file saved to ${file.path}")
 
 #### 配置
 
-配置仍透過 `ktor` Gradle 擴充內的 `openApi {}` 區塊完成。然而，用於定義全域 OpenAPI 中繼資料的屬性（例如 `title`、`version`、`description` 和 `target`）已被棄用且會被忽略。
+配置仍透過 `openApi {}` 區塊內部的 `ktor` Gradle 擴充完成。然而，用於定義全域 OpenAPI 中繼資料的屬性（例如 `title`、`version`、`description` 和 `target`）已被棄用且會被忽略。
 
 全域 OpenAPI 中繼資料現在於執行時而非編譯期間定義與解析。
 

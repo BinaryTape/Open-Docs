@@ -15,7 +15,8 @@
     </p>
 </tldr>
 
-您已经创建了第一个跨平台 Kotlin Multiplatform 项目！现在让我们学习如何向第三方库添加依赖项，这对于构建成功的跨平台应用程序至关重要。
+您已经创建并调整了您的第一个 Kotlin Multiplatform 项目！
+现在让我们学习如何向第三方库添加依赖项，这对于构建成功的跨平台应用程序至关重要。
 
 ## 依赖项类型
 
@@ -23,41 +24,55 @@
 
 *   **多平台依赖项**。这些是支持多个目标平台的多平台库，可以在公共源集 `commonMain` 中使用。
 
-    许多现代 Android 库已经提供了多平台支持，例如 [Koin](https://insert-koin.io/)、[Apollo](https://www.apollographql.com/) 和 [Okio](https://square.github.io/okio/)。您可以在 [klibs.io](https://klibs.io/) 上找到更多多平台库，这是由 JetBrains 提供的一项用于发现 Kotlin Multiplatform 库的实验性搜索服务。
+    许多现代 Android 库已经提供了多平台支持，例如 [Koin](https://insert-koin.io/)、[Coil](https://coil-kt.github.io/coil/) 和 [SQLDelight](https://sqldelight.github.io/sqldelight/latest/)。您可以在 [klibs.io](https://klibs.io/) 上找到更多多平台库，这是由 JetBrains 提供的一项用于发现 Kotlin Multiplatform 库的实验性搜索服务。
 
-*   **原生依赖项**。这些是来自相关生态系统的常规库。在原生项目中，您通常在 Android 中使用 Gradle，在 iOS 中使用 CocoaPods 或其他依赖管理器来处理它们。 
+*   **原生依赖项**。这些是来自特定生态系统的常规库。
+    在原生项目中，您通常会使用它们，例如在 Android 中使用 Gradle，在 iOS 中使用 Swift 软件包管理器。 
   
-    在处理共享模块时，如果您想使用平台 API（如安全存储），通常仍需要原生依赖项。您可以将原生依赖项添加到原生源集 `androidMain` 和 `iosMain` 中。
+    在处理多平台项目模块时，通常仍需要原生依赖项来使用平台 API，如安全存储、特定的系统调用等。
+    在构建脚本中，您可以在原生源集的配置中指定原生依赖项，例如 `androidMain` 和 `iosMain`。
 
 对于这两种类型的依赖项，您都可以使用本地和外部仓库。
 
 ## 添加多平台依赖项
 
-> 如果您有开发 Android 应用的经验，添加多平台依赖项与在普通 Android 项目中添加 Gradle 依赖项类似。唯一的区别是您需要指定源集。
+> 如果您有开发 Android 应用的经验，添加多平台依赖项与在普通 Android 项目中添加 Gradle 依赖项类似。唯一的区别是您需要将其添加到特定的源集中。
 >
 {style="tip"}
 
-让我们回到应用中，让问候语更具节日气氛。除了设备信息，再添加一个函数来显示距离元旦还有多少天。`kotlinx-datetime` 库具有完整的多平台支持，是在共享代码中处理日期的最便捷方式。
+让我们让问候语更具节日气氛：
+除了操作系统版本，再添加一个函数来显示距离元旦还有多少天。
+`kotlinx-datetime` 库具有完整的多平台支持，是在共享代码中处理日期的最便捷方式。
 
-1. 打开位于 `shared` 目录下的 `build.gradle.kts` 文件。
-2. 向 `commonMain` 源集依赖项添加以下依赖项和 Kotlin 时间的选择性加入（opt-in）：
+1. 打开 `gradle/libs.versions.toml` 文件，将 `kotlinx-datetime` 依赖项添加到版本目录：
+    ```text
+    [versions]
+    kotlinx-datetime = "0.8.0"
+    
+    [libraries]
+    kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
+    ```
+2. 打开 `sharedLogic/build.gradle.kts` 文件，在配置公共代码源集的区域添加对该库条目的引用：
 
     ```kotlin
     kotlin {
         //... 
         sourceSets {
-            all { languageSettings.optIn("kotlin.time.ExperimentalTime") }
-   
             commonMain.dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:%dateTimeVersion%")
+                implementation(libs.kotlinx.datetime)
             } 
         }
     }
     ```
 
 3. 选择 **Build | Sync Project with Gradle Files** 菜单项，或点击构建脚本编辑器中的 **Sync Gradle Changes** 按钮来同步 Gradle 文件： ![同步 Gradle 文件](gradle-sync.png){width=50}
-4. 右键点击 `shared/src/commonMain/.../greetingkmp` 目录，选择 **New | Kotlin Class/File** 以创建一个新文件 `NewYear.kt`。
-5. 使用 `datetime` 的日期算术逻辑，更新该文件以添加一个计算从今天到元旦的天数的短函数：
+
+## 调用 kotlinx-datetime API
+
+添加依赖项后，您可以向公共代码添加日期和时间计算逻辑：
+
+1. 右键点击 `sharedLogic/src/commonMain/.../greetingkmp` 目录，选择 **New | Kotlin Class/File** 以创建一个新文件 `NewYear.kt`。
+2. 在 `NewYear.kt` 中，添加两个函数，使用 `datetime` 的日期算术逻辑计算从今天到明年开始的天数，并生成要显示的短语：
    
    ```kotlin
    fun daysUntilNewYear(): Int {
@@ -68,8 +83,9 @@
    
    fun daysPhrase(): String = "There are only ${daysUntilNewYear()} days left until New Year! 🎆"
    ```
-6. 根据 IDE 的建议添加所有必需的导入。确保您从 `kotlin.time` 软件包导入了 `Clock` 类。
-7. 在 `Greeting.kt` 文件中，更新 `Greeting` 类以查看结果：
+3. 根据 IDE 的建议添加所有必需的导入。
+   确保导入的是 `kotlin.time.Clock`，而不是 `kotlinx.datetime.Clock`。 
+4. 在 `Greeting.kt` 文件中，更新 `Greeting` 类以查看结果：
     
     ```kotlin
     class Greeting {
@@ -83,9 +99,9 @@
     }
     ```
 
-8. 要查看结果，请在 IntelliJ IDEA 中重新运行您的 **composeApp** 和 **iosApp** 运行配置：
+5. 要查看结果，请在 IntelliJ IDEA 中重新运行您的 **androidApp** 和 **iosApp** 运行配置：
 
-![更新后的带有外部依赖项的移动多平台应用](first-multiplatform-project-3.png){width=500}
+![更新后的带有外部依赖项的移动多平台应用](first-multiplatform-project-3.png){width=600}
 
 ## 下一步
 
@@ -95,11 +111,11 @@
 
 ### 另请参阅
 
-*   了解如何处理各种多平台依赖项：[Kotlin 库、Kotlin Multiplatform 库和其他多平台项目](multiplatform-add-dependencies.md)。
-*   了解如何[添加 Android 依赖项](multiplatform-android-dependencies.md)以及[在使用或不使用 CocoaPods 的情况下添加 iOS 依赖项](multiplatform-ios-dependencies.md)，以便在特定平台的源集中使用。
-*   查看示例项目中[如何使用 Android 和 iOS 库](multiplatform-samples.md)的示例。
+* 了解如何处理各种多平台依赖项：[Kotlin 库、Kotlin Multiplatform 库和其他多平台项目](multiplatform-add-dependencies.md)。
+* 了解如何[添加 Android 依赖项](multiplatform-android-dependencies.md)以及[在使用或不使用 CocoaPods 的情况下添加 iOS 依赖项](multiplatform-ios-dependencies.md)，以便在特定平台的源集中使用。
+* 查看示例项目中[如何使用 Android 和 iOS 库](multiplatform-samples.md)的示例。
 
 ## 获取帮助
 
-*   **Kotlin Slack**。获取[邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)并加入 [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 频道。
-*   **Kotlin 问题跟踪器**。[报告新问题](https://youtrack.jetbrains.com/newIssue?project=KT)。
+* **Kotlin Slack**。获取[邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)并加入 [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 频道。
+* **Kotlin 问题跟踪器**。[报告新问题](https://youtrack.jetbrains.com/newIssue?project=KT)。

@@ -456,6 +456,14 @@ ReflectionJsonSchemaInference(object : SchemaReflectionAdapter {
 })
 ```
 
+### 提供自訂架構 {id="custom-schemas"}
+
+如果自動架構推論或註解不足，您可以使用 [`JsonSchema`](https://api.ktor.io/ktor-openapi-schema/io.ktor.openapi/-json-schema/index.html) 類別手動建構 JSON 架構。
+
+這允許您明確定義所有支援的架構屬性，例如型別、格式、巢狀結構或進階結構（例如用於類元組陣列定義的 `prefixItems`）。
+
+如需可用屬性的完整清單，請參閱 [`JsonSchema` API 文件](https://api.ktor.io/ktor-openapi-schema/io.ktor.openapi/-json-schema/index.html)。
+
 ## 產生並提供規格
 
 OpenAPI 規格是在執行時根據執行時路由註解和編譯器外掛程式產生的元資料組合而成的。

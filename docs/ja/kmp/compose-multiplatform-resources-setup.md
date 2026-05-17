@@ -12,7 +12,7 @@
 
 マルチプラットフォームプロジェクトでリソースにアクセスするには、ライブラリの依存関係を追加し、プロジェクトディレクトリ内のファイルを整理します。
 
-1. `composeApp` ディレクトリ内の `build.gradle.kts` ファイルで、`commonMain` ソースセットに依存関係を追加します。
+1. `sharedUI` ディレクトリ内の `build.gradle.kts` ファイルで、`commonMain` ソースセットに依存関係を追加します。
 
    ```kotlin
    kotlin {

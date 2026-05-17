@@ -64,7 +64,7 @@ CocoaPods プラグインから移行するには：
    ```
 
    * `cd` コマンドには、Kotlin Multiplatform プロジェクトのルートへのパスを指定します（例: `$SRCROOT/..`）。
-   * `./gradlew` コマンドには、共有モジュールの名前を指定します（例: `:shared` または `:composeApp`）。
+   * `./gradlew` コマンドには、共有モジュールの名前を指定します（例: `:shared` または `:sharedUI`）。
    
    iOS の実行構成を開始すると、IntelliJ IDEA と Android Studio は Xcode のビルドを開始する前に Kotlin フレームワークの依存関係をビルドし、環境変数 `OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED` を "YES" に設定します。提供されたシェルスクリプトはこの変数を確認し、Xcode から Kotlin フレームワークが二重にビルドされるのを防ぎます。
      

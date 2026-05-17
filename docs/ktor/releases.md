@@ -35,6 +35,19 @@ IntelliJ Ktor 插件允许您将 Ktor 项目迁移到最新版本。
 </tr>
 
 <tr>
+<td>3.5.0</td><td>2026 年 5 月 15 日</td><td>
+<p>
+一个次要版本，引入了 RFC 7616 摘要身份验证支持、针对 OkHttp 和 Apache5 的自定义 DNS 解析器配置、请求参数助手函数，以及在配置、会话和 JavaScript 兼容性方面的其他改进。
+欲了解更多详情，请参阅 <Links href="/ktor/whats-new-350" summary="undefined">Ktor 3.5.0 最新变化</Links>。
+</p>
+<var name="version" value="3.5.0"/>
+<p>
+    <a href="https://github.com/ktorio/ktor/releases/tag/%version%">在 GitHub 上查看变更日志</a>
+</p>
+</td>
+</tr>
+
+<tr>
 <td>3.4.3</td><td>2026 年 4 月 22 日</td><td>
 <p>
 一个修订版本，专注于稳定性，修复了 OpenAPI 架构推断、客户端引擎生命周期问题以及多个并发和特定于平台的错误。

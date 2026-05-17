@@ -23,7 +23,7 @@ Agent 將執行工具並將結果回傳給 LLM。
 ## 建立最簡 Agent
 
 若要建立最基本的 Agent，請具現化 [`AIAgent`](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent/-a-i-agent/index.html)
-並為 [prompt 執行器](../prompts/prompt-executors.md)提供一個[語言模型](../model-capabilities.md#creating-a-model-llmodel-configuration)：
+並為 [prompt 執行器](../prompts/prompt-executors.md)提供一個 [語言模型](../model-capabilities.md#creating-a-model-llmodel-configuration)：
 
 === "Kotlin"
 
@@ -56,7 +56,7 @@ Agent 將執行工具並將結果回傳給 LLM。
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
-    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
+    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutors.simpleOpenAIExecutor;
     class exampleBasicJava01 {
         public static void main(String[] args) {
     -->
@@ -123,7 +123,7 @@ Agent 將傳回通用的回答，例如：
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
-    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
+    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutors.simpleOpenAIExecutor;
     class exampleBasicJava02 {
         public static void main(String[] args) {
     -->
@@ -177,7 +177,7 @@ Agent 將傳回通用的回答，例如：
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
-    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
+    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutors.simpleOpenAIExecutor;
     class exampleBasicJava03 {
         public static void main(String[] args) {
     -->
@@ -226,7 +226,7 @@ Agent 將傳回通用的回答，例如：
 
 ## 加入工具
 
-Agent 可以使用[工具](../tools-overview.md)來執行特定任務。
+Agent 可以使用 [工具](../tools-overview.md) 來執行特定任務。
 
 首先，透過使用 [`@Tool`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools.annotations/-tool/index.html) 註解標註函式 (Kotlin) 或方法 (Java) 來建立工具：
 
@@ -281,7 +281,7 @@ Agent 可以使用[工具](../tools-overview.md)來執行特定任務。
     import ai.koog.agents.core.tools.reflect.ToolSet;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import java.util.Scanner;
-    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
+    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutors.simpleOpenAIExecutor;
     class exampleBasicJava04 {
         public static void main(String[] args) {
     -->
@@ -405,7 +405,7 @@ Doge 迷因的範例可能包括：
     import ai.koog.agents.core.tools.reflect.ToolSet;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import java.util.Scanner;
-    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
+    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutors.simpleOpenAIExecutor;
     class exampleBasicJava05 {
         public static void main(String[] args) {
     -->
@@ -512,7 +512,7 @@ Koog 提供了 [EventHandler](https://api.koog.ai/agents/agents-features/agents-
     import ai.koog.agents.features.eventHandler.feature.EventHandler;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import java.util.Scanner;
-    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutorsKt.simpleOpenAIExecutor;
+    import static ai.koog.prompt.executor.llms.all.SimplePromptExecutors.simpleOpenAIExecutor;
     class exampleBasicJava06 {
         public static void main(String[] args) {
     -->
@@ -566,8 +566,8 @@ Tool called: askUser with args {"question":"Which meme would you like me to expl
 ```
 <!--- KNIT example-basic-07.txt -->
 
-如需更多關於 Koog Agent 功能的資訊，請參閱[功能](../features/index.md)。
+如需更多關於 Koog Agent 功能的資訊，請參閱 [功能](../features/index.md)。
 
 ## 後續步驟
 
-- 進一步了解如何建置[基於圖的 Agent](graph-based-agents.md) 與[功能性 Agent](functional-agents.md)
+- 進一步了解如何建置 [基於圖的 Agent](graph-based-agents.md) 與 [功能性 Agent](functional-agents.md)

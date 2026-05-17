@@ -367,9 +367,9 @@ koog.spring.ai.embedding.embedding-model-bean-name=openAiEmbeddingModel
 플레인 텍스트 형태의 `System`, `User`, `Assistant` 메시지만 영속화됩니다.
 다음 항목들은 저장 시 자동으로 제외(drop)됩니다:
 
-- `Message.Tool.Call`
-- `Message.Tool.Result`
-- `Message.Reasoning`
+- `MessagePart.Tool.Call`
+- `MessagePart.Tool.Result`
+- `MessagePart.Reasoning`
 - 첨부 파일이 포함된 모든 메시지
 
 로드 시 Spring AI `TOOL` 행은 자동으로 무시됩니다.

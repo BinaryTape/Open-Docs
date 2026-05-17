@@ -160,7 +160,7 @@ kotlin {
 
 1. マルチプラットフォームの依存関係は、`dependsOn` 構造に沿って下方に伝播されます。`commonMain` に依存関係を追加すると、`commonMain` で直接的または間接的に `dependsOn` 関係を宣言しているすべてのソースセットに自動的に追加されます。
 
-   この場合、依存関係は実際にすべての `*Main` ソースセット（`iosMain`、`jvmMain`、`iosSimulatorArm64Main`、および `iosX64Main`）に自動的に追加されました。これらのソースセットはすべて `commonMain` ソースセットから `kotlin-coroutines-core` 依存関係を継承するため、それらすべてに手動でコピー＆ペーストする必要はありません。
+   この場合、依存関係は実際にすべての `*Main` ソースセット（`iosMain`、`jvmMain`、`iosSimulatorArm64Main`、および `iosArm64Main`）に自動的に追加されました。これらのソースセットはすべて `commonMain` ソースセットから `kotlin-coroutines-core` 依存関係を継承するため、それらすべてに手動でコピー＆ペーストする必要はありません。
 
    ![Propagation of multiplatform dependencies](dependency-propagation-diagram.svg){width=700}
 
@@ -180,12 +180,12 @@ kotlin {
 
 3. Kotlinは各依存関係リレーションを取得し、依存関係からのソースセットのコレクションに解決します。そのコレクション内の各依存関係ソースセットは、*互換性のあるターゲット* を持っている必要があります。依存関係ソースセットは、コンシューマーソースセットと *少なくとも同じターゲット* に対してコンパイルされる場合、互換性のあるターゲットを持ちます。
 
-   サンプルプロジェクトの `commonMain` が `android`、`iosX64`、および `iosSimulatorArm64` に対してコンパイルされる例を考えてみましょう。
+   サンプルプロジェクトの `commonMain` が `android`、`iosArm64`、および `iosSimulatorArm64` に対してコンパイルされる例を考えてみましょう。
 
-    * まず、`kotlinx-coroutines-core.commonMain` への依存関係を解決します。これは、`kotlinx-coroutines-core` が可能なすべてのKotlinターゲットに対してコンパイルされるために発生します。したがって、その `commonMain` は、必要な `android`、`iosX64`、および `iosSimulatorArm64` を含む、可能なすべてのターゲットに対してコンパイルされます。
+    * まず、`kotlinx-coroutines-core.commonMain` への依存関係を解決します。これは、`kotlinx-coroutines-core` が可能なすべてのKotlinターゲットに対してコンパイルされるために発生します。したがって、その `commonMain` は、必要な `android`、`iosArm64`、および `iosSimulatorArm64` を含む、可能なすべてのターゲットに対してコンパイルされます。
     * 次に、`commonMain` は `kotlinx-coroutines-core.concurrentMain` に依存します。`kotlinx-coroutines-core` の `concurrentMain` は JS を除くすべてのターゲットに対してコンパイルされるため、コンシューマープロジェクトの `commonMain` のターゲットと一致します。
 
-   しかし、coroutinesの `iosX64Main` などのソースセットは、コンシューマーの `commonMain` と互換性がありません。`iosX64Main` は `commonMain` のターゲットの1つである `iosX64` に対してコンパイルされますが、`android` や `iosSimulatorArm64` に対してはコンパイルされません。
+   しかし、coroutinesの `iosArm64Main` などのソースセットは、コンシューマーの `commonMain` と互換性がありません。`iosArm64Main` は `commonMain` のターゲットの1つである `iosArm64` に対してコンパイルされますが、`android` や `iosSimulatorArm64` に対してはコンパイルされません。
 
    依存関係解決の結果は、`kotlinx-coroutines-core` 内のどのコードが表示されるかに直接影響します：
 

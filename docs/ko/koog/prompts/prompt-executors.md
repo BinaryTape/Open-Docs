@@ -44,7 +44,7 @@ Koog는 [`PromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.mo
     **/
     -->
     ```java
-    OpenAILLMClient openAIClient = new OpenAILLMClient(System.getenv("OPENAI_API_KEY"));
+    OpenAILLMClient openAIClient = openAIClient(System.getenv("OPENAI_API_KEY"));
     MultiLLMPromptExecutor promptExecutor = new MultiLLMPromptExecutor(openAIClient);
     ```
     <!--- KNIT example-prompt-executors-java-01.java -->
@@ -85,8 +85,8 @@ Koog는 [`PromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.mo
     **/
     -->
     ```java
-    OpenAILLMClient openAIClient = new OpenAILLMClient(System.getenv("OPENAI_API_KEY"));
-    OllamaClient ollamaClient = new OllamaClient();
+    OpenAILLMClient openAIClient = openAIClient(System.getenv("OPENAI_API_KEY"));
+    OllamaClient ollamaClient = ollamaClient();
 
     MultiLLMPromptExecutor promptExecutor = new MultiLLMPromptExecutor(openAIClient, ollamaClient);
     ```
@@ -138,9 +138,9 @@ Koog는 [`PromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.mo
     -->
     ```java
     // 여러 클라이언트 인스턴스 생성
-    OpenAILLMClient openAI1 = new OpenAILLMClient("openai-key-1");
-    OpenAILLMClient openAI2 = new OpenAILLMClient("openai-key-2");
-    AnthropicLLMClient anthropic = new AnthropicLLMClient("anthropic-key");
+    OpenAILLMClient openAI1 = openAIClient("openai-key-1");
+    OpenAILLMClient openAI2 = openAIClient("openai-key-2");
+    AnthropicLLMClient anthropic = anthropicClient("anthropic-key");
 
     // 라운드 로빈 전략으로 라우터 생성
     RoundRobinRouter router = new RoundRobinRouter(openAI1, openAI2, anthropic);
@@ -334,9 +334,9 @@ the predefined executors will return a PromptExecutor instance configured with a
     -->
     ```java
     // OpenAI, Anthropic, Google 공급자를 위한 LLM 클라이언트 생성
-    OpenAILLMClient openAIClient = new OpenAILLMClient("OPENAI_API_KEY");
-    AnthropicLLMClient anthropicClient = new AnthropicLLMClient("ANTHROPIC_API_KEY");
-    GoogleLLMClient googleClient = new GoogleLLMClient("GOOGLE_API_KEY");
+    OpenAILLMClient openAIClient = openAIClient("OPENAI_API_KEY");
+    AnthropicLLMClient anthropicClient = anthropicClient("ANTHROPIC_API_KEY");
+    GoogleLLMClient googleClient = googleClient("GOOGLE_API_KEY");
 
     // LLM 공급자를 LLM 클라이언트에 매핑하는 MultiLLMPromptExecutor 생성
     MultiLLMPromptExecutor promptExecutor = new MultiLLMPromptExecutor(
@@ -402,8 +402,8 @@ the predefined executors will return a PromptExecutor instance configured with a
     **/
     -->
     ```java
-    OpenAILLMClient openAIClient = new OpenAILLMClient(System.getenv("OPENAI_API_KEY"));
-    OllamaClient ollamaClient = new OllamaClient();
+    OpenAILLMClient openAIClient = openAIClient(System.getenv("OPENAI_API_KEY"));
+    OllamaClient ollamaClient = ollamaClient();
 
     MultiLLMPromptExecutor multiExecutor = new MultiLLMPromptExecutor(
         Map.of(

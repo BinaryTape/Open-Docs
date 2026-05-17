@@ -4,12 +4,12 @@ title: 多平台專案結構的進階概念
 
 [//]: # (title: 多平台專案結構的進階概念)
 
-這篇文章說明了 Kotlin Multiplatform 專案結構的進階概念，以及它們如何對應到 Gradle 的實作。如果您需要處理 Gradle 組建的底層抽象（組態、任務、發佈等），或者正在為 Kotlin Multiplatform 組建建立 Gradle 外掛程式，這些資訊將會非常有用。
+這篇文章說明了 Kotlin Multiplatform 專案結構的進階概念，以及它們如何對應到 Gradle 的實作。如果您需要處理 Gradle 組建的底層抽象（配置、任務、發佈等），或者正在為 Kotlin Multiplatform 組建建立 Gradle 外掛程式，這些資訊將會非常有用。
 
 本頁面在以下情況對您有所幫助：
 
 * 需要在一組 Kotlin 未自動建立原始碼集的目標之間共用程式碼。
-* 想要為 Kotlin Multiplatform 組建建立 Gradle 外掛程式，或是需要處理 Gradle 組建的底層抽象，例如組態、任務、發佈等。
+* 想要為 Kotlin Multiplatform 組建建立 Gradle 外掛程式，或是需要處理 Gradle 組建的底層抽象，例如配置、任務、發佈等。
 
 關於多平台專案中的相依性管理，其中一個關鍵點是了解 Gradle 風格的專案或程式庫相依性，與 Kotlin 特有的原始碼集之間 `dependsOn` 關係的區別：
 
@@ -153,7 +153,7 @@ kotlin {
 kotlin {
     android()     // Android
     iosArm64()          // iPhone 裝置 
-    iosSimulatorArm64() // Apple 晶片 Mac 上的 iPhone 模擬器
+    iosSimulatorArm64() // iPhone 模擬器（Apple 晶片 Mac）
 
     sourceSets {
         commonMain.dependencies {
@@ -167,7 +167,7 @@ kotlin {
 
 1. 多平台相依性會沿著 `dependsOn` 結構向下傳播。當您在 `commonMain` 中加入相依性時，它會自動加入到所有直接或間接在 `commonMain` 中宣告 `dependsOn` 關係的原始碼集。
 
-   在這種情況下，該相依性確實被自動加入到所有的 `*Main` 原始碼集中：`iosMain`、`jvmMain`、`iosSimulatorArm64Main` 和 `iosX64Main`。所有這些原始碼集都從 `commonMain` 原始碼集繼承了 `kotlin-coroutines-core` 相依性，因此您不需要在所有原始碼集中手動複製並貼上它：
+   在這種情況下，該相依性確實被自動加入到所有的 `*Main` 原始碼集中：`iosMain`、`jvmMain`、`iosSimulatorArm64Main` 和 `iosArm64Main`。所有這些原始碼集都從 `commonMain` 原始碼集繼承了 `kotlin-coroutines-core` 相依性，因此您不需要在所有原始碼集中手動複製並貼上它：
 
    ![多平台相依性的傳播](dependency-propagation-diagram.svg){width=700}
 
@@ -189,14 +189,14 @@ kotlin {
 3. Kotlin 獲取每個相依性關係，並將其解析為來自相依性程式庫的原始碼集集合。
    該集合中的每個相依性原始碼集都必須具有 *相容目標*。如果相依性原始碼集編譯到的目標 *至少與使用端原始碼集相同*，則該相依性原始碼集具有相容目標。
 
-   以範例專案中的 `commonMain` 為例，它編譯到 `android`、`iosX64` 和 `iosSimulatorArm64`：
+   以範例專案中的 `commonMain` 為例，它編譯到 `android`、`iosArm64` 和 `iosSimulatorArm64`：
 
-    * 首先，它解析對 `kotlinx-coroutines-core.commonMain` 的相依性。這是因為 `kotlinx-coroutines-core` 編譯到所有可能的 Kotlin 目標。因此，其 `commonMain` 編譯到所有可能的目標，包括所需的 `android`、`iosX64` 和 `iosSimulatorArm64`。
+    * 首先，它解析對 `kotlinx-coroutines-core.commonMain` 的相依性。這是因為 `kotlinx-coroutines-core` 編譯到所有可能的 Kotlin 目標。因此，其 `commonMain` 編譯到所有可能的目標，包括所需的 `android`、`iosArm64` 和 `iosSimulatorArm64`。
     * 其次，`commonMain` 依賴於 `kotlinx-coroutines-core.concurrentMain`。
       由於 `kotlinx-coroutines-core` 中的 `concurrentMain` 編譯到除 JS 之外的所有目標，因此它與使用端專案的 `commonMain` 目標相匹配。
 
-   然而，來自 coroutines 的 `iosX64Main` 等原始碼集與使用端的 `commonMain` 不相容。
-   即使 `iosX64Main` 編譯到 `commonMain` 的目標之一（即 `iosX64`），它也不會編譯到 `android` 或 `iosSimulatorArm64`。
+   然而，來自 coroutines 的 `iosArm64Main` 等原始碼集與使用端的 `commonMain` 不相容。
+   即使 `iosArm64Main` 編譯到 `commonMain` 的目標之一（即 `iosArm64`），它也不會編譯到 `android` 或 `iosSimulatorArm64`。
 
    相依性解析的結果直接影響 `kotlinx-coroutines-core` 中哪些程式碼是可見的：
 

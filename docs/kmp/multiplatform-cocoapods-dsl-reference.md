@@ -57,7 +57,7 @@ plugins {
 |---------------------|--------------|----------------------|-------------------------|
 | `iosArm64`          | `macosArm64` | `tvosArm64`          | `watchosArm64`          |
 | `iosSimulatorArm64` |              | `tvosSimulatorArm64` | `watchosSimulatorArm64` |
-|  `iosX64`           |              |                      | `watchosArm32`          |
+|                     |              |                      | `watchosArm32`          |
 |                     |              |                      | `watchosDeviceArm64`    |
 
 对于每个目标，使用 `deploymentTarget` 属性指定 Pod 库的最低目标版本。

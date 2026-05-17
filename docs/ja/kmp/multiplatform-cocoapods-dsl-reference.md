@@ -57,7 +57,7 @@ plugins {
 |---------------------|--------------|----------------------|-------------------------|
 | `iosArm64` | `macosArm64` | `tvosArm64` | `watchosArm64` |
 | `iosSimulatorArm64` | | `tvosSimulatorArm64` | `watchosSimulatorArm64` |
-| `iosX64` | | | `watchosArm32` |
+| | | | `watchosArm32` |
 | | | | `watchosDeviceArm64` |
 
 各ターゲットについて、`deploymentTarget` プロパティを使用して Pod ライブラリの最小ターゲットバージョンを指定します。

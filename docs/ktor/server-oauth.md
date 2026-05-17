@@ -99,6 +99,7 @@ fun Application.main(httpClient: HttpClient = applicationHttpClient) {
         oauth("auth-oauth-google") {
             // 配置 oauth 身份验证
             urlProvider = { "http://localhost:8080/callback" }
+            client = httpClient
         }
     }
 }
@@ -148,6 +149,7 @@ fun Application.main(httpClient: HttpClient = applicationHttpClient) {
 ### 步骤 2：配置 OAuth 提供程序 {id="configure-oauth-provider"}
 
 下面的代码片段显示了如何创建并配置名为 `auth-oauth-google` 的 `oauth` 提供程序。
+对于具有固定 OAuth 设置的提供程序，请使用 `settings` 属性。
 
 ```kotlin
 val redirects = ConcurrentMap<String, String>()
@@ -155,14 +157,13 @@ install(Authentication) {
     oauth("auth-oauth-google") {
         // 配置 oauth 身份验证
         urlProvider = { "http://localhost:8080/callback" }
-        providerLookup = {
-            OAuthServerSettings.OAuth2ServerSettings(
+        settings = OAuthServerSettings.OAuth2ServerSettings(
                 name = "google",
                 authorizeUrl = "https://accounts.google.com/o/oauth2/auth",
                 accessTokenUrl = "https://accounts.google.com/o/oauth2/token",
                 requestMethod = HttpMethod.Post,
-                clientId = System.getenv("GOOGLE_CLIENT_ID"),
-                clientSecret = System.getenv("GOOGLE_CLIENT_SECRET"),
+                clientId = System.getenv("GOOGLE_CLIENT_ID").orEmpty(),
+                clientSecret = System.getenv("GOOGLE_CLIENT_SECRET").orEmpty(),
                 defaultScopes = listOf("https://www.googleapis.com/auth/userinfo.profile"),
                 extraAuthParameters = listOf("access_type" to "offline"),
                 onStateCreated = { call, state ->
@@ -172,7 +173,6 @@ install(Authentication) {
                     }
                 }
             )
-        }
         fallback = { cause ->
             if (cause is OAuth2RedirectError) {
                 respondRedirect("/login-after-fallback")
@@ -187,13 +187,15 @@ install(Authentication) {
 
 * `urlProvider` 指定了授权完成后将调用的[重定向路由](#redirect-route)。
   > 请确保已将此路由添加到 [**Authorised redirect URIs**](#authorization-credentials) 列表中。
-* `providerLookup` 允许您为所需提供程序指定 OAuth 设置。这些设置由 [OAuthServerSettings](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-o-auth-server-settings/index.html) 类表示，并允许 Ktor 自动向 OAuth 服务器发起请求。
+* `settings` 属性为提供程序指定静态 OAuth 设置。这些设置由 [OAuthServerSettings](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-o-auth-server-settings/index.html) 类表示，并允许 Ktor 自动向 OAuth 服务器发起请求。对于静态提供程序配置，相比 `providerLookup` 更推荐使用 `settings`，因为它还允许 Ktor 为生成的 [OpenAPI 规范](openapi-spec-generation.md)推断元数据。
 * `fallback` 属性通过响应重定向或自定义响应来处理 OAuth 流错误。
 * `client` 属性指定了 Ktor 用来向 OAuth 服务器发起请求的 [HttpClient](#create-http-client)。
 
+> `providerLookup` 属性仍然受支持，用于为特定调用动态解析 OAuth 设置。当提供程序配置依赖于请求数据（如租户特定的凭据或端点）时，请使用它。
+
 ### 步骤 3：添加登录路由 {id="login-route"}
 
-配置 `oauth` 提供程序后，您需要在接受 `oauth` 提供程序名称的 `authenticate` 函数内部[创建一个受保护的登录路由](server-auth.md#authenticate-route)。当 Ktor 收到对该路由的请求时，它将自动重定向到 [providerLookup](#configure-oauth-provider) 中定义的 `authorizeUrl`。
+配置 `oauth` 提供程序后，您需要在接受 `oauth` 提供程序名称的 `authenticate` 函数内部[创建一个受保护的登录路由](server-auth.md#authenticate-route)。当 Ktor 收到对该路由的请求时，它将自动重定向到 [settings](#configure-oauth-provider) 中定义的 `authorizeUrl`。
 
 ```kotlin
 routing {
@@ -205,7 +207,7 @@ routing {
 }
 ```
 
-用户将看到授权页面以及 Ktor 应用程序所需的权限级别。这些权限取决于 [providerLookup](#configure-oauth-provider) 中指定的 `defaultScopes`。
+用户将看到授权页面以及 Ktor 应用程序所需的权限级别。这些权限取决于 [settings](#configure-oauth-provider) 中指定的 `defaultScopes`。
 
 ### 步骤 4：添加重定向路由 {id="redirect-route"}
 

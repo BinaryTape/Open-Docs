@@ -29,8 +29,8 @@ Koogは2つのシンプルなプランナーを提供しています：
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.config.AIAgentConfig
-    import ai.koog.agents.planner.AIAgentPlannerStrategy
-    import ai.koog.agents.planner.PlannerAIAgent
+    import ai.koog.agents.core.planner.AIAgentPlannerStrategy
+    import ai.koog.agents.core.planner.PlannerAIAgent
     import ai.koog.agents.planner.llm.SimpleLLMPlanner
     import ai.koog.prompt.dsl.prompt
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
@@ -75,7 +75,8 @@ Koogは2つのシンプルなプランナーを提供しています：
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
-    import ai.koog.agents.planner.AIAgentPlannerStrategy;
+    import ai.koog.agents.core.planner.AIAgentPlannerStrategy;
+    import ai.koog.agents.planner.Planners;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import ai.koog.prompt.executor.model.PromptExecutor;
     class exampleLLMBasedPlanner01 {
@@ -87,9 +88,8 @@ Koogは2つのシンプルなプランナーを提供しています：
     -->
     ```java
     // LLMベースのプランナーを使用してプランナーストラテジーを作成する
-    AIAgentPlannerStrategy<String, String, ?> strategy =
-        AIAgentPlannerStrategy.builder("simple-planner")
-            .llmBasedPlanner()
+    AIAgentPlannerStrategy<String, String> strategy =
+        Planners.llmBased("simple-planner")
             .build();
 
     // OpenAIエグゼキューターの作成

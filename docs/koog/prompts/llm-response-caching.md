@@ -20,6 +20,7 @@
     import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
     import ai.koog.prompt.executor.cached.CachedPromptExecutor
     import ai.koog.prompt.cache.files.FilePromptCache
+    import ai.koog.prompt.message.MessagePart
     import kotlin.system.measureTimeMillis
     import ai.koog.prompt.dsl.prompt
     import kotlin.io.path.Path
@@ -49,7 +50,9 @@
     // 这将执行实际的 LLM 请求
     val firstTime = measureTimeMillis {
         val firstResponse = cachedExecutor.execute(prompt, OpenAIModels.Chat.GPT4o)
-        println("First response: ${firstResponse.first().content}")
+        val text = firstResponse.parts.filterIsInstance<MessagePart.Text>().joinToString("
+") { it.text }
+        println("First response: $text")
     }
     println("First execution took: ${firstTime}ms")
 
@@ -57,7 +60,9 @@
     // 这将立即从缓存中返回结果
     val secondTime = measureTimeMillis {
         val secondResponse = cachedExecutor.execute(prompt, OpenAIModels.Chat.GPT4o)
-        println("Second response: ${secondResponse.first().content}")
+        val text = secondResponse.parts.filterIsInstance<MessagePart.Text>().joinToString("
+") { it.text }
+        println("Second response: $text")
     }
     println("Second execution took: ${secondTime}ms")
     ```
@@ -78,7 +83,7 @@
             .build();
 
     // 创建一个 prompt executor
-    OpenAILLMClient client = new OpenAILLMClient(System.getenv("OPENAI_API_KEY"));
+    OpenAILLMClient client = openAIClient(System.getenv("OPENAI_API_KEY"));
     MultiLLMPromptExecutor promptExecutor = new MultiLLMPromptExecutor(client);
 
     // 创建一个缓存的 prompt executor

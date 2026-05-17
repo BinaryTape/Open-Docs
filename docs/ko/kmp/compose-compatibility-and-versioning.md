@@ -12,8 +12,8 @@ Compose Multiplatform %org.jetbrains.compose%은 다음 플랫폼을 지원합�
 | 플랫폼 | 최소 버전 |
 |----------|------------------------------------------------------------------------------------------------------|
 | Android | Android 5.0 (API 레벨 21) |
-| iOS | iOS 13 |
-| macOS | macOS 12 x64, macOS 13 arm64 |
+| iOS | iOS 14 |
+| macOS | macOS 13 arm64 |
 | Windows | Windows 10 (x86-64, arm64) |
 | Linux | Ubuntu 20.04 (x86-64, arm64) |
 | 웹 | [WasmGC 지원](https://kotlinlang.org/docs/wasm-configuration.html#browser-versions) 브라우저 |
@@ -81,6 +81,7 @@ Android용 애플리케이션을 빌드할 때 Compose Multiplatform은 Google�
 
 | Compose Multiplatform 버전 | Jetpack Compose 버전 |
 |-----------------------------------------------------------------------------------|-------------------------|
+| [1.11.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.11.0) | 1.11.1 |
 | [1.10.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.10.3) | 1.10.5 |
 | [1.9.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.3) | 1.9.4 |
 | [1.8.2](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.8.2) | 1.8.2 |

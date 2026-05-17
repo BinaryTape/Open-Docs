@@ -17,7 +17,7 @@ Koog 架構提供以下實作工具的方法：
 對於 Kotlin：
 
 * 為所有工具使用基底類別 `Tool`。當您需要傳回非文字結果或需要完全控制工具行為時，應使用此類別。
-* 使用擴展自 `Tool` 基底類別的 `SimpleTool` 類別，其簡化了傳回文字結果的工具建立過程。對於工具僅需傳回文字的情境，您應使用此方法。
+* 使用擴展自基底 `Tool` 類別的 `SimpleTool` 類別，其簡化了傳回文字結果的工具建立過程。對於工具僅需傳回文字的情境，您應使用此方法。
 
 這兩種方法都使用相同的核心組件，但在實作和傳回的結果方面有所不同。
 
@@ -42,7 +42,7 @@ Koog 架構提供以下實作工具的方法：
 | `execute()`                              | 實作工具邏輯的函式。它接受型別為 `Args` 的引數並傳回型別為 `Result` 的結果。另請參閱 [execute()]()。                                                                                                                                                                                                                                                                                 |
 
 !!! note "Java 實作"
-    在 Java 中，請使用以 `@Tool` 與 `@LLMDescription` 為基礎的註解方法，而非繼承 `Tool<Args, Result>`。架構會透過反射自動處理序列化與註冊。欲了解更多詳情，請參閱下方的[以註解為基礎的方法 (Java)](#annotation-based-methods-java)。
+    在 Java 中，請使用以 `@Tool` 與 `@LLMDescription` 為基礎的註解方法，而非繼承 `Tool<Args, Result>`。架構會透過反射自動處理序列化與註冊。欲了解更多詳情，請參閱下方的[以註解為基礎的方法](#annotation-based-methods-java)。
 
 !!! tip
     請確保您的工具具有清晰的描述和定義良好的參數名稱，以便 LLM 更容易理解並正確使用它們。在 Kotlin 中，請使用 `descriptor` 屬性；在 Java 中，請使用 `@LLMDescription` 註解。
@@ -95,6 +95,87 @@ Koog 架構提供以下實作工具的方法：
 
 欲了解更多詳情，請參閱 [API 參考文件](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/index.html)。
 
+#### 從工具中讀取代理程式內容
+
+需要代理程式完整狀態（LLM 內容、執行 ID、配置、存儲等）的工具應繼承 `AgentContextAwareTool<Args, Result>` 而非 `Tool<Args, Result>`。架構會注入驅動該呼叫的即時 `AIAgentContext`，而工具會將其作為具型別的參數接收，而不是從引數架構中讀取。
+
+=== "Kotlin"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.agent.context.AIAgentContext
+    import ai.koog.agents.core.agent.tools.AgentContextAwareTool
+    import ai.koog.agents.core.tools.annotations.LLMDescription
+    import ai.koog.serialization.typeToken
+    import kotlinx.serialization.Serializable
+    -->
+    ```kotlin
+    // 讀取驅動呼叫的即時 AIAgentContext 的工具。
+    object TracingCalculatorTool : AgentContextAwareTool<TracingCalculatorTool.Args, Int>(
+        argsType = typeToken<Args>(),
+        resultType = typeToken<Int>(),
+        name = "tracing_calculator",
+        description = "Adds two digits and emits a log line tagged with the agent run id."
+    ) {
+        @Serializable
+        data class Args(
+            @property:LLMDescription("The first digit to add (0-9)")
+            val digit1: Int,
+            @property:LLMDescription("The second digit to add (0-9)")
+            val digit2: Int
+        )
+
+        override suspend fun execute(args: Args, context: AIAgentContext): Int {
+            val runId = context.runId
+            // ... 將 runId 用於橫切內容（記錄、追蹤、關聯）
+            return args.digit1 + args.digit2
+        }
+    }
+    ```
+    <!--- KNIT example-class-based-tools-metadata-01.kt -->
+
+`AgentContextAwareTool` 由架構透過每次呼叫的 `ToolCallMetadata` 側向管道進行分派，架構會代表工具管理此管道。在代理程式執行之外叫用此類工具會拋出 `IllegalStateException`，因為沒有注入 `AIAgentContext`；正式環境程式碼應始終透過 `ContextualAgentEnvironment` 執行，而單元測試可以透過 `ToolCallMetadata.of(AgentContextAwareTool.AgentContextKey to context)` 明確提供內容。
+
+#### 讀取原始的每次呼叫元資料
+
+少數工具希望讀取呼叫者或功能提供的 *非* 代理程式內容項目（例如由可觀測性功能提供的分散式追蹤 span ID）。這些工具直接繼承 `ToolBase<Args, Result>`，它會公開完整的 `ToolCallMetadata` 集合：
+
+=== "Kotlin"
+
+    <!--- INCLUDE
+    import ai.koog.agents.core.tools.ToolBase
+    import ai.koog.agents.core.tools.ToolCallMetadata
+    import ai.koog.agents.core.tools.annotations.LLMDescription
+    import ai.koog.serialization.typeToken
+    import kotlinx.serialization.Serializable
+    -->
+    ```kotlin
+    object SpanAwareCalculatorTool : ToolBase<SpanAwareCalculatorTool.Args, Int>(
+        argsType = typeToken<Args>(),
+        resultType = typeToken<Int>(),
+        name = "span_aware_calculator",
+        description = "Adds two digits, propagating a tracing span id from caller or feature metadata."
+    ) {
+        @Serializable
+        data class Args(
+            @property:LLMDescription("The first digit to add (0-9)")
+            val digit1: Int,
+            @property:LLMDescription("The second digit to add (0-9)")
+            val digit2: Int
+        )
+
+        override suspend fun execute(args: Args, metadata: ToolCallMetadata): Int {
+            val traceSpanId = metadata["trace.span.id"] as? String
+            // ... 將 traceSpanId 用於橫切內容（記錄、追蹤、關聯）
+            return args.digit1 + args.digit2
+        }
+    }
+    ```
+    <!--- KNIT example-class-based-tools-metadata-02.kt -->
+
+呼叫者可以透過 `SafeTool.execute(args, serializer, metadata)` 或直接透過 `AIAgentEnvironment.executeTool(toolCall, metadata)` 傳遞元資料。功能可以在安裝期間透過呼叫 `pipeline.provideToolCallMetadata(this) { eventContext -> mapOf(...) }` 為每次工具呼叫提供元資料。當鍵衝突時，呼叫者提供的元資料優先於功能提供的元資料。
+
+現有繼承 `Tool<Args, Result>` 並覆寫 `execute(args)` 的工具仍可照常運作：架構會透過相同的路徑分派它們，並捨棄任何 `ToolCallMetadata`。若要啟用元資料支援，請切換至 `AgentContextAwareTool`（具型別的內容存取）或 `ToolBase`（原始集合存取）。
+
 ### SimpleTool 類別 (Kotlin)
 
 [`SimpleTool<Args>`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-simple-tool/index.html) 抽象類別擴展了 `Tool<Args, ToolResult.Text>`，並簡化了傳回文字結果的工具建立過程。
@@ -109,7 +190,7 @@ Koog 架構提供以下實作工具的方法：
 | `doExecute()`                            | 覆寫的函式，描述工具執行的主要操作。它接受型別為 `Args` 的引數並傳回一個 `String`。另請參閱 [doExecute()](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-simple-tool/do-execute.html)。                                          |
 
 !!! note "Java 實作"
-    在 Java 中，對等的方法是使用傳回 `String` 的註解型方法。架構會自動處理文字結果的封裝。欲了解更多詳情，請參閱下方的[以註解為基礎的方法 (Java)](#annotation-based-methods-java)。
+    在 Java 中，對等的方法是使用傳回 `String` 的註解型方法。架構會自動處理文字結果的封裝。欲了解更多詳情，請參閱下方的[以註解為基礎的方法](#annotation-based-methods-java)。
 
 !!! tip
     請確保您的工具具有清晰的描述和定義良好的參數名稱，以便 LLM 更容易理解並正確使用它們。在 Kotlin 中，請使用 `descriptor` 和建構函式參數；在 Java 中，請使用 `@Tool` 與 `@LLMDescription` 註解。

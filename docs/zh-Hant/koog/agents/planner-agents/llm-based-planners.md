@@ -21,7 +21,7 @@ Koog 提供兩種簡單的規劃器：
   僅在最開始時產生一次計畫，然後遵循該計畫直到完成。
   若要包含重新規劃，請擴充 `SimpleLLMPlanner` 並覆寫 `assessPlan` 方法，
   指出代理何時應重新規劃。
-- [SimpleLLMWithCriticPlanner](https://api.koog.ai/agents/agents-planner/ai.koog.agents.planner.llm/-simple-l-l-m-with-critic-planner/index.html)
+- [SimpleLLMWithCriticPlanner](https://api.koog.ai/agents/agents-planner/ai.koog.agents.planner.llm/-simple-l-l-with-critic-planner/index.html)
   實作了 `assessPlan` 方法，該方法使用 LLM 透過 LLM 請求檢查計畫的有效性，
   並評估代理是否應重新規劃。
 
@@ -31,8 +31,8 @@ Koog 提供兩種簡單的規劃器：
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.config.AIAgentConfig
-    import ai.koog.agents.planner.AIAgentPlannerStrategy
-    import ai.koog.agents.planner.PlannerAIAgent
+    import ai.koog.agents.core.planner.AIAgentPlannerStrategy
+    import ai.koog.agents.core.planner.PlannerAIAgent
     import ai.koog.agents.planner.llm.SimpleLLMPlanner
     import ai.koog.prompt.dsl.prompt
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
@@ -77,7 +77,8 @@ Koog 提供兩種簡單的規劃器：
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent;
-    import ai.koog.agents.planner.AIAgentPlannerStrategy;
+    import ai.koog.agents.core.planner.AIAgentPlannerStrategy;
+    import ai.koog.agents.planner.Planners;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import ai.koog.prompt.executor.model.PromptExecutor;
     class exampleLLMBasedPlanner01 {
@@ -89,9 +90,8 @@ Koog 提供兩種簡單的規劃器：
     -->
     ```java
     // 使用以 LLM 為基礎的規劃器建立規劃策略
-    AIAgentPlannerStrategy<String, String, ?> strategy =
-        AIAgentPlannerStrategy.builder("simple-planner")
-            .llmBasedPlanner()
+    AIAgentPlannerStrategy<String, String> strategy =
+        Planners.llmBased("simple-planner")
             .build();
 
     // 建立 OpenAI 執行器

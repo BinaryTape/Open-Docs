@@ -50,7 +50,6 @@ version = "1.0"
 
 kotlin {
     jvm()
-    iosX64()
     iosArm64()
 }
 ```
@@ -60,7 +59,6 @@ kotlin {
 **目標特定發佈**
 
 * 對於 `jvm` 目標：`test:lib-jvm:1.0`
-* 對於 `iosX64` 目標：`test:lib-iosx64:1.0`
 * 對於 `iosArm64` 目標：`test:lib-iosarm64:1.0`
 
 每個目標特定的發佈都是獨立的。例如，執行 `publishJvmPublicationTo<MavenRepositoryName>` 僅發佈 JVM 模組，其他模組則保持未發佈狀態。

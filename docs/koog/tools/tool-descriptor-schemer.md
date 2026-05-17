@@ -215,7 +215,7 @@ fun generate(toolDescriptor: ToolDescriptor): JsonObject
     -->
     ```java
     // 在文档中，扩展 OpenAI 兼容 schemer 的自定义 schemer 仅提供 Kotlin 示例；对于 Java 示例，我们复用上文的 MinimalSchemer。
-    OpenAILLMClient client = new OpenAILLMClient(System.getenv("OPENAI_API_KEY"), new OpenAIClientSettings(), null, null, new OpenAICompatibleToolDescriptorSchemaGenerator());
+    OpenAILLMClient client = openAIClient(System.getenv("OPENAI_API_KEY"), new OpenAIClientSettings(), null, null, new OpenAICompatibleToolDescriptorSchemaGenerator());
     
     ToolDescriptor getUserTool = new ToolDescriptor(
         "get_user",

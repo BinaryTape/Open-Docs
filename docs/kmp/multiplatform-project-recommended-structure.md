@@ -8,7 +8,7 @@
 
 ## 最佳模块结构
 
-最佳模块结构可能会根据你的目标和必要的编译目标而有所不同。
+最佳模块结构可能会根据你的目标和必要的目标而有所不同。
 你可以分析具有不同配置和目标集的 [KMP IDE 插件向导]() 的输出，以查看我们默认如何组织项目。
 
 通用方法可以概括如下：
@@ -115,7 +115,7 @@
 
 #### 移动代码并运行桌面应用
 
-配置完成后，将桌面应用的代码移动到新目录：
+配置完成后，将桌面应用的代码移动到新 directory：
 
 1. 在 `desktopApp/src` 目录中，创建一个新的 `main` 目录。
 2. 将 `composeApp/src/jvmMain/kotlin` 目录移动到 `desktopApp/src/main/` 目录中：
@@ -124,7 +124,7 @@
 4. 要运行你的桌面应用，请修改 **composeApp [jvm]** 运行配置：
    1. 在运行配置下拉菜单中，选择 **Edit Configurations**。
    2. 在 **Gradle** 类别中找到 **composeApp [jvm]** 配置。
-   3. 在 **Gradle project** 字段中，将 `ComposeDemo:composeApp` 更改为 `ComposeDemo:desktopApp`。
+   3. 在 **Gradle project**字段中，将 `ComposeDemo:composeApp` 更改为 `ComposeDemo:desktopApp`。
 5. 启动更新后的配置以确保应用按预期运行。
 6. 如果一切运行正常：
    * 删除 `composeApp/src/jvmMain` 目录。
@@ -471,6 +471,7 @@
             @OptIn(ExperimentalWasmDsl::class)
             wasmJs {
                 browser()
+                binaries.executable()
             }
         }
         ```
@@ -569,4 +570,4 @@
 
 3. 从 Xcode 运行应用，或使用 IntelliJ IDEA 中的 **iosApp** 运行配置运行。
 
-[//]: # (TODO ## 下一步：在此征集建议 — 首先想到的是链接特定于平台的指导)
+<!-- ## 下一步 -->

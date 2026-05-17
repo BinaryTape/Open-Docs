@@ -263,7 +263,8 @@ dependencies {
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
-    import ai.koog.agents.core.environment.ReceivedToolResult
+    import ai.koog.agents.core.dsl.extension.ReceivedToolResults
+    import ai.koog.agents.core.dsl.extension.ToolCalls
     import ai.koog.agents.example.exampleTesting03.mockLLMApi
     import ai.koog.agents.example.exampleTesting02.toolRegistry
     import ai.koog.agents.testing.feature.testGraph
@@ -299,8 +300,8 @@ dependencies {
                 val finish = finishNode()
 
                 // 이름으로 노드 단언
-                val askLLM = assertNodeByName<String, Message.Response>("callLLM")
-                val callTool = assertNodeByName<Message.Tool.Call, ReceivedToolResult>("executeTool")
+                val askLLM = assertNodeByName<String, Message.Assistant>("callLLM")
+                val callTool = assertNodeByName<ToolCalls, ReceivedToolResults>("executeTool")
 
                 // 노드 도달 가능성(reachability) 단언
                 assertReachable(start, askLLM)
@@ -340,7 +341,9 @@ dependencies {
     import ai.koog.agents.example.exampleTesting03.CreateTool
     import ai.koog.agents.testing.feature.assistantMessage
     import ai.koog.agents.testing.feature.testGraph
-    import ai.koog.agents.testing.feature.toolCallMessage
+    import ai.koog.agents.testing.feature.toolCallMessagePart
+    import ai.koog.agents.core.dsl.extension.ReceivedToolResults
+    import ai.koog.agents.core.dsl.extension.ToolCalls
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.message.Message
     val llmModel = OpenAIModels.Chat.GPT4o
@@ -353,7 +356,7 @@ dependencies {
         ) {
             testGraph<String, String>("test") {
                 assertNodes {
-                    val askLLM = assertNodeByName<String, Message.Response>("callLLM")
+                    val askLLM = assertNodeByName<String, Message.Assistant>("callLLM")
     -->
     <!--- SUFFIX
                 }
@@ -368,7 +371,7 @@ dependencies {
         askLLM withInput "Hello" outputs assistantMessage("Hello!")
 
         // 도구 호출 응답 테스트
-        askLLM withInput "Solve task" outputs toolCallMessage(CreateTool, CreateTool.Args("solve"))
+        askLLM withInput "Solve task" outputs assistantMessage(CreateTool, CreateTool.Args("solve"))
     }
     ```
     <!--- KNIT example-testing-06.kt -->
@@ -385,7 +388,7 @@ dependencies {
     ```
     <!--- KNIT example-testing-java-05.java -->
 
-위의 예시는 다음 동작을 테스트하는 방법을 보여줍니다:
+위 예시는 다음 동작을 테스트하는 방법을 보여줍니다:
 1. LLM 노드가 입력으로 `Hello`를 받으면, 단순한 텍스트 메시지로 응답합니다.
 2. `Solve task`를 받으면 도구 호출로 응답합니다.
 
@@ -403,7 +406,10 @@ dependencies {
     import ai.koog.agents.example.exampleTesting02.toolRegistry
     import ai.koog.agents.ext.tool.AskUser
     import ai.koog.agents.testing.feature.testGraph
-    import ai.koog.agents.testing.feature.toolCallMessage
+    import ai.koog.agents.testing.feature.assistantMessage
+    import ai.koog.agents.testing.feature.toolCallMessagePart
+    import ai.koog.agents.core.dsl.extension.ReceivedToolResults
+    import ai.koog.agents.core.dsl.extension.ToolCalls
     import ai.koog.agents.testing.feature.toolResult
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.message.Message
@@ -434,7 +440,7 @@ dependencies {
         ) {
             testGraph<String, String>("test") {
                 assertNodes {
-                    val callTool = assertNodeByName<Message.Tool.Call, ReceivedToolResult>("executeTool")
+                    val callTool = assertNodeByName<ToolCalls, ReceivedToolResults>("executeTool")
     -->
     <!--- SUFFIX
                 }
@@ -445,10 +451,10 @@ dependencies {
     ```kotlin
     assertNodes {
         // 특정 인자를 사용한 도구 실행 테스트
-        callTool withInput toolCallMessage(
+        callTool withInput ToolCalls(listOf(toolCallMessagePart(
             SolveTool,
             SolveTool.Args("solve")
-        ) outputs toolResult(SolveTool, SolveTool.Args("solve"), "solved")
+        ))) outputs ReceivedToolResults(listOf(toolResult(SolveTool, SolveTool.Args("solve"), "solved")))
     }
     ```
     <!--- KNIT example-testing-07.kt -->
@@ -481,7 +487,9 @@ dependencies {
     import ai.koog.agents.ext.tool.AskUser
     import ai.koog.agents.testing.feature.assistantMessage
     import ai.koog.agents.testing.feature.testGraph
-    import ai.koog.agents.testing.feature.toolCallMessage
+    import ai.koog.agents.testing.feature.toolCallMessagePart
+    import ai.koog.agents.core.dsl.extension.ReceivedToolResults
+    import ai.koog.agents.core.dsl.extension.ToolCalls
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.message.Message
     import ai.koog.serialization.typeToken
@@ -511,7 +519,7 @@ dependencies {
         ) {
             testGraph<String, String>("test") {
                 assertNodes {
-                    val askLLM = assertNodeByName<String, Message.Response>("callLLM")
+                    val askLLM = assertNodeByName<String, Message.Assistant>("callLLM")
     -->
     <!--- SUFFIX
                 }
@@ -525,7 +533,7 @@ dependencies {
         askLLM withInput "Simple query" outputs assistantMessage("Simple response")
 
         // 복잡한 파라미터를 사용한 테스트
-        askLLM withInput "Complex query with parameters" outputs toolCallMessage(
+        askLLM withInput "Complex query with parameters" outputs assistantMessage(
             AnalyzeTool,
             AnalyzeTool.Args(query = "parameters", depth = 3)
         )
@@ -556,7 +564,10 @@ dependencies {
     import ai.koog.agents.example.exampleTesting03.mockLLMApi
     import ai.koog.agents.example.exampleTesting02.toolRegistry
     import ai.koog.agents.testing.feature.testGraph
-    import ai.koog.agents.testing.feature.toolCallMessage
+    import ai.koog.agents.testing.feature.assistantMessage
+    import ai.koog.agents.testing.feature.toolCallMessagePart
+    import ai.koog.agents.core.dsl.extension.ReceivedToolResults
+    import ai.koog.agents.core.dsl.extension.ToolCalls
     import ai.koog.agents.testing.feature.toolResult
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.message.Message
@@ -596,7 +607,7 @@ dependencies {
         ) {
             testGraph<String, String>("test") {
                 assertNodes {
-                    val callTool = assertNodeByName<Message.Tool.Call, ReceivedToolResult>("executeTool")
+                    val callTool = assertNodeByName<ToolCalls, ReceivedToolResults>("executeTool")
     -->
     <!--- SUFFIX
                 }
@@ -607,14 +618,14 @@ dependencies {
     ```kotlin
     assertNodes {
         // 구조화된 결과를 가진 복잡한 도구 호출 테스트
-        callTool withInput toolCallMessage(
+        callTool withInput ToolCalls(listOf(toolCallMessagePart(
             AnalyzeTool,
             AnalyzeTool.Args(query = "complex", depth = 5)
-        ) outputs toolResult(AnalyzeTool, AnalyzeTool.Args(query = "complex", depth = 5), AnalyzeTool.Result(
+        ))) outputs ReceivedToolResults(listOf(toolResult(AnalyzeTool, AnalyzeTool.Args(query = "complex", depth = 5), AnalyzeTool.Result(
             analysis = "Detailed analysis",
             confidence = 0.95,
             metadata = mapOf("source" to "database", "timestamp" to "2023-06-15")
-        ))
+        ))))
     }
     ```
     <!--- KNIT example-testing-09.kt -->
@@ -652,7 +663,9 @@ dependencies {
     import ai.koog.agents.example.exampleTesting03.CreateTool
     import ai.koog.agents.testing.feature.assistantMessage
     import ai.koog.agents.testing.feature.testGraph
-    import ai.koog.agents.testing.feature.toolCallMessage
+    import ai.koog.agents.testing.feature.toolCallMessagePart
+    import ai.koog.agents.core.dsl.extension.ReceivedToolResults
+    import ai.koog.agents.core.dsl.extension.ToolCalls
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.message.Message
     import kotlinx.serialization.KSerializer
@@ -667,9 +680,9 @@ dependencies {
         ) {
             testGraph<String, String>("test") {
                 assertNodes {
-                    val callTool = assertNodeByName<Message.Tool.Call, ReceivedToolResult>("executeTool")
-                    val askLLM = assertNodeByName<String, Message.Response>("callLLM")
-                    val giveFeedback = assertNodeByName<String, Message.Response>("giveFeedback")
+                    val callTool = assertNodeByName<ToolCalls, ReceivedToolResults>("executeTool")
+                    val askLLM = assertNodeByName<String, Message.Assistant>("callLLM")
+                    val giveFeedback = assertNodeByName<String, Message.Assistant>("giveFeedback")
     -->
     <!--- SUFFIX
                 }
@@ -683,7 +696,7 @@ dependencies {
         askLLM withOutput assistantMessage("Hello!") goesTo giveFeedback
 
         // 도구 호출 라우팅 테스트
-        askLLM withOutput toolCallMessage(CreateTool, CreateTool.Args("solve")) goesTo callTool
+        askLLM withOutput assistantMessage(CreateTool, CreateTool.Args("solve")) goesTo callTool
     }
     ```
     <!--- KNIT example-testing-10.kt -->
@@ -729,9 +742,9 @@ dependencies {
         ) {
             testGraph<String, String>("test") {
                 assertNodes {
-                    val askLLM = assertNodeByName<String, Message.Response>("callLLM")
+                    val askLLM = assertNodeByName<String, Message.Assistant>("callLLM")
                     val askForInfo = assertNodeByName<String, ReceivedToolResult>("askForInfo")
-                    val processRequest = assertNodeByName<String, Message.Response>("processRequest")
+                    val processRequest = assertNodeByName<String, Message.Assistant>("processRequest")
     -->
     <!--- SUFFIX
                 }
@@ -768,7 +781,8 @@ dependencies {
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
-    import ai.koog.agents.core.environment.ReceivedToolResult
+    import ai.koog.agents.core.dsl.extension.ReceivedToolResults
+    import ai.koog.agents.core.dsl.extension.ToolCalls
     import ai.koog.agents.example.exampleTesting03.mockLLMApi
     import ai.koog.agents.example.exampleTesting02.toolRegistry
     import ai.koog.agents.example.exampleTesting09.AnalyzeTool
@@ -786,8 +800,8 @@ dependencies {
         ) {
             testGraph<String, String>("test") {
                 assertNodes {
-                    val callTool = assertNodeByName<Message.Tool.Call, ReceivedToolResult>("executeTool")
-                    val processResult = assertNodeByName<String, Message.Response>("processResult")
+                    val callTool = assertNodeByName<ToolCalls, ReceivedToolResults>("executeTool")
+                    val processResult = assertNodeByName<String, Message.Assistant>("processResult")
     -->
     <!--- SUFFIX
                 }
@@ -798,11 +812,11 @@ dependencies {
     ```kotlin
     assertEdges {
         // 도구 결과 내용을 기반으로 라우팅 테스트
-        callTool withOutput toolResult(
+        callTool withOutput ReceivedToolResults(listOf(toolResult(
             AnalyzeTool,
             AnalyzeTool.Args(query = "parameters", depth = 3),
             AnalyzeTool.Result(analysis = "Needs more processing", confidence = 0.5)
-        ) goesTo processResult
+        ))) goesTo processResult
     }
     ```
     <!--- KNIT example-testing-12.kt -->
@@ -825,7 +839,8 @@ dependencies {
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.AIAgent
-    import ai.koog.agents.core.environment.ReceivedToolResult
+    import ai.koog.agents.core.dsl.extension.ReceivedToolResults
+    import ai.koog.agents.core.dsl.extension.ToolCalls
     import ai.koog.agents.example.exampleTesting03.mockLLMApi
     import ai.koog.agents.example.exampleTesting02.toolRegistry
     import ai.koog.agents.example.exampleTesting09.AnalyzeTool
@@ -843,9 +858,9 @@ dependencies {
         ) {
             testGraph<String, String>("test") {
                 assertNodes {
-                    val callTool = assertNodeByName<Message.Tool.Call, ReceivedToolResult>("executeTool")
-                    val finish = assertNodeByName<String, Message.Response>("finish")
-                    val verifyResult = assertNodeByName<String, Message.Response>("verifyResult")
+                    val callTool = assertNodeByName<ToolCalls, ReceivedToolResults>("executeTool")
+                    val finish = assertNodeByName<String, Message.Assistant>("finish")
+                    val verifyResult = assertNodeByName<String, Message.Assistant>("verifyResult")
     -->
     <!--- SUFFIX
                 }
@@ -856,17 +871,17 @@ dependencies {
     ```kotlin
     assertEdges {
         // 신뢰도 수준에 따라 다른 노드로 라우팅
-        callTool withOutput toolResult(
+        callTool withOutput ReceivedToolResults(listOf(toolResult(
             AnalyzeTool,
             AnalyzeTool.Args(query = "parameters", depth = 3),
             AnalyzeTool.Result(analysis = "Complete", confidence = 0.9)
-        ) goesTo finish
+        ))) goesTo finish
 
-        callTool withOutput toolResult(
+        callTool withOutput ReceivedToolResults(listOf(toolResult(
             AnalyzeTool,
             AnalyzeTool.Args(query = "parameters", depth = 3),
             AnalyzeTool.Result(analysis = "Uncertain", confidence = 0.3)
-        ) goesTo verifyResult
+        ))) goesTo verifyResult
     }
     ```
     <!--- KNIT example-testing-13.kt -->
@@ -1053,8 +1068,8 @@ ${it.stackTraceToString()}")
                 tools = listOf(DummyTool, CreateTool, SolveTool)
             ) {
                 val callLLM by nodeLLMRequest(allowToolCalls = false)
-                val executeTool by nodeExecuteTool()
-                val sendToolResult by nodeLLMSendToolResult()
+                val executeTool by nodeExecuteToolsAndGetResults()
+                val sendToolResult by nodeLLMSendToolResults()
                 val giveFeedback by node<String, String> { input ->
                     llm.writeSession {
                         appendPrompt {
@@ -1064,12 +1079,11 @@ ${it.stackTraceToString()}")
                     input
                 }
 
-                edge(nodeStart forwardTo callLLM)
-                edge(callLLM forwardTo executeTool onToolCall { true })
-                edge(callLLM forwardTo giveFeedback onAssistantMessage { true })
-                edge(giveFeedback forwardTo giveFeedback onAssistantMessage { true })
-                edge(giveFeedback forwardTo executeTool onToolCall { true })
-                edge(executeTool forwardTo nodeFinish transformed { it.content })
+                edge(nodeStart forwardTo callLLM asUserMessage { it })
+                edge(callLLM forwardTo executeTool onToolCalls { true })
+                edge(callLLM forwardTo giveFeedback onTextMessage { true })
+                edge(giveFeedback forwardTo giveFeedback transformed { it })
+                edge(executeTool forwardTo nodeFinish transformed { it.toolResults.first().output })
             }
 
             val secondSubgraph by subgraph<String, String>("second") {
@@ -1115,31 +1129,31 @@ ${it.stackTraceToString()}")
                     val start = startNode()
                     val finish = finishNode()
 
-                    val askLLM = assertNodeByName<String, Message.Response>("callLLM")
-                    val callTool = assertNodeByName<Message.Tool.Call, ReceivedToolResult>("executeTool")
+                    val askLLM = assertNodeByName<String, Message.Assistant>("callLLM")
+                    val callTool = assertNodeByName<ToolCalls, ReceivedToolResults>("executeTool")
                     val giveFeedback = assertNodeByName<Any?, Any?>("giveFeedback")
 
                     assertReachable(start, askLLM)
                     assertReachable(askLLM, callTool)
 
                     assertNodes {
-                        askLLM withInput "Hello" outputs Message.Assistant("Hello!")
-                        askLLM withInput "Solve task" outputs toolCallMessage(CreateTool, CreateTool.Args("solve"))
+                        askLLM withInput "Hello" outputs assistantMessage("Hello!")
+                        askLLM withInput "Solve task" outputs assistantMessage(CreateTool, CreateTool.Args("solve"))
 
-                        callTool withInput toolCallSignature(
+                        callTool withInput ToolCalls(listOf(toolCallMessagePart(
                             SolveTool,
                             SolveTool.Args("solve")
-                        ) outputs toolResult(SolveTool, "solved")
+                        ))) outputs ReceivedToolResults(listOf(toolResult(SolveTool, SolveTool.Args("solve"), "solved")))
 
-                        callTool withInput toolCallSignature(
+                        callTool withInput ToolCalls(listOf(toolCallMessagePart(
                             CreateTool,
                             CreateTool.Args("solve")
-                        ) outputs toolResult(CreateTool, "created")
+                        ))) outputs ReceivedToolResults(listOf(toolResult(CreateTool, CreateTool.Args("solve"), "created")))
                     }
 
                     assertEdges {
-                        askLLM withOutput Message.Assistant("Hello!") goesTo giveFeedback
-                        askLLM withOutput toolCallMessage(CreateTool, CreateTool.Args("solve")) goesTo callTool
+                        askLLM withOutput assistantMessage("Hello!") goesTo giveFeedback
+                        askLLM withOutput assistantMessage(CreateTool, CreateTool.Args("solve")) goesTo callTool
                     }
                 }
             }

@@ -1,6 +1,6 @@
 [//]: # (title: 从 Web 源和 API 检索数据)
 
-[Kotlin Notebook](kotlin-notebook-overview.md) 为访问和操作来自各种 Web 源及 API 的数据提供了一个强大的平台。它提供了一个迭代环境，可以可视化每一步以确保清晰，从而简化了数据提取和分析任务。这在探索不熟悉的 API 时特别有用。
+[Kotlin Notebook](kotlin-notebook-overview.md) 为访问和操作来自各种 Web 源及 API 的数据提供了一个强大的平台。它通过提供一个迭代环境，简化了数据提取和分析任务，在其中可以可视化每一步以确保清晰。这在探索不熟悉的 API 时特别有用。
 
 当与 [Kotlin DataFrame 库](https://kotlin.github.io/dataframe/home.html)配合使用时，Kotlin Notebook 不仅能让您连接并从 API 获取 JSON 数据，还能协助重构这些数据，以进行全面的分析和可视化。
 
@@ -26,7 +26,7 @@ Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com
    
 ## 从 API 获取数据
 
-使用 Kotlin Notebook 与 Kotlin DataFrame 库从 API 获取数据是通过 [`.read()`](https://kotlin.github.io/dataframe/read.html) 函数实现的，这与[从文件检索数据](data-analysis-work-with-data-sources.md#retrieve-data-from-a-file)（如 CSV 或 JSON）类似。然而，在处理基于 Web 的源时，您可能需要额外的格式设置，以将原始 API 数据转换为结构化格式。
+使用 Kotlin Notebook 与 Kotlin DataFrame 库从 API 获取数据是通过 [`.read()`](https://kotlin.github.io/dataframe/read.html) 函数实现的，这与[从文件检索数据](data-analysis-work-with-data-sources.md#retrieve-data)（如 CSV 或 JSON）类似。然而，在处理基于 Web 的源时，您可能需要额外的格式设置，以将原始 API 数据转换为结构化格式。
 
 让我们来看一个从 [YouTube Data API](https://console.cloud.google.com/apis/library/youtube.googleapis.com) 获取数据的示例：
 
@@ -96,7 +96,7 @@ Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com
 
 清理与提炼数据是准备分析数据集的关键步骤。[Kotlin DataFrame 库](https://kotlin.github.io/dataframe/home.html)为这些任务提供了强大的功能。[`move`](https://kotlin.github.io/dataframe/move.html)、[`concat`](https://kotlin.github.io/dataframe/concatdf.html)、[`select`](https://kotlin.github.io/dataframe/select.html)、[`parse`](https://kotlin.github.io/dataframe/parse.html) 和 [`join`](https://kotlin.github.io/dataframe/join.html) 等方法在组织和转换数据方面发挥着重要作用。
 
-让我们看一个示例，其中的数据已经[使用 YouTube 的数据 API 获取](#fetch-data-from-an-api)。目标是清理并重构数据集，为深入分析做准备：
+让我们探讨一个示例，其中的数据已经[使用 YouTube 的数据 API 获取](#fetch-data-from-an-api)。目标是清理并重构数据集，为深入分析做准备：
 
 1. 您可以从重新组织和清理数据开始。这包括将某些列移至新标题下，并移除不必要的列以确保清晰：
 
