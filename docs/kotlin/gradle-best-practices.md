@@ -20,7 +20,7 @@
 
 在 `libs.versions.toml` 文件中使用版本编目（version catalog）来集中进行依赖项管理。这使您能够在多个项目之间一致地定义和重用版本、库和插件。
 
-```kotlin
+```toml
 [versions]
 kotlinxCoroutines = "%coroutinesVersion%"
 
@@ -70,9 +70,9 @@ dependencies {
 
 在 [Gradle 文档](https://docs.gradle.org/current/userguide/configuration_cache.html)中了解有关配置缓存的更多信息。
 
-### 缩短多目标的编译时间
+### 缩短多目标的构建时间
 
-当您的多平台项目包含多个目标时，`build` 和 `assemble` 等任务可能会为每个目标多次编译相同的代码，从而导致编译时间变长。
+当您的多平台项目包含多个目标时，`build` 和 `assemble` 等任务可能会为每个目标多次编译相同的代码，从而导致构建时间变长。
 
 如果您正在积极开发和测试特定平台，请改为运行相应的 `linkDebug*` 任务。
 

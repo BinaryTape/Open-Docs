@@ -57,7 +57,7 @@ Compose Multiplatform 버전을 1.10.0 이상으로 업그레이드하여 별도
  
 2. 최신 버전의 Compose Hot Reload로 버전 카탈로그를 업데이트합니다([릴리스](https://github.com/JetBrains/compose-hot-reload/releases) 참조).
    `gradle/libs.versions.toml`에 다음 코드를 추가합니다:
-   ```text
+   ```toml
    composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload"}
    ```
 

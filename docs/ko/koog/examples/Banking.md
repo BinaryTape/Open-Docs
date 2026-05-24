@@ -70,7 +70,7 @@ data class Contact(
 val contactList = listOf(
     Contact(100, "Alice", "Smith", "+1 415 555 1234"),
     Contact(101, "Bob", "Johnson", "+49 151 23456789"),
-    Contact(102, "Charlie", "Williams", "+36 20 123 4567"),
+    Contact(102, "Charlie", "Williams", "+36 20 123 45 67"),
     Contact(103, "Daniel", "Anderson", "+46 70 123 45 67"),
     Contact(104, "Daniel", "Garcia", "+34 612 345 678"),
 )
@@ -495,7 +495,6 @@ val toolRegistry = ToolRegistry {
 이제 여러 노드를 오케스트레이션하는 전략을 만들어 보겠습니다:
 
 ```kotlin
-import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.extension.*
 import ai.koog.agents.ext.agent.subgraphWithTask

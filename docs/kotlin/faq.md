@@ -4,11 +4,12 @@
 
 ### 什么是 Kotlin？
 
-Kotlin 是一种开源的静态类型编程语言，目标平台包括 JVM、Android、JavaScript、Wasm 和 Native。它由 [JetBrains](https://www.jetbrains.com) 开发。该项目始于 2010 年，并且很早以前就已开源。第一个正式的 1.0 版本发布于 2016 年 2 月。
+Kotlin 是一种开源的静态类型编程语言，目标平台包括 JVM、Android、JavaScript、Wasm 和 Native。它由 [JetBrains](https://www.jetbrains.com) 开发。该项目始于 2010 年，并且很早以前就已开源。第一个正式的 1.0 版本发布于 2016 年 2 月。 
 
 ### Kotlin 的当前版本是多少？
 
-当前发布的版本是 %kotlinVersion%，发布日期为 %kotlinReleaseDate%。您可以在 [GitHub 上](https://github.com/jetbrains/kotlin)找到更多信息。
+当前发布的版本是 %kotlinVersion%，发布日期为 %kotlinReleaseDate%。  
+您可以在 [GitHub 上](https://github.com/jetbrains/kotlin)找到更多信息。
 
 ### Kotlin 免费吗？
 
@@ -40,7 +41,7 @@ Kotlin 可用于任何类型的开发，无论是服务器端开发、客户端 
 
 ### 我可以使用 Kotlin 进行 Web 开发吗？
 
-是的。对于后端 Web 开发，Kotlin 与 [Ktor](https://ktor.io/) 和 [Spring](https://spring.io/) 等框架配合良好，使您能够高效地构建服务器端应用程序。此外，您还可以将 Kotlin/Wasm 用于客户端 Web 开发。了解如何[开始使用 Kotlin/Wasm](wasm-get-started.md)。
+是的。对于后端 Web 开发，Kotlin 与 [Ktor](https://ktor.io/) 和 [Spring](https://spring.io/) 等框架配合良好，使您能够高效地构建服务器端应用程序真实。此外，您还可以将 Kotlin/Wasm 用于客户端 Web 开发。了解如何[开始使用 Kotlin/Wasm](wasm-get-started.md)。
 
 ### 我可以使用 Kotlin 进行桌面开发吗？
 
@@ -48,16 +49,15 @@ Kotlin 可用于任何类型的开发，无论是服务器端开发、客户端 
 
 ### 我可以使用 Kotlin 进行原生开发吗？
 
-是的。Kotlin/Native 作为 Kotlin 的一部分提供。它将 Kotlin 编译为无需虚拟机即可运行的原生代码。您可以在流行的桌面和移动平台甚至某些物联网 (IoT) 设备上试用它。要了解更多信息，请参阅 [Kotlin/Native 文档](native-overview.md)。
+是的。Kotlin/Native 作为 Kotlin 的一部分提供。它将 Kotlin 编译为无需虚拟机即可运行的原生代码。您可以在流行的桌面 and 移动平台甚至某些物联网 (IoT) 设备上试用它。要了解更多信息，请参阅 [Kotlin/Native 文档](native-overview.md)。
 
 ### 哪些 IDE 支持 Kotlin？
 
-Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Android Studio](https://developer.android.com/kotlin/get-started) 中具有完整的开箱即用支持，配备由 JetBrains 开发的官方 Kotlin 插件。
+Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Android Studio](https://developer.android.com/kotlin/get-started) 中具有完整的开箱即用支持，配备由 JetBrains 开发的官方 Kotlin 插件。您还可以安装官方的 [Visual Studio Code Kotlin by JetBrains 扩展程序](kotlin-lsp.md#kotlin-in-visual-studio-code)，该扩展程序由处于 [Alpha](components-stability.md#stability-levels-explained) 阶段的 Kotlin Language Server 提供支持。
 
 其他 IDE 和代码编辑器仅具有 Kotlin 社区支持的插件。
 
 您也可以尝试使用 [Kotlin Playground](https://play.kotlinlang.org) 在浏览器中编写、运行和分享 Kotlin 代码。
-
 此外，还提供 [命令行编译器](command-line.md)，它为编译和运行应用程序提供了直接支持。
   
 ### 哪些构建工具支持 Kotlin？
@@ -78,7 +78,8 @@ Kotlin 允许您选择用于执行的 JVM 版本。默认情况下，Kotlin/JVM 
 
 ### Kotlin 难学吗？
 
-Kotlin 受到 Java、C#、JavaScript、Scala 和 Groovy 等现有语言的启发。我们努力确保 Kotlin 易于学习，以便人们可以在几天内轻松上手，阅读和编写 Kotlin 代码。学习惯用 (idiomatic) 的 Kotlin 并使用其一些更高级的功能可能需要更长的时间，但总的来说，它不是一种复杂的语言。要了解更多信息，请参阅我们的[学习材料](learning-materials-overview.md)。
+Kotlin 受到 Java、C#、JavaScript、Scala 和 Groovy 等现有语言的启发。我们努力确保 Kotlin 易于学习，以便人们可以在几天内轻松上手，阅读和编写 Kotlin 代码。学习惯用 (idiomatic) 的 Kotlin 并使用其一些更高级的功能可能需要更长的时间，但总的来说，它不是一种复杂的语言。  
+要了解更多信息，请参阅我们的[学习材料](learning-materials-overview.md)。
  
 ### 哪些公司在使用 Kotlin？
  

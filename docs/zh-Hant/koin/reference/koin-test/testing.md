@@ -154,10 +154,8 @@ fun checkKoinModules() {
 }
 ```
 
-:::info
-`checkModules()` API 已棄用。請改用 `verify()`。詳情請參閱 [Module Verification](/docs/reference/koin-test/verify)。
-
-這兩種驗證 API 都將被 Koin 編譯器外掛程式中的原生編譯期安全 (compile-time safety) 所取代。
+:::tip
+`checkModules()` API 已棄用。Koin 編譯器外掛程式現在提供了編譯期相依性驗證，取代了對 `verify()` 與 `checkModules()` 的需求。詳情請參閱 [Compile-Time Safety](/docs/reference/koin-compiler/compile-safety)。
 :::
 
 ## 為您的測試啟動與停止 Koin

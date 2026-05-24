@@ -55,8 +55,8 @@ val one: Int = 1
 
 // 使用下划线提高可读性
 val oneBillion: Long = 1_000_000_000
-val hexBytes: Int = 0xFF_EC_DE_5E
-val bytes: Int = 0b11010010_01101001_10010100_10010010
+val hexBytes: Int = 0x7F_EC_DE_5E
+val bytes: Int = 0b01010010_01101001_10010100_10010010
 
 val oneByte: Byte = 1
 val oneShort: Short = 1
@@ -118,8 +118,8 @@ val avogadro = 6.02214076e23
 要声明 `Float`，请添加 `f` 或 `F` 后缀：
 
 ```kotlin
-val pi = 3.14 // Double         
-val eFloat = 2.7182818284f // Float
+val pi = 3.14 // Double
+val eFloat = 2.7182817f // Float
 ```
 
 > Kotlin 会对包含超过 `Float` 所能存储精度的 `Float` 字面量进行舍入。
@@ -150,7 +150,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-结果类型取决于操作数的类型。详情请参阅 [](#mixed-numeric-expressions)。
+结果类型取决于操作数的类型。详细了解请参阅 [](#mixed-numeric-expressions)。
 
 > 你可以在自定义数字类中重写这些运算符。
 > 有关更多信息，请参阅[运算符重载](operator-overloading.md)。
@@ -203,7 +203,7 @@ fun main() {
     }
 
     val x = 1.0
-    val xInt = 1    
+    val xInt = 1
     val xFloat = 1.0f
     val one: Double = 1 // 错误：初始值设定项类型不匹配
 
@@ -360,7 +360,7 @@ fun main() {
 //sampleStart
     val x = 1
     
-    println(x shl 2) // 4 
+    println(x shl 2) // 4
     println(x and 0x000FF000) // 0
 //sampleEnd
 }
@@ -412,8 +412,8 @@ fun main() {
     // 通过非浮点静态类型使用的操作数
     println(generalizedEquals(Double.NaN, Double.NaN)) // true
     println(generalizedEquals(0.0, -0.0)) // false
-//sampleEnd  
 }
+//sampleEnd  
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-numbers-floating-comp"}
 

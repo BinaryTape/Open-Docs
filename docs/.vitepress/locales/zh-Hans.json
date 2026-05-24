@@ -323,7 +323,7 @@
   "kmp.multiplatform-privacy-manifest": "App Store 隐私清单",
   "kmp.tools": "工具",
   "kmp.multiplatform-dsl-reference": "Multiplatform Gradle DSL",
-  "kmp.amper": "Amper 配置工具",
+  "kmp.amper": "Kotlin Toolchain",
   "kmp.compatibility": "兼容性",
   "kmp.multiplatform-compatibility-guide": "兼容性指南",
   "kmp.multiplatform-journal": "多平台日志",
@@ -553,7 +553,7 @@
   "kotlin.data-analysis-overview": "概览",
   "kotlin.kotlin-notebook-overview": "Kotlin Notebook 概览",
   "kotlin.kotlin-for-ai-powered-apps": "用于 AI 驱动应用的 Kotlin",
-  "kotlin.kotlin-ai-apps-development-overview": "概览",
+  "kotlin.kotlin-ai-apps-development-overview": "针对 AI 驱动应用的 Kotlin 开发概览",
   "kotlin.spring-ai-guide": "使用 Spring AI 构建 Kotlin 应用 – 教程",
   "kotlin.libraries": "库",
   "kotlin.constructing-collections": "创建",
@@ -659,5 +659,12 @@
   "koog.cache-control": "缓存控制",
   "kotlin.jvm-test-maven": "使用 Maven 进行测试",
   "kotlin.jvm-annotation-processors": "使用注解处理器",
-  "kmp.multiplatform-project-recommended-structure": "通用项目结构建议"
+  "kmp.multiplatform-project-recommended-structure": "通用项目结构建议",
+  "kotlin.spring-boot-claude": "使用 Spring Boot 和 Claude 创建 Kotlin 应用 – 教程",
+  "kotlin.kotlin-lsp": "Kotlin 语言服务器",
+  "kotlin.kotlin-for-ai-and-data-analysis": "用于 AI 和数据分析的 Kotlin",
+  "kotlin.kotlin-for-ai": "用于 AI 的 Kotlin",
+  "kotlin.kotlin-ai-skills": "Kotlin AI 技能",
+  "kmp.ios-liquid-glass": "Liquid Glass",
+  "kmp.multiplatform-cocoapods-spm-migration-ai": "使用 Junie 从 CocoaPods 迁移到 SwiftPM"
 }

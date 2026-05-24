@@ -502,7 +502,7 @@ dependencies {
         description = "Service tool, used by the agent to talk with user"
     ) {
         @Serializable
-        public data class Args(
+        data class Args(
             @property:LLMDescription("Message from the agent")
             val query: String,
             val depth: Int
@@ -1068,7 +1068,7 @@ ${it.stackTraceToString()}")
                 tools = listOf(DummyTool, CreateTool, SolveTool)
             ) {
                 val callLLM by nodeLLMRequest(allowToolCalls = false)
-                val executeTool by nodeExecuteToolsAndGetResults()
+                val executeTool by nodeExecuteTools()
                 val sendToolResult by nodeLLMSendToolResults()
                 val giveFeedback by node<String, String> { input ->
                     llm.writeSession {
@@ -1079,7 +1079,7 @@ ${it.stackTraceToString()}")
                     input
                 }
 
-                edge(nodeStart forwardTo callLLM asUserMessage { it })
+                edge(nodeStart forwardTo callLLM)
                 edge(callLLM forwardTo executeTool onToolCalls { true })
                 edge(callLLM forwardTo giveFeedback onTextMessage { true })
                 edge(giveFeedback forwardTo giveFeedback transformed { it })

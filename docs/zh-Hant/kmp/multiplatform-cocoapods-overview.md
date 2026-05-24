@@ -3,7 +3,7 @@
 <tldr>
    這是一種本機整合方法。如果符合以下情況，此方法可能適合您：<br/>
 
-   * 您擁有一個包含使用 CocoaPods 的 iOS 專案的 Monorepo 設定。
+   * 您擁有一個包含使用 CocoaPods 的 iOS 專案的 Monorepo 設定。<br/>
    * 您的 Kotlin Multiplatform 專案具有 CocoaPods 相依性。<br/>
 
    [選擇最適合您的整合方法](multiplatform-ios-integration-overview.md)
@@ -102,9 +102,10 @@ sudo gem install cocoapods
 
 1. 使用 [Kotlin Multiplatform IDE 外掛程式](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform) 或 [Kotlin Multiplatform Web 精靈](https://kmp.jetbrains.com) 產生新的 Android 和 iOS 專案。
    如果使用 Web 精靈，請解包封存檔並在您的 IDE 中匯入專案。
-2. 在 `gradle/libs.versions.toml` 檔案中，將 Kotlin CocoaPods Gradle 外掛程式新增至 `[plugins]` 區塊：
+2. 在版本目錄（`gradle/libs.versions.toml` 檔案）中，將 Kotlin CocoaPods Gradle 外掛程式新增至 `[plugins]` 區塊：
 
-   ```text
+   ```toml
+   [plugins]
    kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
    ```
 
@@ -162,11 +163,11 @@ sudo gem install cocoapods
 
             framework {
                 // 必要屬性              
-                // 架構名稱設定。使用此屬性代替已棄用的 'frameworkName'
+                // 框架名稱設定。使用此屬性代替已棄用的 'frameworkName'
                 baseName = "MyFramework"
                 
                 // 選填屬性
-                // 指定架構連結型別。預設為動態。 
+                // 指定框架連結型別。預設為動態。 
                 isStatic = false
                 // 相依性匯出
                 // 如果您有其他專案模組，請取消註解並指定該模組：
@@ -181,7 +182,7 @@ sudo gem install cocoapods
     }
     ```
 
-    > 在 [Kotlin Gradle 外掛程式存儲庫](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/targets/native/cocoapods/CocoapodsExtension.kt) 中查看 Kotlin DSL 的完整語法。
+    > 在 [Kotlin Gradle 外掛程式儲存庫](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/targets/native/cocoapods/CocoapodsExtension.kt) 中查看 Kotlin DSL 的完整語法。
     >
     {style="note"}
     
@@ -190,10 +191,10 @@ sudo gem install cocoapods
 
 套用後，CocoaPods 外掛程式會執行以下操作：
 
-* 為所有 macOS、iOS、tvOS 和 watchOS 目標新增 `debug` 和 `release` 架構作為輸出二進制檔。
+* 為所有 macOS、iOS、tvOS 和 watchOS 目標新增 `debug` 和 `release` 框架作為輸出二進位檔。
 * 建立一個 `podspec` 任務，該任務會為專案產生一個 [Podspec](https://guides.cocoapods.org/syntax/podspec.html) 檔案。
 
-`Podspec` 檔案包含指向輸出架構的路徑，以及在 Xcode 專案組建過程中自動組建此架構的指令碼階段。
+`Podspec` 檔案包含指向輸出框架的路徑，以及在 Xcode 專案組建過程中自動組建此框架的指令碼階段。
 
 ## 為 Xcode 更新 Podfile
 
@@ -201,7 +202,7 @@ sudo gem install cocoapods
 
 1. 在 Kotlin 專案的 iOS 部分，對 Podfile 進行變更：
 
-   * 如果您的專案有任何 Git、HTTP 或自訂 Podspec 存儲庫相依性，請在 Podfile 中指定 Podspec 的路徑。
+   * 如果您的專案有任何 Git、HTTP 或自訂 Podspec 儲存庫相依性，請在 Podfile 中指定 Podspec 的路徑。
 
      例如，如果您新增了對 `podspecWithFilesExample` 的相依性，請在 Podfile 中宣告 Podspec 的路徑：
 
@@ -214,7 +215,7 @@ sudo gem install cocoapods
 
      `:path` 應包含指向 Pod 的檔案路徑。
 
-   * 如果您從自訂 Podspec 存儲庫新增程式庫，請在 Podfile 的開頭指定 specs 的 [位置](https://guides.cocoapods.org/syntax/podfile.html#source)：
+   * 如果您從自訂 Podspec 儲存庫新增程式庫，請在 Podfile 的開頭指定 specs 的 [位置](https://guides.cocoapods.org/syntax/podfile.html#source)：
 
      ```ruby
      source 'https://github.com/Kotlin/kotlin-cocoapods-spec.git'
@@ -259,13 +260,13 @@ CocoaPods 是使用 Ruby 建構的，您可以使用 macOS 預設提供的 Ruby 
     kotlin.apple.cocoapods.bin=/Users/Jane.Doe/.rbenv/shims/pod
     ```
 
-* 如果使用終端，請執行以下指令：
+* 如果使用終端機，請執行以下指令：
 
     ```shell
     echo -e "kotlin.apple.cocoapods.bin=$(which pod)" >> local.properties
     ```
 
-### 找不到模組或架構 {initial-collapse-state="collapsed" collapsible="true"}
+### 找不到模組或框架 {initial-collapse-state="collapsed" collapsible="true"}
 
 安裝 Pod 時，您可能會遇到與 [C 互通性](https://kotlinlang.org/docs/native-c-interop.html) 問題相關的 `module 'SomeSDK' not found` 或 `framework 'SomeFramework' not found` 錯誤。若要解決此類錯誤，請嘗試以下解決方案：
 
@@ -282,7 +283,7 @@ CocoaPods 是使用 Ruby 建構的，您可以使用 macOS 預設提供的 Ruby 
    rvm get stable
    ```
 
-2. 更新 Ruby 的封裝管理員 RubyGems：
+2. 更新 Ruby 的套件管理器 RubyGems：
 
     ```bash
     gem update --system
@@ -304,7 +305,7 @@ CocoaPods 是使用 Ruby 建構的，您可以使用 macOS 預設提供的 Ruby 
     git pull
     ```
 
-2. 更新 Ruby 的封裝管理員 RubyGems：
+2. 更新 Ruby 的套件管理器 RubyGems：
 
     ```bash
     gem update --system
@@ -319,7 +320,7 @@ CocoaPods 是使用 Ruby 建構的，您可以使用 macOS 預設提供的 Ruby 
 </TabItem>
 <TabItem title="Homebrew">
 
-1. 更新 Homebrew 封裝管理員： 
+1. 更新 Homebrew 套件管理器： 
 
    ```bash
    brew update
@@ -334,10 +335,10 @@ CocoaPods 是使用 Ruby 建構的，您可以使用 macOS 預設提供的 Ruby 
 </TabItem>
 </Tabs>
 
-#### 指定架構名稱 
+#### 指定框架名稱 
 
 1. 在下載的 Pod 目錄 `[shared_module_name]/build/cocoapods/synthetic/IOS/Pods/...` 中尋找 `module.modulemap` 檔案。
-2. 檢查模組內部的架構名稱，例如 `SDWebImageMapKit {}`。如果架構名稱與 Pod 名稱不符，請明確指定：
+2. 檢查模組內部的框架名稱，例如 `SDWebImageMapKit {}`。如果框架名稱與 Pod 名稱不符，請明確指定：
 
     ```kotlin
     pod("SDWebImage/MapKit") {

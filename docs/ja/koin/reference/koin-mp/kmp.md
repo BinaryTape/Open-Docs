@@ -466,6 +466,53 @@ struct ContentView: View {
 }
 ```
 
+### Swift からの依存関係の宣言
+
+Swift のクラスのみを Koin に登録する必要がある場合など、Swift から直接依存関係を宣言する必要がある場合があります。`declare` 関数と Kotlin/Native の相互運用機能を組み合わせて、Objective-C の型を Kotlin の `KClass` に解決することで実現できます。
+
+`iosMain` に以下のヘルパーを追加します：
+
+```kotlin
+// shared/src/iosMain/kotlin/KoinSwiftHelper.kt
+@OptIn(BetaInteropApi::class)
+fun Koin.declareFromSwift(
+    instance: Any,
+    bindTo: ObjCObject,
+    qualifier: Qualifier? = null,
+    allowOverride: Boolean = true
+) {
+    val kClass: KClass<*> = when (bindTo) {
+        is ObjCClass -> getOriginalKotlinClass(bindTo)
+        is ObjCProtocol -> getOriginalKotlinClass(bindTo)
+        else -> null
+    } ?: error("Can't resolve Kotlin KClass from $bindTo")
+
+    declare(
+        instance = instance,
+        qualifier = qualifier,
+        secondaryTypes = listOf(kClass),
+        allowOverride = allowOverride
+    )
+}
+```
+
+次に Swift で、クラスまたはプロトコルの参照を使用して呼び出します：
+
+```swift
+koin.declareFromSwift(
+    instance: MyService(),
+    bindTo: MyServiceProtocol.self,
+    qualifier: nil,
+    allowOverride: true
+)
+```
+
+:::note
+これは `kotlin.native` の `getOriginalKotlinClass()` を使用して、Objective-C の型を対応する Kotlin の `KClass` にマッピングしています。`bindTo` パラメータは、`ObjCClass`（クラスの `.self`）または `ObjCProtocol`（プロトコルの `.self`）を受け取ります。
+
+オリジナルの提案： [@SarahDelCastillo](https://github.com/InsertKoinIO/koin/issues/1108#issuecomment-3645990426)
+:::
+
 ### スレッドに関する考慮事項
 
 iOS やその他の Native ターゲットでは、Koin インスタンスは新しいメモリモデルとシームレスに動作します：

@@ -8,7 +8,7 @@
     <br/>   
     <p>这是<strong>使用共享逻辑和原生 UI 创建 Kotlin Multiplatform 应用</strong>教程的第三部分。在继续之前，请确保您已完成之前的步骤。</p>
     <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <Links href="/kmp/multiplatform-create-first-app" summary="本教程使用 IntelliJ IDEA，但您也可以在 Android Studio 中学习——这两个 IDE 共享相同的核心功能和 Kotlin Multiplatform 支持。这是使用共享逻辑和原生 UI 创建 Kotlin Multiplatform 应用教程的第一部分。创建您的 Kotlin Multiplatform 应用、更新用户界面、添加依赖项、共享更多逻辑、完成您的项目">创建您的 Kotlin Multiplatform 应用</Links><br/>
-        <img src="icon-2-done.svg" width="20" alt="第二步"/> <Links href="/kmp/multiplatform-update-ui" summary="本教程使用 IntelliJ IDEA，但您也可以在 Android Studio 中学习——这两个 IDE 共享相同的核心功能和 Kotlin Multiplatform 支持。这是使用共享逻辑和原生 UI 创建 Kotlin Multiplatform 应用教程的第二部分。在继续之前，请确保您已完成之前的步骤。创建您的 Kotlin Multiplatform 应用、更新用户界面、添加依赖项、共享更多逻辑、完成您的项目">更新用户界面</Links><br/>
+        <img src="icon-2-done.svg" width="20" alt="第二步"/> <Links href="/kmp/multiplatform-update-ui" summary="本教程使用 IntelliJ IDEA，但您也可以在 Android Studio 中学习——这两个 IDE 共享相同的核心功能和 Kotlin Multiplatform 支持。这是使用共享逻辑和原生 UI 创建 Kotlin Multiplatform 应用教程的第二部分任务。在继续之前，请确保您已完成之前的步骤。创建您的 Kotlin Multiplatform 应用、更新用户界面、添加依赖项、共享更多逻辑、完成您的项目">更新用户界面</Links><br/>
         <img src="icon-3.svg" width="20" alt="第三步"/> <strong>添加依赖项</strong><br/>
         <img src="icon-4-todo.svg" width="20" alt="第四步"/> 共享更多逻辑<br/>
         <img src="icon-5-todo.svg" width="20" alt="第五步"/> 完成您的项目<br/>
@@ -26,17 +26,17 @@
 
     许多现代 Android 库已经提供了多平台支持，例如 [Koin](https://insert-koin.io/)、[Coil](https://coil-kt.github.io/coil/) 和 [SQLDelight](https://sqldelight.github.io/sqldelight/latest/)。您可以在 [klibs.io](https://klibs.io/) 上找到更多多平台库，这是由 JetBrains 提供的一项用于发现 Kotlin Multiplatform 库的实验性搜索服务。
 
-*   **原生依赖项**。这些是来自特定生态系统的常规库。
-    在原生项目中，您通常会使用它们，例如在 Android 中使用 Gradle，在 iOS 中使用 Swift 软件包管理器。 
+*   **原生依赖项**。这些是来自特定生态系统的平台特定库。
+    在原生项目中，您通常通过平台特定工具来管理这些库，例如在 Android 中使用 Gradle，在 iOS 中使用 Swift 软件包管理器。 
   
-    在处理多平台项目模块时，通常仍需要原生依赖项来使用平台 API，如安全存储、特定的系统调用等。
+    在处理多平台项目模块时，通常仍需要原生依赖项来使用平台 API，如安全存储、系统调用等。
     在构建脚本中，您可以在原生源集的配置中指定原生依赖项，例如 `androidMain` 和 `iosMain`。
 
 对于这两种类型的依赖项，您都可以使用本地和外部仓库。
 
 ## 添加多平台依赖项
 
-> 如果您有开发 Android 应用的经验，添加多平台依赖项与在普通 Android 项目中添加 Gradle 依赖项类似。唯一的区别是您需要将其添加到特定的源集中。
+> 如果您有开发 Android 应用的经验，添加多平台依赖项与在普通 Android 项目中添加 Gradle 依赖项类似。唯一的区别是您需要将其添加到特定的源集，而不是整个模块。
 >
 {style="tip"}
 
@@ -45,7 +45,7 @@
 `kotlinx-datetime` 库具有完整的多平台支持，是在共享代码中处理日期的最便捷方式。
 
 1. 打开 `gradle/libs.versions.toml` 文件，将 `kotlinx-datetime` 依赖项添加到版本目录：
-    ```text
+    ```toml
     [versions]
     kotlinx-datetime = "0.8.0"
     
@@ -112,7 +112,7 @@
 ### 另请参阅
 
 * 了解如何处理各种多平台依赖项：[Kotlin 库、Kotlin Multiplatform 库和其他多平台项目](multiplatform-add-dependencies.md)。
-* 了解如何[添加 Android 依赖项](multiplatform-android-dependencies.md)以及[在使用或不使用 CocoaPods 的情况下添加 iOS 依赖项](multiplatform-ios-dependencies.md)，以便在特定平台的源集中使用。
+* 了解如何[添加 Android 依赖项](multiplatform-android-dependencies.md)以及[在使用或不使用 CocoaPods 的情况下添加 iOS 依赖项](multiplatform-ios-dependencies.md)，以便在平台特定的源集中使用。
 * 查看示例项目中[如何使用 Android 和 iOS 库](multiplatform-samples.md)的示例。
 
 ## 获取帮助

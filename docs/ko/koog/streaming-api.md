@@ -818,7 +818,6 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.example.exampleStreamingApi05.Book
@@ -937,7 +936,6 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.example.exampleStreamingApi06.markdownBookDefinition

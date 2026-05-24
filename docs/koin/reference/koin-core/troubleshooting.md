@@ -2,7 +2,7 @@
 title: 故障排除
 ---
 
-# 故障排除
+# 故障排除 (Troubleshooting)
 
 本指南涵盖了调试、常见错误以及应避免的反模式。
 
@@ -11,7 +11,7 @@ title: 故障排除
 ### 问题
 
 ```kotlin
-// 循环依赖 - 将在运行时失败
+// 循环依赖
 class ServiceA(val serviceB: ServiceB)
 class ServiceB(val serviceA: ServiceA)
 
@@ -21,17 +21,21 @@ module {
 }
 ```
 
+:::tip 通过编译器插件在编译时捕获
+[Koin 编译器插件](/docs/reference/koin-compiler/compile-safety) 会在编译期间（A2/A3 阶段）检测到循环依赖 —— 无需等待运行时。如果没有该插件，循环将在启动时因运行时错误而失败。
+:::
+
 ### 解决方案 1：延迟注入 (Lazy Injection)
 
 通过延迟解析打破循环：
 
 ```kotlin
 class ServiceA : KoinComponent {
-    val serviceB: ServiceB by inject()  // 延迟注入
+    val serviceB: ServiceB by inject()  // 延迟
 }
 
 class ServiceB : KoinComponent {
-    val serviceA: ServiceA by inject()  // 延迟注入
+    val serviceA: ServiceA by inject()  // 延迟
 }
 
 module {
@@ -95,8 +99,8 @@ fun `verify all modules`() {
 }
 ```
 
-:::info
-`verify()` 和 `checkModules()` 都将被 Koin 编译器插件中的原生编译时安全性取代。详见 [模块验证](/docs/reference/koin-test/verify)。
+:::tip
+Koin 编译器插件现在提供编译时依赖项验证，取代了对 `verify()` 和 `checkModules()` 的需求。请参阅 [编译时安全性](/docs/reference/koin-compiler/compile-safety)。
 :::
 
 ## 常见错误
@@ -210,7 +214,7 @@ class UserService(private val api: ApiClient)
 ## 最佳做法总结
 
 1. **首选构造函数注入** - 避免在类内部调用 `get()`。
-2. **在测试中使用 `verify()`** - 及早发现缺失的定义。
+2. **使用 Koin 编译器插件** - 在编译时捕获缺失的定义（或在测试中使用 `verify()`）。
 3. **保持模块职责专一** - 每个模块遵循单一职责原则。
 4. **避免循环依赖** - 进行重构或使用延迟注入。
 5. **谨慎使用限定符** - 仅当同一类型有多个实例时使用。

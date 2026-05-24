@@ -119,7 +119,7 @@ Koog은 콘텐츠 검토를 위한 두 가지 주요 접근 방식, 즉 `LLMClie
 === "Java"
 
     <!--- INCLUDE
-    import ai.koog.prompt.dsl.Prompt;
+    import ai.koog.prompt.Prompt;
     import ai.koog.prompt.executor.clients.openai.OpenAILLMClient;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import ai.koog.prompt.dsl.ModerationResult;
@@ -199,7 +199,7 @@ Koog은 콘텐츠 검토를 위한 두 가지 주요 접근 방식, 즉 `LLMClie
 === "Java"
 
     <!--- INCLUDE
-    import ai.koog.prompt.dsl.Prompt;
+    import ai.koog.prompt.Prompt;
     import ai.koog.prompt.executor.ollama.client.OllamaClient;
     import ai.koog.prompt.executor.ollama.client.OllamaModels;
     import ai.koog.prompt.dsl.ModerationResult;
@@ -283,7 +283,7 @@ Koog은 콘텐츠 검토를 위한 두 가지 주요 접근 방식, 즉 `LLMClie
 === "Java"
 
     <!--- INCLUDE
-    import ai.koog.prompt.dsl.Prompt;
+    import ai.koog.prompt.Prompt;
     import ai.koog.prompt.executor.clients.openai.OpenAILLMClient;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor;

@@ -1,8 +1,8 @@
 # 長期記憶
 
 `LongTermMemory` 功能透過兩組獨立的設定為 Koog AI 代理增加持久性記憶：
-- **Retrieval**（檢索） — 使用來自記憶儲存空間的相關上下文（檢索增強生成，即 RAG）來增強 LLM 提示詞。
-- **Ingestion**（攝取） — 將對話訊息持久化到記憶儲存空間中，以供未來檢索。
+- **Retrieval**（檢索） — 使用來自記憶存儲的相關上下文（檢索增強生成，即 RAG）來增強 LLM 提示詞。
+- **Ingestion**（攝取） — 將對話訊息持久化到記憶存儲中，以供未來檢索。
 
 ## 快速入門
 
@@ -86,7 +86,7 @@
 | 增強器 | 行為 |
 |---|---|
 | `SystemPromptAugmenter()` | 在提示詞開頭插入上下文作為系統訊息（若無系統訊息則不執行任何操作） |
-| `UserPromptAugmenter()` | 在最後一則使用者訊息前插入上下文作為獨立的使用者訊息 |
+| `UserPromptAugmenter()` | 將檢索到的上下文作為額外的文字部分附加到最後一則使用者訊息的末尾（若無使用者訊息則不執行任何操作） |
 | `PromptAugmenter { prompt, context -> ... }` | 透過 lambda 進行自訂增強 |
 
 ### 搜尋查詢提供者 (Search Query Providers)
@@ -140,7 +140,7 @@
 
 ## 僅攝取
 
-使用不含檢索的攝取來隨著時間建立記憶儲存空間：
+使用不含檢索的攝取來隨著時間建立記憶存儲：
 
 === "Kotlin"
 
@@ -174,7 +174,7 @@
 
 ## 停用自動行為
 
-預設情況下，檢索和攝取會自動執行（檢索在每次 LLM 呼叫之前執行；攝取在代理完成時執行一次）。您可以停用自動行為，同時仍可從策略節點內存取已配置的儲存空間和策略：
+預設情況下，檢索和攝取會自動執行（檢索在每次 LLM 呼叫之前執行；攝取在代理完成時執行一次）。您可以停用自動行為，同時仍可從策略節點內存取已配置的存儲和策略：
 
 === "Kotlin"
 
@@ -210,8 +210,8 @@
 
 這為您提供了三種純淨模式：
 
-1. **全自動**（預設）：安裝功能、配置儲存空間 — 檢索和攝取會自動運作。
-2. **僅手動**：設定 `enableAutomaticRetrieval = false` / `enableAutomaticIngestion = false`，並在您的圖表策略節點中使用儲存空間和策略。
+1. **全自動**（預設）：安裝功能、配置存儲 — 檢索和攝取會自動運作。
+2. **僅手動**：設定 `enableAutomaticRetrieval = false` / `enableAutomaticIngestion = false`，並在您的圖表策略節點中使用存儲和策略。
 3. **混合**：將自動攝取與手動檢索結合（反之亦然）。
 
 ## 從策略節點存取長期記憶
@@ -243,7 +243,7 @@ val myNode by node<String, Unit> {
 
 ## 自訂文件擷取器
 
-實作 `DocumentExtractor` 以控制訊息在儲存前的轉換方式：
+實作 `DocumentExtractor` 以控制訊息在存儲前的轉換方式：
 
 ```kotlin
 val summarizingExtractor = DocumentExtractor { messages ->
@@ -260,7 +260,7 @@ install(LongTermMemory) {
 }
 ```
 
-## 實作自訂儲存空間
+## 實作自訂存儲
 
 實作 `SearchStorage` 和/或 `WriteStorage` 以連接到您的向量資料庫：
 
@@ -280,4 +280,4 @@ class MyVectorDbStorage : SearchStorage<TextDocument, SearchRequest>, WriteStora
 }
 ```
 
-進行測試時，請使用內建的 `InMemoryRecordStorage`，它將記錄保留在記憶體中。它同時支援 `KeywordSearchRequest`（實作方式為不區分大小寫的子字串比對）和 `SimilaritySearchRequest`（實作方式為對不區分大小寫的單字集進行 Jaccard 係數計算）；不使用向量嵌入 (vector embeddings)。
+進行測試時，請使用內建的 `InMemoryRecordStorage`，它將記錄保留在記憶體中。它同時支援 `KeywordSearchRequest`（實作方式為不區分大小寫的子字串比對）和 `SimilaritySearchRequest`（實作方式為對不區分大小寫的單詞集進行 Jaccard 係數計算）；不使用向量嵌入 (vector embeddings)。

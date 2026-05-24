@@ -290,7 +290,7 @@
   "kmp.multiplatform-privacy-manifest": "App Store privacy manifest",
   "kmp.tools": "Tools",
   "kmp.multiplatform-dsl-reference": "Multiplatform Gradle DSL",
-  "kmp.amper": "Amper configuration tool",
+  "kmp.amper": "Kotlin Toolchain",
   "kmp.compatibility": "Compatibility",
   "kmp.multiplatform-compatibility-guide": "Compatibility guide",
   "kmp.multiplatform-journal": "Multiplatform journal",
@@ -521,7 +521,7 @@
   "kotlin.data-analysis-overview": "Overview",
   "kotlin.kotlin-notebook-overview": "Kotlin Notebook overview",
   "kotlin.kotlin-for-ai-powered-apps": "Kotlin for AI-powered apps",
-  "kotlin.kotlin-ai-apps-development-overview": "Overview",
+  "kotlin.kotlin-ai-apps-development-overview": "Kotlin for AI-powered apps",
   "kotlin.spring-ai-guide": "Build a Kotlin app with Spring AI – tutorial",
   "kotlin.libraries": "Libraries",
   "kotlin.constructing-collections": "Create",
@@ -627,5 +627,12 @@
   "koog.cache-control": "Cache control",
   "kotlin.jvm-test-maven": "Testing with Maven",
   "kotlin.jvm-annotation-processors": "Use annotation processors",
-  "kmp.multiplatform-project-recommended-structure": "General structure recommendations"
+  "kmp.multiplatform-project-recommended-structure": "General structure recommendations",
+  "kotlin.spring-boot-claude": "Create a Kotlin app with Spring Boot and Claude – tutorial",
+  "kotlin.kotlin-lsp": "Kotlin Language Server",
+  "kotlin.kotlin-for-ai-and-data-analysis": "Kotlin for AI and data analysis",
+  "kotlin.kotlin-for-ai": "Kotlin for AI",
+  "kotlin.kotlin-ai-skills": "Kotlin AI skills",
+  "kmp.ios-liquid-glass": "Liquid Glass",
+  "kmp.multiplatform-cocoapods-spm-migration-ai": "From CocoaPods to SwiftPM using Junie"
 }

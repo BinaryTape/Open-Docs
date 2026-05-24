@@ -50,22 +50,22 @@ IntelliJ IDEA で `GreetingKMP` フォルダを展開します。
 
 この Kotlin Multiplatform プロジェクトには、以下のモジュールが含まれています。
 
-* _androidApp_ は、Android アプリケーションとしてビルドされる Kotlin モジュールです。ビルドシステムとして Gradle を使用します。composeApp モジュールは、shared モジュールに依存し、通常の Android ライブラリとして使用します。
-* _iosApp_ は、iOS アプリケーションとしてビルドされる Xcode プロジェクトです。
+* `androidApp` は、Android アプリケーションとしてビルドされる Kotlin モジュールです。ビルドシステムとして Gradle を使用します。
+  `androidApp` モジュールは shared モジュールに依存し、通常の Android ライブラリとして使用します。
+* `iosApp` は、iOS アプリケーションとしてビルドされる Xcode プロジェクトです。
   `sharedLogic` モジュールに依存しており、これは iOS フレームワークとしてエクスポートされます。
   IDE ウィザードを使用して作成された Kotlin Multiplatform プロジェクトは、[直接統合（direct integration）](multiplatform-direct-integration.md)を通じて通常のフレームワーク依存関係を使用します。
-* _sharedLogic_ は、Android と iOS アプリケーションの両方に共通のロジックを含むマルチプラットフォームモジュールです。
-* _sharedUI_ は、Compose Multiplatform UI コードを含むモジュールです。このプロジェクトでは Android アプリでのみ使用されていますが、準備ができれば他のターゲットでも使用できるマルチプラットフォームモジュールです。
+* `sharedLogic` は、Android と iOS アプリケーションの両方に共通のロジックを含むマルチプラットフォームモジュールです。
+* `sharedUI` は、Compose Multiplatform UI コードを含むモジュールです。このプロジェクトでは Android アプリでのみ使用されていますが、準備ができれば他のターゲットでも使用できるマルチプラットフォームモジュールです。
 
 `iosApp` を除くすべてのモジュールは、ビルドシステムとして Gradle を使用します。
 
 ![Basic Multiplatform project structure](basic-project-structure.svg){width=700}
-<!-- TODO need to redo the diagram: ios depends on sharedLogic while android on both sharedLogic and sharedUI -->
 
 「ソースセット（Source set）」は Gradle の概念で、論理的にグループ化された多数のファイルであり、各グループが独自の依存関係を持ちます。Kotlin Multiplatform では、共有モジュール内の異なるソースセットが異なるプラットフォームをターゲットにできます。
 
 `sharedLogic` モジュールには、`androidMain`、`commonMain`、`iosMain` の各ソースセットが含まれています。
-`commonMain` ソースセットには共有される Kotlin コードが含まれ、プラットフォームソースセットには各ターゲット固有の Kotlin コードが含まれます。
+`commonMain` ソースセットには共有される Kotlin コードが含まれ、プラットフォーム固有のソースセットには各プラットフォームに限定されたコードが含まれます。
 `androidMain` には Kotlin/JVM が使用され、`iosMain` には Kotlin/Native が使用されます。
 
 ![Source sets and modules structure](basic-project-structure-2.png){width=350}
@@ -98,8 +98,7 @@ IntelliJ IDEA で `GreetingKMP` フォルダを展開します。
 ### プラットフォーム固有の実装の確認
 
 共通ソースセットは、期待される宣言（expect declarations。インターフェース、クラスなど）を定義できます。
-各プラットフォームソースセット（この場合は `androidMain` と `iosMain`）で、
-期待される宣言に対して実際のプラットフォーム固有の実装（actual implementations）を提供する必要があります。
+各プラットフォームソースセット（この場合は `androidMain` と `iosMain`）で、期待される宣言に対して実際のプラットフォーム固有の実装（actual implementations）を提供する必要があります。
 
 特定のプラットフォーム向けのコードを生成する際、Kotlin コンパイラは expect 宣言と actual 宣言をマージし、実際の特定の実装を持つ単一の宣言を生成します。
 
@@ -134,11 +133,11 @@ IntelliJ IDEA で `GreetingKMP` フォルダを展開します。
     }
     ```
 
-    * `AndroidPlatform` クラスの `name` プロパティの実装は、Android 固有のコード、つまり `android.os.Build` 依存関係を使用しています。このコードは Kotlin/JVM として解釈されます。ここで `java.util.Random` のような JVM 固有のクラスにアクセスしようとしても、このコードはコンパイルされます。
-    * `IOSPlatform` クラスの `name` プロパティの実装は、iOS 固有のコード、つまり `platform.UIKit.UIDevice` 依存関係を使用しています。これは Kotlin/Native として解釈され、Kotlin で iOS の宣言を参照できることを意味します。このコードは iOS フレームワークの一部となり、`iosApp` モジュールの Swift コードにインポートされます。
+    * `AndroidPlatform` クラスの `name` プロパティの実装は、Android 固有のコード、つまり `android.os.Build` クラスを使用しています。このコードは Kotlin/JVM として解釈されます。ここで `java.util.Random` のような JVM 固有のクラスにアクセスしようとしても、このコードはコンパイルされます。
+    * `IOSPlatform` クラスの `name` プロパティの実装は、iOS 固有のコード、つまり `platform.UIKit.UIDevice` クラスを使用しています。これは Kotlin/Native として解釈され、Kotlin で iOS の宣言を参照できることを意味します。このコードは iOS フレームワークの一部となり、`iosApp` モジュールの Swift コードにインポートされます。
 
 3. 各ソースセットには `getPlatform()` 関数が含まれています。
-   その expect 宣言にはボディがなく、actual 実装はプラットフォームコードで提供されています。
+   その `expect` 宣言にはボディがなく、`actual` 実装はプラットフォームコードで提供されています。
 
     ```kotlin
     // commonMain ソースセットの Platform.kt
@@ -151,15 +150,15 @@ IntelliJ IDEA で `GreetingKMP` フォルダを展開します。
     ```
    
     ```kotlin
-    // iosMain ソースセット의 Platform.ios.kt
+    // iosMain ソースセットの Platform.ios.kt
     actual fun getPlatform(): Platform = IOSPlatform()
     ```
 
 ここでは、共通ソースセットが期待される `getPlatform()` 関数を定義し、プラットフォームソースセットに Android アプリ用の `AndroidPlatform()` と iOS アプリ用の `IOSPlatform()` という実際の実装を持っています。
 
-特定のプラットフォーム向けのコードを生成する際、Kotlin コンパイラは expect 宣言と actual 宣言をマージし、正しい実装を持つ単一の `getPlatform()` 関数にします。
+特定のプラットフォーム向けのコードを生成する際、Kotlin コンパイラは `expect` 宣言と `actual` 宣言をマージし、正しい実装を持つ単一の `getPlatform()` 関数にします。
 
-そのため、expect 宣言と actual 宣言は同じパッケージで定義する必要があります。これらは結果として得られるプラットフォームコード内で1つの宣言にマージされるためです。生成されたプラットフォームコード内で expect `getPlatform()` 関数を呼び出すと、正しい actual 実装が呼び出されます。
+そのため、`expect` 宣言と `actual` 宣言は同じパッケージで定義する必要があります。これらは結果として得られるプラットフォームコード内で1つの宣言にマージされるためです。生成されたプラットフォームコード内で期待される `getPlatform()` 関数を呼び出すと、正しい実際の（actual）実装が参照されます。
 
 それでは、アプリを実行してこれらすべての動作を確認してみましょう。
 
@@ -173,7 +172,7 @@ IntelliJ IDEA で `GreetingKMP` フォルダを展開します。
    expect val num: Int
    ```
 
-   Kotlin コンパイラは、このプロパティに対応する actual 宣言がプラットフォームモジュールにないというエラーを表示します。
+   Kotlin コンパイラは、このプロパティに対応する実際の（actual）宣言がプラットフォームモジュールにないというエラーを表示します。
 
 2. 次のように、すぐに実装を提供しようとしてみてください。
 
@@ -189,7 +188,7 @@ IntelliJ IDEA で `GreetingKMP` フォルダを展開します。
     actual val num: Int = 1
     ```
 
-5. 次に `iosMain` モジュールで `num` の実際の画像を提供します。`iosMain/.../Platform.ios.kt` ファイルに以下を追加します。
+5. 次に `iosMain` モジュールで `num` の実際の実装を提供します。`iosMain/.../Platform.ios.kt` ファイルに以下を追加します。
 
     ```kotlin
     actual val num: Int = 2

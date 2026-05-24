@@ -354,6 +354,10 @@
               }
             ],
             "collapsed": true
+          },
+          {
+            "text": "kotlin.spring-boot-claude",
+            "link": "spring-boot-claude"
           }
         ],
         "collapsed": true
@@ -531,6 +535,10 @@
           {
             "text": "kotlin.kotlin-ide",
             "link": "kotlin-ide"
+          },
+          {
+            "text": "kotlin.kotlin-lsp",
+            "link": "kotlin-lsp"
           },
           {
             "text": "kotlin.dokka",
@@ -714,8 +722,26 @@
     "collapsed": true
   },
   {
-    "text": "kotlin.kotlin-for-data-analysis-and-ai",
+    "text": "kotlin.kotlin-for-ai-and-data-analysis",
     "items": [
+      {
+        "text": "kotlin.kotlin-for-ai",
+        "items": [
+          {
+            "text": "kotlin.kotlin-ai-skills",
+            "link": "kotlin-ai-skills"
+          },
+          {
+            "text": "kotlin.kotlin-ai-apps-development-overview",
+            "link": "kotlin-ai-apps-development-overview"
+          },
+          {
+            "text": "kotlin.spring-ai-guide",
+            "link": "spring-ai-guide"
+          }
+        ],
+        "collapsed": true
+      },
       {
         "text": "kotlin.kotlin-for-data-analysis",
         "items": [
@@ -792,20 +818,6 @@
           {
             "text": "kotlin.data-analysis-libraries",
             "link": "data-analysis-libraries"
-          }
-        ],
-        "collapsed": true
-      },
-      {
-        "text": "kotlin.kotlin-for-ai-powered-apps",
-        "items": [
-          {
-            "text": "kotlin.kotlin-ai-apps-development-overview",
-            "link": "kotlin-ai-apps-development-overview"
-          },
-          {
-            "text": "kotlin.spring-ai-guide",
-            "link": "spring-ai-guide"
           }
         ],
         "collapsed": true

@@ -682,7 +682,7 @@ Gradle 7.0 为 Gradle 插件作者引入了一项新功能——[具有变体的
 
 通过 Gradle 插件变体，我们可以为不同的 Gradle 版本发布不同的 Kotlin Gradle 插件变体。目标是在 `main` 变体中支持基础 Kotlin 编译，该变体对应于最早支持的 Gradle 版本。每个变体都将包含对应发行版中 Gradle 功能的实现。最新的变体将支持最广泛的 Gradle 功能集。通过这种方式，我们可以通过有限的功能扩展对较旧 Gradle 版本的影响。
 
-目前，Kotlin Gradle 插件只有两个变体：
+目前， Kotlin Gradle 插件只有两个变体：
 
 * `main` 用于 Gradle 6.7.1–6.9.3 版本
 * `gradle70` 用于 Gradle 7.0 及更高版本
@@ -872,7 +872,7 @@ IntelliJ IDEA 2022.1 和 Android Studio Chipmunk (212) 会自动建议将 Kotlin
 
 * 要将现有项目迁移到 Kotlin 1.7.0，请将 Kotlin 版本更改为 `1.7.0` 并重新导入您的 Gradle 或 Maven 项目。[了解如何更新到 Kotlin 1.7.0](releases.md#update-to-a-new-kotlin-version)。
 
-* 要使用 Kotlin 1.7.0 开始一个新项目，请更新 Kotlin 插件并从 **File** | **New** | **Project** 运行项目向导。
+* 要使用 Kotlin 1.7.0 开始一个新项目，请更新 Kotlin 插件并从 **文件** | **新建** | **项目** 运行项目向导。
 
 ### Kotlin 1.7.0 兼容性指南
 

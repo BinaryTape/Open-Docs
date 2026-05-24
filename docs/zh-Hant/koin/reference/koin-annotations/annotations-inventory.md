@@ -1,11 +1,11 @@
-# Koin 註解清單
+# Koin 註解清單 (Koin Annotations Inventory)
 
 本文件提供所有 Koin 註解的完整清單、參數、行為以及使用範例。
 
 ## 目錄
 
 - [定義註解 (Definition Annotations)](#definition-annotations)
-  - [@Single](#single)
+  - [@Single / @Singleton](#single--singleton)
   - [@Factory](#factory)
   - [@Scoped](#scoped)
 - [作用域註解 (Scope Annotations)](#scope-annotations)
@@ -21,9 +21,12 @@
 - [限定符註解 (Qualifier Annotations)](#qualifier-annotations)
   - [@Named](#named)
   - [@Qualifier](#qualifier)
-- [屬性註解 (Property Annotations)](#property-annotations)
+- [參數註解 (Parameter Annotations)](#parameter-annotations)
+  - [@InjectedParam](#injectedparam)
   - [@Property](#property)
   - [@PropertyValue](#propertyvalue)
+- [安全註解 (Safety Annotations)](#safety-annotations)
+  - [@Provided](#provided)
 - [模組與應用程式註解](#module--application-annotations)
   - [@Module](#module)
   - [@ComponentScan](#componentscan)
@@ -41,13 +44,13 @@
 
 ## 定義註解
 
-### @Single
+### @Single / @Singleton
 
 **套件：** `org.koin.core.annotation`
 
 **目標：** `CLASS`, `FUNCTION`
 
-**說明：** 在 Koin 中將型別或函式宣告為 `single` (singleton) 定義。會在整個應用程式中建立並共用單一個執行個體。
+**說明：** 在 Koin 中將型別或函式宣告為 `single` (singleton) 定義。會在整個應用程式中建立並共用單一個執行個體。`@Singleton` 是偏好使用的名稱（符合標準命名慣例）；`@Single` 則是別名。
 
 **參數：**
 - `binds: Array<KClass<*>> = [Unit::class]` - 要繫結至此定義的明確型別。系統會自動偵測父型別。
@@ -229,7 +232,7 @@ activityScope {
 ```
 
 **用法：**
-被標記的類別旨在與 Activity 和 `activityScope` 函式搭配使用，以啟動該作用域。
+畢業標記的類別旨在與 Activity 和 `activityScope` 函式搭配使用，以啟動該作用域。
 
 ---
 
@@ -457,7 +460,38 @@ class MyClass(val d : MyDependency)
 
 ---
 
-## 屬性註解
+## 參數註解
+
+### @InjectedParam
+
+**套件：** `org.koin.core.annotation`
+
+**目標：** `VALUE_PARAMETER`
+
+**說明：** 標記建構函式或函式參數，使其從 `ParametersHolder` (透過呼叫處的 `parametersOf()` 傳入) 解析，而非透過相依注入容器。
+
+**參數：** 無
+
+**行為：**
+在執行期從 `ParametersHolder.get()` 解析參數值，而非從 Koin 定義中解析。編譯時期安全驗證會跳過標註為 `@InjectedParam` 的參數。
+
+**範例：**
+```kotlin
+@Factory
+class MyClass(@InjectedParam val id: Int, val service: Service)
+```
+
+**產生的 Koin DSL：**
+```kotlin
+factory { params -> MyClass(params.get(), get()) }
+```
+
+**用法：**
+```kotlin
+val instance = koin.get<MyClass> { parametersOf(42) }
+```
+
+---
 
 ### @Property
 
@@ -527,6 +561,46 @@ class MyClass(@Property("name") val name : String)
 ```kotlin
 factory { MyClass(getProperty("name", defaultName)) }
 ```
+
+---
+
+## 安全註解
+
+### @Provided
+
+**套件：** `org.koin.core.annotation`
+
+**目標：** `CLASS`, `VALUE_PARAMETER`
+
+**說明：** 將型別或參數標記為在執行期由外部提供（例如：Android 框架型別、第三方 SDK）。編譯期安全驗證會跳過這些型別。
+
+**參數：** 無
+
+**行為：**
+- 應用於 **類別 (class)** 時：該型別的所有使用處都會跳過編譯安全驗證
+- 應用於 **參數 (parameter)** 時：僅該特定參數會跳過驗證
+- 該型別在執行期仍會透過 `scope.get<T>()` 解析 —— `@Provided` 僅影響編譯時期檢查
+
+**類別範例：**
+```kotlin
+@Provided
+class FirebaseAnalytics  // 所有使用處都會跳過驗證
+
+@Singleton
+class AnalyticsService(val analytics: FirebaseAnalytics)
+// 無編譯錯誤 —— FirebaseAnalytics 已標記為 @Provided
+```
+
+**參數範例：**
+```kotlin
+@Factory
+class PaymentProcessor(@Provided val gateway: PaymentGateway)
+// 無編譯錯誤 —— 僅此參數跳過驗證
+```
+
+**注意：** 常見的 Android 框架型別（`Context`, `Application`, `Activity`, `Fragment`, `SavedStateHandle`, `WorkerParameters`）已自動加入白名單，不需要使用 `@Provided`。
+
+**請參閱：** [編譯期安全 (Compile-Time Safety)](/docs/reference/koin-compiler/compile-safety#external-types-provided)
 
 ---
 
@@ -826,25 +900,11 @@ class UserService(private val userRepository: UserRepository) {
 
 ---
 
-## 已棄用註解
-
-### @Singleton
-
-**套件：** `org.koin.core.annotation`
-
-**狀態：** 已棄用 - ERROR 級別
-
-**替代方案：** 改用 `koin-jsr330` 套件中的 `@Singleton`
-
-**說明：** 與 `@Single` 相同，但為了符合 JSR-330 標準而棄用。
-
----
-
 ## 摘要表
 
 | 註解 | 套件 | 用途 | 常見使用案例 |
 |------------|---------|---------|-----------------|
-| `@Single` | `org.koin.core.annotation` | Singleton 定義 | 共用的應用程式服務 |
+| `@Singleton` / `@Single` | `org.koin.core.annotation` | Singleton 定義 | 共用的應用程式服務 |
 | `@Factory` | `org.koin.core.annotation` | Factory 定義 | 每次請求的執行個體 |
 | `@Scoped` | `org.koin.core.annotation` | Scoped 定義 | 特定作用域的執行個體 |
 | `@Scope` | `org.koin.core.annotation` | 作用域宣告 | 自訂作用域 |
@@ -857,11 +917,13 @@ class UserService(private val userRepository: UserRepository) {
 | `@KoinWorker` | `org.koin.android.annotation` | Worker 定義 | WorkManager worker |
 | `@Named` | `org.koin.core.annotation` | 字串/型別限定符 | 區分同型別的 Bean |
 | `@Qualifier` | `org.koin.core.annotation` | 型別/字串限定符 | 區分同型別的 Bean |
+| `@InjectedParam` | `org.koin.core.annotation` | 執行期參數 | `parametersOf()` 的值 |
 | `@Property` | `org.koin.core.annotation` | 屬性注入 | 配置值 |
 | `@PropertyValue` | `org.koin.core.annotation` | 屬性預設值 | 預設配置值 |
+| `@Provided` | `org.koin.core.annotation` | 跳過安全驗證 | 外部/框架型別 |
 | `@Module` | `org.koin.core.annotation` | 模組宣告 | 將定義分組 |
 | `@ComponentScan` | `org.koin.core.annotation` | 套件掃描 | 自動探索定義 |
-| `@Configuration` | `org.koin.core.annotation` | 模組配置 | 建置變體/變體 (flavors) |
+| `@Configuration` | `org.koin.core.annotation` | 模組配置 | 組建變體/變體 (flavors) |
 | `@KoinApplication` | `org.koin.core.annotation` | 應用程式進入點 | 引導 Koin |
 | `@Monitor` | `org.koin.core.annotation` | 效能監控 | 正式環境監控 |
 

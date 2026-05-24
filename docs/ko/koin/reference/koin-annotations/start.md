@@ -1,6 +1,12 @@
 ---
-title: Koin Annotations 시작하기
+title: Koin 어노테이션 시작하기
 ---
+
+:::info Koin 어노테이션 상태
+**Koin 어노테이션은 이제 Koin 프로젝트의 일부입니다.** `koin-annotations` 라이브러리는 메인 Koin 버전과 함께 제공되며 완벽하게 지원됩니다.
+
+기존 KSP 프로세서(`koin-ksp-compiler`)는 **더 이상 사용되지 않으며(deprecated)** **Koin 컴파일러 플러그인**으로 대체되었습니다. 어노테이션은 그대로 유지되며 빌드 설정만 변경됩니다. [KSP에서 컴파일러 플러그인으로 마이그레이션하기](/docs/migration/from-ksp-to-compiler-plugin)를 참조하세요.
+:::
 
 Koin 어노테이션을 사용하면 클래스에 어노테이션을 추가하여 정의(definitions)를 선언할 수 있습니다. Koin 컴파일러 플러그인은 이러한 어노테이션을 처리하고 컴파일 시점에 모든 기반 Koin DSL을 자동으로 생성합니다.
 
@@ -109,8 +115,30 @@ fun main() {
 | `startKoin<T> { }` | 구성 블록과 함께 시작 |
 | `koinApplication<T>()` | 격리된 KoinApplication 생성 |
 | `koinConfiguration<T>()` | 구성 생성 (Compose, Ktor용) |
+| `module<T>()` | 단일 `@Module` 클래스 로드 |
+| `modules(A::class, B::class)` | 여러 `@Module` 클래스 로드 |
 
-여기서 `T`는 `@KoinApplication` 어노테이션이 지정된 클래스입니다.
+여기서 `T`는 `@KoinApplication`(시작 API용) 또는 `@Module`(모듈 로드 API용) 어노테이션이 지정된 클래스입니다.
+
+### 개별 모듈 로드하기
+
+`@KoinApplication` 없이 `@Module` 클래스를 직접 로드할 수 있습니다:
+
+```kotlin
+startKoin {
+    module<NetworkModule>()
+    modules(DataModule::class, CacheModule::class)
+}
+```
+
+이는 특히 **테스트**에서 유용합니다:
+
+```kotlin
+@get:Rule
+val koinTestRule = KoinTestRule.create {
+    module<NetworkModule>()
+}
+```
 
 ## 컴파일 시점 안전성 (Compile-Time Safety)
 
@@ -131,7 +159,7 @@ class MyPresenter(@Provided val external: ExternalComponent)
 
 모든 구성 옵션은 **[컴파일러 플러그인 옵션](/docs/reference/koin-annotations/options)**을 참조하세요.
 
-## ProGuard 규칙
+## ProGuard 규칙 (ProGuard Rules)
 
 ProGuard/R8를 사용하는 SDK 개발의 경우:
 

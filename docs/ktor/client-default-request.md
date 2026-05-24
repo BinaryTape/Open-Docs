@@ -97,6 +97,10 @@ val response: HttpResponse = client.get("welcome.html")
 ... 生成的 URL 将如下所示：`https://ktor.io/docs/welcome.html`。
 要了解基础 URL 和请求 URL 是如何合并的，请参阅 [DefaultRequest](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/-default-request/index.html)。
 
+> 基础 URL 路径必须以尾随斜杠结尾。否则，根据 [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986#section-5.2) URL 解析规则，请求路径将替换基础路径的最后一个片段 —— 例如，`path("v1")` 被视为文件，并在附加请求路径时被丢弃，而 `path("v1/")` 则作为目录前缀保留。
+>
+{style="note"}
+
 ### URL 参数 {id="url-params"}
 
 `url` 函数还允许您分别指定 URL 组件，例如：

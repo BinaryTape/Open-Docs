@@ -1,5 +1,7 @@
 [//]: # (title: Spring AIを使用して質問に答えるKotlinアプリを作成する — チュートリアル)
 
+<web-summary>Spring AIを使用して質問に答えるKotlinアプリを作成する方法を学びます。</web-summary>
+
 このチュートリアルでは、[Spring AI](https://spring.io/projects/spring-ai)を介してLLMに接続し、ベクトルデータベースにドキュメントを保存して、それらのドキュメントのコンテキストを使用して質問に答えるKotlinアプリを構築する方法を学びます。
 
 このチュートリアルでは、以下のツールを使用します。
@@ -340,4 +342,9 @@ IntelliJ IDEA Ultimate Editionで新しいSpring Bootプロジェクトを作成
 おめでとうございます！これで、OpenAIに接続し、Qdrantに保存されたドキュメントから取得したコンテキストを使用して質問に答えるKotlinアプリが完成しました。
 別のクエリを試したり、他のドキュメントをインポートしたりして、さらなる可能性を探ってみてください。
 
-完成したプロジェクトは、[Spring AI demo GitHubリポジトリ](https://github.com/Kotlin/Kotlin-AI-Examples/tree/master/projects/spring-ai/springAI-demo)で確認できます。また、[Kotlin AI Examples](https://github.com/Kotlin/Kotlin-AI-Examples/tree/master)で他のSpring AIの例を探索することもできます。
+完成したプロジェクトは、[Spring AI demo GitHubリポジトリ](https://github.com/Kotlin/Kotlin-AI-Examples/tree/master/projects/spring-ai/springAI-demo)で確認できます。
+
+## 次のステップ
+
+* [Kotlin AI Examples](https://github.com/Kotlin/Kotlin-AI-Examples/tree/master) で他のSpring AIの例を探索する
+* [Spring BootとClaudeを使用したタスク管理アプリケーションの作成](spring-boot-claude.md)

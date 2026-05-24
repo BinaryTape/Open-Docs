@@ -97,6 +97,10 @@ val response: HttpResponse = client.get("welcome.html")
 ... 產生的 URL 將如下所示：`https://ktor.io/docs/welcome.html`。
 若要了解基礎 URL 與請求 URL 如何合併，請參閱 [DefaultRequest](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/-default-request/index.html)。
 
+> 基礎 URL 路徑必須以結尾斜線（trailing slash）結束。否則，根據 [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986#section-5.2) 的 URL 解析規則，請求路徑會替換基礎路徑的最後一個區段 —— 例如，`path("v1")` 會被視為檔案，並在附加請求路徑時被捨棄，而 `path("v1/")` 則會保留為目錄前綴。
+>
+{style="note"}
+
 ### URL 參數 {id="url-params"}
 
 `url` 函式還允許您個別指定 URL 元件，例如：

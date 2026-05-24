@@ -82,7 +82,7 @@ Android 앱 모듈(`androidApp`)을 생성하려면 다음을 수행하세요:
 
 1. `gradle/libs.versions.toml` 파일의 버전 카탈로그에 Kotlin Android Gradle 플러그인을 추가합니다:
 
-    ```text
+    ```toml
     [plugins]
     kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
     ```
@@ -184,7 +184,7 @@ Android 앱 모듈(`androidApp`)을 생성하려면 다음을 수행하세요:
 
 1. `gradle/libs.versions.toml`의 버전 카탈로그에 Android-KMP 라이브러리 플러그인을 추가합니다:
 
-    ```text
+    ```toml
     [plugins]
     androidMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
     ```
@@ -229,7 +229,7 @@ Android 앱 모듈(`androidApp`)을 생성하려면 다음을 수행하세요:
       `composeApp` 모듈과 관련된 더 이상 필요 없는 실행 구성은 삭제해도 됩니다.
 2. `gradle/libs.versions.toml` 파일에서 AGP를 9.* 버전으로 업데이트합니다. 예:
 
-    ```text
+    ```toml
     [versions]
     agp = "9.0.0"
     ```

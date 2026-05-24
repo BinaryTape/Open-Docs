@@ -11,6 +11,7 @@
 - [PostgreSQL 方言] 添加了对 `ALTER INDEX` 的支持 (#6224 由 @griffio 贡献)
 - [SQLite 方言] 添加了对 SQLite 3.44 聚合函数 `DISTINCT`、`ORDER BY` 和 `FILTER` 的支持 (#6236 由 @griffio 贡献)
 - [SQLite 方言] 添加了对 SQLite 3.37 STRICT 表的支持 (#6230 由 @griffio 贡献)
+- [Gradle 插件] 添加了通过 `codegenExcludedColumns` 从生成的模型中排除列的支持 (#6243 由 @sokolikp 贡献)
 - [编译器] 在架构 (schema) 中添加了 `allTableNames` 函数 (#6245 由 @edenman 贡献)
 
 ### 已变更
@@ -195,7 +196,7 @@
 - [PostgreSQL 方言] 修复了 4932 PostgreSQL 默认约束函数 (#4934 由 @griffio 贡献)
 - [PostgreSQL 方言] 修复了 4879 迁移期间修改表重命名列中的 PostgreSQL 类转换错误 (#4880 由 @griffio 贡献)
 - [PostgreSQL 方言] 修复了 4474 PostgreSql 创建扩展 (#4541 由 @griffio 贡献)
-- [PostgreSQL 方言] 修复了 5018 PostgreSql 添加主键不可为 null 类型 (#5020 由 @griffio 贡献)
+- [PostgreSQL 方言] 修复了 5018 PostgreSql add Primary Key 不可为 null 类型 (#5020 由 @griffio 贡献)
 - [PostgreSQL 方言] 修复了 4703 聚合表达式 (#5071 由 @griffio 贡献)
 - [PostgreSQL 方言] 修复了 5028 PostgreSql JSON (#5030 由 @griffio 贡献)
 - [PostgreSQL 方言] 修复了 5040 PostgreSql JSON 运算符 (#5041 由 @griffio 贡献)
@@ -227,7 +228,7 @@
 - [SQLite 3.35 方言] 允许按顺序评估多个 `ON CONFLICT` 子句 (#4551 由 @griffio 贡献)
 - [JDBC 驱动程序] 添加了语言注解以提供更愉快的 SQL 编辑体验 (#4602 由 @MariusVolkhart 贡献)
 - [原生驱动程序] 原生驱动程序：添加了对 `linuxArm64` 的支持 (#4792 由 @hfhbd 贡献)
-- [Android 驱动程序] 为 `AndroidSqliteDriver` 添加了 `windowSizeBytes` 参数 (#4804 由 @BoD 贡献)
+- [Android 驱动程序] 为 `AndroidSqliteDriver` 添加了 `windowSizeBytes` 形参 (#4804 由 @BoD 贡献)
 - [Paging3 扩展] 已添加：为 `OffsetQueryPagingSource` 添加了 `initialOffset` (#4802 由 @MohamadJaara 贡献)
 
 ### 已变更
@@ -242,7 +243,7 @@
 
 ### 已修复
 - [编译器] 修复了带返回且无参数的分组语句的编译问题 (#4699 由 @griffio 贡献)
-- [编译器] 绑定带有 `SqlBinaryExpr` 的参数 (#4604 由 @griffio 贡献)
+- [编译器] 绑定带有 `SqlBinaryExpr` 的实参 (#4604 由 @griffio 贡献)
 - [IDE 插件] 如果已设置，则使用 IDEA 项目 JDK (#4689 由 @griffio 贡献)
 - [IDE 插件] 修复了 IDEA 2023.2 及更高版本中的 "Unknown element type: TYPE_NAME" 错误 (#4727)
 - [IDE 插件] 修复了一些与 2023.2 的兼容性问题
@@ -382,7 +383,7 @@
 - [IDE 插件] 将 intellij 版本提升至 221.6008.13 (由 @hfhbd 贡献)
 - [编译器] 从纯视图解析递归原始表 (由 @hfhbd 贡献)
 - [编译器] 使用来自表外键子句的值类 (由 @hfhbd 贡献)
-- [编译器] 修复了 `SelectQueryGenerator` 以支持不带圆括号的绑定表达式 (由 @bellatoris 贡献)
+- [编译器] 修复了 `SelectQueryGenerator` 以支持不带圆括号的绑定表达式 (#4301 由 @bellatoris 贡献)
 - [编译器] 修复了使用事务时 `${name}Indexes` 变量的重复生成问题 (由 @sachera 贡献)
 
 ## [1.5.5] - 2023-01-20
@@ -400,7 +401,7 @@
 
 ### 破坏性变更
 
-- Paging 3 扩展 API 已更改，仅允许对计数使用 `int` 类型。
+- Paging 3 扩展 API 已更改，仅允许对计数使用 `Int` 类型。
 - 协程扩展现在要求传入一个调度程序，而不再使用默认值。
 - 方言和驱动程序类现在是 `final` 的，请改用委托。
 
@@ -533,7 +534,7 @@ sqldelight {
 - [PostgreSQL] 支持 Postgres 中的可选限制 (Limit)
 - [PostgreSQL] 支持 Postgres `BYTEA` 类型
 - [PostgreSQL] 为 Postgres 序列 (Serial) 添加了测试
-- [PostgreSQL] 支持 Postgres 的 `for update` 语法
+- [PostgreSQL] 支持 Postgres 的 `FOR UPDATE` 语法
 - [PostgreSQL] 支持 PostgreSQL 数组类型
 - [PostgreSQL] 在 Postgres 中正确存储/检索 UUID 类型
 - [PostgreSQL] 支持 PostgreSQL `NUMERIC` 类型 (#1882)
@@ -619,7 +620,7 @@ sqldelight {
 - [SQLite] 添加了对 SQLite 3.30 方言的支持 (由 @eygraber 贡献)
 - [SQLite] 在 SQLite 中支持 `NULLS FIRST`/`LAST` (由 @eygraber 贡献)
 - [HSQL] 为 `generated` 子句添加了 HSQL 支持 (由 @MariusVolkhart 贡献)
-- [HSQL] 在 HSQL 中添加了对命名形参的支持 (由 @MariusVolkhart 贡献)
+- [HSQL] 在 HSQL 中添加了对命名参数的支持 (由 @MariusVolkhart 贡献)
 - [HSQL] 自定义了 HSQL 插入查询 (由 @MariusVolkhart 贡献)
 
 ### 已变更
@@ -655,7 +656,7 @@ sqldelight {
 - [Gradle 插件] 如果迁移任务崩溃，打印崩溃时运行的文件
 - [Gradle 插件] 在生成代码时对文件进行排序以确保输出幂等 (由 @ZacSweers 贡献)
 - [编译器] 使用更快的 API 遍历文件，且不探索整个 PSI 图
-- [编译器] 为选择函数形参添加了关键字重整 (#2759 由 @aperfilyev 贡献)
+- [编译器] 为选择函数参数添加了关键字重整 (#2759 由 @aperfilyev 贡献)
 - [编译器] 修复了迁移适配器的 `packageName` (由 @hfhbd 贡献)
 - [编译器] 在属性上而非类型上发出注解 (#2798 由 @aperfilyev 贡献)
 - [编译器] 在传递给 `Query` 子类型之前对实参进行排序 (#2379 由 @aperfilyev 贡献)
@@ -684,7 +685,7 @@ sqldelight {
 - [Gradle 插件] HMPP 支持 (#2548 由 @martinbonnin 贡献)
 - [IDE 插件] 添加了 `NULL` 比较检查 (由 @aperfilyev 贡献)
 - [IDE 插件] 添加了检查抑制器 (#2519 由 @aperfilyev 贡献)
-- [IDE 插件] 混合命名的和位置形参的检查 (由 @aperfilyev 贡献)
+- [IDE 插件] 混合命名的和位置参数的检查 (由 @aperfilyev 贡献)
 - [SQLite 驱动程序] 添加了 `mingwX86` 目标。 (#2558 由 @enginegl 贡献)
 - [SQLite 驱动程序] 添加了 M1 目标
 - [SQLite 驱动程序] 添加了 `linuxX64` 支持 (#2456 由 @chippmann 贡献)
@@ -799,7 +800,7 @@ sqldelight {
 - [编译器] 如果自定义查询发生冲突，使用文件名作为额外的软件包后缀 (#1057, #1278)
 - [编译器] 确保外键级联会导致查询监听器收到通知 (#1325, #1485)
 - [编译器] 如果合并两个相同类型，返回表类型 (#1342)
-- [编译器] 确保 `ifnull` 和 `coalesce` 的参数可以为 null (#1263)
+- [编译器] 确保 `ifnull` 和 `coalesce` 的形参可以为 null (#1263)
 - [编译器] 正确为表达式使用查询施加的为 null 性
 - [MySQL 方言] 支持 MySQL `if` 语句
 - [PostgreSQL 方言] 在 PostgreSQL 中将 `NUMERIC` 和 `DECIMAL` 检索为 `Double` (#2118)
@@ -1116,21 +1117,21 @@ sqldelight {
 ## [0.5.0] - 2016-10-19
 [0.5.0]: https://github.com/sqldelight/sqldelight/releases/tag/0.5.0
 
- * 新增：SQLite 实参可以通过工厂以类型安全的方式传递
- * 新增：IntelliJ 插件在 .sq 文件上执行格式设置
- * 新增：支持 SQLite 时间戳文字
- * 修复：参数化类型可以在 IntelliJ 中点击跳转
+ * 新增：SQLite 实参可以通过工厂以类型安全的方式传递。
+ * 新增：IntelliJ 插件在 .sq 文件上执行格式设置。
+ * 新增：支持 SQLite 时间戳文字。
+ * 修复：参数化类型可以在 IntelliJ 中点击跳转。
  * 修复：从 `Cursor` 获取时，转义的列名不再抛出 `RuntimeExceptions`。
  * 修复：Gradle 插件在尝试打印异常时不会崩溃。
 
 ## [0.4.4] - 2016-07-20
 [0.4.4]: https://github.com/sqldelight/sqldelight/releases/tag/0.4.4
 
- * 新增：原生支持 `short` 作为列的 Java 类型
- * 新增：在生成的映射器和工厂方法上添加了 Javadoc
- * 修复：`group_concat` 和 `nullif` 函数具有正确的为 null 性
- * 修复：与 Android Studio 2.2-alpha 的兼容性
- * 修复：`WITH RECURSIVE` 不再导致插件崩溃
+ * 新增：原生支持 `Short` 作为列的 Java 类型。
+ * 新增：在生成的映射器和工厂方法上添加了 Javadoc。
+ * 修复：`group_concat` 和 `nullif` 函数具有正确的为 null 性。
+ * 修复：与 Android Studio 2.2-alpha 的兼容性。
+ * 修复：`WITH RECURSIVE` 不再导致插件崩溃。
 
 ## [0.4.3] - 2016-07-07
 [0.4.3]: https://github.com/sqldelight/sqldelight/releases/tag/0.4.3
@@ -1193,7 +1194,7 @@ sqldelight {
 ## [0.2.2] - 2016-03-07
 [0.2.2]: https://github.com/sqldelight/sqldelight/releases/tag/0.2.2
 
- * 新增：对插入、更新、删除、索引和触发器语句所用列的编译时验证。
+ * 新增：向 `insert`、`update`、`delete`、`index` 和 `trigger` 语句所用列的编译时验证。
  * 修复：在文件移动/创建时 IDE 插件不崩溃。
 
 ## [0.2.1] - 2016-03-07

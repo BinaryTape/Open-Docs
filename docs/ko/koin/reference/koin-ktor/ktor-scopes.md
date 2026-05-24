@@ -75,22 +75,32 @@ class UserSessionHandler(private val call: ApplicationCall) {
 
 ## 스코프 생명 주기 콜백 (Scope Lifecycle Callbacks)
 
+요청 스코프가 닫힐 때 정리 작업을 실행하려면 `scoped` 정의에 `onClose` 콜백을 연결하세요. `onClose`는 정의에 대한 중위 함수(infix function)이며 (`requestScope { }` 내부의 블록이 아님), 인스턴스 파라미터는 Null 허용(`T?`)입니다:
+
 ```kotlin
 requestScope {
-    scoped { RequestContext(get()) }
-
-    // onCreate 콜백
-    onCreate { requestContext ->
-        requestContext.startTime = System.currentTimeMillis()
-    }
-
-    // onClose 콜백
-    onClose { requestContext ->
-        val duration = System.currentTimeMillis() - requestContext.startTime
+    scoped { RequestContext() } onClose { context ->
+        val duration = System.currentTimeMillis() - (context?.startTime ?: 0L)
         println("Request completed in ${duration}ms")
     }
 }
 ```
+
+`withOptions { onClose { ... } }`를 사용할 수도 있습니다:
+
+```kotlin
+requestScope {
+    scoped { RequestContext() } withOptions {
+        onClose { context ->
+            context?.cleanup()
+        }
+    }
+}
+```
+
+:::note
+Koin의 스코프 DSL은 각 정의마다 `onClose`를 제공하며, `onCreate` 콜백은 별도로 존재하지 않습니다. 초기화는 `scoped { }` 생성자 블록 내에서 이루어져야 합니다.
+:::
 
 :::note
 요청 스코프는 **각 HTTP 요청마다 생성되고 소멸됩니다**. 인스턴스는 요청 간에 공유되지 않으므로 스레드 안전성(thread safety)을 보장하고 상태 누수(state leakage)를 방지합니다.
@@ -202,14 +212,8 @@ val appModule = module {
 
     requestScope {
         scopedOf(::RequestLogger)
-        scopedOf(::RequestMetrics)
-
-        onCreate { metrics: RequestMetrics ->
-            metrics.start()
-        }
-
-        onClose { metrics: RequestMetrics ->
-            metrics.recordDuration()
+        scopedOf(::RequestMetrics) onClose { metrics ->
+            metrics?.recordDuration()
         }
     }
 }
@@ -240,8 +244,7 @@ fun Application.module() {
 |----------|-------------|
 | `requestScope { }` | 요청 스코프 컴포넌트 선언 |
 | `call.scope.get<T>()` | 요청 스코프 인스턴스 가져오기 |
-| `onCreate { }` | 스코프가 생성될 때의 콜백 |
-| `onClose { }` | 스코프가 닫힐 때의 콜백 |
+| `scoped { } onClose { }` | 정의별 정리(cleanup) 콜백 (인스턴스는 Null 허용) |
 | `koinModule { }` | 인라인 모듈 선언 |
 | `koinModules(...)` | 기존 모듈 로드 |
 

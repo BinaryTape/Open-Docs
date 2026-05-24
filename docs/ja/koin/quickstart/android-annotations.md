@@ -274,6 +274,6 @@ ksp {
 }
 ```
 
-:::note
-この KSP ベースのオプションは、ネイティブなコンパイル時の安全性を提供する **Koin Compiler Plugin** に置き換えられる予定です。将来のアプローチについては [Compiler Plugin](/docs/setup/compiler-plugin) を参照してください。
+:::tip
+この KSP ベースのオプションは、ネイティブなコンパイル時の安全性を提供する **Koin Compiler Plugin** に置き換えられました。[コンパイル時の安全性](/docs/reference/koin-compiler/compile-safety) および [Compiler Plugin のセットアップ](/docs/setup/compiler-plugin) を参照してください。
 :::

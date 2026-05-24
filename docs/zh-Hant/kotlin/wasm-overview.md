@@ -13,6 +13,8 @@ Wasm 是一種用於堆疊式虛擬機的二進制指令格式。由於它在自
 >
 {style="tip"}
 
+[//]: # (TODO KT-85415: 關於相容 Kotlin/Wasm 的獨立執行時，請參閱獨立執行時 (Standalone runtimes))。
+
 ## Kotlin/Wasm 與 Compose Multiplatform
 
 透過 Kotlin，您有能力經由 Compose Multiplatform 與 Kotlin/Wasm，在 Web 專案中建置應用程式並重複使用行動裝置與桌面端的使用者介面 (UI)。
@@ -32,9 +34,9 @@ Wasm 是一種用於堆疊式虛擬機的二進制指令格式。由於它在自
 Kotlin/Wasm 將 [WebAssembly System Interface (WASI)](https://wasi.dev/) 用於伺服器端開發應用程式。
 使用 Kotlin/Wasm 和 WASI 建置的應用程式使用 Wasm-WASI 目標，允許您呼叫 WASI API 並在瀏覽器環境之外執行應用程式。
 
-Kotlin/Wasm 利用 WASI 抽象化平台特定的細節，允許相同的 Kotlin 程式碼在不同平台上執行。這擴展了 Kotlin/Wasm 的觸角，使其超越 Web 應用程式，且不需要為每個執行時進行自訂處理。
+Kotlin/Wasm 利用 WASI 抽象化平台特定的細節，允許相同的 Kotlin 程式碼在不同平台上執行。這擴展了 Kotlin/Wasm 的觸角，使其超越 Web 應用程式，且不需要為每個執行時 (runtime) 進行自訂處理。
 
-WASI 提供了一個安全的標準介面，用於在不同環境中執行編譯為 WebAssembly 的 Kotlin 應用程式。
+WASI 提供了安全、標準化的介面，用於在不同環境中執行編譯為 WebAssembly 的 Kotlin 應用程式。
 
 > 若要查看 Kotlin/Wasm 和 WASI 的實際運作，請參閱 [開始使用 Kotlin/Wasm 和 WASI 教學](wasm-wasi.md)。
 >
@@ -59,7 +61,7 @@ WASI 0.2 建基於 [WebAssembly 元件模型 (WebAssembly Component Model)](http
 
 ![Kotlin/Wasm 效能](wasm-performance-compose.png){width=700}
 
-我們定期在 Kotlin/Wasm 上執行效能基準測試，這些結果來自我們在最近版本的 Google Chrome 中進行的測試。
+我們定期在 Kotlin/Wasm 上執行效能基準測試 (benchmarks)，這些結果來自我們在最近版本的 Google Chrome 中進行的測試。
 
 ## 瀏覽器 API 支援
 
@@ -67,7 +69,7 @@ Kotlin/Wasm 標準函式庫提供了瀏覽器 API 的宣告，包括 DOM API。
 透過這些宣告，您可以直接使用 Kotlin API 來存取並利用各種瀏覽器功能。 
 例如，在您的 Kotlin/Wasm 應用程式中，您可以對 DOM 元素進行操作或呼叫 fetch API，而無需從頭開始定義這些宣告。若要了解更多，請參閱我們的 [Kotlin/Wasm 瀏覽器範例](https://github.com/Kotlin/kotlin-wasm-browser-template)。
 
-瀏覽器 API 支援的宣告是使用 JavaScript [互通性功能](wasm-js-interop.md) 定義的。 
+瀏覽器 API 支援的宣告是使用 JavaScript [互通性功能 (interoperability)](wasm-js-interop.md) 定義的。 
 您可以使用相同的功能來定義您自己的宣告。此外，Kotlin/Wasm 與 JavaScript 的互通性允許您從 JavaScript 中使用 Kotlin 程式碼。如需更多資訊，請參閱 [在 JavaScript 中使用 Kotlin 程式碼](wasm-js-interop.md#use-kotlin-code-in-javascript)。
 
 ## 留下回饋

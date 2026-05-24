@@ -182,6 +182,19 @@ fun DetailScreen(itemId: String) {
 }
 ```
 
+識別子（例：ナビゲーション引数）ごとに異なる ViewModel インスタンスを作成するには、`key` パラメータを使用します：
+
+```kotlin
+@Composable
+fun DetailScreen(newsId: String) {
+    val viewModel = koinViewModel<DetailViewModel>(key = newsId) {
+        parametersOf(newsId)
+    }
+}
+```
+
+`key` を使用することで、一意な `newsId` ごとに専用の ViewModel インスタンスが確実に作成されます。これは、異なる引数を持つ複数の画面がバックスタックに保持される場合に重要です。
+
 ### クラシック DSL でのパラメータ指定
 
 ```kotlin

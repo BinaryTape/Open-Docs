@@ -182,6 +182,19 @@ fun DetailScreen(itemId: String) {
 }
 ```
 
+使用 `key` 參數為每個識別符號（例如：導覽引數）建立不同的 ViewModel 執行個體：
+
+```kotlin
+@Composable
+fun DetailScreen(newsId: String) {
+    val viewModel = koinViewModel<DetailViewModel>(key = newsId) {
+        parametersOf(newsId)
+    }
+}
+```
+
+`key` 可確保每個唯一的 `newsId` 都有自己的 ViewModel 執行個體，這對於在返回堆疊中可能具有不同引數的螢幕非常重要。
+
 ### 帶有參數的 經典 DSL
 
 ```kotlin

@@ -256,6 +256,7 @@ Tracing
     ├── SubgraphExecutionFailedEvent
     ├── LLMCallStartingEvent
     ├── LLMCallCompletedEvent
+    ├── LLMCallFailedEvent
     ├── LLMStreamingStartingEvent
     ├── LLMStreamingFrameReceivedEvent
     ├── LLMStreamingFailedEvent

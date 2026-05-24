@@ -112,8 +112,8 @@ class MyApplication : Application() {
             modules(allModules)
         }
 
-        // 대신 단위 테스트에서 verify()를 사용하세요
-        // appModule.verify()
+        // 컴파일 타임 검증을 위해 Koin 컴파일러 플러그인을 사용하거나
+        // 단위 테스트에서 verify()를 사용하세요: appModule.verify()
     }
 }
 ```

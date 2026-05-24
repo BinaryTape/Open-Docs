@@ -11,7 +11,7 @@ title: 疑難排解
 ### 問題
 
 ```kotlin
-// 循環相依性 - 會在執行階段失敗
+// 循環相依性
 class ServiceA(val serviceB: ServiceB)
 class ServiceB(val serviceA: ServiceA)
 
@@ -20,6 +20,10 @@ module {
     single { ServiceB(get()) }  // 錯誤：循環相依性！
 }
 ```
+
+:::tip 使用編譯器外掛程式在編譯期捕獲錯誤
+[Koin 編譯器外掛程式](/docs/reference/koin-compiler/compile-safety) 會在編譯期間（A2/A3 階段）偵測到循環相依性 — 無需等待執行階段。若未使用該外掛程式，此循環將在啟動時因執行階段錯誤而失敗。
+:::
 
 ### 解決方案 1：延遲注入
 
@@ -95,8 +99,8 @@ fun `verify all modules`() {
 }
 ```
 
-:::info
-`verify()` 和 `checkModules()` 都將被 Koin 編譯器外掛程式中的原生編譯期安全性取代。詳情請參閱 [Module Verification](/docs/reference/koin-test/verify)。
+:::tip
+Koin 編譯器外掛程式現在提供編譯期相依性驗證，取代了對 `verify()` 和 `checkModules()` 的需求。請參閱 [Compile-Time Safety](/docs/reference/koin-compiler/compile-safety)。
 :::
 
 ## 常見錯誤
@@ -210,7 +214,7 @@ class UserService(private val api: ApiClient)
 ## 最佳實務摘要
 
 1. **優先使用建構函式注入** - 避免在類別內部呼叫 `get()`
-2. **在測試中使用 `verify()`** - 及早發現遺失的定義
+2. **使用 Koin 編譯器外掛程式** - 在編譯期捕獲遺失的定義（或在測試中使用 `verify()`）
 3. **保持模組專注** - 每個模組單一職責
 4. **避免循環相依性** - 重構或使用延遲注入
 5. **謹慎使用限定詞** - 僅當同一型別有多個執行個體時使用

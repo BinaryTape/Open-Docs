@@ -4,10 +4,10 @@ title: 驗證您的 Koin 配置
 
 Koin 允許您驗證您的配置模組，避免在執行時才發現相依注入問題。
 
-:::info 未來：編譯期安全
-`verify()` 與 `checkModules()` API 將被 Koin 編譯器外掛程式中的 **原生編譯期安全** 功能取代。這將在建置時期驗證您的整個配置，並在執行之前擷取錯誤。
+:::tip 編譯期安全現已推出
+**Koin 編譯器外掛程式** 現在提供編譯期相依性驗證 — 在建置時期擷取遺漏的相依性、限定詞不匹配以及損壞的呼叫點。在大多數情況下，這取代了對 `verify()` 和 `checkModules()` 的需求。
 
-若要了解更多，請參閱 [Koin 編譯器外掛程式](/docs/intro/koin-compiler-plugin)。
+請參閱 [編編譯期安全](/docs/reference/koin-compiler/compile-safety) 進行遷移。
 :::
 
 ## Verify API - 僅限 JVM [3.3+]
@@ -44,7 +44,7 @@ class NiaAppModuleCheck {
 
 啟動 JUnit 測試，大功告成！
 
-`verify()` API 執行起來非常輕量，且不需要任何 mock/虛設常式即可針對您的配置執行。
+`verify()` API 執行起來非常輕量，且不需要任何模擬 (mock)/虛設常式即可針對您的配置執行。
 
 ### 使用注入參數進行驗證 [4.0+]
 
@@ -151,7 +151,7 @@ class CheckModulesTest : KoinTest {
 
 ### 使用 JUnit 規則進行模擬
 
-若要搭配 `checkModules` 使用 mock，請提供 `MockProviderRule`：
+若要搭配 `checkModules` 使用模擬 (mock)，請提供 `MockProviderRule`：
 
 ```kotlin
 @get:Rule
@@ -240,17 +240,17 @@ fun `test DI modules`(){
 
 ---
 
-## 遷移路徑
+## 遷移至編譯期安全
 
-這兩個驗證 API 都將被 Koin 編譯器外掛程式的編譯期安全功能取代：
+Koin 編譯器外掛程式現在提供編譯期相依性驗證，取代了執行時驗證的需求：
 
-| 目前 | 未來 |
-|---------|--------|
-| `module.verify()` | 編譯器外掛程式 (自動) |
-| `checkModules()` | 編譯器外掛程式 (自動) |
+| 之前 | 之後 |
+|--------|-------|
+| 測試中的 `module.verify()` | 編譯器外掛程式 (自動) |
+| 測試中的 `checkModules()` | 編譯器外掛程式 (自動) |
 | 執行時驗證 | 編譯期驗證 |
 | 手動測試設定 | 無需測試程式碼 |
 
-當編譯器外掛程式編譯期安全功能可用時，您將在建置時期獲得相依性驗證，而無需編寫任何驗證測試。
+編譯器會在每次建置時進行驗證 — 無需測試程式碼。啟用編譯器外掛程式後，您可以安全地移除您的 `verify()` 和 `checkModules()` 測試。
 
-有關設定說明，請參閱 [編譯器外掛程式設定](/docs/setup/compiler-plugin)。
+有關完整詳細資訊，請參閱 [編譯期安全](/docs/reference/koin-compiler/compile-safety)，設定說明請參閱 [編譯器外掛程式設定](/docs/setup/compiler-plugin)。

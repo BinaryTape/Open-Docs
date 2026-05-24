@@ -553,8 +553,8 @@ class ModuleVerificationTest {
 }
 ```
 
-:::info
-`verify()` 與 `checkModules()` 都將被 Koin 編譯器外掛程式中的原生編譯期安全性取代。詳情請參閱 [模組驗證](/docs/reference/koin-test/verify)。
+:::tip
+Koin 編譯器外掛程式現在提供編譯期相依性驗證，取代了對 `verify()` 與 `checkModules()` 的需求。詳情請參閱 [編譯期安全性](/docs/reference/koin-compiler/compile-safety)。
 :::
 
 ## 使用 Espresso 進行 UI 測試
@@ -1026,10 +1026,10 @@ fun testLogin()
 - 使用 `override = true` 或測試特定模組來 **覆寫模組**
 - 在 Instrumented 測試中，**使用 Fake 優於 Mock** 以獲得更好的效能
 - **測試隔離** 至關重要 - 在測試之間進行清理
-- 使用 **記憶體內資料庫** 進行快速、隔離的資料庫測試
+- **記憶體內資料庫** 進行快速、隔離的資料庫測試
 - **Compose 測試** 與 `KoinContext` 完美協作
 - **作用域測試** 驗證與生命週期繫結的相依性
-- 使用 `verify()` 進行 **模組驗證** 可及早發現配置錯誤
+- **模組驗證** 搭配 Koin 編譯器外掛程式（編譯期）或 `verify()`（執行時）可及早發現配置錯誤
 
 ## 後續步驟
 

@@ -28,7 +28,7 @@ Kotlin Multiplatform 마법사로 생성된 코드를 수정하여 `App` composa
 
 1. `gradle/libs.versions.toml` 파일을 열고 버전 카탈로그에 `kotlinx-datetime` 의존성을 추가합니다:
 
-    ```text
+    ```toml
     [versions]
     kotlinx-datetime = "0.8.0"
     

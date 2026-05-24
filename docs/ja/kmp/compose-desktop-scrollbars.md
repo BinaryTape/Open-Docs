@@ -2,6 +2,13 @@
 
 スクロール可能なコンポーネントにスクロールバーを適用できます。スクロールバーとスクロール可能なコンポーネントは、共通の状態 (state) を共有して互いに同期します。
 
+> 提供されている各スニペットは、実行可能なデスクトップアプリです。試すには以下の手順を行ってください：
+> 1. [Kotlin Multiplatform IDE プラグイン](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform) または [オンラインウィザード](https://kmp.jetbrains.com/?android=true&desktop=true&includeTests=false) を使用して、Compose Multiplatform プロジェクトを作成します。
+> 2. デスクトップのエントリポイントファイルを開きます。例：`desktopApp/src/main/kotlin/com/example/my_desktop_app/main.kt`。
+> 3. その内容を以下のスニペットで置き換えます。
+>
+{style="note" id="desktop-snippets-intro"}
+
 ## スクロール修飾子
 
 `verticalScroll` および `horizontalScroll` 修飾子 (modifiers) は、要素のコンテンツの境界 (bounds) がその最大サイズ制約よりも大きい場合に、ユーザーが要素をスクロールできるようにする最もシンプルな方法を提供します。
@@ -139,7 +146,6 @@ fun LazyScrollable() {
             .background(color = Color(180, 180, 180))
             .padding(10.dp)
     ) {
-
         val state = rememberLazyListState()
 
         LazyColumn(Modifier.fillMaxSize().padding(end = 12.dp), state) {

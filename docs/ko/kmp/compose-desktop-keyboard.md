@@ -5,6 +5,8 @@
 * 포커스된 요소 기반의 이벤트 핸들러.
 * 윈도우 스코프의 이벤트 핸들러.
 
+undefined
+
 ## 포커스된 컴포넌트에서의 이벤트
 
 이 방식은 키보드의 키를 누를 때 현재 포커스된 컴포넌트의 이벤트 핸들러가 트리거됨을 의미합니다.
@@ -69,7 +71,7 @@ fun main() = singleWindowApplication (title = "Key events") {
 
 ## 윈도우 스코프에서의 이벤트
 
-현재 윈도우 내에서 항상 활성화되는 키보드 이벤트 핸들러를 정의하려면 `Window`, `singleWindowApplication` 및 `Dialog` 함수에서 사용할 수 있는 `onPreviewKeyEvent` 및 `onKeyEvent` 파라미터를 사용하세요. 이들은 이벤트가 소비되지 않았을 때 이벤트가 전달(dispatch)되는 방식에서 차이가 있습니다. `onPreviewKeyEvent`는 이벤트를 첫 번째 자식에게 전달하고, `onKeyEvent`는 이벤트를 컴포저블의 부모에게 전달합니다. 일반적으로 `onPreviewKeyEvent`는 화면 전체의 키보드 단축키까지 구현할 수 있어 이벤트를 가로채는 데 선호됩니다.
+현재 윈도우 내에서 항상 활성화되는 키보드 이벤트 핸들러를 정의하려면 `Window`, `singleWindowApplication` 및 `Dialog` 함수에서 사용할 수 있는 `onPreviewKeyEvent` 및 `onKeyEvent` 파라미터를 사용하세요. 이들은 이벤트가 소비되지 않았을 때 이벤트가 전달(dispatch)되는 방식에서 차이가 있습니다: `onPreviewKeyEvent`는 이벤트를 첫 번째 자식에게 전달하고, `onKeyEvent`는 이벤트를 컴포저블의 부모에게 전달합니다. 일반적으로 `onPreviewKeyEvent`는 화면 전체의 키보드 단축키까지 구현할 수 있어 이벤트를 가로채는 데 선호됩니다.
 
 다음 샘플은 `Escape`를 눌러 팝업 다이얼로그를 닫거나 <shortcut>Ctrl+Shift+C</shortcut> 단축키를 눌러 윈도우 콘텐츠를 변경하는 등의 윈도우 상호작용을 보여줍니다. 이 코드를 `sharedUI/src/jvmMain/kotlin` 경로의 `main.kt` 파일에 추가하세요:
 

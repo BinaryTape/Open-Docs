@@ -121,6 +121,7 @@ startKoin {
 | ファクトリ | `factory { Class(get()) }` | `factoryOf(::Class)` | `factory<Class>()` |
 | スコープ | `scoped { Class(get()) }` | `scopedOf(::Class)` | `scoped<Class>()` |
 | ViewModel | `viewModel { VM(get()) }` | `viewModelOf(::VM)` | `viewModel<VM>()` |
+| ファンクションビルダー (Function Builder) | `single { fn(get()) }` | — | `single { create(::fn) }` |
 
 ### 基本的なモジュール
 

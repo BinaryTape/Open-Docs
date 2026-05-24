@@ -86,7 +86,7 @@
 | 보강 도구 | 동작 |
 |---|---|
 | `SystemPromptAugmenter()` | 프롬프트 시작 부분에 시스템 메시지로 컨텍스트를 삽입합니다 (시스템 메시지가 없으면 아무 작업도 수행하지 않음) |
-| `UserPromptAugmenter()` | 마지막 사용자 메시지 앞에 별도의 사용자 메시지로 컨텍스트를 삽입합니다 |
+| `UserPromptAugmenter()` | 마지막 사용자 메시지 끝에 검색된 컨텍스트를 별도의 텍스트 파트로 추가합니다 (사용자 메시지가 없으면 아무 작업도 수행하지 않음) |
 | `PromptAugmenter { prompt, context -> ... }` | 람다를 통한 사용자 정의 보강 |
 
 ### 검색 쿼리 제공자 (Search Query Providers)

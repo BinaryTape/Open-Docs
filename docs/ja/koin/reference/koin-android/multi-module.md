@@ -82,7 +82,7 @@ val loginModule = module {
 }
 ```
 
-## 動的なモジュールのロード
+## 動的なフィーチャーのロード
 
 Activityのライフサイクルに合わせて、必要に応じて（オンデマンドで）フィーチャーモジュールをロードします。
 
@@ -143,6 +143,12 @@ class LoginViewModelTest : KoinTest {
 ```
 
 ### すべてのモジュールを検証する
+
+:::tip
+Koinコンパイラプラグインは、コンパイル時に完全な依存関係グラフを検証するようになったため、ランタイムでの検証が不要になりました。[Compile-Time Safety](/docs/reference/koin-compiler/compile-safety) を参照してください。
+:::
+
+コンパイラプラグインを使用していない場合は、ランタイムでモジュールを検証できます。
 
 ```kotlin
 class ModuleCheckTest : KoinTest {

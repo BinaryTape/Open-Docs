@@ -575,21 +575,12 @@ Agent 持久化功能提供了用于处理检查点的便捷扩展函数：
     import ai.koog.agents.snapshot.feature.persistence
     import ai.koog.prompt.message.Message.User
     import ai.koog.serialization.JSONPrimitive
-    val customInput = JSONPrimitive("custom-input")
     val customOutput = JSONPrimitive("custom-output")
     val customMessageHistory = emptyList<User>()
     -->
     ```kotlin
     suspend fun example(context: AIAgentContext) {
-        // 您可以在某个节点之前设置执行点并为其提供输入：
-        context.persistence().setExecutionPoint(
-            agentContext = context,
-            nodePath = context.executionInfo.path(),
-            messageHistory = customMessageHistory,
-            input = customInput
-        )
-
-        // 或者在某个节点之后设置执行点并提供该节点的输出：
+        // 您可以在某个节点之后设置执行点并提供该节点的输出：
         context.persistence().setExecutionPointAfterNode(
             agentContext = context,
             nodePath = context.executionInfo.path(),
@@ -612,15 +603,7 @@ Agent 持久化功能提供了用于处理检查点的便捷扩展函数：
     ```java
     Persistence persistence = PersistenceKt.persistence(context);
 
-    // 在节点之前设置执行点并为其提供输入：
-    persistence.setExecutionPoint(
-        context,
-        context.getExecutionInfo().path(),
-        customMessageHistory,
-        customInput
-    );
-
-    // 或者在节点之后设置执行点并提供该节点的输出：
+    // 在节点之后设置执行点并提供该节点的输出：
     persistence.setExecutionPointAfterNode(
         context,
         context.getExecutionInfo().path(),

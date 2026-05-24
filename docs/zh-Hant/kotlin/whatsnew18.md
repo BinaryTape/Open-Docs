@@ -8,7 +8,7 @@ Kotlin 1.8.0 版本已發布，以下是一些重大亮點：
 
 * [適用於 JVM 的新實驗性函式：遞迴複製或刪除目錄內容](#recursive-copying-or-deletion-of-directories)
 * [提升 kotlin-reflect 效能](#improved-kotlin-reflect-performance)
-* [新的 -Xdebug 編譯器選項，提供更好的偵錯體驗](#a-new-compiler-option-for-disabling-optimizations)
+* [新的 -Xdebug 編編譯器選項，提供更好的偵錯體驗](#a-new-compiler-option-for-disabling-optimizations)
 * [`kotlin-stdlib-jdk7` 與 `kotlin-stdlib-jdk8` 已併入 `kotlin-stdlib`](#updated-jvm-compilation-target)
 * [提升 Objective-C/Swift 互通性](#improved-objective-c-swift-interoperability)
 * [與 Gradle 7.3 相容](#gradle)

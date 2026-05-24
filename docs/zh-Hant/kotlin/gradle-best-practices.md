@@ -18,9 +18,9 @@
 
 ### 使用版本目錄
 
-在 `libs.versions.toml` 檔案中使用版本目錄（version catalog）來集中管理相依性。這讓您能夠在多個專案中一致地定義和重用版本、程式庫和外掛程式。
+在 `libs.versions.toml` 檔案中使用版本目錄 (version catalog) 來集中管理相依性。這讓您能夠在多個專案中一致地定義和重用版本、程式庫和外掛程式。
 
-```kotlin
+```toml
 [versions]
 kotlinxCoroutines = "%coroutinesVersion%"
 

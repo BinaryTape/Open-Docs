@@ -19,7 +19,7 @@ Androidモジュールの場合：
 
 1. ComposeコンパイラGradleプラグインを[Gradleバージョンカタログ](https://docs.gradle.org/current/userguide/platforms.html#sub:conventional-dependencies-toml)に追加します。
 
- ```
+ ```toml
  [versions]
  # ...
  kotlin = "%kotlinVersion%"

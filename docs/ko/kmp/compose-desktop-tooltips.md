@@ -2,6 +2,8 @@
 
 `TooltipArea` 컴포저블을 사용하여 어떤 컴포넌트에도 툴팁을 추가할 수 있습니다. `TooltipArea`는 `Box` 컴포넌트와 유사하며 툴팁을 표시할 수 있습니다.
 
+undefined
+
 `TooltipArea` 컴포저블은 다음과 같은 주요 매개변수를 가집니다:
 
 * `tooltip`: 툴팁의 컴포저블 콘텐츠입니다.

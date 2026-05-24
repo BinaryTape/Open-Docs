@@ -90,10 +90,21 @@ class MyOtherScopedComponent(
 
 您可能需要解析來自另一個無法直接存取之作用域的組建。為此，您需要為相依性加上 `@ScopeId` 註解，告訴 Koin 在給定作用域 ID 的作用域中尋找此相依性。
 
+使用字串名稱：
+
 ```kotlin
 @Factory
 class MyFactory(
-  @ScopeId("my_scope_id") val myScopedComponent :MyScopedComponent
+  @ScopeId(name = "my_scope_id") val myScopedComponent : MyScopedComponent
+)
+```
+
+或者使用型別參照：
+
+```kotlin
+@Factory
+class MyFactory(
+  @ScopeId(MyScope::class) val myScopedComponent : MyScopedComponent
 )
 ```
 
@@ -175,7 +186,7 @@ fragmentScope {
 
 #### @ViewModelScope
 
-在 ViewModel 作用域中宣告組建。此註解**與 Kotlin 多平台 (KMP) 相容**，可同時在 Android ViewModels 與 Compose Multiplatform ViewModels 運作：
+在 ViewModel 作用域中宣告組建。此註解與 Kotlin 多平台 (KMP) 相容，可同時在 Android ViewModels 與 Compose Multiplatform ViewModels 運作：
 
 ```kotlin
 @ViewModelScope

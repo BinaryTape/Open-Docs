@@ -2,6 +2,8 @@
 
 在您的桌面项目中，您可以监听各种鼠标事件，例如点击、移动、滚动或进入和退出输入区域。
 
+undefined
+
 ## 点击监听器 (Click listeners)
 
 点击监听器在 Compose Multiplatform for Android 和 Compose Multiplatform for desktop 中均可用，因此您的代码可以在两个平台上运行。
@@ -62,7 +64,8 @@ fun main() = singleWindowApplication(title = "Mouse clicks") {
 
 ## 移动监听器 (Move listeners)
 
-> `onPointerEvent` 修饰符处于 [实验性](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 阶段。需要选择加入（详情见下文），且您应仅将其用于评估目的。有关 [稳定](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 的 API，请参阅 [`Modifier.pointerInput`](#listening-for-raw-events-in-common-code-via-pointerinput)。
+> `onPointerEvent` 修饰符处于 [实验性](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 阶段。需要选择加入（详情见下文），且您应仅将其用于评估目的。
+> 有关 [稳定](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 的 API，请参阅 [`Modifier.pointerInput`](#listening-for-raw-events-in-common-code-via-pointerinput)。
 >
 {style="warning"}
 
@@ -105,7 +108,8 @@ fun main() = singleWindowApplication(title = "Mouse move listeners") {
 
 ## 进入监听器 (Enter listeners)
 
-> `onPointerEvent` 修饰符处于 [实验性](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 阶段。需要选择加入（详情见下文），且您应仅将其用于评估目的。有关 [稳定](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 的 API，请参阅 [`Modifier.pointerInput`](#listening-for-raw-events-in-common-code-via-pointerinput)。
+> `onPointerEvent` 修饰符处于 [实验性](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 阶段。需要选择加入（详情见下文），且您应仅将其用于评估目的。
+> 有关 [稳定](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 的 API，请参阅 [`Modifier.pointerInput`](#listening-for-raw-events-in-common-code-via-pointerinput)。
 >
 {style="warning"}
 
@@ -160,7 +164,8 @@ fun main() = singleWindowApplication(title = "Mouse enter listeners") {
 
 ## 滚动监听器 (Scroll listeners)
 
-> `onPointerEvent` 修饰符处于 [实验性](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 阶段。需要选择加入（详情见下文），且您应仅将其用于评估目的。有关 [稳定](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 的 API，请参阅 [`Modifier.pointerInput`](#listening-for-raw-events-in-common-code-via-pointerinput)。
+> `onPointerEvent` 修饰符处于 [实验性](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 阶段。需要选择加入（详情见下文），且您应仅将其用于评估目的。
+> 有关 [稳定](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 的 API，请参阅 [`Modifier.pointerInput`](#listening-for-raw-events-in-common-code-via-pointerinput)。
 >
 {style="warning"}
 
@@ -461,7 +466,8 @@ fun main() = singleWindowApplication(title = "Drag") {
 
 ## 通过 Swing 互操作性访问原始 AWT 事件
 
-> `onPointerEvent` 修饰符处于 [实验性](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 阶段。需要选择加入（详情见下文），且您应仅将其用于评估目的。有关 [稳定](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 的 API，请参阅 [`Modifier.pointerInput`](#listening-for-raw-events-in-common-code-via-pointerinput)。
+> `onPointerEvent` 修饰符处于 [实验性](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 阶段。需要选择加入（详情见下文），且您应仅将其用于评估目的。
+> 有关 [稳定](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 的 API，请参阅 [`Modifier.pointerInput`](#listening-for-raw-events-in-common-code-via-pointerinput)。
 >
 {style="warning"}
 

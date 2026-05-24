@@ -13,6 +13,8 @@ Kotlin/Wasm은 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-mult
 >
 {style="tip"}
 
+[//]: # (TODO KT-85415: Kotlin/Wasm 호환 독립형 런타임에 대해서는 독립형 런타임(Standalone runtimes)을 참고하세요).
+
 ## Kotlin/Wasm 및 Compose Multiplatform
 
 Kotlin을 사용하면 Compose Multiplatform 및 Kotlin/Wasm을 통해 웹 프로젝트에서 모바일 및 데스크톱 사용자 인터페이스(UI)를 빌드하고 재사용할 수 있습니다.

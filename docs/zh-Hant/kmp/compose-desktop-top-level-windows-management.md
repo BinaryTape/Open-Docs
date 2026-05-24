@@ -1,6 +1,8 @@
 [//]: # (title: 頂層視窗管理)
 
-Compose Multiplatform for desktop 提供了多種管理視窗的功能。你可以將視窗隱藏到系統匣、使其可拖曳、適應大小、變更位置等等。
+Compose Multiplatform for desktop 提供了多種管理視窗的功能。你可以將視窗隱藏到系統匣、使其可拖曳、自適應大小、變更位置等等。
+
+undefined
 
 ## 開啟與關閉視窗
 

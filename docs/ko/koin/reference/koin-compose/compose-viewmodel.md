@@ -182,6 +182,19 @@ fun DetailScreen(itemId: String) {
 }
 ```
 
+`key` 파라미터를 사용하여 식별자(예: 네비게이션 인자)별로 별도의 ViewModel 인스턴스를 생성할 수 있습니다:
+
+```kotlin
+@Composable
+fun DetailScreen(newsId: String) {
+    val viewModel = koinViewModel<DetailViewModel>(key = newsId) {
+        parametersOf(newsId)
+    }
+}
+```
+
+`key`는 각 고유한 `newsId`가 자신만의 ViewModel 인스턴스를 갖도록 보장합니다. 이는 서로 다른 인자를 가진 화면들이 백 스택에 동시에 존재할 수 있는 경우에 중요합니다.
+
 ### 파라미터가 있는 클래식 DSL
 
 ```kotlin

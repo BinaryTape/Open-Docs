@@ -81,7 +81,7 @@ val agent = AIAgent(
     import ai.koog.agents.core.agent.config.AIAgentConfig
     import ai.koog.agents.features.acp.AcpAgent
     import ai.koog.agents.features.acp.toKoogMessage
-    import ai.koog.prompt.dsl.Prompt
+    import ai.koog.prompt.Prompt
     import ai.koog.prompt.dsl.prompt
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.executor.model.PromptExecutor
@@ -241,7 +241,7 @@ ACP 客户端将用户输入作为 [`ContentBlock`](https://agentclientprotocol.
 
 <!--- INCLUDE
 import ai.koog.agents.features.acp.toKoogMessage
-import ai.koog.prompt.dsl.Prompt
+import ai.koog.prompt.Prompt
 import com.agentclientprotocol.model.ContentBlock
 import ai.koog.utils.time.KoogClock
 

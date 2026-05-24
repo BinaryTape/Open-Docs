@@ -20,6 +20,8 @@
 
 ### 関連項目
 
+AIエージェントを活用したい場合は、[Spring BootとClaudeでタスク管理アプリケーションを作成する](spring-boot-claude.md)チュートリアルを試してみてください。
+
 JavaからKotlinへの相互運用（J2K）および移行ガイドもご覧ください：
 
 * [KotlinからJavaを呼び出す](java-interop.md) および [JavaからKotlinを呼び出す](java-to-kotlin-interop.md)

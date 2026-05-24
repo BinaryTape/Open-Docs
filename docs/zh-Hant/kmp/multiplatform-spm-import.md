@@ -32,7 +32,7 @@
 要嘗試 SwiftPM 匯入功能，請確保你使用的是 Kotlin Multiplatform Gradle 外掛程式的 **%kotlinEapVersion%** 版本。
 `gradle/libs.versions.toml` 檔案範例如下：
 
-```text
+```toml
 [versions]
 kotlin = "%kotlinEapVersion%"
 
@@ -195,7 +195,7 @@ import swiftPMImport.groupName.subproject.FIRApp
 你應該將鎖定檔案提交至你的 存儲庫，以確保所有 組建 使用相同的相依性。
 為了簡化 檔案 管理，你可以將整個 `.swiftpm-locks` 目錄提交至你的 存儲庫。
 雖然只有 `Package.resolved` 檔案對於相依性同步至關重要，
-但保留整個目錄可以加速第一次 組建 期間的解析。
+但保留整個目錄可以加速第一次 組建 期間的解析。 
 
 當你在 組建 指令碼 中變更 SwiftPM 相依性集合或 版本 時，鎖定檔案會自動更新。
 你也可以 [手動強制更新鎖定檔案](#force-an-update-of-the-lock-file)。
@@ -212,7 +212,7 @@ kotlin {
     swiftDependencies {
         // 當未為 `packageResolvedSynchronization` 設定值時，
         // 該子專案會被分配一個預設群組識別碼，
-        // 就像這樣設定一樣：
+        // 就像這樣設定一樣： 
         // packageResolvedSynchronization = identifier("default")
     }
 }

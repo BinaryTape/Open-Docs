@@ -144,6 +144,12 @@ class LoginViewModelTest : KoinTest {
 
 ### 모든 모듈 검증
 
+:::tip
+이제 Koin 컴파일러 플러그인이 컴파일 시간에 전체 의존성 그래프를 검증하여 런타임 검증의 필요성을 대체합니다. [컴파일 타임 안전성(Compile-Time Safety)](/docs/reference/koin-compiler/compile-safety)을 참조하세요.
+:::
+
+컴파일러 플러그인을 사용하지 않는 경우, 런타임에 모듈을 검증할 수 있습니다:
+
 ```kotlin
 class ModuleCheckTest : KoinTest {
 

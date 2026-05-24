@@ -32,6 +32,33 @@ fun main() {
 | `startKoin<T> { }` | 설정 블록과 함께 시작 |
 | `koinApplication<T>()` | 격리된 KoinApplication 생성 |
 | `koinConfiguration<T>()` | 설정 생성 (Compose, Ktor용) |
+| `module<T>()` | 단일 `@Module` 클래스 로드 |
+| `modules(A::class, B::class)` | 여러 `@Module` 클래스 로드 |
+
+### 개별 모듈 로드하기
+
+`@KoinApplication` 없이 `@Module` 클래스를 직접 로드하려면 `module<T>()` 또는 `modules(vararg KClass)`를 사용하세요:
+
+```kotlin
+startKoin {
+    module<NetworkModule>()
+    modules(DataModule::class, CacheModule::class)
+}
+```
+
+이 방식은 테스트 환경이나 어노테이션 모듈을 DSL 설정과 혼합하여 사용할 때 유용합니다:
+
+```kotlin
+// 테스트에서 — 필요한 모듈만 로드
+@get:Rule
+val koinTestRule = KoinTestRule.create {
+    module<NetworkModule>()
+}
+```
+
+:::info
+`module<T>()`와 `modules(vararg KClass)`는 컴파일러 플러그인이 컴파일 시점에 가로채서 변환하는 스텁(stub) 함수입니다. 이를 사용하려면 Koin 컴파일러 플러그인이 적용되어 있어야 합니다.
+:::
 
 ### @KoinApplication 파라미터
 
@@ -48,6 +75,42 @@ class ProdApp
 
 :::info
 설정이 지정되지 않은 경우, `@Configuration`(기본 레이블)으로 표시된 모듈이 자동으로 로드됩니다.
+:::
+
+### 모듈 로드 순서 및 오버라이드(Overrides)
+
+Koin은 런타임에 **마지막에 로드된 것이 우선(last-wins)** 적용됩니다. 즉, 두 모듈이 동일한 타입을 정의할 경우 마지막에 로드된 모듈이 우선권을 가집니다. 컴파일러 플러그인은 `@KoinApplication`에서 다음과 같은 순서로 모듈 목록을 구성합니다:
+
+1. **자동 탐색된(Auto-discovered) `@Configuration` 모듈** (로컬 + 종속성 JAR) — 먼저 로드됨
+2. **명시적인 `@KoinApplication(modules = [A, B, C])`** — **선언된 순서대로** 마지막에 로드됨
+
+따라서 애플리케이션 레벨의 오버라이드는 항상 종속성 라이브러리의 기본값보다 우선합니다:
+
+```kotlin
+// 종속성 라이브러리 모듈 내
+@Module @Configuration
+class CoreModule {
+    @Singleton fun feature(): Feature = DefaultFeature()
+}
+
+// 애플리케이션 모듈 내
+@Module
+class AppModule {
+    @Singleton fun feature(): Feature = AppFeature()  // 커스텀 오버라이드
+}
+
+@KoinApplication(modules = [AppModule::class])
+class MyApp
+// 로드 순서: CoreModule (DefaultFeature) → AppModule (AppFeature가 우선함)
+// 런타임에 get<Feature>()는 AppFeature를 반환합니다.
+```
+
+명시적 목록 내에서는 선언된 순서가 유지됩니다. 따라서 `@KoinApplication(modules = [A, B, C])`는 A, B, C 순서로 로드되며, 이 셋 중에서는 C가 우선권을 가집니다. 각 항목의 `@Module(includes = [...])` 체인은 해당 항목과 함께 그룹화되어 유지됩니다.
+
+만약 어떤 모듈이 명시적 목록에 포함되어 있으면서 `@Configuration`으로도 탐색되었다면, 해당 모듈은 **명시적 위치**에서 한 번만 로드됩니다. 따라서 `modules = [...]`의 선언 순서가 항상 오버라이드 우선순위를 결정합니다.
+
+:::tip
+여러 `@Configuration` 모듈 간에 (클래스패스 스캔 순서가 아닌) 특정 로드 순서가 필요한 경우, `@KoinApplication(modules = [Core::class, Feature::class, App::class])`와 같이 명시적으로 나열하세요. 명시적 목록은 선언 순서를 존중합니다.
 :::
 
 ## @Configuration을 이용한 설정 관리

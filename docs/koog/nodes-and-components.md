@@ -94,7 +94,6 @@ graph LR
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.extension.nodeDoNothing
@@ -170,7 +169,6 @@ graph LR
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.extension.nodeAppendPrompt
@@ -315,12 +313,10 @@ graph LR
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.extension.nodeLLMRequest
     import ai.koog.agents.core.dsl.extension.nodeDoNothing
-    import ai.koog.agents.core.dsl.extension.asUserMessage
     val strategy = strategy<String, String>("strategy_name") {
         val getUserQuestion by nodeDoNothing<String>()
     -->
@@ -329,7 +325,7 @@ graph LR
     -->
     ```kotlin
     val requestLLM by nodeLLMRequest("requestLLM")
-    edge(getUserQuestion forwardTo requestLLM asUserMessage { it })
+    edge(getUserQuestion forwardTo requestLLM)
     ```
     <!--- KNIT example-nodes-and-component-04.kt -->
 
@@ -360,7 +356,6 @@ graph LR
     strategy.edge(AIAgentEdge.builder()
         .from(getUserQuestion)
         .to(requestLLM)
-        .asUserMessage(s -> s)
         .build());
     ```
     <!--- KNIT exampleNodesAndComponentsJava04.java -->
@@ -433,12 +428,10 @@ graph LR
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.extension.nodeLLMRequest
     import ai.koog.agents.core.dsl.extension.nodeDoNothing
-    import ai.koog.agents.core.dsl.extension.asUserMessage
     val strategy = strategy<String, String>("strategy_name") {
         val getComplexUserQuestion by nodeDoNothing<String>()
     -->
@@ -447,7 +440,7 @@ graph LR
     -->
     ```kotlin
     val requestLLMMultipleTools by nodeLLMRequest()
-    edge(getComplexUserQuestion forwardTo requestLLMMultipleTools asUserMessage { it })
+    edge(getComplexUserQuestion forwardTo requestLLMMultipleTools)
     ```
     <!--- KNIT example-nodes-and-component-05.kt -->
 
@@ -478,7 +471,6 @@ graph LR
     strategy.edge(AIAgentEdge.builder()
         .from(getComplexUserQuestion)
         .to(requestLLMMultipleTools)
-        .asUserMessage(s -> s)
         .build());
     ```
     <!--- KNIT exampleNodesAndComponentsJava05.java -->
@@ -515,7 +507,6 @@ graph LR
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
@@ -598,10 +589,9 @@ graph LR
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
-    import ai.koog.agents.core.dsl.extension.nodeExecuteToolsAndGetResults
+    import ai.koog.agents.core.dsl.extension.nodeExecuteTools
     import ai.koog.agents.core.dsl.extension.nodeLLMRequest
     import ai.koog.agents.core.dsl.extension.onToolCalls
     val strategy = strategy<String, String>("strategy_name") {
@@ -611,7 +601,7 @@ graph LR
     -->
     ```kotlin
     val requestLLM by nodeLLMRequest()
-    val executeTool by nodeExecuteToolsAndGetResults()
+    val executeTool by nodeExecuteTools()
     edge(requestLLM forwardTo executeTool onToolCalls { true })
     ```
     <!--- KNIT example-nodes-and-component-07.kt -->
@@ -641,7 +631,7 @@ graph LR
     strategy.edge(AIAgentEdge.builder()
         .from(requestLLM)
         .to(executeTool)
-        .onToolCalls(call -> true)
+        .onToolCalls()
         .build());
     ```
     <!--- KNIT exampleNodesAndComponentsJava07.java -->
@@ -676,10 +666,9 @@ graph LR
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
-    import ai.koog.agents.core.dsl.extension.nodeExecuteToolsAndGetResults
+    import ai.koog.agents.core.dsl.extension.nodeExecuteTools
     import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResults
     val strategy = strategy<String, String>("strategy_name") {
     -->
@@ -687,7 +676,7 @@ graph LR
     }
     -->
     ```kotlin
-    val executeTool by nodeExecuteToolsAndGetResults()
+    val executeTool by nodeExecuteTools()
     val sendToolResultToLLM by nodeLLMSendToolResults()
     edge(executeTool forwardTo sendToolResultToLLM)
     ```
@@ -710,7 +699,7 @@ graph LR
     -->
     ```java
     var executeTool = AIAgentNode.executeTools("executeTool");
-    var sendToolResultToLLM = AIAgentNode.llmRequest("sendToolResultToLLM");
+    var sendToolResultToLLM = AIAgentNode.llmSendToolResults("sendToolResultToLLM");
 
     strategy.edge(executeTool, sendToolResultToLLM);
     ```
@@ -746,11 +735,10 @@ graph LR
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.extension.nodeLLMRequest
-    import ai.koog.agents.core.dsl.extension.nodeExecuteToolsAndGetResults
+    import ai.koog.agents.core.dsl.extension.nodeExecuteTools
     import ai.koog.agents.core.dsl.extension.onToolCalls
     val strategy = strategy<String, String>("strategy_name") {
     -->
@@ -759,7 +747,7 @@ graph LR
     -->
     ```kotlin
     val requestLLMMultipleTools by nodeLLMRequest()
-    val executeMultipleTools by nodeExecuteToolsAndGetResults(parallel = true)
+    val executeMultipleTools by nodeExecuteTools(parallel = true)
     edge(requestLLMMultipleTools forwardTo executeMultipleTools onToolCalls { true })
     ```
     <!--- KNIT example-nodes-and-component-09.kt -->
@@ -790,7 +778,7 @@ graph LR
     strategy.edge(AIAgentEdge.builder()
         .from(requestLLMMultipleTools)
         .to(executeMultipleTools)
-        .onToolCalls(call -> true)
+        .onToolCalls()
         .build());
     ```
     <!--- KNIT exampleNodesAndComponentsJava09.java -->
@@ -825,20 +813,19 @@ graph LR
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResults
-    import ai.koog.agents.core.dsl.extension.nodeExecuteToolsAndGetResults
+    import ai.koog.agents.core.dsl.extension.nodeExecuteTools
     val strategy = strategy<String, String>("strategy_name") {
     -->
     <!--- SUFFIX
     }
     -->
     ```kotlin
-    val executeMultipleTools by nodeExecuteToolsAndGetResults(parallel = true)
-    val sendMultipleToolResultsToLLM by nodeLLMSendToolResults()
-    edge(executeMultipleTools forwardTo sendMultipleToolResultsToLLM)
+    val executeTools by nodeExecuteTools(parallel = true)
+    val sendToolResultsToLLM by nodeLLMSendToolResults()
+    edge(executeTools forwardTo sendToolResultsToLLM)
     ```
     <!--- KNIT example-nodes-and-component-10.kt -->
 
@@ -859,10 +846,10 @@ graph LR
     }
     -->
     ```java
-    var executeMultipleTools = AIAgentNode.executeTools("executeMultipleTools");
-    var sendMultipleToolResultsToLLM = AIAgentNode.llmRequest("sendMultipleToolResultsToLLM");
+    var executeTools = AIAgentNode.executeTools("executeTools");
+    var sendToolResultsToLLM = AIAgentNode.llmSendToolResults("sendToolResultsToLLM");
 
-    strategy.edge(executeMultipleTools, sendMultipleToolResultsToLLM);
+    strategy.edge(executeTools, sendToolResultsToLLM);
     ```
     <!--- KNIT exampleNodesAndComponentsJava10.java -->
 
@@ -890,7 +877,7 @@ graph LR
 
 ### 节点转换
 
-在 Kotlin 中，[`transform()`](api:agents-core::ai.koog.agents.core.dsl.builder.AIAgentNodeDelegate.transform) 函数创建一个新的 `AIAgentNodeDelegate`，它包装原始节点并对其输出应用转换函数。在 Java 中，您需要使用 `AIAgentNode.builder()` 和显式类型参数，手动编写包含转换逻辑的节点。
+在 Kotlin 中，[`transform()`](api:agents-core::ai.koog.agents.core.dsl.builder.AIAgentNodeDelegate.transform) 函数创建一个新的 `AIAgentNodeDelegate`，它包装原始 node 并对其输出应用转换函数。在 Java 中，您需要使用 `AIAgentNode.builder()` 和显式类型参数，手动编写包含转换逻辑的节点。
 
 === "Kotlin"
 
@@ -923,7 +910,6 @@ graph LR
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.extension.nodeDoNothing
@@ -985,11 +971,9 @@ graph LR
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.extension.nodeLLMRequest
-    import ai.koog.agents.core.dsl.extension.asUserMessage
     import ai.koog.prompt.message.MessagePart
     val strategy = strategy<String, Int>("strategy_name") {
     -->
@@ -1002,7 +986,7 @@ graph LR
 ") { it.text }.length
     }
 
-    edge(nodeStart forwardTo lengthNode asUserMessage { it })
+    edge(nodeStart forwardTo lengthNode)
     edge(lengthNode forwardTo nodeFinish)
     ```
     <!--- KNIT example-nodes-and-component-13.kt -->
@@ -1043,7 +1027,6 @@ graph LR
     strategy.edge(AIAgentEdge.builder()
         .from(strategy.nodeStart)
         .to(llmRequest)
-        .asUserMessage(s -> s)
         .build());
     strategy.edge(llmRequest, lengthNode);
     strategy.edge(lengthNode, strategy.nodeFinish);
@@ -1258,7 +1241,6 @@ Koog 提供了结合各种节点的预定义策略。
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.extension.*
@@ -1266,10 +1248,10 @@ Koog 提供了结合各种节点的预定义策略。
     ```kotlin
     public fun singleRunStrategy(): AIAgentGraphStrategy<String, String> = strategy("single_run") {
         val nodeCallLLM by nodeLLMRequest("sendInput")
-        val nodeExecuteTool by nodeExecuteToolsAndGetResults("nodeExecuteTool")
+        val nodeExecuteTool by nodeExecuteTools("nodeExecuteTool")
         val nodeSendToolResult by nodeLLMSendToolResults("nodeSendToolResult")
 
-        edge(nodeStart forwardTo nodeCallLLM asUserMessage { it })
+        edge(nodeStart forwardTo nodeCallLLM)
         edge(nodeCallLLM forwardTo nodeExecuteTool onToolCalls { true })
         edge(nodeCallLLM forwardTo nodeFinish onTextMessage { true })
         edge(nodeExecuteTool forwardTo nodeSendToolResult)
@@ -1303,18 +1285,17 @@ Koog 提供了结合各种节点的预定义策略。
 
         var nodeCallLLM = AIAgentNode.llmRequest("sendInput");
         var nodeExecuteTool = AIAgentNode.executeTools("nodeExecuteTool");
-        var nodeSendToolResult = AIAgentNode.llmRequest("nodeSendToolResult");
+        var nodeSendToolResult = AIAgentNode.llmSendToolResults("nodeSendToolResult");
 
         strategy.edge(AIAgentEdge.builder()
             .from(strategy.nodeStart)
             .to(nodeCallLLM)
-            .asUserMessage(input -> input)
             .build());
 
         strategy.edge(AIAgentEdge.builder()
             .from(nodeCallLLM)
             .to(nodeExecuteTool)
-            .onToolCalls(call -> true)
+            .onToolCalls()
             .build());
 
         strategy.edge(AIAgentEdge.builder()
@@ -1334,7 +1315,7 @@ Koog 提供了结合各种节点的预定义策略。
         strategy.edge(AIAgentEdge.builder()
             .from(nodeSendToolResult)
             .to(nodeExecuteTool)
-            .onToolCalls(call -> true)
+            .onToolCalls()
             .build());
 
         return strategy.build();
@@ -1351,7 +1332,6 @@ Koog 提供了结合各种节点的预定义策略。
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.extension.*
@@ -1361,11 +1341,11 @@ Koog 提供了结合各种节点的预定义策略。
     fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy<String, String> {
         return strategy(name) {
             val nodeSendInput by nodeLLMRequest()
-            val nodeExecuteTool by nodeExecuteToolsAndGetResults()
+            val nodeExecuteTool by nodeExecuteTools()
             val nodeSendToolResult by nodeLLMSendToolResults()
 
             // 定义智能体的流
-            edge(nodeStart forwardTo nodeSendInput asUserMessage { it })
+            edge(nodeStart forwardTo nodeSendInput)
 
             // 如果 LLM 响应文本消息，则结束
             edge(
@@ -1423,13 +1403,12 @@ Koog 提供了结合各种节点的预定义策略。
 
         var nodeSendInput = AIAgentNode.llmRequest("nodeSendInput");
         var nodeExecuteTool = AIAgentNode.executeTools("nodeExecuteTool");
-        var nodeSendToolResult = AIAgentNode.llmRequest("nodeSendToolResult");
+        var nodeSendToolResult = AIAgentNode.llmSendToolResults("nodeSendToolResult");
 
         // 定义智能体的流
         strategy.edge(AIAgentEdge.builder()
             .from(strategy.nodeStart)
             .to(nodeSendInput)
-            .asUserMessage(input -> input)
             .build());
 
         // 如果 LLM 响应文本消息，则结束
@@ -1453,7 +1432,7 @@ Koog 提供了结合各种节点的预定义策略。
         strategy.edge(AIAgentEdge.builder()
             .from(nodeSendToolResult)
             .to(nodeExecuteTool)
-            .onToolCalls(call -> true)
+            .onToolCalls()
             .build());
 
         // 如果 LLM 响应文本消息，则结束
@@ -1475,7 +1454,6 @@ Koog 提供了结合各种节点的预定义策略。
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.example.exampleStreamingApi05.Book

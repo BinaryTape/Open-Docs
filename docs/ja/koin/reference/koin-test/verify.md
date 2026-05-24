@@ -4,10 +4,10 @@ title: Koin 設定の検証
 
 Koin では設定モジュールを検証することができ、実行時に依存関係注入（dependency injection）の問題が発見されるのを防ぐことができます。
 
-:::info 将来：コンパイル時の安全性
-`verify()` と `checkModules()` API は、Koin Compiler Plugin による**ネイティブなコンパイル時の安全性**に置き換えられる予定です。これにより、ビルド時に設定全体が検証され、実行前にエラーをキャッチできるようになります。
+:::tip コンパイル時の安全性が利用可能に
+**Koin Compiler Plugin** は現在、コンパイル時の依存関係検証を提供しています。これにより、欠落している依存関係、クオリファイアの不一致、壊れた呼び出し箇所をビルド時にキャッチできます。多くの場合、これにより `verify()` や `checkModules()` の必要性がなくなります。
 
-詳細は [Koin Compiler Plugin](/docs/intro/koin-compiler-plugin) を参照してください。
+移行については [コンパイル時の安全性](/docs/reference/koin-compiler/compile-safety) を参照してください。
 :::
 
 ## Verify API - JVM 限定 [3.3+]
@@ -240,17 +240,17 @@ fun `test DI modules`(){
 
 ---
 
-## 移行パス
+## コンパイル時の安全性への移行
 
-両方の検証 API は、Koin Compiler Plugin のコンパイル時安全性機能に置き換えられます。
+Koin Compiler Plugin は現在、コンパイル時の依存関係検証を提供しており、実行時の検証の必要性を置き換えています。
 
-| 現在 | 将来 |
-|---------|--------|
-| `module.verify()` | Compiler Plugin (自動) |
-| `checkModules()` | Compiler Plugin (自動) |
-| 実行時の検証 (Runtime verification) | コンパイル時の検証 (Compile-time verification) |
+| 以前 | 以降 |
+|--------|-------|
+| テスト内での `module.verify()` | Compiler Plugin (自動) |
+| テスト内での `checkModules()` | Compiler Plugin (自動) |
+| 実行時の検証 | コンパイル時の検証 |
 | 手動のテスト設定 | テストコードは不要 |
 
-Compiler Plugin のコンパイル時安全性が利用可能になると、検証テストを記述することなく、ビルド時に依存関係の検証が行われるようになります。
+コンパイラはビルドごとに検証を行うため、テストコードは不要です。コンパイラプラグインを有効にした後は、`verify()` や `checkModules()` のテストを安全に削除できます。
 
-セットアップ手順については [Compiler Plugin Setup](/docs/setup/compiler-plugin) を参照してください。
+詳細は [コンパイル時の安全性](/docs/reference/koin-compiler/compile-safety) を、セットアップ手順については [Compiler Plugin のセットアップ](/docs/setup/compiler-plugin) を参照してください。

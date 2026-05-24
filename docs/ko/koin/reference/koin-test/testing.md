@@ -154,10 +154,8 @@ fun checkKoinModules() {
 }
 ```
 
-:::info
-`checkModules()` API는 더 이상 사용되지 않습니다(deprecated). 대신 `verify()`를 사용하세요. 자세한 내용은 [모듈 검증(Module Verification)](/docs/reference/koin-test/verify)을 참조하세요.
-
-두 검증 API는 향후 Koin 컴파일러 플러그인(Koin Compiler Plugin)의 네이티브 컴파일 타임 안정성(compile-time safety)으로 대체될 예정입니다.
+:::tip
+`checkModules()` API는 더 이상 사용되지 않습니다(deprecated). Koin 컴파일러 플러그인(Koin Compiler Plugin)은 이제 컴파일 타임 의존성 검증(compile-time dependency validation)을 제공하여, `verify()`와 `checkModules()`의 필요성을 대체합니다. [컴파일 타임 안정성(Compile-Time Safety)](/docs/reference/koin-compiler/compile-safety)을 참조하세요.
 :::
 
 ## 테스트를 위한 Koin 시작 및 중지

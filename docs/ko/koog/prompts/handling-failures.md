@@ -474,7 +474,7 @@ val stream = client.executeStreaming(prompt, OpenAIModels.Chat.GPT4o)
 === "Java"
 
     <!--- INCLUDE
-    import ai.koog.prompt.dsl.Prompt;
+    import ai.koog.prompt.Prompt;
     import ai.koog.prompt.executor.clients.openai.OpenAILLMClient;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import ai.koog.prompt.executor.clients.retry.RetryConfig;

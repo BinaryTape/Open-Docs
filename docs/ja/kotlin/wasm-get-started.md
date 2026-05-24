@@ -2,24 +2,24 @@
 
 <primary-label ref="beta"/> 
 
-このチュートリアルでは、IntelliJ IDEA で [](wasm-overview.md) を使用した [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) アプリを実行し、ウェブサイトの一部として公開するためのアーティファクトを生成する方法を解説します。
+このチュートリアルでは、IntelliJ IDEA で [](wasm-overview.md) を使用した [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) アプリを実行し、ウェブサイトとして公開するためのアーティファクトを生成する方法を解説します。
 
 ## プロジェクトの作成
 
 1. [Kotlin Multiplatform 開発のための環境設定](https://kotlinlang.org/docs/multiplatform/quickstart.html#set-up-the-environment)を行ってください。
 2. IntelliJ IDEA で、**File | New | Project** を選択します。
-3. 左側のパネルで **Kotlin Multiplatform** を選択します。
+3. プロジェクトテンプレートのリストから、**Kotlin Multiplatform** を選択します。
 
    > Kotlin Multiplatform IDE プラグインを使用していない場合は、[KMP web wizard](https://kmp.jetbrains.com/?web=true&webui=compose&includeTests=true) を使用して同じプロジェクトを生成できます。
    >
-   {style="note"}
+   {style="tip"}
 
 4. **New Project** ウィンドウで以下のフィールドを指定します。
 
    * **Name:** WasmDemo
-   * **Group:** wasm.project.demo
+   * **Project ID:** wasm.project.demo
 
-   > ウェブウィザードを使用する場合は、**Project Name** に「WasmDemo」、**Project ID** に「wasm.project.demo」を指定してください。
+   > このチュートリアルでは、一貫性のために Project ID として `wasm.project.demo` を使用します。ただし、通常は `org.example` のような独自のグループ ID を使用することをお勧めします。ここに入力した内容は、今後のプロジェクトでデフォルトとして提案されます。
    >
    {style="note"}
 
@@ -30,36 +30,31 @@
 
 ## アプリケーションの実行
 
-プロジェクトがロードされたら、実行構成のリストから **webApp [wasmJs]** を選択し、**Run** をクリックします。
+1. プロジェクトがロードされたら、実行構成のリストから **webApp [wasmJs]** を選択し、**Run** をクリックします。
 
-![Run the Compose Multiplatform app on web](compose-run-web-light.png){width=300}
+    ![Run the Compose Multiplatform app on web](compose-run-web-light.png){width=300}
+    
+    ウェブアプリケーションがブラウザで自動的に開きます。あるいは、ビルドが完了した後にブラウザで以下の URL を手動で開くこともできます。
+    
+    ```shell
+       http://localhost:8080/
+    ```
+    
+    ポート `8080` が既に使用されている場合、ポート番号は異なる場合があります。
+    実際のポート番号は Gradle ビルドの出力で確認できます。
 
-ウェブアプリケーションがブラウザで自動的に開きます。あるいは、実行が完了した後にブラウザで以下の URL を開くこともできます。
-
-```shell
-   http://localhost:8080/
-```
-> 8080 ポートが使用できない場合があるため、ポート番号は異なる場合があります。
-> 実際のポート番号は Gradle ビルドの出力で確認できます。
->
-{style="tip"}
-
-「Click me!」ボタンをクリックします。
-
-![Click me](wasm-composeapp-browser-clickme.png){width=600}
-
-Compose Multiplatform のロゴが表示されます。
-
-![Compose app in browser](wasm-composeapp-browser.png){width=600}
+2. **Click me!** ボタンをクリックします。これにより Compose Multiplatform のロゴが表示されます。
+    
+    ![Compose app in browser](wasm-composeapp-browser.png){width=600}
 
 ## アーティファクトの生成
 
 ウェブサイトで公開するためのプロジェクトのアーティファクトを生成します。
 
 1. **View** | **Tool Windows** | **Gradle** を選択して、**Gradle** ツールウィンドウを開きます。
-2. **wasmdemo** | **Tasks** | **kotlin browser** で、**wasmJsBrowserDistribution** タスクを選択して実行します。
+2. **WasmDemo** | **Tasks** | **kotlin browser** で、**wasmJsBrowserDistribution** タスクを選択して実行します。
 
-   > タスクを正常にロードするには、Gradle JVM として少なくとも Java 11 が必要です。また、一般的な Compose Multiplatform プロジェクトでは Java 17 以上を推奨します。
+   > タスクを正常にロードするには、Gradle JVM として少なくとも Java 11 が必要です。一般的な Compose Multiplatform プロジェクトでは、Java 17 以上を推奨します。
    >
    {style="note"}
 
@@ -71,7 +66,7 @@ Compose Multiplatform のロゴが表示されます。
     ./gradlew wasmJsBrowserDistribution
     ```
 
-アプリケーションタスクが完了すると、生成されたアーティファクトを `webApp/build/dist/wasmJs/productionExecutable` ディレクトリで見つけることができます。
+タスクが完了すると、生成されたアーティファクトを `webApp/build/dist/wasmJs/productionExecutable` ディレクトリで見つけることができます。
 
 ![Artifacts directory](wasm-composeapp-directory.png){width=400}
 

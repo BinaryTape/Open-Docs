@@ -20,6 +20,8 @@
 
 ### 另请参阅
 
+如果你喜欢使用 AI 智能体，请尝试我们的教程：[使用 Spring Boot 和 Claude 创建任务管理器应用程序](spring-boot-claude.md)。
+
 查看我们的 Java 到 Kotlin (J2K) 互操作性与迁移指南：
 
 * [在 Kotlin 中调用 Java](java-interop.md) 和 [在 Java 中调用 Kotlin](java-to-kotlin-interop.md)

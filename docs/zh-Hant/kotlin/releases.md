@@ -4,7 +4,7 @@
 
 <tldr>
     <p>最新 Kotlin 版本：<strong>%kotlinVersion%</strong></p>
-    <p>參閱 <a href="%kotlinLatestWhatsnew%">Kotlin 2.3.20 的新功能</a><!-- 並在 <a href="%kotlinLatestUrl%">變更日誌</a> 中查看錯誤修正詳情。--></p>
+    <p>參閱 <a href="%kotlinLatestWhatsnew%">Kotlin 2.3.20 的新功能</a> 並在 <a href="%kotlinLatestUrl%">變更日誌</a> 中查看錯誤修正詳情。</p>
 </tldr>
 
 本頁面說明了 Kotlin 的發佈週期以及我們提供的不同發佈類型。其中也包含了過去與未來 Kotlin 發佈版本的詳細資訊，以及如何更新至特定版本的說明。
@@ -19,7 +19,7 @@
 >
 {style="tip"}
 
-針對每個語言與工具發佈，我們也會提供數個預覽 (_EAP_) 版本，供您在功能正式發佈前進行嘗試。詳情請參閱 [早期體驗預覽 (Early Access Preview)](eap.md)。
+針對每個語言與工具發佈，我們也會提供數個預覽 (_EAP_) 版本，供您在功能正式發佈前進行嘗試。詳情請參閱 [參與 Kotlin 早期體驗預覽 (Early Access Preview)](eap.md)。
 
 > 如果您希望收到新版本 Kotlin 的通知，請訂閱 [Kotlin 電子報](https://lp.jetbrains.com/subscribe-to-kotlin-news/)、關注 [X 上的 Kotlin](https://x.com/kotlin)，或在 [Kotlin GitHub 存儲庫](https://github.com/JetBrains/kotlin) 上啟用 **Watch | Custom | Releases** 選項。
 > 
@@ -63,7 +63,7 @@ plugins {
     id 'org.jetbrains.kotlin.<...>' version '%kotlinVersion%'
     // 例如，如果您的目標環境是 JVM： 
     // id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
-    // 如果您的目標是 Kotlin Multiplatform：
+    // If your target is Kotlin Multiplatform:
     // id 'org.jetbrains.kotlin.multiplatform' version '%kotlinVersion%'
 }
 ```
@@ -109,11 +109,48 @@ plugins {
 
 ## IDE 支援
 
-Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Android Studio](https://developer.android.com/kotlin/get-started) 中擁有完整的開箱即用支援，並配有由 JetBrains 開發的官方 Kotlin 外掛程式。
+Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Android Studio](https://developer.android.com/kotlin/get-started) 中擁有完整的開箱即用支援。
 
-## Kotlin 發佈相容性
+## 標準函式庫安全支援
 
-進一步了解 [Kotlin 發佈類型及其相容性](kotlin-evolution-principles.md#language-and-tooling-releases)
+自 Kotlin 2.4.0 起，針對 JVM 的 Kotlin 標準函式庫對每個發佈版本系列 (release line) 提供為期 18 個月的支援窗口。語言發佈 (2._x_._0_) 以及隨後的工具發佈 (2._x_._20_) 屬於同一個發佈版本系列 (2._x_)。
+
+若我們發現影響 JVM 版 Kotlin 標準函式庫的安全漏洞，我們將同時發佈以下內容：
+
+* 基於該發佈版本系列中包含安全修正之最新 Kotlin 版本的錯誤修正發佈。
+* 針對處於有效支援窗口內之每個發佈版本系列的錯誤修正發佈。
+
+例如，若我們發現一個安全漏洞且當時最新的 Kotlin 版本為 Kotlin 2.4.20，我們將僅針對 Kotlin 2.4.20 發佈錯誤修正版本。我們不會針對 Kotlin 2.4.0 發佈錯誤修正版本。
+
+<!--
+下表列出了所有 Kotlin 發佈版本及其支援窗口：
+
+<table>
+    <tr>
+        <th>Kotlin 發佈版本系列</th>
+        <th>發佈日期</th>
+        <th>支援結束</th>
+        <th>最新錯誤修正發佈</th>
+    </tr>
+    <tr>
+        <td><strong>2.4</strong>
+        </td>
+        <td>
+            <p>待定</p>
+        </td>
+        <td>
+            <p>待定</p>
+        </td>
+        <td>
+            <p>暫無</p>
+        </td>
+    </tr>
+</table>
+-->
+
+> 我們隨時歡迎您回饋發現的任何安全問題。若要回報您在 Kotlin 中發現的問題，請直接在我們的 [問題追蹤器](https://youtrack.jetbrains.com/newIssue?project=KT&c=Type%20Security%20Problem) 上發布訊息，或傳送 [電子郵件](mailto:security@jetbrains.org) 給我們。
+> 
+{style="tip"}
 
 ## 發佈歷程
 
@@ -127,6 +164,16 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
     <tr>
         <th>組建資訊</th>
         <th>組建重點</th>
+    </tr>
+    <tr>
+        <td><strong>2.3.21</strong>
+            <p>發佈日期：<strong>2026 年 4 月 23 日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.21" target="_blank">在 GitHub 上查看版本</a></p>
+        </td>
+        <td>
+            <p>Kotlin 2.3.20 的錯誤修正發佈。</p>
+            <p>如需更多詳細資訊，請參閱 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.3.21">變更日誌</a>。</p>
+        </td>
     </tr>
     <tr>
         <td><strong>2.3.20</strong>

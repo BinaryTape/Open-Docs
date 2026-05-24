@@ -41,7 +41,11 @@ val appModule = module {
 
 ## 모듈 검증하기
 
-Koin 설정을 테스트하는 가장 간단한 방법은 모듈을 검증하는 것입니다. `verify()` 함수는 모든 의존성이 해결(resolve)될 수 있는지 확인하는 드라이 런(dry-run) 체크를 수행합니다:
+:::tip
+Koin 컴파일러 플러그인은 이제 컴파일 타임 의존성 검증을 제공하여, 테스트 코드를 작성하지 않고도 빌드 타임에 누락된 의존성을 찾아냅니다. [컴파일 타임 안전성(Compile-Time Safety)](/docs/reference/koin-compiler/compile-safety)을 참조하세요.
+:::
+
+컴파일러 플러그인을 사용하지 않는 경우, 런타임에 모듈을 검증할 수 있습니다. `verify()` 함수는 모든 의존성이 해결(resolve)될 수 있는지 확인하는 드라이 런(dry-run) 체크를 수행합니다:
 
 ```kotlin
 class ModuleVerificationTest : AutoCloseKoinTest() {

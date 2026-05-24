@@ -11,6 +11,8 @@ Kotlin 与 Java 完全互操作，因此您可以逐步将其引入现有的 Jav
 *   使用 IntelliJ IDEA 将 Java 文件转换为 Kotlin。
 
 > 您可以使用任何现有的 Java 项目来学习本教程，也可以克隆我们已设置好 Maven 和 Gradle 构建文件的公开[示例项目](https://github.com/kotlin-hands-on/kotlin-junit-sample/tree/main/complete)。
+> 
+> 您还可以使用我们[准备好的技能](https://github.com/Kotlin/kotlin-agent-skills/blob/main/skills/kotlin-tooling-java-to-kotlin/SKILL.md)，将转换工作交给您选择的 AI 代理。请记住，AI 处理结果并不完全可预测。
 >
 {style="tip"}
 

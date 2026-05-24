@@ -285,4 +285,27 @@ SELECT * FROM hockey_player;
     expandSelectStar = true
     ```
 
+----
+
+### `codegenExcludedColumns`
+
+类型：`SetProperty<String>`
+
+一组 `table.column` 值，用于从生成的模型和扩展的 `SELECT *` 投影中省略这些列。表名和列名必须使用与 SQLDelight 架构源相同的大小写。这仅影响代码生成；不会更改 SQL 架构或生成的迁移输出。
+
+这可用于在后续架构迁移删除列之前更新生成的 Kotlin API。如果配置的表或列不存在，或者模型绑定的 insert、`SELECT` 结果列或 `RETURNING` 子句显式列出了排除在代码生成之外的列，SQLDelight 将编译失败。由于这仅限代码生成，应用程序负责确保在删除任何仍然存在的排除列之前，可以从写入操作中省略这些列，例如通过使用可为 null 的列或默认值。
+
+如果您的 `.sq` 文件包含 `CREATE TABLE` 架构定义，请在物理架构迁移删除该列之前，将排除的列保留在架构定义中。移除对该列的显式查询引用，但保留反映当前数据库形态的架构源。
+
+默认为空。
+
+=== "Kotlin"
+    ```kotlin
+    codegenExcludedColumns.set(setOf("hockey_player.number"))
+    ```
+=== "Groovy"
+    ```groovy
+    codegenExcludedColumns = ["hockey_player.number"]
+    ```
+
 {% include 'common/gradle-dependencies.md' %}

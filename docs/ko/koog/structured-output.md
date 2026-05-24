@@ -318,10 +318,8 @@ val structuredResponse = llm.writeSession {
 구조화된 데이터 처리를 에이전트 전략에 통합할 수 있습니다:
 
 <!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.builder.node
-import ai.koog.agents.core.dsl.extension.asUserMessage
 import ai.koog.agents.core.dsl.extension.nodeLLMRequest
 import ai.koog.agents.example.exampleStructuredData03.WeatherForecast
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
@@ -348,7 +346,7 @@ val agentStrategy = strategy<String, String>("weather-forecast") {
         """.trimIndent()
     }
 
-    edge(nodeStart forwardTo setup asUserMessage { it })
+    edge(nodeStart forwardTo setup)
     edge(setup forwardTo getStructuredForecast)
     edge(getStructuredForecast forwardTo nodeFinish)
 }
@@ -368,10 +366,8 @@ val agentStrategy = strategy<String, String>("weather-forecast") {
 #### 노드 계층 예시 (Node layer example)
 
 <!--- INCLUDE
-import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.builder.node
-import ai.koog.agents.core.dsl.extension.asUserMessage
 import ai.koog.agents.core.dsl.extension.nodeLLMRequest
 import ai.koog.agents.core.dsl.extension.nodeLLMRequestStructured
 import ai.koog.agents.example.exampleStructuredData03.WeatherForecast
@@ -410,7 +406,7 @@ val agentStrategy = strategy<Unit, String>("weather-forecast") {
     }
 
     edge(nodeStart forwardTo setup)
-    edge(setup forwardTo getWeatherForecast asUserMessage { it })
+    edge(setup forwardTo getWeatherForecast)
     edge(getWeatherForecast forwardTo processResult)
     edge(processResult forwardTo nodeFinish)
 }
@@ -424,10 +420,8 @@ val agentStrategy = strategy<Unit, String>("weather-forecast") {
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
 import ai.koog.agents.core.agent.config.AIAgentConfig
-import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.builder.node
-import ai.koog.agents.core.dsl.extension.asUserMessage
 import ai.koog.agents.core.dsl.extension.nodeLLMRequest
 import ai.koog.agents.core.tools.ToolRegistry
 import ai.koog.agents.core.tools.annotations.LLMDescription
@@ -493,7 +487,7 @@ fun main(): Unit = runBlocking {
             """.trimIndent()
         }
   
-        edge(nodeStart forwardTo setup asUserMessage { it })
+        edge(nodeStart forwardTo setup)
         edge(setup forwardTo getStructuredForecast)
         edge(getStructuredForecast forwardTo nodeFinish)
     }

@@ -3,7 +3,7 @@
 <tldr>
    这是一种本地集成方法。如果满足以下条件，它可能适合您：<br/>
 
-   * 您拥有一个使用 CocoaPods 的 iOS 项目的单仓库 (mono repository) 设置。
+   * 您拥有一个使用 CocoaPods 的 iOS 项目的单仓库 (mono repository) 设置。<br/>
    * 您的 Kotlin Multiplatform 项目具有 CocoaPods 依赖项。<br/>
 
    [选择最适合您的集成方式](multiplatform-ios-integration-overview.md)
@@ -102,9 +102,10 @@ sudo gem install cocoapods
 
 1. 使用 [Kotlin Multiplatform IDE 插件](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform) 或 [Kotlin Multiplatform 网络向导](https://kmp.jetbrains.com) 生成一个新的 Android 和 iOS 项目。
    如果使用网络向导，请解压缩存档并在您的 IDE 中导入项目。
-2. 在 `gradle/libs.versions.toml` 文件中，将 Kotlin CocoaPods Gradle 插件添加到 `[plugins]` 块中：
+2. 将 Kotlin CocoaPods Gradle 插件添加到版本目录（`gradle/libs.versions.toml` 文件）中：
 
-   ```text
+   ```toml
+   [plugins]
    kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
    ```
 
@@ -369,7 +370,7 @@ pod("NearbyMessages") {
 
 1. 在应用程序目标中禁用用户脚本沙箱化：
 
-   ![禁用 CocoaPods 沙箱化](disable-sandboxing-cocoapods.png){width=700}
+   ![禁用沙箱化 CocoaPods](disable-sandboxing-cocoapods.png){width=700}
 
 2. 停止可能已被沙箱化的 Gradle daemon 进程：
 

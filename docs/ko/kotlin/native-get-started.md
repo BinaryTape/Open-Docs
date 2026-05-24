@@ -1,4 +1,4 @@
-중괄호로 감싸 이름 길이를 문자열에 삽입합니다 – `${it.length}`. `it`은 [람다 파라미터](coding-conventions.md#lambda-parameters)의 기본 이름입니다.
+달러 기호($)를 추가하고 중괄호로 감싸 이름 길이를 문자열에 삽입합니다 – `${it.length}`. `it`은 [람다 파라미터](coding-conventions.md#lambda-parameters)의 기본 이름입니다.
 
    ```kotlin
    fun main() {

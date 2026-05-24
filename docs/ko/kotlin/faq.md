@@ -56,11 +56,11 @@ Kotlin은 백엔드, 클라이언트 측 웹, Android 또는 멀티플랫폼 라
 ### 어떤 IDE가 Kotlin을 지원하나요?
 
 Kotlin은 JetBrains에서 개발한 공식 Kotlin 플러그인을 통해 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)와 [Android Studio](https://developer.android.com/kotlin/get-started)에서 완벽한 기본(out-of-the-box) 지원을 제공합니다.
+또한 [Alpha](components-stability.md#stability-levels-explained) 단계인 Kotlin Language Server를 기반으로 하는 공식 [Visual Studio Code용 Kotlin by JetBrains 확장 프로그램](kotlin-lsp.md#kotlin-in-visual-studio-code)을 설치할 수도 있습니다.
 
 다른 IDE 및 코드 에디터는 커뮤니티에서 지원하는 Kotlin 플러그인만 제공됩니다.
 
 브라우저에서 Kotlin 코드를 작성, 실행 및 공유하려면 [Kotlin Playground](https://play.kotlinlang.org)를 사용해 볼 수도 있습니다.
-
 또한 애플리케이션 컴파일 및 실행을 위한 간단한 지원을 제공하는 [명령줄 컴파일러](command-line.md)도 사용할 수 있습니다.
   
 ### 어떤 빌드 도구가 Kotlin을 지원하나요?

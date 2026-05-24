@@ -16,7 +16,7 @@
 2. [借助 SwiftPM 导入工具的帮助重新配置你的 Xcode 项目以使用直接集成](#reconfigure-your-xcode-project)
 3. [根据你的项目结构，完全或部分禁用 CocoaPods 集成](#remove-the-cocoapods-kmp-integration)
 
-> 你可以使用我们[准备好的技能](https://github.com/Kotlin/kotlin-agent-skills/tree/main/skills/kotlin-tooling-cocoapods-spm-migration)将 CocoaPods 到 SwiftPM 的迁移工作交给选定的 AI 代理 (agent)。
+> 你可以使用我们[准备好的技能](multiplatform-cocoapods-spm-migration-ai.md)将从 CocoaPods 到 SwiftPM 的迁移工作交给选定的 AI 代理 (agent)。
 > 请记住，AI 处理结果并不完全可预测。
 >
 {style="note"}

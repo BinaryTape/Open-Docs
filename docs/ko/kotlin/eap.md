@@ -47,7 +47,7 @@ Kotlin EAP 빌드는 일반적으로 다음과 같은 단계를 포함합니다:
 _현재 사용 가능한 프리뷰 버전이 없습니다._
 -->
 
- <table>
+<table>
     <tr>
         <th>빌드 정보 (Build info)</th>
         <th>빌드 주요 내용 (Build highlights)</th>

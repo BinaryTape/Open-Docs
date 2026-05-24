@@ -54,7 +54,7 @@ startKoin {
 
 ### 全局 vs 本地上下文
 
-`koinApplication` 和 `startKoin` 之间的主要区别：
+`startKoin` 和 `koinApplication` 之间的主要区别：
 
 - **`startKoin`** - 在 `GlobalContext` 中注册容器，使其可以通过 `KoinComponent`、`by inject()` 和其他全局 API 访问
 - **`koinApplication`** - 创建一个您直接控制的隔离实例
@@ -121,6 +121,7 @@ startKoin {
 | 工厂 | `factory { Class(get()) }` | `factoryOf(::Class)` | `factory<Class>()` |
 | 作用域 | `scoped { Class(get()) }` | `scopedOf(::Class)` | `scoped<Class>()` |
 | ViewModel | `viewModel { VM(get()) }` | `viewModelOf(::VM)` | `viewModel<VM>()` |
+| 函数构建器 | `single { fn(get()) }` | — | `single { create(::fn) }` |
 
 ### 基础模块
 

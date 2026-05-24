@@ -2,6 +2,13 @@
 
 你可以将滚动条应用于可滚动组件。滚动条与可滚动组件共享公共状态，以实现相互同步。
 
+> 每个提供的代码片段都是一个可运行的桌面应用。要试用它：
+> 1. 使用 [Kotlin Multiplatform IDE 插件](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform) 或 [在线向导](https://kmp.jetbrains.com/?android=true&desktop=true&includeTests=false) 创建一个 Compose Multiplatform 项目。
+> 2. 打开桌面入口文件。例如：`desktopApp/src/main/kotlin/com/example/my_desktop_app/main.kt`。
+> 3. 将其内容替换为下面的代码片段。
+>
+{style="note" id="desktop-snippets-intro"}
+
 ## 滚动修饰符
 
 `verticalScroll` 和 `horizontalScroll` 修饰符提供了最简单的方法，允许用户在元素内容边界大于其最大尺寸约束时进行滚动。
@@ -139,7 +146,6 @@ fun LazyScrollable() {
             .background(color = Color(180, 180, 180))
             .padding(10.dp)
     ) {
-
         val state = rememberLazyListState()
 
         LazyColumn(Modifier.fillMaxSize().padding(end = 12.dp), state) {
@@ -178,8 +184,8 @@ fun TextBox(text: String = "Item") {
 
 目前，使用触摸屏、触控板和轨迹板进行的滚动被视为鼠标事件，这可能会导致一些瑕疵和限制（例如缺乏捏合缩放功能）。我们正在不断改进输入和手势处理，并计划为这些输入设备引入原生支持：
 
-* 原生支持触摸屏（[CMP-1609](https://youtrack.jetbrains.com/issue/CMP-1609/)）
-* 原生支持触控板和轨迹板（[CMP-1610](https://youtrack.jetbrains.com/issue/CMP-1610/)）
+* 原生支持触摸屏 ([CMP-1609](https://youtrack.jetbrains.com/issue/CMP-1609/))
+* 原生支持触控板和轨迹板 ([CMP-1610](https://youtrack.jetbrains.com/issue/CMP-1610/))
 
 ## 下一步
 

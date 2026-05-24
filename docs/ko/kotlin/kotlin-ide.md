@@ -1,9 +1,9 @@
 [//]: # (title: Kotlin 개발을 위한 IDE)
 
-<web-summary>JetBrains는 IntelliJ IDEA 및 Android Studio에 대해 공식 Kotlin IDE 지원을 제공합니다.</web-summary>
+<web-summary>JetBrains는 IntelliJ IDEA, Android Studio 및 Visual Studio Code에 대해 공식 Kotlin IDE 지원을 제공합니다.</web-summary>
 
-JetBrains는 다음 IDE 및 코드 에디터에 대해 공식 Kotlin 지원을 제공합니다:
-[IntelliJ IDEA](#intellij-idea) 및 [Android Studio](#android-studio).
+JetBrains는 다음 IDE 및 코드 에디터에 대해 공식 Kotlin 지원을 제공합니다: [IntelliJ IDEA](#intellij-idea) 및 [Android Studio](#android-studio).
+또한 현재 [Alpha](components-stability.md#stability-levels-explained) 단계인 [Visual Studio Code](#visual-studio-code)용 공식 Kotlin by JetBrains 익스텐션(extension)을 설치할 수도 있습니다.
 
 다른 IDE 및 코드 에디터는 Kotlin 커뮤니티에서 지원하는 플러그인만 제공합니다.
 
@@ -28,20 +28,27 @@ Kotlin 플러그인은 각 Android Studio 릴리스에 포함되어 있습니다
 
 Android Studio에 대한 자세한 내용은 [공식 문서](https://developer.android.com/studio/intro)에서 확인할 수 있습니다.
 
+## Visual Studio Code
+<primary-label ref="alpha"/>
+
+[Visual Studio Code](https://code.visualstudio.com/)는 [공식 Kotlin by JetBrains 익스텐션](https://marketplace.visualstudio.com/items?itemName=JetBrains.kotlin-server)을 포함하여 광범위한 익스텐션을 제공하는 코드 에디터입니다.
+
+Kotlin 익스텐션은 Kotlin Language Server를 통해 코드 완성, 내비게이션(navigation), 디버깅 및 기타 Kotlin 개발 기능을 제공합니다.
+
+자세한 내용은 [Kotlin Language Server 및 Visual Studio Code](kotlin-lsp.md#kotlin-in-visual-studio-code)를 참조하세요.
+
+## 기타 IDE 지원
+
+JetBrains는 다른 IDE를 위한 공식 Kotlin 플러그인을 제공하지 않습니다.
+다른 코드 에디터에서는 [Kotlin Language Server](kotlin-lsp.md)를 사용할 수 있습니다.
+
+IDE 관련 기능(코드 포맷팅, 디버깅 도구, 리팩터링 등) 없이 텍스트 에디터에서 Kotlin을 사용하려면, Kotlin [GitHub 릴리스](%kotlinLatestUrl%)에서 최신 Kotlin 커맨드 라인 컴파일러(`kotlin-compiler-%kotlinVersion%.zip`)를 다운로드하여 [수동으로 설치](command-line.md#manual-install)할 수 있습니다. 또한 [Homebrew](command-line.md#homebrew), [SDKMAN!](command-line.md#sdkman) 및 [Snap 패키지](command-line.md#snap-package)와 같은 패키지 매니저를 사용할 수도 있습니다.
+
 ## Kotlin 언어 버전과의 호환성
 
 IntelliJ IDEA 및 Android Studio의 경우, Kotlin 플러그인은 각 릴리스에 포함되어 있습니다.
 새로운 Kotlin 버전이 출시되면 이러한 도구는 Kotlin을 최신 버전으로 자동 업데이트하도록 제안합니다.
 지원되는 최신 언어 버전은 [Kotlin 릴리스](releases.md#ide-support)를 확인하세요.
-
-## 기타 IDE 지원
-
-JetBrains는 다른 IDE를 위한 Kotlin 플러그인을 제공하지 않습니다.
-하지만 Visual Studio Code와 같은 일부 다른 IDE 및 코드 에디터에는 Kotlin 커뮤니티에서 지원하는 자체 Kotlin 플러그인이 있습니다.
-
-모든 텍스트 에디터를 사용하여 Kotlin 코드를 작성할 수 있지만, 코드 포맷팅, 디버깅 도구 등과 같은 IDE 관련 기능은 사용할 수 없습니다.
-텍스트 에디터에서 Kotlin을 사용하려면 Kotlin [GitHub 릴리스](%kotlinLatestUrl%)에서 최신 Kotlin 커맨드 라인 컴파일러(`kotlin-compiler-%kotlinVersion%.zip`)를 다운로드하여 [수동으로 설치](command-line.md#manual-install)할 수 있습니다.
-또한 [Homebrew](command-line.md#homebrew), [SDKMAN!](command-line.md#sdkman) 및 [Snap 패키지](command-line.md#snap-package)와 같은 패키지 매니저를 사용할 수도 있습니다.
 
 ## 다음 단계
 

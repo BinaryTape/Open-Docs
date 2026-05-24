@@ -90,14 +90,25 @@ class MyOtherScopedComponent(
 
 자신의 스코프에서 직접 접근할 수 없는 다른 스코프의 컴포넌트를 해결해야 할 수도 있습니다. 이를 위해 의존성에 `@ScopeId` 어노테이션을 태그하여 Koin이 지정된 스코프 ID의 스코프에서 이 의존성을 찾도록 지시해야 합니다.
 
+문자열 이름을 사용하는 경우:
+
 ```kotlin
 @Factory
 class MyFactory(
-  @ScopeId("my_scope_id") val myScopedComponent :MyScopedComponent
+  @ScopeId(name = "my_scope_id") val myScopedComponent : MyScopedComponent
 )
 ```
 
-위의 코드는 다음과 같이 생성된 것과 동일합니다:
+또는 타입 참조를 사용하는 경우:
+
+```kotlin
+@Factory
+class MyFactory(
+  @ScopeId(MyScope::class) val myScopedComponent : MyScopedComponent
+)
+```
+
+위와 같이 작성하면 다음과 동일한 코드가 생성됩니다:
 
 ```kotlin
 factory { Myfactory(getScope("my_scope_id").get()) }
@@ -237,5 +248,5 @@ class MyModule {
 ```
 
 :::info
-스코프 아키타입 어노테이션은 적절한 스코프 정의와 스코프 컴포넌트 선언을 자동으로 생성하여, 일반적인 스코프 패턴에 대한 보일러플레이트 코드를 줄여줍니다.
+스코프 아키타입 어노테이션은 적절한 스코프 정의와 스코프 컴포넌트 선언을 자동으로 생성하여, 일반적인 스코프 패턴에 대한 보일러플레이트(boilerplate) 코드를 줄여줍니다.
 :::

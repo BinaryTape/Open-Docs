@@ -75,22 +75,32 @@ class UserSessionHandler(private val call: ApplicationCall) {
 
 ## スコープのライフサイクルコールバック
 
+scoped 定義に `onClose` コールバックを付加することで、リクエストスコープが終了したときにクリーンアップ処理を実行できます。`onClose` は定義に対する中置関数 (infix function) であり（`requestScope { }` 内のブロックではありません）、インスタンスパラメータは Null 許容型 (`T?`) です。
+
 ```kotlin
 requestScope {
-    scoped { RequestContext(get()) }
-
-    // onCreate コールバック
-    onCreate { requestContext ->
-        requestContext.startTime = System.currentTimeMillis()
-    }
-
-    // onClose コールバック
-    onClose { requestContext ->
-        val duration = System.currentTimeMillis() - requestContext.startTime
+    scoped { RequestContext() } onClose { context ->
+        val duration = System.currentTimeMillis() - (context?.startTime ?: 0L)
         println("Request completed in ${duration}ms")
     }
 }
 ```
+
+また、`withOptions { onClose { ... } }` を使用することもできます。
+
+```kotlin
+requestScope {
+    scoped { RequestContext() } withOptions {
+        onClose { context ->
+            context?.cleanup()
+        }
+    }
+}
+```
+
+:::note
+Koin のスコープ DSL では、定義ごとに `onClose` を提供していますが、`onCreate` コールバックは存在しません。初期化は `scoped { }` のコンストラクタブロック内で行う必要があります。
+:::
 
 :::note
 リクエストスコープは **各 HTTP リクエストごとに作成および破棄されます**。インスタンスはリクエスト間で共有されないため、スレッドセーフが確保され、状態のリーク（state leakage）を防ぐことができます。
@@ -202,14 +212,8 @@ val appModule = module {
 
     requestScope {
         scopedOf(::RequestLogger)
-        scopedOf(::RequestMetrics)
-
-        onCreate { metrics: RequestMetrics ->
-            metrics.start()
-        }
-
-        onClose { metrics: RequestMetrics ->
-            metrics.recordDuration()
+        scopedOf(::RequestMetrics) onClose { metrics ->
+            metrics?.recordDuration()
         }
     }
 }
@@ -240,8 +244,7 @@ fun Application.module() {
 |----------|-------------|
 | `requestScope { }` | リクエストスコープのコンポーネントを宣言する |
 | `call.scope.get<T>()` | リクエストスコープのインスタンスを取得する |
-| `onCreate { }` | スコープ作成時のコールバック |
-| `onClose { }` | スコープ終了時のコールバック |
+| `scoped { } onClose { }` | 定義ごとのクリーンアップコールバック (インスタンスは Null 許容) |
 | `koinModule { }` | インラインモジュールを宣言する |
 | `koinModules(...)` | 既存のモジュールをロードする |
 

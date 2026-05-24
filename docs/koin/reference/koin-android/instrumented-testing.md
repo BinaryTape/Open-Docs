@@ -553,8 +553,8 @@ class ModuleVerificationTest {
 }
 ```
 
-:::info
-`verify()` 和 `checkModules()` 都将被 Koin 编译器插件中的原生编译时安全性所取代。详见[模块验证](/docs/reference/koin-test/verify)。
+:::tip
+Koin 编译器插件现在提供编译时依赖项验证，取代了对 `verify()` 和 `checkModules()` 的需求。详见[编译时安全性](/docs/reference/koin-compiler/compile-safety)。
 :::
 
 ## 使用 Espresso 进行 UI 测试
@@ -1029,7 +1029,7 @@ fun testLogin()
 - 使用**内存数据库**进行快速、隔离的数据库测试
 - **Compose 测试**可以与 `KoinContext` 无缝协作
 - **作用域测试**验证了生命周期绑定的依赖项
-- 使用 `verify()` 进行**模块验证**可以尽早发现配置错误
+- 使用 Koin 编译器插件进行**模块验证**（编译时）或使用 `verify()`（运行时）可以尽早发现配置错误
 
 ## 下一步
 

@@ -184,7 +184,7 @@ ai:
 === "Java"
 
     ```java
-    import ai.koog.prompt.dsl.Prompt;
+    import ai.koog.prompt.Prompt;
     import ai.koog.prompt.executor.clients.anthropic.AnthropicModels;
     import ai.koog.prompt.executor.model.PromptExecutor;
     import ai.koog.prompt.message.Message;
@@ -282,7 +282,7 @@ Spring 框架通过 bean 名称 (`anthropicExecutor`) 注入了 Anthropic 执行
 === "Java"
 
     ```java
-    import ai.koog.prompt.dsl.Prompt;
+    import ai.koog.prompt.Prompt;
     import ai.koog.prompt.executor.clients.anthropic.AnthropicModels;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import ai.koog.prompt.executor.clients.openrouter.OpenRouterModels;

@@ -89,7 +89,7 @@ Koog 에이전트를 ACP 클라이언트에 연결하려면 [ACP Kotlin SDK](htt
     import ai.koog.agents.core.agent.config.AIAgentConfig
     import ai.koog.agents.features.acp.AcpAgent
     import ai.koog.agents.features.acp.toKoogMessage
-    import ai.koog.prompt.dsl.Prompt
+    import ai.koog.prompt.Prompt
     import ai.koog.prompt.dsl.prompt
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.executor.model.PromptExecutor
@@ -252,7 +252,7 @@ ACP 클라이언트는 사용자 입력을 [`ContentBlock`](https://agentclientp
 
 <!--- INCLUDE
 import ai.koog.agents.features.acp.toKoogMessage
-import ai.koog.prompt.dsl.Prompt
+import ai.koog.prompt.Prompt
 import com.agentclientprotocol.model.ContentBlock
 import ai.koog.utils.time.KoogClock
 

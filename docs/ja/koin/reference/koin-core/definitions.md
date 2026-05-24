@@ -449,6 +449,144 @@ startKoin {
 }
 ```
 
+## 安全なDSLパターン
+
+Koinコンパイラプラグインはコンパイル時にDSL定義を変換し、コンストラクタパラメータの自動接続（auto-wiring）と検証を行います。主なパターンは以下の通りです。
+
+### create() を使用した関数ビルダー
+
+自身が所有していない外部ライブラリをラップするには、`create(::function)` を使用します。関数のパラメータはDIコンテナから自動的に解決されます。
+
+```kotlin
+import org.koin.dsl.module
+import org.koin.plugin.module.dsl.create
+
+// ビルダー関数 — パラメータはKoinによって解決される
+fun database(context: Context): AppDatabase =
+    Room.databaseBuilder(context, AppDatabase::class.java, "my-db").build()
+
+fun topicDao(db: AppDatabase): TopicDao = db.topicDao()
+fun newsDao(db: AppDatabase): NewsResourceDao = db.newsResourceDao()
+
+val databaseModule = module {
+    single { create(::database) }
+    single { create(::topicDao) }
+    single { create(::newsDao) }
+}
+```
+
+これは、Roomデータベース、Retrofitサービス、OkHttpクライアント、およびその他の外部ライブラリにおける推奨パターンです。
+
+### includes() によるモジュールの構成
+
+モジュールをレイヤーごとに整理し、それらを構成します。
+
+```kotlin
+import org.koin.dsl.module
+import org.koin.plugin.module.dsl.*
+
+val networkModule = module {
+    includes(dispatchersModule)
+
+    single { create(::json) }
+    single<AppHttpClient>()
+    single<DemoNetworkDataSource>() bind NetworkDataSource::class
+}
+
+private fun json(): Json = Json { ignoreUnknownKeys = true }
+```
+
+### Appモジュール — すべてを構成する
+
+Appモジュールにはすべての機能モジュールが含まれ、ViewModelやユースケースを宣言します。
+
+```kotlin
+import org.koin.dsl.module
+import org.koin.plugin.module.dsl.*
+import org.koin.androidx.scope.dsl.activityScope
+
+val appModule = module {
+    includes(
+        dispatchersModule,
+        databaseModule,
+        dataStoreModule,
+        networkModule,
+        dataModule,
+        syncModule
+    )
+
+    // ドメインユースケース — ファクトリ（リクエストのたびに新しいインスタンス）
+    factory<GetFollowableTopicsUseCase>()
+    factory<GetSearchContentsUseCase>()
+
+    // ViewModel
+    viewModel<MainActivityViewModel>()
+    viewModel<HomeViewModel>()
+    viewModel<BookmarksViewModel>()
+
+    // Activityスコープの定義
+    activityScope {
+        scoped<ActivityTracker>()
+    }
+}
+```
+
+### DSLにおけるカスタムクオリファイア
+
+クオリファイアアノテーションは `create(::function)` でも動作します。
+
+```kotlin
+import org.koin.dsl.module
+import org.koin.plugin.module.dsl.create
+
+val dispatchersModule = module {
+    single { create(::dispatcherIO) }
+    single { create(::dispatcherDefault) }
+    single { create(::coroutineScope) }
+}
+
+@Dispatcher(NiaDispatchers.IO)
+fun dispatcherIO(): CoroutineDispatcher = Dispatchers.IO
+
+@Dispatcher(NiaDispatchers.Default)
+fun dispatcherDefault(): CoroutineDispatcher = Dispatchers.Default
+
+fun coroutineScope(
+    @Dispatcher(NiaDispatchers.Default) default: CoroutineDispatcher
+) = CoroutineScope(SupervisorJob() + default)
+```
+
+### DSLでのWorker
+
+```kotlin
+import org.koin.dsl.module
+import org.koin.plugin.module.dsl.*
+import org.koin.dsl.bind
+
+val syncModule = module {
+    single<WorkManagerSyncManager>() bind SyncManager::class
+    worker<SyncWorker>()
+}
+```
+
+### 完全なパターン：インターフェースのバインドを伴うリポジトリ
+
+```kotlin
+import org.koin.dsl.module
+import org.koin.dsl.bind
+import org.koin.plugin.module.dsl.single
+
+val dataModule = module {
+    includes(databaseModule, dataStoreModule, networkModule)
+
+    single<OfflineFirstNewsRepository>() bind NewsRepository::class
+    single<OfflineFirstTopicsRepository>() bind TopicsRepository::class
+    single<OfflineFirstUserDataRepository>() bind UserDataRepository::class
+}
+```
+
+これらの定義はすべて、Koinコンパイラプラグインによってコンパイル時に検証されます。依存関係の不足、クオリファイアの不一致、壊れた呼び出し箇所などは、ビルド時に検出されます。[コンパイル時の安全性](/docs/reference/koin-compiler/compile-safety)を参照してください。
+
 ## ベストプラクティス
 
 1. **コンストラクタ注入を優先する** - Koinなしでコードをテスト可能にします。

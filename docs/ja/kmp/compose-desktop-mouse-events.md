@@ -2,6 +2,8 @@
 
 デスクトッププロジェクトでは、クリック、移動、スクロール、入力領域への出入りなど、さまざまなマウスイベントをリッスンできます。
 
+undefined
+
 ## クリックリスナー
 
 クリックリスナーは Compose Multiplatform for Android と Compose Multiplatform for desktop の両方で使用できるため、コードは両方のプラットフォームで動作します。

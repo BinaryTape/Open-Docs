@@ -466,6 +466,53 @@ struct ContentView: View {
 }
 ```
 
+### Swift에서 의존성 선언하기
+
+어떤 경우에는 Swift에서 직접 의존성을 선언해야 할 수도 있습니다. 예를 들어, Swift 전용 클래스를 Koin에 등록해야 할 때입니다. `declare` 함수를 Kotlin/Native 상호운용성(interop)과 결합하여 Objective-C 타입을 Kotlin `KClass`로 변환하여 사용할 수 있습니다.
+
+`iosMain`에 다음 헬퍼를 추가하세요:
+
+```kotlin
+// shared/src/iosMain/kotlin/KoinSwiftHelper.kt
+@OptIn(BetaInteropApi::class)
+fun Koin.declareFromSwift(
+    instance: Any,
+    bindTo: ObjCObject,
+    qualifier: Qualifier? = null,
+    allowOverride: Boolean = true
+) {
+    val kClass: KClass<*> = when (bindTo) {
+        is ObjCClass -> getOriginalKotlinClass(bindTo)
+        is ObjCProtocol -> getOriginalKotlinClass(bindTo)
+        else -> null
+    } ?: error("Can't resolve Kotlin KClass from $bindTo")
+
+    declare(
+        instance = instance,
+        qualifier = qualifier,
+        secondaryTypes = listOf(kClass),
+        allowOverride = allowOverride
+    )
+}
+```
+
+그런 다음 Swift에서 클래스 또는 프로토콜 참조와 함께 이를 호출합니다:
+
+```swift
+koin.declareFromSwift(
+    instance: MyService(),
+    bindTo: MyServiceProtocol.self,
+    qualifier: nil,
+    allowOverride: true
+)
+```
+
+:::note
+이 방식은 `kotlin.native`의 `getOriginalKotlinClass()`를 사용하여 Objective-C 타입을 해당하는 Kotlin `KClass`로 매핑합니다. `bindTo` 파라미터는 `ObjCClass`(클래스의 `.self`) 또는 `ObjCProtocol`(프로토콜의 `.self`)을 모두 수용합니다.
+
+최초 제안: [@SarahDelCastillo](https://github.com/InsertKoinIO/koin/issues/1108#issuecomment-3645990426).
+:::
+
 ### 스레딩 고려 사항
 
 iOS 및 기타 Native 타겟에서 Koin 인스턴스는 새로운 메모리 모델과 매끄럽게 작동합니다:

@@ -29,7 +29,7 @@ Compose Multiplatform API 중에는 시그니처에 `android.*`나 `androidx.*`(
 
 * [리소스 관리](https://developer.android.com/jetpack/compose/resources): 리소스 관리를 위한 `stringResource`, `animatedVectorResource`, `Font`, 그리고 `*.R` 클래스. 자세한 내용은 [이미지 및 리소스](compose-multiplatform-resources.md)를 참고하세요.
 * [내비게이션(Navigation)](https://developer.android.com/jetpack/compose/navigation). 자세한 내용은 [내비게이션 및 라우팅](compose-navigation-routing.md)을 참고하세요.
-* [`ViewModel`](https://developer.android.com/jetpack/compose/libraries#viewmodel) 클래스.
+* [`ViewModel`](https://developer.android.com/jetpack/compose/libraries#viewmodel) 클래스. 자세한 내용은 [멀티플랫폼 ViewModel](compose-viewmodel.md)을 참고하세요.
 * [페이징(Paging)](https://developer.android.com/jetpack/compose/libraries#paging) 라이브러리.
 * [`ConstraintLayout`](https://developer.android.com/reference/androidx/constraintlayout/widget/ConstraintLayout) 레이아웃.
 * [지도(Maps)](https://developer.android.com/jetpack/compose/libraries#maps) 라이브러리.

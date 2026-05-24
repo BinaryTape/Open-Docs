@@ -19,7 +19,7 @@ Kotlin 2.0.0부터 다음 유형의 릴리스를 제공합니다:
 >
 {style="tip"}
 
-각 언어 및 도구 릴리스에 대해, 새로운 기능이 정식 출시되기 전에 미리 사용해 볼 수 있도록 여러 개의 프리뷰(_EAP_) 버전도 제공합니다. 자세한 내용은 [Early Access Preview](eap.md)를 참조하세요.
+각 언어 및 도구 릴리스에 대해, 새로운 기능이 정식 출시되기 전에 미리 사용해 볼 수 있도록 여러 개의 프리뷰(_EAP_) 버전도 제공합니다. 자세한 내용은 [Early Access Preview 참여](eap.md)를 참조하세요.
 
 > 새로운 Kotlin 릴리스 소식을 받고 싶다면 [Kotlin 뉴스레터](https://lp.jetbrains.com/subscribe-to-kotlin-news/)를 구독하거나, [X에서 Kotlin](https://x.com/kotlin)을 팔로우하거나, [Kotlin GitHub 저장소](https://github.com/JetBrains/kotlin)에서 **Watch | Custom | Releases** 옵션을 활성화하세요.
 > 
@@ -111,9 +111,46 @@ Kotlin %kotlinVersion%으로 업데이트하려면 `pom.xml` 파일에서 버전
 
 Kotlin은 JetBrains에서 개발한 공식 Kotlin 플러그인을 통해 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 및 [Android Studio](https://developer.android.com/kotlin/get-started)에서 별도의 설정 없이 완전한 기능을 지원합니다.
 
-## Kotlin 릴리스 호환성
+## 표준 라이브러리 보안 지원
 
-[Kotlin 릴리스 유형 및 호환성](kotlin-evolution-principles.md#language-and-tooling-releases)에 대해 자세히 알아보세요.
+Kotlin 2.4.0부터 JVM용 Kotlin 표준 라이브러리는 각 릴리스 라인에 대해 18개월의 지원 기간을 가집니다. 언어 릴리스(2._x_._0_)와 그 뒤를 잇는 도구 릴리스(2._x_._20_)는 동일한 릴리스 라인(2._x_)에 속합니다.
+
+JVM용 Kotlin 표준 라이브러리에 영향을 미치는 보안 취약점을 발견하면, 다음을 동시에 제공합니다:
+
+* 보안 수정을 포함하여 해당 릴리스 라인의 최신 Kotlin 릴리스를 기반으로 한 버그 수정 릴리스.
+* 활성 지원 기간 내에 있는 모든 릴리스 라인에 대한 버그 수정 릴리스.
+
+예를 들어 보안 취약점이 발견되고 최신 Kotlin 릴리스가 Kotlin 2.4.20인 경우, Kotlin 2.4.20에 대해서만 버그 수정 버전을 릴리스합니다. Kotlin 2.4.0에 대해서는 버그 수정 버전을 릴리스하지 않습니다.
+
+<!--
+다음 표는 모든 Kotlin 릴리스와 해당 지원 기간을 나열합니다.
+
+<table>
+    <tr>
+        <th>Kotlin 릴리스 라인</th>
+        <th>릴리스 날짜</th>
+        <th>지원 종료</th>
+        <th>최신 버그 수정 릴리스</th>
+    </tr>
+    <tr>
+        <td><strong>2.4</strong>
+        </td>
+        <td>
+            <p>TBD</p>
+        </td>
+        <td>
+            <p>TBD</p>
+        </td>
+        <td>
+            <p>없음</p>
+        </td>
+    </tr>
+</table>
+-->
+
+> 우리는 여러분이 발견한 보안 문제에 대해 항상 듣고 싶어 합니다. Kotlin에서 발견한 문제를 보고하려면 [이슈 트래커](https://youtrack.jetbrains.com/newIssue?project=KT&c=Type%20Security%20Problem)에 직접 메시지를 게시하거나 [이메일](mailto:security@jetbrains.org)을 보내주세요.
+> 
+{style="tip"}
 
 ## 릴리스 이력
 
@@ -220,7 +257,7 @@ Kotlin은 JetBrains에서 개발한 공식 Kotlin 플러그인을 통해 [Intell
     </tr> 
    <tr>
         <td><strong>2.1.20</strong>
-            <p>출시일: <strong>2025년 3월 20일</strong></p>
+            <p>출시일: <strong>2025년 March 20, 2025</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.20" target="_blank">GitHub에서 릴리스 보기</a></p>
         </td>
         <td>

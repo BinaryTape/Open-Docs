@@ -32,6 +32,33 @@ fun main() {
 | `startKoin<T> { }` | 設定ブロックを使用して開始する |
 | `koinApplication<T>()` | 隔離された KoinApplication を作成する |
 | `koinConfiguration<T>()` | 設定を作成する（Compose、Ktor 用） |
+| `module<T>()` | 単一の `@Module` クラスをロードする |
+| `modules(A::class, B::class)` | 複数の `@Module` クラスをロードする |
+
+### 個別モジュールのロード
+
+`module<T>()` または `modules(vararg KClass)` を使用すると、`@KoinApplication` を必要とせずに `@Module` クラスを直接ロードできます。
+
+```kotlin
+startKoin {
+    module<NetworkModule>()
+    modules(DataModule::class, CacheModule::class)
+}
+```
+
+これはテストや、アノテーションベースのモジュールと DSL 設定を併用する場合に便利です。
+
+```kotlin
+// テストにおいて — 必要なモジュールのみをロードする
+@get:Rule
+val koinTestRule = KoinTestRule.create {
+    module<NetworkModule>()
+}
+```
+
+:::info
+`module<T>()` および `modules(vararg KClass)` は、コンパイラプラグインがコンパイル時にインターセプト（傍受）して変換するためのスタブ関数です。これらを使用するには、Koin コンパイラプラグインを適用する必要があります。
+:::
 
 ### @KoinApplication のパラメータ
 
@@ -48,6 +75,42 @@ class ProdApp
 
 :::info
 設定が指定されていない場合、`@Configuration`（デフォルトラベル）でマークされたモジュールが自動的にロードされます。
+:::
+
+### モジュールのロード順序とオーバーライド
+
+Koin は実行時に **最後にロードされたものが優先（last-wins）** されます。2 つのモジュールが同じ型を定義している場合、最後にロードされた方が優先されます。コンパイラプラグインは、`@KoinApplication` から以下の順序でモジュールリストを組み立てます。
+
+1.  **自動検出された `@Configuration` モジュール**（ローカル + 依存関係の JAR） — 最初にロードされる
+2.  **明示的な `@KoinApplication(modules = [A, B, C])`** — **宣言された順序で** 最後にロードされる
+
+そのため、アプリレベルのオーバーライドは常に依存関係のデフォルト設定よりも優先されます。
+
+```kotlin
+// 依存ライブラリモジュール内
+@Module @Configuration
+class CoreModule {
+    @Singleton fun feature(): Feature = DefaultFeature()
+}
+
+// アプリモジュール内
+@Module
+class AppModule {
+    @Singleton fun feature(): Feature = AppFeature()  // カスタムオーバーライド
+}
+
+@KoinApplication(modules = [AppModule::class])
+class MyApp
+// ロード順序: CoreModule (DefaultFeature) → AppModule (AppFeature が優先)
+// 実行時の get<Feature>() は AppFeature を返す
+```
+
+明示的なリスト内では、宣言された順序が保持されます。したがって、`@KoinApplication(modules = [A, B, C])` は A、B、そして C の順にロードされ、この 3 つの中では C が優先されます。各エントリの `@Module(includes = [...])` チェーンは、そのエントリとグループ化されたままになります。
+
+モジュールが明示的なリストに含まれ、かつ `@Configuration` としても検出される場合、そのモジュールは一度だけ — **明示的に指定された位置** で — ロードされます。したがって、`modules = [...]` での宣言順序が常にオーバーライドの優先順位を制御します。
+
+:::tip
+（クラスパススキャンの順序ではなく）複数の `@Configuration` モジュール間で特定のロード順序が必要な場合は、`@KoinApplication(modules = [Core::class, Feature::class, App::class])` のように明示的にリストしてください。明示的なリストは宣言順序を尊重します。
 :::
 
 ## @Configuration による設定管理

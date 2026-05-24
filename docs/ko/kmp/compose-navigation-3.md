@@ -1,5 +1,4 @@
 [//]: # (title: Compose Multiplatform의 Navigation 3)
-<primary-label ref="alpha"/>
 
 [Android의 네비게이션(Navigation) 라이브러리](https://developer.android.com/guide/navigation)가 네비게이션 3로 업그레이드되었습니다. 이번 업그레이드에서는 컴포즈(Compose)와 연동되며 이전 버전의 라이브러리에 대한 피드백을 반영하여 재설계된 네비게이션 접근 방식을 도입했습니다.
 버전 1.10부터 Compose Multiplatform은 Android, iOS, 데스크톱 및 웹 등 지원되는 모든 멀티플랫폼 프로젝트에서 네비게이션 3 도입을 지원합니다.
@@ -21,7 +20,7 @@
 
 네비게이션 3의 멀티플랫폼 구현을 사용해 보려면 버전 카탈로그에 다음 의존성을 추가하세요:
 
-```text
+```toml
 [versions]
 multiplatform-nav3-ui = "1.0.0-alpha05"
 
@@ -35,7 +34,7 @@ jetbrains-navigation3-ui = { module = "org.jetbrains.androidx.navigation3:naviga
 {style="note"}
 
 Material 3 Adaptive 및 ViewModel 라이브러리를 사용하는 프로젝트의 경우, 다음 네비게이션 지원 아티팩트도 추가하세요:
-```text
+```toml
 [versions]
 compose-multiplatform-adaptive = "1.3.0-alpha02"
 compose-multiplatform-lifecycle = "2.10.0-alpha05"
@@ -47,7 +46,7 @@ jetbrains-lifecycle-viewmodelNavigation3 = { module = "org.jetbrains.androidx.li
 
 마지막으로, JetBrains 엔지니어가 만든 [개념 증명(proof-of-concept) 라이브러리](https://github.com/terrakok/navigation3-browser)를 사용해 볼 수 있습니다. 이 라이브러리는 멀티플랫폼 네비게이션 3를 웹의 브라우저 기록 네비게이션과 통합합니다:
 
-```text
+```toml
 [versions]
 compose-multiplatform-navigation3-browser = "0.2.0"
 

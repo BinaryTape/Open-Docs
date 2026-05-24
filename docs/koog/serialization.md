@@ -151,7 +151,7 @@ Koog 使用了一个轻量级的、与库无关的序列化层，用于在 JSON 
 `JSONElement` 是 JSON 数据的一种中立中间表示。
 它的存在是为了使序列化器、工具和代理内部机制不依赖于特定库中的特定 JSON 类型。
 
-### 层级结构
+### 层次结构
 
 ```
 JSONElement
@@ -441,7 +441,7 @@ dependencies {
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.config.AIAgentConfig;
-    import ai.koog.prompt.dsl.Prompt;
+    import ai.koog.prompt.Prompt;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import ai.koog.serialization.jackson.JacksonSerializer;
     public class exampleSerializationJava06 {

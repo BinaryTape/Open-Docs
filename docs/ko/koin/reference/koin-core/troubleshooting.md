@@ -11,7 +11,7 @@ title: 문제 해결
 ### 문제
 
 ```kotlin
-// 순환 의존성 - 런타임 시 실패함
+// 순환 의존성
 class ServiceA(val serviceB: ServiceB)
 class ServiceB(val serviceA: ServiceA)
 
@@ -20,6 +20,10 @@ module {
     single { ServiceB(get()) }  // 오류: 순환 의존성 발생!
 }
 ```
+
+:::tip 컴파일러 플러그인을 통한 컴파일 타임 탐지
+[Koin 컴파일러 플러그인](/docs/reference/koin-compiler/compile-safety)은 컴파일 과정(A2/A3 단계) 중에 순환 의존성을 탐지하므로, 런타임까지 기다릴 필요가 없습니다. 플러그인이 없으면 런타임 오류와 함께 시작 시점에 실패하게 됩니다.
+:::
 
 ### 해결 방법 1: 지연 주입(Lazy Injection)
 
@@ -83,7 +87,7 @@ startKoin {
 }
 ```
 
-### verify()를 사용한 모듈 검증
+### `verify()`를 사용한 모듈 검증
 
 모든 정의가 해결될 수 있는지 확인합니다:
 
@@ -95,8 +99,8 @@ fun `verify all modules`() {
 }
 ```
 
-:::info
-`verify()`와 `checkModules()`는 모두 Koin 컴파일러 플러그인의 네이티브 컴파일 타임 안정성 기능으로 대체될 예정입니다. 자세한 내용은 [모듈 검증(Module Verification)](/docs/reference/koin-test/verify)을 참조하세요.
+:::tip
+Koin 컴파일러 플러그인은 이제 컴파일 타임 의존성 검증을 제공하여 `verify()`와 `checkModules()`를 대체합니다. 자세한 내용은 [컴파일 타임 안정성(Compile-Time Safety)](/docs/reference/koin-compiler/compile-safety)을 참조하세요.
 :::
 
 ## 일반적인 오류
@@ -210,7 +214,7 @@ class UserService(private val api: ApiClient)
 ## 베스트 프랙티스 요약
 
 1. **생성자 주입 선호** - 클래스 내부에서 `get()` 호출 지양
-2. **테스트에서 `verify()` 사용** - 정의 누락을 조기에 발견
+2. **Koin 컴파일러 플러그인 사용** - 컴파일 타임에 누락된 정의 탐지 (또는 테스트에서 `verify()` 사용)
 3. **집중된 모듈 유지** - 모듈당 하나의 책임 부여
 4. **순환 의존성 방지** - 리팩터링하거나 지연 주입 사용
 5. **한정자 사용 절제** - 동일한 타입의 인스턴스가 여러 개인 경우에만 사용

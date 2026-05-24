@@ -93,7 +93,7 @@ Android 應用程式 (`com.android.application`) 或 Android 程式庫 (`com.and
 
 1. 在 `gradle/libs.versions.toml` 檔案中，將 Kotlin Android Gradle 外掛程式加入您的版本類目：
 
-    ```text
+    ```toml
     [plugins]
     kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
     ```
@@ -191,7 +191,7 @@ Android 應用程式 (`com.android.application`) 或 Android 程式庫 (`com.and
    2. 在 **Android** 類別中找到 **composeApp** 配置。
    3. 在 **General | Module** 欄位中，將 `demo.composeApp` 更改為 `demo.androidApp`。
 5. 啟動新的執行配置以確保應用程式如預期執行。
-6. If everything works correctly, in the `composeApp/build.gradle.kts` file, remove the `kotlin.sourceSets.androidMain.dependencies {}` block.
+6. 如果一切運作正常，請在 `composeApp/build.gradle.kts` 檔案中移除 `kotlin.sourceSets.androidMain.dependencies {}` 區塊。
 
 您已將 Android 入口點提取到獨立模組。
 現在請更新共用程式碼模組以使用新的 Android-KMP 程式庫外掛程式。 
@@ -204,7 +204,7 @@ Android 應用程式 (`com.android.application`) 或 Android 程式庫 (`com.and
 1. 在 `gradle/libs.versions.toml` 中，
    將 Android-KMP 程式庫外掛程式加入您的版本類目：
 
-    ```text
+    ```toml
     [plugins]
     androidMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
     ```
@@ -250,7 +250,7 @@ Android 應用程式 (`com.android.application`) 或 Android 程式庫 (`com.and
       您可以刪除與 `composeApp` 模組關聯的過時執行配置。
 2. 在 `gradle/libs.versions.toml` 檔案中，將 AGP 更新為 9.* 版本，例如：
 
-    ```text
+    ```toml
     [versions]
     agp = "9.0.0"
     ```

@@ -2,6 +2,8 @@
 
 Compose Multiplatform for desktop 針對文字操作功能表提供開箱即用的支援，並允許您透過新增更多項目、設定佈景主題以及自訂文字，輕鬆地調整任何操作功能表。
 
+undefined
+
 ## 任意區域的操作功能表
 
 您可以為應用程式的任何任意區域建立操作功能表。使用 `ContextMenuArea` 來定義一個容器，在該區域按一下滑鼠右鍵將會觸發操作功能表的出現：
@@ -368,7 +370,7 @@ fun JPopupTextMenuProvider(owner: Component, content: @Composable () -> Unit) {
                     )
                 }
 
-                // 新增可透過應用程式其他部分中的 ContextMenuDataProvider 定義的項目
+                // 新增可透過應用程式其他部分中的 ContextMenuDataProvider 定義的項目 
                 for (item in items) {
                     add(
                         JMenuItem(item.label).apply {

@@ -119,7 +119,7 @@ Koogは、コンテンツモデレーションに対して2つの主なアプロ
 === "Java"
 
     <!--- INCLUDE
-    import ai.koog.prompt.dsl.Prompt;
+    import ai.koog.prompt.Prompt;
     import ai.koog.prompt.executor.clients.openai.OpenAILLMClient;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import ai.koog.prompt.dsl.ModerationResult;
@@ -199,7 +199,7 @@ Koogは、コンテンツモデレーションに対して2つの主なアプロ
 === "Java"
 
     <!--- INCLUDE
-    import ai.koog.prompt.dsl.Prompt;
+    import ai.koog.prompt.Prompt;
     import ai.koog.prompt.executor.ollama.client.OllamaClient;
     import ai.koog.prompt.executor.ollama.client.OllamaModels;
     import ai.koog.prompt.dsl.ModerationResult;
@@ -283,7 +283,7 @@ Koogは、コンテンツモデレーションに対して2つの主なアプロ
 === "Java"
 
     <!--- INCLUDE
-    import ai.koog.prompt.dsl.Prompt;
+    import ai.koog.prompt.Prompt;
     import ai.koog.prompt.executor.clients.openai.OpenAILLMClient;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor;

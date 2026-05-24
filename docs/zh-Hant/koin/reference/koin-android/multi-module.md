@@ -106,7 +106,7 @@ class FeatureActivity : AppCompatActivity() {
 | Hilt | Koin |
 |------|------|
 | `@HiltAndroidApp` | `startKoin { androidContext() }` |
-| `@InstallIn(SingletonComponent)` | 在 `startKoin {}` 中載入模組 |
+| `@InstallIn(SingletonComponent)` | 在 `startKoin {}` 中載入的模組 |
 | 用於跨模組的 `@EntryPoint` | 自動解析 |
 | 組建相依性 | `includes()` |
 | `@ApplicationContext` | `androidContext()` (自動) |
@@ -143,6 +143,12 @@ class LoginViewModelTest : KoinTest {
 ```
 
 ### 驗證所有模組
+
+:::tip
+Koin 編譯器外掛程式現在會在編譯時驗證您的完整相依圖，取代了對執行階段驗證的需求。請參閱 [Compile-Time Safety](/docs/reference/koin-compiler/compile-safety)。
+:::
+
+如果您未使用編譯器外掛程式，您可以在執行階段驗證模組：
 
 ```kotlin
 class ModuleCheckTest : KoinTest {

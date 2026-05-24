@@ -41,7 +41,11 @@ val appModule = module {
 
 ## 驗證您的模組
 
-測試 Koin 配置（configuration）最簡單的方法是驗證您的模組。`verify()` 函式會進行空載執行（dry-run）檢查，以確保所有相依性都能被解析：
+:::tip
+Koin 編譯器外掛程式現在提供編譯時期相依性驗證，在建置時期即可捕捉缺少的相依性，無需編寫測試程式碼。請參閱 [編譯時期安全性](/docs/reference/koin-compiler/compile-safety)。
+:::
+
+如果您沒有使用編譯器外掛程式，您可以在執行時期驗證模組。`verify()` 函式會進行空載執行（dry-run）檢查，以確保所有相依性都能被解析：
 
 ```kotlin
 class ModuleVerificationTest : AutoCloseKoinTest() {

@@ -182,6 +182,19 @@ fun DetailScreen(itemId: String) {
 }
 ```
 
+使用 `key` 形参为每个标识符（例如，导航实参）创建不同的 ViewModel 实例：
+
+```kotlin
+@Composable
+fun DetailScreen(newsId: String) {
+    val viewModel = koinViewModel<DetailViewModel>(key = newsId) {
+        parametersOf(newsId)
+    }
+}
+```
+
+`key` 确保每个唯一的 `newsId` 都能获得自己的 ViewModel 实例，这对于可能以不同实参存在于返回栈中的屏幕非常重要。
+
 ### 带参数的经典 DSL
 
 ```kotlin

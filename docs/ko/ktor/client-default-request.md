@@ -17,7 +17,7 @@
 DefaultRequest 플러그인을 사용하면 모든 요청에 대한 기본 파라미터를 구성할 수 있습니다.
 </link-summary>
 
-[`DefaultRequest`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/-default-request/index.html) 플러그인을 사용하면 모든 [요청](client-requests.md)에 대한 기본 파라미터를 구성할 수 있습니다. 예를 들어 기본 URL 지정, 헤더 추가, 쿼리 파라미터 구성 등이 가능합니다.
+[`DefaultRequest`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/-default-request/index.html) 플러그인을 사용하면 모든 [요청](client-requests.md)에 대한 기본 파라미터를 구성할 수 있습니다: 기본 URL 지정, 헤더 추가, 쿼리 파라미터 구성 등이 가능합니다.
 
 ## 의존성 추가 {id="add_dependencies"}
 
@@ -96,6 +96,10 @@ val response: HttpResponse = client.get("welcome.html")
 
 ...최종 URL은 `https://ktor.io/docs/welcome.html`이 됩니다.
 기본 URL과 요청 URL이 어떻게 병합되는지 자세히 알아보려면 [DefaultRequest](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/-default-request/index.html)를 참조하세요.
+
+> 기본 URL 경로는 반드시 슬래시(/)로 끝나야 합니다. 그렇지 않으면 [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986#section-5.2) URL 확인 규칙에 따라 요청 경로가 기본 경로의 마지막 세그먼트를 대체합니다. 예를 들어, `path("v1")`은 파일로 취급되어 요청 경로가 추가될 때 누락되지만, `path("v1/")`은 디렉터리 접두사로 유지됩니다.
+>
+{style="note"}
 
 ### URL 파라미터 {id="url-params"}
 

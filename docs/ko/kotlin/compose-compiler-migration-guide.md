@@ -19,7 +19,7 @@ Android 모듈의 경우:
 
 1. Compose 컴파일러 Gradle 플러그인을 [Gradle 버전 카탈로그](https://docs.gradle.org/current/userguide/platforms.html#sub:conventional-dependencies-toml)에 추가합니다:
 
- ```
+ ```toml
  [versions]
  # ...
  kotlin = "%kotlinVersion%"

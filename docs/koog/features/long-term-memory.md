@@ -86,7 +86,7 @@
 | 增强器 | 行为 |
 |---|---|
 | `SystemPromptAugmenter()` | 在提示词开头作为系统消息插入上下文（如果没有系统消息则为无操作） |
-| `UserPromptAugmenter()` | 在最后一条用户消息之前，作为一条独立的用户消息插入上下文 |
+| `UserPromptAugmenter()` | 在最后一条用户消息的末尾添加检索到的上下文作为额外的文本部分（如果没有用户消息则为无操作） |
 | `PromptAugmenter { prompt, context -> ... }` | 通过 lambda表达式进行自定义增强 |
 
 ### 搜索查询提供程序 (Search Query Providers)
@@ -280,4 +280,4 @@ class MyVectorDbStorage : SearchStorage<TextDocument, SearchRequest>, WriteStora
 }
 ```
 
-为了进行测试，可以使用内置的 `InMemoryRecordStorage`，它将记录保存在内存中。它同时支持 `KeywordSearchRequest`（实现为不区分大小写的子字符串匹配）和 `SimilaritySearchRequest`（实现为不区分大小写的单词集上的 Jaccard 系数）；不使用向量嵌入。
+为了进行测试，可以使用内置的 `InMemoryRecordStorage`，它将记录保存在内存中。它同时支持 `KeywordSearchRequest`（实现为不区分大小写的子字符串匹配）和 `SimilaritySearchRequest`（实现为在不区分大小写的单词集上的 Jaccard 系数）；不使用向量嵌入。

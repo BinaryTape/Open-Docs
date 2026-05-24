@@ -6,11 +6,11 @@
 
 <a name="moving-fast"/>
 
-*   **Moving fast (MF)**: [증분 릴리스](kotlin-evolution-principles.md#language-and-tooling-releases) 사이에서도 호환성을 기대할 수 없으며, 모든 기능은 예고 없이 추가, 제거 또는 변경될 수 있습니다.
+*   **Moving fast (MF)**: 증분 릴리스 사이에서도 호환성을 기대할 수 없으며, 모든 기능은 예고 없이 추가, 제거 또는 변경될 수 있습니다.
 
 *   **Additions in Incremental Releases (AIR)**: 증분 릴리스에서 기능이 추가될 수 있으며, 기능의 제거 및 동작 변경은 지양해야 합니다. 필요한 경우 이전 증분 릴리스에서 이를 공지해야 합니다.
 
-*   **Stable Incremental Releases (SIR)**: 증분 릴리스는 완전히 호환되며, 최적화 및 버그 수정만 이루어집니다. 모든 변경 사항은 [언어 릴리스](kotlin-evolution-principles.md#language-and-tooling-releases)에서 이루어질 수 있습니다.
+*   **Stable Incremental Releases (SIR)**: 증분 릴리스는 완전히 호환되며, 최적화 및 버그 수정만 이루어집니다. 모든 변경 사항은 언어 릴리스에서 이루어질 수 있습니다.
 
 <a name="fully-stable"/>
 

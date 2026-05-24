@@ -32,6 +32,33 @@ fun main() {
 | `startKoin<T> { }` | 使用配置块启动 |
 | `koinApplication<T>()` | 创建隔离的 KoinApplication |
 | `koinConfiguration<T>()` | 创建配置（适用于 Compose、Ktor） |
+| `module<T>()` | 加载单个 `@Module` 类 |
+| `modules(A::class, B::class)` | 加载多个 `@Module` 类 |
+
+### 加载单个模块
+
+使用 `module<T>()` 或 `modules(vararg KClass)` 直接加载 `@Module` 类，无需 `@KoinApplication`：
+
+```kotlin
+startKoin {
+    module<NetworkModule>()
+    modules(DataModule::class, CacheModule::class)
+}
+```
+
+这对于测试或将注解模块与 DSL 配置混合使用时非常有用：
+
+```kotlin
+// 在测试中 —— 仅加载您需要的模块
+@get:Rule
+val koinTestRule = KoinTestRule.create {
+    module<NetworkModule>()
+}
+```
+
+:::info
+`module<T>()` 和 `modules(vararg KClass)` 是存根函数，编译器插件会在编译时对其进行拦截并转换。它们需要应用 Koin 编译器插件。
+:::
 
 ### @KoinApplication 参数
 
@@ -48,6 +75,42 @@ class ProdApp
 
 :::info
 未指定配置时，会自动加载标记有 `@Configuration`（默认标签）的模块。
+:::
+
+### 模块加载顺序与重写
+
+Koin 在运行时遵循 **最后胜出 (last-wins)** 原则：当两个模块定义了相同的类型时，最后加载的模块具有优先级。编译器插件按照以下顺序从 `@KoinApplication` 组装模块列表：
+
+1. **自动发现的 `@Configuration` 模块**（本地 + 依赖 JAR 包）—— 最先加载
+2. **显式的 `@KoinApplication(modules = [A, B, C])`** —— 最后加载，且遵循**声明顺序**
+
+因此，应用级重写总是优先于依赖默认值：
+
+```kotlin
+// 在依赖库模块中
+@Module @Configuration
+class CoreModule {
+    @Singleton fun feature(): Feature = DefaultFeature()
+}
+
+// 在您的应用模块中
+@Module
+class AppModule {
+    @Singleton fun feature(): Feature = AppFeature()  // 自定义重写
+}
+
+@KoinApplication(modules = [AppModule::class])
+class MyApp
+// 加载顺序：CoreModule (DefaultFeature) → AppModule (AppFeature 胜出)
+// 运行时 get<Feature>() 返回 AppFeature。
+```
+
+在显式列表中，声明的顺序会被保留 —— 因此 `@KoinApplication(modules = [A, B, C])` 会依次加载 A、B、C，在这三者中 C 胜出。每个条目的 `@Module(includes = [...])` 链保持与该条目归类在一起。
+
+如果一个模块既出现在显式列表中，又通过 `@Configuration` 被发现，它只会加载一次 —— 在其**显式位置**加载 —— 因此 `modules = [...]` 中的声明顺序始终控制重写优先级。
+
+:::tip
+如果您需要在多个 `@Configuration` 模块之间指定特定的加载顺序（而不是类路径扫描顺序），请在 `@KoinApplication(modules = [Core::class, Feature::class, App::class])` 中显式列出它们 —— 显式列表遵循声明顺序。
 :::
 
 ## 使用 @Configuration 进行配置管理

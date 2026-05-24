@@ -2,6 +2,13 @@
 
 您可以將捲軸套用到可捲動的組建。捲軸與可捲動組建共用同一個狀態，以便彼此同步。
 
+> 提供的每個程式碼片段都是一個可執行的桌面應用程式。若要嘗試：
+> 1. 使用 [Kotlin Multiplatform IDE 外掛程式](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform) 或 [線上精靈](https://kmp.jetbrains.com/?android=true&desktop=true&includeTests=false) 建立一個 Compose Multiplatform 專案。
+> 2. 開啟桌面進入點檔案。例如：`desktopApp/src/main/kotlin/com/example/my_desktop_app/main.kt`。
+> 3. 將其內容替換為下方的程式碼片段。
+>
+{style="note" id="desktop-snippets-intro"}
+
 ## 捲動修飾符
 
 `verticalScroll` 與 `horizontalScroll` 修飾符提供了最簡單的方法，讓使用者可以在內容邊界大於其最大尺寸限制時捲動元素。
@@ -138,7 +145,6 @@ fun LazyScrollable() {
             .background(color = Color(180, 180, 180))
             .padding(10.dp)
     ) {
-
         val state = rememberLazyListState()
 
         LazyColumn(Modifier.fillMaxSize().padding(end = 12.dp), state) {

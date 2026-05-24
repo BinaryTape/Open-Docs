@@ -66,7 +66,7 @@ data class Contact(
 val contactList = listOf(
     Contact(100, "Alice", "Smith", "+1 415 555 1234"),
     Contact(101, "Bob", "Johnson", "+49 151 23456789"),
-    Contact(102, "Charlie", "Williams", "+36 20 123 45 67"),
+    Contact(102, "Charlie", "Williams", "+36 20 123 4567"),
     Contact(103, "Daniel", "Anderson", "+46 70 123 45 67"),
     Contact(104, "Daniel", "Garcia", "+34 612 345 678"),
 )
@@ -443,7 +443,7 @@ runBlocking {
 
     交易分析助手已启动
 
-    您本月在餐厅的总支出为 $517.64。
+    您本月在餐厅的总支出为 $517.64。 
     
     任务成功完成。
 
@@ -472,6 +472,7 @@ data class ClassifiedBankRequest(
     @property:LLMDescription("银行应用程序要执行的实际请求")
     val userRequest: String
 )
+
 ```
 
 ### 共享工具注册表
@@ -490,7 +491,6 @@ val toolRegistry = ToolRegistry {
 现在我们将创建一个编排多个节点的策略：
 
 ```kotlin
-import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.extension.*
 import ai.koog.agents.ext.agent.subgraphWithTask

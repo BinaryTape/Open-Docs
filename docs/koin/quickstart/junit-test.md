@@ -41,7 +41,11 @@ val appModule = module {
 
 ## 验证您的模块
 
-测试 Koin 配置的最简单方法是验证您的模块。`verify()` 函数执行空运行检查，以确保所有依赖项都可以被解析：
+:::tip
+Koin 编译器插件现在提供编译时依赖项验证，可以在构建时捕获缺失的依赖项，而无需编写测试代码。请参阅[编译时安全](/docs/reference/koin-compiler/compile-safety)。
+:::
+
+如果您没有使用编译器插件，可以在运行时验证模块。`verify()` 函数执行空运行检查，以确保所有依赖项都可以被解析：
 
 ```kotlin
 class ModuleVerificationTest : AutoCloseKoinTest() {

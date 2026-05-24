@@ -11,6 +11,8 @@ Kotlin은 Java와 완전히 상호 운용 가능하므로, 모든 것을 새로 
 * IntelliJ IDEA를 사용하여 Java 파일을 Kotlin으로 변환합니다.
 
 > 이 튜토리얼을 위해 기존의 Java 프로젝트를 사용하거나, Maven 및 Gradle 빌드 파일이 이미 설정된 공개 [샘플 프로젝트](https://github.com/kotlin-hands-on/kotlin-junit-sample/tree/main/complete)를 클론할 수 있습니다.
+> 
+> 또한, 우리가 [준비한 스킬](https://github.com/Kotlin/kotlin-agent-skills/blob/main/skills/kotlin-tooling-java-to-kotlin/SKILL.md)을 사용하여 선택한 AI 에이전트에게 변환 작업을 맡길 수도 있습니다. AI 처리 결과는 완전히 예측 가능하지 않을 수 있다는 점을 유의하세요.
 >
 {style="tip"}
 

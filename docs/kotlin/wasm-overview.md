@@ -13,6 +13,8 @@ Wasm 是一种基于栈的虚拟机的二进制指令格式。这种格式与平
 >
 {style="tip"}
 
+[//]: # (TODO KT-85415: For Kotlin/Wasm-compatible standalone runtimes, see Standalone runtimes).
+
 ## Kotlin/Wasm 与 Compose Multiplatform
 
 通过 Kotlin，您可以利用 Compose Multiplatform 和 Kotlin/Wasm 在 Web 项目中构建应用程序并复用移动端和桌面端的界面 (UI)。

@@ -30,7 +30,7 @@
 要试用 SwiftPM 导入功能，请确保您使用的是 Kotlin 多平台 Gradle 插件的 **%kotlinEapVersion%** 版本。
 `gradle/libs.versions.toml` 文件的示例：
 
-```text
+```toml
 [versions]
 kotlin = "%kotlinEapVersion%"
 
@@ -81,7 +81,7 @@ SwiftPM 集成基于导入 Clang 模块。
 默认情况下，导入机制会自动发现指定 Swift 软件包中的 Clang 模块，并使所有可用模块对 Kotlin 代码可见——这类似于 API 可见性在 Swift 和 Objective-C 中的工作方式。
 <!-- TODO link to where it is explained? -->
 
-要禁用默认行为和自动模块发现，请将 `discoverClangModulesImplicitly` 设置为 `false`。
+To disable the default behavior and automatic module discovery, set the `discoverClangModulesImplicitly` to `false`.
 当禁用模块发现时，SwiftPM 导入将使用产品名称作为 Clang 模块名称。
 
 要导入名称与产品名称不同的 Clang 模块，请使用 `importedClangModules` 参数，例如：

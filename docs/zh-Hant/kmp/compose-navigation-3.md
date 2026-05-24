@@ -1,5 +1,4 @@
 [//]: # (title: Compose Multiplatform 中的 Navigation 3)
-<primary-label ref="alpha"/>
 
 [Android 的 Navigation 程式庫](https://developer.android.com/guide/navigation)已升級至 Navigation 3，引入了重新設計的導覽方法，該方法可與 Compose 搭配使用，並考慮了對先前版本程式庫的回饋。
 從 1.10 版本開始，Compose Multiplatform 支援在所有支援平台的多平台專案中採用 Navigation 3：
@@ -14,7 +13,7 @@ Navigation 3 的主要變更包括：
 
 * **使用者擁有的 back stack**。您不再操作單一的程式庫 back stack，而是建立並管理一個 `SnapshotStateList` 狀態，UI 會直接觀察該狀態。
 * **低階構建區塊**。由於與 Compose 的整合更加緊密，該程式庫在實作您自己的導覽組件和行為時提供了更大的靈活性。
-* **適應性配置系統**。透過適應性設計，您可以同時顯示多個目的地，並在配置之間無縫切換。
+* **適應性配置系統**。透過適應性設計，您可以同時顯示多個目的地，並在配置之間無縫切換。 
 
 在 [Android 文件](https://developer.android.com/guide/navigation/navigation-3)中進一步了解 Navigation 3 的一般設計。
 
@@ -22,7 +21,7 @@ Navigation 3 的主要變更包括：
 
 若要嘗試 Navigation 3 的多平台實作，請將以下相依性新增至您的版本目錄：
 
-```text
+```toml
 [versions]
 multiplatform-nav3-ui = "1.0.0-alpha05"
 
@@ -36,7 +35,7 @@ jetbrains-navigation3-ui = { module = "org.jetbrains.androidx.navigation3:naviga
 {style="note"}
 
 對於使用 Material 3 Adaptive 和 ViewModel 程式庫的專案，還需新增以下導覽支援構件：
-```text
+```toml
 [versions]
 compose-multiplatform-adaptive = "1.3.0-alpha02"
 compose-multiplatform-lifecycle = "2.10.0-alpha05"
@@ -48,7 +47,7 @@ jetbrains-lifecycle-viewmodelNavigation3 = { module = "org.jetbrains.androidx.li
 
 最後，您可以嘗試由 JetBrains 工程師建立的[概念驗證程式庫](https://github.com/terrakok/navigation3-browser)。該程式庫將多平台 Navigation 3 與 Web 上的瀏覽器歷程導覽整合在一起：
 
-```text
+```toml
 [versions]
 compose-multiplatform-navigation3-browser = "0.2.0"
 
@@ -61,7 +60,7 @@ navigation3-browser = { module = "com.github.terrakok:navigation3-browser", vers
 ## 多平台支援
 
 Navigation 3 與 Compose 緊密結合，允許 Android 導覽實作在通用 Compose Multiplatform 程式碼中以最小的變動運作。
-為了支援 Web 和 iOS 等非 JVM 平台，您唯一需要做的就是實作[目的地金鑰的多型序列化](#polymorphic-serialization-for-destination-keys)。
+為了支援 Web 和 iOS 等非 JVM 平台，您唯一需要做的就是實作[目的地金鑰的多型序列化](#polymorphic-serialization-for-destination-keys)。 
 
 您可以在 GitHub 上比較使用 Navigation 3 的僅限 Android 與多平台應用程式的廣泛範例：
 * [包含 Navigation 3 技巧的原始 Android 存儲庫](https://github.com/android/nav3-recipes)
@@ -124,14 +123,14 @@ data object RouteA : Route
 @Serializable
 data class RouteB(val id: String) : Route
 
-// 使用預設序列化器的 Backstack
+// 使用預設序列化器的 back stack
 val backStack: MutableList<Route> =
     rememberSerializable(serializer = SnapshotStateListSerializer()) {
         mutableStateListOf(RouteA)
     }
 ```
 
-或者，如果您想明確使用 `rememberNavBackStack()` 函式，這裡有一個稍微不同的組態：
+或者，如果您想明確使用 `rememberNavBackStack()` 函式，這裡有一個稍微不同的配置：
 
 ```kotlin
 private val config = SavedStateConfiguration {
@@ -207,7 +206,7 @@ private val config = SavedStateConfiguration {
 val backStack = rememberNavBackStack(config, RouteA1)
 ```
 
-這種方法提供了高度的靈活性和解耦，儘管它需要更多的手動維護。與[包含聚合密封型別的多模組](#multi-module-with-aggregated-sealed-types)方法類似，您可以使用 DI 動態組合序列化器列表，這可以提高靈活性。
+這種方法提供了高度的靈活性和解耦，儘管它需要更多的手動維護。與[包含聚合密封型別的多模組](#multi-module-with-aggregated-sealed-types)方法類似，您可以使用 DI 動態組合序列化器清單，這可以提高靈活性。
 
 ## 下一步
 

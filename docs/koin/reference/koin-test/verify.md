@@ -4,10 +4,10 @@ title: 验证您的 Koin 配置
 
 Koin 允许您验证您的配置模块，从而避免在运行时发现依赖项注入问题。
 
-:::info 未来：编译时安全性
-`verify()` 和 `checkModules()` API 都将被 Koin 编译器插件中的**原生编译时安全性**所取代。这将在构建时验证您的完整配置，在运行前捕获错误。
+:::tip 编译时安全性现已推出
+**Koin 编译器插件**现在提供编译时依赖项验证——在构建时捕获缺失的依赖项、限定符不匹配和损坏的调用站点。在大多数情况下，这取代了对 `verify()` 和 `checkModules()` 的需求。
 
-请参阅 [Koin 编译器插件](/docs/intro/koin-compiler-plugin)了解更多信息。
+请参阅 [编译时安全性](/docs/reference/koin-compiler/compile-safety) 进行迁移。
 :::
 
 ## Verify API - 仅限 JVM [3.3+]
@@ -36,7 +36,7 @@ class NiaAppModuleCheck {
 
     @Test
     fun checkKoinModule() {
-        // Verify Koin configuration
+        // 验证 Koin 配置
         niaAppModule.verify()
     }
 }
@@ -46,7 +46,7 @@ class NiaAppModuleCheck {
 
 `verify()` API 运行起来非常轻巧，不需要任何类型的 mock/存根即可在您的配置上运行。
 
-### 使用注入参数进行验证 [4.0+]
+### 使用注入形参进行验证 [4.0+]
 
 当您的配置涉及使用 `parametersOf` 注入对象时，验证将失败，因为您的配置中没有该形参类型的定义。
 但是，您可以定义一个形参类型，以便通过给定的定义 `definition<Type>(Class1::class, Class2::class ...)` 进行注入。
@@ -54,7 +54,7 @@ class NiaAppModuleCheck {
 ```kotlin
 class ModuleCheck {
 
-    // given a definition with an injected definition
+    // 给定一个带有注入定义的定义
     val module = module {
         single { (a: Simple.ComponentA) -> Simple.ComponentB(a) }
     }
@@ -62,7 +62,7 @@ class ModuleCheck {
     @Test
     fun checkKoinModule() {
 
-        // Verify and declare Injected Parameters
+        // 验证并声明注入形参
         module.verify(
             injections = injectedParameters(
                 definition<Simple.ComponentB>(Simple.ComponentA::class)
@@ -82,9 +82,9 @@ class NiaAppModuleCheck {
     @Test
     fun checkKoinModule() {
 
-        // Verify Koin configuration
+        // 验证 Koin 配置
         niaAppModule.verify(
-            // List types used in definitions but not declared directly (like parameter injection)
+            // 列出定义中使用的但未直接声明的类型（如形参注入）
             extraTypes = listOf(MyType::class ...)
         )
     }
@@ -96,9 +96,9 @@ class NiaAppModuleCheck {
 来自 `koin-core-annotations` 的注解可以帮助 Koin 推断注入契约并验证配置。相比复杂的 DSL 配置，这有助于识别这些元素：
 
 ```kotlin
-// indicates that "a" is an injected parameter
+// 表示 "a" 是一个注入形参
 class ComponentB(@InjectedParam val a: ComponentA)
-// indicates that "a" is dynamically provided
+// 表示 "a" 是动态提供的
 class ComponentBProvided(@Provided val a: ComponentA)
 ```
 
@@ -146,7 +146,7 @@ class CheckModulesTest : KoinTest {
 
 * `withInstance(value)` - 将 `value` 实例添加到 Koin 图中
 * `withInstance<MyType>()` - 将添加 `MyType` 的 mock 实例（需要 `MockProviderRule`）
-* `withParameter<Type>(qualifier){ qualifier -> value }` - 将添加要作为参数注入的 `value` 实例
+* `withParameter<Type>(qualifier){ qualifier -> value }` - 将添加要作为形参注入的 `value` 实例
 * `withProperty(key, value)` - 向 Koin 添加属性
 
 ### 使用 JUnit 规则进行 Mocking
@@ -156,7 +156,7 @@ class CheckModulesTest : KoinTest {
 ```kotlin
 @get:Rule
 val mockProvider = MockProviderRule.create { clazz ->
-    // Mock with your framework here given clazz
+    // 在此处根据给定的 clazz 使用您的框架进行 Mock
     Mockito.mock(clazz.java)
 }
 ```
@@ -180,7 +180,7 @@ class CheckModulesTest : KoinTest {
         koinApplication {
             modules(myModule)
             checkModules(){
-                // value to add to Koin, used by definition
+                // 要添加到 Koin 的值，由定义使用
                 withInstance("_my_id_value")
             }
         }
@@ -240,17 +240,17 @@ fun `test DI modules`(){
 
 ---
 
-## 迁移路径
+## 迁移到编译时安全性
 
-两种验证 API 都将被 Koin 编译器插件的编译时安全性功能取代：
+Koin 编译器插件现在提供编译时依赖项验证，取代了对运行时验证的需求：
 
-| 当前 | 未来 |
-|---------|--------|
-| `module.verify()` | 编译器插件（自动） |
-| `checkModules()` | 编译器插件（自动） |
+| 之前 | 之后 |
+|--------|-------|
+| 测试中的 `module.verify()` | 编译器插件（自动） |
+| 测试中的 `checkModules()` | 编译器插件（自动） |
 | 运行时验证 | 编译时验证 |
 | 手动测试设置 | 不需要测试代码 |
 
-当编译器插件的编译时安全性可用时，您将在构建时获得依赖项验证，而无需编写任何验证测试。
+编译器在每次构建时进行验证——不需要测试代码。在启用编译器插件后，您可以安全地移除 `verify()` 和 `checkModules()` 测试。
 
-请参阅 [编译器插件设置](/docs/setup/compiler-plugin)了解设置说明。
+请参阅 [编译时安全性](/docs/reference/koin-compiler/compile-safety) 了解完整详情，并参阅 [编译器插件设置](/docs/setup/compiler-plugin) 了解设置说明。

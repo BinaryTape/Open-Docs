@@ -11,7 +11,7 @@ title: トラブルシューティング
 ### 問題
 
 ```kotlin
-// 循環依存 - 実行時に失敗します
+// 循環依存
 class ServiceA(val serviceB: ServiceB)
 class ServiceB(val serviceA: ServiceA)
 
@@ -20,6 +20,10 @@ module {
     single { ServiceB(get()) }  // エラー: 循環依存が発生しています！
 }
 ```
+
+:::tip コンパイラプラグインによるコンパイル時の検出
+[Koin Compiler Plugin](/docs/reference/koin-compiler/compile-safety) は、コンパイル時（A2/A3 フェーズ）に循環依存を検出します。実行時まで待つ必要はありません。プラグインを使用しない場合、サイクルは起動時に実行時エラーで失敗します。
+:::
 
 ### 解決策 1: 遅延インジェクション (Lazy Injection)
 
@@ -95,8 +99,8 @@ fun `verify all modules`() {
 }
 ```
 
-:::info
-`verify()` と `checkModules()` は、どちらも Koin Compiler Plugin によるネイティブなコンパイル時の安全性に置き換えられる予定です。詳細は [Module Verification](/docs/reference/koin-test/verify) を参照してください。
+:::tip
+Koin Compiler Plugin はコンパイル時の依存関係検証を提供するようになったため、`verify()` や `checkModules()` の必要性はなくなります。詳細は [コンパイル時の安全性 (Compile-Time Safety)](/docs/reference/koin-compiler/compile-safety) を参照してください。
 :::
 
 ## 一般的なエラー
@@ -210,7 +214,7 @@ class UserService(private val api: ApiClient)
 ## ベストプラクティスのまとめ
 
 1. **コンストラクタインジェクションを優先する** - クラス内での `get()` 呼び出しを避ける
-2. **テストで `verify()` を使用する** - 定義の欠落を早期に発見する
+2. **Koin Compiler Plugin を使用する** - 定義の欠落をコンパイル時に発見する（またはテストで `verify()` を使用する）
 3. **モジュールの責務を絞る** - 1つのモジュールにつき1つの責任 (Single responsibility) とする
 4. **循環依存を避ける** - リファクタリングするか、遅延インジェクションを使用する
 5. **限定子の使用は控えめにする** - 同じ型に対して複数のインスタンスがある場合のみ使用する

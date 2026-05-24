@@ -12,11 +12,11 @@ graph LR
     in:::hidden
     out:::hidden
     
-    subgraph node ["Node"]
-        execute(Do stuff)
+    subgraph node ["節點"]
+        execute(執行操作)
     end
     
-    in --Input--> execute --Output--> out
+    in --輸入--> execute --輸出--> out
 
     classDef hidden display: none;
 ```
@@ -74,8 +74,8 @@ graph LR
     in:::hidden
     out:::hidden
     
-    subgraph node ["Pass-through node"]
-        execute(Do nothing)
+    subgraph node ["傳遞節點"]
+        execute(不執行任何操作)
     end
     
     in ---|T| execute --T--> out
@@ -94,7 +94,6 @@ graph LR
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.extension.nodeDoNothing
@@ -149,8 +148,8 @@ graph LR
     in:::hidden
     out:::hidden
     
-    subgraph node ["Prompt preparation node"]
-        execute(Append prompt)
+    subgraph node ["提示詞準備節點"]
+        execute(附加提示詞)
     end
     
     in ---|T| execute --T--> out
@@ -170,7 +169,6 @@ graph LR
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.extension.nodeAppendPrompt
@@ -258,8 +256,8 @@ graph LR
     in:::hidden
     out:::hidden
     
-    subgraph node ["Tool-only node"]
-        execute(Request LLM expecting only tool calls)
+    subgraph node ["僅限工具節點"]
+        execute(請求 LLM 並預期僅有工具呼叫)
     end
     
     in --String--> execute --Message.Response--> out
@@ -277,8 +275,8 @@ graph LR
     in:::hidden
     out:::hidden
     
-    subgraph node ["Forced single tool use node"]
-        execute(Request LLM expecting a specific tool call)
+    subgraph node ["強制使用單一工具節點"]
+        execute(請求 LLM 並預期特定的工具呼叫)
     end
     
     in --String--> execute --Message.Response--> out
@@ -296,8 +294,8 @@ graph LR
     in:::hidden
     out:::hidden
     
-    subgraph node ["LLM request node"]
-        execute(Request LLM)
+    subgraph node ["LLM 請求節點"]
+        execute(請求 LLM)
     end
     
     in --String--> execute --Message.Response--> out
@@ -315,12 +313,10 @@ graph LR
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.extension.nodeLLMRequest
     import ai.koog.agents.core.dsl.extension.nodeDoNothing
-    import ai.koog.agents.core.dsl.extension.asUserMessage
     val strategy = strategy<String, String>("strategy_name") {
         val getUserQuestion by nodeDoNothing<String>()
     -->
@@ -329,7 +325,7 @@ graph LR
     -->
     ```kotlin
     val requestLLM by nodeLLMRequest("requestLLM")
-    edge(getUserQuestion forwardTo requestLLM asUserMessage { it })
+    edge(getUserQuestion forwardTo requestLLM)
     ```
     <!--- KNIT example-nodes-and-component-04.kt -->
 
@@ -360,7 +356,6 @@ graph LR
     strategy.edge(AIAgentEdge.builder()
         .from(getUserQuestion)
         .to(requestLLM)
-        .asUserMessage(s -> s)
         .build());
     ```
     <!--- KNIT exampleNodesAndComponentsJava04.java -->
@@ -374,8 +369,8 @@ graph LR
     in:::hidden
     out:::hidden
     
-    subgraph node ["LLM request node, structured response"]
-        execute(Request LLM structured)
+    subgraph node ["LLM 請求節點，結構化回應"]
+        execute(請求結構化 LLM)
     end
     
     in --String--> execute -- "Result&lt;StructuredResponse&gt;" --> out
@@ -393,8 +388,8 @@ graph LR
     in:::hidden
     out:::hidden
     
-    subgraph node ["LLM request node, streaming response"]
-        execute(Request LLM streaming)
+    subgraph node ["LLM 請求節點，串流回應"]
+        execute(請求串流 LLM)
     end
     
     in --String--> execute --Flow--> out
@@ -412,8 +407,8 @@ graph LR
     in:::hidden
     out:::hidden
     
-    subgraph node ["LLM request node, multiple responses"]
-        execute(Request LLM expecting multiple responses)
+    subgraph node ["LLM 請求節點，多重回應"]
+        execute(請求 LLM 並預期多重回應)
     end
     
     in --String--> execute -- "List&lt;Message.Response&gt;" --> out
@@ -433,12 +428,10 @@ graph LR
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.extension.nodeLLMRequest
     import ai.koog.agents.core.dsl.extension.nodeDoNothing
-    import ai.koog.agents.core.dsl.extension.asUserMessage
     val strategy = strategy<String, String>("strategy_name") {
         val getComplexUserQuestion by nodeDoNothing<String>()
     -->
@@ -447,7 +440,7 @@ graph LR
     -->
     ```kotlin
     val requestLLMMultipleTools by nodeLLMRequest()
-    edge(getComplexUserQuestion forwardTo requestLLMMultipleTools asUserMessage { it })
+    edge(getComplexUserQuestion forwardTo requestLLMMultipleTools)
     ```
     <!--- KNIT example-nodes-and-component-05.kt -->
 
@@ -478,7 +471,6 @@ graph LR
     strategy.edge(AIAgentEdge.builder()
         .from(getComplexUserQuestion)
         .to(requestLLMMultipleTools)
-        .asUserMessage(s -> s)
         .build());
     ```
     <!--- KNIT exampleNodesAndComponentsJava05.java -->
@@ -492,8 +484,8 @@ graph LR
     in:::hidden
     out:::hidden
     
-    subgraph node ["History compression node"]
-        execute(Compress current prompt)
+    subgraph node ["歷程記錄壓縮節點"]
+        execute(壓縮目前提示詞)
     end
     
     in ---|T| execute --T--> out
@@ -515,7 +507,6 @@ graph LR
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
@@ -577,8 +568,8 @@ graph LR
     in:::hidden
     out:::hidden
     
-    subgraph node ["Tool execution node"]
-        execute(Execute tool call)
+    subgraph node ["工具執行節點"]
+        execute(執行工具呼叫)
     end
     
     in --MessagePart.Tool.Call--> execute --ReceivedToolResult--> out
@@ -598,10 +589,9 @@ graph LR
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
-    import ai.koog.agents.core.dsl.extension.nodeExecuteToolsAndGetResults
+    import ai.koog.agents.core.dsl.extension.nodeExecuteTools
     import ai.koog.agents.core.dsl.extension.nodeLLMRequest
     import ai.koog.agents.core.dsl.extension.onToolCalls
     val strategy = strategy<String, String>("strategy_name") {
@@ -611,7 +601,7 @@ graph LR
     -->
     ```kotlin
     val requestLLM by nodeLLMRequest()
-    val executeTool by nodeExecuteToolsAndGetResults()
+    val executeTool by nodeExecuteTools()
     edge(requestLLM forwardTo executeTool onToolCalls { true })
     ```
     <!--- KNIT example-nodes-and-component-07.kt -->
@@ -641,7 +631,7 @@ graph LR
     strategy.edge(AIAgentEdge.builder()
         .from(requestLLM)
         .to(executeTool)
-        .onToolCalls(call -> true)
+        .onToolCalls()
         .build());
     ```
     <!--- KNIT exampleNodesAndComponentsJava07.java -->
@@ -655,8 +645,8 @@ graph LR
     in:::hidden
     out:::hidden
     
-    subgraph node ["Tool result follow-up node"]
-        execute(Request LLM)
+    subgraph node ["工具結果追隨節點"]
+        execute(請求 LLM)
     end
     
     in --ReceivedToolResult--> execute --Message.Response--> out
@@ -676,10 +666,9 @@ graph LR
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
-    import ai.koog.agents.core.dsl.extension.nodeExecuteToolsAndGetResults
+    import ai.koog.agents.core.dsl.extension.nodeExecuteTools
     import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResults
     val strategy = strategy<String, String>("strategy_name") {
     -->
@@ -687,7 +676,7 @@ graph LR
     }
     -->
     ```kotlin
-    val executeTool by nodeExecuteToolsAndGetResults()
+    val executeTool by nodeExecuteTools()
     val sendToolResultToLLM by nodeLLMSendToolResults()
     edge(executeTool forwardTo sendToolResultToLLM)
     ```
@@ -710,7 +699,7 @@ graph LR
     -->
     ```java
     var executeTool = AIAgentNode.executeTools("executeTool");
-    var sendToolResultToLLM = AIAgentNode.llmRequest("sendToolResultToLLM");
+    var sendToolResultToLLM = AIAgentNode.llmSendToolResults("sendToolResultToLLM");
 
     strategy.edge(executeTool, sendToolResultToLLM);
     ```
@@ -725,8 +714,8 @@ graph LR
     in:::hidden
     out:::hidden
     
-    subgraph node ["Multi-tool execution node"]
-        execute(Execute multiple tool calls)
+    subgraph node ["多工具執行節點"]
+        execute(執行多個工具呼叫)
     end
     
     in -- "List&lt;MessagePart.Tool.Call&gt;" --> execute -- "List&lt;ReceivedToolResult&gt;" --> out
@@ -746,11 +735,10 @@ graph LR
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.extension.nodeLLMRequest
-    import ai.koog.agents.core.dsl.extension.nodeExecuteToolsAndGetResults
+    import ai.koog.agents.core.dsl.extension.nodeExecuteTools
     import ai.koog.agents.core.dsl.extension.onToolCalls
     val strategy = strategy<String, String>("strategy_name") {
     -->
@@ -759,7 +747,7 @@ graph LR
     -->
     ```kotlin
     val requestLLMMultipleTools by nodeLLMRequest()
-    val executeMultipleTools by nodeExecuteToolsAndGetResults(parallel = true)
+    val executeMultipleTools by nodeExecuteTools(parallel = true)
     edge(requestLLMMultipleTools forwardTo executeMultipleTools onToolCalls { true })
     ```
     <!--- KNIT example-nodes-and-component-09.kt -->
@@ -790,7 +778,7 @@ graph LR
     strategy.edge(AIAgentEdge.builder()
         .from(requestLLMMultipleTools)
         .to(executeMultipleTools)
-        .onToolCalls(call -> true)
+        .onToolCalls()
         .build());
     ```
     <!--- KNIT exampleNodesAndComponentsJava09.java -->
@@ -804,8 +792,8 @@ graph LR
     in:::hidden
     out:::hidden
     
-    subgraph node ["Multiple tool result follow-up node"]
-        execute(Request LLM expecting multiple responses)
+    subgraph node ["多工具結果追隨節點"]
+        execute(請求 LLM 並預期多重回應)
     end
     
     in -- "List&lt;ReceivedToolResult&gt;" --> execute -- "List&lt;Message.Response&gt;" --> out
@@ -825,20 +813,19 @@ graph LR
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResults
-    import ai.koog.agents.core.dsl.extension.nodeExecuteToolsAndGetResults
+    import ai.koog.agents.core.dsl.extension.nodeExecuteTools
     val strategy = strategy<String, String>("strategy_name") {
     -->
     <!--- SUFFIX
     }
     -->
     ```kotlin
-    val executeMultipleTools by nodeExecuteToolsAndGetResults(parallel = true)
-    val sendMultipleToolResultsToLLM by nodeLLMSendToolResults()
-    edge(executeMultipleTools forwardTo sendMultipleToolResultsToLLM)
+    val executeTools by nodeExecuteTools(parallel = true)
+    val sendToolResultsToLLM by nodeLLMSendToolResults()
+    edge(executeTools forwardTo sendToolResultsToLLM)
     ```
     <!--- KNIT example-nodes-and-component-10.kt -->
 
@@ -859,10 +846,10 @@ graph LR
     }
     -->
     ```java
-    var executeMultipleTools = AIAgentNode.executeTools("executeMultipleTools");
-    var sendMultipleToolResultsToLLM = AIAgentNode.llmRequest("sendMultipleToolResultsToLLM");
+    var executeTools = AIAgentNode.executeTools("executeTools");
+    var sendToolResultsToLLM = AIAgentNode.llmSendToolResults("sendToolResultsToLLM");
 
-    strategy.edge(executeMultipleTools, sendMultipleToolResultsToLLM);
+    strategy.edge(executeTools, sendToolResultsToLLM);
     ```
     <!--- KNIT exampleNodesAndComponentsJava10.java -->
 
@@ -875,14 +862,14 @@ graph LR
     in:::hidden
     out:::hidden
     
-    subgraph nodeWithTransform [transformed node]
-        subgraph node ["node"]
-            execute(Do stuff)
+    subgraph nodeWithTransform [轉換後的節點]
+        subgraph node ["節點"]
+            execute(執行操作)
         end
-        transform
+        transform(轉換)
     end
     
-    in --Input--> execute --> transform --Output--> out
+    in --輸入--> execute --> transform --輸出--> out
 
     classDef hidden display: none;
 ```
@@ -890,7 +877,7 @@ graph LR
 
 ### 節點轉換
 
-在 Kotlin 中，[`transform()`](api:agents-core::ai.koog.agents.core.dsl.builder.AIAgentNodeDelegate.transform) 函式會建立一個新的 `AIAgentNodeDelegate`，它封裝了原始節點並對其輸出套用轉換函式。在 Java 中，您需要使用 `AIAgentNode.builder()` 與明確的型別參數，手動組合包含轉換邏輯的節點。
+在 Kotlin 中，[transform()](api:agents-core::ai.koog.agents.core.dsl.builder.AIAgentNodeDelegate.transform) 函式會建立一個新的 `AIAgentNodeDelegate`，它封裝了原始節點並對其輸出套用轉換函式。在 Java 中，您需要使用 `AIAgentNode.builder()` 與明確的型別參數，手動組合包含轉換邏輯的節點。
 
 === "Kotlin"
 
@@ -923,7 +910,6 @@ graph LR
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.extension.nodeDoNothing
@@ -980,16 +966,14 @@ graph LR
 
 #### 內建節點轉換
 
-轉換諸如 Kotlin 的 `nodeLLMRequest` 或 Java 的 `AIAgentNode.llmRequest()` 等內建節點的輸出：
+轉換諸如 `nodeLLMRequest` (Kotlin) 或 `AIAgentNode.llmRequest()` (Java) 等內建節點的輸出：
 
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.extension.nodeLLMRequest
-    import ai.koog.agents.core.dsl.extension.asUserMessage
     import ai.koog.prompt.message.MessagePart
     val strategy = strategy<String, Int>("strategy_name") {
     -->
@@ -1002,7 +986,7 @@ graph LR
 ") { it.text }.length
     }
 
-    edge(nodeStart forwardTo lengthNode asUserMessage { it })
+    edge(nodeStart forwardTo lengthNode)
     edge(lengthNode forwardTo nodeFinish)
     ```
     <!--- KNIT example-nodes-and-component-13.kt -->
@@ -1043,7 +1027,6 @@ graph LR
     strategy.edge(AIAgentEdge.builder()
         .from(strategy.nodeStart)
         .to(llmRequest)
-        .asUserMessage(s -> s)
         .build());
     strategy.edge(llmRequest, lengthNode);
     strategy.edge(lengthNode, strategy.nodeFinish);
@@ -1062,7 +1045,7 @@ graph LR
 
 ### 任務執行子圖
 
-一個使用提供的工具執行特定任務並傳回結構化結果的子圖。它支援多重回應 LLM 互動（助理可能會產生多個回應，其中交錯著工具呼叫），並讓您控制工具呼叫的執行方式。在 Kotlin 中使用 [`subgraphWithTask()`](api:agents-core::ai.koog.agents.ext.agent.subgraphWithTask)，而在 Java 中使用 [`AIAgentSubgraph.builder().withTask()`](api:agents-core::ai.koog.agents.core.agent.entity.TypedAIAgentSubgraphBuilder.withTask)。
+一個使用提供的工具執行特定任務並傳回結構化結果的子圖。它支援多重回應 LLM 互動（助理可能會產生多個回應，其中交錯著工具呼叫），並讓您控制工具呼叫的執行方式。在 Kotlin 中使用 [subgraphWithTask()](api:agents-core::ai.koog.agents.ext.agent.subgraphWithTask)，而在 Java 中使用 [AIAgentSubgraph.builder().withTask()](api:agents-core::ai.koog.agents.core.agent.entity.TypedAIAgentSubgraphBuilder.withTask)。
 
 您可以將此子圖用於以下目的：
 
@@ -1151,7 +1134,7 @@ API 允許您透過選用參數微調執行過程：
 
 ### 具驗證功能的任務執行子圖
 
-`subgraphWithTask` 的特殊版本，用於驗證任務是否已正確執行，並提供遇到的任何問題之詳細資訊。此子圖對於需要驗證或品質檢查的工作流程非常有用。在 Kotlin 中使用 [`subgraphWithVerification()`](api:agents-core::ai.koog.agents.ext.agent.subgraphWithVerification)，而在 Java 中使用 `AIAgentSubgraph.builder().withVerification()`。
+`subgraphWithTask` 的特殊版本，用於驗證任務是否已正確執行，並提供遇到的任何問題之詳細資訊。此子圖對於需要驗證或品質檢查的工作流程非常有用。在 Kotlin 中使用 [subgraphWithVerification()](api:agents-core::ai.koog.agents.ext.agent.subgraphWithVerification)，而在 Java 中使用 `AIAgentSubgraph.builder().withVerification()`。
 
 您可以將此子圖用於以下目的：
 
@@ -1258,7 +1241,6 @@ Koog 提供了結合各種節點的預定義策略。
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.extension.*
@@ -1266,10 +1248,10 @@ Koog 提供了結合各種節點的預定義策略。
     ```kotlin
     public fun singleRunStrategy(): AIAgentGraphStrategy<String, String> = strategy("single_run") {
         val nodeCallLLM by nodeLLMRequest("sendInput")
-        val nodeExecuteTool by nodeExecuteToolsAndGetResults("nodeExecuteTool")
+        val nodeExecuteTool by nodeExecuteTools("nodeExecuteTool")
         val nodeSendToolResult by nodeLLMSendToolResults("nodeSendToolResult")
 
-        edge(nodeStart forwardTo nodeCallLLM asUserMessage { it })
+        edge(nodeStart forwardTo nodeCallLLM)
         edge(nodeCallLLM forwardTo nodeExecuteTool onToolCalls { true })
         edge(nodeCallLLM forwardTo nodeFinish onTextMessage { true })
         edge(nodeExecuteTool forwardTo nodeSendToolResult)
@@ -1303,18 +1285,17 @@ Koog 提供了結合各種節點的預定義策略。
 
         var nodeCallLLM = AIAgentNode.llmRequest("sendInput");
         var nodeExecuteTool = AIAgentNode.executeTools("nodeExecuteTool");
-        var nodeSendToolResult = AIAgentNode.llmRequest("nodeSendToolResult");
+        var nodeSendToolResult = AIAgentNode.llmSendToolResults("nodeSendToolResult");
 
         strategy.edge(AIAgentEdge.builder()
             .from(strategy.nodeStart)
             .to(nodeCallLLM)
-            .asUserMessage(input -> input)
             .build());
 
         strategy.edge(AIAgentEdge.builder()
             .from(nodeCallLLM)
             .to(nodeExecuteTool)
-            .onToolCalls(call -> true)
+            .onToolCalls()
             .build());
 
         strategy.edge(AIAgentEdge.builder()
@@ -1334,7 +1315,7 @@ Koog 提供了結合各種節點的預定義策略。
         strategy.edge(AIAgentEdge.builder()
             .from(nodeSendToolResult)
             .to(nodeExecuteTool)
-            .onToolCalls(call -> true)
+            .onToolCalls()
             .build());
 
         return strategy.build();
@@ -1350,7 +1331,6 @@ Koog 提供了結合各種節點的預定義策略。
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.extension.*
@@ -1360,11 +1340,11 @@ Koog 提供了結合各種節點的預定義策略。
     fun toolBasedStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy<String, String> {
         return strategy(name) {
             val nodeSendInput by nodeLLMRequest()
-            val nodeExecuteTool by nodeExecuteToolsAndGetResults()
+            val nodeExecuteTool by nodeExecuteTools()
             val nodeSendToolResult by nodeLLMSendToolResults()
 
             // 定義代理的流程
-            edge(nodeStart forwardTo nodeSendInput asUserMessage { it })
+            edge(nodeStart forwardTo nodeSendInput)
 
             // 如果 LLM 以訊息回應，則結束
             edge(
@@ -1422,13 +1402,12 @@ Koog 提供了結合各種節點的預定義策略。
 
         var nodeSendInput = AIAgentNode.llmRequest("nodeSendInput");
         var nodeExecuteTool = AIAgentNode.executeTools("nodeExecuteTool");
-        var nodeSendToolResult = AIAgentNode.llmRequest("nodeSendToolResult");
+        var nodeSendToolResult = AIAgentNode.llmSendToolResults("nodeSendToolResult");
 
         // 定義代理的流程
         strategy.edge(AIAgentEdge.builder()
             .from(strategy.nodeStart)
             .to(nodeSendInput)
-            .asUserMessage(input -> input)
             .build());
 
         // 如果 LLM 以訊息回應，則結束
@@ -1452,7 +1431,7 @@ Koog 提供了結合各種節點的預定義策略。
         strategy.edge(AIAgentEdge.builder()
             .from(nodeSendToolResult)
             .to(nodeExecuteTool)
-            .onToolCalls(call -> true)
+            .onToolCalls()
             .build());
 
         // 如果 LLM 以訊息回應，則結束
@@ -1474,7 +1453,6 @@ Koog 提供了結合各種節點的預定義策略。
 === "Kotlin"
 
     <!--- INCLUDE
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.example.exampleStreamingApi05.Book

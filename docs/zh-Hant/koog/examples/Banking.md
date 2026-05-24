@@ -11,7 +11,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Bank
 你將學習如何：
 - 定義領域模型與範例資料
 - 提供專注於功能的工具，用於 **轉帳 (money transfers)** 與 **交易分析 (transaction analytics)**
-- 分類使用者意圖 (意圖為轉帳 vs 分析)
+- 分類使用者意圖 (轉帳 vs 分析)
 - 以兩種風格編排呼叫：
   1) 圖 (graph) / 子圖 (subgraph) 策略
   2) 「將 Agent 作為工具使用」
@@ -26,7 +26,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Bank
 %useLatestDescriptors
 %use datetime
 
-// 取消註解以下內容以從 Maven Central 使用 koog
+// 取消註解此處以從 Maven Central 使用 koog
 // %use koog
 ```
 
@@ -83,7 +83,7 @@ val contactById = contactList.associateBy(Contact::id)
 工具應該是 **純粹 (pure)** 且可預測的。
 
 我們模擬了兩個「軟契約」：
-- `chooseRecipient` 在偵測到歧義時回傳 *候選名單*。
+- `chooseRecipient` 在偵測到歧義時回傳 **候選名單 (candidates)**。
 - `sendMoney` 支援 `confirmed` 旗標。如果為 `false`，它會要求 Agent 向使用者確認。
 
 ```kotlin
@@ -234,7 +234,7 @@ runBlocking {
     Task completed successfully.
 
 ## 加入交易分析 (Adding Transaction Analytics)
-讓我們使用交易分析工具擴展助手的技能。
+讓我們使用交易分析工具擴充助手的技能。
 首先，我們定義交易領域模型。
 
 ```kotlin
@@ -495,7 +495,6 @@ val toolRegistry = ToolRegistry {
 現在我們將建立一個編排多個節點的策略：
 
 ```kotlin
-import ai.koog.agents.core.dsl.builder.forwardTo
 import ai.koog.agents.core.dsl.builder.strategy
 import ai.koog.agents.core.dsl.extension.*
 import ai.koog.agents.ext.agent.subgraphWithTask

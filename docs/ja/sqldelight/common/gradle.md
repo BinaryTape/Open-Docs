@@ -285,4 +285,31 @@ SELECT * FROM hockey_player;
     expandSelectStar = true
     ```
 
+----
+
+### `codegenExcludedColumns`
+
+型: `SetProperty<String>`
+
+生成されたモデルおよび展開された `SELECT *` プロジェクションから除外する `table.column` 値のセット。
+テーブル名とカラム名は、SQLDelightのスキーマソースと同じ大文字小文字を使用する必要があります。
+これはコード生成にのみ影響し、SQLスキーマや生成されるマイグレーション出力は変更しません。
+
+これは、後続のスキーママイグレーションでカラムを削除する前に、生成されたKotlin APIを更新するために使用できます。
+設定されたテーブルやカラムが存在しない場合、またはモデルにバインドされたインサート、`SELECT` 結果カラム、または `RETURNING` 句がコード生成から除外されたカラムを明示的にリストしている場合、SQLDelightはコンパイルに失敗します。
+これはコード生成のみの設定であるため、削除されるまでの間、既存の除外されたカラムを書き込みから省略できるようにする責任はアプリケーション側にあります（例：NULL許容カラムにする、またはデフォルト値を設定するなど）。
+
+もし `.sq` ファイルに `CREATE TABLE` スキーマ定義が含まれている場合は、物理的なスキーママイグレーションで削除されるまで、スキーマ定義内に除外対象のカラムを保持しておいてください。カラムへの明示的なクエリ参照は削除しますが、スキーマソースは現在のデータベースの形状を反映したままにしておきます。
+
+デフォルトは空です。
+
+=== "Kotlin"
+    ```kotlin
+    codegenExcludedColumns.set(setOf("hockey_player.number"))
+    ```
+=== "Groovy"
+    ```groovy
+    codegenExcludedColumns = ["hockey_player.number"]
+    ```
+
 {% include 'common/gradle-dependencies.md' %}

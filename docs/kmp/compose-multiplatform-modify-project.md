@@ -6,7 +6,7 @@
 <tldr>
     <p>本教程使用 IntelliJ IDEA，但你也可以在 Android Studio 中学习 —— 这两款 IDE 拥有相同的核心功能和 Kotlin Multiplatform 支持。</p>
     <br/>
-    <p>这是**使用共享逻辑和 UI 创建 Compose Multiplatform 应用**教程的第三部分。在继续之前，请确保你已完成之前的步骤。</p>
+    <p>这是<strong>使用共享逻辑和 UI 创建 Compose Multiplatform 应用</strong>教程的第三部分。在继续之前，请确保你已完成之前的步骤。</p>
     <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <Links href="/kmp/compose-multiplatform-create-first-app" summary="本教程使用 IntelliJ IDEA，但你也可以在 Android Studio 中学习 —— 这两款 IDE 拥有相同的核心功能和 Kotlin Multiplatform 支持。这是使用共享逻辑和 UI 创建 Compose Multiplatform 应用教程的第一部分。创建你的 Compose Multiplatform 应用、探索可组合代码、修改项目、创建你自己的应用程序">创建你的 Compose Multiplatform 应用</Links><br/>
        <img src="icon-2-done.svg" width="20" alt="第二步"/> <Links href="/kmp/compose-multiplatform-explore-composables" summary="本教程使用 IntelliJ IDEA，但你也可以在 Android Studio 中学习 —— 这两款 IDE 拥有相同的核心功能和 Kotlin Multiplatform 支持。这是使用共享逻辑和 UI 创建 Compose Multiplatform 应用教程的第二部分。在继续之前，请确保你已完成之前的步骤。创建你的 Compose Multiplatform 应用、探索可组合代码、修改项目、创建你自己的应用程序">探索可组合代码</Links><br/>
        <img src="icon-3.svg" width="20" alt="第三步"/> <strong>修改项目</strong><br/>
@@ -28,7 +28,7 @@
 
 1. 打开 `gradle/libs.versions.toml` 文件并将 `kotlinx-datetime` 依赖项添加到版本编目中：
 
-    ```text
+    ```toml
     [versions]
     kotlinx-datetime = "0.8.0"
     
@@ -69,9 +69,9 @@
 
     将依赖项添加到 `webMain` 源集会使该库对 `wasmJs` 和 `js` 目标均可用。
 
-4. 添加依赖项后，接受 IDE 的建议以同步 Gradle 配置，或按两次 **Shift** 键并执行 **Sync Project with Gradle Files** 命令。
+4. 添加依赖项后，接受 IDE 的建议以同步 Gradle 配置，或按两次 **Shift 键**并执行 **Sync Project with Gradle Files** 命令。
 
-5. 在 **Terminal** 工具窗口中，运行以下命令以确保 `yarn.lock` 文件已更新为最新的依赖项版本：
+5. 在 **Terminal**（终端）工具窗口中，运行以下命令以确保 `yarn.lock` 文件已更新为最新的依赖项版本：
 
     ```shell
     ./gradlew kotlinUpgradeYarnLock kotlinWasmUpgradeYarnLock

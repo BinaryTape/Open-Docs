@@ -2,6 +2,12 @@
 title: Koin Annotations 入門
 ---
 
+:::info Koin Annotations 狀態
+**Koin Annotations 現在是 Koin 專案的一部分。** `koin-annotations` 程式庫隨主 Koin 版本發行，並受到完整支援。
+
+舊版的 KSP 處理器 (`koin-ksp-compiler`) 已**棄用**，取而代之的是 **Koin 編譯器外掛程式** — 您的註解保持不變；僅需變更建置設定。請參閱 [從 KSP 遷移至編譯器外掛程式](/docs/migration/from-ksp-to-compiler-plugin)。
+:::
+
 Koin Annotations 讓您可以使用註解在類別上宣告定義。Koin 編譯器外掛程式會處理這些註解，並在編譯期為您產生所有底層的 Koin DSL。
 
 ## 快速入門
@@ -109,8 +115,30 @@ fun main() {
 | `startKoin<T> { }` | 使用配置區塊啟動 |
 | `koinApplication<T>()` | 建立隔離的 KoinApplication |
 | `koinConfiguration<T>()` | 建立配置（適用於 Compose、Ktor） |
+| `module<T>()` | 載入單一 `@Module` 類別 |
+| `modules(A::class, B::class)` | 載入多個 `@Module` 類別 |
 
-其中 `T` 是標記有 `@KoinApplication` 的類別。
+其中 `T` 是標記有 `@KoinApplication`（適用於啟動 API）或 `@Module`（適用於模組載入 API）的類別。
+
+### 載入個別模組
+
+您可以直接載入 `@Module` 類別，無需使用 `@KoinApplication`：
+
+```kotlin
+startKoin {
+    module<NetworkModule>()
+    modules(DataModule::class, CacheModule::class)
+}
+```
+
+這對於**測試**特別有用：
+
+```kotlin
+@get:Rule
+val koinTestRule = KoinTestRule.create {
+    module<NetworkModule>()
+}
+```
 
 ## 編譯期安全
 

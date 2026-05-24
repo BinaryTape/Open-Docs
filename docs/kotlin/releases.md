@@ -19,7 +19,7 @@
 >
 {style="tip"}
 
-对于每个语言和工具发布，我们还会交付多个预览 (_EAP_) 版本，供您在正式发布前试用新功能。详情请参见[抢先体验预览](eap.md)。
+对于每个语言和工具发布，我们还会交付多个预览 (_EAP_) 版本，供您在正式发布前试用新功能。详情请参见[参与 Kotlin 抢先体验预览](eap.md)。
 
 > 如果您希望收到有关新 Kotlin 发布的新闻，请订阅 [Kotlin 时事通讯](https://lp.jetbrains.com/subscribe-to-kotlin-news/)，在 [X 上关注 Kotlin](https://x.com/kotlin)，或在 [Kotlin GitHub 仓库](https://github.com/JetBrains/kotlin)上启用 **Watch | Custom | Releases** 选项。
 > 
@@ -109,11 +109,48 @@ plugins {
 
 ## IDE 支持
 
-Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Android Studio](https://developer.android.com/kotlin/get-started) 中拥有完善的开箱即用支持，并配有由 JetBrains 开发的官方 Kotlin 插件。
+Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Android Studio](https://developer.android.com/kotlin/get-started) 中拥有完善的开箱即用支持。
 
-## Kotlin 发布兼容性
+## 标准库安全支持
 
-详细了解 [Kotlin 发布类型及其兼容性](kotlin-evolution-principles.md#language-and-tooling-releases)
+从 Kotlin 2.4.0 开始，针对 JVM 的 Kotlin 标准库每个发布系列都有 18 个月的支持窗口。语言发布 (2._x_._0_) 和随后的工具发布 (2._x_._20_) 属于同一个发布系列 (2._x_)。
+
+如果我们发现影响 JVM 版 Kotlin 标准库的安全漏洞，我们将同时交付以下内容：
+
+* 基于该发布系列中最新 Kotlin 发布的缺陷修复发布，其中包含安全修复。
+* 针对处于活跃支持窗口内的每个发布系列的缺陷修复发布。
+
+例如，如果我们发现一个安全漏洞，且最新的 Kotlin 版本是 Kotlin 2.4.20，我们仅发布针对 Kotlin 2.4.20 的缺陷修复版本。我们不会发布针对 Kotlin 2.4.0 的缺陷修复版本。
+
+<!--
+下表列出了所有 Kotlin 发布及其支持窗口：
+
+<table>
+    <tr>
+        <th>Kotlin 发布系列</th>
+        <th>发布日期</th>
+        <th>支持截止日期</th>
+        <th>最新缺陷修复发布</th>
+    </tr>
+    <tr>
+        <td><strong>2.4</strong>
+        </td>
+        <td>
+            <p>待定</p>
+        </td>
+        <td>
+            <p>待定</p>
+        </td>
+        <td>
+            <p>暂无可用</p>
+        </td>
+    </tr>
+</table>
+-->
+
+> 我们随时欢迎您向我们反馈所发现的任何安全问题。要报告您在 Kotlin 中发现的问题，请直接在我们的[问题跟踪器](https://youtrack.jetbrains.com/newIssue?project=KT&c=Type%20Security%20Problem)上发布消息或向我们发送[电子邮件](mailto:security@jetbrains.org)。
+> 
+{style="tip"}
 
 ## 发布历史
 

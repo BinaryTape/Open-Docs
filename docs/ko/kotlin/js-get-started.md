@@ -36,7 +36,7 @@ Kotlin/JS 웹 애플리케이션을 만들려면 [IntelliJ IDEA](https://www.jet
 1. `kmp-js-wizard/gradle/libs.versions.toml` 파일을 엽니다. 이 파일에는 프로젝트 의존성에 대한 버전 카탈로그가 포함되어 있습니다. 
 2. Kotlin 버전이 Kotlin/JS를 타겟으로 하는 웹 애플리케이션을 만드는 데 필요한 Kotlin 멀티플랫폼 Gradle 플러그인의 버전과 일치하는지 확인합니다:
 
-   ```text
+   ```toml
    [versions]
    kotlin = "%kotlinVersion%"
    
@@ -208,8 +208,7 @@ fun main() {
 
 * [`replace()` 함수](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/replace.html)는 이름에서 공백을 제거합니다.
 * [`let{}` 범위 함수(scope function)](scope-functions.md#let)는 객체 컨텍스트 내에서 함수를 실행합니다.
-* [문자열 템플릿(string template)](strings.md#string-templates) (`${it.length}`)은 달러 기호($)를 접두사로 붙이고 중괄호(`{}`)로 감싸서 문자열 내에 단어의 길이를 삽입합니다.
-  여기서 `it`은 [람다 파라미터(lambda parameter)](coding-conventions.md#lambda-parameters)의 기본 이름입니다.
+* [문자열 템플릿(string template)](strings.md#string-templates) (`${it.length}`)은 달러 기호($)를 접두사로 붙이고 중괄호(`{}`)로 감싸서 문자열 내에 단어의 길이를 삽입합니다. 여기서 `it`은 [람다 파라미터(lambda parameter)](coding-conventions.md#lambda-parameters)의 기본 이름입니다.
 
 #### 애플리케이션 실행
 

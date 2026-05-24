@@ -20,6 +20,103 @@ Koin Annotations は、Koin DSL と同じセマンティクス（意味合い）
 
 スコープについては、[スコープの宣言](/docs/reference/koin-core/scopes) セクションを確認してください。
 
+## アノテーション付きトップレベル関数
+
+アノテーションはクラスだけでなく、**トップレベル関数**にも使用できます。これは、外部ライブラリのインスタンスやビルダーパターンを提供する場合に便利です。トップレベル関数はクラスと同様に `@ComponentScan` によって検出されます。
+
+```kotlin
+import org.koin.core.annotation.Singleton
+import org.koin.core.annotation.Factory
+import org.koin.core.annotation.Named
+
+// Room データベースのインスタンスを提供
+@Singleton
+fun provideDatabase(context: Context): AppDatabase =
+    Room.databaseBuilder(context, AppDatabase::class.java, "my-db").build()
+
+// JSON シリアライザーを提供
+@Singleton
+fun provideJson(): Json = Json { ignoreUnknownKeys = true }
+
+// HTTP クライアントを提供
+@Singleton
+@Named("api")
+fun provideHttpClient(json: Json): HttpClient = HttpClient { install(ContentNegotiation) { json(json) } }
+```
+
+パラメータは DI コンテナから自動的に解決されます。クオリファイア（`@Named`、カスタム `@Qualifier`）は、関数とそのパラメータの両方で使用できます。
+
+## モジュール関数（プロバイダー関数）
+
+`@Module` クラス内では、`@Singleton` や `@Factory` などが付与された関数が、Dagger/Hilt の `@Provides` と同様にプロバイダー関数として動作します。
+
+```kotlin
+import org.koin.core.annotation.Module
+import org.koin.core.annotation.Singleton
+
+@Module
+internal object DatabaseModule {
+
+    @Singleton
+    fun providesDatabase(context: Context): AppDatabase =
+        Room.databaseBuilder(context, AppDatabase::class.java, "my-db").build()
+}
+
+@Module(includes = [DatabaseModule::class])
+class DaosModule {
+
+    @Singleton
+    fun providesTopicDao(database: AppDatabase): TopicDao = database.topicDao()
+
+    @Singleton
+    fun providesNewsDao(database: AppDatabase): NewsResourceDao = database.newsResourceDao()
+}
+```
+
+これは、所有していない、あるいは直接アノテーションを付与できない外部ライブラリ（Room、Retrofit、OkHttp など）をラップするためのパターンです。
+
+## カスタムクオリファイアアノテーション
+
+`@Named` 以外にも、`@Qualifier` を使用してパラメータを持つカスタムクオリファイアアノテーションを作成できます。
+
+```kotlin
+import org.koin.core.annotation.Qualifier
+
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class Dispatcher(val niaDispatcher: NiaDispatchers)
+
+enum class NiaDispatchers { Default, IO }
+```
+
+これをプロバイダー関数や注入ポイントで使用します。
+
+```kotlin
+import org.koin.core.annotation.Module
+import org.koin.core.annotation.Configuration
+import org.koin.core.annotation.Singleton
+
+@Module
+@Configuration
+class DispatchersModule {
+
+    @Singleton
+    @Dispatcher(NiaDispatchers.IO)
+    fun providesIODispatcher(): CoroutineDispatcher = Dispatchers.IO
+
+    @Singleton
+    @Dispatcher(NiaDispatchers.Default)
+    fun providesDefaultDispatcher(): CoroutineDispatcher = Dispatchers.Default
+
+    @Singleton
+    fun providesApplicationScope(
+        @Dispatcher(NiaDispatchers.Default) dispatcher: CoroutineDispatcher,
+    ): CoroutineScope = CoroutineScope(SupervisorJob() + dispatcher)
+}
+```
+
+カスタムクオリファイアはコンパイル時に検証されます。プロバイダーと注入ポイントのクオリファイアが一致しない場合は、ビルドエラーが発生します。
+
 ### Kotlin Multiplatform 用の ViewModel
 
 `@KoinViewModel` アノテーションは、統一された `koin-core-viewmodel` API を使用して ViewModel を生成し、Kotlin Multiplatform との互換性を提供します。

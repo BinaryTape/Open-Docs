@@ -576,21 +576,12 @@ Agentの永続化機能は、チェックポイントを操作するための便
     import ai.koog.agents.snapshot.feature.persistence
     import ai.koog.prompt.message.Message.User
     import ai.koog.serialization.JSONPrimitive
-    val customInput = JSONPrimitive("custom-input")
     val customOutput = JSONPrimitive("custom-output")
     val customMessageHistory = emptyList<User>()
     -->
     ```kotlin
     suspend fun example(context: AIAgentContext) {
-        // ノードの前に実行ポイントを設定し、そのノードへの入力を提供できます
-        context.persistence().setExecutionPoint(
-            agentContext = context,
-            nodePath = context.executionInfo.path(),
-            messageHistory = customMessageHistory,
-            input = customInput
-        )
-
-        // または、ノードの後に設定し、そのノードからの出力を提供できます
+        // ノードの後に実行ポイントを設定し、そのノードからの出力を提供できます
         context.persistence().setExecutionPointAfterNode(
             agentContext = context,
             nodePath = context.executionInfo.path(),
@@ -613,15 +604,7 @@ Agentの永続化機能は、チェックポイントを操作するための便
     ```java
     Persistence persistence = PersistenceKt.persistence(context);
 
-    // ノードの前に実行ポイントを設定し、そのノードへの入力を提供できます
-    persistence.setExecutionPoint(
-        context,
-        context.getExecutionInfo().path(),
-        customMessageHistory,
-        customInput
-    );
-
-    // または、ノードの後に設定し、そのノードからの出力を提供できます
+    // ノードの後に実行ポイントを設定し、そのノードからの出力を提供できます
     persistence.setExecutionPointAfterNode(
         context,
         context.getExecutionInfo().path(),

@@ -80,7 +80,7 @@ Android アプリモジュール (`androidApp`) を作成するには：
 
 1. `gradle/libs.versions.toml` ファイルで、Kotlin Android Gradle プラグインをバージョンカタログに追加します。
 
-    ```text
+    ```toml
     [plugins]
     kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
     ```
@@ -184,7 +184,7 @@ Android アプリモジュール (`androidApp`) を作成するには：
 
 1. `gradle/libs.versions.toml` で、Android-KMP ライブラリプラグインをバージョンカタログに追加します。
 
-    ```text
+    ```toml
     [plugins]
     androidMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
     ```
@@ -229,7 +229,7 @@ Android アプリモジュール (`androidApp`) を作成するには：
       `composeApp` モジュールに関連付けられた古い実行構成は削除して構いません。
 2. `gradle/libs.versions.toml` ファイルで、AGP を 9.* バージョン（例：9.0.0）にアップデートします。
 
-    ```text
+    ```toml
     [versions]
     agp = "9.0.0"
     ```

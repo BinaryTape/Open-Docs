@@ -274,6 +274,6 @@ ksp {
 }
 ```
 
-:::note
-這個基於 KSP 的選項將被 **Koin 編譯器外掛程式**（Koin Compiler Plugin）取代，它將提供原生編譯期安全性。請參閱 [編譯器外掛程式](/docs/setup/compiler-plugin) 以了解未來的方法。
+:::tip
+這個基於 KSP 的選項將被 **Koin 編譯器外掛程式**（Koin Compiler Plugin）取代，它將提供原生編譯期安全性。請參閱 [編譯期安全性](/docs/reference/koin-compiler/compile-safety) 與 [編譯器外掛程式設定](/docs/setup/compiler-plugin)。
 :::

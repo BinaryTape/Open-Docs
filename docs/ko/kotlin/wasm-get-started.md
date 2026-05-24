@@ -2,24 +2,24 @@
 
 <primary-label ref="beta"/> 
 
-이 튜토리얼에서는 IntelliJ IDEA에서 [](wasm-overview.md)을 활용한 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 앱을 실행하고, 웹사이트의 일부로 게시할 아티팩트(artifact)를 생성하는 방법을 설명합니다.
+이 튜토리얼에서는 IntelliJ IDEA에서 [](wasm-overview.md)을 활용한 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 앱을 실행하고, 웹사이트로 게시할 아티팩트(artifact)를 생성하는 방법을 설명합니다.
 
 ## 프로젝트 생성하기
 
 1. [Kotlin Multiplatform 개발을 위한 환경을 설정](https://kotlinlang.org/docs/multiplatform/quickstart.html#set-up-the-environment)하세요.
 2. IntelliJ IDEA에서 **File | New | Project**를 선택합니다.
-3. 왼쪽 패널에서 **Kotlin Multiplatform**을 선택합니다.
+3. 프로젝트 템플릿 목록에서 **Kotlin Multiplatform**을 선택합니다.
 
    > Kotlin Multiplatform IDE 플러그인을 사용하지 않는 경우, [KMP 웹 마법사](https://kmp.jetbrains.com/?web=true&webui=compose&includeTests=true)를 사용하여 동일한 프로젝트를 생성할 수 있습니다.
    >
-   {style="note"}
+   {style="tip"}
 
 4. **New Project** 창에서 다음 필드를 지정합니다.
 
    * **Name:** WasmDemo
-   * **Group:** wasm.project.demo
+   * **Project ID:** wasm.project.demo
 
-   > 웹 마법사를 사용하는 경우, **Project Name**으로 "WasmDemo"를, **Project ID**로 "wasm.project.demo"를 지정하세요.
+   > 이 튜토리얼에서는 일관성을 위해 `wasm.project.demo`를 Project ID로 사용합니다. 하지만 `org.example`과 같이 평소 사용하는 그룹 ID를 유지하는 것을 권장합니다. 여기서 입력한 내용은 향후 프로젝트에서 기본값으로 제안됩니다.
    >
    {style="note"}
 
@@ -30,36 +30,30 @@
 
 ## 애플리케이션 실행하기
 
-프로젝트가 로드되면 실행 구성 목록에서 **webApp [wasmJs]**를 선택하고 **Run**을 클릭합니다.
+1. 프로젝트가 로드되면 실행 구성 목록에서 **webApp [wasmJs]**를 선택하고 **Run**을 클릭합니다.
 
-![웹에서 Compose Multiplatform 앱 실행](compose-run-web-light.png){width=300}
+    ![웹에서 Compose Multiplatform 앱 실행](compose-run-web-light.png){width=300}
+    
+    웹 애플리케이션이 브라우저에서 자동으로 열립니다. 또는 빌드가 완료된 후 다음 URL을 직접 열 수 있습니다.
+    
+    ```shell
+       http://localhost:8080/
+    ```
+    
+    `8080` 포트를 이미 사용 중인 경우 포트 번호가 달라질 수 있습니다. 실제 포트 번호는 Gradle 빌드 출력 결과에서 확인할 수 있습니다.
 
-웹 애플리케이션이 브라우저에서 자동으로 열립니다. 또는 실행이 완료된 후 브라우저에서 다음 URL을 직접 열 수 있습니다.
-
-```shell
-   http://localhost:8080/
-```
-> 8080 포트를 사용할 수 없는 경우 포트 번호가 달라질 수 있습니다.
-> 실제 포트 번호는 Gradle 빌드 출력 결과에서 확인할 수 있습니다.
->
-{style="tip"}
-
-"Click me!" 버튼을 클릭해 보세요.
-
-![Click me](wasm-composeapp-browser-clickme.png){width=600}
-
-Compose Multiplatform 로고가 나타납니다.
-
-![브라우저의 Compose 앱](wasm-composeapp-browser.png){width=600}
+2. **Click me!** 버튼을 클릭해 보세요. Compose Multiplatform 로고가 나타납니다.
+    
+    ![브라우저의 Compose 앱](wasm-composeapp-browser.png){width=600}
 
 ## 아티팩트 생성하기
 
 웹사이트에 게시할 프로젝트 아티팩트를 생성합니다.
 
 1. **View** | **Tool Windows** | **Gradle**을 선택하여 **Gradle** 도구 창을 엽니다.
-2. **wasmdemo** | **Tasks** | **kotlin browser**에서 **wasmJsBrowserDistribution** 태스크를 선택하여 실행합니다.
+2. **WasmDemo** | **Tasks** | **kotlin browser**에서 **wasmJsBrowserDistribution** 태스크를 선택하여 실행합니다.
 
-   > 태스크를 성공적으로 로드하려면 Gradle JVM으로 적어도 Java 11 이상이 필요하며, 일반적으로 Compose Multiplatform 프로젝트에는 Java 17 이상을 권장합니다.
+   > 태스크를 성공적으로 로드하려면 Gradle JVM으로 적어도 Java 11 이상이 필요합니다. 일반적으로 Compose Multiplatform 프로젝트에는 Java 17 이상을 권장합니다.
    >
    {style="note"}
 
@@ -71,13 +65,13 @@ Compose Multiplatform 로고가 나타납니다.
     ./gradlew wasmJsBrowserDistribution
     ```
 
-애플리케이션 태스크가 완료되면 `webApp/build/dist/wasmJs/productionExecutable` 디렉터리에서 생성된 아티팩트를 확인할 수 있습니다.
+태스크가 완료되면 `webApp/build/dist/wasmJs/productionExecutable` 디렉터리에서 생성된 아티팩트를 확인할 수 있습니다.
 
 ![아티팩트 디렉터리](wasm-composeapp-directory.png){width=400}
 
 ## 애플리케이션 게시하기
 
-생성된 아티팩트를 사용하여 Kotlin/Wasm 애플리케이션을 배포하세요. 선호하는 게시 옵션을 선택하고 안내에 따라 아티팩트를 배포합니다. 몇 가지 대안은 다음과 같습니다.
+생성된 아티팩트를 사용하여 Kotlin/Wasm 애플리케이션을 배포하세요. 선호하는 게시 옵션을 선택하고 안내에 따라 아티팩트를 배포합니다.
 
 * [GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#creating-your-site)
 * [Cloudflare](https://developers.cloudflare.com/workers/)

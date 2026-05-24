@@ -92,7 +92,7 @@ AGP 10 可能会在 2026 年下半年发布。
 
 1. 在 `gradle/libs.versions.toml` 文件中，将 Kotlin Android Gradle 插件添加到您的版本目录中：
 
-    ```text
+    ```toml
     [plugins]
     kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
     ```
@@ -202,7 +202,7 @@ AGP 10 可能会在 2026 年下半年发布。
 1. 在 `gradle/libs.versions.toml` 中，
    将 Android-KMP 库插件添加到您的版本目录中：
 
-    ```text
+    ```toml
     [plugins]
     androidMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
     ```
@@ -249,7 +249,7 @@ AGP 10 可能会在 2026 年下半年发布。
       您可以删除与 `composeApp` 模块关联的过时运行配置。
 2. 在 `gradle/libs.versions.toml` 文件中，将 AGP 更新为 9.* 版本，例如：
 
-    ```text
+    ```toml
     [versions]
     agp = "9.0.0"
     ```

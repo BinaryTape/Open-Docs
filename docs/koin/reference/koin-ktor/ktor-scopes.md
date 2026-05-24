@@ -75,22 +75,32 @@ class UserSessionHandler(private val call: ApplicationCall) {
 
 ## 作用域生命周期回调
 
+为作用域定义附加 `onClose` 回调，以便在请求作用域关闭时运行清理操作。`onClose` 是定义上的中缀函数（而不是 `requestScope { }` 内部的一个块），且实例参数是可空的 (`T?`)：
+
 ```kotlin
 requestScope {
-    scoped { RequestContext(get()) }
-
-    // onCreate 回调
-    onCreate { requestContext ->
-        requestContext.startTime = System.currentTimeMillis()
-    }
-
-    // onClose 回调
-    onClose { requestContext ->
-        val duration = System.currentTimeMillis() - requestContext.startTime
-        println("Request completed in ${duration} ms")
+    scoped { RequestContext() } onClose { context ->
+        val duration = System.currentTimeMillis() - (context?.startTime ?: 0L)
+        println("Request completed in ${duration}ms")
     }
 }
 ```
+
+您也可以使用 `withOptions { onClose { ... } }`：
+
+```kotlin
+requestScope {
+    scoped { RequestContext() } withOptions {
+        onClose { context ->
+            context?.cleanup()
+        }
+    }
+}
+```
+
+:::note
+Koin 的作用域 DSL 针对每个定义公开了 `onClose`；没有 `onCreate` 回调。初始化应在 `scoped { }` 构造函数块中进行。
+:::
 
 :::note
 请求作用域会**为每个 HTTP 请求创建并销毁**。实例不会在请求之间共享，从而确保线程安全并防止状态泄漏。
@@ -202,14 +212,8 @@ val appModule = module {
 
     requestScope {
         scopedOf(::RequestLogger)
-        scopedOf(::RequestMetrics)
-
-        onCreate { metrics: RequestMetrics ->
-            metrics.start()
-        }
-
-        onClose { metrics: RequestMetrics ->
-            metrics.recordDuration()
+        scopedOf(::RequestMetrics) onClose { metrics ->
+            metrics?.recordDuration()
         }
     }
 }
@@ -240,8 +244,7 @@ fun Application.module() {
 |----------|-------------|
 | `requestScope { }` | 声明请求作用域组件 |
 | `call.scope.get<T>()` | 获取请求作用域实例 |
-| `onCreate { }` | 作用域创建时的回调 |
-| `onClose { }` | 作用域关闭时的回调 |
+| `scoped { } onClose { }` | 每个定义的清理回调（实例可为空） |
 | `koinModule { }` | 声明内联模块 |
 | `koinModules(...)` | 加载现有模块 |
 

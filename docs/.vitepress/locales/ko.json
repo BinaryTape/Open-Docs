@@ -324,7 +324,7 @@
   "kmp.multiplatform-privacy-manifest": "App Store 개인정보 처리방침 매니페스트",
   "kmp.tools": "도구",
   "kmp.multiplatform-dsl-reference": "Multiplatform Gradle DSL",
-  "kmp.amper": "Amper 구성 도구",
+  "kmp.amper": "Kotlin Toolchain",
   "kmp.compatibility": "호환성",
   "kmp.multiplatform-compatibility-guide": "호환성 가이드",
   "kmp.multiplatform-journal": "멀티플랫폼 저널",
@@ -554,7 +554,7 @@
   "kotlin.data-analysis-overview": "개요",
   "kotlin.kotlin-notebook-overview": "Kotlin Notebook 개요",
   "kotlin.kotlin-for-ai-powered-apps": "AI 기반 앱을 위한 Kotlin",
-  "kotlin.kotlin-ai-apps-development-overview": "개요",
+  "kotlin.kotlin-ai-apps-development-overview": "AI 기반 앱 개발 개요",
   "kotlin.spring-ai-guide": "Spring AI로 Kotlin 앱 구축 – 튜토리얼",
   "kotlin.libraries": "라이브러리",
   "kotlin.constructing-collections": "생성",
@@ -660,5 +660,12 @@
   "kotlin.maven-set-dependencies": "리포지토리 및 종속성 설정",
   "kotlin.jvm-test-maven": "Maven을 사용한 테스트",
   "kotlin.jvm-annotation-processors": "어노테이션 프로세서 사용",
-  "kmp.multiplatform-project-recommended-structure": "일반적인 구조 권장 사항"
+  "kmp.multiplatform-project-recommended-structure": "일반적인 구조 권장 사항",
+  "kotlin.spring-boot-claude": "Spring Boot와 Claude를 사용하여 Kotlin 앱 만들기 – 튜토리얼",
+  "kotlin.kotlin-lsp": "Kotlin Language Server",
+  "kotlin.kotlin-for-ai-and-data-analysis": "AI 및 데이터 분석을 위한 Kotlin",
+  "kotlin.kotlin-for-ai": "AI를 위한 Kotlin",
+  "kotlin.kotlin-ai-skills": "Kotlin AI 기술",
+  "kmp.ios-liquid-glass": "Liquid Glass",
+  "kmp.multiplatform-cocoapods-spm-migration-ai": "Junie를 사용하여 CocoaPods에서 SwiftPM으로 마이그레이션"
 }

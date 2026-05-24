@@ -121,6 +121,7 @@ startKoin {
 | 팩토리 (Factory) | `factory { Class(get()) }` | `factoryOf(::Class)` | `factory<Class>()` |
 | 스코프 (Scoped) | `scoped { Class(get()) }` | `scopedOf(::Class)` | `scoped<Class>()` |
 | 뷰모델 (ViewModel) | `viewModel { VM(get()) }` | `viewModelOf(::VM)` | `viewModel<VM>()` |
+| 함수 빌더 (Function Builder) | `single { fn(get()) }` | — | `single { create(::fn) }` |
 
 ### 기본 모듈
 

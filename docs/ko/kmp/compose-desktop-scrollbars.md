@@ -2,10 +2,17 @@
 
 스크롤 가능한 컴포넌트에 스크롤바를 적용할 수 있습니다. 스크롤바와 스크롤 가능한 컴포넌트는 서로 동기화하기 위해 공통 상태(state)를 공유합니다.
 
+> 제공된 각 코드 스니펫은 실행 가능한 데스크톱 앱입니다. 이를 시도해 보려면:
+> 1. [Kotlin Multiplatform IDE 플러그인](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform) 또는 [온라인 마법사](https://kmp.jetbrains.com/?android=true&desktop=true&includeTests=false)를 사용하여 Compose Multiplatform 프로젝트를 생성하세요.
+> 2. 데스크톱 진입점(entry-point) 파일을 엽니다. 예를 들어, `desktopApp/src/main/kotlin/com/example/my_desktop_app/main.kt`입니다.
+> 3. 해당 파일의 내용을 아래의 스니펫으로 교체하세요.
+>
+{style="note" id="desktop-snippets-intro"}
+
 ## 스크롤 수정자(Scroll modifiers)
 
 `verticalScroll` 및 `horizontalScroll` 수정자는 콘텐츠의 범위(bounds)가 최대 크기 제약 조건보다 클 때 사용자가 요소를 스크롤할 수 있게 하는 가장 간단한 방법을 제공합니다.
-`verticalScroll` 수정자가 있는 스크롤 가능 컴포넌트에는 `VerticalScrollbar` 컴포저블을, `horizontalScroll` 수정자가 있는 스크롤 가능 컴포넌트에는 `HorizontalScrollbar` 컴포저블을 연결할 수 있습니다.
+`verticalScroll` 수정자가 있는 스크롤 가능 컴포넌트에는 `VerticalScrollbar` 컴포저블을, `horizontalScroll` 수정자가 있는 스크롤 가능 컴포넌트에는 `HorizontalScrollbar` 컴포저블을 연결할 수 있습니다:
 
 ```kotlin
 import androidx.compose.foundation.HorizontalScrollbar
@@ -139,7 +146,6 @@ fun LazyScrollable() {
             .background(color = Color(180, 180, 180))
             .padding(10.dp)
     ) {
-
         val state = rememberLazyListState()
 
         LazyColumn(Modifier.fillMaxSize().padding(end = 12.dp), state) {
@@ -176,7 +182,7 @@ fun TextBox(text: String = "Item") {
 
 ## 알려진 제한 사항(Known limitations)
 
-현재 터치스크린, 터치패드 및 트랙패드를 이용한 스크롤은 마우스 이벤트로 처리되어, 글리치(glitch)가 발생하거나 핀치 투 줌(pinch-to-zoom) 기능 부재와 같은 제한 사항이 있을 수 있습니다. 저희는 입력 및 제스처 처리를 지속적으로 개선하고 있으며, 이러한 입력 장치에 대한 네이티브 지원을 도입할 계획입니다.
+현재 터치스크린, 터치패드 및 트랙패드를 이용한 스크롤은 마우스 이벤트로 처리되어, 글리치(glitch)가 발생하거나 핀치 투 줌(pinch-to-zoom) 기능 부재와 같은 제한 사항이 있을 수 있습니다. 저희는 입력 및 제스처 처리를 지속적으로 개선하고 있으며, 이러한 입력 장치에 대한 네이티브 지원을 도입할 계획입니다:
 
 * 터치스크린 네이티브 지원 ([CMP-1609](https://youtrack.jetbrains.com/issue/CMP-1609/))
 * 터치패드 및 트랙패드 네이티브 지원 ([CMP-1610](https://youtrack.jetbrains.com/issue/CMP-1610/))

@@ -65,7 +65,7 @@ fun main() = singleWindowApplication (title = "Key events") {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="modifier = Modifier.onPreviewKeyEvent { when"}
 
-<img src="compose-desktop-key-focus.animated.gif" alt="Keyboard events in a focused component" width="600" preview-src="compose-desktop-key-focus.png"/>
+<img src="compose-desktop-key-focus.animated.gif" alt="焦点组件中的键盘事件" width="600" preview-src="compose-desktop-key-focus.png"/>
 
 ## 窗口范围内的事件
 
@@ -155,7 +155,7 @@ fun App() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="if (it.isCtrlPressed && it.isShiftPressed && it.key == Key.C && "}
 
-<img src="compose-desktop-key-window.animated.gif" alt="Keyboard events in a window scope" width="600" preview-src="compose-desktop-key-window.png"/>
+<img src="compose-desktop-key-window.animated.gif" alt="窗口范围内的键盘事件" width="600" preview-src="compose-desktop-key-window.png"/>
 
 ## 下一步？
 

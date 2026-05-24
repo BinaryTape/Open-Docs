@@ -28,7 +28,7 @@ Kotlin Multiplatform ウィザードで生成されたコードを変更し、`A
 
 1. `gradle/libs.versions.toml` ファイルを開き、`kotlinx-datetime` 依存関係をバージョンカタログに追加します。
 
-    ```text
+    ```toml
     [versions]
     kotlinx-datetime = "0.8.0"
     
@@ -157,7 +157,7 @@ Kotlin Multiplatform ウィザードで生成されたコードを変更し、`A
 
 4. IDE の提案に従って、不足している依存関係をインポートします。
 
-   ![未解決の参照](compose-unresolved-references.png)
+   ![Unresolved references](compose-unresolved-references.png)
 
 ## アプリケーションの再実行
 

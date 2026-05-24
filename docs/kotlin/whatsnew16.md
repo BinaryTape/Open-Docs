@@ -549,7 +549,7 @@ fun main() {
 在 Kotlin 1.6.0 之前，当替换字符串包含组引用时，[`replace()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/replace.html) 和 [`replaceFirst()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/replace-first.html) 正则表达式函数在 Java 和 JS 中的行为不同。为了使行为在所有目标平台上保持一致，我们更改了它们在 JS 中的实现。
 
 替换字符串中出现的 `${name}` 或 `$index` 将被替换为与具有指定索引或名称的捕获组相对应的子序列：
-* `$index` – '后的第一个数字总是被视为组引用的一部分。后续数字只有在形成有效的组引用时才会并入 `index`。只有数字 '0'–'9' 被视为组引用的潜在组件。请注意，捕获组的索引从 '1' 开始。索引为 '0' 的组代表整个匹配。
+* `$index` – '$' 后的第一个数字总是被视为组引用的一部分。后续数字只有在形成有效的组引用时才会并入 `index`。只有数字 '0'–'9' 被视为组引用的潜在组件。请注意，捕获组的索引从 '1' 开始。索引为 '0' 的组代表整个匹配。
 * `${name}` – `name` 可以由拉丁字母 'a'–'z'、'A'–'Z' 或数字 '0'–'9' 组成。第一个字符必须是字母。
 
     > 替换模式中的命名组目前仅在 JVM 上受支持。

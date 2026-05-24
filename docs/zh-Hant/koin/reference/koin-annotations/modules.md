@@ -32,6 +32,33 @@ fun main() {
 | `startKoin<T> { }` | 使用配置區塊啟動 |
 | `koinApplication<T>()` | 建立隔離的 KoinApplication |
 | `koinConfiguration<T>()` | 建立配置（適用於 Compose, Ktor） |
+| `module<T>()` | 載入單一 `@Module` 類別 |
+| `modules(A::class, B::class)` | 載入多個 `@Module` 類別 |
+
+### 載入個別模組
+
+使用 `module<T>()` 或 `modules(vararg KClass)` 直接載入 `@Module` 類別，無需使用 `@KoinApplication`：
+
+```kotlin
+startKoin {
+    module<NetworkModule>()
+    modules(DataModule::class, CacheModule::class)
+}
+```
+
+這對於測試或混合註解模組與 DSL 配置時非常有用：
+
+```kotlin
+// 在測試中 — 僅載入您需要的模組
+@get:Rule
+val koinTestRule = KoinTestRule.create {
+    module<NetworkModule>()
+}
+```
+
+:::info
+`module<T>()` 與 `modules(vararg KClass)` 是虛設常式函式，編譯器外掛程式會攔截並在編譯時進行轉換。它們需要套用 Koin 編譯器外掛程式。
+:::
 
 ### @KoinApplication 參數
 
@@ -48,6 +75,42 @@ class ProdApp
 
 :::info
 當未指定任何配置時，標記為 `@Configuration`（預設標籤）的模組將自動載入。
+:::
+
+### 模組載入順序與覆寫
+
+Koin 在執行期採用 **後者勝出 (last-wins)** 原則：當兩個模組定義了相同的型別時，最後載入的模組具有優先權。編譯器外掛程式會按以下順序從 `@KoinApplication` 組合模組清單：
+
+1.  **自動探索的 `@Configuration` 模組**（本機 + 相依項 JAR 檔） — 最先載入
+2.  **明確的 `@KoinApplication(modules = [A, B, C])`** — 最後載入，**依宣告順序**
+
+因此，應用程式層級的覆寫一律勝過相依項預設值：
+
+```kotlin
+// 在相依性函式庫模組中
+@Module @Configuration
+class CoreModule {
+    @Singleton fun feature(): Feature = DefaultFeature()
+}
+
+// 在您的應用程式模組中
+@Module
+class AppModule {
+    @Singleton fun feature(): Feature = AppFeature()  // 自訂覆寫
+}
+
+@KoinApplication(modules = [AppModule::class])
+class MyApp
+// 載入順序：CoreModule (DefaultFeature) → AppModule (AppFeature 勝出)
+// 執行期 get<Feature>() 回傳 AppFeature。
+```
+
+在明確列出的清單中，宣告順序會被保留 — 因此 `@KoinApplication(modules = [A, B, C])` 會依序載入 A、B、接著 C，而 C 會在三者中勝出。每個項目的 `@Module(includes = [...])` 鏈會與該項目保持群組化。
+
+如果一個模組同時出現在明確清單中且也被 `@Configuration` 探索到，它只會載入一次 — 位於其 **明確指定的位置** — 因此 `modules = [...]` 中的宣告順序始終控制著覆寫優先權。
+
+:::tip
+如果您需要在多個 `@Configuration` 模組之間指定特定的載入順序（而非類別路徑掃描順序），請在 `@KoinApplication(modules = [Core::class, Feature::class, App::class])` 中明確列出它們 — 明確清單會遵循宣告順序。
 :::
 
 ## 使用 @Configuration 進行配置管理

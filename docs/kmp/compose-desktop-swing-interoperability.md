@@ -8,6 +8,8 @@ Compose Multiplatform 和 Swing 之间的互操作性旨在帮助您：
 
 在许多情况下，直接在 Compose Multiplatform 中实现缺失的组件（并将其贡献给社区）比在 Compose Multiplatform 应用程序中使用 Swing 组件更有效。
 
+undefined
+
 ## Swing 互操作用例与限制
 
 ### Swing 应用中的 Compose Multiplatform 组件

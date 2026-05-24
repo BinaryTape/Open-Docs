@@ -79,7 +79,7 @@ class FilledRectangle: Polygon, Fillable
 
 ### 内联类
 
-内联类是[基于值的 (value-based)](https://github.com/Kotlin/KEEP/blob/master/notes/value-classes.md)类的一个子集，仅持有值。您可以将它们用作某种类型值的包装器，而不会产生内存分配带来的额外开销。
+内联类是[基于值的 (value-based)](https://github.com/Kotlin/KEEP/blob/master/notes/value-classes.md) 类的一个子集，仅持有值。您可以将它们用作某种类型值的包装器，而不会产生内存分配带来的额外开销。
 
 可以通过在类名前加上 `value` 修饰符来声明内联类：
 
@@ -229,7 +229,7 @@ Kotlin/Native 现在具有更好的性能和稳定性。显著变化包括：
 
 ### 性能改进
 
-在 1.5.0 中，Kotlin/Native 获得了一系列性能改进，提升了编译和执行速度。
+在 1.5.0 中， Kotlin/Native 获得了一系列性能改进，提升了编译和执行速度。
 
 [编译器缓存 (Compiler caches)](https://blog.jetbrains.com/kotlin/2020/03/kotlin-1-3-70-released/#kotlin-native) 现在在调试模式下支持 `linuxX64`（仅限 Linux 宿主机）和 `iosArm64` 目标。启用编译器缓存后，除了第一次之外，大多数调试编译的速度都会快得多。测量结果显示，在我们的测试项目中速度提升了约 200%。
 
@@ -692,7 +692,7 @@ tasks {
 * 稳定的 [响应式集成](async-programming.md#reactive-extensions)
 * 以及更多
 
-从 Kotlin 1.5.0 开始，[实验性协程](whatsnew14.md#exclusion-of-the-deprecated-experimental-coroutines) 已被禁用，且不再支持 `-Xcoroutines=experimental` 标志。
+从 Kotlin 1.5.0 开始， [实验性协程](whatsnew14.md#exclusion-of-the-deprecated-experimental-coroutines) 已被禁用，且不再支持 `-Xcoroutines=experimental` 标志。
 
 在 [更新日志](https://github.com/Kotlin/kotlinx.coroutines/releases/tag/1.5.0-RC) 和 [`kotlinx.coroutines` 1.5.0 发布博客文章](https://blog.jetbrains.com/kotlin/2021/05/kotlin-coroutines-1-5-0-released/) 中了解更多。
 

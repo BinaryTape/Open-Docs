@@ -58,7 +58,7 @@ Compose Hot Reload 外掛程式已[內建](whats-new-compose-110.md#compose-hot-
  
 2. 使用最新版本的 Compose Hot Reload 更新版本目錄（請參閱 [Releases](https://github.com/JetBrains/compose-hot-reload/releases)）。
    在 `gradle/libs.versions.toml` 中，新增以下程式碼：
-   ```text
+   ```toml
    composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload"}
    ```
 

@@ -112,8 +112,8 @@ class MyApplication : Application() {
             modules(allModules)
         }
 
-        // 代わりにユニットテストで verify() を使用する
-        // appModule.verify()
+        // コンパイル時の検証には Koin コンパイラプラグインを使用するか、
+        // ユニットテストで verify() を使用します：appModule.verify()
     }
 }
 ```

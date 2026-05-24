@@ -1,37 +1,37 @@
 ---
-title: KSP アノテーションのセットアップ (非推奨)
+title: KSP プロセッサのセットアップ (非推奨)
 ---
 
-# KSP アノテーションのセットアップ
+# Koin Annotations のための KSP プロセッサのセットアップ
 
 :::warning
-**非推奨**: KSP ベースのアノテーション処理アプローチは非推奨となりました。すべての新規プロジェクトについては、[Koin Compiler Plugin](/docs/setup/compiler-plugin) への移行をお願いします。
+**`koin-ksp-compiler` は非推奨となりました。** Koin Annotations 用の KSP ベースのプロセッサは [Koin Compiler Plugin](/docs/setup/compiler-plugin) に置き換えられました。**Koin Annotations 自体は非推奨ではありません** — `koin-annotations` ライブラリは現在 Koin のメインプロジェクトの一部となり、引き続き完全にサポートされます。プロセッサのみが変更されます。
 :::
 
 :::info
-**アノテーションはそのまま維持されます** - ビルド設定のみが変更されます。詳細は以下の [移行ガイド](#koin-compiler-plugin-への移行) を参照してください。
+**アノテーションはそのまま維持されます** — ビルド設定のみが変更されます。詳細は以下の [移行ガイド](#koin-compiler-plugin-への移行) を参照してください。
 :::
 
 ## なぜ移行するのか？
 
-| 項目 | KSP アノテーション | Compiler Plugin |
-|--------|-----------------|-----------------|
+| 項目 | KSP プロセッサ (`koin-ksp-compiler`) | Koin Compiler Plugin |
+|--------|-------------------------------------|----------------------|
 | **生成ファイル** | build/ 内に表示される | なし |
 | **ビルド速度** | ⚠️ 低速 | 高速 |
 | **KMP のセットアップ** | ⚠️ 複雑 | シンプル |
 | **今後のサポート** | ⚠️ 非推奨 | ✅ 活発な開発 |
 | **コード** | ⚠️ 生成された拡張機能を使用 | Kotlin Compiler Plugin 専用 API を使用 |
 
-## KSP を使用する場合 (一時的)
+## KSP プロセッサを使用する場合 (一時的)
 
-以下の場合にのみ KSP を使用してください：
+以下の場合にのみ `koin-ksp-compiler` を使用してください：
 - Kotlin 1.x から更新できない場合 (アップグレードを推奨)
 - 移行の途中で、まだ切り替えられない場合
 - 特定の KSP 要件がある場合
 
-## 現在の KSP セットアップ (リファレンス)
+## 現在の KSP プロセッサのセットアップ (リファレンス)
 
-KSP を使用する必要がある場合のセットアップは以下の通りです：
+KSP プロセッサを使用する必要がある場合のセットアップは以下の通りです：
 
 ### Gradle のセットアップ
 
@@ -86,8 +86,8 @@ ksp {
 }
 ```
 
-:::note
-この KSP ベースのコンパイル時チェックは、**Koin Compiler Plugin** におけるネイティブのコンパイル時安全性に置き換えられます。[Compiler Plugin](/docs/setup/compiler-plugin) を参照してください。
+:::tip
+この KSP ベースのコンパイル時チェックは、**Koin Compiler Plugin** におけるネイティブのコンパイル時安全性に置き換えられました。[コンパイル時の安全性](/docs/reference/koin-compiler/compile-safety) および [Compiler Plugin セットアップガイド](/docs/setup/compiler-plugin) を参照してください。
 :::
 
 ### KMP のセットアップ (複雑)
@@ -231,10 +231,11 @@ rm -rf build/generated/ksp
 
 ### 変わるもの
 
-| 項目 | KSP | Compiler Plugin |
-|--------|-----|-----------------|
+| 項目 | KSP プロセッサ | Koin Compiler Plugin |
+|--------|---------------|----------------------|
 | ビルドプラグイン | `com.google.devtools.ksp` | `io.insert-koin.compiler.plugin` |
-| 依存関係 | `ksp()` 設定 | 不要 |
+| 依存関係 | `ksp("io.insert-koin:koin-ksp-compiler")` | 不要 (プラグインのみ) |
+| `koin-annotations` のバージョン | 個別 (`koin-ksp` バージョン) | Koin のメインバージョンと同じ |
 | 生成ファイル | `build/` 内に表示される | なし |
 | Koin の起動処理 | `modules(AppModule().module)` | `startKoin<MyApp>()` |
 | KMP のセットアップ | プラットフォームごとの KSP | プラグインのみ |
@@ -242,7 +243,7 @@ rm -rf build/generated/ksp
 ## タイムライン
 
 :::warning
-KSP アノテーションは将来の Koin バージョンで削除される予定です。できるだけ早い移行を推奨します。
+`koin-ksp-compiler` プロセッサは将来の Koin バージョンで削除される予定です。できるだけ早い Koin Compiler Plugin への移行を推奨します。`koin-annotations` ライブラリおよび `@Singleton` / `@Factory` / `@Module` などのアノテーションはなくなりません。これらは今後 Koin Compiler Plugin によって処理されます。
 :::
 
 ## ヘルプ

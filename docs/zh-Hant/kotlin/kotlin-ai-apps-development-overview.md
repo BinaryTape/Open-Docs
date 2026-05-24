@@ -1,11 +1,13 @@
 [//]: # (title: 用於 AI 驅動應用程式開發的 Kotlin)
 
+<web-summary>了解 Koog 如何協助您使用 Kotlin 建構 AI 驅動的應用程式。</web-summary>
+
 Kotlin 為建構 AI 驅動的應用程式提供了現代且實用的基礎。  
 它可以用於跨平台開發，與成熟的 AI 架構良好整合，並支援常見的 AI 開發模式。
 
 ## Koog
 
-[Koog](https://koog.ai) 是來自 JetBrains 的開源架構，用於建構從簡單到複雜的 AI 代理人 (AI agents)。
+[Koog](https://koog.ai) 是來自 JetBrains 的開源架構，用於建構從簡單到複雜的 AI 代理人。
 它提供多平台支援、Spring Boot 與 Ktor 整合、慣用的 DSL，以及開箱即用的生產就緒功能。
 
 ### 透過幾行程式碼建立簡單的代理人
@@ -87,3 +89,4 @@ fun main() {
 
 * 完成 [使用 Spring AI 建立回答問題的 Kotlin 應用程式](spring-ai-guide.md) 教學，進一步了解如何在 IntelliJ IDEA 中將 Spring AI 與 Kotlin 搭配使用。
 * 加入 [Kotlin 社群](https://kotlinlang.org/community/)，與其他使用 Kotlin 建構 AI 應用程式的開發人員交流。
+* 了解關於 [](kotlin-ai-skills.md)

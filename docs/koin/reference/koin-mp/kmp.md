@@ -466,6 +466,53 @@ struct ContentView: View {
 }
 ```
 
+### 从 Swift 声明依赖项
+
+在某些情况下，您可能需要直接从 Swift 声明依赖项 — 例如，当一个仅限 Swift 的类需要注册到 Koin 时。您可以使用 `declare` 函数结合 Kotlin/Native 互操作将 Objective-C 类型解析为 Kotlin `KClass`。
+
+在 `iosMain` 中添加此帮助程序：
+
+```kotlin
+// shared/src/iosMain/kotlin/KoinSwiftHelper.kt
+@OptIn(BetaInteropApi::class)
+fun Koin.declareFromSwift(
+    instance: Any,
+    bindTo: ObjCObject,
+    qualifier: Qualifier? = null,
+    allowOverride: Boolean = true
+) {
+    val kClass: KClass<*> = when (bindTo) {
+        is ObjCClass -> getOriginalKotlinClass(bindTo)
+        is ObjCProtocol -> getOriginalKotlinClass(bindTo)
+        else -> null
+    } ?: error("Can't resolve Kotlin KClass from $bindTo")
+
+    declare(
+        instance = instance,
+        qualifier = qualifier,
+        secondaryTypes = listOf(kClass),
+        allowOverride = allowOverride
+    )
+}
+```
+
+然后在 Swift 中，使用类或协议引用调用它：
+
+```swift
+koin.declareFromSwift(
+    instance: MyService(),
+    bindTo: MyServiceProtocol.self,
+    qualifier: nil,
+    allowOverride: true
+)
+```
+
+:::note
+这使用来自 `kotlin.native` 的 `getOriginalKotlinClass()` 将 Objective-C 类型映射回它们的 Kotlin `KClass`。`bindTo` 形参接受 `ObjCClass`（类上的 `.self`）或 `ObjCProtocol`（协议上的 `.self`）。
+
+最初由 [@SarahDelCastillo](https://github.com/InsertKoinIO/koin/issues/1108#issuecomment-3645990426) 提议。
+:::
+
 ### 线程注意事项
 
 在 iOS 和其他 Native 目标上，Koin 实例可以与新的内存模型无缝协作：

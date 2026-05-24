@@ -1,5 +1,7 @@
 [//]: # (title: AI 駆動アプリ開発のための Kotlin)
 
+<web-summary>Kotlin を使用して AI 駆動のアプリケーションを構築するために、Koog がどのように役立つかを確認しましょう。</web-summary>
+
 Kotlin は、AI 駆動のアプリケーションを構築するためのモダンで実践的な基盤を提供します。
 プラットフォームを問わず使用でき、確立された AI フレームワークと適切に統合され、一般的な AI 開発パターンをサポートします。
 
@@ -86,3 +88,4 @@ Kotlin を使用して、OpenAI、Anthropic、Google などの主要なモデル
 
 * [Spring AI を使用して質問に答える Kotlin アプリを作成する](spring-ai-guide.md) チュートリアルを完了し、IntelliJ IDEA で Kotlin と Spring AI を使用する方法について詳しく学びましょう。
 * [Kotlin コミュニティ](https://kotlinlang.org/community/)に参加して、Kotlin で AI アプリケーションを構築している他の開発者とつながりましょう。
+* [Kotlin AI スキル](kotlin-ai-skills.md)について学ぶ

@@ -6,7 +6,7 @@ title: Koin Annotations 中的作用域
 
 ## 使用 @Scope 定义作用域
 
-Koin 允许使用作用域。请参阅 [Koin 作用域](/docs/reference/koin-core/scopes) 部分以了解更多基础细节。
+Koin 允许使用作用域。请参阅 [Koin 作用域](/docs/reference/koin-core/scopes) 部分以了解更多基础细节。 
 
 要使用注解声明作用域，只需在类上使用 `@Scope` 注解，如下所示：
 
@@ -90,10 +90,21 @@ class MyOtherScopedComponent(
 
 您可能需要从另一个作用域中解析一个您的作用域无法直接访问的组件。为此，您需要使用 `@ScopeId` 注解标记您的依赖项，以告知 Koin 在给定作用域 ID 的作用域中查找此依赖项。
 
+使用字符串名称：
+
 ```kotlin
 @Factory
 class MyFactory(
-  @ScopeId("my_scope_id") val myScopedComponent :MyScopedComponent
+  @ScopeId(name = "my_scope_id") val myScopedComponent : MyScopedComponent
+)
+```
+
+或使用类型引用：
+
+```kotlin
+@Factory
+class MyFactory(
+  @ScopeId(MyScope::class) val myScopedComponent : MyScopedComponent
 )
 ```
 
@@ -106,7 +117,7 @@ factory { Myfactory(getScope("my_scope_id").get()) }
 这个例子显示 `MyFactory` 组件将从 ID 为 "my_scope_id" 的作用域实例中解析 `MyScopedComponent` 组件。这个以 ID "my_scope_id" 创建的作用域需要使用正确的作用域定义来创建。
 
 :::info
-  `MyScopedComponent` 组件需要在作用域部分中定义，并且需要使用 ID "my_scope_id" 创建一个作用域实例。
+  `MyScopedComponent` 组件需要在作用域部分中定义，并且需要使用 ID "my_scope_id" 创建一个作用域实例。 
 :::
 
 ## 作用域原型注解

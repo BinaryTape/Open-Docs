@@ -449,7 +449,145 @@ startKoin {
 }
 ```
 
-## 권장 모범 사례 (Best Practices)
+## 안전한 DSL 패턴
+
+Koin 컴파일러 플러그인은 컴파일 시점에 DSL 정의를 변환하여 생성자 파라미터를 자동으로 연결(auto-wiring)하고 검증합니다. 주요 패턴은 다음과 같습니다:
+
+### create()를 사용한 함수 빌더
+
+직접 소유하지 않은 외부 라이브러리를 래핑하려면 `create(::function)`를 사용하세요. 함수 파라미터는 DI 컨테이너에서 자동으로 해결됩니다.
+
+```kotlin
+import org.koin.dsl.module
+import org.koin.plugin.module.dsl.create
+
+// 빌더 함수 — 파라미터가 Koin에 의해 해결됨
+fun database(context: Context): AppDatabase =
+    Room.databaseBuilder(context, AppDatabase::class.java, "my-db").build()
+
+fun topicDao(db: AppDatabase): TopicDao = db.topicDao()
+fun newsDao(db: AppDatabase): NewsResourceDao = db.newsResourceDao()
+
+val databaseModule = module {
+    single { create(::database) }
+    single { create(::topicDao) }
+    single { create(::newsDao) }
+}
+```
+
+이 패턴은 Room 데이터베이스, Retrofit 서비스, OkHttp 클라이언트 및 기타 외부 라이브러리에 권장되는 패턴입니다.
+
+### includes()를 사용한 모듈 구성
+
+레이어별로 모듈을 구성하고 이들을 합칠 수 있습니다:
+
+```kotlin
+import org.koin.dsl.module
+import org.koin.plugin.module.dsl.*
+
+val networkModule = module {
+    includes(dispatchersModule)
+
+    single { create(::json) }
+    single<AppHttpClient>()
+    single<DemoNetworkDataSource>() bind NetworkDataSource::class
+}
+
+private fun json(): Json = Json { ignoreUnknownKeys = true }
+```
+
+### 앱 모듈 — 모든 구성 요소 합치기
+
+앱 모듈은 모든 기능 모듈을 포함하고 뷰모델과 사용 사례(use cases)를 선언합니다:
+
+```kotlin
+import org.koin.dsl.module
+import org.koin.plugin.module.dsl.*
+import org.koin.androidx.scope.dsl.activityScope
+
+val appModule = module {
+    includes(
+        dispatchersModule,
+        databaseModule,
+        dataStoreModule,
+        networkModule,
+        dataModule,
+        syncModule
+    )
+
+    // 도메인 사용 사례 — 팩토리 (매번 새로운 인스턴스 생성)
+    factory<GetFollowableTopicsUseCase>()
+    factory<GetSearchContentsUseCase>()
+
+    // 뷰모델
+    viewModel<MainActivityViewModel>()
+    viewModel<HomeViewModel>()
+    viewModel<BookmarksViewModel>()
+
+    // 액티비티 스코프 정의
+    activityScope {
+        scoped<ActivityTracker>()
+    }
+}
+```
+
+### DSL에서의 커스텀 한정자
+
+한정자 어노테이션은 `create(::function)`와도 함께 작동합니다:
+
+```kotlin
+import org.koin.dsl.module
+import org.koin.plugin.module.dsl.create
+
+val dispatchersModule = module {
+    single { create(::dispatcherIO) }
+    single { create(::dispatcherDefault) }
+    single { create(::coroutineScope) }
+}
+
+@Dispatcher(NiaDispatchers.IO)
+fun dispatcherIO(): CoroutineDispatcher = Dispatchers.IO
+
+@Dispatcher(NiaDispatchers.Default)
+fun dispatcherDefault(): CoroutineDispatcher = Dispatchers.Default
+
+fun coroutineScope(
+    @Dispatcher(NiaDispatchers.Default) default: CoroutineDispatcher
+) = CoroutineScope(SupervisorJob() + default)
+```
+
+### DSL을 사용한 워커(Worker)
+
+```kotlin
+import org.koin.dsl.module
+import org.koin.plugin.module.dsl.*
+import org.koin.dsl.bind
+
+val syncModule = module {
+    single<WorkManagerSyncManager>() bind SyncManager::class
+    worker<SyncWorker>()
+}
+```
+
+### 완성된 패턴: 인터페이스 바인딩이 포함된 레포지토리
+
+```kotlin
+import org.koin.dsl.module
+import org.koin.dsl.bind
+import org.koin.plugin.module.dsl.single
+
+val dataModule = module {
+    includes(databaseModule, dataStoreModule, networkModule)
+
+    single<OfflineFirstNewsRepository>() bind NewsRepository::class
+    single<OfflineFirstTopicsRepository>() bind TopicsRepository::class
+    single<OfflineFirstUserDataRepository>() bind UserDataRepository::class
+}
+```
+
+이 모든 정의는 컴파일 시점에 Koin 컴파일러 플러그인에 의해 검증됩니다. 누락된 의존성, 한정자 불일치, 잘못된 호출 지점 등이 빌드 시점에 발견됩니다. 자세한 내용은 [컴파일 타임 안전성(Compile-Time Safety)](/docs/reference/koin-compiler/compile-safety)을 참조하세요.
+
+## 권장 모범 사례
 
 1. **생성자 주입 선호** - Koin 없이도 코드를 테스트할 수 있게 만듭니다.
 2. **상태가 없는 서비스에는 `single` 사용** - 레포지토리, 클라이언트, 헬퍼 등.

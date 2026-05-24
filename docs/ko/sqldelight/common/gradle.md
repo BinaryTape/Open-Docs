@@ -284,4 +284,31 @@ SELECT * FROM hockey_player;
     expandSelectStar = true
     ```
 
+----
+
+### `codegenExcludedColumns`
+
+타입: `SetProperty<String>`
+
+생성된 모델 및 확장된 `SELECT *` 프로젝션에서 제외할 `table.column` 값들의 집합입니다.
+테이블 및 컬럼 이름은 SQLDelight 스키마 소스와 동일한 대소문자를 사용해야 합니다.
+이는 코드 생성에만 영향을 미치며, SQL 스키마나 생성된 마이그레이션 출력은 변경하지 않습니다.
+
+이는 후속 스키마 마이그레이션에서 컬럼을 삭제(drop)하기 전에, 생성된 Kotlin API를 업데이트하는 데 사용할 수 있습니다.
+설정된 테이블이나 컬럼이 존재하지 않거나, 모델에 바인딩된 insert, `SELECT` 결과 컬럼, 또는 `RETURNING` 절이 코드 생성에서 제외된(codegen-excluded) 컬럼을 명시적으로 나열하는 경우 SQLDelight 컴파일이 실패합니다.
+이것은 코드 생성에만 해당하므로, 애플리케이션은 해당 컬럼이 실제로 삭제되기 전까지 쓰기 작업에서 여전히 존재하는 제외된 컬럼을 생략할 수 있도록 보장해야 할 책임이 있습니다 (예: nullable 컬럼을 사용하거나 기본값을 설정하는 방식).
+
+`.sq` 파일에 `CREATE TABLE` 스키마 정의가 포함되어 있다면, 실제 물리적 스키마 마이그레이션에서 해당 컬럼을 삭제할 때까지 스키마 정의에 제외된 컬럼을 유지하세요. 해당 컬럼에 대한 명시적인 쿼리 참조는 제거하되, 스키마 소스는 현재 데이터베이스의 형태를 반영하도록 두어야 합니다.
+
+기본값은 빈 값(empty)입니다.
+
+=== "Kotlin"
+    ```kotlin
+    codegenExcludedColumns.set(setOf("hockey_player.number"))
+    ```
+=== "Groovy"
+    ```groovy
+    codegenExcludedColumns = ["hockey_player.number"]
+    ```
+
 {% include 'common/gradle-dependencies.md' %}

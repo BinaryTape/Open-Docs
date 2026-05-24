@@ -109,7 +109,7 @@ fun generate(toolDescriptor: ToolDescriptor): JsonObject
                     prop.put("type", JsonPrimitive("string")); // 為了簡潔起見的備援方案
                 }
 
-                props.put(p.getName(), new JsonObject(prop));
+                props.put(p.getName(), new JsonObject(props));
             }
             root.put("properties", new JsonObject(props));
 
@@ -146,7 +146,7 @@ fun generate(toolDescriptor: ToolDescriptor): JsonObject
     import ai.koog.agents.core.tools.ToolDescriptor
     import ai.koog.agents.core.tools.ToolParameterDescriptor
     import ai.koog.agents.core.tools.ToolParameterType
-    import ai.koog.prompt.dsl.Prompt
+    import ai.koog.prompt.Prompt
     import ai.koog.prompt.executor.clients.openai.OpenAIModels
     import ai.koog.prompt.executor.clients.openai.base.OpenAICompatibleToolDescriptorSchemaGenerator
     import kotlinx.serialization.json.JsonPrimitive

@@ -89,7 +89,7 @@ fun main() = application {
 
 <img src="compose-window-condition.animated.gif" alt="Windows with conditions" preview-src="compose-window-condition.png" width="600"/>
 
-ダイアログの表示など、アプリケーションの終了時にカスタムロジックを使用したい場合は、`onCloseRequest` コールバックを使用して終了アクションをオーバーライドできます。
+アプリケーションの終了時にダイアログを表示するなど、カスタムロジックを使用したい場合は、`onCloseRequest` コールバックを使用して終了アクションをオーバーライドできます。
 次のコードサンプルでは、命令的なアプローチ (`window.close()`) の代わりに宣言的なアプローチを使用し、状態の変化 (`isOpen = false`) に応じてウィンドウを閉じています。
 
 ```kotlin

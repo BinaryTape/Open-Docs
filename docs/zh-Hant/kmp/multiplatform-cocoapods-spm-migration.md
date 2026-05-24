@@ -16,7 +16,7 @@
 2. [在 SwiftPM 匯入工具的幫助下，重新配置您的 Xcode 專案以使用直接整合](#reconfigure-your-xcode-project)
 3. [完全或部分停用 CocoaPods 整合，具體取決於您的專案結構](#remove-the-cocoapods-kmp-integration)
 
-> 您可以使用我們[準備好的技能](https://github.com/Kotlin/kotlin-agent-skills/tree/main/skills/kotlin-tooling-cocoapods-spm-migration)，將 CocoaPods 到 SwiftPM 的遷移工作移交給您選擇的 AI 代理。
+> 您可以使用我們[準備好的技能](multiplatform-cocoapods-spm-migration-ai.md)，將 CocoaPods 到 SwiftPM 的遷移工作移交給您選擇的 AI 代理。
 > 請記住，AI 處理結果並非完全可預測。
 >
 {style="note"}
@@ -64,7 +64,8 @@
         <code-block lang="kotlin" code="            import swiftPMImport.org.example.package.FIRAnalytics"/>
     </compare>
 
-5. 如果您在建置指令碼中使用了 `cocoapods.framework {}` 區塊，請將該配置移至 `binaries.framework {}` 區塊，例如：
+5. If you are using the `cocoapods.framework {}` block in your build script,
+   move that configuration to the `binaries.framework {}` block, for example:
 
    <compare type="left-right">
    <code-block lang="kotlin" code="   kotlin {&#10;       iosArm64()&#10;       iosSimulatorArm64()&#10;&#10;       cocoapods {&#10;           framework {&#10;               baseName = &quot;Shared&quot;&#10;               isStatic = true&#10;           }&#10;       }&#10;   }"/>

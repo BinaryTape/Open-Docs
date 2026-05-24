@@ -58,7 +58,7 @@
 
 1. `gradle/libs.versions.toml` 파일의 버전 카탈로그에 Kotlin JVM Gradle 플러그인을 추가합니다:
 
-    ```text
+    ```toml
     [plugins]
     kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
     ```
@@ -238,7 +238,7 @@
 
 1. `gradle/libs.versions.toml`에서 버전 카탈로그에 Android-KMP 라이브러리 플러그인을 추가합니다:
 
-    ```text
+    ```toml
     [plugins]
     androidMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
     ```
@@ -309,7 +309,7 @@
 
     1. `gradle/libs.versions.toml` 파일의 버전 카탈로그에 Android-KMP 라이브러리 플러그인을 추가합니다:
 
-        ```text
+        ```toml
         [plugins]
         androidMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
         ```
@@ -418,7 +418,7 @@
 
     1. `sharedLogic` 모듈에서 수행하지 않은 경우, `gradle/libs.versions.toml`의 버전 카탈로그에 Android-KMP 라이브러리 플러그인을 추가합니다:
 
-        ```text
+        ```toml
         [plugins]
         androidMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
         ```

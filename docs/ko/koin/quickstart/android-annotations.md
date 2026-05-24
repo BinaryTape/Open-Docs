@@ -274,6 +274,6 @@ ksp {
 }
 ```
 
-:::note
-이 KSP 기반 옵션은 네이티브 컴파일 타임 안정성을 제공하는 **Koin Compiler Plugin**으로 대체될 예정입니다. 향후 접근 방식은 [Compiler Plugin](/docs/setup/compiler-plugin)을 참조하세요.
+:::tip
+이 KSP 기반 옵션은 네이티브 컴파일 타임 안정성을 제공하는 **Koin Compiler Plugin**으로 대체되었습니다. [Compile-Time Safety](/docs/reference/koin-compiler/compile-safety) 및 [Compiler Plugin Setup](/docs/setup/compiler-plugin)을 참조하세요.
 :::

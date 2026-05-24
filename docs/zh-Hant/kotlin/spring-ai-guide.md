@@ -1,5 +1,7 @@
 [//]: # (title: 使用 Spring AI 建立可回答問題的 Kotlin 應用程式 — 教學)
 
+<web-summary>學習如何建立一個使用 Spring AI 回答問題的 Kotlin 應用程式。</web-summary>
+
 在本教學中，你將學習如何建立一個 Kotlin 應用程式，該應用程式透過 [Spring AI](https://spring.io/projects/spring-ai) 連接到 LLM，將文件儲存在向量資料庫中，並使用來自這些文件的內容來回答問題。
 
 在本教學中，你將使用以下工具：
@@ -340,4 +342,9 @@
 恭喜！你現在擁有一個可以連接到 OpenAI 並使用從儲存在 Qdrant 中的文件中檢索的內容來回答問題的 Kotlin 應用程式。
 嘗試實驗不同的查詢或匯入其他文件以探索更多可能性。
 
-你可以在 [Spring AI demo GitHub 存儲庫](https://github.com/Kotlin/Kotlin-AI-Examples/tree/master/projects/spring-ai/springAI-demo)中查看完成的專案，或者在 [Kotlin AI Examples](https://github.com/Kotlin/Kotlin-AI-Examples/tree/master) 中探索其他 Spring AI 範例。
+你可以在 [Spring AI demo GitHub 存儲庫](https://github.com/Kotlin/Kotlin-AI-Examples/tree/master/projects/spring-ai/springAI-demo)中查看完成的專案。
+
+## 下一步
+
+* 在 [Kotlin AI Examples](https://github.com/Kotlin/Kotlin-AI-Examples/tree/master) 中探索其他 Spring AI 範例
+* [使用 Spring Boot 與 Claude 建立一個任務管理器應用程式](spring-boot-claude.md)

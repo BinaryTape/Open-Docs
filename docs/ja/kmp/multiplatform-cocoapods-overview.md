@@ -102,9 +102,10 @@ CocoaPods 環境が整ったら、Kotlin マルチプラットフォームプロ
 
 1. [Kotlin Multiplatform IDE プラグイン](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)または [Kotlin Multiplatform Web ウィザード](https://kmp.jetbrains.com)を使用して、Android および iOS 用の新しいプロジェクトを生成します。
    Web ウィザードを使用する場合は、アーカイブを解凍し、IDE でプロジェクトをインポートします。
-2. `gradle/libs.versions.toml` ファイルの `[plugins]` ブロックに、Kotlin CocoaPods Gradle プラグインを追加します：
+2. バージョンカタログ（`gradle/libs.versions.toml` ファイル）の `[plugins]` ブロックに、Kotlin CocoaPods Gradle プラグインを追加します：
 
-   ```text
+   ```toml
+   [plugins]
    kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
    ```
 

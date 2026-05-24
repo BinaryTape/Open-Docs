@@ -28,7 +28,7 @@
 
 1. 開啟 `gradle/libs.versions.toml` 檔案，並將 `kotlinx-datetime` 相依性新增至版本目錄：
 
-    ```text
+    ```toml
     [versions]
     kotlinx-datetime = "0.8.0"
     
@@ -161,7 +161,7 @@
 
 ## 重新執行應用程式
 
-您現在可以針對 Android、iOS、桌面版和 Web 使用相同的运行配置 [重新執行應用程式](compose-multiplatform-create-first-app.md#run-your-application)：
+您現在可以針對 Android、iOS、桌面版和 Web 使用相同的 运行配置 [重新執行應用程式](compose-multiplatform-create-first-app.md#run-your-application)：
 
 <Tabs>
     <TabItem id="mobile-app" title="Android 與 iOS">

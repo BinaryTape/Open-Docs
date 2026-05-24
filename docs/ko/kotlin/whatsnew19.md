@@ -852,7 +852,7 @@ fun main() {
         val elapsed1 = mark3 - mark1
         val elapsed2 = mark3 - mark2
 
-        println("측정 ${n + 1}: elapsed1=$elapsed1, elapsed2=$elapsed2, diff=${elapsed1 - elapsed2}")
+        println("측정 1.${n + 1}: elapsed1=$elapsed1, elapsed2=$elapsed2, diff=${elapsed1 - elapsed2}")
     }
     // 타임 마크끼리 서로 비교하는 것도 가능합니다.
     println(mark2 > mark1) // mark2가 mark1보다 나중에 캡처되었으므로 true입니다.
@@ -1045,7 +1045,7 @@ println("0x3a".hexToInt(HexFormat { number.prefix = "0x" })) // "58"
 ## 문서 업데이트
 
 Kotlin 문서에 몇 가지 주목할 만한 변경 사항이 있었습니다:
-* [tour of Kotlin](kotlin-tour-welcome.md) – 이론과 실습을 모두 포함한 장들을 통해 Kotlin 프로그래밍 언어의 기초를 배워보세요.
+* [Kotlin 투어(tour of Kotlin)](kotlin-tour-welcome.md) – 이론과 실습을 모두 포함한 장들을 통해 Kotlin 프로그래밍 언어의 기초를 배워보세요.
 * [Android 소스 세트 레이아웃](https://kotlinlang.org/docs/multiplatform/multiplatform-android-layout.html) – 새로운 Android 소스 세트 레이아웃에 대해 알아보세요.
 * [Kotlin Multiplatform 호환성 가이드](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html) – Kotlin Multiplatform 프로젝트를 개발하는 동안 직면할 수 있는 호환되지 않는 변경 사항에 대해 알아보세요.
 * [Kotlin Wasm](wasm-overview.md) – Kotlin/Wasm에 대해 알아보고 Kotlin Multiplatform 프로젝트에서 어떻게 사용할 수 있는지 알아보세요.

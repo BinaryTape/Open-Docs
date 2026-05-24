@@ -573,7 +573,7 @@ Koog 架構提供了兩種類型的工作階段：
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.entity.AIAgentNode;
-    import ai.koog.prompt.dsl.Prompt;
+    import ai.koog.prompt.Prompt;
     class exampleSessionsJava08 {
         public static void main(String[] args) {
             var node = AIAgentNode.builder("node_name")
@@ -626,7 +626,7 @@ Koog 架構提供了兩種類型的工作階段：
             user("What's the capital of France?")
         }
 
-        // 發送請求 – 回應會自動新增到歷程記錄中
+        // 發送請求 – 回應會自動新增到歷程中
         val response = requestLLM()
 
         // 現在提示詞同時包含使用者訊息與模型的回應
@@ -660,7 +660,7 @@ Koog 架構提供了兩種類型的工作階段：
             return null;
         });
 
-        // 發送請求 – 回應會自動新增到歷程記錄中
+        // 發送請求 – 回應會自動新增到歷程中
         var response = session.requestLLM();
 
         // 現在提示詞同時包含使用者訊息與模型的回應
@@ -786,7 +786,7 @@ Koog 架構提供了兩種類型的工作階段：
     ```java
     // Java 在圖策略中使用專用的工具執行節點。
     var executeTool = AIAgentNode.executeTools("executeTool");
-    var sendToolResult = AIAgentNode.llmRequest("sendToolResult");
+    var sendToolResult = AIAgentNode.llmSendToolResults("sendToolResult");
     ```
     <!--- KNIT exampleSessionsJava11.java -->
 

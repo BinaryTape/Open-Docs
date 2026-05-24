@@ -22,7 +22,7 @@ title: KMP 進階模式
 
 ### 模式 1：expect/actual 類別
 
-當您需要平台特定的 API（Android `Context`、iOS `UIDevice` 等）時使用：
+當您需要平台特定的 API（Android Context、iOS UIDevice 等）時使用：
 
 ```kotlin
 // commonMain - 宣告
@@ -80,7 +80,7 @@ val iosModule = module {
 
 ### 模式 3：帶有註解的 expect 模組
 
-將 `expect`/`actual` 與註解結合使用，使程式碼更簡潔：
+將 expect/actual 與註解結合使用，使程式碼更簡潔：
 
 ```kotlin
 // commonMain
@@ -103,9 +103,9 @@ actual val platformModule = IosPlatformModule().module
 
 :::info
 **何時使用哪種模式：**
-- **expect/actual 類別**：平台 API（`Context`、`UIDevice`）、簡單的平台差異。
-- **介面**：隨平台變化的商務邏輯、可測試的程式碼。
-- **expect 模組**：複雜的平台相關相依圖。
+- **expect/actual 類別**：平台 API（Context、UIDevice）、簡單的平台差異
+- **介面**：隨平台變化的商務邏輯、可測試的程式碼
+- **expect 模組**：複雜的平台相關相依圖
 :::
 
 ## 共享程式碼中的 Android Context
@@ -466,6 +466,53 @@ struct ContentView: View {
 }
 ```
 
+### 從 Swift 宣告相依性
+
+在某些情況下，您可能需要直接從 Swift 宣告相依性 —— 例如，當一個僅限 Swift 的類別需要註冊到 Koin 中時。您可以使用 `declare` 函式結合 Kotlin/Native 互通性將 Objective-C 型別解析為 Kotlin `KClass`。
+
+在 `iosMain` 中加入此幫助程式：
+
+```kotlin
+// shared/src/iosMain/kotlin/KoinSwiftHelper.kt
+@OptIn(BetaInteropApi::class)
+fun Koin.declareFromSwift(
+    instance: Any,
+    bindTo: ObjCObject,
+    qualifier: Qualifier? = null,
+    allowOverride: Boolean = true
+) {
+    val kClass: KClass<*> = when (bindTo) {
+        is ObjCClass -> getOriginalKotlinClass(bindTo)
+        is ObjCProtocol -> getOriginalKotlinClass(bindTo)
+        else -> null
+    } ?: error("Can't resolve Kotlin KClass from $bindTo")
+
+    declare(
+        instance = instance,
+        qualifier = qualifier,
+        secondaryTypes = listOf(kClass),
+        allowOverride = allowOverride
+    )
+}
+```
+
+接著在 Swift 中，使用類別或協定參考來呼叫它：
+
+```swift
+koin.declareFromSwift(
+    instance: MyService(),
+    bindTo: MyServiceProtocol.self,
+    qualifier: nil,
+    allowOverride: true
+)
+```
+
+:::note
+這使用來自 `kotlin.native` 的 `getOriginalKotlinClass()` 將 Objective-C 型別對應回其 Kotlin `KClass`。`bindTo` 參數接受 `ObjCClass`（類別上的 `.self`）或 `ObjCProtocol`（協定上的 `.self`）。
+
+原始提案由 [@SarahDelCastillo](https://github.com/InsertKoinIO/koin/issues/1108#issuecomment-3645990426) 提供。
+:::
+
 ### 執行緒考量
 
 在 iOS 和其他 Native 目標上，Koin 執行個體可以無縫配合新的記憶體模型運作：
@@ -480,7 +527,7 @@ struct ContentView: View {
 
 ## 後續步驟
 
-- **[KMP 設定](/docs/reference/koin-core/kmp-setup)** - 基本 KMP 組態
+- **[KMP 設定](/docs/reference/koin-core/kmp-setup)** - 基本 KMP 配置
 - **[共享模式](/docs/reference/koin-core/kmp-shared-modules)** - 模組組織
 - **[ViewModel](/docs/reference/koin-core/viewmodel)** - 多平台 ViewModel
 - **[Koin for Compose](/docs/reference/koin-compose/compose)** - Compose 整合

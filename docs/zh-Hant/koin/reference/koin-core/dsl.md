@@ -121,6 +121,7 @@ startKoin {
 | Factory | `factory { Class(get()) }` | `factoryOf(::Class)` | `factory<Class>()` |
 | Scoped | `scoped { Class(get()) }` | `scopedOf(::Class)` | `scoped<Class>()` |
 | ViewModel | `viewModel { VM(get()) }` | `viewModelOf(::VM)` | `viewModel<VM>()` |
+| 函式構建器 (Function Builder) | `single { fn(get()) }` | — | `single { create(::fn) }` |
 
 ### 基本模組
 

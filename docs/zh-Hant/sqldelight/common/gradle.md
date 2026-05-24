@@ -285,4 +285,32 @@ SELECT * FROM hockey_player;
     expandSelectStar = true
     ```
 
+----
+
+### `codegenExcludedColumns`
+
+類型：`SetProperty<String>`
+
+一組要從產生的模型和展開的 `SELECT *` 投影中省略的 `table.column` 值。
+資料表和欄位名稱必須使用與 SQLDelight 架構原始碼相同的大小寫。
+這僅影響程式碼產生；不會更改 SQL 架構或產生的遷移輸出。
+
+這可用於在後續架構遷移刪除欄位之前更新產生的 Kotlin API。
+如果設定的資料表或欄位不存在，或者模型繫結的 insert、`SELECT` 結果欄位或 `RETURNING` 子句明確列出 codegen-excluded 欄位，SQLDelight 會編譯失敗。
+由於這僅限於程式碼產生，應用程式有責任確保任何仍存在的排除欄位在被刪除之前可以從寫入操作中省略，例如使用可 null 欄位或預設值。
+
+如果您的 `.sq` 檔案包含 `CREATE TABLE` 架構定義，請在實體架構遷移刪除該欄位之前，將排除的欄位保留在架構定義中。
+移除對該欄位的明確查詢參考，但保留架構原始碼以反映當前的資料庫形態。
+
+預設為空。
+
+=== "Kotlin"
+    ```kotlin
+    codegenExcludedColumns.set(setOf("hockey_player.number"))
+    ```
+=== "Groovy"
+    ```groovy
+    codegenExcludedColumns = ["hockey_player.number"]
+    ```
+
 {% include 'common/gradle-dependencies.md' %}

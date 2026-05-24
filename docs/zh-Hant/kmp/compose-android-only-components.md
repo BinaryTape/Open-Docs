@@ -29,7 +29,7 @@ Compose Multiplatform 中的某些 API 在其簽章中使用 `android.*`、`andr
 
 * [資源管理](https://developer.android.com/jetpack/compose/resources)：`stringResource`、`animatedVectorResource`、`Font` 以及用於資源管理的 `*.R` 類別。若要了解更多，請參閱[圖片與資源](compose-multiplatform-resources.md)。
 * [導覽](https://developer.android.com/jetpack/compose/navigation)。若要了解更多，請參閱[導覽與路由](compose-navigation-routing.md)。
-* [`ViewModel`](https://developer.android.com/jetpack/compose/libraries#viewmodel) 類別。
+* [`ViewModel`](https://developer.android.com/jetpack/compose/libraries#viewmodel) 類別。若要了解更多，請參閱 [Multiplatform ViewModel](compose-viewmodel.md)。
 * [Paging](https://developer.android.com/jetpack/compose/libraries#paging) 程式庫。
 * [`ConstraintLayout`](https://developer.android.com/reference/androidx/constraintlayout/widget/ConstraintLayout) 配置。
 * [Maps](https://developer.android.com/jetpack/compose/libraries#maps) 程式庫。

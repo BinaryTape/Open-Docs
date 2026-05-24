@@ -17,7 +17,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
 
 履歴の圧縮は、エージェントのワークフローにおける特定のステップで実行されます：
 
-- 戦略の論理的なステップ（サブグラフ）の間。
+- エージェント戦略の論理的なステップ（サブグラフ）の間。
 - コンテキストが長くなりすぎたとき。
 
 ## 履歴圧縮の実装
@@ -47,12 +47,10 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.context.AIAgentContext
-    import ai.koog.agents.core.dsl.builder.forwardTo
     import ai.koog.agents.core.dsl.builder.strategy
     import ai.koog.agents.core.dsl.builder.node
     import ai.koog.agents.core.dsl.builder.subgraph
-    import ai.koog.agents.core.dsl.extension.asUserMessage
-    import ai.koog.agents.core.dsl.extension.nodeExecuteToolsAndGetResults
+    import ai.koog.agents.core.dsl.extension.nodeExecuteTools
     import ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory
     import ai.koog.agents.core.dsl.extension.nodeLLMRequest
     import ai.koog.agents.core.dsl.extension.nodeLLMSendToolResults
@@ -66,13 +64,13 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     
     val strategy = strategy<String, String>("execute-with-history-compression") {
         val callLLM by nodeLLMRequest()
-        val executeTool by nodeExecuteToolsAndGetResults()
+        val executeTool by nodeExecuteTools()
         val sendToolResult by nodeLLMSendToolResults()
     
         // LLMの履歴を圧縮し、現在のReceivedToolResultsを次のノードのために保持する
         val compressHistory by nodeLLMCompressHistory<ReceivedToolResults>()
     
-        edge(nodeStart forwardTo callLLM asUserMessage { it })
+        edge(nodeStart forwardTo callLLM)
         edge(callLLM forwardTo nodeFinish onTextMessage { true })
         edge(callLLM forwardTo executeTool onToolCalls { true })
     
@@ -95,6 +93,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     import ai.koog.agents.core.agent.entity.AIAgentGraphStrategy;
     import ai.koog.agents.core.agent.entity.AIAgentNode;
     import ai.koog.prompt.message.Message;
+    import ai.koog.agents.core.dsl.extension.ReceivedToolResults;
     class exampleHistoryCompressionJava01 {
         public static void main(String[] args) {
     -->
@@ -109,19 +108,18 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
 
     var callLLM = AIAgentNode.llmRequest(null);
     var executeTool = AIAgentNode.executeTools(null);
-    var sendToolResult = AIAgentNode.llmRequest("sendToolResult");
+    var sendToolResult = AIAgentNode.llmSendToolResults(null);
 
-    // LLMの履歴を圧縮する。保持された Message.User が次のノードに流れる。
+    // LLMの履歴を圧縮する。保持された ReceivedToolResults が次のノードに流れる。
     var compressHistory = AIAgentNode
         .llmCompressHistory("compressHistory")
-        .withInput(Message.User.class)
+        .withInput(ReceivedToolResults.class)
         .build();
 
     // startからcallLLMへのエッジ
     graph.edge(AIAgentEdge.builder()
         .from(graph.nodeStart)
         .to(callLLM)
-        .asUserMessage(s -> s)
         .build());
 
     // テキスト応答時にcallLLMからfinishへのエッジ
@@ -135,7 +133,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     graph.edge(AIAgentEdge.builder()
         .from(callLLM)
         .to(executeTool)
-        .onToolCalls(call -> true)
+        .onToolCalls()
         .build());
 
     // 履歴が長すぎる場合、ツールの実行後に履歴を圧縮する
@@ -166,7 +164,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     graph.edge(AIAgentEdge.builder()
         .from(sendToolResult)
         .to(executeTool)
-        .onToolCalls(call -> true)
+        .onToolCalls()
         .build());
 
     // テキスト応答時にsendToolResultからfinishへのエッジ

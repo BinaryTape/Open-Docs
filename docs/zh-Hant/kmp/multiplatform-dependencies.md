@@ -27,16 +27,17 @@
   許多現代 Android 程式庫已經支援多平台，例如 [Koin](https://insert-koin.io/)、[Coil](https://coil-kt.github.io/coil/) 和 [SQLDelight](https://sqldelight.github.io/sqldelight/latest/)。您可以在 [klibs.io](https://klibs.io/) 上找到更多多平台程式庫，這是由 JetBrains 提供的搜尋服務，用於探索 Kotlin Multiplatform 程式庫。
 
 * _原生相依性 (Native dependencies)_。這些是來自特定生態系統的常規程式庫。
-  在原生專案中，您通常會使用它們，例如在 Android 中使用 Gradle，在 iOS 中使用 Swift Package Manager。 
+  在原生專案中，您通常會透過平台專用工具來管理這些程式庫，例如在 Android 中使用 Gradle，在 iOS 中使用 Swift Package Manager。 
   
-  當您處理多平台專案模組時，通常仍需要原生相依性來使用平台 API，例如安全儲存、特定的系統呼叫等等。
+  當您處理多平台專案模組時，通常仍需要原生相依性來使用平台 API，例如安全儲存、系統呼叫等等。
   在建置指令碼中，您可以在原生原始碼集（例如 `androidMain` 和 `iosMain`）的配置中指定原生相依性。
 
 對於這兩種類型的相依性，您都可以使用本機和外部儲存庫。
 
 ## 新增多平台相依性
 
-> 如果您有開發 Android 應用程式的經驗，新增多平台相依性與在一般 Android 專案中新增 Gradle 相依性非常相似。唯一的區別在於您需要將其新增至特定的原始碼集。
+> 如果您有開發 Android 應用程式的經驗，新增多平台相依性與在一般 Android 專案中新增 Gradle 相依性非常相似。
+> 唯一的區別在於您需要將其新增至特定的原始碼集，而不是整個模組。
 >
 {style="tip"}
 
@@ -45,7 +46,7 @@
 `kotlinx-datetime` 程式庫具有完整的多平台支援，是在共享程式碼中處理日期的最便捷方式。
 
 1. 開啟 `gradle/libs.versions.toml` 檔案，將 `kotlinx-datetime` 相依性新增至版本目錄：
-    ```text
+    ```toml
     [versions]
     kotlinx-datetime = "0.8.0"
     

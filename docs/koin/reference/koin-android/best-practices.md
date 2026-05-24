@@ -23,7 +23,7 @@ module {
     single { SomeService(androidContext()) }  // Application 上下文，安全
 }
 
-// ✅ 正确 - 使用 Activity 作用域
+// ✅ 正确 - 使用 activity 作用域
 module {
     activityScope {
         scoped { SomeService(/* activity 作用域的依赖项 */) }
@@ -112,8 +112,8 @@ class MyApplication : Application() {
             modules(allModules)
         }
 
-        // 请改为在单元测试中使用 verify()
-        // appModule.verify()
+        // 使用 Koin 编译器插件进行编译时验证
+        // 或在单元测试中使用 verify()：appModule.verify()
     }
 }
 ```

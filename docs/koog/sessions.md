@@ -573,7 +573,7 @@ Koog 框架提供了两种类型的会话：
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.entity.AIAgentNode;
-    import ai.koog.prompt.dsl.Prompt;
+    import ai.koog.prompt.Prompt;
     class exampleSessionsJava08 {
         public static void main(String[] args) {
             var node = AIAgentNode.builder("node_name")
@@ -786,7 +786,7 @@ Koog 框架提供了两种类型的会话：
     ```java
     // Java 在图策略中使用专用的工具执行节点。
     var executeTool = AIAgentNode.executeTools("executeTool");
-    var sendToolResult = AIAgentNode.llmRequest("sendToolResult");
+    var sendToolResult = AIAgentNode.llmSendToolResults("sendToolResult");
     ```
     <!--- KNIT exampleSessionsJava11.java -->
 

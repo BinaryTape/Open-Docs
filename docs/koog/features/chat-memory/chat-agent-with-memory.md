@@ -47,8 +47,8 @@ graph TB
     
         ```kotlin title="build.gradle.kts"
         dependencies {
-            implementation("ai.koog:koog-agents:0.7.0")
-            implementation("ai.koog:agents-features-memory:0.7.0")
+            implementation("ai.koog:koog-agents:1.0.0")
+            implementation("ai.koog:agents-features-memory:1.0.0")
         }
         ```
     
@@ -67,7 +67,7 @@ graph TB
         <dependency>
             <groupId>ai.koog</groupId>
             <artifactId>koog-agents-jvm</artifactId>
-            <version>0.7.0</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>ai.koog</groupId>
@@ -157,7 +157,7 @@ graph TB
 
 `agent.run()` 的第二个参数是用于识别和区分正在进行的对话的 [会话 ID](index.md#session-ids)。在本示例中，它是常量，因为一次只有一个对话。在实际应用中，您可以为例如与同一用户相关的对话分配一个单独的唯一 ID。
 
-智能体使用默认的 [历史记录提供程序](index.md#history-providers)，该程序将对话历史存储在内存中。这意味着当应用程序退出时，历史记录将会丢失。在实际应用中，您应该实现自定义的历史记录提供程序，以便将历史记录持久化存储在数据库或文件中。
+智能体使用默认的 [历史记录提供程序](index.md#history-providers)，该程序将对话历史存储在内存中。这意味着当应用程序退出时，历史记录将会丢失。在实际应用中，您应该实现自定义历史记录提供程序，以便将历史记录持久化存储在数据库或文件中。
 
 `windowSize(20)` [预处理程序](index.md#preprocessors) 确保了上下文大小受限：智能体仅存储最多 20 条最近的消息。如果没有这一设置，提示词的大小可能会超出上下文限制。
 

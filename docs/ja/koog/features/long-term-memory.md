@@ -86,7 +86,7 @@
 | Augmenter | 動作 |
 |---|---|
 | `SystemPromptAugmenter()` | プロンプトの開始位置にシステムメッセージとしてコンテキストを挿入します（システムメッセージがない場合は何もしません）。 |
-| `UserPromptAugmenter()` | 最後のユーザーメッセージの前に、別のユーザーメッセージとしてコンテキストを挿入します。 |
+| `UserPromptAugmenter()` | 最後のユーザーメッセージの末尾に、追加のテキストパートとして取得したコンテキストを追加します（ユーザーメッセージがない場合は何もしません）。 |
 | `PromptAugmenter { prompt, context -> ... }` | ラムダによるカスタム拡張。 |
 
 ### Search Query Providers (検索クエリプロバイダー)

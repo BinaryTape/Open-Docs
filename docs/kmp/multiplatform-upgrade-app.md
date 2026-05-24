@@ -37,7 +37,7 @@
 
 在 `gradle/libs.versions.toml` 中添加以下条目，然后同步 Gradle 文件，使这些引用在构建配置代码中可用：
 
-```text
+```toml
 [versions]
 coroutinesVersion = "%coroutinesVersion%"
 ktorVersion = "%ktorVersion%"
@@ -483,7 +483,7 @@ SwiftUI 将 ViewModel (`ContentView.ViewModel`) 与视图 (`ContentView`) 连接
 
 1. 将 KMP-NativeCoroutines 版本和插件引用添加到 Gradle 版本编目中：
 
-    ```text
+    ```toml
     [versions]
     kmpNativeCoroutines = "%kmpncVersion%"
     
@@ -616,7 +616,7 @@ SwiftUI 将 ViewModel (`ContentView.ViewModel`) 与视图 (`ContentView`) 连接
 
 要设置该库，请将 SKIE 版本和插件引用添加到您的 Gradle 版本编目中：
 
-```text
+```toml
 [versions]
 skie = "%skieVersion%"
 

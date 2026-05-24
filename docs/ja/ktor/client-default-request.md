@@ -97,6 +97,10 @@ val response: HttpResponse = client.get("welcome.html")
 ...結果として得られるURLは `https://ktor.io/docs/welcome.html` となります。
 ベースURLとリクエストURLがどのようにマージされるかについては、[DefaultRequest](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/-default-request/index.html) を参照してください。
 
+> ベースURLパスは末尾のスラッシュで終わる必要があります。そうしないと、[RFC 3986](https://www.rfc-editor.org/rfc/rfc3986#section-5.2)のURL解決ルールに従って、リクエストパスがベースパスの最後のセグメントを置き換えてしまいます。たとえば、`path("v1")`はファイルとして扱われ、リクエストパスが追加されるときに削除されますが、`path("v1/")`はディレクトリのプレフィックスとして保持されます。
+>
+{style="note"}
+
 ### URLパラメーター {id="url-params"}
 
 `url` 関数では、URLコンポーネントを個別に指定することもできます。例：

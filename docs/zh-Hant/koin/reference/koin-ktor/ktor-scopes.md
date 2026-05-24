@@ -73,27 +73,37 @@ class UserSessionHandler(private val call: ApplicationCall) {
 }
 ```
 
-## Scope 生命週期回呼
+## Scope 生命周期回呼
+
+將 `onClose` 回呼附加至 `scoped` 定義，以便在 request scope 關閉時執行清理作業。`onClose` 是該定義上的中置函式（infix function）（而非 `requestScope { }` 內部的區塊），且其執行個體參數為可 null (`T?`)：
 
 ```kotlin
 requestScope {
-    scoped { RequestContext(get()) }
-
-    // onCreate 回呼
-    onCreate { requestContext ->
-        requestContext.startTime = System.currentTimeMillis()
-    }
-
-    // onClose 回呼
-    onClose { requestContext ->
-        val duration = System.currentTimeMillis() - requestContext.startTime
+    scoped { RequestContext() } onClose { context ->
+        val duration = System.currentTimeMillis() - (context?.startTime ?: 0L)
         println("Request completed in ${duration}ms")
     }
 }
 ```
 
+您也可以使用 `withOptions { onClose { ... } }`：
+
+```kotlin
+requestScope {
+    scoped { RequestContext() } withOptions {
+        onClose { context ->
+            context?.cleanup()
+        }
+    }
+}
+```
+
 :::note
-Request scopes 會為**每個 HTTP 請求建立並銷毀**。執行個體不會在請求之間共用，以確保執行緒安全並防止狀態洩漏。
+Koin 的 scope DSL 為每個定義公開了 `onClose`；但沒有 `onCreate` 回呼。初始化應在 `scoped { }` 建構函式區塊中進行。
+:::
+
+:::note
+Request scopes 會為 **每個 HTTP 請求建立並銷毀**。執行個體不會在請求之間共用，以確保執行緒安全並防止狀態洩漏。
 :::
 
 ## 在 Ktor 中宣告模組
@@ -202,14 +212,8 @@ val appModule = module {
 
     requestScope {
         scopedOf(::RequestLogger)
-        scopedOf(::RequestMetrics)
-
-        onCreate { metrics: RequestMetrics ->
-            metrics.start()
-        }
-
-        onClose { metrics: RequestMetrics ->
-            metrics.recordDuration()
+        scopedOf(::RequestMetrics) onClose { metrics ->
+            metrics?.recordDuration()
         }
     }
 }
@@ -240,8 +244,7 @@ fun Application.module() {
 |----------|-------------|
 | `requestScope { }` | 宣告 request-scoped 組件 |
 | `call.scope.get<T>()` | 取得 request-scoped 執行個體 |
-| `onCreate { }` | Scope 建立時的回呼 |
-| `onClose { }` | Scope 關閉時的回呼 |
+| `scoped { } onClose { }` | 每個定義的清理回呼（執行個體為可 null） |
 | `koinModule { }` | 宣告內嵌模組 |
 | `koinModules(...)` | 載入現有模組 |
 

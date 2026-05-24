@@ -4,7 +4,7 @@ title: Androidのインストゥルメンテッドテスト
 
 ## 概要
 
-インストゥルメンテッドテスト（Instrumented tests）は、Androidデバイスまたはエミュレータ上で実行され、アプリとAndroidフレームワークとの統合をテストします。Koinのライフサイクルを制御するユニットテストとは異なり、インストゥルメンテッドテストでは `Application` クラスによってKoinが開始されるため、特別な処理が必要になります。
+インストゥルメンテッドテスト（Instrumented tests）は、Androidデバイスまたはエミュレータ上で実行され、アプリとAndroidフレームワークとの統合をテストします。Koinのライフサイクルを自身で制御するユニットテストとは異なり、インストゥルメンテッドテストでは `Application` クラスによってKoinが開始されるため、特別な処理が必要になります。
 
 ### ユニットテストとの主な違い
 
@@ -295,7 +295,7 @@ class ProfileFragmentTest {
                 }
             }
         )
-    )
+    }
 
     @Test
     fun testProfileDisplaysUserInfo() {
@@ -561,8 +561,8 @@ class ModuleVerificationTest {
 }
 ```
 
-:::info
-`verify()` および `checkModules()` は、将来的に Koin Compiler Plugin によるネイティブなコンパイル時の安全性に置き換えられる予定です。詳細は [モジュールの検証](/docs/reference/koin-test/verify) を参照してください。
+:::tip
+Koin Compiler Plugin はコンパイル時の依存関係検証を提供するようになったため、`verify()` や `checkModules()` の必要性がなくなりました。[コンパイル時の安全性（Compile-Time Safety）](/docs/reference/koin-compiler/compile-safety) を参照してください。
 :::
 
 ## Espresso を使用した UI テスト
@@ -1037,7 +1037,7 @@ Koin を使用したインストゥルメンテッドテストの重要ポイン
 - 高速で分離されたデータベーステストのために、**インメモリデータベース** を使用する。
 - **Compose テスト** は `KoinContext` とシームレスに動作する。
 - **スコープのテスト** を行い、ライフサイクルに紐づく依存関係を検証する。
-- `verify()` による **モジュール検証** を行い、構成エラーを早期に発見する。
+- Koin Compiler Plugin による **コンパイル時の依存関係検証** または `verify()` による実行時の検証を行い、構成エラーを早期に発見する。
 
 ## 次のステップ
 

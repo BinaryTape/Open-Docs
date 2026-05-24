@@ -2,6 +2,8 @@
 
 데스크톱 프로젝트에서는 클릭, 이동, 스크롤, 입력 영역 진입 및 이탈 등 다양한 마우스 이벤트를 리슨(listen)할 수 있습니다.
 
+undefined
+
 ## 클릭 리스너(Click listeners)
 
 클릭 리스너는 안드로이드용 Compose 멀티플랫폼과 데스크톱용 Compose 멀티플랫폼 모두에서 사용할 수 있으므로, 코드가 두 플랫폼 모두에서 작동합니다.
@@ -213,7 +215,7 @@ fun main() = singleWindowApplication(title = "Mouse scroll listeners") {
 `Modifier.onClick`은 클릭, 더블 클릭, 롱 클릭에 대해 독립적인 콜백을 제공합니다. 이는 포인터 이벤트에서 발생하는 클릭만 처리하며, 별도의 설정 없이는 접근성(accessibility) `click` 이벤트를 처리하지 않습니다.
 
 `matcher: PointerMatcher` 및 `keyboardModifiers: PointerKeyboardModifiers.() -> Boolean`을 사용하여 각 `onClick`이 특정 포인터 이벤트를 대상으로 하도록 구성할 수 있습니다.
-* `matcher`를 사용하면 어떤 마우스 버튼이 클릭 이벤트를 트리거할지 선택할 수 있습니다. 
+* `matcher`를 사용하면 어떤 마우스 버튼이 클릭 이벤트를 트리거할지 선택할 수 있습니다.
 * `keyboardModifiers`를 사용하면 특정 키를 누른 상태에서 발생하는 포인터 이벤트를 필터링할 수 있습니다.
 
 또한 여러 개의 `onClick` 수정자를 체이닝하여 매처(matcher)와 키보드 수정자의 조건에 따라 서로 다른 클릭을 처리할 수 있습니다. 

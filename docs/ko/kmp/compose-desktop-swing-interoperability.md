@@ -471,7 +471,7 @@ fun main() = application {
 
 이 실험적 기능을 활성화하려면 `compose.interop.blending` 시스템 속성을 `true`로 설정하세요.
 이 속성은 애플리케이션에서 Compose 코드를 실행하기 전에 활성화되어야 하므로, 
-`-Dcompose.interop.blending=true` 명령줄 JVM 인수를 통해 설정하거나 
+`-Dcompose.interop.blending=true` 명령줄 JVM 인수로 설정하거나 
 진입점에서 `System.setProperty()`를 사용하세요.
 
 ```kotlin

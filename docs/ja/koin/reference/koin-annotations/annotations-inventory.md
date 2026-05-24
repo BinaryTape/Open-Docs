@@ -21,9 +21,12 @@
 - [クオリファイア（Qualifier）アノテーション](#qualifier-annotations)
   - [@Named](#named)
   - [@Qualifier](#qualifier)
-- [プロパティアノテーション](#property-annotations)
+- [パラメータアノテーション](#parameter-annotations)
+  - [@InjectedParam](#injectedparam)
   - [@Property](#property)
   - [@PropertyValue](#propertyvalue)
+- [安全性アノテーション](#safety-annotations)
+  - [@Provided](#provided)
 - [モジュールおよびアプリケーションアノテーション](#module--application-annotations)
   - [@Module](#module)
   - [@ComponentScan](#componentscan)
@@ -41,13 +44,13 @@
 
 ## 定義アノテーション
 
-### @Single
+### @Single / @Singleton
 
 **パッケージ:** `org.koin.core.annotation`
 
 **ターゲット:** `CLASS`, `FUNCTION`
 
-**説明:** Koin において型または関数を `single`（シングルトン）定義として宣言します。単一のインスタンスが作成され、アプリケーション全体で共有されます。
+**説明:** Koin において型または関数を `single`（シングルトン）定義として宣言します。単一のインスタンスが作成され、アプリケーション全体で共有されます。`@Singleton` が推奨される名称（標準的な命名規則）であり、`@Single` はそのエイリアスです。
 
 **パラメータ:**
 - `binds: Array<KClass<*>> = [Unit::class]` - この定義に明示的にバインドする型。スーパータイプは自動的に検出されます。
@@ -198,7 +201,7 @@ viewModelScope {
 ```
 
 **使用法:**
-タグ付けされたクラスは、ViewModel および `viewModelScope` 関数と共に使用してスコープを有効にすることを意図しています。
+タグ付けされたクラスは、ViewModel および `viewModelScope` 関数と共に使用してスコープを有効にするためのものです。
 
 ---
 
@@ -229,7 +232,7 @@ activityScope {
 ```
 
 **使用法:**
-タグ付けされたクラスは、Activity および `activityScope` 関数と共に使用してスコープを有効にすることを意図しています。
+タグ付けされたクラスは、Activity および `activityScope` 関数と共に使用してスコープを有効にするためのものです。
 
 ---
 
@@ -260,7 +263,7 @@ activityRetainedScope {
 ```
 
 **使用法:**
-タグ付けされたクラスは、Activity および `activityRetainedScope` 関数と共に使用してスコープを有効にすることを意図しています。
+タグ付けされたクラスは、Activity および `activityRetainedScope` 関数と共に使用してスコープを有効にするためのものです。
 
 ---
 
@@ -291,7 +294,7 @@ fragmentScope {
 ```
 
 **使用法:**
-タグ付けされたクラスは、Fragment および `fragmentScope` 関数と共に使用してスコープを有効にすることを意図しています。
+タグ付けされたクラスは、Fragment および `fragmentScope` 関数と共に使用してスコープを有効にするためのものです。
 
 ---
 
@@ -457,7 +460,38 @@ class MyClass(val d : MyDependency)
 
 ---
 
-## プロパティアノテーション
+## パラメータアノテーション
+
+### @InjectedParam
+
+**パッケージ:** `org.koin.core.annotation`
+
+**ターゲット:** `VALUE_PARAMETER`
+
+**説明:** コンストラクタまたは関数のパラメータを、DI コンテナからではなく `ParametersHolder`（呼び出し側で `parametersOf()` を介して渡される）から解決するようにマークします。
+
+**パラメータ:** なし
+
+**動作:**
+実行時に Koin の定義からではなく `ParametersHolder.get()` からパラメータ値を解決します。コンパイル時の安全性検証（Compile safety validation）は、`@InjectedParam` が付いたパラメータをスキップします。
+
+**例:**
+```kotlin
+@Factory
+class MyClass(@InjectedParam val id: Int, val service: Service)
+```
+
+**生成される Koin DSL:**
+```kotlin
+factory { params -> MyClass(params.get(), get()) }
+```
+
+**使用法:**
+```kotlin
+val instance = koin.get<MyClass> { parametersOf(42) }
+```
+
+---
 
 ### @Property
 
@@ -527,6 +561,46 @@ class MyClass(@Property("name") val name : String)
 ```kotlin
 factory { MyClass(getProperty("name", defaultName)) }
 ```
+
+---
+
+## 安全性アノテーション
+
+### @Provided
+
+**パッケージ:** `org.koin.core.annotation`
+
+**ターゲット:** `CLASS`, `VALUE_PARAMETER`
+
+**説明:** 実行時に外部から提供される型またはパラメータであることをマークします（例: Android フレームワークの型、サードパーティ SDK など）。コンパイル時の安全性検証は、これらの型をスキップします。
+
+**パラメータ:** なし
+
+**動作:**
+- **クラス**に適用した場合: その型のすべての使用箇所でコンパイル時の安全性検証がスキップされます。
+- **パラメータ**に適用した場合: その特定のパラメータのみ検証がスキップされます。
+- 型は実行時に `scope.get<T>()` を介して解決されます。`@Provided` はコンパイル時のチェックにのみ影響します。
+
+**クラスへの適用例:**
+```kotlin
+@Provided
+class FirebaseAnalytics  // すべての使用箇所で検証がスキップされる
+
+@Singleton
+class AnalyticsService(val analytics: FirebaseAnalytics)
+// コンパイルエラーは発生しません — FirebaseAnalytics は @Provided です
+```
+
+**パラメータへの適用例:**
+```kotlin
+@Factory
+class PaymentProcessor(@Provided val gateway: PaymentGateway)
+// コンパイルエラーは発生しません — このパラメータのみ検証がスキップされます
+```
+
+**注:** 一般的な Android フレームワークの型（`Context`, `Application`, `Activity`, `Fragment`, `SavedStateHandle`, `WorkerParameters`）は自動的にホワイトリストに登録されているため、`@Provided` を付ける必要はありません。
+
+**参照:** [コンパイル時の安全性](/docs/reference/koin-compiler/compile-safety#external-types-provided)
 
 ---
 
@@ -826,39 +900,27 @@ class UserService(private val userRepository: UserRepository) {
 
 ---
 
-## 非推奨（Deprecated）アノテーション
-
-### @Singleton
-
-**パッケージ:** `org.koin.core.annotation`
-
-**ステータス:** 非推奨（DEPRECATED） - ERROR レベル
-
-**代替:** 代わりに `koin-jsr330` パッケージの `@Singleton` を使用してください
-
-**説明:** `@Single` と同じですが、JSR-330 準拠のために非推奨となりました。
-
----
-
 ## 要約テーブル
 
 | アノテーション | パッケージ | 目的 | 一般的なユースケース |
 |------------|---------|---------|-----------------|
-| `@Single` | `org.koin.core.annotation` | シングルトン定義 | 共有アプリケーションサービス |
+| `@Singleton` / `@Single` | `org.koin.core.annotation` | シングルトン定義 | 共有アプリケーションサービス |
 | `@Factory` | `org.koin.core.annotation` | ファクトリ定義 | リクエストごとのインスタンス |
 | `@Scoped` | `org.koin.core.annotation` | スコープ付き定義 | スコープ固有のインスタンス |
 | `@Scope` | `org.koin.core.annotation` | スコープ宣言 | カスタムスコープ |
 | `@ViewModelScope` | `org.koin.core.annotation` | ViewModel スコープ | ViewModel スコープの依存関係 |
 | `@ActivityScope` | `org.koin.android.annotation` | Activity スコープ | Activity スコープの依存関係 |
 | `@ActivityRetainedScope` | `org.koin.android.annotation` | 保持される Activity スコープ | 設定変更に耐える依存関係 |
-| `@FragmentScope` | `org.koin.android.annotation` | Fragment スコープ | Fragment スコープ의 依存関係 |
+| `@FragmentScope` | `org.koin.android.annotation` | Fragment スコープ | Fragment スコープの依存関係 |
 | `@ScopeId` | `org.koin.core.annotation` | スコープ解決 | 特定のスコープから解決 |
 | `@KoinViewModel` | `org.koin.android.annotation` | ViewModel 定義 | Android/KMP/CMP ViewModel |
 | `@KoinWorker` | `org.koin.android.annotation` | Worker 定義 | WorkManager ワーカー |
 | `@Named` | `org.koin.core.annotation` | 文字列/型クオリファイア | 同一型の Bean の区別 |
 | `@Qualifier` | `org.koin.core.annotation` | 型/文字列クオリファイア | 同一型の Bean の区別 |
+| `@InjectedParam` | `org.koin.core.annotation` | 実行時パラメータ | `parametersOf()` の値 |
 | `@Property` | `org.koin.core.annotation` | プロパティ注入 | 設定値 |
 | `@PropertyValue` | `org.koin.core.annotation` | プロパティデフォルト値 | デフォルト設定値 |
+| `@Provided` | `org.koin.core.annotation` | 安全性検証のスキップ | 外部/フレームワークの型 |
 | `@Module` | `org.koin.core.annotation` | モジュール宣言 | 定義のグループ化 |
 | `@ComponentScan` | `org.koin.core.annotation` | パッケージスキャン | 定義の自動検出 |
 | `@Configuration` | `org.koin.core.annotation` | モジュール構成 | ビルドバリアント/フレーバー |

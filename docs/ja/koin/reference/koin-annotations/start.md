@@ -2,6 +2,12 @@
 title: Koin Annotations を使い始める
 ---
 
+:::info Koin Annotations のステータス
+**Koin Annotations は現在 Koin プロジェクトの一部となっています。** `koin-annotations` ライブラリはメインの Koin バージョンとして提供されており、完全にサポートされています。
+
+レガシーな KSP プロセッサ（`koin-ksp-compiler`）は、**Koin Compiler Plugin** の登場により**非推奨（deprecated）**となりました。アノテーション自体は変わりません。ビルド設定のみが変更されます。[KSP から Compiler Plugin への移行](/docs/migration/from-ksp-to-compiler-plugin)を参照してください。
+:::
+
 Koin Annotations を使用すると、クラスにアノテーションを付与することで定義（definitions）を宣言できます。Koin コンパイラプラグインはこれらのアノテーションを処理し、基盤となるすべての Koin DSL をコンパイル時に自動生成します。
 
 ## はじめに (Getting Started)
@@ -109,8 +115,30 @@ fun main() {
 | `startKoin<T> { }` | 設定ブロックを使用して開始する |
 | `koinApplication<T>()` | 隔離された KoinApplication を作成する |
 | `koinConfiguration<T>()` | 設定を作成する（Compose、Ktor 用） |
+| `module<T>()` | 単一の `@Module` クラスをロードする |
+| `modules(A::class, B::class)` | 複数の `@Module` クラスをロードする |
 
-ここで `T` は、`@KoinApplication` が付与されたクラスです。
+ここで `T` は、`@KoinApplication`（スタートアップ API 用）または `@Module`（モジュールロード API 用）が付与されたクラスです。
+
+### 個別モジュールのロード
+
+`@KoinApplication` を使用せずに、`@Module` クラスを直接ロードすることもできます：
+
+```kotlin
+startKoin {
+    module<NetworkModule>()
+    modules(DataModule::class, CacheModule::class)
+}
+```
+
+これは特に**テスト**において有用です：
+
+```kotlin
+@get:Rule
+val koinTestRule = KoinTestRule.create {
+    module<NetworkModule>()
+}
+```
 
 ## コンパイル時の安全性 (Compile-Time Safety)
 

@@ -274,6 +274,6 @@ ksp {
 }
 ```
 
-:::note
-此基于 KSP 的选项将被 **Koin 编译器插件**取代，该插件将提供原生的编译时安全性。有关未来的方式，请参阅 [编译器插件](/docs/setup/compiler-plugin)。
+:::tip
+此基于 KSP 的选项已被 **Koin 编译器插件**取代，该插件提供原生的编译时安全性。请参阅 [编译时安全](/docs/reference/koin-compiler/compile-safety) 和 [编译器插件设置](/docs/setup/compiler-plugin)。
 :::

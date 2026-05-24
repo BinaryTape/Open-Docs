@@ -112,8 +112,8 @@ class MyApplication : Application() {
             modules(allModules)
         }
 
-        // 改為在單元測試中使用 verify()
-        // appModule.verify()
+        // 使用 Koin 編譯器外掛程式進行編譯時期驗證
+        // 或在單元測試中使用 verify()：appModule.verify()
     }
 }
 ```
@@ -127,7 +127,7 @@ class DebugActivity : ScopeActivity() {
     init {
         scope.registerCallback(object : ScopeCallback {
             override fun onScopeClose(scope: Scope) {
-                Log.d("Koin", "Scope ${scope.id} closing")
+                Log.d("Koin", "作用域 ${scope.id} 正在關閉")
             }
         })
     }

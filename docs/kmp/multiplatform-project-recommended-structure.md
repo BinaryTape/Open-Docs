@@ -33,9 +33,11 @@
 
 我们将用来演示向推荐结构过渡的示例项目是一个旧的 Compose Multiplatform 示例，可以在示例仓库的 [old-project-structure](https://github.com/kotlin-hands-on/get-started-with-cm/tree/old-project-structure) 分支中找到。
 
-该示例由一个 Gradle 模块 (`composeApp`) 组成，其中包含所有共享代码和 KMP 入口点，以及包含 iOS 项目代码和配置的 `iosApp` 文件夹。
+该示例由一个 Gradle 模块 (`composeApp`) 组成，其中包含所有共享代码 and KMP 入口点，以及包含 iOS 项目代码和配置的 `iosApp` 文件夹。
 
 要将入口点提取到其自己的模块中，你需要创建该模块、移动代码，并相应地调整新模块和通用代码模块的配置。
+
+undefined
 
 ### 桌面 JVM 应用
 
@@ -57,7 +59,7 @@
 
 1. 在 `gradle/libs.versions.toml` 文件中，将 Kotlin JVM Gradle 插件添加到你的版本编目中：
 
-    ```text
+    ```toml
     [plugins]
     kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
     ```
@@ -115,7 +117,7 @@
 
 #### 移动代码并运行桌面应用
 
-配置完成后，将桌面应用的代码移动到新 directory：
+配置完成后，将桌面应用的代码移动到新目录：
 
 1. 在 `desktopApp/src` 目录中，创建一个新的 `main` 目录。
 2. 将 `composeApp/src/jvmMain/kotlin` 目录移动到 `desktopApp/src/main/` 目录中：
@@ -124,7 +126,7 @@
 4. 要运行你的桌面应用，请修改 **composeApp [jvm]** 运行配置：
    1. 在运行配置下拉菜单中，选择 **Edit Configurations**。
    2. 在 **Gradle** 类别中找到 **composeApp [jvm]** 配置。
-   3. 在 **Gradle project**字段中，将 `ComposeDemo:composeApp` 更改为 `ComposeDemo:desktopApp`。
+   3. 在 **Gradle project** 字段中，将 `ComposeDemo:composeApp` 更改为 `ComposeDemo:desktopApp`。
 5. 启动更新后的配置以确保应用按预期运行。
 6. 如果一切运行正常：
    * 删除 `composeApp/src/jvmMain` 目录。
@@ -219,7 +221,7 @@
 4. 对 **composeApp [js]** 重复此操作，以便也能够运行 JavaScript 版本。
 5. 启动运行配置以确保应用按预期运行。
 6. 如果一切运行正常：
-    * 删除 `composeApp/src/webMain` 目录。
+    * 删除 `composeApp/src/webMain` 目录真实。
     * 在 `composeApp/build.gradle.kts` 文件中，移除 Web 相关的代码：
         * Kotlin `sourceSets {}` 块内部的 `webMain.dependencies {}` 块，
         * `kotlin {}` 块内部的 `js {}` 和 `wasmJs {}` 目标声明。
@@ -237,7 +239,7 @@
 
 1. 在 `gradle/libs.versions.toml` 中，将 Android-KMP 库插件添加到你的版本编目中：
 
-    ```text
+    ```toml
     [plugins]
     androidMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
     ```
@@ -308,7 +310,7 @@
 
     1. 在 `gradle/libs.versions.toml` 文件中，将 Android-KMP 库插件添加到你的版本编目中：
 
-        ```text
+        ```toml
         [plugins]
         androidMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
         ```
@@ -417,7 +419,7 @@
 
     1. 如果你尚未为 `sharedLogic` 模块执行此操作，请在 `gradle/libs.versions.toml` 中将 Android-KMP 库插件添加到你的版本编目中：
 
-        ```text
+        ```toml
         [plugins]
         androidMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
         ```

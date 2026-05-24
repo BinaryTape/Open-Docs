@@ -23,7 +23,7 @@
 
 在你的 Gradle 目录中列出这些版本、库和插件：
 
-```ini
+```toml
 [versions]
 compose-multiplatform = "%org.jetbrains.compose%"
 agp = "8.9.0"

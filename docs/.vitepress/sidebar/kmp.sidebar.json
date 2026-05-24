@@ -225,6 +225,10 @@
             "link": "compose-uikit-integration"
           },
           {
+            "text": "kmp.ios-liquid-glass",
+            "link": "ios-liquid-glass"
+          },
+          {
             "text": "kmp.compose-ios-touch",
             "link": "compose-ios-touch"
           },
@@ -483,6 +487,10 @@
           {
             "text": "kmp.multiplatform-cocoapods-spm-migration",
             "link": "multiplatform-cocoapods-spm-migration"
+          },
+          {
+            "text": "kmp.multiplatform-cocoapods-spm-migration-ai",
+            "link": "multiplatform-cocoapods-spm-migration-ai"
           }
         ],
         "collapsed": true

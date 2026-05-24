@@ -1,7 +1,5 @@
----
-title: 숫자
-description: 숫자 타입, 리터럴, 변환, 산술 연산, 오버플로 및 JVM 관련 동작을 포함하여 코틀린에서 숫자를 사용하는 방법에 대해 알아봅니다.
----
+[//]: # (title: 숫자)
+[//]: # (description: 숫자 타입, 리터럴, 변환, 산술 연산, 오버플로 및 JVM 관련 동작을 포함하여 코틀린에서 숫자를 사용하는 방법에 대해 알아봅니다.)
 
 코틀린 숫자 타입은 다음을 나타냅니다:
 * 정수 값 ([Byte](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-byte/),
@@ -50,15 +48,15 @@ description: 숫자 타입, 리터럴, 변환, 산술 연산, 오버플로 및 J
 >
 {style="note"}
 
-숫자 값을 선언하려면 타입을 명시적으로 지정하세요:
+숫자 값을 선언하려면 타입을 명시적으로 지정하세요: 
 
 ```kotlin
 val one: Int = 1
 
 // 가독성을 높이기 위해 밑줄 사용
 val oneBillion: Long = 1_000_000_000
-val hexBytes: Int = 0xFF_EC_DE_5E
-val bytes: Int = 0b11010010_01101001_10010100_10010010
+val hexBytes: Int = 0x7F_EC_DE_5E
+val bytes: Int = 0b01010010_01101001_10010100_10010010
 
 val oneByte: Byte = 1
 val oneShort: Short = 1
@@ -116,12 +114,12 @@ val pi = 3.14
 val avogadro = 6.02214076e23
 ```
 
-기본적으로 코틀린은 부동 소수점 리터럴을 `Double`로 추론합니다.
+기본적으로 코틀린은 부동 소수점 리터럴을 `Double`로 추론합니다. 
 `Float`를 선언하려면 접미사 `f` 또는 `F`를 추가하세요:
 
 ```kotlin
-val pi = 3.14 // Double         
-val eFloat = 2.7182818284f // Float
+val pi = 3.14 // Double
+val eFloat = 2.7182817f // Float
 ```
 
 > 코틀린은 `Float`가 저장할 수 있는 것보다 더 높은 정밀도를 가진 `Float` 리터럴을 반올림합니다.
@@ -205,7 +203,7 @@ fun main() {
     }
 
     val x = 1.0
-    val xInt = 1    
+    val xInt = 1
     val xFloat = 1.0f
     val one: Double = 1 // 오류: 초기화 타입 불일치
 
@@ -257,8 +255,10 @@ fun main() {
 
 ### 혼합 숫자 표현식
 
-코틀린은 할당이나 함수 인수에 대해 암시적 변환을 지원하지 않습니다.
-하지만 산술 표현식에서는 서로 다른 숫자 타입을 결합할 수 있습니다. 이러한 경우, 코틀린은 피연산자 타입을 기반으로 결과 타입을 결정하며, 산술 연산자가 변환을 자동으로 처리합니다:
+코틀린은 할당이나 함수 인수에 대해 암시적 변환을 지원하지 않습니다. 
+하지만 산술 표현식에서는 서로 다른 숫자 타입을 결합할 수 있습니다. 이러한 경우, 
+코틀린은 피연산자 타입을 기반으로 결과 타입을 결정하며, 
+산술 연산자가 변환을 자동으로 처리합니다:
 
 ```kotlin
 val intNumber: Int = 1
@@ -279,7 +279,7 @@ val result: Int = intNumber + longNumber
 
 숫자 타입은 정의된 범위 내의 값만 표현할 수 있습니다.
 
-연산 결과가 해당 범위를 벗어나면 오버플로가 발생합니다.
+연산 결과가 해당 범위를 벗어나면 오버플로가 발생합니다. 
 값을 더 작은 숫자 타입으로 변환하면 변환된 값이 원래의 숫자 값을 유지하지 못할 수 있습니다.
 
 이러한 동작은 컴파일러가 허용하더라도 코드 결과에 영향을 줄 수 있습니다.
@@ -307,7 +307,7 @@ fun main(){
 
 ### 부정 연산에서의 오버플로
 
-부정(negation) 연산 중에도 오버플로가 발생할 수 있습니다.
+부정(negation) 연산 중에도 오버플로가 발생할 수 있습니다. 
 예를 들어, `Int.MIN_VALUE`의 양수 대응값은 `Int`로 표현할 수 없습니다.
 
 ```kotlin
@@ -322,7 +322,8 @@ fun main(){
 
 ### 축소 변환
 
-값을 더 작은 정수 타입으로 변환할 때, 결과가 원래의 숫자 값을 유지하지 못할 수 있습니다:
+값을 더 작은 정수 타입으로 변환할 때, 
+결과가 원래의 숫자 값을 유지하지 못할 수 있습니다:
 
 ```kotlin
 fun main() {
@@ -356,7 +357,7 @@ fun main() {
 //sampleStart
     val x = 1
     
-    println(x shl 2) // 4 
+    println(x shl 2) // 4
     println(x and 0x000FF000) // 0
 //sampleEnd
 }
@@ -379,7 +380,7 @@ fun main() {
 
 피연산자가 `Float` 또는 `Double`로 정적으로 알려진 경우, 숫자와 숫자가 형성하는 범위에 대한 연산은 [IEEE 754 부동 소수점 산술 표준](https://en.wikipedia.org/wiki/IEEE_754)을 따릅니다.
 
-하지만 제네릭 사용 사례(예: `Any`, `Comparable<...>`, 또는 `Collection<T>`)에서는 부동 소수점 숫자로 정적 타입이 지정되지 않은 피연산자에 대해 동작이 다릅니다. 이 경우 코틀린은 `Float`와 `Double`에 대한 `equals()` 및 `compareTo()` 구현을 사용합니다.
+하지만 제네릭 사용 사례(예: `Any`, `Comparable<...>`, 또는 `Collection<T>`)에서는 부동 소수점 숫자로 정적 타입이 지정되지 않은 피연산자에 대해 동작이 다릅니다. 이 경우 코틀린은 `Float`와 `Double`에 대한 `equals()` 및 `compareTo()` 구현을 사용합니다. 
 
 그 결과:
 
@@ -403,8 +404,8 @@ fun main() {
     // 피연산자가 부동 소수점이 아닌 정적 타입을 통해 사용됨
     println(generalizedEquals(Double.NaN, Double.NaN)) // true
     println(generalizedEquals(0.0, -0.0)) // false
-//sampleEnd  
 }
+//sampleEnd  
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-numbers-floating-comp"}
 

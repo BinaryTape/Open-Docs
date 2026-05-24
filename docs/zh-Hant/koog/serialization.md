@@ -441,7 +441,7 @@ dependencies {
 
     <!--- INCLUDE
     import ai.koog.agents.core.agent.config.AIAgentConfig;
-    import ai.koog.prompt.dsl.Prompt;
+    import ai.koog.prompt.Prompt;
     import ai.koog.prompt.executor.clients.openai.OpenAIModels;
     import ai.koog.serialization.jackson.JacksonSerializer;
     public class exampleSerializationJava06 {

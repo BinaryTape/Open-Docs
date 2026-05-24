@@ -561,8 +561,8 @@ class ModuleVerificationTest {
 }
 ```
 
-:::info
-`verify()`와 `checkModules()`는 향후 Koin 컴파일러 플러그인의 네이티브 컴파일 타임 안정성 기능으로 대체될 예정입니다. 자세한 내용은 [모듈 검증(Module Verification)](/docs/reference/koin-test/verify)을 참조하세요.
+:::tip
+Koin 컴파일러 플러그인은 이제 `verify()` 및 `checkModules()`를 대체하는 컴파일 타임 의존성 검증 기능을 제공합니다. [컴파일 타임 안정성(Compile-Time Safety)](/docs/reference/koin-compiler/compile-safety)을 참조하세요.
 :::
 
 ## Espresso를 이용한 UI 테스트
@@ -1037,7 +1037,7 @@ Koin을 이용한 계측 테스트의 핵심 사항:
 - 빠르고 격리된 데이터베이스 테스트를 위한 **인메모리 데이터베이스** 사용
 - **Compose 테스트**는 `KoinContext`와 함께 매끄럽게 작동함
 - **스코프 테스트**를 통해 생명주기에 묶인 의존성 검증
-- `verify()`를 이용한 **모듈 검증**으로 구성 오류를 조기에 발견
+- Koin 컴파일러 플러그인을 이용한 **모듈 검증**(컴파일 타임) 또는 `verify()`(런타임)를 통해 구성 오류를 조기에 발견
 
 ## 다음 단계
 

@@ -11,6 +11,7 @@
 - [PostgreSQL 다이얼렉트] `ALTER INDEX` 지원 추가 (#6224 by @griffio)
 - [SQLite 다이얼렉트] SQLite 3.44 집계 함수 `DISTINCT`, `ORDER BY`, `FILTER` 지원 추가 (#6236 by @griffio)
 - [SQLite 다이얼렉트] SQLite 3.37 `STRICT` 테이블 지원 추가 (#6230 by @griffio)
+- [Gradle 플러그인] `codegenExcludedColumns`를 사용하여 생성된 모델에서 컬럼을 제외하는 지원 추가 (#6243 by @sokolikp)
 - [컴파일러] 스키마에 `allTableNames` 함수 추가 (#6245 by @edenman)
 
 ### 변경됨
@@ -493,9 +494,9 @@ sqldelight {
 - [Gradle 플러그인] Gradle 플러그인의 런타임 의존성으로 `kotlin-stdlib`을 추가하지 않도록 수정 (#3245 by @mbonnin)
 - [Gradle 플러그인] 멀티플랫폼 구성 단순화 (#3246 by @mbonnin)
 - [Gradle 플러그인] js 전용 프로젝트 지원 (#3310 by @hfhbd)
-- [IDE 플러그인] Gradle 툴링 API를 위해 Java Home 사용 (#3078)
-- [IDE 플러그인] IDE 플러그 내부에서 올바른 `classLoader`로 JDBC 드라이버 로드 (#3080)
-- [IDE 플러그인] 이미 존재하는 PSI 변경 중 에러를 방지하기 위해 무효화 전 파일 요소를 널로 표시 (#3082)
+- [IDE 플러그인] Use java home for gradle tooling API (#3078)
+- [IDE 플러그인] Load the JDBC driver on the correct classLoader inside the IDE plugin (#3080)
+- [IDE 플러그인] mark the file element as null before invalidating to avoid errors during already existing PSI changes (#3082)
 - [IDE 플러그인] `ALTER TABLE` 문에서 새로운 테이블 이름의 사용처를 찾을 때 발생하는 크래시 수정 (#3106)
 - [IDE 플러그인] 인스펙터를 최적화하고 예상되는 예외 타입에 대해 조용히 실패하도록 활성화 (#3121)
 - [IDE 플러그인] 생성된 디렉토리여야 하는 파일 삭제 (#3198)
@@ -828,8 +829,6 @@ sqldelight {
 - [Gradle 플러그인] 마이그레이션 파일만 있는 경우에도 데이터베이스를 쓰도록 보장 (#2094)
 - [Gradle 플러그인] 다이아몬드 의존성이 최종 컴파일 단위에서 한 번만 선택되도록 보장 (#1455)
 
-또한 이번 릴리스에서 SQLDelight 인프라 개선을 위해 많은 노력을 기울인 @3flex 님께 감사의 말씀을 전합니다.
-
 ## [1.4.4] - 2020-10-08
 [1.4.4]: https://github.com/sqldelight/sqldelight/releases/tag/1.4.4
 
@@ -1092,7 +1091,7 @@ sqldelight {
  * 신규: 인자가 없는 Delete, Update 및 Insert 문에 대해 컴파일된 statement가 생성됩니다.
  * 수정: 서브쿼리에 사용된 view 내부의 Using 절이 에러를 내지 않음.
  * 수정: 생성된 매퍼에서 중복 타입 제거.
- * 수정: 인자를 확인하는 표현식에 서브쿼리를 사용할 수 있음.
+ * 수정: 서브쿼리를 사용하여 인자를 확인하는 표현식을 사용할 수 있음.
 
 ## [0.6.0] - 2017-03-06
 [0.6.0]: https://github.com/sqldelight/sqldelight/releases/tag/0.6.0

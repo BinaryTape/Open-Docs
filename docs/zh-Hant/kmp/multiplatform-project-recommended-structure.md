@@ -18,7 +18,7 @@
   * 如果 KMP 專案產生的所有應用程式都使用共用 UI 程式碼以及共用商務邏輯，則單個用於所有共用程式碼的 `shared` 模組就足夠了。
   * 如果任何一個應用程式的 UI 是使用原生程式碼編寫的（例如，您使用純 Swift 實作了 iOS UI），則將 UI 程式碼與商務邏輯分開是有意義的，以避免在不需要的地方產生 Compose Multiplatform 相依性。
     因此，您可以擁有 `sharedLogic` 和 `sharedUI` 模組，並根據需要將它們作為相依性新增到入口點模組中。
-* 如果您的專案包含應與用戶端應用程式共用邏輯的伺服器程式碼，建議的結構方式為：
+* If 您的專案包含應與用戶端應用程式共用邏輯的伺服器程式碼，建議的結構方式為：
   * 一個 `app` 資料夾，包含上述組織的入口點模組和用戶端通用的程式碼模組。
   * 一個包含伺服器特定程式碼的 `server` 模組。
   * 一個用於伺服器與用戶端之間共用程式碼（例如模型與驗證）的 `core` 模組。
@@ -37,6 +37,8 @@
 該範例由單個 Gradle 模組 (`composeApp`) 組成，其中包含所有共用程式碼和 KMP 入口點，以及包含 iOS 專案程式碼與配置的 `iosApp` 資料夾。
 
 要將入口點提取到其專屬模組，您需要建立模組、移動程式碼，並相應地調整新模組和通用程式碼模組的配置。
+
+未定義
 
 ### 桌面 JVM 應用程式
 
@@ -58,7 +60,7 @@
 
 1. 在 `gradle/libs.versions.toml` 檔案中，將 Kotlin JVM Gradle 外掛程式新增至您的版本目錄 (version catalog)：
 
-    ```text
+    ```toml
     [plugins]
     kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
     ```
@@ -238,7 +240,7 @@
 
 1. 在 `gradle/libs.versions.toml` 中，將 Android-KMP 程式庫外掛程式新增至您的版本目錄 (version catalog)：
 
-    ```text
+    ```toml
     [plugins]
     androidMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
     ```
@@ -310,7 +312,7 @@
 
     1. 在 `gradle/libs.versions.toml` 檔案中，將 Android-KMP 程式庫外掛程式新增至您的版本目錄：
 
-        ```text
+        ```toml
         [plugins]
         androidMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
         ```
@@ -418,7 +420,7 @@
 
     1. 如果您尚未為 `sharedLogic` 模組執行此操作，請在 `gradle/libs.versions.toml` 中將 Android-KMP 程式庫外掛程式新增至您的版本目錄：
 
-        ```text
+        ```toml
         [plugins]
         androidMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
         ```
@@ -471,6 +473,7 @@
             @OptIn(ExperimentalWasmDsl::class)
             wasmJs {
                 browser()
+                binaries.executable()
             }
         }
         ```

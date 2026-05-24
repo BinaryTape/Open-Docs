@@ -90,10 +90,21 @@ class MyOtherScopedComponent(
 
 自分のスコープから直接アクセスできない別のスコープからコンポーネントを解決する必要がある場合があります。この場合、依存関係に `@ScopeId` アノテーションを付与して、指定されたスコープIDのスコープ内でこの依存関係を探すようKoinに指示します。
 
+文字列名を使用する場合：
+
 ```kotlin
 @Factory
 class MyFactory(
-  @ScopeId("my_scope_id") val myScopedComponent :MyScopedComponent
+  @ScopeId(name = "my_scope_id") val myScopedComponent : MyScopedComponent
+)
+```
+
+または型参照を使用する場合：
+
+```kotlin
+@Factory
+class MyFactory(
+  @ScopeId(MyScope::class) val myScopedComponent : MyScopedComponent
 )
 ```
 

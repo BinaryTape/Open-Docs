@@ -37,7 +37,7 @@
 
 `gradle/libs.versions.toml` に以下のエントリを追加し、Gradle ファイルを同期して、ビルド構成コードで参照を利用できるようにします。
 
-```text
+```toml
 [versions]
 coroutinesVersion = "%coroutinesVersion%"
 ktorVersion = "%ktorVersion%"
@@ -94,7 +94,7 @@ kotlin {
 
 **Sync Gradle Changes** ボタンをクリックして、Gradle ファイルを同期します。
 
-## APIリクエストの作成
+## APIリクエストの設定
 
 データを取得するために [Launch Library API](https://github.com/r-spacex/SpaceX-API/tree/master/docs#rspacex-api-docs) を使用します。具体的には、**/2.3.0/launches** エンドポイントからすべての打ち上げリストを取得します。
 
@@ -489,7 +489,7 @@ SwiftUI は ViewModel (`ContentView.ViewModel`) をビュー (`ContentView`) に
 
 1. Gradle バージョンカタログに KMP-NativeCoroutines のバージョンとプラグイン参照を追加します。
 
-    ```text
+    ```toml
     [versions]
     kmpNativeCoroutines = "%kmpncVersion%"
     
@@ -622,7 +622,7 @@ SwiftUI は ViewModel (`ContentView.ViewModel`) をビュー (`ContentView`) に
 
 ライブラリをセットアップするには、Gradle バージョンカタログに SKIE のバージョンとプラグイン参照を追加します。
 
-```text
+```toml
 [versions]
 skie = "%skieVersion%"
 

@@ -21,9 +21,12 @@
 - [限定符注解](#qualifier-annotations)
   - [@Named](#named)
   - [@Qualifier](#qualifier)
-- [属性注解](#property-annotations)
+- [形参注解](#parameter-annotations)
+  - [@InjectedParam](#injectedparam)
   - [@Property](#property)
   - [@PropertyValue](#propertyvalue)
+- [安全注解](#safety-annotations)
+  - [@Provided](#provided)
 - [模块与应用注解](#module--application-annotations)
   - [@Module](#module)
   - [@ComponentScan](#componentscan)
@@ -41,13 +44,13 @@
 
 ## 定义注解
 
-### @Single
+### @Single / @Singleton
 
 **软件包：** `org.koin.core.annotation`
 
 **目标：** `CLASS`, `FUNCTION`
 
-**描述：** 在 Koin 中将类型或函数声明为 `single`（单例）定义。一个单例实例会被创建并在整个应用程序中共享。
+**描述：** 在 Koin 中将类型或函数声明为 `single`（单例）定义。一个单例实例会被创建并在整个应用程序中共享。`@Singleton` 是首选名称（遵循标准命名约定）；`@Single` 是一个别名。
 
 **形参：**
 - `binds: Array<KClass<*>> = [Unit::class]` - 要绑定到此定义的显式类型。父类型会被自动检测。
@@ -457,7 +460,38 @@ class MyClass(val d : MyDependency)
 
 ---
 
-## 属性注解
+## 形参注解
+
+### @InjectedParam
+
+**软件包：** `org.koin.core.annotation`
+
+**目标：** `VALUE_PARAMETER`
+
+**描述：** 将构造函数或函数形参标记为从 `ParametersHolder`（在调用站点通过 `parametersOf()` 传递）而非 DI 容器进行解析。
+
+**形参：** 无
+
+**行为：**
+在运行时从 `ParametersHolder.get()` 解析形参值，而不是从 Koin 定义中解析。编译安全验证会跳过带有 `@InjectedParam` 的形参。
+
+**示例：**
+```kotlin
+@Factory
+class MyClass(@InjectedParam val id: Int, val service: Service)
+```
+
+**生成的 Koin DSL：**
+```kotlin
+factory { params -> MyClass(params.get(), get()) }
+```
+
+**用法：**
+```kotlin
+val instance = koin.get<MyClass> { parametersOf(42) }
+```
+
+---
 
 ### @Property
 
@@ -527,6 +561,46 @@ class MyClass(@Property("name") val name : String)
 ```kotlin
 factory { MyClass(getProperty("name", defaultName)) }
 ```
+
+---
+
+## 安全注解
+
+### @Provided
+
+**软件包：** `org.koin.core.annotation`
+
+**目标：** `CLASS`, `VALUE_PARAMETER`
+
+**描述：** 将类型或形参标记为在运行时由外部提供（例如 Android 框架类型、第三方 SDK）。编译时安全性验证会跳过这些类型。
+
+**形参：** 无
+
+**行为：**
+- 在 **类** 上：该类型的所有用法都会跳过编译安全验证。
+- 在 **形参** 上：仅该特定形参跳过验证。
+- 类型在运行时仍通过 `scope.get<T>()` 解析 —— `@Provided` 仅影响编译时检查。
+
+**类上的示例：**
+```kotlin
+@Provided
+class FirebaseAnalytics  // 所有用法都会跳过验证
+
+@Singleton
+class AnalyticsService(val analytics: FirebaseAnalytics)
+// 无编译错误 —— FirebaseAnalytics 已标记为 @Provided
+```
+
+**形参上的示例：**
+```kotlin
+@Factory
+class PaymentProcessor(@Provided val gateway: PaymentGateway)
+// 无编译错误 —— 仅此形参会跳过验证
+```
+
+**注意：** 常见的 Android 框架类型（`Context`, `Application`, `Activity`, `Fragment`, `SavedStateHandle`, `WorkerParameters`）会自动列入白名单，无需使用 `@Provided`。
+
+**另请参阅：** [编译时安全性](/docs/reference/koin-compiler/compile-safety#external-types-provided)
 
 ---
 
@@ -826,25 +900,11 @@ class UserService(private val userRepository: UserRepository) {
 
 ---
 
-## 弃用的注解
-
-### @Singleton
-
-**软件包：** `org.koin.core.annotation`
-
-**状态：** 已弃用 - ERROR 级别
-
-**替代：** 请改用来自 `koin-jsr330` 软件包的 `@Singleton`
-
-**描述：** 与 `@Single` 相同，但为了符合 JSR-330 标准而弃用。
-
----
-
 ## 摘要表
 
 | 注解 | 软件包 | 用途 | 常见用例 |
 |------------|---------|---------|-----------------|
-| `@Single` | `org.koin.core.annotation` | 单例定义 | 共享的应用程序服务 |
+| `@Singleton` / `@Single` | `org.koin.core.annotation` | 单例定义 | 共享的应用程序服务 |
 | `@Factory` | `org.koin.core.annotation` | 工厂定义 | 每次请求的实例 |
 | `@Scoped` | `org.koin.core.annotation` | 作用域定义 | 作用域特定的实例 |
 | `@Scope` | `org.koin.core.annotation` | 作用域声明 | 自定义作用域 |
@@ -857,8 +917,10 @@ class UserService(private val userRepository: UserRepository) {
 | `@KoinWorker` | `org.koin.android.annotation` | Worker 定义 | WorkManager worker |
 | `@Named` | `org.koin.core.annotation` | 字符串/类型限定符 | 区分同类型的 bean |
 | `@Qualifier` | `org.koin.core.annotation` | 类型/字符串限定符 | 区分同类型的 bean |
+| `@InjectedParam` | `org.koin.core.annotation` | 运行时参数 | `parametersOf()` 的值 |
 | `@Property` | `org.koin.core.annotation` | 属性注入 | 配置值 |
 | `@PropertyValue` | `org.koin.core.annotation` | 属性默认值 | 默认配置值 |
+| `@Provided` | `org.koin.core.annotation` | 跳过安全性验证 | 外部/框架类型 |
 | `@Module` | `org.koin.core.annotation` | 模块声明 | 分组定义 |
 | `@ComponentScan` | `org.koin.core.annotation` | 软件包扫描 | 自动发现定义 |
 | `@Configuration` | `org.koin.core.annotation` | 模块配置 | 构建变体/变体 |

@@ -45,7 +45,7 @@ aside: false
                     <a href="multiplatform-dsl-reference.md" summary="为 Kotlin Multiplatform 项目配置 Gradle 构建脚本">Gradle DSL 参考</a>
                     <a href="https://klibs.io/" summary="由 JetBrains 开发的 Kotlin Multiplatform 库实验性搜索平台">库搜索平台</a>
                     <a href="https://kmp.jetbrains.com/" summary="快速生成并下载多平台项目模板">新项目向导</a>
-                    <a href="amper.md" summary="使用 Amper 进行项目配置">Amper 配置工具</a>
+                    <a href="amper.md" summary="使用 Kotlin 工具链进行项目配置">Kotlin 工具链配置工具</a>
                 </group>
                 <group>
                     <title>社区与帮助</title>

@@ -21,9 +21,12 @@
 - [한정자 어노테이션 (Qualifier Annotations)](#qualifier-annotations)
   - [@Named](#named)
   - [@Qualifier](#qualifier)
-- [프로퍼티 어노테이션 (Property Annotations)](#property-annotations)
+- [매개변수 어노테이션 (Parameter Annotations)](#parameter-annotations)
+  - [@InjectedParam](#injectedparam)
   - [@Property](#property)
   - [@PropertyValue](#propertyvalue)
+- [안정성 어노테이션 (Safety Annotations)](#safety-annotations)
+  - [@Provided](#provided)
 - [모듈 및 애플리케이션 어노테이션](#module--application-annotations)
   - [@Module](#module)
   - [@ComponentScan](#componentscan)
@@ -41,13 +44,13 @@
 
 ## 정의 어노테이션 (Definition Annotations)
 
-### @Single
+### @Single / @Singleton
 
 **패키지:** `org.koin.core.annotation`
 
 **대상:** `CLASS`, `FUNCTION`
 
-**설명:** Koin에서 타입이나 함수를 `single`(싱글톤) 정의로 선언합니다. 단일 인스턴스가 생성되어 애플리케이션 전체에서 공유됩니다.
+**설명:** Koin에서 타입이나 함수를 `single`(싱글톤) 정의로 선언합니다. 단일 인스턴스가 생성되어 애플리케이션 전체에서 공유됩니다. `@Singleton`이 권장되는 이름(표준 명명 규칙)이며, `@Single`은 별칭(Alias)입니다.
 
 **매개변수:**
 - `binds: Array<KClass<*>> = [Unit::class]` - 이 정의에 바인딩할 명시적 타입입니다. 상위 타입(Supertypes)은 자동으로 감지됩니다.
@@ -457,7 +460,38 @@ class MyClass(val d : MyDependency)
 
 ---
 
-## 프로퍼티 어노테이션 (Property Annotations)
+## 매개변수 어노테이션 (Parameter Annotations)
+
+### @InjectedParam
+
+**패키지:** `org.koin.core.annotation`
+
+**대상:** `VALUE_PARAMETER`
+
+**설명:** 생성자 또는 함수 매개변수를 DI 컨테이너 대신 `ParametersHolder`(호출 지점에서 `parametersOf()`를 통해 전달됨)에서 해결하도록 표시합니다.
+
+**매개변수:** 없음
+
+**동작:**
+런타임 시 Koin 정의가 아닌 `ParametersHolder.get()`에서 매개변수 값을 해결합니다. 컴파일 타임 안정성 검증 시 `@InjectedParam` 매개변수는 건너뜁니다.
+
+**예제:**
+```kotlin
+@Factory
+class MyClass(@InjectedParam val id: Int, val service: Service)
+```
+
+**생성된 Koin DSL:**
+```kotlin
+factory { params -> MyClass(params.get(), get()) }
+```
+
+**사용법:**
+```kotlin
+val instance = koin.get<MyClass> { parametersOf(42) }
+```
+
+---
 
 ### @Property
 
@@ -527,6 +561,46 @@ class MyClass(@Property("name") val name : String)
 ```kotlin
 factory { MyClass(getProperty("name", defaultName)) }
 ```
+
+---
+
+## 안정성 어노테이션 (Safety Annotations)
+
+### @Provided
+
+**패키지:** `org.koin.core.annotation`
+
+**대상:** `CLASS`, `VALUE_PARAMETER`
+
+**설명:** 타입이나 매개변수가 런타임에 외부에서 제공됨(예: Android 프레임워크 타입, 타사 SDK)을 표시합니다. 컴파일 타임 안정성 검증 시 이러한 타입들은 건너뜁니다.
+
+**매개변수:** 없음
+
+**동작:**
+- **클래스**에 적용 시: 해당 타입의 모든 사용에 대해 컴파일 안정성 검증을 건너뜁니다.
+- **매개변수**에 적용 시: 해당 특정 매개변수에 대해서만 검증을 건너뜁니다.
+- 타입은 여전히 런타임에 `scope.get<T>()`를 통해 해결됩니다. `@Provided`는 컴파일 타임 검사에만 영향을 미칩니다.
+
+**클래스 사용 예제:**
+```kotlin
+@Provided
+class FirebaseAnalytics  // 모든 사용 시 검증 건너뜀
+
+@Singleton
+class AnalyticsService(val analytics: FirebaseAnalytics)
+// 컴파일 오류 없음 — FirebaseAnalytics가 @Provided임
+```
+
+**매개변수 사용 예제:**
+```kotlin
+@Factory
+class PaymentProcessor(@Provided val gateway: PaymentGateway)
+// 컴파일 오류 없음 — 이 매개변수만 검증 건너뜀
+```
+
+**참고:** 일반적인 Android 프레임워크 타입(`Context`, `Application`, `Activity`, `Fragment`, `SavedStateHandle`, `WorkerParameters`)은 자동으로 화이트리스트에 포함되므로 `@Provided`가 필요하지 않습니다.
+
+**참고:** [컴파일 타임 안정성 (Compile-Time Safety)](/docs/reference/koin-compiler/compile-safety#external-types-provided)
 
 ---
 
@@ -826,25 +900,11 @@ class UserService(private val userRepository: UserRepository) {
 
 ---
 
-## 지원 중단된 어노테이션 (Deprecated)
-
-### @Singleton
-
-**패키지:** `org.koin.core.annotation`
-
-**상태:** DEPRECATED - ERROR level
-
-**교체:** 대신 `koin-jsr330` 패키지의 `@Singleton`을 사용하세요.
-
-**설명:** `@Single`과 동일하지만 JSR-330 준수를 위해 지원 중단되었습니다.
-
----
-
 ## 요약 표
 
 | 어노테이션 | 패키지 | 목적 | 일반적인 유스케이스 |
 |------------|---------|---------|-----------------|
-| `@Single` | `org.koin.core.annotation` | 싱글톤 정의 | 공유 애플리케이션 서비스 |
+| `@Singleton` / `@Single` | `org.koin.core.annotation` | 싱글톤 정의 | 공유 애플리케이션 서비스 |
 | `@Factory` | `org.koin.core.annotation` | 팩토리 정의 | 요청당 인스턴스 |
 | `@Scoped` | `org.koin.core.annotation` | 스코프 정의 | 스코프별 인스턴스 |
 | `@Scope` | `org.koin.core.annotation` | 스코프 선언 | 사용자 정의 스코프 |
@@ -857,8 +917,10 @@ class UserService(private val userRepository: UserRepository) {
 | `@KoinWorker` | `org.koin.android.annotation` | Worker 정의 | WorkManager 워커 |
 | `@Named` | `org.koin.core.annotation` | 문자열/타입 한정자 | 동일 타입 빈 구분 |
 | `@Qualifier` | `org.koin.core.annotation` | 타입/문자열 한정자 | 동일 타입 빈 구분 |
+| `@InjectedParam` | `org.koin.core.annotation` | 런타임 매개변수 | `parametersOf()` 값 |
 | `@Property` | `org.koin.core.annotation` | 프로퍼티 주입 | 구성 값 |
 | `@PropertyValue` | `org.koin.core.annotation` | 프로퍼티 기본값 | 기본 구성 값 |
+| `@Provided` | `org.koin.core.annotation` | 안정성 검증 건너뛰기 | 외부/프레임워크 타입 |
 | `@Module` | `org.koin.core.annotation` | 모듈 선언 | 정의 그룹화 |
 | `@ComponentScan` | `org.koin.core.annotation` | 패키지 스캔 | 정의 자동 탐색 |
 | `@Configuration` | `org.koin.core.annotation` | 모듈 구성 | 빌드 변체/플레이버 |

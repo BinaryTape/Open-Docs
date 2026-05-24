@@ -154,10 +154,8 @@ fun checkKoinModules() {
 }
 ```
 
-:::info
-`checkModules()` API は非推奨（Deprecated）になりました。代わりに `verify()` を使用してください。詳細は [Module Verification](/docs/reference/koin-test/verify) を参照してください。
-
-両方の検証 API は、Koin Compiler Plugin のネイティブなコンパイル時の安全性（compile-time safety）に置き換えられる予定です。
+:::tip
+`checkModules()` API は非推奨（Deprecated）になりました。Koin Compiler Plugin がコンパイル時の依存関係検証を提供するようになったため、`verify()` と `checkModules()` の両方が不要になります。詳細は [Compile-Time Safety](/docs/reference/koin-compiler/compile-safety) を参照してください。
 :::
 
 ## テストでの Koin の開始と停止
@@ -197,7 +195,7 @@ class ExtensionTests: KoinTest {
 
 ```
 
-### JUnit 5 でのモッキング
+### Mocking with JUnit5
 これは、`@RegisterExtension` を使用する必要がある点を除けば、JUnit 4 と同じように動作します。
 
 ```kotlin

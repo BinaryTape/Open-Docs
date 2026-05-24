@@ -2,6 +2,8 @@
 
 您可以通过 `TooltipArea` 可组合项为任何组件添加工具提示。`TooltipArea` 与 `Box` 组件类似，可以显示工具提示。
 
+undefined
+
 `TooltipArea` 可组合项具有以下主要形参：
 
 * `tooltip`：工具提示的可组合内容。

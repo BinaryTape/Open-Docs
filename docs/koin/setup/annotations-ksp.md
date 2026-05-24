@@ -1,37 +1,37 @@
 ---
-title: KSP 注解设置（已弃用）
+title: KSP 处理程序设置（已弃用）
 ---
 
-# KSP 注解设置
+# Koin Annotations 的 KSP 处理程序设置
 
 :::warning
-**已弃用**：基于 KSP 的注解处理方式已弃用。请为所有新项目迁移到 [Koin 编译器插件](/docs/setup/compiler-plugin)。
+**`koin-ksp-compiler` 已弃用。** 用于 Koin Annotations 的基于 KSP 的处理程序已被 [Koin 编译器插件](/docs/setup/compiler-plugin)取代。**Koin Annotations 本身并未弃用** —— `koin-annotations` 库现在是 Koin 主项目的一部分，并将继续得到全面支持。仅处理程序发生了变化。
 :::
 
 :::info
-**您的注解保持不变** - 仅构建设置发生变化。请参阅下方的[迁移指南](#migration-to-compiler-plugin)。
+**您的注解保持不变** —— 仅构建设置发生变化。请参阅下方的[迁移指南](#migration-to-koin-compiler-plugin)。
 :::
 
 ## 为什么迁移？
 
-| 维度 | KSP 注解 | 编译器插件 |
-|--------|-----------------|-----------------|
+| 维度 | KSP 处理程序 (`koin-ksp-compiler`) | Koin 编译器插件 |
+|--------|-------------------------------------|----------------------|
 | **生成的文件** | 在 build/ 中可见 | 无 |
 | **构建速度** | ⚠️ 更慢 | 更快 |
 | **KMP 设置** | ⚠️ 复杂 | 简单 |
 | **未来支持** | ⚠️ 已弃用 | ✅ 活跃开发中 |
 | **您的代码** | ⚠️ 使用生成的扩展 | 使用 Kotlin 编译器插件专用 API |
 
-## 何时使用 KSP（临时）
+## 何时使用 KSP 处理程序（临时）
 
-仅在以下情况下使用 KSP：
+仅在以下情况下使用 `koin-ksp-compiler`：
 - 停留在 Kotlin 1.x（建议升级）
 - 处于迁移中期且尚无法切换
 - 有特定的 KSP 要求
 
-## 当前 KSP 设置（参考）
+## 当前 KSP 处理程序设置（参考）
 
-如果必须使用 KSP，设置如下：
+如果必须使用 KSP 处理程序，设置如下：
 
 ### Gradle 设置
 
@@ -86,8 +86,8 @@ ksp {
 }
 ```
 
-:::note
-这一基于 KSP 的编译时检查将被 **Koin 编译器插件** 中的原生编译时安全性所取代。请参阅[编译器插件](/docs/setup/compiler-plugin)。
+:::tip
+这一基于 KSP 的编译时检查已被 **Koin 编译器插件** 中的原生编译时安全性所取代。请参阅[编译时安全性](/docs/reference/koin-compiler/compile-safety)和[编译器插件设置](/docs/setup/compiler-plugin)。
 :::
 
 ### KMP 设置（复杂）
@@ -125,7 +125,7 @@ dependencies {
 ```kotlin
 // build.gradle.kts
 plugins {
-    kotlin("jvm") version "2.3.20-Beta1" // 或更高版本
+    kotlin("jvm") version "2.3.20-Beta1" // 或更早版本
 }
 ```
 
@@ -231,10 +231,11 @@ rm -rf build/generated/ksp
 
 ### 发生变化的内容
 
-| 维度 | KSP | 编译器插件 |
-|--------|-----|-----------------|
+| 维度 | KSP 处理程序 | Koin 编译器插件 |
+|--------|---------------|----------------------|
 | 构建插件 | `com.google.devtools.ksp` | `io.insert-koin.compiler.plugin` |
-| 依赖项 | `ksp()` 配置 | 无需 |
+| 依赖项 | `ksp("io.insert-koin:koin-ksp-compiler")` | 无需（仅需插件） |
+| `koin-annotations` 版本 | 独立（`koin-ksp` 版本） | 与 Koin 主版本相同 |
 | 生成的文件 | 在 `build/` 中可见 | 无 |
 | Koin 启动 | `modules(AppModule().module)` | `startKoin<MyApp>()` |
 | KMP 设置 | 每个平台的 KSP | 仅需插件 |
@@ -242,13 +243,13 @@ rm -rf build/generated/ksp
 ## 时间表
 
 :::warning
-KSP 注解将在未来的 Koin 版本中移除。我们建议尽快迁移。
+`koin-ksp-compiler` 处理程序将在未来的 Koin 版本中移除。我们建议尽快迁移到 Koin 编译器插件。`koin-annotations` 库以及您的 `@Singleton` / `@Factory` / `@Module` 注解不会消失 —— 它们现在由 Koin 编译器插件进行处理。
 :::
 
 ## 帮助
 
 如果您在迁移过程中遇到问题：
-- 检查 [故障排除](/docs/reference/troubleshooting)
+- 检查[故障排除](/docs/reference/troubleshooting)
 - 在 [Slack](https://kotlinlang.slack.com/messages/koin/) 上提问
 - 在 [GitHub](https://github.com/InsertKoinIO/koin) 上提交问题
 

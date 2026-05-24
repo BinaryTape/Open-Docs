@@ -41,7 +41,11 @@ val appModule = module {
 
 ## モジュールの検証
 
-Koin の設定をテストする最も簡単な方法は、モジュールを検証することです。`verify()` 関数は、すべての依存関係が解決可能であることを確認するためのドライラン (dry-run) チェックを実行します。
+:::tip
+Koin Compiler Plugin がコンパイル時の依存関係検証を提供し、テストコードを書かなくてもビルド時に不足している依存関係を検出できるようになりました。[コンパイル時の安全性 (Compile-Time Safety)](/docs/reference/koin-compiler/compile-safety) を参照してください。
+:::
+
+コンパイラプラグインを使用していない場合は、実行時にモジュールを検証できます。`verify()` 関数は、すべての依存関係が解決可能であることを確認するためのドライラン (dry-run) チェックを実行します。
 
 ```kotlin
 class ModuleVerificationTest : AutoCloseKoinTest() {

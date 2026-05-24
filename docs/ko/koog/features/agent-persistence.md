@@ -576,21 +576,12 @@ Koog Persistence를 사용하면 `Persistence` 기능 설정에 `RollbackToolReg
     import ai.koog.agents.snapshot.feature.persistence
     import ai.koog.prompt.message.Message.User
     import ai.koog.serialization.JSONPrimitive
-    val customInput = JSONPrimitive("custom-input")
     val customOutput = JSONPrimitive("custom-output")
     val customMessageHistory = emptyList<User>()
     -->
     ```kotlin
     suspend fun example(context: AIAgentContext) {
-        // 특정 노드 이전으로 실행 지점을 설정하고 해당 노드에 대한 입력을 제공할 수 있습니다.
-        context.persistence().setExecutionPoint(
-            agentContext = context,
-            nodePath = context.executionInfo.path(),
-            messageHistory = customMessageHistory,
-            input = customInput
-        )
-
-        // 또는 특정 노드 이후로 실행 지점을 설정하고 해당 노드의 출력을 제공할 수 있습니다.
+        // 특정 노드 이후로 실행 지점을 설정하고 해당 노드의 출력을 제공할 수 있습니다.
         context.persistence().setExecutionPointAfterNode(
             agentContext = context,
             nodePath = context.executionInfo.path(),
@@ -613,15 +604,7 @@ Koog Persistence를 사용하면 `Persistence` 기능 설정에 `RollbackToolReg
     ```java
     Persistence persistence = PersistenceKt.persistence(context);
 
-    // 특정 노드 이전으로 실행 지점을 설정하고 해당 노드에 대한 입력을 제공합니다.
-    persistence.setExecutionPoint(
-        context,
-        context.getExecutionInfo().path(),
-        customMessageHistory,
-        customInput
-    );
-
-    // 또는 특정 노드 이후로 실행 지점을 설정하고 해당 노드의 출력을 제공합니다.
+    // 특정 노드 이후로 실행 지점을 설정하고 해당 노드의 출력을 제공합니다.
     persistence.setExecutionPointAfterNode(
         context,
         context.getExecutionInfo().path(),

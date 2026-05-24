@@ -449,6 +449,144 @@ startKoin {
 }
 ```
 
+## 安全 DSL 模式
+
+Koin 编译器插件在编译时转换 DSL 定义——自动装配构造函数参数并对其进行验证。以下是关键模式：
+
+### 使用 create() 的函数构建器
+
+使用 `create(::function)` 来包装您不拥有的外部库。函数参数将从 DI 容器中自动解析：
+
+```kotlin
+import org.koin.dsl.module
+import org.koin.plugin.module.dsl.create
+
+// 构建器函数 — 参数由 Koin 解析
+fun database(context: Context): AppDatabase =
+    Room.databaseBuilder(context, AppDatabase::class.java, "my-db").build()
+
+fun topicDao(db: AppDatabase): TopicDao = db.topicDao()
+fun newsDao(db: AppDatabase): NewsResourceDao = db.newsResourceDao()
+
+val databaseModule = module {
+    single { create(::database) }
+    single { create(::topicDao) }
+    single { create(::newsDao) }
+}
+```
+
+这是 Room 数据库、Retrofit 服务、OkHttp 客户端以及其他外部库的推荐模式。
+
+### 使用 includes() 进行模块组合
+
+按层组织模块并对其进行组合：
+
+```kotlin
+import org.koin.dsl.module
+import org.koin.plugin.module.dsl.*
+
+val networkModule = module {
+    includes(dispatchersModule)
+
+    single { create(::json) }
+    single<AppHttpClient>()
+    single<DemoNetworkDataSource>() bind NetworkDataSource::class
+}
+
+private fun json(): Json = Json { ignoreUnknownKeys = true }
+```
+
+### 应用模块 — 组合一切
+
+应用模块包含所有功能模块，并声明 ViewModel 和用例：
+
+```kotlin
+import org.koin.dsl.module
+import org.koin.plugin.module.dsl.*
+import org.koin.androidx.scope.dsl.activityScope
+
+val appModule = module {
+    includes(
+        dispatchersModule,
+        databaseModule,
+        dataStoreModule,
+        networkModule,
+        dataModule,
+        syncModule
+    )
+
+    // 领域用例 — 工厂 (每次请求都创建新实例)
+    factory<GetFollowableTopicsUseCase>()
+    factory<GetSearchContentsUseCase>()
+
+    // ViewModel
+    viewModel<MainActivityViewModel>()
+    viewModel<HomeViewModel>()
+    viewModel<BookmarksViewModel>()
+
+    // Activity 作用域定义
+    activityScope {
+        scoped<ActivityTracker>()
+    }
+}
+```
+
+### DSL 中的自定义限定符
+
+限定符注解也适用于 `create(::function)`：
+
+```kotlin
+import org.koin.dsl.module
+import org.koin.plugin.module.dsl.create
+
+val dispatchersModule = module {
+    single { create(::dispatcherIO) }
+    single { create(::dispatcherDefault) }
+    single { create(::coroutineScope) }
+}
+
+@Dispatcher(NiaDispatchers.IO)
+fun dispatcherIO(): CoroutineDispatcher = Dispatchers.IO
+
+@Dispatcher(NiaDispatchers.Default)
+fun dispatcherDefault(): CoroutineDispatcher = Dispatchers.Default
+
+fun coroutineScope(
+    @Dispatcher(NiaDispatchers.Default) default: CoroutineDispatcher
+) = CoroutineScope(SupervisorJob() + default)
+```
+
+### DSL 配合 Worker
+
+```kotlin
+import org.koin.dsl.module
+import org.koin.plugin.module.dsl.*
+import org.koin.dsl.bind
+
+val syncModule = module {
+    single<WorkManagerSyncManager>() bind SyncManager::class
+    worker<SyncWorker>()
+}
+```
+
+### 完整模式：带接口绑定的仓库
+
+```kotlin
+import org.koin.dsl.module
+import org.koin.dsl.bind
+import org.koin.plugin.module.dsl.single
+
+val dataModule = module {
+    includes(databaseModule, dataStoreModule, networkModule)
+
+    single<OfflineFirstNewsRepository>() bind NewsRepository::class
+    single<OfflineFirstTopicsRepository>() bind TopicsRepository::class
+    single<OfflineFirstUserDataRepository>() bind UserDataRepository::class
+}
+```
+
+所有这些定义都在编译时由 Koin 编译器插件进行验证——缺失的依赖项、限定符不匹配以及损坏的调用站点都会在构建时被捕获。请参阅 [编译时安全](/docs/reference/koin-compiler/compile-safety)。
+
 ## 最佳做法
 
 1. **优先使用构造函数注入** - 使代码在不使用 Koin 的情况下也具备可测试性。

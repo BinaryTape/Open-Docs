@@ -1,9 +1,9 @@
 [//]: # (title: 用於 Kotlin 開發的 IDE)
 
-<web-summary>JetBrains 為 IntelliJ IDEA 與 Android Studio 提供官方 Kotlin IDE 支援。</web-summary>
+<web-summary>JetBrains 為 IntelliJ IDEA、Android Studio 以及 Visual Studio Code 提供官方 Kotlin IDE 支援。</web-summary>
 
-JetBrains 為以下 IDE 與程式碼編輯器提供官方 Kotlin 支援：
-[IntelliJ IDEA](#intellij-idea) 與 [Android Studio](#android-studio)。
+JetBrains 為以下 IDE 與程式碼編輯器提供官方 Kotlin 支援：[IntelliJ IDEA](#intellij-idea) 與 [Android Studio](#android-studio)。
+您也可以為 [Visual Studio Code](#visual-studio-code) 安裝官方的 Kotlin by JetBrains 擴充套件，該套件目前處於 [Alpha](components-stability.md#stability-levels-explained) 階段。
 
 其他 IDE 與程式碼編輯器僅有 Kotlin 社群支援的外掛程式。
 
@@ -28,20 +28,27 @@ Kotlin 外掛程式隨每個 Android Studio 版本一併提供。
 
 若要進一步了解 Android Studio，請參閱[官方文件](https://developer.android.com/studio/intro)。
 
+## Visual Studio Code
+<primary-label ref="alpha"/>
+
+[Visual Studio Code](https://code.visualstudio.com/) 是一款擁有眾多擴充套件的程式碼編輯器，其中包括[官方的 Kotlin by JetBrains 擴充套件](https://marketplace.visualstudio.com/items?itemName=JetBrains.kotlin-server)。
+
+該 Kotlin 擴充套件透過 Kotlin 語言伺服器提供程式碼補全、導覽、偵錯以及其他 Kotlin 開發功能。
+
+欲了解更多資訊，請參閱 [Kotlin 語言伺服器與 Visual Studio Code](kotlin-lsp.md#kotlin-in-visual-studio-code)。
+
+## 其他 IDE 支援
+
+JetBrains 不為其他 IDE 提供官方 Kotlin 外掛程式。
+您可以在其他程式碼編輯器中使用 [Kotlin 語言伺服器](kotlin-lsp.md)。
+
+若要在沒有 IDE 相關功能（例如程式碼格式化、偵錯工具、重構）的文字編輯器中使用 Kotlin，您可以從 Kotlin [GitHub Releases](%kotlinLatestUrl%) 下載最新的 Kotlin 命令列編譯器 (`kotlin-compiler-%kotlinVersion%.zip`) 並[手動安裝](command-line.md#manual-install)。此外，您也可以使用封裝管理員，例如 [Homebrew](command-line.md#homebrew)、[SDKMAN!](command-line.md#sdkman) 與 [Snap package](command-line.md#snap-package)。
+
 ## 與 Kotlin 語言版本的相容性
 
 對於 IntelliJ IDEA 與 Android Studio，Kotlin 外掛程式隨每個版本一併提供。
 當發佈新的 Kotlin 版本時，這些工具會自動建議將 Kotlin 更新至最新版本。
 請在 [Kotlin 版本發佈](releases.md#ide-support)中查看最新支援的語言版本。
-
-## 其他 IDE 支援
-
-JetBrains 不為其他 IDE 提供 Kotlin 外掛程式。
-然而，一些其他的 IDE 與原始碼編輯器（如 Visual Studio Code）擁有由 Kotlin 社群支援的自有 Kotlin 外掛程式。
-
-您可以使用任何文字編輯器來撰寫 Kotlin 程式碼，但會缺少 IDE 相關功能：程式碼格式化、偵錯工具等等。
-若要在文字編輯器中使用 Kotlin，您可以從 Kotlin [GitHub Releases](%kotlinLatestUrl%) 下載最新的 Kotlin 命令列編譯器 (`kotlin-compiler-%kotlinVersion%.zip`) 並[手動安裝](command-line.md#manual-install)。
-此外，您也可以使用封裝管理員，例如 [Homebrew](command-line.md#homebrew)、 [SDKMAN!](command-line.md#sdkman) 與 [Snap package](command-line.md#snap-package)。
 
 ## 下一步？
 

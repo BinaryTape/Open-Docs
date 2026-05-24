@@ -32,7 +32,7 @@ Compose Multiplatform の API の中には、シグネチャ（定義）に `and
   詳細は、[画像とリソース](compose-multiplatform-resources.md)を参照してください。
 * [ナビゲーション](https://developer.android.com/jetpack/compose/navigation)。
   詳細は、[ナビゲーションとルーティング](compose-navigation-routing.md)を参照してください。
-* [`ViewModel`](https://developer.android.com/jetpack/compose/libraries#viewmodel) クラス。
+* [`ViewModel`](https://developer.android.com/jetpack/compose/libraries#viewmodel) クラス。詳細は、[マルチプラットフォーム ViewModel](compose-viewmodel.md) を参照してください。
 * [Paging](https://developer.android.com/jetpack/compose/libraries#paging) ライブラリ。
 * [`ConstraintLayout`](https://developer.android.com/reference/androidx/constraintlayout/widget/ConstraintLayout) レイアウト。
 * [Maps](https://developer.android.com/jetpack/compose/libraries#maps) ライブラリ。

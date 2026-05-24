@@ -29,7 +29,7 @@ Compose Multiplatform 中的某些 API 在其签名中使用了 `android.*`、`a
 
 * [资源管理](https://developer.android.com/jetpack/compose/resources)：用于资源管理的 `stringResource`、`animatedVectorResource`、`Font` 以及 `*.R` 类。有关更多信息，请参阅[图像与资源](compose-multiplatform-resources.md)。
 * [导航](https://developer.android.com/jetpack/compose/navigation)。有关更多信息，请参阅[导航与路由](compose-navigation-routing.md)。
-* [`ViewModel`](https://developer.android.com/jetpack/compose/libraries#viewmodel) 类。
+* [`ViewModel`](https://developer.android.com/jetpack/compose/libraries#viewmodel) 类。有关更多信息，请参阅[多平台 ViewModel](compose-viewmodel.md)。
 * [Paging](https://developer.android.com/jetpack/compose/libraries#paging) 库。
 * [`ConstraintLayout`](https://developer.android.com/reference/androidx/constraintlayout/widget/ConstraintLayout) 布局。
 * [Maps](https://developer.android.com/jetpack/compose/libraries#maps) 库。
@@ -60,4 +60,4 @@ Compose Multiplatform 中的某些 API 在其签名中使用了 `android.*`、`a
 
 ## 请求移植 Android API
 
-对于每个可以从 Android 移植的 API，在 Compose Multiplatform [YouTrack](https://youtrack.jetbrains.com/issues/CMP) 中都有一个**待解决的问题**。如果您发现某个 API 可以从 Android 移植并通用化，但目前还没有相关的问题，请[创建一个](https://youtrack.jetbrains.com/newIssue?project=CMP)。
+对于每个可以从 Android 移植的 API，在 Compose Multiplatform [YouTrack](https://youtrack.jetbrains.com/issues/CMP) 中都有一个[待解决的问题](https://youtrack.jetbrains.com/issues/CMP)。如果您发现某个 API 可以从 Android 移植并通用化，但目前还没有相关的问题，请[创建一个](https://youtrack.jetbrains.com/newIssue?project=CMP)。

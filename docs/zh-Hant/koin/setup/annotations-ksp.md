@@ -1,37 +1,37 @@
 ---
-title: KSP 註解設定 (已棄用)
+title: KSP 處理器設定 (已棄用)
 ---
 
-# KSP 註解設定
+# Koin 註解的 KSP 處理器設定
 
 :::warning
-**已棄用**：基於 KSP 的註解處理方式已棄用。請為所有新專案遷移至 [Koin 編譯器外掛程式](/docs/setup/compiler-plugin)。
+**`koin-ksp-compiler` 已棄用。** 基於 KSP 的 Koin 註解處理器已被 [Koin 編譯器外掛程式](/docs/setup/compiler-plugin) 所取代。**Koin Annotations 本身並未棄用** — `koin-annotations` 程式庫現在是 Koin 主專案的一部分，且仍獲得完整支援。僅處理器有所變動。
 :::
 
 :::info
-**您的註解保持不變** — 只有組建設定有所變動。請參閱下方的[遷移指南](#migration-to-compiler-plugin)。
+**您的註解保持不變** — 只有組建設定有所變動。請參閱下方的[遷移指南](#migration-to-koin-compiler-plugin)。
 :::
 
 ## 為什麼要遷移？
 
-| 面向 | KSP 註解 | 編譯器外掛程式 |
-|--------|-----------------|-----------------|
+| 面向 | KSP 處理器 (`koin-ksp-compiler`) | Koin 編譯器外掛程式 |
+|--------|-------------------------------------|----------------------|
 | **產生的檔案** | 在 build/ 中可見 | 無 |
 | **組建速度** | ⚠️ 較慢 | 較快 |
 | **KMP 設定** | ⚠️ 複雜 | 簡單 |
 | **未來支援** | ⚠️ 已棄用 | ✅ 主動開發中 |
 | **您的程式碼** | ⚠️ 使用產生的擴充套件 | 使用 Kotlin 編譯器外掛程式專用 API |
 
-## 何時使用 KSP (暫時)
+## 何時使用 KSP 處理器 (暫時)
 
-僅在以下情況下使用 KSP：
+僅在以下情況下使用 `koin-ksp-compiler`：
 - 受限於 Kotlin 1.x (建議升級)
 - 處於遷移中期且尚無法切換
 - 有特定的 KSP 需求
 
-## 目前的 KSP 設定 (參考)
+## 目前的 KSP 處理器設定 (參考)
 
-如果您必須使用 KSP，設定如下：
+如果您必須使用 KSP 處理器，設定如下：
 
 ### Gradle 設定
 
@@ -86,8 +86,8 @@ ksp {
 }
 ```
 
-:::note
-此基於 KSP 的編譯期檢查將被 **Koin 編譯器外掛程式** 中的原生編譯期安全性所取代。請參閱 [編譯器外掛程式](/docs/setup/compiler-plugin)。
+:::tip
+此基於 KSP 的編譯期檢查已被 **Koin 編譯器外掛程式** 中的原生編譯期安全性所取代。請參閱[編譯期安全性](/docs/reference/koin-compiler/compile-safety)與[編譯器外掛程式設定](/docs/setup/compiler-plugin)。
 :::
 
 ### KMP 設定 (複雜)
@@ -231,10 +231,11 @@ rm -rf build/generated/ksp
 
 ### 變更的部分
 
-| 面向 | KSP | 編譯器外掛程式 |
-|--------|-----|-----------------|
+| 面向 | KSP 處理器 | Koin 編譯器外掛程式 |
+|--------|---------------|----------------------|
 | 組建外掛程式 | `com.google.devtools.ksp` | `io.insert-koin.compiler.plugin` |
-| 相依性 | `ksp()` 配置 | 不需要 |
+| 相依性 | `ksp("io.insert-koin:koin-ksp-compiler")` | 不需要 (僅需外掛程式) |
+| `koin-annotations` 版本 | 獨立 (`koin-ksp` 版本) | 與 Koin 主版本相同 |
 | 產生的檔案 | 在 `build/` 中可見 | 無 |
 | Koin 啟動 | `modules(AppModule().module)` | `startKoin<MyApp>()` |
 | KMP 設定 | 各平台 KSP | 只需外掛程式 |
@@ -242,13 +243,13 @@ rm -rf build/generated/ksp
 ## 時程表
 
 :::warning
-KSP 註解將在未來的 Koin 版本中移除。我們建議儘快遷移。
+`koin-ksp-compiler` 處理器將在未來的 Koin 版本中移除。我們建議儘快遷移至 Koin 編譯器外掛程式。`koin-annotations` 程式庫以及您的 `@Singleton` / `@Factory` / `@Module` 註解並不會消失 — 它們現在改由 Koin 編譯器外掛程式進行處理。
 :::
 
 ## 協助
 
 如果您在遷移過程中遇到問題：
-- 檢查 [疑難排解](/docs/reference/troubleshooting)
+- 檢查[疑難排解](/docs/reference/troubleshooting)
 - 在 [Slack](https://kotlinlang.slack.com/messages/koin/) 上詢問
 - 在 [GitHub](https://github.com/InsertKoinIO/koin) 上提交問題 (issue)
 

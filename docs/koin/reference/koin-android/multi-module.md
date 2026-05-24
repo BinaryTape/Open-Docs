@@ -144,6 +144,12 @@ class LoginViewModelTest : KoinTest {
 
 ### 验证所有模块
 
+:::tip
+Koin 编译器插件现在可以在编译时验证完整的依赖图，从而取代了运行时验证的需求。请参阅 [编译时安全](/docs/reference/koin-compiler/compile-safety)。
+:::
+
+如果您没有使用编译器插件，可以在运行时验证模块：
+
 ```kotlin
 class ModuleCheckTest : KoinTest {
 
