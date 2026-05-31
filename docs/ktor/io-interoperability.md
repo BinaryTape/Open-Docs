@@ -1,5 +1,13 @@
 [//]: # (title: I/O 互操作性)
 
+<tldr>
+<p>
+<b>代码示例</b>： 
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-io-interop">client-io-interop</a>, 
+<a href="https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/server-io-interop">server-io-interop</a>
+</p>
+</tldr>
+
 <show-structure for="chapter" depth="2"/>
 
 <link-summary>
@@ -20,8 +28,13 @@ Ktor 支持基于 [`kotlinx-io`](https://github.com/Kotlin/kotlinx-io) 构建的
 要将 `ByteReadChannel` 转换为 `RawSource`，请使用 `.asSource()` 扩展函数：
 
 ```kotlin
-val channel: ByteReadChannel = response.bodyAsChannel()
-val source: RawSource = channel.asSource()
+client.prepareGet("https://httpbin.org/bytes/1024").execute { httpResponse ->
+    val channel: ByteReadChannel = httpResponse.body()
+    val source: RawSource = channel.asSource()
+    val buffered = source.buffered()
+    val firstByte = buffered.readByte()
+    println("Read first byte from RawSource: $firstByte")
+}
 ```
 
 ## 将 `ByteWriteChannel` 转换为 `RawSink`
@@ -29,8 +42,14 @@ val source: RawSource = channel.asSource()
 要将挂起式 `ByteWriteChannel` 转换为 `RawSink`，请使用 `.asSink()` 扩展函数：
 
 ```kotlin
-val channel: ByteWriteChannel = ...
-val sink: RawSink = channel.asSink()
+get("/sink") {
+    call.respondBytesWriter {
+        val sink: RawSink = this.asSink()
+        sink.buffered().use { buffered ->
+            buffered.writeString("Hello from kotlinx-io Sink!")
+        }
+    }
+}
 ```
 
 此适配器生成的 `RawSink` 在刷新数据时会在内部使用 `runBlocking`，因此刷新操作可能会阻塞调用线程。
@@ -40,11 +59,14 @@ val sink: RawSink = channel.asSink()
 要将 `RawSink` 包装为挂起式 `ByteWriteChannel`，请使用 `.asByteWriteChannel()` 扩展函数：
 
 ```kotlin
-val sink: RawSink = ...
-val channel: ByteWriteChannel = sink.asByteWriteChannel()
-
-channel.writeByte(42)
-channel.flushAndClose()
+get("/raw-sink") {
+    val buffer = Buffer()
+    val channel = buffer.asByteWriteChannel()
+    channel.writeByte(42)
+    channel.writeFully("Hello via RawSink".toByteArray())
+    channel.flushAndClose()
+    call.respondBytes(buffer.readByteArray())
+}
 ```
 
 这使得从挂起函数向 sink 进行异步写入成为可能。返回的通道带有缓冲区。请使用 `.flush()` 或 `.flushAndClose()` 以确保所有数据均已写入。
@@ -54,11 +76,13 @@ channel.flushAndClose()
 要将 Java `OutputStream` 转换为 `ByteWriteChannel`，请使用 `.asByteWriteChannel()` 扩展函数：
 
 ```kotlin
-val outputStream: OutputStream = FileOutputStream("output.txt")
-val channel: ByteWriteChannel = outputStream.asByteWriteChannel()
-
-channel.writeFully("Hello, World!".toByteArray())
-channel.flushAndClose()
+get("/output-stream") {
+    val out = ByteArrayOutputStream()
+    val channel = out.asByteWriteChannel()
+    channel.writeFully("Hello from OutputStream-backed channel!".toByteArray())
+    channel.flushAndClose()
+    call.respondBytes(out.toByteArray())
+}
 ```
 
 对 `ByteWriteChannel` 的所有操作都带有缓冲区。底层的 `OutputStream` 仅在 `ByteWriteChannel` 上调用 `.flush()` 时才会接收数据。

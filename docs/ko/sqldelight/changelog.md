@@ -13,6 +13,7 @@
 - [SQLite 다이얼렉트] SQLite 3.37 `STRICT` 테이블 지원 추가 (#6230 by @griffio)
 - [Gradle 플러그인] `codegenExcludedColumns`를 사용하여 생성된 모델에서 컬럼을 제외하는 지원 추가 (#6243 by @sokolikp)
 - [컴파일러] 스키마에 `allTableNames` 함수 추가 (#6245 by @edenman)
+- [PostgreSQL 다이얼렉트] `ANY` 연산자 지원 추가 (#6253 by @griffio)
 
 ### 변경됨
 - [PostgreSQL 다이얼렉트] `arrayIntermediateType` 가시성을 public으로 변경 (#5835 by @griffio)
@@ -27,6 +28,7 @@
 - [Gradle 플러그인] 데이터베이스 검증(verify database) 태스크 실행 중 발생하는 순환 의존성(circular dependency) 에러 수정 (#6221 by @griffio)
 - [컴파일러] 다중 행 업데이트(multirow update)에 대한 낙관적 락(optimistic lock) 수정 (#6240 by @griffio)
 - [Intellij 플러그인] IDEA 2026.2에서 크래시를 유발하는 지원 중단(deprecations) 관련 수정 (#6247 by @griffio)
+- [Gradle 플러그인] AGP 8.9에서 8.11 버전까지 Kotlin 컴파일 시 생성된 소스(generated sources)를 인식하지 못하던 문제 수정
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -206,7 +208,7 @@
 - [SQLite 다이얼렉트] 4897 sqlite `alter table rename column` 수정 (#4899 by @griffio)
 - [IDE 플러그인] 에러 핸들러 크래시 수정 (#4988 by @aperfilyev)
 - [IDE 플러그인] IDEA 2023.3에서 BugSnag 초기화 실패 수정 (by @aperfilyev)
-- [IDE 플러그인] 플러그인을 통해 IntelliJ에서 .sq 파일을 열 때 발생하는 `PluginException` 수정 (by @aperfilyev)
+- [IDE Plugin] 플러그인을 통해 IntelliJ에서 .sq 파일을 열 때 발생하는 `PluginException` 수정 (by @aperfilyev)
 - [IDE 플러그인] 이미 플러그인 의존성이므로 kotlin 라이브러리를 IntelliJ 플러그인에 묶지 않도록 수정 (#5126)
 - [IDE 플러그인] 스트림 대신 확장 배열을 사용하도록 수정 (#5127)
 
@@ -1177,7 +1179,7 @@ sqldelight {
 ## [0.3.1] - 2016-04-27
 [0.3.1]: https://github.com/sqldelight/sqldelight/releases/tag/0.3.1
 
-  * 수정: 메서드 참조로부터 발생하는 Illegal Access 런타임 예외를 피하기 위해 인터페이스 가시성을 다시 public으로 변경.
+  * 수정: Interface 가시성이 다시 public으로 변경되어 메서드 참조로부터 발생하는 Illegal Access 런타임 예외를 방지함.
   * 수정: 서브 표현식이 적절히 평가됨.
 
 ## [0.3.0] - 2016-04-26

@@ -19,6 +19,7 @@ exclude: true
     ``` kotlin title="build.gradle.kts"
     dependencies {
         implementation("ai.koog:koog-agents:1.0.0")
+        implementation("ai.koog:koog-agents-additions:1.0.0-beta")
     }
     ```
 
@@ -27,6 +28,7 @@ exclude: true
     ``` groovy title="build.gradle"
     dependencies {
         implementation 'ai.koog:koog-agents:1.0.0'
+        implementation 'ai.koog:koog-agents-additions:1.0.0-beta'
     }
     ```
 
@@ -36,12 +38,17 @@ exclude: true
     <dependency>
         <groupId>ai.koog</groupId>
         <artifactId>koog-agents-jvm</artifactId>
-        <version>0.7.1</version>
+        <version>1.0.0</version>
+    </dependency>
+    <dependency>
+        <groupId>ai.koog</groupId>
+        <artifactId>koog-agents-additions-jvm</artifactId>
+        <version>1.0.0-beta</version>
     </dependency>
     ```
 # --8<-- [end:dependencies]
 
 # --8<-- [start:api-key]
 LLM 제공업체로부터 API 키를 발급받거나 Ollama를 통해 로컬 LLM을 실행하세요.
-자세한 내용은 [Quickstart](/quickstart.md)를 참고하세요.
+자세한 내용은 [Quickstart](../quickstart.md)를 참고하세요.
 # --8<-- [end:api-key]

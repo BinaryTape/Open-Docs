@@ -1,6 +1,6 @@
 [//]: # (title: 壓力測試與模型檢查)
 
-Lincheck 提供兩種測試策略：壓力測試與模型檢查。透過我們在[上一步](introduction.md)的 `BasicCounterTest.kt` 檔案中編寫的 `Counter`，來了解這兩種方法幕後的運作機制：
+Lincheck 提供兩種測試策略：壓力測試與模型檢查。透過我們在[上一步](lincheck-getting-started.md)的 `BasicCounterTest.kt` 檔案中編寫的 `Counter`，來了解這兩種方法幕後的運作機制：
 
 ```kotlin
 class Counter {
@@ -92,7 +92,7 @@ class CounterTest {
 
 為了控制執行，Lincheck 會在測試程式碼中插入特殊的切換點。這些點標識了可以執行上下文切換的位置。本質上，這些是共用記憶體存取，例如 JVM 中的欄位和陣列元素讀取或更新，以及 `wait/notify` 和 `park/unpark` 呼叫。為了插入切換點，Lincheck 使用 ASM 架構即時轉換測試程式碼，在現有程式碼中加入內部函式呼叫。
 
-由於模型檢查策略控制了執行過程，Lincheck 可以提供導致無效交錯的追蹤，這在實踐中非常有幫助。你可以在 [使用 Lincheck 編寫你的第一個測試](introduction.md#trace-the-invalid-execution) 教學中看到 `Counter` 錯誤執行的追蹤範例。
+由於模型檢查策略控制了執行過程，Lincheck 可以提供導致無效交錯的追蹤，這在實踐中非常有幫助。你可以在 [使用 Lincheck 編寫你的第一個測試](lincheck-getting-started.md#write-your-first-test) 教學中看到 `Counter` 錯誤執行的追蹤範例。
 
 ## 哪種測試策略更好？
 
@@ -148,7 +148,7 @@ class CounterTest {
    | ------------------- |
    ```
 
-   在這裡，平行部分之前有兩個操作，平行部分有兩個執行緒，每個執行緒有兩個操作，最後跟著一個操作。
+   在這裡，平行部分之前有兩個操作，平行部分有兩個執行緒（每個執行緒有兩個操作），最後跟著一個操作。
 
 你可以用同樣的方式配置模型檢查測試。
 
@@ -171,7 +171,7 @@ class CounterTest {
 
 ## 記錄資料結構狀態
 
-另一個對偵錯非常有用的功能是「狀態記錄」。在分析導致錯誤的交錯時，你通常會在紙上繪製資料結構的變化，在每個事件後更改狀態。為了使此程序自動化，你可以提供一個回傳資料結構 `String` 表示形式的特殊方法，這樣 Lincheck 就會在修改資料結構的交錯中的每個事件後，印出狀態表示。
+另一個對偵錯非常有用的功能是「狀態記錄」。在分析導致錯誤的交錯時，你通常會在紙上繪製資料結構的變化，在每個事件後更改狀態。為了使此程序自動化，你可以提供一個回傳資料結構 `String` 表示形式的特殊方法，這樣 Lincheck 就會在修改資料結構的交錯中的每個事件後，印出狀態表示形式。
 
 為此，請定義一個不帶參數且標記有 `@StateRepresentation` 註解的方法。該方法必須是執行緒安全的、非阻塞的，且絕不能修改資料結構。
 
@@ -230,10 +230,10 @@ class CounterTest {
     | -------------------------------------------------------------------- |
     ```
 
-在壓力測試的情況下，Lincheck 會在場景的平行部分之前、之後以及最後印出狀態表示。
+在壓力測試的情況下，Lincheck 會在場景的平行部分之前、之後以及最後印出狀態表示形式。
 
 > * 取得[這些範例的完整程式碼](https://github.com/JetBrains/lincheck/tree/master/src/jvm/test-lincheck-integration/org/jetbrains/lincheck_test/guide/CounterTest.kt)
-> * 查看更多[測試範例](https://github.com/JetBrains/lincheck/tree/master/src/jvm/test/org/jetbrains/lincheck_test/guide)
+> * 查看更多[測試範例](https://github.com/JetBrains/lincheck/tree/master/lincheck/src/jvm/test/org/jetbrains/lincheck_test/guide)
 >
 {style="note"}
 

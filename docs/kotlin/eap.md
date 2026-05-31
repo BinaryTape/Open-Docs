@@ -53,13 +53,13 @@ _目前没有可用的预览版本。_
         <th>构建亮点</th>
     </tr>
     <tr>
-        <td><strong>2.4.0-RC</strong>
-            <p>发布日期：<strong>2026 年 5 月 13 日</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.0-RC" target="_blank">GitHub 上的发布版本</a></p>
+        <td><strong>2.4.0-RC2</strong>
+            <p>发布日期：<strong>2026 年 5 月 27 日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.0-RC2" target="_blank">GitHub 上的发布版本</a></p>
         </td>
         <td>
             <p>这是一个语言版本，包含语言方面的重大变更以及工具更新。</p>
-            <p>有关更多详细信息，请参阅<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.0-RC">变更日志</a>或<a href="whatsnew-eap.md">Kotlin 2.4.0-RC 中的最新变化</a>。</p>
+            <p>有关更多详细信息，请参阅<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.0-RC2">变更日志</a>或<a href="whatsnew-eap.md">Kotlin 2.4.0-RC2 中的最新变化</a>。</p>
         </td>
     </tr>
 </table>

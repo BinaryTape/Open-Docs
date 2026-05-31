@@ -1,59 +1,81 @@
-[//]: # (title: Lincheckガイド)
+[//]: # (title: 概要)
+[//]: # (description: LincheckはJVM上で並行コードをテストするためのフレームワークです。Lincheckはコード内の潜在的なスレッドのインターリーブを探索し、誤った動作につながるものを見つけ出します。)
 
-Lincheckは、JVM上で並行アルゴリズムをテストするための、実用的で使いやすいフレームワークです。並行テストを記述するためのシンプルで宣言的な手法を提供します。
+Lincheckは、JVM上で並行コードをテストするためのフレームワークです。テストの実行中、Lincheckはプログラムの潜在的なスレッドのインターリーブ（thread interleaving）を探索し、誤った動作につながるものを報告します。
 
-Lincheckフレームワークを使用すると、テストの実行方法を記述する代わりに、検証するすべての操作と必要な正確性プロパティ（correctness property）を宣言することで、「何をテストするか（_what to test_）」を指定できます。その結果、典型的なLincheckの並行テストはわずか15行程度で記述できます。
+> [Kotlinマルチプラットフォーム](https://kotlinlang.org/docs/multiplatform/get-started.html)プロジェクトでは、Lincheckを使用してJVM上でのみコードをテストできます。
+> 
+{style="note"}
 
-操作のリストが与えられると、Lincheckは自動的に以下のことを行います：
-
-*   ランダムな並行シナリオのセットを生成します。
-*   ストレス・テスト（stress-testing）または境界付きモデル検査（bounded model checking）を使用して、それらを検証します。
-*   各呼び出しの結果が、要求される正確性プロパティ（デフォルトは線形化可能性：linearizability）を満たしていることを検証します。
-
-## プロジェクトへのLincheckの追加
-
-Lincheckのサポートを有効にするには、対応するリポジトリと依存関係をGradle設定に含めます。`build.gradle(.kts)`ファイルに以下を追加してください：
-
-<tabs group="build-script">
-<tab title="Kotlin" group-key="kotlin">
+Lincheckでの並行テストでは、各スレッドの操作と期待されるアサーションをリストアップするだけです。残りの処理はLincheckが担当します：
 
 ```kotlin
-repositories {
-    mavenCentral()
-}
- 
-dependencies {
-    testImplementation("org.jetbrains.lincheck:lincheck:%lincheckVersion%")
-}
-```
+class CounterTest {
+    @Test // テスト関数の宣言
+    fun test() = Lincheck.runConcurrentTest {
+        var counter = 0
 
-</tab>
-<tab title="Groovy" group-key="groovy">
+        // カウンタを並行してインクリメントします
+        val t1 = thread { counter++ }
+        val t2 = thread { counter++ }
 
-```groovy
-repositories {
-    mavenCentral()
-}
+        // スレッドの終了を待機します
+        t1.join()
+        t2.join()
 
-dependencies {
-    testImplementation "org.jetbrains.lincheck:lincheck:%lincheckVersion%"
+        // 両方のインクリメントが適用されたことを確認します
+        assertEquals(2, counter)
+    }
 }
 ```
 
-</tab>
-</tabs>
+テストが失敗した場合、Lincheckはエラーにつながったスレッドのインターリーブとスレッドの切り替えポイントを提供します：
+
+```text
+| ------------------------------------------------------------------------------- |
+|                   Main Thread                   |   Thread 1    |   Thread 2    |
+| ------------------------------------------------------------------------------- |
+| thread(block = Lambda#2): Thread#1              |               |               |
+| thread(block = Lambda#3): Thread#2              |               |               |
+| switch (reason: waiting for Thread 1 to finish) |               |               |
+|                                                 |               | run()         |
+|                                                 |               |   counter ➜ 0 |
+|                                                 |               |   switch      |
+|                                                 | run()         |               |
+|                                                 |   counter ➜ 0 |               |
+|                                                 |   counter = 1 |               |
+|                                                 |               |   counter = 1 |
+| Thread#1.join()                                 |               |               |
+| Thread#2.join()                                 |               |               |
+| counter.element ➜ 1                             |               |               |
+| assertEquals(2, 1): threw AssertionFailedError  |               |               |
+| ------------------------------------------------------------------------------- |
+```
+
+## Lincheckの仕組み
+
+JVMが並行コードを実行するたびに、スレッド間での操作の実行順序が変わる可能性があります。
+例えば、ある操作が別のスレッドの別の操作によって中断されることがあります。これ自体はエラーではありませんが、コードに並行性のバグがある場合、エラーにつながる可能性があります。
+
+![この画像は、プログラムの実行シナリオと実行スケジュールを比較しています。最初の実行スケジュールでは、操作が次々に実行されます。2番目の実行スケジュールでは、最初の操作が2番目の操作によって中断されます。](scenario-vs-schedule.png){ width="700" }
+
+> 実行シナリオ（_execution scenario_）は、操作がスレッド間でどのように分散されるか、および各スレッド内での実行順序を定義します。
+> 
+> 実行スケジュール（_execution schedule_、またはスレッドのインターリーブ：_thread interleaving_）は、すべてのスレッドにわたるすべての操作の実行順序を定義します。
+>
+{style="tip"}
+
+Lincheckは、誤った動作につながる実行スケジュールを見つけるために、2つのテスト戦略を実装しています：
+* **モデル検査（Model checking）**。Lincheckは、プログラムに明示的なスレッド切り替え命令を挿入することで、スケジューリングを制御します。これらの命令は、同期ポイントや共有メモリへのアクセス箇所に配置されます。モデル検査により、Lincheckはエラーに至る正確な実行トレースを生成できます。
+* **ストレス・テスト（Stress testing）**。オペレーティングシステムがスケジューリングを制御します。Lincheckは、エラーを見つける可能性を高めるために、各シナリオを複数回実行します。
 
 ## Lincheckを探索する
 
-このガイドでは、フレームワークに触れ、例を通して最も便利な機能を試すことができます。Lincheckの機能をステップバイステップで学習しましょう：
+* [Lincheckを使い始める](lincheck-getting-started.md) で、Lincheckの機能をステップバイステップで学習しましょう。
+* 並行データ構造をテストするための宣言的な手法については、[テスト戦略](testing-strategies.md) の記事で詳しく説明しています。
 
-1. [Lincheckで最初のテストを作成する](introduction.md)
-2. [テスト戦略を選択する](testing-strategies.md)
-3. [操作の引数を設定する](operation-arguments.md)
-4. [一般的なアルゴリズムの制約を考慮する](constraints.md)
-5. [アルゴリズムのノンブロッキングな進行保証をチェックする](progress-guarantees.md)
-6. [アルゴリズムの逐次仕様を定義する](sequential-specification.md)
+## 詳細情報
 
-## 追加のリソース
 * Nikita Kovalによる「How we test concurrent algorithms in Kotlin Coroutines」: [動画](https://youtu.be/jZqkWfa11Js)。KotlinConf 2023
 * Maria Sokolovaによる「Lincheck: Testing concurrency on the JVM」ワークショップ: [パート1](https://www.youtube.com/watch?v=YNtUK9GK4pA)、[パート2](https://www.youtube.com/watch?v=EW7mkAOErWw)。Hydra 2021
+* Nikita Kovalらによる「Lincheck: A Practical Framework for Testing Concurrent Data Structures on JVM」: [論文](https://nikitakoval.org/publications/cav23-lincheck.pdf)。2023

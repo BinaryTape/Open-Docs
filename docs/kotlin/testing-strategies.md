@@ -1,6 +1,6 @@
 [//]: # (title: 压力测试与模型检查)
 
-Lincheck 提供两种测试策略：压力测试和模型检查。通过在[上一步](introduction.md)中编写的 `BasicCounterTest.kt` 文件里的 `Counter` 示例，了解这两种方法背后的原理：
+Lincheck 提供两种测试策略：压力测试和模型检查。通过在[上一步](lincheck-getting-started.md)中编写的 `BasicCounterTest.kt` 文件里的 `Counter` 示例，了解这两种方法背后的原理：
 
 ```kotlin
 class Counter {
@@ -92,7 +92,7 @@ class CounterTest {
 
 为了控制执行，Lincheck 在测试代码中插入了特殊的切换点。这些点标识了可以执行上下文切换的位置。从本质上讲，这些是共享内存访问，例如 JVM 中的字段和数组元素读取或更新，以及 `wait`/`notify` 和 `park`/`unpark` 调用。为了插入切换点，Lincheck 使用 ASM 框架动态地转换测试代码，在现有代码中添加内部函数调用。
 
-由于模型检查策略可以控制执行，Lincheck 可以提供导致无效交错的跟踪，这在实践中非常有用。你可以在[使用 Lincheck 编写你的第一个测试](introduction.md#trace-the-invalid-execution)教程中看到 `Counter` 错误执行的跟踪示例。
+由于模型检查策略可以控制执行，Lincheck 可以提供导致无效交错的跟踪，这在实践中非常有用。你可以在[使用 Lincheck 编写你的第一个测试](lincheck-getting-started.md#write-your-first-test)教程中看到 `Counter` 错误执行的跟踪示例。
 
 ## 哪种测试策略更好？
 

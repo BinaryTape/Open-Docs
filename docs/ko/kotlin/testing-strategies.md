@@ -1,6 +1,6 @@
 [//]: # (title: 스트레스 테스트 및 모델 검사)
 
-Lincheck은 스트레스 테스트(stress testing)와 모델 검사(model checking)라는 두 가지 테스트 전략을 제공합니다. [이전 단계](introduction.md)의 `BasicCounterTest.kt` 파일에서 작성한 `Counter`를 사용하여 두 방식의 내부 동작 원리를 알아보세요:
+Lincheck은 스트레스 테스트(stress testing)와 모델 검사(model checking)라는 두 가지 테스트 전략을 제공합니다. [이전 단계](lincheck-getting-started.md)의 `BasicCounterTest.kt` 파일에서 작성한 `Counter`를 사용하여 두 방식의 내부 동작 원리를 알아보세요:
 
 ```kotlin
 class Counter {
@@ -92,7 +92,7 @@ class CounterTest {
 
 실행을 제어하기 위해 Lincheck은 테스트 코드에 특수한 스위치 포인트(switch point)를 삽입합니다. 이 포인트들은 컨텍스트 스위치가 수행될 수 있는 위치를 식별합니다. 기본적으로 이는 JVM에서의 필드 및 배열 요소 읽기 또는 업데이트와 같은 공유 메모리 액세스와 `wait/notify`, `park/unpark` 호출입니다. 스위치 포인트를 삽입하기 위해 Lincheck은 ASM 프레임워크를 사용하여 테스트 코드를 즉석에서 변환하고, 기존 코드에 내부 함수 호출을 추가합니다.
 
-모델 검사 전략은 실행을 제어하므로, Lincheck은 잘못된 인터리빙으로 이어지는 추적(trace) 정보를 제공할 수 있으며 이는 실무에서 매우 유용합니다. [Lincheck으로 첫 번째 테스트 작성하기](introduction.md#trace-the-invalid-execution) 튜토리얼에서 `Counter`의 잘못된 실행에 대한 추적 예시를 확인할 수 있습니다.
+모델 검사 전략은 실행을 제어하므로, Lincheck은 잘못된 인터리빙으로 이어지는 추적(trace) 정보를 제공할 수 있으며 이는 실무에서 매우 유용합니다. [Lincheck으로 첫 번째 테스트 작성하기](lincheck-getting-started.md#write-your-first-test) 튜토리얼에서 `Counter`의 잘못된 실행에 대한 추적 예시를 확인할 수 있습니다.
 
 ## 어떤 테스트 전략이 더 좋은가요?
 
