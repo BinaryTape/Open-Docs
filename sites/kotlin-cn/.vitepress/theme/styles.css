@@ -159,7 +159,7 @@ textarea {
   width: min(1180px, calc(100vw - 64px));
   min-height: max(900px, 100vh);
   margin: 0 auto;
-  padding-top: 138px;
+  padding: 138px 0 96px;
   align-items: center;
 }
 
@@ -234,6 +234,22 @@ textarea {
   width: 560px;
   height: 560px;
   object-fit: contain;
+}
+
+.kt-home-footer {
+  position: absolute;
+  right: 24px;
+  bottom: 26px;
+  left: 24px;
+  color: rgba(255, 255, 255, .76);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.55;
+  text-align: center;
+}
+
+.kt-home-footer p {
+  margin: 0;
 }
 
 .kt-doc-shell {
@@ -414,15 +430,15 @@ textarea {
   }
 
   .kt-home {
-    min-height: 100vh;
+    min-height: max(820px, 100vh);
   }
 
   .kt-home-hero {
     grid-template-columns: 1fr;
     gap: 22px;
     width: min(100vw - 32px, 620px);
-    min-height: 100vh;
-    padding-top: 92px;
+    min-height: max(820px, 100vh);
+    padding: 92px 0 96px;
   }
 
   .kt-home-copy {
@@ -439,6 +455,11 @@ textarea {
 
   .kt-developed {
     margin-top: 42px;
+  }
+
+  .kt-home-footer {
+    bottom: 20px;
+    font-size: 12px;
   }
 
   .kt-home-art {
@@ -508,6 +529,15 @@ textarea {
     min-width: 150px;
     height: 48px;
     font-size: 18px;
+  }
+
+  .kt-home {
+    min-height: max(760px, 100vh);
+  }
+
+  .kt-home-hero {
+    min-height: max(760px, 100vh);
+    padding-bottom: 90px;
   }
 
   .kt-developed {

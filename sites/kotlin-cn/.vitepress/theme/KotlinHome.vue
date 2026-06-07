@@ -1,5 +1,10 @@
 <script setup lang="ts">
+import { useData } from 'vitepress'
+import { computed } from 'vue'
 import KotlinHeader from './components/KotlinHeader.vue'
+
+const { theme } = useData()
+const homeMeta = computed(() => theme.value.homeMeta || {})
 </script>
 
 <template>
@@ -10,7 +15,7 @@ import KotlinHeader from './components/KotlinHeader.vue'
       <section class="kt-home-hero">
         <div class="kt-home-copy">
           <h1>Kotlin</h1>
-          <p>Concise. Multiplatform. Fun.</p>
+          <p>简洁。多平台。有趣。</p>
           <a class="kt-primary-button" href="/docs/language/home">Get started</a>
           <div class="kt-developed">
             <span>Developed by</span>
@@ -27,7 +32,10 @@ import KotlinHeader from './components/KotlinHeader.vue'
           />
         </div>
       </section>
+      <footer class="kt-home-footer" aria-label="站点信息">
+        <p v-if="homeMeta.updateText">{{ homeMeta.updateText }}</p>
+        <p>By Kotlin 中文开发者社区</p>
+      </footer>
     </main>
   </div>
 </template>
-
