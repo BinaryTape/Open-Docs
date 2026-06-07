@@ -61,7 +61,7 @@ async function sync(context) {
       );
       await git.update(repoConfig.path, repoConfig.branch);
     }
-    await repoConfig.strategy.postSync(repoConfig.path);
+    await repoConfig.strategy.postSync(repoConfig.path, context, repoConfig);
   }
 }
 

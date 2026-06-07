@@ -13,7 +13,8 @@ export const kotlinStrategy = {
      */
     getDocPatterns: () => ["docs/**/*.md", "docs/**/*.topic"],
 
-    postSync: async (repoPath) => {
+    postSync: async (repoPath, context, repoConfig) => {
+        await copyKotlinVersionFile(context, repoConfig);
     },
 
     /**
@@ -97,15 +98,7 @@ export const kotlinStrategy = {
      * @override
      */
     postTranslate: async (context, repoConfig) => {
-        if (repoConfig.path === "kotlin-repo") {
-            console.log(`  Copying Kotlin version file... `);
-            const versionFile = "kotlin-repo/docs/variables/v.list";
-            if (await fs.pathExists(versionFile)) {
-                await fs.copy(versionFile, "docs/.vitepress/variables/kotlin.v.list", {overwrite: true});
-                context.gitAddPaths.add("docs/.vitepress/variables/kotlin.v.list")
-                console.log(`  Copying Kotlin version file finished - ${repoConfig.path}`);
-            }
-        }
+        await copyKotlinVersionFile(context, repoConfig);
 
         console.log(`  Handling Kotlin assets: Copying images - ${repoConfig.path}... `);
         const {src, dest} = repoConfig.assets;
@@ -121,3 +114,22 @@ export const kotlinStrategy = {
         }
     },
 };
+
+async function copyKotlinVersionFile(context, repoConfig) {
+    if (!context || repoConfig?.path !== "kotlin-repo") return;
+
+    console.log(`  Copying Kotlin version file...`);
+    const versionFileCandidates = [
+        "kotlin-repo/docs/v.list",
+        "kotlin-repo/docs/variables/v.list",
+    ];
+    const versionFile = versionFileCandidates.find((candidate) => fs.pathExistsSync(candidate));
+    if (!versionFile) {
+        console.warn(`  Warning: Kotlin version file not found in known locations.`);
+        return;
+    }
+
+    await fs.copy(versionFile, "docs/.vitepress/variables/kotlin.v.list", {overwrite: true});
+    context.gitAddPaths.add("docs/.vitepress/variables/kotlin.v.list");
+    console.log(`  Copying Kotlin version file finished - ${repoConfig.path}`);
+}

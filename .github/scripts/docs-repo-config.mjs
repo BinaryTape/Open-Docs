@@ -41,7 +41,7 @@ export const REPOS = [
   {
     name: "kotlin",
     repo: "JetBrains/kotlin-web-site",
-    branch: "origin/main",
+    branch: "origin/master",
     path: "kotlin-repo",
     docPath: "./docs",
     lastCheckFile: ".github/last_check_kotlin.txt",
