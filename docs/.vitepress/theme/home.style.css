@@ -285,128 +285,88 @@
   border: 1px solid rgba(77, 108, 250, 0.15);
 }
 
-.adContent {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
+.sponsorList {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  position: relative;
+  z-index: 2;
 }
 
-.adContentVertical {
+.sponsorItem {
   display: flex;
+  min-height: 132px;
+  padding: 1.25rem 1rem;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  border: 1px solid rgba(77, 108, 250, 0.1);
+  border-radius: calc(var(--global-border-radius) * 0.75);
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--vp-c-text-1);
   text-align: center;
-  gap: 1.5rem;
-  position: relative;
-  z-index: 2;
+  text-decoration: none;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
 }
 
-.adLogo {
-  width: 150px;
-  height: auto;
+[data-theme="dark"] .sponsorItem {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(127, 82, 255, 0.18);
 }
 
-.adInfo {
-  flex: 1;
-  max-width: 700px;
-  position: relative;
-  z-index: 2;
+.sponsorItem:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(77, 108, 250, 0.1);
+  border-color: rgba(77, 108, 250, 0.22);
+  color: var(--vp-c-brand-1);
+  text-decoration: none;
 }
 
-.adTitle {
-  font-size: 2rem;
+.sponsorLogo {
+  width: 64px;
+  height: 64px;
+  padding: 8px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.92);
+  object-fit: contain;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+.sponsorName {
+  font-size: 1rem;
   font-weight: 700;
-  margin-bottom: 1rem;
-  color: var(--vp-c-text-1);
-}
-
-.adTitle a {
-  color: var(--vp-c-brand-1);
-  text-decoration: none;
-  transition: color 0.3s ease;
-  position: relative;
-  display: inline-block;
-}
-
-.adTitle a::after {
-  display: none;
-}
-
-.adTitle a:hover::after {
-  display: none;
-}
-
-.adTitle a:hover {
-  color: var(--vp-c-brand-1-darker);
-  text-decoration: none;
-}
-
-.adDescription {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-  color: var(--vp-c-text-1);
-  opacity: 0.9;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.adDescription a {
-  color: var(--vp-c-brand-1);
-  font-weight: 600;
-  text-decoration: none;
-  transition: color 0.3s ease;
-  position: relative;
-  display: inline-block;
-}
-
-.adDescription a::after {
-  display: none;
-}
-
-.adDescription a:hover::after {
-  display: none;
-}
-
-.adDescription a:hover {
-  color: var(--vp-c-brand-1-darker);
-  text-decoration: none;
-}
-
-.adContact {
-  font-size: 1rem;
-  color: var(--vp-c-text-1);
-  opacity: 0.8;
-  margin-bottom: 0.8rem;
-  background: rgba(77, 108, 250, 0.08);
-  padding: 0.5rem 1.2rem;
-  border-radius: 50px;
-  display: inline-block;
-}
-
-.adSponsor {
-  font-size: 1rem;
-  font-style: italic;
-  color: var(--vp-c-brand-1);
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  margin-top: 0.5rem;
+  line-height: 1.35;
+  color: inherit;
 }
 
 @media (max-width: 768px) {
-  .adContent {
-    flex-direction: column;
-    text-align: center;
+  .adBanner {
+    padding: 2rem 1rem;
   }
-  .adLogo {
-    width: 120px;
+
+  .sponsorList {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
   }
-  .adTitle {
-    font-size: 1.7rem;
+
+  .sponsorItem {
+    min-height: 84px;
+    padding: 1rem 1.25rem;
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: left;
   }
-  .adDescription {
-    font-size: 1rem;
+
+  .sponsorLogo {
+    width: 48px;
+    height: 48px;
+    padding: 6px;
+    border-radius: 12px;
   }
 }
 
