@@ -276,6 +276,7 @@
   z-index: 1;
 }
 
+.dark .adBanner,
 [data-theme="dark"] .adBanner {
   background: linear-gradient(
     135deg,
@@ -314,6 +315,7 @@
     color 0.25s ease;
 }
 
+.dark .sponsorItem,
 [data-theme="dark"] .sponsorItem {
   background: rgba(255, 255, 255, 0.04);
   border-color: rgba(127, 82, 255, 0.18);
