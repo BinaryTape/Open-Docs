@@ -173,31 +173,16 @@ fun main() {
 ```
 
 ### 메타데이터의 어노테이션 쓰기 및 읽기
-<primary-label ref="experimental-general"/>
 
-`kotlin-metadata-jvm` 라이브러리를 사용하여 Kotlin 메타데이터에 어노테이션을 저장하고 액세스할 수 있습니다.
-이렇게 하면 시그니처별로 어노테이션을 매칭할 필요가 없으므로 오버로드된 선언에 더 안정적으로 액세스할 수 있습니다.
+Kotlin은 바이트코드와 Kotlin 메타데이터 양쪽에 어노테이션을 저장합니다. `kotlin-metadata-jvm` 라이브러리를 사용하여 어노테이션을 읽거나 쓸 때는 어노테이션의 메타데이터 표현을 다루게 됩니다.
 
-컴파일된 파일의 메타데이터에서 어노테이션을 사용할 수 있게 하려면 다음 컴파일러 옵션을 추가하세요.
+> Kotlin은 Kotlin 2.4.0부터 Kotlin 메타데이터에 어노테이션을 저장하기 시작했습니다. 이전 버전으로 컴파일된 클래스 파일을 검사하면 메타데이터에 어노테이션이 존재하지 않습니다.
+>
+{style="note"}
 
-```kotlin
--Xannotations-in-metadata
-```
+메타데이터의 어노테이션을 변경할 때는 바이트코드에 저장된 어노테이션과 일관성을 유지하도록 해야 합니다. 두 위치의 데이터가 일치하지 않으면, 리플렉션이나 바이트코드 분석에 의존하는 도구가 Kotlin 메타데이터를 읽는 도구와 다른 결과를 보고할 수 있습니다.
 
-또는 Gradle 빌드 파일의 `compilerOptions {}` 블록에 추가할 수도 있습니다.
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xannotations-in-metadata")
-    }
-}
-```
-
-이 옵션을 활성화하면 Kotlin 컴파일러가 JVM 바이트코드와 함께 메타데이터에도 어노테이션을 기록하여 `kotlin-metadata-jvm` 라이브러리에서 액세스할 수 있게 합니다.
-
-라이브러리는 어노테이션 액세스를 위해 다음 API를 제공합니다.
+`kotlin-metadata-jvm` 라이브러리는 어노테이션 액세스를 위해 다음 API를 제공합니다.
 
 * `KmClass.annotations`
 * `KmFunction.annotations`
@@ -211,14 +196,9 @@ kotlin {
 * `KmProperty.delegateFieldAnnotations`
 * `KmEnumEntry.annotations`
 
-이 API들은 [실험적(Experimental)](components-stability.md#stability-levels-explained) 단계입니다.
-이를 사용하려면 `@OptIn(ExperimentalAnnotationsInMetadata::class)` 어노테이션을 사용하세요.
-
 다음은 Kotlin 메타데이터에서 어노테이션을 읽는 예제입니다.
 
 ```kotlin
-@file:OptIn(ExperimentalAnnotationsInMetadata::class)
-
 import kotlin.metadata.ExperimentalAnnotationsInMetadata
 import kotlin.metadata.jvm.KotlinClassMetadata
 
@@ -234,13 +214,6 @@ fun main() {
     // [@Label(value = StringValue("Message class"))]
 }
 ```
-
-> 프로젝트에서 `kotlin-metadata-jvm` 라이브러리를 사용하는 경우, 어노테이션을 지원하도록 코드를 업데이트하고 테스트할 것을 권장합니다.
-> 그렇지 않으면 향후 Kotlin 버전에서 메타데이터의 어노테이션이 [기본적으로 활성화](https://youtrack.jetbrains.com/issue/KT-75736)될 때 프로젝트에서 유효하지 않거나 불완전한 메타데이터가 생성될 수 있습니다.
->
-> 문제가 발생하면 [이슈 트래커](https://youtrack.jetbrains.com/issue/KT-31857)에 보고해 주세요.
->
-{style="warning"}
 
 ### 바이트코드에서 메타데이터 추출하기
 

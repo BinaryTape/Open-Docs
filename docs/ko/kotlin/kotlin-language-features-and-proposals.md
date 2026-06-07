@@ -31,22 +31,6 @@ JetBrains는 실용적인 디자인을 바탕으로 [Kotlin 언어 진화 원칙
 </td>
 <td>
 
-**이름 기반 구조 분해 (Name-based destructuring)**
-
-* KEEP 제안: [name-based-destructuring.md](https://github.com/Kotlin/KEEP/blob/name-based-destructuring/proposals/name-based-destructuring.md)
-* YouTrack 이슈: [KT-19627](https://youtrack.jetbrains.com/issue/KT-19627)
-
-</td>
-</tr>
-
-<tr filter="exploration-and-design">
-<td>
-
-**탐색 및 디자인**
-
-</td>
-<td>
-
 **불변성(Immutability) 지원**
 
 * KEEP 노트: [immutability](https://github.com/Kotlin/KEEP/blob/master/notes/value-classes.md#immutability-and-value-classes)
@@ -61,22 +45,6 @@ JetBrains는 실용적인 디자인을 바탕으로 [Kotlin 언어 진화 원칙
 
 <tr filter="keep">
 <td width="200">
-
-**KEEP 논의**
-
-</td>
-<td>
-
-**컴파일 타임 상수 개선**
-
-* KEEP 제안: [improve-compile-time-constants.md](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0444-improve-compile-time-constants.md)
-* YouTrack 이슈: [KT-22505](https://youtrack.jetbrains.com/issue/KT-22505)
-
-</td>
-</tr>
-
-<tr filter="keep">
-<td>
 
 **KEEP 논의**
 
@@ -119,22 +87,6 @@ JetBrains는 실용적인 디자인을 바탕으로 [Kotlin 언어 진화 원칙
 
 * KEEP 제안: [statics.md](https://github.com/Kotlin/KEEP/blob/static-scope/proposals/static-member-type-extension.md)
 * YouTrack 이슈: [KT-11968](https://youtrack.jetbrains.com/issue/KT-11968)
-
-</td>
-</tr>
-
-<tr filter="keep">
-<td>
-
-**KEEP 논의**
-
-</td>
-<td>
-
-**컬렉션 리터럴 (Collection literals)**
-
-* KEEP 제안: [collection-literals.md](https://github.com/Kotlin/KEEP/blob/bobko/collection-literals/proposals/collection-literals.md)
-* YouTrack 이슈: [KT-43871](https://youtrack.jetbrains.com/issue/KT-43871)
 
 </td>
 </tr>
@@ -198,30 +150,48 @@ JetBrains는 실용적인 디자인을 바탕으로 [Kotlin 언어 진화 원칙
 </td>
 <td>
 
-**명시적 백킹 필드 (Explicit backing fields)**
+**컬렉션 리터럴 (Collection literals)**
 
-* KEEP 제안: [explicit-backing-fields.md](https://github.com/Kotlin/KEEP/blob/explicit-backing-fields/proposals/explicit-backing-fields.md)
-* YouTrack 이슈: [KT-14663](https://youtrack.jetbrains.com/issue/KT-14663)
+* KEEP 제안: [collection-literals.md](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0416-collection-literals.md)
+* YouTrack 이슈: [KT-43871](https://youtrack.jetbrains.com/issue/KT-43871)
 * 안정성 수준: [Experimental](components-stability.md#stability-levels-explained)
-* 사용 가능 버전: 2.3.0
+* 사용 가능 버전: 2.4.0
 
 </td>
 </tr>
 
 <tr filter="in-preview">
-<td>
+<td width="200">
 
 **프리뷰 중**
 
 </td>
 <td>
 
-**컨텍스트 파라미터: 컨텍스트 의존적 선언 지원**
+**컴파일 타임 상수 개선**
 
-* KEEP 제안: [context-parameters.md](https://github.com/Kotlin/KEEP/blob/context-parameters/proposals/context-parameters.md)
-* YouTrack 이슈: [KT-10468](https://youtrack.jetbrains.com/issue/KT-10468)
+* KEEP 제안: [improve-compile-time-constants.md](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0444-improve-compile-time-constants.md)
+* YouTrack 이슈: [KT-22505](https://youtrack.jetbrains.com/issue/KT-22505)
 * 안정성 수준: [Experimental](components-stability.md#stability-levels-explained)
-* 사용 가능 버전: 2.2.0
+* 사용 가능 버전: 2.4.0
+
+</td>
+</tr>
+
+<tr filter="in-preview">
+<td width="200">
+
+**프리뷰 중**
+
+</td>
+<td>
+
+**이름 기반 구조 분해 (Name-based destructuring)**
+
+* KEEP 제안: [name-based-destructuring.md](https://github.com/Kotlin/KEEP/blob/name-based-destructuring/proposals/name-based-destructuring.md)
+* YouTrack 이슈: [KT-19627](https://youtrack.jetbrains.com/issue/KT-19627)
+* 안정성 수준: [Experimental](components-stability.md#stability-levels-explained)
+* 사용 가능 버전: 2.3.20
 
 </td>
 </tr>
@@ -240,24 +210,6 @@ JetBrains는 실용적인 디자인을 바탕으로 [Kotlin 언어 진화 원칙
 * YouTrack 이슈: [KT-12719](https://youtrack.jetbrains.com/issue/KT-12719)
 * 안정성 수준: [Experimental](components-stability.md#stability-levels-explained)
 * 사용 가능 버전: 2.3.0
-
-</td>
-</tr>
-
-<tr filter="in-preview">
-<td>
-
-**프리뷰 중**
-
-</td>
-<td>
-
-**프로퍼티의 어노테이션 사용 지점 대상(use-site targets) 개선**
-
-* KEEP 제안: [Improvements to annotation use-site targets on properties](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-target-in-properties.md)
-* YouTrack 이슈: [KT-73255](https://youtrack.jetbrains.com/issue/KT-73255)
-* 안정성 수준: [Experimental](components-stability.md#stability-levels-explained)
-* 사용 가능 버전: 2.2.0
 
 </td>
 </tr>
@@ -306,27 +258,9 @@ JetBrains는 실용적인 디자인을 바탕으로 [Kotlin 언어 진화 원칙
 </td>
 <td>
 
-**Uuid**
-
-* KEEP 제안: [uuid.md](https://github.com/Kotlin/KEEP/blob/uuid/proposals/stdlib/uuid.md)
-* YouTrack 이슈: [KT-31880](https://youtrack.jetbrains.com/issue/KT-31880)
-* 안정성 수준: [Experimental](components-stability.md#stability-levels-explained)
-* 사용 가능 버전: 2.0.20
-
-</td>
-</tr>
-
-<tr filter="in-preview">
-<td>
-
-**프리뷰 중**
-
-</td>
-<td>
-
 **공통 원자성(Common Atomics) 및 원자성 배열**
 
-* KEEP 제안: [Common atomics](https://github.com/Kotlin/KEEP/blob/master/proposals/stdlib/common-atomics.md)
+* KEEP 제안: [Common atomics](https://github.com/Kotlin/KEEP/blob/main/proposals/stdlib/KEEP-0398-common-atomics.md)
 * YouTrack 이슈: [KT-62423](https://youtrack.jetbrains.com/issue/KT-62423)
 * 안정성 수준: [Experimental](components-stability.md#stability-levels-explained)
 * 사용 가능 버전: 2.2.0
@@ -355,6 +289,74 @@ JetBrains는 실용적인 디자인을 바탕으로 [Kotlin 언어 진화 원칙
 <!-- END OF IN PREVIEW BLOCK -->
 
 <!-- STABLE BLOCK -->
+
+<tr filter="stable">
+<td width="200">
+
+**안정화됨**
+
+</td>
+<td>
+
+**컨텍스트 파라미터: 컨텍스트 의존적 선언 지원**
+
+* KEEP 제안: [context-parameters.md](https://github.com/Kotlin/KEEP/blob/context-parameters/proposals/context-parameters.md)
+* YouTrack 이슈: [KT-10468](https://youtrack.jetbrains.com/issue/KT-10468)
+* 사용 가능 버전: 2.2.0, 안정화 버전: 2.4.0
+
+</td>
+</tr>
+
+<tr filter="stable">
+<td>
+
+**안정화됨**
+
+</td>
+<td>
+
+**프로퍼티의 어노테이션 사용 지점 대상(use-site targets) 개선**
+
+* KEEP 제안: [Improvements to annotation use-site targets on properties](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0402-annotation-target-in-properties.md)
+* YouTrack 이슈: [KT-73255](https://youtrack.jetbrains.com/issue/KT-73255)
+* 사용 가능 버전: 2.2.0, 안정화 버전: 2.4.0
+
+</td>
+</tr>
+
+<tr filter="stable">
+<td width="200">
+
+**안정화됨**
+
+</td>
+<td>
+
+**명시적 백킹 필드 (Explicit backing fields)**
+
+* KEEP 제안: [explicit-backing-fields.md](https://github.com/Kotlin/KEEP/blob/explicit-backing-fields/proposals/explicit-backing-fields.md)
+* YouTrack 이슈: [KT-14663](https://youtrack.jetbrains.com/issue/KT-14663)
+* 사용 가능 버전: 2.3.0, 안정화 버전: 2.4.0
+
+</td>
+</tr>
+
+<tr filter="stable">
+<td>
+
+**안정화됨**
+
+</td>
+<td>
+
+**Uuid**
+
+* KEEP 제안: [uuid.md](https://github.com/Kotlin/KEEP/blob/uuid/proposals/stdlib/uuid.md)
+* YouTrack 이슈: [KT-31880](https://youtrack.jetbrains.com/issue/KT-31880)
+* 사용 가능 버전: 2.0.20, 안정화 버전: 2.4.0
+
+</td>
+</tr>
 
 <tr filter="stable">
 <td width="200">
@@ -432,7 +434,7 @@ JetBrains는 실용적인 디자인을 바탕으로 [Kotlin 언어 진화 원칙
 </td>
 <td>
 
-**멀티달러 보간: 문자열 리터럴 내 `$` 처리 개선**
+**멀티달러 보간: 문자열 리터럴 내 $ 처리 개선**
 
 * KEEP 제안: [dollar-escape.md](https://github.com/Kotlin/KEEP/blob/master/proposals/dollar-escape.md)
 * YouTrack 이슈: [KT-2425](https://youtrack.jetbrains.com/issue/KT-2425)
@@ -598,22 +600,6 @@ JetBrains는 실용적인 디자인을 바탕으로 [Kotlin 언어 진화 원칙
 </td>
 <td>
 
-**이름 기반 구조 분해 (Name-based destructuring)**
-
-* KEEP 제안: [name-based-destructuring.md](https://github.com/Kotlin/KEEP/blob/name-based-destructuring/proposals/name-based-destructuring.md)
-* YouTrack 이슈: [KT-19627](https://youtrack.jetbrains.com/issue/KT-19627)
-
-</td>
-</tr>
-
-<tr filter="exploration-and-design">
-<td>
-
-**탐색 및 디자인**
-
-</td>
-<td>
-
 **불변성(Immutability) 지원**
 
 * KEEP 노트: [immutability](https://github.com/Kotlin/KEEP/blob/master/notes/value-classes.md#immutability-and-value-classes)
@@ -630,22 +616,6 @@ JetBrains는 실용적인 디자인을 바탕으로 [Kotlin 언어 진화 원칙
 <table>
 <tr filter="keep">
 <td width="200">
-
-**KEEP 논의**
-
-</td>
-<td>
-
-**컴파일 타임 상수 개선**
-
-* KEEP 제안: [improve-compile-time-constants.md](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0444-improve-compile-time-constants.md)
-* YouTrack 이슈: [KT-22505](https://youtrack.jetbrains.com/issue/KT-22505)
-
-</td>
-</tr>
-
-<tr filter="keep">
-<td>
 
 **KEEP 논의**
 
@@ -688,22 +658,6 @@ JetBrains는 실용적인 디자인을 바탕으로 [Kotlin 언어 진화 원칙
 
 * KEEP 제안: [statics.md](https://github.com/Kotlin/KEEP/blob/static-scope/proposals/static-member-type-extension.md)
 * YouTrack 이슈: [KT-11968](https://youtrack.jetbrains.com/issue/KT-11968)
-
-</td>
-</tr>
-
-<tr filter="keep">
-<td>
-
-**KEEP 논의**
-
-</td>
-<td>
-
-**컬렉션 리터럴 (Collection literals)**
-
-* KEEP 제안: [collection-literals.md](https://github.com/Kotlin/KEEP/blob/bobko/collection-literals/proposals/collection-literals.md)
-* YouTrack 이슈: [KT-43871](https://youtrack.jetbrains.com/issue/KT-43871)
 
 </td>
 </tr>
@@ -769,30 +723,48 @@ JetBrains는 실용적인 디자인을 바탕으로 [Kotlin 언어 진화 원칙
 </td>
 <td>
 
-**명시적 백킹 필드 (Explicit backing fields)**
+**컬렉션 리터럴 (Collection literals)**
 
-* KEEP 제안: [explicit-backing-fields.md](https://github.com/Kotlin/KEEP/blob/explicit-backing-fields/proposals/explicit-backing-fields.md)
-* YouTrack 이슈: [KT-14663](https://youtrack.jetbrains.com/issue/KT-14663)
+* KEEP 제안: [collection-literals.md](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0416-collection-literals.md)
+* YouTrack 이슈: [KT-43871](https://youtrack.jetbrains.com/issue/KT-43871)
 * 안정성 수준: [Experimental](components-stability.md#stability-levels-explained)
-* 사용 가능 버전: 2.3.0
+* 사용 가능 버전: 2.4.0
 
 </td>
 </tr>
 
 <tr filter="in-preview">
-<td>
+<td width="200">
 
 **프리뷰 중**
 
 </td>
 <td>
 
-**컨텍스트 파라미터: 컨텍스트 의존적 선언 지원**
+**컴파일 타임 상수 개선**
 
-* KEEP 제안: [context-parameters.md](https://github.com/Kotlin/KEEP/blob/context-parameters/proposals/context-parameters.md)
-* YouTrack 이슈: [KT-10468](https://youtrack.jetbrains.com/issue/KT-10468)
+* KEEP 제안: [improve-compile-time-constants.md](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0444-improve-compile-time-constants.md)
+* YouTrack 이슈: [KT-22505](https://youtrack.jetbrains.com/issue/KT-22505)
 * 안정성 수준: [Experimental](components-stability.md#stability-levels-explained)
-* 사용 가능 버전: 2.2.0
+* 사용 가능 버전: 2.4.0
+
+</td>
+</tr>
+
+<tr filter="in-preview">
+<td width="200">
+
+**프리뷰 중**
+
+</td>
+<td>
+
+**이름 기반 구조 분해 (Name-based destructuring)**
+
+* KEEP 제안: [name-based-destructuring.md](https://github.com/Kotlin/KEEP/blob/name-based-destructuring/proposals/name-based-destructuring.md)
+* YouTrack 이슈: [KT-19627](https://youtrack.jetbrains.com/issue/KT-19627)
+* 안정성 수준: [Experimental](components-stability.md#stability-levels-explained)
+* 사용 가능 버전: 2.3.20
 
 </td>
 </tr>
@@ -811,24 +783,6 @@ JetBrains는 실용적인 디자인을 바탕으로 [Kotlin 언어 진화 원칙
 * YouTrack 이슈: [KT-12719](https://youtrack.jetbrains.com/issue/KT-12719)
 * 안정성 수준: [Experimental](components-stability.md#stability-levels-explained)
 * 사용 가능 버전: 2.3.0
-
-</td>
-</tr>
-
-<tr filter="in-preview">
-<td>
-
-**프리뷰 중**
-
-</td>
-<td>
-
-**프로퍼티의 어노테이션 사용 지점 대상(use-site targets) 개선**
-
-* KEEP 제안: [Improvements to annotation use-site targets on properties](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-target-in-properties.md)
-* YouTrack 이슈: [KT-73255](https://youtrack.jetbrains.com/issue/KT-73255)
-* 안정성 수준: [Experimental](components-stability.md#stability-levels-explained)
-* 사용 가능 버전: 2.2.0
 
 </td>
 </tr>
@@ -877,27 +831,9 @@ JetBrains는 실용적인 디자인을 바탕으로 [Kotlin 언어 진화 원칙
 </td>
 <td>
 
-**Uuid**
-
-* KEEP 제안: [uuid.md](https://github.com/Kotlin/KEEP/blob/uuid/proposals/stdlib/uuid.md)
-* YouTrack 이슈: [KT-31880](https://youtrack.jetbrains.com/issue/KT-31880)
-* 안정성 수준: [Experimental](components-stability.md#stability-levels-explained)
-* 사용 가능 버전: 2.0.20
-
-</td>
-</tr>
-
-<tr filter="in-preview">
-<td>
-
-**프리뷰 중**
-
-</td>
-<td>
-
 **공통 원자성(Common Atomics) 및 원자성 배열**
 
-* KEEP 제안: [Common atomics](https://github.com/Kotlin/KEEP/blob/master/proposals/stdlib/common-atomics.md)
+* KEEP 제안: [Common atomics](https://github.com/Kotlin/KEEP/blob/main/proposals/stdlib/KEEP-0398-common-atomics.md)
 * YouTrack 이슈: [KT-62423](https://youtrack.jetbrains.com/issue/KT-62423)
 * 안정성 수준: [Experimental](components-stability.md#stability-levels-explained)
 * 사용 가능 버전: 2.2.0
@@ -929,6 +865,74 @@ JetBrains는 실용적인 디자인을 바탕으로 [Kotlin 언어 진화 원칙
 <tab id="stable" title="안정화됨">
 
 <table>
+<tr filter="stable">
+<td width="200">
+
+**안정화됨**
+
+</td>
+<td>
+
+**컨텍스트 파라미터: 컨텍스트 의존적 선언 지원**
+
+* KEEP 제안: [context-parameters.md](https://github.com/Kotlin/KEEP/blob/context-parameters/proposals/context-parameters.md)
+* YouTrack 이슈: [KT-10468](https://youtrack.jetbrains.com/issue/KT-10468)
+* 사용 가능 버전: 2.2.0, 안정화 버전: 2.4.0
+
+</td>
+</tr>
+
+<tr filter="stable">
+<td>
+
+**안정화됨**
+
+</td>
+<td>
+
+**프로퍼티의 어노테이션 사용 지점 대상(use-site targets) 개선**
+
+* KEEP 제안: [Improvements to annotation use-site targets on properties](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0402-annotation-target-in-properties.md)
+* YouTrack 이슈: [KT-73255](https://youtrack.jetbrains.com/issue/KT-73255)
+* 사용 가능 버전: 2.2.0, 안정화 버전: 2.4.0
+
+</td>
+</tr>
+
+<tr filter="stable">
+<td width="200">
+
+**안정화됨**
+
+</td>
+<td>
+
+**명시적 백킹 필드 (Explicit backing fields)**
+
+* KEEP 제안: [explicit-backing-fields.md](https://github.com/Kotlin/KEEP/blob/explicit-backing-fields/proposals/explicit-backing-fields.md)
+* YouTrack 이슈: [KT-14663](https://youtrack.jetbrains.com/issue/KT-14663)
+* 사용 가능 버전: 2.3.0, 안정화 버전: 2.4.0
+
+</td>
+</tr>
+
+<tr filter="stable">
+<td>
+
+**안정화됨**
+
+</td>
+<td>
+
+**Uuid**
+
+* KEEP 제안: [uuid.md](https://github.com/Kotlin/KEEP/blob/uuid/proposals/stdlib/uuid.md)
+* YouTrack 이슈: [KT-31880](https://youtrack.jetbrains.com/issue/KT-31880)
+* 사용 가능 버전: 2.0.20, 안정화 버전: 2.4.0
+
+</td>
+</tr>
+
 <tr filter="stable">
 <td width="200">
 
@@ -1005,7 +1009,7 @@ JetBrains는 실용적인 디자인을 바탕으로 [Kotlin 언어 진화 원칙
 </td>
 <td>
 
-**멀티달러 보간: 문자열 리터럴 내 `$` 처리 개선**
+**멀티달러 보간: 문자열 리터럴 내 $ 처리 개선**
 
 * KEEP 제안: [dollar-escape.md](https://github.com/Kotlin/KEEP/blob/master/proposals/dollar-escape.md)
 * YouTrack 이슈: [KT-2425](https://youtrack.jetbrains.com/issue/KT-2425)

@@ -106,7 +106,7 @@ fun main() {
     > `readStrict()` 関数は、プロジェクトで使用されている最新の Kotlin バージョンに対応する [`JvmMetadataVersion.LATEST_STABLE_SUPPORTED`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-jvm-metadata-version/-companion/-l-a-t-e-s-t_-s-t-a-b-l-e_-s-u-p-p-o-r-t-e-d.html) より 1 バージョン先までのメタデータ形式をサポートしています。
     > 例えば、プロジェクトが `kotlin-metadata-jvm:2.1.0` に依存している場合、`readStrict()` は Kotlin `2.2.x` までのメタデータを処理できます。それ以上の場合は、未知の形式の誤った取り扱いを防ぐためにエラーをスローします。
     > 
-    > 詳細については、[Kotlin Metadata GitHub リポジトリ](https://github.com/JetBrains/kotlin/blob/master/libraries/kotlinx-metadata/jvm/ReadMe.md#detailed-explanation)を参照してください。
+    > 詳細については、[Kotlin Metadata GitHub リポジトリ](https://github.com/JetBrains/kotlin/blob/master/libraries/kotlinx-metadata/jvm/ReadMe.md#detailed-explanation)を参照してください。 
     >
     {style="note"}
 
@@ -173,31 +173,16 @@ fun main() {
 ```
 
 ### メタデータ内でのアノテーションの書き込みと読み取り
-<primary-label ref="experimental-general"/>
 
-Kotlin メタデータ内にアノテーションを保存し、`kotlin-metadata-jvm` ライブラリを使用してそれらにアクセスすることができます。
-これにより、シグネチャによってアノテーションを照合する必要がなくなり、オーバーロードされた宣言へのアクセスがより確実になります。
+Kotlin はアノテーションをバイトコードと Kotlin メタデータの両方に保存します。`kotlin-metadata-jvm` ライブラリを使用してアノテーションを読み書きする場合、それらのメタデータ表現を操作することになります。
 
-コンパイルされたファイルのメタデータでアノテーションを利用可能にするには、以下のコンパイラオプションを追加します。
+> Kotlin 2.4.0 以降、Kotlin はアノテーションを Kotlin メタデータ内に保存します。それ以前のバージョンでコンパイルされたクラスファイルを検査する場合、アノテーションはメタデータ内に存在しません。
+>
+{style="note"}
 
-```kotlin
--Xannotations-in-metadata
-```
+メタデータ内のアノテーションを変更する場合は、バイトコードに保存されているアノテーションとの整合性が保たれていることを確認してください。これらが同期されていない場合、リフレクションやバイトコード分析に依存するツールと、Kotlin メタデータを読み取るツールで異なる結果が報告される可能性があります。
 
-または、Gradle ビルドファイルの `compilerOptions {}` ブロックに追加します。
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xannotations-in-metadata")
-    }
-}
-```
-
-このオプションを有効にすると、Kotlin コンパイラは JVM バイトコードと共にメタデータ内にアノテーションを書き込み、`kotlin-metadata-jvm` ライブラリからアクセスできるようにします。
-
-ライブラリはアノテーションにアクセスするための以下の API を提供します。
+`kotlin-metadata-jvm` ライブラリは、アノテーションにアクセスするための以下の API を提供します。
 
 * `KmClass.annotations`
 * `KmFunction.annotations`
@@ -211,14 +196,9 @@ kotlin {
 * `KmProperty.delegateFieldAnnotations`
 * `KmEnumEntry.annotations`
 
-これらの API は[実験的（Experimental）](components-stability.md#stability-levels-explained)です。
-オプトインするには、`@OptIn(ExperimentalAnnotationsInMetadata::class)` アノテーションを使用します。
-
 以下は、Kotlin メタデータからアノテーションを読み取る例です。
 
 ```kotlin
-@file:OptIn(ExperimentalAnnotationsInMetadata::class)
-
 import kotlin.metadata.ExperimentalAnnotationsInMetadata
 import kotlin.metadata.jvm.KotlinClassMetadata
 
@@ -234,13 +214,6 @@ fun main() {
     // [@Label(value = StringValue("Message class"))]
 }
 ```
-
-> プロジェクトで `kotlin-metadata-jvm` ライブラリを使用している場合は、アノテーションをサポートするようにコードを更新し、テストすることをお勧めします。
-> そうしないと、将来の Kotlin バージョンでメタデータ内のアノテーションが[デフォルトで有効](https://youtrack.jetbrains.com/issue/KT-75736)になったときに、プロジェクトが不正または不完全なメタデータを生成する可能性があります。
->
-> 問題が発生した場合は、[課題トラッカー（issue tracker）](https://youtrack.jetbrains.com/issue/KT-31857)に報告してください。
->
-{style="warning"}
 
 ### バイトコードからのメタデータの抽出
 

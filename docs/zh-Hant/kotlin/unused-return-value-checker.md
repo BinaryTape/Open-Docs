@@ -182,6 +182,83 @@ fun check(g: Greeter) {
 }
 ```
 
+## 在高階函數中檢查未使用的結果
+
+某些高階函數（例如 `let` 作用域函式）會傳回 Lambda 的結果。
+要檢查高階函數中未使用的 Lambda 結果，請將[實驗性](components-stability.md#stability-levels-explained) `returnsResultOf()` 合約新增到該函式的合約中。
+
+> Kotlin 合約目前處於實驗性階段。要啟用此功能，請在宣告帶有合約的函式時新增 `@OptIn(ExperimentalContracts::class)` 註解。
+>
+{style="warning"}
+
+以下是一個範例：
+
+```kotlin
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.contract
+
+@OptIn(ExperimentalContracts::class)
+inline fun <T, R> T.customLet(block: (T) -> R): R {
+    contract {
+        returnsResultOf(block)
+    }
+    return block(this)
+}
+```
+
+接著您可以使用帶有此合約的函式（例如 `.customLet()`）來檢查 Lambda 結果是否被使用：
+
+```kotlin
+fun handleNullablePackageName(packageName: String?, builder: StringBuilder) {
+    // 檢查器不會報告警告，因為 append() 的傳回值可以被忽略
+    packageName?.customLet { builder.append(it) }
+
+    // 檢查器會報告警告，因為傳回的字串未被使用
+    packageName?.customLet { "kotlin.$it" }
+}
+```
+
+> `returnsResultOf()` 合約需要單獨的編譯器選項才能啟用。
+> 請注意，使用它會產出預發佈二進位檔，早於 2.4.0 版的 Kotlin 編譯器版本將無法讀取這些檔案。
+>
+{style="warning"}
+
+要在您的專案中啟用此功能，請將以下編譯器選項新增到您的組建檔案中：
+
+<tabs group="build-system">
+<tab title="Gradle" group-key="gradle">
+
+```kotlin
+// build.gradle(.kts)
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xallow-returns-result-of")
+    }
+}
+```
+
+</tab> 
+<tab title="Maven" group-key="maven">
+
+```xml
+<!-- pom.xml -->
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-maven-plugin</artifactId>
+            <configuration>
+                <args>
+                    <arg>-Xallow-returns-result-of</arg>
+                </args>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+</tab> 
+</tabs>
+
 ## 與 Java 註解的互通性
 
 某些 Java 函式庫使用類似的機制但使用不同的註解。

@@ -504,7 +504,7 @@ parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(BookTool::clas
 ```
 <!--- KNIT example-custom-strategy-graphs-08.kt -->
 
-자세한 내용은 [도구](tools-overview.md#parallel-tool-calls)를 참조하세요. 
+자세한 내용은 [도구](tools/index.md#parallel-tool-calls)를 참조하세요. 
 
 ### 병렬 노드 실행 (Parallel node execution) 
 

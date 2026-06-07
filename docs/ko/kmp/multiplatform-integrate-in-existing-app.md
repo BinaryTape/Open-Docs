@@ -275,7 +275,7 @@ Android 애플리케이션에서 크로스 플랫폼 코드를 사용하려면, 
    val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), "Jane Doe")
    ```
    
-   Kotlin 표준 라이브러리에서 [UUID 생성을 위한 실험적 클래스](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.uuid/-uuid/)를 제공하지만, 이 연습을 위해 플랫폼별 기능을 사용해 보겠습니다.
+   Kotlin 표준 라이브러리에서 [UUID 생성을 위한 클래스](https://kotlinlang.org/docs/uuids.html)를 제공하지만, 이 연습을 위해 플랫폼별 기능을 사용해 보겠습니다.
    
    공통 코드에서 `randomUUID()` 함수에 대한 `expect` 선언을 제공하고, 해당 소스 세트의 각 플랫폼(Android 및 iOS)에 대한 `actual` 구현을 제공합니다. [플랫폼별 API 연결](multiplatform-connect-to-apis.md)에 대해 자세히 알아볼 수 있습니다.
    

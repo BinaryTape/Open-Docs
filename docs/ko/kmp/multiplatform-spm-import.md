@@ -1,15 +1,15 @@
 [//]: # (title: KMP 모듈에 Swift 패키지를 의존성으로 추가하기)
-<primary-label ref="Experimental"/>
+<primary-label ref="alpha"/>
 
 <tldr>
    <p>Swift Package Manager(SwiftPM)는 CocoaPods와 동일한 역할을 수행합니다. 즉, iOS 앱의 네이티브 iOS 의존성을 투명하게 관리할 수 있게 해줍니다.</p>
    <p>이 문서에서는 KMP 프로젝트에서 SwiftPM 의존성을 설정하는 방법과, 필요한 경우 KMP 설정을 CocoaPods에서 SwiftPM으로 마이그레이션하는 방법을 배울 수 있습니다.</p>
 </tldr>
 
-> 이 기능은 [실험적(Experimental)](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained) 단계입니다.
+> 이 기능은 [알파(Alpha)](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained) 단계입니다.
 > 문제나 의견이 있다면 전용 Kotlin Slack 채널인 [#kmp-swift-package-manager](https://kotlinlang.slack.com/archives/C09TW68099C)에서 공유해 주세요.
 >
-{style="warning"}
+{style="note"}
 
 SwiftPM 임포트 통합 기능이 포함된 Kotlin Gradle 플러그인을 사용하면, Apple 타겟에 선언된 SwiftPM 의존성을 이용해 Objective-C 및 Swift 코드로부터 Objective-C API를 임포트할 수 있습니다.
 

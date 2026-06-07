@@ -11,7 +11,6 @@
 프로젝트의 `gradle.properties` 파일에서 `kotlin.native.binary` 속성을 사용하여 바이너리 옵션을 설정할 수 있습니다. 예를 들면 다음과 같습니다:
 
 ```none
-kotlin.native.binary.gc=cms
 kotlin.native.binary.latin1Strings=true
 ```
 
@@ -144,24 +143,24 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td>2.2.0부터 사용 가능</td>
     </tr>
     <tr>
-        <td><code>gc</code></td>
+        <td><a href="native-memory-manager.md#garbage-collector"><code>gc</code></a></td>
         <td>
             <list>
-                <li><code>pmcs</code> (기본값)</li>
+                <li><code>cms</code> (기본값)</li>
+                <li><code>pmcs</code></li>
                 <li><code>stwms</code></li>
-                <li><a href="native-memory-manager.md#optimize-gc-performance"><code>cms</code></a></li>
                 <li><a href="native-memory-manager.md#disable-garbage-collection"><code>noop</code></a></li>
             </list>
         </td>
         <td>가비지 컬렉션 동작을 제어합니다:
             <list>
+                <li><code>cms</code>: concurrent mark and sweep 사용</li>
                 <li><code>pmcs</code>: parallel mark concurrent sweep 사용</li>
                 <li><code>stwms</code>: simple stop-the-world mark and sweep 사용</li>
-                <li><code>cms</code>: GC 일시 중단 시간을 줄이는 데 도움이 되는 concurrent marking 활성화</li>
                 <li><code>noop</code>: 가비지 컬렉션 비활성화</li>
             </list>
         </td>
-        <td><code>cms</code>는 2.0.20부터 실험적(Experimental)</td>
+        <td><code>cms</code>는 2.4.0부터 기본값</td>
     </tr>
     <tr>
         <td><a href="native-memory-manager.md#garbage-collector"><code>gcMarkSingleThreaded</code></a></td>

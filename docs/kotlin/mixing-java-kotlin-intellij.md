@@ -6,9 +6,9 @@ Kotlin 与 Java 完全互操作，因此您可以逐步将其引入现有的 Jav
 
 在本教程中，您将学习如何：
 
-*   设置 Maven 或 Gradle 构建工具来编译 Java 和 Kotlin 代码。
-*   在项目目录中组织 Java 和 Kotlin 源文件。
-*   使用 IntelliJ IDEA 将 Java 文件转换为 Kotlin。
+* 设置 Maven 或 Gradle 构建工具来编译 Java 和 Kotlin 代码。
+* 在项目目录中组织 Java 和 Kotlin 源文件。
+* 使用 IntelliJ IDEA 将 Java 文件转换为 Kotlin。
 
 > 您可以使用任何现有的 Java 项目来学习本教程，也可以克隆我们已设置好 Maven 和 Gradle 构建文件的公开[示例项目](https://github.com/kotlin-hands-on/kotlin-junit-sample/tree/main/complete)。
 > 
@@ -30,19 +30,19 @@ Kotlin 与 Java 完全互操作，因此您可以逐步将其引入现有的 Jav
 
 要在 Maven 项目中同时使用 Kotlin 和 Java，请应用 Kotlin Maven 插件并在您的 `pom.xml` 文件中添加 Kotlin 依赖项：
 
-1.  在 `<properties>` 部分，添加 Kotlin 版本属性：
+1. 在 `<properties>` 部分，添加 Kotlin 版本属性：
 
     ```xml
     ```
    {src="jvm-test-tutorial/pom.xml" ignore-vars="false" include-lines="13,17,18"}
 
-2.  在 `<dependencies>` 部分，将所需的依赖项添加到 `<plugins>` 部分：
+2. 在 `<dependencies>` 部分，将所需的依赖项添加到 `<plugins>` 部分：
 
     ```xml
     ```
    {src="jvm-test-tutorial/pom.xml" include-lines="32,38-43,45-49,55"}
 
-3.  在 `<build><plugins>` 部分，添加 Kotlin 插件：
+3. 在 `<build><plugins>` 部分，添加 Kotlin 插件：
 
     ```xml
     ```
@@ -50,14 +50,15 @@ Kotlin 与 Java 完全互操作，因此您可以逐步将其引入现有的 Jav
 
    在 Kotlin Maven 插件中启用 `<extensions>true</extensions>` 有助于：
 
-    *   自动向项目添加 `kotlin-stdlib` 依赖项。
-    *   配置执行阶段以先编译 Kotlin，再编译 Java。
-    *   在 Java 代码中引用 Kotlin 代码，反之亦然。
+   * 自动向项目添加 `kotlin-stdlib` 依赖项。
+   * 配置执行阶段以先编译 Kotlin，再编译 Java。
+   * 在 Java 代码中引用 Kotlin 代码，反之亦然。
+   * 自动将 JVM 目标版本与 Java 编译器版本对齐。
 
    在使用带扩展功能的 Kotlin Maven 插件时，您不需要在 `<build><pluginManagement>` 部分使用单独的 `maven-compiler-plugin`。
 
-4.  在 IDE 中重新加载 Maven 项目。
-5.  运行测试以验证配置：
+4. 在 IDE 中重新加载 Maven 项目。
+5. 运行测试以验证配置：
 
     ```bash
     ./mvnw clean test
@@ -67,7 +68,7 @@ Kotlin 与 Java 完全互操作，因此您可以逐步将其引入现有的 Jav
 
 要在 Gradle 项目中同时使用 Kotlin 和 Java，请应用 Kotlin JVM 插件并在您的 `build.gradle.kts` 文件中添加 Kotlin 依赖项：
 
-1.  在 `plugins {}` 块中，添加 Kotlin JVM 插件：
+1. 在 `plugins {}` 块中，添加 Kotlin JVM 插件：
 
     ```kotlin
     plugins {
@@ -76,7 +77,7 @@ Kotlin 与 Java 完全互操作，因此您可以逐步将其引入现有的 Jav
     }
     ```
 
-2.  设置 JVM 工具链版本以匹配您的 Java 版本：
+2. 设置 JVM 工具链版本以匹配您的 Java 版本：
 
     ```kotlin
     kotlin {
@@ -84,9 +85,9 @@ Kotlin 与 Java 完全互操作，因此您可以逐步将其引入现有的 Jav
     }
     ```
 
-    这确保了 Kotlin 使用与 Java 代码相同的 JDK 版本。
+   这确保了 Kotlin 使用与 Java 代码相同的 JDK 版本。
 
-3.  在 `dependencies {}` 块中，添加 `kotlin("test")` 库，该库提供 Kotlin 测试工具并与 JUnit 集成：
+3. 在 `dependencies {}` 块中，添加 `kotlin("test")` 库，该库提供 Kotlin 测试工具并与 JUnit 集成：
 
     ```kotlin
     dependencies {
@@ -97,8 +98,8 @@ Kotlin 与 Java 完全互操作，因此您可以逐步将其引入现有的 Jav
     }
     ```
 
-4.  在 IDE 中重新加载 Gradle 项目。
-5.  运行您的测试以验证配置：
+4. 在 IDE 中重新加载 Gradle 项目。
+5. 运行您的测试以验证配置：
 
     ```bash
     ./gradlew clean test
@@ -134,13 +135,13 @@ Kotlin 插件还捆绑了一个 Java 到 Kotlin 转换器 (_J2K_)，可自动将
 
 如果您的项目较复杂，使用了 [Spring](https://spring.io/) 或 Java Persistence API (JPA)，可以使用 Kotlin 编译器插件，这些插件会自动使 Kotlin 的语言功能适应框架预期，从而减少模板代码：
 
-*   **[`all-open`](all-open-plugin.md)** 插件在使用特定注解时，会自动将类及其成员设为 `open`。这对于像 Spring 这样要求类为非 final 的框架特别有用。
+* **[`all-open`](all-open-plugin.md)** 插件在使用特定注解时，会自动将类及其成员设为 `open`。这对于像 Spring 这样要求类为非 final 的框架特别有用。
 
-    对于 Spring，您可以使用专门的 [`kotlin-spring`](all-open-plugin.md#spring-support) 插件，它是 `all-open` 的包装器。它会自动指定 Spring 注解。
-*   **[`no-arg`](no-arg-plugin.md)** 插件会为带有特定注解的类生成一个额外的零参数构造函数。这允许 JPA 实例化那些本来没有默认构造函数的类。
+  对于 Spring，您可以使用专门的 [`kotlin-spring`](all-open-plugin.md#spring-support) 插件，它是 `all-open` 的包装器。它会自动指定 Spring 注解。
+* **[`no-arg`](no-arg-plugin.md)** 插件会为带有特定注解的类生成一个额外的零参数构造函数。这允许 JPA 实例化那些本来没有默认构造函数的类。
 
-    您还可以使用 [`kotlin-jpa`](no-arg-plugin.md#jpa-support) 插件，它是 `no-arg` 的包装器。它会自动指定 no-arg 注解。
-*   **[`power-assert`](power-assert.md)** 插件通过为断言提供包含上下文信息的详细失败消息，改进了调试体验。它会显示中间值，并帮助您理解测试失败的原因。
+  您还可以使用 [`kotlin-jpa`](no-arg-plugin.md#jpa-support) 插件，它是 `no-arg` 的包装器。它会自动指定 no-arg 注解。
+* **[`power-assert`](power-assert.md)** 插件通过为断言提供包含上下文信息的详细失败消息，改进了调试体验。它会显示中间值，并帮助您理解测试失败的原因。
 
 ## 下一步
 

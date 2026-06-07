@@ -8,11 +8,11 @@
 > 
 {style="tip"}
 
-Kotlin Gradle 外掛程式包含對二進位相容性驗證的支援。啟用後，它會從目前程式碼產生應用程式二進位介面 (ABI) 傾印 (dumps)，並將其與之前的傾印進行比較以醒目提示差異。您可以檢閱這些變更，找出任何潛在的二進位不相容修改，並採取行動予以解決。
+Kotlin Gradle 外掛程式包含對二進位相容性驗證的支援。該外掛程式會從目前程式碼產生應用程式二進位介面 (ABI) 傾印 (dumps)，並將其與之前的傾印進行比較以醒目提示差異。您可以檢閱這些變更，找出任何潛在的二進位不相容修改，並採取行動予以解決。
 
 ## 如何啟用
 
-若要啟用二進位相容性驗證，請在 `build.gradle.kts` 檔案的 `kotlin{}` 區塊中加入以下內容：
+若要啟用二進位相容性驗證，請在您的 `build.gradle.kts` 檔案中加入 `abiValidation {}` 區塊。如果您沒有自訂設定，則可以改用 `abiValidation()` 函式：
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -20,10 +20,7 @@ Kotlin Gradle 外掛程式包含對二進位相容性驗證的支援。啟用後
 ```kotlin
 kotlin {
     @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
-    abiValidation {
-        // 使用 set() 函式以確保與舊版 Gradle 版本的相容性
-        enabled.set(true)
-    }
+    abiValidation()
 }
 ```
 
@@ -32,16 +29,14 @@ kotlin {
 
 ```groovy
 kotlin {
-    abiValidation {
-        enabled = true
-    }
+    abiValidation()
 }
 ```
 
 </tab>
 </tabs>
 
-如果您的專案有多個需要檢查二進位相容性的模組，請分別設定每個模組。
+KGP 會建立必要的 Gradle 任務。如果您的專案有多個需要檢查二進位相容性的模組，請分別設定每個模組。
 
 ## 檢查二進位相容性問題
 
@@ -53,7 +48,7 @@ kotlin {
 
 該任務會比較 ABI 傾印並將偵測到的任何差異輸出為錯誤。請仔細檢查輸出，以判斷是否需要修改程式碼以維持二進位相容性。
 
-預設情況下，[當您的專案啟用了二進位相容性驗證](#how-to-enable)且執行 `check` 任務時，Gradle 也會執行 `checkKotlinAbi` 任務。
+預設情況下，[當您的專案啟用了二進位相容性驗證](#how-to-enable)且執行 `check` 任務時，Gradle 也會執行 `checkKotlinAbi` 任務。 
 
 ## 更新參考 ABI 傾印
 
@@ -146,7 +141,7 @@ kotlin {
 
 在多平台專案中，如果您的主機系統無法編譯所有目標，Kotlin Gradle 外掛程式會嘗試從可用目標推論 ABI 變更。這有助於避免日後切換到支援更多目標的主機時出現誤報失敗。
 
-若要停用此行為，請在 `build.gradle.kts` 檔案中加入以下內容：
+若要停用此行為，請在您的 `build.gradle.kts` 檔案中加入以下內容：
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -155,9 +150,7 @@ kotlin {
 kotlin {
     @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
     abiValidation {
-        klib {
-            keepUnsupportedTargets.set(false)
-        }
+        keepLocallyUnsupportedTargets.set(false)
     }
 }
 ```
@@ -168,9 +161,7 @@ kotlin {
 ```groovy
 kotlin {
     abiValidation {
-        klib {
-            keepUnsupportedTargets = false
-        }
+        keepLocallyUnsupportedTargets = false
     }
 }
 ```
@@ -179,3 +170,39 @@ kotlin {
 </tabs>
 
 如果目標不受支援且推論已停用，則 `checkKotlinAbi` 任務會失敗，因為它無法產生完整的 ABI 傾印。如果您希望任務失敗，而不是冒著遺漏二進位不相容變更的風險，那麼此行為可能會很有用。
+
+## 包含來自 `maven-publish` 外掛程式的發佈
+
+預設情況下，二進位相容性驗證使用 Kotlin 編譯輸出來產生 ABI 傾印。因此，產生的 ABI 傾印可能無法反映最終發佈的產物 (artifacts)。例如，當您使用 [`maven-publish` 外掛程式](https://docs.gradle.org/current/userguide/publishing_maven.html)時，重新定位 (relocation) 等後置處理步驟可能會在編譯後修改產物。
+
+若要確保 ABI 傾印精準反映由 `maven-publish` 外掛程式發佈的產物，請在您的 `build.gradle.kts` 檔案中加入以下內容：
+
+<tabs group="build-script">
+<tab title="Kotlin" group-key="kotlin">
+
+```kotlin
+kotlin {
+    @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
+    abiValidation {
+        binariesSource.set(MAVEN_PUBLICATIONS)
+    }
+}
+```
+
+</tab>
+<tab title="Groovy" group-key="groovy">
+
+```groovy
+kotlin {
+    abiValidation {
+        binariesSource = MAVEN_PUBLICATIONS
+    }
+}
+```
+
+</tab>
+</tabs>
+
+> 由於 Kotlin/Android 專案以及具有 Android 目標的多平台專案不會發佈 JAR 檔案，因此此功能不適用於這些專案。
+> 
+{style="warning"}

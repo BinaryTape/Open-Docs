@@ -1,9 +1,9 @@
 [//]: # (title: 使用 Junie 將 Kotlin 多平台專案從 CocoaPods 切換至 SwiftPM 相依性)
-<primary-label ref="Experimental"/>
+<primary-label ref="alpha"/>
 
 如果您有一個帶有 CocoaPods 相依性的 KMP 模組，並希望使用 [SwiftPM 匯入](multiplatform-spm-import.md)切換至 Swift 封裝，
 您可以使用 AI 來協助您。
-本指南將展示如何使用 Junie 和 Kotlin AI 技能來簡化此過程。
+本指南將展示如何使用 Junie 和 Kotlin AI 技能來簡化此流程。
 
 > 雖然本指南使用 Junie，但您可以使用任何具備 [Kotlin AI 技能](https://kotlinlang.org/docs/kotlin-ai-skills.html) 的 AI 工具
 > 來完成此過程。

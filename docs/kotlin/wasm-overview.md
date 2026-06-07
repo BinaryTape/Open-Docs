@@ -44,10 +44,6 @@ WASI 为在不同环境中运行编译为 WebAssembly 的 Kotlin 应用程序提
 ### WebAssembly 组件模型
 <primary-label ref="experimental-general"/>
 
-> 对 WebAssembly 组件模型的支持目前仅在抢先体验计划 (EAP) 版本中可用：[Kotlin %kotlinEapVersion%](whatsnew-eap.md)。
->
-{style="note"}
-
 WASI 0.2 构建于 [WebAssembly 组件模型](https://github.com/WebAssembly/component-model)之上，该模型定义了一种使用标准化接口和类型从 Wasm 模块构建组件的方法。该模型允许您在应用程序或库中定义与语言无关的组件。您还可以将 Wasm 模块和现有组件组合成新的组件。
 
 要探索 WebAssembly 组件模型和 Kotlin/Wasm 的可能性，请查看这个[使用 `wasi:http` 构建的简单服务器](https://github.com/Kotlin/sample-wasi-http-kotlin/)演示。

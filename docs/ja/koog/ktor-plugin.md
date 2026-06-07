@@ -1,4 +1,10 @@
+---
+status: beta
+---
+
 # Ktor 統合: Koog プラグイン
+
+--8<-- "versioning-snippets.md:beta"
 
 Koog は Ktor サーバーに自然に適合し、両側からイディオマティックな Kotlin API を使用してサーバーサイド AI アプリケーションを記述できるようにします。
 
@@ -240,6 +246,7 @@ install(Koog) {
     }
 }
 ```
+
 ## なぜ Koog + Ktor なのか？
 
 - サーバーでの Kotlin ファーストかつ型安全なエージェント開発

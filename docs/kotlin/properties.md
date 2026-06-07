@@ -229,22 +229,19 @@ fun main() {
 
 此示例使用 [反射](reflection.md) 来显示 getter 和 setter 上存在哪些注解。
 
-### 支持字段
+## 支持字段
 
-在 Kotlin 中，访问器使用支持字段将属性的值存储在内存中。当您想要在 getter 或 setter 中添加额外逻辑，或者想要在属性更改时触发额外操作时，支持字段非常有用。
+当需要将值存储在内存中时，编译器会自动为属性生成支持字段。
 
-您不能直接声明支持字段。Kotlin 仅在必要时生成它们。您可以使用 `field` 关键字在访问器中引用支持字段。
-
-只有在您使用默认的 getter 或 setter，或者在至少一个自定义访问器中使用 `field` 时，Kotlin 才会生成支持字段。
-
-例如，`isEmpty` 属性没有支持字段，因为它使用了不包含 `field` 关键字的自定义 getter：
+例如，当您使用默认的 `get()` 和 `set()` 函数时，编译器会创建一个支持字段，因为它们需要读取和写入存储的值：
 
 ```kotlin
-val isEmpty: Boolean
-    get() = this.size == 0
+var count = 0
 ```
 
-在以下示例中，`score` 属性具有支持字段，因为 setter 使用了 `field` 关键字：
+您可以在 [自定义 `get()` 或 `set()` 函数](#自定义-getter-和-setter) 中使用 `field` 关键字来访问支持字段。例如，您可以为 getter 或 setter 添加额外的逻辑，或者在属性更改时触发额外的操作。
+
+在此示例中，`score` 属性在 `set()` 函数内部使用了支持字段，以便在更新值时触发日志记录事件：
 
 ```kotlin
 class Scoreboard {
@@ -266,27 +263,31 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-backing-field"}
 
-### 幕后属性
+并非所有属性都会默认创建支持字段，因为有些属性可能不需要它们。例如，`isEmpty` 属性没有支持字段，因为每次访问它时，它的值都是根据 `size` 属性计算得出的：
 
-有时您可能需要比 [支持字段](#支持字段) 提供的灵活性更高的方案。例如，如果您有一个 API，希望能够在内部修改属性但在外部不可修改。在这种情况下，您可以使用一种称为 *幕后属性* 的编码模式。
+```kotlin
+val isEmpty: Boolean
+    get() = this.size == 0
+```
 
-在以下示例中，`ShoppingCart` 类具有一个 `items` 属性，代表购物车中的所有商品。您希望 `items` 属性在类外部是只读的，但仍允许一种“经批准”的方式来直接修改 `items` 属性。为了实现这一点，您可以定义一个名为 `_items` 的私有幕后属性，以及一个名为 `items` 的公共属性，后者委托给幕后属性的值。
+### 显式支持字段
+
+有时您可能需要更高的灵活性。例如，如果您有一个 API，希望能在内部修改属性但在外部不可修改。在这种情况下，您可以使用 *显式支持字段*。
+
+在以下示例中，`ShoppingCart` 类具有一个 `items` 属性，代表购物车中的所有商品。该类将 `items` 属性作为只读字符串列表公开，但在内部，它使用显式支持字段将数据存储在可变列表中：
 
 ```kotlin
 class ShoppingCart {
-    // 幕后属性
-    private val _items = mutableListOf<String>()
-
-    // 公共只读视图
+    // 带有显式支持字段的公共只读视图
     val items: List<String>
-        get() = _items
-
+        field = mutableListOf()
+    
     fun addItem(item: String) {
-        _items.add(item)
+        items.add(item)
     }
 
     fun removeItem(item: String) {
-        _items.remove(item)
+        items.remove(item)
     }
 }
 
@@ -303,46 +304,70 @@ fun main() {
     // [Banana]
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-backing-property"}
+{kotlin-runnable="true" kotlin-min-compiler-version="2.4" id="kotlin-explicit-backing-field"}
 
-在此示例中，用户只能通过 `addItem()` 函数向购物车添加商品，但仍可以访问 `items` 属性来查看其中的内容。
+在此示例中，编译器从 `mutableListOf()` 调用中推断出支持字段的类型：`MutableList<String>`。您也可以显式声明支持字段的类型：
+
+```kotlin
+val items: List<String>
+    // 带有显式类型的显式支持字段
+    field: MutableList<String> = mutableListOf()
+```
+{validate="false"}
+
+在 `ShoppingCart` 类的示例中，编译器将 `items` 属性智能转换为 `MutableList<String>` 类型，因此该类可以通过 `add()` 和 `remove()` 函数在购物车中添加和移除商品。在类外部，编译器使用公共属性类型 `List<String>`，因此 API 用户只能读取 `items` 列表中的内容。
+
+#### 限制
+
+要使用显式支持字段，其属性和支持字段本身必须遵循某些规则。属性仅在满足以下条件时才能拥有显式支持字段：
+
+* 没有自定义 getter。
+* 是只读的 (`val`)。
+* 不是 `open`。
+* 不是 [委托属性](delegated-properties.md)。
+* 不是 [编译时常量](#编译时常量)。
+
+此外，支持字段的类型必须是属性类型的子类型，并具有 [`private` 可见性](visibility-modifiers.md)。
+
+如果显式支持字段不符合您的要求，您可以使用幕后属性作为替代方案。
+
+### 幕后属性
+
+如果显式支持字段不适合您的用例，您可以尝试使用一种称为 *幕后属性* 的编码模式。
+
+例如，如果您的属性需要自定义 getter：
+
+```kotlin
+class UserDirectory {
+    private val _users = mutableListOf(
+        "sarah",
+        "mike",
+        "emma"
+    )
+
+    val users: List<String>
+        get() = _users.sorted()
+
+    fun addUser(username: String) {
+        _users.add(username)
+    }
+}
+
+fun main() {
+    val directory = UserDirectory()
+
+    directory.addUser("alex")
+    println(directory.users)
+    // [alex, emma, mike, sarah]
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-backing-property-custom-getter"}
 
 > 在为幕后属性命名时，请使用前导下划线，以符合 Kotlin [编码约定](coding-conventions.md#names-for-backing-properties)。
 >
 {style="tip"}
 
-在 JVM 上，编译器会优化对具有默认访问器的私有属性的访问，以避免函数调用开销。
-
-当您希望多个公共属性共享一个状态时，幕后属性也很有用。例如：
-
-```kotlin
-class Temperature {
-    // 存储摄氏温度的幕后属性
-    private var _celsius: Double = 0.0
-
-    var celsius: Double
-        get() = _celsius
-        set(value) { _celsius = value }
-
-    var fahrenheit: Double
-        get() = _celsius * 9 / 5 + 32
-        set(value) { _celsius = (value - 32) * 5 / 9 }
-}
-
-fun main() {
-    val temp = Temperature()
-    temp.celsius = 25.0
-    println("${temp.celsius}°C = ${temp.fahrenheit}°F") 
-    // 25.0°C = 77.0°F
-
-    temp.fahrenheit = 212.0
-    println("${temp.celsius}°C = ${temp.fahrenheit}°F") 
-    // 100.0°C = 212.0°F
-}
-```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-backing-property-multiple-properties"}
-
-在此示例中，`celsius` 和 `fahrenheit` 属性都访问 `_celsius` 幕后属性。这种设置提供了一个单一的事实来源，并带有两个公共视图。
+在此示例中，`UserDirectory` 类具有一个只读的 `users` 属性，用于列出目录中的每个用户。`_users` 变量是包含真实列表的私有幕后属性。公共 `users` 属性的 getter 在返回条目之前会对其进行排序。
 
 ## 编译时常量
 

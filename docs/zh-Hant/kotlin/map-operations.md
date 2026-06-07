@@ -4,25 +4,49 @@
 
 ## 檢索鍵與值
 
-若要從 Map 中檢索值，您必須提供其鍵作為 [`get()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/get.html) 函式的引數。此外也支援 [`key`] 這種簡寫語法。如果找不到指定的鍵，則會傳回 `null`。還有另一個函式 [`getValue()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/get-value.html)，其行為略有不同：如果 Map 中找不到該鍵，它會拋出例外。此外，您還有另外兩個處理鍵不存在的選項：
+若要從 Map 中檢索值，您必須提供其鍵作為 [`get()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/get.html) 函式的引數。此外也支援 `[key]` 這種簡寫語法。如果找不到指定的鍵，則會傳回 `null`。還有另一個函式 [`getValue()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/get-value.html)，其行為略有不同：如果 Map 中找不到該鍵，它會拋出例外。此外，您還有另外幾個處理鍵不存在的選項：
 
 * [`getOrElse()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/get-or-else.html) 的運作方式與 list 相同：不存在的鍵之值會從指定的 Lambda 函式傳回。
 * [`getOrDefault()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/get-or-default.html) 在找不到鍵時傳回指定的預設值。
 
-```kotlin
+對於具有可為 null 值的 Map，請改用以下函式，它們會明確處理缺失的鍵與 `null` 值：
 
+* `getOrElseIfNull()` 會在鍵缺失或具有 `null` 值時傳回指定預設值的結果。
+* `getOrElseIfMissing()` 會在鍵缺失時傳回指定預設值的結果。
+
+以下範例展示了這些函式之間的差異：
+
+```kotlin
+@OptIn(ExperimentalStdlibApi::class)
 fun main() {
 //sampleStart
     val numbersMap = mapOf("one" to 1, "two" to 2, "three" to 3)
     println(numbersMap.get("one"))
+    // 1
+
     println(numbersMap["one"])
+    // 1
+
     println(numbersMap.getOrDefault("four", 10))
-    println(numbersMap["five"])               // null
-    //numbersMap.getValue("six")      // exception!
+    // 10
+
+    println(numbersMap["five"])
+    // null
+    
+    val nullableMap = mapOf("one" to 1, "two" to null)
+    println(nullableMap.getOrElseIfNull("two") { 0 })
+    // 0
+
+    println(nullableMap.getOrElseIfMissing("two") { 0 })
+    // null
+
+    // 由於 Map 中缺失 "six"，因此會拋出例外
+    // numbersMap.getValue("six")
+
 //sampleEnd
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true" kotlin-min-compiler-version="2.4"}
 
 若要對 Map 的所有鍵或所有值執行操作，您可以分別從屬性 `keys` 與 `values` 中檢索它們。`keys` 是 Map 所有鍵的集合（Set），而 `values` 是 Map 所有值的集合。
 
@@ -106,7 +130,7 @@ fun main() {
 
 ## Map 寫入操作
 
-[可變](collections-overview.md#collection-types) Map 提供專屬的寫入操作。這些操作讓您可以使用以鍵為基礎的存取方式來更改 Map 內容。
+[可變](collections-overview.md#collection-types) Map 提供專屬的寫入操作。這些操作讓您可以使用以鍵為基礎的存取方式來更改值，進而修改 Map 內容。
 
 定義 Map 寫入操作時有一些特定規則：
 
@@ -170,7 +194,7 @@ fun main() {
 fun main() {
 //sampleStart
     val numbersMap = mutableMapOf("one" to 1, "two" to 2)
-    numbersMap["three"] = 3     // calls numbersMap.put("three", 3)
+    numbersMap["three"] = 3     // 呼叫 numbersMap.put("three", 3)
     numbersMap += mapOf("four" to 4, "five" to 5)
     println(numbersMap)
 //sampleEnd
@@ -179,6 +203,42 @@ fun main() {
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
 當呼叫時指定的鍵已存在於 Map 中，運算子會覆寫對應項目的值。
+
+#### 為缺失的項目新增預設值
+
+若要在值不存在時傳回現有值或新增預設值，請使用 [`.getOrPut()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/get-or-put.html) 擴充函式。如果鍵缺失或具有 `null` 值，`.getOrPut()` 會儲存預設值並將其傳回。
+
+對於具有可為 null 值的 Map，您可以使用 `.getOrPutIfNull()` 與 `.getOrPutIfMissing()` 函式來控制如何處理 `null` 值：
+
+* `getOrPutIfNull()` 的行為與 `getOrPut()` 類似，若鍵缺失或具有 `null` 值則使用預設值。
+* `getOrPutIfMissing()` 僅在鍵缺失時使用預設值。
+
+`getOrPutIfNull()` 與 `getOrPutIfMissing()` 函式目前為[實驗功能](components-stability.md#stability-levels-explained)。若要啟用，請使用 `@OptIn(ExperimentalStdlibApi::class)` 註解。
+
+範例如下：
+
+```kotlin
+@OptIn(ExperimentalStdlibApi::class)
+fun main() {
+//sampleStart
+    val mapForNull = mutableMapOf<String, Int?>("one" to null)
+    val mapForMissing = mutableMapOf<String, Int?>("one" to null)
+
+    // 如果 "one" 的值為 null，則替換該值
+    mapForNull.getOrPutIfNull("one") { 1 }
+
+    println(mapForNull)
+    // {one=1}
+
+    // 由於 "one" 存在於 Map 中，因此保留 null 值
+    mapForMissing.getOrPutIfMissing("one") { 1 }
+
+    println(mapForMissing)
+    // {one=null}
+//sampleEnd
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="2.4"}
 
 ### 移除項目
 
@@ -191,7 +251,7 @@ fun main() {
     val numbersMap = mutableMapOf("one" to 1, "two" to 2, "three" to 3)
     numbersMap.remove("one")
     println(numbersMap)
-    numbersMap.remove("three", 4)            //doesn't remove anything
+    numbersMap.remove("three", 4)            // 不移除任何內容
     println(numbersMap)
 //sampleEnd
 }
@@ -223,7 +283,9 @@ fun main() {
     val numbersMap = mutableMapOf("one" to 1, "two" to 2, "three" to 3)
     numbersMap -= "two"
     println(numbersMap)
-    numbersMap -= "five"             //doesn't remove anything
+    numbersMap -= "five"             // 不移除任何內容
     println(numbersMap)
 //sampleEnd
 }
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}

@@ -178,6 +178,19 @@ install(Sessions) {
 }
 ```
 
+### 自定义 SSE 心跳事件
+
+此版本为 Ktor 服务器端 SSE 支持引入了一个新选项，允许您使用事件提供程序函数完全自定义心跳事件：
+
+```kotlin
+heartbeat {
+    period = 30.milliseconds
+    eventProvider = { ServerSentEvent(data = "ts=${Clock.System.now()}") }
+}
+```
+
+这使得定期发送自定义心跳有效负载成为可能，例如时间戳和状态信息。
+
 ## Ktor Client
 
 ### OkHttp 和 Apache5 引擎中的自定义 DNS 解析器 {id="custom-dns-resolvers"}

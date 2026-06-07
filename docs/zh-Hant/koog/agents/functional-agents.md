@@ -165,11 +165,11 @@ To calculate the product of 12 and 9, we multiply these two numbers together.
 
 ## 加入工具
 
-在許多情況下，功能型代理需要完成特定任務，例如讀取和寫入資料、呼叫 API 或執行其他確定性操作。在 Koog 中，您可以將這些功能公開為 [工具](../tools-overview.md)，並讓 LLM 決定何時呼叫它們。
+在許多情況下，功能型代理需要完成特定任務，例如讀取和寫入資料、呼叫 API 或執行其他確定性操作。在 Koog 中，您可以將這些功能公開為 [工具](../tools/index.md) 並讓 LLM 決定何時呼叫它們。
 
 以下是您需要執行的步驟：
 
-1. 建立 [基於註解的工具](../annotation-based-tools.md)。
+1. 建立 [基於註解的工具](../tools/annotation-based-tools.md)。
 2. 將其加入工具註冊表 (tool registry) 並將註冊表傳遞給代理。
 3. 確保代理策略可以識別 LLM 回應中的工具呼叫、執行要求的工具、將其結果傳送回 LLM，並重複此程序直到沒有剩餘的工具呼叫。
 

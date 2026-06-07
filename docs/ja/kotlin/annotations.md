@@ -164,7 +164,7 @@ class Example {
   * `property` (このターゲットを指定したアノテーションは Java からは見えません)
   * `get` (プロパティのゲッター)
   * `set` (プロパティのセッター)
-  * `all` (プロパティ用の実験的なメタターゲット。目的と使用法については[以下](#all-meta-target)を参照)
+  * `all` (プロパティ用のメタターゲット。詳細については [`all` メタターゲット](#all-meta-target) セクションを参照)
   * `receiver` (拡張関数またはプロパティのレシーバーパラメータ)
 
     拡張関数のレシーバーパラメータにアノテーションを付けるには、以下の構文を使用します：
@@ -179,12 +179,13 @@ class Example {
 
 ### ユースサイトターゲットが指定されていない場合のデフォルト
 
-ユースサイトターゲットを指定しない場合、ターゲットは使用されているアノテーションの `@Target` アノテーションに従って選択されます。
-適用可能なターゲットが複数ある場合は、以下のリストの中で最初に該当するターゲットが使用されます：
+ユースサイトターゲットを指定しない場合、コンパイラは使用されているアノテーションの `@Target` アノテーションに従ってターゲットを選択します。適用可能なターゲットが複数ある場合、コンパイラは以下の順序で 1 つ以上のターゲットを選択します：
 
-* `param`
-* `property`
-* `field`
+* コンストラクタパラメータのターゲット (`param`)
+* プロパティのターゲット (`property`)
+* フィールドのターゲット (`field`)。これは `field` が適用可能で、かつ `property` が適用可能でない場合に使用されます。
+
+`param`、`property`、`field` のいずれも適用可能でない場合、そのアノテーションは無効となり、ユースサイトターゲットを明示的に指定する必要があります。
 
 [Jakarta Bean Validation の `@Email` アノテーション](https://jakarta.ee/specifications/bean-validation/3.0/apidocs/jakarta/validation/constraints/email)を例に考えてみましょう：
 
@@ -197,62 +198,24 @@ public @interface Email { }
 
 ```kotlin
 data class User(val username: String,
-                // @Email は @param:Email と同等
-                @Email val email: String) {
-    // @Email は @field:Email と同等
-    @Email val secondaryEmail: String? = null
-}
-```
-
-Kotlin 2.2.0 では、パラメータ、フィールド、プロパティへのアノテーションの伝播をより予測可能にするための実験的なデフォルトルールが導入されました。
-
-新しいルールでは、適用可能なターゲットが複数ある場合、以下のように 1 つ以上が選択されます：
-
-* コンストラクタパラメータのターゲット (`param`) が適用可能な場合は、それが使用されます。
-* プロパティのターゲット (`property`) が適用可能な場合は、それが使用されます。
-* フィールドのターゲット (`field`) が適用可能で、`property` が適用可能でない場合は、`field` が使用されます。
-
-同じ例を使用した場合：
-
-```kotlin
-data class User(val username: String,
-                // @Email は @param:Email @field:Email と同等になります
+                // @Email は @param:Email と @field:Email の両方に相当するようになります
                 @Email val email: String) {
     // @Email は依然として @field:Email と同等です
     @Email val secondaryEmail: String? = null
 }
 ```
 
-複数のターゲット候補があり、`param`、`property`、`field` のいずれも適用可能でない場合、そのアノテーションは無効となります。
+この例では、`email` プロパティにおいて `@Email` アノテーションがコンストラクタパラメータとフィールドの両方のターゲットに適用されます。これは、そのプロパティが以下の条件を満たすためです：
 
-新しいデフォルトルールを有効にするには、Gradle 設定に以下の行を追加してください。
+* プライマリコンストラクタで宣言されている。
+* カスタムのゲッターやセッターを持たないため、コンパイラがバッキングフィールドを生成する。
 
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xannotation-default-target=param-property")
-    }
-}
-```
+一方で、`secondaryEmail` プロパティについては、`@Email` アノテーションはフィールドターゲットにのみ適用されます。これは、そのプロパティが以下の条件を満たすためです：
 
-以前の動作を使用したい場合は、いつでも以下の対応が可能です：
-
-* 特定のケースにおいて、`@Annotation` の代わりに `@param:Annotation` を使用するなどして、必要なターゲットを明示的に指定する。
-* プロジェクト全体に対して、Gradle ビルドファイルでこのフラグを使用する：
-
-    ```kotlin
-    // build.gradle.kts
-    kotlin {
-        compilerOptions {
-            freeCompilerArgs.add("-Xannotation-default-target=first-only")
-        }
-    }
-    ```
+* プライマリコンストラクタで宣言されていない。
+* カスタムのゲッターやセッターを持たないため、コンパイラがバッキングフィールドを生成する。
 
 ### `all` メタターゲット
-
-<primary-label ref="experimental-opt-in"/>
 
 `all` ターゲットを使用すると、同じアノテーションをパラメータやプロパティ、フィールドだけでなく、対応するゲッターやセッターにも簡単に適用できるようになります。
 
@@ -300,25 +263,6 @@ data class User(
     val x: Int = 5
     ```
 * [委譲プロパティ (delegated properties)](delegated-properties.md) には使用できません。
-
-#### 有効化する方法
-
-プロジェクトで `all` メタターゲットを有効にするには、コマンドラインで以下のコンパイラオプションを使用します：
-
-```Bash
--Xannotation-target-all
-```
-
-または、Gradle ビルドファイルの `compilerOptions {}` ブロックに追加します：
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xannotation-target-all")
-    }
-}
-```
 
 ## Java アノテーション
 
@@ -400,7 +344,7 @@ public @interface AnnWithArrayMethod {
 class C
 ```
 
-### アノテーションインスタンスのプロパティへのアクセス
+### アノテーションインスタンス의 プロパティへのアクセス
 
 アノテーションインスタンスの値は、Kotlin コードからはプロパティとして公開されます。
 

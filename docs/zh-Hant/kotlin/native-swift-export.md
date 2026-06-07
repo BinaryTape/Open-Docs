@@ -1,24 +1,25 @@
 [//]: # (title: 使用 Swift export 與 Swift 互通)
 
-<primary-label ref="experimental-general"/>
+<primary-label ref="alpha"/>
 
-Kotlin 提供對 Swift export 的實驗性支援。它允許您直接匯出 Kotlin 原始碼，並以慣用的方式從 Swift 呼叫 Kotlin 程式碼，不需要 Objective-C 標頭檔。
+Kotlin 透過 Swift export 與 Swift 互通的功能目前處於 Alpha 階段。Swift export 允許您直接匯出 Kotlin 原始碼，並以慣用的方式從 Swift 呼叫 Kotlin 程式碼，不需要 Objective-C 標頭檔。
 
 Swift export 讓針對 Apple 目標的多平台開發更加精簡。例如，如果您有一個包含頂層函式的 Kotlin 模組，Swift export 可以實現乾淨且模組特定的匯入，移除了令人困惑的 Objective-C 底線和修飾名 (mangled names)。
 
 目前的 Swift export 特性包括：
 
-* **多模組支援**。每個 Kotlin 模組都會被匯出為一個獨立的 Swift 模組，簡化了函式呼叫。
+* **多模組支援**。每個 Kotlin 模組都會被匯出為一個獨立 accessor Swift 模組，簡化了函式呼叫。
 * **套件支援**。Kotlin 套件在匯出期間會被明確保留，避免在產生的 Swift 程式碼中發生命名衝突。
 * **型別別名**。Kotlin 型別別名會被匯出並保留在 Swift 中，提高可讀性。
 * **增強型基本型別的可 null 性**。與 Objective-C 互通性不同（後者需要將 `Int?` 等型別裝箱到 `KotlinInt` 等包裝類別中以保留可 null 性），Swift export 會直接轉換可 null 性資訊。
 * **多載**。您可以在 Swift 中呼叫 Kotlin 的多載函式而不會產生歧義。
 * **扁平化套件結構**。您可以將 Kotlin 套件轉換為 Swift 列舉，從產生的 Swift 程式碼中移除套件前綴。
-* **模組名稱自訂**。您可以在 Kotlin 專案的 Gradle 配置中自訂生成的 Swift 模組名稱。
+* **模組名稱自訂**。您可以在 Kotlin 專案的 Gradle 配置中自訂產生的 Swift 模組名稱。
+* **並行支援**。您可以從 Swift 無縫呼叫 Kotlin 的暫停函式，並能開箱即用地將 `kotlinx.coroutines` flows 匯出為 Swift 的 `AsyncSequence`。
 
 ## 啟用 Swift export
 
-此功能目前處於 [實驗性](components-stability.md#stability-levels-explained) 階段，尚未準備好用於生產環境。若要嘗試，請在您的 Kotlin 專案中 [設定建置檔案](#configure-kotlin-project)，並 [設定 Xcode](#configure-xcode-project) 以整合 Swift export。
+Swift export 目前處於 [Alpha](components-stability.md#stability-levels-explained) 階段且尚不完整，因此預期會有重大變更。若要嘗試，請在您的 Kotlin 專案中 [設定建置檔案](#configure-kotlin-project)，並 [設定 Xcode](#configure-xcode-project) 以整合 Swift export。
 
 ### 設定 Kotlin 專案
 
@@ -83,11 +84,9 @@ Swift export 目前僅適用於使用 [直接整合](https://kotlinlang.org/docs
 
 其他已知問題：
 
-* 當模組在 Gradle 座標中具有相同名稱時，Swift export 會發生錯誤，例如 SQLDelight 的 Runtime 模組和 Compose Runtime 模組 ([KT-80185](https://youtrack.jetbrains.com/issue/KT-80185))。
 * 繼承自 `List`、`Set` 或 `Map` 的型別在匯出期間會被忽略 ([KT-80416](https://youtrack.jetbrains.com/issue/KT-80416))。
 * `List`、`Set` 或 `Map` 的繼承者無法在 Swift 側具現化 ([KT-80417](https://youtrack.jetbrains.com/issue/KT-80417))。
 * 匯出到 Swift 時，Kotlin 泛型型別參數會被型別擦除為其上界 (upper bounds)。
-* Swift 閉包可以傳遞給 Kotlin，但 Kotlin 無法將函式型別匯出給 Swift。
 * 不支援跨語言繼承，因此 Swift 類別不能直接繼承自 Kotlin 匯出的類別或介面。
 * 目前沒有 IDE 遷移提示或自動化功能。
 * 當使用需要選擇性加入 (opt-in) 的宣告時，您必須在 Gradle 建置檔案的「模組層級」新增明確的 `optIn` 編譯器選項。例如，對於 `kotlinx.datetime` 程式庫：
@@ -112,31 +111,33 @@ Swift export 目前僅適用於使用 [直接整合](https://kotlinlang.org/docs
 
 下表顯示了 Kotlin 概念如何對應到 Swift。
 
-| Kotlin                 | Swift                          | 備註                      |
-|------------------------|--------------------------------|-------------------------|
-| `class`                | `class`                        | [備註](#classes)        |
-| `object`               | 具有 `shared` 屬性的 `class`      | [備註](#objects)        |
-| `enum class`           | `enum`                         | [備註](#enums)          |
-| `typealias`            | `typealias`                    | [備註](#type-aliases)   |
-| 函式                     | 函式                             | [備註](#functions)      |
-| 屬性                     | 屬性                             | [備註](#properties)     |
-| 建構函式                  | 初始設定式                         | [備註](#constructors)   |
-| 套件                     | 巢狀列舉                           | [備註](#packages)       |
-| `Boolean`              | `Bool`                         |                         |
-| `Char`                 | `Unicode.UTF16.CodeUnit`       |                         |
-| `Byte`                 | `Int8`                         |                         |
-| `Short`                | `Int16`                        |                         |
-| `Int`                  | `Int32`                        |                         |
-| `Long`                 | `Int64`                        |                         |
-| `UByte`                | `UInt8`                        |                         |
-| `UShort`               | `UInt16`                       |                         |
-| `UInt`                 | `UInt32`                       |                         |
-| `ULong`                | `UInt64`                       |                         |
-| `Float`                | `Float`                        |                         |
-| `Double`               | `Double`                       |                         |
-| `Any`                  | `KotlinBase` 類別               |                         |
-| `Unit`                 | `Void`                         |                         |
-| `Nothing`              | `Never`                        | [備註](#kotlin-nothing) |
+| Kotlin                                     | Swift                          |
+|--------------------------------------------|--------------------------------|
+| [`class`](#classes)                        | `class`                        |
+| [`object`](#objects)                       | 具有 `shared` 屬性的 `class`      |
+| [`enum class`](#enums)                     | `enum`                         |
+| [`typealias`](#type-aliases)               | `typealias`                    |
+| [函式](#functions)                          | 函式                             |
+| [`suspend fun`](#suspending-functions)     | `async`                        |
+| [`kotlinx.coroutines` flows](#flows)       | `AsyncSequence`                |
+| [屬性](#properties)                         | 屬性                             |
+| [建構函式](#constructors)                    | 初始設定式                         |
+| [套件](#packages)                           | 巢狀列舉                           |
+| `Boolean`                                  | `Bool`                         |
+| `Char`                                     | `Unicode.UTF16.CodeUnit`       |
+| `Byte`                                     | `Int8`                         |
+| `Short`                                    | `Int16`                        |
+| `Int`                                      | `Int32`                        |
+| `Long`                                     | `Int64`                        |
+| `UByte`                                    | `UInt8`                        |
+| `UShort`                                   | `UInt16`                       |
+| `UInt`                                     | `UInt32`                       |
+| `ULong`                                    | `UInt64`                       |
+| `Float`                                    | `Float`                        |
+| `Double`                                   | `Double`                       |
+| `Any`                                      | `KotlinBase` 類別               |
+| `Unit`                                     | `Void`                         |
+| [`Nothing`](#kotlin-nothing)               | `Never`                        |
 
 ### 宣告
 
@@ -277,8 +278,8 @@ fun log(vararg messages: String)
 public func log(messages: Swift.String...)
 ```
 
-> 目前對帶有 `suspend`、`inline` 和 `operator` 關鍵字的函式支援有限。
-> 通常不支援泛型型別。
+> * 目前對帶有 [`operator` 修飾元](operator-overloading.md) 的函式支援有限。
+> * 通常不支援泛型型別。
 >
 {style="note"}
 
@@ -398,11 +399,61 @@ public enum foo {
 }
 ```
 
+### 並行 (Concurrency)
+
+#### 暫停函式 (Suspending functions)
+
+您可以從 Swift 呼叫 Kotlin 的暫停函式。Kotlin [暫停函式](coroutines-basics.md#suspending-functions)和暫停功能型別會被匯出為 Swift 相對應的 `async` 版本：
+
+```kotlin
+// Kotlin
+suspend fun hello(): String {
+    delay(1000)
+    return "Hello Swift! This is Kotlin."
+}
+```
+
+```swift
+// Swift
+let msg = try await hello()
+```
+
+#### Flows
+
+您也可以將 `kotlinx.coroutines` flows 匯出為 Swift 的 [`AsyncSequence`](https://developer.apple.com/documentation/Swift/AsyncSequence)：
+
+```kotlin
+// Kotlin
+// 匯出 Flow 時保留 String 型別
+fun flowOfStrings(): Flow<String> = flowOf("hello", "any", "world")
+```
+
+```swift
+// Swift
+var actual: [String] = []
+
+// 從 Kotlin 推論 String 型別
+for try await element in flowOfStrings().asAsyncSequence() {
+    actual.append(element)
+}
+```
+
+#### 協程分派器 (Coroutine dispatchers)
+
+預設情況下，當您從 Swift 呼叫 Kotlin 暫停函式或使用 `asAsyncSequence` 函式時，Kotlin 會建立一個使用 [`Dispatchers.Default`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-default.html) 分派器的協程上下文，並在該處執行匯出的程式碼。
+
+若要在[不同的分派器](coroutines-basics.md#coroutine-dispatchers)上執行匯出的程式碼，請使用 `withContext()` 函式在 Kotlin 中切換協程上下文。例如：
+
+```kotlin
+suspend fun runOnMain(): Int = withContext(Dispatchers.Main) {
+    delay(10L)
+    42
+}
+```
+
 ## Swift export 的演進
 
-我們計劃在未來的 Kotlin 版本中擴展並逐步穩定 Swift export，改善 Kotlin 與 Swift 之間的互通性，特別是在協同程式 (coroutines) 和 flow 方面。
-
-您可以留下您的回饋：
+我們計劃在未來的 Kotlin 版本中擴展並逐步穩定 Swift export，改善 Kotlin 與 Swift 之間的互通性。您可以留下您的回饋：
 
 * 在 Kotlin Slack 中 – [獲取邀請](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up?_gl=1*ju6cbn*_ga*MTA3MTk5NDkzMC4xNjQ2MDY3MDU4*_ga_9J976DJZ68*MTY1ODMzNzA3OS4xMDAuMS4xNjU4MzQwODEwLjYw) 並加入 [#swift-export](https://kotlinlang.slack.com/archives/C073GUW6WN9) 頻道。
 * 在 [YouTrack](https://kotl.in/issue) 中回報問題。

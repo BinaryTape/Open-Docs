@@ -164,7 +164,7 @@ class Example {
   * `property` (이 대상을 가진 어노테이션은 Java에서 볼 수 없음)
   * `get` (프로퍼티 게터)
   * `set` (프로퍼티 세터)
-  * `all` (프로퍼티를 위한 실험적인 메타 대상으로, 목적과 사용법은 [아래](#all-meta-target)를 참조)
+  * `all` (프로퍼티를 위한 메타 대상으로, 자세한 내용은 [`all` 메타 대상](#all-meta-target) 섹션을 참조하세요)
   * `receiver` (확장 함수 또는 프로퍼티의 수신 객체 파라미터)
 
     확장 함수의 수신 객체 파라미터에 어노테이션을 달려면 다음 구문을 사용합니다.
@@ -179,12 +179,13 @@ class Example {
 
 ### 사용 지점 대상이 지정되지 않은 경우의 기본값
 
-사용 지점 대상을 지정하지 않으면, 사용 중인 어노테이션의 `@Target` 어노테이션에 따라 대상이 선택됩니다.
-적용 가능한 대상이 여러 개인 경우, 다음 목록에서 적용 가능한 첫 번째 대상이 사용됩니다.
+사용 지점 대상을 지정하지 않으면, 컴파일러는 사용하는 어노테이션의 `@Target` 어노테이션에 따라 대상을 선택합니다. 적용 가능한 대상이 여러 개인 경우, 컴파일러는 다음 순서에 따라 하나 이상의 대상을 선택합니다.
 
-* `param`
-* `property`
-* `field`
+* 생성자 파라미터 대상(`param`).
+* 프로퍼티 대상(`property`).
+* `property` 대상이 적용 가능하지 않은 동안 필드 대상(`field`)이 적용 가능하면 `field`.
+
+`param`, `property`, `field` 중 어느 것도 적용 가능하지 않으면 어노테이션은 유효하지 않으며, 사용 지점 대상을 명시적으로 지정해야 합니다.
 
 [Jakarta Bean Validation의 `@Email` 어노테이션](https://jakarta.ee/specifications/bean-validation/3.0/apidocs/jakarta/validation/constraints/email)을 예로 들어보겠습니다.
 
@@ -193,26 +194,7 @@ class Example {
 public @interface Email { }
 ```
 
-이 어노테이션을 사용하는 다음 예제를 살펴보세요.
-
-```kotlin
-data class User(val username: String,
-                // @Email은 @param:Email과 동일함
-                @Email val email: String) {
-    // @Email은 @field:Email과 동일함
-    @Email val secondaryEmail: String? = null
-}
-```
-
-Kotlin 2.2.0에서는 파라미터, 필드 및 프로퍼티로의 어노테이션 전파를 더 예측 가능하게 만드는 실험적인 기본 규칙이 도입되었습니다.
-
-새 규칙에 따르면, 적용 가능한 대상이 여러 개인 경우 다음과 같이 하나 이상이 선택됩니다.
-
-* 생성자 파라미터 대상(`param`)이 적용 가능하면 사용됩니다.
-* 프로퍼티 대상(`property`)이 적용 가능하면 사용됩니다.
-* `property`가 적용 가능하지 않은 동안 필드 대상(`field`)이 적용 가능하면 `field`가 사용됩니다.
-
-동일한 예제를 사용하면 다음과 같습니다.
+이 어노테이션과 함께 다음 예제를 살펴보세요.
 
 ```kotlin
 data class User(val username: String,
@@ -223,36 +205,17 @@ data class User(val username: String,
 }
 ```
 
-대상이 여러 개이고 `param`, `property`, `field` 중 어느 것도 적용 가능하지 않으면 어노테이션은 유효하지 않습니다.
+이 예제에서 `@Email` 어노테이션은 `email` 프로퍼티의 생성자 파라미터와 필드 대상 모두에 적용됩니다. 그 이유는 다음과 같습니다.
 
-새로운 기본 규칙을 활성화하려면 Gradle 설정에서 다음 라인을 사용하세요.
+* 주 생성자에 선언되었습니다.
+* 커스텀 게터나 세터가 없으므로 컴파일러가 뒷받침하는 필드(backing field)를 생성합니다.
 
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xannotation-default-target=param-property")
-    }
-}
-```
+`@Email` 어노테이션은 `secondaryEmail` 프로퍼티의 필드 대상에만 적용됩니다. 그 이유는 다음과 같습니다.
 
-이전 동작을 사용하고 싶을 때는 언제든지 다음과 같이 할 수 있습니다.
-
-* 특정 사례에서 `@Annotation` 대신 `@param:Annotation`을 사용하는 것과 같이 필요한 대상을 명시적으로 지정합니다.
-* 프로젝트 전체에 대해 Gradle 빌드 파일에서 이 플래그를 사용합니다.
-
-    ```kotlin
-    // build.gradle.kts
-    kotlin {
-        compilerOptions {
-            freeCompilerArgs.add("-Xannotation-default-target=first-only")
-        }
-    }
-    ```
+* 주 생성자에 선언되지 않았습니다.
+* 커스텀 게터나 세터가 없으므로 컴파일러가 뒷받침하는 필드를 생성합니다.
 
 ### `all` 메타 대상
-
-<primary-label ref="experimental-opt-in"/>
 
 `all` 대상은 파라미터와 프로퍼티 또는 필드뿐만 아니라 해당하는 게터와 세터에도 동일한 어노테이션을 더 쉽게 적용할 수 있게 해줍니다.
 
@@ -260,7 +223,7 @@ kotlin {
 
 * 프로퍼티가 주 생성자에 정의된 경우 생성자 파라미터(`param`)로 전파.
 * 프로퍼티 자체(`property`)로 전파.
-* 프로퍼티에 뒷받침하는 필드(backing field)가 있는 경우 해당 필드(`field`)로 전파.
+* 프로퍼티에 뒷받침하는 필드가 있는 경우 해당 필드(`field`)로 전파.
 * 게터(`get`)로 전파.
 * 프로퍼티가 `var`로 정의된 경우 세터 파라미터(`setparam`)로 전파.
 * 클래스에 `@JvmRecord` 어노테이션이 있는 경우 Java 전용 대상인 `RECORD_COMPONENT`로 전파.
@@ -300,25 +263,6 @@ data class User(
     val x: Int = 5
     ```
 * [위임된 프로퍼티](delegated-properties.md)와 함께 사용할 수 없습니다.
-
-#### 활성화 방법
-
-프로젝트에서 `all` 메타 대상을 활성화하려면 명령줄에서 다음 컴파일러 옵션을 사용하세요.
-
-```Bash
--Xannotation-target-all
-```
-
-또는 Gradle 빌드 파일의 `compilerOptions {}` 블록에 추가하세요.
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xannotation-target-all")
-    }
-}
-```
 
 ## Java 어노테이션
 
@@ -382,6 +326,7 @@ public @interface AnnWithArrayValue {
 ```
 
 ```kotlin
+// Kotlin
 @AnnWithArrayValue("abc", "foo", "bar") class C
 ```
 

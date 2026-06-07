@@ -4,7 +4,7 @@
 
 <tldr>
     <p>最新 Kotlin 版本：<strong>%kotlinVersion%</strong></p>
-    <p>参见 <a href="%kotlinLatestWhatsnew%">Kotlin 2.3.20 最新变化</a>并可在 <a href="%kotlinLatestUrl%">变更日志</a> 中查看缺陷修复详情。</p>
+    <p>参见 <a href="%kotlinLatestWhatsnew%">Kotlin 2.4.0 最新变化</a><!--并在 <a href="%kotlinLatestUrl%">变更日志</a> 中查看缺陷修复详情-->。</p>
 </tldr>
 
 本页面说明了 Kotlin 的发布周期以及我们交付的不同发布类型。其中还包括有关过去和未来 Kotlin 发布的信息，以及如何更新至特定发布的说明。
@@ -29,8 +29,8 @@
 
 以下是即将发布的稳定版 Kotlin 的大致时间表：
 
-* **2.4.0**：计划于 2026 年 6 月至 7 月
 * **2.4.20**：计划于 2026 年 9 月
+* **2.5.0**：计划于 2026 年 12 月
 
 ## 更新至新的 Kotlin 版本
 
@@ -122,7 +122,6 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
 
 例如，如果我们发现一个安全漏洞，且最新的 Kotlin 版本是 Kotlin 2.4.20，我们仅发布针对 Kotlin 2.4.20 的缺陷修复版本。我们不会发布针对 Kotlin 2.4.0 的缺陷修复版本。
 
-<!--
 下表列出了所有 Kotlin 发布及其支持窗口：
 
 <table>
@@ -136,17 +135,16 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
         <td><strong>2.4</strong>
         </td>
         <td>
-            <p>待定</p>
+            <p>2026 年 6 月 3 日</p>
         </td>
         <td>
-            <p>待定</p>
+            <p>2027 年 12 月 3 日</p>
         </td>
         <td>
             <p>暂无可用</p>
         </td>
     </tr>
 </table>
--->
 
 > 我们随时欢迎您向我们反馈所发现的任何安全问题。要报告您在 Kotlin 中发现的问题，请直接在我们的[问题跟踪器](https://youtrack.jetbrains.com/newIssue?project=KT&c=Type%20Security%20Problem)上发布消息或向我们发送[电子邮件](mailto:security@jetbrains.org)。
 > 
@@ -164,6 +162,16 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
     <tr>
         <th>构建信息</th>
         <th>构建亮点</th>
+    </tr>
+    <tr>
+        <td><strong>2.4.0</strong>
+            <p>发布日期：<strong>2026 年 6 月 3 日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.0" target="_blank">GitHub 上的发布</a></p>
+        </td>
+        <td>
+            <p>一个语言发布，包含新的和稳定的语言功能、工具更新、不同平台的性能改进以及重要修复。</p>
+            <p>在 <a href="whatsnew24.md" target="_blank">Kotlin 2.4.0 最新变化</a> 中了解更多关于 Kotlin 2.4.0 的信息。</p>
+        </td>
     </tr>
     <tr>
         <td><strong>2.3.21</strong>

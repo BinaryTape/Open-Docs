@@ -8,7 +8,7 @@ Koog 에이전트는 다음과 같은 핵심 개념을 중심으로 구축됩니
 
 - [프롬프트 실행기(prompt executor)](../prompts/prompt-executors.md)는 프롬프트를 관리하고 실행하여 에이전트가 추론 및 의사 결정을 위해 LLM과 상호작용할 수 있도록 합니다.
 - [전략(strategy)](../nodes-and-components.md)은 에이전트의 워크플로를 정의합니다. 유향 그래프(directed graph), 함수 또는 플래너 형태가 될 수 있습니다. [에이전트 유형](#agent-types)을 참조하세요.
-- 에이전트는 외부 데이터 소스 및 서비스와 상호작용하기 위해 [도구](../tools-overview.md)를 사용할 수 있습니다.
+- 에이전트는 외부 데이터 소스 및 서비스와 상호작용하기 위해 [도구](../tools/index.md)를 사용할 수 있습니다.
 - [기능(features)](../features/index.md)을 사용하여 AI 에이전트의 기능을 확장하고 강화할 수 있습니다.
 
 !!! tip

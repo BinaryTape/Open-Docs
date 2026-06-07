@@ -285,6 +285,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 > - 1.4.20：插件被弃用
 > - 2.1.20：引入配置错误，且不再执行插件代码
 > - 2.2.0：移除插件代码
+> - 2.4.0：移除插件 ID
 
 ### 弃用 `kotlinOptions` DSL
 
@@ -335,6 +336,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 >
 > - 2.1.0：弃用在 `kotlinc` 中使用 REPL 并报告警告
 > - 2.2.0：要通过 `kotlinc` 使用 REPL，请使用 `-Xrepl` 编译器选项选择加入；弃用 JSR-223，可以通过切换到语言版本 1.9 来恢复支持；弃用 `KotlinScriptMojo` Maven 插件
+> - 2.4.0：移除通过 `KotlinScriptMojo` Maven 插件执行的 Kotlin 脚本
 
 ### 弃用消除歧义的分类器属性
 

@@ -216,7 +216,7 @@ _[「保持語言現代化」](kotlin-evolution-principles.md)_與 _「舒適的
 >
 > **組件**：kotlin-stdlib
 >
-> **不相容變更類型**：原始碼
+> **不相容變改類型**：原始碼
 >
 > **簡短摘要**：棄用 `AbstractDoubleTimeSource`；請改用 [`AbstractLongTimeSource`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/-abstract-long-time-source/)。
 >
@@ -285,6 +285,7 @@ _[「保持語言現代化」](kotlin-evolution-principles.md)_與 _「舒適的
 > - 1.4.20：棄用此外掛程式
 > - 2.1.20：引入配置錯誤，且不再執行外掛程式程式碼
 > - 2.2.0：移除外掛程式程式碼
+> - 2.4.0：移除外掛程式 ID
 
 ### 棄用 `kotlinOptions` DSL
 
@@ -335,6 +336,7 @@ _[「保持語言現代化」](kotlin-evolution-principles.md)_與 _「舒適的
 >
 > - 2.1.0：針對在 `kotlinc` 中使用 REPL 發出警告
 > - 2.2.0：要透過 `kotlinc` 使用 REPL，請使用 `-Xrepl` 編譯器選項進行加入；棄用 JSR-223，可透過切換至語言版本 1.9 恢復支援；棄用 `KotlinScriptMojo` Maven 外掛程式
+> - 2.4.0：移除透過 `KotlinScriptMojo` Maven 外掛程式執行的 Kotlin 指令碼
 
 ### 棄用消除歧義的分類器屬性
 
@@ -483,7 +485,7 @@ _[「保持語言現代化」](kotlin-evolution-principles.md)_與 _「舒適的
 > - 2.1.0：將此警告提升為錯誤
 > - 2.2.0：從 Kotlin 多平台 Gradle 外掛程式中移除 `android` 目標 DSL
 
-### 棄用 `CInteropProcess` 中的 `konanVersion`
+### 棄用 `konanVersion` 在 `CInteropProcess` 中
 
 > **問題**：[KT-71069](https://youtrack.jetbrains.com/issue/KT-71069)
 >
@@ -499,7 +501,7 @@ _[「保持語言現代化」](kotlin-evolution-principles.md)_與 _「舒適的
 > - 2.2.0：將此警告提升為錯誤
 > - 2.3.0：從 Kotlin Gradle 外掛程式中移除 `konanVersion` 屬性
 
-### 棄用 `CInteropProcess` 中的 `destinationDir`
+### 棄用 `destinationDir` 在 `CInteropProcess` 中
 
 > **問題**：[KT-71068](https://youtrack.jetbrains.com/issue/KT-71068)
 >

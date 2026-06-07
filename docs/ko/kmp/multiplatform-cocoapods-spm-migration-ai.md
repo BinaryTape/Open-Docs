@@ -1,5 +1,5 @@
 [//]: # (title: Junie를 사용하여 Kotlin Multiplatform 프로젝트의 CocoaPods 의존성을 SwiftPM으로 전환하기)
-<primary-label ref="Experimental"/>
+<primary-label ref="alpha"/>
 
 CocoaPods 의존성이 있는 KMP 모듈이 있고 [SwiftPM 가져오기(import)](multiplatform-spm-import.md)를 사용하여 Swift 패키지로 전환하고 싶다면, AI의 도움을 받을 수 있습니다.
 이 가이드는 Junie와 Kotlin AI 스킬(skills)을 사용하여 이 과정을 더 쉽게 진행하는 방법을 보여줍니다.

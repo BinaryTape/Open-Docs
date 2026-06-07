@@ -40,7 +40,7 @@ plugins {
 | _&lt;targetName&gt;_ | 프로젝트의 특정 타겟을 선언합니다. 사용 가능한 타겟 이름은 [타겟](#targets) 섹션에 나열되어 있습니다.                |
 | `targets`            | 프로젝트의 모든 타겟을 나열합니다.                                                                                                       |
 | `sourceSets`         | 프로젝트의 사전 정의된 [소스 세트](#source-sets)를 설정하고 커스텀 소스 세트를 선언합니다.                                                   |
-| `compilerOptions`    | 모든 타겟과 공유 소스 세트의 기본값으로 사용되는 공통 확장 수준의 [컴파일러 옵션](#compiler-options)을 지정합니다. |
+| `compilerOptions`    | 모든 타겟과 공유 소스 세트의 기본값으로 사용되는 공통 확장 수준의 [컴파일러 옵](#compiler-options)을 지정합니다. |
 | `dependencies`       | [공통 의존성](#configure-dependencies-at-the-top-level)을 설정합니다. (실험적 기능)                                              |
 
 ## 타겟
@@ -1069,8 +1069,8 @@ kotlin {
 kotlin {
     sourceSets.all {
         languageSettings.apply {
-            languageVersion = "%languageVersion%" // 가능한 값: "2.0", "2.1", "2.2", "2.3", "2.4" (EXPERIMENTAL)
-            apiVersion = "%apiVersion%" // 가능한 값: "2.0", "2.1", "2.2", "2.3", "2.4" (EXPERIMENTAL)
+            languageVersion = "%languageVersion%" // 가능한 값: "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (EXPERIMENTAL)
+            apiVersion = "%apiVersion%" // 가능한 값: "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (EXPERIMENTAL)
             enableLanguageFeature("InlineClasses") // 언어 기능 이름
             optIn("kotlin.ExperimentalUnsignedTypes") // 어노테이션 정규화 이름(FQ-name)
             progressiveMode = true // 기본값은 false
@@ -1086,8 +1086,8 @@ kotlin {
 kotlin {
     sourceSets.all {
         languageSettings {
-            languageVersion = '%languageVersion%' // 가능한 값: '2.0', '2.1', '2.2', '2.3', '2.4' (EXPERIMENTAL)
-            apiVersion = '%apiVersion%' // 가능한 값: '2.0', '2.1', '2.2', '2.3', '2.4' (EXPERIMENTAL)
+            languageVersion = '%languageVersion%' // 가능한 값: '2.0', '2.1', '2.2', '2.3', '2.4', '2.5' (EXPERIMENTAL)
+            apiVersion = '%apiVersion%' // 가능한 값: '2.0', '2.1', '2.2', '2.3', '2.4', '2.5' (EXPERIMENTAL)
             enableLanguageFeature('InlineClasses') // 언어 기능 이름
             optIn('kotlin.ExperimentalUnsignedTypes') // 어노테이션 정규화 이름(FQ-name)
             progressiveMode = true // 기본값은 false

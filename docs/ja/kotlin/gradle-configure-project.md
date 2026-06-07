@@ -32,7 +32,7 @@ plugins {
 plugins {
     // `<...>` をターゲット環境に適したプラグイン名に置き換えてください
     id 'org.jetbrains.kotlin.<...>' version '%kotlinVersion%'
-    // 例えば、ターゲット環境が JVM の場合：
+    // 例えば、ターゲット環境が JVM の場合： 
     // id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
 }
 ```
@@ -49,7 +49,8 @@ plugins {
 
 | KGP バージョン | Gradle の最小および最大バージョン | AGP の最小および最大バージョン |
 |---------------|---------------------------------------|-----------------------------------------------------|
-| 2.3.20–2.3.21 | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
+| 2.4.0         | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
+| 2.3.20–2.3.21 | 7.6.3–9.3.0                           | 8.2.2–9.0.0                                         |
 | 2.3.10        | 7.6.3–9.0.0                           | 8.2.2–9.0.0                                         |
 | 2.3.0         | 7.6.3–9.0.0                           | 8.2.2–8.13.0                                        |
 | 2.2.20–2.2.21 | 7.6.3–8.14                            | 7.3.1–8.11.1                                        |
@@ -681,7 +682,7 @@ plugins {
 要件に応じて、以下のターゲットを指定できます。
 
 * **`wasmJs`**: ブラウザまたは Node.js での実行用
-* **`wasmWasi`**: Wasmtime、WasmEdge などの [WASI (WebAssembly System Interface)](https://wasi.dev/) をサポートする Wasm 環境での実行用
+* **`wasmWasi`**: Wasmtime、WasmEdge などの [WASI (WebAssembly System Interface)](https://wasi.dev/) をサポートする Wasm環境での実行用
 
 Web ブラウザまたは Node.js 用に `wasmJs` ターゲットを構成します。
 
@@ -973,6 +974,7 @@ kotlin.stdlib.jdk.variants.version.alignment=false
   
 * Kotlin 標準ライブラリバージョン `%kotlinVersion%` の依存関係（`implementation("org.jetbrains.kotlin:kotlin-stdlib:%kotlinVersion%")`）と、古いバージョン（`1.8.0` より前）の Kotlin Gradle プラグインを追加した場合は、標準ライブラリのバージョンに合わせて Kotlin Gradle プラグインを更新してください。
 
+  
   <tabs group="build-script">
   <tab title="Kotlin" group-key="kotlin">
 
@@ -1270,7 +1272,7 @@ dependencyResolutionManagement {
 </tab>
 <tab title="Groovy" group-key="groovy">
 
-```kotlin
+```groovy
 dependencyResolutionManagement {
     repositories {
         mavenCentral()

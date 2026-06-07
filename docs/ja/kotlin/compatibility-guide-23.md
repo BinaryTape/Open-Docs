@@ -114,7 +114,7 @@
 >
 > **互換性のない変更の種類**: 振る舞い
 >
-> **短い要約**: Kotlin 2.3.0 では、トップレベルラムダに対しても、コール引数として渡されるラムダと同じ型チェックロジックを使用するようになり、両方のケースで一貫したジェネリックシグネチャの生成を保証します。
+> **短い要約**: Kotlin 2.3.0 では、トップレベルラムダに対しても、コール引数として渡されるラムダと同じ型チェックロジックを使用するなり、両方のケースで一貫したジェネリックシグネチャの生成を保証します。
 >
 > **非推奨化サイクル**:
 >
@@ -139,7 +139,7 @@
 
 > **Issue**: [KTLC-275](https://youtrack.jetbrains.com/issue/KTLC-275)
 >
-> **コンポーポネント**: コア言語
+> **コンポーネント**: コア言語
 >
 > **互換性のない変更の種類**: ソース
 >
@@ -206,7 +206,7 @@
 >
 > **互換性のない変更の種類**: ソース
 >
-> **短い要約**: `kotlin.io.createTempDirectory()` および `kotlin.io.createTempFile()` 関数が非推奨になりました。
+> **短い要約**: `kotlin.io.createTempDirectory()` および `kotlin.io.createTempFile()` 関数が非推奨になりました。 
 > 代わりに [`kotlin.io.path.createTempDirectory()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.io.path/create-temp-directory.html) および [`kotlin.io.path.createTempFile()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.io.path/create-temp-file.html) 関数を使用してください。
 >
 > **非推奨化サイクル**:
@@ -341,6 +341,7 @@
 >
 > - 2.2.20: 警告を報告
 > - 2.3.0: 警告をエラーに格上げ
+> - 2.4.0: 関数を削除
 
 ### `closureTo()`、`createResultSet()`、`KotlinToolingVersionOrNull()` 関数を削除
 
@@ -400,7 +401,7 @@
 > * `CompositeDependency.dependencyName`、`CompositeDependency.dependencyVersion`、`CompositeDependency.includedBuildDir`。
 > * `KotlinNpmInstallTask.Companion.NAME`。
 > * `LockCopyTask.Companion.STORE_PACKAGE_LOCK_NAME`、`LockCopyTask.Companion.RESTORE_PACKAGE_LOCK_NAME`、`LockCopyTask.Companion.UPGRADE_PACKAGE_LOCK`。
-> * `Npm.npmExec()」。
+> * `Npm.npmExec()`。
 > * `NpmProject.require()`、`NpmProject.useTool()`。
 > * `PublicPackageJsonTask.jsIrCompilation`。
 > * `YarnBasics.yarnExec()`。
@@ -411,6 +412,7 @@
 >
 > - 2.2.0 および 2.2.20: これらの関数またはプロパティを使用している場合に警告を報告
 > - 2.3.0: 警告をエラーに格上げ
+> - 2.4.0: 関数とプロパティを削除
 
 ### PhantomJS のサポートを非推奨化
 
@@ -454,6 +456,7 @@
 >
 > - 2.2.0: これらのクラスからサブクラスを作成するコードに対して警告を報告
 > - 2.3.0: 警告をエラーに格上げ
+> - 2.4.0: API を削除
 
 ### `ExperimentalWasmDsl` アノテーションクラスを非推奨化
 
@@ -469,6 +472,7 @@
 >
 > - 2.0.20: 警告を報告
 > - 2.3.0: 警告をエラーに格上げ
+> - 2.4.0: アノテーションクラスを削除
 
 ### `ExperimentalDceDsl` アノテーションクラスを非推奨化
 
@@ -484,6 +488,7 @@
 >
 > - 2.2.0: 警告を報告
 > - 2.3.0: 警告をエラーに格上げ
+> - 2.4.0: アノテーションクラスを削除
 
 ### JavaScript ユーティリティを非推奨化
 
@@ -508,6 +513,7 @@
 > - 2.2.0: `NodeJsSetupTask.Companion.NAME` プロパティおよび関数が使用された場合に警告を報告
 > - 2.2.20: `JsIrBinary.generateTs` プロパティが使用された場合に警告を報告
 > - 2.3.0: 警告をエラーに格上げ
+> - 2.4.0: API を削除
 
 ### 移行された D8 および Binaryen プロパティを非推奨化
 
@@ -532,6 +538,7 @@
 >
 > - 2.2.0: 警告を報告
 > - 2.3.0: 警告をエラーに格上げ
+> - 2.4.0: プロパティを削除
 
 ### `NodeJsExec` DSL の `create()` 関数を非推奨化
 
@@ -547,6 +554,7 @@
 >
 > - 2.1.20: 警告を報告
 > - 2.3.0: 警告をエラーに格上げ
+> - 2.4.0: 関数を削除
 
 ### `kotlinOptions` DSL のプロパティを非推奨化
 
@@ -580,6 +588,7 @@
 >
 > - 2.2.0: `kotlinArtifacts` API が使用された場合に警告を報告
 > - 2.3.0: この警告をエラーに格上げ
+> - 2.4.0: API を削除
 
 ### `kotlin.mpp.resourcesResolutionStrategy` Gradle プロパティを削除
 
@@ -686,13 +695,14 @@
 >
 > **互換性のない変更の種類**: ソース
 >
-> **短い要約**: Kotlin 2.2.20 で、[`getPluginArtifactForNative()` 関数が非推奨になりました](whatsnew2220.md#reduced-size-of-kotlin-native-distribution)。
+> **短い要約**: Kotlin 2.2.20 で、[`getPluginArtifactForNative()` 関数が非推奨になりました](whatsnew2220.md#reduced-size-of-kotlin-native-distribution)。 
 > 代わりに [`getPluginArtifact()`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-compiler-plugin-support-plugin/get-plugin-artifact.html) 関数を使用してください。
 >
 > **非推奨化サイクル**:
 >
 > - 2.2.20: 警告を報告
 > - 2.3.0: 警告をエラーに格上げ
+> - 2.4.0: 関数を削除
 
 ### すべての生成されたソースを登録するアプローチの変更
 
@@ -770,7 +780,7 @@
 
 ### `LanguageSettings.enableLanguageFeature` DSL を非推奨化
 
-> **Issue**: [KT-82323](https://youtrack.jetbrains.com/issue/KT-82323)
+> **Issue**: [KT-82323](https://youtrack.jetbrains.com/issue/KT-82323), [KT-82847](https://youtrack.jetbrains.com/issue/KT-82847)
 >
 > **コンポーネント**: Gradle
 >
@@ -780,7 +790,8 @@
 >
 > **非推奨化サイクル**:
 >
-> - 2.3.20: 警告を報告
+> - 2.3.20: `LanguageSettings.enableLanguageFeature` を使用している場合に警告を報告
+> - 2.4.0: 警告をエラーに格上げ
 
 ### 「プロセス外 (out of process)」コンパイラ実行戦略を非推奨化
 
@@ -795,6 +806,7 @@
 > **非推奨化サイクル**:
 >
 > - 2.3.20: 警告を報告
+> - 2.4.0: 「プロセス外 (out of process)」コンパイラ実行戦略を削除
 
 ## ビルドツールの削除 (Build tool removal)
 

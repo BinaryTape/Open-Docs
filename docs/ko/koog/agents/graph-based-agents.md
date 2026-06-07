@@ -161,7 +161,8 @@ Koog에서는 [`AIAgentGraphStrategyBuilder`](https://api.koog.ai/agents/agents-
 
 이전 예제에서 `onToolCalls { true }`는 이전 노드가 최소 하나 이상의 도구 호출(`MessagePart.Tool.Call`)을 포함한 어시스턴트 메시지를 반환한 경우에만 해당 에지를 따라간다는 것을 의미합니다.
 
-`onTextMessage { true }`를 사용하면 이전 노드가 텍스트 부분(`MessagePart.Text`)을 포함한 어시스턴트 메시지를 반환한 경우에만 에지를 따라갑니다. 이 함수는 또한 해당 텍스트 내용들을 추출하고 결합하여, `nodeFinish`가 문자열을 기대하기 때문에 `Message.Assistant`를 `String`으로 효과적으로 변환합니다.
+`onTextMessage { true }`를 사용하면 이전 노드가 텍스트 부분(`MessagePart.Text`)을 포함한 어시스턴트 메시지를 반환한 경우에만 에지를 따라갑니다.
+이 함수는 또한 해당 텍스트 내용들을 추출하고 결합하여, `nodeFinish`가 문자열을 기대하기 때문에 `Message.Assistant`를 `String`으로 효과적으로 변환합니다.
 
 !!! tip
 
@@ -355,7 +356,7 @@ graph LR
 
 ## 도구 추가하기
 
-수학 연산을 수행하기 위한 [도구](../tools-overview.md)를 정의하고 [ToolRegistry](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool-registry/index.html)에 추가합니다.
+수학 연산을 수행하기 위한 [도구](../tools/index.md)를 정의하고 [ToolRegistry](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.tools/-tool-registry/index.html)에 추가합니다.
 
 === "Kotlin"
 

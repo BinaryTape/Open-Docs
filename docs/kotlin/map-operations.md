@@ -4,25 +4,49 @@
 
 ## 检索键和值
 
-要从 map 中检索值，必须将其键作为 [`get()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/get.html) 函数的实参提供。也支持简写的 `[key]` 语法。如果找不到给定的键，则返回 `null`。还有一个函数 [`getValue()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/get-value.html)，它的行为略有不同：如果在 map 中找不到该键，它会抛出异常。此外，你还有另外两个处理键缺失的选项：
+要从 map 中检索值，必须将其键作为 [`get()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/get.html) 函数的实参提供。也支持简写的 `[key]` 语法。如果找不到给定的键，则返回 `null`。还有一个函数 [`getValue()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/get-value.html)，它的行为略有不同：如果在 map 中找不到该键，它会抛出异常。此外，你还有更多处理键缺失的选项：
 
 * [`getOrElse()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/get-or-else.html) 与处理列表的方式相同：不存在的键的值由给定的 lambda 表达式返回。
 * [`getOrDefault()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/get-or-default.html) 如果找不到键，则返回指定的默认值。
 
-```kotlin
+对于包含可为 null 值的 map，请改用以下函数，它们显式处理缺失的键和 `null` 值：
 
+* `getOrElseIfNull()` 如果键缺失或具有 `null` 值，则返回指定默认值的结果。
+* `getOrElseIfMissing()` 如果键缺失，则返回指定默认值的结果。
+
+以下示例展示了这些函数之间的区别：
+
+```kotlin
+@OptIn(ExperimentalStdlibApi::class)
 fun main() {
 //sampleStart
     val numbersMap = mapOf("one" to 1, "two" to 2, "three" to 3)
     println(numbersMap.get("one"))
+    // 1
+
     println(numbersMap["one"])
+    // 1
+
     println(numbersMap.getOrDefault("four", 10))
-    println(numbersMap["five"])               // null
-    //numbersMap.getValue("six")      // 异常！
+    // 10
+
+    println(numbersMap["five"])
+    // null
+    
+    val nullableMap = mapOf("one" to 1, "two" to null)
+    println(nullableMap.getOrElseIfNull("two") { 0 })
+    // 0
+
+    println(nullableMap.getOrElseIfMissing("two") { 0 })
+    // null
+
+    // 如果 map 中缺失 "six"，则抛出异常
+    // numbersMap.getValue("six")
+
 //sampleEnd
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true" kotlin-min-compiler-version="2.4"}
 
 要对 map 的所有键或所有值执行操作，可以分别从属性 `keys` 和 `values` 中检索它们。`keys` 是所有 map 键的集合，而 `values` 是所有 map 值的集合。
 
@@ -73,7 +97,7 @@ fun main() {
 
 ## plus 和 minus 运算符
 
-由于通过键访问元素，[`plus`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/plus.html) (`+`) 和 [`minus`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/minus.html) 运算符在 map 中的工作方式与其他集合不同。`plus` 返回一个包含其两个操作数元素的 `Map`：左侧是一个 `Map`，右侧是一个 `Pair` 或另一个 `Map`。当右侧操作数包含左侧 `Map` 中已存在的键的条目时，结果 map 将包含来自右侧的条目。
+由于通过键访问元素，[`plus`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/plus.html) (`+`) 和 [`minus`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/minus.html) (`-`) 运算符在 map 中的工作方式与其他集合不同。`plus` 返回一个包含其两个操作数元素的 `Map`：左侧是一个 `Map`，右侧是一个 `Pair` 或另一个 `Map`。当右侧操作数包含左侧 `Map` 中已存在的键的条目时，结果 map 将包含来自右侧的条目。
 
 ```kotlin
 
@@ -179,6 +203,42 @@ fun main() {
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
 当使用 map 中已存在的键进行调用时，运算符会覆盖相应条目的值。
+
+#### 为缺失的条目添加默认值
+
+要在没有可用值时返回现有值或添加默认值，请使用 [`.getOrPut()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/get-or-put.html) 扩展方法。如果键缺失或具有 `null` 值，`.getOrPut()` 会存储默认值并将其返回。
+
+对于包含可为 null 值的 map，你可以使用 `.getOrPutIfNull()` 和 `.getOrPutIfMissing()` 函数来控制如何处理 `null` 值：
+
+* `getOrPutIfNull()` 的行为与 `getOrPut()` 类似，如果键缺失或具有 `null` 值，则使用默认值。
+* `getOrPutIfMissing()` 仅在键缺失时才使用默认值。
+
+`getOrPutIfNull()` 和 `getOrPutIfMissing()` 函数处于[实验性阶段](components-stability.md#stability-levels-explained)。要启用，请使用 `@OptIn(ExperimentalStdlibApi::class)` 注解。
+
+以下是一个示例：
+
+```kotlin
+@OptIn(ExperimentalStdlibApi::class)
+fun main() {
+//sampleStart
+    val mapForNull = mutableMapOf<String, Int?>("one" to null)
+    val mapForMissing = mutableMapOf<String, Int?>("one" to null)
+
+    // 如果 "one" 具有 null 值，则替换该值
+    mapForNull.getOrPutIfNull("one") { 1 }
+
+    println(mapForNull)
+    // {one=1}
+
+    // 保留 null 值，因为 map 中存在 "one"
+    mapForMissing.getOrPutIfMissing("one") { 1 }
+
+    println(mapForMissing)
+    // {one=null}
+//sampleEnd
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="2.4"}
 
 ### 移除条目
 

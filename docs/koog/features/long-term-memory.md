@@ -1,4 +1,10 @@
+---
+status: beta
+---
+
 # 长期记忆
+
+--8<-- "versioning-snippets.md:beta"
 
 `LongTermMemory` 功能通过两组独立的设置向 Koog AI 智能体添加持久化记忆：
 - **检索 (Retrieval)** — 使用来自存储的相关上下文增强 LLM 提示词（检索增强生成或 RAG）

@@ -112,24 +112,15 @@ export { moduleExports as default };
 
 `.mjs` 파일을 커스텀 위치에 둘 수도 있습니다. 이 경우 파일을 수동으로 메인 `.mjs` 파일 옆으로 옮기거나, 해당 위치에 맞게 임포트 문(import statement)의 경로를 조정해야 합니다.
 
-## 느린 Kotlin/Wasm 컴파일
+## Kotlin/Wasm 증분 컴파일
 
-Kotlin/Wasm 프로젝트를 작업할 때 컴파일 시간이 느려지는 현상을 경험할 수 있습니다. 이는 변경 사항이 있을 때마다 Kotlin/Wasm 툴체인이 전체 코드베이스를 다시 컴파일하기 때문에 발생합니다.
+Kotlin/Wasm 타겟은 증분 컴파일(incremental compilation)을 지원합니다. 증분 컴파일을 사용하면 컴파일러가 최근 변경 사항의 영향을 받는 파일만 다시 컴파일할 수 있어 컴파일 시간을 단축하는 데 도움이 됩니다.
 
-이 문제를 완화하기 위해 Kotlin/Wasm 타겟은 증분 컴파일(incremental compilation)을 지원합니다. 증분 컴파일을 사용하면 컴파일러가 마지막 컴파일 이후 변경된 내용과 관련된 파일만 다시 컴파일할 수 있습니다.
-
-증분 컴파일을 사용하면 컴파일 시간이 단축됩니다. 현재 개발 속도가 두 배 정도 향상되며, 향후 릴리스에서 더욱 개선될 예정입니다.
-
-현재 설정에서 Wasm 타겟에 대한 증분 컴파일은 기본적으로 비활성화되어 있습니다. 이를 활성화하려면 프로젝트의 `local.properties` 또는 `gradle.properties` 파일에 다음 라인을 추가하세요:
+Wasm 타겟에 대한 증분 컴파일은 기본적으로 활성화되어 있습니다. 이를 비활성화하려면 프로젝트의 `local.properties` 또는 `gradle.properties` 파일에 다음 라인을 추가하세요:
 
 ```text
-kotlin.incremental.wasm=true
+kotlin.incremental.wasm=false
 ```
-
-> Kotlin/Wasm 증분 컴파일을 사용해 보고 [피드백을 공유](https://youtrack.jetbrains.com/issue/KT-72158/Kotlin-Wasm-incremental-compilation-feedback)해 주세요.
-> 여러분의 의견은 이 기능이 더 빨리 안정화되고 기본적으로 활성화되는 데 도움이 됩니다.
->
-{style="note"}
 
 ## 정규화된 클래스 이름(FQN)의 진단
 
@@ -182,7 +173,7 @@ kotlin {
 }
 ```
 
-컴파일러 옵션을 활성화하면 트랩 대신 `IndexOutOfBoundsException`이 발생합니다.
+컴파일러 옵션을 활성화하면 트랩 대신 `IndexOutOfBoundsException`이 발생합니다. 
 
 자세한 내용을 확인하고 이 [YouTrack 이슈](https://youtrack.jetbrains.com/issue/KT-73452/K-Wasm-turning-on-range-checks-by-default)에서 피드백을 공유해 주세요.
 

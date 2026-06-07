@@ -106,27 +106,118 @@ external fun newC()
 ```
 
 ### @JsExport アノテーション
+<primary-label ref="experimental-general"/>
 
-> この機能は[試験的](components-stability.md#stability-levels-explained)です。
-> 将来のバージョンで設計が変更される可能性があります。
->
-{style="warning"} 
+トップレベルの宣言（クラス、インターフェース、関数など）に `@JsExport` アノテーションを適用することで、Kotlin の宣言を JavaScript または TypeScript から利用できるようにします。このアノテーションは、Kotlin で指定された名前ですべてのネストされた宣言をエクスポートします。
 
-トップレベルの宣言（クラスや関数など）に `@JsExport` アノテーションを適用することで、その Kotlin 宣言を JavaScript から利用できるようにします。このアノテーションは、Kotlin で指定された名前ですべてのネストされた宣言をエクスポートします。
-また、`@file:JsExport` を使用してファイルレベルで適用することもできます。
+例えば、ネストされたクラスと名前付きコンパニオンオブジェクトを持つ Kotlin インターフェースをエクスポートする方法は次のとおりです：
 
-エクスポートにおける曖昧さ（同名の関数のオーバーロードなど）を解決するために、`@JsExport` アノテーションを `@JsName` と組み合わせて使用し、生成およびエクスポートされる関数の名前を指定できます。
+```kotlin
+@JsExport
+interface Identity {
+     class Metadata(val tag: String)
 
-現在、`@JsExport` アノテーションは、Kotlin の関数を JavaScript から見えるようにするための唯一の方法です。
+    companion object Registry {
+        val defaultTag = "GUEST"
+    }
+}
+```
 
-マルチプラットフォームプロジェクトでは、`@JsExport` は共通コード（common code）でも利用可能です。これは JavaScript ターゲット向けにコンパイルする場合にのみ効果があり、プラットフォーム固有ではない Kotlin 宣言もエクスポートできるようにします。
+現在、`@JsExport` アノテーションは、関数を JavaScript から見えるようにするための唯一の方法です。
+
+`@JsExport` アノテーションは以下でも利用可能です：
+
+* マルチプラットフォームプロジェクトの共通コード。これは JavaScript ターゲット向けにコンパイルする場合にのみ効果があり、プラットフォーム固有ではない Kotlin 宣言もエクスポートできるようにします。
+* 生成およびエクスポートされる関数の名前を指定するための [`@JsName` アノテーション](#jsname-annotation)との併用。これは、エクスポートにおける曖昧さ（同名の関数のオーバーロードなど）を解決するのに役立ちます。
+* `@file:JsExport` を使用したファイルレベルでの適用。
+
+#### 値クラスのエクスポートのサポート
+
+Kotlin の [インライン値クラス（inline value classes）](inline-classes.md)を、通常の TypeScript クラスとしてエクスポートできます。
+
+値クラスをエクスポートするには、Kotlin 側で `@JsExport` アノテーションを付加します：
+
+```kotlin
+// Kotlin
+@JsExport
+@JvmInline
+value class Email(val address: String) {
+    init { require(address.contains("@")) { "Invalid email" } }
+}
+
+@JsExport
+class AuthService {
+    suspend fun login(email: Email): String = ...
+}
+```
+
+TypeScript 側からは、通常のクラスのように見えます：
+
+```typescript
+// TypeScript
+import { AuthService, Email } from "..."
+const auth = new AuthService();
+
+console.log(await auth.login(new Email("jane@example.com"))); 
+// "Welcome, jane@example.com!"
+console.log(await auth.login(new Email("not-an-email"))); 
+// "Invalid email"
+```
+
+### @JsNoRuntime アノテーション
+
+`@JsNoRuntime` アノテーションを使用して、Kotlin インターフェースを JavaScript/TypeScript にエクスポートできます。
+これにより、通常の TypeScript インターフェースへの直接的なマッピングが可能になります。
+
+例えば、Kotlin マルチプラットフォームプロジェクトから Kotlin インターフェースをエクスポートするには：
+
+1. 共通コードの Kotlin インターフェースに `@JsNoRuntime` を付加します：
+
+    ```kotlin
+    // commonMain
+    import kotlin.js.JsNoRuntime
+    
+    @JsNoRuntime
+    expect interface DataProcessor {
+        fun process(data: String): Int 
+    }
+    ```
+
+2. JS 固有のソースコードで、`actual` 実装に `@JsNoRuntime` を付加します：
+
+    ```kotlin
+    // jsMain
+    import kotlin.js.JsNoRuntime
+    
+    @JsNoRuntime
+    actual interface DataProcessor {
+        actual fun process(data: String): Int
+    } 
+    ```
+    
+3. TypeScript 側では、インターフェースは通常の TypeScript インターフェースにマッピングされます：
+    
+    ```typescript
+    // 生成された .d.ts
+    export interface DataProcessor {
+        process(data: string): number;
+    }
+    ```
+
+Kotlin マルチプラットフォームプロジェクトにおける一般的なルールは以下の通りです：
+
+* `expect` と `actual` の両方のインターフェース宣言に `@JsNoRuntime` を付加する必要があります。唯一の例外は、プラットフォーム固有のコードの `actual` 側における、アノテーションを必要としない `external` 実装です。
+* `expect` 側の共通コードで `external` インターフェース宣言を使用することは禁止されています。代わりに、`@JsNoRuntime` が付加された通常のインターフェースを使用してください。
+
+`@JsNoRuntime` を使用した Kotlin インターフェースのエクスポートにはいくつかの制限があります。このアノテーションは以下の場合には使用できません：
+
+* すでにデフォルトで `@JsNoRuntime` があるかのように動作する `external` インターフェース。追加するとコンパイラの警告が発生します。
+* `is` および `as` による型チェック。
+* [`::class` 構文](js-reflection.md)を使用するクラス参照。
+* [具体化された型引数（reified type argument）](inline-functions.md#reified-type-parameters)として渡されるインターフェース。
 
 ### @JsStatic
-
-> この機能は[試験的](components-stability.md#stability-levels-explained)です。いつでも削除または変更される可能性があります。
-> 評価目的でのみ使用してください。[YouTrack](https://youtrack.jetbrains.com/issue/KT-18891/JS-provide-a-way-to-declare-static-members-JsStatic) でのフィードバックをお待ちしております。
->
-{style="warning"}
+<primary-label ref="experimental-general"/>
 
 `@JsStatic` アノテーションは、ターゲットとなる宣言に対して追加の静的メソッドを生成するようコンパイラに指示します。
 これにより、Kotlin コードの静的メンバーを JavaScript で直接使用できるようになります。
@@ -156,6 +247,8 @@ C.Companion.callNonStatic(); // これが唯一の動作する方法
 ```
 
 また、オブジェクトまたはコンパニオンオブジェクトのプロパティに `@JsStatic` アノテーションを適用することもでき、そのゲッターおよびセッターメソッドを、そのオブジェクトまたはコンパニオンオブジェクトを含むクラスの静的メンバーにすることができます。
+
+この機能は[試験的](components-stability.md#stability-levels-explained)です。課題トラッカー [YouTrack](https://youtrack.jetbrains.com/issue/KT-18891/JS-provide-a-way-to-declare-static-members-JsStatic) でフィードバックを共有してください。
 
 ### Kotlin の Long 型を表現するために BigInt 型を使用する
 <primary-label ref="experimental-general"/>

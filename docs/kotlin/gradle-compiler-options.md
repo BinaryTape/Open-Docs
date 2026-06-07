@@ -572,7 +572,7 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 | 名称 | 描述 | 可能的值 | 默认值 |
 |---------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|-----------------------------|
 | `javaParameters` | 为方法参数生成适用于 Java 1.8 反射的元数据 | | false |
-| `jvmTarget` | 生成的 JVM 字节码的目标版本 | "1.8", "9", "10", ..., "24", 25"。另请参阅 [编译器选项的类型](#编译器选项的类型) | "%defaultJvmTargetVersion%" |
+| `jvmTarget` | 生成的 JVM 字节码的目标版本 | "1.8", "9", "10", ..., "25", 26"。另请参阅 [编译器选项的类型](#编译器选项的类型) | "%defaultJvmTargetVersion%" |
 | `noJdk` | 不要自动将 Java 运行时包含到类路径中 | | false |
 | `jvmTargetValidationMode` | <list><li>验证 Kotlin 和 Java 之间的 [JVM 目标兼容性](gradle-configure-project.md#check-for-jvm-target-compatibility-of-related-compile-tasks)</li><li>`KotlinCompile` 类型任务的一个属性。</li></list> | `WARNING`, `ERROR`, `IGNORE` | `ERROR` |
 | `jvmDefault` | 控制如何将在接口中声明的函数编译为 JVM 上的默认方法 | `ENABLE`, `NO_COMPATIBILITY`, `DISABLE` | `ENABLE` |
@@ -585,8 +585,8 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 | `suppressWarnings` | 不生成警告 | | false |
 | `verbose` | 启用详细日志记录输出。仅当 [启用 Gradle 调试日志级别](https://docs.gradle.org/current/userguide/logging.html) 时有效 | | false |
 | `freeCompilerArgs` | 附加编译器参数列表。您也可以在这里使用实验性的 `-X` 参数。请参阅 [通过 freeCompilerArgs 使用附加参数的示例](#通过-freecompilerargs-使用附加参数的示例) | | [] |
-| `apiVersion` | 限制只能使用指定版本的捆绑库中的声明 | "1.9", "2.0", "2.1", "2.2", "2.3", "2.4" (实验性) | |
-| `languageVersion` | 提供与指定版本 Kotlin 的源兼容性 | "1.9", "2.0", "2.1", "2.2", "2.3", "2.4" (实验性) | |
+| `apiVersion` | 限制只能使用指定版本的捆绑库中的声明 | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (实验性) | |
+| `languageVersion` | 提供与指定版本 Kotlin 的源兼容性 | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (实验性) | |
 
 > 我们将在未来的版本中弃用 `freeCompilerArgs` 属性。如果您在 Kotlin Gradle DSL 中缺少某些选项，
 > 请 [提交一个问题 (issue)](https://youtrack.jetbrains.com/newissue?project=kt)。

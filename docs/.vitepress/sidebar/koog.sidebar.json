@@ -13,6 +13,10 @@
             "link": "key-features"
           },
           {
+            "text": "koog.module-versioning",
+            "link": "module-versioning"
+          },
+          {
             "text": "koog.llm-providers",
             "link": "llm-providers"
           },
@@ -79,11 +83,11 @@
               },
               {
                 "text": "koog.multimodal-content",
-                "link": "prompts/prompt-creation/cache-control"
+                "link": "prompts/prompt-creation/multimodal-content"
               },
               {
                 "text": "koog.cache-control",
-                "link": "prompts/prompt-creation/multimodal-content"
+                "link": "prompts/prompt-creation/cache-control"
               }
             ],
             "collapsed": true
@@ -94,6 +98,10 @@
               {
                 "text": "koog.llm-clients",
                 "link": "prompts/llm-clients"
+              },
+              {
+                "text": "koog.http-clients",
+                "link": "prompts/http-clients"
               },
               {
                 "text": "koog.prompt-executors",
@@ -143,20 +151,19 @@
         "text": "koog.tools",
         "items": [
           {
-            "text": "koog.overview",
-            "link": "tools-overview"
+            "text": "koog._0"
           },
           {
             "text": "koog.built-in-tools",
-            "link": "built-in-tools"
+            "link": "tools/built-in-tools"
           },
           {
             "text": "koog.annotation-based-tools",
-            "link": "annotation-based-tools"
+            "link": "tools/annotation-based-tools"
           },
           {
             "text": "koog.class-based-tools",
-            "link": "class-based-tools"
+            "link": "tools/class-based-tools"
           },
           {
             "text": "koog.custom-tools-schema",
@@ -244,20 +251,19 @@
         "text": "koog.a2a-protocol",
         "items": [
           {
-            "text": "koog.overview",
-            "link": "a2a-protocol-overview"
+            "text": "koog._0"
           },
           {
             "text": "koog.a2a-server-implementation",
-            "link": "a2a-server"
+            "link": "a2a/a2a-server"
           },
           {
             "text": "koog.a2a-client-implementation",
-            "link": "a2a-client"
+            "link": "a2a/a2a-client"
           },
           {
             "text": "koog.a2a-and-koog-integration",
-            "link": "a2a-koog-integration"
+            "link": "a2a/a2a-koog-integration"
           }
         ],
         "collapsed": true
@@ -323,8 +329,7 @@
             "text": "koog.subgraphs",
             "items": [
               {
-                "text": "koog.overview",
-                "link": "subgraphs-overview"
+                "text": "koog._0"
               },
               {
                 "text": "koog.custom-subgraphs",
@@ -363,8 +368,7 @@
     "text": "koog.examples",
     "items": [
       {
-        "text": "koog.overview",
-        "link": "examples"
+        "text": "koog._0"
       },
       {
         "text": "koog.attachments",

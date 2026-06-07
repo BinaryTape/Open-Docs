@@ -1,4 +1,10 @@
+---
+status: beta
+---
+
 # LLM 기반 플래너
+
+--8<-- "versioning-snippets.md:beta"
 
 LLM 기반 플래너는 LLM을 사용하여 계획을 생성하고 평가합니다.
 이들은 문자열 기반 상태(string-based state)에서 작동하며 LLM 요청을 통해 단계를 실행합니다.

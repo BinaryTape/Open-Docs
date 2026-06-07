@@ -1,4 +1,10 @@
+---
+status: beta
+---
+
 # 장기 메모리 (Long-term memory)
+
+--8<-- "versioning-snippets.md:beta"
 
 `LongTermMemory` 기능은 두 가지 독립적인 설정 그룹을 통해 Koog AI 에이전트에 영구 메모리를 추가합니다:
 - **Retrieval (검색)** — 메모리 저장소에서 관련 컨텍스트를 가져와 LLM 프롬프트를 보강합니다 (검색 증강 생성 또는 RAG)

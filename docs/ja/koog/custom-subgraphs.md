@@ -138,7 +138,7 @@
     ```
     <!--- KNIT exampleCustomSubgraphsJava02.java -->
 
-パラメータおよびパラメータ値の詳細については、`subgraph` の [APIリファレンス](api:agents-core::ai.koog.agents.core.dsl.builder.AIAgentSubgraphBuilderBase.subgraph) を参照してください。ツールに関する詳細は、[ツール](tools-overview.md) を参照してください。
+パラメータおよびパラメータ値の詳細については、`subgraph` の [APIリファレンス](api:agents-core::ai.koog.agents.core.dsl.builder.AIAgentSubgraphBuilderBase.subgraph) を参照してください。ツールに関する詳細は、[ツール](tools/index.md) を参照してください。
 
 以下のコードサンプルは、カスタムサブグラフの実際の実装例を示しています。
 

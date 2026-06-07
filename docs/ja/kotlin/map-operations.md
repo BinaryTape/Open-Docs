@@ -9,25 +9,49 @@
 マップから値を取得するには、[`get()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/get.html) 関数の引数としてそのキーを渡す必要があります。
 短縮形の `[key]` 構文もサポートされています。指定されたキーが見つからない場合、`null` を返します。
 また、[`getValue()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/get-value.html) 関数もあります。これは少し動作が異なり、キーがマップ内に見つからない場合に例外をスローします。
-さらに、キーが存在しない場合を処理するためのオプションが他に2つあります。
+さらに、キーが存在しない場合を処理するためのオプションが他にあります。
 
 * [`getOrElse()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/get-or-else.html) はリストの場合と同じように動作します。存在しないキーに対する値が、指定されたラムダ関数から返されます。
 * [`getOrDefault()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/get-or-default.html) は、キーが見つからない場合に指定されたデフォルト値を返します。
 
-```kotlin
+値に null を許容する（nullable な）マップの場合は、代わりに以下の関数を使用して、欠落しているキーと `null` 値を明示的に処理します：
 
+* `getOrElseIfNull()` は、キーが欠落しているか、値が `null` の場合に、指定されたデフォルト値の結果を返します。
+* `getOrElseIfMissing()` は、キーが欠落している場合にのみ、指定されたデフォルト値の結果を返します。
+
+以下の例は、これらの関数の違いを示しています：
+
+```kotlin
+@OptIn(ExperimentalStdlibApi::class)
 fun main() {
 //sampleStart
     val numbersMap = mapOf("one" to 1, "two" to 2, "three" to 3)
     println(numbersMap.get("one"))
+    // 1
+
     println(numbersMap["one"])
+    // 1
+
     println(numbersMap.getOrDefault("four", 10))
-    println(numbersMap["five"])               // null
-    //numbersMap.getValue("six")      // 例外が発生！
+    // 10
+
+    println(numbersMap["five"])
+    // null
+    
+    val nullableMap = mapOf("one" to 1, "two" to null)
+    println(nullableMap.getOrElseIfNull("two") { 0 })
+    // 0
+
+    println(nullableMap.getOrElseIfMissing("two") { 0 })
+    // null
+
+    // "six" がマップに存在しないため、例外をスローします
+    // numbersMap.getValue("six")
+
 //sampleEnd
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true" kotlin-min-compiler-version="2.4"}
 
 マップのすべてのキーまたはすべての値に対して操作を実行するには、プロパティ `keys` および `values` からそれぞれ取得できます。
 `keys` はマップのすべてのキーのセット（set）であり、`values` はマップのすべての値のコレクション（collection）です。
@@ -196,6 +220,44 @@ fun main() {
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
 マップ内に存在するキーを指定して呼び出された場合、演算子は対応するエントリの値を上書きします。
+
+#### 欠落しているエントリへのデフォルト値の追加
+
+既存の値を返すか、値が利用できない場合にデフォルト値を追加するには、[`.getOrPut()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/get-or-put.html) 拡張関数を使用します。
+キーが欠落しているか、値が `null` の場合、`.getOrPut()` はデフォルト値を保存してそれを返します。
+
+値に null を許容するマップの場合、`null` 値の扱いを制御するために `.getOrPutIfNull()` および `.getOrPutIfMissing()` 関数を使用できます：
+
+* `getOrPutIfNull()` は `getOrPut()` と同様に動作し、キーが欠落しているか値が `null` の場合にデフォルト値を使用します。
+* `getOrPutIfMissing()` は、キーが欠落している場合にのみデフォルト値を使用します。
+
+`getOrPutIfNull()` および `getOrPutIfMissing()` 関数は[試験的（Experimental）](components-stability.md#stability-levels-explained)です。
+オプトインするには、`@OptIn(ExperimentalStdlibApi::class)` アノテーションを使用してください。
+
+以下に例を示します：
+
+```kotlin
+@OptIn(ExperimentalStdlibApi::class)
+fun main() {
+//sampleStart
+    val mapForNull = mutableMapOf<String, Int?>("one" to null)
+    val mapForMissing = mutableMapOf<String, Int?>("one" to null)
+
+    // "one" の値が null の場合、値を置き換える
+    mapForNull.getOrPutIfNull("one") { 1 }
+
+    println(mapForNull)
+    // {one=1}
+
+    // "one" がマップに存在するため、null 値を保持する
+    mapForMissing.getOrPutIfMissing("one") { 1 }
+
+    println(mapForMissing)
+    // {one=null}
+//sampleEnd
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="2.4"}
 
 ### エントリの削除
 

@@ -246,16 +246,16 @@ kotlin {
 
 对于二进制文件配置，可以使用以下参数：
 
-| **名称**             | **说明**                                                                                                                                                                 | 
-|----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `compilation`        | 构建二进制文件所属的编译。默认情况下，`test` 二进制文件基于 `test` 编译，而其他二进制文件基于 `main` 编译。                                                              |
-| `linkerOpts`         | 在二进制文件构建期间传递给系统链接器的选项。                                                                                                                             |
-| `baseName`           | 输出文件的自定义基本名称。最终文件名将通过在此基本名称后添加系统相关的显式前缀和后缀形成。                                                                              |
-| `entryPoint`         | 可执行二进制文件的入口点函数。默认情况下，它是根软件包中的 `main()`。                                                                                                    |
-| `outputFile`         | 访问输出文件。                                                                                                                                                           |
-| `linkTask`           | 访问链接任务。                                                                                                                                                           |
-| `runTask`            | 访问可执行二进制文件的运行任务。对于 `linuxX64`、`macosArm64` 或 `mingwX64` 以外的目标，该值为 `null`。                                                                |
-| `isStatic`           | 用于 Objective-C 框架。包含静态库而不是动态库。                                                                                                                          |
+| **名称**             | **说明**                                                                                                                                                                                                                                              | 
+|----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `compilation`        | 构建二进制文件所属的编译。默认情况下，`test` 二进制文件基于 `test` 编译，而其他二进制文件基于 `main` 编译。                                                                                                                                          |
+| `linkerOpts`         | 在二进制文件构建期间传递给系统链接器的选项。                                                                                                                                                                                                          |
+| `baseName`           | 输出文件的自定义基本名称。最终文件名将通过在此基本名称后添加系统相关的显式前缀和后缀形成。                                                                                                                                                          |
+| `entryPoint`         | 可执行二进制文件的入口点函数。默认情况下，它是根软件包中的 `main()`。                                                                                                                                                                                |
+| `outputFile`         | 访问输出文件。                                                                                                                                                                                                                                        |
+| `linkTask`           | 访问链接任务。                                                                                                                                                                                                                                        |
+| `runTask`            | 访问可执行二进制文件的运行任务。对于 `linuxX64`、`macosArm64` 或 `mingwX64` 以外的目标，该值为 `null`。                                                                                                                                            |
+| `isStatic`           | 用于 Objective-C 框架。包含静态库而不是动态库。                                                                                                                                                                                                      |
 | `disableNativeCache` | <p>禁用编译缓存。由于会增加编译时间，请仅在特殊情况下使用。</p><p>必须包含禁用了缓存的 Kotlin `version` 以及 `reason`（原因）。（可选）可以指定指向问题跟踪器中 `issue` 的 URL。</p> |
 
 <Tabs group="build-script">
@@ -381,7 +381,7 @@ kotlin {
                 // 由 cinterop 工具传递给编译器的选项。
                 compilerOpts("-Ipath/to/headers")
 
-                // 用于头文件搜索的目录（类似于 -I<path> 编译器选项）。
+                // 用于头文件搜索的目录（类似于 -I<path> 编译器 option）。
                 includeDirs.allHeaders("path1", "path2")
 
                 // includeDirs.allHeaders 的快捷方式。
@@ -1071,8 +1071,8 @@ kotlin {
 kotlin {
     sourceSets.all {
         languageSettings.apply {
-            languageVersion = "%languageVersion%" // 可能的值: "2.0", "2.1", "2.2", "2.3", "2.4" (实验性)
-            apiVersion = "%apiVersion%" // 可能的值: "2.0", "2.1", "2.2", "2.3", "2.4" (实验性)
+            languageVersion = "%languageVersion%" // 可能的值: "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (实验性)
+            apiVersion = "%apiVersion%" // 可能的值: "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (实验性)
             enableLanguageFeature("InlineClasses") // 语言功能名称
             optIn("kotlin.ExperimentalUnsignedTypes") // 注解完全限定名
             progressiveMode = true // 默认为 false
@@ -1088,8 +1088,8 @@ kotlin {
 kotlin {
     sourceSets.all {
         languageSettings {
-            languageVersion = '%languageVersion%' // 可能的值: '2.0', '2.1', '2.2', '2.3', '2.4' (实验性)
-            apiVersion = '%apiVersion%' // 可能的值: '2.0', '2.1', '2.2', '2.3', '2.4' (实验性)
+            languageVersion = '%languageVersion%' // 可能的值: '2.0', '2.1', '2.2', '2.3', '2.4', '2.5' (实验性)
+            apiVersion = '%apiVersion%' // 可能的值: '2.0', '2.1', '2.2', '2.3', '2.4', '2.5' (实验性)
             enableLanguageFeature('InlineClasses') // 语言功能名称
             optIn('kotlin.ExperimentalUnsignedTypes') // 注解完全限定名
             progressiveMode = true // 默认为 false

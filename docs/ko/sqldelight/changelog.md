@@ -29,6 +29,8 @@
 - [컴파일러] 다중 행 업데이트(multirow update)에 대한 낙관적 락(optimistic lock) 수정 (#6240 by @griffio)
 - [Intellij 플러그인] IDEA 2026.2에서 크래시를 유발하는 지원 중단(deprecations) 관련 수정 (#6247 by @griffio)
 - [Gradle 플러그인] AGP 8.9에서 8.11 버전까지 Kotlin 컴파일 시 생성된 소스(generated sources)를 인식하지 못하던 문제 수정
+- [PostgreSQL 다이얼렉트] Primitive 바운드 인자를 사용할 때 `lower` 및 `upper` 함수의 기본값을 `TEXT`로 설정하도록 수정 (#6262 by @griffio)
+- [컴파일러] 널 안전 연산자(null safe operators, `IS` 및 `IS DISTINCT FROM`)와 함께 널 허용(nullable) 바인드 인자 사용 (#6265 by @griffio)
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -496,9 +498,9 @@ sqldelight {
 - [Gradle 플러그인] Gradle 플러그인의 런타임 의존성으로 `kotlin-stdlib`을 추가하지 않도록 수정 (#3245 by @mbonnin)
 - [Gradle 플러그인] 멀티플랫폼 구성 단순화 (#3246 by @mbonnin)
 - [Gradle 플러그인] js 전용 프로젝트 지원 (#3310 by @hfhbd)
-- [IDE 플러그인] Use java home for gradle tooling API (#3078)
-- [IDE 플러그인] Load the JDBC driver on the correct classLoader inside the IDE plugin (#3080)
-- [IDE 플러그인] mark the file element as null before invalidating to avoid errors during already existing PSI changes (#3082)
+- [IDE 플러그인] Gradle 툴링 API를 위해 Java Home 사용 (#3078)
+- [IDE 플러그인] IDE 플러그인 내에서 올바른 `classLoader`로 JDBC 드라이버를 로드하도록 수정 (#3080)
+- [IDE 플러그인] 이미 존재하는 PSI 변경 중 에러 방지를 위해 무효화하기 전 파일 요소를 널로 표시 (#3082)
 - [IDE 플러그인] `ALTER TABLE` 문에서 새로운 테이블 이름의 사용처를 찾을 때 발생하는 크래시 수정 (#3106)
 - [IDE 플러그인] 인스펙터를 최적화하고 예상되는 예외 타입에 대해 조용히 실패하도록 활성화 (#3121)
 - [IDE 플러그인] 생성된 디렉토리여야 하는 파일 삭제 (#3198)
@@ -606,7 +608,7 @@ sqldelight {
 }
 ```
 
-현재 지원되는 다이얼렉트는 `mysql-dialect`, `postgresql-dialect`, `hsql-dialect`, `sqlite-3-18-dialect`, `sqlite-3-24-dialect`, `sqlite-3-25-dialect`, `sqlite-3-30-dialect`, `sqlite-3-35-dialect`입니다.
+현재 지원되는 다이얼렉트는 `mysql-dialect`, `postgresql-dialect`, `hsql-dialect`, `sqlite-3-18-dialect`, `sqlite-3-24-dialect`, `sqlite-3-24-dialect`, `sqlite-3-30-dialect`, `sqlite-3-35-dialect`입니다.
 
 - 원시 타입은 이제 명시적으로 임포트해야 합니다(예: `INTEGER AS Boolean`을 쓰려면 `import kotlin.Boolean` 필요). 이전에 지원되던 일부 타입은 이제 어댑터가 필요합니다. 대부분의 변환을 위한 원시 어댑터는 `app.cash.sqldelight:primitive-adapters:2.0.0-alpha01`에서 제공됩니다(예: `IntColumnAdapter`를 위한 `Integer AS kotlin.Int`).
 
@@ -1129,7 +1131,7 @@ sqldelight {
 
  * 신규: 컬럼 Java 타입으로 short 원시 지원
  * 신규: 생성된 매퍼 및 팩토리 메서드에 Javadoc 추가
- * 수정: `group_concat` 및 `nullif` 함수가 적절한 널 허용 여부를 가짐
+ * 수정: group_concat 및 nullif 함수의 널 허용 여부 수정
  * 수정: Android Studio 2.2-alpha와의 호환성
  * 수정: `WITH RECURSIVE`가 더 이상 플러그인을 크래시 내지 않음
 
@@ -1141,15 +1143,15 @@ sqldelight {
  * 신규: 이름이 명명된 statement의 Javadoc이 생성된 String에 나타남.
  * 수정: 생성된 view 모델이 널 허용 어노테이션을 포함함.
  * 수정: 유니온으로부터 생성된 코드가 가능한 모든 컬럼을 지원하도록 적절한 타입과 널 허용 여부를 가짐.
- * 수정: 생성된 코드에서 `sum` 및 `round` SQLite 함수가 적절한 타입을 가짐.
- * 수정: `CAST`, 내부 select 버그 수정.
- * 수정: `CREATE TABLE` 문에서의 자동 완성.
- * 수정: 패키지에 SQLite 키워드 사용 가능.
+ * 수정: 생성된 코드에서 sum 및 round SQLite 함수가 적절한 타입을 가짐.
+ * 수정: CAST, 내부 select 버그 수정.
+ * 수정: CREATE TABLE 문에서의 자동 완성.
+ * 수정: SQLite 키워드를 패키지에 사용 가능.
 
 ## [0.4.2] - 2016-06-16
 [0.4.2]: https://github.com/sqldelight/sqldelight/releases/tag/0.4.2
 
- * 신규: Marshal 가 Factory 로부터 생성 가능.
+ * 신규: Marshal을 팩토리로부터 생성 가능.
  * 수정: IntelliJ 플러그인이 적절한 제네릭 순서로 팩토리 메서드를 생성함.
  * 수정: 함수 이름에 대소문자 구분 없이 사용 가능.
 

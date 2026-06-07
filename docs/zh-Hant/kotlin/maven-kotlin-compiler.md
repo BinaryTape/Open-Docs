@@ -12,7 +12,7 @@
     <groupId>org.jetbrains.kotlin</groupId>
     <artifactId>kotlin-maven-plugin</artifactId>
     <version>${kotlin.version}</version>
-    <extensions>true</extensions> <!-- 如果您想要在外掛程式建置中啟用自動加入執行 -->
+    <extensions>true</extensions> <!-- 如果您想要在組建中啟用自動加入執行 -->
     <executions>...</executions>
     <configuration>
         <nowarn>true</nowarn> <!-- 停用警告 -->
@@ -39,16 +39,18 @@
 ### 針對 JVM 的特定屬性
 
 | 名稱 | 屬性名稱 | 說明 | 可能的值 | 預設值 |
-|-------------------|-----------------------------------|------------------------------------------------------------------------------------------------------|---------------------------------------------------------|-----------------------------|
+|-------------------|-----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|-----------------------------|
 | `nowarn`          |                                   | 不產生警告 | true, false                                             | false                       |
-| `languageVersion` | `kotlin.compiler.languageVersion` | 提供與指定 Kotlin 版本的原始碼相容性 | "1.9", "2.0", "2.1", "2.2", "2.3", "2.4" （實驗性） |                             |
-| `apiVersion`      | `kotlin.compiler.apiVersion`      | 僅允許使用來自指定版本隨附程式庫的宣告 | "1.9", "2.0", "2.1", "2.2", "2.3", "2.4" （實驗性） |                             |
+| `languageVersion` | `kotlin.compiler.languageVersion` | 提供與指定 Kotlin 版本的原始碼相容性 | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" （實驗性） |                             |
+| `apiVersion`      | `kotlin.compiler.apiVersion`      | 僅允許使用來自指定版本隨附程式庫的宣告 | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" （實驗性） |                             |
 | `sourceDirs`      |                                   | 包含要編譯的原始碼檔案目錄 |                                                         | 專案原始碼根目錄 |
 | `compilerPlugins` |                                   | 啟用的編譯器外掛程式 |                                                         | []                          |
 | `pluginOptions`   |                                   | 編譯器外掛程式的選項 |                                                         | []                          |
 | `args`            |                                   | 額外的編譯器引數 |                                                         | []                          |
-| `jvmTarget`       | `kotlin.compiler.jvmTarget`       | 產生的 JVM 位元組碼目標版本 | "1.8", "9", "10", ..., "25"                             | "%defaultJvmTargetVersion%" |
-| `jdkHome`         | `kotlin.compiler.jdkHome`         | 從指定位置包含自訂 JDK 到 classpath，而非使用預設的 JAVA_HOME |                                                         |                             |
+| `jvmTarget`       | `kotlin.compiler.jvmTarget`       | 產生的位元組碼目標 JVM 版本。僅控制輸出位元組碼版本，不會限制您的程式碼可以使用的 JDK API。 | "1.8", "9", "10", ..., "26"                             | "%defaultJvmTargetVersion%" |
+| `jdkRelease`      | `kotlin.compiler.jdkRelease`      | 目標 JVM 版本。控制位元組碼版本並將可用的 API 限制為指定的 JDK 版本，防止意外使用較新的 API。相當於 Java 的 `--release` 編譯器選項。 | "1.8", "9", "10", ..., "26"                             |                             |
+| `jdkHome`         | `kotlin.compiler.jdkHome`         | 從指定位置包含自訂 JDK 到 classpath，而非使用預設的 `JAVA_HOME` |                                                         |                             |
+| `jdkToolchain`    | `kotlin.compiler.jdkToolchain`    | 設定要從工具鏈使用的 JDK 版本。僅影響 Kotlin 編譯 |                                                         |                             |
 
 ## 選擇執行策略
 
@@ -68,7 +70,7 @@
 
 ## 啟用增量編譯
 
-為了加快建置速度，您可以透過加入 `kotlin.compiler.incremental` 屬性來啟用增量編譯：
+為了加快組建速度，您可以透過加入 `kotlin.compiler.incremental` 屬性來啟用增量編譯：
 
 ```xml
 <properties>
@@ -76,7 +78,7 @@
 </properties>
 ```
 
-或者，使用 `-Dkotlin.compiler.incremental=true` 選項來執行建置。
+或者，使用 `-Dkotlin.compiler.incremental=true` 選項來執行組建。
 
 ## 下一步？
 

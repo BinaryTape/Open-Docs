@@ -138,7 +138,7 @@
     ```
     <!--- KNIT exampleCustomSubgraphsJava02.java -->
 
-매개변수 및 매개변수 값에 대한 자세한 내용은 `subgraph` [API 레퍼런스](api:agents-core::ai.koog.agents.core.dsl.builder.AIAgentSubgraphBuilderBase.subgraph)를 참고하세요. 도구에 대한 자세한 내용은 [도구(Tools)](tools-overview.md)를 참고하세요.
+매개변수 및 매개변수 값에 대한 자세한 내용은 `subgraph` [API 레퍼런스](api:agents-core::ai.koog.agents.core.dsl.builder.AIAgentSubgraphBuilderBase.subgraph)를 참고하세요. 도구에 대한 자세한 내용은 [도구(Tools)](tools/index.md)를 참고하세요.
 
 다음 코드 예제는 커스텀 서브그래프의 실제 구현 방식을 보여줍니다:
 

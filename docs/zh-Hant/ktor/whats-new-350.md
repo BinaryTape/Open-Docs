@@ -6,25 +6,25 @@ _[發布日期：2026 年 5 月 15 日](releases.md#release-details)_
 
 Ktor 3.5.0 針對伺服器與用戶端提供了一系列改進。本次功能發布的重點包括：
 
-* [支援 RFC 7616 摘要驗證（Digest authentication）](#rfc-7616-digest-auth)
-* [根配置（Root configuration）data class 對應](#config-data-class-mapping)
+* [支援 RFC 7616 摘要驗證 (Digest authentication)](#rfc-7616-digest-auth)
+* [根配置 (Root configuration) data class 對應](#config-data-class-mapping)
 * [僅在修改時傳送工作階段 Cookie](#session-cookies)
 * [OkHttp 與 Apache5 用戶端引擎中的自訂 DNS 解析器](#custom-dns-resolvers)
 
-## Ktor 伺服器
+## Ktor Server
 
-### 支援 RFC 7616 摘要驗證（Digest authentication） {id="rfc-7616-digest-auth"}
+### 支援 RFC 7616 摘要驗證 (Digest authentication) {id="rfc-7616-digest-auth"}
 
 Ktor 3.5.0 更新了 [`digest` 驗證提供者](server-digest-auth.md)以符合 [RFC 7616](https://datatracker.ietf.org/doc/html/rfc7616) 規範，提升了安全性並增加了對現代 Digest 功能的支援。
 
-本版本引入了以下變更：
+本次發布引入了以下變更：
 
 * 您現在可以使用 `algorithms` 屬性配置多個雜湊演算法。當指定多個值時，Ktor 會傳送多個 `WWW-Authenticate` 標頭，以便用戶端可以選擇支援的最強選項。
-* 引入了 `DigestAlgorithm` 與 `DigestQop` 列舉（enums）以取代基於字串的配置。
+* 引入了 `DigestAlgorithm` 與 `DigestQop` 列舉 (enums) 以取代基於字串的配置。
 * `digestProvider {}` lambda 現在會接收一個 `algorithm` 參數，允許您動態計算正確的摘要。
-* 根據 RFC 7616，`qop` 參數現在已包含在驗證挑戰（authentication challenges）中。
-* 增加了對基於工作階段（session-based）演算法的支援，例如 `SHA-256-sess` 與 `SHA-512-256-sess`。
-* 增加了對 RFC 7616 使用者名稱雜湊（`userhash`）的支援，以改善隱私保護。
+* 根據 RFC 7616，`qop` 參數現在已包含在驗證挑戰 (authentication challenges) 中。
+* 增加了對基於工作階段 (session-based) 演算法的支援，例如 `SHA-256-sess` 與 `SHA-512-256-sess`。
+* 增加了對 RFC 7616 使用者名稱雜湊 (`userhash`) 的支援，以改善隱私保護。
 
 以下範例顯示如何從舊版配置遷移到符合 RFC 7616 的 API：
 
@@ -67,9 +67,9 @@ install(Authentication) {
 
 如需完整指南，請參閱 [Ktor 伺服器中的摘要驗證](server-digest-auth.md)。
 
-### 自訂提供者中的掛起（Suspending）`.authenticate()` 多載
+### 自訂提供者中的掛起 (Suspending) `.authenticate()` 多載
 
-[自訂驗證提供者](server-auth.md#custom-auth-provider) 現在可以實作掛起（suspending）版本的 `DynamicProviderConfig.authenticate()` 函式。`.authenticate()` 函式接受一個掛起 lambda，因此您可以在驗證過程中直接呼叫協同程式 API：
+[自訂驗證提供者](server-auth.md#custom-auth-provider) 現在可以實作掛起 (suspending) 版本的 `DynamicProviderConfig.authenticate()` 函式。`.authenticate()` 函式接受一個掛起 lambda，因此您可以在驗證過程中直接呼叫協同程式 API：
 
 ```kotlin
 install(Authentication) {
@@ -82,7 +82,7 @@ install(Authentication) {
 }
 ```
 
-### 根配置（Root configuration）data class 對應 {id="config-data-class-mapping"}
+### 根配置 (Root configuration) data class 對應 {id="config-data-class-mapping"}
 
 `ApplicationConfig` 現在提供 `.getAs()` 函式，用於將整個配置反序列化為一個 data class。
 
@@ -112,7 +112,7 @@ val config = ApplicationConfig("application.yaml").getAs<Config>()
 
 Ktor 3.5.0 引入了一組新的擴充函式，簡化了從 `ApplicationCall` 存取必要請求資料的操作。
 
-以前，驗證必要的請求資料通常需要重複的 null 檢查和標籤返回（labeled returns）。為了改進此工作流程，Ktor 現在提供以下新的擴充函式：
+以前，驗證必要的請求資料通常需要重複的 null 檢查和標籤返回 (labeled returns)。為了改進此工作流程，Ktor 現在提供以下新的擴充函式：
 
 * `ApplicationCall.requireQueryParameter()` — 從請求 URL 中檢索必要的查詢參數。如果參數缺失，則拋出例外。
 * `ApplicationCall.requireHeader()` — 檢索必要的 HTTP 標頭值。如果請求中不存在該標頭，則拋出例外。
@@ -156,7 +156,7 @@ post("/checkout") {
 
 我們修復了在啟用 ES 模組時無法使用 `ktor-network` 及其所有依賴模組的問題。
 
-為了幫助防止未來發生迴歸（regression），我們的 JavaScript 測試基礎結構現在預設同時針對 ES2015 和 ES 模組。
+為了幫助防止未來發生迴歸 (regression)，我們的 JavaScript 測試基礎結構現在預設同時針對 ES2015 和 ES 模組。
 
 > 有關 Kotlin/JS 模組系統和 ES2015 支援的更多資訊，請參閱：
 > * [JavaScript 模組](https://kotlinlang.org/docs/js-modules.html)
@@ -178,7 +178,20 @@ install(Sessions) {
 }
 ```
 
-## Ktor 用戶端
+### 自訂 SSE 心跳事件 (heartbeat events)
+
+本次發布為 Ktor 伺服器端的 SSE 支援引入了一個新選項，讓您可以使用事件提供者函式 (event provider function) 完整自訂心跳事件：
+
+```kotlin
+heartbeat {
+    period = 30.milliseconds
+    eventProvider = { ServerSentEvent(data = "ts=${Clock.System.now()}") }
+}
+```
+
+這使得定期傳送自訂心跳承載資料 (heartbeat payloads) 成為可能，例如時間戳記和狀態資訊。
+
+## Ktor Client
 
 ### OkHttp 與 Apache5 引擎中的自訂 DNS 解析器 {id="custom-dns-resolvers"}
 

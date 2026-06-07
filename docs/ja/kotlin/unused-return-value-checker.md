@@ -9,7 +9,7 @@
 >
 {style="note"}
 
-未使用戻り値チェッカーを使用すると、_無視された結果_（ignored results）を検出できます。
+未使用戻り値チェッカーを使用すると、 _無視された結果_（ignored results）を検出できます。
 これらは、`Unit`、`Nothing`、または `Nothing?` 以外を返す式から得られた値のうち、以下のいずれにも該当しないものを指します：
 
 * 変数やプロパティに格納されている。
@@ -170,6 +170,82 @@ fun check(g: Greeter) {
     SilentGreeter.greet("John")
 }
 ```
+
+## 高階関数における未使用の結果のチェック
+
+`let` スコープ関数などの一部の高階関数は、ラムダの結果を返します。
+高階関数の未使用のラムダ結果をチェックするには、関数のコントラクトに[試験的](components-stability.md#stability-levels-explained)（Experimental）な `returnsResultOf()` コントラクトを追加します。
+
+> Kotlinのコントラクトは試験的（Experimental）です。オプトインするには、コントラクトを持つ関数を宣言する際に `@OptIn(ExperimentalContracts::class)` アノテーションを追加してください。
+>
+{style="warning"}
+
+例を以下に示します：
+
+```kotlin
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.contract
+
+@OptIn(ExperimentalContracts::class)
+inline fun <T, R> T.customLet(block: (T) -> R): R {
+    contract {
+        returnsResultOf(block)
+    }
+    return block(this)
+}
+```
+
+これにより、`.customLet()` のようなこのコントラクトを持つ関数を使用して、ラムダの結果が使用されているかどうかをチェックできます：
+
+```kotlin
+fun handleNullablePackageName(packageName: String?, builder: StringBuilder) {
+    // チェッカーは、append() の戻り値を無視できるため、警告を報告しません
+    packageName?.customLet { builder.append(it) }
+
+    // チェッカーは、返された文字列が使用されていないため、警告を報告します
+    packageName?.customLet { "kotlin.$it" }
+}
+```
+
+> `returnsResultOf()` コントラクトを使用するには、別途コンパイラオプションでのオプトインが必要です。これを使用すると、2.4.0より前のバージョンのKotlinコンパイラでは読み取ることができない、プレリリースバイナリが生成されることに注意してください。
+>
+{style="warning"}
+
+プロジェクトでオプトインするには、ビルドファイルに以下のコンパイラオプションを追加します：
+
+<tabs group="build-system">
+<tab title="Gradle" group-key="gradle">
+
+```kotlin
+// build.gradle(.kts)
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xallow-returns-result-of")
+    }
+}
+```
+
+</tab> 
+<tab title="Maven" group-key="maven">
+
+```xml
+<!-- pom.xml -->
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-maven-plugin</artifactId>
+            <configuration>
+                <args>
+                    <arg>-Xallow-returns-result-of</arg>
+                </args>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+</tab> 
+</tabs>
 
 ## Javaアノテーションとの相互運用性
 

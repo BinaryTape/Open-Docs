@@ -191,7 +191,7 @@ What's on your mind? Are you trying to understand a specific meme, need help fin
     ```
     <!--- KNIT exampleBasicJava03.java -->
 
-以下は、異なる `temperature` 値によるレスポンスの例です。
+以下は、異なる temperature 値によるレスポンスの例です。
 
 === "0.4"
     
@@ -222,7 +222,7 @@ What's on your mind? Are you trying to understand a specific meme, need help fin
 
 ## ツールを追加する
 
-エージェントは [ツール](../tools-overview.md) を使用して特定のタスクを実行できます。
+エージェントは [ツール](../tools/index.md) を使用して特定のタスクを実行できます。
 
 まず、関数（Kotlin）またはメソッド（Java）に [`@Tool`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools.annotations/-tool/index.html) アノテーションを付加してツールを作成します。
 

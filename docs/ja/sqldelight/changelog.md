@@ -29,6 +29,8 @@
 - [コンパイラ] 複数行の更新 (multirow update) における楽観的ロックを修正 (#6240 by @griffio)
 - [Intellijプラグイン] IDEA 2026.2 でクラッシュを引き起こす非推奨事項を修正 (#6247 by @griffio)
 - [Gradleプラグイン] AGP 8.9 から 8.11 において、生成されたソースが Kotlin コンパイルに反映されない問題を修正
+- [PostgreSQLダイアレクト] `lower` および `upper` 関数が Primitive バインド引数を使用する際にデフォルトで `TEXT` になるように修正 (#6262 by @griffio)
+- [コンパイラ] Null 安全な演算子 (`IS` および `IS DISTINCT FROM`) で Null 許容のバインド引数を使用するように修正 (#6265 by @griffio)
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -39,7 +41,7 @@
 - [Gradleプラグイン] `Select` ワイルドカード展開を無効にする `expandSelectStar` フラグを追加 (#5813 by @griffio)
 - [MySQLダイアレクト] ウィンドウ関数 (Window Functions) のサポートを追加 (#6086 by @griffio)
 - [Gradleプラグイン] 開始スキーマバージョンが 1 ではなく、`verifyMigrations` が true の場合にビルドが失敗する問題を修正 (#6017 by @neilgmiller)
-- [Gradleプラグイン] `SqlDelightWorkerTask` をより詳細に設定可能にし、Windows上での開発をサポートするようにデフォルト設定を更新 (#5215 by @MSDarwish2000)
+- [Gradleプラグイン] `SqlDelightWorkerTask` をより詳細に設定可能にし、Windows 上での開発をサポートするようにデフォルト設定を更新 (#5215 by @MSDarwish2000)
 - [SQLiteダイアレクト] FTS5 仮想テーブルにおける合成カラム (synthesized columns) のサポートを追加 (#5986 by @watbe)
 - [PostgreSQLダイアレクト] Postgres の行レベルセキュリティ (row level security) のサポートを追加 (#6087 by @shellderp)
 - [PostgreSQLダイアレクト] `FOR UPDATE` を拡張し、`OF table`、`NO KEY UPDATE`、`NO WAIT` をサポート (#6104 by @shellderp)
@@ -220,7 +222,7 @@
 - [PostgreSQLダイアレクト] PostgreSQL `CREATE INDEX CONCURRENTLY` のサポートを追加 (#4531 by @griffio)
 - [PostgreSQLダイアレクト] PostgreSQL CTE の補助ステートメントが相互に参照可能になるようサポート (#4493 by @griffio)
 - [PostgreSQLダイアレクト] バイナリ式 (binary expr) および `sum` における PostgreSQL 型のサポートを追加 (#4539 by @Adriel-M)
-- [PostgreSQLダイアレクト] PostgreSQL `SELECT DISTINCT ON` 構文의 サポートを追加 (#4584 by @griffio)
+- [PostgreSQLダイアレクト] PostgreSQL `SELECT DISTINCT ON` 構文のサポートを追加 (#4584 by @griffio)
 - [PostgreSQLダイアレクト] `SELECT` 文における PostgreSQL JSON 関数のサポートを追加 (#4590 by @MariusVolkhart)
 - [PostgreSQLダイアレクト] `generate_series` PostgreSQL 関数を追加 (#4717 by @griffio)
 - [PostgreSQLダイアレクト] 追加の Postgres 文字列関数の定義を追加 (#4752 by @MariusVolkhart)
@@ -552,7 +554,7 @@ sqldelight {
 - [SQLite] `WHERE` 句における Null 許容パラメータの等価性チェックを置換しないように変更 (#1490 by @eygraber)
 - [SQLite] Sqlite 3.35 の `RETURNING` 文をサポート (#1490 by @eygraber)
 - [SQLite] `GENERATED` 句をサポート
-- [SQLite] Sqlite 3.38 ダイアレクトのサポートを追加 (by @eygraber)
+- [SQLite] Sqlite 3.38 ダイアレクト의 サポートを追加 (by @eygraber)
 
 ### Changed
 - [コンパイラ] 生成コードを整理
@@ -567,7 +569,7 @@ sqldelight {
 ### Fixed
 - [コンパイラ] 2.0 alpha において異なるテーブルから同じアダプタ型を使用するとコンパイルエラーが発生する問題を修正
 - [コンパイラ] `UPSERT` 文のコンパイル問題を修正 (#2791)
-- [コンパイラ] 複数のマッチがある場合、セレクト内のテーブルを使用するようにクエリ結果を修正 (#1874, #2313)
+- [コンパイラ] 複数（複数）のマッチがある場合、セレクト内のテーブルを使用するようにクエリ結果を修正 (#1874, #2313)
 - [コンパイラ] `INSTEAD OF` トリガーを持つ View の更新をサポート (#1018)
 - [コンパイラ] 関数名における `FROM` と `FOR` をサポート
 - [コンパイラ] 関数式における `SEPARATOR` キーワードを許可
@@ -759,7 +761,7 @@ sqldelight {
 - [RX拡張] サブスクリプション/破棄のレースリークを修正 (#2403 by @pyricau)
 - [コルーチン拡張] 通知前にクエリリスナーを登録するように修正
 - [コンパイラ] Kotlin 出力ファイルを一貫させるため `notifyQueries` をソート (by @thomascjy)
-- [コンパイラ] select クエリクラス의 プロパティに `@JvmField` アノテーションを付けないように修正 (by @eygraber)
+- [コンパイラ] select クエリクラスのプロパティに `@JvmField` アノテーションを付けないように修正 (by @eygraber)
 - [IDEプラグイン] インポート最適化を修正 (#2350 by @aperfilyev)
 - [IDEプラグイン] 未使用カラム検査を修正 (by @aperfilyev)
 - [IDEプラグイン] インポート検査とクラスアノテーターにネストされたクラスのサポートを追加 (by @aperfilyev)

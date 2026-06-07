@@ -249,7 +249,7 @@ Kotlin 2.0.0부터 최신 언어 버전을 시도해 보려면 `gradle.propertie
 빌드 보고서에는 다양한 컴파일 단계의 소요 시간과 컴파일이 증분 방식으로 이루어지지 못한 이유가 포함됩니다.
 컴파일 시간이 너무 길거나 동일한 프로젝트임에도 시간이 다를 때 성능 문제를 조사하기 위해 빌드 보고서를 사용하세요.
 
-Kotlin 빌드 보고서는 단일 Gradle 태스크를 세분화 단위로 하는 [Gradle 빌드 스캔(Gradle build scans)](https://scans.gradle.com/)보다 빌드 성능 문제를 더 효율적으로 조사할 수 있게 도와줍니다.
+Kotlin 빌드 보고서는 단일 Gradle 태스크를 세분화 단위로 하는 [Gradle 빌드 스캔(Gradle build scans)](https://scans.gradle.org/)보다 빌드 성능 문제를 더 효율적으로 조사할 수 있게 도와줍니다.
 
 컴파일 시간이 오래 걸리는 빌드 보고서를 분석하여 해결할 수 있는 두 가지 일반적인 경우는 다음과 같습니다:
 * 빌드가 증분 방식이 아니었습니다. 이유를 분석하고 근본적인 문제를 해결하세요.
@@ -285,7 +285,7 @@ kotlin.build.report.output=file,single_file,http,build_scan,json
 
 # single_file 출력을 사용하는 경우 필수입니다. 보고서를 저장할 위치를 지정합니다.
 # 더 이상 사용되지 않는 `kotlin.internal.single.build.metrics.file` 프로퍼티 대신 사용하세요.
-kotlin.build.report.single_file=some_filename
+kotlin.build.report.single_file=my/directory/path/some_filename
 
 # json 출력을 사용하는 경우 필수입니다. 보고서를 저장할 위치를 지정합니다.
 kotlin.build.report.json.directory=my/directory/path

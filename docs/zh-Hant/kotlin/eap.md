@@ -1,8 +1,8 @@
 [//]: # (title: 參與 Kotlin 早期體驗預覽 (EAP))
 
 <tldr>
-    <!--<p>目前沒有可用的預覽版本。</p>-->
-    <p>最新 Kotlin EAP 版本：<strong>%kotlinEapVersion%</strong></p>
+    <p>目前沒有可用的預覽版本。</p>
+    <!--<p>Latest Kotlin EAP release: <strong>%kotlinEapVersion%</strong></p>-->
 </tldr>
 
 您可以參與 Kotlin 早期體驗預覽 (EAP)，在最新 Kotlin 特性發佈前進行試用。
@@ -43,11 +43,10 @@ Kotlin EAP 組建通常包含以下階段：
 
 ## 組建詳細資訊
 
-<!--
 _目前沒有可用的預覽版本。_
--->
 
-<table>
+<!--
+ <table>
     <tr>
         <th>組建資訊</th>
         <th>組建亮點</th>
@@ -63,3 +62,4 @@ _目前沒有可用的預覽版本。_
         </td>
     </tr>
 </table>
+-->

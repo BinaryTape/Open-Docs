@@ -128,29 +128,41 @@ Exception in thread "main" java.lang.NoSuchMethodError: 'int LibKt.fib()'
 
 그러나 소스 호환성은 유지됩니다. 두 파일을 모두 다시 컴파일하면 프로그램이 이전과 같이 실행됩니다.
 
-### 호환성 유지를 위해 수동 오버로드 사용 {initial-collapse-state="collapsed" collapsible="true"}
+### 바이너리 호환성 유지를 위해 오버로드 사용 {initial-collapse-state="collapsed" collapsible="true"}
 
-바이너리 호환성을 유지하면서 함수에 새 매개변수를 추가하려면, 기본 인자가 있는 단일 함수를 사용하는 대신 여러 개의 오버로드(overload)를 수동으로 만들어야 합니다. 위의 예시에서는 `Int` 매개변수를 받는 경우를 위해 별도의 `fib()` 함수를 만드는 것을 의미합니다.
+공개된 API에 선택적 매개변수(optional parameters)를 추가할 때, [실험적(Experimental)](components-stability.md#stability-levels-explained) 기능인 [`@IntroducedAt`](java-to-kotlin-interop.md#overloads-generation) 애노테이션을 사용하여 바이너리 호환성을 유지할 수 있습니다.
+
+새로운 선택적 매개변수가 도입된 버전을 명시하여 각 매개변수에 애노테이션을 추가하십시오. 예:
+
+```kotlin
+@OptIn(ExperimentalVersionOverloading::class)
+fun fib(@IntroducedAt("1.1") input: Int = 0) = …
+```
+
+컴파일러는 이 정보를 사용하여 그에 대응하는 숨겨진 오버로드(hidden overloads)를 생성합니다.
+
+JVM용 Kotlin 코드를 작성할 때, 기본 인자가 있는 함수에 [`@JvmOverloads`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/) 애노테이션을 사용하여 오버로드를 생성할 수도 있습니다.
+
+> `@JvmOverloads` 애노테이션은 Kotlin 호출자에 대해 바이너리 호환성을 보장하지 않습니다. 대신 공개된 API를 변경할 때는 `@IntroducedAt` 애노테이션을 사용하거나 수동으로 오버로드를 추가하십시오.
+>
+{style="warning"}
+
+기본 인자가 있는 단일 함수를 사용하는 대신 수동으로 오버로드를 만들 수도 있습니다. 예를 들어, `fib()` 함수가 `Int` 매개변수를 받도록 하려면 별도의 오버로드를 만드십시오.
 
 ```kotlin
 fun fib() = … 
 fun fib(input: Int) = …
 ```
 
-JVM용 Kotlin 코드를 작성할 때, 기본 인자가 있고 [`@JvmOverloads`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/) 애노테이션이 붙은 함수에 매개변수를 추가할 때 주의하십시오. 이 애노테이션은 바이너리 호환성을 보장하지 않으므로 여전히 수동으로 오버로드를 추가해야 합니다.
-
 ## 반환 타입을 넓히거나 좁히는 것 피하기
 
-API를 발전시킬 때 함수의 반환 타입을 넓히거나(widen) 좁히고(narrow) 싶은 경우가 흔히 발생합니다.
-예를 들어, 차기 API 버전에서 반환 타입을 `List`에서 `Collection`으로, 또는 `Collection`에서 `List`로 변경하고 싶을 수 있습니다.
+API를 발전시킬 때 함수의 반환 타입을 넓히거나(widen) 좁히고(narrow) 싶은 경우가 흔히 발생합니다. 예를 들어, 차기 API 버전에서 반환 타입을 `List`에서 `Collection`으로, 또는 `Collection`에서 `List`로 변경하고 싶을 수 있습니다.
 
-인덱싱 지원에 대한 사용자 요청을 충족하기 위해 타입을 `List`로 좁히고 싶을 수 있습니다.
-반대로, 작업 중인 데이터에 자연스러운 순서가 없다는 것을 깨닫고 타입을 `Collection`으로 넓히고 싶을 수도 있습니다.
+인덱싱 지원에 대한 사용자 요청을 충족하기 위해 타입을 `List`로 좁히고 싶을 수 있습니다. 반대로, 작업 중인 데이터에 자연스러운 순서가 없다는 것을 깨닫고 타입을 `Collection`으로 넓히고 싶을 수도 있습니다.
 
 반환 타입을 넓히는 것이 왜 호환성을 깨뜨리는지는 이해하기 쉽습니다. 예를 들어, `List`를 `Collection`으로 변환하면 인덱싱을 사용하는 모든 코드가 깨집니다.
 
-반대로 `Collection`에서 `List`로 반환 타입을 좁히는 것은 호환성을 유지할 것이라고 생각할 수 있습니다.
-불행히도 소스 호환성은 유지되지만 바이너리 호환성은 깨집니다.
+반대로 `Collection`에서 `List`로 반환 타입을 좁히는 것은 호환성을 유지할 것이라고 생각할 수 있습니다. 불행히도 소스 호환성은 유지되지만 바이너리 호환성은 깨집니다.
 
 `Library.kt` 파일에 데모 함수가 있다고 가정해 보겠습니다.
 
@@ -187,13 +199,11 @@ Exception in thread "main" java.lang.NoSuchMethodError: 'java.lang.Number Librar
 0: invokestatic  #12 // Method Library.demo:()Ljava/lang/Number;
 ```
 
-JVM은 `Number`를 반환하는 `demo`라는 정적 메서드를 호출하려고 시도합니다.
-그러나 이 메서드는 더 이상 존재하지 않으므로 바이너리 호환성이 깨진 것입니다.
+JVM은 `Number`를 반환하는 `demo`라는 정적 메서드를 호출하려고 시도합니다. 그러나 이 메서드는 더 이상 존재하지 않으므로 바이너리 호환성이 깨진 것입니다.
 
 ## API에서 데이터 클래스 사용 피하기
 
-일반적인 개발에서 데이터 클래스의 장점은 자동으로 생성되는 추가 함수들입니다.
-API 설계에서 이 장점은 약점이 됩니다.
+일반적인 개발에서 데이터 클래스의 장점은 자동으로 생성되는 추가 함수들입니다. API 설계에서 이 장점은 약점이 됩니다.
 
 예를 들어, API에서 다음과 같은 데이터 클래스를 사용한다고 가정해 보겠습니다.
 
@@ -214,8 +224,7 @@ data class User(
 )
 ```
 
-이는 두 가지 방식으로 바이너리 호환성을 깨뜨립니다. 첫째, 생성된 생성자의 시그니처가 달라집니다.
-또한, 생성된 `copy` 메서드의 시그니처가 변경됩니다.
+이는 두 가지 방식으로 바이너리 호환성을 깨뜨립니다. 첫째, 생성된 생성자의 시그니처가 달라집니다. 또한, 생성된 `copy` 메서드의 시그니처가 변경됩니다.
 
 원래의 시그니처(Kotlin/JVM 기준)는 다음과 같습니다.
 
@@ -231,8 +240,7 @@ public final User copy(java.lang.String, java.lang.String, boolean)
 
 생성자와 마찬가지로 이는 바이너리 호환성을 깨뜨립니다.
 
-보조 생성자를 수동으로 작성하고 `copy` 메서드를 오버라이드하여 이러한 문제를 해결할 수는 있습니다.
-하지만 여기에 들어가는 노력은 데이터 클래스를 사용하는 편의성을 상쇄합니다.
+보조 생성자를 수동으로 작성하고 `copy` 메서드를 오버라이드하여 이러한 문제를 해결할 수는 있습니다. 하지만 여기에 들어가는 노력은 데이터 클래스를 사용하는 편의성을 상쇄합니다.
 
 데이터 클래스의 또 다른 문제는 생성자 인자의 순서를 변경하면 구조 분해(destructuring)에 사용되는 생성된 `componentX` 메서드에 영향을 미친다는 점입니다. 바이너리 호환성을 깨뜨리지 않더라도 순서를 변경하면 동작 호환성이 반드시 깨집니다.
 
@@ -240,9 +248,7 @@ public final User copy(java.lang.String, java.lang.String, boolean)
 
 Kotlin은 인라인 함수가 라이브러리 API의 일부가 되는 것을 허용합니다. 이러한 함수에 대한 호출은 사용자가 작성한 클라이언트 코드에 인라인으로 삽입됩니다. 이는 호환성 문제를 유발할 수 있으므로, 이러한 함수는 공개 API가 아닌 선언을 호출할 수 없습니다.
 
-인라인된 공개 함수에서 라이브러리의 내부 API를 호출해야 하는 경우, 해당 API에 [`@PublishedApi`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-published-api/) 애노테이션을 달아 호출할 수 있습니다.
-이렇게 하면 해당 내부 선언에 대한 참조가 컴파일된 클라이언트 코드에 포함되므로 사실상 공개된 것과 같아집니다.
-따라서 이를 변경할 때는 바이너리 호환성에 영향을 미칠 수 있으므로 공개 선언과 동일하게 취급해야 합니다.
+인라인된 공개 함수에서 라이브러리의 내부 API를 호출해야 하는 경우, 해당 API에 [`@PublishedApi`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-published-api/) 애노테이션을 달아 호출할 수 있습니다. 이렇게 하면 해당 내부 선언에 대한 참조가 컴파일된 클라이언트 코드에 포함되므로 사실상 공개된 것과 같아집니다. 따라서 이를 변경할 때는 바이너리 호환성에 영향을 미칠 수 있으므로 공개 선언과 동일하게 취급해야 합니다.
 
 ## 실용적인 API 발전시키기
 
@@ -256,18 +262,13 @@ Kotlin은 인라인 함수가 라이브러리 API의 일부가 되는 것을 허
 * 가능한 경우 `replaceWith` 매개변수를 사용하여 새 API로의 자동 마이그레이션을 제공해야 합니다.
 * 지원 중단 수준(level)은 API를 점진적으로 중단하는 데 사용되어야 합니다. 자세한 내용은 [Kotlin 문서의 Deprecated 페이지](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-deprecated/)를 참조하세요.
 
-일반적으로 지원 중단은 먼저 경고(warning)를 발생시키고, 그다음에는 에러(error)를 발생시키고, 마지막으로 선언을 숨겨야 합니다.
-이 프로세스는 여러 마이너 릴리스에 걸쳐 진행되어야 하며, 사용자가 프로젝트에서 필요한 변경을 수행할 수 있는 시간을 제공해야 합니다.
-API 제거와 같은 중대한 변경은 메이저 릴리스에서만 발생해야 합니다.
-라이브러리는 서로 다른 버저닝 및 지원 중단 전략을 채택할 수 있지만, 올바른 기대치를 설정하기 위해 이를 사용자에게 전달해야 합니다.
+일반적으로 지원 중단은 먼저 경고(warning)를 발생시키고, 그다음에는 에러(error)를 발생시키고, 마지막으로 선언을 숨겨야 합니다. 이 프로세스는 여러 마이너 릴리스에 걸쳐 진행되어야 하며, 사용자가 프로젝트에서 필요한 변경을 수행할 수 있는 시간을 제공해야 합니다. API 제거와 같은 중대한 변경은 메이저 릴리스에서만 발생해야 합니다. 라이브러리는 서로 다른 버저닝 및 지원 중단 전략을 채택할 수 있지만, 올바른 기대치를 설정하기 위해 이를 사용자에게 전달해야 합니다.
 
 자세한 내용은 [Kotlin 진화 원칙(Kotlin Evolution principles) 문서](kotlin-evolution-principles.md#libraries) 또는 KotlinConf 2023에서 Leonid Startsev가 발표한 [Evolving your Kotlin API painlessly for clients 강연](https://www.youtube.com/watch?v=cCgXtpVPO-o&t=1468s)에서 확인할 수 있습니다.
 
 ## RequiresOptIn 메커니즘 사용
 
-Kotlin 표준 라이브러리는 사용자가 API의 일부를 사용하기 전에 명시적인 동의를 요구하는 [옵트인(opt-in) 메커니즘](opt-in-requirements.md)을 제공합니다.
-이는 그 자체가 [`@RequiresOptIn`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-requires-opt-in/)으로 애노테이션된 마커 애노테이션을 생성하는 것을 기반으로 합니다.
-특히 라이브러리에 새로운 API를 도입할 때 소스 및 동작 호환성에 관한 기대치를 관리하기 위해 이 메커니즘을 사용해야 합니다.
+Kotlin 표준 라이브러리는 사용자가 API의 일부를 사용하기 전에 명시적인 동의를 요구하는 [옵트인(opt-in) 메커니즘](opt-in-requirements.md)을 제공합니다. 이는 그 자체가 [`@RequiresOptIn`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-requires-opt-in/)으로 애노테이션된 마커 애노테이션을 생성하는 것을 기반으로 합니다. 특히 라이브러리에 새로운 API를 도입할 때 소스 및 동작 호환성에 관한 기대치를 관리하기 위해 이 메커니즘을 사용해야 합니다.
 
 이 메커니즘을 사용하기로 결정했다면 다음 모범 사례를 따르는 것이 좋습니다.
 

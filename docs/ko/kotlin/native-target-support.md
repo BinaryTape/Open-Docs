@@ -26,9 +26,9 @@ Kotlin/Native 컴파일러는 다양한 타겟을 지원하지만, 지원 수준
 | Gradle 타겟 이름 | 타겟 트리플 | 테스트 실행 | 설명 |
 |-------------------------|-------------------------------|---------------|---------------------------------------------------------------|
 | Apple macOS 호스트 전용: |                               |               |                                                               |
-| `macosArm64`            | `aarch64-apple-macos`         | ✅             | Apple Silicon 플랫폼의 Apple macOS 11.0 이상 |
-| `iosSimulatorArm64`     | `aarch64-apple-ios-simulator` | ✅             | Apple Silicon 플랫폼의 Apple iOS 시뮬레이터 14.0 이상 |
-| `iosArm64`              | `aarch64-apple-ios`           |               | ARM64 플랫폼의 Apple iOS 및 iPadOS 14.0 이상 |
+| `macosArm64`            | `aarch64-apple-macos`         | ✅             | Apple Silicon 플랫폼의 Apple macOS 12.0 이상 |
+| `iosSimulatorArm64`     | `aarch64-apple-ios-simulator` | ✅             | Apple Silicon 플랫폼의 Apple iOS 시뮬레이터 15.0 이상 |
+| `iosArm64`              | `aarch64-apple-ios`           |               | ARM64 플랫폼의 Apple iOS 및 iPadOS 15.0 이상 |
 
 ### 티어 2
 
@@ -40,11 +40,11 @@ Kotlin/Native 컴파일러는 다양한 타겟을 지원하지만, 지원 수준
 | `linuxX64`              | `x86_64-unknown-linux-gnu`        | ✅             | x86_64 플랫폼의 Linux |
 | `linuxArm64`            | `aarch64-unknown-linux-gnu`       |               | ARM64 플랫폼의 Linux |
 | Apple macOS 호스트 전용: |                                   |               |                                                                  |
-| `watchosSimulatorArm64` | `aarch64-apple-watchos-simulator` | ✅             | Apple Silicon 플랫폼의 Apple watchOS 시뮬레이터 7.0 이상 |
-| `watchosArm32`          | `armv7k-apple-watchos`            |               | ARM32 플랫폼의 Apple watchOS 7.0 이상 |
-| `watchosArm64`          | `arm64_32-apple-watchos`          |               | ILP32를 사용하는 ARM64 플랫폼의 Apple watchOS 7.0 이상 |
-| `tvosSimulatorArm64`    | `aarch64-apple-tvos-simulator`    | ✅             | Apple Silicon 플랫폼의 Apple tvOS 시뮬레이터 14.0 이상 |
-| `tvosArm64`             | `aarch64-apple-tvos`              |               | ARM64 플랫폼의 Apple tvOS 14.0 이상 |
+| `watchosSimulatorArm64` | `aarch64-apple-watchos-simulator` | ✅             | Apple Silicon 플랫폼의 Apple watchOS 시뮬레이터 8.0 이상 |
+| `watchosArm32`          | `armv7k-apple-watchos`            |               | ARM32 플랫폼의 Apple watchOS 8.0 이상 |
+| `watchosArm64`          | `arm64_32-apple-watchos`          |               | ILP32를 사용하는 ARM64 플랫폼의 Apple watchOS 8.0 이상 |
+| `tvosSimulatorArm64`    | `aarch64-apple-tvos-simulator`    | ✅             | Apple Silicon 플랫폼의 Apple tvOS 시뮬레이터 15.0 이상 |
+| `tvosArm64`             | `aarch64-apple-tvos`              |               | ARM64 플랫폼의 Apple tvOS 15.0 이상 |
 
 ### 티어 3
 
@@ -63,8 +63,8 @@ Kotlin/Native 컴파일러는 다양한 타겟을 지원하지만, 지원 수준
 | `androidNativeX64`      | `x86_64-unknown-linux-android`   |               | x86_64 플랫폼의 [Android NDK](https://developer.android.com/ndk) |
 | `mingwX64`              | `x86_64-pc-windows-gnu`          | ✅             | [MinGW](https://www.mingw-w64.org) 호환 레이어를 사용하는 64비트 Windows 10 이상 |
 | Apple macOS 호스트 전용: |                                  |               |                                                                                          |
-| `watchosDeviceArm64`    | `aarch64-apple-watchos`          |               | ARM64 플랫폼의 Apple watchOS 7.0 이상 |
-| `iosX64`                | `x86_64-apple-ios-simulator`     | ✅             | x86-64 플랫폼의 Apple iOS 시뮬레이터 14.0 이상 |
+| `watchosDeviceArm64`    | `aarch64-apple-watchos`          |               | ARM64 플랫폼의 Apple watchOS 8.0 이상 |
+| `iosX64`                | `x86_64-apple-ios-simulator`     | ✅             | x86-64 플랫폼의 Apple iOS 시뮬레이터 15.0 이상 |
 
 > `linuxArm32Hfp` 타겟은 더 이상 사용되지 않으며(deprecated) 향후 릴리스에서 제거될 예정입니다.
 > 
@@ -74,9 +74,32 @@ Kotlin/Native 컴파일러는 다양한 타겟을 지원하지만, 지원 수준
 
 Kotlin 2.3.20부터 다음 타겟은 더 이상 사용되지 않습니다:
 
-* `macosX64` (x86_64 플랫폼의 Apple macOS 11.0 이상)
-* `watchosX64` (x86_64 플랫폼의 Apple watchOS 7.0 이상 64비트 시뮬레이터)
-* `tvosX64` (x86_64 플랫폼의 Apple tvOS 14.0 이상 시뮬레이터)
+* `macosX64` (x86_64 플랫폼의 Apple macOS)
+* `watchosX64` (x86_64 플랫폼의 Apple watchOS 64비트 시뮬레이터)
+* `tvosX64` (x86_64 플랫폼의 Apple tvOS 시뮬레이터)
+
+### 더 낮은 버전의 Apple 타겟 지원
+
+현재 기본적으로 지원되는 Apple 타겟의 최소 버전은 다음과 같습니다:
+
+* iOS 및 tvOS: 15.0.
+* macOS: 12.0.
+* watchOS: 8.0.
+
+프로젝트에서 기본 버전보다 낮은 버전을 지원해야 하는 경우, 빌드 파일에서 `freeCompilerArgs` 옵션을 사용하세요:
+
+```kotlin
+kotlin {
+    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().configureEach {
+        binaries.configureEach {
+            freeCompilerArgs += "-Xoverride-konan-properties=minVersion.ios=14.0"
+            freeCompilerArgs += "-Xoverride-konan-properties=minVersion.macos=11.0"
+            freeCompilerArgs += "-Xoverride-konan-properties=minVersion.tvos=14.0"
+            freeCompilerArgs += "-Xoverride-konan-properties=minVersion.watchos=7.0"
+        }
+    }
+}
+```
 
 ### 라이브러리 작성자 가이드
 

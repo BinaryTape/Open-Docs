@@ -1,4 +1,10 @@
+---
+status: beta
+---
+
 # Ktor 整合：Koog 外掛程式
+
+--8<-- "versioning-snippets.md:beta"
 
 Koog 自然地融入您的 Ktor 伺服器，讓您能從兩端使用道地的 Kotlin API 編寫伺服器端 AI 應用程式。
 

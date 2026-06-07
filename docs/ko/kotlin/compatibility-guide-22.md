@@ -285,6 +285,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 > - 1.4.20: 플러그인 지원 중단
 > - 2.1.20: 구성 오류가 도입되고 플러그인 코드가 실행되지 않음
 > - 2.2.0: 플러그인 코드 제거
+> - 2.4.0: 플러그인 ID 제거
 
 ### `kotlinOptions` DSL 지원 중단
 
@@ -335,6 +336,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 >
 > - 2.1.0: `kotlinc`에서 REPL 사용을 경고와 함께 중단
 > - 2.2.0: `kotlinc`를 통해 REPL을 사용하려면 `-Xrepl` 컴파일러 옵션으로 옵트인; JSR-223 지원 중단(언어 버전 1.9로 전환하여 지원 복구 가능); `KotlinScriptMojo` Maven 플러그인 지원 중단
+> - 2.4.0: `KotlinScriptMojo` Maven 플러그인을 통한 Kotlin 스크립트 실행 제거
 
 ### 명확화 분류기(disambiguation classifier) 프로퍼티 지원 중단
 
@@ -399,7 +401,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 >
 > **지원 중단 주기**:
 >
-> - 2.2.0: Kotlin Gradle 플러그인에서 컴파일러 옵션 제거
+> - 2.2.0: Kotlin Gradle 플러그인에서 컴파일러 옵 제거
 
 ### `KotlinCompilation.source` API 지원 중단
 

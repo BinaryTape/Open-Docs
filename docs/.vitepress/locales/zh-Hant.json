@@ -651,7 +651,7 @@
   "kotlin.library-guides": "程式庫指南",
   "kotlin.multiplatform-gradle-dsl": "Multiplatform Gradle DSL",
   "kotlin.earlier-kotlin-releases": "更早的 Kotlin 版本",
-  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0",
+  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.1",
   "koog.rag": "RAG",
   "kotlin.backend-development": "後端開發",
   "kotlin.running-ksp-from-the-command-line": "從命令列執行 KSP",
@@ -669,5 +669,10 @@
   "kotlin.kotlin-for-ai": "用於 AI 的 Kotlin",
   "kotlin.kotlin-ai-skills": "Kotlin AI 技能",
   "kmp.ios-liquid-glass": "Liquid Glass",
-  "kmp.multiplatform-cocoapods-spm-migration-ai": "使用 Junie 將 CocoaPods 遷移至 SwiftPM"
+  "kmp.multiplatform-cocoapods-spm-migration-ai": "使用 Junie 將 CocoaPods 遷移至 SwiftPM",
+  "kotlin.whatsnew24": "Kotlin 2.4.0",
+  "kotlin.compatibility-guide-24": "相容性指南",
+  "kotlin.kotlin-2-3-x": "Kotlin 2.3.x",
+  "koog.module-versioning": "模組版本控制",
+  "koog.http-clients": "HTTP 用戶端"
 }

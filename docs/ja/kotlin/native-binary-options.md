@@ -11,7 +11,6 @@
 プロジェクトの `gradle.properties` ファイルで `kotlin.native.binary` プロパティを使用して、バイナリオプションを設定できます。例：
 
 ```none
-kotlin.native.binary.gc=cms
 kotlin.native.binary.latin1Strings=true
 ```
 
@@ -144,24 +143,24 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td>2.2.0より利用可能</td>
     </tr>
     <tr>
-        <td><code>gc</code></td>
+        <td><a href="native-memory-manager.md#garbage-collector"><code>gc</code></a></td>
         <td>
             <list>
-                <li><code>pmcs</code> (デフォルト)</li>
+                <li><code>cms</code> (デフォルト)</li>
+                <li><code>pmcs</code></li>
                 <li><code>stwms</code></li>
-                <li><a href="native-memory-manager.md#optimize-gc-performance"><code>cms</code></a></li>
                 <li><a href="native-memory-manager.md#disable-garbage-collection"><code>noop</code></a></li>
             </list>
         </td>
         <td>ガベージコレクションの動作を制御します：
             <list>
+                <li><code>cms</code> はコンカレントマーク・アンド・スイープ (concurrent mark and sweep) を使用します</li>
                 <li><code>pmcs</code> は並列マーク・コンカレントスイープ (parallel mark concurrent sweep) を使用します</li>
                 <li><code>stwms</code> は単純なストップ・ザ・ワールド・マーク・アンド・スイープ (stop-the-world mark and sweep) を使用します</li>
-                <li><code>cms</code> はGCの停止時間を短縮するのに役立つコンカレントマーク (concurrent marking) を有効にします</li>
                 <li><code>noop</code> はガベージコレクションを無効にします</li>
             </list>
         </td>
-        <td><code>cms</code> は2.0.20より実験的 (Experimental)</td>
+        <td>2.4.0より <code>cms</code> がデフォルト</td>
     </tr>
     <tr>
         <td><a href="native-memory-manager.md#garbage-collector"><code>gcMarkSingleThreaded</code></a></td>

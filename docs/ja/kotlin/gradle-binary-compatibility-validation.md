@@ -8,11 +8,11 @@
 > 
 {style="tip"}
 
-Kotlin Gradle プラグインはバイナリ互換性の検証をサポートしています。この機能を有効にすると、現在のコードからアプリケーション・バイナリ・インターフェース（ABI: Application Binary Interface）ダンプを生成し、それを以前のダンプと比較して差異を浮き彫りにします。これらの変更を確認することで、バイナリ互換性を損なう可能性のある修正を特定し、対処することができます。
+Kotlin Gradle プラグインはバイナリ互換性の検証をサポートしています。このプラグインは現在のコードからアプリケーション・バイナリ・インターフェース（ABI: Application Binary Interface）ダンプを生成し、それを以前のダンプと比較して差異を浮き彫りにします。これらの変更を確認することで、バイナリ互換性を損なう可能性のある修正を特定し、対処することができます。
 
 ## 有効にする方法
 
-バイナリ互換性の検証を有効にするには、`build.gradle.kts` ファイルの `kotlin{}` ブロックに以下を追加してください。
+バイナリ互換性の検証を有効にするには、`build.gradle.kts` ファイルに `abiValidation {}` ブロックを追加してください。カスタム設定が不要な場合は、代わりに `abiValidation()` 関数を使用できます。
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -20,10 +20,7 @@ Kotlin Gradle プラグインはバイナリ互換性の検証をサポートし
 ```kotlin
 kotlin {
     @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
-    abiValidation {
-        // 古い Gradle バージョンとの互換性を確保するために set() 関数を使用します
-        enabled.set(true)
-    }
+    abiValidation()
 }
 ```
 
@@ -32,16 +29,14 @@ kotlin {
 
 ```groovy
 kotlin {
-    abiValidation {
-        enabled = true
-    }
+    abiValidation()
 }
 ```
 
 </tab>
 </tabs>
 
-プロジェクトにバイナリ互換性をチェックしたいモジュールが複数ある場合は、各モジュールを個別に設定してください。
+KGP（Kotlin Gradle プラグイン）は必要な Gradle タスクを作成します。プロジェクトにバイナリ互換性をチェックしたいモジュールが複数ある場合は、各モジュールを個別に設定してください。
 
 ## バイナリ互換性の問題を確認する
 
@@ -155,9 +150,7 @@ kotlin {
 kotlin {
     @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
     abiValidation {
-        klib {
-            keepUnsupportedTargets.set(false)
-        }
+        keepLocallyUnsupportedTargets.set(false)
     }
 }
 ```
@@ -168,9 +161,7 @@ kotlin {
 ```groovy
 kotlin {
     abiValidation {
-        klib {
-            keepUnsupportedTargets = false
-        }
+        keepLocallyUnsupportedTargets = false
     }
 }
 ```
@@ -179,3 +170,39 @@ kotlin {
 </tabs>
 
 ターゲットがサポートされておらず、推論が無効になっている場合、`checkKotlinAbi` タスクは完全な ABI ダンプを生成できないため失敗します。この動作は、バイナリ互換性を損なう変更を見逃すリスクを負うよりも、タスクを失敗させたい場合に役立ちます。
+
+## `maven-publish` プラグインからのパブリケーションを含める
+
+デフォルトでは、バイナリ互換性の検証は、Kotlin のコンパイル出力を使用して ABI ダンプを生成します。このため、生成された ABI ダンプは最終的な公開アーティファクトを反映していない可能性があります。例えば、[`maven-publish` プラグイン](https://docs.gradle.org/current/userguide/publishing_maven.html) を使用する場合、再配置 (relocation) などのポストプロセスステップによって、コンパイル後にアーティファクトが変更されることがあります。
+
+ABI ダンプが `maven-publish` プラグインによって公開されるアーティファクトを正確に反映するようにするには、`build.gradle.kts` ファイルに以下を追加します。
+
+<tabs group="build-script">
+<tab title="Kotlin" group-key="kotlin">
+
+```kotlin
+kotlin {
+    @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
+    abiValidation {
+        binariesSource.set(MAVEN_PUBLICATIONS)
+    }
+}
+```
+
+</tab>
+<tab title="Groovy" group-key="groovy">
+
+```groovy
+kotlin {
+    abiValidation {
+        binariesSource = MAVEN_PUBLICATIONS
+    }
+}
+```
+
+</tab>
+</tabs>
+
+> Kotlin/Android プロジェクトおよび Android ターゲットを持つマルチプラットフォームプロジェクトは JAR ファイルを公開しないため、この機能はそれらには適用されません。
+> 
+{style="warning"}

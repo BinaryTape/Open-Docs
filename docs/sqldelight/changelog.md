@@ -24,11 +24,13 @@
 - [PostgreSQL 方言] 正确解析 `coalesce` 和 `ifnull` 的为 null 性
 - [PostgreSQL 方言] 修复了 PostgreSQL 方言的 IDE 集成
 - [PostgreSQL 方言] 改进了 PostgreSQL 方言的 IDE 插件 (#6209 由 @griffio 贡献)
-- [Intellij 插件] IDE 插件可以为所有方言执行代码补全 (#6210 由 @griffio 贡献)
+- [IntelliJ 插件] IDE 插件可以为所有方言执行代码补全 (#6210 由 @griffio 贡献)
 - [Gradle 插件] 修复了运行验证数据库任务时的循环依赖错误 (#6221 由 @griffio 贡献)
 - [编译器] 修复了多行更新的乐观锁问题 (#6240 由 @griffio 贡献)
-- [Intellij 插件] 修复了在 IDEA 2026.2 中导致崩溃的弃用 (deprecation) 问题 (#6247 由 @griffio 贡献)
+- [IntelliJ 插件] 修复了在 IDEA 2026.2 中导致崩溃的弃用 (deprecation) 问题 (#6247 由 @griffio 贡献)
 - [Gradle 插件] 修复了生成的源码在 AGP 8.9 到 8.11 上未被 Kotlin 编译拾取的问题
+- [PostgreSQL 方言] 修复了 `lower` 和 `upper` 函数使用原始绑定实参时默认为 `TEXT` 的问题 (#6262 由 @griffio 贡献)
+- [编译器] 在使用 null 安全运算符（`IS` 和 `IS DISTINCT FROM`）时使用可为 null 的绑定实参 (#6265 由 @griffio 贡献)
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -54,14 +56,14 @@
 - [编译器] 允许在软件包名称中使用下划线。之前下划线会被清理，导致出现非预期的行为 (#6027 由 @BierDav 贡献)
 - [Paging 扩展] 切换到 AndroidX Paging (#5910 由 @jeffdgr8 贡献)
 - [Android 驱动程序] 将 Android `minSdk` 提高到 23。 (#6141)
-- [Paging 扩展] 升级至 paging 3.4.1，并移除了 X64 Apple 目标。 (#6166)
+- [Paging 扩展] 升级至 Paging 3.4.1，并移除了 X64 Apple 目标。 (#6166)
 
 ### 已修复
 - [IntelliJ 插件] 修复了由于在 VFS 刷新事件期间阻塞 EDT 上的文件类型检测而导致的 IDE 冻结问题。
 - [SQLite 方言] 修复了使用 JSON 路径运算符时的 SQLite 3.38 编译错误 (#6070 由 @griffio 贡献)
 - [SQLite 方言] 使用自定义列类型时，为 `group_concat` 函数使用 `String` 类型 (#6082 由 @griffio 贡献)
 - [Gradle 插件] 改进了 `VerifyMigrationTask` 的性能，防止其在复杂的架构上卡死 (#6073 由 @Lightwood13 贡献)
-- [Intellij 插件] 修复了插件初始化异常并更新了过时的方法 (#6040 由 @griffio 贡献)
+- [IntelliJ 插件] 修复了插件初始化异常并更新了过时的方法 (#6040 由 @griffio 贡献)
 - [Gradle 插件] 修复了与 Android Gradle 插件内置 Kotlin 的兼容性问题 (#6139)
 
 ## [2.3.1] - 2025-03-12
@@ -307,7 +309,7 @@
 
 ### 已修复
 - [Gradle 插件] 为生成的源码使用稳定的输出路径 (#4269 由 @joshfriend 贡献)
-- [Gradle 插件] Gradle 优化 (#4222 由 @3flex 贡献)
+- [Gradle Plugin] Gradle 优化 (#4222 由 @3flex 贡献)
 
 ## [2.0.0-rc01] - 2023-05-29
 [2.0.0-rc01]: https://github.com/sqldelight/sqldelight/releases/tag/2.0.0-rc01
@@ -930,13 +932,13 @@ sqldelight {
 - [PostgreSQL 方言] 实验性 PostgreSQL 支持 (由 @veyndan 贡献)
 - [HSQL 方言] 实验性 H2 支持 (由 @MariusVolkhart 贡献)
 - [SQLite 方言] SQLite FTS5 支持 (由 @benasher44 和 @jpalawaga 贡献)
-- [SQLite 方言] 支持修改表重命名列 (#1505 由 @angusholder 贡献)
+- [SQLite 方言] 支持修改 table 重命名列 (#1505 由 @angusholder 贡献)
 - [IDE] 对迁移 (.sqm) 文件的 IDE 支持
 - [IDE] 添加了模仿内置 SQL 实时模板的 SQLDelight 实时模板 (#1154 由 @veyndan 贡献)
 - [IDE] 添加了新的 SqlDelight 文件操作 (#42 由 @romtsn 贡献)
 - [运行时] 用于返回结果的事务的 `transactionWithReturn` API
 - [编译器] 在 .sq 文件中将多个 SQL 语句组合在一起的语法
-- [编译器] 支持从迁移文件生成架构
+- [编译器] 支持从迁移文件生成架构 (schema)
 - [Gradle 插件] 添加了一个将迁移文件输出为有效 SQL 的任务
 
 ### 已变更
@@ -1002,7 +1004,7 @@ sqldelight {
 * 修复：[Gradle] 支持 Kotlin Native 1.3.50。
 * 修复：[Gradle] #1380 清理构建有时会失败。
 * 修复：[Gradle] #1348 运行验证任务时打印 "Could not retrieve functions"。
-* 修复：[编译] #1405 如果查询包含 FTS 表联接，则无法构建项目。
+* 修复：[编译器] #1405 如果查询包含 FTS 表联接，则无法构建项目。
 * 修复：[Gradle] #1266 拥有多个数据库模块时偶尔出现的 Gradle 构建失败。
 
 ## [1.1.4] - 2019-07-11
@@ -1151,7 +1153,7 @@ sqldelight {
 ## [0.4.2] - 2016-06-16
 [0.4.2]: https://github.com/sqldelight/sqldelight/releases/tag/0.4.2
 
- * 新增：可以从工厂创建 `Marshal`。
+ * 新增：Marshal 可以从工厂创建。
  * 修复：IntelliJ 插件生成的工厂方法具有正确的泛型顺序。
  * 修复：函数名称可以使用任何大小写。
 
@@ -1196,7 +1198,7 @@ sqldelight {
 ## [0.2.2] - 2016-03-07
 [0.2.2]: https://github.com/sqldelight/sqldelight/releases/tag/0.2.2
 
- * 新增：向 `insert`、`update`、`delete`、`index` 和 `trigger` 语句所用列的编译时验证。
+ * 新增：对 `insert`、`update`、`delete`、`index` 和 `trigger` 语句所用列的编译时验证。
  * 修复：在文件移动/创建时 IDE 插件不崩溃。
 
 ## [0.2.1] - 2016-03-07
@@ -1209,7 +1211,7 @@ sqldelight {
 ## [0.2.0] - 2016-02-29
 [0.2.0]: https://github.com/sqldelight/sqldelight/releases/tag/0.2.0
 
- * 新增：Added copy constructor to Marshal class.
+ * 新增：向 `Marshal` 类添加了复制构造函数。
  * 新增：更新至 Kotlin 1.0 正式版。
  * 修复：以非失败方式报告 'sqldelight' 文件夹结构问题。
  * 修复：禁止列名为 `table_name`。它们生成的常量会与表名常量冲突。

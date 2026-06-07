@@ -15,20 +15,12 @@
     "text": "kotlin.what-s-new-in-kotlin",
     "items": [
       {
-        "text": "kotlin.whatsnew-eap",
-        "link": "whatsnew-eap"
+        "text": "kotlin.whatsnew24",
+        "link": "whatsnew24"
       },
       {
-        "text": "kotlin.whatsnew2320",
-        "link": "whatsnew2320"
-      },
-      {
-        "text": "kotlin.whatsnew23",
-        "link": "whatsnew23"
-      },
-      {
-        "text": "kotlin.compatibility-guide-23",
-        "link": "compatibility-guide-23"
+        "text": "kotlin.compatibility-guide-24",
+        "link": "compatibility-guide-24"
       }
     ],
     "collapsed": true
@@ -936,6 +928,10 @@
           {
             "text": "kotlin.time-measurement",
             "link": "time-measurement"
+          },
+          {
+            "text": "kotlin.uuids",
+            "link": "uuids"
           }
         ],
         "collapsed": true
@@ -1261,6 +1257,24 @@
       {
         "text": "kotlin.earlier-kotlin-releases",
         "items": [
+          {
+            "text": "kotlin.kotlin-2-3-x",
+            "items": [
+              {
+                "text": "kotlin.whatsnew2320",
+                "link": "whatsnew2320"
+              },
+              {
+                "text": "kotlin.whatsnew23",
+                "link": "whatsnew23"
+              },
+              {
+                "text": "kotlin.compatibility-guide-23",
+                "link": "compatibility-guide-23"
+              }
+            ],
+            "collapsed": true
+          },
           {
             "text": "kotlin.kotlin-2-2-x",
             "items": [

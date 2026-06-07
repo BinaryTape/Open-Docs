@@ -1,6 +1,12 @@
+---
+status: beta
+---
+
 # 플래너 에이전트 (Planner agents)
 
-플래너 에이전트는 반복적인 계획 주기(iterative planning cycles)를 통해 다단계 작업을 계획하고 실행하는 AI 에이전트입니다.
+--8<-- "versioning-snippets.md:beta"
+
+플래너 에이전트(Planner agents)는 반복적인 계획 주기(iterative planning cycles)를 통해 다단계 작업을 계획하고 실행하는 AI 에이전트입니다.
 이들은 지속적으로 계획을 수립하거나 업데이트하고, 각 단계를 실행하며, 현재 상태를 기준으로 완료 기준을 점검합니다.
 
 플래너 에이전트는 상위 수준의 목표를 더 작고 실행 가능한 단계로 세분화하고,

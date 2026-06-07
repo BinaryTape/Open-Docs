@@ -1,5 +1,5 @@
 [//]: # (title: 將 Swift 軟件包作為相依性新增至 KMP 模組)
-<primary-label ref="Experimental"/>
+<primary-label ref="alpha"/>
 
 <tldr>
    <p>Swift 封裝管理員 (SwiftPM) 扮演與 CocoaPods 相同的角色：
@@ -8,10 +8,10 @@
    以及必要時如何將 KMP 配置從 CocoaPods 遷移至 SwiftPM。</p>
 </tldr>
 
-> 此功能為 [實驗性](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained)。
+> 此功能處於 [Alpha](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained) 階段。
 > 請在專屬的 Kotlin Slack 頻道中分享你遇到的任何問題或回饋：[#kmp-swift-package-manager](https://kotlinlang.slack.com/archives/C09TW68099C)
 >
-{style="warning"}
+{style="note"}
 
 支援 SwiftPM 匯入整合的 Kotlin Gradle 外掛程式允許你使用為 Apple 目標 宣告的 SwiftPM 相依性，從 Objective-C 和 Swift 程式碼中匯入 Objective-C API。
 
@@ -218,9 +218,9 @@ kotlin {
 }
 ```
 
-要自訂合併行為，請為每個子專案分配一個非預設的群組識別碼。
-在以下範例中，子專案 `one` 和 `two` 使用相同的 `custom` 軟件包 版本集，
-而子專案 `three` 使用預設集合：
+To customize the merge behavior, assign a non-default group identifier to each subproject.
+In the following example, subprojects `one` and `two` use the same `custom` set of package versions,
+while the subproject `three` uses the default set:
 
 <Tabs>
 <TabItem title="子專案 &quot;one&quot;">

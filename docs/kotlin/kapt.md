@@ -219,23 +219,66 @@ sample/src/main/
 [INFO] org.mapstruct.ap.MappingProcessor: total sources: 2, sources per round: 2, 0, 0
 ```
 
-## kapt 的编译回避
+### 从编译类路径中排除注解处理器
 
-为了缩短使用 kapt 的增量构建时间，它可以利用 Gradle [编译回避](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_compile_avoidance)。启用编译回避后，Gradle 在重新构建项目时可以跳过注解处理。特别是，在以下情况下会跳过注解处理：
+你可以禁用对未包含在 kapt 处理器路径中的注解处理器的发现。这能有效地从编译类路径中排除不必要的注解处理器。
+
+#### 在 Gradle 中
+
+为了缩短使用 kapt 的增量构建时间，Gradle 利用 [编译回避](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_compile_avoidance) 在重新构建项目时跳过注解处理。特别是，在以下情况下会跳过注解处理：
 
 * 项目的源文件未更改。
 * 依赖项中的更改是 [ABI](https://en.wikipedia.org/wiki/Application_binary_interface) 兼容的。例如，唯一的更改是在方法体中。
 
-然而，对于在编译类路径中发现的注解处理器，无法使用编译回避，因为其中的 *任何更改* 都需要运行注解处理任务。
+然而，对于在编译类路径中发现的注解处理器，无法使用编译回避，因为即使 ABI 保持不变，其实位实现的任何更改也需要运行注解处理任务。
 
-要结合编译回避运行 kapt：
-* [手动将注解处理器依赖项添加到 `kapt*` 配置中](#在-gradle-中使用)。
-* 在 `gradle.properties` 文件中关闭编译类路径中注解处理器的发现功能：
+这就是为什么我们不建议使用来自编译类路径的注解处理器。要将这些注解从处理中排除，请在你的 `gradle.properties` 文件中添加 `kapt.include.compile.classpath` 属性：
 
-   ```none
-   # gradle.properties
-   kapt.include.compile.classpath=false
-   ```
+```none
+# gradle.properties
+kapt.include.compile.classpath=false
+```
+
+当该选项设置为 `false` 时，未包含在处理器路径（即 `kapt*` 配置）中的注解处理器依赖项将从 kapt 处理中排除。
+
+#### 在 Maven 中
+
+要排除 kapt 处理器路径中缺失的注解处理器，请在 kapt 插件的 `<execution>` 部分将 `includeCompileClasspath` 选项设置为 `false`：
+
+```xml
+<execution>
+    <id>kapt</id>
+    <goals>
+        <goal>kapt</goal>
+    </goals>
+    <configuration>
+        <includeCompileClasspath>false</includeCompileClasspath>
+        <sourceDirs>...</sourceDirs>
+        <annotationProcessorPaths>...</annotationProcessorPaths>
+    </configuration>
+</execution>
+```
+
+或者，你可以在 `pom.xml` 的 `<properties>` 部分使用 `kapt.include.compile.classpath` 属性：
+
+```xml
+<properties>
+    <kapt.include.compile.classpath>false</kapt.include.compile.classpath>
+</properties>
+```
+
+当该选项设置为 `false` 时，未包含在 `<annotationProcessorPaths>` 部分的注解处理器将从 kapt 处理中排除。
+
+如果未设置 `includeCompileClasspath` 选项，且 kapt 在编译类路径上检测到了未在处理器路径中明确定义的注解处理器，你将看到一条弃用警告：
+
+```none
+[WARNING] Annotation processors discovery from compile classpath is deprecated.
+Set 'kapt.include.compile.classpath=false' to disable discovery.
+```
+
+> 要查看未在 kapt 类路径上出现的注解处理器列表，请使用 `--info` 日志级别选项运行构建。
+> 
+{style="tip"}
 
 ## 增量注解处理
 
@@ -295,14 +338,42 @@ kapt {
 
 ## 在 Maven 中使用
 
-在 `compile` 之前添加 kotlin-maven-plugin 中 `kapt` 目标的执行：
+### 自动配置
+
+你可以通过为 Kotlin Maven 插件启用 `<extensions>` 选项来简化 kapt 配置。在这种情况下，你不需要手动设置带有目标（goals）或源目录的 kapt `<execution>` 部分。
+
+要自动配置 kapt，请在你的 `pom.xml` 构建文件中为 `kotlin-maven-plugin` 将 `<extensions>` 选项设置为 `true`：
+
+```xml
+<plugin>
+    <groupId>org.jetbrains.kotlin</groupId>
+    <artifactId>kotlin-maven-plugin</artifactId>
+    <version>${kotlin.version}</version>
+    <extensions>true</extensions>
+    <configuration>
+        <annotationProcessorPaths>
+            <!-- 在此处指定你的注解处理器 -->
+            <annotationProcessorPath>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>1.6.3</version>
+            </annotationProcessorPath>
+        </annotationProcessorPaths>
+    </configuration>
+</plugin>
+```
+
+有关 `<extensions>` 选项的更多信息，请参阅[自动配置](maven-configure-project.md#automatic-configuration)。
+
+### 手动配置
+
+要在你的 Kotlin Maven 项目中手动设置 kapt，请在 `compile` 执行之前添加来自 `kotlin-maven-plugin` 的 `kapt` 目标的执行： 
 
 ```xml
 <execution>
     <id>kapt</id>
     <goals>
-        <goal>kapt</goal> <!-- 如果你为该插件启用了扩展，
-        可以跳过 <goals> 元素 -->
+        <goal>kapt</goal>
     </goals>
     <configuration>
         <sourceDirs>
@@ -321,11 +392,13 @@ kapt {
 </execution>
 ```
 
+### 配置 kapt 注解处理
+
 要配置注解处理的级别，请在 `<configuration>` 代码块中将以下内容之一设置为 `aptMode`：
 
-   * `stubs` – 仅生成注解处理所需的存根。
-   * `apt` – 仅运行注解处理。
-   * `stubsAndApt` – （默认）生成存根并运行注解处理。
+* `stubs` – 仅生成注解处理所需的存根。
+* `apt` – 仅运行注解处理。
+* `stubsAndApt` – （默认）生成存根并运行注解处理。
 
 例如：
 

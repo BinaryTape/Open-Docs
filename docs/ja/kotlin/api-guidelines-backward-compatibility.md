@@ -17,7 +17,8 @@
 
 ## 互換性のタイプ {initial-collapse-state="collapsed" collapsible="true"}
 
-**バイナリ互換性（Binary compatibility）**とは、ライブラリの新しいバージョンが、以前にコンパイルされたバージョンのライブラリを置き換えられることを意味します。以前のバージョンのライブラリに対してコンパイルされたソフトウェアは、引き続き正しく動作する必要があります。
+**バイナリ互換性（Binary compatibility）**とは、ライブラリの新しいバージョンが、以前にコンパイルされたバージョンのライブラリを置き換えられることを意味します。
+以前のバージョンのライブラリに対してコンパイルされたソフトウェアは、引き続き正しく動作する必要があります。
 
 > バイナリ互換性の詳細については、[Binary compatibility validatorのREADME](https://github.com/Kotlin/binary-compatibility-validator?tab=readme-ov-file#what-makes-an-incompatible-change-to-the-public-binary-api) または [Evolving Java-based APIs](https://github.com/eclipse-platform/eclipse.platform/blob/master/docs/Evolving-Java-based-APIs-2.md) ドキュメントを参照してください。
 >
@@ -101,7 +102,7 @@ fun main() {
 ```
 これら2つのファイルをJVM上でコンパイルすると、出力として `LibKt.class` と `ClientKt.class` が生成されます。
 
-ここで、`fib(3)` が 2 を返し、`fib(4)` が 3 を返すように、フィボナッチ数列を表す `fib` 関数を再実装してコンパイルするとします。既存の動作を維持するために、パラメータを追加しつつ、それにデフォルト値として 0 を与えます：
+ここで、`fib(3)` が 2 を返し、`fib(4)` が 3 を返し、のように、フィボナッチ数列を表す `fib` 関数を再実装してコンパイルするとします。既存の動作を維持するために、パラメータを追加しつつ、それにデフォルト値として 0 を与えます：
 
 ```kotlin
 fun fib(input: Int = 0) = … // フィボナッチの項を返す
@@ -126,16 +127,33 @@ Exception in thread "main" java.lang.NoSuchMethodError: 'int LibKt.fib()'
 
 ただし、ソース互換性は維持されます。両方のファイルを再コンパイルすれば、プログラムは以前と同様に動作します。
 
-### 互換性を維持するために手動のオーバーロードを使用する {initial-collapse-state="collapsed" collapsible="true"}
+### バイナリ互換性を維持するためにオーバーロードを使用する {initial-collapse-state="collapsed" collapsible="true"}
 
-バイナリ互換性を維持するために、関数に新しいパラメータを追加したい場合は、デフォルト引数を持つ単一の関数を使用する代わりに、手動で複数のオーバーロードを作成する必要があります。上記の例では、`Int` パラメータを受け取りたい場合のために、個別の `fib()` 関数を作成することを意味します：
+公開されたAPIにオプションのパラメータを追加する際、バイナリ互換性を維持するために[実験的（Experimental）](components-stability.md#stability-levels-explained)な [`@IntroducedAt`](java-to-kotlin-interop.md#overloads-generation) アノテーションを使用できます。
+
+新しい各オプションパラメータに、それが導入されたバージョンを指定してアノテーションを追加します。例：
+
+```kotlin
+@OptIn(ExperimentalVersionOverloading::class)
+fun fib(@IntroducedAt("1.1") input: Int = 0) = …
+```
+
+コンパイラはこの情報を使用して、対応する隠しオーバーロードを生成します。
+
+JVM向けのKotlinコードを記述する際は、デフォルト引数を持つ関数に [`@JvmOverloads`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/) アノテーションを付けてオーバーロードを生成することもできます。
+
+> `@JvmOverloads` アノテーションは、Kotlinの呼び出し元に対してはバイナリ互換性を維持しません。
+> 代わりに、公開されたAPIを変更する際は `@IntroducedAt` アノテーションを使用するか、手動でオーバーロードを追加してください。
+>
+{style="warning"}
+
+デフォルト引数を持つ単一の関数を使用する代わりに、手動でオーバーロードを作成することもできます。
+例えば、`fib()` 関数が `Int` パラメータを受け取れるようにしたい場合は、個別のオーバーロードを作成します：
 
 ```kotlin
 fun fib() = … 
 fun fib(input: Int) = …
 ```
-
-JVM向けのKotlinコードを記述する際、デフォルト引数を持ち [`@JvmOverloads`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/) アノテーションが付けられた関数にパラメータを追加する場合は注意してください。このアノテーションはバイナリ互換性を保証しないため、依然として手動でのオーバーロードの追加が必要です。
 
 ## 戻り値の型の拡張や縮小を避ける
 

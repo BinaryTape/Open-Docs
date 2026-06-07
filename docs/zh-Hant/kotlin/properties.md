@@ -12,7 +12,7 @@
 ## 宣告屬性
 
 屬性可以是可變的 (`var`) 或唯讀的 (`val`)。
-您可以將它們宣告為 `.kt` 檔案中的頂層屬性。可以將頂層屬性想像成屬於某個 **軟件包** 的全域變數：
+您可以將它們宣告為 `.kt` 檔案中的頂層屬性。可以將頂層屬性想像成屬於某個 **套件** 的全域變數：
 
 ```kotlin
 // 檔案：Constants.kt
@@ -230,22 +230,19 @@ fun main() {
 
 此範例使用 [反射](reflection.md) 來顯示 getter 和 setter 上存在哪些註解。
 
-### 支援欄位
+## 支援欄位
 
-在 Kotlin 中，存取子使用支援欄位（backing field）將屬性的值儲存在記憶體中。當您想在 getter 或 setter 中加入額外邏輯，或者想在屬性變更時觸發額外動作時，支援欄位非常有用。
+當需要將值儲存在記憶體中時，編譯器會自動為屬性產生支援欄位（backing field）。
 
-您無法直接宣告支援欄位。Kotlin 僅在必要時產生它們。您可以在存取子中使用 `field` 關鍵字來參照支援欄位。
-
-Kotlin 僅在您使用預設 getter 或 setter，或者您在至少一個自訂存取子中使用 `field` 時，才會產生支援欄位。
-
-例如，`isEmpty` 屬性沒有支援欄位，因為它使用的自訂 getter 中沒有 `field` 關鍵字：
+例如，當您使用預設的 `get()` 和 `set()` 函式時，編譯器會建立支援欄位，因為它們會讀取和寫入儲存的值：
 
 ```kotlin
-val isEmpty: Boolean
-    get() = this.size == 0
+var count = 0
 ```
 
-在以下範例中，`score` 屬性具有支援欄位，因為其 setter 使用了 `field` 關鍵字：
+您可以在 [自訂 `get()` 或 `set()` 函式](#custom-getters-and-setters) 中使用 `field` 關鍵字來存取支援欄位。例如，您可以在 getter 或 setter 中加入額外邏輯，或者在屬性變更時觸發額外動作。
+
+在此範例中，`score` 屬性在 `set()` 函式內部使用支援欄位，以便在更新值時同時觸發日誌事件：
 
 ```kotlin
 class Scoreboard {
@@ -267,27 +264,31 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-backing-field"}
 
-### 支援屬性
+並非所有屬性都會預設建立支援欄位，因為有些屬性可能不需要。例如，`isEmpty` 屬性沒有支援欄位，因為每次存取它時，值都是從 `size` 屬性計算出來的：
 
-有時您可能需要比 [支援欄位](#backing-fields) 提供的更靈活的功能。例如，如果您有一個 API，希望在內部能夠修改屬性，但在外部則不能。在這種情況下，您可以使用一種稱為 _支援屬性_（backing property）的編碼模式。
+```kotlin
+val isEmpty: Boolean
+    get() = this.size == 0
+```
 
-在以下範例中，`ShoppingCart` 類別具有一個 `items` 屬性，代表購物車中的所有內容。您希望 `items` 屬性在類別外部是唯讀的，但仍允許一種「經核准」的方式讓使用者直接修改 `items` 屬性。為了實現這一點，您可以定義一個名為 `_items` 的私有支援屬性，以及一個名為 `items` 的公共屬性，該公共屬性將委託給支援屬性的值。
+### 明確支援欄位
+
+有時您可能需要更靈活的功能。例如，如果您有一個 API，希望在內部能夠修改屬性，但在外部則不能。在這種情況下，您可以使用 **明確支援欄位**（explicit backing field）。
+
+在以下範例中，`ShoppingCart` 類別具有一個 `items` 屬性，代表購物車中的所有內容。該類別將 `items` 屬性公開為唯讀的字串清單，但在內部則透過明確支援欄位將資料儲存在可變清單中：
 
 ```kotlin
 class ShoppingCart {
-    // 支援屬性
-    private val _items = mutableListOf<String>()
-
-    // 公共唯讀視圖
+    // 具有明確支援欄位的公共唯讀視圖
     val items: List<String>
-        get() = _items
-
+        field = mutableListOf()
+    
     fun addItem(item: String) {
-        _items.add(item)
+        items.add(item)
     }
 
     fun removeItem(item: String) {
-        _items.remove(item)
+        items.remove(item)
     }
 }
 
@@ -304,46 +305,70 @@ fun main() {
     // [Banana]
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-backing-property"}
+{kotlin-runnable="true" kotlin-min-compiler-version="2.4" id="kotlin-explicit-backing-field"}
 
-在此範例中，使用者只能透過 `addItem()` 函式將項目加入購物車，但仍可存取 `items` 屬性來查看內容。
+在此範例中，編譯器從 `mutableListOf()` 呼叫中推論出支援欄位的型別：`MutableList<String>`。您也可以明確宣告支援欄位的型別：
+
+```kotlin
+val items: List<String>
+    // 具有明確型別的明確支援欄位
+    field: MutableList<String> = mutableListOf()
+```
+{validate="false"}
+
+在 `ShoppingCart` 類別的範例中，編譯器將 `items` 屬性智慧轉換為 `MutableList<String>` 型別，因此類別可以透過 `add()` 和 `remove()` 函式向購物車加入或移除項目。在類別外部，編譯器使用公共屬性型別 `List<String>`，因此 API 使用者只能讀取 `items` 清單中的內容。
+
+#### 限制
+
+要使用明確支援欄位，屬性及其支援欄位本身必須遵循特定規則。屬性僅在滿足以下條件時才能擁有明確支援欄位：
+
+* 沒有自訂 getter。
+* 為唯讀 (`val`)。
+* 不是 `open`。
+* 不是 [委託屬性](delegated-properties.md)。
+* 不是 [編譯期常數](#compile-time-constants)。
+
+此外，支援欄位的型別必須是屬性型別的子型別，且具有 [`private` 可見性](visibility-modifiers.md)。
+
+您可以透過改用支援屬性來規避這些限制。
+
+### 支援屬性
+
+如果明確支援欄位不符合您的使用案例，您可以嘗試使用一種稱為 **支援屬性**（backing property）的編碼模式。
+
+例如，如果您的屬性需要自訂 getter：
+
+```kotlin
+class UserDirectory {
+    private val _users = mutableListOf(
+        "sarah",
+        "mike",
+        "emma"
+    )
+
+    val users: List<String>
+        get() = _users.sorted()
+
+    fun addUser(username: String) {
+        _users.add(username)
+    }
+}
+
+fun main() {
+    val directory = UserDirectory()
+
+    directory.addUser("alex")
+    println(directory.users)
+    // [alex, emma, mike, sarah]
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-backing-property-custom-getter"}
 
 > 命名支援屬性時，請使用前導底線，以遵循 Kotlin 的 [編碼慣例](coding-conventions.md#names-for-backing-properties)。
 >
 {style="tip"}
 
-在 JVM 上，編譯器會優化對具有預設存取子的私有屬性的存取，以避免函式呼叫的開銷。
-
-當您希望多個公共屬性共享同一個狀態時，支援屬性也很有用。例如：
-
-```kotlin
-class Temperature {
-    // 儲存攝氏溫度的支援屬性
-    private var _celsius: Double = 0.0
-
-    var celsius: Double
-        get() = _celsius
-        set(value) { _celsius = value }
-
-    var fahrenheit: Double
-        get() = _celsius * 9 / 5 + 32
-        set(value) { _celsius = (value - 32) * 5 / 9 }
-}
-
-fun main() {
-    val temp = Temperature()
-    temp.celsius = 25.0
-    println("${temp.celsius}°C = ${temp.fahrenheit}°F") 
-    // 25.0°C = 77.0°F
-
-    temp.fahrenheit = 212.0
-    println("${temp.celsius}°C = ${temp.fahrenheit}°F") 
-    // 100.0°C = 212.0°F
-}
-```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-backing-property-multiple-properties"}
-
-在此範例中，`celsius` 和 `fahrenheit` 屬性都會存取 `_celsius` 支援屬性。這種設置提供了一個單一的資料來源（Single Source of Truth），並具有兩個公共視圖。
+在此範例中，`UserDirectory` 類別具有一個唯讀的 `users` 屬性，用於列出目錄中的每個使用者。`_users` 變數是包含實際清單的私有支援屬性。公共 `users` 屬性的 getter 在傳回項目之前會對其進行排序。
 
 ## 編譯期常數
 
@@ -388,8 +413,7 @@ public class OrderServiceTest {
     }
 
     @Test fun processesOrderSuccessfully() {
-        // 直接呼叫 orderService，無需檢查 null
-        // 或初始化狀態
+        // 直接呼叫 orderService，無需檢查 null 或初始化狀態
         orderService.processOrder()  
     }
 }
@@ -464,7 +488,7 @@ fun main() {
 
 ## 委託屬性
 
-為了重複使用邏輯並減少程式碼重複，您可以將取得和設定屬性的職責委託給另一個物件。
+為了重複使用邏輯並減少程式碼重複，您可以將取得和設定屬性的職責委託給另一個獨立物件。
 
 委託存取子行為可以使屬性的存取子邏輯保持集中，從而更容易重複使用。這種方法在實作以下行為時非常有用：
 

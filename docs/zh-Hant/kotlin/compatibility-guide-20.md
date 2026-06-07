@@ -1,10 +1,10 @@
 [//]: # (title: Kotlin 2.0.x 相容性指南)
 
-「保持語言現代化」（Keeping the Language Modern）與「舒適的更新」（Comfortable Updates）是 Kotlin 語言設計的基本原則。前者指出應移除阻礙語言演進的結構，後者則要求應事先對此類移除進行充分溝通，以確保程式碼遷移盡可能順暢。
+_「[保持語言現代化](kotlin-evolution-principles.md)」_與_「[舒適的更新](kotlin-evolution-principles.md)」_是 Kotlin 語言設計的基本原則。前者指出應移除阻礙語言演進的結構，後者則要求應事先對此類移除進行充分溝通，以確保程式碼遷移盡可能順暢。
 
 雖然大多數語言變更已透過其他管道宣布（如更新的變更記錄或編譯器警告），本文件為從 Kotlin 1.9 遷移到 Kotlin 2.0 提供完整的參考。
 
-> Kotlin 2.0 引入了 K2 編譯器。有關新編譯器的優點、遷移過程中可能遇到的變更，以及如何回復到之前的編譯器，請參閱 [K2 編譯器遷移指南](k2-compiler-migration-guide.md)。
+> Kotlin 2.0 引入了 Kotlin K2 編譯器。有關新編譯器的優點、遷移過程中可能遇到的變更，以及如何回復到之前的編譯器，請參閱 [K2 編譯器遷移指南](k2-compiler-migration-guide.md)。
 >
 {style="note"}
 
@@ -185,7 +185,7 @@
 >
 > **Deprecation cycle**:
 >
-> - 2.0.0：實作新行為；在報告逆變參數型別不相符錯誤時，忽略 `@UnsafeVariance` 註解。
+> - 2.0.0：實作新行為；在報告型別不相符錯誤時，忽略 `@UnsafeVariance` 註解。
 
 ### 變更伴隨物件成員在呼叫外參考的型別
 
@@ -200,7 +200,7 @@
 > - 1.8.20：當伴隨物件函式參考型別被推論為未繫結參考時，報告警告。
 > - 2.0.0：變更行為，使伴隨物件函式參考在所有使用上下文中均被推論為已繫結參考。
 
-### 禁止透過非私有內嵌函式公開匿名型別
+### 禁止透過私有內嵌函式公開匿名型別
 
 > **Issue**: [KT-33917](https://youtrack.jetbrains.com/issue/KT-33917)
 >
@@ -211,7 +211,7 @@
 > **Deprecation cycle**:
 >
 > - 1.3.0：對從私有內嵌函式回傳的匿名物件成員呼叫報告警告。
-> - 2.0.0：將此類私有內嵌函式的傳回型別近似為基底型別，且不解析對匿名物件成員的呼叫。
+> - 2.0.0：將此類私有內嵌函式的傳回型別近似為其基底型別，且不解析對匿名物件成員的呼叫。
 
 ### 對 while 迴圈 break 後不合理的智慧轉型報告錯誤
 
@@ -615,6 +615,7 @@
 > **Deprecation cycle**:
 >
 > - 2.0.0：`defFile` 與 `defFileProperty` 參數已被棄用。
+> - 2.4.0：[對已過時的 `defFile` 屬性報告錯誤](compatibility-guide-24.md#report-errors-for-obsolete-kotlin-native-gradle-task-apis)。
 
 ### 移除 kotlin.useK2 Gradle 屬性
 

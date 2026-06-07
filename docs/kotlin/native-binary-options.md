@@ -11,7 +11,6 @@
 您可以使用 `kotlin.native.binary` 属性在项目的 `gradle.properties` 文件中设置二进制选项。例如：
 
 ```none
-kotlin.native.binary.gc=cms
 kotlin.native.binary.latin1Strings=true
 ```
 
@@ -144,24 +143,24 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
         <td>自 2.2.0 起可用</td>
     </tr>
     <tr>
-        <td><code>gc</code></td>
+        <td><a href="native-memory-manager.md#garbage-collector"><code>gc</code></a></td>
         <td>
             <list>
-                <li><code>pmcs</code> (默认)</li>
+                <li><code>cms</code> (默认)</li>
+                <li><code>pmcs</code></li>
                 <li><code>stwms</code></li>
-                <li><a href="native-memory-manager.md#optimize-gc-performance"><code>cms</code></a></li>
                 <li><a href="native-memory-manager.md#disable-garbage-collection"><code>noop</code></a></li>
             </list>
         </td>
         <td>控制垃圾回收行为：
             <list>
+                <li><code>cms</code> 使用并发标记清除 (concurrent mark and sweep)</li>
                 <li><code>pmcs</code> 使用并行标记并发清除 (parallel mark concurrent sweep)</li>
                 <li><code>stwms</code> 使用简单的 Stop-The-World 标记清除 (simple stop-the-world mark and sweep)</li>
-                <li><code>cms</code> 启用并发标记，有助于减少垃圾回收暂停时间</li>
                 <li><code>noop</code> 禁用垃圾回收</li>
             </list>
         </td>
-        <td><code>cms</code> 自 2.0.20 起处于实验性阶段</td>
+        <td><code>cms</code> 自 2.4.0 起为默认设置</td>
     </tr>
     <tr>
         <td><a href="native-memory-manager.md#garbage-collector"><code>gcMarkSingleThreaded</code></a></td>

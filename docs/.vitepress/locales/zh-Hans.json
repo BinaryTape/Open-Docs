@@ -643,12 +643,12 @@
   "koog.agent-memory": "代理内存",
   "koog.spring-ai": "Spring AI",
   "kotlin.designing-your-library": "设计你的库",
-  "kotlin.kotlin-for-data-analysis-and-ai": "用于数据分析和 AI 的 Kotlin",
+  "kotlin.kotlin-official-libraries": "用于数据分析和 AI 的 Kotlin",
   "kotlin.visualizing-data": "数据可视化",
   "kotlin.library-guides": "库指南",
   "kotlin.multiplatform-gradle-dsl": "多平台 Gradle DSL",
   "kotlin.earlier-kotlin-releases": "更早的 Kotlin 版本",
-  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0",
+  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.1",
   "koog.rag": "RAG",
   "kotlin.backend-development": "后端开发",
   "kotlin.running-ksp-from-the-command-line": "从命令行运行 KSP",
@@ -666,5 +666,10 @@
   "kotlin.kotlin-for-ai": "用于 AI 的 Kotlin",
   "kotlin.kotlin-ai-skills": "Kotlin AI 技能",
   "kmp.ios-liquid-glass": "Liquid Glass",
-  "kmp.multiplatform-cocoapods-spm-migration-ai": "使用 Junie 从 CocoaPods 迁移到 SwiftPM"
+  "kmp.multiplatform-cocoapods-spm-migration-ai": "使用 Junie 从 CocoaPods 迁移到 SwiftPM",
+  "kotlin.whatsnew24": "Kotlin 2.4.0",
+  "kotlin.compatibility-guide-24": "兼容性指南",
+  "kotlin.kotlin-2-3-x": "Kotlin 2.3.x",
+  "koog.module-versioning": "模块版本管理",
+  "koog.http-clients": "HTTP 客户端"
 }

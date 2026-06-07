@@ -1,4 +1,10 @@
+---
+status: beta
+---
+
 # Agent Client Protocol
+
+--8<-- "versioning-snippets.md:beta"
 
 Agent Client Protocol (ACP)은 클라이언트 애플리케이션이 일관된 양방향 인터페이스를 통해 AI 에이전트와 통신할 수 있게 해주는 오픈 소스 표준 프로토콜입니다.
 Koog 에이전트에 ACP를 구현하면 IDE와 같은 ACP 준수(ACP-compliant) 환경에 쉽게 통합할 수 있습니다.
@@ -8,7 +14,7 @@ Koog 에이전트에 ACP를 구현하면 IDE와 같은 ACP 준수(ACP-compliant)
 ## Koog와 통합
 
 Koog 프레임워크는 추가 API 확장과 함께 [ACP Kotlin SDK]를 사용하여 ACP와 통합됩니다.
-이 통합은 다음 기능을 제공합니다.
+이 통합은 다음 기능을 제공합니다:
 
 * ACP 준수 클라이언트 애플리케이션과 Koog 에이전트 간의 표준화된 통신
 * 도구 호출(tool calls), 에이전트 생각(thoughts), 완료(completions)에 대한 자동 실행 업데이트
@@ -277,12 +283,12 @@ private fun Prompt.appendPrompt(content: List<ContentBlock>): Prompt {
 
 `agents-features-acp` 모듈은 Koog의 내부 메시지 유형과 [ACP 콘텐츠 블록](https://agentclientprotocol.com/protocol/content) 간을 원활하게 변환하는 확장 함수를 제공합니다.
 
-ACP 클라이언트로부터 입력을 받을 때 다음 함수를 사용하세요.
+ACP 클라이언트로부터 입력을 받을 때 다음 함수를 사용하세요:
 
 - `List<ContentBlock>.toKoogMessage()`: ACP 콘텐츠 블록 리스트를 [`Message.User`](api:prompt-model::ai.koog.prompt.message.Message.User)로 변환합니다.
 - `ContentBlock.toKoogContentPart()`: 단일 ACP 콘텐츠 블록을 [`ContentPart`](api:prompt-model::ai.koog.prompt.message.ContentPart)로 변환합니다.
 
-Koog 메시지에서 ACP 이벤트나 콘텐츠 블록을 구성할 때 다음 함수를 사용하세요.
+Koog 메시지에서 ACP 이벤트나 콘텐츠 블록을 구성할 때 다음 함수를 사용하세요:
 
 - `Message.Response.toAcpEvents()`: [`Message.Response`](api:prompt-model::ai.koog.prompt.message.Message.Response)를 ACP 세션 업데이트 이벤트 리스트로 변환합니다.
 - `ContentPart.toAcpContentBlock()`: [`ContentPart`](api:prompt-model::ai.koog.prompt.message.ContentPart)를 단일 ACP 콘텐츠 블록으로 변환합니다.

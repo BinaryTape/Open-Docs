@@ -23,7 +23,7 @@ Kotlin은 객체 지향 및 함수형 구문을 모두 포함하고 있습니다
 
 ### Java 프로그래밍 언어보다 Kotlin을 사용했을 때 어떤 장점이 있나요?
 
-Kotlin은 더 간결합니다. 대략적으로 코드 줄 수를 약 40% 정도 줄여주는 것으로 추정됩니다. 또한 더 타입 안전(type-safe)합니다. 예를 들어, 널 불허용 타입(non-nullable types) 지원은 애플리케이션이 NPE(NullPointerException)에 노출될 가능성을 줄여줍니다. 스마트 캐스팅(smart casting), 고차 함수, 확장 함수(extension functions), 수신 객체 지정 람다(lambdas with receivers)를 포함한 다른 기능들은 표현력 있는 코드 작성을 가능하게 할 뿐만 아니라 DSL 생성을 용이하게 합니다.
+Kotlin은 더 간결합니다. 대략적으로 코드 줄 수를 약 40% 정도 줄여주는 것으로 추정됩니다. 또한 더 타입 안전(type-safe)합니다. 예를 들어, 널 불허용 타입(non-nullable types) 지원은 애플리케이션이 NPE(NullPointerException)에 노출될 가능성을 줄여줍니다. 스마트 캐스팅(smart casting), 고차 함수(higher-order functions), 확장 함수(extension functions), 수신 객체 지정 람다(lambdas with receivers)를 포함한 다른 기능들은 표현력 있는 코드 작성을 가능하게 할 뿐만 아니라 DSL 생성을 용이하게 합니다.
  
 ### Kotlin은 Java 프로그래밍 언어와 호환되나요?
 
@@ -77,7 +77,7 @@ JavaScript를 대상으로 할 때 Kotlin은 ES5.1로 트랜스파일(transpile)
 
 ### Kotlin은 어떤 버전의 JVM을 대상으로 하나요?
 
-Kotlin은 실행을 위한 JVM 버전을 선택할 수 있게 해줍니다. 기본적으로 Kotlin/JVM 컴파일러는 Java 8 호환 바이트코드를 생성합니다. 최신 버전의 Java에서 제공되는 최적화 기능을 사용하려면 대상 Java 버전을 9에서 25까지 명시적으로 지정할 수 있습니다. 이 경우 결과 바이트코드가 하위 버전에서 실행되지 않을 수 있음에 유의하십시오. [Kotlin 1.5](whatsnew15.md#new-default-jvm-target-1-8)부터 컴파일러는 Java 8 미만 버전과 호환되는 바이트코드 생성 기능을 지원하지 않습니다.
+Kotlin은 실행을 위한 JVM 버전을 선택할 수 있게 해줍니다. 기본적으로 Kotlin/JVM 컴파일러는 Java 8 호환 바이트코드를 생성합니다. 최신 버전의 Java에서 제공되는 최적화 기능을 사용하려면 대상 Java 버전을 9에서 26까지 명시적으로 지정할 수 있습니다. 이 경우 결과 바이트코드가 하위 버전에서 실행되지 않을 수 있음에 유의하십시오. [Kotlin 1.5](whatsnew15.md#new-default-jvm-target-1-8)부터 컴파일러는 Java 8 미만 버전과 호환되는 바이트코드 생성 기능을 지원하지 않습니다.
 
 ### Kotlin은 어렵나요?
 

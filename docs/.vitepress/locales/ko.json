@@ -649,7 +649,7 @@
   "kotlin.library-guides": "라이브러리 가이드",
   "kotlin.multiplatform-gradle-dsl": "멀티플랫폼 Gradle DSL",
   "kotlin.earlier-kotlin-releases": "이전 Kotlin 릴리스",
-  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.0",
+  "kmp.whats-new-compose-111": "Compose Multiplatform 1.11.1",
   "koog.rag": "RAG",
   "kotlin.backend-development": "백엔드 개발",
   "kotlin.running-ksp-from-the-command-line": "명령줄에서 KSP 실행하기",
@@ -667,5 +667,10 @@
   "kotlin.kotlin-for-ai": "AI를 위한 Kotlin",
   "kotlin.kotlin-ai-skills": "Kotlin AI 기술",
   "kmp.ios-liquid-glass": "Liquid Glass",
-  "kmp.multiplatform-cocoapods-spm-migration-ai": "Junie를 사용하여 CocoaPods에서 SwiftPM으로 마이그레이션"
+  "kmp.multiplatform-cocoapods-spm-migration-ai": "Junie를 사용하여 CocoaPods에서 SwiftPM으로 마이그레이션",
+  "kotlin.whatsnew24": "Kotlin 2.4.0",
+  "kotlin.compatibility-guide-24": "호환성 가이드",
+  "kotlin.kotlin-2-3-x": "Kotlin 2.3.x",
+  "koog.module-versioning": "모듈 버전 관리",
+  "koog.http-clients": "HTTP 클라이언트"
 }

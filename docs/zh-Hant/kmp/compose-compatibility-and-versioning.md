@@ -1,6 +1,6 @@
 [//]: # (title: 相容性與版本)
 
-Compose Multiplatform 的發佈與 Kotlin 及 Jetpack Compose 的發佈是分開的。本頁面包含有關 Compose Multiplatform 發佈、Compose 發佈週期以及組建相容性的資訊。
+Compose Multiplatform 的發佈與 Kotlin 及 Jetpack Compose 的發佈是分開的。本頁面包含有關 Compose Multiplatform 發佈、Compose 發佈週期以及組件相容性的資訊。
 有關支援的 IDE 版本詳細資訊，請參閱[建議的 IDE 與程式碼編輯器](recommended-ides.md)。
 
 由於 Compose Multiplatform 是建構於 Kotlin Multiplatform 之上，因此也會受到 [Kotlin Multiplatform 相容性指南](multiplatform-compatibility-guide.md)中列出的 Kotlin Multiplatform Gradle 外掛程式、Gradle、Android Gradle 外掛程式以及 Xcode 版本相容性的影響。
@@ -82,7 +82,7 @@ maven("https://redirector.kotlinlang.org/maven/compose-dev")
 
 | Compose Multiplatform 版本 | Jetpack Compose 版本 |
 |-----------------------------------------------------------------------------------|-------------------------|
-| [1.11.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.11.0) | 1.11.1                  |
+| [1.11.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.11.0) | 1.11.2                  |
 | [1.10.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.10.3) | 1.10.5                  |
 | [1.9.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.3)   | 1.9.4                   |
 | [1.8.2](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.8.2)   | 1.8.2                   |

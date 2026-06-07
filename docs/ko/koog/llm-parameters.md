@@ -4,7 +4,7 @@
 
 ## 개요
 
-LLM 파라미터는 언어 모델이 응답을 생성하는 방식을 미세 조정할 수 있는 구성 옵션입니다. 이러한 파라미터는 응답의 무작위성, 길이, 형식 및 도구 사용과 같은 측면을 제어합니다. 파라미터를 조정하여 창의적인 콘텐츠 생성부터 결정론적인 구조화된 출력(structured outputs)까지, 다양한 유스케이스에 맞춰 모델 동작을 최적화할 수 있습니다.
+LLM 파라미터는 언어 모델이 응답을 생성하는 방식을 미세 조정할 수 있는 구성 옵션입니다. 이러한 파라미터는 응답의 무작위성, 길이, 형식 및 도구 사용과 같은 측면을 제어합니다. 파라미터를 조정하여 창의적인 콘텐츠 생성부터 결정론적인(deterministic) 구조화된 출력(structured outputs)까지, 다양한 유스케이스에 맞춰 모델 동작을 최적화할 수 있습니다.
 
 Koog에서 `LLMParams` 클래스는 LLM 파라미터를 통합하며 언어 모델 동작 구성을 위한 일관된 인터페이스를 제공합니다. LLM 파라미터는 다음과 같은 방법으로 사용할 수 있습니다:
 
@@ -174,12 +174,12 @@ Koog에서 제공하는 기존 서브그래프 유형에 대한 자세한 내용
 
 - [OpenAI Chat](https://platform.openai.com/docs/api-reference/chat/create)
 - [OpenAI Responses](https://platform.openai.com/docs/api-reference/responses/create)
-- [Google](https://ai.google.dev/api/generate-content#generationconfig)
+- [Google](https://ai.google.dev/api/generate-content#generationconfig) β
 - [Anthropic](https://platform.claude.com/docs/en/api/messages/create)
-- [Mistral](https://docs.mistral.ai/api/#operation/chatCompletions)
-- [DeepSeek](https://api-docs.deepseek.com/api/create-chat-completion#request)
+- [Mistral](https://docs.mistral.ai/api/#operation/chatCompletions) β
+- [DeepSeek](https://api-docs.deepseek.com/api/create-chat-completion#request) β
 - [OpenRouter](https://openrouter.ai/docs/api/reference/parameters)
-- Alibaba ([DashScope](https://www.alibabacloud.com/help/en/model-studio/qwen-api-reference))
+- Alibaba β ([DashScope](https://www.alibabacloud.com/help/en/model-studio/qwen-api-reference))
 - [Ollama](https://docs.ollama.com/api/openai-compatibility)
 
 ## 스키마 (Schema)
@@ -709,7 +709,7 @@ OpenAI Chat API 및 추론을 지원하는 모델을 사용하는 경우, `reaso
     ```
     <!--- KNIT example-llm-parameters-java-09.java -->
 
-또한, 상태 비저장(stateless) 모드에서 OpenAI Responses API를 사용하는 경우, 추론 항목의 암호화된 히스토리를 유지하고 매 대화 차례마다 이를 모델에 전송합니다. 암호화는 OpenAI 측에서 수행되며, 요청 시 `include` 파라미터를 `reasoning.encrypted_content`로 설정하여 암호화된 추론 토큰을 요청해야 합니다.
+또한, 상태 비저장(stateless) 모드에서 OpenAI Responses API를 사용하는 경우, 추론 항목의 암호화된 히스토리를 유지하고 매 대화 차례(conversation turn)마다 이를 모델에 전송합니다. 암호화는 OpenAI 측에서 수행되며, 요청 시 `include` 파라미터를 `reasoning.encrypted_content`로 설정하여 암호화된 추론 토큰을 요청해야 합니다.
 그런 다음 다음 대화 차례에서 암호화된 추론 토큰을 모델에 다시 전달할 수 있습니다.
 
 === "Kotlin"

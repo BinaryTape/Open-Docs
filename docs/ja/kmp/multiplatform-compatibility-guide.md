@@ -19,7 +19,8 @@
 
 | Kotlin Multiplatform プラグインのバージョン | Gradle                                | Android Gradle プラグイン                               | Xcode   |
 |-------------------------------------|---------------------------------------|-----------------------------------------------------|---------|
-| 2.3.20–2.3.21                       | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% | %xcode% |
+| 2.4.0                               | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% | %xcode% |
+| 2.3.20–2.3.21                       | 7.6.3–9.3.0                           | 8.2.2–9.0.0                                         | 26.0    |
 | 2.3.10                              | 7.6.3–9.0.0                           | 8.2.2–9.0.0                                         | 26.0    |
 | 2.3.0                               | 7.6.3–9.0.0                           | 8.2.2–8.13.0                                        | 26.0    |
 | 2.2.21                              | 7.6.3–8.14                            | 7.3.1–8.11.1                                        | 26.0    |
@@ -178,7 +179,7 @@ kotlin {
 この実装には、少なからず構成の複雑さが伴います：
 
 * `:shared` 側と各コンシューマー（利用者）側で Gradle 属性（attributes）を設定する必要があります。そうしないと、追加情報なしではコンシューマーが Ktor ベースの実装と OkHttp ベースの実装のどちらを受け取るべきか不明確になり、Gradle はそのようなプロジェクトの依存関係を解決できません。
-* `commonJvmMain` ソースセットを手動で設定する必要があります。
+* `commonJvmMain` ソートセットを手動で設定する必要があります。
 * 構成には、Gradle および Kotlin Gradle プラグインのいくつかの低レベルな抽象化や API が関わります。
 
 **現在のベストプラクティスは何ですか？**
@@ -602,7 +603,10 @@ Kotlin 1.9.0 以降、`kotlin-js` Gradle プラグインは非推奨になりま
 
 **変更はいつから有効になりますか？**
 
-1.9.0 では、`kotlin-js` Gradle プラグインを使用すると非推奨の警告が表示されます。
+`kotlin-js` Gradle プラグインの非推奨サイクルは以下の通りです：
+
+* 1.9.0: `kotlin-js` プラグインを使用すると非推奨の警告を表示
+* 2.4.0: [この警告をエラーに引き上げ](https://youtrack.jetbrains.com/issue/KT-59305)
 
 ### `jvmWithJava` プリセットの非推奨 {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -645,7 +649,7 @@ Kotlin 1.9.0 以降、[新しい Android ソースセットレイアウト](mult
 
 * <=1.9.0: `kotlin.mpp.androidSourceSetLayoutVersion=1` が使用された場合に警告を報告。警告は `kotlin.mpp.androidSourceSetLayoutVersion1.nowarn=true` Gradle プロパティで抑制できます
 * 1.9.20: この警告をエラーに引き上げ。このエラーは抑制**できません**
-* &gt;1.9.20: `kotlin.mpp.androidSourceSetLayoutVersion=1` のサポートを削除。Kotlin Gradle プラグインはこのプロパティを無視します
+* 2.4.0: レガシーな Android ソースセットレイアウトのサポートを削除し、[`kotlin.mpp.androidSourceSetLayoutVersion=1` Gradle プロパティを削除](https://youtrack.jetbrains.com/issue/KT-82265)
 
 ### カスタム `dependsOn` を使用した `commonMain` および `commonTest` の非推奨 {initial-collapse-state="collapsed" collapsible="true"}
 

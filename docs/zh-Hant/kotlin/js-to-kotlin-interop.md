@@ -1,99 +1,4 @@
-[//]: # (title: 從 JavaScript 使用 Kotlin 程式碼)
-
-根據所選的 [JavaScript 模組](js-modules.md)系統，Kotlin/JS 編譯器會產生不同的輸出。
-但一般而言，Kotlin 編譯器會產生正常的 JavaScript 類別、函式和屬性，您可以從 JavaScript 程式碼中自由地
-使用它們。不過，有一些細微之處需要記住。
-
-## 在 plain 模式下將宣告隔離在個別的 JavaScript 物件中
-
-如果您明確將模組種類設定為 `plain`，Kotlin 會建立一個包含來自目前模組之所有 Kotlin 宣告的物件。
-這樣做是為了防止污染全域物件。這意味著對於模組 `myModule`，
-所有宣告都可以透過 `myModule` 物件在 JavaScript 中使用。例如：
-
-```kotlin
-fun foo() = "Hello"
-```
-
-此函式可以像這樣從 JavaScript 呼叫：
-
-```javascript
-alert(myModule.foo());
-```
-
-當您將 Kotlin 模組編譯為 JavaScript 模組（如 [UMD](https://github.com/umdjs/umd)（`browser` 和 `nodejs` 目標的預設設定）、[ESM](https://tc39.es/ecma262/#sec-modules)、[CommonJS](https://nodejs.org/api/modules.html#modules-commonjs-modules) 或 [AMD](https://github.com/amdjs/amdjs-api/wiki/AMD)）時，像這樣直接呼叫函式並不適用。
-在這些情況下，您的宣告會根據所選的 JavaScript 模組系統進行公開。
-例如，當使用 UMD、ESM 或 CommonJS 時，您的呼叫點看起來會像這樣：
-
-```javascript
-alert(require('myModule').foo());
-```
-
-有關 JavaScript 模組系統的更多資訊，請參閱 [JavaScript 模組](js-modules.md)。
-
-## 套件結構
-
-對於大多數模組系統（CommonJS、Plain 和 UMD），Kotlin 會將其套件結構暴露給 JavaScript。
-除非您在根套件中定義宣告，否則必須在 JavaScript 中使用完整限定名稱。
-例如：
-
-```kotlin
-package my.qualified.packagename
-
-fun foo() = "Hello"
-```
-
-例如，當使用 UMD 或 CommonJS 時，您的呼叫點可能如下所示：
-
-```javascript
-alert(require('myModule').my.qualified.packagename.foo())
-```
-
-當使用 `plain` 作為模組系統設定時，呼叫點將是：
-
-```javascript
-alert(myModule.my.qualified.packagename.foo());
-```
-
-當目標為 ECMAScript 模組 (ESM) 時，為了提高應用程式套件 (bundle) 大小並符合 ESM 套件的典型佈局，不會保留套件資訊。
-在這種情況下，使用 ES 模組取用 Kotlin 宣告的方式如下：
-
-```javascript
-import { foo } from 'myModule';
-
-alert(foo());
-```
-
-### @JsName 註解
-
-在某些情況下（例如，為了支援多載），Kotlin 編譯器會對 JavaScript 程式碼中產生的函式和屬性名稱進行名稱重整 (mangling)。
-要控制產生的名稱，您可以使用 `@JsName` 註解：
-
-```kotlin
-// Module 'kjs'
-class Person(val name: String) {
-    fun hello() {
-        println("Hello $name!")
-    }
-
-    @JsName("helloWithGreeting")
-    fun hello(greeting: String) {
-        println("$greeting $name!")
-    }
-}
-```
-
-現在您可以按以下方式從 JavaScript 使用此類別：
-
-```javascript
-// 必要時，根據所選的模組系統匯入 'kjs'
-var person = new kjs.Person("Dmitry");   // 參照模組 'kjs'
-person.hello();                          // 印出 "Hello Dmitry!"
-person.helloWithGreeting("Servus");      // 印出 "Servus Dmitry!"
-```
-
-如果我們沒有指定 `@JsName` 註解，對應函式的名稱將包含一個根據函式簽章計算出的後綴，例如 `hello_61zpoe`。
-
-請注意，在某些情況下 Kotlin 編譯器不會套用名稱重整：
+請注意，在某些情況下 Kotlin 編譯器不會套用名稱重整 (mangling)：
 - `external` 宣告不會被重整。
 - 繼承自 `external` 類別的非 `external` 類別中的任何覆寫函式都不會被重整。
 
@@ -106,35 +11,122 @@ person.helloWithGreeting("Servus");      // 印出 "Servus Dmitry!"
 external fun newC()
 ```
 
-### @JsExport 註解
+### `@JsExport` 註解
+<primary-label ref="experimental-general"/>
 
-> 此功能為 [實驗性](components-stability.md#stability-levels-explained)。
-> 其設計可能會在未來版本中發生變化。
->
-{style="warning"} 
+透過將 `@JsExport` 註解套用至頂層宣告（如類別、介面或函式），您可以讓 Kotlin 宣告在 JavaScript 或 TypeScript 中可用。此註解會匯出所有具有 Kotlin 中指定名稱的巢狀宣告。
 
-透過將 `@JsExport` 註解套用至頂層宣告（如類別或函式），您可以讓該 Kotlin 宣告在 JavaScript 中可用。
-此註解會匯出所有具有 Kotlin 中指定名稱的巢狀宣告。
-它也可以使用 `@file:JsExport` 套用於檔案層級。
+例如，以下是如何匯出包含巢狀類別和具名伴隨物件的 Kotlin 介面：
 
-要解決匯出中的歧義（例如同名函式的多載），您可以將 `@JsExport` 註解與 `@JsName` 結合使用，以指定所產生和匯出之函式的名稱。
+```kotlin
+@JsExport
+interface Identity {
+     class Metadata(val tag: String)
+
+    companion object Registry {
+        val defaultTag = "GUEST"
+    }
+}
+```
 
 目前，`@JsExport` 註解是使您的函式從 Kotlin 中可見的唯一方法。
 
-對於多平台專案，`@JsExport` 也可以在通用程式碼中使用。它僅在針對 JavaScript 目標進行編譯時生效，並允許您同時匯出非平台特定的 Kotlin 宣告。
+`@JsExport` 註解也可用於：
 
-### @JsStatic
+* 多平台專案的通用程式碼中。它僅在針對 JavaScript 目標進行編譯時生效，並允許您同時匯出非平台特定的 Kotlin 宣告。
+* 與 [`@JsName` 註解](#jsname-annotation)結合使用，以指定產生和匯出的函式名稱。這有助於解決匯出中的歧義（例如同名函式的多載）。
+* 使用 `@file:JsExport` 套用於檔案層級。
 
-> 此功能為 [實驗性](components-stability.md#stability-levels-explained)。它可能隨時被刪除或更改。
-> 僅將其用於評估目的。我們非常歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-18891/JS-provide-a-way-to-declare-static-members-JsStatic) 上提供回饋。
->
-{style="warning"}
+#### 支援值類別 (value class) 匯出
 
-`@JsStatic` 註解指示編譯器為目標宣告產生額外的靜態方法。
-這有助於您直接在 JavaScript 中使用 Kotlin 程式碼中的靜態成員。
+您可以將 Kotlin 的 [內嵌值類別](inline-classes.md) 匯出為一般的 TypeScript 類別。
 
-您可以將 `@JsStatic` 註解套用至在命名物件中定義的函式，以及在類別和介面內宣告的伴隨物件。
-如果您使用此註解，編譯器將同時產生該物件的靜態方法以及物件本身的執行個體方法。例如：
+要匯出值類別，請在 Kotlin 端將其標記為 `@JsExport` 註解：
+
+```kotlin
+// Kotlin
+@JsExport
+@JvmInline
+value class Email(val address: String) {
+    init { require(address.contains("@")) { "Invalid email" } }
+}
+
+@JsExport
+class AuthService {
+    suspend fun login(email: Email): String = ...
+}
+```
+
+從 TypeScript 端來看，它就像一個普通的類別：
+
+```typescript
+// TypeScript
+import { AuthService, Email } from "..."
+const auth = new AuthService();
+
+console.log(await auth.login(new Email("jane@example.com"))); 
+// "Welcome, jane@example.com!"
+console.log(await auth.login(new Email("not-an-email"))); 
+// "Invalid email"
+```
+
+### `@JsNoRuntime` 註解
+
+您可以使用 `@JsNoRuntime` 註解將 Kotlin 介面匯出到 JavaScript/TypeScript。這允許直接對應到一般的 TypeScript 介面。
+
+要匯出 Kotlin 介面（例如從 Kotlin 多平台專案匯出）：
+
+1. 在通用程式碼中為 Kotlin 介面加上 `@JsNoRuntime` 註解：
+
+    ```kotlin
+    // commonMain
+    import kotlin.js.JsNoRuntime
+    
+    @JsNoRuntime
+    expect interface DataProcessor {
+        fun process(data: String): Int 
+    }
+    ```
+
+2. 在 JavaScript 特定的原始碼中提供帶有 `@JsNoRuntime` 的實際實作：
+
+    ```kotlin
+    // jsMain
+    import kotlin.js.JsNoRuntime
+    
+    @JsNoRuntime
+    actual interface DataProcessor {
+        actual fun process(data: String): Int
+    } 
+    ```
+    
+3. 在 TypeScript 端，該介面將被對應為一般的 TypeScript 介面：
+    
+    ```typescript
+    // 產生的 .d.ts
+    export interface DataProcessor {
+        process(data: string): number;
+    }
+    ```
+
+對於 Kotlin 多平台專案，一般規則如下：
+
+* `expect` 和 `actual` 介面宣告都必須加上 `@JsNoRuntime` 註解。唯一的例外是平台特定程式碼中 `actual` 端不需要註解的 `external` 實作。
+* 禁止在 `expect` 端的通用程式碼中使用 `external` 介面宣告。應改用加上 `@JsNoRuntime` 註解的一般介面。
+
+使用 `@JsNoRuntime` 匯出 Kotlin 介面有一些限制。該註解不允許用於：
+
+* `external` 介面，因為它們預設的行為就已經像是有 `@JsNoRuntime`。加上它會導致編譯器警告。
+* `is` 和 `as` 型別檢查。
+* 使用 [`::class` 語法](js-reflection.md) 的類別參照。
+* 作為 [具體化型別引數 (reified type argument)](inline-functions.md#reified-type-parameters) 傳遞的介面。
+
+### `@JsStatic`
+<primary-label ref="experimental-general"/>
+
+`@JsStatic` 註解指示編譯器為目標宣告產生額外的靜態方法。這有助於您直接在 JavaScript 中使用 Kotlin 程式碼中的靜態成員。
+
+您可以將 `@JsStatic` 註解套用至在命名物件中定義的函式，以及在類別和介面內宣告的伴隨物件。如果您使用此註解，編譯器將同時產生該物件的靜態方法以及物件本身的執行個體方法。例如：
 
 ```kotlin
 // Kotlin
@@ -158,6 +150,8 @@ C.Companion.callNonStatic(); // 這是它能運作的唯一方式
 ```
 
 也可以將 `@JsStatic` 註解套用至物件或伴隨物件的屬性，使其取得方法 (getter) 和設定方法 (setter) 成為該物件或包含伴隨物件之類別中的靜態成員。
+
+此功能為 [實驗性](components-stability.md#stability-levels-explained)。請在我們的問題追蹤器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-18891/JS-provide-a-way-to-declare-static-members-JsStatic) 中分享您的回饋。
 
 ### 使用 `BigInt` 型別來表示 Kotlin 的 `Long` 型別
 <primary-label ref="experimental-general"/>

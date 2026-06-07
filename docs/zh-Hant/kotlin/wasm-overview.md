@@ -31,7 +31,7 @@ Wasm 是一種用於堆疊式虛擬機的二進制指令格式。由於它在自
 
 ## Kotlin/Wasm 與 WASI
 
-Kotlin/Wasm 將 [WebAssembly System Interface (WASI)](https://wasi.dev/) 用於伺服器端開發應用程式。
+Kotlin/Wasm 將 [WebAssembly System Interface (WASI)](https://wasi.dev/) 用於伺服器端應用程式。
 使用 Kotlin/Wasm 和 WASI 建置的應用程式使用 Wasm-WASI 目標，允許您呼叫 WASI API 並在瀏覽器環境之外執行應用程式。
 
 Kotlin/Wasm 利用 WASI 抽象化平台特定的細節，允許相同的 Kotlin 程式碼在不同平台上執行。這擴展了 Kotlin/Wasm 的觸角，使其超越 Web 應用程式，且不需要為每個執行時 (runtime) 進行自訂處理。
@@ -44,10 +44,6 @@ WASI 提供了安全、標準化的介面，用於在不同環境中執行編譯
 
 ### WebAssembly 元件模型
 <primary-label ref="experimental-general"/>
-
-> 對 WebAssembly 元件模型的支援目前僅在 EAP 版本中提供：[Kotlin %kotlinEapVersion%](whatsnew-eap.md)。
->
-{style="note"}
 
 WASI 0.2 建基於 [WebAssembly 元件模型 (WebAssembly Component Model)](https://github.com/WebAssembly/component-model) 之上，該模型定義了使用標準化介面與型別從 Wasm 模組建置元件的方法。此模型允許您在應用程式或程式庫中定義與語言無關的元件。您還可以將 Wasm 模組和現有元件組合成新的元件。
 

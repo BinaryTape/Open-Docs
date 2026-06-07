@@ -3,7 +3,7 @@
 <tldr>
    這是一種本機整合方法。如果符合以下情況，此方法可能適合您：<br/>
 
-   * 您擁有一個包含使用 CocoaPods 的 iOS 專案的 Monorepo 設定。<br/>
+   * 您擁有一個包含使用 CocoaPods 的 iOS 專案的 Monorepo 設定。
    * 您的 Kotlin Multiplatform 專案具有 CocoaPods 相依性。<br/>
 
    [選擇最適合您的整合方法](multiplatform-ios-integration-overview.md)
@@ -202,7 +202,8 @@ sudo gem install cocoapods
 
 1. 在 Kotlin 專案的 iOS 部分，對 Podfile 進行變更：
 
-   * 如果您的專案有任何 Git、HTTP 或自訂 Podspec 儲存庫相依性，請在 Podfile 中指定 Podspec 的路徑。
+   * If your project has any Git, HTTP, or custom Podspec repository dependencies, specify the path to
+     the Podspec in the Podfile.
 
      例如，如果您新增了對 `podspecWithFilesExample` 的相依性，請在 Podfile 中宣告 Podspec 的路徑：
 
@@ -358,6 +359,19 @@ pod("NearbyMessages") {
 ```
 
 如需更多資訊，請參閱 [CocoaPods 文件](https://guides.cocoapods.org/)。如果仍無法解決問題且仍遇到此錯誤，請在 [YouTrack](https://youtrack.jetbrains.com/newissue?project=kt) 中回報問題。
+
+### 應用程式套件中遺失資源 {initial-collapse-state="collapsed" collapsible="true"}
+
+如果您的 iOS 應用程式組建成功但在啟動時崩潰，或者最終的 `.ipa` 封裝中遺失了自訂字型和圖片等資源，則 Pod 與專案整合的方式可能存在問題。
+
+**若要防止此問題**：請不要直接執行 `pod install` 指令，而是使用 Kotlin CocoaPods Gradle 外掛程式提供的 Gradle `podInstall` 任務。此任務會為您建立所需的目錄並完成所有設定：
+
+```bash
+./gradlew podInstall
+open iosApp/iosApp.xcworkspace
+```
+
+**為什麼會發生此問題**：當您在乾淨的專案上（例如：在複製儲存庫後或在 CI/CD 管線中工作時）執行原生的 `pod install` 指令時，資源目錄尚未建立。Compose Multiplatform Gradle 外掛程式在產生的 `.podspec` 檔案中指定了資源的位置：`spec.resources = ['build/compose/cocoapods/compose-resources']`，但該路徑僅在組建後才存在。因此，CocoaPods 會忽略遺失的目錄，並在沒有這些資源的情況下設定 Xcode 專案。當專案完成組建並產生資源時，Xcode 不會將它們複製到最終的套件中。
 
 ### Rsync 錯誤 {initial-collapse-state="collapsed" collapsible="true"}
 

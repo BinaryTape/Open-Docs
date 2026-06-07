@@ -1,5 +1,5 @@
 [//]: # (title: 使用 Junie 将 Kotlin Multiplatform 项目从 CocoaPods 切换到 SwiftPM 依赖项)
-<primary-label ref="Experimental"/>
+<primary-label ref="alpha"/>
 
 如果你有一个带有 CocoaPods 依赖项的 KMP 模块，并希望使用 [SwiftPM 导入](multiplatform-spm-import.md) 切换到 Swift 软件包，你可以使用 AI 来提供帮助。
 本指南介绍了如何使用 Junie 和 Kotlin AI 技能来简化此过程。
@@ -19,7 +19,7 @@
 curl -fsSL https://junie.jetbrains.com/install.sh | bash
 ```
 
-首次启动 Junie 命令行界面，以使用你的 JetBrains 帐户登录，或使用外部大语言模型：
+首次启动 Junie 命令行界面，以使用你的 JetBrains 帐户登录，或使用外部大型语言模型：
 
 ```bash
 junie

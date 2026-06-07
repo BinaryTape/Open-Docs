@@ -1,4 +1,10 @@
+---
+status: beta
+---
+
 # Ktor 集成：Koog 插件
+
+--8<-- "versioning-snippets.md:beta"
 
 Koog 自然地融入您的 Ktor 服务器，允许您在两端使用惯用的 Kotlin API 编写服务器端 AI 应用程序。
 
@@ -92,7 +98,7 @@ fun Application.module() {
 注意事项
 
 - aiAgent 需要一个具体的模型 (LLModel) —— 按路由或按用途选择。
-- 对于更底层的 LLM 访问，直接使用 llm() (PromptExecutor)。
+- 对于更底层的 LLM 访问，直接使用 llm() (PromptExecutor) 即可。
 
 ## 直接从路由使用 LLM
 
@@ -240,7 +246,6 @@ install(Koog) {
     }
 }
 ```
-
 ## 为什么选择 Koog + Ktor？
 
 - 在服务器中使用 Kotlin 优先、类型安全的方式开发 Agent

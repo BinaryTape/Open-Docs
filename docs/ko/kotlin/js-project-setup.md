@@ -77,11 +77,12 @@ Kotlin Multiplatform 플러그인은 선택한 환경에 맞춰 작업 태스크
 
 ## ES2015 기능 지원
 
-Kotlin은 다음과 같은 ES2015 기능에 대해 [실험적(Experimental)](components-stability.md#stability-levels-explained) 지원을 제공합니다:
+Kotlin은 다음과 같은 ES2015 기능에 대한 지원을 제공합니다:
 
 * 코드베이스를 단순화하고 유지보수성을 향상시키는 모듈.
 * OOP 원칙을 통합하여 더 깨끗하고 직관적인 코드를 작성할 수 있게 해주는 클래스.
 * [중단 함수(suspend functions)](https://kotlinlang.org/docs/composing-suspending-functions.html) 컴파일을 위한 제너레이터(Generator). 이는 최종 번들 크기를 개선하고 디버깅을 돕습니다.
+* [JavaScript 코드 인라이닝(inlining)](js-interop.md#inline-javascript).
 
 `build.gradle(.kts)` 파일에 `es2015` 컴파일 타겟을 추가하여 지원되는 모든 ES2015 기능을 한 번에 활성화할 수 있습니다:
 
@@ -624,7 +625,6 @@ allprojects {
 allprojects {
     project.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsPlugin) {
         project.extensions.getByType(org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec).version = "사용할 Node.js 버전"
-    }
 }
 ```
 
@@ -801,7 +801,7 @@ rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlu
 
 ### 기본적으로 --ignore-scripts를 사용하여 npm 의존성 설치
 
-> `--ignore-scripts`를 기본으로 사용하여 npm 의존성을 설치하는 기능은 Kotlin 1.6.10부터 사용할 수 있습니다.
+> `--ignore-scripts`를 기본으로 사용하여 npm 의존성 설치하는 기능은 Kotlin 1.6.10부터 사용할 수 있습니다.
 >
 {style="note"}
 

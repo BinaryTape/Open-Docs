@@ -174,32 +174,16 @@ fun main() {
 ```
 
 ### 在 metadata 中寫入與讀取註解
-<primary-label ref="experimental-general"/>
 
-您可以將註解儲存在 Kotlin metadata 中，並使用 `kotlin-metadata-jvm` 程式庫存取它們。
-這消除了透過簽章比對註解的需求，使多載宣告的存取更加可靠。
+Kotlin 將註解同時儲存在位元組碼與 Kotlin metadata 中。如果您使用 `kotlin-metadata-jvm` 程式庫來讀取或寫入註解，您將處理它們在 metadata 中的表示形式。
 
-若要讓註解在編譯檔案的 metadata 中可用，請加入以下編譯器選項：
+> Kotlin 從 2.4.0 版本開始將註解儲存在 Kotlin metadata 中。如果您檢查使用較早版本編譯的類別檔案，metadata 中將不存在註解。
+>
+{style="note"}
 
-```kotlin
--Xannotations-in-metadata
-```
+當您變更 metadata 中的註解時，請確保它們與儲存在位元組碼中的註解保持一致。如果它們失去同步，依賴反射或位元組碼分析的工具可能會報告與讀取 Kotlin metadata 的工具不同的結果。
 
-或者，將其加入 Gradle 建置檔案的 `compilerOptions {}` 區塊中：
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xannotations-in-metadata")
-    }
-}
-```
-
-啟用此選項後，Kotlin 編譯器會將註解與 JVM 位元組碼 (bytecode) 一起寫入 metadata 中，
-使其可供 `kotlin-metadata-jvm` 程式庫存取。
-
-該程式庫提供以下用於存取註解的 API：
+`kotlin-metadata-jvm` 程式庫提供以下用於存取註解的 API：
 
 * `KmClass.annotations`
 * `KmFunction.annotations`
@@ -213,14 +197,9 @@ kotlin {
 * `KmProperty.delegateFieldAnnotations`
 * `KmEnumEntry.annotations`
 
-這些 API 是 [實驗性的](components-stability.md#stability-levels-explained)。
-若要選擇使用 (opt in)，請使用 `@OptIn(ExperimentalAnnotationsInMetadata::class)` 註解。
-
 以下是從 Kotlin metadata 讀取註解的範例：
 
 ```kotlin
-@file:OptIn(ExperimentalAnnotationsInMetadata::class)
-
 import kotlin.metadata.ExperimentalAnnotationsInMetadata
 import kotlin.metadata.jvm.KotlinClassMetadata
 
@@ -236,14 +215,6 @@ fun main() {
     // [@Label(value = StringValue("Message class"))]
 }
 ```
-
-> 如果您在專案中使用 `kotlin-metadata-jvm` 程式庫，建議更新並測試您的程式碼以支援註解。
-> 否則，當註解在未來的 Kotlin 版本中變為 [預設啟用](https://youtrack.jetbrains.com/issue/KT-75736) 時，
-> 您的專案可能會產生無效或不完整的 metadata。
->
-> 如果您遇到任何問題，請在我們的 [問題追蹤器](https://youtrack.jetbrains.com/issue/KT-31857) 中回報。
->
-{style="warning"}
 
 ### 從位元組碼中擷取 metadata
 
@@ -291,7 +262,7 @@ fun ClassNode.findAnnotation(annotationName: String, includeInvisible: Boolean =
 // 用於簡化檢索註解值的運算子
 operator fun AnnotationNode.get(key: String): Any? = values.annotationValue(key)
 
-// 從類別節點中寬鬆地讀取 Kotlin metadata
+// 從類別節點中擷取 Kotlin metadata
 fun ClassNode.readMetadataLenient(): KotlinClassMetadata? {
     val metadataAnnotation = findAnnotation("kotlin/Metadata", false) ?: return null
     @Suppress("UNCHECKED_CAST")

@@ -53,6 +53,7 @@ Maven 프로젝트에서 Kotlin과 Java를 함께 사용하려면, `pom.xml` 파
    * 프로젝트에 `kotlin-stdlib` 종속성을 자동으로 추가합니다.
    * Kotlin을 먼저 컴파일한 다음 Java를 컴파일하도록 실행 단계(execution phases)를 구성합니다.
    * Java 코드에서 Kotlin 코드를 참조하고 그 반대의 경우도 가능하게 합니다.
+   * JVM 타겟 버전을 Java 컴파일러 버전과 자동으로 일치시킵니다.
 
    확장(extensions)이 포함된 Kotlin Maven 플러그인을 사용할 때는 `<build><pluginManagement>` 섹션에 별도의 `maven-compiler-plugin`이 필요하지 않습니다.
 

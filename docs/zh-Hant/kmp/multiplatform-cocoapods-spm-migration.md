@@ -1,5 +1,5 @@
 [//]: # (title: 將 Kotlin Multiplatform 專案從 CocoaPods 切換至 SwiftPM 相依性)
-<primary-label ref="Experimental"/>
+<primary-label ref="alpha"/>
 
 <tldr>
 
@@ -64,8 +64,7 @@
         <code-block lang="kotlin" code="            import swiftPMImport.org.example.package.FIRAnalytics"/>
     </compare>
 
-5. If you are using the `cocoapods.framework {}` block in your build script,
-   move that configuration to the `binaries.framework {}` block, for example:
+5. 如果您正在建置指令碼中使用 `cocoapods.framework {}` 區塊，請將該配置移至 `binaries.framework {}` 區塊，例如：
 
    <compare type="left-right">
    <code-block lang="kotlin" code="   kotlin {&#10;       iosArm64()&#10;       iosSimulatorArm64()&#10;&#10;       cocoapods {&#10;           framework {&#10;               baseName = &quot;Shared&quot;&#10;               isStatic = true&#10;           }&#10;       }&#10;   }"/>

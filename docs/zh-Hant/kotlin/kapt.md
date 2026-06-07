@@ -216,23 +216,66 @@ sample/src/main/
 [INFO] org.mapstruct.ap.MappingProcessor: total sources: 2, sources per round: 2, 0, 0
 ```
 
-## kapt 的編譯規避
+### 從編譯類別路徑中排除註解處理器
 
-為了提高 kapt 增量組建的時間，它可以使用 Gradle 的 [編譯規避](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_compile_avoidance)。啟用編譯規避後，Gradle 在重新組建專案時可以跳過註解處理。特別是在下列情況下會跳過註解處理：
+您可以停用在 kapt 處理器路徑中未包含的註解處理器探索。這能有效從編譯類別路徑中排除不必要的註解處理器。
 
-* 專案的原始程式碼檔案未變更。
+#### 在 Gradle 中
+
+Gradle 使用 [編譯規避](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_compile_avoidance) 在重新組建專案時跳過註解處理，從而提高使用 kapt 的增量組建時間。特別是在下列情況下會跳過註解處理：
+
+* 專案的原始碼檔案未變更。
 * 相依性的變更符合 [ABI](https://en.wikipedia.org/wiki/Application_binary_interface) 相容。例如，唯一的變更是方法主體。
 
-然而，編譯規避無法用於在編譯類別路徑中探索到的註解處理器，因為其中的 *任何變更* 都需要執行註解處理任務。
+然而，編譯規避無法用於在編譯類別路徑中探索到的註解處理器，因為其內部實作的任何變更都需要執行註解處理任務，即使 ABI 保持不變。
 
-若要以編譯規避執行 kapt：
-* [手動將註解處理器相依性加入 `kapt*` 配置](#在-gradle-中使用)。
-* 在 `gradle.properties` 檔案中關閉在編譯類別路徑中探索註解處理器：
+這就是為什麼我們不建議使用來自編譯類別路徑的註解處理器。若要從處理中排除這些註解，請在您的 `gradle.properties` 檔案中加入 `kapt.include.compile.classpath` 屬性：
 
-   ```none
-   # gradle.properties
-   kapt.include.compile.classpath=false
-   ```
+```none
+# gradle.properties
+kapt.include.compile.classpath=false
+```
+
+將該選項設定為 `false` 後，未包含在處理器路徑（`kapt*` 配置）中的註解處理器相依性將被排除在 kapt 處理之外。
+
+#### 在 Maven 中
+
+若要排除 kapt 處理器路徑中缺失的註解處理器，請在 kapt 外掛程式的 `<execution>` 區塊中將 `includeCompileClasspath` 選項設定為 `false`：
+
+```xml
+<execution>
+    <id>kapt</id>
+    <goals>
+        <goal>kapt</goal>
+    </goals>
+    <configuration>
+        <includeCompileClasspath>false</includeCompileClasspath>
+        <sourceDirs>...</sourceDirs>
+        <annotationProcessorPaths>...</annotationProcessorPaths>
+    </configuration>
+</execution>
+```
+
+或者，您可以在 `pom.xml` 的 `<properties>` 區塊中使用 `kapt.include.compile.classpath` 屬性：
+
+```xml
+<properties>
+    <kapt.include.compile.classpath>false</kapt.include.compile.classpath>
+</properties>
+```
+
+將該選項設定為 `false` 後，未包含在 `<annotationProcessorPaths>` 區塊中的註解處理器將被排除在 kapt 處理之外。
+
+如果未設定 `includeCompileClasspath` 選項，且 kapt 在編譯類別路徑上偵測到未在處理器路徑中明確定義的註解處理器，您將看到一個棄用警告：
+
+```none
+[WARNING] Annotation processors discovery from compile classpath is deprecated.
+Set 'kapt.include.compile.classpath=false' to disable discovery.
+```
+
+> 若要查看不在 kapt 類別路徑上的註解處理器列表，請使用 `--info` 記錄層級選項執行組建。
+> 
+{style="tip"}
 
 ## 增量註解處理
 
@@ -290,14 +333,42 @@ kapt {
 
 ## 在 Maven 中使用
 
-在 `compile` 之前加入 kotlin-maven-plugin 的 `kapt` 目標執行：
+### 自動配置
+
+您可以透過為 Kotlin Maven 外掛程式啟用 `<extensions>` 選項來簡化 kapt 配置。在這種情況下，您不需要手動設定帶有目標或原始碼目錄的 kapt `<execution>` 區塊。
+
+若要自動配置 kapt，請在您的 `pom.xml` 建置檔案中，將 `kotlin-maven-plugin` 的 `<extensions>` 選項設定為 `true`：
+
+```xml
+<plugin>
+    <groupId>org.jetbrains.kotlin</groupId>
+    <artifactId>kotlin-maven-plugin</artifactId>
+    <version>${kotlin.version}</version>
+    <extensions>true</extensions>
+    <configuration>
+        <annotationProcessorPaths>
+            <!-- 在此處指定您的註解處理器 -->
+            <annotationProcessorPath>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>1.6.3</version>
+            </annotationProcessorPath>
+        </annotationProcessorPaths>
+    </configuration>
+</plugin>
+```
+
+有關 `<extensions>` 選項的更多資訊，請參閱 [自動配置](maven-configure-project.md#automatic-configuration)。
+
+### 手動配置
+
+若要在您的 Kotlin Maven 專案中手動設定 kapt，請在 `compile` 執行之前加入 `kotlin-maven-plugin` 的 `kapt` 目標執行：
 
 ```xml
 <execution>
     <id>kapt</id>
     <goals>
-        <goal>kapt</goal> <!-- 如果您為外掛程式啟用了擴充套件，
-        可以跳過 <goals> 元素 -->
+        <goal>kapt</goal>
     </goals>
     <configuration>
         <sourceDirs>
@@ -316,11 +387,13 @@ kapt {
 </execution>
 ```
 
+### 配置 kapt 註解處理
+
 若要配置註解處理的層級，請在 `<configuration>` 區塊中將以下其中之一設定為 `aptMode`：
 
-   * `stubs` – 僅產生註解處理所需的虛設常式。
-   * `apt` – 僅執行註解處理。
-   * `stubsAndApt` – （預設）產生虛設常式並執行註解處理。
+* `stubs` – 僅產生註解處理所需的虛設常式。
+* `apt` – 僅執行註解處理。
+* `stubsAndApt` – （預設）產生虛設常式並執行註解處理。
 
 例如：
 

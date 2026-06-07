@@ -1,4 +1,10 @@
+---
+status: beta
+---
+
 # Spring AI 整合
+
+--8<-- "versioning-snippets.md:beta"
 
 Koog 提供 Spring AI 整合 starter，將 Spring AI 的抽象與 Koog 代理架構串聯起來。如果您已使用 Spring AI 進行模型存取、記憶體或向量儲存，這些 starter 讓您可以在其之上接入 Koog — 而無需替換現有的 Spring AI 配置。
 
@@ -25,7 +31,7 @@ Koog 提供 Spring AI 整合 starter，將 Spring AI 的抽象與 Koog 代理架
 
 ## 調度器類型
 
-所有四個 starter 都支援相同的調度器配置模式：
+所有四個 starter 支援相同的調度器配置模式：
 
 - **`AUTO`** (預設)：如果可用，使用 Spring 管理的 `AsyncTaskExecutor`，否則回退至 `Dispatchers.IO`。
 - **`IO`**：始終使用 `Dispatchers.IO`。
@@ -520,7 +526,7 @@ koog.spring.ai.chat-memory.chat-memory-repository-bean-name=jdbcChatMemoryReposi
 
 ### 支援的供應商
 
-此 starter 適用於 any Spring AI 實作，只要它公開了 `VectorStore`，包括 PgVector, Azure AI Search, Cassandra, Chroma, Elasticsearch, Milvus, MongoDB Atlas, Neo4j, OpenSearch, Oracle, Pinecone, Qdrant, Redis, Typesense 與 Weaviate。
+此 starter 適用於任何公開了 `VectorStore` 的 Spring AI 實作，包括 PgVector, Azure AI Search, Cassandra, Chroma, Elasticsearch, Milvus, MongoDB Atlas, Neo4j, OpenSearch, Oracle, Pinecone, Qdrant, Redis, Typesense 與 Weaviate。
 
 ### 配置
 
@@ -609,7 +615,7 @@ koog.spring.ai.vectorstore.vector-store-bean-name=pgVectorStore
 
 - 了解 [基礎代理](agents/basic-agents.md) 以建置極簡的 AI 工作流
 - 探索 [圖形基礎代理](agents/graph-based-agents.md) 以處理進階使用案例
-- 查看 [工具總覽](tools-overview.md) 以擴展代理的能力
+- 查看 [工具總覽](tools/index.md) 以擴展代理的能力
 - 閱讀 [檢索增強生成](retrieval-augmented-generation.md) 以了解 RAG 概念
 - 查看 [範例](examples.md) 以了解實際開發中的實作
 - 閱讀 [Spring Boot 整合](spring-boot.md) 指南以了解直接使用 Koog starter 的方式

@@ -1,8 +1,8 @@
 [//]: # (title: Kotlin Early Access Preview への参加)
 
 <tldr>
-    <!--<p>No preview versions are currently available.</p>-->
-    <p>最新の Kotlin EAP リリース: <strong>%kotlinEapVersion%</strong></p>
+    <p>現在、プレビューバージョンは利用できません。</p>
+    <!--<p>最新の Kotlin EAP リリース: <strong>%kotlinEapVersion%</strong></p>-->
 </tldr>
 
 Kotlin Early Access Preview (EAP) に参加すると、最新の Kotlin 機能を正式リリース前に試すことができます。
@@ -43,11 +43,10 @@ Kotlin EAP ビルドには、通常以下のステージが含まれます。
 
 ## ビルドの詳細
 
-<!--
 _現在、プレビューバージョンは利用できません。_
--->
 
-<table>
+<!--
+ <table>
     <tr>
         <th>ビルド情報</th>
         <th>ビルドのハイライト</th>
@@ -63,3 +62,4 @@ _現在、プレビューバージョンは利用できません。_
         </td>
     </tr>
 </table>
+-->

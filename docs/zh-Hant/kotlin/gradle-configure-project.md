@@ -49,7 +49,8 @@ plugins {
 
 | KGP 版本       | Gradle 最小與最大版本                 | AGP 最小與最大版本                                  |
 |---------------|---------------------------------------|-----------------------------------------------------|
-| 2.3.20–2.3.21 | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
+| 2.4.0         | %minGradleVersion%–%maxGradleVersion% | %minAndroidGradleVersion%–%maxAndroidGradleVersion% |
+| 2.3.20–2.3.21 | 7.6.3–9.3.0                           | 8.2.2–9.0.0                                         |
 | 2.3.10        | 7.6.3–9.0.0                           | 8.2.2–9.0.0                                         |
 | 2.3.0         | 7.6.3–9.0.0                           | 8.2.2–8.13.0                                        |
 | 2.2.20–2.2.21 | 7.6.3–8.14                            | 7.3.1–8.11.1                                        |
@@ -528,9 +529,9 @@ tasks.named("compileJava", JavaCompile.class) {
 
 ### 其他細節
 
-#### 在編譯任務中停用構件的使用
+#### 在編譯任務中停用產物的使用
 
-在某些罕見的情況下，您可能會遇到由循環相依錯誤引起的組建失敗。例如，當您有多個編譯，其中一個編譯可以看到另一個編譯的所有內部宣告，且產生的構件依賴於兩個編譯任務的輸出時：
+在某些罕見的情況下，您可能會遇到由循環相依錯誤引起的組建失敗。例如，當您有多個編譯，其中一個編譯可以看到另一個編譯的所有內部宣告，且產生的產物依賴於兩個編譯任務的輸出時：
 
 ```none
 FAILURE: Build failed with an exception.
@@ -544,12 +545,12 @@ Circular dependency between the following tasks:
 ```
 
 為了修復此循環相依錯誤，我們新增了一個 Gradle 屬性：`archivesTaskOutputAsFriendModule`。
-此屬性控制在編譯任務中構件輸入的使用，並決定是否因此建立任務相依性。
+此屬性控制在編譯任務中產物輸入的使用，並決定是否因此建立任務相依性。
 
 預設情況下，此屬性設定為 `true` 以追蹤任務相依性。如果您遇到循環相依錯誤，
-您可以在編譯任務中停用構件的使用，以移除任務相依性並避免循環相依錯誤。
+您可以在編譯任務中停用產物的使用，以移除任務相依性並避免循環相依錯誤。
 
-若要在編譯任務中停用構件的使用，請將以下內容新增到您的 `gradle.properties` 檔案中：
+若要在編譯任務中停用產物的使用，請將以下內容新增到您的 `gradle.properties` 檔案中：
 
 ```kotlin
 kotlin.build.archivesTaskOutputAsFriendModule=false

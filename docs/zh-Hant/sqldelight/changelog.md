@@ -29,6 +29,8 @@
 - [編譯器] 修復多列更新的樂觀鎖 (optimistic lock)（#6240 由 @griffio 提供）
 - [Intellij 外掛程式] 修復導致 IDEA 2026.2 當機的棄用問題（#6247 由 @griffio 提供）
 - [Gradle 外掛程式] 修復產生的原始碼在 AGP 8.9 至 8.11 上無法被 Kotlin 編譯識別的問題
+- [PostgreSQL 方言] 修復 `lower` 與 `upper` 函式使用 Primitive 繫結引數預設為 TEXT 的問題（#6262 由 @griffio 提供）
+- [編譯器] 為 null 安全運算子（IS 與 IS DISTINCT FROM）使用可 null 繫結引數（#6265 由 @griffio 提供）
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -40,8 +42,8 @@
 - [MySQL 方言] 新增對視窗函式 (Window Functions) 的支援（#6086 由 @griffio 提供）
 - [Gradle 外掛程式] 修復當起始架構版本不為 1 且 `verifyMigrations` 為 true 時的組建失敗（#6017 由 @neilgmiller 提供）
 - [Gradle 外掛程式] 讓 `SqlDelightWorkerTask` 具備更多可配置性，並更新預設組態以支援在 Windows 上開發（#5215 由 @MSDarwish2000 提供）
-- [SQLite 方言] 新增對 FTS5 虛擬表中合成列的支援（#5986 由 @watbe 提供）
-- [PostgreSQL 方言] 新增對 Postgres 資料列層級安全性的支援（#6087 由 @shellderp 提供）
+- [SQLite 方言] 新增對 FTS5 虛擬表中合成列 (synthesized columns) 的支援（#5986 由 @watbe 提供）
+- [PostgreSQL 方言] 新增對 Postgres 資料列層級安全性 (row level security) 的支援（#6087 由 @shellderp 提供）
 - [PostgreSQL 方言] 擴充 FOR UPDATE 以支援 OF table、NO KEY UPDATE、NO WAIT（#6104 由 @shellderp 提供）
 - [PostgreSQL 方言] 支援 Postgis Point 型別及相關函式（#5602 由 @vanniktech 提供）
 - [執行階段] 新增了 `SuspendingTransacter.TransactionDispatcher`，提供一種用於控制交易之 `CoroutineContext` 的機制（#5967 由 @eygraber 提供）
@@ -165,7 +167,7 @@
 - [PostgreSQL 方言] alter table add column if not exists (#5309 由 @griffio 提供)
 - [PostgreSQL 方言] PostgreSql 非同步繫結參數（#5313 由 @griffio 提供）
 - [PostgreSQL 方言] PostgreSql 布林常值（#5262 由 @griffio 提供）
-- [PostgreSQL 方言] PostgreSql 視窗函式（#5155 由 @griffio 提供）
+- [PostgreSQL 方方言] PostgreSql 視窗函式（#5155 由 @griffio 提供）
 - [PostgreSQL 方言] PostgreSql isNull isNotNull 型別（#5173 由 @griffio 提供）
 - [PostgreSQL 方言] PostgreSql select distinct (#5172 由 @griffio 提供)
 - [分頁擴充套件] 分頁重新整理初始載入修復（#5615 由 @evant 提供）
@@ -209,7 +211,7 @@
 - [IDE 外掛程式] 修復錯誤處理常式當機（#4988 由 @aperfilyev 提供）
 - [IDE 外掛程式] BugSnag 無法在 IDEA 2023.3 中初始化（由 @aperfilyev 提供）
 - [IDE 外掛程式] 透過外掛程式在 IntelliJ 中開啟 .sq 檔案時出現 PluginException（由 @aperfilyev 提供）
-- [IDE 外掛程式] 不要將 kotlin 庫打包進 IntelliJ 外掛程式，因為它已經是一個外掛程式相依項（#5126）
+- [IDE 外掛程式] 不要將 Kotlin 程式庫打包進 IntelliJ 外掛程式，因為它已經是一個外掛程式相依項（#5126）
 - [IDE 外掛程式] 使用 extensions 陣列而非串流（#5127）
 
 ## [2.0.1] - 2023-12-01
@@ -567,7 +569,7 @@ sqldelight {
 ### 修復
 - [編譯器] 來自不同資料表的相同配接器型別在 2.0 alpha 中導致編譯錯誤
 - [編譯器] 編譯 upsert 陳述式時的問題（#2791）
-- [編譯器] 如果有多個相符項，查詢結果應使用 select 中的資料表（#1874、#2313）
+- [編譯器] 查詢結果應使用 select 中的資料表（#1874、#2313）
 - [編譯器] 支援更新具有 INSTEAD OF 觸發器的檢視（#1018）
 - [編譯器] 支援函式名稱中的 from 與 for
 - [編譯器] 允許在函式運算式中使用 SEPARATOR 關鍵字
@@ -579,7 +581,7 @@ sqldelight {
 - [MySQL] UNIX_TIMESTAMP、TO_SECONDS、JSON_ARRAYAGG MySQL 函式無法辨識
 - [SQLite] 修復 SQLite 視窗功能
 - [IDE 外掛程式] 在空進度指示器中執行跳轉處理常式 (#2990)
-- [IDE 外掛程式] 確保醒目提示訪問器不會在專案未設定時執行 (#2981、#2976)
+- [IDE 外掛程式]  ensure 醒目提示訪問器不會在專案未設定時執行 (#2981、#2976)
 - [IDE 外掛程式] 確保轉移產生的程式碼在 IDE 中也會更新 (#1837)
 - [IDE 外掛程式] 更新方言時使索引失效
 
@@ -815,7 +817,7 @@ sqldelight {
 - [IDE 外掛程式] 如果 SQLDelight 檔案被移至 non-sqldelight 模組，請勿嘗試產生程式碼
 - [IDE 外掛程式] 忽略 IDE 中的程式碼產生錯誤
 - [IDE 外掛程式] 確保我們不嘗試負數子字串 (#2068)
-- [IDE 外掛程式] 同時確保在執行 Gradle 操作前專案未處置 (#2155)
+- [IDE 外掛程式] 同時確保在執行 Gradle 操作前專案已處置 (#2155)
 - [IDE 外掛程式] 可 null 型別上的算術運算也應為可 null (#1853)
 - [IDE 外掛程式] 讓「展開 * 意圖」可與額外的投影配合使用 (#2173 由 @aperfilyev 提供)
 - [IDE 外掛程式] 如果 Kotlin 解析在 GoTo 期間失敗，請勿嘗試前往 SQLDelight 檔案
@@ -863,7 +865,7 @@ sqldelight {
 - [IDE 外掛程式] 遇到未知運算式時拋出更好的錯誤訊息 (#1958)
 - [Gradle 外掛程式] SQLDelight 將 IntelliJ 相依項流失至 buildscript 類別路徑 (#1998)
 - [Gradle 外掛程式] 在 *.sq 檔案中新增方法文件時出現「找不到 JavadocIntegrationKt」編譯錯誤 (#1982)
-- [Gradle 外掛程式] SqlDeslight gradle 外掛程式不支援組態快取 (CoCa) (#1947 由 @stephanenicolas 提供)
+- [Gradle 外掛程式] SQLDelight Gradle 外掛程式不支援組態快取 (CoCa)。(#1947 由 @stephanenicolas 提供)
 - [SQLite JDBC 驅動程式] SQLException：資料庫處於自動提交模式 (#1832)
 - [協同程式擴充套件] 修復協同程式擴充套件的 IR 後端 (#1918 由 @dellisd 提供)
 
@@ -881,7 +883,7 @@ sqldelight {
 - [編譯器] 修復產生無效 Kotlin 的問題 (#1925 由 @eygraber 提供)
 - [編譯器] 為未知函式提供更好的錯誤訊息 (#1843)
 - [編譯器] 公開字串作為 `instr` 第二個參數的型別
-- [IDE 外掛程式] 修復 IDE 外掛程式的背景程式膨脹與 UI 執行緒停頓 (#1916)
+- [IDE 外掛程式] 修復 IDE 外掛程式的背景程序膨脹與 UI 執行緒停頓 (#1916)
 - [IDE 外掛程式] 處理模組為 null 的情況 (#1902)
 - [IDE 外掛程式] 在未配置的 sq 檔案中，為套件名稱傳回空字串 (#1920)
 - [IDE 外掛程式] 修復群組陳述式並為其新增整合測試 (#1820)
@@ -894,8 +896,8 @@ sqldelight {
 
 ### 新增
 - [執行階段] 支援新的 JS IR 後端
-- [Gradle 外掛程式] 新增 `generateSqlDelightInterface` Gradle 任務。 (由 @vanniktech 提供)
-- [Gradle 外掛程式] 新增 `verifySqlDelightMigration` Gradle 任務。 (由 @vanniktech 提供)
+- [Gradle 外掛程式] 新增 `generateSqlDelightInterface` Gradle 任務。(由 @vanniktech 提供)
+- [Gradle 外掛程式] 新增 `verifySqlDelightMigration` Gradle 任務。(由 @vanniktech 提供)
 
 ### 修復
 - [IDE 外掛程式] 使用 Gradle 工具 API 促進 IDE 與 Gradle 之間的資料共享

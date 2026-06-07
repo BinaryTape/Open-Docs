@@ -504,7 +504,7 @@ parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(BookTool::clas
 ```
 <!--- KNIT example-custom-strategy-graphs-08.kt -->
 
-要了解更多信息，请参阅[工具](tools-overview.md#parallel-tool-calls)。 
+要了解更多信息，请参阅[工具](tools/index.md#parallel-tool-calls)。 
 
 ### 并行节点执行 
 

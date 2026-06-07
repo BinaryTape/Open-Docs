@@ -1,90 +1,3 @@
-[//]: # (title: 从 JavaScript 使用 Kotlin 代码)
-
-根据所选的 [JavaScript 模块](js-modules.md)系统，Kotlin/JS 编译器会生成不同的输出。
-但总的来说，Kotlin 编译器会生成普通的 JavaScript 类、函数和属性，你可以从 JavaScript 代码中自由使用它们。
-不过，有一些细微之处需要注意。
-
-## 在 plain 模式下将声明隔离在单独的 JavaScript 对象中
-
-如果你显式地将模块类型设置为 `plain`，Kotlin 会创建一个包含当前模块中所有 Kotlin 声明的对象。这样做是为了防止污染全局对象。这意味着对于模块 `myModule`，所有声明都可以通过 `myModule` 对象提供给 JavaScript。例如：
-
-```kotlin
-fun foo() = "Hello"
-```
-
-可以在 JavaScript 中像这样调用此函数：
-
-```javascript
-alert(myModule.foo());
-```
-
-当你将 Kotlin 模块编译为 JavaScript 模块（如 [UMD](https://github.com/umdjs/umd)（`browser` 和 `nodejs` 目标的默认设置）、[ESM](https://tc39.es/ecma262/#sec-modules)、[CommonJS](https://nodejs.org/api/modules.html#modules-commonjs-modules) 或 [AMD](https://github.com/amdjs/amdjs-api/wiki/AMD)）时，像这样直接调用函数是不适用的。在这些情况下，你的声明将根据所选的 JavaScript 模块系统进行公开。例如，当使用 UMD、ESM 或 CommonJS 时，你的调用站点如下所示：
-
-```javascript
-alert(require('myModule').foo());
-```
-
-有关 JavaScript 模块系统的更多信息，请参阅 [JavaScript 模块](js-modules.md)。
-
-## 软件包结构
-
-对于大多数模块系统（CommonJS、Plain 和 UMD），Kotlin 会将其软件包结构公开给 JavaScript。除非你在根软件包中定义声明，否则必须在 JavaScript 中使用完全限定名称。例如：
-
-```kotlin
-package my.qualified.packagename
-
-fun foo() = "Hello"
-```
-
-例如，当使用 UMD 或 CommonJS 时，你的调用站点可能如下所示：
-
-```javascript
-alert(require('myModule').my.qualified.packagename.foo())
-```
-
-当使用 `plain` 作为模块系统设置时，调用站点将是：
-
-```javascript
-alert(myModule.my.qualified.packagename.foo());
-```
-
-当以 ECMAScript 模块 (ESM) 为目标时，为了减小应用包的大小并匹配 ESM 软件包的典型布局，软件包信息不会被保留。在这种情况下，通过 ES 模块使用 Kotlin 声明的方式如下所示：
-
-```javascript
-import { foo } from 'myModule';
-
-alert(foo());
-```
-
-### @JsName 注解
-
-在某些情况下（例如，为了支持重载），Kotlin 编译器会在 JavaScript 代码中对生成的函数和属性名称进行修饰。要控制生成的名称，可以使用 `@JsName` 注解：
-
-```kotlin
-// 模块 'kjs'
-class Person(val name: String) {
-    fun hello() {
-        println("Hello $name!")
-    }
-
-    @JsName("helloWithGreeting")
-    fun hello(greeting: String) {
-        println("$greeting $name!")
-    }
-}
-```
-
-现在，你可以按照以下方式从 JavaScript 使用这个类：
-
-```javascript
-// 如有必要，根据所选的模块系统导入 'kjs'
-var person = new kjs.Person("Dmitry");   // 引用模块 'kjs'
-person.hello();                          // 打印 "Hello Dmitry!"
-person.helloWithGreeting("Servus");      // 打印 "Servus Dmitry!"
-```
-
-如果我们没有指定 `@JsName` 注解，对应函数的名称将包含一个根据函数签名计算出的后缀，例如 `hello_61zpoe`。
-
 请注意，在某些情况下，Kotlin 编译器不会应用名称修饰：
 - `external` 声明不会被修饰。
 - 继承自 `external` 类的非 `external` 类中任何重写的方法都不会被修饰。
@@ -96,25 +9,118 @@ person.helloWithGreeting("Servus");      // 打印 "Servus Dmitry!"
 external fun newC()
 ```
 
-### @JsExport 注解
+### `@JsExport` 注解
+<primary-label ref="experimental-general"/>
 
-> 此功能是[实验性的](components-stability.md#stability-levels-explained)。其设计可能会在未来的版本中发生变化。
->
-{style="warning"} 
+通过将 `@JsExport` 注解应用于顶级声明（如类、接口或函数），可以使 Kotlin 声明在 JavaScript 或 TypeScript 中可用。该注解会使用 Kotlin 中给出的名称导出所有嵌套声明。
 
-通过将 `@JsExport` 注解应用于顶级声明（如类或函数），可以使该 Kotlin 声明在 JavaScript 中可用。该注解会使用 Kotlin 中给出的名称导出所有嵌套声明。它也可以使用 `@file:JsExport` 在文件级应用。
+例如，以下是如何导出一个带有嵌套类和具名伴生对象的 Kotlin 接口：
 
-为了解决导出中的歧义（如具有相同名称的函数的重载），可以将 `@JsExport` 注解与 `@JsName` 结合使用，以指定生成的和导出的函数的名称。
+```kotlin
+@JsExport
+interface Identity {
+     class Metadata(val tag: String)
+
+    companion object Registry {
+        val defaultTag = "GUEST"
+    }
+}
+```
 
 目前，`@JsExport` 注解是使你的函数从 Kotlin 可见的唯一方法。
 
-对于多平台项目，`@JsExport` 在通用代码中也可用。它仅在针对 JavaScript 目标进行编译时生效，并允许你导出非平台特定的 Kotlin 声明。
+`@JsExport` 注解还可用于：
 
-### @JsStatic
+* 多平台项目中的通用代码。它仅在针对 JavaScript 目标进行编译时生效，并允许你导出非平台特定的 Kotlin 声明。
+* 与 [`@JsName` 注解](#jsname-annotation)结合使用，以指定生成的和导出的函数的名称。这有助于解决导出中的歧义（如具有相同名称的函数的重载）。
+* 使用 `@file:JsExport` 在文件级应用。
 
-> 此功能是[实验性的](components-stability.md#stability-levels-explained)。它可能随时被删除或更改。请仅用于评估目的。我们欢迎你在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-18891/JS-provide-a-way-to-declare-static-members-JsStatic) 上提供反馈。
->
-{style="warning"}
+#### 支持导出值类
+
+你可以将 Kotlin 的[内联值类](inline-classes.md)导出为普通的 TypeScript 类。
+
+要导出值类，请在 Kotlin 侧使用 `@JsExport` 注解对其进行标记：
+
+```kotlin
+// Kotlin
+@JsExport
+@JvmInline
+value class Email(val address: String) {
+    init { require(address.contains("@")) { "Invalid email" } }
+}
+
+@JsExport
+class AuthService {
+    suspend fun login(email: Email): String = ...
+}
+```
+
+在 TypeScript 侧，它看起来像一个普通的类：
+
+```typescript
+// TypeScript
+import { AuthService, Email } from "..."
+const auth = new AuthService();
+
+console.log(await auth.login(new Email("jane@example.com"))); 
+// "Welcome, jane@example.com!"
+console.log(await auth.login(new Email("not-an-email"))); 
+// "Invalid email"
+```
+
+### `@JsNoRuntime` 注解
+
+你可以通过 `@JsNoRuntime` 注解将 Kotlin 接口导出到 JavaScript/TypeScript。它允许直接映射到普通的 TypeScript 接口。
+
+要导出 Kotlin 接口（例如从 Kotlin 多平台项目中）：
+
+1. 在通用代码中使用 `@JsNoRuntime` 为 Kotlin 接口添加注解：
+
+    ```kotlin
+    // commonMain
+    import kotlin.js.JsNoRuntime
+    
+    @JsNoRuntime
+    expect interface DataProcessor {
+        fun process(data: String): Int 
+    }
+    ```
+
+2. 在 JS 特定的源代码中通过 `@JsNoRuntime` 提供 `actual` 实现：
+
+    ```kotlin
+    // jsMain
+    import kotlin.js.JsNoRuntime
+    
+    @JsNoRuntime
+    actual interface DataProcessor {
+        actual fun process(data: String): Int
+    } 
+    ```
+    
+3. 在 TypeScript 侧，该接口将被映射为一个普通的 TypeScript 接口：
+    
+    ```typescript
+    // 生成的 .d.ts
+    export interface DataProcessor {
+        process(data: string): number;
+    }
+    ```
+
+对于 Kotlin 多平台项目，通用规则如下：
+
+* `expect` 和 `actual` 接口声明都必须使用 `@JsNoRuntime` 进行注解。唯一的例外是 `actual` 侧平台特定代码中的 `external` 实现，它们不需要注解。
+* 禁止在 `expect` 侧的通用代码中使用 `external` 接口声明。应改用带有 `@JsNoRuntime` 注解的普通接口。
+
+使用 `@JsNoRuntime` 导出 Kotlin 接口存在一些限制。该注解不允许用于：
+
+* `external` 接口，因为它们默认行为已等同于带有 `@JsNoRuntime`。添加它会导致编译器警告。
+* `is` 和 `as` 类型检查。
+* 使用 [`::class` 语法](js-reflection.md)的类引用。
+* 作为[具现化类型实参](inline-functions.md#reified-type-parameters)传递的接口。
+
+### `@JsStatic`
+<primary-label ref="experimental-general"/>
 
 `@JsStatic` 注解指示编译器为目标声明生成额外的 static 方法。这有助于你直接在 JavaScript 中使用 Kotlin 代码中的 static 成员。
 
@@ -142,6 +148,8 @@ C.Companion.callNonStatic(); // 唯一可行的方式
 ```
 
 也可以将 `@JsStatic` 注解应用于对象或伴生对象的属性，使其 getter 和 setter 方法成为该对象或包含伴生对象的类中的 static 成员。
+
+此功能是[实验性的](components-stability.md#stability-levels-explained)。请在我们的问题跟踪器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-18891/JS-provide-a-way-to-declare-static-members-JsStatic) 中分享你的反馈。
 
 ### 使用 `BigInt` 类型表示 Kotlin 的 `Long` 类型
 <primary-label ref="experimental-general"/>

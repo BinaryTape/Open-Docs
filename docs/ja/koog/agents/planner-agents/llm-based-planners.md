@@ -1,4 +1,10 @@
+---
+status: beta
+---
+
 # LLMベースのプランナー
+
+--8<-- "versioning-snippets.md:beta"
 
 LLMベースのプランナーは、LLMを使用してプランの生成と評価を行います。
 これらは文字列ベースの状態（string-based state）に基づいて動作し、LLMリクエストを通じて各ステップを実行します。

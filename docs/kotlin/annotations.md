@@ -164,7 +164,7 @@ class Example {
   * `property`（具有此目标的注解对 Java 不可见）
   * `get`（属性 getter）
   * `set`（属性 setter）
-  * `all`（属性的实验性元目标，有关其用途和用法请参见[下文](#all-meta-target)）
+  * `all`（属性的元目标，有关更多信息请参阅 [`all` 元目标](#all-meta-target) 部分）
   * `receiver`（扩展函数或属性的接收者形参）
 
     要为扩展函数的接收者形参添加注解，请使用以下语法：
@@ -179,11 +179,13 @@ class Example {
 
 ### 未指定使用处目标时的默认情况
 
-如果您不指定使用处目标，则会根据所使用注解的 `@Target` 注解来选择目标。如果有多个适用的目标，则使用下表中的第一个适用目标：
+如果您不指定使用处目标，则编译器会根据所使用注解的 `@Target` 注解来选择目标。如果有多个适用的目标，则编译器会按以下顺序选择一个或多个目标：
 
-* `param`
-* `property`
-* `field`
+* 构造函数形参目标 (`param`)。
+* 属性目标 (`property`)。
+* 字段目标 (`field`)，如果它适用且属性目标 (`property`) 不适用。
+
+如果 `param`、`property` 或 `field` 均不适用，则该注解无效，您需要显式指定使用处目标。
 
 让我们使用来自 [Jakarta Bean Validation 的 `@Email` 注解](https://jakarta.ee/specifications/bean-validation/3.0/apidocs/jakarta/validation/constraints/email)：
 
@@ -196,25 +198,6 @@ public @interface Email { }
 
 ```kotlin
 data class User(val username: String,
-                // @Email 相当于 @param:Email
-                @Email val email: String) {
-    // @Email 相当于 @field:Email
-    @Email val secondaryEmail: String? = null
-}
-```
-
-Kotlin 2.2.0 引入了一项实验性的默认规则，该规则应当使注解向形参、字段和属性的传播更加可预测。
-
-根据新规则，如果有多个适用的目标，则按如下方式选择一个或多个目标：
-
-* 如果构造函数形参目标 (`param`) 适用，则使用它。
-* 如果属性目标 (`property`) 适用，则使用它。
-* 如果字段目标 (`field`) 在 `property` 不适用时适用，则使用 `field`。
-
-使用相同的示例：
-
-```kotlin
-data class User(val username: String,
                 // @Email 现在相当于 @param:Email @field:Email
                 @Email val email: String) {
     // @Email 仍然相当于 @field:Email
@@ -222,36 +205,17 @@ data class User(val username: String,
 }
 ```
 
-如果有多个目标，且 `param`、`property` 或 `field` 均不适用，则该注解无效。
+在此示例中，`@Email` 注解同时应用于 `email` 属性的构造函数形参和字段目标，因为该属性：
 
-要启用新的默认规则，请在您的 Gradle 配置中使用以下行：
+* 声明在主构造函数中。
+* 没有自定义 getter 或 setter，因此编译器会生成一个支持字段。
 
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xannotation-default-target=param-property")
-    }
-}
-```
+对于 `secondaryEmail` 属性，`@Email` 注解仅应用于字段目标，因为该属性：
 
-每当您想使用旧的行为时，您可以：
-
-* 在特定情况下，显式指定所需的目标，例如，使用 `@param:Annotation` 代替 `@Annotation`。
-* 对于整个项目，在您的 Gradle 构建文件中使用此标志：
-
-    ```kotlin
-    // build.gradle.kts
-    kotlin {
-        compilerOptions {
-            freeCompilerArgs.add("-Xannotation-default-target=first-only")
-        }
-    }
-    ```
+* 不在主构造函数中声明。
+* 没有自定义 getter 或 setter，因此编译器会生成一个支持字段。
 
 ### `all` 元目标
-
-<primary-label ref="experimental-opt-in"/>
 
 使用 `all` 目标可以更轻松地将同一个注解不仅应用于形参和属性或字段，还应用于相应的 getter 和 setter。
 
@@ -299,25 +263,6 @@ data class User(
     val x: Int = 5
     ```
 * 它不能与 [委托属性](delegated-properties.md) 一起使用。
-
-#### 如何启用
-
-要在项目中启用 `all` 元目标，请在命令行中使用以下编译器选项：
-
-```Bash
--Xannotation-target-all
-```
-
-或者将其添加到 Gradle 构建文件的 `compilerOptions {}` 块中：
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xannotation-target-all")
-    }
-}
-```
 
 ## Java 注解
 

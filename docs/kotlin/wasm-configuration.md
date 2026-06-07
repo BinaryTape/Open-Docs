@@ -112,24 +112,15 @@ export { moduleExports as default };
 
 你也可以将 `.mjs` 文件放置在自定义位置。在这种情况下，你需要手动将其移动到主 `.mjs` 文件旁边，或者调整 import 语句中的路径以匹配其位置。
 
-## Kotlin/Wasm 编译缓慢
+## Kotlin/Wasm 增量编译
 
-在开发 Kotlin/Wasm 项目时，你可能会遇到编译时间较长的问题。这是因为每次进行更改时，Kotlin/Wasm 工具链都会重新编译整个代码库。
+Kotlin/Wasm 目标支持增量编译，这使编译器能够仅重新编译受近期更改影响的文件。这有助于减少编译时间。
 
-为了缓解这个问题，Kotlin/Wasm 目标支持增量编译，这使编译器能够仅重新编译与自上次编译以来所做更改相关的文件。
-
-使用增量编译可以减少编译时间。目前它使开发速度翻倍，并计划在未来版本中进一步改进。
-
-在当前的设置中，Wasm 目标的增量编译默认情况下是禁用的。要启用它，请将以下行添加到项目的 `local.properties` 或 `gradle.properties` 文件中：
+Wasm 目标的增量编译默认处于启用状态。要禁用它，请将以下行添加到项目的 `local.properties` 或 `gradle.properties` 文件中：
 
 ```text
-kotlin.incremental.wasm=true
+kotlin.incremental.wasm=false
 ```
-
-> 尝试 Kotlin/Wasm 增量编译并 [分享你的反馈](https://youtrack.jetbrains.com/issue/KT-72158/Kotlin-Wasm-incremental-compilation-feedback)。
-> 你的见解有助于使该功能变得稳定并尽早默认启用。
->
-{style="note"}
 
 ## 完全限定类名中的诊断
 

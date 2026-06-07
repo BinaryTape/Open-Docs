@@ -287,7 +287,7 @@ kotlin.build.report.output=file,single_file,http,build_scan,json
 
 # single_file 出力を使用する場合は必須。レポートの保存場所
 # 非推奨の `kotlin.internal.single.build.metrics.file` プロパティの代わりに使用してください
-kotlin.build.report.single_file=some_filename
+kotlin.build.report.single_file=my/directory/path/some_filename
 
 # json 出力を使用する場合は必須。レポートの保存場所
 kotlin.build.report.json.directory=my/directory/path

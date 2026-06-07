@@ -1,7 +1,5 @@
 [//]: # (title: 컨텍스트 파라미터)
 
-<primary-label ref="experimental-general"/>
-
 > 컨텍스트 파라미터(Context parameters)는 [컨텍스트 리시버(context receivers)](whatsnew1620.md#prototype-of-context-receivers-for-kotlin-jvm)라고 불리는 이전 실험적 기능을 대체합니다.
 > 주요 차이점은 [컨텍스트 파라미터 설계 문서](https://github.com/Kotlin/KEEP/blob/master/proposals/context-parameters.md#summary-of-changes-from-the-previous-proposal)에서 확인할 수 있습니다.
 > 컨텍스트 리시버에서 컨텍스트 파라미터로 마이그레이션하려면 관련 [블로그 포스트](https://blog.jetbrains.com/kotlin/2025/04/update-on-context-parameters/)에 설명된 대로 IntelliJ IDEA의 지원 기능을 사용할 수 있습니다.
@@ -33,7 +31,26 @@ context(users: UserService)
 val firstUser: String
     // 컨텍스트의 findUserById를 사용합니다    
     get() = users.findUserById(1)
+
+fun main() {
+    val users = object : UserService {
+        override fun log(message: String) {
+            println(message)
+        }
+
+        override fun findUserById(id: Int): String {
+            return "User $id"
+        }
+    }
+
+    context(users) {
+        outputMessage("Looking up the first user")
+        println(firstUser)
+        // User 1
+    }
+}
 ```
+{kotlin-runnable="true" kotlin-min-compiler-version="2.4"}
 
 컨텍스트 파라미터 이름으로 `_`를 사용할 수 있습니다. 이 경우 파라미터 값은 해석(resolution)에는 사용될 수 있지만, 블록 내부에서 이름으로 접근할 수는 없습니다:
 
@@ -46,7 +63,7 @@ fun logWelcome() {
 }
 ```
 
-#### 컨텍스트 파라미터 해석
+## 컨텍스트 파라미터 해석
 
 Kotlin은 호출 지점(call site)의 현재 스코프에서 일치하는 컨텍스트 값을 검색하여 컨텍스트 파라미터를 해결(resolve)합니다. Kotlin은 타입을 기준으로 일치 여부를 판단합니다.
 동일한 스코프 레벨에 호환되는 값이 여러 개 존재하면 컴파일러가 모호성(ambiguity) 오류를 보고합니다:
@@ -64,7 +81,7 @@ fun outputMessage(message: String) {
 }
 
 fun main() {
-    // UserService 구현
+    // UserService 구현 
     val serviceA = object : UserService {
         override fun log(message: String) = println("A: $message")
     }
@@ -82,7 +99,78 @@ fun main() {
 }
 ```
 
-#### 제한 사항
+### 컨텍스트 인자 명시적으로 전달하기
+<primary-label ref="experimental-opt-in"/>
+
+오버로드(overload)가 컨텍스트 파라미터에 의해서만 구분되는 경우, 일치하는 컨텍스트 값이 여러 개 존재하면 호출 시 모호함이 발생할 수 있습니다.
+
+모호성을 해결하려면 호출 지점에서 명시적인 컨텍스트 인자(context argument)를 전달하세요:
+
+```kotlin
+class EmailSender
+class SmsSender
+
+context(emailSender: EmailSender)
+fun sendNotification() {
+    println("Sent email notification")
+}
+
+context(smsSender: SmsSender)
+fun sendNotification() {
+    println("Sent SMS notification")
+}
+
+context(defaultEmailSender: EmailSender, defaultSmsSender: SmsSender)
+fun notifyUser() {
+    // EmailSender 컨텍스트 파라미터가 있는 오버로드를 선택합니다
+    sendNotification(emailSender = defaultEmailSender)
+
+    // SmsSender 컨텍스트 파라미터가 있는 오버로드를 선택합니다
+    sendNotification(smsSender = defaultSmsSender)
+}
+```
+
+명시적인 컨텍스트 인자를 사용하여 일부 함수 호출의 중첩(nesting)을 줄일 수도 있습니다:
+
+* 단일 호출의 경우, 명시적인 컨텍스트 인자를 사용하여 코드를 더 읽기 쉽게 만드세요.
+* 여러 호출이 동일한 컨텍스트 인자를 사용하는 경우, `context()` 함수를 사용하세요.
+
+이 기능은 [실험적(Experimental)](components-stability.md#stability-levels-explained)입니다. 사용하려면 빌드 파일에 다음 컴파일러 옵션을 추가하세요:
+
+<tabs group="build-system">
+<tab title="Gradle" group-key="gradle">
+
+```kotlin
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xexplicit-context-arguments")
+    }
+}
+```
+
+</tab>
+<tab title="Maven" group-key="maven">
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-maven-plugin</artifactId>
+            <configuration>
+                <args>
+                    <arg>-Xexplicit-context-arguments</arg>
+                </args>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+
+</tab>
+</tabs>
+
+## 제한 사항
 
 컨텍스트 파라미터는 지속적으로 개선되고 있으며, 현재 몇 가지 제한 사항은 다음과 같습니다:
 
@@ -91,29 +179,3 @@ fun main() {
 * 컨텍스트 파라미터가 있는 프로퍼티는 위임(delegation)을 사용할 수 없습니다.
 
 이러한 제한 사항에도 불구하고, 컨텍스트 파라미터는 간소화된 의존성 주입, 향상된 DSL 설계 및 스코프 기반 작업을 통해 의존성 관리를 단순화합니다.
-
-#### 컨텍스트 파라미터 활성화 방법
-
-프로젝트에서 컨텍스트 파라미터를 활성화하려면 커맨드 라인에서 다음 컴파일러 옵션을 사용하세요:
-
-```Bash
--Xcontext-parameters
-```
-
-또는 Gradle 빌드 파일의 `compilerOptions {}` 블록에 추가하세요:
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xcontext-parameters")
-    }
-}
-```
-
-> `-Xcontext-receivers`와 `-Xcontext-parameters` 컴파일러 옵션을 동시에 지정하면 오류가 발생합니다.
->
-{style="warning"}
-
-이 기능은 향후 Kotlin 릴리스에서 [안정화(stabilized)](components-stability.md#stability-levels-explained) 및 개선될 예정입니다.
-이슈 트래커인 [YouTrack](https://youtrack.jetbrains.com/issue/KT-10468/Context-Parameters-expanding-extension-receivers-to-work-with-scopes)을 통해 여러분의 의견을 기다리고 있습니다.

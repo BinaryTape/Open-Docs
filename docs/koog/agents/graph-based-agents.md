@@ -337,7 +337,7 @@ graph LR
 
 ## 添加工具
 
-定义用于执行数学运算的 [工具](../tools-overview.md)，并将其添加到 [ToolRegistry](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool-registry/index.html) 中：
+定义用于执行数学运算的 [工具](../tools/index.md) 并将其添加到 [ToolRegistry](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool-registry/index.html) 中：
 
 === "Kotlin"
 

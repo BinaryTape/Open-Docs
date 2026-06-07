@@ -9,17 +9,15 @@ Kotlin Power-assert 編譯器外掛程式透過提供包含上下文資訊的詳
 Incorrect length
 assert(hello.length == world.substring(1, 4).length) { "Incorrect length" }
        |     |      |  |     |               |
-       |     |      |  |     |               3
-       |     |      |  |     orl
-       |     |      |  world!
-       |     |      false
-       |     5
-       Hello
+       |     5      |  |     "orl"           3
+       "Hello"      |  "world!"
+                    false
 ```
 
 Power-assert 外掛程式的主要特性：
 
 * **增強的錯誤訊息**：該外掛程式會擷取並顯示斷言中的變數和子運算式的值，以清楚識別失敗原因。
+* **執行時程式庫**：該程式庫提供了 `@PowerAssert` 註解和 `CallExplanation` 類別。它們透過將具備 Power-assert 能力的函式直接與編譯器外掛程式轉換整合，使其更易於被發現且更易於配置。
 * **簡化測試**：自動產生具備豐富資訊的失敗訊息，減少對複雜斷言程式庫的需求。
 * **支援多個函式**：預設情況下，它會轉換 `assert()` 函式呼叫，但也可以轉換其他函式，例如 `require()`、`check()` 和 `assertTrue()`。
 
@@ -86,7 +84,7 @@ powerAssert {
 </tab>
 </tabs>
 
-由於該外掛程式處於實驗性 (Experimental) 階段，您每次組建應用程式時都會看到警告。若要排除這些警告，請在宣告 `powerAssert {}` 區塊之前加入此 `@OptIn` 註解：
+由於該外掛程式處於 [實驗性 (Experimental)](components-stability.md#stability-levels-explained) 階段，您每次組建應用程式時都會看到警告。若要排除這些警告，請在宣告 `powerAssert {}` 區塊之前加入此 `@OptIn` 註解：
 
 ```kotlin
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
@@ -175,7 +173,7 @@ powerAssert {
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
-    kotlin("jvm") version "%kotlinVersion%"
+    kotlin("multiplatform") version "%kotlinVersion%"
     kotlin("plugin.power-assert") version "%kotlinVersion%"
 }
 
@@ -207,7 +205,7 @@ powerAssert {
 ```groovy
 // build.gradle
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
+    id 'org.jetbrains.kotlin.multiplatform' version '%kotlinVersion%'
     id 'org.jetbrains.kotlin.plugin.power-assert' version '%kotlinVersion%'
 }
 
@@ -361,6 +359,44 @@ powerAssert {
 </tab>
 </tabs>
 
+### `@PowerAssert` 註解函式
+
+如果函式使用了 `@PowerAssert` 註解，Power-assert 外掛程式會自動轉換對該函式的呼叫。您無需在組建組態中註冊該函式。
+
+您可以在自行宣告斷言函式時加入 `@PowerAssert` 註解，或是使用 [支援 Power-assert 的程式庫](#為您的程式庫加入-power-assert-支援) 並提供帶有註解的函式。
+
+若要獲得詳細的失敗訊息，請在專案中啟用 Power-assert 外掛程式的情況下呼叫該函式：
+
+```kotlin
+import kotlin.test.Test
+
+data class Mascot(val name: String)
+
+class SampleTest {
+
+    @Test
+    fun testAnnotatedFunction() {
+        val subject: Any? = Mascot(name = "Unknown")
+        // 如果程式庫中的 assertThat() 帶有 @PowerAssert 註解，
+        // 外掛程式會自動轉換此呼叫
+        assertThat(subject) {
+            require(subject is Mascot)
+            check(subject.name == "Kodee")
+        }
+    }
+}
+```
+
+該外掛程式提供包含中間運算式值的詳細失敗訊息：
+
+```text
+check(subject.name == "Kodee")
+      |       |    |
+      |       |    false
+      |       "Unknown"
+      Mascot(name=Unknown)
+```
+
 ### Assert 函式
 
 考慮以下使用 `assert()` 函式的測試：
@@ -385,12 +421,9 @@ class SampleTest {
 Incorrect length
 assert(hello.length == world.substring(1, 4).length) { "Incorrect length" }
        |     |      |  |     |               |
-       |     |      |  |     |               3
-       |     |      |  |     orl
-       |     |      |  world!
-       |     |      false
-       |     5
-       Hello
+       |     5      |  |     "orl"           3
+       "Hello"      |  "world!"
+                    false
 ```
 
 若要獲得更完整的錯誤訊息，請始終將變數內嵌 (inline) 到測試函式參數中。考慮以下測試函式：
@@ -399,7 +432,7 @@ assert(hello.length == world.substring(1, 4).length) { "Incorrect length" }
 class ComplexExampleTest {
 
     data class Person(val name: String, val age: Int)
- 
+
     @Test
     fun testComplexAssertion() {
         val person = Person("Alice", 10)
@@ -413,11 +446,9 @@ class ComplexExampleTest {
 執行程式碼的輸出並未提供足夠的資訊來找出問題原因：
 
 ```text
-Assertion failed
 assert(isValidName && isValidAge)
        |              |
-       |              false
-       true
+       true           false
 ```
 
 將變數內嵌到 `assert()` 函式中：
@@ -438,19 +469,11 @@ class ComplexExampleTest {
 執行後，您會獲得關於出錯原因的更明確資訊：
 
 ```text
-Assertion failed
 assert(person.name.startsWith("A") && person.name.length > 3 && person.age > 20 && person.age < 29)
        |      |    |                  |      |    |      |      |      |   |
-       |      |    |                  |      |    |      |      |      |   false
-       |      |    |                  |      |    |      |      |      10
-       |      |    |                  |      |    |      |      Person(name=Alice, age=10)
-       |      |    |                  |      |    |      true
-       |      |    |                  |      |    5
-       |      |    |                  |      Alice
-       |      |    |                  Person(name=Alice, age=10)
-       |      |    true
-       |      Alice
-       Person(name=Alice, age=10)
+       |      |    true               |      |    5      true   |      10  false
+       |      "Alice"                 |      "Alice"            Person(name=Alice, age=10)
+       Person(name=Alice, age=10)     Person(name=Alice, age=10)
 ```
 
 ### 超越 assert 函式
@@ -518,8 +541,7 @@ class RequireExampleTest {
 Value should not be empty
 require(value.isNotEmpty()) { "Value should not be empty" }
         |     |
-        |     false
-        
+        ""    false
 ```
 
 該訊息顯示了導致失敗的中間值，使偵錯變得更容易。
@@ -545,15 +567,9 @@ class FunctionTrailingExampleTest {
 輸出顯示了函式呼叫的中間結果：
 
 ```text
-Assertion failed
 assert(exampleFunction(2, 3) + exampleFunction(1, 2) == 9)
        |                     | |                     |
-       |                     | |                     false
-       |                     | 3
-       |                     | FunctionTrailingExampleTest@533bda92
-       |                     8
-       5
-       FunctionTrailingExampleTest@533bda92
+       5                     8 3                     false
 ```
 -->
 
@@ -641,7 +657,7 @@ powerAssert {
 ```kotlin
 // 匯入 assertSoftly() 函式
 import com.example.assertSoftly
-        
+
 class SoftAssertExampleTest1 {
 
     data class Employee(val name: String, val age: Int, val salary: Int)
@@ -671,17 +687,144 @@ class SoftAssertExampleTest1 {
 Charlie has an invalid salary: 40000
 assert(employee.salary > 50000) { "${employee.name} has an invalid salary: ${employee.salary}" }
        |        |      |
-       |        |      false
-       |        40000
+       |        40000  false
        Employee(name=Charlie, age=55, salary=40000)
+
 Dave has an invalid age: 150
 assert(employee.age < 100) { "${employee.name} has an invalid age: ${employee.age}" }
        |        |   |
-       |        |   false
-       |        150
+       |        150 false
        Employee(name=Dave, age=150, salary=70000)
 ```
 
+## 為您的程式庫加入 Power-assert 支援
+
+如果您是程式庫作者，可以使用 Power-assert 執行時程式庫中的 `@PowerAssert` 註解和 `CallExplanation` 類別，為您的程式庫加入開箱即用的 Power-assert 支援。
+
+### `@PowerAssert` 註解
+
+[`@PowerAssert` 註解](https://github.com/JetBrains/kotlin/blob/master/plugins/power-assert/power-assert-runtime/src/commonMain/kotlin/kotlin/powerassert/PowerAssert.kt) 將函式標記為具備 Power-assert 能力。如果您程式庫的使用者在他們的專案中啟用了 Power-assert 編譯器外掛程式，並呼叫了您帶有註解的函式，這些呼叫將會被自動轉換，無需額外的組建組態。
+
+若要為您的程式庫加入 Power-assert 支援：
+
+1. 在您的建置檔案中 [套用 Power-assert 外掛程式](#套用外掛程式)。
+2. 對於 Maven，將 Power-assert 執行時程式庫加入為相依性：
+
+   ```xml
+   <!-- pom.xml -->
+   <dependencies>
+       <dependency>
+           <groupId>org.jetbrains.kotlin</groupId>
+           <artifactId>kotlin-power-assert-runtime</artifactId>
+           <version>%kotlinVersion%</version>
+       </dependency>
+   </dependencies>
+   ```
+
+   對於 Gradle，此相依性會隨著 Power-assert 編譯器外掛程式自動加入。
+
+3. 使用 `@PowerAssert` 註解您的斷言函式：
+
+   ```kotlin
+   import kotlin.powerassert.PowerAssert
+   import kotlin.powerassert.toDefaultMessage
+   import kotlin.contracts.ExperimentalContracts
+   import kotlin.contracts.contract
+   
+   @OptIn(ExperimentalContracts::class)
+   @PowerAssert
+   fun powerAssert(condition: Boolean, @PowerAssert.Ignore message: String? = null) {
+       contract { returns() implies condition }
+       if (!condition) {
+           val explanation = PowerAssert.explanation
+               ?: fail(message)
+   
+           val equalityErrors = buildList {
+               for (expression in explanation.expressions) {
+                   if (expression is EqualityExpression && expression.value == false) {
+                       add(expression)
+                   }
+               }
+           }
+
+           val failureMessage = buildString {
+               if (message?.isNotBlank() == true) appendLine(message)
+               append(explanation.toDefaultMessage())
+           }
+
+           fail(failureMessage, equalityErrors)
+       }
+   }
+   ```
+
+    * `PowerAssert.explanation` 屬性提供對包含呼叫點資訊的 `CallExplanation` 物件之存取。
+    * `toDefaultMessage()` 函式會轉譯標準的 Power-assert 失敗訊息。
+    * `message` 參數上的 `@PowerAssert.Ignore` 註解會將其排除在失敗訊息之外。
+
+編譯器外掛程式會在編譯時期偵測 `@PowerAssert` 註解並轉換對該函式的呼叫。
+
+> 如需完整範例，請參閱 [`kotlin-test-power-assert`](https://github.com/bnorm/power-assert-examples/tree/main/kotlin-test-power-assert) 專案。
+>
+{style="tip"}
+
+### `CallExplanation` 類別
+
+[`CallExplanation`](https://github.com/JetBrains/kotlin/blob/master/plugins/power-assert/power-assert-runtime/src/commonMain/kotlin/kotlin/powerassert/CallExplanation.kt) 類別提供有關呼叫點的詳細資訊，包含中間運算式的值。這實現了斷言失敗的動態訊息呈現，並能更好地與外部工具整合。
+
+當您程式庫中的函式帶有 `@PowerAssert` 註解且套用了編譯器外掛程式時，轉換會在每個呼叫點自動執行。`PowerAssert.explanation` 屬性提供對函式主體內 `CallExplanation` 物件的存取。
+
+> 如果從 Java、未套用 Power-assert 外掛程式的專案或透過 [反射](reflection.md) 呼叫帶有註解的函式，`PowerAssert.explanation` 屬性可能會傳回 `null`。
+>
+{style="note"}
+
+以下範例展示了如何在 `@PowerAssert` 註解函式中使用 `CallExplanation` 來擷取原始碼資訊並建置自訂失敗訊息：
+
+```kotlin
+package kotlinx.test.fluent
+
+import kotlin.powerassert.PowerAssert
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.contract
+
+@PowerAssert
+fun AssertScope<*>.check(condition: Boolean) {
+    if (!condition) {
+        val explanation = PowerAssert.explanation
+        val message = if (explanation == null) null else {
+            val conditionArg = explanation.arguments.last()!!
+            val source = explanation.source.substring(conditionArg.startOffset, conditionArg.endOffset)
+            "Condition failed: $source"
+        }
+        collect(message, explanation)
+    }
+}
+
+@OptIn(ExperimentalContracts::class)
+@PowerAssert
+fun AssertScope<*>.require(condition: Boolean) {
+    contract { returns() implies condition }
+    if (!condition) {
+        val explanation = PowerAssert.explanation
+        val message = if (explanation == null) null else {
+            val conditionArg = explanation.arguments.last()!!
+            val source = explanation.source.substring(conditionArg.startOffset, conditionArg.endOffset)
+            "Condition failed: $source"
+        }
+        fail(message, explanation)
+    }
+}
+```
+
+在此範例中，`check()` 函式會收集失敗訊息以便稍後報告，而 `require()` 函式則會立即失敗。兩個函式都使用 `CallExplanation` 來擷取失敗條件的原始碼，並將其包含在失敗訊息中。
+
+> 如需完整範例，請參閱 [`fluent-assert`](https://github.com/bnorm/power-assert-examples/tree/main/fluent-assert) 專案。
+>
+{style="tip"}
+
 ## 接下來的步驟
 
-* 瀏覽[啟用該外掛程式的簡單專案](https://github.com/JetBrains/kotlin/tree/master/libraries/tools/kotlin-gradle-plugin-integration-tests/src/test/resources/testProject/powerAssertSourceSets)以及[具有多個原始碼集的更複雜專案](https://github.com/JetBrains/kotlin/tree/master/libraries/tools/kotlin-gradle-plugin-integration-tests/src/test/resources/testProject/powerAssertSimple)。
+瀏覽我們的範例專案：
+
+* [啟用該外掛程式的簡單專案](https://github.com/JetBrains/kotlin/tree/master/libraries/tools/kotlin-gradle-plugin-integration-tests/src/test/resources/testProject/powerAssertSourceSets)
+* [具有多個原始碼集的更複雜專案](https://github.com/JetBrains/kotlin/tree/master/libraries/tools/kotlin-gradle-plugin-integration-tests/src/test/resources/testProject/powerAssertSimple)
+* [用於嘗試執行時程式庫功能的範例集](https://github.com/bnorm/power-assert-examples#power-assert-examples)

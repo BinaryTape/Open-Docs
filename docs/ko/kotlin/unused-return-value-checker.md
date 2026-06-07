@@ -171,6 +171,81 @@ fun check(g: Greeter) {
 }
 ```
 
+## 고차 함수에서의 사용되지 않는 결과 검사
+
+스코프 함수인 `let`과 같은 일부 고차 함수(higher-order functions)는 람다의 결과를 반환합니다. 고차 함수의 사용되지 않는 람다 결과를 검사하려면, 함수의 계약(contract)에 [Experimental](components-stability.md#stability-levels-explained) `returnsResultOf()` 계약을 추가하세요.
+
+> Kotlin 계약(contracts)은 실험적(Experimental) 기능입니다. 이를 옵트인하려면 계약이 포함된 함수를 선언할 때 `@OptIn(ExperimentalContracts::class)` 어노테이션을 추가하세요.
+>
+{style="warning"}
+
+예시는 다음과 같습니다:
+
+```kotlin
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.contract
+
+@OptIn(ExperimentalContracts::class)
+inline fun <T, R> T.customLet(block: (T) -> R): R {
+    contract {
+        returnsResultOf(block)
+    }
+    return block(this)
+}
+```
+
+이제 `.customLet()`과 같이 이 계약이 적용된 함수를 사용하여 람다 결과가 사용되는지 확인할 수 있습니다:
+
+```kotlin
+fun handleNullablePackageName(packageName: String?, builder: StringBuilder) {
+    // append()의 반환 값은 무시될 수 있으므로 검사기가 경고를 보고하지 않습니다
+    packageName?.customLet { builder.append(it) }
+
+    // 반환된 문자열이 사용되지 않으므로 검사기가 경고를 보고합니다
+    packageName?.customLet { "kotlin.$it" }
+}
+```
+
+> `returnsResultOf()` 계약을 사용하려면 별도의 컴파일러 옵션을 통한 옵트인이 필요합니다. 이를 사용하면 2.4.0 이전 버전의 Kotlin 컴파일러에서는 읽을 수 없는 프리릴리스 바이너리가 생성되므로 주의하시기 바랍니다.
+>
+{style="warning"}
+
+프로젝트에 이를 적용하려면 빌드 파일에 다음 컴파일러 옵션을 추가하세요:
+
+<tabs group="build-system">
+<tab title="Gradle" group-key="gradle">
+
+```kotlin
+// build.gradle(.kts)
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xallow-returns-result-of")
+    }
+}
+```
+
+</tab> 
+<tab title="Maven" group-key="maven">
+
+```xml
+<!-- pom.xml -->
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-maven-plugin</artifactId>
+            <configuration>
+                <args>
+                    <arg>-Xallow-returns-result-of</arg>
+                </args>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+</tab> 
+</tabs>
+
 ## Java 어노테이션과의 상호운용성
 
 일부 Java 라이브러리들은 다른 어노테이션을 사용하여 유사한 메커니즘을 사용합니다. 사용되지 않는 반환 값 검사기는 다음 어노테이션들을 `@MustUseReturnValues`와 동일하게 취급합니다:

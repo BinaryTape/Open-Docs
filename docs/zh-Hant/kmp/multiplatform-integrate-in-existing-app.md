@@ -4,7 +4,7 @@
 
 本教學將展示如何讓現有的 Android 應用程式成為跨平台應用程式，使其能在 Android 和 iOS 上運作。您將能夠在同一個地方同時為 Android 和 iOS 編寫程式碼。
 
-本教學使用一個[範例 Android 應用程式](https://github.com/Kotlin/kmp-integration-sample)，該程式具有一個用於輸入使用者名稱和密碼的單一畫面。憑據會經過驗證並儲存到記憶體資料庫中。
+本教學使用一個[範例 Android 應用程式](https://github.com/Kotlin/kmp-integration-sample)，該應用程式具有一個用於輸入使用者名稱和密碼的單一畫面。憑據會經過驗證並儲存到記憶體資料庫中。
 
 為了讓您的應用程式在 iOS 和 Android 上都能運作，您首先需要將部分程式碼移至共享模組（shared module），使您的程式碼具備跨平台能力。之後，您將在 Android 應用程式中使用您的跨平台程式碼，然後在新的 iOS 應用程式中使用相同的程式碼。
 
@@ -275,7 +275,7 @@
    val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), "Jane Doe")
    ```
    
-   儘管 Kotlin 標準函式庫提供了一個[用於產生 UUID 的實驗性類別](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.uuid/-uuid/)，但讓我們以此案例練習使用特定平台功能。
+   儘管 Kotlin 標準函式庫提供了一個[用於產生 UUID 的類別](https://kotlinlang.org/docs/uuids.html)，但讓我們以此案例練習使用特定平台功能。
    
    在共享程式碼中為 `randomUUID()` 函式提供 `expect` 宣告，並在對應的原始碼集中為每個平台（Android 和 iOS）提供其 `actual` 實作。您可以進一步了解有關[連接到平台特定 API](multiplatform-connect-to-apis.md) 的資訊。
    
@@ -503,7 +503,7 @@
 
 1. 更改使用者密碼的驗證邏輯："password" 不應該是一個有效的選項。
     為此，請更新 `LoginDataValidator` 類別的 `checkPassword()` 函式
-    （要快速找到它，請按兩次 <shortcut>Shift</shortcut>，貼上類別名稱，然後切換到 **Classes** 標籤）：
+    （要快速找到它，請按兩次 <shortcut>Shift</shortcut> 鍵，貼上類別名稱，然後切換到 **Classes** 標籤）：
 
    ```kotlin
    package com.jetbrains.simplelogin.shared.data

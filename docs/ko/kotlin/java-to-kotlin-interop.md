@@ -403,9 +403,67 @@ var x: Int = 23
 
 ## 오버로드 생성 (Overloads generation)
 
-일반적으로 디폴트 파라미터 값을 가진 Kotlin 함수를 작성하면, Java에서는 모든 파라미터가 존재하는 전체 시그니처로만 보입니다. Java 호출자에게 여러 오버로드를 노출하고 싶다면 [`@JvmOverloads`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html) 어노테이션을 사용할 수 있습니다.
+일반적으로 디폴트 파라미터 값을 가진 Kotlin 함수를 작성하면, Java에서는 모든 파라미터가 존재하는 전체 시그니처로만 보입니다.
 
-이 어노테이션은 생성자, 정적 메서드 등에도 작동합니다. 인터페이스에 정의된 메서드를 포함하여 추상 메서드에는 사용할 수 없습니다.
+[`@IntroducedAt`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-introduced-at/) 어노테이션 또는 [`@JvmOverloads`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html) 어노테이션을 사용하여 선택적 파라미터에 대한 오버로드를 생성할 수 있습니다.
+
+이미 공개된 API에 새로운 선택적 파라미터를 추가하고, 생성된 오버로드에 각 파라미터가 도입된 버전을 반영하고 싶을 때 `@IntroducedAt`을 사용하세요.
+컴파일러는 이 정보를 사용하여 해당하는 숨겨진 오버로드를 자동으로 생성합니다.
+
+이를 통해 버전 기반 오버로드 생성이 가능해지며, 이전 버전의 라이브러리를 대상으로 컴파일된 호출자에 대한 바이너리 호환성을 유지하는 데 도움이 됩니다.
+
+> `@IntroducedAt` 어노테이션은 [실험적(Experimental)](components-stability.md#stability-levels-explained) 단계입니다. 사용하려면 `@OptIn(ExperimentalVersionOverloading::class)` 어노테이션을 통해 옵트인해야 합니다.
+> 
+{style="warning"}
+
+다음은 여러 API 버전에 걸쳐 `Button()` 함수가 여러 선택적 파라미터를 받는 예시입니다:
+
+```kotlin
+@OptIn(ExperimentalVersionOverloading::class)
+fun Button(
+    label: String = "",
+    color: Color = DefaultColor,
+    @IntroducedAt("1.1") borderColor: Color = DefaultBorderColor,
+    @IntroducedAt("1.2") borderStyle: Style = DefaultBorderStyle,
+    @IntroducedAt("1.2") borderWidth: Int = 1,
+    onClick: () -> Unit
+) {
+    // 함수 본문
+}
+```
+
+이러한 버전을 기반으로 컴파일러는 원래 API와 새로운 선택적 파라미터가 도입된 각 API 버전에 대해 숨겨진 오버로드를 생성합니다:
+
+```kotlin
+// 원래 API
+Button(
+    label: String,
+    color: Color,
+    onClick: () -> Unit
+)
+
+// 버전 1.1
+Button(
+    label: String,
+    color: Color,
+    borderColor: Color,
+    onClick: () -> Unit
+)
+
+// 버전 1.2
+Button(
+    label: String,
+    color: Color,
+    borderColor: Color,
+    borderStyle: Style,
+    borderWidth: Int,
+    onClick: () -> Unit
+)
+```
+
+Java 호출자에게 여러 오버로드를 노출하고 싶다면 [`@JvmOverloads`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html) 어노테이션을 사용할 수도 있습니다.
+
+이 어노테이션은 생성자, 정적 메서드 등에도 작동합니다. 인터페이스에 정의된 메서드를 포함하여 추상 메서드에는 사용할 수 없습니다. 예를 들어, 디폴트 파라미터 값을 가진 `Circle` 클래스를 고려해 보세요:
 
 ```kotlin
 class Circle @JvmOverloads constructor(centerX: Int, centerY: Int, radius: Double = 1.0) {
@@ -425,6 +483,9 @@ void draw(String label, int lineWidth, String color) { }
 void draw(String label, int lineWidth) { }
 void draw(String label) { }
 ```
+
+`@IntroducedAt`과 `@JvmOverloads` 어노테이션 모두 오버로드를 생성하므로, 함께 사용하면 충돌하는 오버로드가 생성될 수 있습니다.
+두 어노테이션을 모두 사용하면 컴파일러가 경고를 보고합니다. 경고를 무시하면 컴파일러는 `@IntroducedAt` 어노테이션에서 생성된 오버로드를 우선시합니다.
 
 [보조 생성자(Secondary constructors)](classes.md#secondary-constructors)에서 설명한 대로, 클래스가 모든 생성자 파라미터에 대해 디폴트 값을 가지면 인자가 없는 public 생성자가 생성됩니다. 이는 `@JvmOverloads` 어노테이션이 지정되지 않은 경우에도 작동합니다.
 

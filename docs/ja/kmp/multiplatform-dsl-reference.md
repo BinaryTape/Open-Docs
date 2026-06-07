@@ -255,7 +255,7 @@ kotlin {
 | `outputFile`         | 出力ファイルへのアクセス。                                                                                                                                                                                                                                   |
 | `linkTask`           | リンクタスクへのアクセス。                                                                                                                                                                                                                                     |
 | `runTask`            | 実行可能バイナリの実行タスクへのアクセス。`linuxX64`、`macosArm64`、`mingwX64` 以外のターゲットの場合、値は `null` です。                                                                                                                            |
-| `isStatic`           | Objective-C フレームワーク用。動的ライブラリの代わりに静的ライブラリを含めます。                                                                                                                                                                              |
+| `isStatic`           | Objective-C フレームワーク用. 動的ライブラリの代わりに静的ライブラリを含めます。                                                                                                                                                                              |
 | `disableNativeCache` | <p>コンパイルキャッシュを無効にします。コンパイル時間が増加するため、例外的な場合にのみ使用してください。</p><p>キャッシュを無効にする Kotlin の `version` と `reason`（理由）を含める必要があります。オプションで、バグトラッカーの `issue`（課題）への URL を指定できます。</p> |
 
 <Tabs group="build-script">
@@ -288,7 +288,7 @@ binaries {
     }
 
     framework("my_framework" listOf(RELEASE)) {
-        // フレームワークに動的ライブラリ의 代わりに静的ライブラリを含める。
+        // フレームワークに動的ライブラリの代わりに静的ライブラリを含める。
         isStatic = true
 
         // このバイナリのコンパイルキャッシュを無効にする
@@ -1072,8 +1072,8 @@ kotlin {
 kotlin {
     sourceSets.all {
         languageSettings.apply {
-            languageVersion = "%languageVersion%" // 指定可能な値: "2.0", "2.1", "2.2", "2.3", "2.4" (EXPERIMENTAL)
-            apiVersion = "%apiVersion%" // 指定可能な値: "2.0", "2.1", "2.2", "2.3", "2.4" (EXPERIMENTAL)
+            languageVersion = "%languageVersion%" // 指定可能な値: "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (EXPERIMENTAL)
+            apiVersion = "%apiVersion%" // 指定可能な値: "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (EXPERIMENTAL)
             enableLanguageFeature("InlineClasses") // 言語機能名
             optIn("kotlin.ExperimentalUnsignedTypes") // アノテーションの完全修飾名
             progressiveMode = true // デフォルトは false
@@ -1089,8 +1089,8 @@ kotlin {
 kotlin {
     sourceSets.all {
         languageSettings {
-            languageVersion = '%languageVersion%' // 指定可能な値: '2.0', '2.1', '2.2', '2.3', '2.4' (EXPERIMENTAL)
-            apiVersion = '%apiVersion%' // 指定可能な値: '2.0', '2.1', '2.2', '2.3', '2.4' (EXPERIMENTAL)
+            languageVersion = '%languageVersion%' // 指定可能な値: '2.0', '2.1', '2.2', '2.3', '2.4', '2.5' (EXPERIMENTAL)
+            apiVersion = '%apiVersion%' // 指定可能な値: '2.0', '2.1', '2.2', '2.3', '2.4', '2.5' (EXPERIMENTAL)
             enableLanguageFeature('InlineClasses') // 言語機能名
             optIn('kotlin.ExperimentalUnsignedTypes') // アノテーションの完全修飾名
             progressiveMode = true // デフォルトは false

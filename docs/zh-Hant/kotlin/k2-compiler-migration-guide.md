@@ -306,7 +306,7 @@ K2 編譯器在 Kotlin 多平台相關領域有以下改進：
 
 #### 編譯期間通用原始碼與平台原始碼的分離
 
-以前，Kotlin 編譯器的設計使其無法在編譯時將通用原始碼集 and 平台原始碼集分開。因此，通用程式碼可以存取平台程式碼，這導致了平台之間的行為差異。此外，來自通用程式碼的一些編譯器設定和相依性過去會洩漏到平台程式碼中。
+以前，Kotlin 編譯器的設計使其無法在編譯時將通用原始碼集和平台原始碼集分開。因此，通用程式碼可以存取平台程式碼，這導致了平台之間的行為差異。此外，來自通用程式碼的一些編譯器設定和相依性過去會洩漏到平台程式碼中。
 
 在 Kotlin 2.0.0 中，我們對新 Kotlin K2 編譯器的實作包含了對編譯方案的重新設計，以確保通用原始碼集和平台原始碼集之間的嚴格分離。當您使用[預期函式和實際函式](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html#expected-and-actual-functions)時，這種變化最為明顯。以前，通用程式碼中的函式呼叫有可能解析為平台程式碼中的函式。例如：
 
@@ -483,7 +483,7 @@ kotlin.build.report.output=file
 | `file` | 以人類可讀的格式將建置報告儲存到本機檔案。預設為 `${project_folder}/build/reports/kotlin-build/${project_name}-timestamp.txt` |
 | `single_file` | 以物件格式將建置報告儲存到指定的本機檔案。 |
 | `build_scan` | 將建置報告儲存在 [build scan](https://scans.gradle.com/) 的 `custom values` 區塊中。請注意，Gradle Enterprise 外掛程式限制了自訂值的數量及其長度。在大型專案中，某些值可能會丟失。 |
-| `http` | 使用 HTTP(S) 發送建置報告。POST 方法以 JSON 格式發送指標。您可以在 [Kotlin 存儲庫](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/report/data/GradleCompileStatisticsData.kt)中查看發送資料的當前版本。您可以在[這篇部落格文章](https://blog.jetbrains.com/kotlin/2022/06/introducing-kotlin-build-reports/?_gl=1*1a7pghy*_ga*MTcxMjc1NzE5Ny4xNjY1NDAzNjkz*_ga_9J976DJZ68*MTcxNTA3NjA2NS4zNzcuMS4xNzE1MDc2MDc5LjQ2LjAuMA..&_ga=2.265800911.1124071296.1714976764-1712757197.1665403693#enable_build_reports)中找到 HTTP 端點的範例。 |
+| `http` | 使用 HTTP(S) 發送建置報告。POST 方法以 JSON 格式發送指標。您可以在 [Kotlin 儲存庫](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/report/data/GradleCompileStatisticsData.kt)中查看發送資料的當前版本。您可以在[這篇部落格文章](https://blog.jetbrains.com/kotlin/2022/06/introducing-kotlin-build-reports/?_gl=1*1a7pghy*_ga*MTcxMjc1NzE5Ny4xNjY1NDAzNjkz*_ga_9J976DJZ68*MTcxNTA3NjA2NS4zNzcuMS4xNzE1MDc2MDc5LjQ2LjAuMA..&_ga=2.265800911.1124071296.1714976764-1712757197.1665403693#enable_build_reports)中找到 HTTP 端點的範例。 |
 | `json` | 以 JSON 格式將建置報告儲存到本機檔案。在 `kotlin.build.report.json.directory` 中設定建置報告的位置。預設名稱為 `${project_name}-build-<date-time>-<index>.json`。 |
 
 有關建置報告功能的更多資訊，請參閱[建置報告](gradle-compilation-and-caches.md#build-reports)。
@@ -499,12 +499,14 @@ Kotlin Playground 支援 Kotlin 2.0.0 及更高版本。[快來看看吧！](htt
 
 ## 如何回復到先前的編譯器
 
-要在 Kotlin 2.0.0 及更高版本中使用先前的編譯器，可以：
+要在 Kotlin 2.0.0–2.3.21 版本中使用先前的編譯器，可以：
 
 * 在您的 `build.gradle.kts` 檔案中，[將您的語言版本設定](gradle-compiler-options.md#example-of-setting-languageversion)為 `1.9`。
 
   或者
 * 使用以下編譯器選項：`-language-version 1.9`。
+
+從 Kotlin 2.4.0 開始，您將無法回復到先前的編譯器。
 
 ## 變更
 
@@ -738,7 +740,7 @@ fun test() {
 
     execute { _ -> }
     execute(fun (_) {})
-    // 參數 '_' 的類別 'IntNode' 無會存取。
+    // 參數 '_' 的類別 'IntNode' 無法存取。
 
     // 在未來的 Kotlin 版本中將會觸發警告，因為 IntNode 
     // 無法存取。
@@ -748,7 +750,7 @@ fun test() {
 
 **現在的最佳實務是什麼？**
 
-如果您遇到有關無法存取的泛型型別的新警告，極有可能是您的建置系統配置有問題。我們建議檢查您的組建指令碼和配置。
+如果您遇到有關無法存取的泛型型別的新警告，極有可能是您的組建系統配置有問題。我們建議檢查您的組建指令碼和配置。
 
 作為最後手段，您可以為模組 3 配置對模組 1 的直接相依性。或者，您可以修改程式碼以使這些型別在同一個模組內可存取。
 
@@ -981,10 +983,10 @@ actual open class PlatformFileSystem : FileSystem {
 
 | Issue ID | 標題 |
 |---|---|
-| [KT-54309](https://youtrack.jetbrains.com/issue/KT-54309)* | [棄用在投影接收器上使用合成 setter](#deprecated-synthetics-setter-on-a-projected-receiver) |
+| [KT-54309](https://youtrack.jetbrains.com/issue/KT-54309)* | [已棄用在投影接收器上使用合成 setter](#deprecated-synthetics-setter-on-a-projected-receiver) |
 | [KT-57600](https://youtrack.jetbrains.com/issue/KT-57600) | 禁止使用泛型型別參數覆寫具有原始型別參數的 Java 方法 |
-| [KT-54663](https://youtrack.jetbrains.com/issue/KT-54663) | 禁止將可能為 null 的型別參數傳遞給 \`in\` 投影的 DNN 參數 |
-| [KT-54066](https://youtrack.jetbrains.com/issue/KT-54066) | 棄用型別別名建構函式中的上限違反 |
+| [KT-54663](https://youtrack.jetbrains.com/issue/KT-54663) | 禁止將可能為 null 的型別參數傳遞給 `in` 投影的 DNN 參數 |
+| [KT-54066](https://youtrack.jetbrains.com/issue/KT-54066) | 已棄用型別別名建構函式中的上限違反 |
 | [KT-49404](https://youtrack.jetbrains.com/issue/KT-49404) | 修正基於 Java 類別的反變擷取型別之型別不健全性 |
 | [KT-61718](https://youtrack.jetbrains.com/issue/KT-61718) | 禁止具有自我上限和擷取型別的不健全程式碼 |
 | [KT-61749](https://youtrack.jetbrains.com/issue/KT-61749) | 禁止泛型外部類別的泛型內部類別中不健全的邊界違反 |
@@ -1031,20 +1033,20 @@ actual open class PlatformFileSystem : FileSystem {
 | Issue ID | 標題 |
 |---|---|
 | [KT-58723](https://youtrack.jetbrains.com/issue/KT-58723) | 如果註解沒有 EXPRESSION 目標，則禁止用該註解來標註陳述式 |
-| [KT-49930](https://youtrack.jetbrains.com/issue/KT-49930) | 在 \`REPEATED_ANNOTATION\` 檢查期間忽略括號運算式 |
+| [KT-49930](https://youtrack.jetbrains.com/issue/KT-49930) | 在 `REPEATED_ANNOTATION` 檢查期間忽略括號運算式 |
 | [KT-57422](https://youtrack.jetbrains.com/issue/KT-57422) | K2：禁止在屬性 getter 上使用針對使用處 (use-site) 'get' 的註解 |
 | [KT-46483](https://youtrack.jetbrains.com/issue/KT-46483) | 禁止在 where 子句中的型別參數上使用註解 |
 | [KT-64299](https://youtrack.jetbrains.com/issue/KT-64299) | 解析伴隨物件上的註解時忽略伴隨作用域 |
 | [KT-64654](https://youtrack.jetbrains.com/issue/KT-64654) | K2：在使用者與編譯器要求的註解之間引入了歧義 |
 | [KT-64527](https://youtrack.jetbrains.com/issue/KT-64527) | 列舉值上的註解不應被複製到列舉值類別中 |
-| [KT-63389](https://youtrack.jetbrains.com/issue/KT-63389) | K2：在封裝為 \`()?\` 的型別的不相容註解上回報 \`WRONG_ANNOTATION_TARGET\` |
-| [KT-63388](https://youtrack.jetbrains.com/issue/KT-63388) | K2：在 catch 參數型別的註解上回報 \`WRONG_ANNOTATION_TARGET\` |
+| [KT-63389](https://youtrack.jetbrains.com/issue/KT-63389) | K2：在封裝為 `()?` 的型別的不相容註解上回報 `WRONG_ANNOTATION_TARGET` |
+| [KT-63388](https://youtrack.jetbrains.com/issue/KT-63388) | K2：在 catch 參數型別的註解上回報 `WRONG_ANNOTATION_TARGET` |
 
 #### Null 安全性 {initial-collapse-state="collapsed" collapsible="true"}
 
 | Issue ID | 標題 |
 |---|---|
-| [KT-54521](https://youtrack.jetbrains.com/issue/KT-54521)* | [棄用在 Java 中被標註為 Nullable 的陣列型別的不安全用法](#improved-null-safety-for-java-primitive-arrays) |
+| [KT-54521](https://youtrack.jetbrains.com/issue/KT-54521)* | [已棄用在 Java 中被標註為 Nullable 的陣列型別的不安全用法](#improved-null-safety-for-java-primitive-arrays) |
 | [KT-41034](https://youtrack.jetbrains.com/issue/KT-41034) | K2：更改安全呼叫與慣例運算子結合的評估語義 |
 | [KT-50850](https://youtrack.jetbrains.com/issue/KT-50850) | 超型別的順序定義了繼承函式的可 null 性參數 |
 | [KT-53982](https://youtrack.jetbrains.com/issue/KT-53982) | 在公開簽章中近似區域型別時保留可 null 性 |
@@ -1066,9 +1068,9 @@ actual open class PlatformFileSystem : FileSystem {
 | Issue ID | 標題 |
 |---|---|
 | [KT-57555](https://youtrack.jetbrains.com/issue/KT-57555)* | [[LC] 禁止延遲初始化具有支援欄位的 open 屬性](#immediate-initialization-of-open-properties-with-backing-fields) |
-| [KT-58589](https://youtrack.jetbrains.com/issue/KT-58589) | 當沒有主建構函式或類別是區域類別時，棄用遺漏的 MUST_BE_INITIALIZED |
+| [KT-58589](https://youtrack.jetbrains.com/issue/KT-58589) | 當沒有主建構函式或類別是區域類別時，已棄用遺漏的 MUST_BE_INITIALIZED |
 | [KT-64295](https://youtrack.jetbrains.com/issue/KT-64295) | 對於屬性上潛在的呼叫操作，禁止遞迴解析 |
-| [KT-57290](https://youtrack.jetbrains.com/issue/KT-57290) | 棄用從不可見衍生類別對基底類別屬性進行的智慧轉換 (如果基底類別來自另一個模組) |
+| [KT-57290](https://youtrack.jetbrains.com/issue/KT-57290) | 已棄用從不可見衍生類別對基底類別屬性進行的智慧轉換 (如果基底類別來自另一個模組) |
 | [KT-62661](https://youtrack.jetbrains.com/issue/KT-62661) | K2：遺漏了資料類別屬性的 OPT_IN_USAGE_ERROR |
 
 #### 控制流程 {initial-collapse-state="collapsed" collapsible="true"}
@@ -1093,7 +1095,7 @@ actual open class PlatformFileSystem : FileSystem {
 
 | Issue ID | 標題 |
 |---|---|
-| [KT-52628](https://youtrack.jetbrains.com/issue/KT-52628) | 棄用不帶註解但要求 OptIn 的 SAM 建構函式用法 |
+| [KT-52628](https://youtrack.jetbrains.com/issue/KT-52628) | 已棄用不帶註解但要求 OptIn 的 SAM 建構函式用法 |
 | [KT-57014](https://youtrack.jetbrains.com/issue/KT-57014) | 禁止從 JDK 函式介面的 SAM 建構函式 Lambda 傳回可 null 性不正確的值 |
 | [KT-64342](https://youtrack.jetbrains.com/issue/KT-64342) | 可呼叫參照之參數型別的 SAM 轉換導致 CCE |
 
@@ -1115,8 +1117,8 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-55111](https://youtrack.jetbrains.com/issue/KT-55111) | OptIn：禁止在標記下使用預設引數 (具有預設值的參數) 進行建構函式呼叫 |
 | [KT-61182](https://youtrack.jetbrains.com/issue/KT-61182) | 意外允許將 Unit 轉換用於變數上的運算式 + invoke 解析 |
 | [KT-55199](https://youtrack.jetbrains.com/issue/KT-55199) | 禁止將具有調整 (adaptations) 的可呼叫參照提升為 KFunction |
-| [KT-65776](https://youtrack.jetbrains.com/issue/KT-65776) | [LC] K2 破壞了 \`false && ...\` 和 \`false || ...\` |
-| [KT-65682](https://youtrack.jetbrains.com/issue/KT-65682) | [LC] 棄用 \`header\`/\`impl\` 關鍵字 |
+| [KT-65776](https://youtrack.jetbrains.com/issue/KT-65776) | [LC] K2 破壞了 `false && ...` 和 `false || ...` |
+| [KT-65682](https://youtrack.jetbrains.com/issue/KT-65682) | [LC] 已棄用 `header`/`impl` 關鍵字 |
 | [KT-45375](https://youtrack.jetbrains.com/issue/KT-45375) | 預設透過 invokedynamic + LambdaMetafactory 產生所有 Kotlin Lambda |
 
 ## 與 Kotlin 版本的相容性

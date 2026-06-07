@@ -1,5 +1,5 @@
 [//]: # (title: Kotlin 멀티플랫폼 프로젝트를 CocoaPods에서 SwiftPM 의존성으로 전환하기)
-<primary-label ref="Experimental"/>
+<primary-label ref="alpha"/>
 
 <tldr>
 

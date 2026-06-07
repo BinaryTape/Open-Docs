@@ -337,6 +337,7 @@
 >
 > - 2.2.20：报告警告
 > - 2.3.0：将警告提升为错误
+> - 2.4.0：移除该函数
 
 ### 移除 `closureTo()`、`createResultSet()` 和 `KotlinToolingVersionOrNull()` 函数
 
@@ -405,8 +406,9 @@
 >
 > **弃用周期**：
 >
-> - 2.2.0 和 2.2.20：在使用 these 函数或属性时报告警告
+> - 2.2.0 和 2.2.20：在使用这些函数或属性时报告警告
 > - 2.3.0：将警告提升为错误
+> - 2.4.0：移除这些函数和属性
 
 ### 弃用对 PhantomJS 的支持
 
@@ -450,6 +452,7 @@
 >
 > - 2.2.0：对从这些类创建子类的代码报告警告
 > - 2.3.0：将警告提升为错误
+> - 2.4.0：移除这些 API
 
 ### 弃用 `ExperimentalWasmDsl` 注解类
 
@@ -465,6 +468,7 @@
 >
 > - 2.0.20：报告警告
 > - 2.3.0：将警告提升为错误
+> - 2.4.0：移除该注解类
 
 ### 弃用 `ExperimentalDceDsl` 注解类
 
@@ -480,6 +484,7 @@
 >
 > - 2.2.0：报告警告
 > - 2.3.0：将警告提升为错误
+> - 2.4.0：移除该注解类
 
 ### 弃用 JavaScript 实用工具
 
@@ -504,6 +509,7 @@
 > - 2.2.0：在使用 `NodeJsSetupTask.Companion.NAME` 属性和函数时报告警告
 > - 2.2.20：在使用 `JsIrBinary.generateTs` 属性时报告警告
 > - 2.3.0：将警告提升为错误
+> - 2.4.0：移除这些 API
 
 ### 弃用迁移后的 D8 和 Binaryen 属性
 
@@ -528,6 +534,7 @@
 >
 > - 2.2.0：报告警告
 > - 2.3.0：将警告提升为错误
+> - 2.4.0：移除这些属性
 
 ### 弃用 `NodeJsExec` DSL 中的 `create()` 函数
 
@@ -543,6 +550,7 @@
 >
 > - 2.1.20：报告警告
 > - 2.3.0：将警告提升为错误
+> - 2.4.0：移除该函数
 
 ### 弃用 `kotlinOptions` DSL 中的属性
 
@@ -577,6 +585,7 @@
 >
 > - 2.2.0：在使用 `kotlinArtifacts` API 时报告警告
 > - 2.3.0：将此警告提升为错误
+> - 2.4.0：移除该 API
 
 ### 移除 `kotlin.mpp.resourcesResolutionStrategy` Gradle 属性
 
@@ -690,6 +699,7 @@
 >
 > - 2.2.20：报告警告
 > - 2.3.0：将警告提升为错误
+> - 2.4.0：移除该函数
 
 ### 更改注册所有生成源码的方法
 
@@ -699,7 +709,7 @@
 >
 > **不兼容变更类型**：源码
 >
-> **简要摘要**：Kotlin 2.3.0 在 [`KotlinSourceSet`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/) 接口中引入了一个新的实验性 API，可让你在 Gradle 项目中[注册生成的源码](gradle-configure-project.md#register-generated-sources)。以前，你可以使用 [`kotlin`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/kotlin.html) 属性来访问所有生成的源码。从 Kotlin 2.3.0 开始，如果你的插件或构建逻辑需要访问所有生成的源码，请改用 [`allKotlinSources`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/all-kotlin-sources.html) 属性。
+> **简要摘要**：Kotlin 2.3.0 在 [`KotlinSourceSet`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/) 接口中引入了一个新的[实验性](components-stability.md#stability-levels-explained) API，可让你在 Gradle 项目中[注册生成的源码](gradle-configure-project.md#register-generated-sources)。以前，你可以使用 [`kotlin`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/kotlin.html) 属性来访问所有生成的源码。从 Kotlin 2.3.0 开始，如果你的插件或构建逻辑需要访问所有生成的源码，请改用 [`allKotlinSources`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/all-kotlin-sources.html) 属性。
 >
 > **迁移建议**：
 > * 要注册生成的源码，请使用 [`generatedKotlin`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/generated-kotlin.html) 属性。
@@ -767,7 +777,7 @@
 
 ### 弃用 `LanguageSettings.enableLanguageFeature` DSL
 
-> **问题**：[KT-82323](https://youtrack.jetbrains.com/issue/KT-82323)
+> **问题**：[KT-82323](https://youtrack.jetbrains.com/issue/KT-82323)，[KT-82847](https://youtrack.jetbrains.com/issue/KT-82847)
 >
 > **组件**：Gradle
 >
@@ -777,7 +787,8 @@
 >
 > **弃用周期**：
 >
-> - 2.3.20：报告警告
+> - 2.3.20：在涉及 `LanguageSettings.enableLanguageFeature` 时报告警告
+> - 2.4.0：将警告提升为错误
 
 ### 弃用“进程外”编译器执行策略
 
@@ -792,6 +803,7 @@
 > **弃用周期**：
 >
 > - 2.3.20：报告警告
+> - 2.4.0：移除“进程外”编译器执行策略
 
 ## 构建工具移除
 

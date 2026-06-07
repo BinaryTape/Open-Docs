@@ -1,4 +1,10 @@
+---
+status: beta
+---
+
 # 검색 증강 생성 (RAG)
+
+--8<-- "versioning-snippets.md:beta"
 
 Koog는 검색 증강 생성 (Retrieval-augmented generation, RAG)을 위한 빌딩 블록을 제공합니다: 텍스트 임베딩, 임베딩된 문서 저장, 그리고 쿼리에 가장 관련성 높은 결과 검색.
 

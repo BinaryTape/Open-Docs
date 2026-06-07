@@ -285,7 +285,7 @@ kotlin.build.report.output=file,single_file,http,build_scan,json
 
 # 如果使用 single_file 輸出則為必填。報告存放位置 
 # 用於取代已棄用的 `kotlin.internal.single.build.metrics.file` 屬性
-kotlin.build.report.single_file=some_filename
+kotlin.build.report.single_file=my/directory/path/some_filename
 
 # 如果使用 json 輸出則為必填。報告存放位置 
 kotlin.build.report.json.directory=my/directory/path

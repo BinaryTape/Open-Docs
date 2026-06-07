@@ -4,7 +4,7 @@
 
 <tldr>
     <p>最新 Kotlin 版本：<strong>%kotlinVersion%</strong></p>
-    <p>參閱 <a href="%kotlinLatestWhatsnew%">Kotlin 2.3.20 的新功能</a> 並在 <a href="%kotlinLatestUrl%">變更日誌</a> 中查看錯誤修正詳情。</p>
+    <p>參閱 <a href="%kotlinLatestWhatsnew%">Kotlin 2.4.0 的新功能</a><!--and find the bug fix details in the <a href="%kotlinLatestUrl%">changelog</a>-->。</p>
 </tldr>
 
 本頁面說明了 Kotlin 的發佈週期以及我們提供的不同發佈類型。其中也包含了過去與未來 Kotlin 發佈版本的詳細資訊，以及如何更新至特定版本的說明。
@@ -29,8 +29,8 @@
 
 以下是未來穩定版 Kotlin 發佈的大約時程：
 
-* **2.4.0**：預計於 2026 年 6 月至 7 月發佈
 * **2.4.20**：預計於 2026 年 9 月發佈
+* **2.5.0**：預計於 2026 年 12 月發佈
 
 ## 更新至新的 Kotlin 版本
 
@@ -63,7 +63,7 @@ plugins {
     id 'org.jetbrains.kotlin.<...>' version '%kotlinVersion%'
     // 例如，如果您的目標環境是 JVM： 
     // id 'org.jetbrains.kotlin.jvm' version '%kotlinVersion%'
-    // If your target is Kotlin Multiplatform:
+    // 如果您的目標是 Kotlin Multiplatform：
     // id 'org.jetbrains.kotlin.multiplatform' version '%kotlinVersion%'
 }
 ```
@@ -122,7 +122,6 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
 
 例如，若我們發現一個安全漏洞且當時最新的 Kotlin 版本為 Kotlin 2.4.20，我們將僅針對 Kotlin 2.4.20 發佈錯誤修正版本。我們不會針對 Kotlin 2.4.0 發佈錯誤修正版本。
 
-<!--
 下表列出了所有 Kotlin 發佈版本及其支援窗口：
 
 <table>
@@ -136,17 +135,16 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
         <td><strong>2.4</strong>
         </td>
         <td>
-            <p>待定</p>
+            <p>2026 年 6 月 3 日</p>
         </td>
         <td>
-            <p>待定</p>
+            <p>2027 年 12 月 3 日</p>
         </td>
         <td>
             <p>暫無</p>
         </td>
     </tr>
 </table>
--->
 
 > 我們隨時歡迎您回饋發現的任何安全問題。若要回報您在 Kotlin 中發現的問題，請直接在我們的 [問題追蹤器](https://youtrack.jetbrains.com/newIssue?project=KT&c=Type%20Security%20Problem) 上發布訊息，或傳送 [電子郵件](mailto:security@jetbrains.org) 給我們。
 > 
@@ -164,6 +162,16 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
     <tr>
         <th>組建資訊</th>
         <th>組建重點</th>
+    </tr>
+    <tr>
+        <td><strong>2.4.0</strong>
+            <p>發佈日期：<strong>2026 年 6 月 3 日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.0" target="_blank">在 GitHub 上查看版本</a></p>
+        </td>
+        <td>
+            <p>語言發佈版本，包含新的與穩定的語言特性、工具更新、針對不同平台的效能改進以及重要修正。</p>
+            <p>在 <a href="whatsnew24.md" target="_blank">Kotlin 2.4.0 的新功能</a> 中進一步了解 Kotlin 2.4.0。</p>
+        </td>
     </tr>
     <tr>
         <td><strong>2.3.21</strong>
@@ -640,11 +648,11 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v1.5.20" target="_blank">在 GitHub 上查看版本</a></p>
         </td>
         <td>
-            <p>包含多項改進 of 增量發佈版本，例如：</p>
+            <p>包含多項改進的增量發佈版本，例如：</p>
             <list>
                 <li>JVM 上預設透過 <code>invokedynamic</code> 進行字串連接</li>
                 <li>對 Lombok 的改進支援以及對 JSpecify 的支援</li>
-                <li>Kotlin/Native：匯出 KDoc 至 Objective-C 標頭，以及單一陣列內更快的 <code>Array.copyInto()</code></li>
+                <li>Kotlin/Native：匯出 KDoc 至 Objective-C 標頭，以及單一陣列內更快的 <code>Array.copyInto()</code> 內同一陣列</li>
                 <li>Gradle：註解處理器類別載入器的快取，以及對 <code>--parallel</code> Gradle 屬性的支援</li>
                 <li>對齊跨平台 stdlib 函式的行為</li>
             </list>

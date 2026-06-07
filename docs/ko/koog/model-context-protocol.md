@@ -1,4 +1,10 @@
+---
+status: beta
+---
+
 # Model Context Protocol
+
+--8<-- "versioning-snippets.md:beta"
 
 Model Context Protocol(MCP)은 AI 에이전트가 일관된 인터페이스를 통해 외부 도구 및 서비스와 상호작용할 수 있게 해주는 표준화된 프로토콜입니다.
 
@@ -37,8 +43,8 @@ Koog의 MCP 통합을 위한 주요 구성 요소는 다음과 같습니다:
 
 | 구성 요소 | 설명 |
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
-| [`McpTool`](api:agents-mcp::ai.koog.agents.mcp.McpTool) | Koog 도구 인터페이스와 MCP SDK 사이의 브리지 역할을 합니다. |
-| [`McpToolDescriptorParser`](api:agents-mcp::ai.koog.agents.mcp.McpToolDescriptorParser) | MCP 도구 정의를 Koog 도구 디스크립터 형식으로 파싱합니다. |
+| [`McpTool`](api:agents-mcp::ai.koog.agents.mcp.McpTool)                                                                          | Koog 도구 인터페이스와 MCP SDK 사이의 브리지 역할을 합니다.                  |                                                                              |
+| [`McpToolDescriptorParser`](api:agents-mcp::ai.koog.agents.mcp.McpToolDescriptorParser)                                        | MCP 도구 정의를 Koog 도구 디스크립터 형식으로 파싱합니다.                                          |
 | [`McpToolRegistryProvider`](api:agents-mcp::ai.koog.agents.mcp.McpToolRegistryProvider) | 다양한 전송 메커니즘(stdio, SSE)을 통해 MCP 서버에 연결하는 MCP 도구 레지스트리를 생성합니다. |
 
 ## 시작하기
@@ -48,7 +54,7 @@ Koog의 MCP 통합을 위한 주요 구성 요소는 다음과 같습니다:
 Koog에서 MCP를 사용하려면 연결을 설정해야 합니다:
 
 1. MCP 서버를 시작합니다(프로세스, Docker 컨테이너 또는 웹 서비스 중 하나로).
-2. 서버와 통신하기 위한 전송 메커니즘을 생성합니다.
+2. 서버와 통신하기 위한 전송 메커니즘을 생성합니다. 
 
 MCP 서버는 에이전트와 통신하기 위해 stdio 및 SSE 전송 메커니즘을 지원하므로, 이 중 하나를 사용하여 연결할 수 있습니다.
 

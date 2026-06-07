@@ -139,7 +139,8 @@ val area get() = this.width * this.height
 
 커스텀 세터는 초기화할 때를 제외하고 프로퍼티에 값을 할당할 때마다 실행됩니다. 관례적으로 세터 파라미터의 이름은 `value`이지만, 다른 이름을 선택할 수도 있습니다.
 
-```class Point(var x: Int, var y: Int) {
+```kotlin
+class Point(var x: Int, var y: Int) {
     var coordinates: String
         get() = "$x,$y"
         set(value) {
@@ -228,22 +229,19 @@ fun main() {
 
 이 예제는 [리플렉션](reflection.md)을 사용하여 게터와 세터에 어떤 어노테이션이 있는지 보여줍니다.
 
-### 보조 필드 (Backing fields)
+## 보조 필드 (Backing fields)
 
-코틀린에서 접근자는 메모리에 프로퍼티 값을 저장하기 위해 보조 필드(backing field)를 사용합니다. 보조 필드는 게터나 세터에 추가 로직을 더하고 싶을 때나, 프로퍼티가 변경될 때마다 추가적인 동작을 트리거하고 싶을 때 유용합니다.
+컴파일러는 메모리에 값을 저장해야 할 때 프로퍼티에 대한 보조 필드(backing field)를 자동으로 생성합니다.
 
-보조 필드를 직접 선언할 수는 없습니다. 코틀린은 필요할 때만 이를 생성합니다. 접근자 내에서 `field` 키워드를 사용하여 보조 필드를 참조할 수 있습니다.
-
-코틀린은 기본 게터나 세터를 사용하거나, 하나 이상의 커스텀 접근자에서 `field`를 사용하는 경우에만 보조 필드를 생성합니다.
-
-예를 들어, `isEmpty` 프로퍼티는 `field` 키워드 없이 커스텀 게터를 사용하므로 보조 필드가 없습니다.
+예를 들어, 기본 `get()` 및 `set()` 함수를 사용할 때 컴파일러는 저장된 값을 읽고 쓰기 때문에 보조 필드를 생성합니다.
 
 ```kotlin
-val isEmpty: Boolean
-    get() = this.size == 0
+var count = 0
 ```
 
-반면 다음 예제에서 `score` 프로퍼티는 세터가 `field` 키워드를 사용하므로 보조 필드를 가집니다.
+[커스텀 `get()` 또는 `set()` 함수](#커스텀-게터와-세터) 내에서 `field` 키워드를 사용하여 보조 필드에 액세스할 수 있습니다. 예를 들어, 게터나 세터에 추가 로직을 더하거나, 프로퍼티가 변경될 때 추가적인 동작을 트리거할 수 있습니다.
+
+이 예제에서 `score` 프로퍼티는 세터 내부에서 보조 필드를 사용하여 값을 업데이트할 때마다 로그 이벤트가 발생하도록 합니다.
 
 ```kotlin
 class Scoreboard {
@@ -265,27 +263,31 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-backing-field"}
 
-### 보조 프로퍼티 (Backing properties)
+모든 프로퍼티에 보조 필드가 필요한 것은 아니므로 기본적으로 모든 프로퍼티에 대해 생성되지는 않습니다. 예를 들어, `isEmpty` 프로퍼티는 액세스할 때마다 `size` 프로퍼티로부터 값을 계산하므로 보조 필드가 없습니다.
 
-때로는 [보조 필드](#보조-필드-backing-fields)가 제공하는 것보다 더 많은 유연성이 필요할 수 있습니다. 예를 들어, 프로퍼티를 내부적으로는 수정할 수 있지만 외부에서는 수정할 수 없게 하고 싶은 API가 있는 경우입니다. 이러한 경우 _보조 프로퍼티(backing property)_라고 불리는 코딩 패턴을 사용할 수 있습니다.
+```kotlin
+val isEmpty: Boolean
+    get() = this.size == 0
+```
 
-다음 예제에서 `ShoppingCart` 클래스는 쇼핑카트의 모든 항목을 나타내는 `items` 프로퍼티를 가집니다. `items` 프로퍼티가 클래스 외부에서는 읽기 전용이기를 원하지만, 여전히 사용자가 `items` 프로퍼티를 직접 수정할 수 있는 "승인된" 방법을 하나 허용하고 싶을 수 있습니다. 이를 위해 `_items`라는 비공개(private) 보조 프로퍼티를 정의하고, 보조 프로퍼티의 값을 위임하는 `items`라는 공개(public) 프로퍼티를 정의할 수 있습니다.
+### 명시적 보조 필드 (Explicit backing fields)
+
+때로는 더 많은 유연성이 필요할 수 있습니다. 예를 들어, 프로퍼티를 내부적으로는 수정할 수 있지만 외부에서는 수정할 수 없게 하고 싶은 API가 있는 경우입니다. 이러한 경우 _명시적 보조 필드(explicit backing field)_를 사용할 수 있습니다.
+
+다음 예제에서 `ShoppingCart` 클래스는 쇼핑카트의 모든 항목을 나타내는 `items` 프로퍼티를 가집니다. 클래스는 `items` 프로퍼티를 문자열의 읽기 전용 리스트로 노출하지만, 내부적으로는 명시적 보조 필드를 사용하여 가변 리스트(mutable list)에 데이터를 저장합니다.
 
 ```kotlin
 class ShoppingCart {
-    // 보조 프로퍼티
-    private val _items = mutableListOf<String>()
-
-    // 공개 읽기 전용 뷰
+    // 명시적 보조 필드를 가진 공개 읽기 전용 뷰
     val items: List<String>
-        get() = _items
-
+        field = mutableListOf()
+    
     fun addItem(item: String) {
-        _items.add(item)
+        items.add(item)
     }
 
     fun removeItem(item: String) {
-        _items.remove(item)
+        items.remove(item)
     }
 }
 
@@ -302,46 +304,70 @@ fun main() {
     // [Banana]
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-backing-property"}
+{kotlin-runnable="true" kotlin-min-compiler-version="2.4" id="kotlin-explicit-backing-field"}
 
-이 예제에서 사용자는 `addItem()` 함수를 통해서만 카트에 항목을 추가할 수 있지만, 여전히 `items` 프로퍼티에 액세스하여 내용물을 확인할 수 있습니다.
+이 예제에서 컴파일러는 `mutableListOf()` 호출로부터 보조 필드의 타입인 `MutableList<String>`을 추론합니다. 보조 필드의 타입을 다음과 같이 명시적으로 선언할 수도 있습니다.
+
+```kotlin
+val items: List<String>
+    // 명시적 타입을 가진 명시적 보조 필드
+    field: MutableList<String> = mutableListOf()
+```
+{validate="false"}
+
+`ShoppingCart` 클래스의 예제에서 컴파일러는 `items` 프로퍼티를 `MutableList<String>` 타입으로 스마트 캐스트하므로, 클래스는 `add()` 및 `remove()` 함수를 통해 카트에 항목을 추가하거나 제거할 수 있습니다. 클래스 외부에서 컴파일러는 공개 프로퍼티 타입인 `List<String>`을 사용하므로, API 사용자는 `items` 리스트에 담긴 내용만 읽을 수 있습니다.
+
+#### 제한 사항
+
+명시적 보조 필드를 사용하려면 해당 프로퍼티와 보조 필드 자체가 특정 규칙을 따라야 합니다. 프로퍼티는 다음과 같은 경우에만 명시적 보조 필드를 가질 수 있습니다.
+
+* 커스텀 게터가 없는 경우.
+* 읽기 전용(`val`)인 경우.
+* `open`이 아닌 경우.
+* [위임 프로퍼티](delegated-properties.md)가 아닌 경우.
+* [컴파일 시간 상수](#컴파일-시간-상수)가 아닌 경우.
+
+또한, 보조 필드의 타입은 프로퍼티 타입의 하위 타입이어야 하며 [`private` 가시성](visibility-modifiers.md)을 가져야 합니다.
+
+이러한 제한 사항을 피하려면 대신 보조 프로퍼티를 사용할 수 있습니다.
+
+### 보조 프로퍼티 (Backing properties)
+
+명시적 보조 필드가 사용 사례에 맞지 않는 경우, _보조 프로퍼티(backing property)_라고 불리는 코딩 패턴을 사용할 수 있습니다.
+
+예를 들어, 프로퍼티에 커스텀 게터가 필요한 경우입니다.
+
+```kotlin
+class UserDirectory {
+    private val _users = mutableListOf(
+        "sarah",
+        "mike",
+        "emma"
+    )
+
+    val users: List<String>
+        get() = _users.sorted()
+
+    fun addUser(username: String) {
+        _users.add(username)
+    }
+}
+
+fun main() {
+    val directory = UserDirectory()
+
+    directory.addUser("alex")
+    println(directory.users)
+    // [alex, emma, mike, sarah]
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-backing-property-custom-getter"}
 
 > 보조 프로퍼티의 이름을 지을 때는 코틀린 [코딩 컨벤션](coding-conventions.md#names-for-backing-properties)에 따라 이름 앞에 언더스코어(_)를 사용하세요.
 >
 {style="tip"}
 
-JVM에서 컴파일러는 함수 호출 오버헤드를 피하기 위해 기본 접근자를 가진 비공개 프로퍼티에 대한 액세스를 최적화합니다.
-
-보조 프로퍼티는 하나 이상의 공개 프로퍼티가 상태를 공유하게 하고 싶을 때도 유용합니다. 예를 들어:
-
-```kotlin
-class Temperature {
-    // 섭씨 온도를 저장하는 보조 프로퍼티
-    private var _celsius: Double = 0.0
-
-    var celsius: Double
-        get() = _celsius
-        set(value) { _celsius = value }
-
-    var fahrenheit: Double
-        get() = _celsius * 9 / 5 + 32
-        set(value) { _celsius = (value - 32) * 5 / 9 }
-}
-
-fun main() {
-    val temp = Temperature()
-    temp.celsius = 25.0
-    println("${temp.celsius}°C = ${temp.fahrenheit}°F") 
-    // 25.0°C = 77.0°F
-
-    temp.fahrenheit = 212.0
-    println("${temp.celsius}°C = ${temp.fahrenheit}°F") 
-    // 100.0°C = 212.0°F
-}
-```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-backing-property-multiple-properties"}
-
-이 예제에서 `_celsius` 보조 프로퍼티는 `celsius`와 `fahrenheit` 프로퍼티 모두에서 액세스됩니다. 이 구성은 두 개의 공개 뷰를 가진 단일 진실 공급원(single source of truth)을 제공합니다.
+이 예제에서 `UserDirectory` 클래스는 디렉터리의 모든 사용자를 나열하는 읽기 전용 `users` 프로퍼티를 가집니다. `_users` 변수는 실제 리스트를 포함하는 비공개(private) 보조 프로퍼티입니다. 공개 `users` 프로퍼티의 게터는 항목을 반환하기 전에 정렬합니다.
 
 ## 컴파일 시간 상수
 

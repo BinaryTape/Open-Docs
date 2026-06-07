@@ -1,4 +1,10 @@
+---
+status: beta
+---
+
 # 以 LLM 為基礎的規劃器
+
+--8<-- "versioning-snippets.md:beta"
 
 以 LLM 為基礎的規劃器使用 LLM 來產生與評估計畫。
 它們在字串型狀態下運作，並透過 LLM 請求執行步驟。

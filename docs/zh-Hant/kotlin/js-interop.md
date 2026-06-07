@@ -2,11 +2,11 @@
 
 Kotlin 最初是為了與 Java 平台輕鬆互通而設計的：它將 Java 類別視為 Kotlin 類別，而 Java 則將 Kotlin 類別視為 Java 類別。
 
-然而，JavaScript 是一種動態型別語言 (dynamically typed language)，這意味著它不會在編譯期間檢查型別。你可以透過 [dynamic](dynamic-type.md) 型別從 Kotlin 自由地與 JavaScript 通訊。如果你想利用 Kotlin 型別系統的完整功能，可以為 JavaScript 程式庫建立外部宣告 (external declarations)，這些宣告將被 Kotlin 編譯器和周邊工具所理解。
+然而，JavaScript 是一種動態型別語言 (dynamically typed language)，這意味著它不會在編譯期檢查型別。你可以透過 [dynamic](dynamic-type.md) 型別從 Kotlin 自由地與 JavaScript 通訊。如果你想利用 Kotlin 型別系統的完整功能，可以為 JavaScript 程式庫建立外部宣告 (external declarations)，這些宣告將被 Kotlin 編譯器和周邊工具所理解。
 
 ## 內嵌 JavaScript
 
-你可以使用 [`js()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/js.html) 函式將 JavaScript 程式碼內嵌到你的 Kotlin 程式碼中。例如：
+你可以使用 [`js()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/js.html) 函式將 JavaScript 程式碼內嵌到你的 Kotlin 程式碼中：
 
 ```kotlin
 fun jsTypeOf(o: Any): String {
@@ -14,23 +14,40 @@ fun jsTypeOf(o: Any): String {
 }
 ```
 
-因為 `js` 的參數是在編譯期間剖析並「原封不動」地翻譯為 JavaScript 程式碼，所以它必須是字串常值。因此，以下程式碼是不正確的：
+JavaScript 程式碼內嵌完整支援 [ES2015 特性](js-project-setup.md#support-for-es2015-features)，包括：
+
+* `const` 與 `let` 變數宣告
+* ES 類別
+* 產生器 (Generators)
+* Lambda ([箭頭函式](whatsnew21.md#support-for-generating-es2015-arrow-functions))
+* 展開 (Spread) 與其餘 (rest) 運算子
+* 範本字串 (Template strings)
+
+因為 `js` 的參數是在編譯期剖析並「原封不動」地翻譯為 JavaScript 程式碼，所以它必須是字串常值。因此，以下程式碼是不正確的：
 
 ```kotlin
 fun jsTypeOf(o: Any): String {
-    return js(getTypeof() + " o") // 此處會回報錯誤
+    return js(getTypeof() + " o") // 錯誤：引數必須是字串常值
+    // 編譯器無法求值字串連接
 }
 
 fun getTypeof() = "typeof"
 ```
 
-> 由於 JavaScript 程式碼是由 Kotlin 編譯器剖析的，因此可能不支援所有的 ECMAScript 特性。在這種情況下，你可能會遇到編譯錯誤。
-> 
+相反地，例如要內嵌其餘運算子，請使用字串常值：
+
+```kotlin
+fun runSumExample() {
+    val sum = js("(...nums) => nums.reduce((a, b) => a + b, 0)")
+    println(sum(1, 2, 3, 4))
+}
+```
+
+> 呼叫 `js()` 會傳回 [`dynamic`](dynamic-type.md) 型別的結果，這在編譯期不提供任何型別安全性。
+>
 {style="note"}
 
-請注意，叫用 `js()` 會傳回 [`dynamic`](dynamic-type.md) 型別的結果，這在編譯期間不提供任何型別安全性。
-
-## external 修飾符
+## `external` 修飾符
 
 為了告訴 Kotlin 某個宣告是用純 JavaScript 編寫的，你應該使用 `external` 修飾符標記它。當編譯器看到這樣的宣告時，它會假設對應的類別、函式或屬性的實作是由外部提供的（由開發者提供或透過 [npm 相依性](js-project-setup.md#npm-dependencies)），因此不會嘗試從該宣告產生任何 JavaScript 程式碼。這也是為什麼 `external` 宣告不能有主體 (body) 的原因。例如：
 
@@ -60,8 +77,8 @@ external val window: Window
 
 ``` javascript
 function MyClass() { ... }
-MyClass.sharedMember = function() { /* implementation */ };
-MyClass.prototype.ownMember = function() { /* implementation */ };
+MyClass.sharedMember = function() { /* 實作 */ };
+MyClass.prototype.ownMember = function() { /* 實作 */ };
 ```
 
 Kotlin 中沒有這種語法。然而，在 Kotlin 中我們有 [`companion`](object-declarations.md#companion-objects) 物件。Kotlin 以特殊方式處理 `external` 類別的伴隨物件：它不再預期一個物件，而是將伴隨物件的成員視為類別本身的成員。上述範例中的 `MyClass` 可以描述如下：
@@ -175,7 +192,7 @@ fun sendQuery() {
 
 ### 轉換 (Casts)
 
-除了在無法轉換時拋出 `ClassCastException` 的「不安全」轉換運算子 `as` 之外，Kotlin/JS 還提供了 [`unsafeCast<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/unsafe-cast.html)。使用 `unsafeCast` 時，在執行時_完全不進行型別檢查_。例如，考慮以下兩個方法：
+除了在無法轉換時拋出 `ClassCastException` 的[「不安全」轉換運算子](typecasts.md#unsafe-cast-operator) `as` 之外，Kotlin/JS 還提供了 [`unsafeCast<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/unsafe-cast.html)。使用 `unsafeCast` 時，在執行時完全不進行型別檢查。例如，考慮以下兩個方法：
 
 ```kotlin
 fun usingUnsafeCast(s: Any) = s.unsafeCast<String>()

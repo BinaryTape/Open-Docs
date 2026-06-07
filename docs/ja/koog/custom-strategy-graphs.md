@@ -508,7 +508,7 @@ parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(BookTool::clas
 ```
 <!--- KNIT example-custom-strategy-graphs-08.kt -->
 
-詳細については、「[ツール](tools-overview.md#parallel-tool-calls)」を参照してください。
+詳細については、「[ツール](tools/index.md#parallel-tool-calls)」を参照してください。
 
 ### ノードの並列実行
 

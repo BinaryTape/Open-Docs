@@ -155,7 +155,7 @@ Key.COMPARATOR.compare(key1, key2);
 // Key 类中的 public static final 字段
 ```
 
-具名对象或伴生对象中[延迟初始化](properties.md#late-initialized-properties-and-variables)的属性具有静态支持字段，且可见性与属性的 setter 相同。
+在对象或伴生对象中[延迟初始化](properties.md#late-initialized-properties-and-variables)的属性具有静态支持字段，且可见性与属性的 setter 相同。
 
 ```kotlin
 object Singleton {
@@ -173,7 +173,7 @@ Singleton.provider = new Provider();
 声明为 `const` 的属性（在类中以及顶层）在 Java 中会转换为静态字段：
 
 ```kotlin
-// file example.kt
+// 文件 example.kt
 
 object Obj {
     const val CONST = 1
@@ -403,9 +403,67 @@ var x: Int = 23
 
 ## 生成重载
 
-通常情况下，如果你编写一个带有默认参数值的 Kotlin 函数，它在 Java 中仅作为完整签名可见，且所有形参都存在。如果你希望向 Java 调用者公开多个重载，可以使用 [`@JvmOverloads`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html) 注解。
+通常情况下，如果你编写一个带有默认参数值的 Kotlin 函数，它在 Java 中仅作为完整签名可见，且所有形参都存在。
 
-该注解也适用于构造函数、静态方法等。它不能用于抽象方法，包括接口中定义的方法。
+你可以使用 [`@IntroducedAt`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-introduced-at/) 注解或 [`@JvmOverloads`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html) 注解来为可选形参生成重载。
+
+当你向已发布的 API 添加新的可选形参，并希望生成的重载反映每个形参引入的版本时，请使用 `@IntroducedAt`。
+编译器利用此信息自动生成相应的隐藏重载。
+
+这为你提供了基于版本的重载生成，并有助于为针对库的旧版本编译的调用者保留二进制兼容性。
+
+> `@IntroducedAt` 注解是[实验性的](components-stability.md#stability-levels-explained)。要选择性加入，请使用 `@OptIn(ExperimentalVersionOverloading::class)` 注解。
+> 
+{style="warning"}
+
+以下是一个示例，其中 `Button()` 函数在多个 API 版本中接收多个可选形参：
+
+```kotlin
+@OptIn(ExperimentalVersionOverloading::class)
+fun Button(
+    label: String = "",
+    color: Color = DefaultColor,
+    @IntroducedAt("1.1") borderColor: Color = DefaultBorderColor,
+    @IntroducedAt("1.2") borderStyle: Style = DefaultBorderStyle,
+    @IntroducedAt("1.2") borderWidth: Int = 1,
+    onClick: () -> Unit
+) {
+    // 函数体
+}
+```
+
+基于这些版本，编译器会为原始 API 以及引入新可选形参的每个 API 版本生成隐藏重载：
+
+```kotlin
+// 原始 API
+Button(
+    label: String,
+    color: Color,
+    onClick: () -> Unit
+)
+
+// 版本 1.1
+Button(
+    label: String,
+    color: Color,
+    borderColor: Color,
+    onClick: () -> Unit
+)
+
+// 版本 1.2
+Button(
+    label: String,
+    color: Color,
+    borderColor: Color,
+    borderStyle: Style,
+    borderWidth: Int,
+    onClick: () -> Unit
+)
+```
+
+如果你希望向 Java 调用者公开多个重载，还可以使用 [`@JvmOverloads`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html) 注解。
+
+该注解也适用于构造函数、静态方法等。它不能用于抽象方法，包括接口中定义的方法。例如，考虑一个具有默认参数值的 `Circle` 类：
 
 ```kotlin
 class Circle @JvmOverloads constructor(centerX: Int, centerY: Int, radius: Double = 1.0) {
@@ -425,6 +483,9 @@ void draw(String label, int lineWidth, String color) { }
 void draw(String label, int lineWidth) { }
 void draw(String label) { }
 ```
+
+由于 `@IntroducedAt` 和 `@JvmOverloads` 注解都会生成重载，同时使用它们可能会产生冲突的重载。
+如果你同时使用这两个注解，编译器会报告警告。如果你取消显示该警告，编译器会优先处理由 `@IntroducedAt` 注解生成的重载。
 
 请注意，正如 [次用构造函数](classes.md#secondary-constructors) 中所述，如果一个类的所有构造函数参数都有默认值，则会为其生成一个不带实参的公共构造函数。即使未指定 `@JvmOverloads` 注解，这也有效。
 

@@ -27,9 +27,9 @@ Kotlin/Native 编译器支持许多不同的目标，但对它们的支持程度
 | Gradle 目标名称 | 目标三元组 | 运行测试 | 描述 |
 |-------------------------|-------------------------------|---------------|---------------------------------------------------------------|
 | 仅限 Apple macOS 主机： |                               |               |                                                               |
-| `macosArm64`            | `aarch64-apple-macos`         | ✅             | Apple Silicon 平台上的 Apple macOS 11.0 及更高版本 |
-| `iosSimulatorArm64`     | `aarch64-apple-ios-simulator` | ✅             | Apple Silicon 平台上的 Apple iOS 模拟器 14.0 及更高版本 |
-| `iosArm64`              | `aarch64-apple-ios`           |               | ARM64 平台上的 Apple iOS 和 iPadOS 14.0 及更高版本 |
+| `macosArm64`            | `aarch64-apple-macos`         | ✅             | Apple 芯片 平台上的 Apple macOS 12.0 及更高版本 |
+| `iosSimulatorArm64`     | `aarch64-apple-ios-simulator` | ✅             | Apple 芯片 平台上的 Apple iOS 模拟器 15.0 及更高版本 |
+| `iosArm64`              | `aarch64-apple-ios`           |               | ARM64 平台上的 Apple iOS 和 iPadOS 15.0 及更高版本 |
 
 ### 第 2 层级
 
@@ -41,11 +41,11 @@ Kotlin/Native 编译器支持许多不同的目标，但对它们的支持程度
 | `linuxX64`              | `x86_64-unknown-linux-gnu`        | ✅             | x86_64 平台上的 Linux |
 | `linuxArm64`            | `aarch64-unknown-linux-gnu`       |               | ARM64 平台上的 Linux |
 | 仅限 Apple macOS 主机： |                                   |               |                                                                  |
-| `watchosSimulatorArm64` | `aarch64-apple-watchos-simulator` | ✅             | Apple Silicon 平台上的 Apple watchOS 模拟器 7.0 及更高版本 |
-| `watchosArm32`          | `armv7k-apple-watchos`            |               | ARM32 平台上的 Apple watchOS 7.0 及更高版本 |
-| `watchosArm64`          | `arm64_32-apple-watchos`          |               | 带有 ILP32 的 ARM64 平台上的 Apple watchOS 7.0 及更高版本 |
-| `tvosSimulatorArm64`    | `aarch64-apple-tvos-simulator`    | ✅             | Apple Silicon 平台上的 Apple tvOS 模拟器 14.0 及更高版本 |
-| `tvosArm64`             | `aarch64-apple-tvos`              |               | ARM64 平台上的 Apple tvOS 14.0 及更高版本 |
+| `watchosSimulatorArm64` | `aarch64-apple-watchos-simulator` | ✅             | Apple 芯片 平台上的 Apple watchOS 模拟器 8.0 及更高版本 |
+| `watchosArm32`          | `armv7k-apple-watchos`            |               | ARM32 平台上的 Apple watchOS 8.0 及更高版本 |
+| `watchosArm64`          | `arm64_32-apple-watchos`          |               | 带有 ILP32 的 ARM64 平台上的 Apple watchOS 8.0 及更高版本 |
+| `tvosSimulatorArm64`    | `aarch64-apple-tvos-simulator`    | ✅             | Apple 芯片 平台上的 Apple tvOS 模拟器 15.0 及更高版本 |
+| `tvosArm64`             | `aarch64-apple-tvos`              |               | ARM64 平台上的 Apple tvOS 15.0 及更高版本 |
 
 ### 第 3 层级
 
@@ -65,8 +65,8 @@ Kotlin/Native 编译器支持许多不同的目标，但对它们的支持程度
 | `androidNativeX64`      | `x86_64-unknown-linux-android`   |               | x86_64 平台上的 [Android NDK](https://developer.android.com/ndk) |
 | `mingwX64`              | `x86_64-pc-windows-gnu`          | ✅             | 使用 [MinGW](https://www.mingw-w64.org) 兼容层的 64 位 Windows 10 及更高版本 |
 | 仅限 Apple macOS 主机： |                                  |               |                                                                                          |
-| `watchosDeviceArm64`    | `aarch64-apple-watchos`          |               | ARM64 平台上的 Apple watchOS 7.0 及更高版本 |
-| `iosX64`                | `x86_64-apple-ios-simulator`     | ✅             | x86-64 平台上的 Apple iOS 模拟器 14.0 及更高版本 |
+| `watchosDeviceArm64`    | `aarch64-apple-watchos`          |               | ARM64 平台上的 Apple watchOS 8.0 及更高版本 |
+| `iosX64`                | `x86_64-apple-ios-simulator`     | ✅             | x86-64 平台上的 Apple iOS 模拟器 15.0 及更高版本 |
 
 > `linuxArm32Hfp` 目标已被弃用，并将在未来的版本中移除。
 > 
@@ -76,9 +76,32 @@ Kotlin/Native 编译器支持许多不同的目标，但对它们的支持程度
 
 从 Kotlin 2.3.20 开始，以下目标已弃用：
 
-* `macosX64`（x86_64 平台上的 Apple macOS 11.0 及更高版本）
-* `watchosX64`（x86_64 平台上的 Apple watchOS 7.0 及更高版本的 64 位模拟器）
-* `tvosX64`（x86_64 平台上的 Apple tvOS 14.0 及更高版本的模拟器）
+* `macosX64`（x86_64 平台上的 Apple macOS）
+* `watchosX64`（x86_64 平台上的 Apple watchOS 64 位模拟器）
+* `tvosX64`（x86_64 平台上的 Apple tvOS 模拟器）
+
+### 支持较低的 Apple 目标版本
+
+目前，Apple 目标的默认最低支持版本为：
+
+* iOS 和 tvOS 为 15.0。
+* macOS 为 12.0。
+* watchOS 为 8.0。
+
+如果你的项目需要支持低于默认值的版本，请在构建文件中使用 `freeCompilerArgs` 选项：
+
+```kotlin
+kotlin {
+    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().configureEach {
+        binaries.configureEach {
+            freeCompilerArgs += "-Xoverride-konan-properties=minVersion.ios=14.0"
+            freeCompilerArgs += "-Xoverride-konan-properties=minVersion.macos=11.0"
+            freeCompilerArgs += "-Xoverride-konan-properties=minVersion.tvos=14.0"
+            freeCompilerArgs += "-Xoverride-konan-properties=minVersion.watchos=7.0"
+        }
+    }
+}
+```
 
 ### 对于库作者
 
@@ -97,8 +120,8 @@ Kotlin/Native 编译器支持以下主机：
 |----------------------------------------------------|------------------------------------------------|------------------------------------------------------------------------|
 | 搭载 Apple 芯片 (ARM64) 的 macOS | 任何受支持的目标 | 任何受支持的目标 |
 | 搭载 Intel 芯片 (x86_64) 的 macOS | 任何受支持的目标 | 任何受支持的目标 |
-| 采用 x86_64 架构的 Linux | 任何受支持的目标（Apple 目标除外） | 任何受支持的目标，Apple 目标仅限不带 cinterop 依赖项的情况 |
-| 采用 x86_64 架构的 Windows (MinGW 工具链) | 任何受支持的目标（Apple 目标除外） | 任何受支持的目标，Apple 目标仅限不带 cinterop 依赖项的情况 |
+| 采用 x86_64 架构的 Linux | 任何受支持的目标（Apple 目标除外） | 任何受支持的目标，Apple 目标仅限不带 `cinterop` 依赖项的情况 |
+| 采用 x86_64 架构的 Windows (MinGW 工具链) | 任何受支持的目标（Apple 目标除外） | 任何受支持的目标，Apple 目标仅限不带 `cinterop` 依赖项的情况 |
 
 ### 构建最终二进制文件
 
@@ -112,7 +135,7 @@ Kotlin/Native 编译器支持以下主机：
 
 然而，在 Linux 和 Windows 上为 Apple 目标生成构件仍然存在一些限制。如果你的项目使用了 [cinterop 依赖项](native-c-interop.md)（包括 [CocoaPods](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)），你必须使用 macOS 主机。
 
-例如，只有在没有 cinterop 依赖项的情况下，你才能在运行于 x86_64 架构的 Windows 机器上为 `macosArm64` 目标生成 `.klib`。
+例如，只有在没有 `cinterop` 依赖项的情况下，你才能在运行于 x86_64 架构的 Windows 机器上为 `macosArm64` 目标生成 `.klib`。
 
 ## 下一步
 

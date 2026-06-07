@@ -8,11 +8,11 @@
 > 
 {style="tip"}
 
-Kotlin Gradle 插件支持二进制兼容性验证。启用后，它会从当前代码生成应用二进制接口 (ABI) 转储，并将其与之前的转储进行比较以突出显示差异。您可以审阅这些更改以发现任何潜在的二进制不兼容修改，并采取措施解决它们。
+Kotlin Gradle 插件包含对二进制兼容性验证的支持。该插件从当前代码生成应用二进制接口 (ABI) 转储，并将其与之前的转储进行比较以突出显示差异。您可以审阅这些更改以发现任何潜在的二进制不兼容修改，并采取措施解决它们。
 
 ## 如何启用
 
-要启用二进制兼容性验证，请在 `build.gradle.kts` 文件的 `kotlin{}` 块中添加以下内容：
+要启用二进制兼容性验证，请在 `build.gradle.kts` 文件中添加 `abiValidation {}` 块。如果您没有自定义配置，也可以直接使用 `abiValidation()` 函数：
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -20,10 +20,7 @@ Kotlin Gradle 插件支持二进制兼容性验证。启用后，它会从当前
 ```kotlin
 kotlin {
     @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
-    abiValidation {
-        // 使用 set() 函数以确保与旧版 Gradle 的兼容性
-        enabled.set(true)
-    }
+    abiValidation()
 }
 ```
 
@@ -32,16 +29,14 @@ kotlin {
 
 ```groovy
 kotlin {
-    abiValidation {
-        enabled = true
-    }
+    abiValidation()
 }
 ```
 
 </tab>
 </tabs>
 
-如果您的项目中有多个模块需要检查二进制兼容性，请分别为每个模块进行配置。
+KGP 会创建必要的 Gradle 任务。如果您的项目中有多个模块需要检查二进制兼容性，请分别为每个模块进行配置。
 
 ## 检查二进制兼容性问题
 
@@ -53,7 +48,7 @@ kotlin {
 
 该任务会比较 ABI 转储并将检测到的任何差异作为错误打印出来。请仔细检查输出，以确定是否需要更改代码以保持二进制兼容性。
 
-默认情况下，[当项目中启用了二进制兼容性验证](#如何启用) 并且您运行 `check` 任务时，Gradle 也会运行 `checkKotlinAbi` 任务。
+默认情况下，[当项目中启用了二进制兼容性验证](#如何启用) 并且您运行 `check` 任务时，Gradle 也会运行 `checkKotlinAbi` 任务。 
 
 ## 更新参考 ABI 转储
 
@@ -155,9 +150,7 @@ kotlin {
 kotlin {
     @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
     abiValidation {
-        klib {
-            keepUnsupportedTargets.set(false)
-        }
+        keepLocallyUnsupportedTargets.set(false)
     }
 }
 ```
@@ -168,9 +161,7 @@ kotlin {
 ```groovy
 kotlin {
     abiValidation {
-        klib {
-            keepUnsupportedTargets = false
-        }
+        keepLocallyUnsupportedTargets = false
     }
 }
 ```
@@ -179,3 +170,39 @@ kotlin {
 </tabs>
 
 如果某个目标不受支持且推断功能已禁用，则 `checkKotlinAbi` 任务会失败，因为它无法生成完整的 ABI 转储。如果您宁愿任务失败也不愿冒错过二进制不兼容更改的风险，那么这种行为可能会很有用。
+
+## 包含来自 `maven-publish` 插件的发布物
+
+默认情况下，二进制兼容性验证使用 Kotlin 编译输出生成 ABI 转储。因此，生成的 ABI 转储可能无法反映最终发布的构件。例如，当您使用 [`maven-publish` 插件](https://docs.gradle.org/current/userguide/publishing_maven.html)时，重定位等后续处理步骤可能会在编译后修改构件。
+
+为了确保 ABI 转储准确反映由 `maven-publish` 插件发布的构件，请在 `build.gradle.kts` 文件中添加以下内容：
+
+<tabs group="build-script">
+<tab title="Kotlin" group-key="kotlin">
+
+```kotlin
+kotlin {
+    @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
+    abiValidation {
+        binariesSource.set(MAVEN_PUBLICATIONS)
+    }
+}
+```
+
+</tab>
+<tab title="Groovy" group-key="groovy">
+
+```groovy
+kotlin {
+    abiValidation {
+        binariesSource = MAVEN_PUBLICATIONS
+    }
+}
+```
+
+</tab>
+</tabs>
+
+> 由于 Kotlin/Android 项目以及包含 Android 目标的多平台项目不发布 JAR 文件，因此此功能不适用于这些项目。
+> 
+{style="warning"}

@@ -230,22 +230,19 @@ fun main() {
 
 この例では、[リフレクション](reflection.md)を使用して、ゲッターとセッターにどのアノテーションが存在するかを示しています。
 
-### バッキングフィールド
+## バッキングフィールド
 
-Kotlin では、アクセサはメモリ内にプロパティの値を格納するために「バッキングフィールド（backing fields）」を使用します。バッキングフィールドは、ゲッターやセッターに追加のロジックを加えたい場合や、プロパティが変更されるたびに追加のアクションをトリガーしたい場合に役立ちます。
+コンパイラは、値をメモリに格納する必要がある場合に、プロパティのバッキングフィールド（backing fields）を自動的に生成します。
 
-バッキングフィールドを直接宣言することはできません。Kotlin は必要な場合にのみこれらを生成します。アクセサ内では `field` キーワードを使用して、バッキングフィールドを参照できます。
-
-Kotlin は、デフォルトのゲッターまたはセッターを使用している場合、あるいは少なくとも 1 つのカスタムアクセサで `field` を使用している場合にのみ、バッキングフィールドを生成します。
-
-例えば、以下の `isEmpty` プロパティは、`field` キーワードを使用しないカスタムゲッターを使用しているため、バッキングフィールドを持ちません。
+例えば、デフォルトの `get()` および `set()` 関数を使用する場合、これらは格納された値を読み書きするため、コンパイラはバッキングフィールドを作成します。
 
 ```kotlin
-val isEmpty: Boolean
-    get() = this.size == 0
+var count = 0
 ```
 
-この例では、セッターで `field` キーワードを使用しているため、`score` プロパティはバッキングフィールドを持ちます。
+[カスタム `get()` または `set()` 関数](#custom-getters-and-setters) 内で `field` キーワードを使用することで、バッキングフィールドにアクセスできます。例えば、ゲッターやセッターに追加のロジックを加えたり、プロパティが変更された際に追加のアクションをトリガーしたりできます。
+
+以下の例では、`score` プロパティの `set()` 関数内でバッキングフィールドを使用しており、値を更新する際にログイベントもトリガーされるようにしています。
 
 ```kotlin
 class Scoreboard {
@@ -267,27 +264,31 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-backing-field"}
 
-### バッキングプロパティ
+すべてのプロパティでバッキングフィールドが作成されるわけではありません。必要ない場合があるからです。例えば、以下の `isEmpty` プロパティは、アクセスされるたびに `size` プロパティから値が計算されるため、バッキングフィールドを持ちません。
 
-[バッキングフィールド](#backing-fields)を使用する以上の柔軟性が必要な場合があります。例えば、プロパティを内部的には変更可能にし、外部からは変更不可にしたい API がある場合です。このような場合、*バッキングプロパティ（backing property）* と呼ばれるコーディングパターンを使用できます。
+```kotlin
+val isEmpty: Boolean
+    get() = this.size == 0
+```
 
-以下の例では、`ShoppingCart` クラスにショッピングカート内のすべての項目を表す `items` プロパティがあります。`items` プロパティをクラス外部からは読み取り専用にしつつ、ユーザーが直接 `items` プロパティを操作できる「承認された」唯一の方法を許可したいとします。これを実現するために、`_items` というプライベートなバッキングプロパティを定義し、そのバッキングプロパティの値に委譲する公開プロパティ `items` を定義できます。
+### 明示的なバッキングフィールド
+
+より柔軟な制御が必要な場合があります。例えば、プロパティを内部的には変更可能にし、外部からは変更不可にしたい API がある場合です。このような場合、*明示的なバッキングフィールド（explicit backing field）* を使用できます。
+
+以下の例では、`ShoppingCart` クラスにショッピングカート内のすべての項目を表す `items` プロパティがあります。このクラスは `items` プロパティを文字列の読み取り専用リストとして公開していますが、内部的には明示的なバッキングフィールドを使用してミュータブル（可変）なリストにデータを保存しています。
 
 ```kotlin
 class ShoppingCart {
-    // バッキングプロパティ
-    private val _items = mutableListOf<String>()
-
-    // 公開された読み取り専用ビュー
+    // 明示的なバッキングフィールドを持つ公開読み取り専用ビュー
     val items: List<String>
-        get() = _items
-
+        field = mutableListOf()
+    
     fun addItem(item: String) {
-        _items.add(item)
+        items.add(item)
     }
 
     fun removeItem(item: String) {
-        _items.remove(item)
+        items.remove(item)
     }
 }
 
@@ -304,46 +305,70 @@ fun main() {
     // [Banana]
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-backing-property"}
+{kotlin-runnable="true" kotlin-min-compiler-version="2.4" id="kotlin-explicit-backing-field"}
 
-この例では、ユーザーは `addItem()` 関数を通じてのみカートに項目を追加できますが、`items` プロパティにアクセスして中身を確認することはできます。
+この例では、コンパイラは `mutableListOf()` の呼び出しからバッキングフィールドの型を `MutableList<String>` と推論します。また、バッキングフィールドの型を明示的に宣言することもできます。
+
+```kotlin
+val items: List<String>
+    // 明示的な型を持つ明示的なバッキングフィールド
+    field: MutableList<String> = mutableListOf()
+```
+{validate="false"}
+
+`ShoppingCart` クラスの例では、コンパイラが `items` プロパティを `MutableList<String>` 型にスマートキャストするため、クラス内では `add()` や `remove()` 関数を通じてカートに項目を追加したり削除したりできます。クラス外部では、コンパイラは公開プロパティの型である `List<String>` を使用するため、API の利用者は `items` リストの内容を読み取ることしかできません。
+
+#### 制限事項
+
+明示的なバッキングフィールドを使用するには、そのプロパティとバッキングフィールド自体が特定のルールに従う必要があります。プロパティが明示的なバッキングフィールドを持てるのは、以下の条件を満たす場合に限られます。
+
+* カスタムゲッターを持たないこと。
+* 読み取り専用（`val`）であること。
+* `open` でないこと。
+* [委譲プロパティ](delegated-properties.md)でないこと。
+* [コンパイル時定数](#compile-time-constants)でないこと。
+
+さらに、バッキングフィールドの型はプロパティの型のサブタイプである必要があり、[`private` 可視性](visibility-modifiers.md)を持つ必要があります。
+
+これらの制限を回避する必要がある場合は、代わりにバッキングプロパティを使用できます。
+
+### バッキングプロパティ
+
+明示的なバッキングフィールドがユースケースに合わない場合は、*バッキングプロパティ（backing property）* と呼ばれるコーディングパターンを使用できます。
+
+例えば、プロパティにカスタムゲッターが必要な場合などです。
+
+```kotlin
+class UserDirectory {
+    private val _users = mutableListOf(
+        "sarah",
+        "mike",
+        "emma"
+    )
+
+    val users: List<String>
+        get() = _users.sorted()
+
+    fun addUser(username: String) {
+        _users.add(username)
+    }
+}
+
+fun main() {
+    val directory = UserDirectory()
+
+    directory.addUser("alex")
+    println(directory.users)
+    // [alex, emma, mike, sarah]
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-backing-property-custom-getter"}
 
 > バッキングプロパティを命名する際は、Kotlin の [コーディング規約](coding-conventions.md#names-for-backing-properties) に従い、先頭にアンダースコアを使用してください。
 >
 {style="tip"}
 
-JVM 上では、コンパイラがデフォルトのアクセサを持つプライベートプロパティへのアクセスを最適化し、関数呼び出しのオーバーヘッドを回避します。
-
-バッキングプロパティは、複数の公開プロパティで状態を共有したい場合にも役立ちます。例えば：
-
-```kotlin
-class Temperature {
-    // 摂氏での温度を格納するバッキングプロパティ
-    private var _celsius: Double = 0.0
-
-    var celsius: Double
-        get() = _celsius
-        set(value) { _celsius = value }
-
-    var fahrenheit: Double
-        get() = _celsius * 9 / 5 + 32
-        set(value) { _celsius = (value - 32) * 5 / 9 }
-}
-
-fun main() {
-    val temp = Temperature()
-    temp.celsius = 25.0
-    println("${temp.celsius}°C = ${temp.fahrenheit}°F") 
-    // 25.0°C = 77.0°F
-
-    temp.fahrenheit = 212.0
-    println("${temp.celsius}°C = ${temp.fahrenheit}°F") 
-    // 100.0°C = 212.0°F
-}
-```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-backing-property-multiple-properties"}
-
-この例では、`_celsius` バッキングプロパティが `celsius` と `fahrenheit` の両方のプロパティからアクセスされています。この構成により、2 つの公開ビューを持ちながら、信頼できる唯一の情報源（Single Source of Truth）が提供されます。
+この例では、`UserDirectory` クラスにディレクトリ内のすべてのユーザーをリストする読み取り専用の `users` プロパティがあります。`_users` 変数は実際のリストを保持するプライベートなバッキングプロパティです。公開プロパティ `users` のゲッターは、エントリをソートしてから返します。
 
 ## コンパイル時定数
 

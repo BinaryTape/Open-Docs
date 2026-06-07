@@ -222,7 +222,7 @@ What's on your mind? Are you trying to understand a specific meme, need help fin
 
 ## 添加工具
 
-Agent 可以使用[工具](../tools-overview.md)来执行特定任务。
+Agent 可以使用[工具](../tools/index.md)来执行特定任务。
 
 首先，通过使用 [`@Tool`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools.annotations/-tool/index.html) 注解标记函数 (Kotlin) 或方法 (Java) 来创建工具：
 
@@ -530,7 +530,7 @@ The meme is known for its lighthearted and playful tone, and is often used to ex
     // 在 main 方法中：
     UserConversationTools askUser = new UserConversationTools();
 
-    ToolRegistry toolRegistry = toolRegistry.builder()
+    ToolRegistry toolRegistry = ToolRegistry.builder()
             .tools(askUser)
             .build();
 

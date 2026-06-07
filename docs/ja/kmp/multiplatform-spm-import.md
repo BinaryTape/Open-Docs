@@ -1,22 +1,22 @@
 [//]: # (title: SwiftパッケージをKMPモジュールの依存関係として追加する)
-<primary-label ref="Experimental"/>
+<primary-label ref="alpha"/>
 
 <tldr>
    <p>Swift Package Manager (SwiftPM) は CocoaPods と同じ役割を果たします。これにより、iOS アプリのネイティブ iOS 依存関係を透過的にオーケストレート（管理）できます。</p>
    <p>ここでは、KMP プロジェクトで SwiftPM 依存関係をセットアップする方法と、必要に応じて KMP のセットアップを CocoaPods から SwiftPM へ移行する方法について説明します。</p>
 </tldr>
 
-> この機能は[試験的（Experimental）](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained)です。
+> この機能は [Alpha](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained) です。
 > 発生した問題やフィードバックは、専用の Kotlin Slack チャンネル [#kmp-swift-package-manager](https://kotlinlang.slack.com/archives/C09TW68099C) で共有してください。
 >
-{style="warning"}
+{style="note"}
 
 SwiftPM インポート統合を備えた Kotlin Gradle プラグインを使用すると、Apple ターゲットに対して宣言された SwiftPM 依存関係を使用して、Objective-C および Swift コードから Objective-C API をインポートできます。
 
 推移的依存関係（SwiftPM インポートを使用するプロジェクトに依存するプロジェクト）の場合、Kotlin Gradle プラグインは SwiftPM 依存関係から必要なマシンコードを自動的に提供します。
 例えば、Kotlin/Native テストの実行やフレームワークのリンク時に、追加の設定を行う必要はありません。
 
-> SwiftPM インポートを使用する KMP モジュール自体を Swift パッケージとして[エクスポート](multiplatform-spm-export.md)することは、まだサポートされておらず、動作しない可能性があります。
+> SwiftPM インポートを使用する KMP モジュール自体を Swift パッケージとして [エクスポート](multiplatform-spm-export.md) することは、まだサポートされておらず、動作しない可能性があります。
 > 詳細については、こちらの [YouTrack イシュー](https://youtrack.jetbrains.com/issue/KT-84420) を参照し、あなたのユースケースについてお知らせください。
 >
 {style="note"}

@@ -11,7 +11,7 @@ Koog Agent 是圍繞以下核心概念建構的：
 - [策略 (strategy)](../nodes-and-components.md) 定義了 Agent 的工作流程。
   它可以是有向圖、函式或規劃器 (planner) 的形式。
   請參閱 [Agent 類型](#agent-types)。
-- Agent 可以使用 [工具 (tools)](../tools-overview.md) 與外部資料源和服務互動。
+- Agent 可以使用 [工具 (tools)](../tools/index.md) 與外部資料源和服務互動。
 - 您可以使用 [功能 (features)](../features/index.md) 來擴展和增強 AI Agent 的功能性。
 
 !!! tip
@@ -151,7 +151,7 @@ Agent 配置 (configuration) 定義了 Agent 的執行參數，
 
 - `prompt` 定義初始 [Prompt](../prompts/prompt-creation/index.md) 和 [LLM 參數](../llm-parameters.md)。
 
-- `model` 指定 Agent 與之互動的 語言模型。
+- `model` 指定 Agent 與之互動的語言模型。
   您可以使用預定義模型之一，或 [建立自訂模型配置](../model-capabilities.md#creating-a-model-llmodel-configuration)。
 
 - `maxAgentIterations` 限制 Agent 在終止前可以執行的最大步數。

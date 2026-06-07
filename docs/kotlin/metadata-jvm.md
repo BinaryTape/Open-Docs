@@ -107,13 +107,13 @@ fun main() {
     > `readStrict()` 函数支持的元数据格式最高可比 [`JvmMetadataVersion.LATEST_STABLE_SUPPORTED`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-jvm-metadata-version/-companion/-l-a-t-e-s-t_-s-t-a-b-l-e_-s-u-p-p-o-r-t-e-d.html)（对应于项目中使用的最新 Kotlin 版本）高出一个版本。
     > 例如，如果您的项目依赖于 `kotlin-metadata-jvm:2.1.0`，则 `readStrict()` 可以处理最高为 Kotlin `2.2.x` 的元数据；否则，它会抛出错误以防止误处理未知格式。
     > 
-    > 欲了解更多信息，请参阅 [Kotlin Metadata GitHub 仓库](https://github.com/JetBrains/kotlin/blob/master/libraries/kotlinx-metadata/jvm/ReadMe.md#detailed-explanation)。
+    > 欲了解更多信息，请参阅 [Kotlin Metadata GitHub 仓库](https://github.com/JetBrains/kotlin/blob/master/libraries/kotlinx-metadata/jvm/ReadMe.md#detailed-explanation)。 
     >
     {style="note"}
 
 解析元数据时，`KotlinClassMetadata` 实例提供了关于类或文件级声明的结构化信息。
 对于类，使用 [`kmClass`](https://kotlinlang.org/api/kotlinx-metadata-jvm/kotlin-metadata-jvm/kotlin.metadata.jvm/-kotlin-class-metadata/-class/km-class.html) 属性来分析详细的类级元数据，如类名、函数、属性以及可见性等特性。
-对于文件级声明，元数据由 `kmPackage` 属性表示，其中包括来自 Kotlin 编译器生成的文件门面（file facades）中的顶级函数和属性。
+对于文件级声明，元数据由 `kmPackage` 属性表示，其中包括来自 Kotlin 编译器生成的文件门面 (file facades) 中的顶级函数和属性。
 
 以下代码示例演示了如何使用 `readLenient()` 解析元数据，使用 `kmClass` 分析类级详情，并使用 `kmPackage` 检索文件级声明：
 
@@ -174,31 +174,16 @@ fun main() {
 ```
 
 ### 在元数据中写入和读取注解
-<primary-label ref="experimental-general"/>
 
-您可以在 Kotlin 元数据中存储注解，并使用 `kotlin-metadata-jvm` 库访问它们。
-这消除了通过签名匹配注解的需求，使得对重载声明的访问更加可靠。
+Kotlin 在字节码和 Kotlin 元数据中都存储注解。如果您使用 `kotlin-metadata-jvm` 库来读取或写入注解，您处理的是它们的元数据表示形式。
 
-要使注解在编译文件的元数据中可用，请添加以下编译器选项：
+> Kotlin 从 Kotlin 2.4.0 开始在 Kotlin 元数据中存储注解。如果您检查使用早期版本编译的类文件，注解不会出现在元数据中。
+>
+{style="note"}
 
-```kotlin
--Xannotations-in-metadata
-```
+当您更改元数据中的注解时，请确保它们与字节码中存储的注解保持一致。如果它们不同步，依赖反射或字节码分析的工具可能会报告与读取 Kotlin 元数据的工具不同的结果。
 
-或者，将其添加到 Gradle 构建文件的 `compilerOptions {}` 块中：
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xannotations-in-metadata")
-    }
-}
-```
-
-启用此选项后，Kotlin 编译器会将注解与 JVM 字节码一起写入元数据，从而使它们可供 `kotlin-metadata-jvm` 库访问。
-
-该库提供了以下用于访问注解的 API：
+`kotlin-metadata-jvm` 库提供了以下用于访问注解的 API：
 
 * `KmClass.annotations`
 * `KmFunction.annotations`
@@ -212,14 +197,9 @@ kotlin {
 * `KmProperty.delegateFieldAnnotations`
 * `KmEnumEntry.annotations`
 
-这些 API 目前处于[实验性阶段](components-stability.md#stability-levels-explained)。
-要启用它们，请使用 `@OptIn(ExperimentalAnnotationsInMetadata::class)` 注解。
-
 这是一个从 Kotlin 元数据中读取注解的示例：
 
 ```kotlin
-@file:OptIn(ExperimentalAnnotationsInMetadata::class)
-
 import kotlin.metadata.ExperimentalAnnotationsInMetadata
 import kotlin.metadata.jvm.KotlinClassMetadata
 
@@ -235,14 +215,6 @@ fun main() {
     // [@Label(value = StringValue("Message class"))]
 }
 ```
-
-> 如果您在项目中使用 `kotlin-metadata-jvm` 库，我们建议更新并测试您的代码以支持注解。
-> 否则，当注解在元数据中在未来的 Kotlin 版本中变为[默认启用](https://youtrack.jetbrains.com/issue/KT-75736)时，
-> 您的项目可能会生成无效或不完整的元数据。
->
-> 如果您遇到任何问题，请在我们的[问题跟踪器](https://youtrack.jetbrains.com/issue/KT-31857)中报告。
->
-{style="warning"}
 
 ### 从字节码中提取元数据
 
@@ -289,7 +261,7 @@ fun ClassNode.findAnnotation(annotationName: String, includeInvisible: Boolean =
 // 简化检索注解值的运算符
 operator fun AnnotationNode.get(key: String): Any? = values.annotationValue(key)
 
-// 从类节点中以宽松模式读取 Kotlin 元数据
+// 从类节点中提取 Kotlin 元数据
 fun ClassNode.readMetadataLenient(): KotlinClassMetadata? {
     val metadataAnnotation = findAnnotation("kotlin/Metadata", false) ?: return null
     @Suppress("UNCHECKED_CAST")

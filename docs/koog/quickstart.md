@@ -10,6 +10,12 @@
 
 --8<-- "quickstart-snippets.md:dependencies"
 
+??? tip "模块版本化"
+
+    Koog 遵循语义化版本 (`X.Y.Z`)。稳定模块（例如 `1.0.0`）具有保证的 API，而 beta 模块（例如 `1.0.0-beta`）是实验性的，可能会在版本之间发生变化。
+
+    有关详细信息，请参阅[模块版本化](module-versioning.md)。
+
 ??? tip "每夜构建"
 
     来自 develop 分支的每夜构建已发布到 [JetBrains Grazie Maven](https://packages.jetbrains.team/maven/p/grazi/grazie-platform-public) 仓库。
@@ -47,7 +53,7 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
 
 === "Anthropic"
 
-    获取您的 [Anthropic API 密钥](https://console.anthropic.com/settings/keys) 并将其分配给 `ANTHROPIC_API_KEY` 环境变量。
+    获取您的 [Anthropic API key](https://console.anthropic.com/settings/keys) 并将其分配给 `ANTHROPIC_API_KEY` 环境变量。
 
     === "Linux/macOS"
 
@@ -61,7 +67,7 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
         setx ANTHROPIC_API_KEY "your-api-key"
         ```
 
-=== "Google"
+=== "Google β"
 
     获取您的 [Gemini API 密钥](https://aistudio.google.com/app/api-keys) 并将其分配给 `GOOGLE_API_KEY` 环境变量。
 
@@ -77,7 +83,7 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
         setx GOOGLE_API_KEY "your-api-key"
         ```  
 
-=== "DeepSeek"
+=== "DeepSeek β"
 
     获取您的 [DeepSeek API 密钥](https://platform.deepseek.com/api_keys) 并将其分配给 `DEEPSEEK_API_KEY` 环境变量。
 
@@ -125,7 +131,7 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
         setx BEDROCK_API_KEY "your-api-key"
         ```  
 
-=== "Mistral"
+=== "Mistral β"
 
     获取您的 [Mistral API 密钥](https://console.mistral.ai/api-keys) 并将其分配给 `MISTRAL_API_KEY` 环境变量。
 
@@ -156,8 +162,9 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
 
         <!--- INCLUDE
         import ai.koog.agents.core.agent.AIAgent
-        import ai.koog.prompt.executor.llms.all.simpleOpenAIExecutor
+        import ai.koog.prompt.executor.clients.openai.OpenAILLMClient
         import ai.koog.prompt.executor.clients.openai.OpenAIModels
+        import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
         import kotlinx.coroutines.runBlocking
         -->
         ```kotlin
@@ -165,10 +172,10 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
             // 从 OPENAI_API_KEY 环境变量获取 OpenAI API 密钥
             val apiKey = System.getenv("OPENAI_API_KEY")
                 ?: error("未设置 API 密钥。")
-            
+
             // 创建智能体
             val agent = AIAgent(
-                promptExecutor = simpleOpenAIExecutor(apiKey),
+                promptExecutor = MultiLLMPromptExecutor(OpenAILLMClient(apiKey)),
                 llmModel = OpenAIModels.Chat.GPT4o
             )
         
@@ -182,10 +189,16 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
     === "Java"
 
         <!--- INCLUDE
-        /**
+        import ai.koog.agents.core.agent.AIAgent;
+        import ai.koog.prompt.executor.clients.openai.OpenAIModels;
+        import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor;
+        import static ai.koog.prompt.executor.clients.openai.OpenAIClientFactory.openAIClient;
+        class exampleGettingStartedJava01 {
+            public static void main(String[] args) {
         -->
         <!--- SUFFIX
-        **/
+            }
+        }
         -->
         ```java
         // 从 OPENAI_API_KEY 环境变量获取 OpenAI API 密钥
@@ -196,7 +209,7 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
 
         // 创建智能体
         AIAgent<String, String> agent = AIAgent.builder()
-            .promptExecutor(simpleOpenAIExecutor(apiKey))
+            .promptExecutor(new MultiLLMPromptExecutor(openAIClient(apiKey)))
             .llmModel(OpenAIModels.Chat.GPT4o)
             .build();
 
@@ -232,8 +245,9 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
 
         <!--- INCLUDE
         import ai.koog.agents.core.agent.AIAgent
-        import ai.koog.prompt.executor.llms.all.simpleAnthropicExecutor
+        import ai.koog.prompt.executor.clients.anthropic.AnthropicLLMClient
         import ai.koog.prompt.executor.clients.anthropic.AnthropicModels
+        import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
         import kotlinx.coroutines.runBlocking
         -->
         ```kotlin
@@ -241,10 +255,10 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
             // 从 ANTHROPIC_API_KEY 环境变量获取 Anthropic API 密钥
             val apiKey = System.getenv("ANTHROPIC_API_KEY")
                 ?: error("未设置 API 密钥。")
-            
+
             // 创建智能体
             val agent = AIAgent(
-                promptExecutor = simpleAnthropicExecutor(apiKey),
+                promptExecutor = MultiLLMPromptExecutor(AnthropicLLMClient(apiKey)),
                 llmModel = AnthropicModels.Opus_4_1
             )
         
@@ -258,10 +272,16 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
     === "Java"
 
         <!--- INCLUDE
-        /**
+        import ai.koog.agents.core.agent.AIAgent;
+        import ai.koog.prompt.executor.clients.anthropic.AnthropicModels;
+        import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor;
+        import static ai.koog.prompt.executor.clients.anthropic.AnthropicClientFactory.anthropicClient;
+        class exampleGettingStartedJava02 {
+            public static void main(String[] args) {
         -->
         <!--- SUFFIX
-        **/
+            }
+        }
         -->
         ```java
         // 从 ANTHROPIC_API_KEY 环境变量获取 Anthropic API 密钥
@@ -272,7 +292,7 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
 
         // 创建智能体
         AIAgent<String, String> agent = AIAgent.builder()
-            .promptExecutor(simpleAnthropicExecutor(apiKey))
+            .promptExecutor(new MultiLLMPromptExecutor(anthropicClient(apiKey)))
             .llmModel(AnthropicModels.Opus_4_1)
             .build();
 
@@ -298,7 +318,7 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
     ```
     <!--- KNIT example-getting-started-03.txt -->
 
-=== "Google"
+=== "Google β"
 
     以下示例演示了如何通过 Gemini API 使用 [`Gemini 2.5 Pro`](https://cloud.google.com/vertex-ai/generative-ai/docs/models/gemini/2-5-pro) 模型创建并运行一个简单的 Koog 智能体。
 
@@ -306,8 +326,9 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
 
         <!--- INCLUDE
         import ai.koog.agents.core.agent.AIAgent
-        import ai.koog.prompt.executor.llms.all.simpleGoogleAIExecutor
+        import ai.koog.prompt.executor.clients.google.GoogleLLMClient
         import ai.koog.prompt.executor.clients.google.GoogleModels
+        import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
         import kotlinx.coroutines.runBlocking
         -->
         ```kotlin
@@ -315,10 +336,10 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
             // 从 GOOGLE_API_KEY 环境变量获取 Gemini API 密钥
             val apiKey = System.getenv("GOOGLE_API_KEY")
                 ?: error("未设置 API 密钥。")
-            
+
             // 创建智能体
             val agent = AIAgent(
-                promptExecutor = simpleGoogleAIExecutor(apiKey),
+                promptExecutor = MultiLLMPromptExecutor(GoogleLLMClient(apiKey)),
                 llmModel = GoogleModels.Gemini2_5Pro
             )
         
@@ -332,10 +353,16 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
     === "Java"
 
         <!--- INCLUDE
-        /**
+        import ai.koog.agents.core.agent.AIAgent;
+        import ai.koog.prompt.executor.clients.google.GoogleModels;
+        import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor;
+        import static ai.koog.prompt.executor.clients.google.GoogleClientFactory.googleClient;
+        class exampleGettingStartedJava03 {
+            public static void main(String[] args) {
         -->
         <!--- SUFFIX
-        **/
+            }
+        }
         -->
         ```java
         // 从 GOOGLE_API_KEY 环境变量获取 Gemini API 密钥
@@ -346,7 +373,7 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
 
         // 创建智能体
         AIAgent<String, String> agent = AIAgent.builder()
-            .promptExecutor(simpleGoogleAIExecutor(apiKey))
+            .promptExecutor(new MultiLLMPromptExecutor(googleClient(apiKey)))
             .llmModel(GoogleModels.Gemini2_5Pro)
             .build();
 
@@ -372,7 +399,7 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
     ```
     <!--- KNIT example-getting-started-04.txt -->
 
-=== "DeepSeek"
+=== "DeepSeek β"
 
     以下示例演示了如何通过 DeepSeek API 使用 `deepseek-v4-flash` 模型创建并运行一个简单的 Koog 智能体。
 
@@ -390,18 +417,13 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
             // 从 DEEPSEEK_API_KEY 环境变量获取 DeepSeek API 密钥
             val apiKey = System.getenv("DEEPSEEK_API_KEY")
                 ?: error("未设置 API 密钥。")
-            
-            // 创建 LLM 客户端
-            val deepSeekClient = DeepSeekLLMClient(apiKey)
-        
+
             // 创建智能体
             val agent = AIAgent(
-                // 使用 LLM 客户端创建提示执行器 (prompt executor)
-                promptExecutor = MultiLLMPromptExecutor(deepSeekClient),
-                // 提供模型
+                promptExecutor = MultiLLMPromptExecutor(DeepSeekLLMClient(apiKey)),
                 llmModel = DeepSeekModels.DeepSeekV4Flash
             )
-        
+
             // 运行智能体
             val result = agent.run("Hello! How can you help me?")
             println(result)
@@ -412,10 +434,16 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
     === "Java"
 
         <!--- INCLUDE
-        /**
+        import ai.koog.agents.core.agent.AIAgent;
+        import ai.koog.prompt.executor.clients.deepseek.DeepSeekModels;
+        import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor;
+        import static ai.koog.prompt.executor.clients.deepseek.DeepSeekClientFactory.deepSeekClient;
+        class exampleGettingStartedJava04 {
+            public static void main(String[] args) {
         -->
         <!--- SUFFIX
-        **/
+            }
+        }
         -->
         ```java
         // 从 DEEPSEEK_API_KEY 环境变量获取 DeepSeek API 密钥
@@ -424,14 +452,9 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
             throw new RuntimeException("未设置 API 密钥。");
         }
 
-        // 创建 LLM 客户端
-        DeepSeekLLMClient deepSeekClient = deepSeekClient(apiKey);
-
         // 创建智能体
         AIAgent<String, String> agent = AIAgent.builder()
-            // 使用 LLM 客户端创建提示执行器 (prompt executor)
-            .promptExecutor(new MultiLLMPromptExecutor(deepSeekClient))
-            // 提供模型
+            .promptExecutor(new MultiLLMPromptExecutor(deepSeekClient(apiKey)))
             .llmModel(DeepSeekModels.DeepSeekV4Flash)
             .build();
 
@@ -456,8 +479,9 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
 
         <!--- INCLUDE
         import ai.koog.agents.core.agent.AIAgent
-        import ai.koog.prompt.executor.llms.all.simpleOpenRouterExecutor
+        import ai.koog.prompt.executor.clients.openrouter.OpenRouterLLMClient
         import ai.koog.prompt.executor.clients.openrouter.OpenRouterModels
+        import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
         import kotlinx.coroutines.runBlocking
         -->
         ```kotlin
@@ -468,7 +492,7 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
             
             // 创建智能体
             val agent = AIAgent(
-                promptExecutor = simpleOpenRouterExecutor(apiKey),
+                promptExecutor = MultiLLMPromptExecutor(OpenRouterLLMClient(apiKey)),
                 llmModel = OpenRouterModels.GPT4o
             )
         
@@ -482,10 +506,16 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
     === "Java"
 
         <!--- INCLUDE
-        /**
+        import ai.koog.agents.core.agent.AIAgent;
+        import ai.koog.prompt.executor.clients.openrouter.OpenRouterModels;
+        import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor;
+        import static ai.koog.prompt.executor.clients.openrouter.OpenRouterClientFactory.openRouterClient;
+        class exampleGettingStartedJava05 {
+            public static void main(String[] args) {
         -->
         <!--- SUFFIX
-        **/
+            }
+        }
         -->
         ```java
         // 从 OPENROUTER_API_KEY 环境变量获取 OpenRouter API 密钥
@@ -496,7 +526,7 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
 
         // 创建智能体
         AIAgent<String, String> agent = AIAgent.builder()
-            .promptExecutor(simpleOpenRouterExecutor(apiKey))
+            .promptExecutor(new MultiLLMPromptExecutor(openRouterClient(apiKey)))
             .llmModel(OpenRouterModels.GPT4o)
             .build();
 
@@ -521,8 +551,11 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
 
         <!--- INCLUDE
         import ai.koog.agents.core.agent.AIAgent
-        import ai.koog.prompt.executor.llms.all.simpleBedrockExecutorWithBearerToken
+        import ai.koog.prompt.executor.clients.bedrock.BedrockClientSettings
+        import ai.koog.prompt.executor.clients.bedrock.BedrockLLMClient
         import ai.koog.prompt.executor.clients.bedrock.BedrockModels
+        import ai.koog.prompt.executor.clients.bedrock.StaticBearerTokenProvider
+        import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
         import kotlinx.coroutines.runBlocking
         -->
         ```kotlin
@@ -533,7 +566,12 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
             
             // 创建智能体
             val agent = AIAgent(
-                promptExecutor = simpleBedrockExecutorWithBearerToken(apiKey),
+                promptExecutor = MultiLLMPromptExecutor(
+                    BedrockLLMClient(
+                        StaticBearerTokenProvider(apiKey),
+                        BedrockClientSettings()
+                    )
+                ),
                 llmModel = BedrockModels.AnthropicClaude4_5Sonnet
             )
         
@@ -547,10 +585,16 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
     === "Java"
 
         <!--- INCLUDE
-        /**
+        import ai.koog.agents.core.agent.AIAgent;
+        import ai.koog.prompt.executor.clients.bedrock.BedrockClientSettings;
+        import ai.koog.prompt.executor.clients.bedrock.BedrockModels;
+        import static ai.koog.prompt.executor.llms.all.SimplePromptExecutors.simpleBedrockExecutorWithBearerToken;
+        class exampleGettingStartedJava06 {
+            public static void main(String[] args) {
         -->
         <!--- SUFFIX
-        **/
+            }
+        }
         -->
         ```java
         // 从 BEDROCK_API_KEY 环境变量获取 Bedrock API 密钥
@@ -589,7 +633,7 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
     ```
     <!--- KNIT example-getting-started-07.txt -->
 
-=== "Mistral"
+=== "Mistral β"
 
     以下示例演示了如何通过 Mistral AI API 使用 [`Mistral Medium 3.1`](https://docs.mistral.ai/models/mistral-medium-3-1-25-08) 模型创建并运行一个简单的 Koog 智能体。
 
@@ -597,8 +641,9 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
 
         <!--- INCLUDE
         import ai.koog.agents.core.agent.AIAgent
-        import ai.koog.prompt.executor.llms.all.simpleMistralAIExecutor
+        import ai.koog.prompt.executor.clients.mistralai.MistralAILLMClient
         import ai.koog.prompt.executor.clients.mistralai.MistralAIModels
+        import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
         import kotlinx.coroutines.runBlocking
         -->
         ```kotlin
@@ -609,7 +654,7 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
             
             // 创建智能体
             val agent = AIAgent(
-                promptExecutor = simpleMistralAIExecutor(apiKey),
+                promptExecutor = MultiLLMPromptExecutor(MistralAILLMClient(apiKey)),
                 llmModel = MistralAIModels.Chat.MistralMedium31
             )
         
@@ -623,11 +668,17 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
     === "Java"
 
         <!--- INCLUDE
-        /**
+        import ai.koog.agents.core.agent.AIAgent;
+        import ai.koog.prompt.executor.clients.mistralai.MistralAIModels;
+        import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor;
+        import static ai.koog.prompt.executor.clients.mistralai.MistralAIClientFactory.mistralAIClient;
+        class exampleGettingStartedJava07 {
+            public static void main(String[] args) {
         -->
         <!--- SUFFIX
-        **/
-        -->   
+            }
+        }
+        -->
         ```java
         // 从 MISTRAL_API_KEY 环境变量获取 Mistral AI API 密钥
         String apiKey = System.getenv("MISTRAL_API_KEY");
@@ -637,7 +688,7 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
 
         // 创建智能体
         AIAgent<String, String> agent = AIAgent.builder()
-            .promptExecutor(simpleMistralAIExecutor(apiKey))
+            .promptExecutor(new MultiLLMPromptExecutor(mistralAIClient(apiKey)))
             .llmModel(MistralAIModels.Chat.MistralMedium31)
             .build();
 
@@ -673,7 +724,8 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
 
         <!--- INCLUDE
         import ai.koog.agents.core.agent.AIAgent
-        import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
+        import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
+        import ai.koog.prompt.executor.ollama.client.OllamaClient
         import ai.koog.prompt.executor.ollama.client.OllamaModels
         import kotlinx.coroutines.runBlocking
         -->
@@ -681,7 +733,7 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
         fun main() = runBlocking {
             // 创建智能体
             val agent = AIAgent(
-                promptExecutor = simpleOllamaAIExecutor(),
+                promptExecutor = MultiLLMPromptExecutor(OllamaClient()),
                 llmModel = OllamaModels.Meta.LLAMA_3_2
             )
 
@@ -695,15 +747,21 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
     === "Java"
 
         <!--- INCLUDE
-        /**
+        import ai.koog.agents.core.agent.AIAgent;
+        import ai.koog.prompt.executor.ollama.client.OllamaModels;
+        import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor;
+        import static ai.koog.prompt.executor.ollama.client.OllamaClientFactory.ollamaClient;
+        class exampleGettingStartedJava08 {
+            public static void main(String[] args) {
         -->
         <!--- SUFFIX
-        **/
-        -->  
+            }
+        }
+        -->
         ```java
         // 创建智能体
         AIAgent<String, String> agent = AIAgent.builder()
-            .promptExecutor(simpleOllamaAIExecutor("http://localhost:11434"))
+            .promptExecutor(new MultiLLMPromptExecutor(ollamaClient("http://localhost:11434")))
             .llmModel(OllamaModels.Meta.LLAMA_3_2)
             .build();
 

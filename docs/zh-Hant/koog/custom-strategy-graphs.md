@@ -9,7 +9,7 @@
 從高層級來看，策略圖由以下組件組成：
 
 - **策略 (Strategy)**：圖的最上層容器，使用 `strategy` 函式建立，並使用泛型參數指定輸入與輸出型別。
-- **子圖 (Subgraphs)**：圖的各個部分，可以擁有自己的一組工具和內容。
+- **子圖 (Subgraphs)**：圖的各個部分，可以擁有自己的一組工具和內容（context）。
 - **節點 (Nodes)**：工作流程中的個別操作或轉換。
 - **邊 (Edges)**：節點之間的連接，定義了轉換條件和轉換方式。
 
@@ -508,7 +508,7 @@ parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(BookTool::clas
 ```
 <!--- KNIT example-custom-strategy-graphs-08.kt -->
 
-欲了解更多資訊，請參閱[工具](tools-overview.md#parallel-tool-calls)。 
+欲了解更多資訊，請參閱[工具](tools/index.md#parallel-tool-calls)。 
 
 ### 並行節點執行 
 
@@ -590,7 +590,7 @@ edge(
 - 為您的節點和邊提供具描述性的名稱，使圖表更易於理解。
 - 處理所有可能的路徑和邊緣情況。
 - 使用各種輸入測試您的圖表，以確保其行為符合預期。
-- 記錄圖表的用途 and 行為，以供日後參考。
+- 記錄圖表的用途與行為，以供日後參考。
 - 使用預定義策略或常見模式作為起點。
 - 對於長時間運行的對話，使用歷程記錄壓縮來減少 Token 使用量。
 - 使用子圖來組織您的圖表並管理工具存取。

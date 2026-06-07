@@ -219,24 +219,67 @@ sample/src/main/
 [INFO] org.mapstruct.ap.MappingProcessor: total sources: 2, sources per round: 2, 0, 0
 ```
 
-## kapt의 컴파일 회피(Compile avoidance)
+### 컴파일 클래스패스에서 어노테이션 프로세서 제외하기
 
-kapt를 사용한 증분 빌드 시간을 단축하기 위해 Gradle [컴파일 회피(compile avoidance)](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_compile_avoidance)를 사용할 수 있습니다. 컴파일 회피가 활성화되면 Gradle은 프로젝트 재빌드 시 어노테이션 처리를 건너뛸 수 있습니다. 특히 다음과 같은 경우에 어노테이션 처리를 건너뜁니다:
+kapt의 프로세서 경로(processor path)에 포함되지 않은 어노테이션 프로세서의 검색을 비활성화할 수 있습니다. 이를 통해 컴파일 클래스패스에서 불필요한 어노테이션 프로세서를 효과적으로 제외할 수 있습니다.
+
+#### Gradle에서
+
+kapt를 사용한 증분 빌드 시간을 단축하기 위해 Gradle [컴파일 회피(compile avoidance)](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_compile_avoidance)를 사용할 수 있습니다. Gradle은 프로젝트 재빌드 시 다음과 같은 경우에 어노테이션 처리를 건너뜁니다:
 
 * 프로젝트의 소스 파일이 변경되지 않았을 때.
 * 의존성의 변경 사항이 [ABI](https://ko.wikipedia.org/wiki/응용_프로그램_이진_인터페이스) 호환될 때.
    예를 들어, 메서드 본문만 변경된 경우입니다.
 
-그러나 컴파일 클래스패스에서 발견된 어노테이션 프로세서의 경우에는 컴파일 회피를 사용할 수 없습니다. 해당 프로세서의 *어떠한 변경*이라도 어노테이션 처리 작업을 다시 실행해야 하기 때문입니다.
+그러나 컴파일 클래스패스에서 발견된 어노테이션 프로세서의 경우에는 컴파일 회피를 사용할 수 없습니다. 해당 프로세서의 내부 구현이 변경되면 ABI가 변경되지 않더라도 어노테이션 처리 작업을 다시 실행해야 하기 때문입니다.
 
-컴파일 회피와 함께 kapt를 실행하려면 다음을 수행하세요:
-* [어노테이션 프로세서 의존성을 `kapt*` 구성에 수동으로 추가합니다](#gradle에서-사용하기).
-* `gradle.properties` 파일에서 컴파일 클래스패스의 어노테이션 프로세서 검색을 비활성화합니다:
+따라서 컴파일 클래스패스에 있는 어노테이션 프로세서를 사용하는 것은 권장되지 않습니다. 이러한 어노테이션을 처리에서 제외하려면 `gradle.properties` 파일에 `kapt.include.compile.classpath` 속성을 추가하세요:
 
-   ```none
-   # gradle.properties
-   kapt.include.compile.classpath=false
-   ```
+```none
+# gradle.properties
+kapt.include.compile.classpath=false
+```
+
+이 옵션을 `false`로 설정하면, 프로세서 경로(`kapt*` 구성)에 포함되지 않은 어노테이션 프로세서 의존성은 kapt 처리에서 제외됩니다.
+
+#### Maven에서
+
+kapt의 프로세서 경로에서 누락된 어노테이션 프로세서를 제외하려면, kapt 플러그인의 `<execution>` 섹션에서 `includeCompileClasspath` 옵션을 `false`로 설정하세요:
+
+```xml
+<execution>
+    <id>kapt</id>
+    <goals>
+        <goal>kapt</goal>
+    </goals>
+    <configuration>
+        <includeCompileClasspath>false</includeCompileClasspath>
+        <sourceDirs>...</sourceDirs>
+        <annotationProcessorPaths>...</annotationProcessorPaths>
+    </configuration>
+</execution>
+```
+
+또는 `pom.xml`의 `<properties>` 섹션에서 `kapt.include.compile.classpath` 속성을 사용할 수 있습니다:
+
+```xml
+<properties>
+    <kapt.include.compile.classpath>false</kapt.include.compile.classpath>
+</properties>
+```
+
+이 옵션을 `false`로 설정하면, `<annotationProcessorPaths>` 섹션에 포함되지 않은 어노테이션 프로세서는 kapt 처리에서 제외됩니다.
+
+`includeCompileClasspath` 옵션이 설정되지 않았고 kapt가 프로세서 경로에 명시적으로 정의되지 않은 어노테이션 프로세서를 컴파일 클래스패스에서 감지하면, 다음과 같은 지원 중단(deprecation) 경고가 표시됩니다:
+
+```none
+[WARNING] Annotation processors discovery from compile classpath is deprecated.
+Set 'kapt.include.compile.classpath=false' to disable discovery.
+```
+
+> kapt 클래스패스에 존재하지 않는 어노테이션 프로세서 목록을 보려면, 빌드를 `--info` 로그 레벨 옵션과 함께 실행하세요.
+> 
+{style="tip"}
 
 ## 증분 어노테이션 처리
 
@@ -297,14 +340,42 @@ kapt {
 
 ## Maven에서 사용하기
 
-`compile` 단계 이전에 kotlin-maven-plugin의 `kapt` 목표(goal) 실행을 추가합니다:
+### 자동 구성
+
+Kotlin Maven 플러그인의 `<extensions>` 옵션을 활성화하여 kapt 구성을 간소화할 수 있습니다. 이 경우 kapt의 `<execution>` 섹션을 목표(goal)나 소스 디렉토리와 함께 수동으로 설정할 필요가 없습니다.
+
+kapt를 자동으로 구성하려면, `pom.xml` 빌드 파일에서 `kotlin-maven-plugin`의 `<extensions>` 옵션을 `true`로 설정하세요:
+
+```xml
+<plugin>
+    <groupId>org.jetbrains.kotlin</groupId>
+    <artifactId>kotlin-maven-plugin</artifactId>
+    <version>${kotlin.version}</version>
+    <extensions>true</extensions>
+    <configuration>
+        <annotationProcessorPaths>
+            <!-- 여기에 어노테이션 프로세서를 지정하세요 -->
+            <annotationProcessorPath>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>1.6.3</version>
+            </annotationProcessorPath>
+        </annotationProcessorPaths>
+    </configuration>
+</plugin>
+```
+
+`<extensions>` 옵션에 대한 자세한 내용은 [자동 구성](maven-configure-project.md#automatic-configuration)을 참고하세요.
+
+### 수동 구성
+
+Kotlin Maven 프로젝트에서 kapt를 수동으로 설정하려면, `compile` 실행 이전에 `kotlin-maven-plugin`의 `kapt` 목표 실행을 추가하세요:
 
 ```xml
 <execution>
     <id>kapt</id>
     <goals>
-        <goal>kapt</goal> <!-- 플러그인 확장을 활성화한 경우 
-        <goals> 엘리먼트를 생략할 수 있습니다. -->
+        <goal>kapt</goal>
     </goals>
     <configuration>
         <sourceDirs>
@@ -323,11 +394,13 @@ kapt {
 </execution>
 ```
 
+### kapt 어노테이션 처리 구성
+
 어노테이션 처리 수준을 구성하려면 `<configuration>` 블록의 `aptMode`에 다음 중 하나를 설정하세요:
 
-   * `stubs` – 어노테이션 처리에 필요한 스텁만 생성합니다.
-   * `apt` – 어노테이션 처리만 실행합니다.
-   * `stubsAndApt` – (기본값) 스텁을 생성하고 어노테이션 처리를 실행합니다.
+* `stubs` – 어노테이션 처리에 필요한 스텁만 생성합니다.
+* `apt` – 어노테이션 처리만 실행합니다.
+* `stubsAndApt` – (기본값) 스텁을 생성하고 어노테이션 처리를 실행합니다.
 
 예시:
 

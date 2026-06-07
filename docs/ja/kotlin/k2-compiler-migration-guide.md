@@ -496,12 +496,14 @@ Kotlin PlaygroundはKotlin 2.0.0以降のリリースをサポートしていま
 
 ## 以前のコンパイラにロールバックする方法
 
-Kotlin 2.0.0以降のリリースで以前のコンパイラを使用するには、以下のいずれかを行います。
+Kotlin 2.0.0–2.3.21で以前のコンパイラを使用するには、以下のいずれかを行います。
 
 * `build.gradle.kts` ファイルで、[言語バージョンを1.9に設定](gradle-compiler-options.md#example-of-setting-languageversion)します。
 
   または
 * コンパイラオプション `-language-version 1.9` を使用します。
+
+Kotlin 2.4.0以降は、以前のコンパイラにロールバックすることはできません。
 
 ## 変更点
 

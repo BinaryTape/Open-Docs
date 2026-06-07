@@ -1,15 +1,15 @@
 [//]: # (title: 向 KMP 模块添加 Swift 软件包作为依赖项)
-<primary-label ref="Experimental"/>
+<primary-label ref="alpha"/>
 
 <tldr>
    <p>Swift Package Manager (SwiftPM) 扮演着与 CocoaPods 相同的角色：它可以让您透明地协调 iOS 应用的原生 iOS 依赖项。</p>
    <p>在这里，您可以学习如何在 KMP 项目中设置 SwiftPM 依赖项，以及在必要时如何将 KMP 配置从 CocoaPods 迁移到 SwiftPM。</p>
 </tldr>
 
-> 此功能目前处于[实验性](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained)阶段。
+> 此功能目前处于 [Alpha](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained) 阶段。
 > 请在专门的 Kotlin Slack 频道中分享您遇到的任何问题或反馈：[#kmp-swift-package-manager](https://kotlinlang.slack.com/archives/C09TW68099C)
 >
-{style="warning"}
+{style="note"}
 
 带有 SwiftPM 导入集成的 Kotlin Gradle 插件允许您使用为 Apple 目标声明的 SwiftPM 依赖项，从 Objective-C 和 Swift 代码中导入 Objective-C API。
 
@@ -81,7 +81,7 @@ SwiftPM 集成基于导入 Clang 模块。
 默认情况下，导入机制会自动发现指定 Swift 软件包中的 Clang 模块，并使所有可用模块对 Kotlin 代码可见——这类似于 API 可见性在 Swift 和 Objective-C 中的工作方式。
 <!-- TODO link to where it is explained? -->
 
-To disable the default behavior and automatic module discovery, set the `discoverClangModulesImplicitly` to `false`.
+要禁用默认行为和自动模块发现，请将 `discoverClangModulesImplicitly` 设置为 `false`。
 当禁用模块发现时，SwiftPM 导入将使用产品名称作为 Clang 模块名称。
 
 要导入名称与产品名称不同的 Clang 模块，请使用 `importedClangModules` 参数，例如：

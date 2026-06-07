@@ -1,4 +1,10 @@
+---
+status: beta
+---
+
 # Planner 代理
+
+--8<-- "versioning-snippets.md:beta"
 
 Planner 代理是透過反覆運算規劃週期來規劃並執行多步驟任務的 AI 代理。
 它們會持續建立或更新計畫、執行步驟，並根據當前狀態檢查完成標準。

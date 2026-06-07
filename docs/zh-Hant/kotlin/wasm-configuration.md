@@ -12,57 +12,57 @@ Kotlin/Wasm 依賴最新的 WebAssembly 提案，例如 [垃圾收集 (WasmGC)](
 
 ### Chrome 
 
-*   **119 或更高版本：**
+* **119 或更高版本：**
 
-    預設即可運作。
+  預設即可運作。
 
-*   **較舊版本：**
+* **較舊版本：**
 
-    > 若要在較舊的瀏覽器中執行應用程式，您需要使用 1.9.20 之前的 Kotlin 版本。
-    >
-    {style="note"}
+  > 若要在較舊的瀏覽器中執行應用程式，您需要使用 1.9.20 之前的 Kotlin 版本。
+  >
+  {style="note"}
 
-    1.  在瀏覽器中前往 `chrome://flags/#enable-webassembly-garbage-collection`。
-    2.  啟用 **WebAssembly Garbage Collection**。
-    3.  重啟瀏覽器。
+  1. 在瀏覽器中前往 `chrome://flags/#enable-webassembly-garbage-collection`。
+  2. 啟用 **WebAssembly Garbage Collection**。
+  3. 重啟瀏覽器。
 
-### Chromium 核心瀏覽器
+### 基於 Chromium 的瀏覽器
 
 包括以 Chromium 為核心的瀏覽器，例如 Edge、Brave、Opera 或 Samsung Internet。
 
-*   **119 或更高版本：**
+* **119 或更高版本：**
 
-    預設即可運作。
+  預設即可運作。
 
-*   **較舊版本：**
+* **較舊版本：**
 
-    > 若要在較舊的瀏覽器中執行應用程式，您需要使用 1.9.20 之前的 Kotlin 版本。
-    >
-    {style="note"}
+   > 若要在較舊的瀏覽器中執行應用程式，您需要使用 1.9.20 之前的 Kotlin 版本。
+   >
+   {style="note"}
 
-    使用 `--js-flags=--experimental-wasm-gc` 命令列引數執行應用程式。
+  使用 `--js-flags=--experimental-wasm-gc` 命令列引數執行應用程式。
 
 ### Firefox
 
-*   **120 或更高版本：**
+* **120 或更高版本：**
 
-    預設即可運作。
+  預設即可運作。
 
-*   **119 版本：**
+* **119 版本：**
 
-    1.  在瀏覽器中前往 `about:config`。
-    2.  啟用 `javascript.options.wasm_gc` 選項。
-    3.  重新整理頁面。
+  1. 在瀏覽器中前往 `about:config`。
+  2. 啟用 `javascript.options.wasm_gc` 選項。
+  3. 重新整理頁面。
 
 ### Safari/WebKit
 
-*   **18.2 或更高版本：**
+* **18.2 或更高版本：**
 
-    預設即可運作。
+  預設即可運作。
 
-*   **較舊版本：**
+* **較舊版本：**
 
-    不支援。
+   不支援。
 
 > Safari 18.2 可用於 iOS 18.2、iPadOS 18.2、visionOS 2.2、macOS 15.2、macOS Sonoma 以及 macOS Ventura。
 > 在 iOS 和 iPadOS 上，Safari 18.2 與作業系統捆綁。若要取得該版本，請將您的裝置更新至 18.2 或更高版本。
@@ -112,28 +112,19 @@ export { moduleExports as default };
 
 您也可以將 `.mjs` 檔案放在自訂位置。在這種情況下，您需要手動將其移動到主 `.mjs` 檔案旁邊，或調整匯入陳述式中的路徑以匹配其位置。
 
-## Kotlin/Wasm 編譯緩慢
+## Kotlin/Wasm 累加編譯
 
-在開發 Kotlin/Wasm 專案時，您可能會遇到編譯時間過長的問題。這是因為 Kotlin/Wasm 工具鏈在每次變更時都會重新編譯整個程式碼庫。
+Kotlin/Wasm 目標支援累加編譯，這使編譯器能夠僅重新編譯與最近變更相關的檔案。這有助於縮短編譯時間。
 
-為了緩解此問題，Kotlin/Wasm 目標支援累加編譯，這使編譯器能夠僅重新編譯與上次編譯後變更相關的檔案。
-
-使用累加編譯可縮短編譯時間。目前它能使開發速度翻倍，並計畫在未來版本中進一步改進。
-
-在目前的設定中，Wasm 目標的累加編譯預設為停用。若要啟用它，請將以下行新增到專案的 `local.properties` 或 `gradle.properties` 檔案中：
+Wasm 目標的累加編譯預設為啟用。若要停用它，請將以下行新增到專案的 `local.properties` 或 `gradle.properties` 檔案中：
 
 ```text
-kotlin.incremental.wasm=true
+kotlin.incremental.wasm=false
 ```
-
-> 嘗試 Kotlin/Wasm 累加編譯並 [分享您的回饋](https://youtrack.jetbrains.com/issue/KT-72158/Kotlin-Wasm-incremental-compilation-feedback)。
-> 您的見解有助於使該功能更穩定並儘早預設啟用。
->
-{style="note"}
 
 ## 完全限定類名中的診斷
 
-在 Kotlin/Wasm 上，編譯器預設不會在產生的二進制檔中儲存類別的完全限定類名 (FQNs)，以避免增加應用程式的大小。
+在 Kotlin/Wasm 上，編譯器預設不會在產生的二進制檔中儲存類別的完全限定名稱 (FQNs)，以避免增加應用程式的大小。
 
 因此，除非您明確啟用完全限定名稱功能，否則當您在 Kotlin/Wasm 專案中呼叫 `KClass::qualifiedName` 屬性時，編譯器會回報錯誤。
 
@@ -155,7 +146,7 @@ kotlin {
 
 ### 完全限定名稱
 
-在 Kotlin/Wasm 目標上，完全限定類名 (FQNs) 在執行時無需任何額外配置即可使用。這意味著 `KClass.qualifiedName` 屬性預設為啟用。
+在 Kotlin/Wasm 目標上，完全限定名稱 (FQNs) 在執行時無需任何額外配置即可使用。這意味著 `KClass.qualifiedName` 屬性預設為啟用。
 
 使用 FQNs 可改進程式碼從 JVM 到 Wasm 目標的可移植性，並透過顯示完整限定名稱使執行時錯誤更具資訊性。
 

@@ -1,4 +1,10 @@
+---
+status: beta
+---
+
 # 長期記憶
+
+--8<-- "versioning-snippets.md:beta"
 
 `LongTermMemory` 功能透過兩組獨立的設定為 Koog AI 代理增加持久性記憶：
 - **Retrieval**（檢索） — 使用來自記憶存儲的相關上下文（檢索增強生成，即 RAG）來增強 LLM 提示詞。
@@ -25,7 +31,7 @@
         }
     }
 
-    agent.run("我們昨天討論了什麼？")
+    agent.run("What did we discuss yesterday?")
     ```
 
 === "Java"
@@ -36,7 +42,7 @@
     AIAgent agent = AIAgent.builder()
         .promptExecutor(executor)
         .llmModel(OpenAIModels.Chat.GPT4o)
-        .systemPrompt("您是一位樂於助人的助手。")
+        .systemPrompt("You are a helpful assistant.")
         .install(LongTermMemory.Feature, config -> {
             config.retrieval(
                 new LongTermMemory.RetrievalSettingsBuilder()
@@ -49,7 +55,7 @@
         })
         .build();
 
-    Object result = agent.run("我們昨天討論了什麼？");
+    Object result = agent.run("What did we discuss yesterday?");
     ```
 
 ## 僅檢索 (RAG)
@@ -133,9 +139,9 @@
 
 ### 搜尋策略 (Search Strategies)
 
-| 策略 | 行為 |
+| 策略                                                  | 行為                 |
 |-----------------------------------------------------------|--------------------------|
-| `SimilaritySearchStrategy()` | 向量相似度語義搜尋 — **預設** |
+| `SimilaritySearchStrategy()`                              | 向量相似度語義搜尋 — **預設** |
 | `query -> new SimilaritySearchRequest(query, 20, 0, 0.0, null)` | 透過 lambda 進行自訂搜尋 |
 
 ## 僅攝取

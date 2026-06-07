@@ -1,4 +1,10 @@
+---
+status: beta
+---
+
 # 長期メモリ (Long-term memory)
+
+--8<-- "versioning-snippets.md:beta"
 
 `LongTermMemory`機能は、2つの独立した設定グループを介してKoog AIエージェントに永続的なメモリを追加します。
 - **Retrieval (検索)** — メモリストレージからの関連するコンテキストを使用してLLMプロンプトを拡張します（検索拡張生成、Retrieval-Augmented Generation または RAG）。

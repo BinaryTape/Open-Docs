@@ -1,4 +1,10 @@
+---
+status: beta
+---
+
 # Agent Client Protocol
+
+--8<-- "versioning-snippets.md:beta"
 
 Agent Client Protocol (ACP) 是一種開源的標準化協定，讓用戶端應用程式能透過一致的雙向介面與 AI 代理 (agent) 進行通訊。
 透過在您的 Koog 代理中實作 ACP，您可以確保它能輕鬆整合到任何符合 ACP 規範的環境中，例如 IDE。
@@ -245,7 +251,7 @@ val agent = AIAgent(
 
 ## 處理 ACP 用戶端輸入
 
-ACP 用戶端將使用者輸入作為 [`ContentBlock`](https://agentclientprotocol.com/protocol/schema#contentblock) 物件列表傳送。
+ACP 用戶端將使用者輸入作為 [`ContentBlock`](https://agentclientprotocol.com/protocol/schema#contentblock) 物件清單傳送。
 若要在 Koog 中處理這些內容，請使用 `List<ContentBlock>.toKoogMessage()` 擴充函式將 ACP 內容區塊轉換為 [`Message.User`](api:prompt-model::ai.koog.prompt.message.Message.User)，並將其附加到您的 [代理提示](prompts/index.md)。
 
 範例中的 `AgentSession` 定義了一個私有函式，用於在 ACP 工作階段中擴充初始代理提示：
@@ -279,12 +285,12 @@ private fun Prompt.appendPrompt(content: List<ContentBlock>): Prompt {
 
 在接收來自 ACP 用戶端的輸入時，請使用以下函式：
 
-- `List<ContentBlock>.toKoogMessage()`：將 ACP 內容區塊列表轉換為 [`Message.User`](api:prompt-model::ai.koog.prompt.message.Message.User)
+- `List<ContentBlock>.toKoogMessage()`：將 ACP 內容區塊清單轉換為 [`Message.User`](api:prompt-model::ai.koog.prompt.message.Message.User)
 - `ContentBlock.toKoogContentPart()`：將單個 ACP 內容區塊轉換為 [`ContentPart`](api:prompt-model::ai.koog.prompt.message.ContentPart)
 
 使用以下函式從 Koog 訊息建構 ACP 事件或內容區塊：
 
-- `Message.Response.toAcpEvents()`：將 [`Message.Response`](api:prompt-model::ai.koog.prompt.message.Message.Response) 轉換為 ACP 工作階段更新事件列表
+- `Message.Response.toAcpEvents()`：將 [`Message.Response`](api:prompt-model::ai.koog.prompt.message.Message.Response) 轉換為 ACP 工作階段更新事件清單
 - `ContentPart.toAcpContentBlock()`：將 [`ContentPart`](api:prompt-model::ai.koog.prompt.message.ContentPart) 轉換為單個 ACP 內容區塊
 
 ## 處理代理通知
@@ -349,7 +355,7 @@ val strategy = strategy<Unit, Unit>("my-strategy") {
 ```
 <!--- KNIT example-agent-client-protocol-05.kt -->
 
-您也可以存取底層的 `protocol` 來向用戶端傳送自訂請求，例如身分驗證請求：
+您也可以存取底層的 `protocol` 來向用戶端傳送自訂請求，例如驗證請求：
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy

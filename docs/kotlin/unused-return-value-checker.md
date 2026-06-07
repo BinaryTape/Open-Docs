@@ -91,7 +91,7 @@ kotlin {
 当你将 [-Xreturn-value-checker 编译器选项](#配置未使用的返回值检查器) 设置为 `check` 时，
 检查器仅报告来自已标记表达式（例如 Kotlin 标准库中的大多数函数）中被忽略的结果。
 
-要标记你自己的代码，
+要标记你自己的代码， 
 请使用 [`@MustUseReturnValues`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-must-use-return-value/) 注解。
 你可以根据希望检查器覆盖的范围，将其应用于文件、类或函数。
 
@@ -180,10 +180,87 @@ fun check(g: Greeter) {
 }
 ```
 
+## 在高阶函数中检查未使用的结果
+
+一些高阶函数，例如 `let` 作用域函数，会返回 lambda 的结果。
+要检查高阶函数中未使用的 lambda 结果，请将 [实验性](components-stability.md#stability-levels-explained) 的 `returnsResultOf()` 契约添加到该函数的契约中。
+
+> Kotlin 契约是实验性的。要启用它，请在声明带有契约的函数时添加 `@OptIn(ExperimentalContracts::class)` 注解。
+>
+{style="warning"}
+
+下面是一个示例：
+
+```kotlin
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.contract
+
+@OptIn(ExperimentalContracts::class)
+inline fun <T, R> T.customLet(block: (T) -> R): R {
+    contract {
+        returnsResultOf(block)
+    }
+    return block(this)
+}
+```
+
+之后，你就可以使用带有此契约的函数（如 `.customLet()`）来检查 lambda 结果是否被使用：
+
+```kotlin
+fun handleNullablePackageName(packageName: String?, builder: StringBuilder) {
+    // 检查器不报告警告，因为 append() 的返回值可以被忽略
+    packageName?.customLet { builder.append(it) }
+
+    // 检查器报告警告，因为返回的字符串未被使用
+    packageName?.customLet { "kotlin.$it" }
+}
+```
+
+> `returnsResultOf()` 契约需要单独的编译器选项才能启用。
+> 请注意，使用它会产生早于 2.4.0 的 Kotlin 编译器版本无法读取的预发布版二进制文件。
+>
+{style="warning"}
+
+要在你的项目中启用此功能，请将以下编译器选项添加到你的构建文件中：
+
+<tabs group="build-system">
+<tab title="Gradle" group-key="gradle">
+
+```kotlin
+// build.gradle(.kts)
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xallow-returns-result-of")
+    }
+}
+```
+
+</tab> 
+<tab title="Maven" group-key="maven">
+
+```xml
+<!-- pom.xml -->
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-maven-plugin</artifactId>
+            <configuration>
+                <args>
+                    <arg>-Xallow-returns-result-of</arg>
+                </args>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+</tab> 
+</tabs>
+
 ## 与 Java 注解的互操作性
 
-一些 Java 库使用类似的机制但采用不同的注解。
-未使用的返回值检查器将以下注解视为等同于 `@MustUseReturnValues`：
+一些 Java 库使用类似的机制但采用不同的注解。 
+未使用的返回值检查器将以下注解视为等同于使用 `@MustUseReturnValues`：
 
 * [`com.google.errorprone.annotations.CheckReturnValue`](https://errorprone.info/api/latest/com/google/errorprone/annotations/CheckReturnValue.html)
 * [`edu.umd.cs.findbugs.annotations.CheckReturnValue`](https://findbugs.sourceforge.net/api/edu/umd/cs/findbugs/annotations/CheckReturnValue.html)
@@ -191,4 +268,4 @@ fun check(g: Greeter) {
 * [`org.springframework.lang.CheckReturnValue`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/lang/CheckReturnValue.html)
 * [`org.jooq.CheckReturnValue`](https://www.jooq.org/javadoc/latest/org.jooq/org/jooq/CheckReturnValue.html)
 
-它也将 [`com.google.errorprone.annotations.CanIgnoreReturnValue`](https://errorprone.info/api/latest/com/google/errorprone/annotations/CanIgnoreReturnValue.html) 视为等同于 `@IgnorableReturnValue`。
+它也将 [`com.google.errorprone.annotations.CanIgnoreReturnValue`](https://errorprone.info/api/latest/com/google/errorprone/annotations/CanIgnoreReturnValue.html) 视为等同于使用 `@IgnorableReturnValue`。

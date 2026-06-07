@@ -178,13 +178,26 @@ install(Sessions) {
 }
 ```
 
+### カスタム SSE ハートビートイベント
+
+このリリースでは、イベントプロバイダー関数を使用してハートビートイベントを完全にカスタマイズできる、Ktor サーバーサイド SSE サポートの新しいオプションが導入されました。
+
+```kotlin
+heartbeat {
+    period = 30.milliseconds
+    eventProvider = { ServerSentEvent(data = "ts=${Clock.System.now()}") }
+}
+```
+
+これにより、タイムスタンプやステータス情報などのカスタムハートビートペイロードを一定の間隔で送信できるようになります。
+
 ## Ktor Client
 
 ### OkHttp および Apache5 エンジンにおけるカスタム DNS リゾルバー {id="custom-dns-resolvers"}
 
 Ktor 3.5.0 では、OkHttp および Apache5 クライアントエンジンでカスタム DNS リゾルバーを構成するための第一級のサポートが追加されました。
 
-以前は、OkHttp の `config {}` や Apache5 の `configureConnectionManager { setDnsResolver(...) }` など、エンジン固有の内部にアクセスしてカスタム DNS 解決を構成していました。Ktor は、一貫性があり型安全な API を提供するために、各エンジンに専用の構成プロパティを公開するようになりました。
+以前は、OkHttp の `config {}` や Apache5 の `configureConnectionManager { setDnsResolver(...) }` など、エンジン固有の内部にアクセスしてカスタム DNS 解決を構成していました。Ktor は、一貫性があり型安全な API を提供するために、各エンジンに専用의 構成プロパティを公開するようになりました。
 
 #### OkHttp
 

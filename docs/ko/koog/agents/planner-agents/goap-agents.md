@@ -1,4 +1,10 @@
+---
+status: beta
+---
+
 # GOAP 에이전트
+
+--8<-- "versioning-snippets.md:beta"
 
 GOAP는 [A* 탐색][A* search]을 사용하여 전체 비용을 최소화하면서 목표 조건을 충족하는 최적의 액션 시퀀스(action sequences)를 찾는 알고리즘 기반 설계 접근 방식입니다.
 LLM을 사용하여 계획을 생성하는 [LLM 기반 플래너](llm-based-planners.md)와 달리,

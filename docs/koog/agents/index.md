@@ -8,7 +8,7 @@ Koog Agent 基于以下核心概念构建：
 
 - [prompt 执行器](../prompts/prompt-executors.md)负责管理和执行 prompt，使 Agent 能够与 LLM 交互进行推理和决策。
 - [策略](../nodes-and-components.md)定义了 Agent 的工作流。它可以是有向图、函数或规划器的形式。请参阅 [Agent 类型](#agent-types)。
-- Agent 可以使用[工具](../tools-overview.md)与外部数据源和服务进行交互。
+- Agent 可以使用[工具](../tools/index.md)与外部数据源和服务进行交互。
 - 您可以使用[功能](../features/index.md)来扩展和增强 AI Agent 的功能性。
 
 !!! tip

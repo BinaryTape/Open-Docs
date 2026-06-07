@@ -27,25 +27,25 @@ Kotlin/Native 編譯器支援多種不同的目標，但對這些目標的支援
 | Gradle 目標名稱 | 目標三元組 | 執行測試 | 說明 |
 |-------------------------|-------------------------------|---------------|---------------------------------------------------------------|
 | 僅限 Apple macOS 主機： | | | |
-| `macosArm64` | `aarch64-apple-macos` | ✅ | Apple Silicon 平台上的 Apple macOS 11.0 及更高版本 |
-| `iosSimulatorArm64` | `aarch64-apple-ios-simulator` | ✅ | Apple Silicon 平台上的 Apple iOS 模擬器 14.0 及更高版本 |
-| `iosArm64` | `aarch64-apple-ios` | | ARM64 平台上的 Apple iOS 與 iPadOS 14.0 及更高版本 |
+| `macosArm64` | `aarch64-apple-macos` | ✅ | Apple Silicon 平台上的 Apple macOS 12.0 及更高版本 |
+| `iosSimulatorArm64` | `aarch64-apple-ios-simulator` | ✅ | Apple Silicon 平台上的 Apple iOS 模擬器 15.0 及更高版本 |
+| `iosArm64` | `aarch64-apple-ios` | | ARM64 平台上的 Apple iOS 與 iPadOS 15.0 及更高版本 |
 
 ### 第 2 層級
 
 * 該目標在 CI 上定期進行測試以確保能夠編譯，但可能不會自動測試其是否能夠執行。
-* 我們盡力提供編譯器版本之間的原始碼與 [二進位相容性](https://youtrack.jetbrains.com/issue/KT-42293)。
+* 我們盡力提供編譯器版本之間的原始碼與 [二進位相規性](https://youtrack.jetbrains.com/issue/KT-42293)。
 
 | Gradle 目標名稱 | 目標三元組 | 執行測試 | 說明 |
 |-------------------------|-----------------------------------|---------------|------------------------------------------------------------------|
 | `linuxX64` | `x86_64-unknown-linux-gnu` | ✅ | x86_64 平台上的 Linux |
 | `linuxArm64` | `aarch64-unknown-linux-gnu` | | ARM64 平台上的 Linux |
 | 僅限 Apple macOS 主機： | | | |
-| `watchosSimulatorArm64` | `aarch64-apple-watchos-simulator` | ✅ | Apple Silicon 平台上的 Apple watchOS 模擬器 7.0 及更高版本 |
-| `watchosArm32` | `armv7k-apple-watchos` | | ARM32 平台上的 Apple watchOS 7.0 及更高版本 |
-| `watchosArm64` | `arm64_32-apple-watchos` | | 使用 ILP32 的 ARM64 平台上的 Apple watchOS 7.0 及更高版本 |
-| `tvosSimulatorArm64` | `aarch64-apple-tvos-simulator` | ✅ | Apple Silicon 平台上的 Apple tvOS 模擬器 14.0 及更高版本 |
-| `tvosArm64` | `aarch64-apple-tvos` | | ARM64 平台上的 Apple tvOS 14.0 及更高版本 |
+| `watchosSimulatorArm64` | `aarch64-apple-watchos-simulator` | ✅ | Apple Silicon 平台上的 Apple watchOS 模擬器 8.0 及更高版本 |
+| `watchosArm32` | `armv7k-apple-watchos` | | ARM32 平台上的 Apple watchOS 8.0 及更高版本 |
+| `watchosArm64` | `arm64_32-apple-watchos` | | 使用 ILP32 的 ARM64 平台上的 Apple watchOS 8.0 及更高版本 |
+| `tvosSimulatorArm64` | `aarch64-apple-tvos-simulator` | ✅ | Apple Silicon 平台上的 Apple tvOS 模擬器 15.0 及更高版本 |
+| `tvosArm64` | `aarch64-apple-tvos` | | ARM64 平台上的 Apple tvOS 15.0 及更高版本 |
 
 ### 第 3 層級
 
@@ -64,8 +64,8 @@ Kotlin/Native 編譯器支援多種不同的目標，但對這些目標的支援
 | `androidNativeX64` | `x86_64-unknown-linux-android` | | x86_64 平台上的 [Android NDK](https://developer.android.com/ndk) |
 | `mingwX64` | `x86_64-pc-windows-gnu` | ✅ | 使用 [MinGW](https://www.mingw-w64.org) 相容層的 64 位元 Windows 10 及更高版本 |
 | 僅限 Apple macOS 主機： | | | |
-| `watchosDeviceArm64` | `aarch64-apple-watchos` | | ARM64 平台上的 Apple watchOS 7.0 及更高版本 |
-| `iosX64` | `x86_64-apple-ios-simulator` | ✅ | x86-64 平台上的 Apple iOS 模擬器 14.0 及更高版本 |
+| `watchosDeviceArm64` | `aarch64-apple-watchos` | | ARM64 平台上的 Apple watchOS 8.0 及更高版本 |
+| `iosX64` | `x86_64-apple-ios-simulator` | ✅ | x86-64 平台上的 Apple iOS 模擬器 15.0 及更高版本 |
 
 > `linuxArm32Hfp` 目標已棄用，並將在未來的版本中移除。
 > 
@@ -75,9 +75,32 @@ Kotlin/Native 編譯器支援多種不同的目標，但對這些目標的支援
 
 從 Kotlin 2.3.20 開始，以下目標已被棄用：
 
-* `macosX64` (x86_64 平台上的 Apple macOS 11.0 及更高版本)
-* `watchosX64` (x86_64 平台上的 Apple watchOS 7.0 及更高版本 64 位元模擬器)
-* `tvosX64` (x86_64 平台上的 Apple tvOS 14.0 及更高版本模擬器)
+* `macosX64` (x86_64 平台上的 Apple macOS)
+* `watchosX64` (x86_64 平台上的 Apple watchOS 64 位元模擬器)
+* `tvosX64` (x86_64 平台上的 Apple tvOS 模擬器)
+
+### 支援較舊的 Apple 目標版本
+
+目前，Apple 目標預設的最低支援版本如下：
+
+* iOS 與 tvOS 為 15.0。
+* macOS 為 12.0。
+* watchOS 為 8.0。
+
+如果您的專案需要支援比預設版本更舊的版本，請在您的建置檔案中使用 `freeCompilerArgs` 選項：
+
+```kotlin
+kotlin {
+    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().configureEach {
+        binaries.configureEach {
+            freeCompilerArgs += "-Xoverride-konan-properties=minVersion.ios=14.0"
+            freeCompilerArgs += "-Xoverride-konan-properties=minVersion.macos=11.0"
+            freeCompilerArgs += "-Xoverride-konan-properties=minVersion.tvos=14.0"
+            freeCompilerArgs += "-Xoverride-konan-properties=minVersion.watchos=7.0"
+        }
+    }
+}
+```
 
 ### 給程式庫作者
 

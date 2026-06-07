@@ -615,6 +615,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 > **弃用周期**:
 >
 > - 2.0.0: `defFile` 和 `defFileProperty` 参数已被弃用
+> - 2.4.0: [对已弃用的 `defFile` 属性报告错误](compatibility-guide-24.md#report-errors-for-obsolete-kotlin-native-gradle-task-apis)
 
 ### 移除 kotlin.useK2 Gradle 属性
 

@@ -8,7 +8,7 @@
 >
 {style="tip"}
 
-## 宣告 (Declaration)
+## 宣告
 
 註解是一種特殊的類別。要宣告註解，請在類別宣告前使用 `annotation` 關鍵字：
 
@@ -32,7 +32,7 @@ annotation class Fancy
 annotation class Fancy
 ```
 
-## 用法 (Usage)
+## 用法
 
 ```kotlin
 @Fancy class Foo {
@@ -57,7 +57,7 @@ class Foo {
 }
 ```
 
-## 建構函式 (Constructors)
+## 建構函式
 
 註解可以擁有帶有參數的建構函式。
 
@@ -101,7 +101,7 @@ annotation class Ann(val arg1: KClass<*>, val arg2: KClass<out Any>)
 @Ann(String::class, Int::class) class MyClass
 ```
 
-## 具現化 (Instantiation)
+## 具現化
 
 在 Java 中，註解型別是介面的一種形式，因此您可以實作它並使用執行個體。作為此機制的替代方案，Kotlin 允許您在任意程式碼中呼叫註解類別的建構函式，並以類似方式使用產生的執行個體。
 
@@ -130,7 +130,7 @@ annotation class Suspendable
 val f = @Suspendable { Fiber.sleep(10) }
 ```
 
-## 註解使用點目標 (Annotation use-site targets)
+## 註解使用點目標
 
 當您為屬性或主建構函數參數加上註解時，會從對應的 Kotlin 元素產生多個 Java 元素，因此在產生的 Java 位元組碼中註解有多個可能的位置。若要指定註解應如何產生，請使用以下語法：
 
@@ -164,7 +164,7 @@ class Example {
   * `property`（具有此目標的註解對 Java 不可見）
   * `get`（屬性 getter）
   * `set`（屬性 setter）
-  * `all`（屬性的實驗性元目標，其目的與用法請參閱 [下方](#all-meta-target)）
+  * `all`（屬性的元目標，更多資訊請參閱 [`all` 元目標](#all-meta-target) 章節）
   * `receiver`（擴充方法或屬性的接收者參數）
 
     要標註擴充方法的接收者參數，請使用以下語法：
@@ -177,13 +177,15 @@ class Example {
   * `setparam`（屬性 setter 參數）
   * `delegate`（儲存委派屬性之委派執行個體的欄位）
 
-### 未指定使用點目標時的預設值 (Defaults when no use-site targets are specified)
+### 未指定使用點目標時的預設值
 
-如果您未指定使用點目標，則會根據所使用註解的 `@Target` 註解來選擇目標。如果有多個適用的目標，則會使用以下清單中第一個適用的目標：
+如果您未指定使用點目標，編譯器會根據所使用註解的 `@Target` 註解來選擇目標。如果有多個適用的目標，編譯器會按以下順序選擇一個或多個：
 
-* `param`
-* `property`
-* `field`
+* 建構函式參數目標 (`param`)。
+* 屬性目標 (`property`)。
+* 欄位目標 (`field`)，如果它適用且屬性目標 (`property`) 不適用。
+
+如果 `param`、`property` 或 `field` 皆不適用，則該註解無效，您需要明確指定使用點目標。
 
 讓我們使用 [來自 Jakarta Bean Validation 的 `@Email` 註解](https://jakarta.ee/specifications/bean-validation/3.0/apidocs/jakarta/validation/constraints/email)：
 
@@ -196,25 +198,6 @@ public @interface Email { }
 
 ```kotlin
 data class User(val username: String,
-                // @Email 相當於 @param:Email
-                @Email val email: String) {
-    // @Email 相當於 @field:Email
-    @Email val secondaryEmail: String? = null
-}
-```
-
-Kotlin 2.2.0 引入了一項實驗性的預設規則，這應該會使註解傳播到參數、欄位與屬性的行為更可預測。
-
-根據新規則，如果有多個適用目標，將按如下方式選擇一個或多個：
-
-* 如果建構函式參數目標 (`param`) 適用，則使用它。
-* 如果屬性目標 (`property`) 適用，則使用它。
-* 如果在 `property` 不適用時欄位目標 (`field`) 適用，則使用 `field`。
-
-使用相同的範例：
-
-```kotlin
-data class User(val username: String,
                 // @Email 現在相當於 @param:Email @field:Email
                 @Email val email: String) {
     // @Email 仍然相當於 @field:Email
@@ -222,36 +205,17 @@ data class User(val username: String,
 }
 ```
 
-如果有多個目標，且 `param`、`property` 或 `field` 皆不適用，則該註解無效。
+在此範例中，`@Email` 註解同時套用於 `email` 屬性的建構函式參數與欄位目標，因為該屬性：
 
-若要啟用新的預設規則，請在您的 Gradle 配置中使用以下行：
+* 在主建構函數中宣告。
+* 沒有自訂的 getter 或 setter，因此編譯器會產生一個支援欄位。
 
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xannotation-default-target=param-property")
-    }
-}
-```
+`@Email` 註解僅套用於 `secondaryEmail` 屬性的欄位目標，因為該屬性：
 
-每當您想使用舊行為時，您可以：
+* 不在主建構函數中宣告。
+* 沒有自訂的 getter 或 setter，因此編譯器會產生一個支援欄位。
 
-* 在特定情況下，明確指定所需的目標，例如使用 `@param:Annotation` 而非 `@Annotation`。
-* 對於整個專案，在您的 Gradle 建置檔案中使用此旗標：
-
-    ```kotlin
-    // build.gradle.kts
-    kotlin {
-        compilerOptions {
-            freeCompilerArgs.add("-Xannotation-default-target=first-only")
-        }
-    }
-    ```
-
-### `all` 元目標 (`all` meta-target)
-
-<primary-label ref="experimental-opt-in"/>
+### `all` 元目標
 
 `all` 目標可以更輕鬆地將相同的註解不僅套用至參數、屬性或欄位，還套用至對應的 getter 與 setter。
 
@@ -288,11 +252,11 @@ data class User(
 
 您可以將 `all` 元目標與任何屬性一起使用，無論是在主建構函數之內或之外。
 
-#### 限制 (Limitations)
+#### 限制
 
 `all` 目標具有一些限制：
 
-* 它不會將註解傳播到型別、潛在的擴充接收者、上下文接收者或參數。
+* 它不會將註解傳播到型別、潛在的擴充接收者、或上下文接收者與參數。
 * 它不能與多個註解一起使用：
     ```kotlin
     @all:[A B] // 禁止，請使用 @all:A @all:B
@@ -300,26 +264,7 @@ data class User(
     ```
 * 它不能與 [委派屬性](delegated-properties.md) 一起使用。
 
-#### 如何啟用 (How to enable)
-
-要在您的專案中啟用 `all` 元目標，請在命令列中使用以下編譯器選項：
-
-```Bash
--Xannotation-target-all
-```
-
-或將其加入 Gradle 建置檔案的 `compilerOptions {}` 區塊中：
-
-```kotlin
-// build.gradle.kts
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xannotation-target-all")
-    }
-}
-```
-
-## Java 註解 (Java annotations)
+## Java 註解
 
 Java 註解與 Kotlin 100% 相容：
 
@@ -369,7 +314,7 @@ public @interface AnnWithValue {
 @AnnWithValue("abc") class C
 ```
 
-### 陣列作為註解參數 (Arrays as annotation parameters)
+### 陣列作為註解參數
 
 如果 Java 中的 `value` 引數具有陣列型別，它在 Kotlin 中會變成 `vararg` 參數：
 
@@ -399,7 +344,7 @@ public @interface AnnWithArrayMethod {
 class C
 ```
 
-### 存取註解執行個體的屬性 (Accessing properties of an annotation instance)
+### 存取註解執行個體的屬性
 
 註解執行個體的值會作為屬性揭露給 Kotlin 程式碼：
 
@@ -417,13 +362,13 @@ fun foo(ann: Ann) {
 }
 ```
 
-### 不產生 JVM 1.8+ 註解目標的能力 (Ability to not generate JVM 1.8+ annotation targets)
+### 不產生 JVM 1.8+ 註解目標的能力
 
 如果一個 Kotlin 註解的 Kotlin 目標中包含 `TYPE`，則該註解在其 Java 註解目標清單中會映射到 `java.lang.annotation.ElementType.TYPE_USE`。這就像 `TYPE_PARAMETER` Kotlin 目標如何映射到 `java.lang.annotation.ElementType.TYPE_PARAMETER` Java 目標一樣。對於 API 層級低於 26 的 Android 用戶端來說，這是一個問題，因為它們在 API 中沒有這些目標。
 
 要避免產生 `TYPE_USE` 與 `TYPE_PARAMETER` 註解目標，請使用新的編譯器引數 `-Xno-new-java-annotation-targets`。
 
-## 可重複註解 (Repeatable annotations)
+## 可重複註解
 
 就像 [在 Java 中](https://docs.oracle.com/javase/tutorial/java/annotations/repeating.html) 一樣，Kotlin 擁有可重複註解，可以對單個程式碼元素多次套用。要使您的註解成為可重複註解，請使用 [`@kotlin.annotation.Repeatable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-repeatable/) 元註解來標記其宣告。這將使其在 Kotlin 與 Java 中皆為可重複。Kotlin 端也支援 Java 可重複註解。
 

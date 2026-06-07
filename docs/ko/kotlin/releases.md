@@ -4,7 +4,7 @@
 
 <tldr>
     <p>최신 Kotlin 버전: <strong>%kotlinVersion%</strong></p>
-    <p><a href="%kotlinLatestWhatsnew%">Kotlin 2.3.20의 새로운 기능</a>을 확인해 보세요. <a href="%kotlinLatestUrl%">변경 로그(changelog)</a>에서 버그 수정 세부 정보를 찾아보세요.</p>
+    <p><a href="%kotlinLatestWhatsnew%">Kotlin 2.4.0의 새로운 기능</a>을 확인해 보세요<!--and find the bug fix details in the <a href="%kotlinLatestUrl%">changelog</a>-->.</p>
 </tldr>
 
 이 페이지에서는 Kotlin의 릴리스 주기와 제공되는 다양한 릴리스 유형에 대해 설명합니다. 또한 과거 및 향후 Kotlin 릴리스에 대한 세부 정보와 특정 릴리스로 업데이트하는 방법에 대한 지침도 포함되어 있습니다.
@@ -29,8 +29,8 @@ Kotlin 2.0.0부터 다음 유형의 릴리스를 제공합니다:
 
 향후 안정 버전 Kotlin 릴리스의 대략적인 일정은 다음과 같습니다:
 
-* **2.4.0**: 2026년 6월 – 7월 예정
 * **2.4.20**: 2026년 9월 예정
+* **2.5.0**: 2026년 12월 예정
 
 ## 새로운 Kotlin 버전으로 업데이트
 
@@ -122,7 +122,6 @@ JVM용 Kotlin 표준 라이브러리에 영향을 미치는 보안 취약점을 
 
 예를 들어 보안 취약점이 발견되고 최신 Kotlin 릴리스가 Kotlin 2.4.20인 경우, Kotlin 2.4.20에 대해서만 버그 수정 버전을 릴리스합니다. Kotlin 2.4.0에 대해서는 버그 수정 버전을 릴리스하지 않습니다.
 
-<!--
 다음 표는 모든 Kotlin 릴리스와 해당 지원 기간을 나열합니다.
 
 <table>
@@ -136,17 +135,16 @@ JVM용 Kotlin 표준 라이브러리에 영향을 미치는 보안 취약점을 
         <td><strong>2.4</strong>
         </td>
         <td>
-            <p>TBD</p>
+            <p>2026년 6월 3일</p>
         </td>
         <td>
-            <p>TBD</p>
+            <p>2027년 12월 3일</p>
         </td>
         <td>
             <p>없음</p>
         </td>
     </tr>
 </table>
--->
 
 > 우리는 여러분이 발견한 보안 문제에 대해 항상 듣고 싶어 합니다. Kotlin에서 발견한 문제를 보고하려면 [이슈 트래커](https://youtrack.jetbrains.com/newIssue?project=KT&c=Type%20Security%20Problem)에 직접 메시지를 게시하거나 [이메일](mailto:security@jetbrains.org)을 보내주세요.
 > 
@@ -164,6 +162,16 @@ JVM용 Kotlin 표준 라이브러리에 영향을 미치는 보안 취약점을 
     <tr>
         <th>빌드 정보</th>
         <th>빌드 주요 사항</th>
+    </tr>
+    <tr>
+        <td><strong>2.4.0</strong>
+            <p>출시일: <strong>2026년 6월 3일</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.0" target="_blank">GitHub에서 릴리스 보기</a></p>
+        </td>
+        <td>
+            <p>새로운 기능 및 안정화된 언어 기능, 도구 업데이트, 다양한 플랫폼을 위한 성능 개선 및 중요한 수정을 포함하는 언어 릴리스입니다.</p>
+            <p>Kotlin 2.4.0에 대한 자세한 내용은 <a href="whatsnew24.md" target="_blank">Kotlin 2.4.0의 새로운 기능</a>을 참조하세요.</p>
+        </td>
     </tr>
     <tr>
         <td><strong>2.3.21</strong>
@@ -257,7 +265,7 @@ JVM용 Kotlin 표준 라이브러리에 영향을 미치는 보안 취약점을 
     </tr> 
    <tr>
         <td><strong>2.1.20</strong>
-            <p>출시일: <strong>2025년 March 20, 2025</strong></p>
+            <p>출시일: <strong>2025년 3월 20일</strong></p>
             <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.1.20" target="_blank">GitHub에서 릴리스 보기</a></p>
         </td>
         <td>

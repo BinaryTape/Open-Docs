@@ -1,4 +1,10 @@
+---
+status: beta
+---
+
 # Spring Boot 集成
+
+--8<-- "versioning-snippets.md:beta"
 
 Koog 通过其自动配置 starter 提供无缝的 Spring Boot 集成，使您可以轻松地在 Spring Boot 应用程序中以极简的设置整合 AI agent。
 
@@ -28,7 +34,6 @@ dependencies {
 <!--- KNIT example-spring-boot-01.txt -->
 
 或使用 Maven：
-
 ```xml
 <dependency>
     <groupId>ai.koog</groupId>
@@ -423,6 +428,6 @@ Spring 框架通过 bean 名称 (`anthropicExecutor`) 注入了 Anthropic 执行
 
 - 了解 [基础 agent](agents/basic-agents.md) 以构建极简 AI 工作流
 - 探索 [图型 agent](agents/graph-based-agents.md) 以应对高级用例
-- 查看 [工具概览](tools-overview.md) 以扩展您的 agent 功能
+- 查看 [工具概览](tools/index.md) 以扩展您的 agent 功能
 - 查看 [示例](examples.md) 以获取实际实现参考
 - 阅读 [词汇表](glossary.md) 以更好地理解框架

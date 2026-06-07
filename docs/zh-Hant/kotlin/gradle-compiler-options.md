@@ -4,7 +4,7 @@ Kotlin 的每個版本都包含適用於支援目標的編譯器：
 JVM、JavaScript 以及針對[支援平台](native-overview.md#target-platforms)的 Native 二進位檔。
 
 這些編譯器會被以下對象使用：
-* 當您在 Kotlin 專案中點擊 __編譯 (Compile)__ 或 __執行 (Run)__ 按鈕時的 IDE。
+* 當您在 Kotlin 專案中點擊 **編譯 (Compile)** 或 **執行 (Run)** 按鈕時的 IDE。
 * 當您在主控台或 IDE 中呼叫 `gradle build` 時的 Gradle。
 * 當您在主控台或 IDE 中呼叫 `mvn compile` 或 `mvn test-compile` 時的 Maven。
 
@@ -558,34 +558,34 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 
 ### 常用屬性
 
-| 名稱              | 描述                                                                                                                              | 可能的值           | 預設值 |
+| 名稱 | 描述 | 可能的值 | 預設值 |
 |-------------------|------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|---------------|
-| `optIn`           | 用於配置 [加入編譯器引數](opt-in-requirements.md) 列表的屬性                                                 | `listOf( /* opt-ins */ )` | `emptyList()` |
-| `progressiveMode` | 啟用 [漸進式編譯器模式](whatsnew13.md#progressive-mode)                                                                  | `true`, `false`           | `false`       |
-| `extraWarnings`   | 如果為 true，則啟用 [額外的宣告、運算式和型別編譯器檢查](whatsnew21.md#extra-compiler-checks)，這些檢查會發出警告 | `true`, `false`           | `false`       |
+| `optIn` | 用於配置 [加入編譯器引數](opt-in-requirements.md) 列表的屬性 | `listOf( /* opt-ins */ )` | `emptyList()` |
+| `progressiveMode` | 啟用 [漸進式編譯器模式](whatsnew13.md#progressive-mode) | `true`, `false` | `false` |
+| `extraWarnings` | 如果為 true，則啟用 [額外的宣告、運算式和型別編譯器檢查](whatsnew21.md#extra-compiler-checks)，這些檢查會發出警告 | `true`, `false` | `false` |
 
 ### JVM 特定屬性
 
-| 名稱                      | 描述                                                                                                                                                                                                                                   | 可能的值                                                                                        | 預設值               |
+| 名稱 | 描述 | 可能的值 | 預設值 |
 |---------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|-----------------------------|
-| `javaParameters`          | 為方法參數上的 Java 1.8 反射產生元資料                                                                                                                                                                                |                                                                                                        | false                       |
-| `jvmTarget`               | 產生的 JVM 位元組碼的目標版本                                                                                                                                                                                                  | "1.8", "9", "10", ...,  "24", 25"。另請參閱 [編譯器選項的類型](#types-for-compiler-options) | "%defaultJvmTargetVersion%" |
-| `noJdk`                   | 不要自動將 Java 執行階段包含到類別路徑中                                                                                                                                                                               |                                                                                                        | false                       |
-| `jvmTargetValidationMode` | <list><li>驗證 Kotlin 與 Java 之間的 [JVM 目標相容性](gradle-configure-project.md#check-for-jvm-target-compatibility-of-related-compile-tasks)</li><li>`KotlinCompile` 類型任務的屬性。</li></list> | `WARNING`, `ERROR`, `IGNORE`                                                                           | `ERROR`                     |
-| `jvmDefault`              | 控制如何將介面中宣告的函式編譯為 JVM 上的預設方法                                                                                                                                                       | `ENABLE`, `NO_COMPATIBILITY`, `DISABLE`                                                                | `ENABLE`                    |
+| `javaParameters` | 為方法參數上的 Java 1.8 反射產生元資料 | | false |
+| `jvmTarget` | 產生的 JVM 位元組碼的目標版本 | "1.8", "9", "10", ..., "25", 26"。另請參閱 [編譯器選項的類型](#types-for-compiler-options) | "%defaultJvmTargetVersion%" |
+| `noJdk` | 不要自動將 Java 執行階段包含到類別路徑中 | | false |
+| `jvmTargetValidationMode` | <list><li>驗證 Kotlin 與 Java 之間的 [JVM 目標相容性](gradle-configure-project.md#check-for-jvm-target-compatibility-of-related-compile-tasks)</li><li>`KotlinCompile` 類型任務的屬性。</li></list> | `WARNING`, `ERROR`, `IGNORE` | `ERROR` |
+| `jvmDefault` | 控制如何將介面中宣告的函式編譯為 JVM 上的預設方法 | `ENABLE`, `NO_COMPATIBILITY`, `DISABLE` | `ENABLE` |
 
 ### JVM 和 JavaScript 共有屬性
 
-| 名稱                  | 描述                                                                                                                                                              | 可能的值                                         | 預設值 |
+| 名稱 | 描述 | 可能的值 | 預設值 |
 |-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|---------------|
-| `allWarningsAsErrors` | 如果有任何警告，則回報錯誤                                                                                                                                                               |                                                         | false         |
-| `suppressWarnings`    | 不要產生警告                                                                                                                                                  |                                                         | false         |
-| `verbose`             | 啟用詳細的記錄輸出。僅在 [啟用 Gradle 偵錯記錄層級](https://docs.gradle.org/current/userguide/logging.html) 時有效                              |                                                         | false         |
-| `freeCompilerArgs`    | 額外編譯器引數的列表。您也可以在此處使用實驗性的 `-X` 引數。請參閱 [透過 freeCompilerArgs 使用額外引數的範例](#example-of-additional-arguments-usage-via-freecompilerargs) |                                                         | []            |
-| `apiVersion`          | 限制宣告的使用僅限於指定的隨附程式庫版本                                                                                | "1.9", "2.0", "2.1", "2.2", "2.3", "2.4" (實驗性) |               |
-| `languageVersion`     | 提供與指定 Kotlin 版本的原始碼相容性                                                                                                        | "1.9", "2.0", "2.1", "2.2", "2.3", "2.4" (實驗性) |               |
+| `allWarningsAsErrors` | 如果有任何警告，則回報錯誤 | | false |
+| `suppressWarnings` | 不要產生警告 | | false |
+| `verbose` | 啟用詳細的記錄輸出。僅在 [啟用 Gradle 偵錯記錄層級](https://docs.gradle.org/current/userguide/logging.html) 時有效 | | false |
+| `freeCompilerArgs` | 額外編譯器引數的列表。您也可以在此處使用實驗性的 `-X` 引數。請參閱 [範例](#example-of-additional-arguments-usage-via-freecompilerargs) | | [] |
+| `apiVersion` | 限制宣告的使用僅限於指定的隨附程式庫版本 | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (實驗性) | |
+| `languageVersion` | 提供與指定 Kotlin 版本的原始碼相容性 | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (實驗性) | |
 
-> 我們將在未來的版本中棄用 `freeCompilerArgs` 屬性。如果您在 Kotlin Gradle DSL 中缺少某些選項，請 [提交問題 (Issue)](https://youtrack.jetbrains.com/newissue?project=kt)。
+> 我們將在未來的版本中棄用 `freeCompilerArgs` 屬性。如果您在 Kotlin Gradle DSL 中缺少某些選項，請[提交問題 (Issue)](https://youtrack.jetbrains.com/newissue?project=kt)。
 >
 {style="warning"}
 

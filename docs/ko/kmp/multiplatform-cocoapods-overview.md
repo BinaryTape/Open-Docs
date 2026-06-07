@@ -359,6 +359,19 @@ pod("NearbyMessages") {
 
 더 자세한 정보는 [CocoaPods 문서](https://guides.cocoapods.org/)를 확인하세요. 모든 방법을 시도해도 오류가 계속 발생하면 [YouTrack](https://youtrack.jetbrains.com/newissue?project=kt)에 이슈를 제보해 주세요.
 
+### 앱 번들의 리소스 누락 {initial-collapse-state="collapsed" collapsible="true"}
+
+iOS 앱이 성공적으로 빌드되지만 실행 시 크래시가 발생하거나, 커스텀 폰트 및 이미지와 같은 리소스가 최종 `.ipa` 패키지에서 누락된 경우 Pod이 프로젝트와 통합되는 방식에 문제가 있을 수 있습니다.
+
+**이 문제를 방지하려면**: `pod install` 명령을 직접 실행하는 대신, Kotlin CocoaPods Gradle 플러그인에서 제공하는 Gradle `podInstall` 태스크를 사용하세요. 이 태스크는 필요한 디렉터리를 생성하고 모든 구성을 자동으로 수행합니다:
+
+```bash
+./gradlew podInstall
+open iosApp/iosApp.xcworkspace
+```
+
+**문제 발생 원인**: 클린 프로젝트(예: 저장소를 새로 클론한 후 또는 CI/CD 파이프라인에서 작업할 때)에서 네이티브 `pod install` 명령을 실행하면 리소스 디렉터리가 아직 생성되지 않은 상태일 수 있습니다. Compose Multiplatform Gradle 플러그인은 생성된 `.podspec` 파일에 리소스 위치를 다음과 같이 지정합니다: `spec.resources = ['build/compose/cocoapods/compose-resources']`. 하지만 이 경로는 빌드 후에만 존재합니다. 결과적으로 CocoaPods는 누락된 디렉터리를 무시하고 이러한 리소스 없이 Xcode 프로젝트를 구성합니다. 프로젝트가 빌드되고 리소스가 생성되어도 Xcode는 이를 최종 번들에 복사하지 않습니다.
+
 ### Rsync 오류 {initial-collapse-state="collapsed" collapsible="true"}
 
 `rsync error: some files could not be transferred` 오류가 발생할 수 있습니다. 이는 Xcode의 애플리케이션 타겟에서 사용자 스크립트의 샌드박싱(sandboxing)이 활성화되어 있을 때 발생하는 [알려진 이슈](https://github.com/CocoaPods/CocoaPods/issues/11946)입니다.

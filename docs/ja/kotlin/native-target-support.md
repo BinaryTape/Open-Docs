@@ -27,9 +27,9 @@ Kotlin/Native コンパイラは多くの異なるターゲットをサポート
 | Gradle ターゲット名 | ターゲットトリプル | テストの実行 | 説明 |
 |-------------------------|-------------------------------|---------------|---------------------------------------------------------------|
 | Apple macOS ホストのみ: |                               |               |                                                               |
-| `macosArm64`            | `aarch64-apple-macos`         | ✅             | Apple シリコンプラットフォーム上の Apple macOS 11.0 以降 |
-| `iosSimulatorArm64`     | `aarch64-apple-ios-simulator` | ✅             | Apple シリコンプラットフォーム上の Apple iOS シミュレータ 14.0 以降 |
-| `iosArm64`              | `aarch64-apple-ios`           |               | ARM64 プラットフォーム上の Apple iOS および iPadOS 14.0 以降 |
+| `macosArm64`            | `aarch64-apple-macos`         | ✅             | Apple シリコンプラットフォーム上の Apple macOS 12.0 以降 |
+| `iosSimulatorArm64`     | `aarch64-apple-ios-simulator` | ✅             | Apple シリコンプラットフォーム上の Apple iOS シミュレータ 15.0 以降 |
+| `iosArm64`              | `aarch64-apple-ios`           |               | ARM64 プラットフォーム上の Apple iOS および iPadOS 15.0 以降 |
 
 ### ティア 2
 
@@ -41,11 +41,11 @@ Kotlin/Native コンパイラは多くの異なるターゲットをサポート
 | `linuxX64`              | `x86_64-unknown-linux-gnu`        | ✅             | x86_64 プラットフォーム上の Linux |
 | `linuxArm64`            | `aarch64-unknown-linux-gnu`       |               | ARM64 プラットフォーム上の Linux |
 | Apple macOS ホストのみ: |                                   |               |                                                                  |
-| `watchosSimulatorArm64` | `aarch64-apple-watchos-simulator` | ✅             | Apple シリコンプラットフォーム上の Apple watchOS シミュレータ 7.0 以降 |
-| `watchosArm32`          | `armv7k-apple-watchos`            |               | ARM32 プラットフォーム上の Apple watchOS 7.0 以降 |
-| `watchosArm64`          | `arm64_32-apple-watchos`          |               | ILP32 を備えた ARM64 プラットフォーム上の Apple watchOS 7.0 以降 |
-| `tvosSimulatorArm64`    | `aarch64-apple-tvos-simulator`    | ✅             | Apple シリコンプラットフォーム上の Apple tvOS シミュレータ 14.0 以降 |
-| `tvosArm64`             | `aarch64-apple-tvos`              |               | ARM64 プラットフォーム上の Apple tvOS 14.0 以降 |
+| `watchosSimulatorArm64` | `aarch64-apple-watchos-simulator` | ✅             | Apple シリコンプラットフォーム上の Apple watchOS シミュレータ 8.0 以降 |
+| `watchosArm32`          | `armv7k-apple-watchos`            |               | ARM32 プラットフォーム上の Apple watchOS 8.0 以降 |
+| `watchosArm64`          | `arm64_32-apple-watchos`          |               | ILP32 を備えた ARM64 プラットフォーム上の Apple watchOS 8.0 以降 |
+| `tvosSimulatorArm64`    | `aarch64-apple-tvos-simulator`    | ✅             | Apple シリコンプラットフォーム上の Apple tvOS シミュレータ 15.0 以降 |
+| `tvosArm64`             | `aarch64-apple-tvos`              |               | ARM64 プラットフォーム上の Apple tvOS 15.0 以降 |
 
 ### ティア 3
 
@@ -65,8 +65,8 @@ Kotlin/Native コンパイラは多くの異なるターゲットをサポート
 | `androidNativeX64`      | `x86_64-unknown-linux-android`   |               | x86_64 プラットフォーム上の [Android NDK](https://developer.android.com/ndk) |
 | `mingwX64`              | `x86_64-pc-windows-gnu`          | ✅             | [MinGW](https://www.mingw-w64.org) 互換レイヤーを使用した 64 ビット Windows 10 以降 |
 | Apple macOS ホストのみ: |                                  |               |                                                                                          |
-| `watchosDeviceArm64`    | `aarch64-apple-watchos`          |               | ARM64 プラットフォーム上の Apple watchOS 7.0 以降 |
-| `iosX64`                | `x86_64-apple-ios-simulator`     | ✅             | x86-64 プラットフォーム上の Apple iOS シミュレータ 14.0 以降 |
+| `watchosDeviceArm64`    | `aarch64-apple-watchos`          |               | ARM64 プラットフォーム上の Apple watchOS 8.0 以降 |
+| `iosX64`                | `x86_64-apple-ios-simulator`     | ✅             | x86-64 プラットフォーム上の Apple iOS シミュレータ 15.0 以降 |
 
 > `linuxArm32Hfp` ターゲットは非推奨であり、将来のリリースで削除される予定です。
 > 
@@ -76,9 +76,32 @@ Kotlin/Native コンパイラは多くの異なるターゲットをサポート
 
 Kotlin 2.3.20 以降、以下のターゲットは非推奨となりました。
 
-* `macosX64` (x86_64 プラットフォーム上の Apple macOS 11.0 以降)
-* `watchosX64` (x86_64 プラットフォーム上の Apple watchOS 7.0 以降の 64 ビットシミュレータ)
-* `tvosX64` (x86_64 プラットフォーム上の Apple tvOS 14.0 以降のシミュレータ)
+* `macosX64` (x86_64 プラットフォーム上の Apple macOS)
+* `watchosX64` (x86_64 プラットフォーム上の Apple watchOS 64 ビットシミュレータ)
+* `tvosX64` (x86_64 プラットフォーム上の Apple tvOS シミュレータ)
+
+### より低いバージョンの Apple ターゲットのサポート
+
+現在、デフォルトでサポートされている Apple ターゲットの最小バージョンは以下の通りです：
+
+* iOS および tvOS は 15.0。
+* macOS は 12.0。
+* watchOS は 8.0。
+
+プロジェクトでデフォルトよりも低いバージョンをサポートする必要がある場合は、ビルドファイルで `freeCompilerArgs` オプションを使用してください：
+
+```kotlin
+kotlin {
+    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().configureEach {
+        binaries.configureEach {
+            freeCompilerArgs += "-Xoverride-konan-properties=minVersion.ios=14.0"
+            freeCompilerArgs += "-Xoverride-konan-properties=minVersion.macos=11.0"
+            freeCompilerArgs += "-Xoverride-konan-properties=minVersion.tvos=14.0"
+            freeCompilerArgs += "-Xoverride-konan-properties=minVersion.watchos=7.0"
+        }
+    }
+}
+```
 
 ### ライブラリ作者の方へ
 

@@ -1,4 +1,10 @@
+---
+status: beta
+---
+
 # GOAP agent
+
+--8<-- "versioning-snippets.md:beta"
 
 GOAP 是一種演算法規劃方法，使用 [A* 搜尋][A* search] 來尋找最佳操作序列，在滿足目標條件的同時將總成本降至最低。
 與使用 LLM 產生計畫的 [基於 LLM 的規劃器](llm-based-planners.md) 不同，GOAP agent 透過演算法根據預定義的目標和操作來發現操作序列。

@@ -1,4 +1,10 @@
+---
+status: beta
+---
+
 # Spring AI 통합
+
+--8<-- "versioning-snippets.md:beta"
 
 Koog는 Spring AI의 추상화와 Koog 에이전트 프레임워크를 연결하는 Spring AI 통합 스타터를 제공합니다.
 이미 모델 접근, 메모리 또는 벡터 저장소를 위해 Spring AI를 사용하고 있다면, 기존 Spring AI 설정을 교체하지 않고도 Koog를 그 위에 얹어 사용할 수 있습니다.
@@ -627,7 +633,7 @@ koog.spring.ai.vectorstore.vector-store-bean-name=pgVectorStore
 
 - 최소한의 AI 워크플로우 구축을 위한 [기본 에이전트](agents/basic-agents.md) 알아보기
 - 고급 유스케이스를 위한 [그래프 기반 에이전트](agents/graph-based-agents.md) 탐색하기
-- 에이전트 기능 확장을 위한 [도구 개요](tools-overview.md) 확인하기
+- 에이전트 기능 확장을 위한 [도구 개요](tools/index.md) 확인하기
 - RAG 개념을 위한 [검색 증강 생성(RAG)](retrieval-augmented-generation.md) 읽어보기
 - 실제 구현 사례를 위해 [예제](examples.md) 확인하기
 - 직접적인 Koog 스타터 접근 방식을 위해 [Spring Boot 통합](spring-boot.md) 가이드 읽어보기

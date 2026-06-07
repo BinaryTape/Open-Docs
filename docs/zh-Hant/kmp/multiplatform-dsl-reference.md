@@ -37,7 +37,7 @@ plugins {
 
 | **區塊**             | **說明**                                                                                                 |
 |----------------------|----------------------------------------------------------------------------------------------------------|
-| _&lt;targetName&gt;_ | 宣告專案的特定目標。可用目標的名稱列在 [目標](#targets) 區塊中。                                         |
+| _&lt;targetName&gt;_ | 宣告專案的特定目標。可用目標的名稱列在 [目標](#targets) 區段中。                                         |
 | `targets`            | 列出專案的所有目標。                                                                                     |
 | `sourceSets`         | 配置預定義的原始碼集並宣告專案的自訂 [原始碼集](#source-sets)。                                          |
 | `compilerOptions`    | 指定共用的延伸層級 [編譯器選項](#compiler-options)，這些選項將作為所有目標和共用原始碼集的預設值。       |
@@ -115,7 +115,7 @@ plugins {
 
 </table>
 
-> 當前主機不支援的目標在組建期間會被忽略，因此不會發佈。
+> 當前主機不支援的目標在建置期間會被忽略，因此不會發佈。
 >
 {style="note"}
 
@@ -522,7 +522,7 @@ kotlin {
 kotlin {
     //...
     sourceSets { 
-        val myMain by creating { /* ... */ } // 建立一個名為 'myMain' 的新原始碼集
+        val myMain by creating { /* ... */ } // 建立一個名為 'MyMain' 的新原始碼集
     }
 }
 ```
@@ -768,7 +768,7 @@ kotlin {
         compilations.main {
             compileTaskProvider.configure {
                 compilerOptions {
-                    // 為 'main' 編譯設定 Kotlin 編譯器選項：
+                    // 設定 'main' 編譯的 Kotlin 編譯器選項：
                     jvmTarget = JvmTarget.JVM_1_8
                 }
             }
@@ -1072,8 +1072,8 @@ kotlin {
 kotlin {
     sourceSets.all {
         languageSettings.apply {
-            languageVersion = "%languageVersion%" // 可能的值："2.0", "2.1", "2.2", "2.3", "2.4"（實驗性）
-            apiVersion = "%apiVersion%" // 可能的值："2.0", "2.1", "2.2", "2.3", "2.4"（實驗性）
+            languageVersion = "%languageVersion%" // 可能的值："2.0", "2.1", "2.2", "2.3", "2.4", "2.5"（實驗性）
+            apiVersion = "%apiVersion%" // 可能的值："2.0", "2.1", "2.2", "2.3", "2.4", "2.5"（實驗性）
             enableLanguageFeature("InlineClasses") // 語言特性名稱
             optIn("kotlin.ExperimentalUnsignedTypes") // 註解的完全限定名稱 (FQ-name)
             progressiveMode = true // 預設為 false
@@ -1089,8 +1089,8 @@ kotlin {
 kotlin {
     sourceSets.all {
         languageSettings {
-            languageVersion = '%languageVersion%' // 可能的值：'2.0', '2.1', '2.2', '2.3', '2.4'（實驗性）
-            apiVersion = '%apiVersion%' // 可能的值：'2.0', '2.1', '2.2', '2.3', '2.4'（實驗性）
+            languageVersion = '%languageVersion%' // 可能的值：'2.0', '2.1', '2.2', '2.3', '2.4', '2.5'（實驗性）
+            apiVersion = '%apiVersion%' // 可能的值：'2.0', '2.1', '2.2', '2.3', '2.4', '2.5'（實驗性）
             enableLanguageFeature('InlineClasses') // 語言特性名稱
             optIn('kotlin.ExperimentalUnsignedTypes') // 註解的完全限定名稱 (FQ-name)
             progressiveMode = true // 預設為 false

@@ -356,7 +356,7 @@ graph LR
 
 ## ツールを追加する
 
-数学演算を実行するための[ツール](../tools-overview.md)を定義し、それらを[ToolRegistry](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool-registry/index.html)に追加します：
+数学演算を実行するための[ツール](../tools/index.md)を定義し、それらを[ToolRegistry](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool-registry/index.html)に追加します：
 
 === "Kotlin"
 

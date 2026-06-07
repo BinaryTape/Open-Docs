@@ -403,9 +403,67 @@ var x: Int = 23
 
 ## オーバーロードの生成 (Overloads generation)
 
-通常、デフォルトの引数値を持つKotlin関数を作成すると、Javaからはすべての引数が存在するフルシグネチャとしてのみ見えます。Javaの呼び出し元に複数のオーバーロードを公開したい場合は、[`@JvmOverloads`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html) アノテーションを使用できます。
+通常、デフォルトの引数値を持つKotlin関数を作成すると、Javaからはすべての引数が存在するフルシグネチャとしてのみ見えます。
 
-このアノテーションは、コンストラクタや静的メソッドなどにも機能します。インターフェースで定義されたメソッドを含む抽象メソッドには使用できません。
+省略可能なパラメータ（optional parameters）に対してオーバーロードを生成するには、[`@IntroducedAt`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-introduced-at/) アノテーションまたは [`@JvmOverloads`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html) アノテーションを使用できます。
+
+公開された API に新しい省略可能なパラメータを追加し、生成されたオーバーロードに各パラメータが導入されたバージョンを反映させたい場合は、`@IntroducedAt` を使用します。
+コンパイラはこの情報を使用して、対応する隠されたオーバーロードを自動的に生成します。
+
+これにより、バージョンに基づいたオーバーロードの生成が可能になり、ライブラリの古いバージョンに対してコンパイルされた呼び出し元に対するバイナリ互換性を維持するのに役立ちます。
+
+> `@IntroducedAt` アノテーションは [実験的](components-stability.md#stability-levels-explained) です。オプトインするには、`@OptIn(ExperimentalVersionOverloading::class)` アノテーションを使用してください。
+> 
+{style="warning"}
+
+以下は、`Button()` 関数が複数の API バージョンにわたって複数の省略可能なパラメータを受け取る例です：
+
+```kotlin
+@OptIn(ExperimentalVersionOverloading::class)
+fun Button(
+    label: String = "",
+    color: Color = DefaultColor,
+    @IntroducedAt("1.1") borderColor: Color = DefaultBorderColor,
+    @IntroducedAt("1.2") borderStyle: Style = DefaultBorderStyle,
+    @IntroducedAt("1.2") borderWidth: Int = 1,
+    onClick: () -> Unit
+) {
+    // 関数本体
+}
+```
+
+これらのバージョンに基づいて、コンパイラは元の API と、新しい省略可能なパラメータを導入した各 API バージョンに対して隠されたオーバーロードを生成します：
+
+```kotlin
+// 元の API
+Button(
+    label: String,
+    color: Color,
+    onClick: () -> Unit
+)
+
+// バージョン 1.1
+Button(
+    label: String,
+    color: Color,
+    borderColor: Color,
+    onClick: () -> Unit
+)
+
+// バージョン 1.2
+Button(
+    label: String,
+    color: Color,
+    borderColor: Color,
+    borderStyle: Style,
+    borderWidth: Int,
+    onClick: () -> Unit
+)
+```
+
+Java の呼び出し元に複数のオーバーロードを公開したい場合は、[`@JvmOverloads`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html) アノテーションを使用することもできます。
+
+このアノテーションは、コンストラクタ、静的メソッドなどにも機能します。インターフェースで定義されたメソッドを含む抽象メソッドには使用できません。例えば、デフォルトのパラメータ値を持つ `Circle` クラスを考えてみましょう：
 
 ```kotlin
 class Circle @JvmOverloads constructor(centerX: Int, centerY: Int, radius: Double = 1.0) {
@@ -413,7 +471,7 @@ class Circle @JvmOverloads constructor(centerX: Int, centerY: Int, radius: Doubl
 }
 ```
 
-デフォルト値を持つ各パラメータに対して、このパラメータと、パラメータリスト内のその右側にあるすべてのパラメータを削除した追加のオーバーロードが1つ生成されます。この例では、以下が生成されます：
+デフォルト値を持つ各パラメータに対して、このパラメータと、パラメータリスト内のその右側にあるすべてのパラメータを削除した追加のオーバーロードが 1 つ生成されます。この例では、以下が生成されます：
 
 ```java
 // コンストラクタ:
@@ -425,6 +483,9 @@ void draw(String label, int lineWidth, String color) { }
 void draw(String label, int lineWidth) { }
 void draw(String label) { }
 ```
+
+`@IntroducedAt` と `@JvmOverloads` の両方のアノテーションがオーバーロードを生成するため、これらを併用すると競合するオーバーロードが作成される可能性があります。
+両方のアノテーションを使用した場合、コンパイラは警告を出力します。警告を抑制した場合、コンパイラは `@IntroducedAt` アノテーションから生成されたオーバーロードを優先します。
 
 [セカンダリコンストラクタ](classes.md#secondary-constructors)で説明されているように、クラスのすべてのコンストラクタパラメータにデフォルト値がある場合、そのクラスに対して引数なしのパブリックコンストラクタが生成されます。これは、`@JvmOverloads` アノテーションが指定されていない場合でも機能します。
 

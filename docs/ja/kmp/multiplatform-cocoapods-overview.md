@@ -360,6 +360,19 @@ pod("NearbyMessages") {
 
 詳細については [CocoaPods のドキュメント](https://guides.cocoapods.org/)を確認してください。解決しない場合は、[YouTrack](https://youtrack.jetbrains.com/newissue?project=kt) で問題を報告してください。
 
+### アプリバンドル内のリソースが見つからない {initial-collapse-state="collapsed" collapsible="true"}
+
+iOS アプリのビルドには成功するが起動時にクラッシュする場合、またはカスタムフォントや画像などのリソースが最終的な `.ipa` パッケージに含まれていない場合、Pod とプロジェクトの統合方法に問題がある可能性があります。
+
+**この問題を回避するには**: `pod install` コマンドを直接実行するのではなく、Kotlin CocoaPods Gradle プラグインが提供する Gradle の `podInstall` タスクを使用してください。このタスクは必要なディレクトリを作成し、すべてを自動的に構成します：
+
+```bash
+./gradlew podInstall
+open iosApp/iosApp.xcworkspace
+```
+
+**問題が発生する理由**: クリーンなプロジェクト（例えば、リポジトリをクローンした後や CI/CD パイプラインで作業している場合）でネイティブの `pod install` コマンドを実行すると、リソースディレクトリがまだ作成されていません。Compose Multiplatform Gradle プラグインは、生成された `.podspec` ファイル内でリソースの場所を指定しています（`spec.resources = ['build/compose/cocoapods/compose-resources']`）。しかし、そのパスはビルド後にのみ存在します。その結果、CocoaPods は存在しないディレクトリを無視し、これらのリソースを含めずに Xcode プロジェクトを構成します。プロジェクトがビルドされリソースが生成されても、Xcode はそれらを最終的なバンドルにコピーしません。
+
 ### Rsync エラー {initial-collapse-state="collapsed" collapsible="true"}
 
 `rsync error: some files could not be transferred` というエラーが発生することがあります。これは、Xcode のアプリケーションターゲットでユーザースクリプトのサンドボックス化が有効になっている場合に発生する[既知の問題](https://github.com/CocoaPods/CocoaPods/issues/11946)です。

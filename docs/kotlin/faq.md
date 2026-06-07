@@ -37,19 +37,21 @@ Kotlin 可用于任何类型的开发，无论是服务器端开发、客户端 
 
 ### 我可以使用 Kotlin 进行服务器端开发吗？
 
-是的。Kotlin 与 JVM 100% 兼容，因此您可以使用任何现有框架，例如 Spring Boot、vert.x 或 JSF。此外，还有专门用 Kotlin 编写的框架，例如 [Ktor](https://github.com/kotlin/ktor)。要了解更多信息，请参阅[服务器端开发概览](server-overview.md)。
+是的。Kotlin 与 JVM 100% 兼容，因此您可以使用任何现有框架，例如 Spring Boot、vert.x 或 JSF。此外，还有专门用 Kotlin 编写的框架，例如 [Ktor](https://github.com/kotlin/ktor)。 
+要了解更多信息，请参阅[服务器端开发概览](server-overview.md)。
 
 ### 我可以使用 Kotlin 进行 Web 开发吗？
 
-是的。对于后端 Web 开发，Kotlin 与 [Ktor](https://ktor.io/) 和 [Spring](https://spring.io/) 等框架配合良好，使您能够高效地构建服务器端应用程序真实。此外，您还可以将 Kotlin/Wasm 用于客户端 Web 开发。了解如何[开始使用 Kotlin/Wasm](wasm-get-started.md)。
+是的。对于后端 Web 开发，Kotlin 与 [Ktor](https://ktor.io/) 和 [Spring](https://spring.io/) 等框架配合良好，使您能够高效地构建服务器端应用程序。此外，您还可以将 Kotlin/Wasm 用于客户端 Web 开发。了解如何[开始使用 Kotlin/Wasm](wasm-get-started.md)。
 
 ### 我可以使用 Kotlin 进行桌面开发吗？
 
-是的。您可以使用任何 Java UI 框架，例如 JavaFx、Swing 或其他。此外，还有 Kotlin 专用的框架，例如 [TornadoFX](https://github.com/edvin/tornadofx)。 
+是的。您可以使用任何 Java UI 框架，例如 JavaFx、Swing 或其他。 
+此外，还有 Kotlin 专用的框架，例如 [TornadoFX](https://github.com/edvin/tornadofx)。 
 
 ### 我可以使用 Kotlin 进行原生开发吗？
 
-是的。Kotlin/Native 作为 Kotlin 的一部分提供。它将 Kotlin 编译为无需虚拟机即可运行的原生代码。您可以在流行的桌面 and 移动平台甚至某些物联网 (IoT) 设备上试用它。要了解更多信息，请参阅 [Kotlin/Native 文档](native-overview.md)。
+是的。Kotlin/Native 作为 Kotlin 的一部分提供。它将 Kotlin 编译为无需虚拟机即可运行的原生代码。您可以在流行的桌面和移动平台甚至某些物联网 (IoT) 设备上试用它。要了解更多信息，请参阅 [Kotlin/Native 文档](native-overview.md)。
 
 ### 哪些 IDE 支持 Kotlin？
 
@@ -74,14 +76,14 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
 
 ### Kotlin 针对哪些版本的 JVM？
 
-Kotlin 允许您选择用于执行的 JVM 版本。默认情况下，Kotlin/JVM 编译器生成与 Java 8 兼容的字节码。如果您想利用更新版本 Java 中的优化，可以显式指定 9 到 25 的目标 Java 版本。请注意，在这种情况下，生成的字节码可能无法在较低版本上运行。从 [Kotlin 1.5](whatsnew15.md#new-default-jvm-target-1-8) 开始，编译器不支持生成与 Java 8 以下版本兼容的字节码。
+Kotlin 允许您选择用于执行的 JVM 版本。默认情况下，Kotlin/JVM 编译器生成与 Java 8 兼容的字节码。如果您想利用更新版本 Java 中的优化，可以显式指定 9 到 26 的目标 Java 版本。请注意，在这种情况下，生成的字节码可能无法在较低版本上运行。从 [Kotlin 1.5](whatsnew15.md#new-default-jvm-target-1-8) 开始，编译器不支持生成与 Java 8 以下版本兼容的字节码。
 
 ### Kotlin 难学吗？
 
 Kotlin 受到 Java、C#、JavaScript、Scala 和 Groovy 等现有语言的启发。我们努力确保 Kotlin 易于学习，以便人们可以在几天内轻松上手，阅读和编写 Kotlin 代码。学习惯用 (idiomatic) 的 Kotlin 并使用其一些更高级的功能可能需要更长的时间，但总的来说，它不是一种复杂的语言。  
 要了解更多信息，请参阅我们的[学习材料](learning-materials-overview.md)。
  
-### 哪些公司在使用 Kotlin？
+### 哪些 company 在使用 Kotlin？
  
 使用 Kotlin 的公司太多，无法一一列举，但一些公开宣布使用 Kotlin 的知名公司（通过博客文章、GitHub 仓库或演讲）包括 [Square](https://medium.com/square-corner-blog/square-open-source-loves-kotlin-c57c21710a17)、 [Pinterest](https://www.youtube.com/watch?v=mDpnc45WwlI) 和 [Basecamp](https://signalvnoise.com/svn3/using-kotlin-to-make-android-apis-fun-again/)。
  

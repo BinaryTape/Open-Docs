@@ -72,18 +72,6 @@ JVM record 要求生成的 JVM 字节码目标版本为 `16` 或更高。
 在 Java 中，record 组件上的[注解](annotations.md)会自动传播到支持字段、getter、setter 和构造函数参数。
 您可以在 Kotlin 中通过使用 [`all`](annotations.md#all-meta-target) 使用处目标来复制此行为。
 
-> 要使用 `all` 使用处目标，您必须选择启用。可以使用 `-Xannotation-target-all` 编译器选项，或者在 `build.gradle.kts` 文件中添加以下内容：
->
-> ```kotlin
-> kotlin {
->     compilerOptions {
->         freeCompilerArgs.add("-Xannotation-target-all")
->     }
-> }
-> ```
->
-{style="warning"}
-
 例如：
 
 ```kotlin

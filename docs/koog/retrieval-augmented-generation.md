@@ -1,4 +1,10 @@
+---
+status: beta
+---
+
 # 检索增强生成 (RAG)
+
+--8<-- "versioning-snippets.md:beta"
 
 Koog 提供了检索增强生成 (RAG) 的构建块：嵌入文本、存储嵌入文档以及为查询检索最相关的结果。
 

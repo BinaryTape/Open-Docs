@@ -226,7 +226,7 @@ Agent 將傳回通用的回答，例如：
 
 ## 加入工具
 
-Agent 可以使用 [工具](../tools-overview.md) 來執行特定任務。
+Agent 可以使用 [工具](../tools/index.md) 來執行特定任務。
 
 首先，透過使用 [`@Tool`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools.annotations/-tool/index.html) 註解標註函式 (Kotlin) 或方法 (Java) 來建立工具：
 

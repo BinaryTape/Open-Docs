@@ -46,46 +46,31 @@ Kotlin 編譯器有許多用於自訂編譯過程的選項。
 
 以下選項適用於所有 Kotlin 編譯器。
 
-### -version
+### -api-version _版本_
 
-顯示編譯器版本。
-
-### -verbose
-
-啟用詳細記錄輸出，其中包括編譯過程的詳細資訊。
-
-### -script
-
-評估 Kotlin 指令碼檔案。使用此選項呼叫時，編譯器會執行指定引數中第一個 Kotlin 指令碼 (`*.kts`) 檔案。
+僅允許使用來自指定版本的 Kotlin 隨附程式庫的宣告。
 
 ### -help (-h)
 
 顯示使用資訊並結束。僅顯示標準選項。
 若要顯示進階選項，請使用 `-X`。
 
-### -X
-
-<primary-label ref="experimental-general"/>
-
-顯示關於進階選項的資訊並結束。這些選項目前不穩定：
-其名稱和行為可能會在不經通知的情況下發生變更。
-
 ### -kotlin-home _路徑_
 
 指定用於探索執行階段程式庫之 Kotlin 編譯器的自訂路徑。
-  
+
+### -language-version _版本_
+
+此選項根據指定的語言版本設定支援的語法和語意。例如，使用 Kotlin 編譯器版本 2.4.0 並配合 `-language-version=2.2`，可讓你僅使用版本 2.2 或更早版本的語言特性和標準程式庫 API。這有助於逐步遷移到較新的 Kotlin 版本。
+
+### -opt-in _註解_
+
+允許使用[需要選擇性同意](opt-in-requirements.md)的 API，並提供具有指定完全限定名稱的需求註解。
+
 ### -P plugin:pluginId:optionName=value
 
 將選項傳遞給 Kotlin 編譯器外掛程式。
 核心外掛程式及其選項列在文件的[核心編譯器外掛程式](components-stability.md#core-compiler-plugins)章節中。
-  
-### -language-version _版本_
-
-此選項根據指定的語言版本設定支援的語法和語意。例如，使用 Kotlin 編譯器版本 2.2.0 並配合 `-language-version=1.9`，可讓你僅使用版本 1.9 或更早版本的語言特性和標準程式庫 API。這有助於逐步遷移到較新的 Kotlin 版本。
-
-### -api-version _版本_
-
-僅允許使用來自指定版本的 Kotlin 隨附程式庫的宣告。
 
 ### -progressive
 
@@ -96,38 +81,139 @@ Kotlin 編譯器有許多用於自訂編譯過程的選項。
 在漸進模式下編寫的程式碼是向後相容的；然而，在
 非漸進模式下編寫的程式碼在漸進模式下可能會導致編譯錯誤。
 
-### @argfile
+### -script
 
-從指定檔案讀取編譯器選項。此類檔案可以包含編譯器選項及其值，
-以及原始碼檔案的路徑。選項和路徑應以空白字元分隔。例如：
+評估 Kotlin 指令碼檔案。使用此選項呼叫時，編譯器會執行指定引數中第一個 Kotlin 指令碼 (`*.kts`) 檔案。
 
-```
--include-runtime -d hello.jar hello.kt
-```
+### -verbose
 
-若要傳遞包含空白字元的值，請將其用單引號 (**'**) 或雙引號 (**"**) 包圍。如果值中包含引號，請使用反斜線 (**\\**) 進行轉義。
-```
--include-runtime -d 'My folder'
-```
+啟用詳細記錄輸出，其中包括編譯過程的詳細資訊。
 
-你也可以傳遞多個引數檔案，例如，將編譯器選項與原始碼檔案分開。
+### -version
+
+顯示編譯器版本。
+
+### -X
+
+<primary-label ref="experimental-general"/>
+
+顯示關於進階選項的資訊並結束。這些選項目前不穩定：
+其名稱和行為可能會在不經通知的情況下發生變更。
+
+### Kotlin 合約選項
+<primary-label ref="experimental-general"/>
+
+以下選項啟用實驗性的 Kotlin 合約功能。
+
+#### -Xallow-contracts-on-more-functions
+
+在額外的宣告中啟用合約，包括屬性存取子、特定運算子函式以及泛型型別上的型別斷言。
+
+#### -Xallow-condition-implies-returns-contracts
+
+允許在合約中使用 `returnsNotNull()` 函式，以便在指定條件下假定傳回值為非 null。
+
+#### -Xallow-holdsin-contract
+
+允許在合約中使用 `holdsIn` 關鍵字，以便假定布林條件在 Lambda 內部為 `true`。
+
+#### -Xallow-returns-result-of
+
+允許使用 `returnsResultOf()` 合約，以便未使用的傳回值檢查器可以區分可忽略的結果與來自高階函數的有意義結果。
+
+### -Xallow-reified-type-in-catch
+<primary-label ref="experimental-general"/>
+
+支援在 `inline` 函式的 `catch` 子句中使用具現化的 `Throwable` 型別參數。
+
+### -Xcollection-literals
+<primary-label ref="experimental-general"/>
+
+支援使用方括號語法 `[]` 的[集合常值](whatsnew24.md#support-for-collection-literals)。
+
+### -Xcompiler-plugin-order={plugin.before>plugin.after}
+<primary-label ref="experimental-general"/>
+
+設定編譯器外掛程式的執行順序。編譯器會先執行 `plugin.before`，然後執行 `plugin.after`：
+
+你可以為三個或更多外掛程式定義多個排序規則。例如：
 
 ```bash
-$ kotlinc @compiler.options @classes
+kotlinc -Xcompiler-plugin-order=plugin.first>plugin.middle
+kotlinc -Xcompiler-plugin-order=plugin.middle>plugin.last
 ```
 
-如果檔案位於與目前目錄不同的位置，請使用相對路徑。
+這會產生以下執行順序：
 
-```bash
-$ kotlinc @options/compiler.options hello.kt
-```
+1. `plugin.first`
+2. `plugin.middle`
+3. `plugin.last`
 
-### -opt-in _註解_
+如果某個編譯器外掛程式不存在，則忽略對應的規則。
 
-允許使用[需要選擇性同意](opt-in-requirements.md)的 API，並提供具有指定完全限定名稱的需求註解。
+你可以透過外掛程式 ID 設定以下外掛程式：
+
+| 編譯器外掛程式 | 外掛程式 ID |
+|-----------------------------|--------------------------------------------|
+| `all-open`, `kotlin-spring` | `org.jetbrains.kotlin.allopen` |
+| AtomicFU | `org.jetbrains.kotlinx.atomicfu` |
+| Compose | `androidx.compose.compiler.plugins.kotlin` |
+| `js-plain-objects` | `org.jetbrains.kotlinx.jspo` |
+| `jvm-abi-gen` | `org.jetbrains.kotlin.jvm.abi` |
+| kapt | `org.jetbrains.kotlin.kapt3` |
+| Lombok | `org.jetbrains.kotlin.lombok` |
+| `no-arg`, `kotlin-jpa` | `org.jetbrains.kotlin.noarg` |
+| Parcelize | `org.jetbrains.kotlin.parcelize` |
+| Power-assert | `org.jetbrains.kotlin.powerassert` |
+| SAM with receiver | `org.jetbrains.kotlin.samWithReceiver` |
+| Serialization | `org.jetbrains.kotlinx.serialization` |
+
+此執行順序僅控制編譯器外掛程式的後端，而非前端。
+
+### -Xdata-flow-based-exhaustiveness
+<primary-label ref="experimental-general"/>
+
+針對 `when` 運算式啟用基於資料流的窮舉性檢查。
+
+### -Xexplicit-context-arguments
+<primary-label ref="experimental-general"/>
+
+為上下文參數啟用顯式[上下文引數](context-parameters.md#pass-context-arguments-explicitly)。
+
+這讓你可以透過在呼叫點傳遞上下文引數來解決多載歧義。
+
+### -Xklib-ir-inliner
+<primary-label ref="experimental-general"/>
+
+設定是否為 Kotlin/Native、Kotlin/JS 和 Kotlin/Wasm 啟用[模組內內嵌](whatsnew24.md#consistent-intra-module-function-inlining-during-klib-compilation)。預設情況下是啟用的。
+
+該選項支援以下模式：
+
+* `disabled`: 停用 Kotlin/Native、Kotlin/JS 和 Kotlin/Wasm 的模組內內嵌。
+* `full`: 啟用跨模組內嵌。
+
+### -Xintrinsic-const-evaluation
+<primary-label ref="experimental-general"/>
+
+啟用[改進的編譯期常數](whatsnew24.md#improved-compile-time-constants)。
+
+### -Xname-based-destructuring
+<primary-label ref="experimental-opt-in"/>
+
+設定編譯器如何根據屬性名稱解讀[解構宣告](destructuring-declarations.md#name-based-destructuring)。
+
+該選項支援以下模式：
+
+* `only-syntax`: 啟用顯式形式的名稱相關解構，而不變更現有解構宣告的行為。
+* `name-mismatch`: 當資料類別中的位置相關解構所使用的變數名稱與屬性名稱不符時，回報警告。
+* `complete`: 啟用使用圓括號的短形式名稱相關解構，並繼續支援使用方括號語法的位置相關解構。
+
+### -Xphases-to-dump-before
+<primary-label ref="experimental-general"/>
+
+設定為 `ExternalPackageParentPatcherLowering` 以在 IR lowering 編譯階段後建立傾印檔案。使用 [`-Xdump-directory`](#xdump-directory) 編譯器選項設定 Kotlin/JVM 的輸出目錄。
 
 ### -Xrepl
-
 <primary-label ref="experimental-general"/>
 
 啟用 Kotlin REPL。
@@ -136,25 +222,14 @@ $ kotlinc @options/compiler.options hello.kt
 kotlinc -Xrepl
 ```
 
-### -Xannotation-target-all
-
+### -Xreturn-value-checker
 <primary-label ref="experimental-general"/>
 
-啟用實驗性的 [註解 `all` 使用點目標](annotations.md#all-meta-target)：
+設定編譯器如何[回報被忽略的結果](unused-return-value-checker.md)：
 
-```bash
-kotlinc -Xannotation-target-all
-```
-
-### -Xannotation-default-target=param-property
-
-<primary-label ref="experimental-general"/>
-
-啟用新的實驗性[註解使用點目標預設規則](annotations.md#defaults-when-no-use-site-targets-are-specified)：
-
-```bash
-kotlinc -Xannotation-default-target=param-property
-```
+* `disable`: 停用未使用的傳回值檢查器（預設）。
+* `check`: 啟用檢查器，並對來自已標記函式之被忽略的結果回報警告。
+* `full`: 啟用檢查器，將專案中的所有函式視為已標記，並對被忽略的結果回報警告。
 
 ### 警告管理
 
@@ -201,96 +276,32 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 
 你可以使用 [`-Xrender-internal-diagnostic-names`](#xrender-internal-diagnostic-names) 來發現 `DIAGNOSTIC_NAME`。
 
-### -Xdata-flow-based-exhaustiveness
-<primary-label ref="experimental-general"/>
+### @argfile
 
-針對 `when` 運算式啟用基於資料流的窮舉性檢查。
+從指定檔案讀取編譯器選項。此類檔案可以包含編譯器選項及其值，
+以及原始碼檔案的路徑。選項 and 路徑應以空白字元分隔。例如：
 
-### -Xallow-reified-type-in-catch
-<primary-label ref="experimental-general"/>
-
-支援在 `inline` 函式的 `catch` 子句中使用具現化的 `Throwable` 型別參數。
-
-### Kotlin 合約選項
-<primary-label ref="experimental-general"/>
-
-以下選項啟用實驗性的 Kotlin 合約功能。
-
-#### -Xallow-contracts-on-more-functions
-
-在額外的宣告中啟用合約，包括屬性存取子、特定運算子函式以及泛型型別上的型別斷言。
-
-#### -Xallow-condition-implies-returns-contracts
-
-允許在合約中使用 `returnsNotNull()` 函式，以便在指定條件下假定傳回值為非 null。
-
-#### -Xallow-holdsin-contract
-
-允許在合約中使用 `holdsIn` 關鍵字，以便假定布林條件在 Lambda 內部為 `true`。
-
-### -Xreturn-value-checker
-<primary-label ref="experimental-general"/>
-
-設定編譯器如何[回報被忽略的結果](unused-return-value-checker.md)：
-
-* `disable`: 停用未使用的傳回值檢查器（預設）。
-* `check`: 啟用檢查器，並對來自已標記函式之被忽略的結果回報警告。
-* `full`: 啟用檢查器，將專案中的所有函式視為已標記，並對被忽略的結果回報警告。
-
-### -Xcompiler-plugin-order={plugin.before>plugin.after}
-
-設定編譯器外掛程式的執行順序。編譯器會先執行 `plugin.before`，然後執行 `plugin.after`：
-
-你可以為三個或更多外掛程式定義多個排序規則。例如：
-
-```bash
-kotlinc -Xcompiler-plugin-order=plugin.first>plugin.middle
-kotlinc -Xcompiler-plugin-order=plugin.middle>plugin.last
+```
+-include-runtime -d hello.jar hello.kt
 ```
 
-這會產生以下執行順序：
+若要傳遞包含空白字元的值，請將其用單引號 (**'**) 或雙引號 (**"**) 包圍。如果值中包含引號，請使用反斜線 (**\\**) 進行轉義。
 
-1. `plugin.first`
-2. `plugin.middle`
-3. `plugin.last`
+```
+-include-runtime -d 'My folder'
+```
 
-如果某個編譯器外掛程式不存在，則忽略對應的規則。
+你也可以傳遞多個引數檔案，例如，將編譯器選項與原始碼檔案分開。
 
-你可以透過外掛程式 ID 設定以下外掛程式：
+```bash
+$ kotlinc @compiler.options @classes
+```
 
-| 編譯器外掛程式 | 外掛程式 ID |
-|-----------------------------|--------------------------------------------|
-| `all-open`, `kotlin-spring` | `org.jetbrains.kotlin.allopen` |
-| AtomicFU | `org.jetbrains.kotlinx.atomicfu` |
-| Compose | `androidx.compose.compiler.plugins.kotlin` |
-| `js-plain-objects` | `org.jetbrains.kotlinx.jspo` |
-| `jvm-abi-gen` | `org.jetbrains.kotlin.jvm.abi` |
-| kapt | `org.jetbrains.kotlin.kapt3` |
-| Lombok | `org.jetbrains.kotlin.lombok` |
-| `no-arg`, `kotlin-jpa` | `org.jetbrains.kotlin.noarg` |
-| Parcelize | `org.jetbrains.kotlin.parcelize` |
-| Power-assert | `org.jetbrains.kotlin.powerassert` |
-| SAM with receiver | `org.jetbrains.kotlin.samWithReceiver` |
-| Serialization | `org.jetbrains.kotlinx.serialization` |
+如果檔案位於與目前目錄不同的位置，請使用相對路徑。
 
-此執行順序僅控制編譯器外掛程式的後端，而非前端。
-
-### -Xphases-to-dump-before
-
-<primary-label ref="experimental-general"/>
-
-設定為 `ExternalPackageParentPatcherLowering` 以在 IR lowering 編譯階段後建立傾印檔案。使用 [`-Xdump-directory`](#xdump-directory) 編譯器選項設定 Kotlin/JVM 的輸出目錄。
-
-### -Xname-based-destructuring
-<primary-label ref="experimental-opt-in"/>
-
-設定編譯器如何根據屬性名稱解讀[解構宣告](destructuring-declarations.md#name-based-destructuring)。
-
-該選項支援以下模式：
-
-* `only-syntax`: 啟用顯式形式的名稱相關解構，而不變更現有解構宣告的行為。
-* `name-mismatch`: 當資料類別中的位置相關解構所使用的變數名稱與屬性名稱不符時，回報警告。
-* `complete`: 啟用使用圓括號的短形式名稱相關解構，並繼續支援使用方括號語法的位置相關解構。
+```bash
+$ kotlinc @options/compiler.options hello.kt
+```
 
 ## Kotlin/JVM 編譯器選項
 
@@ -323,15 +334,25 @@ Kotlin 到 JVM 編譯的命令列工具是 `kotlinc` 和 `kotlinc-jvm`。
 
 指定產生的 JVM bytecode 的目標版本。將類別路徑中 JDK 的 API 限制為指定的 Java 版本。
 自動設定 [`-jvm-target version`](#jvm-target-version)。
-可能的值為 `1.8`、`9`、`10`、...、`25`。
+可能的值為 `1.8`、`9`、`10`、...、`26`。
 
 > 此選項[不保證](https://youtrack.jetbrains.com/issue/KT-29974)對每個 JDK 發行版都有效。
 >
 {style="note"}
 
+### -jvm-default _模式_
+
+控制在介面中宣告的函式如何編譯為 JVM 上的預設方法。
+
+| 模式 | 說明 |
+|--------------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| `enable` | 在介面中產生預設實作，並在子類別和 `DefaultImpls` 類別中包含橋接函式。（預設） |
+| `no-compatibility` | 僅在介面中產生預設實作，跳過相容性橋接器和 `DefaultImpls` 類別。 |
+| `disable` | 僅產生相容性橋接器 and `DefaultImpls` 類別，跳過預設方法。 |
+
 ### -jvm-target _版本_
 
-指定產生的 JVM bytecode 的目標版本。可能的值為 `1.8`、`9`、`10`、...、`25`。
+指定產生的 JVM bytecode 的目標版本。可能的值為 `1.8`、`9`、`10`、...、`26`。
 預設值為 `%defaultJvmTargetVersion%`。
 
 ### -java-parameters
@@ -358,27 +379,15 @@ Kotlin 到 JVM 編譯的命令列工具是 `kotlinc` 和 `kotlinc-jvm`。
 
 指令碼定義範本類別。使用完全限定類名並以逗號 (**,**) 分隔。
 
-### -Xjvm-expose-boxed
-
-<primary-label ref="experimental-general"/>
-
-產生模組中所有內嵌值類別的封裝版本，以及使用它們的函式的封裝變體，使兩者都可以從 Java 存取。如需詳細資訊，請參閱從 Java 呼叫 Kotlin 指南中的[內嵌值類別](java-to-kotlin-interop.md#inline-value-classes)。
-
-### -jvm-default _模式_
-
-控制在介面中宣告的函式如何編譯為 JVM 上的預設方法。
-
-| 模式 | 說明 |
-|--------------------|-----------------------------------------------------------------------------------------------------------------------------------|
-| `enable` | 在介面中產生預設實作，並在子類別和 `DefaultImpls` 類別中包含橋接函式。（預設） |
-| `no-compatibility` | 僅在介面中產生預設實作，跳過相容性橋接器和 `DefaultImpls` 類別。 |
-| `disable` | 僅產生相容性橋接器 and `DefaultImpls` 類別，跳過預設方法。 |
-
 ### -Xdump-directory
-
 <primary-label ref="experimental-general"/>
 
 為 [-Xphases-to-dump-before`](#xphases-to-dump-before) 編譯器選項設定傾印檔案目錄。
+
+### -Xjvm-expose-boxed
+<primary-label ref="experimental-general"/>
+
+產生模組中所有內嵌值類別的封裝版本，以及使用它們的函式的封裝變體，使兩者都可以從 Java 存取。如需詳細資訊，請參閱從 Java 呼叫 Kotlin 指南中的[內嵌值類別](java-to-kotlin-interop.md#inline-value-classes)。
 
 ### -Xnullability-annotations
 <primary-label ref="experimental-general"/>
@@ -393,10 +402,6 @@ Kotlin 到 JVM 編譯的命令列工具是 `kotlinc` 和 `kotlinc-jvm`。
 Kotlin 到 JS 編譯的命令列工具是 `kotlinc-js`。
 
 除了[通用選項](#common-options)外，Kotlin/JS 編譯器還具有下列選項。
-
-### -target {es5|es2015}
-
-為指定的 ECMA 版本產生 JS 檔案。
 
 ### -libraries _路徑_
 
@@ -464,15 +469,19 @@ Kotlin 到 JS 編譯的命令列工具是 `kotlinc-js`。
 
 在原始碼對應檔中的路徑新增指定的前綴。
 
-### -Xes-long-as-bigint
-<primary-label ref="experimental-general"/>
+### -target {es5|es2015}
 
-在編譯為現代 JavaScript (ES2020) 時，啟用對 JavaScript `BigInt` 型別的支援，以表示 Kotlin `Long` 值。
+為指定的 ECMA 版本產生 JS 檔案。
 
 ### -Xenable-implementing-interfaces-from-typescript
 <primary-label ref="experimental-general"/>
 
 允許從 JavaScript/TypeScript 實作使用 `@JsExport` 註解[匯出的 Kotlin 介面](whatsnew2320.md#implementing-kotlin-interfaces-from-javascript-typescript)。
+
+### -Xes-long-as-bigint
+<primary-label ref="experimental-general"/>
+
+在編譯為現代 JavaScript (ES2020) 時，啟用對 JavaScript `BigInt` 型別的支援，以表示 Kotlin `Long` 值。
 
 ## Kotlin/Native 編譯器選項
 
@@ -484,6 +493,10 @@ Kotlin/Native 編譯的命令列工具是 `kotlinc-native`。
 ### -enable-assertions (-ea)
 
 在產生的程式碼中啟用執行時斷言。
+
+### -entry _名稱_ (-e _名稱_)
+
+指定限定入口點名稱。
 
 ### -g
 
@@ -509,6 +522,14 @@ Kotlin/Native 編譯的命令列工具是 `kotlinc-native`。
 ### -library-version _版本_ (-lv _版本_)
 
 設定程式庫版本。
+
+### -linker-option
+
+在建置二進位檔期間將引數傳遞給連結器。這可以用於與某些原生程式庫連結。
+
+### -linker-options _引數_
+
+在建置二進位檔期間將多個引數傳遞給連結器。以空白字元分隔引數。
     
 ### -list-targets
 
@@ -540,14 +561,6 @@ Kotlin/Native 編譯的命令列工具是 `kotlinc-native`。
 
 不要將程式庫封裝成 klib 檔案。
 
-### -linker-option
-
-在建置二進位檔期間將引數傳遞給連結器。這可以用於與某些原生程式庫連結。
-
-### -linker-options _引數_
-
-在建置二進位檔期間將多個引數傳遞給連結器。以空白字元分隔引數。
-
 ### -nostdlib
 
 不要與 stdlib 連結。
@@ -559,10 +572,6 @@ Kotlin/Native 編譯的命令列工具是 `kotlinc-native`。
 ### -output _名稱_ (-o _名稱_)
 
 設定輸出檔案的名稱。
-
-### -entry _名稱_ (-e _名稱_)
-
-指定限定入口點名稱。
 
 ### -produce _輸出_ (-p _輸出_)
 
@@ -587,3 +596,14 @@ Kotlin/Native 編譯的命令列工具是 `kotlinc-native`。
 <primary-label ref="experimental-general"/>
 
 為透過 cinterop 匯入的 C 或 Objective-C 程式庫啟用[新的互通性模式](whatsnew2320.md#new-interoperability-mode-for-c-or-objective-c-libraries)。
+
+### -Xoverride-konan-properties=min.version.*
+<primary-label ref="experimental-general"/>
+
+設定比 Kotlin 預設值更低的 Apple 目標支援版本。例如：
+
+```bash
+kotlinc -Xoverride-konan-properties=minVersion.ios=14.0
+kotlinc -Xoverride-konan-properties=minVersion.macos=11.0
+kotlinc -Xoverride-konan-properties=minVersion.tvos=14.0
+kotlinc -Xoverride-konan-properties=minVersion.watchos=7.0

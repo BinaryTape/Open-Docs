@@ -313,7 +313,7 @@
 >
 > - 2.0.0: 新しい解決の振る舞いを実装します。Enum エントリよりもコンパニオンプロパティが優先されます
 
-### invoke 呼び出しのレシーバー型と invoke 関数型を、糖衣構文を解除した形式で記述されたかのように解決
+### invoke 演算子コンベンションの呼び出しのレシーバー型と invoke 関数型を、糖衣構文を解除した形式で記述されたかのように解決
 
 > **Issue**: [KT-58260](https://youtrack.jetbrains.com/issue/KT-58260)
 >
@@ -615,6 +615,7 @@
 > **Deprecation cycle**:
 >
 > - 2.0.0: `defFile` および `defFileProperty` パラメータは非推奨となりました
+> - 2.4.0: [非推奨となった defFile プロパティに対してエラーを報告します](compatibility-guide-24.md#report-errors-for-obsolete-kotlin-native-gradle-task-apis)
 
 ### kotlin.useK2 Gradle プロパティの削除
 

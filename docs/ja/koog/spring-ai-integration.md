@@ -1,4 +1,10 @@
+---
+status: beta
+---
+
 # Spring AIとの統合
+
+--8<-- "versioning-snippets.md:beta"
 
 Koogは、Spring AIの抽象化とKoogエージェントフレームワークを橋渡しするSpring AI統合スターターを提供します。
 モデルアクセス、メモリ、またはベクトルストレージにすでにSpring AIを使用している場合、これらのスターターを使用することで、既存のSpring AI設定を置き換えることなく、その上にKoogを組み込むことができます。
@@ -103,7 +109,7 @@ koog.spring.ai.chat.dispatcher.type=AUTO
 ```
 
 単一の `ChatModel` Beanが存在する場合、すべてが自動的に動作します。
-アダプターがそれをKoogの `LLMClient` でラップし、すぐに使用可能な `PromptExecutor` を作成します。
+アダプターがそれをKoog의 `LLMClient` でラップし、すぐに使用可能な `PromptExecutor` を作成します。
 
 ### 使用例
 
@@ -356,7 +362,7 @@ koog.spring.ai.embedding.embedding-model-bean-name=openAiEmbeddingModel
 `koog-spring-ai-starter-chat-memory` スターターは、Spring AIのチャットメモリ抽象化とKoogエージェントフレームワークを橋渡しします。
 以下の内容を自動構成します：
 
-- Spring AIの `ChatMemoryRepository` に委譲する Koog の `ChatHistoryProvider` (`SpringAiChatHistoryProvider`)
+- Spring AI의 `ChatMemoryRepository` に委譲する Koog の `ChatHistoryProvider` (`SpringAiChatHistoryProvider`)
 
 このスターターは、Koogの完全な実行状態の永続化ではなく、テキストのみの会話の永続化を提供します。
 
@@ -625,7 +631,7 @@ koog.spring.ai.vectorstore.vector-store-bean-name=pgVectorStore
 
 - 最小限のAIワークフローを構築するための[基本エージェント](agents/basic-agents.md)について学ぶ
 - 高度なユースケース向けの[グラフベースのエージェント](agents/graph-based-agents.md)を探索する
-- エージェントの機能を拡張するために[ツールの概要](tools-overview.md)を確認する
+- エージェントの機能を拡張するために[ツールの概要](tools/index.md)を確認する
 - RAGの概念については[検索拡張生成 (Retrieval-Augmented Generation)](retrieval-augmented-generation.md)を読む
 - 実践的な実装については[サンプル](examples.md)をチェックする
 - 直接的なKoogスターターのアプローチについては[Spring Boot統合](spring-boot.md)ガイドを読む

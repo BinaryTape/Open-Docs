@@ -72,18 +72,6 @@ JVM Record 需要產生的 JVM 位元組碼目標版本為 `16` 或更高。
 在 Java 中，Record 元件上的[註解](annotations.md)會自動傳遞到支援欄位、getter、setter 以及建構函式參數。
 您可以在 Kotlin 中透過使用 [`all`](annotations.md#all-meta-target) 使用處目標來複製此行為。
 
-> 若要使用 `all` 使用處目標，您必須選擇加入 (opt in)。請使用 `-Xannotation-target-all` 編譯器選項，或者在您的 `build.gradle.kts` 檔案中加入以下內容：
->
-> ```kotlin
-> kotlin {
->     compilerOptions {
->         freeCompilerArgs.add("-Xannotation-target-all")
->     }
-> }
-> ```
->
-{style="warning"}
-
 例如：
 
 ```kotlin

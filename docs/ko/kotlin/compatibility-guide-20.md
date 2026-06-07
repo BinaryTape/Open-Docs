@@ -615,6 +615,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > **지원 종료 주기**:
 >
 > - 2.0.0: `defFile` 및 `defFileProperty` 매개변수 지원 중단
+> - 2.4.0: [지원 중단된 defFile 프로퍼티에 대해 오류 리포트](compatibility-guide-24.md#report-errors-for-obsolete-kotlin-native-gradle-task-apis)
 
 ### kotlin.useK2 Gradle 프로퍼티 제거
 

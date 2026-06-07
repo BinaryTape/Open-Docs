@@ -1,4 +1,10 @@
+---
+status: beta
+---
+
 # Spring AI 集成
+
+--8<-- "versioning-snippets.md:beta"
 
 Koog 提供了 Spring AI 集成 Starter，将 Spring AI 的抽象与 Koog 代理框架连接起来。
 如果您已经使用 Spring AI 进行模型访问、内存或矢量存储，这些 Starter 允许您在不替换现有 Spring AI 配置的情况下，在之上接入 Koog。
@@ -223,7 +229,7 @@ koog.spring.ai.chat.moderation-model-bean-name=openAiModerationModel
 
 ### 添加依赖项
 
-在添加 any Spring AI 嵌入模型 Starter 的同时添加此依赖项：
+在添加任何 Spring AI 嵌入模型 Starter 的同时添加此依赖项：
 
 === "Gradle (Kotlin DSL)"
 
@@ -630,7 +636,7 @@ koog.spring.ai.vectorstore.vector-store-bean-name=pgVectorStore
 
 - 了解 [基础代理](agents/basic-agents.md) 以构建最小化 AI 工作流
 - 探索用于高级用例的 [基于图的代理](agents/graph-based-agents.md)
-- 查看 [工具概览](tools-overview.md) 以扩展代理的能力
+- 查看 [工具概览](tools/index.md) 以扩展代理的能力
 - 阅读 [检索增强生成](retrieval-augmented-generation.md) 以了解 RAG 概念
 - 查看 [示例](examples.md) 以了解真实世界的实现
 - 阅读 [Spring Boot 集成](spring-boot.md) 指南以了解直接使用 Koog Starter 的方法

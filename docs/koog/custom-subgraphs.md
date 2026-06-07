@@ -138,7 +138,7 @@
     ```
     <!--- KNIT exampleCustomSubgraphsJava02.java -->
 
-有关参数和参数值的更多信息，请参阅 `subgraph` [API 参考](api:agents-core::ai.koog.agents.core.dsl.builder.AIAgentSubgraphBuilderBase.subgraph)。有关工具的更多信息，请参阅[工具](tools-overview.md)。
+有关参数和参数值的更多信息，请参阅 `subgraph` [API 参考](api:agents-core::ai.koog.agents.core.dsl.builder.AIAgentSubgraphBuilderBase.subgraph)。有关工具的更多信息，请参阅[工具](tools/index.md)。
 
 以下代码示例展示了自定义子图的实际实现：
 

@@ -15,7 +15,7 @@ Ktor 3.5.0은 서버와 클라이언트 전반에 걸쳐 다양한 개선 사항
 
 ### RFC 7616 다이제스트 인증 지원 {id="rfc-7616-digest-auth"}
 
-Ktor 3.5.0은 RFC 7616을 준수하도록 [`digest` 인증 프로바이더](server-digest-auth.md)를 업데이트하여 보안을 개선하고 현대적인 다이제스트 기능을 지원합니다.
+Ktor 3.5.0은 [RFC 7616](https://datatracker.ietf.org/doc/html/rfc7616)을 준수하도록 [`digest` 인증 프로바이더](server-digest-auth.md)를 업데이트하여 보안을 개선하고 현대적인 다이제스트 기능을 지원합니다.
 
 이번 릴리스에서는 다음과 같은 변경 사항이 도입되었습니다:
 
@@ -177,6 +177,19 @@ install(Sessions) {
     }
 }
 ```
+
+### 커스텀 SSE 하트비트(heartbeat) 이벤트
+
+이번 릴리스에서는 이벤트 프로바이더 함수를 사용하여 하트비트 이벤트를 완전히 커스터마이징할 수 있는 Ktor 서버 측 SSE 지원을 위한 새로운 옵션을 도입했습니다:
+
+```kotlin
+heartbeat {
+    period = 30.milliseconds
+    eventProvider = { ServerSentEvent(data = "ts=${Clock.System.now()}") }
+}
+```
+
+이를 통해 타임스탬프 및 상태 정보와 같은 커스텀 하트비트 페이로드를 일정한 간격으로 전송할 수 있습니다.
 
 ## Ktor 클라이언트 {id="ktor-client"}
 

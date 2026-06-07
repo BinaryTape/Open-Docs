@@ -1,4 +1,10 @@
+---
+status: beta
+---
+
 # GOAP 智能体
+
+--8<-- "versioning-snippets.md:beta"
 
 GOAP 是一种算法规划方法，它使用 [A* 搜索] 寻找在满足目标条件的同时使总代价最小的最优操作序列。
 与使用 LLM 生成方案的 [基于 LLM 的规划器](llm-based-planners.md) 不同，GOAP 智能体根据预定义的目标和操作，通过算法发现操作序列。

@@ -166,11 +166,11 @@ To calculate the product of 12 and 9, we multiply these two numbers together.
 ## 도구 추가하기
 
 많은 경우, 함수형 에이전트는 데이터 읽기 및 쓰기, API 호출 또는 기타 결정론적 작업 수행과 같은 특정 작업을 완료해야 합니다.
-Koog에서는 이러한 기능을 [도구(tools)](../tools-overview.md)로 노출하고 LLM이 이를 호출할 시점을 결정하게 할 수 있습니다.
+Koog에서는 이러한 기능을 [도구(tools)](../tools/index.md)로 노출하고 LLM이 이를 호출할 시점을 결정하게 할 수 있습니다.
 
 수행해야 할 작업은 다음과 같습니다:
 
-1. [어노테이션 기반 도구](../annotation-based-tools.md)를 생성합니다.
+1. [어노테이션 기반 도구](../tools/annotation-based-tools.md)를 생성합니다.
 2. 도구 레지스트리(tool registry)에 추가하고 레지스트리를 에이전트에 전달합니다.
 3. 에이전트 전략이 LLM 응답에서 도구 호출을 식별하고, 요청된 도구를 실행하며, 그 결과를 다시 LLM에 보내고, 더 이상 도구 호출이 남지 않을 때까지 이 과정을 반복할 수 있는지 확인합니다.
 

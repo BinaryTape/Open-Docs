@@ -216,7 +216,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 
 ## 標準ライブラリ
 
-### kotlin.native.Throws の非推奨化
+### `kotlin.native.Throws` の非推奨化
 
 > **課題**: [KT-72137](https://youtrack.jetbrains.com/issue/KT-72137)
 >
@@ -231,7 +231,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 1.9.0: `kotlin.native.Throws` を使用したときに警告を報告
 > - 2.2.0: 警告をエラーに引き上げ
 
-### AbstractDoubleTimeSource の非推奨化
+### `AbstractDoubleTimeSource` の非推奨化
 
 > **課題**: [KT-72137](https://youtrack.jetbrains.com/issue/KT-72137)
 >
@@ -248,7 +248,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 
 ## ツール
 
-### ソースを置換するように KotlinCompileTool の setSource() 関数を修正
+### ソースを置換するように `KotlinCompileTool` の `setSource()` 関数を修正
 
 > **課題**: [KT-59632](https://youtrack.jetbrains.com/issue/KT-59632)
 >
@@ -263,7 +263,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 >
 > - 2.2.0: 新しい動作を有効化
 
-### KotlinCompilationOutput#resourcesDirProvider プロパティの非推奨化
+### `KotlinCompilationOutput#resourcesDirProvider` プロパティの非推奨化
 
 > **課題**: [KT-70620](https://youtrack.jetbrains.com/issue/KT-70620)
 >
@@ -279,7 +279,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 2.1.0: `KotlinCompilationOutput#resourcesDirProvider` が警告付きで非推奨
 > - 2.2.0: 警告をエラーに引き上げ
 
-### BaseKapt.annotationProcessorOptionProviders プロパティの非推奨化
+### `BaseKapt.annotationProcessorOptionProviders` プロパティの非推奨化
 
 > **課題**: [KT-58009](https://youtrack.jetbrains.com/issue/KT-58009)
 >
@@ -295,7 +295,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 >
 > - 2.2.0: API で新しい型を強制
 
-### kotlin-android-extensions プラグインの非推奨化
+### `kotlin-android-extensions` プラグインの非推奨化
 
 > **課題**: [KT-72341](https://youtrack.jetbrains.com/issue/KT-72341/)
 >
@@ -310,8 +310,9 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 1.4.20: プラグインが非推奨に
 > - 2.1.20: 設定エラーが導入され、プラグインのコードは実行されなくなりました
 > - 2.2.0: プラグインのコードが削除されました
+> - 2.4.0: プラグイン ID を削除
 
-### kotlinOptions DSL の非推奨化
+### `kotlinOptions` DSL の非推奨化
 
 > **課題**: [KT-54110](https://youtrack.jetbrains.com/issue/KT-54110)
 >
@@ -328,7 +329,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 2.0.0: `kotlinOptions` DSL に対して警告を報告
 > - 2.2.0: 警告をエラーに引き上げ、`kotlinOptions` 内のすべてのプロパティを非推奨化
 
-### kotlin.incremental.useClasspathSnapshot プロパティの削除
+### `kotlin.incremental.useClasspathSnapshot` プロパティの削除
 
 > **課題**: [KT-62963](https://youtrack.jetbrains.com/issue/KT-62963)
 >
@@ -363,6 +364,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 >
 > - 2.1.0: `kotlinc` での REPL の使用を警告付きで非推奨化
 > - 2.2.0: `kotlinc` を介して REPL を使用するには、`-Xrepl` コンパイラオプションでオプトインが必要。JSR-223 を非推奨化（言語バージョン 1.9 に切り替えることでサポートを復元可能）。`KotlinScriptMojo` Maven プラグインを非推奨化
+> - 2.4.0: `KotlinScriptMojo` Maven プラグインによる Kotlin スクリプト実行の削除
 
 ### 曖昧さ回避分類器プロパティの非推奨化
 
@@ -431,7 +433,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 >
 > - 2.2.0: Kotlin Gradle プラグインからコンパイラオプションを削除
 
-### KotlinCompilation.source API の非推奨化
+### `KotlinCompilation.source` API の非推奨化
 
 > **課題**: [KT-64991](https://youtrack.jetbrains.com/issue/KT-64991)
 >
@@ -484,7 +486,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 2.1.0: ターゲットショートカットが使用されたときにエラーを報告
 > - 2.2.0: Kotlin Multiplatform Gradle プラグインからターゲットショートカット DSL を削除
 
-### publishAllLibraryVariants() 関数の非推奨化
+### `publishAllLibraryVariants()` 関数の非推奨化
 
 > **課題**: [KT-60623](https://youtrack.jetbrains.com/issue/KT-60623)
 >
@@ -498,7 +500,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 >
 > - 2.2.0: `publishAllLibraryVariants()` を非推奨化
 
-### android ターゲットの非推奨化
+### `android` ターゲットの非推奨化
 
 > **課題**: [KT-71608](https://youtrack.jetbrains.com/issue/KT-71608)
 >
@@ -514,7 +516,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 2.1.0: 警告をエラーに引き上げ
 > - 2.2.0: Kotlin Multiplatform Gradle プラグインから `android` ターゲット DSL を削除
 
-### CInteropProcess における konanVersion の非推奨化
+### `CInteropProcess` における `konanVersion` の非推奨化
 
 > **課題**: [KT-71069](https://youtrack.jetbrains.com/issue/KT-71069)
 >
@@ -531,7 +533,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 2.2.0: 警告をエラーに引き上げ
 > - 2.3.0: Kotlin Gradle プラグインから `konanVersion` プロパティを削除
 
-### CInteropProcess における destinationDir の非推奨化
+### `CInteropProcess` における `destinationDir` の非推奨化
 
 > **課題**: [KT-71068](https://youtrack.jetbrains.com/issue/KT-71068)
 >
@@ -548,7 +550,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 2.2.0: 警告をエラーに引き上げ
 > - 2.3.0: Kotlin Gradle プラグインから `destinationDir` プロパティを削除
 
-### kotlinArtifacts API の非推奨化
+### `kotlinArtifacts` API の非推奨化
 
 > **課題**: [KT-74953](https://youtrack.jetbrains.com/issue/KT-74953)
 >

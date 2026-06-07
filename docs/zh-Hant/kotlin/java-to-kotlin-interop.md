@@ -403,9 +403,68 @@ var x: Int = 23
 
 ## 多載產生
 
-通常，如果您編寫一個具有參數預設值的 Kotlin 函式，它在 Java 中僅以完整簽章的形式可見（包含所有參數）。如果您希望向 Java 呼叫者公開多個多載，可以使用 [`@JvmOverloads`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html) 註解。
+通常，如果您編寫一個具有參數預設值的 Kotlin 函式，它在 Java 中僅以完整簽章的形式可見（包含所有參數）。
 
-該註解也適用於建構函式、static 方法等。它不能用於抽象方法，包括介面中定義的方法。
+您可以使用 [`@IntroducedAt`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-introduced-at/) 註解或 [`@JvmOverloads`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html) 註解來為選擇性參數產生多載。
+
+當您將新的選擇性參數新增至已發佈的 API，並希望產生的多載能反映每個參數引入的版本時，請使用 `@IntroducedAt`。
+編譯器會利用此資訊自動產生對應的隱藏多載。
+
+這為您提供了基於版本的多載產生，並有助於為針對舊版程式庫編譯的呼叫者保持二進制相容性。
+
+> `@IntroducedAt` 註解是[實驗功能](components-stability.md#stability-levels-explained)。若要加入，請使用
+> `@OptIn(ExperimentalVersionOverloading::class)` 註解。
+> 
+{style="warning"}
+
+以下是一個 `Button()` 函式在多個 API 版本中接收多個選擇性參數的範例：
+
+```kotlin
+@OptIn(ExperimentalVersionOverloading::class)
+fun Button(
+    label: String = "",
+    color: Color = DefaultColor,
+    @IntroducedAt("1.1") borderColor: Color = DefaultBorderColor,
+    @IntroducedAt("1.2") borderStyle: Style = DefaultBorderStyle,
+    @IntroducedAt("1.2") borderWidth: Int = 1,
+    onClick: () -> Unit
+) {
+    // 函式體
+}
+```
+
+根據這些版本，編譯器會為原始 API 以及每個引入新選擇性參數的 API 版本產生隱藏多載：
+
+```kotlin
+// 原始 API
+Button(
+    label: String,
+    color: Color,
+    onClick: () -> Unit
+)
+
+// 版本 1.1
+Button(
+    label: String,
+    color: Color,
+    borderColor: Color,
+    onClick: () -> Unit
+)
+
+// 版本 1.2
+Button(
+    label: String,
+    color: Color,
+    borderColor: Color,
+    borderStyle: Style,
+    borderWidth: Int,
+    onClick: () -> Unit
+)
+```
+
+如果您想向 Java 呼叫者公開多個多載，也可以使用 [`@JvmOverloads`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html) 註解。
+
+該註解也適用於建構函式、static 方法等。它不能用於抽象方法，包括介面中定義的方法。例如，考慮一個具有參數預設值的 `Circle` 類別：
 
 ```kotlin
 class Circle @JvmOverloads constructor(centerX: Int, centerY: Int, radius: Double = 1.0) {
@@ -425,6 +484,9 @@ void draw(String label, int lineWidth, String color) { }
 void draw(String label, int lineWidth) { }
 void draw(String label) { }
 ```
+
+由於 `@IntroducedAt` 與 `@JvmOverloads` 註解都會產生多載，同時使用它們可能會建立衝突的多載。
+如果您同時使用這兩個註解，編譯器會報告警告。如果您隱藏警告，編譯器會優先使用從 `@IntroducedAt` 註解產生的多載。
 
 請注意，如[次要建構函式](classes.md#secondary-constructors)中所述，如果一個類別的所有建構函式參數都有預設值，則會為其產生一個無引數的 public 建構函式。即使未指定 `@JvmOverloads` 註解，這也會生效。
 
@@ -495,7 +557,7 @@ Box<Derived> boxDerived(Derived value) { ... }
 Base unboxBase(Box<Base> box) { ... }
 ```
 
-問題在於，在 Kotlin 中您可以寫 `unboxBase(boxDerived(Derived()))`，但在 Java 中這是不可能的，因為在 Java 中 `Box` 類別在其參數 `T` 上是 *不變 (invariant)* 的，因此 `Box<Derived>` 不是 `Box<Base>` 的子型別。
+問題在於，在 Kotlin 中您可以寫 `unboxBase(boxDerived(Derived()))`，但在 Java 中這是不可能的，因為在 Java 中 `Box` 類別在其參數 `T` 上是 *不變 (invariant)* 的，因此 `Box<Derived>` 不是 `Box<Base>` 的子型別。 
 為了讓這在 Java 中可行，您必須如下定義 `unboxBase`：
 
 ```java
@@ -597,7 +659,7 @@ MyInt input = new MyInt(5);
 MyInt output = ExampleKt.timesTwoBoxed(input);
 ```
 
-若要將此行為套用於模組內的所有 Inline Value 類別及其使用的函式，請使用 `-Xjvm-expose-boxed` 選項進行編譯。
+若要將此行為套用於模組內的所有 Inline Value 類別及其使用的函式，請使用 `-Xjvm-expose-boxed` 選項進行編譯。 
 使用此選項進行編譯的效果等同於模組中的每個宣告都具有 `@JvmExposeBoxed` 註解。
 
 ### 繼承的函式

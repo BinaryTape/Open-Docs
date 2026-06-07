@@ -568,7 +568,7 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 | 이름 | 설명 | 가능한 값 | 기본값 |
 |---------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|-----------------------------|
 | `javaParameters` | 메서드 파라미터에 대한 Java 1.8 리플렉션용 메타데이터를 생성합니다. | | false |
-| `jvmTarget` | 생성된 JVM 바이트코드의 타겟 버전입니다. | "1.8", "9", "10", ..., "24", 25". 또한 [컴파일러 옵션용 타입](#types-for-compiler-options)을 참고하세요. | "%defaultJvmTargetVersion%" |
+| `jvmTarget` | 생성된 JVM 바이트코드의 타겟 버전입니다. | "1.8", "9", "10", ..., "25", "26". 또한 [컴파일러 옵션용 타입](#types-for-compiler-options)을 참고하세요. | "%defaultJvmTargetVersion%" |
 | `noJdk` | 클래스패스에 Java 런타임을 자동으로 포함하지 않습니다. | | false |
 | `jvmTargetValidationMode` | <list><li>Kotlin과 Java 간의 [JVM 타겟 호환성](gradle-configure-project.md#check-for-jvm-target-compatibility-of-related-compile-tasks) 유효성 검사</li><li>`KotlinCompile` 타입 태스크를 위한 속성입니다.</li></list> | `WARNING`, `ERROR`, `IGNORE` | `ERROR` |
 | `jvmDefault` | 인터페이스에 선언된 함수가 JVM에서 디폴트 메서드로 컴파일되는 방식을 제어합니다. | `ENABLE`, `NO_COMPATIBILITY`, `DISABLE` | `ENABLE` |
@@ -581,8 +581,8 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 | `suppressWarnings` | 경고를 생성하지 않습니다. | | false |
 | `verbose` | 상세 로깅 출력을 활성화합니다. [Gradle 디버그 로그 레벨이 활성화된](https://docs.gradle.org/current/userguide/logging.html) 경우에만 작동합니다. | | false |
 | `freeCompilerArgs` | 추가 컴파일러 인자 목록입니다. 실험적인 `-X` 인자도 여기서 사용할 수 있습니다. [freeCompilerArgs를 통한 추가 인자 사용 예시](#example-of-additional-arguments-usage-via-freecompilerargs)를 참고하세요. | | [] |
-| `apiVersion` | 번들 라이브러리의 지정된 버전 선언으로만 사용을 제한합니다. | "1.9", "2.0", "2.1", "2.2", "2.3", "2.4" (EXPERIMENTAL) | |
-| `languageVersion` | 지정된 버전의 Kotlin과 소스 호환성을 제공합니다. | "1.9", "2.0", "2.1", "2.2", "2.3", "2.4" (EXPERIMENTAL) | |
+| `apiVersion` | 번들 라이브러리의 지정된 버전 선언으로만 사용을 제한합니다. | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (EXPERIMENTAL) | |
+| `languageVersion` | 지정된 버전의 Kotlin과 소스 호환성을 제공합니다. | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (EXPERIMENTAL) | |
 
 > 향후 릴리스에서 `freeCompilerArgs` 속성을 지원 중단(deprecate)할 예정입니다. Kotlin Gradle DSL에 누락된 옵션이 있다면 [이슈를 제기](https://youtrack.jetbrains.com/newissue?project=kt)해 주세요.
 >

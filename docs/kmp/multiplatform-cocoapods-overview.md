@@ -362,6 +362,19 @@ pod("NearbyMessages") {
 
 查看 [CocoaPods 文档](https://guides.cocoapods.org/) 了解更多信息。如果这些方法都不起作用，并且您仍然遇到此错误，请在 [YouTrack](https://youtrack.jetbrains.com/newissue?project=kt) 中报告问题。
 
+### 应用程序包中缺少资源 {initial-collapse-state="collapsed" collapsible="true"}
+
+如果您的 iOS 应用构建成功但在启动时崩溃，或者最终的 `.ipa` 包中缺少自定义字体和图像等资源，则可能是 Pod 与项目的集成方式存在问题。
+
+**为了防止此问题**：不要直接运行 `pod install` 命令，而是使用 Kotlin CocoaPods Gradle 插件提供的 Gradle `podInstall` 任务。该任务会创建所需的目录并为您配置好一切：
+
+```bash
+./gradlew podInstall
+open iosApp/iosApp.xcworkspace
+```
+
+**问题发生的原因**：当您在全新的项目上（例如，在克隆仓库后或在 CI/CD 流水线中工作时）运行原生的 `pod install` 命令时，资源目录尚未创建。Compose Multiplatform Gradle 插件在生成的 `.podspec` 文件中指定了资源的位置：`spec.resources = ['build/compose/cocoapods/compose-resources']`，但该路径仅在构建后才会存在。因此，CocoaPods 会忽略缺失的目录，并在没有这些资源的情况下配置 Xcode 项目。当项目构建并生成资源后，Xcode 不会将其复制到最终的包中。
+
 ### Rsync 错误 {initial-collapse-state="collapsed" collapsible="true"}
 
 您可能会遇到 `rsync error: some files could not be transferred` 错误。这是一个 [已知问题](https://github.com/CocoaPods/CocoaPods/issues/11946)，如果 Xcode 中的应用程序目标启用了用户脚本沙箱化 (sandboxing)，就会发生此问题。

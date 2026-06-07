@@ -19,9 +19,15 @@ Koog 是一個專為 JVM 生態系統設計，用於建置 AI agent 的開源 Je
 
     了解基本術語
 
+-   :material-shield-check-outline:{ .lg .middle } [**模組版本控制**](module-versioning.md)
+
+    ---
+
+    了解穩定與 beta 模組以及 API 保證
+
 </div>
 
-## Agent 類型
+## Agent
 
 進一步了解 [agent 概覽](agents/index.md) 以及如何使用 Koog 建立不同類型的 agent：
 
@@ -45,7 +51,7 @@ Koog 是一個專為 JVM 生態系統設計，用於建置 AI agent 的開源 Je
 
     將自訂工作流程實作為策略圖
 
--   :material-list-status:{ .lg .middle } [**規劃型 agent**](agents/planner-agents/index.md)
+-   :material-list-status:{ .lg .middle } [**規劃型 agent**](agents/planner-agents/index.md) <span class="beta-badge" title="Beta — API may change">beta</span>
 
     ---
 
@@ -71,7 +77,7 @@ Koog 是一個專為 JVM 生態系統設計，用於建置 AI agent 的開源 Je
 
     將 agent 預定的工作流程設計為有向圖
 
--   :material-tools:{ .lg .middle } [**工具**](tools-overview.md)
+-   :material-tools:{ .lg .middle } [**工具**](tools/index.md)
 
     ---
 
@@ -114,7 +120,7 @@ Koog 是一個專為 JVM 生態系統設計，用於建置 AI agent 的開源 Je
 
     透過串流支援與平行工具呼叫即時處理回應
 
--   :material-database-search:{ .lg .middle } [**知識檢索**](embeddings.md)
+-   :material-database-search:{ .lg .middle } [**知識檢索**](embeddings.md) <span class="beta-badge" title="Beta — API may change">beta</span>
 
     ---
 
@@ -126,7 +132,7 @@ Koog 是一個專為 JVM 生態系統設計，用於建置 AI agent 的開源 Je
 
     透過詳細且可配置的追蹤功能來偵錯與監控 agent 執行
 
--   :material-timeline-text:{ .lg .middle } [**長期記憶**](features/long-term-memory.md)
+-   :material-timeline-text:{ .lg .middle } [**長期記憶**](features/long-term-memory.md) <span class="beta-badge" title="Beta — API may change">beta</span>
 
     ---
 
@@ -138,19 +144,19 @@ Koog 是一個專為 JVM 生態系統設計，用於建置 AI agent 的開源 Je
 
 <div class="grid cards" markdown>
 
--   :material-puzzle:{ .lg .middle } [**模型上下文協定 (MCP)**](model-context-protocol.md)
+-   :material-puzzle:{ .lg .middle } [**模型上下文協定 (MCP)**](model-context-protocol.md) <span class="beta-badge" title="Beta — API may change">beta</span>
 
     ---
 
     直接在 AI agent 中使用 MCP 工具
 
--   :material-leaf:{ .lg .middle } [**Spring Boot**](spring-boot.md)
+-   :material-leaf:{ .lg .middle } [**Spring Boot**](spring-boot.md) <span class="beta-badge" title="Beta — API may change">beta</span>
 
     ---
 
     將 Koog 新增到您的 Spring 應用程式
 
--   :material-cloud-outline:{ .lg .middle } [**Ktor**](ktor-plugin.md)
+-   :material-cloud-outline:{ .lg .middle } [**Ktor**](ktor-plugin.md) <span class="beta-badge" title="Beta — API may change">beta</span>
 
     ---
 
@@ -162,7 +168,7 @@ Koog 是一個專為 JVM 生態系統設計，用於建置 AI agent 的開源 Je
 
     使用流行的觀測工具來追蹤、記錄並測量您的 agent
 
--   :material-lan:{ .lg .middle } [**A2A 協定**](a2a-protocol-overview.md)
+-   :material-lan:{ .lg .middle } [**A2A 協定**](a2a/index.md) <span class="beta-badge" title="Beta — API may change">beta</span>
 
     ---
 

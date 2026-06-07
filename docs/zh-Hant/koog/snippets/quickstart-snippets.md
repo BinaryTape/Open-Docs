@@ -18,7 +18,10 @@ exclude: true
 
     ``` kotlin title="build.gradle.kts"
     dependencies {
+        // 穩定版
         implementation("ai.koog:koog-agents:1.0.0")
+
+        // Beta
         implementation("ai.koog:koog-agents-additions:1.0.0-beta")
     }
     ```
@@ -27,7 +30,10 @@ exclude: true
 
     ``` groovy title="build.gradle"
     dependencies {
+        // 穩定版
         implementation 'ai.koog:koog-agents:1.0.0'
+
+        // Beta
         implementation 'ai.koog:koog-agents-additions:1.0.0-beta'
     }
     ```
@@ -36,14 +42,19 @@ exclude: true
 
     ```xml title="pom.xml"
     <dependency>
-        <groupId>ai.koog</groupId>
-        <artifactId>koog-agents-jvm</artifactId>
-        <version>1.0.0</version>
-    </dependency>
-    <dependency>
-        <groupId>ai.koog</groupId>
-        <artifactId>koog-agents-additions-jvm</artifactId>
-        <version>1.0.0-beta</version>
+        <!-- 穩定版 -->
+        <dependency>
+            <groupId>ai.koog</groupId>
+            <artifactId>koog-agents-jvm</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <!-- Beta -->
+        <dependency>
+            <groupId>ai.koog</groupId>
+            <artifactId>koog-agents-additions-jvm</artifactId>
+            <version>1.0.0-beta</version>
+        </dependency>
     </dependency>
     ```
 # --8<-- [end:dependencies]

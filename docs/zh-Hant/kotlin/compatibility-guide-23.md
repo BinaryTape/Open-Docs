@@ -344,6 +344,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 >
 > - 2.2.20：報告警告
 > - 2.3.0：將警告提升為錯誤
+> - 2.4.0：移除該函式
 
 ### 移除 `closureTo()`、`createResultSet()` 和 `KotlinToolingVersionOrNull()` 函式
 
@@ -416,6 +417,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 >
 > - 2.2.0 和 2.2.20：使用這些函式或屬性時報告警告
 > - 2.3.0：將警告提升為錯誤
+> - 2.4.0：移除這些函式與屬性
 
 ### 棄用對 PhantomJS 的支援
 
@@ -459,6 +461,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 >
 > - 2.2.0：對從這些類別建立子類別的程式碼報告警告
 > - 2.3.0：將警告提升為錯誤
+> - 2.4.0：移除這些 API
 
 ### 棄用 `ExperimentalWasmDsl` 註解類別
 
@@ -474,6 +477,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 >
 > - 2.0.20：報告警告
 > - 2.3.0：將警告提升為錯誤
+> - 2.4.0：移除該註解類別
 
 ### 棄用 `ExperimentalDceDsl` 註解類別
 
@@ -489,6 +493,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 >
 > - 2.2.0：報告警告
 > - 2.3.0：將警告提升為錯誤
+> - 2.4.0：移除該註解類別
 
 ### 棄用 JavaScript 工具程式
 
@@ -513,6 +518,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.2.0：使用 `NodeJsSetupTask.Companion.NAME` 屬性和函式時報告警告
 > - 2.2.20：使用 `JsIrBinary.generateTs` 屬性時報告警告
 > - 2.3.0：將警告提升為錯誤
+> - 2.4.0：移除這些 API
 
 ### 棄用已遷移的 D8 和 Binaryen 屬性
 
@@ -537,6 +543,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 >
 > - 2.2.0：報告警告
 > - 2.3.0：將警告提升為錯誤
+> - 2.4.0：移除這些屬性
 
 ### 棄用 `NodeJsExec` DSL 中的 `create()` 函式
 
@@ -544,7 +551,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 >
 > **組建**：Gradle
 >
-> **不相容變改類型**：原始碼
+> **不相容變更類型**：原始碼
 >
 > **簡短摘要**：`NodeJsExec` DSL 伴隨物件中的 `create()` 函式已棄用。請改用 `register()` 函式。
 >
@@ -552,6 +559,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 >
 > - 2.1.20：報告警告
 > - 2.3.0：將警告提升為錯誤
+> - 2.4.0：移除該函式
 
 ### 棄用 `kotlinOptions` DSL 中的屬性
 
@@ -586,6 +594,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 >
 > - 2.2.0：使用 `kotlinArtifacts` API 時報告警告
 > - 2.3.0：將此警告提升為錯誤
+> - 2.4.0：移除該 API
 
 ### 移除 `kotlin.mpp.resourcesResolutionStrategy` Gradle 屬性
 
@@ -631,7 +640,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.1.20：報告警告
 > - 2.3.0：移除這些屬性
 
-### 棄用 `CInteropProcess` 中的 `destinationDir`
+### 棄用 `destinationDir` 在 `CInteropProcess` 中
 
 > **問題**：[KT-74910](https://youtrack.jetbrains.com/issue/KT-74910)
 >
@@ -648,7 +657,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.2.0：將此警告提升為錯誤
 > - 2.3.0：隱藏 `destinationDir` 屬性
 
-### 棄用 `CInteropProcess` 中的 `konanVersion`
+### 棄用 `konanVersion` 在 `CInteropProcess` 中
 
 > **問題**：[KT-74911](https://youtrack.jetbrains.com/issue/KT-74911)
 >
@@ -699,6 +708,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 >
 > - 2.2.20：報告警告
 > - 2.3.0：將警告提升為錯誤
+> - 2.4.0：移除該函式
 
 ### 變更註冊所有產生之原始碼的方法
 
@@ -776,7 +786,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 
 ### 棄用 `LanguageSettings.enableLanguageFeature` DSL
 
-> **問題**：[KT-82323](https://youtrack.jetbrains.com/issue/KT-82323)
+> **問題**：[KT-82323](https://youtrack.jetbrains.com/issue/KT-82323), [KT-82847](https://youtrack.jetbrains.com/issue/KT-82847)
 >
 > **組建**：Gradle
 >
@@ -786,7 +796,8 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 >
 > **棄用週期**：
 >
-> - 2.3.20：報告警告
+> - 2.3.20：使用 `LanguageSettings.enableLanguageFeature` 時報告警告
+> - 2.4.0：將警告提升為錯誤
 
 ### 棄用「進程外」(out of process) 編譯器執行策略
 
@@ -801,6 +812,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > **棄用週期**：
 >
 > - 2.3.20：報告警告
+> - 2.4.0：移除「進程外」(out of process) 編譯器執行策略
 
 ## 移除建置工具
 

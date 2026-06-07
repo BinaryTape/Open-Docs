@@ -354,7 +354,7 @@ graph LR
 
 ## 新增工具
 
-定義用於執行數學運算的 [工具](../tools-overview.md)，並將其新增至 [ToolRegistry](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool-registry/index.html)：
+定義用於執行數學運算的 [工具](../tools/index.md)，並將其新增至 [ToolRegistry](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool-registry/index.html)：
 
 === "Kotlin"
 
@@ -527,7 +527,7 @@ graph LR
             @Tool
             @LLMDescription("將兩個數字相乘並回傳結果")
             public int multiply(int a, int b) {
-                // 這不是必須的，打有助於在主控台輸出中查看工具呼叫
+                // 這不是必須的，但有助於在主控台輸出中查看工具呼叫
                 System.out.println("Multiplying " + a + " and " + b + "...");
                 return a * b;
             }

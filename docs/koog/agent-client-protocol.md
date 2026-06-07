@@ -1,4 +1,10 @@
+---
+status: beta
+---
+
 # Agent Client Protocol
+
+--8<-- "versioning-snippets.md:beta"
 
 Agent Client Protocol (ACP) 是一种开源的标准化协议，使客户端应用程序能够通过一致的双向接口与 AI 智能体进行通信。通过在您的 Koog 智能体中实现 ACP，您可以确保它能够轻松集成到任何符合 ACP 规范的环境中，例如 IDE。
 

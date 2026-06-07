@@ -500,12 +500,14 @@ Kotlin Playground 支持 Kotlin 2.0.0 及更高版本。[快来看看吧！](htt
 
 ## 如何回退到之前的编译器
 
-要在 Kotlin 2.0.0 及更高版本中使用之前的编译器，请执行以下任一操作：
+要在 Kotlin 2.0.0–2.3.21 中使用之前的编译器，请执行以下任一操作：
 
 * 在您的 `build.gradle.kts` 文件中，[将语言版本设置为](gradle-compiler-options.md#example-of-setting-languageversion) `1.9`。
 
   或者
 * 使用以下编译器选项：`-language-version 1.9`。
+
+从 Kotlin 2.4.0 开始，您将无法回退到之前的编译器。
 
 ## 变化
 
@@ -607,7 +609,7 @@ fun exampleFunction(starProjected: Container<*>, inProjected: Container<in Numbe
 
 **发生了什么变化？**
 
-由于 K2 编译器的新架构，我们改变了处理不可访问泛型类型的方式。通常，您绝不应在代码中依赖不可访问的泛型类型，因为这表示项目构建配置中存在配置错误，导致编译器无法访问编译所需的信息。在 Kotlin 2.0.0 中，您不能声明或调用具有不可访问泛型类型实参的函数字面量，也不能使用具有不可访问泛型类型实参的泛型类型。此限制有助于您避免稍后在代码中出现编译器错误。
+由于 K2 编译器的新架构，我们改变了处理不可访问泛型类型的方式。通常，您绝不应在代码中依赖不可访问的泛型类型，因为这表示项目构建配置中存在配置错误，导致编译器无法访问编译所需的信息。在 Kotlin 2.0.0 中，您不能声明或调用具有不可访问泛型类型形参的函数字面量，也不能使用具有不可访问泛型类型实参的泛型类型。此限制有助于您避免稍后在代码中出现编译器错误。
 
 例如，假设您在一个模块中声明了一个泛型类：
 
@@ -1096,7 +1098,7 @@ actual open class PlatformFileSystem : FileSystem {
 |-----------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
 | [KT-52628](https://youtrack.jetbrains.com/issue/KT-52628) | 弃用在没有注解的情况下需要 OptIn 的 SAM 构造函数用法 |
 | [KT-57014](https://youtrack.jetbrains.com/issue/KT-57014) | 禁止从 JDK 函数接口的 SAM 构造函数的 lambda 返回具有不正确为 null 性的值 |
-| [KT-64342](https://youtrack.jetbrains.com/issue/KT-64342) | 可调用引用的形参类型的 SAM 转换会导致 CCE |
+| [KT-64342](https://youtrack.jetbrains.com/issue/KT-64342) | 可 callable 引用（可调用引用）的形参类型的 SAM 转换会导致 CCE |
 
 #### 伴生对象 {initial-collapse-state="collapsed" collapsible="true"}
 
