@@ -55,6 +55,24 @@ const docCardConfig = computed(() => [
         tags: [t('homepage.card.coil.tag.crossplatform'), t('homepage.card.coil.tag.imageloadder')],
     },
 ])
+
+const sponsors = [
+    {
+        name: 'JetBrains',
+        href: 'https://www.jetbrains.com/',
+        logo: 'https://www.jetbrains.com/favicon.ico',
+    },
+    {
+        name: 'Google Developer Program',
+        href: 'https://developers.google.com/program',
+        logo: 'https://developers.google.com/static/program/images/gdp/join-the-convo-gdp-logo.svg',
+    },
+    {
+        name: 'BinaryTape',
+        href: 'https://binarytape.com',
+        logo: 'https://2bab-images.lastmayday.com/binarytape-logo.webp?imageslim',
+    },
+] as const
 </script>
 
 <template>
@@ -83,25 +101,13 @@ const docCardConfig = computed(() => [
             </div>
         </div>
 
-        <div class="adBanner">
-            <div class="adContentVertical">
-                <img src="https://2bab-images.lastmayday.com/binarytape-logo.webp?imageslim" alt="BinaryTape Logo"
-                    class="adLogo" />
-                <div class="adInfo">
-                    <h3 class="adTitle">
-                        <a href="https://binarytape.com" target="_blank">BinaryTape</a>
-                    </h3>
-                    <p class="adDescription">
-                        <a href="https://binarytape.com" target="_blank">BinaryTape</a>
-                        {{ $t('homepage.ad.description') }}
-                    </p>
-                    <p class="adContact">
-                        {{ $t('homepage.ad.contact') }}
-                    </p>
-                    <p class="adSponsor">
-                        {{ $t('homepage.ad.sponsor') }}
-                    </p>
-                </div>
+        <div class="adBanner" aria-label="Sponsors">
+            <div class="sponsorList">
+                <a v-for="sponsor in sponsors" :key="sponsor.name" class="sponsorItem" :href="sponsor.href"
+                    target="_blank" rel="noopener noreferrer">
+                    <img :src="sponsor.logo" :alt="`${sponsor.name} logo`" class="sponsorLogo" loading="lazy" />
+                    <span class="sponsorName">{{ sponsor.name }}</span>
+                </a>
             </div>
         </div>
     </main>

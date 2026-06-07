@@ -581,7 +581,65 @@ export function cleanupTranslation(text) {
   // Fix YAML frontmatter values with special characters that need quoting
   text = fixFrontmatterQuoting(text);
 
+  // Prevent translated Markdown from being parsed as broken Vue templates.
+  text = fixVueMarkdownParsing(text);
+
   return text;
+}
+
+function fixVueMarkdownParsing(text) {
+  return transformOutsideFencedBlocks(text, (line) =>
+    escapeInlineHtmlCode(escapeGenericTableCells(line))
+  );
+}
+
+function transformOutsideFencedBlocks(text, transformLine) {
+  let inFence = false;
+  return text
+    .split("\n")
+    .map((line) => {
+      if (/^\s*```/.test(line)) {
+        inFence = !inFence;
+        return line;
+      }
+      return inFence ? line : transformLine(line);
+    })
+    .join("\n");
+}
+
+function escapeInlineHtmlCode(line) {
+  return line.replace(/<code>([\s\S]*?)<\/code>/g, (match, code) => {
+    if (!/[<>*]/.test(code)) return match;
+
+    const escaped = code
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/\*/g, "&#42;");
+
+    return `<code>${escaped}</code>`;
+  });
+}
+
+function escapeGenericTableCells(line) {
+  if (!line.trim().startsWith("|") || !line.includes("|")) return line;
+
+  const cells = line.split("|");
+  if (cells.length < 3) return line;
+
+  for (let i = 1; i < cells.length - 1; i++) {
+    cells[i] = escapeGenericTableCell(cells[i]);
+  }
+
+  return cells.join("|");
+}
+
+function escapeGenericTableCell(cell) {
+  const value = cell.trim();
+  if (!value || value.includes("`") || value.includes("&lt;")) return cell;
+
+  if (!/^[A-Za-z_][\w.]*\??<[^`|]+>\??$/.test(value)) return cell;
+
+  return cell.replace(value, `\`${value}\``);
 }
 
 // Fix YAML frontmatter values containing special characters by wrapping them in double quotes
