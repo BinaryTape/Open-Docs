@@ -9,6 +9,7 @@ defineProps<{
 const { theme } = useData()
 const route = useRoute()
 const docs = computed(() => theme.value.communityDocs || [])
+const kotlinVersion = computed(() => theme.value.kotlinVersion || '')
 
 function isActive(home: string) {
   if (home.startsWith('/docs/language/')) return route.path.startsWith('/docs/language/')
@@ -22,7 +23,7 @@ function isActive(home: string) {
   <header class="kt-header" :class="{ 'is-docs': docsMode }">
     <a class="kt-brand" href="/" aria-label="Kotlin 中文社区首页">
       <img src="/assets/kotlin-logo-white.svg" alt="Kotlin" />
-      <span>v2.4.0</span>
+      <span v-if="kotlinVersion">v{{ kotlinVersion }}</span>
     </a>
     <nav class="kt-top-docs" aria-label="Documentation">
       <span class="kt-docs-label">Docs</span>
@@ -37,4 +38,3 @@ function isActive(home: string) {
     </nav>
   </header>
 </template>
-

@@ -159,7 +159,7 @@ textarea {
   width: min(1180px, calc(100vw - 64px));
   min-height: max(900px, 100vh);
   margin: 0 auto;
-  padding-top: 138px;
+  padding: 138px 0 96px;
   align-items: center;
 }
 
@@ -234,6 +234,68 @@ textarea {
   width: 560px;
   height: 560px;
   object-fit: contain;
+}
+
+.kt-home-footer {
+  position: absolute;
+  right: 0;
+  bottom: 24px;
+  left: 0;
+  padding: 0 32px;
+  color: rgba(255, 255, 255, .56);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.kt-home-footer p {
+  margin: 0;
+}
+
+.kt-home-footer-inner {
+  width: min(1180px, calc(100vw - 64px));
+  margin: 0 auto;
+  padding-top: 13px;
+  border-top: 1px solid rgba(255, 255, 255, .13);
+}
+
+.kt-home-sync {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+}
+
+.kt-home-sync span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.kt-home-sync strong {
+  color: rgba(255, 255, 255, .82);
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.kt-home-sync b {
+  font-weight: 500;
+}
+
+.kt-home-sync i {
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--kt-purple);
+  opacity: .9;
+}
+
+.kt-home-community {
+  margin-top: 3px !important;
+  color: rgba(255, 255, 255, .82);
+  font-weight: 600;
 }
 
 .kt-doc-shell {
@@ -414,15 +476,15 @@ textarea {
   }
 
   .kt-home {
-    min-height: 100vh;
+    min-height: max(820px, 100vh);
   }
 
   .kt-home-hero {
     grid-template-columns: 1fr;
     gap: 22px;
     width: min(100vw - 32px, 620px);
-    min-height: 100vh;
-    padding-top: 92px;
+    min-height: max(820px, 100vh);
+    padding: 92px 0 96px;
   }
 
   .kt-home-copy {
@@ -439,6 +501,28 @@ textarea {
 
   .kt-developed {
     margin-top: 42px;
+  }
+
+  .kt-home-footer {
+    bottom: 18px;
+    padding: 0 18px;
+    font-size: 11px;
+    text-align: center;
+  }
+
+  .kt-home-footer-inner {
+    width: min(100%, 620px);
+    padding-top: 12px;
+  }
+
+  .kt-home-sync {
+    justify-content: center;
+    row-gap: 5px;
+    column-gap: 6px;
+  }
+
+  .kt-home-sync strong {
+    font-size: 10px;
   }
 
   .kt-home-art {
@@ -508,6 +592,15 @@ textarea {
     min-width: 150px;
     height: 48px;
     font-size: 18px;
+  }
+
+  .kt-home {
+    min-height: max(760px, 100vh);
+  }
+
+  .kt-home-hero {
+    min-height: max(760px, 100vh);
+    padding-bottom: 112px;
   }
 
   .kt-developed {
