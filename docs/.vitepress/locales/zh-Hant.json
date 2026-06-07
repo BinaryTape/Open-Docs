@@ -324,7 +324,7 @@
   "kmp.multiplatform-privacy-manifest": "App Store 隱私權清單",
   "kmp.tools": "工具",
   "kmp.multiplatform-dsl-reference": "Multiplatform Gradle DSL",
-  "kmp.amper": "Kotlin Toolchain",
+  "kmp.amper": "Kotlin 工具鏈",
   "kmp.compatibility": "相容性",
   "kmp.multiplatform-compatibility-guide": "相容性指南",
   "kmp.multiplatform-journal": "多平台日誌",
