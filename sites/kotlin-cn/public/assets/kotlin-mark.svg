@@ -1,0 +1,11 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Kotlin">
+  <path d="M64 64H0V0h64L31.338 31.536 64 64Z" fill="url(#kotlinMarkGradient)"/>
+  <defs>
+    <radialGradient id="kotlinMarkGradient" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(61.872 2.63) scale(73.31)">
+      <stop offset="0.003" stop-color="#EF4857"/>
+      <stop offset="0.469" stop-color="#D211EC"/>
+      <stop offset="1" stop-color="#7F52FF"/>
+    </radialGradient>
+  </defs>
+</svg>
+
