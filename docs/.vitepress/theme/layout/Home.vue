@@ -65,7 +65,7 @@ const sponsors = [
     {
         name: 'Google Developer Program',
         href: 'https://developers.google.com/program',
-        logo: 'https://www.google.com/s2/favicons?domain=developers.google.com&sz=64',
+        logo: 'https://developers.google.com/static/program/images/gdp/join-the-convo-gdp-logo.svg',
     },
     {
         name: 'BinaryTape',
