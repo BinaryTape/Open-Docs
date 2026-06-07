@@ -283,25 +283,6 @@ textarea {
   font-weight: 500;
 }
 
-.kt-date-short {
-  display: none;
-}
-
-.kt-home-sync em {
-  display: inline-flex;
-  align-items: center;
-  min-height: 18px;
-  padding: 0 7px;
-  border: 1px solid rgba(127, 82, 255, .46);
-  border-radius: 999px;
-  color: rgba(255, 255, 255, .82);
-  background: rgba(127, 82, 255, .12);
-  font-size: 11px;
-  font-style: normal;
-  font-weight: 650;
-  line-height: 1;
-}
-
 .kt-home-sync i {
   display: block;
   width: 4px;
@@ -540,17 +521,8 @@ textarea {
     column-gap: 6px;
   }
 
-  .kt-home-sync strong,
-  .kt-home-sync em {
+  .kt-home-sync strong {
     font-size: 10px;
-  }
-
-  .kt-date-full {
-    display: none;
-  }
-
-  .kt-date-short {
-    display: inline;
   }
 
   .kt-home-art {
@@ -629,10 +601,6 @@ textarea {
   .kt-home-hero {
     min-height: max(760px, 100vh);
     padding-bottom: 112px;
-  }
-
-  .kt-home-sync span {
-    white-space: normal;
   }
 
   .kt-developed {

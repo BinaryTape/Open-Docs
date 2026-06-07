@@ -207,9 +207,7 @@ function formatGmtDate(date: Date): string {
   const year = date.getUTCFullYear()
   const month = padDatePart(date.getUTCMonth() + 1)
   const day = padDatePart(date.getUTCDate())
-  const hour = padDatePart(date.getUTCHours())
-  const minute = padDatePart(date.getUTCMinutes())
-  return `${year}-${month}-${day} ${hour}:${minute}`
+  return `${year}-${month}-${day}`
 }
 
 function padDatePart(value: number): string {
