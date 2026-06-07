@@ -5,6 +5,12 @@ import KotlinHeader from './components/KotlinHeader.vue'
 
 const { theme } = useData()
 const homeMeta = computed(() => theme.value.homeMeta || {})
+const updatedAtShort = computed(() => compactGmtDate(homeMeta.value.updatedAt))
+const nextUpdateAtShort = computed(() => compactGmtDate(homeMeta.value.nextUpdateAt))
+
+function compactGmtDate(value?: string) {
+  return value?.replace(/^\d{4}-/, '') || ''
+}
 </script>
 
 <template>
@@ -33,8 +39,23 @@ const homeMeta = computed(() => theme.value.homeMeta || {})
         </div>
       </section>
       <footer class="kt-home-footer" aria-label="站点信息">
-        <p v-if="homeMeta.updateText">{{ homeMeta.updateText }}</p>
-        <p>By Kotlin 中文开发者社区</p>
+        <div class="kt-home-footer-inner">
+          <p v-if="homeMeta.updatedAt && homeMeta.nextUpdateAt" class="kt-home-sync">
+            <em>GMT+0</em>
+            <span>
+              <strong>同步</strong>
+              <b class="kt-date-full">{{ homeMeta.updatedAt }}</b>
+              <b class="kt-date-short">{{ updatedAtShort }}</b>
+            </span>
+            <i aria-hidden="true"></i>
+            <span>
+              <strong>下次</strong>
+              <b class="kt-date-full">{{ homeMeta.nextUpdateAt }}</b>
+              <b class="kt-date-short">{{ nextUpdateAtShort }}</b>
+            </span>
+          </p>
+          <p class="kt-home-community">由 Kotlin 中文开发者社区维护</p>
+        </div>
       </footer>
     </main>
   </div>

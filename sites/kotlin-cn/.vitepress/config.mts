@@ -41,7 +41,8 @@ type CommunityDoc = {
 }
 
 type HomeMeta = {
-  updateText: string
+  updatedAt: string
+  nextUpdateAt: string
 }
 
 const docsConfig = [
@@ -153,7 +154,8 @@ function buildHomeMeta(): HomeMeta {
   const nextUpdated = getNextScheduledDocsUpdate(lastUpdated)
 
   return {
-    updateText: `本次更新时间：${formatGmtDate(lastUpdated)}；下次更新时间：${formatGmtDate(nextUpdated)}`
+    updatedAt: formatGmtDate(lastUpdated),
+    nextUpdateAt: formatGmtDate(nextUpdated)
   }
 }
 
@@ -207,7 +209,7 @@ function formatGmtDate(date: Date): string {
   const day = padDatePart(date.getUTCDate())
   const hour = padDatePart(date.getUTCHours())
   const minute = padDatePart(date.getUTCMinutes())
-  return `${year}-${month}-${day} ${hour}:${minute} GMT+0`
+  return `${year}-${month}-${day} ${hour}:${minute}`
 }
 
 function padDatePart(value: number): string {
