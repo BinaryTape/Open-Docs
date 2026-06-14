@@ -41,7 +41,7 @@ struct ComposeViewController: UIViewControllerRepresentable {
 }
 ```
 
-これで、他のSwiftUIコード内で `ComposeViewController` 構造体を使用できるようになります。
+これで、他のSwiftUIコード内で `ComposeView` 構造体を使用できるようになります。
 
 `Main_iosKt.MainViewController` は生成された名前です。SwiftからKotlinコードにアクセスする方法の詳細については、[Interoperability with Swift/Objective-C](https://kotlinlang.org/docs/native-objc-interop.html#top-level-functions-and-properties) ページを参照してください。
 
@@ -165,11 +165,11 @@ Main_iosKt.ComposeEntryPointWithUIViewController(createUIViewController: {
 
 `AnnotatedMapView` は以下のタスクを実行します。
 
-*   SwiftUIの `Map` ビューを定義し、`AnnotatedMapView` というカスタムビュー内に埋め込みます。
-*   `@State` と `MKCoordinateRegion` を使用してマップ位置の内部状態を管理し、Compose Multiplatformがインタラクティブで状態を認識するマップを表示できるようにします。
-*   SwiftUIのアノテーションに必要な `Identifiable` に準拠した静的な `Landmark` モデルを使用して、マップ上に `MapMarker` を表示します。
-*   `annotationItems` を使用して、宣言的にカスタムマーカーをマップ上に配置します。
-*   SwiftUIコンポーネントを `UIHostingController` 内にラップし、それを `UIViewController` としてCompose Multiplatformに渡します。
+* SwiftUIの `Map` ビューを定義し、`AnnotatedMapView` というカスタムビュー内に埋め込みます。
+* `@State` と `MKCoordinateRegion` を使用してマップ位置の内部状態を管理し、Compose Multiplatformがインタラクティブで状態を認識するマップを表示できるようにします。
+* SwiftUIのアノテーションに必要な `Identifiable` に準拠した静的な `Landmark` モデルを使用して、マップ上に `MapMarker` を表示します。
+* `annotationItems` を使用して、宣言的にカスタムマーカーをマップ上に配置します。
+* SwiftUIコンポーネントを `UIHostingController` 内にラップし、それを `UIViewController` としてCompose Multiplatformに渡します。
 
 ### カメラビュー（Camera view）
 
@@ -276,10 +276,10 @@ struct CameraPreview: View {
 
 `CameraPreview` ビューは以下のタスクを実行します。
 
-*   ユーザーがボタンをタップしたときに、モーダルな `.sheet` 内で `CameraView` を表示します。
-*   `@State` プロパティラッパーを使用して、撮影した画像を保存し表示します。
-*   SwiftUIネイティブの `Image` ビューを埋め込んで、写真をプレビューします。
-*   以前と同じ `UIViewControllerRepresentable` ベースの `CameraView` を再利用しますが、それをSwiftUIの状態システムに深く統合します。
+* ユーザーがボタンをタップしたときに、モーダルな `.sheet` 内で `CameraView` を表示します。
+* `@State` プロパティラッパーを使用して、撮影した画像を保存し表示します。
+* SwiftUIネイティブの `Image` ビューを埋め込んで、写真をプレビューします。
+* 以前と同じ `UIViewControllerRepresentable` ベースの `CameraView` を再利用しますが、それをSwiftUIの状態システムに深く統合します。
 
 > 実機でテストするには、アプリの `Info.plist` ファイルに `NSCameraUsageDescription` キーを追加する必要があります。これがないと、実行時にアプリがクラッシュします。
 >
@@ -381,12 +381,13 @@ struct WebViewContainer: View {
 
 `AdvancedWebView` と `WebViewContainer` は以下のタスクを実行します。
 
-*   読み込みの進行状況とURLの変更を追跡するために、カスタムナビゲーションデリゲートを持つ `WKWebView` を作成します。
-*   SwiftUIの `@State` バインディングを使用して、ナビゲーションイベントに応じてUIを動的に更新します。
-*   ページの読み込み中に `ProgressView` スピナーを表示します。
-*   `Text` コンポーネントを使用して、ビューの上部に現在のURLを表示します。
-*   `UIHostingController` を使用して、このコンポーネントをCompose UIに統合します。
+* 読み込みの進行状況とURLの変更を追跡するために、カスタムナビゲーションデリゲートを持つ `WKWebView` を作成します。
+* SwiftUIの `@State` バインディングを使用して、ナビゲーションイベントに応じてUIを動的に更新します。
+* ページの読み込み中に `ProgressView` スピナーを表示します。
+* `Text` コンポーネントを使用して、ビューの上部に現在のURLを表示します。
+* `UIHostingController` を使用して、このコンポーネントをCompose UIに統合します。
 
 ## 次のステップ
 
-Compose Multiplatformを [UIKitフレームワークと統合](compose-uikit-integration.md) する方法についても確認できます。
+* Composeが画面コンテンツをレンダリングする一方で、システムでレンダリングされるリキッドグラス（Liquid Glass）エフェクトのために[ネイティブのSwiftUIナビゲーション](ios-liquid-glass.md)を使用する方法を確認します。
+* Compose Multiplatformを [UIKitフレームワークと統合](compose-uikit-integration.md) する方法についても確認できます。

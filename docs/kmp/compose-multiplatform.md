@@ -34,6 +34,7 @@ aside: false
                     <title>iOS 特定功能</title>
                     <a href="compose-swiftui-integration.md" summary="与 SwiftUI 的互操作性：在原生视图中使用 Compose，反之亦然">SwiftUI 互操作性</a>
                     <a href="compose-uikit-integration.md" summary="与 UIKit 的互操作性：在原生视图中使用 Compose，反之亦然">UIKit 互操作性</a>
+                    <a href="ios-liquid-glass.md" summary="学习如何使用原生 SwiftUI 导航获取系统渲染的 Liquid Glass 效果">Liquid Glass</a>
                     <a href="compose-ios-touch.md" summary="了解 Compose Multiplatform 在互操作场景中如何处理触摸事件">iOS 互操作场景中的触摸</a>
                     <a href="compose-ios-accessibility.md" summary="了解目前对 iOS 辅助功能服务的支持程度">iOS 辅助功能</a>
                 </group>

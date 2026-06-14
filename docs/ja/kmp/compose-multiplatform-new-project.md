@@ -9,7 +9,7 @@
     <p>これは、<strong>「共有のロジックと UI を使用した Compose Multiplatform アプリの作成」</strong>チュートリアルの最終パートです。先に進む前に、前のステップを完了していることを確認してください。</p>
     <p><img src="icon-1-done.svg" width="20" alt="第1ステップ"/> <Links href="/kmp/compose-multiplatform-create-first-app" summary="このチュートリアルでは IntelliJ IDEA を使用しますが、Android Studio でも同様に進めることができます。どちらの IDE も同じコア機能と Kotlin Multiplatform サポートを共有しています。これは「共有のロジックと UI を使用した Compose Multiplatform アプリの作成」チュートリアルの第1パートです。Compose Multiplatform アプリを作成し、コンポーザブルコードを探索し、プロジェクトを修正して、独自のアプリケーションを作成します。">Compose Multiplatform アプリを作成する</Links><br/>
        <img src="icon-2-done.svg" width="20" alt="第2ステップ"/> <Links href="/kmp/compose-multiplatform-explore-composables" summary="このチュートリアルでは IntelliJ IDEA を使用しますが、Android Studio でも同様に進めることができます。どちらの IDE も同じコア機能と Kotlin Multiplatform サポートを共有しています。これは「共有のロジックと UI を使用した Compose Multiplatform アプリの作成」チュートリアルの第2パートです。先に進む前に、前のステップを完了していることを確認してください。Compose Multiplatform アプリを作成し、コンポーザブルコードを探索し、プロジェクトを修正して、独自のアプリケーションを作成します。">コンポーザブルコードを探索する</Links><br/>
-       <img src="icon-3-done.svg" width="20" alt="第3ステップ"/> <Links href="/kmp/compose-multiplatform-modify-project" summary="このチュートリアルでは IntelliJ IDEA を使用しますが、Android Studio でも同様に進めることができます。どちらの IDE も同じコア機能と Kotlin Multiplatform サポートを共有しています。これは「共有のロジックと UI を使用した Compose Multiplatform アプリの作成」チュートリアルの第3パートです。先に進前に、前のステップを完了していることを確認してください。Compose Multiplatform アプリを作成し、コンポーザブルコードを探索し、プロジェクトを修正して、独自のアプリケーションを作成します。">プロジェクトを修正する</Links><br/>
+       <img src="icon-3-done.svg" width="20" alt="第3ステップ"/> <Links href="/kmp/compose-multiplatform-modify-project" summary="このチュートリアルでは IntelliJ IDEA を使用しますが、Android Studio でも同様に進めることができます。どちらの IDE も同じコア機能と Kotlin Multiplatform サポートを共有しています。これは「共有のロジックと UI を使用した Compose Multiplatform アプリの作成」チュートリアルの第3パートです。先に進む前に、前のステップを完了していることを確認してください。Compose Multiplatform アプリを作成し、コンポーザブルコードを探索し、プロジェクトを修正して、独自のアプリケーションを作成します。">プロジェクトを修正する</Links><br/>
        <img src="icon-4.svg" width="20" alt="第4ステップ"/> <strong>独自のアプリケーションを作成する</strong><br/>
     </p>
 </tldr>
@@ -66,7 +66,7 @@
 
    ![デスクトップ上の新しい Compose Multiplatform アプリ](first-compose-project-on-desktop-3.png){width=400}
 
-4. これを修正するために、`composeApp/src/jvmMain/kotlin`（またはプロジェクト構造に応じた適切なディレクトリ）にある `main.kt` ファイルを次のように更新します。
+4. これを修正するために、`desktopApp` ソースセットにある `main.kt` ファイルを次のように更新します。
 
     ```kotlin
     fun main() = application {

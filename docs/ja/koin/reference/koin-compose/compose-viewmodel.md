@@ -278,6 +278,10 @@ val appModule = module {
 }
 ```
 
+:::caution viewModelScopeFactory() オプションが必要です
+`viewModelScope { }` 内で ViewModel を宣言するには、Koin 設定で `options(viewModelScopeFactory())` を有効にする必要があります。そうしないと、`koinViewModel()` は `No definition found … on scope '['_root_']'` というエラーで失敗します。詳細は [ViewModel Scope](/docs/reference/koin-core/viewmodel#viewmodel-scope) を参照してください。
+:::
+
 ## クイックリファレンス
 
 | API | ユースケース | パッケージ |

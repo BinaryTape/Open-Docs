@@ -2,7 +2,7 @@
 title: ViewModel
 ---
 
-Koin 通过 `koin-core-viewmodel` 模块提供跨平台 ViewModel 支持。这允许您在所有 Kotlin 跨平台目标中声明并注入 [AndroidX ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) 实例。
+Koin 通过 `koin-core-viewmodel` 模块提供多平台 ViewModel 支持。这允许您在所有 Kotlin 多平台目标中声明并注入 [AndroidX ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) 实例。
 
 ## 安装
 
@@ -146,9 +146,28 @@ val appModule = module {
 在第一次访问 ViewModel 时会创建 `viewModelScope` 内部的依赖项，并在清除 ViewModel 时销毁。
 :::
 
+:::caution 需要 `viewModelScopeFactory()` 选项
+在 `viewModelScope { }` 内部声明 **ViewModel 本身**（以便 Koin 自动创建其作用域）需要并在您的 Koin 配置中启用 `viewModelScopeFactory()` 选项：
+
+```kotlin
+startKoin {
+    options(viewModelScopeFactory())
+    modules(appModule)
+}
+```
+
+如果没有它，解析 ViewModel 将失败并提示：
+
+```
+No definition found for type 'MyViewModel' on scope '['_root_']'
+```
+
+因为该 ViewModel 是在 ViewModel 作用域模式下注册的，而该作用域仅在启用该选项时才会创建。（这与手动的 `ScopeViewModel` 模式不同，后者会创建自己的作用域，不需要该选项。）
+:::
+
 ## 注入 ViewModel
 
-### 在 Compose (跨平台) 中
+### 在 Compose (多平台) 中
 
 在 Composable 函数中使用 `koinViewModel()`：
 
@@ -219,4 +238,4 @@ val appModule = module {
 
 - **[作用域](/docs/reference/koin-core/scopes)** - 核心作用域概念
 - **[Android ViewModel](/docs/reference/koin-android/viewmodel)** - Android 特定功能
-- **[Compose](/docs/reference/koin-compose/compose)** - Compose 跨平台集成
+- **[Compose](/docs/reference/koin-compose/compose)** - Compose 多平台集成

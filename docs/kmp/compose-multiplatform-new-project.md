@@ -7,16 +7,16 @@
     <p>本教程使用 IntelliJ IDEA，但你也可以在 Android Studio 中进行——这两个 IDE 共享相同的核心功能和 Kotlin Multiplatform 支持。</p>
     <br/>   
     <p>这是<strong>使用共享逻辑和 UI 创建 Compose 跨平台应用</strong>教程的最后一部分。在继续之前，请确保你已经完成了之前的步骤。</p>
-    <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <Links href="/kmp/compose-multiplatform-create-first-app" summary="本教程使用 IntelliJ IDEA，但你也可以在 Android Studio 中进行——这两个 IDE 共享相同的核心功能和 Kotlin Multiplatform 支持。这是使用共享逻辑和 UI 创建 Compose 跨平台应用教程的第一部分。创建你的 Compose 跨平台应用 探索可组合代码 修改项目 创建你自己的应用">创建你的 Compose 跨平台应用</Links><br/>
-       <img src="icon-2-done.svg" width="20" alt="第二步"/> <Links href="/kmp/compose-multiplatform-explore-composables" summary="本教程使用 IntelliJ IDEA，但你也可以在 Android Studio 中进行——这两个 IDE 共享相同的核心功能和 Kotlin Multiplatform 支持。这是使用共享逻辑和 UI 创建 Compose 跨平台应用教程的第二部分。在继续之前，请确保你已经完成了之前的步骤。创建你的 Compose 跨平台应用 探索可组合代码 修改项目 创建你自己的应用">探索可组合项代码</Links><br/>
-       <img src="icon-3-done.svg" width="20" alt="第三步"/> <Links href="/kmp/compose-multiplatform-modify-project" summary="本教程使用 IntelliJ IDEA，但你也可以在 Android Studio 中进行——这两个 IDE 共享相同的核心功能和 Kotlin Multiplatform 支持。这是使用共享逻辑和 UI 创建 Compose 跨平台应用教程的第三部分。在继续之前，请确保你已经完成了之前的步骤。创建你的 Compose 跨平台应用 探索可组合代码 修改项目 创建你自己的应用">修改项目</Links><br/>
+    <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <Links href="/kmp/compose-multiplatform-create-first-app" summary="本教程使用 IntelliJ IDEA，但你也可以在 Android Studio 中进行——这两个 IDE 共享相同的核心功能和 Kotlin Multiplatform 支持。这是使用共享逻辑和 UI 创建 Compose 跨平台应用教程的第一部分。创建你的 Compose 跨平台应用 探索可组合项代码 修改项目 创建你自己的应用">创建你的 Compose 跨平台应用</Links><br/>
+       <img src="icon-2-done.svg" width="20" alt="第二步"/> <Links href="/kmp/compose-multiplatform-explore-composables" summary="本教程使用 IntelliJ IDEA，但你也可以在 Android Studio 中进行——这两个 IDE 共享相同的核心功能和 Kotlin Multiplatform 支持。这是使用共享逻辑和 UI 创建 Compose 跨平台应用教程的第二部分。在继续之前，请确保你已经完成了之前的步骤。创建你的 Compose 跨平台应用 探索可组合项代码 修改项目 创建你自己的应用">探索可组合项代码</Links><br/>
+       <img src="icon-3-done.svg" width="20" alt="第三步"/> <Links href="/kmp/compose-multiplatform-modify-project" summary="本教程使用 IntelliJ IDEA，但你也可以在 Android Studio 中进行——这两个 IDE 共享相同的核心功能和 Kotlin Multiplatform 支持。这是使用共享逻辑和 UI 创建 Compose 跨平台应用教程的第三部分。在继续之前，请确保你已经完成了之前的步骤。创建你的 Compose 跨平台应用 探索可组合项代码 修改项目 创建你自己的应用">修改项目</Links><br/>
        <img src="icon-4.svg" width="20" alt="第四步"/> <strong>创建你自己的应用</strong><br/>
     </p>
 </tldr>
 
 既然你已经探索并增强了由向导创建的示例项目，你就可以利用已经掌握的概念并引入一些新概念，从头开始创建自己的应用。
 
-你将创建一个“本地时间应用”，用户可以在其中输入国家和城市，应用将显示该国家首都的时间。Compose 跨平台应用的所有功能都将使用跨平台库在公共代码中实现。它将在下拉菜单中加载并显示图片，并将使用事件、样式、主题、修饰符和布局。
+你将创建一个“本地时间应用”，用户可以在其中输入国家和城市，应用将显示该国家首都的时间。Compose 跨平台应用的所有功能都将使用多平台库在公共代码中实现。它将在下拉菜单中加载并显示图片，并将使用事件、样式、主题、修饰符和布局。
 
 在每个阶段，你都可以在所有三个平台（iOS、Android 和桌面端）上运行应用，或者你可以专注于最适合你需求的特定平台。
 
@@ -66,7 +66,7 @@
 
    ![桌面端的新 Compose 跨平台应用](first-compose-project-on-desktop-3.png){width=400}
 
-4. 为了修复这个问题，如下更新 `desktopApp/src/kotlin` 目录中的 `main.kt` 文件：
+4. 为了修复这个问题，如下更新 `desktopApp` 源集中的 `main.kt` 文件：
 
     ```kotlin
     fun main() = application {
@@ -492,10 +492,10 @@ Compose 跨平台提供了一个库，用于通过所有平台的公共代码访
 
 ## 下一步
 
-我们鼓励你进一步探索跨平台开发并尝试更多项目：
+我们鼓励你进一步探索多平台开发并尝试更多项目：
 
 * [让你的 Android 应用实现跨平台](multiplatform-integrate-in-existing-app.md)
-* [使用 Ktor 和 SQLDelight 创建跨平台应用](multiplatform-ktor-sqldelight.md)
+* [使用 Ktor 和 SQLDelight 创建多平台应用](multiplatform-ktor-sqldelight.md)
 * [在 iOS 和 Android 之间共享业务逻辑，同时保持 UI 原生](multiplatform-create-first-app.md)
 * [使用 Kotlin/Wasm 创建 Compose 跨平台应用](https://kotlinlang.org/docs/wasm-get-started.html)
 * [查看精选示例项目列表](multiplatform-samples.md)

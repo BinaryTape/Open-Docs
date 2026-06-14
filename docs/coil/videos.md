@@ -5,7 +5,7 @@
 要添加视频帧支持，请导入扩展库：
 
 ```kotlin
-implementation("io.coil-kt.coil3:coil-video:3.4.0")
+implementation("io.coil-kt.coil3:coil-video:3.5.0")
 ```
 
 并在构建 `ImageLoader` 时将解码器添加到组件注册表中：

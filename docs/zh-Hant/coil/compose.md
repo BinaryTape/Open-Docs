@@ -3,7 +3,7 @@
 若要新增對 [Compose UI](https://www.jetbrains.com/compose-multiplatform/) 的支援，請匯入擴充程式庫：
 
 ```kotlin
-implementation("io.coil-kt.coil3:coil-compose:3.4.0")
+implementation("io.coil-kt.coil3:coil-compose:3.5.0")
 ```
 
 接著使用 `AsyncImage` 可組合項 (composable) 來載入並顯示圖片：
@@ -40,7 +40,7 @@ AsyncImage(
 
 ## rememberAsyncImagePainter
 
-在內部， `AsyncImage` 和 `SubcomposeAsyncImage` 使用 `rememberAsyncImagePainter` 來載入 `model`。如果您需要的是 `Painter` 而不是可組合項，可以使用 `rememberAsyncImagePainter` 載入圖片：
+在內部，`AsyncImage` 和 `SubcomposeAsyncImage` 使用 `rememberAsyncImagePainter` 來載入 `model`。如果您需要的是 `Painter` 而不是可組合項，可以使用 `rememberAsyncImagePainter` 載入圖片：
 
 ```kotlin
 val painter = rememberAsyncImagePainter("https://example.com/image.jpg")

@@ -1,5 +1,32 @@
 # 変更履歴
 
+## [3.5.0] - 2026年6月10日
+
+`3.4.0` からの変更点:
+
+- **重要**: `iosX64` および `macosX64` ターゲットを削除しました。 ([#3386](https://github.com/coil-kt/coil/pull/3386))
+- **重要**: Android の最小 SDK バージョンを 23 に引き上げました。 ([#3283](https://github.com/coil-kt/coil/pull/3283))
+- **新機能**: JS/WASM において、フルでの Skia デコードへのフォールバックを避けるため、WebP サイズの高速抽出を追加しました。 ([#3341](https://github.com/coil-kt/coil/pull/3341))
+- `ImageLoader.Builder.memoryCacheMaxSizePercentWhileInBackground` から実験的（experimental）アノテーションを削除しました。 ([#3439](https://github.com/coil-kt/coil/pull/3439))
+- `CacheStrategy` の実装において、キャッシュされた失敗レスポンス（例：有効期限切れのキャッシュされた `404` レスポンス）を更新できない問題を修正しました。 ([#3401](https://github.com/coil-kt/coil/pull/3401))
+- コルーチンコンテキストにおいて、`CoroutineDispatcher` の代わりに `ContinuationInterceptor` を検索するようにしました。 ([#3415](https://github.com/coil-kt/coil/pull/3415))
+- Android のコンパイル SDK を 36 に更新しました。
+- Kotlin の言語バージョンを 2.2 に更新しました。
+- Kotlin を 2.4.0 に更新しました。
+- Compose を 1.11.1 に更新しました。
+- Okio を 3.17.0 に更新しました。
+- Skiko を 0.144.6 に更新しました。
+- `androidx.annotation` を 1.10.0 に更新しました。
+
+`3.5.0-beta01` からの変更点:
+
+- `ImageLoader.Builder.memoryCacheMaxSizePercentWhileInBackground` から実験的（experimental）アノテーションを削除しました。 ([#3439](https://github.com/coil-kt/coil/pull/3439))
+- コルーチンコンテキストにおいて、`CoroutineDispatcher` の代わりに `ContinuationInterceptor` を検索するようにしました。 ([#3415](https://github.com/coil-kt/coil/pull/3415))
+- Kotlin の言語バージョンを 2.2 に更新しました。
+- Kotlin を 2.4.0 に更新しました。
+- Compose を 1.11.1 に更新しました。
+- Skiko を 0.144.6 に更新しました。
+
 ## [3.5.0-beta01] - 2026年5月4日
 
 - `iosX64` および `macosX64` ターゲットを削除しました。 ([#3386](https://github.com/coil-kt/coil/pull/3386))
@@ -31,7 +58,7 @@
 - Kotlin の言語バージョンを 2.1 に設定しました。 ([#3302](https://github.com/coil-kt/coil/pull/3302))
 - `BitmapFetcher` を共通コード（common code）で利用可能にしました。 ([#3286](https://github.com/coil-kt/coil/pull/3286))
 - Android でシングルトンの `ImageLoader` を作成する際、`applicationContext` を使用するようにしました。 ([#3246](https://github.com/coil-kt/coil/pull/3246))
-- デフォルトで、キャッシュ可能な非2xxの HTTP レスポンス（例：`404`）をキャッシュし、キャッシュ不可なレスポンス（例：`500`）のキャッシュを停止しました。 ([#3137](https://github.com/coil-kt/coil/pull/3137), [#3139](https://github.com/coil-kt/coil/pull/3139))
+- デフォルトで、キャッシュ可能な非 2xx の HTTP レスポンス（例：`404`）をキャッシュし、キャッシュ不可なレスポンス（例：`500`）のキャッシュを停止しました。 ([#3137](https://github.com/coil-kt/coil/pull/3137), [#3139](https://github.com/coil-kt/coil/pull/3139))
 - OkHttp のレスポンスボディを消費する際の潜在的な競合状態（race condition）を修正しました。 ([#3186](https://github.com/coil-kt/coil/pull/3186))
 - Android でサイズ超過のビットマップによるクラッシュを防ぐため、`maxBitmapSize` のエッジケースを修正しました。 ([#3259](https://github.com/coil-kt/coil/pull/3259))
 - Kotlin を 2.3.10 に更新しました。
@@ -46,7 +73,7 @@
 ## [3.3.0] - 2025年7月22日
 
 - **新機能**: アプリがバックグラウンドにある間、Android で `MemoryCache.maxSize` を制限する新しい API を導入しました。
-    - `ImageLoader.Builder.memoryCacheMaxSizePercentWhileInBackground` が設定されている場合、アプリがバックグラウンドにある間、`ImageLoader` のメモリキャッシュは最大サイズの指定された割合に制限されます。この設定は現在はデフォルトで無効になっています。
+    - `ImageLoader.Builder.memoryCacheMaxSizePercentWhileInBackground` が設定されている場合、`ImageLoader` のメモリキャッシュは、アプリがバックグラウンドにある間、最大サイズの指定された割合に制限されます。この設定は現在はデフォルトで無効になっています。
     - アプリがバックグラウンドに移行すると、制限された最大サイズに達するまでメモリキャッシュから画像がトリミング（削除）されます。ただし、最近トリミングされた画像へのメモリキャッシュの弱参照（weak references）は影響を受けません。つまり、画像が他の場所（例：`AsyncImage`、`ImageView` など）で現在参照されている場合は、引き続きメモリキャッシュに存在します。
     - この API は、バックグラウンドでのメモリ使用量を削減し、アプリが早期に強制終了されるのを防ぎ、ユーザーのデバイスのメモリ負荷を軽減するのに役立ちます。
 - **新機能**: `SvgDecoder` に `Svg.Parser` 引数を追加しました。
@@ -272,10 +299,10 @@ AsyncImage(
 - 非 Android ターゲットの `SvgDecoder` において、描画時に画像をレンダリングするのではなく、ビットマップにレンダリングするように変更しました。これによりパフォーマンスが向上します。
     - この動作は `SvgDecoder(renderToBitmap)` を使用して制御できます。
 - `ScaleDrawable` を `coil-gif` から `coil-core` に移動しました。
-- Update Kotlin to 2.0.0.
-- Update Compose to 1.6.11.
-- Update Okio to 3.9.0.
-- Update Skiko to 0.8.4.
+- Kotlin を 2.0.0 に更新しました。
+- Compose を 1.6.11 に更新しました。
+- Okio を 3.9.0 に更新しました。
+- Skiko を 0.8.4 に更新しました。
 - [3.x における重要な変更の全リストについては、アップグレードガイドを確認してください。](https://coil-kt.github.io/coil/upgrading_to_coil3/)
 
 ## [3.0.0-alpha06] - 2024年2月29日
@@ -291,10 +318,10 @@ AsyncImage(
 - `Modifier.Node` を実装するように `ContentPainterModifier` を更新しました。
 - 修正: コンポーネントのコールバックとネットワークオブザーバーの登録をバックグラウンドスレッドで遅延（lazy）して行うようにしました。これにより、通常メインスレッドで発生していた初期化の遅延が修正されます。
 - 修正: `ImageRequest` で `ImageLoader.Builder.placeholder/error/fallback` が使用されない問題を修正しました。
-- Update Compose to 1.6.0.
-- Update Coroutines to 1.8.0.
-- Update Okio to 3.8.0.
-- Update Skiko to 0.7.94.
+- Compose を 1.6.0 に更新しました。
+- Coroutines を 1.8.0 に更新しました。
+- Okio を 3.8.0 に更新しました。
+- Skiko を 0.7.94 に更新しました。
 - [3.x における重要な変更の全リストについては、アップグレードガイドを確認してください。](https://coil-kt.github.io/coil/upgrading_to_coil3/)
 
 ## [2.6.0] - 2024年2月23日
@@ -305,11 +332,11 @@ AsyncImage(
 - 修正: コンポーネントのコールバックとネットワークオブザーバーの登録をバックグラウンドスレッドで遅延して行うようにしました。これにより、通常メインスレッドで発生していた初期化の遅延が修正されます。
 - 修正: `ImageRequest.listener` または `ImageRequest.target` が変更された場合でも、`rememberAsyncImagePainter`、`AsyncImage`、および `SubcomposeAsyncImage` で新しい画像リクエストを再開しないようにしました。
 - 修正: `AsyncImagePainter` で画像リクエストを 2 回監視しないようにしました。
-- Update Kotlin to 1.9.22.
-- Update Compose to 1.6.1.
-- Update Okio to 3.8.0.
-- Update `androidx.collection` to 1.4.0.
-- Update `androidx.lifecycle` to 2.7.0.
+- Kotlin を 1.9.22 に更新しました。
+- Compose を 1.6.1 に更新しました。
+- Okio を 3.8.0 に更新しました。
+- `androidx.collection` を 1.4.0 に更新しました。
+- `androidx.lifecycle` を 2.7.0 に更新しました。
 
 ## [3.0.0-alpha04] - 2024年2月1日
 
@@ -354,17 +381,17 @@ AsyncImage(
 - 修正: 片方の次元が無制限（unbounded）のサイズを返すペインターへのガードを追加しました。 ([#1826](https://github.com/coil-kt/coil/pull/1826))
 - 修正: キャッシュされたヘッダーに非 ASCII 文字が含まれている場合、`304 Not Modified` の後のディスクキャッシュ読み込みが失敗する問題を修正しました。 ([#1839](https://github.com/coil-kt/coil/pull/1839))
 - 修正: `FakeImageEngine` がインターセプターチェーンのリクエストを更新しない問題を修正しました。 ([#1905](https://github.com/coil-kt/coil/pull/1905))
-- Update compile SDK to 34.
-- Update Kotlin to 1.9.10.
-- Update Coroutines to 1.7.3.
-- Update `accompanist-drawablepainter` to 0.32.0.
-- Update `androidx.annotation` to 1.7.0.
-- Update `androidx.compose.foundation` to 1.5.4.
-- Update `androidx.core` to 1.12.0.
-- Update `androidx.exifinterface:exifinterface` to 1.3.6.
-- Update `androidx.lifecycle` to 2.6.2.
-- Update `com.squareup.okhttp3` to 4.12.0.
-- Update `com.squareup.okio` to 3.6.0.
+- コンパイル SDK を 34 に更新しました。
+- Kotlin を 1.9.10 に更新しました。
+- Coroutines を 1.7.3 に更新しました。
+- `accompanist-drawablepainter` を 0.32.0 に更新しました。
+- `androidx.annotation` を 1.7.0 に更新しました。
+- `androidx.compose.foundation` を 1.5.4 に更新しました。
+- `androidx.core` を 1.12.0 に更新しました。
+- `androidx.exifinterface:exifinterface` を 1.3.6 に更新しました。
+- `androidx.lifecycle` を 2.6.2 に更新しました。
+- `com.squareup.okhttp3` を 4.12.0 に更新しました。
+- `com.squareup.okio` を 3.6.0 に更新しました。
 
 ## [2.4.0] - 2023年5月21日
 
@@ -374,31 +401,31 @@ AsyncImage(
 - 修正: `ImageSource` で `Context.cacheDir` を遅延して呼び出すようにしました。
 - 修正: `coil-bom` のパブリッシュを修正しました。
 - 修正: ハードウェアビットマップが無効な場合、常にビットマップ設定を `ARGB_8888` に設定するように修正しました。
-- Update Kotlin to 1.8.21.
-- Update Coroutines to 1.7.1.
-- Update `accompanist-drawablepainter` to 0.30.1.
-- Update `androidx.compose.foundation` to 1.4.3.
-- Update `androidx.profileinstaller:profileinstaller` to 1.3.1.
-- Update `com.squareup.okhttp3` to 4.11.0.
+- Kotlin を 1.8.21 に更新しました。
+- Coroutines を 1.7.1 に更新しました。
+- `accompanist-drawablepainter` を 0.30.1 に更新しました。
+- `androidx.compose.foundation` を 1.4.3 に更新しました。
+- `androidx.profileinstaller:profileinstaller` を 1.3.1 に更新しました。
+- `com.squareup.okhttp3` を 4.11.0 に更新しました。
 
 ## [2.3.0] - 2023年3月25日
 
-- **新機能**: `FakeImageLoaderEngine` を含む新しい `coil-test` アーティファクトを導入しました。このクラスは、イメージローダー의 レスポンスをハードコードし、テストにおいて一貫性のある同期的な（メインスレッドからの）レスポンスを保証するのに役立ちます。詳細は [こちら](https://coil-kt.github.io/coil/testing) を参照してください。
+- **新機能**: `FakeImageLoaderEngine` を含む新しい `coil-test` アーティファクトを導入しました。このクラスは、イメージローダーのレスポンスをハードコードし、テストにおいて一貫性のある同期的な（メインスレッドからの）レスポンスを保証するのに役立ちます。詳細は [こちら](https://coil-kt.github.io/coil/testing) を参照してください。
 - **新機能**: `coil-base` (`coil` の子モジュール) および `coil-compose-base` (`coil-compose` の子モジュール) に [ベースラインプロフィール（baseline profiles）](https://developer.android.com/topic/performance/baselineprofiles/overview) を追加しました。
     - これにより Coil の実行時パフォーマンスが向上し、アプリでの Coil の使用方法に応じて [より良いフレームタイミング](https://github.com/coil-kt/coil/tree/main/coil-benchmark/benchmark_output.md) が得られます。
 - 修正: エンコードされたデータを含む `file://` URI のパースを修正しました。 [#1601](https://github.com/coil-kt/coil/pull/1601)
 - 修正: 存在しないディレクトリが渡された場合に、`DiskCache` が最大サイズを正しく計算するように修正しました。 [#1620](https://github.com/coil-kt/coil/pull/1620)
 - `Coil.reset` をパブリック API にしました。 [#1506](https://github.com/coil-kt/coil/pull/1506)
 - Java のデフォルトメソッド生成を有効にしました。 [#1491](https://github.com/coil-kt/coil/pull/1491)
-- Update Kotlin to 1.8.10.
-- Update `accompanist-drawablepainter` to 0.30.0.
-- Update `androidx.annotation` to 1.6.0.
-- Update `androidx.appcompat:appcompat-resources` to 1.6.1.
-- Update `androidx.compose.foundation` to 1.4.0.
-- Update `androidx.core` to 1.9.0.
-- Update `androidx.exifinterface:exifinterface` to 1.3.6.
-- Update `androidx.lifecycle` to 2.6.1.
-- Update `okio` to 3.3.0.
+- Kotlin を 1.8.10 に更新しました。
+- `accompanist-drawablepainter` を 0.30.0 に更新しました。
+- `androidx.annotation` を 1.6.0 に更新しました。
+- `androidx.appcompat:appcompat-resources` を 1.6.1 に更新しました。
+- `androidx.compose.foundation` を 1.4.0 に更新しました。
+- `androidx.core` を 1.9.0 に更新しました。
+- `androidx.exifinterface:exifinterface` を 1.3.6 に更新しました。
+- `androidx.lifecycle` を 2.6.1 に更新しました。
+- `okio` を 3.3.0 に更新しました。
 
 ## [2.2.2] - 2022年10月1日
 
@@ -407,7 +434,7 @@ AsyncImage(
 - `FileUriMapper` において `#` を含むパスのパースを修正しました。 [#1466](https://github.com/coil-kt/coil/pull/1466)
 - ディスクキャッシュから非 ASCII ヘッダーを持つレスポンスを読み込む問題を修正しました。 [#1468](https://github.com/coil-kt/coil/pull/1468)
 - アセットのサブフォルダ内にある動画のデコードを修正しました。 [#1489](https://github.com/coil-kt/coil/pull/1489)
-- Update `androidx.annotation` to 1.5.0.
+- `androidx.annotation` を 1.5.0 に更新しました。
 
 ## [2.2.1] - 2022年9月8日
 
@@ -422,15 +449,15 @@ AsyncImage(
 - **新機能**: `BitmapFactoryDecoder` が EXIF 回転（orientation）データをどのように扱うかを設定する `ExifOrientationPolicy` を追加しました。
 - 修正: 未定義の寸法を持つサイズが渡された場合でも `RoundedCornersTransformation` で例外をスローしないようにしました。
 - 修正: GIF のフレーム遅延を、1バイトの符号付き整数ではなく、2バイトの符号なし整数として読み込むようにしました。
-- Update Kotlin to 1.7.10.
-- Update Coroutines to 1.6.4.
-- Update Compose to 1.2.1.
-- Update OkHttp to 4.10.0.
-- Update Okio to 3.2.0.
-- Update `accompanist-drawablepainter` to 0.25.1.
-- Update `androidx.annotation` to 1.4.0.
-- Update `androidx.appcompat:appcompat-resources` to 1.5.0.
-- Update `androidx.core` to 1.8.0.
+- Kotlin を 1.7.10 に更新しました。
+- Coroutines を 1.6.4 に更新しました。
+- Compose を 1.2.1 に更新しました。
+- OkHttp を 4.10.0 に更新しました。
+- Okio を 3.2.0 に更新しました。
+- `accompanist-drawablepainter` を 0.25.1 に更新しました。
+- `androidx.annotation` を 1.4.0 に更新しました。
+- `androidx.appcompat:appcompat-resources` を 1.5.0 に更新しました。
+- `androidx.core` を 1.8.0 に更新しました。
 
 ## [2.1.0] - 2022年5月17日
 
@@ -497,10 +524,10 @@ AsyncImage(
 - `MemoryCache` API を刷新しました。
 - `ImageRequest.error` は、`ImageRequest.fallback` が null の場合、`Target` に設定されるようになりました。
 - `Transformation.key` は `Transformation.cacheKey` に置き換えられました。
-- Update Kotlin to 1.6.10.
-- Update Compose to 1.1.1.
-- Update OkHttp to 4.9.3.
-- Update Okio to 3.0.0.
+- Kotlin を 1.6.10 に更新しました。
+- Compose を 1.1.1 に更新しました。
+- OkHttp を 4.9.3 に更新しました。
+- Okio を 3.0.0 に更新しました。
 
 `2.0.0-rc03` からの変更点:
 - `Dimension.Original` を `Dimension.Undefined` に変換しました。
@@ -515,7 +542,7 @@ AsyncImage(
 - `Size` コンストラクタを関数に変更しました。
 - `Dimension.Pixels` の `toString` がピクセル値のみになるよう変更しました。
 - `SystemCallbacks.onTrimMemory` における稀なクラッシュへのガードを追加しました。
-- Update Coroutines to 1.6.1.
+- Coroutines を 1.6.1 に更新しました。
 
 ## [2.0.0-rc02] - 2022年3月20日
 
@@ -562,10 +589,10 @@ AsyncImage(
 - `MemoryCache` API を刷新しました。
 - `ImageRequest.error` は、`ImageRequest.fallback` が null の場合、`Target` に設定されるようになりました。
 - `Transformation.key` は `Transformation.cacheKey` に置き換えられました。
-- Update Kotlin to 1.6.10.
-- Update Compose to 1.1.1.
-- Update OkHttp to 4.9.3.
-- Update Okio to 3.0.0.
+- Kotlin を 1.6.10 に更新しました。
+- Compose を 1.1.1 に更新しました。
+- OkHttp を 4.9.3 に更新しました。
+- Okio を 3.0.0 に更新しました。
 
 `2.0.0-alpha09` からの変更点:
 
@@ -573,8 +600,8 @@ AsyncImage(
 - must-revalidate/e-tag を持つ複数のリクエストが同時に実行された場合に、画像の読み込みに失敗する問題を修正しました。
 - `<svg` タグの後に改行文字がある場合に `DecodeUtils.isSvg` が false を返す問題を修正しました。
 - `LocalImageLoader.provides` の非推奨メッセージをより明確にしました。
-- Update Compose to 1.1.1.
-- Update `accompanist-drawablepainter` to 0.23.1.
+- Compose を 1.1.1 に更新しました。
+- `accompanist-drawablepainter` を 0.23.1 に更新しました。
 
 ## [2.0.0-alpha09] - 2022年2月16日
 
@@ -583,9 +610,9 @@ AsyncImage(
     - 画像が正しいサイズで読み込まれることを保証するため、`Image` に設定されているものと同じ値を設定する必要があります。
 - `ImageRequest` の `Scale` を遅延解決できるよう `ScaleResolver` を追加しました。 ([#1134](https://github.com/coil-kt/coil/pull/1134))
     - `ImageRequest.scale` は `ImageRequest.scaleResolver.scale()` に置き換える必要があります。
-- Update Compose to 1.1.0.
-- Update `accompanist-drawablepainter` to 0.23.0.
-- Update `androidx.lifecycle` to 2.4.1.
+- Compose を 1.1.0 に更新しました。
+- `accompanist-drawablepainter` を 0.23.0 に更新しました。
+- `androidx.lifecycle` を 2.4.1 に更新しました。
 
 ## [2.0.0-alpha08] - 2022年2月7日
 
@@ -600,27 +627,27 @@ AsyncImage(
     - `AsyncImage` と `SubcomposeAsyncImage` の両方に `onLoading`/`onSuccess`/`onError` コールバックを追加しました。
 - `LocalImageLoader` を非推奨にしました。 ([#1101](https://github.com/coil-kt/coil/pull/1101))
 - `ImageRequest.tags` のサポートを追加しました。 ([#1066](https://github.com/coil-kt/coil/pull/1066))
-- `DecodeUtils` 内の `isGif`、`isWebP`、`isAnimatedWebP`、`isHeif`、`isAnimatedHeif` を coil-gif に移動しました。`isSvg` を coil-svg に追加しました。 ([#1117](https://github.com/coil-kt/coil/pull/1117))
+- `DecodeUtils` 内の `isGif`、`isWebP`、`isAnimatedWebP`、`isHeif`、および `isAnimatedHeif` を coil-gif に移動しました。 `isSvg` を coil-svg に追加しました。 ([#1117](https://github.com/coil-kt/coil/pull/1117))
 - `FetchResult` と `DecodeResult` を非データクラス（non-data classes）に変更しました。 ([#1114](https://github.com/coil-kt/coil/pull/1114))
 - 未使用の `DiskCache.Builder` context 引数を削除しました。 ([#1099](https://github.com/coil-kt/coil/pull/1099))
 - 元のサイズのビットマップリソースに対するスケーリングを修正しました。 ([#1072](https://github.com/coil-kt/coil/pull/1072))
 - `ImageDecoderDecoder` で `ImageDecoder` のクローズに失敗する問題を修正しました。 ([#1109](https://github.com/coil-kt/coil/pull/1109))
 - ドローアブルをビットマップに変換する際の不正確なスケーリングを修正しました。 ([#1084](https://github.com/coil-kt/coil/pull/1084))
-- Update Compose to 1.1.0-rc03.
-- Update `accompanist-drawablepainter` to 0.22.1-rc.
-- Update `androidx.appcompat:appcompat-resources` to 1.4.1.
+- Compose を 1.1.0-rc03 に更新しました。
+- `accompanist-drawablepainter` を 0.22.1-rc に更新しました。
+- `androidx.appcompat:appcompat-resources` を 1.4.1 に更新しました。
 
 ## [2.0.0-alpha06] - 2021年12月24日
 
 - バッファリングや一時ファイルなしでアセット、リソース、およびコンテンツ URI からデコードできるよう、`ImageSource.Metadata` を追加しました。 ([#1060](https://github.com/coil-kt/coil/pull/1060))
-- `AsyncImage` が正の制約（positive constraints）を持つまで、画像リクエストの実行を遅延させるようにしました。 ([#1028](https://github.com/coil-kt/coil/pull/1028))
+- `AsyncImage` が正弦（positive）制約を持つまで、画像リクエストの実行を遅延させるようにしました。 ([#1028](https://github.com/coil-kt/coil/pull/1028))
 - `loading`、`success`、`error` がすべて設定されている場合に、`AsyncImage` で `DefaultContent` を使用するよう修正しました。 ([#1026](https://github.com/coil-kt/coil/pull/1026))
 - プラットフォームの `LruCache` ではなく、androidx の `LruCache` を使用するようにしました。 ([#1047](https://github.com/coil-kt/coil/pull/1047))
-- Update Kotlin to 1.6.10.
-- Update Coroutines to 1.6.0.
-- Update Compose to 1.1.0-rc01.
-- Update `accompanist-drawablepainter` to 0.22.0-rc.
-- Update `androidx.collection` to 1.2.0.
+- Kotlin を 1.6.10 に更新しました。
+- Coroutines を 1.6.0 に更新しました。
+- Compose を 1.1.0-rc01 に更新しました。
+- `accompanist-drawablepainter` を 0.22.0-rc に更新しました。
+- `androidx.collection` を 1.2.0 に更新しました。
 
 ## [2.0.0-alpha05] - 2021年11月28日
 
@@ -634,7 +661,7 @@ AsyncImage(
 - `ImageLoader` の placeholder/error/fallback ドローアブルをミューテート（mutate）するようにしました。
 - `SuccessResult` のコンストラクタにデフォルト引数を追加しました。
 - `androidx.collection-ktx` ではなく `androidx.collection` に依存するようにしました。
-- Update OkHttp to 4.9.3.
+- OkHttp を 4.9.3 に更新しました。
 
 ## [2.0.0-alpha04] - 2021年11月22日
 
@@ -689,25 +716,25 @@ AsyncImage(
 ```
 
 - **重要**: `ImagePainter` を `AsyncImagePainter` に、`rememberImagePainter` を `rememberAsyncImagePainter` に改名しました。
-    - `ExecuteCallback` はサポートされなくなりました。`AsyncImagePainter` が `onDraw` の呼び出しを待たずに実行されるようにするには、代わりに `ImageRequest.size(OriginalSize)` (または任意のサイズ) を設定してください。
+    - `ExecuteCallback` はサポートされなくなりました。 `AsyncImagePainter` が `onDraw` の呼び出しを待たずに実行されるようにするには、代わりに `ImageRequest.size(OriginalSize)` (または任意のサイズ) を設定してください。
     - `rememberAsyncImagePainter` にオプションの `FilterQuality` 引数を追加しました。
 - `DiskCache` のクリーンアップ操作にコルーチンを使用し、`DiskCache.Builder.cleanupDispatcher` を追加しました。
 - `ImageLoader.Builder.placeholder` を使用して設定されたプレビューの Compose プレビューを修正しました。
 - より効率的なコードを生成するため、`LocalImageLoader.current` を `@ReadOnlyComposable` でマークしました。
-- Update Compose to 1.1.0-beta03 and depend on `compose.foundation` instead of `compose.ui`.
-- Update `androidx.appcompat-resources` to 1.4.0.
+- Compose を 1.1.0-beta03 に更新し、`compose.ui` ではなく `compose.foundation` に依存するようにしました。
+- `androidx.appcompat-resources` を 1.4.0 に更新しました。
 
 ## [2.0.0-alpha03] - 2021年11月12日
 
 - Android 29+ で音楽のサムネイルを読み込む機能を追加しました。 ([#967](https://github.com/coil-kt/coil/pull/967))
 - 修正: 現在のパッケージのリソースを読み込むために `context.resources` を使用するようにしました。 ([#968](https://github.com/coil-kt/coil/pull/968))
 - 修正: `clear` -> `dispose` の置換式を修正しました。 ([#970](https://github.com/coil-kt/coil/pull/970))
-- Update Compose to 1.0.5.
-- Update `accompanist-drawablepainter` to 0.20.2.
-- Update Okio to 3.0.0.
-- Update `androidx.annotation` to 1.3.0.
-- Update `androidx.core` to 1.7.0.
-- Update `androidx.lifecycle` to 2.4.0.
+- Compose を 1.0.5 に更新しました。
+- `accompanist-drawablepainter` を 0.20.2 に更新しました。
+- Okio を 3.0.0 に更新しました。
+- `androidx.annotation` を 1.3.0 に更新しました。
+- `androidx.core` を 1.7.0 に更新しました。
+- `androidx.lifecycle` を 2.4.0 に更新しました。
     - `lifecycle-common-java8` が `lifecycle-common` に統合されたため、その依存関係を削除しました。
 
 ## [2.0.0-alpha02] - 2021年10月24日
@@ -715,10 +742,10 @@ AsyncImage(
 - [bill of materials (BOM)](https://docs.gradle.org/7.2/userguide/platforms.html#sub:bom_import) を含む新しい `coil-bom` アーティファクトを追加しました。
     - `coil-bom` をインポートすることで、バージョンを指定せずに他の Coil アーティファクトに依存できるようになります。
 - `ExecuteCallback.Immediate` を使用した際の画像読み込み失敗を修正しました。
-- Update Okio to 3.0.0-alpha.11.
+- Okio を 3.0.0-alpha.11 に更新しました。
     - これにより、Okio 3.0.0-alpha.11 との互換性の問題も解決されます。
-- Update Kotlin to 1.5.31.
-- Update Compose to 1.0.4.
+- Kotlin を 1.5.31 に更新しました。
+- Compose を 1.0.4 に更新しました。
 
 ## [2.0.0-alpha01] - 2021年10月11日
 
@@ -743,8 +770,8 @@ Coil 2.0.0 はライブラリの次のメジャーアップデートであり、
     - `ImageViewTarget` を持つリクエストのスケールは引き続き自動検出されます。
 - 画像パイプラインクラスの重要な変更:
     - `Mapper`、`Fetcher`、および `Decoder` は、より柔軟になるようリファクタリングされました。
-    - `Fetcher.key` は新しい `Keyer` インターフェースに置き換えられました。`Keyer` は入力データからキャッシュキーを作成します。
-    - `Decoder` が直接 `File` をデコードできるようにする `ImageSource` を追加しました。
+    - `Fetcher.key` は新しい `Keyer` インターフェースに置き換えられました。 `Keyer` は入力データからキャッシュキーを作成します。
+    - 直接 `File` をデコードできるようにする `ImageSource` を追加しました。
 - `BitmapPool` と `PoolableViewTarget` はライブラリから削除されました。ビットマッププーリング（bitmap pooling）が削除された理由は以下の通りです:
     - API 23 以下で最も効果的でしたが、新しい Android リリースでは効果が低くなっていました。
     - ビットマッププーリングを削除することで、Coil はパフォーマンス上の利点がある不変（immutable）のビットマップを使用できるようになります。
@@ -768,8 +795,8 @@ Coil 2.0.0 はライブラリの次のメジャーアップデートであり、
 - `ImageRequest.Listener` は `onSuccess` と `onError` でそれぞれ `SuccessResult`/`ErrorResult` を返すようになりました。
 - デフォルトでサポートされるデータ型に `ByteBuffer` を追加しました。
 - 複数のクラスから `toString` 実装を削除しました。
-- Update OkHttp to 4.9.2.
-- Update Okio to 3.0.0-alpha.10.
+- OkHttp を 4.9.2 に更新しました。
+- Okio を 3.0.0-alpha.10 に更新しました。
 
 ## [1.4.0] - 2021年10月6日
 
@@ -782,23 +809,23 @@ Coil 2.0.0 はライブラリの次のメジャーアップデートであり、
 - デザガリング（desugaring）の問題を回避するため、Java 8 のメソッドの使用を削除しました。 ([#924](https://github.com/coil-kt/coil/pull/924))
 - `ImagePainter.ExecuteCallback` を安定した API に昇格させました。 ([#927](https://github.com/coil-kt/coil/pull/927))
 - compileSdk を 31 に更新しました。
-- Update Kotlin to 1.5.30.
-- Update Coroutines to 1.5.2.
-- Update Compose to 1.0.3.
+- Kotlin を 1.5.30 に更新しました。
+- Coroutines を 1.5.2 に更新しました。
+- Compose を 1.0.3 に更新しました。
 
 ## [1.3.2] - 2021年8月4日
 
 - `coil-compose` が `compose.foundation` ではなく `compose.ui` に依存するようになりました。
     - `compose.ui` は `compose.foundation` のサブセットであるため、より小さな依存関係となります。
-- Update Jetpack Compose to 1.0.1.
-- Update Kotlin to 1.5.21.
-- Update Coroutines to 1.5.1.
-- Update `androidx.exifinterface:exifinterface` to 1.3.3.
+- Jetpack Compose を 1.0.1 に更新しました。
+- Kotlin を 1.5.21 に更新しました。
+- Coroutines を 1.5.1 に更新しました。
+- `androidx.exifinterface:exifinterface` を 1.3.3 に更新しました。
 
 ## [1.3.1] - 2021年7月28日
 
 - Jetpack Compose を `1.0.0` に更新しました。[安定版リリース](https://android-developers.googleblog.com/2021/07/jetpack-compose-announcement.html) おめでとうございます！
-- Update `androidx.appcompat:appcompat-resources` to 1.3.1.
+- `androidx.appcompat:appcompat-resources` を 1.3.1 に更新しました。
 
 ## [1.3.0] - 2021年7月10日
 
@@ -809,7 +836,7 @@ Coil 2.0.0 はライブラリの次のメジャーアップデートであり、
 - `ImageLoader` の内部ネットワークオブザーバーを有効化・無効化する機能を追加しました。 ([#741](https://github.com/coil-kt/coil/pull/741))
 - `BitmapFactoryDecoder` でデコードされたビットマップの密度（density）を修正しました。 ([#776](https://github.com/coil-kt/coil/pull/776))
 - Licensee が Coil のライセンス URL を見つけられない問題を修正しました。 ([#774](https://github.com/coil-kt/coil/pull/774))
-- Update `androidx.core:core-ktx` to 1.6.0.
+- `androidx.core:core-ktx` を 1.6.0 に更新しました。
 
 ## [1.2.2] - 2021年6月4日
 
@@ -818,10 +845,10 @@ Coil 2.0.0 はライブラリの次のメジャーアップデートであり、
 - `ResourceUriFetcher` によって返される不正確なデータソースを修正しました。 ([#770](https://github.com/coil-kt/coil/pull/770))
 - API 26 および 27 において利用可能なファイル記述子がない場合のログチェックを修正しました。
 - プラットフォームのベクタードローアブルサポートに関する不正確なバージョンチェックを修正しました。 ([#751](https://github.com/coil-kt/coil/pull/751))
-- Update Kotlin (1.5.10).
-- Update Coroutines (1.5.0).
-- Update `androidx.appcompat:appcompat-resources` to 1.3.0.
-- Update `androidx.core:core-ktx` to 1.5.0.
+- Kotlin (1.5.10) を更新しました。
+- Coroutines (1.5.0) を更新しました。
+- `androidx.appcompat:appcompat-resources` を 1.3.0 に更新しました。
+- `androidx.core:core-ktx` を 1.5.0 に更新しました。
 
 ## [1.2.1] - 2021年4月27日
 
@@ -850,10 +877,10 @@ Coil 2.0.0 はライブラリの次のメジャーアップデートであり、
 ---
 
 - JVM IR バックエンドを使用してビルドするようにしました。 ([#670](https://github.com/coil-kt/coil/pull/670))
-- Update Kotlin (1.4.32).
-- Update Coroutines (1.4.3).
-- Update OkHttp (3.12.13).
-- Update `androidx.lifecycle:lifecycle-common-java8` to 2.3.1.
+- Kotlin (1.4.32) を更新しました。
+- Coroutines (1.4.3) を更新しました。
+- OkHttp (3.12.13) を更新しました。
+- `androidx.lifecycle:lifecycle-common-java8` を 2.3.1 に更新しました。
 
 ## [1.1.1] - 2021年1月11日
 
@@ -861,10 +888,10 @@ Coil 2.0.0 はライブラリの次のメジャーアップデートであり、
 - 修正: メインスレッドから呼び出された場合に `HttpFetcher` が永久にブロックされる問題を修正しました。
     - `ImageRequest.dispatcher(Dispatchers.Main.immediate)` を使用してメインスレッドで強制的に実行されるリクエストは、`ImageRequest.networkCachePolicy` が `CachePolicy.DISABLED` または `CachePolicy.WRITE_ONLY` に設定されていない限り、`NetworkOnMainThreadException` で失敗します。
 - 動画に回転メタデータがある場合、`VideoFrameFetcher` からの動画フレームを回転させるようにしました。
-- Update Kotlin (1.4.21).
-- Update Coroutines (1.4.2).
-- Update Okio (2.10.0).
-- Update `androidx.exifinterface:exifinterface` (1.3.2).
+- Kotlin (1.4.21) を更新しました。
+- Coroutines (1.4.2) を更新しました。
+- Okio (2.10.0) を更新しました。
+- `androidx.exifinterface:exifinterface` (1.3.2) を更新しました。
 
 ## [1.1.0] - 2020年11月24日
 
@@ -884,7 +911,7 @@ Coil 2.0.0 はライブラリの次のメジャーアップデートであり、
 - 修正: `CrossfadeDrawable` の開始/終了ドローアブルをミューテートするようにしました。 ([#572](https://github.com/coil-kt/coil/pull/572))
 - 修正: 2回目の読み込み時に GIF が再生されない問題を修正しました。 ([#577](https://github.com/coil-kt/coil/pull/534))
 - Kotlin (1.4.20) に更新し、`kotlin-parcelize` プラグインに移行しました。
-- Update Coroutines (1.4.1).
+- Coroutines (1.4.1) を更新しました。
 
 ## [1.0.0] - 2020年10月22日
 
@@ -896,9 +923,9 @@ Coil 2.0.0 はライブラリの次のメジャーアップデートであり、
 `1.0.0-rc3` からの変更点:
 - 修正: ActivityManager が欠落している、または無効である場合へのガードを追加しました。 ([#541](https://github.com/coil-kt/coil/pull/541))
 - 修正: OkHttp が失敗したレスポンスをキャッシュできるようにしました。 ([#551](https://github.com/coil-kt/coil/pull/551))
-- Update Kotlin to 1.4.10.
-- Update Okio to 2.9.0.
-- Update `androidx.exifinterface:exifinterface` to 1.3.1.
+- Kotlin を 1.4.10 に更新しました。
+- Okio を 2.9.0 に更新しました。
+- `androidx.exifinterface:exifinterface` を 1.3.1 に更新しました。
 
 ## [1.0.0-rc3] - 2020年9月21日
 
@@ -937,9 +964,9 @@ Coil 2.0.0 はライブラリの次のメジャーアップデートであり、
 
 ---
 
-- Update Kotlin to 1.4.0.
-- Update Coroutines to 1.3.9.
-- Update Okio to 2.8.0.
+- Kotlin を 1.4.0 に更新しました。
+- Coroutines を 1.3.9 に更新しました。
+- Okio を 2.8.0 に更新しました。
 
 ## [1.0.0-rc1] - 2020年8月18日
 
@@ -948,7 +975,7 @@ Coil 2.0.0 はライブラリの次のメジャーアップデートであり、
     - **ビルドファイルで `-Xjvm-default=all` を有効にする方法については [こちら](https://coil-kt.github.io/coil/faq/#how-do-i-target-java-8) を参照してください。**
     - これにより、Kotlin のデフォルトインターフェースメソッドに対して Java 8 のデフォルトメソッドが生成されます。
 - 0.12.0 で存在したすべての非推奨メソッドを削除しました。
-- Update Coroutines to 1.3.9.
+- Coroutines を 1.3.9 に更新しました。
 
 ## [0.12.0] - 2020年8月18日
 
@@ -999,11 +1026,11 @@ Coil 2.0.0 はライブラリの次のメジャーアップデートであり、
 ---
 
 - SDK 30 でコンパイルするようにしました。
-- Update Coroutines to 1.3.8.
-- Update OkHttp to 3.12.12.
-- Update Okio to 2.7.0.
+- Coroutines を 1.3.8 に更新しました。
+- OkHttp を 3.12.12 に更新しました。
+- Okio を 2.7.0 に更新しました。
 - AndroidX の依存関係を更新しました:
-    - `androidx.appcompat:appcompat` -> 1.2.0
+    - `androidx.appcompat:appcompat-resources` -> 1.2.0
     - `androidx.core:core-ktx` -> 1.3.1
 
 ## [0.11.0] - 2020年5月14日
@@ -1027,8 +1054,8 @@ Coil 2.0.0 はライブラリの次のメジャーアップデートであり、
 
 - デフォルトのメモリキャッシュサイズを 20% に削減しました。 ([#390](https://github.com/coil-kt/coil/pull/390))
     - 以前の動作を復元するには、`ImageLoader` 作成時に `ImageLoaderBuilder.availableMemoryPercentage(0.25)` を設定してください。
-- Update Coroutines to 1.3.6.
-- Update OkHttp to 3.12.11.
+- Coroutines を 1.3.6 に更新しました。
+- OkHttp を 3.12.11 に更新しました。
 
 ## [0.10.1] - 2020年4月26日
 
@@ -1038,7 +1065,7 @@ Coil 2.0.0 はライブラリの次のメジャーアップデートであり、
 
 ---
 
-- Update Okio to 2.6.0.
+- Okio を 2.6.0 に更新しました。
 
 ## [0.10.0] - 2020年4月20日
 
@@ -1100,7 +1127,7 @@ Coil 2.0.0 はライブラリの次のメジャーアップデートであり、
 - **重要**: DSL 構文を非推奨にし、ビルダー構文を優先するようにしました。 ([#267](https://github.com/coil-kt/coil/pull/267))
 - **重要**: `Coil` および `ImageLoader` の拡張関数を非推奨にしました。 ([#322](https://github.com/coil-kt/coil/pull/322))
 - **破壊的変更**: `ImageLoader.execute(GetRequest)` からシールされた `RequestResult` 型を返すようにしました。 ([#349](https://github.com/coil-kt/coil/pull/349))
-- **破壊的変更**: `ExperimentalCoil` を `ExperimentalCoilApi` に改名しました。`@Experimental` から `@RequiresOptIn` に移行しました。 ([#306](https://github.com/coil-kt/coil/pull/306))
+- **破壊的変更**: `ExperimentalCoil` を `ExperimentalCoilApi` に改名しました。 `@Experimental` から `@RequiresOptIn` に移行しました。 ([#306](https://github.com/coil-kt/coil/pull/306))
 - **破壊的変更**: `CoilLogger` を `Logger` インターフェースに置き換えました。 ([#316](https://github.com/coil-kt/coil/pull/316))
 - **破壊的変更**: destWidth/destHeight を dstWidth/dstHeight に改名しました。 ([#275](https://github.com/coil-kt/coil/pull/275))
 - **破壊的変更**: `MovieDrawable` のコンストラクタパラメータを再配置しました。 ([#272](https://github.com/coil-kt/coil/pull/272))
@@ -1146,10 +1173,10 @@ Coil 2.0.0 はライブラリの次のメジャーアップデートであり、
 
 ---
 
-- Update Kotlin to 1.3.72.
-- Update Coroutines to 1.3.5.
-- Update OkHttp to 3.12.10.
-- Update Okio to 2.5.0.
+- Kotlin を 1.3.72 に更新しました。
+- Coroutines を 1.3.5 に更新しました。
+- OkHttp を 3.12.10 に更新しました。
+- Okio を 2.5.0 に更新しました。
 - AndroidX の依存関係を更新しました:
     - `androidx.exifinterface:exifinterface` -> 1.2.0
 
@@ -1245,10 +1272,10 @@ Coil 2.0.0 はライブラリの次のメジャーアップデートであり、
 
 ---
 
-- Update Kotlin to 1.3.61.
-- Update Kotlin Coroutines to 1.3.3.
-- Update Okio to 2.4.3.
-- Update AndroidX dependencies:
+- Kotlin を 1.3.61 に更新しました。
+- Kotlin Coroutines を 1.3.3 に更新しました。
+- Okio を 2.4.3 に更新しました。
+- AndroidX の依存関係を更新しました:
     - `androidx.exifinterface:exifinterface` -> 1.1.0
 
 ## [0.8.0] - 2019年10月22日
@@ -1283,9 +1310,9 @@ Coil 2.0.0 はライブラリの次のメジャーアップデートであり、
 ---
 
 - SDK 29 でコンパイルするようにしました。
-- Update Kotlin Coroutines to 1.3.2.
-- Update OkHttp to 3.12.6.
-- Update Okio to 2.4.1.
+- Kotlin Coroutines を 1.3.2 に更新しました。
+- OkHttp を 3.12.6 に更新しました。
+- Okio を 2.4.1 に更新しました。
 - `coil-base` において `appcompat-resources` を `compileOnly` から `implementation` に変更しました。
 
 ## [0.7.0] - 2019年9月8日
@@ -1329,10 +1356,10 @@ val imageLoader = ImageLoader(context) {
 
 ---
 
-- Update Kotlin to 1.3.50.
-- Update Kotlin Coroutines to 1.3.0.
-- Update OkHttp to 3.12.4.
-- Update Okio to 2.4.0.
+- Kotlin を 1.3.50 に更新しました。
+- Kotlin Coroutines を 1.3.0 に更新しました。
+- OkHttp を 3.12.4 に更新しました。
+- Okio を 2.4.0 に更新しました。
 - AndroidX 依存関係を最新の安定版に更新しました:
     - `androidx.appcompat:appcompat` -> 1.1.0
     - `androidx.core:core-ktx` -> 1.1.0

@@ -34,6 +34,7 @@ aside: false
                     <title>iOS 固有の機能</title>
                     <a href="compose-swiftui-integration.md" summary="SwiftUI との相互運用性: ネイティブビュー内での Compose の使用、およびその逆">SwiftUI との相互運用性</a>
                     <a href="compose-uikit-integration.md" summary="UIKit との相互運用性: ネイティブビュー内での Compose の使用、およびその逆">UIKit との相互運用性</a>
+                    <a href="ios-liquid-glass.md" summary="システムによってレンダリングされる Liquid Glass エフェクトを適用するために、ネイティブの SwiftUI ナビゲーションを使用する方法を学ぶ">Liquid Glass</a>
                     <a href="compose-ios-touch.md" summary="相互運用シナリオにおいて Compose Multiplatform がタッチイベントをどのように処理するかを学ぶ">iOS 相互運用シナリオにおけるタッチ</a>
                     <a href="compose-ios-accessibility.md" summary="iOS アクセシビリティサービスの現在のサポートレベルについて学ぶ">iOS のアクセシビリティ</a>
                 </group>

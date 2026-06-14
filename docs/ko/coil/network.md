@@ -5,9 +5,9 @@
 네트워크에서 이미지를 가져오는 기능을 추가하려면 **다음 중 하나만** 추가하십시오:
 
 ```kotlin
-implementation("io.coil-kt.coil3:coil-network-okhttp:3.4.0") // Android/JVM에서만 사용 가능합니다.
-implementation("io.coil-kt.coil3:coil-network-ktor2:3.4.0")
-implementation("io.coil-kt.coil3:coil-network-ktor3:3.4.0")
+implementation("io.coil-kt.coil3:coil-network-okhttp:3.5.0") // Android/JVM에서만 사용 가능합니다.
+implementation("io.coil-kt.coil3:coil-network-ktor2:3.5.0")
+implementation("io.coil-kt.coil3:coil-network-ktor3:3.5.0")
 ```
 
 OkHttp를 사용한다면 이것으로 충분합니다. 라이브러리를 추가하고 나면 `https://example.com/image.jpg`와 같은 네트워크 URL이 자동으로 지원됩니다. Ktor를 사용하는 경우 각 플랫폼에 맞는 엔진을 추가해야 합니다(아래 참조).

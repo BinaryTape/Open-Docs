@@ -18,7 +18,7 @@ Koog プラグインを一度インストールし、`application.conf`/YAML ま
 - OpenAI、Anthropic、Google、OpenRouter、DeepSeek、Ollama の第一級のサポート
 - YAML/CONF および/またはコードによる集中管理された設定
 - プロンプト、ツール、機能を使用したエージェントのセットアップ。ルート用のシンプルな拡張関数
-- 直接的な LLM の使用 (`execute`、`executeStreaming`、`moderate`)
+- 直接的な LLM の使用 (execute、executeStreaming、moderate)
 - JVM 限定の Model Context Protocol (MCP) ツール統合
 
 ## 依存関係の追加
@@ -215,7 +215,7 @@ install(Koog) {
 YAML/CONF で `llm.fallback` を設定する際は、以下の識別子形式を使用してください。
 
 - OpenAI: `openai.chat.gpt4_1`, `openai.reasoning.o3`, `openai.costoptimized.gpt4_1mini`, `openai.audio.gpt4oaudio`, `openai.moderation.omni`
-- Anthropic: `anthropic.sonnet_4_5`, `anthropic.opus_4`, `anthropic.haiku_4_5`
+- Anthropic: `anthropic.fable_5`, `anthropic.sonnet_4_5`, `anthropic.opus_4`, `anthropic.haiku_4_5`
 - Google: `google.gemini2_5pro`, `google.gemini2_0flash001`
 - OpenRouter: `openrouter.gpt4o`, `openrouter.gpt4`, `openrouter.claude3sonnet`
 - DeepSeek: `deepseek.deepseek-v4-flash`, `deepseek.deepseek-v4-pro`, `deepseek.deepseek-chat`, `deepseek.deepseek-reasoner`
@@ -246,10 +246,9 @@ install(Koog) {
     }
 }
 ```
-
 ## なぜ Koog + Ktor なのか？
 
 - サーバーでの Kotlin ファーストかつ型安全なエージェント開発
 - クリーンでテスト可能なルートコードによる集中管理された設定
 - ルートごとに適切なモデルを使用、または直接的な LLM 呼び出しのために自動的にフォールバック
-- 本番環境対応の機能: ツール、モデレーション、ストリーミング、トレーシング
+- 本番環境対応 Hodge の機能: ツール、モデレーション、ストリーミング、トレーシング

@@ -45,7 +45,7 @@ aside: false
                     <a href="multiplatform-dsl-reference.md" summary="Kotlin Multiplatform プロジェクトの Gradle ビルドスクリプトを構成する">Gradle DSL リファレンス</a>
                     <a href="https://klibs.io/" summary="JetBrains が開発した Kotlin Multiplatform ライブラリ向けの実験的な検索プラットフォーム">ライブラリ検索プラットフォーム</a>
                     <a href="https://kmp.jetbrains.com/" summary="マルチプラットフォームプロジェクトのテンプレートを素早く生成してダウンロードする">新規プロジェクトウィザード</a>
-                    <a href="amper.md" summary="Amper によるプロジェクト構成">Amper 構成ツール</a>
+                    <a href="amper.md" summary="Kotlin Toolchain によるプロジェクト構成">Amper 構成ツール</a>
                 </group>
                 <group>
                     <title>コミュニティとヘルプ</title>

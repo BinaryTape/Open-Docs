@@ -3,7 +3,7 @@
 <show-structure depth="3"/>
 
 Compose Multiplatform 與 [SwiftUI](https://developer.apple.com/swiftui/) 架構具有互通性。
-您可以將 Compose Multiplatform 嵌入 SwiftUI 應用程式中，也可以將原生 SwiftUI 組件嵌入 Compose Multiplatform UI 中。本頁面提供在 SwiftUI 中使用 Compose Multiplatform 以及在 Compose Multiplatform 應用程式中嵌入 SwiftUI 的範例。
+您可以將 Compose Multiplatform 嵌入 SwiftUI 應用程式中，也可以將原生 SwiftUI 組建嵌入 Compose Multiplatform UI 中。本頁面提供在 SwiftUI 中使用 Compose Multiplatform 以及在 Compose Multiplatform 應用程式中嵌入 SwiftUI 的範例。
 
 > 若要了解 UIKit 互通性，請參閱 [與 UIKit 架構整合](compose-uikit-integration.md) 一文。
 >
@@ -59,7 +59,7 @@ struct ComposeViewController: UIViewControllerRepresentable {
 要在 Compose Multiplatform 中使用 SwiftUI，請將您的 Swift 程式碼新增至中介的 [`UIViewController`](https://developer.apple.com/documentation/uikit/uiviewcontroller/)。
 目前，您無法直接在 Kotlin 中編寫 SwiftUI 結構。相反地，您必須在 Swift 中編寫它們，並將其傳遞給 Kotlin 函式。
 
-首先，為您的進入點函式新增一個引數以建立 `ComposeUIViewController` 組件：
+首先，為您的入口點函式新增一個引數以建立 `ComposeUIViewController` 組件：
 
 ```kotlin
 @OptIn(ExperimentalForeignApi::class)
@@ -82,7 +82,7 @@ fun ComposeEntryPointWithUIViewController(
     }
 ```
 
-在您的 Swift 程式碼中，將 `createUIViewController` 傳遞給您的進入點函式。您可以使用 `UIHostingController` 執行個體來包裝 SwiftUI 檢視：
+在您的 Swift 程式碼中，將 `createUIViewController` 傳遞給您的入口點函式。您可以使用 `UIHostingController` 執行個體來包裝 SwiftUI 檢視：
 
 ```swift
 Main_iosKt.ComposeEntryPointWithUIViewController(createUIViewController: { () -> UIViewController in
@@ -101,9 +101,9 @@ Main_iosKt.ComposeEntryPointWithUIViewController(createUIViewController: { () ->
 
 ### 地圖檢視
 
-您可以使用 SwiftUI 的 [`Map`](https://developer.apple.com/documentation/mapkit/map) 組件在 Compose Multiplatform 中實作地圖檢視。這讓您的應用程式能夠顯示完全互動的 SwiftUI 地圖。
+您可以使用 SwiftUI 的 [`Map`](https://developer.apple.com/documentation/mapkit/map) 組建在 Compose Multiplatform 中實作地圖檢視。這讓您的應用程式能夠顯示完全互動的 SwiftUI 地圖。
 
-對於同一個 [Kotlin 進入點函式](#在-compose-multiplatform-中使用-swiftui)，在 Swift 中，使用 `UIHostingController` 傳遞包裝 `Map` 檢視的 `UIViewController`：
+對於同一個 [Kotlin 入口點函式](#在-compose-multiplatform-中使用-swiftui)，在 Swift 中，使用 `UIHostingController` 傳遞包裝 `Map` 檢視的 `UIViewController`：
 
 ```swift
 import SwiftUI
@@ -129,12 +129,12 @@ import SwiftUI
 import MapKit
 
 struct AnnotatedMapView: View {
-    // Manages map region state
+    // 管理地圖區域狀態
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 51.5074, longitude: -0.1278),
         span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
     )
-    // Displays a map with a custom annotation
+    // 顯示具有自訂註解的地圖
     var body: some View {
         Map(coordinateRegion: $region, annotationItems: [Landmark.example]) { landmark in
             MapMarker(coordinate: landmark.coordinate, tint: .blue)
@@ -168,18 +168,18 @@ Main_iosKt.ComposeEntryPointWithUIViewController(createUIViewController: {
 * 使用 `@State` 和 `MKCoordinateRegion` 管理地圖位置的內部狀態，允許 Compose Multiplatform 顯示一個互動式且感知狀態的地圖。
 * 使用符合 `Identifiable` 的靜態 `Landmark` 模型在地圖上顯示 `MapMarker`，這是 SwiftUI 註解所必需的。
 * 使用 `annotationItems` 以宣告方式在地圖上放置自訂標記。
-* 將 SwiftUI 組件包裝在 `UIHostingController` 中，然後將其作為 `UIViewController` 傳遞給 Compose Multiplatform。
+* 將 SwiftUI 組建包裝在 `UIHostingController` 中，然後將其作為 `UIViewController` 傳遞給 Compose Multiplatform。
 
 ### 相機檢視
 
-您可以使用 SwiftUI 和 UIKit 的 [`UIImagePickerController`](https://developer.apple.com/documentation/uikit/uiimagepickercontroller)（包裝在與 SwiftUI 相容的組件中）在 Compose Multiplatform 中實作相機檢視。這讓您的應用程式能夠啟動系統相機並拍攝照片。
+您可以使用 SwiftUI 和 UIKit 的 [`UIImagePickerController`](https://developer.apple.com/documentation/uikit/uiimagepickercontroller)（包裝在與 SwiftUI 相容的組建中）在 Compose Multiplatform 中實作相機檢視。這讓您的應用程式能夠啟動系統相機並拍攝照片。
 
-對於同一個 [Kotlin 進入點函式](#在-compose-multiplatform-中使用-swiftui)，在 Swift 中，使用 `UIImagePickerController` 定義基本的 `CameraView` 並使用 `UIHostingController` 嵌入：
+對於同一個 [Kotlin 入口點函式](#在-compose-multiplatform-中使用-swiftui)，在 Swift 中，使用 `UIImagePickerController` 定義基本的 `CameraView` 並使用 `UIHostingController` 嵌入：
 
 ```swift
 Main_iosKt.ComposeEntryPointWithUIViewController(createUIViewController: {
     return UIHostingController(rootView: CameraView { image in
-        // Handle captured image here
+        // 在此處處理擷取的影像
     })
 })
 ```
@@ -233,36 +233,36 @@ struct CameraView: UIViewControllerRepresentable {
 }
 ```
 
-現在，讓我們看一個進階範例。這段程式碼呈現一個相機檢視，並在同一個 SwiftUI 檢視中顯示拍攝影像的縮圖：
+現在，讓我們看一個進階範例。這段程式碼呈現一個相機檢視，並在同一個 SwiftUI 檢視中顯示擷取影像的縮圖：
 
 ```swift
 import SwiftUI
 import UIKit
 
 struct CameraPreview: View {
-    // Controls the camera sheet visibility
+    // 控制相機工作表的顯示狀態
     @State private var showCamera = false
-    // Stores the captured image
+    // 儲存擷取的影像
     @State private var capturedImage: UIImage?
 
     var body: some View {
         VStack {
             if let image = capturedImage {
-                // Displays the captured image
+                // 顯示擷取的影像
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
                     .frame(height: 200)
             } else {
-                // Shows placeholder text when no image is captured
+                // 當未擷取影像時顯示佔位字串
                 Text("No image captured")
             }
 
-            // Adds a button to open the camera
+            // 新增開啟相機的按鈕
             Button("Open Camera") {
                 showCamera = true
             }
-            // Presents CameraView as a modal sheet
+            // 將 CameraView 作為強制回應視窗呈現
             .sheet(isPresented: $showCamera) {
                 CameraView { image in
                     capturedImage = image
@@ -276,7 +276,7 @@ struct CameraPreview: View {
 `CameraPreview` 檢視執行下列任務：
 
 * 當使用者點擊按鈕時，在強制回應視窗 `.sheet` 中呈現 `CameraView`。
-* 使用 `@State` 屬性包裝器來存儲並顯示拍攝的影像。
+* 使用 `@State` 屬性包裝器來儲存並顯示擷取的影像。
 * 嵌入 SwiftUI 原生的 `Image` 檢視來預覽照片。
 * 重複使用與之前相同基於 `UIViewControllerRepresentable` 的 `CameraView`，但將其更深層地整合到 SwiftUI 狀態系統中。
 
@@ -286,9 +286,9 @@ struct CameraPreview: View {
 
 ### 網頁檢視
 
-您可以透過將 UIKit 的 [`WKWebView`](https://developer.apple.com/documentation/webkit/wkwebview) 組件與 `UIViewRepresentable` 包裝在一起，在 Compose Multiplatform 中使用 SwiftUI 實作網頁檢視。這讓您可以顯示具有完整原生渲染的嵌入式網頁內容。
+您可以透過將 UIKit 的 [`WKWebView`](https://developer.apple.com/documentation/webkit/wkwebview) 組建與 `UIViewRepresentable` 包裝在一起，在 Compose Multiplatform 中使用 SwiftUI 實作網頁檢視。這讓您可以顯示具有完整原生渲染的嵌入式網頁內容。
 
-對於同一個 [Kotlin 進入點函式](#在-compose-multiplatform-中使用-swiftui)，在 Swift 中，定義一個使用 `UIHostingController` 嵌入的基本 `WebView`：
+對於同一個 [Kotlin 入口點函式](#在-compose-multiplatform-中使用-swiftui)，在 Swift 中，定義一個使用 `UIHostingController` 嵌入的基本 `WebView`：
 
 ```swift
 Main_iosKt.ComposeEntryPointWithUIViewController(createUIViewController: {
@@ -309,7 +309,7 @@ struct AdvancedWebView: UIViewRepresentable {
     @Binding var isLoading: Bool
     @Binding var currentURL: String
 
-    // Creates WKWebView with navigation delegate
+    // 建立具有導覽委派的 WKWebView
     func makeUIView(context: Context) -> WKWebView {
         let webView = WKWebView()
         webView.navigationDelegate = context.coordinator
@@ -319,7 +319,7 @@ struct AdvancedWebView: UIViewRepresentable {
 
     func updateUIView(_ uiView: WKWebView, context: Context) {}
 
-    // Creates coordinator to handle web navigation events 
+    // 建立協調器以處理 Web 導覽事件 
     func makeCoordinator() -> Coordinator {
         Coordinator(isLoading: $isLoading, currentURL: $currentURL)
     }
@@ -337,7 +337,7 @@ struct AdvancedWebView: UIViewRepresentable {
             isLoading = true
         }
 
-        // Updates URL and indicates loading has completed
+        // 更新 URL 並指示載入已完成
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation?) {
             isLoading = false
             currentURL = webView.url?.absoluteString ?? ""
@@ -350,24 +350,24 @@ struct AdvancedWebView: UIViewRepresentable {
 
 ```swift
 struct WebViewContainer: View {
-    // Tracks loading state of web view
+    // 追蹤網頁檢視的載入狀態
     @State private var isLoading = false
-    // Tracks current URL displayed
+    // 追蹤顯示的目前 URL
     @State private var currentURL = ""
 
     var body: some View {
         VStack {
-            // Displays loading indicator while loading
+            // 載入時顯示載入指示器
             if isLoading {
                 ProgressView()
             }
-            // Shows current URL
+            // 顯示目前 URL
             Text("URL: \(currentURL)")
                 .font(.caption)
                 .lineLimit(1)
                 .truncationMode(.middle)
 
-            // Embeds the advanced web view
+            // 嵌入進階網頁檢視
             AdvancedWebView(
                 url: URL(string: "https://www.jetbrains.com")!,
                 isLoading: $isLoading,
@@ -383,9 +383,10 @@ struct WebViewContainer: View {
 * 建立具有自訂導覽委派的 `WKWebView`，以追蹤載入進度和 URL 變更。
 * 使用 SwiftUI 的 `@State` 繫結來動態更新 UI 以回應導覽事件。
 * 在頁面載入時顯示 `ProgressView` 旋轉圖示。
-* 使用 `Text` 組件在檢視頂部顯示當前 URL。
-* 使用 `UIHostingController` 將此組件整合到您的 Compose UI 中。
+* 使用 `Text` 組建在檢視頂部顯示目前 URL。
+* 使用 `UIHostingController` 將此組建整合到您的 Compose UI 中。
 
 ## 後續步驟
 
-您還可以探索 Compose Multiplatform [與 UIKit 架構整合](compose-uikit-integration.md) 的方式。
+* 了解如何使用 [原生 SwiftUI 導覽以實現系統渲染的 Liquid Glass 效果](ios-liquid-glass.md)，同時由 Compose 渲染螢幕內容。
+* 探索 Compose Multiplatform [與 UIKit 架構整合](compose-uikit-integration.md) 的方式。

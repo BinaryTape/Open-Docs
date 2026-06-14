@@ -34,6 +34,7 @@ aside: false
                     <title>iOS 전용 기능</title>
                     <a href="compose-swiftui-integration.md" summary="SwiftUI와의 상호운용성: 네이티브 뷰에서 Compose를 사용하거나 그 반대로 사용하기">SwiftUI 상호운용성</a>
                     <a href="compose-uikit-integration.md" summary="UIKit와의 상호운용성: 네이티브 뷰에서 Compose를 사용하거나 그 반대로 사용하기">UIKit 상호운용성</a>
+                    <a href="ios-liquid-glass.md" summary="네이티브 SwiftUI 내비게이션을 사용하여 시스템에서 렌더링되는 Liquid Glass 효과를 얻는 방법을 알아봅니다">Liquid Glass</a>
                     <a href="compose-ios-touch.md" summary="상호운용 시나리오에서 Compose Multiplatform이 터치 이벤트를 처리하는 방법을 알아봅니다">iOS 상호운용 시나리오에서의 터치</a>
                     <a href="compose-ios-accessibility.md" summary="iOS 접근성 서비스(Accessibility Services)에 대한 현재 지원 수준을 알아봅니다">iOS 접근성</a>
                 </group>
@@ -41,7 +42,7 @@ aside: false
                     <title>도구</title>
                     <a href="https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform" summary="IntelliJ IDEA 및 Android Studio용 Kotlin Multiplatform 플러그인">Compose Multiplatform용 IDE 플러그인</a>
                     <a href="compose-hot-reload.md" summary="Compose 핫 리로드를 통해 UI를 빠르게 반복 수정합니다">Compose 핫 리로드</a>
-                    <a href="https://klibs.io/" summary="JetBrains에서 개발한 Kotlin Multiplatform 라이브러리를 위한 실험적 검색 플랫폼">Compose Multiplatform 라이브러리 검색</a>
+                    <a href="https://klibs.io/" summary="JetBrains에서 개발한 Kotlin Multiplatform 라이브러리를 위한 검색 플랫폼">Compose Multiplatform 라이브러리 검색</a>
                     <a href="https://kotlinlang.org/docs/compose-compiler-options.html" summary="Kotlin에 포함된 Compose 컴파일러 및 관련 옵션">Compose 컴파일러 및 옵션</a>
                 </group>
                 <group>

@@ -5,8 +5,8 @@
 一個典型的 Compose UI 專案會需要匯入：
 
 ```kotlin
-implementation("io.coil-kt.coil3:coil-compose:3.4.0")
-implementation("io.coil-kt.coil3:coil-network-okhttp:3.4.0")
+implementation("io.coil-kt.coil3:coil-compose:3.5.0")
+implementation("io.coil-kt.coil3:coil-network-okhttp:3.5.0")
 ```
 
 匯入之後，您可以使用 `AsyncImage` 從網路載入圖片：
@@ -26,8 +26,8 @@ AsyncImage(
 如果您使用 Android Views 而非 Compose UI，請匯入：
 
 ```kotlin
-implementation("io.coil-kt.coil3:coil:3.4.0")
-implementation("io.coil-kt.coil3:coil-network-okhttp:3.4.0")
+implementation("io.coil-kt.coil3:coil:3.5.0")
+implementation("io.coil-kt.coil3:coil-network-okhttp:3.5.0")
 ```
 
 匯入之後，您可以使用 `ImageView.load` 擴充函式從網路載入圖片：
@@ -75,7 +75,7 @@ SingletonImageLoader.setSafe { context ->
 ```
 
 !!! Note
-    如果您正在編寫依賴於 Coil 的程式庫，則**不應**取得或設定單例 `ImageLoader`。相反地，您應該依賴 `io.coil-kt.coil3:coil-core`，建立您自己的 `ImageLoader` 並手動傳遞。如果您在程式庫中設定了單例 `ImageLoader`，若使用您程式庫的應用程式也使用了 Coil，您可能會覆寫該應用程式設定的 `ImageLoader`。
+    如果您正在編寫依賴於 Coil 的程式庫，則**不應**取得或設定單例 `ImageLoader`。相反地，您應該依賴 `io.coil-kt.coil3:coil-core`，建立您自己的 `ImageLoader`並手動傳遞。如果您在程式庫中設定了單例 `ImageLoader`，若使用您程式庫的應用程式也使用了 Coil，您可能會覆寫該應用程式設定的 `ImageLoader`。
 
 ## 圖片
 

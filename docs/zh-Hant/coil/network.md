@@ -5,9 +5,9 @@
 若要增加從網路擷取圖片的支援，請**僅匯入以下其中之一**：
 
 ```kotlin
-implementation("io.coil-kt.coil3:coil-network-okhttp:3.4.0") // 僅適用於 Android/JVM。
-implementation("io.coil-kt.coil3:coil-network-ktor2:3.4.0")
-implementation("io.coil-kt.coil3:coil-network-ktor3:3.4.0")
+implementation("io.coil-kt.coil3:coil-network-okhttp:3.5.0") // 僅適用於 Android/JVM。
+implementation("io.coil-kt.coil3:coil-network-ktor2:3.5.0")
+implementation("io.coil-kt.coil3:coil-network-ktor3:3.5.0")
 ```
 
 如果您使用 OkHttp，這樣就完成了。匯入後，將自動支援如 `https://example.com/image.jpg` 的網路 URL。如果您使用 Ktor，則需要為每個平台新增支援的引擎（見下文）。

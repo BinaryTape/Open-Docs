@@ -50,7 +50,7 @@ aside: false
                 <group>
                     <title>社区与帮助</title>
                     <a href="https://kotlinlang.slack.com/archives/C3PQML5NU" summary="Kotlin Slack">加入我们的 Slack 频道</a>
-                    <a href="https://stackoverflow.com/questions/tagged/kotlin-multiplatform" summary="关注 kotlin-multiplatform 标签">在 StackOverflow 上关注我们的标签</a>
+                    <a href="https://stackoverflow.com/questions/tagged/kotlin-multiplatform" summary="在 StackOverflow 上关注 kotlin-multiplatform 标签">在 StackOverflow 上关注我们的标签</a>
                     <a href="https://youtrack.jetbrains.com/newIssue?project=KT" summary="Kotlin 问题跟踪器">在 YouTrack 中报告问题</a>
                 </group>
             </links>

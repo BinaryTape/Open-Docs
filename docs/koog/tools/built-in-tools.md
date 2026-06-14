@@ -1,7 +1,7 @@
 # 内置工具
 
-Koog 框架为 Kotlin 和 Java 提供了内置工具，用于处理智能体与用户交互的常见场景。
-
+Koog 为 Kotlin 和 Java 提供了内置工具，帮助您快速构建原型并实验智能体与用户的交互。
+这些工具不适用于生产环境。要使用它们，请将 `ai.koog:agents-ext` 添加到您的依赖项中。
 以下是可用的内置工具：
 
 | 工具 | <div style="width:115px">名称</div> | 描述 |
@@ -35,7 +35,7 @@ const val apiToken = ""
 
 -->
 ```kotlin
-// Create a tool registry with all built-in tools
+// 创建一个包含所有内置工具的工具注册表
 val toolRegistry = ToolRegistry {
     tool(SayToUser)
     tool(AskUser)
@@ -45,7 +45,7 @@ val toolRegistry = ToolRegistry {
     tool(WriteFileTool(JVMFileSystemProvider.ReadWrite))
 }
 
-// Pass the registry when creating an agent
+// 在创建智能体时传递注册表
 val agent = AIAgent(
     promptExecutor = simpleOpenAIExecutor(apiToken),
     systemPrompt = "You are a helpful assistant.",

@@ -7,9 +7,9 @@
     <p>本教學使用 IntelliJ IDEA，但你也可以在 Android Studio 中進行 —— 兩款 IDE 共享相同的核心功能與 Kotlin Multiplatform 支援。</p>
     <br/>   
     <p>這是 <strong>使用共享邏輯與 UI 建立 Compose Multiplatform 應用程式</strong> 教學的最後一部分。在繼續之前，請確保你已完成之前的步驟。</p>
-    <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <Links href="/kmp/compose-multiplatform-create-first-app" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the first part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">建立你的 Compose Multiplatform 應用程式</Links><br/>
-       <img src="icon-2-done.svg" width="20" alt="第二步"/> <Links href="/kmp/compose-multiplatform-explore-composables" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the second part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Before proceeding, make sure you've completed previous steps. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">探索 composable 程式碼</Links><br/>
-       <img src="icon-3-done.svg" width="20" alt="第三步"/> <Links href="/kmp/compose-multiplatform-modify-project" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the third part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Before proceeding, make sure you've completed previous steps. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">修改專案</Links><br/>
+    <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <Links href="/kmp/compose-multiplatform-create-first-app" summary="本教學使用 IntelliJ IDEA，但你也可以在 Android Studio 中進行 —— 兩款 IDE 共享相同的核心功能與 Kotlin Multiplatform 支援。這是使用共享邏輯與 UI 建立 Compose Multiplatform 應用程式教學的第一部分。建立你的 Compose Multiplatform 應用程式 探索 composable 程式碼 修改專案 建立你自己的應用程式">建立你的 Compose Multiplatform 應用程式</Links><br/>
+       <img src="icon-2-done.svg" width="20" alt="第二步"/> <Links href="/kmp/compose-multiplatform-explore-composables" summary="本教學使用 IntelliJ IDEA，但你也可以在 Android Studio 中進行 —— 兩款 IDE 共享相同的核心功能與 Kotlin Multiplatform 支援。這是使用共享邏輯與 UI 建立 Compose Multiplatform 應用程式教學的第二部分。在繼續之前，請確保你已完成之前的步驟。建立你的 Compose Multiplatform 應用程式 探索 composable 程式碼 修改專案 建立你自己的應用程式">探索 composable 程式碼</Links><br/>
+       <img src="icon-3-done.svg" width="20" alt="第三步"/> <Links href="/kmp/compose-multiplatform-modify-project" summary="本教學使用 IntelliJ IDEA，但你也可以在 Android Studio 中進行 —— 兩款 IDE 共享相同的核心功能與 Kotlin Multiplatform 支援。這是使用共享邏輯與 UI 建立 Compose Multiplatform 應用程式教學的第三部分。在繼續之前，請確保你已完成之前的步驟。建立你的 Compose Multiplatform 應用程式 探索 composable 程式碼 修改專案 建立你自己的應用程式">修改專案</Links><br/>
        <img src="icon-4.svg" width="20" alt="第四步"/> <strong>建立你自己的應用程式</strong><br/>
     </p>
 </tldr>
@@ -61,12 +61,12 @@
 
    當你執行應用程式並點擊按鈕時，會顯示硬編碼的時間 13:30。
 
-3. 使用 [Compose Hot Reload](compose-hot-reload.md)，透過啟動 **desktopApp [hot] 🔥** 运行配置，在桌面平台上執行應用程式。
+3. 使用 [Compose Hot Reload](compose-hot-reload.md)，透過啟動 **🔥desktopApp** 运行配置，在桌面平台上執行應用程式。
    應用程式可以運作，但視窗顯然對於該 UI 而言太大了：
 
    ![桌面平台上的新 Compose Multiplatform 應用程式](first-compose-project-on-desktop-3.png){width=400}
 
-4. 若要修正此問題，請按以下方式更新 `desktopApp/src/kotlin` 目錄中的 `main.kt` 檔案：
+4. 若要修正此問題，請按以下方式更新 `desktopApp` 原始碼集中的 `main.kt` 檔案：
 
     ```kotlin
     fun main() = application {

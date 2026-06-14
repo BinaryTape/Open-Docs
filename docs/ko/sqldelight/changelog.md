@@ -18,8 +18,11 @@
 ### 변경됨
 - [PostgreSQL 다이얼렉트] `arrayIntermediateType` 가시성을 public으로 변경 (#5835 by @griffio)
 - [Gradle 플러그인] 더 엄격한 `MigrationFile` 버전 관리(versioning) 구현 (#5730 by @madisp)
+- [Gradle 플러그인] 최소 지원 Gradle 버전을 8.2.1로 상향 (#6217 by @maxsav)
+- [Gradle 플러그인] Gradle 격리된 프로젝트(isolated projects) 지원 (#6217 by @maxsav)
 
 ### 수정됨
+- [컴파일러] 생성된 코드에서 Kotlin 추가 경고(extra warnings) 억제 (#6208 by @eyupcanakman)
 - [컴파일러] 그룹화되지 않은 집계 결과 집합(non-grouped aggregate result set)의 다른 컬럼들은 항상 널 허용(nullable)임
 - [PostgreSQL 다이얼렉트] `coalesce` 및 `ifnull`에 대한 널 허용 여부(nullability)를 올바르게 해결
 - [PostgreSQL 다이얼렉트] PostgreSQL 다이얼렉트의 IDE 통합 수정
@@ -31,6 +34,8 @@
 - [Gradle 플러그인] AGP 8.9에서 8.11 버전까지 Kotlin 컴파일 시 생성된 소스(generated sources)를 인식하지 못하던 문제 수정
 - [PostgreSQL 다이얼렉트] Primitive 바운드 인자를 사용할 때 `lower` 및 `upper` 함수의 기본값을 `TEXT`로 설정하도록 수정 (#6262 by @griffio)
 - [컴파일러] 널 안전 연산자(null safe operators, `IS` 및 `IS DISTINCT FROM`)와 함께 널 허용(nullable) 바인드 인자 사용 (#6265 by @griffio)
+- [Gradle 플러그인] 프로젝트 의존성에 대해 AGP의 변형 해결(variant resolution) 사용 (#6217 by @maxsav)
+- [Gradle 플러그인] 빌드 간에 AGP 변형 목록이 다를 때 `generateDatabaseInterface`의 빌드 캐시 미스 수정
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -210,7 +215,7 @@
 - [SQLite 다이얼렉트] 4897 sqlite `alter table rename column` 수정 (#4899 by @griffio)
 - [IDE 플러그인] 에러 핸들러 크래시 수정 (#4988 by @aperfilyev)
 - [IDE 플러그인] IDEA 2023.3에서 BugSnag 초기화 실패 수정 (by @aperfilyev)
-- [IDE Plugin] 플러그인을 통해 IntelliJ에서 .sq 파일을 열 때 발생하는 `PluginException` 수정 (by @aperfilyev)
+- [IDE 플러그인] 플러그인을 통해 IntelliJ에서 .sq 파일을 열 때 발생하는 `PluginException` 수정 (by @aperfilyev)
 - [IDE 플러그인] 이미 플러그인 의존성이므로 kotlin 라이브러리를 IntelliJ 플러그인에 묶지 않도록 수정 (#5126)
 - [IDE 플러그인] 스트림 대신 확장 배열을 사용하도록 수정 (#5127)
 
@@ -608,7 +613,7 @@ sqldelight {
 }
 ```
 
-현재 지원되는 다이얼렉트는 `mysql-dialect`, `postgresql-dialect`, `hsql-dialect`, `sqlite-3-18-dialect`, `sqlite-3-24-dialect`, `sqlite-3-24-dialect`, `sqlite-3-30-dialect`, `sqlite-3-35-dialect`입니다.
+현재 지원되는 다이얼렉트는 `mysql-dialect`, `postgresql-dialect`, `hsql-dialect`, `sqlite-3-18-dialect`, `sqlite-3-24-dialect`, `sqlite-3-25-dialect`, `sqlite-3-30-dialect`, `sqlite-3-35-dialect`입니다.
 
 - 원시 타입은 이제 명시적으로 임포트해야 합니다(예: `INTEGER AS Boolean`을 쓰려면 `import kotlin.Boolean` 필요). 이전에 지원되던 일부 타입은 이제 어댑터가 필요합니다. 대부분의 변환을 위한 원시 어댑터는 `app.cash.sqldelight:primitive-adapters:2.0.0-alpha01`에서 제공됩니다(예: `IntColumnAdapter`를 위한 `Integer AS kotlin.Int`).
 
@@ -1106,7 +1111,7 @@ sqldelight {
  * 수정: 팩토리를 요구하는 view에 대한 쿼리가 이제 해당 팩토리들을 인자로 적절히 요구함.
  * 수정: insert의 인자 개수가 지정된 컬럼 수와 일치하는지 검증.
  * 수정: where 절에 사용된 blob 리터럴을 적절히 인코딩.
- * 이 릴리스를 위해 Gradle 3.3 이상이 필요합니다.
+ * Gradle 3.3 이상이 필요합니다.
 
 ## [0.5.1] - 2016-10-24
 [0.5.1]: https://github.com/sqldelight/sqldelight/releases/tag/0.5.1

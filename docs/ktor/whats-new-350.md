@@ -164,11 +164,15 @@ post("/checkout") {
 >
 {style="tip"}
 
-### 仅在修改时发送会话 cookie {id="session-cookies"}
+### Sessions 插件中改进的会话管理
 
-Ktor 3.5.0 为 [Sessions](server-sessions.md) 插件引入了一个新选项，仅在会话数据发生变化时发送该数据（例如，对于基于 cookie 的会话发送 `Set-Cookie` 标头）。
+Ktor 3.5.0 通过新的配置选项改进了 [Sessions](server-sessions.md) 插件中的会话处理，使您能够更好地控制会话生命周期、标识生成和网络行为。
 
-默认情况下，会话数据会在每次响应时发送，以保留现有行为。若要仅在修改时发送，请在会话 cookie 配置中启用 `sendOnlyIfModified` 标志：
+#### 仅在修改时发送会话数据 {id="session-cookies"}
+
+您现在可以将会话配置为仅在数据更改时发送。对于基于 cookie 的会话，这意味着 `Set-Cookie` 标头仅在修改时发送。此优化适用于基于 cookie 和标头的会话。
+
+默认情况下，会话数据会在每次响应时发送，以保留现有行为。若要仅在修改时发送，请在会话 cookie 配置中启用 `sendOnlyIfModified` 选项：
 
 ```kotlin
 install(Sessions) {
@@ -177,6 +181,36 @@ install(Sessions) {
     }
 }
 ```
+
+#### 从请求数据生成会话 ID
+
+`CookieIdSessionBuilder.identity()` 函数现在接受一个 `ApplicationCall`，允许从当前应用程序调用中派生会话 ID。这支持了诸如将会话绑定到已通过身份验证的用户或请求元数据之类的用例。
+
+```kotlin
+install(Sessions) {
+    cookie<UserSession>("user_session", storage = RedisSessionStorage()) {
+        identity { call ->
+            call.principal<UserIdPrincipal>()?.name ?: generateSessionId()
+        }
+    }
+}
+```
+
+以前的 `identity()` 函数已弃用，取而代之的是可感知调用的重载。
+
+#### 按 ID 清除会话
+
+您现在可以使用 `call.sessions.clear<UserSession>()` 和 `CurrentSession.clear()` 便捷函数通过存储 ID 使会话失效，而无需活跃调用。这两个函数都委托给 `SessionTrackerById.clearById()`。
+
+```kotlin
+post("/logout/{sessionId}") {
+    val sessionId = call.requirePathParameter("sessionId")
+    call.sessions.clear<UserSession>(sessionId)
+    call.respond(HttpStatusCode.OK)
+}
+```
+
+这对于诸如注销用户的所有设备或从后台作业使会话过期之类的场景非常有用。
 
 ### 自定义 SSE 心跳事件
 

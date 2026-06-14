@@ -1,4 +1,4 @@
-<img src="/coil/coil_logo_colored.svg" alt="Coil"/>
+![Coil](logo.svg)
 
 專為 [Android](https://www.android.com/) 與 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 設計的圖片載入程式庫。Coil 具有以下特點：
 
@@ -16,8 +16,8 @@ Coil 是 **Co**routine **I**mage **L**oader 的縮寫。
 匯入 Compose 程式庫與一個 [網路程式庫](https://coil-kt.github.io/coil/network/)：
 
 ```kotlin
-implementation("io.coil-kt.coil3:coil-compose:3.4.0")
-implementation("io.coil-kt.coil3:coil-network-okhttp:3.4.0")
+implementation("io.coil-kt.coil3:coil-compose:3.5.0")
+implementation("io.coil-kt.coil3:coil-network-okhttp:3.5.0")
 ```
 
 若要載入圖片，請使用 `AsyncImage` Composable：
@@ -33,7 +33,7 @@ AsyncImage(
 
 ## 授權
 
-    Copyright 2025 Coil Contributors
+    Copyright 2026 Coil Contributors
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

@@ -25,7 +25,7 @@ aside: false
             <title>Kotlin Multiplatform 技術</title>
             <a href="kmp-overview.md" summary="什麼是 KMP，及其優點與使用案例">為何選擇 Kotlin Multiplatform</a>
             <a href="multiplatform-discover-project.md" summary="學習基本概念：共通與平台特定程式碼、目標以及原始碼集">專案結構的核心概念</a>
-            <a href="multiplatform-expect-actual.md" summary="使用預期（expected）與實際（actual）宣告來存取平台特定的 API">Expected 與 actual 宣告</a>
+            <a href="multiplatform-expect-actual.md" summary="使用預期 (expected) 與實際 (actual) 宣告來存取平台特定的 API">Expected 與 actual 宣告</a>
             <a href="multiplatform-ios-integration-overview.md" summary="將 Kotlin Multiplatform 共用模組整合進您的 iOS 應用程式">設定 iOS 整合</a>
         </secondary>
         <misc>

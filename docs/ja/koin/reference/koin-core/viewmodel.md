@@ -146,6 +146,25 @@ val appModule = module {
 `viewModelScope`内の依存関係は、ViewModelに最初にアクセスしたときに作成され、ViewModelが破棄（クリア）されたときに破棄されます。
 :::
 
+:::caution `viewModelScopeFactory()` オプションが必要
+Koinが自動的にスコープを作成するように、`viewModelScope { }` 内で **ViewModel自身** を宣言するには、Koinの設定で `viewModelScopeFactory()` オプションを有効にする必要があります。
+
+```kotlin
+startKoin {
+    options(viewModelScopeFactory())
+    modules(appModule)
+}
+```
+
+これがない場合、ViewModelの解決は次のように失敗します：
+
+```
+No definition found for type 'MyViewModel' on scope '['_root_']'
+```
+
+これは、ViewModelがViewModelスコープアーキタイプの下で登録されており、そのスコープはオプションが有効な場合にのみ作成されるためです。（これは、独自のスコープを作成し、オプションを必要としない手動の `ScopeViewModel` パターンとは異なります。）
+:::
+
 ## ViewModelの注入
 
 ### Compose (マルチプラットフォーム) の場合

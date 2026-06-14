@@ -1,5 +1,32 @@
 # 更新日誌
 
+## [3.5.0] - 2026 年 6 月 10 日
+
+自 `3.4.0` 以來的變更：
+
+- **重要**：移除 `iosX64` 與 `macosX64` 目標。([#3386](https://github.com/coil-kt/coil/pull/3386))
+- **重要**：將 Android 的最低 SDK 版本提升至 23。([#3283](https://github.com/coil-kt/coil/pull/3283))
+- **新增**：在 JS/WASM 上加入快速 WebP 大小擷取，以避免回退至完整的 Skia 解碼。([#3341](https://github.com/coil-kt/coil/pull/3341))
+- 移除 `ImageLoader.Builder.memoryCacheMaxSizePercentWhileInBackground` 的實驗性註解。([#3439](https://github.com/coil-kt/coil/pull/3439))
+- 修正 `CacheStrategy` 實作無法重新整理已快取的失敗回應（例如過期的快取 `404` 回應）。([#3401](https://github.com/coil-kt/coil/pull/3401))
+- 在協同程式上下文中尋找 `ContinuationInterceptor` 而非 `CoroutineDispatcher`。([#3415](https://github.com/coil-kt/coil/pull/3415))
+- 將 Android 編譯 SDK 更新至 36。
+- 將 Kotlin 語言版本更新至 2.2。
+- 更新 Kotlin 至 2.4.0。
+- 更新 Compose 至 1.11.1。
+- 更新 Okio 至 3.17.0。
+- 更新 Skiko 至 0.144.6。
+- 更新 `androidx.annotation` 至 1.10.0。
+
+自 `3.5.0-beta01` 以來的變更：
+
+- 移除 `ImageLoader.Builder.memoryCacheMaxSizePercentWhileInBackground` 的實驗性註解。([#3439](https://github.com/coil-kt/coil/pull/3439))
+- 在協同程式上下文中尋找 `ContinuationInterceptor` 而非 `CoroutineDispatcher`。([#3415](https://github.com/coil-kt/coil/pull/3415))
+- 將 Kotlin 語言版本更新至 2.2。
+- 更新 Kotlin 至 2.4.0。
+- 更新 Compose 至 1.11.1。
+- 更新 Skiko 至 0.144.6。
+
 ## [3.5.0-beta01] - 2026 年 5 月 4 日
 
 - 移除 `iosX64` 與 `macosX64` 目標。([#3386](https://github.com/coil-kt/coil/pull/3386))
@@ -51,7 +78,7 @@
     - 此 API 有助於減少背景記憶體使用量，防止應用程式過早被系統終止，並協助減輕使用者裝置的記憶體壓力。
 - **新增**：為 `SvgDecoder` 加入 `Svg.Parser` 引數。
     - 若預設的 SVG 剖析器不符合需求，此功能支援使用自訂的 SVG 剖析器。
-- 為 `SvgDecoder` 加入 `density` 引數，以支援提供自訂的密度倍數。
+- 加入 `density` 引數至 `SvgDecoder` 以支援提供自訂的密度倍數。
 - 加入 `Uri.Builder` 以支援複製與修改 `Uri`。
 - 加入 `ImageLoader.Builder.mainCoroutineContext` 以支援在測試中覆寫 Coil 使用的 `Dispatchers.main.immediate`。
 - 修正 `CrossfadePainter.intrinsicSize` 在動畫結束時當 `start` 影像被取消參照時發生變化的問題。這與 `CrossfadeDrawable` 的行為保持一致。
@@ -167,7 +194,7 @@
 
 ## [3.0.0] - 2024 年 11 月 4 日
 
-Coil 3.0.0 是下一個主要版本，完整支援 [Compose Multiplatform](https://www.jetbrains.com/compose-multiplatform/)。
+Coil 3.0.0 是 Coil 的下一個主要版本，完整支援 [Compose Multiplatform](https://www.jetbrains.com/compose-multiplatform/)。
 
 [關於 3.0.0 的完整改進清單與重要變更，請查看升級指南](https://coil-kt.github.io/coil/upgrading_to_coil3/)。
 
@@ -256,7 +283,7 @@ AsyncImage(
 - **破壞性變更**：重構多平台 `Image` API。值得注意的是，`asCoilImage` 已重新命名為 `asImage`。
 - **破壞性變更**：`AsyncImagePainter.state` 已變更為 `StateFlow<AsyncImagePainter.State>`。請使用 `collectAsState` 觀察其值。這提升了效能。
 - **破壞性變更**：`AsyncImagePainter.imageLoader` 與 `AsyncImagePainter.request` 已合併為 `StateFlow<AsyncImagePainter.Inputs>`。請使用 `collectAsState` 觀察其值。這提升了效能。
-- **破壞性變更**：移除對 `android.resource://example.package.name/drawable/image` URI 的支援，因為它會阻礙資源縮減最佳化。
+- **破壞性變改**：移除對 `android.resource://example.package.name/drawable/image` URI 的支援，因為它會阻礙資源縮減最佳化。
     - 若您仍需此功能，可以[手動將 `ResourceUriMapper` 包含在您的元件登錄中](https://github.com/coil-kt/coil/blob/main/coil-core/src/androidInstrumentedTest/kotlin/coil3/map/ResourceUriMapper.kt)。
 - **新增**：引入 `AsyncImagePreviewHandler` 以支援控制 `AsyncImagePainter` 的預覽渲染行為。
     - 使用 `LocalAsyncImagePreviewHandler` 覆寫預覽行為。
@@ -484,14 +511,14 @@ AsyncImage(
 - 停用產生執行階段非 Null 斷言。
     - 若您使用 Java，將 null 作為加上非 Null 註解的引數傳遞給函式時，將不再立即拋出 `NullPointerException`。Kotlin 的編譯時期 Null 安全性可防止這種情況發生。
     - 此變更有助於縮小程式庫的大小。
-- `Size` 現在由寬度與高度的兩個 `Dimension` 值組成。`Dimension` 可以是正像素值或 `Dimension.Undefined`。詳情請見[此處](https://coil-kt.github.io/coil/upgrading/#size-refactor)。
+- `Size` 現在由寬度與高度的兩個 `Dimension` 值組成。`Dimension` 可以是正像素值或 `Dimension.Undefined`。詳情請見[此處](https://coil-kt.github.io/coil/upgrading/#size-refactor)以獲得更多資訊。
 - 已從程式庫中移除 `BitmapPool` 與 `PoolableViewTarget`。
 - 已從程式庫中移除 `VideoFrameFileFetcher` 與 `VideoFrameUriFetcher`。請改用支援所有資料來源的 `VideoFrameDecoder`。
 - 已從程式庫中移除 [`BlurTransformation`](https://github.com/coil-kt/coil/blob/845f39383f332428077c666e3567b954675ce248/coil-core/src/main/java/coil/transform/BlurTransformation.kt) 與 [`GrayscaleTransformation`](https://github.com/coil-kt/coil/blob/845f39383f332428077c666e3567b954675ce248/coil-core/src/main/java/coil/transform/GrayscaleTransformation.kt)。若您仍需使用它們，可以將其程式碼複製到您的專案中。
 - 將 `Transition.transition` 變更為非暫停函式，因為不再需要暫停轉換直至完成。
-- 加入 `GenericViewTarget`，處理通用的 `ViewTarget` 邏輯。
-- 將 `bitmapFactoryMaxParallelism` 加入支援，用於限制進行中的 `BitmapFactory` 作業數量。此值預設為 4，可提升 UI 效能。
+- 加入 `bitmapFactoryMaxParallelism` 支援，用於限制進行中的 `BitmapFactory` 作業數量。此值預設為 4，可提升 UI 效能。
 - 加入對 `interceptorDispatcher`、`fetcherDispatcher`、`decoderDispatcher` 與 `transformationDispatcher` 的支援。
+- 加入 `GenericViewTarget`，處理通用的 `ViewTarget` 邏輯。
 - 加入 `ByteBuffer` 至預設支援的資料型別。
 - `Disposable` 已重構並公開底層 `ImageRequest` 的工作 (job)。
 - 重構 `MemoryCache` API。
@@ -552,7 +579,7 @@ AsyncImage(
 - `Size` 現在由寬度與高度的兩個 `Dimension` 值組成。`Dimension` 可以是正像素值或 `Dimension.Original`。
 - 已從程式庫中移除 `BitmapPool` 與 `PoolableViewTarget`。
 - 已從程式庫中移除 `VideoFrameFileFetcher` 與 `VideoFrameUriFetcher`。請改用支援所有資料來源的 `VideoFrameDecoder`。
-- 已從程式庫中移除 [`BlurTransformation`](https://github.com/coil-kt/coil/blob/845f39383f332428077c666e3567b954675ce248/coil-core/src/main/java/coil/transform/BlurTransformation.kt) 與 [`GrayscaleTransformation`](https://github.com/coil-kt/coil/blob/845f39383f332428077c666e3567b954675ce248/coil-core/src/main/java/coil/transform/GrayscaleTransformation.kt)。若您仍需使用它們，可以將其程式碼複製到您的專案中。
+- 已從程式庫中移除 [`BlurTransformation`](https://github.com/coil-kt/coil/blob/845f39383f332428077c666e3567b954675ce248/coil-core/src/main/java/coil/transform/BlurTransformation.kt) 與 [`GrayscaleTransformation`](https://github.com/coil-kt/coil/blob/845f39383f332428077c666e3567b954675ce248/coil-transform/GrayscaleTransformation.kt)。若您仍需使用它們，可以將其程式碼複製到您的專案中。
 - 將 `Transition.transition` 變更為非暫停函式，因為不再需要暫停轉換直至完成。
 - 加入 `bitmapFactoryMaxParallelism` 支援，用於限制進行中的 `BitmapFactory` 作業數量。此值預設為 4，可提升 UI 效能。
 - 加入對 `interceptorDispatcher`、`fetcherDispatcher`、`decoderDispatcher` 與 `transformationDispatcher` 的支援。
@@ -600,7 +627,7 @@ AsyncImage(
     - 為 `AsyncImage` 與 `SubcomposeAsyncImage` 同時加入 `onLoading`/`onSuccess`/`onError` 回呼。
 - 棄用 `LocalImageLoader`。([#1101](https://github.com/coil-kt/coil/pull/1101))
 - 加入對 `ImageRequest.tags` 的支援。([#1066](https://github.com/coil-kt/coil/pull/1066))
-- 將 `DecodeUtils` 中的 `isGif`、`isWebP`、`isAnimatedWebP`、`isHeif` 與 `isAnimatedHeif` 移至 coil-gif。將 `isSvg` 加入 coil-svg。([#1117](https://github.com/coil-kt/coil/pull/1117))
+- 將 `isGif`、`isWebP`、`isAnimatedWebP`、`isHeif` 與 `isAnimatedHeif` 在 `DecodeUtils` 中移至 coil-gif。將 `isSvg` 加入 coil-svg。([#1117](https://github.com/coil-kt/coil/pull/1117))
 - 將 `FetchResult` 與 `DecodeResult` 轉換為非資料類別。([#1114](https://github.com/coil-kt/coil/pull/1114))
 - 移除未使用的 `DiskCache.Builder` context 引數。([#1099](https://github.com/coil-kt/coil/pull/1099))
 - 修正原始大小位元圖資源的縮放問題。([#1072](https://github.com/coil-kt/coil/pull/1072))
@@ -631,7 +658,7 @@ AsyncImage(
 - 修正：若 `imageLoader.memoryCache` 為 null，則 `SuccessResult.memoryCacheKey` 應始終為 `null`。
 - 將 `ImageLoader`、`SizeResolver` 與 `ViewSizeResolver` 類建構函式的 `invoke` 函式轉換為頂層函式。
 - 將 `CrossfadeDrawable` 的起始與結束可繪製對象設為公開 API。
-- 變更 `ImageLoader` 的 placeholder/error/fallback 可繪製對象。
+- 為 `ImageLoader` 的 placeholder/error/fallback 可繪製對象進行變更 (mutate)。
 - 為 `SuccessResult` 的建構函式加入預設引數。
 - 依賴 `androidx.collection` 而非 `androidx.collection-ktx`。
 - 更新 OkHttp 至 4.9.3。
@@ -731,7 +758,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 - **重要**：Coil 現在擁有自己的磁碟快取實作，不再依賴 OkHttp 進行磁碟快取。
     - 此項變更是為了：
         - 在解碼影像時更好地支援執行緒中斷。這提升了影像請求快速連續啟動與停止時的效能。
-        - 支援公開由 `File` 支援的 `ImageSource`。這避免了 Android API 需要 `File` 進行解碼（例如 `MediaMetadataRetriever`）時不必要的複製。
+        - 支援公開由 `File` 支援的 `ImageSource` 為 `File`。這避免了 Android API 需要 `File` 進行解碼（例如 `MediaMetadataRetriever`）時不必要的複製。
         - 支援直接從磁碟快取檔案讀取/寫入。
     - 使用 `ImageLoader.Builder.diskCache` 與 `DiskCache.Builder` 配置磁碟快取。
     - 您 **不應** 將 OkHttp 的 `Cache` 與 Coil 2.0 一起使用，因為若在寫入時中斷，快取可能會損毀。
@@ -749,7 +776,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
     - 它在 <= API 23 上最有效，但在較新的 Android 版本中效能逐漸下降。
     - 移除位元圖池化允許 Coil 使用不可變位元圖，這具有效能優勢。
     - 管理位元圖池有執行階段開銷。
-    - 位元圖池化對 Coil 的 API 造成了設計限制，因為它需要追蹤位元圖是否符合池化條件。移除位元圖池化允許 Coil 在更多地方公開結果 `Drawable`（例如 `Listener`、`Disposable`）。此外，這意味著 Coil 不必清除 `ImageView`，這曾導致一些[問題](https://github.com/coil-kt/coil/issues/650)。
+    - 位元圖池化對 Coil 的 API 造成了設計限制，因為它需要追蹤位元圖是否符合池化條件。移除位元圖池化允許 Coil 在更多地方公開結果 `Drawable`（例如 `Listener`、`Disposable`）。此外，這意指著 Coil 不必清除 `ImageView`，這曾導致一些[問題](https://github.com/coil-kt/coil/issues/650)。
     - 位元圖池化[容易出錯](https://github.com/coil-kt/coil/issues/546)。分配一個新的位元圖比嘗試重複使用一個可能仍在使用的位元圖要安全得多。
 - `MemoryCache` 已重構以提供更大的靈活性。
 - 停用產生執行階段非 Null 斷言。
@@ -759,7 +786,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 - 加入對 `bitmapFactoryMaxParallelism` 支援，用於限制進行中的 `BitmapFactory` 作業數量。此值預設為 4，可提升 UI 效能。
 - 加入對 `interceptorDispatcher`、`fetcherDispatcher`、`decoderDispatcher` 與 `transformationDispatcher` 的支援。
 - `Disposable` 已重構並公開底層 `ImageRequest` 的工作 (job)。
-- 將 `Transition.transition` 變更為非暫停函式，因為不再需要暫停轉換直至完成。
+- 將 `Transition.transition` 變更為 non-suspending 函式，因為不再需要暫停轉換直至完成。
 - 加入 `GenericViewTarget`，處理通用的 `ViewTarget` 邏輯。
 - 已從程式庫中移除 [`BlurTransformation`](https://github.com/coil-kt/coil/blob/845f39383f332428077c666e3567b954675ce248/coil-core/src/main/java/coil/transform/BlurTransformation.kt) 與 [`GrayscaleTransformation`](https://github.com/coil-kt/coil/blob/845f39383f332428077c666e3567b954675ce248/coil-core/src/main/java/coil/transform/GrayscaleTransformation.kt)。
     - 若您仍需使用它們，可以將其程式碼複製到您的專案中。
@@ -774,7 +801,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 ## [1.4.0] - 2021 年 10 月 6 日
 
 - **新增**：為 `ImagePainter.State.Success` 與 `ImagePainter.State.Error` 加入 `ImageResult`。([#887](https://github.com/coil-kt/coil/pull/887))
-    - 這是對 `ImagePainter.State.Success` 與 `ImagePainter.State.Error` 特徵的二進制不相容變更，但這些 API 被標記為實驗性的。
+    - 這是對 `ImagePainter.State.Success` 與 `ImagePainter.State.Error` 簽章的二進制不相容變更，但這些 API 被標記為實驗性的。
 - 僅在 `View.isShown` 為 `true` 時執行 `CrossfadeTransition`。先前僅檢查 `View.isVisible`。([#898](https://github.com/coil-kt/coil/pull/898))
 - 修正因四捨五入問題導致縮放倍數略小於 1 時，可能發生的記憶體快取遺漏。([#899](https://github.com/coil-kt/coil/pull/899))
 - 將非內嵌的 `ComponentRegistry` 方法設為公開。([#925](https://github.com/coil-kt/coil/pull/925))
@@ -816,7 +843,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 - 修正將具有共享狀態的可繪製對象轉換為位元圖時發生的資料競爭。([#771](https://github.com/coil-kt/coil/pull/771))
 - 修正 `ImageLoader.Builder.fallback` 設定了 `error` 可繪製對象而非 `fallback` 可繪製對象的問題。
 - 修正 `ResourceUriFetcher` 傳回錯誤資料來源的問題。([#770](https://github.com/coil-kt/coil/pull/770))
-- 修正 API 26 與 27 上檢查無可用檔案描述符的邏輯。
+- 修正 API 26 與 27 上檢查無可用檔案描述符的日誌。
 - 修正對平台向量可繪製資源支援的錯誤版本檢查。([#751](https://github.com/coil-kt/coil/pull/751))
 - 更新 Kotlin (1.5.10)。
 - 更新協同程式 (1.5.0)。
@@ -963,7 +990,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
     - `coil.DefaultRequestOptions` -> `coil.request.DefaultRequestOptions`
 - **破壞性變更**：[`SparseIntArraySet`](https://github.com/coil-kt/coil/blob/f52addd039f0195b66f93cb0f1cad59b0832f784/coil-core/src/main/java/coil/collection/SparseIntArraySet.kt) 已從公開 API 中移除。
 - **破壞性變更**：`TransitionTarget` 不再實作 `ViewTarget`。
-- **破壞性變更**：`ImageRequest.Listener.onSuccess` 的簽章已更改為傳回 `ImageResult.Metadata` 而非僅傳回 `DataSource`。
+- **破壞性變更**：`ImageRequest.Listener.onSuccess` 的簽章已更改為傳回一個 `ImageResult.Metadata` 而非僅傳回一個 `DataSource`。
 - **破壞性變更**：移除對 `LoadRequest.aliasKeys` 的支援。此 API 透過對記憶體快取的直接讀寫存取能得到更好的處理。
 
 ---
@@ -1083,7 +1110,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
     - 若您使用 `io.coil-kt:coil` 構件，您可以呼叫 `Coil.execute(request)` 來使用單例 `ImageLoader` 執行請求。
 
 - **`ImageLoader` 現在擁有一個弱參照記憶體快取**，用於在影像從強參照記憶體快取中逐出後追蹤其弱參照。
-    - 這意指只要仍有強參照存在，影像就一律會從 `ImageLoader` 的記憶體快取中傳回。
+    - 這意指著只要仍有強參照存在，影像就一律會從 `ImageLoader` 的記憶體快取中傳回。
     - 一般而言，這應會使記憶體快取更可預測並提高其命中率。
     - 此行為可透過 `ImageLoaderBuilder.trackWeakReferences` 啟用/停用。
 
@@ -1139,7 +1166,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 ---
 
 - 棄用 `CoilContentProvider`。([#293](https://github.com/coil-kt/coil/pull/293))
-- 使用 `@MainThread` 註解多個 `ImageLoader` 方法。
+- 為多個 `ImageLoader` 方法加上 `@MainThread` 註解。
 - 若生命週期目前已啟動，避免建立 `LifecycleCoroutineDispatcher`。([#356](https://github.com/coil-kt/coil/pull/356))
 - 為 `OriginalSize.toString()` 使用完整套件名稱。
 - 解碼軟體位元圖時進行預分配。([#354](https://github.com/coil-kt/coil/pull/354))
@@ -1202,7 +1229,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 - 將 `BitmapPool.trimMemory` 設為公開。
 - 將 `AnimatedImageDrawable` 封裝在 `ScaleDrawable` 中以確保其填充邊界。
 - 為 `RequestBuilder.setParameter` 加入 `@JvmOverloads`。
-- 若未設定檢視方框，則將 SVG 的檢視方框設定為其大小。
+- 若未設定檢視方框 (view box)，則將 SVG 的檢視方框設定為其大小。
 - 將狀態與層級變更傳遞給 `CrossfadeDrawable` 子項。
 
 ---
@@ -1225,7 +1252,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 - **新增**：支援自訂過渡。 [詳情請見此處](https://coil-kt.github.io/coil/transitions/)。由於 API 尚在醞釀中，過渡功能被標記為實驗性。
 - **新增**：加入 `RequestDisposable.await` 以支援在 `LoadRequest` 進行時暫停。
 - **新增**：支援在請求資料為 null 時設定 `fallback` 可繪製對象。
-- **新增**：加入 `Precision`。這使得輸出 `Drawable` 的大小精確，同時為支援縮放的目標（例如 `ImageViewTarget`）啟用縮放最佳化。詳情請見[其文件](https://github.com/coil-kt/coil/blob/main/coil-core/src/main/java/coil/size/Precision.kt)。
+- **新增**：加入 `Precision`。這使得輸出 `Drawable` 的大小精確，同時為支援縮放的目標（例如 `ImageViewTarget`）啟用縮放最佳化。詳情請見[其文件](https://github.com/coil-kt/coil/blob/main/coil-core/src/main/java/coil/size/Precision.kt)以獲得更多資訊。
 - **新增**：加入 `RequestBuilder.aliasKeys` 以支援比對多個快取金鑰。
 
 ---
@@ -1264,11 +1291,11 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 - **新增**：加入 `ImageView.clear()` 以支援主動釋放資源。
 - **新增**：支援從其他套件載入資源。
 - **新增**：為 `ViewSizeResolver` 加入 `subtractPadding` 屬性，以啟用/停用測量時減去視圖的內邊距 (padding)。
-- **新增**：改進 `HttpUrlFetcher` 的 MIME 類型偵測。
+- **新增**：改善 `HttpUrlFetcher` 的 MIME 類型偵測。
 - **新增**：為 `MovieDrawable` 與 `CrossfadeDrawable` 加入 `Animatable2Compat` 支援。
 - **新增**：加入 `RequestBuilder<*>.repeatCount` 以設定 GIF 的重複次數。
 - **新增**：將位元圖池建立功能加入公開 API。
-- **新增**：使用 `@MainThread` 註解 `Request.Listener` 方法。
+- **新增**：為 `Request.Listener` 方法加上 `@MainThread` 註解。
 
 ---
 

@@ -1,4 +1,4 @@
-<img src="/coil/coil_logo_colored.svg" alt="Coil"/>
+![Coil](logo.svg)
 
 一个适用于 [Android](https://www.android.com/) 和 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 的图片加载库。Coil 具有以下特点：
 
@@ -16,8 +16,8 @@ Coil 是 **Co**routine **I**mage **L**oader（协程图片加载器）的首字�
 导入 Compose 库和一个 [网络库](https://coil-kt.github.io/coil/network/)：
 
 ```kotlin
-implementation("io.coil-kt.coil3:coil-compose:3.4.0")
-implementation("io.coil-kt.coil3:coil-network-okhttp:3.4.0")
+implementation("io.coil-kt.coil3:coil-compose:3.5.0")
+implementation("io.coil-kt.coil3:coil-network-okhttp:3.5.0")
 ```
 
 要加载图片，请使用 `AsyncImage` 可组合项：
@@ -33,7 +33,7 @@ AsyncImage(
 
 ## 许可证
 
-    Copyright 2025 Coil Contributors
+    Copyright 2026 Coil Contributors
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

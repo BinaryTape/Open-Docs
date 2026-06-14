@@ -1,5 +1,32 @@
 # 更新日志
 
+## [3.5.0] - 2026年6月10日
+
+自 `3.4.0` 以来的变更：
+
+- **重要**：移除 `iosX64` 和 `macosX64` 目标。([#3386](https://github.com/coil-kt/coil/pull/3386))
+- **重要**：将 Android 的最低 SDK 版本提升至 23。([#3283](https://github.com/coil-kt/coil/pull/3283))
+- **新增**：在 JS/WASM 上添加快速 WebP 尺寸提取，以避免回退到完整的 Skia 解码。([#3341](https://github.com/coil-kt/coil/pull/3341))
+- 移除 `ImageLoader.Builder.memoryCacheMaxSizePercentWhileInBackground` 的实验性注解。([#3439](https://github.com/coil-kt/coil/pull/3439))
+- 修复 `CacheStrategy` 实现无法刷新已缓存的失败响应（例如：已过期的 `404` 缓存响应）的问题。([#3401](https://github.com/coil-kt/coil/pull/3401))
+- 在协程上下文中查找 `ContinuationInterceptor` 而不是 `CoroutineDispatcher`。([#3415](https://github.com/coil-kt/coil/pull/3415))
+- 更新 Android 编译 SDK 至 36。
+- 更新 Kotlin 语言版本至 2.2。
+- 更新 Kotlin 至 2.4.0。
+- 更新 Compose 至 1.11.1。
+- 更新 Okio 至 3.17.0。
+- 更新 Skiko 至 0.144.6。
+- 更新 `androidx.annotation` 至 1.10.0。
+
+自 `3.5.0-beta01` 以来的变更：
+
+- 移除 `ImageLoader.Builder.memoryCacheMaxSizePercentWhileInBackground` 的实验性注解。([#3439](https://github.com/coil-kt/coil/pull/3439))
+- 在协程上下文中查找 `ContinuationInterceptor` 而不是 `CoroutineDispatcher`。([#3415](https://github.com/coil-kt/coil/pull/3415))
+- 更新 Kotlin 语言版本至 2.2。
+- 更新 Kotlin 至 2.4.0。
+- 更新 Compose 至 1.11.1。
+- 更新 Skiko 至 0.144.6。
+
 ## [3.5.0-beta01] - 2026年5月4日
 
 - 移除 `iosX64` 和 `macosX64` 目标。([#3386](https://github.com/coil-kt/coil/pull/3386))
@@ -182,9 +209,9 @@ Coil 3.0.0 是 Coil 的下一个主要版本，全面支持 [Compose Multiplatfo
 - 添加 `BlackholeDecoder`。这简化了[仅限磁盘缓存的预加载](https://coil-kt.github.io/coil/faq/#how-do-i-preload-an-image)。
 - 为 `ConstraintsSizeResolver` 和 `DrawScopeSizeResolver` 添加 `remember` 函数。
 - 移除 `EqualityDelegate` 作为 `AsyncImage` 的参数。相反，它应该通过 `LocalAsyncImageModelEqualityDelegate` 设置。
-- 修复当父可组合项使用 `IntrinsicSize` 时 `AsyncImage` 不渲染的问题。
-- 修复当 `AsyncImagePainter` 没有子绘制器时 `AsyncImage` 填充可用约束的问题。
-- 修复因 `EqualityDelegate` 被忽略导致其状态被观察时 `rememberAsyncImagePainter` 无限重组的问题。
+- 修复 `AsyncImage` 不渲染的问题，当父可组合项使用 `IntrinsicSize` 时。
+- 修复 `AsyncImage` 填充可用约束的问题，当 `AsyncImagePainter` 没有子绘制器时。
+- 修复 `rememberAsyncImagePainter` 在其状态被观察时因 `EqualityDelegate` 被忽略而无限重组的问题。
 - 修复解析带有特殊字符的 `File`/`Path` 路径的问题。
 - 修复在 `VideoFrameDecoder` 中使用自定义 `FileSystem` 实现的问题。
 - 更新 Ktor 至 `3.0.0`。
@@ -203,7 +230,7 @@ Coil 3.0.0 是 Coil 的下一个主要版本，全面支持 [Compose Multiplatfo
 - 稳定 `setSingletonImageLoaderFactory`。
 - 在 `coil-network-ktor3` 中恢复优化的 JVM I/O 函数。
 - 将 `pdf` 添加到 MIME 类型列表。
-- 将编译 SDK 更新至 35。
+- 更新编译 SDK 至 35。
 - 更新 Kotlin 至 2.0.20。
 - 更新 Okio 至 3.9.1。
 
@@ -329,8 +356,8 @@ AsyncImage(
 
 ## [3.0.0-alpha02] - 2024年1月10日
 
-- **破坏性变更**：更新了 `coil-gif`、`coil-network`、`coil-svg` 和 `coil-video` 的软件包，使其所有类分别属于 `coil.gif`、`coil.network`、`coil.svg` 和 `coil.video`。这有助于避免与其他构件的类名冲突。
-- **破坏性变更**：将 `ImageDecoderDecoder` 重命名为 `AnimatedImageDecoder`。
+- **破坏性变更**：`coil-gif`、`coil-network`、`coil-svg` 和 `coil-video` 的软件包已更新，使其所有类分别属于 `coil.gif`、`coil.network`、`coil.svg` 和 `coil.video`。这有助于避免与其他构件的类名冲突。
+- **破坏性变更**：`ImageDecoderDecoder` 已重命名为 `AnimatedImageDecoder`。
 - **新增**：`coil-gif`、`coil-network`、`coil-svg` 和 `coil-video` 的组件现在会自动添加到每个 `ImageLoader` 的 `ComponentRegistry` 中。
     - 明确一点，与 `3.0.0-alpha01` 不同，**您不需要手动将 `NetworkFetcher.Factory()` 添加到您的 `ComponentRegistry` 中**。只需导入 `io.coil-kt.coil3:coil-network:[version]` 和[一个 Ktor 引擎](https://ktor.io/docs/http-client-engines.html#dependencies)就足以加载网络图像。
     - 手动将这些组件添加到 `ComponentRegistry` 也是安全的。任何手动添加的组件都优先于自动添加的组件。
@@ -420,7 +447,7 @@ AsyncImage(
 
 - **新增**：向 `coil-video` 添加 `ImageRequest.videoFramePercent`，以支持将视频帧指定为视频时长的百分比。
 - **新增**：添加 `ExifOrientationPolicy` 以配置 `BitmapFactoryDecoder` 如何处理 EXIF 方向数据。
-- 修复：如果传递了具有未定义维度的尺寸，则在 `RoundedCornersTransformation` 中不抛出异常。
+- 修复：如果在 `RoundedCornersTransformation` 中传递了具有未定义维度的尺寸，则不抛出异常。
 - 修复：将 GIF 的帧延迟读取为两个无符号字节而不是一个有符号字节。
 - 更新 Kotlin 至 1.7.10。
 - 更新 Coroutines 至 1.6.4。
@@ -858,7 +885,7 @@ Coil 2.0.0 是该库的下一个主要迭代，具有新功能、性能改进、
 ## [1.1.1] - 2021年1月11日
 
 - 修复 `ViewSizeResolver.size` 可能会因为多次恢复协程而抛出 `IllegalStateException` 的情况。
-- 修复如果从主线程调用 `HttpFetcher` 会永远阻塞的问题。
+- 修复 if 从主线程调用 `HttpFetcher` 会永远阻塞的问题。
     - 使用 `ImageRequest.dispatcher(Dispatchers.Main.immediate)` 强制在主线程执行的请求将失败并抛出 `NetworkOnMainThreadException`，除非将 `ImageRequest.networkCachePolicy` 设置为 `CachePolicy.DISABLED` 或 `CachePolicy.WRITE_ONLY`。
 - 如果视频具有旋转元数据，旋转来自 `VideoFrameFetcher` 的视频帧。
 - 更新 Kotlin (1.4.21)。
@@ -876,7 +903,7 @@ Coil 2.0.0 是该库的下一个主要迭代，具有新功能、性能改进、
 - 添加控制 alpha 预乘的能力。([#569](https://github.com/coil-kt/coil/pull/569))
 - 在 `CrossfadeDrawable` 中支持优先使用精确的固有大小。([#585](https://github.com/coil-kt/coil/pull/585))
 - 检查包含版本的完整 GIF 标头。([#564](https://github.com/coil-kt/coil/pull/564))
-- 添加空位图池实现。([#561](https://github.com/coil-kt/coil/pull/561))
+- 添加空位图池实现。[#561](https://github.com/coil-kt/coil/pull/561)
 - 使 `EventListener.Factory` 成为一个函数式接口。([#575](https://github.com/coil-kt/coil/pull/575))
 - 稳定 `EventListener`。([#574](https://github.com/coil-kt/coil/pull/574))
 - 为 `ImageRequest.Builder.placeholderMemoryCacheKey` 添加 `String` 重载。
@@ -971,7 +998,7 @@ Coil 2.0.0 是该库的下一个主要迭代，具有新功能、性能改进、
 - **重要**：内存缓存中的值不再同步解析（如果从主线程调用）。
     - 做出此更改也是为了支持在后台调度器上执行 `Interceptor`。
     - 此更改还使更多工作脱离主线程，提升了性能。
-- **重要**：`Mappers` 现在在后台调度器上执行。作为副作用，不再**自动**支持自动位图采样。要达到相同的效果，请将上一个请求的 `MemoryCache.Key` 用作后续请求的 `placeholderMemoryCacheKey`。[点此查看示例](https://coil-kt.github.io/coil/recipes/#using-a-memory-cache-key-as-a-placeholder)。
+- **重要**：`Mappers` 现在在后台调度器上执行。作为副作用，自动位图采样不再**自动**支持。要达到相同的效果，请将上一个请求的 `MemoryCache.Key` 用作后续请求的 `placeholderMemoryCacheKey`。[点此查看示例](https://coil-kt.github.io/coil/recipes/#using-a-memory-cache-key-as-a-placeholder)。
     - `placeholderMemoryCacheKey` API 提供了更多自由，因为您可以“链接”两个具有不同数据的图像请求（例如小图/大图使用不同的 URL）。
 - **重要**：Coil 的 `ImageView` 扩展函数已从 `coil.api` 包移动到 `coil` 包。
     - 使用查找并替换功能重构 `import coil.api.load` -> `import coil.load`。不幸的是，无法使用 Kotlin 的 `ReplaceWith` 功能来替换导入。
@@ -1102,7 +1129,7 @@ Coil 2.0.0 是该库的下一个主要迭代，具有新功能、性能改进、
 - **破坏性变更**：从 `ImageLoader.execute(GetRequest)` 返回密封类 `RequestResult` 类型。([#349](https://github.com/coil-kt/coil/pull/349))
 - **破坏性变更**：将 `ExperimentalCoil` 重命名为 `ExperimentalCoilApi`。从 `@Experimental` 迁移到 `@RequiresOptIn`。([#306](https://github.com/coil-kt/coil/pull/306))
 - **破坏性变更**：将 `CoilLogger` 替换为 `Logger` 接口。([#316](https://github.com/coil-kt/coil/pull/316))
-- **破坏性变更**：将 destWidth/destHeight 重命名为 dstWidth/dstHeight。([#275](https://github.com/coil-kt/coil/pull/275))
+- **破坏性变更**：将 destWidth/destHeight 重命名为 dstWidth/dstHeight。[#275](https://github.com/coil-kt/coil/pull/275)
 - **破坏性变更**：重新排列 `MovieDrawable` 的构造函数参数。([#272](https://github.com/coil-kt/coil/pull/272))
 - **破坏性变更**：`Request.Listener` 的方法现在接收完整的 `Request` 对象而不仅仅是其数据。
 - **破坏性变更**：`GetRequestBuilder` 现在其构造函数中需要 `Context`。
@@ -1199,7 +1226,7 @@ Coil 2.0.0 是该库的下一个主要迭代，具有新功能、性能改进、
 ---
 
 - 从 `CrossfadeDrawable` 中移除自动缩放。
-- 使 `BitmapPool.trimMemory` 成为公开方法。
+- 使 `BitmapPool.trimMemory` 成为公开方法。[#1423](https://github.com/coil-kt/coil/issues/1423)
 - 将 `AnimatedImageDrawable` 包装在 `ScaleDrawable` 中以确保其填满边界。
 - 向 `RequestBuilder.setParameter` 添加 `@JvmOverloads`。
 - 如果未设置视图框（view box），则将 SVG 的视图框设置为其尺寸。
@@ -1261,7 +1288,7 @@ Coil 2.0.0 是该库的下一个主要迭代，具有新功能、性能改进、
 - **新增**：支持设置按请求设置网络标头。[点此获取更多信息](https://github.com/coil-kt/coil/pull/120)。
 - **新增**：添加新的 `Parameters` API 以支持在图像流水线中传递自定义数据。
 - **新增**：在 `RoundedCornersTransformation` 中支持单独的圆角半径。感谢 @khatv911。
-- **新增**：添加 `ImageView.clear()` 以支持主动释放资源。
+- **新增**：添加 `ImageView.clear()` 以支持主动释放资源。[#1601](https://github.com/coil-kt/coil/pull/1601)
 - **新增**：支持从其他包加载资源。
 - **新增**：向 `ViewSizeResolver` 添加 `subtractPadding` 属性，以启用/禁用在测量时减去视图的内边距。
 - **新增**：改进 `HttpUrlFetcher` 的 MIME 类型检测。
@@ -1308,7 +1335,7 @@ val imageLoader = ImageLoader(context) {
 ---
 
 - **新增**：`coil-svg` 构件，它具有支持自动解码 SVG 的 `SvgDecoder`。由 [AndroidSVG](https://github.com/BigBadaboom/androidsvg) 提供支持。感谢 @rharter。
-- **新增**：`load(String)` 和 `get(String)` 现在接受任何受支持的 Uri 方案。例如：您现在可以执行 `imageView.load("file:///path/to/file.jpg")`。
+- **新增**：`load(String)` 和 `get(String)` 现在接受 any 受支持的 Uri 方案。例如：您现在可以执行 `imageView.load("file:///path/to/file.jpg")`。
 - **新增**：重构 `ImageLoader` 以使用 `Call.Factory` 而不是 `OkHttpClient`。这支持使用 `ImageLoaderBuilder.okHttpClient { OkHttpClient() }` 延迟初始化网络资源。感谢 @ZacSweers。
 - **新增**：使用 `RequestBuilder.decoder` 显式设置请求的解码器。
 - **新增**：使用 `ImageLoaderBuilder.allowHardware` 默认在 `ImageLoader` 中启用/禁用硬件位图。
@@ -1342,7 +1369,7 @@ val imageLoader = ImageLoader(context) {
 ## [0.6.1] - 2019年8月16日
 - 新增：向 `RequestBuilder` 添加 `transformations(List<Transformation>)`。
 - 修复：为文件 URI 在缓存键中添加最后修改日期。
-- 修复：确保视图维度评估为至少 1px。
+- 修复：确保 View 维度评估为至少 1px。
 - 修复：在帧之间清除 `MovieDrawable` 的画布。
 - 修复：正确打开资产。
 

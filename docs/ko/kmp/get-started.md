@@ -43,9 +43,9 @@ aside: false
                     <a href="https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform" summary="IntelliJ IDEA 및 Android Studio용 Kotlin Multiplatform 플러그인">Kotlin Multiplatform IDE 플러그인</a>
                     <a href="compose-hot-reload.md" summary="Compose Hot Reload로 UI를 빠르게 반복 수정하기">Compose Hot Reload</a>
                     <a href="multiplatform-dsl-reference.md" summary="Kotlin Multiplatform 프로젝트용 Gradle 빌드 스크립트 설정">Gradle DSL 레퍼런스</a>
-                    <a href="https://klibs.io/" summary="JetBrains에서 개발한 Kotlin Multiplatform 라이브러리용 실험적 검색 플랫폼">라이브러리 검색 플랫폼</a>
+                    <a href="https://klibs.io/" summary="JetBrains에서 개발한 Kotlin Multiplatform 라이브러리용 검색 플랫폼">라이브러리 검색 플랫폼</a>
                     <a href="https://kmp.jetbrains.com/" summary="멀티플랫폼 프로젝트 템플릿을 빠르게 생성하고 다운로드하기">새 프로젝트 마법사</a>
-                    <a href="amper.md" summary="Amper를 사용한 프로젝트 설정">Amper 설정 도구</a>
+                    <a href="amper.md" summary="Kotlin Toolchain을 사용한 프로젝트 설정">Kotlin Toolchain 설정 도구</a>
                 </group>
                 <group>
                     <title>커뮤니티 및 도움말</title>

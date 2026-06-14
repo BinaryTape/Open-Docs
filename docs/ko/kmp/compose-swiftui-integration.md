@@ -392,4 +392,5 @@ struct WebViewContainer: View {
 
 ## 다음 단계
 
-Compose Multiplatform이 [UIKit 프레임워크와 통합](compose-uikit-integration.md)되는 방식에 대해서도 알아볼 수 있습니다.
+* Compose가 화면 콘텐츠를 렌더링하는 동안 시스템에서 렌더링되는 Liquid Glass 효과를 위해 [네이티브 SwiftUI 내비게이션을 사용하는 방법](ios-liquid-glass.md)을 알아보세요.
+* Compose Multiplatform이 [UIKit 프레임워크와 통합](compose-uikit-integration.md)되는 방식에 대해서도 알아보세요.

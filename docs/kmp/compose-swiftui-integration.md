@@ -46,7 +46,7 @@ struct ComposeViewController: UIViewControllerRepresentable {
 
 现在您可以在其他 SwiftUI 代码中使用 `ComposeView` 结构了。
 
-`Main_iosKt.MainViewController` 是生成的名称。您可以在 [与 Swift/Objective-C 的互操作性](https://kotlinlang.org/docs/native-objc-interop.html#top-level-functions-and-properties)页面上了解有关从 Swift 访问 Kotlin 代码的更多信息。
+`Main_iosKt.MainViewController` 是一个生成的名称。您可以在 [与 Swift/Objective-C 的互操作性](https://kotlinlang.org/docs/native-objc-interop.html#top-level-functions-and-properties)页面上了解有关从 Swift 访问 Kotlin 代码的更多信息。
 
 最后，您的应用程序应该是这样的：
 
@@ -392,4 +392,5 @@ struct WebViewContainer: View {
 
 ## 下一步
 
-您还可以探索 Compose Multiplatform [与 UIKit 框架集成](compose-uikit-integration.md)的方式。
+* 了解如何在使用 Compose 渲染屏幕内容的同时，[使用原生 SwiftUI 导航来实现系统渲染的 Liquid Glass 效果](ios-liquid-glass.md)。
+* 探索 Compose Multiplatform [与 UIKit 框架集成](compose-uikit-integration.md)的方式。

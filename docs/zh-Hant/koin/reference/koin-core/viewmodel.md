@@ -23,7 +23,7 @@ implementation("io.insert-koin:koin-android:$koin_version")
 implementation("io.insert-koin:koin-compose-viewmodel:$koin_version")
 ```
 
-## 宣告 ViewModel
+## 宣告 ViewModel (Declaring ViewModels)
 
 ### 編譯器外掛程式 DSL (Compiler Plugin DSL)
 
@@ -58,7 +58,7 @@ val appModule = module {
 }
 ```
 
-## 包含參數的 ViewModel
+## 包含參數的 ViewModel (ViewModel with Parameters)
 
 在注入時使用 `@InjectedParam` 傳遞參數：
 
@@ -146,7 +146,26 @@ val appModule = module {
 `viewModelScope` 內的相依性會在首次存取 ViewModel 時建立，並在清除 ViewModel 時銷毀。
 :::
 
-## 注入 ViewModel
+:::caution 需要 `viewModelScopeFactory()` 選項
+在 `viewModelScope { }` 內宣告 **ViewModel 本身**（以便 Koin 自動建立其作用域）需要在您的 Koin 配置中啟用 `viewModelScopeFactory()` 選項：
+
+```kotlin
+startKoin {
+    options(viewModelScopeFactory())
+    modules(appModule)
+}
+```
+
+若未啟用，解析 ViewModel 將失敗並顯示：
+
+```
+No definition found for type 'MyViewModel' on scope '['_root_']'
+```
+
+因為 ViewModel 是在 ViewModel 作用域原型下註冊的，而該作用域僅在啟用該選項時才會建立。（這與手動的 `ScopeViewModel` 模式不同，後者會建立自己的作用域，不需要此選項。）
+:::
+
+## 注入 ViewModel (Injecting ViewModels)
 
 ### 在 Compose (多平台) 中
 
@@ -210,12 +229,12 @@ val appModule = module {
 | Compose | `koinViewModel<MyVM>()` |
 | Android | `by viewModel()` |
 
-## 特定平台的特性
+## 特定平台的特性 (Platform-Specific Features)
 
 - **Android**：請參閱 [Android ViewModel](/docs/reference/koin-android/viewmodel) 以了解 Activity/Fragment 共享、導航圖 (Navigation Graph) 作用域。
 - **Compose**：請參閱 [Compose ViewModel](/docs/reference/koin-compose/compose#viewmodel-for-composable) 以了解 Compose 特定的 API。
 
-## 後續步驟
+## 後續步驟 (Next Steps)
 
 - **[作用域 (Scopes)](/docs/reference/koin-core/scopes)** – 核心作用域概念
 - **[Android ViewModel](/docs/reference/koin-android/viewmodel)** – Android 特定特性

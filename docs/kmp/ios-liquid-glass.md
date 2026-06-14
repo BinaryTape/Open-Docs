@@ -1,6 +1,8 @@
 [//]: # (title: Compose Multiplatform 应用中的 Liquid Glass)
 <show-structure depth="1"/>
 
+<web-summary>关于在 Compose Multiplatform 应用中采用 iOS 26 Liquid Glass 的分步教程，通过将导航迁移到原生 SwiftUI 实现。</web-summary>
+
 [Liquid Glass](https://developer.apple.com/documentation/TechnologyOverviews/liquid-glass) 是 Apple 在 iOS 26 中引入的视觉设计系统，为 UI 元素带来了玻璃般的半透明感和流动感。
 要在 Compose Multiplatform 应用中采用它，您需要一个原生的 SwiftUI 外壳，因为 Liquid Glass 效果是由系统通过原生 `TabView`、`NavigationStack` 和工具栏 API 渲染的。
 
@@ -43,11 +45,11 @@ ContentView
 ```
 ContentView
   └── TabView  (Liquid Glass, iOS 26)
-        ├── Tab: Schedule
+        ├── 选项卡: Schedule
         │     └── NavigationStack
         │           ├── NativeNavComposeView  ← Compose 选项卡根视图
         │           └── DetailComposeView     ← Compose 详情页面，每个目的地一个
-        └── Tab: Info
+        └── 选项卡: Info
               └── NavigationStack
                     ├── NativeNavComposeView  ← Compose 选项卡根视图
                     └── DetailComposeView     ← Compose 详情页面，每个目的地一个
@@ -283,7 +285,7 @@ internal fun SingleScreenApp(
         LocalUseNativeNavigation provides true,
         LocalFlags provides flags,
         LocalAppGraph provides appGraph,
-        // 其他 Provider
+        // 其他提供程序
     ) {
         KotlinConfTheme(colors = colors) {
             Box(Modifier.fillMaxSize().background(KotlinConfTheme.colors.mainBackground)) {
@@ -661,7 +663,8 @@ struct ContentView: View {
 本教程中的迁移偏向于使用原生 SwiftUI 导航，这可以让您开箱即用地获得 Liquid Glass 和其他系统行为。如果这种方法不适合您的项目，请考虑以下替代方案之一：
 
 * **带有原生互操作控制的 Compose 驱动导航**。在 Compose 中保留导航，但嵌入原生的 UI 控件（如 `UITabBar` 和 `UINavigationBar`），包括 Liquid Glass 样式。权衡之处在于原生叠加层与 Compose 内容之间存在一些互操作限制。
-* **带有模拟 Liquid Glass 效果的纯 Compose 导航**。在 Compose 中渲染所有内容并视觉上模拟 Liquid Glass，例如使用 [AndroidLiquidGlass](https://klibs.io/project/Kyant0/AndroidLiquidGlass)、[Calf](https://klibs.io/project/MohamedRejeb/Calf) 或 [Liquid](https://klibs.io/project/FletchMcKee/liquid) 等库。这种方法将所有 UI 保留在 Compose 侧，效果在视觉上相似，但与系统 Liquid Glass 不完全相同。
+* **带有第三方自适应 UI 解决方案的 Compose 驱动导航**。使用像 [Calf](https://klibs.io/project/MohamedRejeb/Calf) 这样的库来渲染原生于应用运行平台的自适应 UI 组件。这种方法降低了自行处理平台差异的复杂性，并提供了开箱即用的 iOS 原生行为（如 Liquid Glass）。
+* **带有模拟 Liquid Glass 效果的纯 Compose 导航**。在 Compose 中渲染所有内容并视觉上模拟 Liquid Glass，例如使用 [AndroidLiquidGlass](https://klibs.io/project/Kyant0/AndroidLiquidGlass) 或 [Liquid](https://klibs.io/project/FletchMcKee/liquid) 等库。这种方法将所有 UI 保留在 Compose 侧，效果在视觉上相似，但与系统 Liquid Glass 不完全相同。
 
 ## 下一步
 

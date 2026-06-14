@@ -26,7 +26,7 @@ Compose Hot Reload 可以透過以下兩種方式新增：
 
 本節將引導您完成在 IntelliJ IDEA 和 Android Studio 中建立具有桌面目標的多平台專案的步驟。建立專案時，Compose Hot Reload 會自動新增。
 
-1. 在[快速入門](quickstart.md)中，完成[設定 Kotlin Multiplatform 開發環境](quickstart.md#set-up-the-environment)的說明。
+1. 在[快速入門指南](quickstart.md)中，完成[設定 Kotlin Multiplatform 開發環境](quickstart.md#set-up-the-environment)的說明。
 2. 在 IDE 中，選取 **File** | **New** | **Project**。
 3. 在左側面板中，選取 **Kotlin Multiplatform**。
 4. 在 **New Project** 視窗中指定 **Name**、**Group** 和 **Artifact** 欄位。
@@ -51,7 +51,7 @@ Compose Hot Reload 外掛程式已[內建](whats-new-compose-110.md#compose-hot-
 您必須配置好桌面目標，然後明確新增 Compose Hot Reload 外掛程式。
 以下步驟參考自[使用共享邏輯與 UI 建立應用程式](compose-multiplatform-create-first-app.md)教學中的專案。
 
-1. 引入桌面目標：建立 `jvmMain` 目錄，定義 `main()` 函式，
+1. 引入桌面目標：建立 `desktopApp` 目錄，定義 `main()` 函式，
    並提供 `actual` 實作。
    如果您的專案已經包含桌面目標，可以跳過此步驟。
    參考範例請參閱[新增 JVM 入口點](migrate-from-android.md#optional-add-a-jvm-entry-point)。
@@ -100,7 +100,7 @@ Compose Hot Reload 外掛程式已[內建](whats-new-compose-110.md#compose-hot-
 
 ## 使用 Compose Hot Reload
 
-1. 在 `jvmMain` 目錄中，開啟 `main.kt` 檔案並更新 `main()` 函式：
+1. 在 `desktopApp` 原始碼集中，開啟 `main.kt` 檔案並更新 `main()` 函式：
    ```kotlin
    fun main() = application {
        Window(
@@ -132,15 +132,15 @@ Compose Hot Reload 外掛程式已[內建](whats-new-compose-110.md#compose-hot-
    ```
 
 4.  開啟 `main.kt` 檔案並點擊邊欄中的 **Run** 圖示。 
-    選取 **Run 'composeApp [jvm]' with Compose Hot Reload**。
+    選取 **Run 'desktopApp' with Compose Hot Reload**。
 
-    ![從邊欄執行 Compose Hot Reload](compose-hot-reload-gutter-run.png){width=350}
+    ![從邊欄執行 Compose Hot Reload](compose-hot-reload-gutter-run.png){width=350 border-effect="line"}
 
-    ![在桌面應用程式上的第一個 Compose Hot Reload](compose-hot-reload-hello.png){width=500}
+    ![在桌面應用程式上的第一個 Compose Hot Reload](compose-hot-reload-hello.png){width=500 border-effect="line"}
 
 5. 更新 `greet()` 函式回傳的字串，然後儲存所有檔案 (<shortcut>⌘ S</shortcut> / <shortcut>Ctrl+S</shortcut>)，即可看到桌面應用程式自動更新。
 
-   ![Compose Hot Reload](compose-hot-reload.gif){width=350}
+   ![Compose Hot Reload](compose-hot-reload.animated.gif){width=500 preview-src="compose-hot-reload.png"}
 
    或者，可以透過按分配的快速鍵或點擊 **Reload UI** 按鈕來明確觸發重新載入。
    您可以在 **Settings | Tools | Compose Hot Reload** 頁面修改觸發行為。

@@ -1,6 +1,8 @@
 [//]: # (title: Compose Multiplatform アプリでの Liquid Glass の活用)
 <show-structure depth="1"/>
 
+<web-summary>ナビゲーションをネイティブの SwiftUI に移行することで、Compose Multiplatform アプリに iOS 26 の Liquid Glass を導入するためのステップバイステップのチュートリアルです。</web-summary>
+
 [Liquid Glass](https://developer.apple.com/documentation/TechnologyOverviews/liquid-glass) は、iOS 26 で導入された Apple のビジュアルデザインシステムであり、UI 要素にガラスのような半透明感と流動性をもたらします。
 Compose Multiplatform アプリでこれを採用するには、ネイティブの SwiftUI シェルが必要です。これは、Liquid Glass 効果がネイティブの `TabView`、`NavigationStack`、およびツールバー API を通じてシステムによってレンダリングされるためです。
 
@@ -209,7 +211,7 @@ internal fun NavHost(
 SwiftUI が `NavigationStack` を所有している場合、Compose は各画面のコンテンツのみをレンダリングする必要があります。
 `NavHost` はバックスタック、遷移、およびライフサイクルの管理用に構築されているため、単一のルートをレンダリングするためのよりシンプルなエントリポイントが必要です。
 
-### 単一画面レンダラーの追加
+### フラットな画面レンダラーの追加
 
 `ScreenContent` はそのシンプルなエントリポイントです。単一の詳細ルートをその Composable にマップするフラットな `when` 式であり、自身ではナビゲーション状態を持ちません。タブルートは引き続き完全な `App()` / `NavHost` によって処理されます。
 SwiftUI は、遷移先ごとに個別のビューコントローラーを作成し、それぞれが単一の `ScreenContent` 呼び出しをホストします。
@@ -672,14 +674,15 @@ struct ContentView: View {
 }
 ```
 
-完全なファイルを参照してください: [`ContentView.swift`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/iosApp/iosApp/ContentView.swift)
+完全なファイルを参照してください: [`ContentView.swift`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/iosApp/iosApp/ContentView.swift)。
 
 ## 代替アプローチ
 
 このチュートリアルの移行方法はネイティブの SwiftUI ナビゲーションを優先しており、これにより Liquid Glass やその他のシステム動作をすぐに利用できます。このアプローチがプロジェクトに合わない場合は、以下の代替案を検討してください。
 
 * **ネイティブの相互運用コントロールを使用した Compose 主導のナビゲーション**。ナビゲーションは Compose に残したまま、Liquid Glass スタイリングを含む `UITabBar` や `UINavigationBar` などのネイティブ UI コントロールを埋め込みます。トレードオフは、ネイティブオーバーレイと Compose コンテンツ間の相互運用に関するいくつかの制限です。
-* **Liquid Glass 効果を模倣した Compose のみのナビゲーション**。すべてを Compose でレンダリングし、Liquid Glass を視覚的に近似させます。例えば、[AndroidLiquidGlass](https://klibs.io/project/Kyant0/AndroidLiquidGlass)、[Calf](https://klibs.io/project/MohamedRejeb/Calf)、または [Liquid](https://klibs.io/project/FletchMcKee/liquid) といったライブラリを使用します。このアプローチでは、すべての UI が Compose 側に保持され、効果は視覚的に似ていますが、システムの Liquid Glass と同一ではありません。
+* **アダプティブ UI のためのサードパーティ製ソリューションを使用した Compose 主導のナビゲーション**。[Calf](https://klibs.io/project/MohamedRejeb/Calf) のようなライブラリを使用して、アプリが動作しているプラットフォームにネイティブなアダプティブ UI コンポーネントをレンダリングします。このアプローチにより、プラットフォーム間の差異をご自身で処理する複雑さが軽減され、iOS での Liquid Glass のようなネイティブな動作がそのまま提供されます。
+* **Liquid Glass 効果を模倣した Compose のみのナビゲーション**。すべてを Compose でレンダリングし、Liquid Glass を視覚的に近似させます。例えば、[AndroidLiquidGlass](https://klibs.io/project/Kyant0/AndroidLiquidGlass) や [Liquid](https://klibs.io/project/FletchMcKee/liquid) といったライブラリを使用します。このアプローチでは、すべての UI が Compose 側に保持され、効果は視覚的に似ていますが、システムの Liquid Glass と同一ではありません。
 
 ## 次のステップ
 

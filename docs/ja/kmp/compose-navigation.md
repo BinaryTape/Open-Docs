@@ -152,7 +152,7 @@ composable<Profile> { backStackEntry ->
 
 * アプリが起動すると、バックスタックに最初に表示されるエントリは、`NavHost` で定義された開始デスティネーションです。
 * 各 `NavController.navigate()` 呼び出しは、デフォルトで指定されたデスティネーションをスタックの最上部にプッシュします。
-* 戻るジェスチャー、戻るボタン、または `NavController.popBackStack()` メソッドを使用すると、現在のデスティネーションがスタックからポップされ、ユーザーは前のデスティネーションに戻ります。ユーザーがディープリンクを辿って現在のデスティネーションに来た場合、スタックをポップすると前のアプリに戻ります。あるいは、`NavController.navigateUp()` 関数は、`NavController` のコンテキスト内、つまりアプリ内でのみユーザーを戻します。
+* 戻るジェスチャー、戻るボタン、または `NavController.popBackStack()` メソッドを使用すると、現在のデスティネーションがスタックからポップされ、ユーザーは前のデスティネーションに戻ります。ユーザーがディープリンクを辿って現在のデスティネーションに来た場合、スタックをポップすると前のアプリに戻ります。あるいは、`NavController.navigateUp()` 関数は、`NavController` のコンテキスト内、すなわちアプリ内でのみユーザーを戻します。
 
 Navigation ライブラリでは、バックスタックの処理に柔軟性があります。以下のことが可能です。
 
@@ -211,6 +211,8 @@ Compose ベースのナビゲーション実装が要件に合わない場合は
 | [Circuit](https://slackhq.github.io/circuit/)       | ナビゲーションと高度な状態管理を備えた、Kotlin アプリケーション向けの Compose 駆動アーキテクチャ |
 | [Appyx](https://bumble-tech.github.io/appyx/)       | ジェスチャー制御を備えたモデル駆動型ナビゲーション |
 | [PreCompose](https://tlaster.github.io/PreCompose/) | Jetpack Lifecycle、ViewModel、LiveData、および Navigation にインスパイアされたナビゲーションと ViewModel |
+
+iOS をターゲットにしており、ナビゲーション UI で [Liquid Glass](https://developer.apple.com/documentation/technologyoverviews/liquid-glass) のようなシステムでレンダリングされるエフェクトを使用したい場合は、画面コンテンツには Compose を使いつつ、[ナビゲーションをネイティブの SwiftUI に移行する](ios-liquid-glass.md)ことを検討してください。
 
 ## 次のステップ
 

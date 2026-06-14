@@ -3,7 +3,7 @@
 [Compose UI](https://www.jetbrains.com/compose-multiplatform/) 지원을 추가하려면 확장 라이브러리를 가져오세요:
 
 ```kotlin
-implementation("io.coil-kt.coil3:coil-compose:3.4.0")
+implementation("io.coil-kt.coil3:coil-compose:3.5.0")
 ```
 
 그런 다음 `AsyncImage` 컴포저블을 사용하여 이미지를 로드하고 표시합니다:

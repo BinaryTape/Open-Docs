@@ -1,4 +1,4 @@
-<img src="/coil/coil_logo_colored.svg" alt="Coil"/>
+![Coil](logo.svg)
 
 [Android](https://www.android.com/) および [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) のための画像読み込みライブラリです。Coil の特徴は以下の通りです：
 
@@ -16,8 +16,8 @@ Coil は **Co**routine **I**mage **L**oader の略称です。
 Compose ライブラリと [ネットワークライブラリ](https://coil-kt.github.io/coil/network/) をインポートします：
 
 ```kotlin
-implementation("io.coil-kt.coil3:coil-compose:3.4.0")
-implementation("io.coil-kt.coil3:coil-network-okhttp:3.4.0")
+implementation("io.coil-kt.coil3:coil-compose:3.5.0")
+implementation("io.coil-kt.coil3:coil-network-okhttp:3.5.0")
 ```
 
 画像を読み込むには、`AsyncImage` コンポーザブルを使用します：
@@ -33,7 +33,7 @@ Coil の [詳細なドキュメントはこちら](https://coil-kt.github.io/coi
 
 ## ライセンス
 
-    Copyright 2025 Coil Contributors
+    Copyright 2026 Coil Contributors
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

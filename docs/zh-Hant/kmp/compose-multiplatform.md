@@ -34,6 +34,7 @@ aside: false
                     <title>iOS 特定功能</title>
                     <a href="compose-swiftui-integration.md" summary="與 SwiftUI 的互通性：在原生視圖中使用 Compose，反之亦然">SwiftUI 互通性</a>
                     <a href="compose-uikit-integration.md" summary="與 UIKit 的互通性：在原生視圖中使用 Compose，反之亦然">UIKit 互通性</a>
+                    <a href="ios-liquid-glass.md" summary="了解如何使用原生 SwiftUI 導覽來獲得系統呈現的 Liquid Glass 效果">Liquid Glass</a>
                     <a href="compose-ios-touch.md" summary="了解 Compose Multiplatform 如何處理互通情境中的輕觸事件">iOS 互通情境中的輕觸</a>
                     <a href="compose-ios-accessibility.md" summary="了解 iOS 協助工具服務的目前支援程度">iOS 協助工具</a>
                 </group>
@@ -41,7 +42,7 @@ aside: false
                     <title>工具</title>
                     <a href="https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform" summary="適用於 IntelliJ IDEA 與 Android Studio 的 Kotlin Multiplatform 外掛程式">適用於 Compose Multiplatform 的 IDE 外掛程式</a>
                     <a href="compose-hot-reload.md" summary="使用 Compose 熱重載快速迭代您的 UI">Compose 熱重載</a>
-                    <a href="https://klibs.io/" summary="由 JetBrains 開發的 Kotlin Multiplatform 程式庫實驗性搜尋平台">搜尋 Compose Multiplatform 程式庫</a>
+                    <a href="https://klibs.io/" summary="由 JetBrains 開發的 Kotlin Multiplatform 程式庫搜尋平台">搜尋 Compose Multiplatform 程式庫</a>
                     <a href="https://kotlinlang.org/docs/compose-compiler-options.html" summary="Kotlin 隨附的 Compose 編譯器選項">Compose 編譯器及其選項</a>
                 </group>
                 <group>

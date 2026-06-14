@@ -3,7 +3,7 @@
 要添加对 [Compose UI](https://www.jetbrains.com/compose-multiplatform/) 的支持，请导入扩展库：
 
 ```kotlin
-implementation("io.coil-kt.coil3:coil-compose:3.4.0")
+implementation("io.coil-kt.coil3:coil-compose:3.5.0")
 ```
 
 然后使用 `AsyncImage` 可组合项来加载并显示图像：

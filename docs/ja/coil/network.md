@@ -5,9 +5,9 @@
 ネットワークからの画像取得サポートを追加するには、**以下のうちいずれか1つのみ**をインポートしてください：
 
 ```kotlin
-implementation("io.coil-kt.coil3:coil-network-okhttp:3.4.0") // Android/JVM でのみ利用可能。
-implementation("io.coil-kt.coil3:coil-network-ktor2:3.4.0")
-implementation("io.coil-kt.coil3:coil-network-ktor3:3.4.0")
+implementation("io.coil-kt.coil3:coil-network-okhttp:3.5.0") // Android/JVM でのみ利用可能。
+implementation("io.coil-kt.coil3:coil-network-ktor2:3.5.0")
+implementation("io.coil-kt.coil3:coil-network-ktor3:3.5.0")
 ```
 
 OkHttp を使用する場合、設定は以上です。インポートすると、`https://example.com/image.jpg` のようなネットワーク URL が自動的にサポートされます。Ktor を使用する場合は、各プラットフォームに対応したエンジンを追加する必要があります（以下を参照）。

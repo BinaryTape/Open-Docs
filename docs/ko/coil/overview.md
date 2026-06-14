@@ -1,4 +1,4 @@
-<img src="/coil/coil_logo_colored.svg" alt="Coil"/>
+![Coil](logo.svg)
 
 [Android](https://www.android.com/) 및 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)을 위한 이미지 로딩 라이브러리입니다. Coil은 다음과 같은 특징이 있습니다:
 
@@ -16,8 +16,8 @@ Coil은 **Co**routine **I**mage **L**oader의 약자입니다.
 Compose 라이브러리와 [네트워킹 라이브러리](https://coil-kt.github.io/coil/network/)를 추가합니다:
 
 ```kotlin
-implementation("io.coil-kt.coil3:coil-compose:3.4.0")
-implementation("io.coil-kt.coil3:coil-network-okhttp:3.4.0")
+implementation("io.coil-kt.coil3:coil-compose:3.5.0")
+implementation("io.coil-kt.coil3:coil-network-okhttp:3.5.0")
 ```
 
 이미지를 로드하려면 `AsyncImage` 컴포저블(composable)을 사용하세요:
@@ -33,7 +33,7 @@ Coil의 [전체 문서는 여기에서 확인](https://coil-kt.github.io/coil/ge
 
 ## 라이선스 (License)
 
-    Copyright 2025 Coil Contributors
+    Copyright 2026 Coil Contributors
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

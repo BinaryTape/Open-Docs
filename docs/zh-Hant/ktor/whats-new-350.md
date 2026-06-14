@@ -164,11 +164,15 @@ post("/checkout") {
 >
 {style="tip"}
 
-### 僅在修改時傳送工作階段 Cookie {id="session-cookies"}
+### 工作階段 (Sessions) 外掛程式中改進的工作階段管理
 
-Ktor 3.5.0 為 [工作階段 (Sessions)](server-sessions.md) 外掛程式引入了一個新選項，僅在工作階段資料發生變化時才傳送該資料（例如，基於 Cookie 的工作階段的 `Set-Cookie` 標頭）。
+Ktor 3.5.0 改進了 [工作階段 (Sessions)](server-sessions.md) 外掛程式中的工作階段處理，增加了新的配置選項，讓您能更精確地控制工作階段生命週期、身分識別產生以及網路行為。
 
-預設情況下，工作階段資料會在每次回應時傳送以保留現有行為。若要僅在修改時傳送，請在工作階段 Cookie 配置中啟用 `sendOnlyIfModified` 標記：
+#### 僅在修改時傳送工作階段資料 {id="session-cookies"}
+
+您現在可以將工作階段配置為僅在資料發生變化時才傳送。對於基於 Cookie 的工作階段，這意味著 `Set-Cookie` 標頭僅在修改時傳送。此最佳化同時適用於基於 Cookie 和標頭的工作階段。
+
+預設情況下，工作階段資料會在每次回應時傳送以保留現有行為。若要僅在修改時傳送，請在工作階段 Cookie 配置中啟用 `sendOnlyIfModified` 選項：
 
 ```kotlin
 install(Sessions) {
@@ -178,7 +182,37 @@ install(Sessions) {
 }
 ```
 
-### 自訂 SSE 心跳事件 (heartbeat events)
+#### 透過請求資料產生工作階段 ID
+
+`CookieIdSessionBuilder.identity()` 函式現在接受一個 `ApplicationCall`，允許工作階段 ID 衍生自當前的應用程式呼叫。這支援了諸如將工作階段綁定到已驗證使用者或請求元資料的使用案例。
+
+```kotlin
+install(Sessions) {
+    cookie<UserSession>("user_session", storage = RedisSessionStorage()) {
+        identity { call ->
+            call.principal<UserIdPrincipal>()?.name ?: generateSessionId()
+        }
+    }
+}
+```
+
+先前的 `identity()` 函式已被棄用，建議改用這個具備呼叫感知 (call-aware) 能力的多載版本。
+
+#### 依 ID 清除工作階段
+
+您現在可以透過工作階段的存儲 ID 來使該工作階段失效，而無需作用中的呼叫，這可以透過 `call.sessions.clear<UserSession>()` 和 `CurrentSession.clear()` 輔助函式來達成。這兩個函式都會委派給 `SessionTrackerById.clearById()`。
+
+```kotlin
+post("/logout/{sessionId}") {
+    val sessionId = call.requirePathParameter("sessionId")
+    call.sessions.clear<UserSession>(sessionId)
+    call.respond(HttpStatusCode.OK)
+}
+```
+
+這對於諸如登出使用者的所有裝置，或從背景工作 (background jobs) 中使工作階段過期等情境非常有用。
+
+### 自訂 SSE 心跳事件
 
 本次發布為 Ktor 伺服器端的 SSE 支援引入了一個新選項，讓您可以使用事件提供者函式 (event provider function) 完整自訂心跳事件：
 

@@ -171,7 +171,7 @@ composable<Profile> { backStackEntry ->
 與任何其他堆疊一樣，`NavController` 將新項目推送 (push) 到堆疊頂部，並從頂部彈出 (pop) 它們：
 
 * 應用程式啟動時，返回堆疊中出現的第一個項目是在 `NavHost` 中定義的起始目的地。
-* 每個 `NavController.navigate()` 呼叫預設都會將給定的目的地推送至堆疊頂部。
+* 每個 `NavController.navigate()` 呼景預設都會將給定的目的地推送至堆疊頂部。
 * 使用返回手勢、返回按鈕或 `NavController.popBackStack()` 方法會將目前的目的地從堆疊中彈出，並將使用者帶回上一個目的地。
     如果使用者是透過深層連結進入目前目的地的，則彈出堆疊會將他們帶回上一個應用程式。
     或者，`NavController.navigateUp()` 函式僅在 `NavController` 的上下文中引導使用者在應用程式內移動。
@@ -238,7 +238,9 @@ ComposeUIViewController(
 | [Decompose](https://arkivanov.github.io/Decompose/) | 一種進階的導覽方法，涵蓋了完整生命週期和任何潛在的相依注入                                                        |
 | [Circuit](https://slackhq.github.io/circuit/)       | 一種為 Kotlin 應用程式設計的 Compose 驅動架構，具備導覽和進階狀態管理功能。                                                            |
 | [Appyx](https://bumble-tech.github.io/appyx/)       | 具備手勢控制的模型驅動導覽                                                                                                                    |
-| [PreCompose](https://tlaster.github.io/PreCompose/) | 受 Jetpack Lifecycle、ViewModel、LiveData 和 Navigation 啟發的導覽與 View Model                                                                  |
+| [PreCompose](https://tlaster.github.io/PreCompose/) | 受 Jetpack Lifecycle、ViewModel、LiveData 和 Navigation 啟發的導覽與 ViewModel                                                                  |
+
+如果您鎖定 iOS 平台，且希望在導覽 UI 中使用系統呈現的效果，例如 [Liquid Glass](https://developer.apple.com/documentation/technologyoverviews/liquid-glass)，請考慮[將導覽遷移至原生 SwiftUI](ios-liquid-glass.md)，同時保留 Compose 處理畫面內容。
 
 ## 下一步
 

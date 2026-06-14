@@ -7,9 +7,9 @@
     <p>이 튜토리얼은 IntelliJ IDEA를 사용하지만, Android Studio에서도 동일하게 진행할 수 있습니다. 두 IDE는 핵심 기능과 Kotlin Multiplatform 지원을 공유합니다.</p>
     <br/>   
     <p>이 문서는 <strong>공통 로직 및 UI를 사용한 Compose Multiplatform 앱 만들기</strong> 튜토리얼의 마지막 부분입니다. 진행하기 전에 이전 단계를 모두 완료했는지 확인하세요.</p>
-    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <Links href="/kmp/compose-multiplatform-create-first-app" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the first part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">첫 번째 Compose Multiplatform 앱 만들기</Links><br/>
-       <img src="icon-2-done.svg" width="20" alt="Second step"/> <Links href="/kmp/compose-multiplatform-explore-composables" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the second part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Before proceeding, make sure you've completed previous steps. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">컴포저블 코드 살펴보기</Links><br/>
-       <img src="icon-3-done.svg" width="20" alt="Third step"/> <Links href="/kmp/compose-multiplatform-modify-project" summary="This tutorial uses IntelliJ IDEA, but you can also follow it in Android Studio – both IDEs share the same core functionality and Kotlin Multiplatform support. This is the third part of the Create a Compose Multiplatform app with shared logic and UI tutorial. Before proceeding, make sure you've completed previous steps. Create your Compose Multiplatform app Explore composable code Modify the project Create your own application">프로젝트 수정하기</Links><br/>
+    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <Links href="/kmp/compose-multiplatform-create-first-app" summary="이 튜토리얼은 IntelliJ IDEA를 사용하지만, Android Studio에서도 동일하게 진행할 수 있습니다. 두 IDE는 핵심 기능과 Kotlin Multiplatform 지원을 공유합니다. 이 문서는 공통 로직 및 UI를 사용한 Compose Multiplatform 앱 만들기 튜토리얼의 첫 번째 부분입니다. 첫 번째 Compose Multiplatform 앱 만들기, 컴포저블 코드 살펴보기, 프로젝트 수정하기, 나만의 애플리케이션 만들기">첫 번째 Compose Multiplatform 앱 만들기</Links><br/>
+       <img src="icon-2-done.svg" width="20" alt="Second step"/> <Links href="/kmp/compose-multiplatform-explore-composables" summary="이 튜토리얼은 IntelliJ IDEA를 사용하지만, Android Studio에서도 동일하게 진행할 수 있습니다. 두 IDE는 핵심 기능과 Kotlin Multiplatform 지원을 공유합니다. 이 문서는 공통 로직 및 UI를 사용한 Compose Multiplatform 앱 만들기 튜토리얼의 두 번째 부분입니다. 진행하기 전에 이전 단계를 모두 완료했는지 확인하세요. 첫 번째 Compose Multiplatform 앱 만들기, 컴포저블 코드 살펴보기, 프로젝트 수정하기, 나만의 애플리케이션 만들기">컴포저블 코드 살펴보기</Links><br/>
+       <img src="icon-3-done.svg" width="20" alt="Third step"/> <Links href="/kmp/compose-multiplatform-modify-project" summary="이 튜토리얼은 IntelliJ IDEA를 사용하지만, Android Studio에서도 동일하게 진행할 수 있습니다. 두 IDE는 핵심 기능과 Kotlin Multiplatform 지원을 공유합니다. 이 문서는 공통 로직 및 UI를 사용한 Compose Multiplatform 앱 만들기 튜토리얼의 세 번째 부분입니다. 진행하기 전에 이전 단계를 모두 완료했는지 확인하세요. 첫 번째 Compose Multiplatform 앱 만들기, 컴포저블 코드 살펴보기, 프로젝트 수정하기, 나만의 애플리케이션 만들기">프로젝트 수정하기</Links><br/>
        <img src="icon-4.svg" width="20" alt="Fourth step"/> <strong>나만의 애플리케이션 만들기</strong><br/>
     </p>
 </tldr>
@@ -61,12 +61,12 @@
 
    애플리케이션을 실행하고 버튼을 클릭하면 하드코딩된 시간인 13:30이 표시됩니다.
 
-3. **desktopApp [hot] 🔥** 실행 구성을 시작하여 [Compose Hot Reload](compose-hot-reload.md)를 통해 데스크톱에서 애플리케이션을 실행합니다.
+3. **🔥desktopApp** 실행 구성을 시작하여 [Compose Hot Reload](compose-hot-reload.md)를 통해 데스크톱에서 애플리케이션을 실행합니다.
    앱은 작동하지만 창 크기가 UI와 어울리지 않습니다.
 
    ![데스크톱에서의 새로운 Compose Multiplatform 앱](first-compose-project-on-desktop-3.png){width=400}
 
-4. 이를 해결하기 위해 `desktopApp/src/kotlin` 디렉토리에 있는 `main.kt` 파일을 다음과 같이 업데이트합니다.
+4. 이를 해결하기 위해 `desktopApp` 소스 세트에 있는 `main.kt` 파일을 다음과 같이 업데이트합니다.
 
     ```kotlin
     fun main() = application {

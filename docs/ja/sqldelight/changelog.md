@@ -18,8 +18,11 @@
 ### Changed
 - [PostgreSQLダイアレクト] `arrayIntermediateType` の可視性を public に変更 (#5835 by @griffio)
 - [Gradleプラグイン] より厳格な MigrationFile のバージョニングを実装 (#5730 by @madisp)
+- [Gradleプラグイン] サポートする Gradle の最小バージョンを 8.2.1 に引き上げ (#6217 by @maxsav)
+- [Gradleプラグイン] Gradle の隔離されたプロジェクト (Isolated Projects) をサポート (#6217 by @maxsav)
 
 ### Fixed
+- [コンパイラ] 生成されたコードにおける Kotlin の追加の警告を抑制 (#6208 by @eyupcanakman)
 - [コンパイラ] グループ化されていない集計結果セット内の他のカラムが、常に Null 許容になるように修正
 - [PostgreSQLダイアレクト] `coalesce` および `ifnull` の Null 許容性を正しく解決するように修正
 - [PostgreSQLダイアレクト] PostgreSQL ダイアレクトの IDE 統合を修正
@@ -31,6 +34,8 @@
 - [Gradleプラグイン] AGP 8.9 から 8.11 において、生成されたソースが Kotlin コンパイルに反映されない問題を修正
 - [PostgreSQLダイアレクト] `lower` および `upper` 関数が Primitive バインド引数を使用する際にデフォルトで `TEXT` になるように修正 (#6262 by @griffio)
 - [コンパイラ] Null 安全な演算子 (`IS` および `IS DISTINCT FROM`) で Null 許容のバインド引数を使用するように修正 (#6265 by @griffio)
+- [Gradleプラグイン] プロジェクト依存関係に AGP のバリアント解決 (variant resolution) を使用するように修正 (#6217 by @maxsav)
+- [Gradleプラグイン] AGP バリアントのリストがビルド間で異なる場合に、`generateDatabaseInterface` のビルドキャッシュがミスする問題を修正
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -96,7 +101,7 @@
 
 ### Changed
 - 開発中のスナップショットが Central Portal Snapshots リポジトリ (https://central.sonatype.com/repository/maven-snapshots/) に公開されるようになりました。
-- [コンパイラ] コンストラクタリファレンスを使用して、デフォルトで生成されるクエリを簡素化 (#5814 by @jonapoul)
+- [コンパイラ] コンストラクターリファレンスを使用して、デフォルトで生成されるクエリを簡素化 (#5814 by @jonapoul)
 
 ### Fixed
 - [コンパイラ] 共通テーブル式を含む View を使用した際のスタックオーバーフローを修正 (#5928 by @griffio)
@@ -211,7 +216,7 @@
 - [IDEプラグイン] エラーハンドラのクラッシュを修正 (#4988 by @aperfilyev)
 - [IDEプラグイン] IDEA 2023.3 で BugSnag の初期化に失敗する問題を修正 (by @aperfilyev)
 - [IDEプラグイン] プラグイン経由で IntelliJ で .sq ファイルを開く際の `PluginException` を修正 (by @aperfilyev)
-- [IDEプラグイン] すでにプラグインの依存関係にあるため、kotlin lib を intellij プラグインにバンドルしないように変更 (#5126)
+- [IDEプラグイン] すでにプラグインの依存関係にあるため、Kotlin lib を IntelliJ プラグインにバンドルしないように変更 (#5126)
 - [IDEプラグイン] ストリームの代わりに拡張機能配列を使用するように変更 (#5127)
 
 ## [2.0.1] - 2023-12-01
@@ -222,7 +227,7 @@
 - [PostgreSQLダイアレクト] PostgreSQL `CREATE INDEX CONCURRENTLY` のサポートを追加 (#4531 by @griffio)
 - [PostgreSQLダイアレクト] PostgreSQL CTE の補助ステートメントが相互に参照可能になるようサポート (#4493 by @griffio)
 - [PostgreSQLダイアレクト] バイナリ式 (binary expr) および `sum` における PostgreSQL 型のサポートを追加 (#4539 by @Adriel-M)
-- [PostgreSQLダイアレクト] PostgreSQL `SELECT DISTINCT ON` 構文のサポートを追加 (#4584 by @griffio)
+- [PostgreSQLダイアレクト] PostgreSQL `SELECT DISTINCT ON` 構文ের サポートを追加 (#4584 by @griffio)
 - [PostgreSQLダイアレクト] `SELECT` 文における PostgreSQL JSON 関数のサポートを追加 (#4590 by @MariusVolkhart)
 - [PostgreSQLダイアレクト] `generate_series` PostgreSQL 関数を追加 (#4717 by @griffio)
 - [PostgreSQLダイアレクト] 追加の Postgres 文字列関数の定義を追加 (#4752 by @MariusVolkhart)
@@ -554,7 +559,7 @@ sqldelight {
 - [SQLite] `WHERE` 句における Null 許容パラメータの等価性チェックを置換しないように変更 (#1490 by @eygraber)
 - [SQLite] Sqlite 3.35 の `RETURNING` 文をサポート (#1490 by @eygraber)
 - [SQLite] `GENERATED` 句をサポート
-- [SQLite] Sqlite 3.38 ダイアレクト의 サポートを追加 (by @eygraber)
+- [SQLite] Sqlite 3.38 ダイアレクトのサポートを追加 (by @eygraber)
 
 ### Changed
 - [コンパイラ] 生成コードを整理
@@ -658,7 +663,7 @@ sqldelight {
 - [Gradleプラグイン] JS/Android プラグインランタイム追加時に明示的にサポート (by @ZacSweers)
 - [Gradleプラグイン] マイグレーションからスキーマを派生させずにマイグレーション出力タスクを登録 (#2744 by @kevincianfarini)
 - [Gradleプラグイン] マイグレーションタスクがクラッシュした場合、クラッシュしたファイルを出力
-- [Gradleプラグイン] 羃等な出力を保証するため、コード生成時にファイルをソート (by @ZacSweers)
+- [Gradleプラグイン] 冪等な出力を保証するため、コード生成時にファイルをソート (by @ZacSweers)
 - [コンパイラ] ファイルの反復処理に高速な API を使用し、PSI グラフ全体を探索しないように変更
 - [コンパイラ] セレクト関数のパラメータにキーワードマングリングを追加 (#2759 by @aperfilyev)
 - [コンパイラ] マイグレーションアダプタの `packageName` を修正 (by @hfhbd)

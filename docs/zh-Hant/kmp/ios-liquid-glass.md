@@ -1,6 +1,8 @@
 [//]: # (title: Compose Multiplatform 應用程式中的 Liquid Glass)
 <show-structure depth="1"/>
 
+<web-summary>關於透過將導航遷移到原生 SwiftUI，在 Compose Multiplatform 應用程式中採用 iOS 26 Liquid Glass 的逐步教學。</web-summary>
+
 [Liquid Glass](https://developer.apple.com/documentation/TechnologyOverviews/liquid-glass) 是 Apple 在 iOS 26 中推出的視覺設計系統，為 UI 元素帶來了類似玻璃的半透明感與流動性。
 若要在 Compose Multiplatform 應用程式中採用它，您需要一個原生的 SwiftUI 外殼，因為 Liquid Glass 效果是系統透過原生的 `TabView`、`NavigationStack` 以及工具列 API 進行渲染的。
 
@@ -19,7 +21,7 @@
 ![共用 UI](ios-kotlinconf-no-liquid-glass.png){ width="250" style="inline"}
 ![具有 Liquid Glass 的原生 iOS UI](ios-kotlinconf-liquid-glass.png){ width="250" style="inline"}
 
-複製此儲存庫並切換至任一分支以跟隨教學，或並排比較它們：
+複製此存儲庫並切換至任一分支以跟隨教學，或並排比較它們：
 [`main...lg-nav`](https://github.com/JetBrains/kotlinconf-app/compare/main...lg-nav)。
 
 為求簡化，我們將遷移應用程式的雙標籤頁版本（**Schedule** 與 **Info**），但此模式可擴展至任何數量的標籤頁。
@@ -434,7 +436,7 @@ struct RouteWrapper: Hashable, Identifiable {
 }
 ```
 
-兩次推入相同的路由必須建立兩個不同的堆疊項目，以符合預期的導航行為。為了實現這一點，識別（identity）是基於 UUID 而非路由的值。
+兩次推入相同的路由必須建立兩個不同的堆疊項目，以符合預期的導航行為。為了實現這一點，識別 (identity) 是基於 UUID 而非路由的值。
 
 ### 追蹤標籤頁與導航狀態
 
@@ -670,7 +672,8 @@ struct ContentView: View {
 本教學中的遷移偏好原生 SwiftUI 導航，這讓您能開箱即用地獲得 Liquid Glass 與其他系統行為。若此方法不適合您的專案，請考慮以下替代方案之一：
 
 * **具原生互通控制項的 Compose 驅動導航**。保留 Compose 中的導航，但嵌入原生 UI 控制項（如 `UITabBar` 與 `UINavigationBar`），包括 Liquid Glass 樣式。缺點是原生疊加層與 Compose 內容之間存在一些互通性限制。
-* **僅 Compose 導航並模擬 Liquid Glass 效果**。完全在 Compose 中渲染，並以視覺方式模擬 Liquid Glass，例如使用 [AndroidLiquidGlass](https://klibs.io/project/Kyant0/AndroidLiquidGlass)、[Calf](https://klibs.io/project/MohamedRejeb/Calf) 或 [Liquid](https://klibs.io/project/FletchMcKee/liquid) 等程式庫。此方法將所有 UI 保留在 Compose 側，視覺效果雖然相似，但與系統 Liquid Glass 並不完全相同。
+* **具有第三方適應性 UI 解決方案的 Compose 驅動導航**。使用如 [Calf](https://klibs.io/project/MohamedRejeb/Calf) 等程式庫來渲染對應用程式執行平台原生的適應性 UI 組件。此方法降低了自行處理平台差異的複雜性，並能開箱即用地提供 iOS 上的 Liquid Glass 等原生行為。
+* **僅 Compose 導航並模擬 Liquid Glass 效果**。完全在 Compose 中渲染，並以視覺方式模擬 Liquid Glass，例如使用 [AndroidLiquidGlass](https://klibs.io/project/Kyant0/AndroidLiquidGlass) 或 [Liquid](https://klibs.io/project/FletchMcKee/liquid) 等程式庫。此方法將所有 UI 保留在 Compose 側，視覺效果雖然相似，但與系統 Liquid Glass 並不完全相同。
 
 ## 下一步
 

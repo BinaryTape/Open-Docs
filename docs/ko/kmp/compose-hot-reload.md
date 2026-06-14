@@ -1,7 +1,7 @@
 [//]: # (title: Compose Hot Reload)
 
 Compose Hot Reload는 Compose Multiplatform 프로젝트를 작업하는 동안 UI 변경 사항을 시각화하고 실험하는 데 도움을 줍니다.
-테스트 데이터를 사용하여 격리된 컴포넌트를 확인하는 데 유용한 표준 [Compose 미리보기(Compose previews)](compose-previews.md)와 달리,
+격리된 컴포넌트를 테스트 데이터로 확인하는 데 유용한 표준 [Compose 미리보기(Compose previews)](compose-previews.md)와 달리,
 Compose Hot Reload는 코드 변경 사항을 실행 중인 애플리케이션에 직접 적용합니다.
 
 번들로 제공되는 Compose Hot Reload Gradle 플러그인은 
@@ -50,7 +50,7 @@ Compose Multiplatform 버전을 1.10.0 이상으로 업그레이드하여 별도
 데스크톱 타겟이 구성되어 있어야 하며 Compose Hot Reload 플러그인을 명시적으로 추가해야 합니다.
 아래 단계는 [공유 로직 및 UI를 포함한 앱 생성](compose-multiplatform-create-first-app.md) 튜토리얼의 프로젝트를 참고용으로 사용합니다.
 
-1. 데스크톱 타겟 도입: `jvmMain` 디렉토리를 생성하고, `main()` 함수를 정의하며,
+1. 데스크톱 타겟 도입: `desktopApp` 디렉토리를 생성하고, `main()` 함수를 정의하며,
    `actual` 구현을 제공합니다.
    이미 프로젝트에 데스크톱 타겟이 포함되어 있다면 이 단계를 건너뛸 수 있습니다.
    참고를 위해 [JVM 진입점 추가](migrate-from-android.md#optional-add-a-jvm-entry-point)의 샘플을 확인하세요.
@@ -99,7 +99,7 @@ Compose Multiplatform 버전을 1.10.0 이상으로 업그레이드하여 별도
 
 ## Compose Hot Reload 사용하기
 
-1. `jvmMain` 디렉토리에서 `main.kt` 파일을 열고 `main()` 함수를 업데이트합니다:
+1. `desktopApp` 소스 세트에서 `main.kt` 파일을 열고 `main()` 함수를 업데이트합니다:
    ```kotlin
    fun main() = application {
        Window(
@@ -131,15 +131,15 @@ Compose Multiplatform 버전을 1.10.0 이상으로 업그레이드하여 별도
    ```
 
 4.  `main.kt` 파일을 열고 거터(gutter)에 있는 **Run** 아이콘을 클릭합니다. 
-    **Run 'composeApp [jvm]' with Compose Hot Reload**를 선택합니다.
+    Select **Run 'desktopApp' with Compose Hot Reload**.
 
-    ![Run Compose Hot Reload from gutter](compose-hot-reload-gutter-run.png){width=350}
+    ![Run Compose Hot Reload from gutter](compose-hot-reload-gutter-run.png){width=350 border-effect="line"}
 
-    ![First Compose Hot Reload on desktop app](compose-hot-reload-hello.png){width=500}
+    ![First Compose Hot Reload on desktop app](compose-hot-reload-hello.png){width=500 border-effect="line"}
 
 5. `greet()` 함수에서 반환되는 문자열을 업데이트한 다음, 모든 파일을 저장(<shortcut>⌘ S</shortcut> / <shortcut>Ctrl+S</shortcut>)하면 데스크톱 앱이 자동으로 업데이트되는 것을 확인할 수 있습니다.
 
-   ![Compose Hot Reload](compose-hot-reload.gif){width=350}
+   ![Compose Hot Reload](compose-hot-reload.animated.gif){width=500 preview-src="compose-hot-reload.png"}
 
    또는 할당된 단축키를 누르거나 **Reload UI** 버튼을 클릭하여 명시적으로 다시 로드(reload)를 트리거할 수도 있습니다.
    **Settings | Tools | Compose Hot Reload** 페이지에서 트리거 동작을 수정할 수 있습니다.

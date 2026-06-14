@@ -146,6 +146,25 @@ val appModule = module {
 `viewModelScope` 내부의 의존성은 ViewModel에 처음 접근할 때 생성되고, ViewModel이 클리어(cleared)될 때 소멸됩니다.
 :::
 
+:::caution `viewModelScopeFactory()` 옵션 필요
+`viewModelScope { }` 내부에 **ViewModel 자체**를 선언하여 Koin이 자동으로 스코프를 생성하도록 하려면, Koin 설정에서 `viewModelScopeFactory()` 옵션을 활성화해야 합니다.
+
+```kotlin
+startKoin {
+    options(viewModelScopeFactory())
+    modules(appModule)
+}
+```
+
+이 옵션이 없으면 ViewModel을 확인할 때(resolving) 다음과 같은 오류와 함께 실패합니다:
+
+```
+No definition found for type 'MyViewModel' on scope '['_root_']'
+```
+
+그 이유는 ViewModel이 ViewModel 스코프 아키타입으로 등록되었으며, 해당 스코프는 이 옵션이 활성화되었을 때만 생성되기 때문입니다. (이는 직접 자신의 스코프를 생성하며 해당 옵션이 필요하지 않은 수동 `ScopeViewModel` 패턴과는 별개입니다.)
+:::
+
 ## ViewModel 주입하기
 
 ### Compose (멀티플랫폼)에서

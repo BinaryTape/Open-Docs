@@ -125,7 +125,7 @@ Compose Multiplatform 有一個官方範例稱為 [ImageViewer App](https://gith
 > [了解如何逐步從 Android 遷移到 Kotlin Multiplatform](migrate-from-android.md)。
 {style="note"}
 
-### 8. Kotlin Multiplatform 已經被全球企業使用
+### 8. Kotlin Multiplatform 已被全球企業使用
 
 KMP 已被世界各地許多大型公司使用，包括 Forbes、Philips、Cash App、Meetup、Autodesk 等。您可以在 [案例研究頁面](https://kotlinlang.org/case-studies/?type=multiplatform) 閱讀他們所有的故事。
 
@@ -139,7 +139,7 @@ KMP 已被世界各地許多大型公司使用，包括 Forbes、Philips、Cash 
 * **Android Studio**。Android Studio 是另一個穩定的 Kotlin Multiplatform 開發解決方案。透過 Android Studio Otter 2025.2.1，您可以安裝相同的 Kotlin Multiplatform IDE 外掛程式，以獲得基本的 iOS 啟動和偵錯支援、環境預檢以及額外的多平台工具。
 * **Compose Hot Reload**：[Compose Hot Reload](compose-hot-reload.md) 讓您在開發 Compose Multiplatform 專案時，能快速反覆運算並實驗 UI 更改。目前適用於包含桌面目標且與 Java 21 或更早版本相容的專案。
 
-![Compose Hot Reload](compose-hot-reload.gif){width=350}
+![Compose Hot Reload](compose-hot-reload.animated.gif){width=500 preview-src="compose-hot-reload.png"}
 
 * **Xcode**。Apple 的 IDE 可用於建立 Kotlin Multiplatform 應用程式的 iOS 部分。Xcode 是 iOS 應用程式開發的標準，提供了大量用於編碼、偵錯和配置的工具。但是，Xcode 僅限 Mac 使用。
 

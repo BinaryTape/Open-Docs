@@ -110,7 +110,7 @@ Compose Multiplatform은 공통 `ViewModelStoreOwner` 구현을 제공하므로,
    }
    ```
 
-    > 이 예제는 Kotlin 2.4.0-RC에서 안정화된 [명시적 백킹 필드(explicit backing fields)](https://kotlinlang.org/docs/whatsnew23.html#explicit-backing-fields)를 사용합니다. 이전 버전을 사용하는 경우, `-Xexplicit-backing-fields` 컴파일러 옵션을 추가하거나 대신 `.asStateFlow()`를 사용하는 이전의 백킹 필드 패턴을 사용하세요.
+    > 이 예제는 Kotlin 2.4.0에서 안정화된 [명시적 백킹 필드(explicit backing fields)](https://kotlinlang.org/docs/properties.html#explicit-backing-fields)를 사용합니다. 이전 버전을 사용하는 경우, `-Xexplicit-backing-fields` 컴파일러 옵션을 추가하거나 대신 `.asStateFlow()`를 사용하는 이전의 백킹 필드 패턴을 사용하세요.
     >
     {style="note"}
 

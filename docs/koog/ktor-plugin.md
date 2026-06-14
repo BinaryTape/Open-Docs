@@ -75,7 +75,7 @@ koog:
 ```kotlin
 fun Application.module() {
     install(Koog) {
-        // 您也可以通过代码编程方式配置提供者（见下文）
+        // 您也可以通过代码以编程方式配置提供者（见下文）
     }
 
     routing {
@@ -162,7 +162,7 @@ post("/moderated-chat") {
 }
 ```
 
-## 代码编程配置（在代码中）
+## 代码以编程方式配置（在代码中）
 
 所有的提供者和 Agent 行为都可以通过 install(Koog) {} 进行配置。
 
@@ -215,7 +215,7 @@ install(Koog) {
 在 YAML/CONF 中配置 llm.fallback 时，请使用以下标识符格式：
 
 - OpenAI: openai.chat.gpt4_1, openai.reasoning.o3, openai.costoptimized.gpt4_1mini, openai.audio.gpt4oaudio, openai.moderation.omni
-- Anthropic: anthropic.sonnet_4_5, anthropic.opus_4, anthropic.haiku_4_5
+- Anthropic: anthropic.fable_5, anthropic.sonnet_4_5, anthropic.opus_4, anthropic.haiku_4_5
 - Google: google.gemini2_5pro, google.gemini2_0flash001
 - OpenRouter: openrouter.gpt4o, openrouter.gpt4, openrouter.claude3sonnet
 - DeepSeek: deepseek.deepseek-v4-flash, deepseek.deepseek-v4-pro, deepseek.deepseek-chat, deepseek.deepseek-reasoner
