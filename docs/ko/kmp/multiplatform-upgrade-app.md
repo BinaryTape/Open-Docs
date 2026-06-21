@@ -49,8 +49,8 @@ kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core",
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorVersion" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorVersion" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorVersion" }
-ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
-ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktorVersion" }
+ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktorVersion" }
 
 [plugins]
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
@@ -72,7 +72,7 @@ kotlin {
             // ...
             // Kotlin Multiplatform Gradle 플러그인이
             // 플랫폼별 코루틴 아티팩트를 자동으로 추가합니다.
-            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.kotlinx.coroutines)
             // 메인 Ktor 종속성
             implementation(libs.ktor.client.core)
             // Ktor가 특정 형식의 직렬화를

@@ -1,6 +1,6 @@
 [//]: # (title: CLI)
 
-如果出于某种原因你无法使用 [Gradle](dokka-gradle.md) 或 [Maven](dokka-maven.md) 构建工具，Dokka 提供了一个用于生成文档的命令行 (CLI) 运行器。
+如果出于某些原因你无法使用 [Gradle](dokka-gradle.md) 或 [Maven](dokka-maven.md) 构建工具，Dokka 提供了一个用于生成文档的命令行 (CLI) 运行器。
 
 相比之下，它具有与 Dokka 的 Gradle 插件相同（甚至更多）的功能。虽然由于没有自动配置，它的设置要困难得多，特别是在多平台和多模块环境中。
 
@@ -33,7 +33,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 | **组 (Group)**        | **构件 (Artifact)**           | **版本**       | **链接**                                                                                                                                                 |
 |-----------------------|-------------------------------|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `org.jetbrains.dokka` | `dokka-base`                  | %dokkaVersion% | [下载](https://repo1.maven.org/maven2/org/jetbrains/dokka/dokka-base/%dokkaVersion%/dokka-base-%dokkaVersion%.jar)                                   |
-| `org.jetbrains.dokka` | `analysis-kotlin-descriptors` | %dokkaVersion% | [下载](https://repo1.maven.org/maven2/org/jetbrains/dokka/analysis-kotlin-descriptors/%dokkaVersion%/analysis-kotlin-descriptors-%dokkaVersion%.jar) |
+| `org.jetbrains.dokka` | `analysis-kotlin-symbols` | %dokkaVersion% | [下载](https://repo1.maven.org/maven2/org/jetbrains/dokka/analysis-kotlin-symbols/%dokkaVersion%/analysis-kotlin-symbols-%dokkaVersion%.jar) |
 
 以下是 [HTML](dokka-html.md) 输出格式所需的额外依赖项：
 
@@ -54,7 +54,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 
 ```Bash
 java -jar dokka-cli-%dokkaVersion%.jar \
-     -pluginsClasspath "./dokka-base-%dokkaVersion%.jar;./analysis-kotlin-descriptors-%dokkaVersion%.jar;./kotlinx-html-jvm-0.8.0.jar;./freemarker-2.3.31.jar" \
+     -pluginsClasspath "./dokka-base-%dokkaVersion%.jar;./analysis-kotlin-symbols-%dokkaVersion%.jar;./kotlinx-html-jvm-0.8.0.jar;./freemarker-2.3.31.jar" \
      -sourceSet "-src /home/myCoolProject/src/main/kotlin" \
      -outputDir "./dokka/html"
 ```
@@ -90,7 +90,7 @@ java -jar dokka-cli-%dokkaVersion%.jar dokka-configuration.json
   "pluginsClasspath": [
     "./dokka-base-%dokkaVersion%.jar",
     "./kotlinx-html-jvm-0.8.0.jar",
-    "./analysis-kotlin-descriptors-%dokkaVersion%.jar",
+    "./analysis-kotlin-symbols-%dokkaVersion%.jar",
     "./freemarker-2.3.31.jar"
   ]
 }
@@ -231,7 +231,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
   "pluginsClasspath": [
     "./dokka-base-%dokkaVersion%.jar",
     "./kotlinx-html-jvm-0.8.0.jar",
-    "./analysis-kotlin-descriptors-%dokkaVersion%.jar",
+    "./analysis-kotlin-symbols-%dokkaVersion%.jar",
     "./freemarker-2.3.31.jar"
   ]
 }
@@ -809,7 +809,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
   "pluginsClasspath": [
     "./dokka-base-%dokkaVersion%.jar",
     "./kotlinx-html-jvm-0.8.0.jar",
-    "./analysis-kotlin-descriptors-%dokkaVersion%.jar",
+    "./analysis-kotlin-symbols-%dokkaVersion%.jar",
     "./freemarker-2.3.31.jar"
   ],
   "pluginsConfiguration": [

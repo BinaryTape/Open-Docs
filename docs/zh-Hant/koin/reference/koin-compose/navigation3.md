@@ -152,6 +152,31 @@ fun App() {
 }
 ```
 
+:::tip 當 NavDisplay 具備型別時，請傳遞您的路由型別
+`koinEntryProvider<T>()` 是泛型 —— `T` 是路由型別。如果您將其保留為 `koinEntryProvider<Any>()` 但 `NavDisplay` 變成了具備型別的（例如透過型別化的 `SceneStrategy`，如 `rememberSupportingPaneSceneStrategy<Route>()`），編譯器會推論出 `NavDisplay<Route>` 並預期接收 `(Route) -> NavEntry<Route>`，因此 `Any` 型別的提供者將無法符合：
+
+```
+Argument type mismatch: actual type is 'Function1<Any, NavEntry<Any>>',
+but 'Function1<Route, NavEntry<Route>>' was expected.
+```
+
+請傳遞您的路由型別以進行比對：
+
+```kotlin
+val sceneStrategy = rememberSupportingPaneSceneStrategy<Route>()
+val entryProvider = koinEntryProvider<Route>()   // (Route) -> NavEntry<Route>
+
+NavDisplay(
+    backStack = backStack,
+    onBack = onBack,
+    sceneStrategy = sceneStrategy,
+    entryProvider = entryProvider,               // ✅ 符合 NavDisplay<Route>
+)
+```
+
+（同樣地，`val entryProvider: EntryProvider<Route> = koinEntryProvider()` —— 型別引數會從預期型別中推論出來。）
+:::
+
 ### 完整範例
 
 ```kotlin

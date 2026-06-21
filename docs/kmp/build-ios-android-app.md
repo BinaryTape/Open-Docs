@@ -1,7 +1,8 @@
+```xml
 <topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd" id="build-ios-android-app" title="如何开发 Android 与 iOS 应用（以及何时使用 Kotlin Multiplatform）">
   <web-summary>探索如何开发 Android 与 iOS 应用，比较架构和框架，并了解 Kotlin Multiplatform 的适用场景。</web-summary>
-  <p>在同时为 iOS 和 Android 进行开发时，第一个重大的决策是架构方面的：是采用完全原生开发，还是通过跨平台方法共享代码？这一选择会影响上市时间、成本以及团队随时间推移面临的复杂度。原生开发可以最大限度地提高平台控制力和精致度，但也需要维护两个代码库。<a href="cross-platform-mobile-development.md">跨平台</a>开发承诺通过共享逻辑实现更快的交付并降低成本，但也引发了关于性能、灵活性和长期可维护性的正当担忧。</p>
+  <p>在同时为 iOS 和 Android 进行开发时，第一个重大的决策是架构方面的：是采用完全原生开发，还是通过跨平台方法共享代码？这一选择会影响上市时间、成本以及团队随时间推移面临的复杂度。原生开发可以最大限度地提高平台控制力和精致度，但也需要维护两个代码库。<a href="cross-platform-mobile-development.topic">跨平台</a>开发承诺通过共享逻辑实现更快的交付并降低成本，但也引发了关于性能、灵活性和长期可维护性的正当担忧。</p>
   <p>这不仅仅是一个理论上的争论。根据 <a href="https://devecosystem-2025.jetbrains.com/">2025 开发者生态系统现状</a> 报告，跨平台和代码共享技术的使用率在 2024 年至 2025 年间翻了一倍多，这表明越来越多的团队正在寻找在保持原生质量体验的同时复用代码的方法。</p>
   <!--![在最近两次开发者生态系统调查的受访者中，KMP 的使用率从 2024 年的 7% 增长到 2025 年的 18%](kmp-growth-deveco.svg){width=700}-->
   <img src="kmp-growth-deveco.svg" alt="在最近两次开发者生态系统调查的受访者中，KMP 的使用率从 2024 年的 7% 增长到 2025 年的 18%" width="700"/>
@@ -13,7 +14,7 @@
       <p>完全原生开发将 iOS 和 Android 视为不同的产品。你使用 Apple 的工具和框架创建一个应用，使用 Google 的工具和框架创建另一个应用，并使用每个平台的原生语言、UI 系统和 SDK。这两个代码库可能会共享想法和设计，但在技术上保持独立，且每个平台在自己的生态系统和发布周期内演进。</p>
     </chapter>
     <chapter title="跨平台框架（Flutter、React Native 等）" id="cross-platform-frameworks">
-      <p><a href="cross-platform-frameworks.md">跨平台框架</a>（如 Flutter 和 React Native）旨在围绕单一代码库统一开发。这种方法允许团队共享业务逻辑和 UI 代码，通过跨平台层在不同操作系统上渲染应用。其承诺非常直接：一个代码库，两个平台，以及从创意到发布更高效的路径。</p>
+      <p><a href="cross-platform-frameworks.topic">跨平台框架</a>（如 Flutter 和 React Native）旨在围绕单一代码库统一开发。这种方法允许团队共享业务逻辑和 UI 代码，通过跨平台层在不同操作系统上渲染应用。其承诺非常直接：一个代码库，两个平台，以及从创意到发布更高效的路径。</p>
     </chapter>
     <chapter title="灵活的代码共享 (Kotlin Multiplatform)" id="flexible-code-sharing">
       <p><a href="https://kotlinlang.org/multiplatform/">Kotlin Multiplatform (KMP)</a> 提供了更广泛的代码共享选项。它不要求“全有或全无”的决策，而是让团队能够仅共享与产品相关的部分，同时保持构建完全原生体验的灵活性。</p>
@@ -109,7 +110,7 @@
       <p>首先要考虑的维度是平台原生 UX 的重要性。如果你的产品依赖于对平台规范的严格遵守、特殊的交互或深度的操作系统集成，那么保持完整原生 UI 控制的方法可以降低长期风险。如果平台间的视觉和交互差异不那么重要，那么为了提高复用率，共享 UI 层可能是一个合理的权衡。</p>
     </chapter>
     <chapter title="所需逻辑共享的程度" id="degree-of-logic-sharing-required">
-      <p>另一个考量因素是所需的逻辑共享水平。某些产品在不同平台上需要类似的业务规则、数据模型和工作流，而另一些产品则受益于共享 UI 层的大部分内容。你和你的团队需要明确系统中哪些组件必须表现一致，哪些组件预期会有所不同。这有助于防止共享不足（重复关键逻辑）和过度共享（强行制造虚假的一致性）。</p>
+      <p>另一个考量因素是所需的逻辑共享水平。某些产品在不同平台上需要类似的业务规则、数据模型和工作流，而另一段产品则受益于共享 UI 层的大部分内容。你和你的团队需要明确系统中哪些组件必须表现一致，哪些组件预期会有所不同。这有助于防止共享不足（重复关键逻辑）和过度共享（强行制造虚假的一致性）。</p>
     </chapter>
     <chapter title="架构决策的可逆性" id="reversibility-of-architectural-decisions">
       <p>架构决策的可逆性是另一个重要的考虑因素。某些选项会将你锁定在特定的结构中，以后更改的代价会很高，尤其是当 UI 和底层功能密不可分时。允许你逐渐移动通用代码和平台特定代码之间边界的架构，可以降低未来转型和重构的成本。</p>

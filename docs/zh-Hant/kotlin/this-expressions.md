@@ -37,23 +37,29 @@ class A { // 隱式標籤 @A
 
 ## 隱式 this
 
-當您在 `this` 上呼叫成員函數時，可以省略 `this.` 部分。如果您有同名的非成員函式，請謹慎使用，因為在某些情況下可能會改為呼叫該函式：
+當您在 `this` 上呼叫成員函數時，可以省略 `this.` 限定詞。然而，如果另一個具有相同名稱的可呼叫物件在更近的語法作用域內可用，Kotlin 會將不帶限定詞的呼叫解析為該物件，而非成員函數。若要明確呼叫成員函數，請使用 `this.` 限定詞：
 
 ```kotlin
 fun main() {
-    fun printLine() { println("Local function") }
-    
     class A {
-        fun printLine() { println("Member function") }
+        fun printLine() {
+            println("Member function")
+        }
 
-        fun invokePrintLine(omitThis: Boolean = false) {
-            if (omitThis) printLine()
-            else this.printLine()
+        fun invokePrintLine() {
+            fun printLine() {
+                println("Local function")
+            }
+         
+            printLine()
+            // Local function
+         
+            this.printLine()
+            // Member function
         }
     }
-    
-    A().invokePrintLine() // Member function
-    A().invokePrintLine(omitThis = true) // Local function
+
+    A().invokePrintLine()
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true"}

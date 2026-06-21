@@ -1,7 +1,7 @@
 <topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd" id="build-ios-android-app" title="AndroidおよびiOSアプリの構築方法（およびKotlin Multiplatformを使用すべき場面）">
   <web-summary>AndroidとiOSアプリを構築する方法を探索し、アーキテクチャやフレームワークを比較し、Kotlin Multiplatformがどこに適しているかを確認します。</web-summary>
-  <p>iOSとAndroidの両方向けに開発を行う際、最初の大きな決断はアーキテクチャに関するものです。完全にネイティブで行くか、それともクロスプラットフォームのアプローチを使用してコードを共有するか。その選択は、市場投入までの時間、コスト、そしてチームが長期的に直面する複雑さのレベルに影響を与えます。ネイティブ開発はプラットフォームの制御と洗練を最大化しますが、2つのコードベースを維持する必要があります。<a href="cross-platform-mobile-development.md">クロスプラットフォーム</a>は、ロジックの共有を通じて迅速な提供とコスト削減を約束しますが、パフォーマンス、柔軟性、および長期的なメンテナンス性に関する妥当な懸念も生じさせます。</p>
+  <p>iOSとAndroidの両方向けに開発を行う際、最初の大きな決断はアーキテクチャに関するものです。完全にネイティブで行くか、それともクロスプラットフォームのアプローチを使用してコードを共有するか。その選択は、市場投入までの時間、コスト、そしてチームが長期的に直面する複雑さのレベルに影響を与えます。ネイティブ開発はプラットフォームの制御と洗練を最大化しますが、2つのコードベースを維持する必要があります。<a href="cross-platform-mobile-development.topic">クロスプラットフォーム</a>は、ロジックの共有を通じて迅速な提供とコスト削減を約束しますが、パフォーマンス、柔軟性、および長期的なメンテナンス性に関する妥当な懸念も生じさせます。</p>
   <p>これは単なる理論的な議論ではありません。<a href="https://devecosystem-2025.jetbrains.com/">開発者エコシステムの現状 2025（State of Developer Ecosystem 2025）</a>によると、クロスプラットフォームおよびコード共有技術の使用は2024年から2025年の間に2倍以上に増加しました。これは、ネイティブ品質の体験を維持しながらコードを再利用する方法を模索するチームが増えていることを示唆しています。</p>
   <!--![KMP usage increased from 7% in 2024 to 18% in 2025 among respondents to the last two Developer Ecosystem surveys](kmp-growth-deveco.svg){width=700}-->
   <img src="kmp-growth-deveco.svg" alt="過去2回の開発者エコシステム調査の回答者の間で、KMPの使用率は2024年の7%から2025年には18%に増加しました" width="700"/>
@@ -13,7 +13,7 @@
       <p>完全なネイティブ開発では、iOSとAndroidを異なる製品として扱います。Appleのツールとフレームワークを使用して1つのアプリを作成し、Googleのツールを使用して別のアプリを作成し、各プラットフォームのネイティブ言語、UIシステム、およびSDKを使用します。2つのコードベースはアイデアやデザインを共有するかもしれませんが、技術的には区別されたままであり、各プラットフォームは独自のシステムとリリースサイクルの中で進化します。</p>
     </chapter>
     <chapter title="クロスプラットフォームフレームワーク（Flutter、React Nativeなど）" id="cross-platform-frameworks">
-      <p>FlutterやReact Nativeなどの<a href="cross-platform-frameworks.md">クロスプラットフォームフレームワーク</a>は、開発を単一のコードベースに統合することを目指しています。このアプローチにより、チームはビジネスロジックとUIコードの両方を共有でき、クロスプラットフォームレイヤーがOSをまたいでアプリをレンダリングします。その約束はシンプルです。1つのコードベース、2つのプラットフォーム、そしてアイデアからリリースまでのより効率的なパスです。</p>
+      <p>FlutterやReact Nativeなどの<a href="cross-platform-frameworks.topic">クロスプラットフォームフレームワーク</a>は、開発を単一のコードベースに統合することを目指しています。このアプローチにより、チームはビジネスロジックとUIコードの両方を共有でき、クロスプラットフォームレイヤーがOSをまたいでアプリをレンダリングします。その約束はシンプルです。1つのコードベース、2つのプラットフォーム、そしてアイデアからリリースまでのより効率的なパスです。</p>
     </chapter>
     <chapter title="柔軟なコード共有（Kotlin Multiplatform）" id="flexible-code-sharing">
       <p><a href="https://kotlinlang.org/multiplatform/">Kotlin Multiplatform (KMP)</a>は、より幅広いコード共有のオプションを提供します。「全か無か（all-or-nothing）」の決断を迫るのではなく、完全にネイティブな体験を構築する柔軟性を維持しながら、製品に関連する部分だけを共有することを可能にします。</p>
@@ -21,7 +21,7 @@
       <img src="kmp-graphic.png" alt="段階的なKMP採用の図示：ロジックの一部を共有しUIは共有しない、UIなしで全ロジックを共有する、ロジックとUIを共有する" width="700"/>
       <a href="https://kotlinlang.org/multiplatform/"><img src="discover-kmp.svg" alt="Kotlin Multiplatformを詳しく知る" width="600" style="block"/></a>
       <!--[![Discover Kotlin Multiplatform](discover-kmp.svg){width="600" style="block"}](https://www.jetbrains.com/kotlin-multiplatform/)-->
-      <p>以降のセクションでは、これら3つのアプローチが実際のプロジェクトでどのように機能するのか、そしてそれが日々の開発にとって何を意味するのかを見ていきます。</p>
+      <p>以降のセクションでは、これら3つのアプローチが実際のプロジェクトでどのように機能するのか、それらが日々の開発にとって何を意味するのかを見ていきます。</p>
     </chapter>
   </chapter>
   <chapter title="AndroidおよびiOS向けの完全なネイティブ開発" id="fully-native-development-for-android-and-ios">

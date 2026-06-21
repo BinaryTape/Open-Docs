@@ -2,7 +2,7 @@
 
 <web-summary>원활하고 효율적인 도입을 위한 6가지 권장 사항과 함께 팀에 멀티플랫폼 모바일 앱 개발을 도입하는 방법을 알아보세요.</web-summary>
 
-새로운 기술과 도구를 조직에 도입하는 것은 여러 도전 과제를 수반합니다. 워크플로를 최적화하고 효율화하기 위해 팀이 [모바일 앱 개발을 위한 멀티플랫폼 접근 방식](cross-platform-mobile-development.md)을 채택하도록 어떻게 도울 수 있을까요? JetBrains가 개발한 오픈 소스 기술인 [Kotlin Multiplatform (KMP)](https://www.jetbrains.com/kotlin-multiplatform/)을 팀에 효과적으로 소개하는 데 도움이 될 몇 가지 권장 사항과 모범 사례를 소개합니다. KMP는 네이티브(native) 프로그래밍의 이점을 유지하면서 개발자가 플랫폼 간에 코드를 공유할 수 있도록 해줍니다.
+새로운 기술과 도구를 조직에 도입하는 것은 여러 도전 과제를 수반합니다. 워크플로를 최적화하고 효율화하기 위해 팀이 [모바일 앱 개발을 위한 멀티플랫폼 접근 방식](cross-platform-mobile-development.topic)을 채택하도록 어떻게 도울 수 있을까요? JetBrains가 개발한 오픈 소스 기술인 [Kotlin Multiplatform (KMP)](https://www.jetbrains.com/kotlin-multiplatform/)을 팀에 효과적으로 소개하는 데 도움이 될 몇 가지 권장 사항과 모범 사례를 소개합니다. KMP는 네이티브(native) 프로그래밍의 이점을 유지하면서 개발자가 플랫폼 간에 코드를 공유할 수 있도록 해줍니다.
 
 * [공감으로 시작하기](#start-with-empathy)
 * [Kotlin Multiplatform의 작동 방식 설명하기](#explain-how-kotlin-multiplatform-works)
@@ -26,7 +26,7 @@
 KMP는 Alpha 출시 이후 프로덕션 환경에서 널리 사용되어 왔습니다. 그 결과 JetBrains는 광범위한 피드백을 수집하여 [Stable(안정화) 버전](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)에서 더욱 향상된 개발 경험을 제공할 수 있게 되었습니다.
 
 * **모든 iOS 및 Android 기능 사용 가능** – 공유 코드에서 작업을 수행할 수 없거나 특정 네이티브 기능을 사용하고 싶을 때마다, [expect/actual](multiplatform-expect-actual.md) 패턴을 사용하여 플랫폼 전용 코드를 원활하게 작성할 수 있습니다.
-* **매끄러운 성능** – Kotlin으로 작성된 공유 코드는 대상 플랫폼에 따라 다른 출력 형식으로 컴파일됩니다. Android의 경우 Java 바이트코드(bytecode)로, iOS의 경우 네이티브 바이너리(native binaries)로 컴파일됩니다. 따라서 플랫폼에서 이 코드를 실행할 때 추가적인 런타임 오버헤드가 없으며 성능은 [네이티브 앱](native-and-cross-platform.md)과 대등합니다.
+* **매끄러운 성능** – Kotlin으로 작성된 공유 코드는 대상 플랫폼에 따라 다른 출력 형식으로 컴파일됩니다. Android의 경우 Java 바이트코드(bytecode)로, iOS의 경우 네이티브 바이너리(native binaries)로 컴파일됩니다. 따라서 플랫폼에서 이 코드를 실행할 때 추가적인 런타임 오버헤드가 없으며 성능은 [네이티브 앱](native-and-cross-platform.topic)과 대등합니다.
 * **기존 코드와의 호환성** – 프로젝트 규모에 상관없이 기존 코드가 Kotlin Multiplatform 통합을 방해하지 않습니다. 언제든지 크로스 플랫폼 코드 작성을 시작하여 기존 iOS 및 Android 앱에 일반적인 의존성으로 연결할 수 있으며, 이미 작성된 코드를 수정하여 iOS와 호환되도록 만들 수도 있습니다.
 
 기술이 *어떻게* 작동하는지 설명할 수 있는 능력은 매우 중요합니다. 논의가 마치 마법에 의존하는 것처럼 보이는 것을 좋아하는 사람은 아무도 없기 때문입니다. 명확하지 않은 부분이 있으면 사람들은 최악의 상황을 가정할 수 있으므로, 어떤 내용이 너무 당연해서 설명할 필요가 없다고 생각하는 실수를 범하지 않도록 주의하세요. 대신, 다음 단계로 넘어가기 전에 모든 기본 개념을 설명하려고 노력하세요. [멀티플랫폼 프로그래밍](get-started.topic)에 관한 이 문서는 지식을 체계화하여 준비하는 데 도움이 될 것입니다.
@@ -63,13 +63,13 @@ Kotlin으로 구현된 기존 기능 하나를 골라 크로스 플랫폼으로 
 
 ### Q: 크로스 플랫폼 기술 기반의 애플리케이션은 App Store에서 거부될 수 있다고 들었습니다. 이런 위험을 감수할 가치가 있나요?
 
-A: Apple App Store에는 앱 게시를 위한 엄격한 가이드라인이 있습니다. 제한 사항 중 하나는 앱의 기능이나 특징을 도입하거나 변경하는 코드를 앱이 다운로드, 설치 또는 실행할 수 없다는 것입니다([App Store Review Guideline 2.5.2](https://developer.apple.com/app-store/review/guidelines/#software-requirements)). 이는 일부 크로스 플랫폼 기술에는 해당될 수 있지만, Kotlin Multiplatform에는 해당되지 않습니다. 공유된 Kotlin 코드는 Kotlin/Native를 통해 네이티브 바이너리로 컴파일되어 일반적인 iOS 프레임워크로 앱에 포함되며, 동적인 코드 실행 기능을 제공하지 않습니다.
+A: Apple Store에는 앱 게시를 위한 엄격한 가이드라인이 있습니다. 제한 사항 중 하나는 앱의 기능이나 특징을 도입하거나 변경하는 코드를 앱이 다운로드, 설치 또는 실행할 수 없다는 것입니다([App Store Review Guideline 2.5.2](https://developer.apple.com/app-store/review/guidelines/#software-requirements)). 이는 일부 크로스 플랫폼 기술에는 해당될 수 있지만, Kotlin Multiplatform에는 해당되지 않습니다. 공유된 Kotlin 코드는 Kotlin/Native를 통해 네이티브 바이너리로 컴파일되어 일반적인 iOS 프레임워크로 앱에 포함되며, 동적인 코드 실행 기능을 제공하지 않습니다.
 
 ### Q: 멀티플랫폼 프로젝트는 Gradle로 빌드되는데, Gradle은 학습 곡선이 매우 가파릅니다. 이제 프로젝트 설정에 많은 시간을 할애해야 한다는 뜻인가요? {id="gradle-time-spent"}
 
 A: 실제로는 그럴 필요가 없습니다. Kotlin 모바일 애플리케이션 빌드를 위한 작업 프로세스를 구성하는 방법은 다양합니다. 첫째, Android 개발자만 빌드를 담당할 수 있습니다. 이 경우 iOS 팀은 코드만 작성하거나 생성된 결과물(artifact)만 사용할 수도 있습니다. 또한 Gradle 작업이 필요한 업무를 처리할 때 워크숍을 열거나 페어 프로그래밍(pair programming)을 진행하여 팀의 Gradle 기술을 향상시킬 수도 있습니다. 멀티플랫폼 프로젝트를 위한 다양한 팀 협업 방식을 살펴보고 팀에 가장 적합한 방식을 선택할 수 있습니다.
 
-Android 팀원들만 공유 코드를 다룰 때는 iOS 개발자들이 Kotlin을 배울 필요조차 없습니다. 하지만 팀이 다음 단계로 나아가 모두가 공유 코드에 기여할 준비가 되었을 때, 전환하는 데는 많은 시간이 걸리지 않을 것입니다. Swift와 Kotlin의 구문(syntax) 및 기능적 유사성 덕분에 공유 Kotlin 코드를 읽고 쓰는 법을 배우는 데 필요한 노력이 크게 줄어듭니다. [Kotlin Koans](https://play.kotlinlang.org/koans/overview)를 통해 직접 시도해 보세요. Kotlin 구문과 주요 관용구(idioms)에 익숙해질 수 있는 일련의 연습 문제입니다.
+Android 팀원들만 공유 코드를 다룰 때는 iOS 개발자들이 Kotlin을 배울 필요조차 없습니다. 하지만 팀이 다음 단계로 나아가 모두가 공유 코드에 기여할 준비가 되었을 때, 전환하는 데는 많은 시간이 걸리지 않을 것입니다. Swift와 Kotlin의 구문(syntax) 및 기능적 유사성 덕분에 공유 Kotlin 코드를 읽고 쓰는 법을 배우는 데 필요한 노력이 크게 줄어듭니다. [Kotlin Koans를 통해 직접 시도해 보세요](https://play.kotlinlang.org/koans/overview). Kotlin 구문과 주요 관용구(idioms)에 익숙해질 수 있는 일련의 연습 문제입니다.
 
 2023년 말, JetBrains는 사용성, 온보딩 및 IDE 지원에 중점을 둔 새로운 실험적 프로젝트 구성 도구인 [Amper](https://blog.jetbrains.com/blog/2023/11/09/amper-improving-the-build-tooling-user-experience/)를 도입했습니다. Amper의 기능에 대해 더 자세히 알아보려면 [튜토리얼](amper.md)을 참고하세요.
 
@@ -85,7 +85,7 @@ A: Kotlin Multiplatform 생태계는 번창하고 있으며 전 세계의 많은
 
 또한 지금은 Kotlin Multiplatform 오픈 소스 커뮤니티에서 iOS 개발자가 활동하기에 아주 좋은 시기입니다. iOS 경험에 대한 수요가 많고, iOS 전용 기여를 통해 인지도를 얻을 수 있는 기회가 풍부하기 때문입니다.
 
-팀이 멀티플랫폼 모바일 개발을 더 깊이 파고들수록 질문은 더 흥미롭고 복잡해질 것입니다. 답을 모른다고 걱정하지 마세요. Kotlin Slack에는 대규모의 지원적인 Kotlin Multiplatform 커뮤니티가 있으며, 이미 이를 사용 중인 많은 개발자가 도움을 줄 수 있는 [#multiplatform](https://slack-chats.kotlinlang.org/c/multiplatform) 채널이 마련되어 있습니다. 팀에서 가장 많이 나온 질문들을 [저희와 공유](mailto:kotlin.multiplatform.feedback@kotlinlang.org)해 주시면 매우 감사하겠습니다. 이 정보는 문서에서 어떤 주제를 다루어야 할지 이해하는 데 도움이 됩니다.
+팀이 멀티플랫폼 모바일 개발을 더 깊이 파고들수록 질문은 더 흥미롭고 복잡해질 것입니다. 답을 모른다고 걱정하지 마세요. Kotlin Slack에는 대규모의 지원적인 Kotlin Multiplatform 커뮤니티가 있으며, 이미 이를 사용 중인 많은 개발자가 도움을 줄 수 있는 [#multiplatform](https://slack-chats.kotlinlang.org/c/multiplatform) 채널이 마련되어 있습니다. 팀에서 가장 많이 나온 질문들을 [저희와 공유](mailto:kotlin.multiplatform.feedback@kotlinlang.org)해 주시면 매우 감사하겠습니다. 이 정보는 문서에서 어떤 주제를 다루어야 할지 이해하는 데 도움이 됩니다. 
 
 ## 적응 기간 동안 팀 지원하기
 
@@ -101,7 +101,7 @@ Kotlin Multiplatform을 사용하기로 결정한 후에는 팀이 기술을 실
    * [Kotlin Multiplatform을 활용한 iOS 개발: 팁과 요령](https://www.youtube.com/watch?v=eFzy1BRtHps) 
    * [팀을 위한 Kotlin Multiplatform - Kevin Galligan](https://www.youtube.com/watch?v=-tJvCOfJesk)
 
-현실적으로 사람들의 마음과 생각을 하루나 일주일 만에 바꿀 수는 없을 것입니다. 하지만 인내심을 갖고 동료들의 요구 사항에 귀를 기울인다면 분명히 결실을 맺을 것입니다.
+현실적으로 사람들의 마음과 생각을 하루나 일주일 만에 바꿀 수는 없을 것입니다. 하지만 인내심을 갖고 동료들의 요구 사항에 귀를 기울인다면 분명히 결실을 맺을 것입니다. 
 
 JetBrains 팀은 [Kotlin Multiplatform 사용 경험에 대한 여러분의 이야기](mailto:kotlin.multiplatform.feedback@kotlinlang.org)를 기다리고 있습니다.
 

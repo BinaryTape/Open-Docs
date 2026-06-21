@@ -24,8 +24,18 @@
     "link": "coroutine-context-and-dispatchers"
   },
   {
-    "text": "coroutines.flow",
-    "link": "flow"
+    "text": "coroutines.flows",
+    "items": [
+      {
+        "text": "coroutines.coroutines-flow",
+        "link": "coroutines-flow"
+      },
+      {
+        "text": "coroutines.coroutines-flow-operators",
+        "link": "coroutines-flow-operators"
+      }
+    ],
+    "collapsed": true
   },
   {
     "text": "coroutines.channels",

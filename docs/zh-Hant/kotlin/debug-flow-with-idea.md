@@ -4,7 +4,7 @@
 
 本教學示範如何建立 Kotlin Flow 並使用 IntelliJ IDEA 對其進行偵錯。
 
-本教學假設您已具備[協同程式](coroutines-guide.md)和 [Kotlin Flow](flow.md#flows) 概念的先驗知識。
+本教學假設您已具備[協同程式](coroutines-basics.md)和 [flow](coroutines-flow.md) 概念的先驗知識。
 
 ## 建立 Kotlin flow
 

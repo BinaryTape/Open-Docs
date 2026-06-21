@@ -152,6 +152,31 @@ fun App() {
 }
 ```
 
+:::tip NavDisplay が型指定されている場合はルート型を渡してください
+`koinEntryProvider<T>()` はジェネリックであり、`T` はルート型です。`koinEntryProvider<Any>()` のままにしておき、`NavDisplay` が（例えば `rememberSupportingPaneSceneStrategy<Route>()` のような型指定された `SceneStrategy` を通じて）型指定された場合、コンパイラは `NavDisplay<Route>` と推論し、`(Route) -> NavEntry<Route>` を期待します。そのため、`Any` 型のプロバイダーは一致しません。
+
+```
+Argument type mismatch: actual type is 'Function1<Any, NavEntry<Any>>',
+but 'Function1<Route, NavEntry<Route>>' was expected.
+```
+
+一致するようにルート型を渡してください：
+
+```kotlin
+val sceneStrategy = rememberSupportingPaneSceneStrategy<Route>()
+val entryProvider = koinEntryProvider<Route>()   // (Route) -> NavEntry<Route>
+
+NavDisplay(
+    backStack = backStack,
+    onBack = onBack,
+    sceneStrategy = sceneStrategy,
+    entryProvider = entryProvider,               // ✅ NavDisplay<Route> と一致します
+)
+```
+
+（同様に、`val entryProvider: EntryProvider<Route> = koinEntryProvider()` とすることも可能です。この場合、型引数は期待される型から推論されます。）
+:::
+
 ### 完全な例
 
 ```kotlin

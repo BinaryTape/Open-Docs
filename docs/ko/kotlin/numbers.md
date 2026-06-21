@@ -275,6 +275,72 @@ val result: Int = intNumber + longNumber
 // 오류: 초기화 타입 불일치
 ```
 
+### 정수 리터럴 타입
+
+타입 추론 중에 코틀린은 접미사가 없는 정수 리터럴을 주변 문맥이 특정 타입을 결정할 때까지 특별한 [정수 리터럴 타입(Integer Literal Type, ILT)](https://kotlinlang.org/spec/type-system.html#integer-literal-types)으로 취급합니다:
+
+```kotlin
+//sampleStart
+fun List<Any>.log() {
+    println(joinToString(" | ") { it::class.simpleName ?: "Unknown" })
+}
+
+fun main() {
+    listOf(1, 2).log()
+    // Int | Int
+    
+    listOf(1L, 2L).log()
+    // Long | Long
+    
+    // 컴파일러는 1을 ILT로 해석하고 Long으로 결정합니다
+    listOf(1, 2L).log()
+    // Long | Long
+    
+    // .toInt()는 리터럴을 Int로 변환합니다
+    listOf(1.toInt(), 2L).log()
+    // Int | Long
+}
+//sampleEnd
+```
+{kotlin-runnable="true"}
+
+런타임에 동일한 문자열 표현을 가지기 때문에 `Int`와 `Long` 값을 혼동하기 특히 쉽습니다. 이를 피하려면 예상되는 타입을 지정하거나 값을 명시적으로 변환하세요:
+
+```kotlin
+//sampleStart
+fun List<Any>.log() {
+    println(joinToString(" | ") { it::class.simpleName ?: "Unknown" })
+}
+
+fun main() {
+    val longValues: List<Long> = listOf(1, 2L)
+    longValues.log()
+    // Long | Long
+
+    val numberValues: List<Number> = listOf(1.toInt(), 2L)
+    numberValues.log()
+    // Int | Long
+}
+//sampleEnd
+```
+{kotlin-runnable="true"}
+
+의도하지 않은 타입 추론을 방지하기 위해 명시적 타입을 사용할 수도 있습니다:
+
+```kotlin
+fun main() {
+//sampleStart
+    val intValues: List<Int> = listOf(1, 2L)
+    // 오류: 초기화 타입 불일치
+//sampleEnd
+}
+```
+{kotlin-runnable="true" validate="false"}
+
+> [정수 리터럴 타입](https://kotlinlang.org/spec/type-system.html#integer-literal-types)에 대해 더 자세히 알아보세요.
+> 
+{style="tip"}
+
 ## 데이터 오버플로
 
 숫자 타입은 정의된 범위 내의 값만 표현할 수 있습니다.

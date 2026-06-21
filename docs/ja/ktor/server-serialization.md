@@ -138,9 +138,6 @@ XML をシリアライズ/デシリアライズするには、ビルドスクリ
     </TabItem>
 </Tabs>
 
-> XML シリアライズは [`jsNode` ターゲットではサポートされていない](https://github.com/pdvrieze/xmlutil/issues/83) ことに注意してください。
-{style="note"}
-
 #### CBOR {id="add_cbor_dependency"}
 
 CBOR をシリアライズ/デシリアライズするには、ビルドスクリプトに `ktor-serialization-kotlinx-cbor` を追加します。

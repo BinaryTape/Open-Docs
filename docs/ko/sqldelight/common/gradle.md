@@ -130,7 +130,7 @@
 
 타입: `Project`
 
-선택적으로 다른 Gradle 프로젝트에 대한 스키마 의존성을 지정합니다[(아래 참고)](#schema-dependencies).
+선택적으로 다른 Gradle 프로젝트에 대한 스키마 의존성을 지정합니다 [(아래 참고)](#schema-dependencies).
 
 === "Kotlin"
     ```kotlin
@@ -164,7 +164,10 @@ Android 프로젝트의 경우, SQLite 버전은 `minSdk`를 기반으로 자동
 * SQLite 3.30: `sqlite-3-30-dialect`
 * SQLite 3.33: `sqlite-3-33-dialect`
 * SQLite 3.35: `sqlite-3-35-dialect`
+* SQLite 3.37: `sqlite-3-37-dialect`
 * SQLite 3.38: `sqlite-3-38-dialect`
+* SQLite 3.39: `sqlite-3-39-dialect`
+* SQLite 3.44: `sqlite-3-44-dialect`
 
 === "Kotlin"
     ```kotlin

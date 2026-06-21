@@ -11,7 +11,7 @@
 然而，透過額外的函式參數導入這些自訂選項會大幅增加 API 的複雜度。
 
 與其為了自訂而增加更多參數，更有效的方法是設計一個能將不同行為組合在一起的 API。
-例如，在協程 Flows API 中，[緩衝 (buffering)](flow.md#buffering) 與 [合併 (conflation)](flow.md#conflation) 都是實作為獨立的函式。
+例如，在協程 Flows API 中，[緩衝 (buffering)](coroutines-flow-operators.md#buffering) 與 [合併 (conflation)](coroutines-flow-operators.md#conflation) 都是實作為獨立的函式。
 這些函式可以與更基礎的操作（如 [`filter`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/filter.html) 和 [`map`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/map.html)）鏈結在一起，而不是讓每個基礎操作都接受參數來控制緩衝與合併。
 
 另一個例子是 [Jetpack Compose 中的 Modifiers API](https://developer.android.com/develop/ui/compose/modifiers)。

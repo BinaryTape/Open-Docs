@@ -14,6 +14,7 @@
 - [Gradle 外掛程式] 新增對使用 `codegenExcludedColumns` 從產生的模型中排除列的支援（#6243 由 @sokolikp 提供）
 - [編譯器] 為架構新增 `allTableNames` 函式（#6245 由 @edenman 提供）
 - [PostgreSQL 方言] 新增對 ANY 運算子的支援（#6253 由 @griffio 提供）
+- [SQLite 方言] 為 SQLite 3.39 新增 RIGHT JOIN 與 FULL JOIN 支援（#6273 由 @griffio 提供）
 
 ### 變更
 - [PostgreSQL 方言] 將 `arrayIntermediateType` 的可見性變更為 public（#5835 由 @griffio 提供）
@@ -33,9 +34,13 @@
 - [Intellij 外掛程式] 修復導致 IDEA 2026.2 當機的棄用問題（#6247 由 @griffio 提供）
 - [Gradle 外掛程式] 修復產生的原始碼在 AGP 8.9 至 8.11 上無法被 Kotlin 編譯識別的問題
 - [PostgreSQL 方言] 修復 `lower` 與 `upper` 函式使用 Primitive 繫結引數預設為 TEXT 的問題（#6262 由 @griffio 提供）
+- [編譯器] 修復當使用配接器且遷移變更可 null 性時，使用資料類別繫結插入值的問題（#6269 由 @griffio 提供）
 - [編譯器] 為 null 安全運算子（IS 與 IS DISTINCT FROM）使用可 null 繫結引數（#6265 由 @griffio 提供）
 - [Gradle 外掛程式] 將 AGP 的變體解析 (variant resolution) 用於專案相依項（#6217 由 @maxsav 提供）
 - [Gradle 外掛程式] 修復當不同組建間的 AGP 變體清單不一致時，`generateDatabaseInterface` 的組建快取未命中問題
+- [Gradle 外掛程式] 修復當套用外掛程式但未配置任何資料庫時，IDE 同步當機的問題（#6088）
+- [PostgreSQL 方言] 修復使用巢狀函式呼叫時的 JSON 聚合函式問題（#6281 由 @griffio 提供）
+- [分頁 3 擴充套件] 修復 `KeyedQueryPagingSource` 在空資料庫上當機的問題（#6284 由 @woods-marshes 提供）
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -987,7 +992,7 @@ sqldelight {
 
 * 新功能：[執行階段] 支援 Windows (mingw)、tvOS、watchOS 與 macOS 架構。
 * 修復：[編譯器] `sum()` 的傳回型別應為可 null。
-* 修復：[分頁 3 擴充套件] 將 Transacter 傳入 `QueryDataSourceFactory` 以避免競態條件。
+* 修復：[分頁擴充套件] 將 Transacter 傳入 `QueryDataSourceFactory` 以避免競態條件。
 * 修復：[IntelliJ 外掛程式] 尋找檔案套件名稱時不要搜尋相依項。
 * 修復：[Gradle] #862 將 Gradle 中的驗證器記錄變更為偵錯層級。
 * 增強：[Gradle] 將 `GenerateSchemaTask` 轉換為使用 Gradle 背景工作程序。

@@ -251,8 +251,10 @@ fun main() {
 
 ### 混合数値式
 
-Kotlinは代入や関数の引数における暗黙的な変換をサポートしていません。
-しかし、算術式の中で異なる数値型を組み合わせることはできます。その場合、Kotlinはオペランドの型に基づいて結果の型を決定し、算術演算子が自動的に変換を処理します：
+Kotlinは代入や関数の引数における暗黙的な変換をサポートしていません。 
+しかし、算術式の中で異なる数値型を組み合わせることはできます。その場合、 
+Kotlinはオペランドの型に基づいて結果の型を決定し、 
+算術演算子が自動的に変換を処理します：
 
 ```kotlin
 val intNumber: Int = 1
@@ -269,11 +271,77 @@ val result: Int = intNumber + longNumber
 // エラー：初期化子の型不一致（Initializer type mismatch）
 ```
 
+### 整数リテラル型
+
+型推論の間、Kotlinはサフィックスのない整数リテラルを、周囲のコンテキストが特定の型を決定するまで、特別な「整数リテラル型（[Integer Literal Type: ILT](https://kotlinlang.org/spec/type-system.html#integer-literal-types)）」として扱います。
+
+```kotlin
+//sampleStart
+fun List<Any>.log() {
+    println(joinToString(" | ") { it::class.simpleName ?: "Unknown" })
+}
+
+fun main() {
+    listOf(1, 2).log()
+    // Int | Int
+    
+    listOf(1L, 2L).log()
+    // Long | Long
+    
+    // コンパイラは 1 を ILT として解釈し、Long として解決します
+    listOf(1, 2L).log()
+    // Long | Long
+    
+    // .toInt() はリテラルを Int に変換します
+    listOf(1.toInt(), 2L).log()
+    // Int | Long
+}
+//sampleEnd
+```
+{kotlin-runnable="true"}
+
+実行時に同じ文字列表現を持つため、`Int` と `Long` の値については特に見落としやすくなります。これを避けるには、期待される型を指定するか、値を明示的に変換してください：
+
+```kotlin
+//sampleStart
+fun List<Any>.log() {
+    println(joinToString(" | ") { it::class.simpleName ?: "Unknown" })
+}
+
+fun main() {
+    val longValues: List<Long> = listOf(1, 2L)
+    longValues.log()
+    // Long | Long
+
+    val numberValues: List<Number> = listOf(1.toInt(), 2L)
+    numberValues.log()
+    // Int | Long
+}
+//sampleEnd
+```
+{kotlin-runnable="true"}
+
+また、意図しない型推論を捕捉するために明示的な型を使用することもできます：
+
+```kotlin
+fun main() {
+//sampleStart
+    val intValues: List<Int> = listOf(1, 2L)
+    // エラー：初期化子の型不一致（initializer type mismatch）
+//sampleEnd
+}
+```
+{kotlin-runnable="true" validate="false"}
+
+> 整数リテラル型の詳細は [Integer literal types](https://kotlinlang.org/spec/type-system.html#integer-literal-types) を参照してください。
+> 
+{style="tip"}
+
 ## データオーバーフロー
 
 数値型は、定義された範囲内の値のみを表現できます。
 
-演算の結果がその範囲外になった場合、オーバーフローが発生します。
+演算の結果がその範囲外になった場合、オーバーフローが発生します。 
 値をより小さな数値型に変換した場合、変換後の値が元の数値を保持できない場合があります。
 
 この動作は、コンパイラがそれを受け入れたとしても、コードの結果に影響を与える可能性があります。
@@ -301,7 +369,7 @@ fun main(){
 
 ### 符号反転におけるオーバーフロー
 
-符号反転（否定）の間にもオーバーフローが発生する可能性があります。
+符号反転（否定）の間にもオーバーフローが発生する可能性があります。 
 例えば、`Int.MIN_VALUE` の正の対応する値を `Int` として表現することはできません。
 
 ```kotlin

@@ -11,7 +11,7 @@
 しかし、これらのカスタマイズオプションを関数の引数を追加することで導入すると、APIの複雑さが大幅に増す可能性があります。
 
 カスタマイズのために引数を増やす代わりに、異なる動作を互いに合成（compose）できるようにAPIを設計する方が効果的です。
-たとえば、コルーチンの Flow API では、[バッファリング](flow.md#buffering)と[コンフレーション](flow.md#conflation)の両方が個別の関数として実装されています。
+たとえば、コルーチンの Flow API では、[バッファリング](coroutines-flow-operators.md#buffering)と[コンフレーション](coroutines-flow-operators.md#conflation)の両方が個別の関数として実装されています。
 これらは、各基本操作がバッファリングやコンフレーションを制御するための引数を受け取るのではなく、[`filter`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/filter.html) や [`map`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/map.html) のようなより基本的な操作とチェーン（連結）させることができます。
 
 別の例として、[Jetpack Compose の Modifiers API](https://developer.android.com/develop/ui/compose/modifiers) があります。

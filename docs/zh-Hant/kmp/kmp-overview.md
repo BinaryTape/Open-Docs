@@ -29,7 +29,7 @@ Kotlin Multiplatform 有助於簡化技術和組織流程：
 
 您可以完全使用 SwiftUI 或 UIKit 來建置 UI，使用 Compose Multiplatform 在 Android 和 iOS 上建立統一的體驗，或根據需要混合搭配原生與共用的 UI 程式碼。
 
-無論採用哪種方法，您都可以產出在各個平台上都具有原生感的應用程式：
+無論採用哪種方法，您都可以產出在各個平台上都具有原生感的應用程式： 
 
 <video src="https://www.youtube.com/watch?v=LB5a2FRrT94" width="700"/>
 
@@ -75,13 +75,13 @@ IntelliJ IDEA 和 Android Studio 透過 [Kotlin Multiplatform IDE 外掛程式](
   * 查看 KMP 專案中[相應性如何運作](multiplatform-add-dependencies.md)。
   * 考慮不同的 [iOS 整合方法](multiplatform-ios-integration-overview.md)。
   * 了解 KMP 如何針對各種目標[編譯程式碼](multiplatform-configure-compilations.md)並[組建二進位檔](multiplatform-build-native-binaries.md)。
-  * 閱讀關於[發佈多平台應用程式](multiplatform-publish-apps.md)或[多平台程式庫](multiplatform-publish-lib-setup.md)的內容。
+  * 閱讀關於[發佈多平台應用程式](multiplatform-publish-apps.md)或[多平台程式庫](multiplatform-publish-lib-setup.md)的內容。 
 
 ## 大規模採用 Kotlin Multiplatform
 
 在團隊中採用跨平台架構可能是一項挑戰。
 若要了解跨平台開發的優點以及潛在問題的解決方案，請查看我們對跨平台開發的高階總覽：
 
-* [什麼是跨平台行動開發？](cross-platform-mobile-development.md)：提供跨平台應用程式的不同方法和實作總覽。
+* [什麼是跨平台行動開發？](cross-platform-mobile-development.topic)：提供跨平台應用程式的不同方法和實作總覽。
 * [如何向您的團隊介紹多平台行動開發](multiplatform-introduce-your-team.md)：提供在團隊中引入跨平台開發的策略。
 * [採用 Kotlin Multiplatform 並增強您專案的十個理由](multiplatform-reasons-to-try.md)：列出選擇 Kotlin Multiplatform 作為跨平台解決方案的理由。

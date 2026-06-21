@@ -4,7 +4,7 @@
 
 このチュートリアルでは、Kotlin Flow を作成し、IntelliJ IDEA を使用してデバッグする方法を説明します。
 
-このチュートリアルは、[コルーチン](coroutines-guide.md)および [Kotlin Flow](flow.md#flows) の概念に関する事前の知識があることを前提としています。
+このチュートリアルは、[コルーチン](coroutines-basics.md)および [Flow](coroutines-flow.md) の概念に関する事前の知識があることを前提としています。
 
 ## Kotlin Flow の作成
 

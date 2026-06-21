@@ -29,7 +29,7 @@ API의 규모를 제한하는 한 가지 방법은 기존 타입을 재사용하
 
 예를 들어:
 
-* [Kotlin Flows API](flow.md)에서 [`filter`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/filter.html)와 [`map`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/map.html) 같은 공통 연산은 [`transform`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/transform.html) 연산을 기반으로 구축되었습니다.
+* [Kotlin Flows API](coroutines-flow.md)에서 [`filter`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/filter.html)와 [`map`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/map.html) 같은 공통 연산은 [`transform`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/transform.html) 연산을 기반으로 구축되었습니다.
 * [Kotlin Time API](time-measurement.md)에서 [`measureTime`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/measure-time.html) 함수는 [`TimeSource.Monotonic`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-time-source/-monotonic/)을 활용합니다.
 
 추가 연산을 이러한 핵심 컴포넌트를 기반으로 두는 것이 유익한 경우가 많지만, 항상 필수적인 것은 아닙니다. 기능을 확장하거나 다양한 입력에 더 광범위하게 적응할 수 있는 최적화된 방식이나 플랫폼별 변형을 도입할 기회를 찾을 수도 있습니다.

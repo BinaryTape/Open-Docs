@@ -37,23 +37,29 @@ class A { // 暗黙のラベル @A
 
 ## 暗黙の this (Implicit this)
 
-`this` に対してメンバー関数を呼び出す場合、`this.` の部分を省略できます。同じ名前の非メンバー関数がある場合は、注意して使用してください。場合によっては、代わりにその非メンバー関数が呼び出される可能性があるためです。
+`this` に対してメンバー関数を呼び出す場合、`this.` 修飾子を省略できます。ただし、より近いレキシカルスコープ（_lexical scope_）に同じ名前の別の呼び出し可能なもの（_callable_）がある場合、Kotlin は修飾されていない呼び出しを、メンバー関数ではなくその呼び出し可能なものとして解決します。明示的にメンバー関数を呼び出すには、`this.` 修飾子を使用します。
 
 ```kotlin
 fun main() {
-    fun printLine() { println("Local function") }
-    
     class A {
-        fun printLine() { println("Member function") }
+        fun printLine() {
+            println("Member function")
+        }
 
-        fun invokePrintLine(omitThis: Boolean = false) {
-            if (omitThis) printLine()
-            else this.printLine()
+        fun invokePrintLine() {
+            fun printLine() {
+                println("Local function")
+            }
+         
+            printLine()
+            // Local function
+         
+            this.printLine()
+            // Member function
         }
     }
-    
-    A().invokePrintLine() // Member function
-    A().invokePrintLine(omitThis = true) // Local function
+
+    A().invokePrintLine()
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true"}

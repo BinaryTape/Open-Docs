@@ -33,7 +33,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 | **グループ**             | **アーティファクト**                  | **バージョン**    | **リンク**                                                                                                                                                 |
 |-----------------------|-------------------------------|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `org.jetbrains.dokka` | `dokka-base`                  | %dokkaVersion% | [download](https://repo1.maven.org/maven2/org/jetbrains/dokka/dokka-base/%dokkaVersion%/dokka-base-%dokkaVersion%.jar)                                   |
-| `org.jetbrains.dokka` | `analysis-kotlin-descriptors` | %dokkaVersion% | [download](https://repo1.maven.org/maven2/org/jetbrains/dokka/analysis-kotlin-descriptors/%dokkaVersion%/analysis-kotlin-descriptors-%dokkaVersion%.jar) |
+| `org.jetbrains.dokka` | `analysis-kotlin-symbols` | %dokkaVersion% | [download](https://repo1.maven.org/maven2/org/jetbrains/dokka/analysis-kotlin-symbols/%dokkaVersion%/analysis-kotlin-symbols-%dokkaVersion%.jar) |
 
 以下は、[HTML](dokka-html.md) 出力形式で必要となる追加の依存関係です。
 
@@ -54,7 +54,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 
 ```Bash
 java -jar dokka-cli-%dokkaVersion%.jar \
-     -pluginsClasspath "./dokka-base-%dokkaVersion%.jar;./analysis-kotlin-descriptors-%dokkaVersion%.jar;./kotlinx-html-jvm-0.8.0.jar;./freemarker-2.3.31.jar" \
+     -pluginsClasspath "./dokka-base-%dokkaVersion%.jar;./analysis-kotlin-symbols-%dokkaVersion%.jar;./kotlinx-html-jvm-0.8.0.jar;./freemarker-2.3.31.jar" \
      -sourceSet "-src /home/myCoolProject/src/main/kotlin" \
      -outputDir "./dokka/html"
 ```
@@ -90,7 +90,7 @@ java -jar dokka-cli-%dokkaVersion%.jar dokka-configuration.json
   "pluginsClasspath": [
     "./dokka-base-%dokkaVersion%.jar",
     "./kotlinx-html-jvm-0.8.0.jar",
-    "./analysis-kotlin-descriptors-%dokkaVersion%.jar",
+    "./analysis-kotlin-symbols-%dokkaVersion%.jar",
     "./freemarker-2.3.31.jar"
   ]
 }
@@ -142,26 +142,26 @@ java -jar dokka-cli-%dokkaVersion%.jar -help
 
 簡潔なまとめ：
 
-| オプション                       | 説明                                                                                                                                                                                           |
+| オプション | 説明 |
 |------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `moduleName`                 | プロジェクト/モジュールの名前。                                                                                                                                                                           |
-| `moduleVersion`              | ドキュメント化されるバージョン。                                                                                                                                                                                   |
-| `outputDir`                  | 出力ディレクトリのパス。デフォルトは `./dokka`。                                                                                                                                                          |
-| `sourceSet`                  | Dokka ソースセットの設定。ネストされた設定オプションを含みます。                                                                                                                          |
-| `pluginsConfiguration`       | Dokka プラグインの設定。                                                                                                                                                                      |
-| `pluginsClasspath`           | Dokka プラグインとその依存関係を含む JAR のリスト。セミコロンで区切られた複数のパスを受け入れます。                                                                                               |
-| `offlineMode`                | ネットワーク経由でリモートファイル/リンクを解決するかどうか。                                                                                                                                                   |
-| `failOnWarning`              | Dokka が警告またはエラーを出力した場合にドキュメント生成を失敗させるかどうか。                                                                                                                  |
-| `delayTemplateSubstitution`  | 一部の要素の置換を遅らせるかどうか。マルチモジュールプロジェクトのインクリメンタルビルドで使用されます。                                                                                                  |
-| `noSuppressObviousFunctions` | `kotlin.Any` や `java.lang.Object` から継承されたものなど、明らかな関数（obvious functions）を抑制しないかどうか。                                                                                               |
-| `includes`                   | モジュールおよびパッケージのドキュメントを含む Markdown ファイル。セミコロンで区切られた複数の値を受け入れます。                                                                                        |
-| `suppressInheritedMembers`   | 指定されたクラスで明示的にオーバーライドされていない継承メンバーを抑制するかどうか。                                                                                                             |
-| `globalPackageOptions`       | `"matchingRegex,-deprecated,-privateApi,+warnUndocumented,+suppress;+visibility:PUBLIC;..."` 形式のパッケージ設定オプションのグローバルリスト。セミコロンで区切られた複数の値を受け入れます。 |
-| `globalLinks`                | `{url}^{packageListUrl}` 形式のグローバルな外部ドキュメントリンク。`^^` で区切られた複数の値を受け入れます。                                                                                    |
-| `globalSrcLink`              | ソースディレクトリとコード閲覧用 Web サービス間のグローバルなマッピング。セミコロンで区切られた複数のパスを受け入れます。                                                                    |
-| `helpSourceSet`              | ネストされた `-sourceSet` 設定のヘルプを表示します。                                                                                                                                                |
-| `loggingLevel`               | ロギングレベル。指定可能な値： `DEBUG, PROGRESS, INFO, WARN, ERROR`。                                                                                                                                 |
-| `help, h`                    | 使用方法の情報を表示します。                                                                                                                                                                                           |
+| `moduleName` | プロジェクト/モジュールの名前。 |
+| `moduleVersion` | ドキュメント化されるバージョン。 |
+| `outputDir` | 出力ディレクトリのパス。デフォルトは `./dokka`。 |
+| `sourceSet` | Dokka ソースセットの設定。ネストされた設定オプションを含みます。 |
+| `pluginsConfiguration` | Dokka プラグインの設定。 |
+| `pluginsClasspath` | Dokka プラグインとその依存関係を含む JAR のリスト。セミコロンで区切られた複数のパスを受け入れます。 |
+| `offlineMode` | ネットワーク経由でリモートファイル/リンクを解決するかどうか。 |
+| `failOnWarning` | Dokka が警告またはエラーを出力した場合にドキュメント生成を失敗させるかどうか。 |
+| `delayTemplateSubstitution` | 一部の要素の置換を遅らせるかどうか。マルチモジュールプロジェクトのインクリメンタルビルドで使用されます。 |
+| `noSuppressObviousFunctions` | `kotlin.Any` や `java.lang.Object` から継承されたものなど、明らかな関数（obvious functions）を抑制しないかどうか。 |
+| `includes` | モジュールおよびパッケージのドキュメントを含む Markdown ファイル。セミコロンで区切られた複数の値を受け入れます。 |
+| `suppressInheritedMembers` | 指定されたクラスで明示的にオーバーライドされていない継承メンバーを抑制するかどうか。 |
+| `globalPackageOptions` | `"matchingRegex,-deprecated,-privateApi,+warnUndocumented,+suppress;+visibility:PUBLIC;..."` 形式のパッケージ設定オプションのグローバルリスト。セミコロンで区切られた複数の値を受け入れます。 |
+| `globalLinks` | `{url}^{packageListUrl}` 形式のグローバルな外部ドキュメントリンク。`^^` で区切られた複数の値を受け入れます。 |
+| `globalSrcLink` | ソースディレクトリとコード閲覧用 Web サービス間のグローバルなマッピング。セミコロンで区切られた複数のパスを受け入れます。 |
+| `helpSourceSet` | ネストされた `-sourceSet` 設定のヘルプを表示します。 |
+| `loggingLevel` | ロギングレベル。指定可能な値： `DEBUG, PROGRESS, INFO, WARN, ERROR`。 |
+| `help, h` | 使用方法の情報を表示します。 |
 
 #### ソースセットのオプション
 
@@ -173,30 +173,30 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 
 簡潔なまとめ：
 
-| オプション                       | 説明                                                                                                                                                                    |
+| オプション | 説明 |
 |------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `sourceSetName`              | ソースセットの名前。                                                                                                                                                        |
-| `displayName`                | 内部および外部の両方で使用されるソースセットの表示名。                                                                                                           |
-| `classpath`                  | 解析およびインタラクティブなサンプルのためのクラスパス。セミコロンで区切られた複数のパスを受け入れます。                                                                                |
-| `src`                        | 解析およびドキュメント化されるソースコードのルート。セミコロンで区切られた複数のパスを受け入れます。                                                                               |
-| `dependentSourceSets`        | `moduleName/sourceSetName` 形式の依存ソースセットの名前。セミコロンで区切られた複数の値を受け入れます。                                                      |
-| `samples`                    | サンプル関数を含むディレクトリまたはファイルのリスト。セミコロンで区切られた複数のパスを受け入れます。<anchor name="includes-cli"/>                                      |
-| `includes`                   | [モジュールおよびパッケージのドキュメント](dokka-module-and-package-docs.md)を含む Markdown ファイル。セミコロンで区切られた複数のパスを受け入れます。                              |
-| `documentedVisibilities`     | ドキュメント化される可視性。セミコロンで区切られた複数の値を受け入れます。指定可能な値： `PUBLIC`, `PRIVATE`, `PROTECTED`, `INTERNAL`, `PACKAGE`。                      |
-| `reportUndocumented`         | ドキュメント化されていない宣言を報告するかどうか。                                                                                                                                   | 
-| `noSkipEmptyPackages`        | 空のパッケージのページを作成するかどうか。                                                                                                                                    | 
-| `skipDeprecated`             | 非推奨（deprecated）の宣言をスキップするかどうか。                                                                                                                                       | 
-| `jdkVersion`                 | JDK の Javadoc へのリンクに使用する JDK のバージョン。                                                                                                                             |
-| `languageVersion`            | 解析とセットアップに使用される言語バージョン。                                                                                                                     |
-| `apiVersion`                 | 解析とセットアップに使用される Kotlin API バージョン。                                                                                                                   |
-| `noStdlibLink`               | Kotlin 標準ライブラリへのリンクを生成するかどうか。                                                                                                                      | 
-| `noJdkLink`                  | JDK の Javadoc へのリンクを生成するかどうか。                                                                                                                                     | 
-| `suppressedFiles`            | 抑制するファイルへのパス。セミコロンで区切られた複数のパスを受け入れます。                                                                                               |
-| `suppressAnnotatedWith`      | 指定されたアノテーションが付加された宣言を抑制するための、アノテーションの完全修飾名（FQN）。セミコロンで区切られた複数の値を受け入れます。                                              |
-| `analysisPlatform`           | 解析のセットアップに使用されるプラットフォーム。                                                                                                                                         |
-| `perPackageOptions`          | `matchingRegexp,-deprecated,-privateApi,+warnUndocumented,+suppress;...` 形式のパッケージソースセット設定のリスト。セミコロンで区切られた複数の値を受け入れます。 |
-| `externalDocumentationLinks` | `{url}^{packageListUrl}` 形式の外部ドキュメントリンク。`^^` で区切られた複数の値を受け入れます。                                                                    |
-| `srcLink`                    | ソースディレクトリとコード閲覧用 Web サービス間のマッピング。セミコロンで区切られた複数のパスを受け入れます。                                                    |
+| `sourceSetName` | ソースセットの名前。 |
+| `displayName` | 内部および外部の両方で使用されるソースセットの表示名。 |
+| `classpath` | 解析およびインタラクティブなサンプルのためのクラスパス。セミコロンで区切られた複数のパスを受け入れます。 |
+| `src` | 解析およびドキュメント化されるソースコードのルート。セミコロンで区切られた複数のパスを受け入れます。 |
+| `dependentSourceSets` | `moduleName/sourceSetName` 形式の依存ソースセットの名前。セミコロンで区切られた複数の値を受け入れます。 |
+| `samples` | サンプル関数を含むディレクトリまたはファイルのリスト。セミコロンで区切られた複数のパスを受け入れます。<anchor name="includes-cli"/> |
+| `includes` | [モジュールおよびパッケージのドキュメント](dokka-module-and-package-docs.md)を含む Markdown ファイル。セミコロンで区切られた複数のパスを受け入れます。 |
+| `documentedVisibilities` | ドキュメント化される可視性。セミコロンで区切られた複数の値を受け入れます。指定可能な値： `PUBLIC`, `PRIVATE`, `PROTECTED`, `INTERNAL`, `PACKAGE`。 |
+| `reportUndocumented` | ドキュメント化されていない宣言を報告するかどうか。 | 
+| `noSkipEmptyPackages` | 空のパッケージのページを作成するかどうか。 | 
+| `skipDeprecated` | 非推奨（deprecated）の宣言をスキップするかどうか。 | 
+| `jdkVersion` | JDK の Javadoc へのリンクに使用する JDK のバージョン。 |
+| `languageVersion` | 解析とセットアップに使用される言語バージョン。 |
+| `apiVersion` | 解析とセットアップに使用される Kotlin API バージョン。 |
+| `noStdlibLink` | Kotlin 標準ライブラリへのリンクを生成するかどうか。 | 
+| `noJdkLink` | JDK の Javadoc へのリンクを生成するかどうか。 | 
+| `suppressedFiles` | 抑制するファイルへのパス。セミコロンで区切られた複数のパスを受け入れます。 |
+| `suppressAnnotatedWith` | 指定されたアノテーションが付加された宣言を抑制するための、アノテーションの完全修飾名（FQN）。セミコロンで区切られた複数の値を受け入れます。 |
+| `analysisPlatform` | 解析のセットアップに使用されるプラットフォーム。 |
+| `perPackageOptions` | `matchingRegexp,-deprecated,-privateApi,+warnUndocumented,+suppress;...` 形式のパッケージソースセット設定のリスト。セミコロンで区切られた複数の値を受け入れます。 |
+| `externalDocumentationLinks` | `{url}^{packageListUrl}` 形式の外部ドキュメントリンク。`^^` で区切られた複数の値を受け入れます。 |
+| `srcLink` | ソースディレクトリとコード閲覧用 Web サービス間のマッピング。セミコロンで区切られた複数のパスを受け入れます。 |
 
 ## JSON 設定
 
@@ -231,7 +231,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
   "pluginsClasspath": [
     "./dokka-base-%dokkaVersion%.jar",
     "./kotlinx-html-jvm-0.8.0.jar",
-    "./analysis-kotlin-descriptors-%dokkaVersion%.jar",
+    "./analysis-kotlin-symbols-%dokkaVersion%.jar",
     "./freemarker-2.3.31.jar"
   ]
 }
@@ -785,7 +785,7 @@ Kotlin [ソースセット](https://kotlinlang.org/docs/multiplatform-discover-p
   "pluginsClasspath": [
     "./dokka-base-%dokkaVersion%.jar",
     "./kotlinx-html-jvm-0.8.0.jar",
-    "./analysis-kotlin-descriptors-%dokkaVersion%.jar",
+    "./analysis-kotlin-symbols-%dokkaVersion%.jar",
     "./freemarker-2.3.31.jar"
   ],
   "pluginsConfiguration": [

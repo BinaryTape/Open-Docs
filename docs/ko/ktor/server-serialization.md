@@ -138,9 +138,6 @@ XML을 직렬화/역직렬화하려면 빌드 스크립트에 `ktor-serializatio
     </TabItem>
 </Tabs>
 
-> XML 직렬화는 [`jsNode` 타겟에서 지원되지 않음](https://github.com/pdvrieze/xmlutil/issues/83)에 유의하세요.
-{style="note"}
-
 #### CBOR {id="add_cbor_dependency"}
 
 CBOR을 직렬화/역직렬화하려면 빌드 스크립트에 `ktor-serialization-kotlinx-cbor`을 추가합니다:

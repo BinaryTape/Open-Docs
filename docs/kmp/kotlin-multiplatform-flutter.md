@@ -8,7 +8,7 @@
 
 ## 跨平台开发：现代应用构建的统一方法
 
-跨平台开发提供了一种使用单一代码库构建可在多个平台运行的应用的方法，消除了为每个系统重写相同功能的需求。虽然这种方法通常与[移动开发](cross-platform-mobile-development.md)（针对 Android 和 iOS）相关联，但它已远远超出了移动端的范畴，涵盖了 Web、桌面端甚至服务器端环境。
+跨平台开发提供了一种使用单一代码库构建可在多个平台运行的应用的方法，消除了为每个系统重写相同功能的需求。虽然这种方法通常与[移动开发](cross-platform-mobile-development.topic)（针对 Android 和 iOS）相关联，但它已远远超出了移动端的范畴，涵盖了 Web、桌面端甚至服务器端环境。
 
 核心思想是最大限度地提高代码复用率，同时确保在必要时仍能实现平台特定功能，从而简化开发流程并减少维护工作。团队可以加快开发周期、降低成本并确保各平台之间的一致性，这使得跨平台开发成为当今日益多样化的应用格局中的明智选择。
 
@@ -144,7 +144,7 @@ Compose Multiplatform 目前在 [iOS 上已处于稳定状态](https://blog.jetb
 
 [![探索来自全球公司的真实案例，这些公司利用 Kotlin Multiplatform 进行跨平台开发。](kmp-use-cases-1.svg){width="500"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/case-studies.html)
 
-您还可以查看 Google 的博客文章：[《让跨平台开发对开发者来说更容易》](https://developers.googleblog.com/en/making-development-across-platforms-easier-for-developers/)，该文章为为您的项目选择合适的技术栈提供了指导。
+您还可以查看 Google 的博客文章：[《让跨平台开发对开发者来说更容易》](https://developers.googleblog.com/en/making-development-across-platforms-easier-for-developers/)，该文章为您的项目选择合适的技术栈提供了指导。
 
 如果您正在寻求 Kotlin Multiplatform 与 Flutter 之间的额外对比，还可以观看 Philipp Lackner 的 [KMP vs. Flutter 视频](https://www.youtube.com/watch?v=dzog64ENKG0)。在视频中，他分享了关于这些技术在代码共享、UI 渲染、性能以及两者未来发展方面的一些有趣观察。
 

@@ -60,9 +60,9 @@ Kotlin 提供了几种协程通信的方式。
 如果没有协调，这可能会导致竞态条件，即操作以不可预测的方式相互干扰。
 为了安全地管理共享可变状态，请使用 [`StateFlow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-state-flow/#) 来包装共享数据。
 然后，你可以从一个协程更新它，并从其他协程收集它的最新值。
-<!-- 了解更多信息请参阅 [共享可变状态与并发](shared-mutable-state-and-concurrency.md)。 -->
+<!-- 详细了解 [共享可变状态与并发](shared-mutable-state-and-concurrency.md)。 -->
 
-更多信息请参阅 [异步流](flow.md)、[通道](channels.md) 以及 [协程与通道教程](coroutines-and-channels.md)。
+更多信息请参阅 [流](coroutines-flow.md)、[通道](channels.md) 以及 [协程与通道教程](coroutines-and-channels.md)。
 
 ## 后续步骤
 

@@ -24,7 +24,7 @@
   "homepage.banner.description": "上記の技術スタックのいずれかを選択して、詳細なドキュメントと例を探索してください",
   "homepage.ad.description": "革新的なコンサルティングとソリューションを通じて、世界のテクノロジーコミュニティとアジアを結びつけ、モバイルインフラストラクチャと新興AIの専門知識を活用して、グローバルなオープンソースコラボレーションを促進します。",
   "homepage.ad.contact": "お問い合わせ：hi@binarytape.com",
-  "homepage.ad.sponsor": "Open AIDocはBinaryTapeの協賛により提供されています",
+  "homepage.ad.sponsor": "Open AIDocはBinaryTape의 協賛により提供されています",
   "koin.setup": "セットアップ",
   "koin.tutorial": "チュートリアル",
   "koin.core.test": "コアとテスト",
@@ -607,7 +607,7 @@
   "koog.prompt-executors": "プロンプトエグゼキューター",
   "koog.handling-failures": "失敗の処理",
   "koog.llm-response-caching": "LLMレスポンスキャッシング",
-  "koog.agent-client-protocol": "エージェントクライアントプロトコル",
+  "koog.agent-client-protocol": "エージェントクライコル",
   "koog.creating-prompts": "プロンプトの作成",
   "koog.multimodal-content": "マルチモーダルコンテンツ",
   "kotlin.compiler-plugins-overview": "概要",
@@ -671,5 +671,7 @@
   "kotlin.compatibility-guide-24": "互換性ガイド",
   "kotlin.kotlin-2-3-x": "Kotlin 2.3.x",
   "koog.module-versioning": "モジュールのバージョン管理",
-  "koog.http-clients": "HTTPクライアント"
+  "koog.http-clients": "HTTPクライアント",
+  "coroutines.flows": "Flow",
+  "coroutines.coroutines-flow": "概要"
 }

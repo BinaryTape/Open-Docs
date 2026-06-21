@@ -31,7 +31,7 @@
 
 例如：
 
-* 在 [Kotlin Flows API](flow.md) 中，像 [`filter`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/filter.html) 與 [`map`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/map.html) 這樣的常見操作是建置在 [`transform`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/transform.html) 操作之上的。
+* 在 [Kotlin Flows API](coroutines-flow.md) 中，像 [`filter`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/filter.html) 與 [`map`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/map.html) 這樣的常見操作是建置在 [`transform`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/transform.html) 操作之上的。
 * 在 [Kotlin Time API](time-measurement.md) 中，[`measureTime`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/measure-time.html) 函式利用了 [`TimeSource.Monotonic`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-time-source/-monotonic/)。
 
 雖然將額外操作建立在這些核心組件上通常是有益的，但這並非總是必要。你可能會發現引入經過優化或平台特定變體的機會，以擴充功能或更廣泛地適應不同的輸入。

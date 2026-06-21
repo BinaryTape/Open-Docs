@@ -671,5 +671,7 @@
   "kotlin.compatibility-guide-24": "兼容性指南",
   "kotlin.kotlin-2-3-x": "Kotlin 2.3.x",
   "koog.module-versioning": "模块版本管理",
-  "koog.http-clients": "HTTP 客户端"
+  "koog.http-clients": "HTTP 客户端",
+  "coroutines.flows": "Flows",
+  "coroutines.coroutines-flow": "概览"
 }

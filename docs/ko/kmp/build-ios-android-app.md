@@ -1,7 +1,7 @@
 <topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd" id="build-ios-android-app" title="Android 및 iOS 앱 구축 방법 (그리고 Kotlin Multiplatform을 사용해야 하는 경우)">
   <web-summary>Android 및 iOS 앱 구축 방법을 탐색하고, 아키텍처와 프레임워크를 비교하며, Kotlin Multiplatform이 적합한 위치를 확인해 보세요.</web-summary>
-  <p>iOS와 Android를 동시에 개발할 때 가장 먼저 내려야 할 주요 결정은 아키텍처에 관한 것입니다. 완전한 네이티브로 갈 것인가, 아니면 크로스 플랫폼 접근 방식을 사용하여 코드를 공유할 것인가? 이 선택은 시장 출시 시간(time-to-market), 비용, 그리고 팀이 시간이 지남에 따라 직면하게 될 복잡성 수준에 영향을 미칩니다. 네이티브 개발은 플랫폼 제어력과 완성도를 극대화하지만, 두 개의 코드베이스를 유지 관리해야 합니다. <a href="cross-platform-mobile-development.md">크로스 플랫폼</a>은 공유 로직을 통해 더 빠른 전달과 비용 절감을 약속하지만, 성능, 유연성 및 장기적인 유지 관리 가능성에 대한 타당한 우려를 불러일으키기도 합니다.</p>
+  <p>iOS와 Android를 동시에 개발할 때 가장 먼저 내려야 할 주요 결정은 아키텍처에 관한 것입니다. 완전한 네이티브로 갈 것인가, 아니면 크로스 플랫폼 접근 방식을 사용하여 코드를 공유할 것인가? 이 선택은 시장 출시 시간(time-to-market), 비용, 그리고 팀이 시간이 지남에 따라 직면하게 될 복잡성 수준에 영향을 미칩니다. 네이티브 개발은 플랫폼 제어력과 완성도를 극대화하지만, 두 개의 코드베이스를 유지 관리해야 합니다. <a href="cross-platform-mobile-development.topic">크로스 플랫폼</a>은 공유 로직을 통해 더 빠른 전달과 비용 절감을 약속하지만, 성능, 유연성 및 장기적인 유지 관리 가능성에 대한 타당한 우려를 불러일으키기도 합니다.</p>
   <p>이는 단순히 이론적인 논쟁이 아닙니다. <a href="https://devecosystem-2025.jetbrains.com/">2025년 개발자 생태계 현황(State of Developer Ecosystem 2025)</a>에 따르면, 크로스 플랫폼 및 코드 공유 기술의 사용이 2024년에서 2025년 사이에 두 배 이상 증가했습니다. 이는 더 많은 팀이 네이티브 품질의 경험을 유지하면서 코드를 재사용할 수 있는 방법을 찾고 있음을 시사합니다.</p>
   <!--![지난 두 차례의 개발자 생태계 설문 조사 응답자 중 KMP 사용률이 2024년 7%에서 2025년 18%로 증가했습니다](kmp-growth-deveco.svg){width=700}-->
   <img src="kmp-growth-deveco.svg" alt="지난 두 차례의 개발자 생태계 설문 조사 응답자 중 KMP 사용률이 2024년 7%에서 2025년 18%로 증가했습니다" width="700"/>
@@ -13,7 +13,7 @@
       <p>완전 네이티브 개발은 iOS와 Android를 서로 다른 제품으로 취급합니다. Apple의 도구와 프레임워크를 사용하여 하나의 앱을 만들고, Google의 도구를 사용하여 또 다른 앱을 만들며, 각 플랫폼의 네이티브 언어, UI 시스템 및 SDK를 사용합니다. 두 코드베이스는 아이디어와 디자인을 공유할 수 있지만 기술적으로는 별개로 유지되며, 각 플랫폼은 고유한 생태계와 릴리스 주기 내에서 발전합니다.</p>
     </chapter>
     <chapter title="크로스 플랫폼 프레임워크 (Flutter, React Native 등)" id="cross-platform-frameworks">
-      <p>Flutter 및 React Native와 같은 <a href="cross-platform-frameworks.md">크로스 플랫폼 프레임워크</a>는 단일 코드베이스를 중심으로 개발을 통합하는 것을 목표로 합니다. 이 접근 방식을 사용하면 팀은 비즈니스 로직과 UI 코드를 모두 공유할 수 있으며, 크로스 플랫폼 레이어가 운영 체제 전반에 걸쳐 앱을 렌더링합니다. 그 약속은 명확합니다. 하나의 코드베이스, 두 개의 플랫폼, 그리고 아이디어에서 출시까지의 더 효율적인 경로입니다.</p>
+      <p><a href="cross-platform-frameworks.topic">크로스 플랫폼 프레임워크</a>인 Flutter 및 React Native는 단일 코드베이스를 중심으로 개발을 통합하는 것을 목표로 합니다. 이 접근 방식을 사용하면 팀은 비즈니스 로직과 UI 코드를 모두 공유할 수 있으며, 크로스 플랫폼 레이어가 운영 체제 전반에 걸쳐 앱을 렌더링합니다. 그 약속은 명확합니다. 하나의 코드베이스, 두 개의 플랫폼, 그리고 아이디어에서 출시까지의 더 효율적인 경로입니다.</p>
     </chapter>
     <chapter title="유연한 코드 공유 (Kotlin Multiplatform)" id="flexible-code-sharing">
       <p><a href="https://kotlinlang.org/multiplatform/">Kotlin Multiplatform (KMP)</a>은 더 넓은 범위의 코드 공유 옵션을 제공합니다. '전부 아니면 전무(all-or-nothing)'식의 결정을 요구하는 대신, 팀이 제품에 관련된 부분만 공유하면서도 완전한 네이티브 경험을 구축할 수 있는 유연성을 유지할 수 있게 해줍니다.</p>

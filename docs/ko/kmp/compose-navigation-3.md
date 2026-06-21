@@ -3,6 +3,10 @@
 [Android의 네비게이션(Navigation) 라이브러리](https://developer.android.com/guide/navigation)가 네비게이션 3로 업그레이드되었습니다. 이번 업그레이드에서는 컴포즈(Compose)와 연동되며 이전 버전의 라이브러리에 대한 피드백을 반영하여 재설계된 네비게이션 접근 방식을 도입했습니다.
 버전 1.10부터 Compose Multiplatform은 Android, iOS, 데스크톱 및 웹 등 지원되는 모든 멀티플랫폼 프로젝트에서 네비게이션 3 도입을 지원합니다.
 
+> 핵심 네비게이션 개념에 대해서는 [Compose의 네비게이션](compose-navigation.md)을 참조하세요.
+>
+{style="tip"}
+
 ## 주요 변경 사항
 
 네비게이션 3는 단순히 라이브러리의 새로운 버전 그 이상이며, 여러 면에서 완전히 새로운 라이브러리라고 할 수 있습니다.

@@ -37,23 +37,29 @@ class A { // 隐式标签 @A
 
 ## 隐式 this
 
-当你在 `this` 上调用成员函数时，可以省略 `this.` 部分。如果你有一个同名的非成员函数，请谨慎使用此写法，因为在某些情况下可能会调用到该非成员函数：
+当你在 `this` 上调用成员函数时，可以省略 `this.` 限定符。然而，如果更近的词法作用域内有另一个同名的可调用对象，Kotlin 会将不带限定符的调用解析为该对象，而不是成员函数。要显式调用成员函数，请使用 `this.` 限定符：
 
 ```kotlin
 fun main() {
-    fun printLine() { println("Local function") }
-    
     class A {
-        fun printLine() { println("Member function") }
+        fun printLine() {
+            println("Member function")
+        }
 
-        fun invokePrintLine(omitThis: Boolean = false) {
-            if (omitThis) printLine()
-            else this.printLine()
+        fun invokePrintLine() {
+            fun printLine() {
+                println("Local function")
+            }
+         
+            printLine()
+            // 局部函数
+         
+            this.printLine()
+            // 成员函数
         }
     }
-    
-    A().invokePrintLine() // 成员函数
-    A().invokePrintLine(omitThis = true) // 局部函数
+
+    A().invokePrintLine()
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true"}

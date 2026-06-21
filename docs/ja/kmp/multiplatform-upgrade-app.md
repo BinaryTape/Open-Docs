@@ -49,8 +49,8 @@ kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core",
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorVersion" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorVersion" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorVersion" }
-ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
-ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktorVersion" }
+ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktorVersion" }
 
 [plugins]
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
@@ -72,7 +72,7 @@ kotlin {
             // ...
             // Kotlin Multiplatform Gradle プラグインは
             // プラットフォーム固有のコルーチンアーティファクトを自動的に追加します
-            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.kotlinx.coroutines)
             // 主要な Ktor の依存関係
             implementation(libs.ktor.client.core)
             // Ktor が特定の形式でシリアライゼーションを
@@ -648,7 +648,7 @@ plugins {
 
 ループと `await` メカニズムを使用して `Greeting().greet()` Flow を反復処理し、Flow が値をエミットするたびに `greetings` プロパティを更新します。
 
-> IntelliJ IDEA と Android Studio は、SKIE の使用中に Kotlin コードへの呼び出しで Swift エラーを誤って報告することがあります。これはライブラリの既知の問題であり、アプリのビルドや実行には影響しません。
+> IntelliJ IDEA と Android Studio は、SKIE の使用中に Kotlin コードへの呼び出しで Swift エラーを誤って報告することがあります。これはライブラリ의 既知の問題であり、アプリのビルドや実行には影響しません。
 >
 {style="warning"}
 

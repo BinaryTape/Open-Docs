@@ -49,8 +49,8 @@ kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core",
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorVersion" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorVersion" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorVersion" }
-ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "kotlin" }
-ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "kotlin" }
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktorVersion" }
+ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktorVersion" }
 
 [plugins]
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
@@ -72,11 +72,11 @@ kotlin {
             // ...
             // Kotlin Multiplatform Gradle 插件会
             // 自动添加平台特定的协程构件
-            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.kotlinx.coroutines)
             // Ktor 核心依赖项
             implementation(libs.ktor.client.core)
             // 允许 Ktor 使用特定格式序列化的依赖项
-            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.client.content-negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
         }
         androidMain.dependencies {

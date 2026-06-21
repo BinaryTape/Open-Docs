@@ -3,6 +3,10 @@
 [Android 的 Navigation 库](https://developer.android.com/guide/navigation)已升级到 Navigation 3，引入了一种专为 Compose 设计并考虑了对该库先前版本反馈的重新设计的导航方式。
 从 1.10 版本开始，Compose Multiplatform 支持在所有支持平台（Android、iOS、桌面和 Web）的多平台项目中采用 Navigation 3。
 
+> 有关核心导航概念，请参阅 [Compose 中的 Navigation](compose-navigation.md)。
+>
+{style="tip"}
+
 ## 关键变化
 
 Navigation 3 不仅仅是该库的一个新版本——在许多方面，它完全是一个全新的库。

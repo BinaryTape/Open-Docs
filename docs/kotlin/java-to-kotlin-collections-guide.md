@@ -416,15 +416,15 @@ if (list.size() > 0) {
 ```
 {id="list-get-first-last-java"}
 
-您还可以对 [`Deque`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Deque.html) 及其继承者使用 [`getFirst()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Deque.html#getFirst()) 和 [`getLast()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Deque.html#getLast()) 函数：
+在 JDK 21 及更高版本中，您还可以使用所有 [`SequencedCollection`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/SequencedCollection.html) 实现类上提供的 [`getFirst()`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/SequencedCollection.html#getFirst()) 和 [`getLast()`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/SequencedCollection.html#getLast()) 方法。这包括所有 `List` 实现以及 `LinkedHashSet` 等其他集合。例如，使用 `ArrayList`：
 
 ```java
 // Java
-var deque = new ArrayDeque<>();
+var list = new ArrayList<>();
 //...
-if (deque.size() > 0) {
-    System.out.println(deque.getFirst());
-    System.out.println(deque.getLast());
+if (!list.isEmpty()) {
+    System.out.println(list.getFirst());
+    System.out.println(list.getLast());
 }
 ```
 {id="deque-get-first-last-java"}
@@ -630,7 +630,7 @@ public void zip() {
 ```
 {id="zip-elements-java"}
 
-如果您想执行比仅将元素对打印到输出更复杂的操作，可以使用 [Records](https://docs.oracle.com/en/java/javase/17/language/records.html)。在上面的示例中，record 将是 `record AnimalDescription(String animal, String color) {}`。
+如果您想执行比仅将元素对打印到输出更复杂的操作，可以使用 [Record](https://docs.oracle.com/en/java/javase/17/language/records.html)。在上面的示例中，record 将是 `record AnimalDescription(String animal, String color) {}`。
 
 在 Kotlin 中，使用 [`zip()`](collection-transformations.md#zip) 函数执行相同的操作：
 

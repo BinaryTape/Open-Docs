@@ -338,6 +338,8 @@ fun launchAll() {
 ```
 {kotlin-runnable="true"}
 
+在執行此範例時，`launchAll()` 函式不需要 `suspend` 關鍵字，因為它僅在當前的 `CoroutineScope` 中啟動協同程式並立即返回。僅在函式需要在返回前暫停與恢復時，才將其標記為 `suspend`。
+
 ## 協同程式建構器函式
 
 協同程式建構器函式是一個接受 `suspend` [Lambda](lambdas.md) 的函式，該 Lambda 定義了要執行的協同程式。這裡有一些範例：
@@ -583,4 +585,4 @@ fun main() {
 * 在[組合暫停函式](composing-suspending-functions.md)中探索更多關於結合暫停函式的資訊。
 * 在[取消與逾時](cancellation-and-timeouts.md)中了解如何取消協同程式並處理逾時。
 * 在[協同程式上下文與分派器](coroutine-context-and-dispatchers.md)中深入研究協同程式的執行與執行緒管理。
-* 了解如何在[非同步流](flow.md)中回傳多個非同步計算的值。
+* 了解如何在[非同步流](coroutines-flow.md)中回傳多個非同步計算的值。

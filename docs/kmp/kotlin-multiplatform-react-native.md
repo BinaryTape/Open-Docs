@@ -34,7 +34,7 @@
     </chapter>
     <chapter title="React Native" id="react-native">
         <p>React Native 是一个用于构建 Android 和 iOS 应用程序的开源框架，它使用 <a
-                href="https://reactjs.org/">React</a>（一个用于 Web 和原生用户界面的库）以及应用平台的原生能力。React Native 允许开发者使用 JavaScript 访问其平台的 API，并使用 React 组件（可复用、可嵌套的代码包）来描述 UI 的外观和行为。</p>
+                href="https://reactjs.org/">React</a>（一个用于 Web 和原生用户界面的库）以及应用平台的原生能力。React Native 允许开发者使用 JavaScript 访问其平台的 API，并使用 React 组件（可复用、可嵌套的代码包）来描述 UI 的外观 and 行为。</p>
         <p>React Native 最初于 2015 年 1 月在 React.js Conf 上宣布。同年晚些时候，Meta 在 F8 2015 上发布了 React Native，并一直维护至今。</p>
         <p>虽然 Meta 监管 React Native 产品，但 <a
                 href="https://github.com/facebook/react-native/blob/HEAD/ECOSYSTEM.md">React Native 生态系统</a> 由合作伙伴、核心贡献者和活跃的社区组成。如今，该框架得到了全球个人和公司的贡献支持。</p>
@@ -149,7 +149,7 @@
         <p>决定使用哪种跨平台框架并不是要寻找一种“一劳永逸”的解决方案，而是要选择最适合您的项目目标、技术要求和团队专业知识的方案。无论您是在构建一个具有复杂 UI 且功能丰富的产品，还是旨在利用现有技能快速发布，正确的选择都取决于您的具体优先级。请考虑您对 UI 自定义的需求程度、长期稳定性的重要性，以及您计划支持哪些平台。</p>
         <p>对于拥有 JavaScript 经验的团队来说，React Native 可能是一个务实的选择，尤其是在进行快速原型设计时。另一方面，Kotlin Multiplatform 提供了不同层次的集成：它生成全原生的 Android 应用，并在 iOS 上编译为原生二进制文件，能够无缝访问原生 API。UI 可以是全原生的，也可以通过 Compose Multiplatform 共享，后者使用高性能图形引擎进行精美渲染。这使得 KMP 对于那些在受益于代码共享的同时，更看重原生外观与体验、可维护性和性能的团队特别有吸引力。</p>
         <p>您可以在我们关于如何为下一个项目选择合适的 <a
-                href="cross-platform-frameworks.md">跨平台开发框架</a> 的详细文章中找到更多指导。</p>
+                href="cross-platform-frameworks.topic">跨平台开发框架</a> 的详细文章中找到更多指导。</p>
     </chapter>
     <chapter title="常见问题解答" id="frequently-asked-questions">
         <p>

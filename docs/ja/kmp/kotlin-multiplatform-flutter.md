@@ -8,7 +8,7 @@
 
 ## クロスプラットフォーム開発：モダンなアプリケーション構築への統合的アプローチ
 
-クロスプラットフォーム開発は、単一のコードベースで複数のプラットフォームで動作するアプリケーションを構築する方法を提供し、システムごとに同じ機能を書き直す必要をなくします。AndroidとiOSの両方をターゲットとする[モバイル開発](cross-platform-mobile-development.md)に関連付けられることが多いですが、このアプローチはモバイルをはるかに超え、ウェブ、デスクトップ、さらにはサーバーサイドの環境までカバーしています。
+クロスプラットフォーム開発は、単一のコードベースで複数のプラットフォームで動作するアプリケーションを構築する方法を提供し、システムごとに同じ機能を書き直す必要をなくします。AndroidとiOSの両方をターゲットとする[モバイル開発](cross-platform-mobile-development.topic)に関連付けられることが多いですが、このアプローチはモバイルをはるかに超え、ウェブ、デスクトップ、さらにはサーバーサイドの環境までカバーしています。
 
 その核心となる考え方は、必要に応じてプラットフォーム固有の機能を実装できるようにしつつ、コードの再利用を最大化することにあります。これにより、開発プロセスを合理化し、メンテナンスの手間を削減できます。チームは開発サイクルを加速させ、コストを削減し、プラットフォーム間での一貫性を確保できるため、今日のますます多様化するアプリケーション環境において、クロスプラットフォーム開発は賢明な選択肢となっています。
 
@@ -46,7 +46,7 @@ Compose Multiplatformは現在、[iOS](https://blog.jetbrains.com/kotlin/2025/05
 
 [![Explore Compose Multiplatform](explore-compose.svg){width="500"}](https://www.jetbrains.com/compose-multiplatform/)
 
-専用の記事「[Compose Multiplatform and Jetpack Compose](compose-multiplatform-and-jetpack-compose.md)」では、両者の関係と主な違いの概要を説明しています。
+専用の記事「[Compose Multiplatform and Jetpack Compose](compose-multiplatform-and-jetpack-compose.md)」では、両者の関係と主な違いの概要を説明し、重要な相違点をハイライトしています。
 
 ### Kotlin MultiplatformとFlutter：概要
 
@@ -146,6 +146,6 @@ Compose Multiplatformは現在、[iOS](https://blog.jetbrains.com/kotlin/2025/05
 
 また、プロジェクトに適した技術スタックを選択するためのガイダンスを提供している、Googleのブログ記事「[Making Development Across Platforms Easier for Developers](https://developers.googleblog.com/en/making-development-across-platforms-easier-for-developers/)（プラットフォームを越えた開発をより容易にする）」も併せてご覧ください。
 
-Kotlin MultiplatformとFlutterのさらなる比較をお探しの場合は、Philipp Lackner氏による[KMP vs. Flutterのビデオ](https://www.youtube.com/watch?v=dzog64ENKG0)も視聴することをお勧めします。このビデオでは、コード共有、UIレンダリング、パフォーマンス、そして両テクノロジーの将来性に関して、興味深い考察が共有されています。
+Kotlin MultiplatformとFlutterのさらなる比較をお探しの場合は、Philipp Lackner氏による[KMP vs. Flutterのビデオ](https://www.youtube.com/watch?v=dzog64ENKG0)も視聴することをお勧めします。このビデオでは、コード共有、UIレンダリング、パフォーマンス、および両テクノロジーの将来性に関して、興味深い考察が共有されています。
 
 特定のビジネスニーズ、目的、およびタスクを慎重に評価することで、要件を最もよく満たすクロスプラットフォームソリューションを特定することができます。

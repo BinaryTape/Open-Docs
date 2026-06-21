@@ -2,12 +2,12 @@
 
 <web-summary>Java 컬렉션에서 Kotlin 컬렉션으로 마이그레이션하는 방법을 알아봅니다. 이 가이드는 Kotlin 및 Java의 List, ArrayList, Map, Set 등의 데이터 구조를 다룹니다.</web-summary>
 
-컬렉션(Collections)은 해결하려는 문제에서 중요하며 공통적으로 조작되는 가변적인 수의 항목(0개일 수도 있음) 그룹입니다.
+컬렉션(_Collections_)은 해결하려는 문제에서 중요하며 공통적으로 조작되는 가변적인 수의 항목(0개일 수도 있음) 그룹입니다.
 이 가이드는 Java와 Kotlin의 컬렉션 개념 및 연산을 설명하고 비교합니다.
 이 가이드는 Java에서 Kotlin으로 마이그레이션하고 Kotlin다운 방식으로 코드를 작성하는 데 도움이 될 것입니다.
 
 이 가이드의 첫 번째 부분은 Java와 Kotlin에서 동일한 컬렉션에 대한 연산 용어집을 요약하여 담고 있습니다.
-이 부분은 [Java와 Kotlin에서 동일한 연산](#operations-that-are-the-same-in-java-and-kotlin)과 [Java 표준 라이브러리에 없는 연산](#operations-that-don-t-exist-in-java-s-standard-library)으로 나뉩니다.
+이 부분은 [Java와 Kotlin에서 동일한 연산](#operations-that-are-the-same-in-java-and-kotlin)과 [Kotlin에만 존재하는 연산](#operations-that-don-t-exist-in-java-s-standard-library)으로 나뉩니다.
 [가변성(Mutability)](#mutability)부터 시작하는 가이드의 두 번째 부분에서는 특정 사례를 통해 몇 가지 차이점을 설명합니다.
 
 컬렉션 입문은 [컬렉션 개요](collections-overview.md)를 참조하거나 Kotlin Developer Advocate인 Sebastian Aigner의 [비디오](https://www.youtube.com/watch?v=F8jj7e-_jFA)를 시청하세요.
@@ -416,15 +416,15 @@ if (list.size() > 0) {
 ```
 {id="list-get-first-last-java"}
 
-[`Deque`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Deque.html) 및 그 상속자들에 대해서는 [`getFirst()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Deque.html#getFirst()) 및 [`getLast()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Deque.html#getLast()) 함수를 사용할 수도 있습니다.
+JDK 21 이상에서는 모든 [`SequencedCollection`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/SequencedCollection.html) 구현체에서 사용할 수 있는 [`getFirst()`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/SequencedCollection.html#getFirst()) 및 [`getLast()`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/SequencedCollection.html#getLast()) 메서드를 사용할 수도 있습니다. 여기에는 모든 `List` 구현체뿐만 아니라 `LinkedHashSet`과 같은 다른 컬렉션도 포함됩니다. 예를 들어 `ArrayList`의 경우는 다음과 같습니다.
 
 ```java
 // Java
-var deque = new ArrayDeque<>();
+var list = new ArrayList<>();
 //...
-if (deque.size() > 0) {
-    System.out.println(deque.getFirst());
-    System.out.println(deque.getLast());
+if (!list.isEmpty()) {
+    System.out.println(list.getFirst());
+    System.out.println(list.getLast());
 }
 ```
 {id="deque-get-first-last-java"}
@@ -614,7 +614,7 @@ fun main() {
 
 ### 요소 Zip 처리
 
-Java에서는 두 컬렉션을 동시에 반복하여 동일한 위치의 요소들로 쌍을 만들 수 있습니다.
+Java에서 두 컬렉션을 동시에 반복하여 동일한 위치의 요소들로 쌍을 만들 수 있습니다.
 
 ```java
 // Java

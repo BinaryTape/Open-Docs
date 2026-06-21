@@ -14,6 +14,7 @@
 - [Gradle 플러그인] `codegenExcludedColumns`를 사용하여 생성된 모델에서 컬럼을 제외하는 지원 추가 (#6243 by @sokolikp)
 - [컴파일러] 스키마에 `allTableNames` 함수 추가 (#6245 by @edenman)
 - [PostgreSQL 다이얼렉트] `ANY` 연산자 지원 추가 (#6253 by @griffio)
+- [SQLite 다이얼렉트] SQLite 3.39 `RIGHT JOIN` 및 `FULL JOIN` 지원 추가 (#6273 by @griffio)
 
 ### 변경됨
 - [PostgreSQL 다이얼렉트] `arrayIntermediateType` 가시성을 public으로 변경 (#5835 by @griffio)
@@ -33,9 +34,13 @@
 - [Intellij 플러그인] IDEA 2026.2에서 크래시를 유발하는 지원 중단(deprecations) 관련 수정 (#6247 by @griffio)
 - [Gradle 플러그인] AGP 8.9에서 8.11 버전까지 Kotlin 컴파일 시 생성된 소스(generated sources)를 인식하지 못하던 문제 수정
 - [PostgreSQL 다이얼렉트] Primitive 바운드 인자를 사용할 때 `lower` 및 `upper` 함수의 기본값을 `TEXT`로 설정하도록 수정 (#6262 by @griffio)
+- [컴파일러] 어댑터를 사용한 데이터 클래스 바인딩 및 널 허용 여부(nullability)를 변경하는 마이그레이션이 포함된 insert values 수정 (#6269 by griffio)
 - [컴파일러] 널 안전 연산자(null safe operators, `IS` 및 `IS DISTINCT FROM`)와 함께 널 허용(nullable) 바인드 인자 사용 (#6265 by @griffio)
 - [Gradle 플러그인] 프로젝트 의존성에 대해 AGP의 변형 해결(variant resolution) 사용 (#6217 by @maxsav)
 - [Gradle 플러그인] 빌드 간에 AGP 변형 목록이 다를 때 `generateDatabaseInterface`의 빌드 캐시 미스 수정
+- [Gradle 플러그인] 데이터베이스를 구성하지 않고 플러그인을 적용했을 때 발생하는 IDE 동기화 크래시 수정 (#6088)
+- [PostgreSQL 다이얼렉트] 중첩된 함수 호출을 사용할 때의 JSON 집계 함수 수정 (#6281 by @griffio)
+- [Paging3 확장] 빈 데이터베이스에서 `KeyedQueryPagingSource`가 크래시되는 현상 수정 (#6284 by @woods-marshes)
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -106,8 +111,8 @@
 ### 수정됨
 - [컴파일러] 공통 테이블 식(Common Table Expression)을 포함하는 View 사용 시 스택 오버플로(stack overflow) 수정 (#5928 by @griffio)
 - [Gradle 플러그인] "New Connection"을 추가하기 위해 SqlDelight 도구 창을 열 때 발생하는 크래시 수정 (#5906 by @griffio)
-- [IntelliJ 플러그인] copy-to-sqlite 거터 액션(gutter action)에서 스레딩 관련 크래시 방지 (#5901 by @griffio)
-- [IntelliJ 플러그인] `CREATE INDEX` 및 `CREATE VIEW` 스키마 문 사용 시 PostgreSQL 다이얼렉트 수정 (#5772 by @griffio)
+- [IntelliJ Plugin] copy-to-sqlite 거터 액션(gutter action)에서 스레딩 관련 크래시 방지 (#5901 by @griffio)
+- [IntelliJ Plugin] `CREATE INDEX` 및 `CREATE VIEW` 스키마 문 사용 시 PostgreSQL 다이얼렉트 수정 (#5772 by @griffio)
 - [컴파일러] 컬럼 참조 시 FTS 스택 오버플로(stack overflow) 수정 (#5896 by @griffio)
 - [컴파일러] `With Recursive` 스택 오버플로(stack overflow) 수정 (#5892 by @griffio)
 - [컴파일러] `Insert|Update|Delete Returning` 문에 대한 Notify 수정 (#5851 by @griffio)
@@ -440,7 +445,7 @@
 - [IDE 플러그인] IDEA: `UnusedQueryInspection` - `ArrayIndexOutOfBoundsException` 수정. (#3427 by @vanniktech)
 - [IDE 플러그인] 이전 Kotlin 플러그인 참조를 위해 리플렉션 사용
 - [컴파일러] 확장 함수가 있는 커스텀 다이얼렉트가 임포트를 생성하지 않는 문제 수정 (#3338 by @hfhbd)
-- [컴파일러] `CodeBlock.of("${CodeBlock.toString()}")` 이스케이프 수정 (#3340 by @hfhbd)
+- [컴파일러] `CodeBlock.of("${CodeBlock.toString()}")` 이스케이프 수정 (#3338 by @hfhbd)
 - [컴파일러] 마이그레이션에서의 비동기 실행 문 대기 (#3352)
 - [컴파일러] `AS` 수정 (#3370 by @hfhbd)
 - [컴파일러] `getObject` 메서드가 실제 타입의 자동 채우기를 지원함. (#3401 by @robxyy)
@@ -838,6 +843,8 @@ sqldelight {
 - [Gradle 플러그인] 마이그레이션 파일만 있는 경우에도 데이터베이스를 쓰도록 보장 (#2094)
 - [Gradle 플러그인] 다이아몬드 의존성이 최종 컴파일 단위에서 한 번만 선택되도록 보장 (#1455)
 
+이 릴리스에서 SQLDelight 인프라 개선을 위해 많은 수고를 해주신 @3flex 님께 감사를 표합니다.
+
 ## [1.4.4] - 2020-10-08
 [1.4.4]: https://github.com/sqldelight/sqldelight/releases/tag/1.4.4
 
@@ -996,7 +1003,7 @@ sqldelight {
 
 * 수정: [Gradle] Kotlin Native 1.3.60 지원.
 * 수정: [Gradle] #1287 동기화 시 경고 발생.
-* 수정: [컴파일러] #1469 `SynetheticAccessor` 생성.
+* 수정: [컴파일러] #1469 쿼리에 대한 `SynetheticAccessor` 생성.
 * 수정: [JVM 드라이버] 메모리 누수 수정.
 * 참고: 코루틴 확장 아티팩트는 buildscript에 kotlinx bintray maven 저장소 추가가 필요합니다.
 

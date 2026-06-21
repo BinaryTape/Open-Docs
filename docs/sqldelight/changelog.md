@@ -14,6 +14,7 @@
 - [Gradle 插件] 添加了通过 `codegenExcludedColumns` 从生成的模型中排除列的支持 (#6243 由 @sokolikp 贡献)
 - [编译器] 在架构中添加了 `allTableNames` 函数 (#6245 由 @edenman 贡献)
 - [PostgreSQL 方言] 添加了对 `ANY` 运算符的支持 (#6253 由 @griffio 贡献)
+- [SQLite 方言] 为 SQLite 3.39 添加了对 `RIGHT JOIN` 和 `FULL JOIN` 的支持 (#6273 由 @griffio 贡献)
 
 ### 已变更
 - [PostgreSQL 方言] 将 `arrayIntermediateType` 的可见性更改为 public (#5835 由 @griffio 贡献)
@@ -33,9 +34,13 @@
 - [IntelliJ 插件] 修复了在 IDEA 2026.2 中导致崩溃的弃用 (deprecation) 问题 (#6247 由 @griffio 贡献)
 - [Gradle 插件] 修复了生成的源码在 AGP 8.9 到 8.11 上未被 Kotlin 编译拾取的问题
 - [PostgreSQL 方言] 修复了 `lower` 和 `upper` 函数使用原始绑定实参时默认为 `TEXT` 的问题 (#6262 由 @griffio 贡献)
+- [编译器] 修复了使用适配器且迁移更改了为 null 性时，通过数据类绑定插入值的问题 (#6269 由 @griffio 贡献)
 - [编译器] 在使用 null 安全运算符（`IS` 和 `IS DISTINCT FROM`）时使用可为 null 的绑定实参 (#6265 由 @griffio 贡献)
 - [Gradle 插件] 为项目依赖项使用 AGP 的变体解析 (#6217 由 @maxsav 贡献)
 - [Gradle 插件] 修复了当构建之间的 AGP 变体列表不同时，`generateDatabaseInterface` 出现的构建缓存未命中问题
+- [Gradle 插件] 修复了在未配置任何数据库的情况下应用插件时导致的 IDE 同步崩溃问题 (#6088)
+- [PostgreSQL 方言] 修复了使用嵌套函数调用时的 JSON 聚合函数问题 (#6281 由 @griffio 贡献)
+- [Paging3 扩展] 修复了数据库为空时 `KeyedQueryPagingSource` 崩溃的问题 (#6284 由 @woods-marshes 贡献)
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -171,7 +176,7 @@
 - [PostgreSQL 方言] PostgreSQL `SELECT DISTINCT ON` (#5345 由 @griffio 贡献)
 - [PostgreSQL 方言] `ALTER TABLE ADD COLUMN IF NOT EXISTS` (#5309 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSQL 异步绑定参数 (#5313 由 @griffio 贡献)
-- [PostgreSQL 方解] PostgreSQL 布尔字面量 (#5262 由 @griffio 贡献)
+- [PostgreSQL 方言] PostgreSQL 布尔字面量 (#5262 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSQL 窗口函数 (#5155 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSQL `ISNULL` `ISNOTNULL` 类型 (#5173 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSQL `SELECT DISTINCT` (#5172 由 @griffio 贡献)
@@ -274,7 +279,7 @@
 
 ### 已添加
 - [MySQL 方言] MySQL：在 `IF` 表达式中支持 `timestamp`/`bigint` (#4329 由 @shellderp 贡献)
-- [MySQL 方言] MySQL：添加了 `NOW` (#4431 由 @hfhbd 贡献)
+- [MySQL 方言] MySQL：添加了 `now` (#4431 由 @hfhbd 贡献)
 - [Web 驱动程序] 启用了 NPM 软件包发布 (#4364)
 - [IDE 插件] 允许用户在 Gradle 工具连接失败时显示堆栈跟踪 (#4383)
 
@@ -297,11 +302,11 @@
 [2.0.0-rc02]: https://github.com/sqldelight/sqldelight/releases/tag/2.0.0-rc02
 
 ### 已添加
-- [MySQL 方言] 支持小写日期类型以及日期类型上的 `MIN` 和 `MAX` (#4243 由 @shellderp 贡献)
+- [MySQL 方言] 支持小写日期类型以及日期类型上的 `min` 和 `max` (#4243 由 @shellderp 贡献)
 - [MySQL 方言] 为二进制表达式和求和支持 MySQL 类型 (#4254 由 @shellderp 贡献)
 - [MySQL 方言] 支持不带显示宽度的无符号整型 (#4306 由 @shellderp 贡献)
 - [MySQL 方言] 支持 `LOCK IN SHARED MODE`
-- [PostgreSQL 方言] 为 `MIN` `MAX` 添加了布尔值和时间戳 (#4245 由 @griffio 贡献)
+- [PostgreSQL 方言] 为 `min` `max` 添加了布尔值和时间戳 (#4245 由 @griffio 贡献)
 - [PostgreSQL 方言] Postgres：添加了窗口函数支持 (#4283 由 @hfhbd 贡献)
 - [运行时] 为运行时添加了 `linuxArm64`、`androidNative` 和 `watchosDeviceArm` 目标 (#4258 由 @hfhbd 贡献)
 - [Paging 扩展] 为 Paging 扩展添加了 `linux` 和 `mingw x64` 目标 (#4280 由 @chippman 贡献)
@@ -322,14 +327,14 @@
 ### 已添加
 - [Paging] 为 Paging 扩展添加了 JS 浏览器目标 (#3843 由 @sproctor 贡献)
 - [Paging] 为 `androidx-paging3` 扩展添加了 `iosSimulatorArm64` 目标 (#4117)
-- [PostgreSQL 方言] 添加了对 `GEN_RANDOM_UUID()` 的支持和测试 (#3855 由 @davidwheeler123 贡献)
+- [PostgreSQL 方言] 添加了对 `gen_random_uuid()` 的支持和测试 (#3855 由 @davidwheeler123 贡献)
 - [PostgreSQL 方言] PostgreSQL 修改表添加约束 (#4116 由 @griffio 贡献)
 - [PostgreSQL 方言] 修改表添加 `CHECK` 约束 (#4120 由 @griffio 贡献)
 - [PostgreSQL 方言] 添加了 PostgreSQL 字符长度函数 (#4121 由 @griffio 贡献)
 - [PostgreSQL 方言] 添加了 PostgreSQL 列默认间隔 (#4142 由 @griffio 贡献)
 - [PostgreSQL 方言] 添加了 PostgreSQL 间隔列结果 (#4152 由 @griffio 贡献)
 - [PostgreSQL 方言] 添加了 PostgreSQL 修改列支持 (#4165 由 @griffio 贡献)
-- [PostgreSQL 方言] PostgreSQL：添加了 `DATE_PART` (#4198 由 @hfhbd 贡献)
+- [PostgreSQL 方言] PostgreSQL：添加了 `date_part` (#4198 由 @hfhbd 贡献)
 - [MySQL 方言] 添加了 SQL 字符长度函数 (#4134 由 @griffio 贡献)
 - [IDE 插件] 添加了 `sqldelight` 目录建议 (#3976 由 @aperfilyev 贡献)
 - [IDE 插件] 在项目树中压缩中间包 (#3992 由 @aperfilyev 贡献)
@@ -345,7 +350,7 @@
 - [JS 驱动程序] 不要公开 `JsWorkerSqlCursor` (#3874 由 @hfhbd 贡献)
 - [JS 驱动程序] 禁用 `sqljs` 驱动程序的发布 (#4108)
 - [运行时] 强制同步驱动程序需要同步架构初始化程序 (#4013)
-- [运行时] 改进了对 `Cursor` 的异步支持 (#4102)
+- [运行时] 改进了对 `文本光标` 的异步支持 (#4102)
 - [运行时] 移除了已弃用的目标 (#4149 由 @hfhbd 贡献)
 - [运行时] 移除了对旧版内存模型 (MM) 的支持 (#4148 由 @hfhbd 贡献)
 
@@ -379,7 +384,7 @@
 
 ### 已变更
 - [R2DBC 驱动程序] 公开连接 (#由 @hfhbd 贡献)
-- [运行时] 将迁移回调移动到主 `migrate` 函数中
+- [运行时] 将迁移回调移动到主 `migrate` 方法中
 - [Gradle 插件] 对下游项目隐藏配置
 - [Gradle 插件] 仅着色 IntelliJ (#由 @hfhbd 贡献)
 - [Gradle 插件] 支持 Kotlin 1.8.0-Beta 并添加了多版本 Kotlin 测试 (#由 @hfhbd 贡献)
@@ -392,7 +397,7 @@
 - [IDE 插件] 将 IntelliJ 版本提升至 221.6008.13 (#由 @hfhbd 贡献)
 - [编译器] 从纯视图解析递归原始表 (#由 @hfhbd 贡献)
 - [编译器] 使用来自表外键子句的值类 (#由 @hfhbd 贡献)
-- [编译器] 修复了 `SelectQueryGenerator` 以支持不带圆括号的绑定表达式 (#4301 由 @bellatoris 贡献)
+- [编译器] 修复了 `SelectQueryGenerator` 以支持不带圆括号的绑定表达式 (#由 @bellatoris 贡献)
 - [编译器] 修复了使用事务时 `${name}Indexes` 变量的重复生成问题 (#由 @sachera 贡献)
 
 ## [1.5.5] - 2023-01-20
@@ -410,7 +415,7 @@
 
 ### 破坏性变更
 
-- Paging 3 扩展 API 已更改，仅允许对计数使用 `Int` 类型。
+- Paging 3 扩展 API 已更改，仅允许对计数使用 `int` 类型。
 - 协程扩展现在要求传入一个调度程序，而不再使用默认值。
 - 方言和驱动程序类现在是 `final` 的，请改用委托。
 
@@ -483,7 +488,7 @@ sqldelight {
 - [Gradle 插件] 添加了一个在迁移检查期间忽略架构定义的标志
 - [MySQL 方言] 在 MySQL 中支持 `FOR SHARE` 和 `FOR UPDATE` (#3098)
 - [MySQL 方言] 支持 MySQL 索引提示 (#3099)
-- [PostgreSQL 方言] 添加了 `DATE_TRUNC` (#3295 由 @hfhbd 贡献)
+- [PostgreSQL 方言] 添加了 `date_trunc` (#3295 由 @hfhbd 贡献)
 - [JSON 扩展] 支持 JSON 表函数 (#3090)
 
 ### 已变更
@@ -506,7 +511,7 @@ sqldelight {
 - [IDE 插件] 为 Gradle 工具 API 使用 Java Home (#3078)
 - [IDE 插件] 在 IDE 插件内部的正确类加载器上加载 JDBC 驱动程序 (#3080)
 - [IDE 插件] 在失效前将文件元素标记为 `null`，以避免在已有的 PSI 架构更改期间出错 (#3082)
-- [IDE 插件] 修复了查找 `ALTER TABLE` 语句中新表名用法时导致的崩溃问题 (#3106)
+- [IDE 插件] 不要针对 `ALTER TABLE` 语句中重命名后的表名查找用例时发生崩溃 (#3106)
 - [IDE 插件] 优化了检查器并使其能够针对预期的异常类型静默失败 (#3121)
 - [IDE 插件] 删除应为生成目录的文件 (#3198)
 - [IDE 插件] 修复了一个非安全的运算符调用
@@ -515,7 +520,7 @@ sqldelight {
 - [编译器] 通用表不生成数据类，因此不要返回它们 (#3097)
 - [编译器] 更快地查找顶级迁移文件 (#3108)
 - [编译器] 在管道运算符上正确继承为 null 性
-- [编译器] 支持 `IIF` ANSI SQL 函数
+- [编译器] 支持 `iif` ANSI SQL 函数
 - [编译器] 不要生成空的查询文件 (#3300 由 @hfhbd 贡献)
 - [编译器] 修复了仅包含问号的适配器 (#3314 由 @hfhbd 贡献)
 - [PostgreSQL 方言] PostgreSQL 主键列始终不可为 null (#3092)
@@ -576,7 +581,7 @@ sqldelight {
 - [编译器] 编译 `UPSERT` 语句时的问题 (#2791)
 - [编译器] 如果有多个匹配项，查询结果应使用 `SELECT` 中的表 (#1874, #2313)
 - [编译器] 支持更新具有 `INSTEAD OF` 触发器的视图 (#1018)
-- [编译器] 在函数名称中支持 `FROM` 和 `FOR`
+- [编译器] 在函数名称中支持 `from` 和 `for`
 - [编译器] 在函数表达式中允许 `SEPARATOR` 关键字
 - [编译器] 无法在 `ORDER BY` 中访问别名表的 `ROWID`
 - [编译器] MySQL 的 `HAVING` 子句中无法识别别名列名
@@ -739,7 +744,7 @@ sqldelight {
 [1.5.1]: https://github.com/sqldelight/sqldelight/releases/tag/1.5.1
 
 ### 已添加
-- [PostgreSQL 方言] PostgreSQL `JSONB` 和 `ON CONFLICT DO NOTHING` (#由 @satook 贡献)
+- [PostgreSQL 方言] PostgreSQL `JSONB` 和 `ON Conflict Do Nothing` (#由 @satook 贡献)
 - [PostgreSQL 方言] 添加了对 PostgreSQL `ON CONFLICT (column, ...) DO UPDATE` 的支持 (#由 @satook 贡献)
 - [MySQL 方言] 支持 MySQL 生成的列 (#由 @JGulbronson 贡献)
 - [原生驱动程序] 添加了 `watchosX64` 支持
@@ -765,7 +770,7 @@ sqldelight {
 - [JDBC SQLite 驱动程序] 在清除 `ThreadLocal` 之前在连接上调用 `close()` (#2444 由 @hannesstruss 贡献)
 - [RX 扩展] 修复了订阅/销毁竞态泄漏 (#2403 由 @pyricau 贡献)
 - [协程扩展] 确保在通知之前注册查询监听器
-- [编译器] 对 `notifyQueries` 进行排序以获得一致的 Kotlin 输出文件 (#由 @thomascjy 贡献)
+- [编译器] 对 `notifyQueries` 进行排序以获得一致 the Kotlin 输出文件 (#由 @thomascjy 贡献)
 - [编译器] 不要使用 `@JvmField` 注解选择查询类属性 (#由 @eygraber 贡献)
 - [IDE 插件] 修复了导入优化器 (#2350 由 @aperfilyev 贡献)
 - [IDE 插件] 修复了未使用的列检查 (#由 @aperfilyev 贡献)
@@ -788,7 +793,7 @@ sqldelight {
 - [IDE 插件] 添加了未使用的列检查 (#569 由 @aperfilyev 贡献)
 - [IDE 插件] 复制/粘贴时自动引入导入 (#684 由 @aperfilyev 贡献)
 - [IDE 插件] 当 Gradle/IntelliJ 插件版本不兼容时弹出气泡提示
-- [IDE 插件] `INSERT INTO ... VALUES(?)` 形参提示 (#506 由 @aperfilyev 贡献)
+- [IDE 插件] `Insert Into ... VALUES(?)` 形参提示 (#506 由 @aperfilyev 贡献)
 - [IDE 插件] 内联形参提示 (#由 @aperfilyev 贡献)
 - [运行时] 在运行时中包含一个用于通过回调运行迁移的 API (#1844)
 
@@ -811,7 +816,7 @@ sqldelight {
 - [编译器] 如果合并两个相同类型，返回表类型 (#1342)
 - [编译器] 确保 `ifnull` 和 `coalesce` 的形参可以为 null (#1263)
 - [编译器] 正确为表达式使用查询施加的为 null 性
-- [MySQL 方言] 支持 MySQL `IF` 语句
+- [MySQL 方言] 支持 MySQL `if` 语句
 - [PostgreSQL 方言] 在 PostgreSQL 中将 `NUMERIC` 和 `DECIMAL` 检索为 `Double` (#2118)
 - [SQLite 方言] `UPSERT` 通知应考虑 `BEFORE`/`AFTER UPDATE` 触发器。 (#2198 由 @andersio 贡献)
 - [SQLite 驱动程序] 除非是在内存中，否则在 `SqliteDriver` 中为线程使用多个连接 (#1832)
@@ -845,7 +850,7 @@ sqldelight {
 
 ### 已添加
 - [PostgreSQL 方言] 在 `WITH` 中支持数据修改语句
-- [PostgreSQL 方言] 支持 `SUBSTRING` 函数
+- [PostgreSQL 方言] 支持 `substring` 函数
 - [Gradle 插件] 添加了 `verifyMigrations` 标志，用于在 SQLDelight 编译期间验证迁移 (#1872)
 
 ### 已变更
@@ -855,7 +860,7 @@ sqldelight {
 ### 已修复
 - [编译器] 报告在 `ORDER BY` 子句中绑定列名的错误 (#1187 由 @eygraber 贡献)
 - [编译器] 生成数据库接口时出现注册表警告 (#1792)
-- [编译器] 修复了 `CASE` 语句不正确的类型推断 (#1811)
+- [编译器] 修复了 `case` 语句不正确的类型推断 (#1811)
 - [编译器] 为没有版本的迁移文件提供更好的错误提示 (#2006)
 - [编译器] 某些数据库类型 `ColumnAdapter` 需要封装的数据库类型不正确 (#2012)
 - [编译器] `CAST` 的为 null 性问题 (#1261)
@@ -878,16 +883,16 @@ sqldelight {
 [1.4.3]: https://github.com/sqldelight/sqldelight/releases/tag/1.4.3
 
 ### 已添加
-- [MySQL 方言] 添加了对 MySQL `LAST_INSERT_ID` 函数的支持 (#由 @lawkai 贡献)
+- [MySQL 方言] 添加了对 MySQL `last_insert_id` 函数的支持 (#由 @lawkai 贡献)
 - [PostgreSQL 方言] 支持 `SERIAL` 数据类型 (#由 @veyndan 和 @felipecsl 贡献)
 - [PostgreSQL 方言] 支持 PostgreSQL `RETURNING` (#由 @veyndan 贡献)
 
 ### 已修复
 - [MySQL 方言] 将 MySQL `AUTO_INCREMENT` 视为具有默认值 (#1823)
-- [编译器] 修复了 `UPSERT` 语句编译器错误 (#1809 由 @eygraber 贡献)
+- [编译器] 修复了 `Upsert` 语句编译器错误 (#1809 由 @eygraber 贡献)
 - [编译器] 修复了生成无效 Kotlin 代码的问题 (#1925 由 @eygraber 贡献)
 - [编译器] 为未知函数提供了更好的错误消息 (#1843)
-- [编译器] 公开 `STRING` 作为 `INSTR` 第二个实参的类型
+- [编译器] 公开 `string` 作为 `instr` 第二个实参的类型
 - [IDE 插件] 修复了 IDE 插件的守护进程膨胀和 UI 线程卡死问题 (#1916)
 - [IDE 插件] 处理空模块的情况 (#1902)
 - [IDE 插件] 在未配置的 sq 文件中，为软件包名称返回空字符串 (#1920)
@@ -908,7 +913,7 @@ sqldelight {
 - [IDE 插件] 使用 Gradle 工具 API 促进 IDE 和 Gradle 之间的数据共享
 - [IDE 插件] 架构推导默认设为 `false`
 - [IDE 插件] 正确检索 `commonMain` 源集
-- [MySQL 方言] 向 `mySqlFunctionType()` 添加了 `MINUTE` (#由 @maaxgr 贡献)
+- [MySQL 方言] 向 `mySqlFunctionType()` 添加了 `minute` (#由 @maaxgr 贡献)
 
 ## [1.4.1] - 2020-08-21
 [1.4.1]: https://github.com/sqldelight/sqldelight/releases/tag/1.4.1
@@ -921,8 +926,8 @@ sqldelight {
 
 ### 已修复
 - [编译器] 为列定义规则和表接口生成器添加了可选的 Javadoc (#1224 由 @endanke 贡献)
-- [SQLite 方言] 添加了对 SQLite FTS5 辅助函数 `HIGHLIGHT`、`SNIPPET` 和 `BM25` 的支持 (#由 @drampelt 贡献)
-- [MySQL 方言] 支持 MySQL `BIT` 数据类型
+- [SQLite 方言] 添加了对 SQLite FTS5 辅助函数 `highlight`、`snippet` 和 `bm25` 的支持 (#由 @drampelt 贡献)
+- [MySQL 方言] 支持 MySQL `bit` 数据类型
 - [MySQL 方言] 支持 MySQL 二进制字面量
 - [PostgreSQL 方言] 从 `sql-psi` 公开 `SERIAL` (#由 @veyndan 贡献)
 - [PostgreSQL 方言] 添加了 `BOOLEAN` 数据类型 (#由 @veyndan 贡献)
@@ -958,8 +963,8 @@ sqldelight {
 - [编译器] 修复了目录名称清理中的不一致问题 (#由 @ZacSweers 贡献)
 - [编译器] 合成列在联接中应保留为 null 性 (#1656)
 - [编译器] 将删除语句固定在 `DELETE` 关键字上 (#1643)
-- [编译器] 修复了转义问题 (#1525 由 @angusholder 贡献)
-- [编译器] 修复了 `BETWEEN` 运算符以正确递归到表达式中 (#1279)
+- [编译器] 修复了引用 (quoting) 问题 (#1525 由 @angusholder 贡献)
+- [编译器] 修复了 `between` 运算符以正确递归到表达式中 (#1279)
 - [编译器] 为创建索引时缺失的表/列提供了更好的错误提示 (#1372)
 - [编译器] 允许在联接约束中使用外部查询的投影 (#1346)
 - [原生驱动程序] 使执行操作使用 `transationPool` (#由 @benasher44 贡献)
@@ -976,17 +981,17 @@ sqldelight {
 
 * 新增：[Gradle] `dialect` 属性，用于指定要针对其编译的 SQL 方言。
 * 新增：[编译器] #1009 对 MySQL 方言的实验性支持。
-* 新增：[编译器] #1436 对 SQLite 3.24 方言和 `UPSERT` 的支持。
+* 新增：[编译器] #1436 对 SQLite 3.24 方言和 `upsert` 的支持。
 * 新增：[JDBC 驱动程序] 从 SQLite JVM 驱动程序中拆分出 JDBC 驱动程序。
 * 已修复：[编译器] #1199 支持任意长度的 lambda。
-* 已修复：[编译器] #1610 将 `AVG()` 的返回值类型修复为可为 null。
+* 已修复：[编译器] #1610 将 `avg()` 的返回值类型修复为可为 null。
 * 已修复：[IntelliJ] #1594 修复了路径分隔符处理，该问题导致在 Windows 上破坏了转到和查找用例。
 
 ## [1.2.2] - 2020-01-22
 [1.2.2]: https://github.com/sqldelight/sqldelight/releases/tag/1.2.2
 
 * 新增：[运行时] 支持 Windows (mingw)、tvOS、watchOS 和 macOS 架构。
-* 已修复：[编译器] `SUM()` 的返回值类型应为可为 null。
+* 已修复：[编译器] `sum()` 的返回值类型应为可为 null。
 * 已修复：[Paging] 将 `Transacter` 传入 `QueryDataSourceFactory` 以避免竞态条件。
 * 已修复：[IntelliJ 插件] 查找文件的软件包名称时不要搜索依赖项。
 * 已修复：[Gradle] #862 将 Gradle 中的验证器日志更改为调试级别。
@@ -1138,7 +1143,7 @@ sqldelight {
 
  * 新增：原生支持 `Short` 作为列的 Java 类型。
  * 新增：在生成的映射器和工厂方法上添加了 Javadoc。
- * 已修复：`GROUP_CONCAT` 和 `NULLIF` 函数具有正确的为 null 性。
+ * 已修复：`group_concat` 和 `nullif` 函数具有正确的为 null 性。
  * 已修复：与 Android Studio 2.2-alpha 的兼容性。
  * 已修复：`WITH RECURSIVE` 不再导致插件崩溃。
 
@@ -1150,7 +1155,7 @@ sqldelight {
  * 新增：命名语句上的 Javadoc 将出现在生成的字符串上。
  * 已修复：生成的视图模型包含为 null 性注解。
  * 已修复：联合生成的代码具有正确的类型和为 null 性，以支持所有可能的列。
- * 已修复：`SUM` 和 `ROUND` SQLite 函数在生成的代码中具有正确的类型。
+ * 已修复：`sum` 和 `round` SQLite 函数在生成的代码中具有正确的类型。
  * 已修复：`CAST`、内部选择的错误修复。
  * 已修复：`CREATE TABLE` 语句中的自动补全。
  * 已修复：SQLite 关键字可以用于软件包中。

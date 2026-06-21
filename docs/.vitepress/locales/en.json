@@ -639,5 +639,7 @@
   "kotlin.compatibility-guide-24": "Compatibility guide",
   "kotlin.kotlin-2-3-x": "Kotlin 2.3.x",
   "koog.module-versioning": "Module versioning",
-  "koog.http-clients": "HTTP clients"
+  "koog.http-clients": "HTTP clients",
+  "coroutines.flows": "Flows",
+  "coroutines.coroutines-flow": "Overview"
 }

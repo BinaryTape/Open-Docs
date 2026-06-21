@@ -152,6 +152,31 @@ fun App() {
 }
 ```
 
+:::tip NavDisplay가 타입화된 경우 라우트 타입을 전달하세요
+`koinEntryProvider<T>()`는 제네릭 함수이며, `T`는 라우트 타입입니다. 만약 `koinEntryProvider<Any>()`로 두었으나 `NavDisplay`가 타입화된다면(예: `rememberSupportingPaneSceneStrategy<Route>()`와 같은 타입이 지정된 `SceneStrategy`를 사용하는 경우), 컴파일러는 `NavDisplay<Route>`로 추론하고 `(Route) -> NavEntry<Route>`를 기대하게 됩니다. 따라서 `Any` 타입의 프로바이더는 일치하지 않게 됩니다:
+
+```
+Argument type mismatch: actual type is 'Function1<Any, NavEntry<Any>>',
+but 'Function1<Route, NavEntry<Route>>' was expected.
+```
+
+타입을 일치시키려면 라우트 타입을 전달하세요:
+
+```kotlin
+val sceneStrategy = rememberSupportingPaneSceneStrategy<Route>()
+val entryProvider = koinEntryProvider<Route>()   // (Route) -> NavEntry<Route>
+
+NavDisplay(
+    backStack = backStack,
+    onBack = onBack,
+    sceneStrategy = sceneStrategy,
+    entryProvider = entryProvider,               // ✅ NavDisplay<Route>와 일치함
+)
+```
+
+(마찬가지로, `val entryProvider: EntryProvider<Route> = koinEntryProvider()`와 같이 작성하면 타입 인자가 기대되는 타입으로부터 추론됩니다.)
+:::
+
 ### 전체 예제
 
 ```kotlin

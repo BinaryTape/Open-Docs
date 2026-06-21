@@ -1,7 +1,7 @@
 [//]: # (title: 什么是 Kotlin Multiplatform)
 [//]: # (description: Kotlin Multiplatform 是由 JetBrains 开发的一项开源技术，支持在 Android、iOS、桌面、Web 和服务器之间共享代码。)
 
-Kotlin Multiplatform (KMP) 是由 JetBrains 开发的一项开源技术，它支持在 Android、iOS、桌面、Web 和服务器之间共享代码，同时保留原生开发的优势。
+Kotlin Multiplatform (KMP) 是由 JetBrains 开发的一项开源技术，支持在 Android、iOS、桌面、Web 和服务器之间共享代码，同时保留原生开发的优势。
 
 通过使用 Compose Multiplatform，您还可以在多个平台之间共享 UI 代码，实现最大程度的代码复用。
 
@@ -14,7 +14,7 @@ Kotlin Multiplatform 有助于简化技术和组织流程：
 * 您可以通过跨平台共享逻辑和 UI 代码来减少重复工作并降低维护成本。这也使得在多个平台上同时发布功能成为可能。
 * 团队协作变得更加容易，因为统一的逻辑可以在共享代码中访问，这使得团队成员之间的知识传递更加方便，并减少了专门平台团队之间的重复劳动。
 
-除了加快上市时间外，**55%** 的用户报告称采用 KMP 后协作得到了改善，**65%** 的团队报告称性能和质量得到了提升（源自 2024 年第二季度 KMP 调查）。
+除了加快上市时间外，在 2024 年第二季度 KMP 调查中，**55%** 的用户报告称采用 KMP 后协作得到了改善，**65%** 的团队报告称性能和质量得到了提升。
 
 KMP 已被各种规模的组织（从初创公司到全球企业）用于生产环境。Google、Duolingo、Forbes、Philips、McDonald's、Bolt、H&M、百度、快手和哔哩哔哩等公司都采用了 KMP，因为它具有灵活性、原生性能、提供原生用户体验的能力、成本效益以及支持渐进式采用。[详细了解已采用 KMP 的公司](https://kotlinlang.org/case-studies/?type=multiplatform)。
 
@@ -82,6 +82,6 @@ IntelliJ IDEA 和 Android Studio 通过 [Kotlin Multiplatform IDE 插件](https:
 在团队中采用跨平台框架可能是一项挑战。
 要了解跨平台开发的优势和潜在问题的解决方案，请查看我们对跨平台开发的高级概述：
 
-* [什么是跨平台移动开发？](cross-platform-mobile-development.md)：概述了跨平台应用的不同方法和实现方式。
+* [什么是跨平台移动开发？](cross-platform-mobile-development.topic)：概述了跨平台应用的不同方法和实现方式。
 * [如何向您的团队介绍多平台移动开发](multiplatform-introduce-your-team.md)：提供了在团队中引入跨平台开发的策略。
 * [采用 Kotlin Multiplatform 并助力项目腾飞的十大理由](multiplatform-reasons-to-try.md)：列出了选择 Kotlin Multiplatform 作为跨平台解决方案的理由。

@@ -8,7 +8,7 @@
 
 ## 跨平台開發：建置現代應用程式的統一方法
 
-跨平台開發提供了一種方式，可以使用單一程式碼庫建置可在多個平台上執行的應用程式，消除了為每個系統重寫相同功能的必要性。雖然通常與[行動開發](cross-platform-mobile-development.md)（針對 Android 和 iOS）相關聯，但這種方法遠不止於行動裝置，還涵蓋了 Web、桌面甚至伺服器端環境。
+跨平台開發提供了一種方式，可以使用單一程式碼庫建置可在多個平台上執行的應用程式，消除了為每個系統重寫相同功能的必要性。雖然通常與[行動開發](cross-platform-mobile-development.topic)（針對 Android 和 iOS）相關聯，但這種方法遠不止於行動裝置，還涵蓋了 Web、桌面甚至伺服器端環境。
 
 核心概念是極大化程式碼重複使用，同時確保在必要時仍可實作平台特定的功能，從而簡化開發過程並減少維護工作。團隊可以加速開發週期、降低成本並確保跨平台的一致性，使跨平台開發成為當今日益多樣化的應用程式環境中的明智選擇。
 
@@ -85,7 +85,7 @@ Compose Multiplatform 目前[在 iOS 上已穩定](https://blog.jetbrains.com/ko
         <td>軟件包可從 <a href="https://central.sonatype.com/">Maven Central</a> 和其他存儲庫獲取，包括
             <p><a href="http://klibs.io">klibs.io</a> (Alpha 版本)，旨在簡化對 KMP 程式庫的搜尋。</p>
             <p>此<a href="https://github.com/terrakok/kmp-awesome">清單</a>包含了一些最受歡迎的 KMP 程式庫與工具。</p> </td>
-        <td>軟件包可從 <a href="https://pub.dev/">Pub.dev</a> 獲取。</td>
+        <td>軟件包可從 <a href="https://pub.dev/">Pub.dev.</a> 獲取。</td>
 </tr>
 
     
@@ -114,7 +114,7 @@ Compose Multiplatform 目前[在 iOS 上已穩定](https://blog.jetbrains.com/ko
     
 <tr>
 <td><b>與原生 API 的通訊</b></td>
-        <td>原生 API 可使用 <Links href="/kmp/multiplatform-expect-actual" summary="undefined">expect/actual 宣告</Links>直接從 Kotlin 程式碼存取。</td>
+        <td>原生 API 可使用 <Links href="/kmp/multiplatform-expect-actual" summary="undefined">expect/actual 宣告。</Links></td>
         <td>與主機平台的通訊可使用 <a href="https://docs.flutter.dev/platform-integration/platform-channels">platform channels</a> 進行。</td>
 </tr>
 
@@ -122,7 +122,7 @@ Compose Multiplatform 目前[在 iOS 上已穩定](https://blog.jetbrains.com/ko
 <tr>
 <td><b>UI 渲染</b></td>
         <td><a href="https://www.jetbrains.com/compose-multiplatform/">Compose Multiplatform</a> 可用於跨平台共用 UI，其基於 Google 的 Jetpack Compose，並使用相容於 OpenGL、ANGLE（將 OpenGL ES 2 或 3 呼叫轉換為原生 API）、Vulkan 和 Metal 的 Skia 引擎。</td>
-        <td>Flutter Widget 使用自訂的 <a href="https://docs.flutter.dev/perf/impeller">Impeller 引擎</a>渲染於螢幕上，該引擎根據平台與裝置直接與 GPU 通訊（使用 Metal、Vulkan 或 OpenGL）。</td>
+        <td>Flutter widget 使用自訂的 <a href="https://docs.flutter.dev/perf/impeller">Impeller 引擎</a>渲染於螢幕上，該引擎根據平台與裝置直接與 GPU 通訊（使用 Metal、Vulkan 或 OpenGL）。</td>
 </tr>
 
     
@@ -136,7 +136,7 @@ Compose Multiplatform 目前[在 iOS 上已穩定](https://blog.jetbrains.com/ko
     
 <tr>
 <td><b>使用該技術的公司</b></td>
-        <td><a href="https://www.forbes.com/sites/forbes-engineering/2023/11/13/forbes-mobile-app-shifts-to-kotlin-multiplatform/">Forbes</a>、<a href="https://www.youtube.com/watch?v=z-o9MqN86eE">Todoist</a>、<a href="https://medium.com/mcdonalds-technical-blog/mobile-multiplatform-development-at-mcdonalds-3b72c8d44ebc">McDonald’s</a>、<a href="https://www.youtube.com/watch?v=5sOXv-X43vc">Google Workspace</a>、<a href="https://www.youtube.com/watch?v=hZPL8QqiLi8">Philips</a>、<a href="https://raymondctc.medium.com/adopting-kotlin-multiplatform-mobile-kmm-on-9gag-app-dfe526d9ce04">9gag</a>、<a href="https://kotlinlang.org/lp/multiplatform/case-studies/baidu">Baidu</a>、<a href="https://kotlinlang.org/lp/multiplatform/case-studies/autodesk/">Autodesk</a>、<a href="https://touchlab.co/">TouchLab</a>、<a href="https://www.youtube.com/watch?v=YsQ-2lQYQ8M">Instabee</a> 等更多公司列於我們的 <a href="https://kotlinlang.org/case-studies/?type=multiplatform">KMP 案例研究</a>中。</td>
+        <td><a href="https://www.forbes.com/sites/forbes-engineering/2023/11/13/forbes-mobile-app-shifts-to-kotlin-multiplatform/">Forbes</a>、<a href="https://www.youtube.com/watch?v=z-o9MqN86eE">Todoist</a>、<a href="https://medium.com/mcdonalds-technical-blog/mobile-multiplatform-development-at-mcdonalds-3b72c8d44ebc">McDonald’s</a>、<a href="https://www.youtube.com/watch?v=5sOXv-X43vc">Google Workspace</a>、<a href="https://www.youtube.com/watch?v=hZPL8QqiLi8">Philips</a>、<a href="https://raymondctc.medium.com/adopting-kotlin-multiplatform-mobile-kmm-on-9gag-app-dfe526d9ce04">9gag</a>、<a href="https://kotlinlang.org/lp/multiplatform/case-studies/baidu">Baidu</a>、<a href="https://kotlinlang.org/lp/multiplatform/case-studies/autodesk/">Autodesk</a>、<a href="https://touchlab.co/">TouchLab</a>、<a href="https://www.youtube.com/watch?v=YsQ-2lQYQ8M">Instabee</a> 等更多公司列於我們的 <a href="https://kotlinlang.org/case-studies/?type=multiplatform">KMP 案例研究。</a></td>
         <td><a href="https://flutter.dev/showcase/xiaomi">Xiaomi</a>、<a href="https://flutter.dev/showcase/wolt">Wolt</a>、<a href="https://flutter.dev/showcase/universal-studios">Universal Studios</a>、<a href="https://flutter.dev/showcase/alibaba-group">Alibaba Group</a>、<a href="https://flutter.dev/showcase/bytedance">ByteDance</a>、<a href="https://www.geico.com/techblog/flutter-as-the-multi-channel-ux-framework/">Geico</a>、<a href="https://flutter.dev/showcase/ebay">eBay Motors</a>、<a href="https://flutter.dev/showcase/google-pay">Google Pay</a>、<a href="https://flutter.dev/showcase/so-vegan">So Vegan</a> 等更多公司列於 <a href="https://flutter.dev/showcase">Flutter Showcase</a> 中。</td>
 </tr>
 

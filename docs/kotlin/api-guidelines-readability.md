@@ -2,7 +2,7 @@
 
 创建具有良好可读性的 API 不仅仅是编写简洁的代码。
 它需要深思熟虑的设计，以简化集成和使用。
-本节探讨如何通过在构建库时考虑组合性、利用领域专用语言(DSL)进行简洁且具有表现力的设置，以及使用扩展函数与属性来编写清晰且易于维护的代码，从而增强 API 的可读性。
+本节探讨如何通过在构建库时考虑组合性、利用领域专用语言 (DSL) 进行简洁且具有表现力的设置，以及使用扩展函数与属性来编写清晰且易于维护的代码，从而增强 API 的可读性。
 
 ## 优先选择显式组合性
 
@@ -11,11 +11,11 @@
 但是，通过额外的函数参数引入这些自定义选项会显著增加 API 的复杂性。
 
 与其为自定义添加更多参数，不如设计一个可以将不同行为组合在一起的 API，这种方式更为有效。
-例如，在协程Flow API中，[缓冲](flow.md#buffering)和[合并](flow.md#conflation)都是作为独立的函数实现的。
-它们可以与[`filter`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/filter.html)和[`map`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/map.html)等更基础的操作链式结合，而不是让每个基础操作都接受用于控制缓冲和合并的参数。
+例如，在协程 Flow API 中，[缓冲](coroutines-flow-operators.md#buffering)和[合并](coroutines-flow-operators.md#conflation)都是作为独立的函数实现的。
+它们可以与 [`filter`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/filter.html) 和 [`map`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/map.html) 等更基础的操作链式结合，而不是让每个基础操作都接受用于控制缓冲和合并的参数。
 
 另一个例子是 [Jetpack Compose 中的 Modifier API](https://developer.android.com/develop/ui/compose/modifiers)。
-它允许 Composable 组件接受单个 `Modifier` 参数，用于处理常见的自定义选项，如内边距(padding)、尺寸(sizing)和背景颜色。
+它允许 Composable 组件接受单个 `Modifier` 参数，用于处理常见的自定义选项，如内边距 (padding)、尺寸 (sizing) 和背景颜色。
 这种方法避免了每个 Composable 组件都需要为这些自定义选项接受单独参数的需求，从而简化了 API 并降低了复杂性。
 
 ```kotlin

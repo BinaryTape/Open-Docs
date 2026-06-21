@@ -4,6 +4,10 @@
 從 1.10 版本開始，Compose Multiplatform 支援在所有支援平台的多平台專案中採用 Navigation 3：
 Android、iOS、桌面 (desktop) 和 Web。
 
+> 若要了解核心導覽概念，請參閱 [Compose 中的導覽](compose-navigation.md)。
+>
+{style="tip"}
+
 ## 主要變更
 
 Navigation 3 不僅僅是程式庫的新版本 —— 在許多方面，它完全是一個新的程式庫。

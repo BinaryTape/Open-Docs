@@ -4,7 +4,7 @@
 
 本教程演示如何创建 Kotlin Flow 并使用 IntelliJ IDEA 进行调试。
 
-本教程假设你已具备 [协程](coroutines-guide.md) 和 [Kotlin Flow](flow.md#flows) 概念的先验知识。
+本教程假设你已具备 [协程](coroutines-basics.md) 和 [Flow](coroutines-flow.md) 概念的先验知识。
 
 ## 创建 Kotlin Flow
 

@@ -1,5 +1,5 @@
 [//]: # (title: 数字)
-[//]: # (description: 了解如何在 Kotlin 中使用数字，包括数值类型、字面量、转换、算术操作、溢出以及 JVM 特定行为。)
+[//]: # (description: 了解如何在 Kotlin 中使用数字，包括数值类型、字面量、转换、算术操作、数据溢出以及 JVM 特定行为。)
 
 Kotlin 的数字类型表示：
 * 整数值（[Byte](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-byte/)、
@@ -275,6 +275,72 @@ val result: Int = intNumber + longNumber
 // 错误：初始值设定项类型不匹配
 ```
 
+### 整数字面量类型
+
+在类型推断期间，Kotlin 将不带后缀的整数字面量视为特殊的[整数字面量类型 (ILT)](https://kotlinlang.org/spec/type-system.html#integer-literal-types)，直到周围的上下文确定具体类型：
+
+```kotlin
+//sampleStart
+fun List<Any>.log() {
+    println(joinToString(" | ") { it::class.simpleName ?: "Unknown" })
+}
+
+fun main() {
+    listOf(1, 2).log()
+    // Int | Int
+    
+    listOf(1L, 2L).log()
+    // Long | Long
+    
+    // 编译器将 1 解释为 ILT 并将其解析为 Long
+    listOf(1, 2L).log()
+    // Long | Long
+    
+    // .toInt() 将字面量转换为 Int
+    listOf(1.toInt(), 2L).log()
+    // Int | Long
+}
+//sampleEnd
+```
+{kotlin-runnable="true"}
+
+对于 `Int` 和 `Long` 值，这种情况特别容易被忽视，因为它们在运行时具有相同的字符串表示。为了避免这种情况，请指定预期类型或显式转换值：
+
+```kotlin
+//sampleStart
+fun List<Any>.log() {
+    println(joinToString(" | ") { it::class.simpleName ?: "Unknown" })
+}
+
+fun main() {
+    val longValues: List<Long> = listOf(1, 2L)
+    longValues.log()
+    // Long | Long
+
+    val numberValues: List<Number> = listOf(1.toInt(), 2L)
+    numberValues.log()
+    // Int | Long
+}
+//sampleEnd
+```
+{kotlin-runnable="true"}
+
+你还可以使用显式类型来捕捉意外的类型推断：
+
+```kotlin
+fun main() {
+//sampleStart
+    val intValues: List<Int> = listOf(1, 2L)
+    // 错误：初始值设定项类型不匹配
+//sampleEnd
+}
+```
+{kotlin-runnable="true" validate="false"}
+
+> 详细了解 [整数字面量类型](https://kotlinlang.org/spec/type-system.html#integer-literal-types)。
+> 
+{style="tip"}
+
 ## 数据溢出
 
 数字类型只能表示其定义范围内的值。
@@ -339,8 +405,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-然而，由于浮点类型遵循 [IEEE 754 标准](https://en.wikipedia.org/wiki/IEEE_754)， 
-非常大的结果可能会变成 `Infinity`（无穷大）：
+然而，由于浮点类型遵循 [IEEE 754 标准](https://en.wikipedia.org/wiki/IEEE_754)，非常大的结果可能会变成 `Infinity`（无穷大）：
 
 ```kotlin
 fun main() {
@@ -385,9 +450,7 @@ fun main() {
 对数字及其形成的区间的操作 
 遵循 [IEEE 754 浮点算术标准](https://en.wikipedia.org/wiki/IEEE_754)。
 
-然而，在泛型用例中（例如 `Any`、`Comparable<...>` 或 `Collection<T>`）， 
-对于非静态类型为浮点数的操作数，其行为会有所不同。在这些情况下，Kotlin 
-使用 `Float` 和 `Double` 的 `equals()` 和 `compareTo()` 实现。 
+然而，在泛型用例中（例如 `Any`、`Comparable<...>` 或 `Collection<T>`），对于非静态类型为浮点数的操作数，其行为会有所不同。在这些情况下，Kotlin 使用 `Float` 和 `Double` 的 `equals()` 和 `compareTo()` 实现。 
 
 因此：
 
@@ -395,8 +458,7 @@ fun main() {
 * `NaN` 被认为大于包括 `POSITIVE_INFINITY` 在内的任何其他元素
 * `-0.0` 被认为小于 `0.0`
 
-以下示例显示了静态类型为浮点数的操作数 
-与通过泛型类型使用的操作数之间的区别：
+以下示例显示了静态类型为浮点数的操作数与通过泛型类型使用的操作数之间的区别：
 
 ```kotlin
 //sampleStart  
@@ -420,14 +482,11 @@ fun main() {
 ## JVM 上的数字装箱与缓存
 
 在 JVM 上，不可空数值通常使用基本类型存储，例如 `int`、`long` 或 `double`。 
-然而，当你使用[泛型](generics.md)或像 `Int?` 这样的可空数值类型时，该值会被装箱并 
-表示为一个对象。
+然而，当你使用[泛型](generics.md)或像 `Int?` 这样的可空数值类型时，该值会被装箱并表示为一个对象。
 
-JVM 通过缓存小数字的装箱表示形式来应用[内存优化技术](https://docs.oracle.com/javase/specs/jls/se22/html/jls-5.html#jls-5.1.7)。因此， 
-具有相同值的装箱数字可以是[引用相等](equality.md#referential-equality)的。
+JVM 通过缓存小数字的装箱表示形式来应用[内存优化技术](https://docs.oracle.com/javase/specs/jls/se22/html/jls-5.html#jls-5.1.7)。因此，具有相同值的装箱数字可以是[引用相等](equality.md#referential-equality)的。
 
-例如，JVM 缓存了 `-128` 到 `127` 范围内的装箱 `Integer` 值。因此，以下 
-代码返回 `true`：
+例如，JVM 缓存了 `-128` 到 `127` 范围内的装箱 `Integer` 值。因此，以下代码返回 `true`：
 
 ```kotlin
 fun main() {
@@ -442,9 +501,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false"}
 
-对于缓存范围之外的值，装箱值是独立的对象。在这种情况下， 
-即使它们的值是[结构相等](equality.md#structural-equality)的，它们也不是引用相等的。 
-出于这个原因，请使用 `==` 来比较数值：
+对于缓存范围之外的值，装箱值是独立的对象。在这种情况下，即使它们的值是[结构相等](equality.md#structural-equality)的，它们也不是引用相等的。出于这个原因，请使用 `==` 来比较数值：
 
 ```kotlin
 fun main() {

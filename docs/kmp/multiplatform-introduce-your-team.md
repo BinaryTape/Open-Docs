@@ -2,7 +2,7 @@
 
 <web-summary>通过这六项有助于平稳高效采用的建议，了解如何向您的团队推介多平台移动应用开发。</web-summary>
 
-在组织中实施新技术和工具总是伴随着挑战。您该如何帮助团队采用[多平台移动应用开发方法](cross-platform-mobile-development.md)来优化并简化工作流程？以下是一些建议和最佳实践，旨在帮助您有效地向团队推介 [Kotlin Multiplatform (KMP)](https://www.jetbrains.com/kotlin-multiplatform/)。这是一种由 JetBrains 构建的开源技术，允许开发者在跨平台共享代码的同时，保留原生编程的优势。
+在组织中实施新技术和工具总是伴随着挑战。您该如何帮助团队采用[多平台移动应用开发方法](cross-platform-mobile-development.topic)来优化并简化工作流程？以下是一些建议和最佳实践，旨在帮助您有效地向团队推介 [Kotlin Multiplatform (KMP)](https://www.jetbrains.com/kotlin-multiplatform/)。这是一种由 JetBrains 构建的开源技术，允许开发者在跨平台共享代码的同时，保留原生编程的优势。
 
 * [从同理心开始](#start-with-empathy)
 * [解释 Kotlin Multiplatform 的工作原理](#explain-how-kotlin-multiplatform-works)
@@ -26,7 +26,7 @@
 自 Alpha 版本发布以来，KMP 已在生产环境中得到广泛应用。因此，JetBrains 能够收集广泛的反馈，并在[稳定版](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)中提供更出色的开发体验。
 
 * **能够使用所有 iOS 和 Android 功能** —— 每当任务无法在共享代码中完成，或者您想使用特定的原生功能时，都可以使用 [`expect`/`actual`](multiplatform-expect-actual.md) 模式无缝编写平台特定代码。
-* **无缝性能** —— 用 Kotlin 编写的共享代码会被编译成针对不同目标的不同输出格式：针对 Android 的 Java 字节码和针对 iOS 的原生二进制文件。因此，在平台上执行这些代码时不会产生额外的运行时开销，其性能可与[原生应用](native-and-cross-platform.md)媲美。
+* **无缝性能** —— 用 Kotlin 编写的共享代码会被编译成针对不同目标的不同输出格式：针对 Android 的 Java 字节码和针对 iOS 的原生二进制文件。因此，在平台上执行这些代码时不会产生额外的运行时开销，其性能可与[原生应用](native-and-cross-platform.topic)媲美。
 * **与旧版代码的兼容性** —— 无论您的项目规模有多大，现有的代码都不会阻碍您集成 Kotlin Multiplatform。您可以随时开始编写跨平台代码并将其作为常规依赖项连接到 iOS 和 Android 应用，或者您也可以使用已经编写的代码并将其修改为与 iOS 兼容。
 
 能够解释技术*如何*工作至关重要，因为没有人喜欢听起来像是在靠“魔法”运作的讨论。如果某些事情不清楚，人们可能会产生最坏的打算，因此请务必注意，不要误以为某些事情显而易见而无需解释。相反，请尝试在进入下一阶段之前解释所有基本概念。这篇关于[多平台编程](get-started.topic)的文档可以帮助您系统化知识，为这次经历做好准备。
@@ -59,7 +59,7 @@
 
 ## 为团队关于多平台开发的问题做好准备
 
-无论您的推介多么详尽，团队都会有很多问题。请仔细倾听并耐心回答。您可以预料到大多数问题将来自 iOS 团队，因为他们是不习惯在日常开发流程中看到 Kotlin 的开发者。以下是一些最常见问题的列表，可能会对您有所帮助：
+无论您的推介方案多么详尽，团队都会有很多问题。请仔细倾听并耐心回答。您可以预料到大多数问题将来自 iOS 团队，因为他们是不习惯在日常开发流程中看到 Kotlin 的开发者。以下是一些最常见问题的列表，可能会对您有所帮助：
 
 ### 问：我听说基于跨平台技术的应用可能会被 App Store 拒绝。冒这个风险值得吗？
 

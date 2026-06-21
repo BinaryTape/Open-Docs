@@ -10,11 +10,11 @@
             同時，React Native 可能適合擁有 JavaScript 專業知識的團隊，特別是對於快速原型設計。</p>
     </tip>
     <p>跨平台開發已顯著改變了團隊建置應用程式的方式，使他們能夠從共用的程式碼庫為多個平台交付應用程式。這種方法簡化了開發流程，並有助於確保跨裝置的一致使用者體驗。</p>
-    <p>之前，為 Android 和 iOS 進行建置意味著需要維護兩個獨立的程式碼庫（通常由不同的團隊負責），這導致了重複的工作以及平台之間的明顯差異。跨平台解決方案加快了上市時間並提高了整體效率。</p>
+    <p>之前，為 Android 和 iOS 進行建置意指需要維護兩個獨立的程式碼庫（通常由不同的團隊負責），這導致了重複的工作以及平台之間的明顯差異。跨平台解決方案加快了上市時間並提高了整體效率。</p>
     <p>在現有的工具中，Kotlin Multiplatform、React Native 和 Flutter 是採用最廣泛的三個選項。在本文中，我們將深入探討這兩者，以幫助您為產品和團隊選擇合適的方案。</p>
     <chapter title="Kotlin Multiplatform 與 Compose Multiplatform" id="kotlin-multiplatform-and-compose-multiplatform">
         <p><a href="https://www.jetbrains.com/kotlin-multiplatform/">Kotlin Multiplatform (KMP)</a> 是一項由 JetBrains 開發的開源技術，支援在 Android、iOS、桌面 (Windows、macOS、Linux)、Web 和後端之間共用程式碼。它允許開發人員在多個環境中重複使用 Kotlin，同時保持原生能力和效能。</p>
-        <p>採用率正在穩定上升：在過去兩次的開發者生態系統調查中，Kotlin Multiplatform 的使用率在一年內翻了一倍多 —— 從 2024 年的 7% 增加到 2025 年的 18% —— 這是其發展勢頭日益強勁的明顯標誌。</p>
+        <p>採用率正在穩定上升：在過去兩次的 <a href="https://www.jetbrains.com/lp/devecosystem-2024/">開發者生態系統調查</a> 中，Kotlin Multiplatform 的使用率在一年內翻了一倍多 —— 從 2024 年的 7% 增加到 2025 年的 18% —— 這是其發展勢頭日益強勁的明顯標誌。</p>
         <img src="kmp-growth-deveco.svg"
              alt="在過去兩次的開發者生態系統調查中，KMP 的使用率從 2024 年的 7% 增加到 2025 年的 18%"
              width="700"/>
@@ -30,7 +30,8 @@
                                                                            alt="探索 Compose Multiplatform"
                                                                            style="block"
                                                                            width="500"/></a></p>
-        <p>Kotlin Multiplatform 最初在 Kotlin 1.2 (2017) 中推出，並於 2023 年 11 月達到穩定狀態。在 Google I/O 2024 上，Google 宣布 <a
+        <p>Kotlin Multiplatform 最初在 Kotlin 1.2 (2017) 中推出，並於 2023 年 11 月達到 <a
+                href="https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/">穩定狀態</a>。在 Google I/O 2024 上，Google 宣布 <a
                     href="https://android-developers.googleblog.com/2024/05/android-support-for-kotlin-multiplatform-to-share-business-logic-across-mobile-web-server-desktop.html">正式支援使用 Kotlin Multiplatform</a> 在 Android 和 iOS 之間共用商業邏輯。
         </p>
     </chapter>
@@ -153,13 +154,13 @@
         <p>決定跨平台架構並不是要尋找一個通用的解決方案 —— 而是要為您的專案目標、技術需求和團隊專業知識選擇最合適的方案。無論您是建置具有複雜 UI 的功能豐富產品，還是旨在利用現有技能快速發佈，正確的選擇都將取決於您的具體優先事項。請考慮您對 UI 自定義需要多少控制權、長期穩定性的重要性，以及您計畫支援哪些平台。</p>
         <p>經驗豐富的 JavaScript 團隊可能會發現 React Native 是一個切實的選擇，尤其是對於快速原型設計。另一方面，Kotlin Multiplatform 提供不同層級的整合：它產生完全原生的 Android 應用程式，並在 iOS 上編譯為原生二進制檔，且能無縫存取原生 API。UI 可以是完全原生的，也可以透過 Compose Multiplatform 共用，並使用高效能繪圖引擎進行精美的渲染。這使得 KMP 對於優先考慮原生外觀與感受、可維護性和效能，同時仍受益於程式碼共用的團隊特別有吸引力。</p>
         <p>您可以在我們關於如何為下一個專案選擇合適的 <a
-                href="cross-platform-frameworks.md">跨平台開發架構</a> 的詳細文章中找到更多指南。</p>
+                href="cross-platform-frameworks.topic">跨平台開發架構</a> 的詳細文章中找到更多指南。</p>
     </chapter>
     <chapter title="常見問題" id="frequently-asked-questions">
         <p>
             <control>問：Kotlin Multiplatform 是否已生產就緒？</control>
         </p>
-        <p>答：Kotlin Multiplatform 是一項穩定技術，已準備好用於生產。這意味著即使在最保守的使用情境下，您也可以使用 Kotlin Multiplatform 在 Android、iOS、桌面 (JVM)、伺服器端 (JVM) 和 Web 之間共用程式碼。</p>
+        <p>答：Kotlin Multiplatform 是一項穩定技術，已準備好用於生產。這意指即使在最保守的使用情境下，您也可以使用 Kotlin Multiplatform 在 Android、iOS、桌面 (JVM)、伺服器端 (JVM) 和 Web 之間共用程式碼。</p>
         <p>Compose Multiplatform 是一個用於建置跨平台共用 UI 的架構 (由 Kotlin Multiplatform 和 Google 的 Jetpack Compose 驅動)，在 iOS、Android 和桌面平台上已達穩定階段。Web 支援目前處於 Beta 階段。</p>
         <p>如果您想進一步了解 Kotlin Multiplatform 的總體方向，請參閱我們的部落格文章：<a href="https://blog.jetbrains.com/kotlin/2025/08/kmp-roadmap-aug-2025/">Kotlin Multiplatform 和 Compose Multiplatform 的後續發展</a>。</p>
         <p>

@@ -79,7 +79,7 @@
 
 插件将在其中查找 `.sq` 和 `.sqm` 文件的文件夹集合。
 
-默认为 `src/[prefix]main/sqldelight`，其中前缀取决于所应用的 kotlin 插件，例如多平台对应的 `common`。
+默认为 `src/[prefix]main/sqldelight`，其中前缀取决于所应用的 Kotlin 插件，例如多平台对应的 `common`。
 
 === "Kotlin"
     ```kotlin
@@ -112,7 +112,7 @@
 存储 `.db` 架构文件的目录，相对于项目根目录。
 这些文件用于验证迁移生成的数据库是否具有最新的架构。
 
-默认为 `null`。  
+默认为 `null`。
 如果为 `null`，则不会创建迁移验证任务。
 
 === "Kotlin"
@@ -130,7 +130,7 @@
 
 类型：`Project`
 
-（可选）指定对其他 gradle 项目的架构依赖项[（见下文）](#schema-dependencies)。
+（可选）指定对其他 Gradle 项目的架构依赖项[（见下文）](#schema-dependencies)。
 
 === "Kotlin"
     ```kotlin
@@ -147,11 +147,11 @@
 
 类型：`String` 或 `Provider<MinimalExternalModuleDependency>`
 
-您想要针对的 SQL 方言。方言通过 gradle 依赖项进行选择。
-这些依赖项可以指定为 `app.cash.sqldelight:{dialect module}:{{ versions.sqldelight }}`。 
+您想要针对的 SQL 方言。方言通过 Gradle 依赖项进行选择。
+这些依赖项可以指定为 `app.cash.sqldelight:{dialect module}:{{ versions.sqldelight }}`。
 有关可用方言，请参见下文。
 
-对于 Android 项目，SQLite 版本会根据您的 `minSdk` 自动选择。 
+对于 Android 项目，SQLite 版本会根据您的 `minSdk` 自动选择。
 否则默认为 SQLite 3.18。
 
 可用方言：
@@ -165,7 +165,10 @@
 * SQLite 3.30: `sqlite-3-30-dialect`
 * SQLite 3.33: `sqlite-3-33-dialect`
 * SQLite 3.35: `sqlite-3-35-dialect`
+* SQLite 3.37: `sqlite-3-37-dialect`
 * SQLite 3.38: `sqlite-3-38-dialect`
+* SQLite 3.39: `sqlite-3-39-dialect`
+* SQLite 3.44: `sqlite-3-44-dialect`
 
 === "Kotlin"
     ```kotlin
@@ -291,9 +294,13 @@ SELECT * FROM hockey_player;
 
 类型：`SetProperty<String>`
 
-一组 `table.column` 值，用于从生成的模型和扩展的 `SELECT *` 投影中省略这些列。表名和列名必须使用与 SQLDelight 架构源相同的大小写。这仅影响代码生成；不会更改 SQL 架构或生成的迁移输出。
+一组 `table.column` 值，用于从生成的模型和扩展的 `SELECT *` 投影中省略这些列。
+表名和列名必须使用与 SQLDelight 架构源相同的大小写。
+这仅影响代码生成；不会更改 SQL 架构或生成的迁移输出。
 
-这可用于在后续架构迁移删除列之前更新生成的 Kotlin API。如果配置的表或列不存在，或者模型绑定的 insert、`SELECT` 结果列或 `RETURNING` 子句显式列出了排除在代码生成之外的列，SQLDelight 将编译失败。由于这仅限代码生成，应用程序负责确保在删除任何仍然存在的排除列之前，可以从写入操作中省略这些列，例如通过使用可为 null 的列或默认值。
+这可用于在后续架构迁移删除列之前更新生成的 Kotlin API。
+如果配置的表或列不存在，或者模型绑定的 insert、`SELECT` 结果列或 `RETURNING` 子句显式列出了排除在代码生成之外的列，SQLDelight 将编译失败。
+由于这仅限代码生成，应用程序负责确保在删除任何仍然存在的排除列之前，可以从写入操作中省略这些列，例如通过使用可为 null 的列或默认值。
 
 如果您的 `.sq` 文件包含 `CREATE TABLE` 架构定义，请在物理架构迁移删除该列之前，将排除的列保留在架构定义中。移除对该列的显式查询引用，但保留反映当前数据库形态的架构源。
 

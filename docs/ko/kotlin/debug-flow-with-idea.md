@@ -4,7 +4,7 @@
 
 이 튜토리얼에서는 Kotlin Flow를 생성하고 IntelliJ IDEA를 사용하여 디버깅하는 방법을 설명합니다.
 
-이 튜토리얼은 [코루틴(coroutines)](coroutines-guide.md) 및 [Kotlin Flow](flow.md#flows) 개념에 대한 사전 지식이 있다고 가정합니다.
+이 튜토리얼은 [코루틴(coroutines)](coroutines-basics.md) 및 [flow](coroutines-flow.md) 개념에 대한 사전 지식이 있다고 가정합니다.
 
 ## Kotlin Flow 생성하기
 

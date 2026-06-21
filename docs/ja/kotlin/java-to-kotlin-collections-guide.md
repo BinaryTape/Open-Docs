@@ -427,15 +427,16 @@ if (list.size() > 0) {
 ```
 {id="list-get-first-last-java"}
 
-また、[`Deque`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Deque.html) とその継承者のために [`getFirst()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Deque.html#getFirst()) および [`getLast()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Deque.html#getLast()) 関数を使用することもできます。
+JDK 21以降では、すべての [`SequencedCollection`](https://docs.oracle.com/en/java/javase/21/api/java.base/java/util/SequencedCollection.html) 実装で利用可能な [`getFirst()`](https://docs.oracle.com/en/java/javase/21/api/java.base/java/util/SequencedCollection.html#getFirst()) および [`getLast()`](https://docs.oracle.com/en/java/javase/21/api/java.base/java/util/SequencedCollection.html#getLast()) メソッドを使用することもできます。これには、すべての `List` 実装や、`LinkedHashSet` などの他のコレクションも含まれます。
+例えば、`ArrayList` の場合は次のようになります:
 
 ```java
 // Java
-var deque = new ArrayDeque<>();
+var list = new ArrayList<>();
 //...
-if (deque.size() > 0) {
-    System.out.println(deque.getFirst());
-    System.out.println(deque.getLast());
+if (!list.isEmpty()) {
+    System.out.println(list.getFirst());
+    System.out.println(list.getLast());
 }
 ```
 {id="deque-get-first-last-java"}

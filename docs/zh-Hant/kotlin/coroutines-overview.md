@@ -64,7 +64,7 @@ Kotlin 提供了多種讓協同程式進行通訊的方式。
 接著，您可以從一個協同程式更新它，並從其他協同程式收集其最新值。
 <!-- 進一步了解 [共用可變狀態與並行](shared-mutable-state-and-concurrency.md)。 -->
 
-如需更多資訊，請參閱 [非同步流](flow.md)、[通道 (Channels)](channels.md) 以及 [協同程式與通道教學](coroutines-and-channels.md)。
+如需更多資訊，請參閱 [非同步流](coroutines-flow.md)、[通道 (Channels)](channels.md) 以及 [協同程式與通道教學](coroutines-and-channels.md)。
 
 ## 後續步驟
 

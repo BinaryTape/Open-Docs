@@ -672,5 +672,7 @@
   "kotlin.compatibility-guide-24": "호환성 가이드",
   "kotlin.kotlin-2-3-x": "Kotlin 2.3.x",
   "koog.module-versioning": "모듈 버전 관리",
-  "koog.http-clients": "HTTP 클라이언트"
+  "koog.http-clients": "HTTP 클라이언트",
+  "coroutines.flows": "Flow",
+  "coroutines.coroutines-flow": "개요"
 }

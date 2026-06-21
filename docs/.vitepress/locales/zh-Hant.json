@@ -93,6 +93,8 @@
   "kotlin.whatsnew20": "Kotlin 2.0.0",
   "kotlin.whatsnew1920": "Kotlin 1.9.20",
   "kotlin.whatsnew19": "Kotlin 1.9.0",
+  "kotlin.whatsnew1920": "Kotlin 1.9.20",
+  "kotlin.whatsnew19": "Kotlin 1.9.0",
   "kotlin.whatsnew1820": "Kotlin 1.8.20",
   "kotlin.whatsnew18": "Kotlin 1.8.0",
   "kotlin.whatsnew1720": "Kotlin 1.7.20",
@@ -674,5 +676,7 @@
   "kotlin.compatibility-guide-24": "相容性指南",
   "kotlin.kotlin-2-3-x": "Kotlin 2.3.x",
   "koog.module-versioning": "模組版本控制",
-  "koog.http-clients": "HTTP 用戶端"
+  "koog.http-clients": "HTTP 用戶端",
+  "coroutines.flows": "Flows",
+  "coroutines.coroutines-flow": "概覽"
 }

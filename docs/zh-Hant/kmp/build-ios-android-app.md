@@ -1,7 +1,7 @@
 <topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd" id="build-ios-android-app" title="如何建置 Android 與 iOS 應用程式（以及何時使用 Kotlin Multiplatform）">
-  <web-summary>探索如何建置 Android 與 iOS 應用程式，比較系統架構與開發架構，並了解 Kotlin Multiplatform 的適用場景。</web-summary>
-  <p>在同時為 iOS 和 Android 進行開發時，第一個重大的決策是架構性的：您是要採用完全原生開發，還是透過跨平台方式共享程式碼？這個選擇會影響上市時間、成本，以及您的團隊隨著時間推移將面臨的複雜程度。原生開發可實現最大限度的平台控制與精緻度，但也需要維護兩套程式碼庫。<a href="cross-platform-mobile-development.md">跨平台</a> 承諾透過共享邏輯來加快交付速度並降低成本，但也引發了對效能、靈活性和長期可維護性的疑慮。</p>
+  <web-summary>探索如何建置 Android 與 iOS 應用程式，比較結構與架構，並了解 Kotlin Multiplatform 的適用場景。</web-summary>
+  <p>在同時為 iOS 和 Android 進行開發時，第一個重大的決策是架構性的：您是要採用完全原生開發，還是透過跨平台方式共享程式碼？這個選擇會影響上市時間、成本，以及您的團隊隨著時間推移將面臨的複雜程度。原生開發可實現最大限度的平台控制與精緻度，但也需要維護兩套程式碼庫。<a href="cross-platform-mobile-development.topic">跨平台</a> 承諾透過共享邏輯來加快交付速度並降低成本，但也引發了對效能、靈活性和長期可維護性的疑慮。</p>
   <p>這不僅僅是理論上的辯論。根據 <a href="https://devecosystem-2025.jetbrains.com/">2025 開發者生態系現狀</a> 報告，跨平台與共享程式碼技術的使用率在 2024 年至 2025 年間翻了一倍以上，這顯示越來越多的團隊正在尋找在保持原生品質體驗的同時重用程式碼的方法。</p>
   <!--![KMP usage increased from 7% in 2024 to 18% in 2025 among respondents to the last two Developer Ecosystem surveys](kmp-growth-deveco.svg){width=700}-->
   <img src="kmp-growth-deveco.svg" alt="在最近兩次的開發者生態系調查受訪者中，KMP 的使用率從 2024 年的 7% 增加到 2025 年的 18%" width="700"/>
@@ -13,7 +13,7 @@
       <p>完全原生開發將 iOS 和 Android 視為不同的產品。您使用 Apple 的工具與架構建立一個應用程式，並使用 Google 的工具建立另一個，分別使用各平台的原生語言、UI 系統和 SDK。這兩個程式碼庫可能會共享構思與設計，但在技術上仍保持獨立，且每個平台都在各自的生態系統和發佈週期內演進。</p>
     </chapter>
     <chapter title="跨平台架構 (Flutter, React Native 等)" id="cross-platform-frameworks">
-      <p><a href="cross-platform-frameworks.md">跨平台架構</a>（例如 Flutter 和 React Native）旨在圍繞單一程式碼庫統一開發。這種方法允許團隊共享業務邏輯與 UI 程式碼，並透過跨平台層在各個作業系統上渲染應用程式。其承諾非常直接：一個程式碼庫、兩個平台，以及一條從構思到發佈的高效路徑。</p>
+      <p><a href="cross-platform-frameworks.topic">跨平台架構</a>（例如 Flutter 和 React Native）旨在圍繞單一程式碼庫統一開發。這種方法允許團隊共享業務邏輯與 UI 程式碼，並透過跨平台層在各個作業系統上渲染應用程式。其承諾非常直接：一個程式碼庫、兩個平台，以及一條從構思到發佈的高效路徑。</p>
     </chapter>
     <chapter title="彈性的程式碼共享 (Kotlin Multiplatform)" id="flexible-code-sharing">
       <p><a href="https://kotlinlang.org/multiplatform/">Kotlin Multiplatform (KMP)</a> 提供了更廣泛的程式碼共享選項。它不需要「全有或全無」的決策，而是讓團隊能夠僅共享與其產品相關的部分，同時保持建置完全原生體驗的靈活性。</p>
@@ -25,7 +25,7 @@
     </chapter>
   </chapter>
   <chapter title="適用於 Android 與 iOS 的完全原生開發" id="fully-native-development-for-android-and-ios">
-    <p>完全原生開發涉及建立兩個獨立的應用程式：一個使用 Apple 工具的 iOS 版，另一個使用 Google 工具的 Android 版。每個平台都有自己的程式碼庫、開發管線和發佈流程。實際上，您是在建置兩個解決相同問題但存在於不同生態系統中的產品。</p>
+    <p>完全原生開發涉及建立兩個獨立的應用程式：一個使用 Apple 工具的 iOS 版，另一個使用 Google 工具的 Android 版。每個平台都有自己的程式碼庫、開發管線和發佈流程實際。上，您是在建置兩個解決相同問題但存在於不同生態系統中的產品。</p>
     <p>這種方法的主要好處是 <b>平台忠實度</b>。原生應用程式直接使用平台的 UI 架構、互動模式和無障礙技術，這使得開發在每台裝置上都感覺良好的體驗變得更加容易。由於中間沒有抽象層，動畫、手勢和導航都能如預期運作，且沒有效能額外開銷。</p>
     <p>另一個主要優點是 <b>快速存取平台 API</b>。當 Apple 或 Google 推出新的系統功能、SDK 或硬體能力時，原生應用程式可以立即採用。不需要等待跨平台層趕上並開放這些 API，這對於需要尖端作業系統功能或深度系統整合的產品來說非常重要。</p>
     <chapter title="注意事項" id="native-considerations">
@@ -123,13 +123,13 @@
       <p>最常見的錯誤之一是將所有平台視為完全相同。iOS 和 Android 具有不同的使用者期望、系統行為和技術限制。在兩個平台上使用相同的互動模式或流程可能會讓每個地方的體驗都感覺有點不對勁，即使實現了功能對等。功能一致性比視覺或行為的同質性更重要。</p>
     </chapter>
     <chapter title="未考慮 UX 的 UI 過度共享" id="oversharing-ui-without-ux-consideration">
-      <p>另一個常見問題是未考慮 UX 影響的 UI 過度共享。共享螢幕與組件可能會縮短開發時間，但也可能抹平平台規範並限制原生互動模式的使用。當使用者介面變得過於通用時，產品在可用性、無障礙和長期精緻度方面都會受到影響。</p>
+      <p>另一種常見問題是未考慮 UX 影響的 UI 過度共享。共享螢幕與組件可能會縮短開發時間，但也可能抹平平台規範並限制原生互動模式的使用。當使用者介面變得過於通用時，產品在可用性、無障礙和長期精緻度方面都會受到影響。</p>
     </chapter>
     <chapter title="低估維護成本" id="underestimating-maintenance-costs">
       <p>團隊經常低估維護成本。雙平台應用程式不僅僅是讓測試與發佈工作翻倍；它們還增加了協調開銷、暴露更多邊緣情況，並增加了需要支援的作業系統版本和裝置範圍。忽視這一現實會導致發佈流程薄弱並增加技術債。</p>
     </chapter>
     <chapter title="鎖定於不可逆的架構" id="locking-into-irreversible-architecture">
-      <p>致力於不可逆的架構是另一個結構性錯誤。根據您採用的方法，稍後更改關於哪些內容應共享、哪些內容應平台特定的想法可能會代價高昂。當產品方向或平台需求發生變化時，這些僵化的界限會將例行演進轉化為大規模的重構工作。</p>
+      <p>致力於不可逆的架構是另一種結構性錯誤。根據您採用的方法，稍後更改關於哪些內容應共享、哪些內容應平台特定的想法可能會代價高昂。當產品方向或平台需求發生變化時，這些僵化的界限會將例行演進轉化為大規模的重構工作。</p>
     </chapter>
     <chapter title="忽視團隊專業知識" id="ignoring-team-expertise">
       <p>最後，忽視團隊專業知識會導致不必要的摩擦。如果一項架構與建置它的人員的技能、經驗和工作流不匹配，那麼它在紙面上看起來再好，在實踐中也可能會失敗。持續的開發速度通常是透過將技術選擇與（而非違背）團隊的實際工作流對齊來實現的。</p>
@@ -143,7 +143,7 @@
     <p><b>使用 Kotlin Multiplatform 可以共享什麼？</b></p>
     <p>透過 Kotlin Multiplatform，您可以選擇共享什麼。您可以搭配使用 Kotlin 與 Compose Multiplatform 來共享高達 100% 的應用程式程式碼（包括 UI），同時仍能與原生 API 整合。或者，您可以共享邏輯但保持 UI 原生。Kotlin Multiplatform 允許您共享從小型、具針對性的模組到整個應用程式組件的所有內容。領域模型、業務規則、網路、快取和狀態管理都是可以共享的程式碼範例。</p>
     <p><b>Kotlin Multiplatform 可以用於正式環境嗎？</b></p>
-    <p>可以，Kotlin Multiplatform 已被眾多團隊用於正式環境中，以共享業務邏輯，並在某些情況下共享 UI。核心工具與語言支援保持穩定，而專業程式庫與使用案例的成熟度則各不相同。與任何架構決策一樣，根據您的產品技術與組織需求對其進行測試至關重要。</p>
+    <p>可以，Kotlin Multiplatform 已被眾多團隊用於正式環境中，以共享業務邏輯，並在某些情況下共享 UI。核心工具與語言支援保持穩定，而專業庫與使用案例的成熟度則各不相同。與任何架構決策一樣，根據您的產品技術與組織需求對其進行測試至關重要。</p>
     <a href="get-started.topic"><img src="get-started-with-kmp.svg" alt="開始使用 Kotlin Multiplatform" width="500"/></a>
   </chapter>
   <chapter title="結語" id="conclusion">

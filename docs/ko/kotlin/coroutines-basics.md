@@ -330,6 +330,8 @@ fun launchAll() {
 ```
 {kotlin-runnable="true"}
 
+이 예제에서 `launchAll()` 함수는 `suspend` 키워드가 필요하지 않습니다. 왜냐하면 단순히 현재 `CoroutineScope`에서 코루틴을 시작하고 즉시 반환되기 때문입니다. 반환하기 전에 실행을 일시 중지하고 재개해야 할 필요가 있는 경우에만 함수를 `suspend`로 표시하세요.
+
 ## 코루틴 빌더 함수
 
 코루틴 빌더 함수는 실행할 코루틴을 정의하는 `suspend` [람다(lambda)](lambdas.md)를 받는 함수입니다. 다음은 몇 가지 예입니다:
@@ -570,4 +572,4 @@ fun main() {
 * [중단 함수 구성하기](composing-suspending-functions.md)에서 중단 함수를 결합하는 방법에 대해 더 알아보세요.
 * [취소와 타임아웃](cancellation-and-timeouts.md)에서 코루틴을 취소하고 타임아웃을 처리하는 방법을 배우세요.
 * [코루틴 문맥과 디스패처](coroutine-context-and-dispatchers.md)에서 코루틴 실행과 스레드 관리에 대해 더 깊이 알아보세요.
-* [비동기 플로우](flow.md)에서 비동기적으로 계산된 여러 값을 반환하는 방법을 배우세요.
+* [비동기 플로우](coroutines-flow.md)에서 비동기적으로 계산된 여러 값을 반환하는 방법을 배우세요.

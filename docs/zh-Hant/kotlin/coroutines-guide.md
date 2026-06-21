@@ -17,7 +17,7 @@ Kotlin 在其標準函式庫中僅提供最少量的底層 API，以便讓其他
 * [取消與逾時](cancellation-and-timeouts.md)
 * [組合暫停函式](composing-suspending-functions.md)
 * [協同程式上下文與分派器](coroutine-context-and-dispatchers.md)
-* [非同步 Flow](flow.md)
+* [Flow](coroutines-flow.md)
 * [通道 (Channel)](channels.md)
 * [協同程式例外處理](exception-handling.md)
 * [共用可變狀態與並行](shared-mutable-state-and-concurrency.md)

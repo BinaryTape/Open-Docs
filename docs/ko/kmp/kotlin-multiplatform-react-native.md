@@ -1,3 +1,4 @@
+```xml
 <topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
        id="kotlin-multiplatform-react-native"
@@ -11,9 +12,9 @@
     </tip>
     <p>크로스 플랫폼 개발은 팀이 애플리케이션을 구축하는 방식을 크게 변화시켜, 하나의 공유 코드베이스로 여러 플랫폼용 앱을 제공할 수 있게 해주었습니다. 이러한 접근 방식은 개발 과정을 간소화하고 다양한 기기에서 더욱 일관된 사용자 경험을 보장하는 데 도움이 됩니다.</p>
     <p>과거에는 Android와 iOS용 앱을 빌드하려면 서로 다른 팀이 두 개의 별도 코드베이스를 유지 관리해야 했으며, 이로 인해 중복된 노력과 플랫폼 간의 눈에 띄는 차이가 발생하곤 했습니다. 크로스 플랫폼 솔루션은 시장 출시 시간(Time to Market)을 단축하고 전반적인 효율성을 향상시켰습니다.</p>
-    <p>사용 가능한 도구 중에서 Kotlin Multiplatform, React Native, Flutter는 가장 널리 채택된 세 가지 옵션으로 손꼽힙니다. 이 문서에서는 여러분의 제품과 팀에 가장 적합한 선택을 돕기 위해 두 기술을 자세히 살펴보겠습니다.</p>
+    <p>사용 가능한 도구 중에서 Kotlin Multiplatform, React Native, 및 Flutter는 가장 널리 채택된 세 가지 옵션으로 손꼽힙니다. 이 문서에서는 여러분의 제품과 팀에 가장 적합한 선택을 돕기 위해 두 기술을 자세히 살펴보겠습니다.</p>
     <chapter title="Kotlin Multiplatform 및 Compose Multiplatform" id="kotlin-multiplatform-and-compose-multiplatform">
-        <p><a href="https://www.jetbrains.com/kotlin-multiplatform/">Kotlin Multiplatform(KMP)</a>은 JetBrains에서 개발한 오픈 소스 기술로 Android, iOS, 데스크톱(Windows, macOS, Linux), 웹 및 백엔드 간에 코드를 공유할 수 있게 해줍니다. 개발자는 네이티브 기능과 성능을 유지하면서 여러 환경에서 Kotlin을 재사용할 수 있습니다.</p>
+        <p><a href="https://www.jetbrains.com/kotlin-multiplatform/">Kotlin Multiplatform (KMP)</a>은 JetBrains에서 개발한 오픈 소스 기술로 Android, iOS, 데스크톱(Windows, macOS, Linux), 웹 및 백엔드 간에 코드를 공유할 수 있게 해줍니다. 개발자는 네이티브 기능과 성능을 유지하면서 여러 환경에서 Kotlin을 재사용할 수 있습니다.</p>
         <p>채택률이 꾸준히 상승하고 있습니다. 최근 두 차례의 <a href="https://www.jetbrains.com/lp/devecosystem-2024/">개발자 생태계 설문조사(Developer Ecosystem surveys)</a> 응답자 중 Kotlin Multiplatform 사용 비중은 1년 만에 두 배 이상 증가하여, 2024년 7%에서 2025년 18%로 늘어났습니다. 이는 KMP의 성장세가 뚜렷함을 보여주는 지표입니다.</p>
         <img src="kmp-growth-deveco.svg"
              alt="최근 두 차례의 개발자 생태계 설문조사 응답자 중 KMP 사용률이 2024년 7%에서 2025년 18%로 증가함"
@@ -150,7 +151,7 @@
         <p>크로스 플랫폼 프레임워크를 결정하는 것은 모든 상황에 맞는 정답을 찾는 것이 아니라, 프로젝트의 목표, 기술 요구 사항 및 팀의 전문성에 가장 잘 맞는 것을 선택하는 과정입니다. 복잡한 UI를 가진 기능이 풍부한 제품을 만들고 있든, 기존 기술을 활용해 빠르게 출시하는 것을 목표로 하든, 올바른 선택은 특정 우선순위에 따라 달라집니다. UI 커스터마이징에 대한 제어권이 얼마나 필요한지, 장기적인 안정성이 얼마나 중요한지, 그리고 어떤 플랫폼을 지원할 계획인지 고려해 보세요.</p>
         <p>JavaScript 경험이 풍부한 팀은 특히 빠른 프로토타이핑을 위해 React Native가 실용적인 선택이라고 느낄 수 있습니다. 반면, Kotlin Multiplatform은 다른 수준의 통합을 제공합니다. KMP는 완전한 네이티브 Android 앱을 생성하고 iOS에서 네이티브 바이너리로 컴파일되어 네이티브 API에 원활하게 접근할 수 있습니다. UI는 완전히 네이티브로 구성하거나 고성능 그래픽 엔진을 사용하여 아름답게 렌더링하는 Compose Multiplatform을 통해 공유할 수 있습니다. 이로 인해 KMP는 코드 공유의 이점을 누리면서도 네이티브 스타일의 외관, 유지보수성, 성능을 우선시하는 팀에게 특히 매력적입니다.</p>
         <p>다음 프로젝트를 위한 올바른 <a
-                href="cross-platform-frameworks.md">크로스 플랫폼 개발 프레임워크</a>를 선택하는 방법에 대한 자세한 가이드를 확인해 보세요.</p>
+                href="cross-platform-frameworks.topic">크로스 플랫폼 개발 프레임워크</a>를 선택하는 방법에 대한 자세한 가이드를 확인해 보세요.</p>
     </chapter>
     <chapter title="자주 묻는 질문(FAQ)" id="frequently-asked-questions">
         <p>

@@ -2,8 +2,8 @@
 
 현재 _수신객체(receiver)_를 나타내기 위해 `this` 표현식을 사용합니다:
 
-*   [클래스](classes.md#inheritance)의 멤버에서 `this`는 해당 클래스의 현재 객체를 참조합니다.
-*   [확장 함수](extensions.md) 또는 [수신객체가 지정된 함수 리터럴](lambdas.md#function-literals-with-receiver)에서 `this`는 점(`.`)의 왼쪽에 전달된 _수신객체_ 파라미터를 나타냅니다.
+* [클래스](classes.md#inheritance)의 멤버에서 `this`는 해당 클래스의 현재 객체를 참조합니다.
+* [확장 함수](extensions.md) 또는 [수신객체가 지정된 함수 리터럴](lambdas.md#function-literals-with-receiver)에서 `this`는 점(`.`)의 왼쪽에 전달된 _수신객체_ 파라미터를 나타냅니다.
 
 만약 `this`에 한정자가 없다면, _가장 안쪽에서 둘러싸는 스코프(innermost enclosing scope)_를 참조합니다. 다른 스코프의 `this`를 참조하려면 _레이블 한정자(label qualifiers)_를 사용합니다:
 
@@ -37,23 +37,29 @@ class A { // 암시적 레이블 @A
 
 ## 암시적인 this
 
-`this`에서 멤버 함수를 호출할 때 `this.` 부분을 생략할 수 있습니다. 만약 이름이 같은 멤버가 아닌 함수(non-member function)가 있다면, 어떤 상황에서는 멤버 함수 대신 호출될 수 있으므로 `this`를 주의해서 사용해야 합니다:
+`this`에서 멤버 함수를 호출할 때 `this.` 한정자를 생략할 수 있습니다. 하지만 더 가까운 렉시컬 스코프(lexical scope)에 이름이 같은 다른 호출 가능한 요소(callable)가 있다면, 코틀린은 한정되지 않은 호출에 대해 멤버 함수 대신 해당 요소를 찾아 호출합니다. 멤버 함수를 명시적으로 호출하려면 `this.` 한정자를 사용하세요:
 
 ```kotlin
 fun main() {
-    fun printLine() { println("Local function") }
-    
     class A {
-        fun printLine() { println("Member function") }
+        fun printLine() {
+            println("Member function")
+        }
 
-        fun invokePrintLine(omitThis: Boolean = false) {
-            if (omitThis) printLine()
-            else this.printLine()
+        fun invokePrintLine() {
+            fun printLine() {
+                println("Local function")
+            }
+         
+            printLine()
+            // Local function
+         
+            this.printLine()
+            // Member function
         }
     }
-    
-    A().invokePrintLine() // Member function
-    A().invokePrintLine(omitThis = true) // Local function
+
+    A().invokePrintLine()
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
+{kotlin-runnable="true"}

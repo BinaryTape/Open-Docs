@@ -3,6 +3,10 @@
 [Android の Navigation ライブラリ](https://developer.android.com/guide/navigation)が Navigation 3 にアップグレードされ、Compose で動作し、前バージョンのライブラリへのフィードバックを考慮した、再設計されたナビゲーション手法が導入されました。
 バージョン 1.10 以降、Compose Multiplatform は、Android、iOS、デスクトップ、ウェブといった、サポートされているすべてのプラットフォームでのマルチプラットフォームプロジェクトにおける Navigation 3 の採用をサポートしています。
 
+> ナビゲーションの中心的な概念については、[Compose でのナビゲーション](compose-navigation.md)をご覧ください。
+>
+{style="tip"}
+
 ## 主な変更点
 
 Navigation 3 は単なるライブラリの新しいバージョンではなく、多くの面で完全に新しいライブラリと言えます。

@@ -2,7 +2,7 @@
 
 <web-summary>了解如何透過這六項建議向您的團隊介紹多平台行動應用程式開發，以實現順暢且高效的採用。</web-summary>
 
-在組織中實作新技術和工具總是伴隨著挑戰。您該如何協助您的團隊採用 [多平台行動應用程式開發方法](cross-platform-mobile-development.md) 以最佳化並簡化您的工作流程？以下是一些建議和最佳實務，旨在協助您有效地向團隊介紹 [Kotlin Multiplatform (KMP)](https://www.jetbrains.com/kotlin-multiplatform/)。這是一項由 JetBrains 開發的開放原始碼技術，允許開發者在跨平台共用程式碼的同時，保留原生程式設計的優勢。
+在組織中實作新技術和工具總是伴隨著挑戰。您該如何協助您的團隊採用 [多平台行動應用程式開發方法](cross-platform-mobile-development.topic) 以最佳化並簡化您的工作流程？以下是一些建議和最佳實務，旨在協助您有效地向團隊介紹 [Kotlin Multiplatform (KMP)](https://www.jetbrains.com/kotlin-multiplatform/)。這是一項由 JetBrains 開發的開源技術，允許開發者在跨平台共用程式碼的同時，保留原生程式設計的優勢。
 
 * [從同理心出發](#start-with-empathy)
 * [解釋 Kotlin Multiplatform 的運作方式](#explain-how-kotlin-multiplatform-works)
@@ -15,7 +15,7 @@
 
 軟體開發是一項團隊運動，每一項關鍵決策都需要所有團隊成員的認可。整合任何跨平台技術都會顯著影響您行動應用程式的開發過程。因此，在您開始將 Kotlin Multiplatform 整合到專案之前，您需要向團隊介紹這項技術，並引導他們逐漸了解其採用的價值。
 
-了解專案中的開發人員是成功整合的第一步。您的主管負責在最短時間內交付最高品質的功能。對他們來說，任何新技術都是一種風險。您的同事也有不同的觀點。他們擁有使用「原生」技術堆疊建置應用程式的經驗。他們知道如何編寫 UI 和商務邏輯、處理 **相依性**、在 IDE 中進行 **測試** 和 **偵錯** 程式碼，並且已經熟悉該語言。切換到不同的生態系統總是不便的，因為這通常意味著要離開舒適圈。
+了解專案中的開發人員是成功整合的第一步。您的主管負責在最短時間內交付最高品質的功能。對他們來說，任何新技術都是一種風險。您的同事也有不同的觀點。他們擁有使用「原生」技術堆疊建置應用程式的經驗。他們知道如何編寫 UI 和商務邏輯、處理相依性、在 IDE 中進行測試和偵錯程式碼，並且已經熟悉該語言。切換到不同的生態系統總是不便的，因為這通常意味著要離開舒適圈。
 
 考慮到這一切，在提倡轉向 Kotlin Multiplatform 時，請準備好面對許多偏見並回答大量問題。在此過程中，切勿忽視團隊的需求。以下一些建議可能對您準備提案有所幫助。
 
@@ -26,8 +26,8 @@
 KMP 自 Alpha 版本發佈以來已廣泛用於生產環境。因此，JetBrains 能夠收集廣泛的回饋，並在 [穩定版本](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/) 中提供更出色的開發體驗。
 
 * **能夠使用所有 iOS 和 Android 功能** – 每當任務無法在共用程式碼中完成，或者您想使用特定的原生功能時，您可以使用 [expect/actual](multiplatform-expect-actual.md) 模式來無縫編寫平台特定程式碼。
-* **流暢的效能** – 使用 Kotlin 編寫的共用程式碼會被編譯成適用於不同目標的不同輸出格式：Android 為 Java 位元組碼，iOS 為原生 **二進制**。因此，在平台上執行此程式碼時不會有額外的執行階段開銷，且其效能與 [原生應用程式](native-and-cross-platform.md) 相當。
-* **與舊有程式碼的相容性** – 無論您的專案規模有多大，現有的程式碼都不會阻礙您整合 Kotlin Multiplatform。您可以隨時開始編寫跨平台程式碼，並將其作為一般的 **相依性** 連接到您的 iOS 和 Android 應用程式，或者您也可以使用已編寫的程式碼並將其修改為與 iOS 相容。
+* **流暢的效能** – 使用 Kotlin 編寫的共用程式碼會被編譯成適用於不同目標的不同輸出格式：Android 為 Java 位元組碼，iOS 為原生二進制。因此，在平台上執行此程式碼時不會有額外的執行階段開銷，且其效能與 [原生應用程式](native-and-cross-platform.topic) 相當。
+* **與舊有程式碼的相容性** – 無論您的專案規模有多大，現有的程式碼都不會阻礙您整合 Kotlin Multiplatform。您可以隨時開始編寫跨平台程式碼，並將其作為一般的相依性連接到您的 iOS 和 Android 應用程式，或者您也可以使用已編寫的程式碼並將其修改為與 iOS 相容。
 
 能夠解釋技術「如何」運作至關重要，因為沒有人喜歡聽起來像是依靠魔法的討論。如果內容不明確，人們可能會往壞處想，所以要小心，不要誤以為某些事情太顯而易見而不需要解釋。相反地，在進入下一階段之前，請嘗試解釋所有基本概念。這份關於 [多平台程式設計](get-started.topic) 的文件可以協助您系統化您的知識，為此經驗做好準備。
 
@@ -41,7 +41,7 @@ KMP 自 Alpha 版本發佈以來已廣泛用於生產環境。因此，JetBrains
 
 * **McDonald's** – 透過在全域行動應用程式中運用 Kotlin Multiplatform，McDonald's 建立了一個可以跨平台共用的程式碼庫，消除了程式碼庫冗餘的需求。
 * **Netflix** – 在 Kotlin Multiplatform 的幫助下，Netflix 最佳化了產品可靠性和交付速度，這對於滿足客戶需求至關重要。
-* **Forbes** – 透過在 iOS 和 Android 之間共用超過 80% 的邏輯，Forbes 現在可以同時在兩個平台上推出新功能，同時保留平台特定 **自訂** 的靈活性。
+* **Forbes** – 透過在 iOS 和 Android 之間共用超過 80% 的邏輯，Forbes 現在可以同時在兩個平台上推出新功能，同時保留平台特定自訂的靈活性。
 * **9GAG** – 在嘗試了 Flutter 和 React Native 之後，9GAG 逐漸採用了 Kotlin Multiplatform，這現在協助他們更快交付功能，同時為使用者提供一致的體驗。
 
 [![從 Kotlin Multiplatform 成功案例中學習](kmp-success-stories.svg){width="700"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/case-studies.html)
@@ -53,8 +53,8 @@ KMP 自 Alpha 版本發佈以來已廣泛用於生產環境。因此，JetBrains
 
 您可以透過實驗目前的專案來產生更相關的範例。
 您可以採用一個現有的、以 Kotlin 實作的功能並將其轉為跨平台，
-或者您甚至可以在現有專案中建立一個新的多平台 **模組**，
-從待處理清單底部挑選一個非優先功能，並在共用 **模組** 中實作它。
+或者您甚至可以在現有專案中建立一個新的多平台模組，
+從待處理清單底部挑選一個非優先功能，並在共用模組中實作它。
 [讓您的 Android 應用程式在 iOS 上執行 – 教學](multiplatform-integrate-in-existing-app.md) 提供了基於範例專案的逐步指南。
 
 ## 準備好回答團隊關於多平台開發的問題
@@ -63,7 +63,7 @@ KMP 自 Alpha 版本發佈以來已廣泛用於生產環境。因此，JetBrains
 
 ### 問：我聽說基於跨平台技術的應用程式可能會被 App Store 拒絕。承擔這個風險值得嗎？
 
-答：Apple Store 對於發佈應用程式有嚴格的指南。其中一項限制是應用程式不得下載、安裝或執行會引入或更改應用程式任何功能或功能性的程式碼（[App Store 審核指南 2.5.2](https://developer.apple.com/app-store/review/guidelines/#software-requirements)）。這與某些跨平台技術相關，但與 Kotlin Multiplatform 無關。共用的 Kotlin 程式碼會透過 Kotlin/Native 編譯為原生 **二進制**，將一般的 iOS **架構** 封裝到您的應用程式中，並且不提供動態程式碼執行的能力。
+答：Apple Store 對於發佈應用程式有嚴格的指南。其中一項限制是應用程式不得下載、安裝或執行會引入或更改應用程式任何功能或功能性的程式碼（[App Store 審核指南 2.5.2](https://developer.apple.com/app-store/review/guidelines/#software-requirements)）。這與某些跨平台技術相關，但與 Kotlin Multiplatform 無關。共用的 Kotlin 程式碼會透過 Kotlin/Native 編譯為原生二進制，將一般的 iOS 架構封裝到您的應用程式中，並且不提供動態程式碼執行的能力。
 
 ### 問：多平台專案是使用 Gradle 組建的，而 Gradle 的學習曲線極其陡峭。這是否意味著我現在需要花費大量時間嘗試配置我的專案？ {id="gradle-time-spent"}
 
@@ -75,11 +75,11 @@ KMP 自 Alpha 版本發佈以來已廣泛用於生產環境。因此，JetBrains
 
 ### 問：Kotlin Multiplatform 已經生產就緒了嗎？
 
-答：在 2023 年 11 月，我們宣布 Kotlin Multiplatform 現在已進入 [穩定版](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)，這意味著它現在已經完全準備好供您在生產環境中使用。
+答：在 2023 年 11 月，我們宣布 Kotlin Multiplatform 現在已進入 [穩定](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/) 版本，這意味著它現在已經完全準備好供您在生產環境中使用。
 
 ### 問：沒有足夠的多平台庫來實作我應用程式的商務邏輯，而且找原生替代方案要容易得多。為什麼我應該選擇 Kotlin Multiplatform？ {id="not-enough-libraries"}
 
-答：Kotlin Multiplatform 生態系統正在蓬勃發展，並受到全球許多 Kotlin 開發者的維護。只需看看 KMP **庫** 的數量多年來增長得有多快。
+答：Kotlin Multiplatform 生態系統正在蓬勃發展，並受到全球許多 Kotlin 開發者的維護。只需看看 KMP 庫的數量多年來增長得有多快。
 
 ![多年來 Kotlin Multiplatform 庫的數量](kmp-libraries-over-years.png){width=700}
 
