@@ -24,7 +24,7 @@
   "homepage.banner.description": "上記の技術スタックのいずれかを選択して、詳細なドキュメントと例を探索してください",
   "homepage.ad.description": "革新的なコンサルティングとソリューションを通じて、世界のテクノロジーコミュニティとアジアを結びつけ、モバイルインフラストラクチャと新興AIの専門知識を活用して、グローバルなオープンソースコラボレーションを促進します。",
   "homepage.ad.contact": "お問い合わせ：hi@binarytape.com",
-  "homepage.ad.sponsor": "Open AIDocはBinaryTape의 協賛により提供されています",
+  "homepage.ad.sponsor": "Open AIDocはBinaryTapeの協賛により提供されています",
   "koin.setup": "セットアップ",
   "koin.tutorial": "チュートリアル",
   "koin.core.test": "コアとテスト",
@@ -85,7 +85,7 @@
   "kotlin.kotlin-overview": "Kotlinの概要",
   "kotlin.what-s-new-in-kotlin": "Kotlinの新機能",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.4.0-RC2",
+  "kotlin.whatsnew-eap": "Kotlin 2.4.20-Beta1",
   "kotlin.earlier-versions": "以前のバージョン",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -607,7 +607,7 @@
   "koog.prompt-executors": "プロンプトエグゼキューター",
   "koog.handling-failures": "失敗の処理",
   "koog.llm-response-caching": "LLMレスポンスキャッシング",
-  "koog.agent-client-protocol": "エージェントクライコル",
+  "koog.agent-client-protocol": "エージェントクライアントプロトコル",
   "koog.creating-prompts": "プロンプトの作成",
   "koog.multimodal-content": "マルチモーダルコンテンツ",
   "kotlin.compiler-plugins-overview": "概要",
@@ -630,7 +630,7 @@
   "koog.goap-agents": "GOAPエージェント",
   "koog.long-term-memory": "長期メモリ",
   "koog.chat-agent-with-memory": "メモリ機能付きチャットエージェント",
-  "koog.chat-memory": "チャチャットメモリ",
+  "koog.chat-memory": "チャットメモリ",
   "koog.custom-features": "カスタム機能",
   "kmp.swiftpm-integration": "SwiftPM統合",
   "kmp.multiplatform-spm-import": "SwiftPMインポート",
@@ -673,5 +673,6 @@
   "koog.module-versioning": "モジュールのバージョン管理",
   "koog.http-clients": "HTTPクライアント",
   "coroutines.flows": "Flow",
-  "coroutines.coroutines-flow": "概要"
+  "coroutines.coroutines-flow": "概要",
+  "kmp.kotlin-toolchain": "Kotlin Toolchain"
 }

@@ -100,15 +100,7 @@ allprojects {
 
 ## 如何在 Coil 中使用 Proguard？
 
-要在 Coil 中使用 Proguard，请将以下规则添加到你的配置中：
-
-```
--keep class coil3.util.DecoderServiceLoaderTarget { *; }
--keep class coil3.util.FetcherServiceLoaderTarget { *; }
--keep class coil3.util.ServiceLoaderComponentRegistry { *; }
--keep class * implements coil3.util.DecoderServiceLoaderTarget { *; }
--keep class * implements coil3.util.FetcherServiceLoaderTarget { *; }
-```
+要在 Coil 中使用 Proguard，[请将这些 Proguard 规则添加到你的配置中](https://github.com/coil-kt/coil/blob/main/coil-core/src/jvmMain/resources/META-INF/proguard/proguard-rules.pro)。
 
 你可能还需要为 Ktor、OkHttp 和 Coroutines 添加自定义规则。
 

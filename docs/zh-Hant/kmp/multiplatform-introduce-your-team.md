@@ -71,7 +71,7 @@ KMP 自 Alpha 版本發佈以來已廣泛用於生產環境。因此，JetBrains
 
 當團隊中只有 Android 部分處理共用程式碼時，iOS 開發人員甚至不需要學習 Kotlin。但當您準備好讓團隊進入下一階段（每個人都為共用程式碼做出貢獻）時，進行轉換不會花費太多時間。Swift 和 Kotlin 在語法和功能上的相似性大大減少了學習如何閱讀和編寫共用 Kotlin 程式碼所需的工作量。[您可以親自嘗試 Kotlin Koans](https://play.kotlinlang.org/koans/overview)，這是一系列讓您熟悉 Kotlin 語法和一些慣用法的練習。
 
-2023 年底，JetBrains 推出了 [Amper](https://blog.jetbrains.com/blog/2023/11/09/amper-improving-the-build-tooling-user-experience/)，這是一款新的實驗性專案配置工具，專注於易用性、引導和 IDE 支援。要深入了解 Amper 的功能，請查看其 [教學](amper.md)。
+2023 年底，JetBrains 推出了 [Amper](https://blog.jetbrains.com/blog/2023/11/09/amper-improving-the-build-tooling-user-experience/)，這是一款新的實驗性專案配置工具，專注於易用性、引導和 IDE 支援。要深入了解 Amper 的功能，請查看其 [教學](kotlin-toolchain.md)。
 
 ### 問：Kotlin Multiplatform 已經生產就緒了嗎？
 

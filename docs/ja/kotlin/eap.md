@@ -1,8 +1,8 @@
 [//]: # (title: Kotlin Early Access Preview への参加)
 
 <tldr>
-    <p>現在、プレビューバージョンは利用できません。</p>
-    <!--<p>最新の Kotlin EAP リリース: <strong>%kotlinEapVersion%</strong></p>-->
+    <!-- <p>現在、プレビューバージョンは利用できません。</p> -->
+    <p>最新の Kotlin EAP リリース: <strong>%kotlinEapVersion%</strong></p>
 </tldr>
 
 Kotlin Early Access Preview (EAP) に参加すると、最新の Kotlin 機能を正式リリース前に試すことができます。
@@ -43,23 +43,33 @@ Kotlin EAP ビルドには、通常以下のステージが含まれます。
 
 ## ビルドの詳細
 
-_現在、プレビューバージョンは利用できません。_
-
 <!--
- <table>
+_現在、プレビューバージョンは利用できません。_
+-->
+
+<table>
     <tr>
         <th>ビルド情報</th>
         <th>ビルドのハイライト</th>
     </tr>
     <tr>
-        <td><strong>2.4.0-RC2</strong>
-            <p>リリース日: <strong>2026年5月27日</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.0-RC2" target="_blank">GitHub でのリリース</a></p>
+        <td><strong>2.4.20-Beta1</strong>
+            <p>リリース日: <strong>2026年6月24日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.20-Beta1" target="_blank">GitHub でのリリース</a></p>
         </td>
         <td>
-            <p>言語の主要な変更とツールのアップデートを含む言語リリースです。</p>
-            <p>詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.0-RC2">チェンジログ</a> または <a href="whatsnew-eap.md">Kotlin 2.4.0-RC2 の新機能</a> を参照してください。</p>
+            <p>パフォーマンスの向上、バグ修正、およびツールのアップデートを含むツールリリースです。</p>
+            <p>詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.20-Beta1">チェンジログ</a> または <a href="whatsnew-eap.md">Kotlin 2.4.20-Beta1 の新機能</a> を参照してください。</p>
+        </td>
+    </tr>
+    <tr>
+        <td><strong>2.4.10-RC</strong>
+            <p>リリース日: <strong>2026年6月25日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.10-RC" target="_blank">GitHub でのリリース</a></p>
+        </td>
+        <td>
+            <p>Kotlin 2.4.0 向けのパフォーマンス向上を含むバグ修正リリースです。</p>
+            <p>詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.10-RC">チェンジログ</a> を参照してください。</p>
         </td>
     </tr>
 </table>
--->

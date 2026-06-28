@@ -52,8 +52,7 @@ Koogは、Spring AIの抽象化とKoogエージェントフレームワークを
 - Spring AIの `ChatModel` に委譲する Koog の `LLMClient` (`SpringAiLLMClient`)
 - 利用可能なすべての `LLMClient` Beanから組み立てられた `PromptExecutor` (`MultiLLMPromptExecutor`)
 
-ツールは常にKoogエージェントフレームワークによって実行されます。
-Spring AIはツールの定義とスキーマのみを受け取り、`internalToolExecutionEnabled` は `false` に設定されます。
+ツールは常にKoogエージェントフレームワークによって実行されます。Spring AIはツールの定義とスキーマのみを受け取ります。
 
 ### 依存関係の追加
 
@@ -109,7 +108,7 @@ koog.spring.ai.chat.dispatcher.type=AUTO
 ```
 
 単一の `ChatModel` Beanが存在する場合、すべてが自動的に動作します。
-アダプターがそれをKoog의 `LLMClient` でラップし、すぐに使用可能な `PromptExecutor` を作成します。
+アダプターがそれをKoogの `LLMClient` でラップし、すぐに使用可能な `PromptExecutor` を作成します。
 
 ### 使用例
 
@@ -362,7 +361,7 @@ koog.spring.ai.embedding.embedding-model-bean-name=openAiEmbeddingModel
 `koog-spring-ai-starter-chat-memory` スターターは、Spring AIのチャットメモリ抽象化とKoogエージェントフレームワークを橋渡しします。
 以下の内容を自動構成します：
 
-- Spring AI의 `ChatMemoryRepository` に委譲する Koog の `ChatHistoryProvider` (`SpringAiChatHistoryProvider`)
+- Spring AIの `ChatMemoryRepository` に委譲する Koog の `ChatHistoryProvider` (`SpringAiChatHistoryProvider`)
 
 このスターターは、Koogの完全な実行状態の永続化ではなく、テキストのみの会話の永続化を提供します。
 

@@ -15,6 +15,10 @@
     "text": "kotlin.what-s-new-in-kotlin",
     "items": [
       {
+        "text": "kotlin.whatsnew-eap",
+        "link": "whatsnew-eap"
+      },
+      {
         "text": "kotlin.whatsnew24",
         "link": "whatsnew24"
       },
@@ -942,8 +946,9 @@
         "include": "coroutines"
       },
       {
-        "text": "kotlin.serialization",
-        "link": "serialization"
+        "text": "kotlin.serialization-kotlinx-serialization",
+        "collapsed": true,
+        "include": "serialization"
       },
       {
         "text": "kotlin.metadata-jvm",

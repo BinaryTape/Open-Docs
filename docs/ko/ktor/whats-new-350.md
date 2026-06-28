@@ -11,7 +11,7 @@ Ktor 3.5.0은 서버와 클라이언트 전반에 걸쳐 다양한 개선 사항
 * [변경된 경우에만 세션 쿠키 전송](#session-cookies)
 * [OkHttp 및 Apache5 클라이언트 엔진의 커스텀 DNS 리졸버(DNS resolver)](#custom-dns-resolvers)
 
-## Ktor 서버 {id="ktor-server"}
+## Ktor 서버
 
 ### RFC 7616 다이제스트 인증 지원 {id="rfc-7616-digest-auth"}
 
@@ -225,7 +225,25 @@ heartbeat {
 
 이를 통해 타임스탬프 및 상태 정보와 같은 커스텀 하트비트 페이로드를 일정한 간격으로 전송할 수 있습니다.
 
-## Ktor 클라이언트 {id="ktor-client"}
+### Jetty 엔진의 SNI 검증 구성
+
+이번 릴리스에서는 Jetty 엔진에 새로운 `secureRequestCustomizer` 구성 옵션을 추가하여, Jetty의 `SecureRequestCustomizer` 인스턴스에 직접 액세스할 수 있도록 했습니다.
+
+이를 통해 SNI(Server Name Indication) 검증 동작을 포함한 HTTPS 요청 처리를 커스터마이징할 수 있습니다. 예를 들어, 커스텀 호스트 매핑이나 자체 서명된 인증서(self-signed certificates)를 사용하여 로컬에서 테스트할 때 SNI 호스트 체크 및 SNI 필수 요구 사항을 비활성화할 수 있습니다:
+
+```kotlin
+embeddedServer(
+      Jetty,
+      configure = {
+          secureRequestCustomizer = {
+              isSniHostCheck = false
+              isSniRequired = false
+          }
+      }
+)
+```
+
+## Ktor 클라이언트
 
 ### OkHttp 및 Apache5 엔진의 커스텀 DNS 리졸버 {id="custom-dns-resolvers"}
 

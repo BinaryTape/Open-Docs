@@ -1,23 +1,23 @@
 [//]: # (title: EAPに向けたビルドの構成)
 
 <tldr>
-    <p>現在、プレビューバージョンは利用できません。</p>
-    <!--<p>最新の Kotlin EAP リリース: <strong>%kotlinEapVersion%</strong></p>
-    <p><a href="eap.md#build-details">Kotlin EAP リリースの詳細を確認する</a></p>-->
+    <!--<p>現在、プレビューバージョンは利用できません。</p> -->
+    <p>最新の Kotlin EAP リリース: <strong>%kotlinEapVersion%</strong></p>
+    <p><a href="eap.md#build-details">Kotlin EAP リリースの詳細を確認する</a></p>
 </tldr>
 
-Kotlin の EAP バージョンを使用するようにビルドを構成するには、以下を行う必要があります。
+Kotlin の EAP バージョンを使用するようにビルドを構成するには、以下を行う必要があります。 
 
 * Kotlin の EAP バージョンを指定する。[利用可能な EAP バージョンはこちらに記載されています](eap.md#build-details)。
 * 依存関係のバージョンを EAP 用のものに変更する。
-Kotlin の EAP バージョンは、以前にリリースされたバージョンのライブラリとは動作しない可能性があります。
+Kotlin の EAP バージョンは、以前にリリースされたバージョンのライブラリとは動作しない可能性があります。 
 
 以下の手順では、Gradle と Maven でビルドを構成する方法を説明します。
 
 * [Gradle で構成する](#configure-in-gradle)
 * [Maven で構成する](#configure-in-maven)
 
-## Gradle で構成する
+## Gradle で構成する 
 
 このセクションでは、以下を行う方法について説明します。
 
@@ -67,7 +67,7 @@ repositories {
 
 プロジェクトで kotlinx ライブラリを使用している場合、ライブラリのバージョンが Kotlin の EAP バージョンと互換性がない可能性があります。
 
-この問題を解決するには、依存関係で互換性のあるライブラリのバージョンを指定する必要があります。互換性のあるライブラリのリストについては、[EAP ビルドの詳細](eap.md#build-details)を参照してください。
+この問題を解決するには、依存関係で互換性のあるライブラリのバージョンを指定する必要があります。互換性のあるライブラリのリストについては、[EAP ビルドの詳細](eap.md#build-details)を参照してください。 
 
 > ほとんどの場合、特定のリリースの最初の EAP バージョンに対してのみライブラリを作成しており、これらのライブラリはそのリリースの以降の EAP バージョンでも動作します。
 > 
@@ -77,7 +77,7 @@ repositories {
 
 以下に例を示します。
 
-**kotlinx.coroutines** ライブラリの場合、`%kotlinEapVersion%` と互換性のあるバージョン番号 `%coroutinesEapVersion%` を追加します。
+**kotlinx.coroutines** ライブラリの場合、`%kotlinEapVersion%` と互換性のあるバージョン番号 `%coroutinesEapVersion%` を追加します。 
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">

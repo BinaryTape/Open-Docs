@@ -1,10 +1,5 @@
 [//]: # (title: 拖放操作)
 
-> 目前，Compose Multiplatform for Web 尚不支持拖放操作。
-> 请关注后续版本。
->
-{style="note"}
-
 您可以使您的 Compose Multiplatform 应用能够接受用户从其他应用程序拖入的数据，或者允许用户从您的应用中拖出数据。
 要实现这一点，请使用 `dragAndDropSource` 和 `dragAndDropTarget` 修饰符将特定的可组合项指定为拖放操作的潜在源或目标。
 
@@ -12,19 +7,63 @@
 > 
 {style="warning"}
 
+## 特定于平台的数据处理
+
+虽然 `dragAndDropSource` 和 `dragAndDropTarget` 修饰符是公共 API 的一部分，但您需要将传输的数据包装在特定于平台的类型中：
+
+* 对于 Android，请将您的数据包装在 Android 的 `ClipData` 对象中。
+    ```kotlin
+    Modifier.dragAndDropSource { _ ->
+        DragAndDropTransferData(
+            ClipData.newPlainText(
+                "text", text
+            )
+        )
+    }
+    ```
+* 对于 iOS，请将您的数据包装在 UIKit 的 `UIDragItem` 中。
+    ```kotlin
+    Modifier.dragAndDropSource {
+        DragAndDropTransferData(
+            listOf(UIDragItem.fromString(text)))
+        }
+    ```
+* 对于桌面端，请将您的数据包装在 AWT 的 `datatransfer.Transferable` 中。
+    ```kotlin
+    Modifier.dragAndDropSource { offset ->
+        DragAndDropTransferData(
+            transferable = DragAndDropTransferable(
+                StringSelection(text)
+            )
+        )
+    }
+    ```
+* 对于 Web 端，请将您的数据包装在 `DataTransfer` 对象中。
+    ```kotlin
+    Modifier.dragAndDropSource { _: Offset ->
+        val dataTransfer = createDataTransfer()
+        dataTransfer.setData("text/plain", text)
+        DragAndDropTransferData(dataTransfer)
+    }
+    ```
+
 ## 创建拖动源
 
 要将一个可组合项准备为拖动源，请执行以下操作：
-1. 使用 `detectDragGestures()` 函数（例如 `onDragStart`）选择拖动事件的触发器。
-2. 调用 `startTransfer()` 函数，并通过 `DragAndDropTransferData()` 调用来描述拖放会话。
-3. 通过 `DragAndDropTransferable()` 调用来描述应拖动到目标的数据。
 
-允许用户从中拖动字符串的 `Box()` 可组合项示例：
+1. 将 `dragAndDropSource` 修饰符应用于您的可组合项。
+2. （可选）添加 `drawDragDecoration` Lambda 表达式，以自定义用户拖动数据时显示的可视化表示。
+3. 返回一个 `DragAndDropTransferData` 实例，其中描述了要传输的数据、支持的操作以及完成处理。
+
+以下桌面端示例将 `Box()` 可组合项设置为拖动源，该源提供一个字符串进行传输。其实现跨所有平台保持一致，仅包装数据类型有所不同。
 
 ```kotlin
 val exportedText = "Hello, drag and drop!"
-
+// 测量并居中在拖动框上绘制的文本
+val textMeasurer = rememberTextMeasurer()
 Box(Modifier
+    .size(200.dp)
+    .background(Color.LightGray)
     .dragAndDropSource(
         // 创建正在拖动的数据的可视化表示
         // （一个带有居中 exportedText 字符串的白色矩形）。
@@ -34,75 +73,56 @@ Box(Modifier
                 topLeft = Offset(x = 0f, y = size.height/4),
                 size = Size(size.width, size.height/2)
             )
-            val textLayoutResult = textMeasurer.measure(
-                text = AnnotatedString(exportedText),
-                layoutDirection = layoutDirection,
-                density = this
-            )
             drawText(
-                textLayoutResult = textLayoutResult,
-                topLeft = Offset(
-                    x = (size.width - textLayoutResult.size.width) / 2,
-                    y = (size.height - textLayoutResult.size.height) / 2,
-                )
+                textMeasurer = textMeasurer,
+                text = exportedText,
+                topLeft = Offset(x = 16.dp.toPx(), y = size.height / 2 - 8.dp.toPx())
             )
         }
-    ) {
-        detectDragGestures(
-            onDragStart = { offset ->
-                startTransfer(
-                    // 定义可传输的数据和受支持的传输操作。
-                    // 当操作结束时，使用 onTransferCompleted() 
-                    // 将结果打印到系统输出。    
-                    DragAndDropTransferData(
-                        transferable = DragAndDropTransferable(
-                            StringSelection(exportedText)
-                        ),
-
-                        // 此拖动源支持的操作列表。
-                        // 操作类型将与数据一起传递给放置目标。
-                        // 目标可以使用它来拒绝不恰当的放置操作，
-                        // 或用来解释用户的预期。
-                        supportedActions = listOf(
-                            DragAndDropTransferAction.Copy,
-                            DragAndDropTransferAction.Move,
-                            DragAndDropTransferAction.Link,
-                        ),
-                        dragDecorationOffset = offset,
-                        onTransferCompleted = { action -> 
-                            println("Action at the source: $action")
-                        }
-                    )
-                )
-            },
-            onDrag = { _, _ -> },
+    ) { offset ->
+        // 定义可传输的数据和受支持的传输操作。
+        // 当操作结束时，使用 onTransferCompleted() 
+        // 将结果打印到系统输出。    
+        DragAndDropTransferData(
+            transferable = DragAndDropTransferable(
+                StringSelection(exportedText)
+            ),
+            // 此拖动源支持的操作列表。
+            // 操作类型将与数据一起传递给放置目标。
+            // 目标可以使用它来拒绝不恰当的放置操作，
+            // 或用来解释用户的预期。
+            supportedActions = listOf(
+                DragAndDropTransferAction.Copy,
+                DragAndDropTransferAction.Move,
+                DragAndDropTransferAction.Link,
+            ),
+            dragDecorationOffset = offset,
+            onTransferCompleted = { action -> 
+                println("Action at the source: $action")
+            }
         )
     }
-    .size(200.dp)
-    .background(Color.LightGray)
 ) {
-    Text("Drag Me", Modifier.align(Alignment.Center))
+    Text("Drag me", Modifier.align(Alignment.Center))
 }
 ```
-{initial-collapse-state="collapsed"  collapsed-title="Box(Modifier.dragAndDropSource"}
+{initial-collapse-state="collapsed" collapsible="true" collapsed-title="Box(Modifier.dragAndDropSource"}
 
 ## 创建放置目标
 
 要将一个可组合项准备为拖放目标，请执行以下操作：
 
-1. 在 `shouldStartDragAndDrop` Lambda 表达式中描述该可组合项成为放置目标的条件。
-2. 创建（并 `remember`）`DragAndDropTarget` 对象，该对象将包含您对拖动事件处理程序的重写。
-3. 编写必要的重写：例如，用于解析接收到的数据的 `onDrop`，或当可拖动对象进入可组合项时的 `onEntered`。
+1. 创建（并 `remember`）一个 `DragAndDropTarget` 对象，并重写您想要处理的拖动事件。在我们的示例中，我们将重写 `onStarted`、`onEnded` 和 `onDrop`。
+2. 将 `dragAndDropTarget` 修饰符应用于您的可组合项。传入一个 `shouldStartDragAndDrop` Lambda 表达式（用于确定目标是否接受该会话）以及 `DragAndDropTarget` 对象。
 
-一个准备好显示拖入其中的文本的 `Box()` 可组合项示例：
+以下桌面端示例将 `Box()` 可组合项设置为放置目标，用于显示拖入其中的文本：
 
 ```kotlin
 var showTargetBorder by remember { mutableStateOf(false) }
-var targetText by remember { mutableStateOf("Drop Here") }
+var targetText by remember { mutableStateOf("Drop here") }
 val coroutineScope = rememberCoroutineScope()
 val dragAndDropTarget = remember {
     object: DragAndDropTarget {
-
         // 高亮显示潜在放置目标的边框
         override fun onStarted(event: DragAndDropEvent) {
             showTargetBorder = true
@@ -116,9 +136,7 @@ val dragAndDropTarget = remember {
             // 每次拖放操作结束时，
             // 将操作类型打印到系统输出。
             println("Action at the target: ${event.action}")
-
-            val result = (targetText == "Drop here")
-
+            val result = (targetText == "Drop Here")
             // 将文本更改为拖入到该可组合项中的值。
             targetText = event.awtTransferable.let {
                 if (it.isDataFlavorSupported(DataFlavor.stringFlavor))
@@ -126,10 +144,9 @@ val dragAndDropTarget = remember {
                 else
                     it.transferDataFlavors.first().humanPresentableName
             }
-
             // 在 2 秒后将放置目标的文本还原为初始值。
             coroutineScope.launch {
-                delay(2000)
+                delay(2.seconds)
                 targetText = "Drop here"
             }
             return result
@@ -156,7 +173,21 @@ Box(Modifier
     Text(targetText, Modifier.align(Alignment.Center))
 }
 ```
-{initial-collapse-state="collapsed"  collapsed-title="val dragAndDropTarget = remember"}
+{initial-collapse-state="collapsed" collapsible="true" collapsed-title="Box(Modifier.dragAndDropTarget"}
+
+要查看拖放操作的实际效果，请将指定了 `dragAndDropSource` 和 `dragAndDropTarget` 的两个 `Box()` 可组合项并排放在 `Row()` 中：
+
+```kotlin
+Row(
+    horizontalArrangement = Arrangement.SpaceEvenly,
+    verticalAlignment = Alignment.CenterVertically,
+    modifier = Modifier.fillMaxSize()
+) {
+    Box(Modifier.dragAndDropSource( /* ... */ )
+
+    Box(Modifier.dragAndDropTarget( /* ... */ )
+}
+```
 
 ## 后续步骤
 

@@ -1,8 +1,8 @@
 [//]: # (title: Kotlin 조기 액세스 프리뷰(EAP) 참여하기)
 
 <tldr>
-    <p>현재 사용 가능한 프리뷰 버전이 없습니다.</p>
-    <!--<p>최신 Kotlin EAP 릴리스: <strong>%kotlinEapVersion%</strong></p>-->
+    <!-- <p>현재 사용 가능한 프리뷰 버전이 없습니다.</p> -->
+    <p>최신 Kotlin EAP 릴리스: <strong>%kotlinEapVersion%</strong></p>
 </tldr>
 
 Kotlin 조기 액세스 프리뷰(Early Access Preview, EAP)에 참여하여 최신 Kotlin 기능이 정식 출시되기 전에 미리 사용해 볼 수 있습니다.
@@ -11,7 +11,7 @@ Kotlin 조기 액세스 프리뷰(Early Access Preview, EAP)에 참여하여 최
 Kotlin EAP 빌드는 일반적으로 다음과 같은 단계를 포함합니다:
 
 | EAP 빌드 | 설명 |
-|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Beta1** | 곧 출시될 기능, 개선 사항 및 기타 주요 변경 사항의 첫 번째 세트를 도입합니다. 새로운 기능을 조기에 평가하고 피드백을 공유할 수 있는 기회를 제공합니다. |
 | **Beta2** | 일반적으로 받은 피드백을 바탕으로 더 많은 기능과 개선 사항을 추가합니다. 기능이 완성된 상태(feature-complete)이며, 이전 버전에서 도입된 기능을 더욱 성숙시키면서 차기 릴리스의 프리뷰를 이어갑니다. |
 | **RC**    | 첫 번째 출시 후보(release candidate)입니다. Beta1 및 Beta2에서 제공된 변경 사항을 안정화하고 테스트 중에 발견된 회귀(regression) 문제를 수정하는 데 중점을 둡니다. |
@@ -43,23 +43,33 @@ Kotlin EAP 빌드는 일반적으로 다음과 같은 단계를 포함합니다:
 
 ## 빌드 상세 정보 (Build details)
 
-_현재 사용 가능한 프리뷰 버전이 없습니다._
-
 <!--
- <table>
+_No preview versions are currently available._
+-->
+
+<table>
     <tr>
         <th>빌드 정보 (Build info)</th>
         <th>빌드 주요 내용 (Build highlights)</th>
     </tr>
     <tr>
-        <td><strong>2.4.0-RC2</strong>
-            <p>출시일: <strong>2026년 5월 27일</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.0-RC2" target="_blank">GitHub에서 릴리스 보기</a></p>
+        <td><strong>2.4.20-Beta1</strong>
+            <p>출시일: <strong>2026년 6월 24일</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.20-Beta1" target="_blank">GitHub에서 릴리스 보기</a></p>
         </td>
         <td>
-            <p>언어의 주요 변경 사항 및 도구 업데이트가 포함된 언어(language) 릴리스입니다.</p>
-            <p>자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.0-RC2">변경 로그(changelog)</a> 또는 <a href="whatsnew-eap.md">Kotlin 2.4.0-RC2의 새로운 기능</a>을 참고하세요.</p>
+            <p>성능 개선, 버그 수정 및 도구 업데이트가 포함된 도구(tooling) 릴리스입니다.</p>
+            <p>자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.20-Beta1">변경 로그(changelog)</a> 또는 <a href="whatsnew-eap.md">Kotlin 2.4.20-Beta1의 새로운 기능</a>을 참고하세요.</p>
+        </td>
+    </tr>
+    <tr>
+        <td><strong>2.4.10-RC</strong>
+            <p>출시일: <strong>2026년 6월 25일</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.10-RC" target="_blank">GitHub에서 릴리스 보기</a></p>
+        </td>
+        <td>
+            <p>Kotlin 2.4.0에 대한 성능 개선이 포함된 버그 수정 릴리스입니다.</p>
+            <p>자세한 내용은 <a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.10-RC">변경 로그(changelog)</a>를 참고하세요.</p>
         </td>
     </tr>
 </table>
--->

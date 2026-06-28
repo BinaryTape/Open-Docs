@@ -156,7 +156,7 @@ post("/checkout") {
 
 ES モジュールが有効な場合に `ktor-network` およびすべての依存モジュールを使用できなくなる問題を修正しました。
 
-将来のデグレードを防ぐため、JavaScript テストインフラストラクチャはデフォルトで ES2015 と ES モジュールの両方をターゲットにするようになりました。
+将来のデグレード（先退）を防ぐため、JavaScript テストインフラストラクチャはデフォルトで ES2015 と ES モジュールの両方をターゲットにするようになりました。
 
 > Kotlin/JS モジュールシステムと ES2015 サポートの詳細については、以下を参照してください。
 > * [JavaScript modules](https://kotlinlang.org/docs/js-modules.html)
@@ -224,6 +224,24 @@ heartbeat {
 ```
 
 これにより、タイムスタンプやステータス情報などのカスタムハートビートペイロードを一定の間隔で送信できるようになります。
+
+### Jetty エンジンにおける SNI 検証の構成
+
+このリリースでは、Jetty エンジンに新しい `secureRequestCustomizer` 構成オプションが追加され、Jetty の `SecureRequestCustomizer` インスタンスに直接アクセスできるようになりました。
+
+これにより、Server Name Indication (SNI) 検証動作を含む、HTTPS リクエスト処理をカスタマイズできます。例えば、カスタムホストマッピングや自己署名証明書を使用してローカルでテストする場合、SNI ホストチェックや SNI の要件を無効にすることができます。
+
+```kotlin
+embeddedServer(
+      Jetty,
+      configure = {
+          secureRequestCustomizer = {
+              isSniHostCheck = false
+              isSniRequired = false
+          }
+      }
+)
+```
 
 ## Ktor Client
 

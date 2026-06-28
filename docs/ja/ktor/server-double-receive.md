@@ -26,10 +26,6 @@
 これは、[プラグイン](server-plugins.md)がすでにリクエストボディを消費しているために、ルートハンドラー内でそれを受信できない場合に役立ちます。
 例えば、`%plugin_name%` を使用して [CallLogging](server-call-logging.md) プラグインでリクエストボディをログに記録し、その後 `post` [ルートハンドラー](server-routing.md#define_route)内でもう一度ボディを受信することができます。
 
-> `%plugin_name%` プラグインは、今後のアップデートで破壊的変更が加えられる可能性がある、進化中の実験的な API を使用しています。
->
-{type="note"}
-
 ## 依存関係の追加 {id="add_dependencies"}
 
 <p>

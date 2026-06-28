@@ -1,8 +1,8 @@
 [//]: # (title: 参与 Kotlin 抢先体验预览)
 
 <tldr>
-    <p>目前没有可用的预览版本。</p>
-    <!--<p>最新 Kotlin EAP 版本：<strong>%kotlinEapVersion%</strong></p>-->
+    <!-- <p>目前没有可用的预览版本。</p> -->
+    <p>最新 Kotlin EAP 版本：<strong>%kotlinEapVersion%</strong></p>
 </tldr>
 
 您可以参与 Kotlin 抢先体验预览 (EAP)，在最新的 Kotlin 功能发布之前对其进行试用。
@@ -43,23 +43,33 @@ Kotlin EAP 构建通常包括以下阶段：
 
 ## 构建详情
 
-_目前没有可用的预览版本。_
-
 <!--
- <table>
+_目前没有可用的预览版本。_
+-->
+
+<table>
     <tr>
         <th>构建信息</th>
         <th>构建亮点</th>
     </tr>
     <tr>
-        <td><strong>2.4.0-RC2</strong>
-            <p>发布日期：<strong>2026 年 5 月 27 日</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.0-RC2" target="_blank">GitHub 上的发布版本</a></p>
+        <td><strong>2.4.20-Beta1</strong>
+            <p>发布日期：<strong>2026 年 6 月 24 日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.20-Beta1" target="_blank">GitHub 上的发布版本</a></p>
         </td>
         <td>
-            <p>这是一个语言版本，包含语言方面的重大变更以及工具更新。</p>
-            <p>有关更多详细信息，请参阅<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.0-RC2">变更日志</a>或<a href="whatsnew-eap.md">Kotlin 2.4.0-RC2 中的最新变化</a>。</p>
+            <p>这是一个工具版本，包含性能改进、错误修复和工具更新。</p>
+            <p>有关更多详细信息，请参阅<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.20-Beta1">变更日志</a>或<a href="whatsnew-eap.md">Kotlin 2.4.20-Beta1 中的最新变化</a>。</p>
+        </td>
+    </tr>
+    <tr>
+        <td><strong>2.4.10-RC</strong>
+            <p>发布日期：<strong>2026 年 6 月 25 日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.10-RC" target="_blank">GitHub 上的发布版本</a></p>
+        </td>
+        <td>
+            <p>这是一个错误修复版本，包含针对 Kotlin 2.4.0 的性能改进。</p>
+            <p>有关更多详细信息，请参阅<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.10-RC">变更日志</a>。</p>
         </td>
     </tr>
 </table>
--->

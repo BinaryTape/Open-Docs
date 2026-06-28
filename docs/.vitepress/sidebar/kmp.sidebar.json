@@ -584,8 +584,8 @@
         "link": "multiplatform-dsl-reference"
       },
       {
-        "text": "kmp.amper",
-        "link": "amper"
+        "text": "kmp.kotlin-toolchain",
+        "link": "kotlin-toolchain"
       },
       {
         "text": "kmp.configure-ci-for-a-kmp-app",

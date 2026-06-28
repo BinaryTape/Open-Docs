@@ -225,6 +225,24 @@ heartbeat {
 
 这使得定期发送自定义心跳有效负载成为可能，例如时间戳和状态信息。
 
+### Jetty 引擎中的 SNI 验证配置
+
+此版本为 Jetty 引擎引入了一个新的 `secureRequestCustomizer` 配置选项，提供了对 Jetty 的 `SecureRequestCustomizer` 实例的直接访问。
+
+这允许您自定义 HTTPS 请求处理，包括服务器名称指示 (SNI) 验证行为。例如，当使用自定义主机映射或自签名证书进行本地测试时，您可以禁用 SNI 主机检查和 SNI 要求：
+
+```kotlin
+embeddedServer(
+      Jetty,
+      configure = {
+          secureRequestCustomizer = {
+              isSniHostCheck = false
+              isSniRequired = false
+          }
+      }
+)
+```
+
 ## Ktor Client
 
 ### OkHttp 和 Apache5 引擎中的自定义 DNS 解析器 {id="custom-dns-resolvers"}

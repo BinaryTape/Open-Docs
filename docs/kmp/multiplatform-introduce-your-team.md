@@ -71,7 +71,7 @@
 
 当只有 Android 团队负责共享代码时，iOS 开发者甚至不需要学习 Kotlin。但当您准备好让团队进入下一阶段（即每个人都为共享代码做贡献）时，完成转换不会花费太多时间。Swift 和 Kotlin 在语法和功能上的相似性极大地减少了学习阅读和编写共享 Kotlin 代码所需的工作量。[通过 Kotlin Koans 亲自尝试一下](https://play.kotlinlang.org/koans/overview)，这是一系列旨在熟悉 Kotlin 语法和一些惯用法的小练习。
 
-2023 年底，JetBrains 推出了 [Amper](https://blog.jetbrains.com/blog/2023/11/09/amper-improving-the-build-tooling-user-experience/)，这是一种专注于易用性、入门引导和 IDE 支持的全新实验性项目配置工具。要深入了解 Amper 的功能，请查看其[教程](amper.md)。
+2023 年底，JetBrains 推出了 [Amper](https://blog.jetbrains.com/blog/2023/11/09/amper-improving-the-build-tooling-user-experience/)，这是一种专注于易用性、入门引导和 IDE 支持的全新实验性项目配置工具。要深入了解 Amper 的功能，请查看其[教程](kotlin-toolchain.md)。
 
 ### 问：Kotlin Multiplatform 准备好用于生产环境了吗？
 

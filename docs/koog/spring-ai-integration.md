@@ -52,8 +52,7 @@ Koog 提供了 Spring AI 集成 Starter，将 Spring AI 的抽象与 Koog 代理
 - 一个委托给 Spring AI `ChatModel` 的 Koog `LLMClient` (`SpringAiLLMClient`)
 - 一个由所有可用 `LLMClient` Bean 组装而成的 `PromptExecutor` (`MultiLLMPromptExecutor`)
 
-工具始终由 Koog 代理框架执行。
-Spring AI 仅接收工具定义和架构 (schema)，且 `internalToolExecutionEnabled` 被设置为 `false`。
+工具始终由 Koog 代理框架执行。Spring AI 仅接收工具定义和架构 (schema)。
 
 ### 添加依赖项
 

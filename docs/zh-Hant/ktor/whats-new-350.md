@@ -154,7 +154,7 @@ post("/checkout") {
 
 ### `ktor-network` 的 ES 模組相容性
 
-我們修復了在啟用 ES 模組時無法使用 `ktor-network` 及其所有依賴模組的問題。
+我們修復了在啟用 ES 模組時無法使用 `ktor-network` 及其所有相依模組的問題。
 
 為了幫助防止未來發生迴歸 (regression)，我們的 JavaScript 測試基礎結構現在預設同時針對 ES2015 和 ES 模組。
 
@@ -224,6 +224,24 @@ heartbeat {
 ```
 
 這使得定期傳送自訂心跳承載資料 (heartbeat payloads) 成為可能，例如時間戳記和狀態資訊。
+
+### Jetty 引擎中的 SNI 驗證配置
+
+本次發布為 Jetty 引擎引入了一個新的 `secureRequestCustomizer` 配置選項，讓您可以直接存取 Jetty 的 `SecureRequestCustomizer` 執行個體。
+
+這允許您自訂 HTTPS 請求處理，包括伺服器名稱指示 (SNI) 驗證行為。例如，當使用自訂主機對應或自我簽署憑證進行本機測試時，您可以停用 SNI 主機檢查和 SNI 需求：
+
+```kotlin
+embeddedServer(
+      Jetty,
+      configure = {
+          secureRequestCustomizer = {
+              isSniHostCheck = false
+              isSniRequired = false
+          }
+      }
+)
+```
 
 ## Ktor Client
 

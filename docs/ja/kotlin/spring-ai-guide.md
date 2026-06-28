@@ -49,7 +49,7 @@ IntelliJ IDEA Ultimate Editionで新しいSpring Bootプロジェクトを作成
       >
       {style="tip"}
 
-    * **Package name**: com.example.springaidemo
+    * **Package name**: org.example.springaidemo
     * **JDK**: Java JDK
 
       > このチュートリアルでは **Oracle OpenJDK version 21.0.1** を使用しています。
@@ -103,10 +103,10 @@ IntelliJ IDEA Ultimate Editionで新しいSpring Bootプロジェクトを作成
     }
    ```
 
-2. `springAiVersion` を `1.0.0` に設定します。
+2. `springAiVersion` を `2.0.0` に設定します。
 
    ```kotlin
-   extra["springAiVersion"] = "1.0.0"
+   extra["springAiVersion"] = "2.0.0"
    ```
 
 3. **Sync Gradle Changes** ボタンをクリックして、Gradleファイルを同期します。
@@ -115,8 +115,8 @@ IntelliJ IDEA Ultimate Editionで新しいSpring Bootプロジェクトを作成
    ```text
    # OpenAI
    spring.ai.openai.api-key=YOUR_OPENAI_API_KEY
-   spring.ai.openai.chat.options.model=gpt-4o-mini
-   spring.ai.openai.embedding.options.model=text-embedding-ada-002
+   spring.ai.openai.chat.model=gpt-4o-mini
+   spring.ai.openai.embedding.model=text-embedding-ada-002
    # Qdrant
    spring.ai.vectorstore.qdrant.host=localhost
    spring.ai.vectorstore.qdrant.port=6334
@@ -277,7 +277,9 @@ IntelliJ IDEA Ultimate Editionで新しいSpring Bootプロジェクトを作成
 
    ```kotlin
    class KotlinSTDController(
+       // ChatClientを作成するためのビルダーを提供します
        private val chatClientBuilder: ChatClient.Builder,
+   
        private val restTemplate: RestTemplate,
        private val vectorStore: VectorStore,
    )

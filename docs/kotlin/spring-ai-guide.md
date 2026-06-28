@@ -1,4 +1,4 @@
-[//]: # (title: 创建一个使用 Spring AI 回答问题的 Kotlin 应用 – 教程)
+[//]: # (title: 创建一个使用 Spring AI 回答问题的 Kotlin 应用 — 教程)
 
 <web-summary>学习如何创建一个使用 Spring AI 回答问题的 Kotlin 应用。</web-summary>
 
@@ -49,7 +49,7 @@
       >
       {style="tip"}
 
-    * **Package name**: com.example.springaidemo
+    * **Package name**: org.example.springaidemo
     * **JDK**: Java JDK
 
       > 本教程使用 **Oracle OpenJDK 21.0.1 版本**。
@@ -103,20 +103,20 @@
     }
    ```
 
-2. 将 `springAiVersion` 设置为 `1.0.0`：
+2. 将 `springAiVersion` 设置为 `2.0.0`：
 
    ```kotlin
-   extra["springAiVersion"] = "1.0.0"
+   extra["springAiVersion"] = "2.0.0"
    ```
 
-3. 点击 **同步 Gradle 更改**按钮以同步 Gradle 文件。
+3. 点击**同步 Gradle 更改**按钮以同步 Gradle 文件。
 4. 使用以下内容更新您的 `src/main/resources/application.properties` 文件：
 
    ```text
    # OpenAI
    spring.ai.openai.api-key=YOUR_OPENAI_API_KEY
-   spring.ai.openai.chat.options.model=gpt-4o-mini
-   spring.ai.openai.embedding.options.model=text-embedding-ada-002
+   spring.ai.openai.chat.model=gpt-4o-mini
+   spring.ai.openai.embedding.model=text-embedding-ada-002
    # Qdrant
    spring.ai.vectorstore.qdrant.host=localhost
    spring.ai.vectorstore.qdrant.port=6334
@@ -277,7 +277,9 @@
 
    ```kotlin
    class KotlinSTDController(
+       // 提供用于创建 ChatClient 的构建器
        private val chatClientBuilder: ChatClient.Builder,
+   
        private val restTemplate: RestTemplate,
        private val vectorStore: VectorStore,
    )
@@ -299,7 +301,7 @@
        val promptTemplate = PromptTemplate(
            """
            {query}.
-           请基于 "Kotlin 标准库" 文档提供简洁的回答。
+           请基于 “Kotlin 标准库” 文档提供简洁的回答。
        """.trimIndent()
        )
 

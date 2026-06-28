@@ -144,6 +144,11 @@ Kotlin 支持以下运算符和特殊符号：
  * `?.` 执行[安全调用](null-safety.md#safe-call-operator)（如果接收者非 null，则调用方法或访问属性）。
  * `?:` 如果左侧的值为 null，则取右侧的值（[elvis 运算符](null-safety.md#elvis-operator)）。
  * `::` 创建一个[成员引用](reflection.md#function-references)或[类引用](reflection.md#class-references)。
+ * `.`
+     - 访问[成员](classes.md)，包括[嵌套类](nested-classes.md)与[枚举成员](enum-classes.md#working-with-enum-constants)。
+     - 定义并调用[扩展](extensions.md)。
+     - 限定名称与[软件包](packages.md)。
+     - 分隔[浮点字面量](numbers.md#floating-point-types)的整数部分与小数部分。
  * `..`, `..<` 创建[区间](ranges.md)。
  * `:` 在声明中将名称与类型隔开。
  * `?` 将类型标记为[可为 null](null-safety.md#nullable-types-and-non-nullable-types)。

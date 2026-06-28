@@ -85,14 +85,12 @@
   "kotlin.kotlin-overview": "Kotlin 概覽",
   "kotlin.what-s-new-in-kotlin": "Kotlin 新功能",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.4.0-RC2",
+  "kotlin.whatsnew-eap": "Kotlin 2.4.20-Beta1",
   "kotlin.earlier-versions": "更早版本",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
   "kotlin.whatsnew2020": "Kotlin 2.0.20",
   "kotlin.whatsnew20": "Kotlin 2.0.0",
-  "kotlin.whatsnew1920": "Kotlin 1.9.20",
-  "kotlin.whatsnew19": "Kotlin 1.9.0",
   "kotlin.whatsnew1920": "Kotlin 1.9.20",
   "kotlin.whatsnew19": "Kotlin 1.9.0",
   "kotlin.whatsnew1820": "Kotlin 1.8.20",
@@ -678,5 +676,6 @@
   "koog.module-versioning": "模組版本控制",
   "koog.http-clients": "HTTP 用戶端",
   "coroutines.flows": "Flows",
-  "coroutines.coroutines-flow": "概覽"
+  "coroutines.coroutines-flow": "概覽",
+  "kmp.kotlin-toolchain": "Kotlin Toolchain"
 }

@@ -52,8 +52,7 @@ Koog는 Spring AI의 추상화와 Koog 에이전트 프레임워크를 연결하
 - Spring AI `ChatModel`에 위임하는 Koog `LLMClient` (`SpringAiLLMClient`)
 - 사용 가능한 모든 `LLMClient` 빈들로 조립된 `PromptExecutor` (`MultiLLMPromptExecutor`)
 
-도구(Tools)는 항상 Koog 에이전트 프레임워크에 의해 실행됩니다.
-Spring AI는 도구 정의 및 스키마(schema)만 전달받으며, `internalToolExecutionEnabled` 플래그는 `false`로 설정됩니다.
+도구(Tools)는 항상 Koog 에이전트 프레임워크에 의해 실행됩니다. Spring AI는 도구 정의 및 스키마(schema)만 전달받습니다.
 
 ### 의존성 추가
 

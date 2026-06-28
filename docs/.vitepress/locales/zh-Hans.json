@@ -48,7 +48,7 @@
   "sqldelight.types": "类型",
   "sqldelight.transactions": "事务",
   "sqldelight.grouping-statements": "语句分组",
-  "sqldelight.extensions": "扩展",
+  "sqldelight.extensions": "扩展程序",
   "sqldelight.rxjava": "RxJava",
   "sqldelight.coroutines": "协程",
   "sqldelight.androidx-paging": "AndroidX Paging",
@@ -85,7 +85,7 @@
   "kotlin.kotlin-overview": "Kotlin 概览",
   "kotlin.what-s-new-in-kotlin": "Kotlin 新特性",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.4.0-RC2",
+  "kotlin.whatsnew-eap": "Kotlin 2.4.20-Beta1",
   "kotlin.earlier-versions": "更早版本",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -118,7 +118,7 @@
   "kotlin.basic-types": "基本类型",
   "kotlin.control-flow": "控制流",
   "kotlin.classes-and-objects": "类与对象",
-  "kotlin.functions": "方法",
+  "kotlin.functions": "函数／方法",
   "kotlin.lambdas": "lambda表达式",
   "kotlin.builders": "构建器",
   "kotlin.data-analysis": "数据分析",
@@ -618,7 +618,7 @@
   "kmp.kmp-ci-tutorial": "为 KMP 应用配置 CI",
   "kmp.multiplatform-project-agp-9-migration": "升级到 AGP 9",
   "kmp.ios-android-app-development": "iOS 与 Android 应用开发",
-  "ktor.dependency-injection": "依赖注入",
+  "ktor.dependency-injection": "注入",
   "ktor.server-dependency-injection": "概览",
   "ktor.server-di-configuration": "配置",
   "ktor.server-di-testing": "测试",
@@ -673,5 +673,6 @@
   "koog.module-versioning": "模块版本管理",
   "koog.http-clients": "HTTP 客户端",
   "coroutines.flows": "Flows",
-  "coroutines.coroutines-flow": "概览"
+  "coroutines.coroutines-flow": "概览",
+  "kmp.kotlin-toolchain": "Kotlin Toolchain"
 }

@@ -26,10 +26,6 @@
 이는 특정 [플러그인](server-plugins.md)이 이미 요청 본문을 소비하여 라우트 핸들러 내부에서 본문을 수신할 수 없는 경우에 유용할 수 있습니다.
 예를 들어, `%plugin_name%`을 사용하여 [CallLogging](server-call-logging.md) 플러그인으로 요청 본문을 로깅한 다음, `post` [라우트 핸들러](server-routing.md#define_route) 내부에서 본문을 한 번 더 수신할 수 있습니다.
 
-> `%plugin_name%` 플러그인은 실험용(experimental) API를 사용하며, 향후 업데이트에서 파괴적 변경(breaking changes)이 발생할 수 있습니다.
->
-{type="note"}
-
 ## 의존성 추가 {id="add_dependencies"}
 
 <p>

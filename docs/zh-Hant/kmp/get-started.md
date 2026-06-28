@@ -35,7 +35,7 @@ aside: false
                     <a href="quickstart.md" summary="設定並執行您的第一個 KMP 專案">設定並執行您的第一個 KMP 專案</a>
                     <a href="multiplatform-integrate-in-existing-app.md" summary="讓您的 Android 應用程式也能在 iOS 上執行">將您的應用程式多平台化</a>
                     <a href="multiplatform-run-tests.md" summary="了解如何建立與測試 Kotlin Multiplatform 應用程式">測試您的多平台應用程式</a>
-                    <a href="multiplatform-samples.md" summary="Kotlin Multiplatform 範例">查看精選專案列表</a>
+                    <a href="multiplatform-samples.md" summary="Kotlin Multiplatform 範例">查看精選專案清單</a>
                     <a href="https://github.com/topics/kotlin-multiplatform-sample" summary="GitHub &quot;kotlin-multiplatform&quot; 話題">在 GitHub 上尋找更多專案</a>
                 </group>
                 <group>
@@ -45,7 +45,7 @@ aside: false
                     <a href="multiplatform-dsl-reference.md" summary="為 Kotlin Multiplatform 專案設定 Gradle 建置指令碼">Gradle DSL 參考</a>
                     <a href="https://klibs.io/" summary="由 JetBrains 開發的 Kotlin Multiplatform 程式庫實驗性搜尋平台">程式庫搜尋平台</a>
                     <a href="https://kmp.jetbrains.com/" summary="快速產生並下載多平台專案樣板">新專案精靈</a>
-                    <a href="amper.md" summary="使用 Kotlin 工具鏈進行專案配置">Kotlin 工具鏈配置工具</a>
+                    <a href="kotlin-toolchain.md" summary="使用 Kotlin 工具鏈進行專案配置">Kotlin 工具鏈配置工具</a>
                 </group>
                 <group>
                     <title>社群與說明</title>

@@ -23,7 +23,7 @@
 
 2. 在 [OpenAI 平台](https://platform.openai.com/api-keys)上建立一個 OpenAI API 金鑰以存取 API。
 3. 安裝 [Docker](https://www.docker.com/) 以在本機執行 Qdrant 向量資料庫。
-4. 安裝 Docker 後，開啟你的終端機並執行以下指令來啟動容器：
+4. 安裝 Docker 後，開啟你的終端並執行以下指令來啟動容器：
 
     ```bash
     docker run -p 6333:6333 -p 6334:6334 qdrant/qdrant
@@ -49,7 +49,7 @@
       >
       {style="tip"}
 
-    * **Package name**: com.example.springaidemo
+    * **Package name**: org.example.springaidemo
     * **JDK**: Java JDK
 
       > 本教學使用 **Oracle OpenJDK version 21.0.1**。
@@ -103,10 +103,10 @@
     }
    ```
 
-2. 將 `springAiVersion` 設定為 `1.0.0`：
+2. 將 `springAiVersion` 設定為 `2.0.0`：
 
    ```kotlin
-   extra["springAiVersion"] = "1.0.0"
+   extra["springAiVersion"] = "2.0.0"
    ```
 
 3. 點擊 **Sync Gradle Changes** 按鈕以同步 Gradle 檔案。
@@ -115,8 +115,8 @@
    ```text
    # OpenAI
    spring.ai.openai.api-key=YOUR_OPENAI_API_KEY
-   spring.ai.openai.chat.options.model=gpt-4o-mini
-   spring.ai.openai.embedding.options.model=text-embedding-ada-002
+   spring.ai.openai.chat.model=gpt-4o-mini
+   spring.ai.openai.embedding.model=text-embedding-ada-002
    # Qdrant
    spring.ai.vectorstore.qdrant.host=localhost
    spring.ai.vectorstore.qdrant.port=6334
@@ -233,7 +233,7 @@
    {collapsible="true"}
 
 3. 執行應用程式。
-4. 在終端機中，向 `/kotlin/load-docs` 端點發送一個 POST 請求以載入文件：
+4. 在終端中，向 `/kotlin/load-docs` 端點發送一個 POST 請求以載入文件：
 
    ```bash
    curl -X POST http://localhost:8080/kotlin/load-docs
@@ -277,7 +277,9 @@
 
    ```kotlin
    class KotlinSTDController(
+       // 提供用於建立 ChatClient 的產生器
        private val chatClientBuilder: ChatClient.Builder,
+   
        private val restTemplate: RestTemplate,
        private val vectorStore: VectorStore,
    )
@@ -329,7 +331,7 @@
    ```
 
 6. 執行應用程式。
-7. 在終端機中，向新端點發送一個 POST 請求以查看結果：
+7. 在終端中，向新端點發送一個 POST 請求以查看結果：
 
    ```bash
    curl -X POST "http://localhost:8080/kotlin/chat/ask" \

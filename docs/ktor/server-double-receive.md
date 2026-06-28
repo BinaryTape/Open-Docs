@@ -26,10 +26,6 @@
 如果某个[插件](server-plugins.md)已经消耗了请求正文，导致您无法在路由处理程序中接收它，该功能会非常有用。
 例如，您可以使用 `%plugin_name%` 通过 [CallLogging](server-call-logging.md) 插件记录请求正文，然后在 `post` [路由处理程序](server-routing.md#define_route)中再次接收正文。
 
-> `%plugin_name%` 插件使用的是实验性 API，预计在未来的更新中会发生演进，并可能引入破坏性变更。
->
-{type="note"}
-
 ## 添加依赖项 {id="add_dependencies"}
 
 <p>

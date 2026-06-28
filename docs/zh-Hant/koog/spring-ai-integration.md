@@ -48,7 +48,7 @@ Koog 提供 Spring AI 整合 starter，將 Spring AI 的抽象與 Koog 代理架
 - 一個 Koog `LLMClient` (`SpringAiLLMClient`)，委派至 Spring AI 的 `ChatModel`
 - 一個從所有可用 `LLMClient` bean 組裝而成的 `PromptExecutor` (`MultiLLMPromptExecutor`)
 
-工具始終由 Koog 代理架構執行。Spring AI 僅接收工具定義與架構，且 `internalToolExecutionEnabled` 設定為 `false`。
+工具始終由 Koog 代理架構執行。Spring AI 僅接收工具定義與架構。
 
 ### 新增相依性
 

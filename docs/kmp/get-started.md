@@ -17,7 +17,7 @@ aside: false
         <primary>
             <title>热门用例</title>
             <a href="compose-multiplatform-create-first-app.md" summary="使用 Compose Multiplatform 创建在 Android、iOS 和桌面端之间共享 UI 的应用程序">同时共享逻辑和 UI</a>
-            <a href="multiplatform-create-first-app.md" summary="了解 Kotlin Multiplatform 并在 Android Studio 中创建一个同时适用于 Android 和 iOS 的移动应用">共享逻辑但保持原生 UI</a>
+            <a href="multiplatform-create-first-app.md" summary="了解 Kotlin Multiplatform 和在 Android Studio 中创建一个同时适用于 Android 和 iOS 的移动应用">共享逻辑但保持原生 UI</a>
             <a href="multiplatform-ktor-sqldelight.md" summary="创建一个在 Android 和 iOS 之间具有共享数据访问层的多平台应用">共享部分逻辑</a>
             <a href="multiplatform-integrate-in-existing-app.md" summary="将您的 Android 应用程序迁移到适用于 Android 和 iOS 的 Kotlin Multiplatform">让您的应用支持多平台</a>
         </primary>
@@ -45,7 +45,7 @@ aside: false
                     <a href="multiplatform-dsl-reference.md" summary="为 Kotlin Multiplatform 项目配置 Gradle 构建脚本">Gradle DSL 参考</a>
                     <a href="https://klibs.io/" summary="由 JetBrains 开发的 Kotlin Multiplatform 库实验性搜索平台">库搜索平台</a>
                     <a href="https://kmp.jetbrains.com/" summary="快速生成并下载多平台项目模板">新项目向导</a>
-                    <a href="amper.md" summary="使用 Kotlin 工具链进行项目配置">Kotlin 工具链配置工具</a>
+                    <a href="kotlin-toolchain.md" summary="使用 Kotlin 工具链进行项目配置">Kotlin 工具链配置工具</a>
                 </group>
                 <group>
                     <title>社区与帮助</title>

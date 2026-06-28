@@ -26,10 +26,6 @@
 如果某個 [外掛程式](server-plugins.md) 已經耗盡了請求主體，導致您無法在路由處理常式中再次接收它，這個功能就會非常有用。
 例如，您可以使用 `%plugin_name%` 透過 [CallLogging](server-call-logging.md) 外掛程式記錄請求主體，然後在 `post` [路由處理常式](server-routing.md#define_route) 中再次接收該主體。
 
-> `%plugin_name%` 外掛程式使用的是實驗性 API，預計在未來的更新中可能會有所演進，並可能包含破壞性變更。
->
-{type="note"}
-
 ## 新增相依性 {id="add_dependencies"}
 
 <p>
@@ -50,7 +46,7 @@
 ## 安裝 %plugin_name% {id="install_plugin"}
 
 <p>
-    若要將 <code>%plugin_name%</code> 外掛程式安裝到應用程式，請將其傳遞給指定 <Links href="/ktor/server-modules" summary="模組可讓您透過分組路由來結構化您的應用程式。">模組</Links> 中的 <code>install</code> 函式。
+    若要將 <code>%plugin_name%</code> 外掛程式 <a href="#install">安裝</a> 到應用程式，請將其傳遞給指定 <Links href="/ktor/server-modules" summary="模組可讓您透過分組路由來結構化您的應用程式。">模組</Links> 中的 <code>install</code> 函式。
     下方的程式碼片段展示了如何安裝 <code>%plugin_name%</code> ...
 </p>
 <list>
@@ -71,7 +67,7 @@
 </Tabs>
 <p>
     <code>%plugin_name%</code> 外掛程式也可以 <a href="#install-route">安裝到特定路由</a>。
-    如果您需要為不同的應用程式資源設定不同的 <code>%plugin_name%</code> 組態，這會非常有用。
+    如果您需要為不同的應用程式資源設定不同的 <code>%plugin_name%</code> 配置，這會非常有用。
 </p>
 
 安裝 `%plugin_name%` 後，您可以多次 [接收請求主體](server-requests.md#body_contents)，且每次調用都會回傳相同的執行個體。
@@ -100,12 +96,12 @@ post("/") {
 您可以在此處找到完整的範例：[double-receive](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/double-receive)。
 
 ## 組態 %plugin_name% {id="configure"}
-在預設組態下，`%plugin_name%` 提供了將 [接收請求主體](server-requests.md#body_contents) 轉換為以下型別的能力：
+在預設配置下，`%plugin_name%` 提供了將 [接收請求主體](server-requests.md#body_contents) 轉換為以下型別的能力：
 
 - `ByteArray` 
 - `String`
 - `Parameters` 
-- 被 `ContentNegotiation` 外掛程式使用的 [資料類別 (data class)](server-serialization.md#create_data_class)
+- 被 `ContentNegotiation` 外掛程式使用的 [資料類別 (data classes)](server-serialization.md#create_data_class)
 
 預設情況下，`%plugin_name%` 不支援：
 

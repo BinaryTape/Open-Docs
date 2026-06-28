@@ -34,7 +34,7 @@ aside: false
                     <title>튜토리얼 및 샘플</title>
                     <a href="quickstart.md" summary="첫 KMP 프로젝트 설정 및 실행">첫 KMP 프로젝트 설정 및 실행</a>
                     <a href="multiplatform-integrate-in-existing-app.md" summary="Android 애플리케이션을 iOS에서 작동하도록 만들기">앱을 멀티플랫폼으로 만들기</a>
-                    <a href="multiplatform-run-tests.md" summary="Kotlin Multiplatform 애플리케이션을 만들고 테스트하는 방법 알아보기">멀티플랫폼 앱 테스트</a>
+                    <a href="multiplatform-run-tests.md" summary="Kotlin Multiplatform 애플리케이션을 만들하고 테스트하는 방법 알아보기">멀티플랫폼 앱 테스트</a>
                     <a href="multiplatform-samples.md" summary="Kotlin Multiplatform 샘플">엄선된 프로젝트 목록 보기</a>
                     <a href="https://github.com/topics/kotlin-multiplatform-sample" summary="GitHub &quot;kotlin-multiplatform&quot; 토픽">GitHub에서 더 많은 프로젝트 찾기</a>
                 </group>
@@ -45,7 +45,7 @@ aside: false
                     <a href="multiplatform-dsl-reference.md" summary="Kotlin Multiplatform 프로젝트용 Gradle 빌드 스크립트 설정">Gradle DSL 레퍼런스</a>
                     <a href="https://klibs.io/" summary="JetBrains에서 개발한 Kotlin Multiplatform 라이브러리용 검색 플랫폼">라이브러리 검색 플랫폼</a>
                     <a href="https://kmp.jetbrains.com/" summary="멀티플랫폼 프로젝트 템플릿을 빠르게 생성하고 다운로드하기">새 프로젝트 마법사</a>
-                    <a href="amper.md" summary="Kotlin Toolchain을 사용한 프로젝트 설정">Kotlin Toolchain 설정 도구</a>
+                    <a href="kotlin-toolchain.md" summary="Kotlin Toolchain을 사용한 프로젝트 설정">Kotlin Toolchain 설정 도구</a>
                 </group>
                 <group>
                     <title>커뮤니티 및 도움말</title>
