@@ -35,6 +35,18 @@ IntelliJ Ktorプラグインを使用すると、Ktorプロジェクトを最新
 </tr>
 
 <tr>
+<td>3.5.2</td><td>2026年8月4日</td><td>
+<p>
+安定性とパフォーマンスに重点を置いたパッチリリースです。レート制限（rate limiting）サポートの強化、テキスト処理パフォーマンスの回復、およびI/O処理、OpenAPI、設定に関する問題の修正が含まれています。
+</p>
+<var name="version" value="3.5.2"/>
+<p>
+    <a href="https://github.com/ktorio/ktor/releases/tag/%version%">GitHubで変更履歴を確認する</a>
+</p>
+</td>
+</tr>
+
+<tr>
 <td>3.5.1</td><td>2026年6月26日</td><td>
 <p>
 OpenAPIプラグインの改善、認証のKDocドキュメントの拡充、およびKotlin 2.4コンパイラの互換性、HTTPおよびキャッシュの動作、認証、WebRTCの安定性、さらにJVM、Darwin、Android、Windowsにおけるプラットフォーム固有の問題を含む、広範なバグ修正を盛り込んだパッチリリースです。
@@ -205,7 +217,7 @@ Time API、テンプレート作成、パブリッシングの改善に加え、
 
 <tr>
 <td>3.1.3</td><td>2025年5月5日</td><td><p>
-バイト操作やマルチパート処理の高速化などのパフォーマンス向上、およびより安全なトークンリフレッシュ処理を含むパッチリリースです。メトリクスのメモリ問題の修正、ヘッダー動作の改善、WebSockets、OkHttp、Apache5、Nettyのバグ修正に加え、Kotlin 2.1.0サポートのためのJTEの更新も行われました。
+バイト操作やマルチパート処理の高速化などのパフォーマンス向上、およびより安全なトークンリフレッシュ処理を含むパッチリリースです。メトリクスのメモリ問題の修正、ヘッダー動作の改善、WebSockets、OkHttp、Apache5、Nettyのバグ修正に加え、Kotlin 2.1.0サポートのためのJTE의更新も行われました。
 </p>
 <var name="version" value="3.1.3"/>
 <p>

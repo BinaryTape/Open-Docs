@@ -20,7 +20,7 @@
         <p><a as="button" href="https://kotlinlang.org/multiplatform/" mode="rock" icon="arrow-right" icon-position="right">探索 Kotlin Multiplatform</a></p>
         <chapter title="KMP 僅僅是另一個跨平台抽象層嗎？" id="is-kmp-merely-another-cross-platform-abstraction-layer">
             <p>並非如此——KMP 不會取代 SwiftUI 或 UIKit。相反地，它是原生開發的補充。</p>
-            <p>在實務上，這意味著你可以：</p>
+            <p>在實務上，這意義著你可以：</p>
             <list>
                 <li>在 SwiftUI 或 UIKit 中建立 UI，利用原生 Swift 程式碼。</li>
                 <li>直接存取 iOS API，無需包裝函式（wrapper）或間接層。</li>
@@ -28,7 +28,7 @@
             </list>
         </chapter>
         <chapter id="is-kmp-useful-for-ios-developers" title="KMP 對 iOS 開發人員真的有用嗎？">
-            <p>雖然 KMP 是 Kotlin 生態系統的一部分，但它並不局限於 Android——它是一種在平台間共享功能的通用方法，iOS 團隊可以根據自己的條件來使用它。</p>
+            <p>雖然 KMP 是 Kotlin 生態系統的一部分，但它並不局限於 Android——它是一種在平台間共享功能的通用方法， iOS 團隊可以根據自己的條件來使用它。</p>
             <p>對於面臨邏輯重複、各平台行為不一致以及維護成本不斷上升的團隊來說，它特別有用。使用共享層可以消除重複，同時保持完整的原生控制。</p>
             <p>核心原則很簡單：</p>
             <list>
@@ -41,10 +41,12 @@
         <p>圍繞 KMP 常有一些關於效能、複雜性和喪失原生控制權的迷思，但這些迷思並未準確反映其在實務中的運作方式。讓我們用基於經驗的答案來一一解析。</p>
     </chapter>
     <chapter title="迷思：跨平台架構會損害 iOS 的效能與體驗" id="myth-cross-platform-frameworks-compromise-ios-performance-and-experience">
+        <p><format style="bold">事實：Kotlin Multiplatform 讓你可以分享程式碼，而不會損害應用程式的效能或使用者體驗。</format></p>
         <p>一個常見的擔憂是 Kotlin Multiplatform 會損害 iOS 應用程式的效能或體驗。這種假設通常是基於先前使用過橋接（bridge）或專有執行時（runtime）之架構（如 React Native）的經驗。</p>
         <p>KMP 的運作方式不同。它使用 LLVM（與 Swift 相同的工具鏈系列）為 iOS 產生共享程式碼。沒有 JavaScript 橋接，沒有整合的執行時層，你的程式碼與 iOS 之間也沒有抽象層。這意味著你的應用程式將繼續以完全原生的二進位檔案運作，效能特性與典型的 iOS 開發一致。</p>
     </chapter>
     <chapter title="迷思：Kotlin Multiplatform 是一項小眾或有風險的技術" id="myth-kotlin-multiplatform-is-a-niche-or-risky-technology">
+        <p><format style="bold">事實：Kotlin Multiplatform 已被許多知名公司用於真實的大規模應用程式中，例如 Google、Duolingo、Booking.com 以及 Sony。</format></p>
         <p>你可能仍會將 Kotlin Multiplatform 與其早期的實驗階段聯想在一起。然而，Kotlin Multiplatform 已於 2023 年 11 月正式達到穩定（Stable）狀態，並已在所有支援的平台上準備好投入生產。KMP <a href="https://kotlinlang.org/case-studies/?type=multiplatform&amp;platforms=ios">已被</a>許多知名公司用於真實的大規模 iOS 應用程式中，例如 <a href="https://youtu.be/5lkZj4v4-ks?si=OHg0v60urRqxuZZi">Google</a>、<a href="https://2025.kotlinconf.com/talks/812400/">Duolingo</a>、<a href="https://medium.com/booking-com-development/kotlin-multiplatform-in-production-two-real-world-use-cases-from-booking-com-46ffe13a773d">Booking.com</a>、<a href="https://youtu.be/VVf6txPZk3Y?si=6PVoeS8Pa0-QHUsT">Sony</a>、<a href="https://www.youtube.com/watch?v=hZPL8QqiLi8">Philips</a> 以及 <a href="https://www.youtube.com/watch?v=HSIhkB5bGJs">McDonald's</a>。</p>
         <p>生態系統也持續成熟：適用於 iOS 的 Compose Multiplatform 於 2025 年達到穩定狀態，使得除了共享商務邏輯外，建置生產就緒的共享 UI 成為可能。根據 2025 年 Kotlin Multiplatform 調查，KMP 現在被視為生產可行，約 70% 的外掛程式使用者感到滿意或非常滿意，且約 80% 的使用者正在使用 Compose Multiplatform。</p>
         <p><a as="button" href="https://kotlinlang.org/case-studies/?type=multiplatform&amp;platforms=ios" mode="rock" icon="arrow-right" icon-position="right">探索真實的 KMP 使用案例</a></p>
@@ -60,6 +62,7 @@
         </chapter>
     </chapter>
     <chapter title="迷思：Kotlin Multiplatform 僅適用於 Android 開發人員" id="myth-kotlin-multiplatform-is-only-for-android-developers">
+        <p><format style="bold">事實：Kotlin 是一種通用語言，而 Kotlin Multiplatform 是為跨平台團隊設計的，允許 iOS 開發人員塑造共享程式碼。</format></p>
         <p>Kotlin Multiplatform 常被認為是「Android 優先」，iOS 開發人員只是陪跑。</p>
         <p>Kotlin 是一種通用語言，KMP 中的共享程式碼只是程式碼庫的另一個面向，並非由單一平台擁有。iOS 開發人員可以閱讀並貢獻程式碼、塑造 API 並影響跨平台設計。</p>
         <p>在實務上，團隊採用不同的模式。許多 iOS 開發人員繼續主要在 Swift 中工作，特別是在 UI 密集的特性上，而共享商務邏輯則由工程師協作開發或由專注於跨平台程式碼的人員開發。</p>
@@ -69,6 +72,7 @@
         </chapter>
     </chapter>
     <chapter title="迷思：我的 iOS 工作流程會變得更複雜" id="myth-my-ios-workflow-will-become-more-complicated">
+        <p><format style="bold">事實：你不會失去你的工作狀態，而是獲得新的技能。Kotlin Multiplatform 設計為漸進式採用而非一次性到位。</format></p>
         <p>關於 KMP 的主要擔憂之一是它可能會干擾已建立的 iOS 工作流程。如果你已經經歷過 Objective-C → Swift → SwiftUI 以及不斷變化的工具鏈轉變，增加「另一件事」的想法可能會讓人感到精疲力竭。這種擔憂是合理的，這也是為什麼 Kotlin Multiplatform 設計為漸進式採用而非一次性到位。</p>
         <p>你不需要在一夜之間接受全新的工具鏈。對於許多 iOS 開發人員來說，KMP 可以從僅取用共享模組開始。這意味著當你評估其有用性時，你的日常工作流程可以保持相對不受影響。</p>
         <p>隨著深入使用，學習曲線是漸進的——而非全有或全無：</p>
@@ -88,6 +92,7 @@
         </chapter>
     </chapter>
     <chapter title="迷思：Kotlin Multiplatform 產生的 Swift API 不符合慣用法" id="myth-kotlin-multiplatform-produces-non-idiomatic-swift-apis">
+        <p><format style="bold">事實：透過團隊合作和正確的工具，建置符合 Swift 風格的 API 是可能的。隨著 Swift Export 等新工具的推出，Kotlin 正邁向與 Swift 更直接且符合慣用法的整合。</format></p>
         <p>Kotlin Multiplatform 的 Swift 互通性仍是一個相關的擔憂。目前，Kotlin 程式碼透過 Objective-C 橋接呈現給 iOS，這可能使 Swift API 感覺不那麼自然，特別是在命名、可 null 性、泛型或非同步模式方面。</p>
         <p>是的，如果管理不當，它感覺確實不像 Swift。然而，當開發共享程式碼時考慮到 iOS，建置良好的 Swift API 是可能的。以下是一些最佳實務：</p>
         <list>
@@ -100,7 +105,8 @@
         <p>Kotlin 的新工具——特別是 <a href="https://kotlinlang.org/docs/native-swift-export.html">Swift Export</a>——正邁向一個未來，讓 Kotlin API 能更直接且符合慣用法地與 Swift 整合，進一步減少摩擦。</p>
         <p>Swift Export 旨在移除 Objective-C 層，而 <a href="https://github.com/kotlin-hands-on/kotlin-swift-interopedia">Interopedia</a> 則作為實務文件，幫助開發人員理解 Kotlin 程式碼如何暴露給 Swift，以及預期會看到哪些模式。像是 <a href="https://github.com/rickclephas/KMP-NativeCoroutines">KMP-NativeCoroutines</a> 和 <a href="https://github.com/touchlab/SKIE">SKIE</a> 等程式庫更進一步修補了目前互通模型中的不足，改善了協同程式與 Swift async/await 的對應，並使產生的 API 對 Swift 更加友善。</p>
     </chapter>
-    <chapter title="迷思：共享 UI 意味著失去原生 iOS 體驗" id="myth-sharing-ui-means-losing-native-ios-experience">
+    <chapter title="迷思：共享 UI 意義著失去原生 iOS 體驗" id="myth-sharing-ui-means-losing-native-ios-experience">
+        <p><format style="bold">事實：UI 分享是選配的。團隊可以使用 SwiftUI 或 UIKit 保持完全原生的 UI，使用 Compose Multiplatform 引入共享 UI，或根據需求結合兩種方法。</format></p>
         <p>一種普遍的誤解是使用 Kotlin Multiplatform 需要放棄完全原生的 iOS UI。事實並非如此。</p>
         <p>KMP 根本不要求共享 UI。你可以只共享底層功能，並保持其餘部分原生：</p>
         <list>
@@ -108,18 +114,19 @@
             <li>動畫與互動可以保持完全原生。</li>
             <li>平台 API 是直接存取的，不需要包裝函式。</li>
         </list>
-    </chapter>
         <chapter title="那麼，你的應用程式會不再感覺像 iOS 應用程式嗎？" id="so-will-your-app-no-longer-feel-like-an-ios-app">
         <p>不，因為沒有必要放棄原生 UI。</p>
         </chapter>
         <chapter title="你必須使用共享 UI 嗎？" id="do-you-have-to-use-a-shared-ui">
         <p>這個策略完全是選配的，由每個團隊自行決定。主要前提很簡單：Kotlin Multiplatform 不會限制你如何設計介面。你可以使用 SwiftUI 或 UIKit 保持完全原生的 UI，使用 Compose Multiplatform 引入共享 UI，或根據需求結合兩種方法。</p>
-        <p>你最常用的畫面——如儀表板和核心產品流程——通常最好使用完全原生的 UI 來實作，在那裡你可以發揮最大的效能和平台特定的磨光。對於影響較小的區域，Compose Multiplatform 非常適合。例如設定頁面或不常使用的流程（如身份驗證）是共享 Compose UI 的理想候選者，在這些地方開發速度和程式碼重用比深度的原生優化更重要。</p>
-        <p>重要的是，Compose Multiplatform 與傳統 iOS UI 之間具有互通性，這意味著你可以在原生視圖旁邊嵌入共享組件，或隨著時間推移逐漸採用。這讓團隊能夠演進其 UI 策略，而無需預先承諾單一方法。</p>
+        <p>你最常用的畫面——如儀表板和核心產品流程——通常最好使用完全原生的 UI 來實作，在那裡你可以發揮最大的效能和平台特定的磨光。對於影響較小的區域，Compose Multiplatform 非常適合。例如設定頁面或不常使用的流程（如身分驗證）是共享 Compose UI 的理想候選者，在這些地方開發速度和程式碼重用比深度的原生優化更重要。</p>
+        <p>重要的是，Compose Multiplatform 與傳統 iOS UI 之間具有互通性，這意義著你可以在原生視圖旁邊嵌入共享組件，或隨著時間推移逐漸採用。這讓團隊能夠演進其 UI 策略，而無需預先承諾單一方法。</p>
         </chapter>
+    </chapter>
     <p><a as="button" href="https://kotlinlang.org/compose-multiplatform/" mode="rock" icon="arrow-right" icon-position="right">探索 Compose Multiplatform</a>
         </p>
-    <chapter title="迷思：採用 Kotlin Multiplatform 意味著不再使用 Swift" id="myth-adopting-kotlin-multiplatform-means-no-more-swift">
+    <chapter title="迷思：採用 Kotlin Multiplatform 意義著不再使用 Swift" id="myth-adopting-kotlin-multiplatform-means-no-more-swift">
+        <p><format style="bold">事實：Swift 對於原生 iOS 開發仍然至關重要，而 Kotlin Multiplatform 則是為能從程式碼重用中獲益的應用程式部分增加了一個共享層。</format></p>
         <p>一個常見的恐懼是引入 Kotlin Multiplatform 會讓 Swift 變得過時。但 KMP 並不是要取代它——Swift 對於 iOS 開發仍然至關重要。</p>
         <p>你繼續為所有讓 iOS 應用程式感覺像 iOS 的部分編寫 Swift：</p>
         <list>
@@ -128,7 +135,7 @@
             <li>平台特定功能與整合。</li>
             <li>應用程式生命週期與系統 API。</li>
         </list>
-        <p>KMP 只是在旁邊增加了一個共享層。這意味著 iOS 開發人員繼續擁有原生體驗，共享商務邏輯通常是跨平台的共同努力，一些 iOS 工程師會貢獻 Kotlin 程式碼，而其他人則主要專注於 Swift。</p>
+        <p>KMP 只是在旁邊增加了一個共享層。這意義著 iOS 開發人員繼續擁有原生體驗，共享商務邏輯通常是跨平台的共同努力，一些 iOS 工程師會貢獻 Kotlin 程式碼，而其他人則主要專注於 Swift。</p>
         <chapter title="那麼，你會停止編寫 Swift 嗎？" id="will-you-stop-writing-swift">
         <p>不，你大部分的時間仍會花在 Swift 上。而且隨著你獲得跨平台邏輯的新洞察並影響共享架構決策，你的角色將會擴展。</p>
     </chapter>
@@ -191,7 +198,7 @@
         <p>沒有本質上的影響。共享程式碼是原生編譯的，因此效能與典型的 iOS 程式碼相當。</p>
         <p><b>Kotlin Multiplatform 如何與 Swift 協作？</b></p>
         <p>共享的 Kotlin 程式碼會被轉化為 Swift 可以使用的原生架構。在目前的模型中，互通性依賴於 Objective-C 橋接，這可能會引入一些摩擦。展望未來，這正在演進：JetBrains 的 Swift Export 旨在完全移除 Objective-C 層，實現與 Swift 更直接、更符合慣用法的整合。</p>
-        <p><b>iOS 開發人員需要學習 Kotlin 才能使用 KMP 嗎？</b></p>
+        <p><b>iOS 開發人員需要學習 Kotlin 才能使用 KMP嗎？</b></p>
         <p>不一定。你可以先從取用共享的 Kotlin 程式碼開始，然後根據偵錯或貢獻的需求逐漸學習 Kotlin。</p>
         <p><b>我必須使用 Kotlin Multiplatform 分享 UI 嗎？</b></p>
         <p>不，UI 分享是選配的。許多團隊保持 iOS UI 完全原生，僅分享底層功能。但越來越多的公司選擇分享 UI 程式碼，因為其結果在 iOS 上感覺非常原生。</p>

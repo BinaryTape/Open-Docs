@@ -14,6 +14,10 @@ Kotlin Multiplatform アプリケーションを公開用に準備する方法�
 
 Kotlin Multiplatform プロジェクトの iOS アプリは一般的な Xcode プロジェクトからビルドされるため、公開に関わる主な段階は [iOS 開発者ドキュメント](https://developer.apple.com/ios/submit/)で説明されているものと同じです。
 
+> [iOS デリバリー パイプラインの構成](ios-ci-cd-teamcity.md)を行えば、TeamCity Cloud を使用して iOS のリリース プロセスを自動化できます。
+>
+{style="tip"}
+
 > 2024年春の App Store ポリシーの変更により、プライバシー マニフェスト（privacy manifest）の欠落や不備があると、アプリの警告や却下につながる可能性があります。
 > 詳細と、特に Kotlin Multiplatform アプリ向けの回避策については、「[iOS アプリのプライバシー マニフェスト](https://kotlinlang.org/docs/apple-privacy-manifest.html)」を参照してください。
 >
@@ -58,6 +62,12 @@ Xcode を使わずに、生成されるアプリに影響を与える基本プ�
 デフォルトでは、共有 Kotlin モジュールから生成された iOS フレームワークのリリース バージョンには、対応する `.dSYM` ファイルが付属しています。これにより、共有モジュールのコードで発生したクラッシュの分析が容易になります。
 
 クラッシュ レポートのシンボル化（symbolication）の詳細については、[Kotlin/Native ドキュメント](https://kotlinlang.org/docs/native-debugging.html#debug-ios-applications)を参照してください。
+
+### TestFlight への公開の自動化
+
+Xcode を介して手動でアプリのビルド、署名、アップロードを行う代わりに、リリース プロセス全体を自動化できます。
+
+IDE から直接 iOS アプリを自動的にビルドして TestFlight にデプロイする TeamCity Cloud パイプラインをセットアップする方法については、「[iOS デリバリー パイプラインの構成](ios-ci-cd-teamcity.md)」を参照してください。
 
 ## Web アプリ
 

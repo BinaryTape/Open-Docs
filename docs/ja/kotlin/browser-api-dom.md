@@ -1,6 +1,60 @@
 [//]: # (title: ブラウザおよびDOM API)
 
-Kotlin/JS標準ライブラリでは、`kotlinx.browser`パッケージを使用してブラウザ固有の機能にアクセスできます。このパッケージには、`document`や`window`といった典型的なトップレベルオブジェクトが含まれています。標準ライブラリは、可能な限りこれらのオブジェクトによって公開される機能に対してタイプセーフなラッパーを提供します。代替手段として、Kotlinの型システムとうまくマッピングできない関数とのやり取りを提供するために、`dynamic`型が使用されます。
+[`kotlinx-browser`](https://github.com/Kotlin/kotlinx-browser) ライブラリを使用すると、ブラウザ固有の機能にアクセスできます。
+このライブラリには、`document` や `window` といった典型的なトップレベルオブジェクトが含まれており、可能な限りそれらの機能に対してタイプセーフなラッパーを提供します。
+
+代替手段として、Kotlin の型システムとうまくマッピングできない関数へのアクセスを提供するために、`dynamic` 型が使用されます。
+
+ブラウザおよび DOM API を使用するには、プロジェクトの `build.gradle(.kts)` ファイルに依存関係として `kotlinx-browser` ライブラリを追加します。
+
+<tabs group="build-script">
+<tab title="Kotlin" group-key="kotlin">
+
+```kotlin
+repositories {
+    mavenCentral()
+}
+
+kotlin {
+    js {
+        browser()
+    }
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-browser:%kotlinxBrowserVersion%")
+            }
+        }
+    }
+}
+```
+
+</tab>
+<tab title="Groovy" group-key="groovy">
+
+```groovy
+repositories {
+    mavenCentral()
+}
+
+kotlin {
+    js {
+        browser()
+    }
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation 'org.jetbrains.kotlinx:kotlinx-browser:%kotlinxBrowserVersion%'
+            }
+        }
+    }
+}
+```
+
+</tab>
+</tabs>
 
 ## DOMとの操作
 
@@ -10,7 +64,9 @@ Kotlin/JS標準ライブラリでは、`kotlinx.browser`パッケージを使用
 document.bgColor = "FFAA12" 
 ```
 
-`document` オブジェクトは、ID、名前、クラス名、タグ名などによって特定の要素を取得する方法も提供します。返される要素はすべて `Element?` 型です。それらのプロパティにアクセスするには、適切な型にキャストする必要があります。例えば、次のようなメールの `<input>` フィールドを持つ HTML ページがあるとします。
+`document` オブジェクトは、ID、名前、クラス名、タグ名などによって特定の要素を取得する方法も提供します。
+返される要素はすべて `Element?` 型です。それらのプロパティにアクセスするには、適切な型にキャストする必要があります。
+例えば、次のようなメールの `<input>` フィールドを持つ HTML ページがあるとします。
 
 ```html
 <body>
@@ -30,5 +86,7 @@ email.value = "hadi@jetbrains.com"
 ```
 
 この `input` 要素を参照するのと同様に、ページ上の他の要素にもアクセスし、適切な型にキャストすることができます。
+
+## 次のステップ
 
 DOM 内の要素を簡潔な方法で作成および構築する方法については、[タイプセーフ HTML DSL](typesafe-html-dsl.md) を確認してください。

@@ -4,6 +4,7 @@
 
  * [Web 版自動字型回退](#automatic-font-fallback)
  * [Compose Hot Reload 中適用於 AI 代理的 MCP 伺服器](#mcp-server-for-ai-agents-in-compose-hot-reload)
+ * [Desktop 版 Window 與對話方塊 API v2](#window-and-dialog-api-v2)
 
 您可以在 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.12.0-beta01) 上找到此版本的完整變更清單。
 有關特定組件版本的詳細資訊，請參閱 [相依性](#dependencies) 章節。
@@ -31,7 +32,7 @@ iOS 版 Compose Multiplatform 現在為延遲佈局提供了改進的捲動效�
 ### 自動字型回退
 <primary-label ref="Experimental"/>
 
-以前，應用程式載入的字型未涵蓋的字元會顯示為替換字符（□，稱為「tofu」）。
+以前，應用程式載入的字型未涵蓋的字元會顯示為替換字元（□，稱為「tofu」）。
 
 Web 版 Compose Multiplatform 現在會在轉譯過程中遇到未解決的字元時，根據需求自動下載所需的 Noto 字型子集。
 字型下載後，Compose 會重組受影響的文字。
@@ -47,6 +48,56 @@ Compose Hot Reload 現在附帶一個實驗性的 [Model Context Protocol (MCP)]
 到目前為止，當 AI 代理編輯 Compose 程式碼時，沒有可靠的方法來驗證結果：代理無法確認熱重載是否成功，無法看到轉譯後的 UI，也無法讀取執行時記錄或例外狀況。透過 MCP 伺服器，代理可以觸發重載、擷取螢幕截圖、檢查語義樹、模擬點擊與輸入，並讀取應用程式記錄，而無需您手動介入。
 
 有關 AI 代理可用的 MCP 工具完整清單以及如何連接，請參閱 [適用於 AI 代理的 MCP 伺服器](compose-hot-reload.md#mcp-server-for-ai-agents)。
+
+### Window 與對話方塊 API v2
+<primary-label ref="Experimental"/>
+
+我們為 Desktop 版的 `WindowState` 與 `DialogState` 推出了新的實驗性 v2 API，解決了現有 API 的多項限制。
+v2 API 可在 `androidx.compose.ui.window.v2` 子套件中使用。
+
+v2 API 讓您能更精確地控制視窗與對話方塊的放置與大小。您可以：
+* 選擇視窗顯示的螢幕
+* 提供自訂的定位與大小調整邏輯，包括基於內容固有尺寸（intrinsic size）的邏輯
+* 設定視窗的最小與最大尺寸
+* 相對於父視窗定位對話方塊
+
+v2 API 還使視窗狀態變更的非同步特性變得明確，將請求狀態與實際狀態分開。
+
+例如，若要在螢幕中央開啟一個固定大小的視窗：
+
+```kotlin
+import androidx.compose.material.Text
+import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.application
+import androidx.compose.ui.window.v2.Window
+import androidx.compose.ui.window.v2.WindowBoundsProvider
+import androidx.compose.ui.window.v2.WindowPositionProvider
+import androidx.compose.ui.window.v2.WindowSizeProvider
+import androidx.compose.ui.window.v2.rememberWindowState
+
+@OptIn(ExperimentalComposeUiApi::class)
+fun main() = application {
+    val windowState = rememberWindowState(
+        initialBoundsProvider = WindowBoundsProvider(
+            positionProvider = WindowPositionProvider.CenteredOnScreen,
+            sizeProvider = WindowSizeProvider.Fixed(DpSize(400.dp, 200.dp))
+        )
+    )
+
+    Window(
+        onCloseRequest = ::exitApplication,
+        state = windowState,
+    ) {
+        Text("Hello, World!", fontSize = 48.sp)
+    }
+}
+```
+
+v2 API 還解鎖了以前無法實現的場景，例如根據內容大小調整視窗尺寸，同時在視窗較大時仍允許內容擴展（透過 `fillMaxSize()` 等修飾符）。
+詳情請參閱 [Window 與對話方塊 API v2](compose-desktop-top-level-windows-management.md#window-and-dialog-api-v2) 文件頁面。
 
 ## 相依性
 

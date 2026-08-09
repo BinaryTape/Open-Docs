@@ -448,11 +448,11 @@ kapt は Kotlin ソースを生成できます。そのためには、生成さ�
 
 ### アノテーションプロセッサの構成
 
-<table>
+<table sticky-header="true">
     <tr>
-        <td>オプション</td>
-        <td>説明</td>
-        <td>設定方法</td>
+        <td width="50">オプション</td>
+        <td width="200">説明</td>
+        <td width="200">設定方法</td>
     </tr>
     <tr>
         <td><code>aptMode</code></td>
@@ -580,11 +580,11 @@ kapt は Kotlin ソースを生成できます。そのためには、生成さ�
 
 ### 出力ディレクトリオプション
 
-<table>
+<table sticky-header="true">
     <tr>
-        <td>オプション</td>
-        <td>説明</td>
-        <td>設定方法</td>
+        <td width="50">オプション</td>
+        <td width="200">説明</td>
+        <td width="200">設定方法</td>
     </tr>
     <tr>
         <td><code>sources</code></td>
@@ -626,11 +626,11 @@ kapt は Kotlin ソースを生成できます。そのためには、生成さ�
 
 ### 動作オプション
 
-<table>
+<table sticky-header="true">
     <tr>
-        <td>オプション</td>
-        <td>説明</td>
-        <td>設定方法</td>
+        <td width="50">オプション</td>
+        <td width="200">説明</td>
+        <td width="200">設定方法</td>
     </tr>
     <tr>
         <td><code>correctErrorTypes</code></td>
@@ -782,11 +782,11 @@ kapt は Kotlin ソースを生成できます。そのためには、生成さ�
 
 ### 診断および統計オプション
 
-<table>
+<table sticky-header="true">
     <tr>
-        <td>オプション</td>
-        <td>説明</td>
-        <td>設定方法</td>
+        <td width="50">オプション</td>
+        <td width="200">説明</td>
+        <td width="200">設定方法</td>
     </tr>
     <tr>
         <td><code>showProcessorStats</code></td>

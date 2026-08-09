@@ -126,9 +126,13 @@ Kotlin 擁有廣泛的標準程式庫，您可以在應用程式中使用。您�
 </dependencies>
 ```
 
-### 使用 BOM 相依性機制
+## 使用 BOM 管理相依性
 
-若要使用 Kotlin [物料清單 (BOM)](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms)，請新增對 [`kotlin-bom`](https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-bom) 的相依性：
+[物料清單 (BOM)](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms) 是一種特殊的 POM 檔案，用於管理專案中的相依性版本。這可以保持相關構件一致，並避免版本衝突。
+
+Kotlin 發布了 [`kotlin-bom`](https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-bom) 構件，它指定了與同一個 Kotlin 發行版本相對應的 Kotlin 程式庫版本（例如 `kotlin-stdlib`、`kotlin-reflect` 和 `kotlin-test`）。當專案中的其他程式庫對 Kotlin 構件具有間接相依性時，這非常有用，因為它能確保所有相依性都解析為相同的 Kotlin 版本。
+
+若要使用 Kotlin BOM，請將其匯入 `pom.xml` 檔案的 `<dependencyManagement>` 區塊，如下所示：
 
 ```xml
 <dependencyManagement>
@@ -143,6 +147,13 @@ Kotlin 擁有廣泛的標準程式庫，您可以在應用程式中使用。您�
     </dependencies>
 </dependencyManagement>
 ```
+
+匯入 BOM 後，您可以在 `<dependencies>` 區塊中宣告 Kotlin 相依性，而無需指定其版本；版本會自動從 BOM 檔案中取得。
+
+* 匯入 BOM 本身不會為您的專案新增任何相依性。它僅控制明確宣告的相依性和間接相依性的版本。
+* 如果您仍然為某個相依性指定了 `<version>`，該值將會覆蓋來自 BOM 的版本。
+
+如果您的專案發布了多個同時發行的程式庫，您可以提供自己的 BOM，以便使用者可以以相同的方式統一這些程式庫的版本。若要了解如何編寫自己的 BOM，請參閱 [Maven 文件](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms)。
 
 ## 接下來？
 

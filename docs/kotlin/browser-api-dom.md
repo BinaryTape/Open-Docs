@@ -1,10 +1,63 @@
 [//]: # (title: 浏览器与 DOM API)
 
-Kotlin/JS 标准库允许您使用 `kotlinx.browser` 软件包访问浏览器特定的功能，其中包括典型的顶级对象，如 `document` 和 `window`。标准库尽可能为这些对象公开的功能提供类型安全包装器。作为回退，`dynamic` 类型用于提供与无法很好映射到 Kotlin 类型系统的函数的交互。
+[`kotlinx-browser`](https://github.com/Kotlin/kotlinx-browser) 库允许您访问浏览器特定的功能。它包含典型的顶级对象，如 `document` 和 `window`，并尽可能为其功能提供类型安全包装器。
+
+作为回退，`dynamic` 类型用于提供与无法很好映射到 Kotlin 类型系统的函数的交互。
+
+要使用浏览器与 DOM（文档对象模型） API，请将 `kotlinx-browser` 库作为依赖项添加到项目的 `build.gradle(.kts)` 文件中：
+
+<tabs group="build-script">
+<tab title="Kotlin" group-key="kotlin">
+
+```kotlin
+repositories {
+    mavenCentral()
+}
+
+kotlin {
+    js {
+        browser()
+    }
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-browser:%kotlinxBrowserVersion%")
+            }
+        }
+    }
+}
+```
+
+</tab>
+<tab title="Groovy" group-key="groovy">
+
+```groovy
+repositories {
+    mavenCentral()
+}
+
+kotlin {
+    js {
+        browser()
+    }
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation 'org.jetbrains.kotlinx:kotlinx-browser:%kotlinxBrowserVersion%'
+            }
+        }
+    }
+}
+```
+
+</tab>
+</tabs>
 
 ## 与 DOM 交互
 
-要与 DOM（文档对象模型）进行交互，您可以使用 `document` 变量。例如，您可以通过此对象设置网站的背景颜色：
+要与 DOM（文档对象模型）（DOM）进行交互，您可以使用 `document` 变量。例如，您可以通过此对象设置网站的背景颜色：
 
 ```kotlin
 document.bgColor = "FFAA12" 
@@ -31,4 +84,6 @@ email.value = "hadi@jetbrains.com"
 
 就像您引用此 `input` 元素一样，您可以访问页面上的其他元素，并将它们转换为相应的类型。
 
-要了解如何以简洁的方式在 DOM 中创建和组织元素，请查看 [类型安全 HTML DSL](typesafe-html-dsl.md)。
+## 后续步骤
+
+要了解如何以简洁的方式在 DOM（文档对象模型）中创建和组织元素，请查看 [类型安全 HTML DSL](typesafe-html-dsl.md)。

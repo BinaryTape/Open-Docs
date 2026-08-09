@@ -126,9 +126,13 @@ kotlinx ライブラリの場合、ベースのアーティファクト名、ま
 </dependencies>
 ```
 
-### BOM 依存関係メカニズムの使用
+## BOM による依存関係の管理
 
-Kotlin の [Bill of Materials (BOM)](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms) を使用するには、[`kotlin-bom`](https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-bom) への依存関係を追加します。
+[Bill of Materials (BOM)](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms) は、プロジェクト内の依存関係のバージョンを管理する特別な POM ファイルです。これにより、関連するアーティファクトの整合性を保ち、バージョンの競合を避けることができます。
+
+Kotlin は [`kotlin-bom`](https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-bom) アーティファクトを公開しており、`kotlin-stdlib`、`kotlin-reflect`、`kotlin-test` など、同じ Kotlin リリースに対応する Kotlin ライブラリのバージョンを指定しています。これは、プロジェクト内の他のライブラリが Kotlin アーティファクトに推移的依存関係（transitive dependencies）を持っている場合に、すべての依存関係が確実に同じ Kotlin バージョンに解決されるため、非常に有用です。
+
+Kotlin BOM を使用するには、次のように `pom.xml` ファイルの `<dependencyManagement>` セクションにインポートします。
 
 ```xml
 <dependencyManagement>
@@ -143,6 +147,13 @@ Kotlin の [Bill of Materials (BOM)](https://maven.apache.org/guides/introductio
     </dependencies>
 </dependencyManagement>
 ```
+
+BOM をインポートした後は、`<dependencies>` セクションで Kotlin の依存関係を宣言する際にバージョンを指定する必要はありません。バージョンは自動的に BOM ファイルから取得されます。
+
+* BOM をインポートしただけでは、プロジェクトに依存関係は追加されません。明示的に宣言された依存関係や推移的依存関係のバージョンを制御するだけです。
+* 依存関係に対して依然として `<version>` を指定した場合、その値が BOM のバージョンを上書きします。
+
+プロジェクトで、同時にリリースされる複数のライブラリを公開している場合は、ユーザーがそれらのライブラリのバージョンを同じように合わせられるように、独自の BOM を提供することもできます。独自の BOM を作成する方法については、[Maven のドキュメント](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms)を参照してください。
 
 ## 次のステップ
 

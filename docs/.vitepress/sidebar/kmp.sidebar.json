@@ -189,6 +189,10 @@
         "link": "compose-drag-drop"
       },
       {
+        "text": "kmp.compose-popups",
+        "link": "compose-popups"
+      },
+      {
         "text": "kmp.compose-test",
         "link": "compose-test"
       },
@@ -602,6 +606,10 @@
           {
             "text": "kmp.configure-teamcity-for-kmp",
             "link": "configure-teamcity-for-kmp"
+          },
+          {
+            "text": "kmp.ios-ci-cd-teamcity",
+            "link": "ios-ci-cd-teamcity"
           }
         ],
         "collapsed": true

@@ -14,6 +14,10 @@
 
 코틀린 멀티플랫폼 프로젝트의 iOS 앱은 전형적인 Xcode 프로젝트에서 빌드되므로, 게시와 관련된 주요 단계는 [iOS 개발자 문서](https://developer.apple.com/ios/submit/)에 설명된 내용과 동일합니다.
 
+> TeamCity Cloud를 사용하여 iOS 출시 프로세스를 자동화하도록 [iOS 배포 파이프라인 구성](ios-ci-cd-teamcity.md)을 할 수 있습니다.
+>
+{style="tip"}
+
 > 2024년 봄 App Store 정책 변경으로 인해, 개인정보 보호 매니페스트(privacy manifests)가 누락되거나 불완전할 경우 앱에 대한 경고가 발생하거나 심지어 거부될 수 있습니다.
 > 특히 코틀린 멀티플랫폼 앱에 대한 자세한 내용과 해결 방법은 [iOS 앱용 개인정보 보호 매니페스트](https://kotlinlang.org/docs/apple-privacy-manifest.html)를 참조하세요. 
 >
@@ -59,6 +63,12 @@ iOS는 개발자가 앱을 개선하는 데 도움이 되도록 앱 크래시를
 기본적으로 공유 코틀린 모듈에서 생성된 iOS 프레임워크의 릴리스 버전에는 `.dSYM` 파일이 함께 제공됩니다. 이를 통해 공유 모듈의 코드에서 발생하는 크래시를 분석할 수 있습니다.
 
 크래시 리포트 심볼 복원(symbolication)에 대한 자세한 정보는 [Kotlin/Native 문서](https://kotlinlang.org/docs/native-debugging.html#debug-ios-applications)를 참조하세요.
+
+### TestFlight 게시 자동화
+
+Xcode를 통해 앱을 수동으로 빌드, 서명 및 업로드하는 대신, 전체 출시 프로세스를 자동화할 수 있습니다.
+
+IDE에서 직접 iOS 앱을 빌드하고 TestFlight에 자동으로 배포하는 TeamCity Cloud 파이프라인을 설정하는 방법은 [iOS 배포 파이프라인 구성](ios-ci-cd-teamcity.md)을 참조하세요.
 
 ## 웹 앱
 

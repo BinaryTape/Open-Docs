@@ -36,9 +36,21 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。
 </tr>
 
 <tr>
+<td>3.5.2</td><td>2026 年 8 月 4 日</td><td>
+<p>
+一個專注於穩定性與效能的修正版本，增強了速率限制支援、恢復了文字處理效能，並修正了 I/O 處理、OpenAPI 以及配置問題。
+</p>
+<var name="version" value="3.5.2"/>
+<p>
+    <a href="https://github.com/ktorio/ktor/releases/tag/%version%">在 GitHub 上查看變更記錄</a>
+</p>
+</td>
+</tr>
+
+<tr>
 <td>3.5.1</td><td>2026 年 6 月 26 日</td><td>
 <p>
-一個修正版本，包含 OpenAPI 外掛程式改進、擴展的身分驗證 KDoc 文件，以及涵蓋 Kotlin 2.4 編譯器相容性、HTTP 與快取行為、身分驗證、WebRTC 穩定性，以及跨 JVM、Darwin、Android 與 Windows 的平台特定問題等廣泛的錯誤修正。
+一個修正版本，包含 OpenAPI 外掛程式改進、擴展的身分驗證 KDoc 文件，以及涵蓋 Kotlin 2.4 編譯器相容性、HTTP 與快集行為、身分驗證、WebRTC 穩定性，以及跨 JVM、Darwin、Android 與 Windows 的平台特定問題等廣泛的錯誤修正。
 </p>
 <var name="version" value="3.5.1"/>
 <p>
@@ -207,7 +219,7 @@ IntelliJ Ktor 外掛程式允許您將 Ktor 專案遷移到最新版本。
 
 <tr>
 <td>3.1.3</td><td>2025 年 5 月 5 日</td><td><p>
-一個修正版本，包含效能改進（如更快的位元組操作和多部分處理）以及更安全的權杖重新整理處理。它還修正了計量指標中的記憶體問題、改進了標header行為，並解決了 WebSockets、OkHttp、Apache5 和 Netty 的錯誤，此外還更新了 JTE 以支援 Kotlin 2.1.0。
+一個修正版本，包含效能改進（如更快的位元組操作和多部分處理）以及更安全的權杖重新整理處理。它還修正了計量指標中的記憶體問題、改進了標頭行為，並解決了 WebSockets、OkHttp、Apache5 和 Netty 的錯誤，此外還更新了 JTE 以支援 Kotlin 2.1.0。
 </p>
 <var name="version" value="3.1.3"/>
 <p>

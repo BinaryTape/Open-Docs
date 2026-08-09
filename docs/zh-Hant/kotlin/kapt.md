@@ -5,7 +5,7 @@
 * 在以下情況使用 **kapt**：
    * 您有 Maven 專案。
    * 您有 Gradle 專案，但所需的 Java 註解處理器尚不支援 KSP。[請參閱支援的程式庫列表](ksp-overview.md#supported-libraries)。
-* 在以下情況使用 **[KSP](ksp-overview.md)**：
+* 在以下情況使用 **[KSP](ksp-overview.md)** :
    * 您有 Gradle 專案，且所需的 Java 註解處理器支援 KSP。
    * 您想要建立自己的註解處理器。
 
@@ -279,7 +279,7 @@ kapt 提供了一些 Gradle 專用的策略來縮短註解處理時間，包括�
 
 kapt 使用 [Gradle Worker API](https://docs.gradle.org/current/userguide/worker_api.html) 來執行註解處理任務。使用 Worker API 讓 Gradle 能從單一專案中並行執行獨立的註解處理任務，在某些情況下可以顯著減少執行時間。
 
-如果您在 Kotlin Gradle 外掛程式中設定了 [自訂 JDK 版本](gradle-configure-project.md#gradle-java-toolchains-support)，kapt 任務的 worker 僅使用 [`processIsolation()`](https://docs.gradle.org/current/userguide/worker_api.html#step_3_change_the_isolation_mode) 模式。
+如果您在 Kotlin Gradle 外掛程式中設定了 [自訂 JDK 版本](gradle-configure-project.md#gradle-java-toolchains-support)， kapt 任務的 worker 僅使用 [`processIsolation()`](https://docs.gradle.org/current/userguide/worker_api.html#step_3_change_the_isolation_mode) 模式。
 
 如果您想為 kapt worker 處理序提供額外的 JVM 引數，請使用 `KaptWithoutKotlincTask` 的輸入 `kaptProcessJvmArgs`：
 
@@ -441,11 +441,11 @@ kapt 可以產生 Kotlin 原始碼。若要執行此操作，請使用 `processi
 
 ### 註解處理器配置
 
-<table>
+<table sticky-header="true">
     <tr>
-        <td>選項</td>
-        <td>描述</td>
-        <td>如何設定</td>
+        <td width="50">選項</td>
+        <td width="200">描述</td>
+        <td width="200">如何設定</td>
     </tr>
     <tr>
         <td><code>aptMode</code></td>
@@ -573,11 +573,11 @@ kapt 可以產生 Kotlin 原始碼。若要執行此操作，請使用 `processi
 
 ### 輸出目錄選項
 
-<table>
+<table sticky-header="true">
     <tr>
-        <td>選項</td>
-        <td>描述</td>
-        <td>如何設定</td>
+        <td width="50">選項</td>
+        <td width="200">描述</td>
+        <td width="200">如何設定</td>
     </tr>
     <tr>
         <td><code>sources</code></td>
@@ -619,11 +619,11 @@ kapt 可以產生 Kotlin 原始碼。若要執行此操作，請使用 `processi
 
 ### 行為選項
 
-<table>
+<table sticky-header="true">
     <tr>
-        <td>選項</td>
-        <td>描述</td>
-        <td>如何設定</td>
+        <td width="50">選項</td>
+        <td width="200">描述</td>
+        <td width="200">如何設定</td>
     </tr>
     <tr>
         <td><code>correctErrorTypes</code></td>
@@ -775,11 +775,11 @@ kapt 可以產生 Kotlin 原始碼。若要執行此操作，請使用 `processi
 
 ### 診斷與統計選項
 
-<table>
+<table sticky-header="true">
     <tr>
-        <td>選項</td>
-        <td>描述</td>
-        <td>如何設定</td>
+        <td width="50">選項</td>
+        <td width="200">描述</td>
+        <td width="200">如何設定</td>
     </tr>
     <tr>
         <td><code>showProcessorStats</code></td>

@@ -36,6 +36,18 @@ IntelliJ Ktor 플러그인을 사용하여 Ktor 프로젝트를 최신 버전으
 </tr>
 
 <tr>
+<td>3.5.2</td><td>2026년 8월 4일</td><td>
+<p>
+향상된 속도 제한(rate limiting) 지원, 복구된 텍스트 처리 성능, 그리고 I/O 처리, OpenAPI 및 구성 문제 수정을 통해 안정성과 성능에 집중한 패치 릴리스입니다.
+</p>
+<var name="version" value="3.5.2"/>
+<p>
+    <a href="https://github.com/ktorio/ktor/releases/tag/%version%">GitHub에서 변경 로그 확인</a>
+</p>
+</td>
+</tr>
+
+<tr>
 <td>3.5.1</td><td>2026년 6월 26일</td><td>
 <p>
 OpenAPI 플러그인 개선 사항, 확장된 인증 KDoc 문서, 그리고 Kotlin 2.4 컴파일러 호환성, HTTP 및 캐싱 동작, 인증, WebRTC 안정성, JVM, Darwin, Android 및 Windows 전반의 플랫폼 특정 문제를 해결한 광범위한 버그 수정을 포함한 패치 릴리스입니다.
@@ -326,7 +338,7 @@ XML 멀티플랫폼 지원과 같은 기능, 버그 수정 및 주요 변경 사
 </tr>
 
 <tr>
-<td>3.0.0-beta-2</td><td>2024년 7월 15일</td><td><p>
+<td>3.0.0-beta-2</td><td>2024년 July 15, 2024</td><td><p>
 SSE 지원 개선 및 Kotlin/Wasm용 Ktor 클라이언트를 포함하여 다양한 개선 사항과 버그 수정을 담은 메이저 프리릴리스 버전입니다.
 </p>
 <var name="version" value="3.0.0-beta-2"/>

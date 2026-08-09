@@ -662,7 +662,7 @@
   "kmp.multiplatform-project-recommended-structure": "プロジェクト構造の推奨事項",
   "kotlin.spring-boot-claude": "Spring Boot と Claude を使用して Kotlin アプリを作成する – チュートリアル",
   "kotlin.kotlin-lsp": "Kotlin Language Server",
-  "kotlin.kotlin-for-ai-and-data-analysis": "AI とデータ分析のための Kotlin",
+  "kotlin.kotlin-for-ai-and-data-analysis": "AI と data 分析のための Kotlin",
   "kotlin.kotlin-for-ai": "AI のための Kotlin",
   "kotlin.kotlin-ai-skills": "Kotlin AI スキル",
   "kmp.ios-liquid-glass": "Liquid Glass",
@@ -686,5 +686,6 @@
   "lincheck.testing-data-structures": "データ構造のテスト",
   "kmp.kmp-for-ios": "iOS向けKotlin Multiplatform",
   "koog.cloud-platform-integrations": "クラウドプラットフォームの統合",
-  "koog.amazon-bedrock-agentcore": "Amazon Bedrock AgentCore"
+  "koog.amazon-bedrock-agentcore": "Amazon Bedrock AgentCore",
+  "kmp.ios-ci-cd-teamcity": "iOS 配信パイプラインの設定"
 }

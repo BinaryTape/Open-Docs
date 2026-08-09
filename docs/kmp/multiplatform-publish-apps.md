@@ -15,6 +15,10 @@
 
 Kotlin Multiplatform 项目中的 iOS 应用是基于典型的 Xcode 项目构建的，因此发布涉及的主要阶段与 [iOS 开发者文档](https://developer.apple.com/ios/submit/)中描述的相同。
 
+> 您可以[配置 iOS 交付流水线](ios-ci-cd-teamcity.md)，使用 TeamCity Cloud 自动化您的 iOS 发布流程。
+>
+{style="tip"}
+
 > 随着 2024 年春季 App Store 政策的变化，隐私清单缺失或不完整可能会导致您的应用收到警告甚至被拒。
 > 有关详细信息和解决方法，特别是针对 Kotlin Multiplatform 应用，请参阅 [iOS 应用的隐私清单](https://kotlinlang.org/docs/apple-privacy-manifest.html)。
 >
@@ -59,6 +63,12 @@ Kotlin Multiplatform 项目的特殊之处在于将共享的 Kotlin 模块编译
 默认情况下，从共享 Kotlin 模块生成的 iOS 框架的发布版本附带一个 `.dSYM` 文件。这有助于您分析共享模块代码中发生的崩溃。
 
 有关崩溃报告符号化的更多信息，请参阅 [Kotlin/Native 文档](https://kotlinlang.org/docs/native-debugging.html#debug-ios-applications)。
+
+### 自动化发布到 TestFlight
+
+除了通过 Xcode 手动构建、签名和上传应用外，您还可以自动化整个发布流程。
+
+要了解如何设置 TeamCity Cloud 流水线以直接从您的 IDE 自动构建 iOS 应用并将其部署到 TestFlight，请参阅[配置 iOS 交付流水线](ios-ci-cd-teamcity.md)。
 
 ## Web 应用
 

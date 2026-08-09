@@ -125,9 +125,13 @@ kotlinx 라이브러리의 경우 기본 아티팩트 이름을 추가하거나 
 </dependencies>
 ```
 
-### BOM 의존성 메커니즘 사용
+## BOM으로 의존성 관리하기
 
-Kotlin [BOM(Bill of Materials)](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms)을 사용하려면 [`kotlin-bom`](https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-bom)에 대한 의존성을 추가하세요.
+[BOM(Bill of Materials)](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms)은 프로젝트의 의존성 버전을 관리하는 특수한 POM 파일입니다. 이는 관련 아티팩트의 버전을 일치시키고 버전 충돌을 방지합니다.
+
+Kotlin은 동일한 Kotlin 릴리스에 해당하는 `kotlin-stdlib`, `kotlin-reflect`, `kotlin-test`와 같은 Kotlin 라이브러리의 버전을 지정하는 [`kotlin-bom`](https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-bom) 아티팩트를 게시합니다. 이는 프로젝트의 다른 라이브러리가 Kotlin 아티팩트에 대한 전이 의존성을 가질 때 유용하며, 모든 의존성이 동일한 Kotlin 버전으로 결정되도록 보장합니다.
+
+Kotlin BOM을 사용하려면 다음과 같이 `pom.xml` 파일의 `<dependencyManagement>` 섹션에 이를 가져오세요.
 
 ```xml
 <dependencyManagement>
@@ -142,6 +146,13 @@ Kotlin [BOM(Bill of Materials)](https://maven.apache.org/guides/introduction/int
     </dependencies>
 </dependencyManagement>
 ```
+
+BOM을 가져온 후에는 `<dependencies>` 섹션에서 버전을 지정하지 않고도 Kotlin 의존성을 선언할 수 있습니다. 버전은 BOM 파일에서 자동으로 가져옵니다.
+
+* BOM을 가져오는 것 자체만으로는 프로젝트에 어떤 의존성도 추가되지 않습니다. 오직 명시적으로 선언된 의존성과 전이 의존성의 버전만 제어합니다.
+* 의존성에 대해 여전히 `<version>`을 지정하는 경우, 해당 값이 BOM의 버전을 덮어씁니다.
+
+프로젝트에서 함께 출시되는 여러 라이브러리를 게시하는 경우, 사용자가 동일한 방식으로 해당 라이브러리들의 버전을 일치시킬 수 있도록 자체 BOM을 제공할 수 있습니다. 자체 BOM을 작성하는 방법을 알아보려면 [Maven 문서](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms)를 참고하세요.
 
 ## 다음 단계
 

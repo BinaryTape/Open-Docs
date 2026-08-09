@@ -444,11 +444,11 @@ kapt 可以生成 Kotlin 源码。为此，请将生成的 Kotlin 源码文件�
 
 ### 注解处理器配置
 
-<table>
+<table sticky-header="true">
     <tr>
-        <td>选项</td>
-        <td>描述</td>
-        <td>如何设置</td>
+        <td width="50">选项</td>
+        <td width="200">描述</td>
+        <td width="200">如何设置</td>
     </tr>
     <tr>
         <td><code>aptMode</code></td>
@@ -576,11 +576,11 @@ kapt 可以生成 Kotlin 源码。为此，请将生成的 Kotlin 源码文件�
 
 ### 输出目录选项
 
-<table>
+<table sticky-header="true">
     <tr>
-        <td>选项</td>
-        <td>描述</td>
-        <td>如何设置</td>
+        <td width="50">选项</td>
+        <td width="200">描述</td>
+        <td width="200">如何设置</td>
     </tr>
     <tr>
         <td><code>sources</code></td>
@@ -622,11 +622,11 @@ kapt 可以生成 Kotlin 源码。为此，请将生成的 Kotlin 源码文件�
 
 ### 行为选项
 
-<table>
+<table sticky-header="true">
     <tr>
-        <td>选项</td>
-        <td>描述</td>
-        <td>如何设置</td>
+        <td width="50">选项</td>
+        <td width="200">描述</td>
+        <td width="200">如何设置</td>
     </tr>
     <tr>
         <td><code>correctErrorTypes</code></td>
@@ -778,11 +778,11 @@ kapt 可以生成 Kotlin 源码。为此，请将生成的 Kotlin 源码文件�
 
 ### 诊断与统计选项
 
-<table>
+<table sticky-header="true">
     <tr>
-        <td>选项</td>
-        <td>描述</td>
-        <td>如何设置</td>
+        <td width="50">选项</td>
+        <td width="200">描述</td>
+        <td width="200">如何设置</td>
     </tr>
     <tr>
         <td><code>showProcessorStats</code></td>

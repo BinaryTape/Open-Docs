@@ -687,5 +687,6 @@
   "lincheck.testing-data-structures": "데이터 구조 테스트",
   "kmp.kmp-for-ios": "iOS용 Kotlin Multiplatform",
   "koog.cloud-platform-integrations": "클라우드 플랫폼 통합",
-  "koog.amazon-bedrock-agentcore": "Amazon Bedrock AgentCore"
+  "koog.amazon-bedrock-agentcore": "Amazon Bedrock AgentCore",
+  "kmp.ios-ci-cd-teamcity": "iOS 배포 파이프라인 구성"
 }

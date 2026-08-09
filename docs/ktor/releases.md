@@ -35,6 +35,18 @@ IntelliJ Ktor 插件允许您将 Ktor 项目迁移到最新版本。
 </tr>
 
 <tr>
+<td>3.5.2</td><td>2026 年 8 月 4 日</td><td>
+<p>
+一个修订版本，专注于稳定性和性能，具有增强的速率限制支持，恢复了文本处理性能，并修复了 I/O 处理、OpenAPI 和配置问题。
+</p>
+<var name="version" value="3.5.2"/>
+<p>
+    <a href="https://github.com/ktorio/ktor/releases/tag/%version%">在 GitHub 上查看变更日志</a>
+</p>
+</td>
+</tr>
+
+<tr>
 <td>3.5.1</td><td>2026 年 6 月 26 日</td><td>
 <p>
 一个修订版本，包含 OpenAPI 插件改进、扩展的身份验证 KDoc 文档，以及广泛的错误修复，涵盖 Kotlin 2.4 编译器兼容性、HTTP 和缓存行为、身份验证、WebRTC 稳定性以及跨 JVM、Darwin、Android 和 Windows 的平台特定问题。
@@ -86,7 +98,10 @@ IntelliJ Ktor 插件允许您将 Ktor 项目迁移到最新版本。
 <tr>
 <td>3.4.1</td><td>2026 年 3 月 4 日</td><td>
 <p>
-一个修订版本，包含重要的回归修复，包括解决 <a href="whats-new-340.md#use-engine-dispatcher">使用引擎调度器的 HttpStatement 执行问题</a> 并恢复了正确的 <code>StreamResetException</code> 传播。它还包含性能改进、OpenAPI 增强以及跨引擎和平台的多个稳定性修复。
+一个修订版本，包含重要的回归修复，包括解决
+<a href="whats-new-340.md#use-engine-dispatcher">使用引擎调度器的 HttpStatement 执行问题</a> 并恢复了正确的
+<code>StreamResetException</code> 传播。它还包含性能改进、OpenAPI
+增强以及跨引擎和平台的多个稳定性修复。
 </p>
 <var name="version" value="3.4.1"/>
 <p>
@@ -156,7 +171,7 @@ IntelliJ Ktor 插件允许您将 Ktor 项目迁移到最新版本。
 </tr>
 
 <tr>
-<td>3.2.3</td><td>2025 年 7 月 29 日</td><td>
+<td>3.2.3</td><td>2025 年 July 29 日</td><td>
 <p>
 一个修订版本，引入了对 YAML 配置处理、DI 解析以及 Wasm/JS 稳定性的改进，同时修复了分段解析、CIO <code>100 Continue</code> 响应格式化、<code>ByteReadChannel</code> 中的无限读取循环以及服务器停机问题。
 </p>
@@ -647,7 +662,7 @@ IntelliJ Ktor 插件允许您将 Ktor 项目迁移到最新版本。
 <tr>
 <td>2.0.0</td><td>2022 年 4 月 11 日</td><td>
 <p>
-一个主要版本，包含更新的 API 文档和各种新功能。欲了解更多关于破坏性变更以及如何从 <code>1.x.x</code> 迁移的信息，请参阅<Links href="/ktor/migration-to-20x" summary="undefined">迁移指南</Links>。
+一个主要版本，包含更新的 API 文档 and 各种新功能。欲了解更多关于破坏性变更以及如何从 <code>1.x.x</code> 迁移的信息，请参阅<Links href="/ktor/migration-to-20x" summary="undefined">迁移指南</Links>。
 </p>
 <var name="version" value="2.0.0"/>
 <p>

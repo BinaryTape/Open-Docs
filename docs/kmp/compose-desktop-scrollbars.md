@@ -2,10 +2,10 @@
 
 你可以将滚动条应用于可滚动组件。滚动条与可滚动组件共享公共状态，以实现相互同步。
 
-> 每个提供的代码片段都是一个可运行的桌面应用。要试用它：
+> 本指南中的示例是可运行的桌面应用。要试用其中之一：
 > 1. 使用 [Kotlin Multiplatform IDE 插件](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform) 或 [在线向导](https://kmp.jetbrains.com/?android=true&desktop=true&includeTests=false) 创建一个 Compose Multiplatform 项目。
 > 2. 打开桌面入口文件。例如：`desktopApp/src/main/kotlin/com/example/my_desktop_app/main.kt`。
-> 3. 将其内容替换为下面的代码片段。
+> 3. 将其内容替换为所提供的示例。
 >
 {style="note" id="desktop-snippets-intro"}
 

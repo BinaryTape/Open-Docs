@@ -443,11 +443,11 @@ kapt는 Kotlin 소스를 생성할 수 있습니다. 생성된 Kotlin 소스 파
 
 ### 어노테이션 프로세서 구성
 
-<table>
+<table sticky-header="true">
     <tr>
-        <td>옵션</td>
-        <td>설명</td>
-        <td>설정 방법</td>
+        <td width="50">옵션</td>
+        <td width="200">설명</td>
+        <td width="200">설정 방법</td>
     </tr>
     <tr>
         <td><code>aptMode</code></td>
@@ -575,11 +575,11 @@ kapt는 Kotlin 소스를 생성할 수 있습니다. 생성된 Kotlin 소스 파
 
 ### 출력 디렉토리 옵션
 
-<table>
+<table sticky-header="true">
     <tr>
-        <td>옵션</td>
-        <td>설명</td>
-        <td>설정 방법</td>
+        <td width="50">옵션</td>
+        <td width="200">설명</td>
+        <td width="200">설정 방법</td>
     </tr>
     <tr>
         <td><code>sources</code></td>
@@ -621,11 +621,11 @@ kapt는 Kotlin 소스를 생성할 수 있습니다. 생성된 Kotlin 소스 파
 
 ### 동작 옵션
 
-<table>
+<table sticky-header="true">
     <tr>
-        <td>옵션</td>
-        <td>설명</td>
-        <td>설정 방법</td>
+        <td width="50">옵션</td>
+        <td width="200">설명</td>
+        <td width="200">설정 방법</td>
     </tr>
     <tr>
         <td><code>correctErrorTypes</code></td>
@@ -777,11 +777,11 @@ kapt는 Kotlin 소스를 생성할 수 있습니다. 생성된 Kotlin 소스 파
 
 ### 진단 및 통계 옵션
 
-<table>
+<table sticky-header="true">
     <tr>
-        <td>옵션</td>
-        <td>설명</td>
-        <td>설정 방법</td>
+        <td width="50">옵션</td>
+        <td width="200">설명</td>
+        <td width="200">설정 방법</td>
     </tr>
     <tr>
         <td><code>showProcessorStats</code></td>

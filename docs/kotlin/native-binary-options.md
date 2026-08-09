@@ -61,12 +61,12 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
 >
 {style="note"}
 
-<table column-width="fixed">
+<table sticky-header="true">
     <tr>
-        <td width="240">选项</td>
-        <td width="170">值</td>
-        <td>描述</td>
-        <td width="110">状态</td>
+        <td width="100">选项</td>
+        <td width="50">值</td>
+        <td width="150">描述</td>
+        <td width="80">状态</td>
     </tr>
     <tr>
         <td><a href="native-objc-interop.md#explicit-parameter-names-in-objective-c-block-types"><code>objcExportBlockExplicitParameterNames</code></a></td>

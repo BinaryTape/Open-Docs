@@ -1,3 +1,4 @@
+```xml
 <topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
        id="kmp-for-ios" title="iOS용 Kotlin Multiplatform: 통합, 성능 및 워크플로에 대한 오해">
@@ -41,11 +42,13 @@
     <p>KMP는 흔히 성능, 복잡성, 네이티브 제어권 상실에 대한 오해에 둘러싸여 있지만, 이는 실제 작동 방식을 정확히 반영하지 못합니다. 경험에 기반한 답변을 통해 이러한 오해들을 풀어보겠습니다.</p>
 </chapter>
 <chapter title="오해: 크로스 플랫폼 프레임워크는 iOS의 성능과 경험을 저하시킨다" id="myth-cross-platform-frameworks-compromise-ios-performance-and-experience">
+    <p><format style="bold">사실: Kotlin Multiplatform을 사용하면 앱 성능이나 사용자 경험을 저하시키지 않고 코드를 공유할 수 있습니다.</format></p>
     <p>일반적인 우려는 Kotlin Multiplatform이 iOS 앱의 성능이나 경험을 해칠 것이라는 점입니다. 이러한 가정은 대개 React Native와 같이 브릿지나 독점 런타임을 사용하는 프레임워크를 사용했던 이전 경험에 근거합니다.</p>
     <p>KMP는 다르게 작동합니다. Swift와 동일한 툴체인 제품군인 LLVM을 사용하여 iOS용 공유 코드를 생성합니다. 자바스크립트 브릿지도, 통합된 런타임 레이어도 없으며, 코드와 iOS 사이에 추상화도 존재하지 않습니다. 즉, 앱은 일반적인 iOS 개발과 일관된 성능 특성을 가진 완전한 네이티브 바이너리로 계속 작동합니다.</p>
 </chapter>
 <chapter title="오해: Kotlin Multiplatform은 틈새 시장을 겨냥하거나 위험한 기술이다" id="myth-kotlin-multiplatform-is-a-niche-or-risky-technology">
-    <p>여러분은 여전히 Kotlin Multiplatform을 초기 실험 단계로 생각할 수도 있습니다. 하지만 Kotlin Multiplatform은 2023년 11월에 공식적으로 Stable(안정) 단계에 도달했으며, 지원되는 모든 플랫폼에서 프로덕션 준비가 완료되었습니다. KMP는 이미 <a href="https://kotlinlang.org/case-studies/?type=multiplatform&amp;platforms=ios">Google</a>, <a href="https://2025.kotlinconf.com/talks/812400/">Duolingo</a>, <a href="https://medium.com/booking-com-development/kotlin-multiplatform-in-production-two-real-world-use-cases-from-booking-com-46ffe13a773d">Booking.com</a>, <a href="https://youtu.be/VVf6txPZk3Y?si=6PVoeS8Pa0-QHUsT">Sony</a>, <a href="https://www.youtube.com/watch?v=hZPL8QqiLi8">Philips</a>, <a href="https://www.youtube.com/watch?v=HSIhkB5bGJs">McDonald's</a>와 같은 유명 기업들의 실제 대규모 iOS 애플리케이션에서 <a href="https://kotlinlang.org/case-studies/?type=multiplatform&amp;platforms=ios">사용되고 있습니다</a>.</p>
+    <p><format style="bold">사실: Kotlin Multiplatform은 Google, Duolingo, Booking.com, Sony와 같은 유명 기업들의 실제 대규모 애플리케이션에서 사용되고 있습니다.</format></p>
+    <p>여러분은 여전히 Kotlin Multiplatform을 초기 실험 단계로 생각할 수도 있습니다. 하지만 Kotlin Multiplatform은 2023년 11월에 공식적으로 Stable(안정) 단계에 도달했으며, 지원되는 모든 플랫폼에서 프로덕션 준비가 완료되었습니다. KMP는 <a href="https://kotlinlang.org/case-studies/?type=multiplatform&amp;platforms=ios">이미 사용되고 있습니다</a>. 실제 대규모 iOS 애플리케이션에서 <a href="https://youtu.be/5lkZj4v4-ks?si=OHg0v60urRqxuZZi">Google</a>, <a href="https://2025.kotlinconf.com/talks/812400/">Duolingo</a>, <a href="https://medium.com/booking-com-development/kotlin-multiplatform-in-production-two-real-world-use-cases-from-booking-com-46ffe13a773d">Booking.com</a>, <a href="https://youtu.be/VVf6txPZk3Y?si=6PVoeS8Pa0-QHUsT">Sony</a>, <a href="https://www.youtube.com/watch?v=hZPL8QqiLi8">Philips</a>, <a href="https://www.youtube.com/watch?v=HSIhkB5bGJs">McDonald's</a>와 같은 기업들이 이를 도입했습니다.</p>
     <p>생태계 또한 계속해서 성숙해 왔습니다. 2025년 iOS용 Compose Multiplatform이 Stable 단계에 도달하여, 공유 비즈니스 로직뿐만 아니라 프로덕션급의 공유 UI도 빌드할 수 있게 되었습니다. 2025년 Kotlin Multiplatform 설문 조사에 따르면, KMP는 이제 프로덕션 환경에서 실용적인 것으로 간주되며, 플러그인 사용자의 약 70%가 만족하거나 매우 만족하고 있고, 약 80%가 Compose Multiplatform을 사용하고 있습니다.</p>
     <p><a as="button" href="https://kotlinlang.org/case-studies/?type=multiplatform&amp;platforms=ios" mode="rock" icon="arrow-right" icon-position="right">실제 KMP 활용 사례 살펴보기</a></p>
     <p>KMP는 Kotlin의 개발사인 JetBrains의 지원을 받습니다. 이는 단순한 사이드 프로젝트가 아니라, 강력한 툴링, 정기적인 업데이트 및 성장하는 생태계 지원과 함께 계속 발전할 전략적 투자입니다.</p>
@@ -60,6 +63,7 @@
     </chapter>
 </chapter>
 <chapter title="오해: Kotlin Multiplatform은 안드로이드 개발자만을 위한 것이다" id="myth-kotlin-multiplatform-is-only-for-android-developers">
+    <p><format style="bold">사실: Kotlin은 범용 언어이며, Kotlin Multiplatform은 iOS 개발자가 공유 코드 설계에 참여할 수 있도록 크로스 플랫폼 팀을 위해 설계되었습니다.</format></p>
     <p>Kotlin Multiplatform은 종종 "안드로이드 우선"으로 인식되어, iOS 개발자는 그저 곁다리로 참여하는 것처럼 여겨지기도 합니다.</p>
     <p>Kotlin은 범용 언어이며, KMP의 공유 코드는 단일 플랫폼의 소유가 아닌 코드베이스의 또 다른 측면일 뿐입니다. iOS 개발자도 이를 읽고 기여하며, API를 설계하고 크로스 플랫폼 디자인에 영향을 미칠 수 있습니다.</p>
     <p>실제로 팀들은 다양한 모델을 채택합니다. 많은 iOS 개발자가 특히 UI 중심 기능에서 주로 Swift로 작업을 계속하는 반면, 공유 비즈니스 로직은 협업을 통해 개발하거나 크로스 플랫폼 코드에 집중하는 엔지니어가 개발합니다.</p>
@@ -69,6 +73,7 @@
     </chapter>
 </chapter>
 <chapter title="오해: 내 iOS 워크플로가 더 복잡해질 것이다" id="myth-my-ios-workflow-will-become-more-complicated">
+    <p><format style="bold">사실: 워크플로를 잃는 것이 아니라 새로운 기술을 얻는 것입니다. Kotlin Multiplatform은 한꺼번에 도입하는 대신 점진적으로 도입할 수 있도록 설계되었습니다.</format></p>
     <p>KMP에 대한 주요 우려 중 하나는 기존의 iOS 워크플로를 방해할 수 있다는 점입니다. 이미 Objective-C → Swift → SwiftUI와 같은 변화와 지속적인 툴체인의 변화를 겪었다면, "하나 더" 추가한다는 생각이 피곤하게 느껴질 수 있습니다. 이러한 우려는 타당하며, 이것이 바로 Kotlin Multiplatform이 한꺼번에 도입하는 대신 점진적으로 도입할 수 있도록 설계된 이유입니다.</p>
     <p>하룻밤 사이에 완전히 새로운 툴체인을 수용할 필요는 없습니다. 많은 iOS 개발자에게 KMP는 단순히 공유 모듈을 사용하는 것부터 시작할 수 있습니다. 즉, 유용성을 평가하는 동안 일상적인 워크플로는 상대적으로 영향을 받지 않을 수 있습니다.</p>
     <p>더 깊이 들어감에 따라 학습 곡선은 완만하며, 전부 아니면 전무(all-or-nothing) 식이 아닙니다.</p>
@@ -88,6 +93,7 @@
     </chapter>
 </chapter>
 <chapter title="오해: Kotlin Multiplatform은 관용적이지 않은 Swift API를 생성한다" id="myth-kotlin-multiplatform-produces-non-idiomatic-swift-apis">
+    <p><format style="bold">사실: 팀워크와 적절한 툴을 통해 Swift다운 API를 만들 수 있습니다. Swift Export와 같은 최신 툴링을 통해 Kotlin은 Swift와 더욱 직접적이고 관용적인 통합을 향해 나아가고 있습니다.</format></p>
     <p>Kotlin Multiplatform에서의 Swift 상호 운용성은 여전히 유효한 우려 사항입니다. 현재 Kotlin 코드는 Objective-C 브릿지를 통해 iOS에 제공되므로, 특히 명명 규칙, Null 허용 여부(nullability), 제네릭 또는 비동기 패턴에서 Swift API가 덜 자연스럽게 느껴질 수 있습니다.</p>
     <p>네, 제대로 관리하지 않으면 Swift답지 않게 느껴질 수 있습니다. 하지만 iOS를 염두에 두고 공유 코드를 개발하면 좋은 Swift API를 만들 수 있습니다. 몇 가지 권장 사례는 다음과 같습니다.</p>
     <list>
@@ -101,6 +107,7 @@
     <p>Swift Export는 Objective-C 레이어를 제거하는 것을 목표로 하며, <a href="https://github.com/kotlin-hands-on/kotlin-swift-interopedia">Interopedia</a>는 Kotlin 코드가 Swift에 어떻게 노출되는지, 어떤 패턴을 기대할 수 있는지 개발자가 이해하도록 돕는 실무 문서 역할을 합니다. <a href="https://github.com/rickclephas/KMP-NativeCoroutines">KMP-NativeCoroutines</a> 및 <a href="https://github.com/touchlab/SKIE">SKIE</a>와 같은 라이브러리는 현재 상호 운용 모델의 거친 부분을 매끄럽게 다듬어 코루틴이 Swift의 async/await에 매핑되는 방식을 개선하고 생성된 API를 더 Swift 친화적으로 만들어 줍니다.</p>
 </chapter>
 <chapter title="오해: UI를 공유하면 네이티브 iOS 경험을 잃게 된다" id="myth-sharing-ui-means-losing-native-ios-experience">
+    <p><format style="bold">사실: UI 공유는 선택 사항입니다. 팀은 SwiftUI나 UIKit으로 완전한 네이티브 UI를 유지하거나, Compose Multiplatform으로 공유 UI를 도입하거나, 필요에 따라 두 가지 방식을 결합할 수 있습니다.</format></p>
     <p>널리 퍼진 오해 중 하나는 Kotlin Multiplatform을 사용하려면 완전한 네이티브 iOS UI를 포기해야 한다는 것입니다. 그렇지 않습니다.</p>
     <p>KMP는 공유 UI를 전혀 요구하지 않습니다. 기본 기능만 공유하고 나머지는 네이티브로 유지할 수 있습니다.</p>
     <list>
@@ -108,7 +115,6 @@
         <li>애니메이션과 상호 작용은 완전히 네이티브 상태를 유지할 수 있습니다.</li>
         <li>플랫폼 API는 래퍼 없이 직접 액세스됩니다.</li>
     </list>
-</chapter>
     <chapter title="그렇다면 더 이상 iOS 앱처럼 느껴지지 않게 될까요?" id="so-will-your-app-no-longer-feel-like-an-ios-app">
     <p>아니요, 네이티브 UI를 포기할 필요가 없기 때문입니다.</p>
     </chapter>
@@ -117,9 +123,11 @@
     <p>대시보드나 핵심 제품 흐름과 같이 가장 자주 사용되는 화면은 최대한의 성능과 플랫폼 고유의 완성도를 끌어낼 수 있는 완전한 네이티브 UI로 구현하는 것이 더 나은 경우가 많습니다. 영향도가 낮은 영역에는 Compose Multiplatform이 아주 적합합니다. 설정 페이지나 인증과 같이 가끔 발생하는 흐름과 같은 화면은 깊은 네이티브 최적화보다 개발 속도와 코드 재사용이 더 중요한 공유 Compose UI의 이상적인 후보입니다.</p>
     <p>중요한 점은 Compose Multiplatform과 기존 iOS UI 간에 상호 운용성이 있어, 네이티브 뷰와 함께 공유 컴포넌트를 임베드하거나 시간이 지남에 따라 점진적으로 도입할 수 있다는 것입니다. 이를 통해 팀은 미리 하나의 방식에만 얽매이지 않고 UI 전략을 발전시킬 수 있습니다.</p>
     </chapter>
+</chapter>
 <p><a as="button" href="https://kotlinlang.org/compose-multiplatform/" mode="rock" icon="arrow-right" icon-position="right">Compose Multiplatform 살펴보기</a>
     </p>
 <chapter title="오해: Kotlin Multiplatform을 도입하면 더 이상 Swift를 사용하지 않게 된다" id="myth-adopting-kotlin-multiplatform-means-no-more-swift">
+    <p><format style="bold">사실: Swift는 네이티브 iOS 개발에 여전히 필수적이며, Kotlin Multiplatform은 코드 재사용의 이점이 있는 부분에 공유 레이어를 추가할 뿐입니다.</format></p>
     <p>일반적인 두려움 중 하나는 Kotlin Multiplatform을 도입하면 Swift가 쓸모없게 될 것이라는 점입니다. 하지만 KMP는 Swift를 대체하기 위해 존재하는 것이 아닙니다. Swift는 여전히 iOS 개발의 필수 요소입니다.</p>
     <p>iOS 앱을 iOS답게 만드는 모든 작업에는 계속해서 Swift를 사용합니다.</p>
     <list>

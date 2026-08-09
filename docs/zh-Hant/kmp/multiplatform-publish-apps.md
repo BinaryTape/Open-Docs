@@ -15,6 +15,10 @@
 
 Kotlin Multiplatform 專案中的 iOS 應用程式是從典型的 Xcode 專案建置的，因此發佈涉及的主要階段與 [iOS 開發人員文件](https://developer.apple.com/ios/submit/)中所述相同。
 
+> 您可以[配置 iOS 交付管線](ios-ci-cd-teamcity.md)來透過 TeamCity Cloud 自動化您的 iOS 發佈流程。
+>
+{style="tip"}
+
 > 隨著 2024 年春季 App Store 政策的變更，缺失或不完整的隱私資訊清單可能會導致您的應用程式收到警告甚至被拒絕。
 > 有關詳細資訊和解決方案，特別是針對 Kotlin Multiplatform 應用程式，請參閱 [iOS 應用程式的隱私資訊清單](https://kotlinlang.org/docs/apple-privacy-manifest.html)。
 >
@@ -62,6 +66,12 @@ Kotlin Multiplatform 專案的特殊之處在於將共用的 Kotlin 模組編譯
 
 有關損毀報告符號化的更多資訊，請參閱 [Kotlin/Native 文件](https://kotlinlang.org/docs/native-debugging.html#debug-ios-applications)。
 
+### 自動化發佈到 TestFlight
+
+您可以自動化整個發佈流程，而不需要手動透過 Xcode 進行組建、簽章和上傳應用程式。
+
+若要了解如何設定 TeamCity Cloud 管線，以直接從您的 IDE 自動組建 iOS 應用程式並將其部署到 TestFlight，請參閱[配置 iOS 交付管線](ios-ci-cd-teamcity.md)。
+
 ## Web 應用程式
 
 要發佈您的 Web 應用程式，請建立包含組成應用程式的編譯檔案和資源的構件。這些構件是將您的應用程式部署到 GitHub Pages 等 Web 代管平台所必需的。
@@ -107,4 +117,4 @@ Kotlin Multiplatform 專案的特殊之處在於將共用的 Kotlin 模組編譯
 
 ### 偵錯您的 Web 應用程式
 
-您可以直接在瀏覽器中對 Web 應用程式進行偵錯，無需額外配置。要了解如何在瀏覽器中偵錯，請參閱 Kotlin 文件中的[在瀏覽器中偵錯](https://kotlinlang.org/docs/wasm-debugging.html#debug-in-your-browser)指南。
+您可以直接在瀏覽器中對 Web 應用程式進行偵錯，開箱即用且無需額外配置。要了解如何在瀏覽器中偵錯，請參閱 Kotlin 文件中的[在瀏覽器中偵錯](https://kotlinlang.org/docs/wasm-debugging.html#debug-in-your-browser)指南。

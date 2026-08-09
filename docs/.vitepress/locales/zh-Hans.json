@@ -22,7 +22,7 @@
   "homepage.card.koog.tag.2": "Kotlin",
   "homepage.banner.title": "开始探索文档",
   "homepage.banner.description": "选择上方任一技术栈，开始探索详尽的文档和示例",
-  "homepage.ad.description": "通过创新咨询和解决方案连接全球与亚洲技术社区，利用我们在移动基础设施和新兴 AI 领域的专业知识，促进全球范围内的开源协作。",
+  "homepage.ad.description": "通过 innovation 咨询和解决方案连接全球与亚洲技术社区，利用我们在移动基础设施和新兴 AI 领域的专业知识，促进全球范围内的开源协作。",
   "homepage.ad.contact": "联系方式：hi@binarytape.com",
   "homepage.ad.sponsor": "Open AIDoc 由 BinaryTape 赞助支持",
   "koin.setup": "配置",
@@ -685,5 +685,6 @@
   "lincheck.testing-data-structures": "测试数据结构",
   "kmp.kmp-for-ios": "适用于 iOS 的 Kotlin Multiplatform",
   "koog.cloud-platform-integrations": "云平台集成",
-  "koog.amazon-bedrock-agentcore": "Amazon Bedrock AgentCore"
+  "koog.amazon-bedrock-agentcore": "Amazon Bedrock AgentCore",
+  "kmp.ios-ci-cd-teamcity": "配置 iOS 交付流水线"
 }

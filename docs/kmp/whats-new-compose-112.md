@@ -4,6 +4,7 @@
 
  * [适用于 Web 的自动字体回退](#automatic-font-fallback)
  * [Compose Hot Reload 中适用于 AI 代理的 MCP 服务器](#mcp-server-for-ai-agents-in-compose-hot-reload)
+ * [适用于桌面端的窗口和对话框 API v2](#window-and-dialog-api-v2)
 
 您可以在 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.12.0-beta01) 上找到此版本的完整变更列表。
 有关特定组件版本的详细信息，请参阅[依赖项](#dependencies)部分。
@@ -47,6 +48,56 @@ Compose Hot Reload 现在附带了一个实验性的 [Model Context Protocol (MC
 在此之前，当 AI 代理编辑 Compose 代码时，没有可靠的方法来验证结果：代理无法确认热重载是否成功，无法看到渲染后的 UI，也无法读取运行时日志或异常。通过 MCP 服务器，代理可以触发重载、拍摄屏幕截图、检查语义树、模拟点击和输入，以及读取应用程序日志，而无需您的人工干预。
 
 有关 AI 代理可用的 MCP 工具完整列表以及如何连接它的信息，请参阅 [AI 代理的 MCP 服务器](compose-hot-reload.md#mcp-server-for-ai-agents)。
+
+### 窗口和对话框 API v2
+<primary-label ref="Experimental"/>
+
+我们为桌面端的 `WindowState` 和 `DialogState` 引入了全新的实验性 v2 API，旨在解决现有 API 的诸多限制。
+v2 API 位于 `androidx.compose.ui.window.v2` 子包中。
+
+v2 API 让您可以更精确地控制窗口和对话框的放置与大小调整。您可以：
+* 选择窗口出现的屏幕
+* 提供自定义的定位和大小调整逻辑，包括基于内容固有大小 (intrinsic size) 的逻辑
+* 设置窗口的最小和最大尺寸
+* 相对于父窗口定位对话框
+
+v2 API 还使窗口状态更改的异步特性变得更加明确，将“请求的状态”与“实际的状态”进行了分离。
+
+例如，要在屏幕中央打开一个固定大小的窗口：
+
+```kotlin
+import androidx.compose.material.Text
+import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.application
+import androidx.compose.ui.window.v2.Window
+import androidx.compose.ui.window.v2.WindowBoundsProvider
+import androidx.compose.ui.window.v2.WindowPositionProvider
+import androidx.compose.ui.window.v2.WindowSizeProvider
+import androidx.compose.ui.window.v2.rememberWindowState
+
+@OptIn(ExperimentalComposeUiApi::class)
+fun main() = application {
+    val windowState = rememberWindowState(
+        initialBoundsProvider = WindowBoundsProvider(
+            positionProvider = WindowPositionProvider.CenteredOnScreen,
+            sizeProvider = WindowSizeProvider.Fixed(DpSize(400.dp, 200.dp))
+        )
+    )
+
+    Window(
+        onCloseRequest = ::exitApplication,
+        state = windowState,
+    ) {
+        Text("Hello, World!", fontSize = 48.sp)
+    }
+}
+```
+
+v2 API 还解锁了以前无法实现的场景，例如根据内容大小调整窗口大小，同时在窗口变大时仍允许内容通过 `fillMaxSize()` 等修饰符进行扩展。
+详情请参阅 [窗口和对话框 API v2](compose-desktop-top-level-windows-management.md#window-and-dialog-api-v2) 文档页面。
 
 ## 依赖项
 

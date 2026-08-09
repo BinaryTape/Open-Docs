@@ -125,9 +125,13 @@ Kotlin 拥有广泛的标准库，供您在应用程序中使用。您可以手�
 </dependencies>
 ```
 
-### 使用 BOM 依赖机制
+## 使用 BOM 管理依赖项
 
-要使用 Kotlin [物料清单 (BOM)](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms)，请添加对 [`kotlin-bom`](https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-bom) 的依赖项：
+[物料清单 (BOM)](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms) 是一种特殊的 POM 文件，用于管理项目中的依赖项版本。这可以保持相关构件的一致性并避免版本冲突。
+
+Kotlin 发布了 [`kotlin-bom`](https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-bom) 构件，其中指定了与同一 Kotlin 版本对应的 Kotlin 库（如 `kotlin-stdlib`、`kotlin-reflect` 和 `kotlin-test`）的版本。当项目中的其他库对 Kotlin 构件有传递依赖时，这非常有用，因为它确保所有依赖项都解析为相同的 Kotlin 版本。
+
+要使用 Kotlin BOM，请按如下方式将其导入 `pom.xml` 文件的 `<dependencyManagement>` 部分：
 
 ```xml
 <dependencyManagement>
@@ -142,6 +146,13 @@ Kotlin 拥有广泛的标准库，供您在应用程序中使用。您可以手�
     </dependencies>
 </dependencyManagement>
 ```
+
+导入 BOM 后，您可以在 `<dependencies>` 部分声明 Kotlin 依赖项，而无需指定其版本；它们会自动从 BOM 文件中获取。
+
+* 导入 BOM 本身不会向项目添加任何依赖项。它仅控制显式声明的依赖项和传递依赖项的版本。
+* 如果您仍然为某个依赖项指定了 `<version>`，该值将覆盖 BOM 中的版本。
+
+如果您的项目发布了多个一起发布的库，您可以提供自己的 BOM，以便用户能够以同样的方式统一这些库的版本。要了解如何编写自己的 BOM，请参阅 [Maven 文档](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms)。
 
 ## 下一步？
 

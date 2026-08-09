@@ -2,10 +2,10 @@
 
 您可以將捲軸套用到可捲動的組建。捲軸與可捲動組建共用同一個狀態，以便彼此同步。
 
-> 提供的每個程式碼片段都是一個可執行的桌面應用程式。若要嘗試：
+> 本指南中的範例皆為可執行的桌面應用程式。若要嘗試：
 > 1. 使用 [Kotlin Multiplatform IDE 外掛程式](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform) 或 [線上精靈](https://kmp.jetbrains.com/?android=true&desktop=true&includeTests=false) 建立一個 Compose Multiplatform 專案。
 > 2. 開啟桌面進入點檔案。例如：`desktopApp/src/main/kotlin/com/example/my_desktop_app/main.kt`。
-> 3. 將其內容替換為下方的程式碼片段。
+> 3. 將其內容替換為提供的範例。
 >
 {style="note" id="desktop-snippets-intro"}
 
