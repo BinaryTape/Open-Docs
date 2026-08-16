@@ -176,9 +176,9 @@ Kotlin Maven 플러그인을 적용하려면 `pom.xml` 빌드 파일을 다음�
                     </goals>
                     <configuration>
                         <sourceDirs>
-                            <sourceDir>src/main/kotlin</sourceDir>
+                            <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
                             <!-- Kotlin 코드가 Java 코드를 참조할 수 있도록 보장 -->
-                            <sourceDir>src/main/java</sourceDir>
+                            <sourceDir>${project.basedir}/src/main/java</sourceDir>
                         </sourceDirs>
                     </configuration>
                 </execution>
@@ -190,8 +190,8 @@ Kotlin Maven 플러그인을 적용하려면 `pom.xml` 빌드 파일을 다음�
                     </goals>
                     <configuration>
                         <sourceDirs>
-                            <sourceDir>src/test/kotlin</sourceDir>
-                            <sourceDir>src/test/java</sourceDir>
+                            <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
+                            <sourceDir>${project.basedir}/src/test/java</sourceDir>
                         </sourceDirs>
                     </configuration>
                 </execution>
@@ -334,6 +334,31 @@ graph TD
 > 현재 특정 JDK 버전을 사용하도록 `maven-toolchains-plugin`을 설정하는 것은 `kotlin-maven-plugin`의 [`kapt` 및 `test-kapt` 골(goals)에 영향을 미치지 않습니다](https://youtrack.jetbrains.com/issue/KT-79897). 대신 `JAVA_HOME` 경로에 필요한 버전을 설정하세요.
 >
 {style="note"}
+
+## Java 모듈(JPMS) 구성하기
+
+Kotlin Maven 플러그인은 [Java 플랫폼 모듈 시스템(JPMS)](https://dev.java/learn/modules/)을 지원하므로, `module-info.java` 서술자와 함께 Kotlin 코드를 컴파일하고 결과 모듈을 다른 Java 모듈처럼 사용할 수 있습니다.
+
+빌드 파일에 추가적인 JPMS 전용 옵션은 필요하지 않습니다. Maven보다 먼저 Kotlin 컴파일러를 실행하도록 구성하기만 하면 됩니다.
+
+`module-info.java` 서술자가 있으면, Kotlin 컴파일러는 이를 소스 파일로 사용하고 클래스패스 대신 모듈 경로를 기준으로 컴파일합니다. Kotlin 컴파일러는 서술자를 읽어 모듈 그래프를 분석하고, Maven 컴파일러는 이를 `module-info.class` 파일로 컴파일합니다.
+
+Java 모듈을 구성하려면 `${project.basedir}/src/main/java` 디렉터리에 `module-info.java` 파일을 생성하세요. 모듈 서술자에는 모듈에 필요한 모든 의존성과 모듈이 노출하는 패키지를 선언합니다. 예를 들어:
+
+```java
+module org.example.myapp {
+    requires transitive kotlin.stdlib;
+    requires java.net.http;
+    
+    exports org.example.myapp;
+}
+```
+
+다음에 유의하세요.
+
+* Java 모듈은 선언한 항목만 사용할 수 있습니다. 컴파일 시 클래스패스 대신 모듈 경로를 사용하므로, 서술자에는 Kotlin 코드에서 사용하는 모든 의존성(표준 라이브러리, `java.base`를 제외한 JDK 모듈 및 기타 라이브러리)이 포함되어야 합니다. 그렇지 않으면 `Unresolved reference` 오류가 발생할 수 있습니다.
+* 모듈의 경우, Kotlin 파일의 패키지 이름이 `module-info.java`의 패키지 이름과 일치해야 `Package is empty or does not exist` 빌드 실패를 피할 수 있습니다.
+* `pom.xml` 빌드 파일은 [Kotlin이 Java보다 먼저 컴파일되도록](#compile-kotlin-and-java-sources) 구성해야 합니다. [자동 프로젝트 설정](#automatic-configuration)을 사용하는 경우, `<extensions>` 옵션이 이미 이를 보장합니다.
 
 ## 다음 단계는?
 

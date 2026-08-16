@@ -520,7 +520,7 @@ class MyStringCollection {
 
 fun main() {
     val myStrings = MyStringCollection()
-    // 將 "first" 與 "second" 新增到清單中兩次
+    // 將 "first" 與 "second" 新增到清單中
     myStrings.build()
       
     myStrings.printAll()

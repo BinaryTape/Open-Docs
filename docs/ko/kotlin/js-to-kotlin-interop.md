@@ -1,5 +1,94 @@
 [//]: # (title: JavaScript에서 Kotlin 코드 사용하기)
 
+선택한 [JavaScript 모듈](js-modules.md) 시스템에 따라 Kotlin/JS 컴파일러는 서로 다른 출력을 생성합니다.
+하지만 일반적으로 Kotlin 컴파일러는 JavaScript 코드에서 자유롭게 사용할 수 있는 일반적인 JavaScript 클래스, 함수 및 프로퍼티를 생성합니다. 다만 몇 가지 유의해야 할 미묘한 사항들이 있습니다.
+
+## plain 모드에서 별도의 JavaScript 객체로 선언 분리하기
+
+모듈 종류를 명시적으로 `plain`으로 설정한 경우, Kotlin은 전역 객체(global object)를 오염시키는 것을 방지하기 위해 현재 모듈의 모든 Kotlin 선언을 포함하는 객체를 생성합니다. 즉, `myModule`이라는 모듈의 모든 선언은 JavaScript에서 `myModule` 객체를 통해 사용할 수 있습니다. 예를 들어:
+
+```kotlin
+fun foo() = "Hello"
+```
+
+이 함수는 JavaScript에서 다음과 같이 호출할 수 있습니다:
+
+```javascript
+alert(myModule.foo());
+```
+
+이와 같이 함수를 직접 호출하는 방식은 Kotlin 모듈을 [UMD](https://github.com/umdjs/umd)(`browser` 및 `nodejs` 타겟의 기본 설정), [ESM](https://tc39.es/ecma262/#sec-modules), [CommonJS](https://nodejs.org/api/modules.html#modules-commonjs-modules), 또는 [AMD](https://github.com/amdjs/amdjs-api/wiki/AMD)와 같은 JavaScript 모듈로 컴파일할 때는 적용되지 않습니다.
+이러한 경우에는 선택한 JavaScript 모듈 시스템에 따라 선언이 노출됩니다.
+예를 들어 UMD, ESM 또는 CommonJS를 사용하는 경우, 호출 측은 다음과 같은 모습이 됩니다:
+
+```javascript
+alert(require('myModule').foo());
+```
+
+JavaScript 모듈 시스템에 대한 자세한 내용은 [JavaScript 모듈](js-modules.md)을 참고하세요.
+
+## 패키지 구조
+
+대부분의 모듈 시스템(CommonJS, Plain, UMD)에서 Kotlin은 패키지 구조를 JavaScript에 노출합니다.
+루트 패키지에 선언을 정의하지 않는 한, JavaScript에서 전체 경로 이름(fully qualified names)을 사용해야 합니다.
+예를 들어:
+
+```kotlin
+package my.qualified.packagename
+
+fun foo() = "Hello"
+```
+
+예를 들어 UMD 또는 CommonJS를 사용하는 경우, 호출 측은 다음과 같은 모습이 될 수 있습니다:
+
+```javascript
+alert(require('myModule').my.qualified.packagename.foo())
+```
+
+`plain`을 모듈 시스템 설정으로 사용하는 경우, 호출 측은 다음과 같습니다:
+
+```javascript
+alert(myModule.my.qualified.packagename.foo());
+```
+
+ECMAScript 모듈(ESM)을 타겟으로 할 때는 애플리케이션 번들 크기를 개선하고 ESM 패키지의 일반적인 레이아웃에 맞추기 위해 패키지 정보가 보존되지 않습니다.
+이 경우 ES 모듈을 사용하는 Kotlin 선언의 소비 방식은 다음과 같습니다:
+
+```javascript
+import { foo } from 'myModule';
+
+alert(foo());
+```
+
+### `@JsName` 어노테이션
+
+어떤 경우(예를 들어 오버로드 지원 등)에는 Kotlin 컴파일러가 생성된 JavaScript 코드의 함수 및 속성 이름을 맹글링(mangling)합니다. 생성되는 이름을 제어하려면 `@JsName` 어노테이션을 사용할 수 있습니다:
+
+```kotlin
+// 모듈 'kjs'
+class Person(val name: String) {
+    fun hello() {
+        println("Hello $name!")
+    }
+
+    @JsName("helloWithGreeting")
+    fun hello(greeting: String) {
+        println("$greeting $name!")
+    }
+}
+```
+
+이제 JavaScript에서 다음과 같은 방식으로 이 클래스를 사용할 수 있습니다:
+
+```javascript
+// 필요하다면 선택한 모듈 시스템에 따라 'kjs'를 임포트합니다.
+var person = new kjs.Person("Dmitry");   // 'kjs' 모듈을 참조함
+person.hello();                          // "Hello Dmitry!" 출력
+person.helloWithGreeting("Servus");      // "Servus Dmitry!" 출력
+```
+
+만약 `@JsName` 어노테이션을 지정하지 않았다면, 해당 함수의 이름에는 함수 시그니처로부터 계산된 접미사(예: `hello_61zpoe`)가 포함되었을 것입니다.
+
 Kotlin 컴파일러가 맹글링을 적용하지 않는 몇 가지 경우가 있습니다:
 - `external` 선언은 맹글링되지 않습니다.
 - `external` 클래스를 상속받는 비-`external` 클래스 내의 모든 오버라이드된 함수는 맹글링되지 않습니다.
@@ -184,17 +273,17 @@ Kotlin의 `Long` 타입은 JavaScript의 `BigInt` 타입으로 컴파일될 수 
 
 1. Kotlin/JS에서 `Long` 내보내기를 허용합니다. `build.gradle(.kts)` 파일의 `freeCompilerArgs` 속성에 다음 컴파일러 옵션을 추가합니다:
 
- ```kotlin
-// build.gradle.kts
-kotlin {
-    js {
-        ...
-        compilerOptions { 
-            freeCompilerArgs.add("-XXLanguage:+JsAllowLongInExportedDeclarations")
+     ```kotlin
+    // build.gradle.kts
+    kotlin {
+        js {
+            ...
+            compilerOptions { 
+                freeCompilerArgs.add("-XXLanguage:+JsAllowLongInExportedDeclarations")
+            }
         }
     }
-}
-```
+    ```
 
 2. `BigInt` 타입을 활성화합니다. 활성화 방법은 [Kotlin의 `Long` 타입을 표현하기 위해 `BigInt` 타입 사용하기](#use-bigint-type-to-represent-kotlin-s-long-type)를 참고하세요.
 

@@ -39,7 +39,7 @@ kotlin {
 }
 ```
 
-它會產生平台特有的靜態物件（`.a` 庫格式）和一個 C 語言標頭檔，允許您從 C/C++ 程式碼中使用您的 Kotlin/Native 程式中所有可用的公開 API。
+它會產生平台特有的靜態物件（`.a` 庫格式） and 一個 C 語言標頭檔，允許您從 C/C++ 程式碼中使用您的 Kotlin/Native 程式中所有可用的公開 API。
 
 ## 我該如何在公司代理伺服器（Corporate Proxy）後執行 Kotlin/Native？
 

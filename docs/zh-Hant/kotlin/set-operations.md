@@ -21,7 +21,7 @@ fun main() {
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
 若要尋找兩個集合之間的交集（同時存在於兩者中的元素），請使用 [`intersect()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/intersect.html) 函式。
-若要尋找不在另一個集合中的集合元素，請使用 [`subtract()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/subtract.html) 函式。
+若要尋找不在另一個集合中的集合元素，請使用 [`subtract()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/subtract.html) 函式。 
 這兩個函式也都可以透過中綴形式呼叫，例如 `a intersect b`：
 
 ```kotlin
@@ -41,7 +41,8 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-若要尋找存在於兩個集合其中之一但不在其交集中的元素，您也可以使用 `union()` 函式。對於此操作（稱為對稱差），請計算兩個集合之間的差集並合併結果：
+若要尋找存在於兩個集合其中之一但不在其交集中的元素，您也可以使用 `union()` 函式。 
+對於此操作（稱為對稱差），請計算兩個集合之間的差集並合併結果：
 
 ```kotlin
 fun main() {

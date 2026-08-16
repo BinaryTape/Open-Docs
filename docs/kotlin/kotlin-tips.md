@@ -6,13 +6,13 @@ Kotlin 技巧（Kotlin Tips）是一系列短视频，由 Kotlin 团队成员演
 
 ## Kotlin 中的 null + null
 
-当你在 Kotlin 中将 `null + null` 相加时会发生什么，它又会返回什么？Sebastian Aigner 在我们最新的快速技巧中揭开了这个谜团。在此过程中，他还展示了为什么没有理由害怕可为 null 的类型：
+当你在 Kotlin 中将 `null + null` 相加时会发生什么，它又会返回什么？Sebastian Aigner 在我们最新的快速技巧中揭开了这个谜团。在此过程中，他还展示了为什么没有理由害怕可为 null 的类型： 
 
 <video width="560" height="315" src="https://www.youtube.com/v/wwplVknTza4" title="Kotlin 技巧：Kotlin 中的 null + null"/>
 
 ## 对集合项进行去重
 
-你的 Kotlin 集合中包含重复项吗？需要一个仅包含唯一项的集合吗？让 Sebastian Aigner 在这个 Kotlin 技巧中向你展示如何从列表（list）中移除重复项，或者将它们转换为集合（set）：
+你的 Kotlin 集合中包含重复项吗？需要一个仅包含唯一项的集合吗？让 Sebastian Aigner 在这个 Kotlin 技巧中向你展示如何从列表（list）中移除重复项，或者将它们转换为集合（set）： 
 
 <video width="560" height="315" src="https://www.youtube.com/v/ECOf0PeSANw" title="Kotlin 技巧：对集合项进行去重"/>
 
@@ -30,7 +30,7 @@ Kotlin 技巧（Kotlin Tips）是一系列短视频，由 Kotlin 团队成员演
 
 ## 通过 Elvis 运算符 return 与 throw
 
-Elvis 再次登场！Sebastian Aigner 解释了为什么该运算符以著名歌手的名字命名，以及你如何在 Kotlin 中使用 `?:` 进行返回（return）或抛出（throw）。幕后的魔法？[Nothing 类型](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing.html)。
+[Elvis](null-safety.md#elvis-operator) 再次登场！Sebastian Aigner 解释了为什么该运算符以著名歌手的名字命名，以及你如何在 Kotlin 中使用 `?:` 进行返回（return）或抛出（throw）。幕后的魔法？[Nothing 类型](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing.html)。
 
 <video width="560" height="315" src="https://www.youtube.com/v/L8aFK7QrbA8" title="Kotlin 技巧：通过 Elvis 运算符 return 与 throw"/>
 
@@ -78,5 +78,5 @@ Elvis 再次登场！Sebastian Aigner 解释了为什么该运算符以著名歌
 
 ## 下一步？
 
-*   在我们的 [YouTube 播放列表](https://youtube.com/playlist?list=PLlFc5cFwUnmyDrc-mwwAL9cYFkSHoHHz7)中查看 Kotlin 技巧的完整列表
-*   了解如何[针对常见情况编写惯用的 Kotlin 代码](idioms.md)
+* 在我们的 [YouTube 播放列表](https://youtube.com/playlist?list=PLlFc5cFwUnmyDrc-mwwAL9cYFkSHoHHz7)中查看 Kotlin 技巧的完整列表
+* 了解如何[针对常见情况编写惯用的 Kotlin 代码](idioms.md)

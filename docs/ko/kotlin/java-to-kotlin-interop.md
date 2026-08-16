@@ -116,7 +116,6 @@ class User(id: String) {
 ```
 
 ```java
-
 // Java
 class JavaClient {
     public String getID(User user) {
@@ -164,7 +163,6 @@ object Singleton {
 ```
 
 ```java
-
 // Java
 Singleton.provider = new Provider();
 // Singleton 클래스의 public static non-final 필드
@@ -191,7 +189,6 @@ const val MAX = 239
 Java에서:
 
 ```java
-
 int constant = Obj.CONST;
 int max = ExampleKt.MAX;
 int version = C.VERSION;
@@ -199,11 +196,13 @@ int version = C.VERSION;
 
 ## 정적 메서드 (Static methods)
 
-위에서 언급했듯이, Kotlin은 패키지 수준 함수를 정적 메서드로 표현합니다.
-또한 Kotlin은 이름이 있는 객체 또는 컴패니언 객체에 정의된 함수에 [`@JvmStatic`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-static/index.html) 어노테이션을 붙이면 정적 메서드를 생성할 수 있습니다.
-이 어노테이션을 사용하면 컴파일러는 객체의 외부 클래스에 정적 메서드를 생성하고 객체 자체에도 인스턴스 메서드를 생성합니다. 예를 들어:
+Kotlin은 패키지 수준 함수를 정적 메서드로 표현합니다.
+또한 이름이 있는 객체 또는 컴패니언 객체에 정의된 함수에 [`@JvmStatic`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-static/) 어노테이션을 붙이면 정적 메서드를 생성할 수 있습니다.
+
+컴패니언 객체의 함수에 `@JvmStatic`을 사용하면, 컴파일러는 해당 객체의 외부 클래스에 정적 메서드를 생성하고 컴패니언 객체 자체에도 인스턴스 메서드를 생성합니다:
 
 ```kotlin
+// Kotlin
 class C {
     companion object {
         @JvmStatic fun callStatic() {}
@@ -212,37 +211,37 @@ class C {
 }
 ```
 
-이제 Java에서 `callStatic()`은 정적 메서드이지만 `callNonStatic()`은 그렇지 않습니다:
+Java에서는 외부 클래스와 컴패니언 객체 모두에서 `callStatic()`을 호출할 수 있지만, `callNonStatic()`은 컴패니언 객체를 통해서만 호출할 수 있습니다:
 
 ```java
-
-C.callStatic(); // 잘 작동함
-C.callNonStatic(); // 오류: 정적 메서드가 아님
-C.Companion.callStatic(); // 인스턴스 메서드가 남아 있음
-C.Companion.callNonStatic(); // 유일하게 작동하는 방식
+// Java
+C.callStatic();              // 잘 작동함
+C.callNonStatic();           // 오류: 정적 메서드가 아님
+C.Companion.callStatic();    // 인스턴스 메서드가 남아 있음
+C.Companion.callNonStatic(); // 잘 작동함
 ```
 
-이름이 있는 객체의 경우도 비슷합니다:
+이름이 있는 객체(싱글톤)의 경우, `@JvmStatic`은 함수를 객체 클래스의 정적 메서드로 변환하지만 별도의 인스턴스 메서드를 생성하지는 않습니다:
 
 ```kotlin
+// Kotlin
 object Obj {
     @JvmStatic fun callStatic() {}
     fun callNonStatic() {}
 }
 ```
 
-Java에서:
+Java에서는 이름이 있는 객체에서 `callStatic()` 메서드를 호출할 수 있는 반면, `callNonStatic()`은 싱글톤 인스턴스를 통해서만 사용할 수 있습니다:
 
 ```java
-
-Obj.callStatic(); // 잘 작동함
-Obj.callNonStatic(); // 오류
+// Java
+Obj.callStatic();             // 잘 작동함
+Obj.callNonStatic();          // 오류: 정적 메서드가 아님
 Obj.INSTANCE.callNonStatic(); // 작동함, 싱글톤 인스턴스를 통한 호출
-Obj.INSTANCE.callStatic(); // 이것도 작동함
 ```
 
-Kotlin 1.3부터 `@JvmStatic`은 인터페이스의 컴패니언 객체에 정의된 함수에도 적용됩니다.
-이러한 함수는 인터페이스의 정적 메서드로 컴파일됩니다. 인터페이스의 정적 메서드는 Java 1.8에서 도입되었으므로 해당 타겟을 사용해야 합니다.
+인터페이스의 컴패니언 객체에 있는 함수에도 `@JvmStatic` 어노테이션을 붙일 수 있습니다.
+이러한 함수는 인터페이스의 정적 메서드로 컴파일됩니다:
 
 ```kotlin
 interface ChatBot {
@@ -514,7 +513,6 @@ fun writeToFile() {
 그리고 이를 Java에서 호출하고 예외를 캐치하려고 하면:
 
 ```java
-
 // Java
 try {
     demo.Example.writeToFile();

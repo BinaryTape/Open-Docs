@@ -22,6 +22,7 @@
 - [Gradle 플러그인] 더 엄격한 `MigrationFile` 버전 관리(versioning) 구현 (#5730 by @madisp)
 - [Gradle 플러그인] 최소 지원 Gradle 버전을 8.2.1로 상향 (#6217 by @maxsav)
 - [Gradle 플러그인] Gradle 격리된 프로젝트(isolated projects) 지원 (#6217 by @maxsav)
+- [IntelliJ 플러그인] 최소 버전 2023.3 / Android Studio Jellyfish
 
 ### 수정됨
 - [컴파일러] 생성된 코드에서 Kotlin 추가 경고(extra warnings) 억제 (#6208 by @eyupcanakman)
@@ -35,14 +36,16 @@
 - [Intellij 플러그인] IDEA 2026.2에서 크래시를 유발하는 지원 중단(deprecations) 관련 수정 (#6247 by @griffio)
 - [Gradle 플러그인] AGP 8.9에서 8.11 버전까지 Kotlin 컴파일 시 생성된 소스(generated sources)를 인식하지 못하던 문제 수정
 - [PostgreSQL 다이얼렉트] Primitive 바운드 인자를 사용할 때 `lower` 및 `upper` 함수의 기본값을 `TEXT`로 설정하도록 수정 (#6262 by @griffio)
-- [컴파일러] 어댑터를 사용한 데이터 클래스 바인딩 및 널 허용 여부(nullability)를 변경하는 마이그레이션이 포함된 insert values 수정 (#6269 by griffio)
+- [컴파일러] 어댑터를 사용한 데이터 클래스 바인딩 및 널 허용 여부(nullability)를 변경하는 마이그레이션이 포함된 insert values 수정 (#6269 by @griffio)
 - [컴파일러] 널 안전 연산자(null safe operators, `IS` 및 `IS DISTINCT FROM`)와 함께 널 허용(nullable) 바인드 인자 사용 (#6265 by @griffio)
 - [Gradle 플러그인] 프로젝트 의존성에 대해 AGP의 변형 해결(variant resolution) 사용 (#6217 by @maxsav)
+- [Gradle 플러그인] 빌드 캐시 미스 수정 (#6217)
 - [Gradle 플러그인] 빌드 간에 AGP 변형 목록이 다를 때 `generateDatabaseInterface`의 빌드 캐시 미스 수정
 - [Gradle 플러그인] 데이터베이스를 구성하지 않고 플러그인을 적용했을 때 발생하는 IDE 동기화 크래시 수정 (#6088)
 - [PostgreSQL 다이얼렉트] 중첩된 함수 호출을 사용할 때의 JSON 집계 함수 수정 (#6281 by @griffio)
 - [Paging3 확장] 빈 데이터베이스에서 `KeyedQueryPagingSource`가 크래시되는 현상 수정 (#6284 by @woods-marshes)
 - [컴파일러] `COALESCE`와 같은 캡슐화 함수(encapsulating functions)와 함께 뮤테이터 문(mutator statements)을 사용할 때 발생하는 Java 타입 어댑터 문제 수정 (#6292 by @griffio)
+- [컴파일러] 모듈 이름이 대문자로 시작할 때 생성된 코드의 패키지 이름도 대문자로 시작하던 문제 수정 (#6316 by @griffio)
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -845,8 +848,6 @@ sqldelight {
 - [Gradle 플러그인] 마이그레이션 파일만 있는 경우에도 데이터베이스를 쓰도록 보장 (#2094)
 - [Gradle 플러그인] 다이아몬드 의존성이 최종 컴파일 단위에서 한 번만 선택되도록 보장 (#1455)
 
-이 릴리스에서 SQLDelight 인프라 개선을 위해 많은 수고를 해주신 @3flex 님께 감사를 표합니다.
-
 ## [1.4.4] - 2020-10-08
 [1.4.4]: https://github.com/sqldelight/sqldelight/releases/tag/1.4.4
 
@@ -1136,7 +1137,7 @@ sqldelight {
 
  * 신규: SQLite 인자를 Factory를 통해 타입 세이프하게 전달 가능
  * 신규: IntelliJ 플러그인이 .sq 파일에서 포맷팅 수행
- * 신규: SQLite timestamp 리터럴 지원
+ * 신규: Support for SQLite timestamp 리터럴 지원
  * 수정: IntelliJ에서 파라미터화된 타입을 클릭하여 이동 가능
  * 수정: 이스케이프된 컬럼 이름이 Cursor에서 가져올 때 더 이상 `RuntimeException`을 발생시키지 않음.
  * 수정: Gradle 플러그인이 예외를 출력하려고 할 때 크래시 나지 않음.

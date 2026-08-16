@@ -48,7 +48,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.4"}
 
-若要對 Map 的所有鍵或所有值執行操作，您可以分別從屬性 `keys` 與 `values` 中檢索它們。`keys` 是 Map 所有鍵的集合（Set），而 `values` 是 Map 所有值的集合。
+若要對 Map 的所有鍵或所有值執行操作，您可以分別從屬性 `keys` 與 `values` 中檢索它們。`keys` 是 Map 所有鍵的集合（Set），而 `values` 是 Map 所有值的集合（Collection）。
 
 ```kotlin
 

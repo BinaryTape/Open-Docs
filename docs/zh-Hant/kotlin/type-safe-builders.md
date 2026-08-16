@@ -25,10 +25,10 @@ fun main() {
                 +"alternative markup to HTML"
             }
 
-            // An element with attributes and text content
+            // 一個具有屬性和文字內容的元素
             a(href = "http://kotlinlang.org") { +"Kotlin" }
 
-            // Mixed content
+            // 混合內容
             p {
                 +"This is some"
                 b { +"mixed" }
@@ -345,7 +345,7 @@ html {
 
 在此範例中，只有最近的隱式接收者 `this@head` 的成員必須可用；`head()` 是外部接收者 `this@html` 的成員，因此呼叫它必須是非法的。
 
-為了存取此問題，有一種特殊的機制來控制接收者作用域。
+為了處理此問題，有一種特殊的機制來控制接收者作用域。
 
 要讓編譯器開始控制作用域，您只需要使用相同的標記註解來標註 DSL 中使用的所有接收者型別。
 例如，對於 HTML 構建器，您宣告一個註解 `@HtmlTagMarker`：

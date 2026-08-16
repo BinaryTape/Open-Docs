@@ -246,7 +246,7 @@ fun main() {
 
 #### インクリメントおよびデクリメント演算子
 
-Kotlin 2.0.0より前、コンパイラはインクリメントまたはデクリメント演算子を使用した後にオブジェクトの型が変わる可能性があることを理解していませんでした。コンパイラがオブジェクトの型を正確に追跡できなかったため、コードで未解決の参照エラーが発生することがありました。Kotlin 2.0.0では、これが修正されました。
+Kotlin 2.0.0より前、コンパイラはインクリメントまたはデクリメント演算子を使用した後にオブジェクトの型が変わる可能性があることを理解していませんでした。コンパイラがオブジェクト의型を正確に追跡できなかったため、コードで未解決の参照エラーが発生することがありました。Kotlin 2.0.0では、これが修正されました。
 
 ```kotlin
 interface Rho {
@@ -890,7 +890,7 @@ Kotlin 2.0.0では、Javaプリミティブ配列の null 安全性がKotlinの�
 * 明示的なnullチェックなしで `@Nullable` なJavaプリミティブ配列を使用したり、null非許容のプリミティブ配列を期待するJavaメソッドに `null` を渡そうとしたりするコードは、コンパイルに失敗するようになります。
 * `@NotNull` なプリミティブ配列をnullチェックと共に使用すると、"Unnecessary safe call"（不要なセーフコール）や "Comparison with null always false"（nullとの比較は常に偽）といった警告が表示されるようになります。
 
-詳細については、[YouTrackの対応する課題](https://youtrack.jetbrains.com/issue/KT-54521)を参照してください。
+詳細については、[YouTrack의対応する課題](https://youtrack.jetbrains.com/issue/KT-54521)を参照してください。
 
 ### expectedクラス内の抽象メンバに対するより厳格なルール
 
@@ -1034,7 +1034,7 @@ expectedの非抽象クラスで抽象関数を継承している場合は、非
 | [KT-64654](https://youtrack.jetbrains.com/issue/KT-64654) | K2: ユーザー指定のアノテーションとコンパイラが要求するアノテーションの間に曖昧さを導入 |
 | [KT-64527](https://youtrack.jetbrains.com/issue/KT-64527) | 列挙型の値に対するアノテーションを列挙値クラスにコピーしないようにする |
 | [KT-63389](https://youtrack.jetbrains.com/issue/KT-63389) | K2: \`()?\` でラップされた型に対する互換性のないアノテーションに対して \`WRONG_ANNOTATION_TARGET\` が報告される |
-| [KT-63388](https://youtrack.jetbrains.com/issue/KT-63388) | K2: catch パラメータ型の型アノテーションに対して \`WRONG_ANNOTATION_TARGET\` が報告される |
+| [KT-63388](https://youtrack.jetbrains.com/issue/KT-63388) | K2: \`WRONG_ANNOTATION_TARGET\` が報告される catch パラメータ型の型アノテーションに対して |
 
 #### null 安全性 {initial-collapse-state="collapsed" collapsible="true"}
 

@@ -164,7 +164,7 @@ fun compute(x: Int) { }
 fun compute(x: UInt) { }
 ```
 
-預設情況下，轉 Kotlin 使用 **未裝箱表示方式（unboxed representations）** 編譯內嵌類別，這使得它們難以從 Java 存取。
+預設情況下，Kotlin 使用 **未裝箱表示方式（unboxed representations）** 編譯內嵌類別，這使得它們難以從 Java 存取。
 要了解如何將內嵌類別編譯為可從 Java 存取的 **裝箱表示方式（boxed representations）**，請參閱 [從 Java 呼叫 Kotlin](java-to-kotlin-interop.md#inline-value-classes) 指南。
 
 ## 內嵌類別 vs 型別別名

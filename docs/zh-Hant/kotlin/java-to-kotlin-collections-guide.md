@@ -10,7 +10,7 @@
 它分為[在 Java 與 Kotlin 中相同的操作](#operations-that-are-the-same-in-java-and-kotlin)以及[僅存在於 Kotlin 中的操作](#operations-that-don-t-exist-in-java-s-standard-library)。
 指南的第二部分從[可變性](#mutability)開始，透過查看特定案例來解釋一些差異。
 
-有關集合的簡介，請參閱[集合概覽](collections-overview.md)或觀看 Kotlin 技術傳教士 Sebastian Aigner 的這段[影片](https://www.youtube.com/watch?v=F8jj7e-_jFA)。
+有關集合的簡介，請參閱[集合概覽](collections-overview.md)或觀看 Kotlin [技術傳教士](https://www.youtube.com/watch?v=F8jj7e-_jFA) Sebastian Aigner 的這段影片。
 
 > 以下所有範例僅使用 Java 與 Kotlin 標準函式庫 API。
 >
@@ -23,7 +23,7 @@
 ### List、Set、Queue 與 Deque 的操作
 
 | 描述 | 常用操作 | 更多 Kotlin 替代方案 |
-|-------------|-----------|---------------------|
+|------------------------------------------------------------|-------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 新增一個或多個元素 | `add()`, `addAll()` | 使用 [`plusAssign` (`+=`) 運算子](collection-plus-minus.md)：`collection += element`、`collection += anotherCollection`。 |
 | 檢查集合是否包含一個或多個元素 | `contains()`, `containsAll()` | 使用 [`in` 關鍵字](collection-elements.md#check-element-existence)以運算子形式呼叫 `contains()`：`element in collection`。 |
 | 檢查集合是否為空 | `isEmpty()` | 使用 [`isNotEmpty()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/is-not-empty.html) 來檢查集合是否不為空。 |
@@ -36,12 +36,12 @@
 ### Map 的操作
 
 | 描述 | 常用操作 | 更多 Kotlin 替代方案 |
-|-------------|-----------|---------------------|
-| 新增一個或多個元素 | `put()`, `putAll()`, `putIfAbsent()`| 在 Kotlin 中，指派 `map[key] = value` 的行為與 `put(key, value)` 相同。此外，您可以使用 [`plusAssign` (`+=`) 運算子](collection-plus-minus.md)：`map += Pair(key, value)` 或 `map += anotherMap`。 |
+|-----------------------------------------------------|----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 新增一個或多個元素 | `put()`, `putAll()`, `putIfAbsent()` | 在 Kotlin 中，指派 `map[key] = value` 的行為與 `put(key, value)` 相同。此外，您可以使用 [`plusAssign` (`+=`) 運算子](collection-plus-minus.md)：`map += Pair(key, value)` 或 `map += anotherMap`。 |
 | 替換一個或多個元素 | `put()`, `replace()`, `replaceAll()` | 使用索引運算子 `map[key] = value` 代替 `put()` 和 `replace()`。 |
 | 獲取元素 | `get()` | 使用索引運算子獲取元素：`map[index]`。 |
 | 檢查 Map 是否包含一個或多個元素 | `containsKey()`, `containsValue()` | 使用 [`in` 關鍵字](collection-elements.md#check-element-existence)以運算子形式呼叫 `contains()`：`element in map`。 |
-| 檢查 Map 是否為空 |  `isEmpty()` | 使用 [`isNotEmpty()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/is-not-empty.html) 來檢查 Map 是否不為空。 |
+| 檢查 Map 是否為空 | `isEmpty()` | 使用 [`isNotEmpty()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/is-not-empty.html) 來檢查 Map 是否不為空。 |
 | 移除元素 | `remove(key)`, `remove(key, value)` | 使用 [`minusAssign` (`-=`) 運算子](collection-plus-minus.md)：`map -= key`。 |
 | 從 Map 中移除所有元素 | `clear()` | |
 | 從 Map 獲取 Stream | 在 entries、keys 或 values 上使用 `stream()` | |
@@ -49,19 +49,19 @@
 ### 僅適用於 List 的操作
 
 | 描述 | 常用操作 | 更多 Kotlin 替代方案 |
-|-------------|-----------|---------------------|
+|----------------------------------|--------------------------|----------------------------------------------------------------------|
 | 獲取元素的索引 | `indexOf()` | |
 | 獲取元素的最後一個索引 | `lastIndexOf()` | |
 | 獲取元素 | `get()` | 使用索引運算子獲取元素：`list[index]`。 |
 | 擷取子清單 | `subList()` | |
-| 替換一個或多個元素 | `set()`,  `replaceAll()` | 使用索引運算子代替 `set()`：`list[index] = value`。 |
+| 替換一個或多個元素 | `set()`, `replaceAll()` | 使用索引運算子代替 `set()`：`list[index] = value`。 |
 
 ## 有所不同的操作
 
 ### 適用於任何集合類型的操作
 
 | 描述 | Java | Kotlin |
-|-------------|------|--------|
+|----------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 獲取集合的大小 | `size()` | `count()`, `size` |
 | 展平存取巢狀集合元素 | `collectionOfCollections.forEach(flatCollection::addAll)` 或 `collectionOfCollections.stream().flatMap().collect()` | [`flatten()`](collection-transformations.md#flatten) 或 [`flatMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/flat-map.html) |
 | 對每個元素套用指定函式 | `stream().map().collect()` | [`map()`](collection-filtering.md) |
@@ -81,10 +81,10 @@
 ### List 的操作
 
 | 描述 | Java | Kotlin |
-|-------------|------|--------|
+|--------------------------------------------------|------------------------------------|-----------------------------------------------------------------------------------------------|
 | 將清單按自然順序排序 | `sort(null)` | `sort()` |
 | 將清單按降冪順序排序 | `sort(comparator)` | `sortDescending()` |
-| 從清單中移除元素 | `remove(index)`, `remove(element)`| `removeAt(index)`, `remove(element)` 或 [`collection -= element`](collection-plus-minus.md) |
+| 從清單中移除元素 | `remove(index)`, `remove(element)` | `removeAt(index)`, `remove(element)` 或 [`collection -= element`](collection-plus-minus.md) |
 | 以特定值填充清單的所有元素 | `Collections.fill()` | [`fill()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/fill.html) |
 | 從清單中獲取不重複的元素 | `stream().distinct().toList()` | [`distinct()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/distinct.html) |
 

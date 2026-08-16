@@ -55,7 +55,7 @@ compileKotlinJs.compilerOptions.moduleKind = org.jetbrains.kotlin.gradle.dsl.JsM
 </tab>
 </tabs>
 
-利用可能な値は、`umd` (デフォルト)、`es`、`commonjs`、`amd`、`plain` です。
+利用可能な値は、`umd` (デフォルト)、`es`, `commonjs`, `amd`, `plain` です。
 
 > これは `webpackTask.output.libraryTarget` を調整することとは異なります。ライブラリターゲットは（コードがコンパイルされた後に）*webpackによって生成される*出力を変更します。`compilerOptions.moduleKind` は *Kotlinコンパイラによって生成される* 出力を変更します。
 >
@@ -198,4 +198,4 @@ external fun sayHello(name: String)
 
 ### Kotlin標準ライブラリで使用されているモジュールシステム
 
-Kotlin/JS標準ライブラリは、単一のファイルとして配布されており、それ自体がUMDモジュールとしてコンパイルされています。そのため、上述のどのモジュールシステムとも併用できます。Kotlin/JSのほとんどのユースケースでは、`kotlin-stdlib-js` へのGradle依存関係を使用することをお勧めします。これはNPMでも [`kotlin`](https://www.npmjs.com/package/kotlin) パッケージとして利用可能です。
+Kotlinは、Kotlin/JS標準ライブラリが単一のファイルとして配布されており、それ自体がUMDモジュールとしてコンパイルされているため、上述のどのモジュールシステムとも併用できます。Kotlin/JSのほとんどのユースケースでは、`kotlin-stdlib-js` へのGradle依存関係を使用することをお勧めします。これはNPMでも [`kotlin`](https://www.npmjs.com/package/kotlin) パッケージとして利用可能です。

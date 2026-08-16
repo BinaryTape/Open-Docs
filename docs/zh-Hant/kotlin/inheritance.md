@@ -17,6 +17,7 @@ class Example // 隱式繼承自 Any
 
 ```kotlin
 open class Base // 類別已 open 以供繼承
+
 ```
 
 [欲了解更多資訊，請參閱 Open 關鍵字](#open-keyword)。
@@ -41,7 +42,7 @@ class MyView : View {
 }
 ```
 
-## Open 關鍵字 {#open-keyword}
+## Open 關鍵字
 
 在 Kotlin 中，`open` 關鍵字表示一個類別或成員（函式或屬性）可以在子類別中被覆寫。預設情況下，Kotlin 類別及其成員是 _final_ 的，這意味著除非你明確將它們標記為 `open`，否則它們不能被繼承（對於類別而言）或被覆寫（對於成員而言）：
 

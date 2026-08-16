@@ -1,10 +1,10 @@
 [//]: # (title: Kotlin 入门)
 
 <tldr>
-<p>最新 Kotlin 版本：<b> <a href="%kotlinLatestWhatsnew%">%kotlinVersion%</a></b></p>
+<p>最新 Kotlin 版本：<b><a href="%kotlinLatestWhatsnew%">%kotlinVersion%</a></b></p>
 </tldr>
 
-Kotlin 是一种现代编程语言，具有简洁、跨平台以及与 Java 和其他语言互操作的特性。
+Kotlin 是一种现代编程语言，具有简洁、多平台以及与 Java 和其他语言互操作的特性。
 
 刚接触 Kotlin？参加我们的导览，直接在浏览器中学习基础知识。
 

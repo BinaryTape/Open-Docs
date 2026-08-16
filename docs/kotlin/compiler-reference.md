@@ -2,7 +2,7 @@
 
 <show-structure depth="1"/>
 
-每个版本的 Kotlin 都包含适用于受支持目标的编译器：
+每个版本的 Kotlin 都包含适用于受支持目标的编译器： 
 JVM、JavaScript，以及针对[受支持平台](native-overview.md#target-platforms)的原生二进制文件。
 
 这些编译器被用于：
@@ -21,7 +21,7 @@ Kotlin 编译器具有许多用于定制编译过程的选项。
 * 在 IntelliJ IDEA 中，在 **Settings/Preferences** | **Build, Execution, Deployment** | **Compiler** | **Kotlin Compiler** 的 **Additional command line parameters** 文本框中输入编译器实参。
 * 如果您使用 Gradle，请在 Kotlin 编译任务的 `compilerOptions` 属性中指定编译器实参。
 有关详细信息，请参阅 [Gradle 编译器选项](gradle-compiler-options.md#how-to-define-options)。
-* 如果您使用 Maven，请在 Maven 插件节点的 `<configuration>` 元素中指定编译器实参。
+* 如果您使用 Maven，请在 Maven 插件节点的 `<configuration>` 元素中指定编译器实参。 
 有关详细信息，请参阅 [Maven](maven-kotlin-compiler.md#specify-compiler-options)。
 * 如果运行命令行编译器，请直接在实用工具调用中添加编译器实参，或将其写入 [实参文件 (argfile)](#argfile)。
 
@@ -95,7 +95,7 @@ Kotlin 编译器具有许多用于定制编译过程的选项。
 
 <primary-label ref="experimental-general"/>
 
-显示有关高级选项的信息并退出。这些选项目前不稳定：
+显示有关高级选项的信息并退出。这些选项目前不稳定： 
 其名称和行为可能会在不另行通知的情况下发生更改。
 
 ### Kotlin 契约选项
@@ -122,7 +122,7 @@ Kotlin 编译器具有许多用于定制编译过程的选项。
 ### -Xallow-reified-type-in-catch
 <primary-label ref="experimental-general"/>
 
-在 `inline` 函数的 `catch` 子句中启用对具体化 (reified) `Throwable` 类型实参的支持。
+在 `inline` 函数的 `catch` 子句中启用对具体化 (reified) `Throwable` 类型参数的支持。
 
 ### -Xcollection-literals
 <primary-label ref="experimental-general"/>

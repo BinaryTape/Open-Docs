@@ -29,7 +29,7 @@
 
 ## 更新依赖项
 
-<deflist style="medium">
+<deflist type="medium">
     <def title="kotlinx.coroutines">
         <p>更新到 1.6.0 或更高版本。不要使用带有 <code>native-mt</code> 后缀的版本。</p>
         <p>关于新内存管理器，还有一些细节需要注意：</p>

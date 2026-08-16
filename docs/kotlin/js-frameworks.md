@@ -1,6 +1,6 @@
 [//]: # (title: Kotlin/JS 框架)
 
-利用现有的 Kotlin/JavaScript 框架来简化 Web 开发。
+利用现有的 Kotlin/JavaScript 框架来简化 Web 开发。 
 这些框架为构建现代 Web 应用程序提供了开箱即用的组件、路由、状态管理以及其他工具。
 
 以下是来自社区的一些 Kotlin/JS Web 框架：
@@ -13,7 +13,7 @@ Kobweb 开箱即用，提供页面路由、浅色/深色模式、CSS 样式设�
 
 Kobweb 还支持网站导出，通过为 SEO 和自动搜索索引生成页面快照。此外，它还支持创建基于 DOM（文档对象模型） 的 UI，并能根据状态变化高效更新。
 
-有关文档和示例，请参阅 [Kobweb 文档](https://kobweb.varabyte.com/docs/getting-started/what-is-kobweb) 网站。
+有关详细信息和示例，请参阅 [Kobweb 文档](https://kobweb.varabyte.com/docs/getting-started/what-is-kobweb)。
 
 有关该框架的更新和讨论，请加入 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 中的 [#kobweb](https://kotlinlang.slack.com/archives/C04RTD72RQ8) 和 [#compose-web](https://kotlinlang.slack.com/archives/C01F2HV7868) 频道。
 
@@ -25,15 +25,31 @@ Kilua 提供模块化 API 以创建声明式 UI 组件并管理其状态。它�
 
 Kilua 是 [KVision](https://kvision.io) 框架的继任者。Kilua 的设计旨在让 Compose 用户（`@Composable` 函数、状态管理、协程/flow 集成）和 KVision 用户（允许与 UI 组件进行某些命令式交互的基于组件的 API）都感到熟悉。
 
-有关文档和示例，请参阅 GitHub 上的 [Kilua 仓库](https://github.com/rjaros/kilua?tab=readme-ov-file#building-and-running-the-examples)。
+有关详细信息和示例，请参阅 [Kilua 文档](https://kilua.dev/introduction)。
 
 有关该框架的更新和讨论，请加入 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 中的 [#kilua](https://kotlinlang.slack.com/archives/C06UAH52PA7) 频道。
+
+## Summon
+
+[Summon](https://summon.yousef.codes/) 是一个 Kotlin 多平台前端框架，用于跨 JVM、Kotlin/JS 和 Kotlin/Wasm 构建高性能应用程序。它支持基于组件的 UI 开发、一流的带 HTML 流式传输的服务器端渲染 (SSR)，以及可编译为简洁 CSS 的修饰符驱动的样式设置。
+
+Summon 还专注于用于无障碍功能和高级行为的运行时感知组件，同时保持跨平台的统一代码库。
+
+有关详细信息和示例，请参阅 [Summon 文档](https://summon.yousef.codes/docs)。
+
+## Kinetica
+
+[Kinetica](https://kinetica.heapy.io/) 是一个 Kotlin UI 框架，专注于 Web 应用的实际成效：通过服务器渲染实现快速的初始页面交付、SEO 友好的 HTML 输出，以及在页面加载后平滑切换到交互式客户端 UI。它还支持无头测试，这有助于团队在不依赖完整浏览器环境的情况下，快速且可靠地测试 UI 行为。
+
+Kinetica 开箱即用，包含路由、表单和持久化模块，因此团队可以更快地交付常见的应用功能。其更新模型应用最小的 DOM 补丁，这有助于在状态变化时保持交互响应，其一致的响应式模型旨在减少大型应用中的意外行为。
+
+有关详细信息和示例，请参阅 [Kinetica 文档](https://kinetica.heapy.io/docs/getting-started)。
 
 ## Kotlin React
 
 [React](https://react.dev/) 是一个基于组件的库，广泛用于 Web 和原生用户界面。它拥有庞大的组件生态系统、学习材料和活跃的社区。
 
-[Kotlin React](https://github.com/JetBrains/kotlin-wrappers/blob/master/docs/guide/react.md) 是 React 的 Kotlin 包装器，它将 React 生态系统与 Kotlin 的类型安全性和表现力结合在一起。
+[Kotlin React](https://github.com/JetBrains/kotlin-wrappers/blob/e874e48396217cbe4d4f3b706ee4e4441724a6ba/docs/guide/react.md) 是 React 的 Kotlin 包装器，它将 React 生态系统与 Kotlin 的类型安全性和表现力结合在一起。
 
 有关该库的更新和讨论，请加入 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 中的 [#react](https://kotlinlang.slack.com/messages/react) 和 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 频道。
 
@@ -41,9 +57,9 @@ Kilua 是 [KVision](https://kvision.io) 框架的继任者。Kilua 的设计旨�
 
 [KVision](https://kvision.io) 是一个面向对象的 Web 框架，用于通过开箱即用的 UI 组件构建 Kotlin/JS 应用程序。这些组件可以作为应用程序用户界面的构建块。
 
-通过该框架，您可以使用响应式和命令式编程模型来构建前端。您还可以通过使用 Ktor、Spring Boot 和其他框架的连接器将其与您的服务器端应用程序集成。此外，您还可以使用 [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html) 共享代码。
+通过该框架，您可以使用响应式和命令式编程模型来构建前端。您还可以通过使用 Ktor、Spring Boot 和其他框架的连接器将其与您的后端应用程序集成。此外，您还可以使用 [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html) 共享代码。
 
-有关文档、教程和示例，请参阅 [KVision 文档](https://kvision.io/#docs) 网站。
+有关详细信息、教程和示例，请参阅 [KVision 文档](https://kvision.gitbook.io/kvision-guide)。
 
 有关该框架的更新和讨论，请加入 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 中的 [#kvision](https://kotlinlang.slack.com/messages/kvision) 和 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 频道。
 
@@ -51,16 +67,16 @@ Kilua 是 [KVision](https://kvision.io) 框架的继任者。Kilua 的设计旨�
 
 [fritz2](https://www.fritz2.dev) 是一个用于构建响应式 Web 用户界面的独立框架。它提供了自己的类型安全 DSL，用于构建和渲染 HTML 元素，并使用 Kotlin 的协程和 flow 来定义组件及其数据绑定。
 
-fritz2 开箱即用，提供状态管理、验证、路由等功能。它还可以与 Kotlin Multiplatform 项目集成。
+fritz2 开箱即用，提供状态管理、验证、路由等功能。它还可以与 Kotlin 多平台项目集成。
 
-有关文档、教程和示例，请参阅 [fritz2 文档](https://www.fritz2.dev/docs/) 网站。
+有关详细信息、教程和示例，请参阅 [fritz2 文档](https://www.fritz2.dev/docs/)。
 
 有关该框架的更新和讨论，请加入 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 中的 [#fritz2](https://kotlinlang.slack.com/messages/fritz2) 和 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 频道。
 
 ## Doodle
 
-[Doodle](https://nacular.github.io/doodle/) 是一个用于 Kotlin/JS 的基于矢量的 UI 框架。Doodle 应用程序使用浏览器的图形功能来绘制用户界面，而不是依赖于 DOM（文档对象模型）、CSS 或 JavaScript。这种方法让您可以控制任意 UI 元素、矢量图形、渐变和自定义可视化的渲染。
+[Doodle](https://nacular.github.io/doodle/) 是一个用于 Kotlin/JS 的基于矢量的 UI 框架。Doodle 应用程序使用浏览器的图形功能来绘制用户界面，而不是依赖于 DOM、CSS 或 JavaScript。这种方法让您可以控制任意 UI 元素、矢量形状、渐变和自定义可视化的渲染。
 
-有关文档、教程和示例，请参阅 [Doodle 文档](https://nacular.github.io/doodle/docs/introduction/) 网站。
+有关详细信息、教程和示例，请参阅 [Doodle 文档](https://nacular.github.io/doodle/docs/introduction/)。
 
 有关该框架的更新和讨论，请加入 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 中的 [#doodle](https://kotlinlang.slack.com/messages/doodle) 和 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 频道。

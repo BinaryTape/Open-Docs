@@ -6,13 +6,13 @@ Kotlin 小技巧 (Kotlin Tips) 是一個短影片系列，由 Kotlin 團隊成�
 
 ## Kotlin 中的 null + null
 
-在 Kotlin 中將 `null + null` 相加會發生什麼事？它會回傳什麼？Sebastian Aigner 在我們最新的快速小技巧中解開了這個謎團。在此過程中，他也展示了為什麼沒有理由害怕可 null 性 (nullables)：
+在 Kotlin 中將 `null + null` 相加會發生什麼事？它會回傳什麼？Sebastian Aigner 在我們最新的快速小技巧中解開了這個謎團。在此過程中，他也展示了為什麼沒有理由害怕可 null 性 (nullables)： 
 
 <video width="560" height="315" src="https://www.youtube.com/v/wwplVknTza4" title="Kotlin Tips: null + null in Kotlin"/>
 
 ## 消除集合項目中的重複項
 
-你的 Kotlin 集合 (collection) 中包含重複項嗎？需要一個只包含唯一項目的集合嗎？讓 Sebastian Aigner 在這個 Kotlin 小技巧中向你展示如何從列表中移除重複項，或將它們轉換為 Set：
+你的 Kotlin 集合 (collection) 中包含重複項嗎？需要一個只包含唯一項目的集合嗎？讓 Sebastian Aigner 在這個 Kotlin 小技巧中向你展示如何從列表中移除重複項，或將它們轉換為 Set： 
 
 <video width="560" height="315" src="https://www.youtube.com/v/ECOf0PeSANw" title="Kotlin Tips: Deduplicating Collection Items"/>
 

@@ -44,7 +44,7 @@ Kotlin 被設計為開發人員的務實工具。談到語言演進時，其務�
 
 保持語言現代化和舒適更新的原則表明，不相容的變更時有必要，但應謹慎引入。我們的目標是讓使用者提前知曉即將到來的變更，以便他們能舒適地遷移程式碼。
 
-理想情況下，每個不相容的變更都應透過在有問題的程式碼中報告編譯期警告（通常稱為「棄用警告」）來宣佈，並輔以自動化遷移工具。
+理想情況下，每個不相容的變更應透過在有問題的程式碼中報告編譯期警告（通常稱為「棄用警告」）來宣佈，並輔以自動化遷移工具。
 因此，理想的遷移工作流程如下：
 
 *   更新到版本 A（宣佈變更的版本）
@@ -70,7 +70,7 @@ Kotlin 被設計為開發人員的務實工具。談到語言演進時，其務�
 
 Kotlin 程式語言的所有變更均由 [Lead Language Designer](https://kotlinfoundation.org/structure/)（目前為 Michail Zarečenskij）監督。
 首席設計師在所有與語言演進相關的事務中擁有最終決定權。
-此外，對完全穩定組件的不相容變更必須得到 [Kotlin Foundation](https://kotlinfoundation.org/structure/) 下設的 [Language Committee](https://kotlinfoundation.org/structure/) 批准（目前成員包括 Jeffrey van Gogh、Werner Dietl 和 Michail Zarečenskij）。
+此外，對完全穩定組件的不相容變更必須得到 [Kotlin Foundation](https://kotlinfoundation.org/) 下設的 [Language Committee](https://kotlinfoundation.org/structure/) 批准（目前成員包括 Jeffrey van Gogh、Werner Dietl 和 Michail Zarečenskij）。
 
 語言委員會 (Language Committee) 就將進行哪些不相容變更，以及應採取哪些確切措施來使使用者更新盡可能無縫銜接做出最終決定。
 在執行此類工作時，它依賴一套 [Language committee guidelines](https://kotlinfoundation.org/language-committee-guidelines/)。

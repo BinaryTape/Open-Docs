@@ -8,7 +8,7 @@ Swift export 讓針對 Apple 目標的多平台開發更加精簡。例如，如
 
 目前的 Swift export 特性包括：
 
-* **多模組支援**。每個 Kotlin 模組都會被匯出為一個獨立 accessor Swift 模組，簡化了函式呼叫。
+* **多模組支援**。每個 Kotlin 模組都會被匯出為一個獨立的 Swift 模組，簡化了函式呼叫。
 * **套件支援**。Kotlin 套件在匯出期間會被明確保留，避免在產生的 Swift 程式碼中發生命名衝突。
 * **型別別名**。Kotlin 型別別名會被匯出並保留在 Swift 中，提高可讀性。
 * **增強型基本型別的可 null 性**。與 Objective-C 互通性不同（後者需要將 `Int?` 等型別裝箱到 `KotlinInt` 等包裝類別中以保留可 null 性），Swift export 會直接轉換可 null 性資訊。
@@ -111,33 +111,33 @@ Swift export 目前僅適用於使用 [直接整合](https://kotlinlang.org/docs
 
 下表顯示了 Kotlin 概念如何對應到 Swift。
 
-| Kotlin                                     | Swift                          |
-|--------------------------------------------|--------------------------------|
-| [`class`](#classes)                        | `class`                        |
-| [`object`](#objects)                       | 具有 `shared` 屬性的 `class`      |
-| [`enum class`](#enums)                     | `enum`                         |
-| [`typealias`](#type-aliases)               | `typealias`                    |
-| [函式](#functions)                          | 函式                             |
-| [`suspend fun`](#suspending-functions)     | `async`                        |
-| [`kotlinx.coroutines` flows](#flows)       | `AsyncSequence`                |
-| [屬性](#properties)                         | 屬性                             |
-| [建構函式](#constructors)                    | 初始設定式                         |
-| [套件](#packages)                           | 巢狀列舉                           |
-| `Boolean`                                  | `Bool`                         |
-| `Char`                                     | `Unicode.UTF16.CodeUnit`       |
-| `Byte`                                     | `Int8`                         |
-| `Short`                                    | `Int16`                        |
-| `Int`                                      | `Int32`                        |
-| `Long`                                     | `Int64`                        |
-| `UByte`                                    | `UInt8`                        |
-| `UShort`                                   | `UInt16`                       |
-| `UInt`                                     | `UInt32`                       |
-| `ULong`                                    | `UInt64`                       |
-| `Float`                                    | `Float`                        |
-| `Double`                                   | `Double`                       |
-| `Any`                                      | `KotlinBase` 類別               |
-| `Unit`                                     | `Void`                         |
-| [`Nothing`](#kotlin-nothing)               | `Never`                        |
+| Kotlin                                 | Swift                          |
+|----------------------------------------|--------------------------------|
+| [`class`](#classes)                    | `class`                        |
+| [`object`](#objects)                   | 具有 `shared` 屬性的 `class`      |
+| [`enum class`](#enums)                 | `enum`                         |
+| [`typealias`](#type-aliases)           | `typealias`                    |
+| [函式](#functions)                      | 函式                             |
+| [`suspend fun`](#suspending-functions) | `async`                        |
+| [`kotlinx.coroutines` flows](#flows)   | `AsyncSequence`                |
+| [屬性](#properties)                     | 屬性                             |
+| [建構函式](#constructors)                | 初始設定式                         |
+| [套件](#packages)                       | 巢狀列舉                           |
+| `Boolean`                              | `Bool`                         |
+| `Char`                                 | `Unicode.UTF16.CodeUnit`       |
+| `Byte`                                 | `Int8`                         |
+| `Short`                                | `Int16`                        |
+| `Int`                                  | `Int32`                        |
+| `Long`                                 | `Int64`                        |
+| `UByte`                                | `UInt8`                        |
+| `UShort`                               | `UInt16`                       |
+| `UInt`                                 | `UInt32`                       |
+| `ULong`                                | `UInt64`                       |
+| `Float`                                | `Float`                        |
+| `Double`                               | `Double`                       |
+| `Any`                                  | `KotlinBase` 類別               |
+| `Unit`                                 | `Void`                         |
+| [`Nothing`](#kotlin-nothing)           | `Never`                        |
 
 ### 宣告
 
@@ -403,7 +403,7 @@ public enum foo {
 
 #### 暫停函式 (Suspending functions)
 
-您可以從 Swift 呼叫 Kotlin 的暫停函式。Kotlin [暫停函式](coroutines-basics.md#suspending-functions)和暫停功能型別會被匯出為 Swift 相對應的 `async` 版本：
+您可以從 Swift 呼叫 Kotlin 的暫停函式。Kotlin [暫停函式](coroutines-basics.md#suspending-functions) 和暫停功能型別會被匯出為 Swift 相對應的 `async` 版本：
 
 ```kotlin
 // Kotlin
@@ -442,7 +442,7 @@ for try await element in flowOfStrings().asAsyncSequence() {
 
 預設情況下，當您從 Swift 呼叫 Kotlin 暫停函式或使用 `asAsyncSequence` 函式時，Kotlin 會建立一個使用 [`Dispatchers.Default`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-default.html) 分派器的協程上下文，並在該處執行匯出的程式碼。
 
-若要在[不同的分派器](coroutines-basics.md#coroutine-dispatchers)上執行匯出的程式碼，請使用 `withContext()` 函式在 Kotlin 中切換協程上下文。例如：
+若要在 [不同的分派器](coroutines-basics.md#coroutine-dispatchers) 上執行匯出的程式碼，請使用 `withContext()` 函式在 Kotlin 中切換協程上下文。例如：
 
 ```kotlin
 suspend fun runOnMain(): Int = withContext(Dispatchers.Main) {

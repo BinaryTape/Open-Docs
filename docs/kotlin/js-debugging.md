@@ -15,7 +15,7 @@ Kotlin 多平台 Gradle 插件会自动为项目构建生成源代码映射，�
 2. 在浏览器中转到该页面并启动其开发人员工具（例如，通过右键点击并选择**检查** (Inspect) 操作）。了解如何在常用浏览器中[查找开发人员工具](https://balsamiq.com/support/faqs/browserconsole/)。
 3. 如果您的程序正在将信息记录到控制台，请转到 **控制台** (Console) 选项卡以查看此输出。根据您的浏览器，这些日志可以引用其来源的 Kotlin 源文件和行：
 
-![Chrome DevTools 控制台](devtools-console.png){width="600"}
+    ![Chrome DevTools 控制台](devtools-console.png){width="600"}
 
 4. 点击右侧的文件引用可转到相应的代码行。或者，您可以手动切换到 **Sources** 选项卡并在文件树中找到所需的文件。转到 Kotlin 文件将显示常规的 Kotlin 代码（而不是压缩后的 JavaScript）：
 
@@ -33,7 +33,7 @@ Kotlin 多平台 Gradle 插件会自动为项目构建生成源代码映射，�
 2. 点击 **+** 并选择 **JavaScript Debug**。
 3. 指定配置 **Name** 并提供项目运行的 **URL**（默认为 `http://localhost:8080`）。
 
-![JavaScript 调试配置](debug-config.png){width=700}
+    ![JavaScript 调试配置](debug-config.png){width=700}
 
 4. 保存配置。
 
@@ -45,11 +45,11 @@ Kotlin 多平台 Gradle 插件会自动为项目构建生成源代码映射，�
    详细了解[运行 Kotlin/JS](running-kotlin-js.md#run-the-browser-target)。
 2. 通过运行您之前创建的 JavaScript 调试配置来启动调试会话：
 
-![运行 JavaScript 调试配置](debug-config-run.png){width=700}
+    ![运行 JavaScript 调试配置](debug-config-run.png){width=700}
 
 3. 您可以在 IntelliJ IDEA 的**调试** (Debug) 窗口中查看程序的控制台输出。输出项会引用其来源的 Kotlin 源文件和行：
 
-![IDE 中的 JavaScript 调试输出](ide-console-output.png){width=700}
+    ![IDE 中的 JavaScript 调试输出](ide-console-output.png){width=700}
 
 4. 点击右侧的文件引用可转到相应的代码行。
 

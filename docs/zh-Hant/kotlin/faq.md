@@ -93,7 +93,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
 ### Kotlin 支援哪些版本的 JVM？
 
 Kotlin 讓您選擇執行的 JVM 版本。預設情況下，Kotlin/JVM 編譯器會產生與 Java 8 相容的位元組碼。
-如果您想利用較新版本 Java 中的最佳化，可以明確指定目標 Java 版本（從 9 到 25）。請注意，在這種情況下，產生的位元組碼可能無法在較低版本上執行。
+如果您想利用較新版本 Java 中的最佳化，可以明確指定目標 Java 版本（從 9 到 26）。請注意，在這種情況下，產生的位元組碼可能無法在較低版本上執行。
 從 [Kotlin 1.5](whatsnew15.md#new-default-jvm-target-1-8) 開始，編譯器不再支援產生與 Java 8 以下版本相容的位元組碼。
 
 ### Kotlin 很難嗎？
@@ -125,8 +125,8 @@ Kotlin 有許多書籍可供選擇。我們審閱過其中一些，並推薦作�
 您可以在透過 JetBrains Academy 的 [Kotlin Core 學習路徑](https://hyperskill.org/tracks?category=4&utm_source=jbkotlin_hs&utm_medium=referral&utm_campaign=kotlinlang-docs&utm_content=button_1&utm_term=22.03.23)建立實際應用程式的同時，學習所有 Kotlin 基本要素。
 
 您還可以參加其他課程：
-* Kevin Jones 的 [Pluralsight 課程：Getting Started with Kotlin](https://www.pluralsight.com/courses/kotlin-getting-started)
-* Hadi Hariri 的 [O'Reilly 課程：Introduction to Kotlin Programming](https://www.oreilly.com/library/view/introduction-to-kotlin/9781491964125/)
+* [Pluralsight 課程：Getting Started with Kotlin](https://www.pluralsight.com/courses/kotlin-getting-started) 由 Kevin Jones 提供
+* [O'Reilly 課程：Introduction to Kotlin Programming](https://www.oreilly.com/library/view/introduction-to-kotlin/9781491964125/) 由 Hadi Hariri 提供
 
 您也可以查看我們 [YouTube 頻道](https://www.youtube.com/c/Kotlin)上的其他教學和內容。
 
@@ -141,9 +141,9 @@ Kotlin 有許多書籍可供選擇。我們審閱過其中一些，並推薦作�
 
 ### 有 Kotlin 的大會嗎？
 
-是的！[KotlinConf](https://kotlinconf.com/) 是由 JetBrains 主辦的年度會議，匯集了來自世界各地的開發人員、愛好者和專家，分享他們對 Kotlin 的知識 and 經驗。
+是的！[KotlinConf](https://kotlinconf.com/) 是由 JetBrains 主辦的年度會議，匯集了來自世界各地的開發人員、愛好者和專家，分享他們對 Kotlin 的知識與經驗。
 
-除了技術演講和工作坊，KotlinConf 還提供社交機會、社群互動和社交活動，讓與與會者可以與其他 Kotlin 使用者建立聯繫並交換想法。
+除了技術演講和工作坊，KotlinConf 還提供社交機會、社群互動和社交活動，讓與會者可以與其他 Kotlin 使用者建立聯繫並交換想法。
 它是促進 Kotlin 生態系統內協作和社群建設的平台。
 
 Kotlin 也在全球不同的會議中被提及。您可以在網站上找到[即將舉行的演講清單](https://kotlinlang.org/community/talks.html?time=upcoming)。

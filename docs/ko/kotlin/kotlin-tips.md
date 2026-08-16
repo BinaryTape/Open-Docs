@@ -18,7 +18,7 @@ Kotlin에서 `null + null`을 더하면 어떤 일이 일어나고, 무엇을 �
 
 ## suspend와 inline의 비밀
 
-`repeat()`, `map()`, `filter()`와 같은 함수들은 시그니처가 코루틴을 인식하지 못함에도 불구하고 어떻게 람다에서 일시 중단 함수(suspending functions)를 허용할까요? 이번 Kotlin 팁 에피소드에서 Sebastian Aigner가 그 수수께끼를 풉니다. 바로 `inline` 한정자(modifier)와 관련이 있습니다.
+[`repeat()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/repeat.html), [`map()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map.html) 및 [`filter()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter.html)와 같은 함수들은 시그니처가 코루틴을 인식하지 못함에도 불구하고 어떻게 람다에서 일시 중단 함수(suspending functions)를 허용할까요? 이번 Kotlin 팁 에피소드에서 Sebastian Aigner가 그 수수께끼를 풉니다. 바로 `inline` 한정자(modifier)와 관련이 있습니다.
 
 <video width="560" height="315" src="https://www.youtube.com/v/R2395u7SdcI" title="Kotlin Tips: The Suspend and Inline Mystery"/>
 
@@ -30,7 +30,7 @@ Kotlin에서 `null + null`을 더하면 어떤 일이 일어나고, 무엇을 �
 
 ## 엘비스 연산자를 사용한 return 및 throw
 
-엘비스(Elvis)가 다시 돌아왔습니다! Sebastian Aigner가 이 연산자가 왜 유명 가수의 이름을 따서 명명되었는지, 그리고 Kotlin에서 `?:`를 사용하여 어떻게 return하거나 throw할 수 있는지 설명합니다. 이 이면에 숨겨진 마법은 무엇일까요? 바로 [Nothing 타입](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing.html)입니다.
+[엘비스(Elvis)](null-safety.md#elvis-operator)가 다시 돌아왔습니다! Sebastian Aigner가 이 연산자가 왜 유명 가수의 이름을 따서 명명되었는지, 그리고 Kotlin에서 `?:`를 사용하여 어떻게 return하거나 throw할 수 있는지 설명합니다. 이 이면에 숨겨진 마법은 무엇일까요? 바로 [Nothing 타입](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing.html)입니다.
 
 <video width="560" height="315" src="https://www.youtube.com/v/L8aFK7QrbA8" title="Kotlin Tips: Return and Throw with the Elvis Operator"/>
 

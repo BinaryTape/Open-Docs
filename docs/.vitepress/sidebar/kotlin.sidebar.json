@@ -220,10 +220,6 @@
             "link": "lambdas"
           },
           {
-            "text": "kotlin.this-expressions",
-            "link": "this-expressions"
-          },
-          {
             "text": "kotlin.builders",
             "items": [
               {
@@ -286,6 +282,10 @@
           {
             "text": "kotlin.object-declarations",
             "link": "object-declarations"
+          },
+          {
+            "text": "kotlin.this-expressions",
+            "link": "this-expressions"
           },
           {
             "text": "kotlin.special-classes-and-interfaces",

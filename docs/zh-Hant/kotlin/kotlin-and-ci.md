@@ -8,7 +8,7 @@ Kotlin 可搭配不同的建置工具使用，因此如果您使用的是 Maven 
 
 ## Gradle 與 Maven
 
-如果使用 Maven 或 Gradle，設定流程非常簡單。只需要定義建置步驟即可。
+如果使用 Maven 或 Gradle，設定流程非常簡單。只需要定義建置步驟（Build Step）即可。
 例如，如果使用 Gradle，只需為 Runner Type 定義所需的參數，例如 Step Name 和需要執行的 Gradle 任務（tasks）。
 
 <img src="teamcity-gradle.png" alt="Gradle Build Step" width="700"/>
@@ -26,7 +26,7 @@ Kotlin 可搭配不同的建置工具使用，因此如果您使用的是 Maven 
 ### 下載並安裝 Meta-runner
 
 Kotlin 的 Meta-runner 可在 [GitHub](https://github.com/jonnyzzz/Kotlin.TeamCity) 上取得。
-下載該 Meta-runner 並從 TeamCity 使用者介面匯入
+下載該 Meta-runner 並從 TeamCity 使用者介面匯入。
 
 <img src="teamcity-metarunner.png" alt="Meta-runner" width="700"/>
 

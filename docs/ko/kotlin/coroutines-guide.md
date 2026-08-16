@@ -13,11 +13,11 @@ Kotlin은 다른 라이브러리들이 코루틴을 활용할 수 있도록 표�
 ## 목차
 
 * [코루틴 기초(Coroutines basics)](coroutines-basics.md)
-* [튜토리얼: 코루틴과 채널 소개](coroutines-and-channels.md)
 * [취소와 타임아웃](coroutines-cancellation.md)
+* [플로우(Flows)](coroutines-flow.md)
+* [튜토리얼: 코루틴과 채널 소개](coroutines-and-channels.md)
 * [일시 중단 함수 구성하기](composing-suspending-functions.md)
 * [코루틴 컨텍스트와 디스패처](coroutine-context-and-dispatchers.md)
-* [비동기 플로우(Asynchronous Flow)](coroutines-flow.md)
 * [채널(Channels)](channels.md)
 * [코루틴 예외 처리](exception-handling.md)
 * [공유 뮤터블 상태와 동시성](shared-mutable-state-and-concurrency.md)

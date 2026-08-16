@@ -479,7 +479,7 @@ integrationTestCompilation {
 
 ### 在启用 Java 模块 (JPMS) 的情况下配置
 
-要使 Kotlin Gradle 插件与 [Java 模块](https://www.oracle.com/corporate/features/understanding-java-9-modules.html)一起工作，
+要使 Kotlin Gradle 插件与 [Java 模块](https://dev.java/learn/modules/)一起工作，
 请在构建脚本中添加以下行，并将 `YOUR_MODULE_NAME` 替换为您的 JPMS 模块引用，例如 `org.company.module`：
 
 <tabs group="build-script">
@@ -527,9 +527,9 @@ tasks.named("compileJava", JavaCompile.class) {
 
 ### 其他详情
 
-#### 在编译任务中禁用构件的使用
+#### 在编译任务中禁用工件的使用
 
-在一些极少数情况下，您可能会遇到由循环依赖错误引起的构建失败。例如，当您有多个编译，其中一个编译可以看到另一个编译的所有内部声明，且生成的构件依赖于这两个编译任务的输出时：
+在一些极少数情况下，您可能会遇到由循环依赖错误引起的构建失败。例如，当您有多个编译，其中一个编译可以看到另一个编译的所有内部声明，且生成的工件依赖于这两个编译任务的输出时：
 
 ```none
 FAILURE: Build failed with an exception.
@@ -543,12 +543,12 @@ Circular dependency between the following tasks:
 ```
 
 为了修复此循环依赖错误，我们添加了一个 Gradle 属性：`archivesTaskOutputAsFriendModule`。
-此属性控制在编译任务中使用构件输入，并决定是否因此创建任务依赖关系。
+此属性控制在编译任务中使用工件输入，并决定是否因此创建任务依赖关系。
 
 默认情况下，此属性设置为 `true` 以跟踪任务依赖关系。如果您遇到循环依赖错误，
-您可以在编译任务中禁用构件的使用，以移除任务依赖关系并避免循环依赖错误。
+您可以在编译任务中禁用工件的使用，以移除任务依赖关系并避免循环依赖错误。
 
-要在编译任务中禁用构件的使用，请在您的 `gradle.properties` 文件中添加以下内容：
+要在编译任务中禁用工件的使用，请在您的 `gradle.properties` 文件中添加以下内容：
 
 ```kotlin
 kotlin.build.archivesTaskOutputAsFriendModule=false

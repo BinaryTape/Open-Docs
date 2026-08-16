@@ -47,7 +47,7 @@ fun runSumExample() {
 >
 {style="note"}
 
-## external 한정자 (modifier)
+## `external` 한정자 (modifier)
 
 특정 선언이 순수 JavaScript로 작성되었음을 Kotlin에 알리려면 `external` 한정자를 사용해야 합니다. 컴파일러가 이러한 선언을 보면 해당 클래스, 함수 또는 프로퍼티에 대한 구현이 외부(개발자 또는 [npm 의존성](js-project-setup.md#npm-dependencies)을 통해)에서 제공된다고 가정하므로, 해당 선언으로부터 JavaScript 코드를 생성하려고 시도하지 않습니다. 이것이 바로 `external` 선언이 몸체(body)를 가질 수 없는 이유입니다. 예를 들어:
 

@@ -19,7 +19,7 @@ Kotlinには、`let`、`apply`、`run`、`also`、`with` の計5つのスコー�
 
 各スコープ関数はラムダ式を受け取り、オブジェクト自体、またはラムダ式の結果のいずれかを返します。このツアーでは、それぞれのスコープ関数とその使い方について解説します。
 
-> Kotlin開発者アドボケイトのSebastian Aignerによるスコープ関数のトーク、[Back to the Stdlib: Making the Most of Kotlin's Standard Library](https://youtu.be/DdvgvSHrN9g?feature=shared&t=1511) もあわせてご覧ください。
+> Kotlin開発者アドボケイトのSebastian Aignerによるスコープ関数のトーク、 [Back to the Stdlib: Making the Most of Kotlin's Standard Library](https://youtu.be/DdvgvSHrN9g?feature=shared&t=1511) もあわせてご覧ください。
 > 
 {style="tip"}
 
@@ -336,7 +336,7 @@ fun main() {
 
 この例では、`rect()`、`circ()`、および `text()` の3つのメンバ関数を持つ `Canvas` クラスを作成しています。これらの各メンバ関数は、提供された関数パラメータから構築されたステートメントを出力します。
 
-例では、`mainMonitorPrimaryBufferBackedCanvas` を `Canvas` クラスのインスタンスとして作成してから、そのインスタンスに対して異なる関数パラメータを使用して一連のメンバ関数を呼び出しています。
+例では、`mainMonitorPrimaryBufferBackedCanvas` を `Canvas` クラスのインスタンスとして作成してから、そのインスタンスに対して異なる関数パラメータを使用して一連েরメンバ関数を呼び出しています。
 
 このコードは読みにくいことがわかります。`with` 関数を使用すると、コードが整理されます：
 

@@ -281,7 +281,7 @@ Kotlinコードをコピーし、`main()` 関数内の `Fragment.create()` 関�
 
 ### 型安全なCSSでスタイルを追加する
 
-[Emotion](https://emotion.sh/docs/introduction)ライブラリ用の [kotlin-emotion](https://github.com/JetBrains/kotlin-wrappers/blob/master/kotlin-emotion/) ラッパーを使用すると、JavaScriptと並んでHTMLのすぐ隣でCSS属性（動的なものも含めて）を指定できます。概念的には、[CSS-in-JS](https://reactjs.org/docs/faq-styling.html#what-is-css-in-js)に似ていますが、Kotlin用です。DSLを使用する利点は、Kotlinのコード構文を使用して書式設定ルールを表現できることです。
+[Emotion](https://emotion.sh/docs/introduction)ライブラリ用の [kotlin-emotion](https://github.com/JetBrains/kotlin-wrappers/blob/master/kotlin-emotion/) ラッパーを使用すると、JavaScriptと並んでHTMLのすぐ隣でCSS属性（動的なものも含めて）を指定できます。概念的には、[CSS-in-JS](https://reactjs.org/docs/faq-styling.html#what-is-css-in-js)に似ています。しかし、このマークアップはKotlinであるため、オートコンプリートや型チェックなど、静的型付け言語のすべての利点を得ることができます。
 
 このチュートリアルのテンプレートプロジェクトには、`kotlin-emotion` を使用するために必要な依存関係が既に含まれています。
 
@@ -936,7 +936,7 @@ Reactには、これらの機能を自分で構築する代わりに使用でき
 
 最初に考えられる問題は、`fetch()` のようなブラウザAPIが非ブロッキング操作を実行するために [コールバック](https://developer.mozilla.org/en-US/docs/Glossary/Callback_function) を使用することです。複数のコールバックを次々に実行する必要がある場合、それらをネストする必要があります。当然、コードは深くインデントされ、より多くの機能が互いに積み重なり、読みづらくなります。
 
-これを克服するために、このような機能に対する優れたアプローチであるKotlin의 コルーチンを使用できます。
+これを克服するために、このような機能に対する優れたアプローチであるKotlinのコルーチンを使用できます。
 
 2つ目の問題は、JavaScriptの動的型付けの性質から生じます。外部APIから返されるデータの型に関する保証はありません。これを解決するために、`kotlinx.serialization` ライブラリを使用できます。
 

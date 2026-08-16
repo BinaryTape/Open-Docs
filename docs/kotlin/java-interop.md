@@ -514,7 +514,7 @@ public class Test {}
 ## 映射类型
 
 Kotlin 会对某些 Java 类型进行特殊处理。此类类型不会“照原样”从 Java 加载，而是被“映射”到对应的 Kotlin 类型。映射仅在编译时起作用，运行时表示形式保持不变。
- Java 的原生类型被映射到对应的 Kotlin 类型（同时考虑到[平台类型](#null-safety-and-platform-types)）：
+Java 的原生类型被映射到对应的 Kotlin 类型（同时考虑到[平台类型](#null-safety-and-platform-types)）：
 
 | **Java 类型** | **Kotlin 类型**  |
 |---------------|------------------|
@@ -539,7 +539,7 @@ Kotlin 会对某些 Java 类型进行特殊处理。此类类型不会“照原�
 | `java.lang.CharSequence` | `kotlin.CharSequence!`   |
 | `java.lang.String`       | `kotlin.String!`   |
 | `java.lang.Number`       | `kotlin.Number!`     |
-| `java.lang.Object`       | `kotlin.Throwable!`    |
+| `java.lang.Throwable`    | `kotlin.Throwable!`    |
 
 Java 的装箱原生类型被映射到可空的 Kotlin 类型：
 
@@ -569,7 +569,7 @@ Java 的装箱原生类型被映射到可空的 Kotlin 类型：
 | `Map<K, V>`          | `Map<K, V>`          | `MutableMap<K, V>`              | `(Mutable)Map<K, V>!`              |
 | `Map.Entry<K, V>`    | `Map.Entry<K, V>`    | `MutableMap.MutableEntry<K,V>` | `(Mutable)Map.(Mutable)Entry<K, V>!` |
 
-Java 数组的映射如下面[下文](#java-arrays)所述：
+Java 数组的映射如下[下文](#java-arrays)所述：
 
 | **Java 类型** | **Kotlin 类型**                |
 |---------------|--------------------------------|
@@ -594,7 +594,7 @@ Kotlin 的泛型与 Java 的略有不同（请参阅[泛型](generics.md)）。�
 与 Java 一样，Kotlin 的泛型在运行时不会保留：对象不会携带传递给其构造函数的实际类型实参的信息。例如，`ArrayList<Integer>()` 与 `ArrayList<Character>()` 是无法区分的。这使得执行考虑泛型的 `is` 检查变得不可能。Kotlin 仅允许对星投影的泛型类型进行 `is` 检查：
 
 ```kotlin
-if (a is List<Int>) // 错误：无法检查它是否 realmente 是 Int 列表
+if (a is List<Int>) // 错误：无法检查它是否真正是 Int 列表
 // 但是
 if (a is List<*>) // OK：对列表内容不作保证
 ```
@@ -783,7 +783,7 @@ class C {
 
 ## 继承 Java 类
 
-在 Kotlin 中，一个类最多可以有一个 Java 类（以及任意数量的 Java 接口）作为超类型。
+在 Kotlin 中，一个类最多可以有一个 Java 类（以及任意数量 of Java 接口）作为超类型。
 
 ## 访问静态成员
 

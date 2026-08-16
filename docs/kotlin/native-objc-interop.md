@@ -170,7 +170,7 @@ Objective-C 不支持框架中的软件包。如果 Kotlin 编译器在同一个
 
 这意味着应用在启动期间会尝试动态链接符号，如果符号不可用，应用就会崩溃。即使从未调用过这些符号，崩溃也会发生。符号在特定设备或 OS 版本上可能不可用。
 
-要解决此问题并避免 “Symbol not found” 错误，请使用检查类是否实际可用的 Swift 或 Objective-C 包装器。[查看此解决办法在 Compose Multiplatform 框架中的实现方式](https://github.com/JetBrains/compose-multiplatform-core/pull/1278/files)。
+To work around this issue and avoid “Symbol not found” 错误，请使用检查类是否实际可用的 Swift 或 Objective-C 包装器。[查看此解决办法在 Compose Multiplatform 框架中的实现方式](https://github.com/JetBrains/compose-multiplatform-core/pull/1278/files)。
 
 ### 初始值设定项
 

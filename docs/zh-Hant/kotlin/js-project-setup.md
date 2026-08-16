@@ -1,6 +1,6 @@
 [//]: # (title: 設定 Kotlin/JS 專案)
 
-Kotlin/JS 專案使用 Gradle 作為組建系統。為了讓開發人員輕鬆管理其 Kotlin/JS 專案，我們提供了 `kotlin.multiplatform` Gradle 外掛程式，它提供了專案配置工具以及用於自動化 JavaScript 開發典型常式的輔助任務。
+Kotlin/JS 專案使用 Gradle 作為建構系統。為了讓開發人員輕鬆管理其 Kotlin/JS 專案，我們提供了 `kotlin.multiplatform` Gradle 外掛程式，它提供了專案配置工具以及用於自動化 JavaScript 開發典型常式的輔助任務。
 
 該外掛程式會在背景使用 [npm](https://www.npmjs.com/) 或 [Yarn](https://yarnpkg.com/) 封裝管理員下載 npm 相依性，並使用 [webpack](https://webpack.js.org/) 從 Kotlin 專案建置 JavaScript 組合包。相依性管理和配置調整很大程度可以直接從 Gradle 建置檔案中完成，並提供覆寫自動產生的配置以實現完全控制的選項。
 
@@ -38,7 +38,7 @@ kotlin {
 在 `kotlin {}` 區塊內，您可以管理以下層面：
 
 * [目標執行環境](#execution-environments)：瀏覽器或 Node.js 
-* [支援 ES2015 特性](#support-for-es2015-features)：類別、模組和產生器
+* [支援 ES2015 特性](#support-for-es2015-features)：類別、模組與產生器
 * [配置輸出粒度](#configure-output-granularity)
 * [產生 TypeScript 宣告檔案](#generation-of-typescript-declaration-files-d-ts)
 * [專案相依性](#dependencies)：Maven 和 npm
@@ -52,8 +52,8 @@ kotlin {
 
 Kotlin/JS 專案可以針對兩種不同的執行環境： 
 
-* 瀏覽器：用於瀏覽器中的用戶端腳本
-* [Node.js](https://nodejs.org/)：用於在瀏覽器之外執行 JavaScript 程式碼，例如伺服器端腳本。
+* 瀏覽器：用於瀏覽器中的用戶端指令碼
+* [Node.js](https://nodejs.org/)：用於在瀏覽器之外執行 JavaScript 程式碼，例如伺服器端指令碼。
 
 要為 Kotlin/JS 專案定義目標執行環境，請在內部加入帶有 `browser {}` 或 `nodejs {}` 的 `js {}` 區塊：
 
@@ -164,7 +164,7 @@ kotlin {
 </tab>
 <tab title="Groovy" group-key="groovy">
 
-```groovy
+```kotlin
 kotlin {
     sourceSets {
         jsMain {
@@ -730,7 +730,7 @@ rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlu
 > 
 {style="warning"}
 
-要了解更多關於 `yarn.lock` 的資訊，請造訪 [Yarn 官方文件](https://classic.yarnpkg.com/lang/en/docs/yarn-lock/)。
+To learn more about `yarn.lock`, visit the [official Yarn documentation](https://classic.yarnpkg.com/lang/en/docs/yarn-lock/).
 
 ### 回報 yarn.lock 已更新
 
@@ -870,15 +870,13 @@ Kotlin 多平台 Gradle 外掛程式在建置期間會自動為 Kotlin/JS 專案
 
 除了基本套件屬性外，`package.json` 還可以定義 JavaScript 專案的行為方式，例如識別可供執行的指令碼。
 
-您可以透過 Gradle DSL 向專案的 `package.json` 加入自訂項目。要在您的 `package.json` 中加入自訂欄位，請在 `jsMain` 原始碼集的 `packageJson` 區塊中使用 `customField()` 函式：
+您可以透過 Gradle DSL 向專案的 `package.json` 加入自訂項目。要在您的 `package.json` 中加入自訂欄位，請在編譯的 `packageJson` 區塊中使用 `customField()` 函式：
 
 ```kotlin
 kotlin {
-    sourceSets {
-        jsMain {
-            packageJson {
-                customField("hello", mapOf("one" to 1, "two" to 2))
-            }
+    js {
+        compilations["main"].packageJson {
+            customField("hello", mapOf("one" to 1, "two" to 2))
         }
     }
 }

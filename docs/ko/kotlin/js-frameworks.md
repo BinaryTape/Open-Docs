@@ -25,15 +25,31 @@ Kilua는 선언형(declarative) UI 컴포넌트를 생성하고 상태를 관리
 
 Kilua는 [KVision](https://kvision.io) 프레임워크의 후속작입니다. Kilua는 Compose 사용자(`@Composable` 함수, 상태 관리, 코루틴/Flow 통합)와 KVision 사용자(UI 컴포넌트와의 명령형 상호작용을 일부 허용하는 컴포넌트 기반 API) 모두에게 익숙하도록 설계되었습니다.
 
-문서와 예제는 GitHub의 [Kilua 저장소](https://github.com/rjaros/kilua?tab=readme-ov-file#building-and-running-the-examples)를 참조하세요.
+문서와 예제는 [Kilua 문서](https://kilua.dev/introduction)를 참조하세요.
 
 프레임워크에 대한 업데이트 및 토론은 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)의 [#kilua](https://kotlinlang.slack.com/archives/C06UAH52PA7) 채널에서 확인하실 수 있습니다.
+
+## Summon
+
+[Summon](https://summon.yousef.codes/)은 JVM, Kotlin/JS, Kotlin/Wasm 전반에서 고성능 애플리케이션을 구축하기 위한 Kotlin 멀티플랫폼 프런트엔드 프레임워크입니다. 컴포넌트 기반 UI 개발, HTML 스트리밍을 통한 퍼스트 클래스 서버 사이드 렌더링(SSR), 그리고 깔끔한 CSS로 컴파일되는 수정자(modifier) 기반 스타일링을 지원합니다.
+
+또한 Summon은 여러 플랫폼에서 통합된 코드베이스를 유지하면서, 접근성과 고급 동작을 위한 런타임 인식(runtime-aware) 컴포넌트에 집중합니다.
+
+문서와 예제는 [Summon 문서](https://summon.yousef.codes/docs)를 참조하세요.
+
+## Kinetica
+
+[Kinetica](https://kinetica.heapy.io/)는 웹 앱의 실질적인 결과물에 초점을 맞춘 Kotlin UI 프레임워크입니다. 서버 렌더링을 통한 빠른 초기 페이지 전달, SEO 친화적인 HTML 출력, 그리고 페이지 로드 후 인터랙티브한 클라이언트 사이드 UI로의 부드러운 전환(handoff)을 제공합니다. 또한 헤드리스 테스팅(headless testing)을 지원하여, 전체 브라우저 환경에 의존하지 않고도 UI 동작을 빠르고 안정적으로 테스트할 수 있도록 돕습니다.
+
+Kinetica는 기본적으로 라우팅, 폼(forms), 지속성(persistence) 모듈을 포함하고 있어, 일반적인 앱 기능을 더 빠르게 출시할 수 있습니다. 업데이트 모델은 최소한의 DOM 패치를 적용하여 상태 변화에 따라 반응성을 유지하며, 일관된 반응형 모델은 대규모 앱에서 예기치 않은 동작을 줄이도록 설계되었습니다.
+
+문서와 예제는 [Kinetica 문서](https://kinetica.heapy.io/docs/getting-started)를 참조하세요.
 
 ## Kotlin React
 
 [React](https://react.dev/)는 웹 및 네이티브 사용자 인터페이스에 널리 사용되는 컴포넌트 기반 라이브러리입니다. 방대한 컴포넌트 에코시스템, 학습 자료, 활발한 커뮤니티를 제공합니다.
 
-[Kotlin React](https://github.com/JetBrains/kotlin-wrappers/blob/master/docs/guide/react.md)는 React 에코시스템을 Kotlin의 타입 안전성(type-safety) 및 표현력과 결합한 React용 Kotlin 래퍼(wrapper)입니다.
+[Kotlin React](https://github.com/JetBrains/kotlin-wrappers/blob/e874e48396217cbe4d4f3b706ee4e4441724a6ba/docs/guide/react.md)는 React 에코시스템을 Kotlin의 타입 안전성(type-safety) 및 표현력과 결합한 React용 Kotlin 래퍼(wrapper)입니다.
 
 라이브러리에 대한 업데이트 및 토론은 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)의 [#react](https://kotlinlang.slack.com/messages/react) 및 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 채널에서 확인하실 수 있습니다.
 
@@ -43,7 +59,7 @@ Kilua는 [KVision](https://kvision.io) 프레임워크의 후속작입니다. Ki
 
 이 프레임워크를 사용하면 반응형(reactive) 및 명령형(imperative) 프로그래밍 모델을 모두 사용하여 프론트엔드를 구축할 수 있습니다. 또한 Ktor, Spring Boot 및 기타 프레임워크용 커넥터를 사용하여 서버 측 애플리케이션과 통합할 수도 있습니다. 또한 [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html)을 사용하여 코드를 공유할 수 있습니다.
 
-문서, 튜토리얼 및 예제는 [KVision 문서](https://kvision.io/#docs) 사이트를 참조하세요.
+문서, 튜토리얼 및 예제는 [KVision 문서](https://kvision.gitbook.io/kvision-guide) 사이트를 참조하세요.
 
 프레임워크에 대한 업데이트 및 토론은 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)의 [#kvision](https://kotlinlang.slack.com/messages/kvision) 및 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 채널에서 확인하실 수 있습니다.
 

@@ -145,7 +145,6 @@ dependencies {
 ### 创建并注册处理器
 
 1. 在项目的根目录下创建另一个名为 **processor** 的模块。
-
 2. 在模块的 `build.gradle(.kts)` 文件中，将 KSP API 和您声明的注解添加为依赖项：
 
     <tabs group="build-script">
@@ -182,7 +181,6 @@ dependencies {
 
     </tab>
     </tabs>
-
 3. 在 processor 模块中，创建一个新的 `HelloWorldProcessor.kt` 文件并添加以下代码：
 
     ```kotlin
@@ -252,26 +250,24 @@ dependencies {
     import java.io.OutputStream
     ```
     {collapsible="true" collapsed-title="Import 语句"}
-   
 
-    让我们来看一下代码：
-    
+   让我们来看一下代码：
+
     * 1️⃣ `process()` 函数包含处理器的主要逻辑。它获取所有被 `HelloWorldAnnotation` 注解的符号，并为每个符号调用 `HelloWorldVisitor`。
-    
-        `process()` 函数返回一个待处理符号列表，以便在后续轮次中进行处理。在本示例中，它安全地返回了 `emptyList()`。更多信息请参阅[多轮处理](ksp-multi-round.md)。
-    
+
+       `process()` 函数返回一个待处理符号列表，以便在后续轮次中进行处理。在本示例中，它安全地返回了 `emptyList()`。更多信息请参阅[多轮处理](ksp-multi-round.md)。
+
     * 2️⃣ 处理器使用访问器遍历 KSP 视图下的 Kotlin 抽象语法树 (AST)。在 `HelloWorldPocessor` 类内部，`HelloWorldVisitor` 类就是该访问器。由于 `HelloWorldAnnotation` 仅用于函数，因此仅重写了 `visitFunctionDeclaration()`。
-    
-        > `KSVisitorVoid` 是 KSP 提供的访问器类之一，您可以重写并进行适配。您还可以通过实现 [`KSVisitor<D, R>` 接口](https://github.com/google/ksp/blob/main/api/src/main/kotlin/com/google/devtools/ksp/symbol/KSVisitor.kt) 来创建您自己的访问器。
-        > 
-        {style="tip"}
-    
+   
+       > `KSVisitorVoid` 是 KSP 提供的访问器类之一，您可以重写并进行适配。您还可以通过实现 [`KSVisitor<D, R>` 接口](https://github.com/google/ksp/blob/main/api/src/main/kotlin/com/google/devtools/ksp/symbol/KSVisitor.kt) 来创建您自己的访问器。
+       >
+       {style="tip"}
+
     * 3️⃣ `createNewFileFrom()` 创建 KSP 生成代码的文件。`createDependencyOn()` 使输出文件依赖于使用该注解的源文件。
 
-        > 要了解有关 KSP 如何创建和管理文件的更多信息，请访问 [`CodeGenerator` 接口](https://github.com/google/ksp/blob/main/api/src/main/kotlin/com/google/devtools/ksp/processing/CodeGenerator.kt) 的源代码。
-        > 
-        {style="tip"} 
-
+       > 要了解有关 KSP 如何创建和管理文件的更多信息，请访问 [`CodeGenerator` 接口](https://github.com/google/ksp/blob/main/api/src/main/kotlin/com/google/devtools/ksp/processing/CodeGenerator.kt) 的源代码。
+       >
+       {style="tip"}
 4. 创建一个 `HelloWorldProcessorProvider.kt` 文件。在其中声明一个继承自 `SymbolProcessorProvider` 的 `HelloWorldProcessorProvider` 类：
 
     ```kotlin
@@ -287,7 +283,6 @@ dependencies {
         }  
     }
     ```
-
 5. 注册处理器提供程序。在 `resources/META-INF/services` 目录中，创建一个 `com.google.devtools.ksp.processing.SymbolProcessorProvider` 文件并添加提供程序的完全限定名称：
 
     ```text
@@ -371,7 +366,7 @@ dependencies {
     </tab>
     </tabs>
 
-4. 在 `app`模块中，创建一个 `Main.kt` 文件并添加以下代码：
+4. 在 `app` 模块中，创建一个 `Main.kt` 文件并添加以下代码：
 
     ```kotlin
     // app/src/main/kotlin/Main.kt

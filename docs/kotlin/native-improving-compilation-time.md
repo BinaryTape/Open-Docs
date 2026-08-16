@@ -43,7 +43,7 @@ Kotlin/Native 编译器不断接收改进其性能的更新。通过使用最新
 如果您遇到非典型情况或构建配置，您可能需要自行选择任务：
 
 * `linkDebug*`。要在开发过程中运行代码，您通常只需要一个二进制文件，因此运行相应的 `linkDebug*` 任务就足够了。
-* `embedAndSignAppleFrameworkForXcode`。由于 iOS 模拟器和设备具有不同的处理器架构，将 Kotlin/Native 二进制文件作为通用（fat）框架分发是一种常见做法。
+* `embedAndSignAppleFrameworkForXcode`。由于 iOS 模拟器和设备具有不同的处理器架构，将 Kotlin/Native 二进制文件作为通用 (fat) 框架分发是一种常见做法。
 
   然而，在本地开发期间，仅为您正在使用的平台构建 `.framework` 文件速度更快。要构建特定平台的框架，请使用 [embedAndSignAppleFrameworkForXcode](https://kotlinlang.org/docs/multiplatform/multiplatform-direct-integration.html#connect-the-framework-to-your-project) 任务。
 
@@ -67,7 +67,7 @@ Kotlin/Native 支持两种构建模式：[debug 和 release](https://kotlinlang.
 >
 {style="tip"}
 
-### 减少 release 二进制文件的大小
+### 减小 release 二进制文件的大小
 <primary-label ref="experimental-opt-in"/>
 
 要减小 release 二进制文件的大小并提高构建时间，请尝试 [启用二进制选项](native-binary-options.md#how-to-enable) `smallBinary`。
@@ -113,10 +113,17 @@ Gradle [配置缓存](https://docs.gradle.org/current/userguide/configuration_ca
 如果您之前在使用这些功能时遇到问题，并将这些行添加到了 `gradle.properties` 文件或 Gradle 构建文件中，请移除它们并检查构建是否可以成功完成。这些属性可能是之前为了解决已修复的问题而添加的。
 
 ### 尝试 klib 工件的增量编译
+<primary-label ref="experimental-opt-in"/>
 
 使用增量编译，如果项目模块生成的 `klib` 工件只有一部分发生变化，则只有 `klib` 的一部分会被进一步重新编译为二进制文件。
 
-此功能处于 [实验性](components-stability.md#stability-levels-explained) 阶段。要启用它，请将 `kotlin.incremental.native=true` 选项添加到您的 `gradle.properties` 文件中。如果您遇到任何问题，请在 [YouTrack 中创建问题](https://kotl.in/issue)。
+此功能处于 [实验性](components-stability.md#stability-levels-explained) 阶段。要启用它，请将以下选项添加到您的 `gradle.properties` 文件中：
+
+```properties
+kotlin.incremental.native=true
+```
+
+如果您遇到任何问题，请在 [YouTrack 中创建问题](https://kotl.in/issue)。
 
 ## Windows 配置
 

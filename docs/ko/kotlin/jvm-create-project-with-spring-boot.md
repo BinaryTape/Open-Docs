@@ -188,7 +188,7 @@ fun main(args: Array<String>) {
    </def>
    <def title="스프레드 연산자 – (*args)">
       <p><code>args</code>는 <code>main()</code> 함수의 파라미터로, String 배열로 선언되어 있습니다.
-        이 String 배열의 내용을 함수에 전달하고 싶으므로, 스프레드(spread) 연산자(배열 앞에 별표 <code>*</code> 기호)를 사용합니다.
+        이 String 배열의 내용을 함수에 전달하고 싶으므로, 스프레드(spread) 연산자(배열 앞에 별표 <code>&#42;</code> 기호)를 사용합니다.
       </p>
    </def>
 </deflist>

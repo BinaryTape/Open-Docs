@@ -183,7 +183,7 @@ fun main(args: Array<String>) {
       <p>如果您查看 <code>runApplication()</code> 函数的声明，会发现该函数的形参被标记了 <a href="functions.md#variable-number-of-arguments-varargs"><code>vararg</code> 修饰符</a>：<code>vararg args: String</code>。这意味着您可以向该函数传递可变数量的 String 实参。</p>
    </def>
    <def title="扩展运算符 – (*args)">
-      <p><code>args</code> 是 <code>main()</code> 函数的一个形参，被声明为字符串数组。由于您有一个字符串数组，并且希望将其内容传递给函数，请使用扩展运算符（在数组前加星号 <code>*</code>）。</p>
+      <p><code>args</code> 是 <code>main()</code> 函数的一个形参，被声明为字符串数组。由于您有一个字符串数组，并且希望将其内容传递给函数，请使用扩展运算符（在数组前加星号 <code>&#42;</code>）。</p>
    </def>
 </deflist>
 

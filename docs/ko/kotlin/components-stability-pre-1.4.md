@@ -20,21 +20,21 @@
 
 [Kotlin 진화 정책](kotlin-evolution-principles.md)의 조항은 전체 안정성(FS)에 도달한 컴포넌트에만 온전히 적용됩니다. 해당 시점부터 호환되지 않는 변경 사항은 언어 위원회(Language Committee)의 승인을 받아야 합니다.
 
-|**컴포넌트**|**상태 적용 버전**|**소스 모드**|**바이너리 모드**|
-| --- | --- | --- | --- |
-Kotlin/JVM|1.0|FS|FS|
-kotlin-stdlib (JVM)|1.0|FS|FS
-KDoc syntax|1.0|FS|N/A
-Coroutines|1.3|FS|FS
-kotlin-reflect (JVM)|1.0|SIR|SIR
-Kotlin/JS|1.1|AIR|MF
-Kotlin/Native|1.3|AIR|MF
-Kotlin Scripts (*.kts)|1.2|AIR|MF
-dokka|0.1|MF|N/A
-Kotlin Scripting APIs|1.2|MF|MF
-Compiler Plugin API|1.0|MF|MF
-Serialization|1.3|MF|MF
-Multiplatform Projects|1.2|MF|MF
-Inline classes|1.3|MF|MF
-Unsigned arithmetics|1.3|MF|MF
-**그 외 모든 실험적 기능(기본값)**|N/A|**MF**|**MF**
+| **컴포넌트**                                   | **상태 적용 버전** | **소스 모드** | **바이너리 모드** |
+|-------------------------------------------------|-------------------------------|----------------------|-----------------------|
+| Kotlin/JVM                                      | 1.0                           | FS                   | FS                    |
+| kotlin-stdlib (JVM)                             | 1.0                           | FS                   | FS                    |
+| KDoc syntax                                     | 1.0                           | FS                   | N/A                   |
+| Coroutines                                      | 1.3                           | FS                   | FS                    |
+| kotlin-reflect (JVM)                            | 1.0                           | SIR                  | SIR                   |
+| Kotlin/JS                                       | 1.1                           | AIR                  | MF                    |
+| Kotlin/Native                                   | 1.3                           | AIR                  | MF                    |
+| Kotlin Scripts (*.kts)                          | 1.2                           | AIR                  | MF                    |
+| dokka                                           | 0.1                           | MF                   | N/A                   |
+| Kotlin Scripting APIs                           | 1.2                           | MF                   | MF                    |
+| Compiler Plugin API                             | 1.0                           | MF                   | MF                    |
+| Serialization                                   | 1.3                           | MF                   | MF                    |
+| Multiplatform Projects                          | 1.2                           | MF                   | MF                    |
+| Inline classes                                  | 1.3                           | MF                   | MF                    |
+| Unsigned arithmetics                            | 1.3                           | MF                   | MF                    |
+| **그 외 모든 실험적 기능(기본값)** | N/A                           | **MF**               | **MF**                |

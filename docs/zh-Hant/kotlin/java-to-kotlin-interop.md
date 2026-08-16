@@ -51,7 +51,7 @@ new org.example.Util();
 org.example.AppKt.getTime();
 ```
 
-若要為產生的 Java 類別設定自訂名稱，請使用 `@file:JvmName` 註解：
+若要為產生的 Java 類別設定自訂名稱，請使用 `@JvmName` 註解：
 
 ```kotlin
 @file:JvmName("DemoUtils")
@@ -116,7 +116,6 @@ class User(id: String) {
 ```
 
 ```java
-
 // Java
 class JavaClient {
     public String getID(User user) {
@@ -164,7 +163,6 @@ object Singleton {
 ```
 
 ```java
-
 // Java
 Singleton.provider = new Provider();
 // Singleton 類別中的 public static non-final 欄位
@@ -191,7 +189,6 @@ const val MAX = 239
 在 Java 中：
 
 ```java
-
 int constant = Obj.CONST;
 int max = ExampleKt.MAX;
 int version = C.VERSION;
@@ -199,11 +196,13 @@ int version = C.VERSION;
 
 ## Static 方法
 
-如前所述，Kotlin 將套件層級函式表示為 static 方法。
-如果您將定義在具名物件或 companion object 中的函式註解為 [`@JvmStatic`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-static/index.html)，Kotlin 也可以為其產生 static 方法。
-如果您使用此註解，編譯器會在物件的封閉類別中產生一個 static 方法，並在物件本身產生一個執行個體方法。例如：
+Kotlin 將套件層級函式表示為 static 方法。
+如果您將定義在具名物件或 companion object 中的函式註解為 [`@JvmStatic`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-static/)，Kotlin 也可以為其產生 static 方法。
+
+如果您在 companion object 的函式上使用 `@JvmStatic`，編譯器會在封閉類別中產生一個 static 方法，並在 companion object 中產生一個執行個體方法：
 
 ```kotlin
+// Kotlin
 class C {
     companion object {
         @JvmStatic fun callStatic() {}
@@ -212,37 +211,37 @@ class C {
 }
 ```
 
-現在，`callStatic()` 在 Java 中是 static 的，而 `callNonStatic()` 則不是：
+在 Java 中，您可以在封閉類別和 companion object 上呼叫 `callStatic()`，而 `callNonStatic()` 僅能透過 companion object 使用：
 
 ```java
-
-C.callStatic(); // 正常運作
-C.callNonStatic(); // 錯誤：不是 static 方法
-C.Companion.callStatic(); // 執行個體方法仍然存在
-C.Companion.callNonStatic(); // 唯一運作的方式
+// Java
+C.callStatic();              // 成功
+C.callNonStatic();           // 錯誤：不是 static 方法
+C.Companion.callStatic();    // 執行個體方法仍然存在
+C.Companion.callNonStatic(); // 成功
 ```
 
-同樣地，對於具名物件：
+對於具名物件（單例），`@JvmStatic` 會將函式轉換為該物件類別的 static 方法，但不會產生單獨的執行個體方法：
 
 ```kotlin
+// Kotlin
 object Obj {
     @JvmStatic fun callStatic() {}
     fun callNonStatic() {}
 }
 ```
 
-在 Java 中：
+在 Java 中，您可以在具名物件上呼叫 `callStatic()` 方法，而 `callNonStatic()` 僅能透過單例執行個體使用：
 
 ```java
-
-Obj.callStatic(); // 正常運作
-Obj.callNonStatic(); // 錯誤
-Obj.INSTANCE.callNonStatic(); // 運作，透過單例執行個體呼叫
-Obj.INSTANCE.callStatic(); // 也能運作
+// Java
+Obj.callStatic();             // 成功
+Obj.callNonStatic();          // 錯誤：不是 static 方法
+Obj.INSTANCE.callNonStatic(); // 成功，呼叫透過單例執行個體傳遞
 ```
 
-從 Kotlin 1.3 開始，`@JvmStatic` 也適用於介面的 companion object 中定義的函式。
-此類函式會編譯為介面中的 static 方法。請注意，介面中的 static 方法是在 Java 1.8 中引入的，因此請務必使用對應的目標。
+您也可以將 `@JvmStatic` 註解應用於介面的 companion object 中的函式。
+此類函式會編譯為介面中的 static 方法：
 
 ```kotlin
 interface ChatBot {
@@ -346,7 +345,7 @@ Kotlin 提供三種模式來控制介面中的函式如何編譯為 JVM default 
 
 Kotlin 可見性修飾詞按以下方式對應至 Java：
 
-* `private` 成員會編譯為 `private` 成員。
+* `private` 成員保持為 `private`。
 * `private` 頂層宣告會編譯為 Java 中的 `private` 頂層宣告。如果從類別內部存取，也會包含 Package-private 的存取器。
 * `protected` 成員保持為 `protected`。
 
@@ -515,7 +514,6 @@ fun writeToFile() {
 而您想從 Java 呼叫它並捕獲例外：
 
 ```java
-
 // Java
 try {
     demo.Example.writeToFile();

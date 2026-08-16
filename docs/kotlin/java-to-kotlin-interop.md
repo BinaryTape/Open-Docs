@@ -116,7 +116,6 @@ class User(id: String) {
 ```
 
 ```java
-
 // Java
 class JavaClient {
     public String getID(User user) {
@@ -164,7 +163,6 @@ object Singleton {
 ```
 
 ```java
-
 // Java
 Singleton.provider = new Provider();
 // Singleton 类中的 public static non-final 字段
@@ -191,7 +189,6 @@ const val MAX = 239
 在 Java 中：
 
 ```java
-
 int constant = Obj.CONST;
 int max = ExampleKt.MAX;
 int version = C.VERSION;
@@ -199,11 +196,13 @@ int version = C.VERSION;
 
 ## 静态方法
 
-如上所述，Kotlin 将软件包级函数表示为静态方法。
-如果你将函数注解为 [`@JvmStatic`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-static/index.html)，Kotlin 还可以为具名对象或伴生对象中定义的函数生成静态方法。
-如果你使用此注解，编译器既会在该对象的封闭类中生成一个静态方法，也会在对象本身中生成一个实例方法。例如：
+Kotlin 将软件包级函数表示为静态方法。
+如果你将函数注解为 [`@JvmStatic`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-static/)，Kotlin 还可以为具名对象或伴生对象中定义的函数生成静态方法。
+
+如果你在伴生对象的函数上使用 `@JvmStatic`，编译器既会在封闭类中生成一个静态方法，也会在伴生对象中生成一个实例方法：
 
 ```kotlin
+// Kotlin
 class C {
     companion object {
         @JvmStatic fun callStatic() {}
@@ -212,37 +211,37 @@ class C {
 }
 ```
 
-现在，`callStatic()` 在 Java 中是静态的，而 `callNonStatic()` 则不是：
+在 Java 中，你既可以在封闭类上也可以在伴生对象上调用 `callStatic()`，而 `callNonStatic()` 仅能通过伴生对象调用：
 
 ```java
-
-C.callStatic(); // 运行正常
-C.callNonStatic(); // 错误：不是静态方法
-C.Companion.callStatic(); // 实例方法依然存在
-C.Companion.callNonStatic(); // 唯一的运行方式
+// Java
+C.callStatic();              // 运行正常
+C.callNonStatic();           // 错误：不是静态方法
+C.Companion.callStatic();    // 实例方法依然存在
+C.Companion.callNonStatic(); // 运行正常
 ```
 
-对于具名对象也类似：
+对于具名对象（单例），`@JvmStatic` 会将函数转换为该对象类的静态方法，但不会生成单独的实例方法：
 
 ```kotlin
+// Kotlin
 object Obj {
     @JvmStatic fun callStatic() {}
     fun callNonStatic() {}
 }
 ```
 
-在 Java 中：
+在 Java 中，你可以在该具名对象上调用 `callStatic()` 方法，而 `callNonStatic()` 仅能通过单例实例调用：
 
 ```java
-
-Obj.callStatic(); // 运行正常
-Obj.callNonStatic(); // 错误
+// Java
+Obj.callStatic();             // 运行正常
+Obj.callNonStatic();          // 错误：不是静态方法
 Obj.INSTANCE.callNonStatic(); // 正常，通过单例实例调用
-Obj.INSTANCE.callStatic(); // 也能运行
 ```
 
-从 Kotlin 1.3 开始，`@JvmStatic` 也适用于接口的伴生对象中定义的函数。
-此类函数会编译为接口中的静态方法。请注意，接口中的静态方法是在 Java 1.8 中引入的，因此请确保使用相应的目标。
+你还可以将接口伴生对象中的函数注解为 `@JvmStatic`。
+此类函数会编译为接口中的静态方法：
 
 ```kotlin
 interface ChatBot {
@@ -360,7 +359,7 @@ Kotlin 可见性修饰符以下列方式映射到 Java：
 
 ## KClass
 
-有时你需要调用一个带有 `KClass` 类型形参的 Kotlin 方法。
+有时你需要调用一个带有 `KClass` 类型参数的 Kotlin 方法。
 从 `Class` 到 `KClass` 没有自动转换，因此你必须通过调用相当于 `Class<T>.kotlin` 扩展属性的以下内容来手动完成：
 
 ```kotlin
@@ -514,7 +513,6 @@ fun writeToFile() {
 并且你想从 Java 中调用它并捕获异常：
 
 ```java
-
 // Java
 try {
     demo.Example.writeToFile();
@@ -562,7 +560,7 @@ Box<Derived> boxDerived(Derived value) { ... }
 Base unboxBase(Box<Base> box) { ... }
 ```
 
-问题在于，在 Kotlin 中你可以编写 `unboxBase(boxDerived(Derived()))`，但在 Java 中这将是不可能的，因为在 Java 中 `Box` 类在其形参 `T` 上是 *不变的*，因此 `Box<Derived>` 不是 `Box<Base>` 的子类型。
+问题在于，在 Kotlin 中你可以编写 `unboxBase(boxDerived(Derived()))`，但在 Java 中这将是不可能的，因为在 Java 中 `Box` 类在其参数 `T` 上是 *不变的*，因此 `Box<Derived>` 不是 `Box<Base>` 的子类型。
 为了在 Java 中使其工作，你必须如下定义 `unboxBase`：
 
 ```java

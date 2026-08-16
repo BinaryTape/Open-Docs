@@ -89,7 +89,7 @@ fun main() {
 マップをフィルタリングするための、キーによる方法と値による方法の2つの特定の方法もあります。
 それぞれの方法に対して、[`filterKeys()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter-keys.html) と [`filterValues()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter-values.html) 関数があります。
 どちらも、指定された述語に一致するエントリの新しいマップを返します。
-`filterKeys()` の述語は要素のキーのみをチェックし、`filterValues()` の述語は値のみをチェックします。
+`filterKeys()` の述語は要素의 キーのみをチェックし、`filterValues()` の述語は値のみをチェックします。
 
 ```kotlin
 

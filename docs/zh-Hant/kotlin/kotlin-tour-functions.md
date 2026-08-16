@@ -47,7 +47,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-simple-function"}
 
-> 我們在 [程式碼風格慣例](coding-conventions.md#function-names) 中建議，函式命名應以小寫字母開頭，並使用不含底線的駝峰式大小寫（camelCase）。
+> 我們在 [程式碼風格慣例](coding-conventions.md#function-names) 中建議，函式命名應以小寫字母開頭，並使用不含底線的駝峰式大小寫 (camelCase)。
 > 
 {style="note"}
 
@@ -55,7 +55,7 @@ fun main() {
 
 為了使程式碼簡潔，呼叫函式時可以不包含參數名稱。然而，包含參數名稱確實能讓程式碼更容易閱讀。這稱為使用 **命名引數**。如果您包含參數名稱，則可以按任意順序撰寫參數。
 
-> 在以下範例中，使用了 [字串範本](strings.md#string-templates) (`) 用於存取參數值，將其轉換為 `String` 型別，然後連接成一個字串以進行列印。
+> 在以下範例中，使用了 [字串範本](strings.md#string-templates) 來存取參數值，將其轉換為 `String` 型別，然後連接成一個字串以進行列印。
 > 
 {style="tip"}
 
@@ -373,7 +373,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-lambda-filter"}
 
-`.filter()` 函式接受一個 Lambda 運算式作為謂詞（predicate），並將其應用於列表的每個元素。僅當謂詞傳回 `true` 時，該函式才會保留該元素：
+`.filter()` 函式接受一個 Lambda 運算式作為謂詞 (predicate)，並將其應用於列表的每個元素。僅當謂詞傳回 `true` 時，該函式才會保留該元素：
 
 * `{ x -> x > 0 }` 如果元素為正數，則傳回 `true`。
 * `{ x -> x < 0 }` 如果元素為負數，則傳回 `true`。

@@ -680,7 +680,6 @@ plugins {
 요구 사항에 따라 다음을 타겟으로 할 수 있습니다:
 
 * **`wasmJs`**: 브라우저 또는 Node.js에서 실행용
-* **`wasmJs`**: 브라우저 또는 Node.js에서 실행용
 * **`wasmWasi`**: Wasmtime, WasmEdge 등과 같이 [WASI (WebAssembly System Interface)](https://wasi.dev/)를 지원하는 Wasm 환경에서 실행용
 
 웹 브라우저 또는 Node.js를 위한 `wasmJs` 타겟을 구성합니다:

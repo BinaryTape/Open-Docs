@@ -114,10 +114,17 @@ Gradle 데몬과 컴파일러 캐시를 비활성화하는 Kotlin/Native 옵션�
 이전에 이러한 기능에 문제가 있어 `gradle.properties` 파일이나 Gradle 빌드 파일에 해당 라인을 추가했다면, 이를 제거하고 빌드가 성공적으로 완료되는지 확인해 보세요. 이러한 속성들은 이미 해결된 문제들을 우회하기 위해 과거에 추가되었을 가능성이 큽니다.
 
 ### klib 아티팩트의 증분 컴파일 시도
+<primary-label ref="experimental-opt-in"/>
 
 증분 컴파일(incremental compilation)을 사용하면 프로젝트 모듈에서 생성된 `klib` 아티팩트의 일부만 변경된 경우, `klib`의 해당 부분만 바이너리로 다시 컴파일됩니다.
 
-이 기능은 [실험적(Experimental)](components-stability.md#stability-levels-explained)입니다. 이를 활성화하려면 `gradle.properties` 파일에 `kotlin.incremental.native=true` 옵션을 추가하세요. 문제가 발생하면 [YouTrack에 이슈](https://kotl.in/issue)를 생성해 주세요.
+이 기능은 아직 [실험적(Experimental)](components-stability.md#stability-levels-explained) 단계입니다. 이를 활성화하려면 `gradle.properties` 파일에 다음 옵션을 추가하세요.
+
+```properties
+kotlin.incremental.native=true
+```
+
+문제가 발생하면 [YouTrack에 이슈](https://kotl.in/issue)를 생성해 주세요.
 
 ## Windows 구성
 

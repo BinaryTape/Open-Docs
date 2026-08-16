@@ -66,7 +66,7 @@ Kotlin/Native 讓你能夠取用 C 與 Objective-C 程式庫，使你能在 Kotl
 | [`excludedFunctions`](#ignore-specific-functions)                                   | 以空格分隔的應忽略函式名稱列表。                                                                                                                                                         |                                              
 | [`staticLibraries`](#include-a-static-library)                                      | [實驗性](components-stability.md#stability-levels-explained)。將靜態程式庫包含到 `.klib` 中。                                                                                                              |
 | [`libraryPaths`](#include-a-static-library)                                         | [實驗性](components-stability.md#stability-levels-explained)。以空格分隔的目錄列表，`cinterop` 工具會在這些目錄中搜尋要包含在 `.klib` 中的程式庫。                                    |
-| `package`                                                                       | 產生的 Kotlin API 的套件前綴。                                                                                                                                                                             |
+| `package`                                                                           | 產生的 Kotlin API 的套件前綴。                                                                                                                                                                             |
 | [`headerFilter`](#filter-headers-by-globs)                                          | 透過萬用字元篩選標頭，並在匯入程式庫時僅包含它們。                                                                                                                                                |
 | [`excludeFilter`](#exclude-headers)                                                 | 在匯入程式庫時排除特定的標頭，其優先級高於 `headerFilter`。                                                                                                                               |
 | [`strictEnums`](#configure-enums-generation)                                        | 應產生為 [Kotlin 列舉](enum-classes.md) 的以空格分隔的列舉列表。                                                                                                                             |
@@ -200,7 +200,7 @@ static inline int getErrno() {
 }
 ```
 
-請 note，`.def` 檔案的這一部分被視為標頭檔的一部分，因此帶有主體的函式應宣告為 `static`。宣告會在包含 `headers` 列表中的檔案之後進行解析。
+請注意，`.def` 檔案的這一部分被視為標頭檔的一部分，因此帶有主體的函式應宣告為 `static`。宣告會在包含 `headers` 列表中的檔案之後進行解析。
 
 ## 使用命令列產生繫結
 

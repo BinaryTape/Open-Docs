@@ -20,6 +20,10 @@ Kotlin 2.4.0이 출시되었습니다! 주요 하이라이트는 다음과 같�
 * **Maven:** [Java와 JVM 타겟 버전 간의 자동 정렬](#maven)
 * **Kotlin 컴파일러:** [`.klib` 컴파일 중 더욱 일관된 인라인 함수 동작](#consistent-intra-module-function-inlining-during-klib-compilation)
 
+이번 업데이트의 개요를 다음 영상에서 확인하실 수도 있습니다:
+
+<video src="https://www.youtube.com/v/RI4J0C2_FR8" title="What's New in Kotlin 2.4"/>
+
 > Kotlin 릴리스 주기에 대한 정보는 [Kotlin 릴리스 프로세스](releases.md)를 참조하세요.
 >
 {style="tip"}
@@ -612,7 +616,7 @@ Kotlin 2.4.0부터 [Swift export가 Alpha 단계로 격상되었습니다](#swif
 ### 가비지 컬렉터의 기본 동시 마킹(Concurrent marking)
 <secondary-label ref="native"/>
 
-Kotlin 2.0.20에서 Kotlin 팀은 CMS GC(Concurrent Mark and Sweep Garbage Collector)에 대한 [실험적 지원을 도입](whatsnew2020.md#concurrent-marking-in-garbage-collector)했습니다. 사용자 피드백을 처리하고 회귀 문제를 수정한 후, Kotlin 2.4.0부터 CMS를 기본적으로 활성화합니다.
+In Kotlin 2.0.20에서 Kotlin 팀은 CMS GC(Concurrent Mark and Sweep Garbage Collector)에 대한 [실험적 지원을 도입](whatsnew2020.md#concurrent-marking-in-garbage-collector)했습니다. 사용자 피드백을 처리하고 회귀 문제를 수정한 후, Kotlin 2.4.0부터 CMS를 기본적으로 활성화합니다.
 
 이전의 기본 설정이었던 PMCS(Parallel Mark Concurrent Sweep) 가비지 컬렉터는 GC가 힙의 객체를 마킹하는 동안 애플리케이션 스레드를 일시 중지해야 했습니다. 반면, CMS는 마킹 단계를 애플리케이션 스레드와 동시에 실행할 수 있도록 합니다.
 
@@ -999,7 +1003,7 @@ kotlin {
 ### Kotlin/JVM을 위한 Problems API로 작성된 컴파일러 메시지
 <secondary-label ref="gradle"/>
 
-Kotlin 2.2.0에서 Kotlin Gradle 플러그인(KGP)은 Gradle CLI와 IntelliJ IDEA 모두에서 일관된 경험을 제공하기 위해 [Gradle의 Problems API](https://docs.gradle.org/current/userguide/reporting_problems.html)에 진단을 보고하기 시작했습니다.
+In Kotlin 2.2.0에서 Kotlin Gradle 플러그인(KGP)은 Gradle CLI와 IntelliJ IDEA 모두에서 일관된 경험을 제공하기 위해 [Gradle의 Problems API](https://docs.gradle.org/current/userguide/reporting_problems.html)에 진단을 보고하기 시작했습니다.
 
 Kotlin 2.4.0에서 플러그인은 Kotlin/JVM에 대한 컴파일러 메시지도 Problems API로 작성하여, 해당 API가 모든 로그와 메시지의 단일 소스가 되는 것에 한 걸음 더 다가갔습니다.
 
@@ -1309,7 +1313,7 @@ Kotlin 2.4.0은 안정화되어 이제 기본적으로 활성화된 실험적 �
 
 * Kotlin 2.4.0부터 컴파일러는 더 이상 `-language-version=1.9`를 지원하지 않습니다. 결과적으로 K1 컴파일러는 더 이상 지원되지 않습니다.
 * Kotlin 2.4.0은 Kotlin Gradle 플러그인에서 바이너리 호환성 검증을 위한 DSL을 간소화하고 일부 부분을 지원 중단합니다. 최신 DSL은 [Kotlin Gradle 플러그인의 바이너리 호환성 검증](gradle-binary-compatibility-validation.md)을 참조하세요.
-* [`KotlinScriptMojo` Maven 플러그인을 통한 Kotlin 스크립트 실행 지원이 제거되었습니다](compatibility-guide-22.md#deprecations-to-kotlin-scripting)。
+* [`KotlinScriptMojo` Maven 플러그인을 통한 Kotlin 스크립트 실행 지원이 제거되었습니다](compatibility-guide-22.md#deprecations-to-kotlin-scripting).
 
 ## 문서 업데이트
 Kotlin 생태계에서 다음과 같은 문서 변경 사항이 있었습니다:

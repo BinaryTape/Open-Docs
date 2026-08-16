@@ -873,15 +873,13 @@ Kotlin Multiplatform Gradle 플러그인은 빌드 시점에 Kotlin/JS 프로젝
 
 기본 패키지 속성 외에도 `package.json`은 실행 가능한 스크립트를 식별하는 것과 같이 JavaScript 프로젝트가 어떻게 동작해야 하는지 정의할 수 있습니다.
 
-Gradle DSL을 통해 프로젝트의 `package.json`에 커스텀 항목을 추가할 수 있습니다. `package.json`에 커스텀 필드를 추가하려면 `jsMain` 소스 세트의 `packageJson` 블록에서 `customField()` 함수를 사용하세요:
+Gradle DSL을 통해 프로젝트의 `package.json`에 커스텀 항목을 추가할 수 있습니다. `package.json`에 커스텀 필드를 추가하려면 컴파일 구성의 `packageJson` 블록에서 `customField()` 함수를 사용하세요:
 
 ```kotlin
 kotlin {
-    sourceSets {
-        jsMain {
-            packageJson {
-                customField("hello", mapOf("one" to 1, "two" to 2))
-            }
+    js {
+        compilations["main"].packageJson {
+            customField("hello", mapOf("one" to 1, "two" to 2))
         }
     }
 }

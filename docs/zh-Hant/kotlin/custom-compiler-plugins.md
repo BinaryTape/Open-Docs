@@ -85,7 +85,7 @@ Frontend 外掛程式 API（也稱為 Frontend 中間表示，FIR）具有以下
 Backend 外掛程式 API（也稱為 IR）具有單一擴充點：[`IrGenerationExtension`](https://github.com/JetBrains/kotlin/blob/master/compiler/ir/backend.common/src/org/jetbrains/kotlin/backend/common/extensions/IrGenerationExtension.kt)。
 使用此擴充點並覆寫 `generate()` 函式，即可為前端已產生的宣告加入主體，或更改現有的宣告主體。
 
-透過此擴充點所做的變更**不會**被編譯器檢查。您必須確保您的變更在此階段不會破壞編譯器的預期。例如，您可能會意外引入無效的型別、不正確的函式參考或正確作用域之外的參考。
+透過此擴充點所做的變更 **不會** 被編譯器檢查。您必須確保您的變更在此階段不會破壞編譯器的預期。例如，您可能會意外引入無效的型別、不正確的函式參考或正確作用域之外的參考。
 
 #### 探索 Backend 外掛程式程式碼
 

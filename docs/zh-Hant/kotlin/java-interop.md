@@ -315,7 +315,7 @@ Kotlin 支援 `org.jspecify.annotations` 套件中的以下註解：
 
 * `@Nullable` 將型別標記為可 null。
 * `@NonNull` 將型別標記為非 null。
-* `@NullMarked` 預設將某個範圍內（例如類別或套件）的所有型別標記為非 null，除非另有註解。
+* `@NullMarked` 預設將某個範圍內（例如類別或套件）的所有型別標記為 non-null，除非另有註解。
 
   此註解不適用於區域變數和 [型別變數（泛型）](https://jspecify.dev/docs/user-guide/#using-type-variables-in-generic-types)。型別變數在提供特定的可 null 或非 null 型別之前，保持為「null 不可知」狀態。
 
@@ -352,11 +352,11 @@ fun test(inventory: InventoryService) {
 
 可用的回報層級為：
 
-| 層級     | 描述                                       |
-|----------|------------------------------------------|
-| `strict` | 回報可 null 性不相符的錯誤（預設）。           |
-| `warn`   | 回報警告。                                 |
-| `ignore` | 忽略可 null 性不相符。                     |
+| 層級 | 描述 |
+|----------|------------------------------------------------------|
+| `strict` | 回報可 null 性不相符的錯誤（預設）。 |
+| `warn` | 回報警告。 |
+| `ignore` | 忽略可 null 性不相符。 |
 
 > 有關 JSpecify 註解的更多資訊，請參閱 [JSpecify 使用者指南](https://jspecify.dev/docs/user-guide)。
 > 
@@ -506,67 +506,67 @@ public class Test {}
 
 Kotlin 對某些 Java 型別進行了特殊處理。這些型別不會從 Java 中「照原樣」載入，而是被 *對應* 到對應的 Kotlin 型別。這種對應僅在編譯時期有意義，執行時的表示形式保持不變。Java 的原始型別會對應到對應的 Kotlin 型別（同時考慮 [平台型別](#null-safety-and-platform-types)）：
 
-| **Java 型別** | **Kotlin 型別**  |
+| **Java 型別** | **Kotlin 型別** |
 |---------------|------------------|
-| `byte`        | `kotlin.Byte`    |
-| `short`       | `kotlin.Short`   |
-| `int`         | `kotlin.Int`     |
-| `long`        | `kotlin.Long`    |
-| `char`        | `kotlin.Char`    |
-| `float`       | `kotlin.Float`   |
-| `double`      | `kotlin.Double`  |
-| `boolean`     | `kotlin.Boolean` |
+| `byte` | `kotlin.Byte` |
+| `short` | `kotlin.Short` |
+| `int` | `kotlin.Int` |
+| `long` | `kotlin.Long` |
+| `char` | `kotlin.Char` |
+| `float` | `kotlin.Float` |
+| `double` | `kotlin.Double` |
+| `boolean` | `kotlin.Boolean` |
 
 一些非原始的內建類別也會進行對應：
 
-| **Java 型別** | **Kotlin 型別**  |
-|---------------|------------------|
-| `java.lang.Object`       | `kotlin.Any!`    |
-| `java.lang.Cloneable`    | `kotlin.Cloneable!`    |
-| `java.lang.Comparable`   | `kotlin.Comparable!`    |
-| `java.lang.Enum`         | `kotlin.Enum!`    |
-| `java.lang.annotation.Annotation`   | `kotlin.Annotation!`    |
-| `java.lang.CharSequence` | `kotlin.CharSequence!`   |
-| `java.lang.String`       | `kotlin.String!`   |
-| `java.lang.Number`       | `kotlin.Number!`     |
-| `java.lang.Throwable`    | `kotlin.Throwable!`    |
+| **Java 型別** | **Kotlin 型別** |
+|-----------------------------------|------------------------|
+| `java.lang.Object` | `kotlin.Any!` |
+| `java.lang.Cloneable` | `kotlin.Cloneable!` |
+| `java.lang.Comparable` | `kotlin.Comparable!` |
+| `java.lang.Enum` | `kotlin.Enum!` |
+| `java.lang.annotation.Annotation` | `kotlin.Annotation!` |
+| `java.lang.CharSequence` | `kotlin.CharSequence!` |
+| `java.lang.String` | `kotlin.String!` |
+| `java.lang.Number` | `kotlin.Number!` |
+| `java.lang.Throwable` | `kotlin.Throwable!` |
 
 Java 的裝箱原始型別會對應到可 null 的 Kotlin 型別：
 
-| **Java 型別**           | **Kotlin 型別**  |
-|-------------------------|------------------|
-| `java.lang.Byte`        | `kotlin.Byte?`   |
-| `java.lang.Short`       | `kotlin.Short?`  |
-| `java.lang.Integer`     | `kotlin.Int?`    |
-| `java.lang.Long`        | `kotlin.Long?`   |
-| `java.lang.Character`   | `kotlin.Char?`   |
-| `java.lang.Float`       | `kotlin.Float?`  |
-| `java.lang.Double`      | `kotlin.Double?`  |
-| `java.lang.Boolean`     | `kotlin.Boolean?` |
+| **Java 型別** | **Kotlin 型別** |
+|-----------------------|-------------------|
+| `java.lang.Byte` | `kotlin.Byte?` |
+| `java.lang.Short` | `kotlin.Short?` |
+| `java.lang.Integer` | `kotlin.Int?` |
+| `java.lang.Long` | `kotlin.Long?` |
+| `java.lang.Character` | `kotlin.Char?` |
+| `java.lang.Float` | `kotlin.Float?` |
+| `java.lang.Double` | `kotlin.Double?` |
+| `java.lang.Boolean` | `kotlin.Boolean?` |
 
 請注意，用作型別參數的裝箱原始型別會對應到平台型別：例如，`List<java.lang.Integer>` 在 Kotlin 中會變成 `List<Int!>`。
 
 集合型別在 Kotlin 中可能是唯讀的或可變的，因此 Java 的集合對應如下（此表格中的所有 Kotlin 型別均位於 `kotlin.collections` 套件中）：
 
-| **Java 型別** | **Kotlin 唯讀型別**  | **Kotlin 可變型別** | **載入的平台型別** |
-|---------------|----------------------------|-------------------------|--------------------------|
-| `Iterator<T>`        | `Iterator<T>`        | `MutableIterator<T>`            | `(Mutable)Iterator<T>!`            |
-| `Iterable<T>`        | `Iterable<T>`        | `MutableIterable<T>`            | `(Mutable)Iterable<T>!`            |
-| `Collection<T>`      | `Collection<T>`      | `MutableCollection<T>`          | `(Mutable)Collection<T>!`          |
-| `Set<T>`             | `Set<T>`             | `MutableSet<T>`                 | `(Mutable)Set<T>!`                 |
-| `List<T>`            | `List<T>`            | `MutableList<T>`                | `(Mutable)List<T>!`                |
-| `ListIterator<T>`    | `ListIterator<T>`    | `MutableListIterator<T>`        | `(Mutable)ListIterator<T>!`        |
-| `Map<K, V>`          | `Map<K, V>`          | `MutableMap<K, V>`              | `(Mutable)Map<K, V>!`              |
-| `Map.Entry<K, V>`    | `Map.Entry<K, V>`    | `MutableMap.MutableEntry<K,V>` | `(Mutable)Map.(Mutable)Entry<K, V>!` |
+| **Java 型別** | **Kotlin 唯讀型別** | **Kotlin 可變型別** | **載入的平台型別** |
+|-------------------|---------------------------|--------------------------------|--------------------------------------|
+| `Iterator<T>` | `Iterator<T>` | `MutableIterator<T>` | `(Mutable)Iterator<T>!` |
+| `Iterable<T>` | `Iterable<T>` | `MutableIterable<T>` | `(Mutable)Iterable<T>!` |
+| `Collection<T>` | `Collection<T>` | `MutableCollection<T>` | `(Mutable)Collection<T>!` |
+| `Set<T>` | `Set<T>` | `MutableSet<T>` | `(Mutable)Set<T>!` |
+| `List<T>` | `List<T>` | `MutableList<T>` | `(Mutable)List<T>!` |
+| `ListIterator<T>` | `ListIterator<T>` | `MutableListIterator<T>` | `(Mutable)ListIterator<T>!` |
+| `Map<K, V>` | `Map<K, V>` | `MutableMap<K, V>` | `(Mutable)Map<K, V>!` |
+| `Map.Entry<K, V>` | `Map.Entry<K, V>` | `MutableMap.MutableEntry<K,V>` | `(Mutable)Map.(Mutable)Entry<K, V>!` |
 
 Java 的陣列對應如[下文](#java-arrays)所述：
 
-| **Java 型別** | **Kotlin 型別**                |
+| **Java 型別** | **Kotlin 型別** |
 |---------------|--------------------------------|
-| `int[]`       | `kotlin.IntArray!`             |
-| `String[]`    | `kotlin.Array<(out) String!>!` |
+| `int[]` | `kotlin.IntArray!` |
+| `String[]` | `kotlin.Array<(out) String!>!` |
 
->這些 Java 型別的 static 成員無法直接透過 Kotlin 型別的 [伴生物件](object-declarations.md#companion-objects) 進行存取。要呼叫它們，請使用 Java 型別的完全限定名稱，例如 `java.lang.Integer.toHexString(foo)`。
+> 這些 Java 型別的 static 成員無法直接透過 Kotlin 型別的 [伴生物件](object-declarations.md#companion-objects) 進行存取。要呼叫它們，請使用 Java 型別的完全限定名稱，例如 `java.lang.Integer.toHexString(foo)`。
 >
 {style="note"}
 

@@ -146,13 +146,13 @@ Kotlin DataFrame 라이브러리를 사용하여 API에서 데이터를 가져�
    val channels = joined.groupBy { channel }.sortByCount()
    ```
 
-결과 테이블에서 데이터를 대화형으로 탐색할 수 있습니다. 채널에 해당하는 행의 `group` 필드를 클릭하면 해당 행이 확장되어 해당 채널 비디오에 대한 자세한 내용이 표시됩니다.
-
-![그룹 데이터를 확장하여 자세한 내용 확인](results-of-expanding-group-data-analysis.png){width=700}
-
-왼쪽 하단의 테이블 아이콘을 클릭하면 그룹화된 데이터셋으로 돌아갈 수 있습니다.
-
-![왼쪽 하단의 테이블 아이콘을 클릭하여 복귀](return-to-grouped-dataset.png){width=700}
+    결과 테이블에서 데이터를 대화형으로 탐색할 수 있습니다. 채널에 해당하는 행의 `group` 필드를 클릭하면 해당 행이 확장되어 해당 채널 비디오에 대한 자세한 내용이 표시됩니다.
+    
+    ![그룹 데이터를 확장하여 자세한 내용 확인](results-of-expanding-group-data-analysis.png){width=700}
+    
+    왼쪽 하단의 테이블 아이콘을 클릭하면 그룹화된 데이터셋으로 돌아갈 수 있습니다.
+    
+    ![왼쪽 하단의 테이블 아이콘을 클릭하여 복귀](return-to-grouped-dataset.png){width=700}
 
 3. `aggregate`, `sum`, `maxBy`, `flatten`을 사용하여 각 채널의 총 조회수와 최신 또는 가장 많이 본 비디오의 세부 정보를 요약하는 DataFrame을 생성합니다:
 

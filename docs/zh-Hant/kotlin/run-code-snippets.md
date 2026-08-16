@@ -1,16 +1,16 @@
 [//]: # (title: 執行程式碼片段)
 
-Kotlin 程式碼通常組織在專案中，您可以在 IDE、文字編輯器或其他工具中進行處理。但是，如果您想快速查看某個函式的運作方式或尋找運算式的值，則無需建立新專案並進行組建。請查看這三種在不同環境中立即執行 Kotlin 程式碼的便捷方法：
+Kotlin 程式碼通常組織在專案中，您可以在 IDE、文字編輯器或其他工具中進行處理。但是，如果您想快速查看某個函式的運作方式或尋找運算式 (expression) 的值，則無需建立新專案並進行組建 (build)。請查看這三種在不同環境中立即執行 Kotlin 程式碼的便捷方法：
 
 *   IDE 中的 [暫存檔 (scratch file)](#ide-scratches-and-worksheets)。
 *   瀏覽器中的 [Kotlin Playground](#browser-kotlin-playground)。
 *   命令列中的 [ki shell](#command-line-ki-shell)。
 
-## IDE：暫存檔 {id="ide-scratches-and-worksheets"}
+## IDE：暫存檔 (scratch) {id="ide-scratches-and-worksheets"}
 
 IntelliJ IDEA 和 Android Studio 支援 Kotlin [暫存檔 (scratch file)](https://www.jetbrains.com/help/idea/kotlin-repl.html#efb8fb32)。
 
-_暫存檔_ (或簡稱為 _scratches_) 讓您可以在與專案相同的 IDE 視窗中建立程式碼草稿，並即時執行。暫存檔不與專案綁定；您可以從作業系統上的任何 IntelliJ IDEA 視窗存取並執行所有暫存檔。
+_暫存檔_ (或簡稱為 _scratch_) 讓您可以在與專案相同的 IDE 視窗中建立程式碼草稿，並即時 (on the fly) 執行。暫存檔不與專案綁定；您可以從作業系統上的任何 IntelliJ IDEA 視窗存取並執行所有暫存檔。
 
 要建立 Kotlin 暫存檔，請點擊 **File** | **New** | **Scratch File** 並選擇 **Kotlin** 類型。
 
@@ -22,7 +22,7 @@ _暫存檔_ (或簡稱為 _scratches_) 讓您可以在與專案相同的 IDE 視
 
 ### 互動模式
 
-IDE 可以自動執行暫存檔中的程式碼。要在停止輸入後立即獲得執行結果，請開啟 **Interactive mode**。
+IDE 可以自動執行暫存檔中的程式碼。要在停止輸入後立即獲得執行結果，請開啟 **Interactive mode** (互動模式)。
 
 ![暫存檔互動模式](scratch-interactive.png){width=700}
 
@@ -46,7 +46,7 @@ IDE 可以自動執行暫存檔中的程式碼。要在停止輸入後立即獲�
 * 以任意順序新增您自己的類別、函式和頂層宣告。
 * 在 `main()` 函式的主體中編寫可執行部分。
 
-與典型的 Kotlin 專案一樣，Playground 中的 `main()` 函式可以帶有 `args` 參數，也可以不帶任何參數。要在執行時傳遞程式引數，請將其填寫在 **Program arguments** 欄位中。
+與典型的 Kotlin 專案一樣，Playground 中的 `main()` 函式可以帶有 `args` 參數，也可以不帶任何參數。要在執行時傳遞程式引數 (argument)，請將其填寫在 **Program arguments** 欄位中。
 
 ![Playground：程式碼補全](playground-completion.png){width=700}
 
@@ -68,20 +68,20 @@ Playground 提供了自訂執行環境的方法：
 
 使用 Playground 與他人分享您的程式碼 —— 點擊 **Copy link** 並將其傳送給任何您想展示程式碼的人。
 
-您還可以將 Playground 的程式碼片段嵌入到其他網站中，甚至使其可執行。點擊 **Share code** 將您的範例嵌入到任何網頁或 [Medium](https://medium.com/) 文章中。
+您還可以將 Playground 的程式碼片段 (code snippet) 嵌入到其他網站中，甚至使其可執行。點擊 **Share code** 將您的範例嵌入到任何網頁或 [Medium](https://medium.com/) 文章中。
 
 ![Playground：分享程式碼](playground-share.png){width=700}
 
 ## 命令列：ki shell
 
-[ki shell](https://github.com/Kotlin/kotlin-interactive-shell) (_Kotlin Interactive Shell_) 是一款用於在終端執行 Kotlin 程式碼的命令列工具。它適用於 Linux、macOS 和 Windows。
+[ki shell](https://github.com/Kotlin/kotlin-interactive-shell) (_Kotlin Interactive Shell_) 是一款用於在終端 (terminal) 執行 Kotlin 程式碼的命令列工具。它適用於 Linux、macOS 和 Windows。
 
 ki shell 提供基礎的程式碼求值能力，以及以下進階特性：
 * 程式碼補全
-* 型別檢查
-* 外部相依性
-* 程式碼片段的貼上模式
-* 指令指令碼支援
+* 型別檢查 (type check)
+* 外部相依性 (dependency)
+* 程式碼片段的貼上模式 (paste mode)
+* 指令碼 (scripting) 支援
 
 欲了解更多詳細資訊，請參閱 [ki shell GitHub 存儲庫](https://github.com/Kotlin/kotlin-interactive-shell)。
 
@@ -105,7 +105,7 @@ shell 執行後，您可以立即在終端中開始編寫 Kotlin 程式碼。輸
 
 ![ki shell 醒目提示與補全](ki-shell-highlight-completion.png){width=700}
 
-當您按下 **Enter** 鍵時，ki shell 會對輸入的行進行求值並列印結果。運算式的值會以自動產生的變數名稱 (如 `res*`) 列印。之後您可以在執行的程式碼中使用這些變數。如果輸入的結構不完整 (例如，只有 `if` 條件而沒有主體)，shell 會顯示三個點並等待剩餘部分。
+當您按下 **Enter** 鍵時，ki shell 會對輸入的行進行求值並列印結果。運算式 (expression) 的值會以自動產生的變數名稱 (如 `res*`) 列印。之後您可以在執行的程式碼中使用這些變數。如果輸入的結構 (construct) 不完整 (例如，只有 `if` 條件而沒有主體)，shell 會顯示三個點並等待剩餘部分。
 
 ![ki shell 結果](ki-shell-results.png){width=700}
 
@@ -123,12 +123,12 @@ shell 執行後，您可以立即在終端中開始編寫 Kotlin 程式碼。輸
 
 ![ki shell 載入檔案](ki-shell-load.png){width=700}
 
-`ls` 指令會顯示可用的符號 (變數和函式)。
+`ls` 指令會顯示可用的符號 (symbol) (變數和函式)。
 
 ### 新增外部相依性
 
-除了標準庫，ki shell 還支援外部相依性。這讓您無需建立整個專案即可在其中嘗試第三方程式庫。
+除了標準庫，ki shell 還支援外部相依性 (dependency)。這讓您無需建立整個專案即可在其中嘗試第三方程式庫。
 
-要在 ki shell 中新增第三方程式庫，請使用 `:dependsOn` 指令。預設情況下，ki shell 使用 Maven Central，但如果您使用 `:repository` 指令連接其他存儲庫，也可以使用它們：
+要在 ki shell 中新增第三方程式庫，請使用 `:dependsOn` 指令。預設情況下，ki shell 使用 Maven Central，但如果您使用 `:repository` 指令連接其他存儲庫 (repository)，也可以使用它們：
 
 ![ki shell 外部相依性](ki-shell-dependency.png){width=700}

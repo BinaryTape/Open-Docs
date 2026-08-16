@@ -145,13 +145,13 @@
    val channels = joined.groupBy { channel }.sortByCount()
    ```
 
-在生成的表格中，您可以交互式地探索数据。点击频道对应行的 `group` 字段会展开该行，以显示有关该频道视频的更多详情。
-
-![展开行以显示更多细节](results-of-expanding-group-data-analysis.png){width=700}
-
-您可以点击左下角的表格图标返回到分组后的数据集。
-
-![点击左下角的表格图标返回](return-to-grouped-dataset.png){width=700}
+    在生成的表格中，您可以交互式地探索数据。点击频道对应行的 `group` 字段会展开该行，以显示有关该频道视频的更多详情。
+    
+    ![展开行以显示更多细节](results-of-expanding-group-data-analysis.png){width=700}
+    
+    您可以点击左下角的表格图标返回到分组后的数据集。
+    
+    ![点击左下角的表格图标返回](return-to-grouped-dataset.png){width=700}
 
 3. 使用 `aggregate`、`sum`、`maxBy` 和 `flatten` 创建一个 DataFrame，总结每个频道的总观看次数以及其最新或观看次数最多的视频的详情：
 

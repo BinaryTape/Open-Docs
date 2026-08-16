@@ -1,6 +1,6 @@
 [//]: # (title: 作用域函式)
 
-Kotlin 標準函式庫包含幾個函式，其唯一目的就是在物件的上下文中執行一個程式碼區塊。當你在一個物件上叫用這類函式並提供一個 [Lambda 運算式](lambdas.md)時，它會形成一個暫時的作用域。在此作用域中，你可以不使用名稱就存取該物件。這類函式被稱為「作用域函式」（Scope functions）。共有五個：[`let`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/let.html)、[`run`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/run.html)、[`with`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/with.html)、[`apply`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/apply.html) 以及 [`also`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/also.html)。
+Kotlin 標準函式庫包含幾個函式，其唯一目的就是在此物件的上下文中執行一個程式碼區塊。當你在一個物件上叫用這類函式並提供一個 [Lambda 運算式](lambdas.md)時，它會形成一個暫時的作用域。在此作用域中，你可以不使用名稱就存取該物件。這類函式被稱為「作用域函式」（Scope functions）。共有五個：[`let`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/let.html)、[`run`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/run.html)、[`with`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/with.html)、[`apply`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/apply.html) 以及 [`also`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/also.html)。
 
 基本上，這些函式執行的動作都相同：在一個物件上執行一個程式碼區塊。不同之處在於這個物件在區塊內如何變得可用，以及整個運算式的結果是什麼。
 
@@ -25,7 +25,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-如果你不使用 `let` 來撰寫相同的內容，則必須引入一個新變數，並在每次使用時重複其名稱。
+如果你不使用 `let` 撰寫相同的內容，則必須引入一個新變數，並在每次使用時重複其名稱。
 
 ```kotlin
 data class Person(var name: String, var age: Int, var city: String) {
@@ -87,7 +87,7 @@ fun main() {
 
 ### 上下文物件：this 或 it
 
-在傳遞給作用域函式的 Lambda 內部，上下文物件可以透過簡短的引用而不是其實際名稱來存取。每個作用域函式都使用兩種引用上下文物件的方式之一：作為 Lambda [接收者](lambdas.md#function-literals-with-receiver) (`this`) 或作為 Lambda [引數](lambdas.md#lambda-expression-syntax) (`it`)。兩者提供相同的功能，因此我們針對不同使用案例描述了各自的優缺點，並提供了使用建議。
+在傳遞給作用域函式的 Lambda 內部，上下文物件可以透過簡短的引用而不是其實際名稱來存取。每個作用域函式都使用兩種引用上下文物件的方式之一：作為 Lambda [接收者](lambdas.md#function-literals-with-receiver) (`this`) 或作為 Lambda 引數 (`it`)。兩者提供相同的功能，因此我們針對不同使用案例描述了各自的優缺點，並提供了使用建議。
 
 ```kotlin
 fun main() {
@@ -155,7 +155,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-下面的範例示範了使用自訂引數名稱 `value` 將上下文物件引用為 Lambda 引數。
+下面的範例示範了使用引數名稱 `value` 將上下文物件引用為 Lambda 引數。
 
 ```kotlin
 import kotlin.random.Random
@@ -394,7 +394,7 @@ fun main() {
 - **上下文物件** 作為接收者 (`this`) 可用。 
 - **傳回值** 是 Lambda 結果。
 
-[`run`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/run.html) 的功能與 `with` 相同，但它是作為擴充函式實作的。因此，與 `let` 一樣，你可以使用點符號標法在上下文物件上叫用它。
+[`run`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/run.html) 的功能與 `with` 相同，但它是作為擴充函式實作的。因此，與 `let` 一樣，你可以使用點符號標記在上下文物件上叫用它。
 
 當你的 Lambda 同時進行物件初始化和計算傳回值時，`run` 非常有用。
 

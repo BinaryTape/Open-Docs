@@ -29,7 +29,7 @@ Kotlin EAP ビルドには、通常以下のステージが含まれます。
 
 > EAP に参加することにより、EAP バージョンは信頼性が低い可能性があり、意図した通りに動作しない場合や、エラーが含まれている可能性があることを明示的に認めるものとします。
 >
-> 同じリリースの EAP バージョンと最終バージョンの間の互換性については、いかなる保証も提供されないことに注意してください。 
+> 同じリリースの EAP バージと最終バージョンの間の互換性については、いかなる保証も提供されないことに注意してください。 
 >
 {style="note"}
 
@@ -53,13 +53,13 @@ _現在、プレビューバージョンは利用できません。_
         <th>ビルドのハイライト</th>
     </tr>
     <tr>
-        <td><strong>2.4.20-Beta2</strong>
-            <p>リリース日: <strong>2026年7月22日</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.20-Beta2" target="_blank">GitHub でのリリース</a></p>
+        <td><strong>2.4.20-RC</strong>
+            <p>リリース日: <strong>2026年8月12日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.20-RC" target="_blank">GitHub でのリリース</a></p>
         </td>
         <td>
             <p>パフォーマンスの向上、バグ修正、およびツールのアップデートを含むツールリリースです。</p>
-            <p>詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.20-Beta2">チェンジログ</a> または <a href="whatsnew-eap.md">Kotlin 2.4.20-Beta2 の新機能</a> を参照してください。</p>
+            <p>詳細については、<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.20-RC">チェンジログ</a> または <a href="whatsnew-eap.md">Kotlin 2.4.20-RC の新機能</a> を参照してください。</p>
         </td>
     </tr>
 </table>

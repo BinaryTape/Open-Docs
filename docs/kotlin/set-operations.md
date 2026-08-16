@@ -21,7 +21,7 @@ fun main() {
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
 要查找两个集合之间的交集（两个集合中都存在的元素），请使用 [`intersect()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/intersect.html) 函数。
-要查找不在另一个集合中存在的集合元素，请使用 [`subtract()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/subtract.html) 函数。
+要查找不在另一个集合中存在的集合元素，请使用 [`subtract()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/subtract.html) 函数。 
 这两个函数也可以通过中缀形式调用，例如 `a intersect b`：
 
 ```kotlin
@@ -41,7 +41,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-要查找存在于两个集合中的任意一个、但不存在于它们交集中的元素，你也可以使用 `union()` 函数。
+要查找存在于两个集合中的任意一个、但不存在于它们交集中的元素，你也可以使用 `union()` 函数。 
 对于此操作（称为对称差），可以计算两个集合之间的差集并合并结果：
 
 ```kotlin

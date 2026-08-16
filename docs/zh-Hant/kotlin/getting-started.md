@@ -1,7 +1,7 @@
 [//]: # (title: Kotlin 入門)
 
 <tldr>
-<p>最新 Kotlin 版本：<b> <a href="%kotlinLatestWhatsnew%">%kotlinVersion%</a></b></p>
+<p>最新 Kotlin 版本：<b><a href="%kotlinLatestWhatsnew%">%kotlinVersion%</a></b></p>
 </tldr>
 
 Kotlin 是一門現代化語言，具有簡潔、多平台以及可與 Java 和其他語言互通的特性。

@@ -13,7 +13,8 @@ fun main() {
 
 ## Node.js 타겟 실행
 
-Kotlin/JS로 Node.js를 타겟팅할 때는 `jsNodeDevelopmentRun` Gradle 태스크를 실행하기만 하면 됩니다. 예를 들어 Gradle 래퍼를 사용하는 커맨드 라인을 통해 이 작업을 수행할 수 있습니다.
+Kotlin/JS로 Node.js를 타겟팅할 때는 `jsNodeDevelopmentRun` Gradle 태스크를 실행하기만 하면 됩니다. 
+예를 들어 Gradle 래퍼를 사용하는 커맨드 라인을 통해 이 작업을 수행할 수 있습니다.
 
 ```bash
 ./gradlew jsNodeDevelopmentRun

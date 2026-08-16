@@ -47,7 +47,7 @@ fun f(x: Int): Int {
 ```kotlin
 fun main() {
     var n = readln().toInt() // 입력에서 정수를 읽음
-    val reached = HashSet<Int>() // 가변 해시 셋
+    val reached = HashSet<Int>() // 가변 해시 셋 
     while (reached.add(n)) n = f(n) // 함수 f를 반복 적용
     println(reached.size) // 결과 출력
 }
@@ -61,7 +61,7 @@ fun main() {
 ```kotlin
 fun main() {
     var n = readLine()!!.toInt() // 입력에서 정수를 읽음
-    val reached = HashSet<Int>() // 가변 해시 셋
+    val reached = HashSet<Int>() // 가변 해시 셋 
     while (reached.add(n)) n = f(n) // 함수 f를 반복 적용
     println(reached.size) // 결과 출력
 }
@@ -69,7 +69,7 @@ fun main() {
 
 [`readLine()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/read-line.html) 함수 호출 뒤에 코틀린의 [null 단언 연산자(null-assertion operator)](null-safety.md#not-null-assertion-operator) `!!`가 사용된 것에 주목하세요. 코틀린의 `readLine()` 함수는 [널 가능 타입(nullable type)](null-safety.md#nullable-types-and-non-nullable-types) `String?`을 반환하도록 정의되어 있으며, 입력의 끝에서 `null`을 반환합니다. 이는 개발자가 입력이 없는 경우를 명시적으로 처리하도록 강제합니다.
 
-경쟁 프로그래밍에서는 잘못된 형식의 입력을 처리할 필요가 없습니다. 입력 형식은 항상 정밀하게 지정되며, 실제 입력이 문제 설명의 입력 명세와 다를 수 없기 때문입니다. 이것이 바로 null 단언 연산자 `!!`가 하는 일입니다. 즉, 입력 문자열이 존재한다고 단언하며 그렇지 않으면 예외를 발생시킵니다. 마찬가지로 [`String.toInt()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/to-int.html) 함수도 동일하게 동작합니다.
+경쟁 프로그래밍에서는 잘못된 형식의 입력을 처리할 필요가 없습니다. 입력 형식은 항상 정밀하게 지정되며, 실제 입력이 문제 설명의 입력 명세와 다를 수 없기 때문입니다. 이것이 바로 null 단언 연산자 `!!`가 하는 일입니다. 즉, 입력 문자열이 존재한다고 단언하며 그렇지 않으면 예외를 발생시킵니다. 마찬가지로 [`String.toInt()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/to-int.html)도 동일하게 동작합니다.
 
 </tab>
 </tabs>
@@ -206,7 +206,7 @@ val fl = readInts()
 val (n, k) = readInts()
 ```
 
-구조화가 덜 된 입력 형식을 파싱하기 위해 JVM의 `java.util.Scanner` 클래스를 사용하고 싶을 수도 있습니다. 코틀린은 JVM 라이브러리와 잘 상호운용되도록 설계되어 있어 코틀린에서 이를 사용하는 것이 꽤 자연스럽게 느껴집니다. 하지만 `java.util.Scanner`는 매우 느리다는 점에 주의해야 합니다. 사실 너무 느려서 10<sup>5</sup>개 이상의 정수를 파싱할 때 전형적인 2초의 시간 제한을 맞추지 못할 수도 있습니다. 반면 코틀린의 단순한 `split(" ").map { it.toInt() }`는 이를 충분히 처리할 수 있습니다.
+구조화가 덜 된 입력 형식을 파싱하기 위해 JVM의 `java.util.Scanner` 클래스를 사용하고 싶을 수도 있습니다. 코틀린은 JVM 라이브러리와 잘 상호운용되도록 설계되어 있어 코틀린에서 이를 사용하는 것이 꽤 자연스럽게 느껴집니다. 하지만 `java.util.Scanner`는 매우 느리다는 점에 주의해야 합니다. 사실 너무 느려서 10<sup>5</sup>개 이상의 정수를 파싱할 때 전형적인 2초의 시간 제한을 맞추지 못할 수도 있습니다. 반면 코틀린의 단순한 `split(" ").map { it.toInt() }`는 이를 충분히 처리할 수 있습니다. 
 
 코틀린에서 출력을 작성하는 것은 보통 [`println(...)`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/println.html) 호출과 코틀린의 [문자열 템플릿(string templates)](strings.md#string-templates)을 사용하여 직관적으로 할 수 있습니다. 그러나 출력이 10<sup>5</sup>행 이상일 때는 주의해야 합니다. 코틀린의 출력은 각 줄 뒤에 자동으로 플러시(flush)되기 때문에 그렇게 많은 `println`을 호출하는 것은 너무 느립니다. 배열이나 리스트에서 많은 줄을 더 빠르게 작성하는 방법은 다음과 같이 `"
 "`을 구분자로 사용하는 [`joinToString()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/join-to-string.html) 함수를 사용하는 것입니다.
@@ -218,7 +218,7 @@ println(a.joinToString("
 
 ## 코틀린 학습하기
 
-코틀린은 배우기 쉬우며, 특히 이미 자바를 알고 있는 사람들에게는 더욱 그렇습니다. 소프트웨어 개발자를 위한 코틀린의 기본 문법에 대한 짧은 소개는 웹사이트의 [기본 문법(basic syntax)](basic-syntax.md) 섹션부터 시작하여 레퍼런스 섹션에서 직접 찾아볼 수 있습니다.
+코틀린은 배우기 쉬우며, 특히 이미 자바를 알고 있는 사람들에게는 더욱 그렇습니다. 소프트웨어 개발자를 위한 코틀린의 기본 문법에 대한 짧은 소개는 웹사이트의 레퍼런스 섹션에서 [기본 문법(basic syntax)](basic-syntax.md)부터 시작하여 직접 찾아볼 수 있습니다. 
 
 IDEA에는 내장된 [Java-to-Kotlin 컨버터](https://www.jetbrains.com/help/idea/converting-a-java-file-to-kotlin-file.html)가 있습니다. 자바에 익숙한 사람들이 대응하는 코틀린 문법 구조를 배우기 위해 이를 사용할 수 있지만, 완벽하지는 않으므로 여전히 코틀린에 익숙해지고 [코틀린 관용구(Kotlin idioms)](idioms.md)를 익히는 것이 가치가 있습니다.
 

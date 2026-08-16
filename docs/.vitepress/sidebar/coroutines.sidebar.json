@@ -8,20 +8,8 @@
     "link": "coroutines-basics"
   },
   {
-    "text": "coroutines.coroutines-and-channels",
-    "link": "coroutines-and-channels"
-  },
-  {
     "text": "coroutines.coroutines-cancellation",
     "link": "coroutines-cancellation"
-  },
-  {
-    "text": "coroutines.composing-suspending-functions",
-    "link": "composing-suspending-functions"
-  },
-  {
-    "text": "coroutines.coroutine-context-and-dispatchers",
-    "link": "coroutine-context-and-dispatchers"
   },
   {
     "text": "coroutines.flows",
@@ -36,6 +24,18 @@
       }
     ],
     "collapsed": true
+  },
+  {
+    "text": "coroutines.coroutines-and-channels",
+    "link": "coroutines-and-channels"
+  },
+  {
+    "text": "coroutines.composing-suspending-functions",
+    "link": "composing-suspending-functions"
+  },
+  {
+    "text": "coroutines.coroutine-context-and-dispatchers",
+    "link": "coroutine-context-and-dispatchers"
   },
   {
     "text": "coroutines.channels",

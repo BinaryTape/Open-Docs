@@ -187,7 +187,7 @@ plugins {
 }
 
 kotlin {
-    // 拡張レベル (Extension level)
+    // Extension level
     compilerOptions {
         jvmTarget = JvmTarget.fromTarget("%jvmLTSVersionSupportedByKotlin%")
         languageVersion = KotlinVersion.fromVersion("%languageVersion%")
@@ -195,7 +195,7 @@ kotlin {
     }
 }
 
-// コンパイル単位レベルでの上書きの例
+// Example of overriding at compilation unit level
 tasks.named<KotlinJvmCompile>("compileKotlin"){
     compilerOptions {
         apiVersion = KotlinVersion.fromVersion("%apiVersion%")
@@ -215,7 +215,7 @@ plugins {
 }
 
 kotlin {
-  // 拡張レベル (Extension level)
+  // Extension level
     compilerOptions {
         jvmTarget = JvmTarget.fromTarget("%jvmLTSVersionSupportedByKotlin%")
         languageVersion = KotlinVersion.fromVersion("%languageVersion%")
@@ -223,7 +223,7 @@ kotlin {
     }
 }
 
-// コンパイル単位レベルでの上書きの例
+// Example of overriding at compilation unit level
 tasks.named("compileKotlin", KotlinJvmCompile).configure {
     compilerOptions {
         apiVersion = KotlinVersion.fromVersion("%apiVersion%")
@@ -402,7 +402,7 @@ kotlin {
 * `-progressive` コンパイラオプションの使用を、専用の DSL である `progressiveMode.set(true)` に移行してください。
 * `-Xjvm-default` コンパイラオプションの使用を、[専用の DSL を使用](gradle-compiler-options.md#attributes-specific-to-jvm)するように移行してください（`jvmDefault.set()`）。オプションには以下のマッピングを使用してください：
 
-  | 以前                              | 以降                                               |
+  | 以前 (Before) | 以降 (After) |
   |-----------------------------------|---------------------------------------------------|
   | `-Xjvm-default=all-compatibility` | `jvmDefault.set(JvmDefaultMode.ENABLE)`           |
   | `-Xjvm-default=all`               | `jvmDefault.set(JvmDefaultMode.NO_COMPATIBILITY)` | 

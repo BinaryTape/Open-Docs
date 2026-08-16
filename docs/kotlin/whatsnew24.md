@@ -20,6 +20,10 @@ Kotlin 2.4.0 正式发布！以下是主要亮点：
 * **Maven：** [Java 和 JVM 目标版本之间的自动对齐](#maven)
 * **Kotlin 编译器：** [在 `.klib` 编译期间更加一致的内联函数行为](#consistent-intra-module-function-inlining-during-klib-compilation)
 
+您还可以在此视频中找到更新概览：
+
+<video src="https://www.youtube.com/v/RI4J0C2_FR8" title="Kotlin 2.4 最新变化"/>
+
 > 有关 Kotlin 发布周期的信息，请参阅 [Kotlin 发布过程](releases.md)。
 >
 {style="tip"}
@@ -613,7 +617,7 @@ Kotlin 2.2.0 中的 Kotlin Metadata JVM 库 [引入了对读取存储在 Kotlin 
 ### 垃圾回收器默认启用并发标记
 <secondary-label ref="native"/>
 
-在 Kotlin 2.0.20 中，Kotlin 团队 [引入了实验性支持](whatsnew2020.md#concurrent-marking-in-garbage-collector) 用于并发标记清除垃圾回收器 (CMS GC)。在处理了用户反馈并修复了回归问题后，我们现在准备从 Kotlin 2.4.0 开始默认启用 CMS。
+在 Kotlin 2.0.20 中，Kotlin team [引入了实验性支持](whatsnew2020.md#concurrent-marking-in-garbage-collector) 用于并发标记清除垃圾回收器 (CMS GC)。在处理了用户反馈并修复了回归问题后，我们现在准备从 Kotlin 2.4.0 开始默认启用 CMS。
 
 垃圾回收器中之前的默认并行标记并发清除 (PMCS) 设置在 GC 标记堆中的对象时必须暂停应用程序线程。相比之下，CMS 允许标记阶段与应用程序线程并发运行。
 
@@ -702,7 +706,7 @@ let msg = try await hello()
 
 以前，从 [`kotlinx.coroutines.flow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/) 向 Swift 公开 `Flow` 接口的唯一方法是通过第三方解决方案。现在，您可以将 flow 开箱即用地导出到 Swift 的惯用对应版本：[`AsyncSequence`](https://developer.apple.com/documentation/Swift/AsyncSequence)。
 
-此功能默认启用。您可以向 Swift 导出任何带有 `Flow` 类型的公共 API，同时保留类型信息。示例如下：
+此功能默认启用。您可以向 Swift 导出任何带有 `Flow` 类型的公共 API，同时保留类型信息。例如：
 
 ```kotlin
 // Kotlin
@@ -793,7 +797,7 @@ Kotlin 2.4.0 进一步改进了向 JavaScript/TypeScript 的导出，包括支�
 ### 支持将值类导出到 JavaScript/TypeScript
 <secondary-label ref="js"/>
 
-以前，只有常规 Kotlin 类可以导出到 JavaScript/TypeScript。Kotlin 2.4.0 取消了这一限制。您现在可以将 Kotlin 的 [内联值类](inline-classes.md) 导出为常规 TypeScript 类。
+以前，只有常规 Kotlin 类可以导出到 JavaScript/TypeScript。Kotlin 2.4.0 取送了这一限制。您现在可以将 Kotlin 的 [内联值类](inline-classes.md) 导出为常规 TypeScript 类。
 
 要导出值类，请在 Kotlin 侧使用 `@JsExport` 注解标记它：
 
@@ -1087,7 +1091,7 @@ Kotlin 2.4.0 为 Kotlin Maven 插件引入了对 [Maven Toolchains](https://mave
 ```
 请记住设置 JDK 版本的不同方式的优先级：
 
-1. `kotlin-maven-plugin` 配置中的 `jdkHome`。显式设置的 `jdkHome` 选项始终优先于工具链版本。 
+1. `jdkHome` 在 `kotlin-maven-plugin` 配置中。显式设置的 `jdkHome` 选项始终优先于工具链版本。 
 2. `maven-toolchains-plugin` 中的 JDK 版本。通过 Maven Toolchains 设置的 JDK 版本会覆盖 `JAVA_HOME` 路径中设置的 JDK 版本。
 3. `JAVA_HOME` 路径。
 
@@ -1115,7 +1119,7 @@ Kotlin 2.4.0 对构建工具 API (BTA) 进行了多项改进。BTA：
 
   默认情况下，限制设置为特定于 Kotlin 编译器版本的值。若要不设限制，构建工具必须将选项设置为 `null`。
 
-  构建系统可以在配置[执行策略](https://github.com/JetBrains/kotlin/blob/2.4.0/compiler/build-tools/kotlin-build-tools-api/src/main/kotlin/org/jetbrains/kotlin/buildtools/api/ExecutionPolicy.kt)时设置该选项：
+  构建系统可以在配置 [执行策略](https://github.com/JetBrains/kotlin/blob/2.4.0/compiler/build-tools/kotlin-build-tools-api/src/main/kotlin/org/jetbrains/kotlin/buildtools/api/ExecutionPolicy.kt) 时设置该选项：
 
   ```kotlin
   val executionPolicy = kotlinToolchains.daemonExecutionPolicy {
@@ -1132,7 +1136,7 @@ Kotlin 2.4.0 在 `.klib` 编译期间对同一模块中声明的内联函数包�
 ### 在 klib 编译期间一致的模块内函数内联
 <secondary-label ref="compiler"/>
 
-以前，[函数内联](inline-functions.md) 在不同的 Kotlin 平台上的行为不一致。JetBrains 团队正在努力在所有支持的平台上统一它，以确保相同的兼容性保证。
+以前，[函数内联](inline-functions.md) 在不同的 Kotlin 平台上的行为不一致。JetBrains team 正在努力在所有支持的平台上统一它，以确保相同的兼容性保证。
 
 在 Kotlin/JVM 上，函数内联发生在编译时。因此，当使用 Kotlin/JVM 编译器编译 Kotlin 源代码时，生成的类文件在字节码中没有内联函数调用，因为内联函数的主体被内联到了它们的调用处，所以它们的行为在编译期间就已固定。
 

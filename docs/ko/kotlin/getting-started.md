@@ -1,7 +1,7 @@
 [//]: # (title: Kotlin 시작하기)
 
 <tldr>
-<p>최신 Kotlin 릴리스:<b> <a href="%kotlinLatestWhatsnew%">%kotlinVersion%</a></b></p>
+<p>최신 Kotlin 릴리스: <b><a href="%kotlinLatestWhatsnew%">%kotlinVersion%</a></b></p>
 </tldr>
 
 Kotlin은 간결하고 멀티플랫폼을 지원하며, Java 및 다른 언어들과 상호 운용이 가능한 현대적인 언어입니다.

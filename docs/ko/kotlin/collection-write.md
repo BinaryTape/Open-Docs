@@ -26,7 +26,7 @@ fun main() {
 리스트에서 호출할 경우, `addAll()`은 인자로 받은 객체에 포함된 순서대로 새 요소를 추가합니다.
 또한, 첫 번째 인자로 요소의 위치(인덱스)를 지정하여 `addAll()`을 호출할 수도 있습니다.
 이 경우 인자로 받은 컬렉션의 첫 번째 요소가 해당 위치에 삽입됩니다.
-인자로 받은 컬렉션의 나머지 요소들이 그 뒤를 따르며, 수신 객체의 기존 요소들은 끝으로 밀려납니다.
+인자로 받은 컬렉션의 나머지 요소들이 그 뒤를 따르며, 수신 객체의 기존 요소들은 끝으로 밀려납니다. 
 
 ```kotlin
 
@@ -62,7 +62,7 @@ fun main() {
 ## 요소 삭제
 
 가변 컬렉션에서 요소를 삭제하려면 [`remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/remove.html) 함수를 사용합니다.
-`remove()`는 요소의 값을 인자로 받아 해당 값과 일치하는 요소 하나를 삭제합니다.
+`remove()`는 요소의 값을 인자로 받아 해당 값과 일치하는 요소 하나를 삭제합니다. 
 
 ```kotlin
 
@@ -103,7 +103,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-컬렉션에서 요소를 삭제하는 또 다른 방법은 [`minus`](collection-plus-minus.md)의 인플레이스 버전인 [`minusAssign`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/minus-assign.html) (`-=`) 연산자를 사용하는 것입니다.
+컬렉션에서 요소를 삭제하는 또 다른 방법은 [`minus`](collection-plus-minus.md)의 인플레이스 버전인 [`minusAssign`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/minus-assign.html) (`-=`) 연산자를 사용하는 것입니다. 
 두 번째 인자는 요소 타입의 단일 인스턴스이거나 다른 컬렉션일 수 있습니다.
 우변에 단일 요소가 있는 경우, `-=`는 해당 요소의 *첫 번째* 발생 사례를 삭제합니다.
 우변이 컬렉션인 경우, 해당 컬렉션에 포함된 요소들의 *모든* 발생 사례가 삭제됩니다.

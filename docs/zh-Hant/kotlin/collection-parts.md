@@ -1,10 +1,10 @@
 [//]: # (title: 獲取集合的部分內容)
 
-Kotlin 標準函式庫包含用於獲取集合部分內容的擴充函式。這些函式提供了多種方式來選擇結果集合的元素：明確列出它們的位置、指定結果大小等。
+Kotlin 標準函式庫包含用於獲取集合部分內容的擴充函式。這些函式提供了多種方式來選擇結果集合的元素：明確列出它們的位置、指定結果大小等。 
 
 ## Slice
 
-[`slice()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/slice.html) 會傳回具有指定索引的集合元素列表。索引可以作為 [範圍 (range)](ranges.md) 或整數值的集合傳遞。
+[`slice()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/slice.html) 會傳回具有指定索引的集合元素列表。索引可以作為 [範圍 (range)](ranges.md) 或整數值的集合傳遞。 
 
 ```kotlin
 
@@ -21,9 +21,9 @@ fun main() {
 
 ## Take 與 drop
 
-若要從第一個元素開始獲取指定數量的元素，請使用 [`take()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/take.html) 函式。若要獲取最後幾個元素，請使用 [`takeLast()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/take-last.html)。當呼叫時傳入的數字大於集合大小時，這兩個函式都會傳回整個集合。
+若要從第一個元素開始獲取指定數量的元素，請使用 [`take()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/take.html) 函式。若要獲取最後幾個元素，請使用 [`takeLast()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/take-last.html)。當呼叫時傳入的數字大於集合大小時，這兩個函式都會傳回整個集合。  
 
-若要獲取除指定數量的開頭或末尾元素之外的所有元素，請分別呼叫 [`drop()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/drop.html) 和 [`dropLast()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/drop-last.html) 函式。
+若要獲取除指定數量的開頭或末尾元素之外的所有元素，請分別呼叫 [`drop()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/drop.html) 和 [`dropLast()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/drop-last.html) 函式。 
 
 ```kotlin
 
@@ -62,7 +62,7 @@ fun main() {
 
 ## Chunked
 
-若要將集合拆分為給定大小的部分，請使用 [`chunked()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/chunked.html) 函式。`chunked()` 接受單個引數——區塊 (chunk) 的大小——並傳回一個由該大小的 `List` 組成的 `List`。第一個區塊從第一個元素開始並包含 `size` 個元素，第二個區塊包含接下來的 `size` 個元素，依此類推。最後一個區塊的大小可能較小。
+若要將集合拆分為給定大小的部分，請使用 [`chunked()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/chunked.html) 函式。`chunked()` 接受單個引數——區塊 (chunk) 的大小——並傳回一個由該大小的 `List` 組成的 `List`。第一個區塊從第一個元素開始並包含 `size` 個元素，第二個區塊包含接下來的 `size` 個元素，依此類推。最後一個區塊的大小可能較小。 
 
 ```kotlin
 
@@ -75,7 +75,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-您還可以立即對傳回的區塊套用轉換。為此，請在呼叫 `chunked()` 時以 Lambda 函式提供轉換。Lambda 引數是集合的一個區塊。當使用轉換呼叫 `chunked()` 時，這些區塊是短期的 `List`，應直接在該 Lambda 中被取用。
+您還可以立即對傳回的區塊套用轉換。為此，請在呼叫 `chunked()` 時以 Lambda 函式提供轉換。Lambda 引數是集合的一個區塊。當使用轉換呼叫 `chunked()` 時，這些區塊是短期的 `List`，應直接在該 Lambda 中被取用。  
 
 ```kotlin
 

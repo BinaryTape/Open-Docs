@@ -426,7 +426,7 @@ fun main() {
 
 関数型の構文は以下の通りです：
 
-* 各パラメータの型を丸括弧 `()` 内に書き、カンマ `,` で区切ります。
+* 各パラメータ'の型を丸括弧 `()` 内に書き、カンマ `,` で区切ります。
 * 戻り値の型を `->` の後に書きます。
 
 例：`(String) -> String` や `(Int, Int) -> Int`。
@@ -517,7 +517,7 @@ fun main() {
 
 ツアーの次のステップは、Kotlinの[クラス](kotlin-tour-classes.md)について学ぶことです。
 
-## ラムダ式の練習
+## ラムダ式の練習 {completion-point="true"}
 
 ### 演習 1 {initial-collapse-state="collapsed" collapsible="true" id="lambdas-exercise-1"}
 

@@ -519,7 +519,7 @@ class MyStringCollection {
 
 fun main() {
     val myStrings = MyStringCollection()
-    // 将 "first" 和 "second" 添加到列表两次
+    // 将 "first" 和 "second" 添加到列表
     myStrings.build()
       
     myStrings.printAll()
@@ -624,7 +624,7 @@ Stream().read()
 
 ## 泛型函数
 
-你可以通过在函数名称之前使用尖括号 `<>` 来为函数指定泛型形参：
+你可以通过在函数名称之前使用尖括号 `<>` 来为函数指定泛型参数：
 
 ```kotlin
 fun <T> singletonList(item: T): List<T> { /*...*/ }

@@ -30,7 +30,7 @@ Webpack 提供兩種不同形式的 CommonJS：`commonjs` 與 `commonjs2`，這�
 
 ## JavaScript 程式庫與 Node.js 檔案
 
-如果您正在建立用於 JavaScript 或 Node.js 環境的程式庫，且想要使用不同的模組系統，則指令碼會略有不同。
+如果您正在建立用於 JavaScript 或 Node.js 環境的程式庫，且想要使用不同的模組系統，則指令會略有不同。
 
 ### 選擇目標模組系統
 

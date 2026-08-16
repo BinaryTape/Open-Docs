@@ -1,8 +1,9 @@
 [//]: # (title: 인라인 값 클래스)
 
-때로는 값을 클래스로 감싸서 더 도메인 특화된(domain-specific) 타입을 만드는 것이 유용합니다. 하지만 이는 추가적인 힙 할당으로 인해 런타임 오버헤드를 발생시킵니다. 더욱이 감싸려는 타입이 원시 타입(primitive type)인 경우 성능 저하가 심각한데, 원시 타입은 일반적으로 런타임에 의해 고도로 최적화되는 반면 그 래퍼(wrapper)는 특별한 대우를 받지 못하기 때문입니다.
+때로는 값을 클래스로 감싸서 더 도메인 특화된(domain-specific) 타입을 만드는 것이 유용합니다. 하지만 이는 추가적인 힙 할당으로 인해 런타임 오버헤드를 발생시킵니다. 더욱이 감싸려는 타입이 원시 타입(primitive type)인 경우 성능 저하가 심각한데, 원시 타입은 일반적으로 런타임에 의해 고도로 최적화되는 반면 그 래퍼(wrapper)는 특별한 대우를 받지 못하기 때문입니다. 
 
-이러한 문제를 해결하기 위해 코틀린은 **인라인 클래스(inline class)**라는 특별한 종류의 클래스를 도입했습니다. 인라인 클래스는 [값 기반 클래스(value-based classes)](https://github.com/Kotlin/KEEP/blob/master/notes/value-classes.md)의 하위 집합입니다. 인라인 클래스는 식별자(identity)를 가지지 않으며 값만을 보유할 수 있습니다.
+이러한 문제를 해결하기 위해 코틀린은 **인라인 클래스(inline class)**라는 특별한 종류의 클래스를 도입했습니다. 
+인라인 클래스는 [값 기반 클래스(value-based classes)](https://github.com/Kotlin/KEEP/blob/master/notes/value-classes.md)의 하위 집합입니다. 인라인 클래스는 식별자(identity)를 가지지 않으며 값만을 보유할 수 있습니다.
 
 인라인 클래스를 선언하려면 클래스 이름 앞에 `value` 수식어를 사용하세요:
 
@@ -10,7 +11,7 @@
 value class Password(private val s: String)
 ```
 
-JVM 백엔드용 인라인 클래스를 선언하려면 클래스 선언 앞에 `@JvmInline` 어노테이션과 함께 `value` 수식어를 사용하세요:
+JVM 백엔드용 인라인 클래스를 선언하려면 클래스 선언 앞에 `@JvmInline` 어노테이션과 함께 `value` 수식어를 사용하세요: 
 
 ```kotlin
 // JVM 백엔드용

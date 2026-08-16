@@ -17,6 +17,6 @@ Gradle 是一种构建系统，可以帮助您自动化和管理构建过程。�
 
 了解：
 * **Gradle Kotlin DSL**。[Gradle Kotlin DSL](https://docs.gradle.org/current/userguide/kotlin_dsl.html) 是一种领域专用语言，您可以利用它快速高效地编写构建脚本。
-* **注解处理**。Kotlin 通过 [Kotlin 符号处理 API](ksp-reference.md) (KSP) 支持注解处理。
+* **注解处理**。Kotlin 通过 [Kotlin 符号处理 API](ksp-reference.md) 支持注解处理。
 * **生成文档**。要为 Kotlin 项目生成文档，请使用 [Dokka](https://github.com/Kotlin/dokka)；有关配置说明，请参阅 [Dokka README](https://github.com/Kotlin/dokka/blob/master/README.md#using-the-gradle-plugin)。Dokka 支持混合语言项目，并可以生成多种格式的输出，包括标准的 Javadoc。
 * **OSGi**。有关 OSGi 的支持，请参见 [Kotlin OSGi 页面](kotlin-osgi.md)。

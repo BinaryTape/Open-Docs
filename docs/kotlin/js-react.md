@@ -931,7 +931,7 @@ React 拥有丰富的生态系统，其中包含大量预制的组件，你可�
 
 浏览器已经带有各种各样的 [Web API](https://developer.mozilla.org/en-US/docs/Web/API)。你也可以从 Kotlin/JS 中使用它们，因为它开箱即用地包含了这些 API 的包装器。一个例子是用于发出 HTTP 请求的 [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)。
 
-第一个潜在问题是，像 `fetch()` 这样的浏览器 API 使用 [callbacks](https://developer.mozilla.org/en-US/docs/Glossary/Callback_function)（回调）来执行非阻塞操作。当多个回调应该一个接一个运行时，它们需要嵌套。自然地，代码会产生严重的缩进，越来越多的功能块堆叠在一起，使其难以阅读。
+第一个潜在问题是，像 `fetch()` 这里的浏览器 API 使用 [回调](https://developer.mozilla.org/en-US/docs/Glossary/Callback_function) 来执行非阻塞操作。当多个回调应该一个接一个运行时，它们需要嵌套。自然地，代码会产生严重的缩进，越来越多的功能块堆叠在一起，使其难以阅读。
 
 为了克服这个问题，你可以使用 Kotlin 的协程，这是此类功能的更好方法。
 
@@ -1038,7 +1038,7 @@ suspend fun fetchVideo(id: Int): Video {
    {validate="false"}
 
    * [`MainScope()`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-main-scope.html) 是 Kotlin 结构化并发模型的一部分，它为要运行的异步任务创建作用域。
-   * `useEffectOnce` 是另一个 React *hook*（具体来说，是 [useEffect](https://reactjs.org/docs/hooks-effect.html) hook 的简化版本）。它指示该组件执行 *side effect*（副作用）。它不仅仅是渲染自身，还通过网络进行通信。
+   * `useEffectOnce` 是另一个 React *hook*（具体来说，是 [useEffect](https://reactjs.org/docs/hooks-effect.html) hook 的简化版本）。它指示该组件执行 *副作用*。它不仅仅是渲染自身，还通过网络进行通信。
 
 检查你的浏览器。应用程序应显示实际数据：
 
@@ -1131,8 +1131,8 @@ Heroku 使启动可在其自身域下访问的应用程序变得非常简单。�
 你可以将生成的应用作为跳板，探索 React、Kotlin/JS 等领域的更高级主题。
 
 * **搜索**。你可以添加一个搜索字段来过滤演讲列表 —— 例如按标题或按作者。了解 [HTML 表单元素在 React 中是如何工作的](https://reactjs.org/docs/forms.html)。
-* **持久化**。目前，每当页面重新加载时，应用程序就会丢失对观看者观看列表的追踪。考虑构建你自己的后端，使用可用于 Kotlin 的 Web 框架之一（例如 [Ktor](https://ktor.io/)）。或者，研究在[客户端存储信息](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)的方法。
-* **复杂的 API**。有大量的数据集 and API 可用。你可以将各种数据拉入你的应用程序。例如，你可以为 [猫咪照片](https://thecatapi.com/) 构建一个可视化器或一个 [无版税库存照片 API](https://unsplash.com/developers)。
+* **持久化**。目前，每当页面重新加载时，应用程序就会丢失对观看者观看列表的追踪。考虑构建你自己的后端，使用可用于 Kotlin 的 Web 框架之一（例如 [Ktor](https://ktor.io/)）。或者，研究在 [客户端存储信息](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) 的方法。
+* **复杂的 API**。有大量的数据集和 API 可用。你可以将各种数据拉入你的应用程序名。例如，你可以为 [猫咪照片](https://thecatapi.com/) 构建一个可视化器或一个 [无版税库存照片 API](https://unsplash.com/developers)。
 
 ### 改进样式：响应式和网格 {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -1144,8 +1144,8 @@ Heroku 使启动可在其自身域下访问的应用程序变得非常简单。�
 
 ### 了解有关协程的更多信息 {initial-collapse-state="collapsed" collapsible="true"}
 
-如果你有兴趣了解更多关于如何编写并发代码的信息，请查看关于[协程](coroutines-and-channels.md)的教程。
+如果你有兴趣了解更多关于如何编写并发代码的信息，请查看关于 [协程](coroutines-and-channels.md) 的教程。
 
 ### 了解有关 React 的更多信息 {initial-collapse-state="collapsed" collapsible="true"}
 
-既然你已经了解了基本的 React 概念以及它们如何转换为 Kotlin，你可以将 [React 文档](https://react.dev/learn)中列出的其他一些概念转换为 Kotlin。
+既然你已经了解了基本的 React 概念以及它们如何转换为 Kotlin，你可以将 [React 文档](https://react.dev/learn) 中列出的其他一些概念转换为 Kotlin。

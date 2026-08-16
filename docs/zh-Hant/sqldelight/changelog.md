@@ -22,6 +22,7 @@
 - [Gradle 外掛程式] 實作更嚴格的 `MigrationFile` 版本控管（#5730 由 @madisp 提供）
 - [Gradle 外掛程式] 將最低支援的 Gradle 版本提升至 8.2.1（#6217 由 @maxsav 提供）
 - [Gradle 外掛程式] 支援 Gradle 隔離專案 (isolated projects)（#6217 由 @maxsav 提供）
+- [IntelliJ 外掛程式] 最低版本需求為 2023.3 / Android Studio Jellyfish
 
 ### 修復
 - [編譯器] 抑制產生的程式碼中的 Kotlin 額外警告（#6208 由 @eyupcanakman 提供）
@@ -35,14 +36,15 @@
 - [Intellij 外掛程式] 修復導致 IDEA 2026.2 當機的棄用問題（#6247 由 @griffio 提供）
 - [Gradle 外掛程式] 修復產生的原始碼在 AGP 8.9 至 8.11 上無法被 Kotlin 編譯識別的問題
 - [PostgreSQL 方言] 修復 `lower` 與 `upper` 函式使用 Primitive 繫結引數預設為 TEXT 的問題（#6262 由 @griffio 提供）
-- [編譯器] 修復當使用配接器且遷移變更可 null 性時，使用資料類別繫結插入值的問題（#6269 由 @griffio 提供）
+- [編譯器] 修復當使用配接器且遷移變更可 null 性時，使用資料類別繫結插入值的問題（#6269 由 griffio 提供）
 - [編譯器] 為 null 安全運算子（IS 與 IS DISTINCT FROM）使用可 null 繫結引數（#6265 由 @griffio 提供）
 - [Gradle 外掛程式] 將 AGP 的變體解析 (variant resolution) 用於專案相依項（#6217 由 @maxsav 提供）
 - [Gradle 外掛程式] 修復當不同組建間的 AGP 變體清單不一致時，`generateDatabaseInterface` 的組建快取未命中問題
 - [Gradle 外掛程式] 修復當套用外掛程式但未配置任何資料庫時，IDE 同步當機的問題（#6088）
-- [PostgreSQL 方言] 修復使用巢狀函式呼叫時的 JSON 聚合函式問題（#6281 由 @griffio 提供）
+- [PostgreSQL 方言] 修復使用巢狀函式呼稱時的 JSON 聚合函式問題（#6281 由 @griffio 提供）
 - [分頁 3 擴充套件] 修復 `KeyedQueryPagingSource` 在空資料庫上當機的問題（#6284 由 @woods-marshes 提供）
 - [編譯器] 修復當變動器陳述式與 `COALESCE` 等封裝函式搭配使用時的 Java 型別配接器問題（#6292 由 @griffio 提供）
+- [編譯器] 修復當模組名稱為大寫時，產生的程式碼封裝名稱也會變為大寫的問題（#6316 由 @griffio 提供）
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -202,7 +204,7 @@
 - [IDE 外掛程式] 最低版本為 2023.1 / Android Studio Iguana
 - [編譯器] 允許在 `encapsulatingType` 中覆寫型別的可 null 性（#4882 由 @eygraber 提供）
 - [編譯器] 為 SELECT * 內嵌列名
-- [Gradle 外掛程式] 切換至 `processIsolation`（#5068 由 @nwagu 提供）
+- [Gradle 外掛程式] 切換至 processIsolation (#5068 由 @nwagu 提供)
 - [Android 執行階段] 將 Android minSdk 提升至 21（#5094 由 @hfhbd 提供）
 - [驅動程式] 為方言作者公開更多 JDBC/R2DBC 陳述式方法（#5098 由 @hfhbd 提供）
 
@@ -261,7 +263,7 @@
 - [編譯器] 修復無參數且有傳回值的群組陳述式的編譯（#4699 由 @griffio 提供）
 - [編譯器] 使用 SqlBinaryExpr 繫結引數（#4604 由 @griffio 提供）
 - [IDE 外掛程式] 如果已設定，則使用 IDEA 專案 JDK (#4689 由 @griffio 提供)
-- [IDE 外掛程式] 修復 IDEA 2023.2 及更高版本中的 「Unknown element type: TYPE_NAME」 錯誤（#4727）
+- [IDE 外掛程式] 修復 「Unknown element type: TYPE_NAME」 錯誤（#4727）
 - [IDE 外掛程式] 修復了一些與 2023.2 的相容性問題
 - [Gradle 外掛程式] 修正 `verifyMigrationTask` Gradle 任務的文件（#4713 由 @joshfriend 提供）
 - [Gradle 外掛程式] 新增 Gradle 任務輸出訊息，以協助使用者在驗證資料庫前先產生資料庫（#4684 由 @jingwei99 提供）
@@ -298,7 +300,7 @@
 - [IDE 外掛程式] 在執行搜尋前等待索引就緒（#4419）
 - [IDE 外掛程式] 如果索引不可用，則不執行跳轉（#4420）
 - [編譯器] 修復群組陳述式的結果運算式（#4378）
-- [編譯器] 不要將虛擬表用作介面型別（#4427 由 @hfhbd 提供）
+- [編譯器] 不要為虛擬表產生型別 (#4427 由 @hfhbd 提供)
 
 ## [2.0.0-rc02] - 2023-06-27
 [2.0.0-rc02]: https://github.com/sqldelight/sqldelight/releases/tag/2.0.0-rc02
@@ -670,10 +672,10 @@ sqldelight {
 - [Gradle 外掛程式] 在新增執行階段時明確支援 js/android 外掛程式 (由 @ZacSweers 提供)
 - [Gradle 外掛程式] 註冊遷移輸出任務，而不從遷移推導架構 (#2744 由 @kevincianfarini 提供)
 - [Gradle 外掛程式] 如果遷移任務當機，印出當機時正在執行的檔案
-- [Gradle 外掛程式] 產生程式碼時對檔案進行排序以確保輸出是冪等的 (由 @ZacSweers 提供)
+- [Gradle 外掛程式] 產生程式碼時對檔案進行排序以確保輸出是冪等 (idempotent) 的 (由 @ZacSweers 提供)
 - [編譯器] 使用更快的 API 疊代檔案，且不探索整個 PSI 圖
 - [編譯器] 為選擇函式參數新增關鍵字重整 (#2759 由 @aperfilyev 提供)
-- [編譯器] 修復遷移配接器的 `packageName` (由 @hfhbd 提供)
+- [編譯器] 修復 `packageName` 為遷移配接器 (由 @hfhbd 提供)
 - [編譯器] 在屬性而非型別上發出註解 (#2798 由 @aperfilyev 提供)
 - [編譯器] 在傳遞給 Query 子型別之前對引數進行排序 (#2379 由 @aperfilyev 提供)
 
@@ -876,7 +878,7 @@ sqldelight {
 - [IDE 外掛程式] 對於無效型別，優雅地失敗 (#1943)
 - [IDE 外掛程式] 遇到未知運算式時拋出更好的錯誤訊息 (#1958)
 - [Gradle 外掛程式] SQLDelight 將 IntelliJ 相依項流失至 buildscript 類別路徑 (#1998)
-- [Gradle 外掛程式] 在 *.sq 檔案中新增方法文件時出現 「找不到 JavadocIntegrationKt」 編譯錯誤 (#1982)
+- [Gradle 外掛程式] 在 *.sq 檔案中新增方法文件時出現 「JavadocIntegrationKt not found」 編譯錯誤 (#1982)
 - [Gradle 外掛程式] SQLDelight Gradle 外掛程式不支援組態快取 (CoCa)。(#1947 由 @stephanenicolas 提供)
 - [SQLite JDBC 驅動程式] SQLException：資料庫處於自動提交模式 (#1832)
 - [協同程式擴充套件] 修復協同程式擴充套件的 IR 後端 (#1918 由 @dellisd 提供)
@@ -949,9 +951,9 @@ sqldelight {
 - [IDE] 新增模仿內建 SQL 即時範本的 SQLDelight 即時範本 (#1154 由 @veyndan 提供)
 - [IDE] 新增新建 SqlDelight 檔案操作 (#42 由 @romtsn 提供)
 - [執行階段] 用於傳回結果的交易的 `transactionWithReturn` API
-- [編譯器] 在 .sq 檔案中將多個 SQL 陳述式群組在一起的語法
+- [編譯器] 語法用於將多個 SQL 陳述式群組在一起在一個 .sq 檔案中
 - [編譯器] 支援從遷移檔案產生架構
-- [Gradle 外掛程式] 新增一個將遷移檔案輸出為有效 SQL 的任務
+- [Gradle 外掛程式] 新增一個任務用於將遷移檔案輸出為有效 SQL
 
 ### 變更
 - [文件] 文件網站翻新 (由 @saket 提供)
@@ -961,7 +963,7 @@ sqldelight {
 
 ### 修復
 - [編譯器] 支援資料表上的 Javadoc 並修復一個檔案中出現多個 javadoc 的問題 (#1224)
-- [編譯器] 允許為合成列插入值 (#1351)
+- [編譯器] 啟用為合成列插入值 (#1351)
 - [編譯器] 修復目錄名稱清理中的不一致 (由 @ZacSweers 提供)
 - [編譯器] 合成列應在聯結中保留可 null 性 (#1656)
 - [編譯器] 將刪除陳述式釘選在 delete 關鍵字上 (#1643)

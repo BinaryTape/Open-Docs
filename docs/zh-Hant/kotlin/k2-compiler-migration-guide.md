@@ -952,7 +952,7 @@ actual open class PlatformFileSystem : FileSystem {
 
 如果您在預期的非抽象類別中繼承了抽象函式，請新增非抽象覆寫。
 
-如需了解更多資訊，請參閱 [YouTrack](https://youtrack.jetbrains.com/issue/KT-59739/K2-MPP-reports-ABSTRACTMEMBERNOTIMPLEMENTED-for-inheritor-in-common-code-when-the-implementation-is-located-in-the-actual) 中的相應問題。
+如需了解更多資訊，請參閱相應問題於 [YouTrack](https://youtrack.jetbrains.com/issue/KT-59739/K2-MPP-reports-ABSTRACTMEMBERNOTIMPLEMENTED-for-inheritor-in-common-code-when-the-implementation-is-located-in-the-actual)。
 
 ### 各主題領域
 
@@ -1114,7 +1114,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-49015](https://youtrack.jetbrains.com/issue/KT-49015) | 限定的 this：發生潛在標籤衝突時更改行為 |
 | [KT-56545](https://youtrack.jetbrains.com/issue/KT-56545) | 修正 Java 子類別中意外發生衝突多載時，JVM 後端中不正確的函式名稱修飾 (mangling) |
 | [KT-62019](https://youtrack.jetbrains.com/issue/KT-62019) | [LC 問題] 禁止在陳述式位置使用標記為 suspend 的匿名函式宣告 |
-| [KT-55111](https://youtrack.jetbrains.com/issue/KT-55111) | OptIn：禁止在標記下使用預設引數 (具有預設值的參數) 進行建構函式呼叫 |
+| [KT-55111](https://youtrack.jetbrains.com/issue/KT-55111) | OptIn：禁止在標記下使用預設引數 (具有預設值的參數) 進行建構函式呼召時使用標記下預設引數 |
 | [KT-61182](https://youtrack.jetbrains.com/issue/KT-61182) | 意外允許將 Unit 轉換用於變數上的運算式 + invoke 解析 |
 | [KT-55199](https://youtrack.jetbrains.com/issue/KT-55199) | 禁止將具有調整 (adaptations) 的可呼叫參照提升為 KFunction |
 | [KT-65776](https://youtrack.jetbrains.com/issue/KT-65776) | [LC] K2 破壞了 `false && ...` 和 `false || ...` |

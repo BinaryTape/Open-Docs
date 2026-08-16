@@ -399,7 +399,7 @@ Expected class 'expect class Identity : Any' does not have default constructor
 ```kotlin
 // 示例库
 
-// 模块: common
+// 模块: 公共
 fun whichFun(x: Any) = println("common function") 
 
 // 模块: JVM
@@ -411,7 +411,7 @@ fun whichFun(x: Int) = println("platform function")
 ```kotlin
 // 一个针对 JVM 目标使用示例库的项目
 
-// 模块: common
+// 模块: 公共
 fun main(){
     whichFun(2) 
     // platform function
@@ -423,7 +423,7 @@ fun main(){
 ```kotlin
 // 未使用示例库
 
-// 模块: common
+// 模块: 公共
 fun whichFun(x: Any) = println("common function") 
 
 fun main(){
@@ -892,7 +892,7 @@ dataService.fetchData()[0]
 
 在 Kotlin 2.0.0 中，Java 原生数组的 null 安全性现在是 Kotlin 中的标准，因此如果您使用它们，请检查您的代码是否有新的警告和错误：
 
-* 任何在没有显式为 null 性检查的情况下使用 `@Nullable` Java 原生数组，或尝试向期望非 nullable 原生数组的 Java 方法传递 `null` 的代码，现在都将无法通过编译。
+* 任何在没有显式为 null性检查的情况下使用 `@Nullable` Java 原生数组，或尝试向期望非 nullable 原生数组的 Java 方法传递 `null` 的代码，现在都将无法通过编译。
 * 将 `@NotNull` 原生数组用于为 null 性检查现在会发出“Unnecessary safe call”（不必要的安全调用）或“Comparison with null always false”（与 null 比较结果始终为 false）警告。
 
 有关更多信息，请参阅 [YouTrack 中的相应问题](https://youtrack.jetbrains.com/issue/KT-54521)。
@@ -1038,7 +1038,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-57422](https://youtrack.jetbrains.com/issue/KT-57422) | K2：禁止在属性访问器上使用使用处 'get' 目标的注解 |
 | [KT-46483](https://youtrack.jetbrains.com/issue/KT-46483) | 禁止在 where 子句中的类型形参上使用注解 |
 | [KT-64299](https://youtrack.jetbrains.com/issue/KT-64299) | 在解析伴生对象上的注解时忽略伴生作用域 |
-| [KT-64654](https://youtrack.jetbrains.com/issue/KT-64654) | K2：在用户和编译器要求的注解之间引入了歧义 |
+| [KT-64654](https://youtrack.jetbrains.com/issue/KT-64654) | K2：在 user 和编译器要求的注解之间引入了歧义 |
 | [KT-64527](https://youtrack.jetbrains.com/issue/KT-64527) | 枚举值上的注解不应复制到枚举值类 |
 | [KT-63389](https://youtrack.jetbrains.com/issue/KT-63389) | K2：在包装在 `()?` 中的类型的兼容注解上报告 `WRONG_ANNOTATION_TARGET` |
 | [KT-63388](https://youtrack.jetbrains.com/issue/KT-63388) | K2：在 catch 形参类型的注解上报告 `WRONG_ANNOTATION_TARGET` |
@@ -1069,10 +1069,10 @@ actual open class PlatformFileSystem : FileSystem {
 | 问题 ID | 标题 |
 |------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
 | [KT-57555](https://youtrack.jetbrains.com/issue/KT-57555)* | [[LC] 禁止对带有支持字段的 open 属性进行延迟初始化](#immediate-initialization-of-open-properties-with-backing-fields) |
-| [KT-58589](https://youtrack.jetbrains.com/issue/KT-58589)  | 当没有提供主构造函数或类是局部类时，弃用遗漏的 MUST_BE_INITIALIZED |
-| [KT-64295](https://youtrack.jetbrains.com/issue/KT-64295)  | 在对属性进行潜在调用时禁止递归解析 |
-| [KT-57290](https://youtrack.jetbrains.com/issue/KT-57290)  | 如果基类来自另一个模块，弃用对来自不可见派生类的基类属性的智能转换 |
-| [KT-62661](https://youtrack.jetbrains.com/issue/KT-62661)  | K2：针对数据类属性遗漏了 OPT_IN_USAGE_ERROR |
+| [KT-58589](https://youtrack.jetbrains.com/issue/KT-58589) | 当没有提供主构造函数或类是局部类时，弃用遗漏的 MUST_BE_INITIALIZED |
+| [KT-64295](https://youtrack.jetbrains.com/issue/KT-64295) | 在对属性进行潜在调用时禁止递归解析 |
+| [KT-57290](https://youtrack.jetbrains.com/issue/KT-57290) | 弃用对来自不可见派生类的基类属性的智能转换（如果基类来自另一个模块） |
+| [KT-62661](https://youtrack.jetbrains.com/issue/KT-62661) | K2：针对数据类属性遗漏了 OPT_IN_USAGE_ERROR |
 
 #### 控制流 {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -1098,7 +1098,7 @@ actual open class PlatformFileSystem : FileSystem {
 |-----------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
 | [KT-52628](https://youtrack.jetbrains.com/issue/KT-52628) | 弃用在没有注解的情况下需要 OptIn 的 SAM 构造函数用法 |
 | [KT-57014](https://youtrack.jetbrains.com/issue/KT-57014) | 禁止从 JDK 函数接口的 SAM 构造函数的 lambda 返回具有不正确为 null 性的值 |
-| [KT-64342](https://youtrack.jetbrains.com/issue/KT-64342) | 可 callable 引用（可调用引用）的形参类型的 SAM 转换会导致 CCE |
+| [KT-64342](https://youtrack.jetbrains.com/issue/KT-64342) | 可调用引用的形参类型的 SAM 转换会导致 CCE |
 
 #### 伴生对象 {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -1112,15 +1112,15 @@ actual open class PlatformFileSystem : FileSystem {
 | 问题 ID | 标题 |
 |------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
 | [KT-59739](https://youtrack.jetbrains.com/issue/KT-59739)* | 当实现在实际对应部分中时，K2/MPP 为公共代码中的继承者报告 [ABSTRACT_MEMBER_NOT_IMPLEMENTED] |
-| [KT-49015](https://youtrack.jetbrains.com/issue/KT-49015)  | 限定的 this：在潜在标签冲突的情况下更改行为 |
-| [KT-56545](https://youtrack.jetbrains.com/issue/KT-56545)  | 修复 Java 子类中意外冲突重载时 JVM 后端中错误的函数修饰 |
-| [KT-62019](https://youtrack.jetbrains.com/issue/KT-62019)  | [LC 问题] 禁止在语句位置使用带有 suspend 标记的匿名函数声明 |
-| [KT-55111](https://youtrack.jetbrains.com/issue/KT-55111)  | OptIn：禁止在标记下进行具有默认实参（具有默认值的形参）的构造函数调用 |
-| [KT-61182](https://youtrack.jetbrains.com/issue/KT-61182)  | 意外地允许 Unit 转换用于变量上的表达式 + 调用解析 |
-| [KT-55199](https://youtrack.jetbrains.com/issue/KT-55199)  | 禁止将带有自适应的可调用引用提升为 KFunction |
-| [KT-65776](https://youtrack.jetbrains.com/issue/KT-65776)  | [LC] K2 破坏了 `false && ...` 和 `false || ...` |
-| [KT-65682](https://youtrack.jetbrains.com/issue/KT-65682)  | [LC] 弃用 `header`/`impl` 关键字 |
-| [KT-45375](https://youtrack.jetbrains.com/issue/KT-45375)  | 默认通过 invokedynamic + LambdaMetafactory 生成所有 Kotlin lambda |
+| [KT-49015](https://youtrack.jetbrains.com/issue/KT-49015) | 限定的 this：在潜在标签冲突的情况下更改行为 |
+| [KT-56545](https://youtrack.jetbrains.com/issue/KT-56545) | 修复 Java 子类中意外冲突重载时 JVM 后端中错误的函数修饰 |
+| [KT-62019](https://youtrack.jetbrains.com/issue/KT-62019) | [LC 问题] 禁止在语句位置使用带有 suspend 标记的匿名函数声明 |
+| [KT-55111](https://youtrack.jetbrains.com/issue/KT-55111) | OptIn：禁止在标记下进行具有默认实参（具有默认值的形参）的构造函数调用 |
+| [KT-61182](https://youtrack.jetbrains.com/issue/KT-61182) | 意外地允许 Unit 转换用于变量上的表达式 + 调用解析 |
+| [KT-55199](https://youtrack.jetbrains.com/issue/KT-55199) | 禁止将带有自适应的可调用引用提升为 KFunction |
+| [KT-65776](https://youtrack.jetbrains.com/issue/KT-65776) | [LC] K2 破坏了 `false && ...` 和 `false || ...` |
+| [KT-65682](https://youtrack.jetbrains.com/issue/KT-65682) | [LC] 弃用 `header`/`impl` 关键字 |
+| [KT-45375](https://youtrack.jetbrains.com/issue/KT-45375) | 默认通过 invokedynamic + LambdaMetafactory 生成所有 Kotlin lambda |
 
 ## 与 Kotlin 版本的兼容性
 

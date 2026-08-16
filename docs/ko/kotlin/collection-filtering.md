@@ -1,7 +1,7 @@
 [//]: # (title: 컬렉션 필터링)
 
 필터링(Filtering)은 컬렉션 처리에서 가장 인기 있는 작업 중 하나입니다.
-Kotlin에서 필터링 조건은 프레디케이트(predicate)로 정의됩니다. 프레디케이트는 컬렉션 요소를 받아 불리언(boolean) 값을 반환하는 람다 함수입니다. `true`는 해당 요소가 프레디케이트와 일치함을 의미하고, `false`는 그 반대를 의미합니다.
+Kotlin에서 필터링 조건은 _프레디케이트(predicates)_로 정의됩니다. 프레디케이트는 컬렉션 요소를 받아 불리언(boolean) 값을 반환하는 람다 함수입니다. `true`는 해당 요소가 프레디케이트와 일치함을 의미하고, `false`는 그 반대를 의미합니다.
 
 표준 라이브러리에는 단일 호출로 컬렉션을 필터링할 수 있는 일련의 확장 함수들이 포함되어 있습니다.
 이 함수들은 원본 컬렉션을 변경하지 않으므로, [가변 및 읽기 전용(mutable and read-only)](collections-overview.md#collection-types) 컬렉션 모두에서 사용할 수 있습니다. 필터링 결과를 활용하려면 변수에 할당하거나 필터링 뒤에 함수를 체이닝해야 합니다.
@@ -29,7 +29,7 @@ fun main() {
 
 `filter()`의 프레디케이트는 요소의 값만 확인할 수 있습니다.
 필터에서 요소의 위치(인덱스)를 사용하고 싶다면 [`filterIndexed()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter-indexed.html)를 사용하세요.
-이 함수는 인덱스와 요소의 값이라는 두 개의 인자를 받는 프레디케이트를 사용합니다.
+이 함수는 인덱스와 요소의 값이라는 두 개의 인자를 받는 프레디케이트를 사용합니다. 
 
 부정적인 조건으로 컬렉션을 필터링하려면 [`filterNot()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter-not.html)을 사용하세요.
 이 함수는 프레디케이트 결과가 `false`인 요소들의 리스트를 반환합니다.

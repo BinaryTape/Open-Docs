@@ -68,7 +68,7 @@ kotlin {
 }
 ```
 
-在 Kotlin 多平台项目（Kotlin Multiplatform）中，您可以在特定的目标内部配置编译器选项。例如：`jvm { compilerOptions {}}`。有关更多信息，请参阅 [多平台 Gradle DSL 参考](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)。
+在 Kotlin 多平台（Kotlin Multiplatform）项目中，您可以在特定的目标内部配置编译器选项。例如：`jvm { compilerOptions {}}`。有关更多信息，请参阅 [多平台 Gradle DSL 参考](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)。
 
 ### 编译单元层级
 

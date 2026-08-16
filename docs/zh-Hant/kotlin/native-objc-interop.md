@@ -1,6 +1,6 @@
 [//]: # (title: 與 Swift/Objective-C 的互通性)
 
-> Objective-C 庫匯入目前處於 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 階段。
+> Objective-C 庫目前處於 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 階段。
 > 所有由 cinterop 工具從 Objective-C 庫產生的 Kotlin 宣告
 > 都應具有 `@ExperimentalForeignApi` 註解。
 >
@@ -170,9 +170,9 @@ Objective-C 不支援架構中的套件。如果 Kotlin 編譯器在同一個架
 
 每當您在 Kotlin 原始碼中使用 Objective-C 類別時，它都會被標記為強烈連結符號。產生的建置產物會將相關符號提及為強烈外部參考。
 
-這意味著應用程式在啟動期間會嘗試動態連結符號，如果符號不可用，應用程式就會崩潰。即使符號從未被使用過，崩潰也會發生。在特定的裝置或 OS 版本上，符號可能不可用。
+這意義著應用程式在啟動期間會嘗試動態連結符號，如果符號不可用，應用程式就會崩潰。即使符號從未被使用過，崩潰也會發生。在特定的裝置或 OS 版本上，符號可能不可用。
 
-為了規避此問題並避免「Symbol not found」錯誤，請使用一個檢查類別是否實際可用的 Swift 或 Objective-C 包裝函式。[查看此規避方法在 Compose Multiplatform 架構中的實作方式](https://github.com/JetBrains/compose-multiplatform-core/pull/1278/files)。
+為了規避此問題並避免「Symbol not found」錯誤，請使用一個檢查類別是否實際可用的 Swift 或 Objective-C 包裝函式。[檢視此規避方法在 Compose Multiplatform 架構中的實作方式](https://github.com/JetBrains/compose-multiplatform-core/pull/1278/files)。
 
 ### 初始設定式
 
@@ -205,7 +205,7 @@ fun foo() {}
 MyLibraryUtilsKt.foo()
 ```
 
-在 Kotlin-Swift 互通性百科中查看存取頂層 Kotlin 宣告的範例集合：
+在 Kotlin-Swift 互通性百科中檢視存取頂層 Kotlin 宣告的範例集合：
 
 * [頂層函式](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/Top-level%20functions.md)
 * [頂層唯讀屬性](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/functionsandproperties/Top-level%20val%20properties.md)
@@ -308,7 +308,7 @@ Objective-C 分類（category）和 Swift 擴充（extension）的成員通常�
 「一般」Kotlin 類別的 Kotlin 擴充會分別作為擴充和分類成員匯入 Swift 和 Objective-C。其他型別的 Kotlin 擴充被視為帶有額外接收者參數的[頂層宣告](#top-level-functions-and-properties)。這些型別包括：
 
 * Kotlin `String` 型別
-* Kotlin 集合型別及其子型別
+* Kotlin 庫型別及其子型別
 * Kotlin `interface` 型別
 * Kotlin 原始型別
 * Kotlin `inline` 類別
@@ -379,7 +379,7 @@ Objective-C 類別 `NSMutableString` 在 Kotlin 中不可用。所有 `NSMutable
 
 當 Kotlin 集合傳遞給 Swift 時，它首先轉換為對應的 Objective-C 等效項，然後 Swift 編譯器會複製整個集合，並將其轉換為 Swift 原生集合，如[對應表](#mappings)中所述。
 
-最後一次轉換會導致效能開銷。為了防止這種情況，在 Swift 中使用 Kotlin 集合時，請將它們明確轉換為對應的 Objective-C 型別：`NSDictionary`、`NSArray` 或 `NSSet`。
+最後一次轉換會導致效能成本。為了防止這種情況，在 Swift 中使用 Kotlin 庫時，請將它們明確轉換為對應的 Objective-C 型別：`NSDictionary`、`NSArray` 或 `NSSet`。
 
 ##### 查看轉換範例 {initial-collapse-state="collapsed" collapsible="true"}
 
@@ -408,9 +408,9 @@ let nsMap: NSDictionary = map as NSDictionary
 
 #### Swift -> Objective-C -> Kotlin
 
-Swift/Objective-C 集合對應到 Kotlin，如[對應表](#mappings)中所述，除了 `NSMutableSet` 和 `NSMutableDictionary`。
+Swift/Objective-C 庫對應到 Kotlin，如[對應表](#mappings)中所述，除了 `NSMutableSet` 和 `NSMutableDictionary`。
 
-`NSMutableSet` 不會轉換為 Kotlin 的 `MutableSet`。要將物件傳遞給 Kotlin `MutableSet`，請明確建立此類 Kotlin 集合。為此，請使用 Kotlin 中的 `mutableSetOf()` 函式，或 Swift 中的 `KotlinMutableSet` 類別以及 Objective-C 中的 `${prefix}MutableSet`（`prefix` 是架構名稱前綴）。對於 `MutableMap` 也是如此。
+`NSMutableSet` 不會轉換為 Kotlin 的 `MutableSet`。要將物件傳遞給 Kotlin `MutableSet`，請明確建立此類 Kotlin 庫。為此，請使用 Kotlin 中的 `mutableSetOf()` 函式，或 Swift 中的 `KotlinMutableSet` 類別以及 Objective-C 中的 `${prefix}MutableSet`（`prefix` 是架構名稱前綴）。對於 `MutableMap` 也是如此。
 
 [在 Kotlin-Swift 互通性百科中檢視範例](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/Collections.md)。
 
@@ -475,7 +475,7 @@ greetUserBlock:^(NSString *name) {
 
 ### 泛型
 
-Objective-C 支援在類別中定義的「輕量級泛型」，其功能集相對有限。Swift 可以匯入類別上定義的泛型，以協助向編譯器提供額外的型別資訊。
+Objective-C 支援在類別中定義的「輕量級泛型」，其功能集相對有限。 Swift 可以匯入類別上定義的泛型，以協助向編譯器提供額外的型別資訊。
 
 Objective-C 和 Swift 的泛型功能支援與 Kotlin 不同，因此轉換不可避免地會遺失一些資訊，但支援的功能仍保留了有意義的資訊。
 

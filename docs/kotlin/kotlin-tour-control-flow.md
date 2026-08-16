@@ -10,7 +10,7 @@ Kotlin 提供了 `if` 和 `when` 来检查条件表达式。
 
 > 如果必须在 `if` 和 `when` 之间做出选择，我们建议使用 `when`，因为它：
 > 
-> * 使代码更易于阅读。
+> * 使您的代码更易于阅读。
 > * 更易于添加另一个分支。
 > * 减少代码中的错误。
 > 
@@ -154,7 +154,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-when-expression-boolean-subject"}
 
-在 `when` 中使用主体可以使代码更易于阅读和维护。当您在 `when` 表达式中使用主体时，它还能帮助 Kotlin 检查是否涵盖了所有可能的情况。否则，如果您不在 `when` 表达式中使用主体，则需要提供一个 `else` 分支。
+在 `when` 中使用主体可以使您的代码更易于阅读和维护。当您在 `when` 表达式中使用主体时，它还能帮助 Kotlin 检查是否涵盖了所有可能的情况。否则，如果您不在 `when` 表达式中使用主体，则需要提供一个 else 分支。
 
 ## 条件表达式练习
 
@@ -244,7 +244,7 @@ fun main() {
 
 ## 区间
 
-在讨论循环之前，了解如何构建供循环遍历的区间 (Range) 非常有用。
+在讨论循环之前，了解如何构建供循环遍历的区间 (Ranges) 非常有用。
 
 在 Kotlin 中创建区间最常用的方式是使用 `..` 运算符。例如，`1..4` 等同于 `1, 2, 3, 4`。
 
@@ -252,7 +252,7 @@ fun main() {
 
 要以相反顺序声明区间，请使用 [`downTo`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.ranges/down-to.html)。例如，`4 downTo 1` 等同于 `4, 3, 2, 1`。
 
-要声明一个增量不是 1 的区间，请使用 [`step`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.ranges/step.html) 和您所需的增量值。
+要声明一个增量不是 1 的区间，请使用 [`step`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.ranges/step.html) 并指定所需的增量值。
 例如，`1..5 step 2` 等同于 `1, 3, 5`。
 
 您也可以对 `Char` (字符) 区间执行相同的操作：

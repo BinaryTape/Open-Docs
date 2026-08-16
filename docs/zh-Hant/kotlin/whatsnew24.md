@@ -10,7 +10,7 @@
 
 Kotlin 2.4.0 正式發佈！以下是主要的亮點：
 
-* **語言：** [上下文參數、明確支援欄位趨於穩定，以及多項註解使用位址目標特性](#stable-features)
+* **語言：** [上下文參數穩定、明確支援欄位趨於穩定，以及多項註解使用位址目標特性](#stable-features)
 * **標準函式庫：** [穩定支援 UUID API](#stable-uuid-api-in-the-common-kotlin-standard-library) 以及 [支援檢查排序順序](#support-for-checking-sorted-order)
 * **Kotlin/JVM：** [支援 Java 26](#support-for-java-26) 並 [預設啟用元資料中的註解](#annotations-in-metadata-enabled-by-default)
 * **Kotlin/Native：** [支援 Swift 套件作為相依性、Swift 匯出更新，以及預設啟用 CMS GC](#kotlin-native)
@@ -19,6 +19,10 @@ Kotlin 2.4.0 正式發佈！以下是主要的亮點：
 * **Gradle：** [相容於 Gradle 9.5.0](#gradle)
 * **Maven：** [Java 與 JVM 目標版本自動對齊](#maven)
 * **Kotlin 編譯器：** [在 `.klib` 編譯期間內嵌函式的行為更加一致](#consistent-intra-module-function-inlining-during-klib-compilation)
+
+您也可以在此影片中找到更新概覽：
+
+<video src="https://www.youtube.com/v/RI4J0C2_FR8" title="Kotlin 2.4 的新功能"/>
 
 > 有關 Kotlin 發佈週期的資訊，請參閱 [Kotlin 發佈流程](releases.md)。
 >
@@ -1020,11 +1024,11 @@ Kotlin 2.4.0 透過支援 Maven Toolchains 以及 Java 與 JVM 目標版本的�
 
 1. 作為在專案屬性中或在 `maven-compiler-plugin` 配置中定義的 `maven.compiler.release` 版本。
 
-   在這種情況下，Kotlin 編譯器會同時設定 `jvmTarget` 和 `jdkRelease` 編譯器選項，將 API 限制為特定的 JDK 版本。
+   In this case, both `jvmTarget` and `jdkRelease` compiler options are set for the Kotlin compiler, limiting the API to a specific JDK version.
 
 2. 如果未設定 Maven release 版本，則作為 `maven.compiler.target` 版本。編譯器目標可以在專案屬性中或在 `maven-compiler-plugin` 配置中定義。
 
-   在這種情況下，僅設定 Kotlin 的 `jvmTarget`，API 不受特定 JDK 版本的限制。
+   In this case, only Kotlin's `jvmTarget` is set, and the API is not limited to a specific JDK version.
 
 這極大地簡化了您的 Kotlin 專案配置，因此您的 `pom.xml` 檔案可以像這樣：
 

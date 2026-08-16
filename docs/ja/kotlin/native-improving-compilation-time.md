@@ -114,10 +114,17 @@ Gradleデーモンやコンパイラキャッシュを無効にするKotlin/Nati
 以前にこれらの機能で問題が発生し、これらの行を `gradle.properties` ファイルやGradleビルドファイルに追加していた場合は、それらを削除してビルドが正常に完了するか確認してください。これらのプロパティは、すでに修正された問題を回避するために以前に追加されたものである可能性があります。
 
 ### klibアーティファクトのインクリメンタルコンパイルを試す
+<primary-label ref="experimental-opt-in"/>
 
 インクリメンタルコンパイルを使用すると、プロジェクトモジュールによって生成された `klib` アーティファクトの一部のみが変更された場合、`klib` のその部分だけがバイナリに再コンパイルされます。
 
-この機能は[試験的（Experimental）](components-stability.md#stability-levels-explained)です。有効にするには、`gradle.properties` ファイルに `kotlin.incremental.native=true` オプションを追加してください。問題が発生した場合は、[YouTrackで課題を作成](https://kotl.in/issue)してください。
+この機能はまだ[試験的（Experimental）](components-stability.md#stability-levels-explained)です。有効にするには、`gradle.properties` ファイルに以下のオプションを追加してください：
+
+```properties
+kotlin.incremental.native=true
+```
+
+問題が発生した場合は、[YouTrackで課題を作成](https://kotl.in/issue)してください。
 
 ## Windowsの設定
 

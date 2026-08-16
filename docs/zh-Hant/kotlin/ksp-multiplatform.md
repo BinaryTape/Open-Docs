@@ -13,7 +13,7 @@ dependencies {
 }
 ```
 
-* `<Target>` 是你的多平台專案中使用的目標之一。
+* `<Target>` 是你的多平台專案中使用的目標之一。 
 
   > 如需完整的目標清單，請參閱 [Multiplatform Gradle DSL 參考](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#targets)
   > 以及 [Kotlin/Native 支援的目標](https://kotlinlang.org/docs/native-target-support.html)。
@@ -34,7 +34,7 @@ dependencies {
       add("kspJvm", "androidx.room:room-compiler:2.6.1")
       ```
 
-> 從 KSP 2 開始，通用的 `ksp(...)` 組態已被棄用。請明確配置每個目標，以避免在不需要的地方執行處理器。
+> 從 KSP 2 開始，通用的 `ksp(...)` 配置已被棄用。請明確配置每個目標，以避免在不需要的地方執行處理器。
 >
 {style="warning"}
 
@@ -117,7 +117,7 @@ kotlin.targets.filter { it.name.startsWith("ios") }.forEach { target ->
 
 ### 為測試編譯配置 KSP
 
-若要在測試編譯期間執行 KSP，請將處理器新增至對應的測試組態：
+若要在測試編譯期間執行 KSP，請將處理器新增至對應的測試配置：
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -140,7 +140,7 @@ add('kspIosX64Test', project(':test-processor'))
 </tab>
 </tabs> 
 
-對於 Android 主機和裝置測試，KSP 會從對應的原始碼集名稱衍生組態名稱：
+對於 Android 主機和裝置測試，KSP 會從對應的原始碼集名稱衍生配置名稱：
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -161,15 +161,15 @@ add('kspAndroidDeviceTest', project(':test-processor'))
 </tab>
 </tabs>
 
-## 尋找 KSP 組態名稱
+## 尋找 KSP 配置名稱
 
-KSP 從 Kotlin 多平台原始碼集衍生組態名稱。若要查看模組的完整 KSP 組態清單，請執行：
+KSP 從 Kotlin 多平台原始碼集衍生配置名稱。若要查看模組的完整 KSP 配置清單，請執行：
 
 ```Bash
 ./gradlew :<your-module-name>:dependencies | grep ksp
 ```
 
-尋找與你的目標原始碼集相對應的組態名稱。
+尋找與你的目標原始碼集相對應的配置名稱。
 
 ## 編譯與處理
 
@@ -189,7 +189,7 @@ KSP 從 Kotlin 多平台原始碼集衍生組態名稱。若要查看模組的�
 
 * **MingwX64**: `mingwX64Main` 與 `mingwX64Test`
 
-在範例的 `workload/build.gradle.kts` 檔案中，為以下組態宣告了 KSP 相依性：
+在範例的 `workload/build.gradle.kts` 檔案中，為以下配置宣告了 KSP 相依性：
 
 * `kspJvm` 與 `kspJvmTest`
 * `kspJs` 與 `kspJsTest`
@@ -198,4 +198,4 @@ KSP 從 Kotlin 多平台原始碼集衍生組態名稱。若要查看模組的�
 * `kspLinuxX64`
 * `kspMingwX64`
 
-KSP 會為每個宣告了 KSP 相依性的組態建立一個符號處理任務。在此範例中，專案至少建立了 12 個 Kotlin 編譯任務和 10 個符號處理任務。其餘編譯沒有對應的 KSP 任務，因為未針對它們配置 KSP。
+KSP 會為每個宣告了 KSP 相依性的配置建立一個符號處理任務。在此範例中，專案至少建立了 12 個 Kotlin 編譯任務和 10 個符號處理任務。其餘編譯沒有對應的 KSP 任務，因為未針對它們配置 KSP。

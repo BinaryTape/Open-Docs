@@ -116,7 +116,6 @@ class User(id: String) {
 ```
 
 ```java
-
 // Java
 class JavaClient {
     public String getID(User user) {
@@ -164,7 +163,6 @@ object Singleton {
 ```
 
 ```java
-
 // Java
 Singleton.provider = new Provider();
 // Singletonクラス内の public static non-final フィールド
@@ -173,7 +171,7 @@ Singleton.provider = new Provider();
 `const` として宣言されたプロパティ（クラス内およびトップレベル）は、Javaでは静的フィールドに変換されます：
 
 ```kotlin
-// example.kt ファイル
+// file example.kt
 
 object Obj {
     const val CONST = 1
@@ -191,7 +189,6 @@ const val MAX = 239
 Javaの場合：
 
 ```java
-
 int constant = Obj.CONST;
 int max = ExampleKt.MAX;
 int version = C.VERSION;
@@ -200,10 +197,12 @@ int version = C.VERSION;
 ## 静的メソッド (Static methods)
 
 前述のように、Kotlinはパッケージレベルの関数を静的メソッドとして表現します。
-また、名前付きオブジェクトまたはコンパニオンオブジェクトで定義された関数を [`@JvmStatic`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-static/index.html) としてアノテートすると、その関数に対して静的メソッドを生成できます。
-このアノテーションを使用すると、コンパイラはオブジェクトを囲むクラスの静的メソッドと、オブジェクト自体のインスタンスメソッドの両方を生成します。例：
+また、名前付きオブジェクトまたはコンパニオンオブジェクトで定義された関数を [`@JvmStatic`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-static/) としてアノテートすると、その関数に対して静的メソッドを生成できます。
+
+コンパニオンオブジェクト内の関数に `@JvmStatic` を使用すると、コンパイラはオブジェクトを囲むクラスの静的メソッドと、コンパニオンオブジェクト自体のインスタンスメソッドの両方を生成します。
 
 ```kotlin
+// Kotlin
 class C {
     companion object {
         @JvmStatic fun callStatic() {}
@@ -212,37 +211,37 @@ class C {
 }
 ```
 
-これで、Javaでは `callStatic()` は静的になりますが、`callNonStatic()` はそうなりません：
+Javaでは、囲んでいるクラスとコンパニオンオブジェクトの両方で `callStatic()` を呼び出すことができますが、`callNonStatic()` はコンパニオンオブジェクト経由でのみ利用可能です。
 
 ```java
-
-C.callStatic(); // 正常に動作
-C.callNonStatic(); // エラー: 静的メソッドではありません
-C.Companion.callStatic(); // インスタンスメソッドは残る
-C.Companion.callNonStatic(); // 唯一動作する方法
+// Java
+C.callStatic();              // 成功
+C.callNonStatic();           // エラー: 静的メソッドではありません
+C.Companion.callStatic();    // インスタンスメソッドは残る
+C.Companion.callNonStatic(); // 成功
 ```
 
-名前付きオブジェクトの場合も同様です：
+名前付きオブジェクト（シングルトン）の場合、`@JvmStatic` はその関数をオブジェクトのクラスの静的メソッドに変換しますが、個別のインスタンスメソッドは生成しません。
 
 ```kotlin
+// Kotlin
 object Obj {
     @JvmStatic fun callStatic() {}
     fun callNonStatic() {}
 }
 ```
 
-Javaの場合：
+Javaでは、名前付きオブジェクトで `callStatic()` メソッドを呼び出すことができますが、`callNonStatic()` はシングルトンインスタンス経由でのみ利用可能です。
 
 ```java
-
-Obj.callStatic(); // 正常に動作
-Obj.callNonStatic(); // エラー
-Obj.INSTANCE.callNonStatic(); // 動作する。シングルトンインスタンスを経由した呼び出し
-Obj.INSTANCE.callStatic(); // これも動作する
+// Java
+Obj.callStatic();             // 成功
+Obj.callNonStatic();          // エラー: 静的メソッドではありません
+Obj.INSTANCE.callNonStatic(); // 成功。シングルトンインスタンスを経由した呼び出し
 ```
 
-Kotlin 1.3以降、`@JvmStatic` はインターフェースのコンパニオンオブジェクトで定義された関数にも適用されます。
-そのような関数は、インターフェース内の静的メソッドにコンパイルされます。インターフェースの静的メソッドはJava 1.8で導入されたため、対応するターゲットを使用するようにしてください。
+インターフェースのコンパニオンオブジェクト内の関数に `@JvmStatic` を付加することもできます。
+そのような関数は、インターフェース内の静的メソッドにコンパイルされます。
 
 ```kotlin
 interface ChatBot {
@@ -273,7 +272,7 @@ interface Robot {
 デフォルトの実装は、インターフェースを実装するJavaクラスで利用可能です。
 
 ```java
-// Javaの実装
+//Javaの実装
 public class C3PO implements Robot {
     // Robotからの move() の実装は暗黙的に利用可能
     @Override
@@ -292,9 +291,9 @@ c3po.speak();
 インターフェースの実装側でデフォルトメソッドをオーバーライドすることもできます。
 
 ```java
-// Java
+//Java
 public class BB8 implements Robot {
-    // デフォルトメソッドの独自の実装
+    //デフォルトメソッドの独自の実装
     @Override
     public void move() {
         System.out.println("~rolling~");
@@ -344,14 +343,17 @@ Kotlinは、インターフェース内の関数をJVMのデフォルトメソ�
 
 ## 可視性 (Visibility)
 
-Kotlinは、可視性修飾子を以下のようにJavaにマッピングします：
+Kotlinは可視性修飾子を以下のようにJavaにマッピングします：
 
 * `private` メンバーは `private` のままです。
 * `private` トップレベル宣言はJavaでは `private` トップレベル宣言になります。クラス内からアクセスされる場合は、パッケージプライベートなアクセサも含まれます。
 * `protected` メンバーは `protected` のままです。
+
   Javaは同じパッケージ内の他のクラスからのprotectedメンバーへのアクセスを許可しますが、Kotlinは許可しないことに注意してください。
 * `internal` 宣言はJavaでは `public` になります。
+
   Kotlinコンパイラは、バイトコード内で `internal` メンバーの名前をマングリング（mangle）します。これにより、JavaからKotlinクラスを拡張する場合などにモジュールを越えて誤ってオーバーライドされるのを防ぎ、同じシグネチャを持つメンバーのオーバーロードを可能にします。
+
   `internal` クラスのパブリックメンバーの名前はマングリングされず、Javaから呼び出し可能なままであることに注意してください。
 * `public` メンバーは `public` のままです。
 
@@ -511,7 +513,6 @@ fun writeToFile() {
 これをJavaから呼び出して例外をキャッチしようとすると：
 
 ```java
-
 // Java
 try {
     demo.Example.writeToFile();

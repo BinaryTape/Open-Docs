@@ -22,10 +22,10 @@ class OrdersList: IndexedContainer {
 ### 単項接頭辞演算子
 
 | 式 | 変換先 |
-|------------|---------------|
-| `+a` | `a.unaryPlus()` |
-| `-a` | `a.unaryMinus()` |
-| `!a` | `a.not()` |
+|------------|------------------|
+| `+a`       | `a.unaryPlus()`  |
+| `-a`       | `a.unaryMinus()` |
+| `!a`       | `a.not()`        |
 
 この表は、コンパイラが例えば`+a`という式を処理するときに、以下の手順を実行することを示しています：
 
@@ -56,9 +56,9 @@ fun main() {
 ### インクリメントとデクリメント
 
 | 式 | 変換先 |
-|------------|---------------|
-| `a++` | `a.inc()` + 以下を参照 |
-| `a--` | `a.dec()` + 以下を参照 |
+|------------|-----------------------|
+| `a++`      | `a.inc()` + 以下を参照 |
+| `a--`      | `a.dec()` + 以下を参照 |
 
 `inc()`および`dec()`関数は、`++`または`--`操作が使用された変数に代入される値を返す必要があります。これらの関数は、`inc`または`dec`が呼び出されたオブジェクト自体を変更（mutate）すべきではありません。
 
@@ -83,17 +83,17 @@ fun main() {
 
 ## 二項演算
 
-### 算術演算子
+### 算術演算子 
 
 | 式 | 変換先 |
-| -----------|-------------- |
-| `a + b` | `a.plus(b)` |
-| `a - b` | `a.minus(b)` |
-| `a * b` | `a.times(b)` |
-| `a / b` | `a.div(b)` |
-| `a % b` | `a.rem(b)` |
-| `a..b` | `a.rangeTo(b)` |
-| `a..<b` | `a.rangeUntil(b)` |
+|------------|-------------------|
+| `a + b`    | `a.plus(b)`       |
+| `a - b`    | `a.minus(b)`      |
+| `a * b`    | `a.times(b)`      |
+| `a / b`    | `a.div(b)`        |
+| `a % b`    | `a.rem(b)`        |
+| `a..b`     | `a.rangeTo(b)`    |
+| `a..<b`    | `a.rangeUntil(b)` |
 
 この表の操作について、コンパイラは単に「変換先」カラムにある式として解決します。
 
@@ -110,21 +110,21 @@ data class Counter(val dayIndex: Int) {
 ### in 演算子
 
 | 式 | 変換先 |
-| -----------|-------------- |
-| `a in b` | `b.contains(a)` |
-| `a !in b` | `!b.contains(a)` |
+|------------|------------------|
+| `a in b`   | `b.contains(a)`  |
+| `a !in b`  | `!b.contains(a)` |
 
 `in`と`!in`の手順は同じですが、引数の順序が逆になります。
 
 ### インデックスアクセス演算子
 
 | 式 | 変換先 |
-| -------|-------------- |
-| `a[i]`  | `a.get(i)` |
-| `a[i, j]`  | `a.get(i, j)` |
-| `a[i_1, ...,  i_n]`  | `a.get(i_1, ...,  i_n)` |
-| `a[i] = b` | `a.set(i, b)` |
-| `a[i, j] = b` | `a.set(i, j, b)` |
+|-------------------------|---------------------------|
+| `a[i]`                  | `a.get(i)`                |
+| `a[i, j]`               | `a.get(i, j)`             |
+| `a[i_1, ...,  i_n]`     | `a.get(i_1, ...,  i_n)`   |
+| `a[i] = b`              | `a.set(i, b)`             |
+| `a[i, j] = b`           | `a.set(i, j, b)`          |
 | `a[i_1, ...,  i_n] = b` | `a.set(i_1, ..., i_n, b)` |
 
 角括弧（Square brackets）は、適切な数の引数を持つ`get`および`set`の呼び出しに変換されます。
@@ -132,23 +132,23 @@ data class Counter(val dayIndex: Int) {
 ### invoke 演算子
 
 | 式 | 変換先 |
-|--------|---------------|
-| `a()`  | `a.invoke()` |
-| `a(i)`  | `a.invoke(i)` |
-| `a(i, j)`  | `a.invoke(i, j)` |
-| `a(i_1, ...,  i_n)`  | `a.invoke(i_1, ...,  i_n)` |
+|---------------------|----------------------------|
+| `a()`               | `a.invoke()`               |
+| `a(i)`              | `a.invoke(i)`              |
+| `a(i, j)`           | `a.invoke(i, j)`           |
+| `a(i_1, ...,  i_n)` | `a.invoke(i_1, ...,  i_n)` |
 
 丸括弧（Parentheses）は、適切な数の引数を持つ`invoke`の呼び出しに変換されます。
 
 ### 複合代入
 
 | 式 | 変換先 |
-|------------|---------------|
-| `a += b` | `a.plusAssign(b)` |
-| `a -= b` | `a.minusAssign(b)` |
-| `a *= b` | `a.timesAssign(b)` |
-| `a /= b` | `a.divAssign(b)` |
-| `a %= b` | `a.remAssign(b)` |
+|------------|--------------------|
+| `a += b`   | `a.plusAssign(b)`  |
+| `a -= b`   | `a.minusAssign(b)` |
+| `a *= b`   | `a.timesAssign(b)` |
+| `a /= b`   | `a.divAssign(b)`   |
+| `a %= b`   | `a.remAssign(b)`   |
 
 代入操作（例：`a += b`）について、コンパイラは以下の手順を実行します：
 
@@ -165,9 +165,9 @@ data class Counter(val dayIndex: Int) {
 ### 等価および不等価演算子
 
 | 式 | 変換先 |
-|------------|---------------|
-| `a == b` | `a?.equals(b) ?: (b === null)` |
-| `a != b` | `!(a?.equals(b) ?: (b === null))` |
+|------------|-----------------------------------|
+| `a == b`   | `a?.equals(b) ?: (b === null)`    |
+| `a != b`   | `!(a?.equals(b) ?: (b === null))` |
 
 これらの演算子は、[`equals(other: Any?): Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/equals.html) 関数でのみ機能します。この関数をオーバーライドすることで、カスタムの等価性チェックの実装を提供できます。
 同じ名前を持つ他の関数（例：`equals(other: Foo)`）は無視されます。
@@ -182,11 +182,11 @@ Kotlinは、`==`式において両方のオペランドが直接`null`と比較�
 ### 比較演算子
 
 | 式 | 変換先 |
-|--------|---------------|
-| `a > b`  | `a.compareTo(b) > 0` |
-| `a < b`  | `a.compareTo(b) < 0` |
-| `a >= b` | `a.compareTo(b) >= 0` |
-| `a <= b` | `a.compareTo(b) <= 0` |
+|------------|-----------------------|
+| `a > b`    | `a.compareTo(b) > 0`  |
+| `a < b`    | `a.compareTo(b) < 0`  |
+| `a >= b`   | `a.compareTo(b) >= 0` |
+| `a <= b`   | `a.compareTo(b) <= 0` |
 
 すべての比較は`compareTo`の呼び出しに変換され、この関数は`Int`を返す必要があります。
 

@@ -328,7 +328,7 @@ React 中的基本構建塊稱為 _[組件](https://reactjs.org/docs/components-
 
 ![具有組件的結構化配置](structured-layout.png){width=700}
 
-組件封裝了特定的功能。使用組件可以縮短原始碼，並使其更易於閱讀和理解。
+組件封裝了特定的功能。使用組件可以縮短原始碼，並使其更易於閱讀 and 理解。
 
 ### 加入主組件
 

@@ -1,6 +1,6 @@
 [//]: # (title: 设置 Kotlin/JS 项目)
 
-Kotlin/JS 项目使用 Gradle 作为构建系统。为了让开发者能够轻松管理其 Kotlin/JS 项目，我们提供了 `kotlin.multiplatform` Gradle 插件，它提供了项目配置工具以及用于自动执行 JavaScript 开发中常见例程的辅助任务。
+Kotlin/JS 项目使用 Gradle 作为构建系统。为了让开发者能够轻松管理其 Kotlin/JS 项目，我们提供了 `kotlin.multiplatform` Gradle 插件，该插件提供了项目配置工具以及用于自动执行 JavaScript 开发中常见例程的辅助任务。
 
 该插件在后台使用 [npm](https://www.npmjs.com/) 或 [Yarn](https://yarnpkg.com/) 软件包管理器下载 npm 依赖项，并使用 [webpack](https://webpack.js.org/) 从 Kotlin 项目构建 JavaScript bundle。依赖项管理和配置调整在很大程度上可以直接从 Gradle 构建文件中完成，并可以选择重写自动生成的配置以实现完全控制。
 
@@ -73,7 +73,7 @@ kotlin {
 >
 {style="tip"}
 
-Kotlin 多平台插件会自动配置其任务以使用所选环境。这包括下载并安装运行和测试应用程序所需的环境和依赖项。这使得开发者无需额外配置即可构建、运行和测试简单的项目。对于针对 Node.js 的项目，还可以选择使用现有的 Node.js 安装。了解如何[使用预安装的 Node.js](#use-pre-installed-node-js)。
+Kotlin 多平台插件会自动配置其任务以使用所选环境。这包括下载并安装运行和测试应用程序所需的环境和依赖项。这使得开发者无需额外配置即可构建、运行和测试简单的项目。此外，还可以选择使用现有的安装。了解如何[使用预安装的 Node.js](#use-pre-installed-node-js)。
 
 ## 对 ES2015 功能的支持
 
@@ -84,7 +84,7 @@ Kotlin 对 ES2015 功能提供支持，包括：
 * 生成器：用于编译 [suspend 函数](https://kotlinlang.org/docs/composing-suspending-functions.html)，从而优化最终的 bundle 大小并有助于调试。
 * [JavaScript 代码内联](js-interop.md#inline-javascript)。
 
-你可以通过在 `build.gradle(.kts)` 文件中添加 `es2015` 编译目标来一次性启用所有受支持性 ES2015 功能：
+你可以通过在 `build.gradle(.kts)` 文件中添加 `es2015` 编译目标来一次性启用所有受支持的 ES2015 功能：
 
 ```kotlin
 tasks.withType<KotlinJsCompile>().configureEach {
@@ -670,7 +670,7 @@ registry "http://my.registry/api/npm/"
 
 如果构建 Kotlin/JS 项目的主机上已经安装了 Yarn，你可以配置 Kotlin 多平台 Gradle 插件来使用它，而不是安装自己的 Yarn 实例。
 
-要使用预安装的 Yarn 实例，请在 `build.gradle(.kts)` 中添加以下行：
+To use the pre-installed Yarn instance, add the following lines to `build.gradle(.kts)`:
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -745,7 +745,7 @@ Kotlin/JS 提供了 Gradle 设置，可以在 `yarn.lock` 文件更新时通知�
 * `reportNewYarnLock`：显式报告最近创建的 `yarn.lock` 文件。默认情况下，此选项是禁用的：在第一次启动时生成一个新的 `yarn.lock` 文件是常见做法。你可以使用此选项来确保文件已被提交到你的仓库。
 * `yarnLockAutoReplace`：每次运行 Gradle 任务时自动替换 `yarn.lock`。
 
-To use these options, update `build.gradle(.kts)` as follows:
+要使用这些选项，请按如下方式更新 `build.gradle(.kts)`：
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -872,15 +872,13 @@ Kotlin 多平台 Gradle 插件在构建期间会自动为 Kotlin/JS 项目生成
 
 除了基本的软件包属性外，`package.json` 还可以定义 JavaScript 项目的行为方式，例如，标识可运行的脚本。
 
-你可以通过 Gradle DSL 向项目的 `package.json` 添加自定义条目。要向你的 `package.json` 添加自定义字段，请在 `jsMain` 源集的 `packageJson` 代码块中使用 `customField()` 函数：
+你可以通过 Gradle DSL 向项目的 `package.json` 添加自定义条目。要向你的 `package.json` 添加自定义字段，请在编译配置的 `packageJson` 代码块中使用 `customField()` 函数：
 
 ```kotlin
 kotlin {
-    sourceSets {
-        jsMain {
-            packageJson {
-                customField("hello", mapOf("one" to 1, "two" to 2))
-            }
+    js {
+        compilations["main"].packageJson {
+            customField("hello", mapOf("one" to 1, "two" to 2))
         }
     }
 }

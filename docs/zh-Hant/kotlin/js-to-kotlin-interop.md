@@ -1,3 +1,91 @@
+[//]: # (title: 在 JavaScript 中使用 Kotlin 程式碼)
+
+根據所選的 [JavaScript 模組](js-modules.md) 系統，Kotlin/JS 編譯器會產生不同的輸出。
+但總體而言，Kotlin 編譯器會產生一般的 JavaScript 類別、函式和屬性，您可以從 JavaScript 程式碼中自由使用它們。
+不過，您應該記住一些細微之處。
+
+## 在 plain 模式下將宣告隔離在單獨的 JavaScript 物件中
+
+如果您已明確將模組種類設定為 `plain`，Kotlin 會建立一個物件，其中包含來自當前模組的所有 Kotlin 宣告。這樣做是為了防止破壞全域物件。這意味著對於一個名為 `myModule` 的模組，所有宣告都可以透過 JavaScript 的 `myModule` 物件來存取。例如：
+
+```kotlin
+fun foo() = "Hello"
+```
+
+此函式可以像這樣從 JavaScript 中呼叫：
+
+```javascript
+alert(myModule.foo());
+```
+
+當您將 Kotlin 模組編譯為 JavaScript 模組（例如 [UMD](https://github.com/umdjs/umd)（`browser` 和 `nodejs` 目標的預設設定）、[ESM](https://tc39.es/ecma262/#sec-modules)、[CommonJS](https://nodejs.org/api/modules.html#modules-commonjs-modules) 或 [AMD](https://github.com/amdjs/amdjs-api/wiki/AMD)）時，直接呼叫此函式的方式並不適用。在這些情況下，您的宣告會根據所選的 JavaScript 模組系統進行暴露。例如，使用 UMD、ESM 或 CommonJS 時，您的呼叫點會如下所示：
+
+```javascript
+alert(require('myModule').foo());
+```
+
+有關 JavaScript 模組系統的更多資訊，請參閱 [JavaScript 模組](js-modules.md)。
+
+## 套件結構
+
+對於大多數模組系統（CommonJS、Plain 和 UMD），Kotlin 會將其套件結構暴露給 JavaScript。
+除非您在根套件中定義宣告，否則您必須在 JavaScript 中使用完全限定名稱。例如：
+
+```kotlin
+package my.qualified.packagename
+
+fun foo() = "Hello"
+```
+
+例如，使用 UMD 或 CommonJS 時，您的呼叫點可能如下所示：
+
+```javascript
+alert(require('myModule').my.qualified.packagename.foo())
+```
+
+當使用 `plain` 作為模組系統設定時，呼叫點將為：
+
+```javascript
+alert(myModule.my.qualified.packagename.foo());
+```
+
+當目標為 ECMAScript 模組 (ESM) 時，套件資訊不會被保留，以縮減應用程式的套件大小並符合 ESM 套件的典型佈局。在這種情況下，在 ES 模組中使用 Kotlin 宣告如下所示：
+
+```javascript
+import { foo } from 'myModule';
+
+alert(foo());
+```
+
+### `@JsName` 註解
+
+在某些情況下（例如為了支援多載），Kotlin 編譯器會重整 JavaScript 程式碼中產生的函式和屬性的名稱。要控制產生的名稱，您可以使用 `@JsName` 註解：
+
+```kotlin
+// 模組 'kjs'
+class Person(val name: String) {
+    fun hello() {
+        println("Hello $name!")
+    }
+
+    @JsName("helloWithGreeting")
+    fun hello(greeting: String) {
+        println("$greeting $name!")
+    }
+}
+```
+
+現在您可以按照以下方式在 JavaScript 中使用此類別：
+
+```javascript
+// 如有必要，根據所選的模組系統匯入 'kjs'
+var person = new kjs.Person("Dmitry");   // 參照模組 'kjs'
+person.hello();                          // 列印 "Hello Dmitry!"
+person.helloWithGreeting("Servus");      // 列印 "Servus Dmitry!"
+```
+
+如果我們沒有指定 `@JsName` 註解，相應函式的名稱將包含一個根據函式簽章計算出的後綴，例如 `hello_61zpoe`。
+
 請注意，在某些情況下 Kotlin 編譯器不會套用名稱重整 (mangling)：
 - `external` 宣告不會被重整。
 - 繼承自 `external` 類別的非 `external` 類別中的任何覆寫函式都不會被重整。
@@ -182,17 +270,17 @@ kotlin {
 
 1. 允許在 Kotlin/JS 中匯出 `Long`。將以下編譯器選項新增到 `build.gradle(.kts)` 檔案中的 `freeCompilerArgs` 屬性：
 
- ```kotlin
-// build.gradle.kts
-kotlin {
-    js {
-        ...
-        compilerOptions { 
-            freeCompilerArgs.add("-XXLanguage:+JsAllowLongInExportedDeclarations")
+     ```kotlin
+    // build.gradle.kts
+    kotlin {
+        js {
+            ...
+            compilerOptions { 
+                freeCompilerArgs.add("-XXLanguage:+JsAllowLongInExportedDeclarations")
+            }
         }
     }
-}
-```
+    ```
 
 2. 啟用 `BigInt` 型別。請參閱[使用 `BigInt` 型別來表示 Kotlin 的 `Long` 型別](#use-bigint-type-to-represent-kotlin-s-long-type)以了解如何啟用它。
 

@@ -168,7 +168,7 @@ public void main() {
 ```
 {id="covariance-java"}
 
-在 Kotlin 中，只读集合类型是[协变的](generics.md#variance)。这意味着如果 `Rectangle` 类继承自 `Shape` 类，您可以在任何需要 `List<Shape>` 类型的地方使用 `List<Rectangle>` 类型。换句话说，集合类型具有与元素类型相同的子类型关系。Map 在值类型上是协变的，但在键类型上不是。可变集合不是协变的——这会导致运行时失败。
+在 Kotlin 中，只读集合类型是[协变的](generics.md#variance)。这意味着如果 `Rectangle` 类继承自 `Shape` 类，您可以在任何需要 `List<Shape>` 类型的地方使用 `List<Rectangle>` 类型。换言之，集合类型具有与元素类型相同的子类型关系。Map 在值类型上是协变的，但在键类型上不是。可变集合不是协变的——这会导致运行时失败。
 
 ```kotlin
 // Kotlin

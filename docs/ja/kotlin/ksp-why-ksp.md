@@ -30,7 +30,7 @@ KSP の API は `kotlin.reflect` に似ています。両者の主な違いは�
 [kapt](kapt.md) は、膨大な数の Java アノテーションプロセッサを Kotlin プログラムでそのまま動作させるための優れたソリューションです。kapt に対する KSP の主な利点は、ビルドパフォーマンスの向上、JVM に依存しないこと、より Kotlin らしい（idiomatic な）API、そして Kotlin 固有のシンボルを理解できる能力です。
 
 Java アノテーションプロセッサを修正せずに実行するために、kapt は Kotlin コードを Java スタブ（stub）にコンパイルします。このスタブには、Java アノテーションプロセッサが必要とする情報が保持されます。これらのスタブを作成するために、kapt は Kotlin プログラム内のすべてのシンボルを解決する必要があります。スタブの生成には、フル `kotlinc` 解析の約 3 分の 1、および `kotlinc` のコード生成と同程度のコストがかかります。多くのアノテーションプロセッサにとって、これはプロセッサ自体で費やされる時間よりもはるかに長くなります。
-たとえば、Glide は事前定義されたアノテーションを持つ非常に限られた数のクラスのみを調べ、そのコード生成はかなり高速です。ビルドオーバーヘッドのほぼすべてがスタブ生成フェーズにあります。KSP に切り替えることで、コンパイラで費やされる時間は即座に 25% 短縮されます。
+たとえば、Glide は事前定義されたアノテーションを持つ非常に限られた数のクラスのみを調べ、そのコード生成はかなり高速です。ビルドオーバーヘッドのほぼすべてがスタブ生成フェーズにあります。Switching to KSP would immediately reduce the time spent in the compiler by 25%.
 
 パフォーマンス評価のために、私たちは KSP で [Glide](https://github.com/bumptech/glide) の[簡易バージョン](https://github.com/google/ksp/releases/download/1.4.10-dev-experimental-20200924/miniGlide.zip)を実装し、[Tachiyomi](https://github.com/tachiyomiorg) プロジェクト用のコードを生成させました。私たちのテストデバイスでは、プロジェクトの総 Kotlin コンパイル時間は 21.55 秒でしたが、kapt がコードを生成するのに 8.67 秒かかったのに対し、KSP 実装では 1.15 秒で済みました。
 

@@ -22,6 +22,7 @@
 - [Gradleプラグイン] より厳格な MigrationFile のバージョニングを実装 (#5730 by @madisp)
 - [Gradleプラグイン] サポートする Gradle の最小バージョンを 8.2.1 に引き上げ (#6217 by @maxsav)
 - [Gradleプラグイン] Gradle の隔離されたプロジェクト (Isolated Projects) をサポート (#6217 by @maxsav)
+- [IntelliJプラグイン] 最小バージョンを 2023.3 / Android Studio Jellyfish に変更
 
 ### Fixed
 - [コンパイラ] 生成されたコードにおける Kotlin の追加の警告を抑制 (#6208 by @eyupcanakman)
@@ -43,6 +44,7 @@
 - [PostgreSQLダイアレクト] 関数呼び出しをネストして使用する際の JSON 集計関数を修正 (#6281 by @griffio)
 - [Paging3拡張] データベースが空の場合の `KeyedQueryPagingSource` のクラッシュを修正 (#6284 by @woods-marshes)
 - [コンパイラ] `COALESCE` のようなカプセル化関数でミューテータ文が使用される際の Java 型アダプタの問題を修正 (#6292 by @griffio)
+- [コンパイラ] モジュール名が大文字の場合に、生成されたコードのパッケージ名も大文字になってしまう問題を修正 (#6316 by @griffio)
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -103,7 +105,7 @@
 - [PostgreSQLダイアレクト] SQL 式が JSON としてパース可能かどうかをチェックする述語を追加 (#5843 by @griffio)
 - [PostgreSQLダイアレクト] PostgreSql `COMMENT ON` 文の限定的なサポートを追加 (#5808 by @griffio)
 - [MySQLダイアレクト] インデックス可視性オプションのサポートを追加 (#5785 by @orenkislev-faire)
-- [PostgreSQLダイアレクト] `TSQUERY` データ型のサポートを追加 (#5779 by @griffio)
+- [PostgreSqlダイアレクト] `TSQUERY` データ型のサポートを追加 (#5779 by @griffio)
 - [Gradleプラグイン] モジュール追加時のバージョンカタログのサポートを追加 (#5755 by @DRSchlaubi)
 
 ### Changed
@@ -234,7 +236,7 @@
 - [PostgreSQLダイアレクト] PostgreSQL `CREATE INDEX CONCURRENTLY` のサポートを追加 (#4531 by @griffio)
 - [PostgreSQLダイアレクト] PostgreSQL CTE の補助ステートメントが相互に参照可能になるようサポート (#4493 by @griffio)
 - [PostgreSQLダイアレクト] バイナリ式 (binary expr) および `sum` における PostgreSQL 型のサポートを追加 (#4539 by @Adriel-M)
-- [PostgreSQLダイアレクト] PostgreSQL `SELECT DISTINCT ON` 構文のサポートを追加 (#4584 by @griffio)
+- [PostgreSQLダイアレクト] PostgreSQL `SELECT DISTINCT ON` 構文의 サポートを追加 (#4584 by @griffio)
 - [PostgreSQLダイアレクト] `SELECT` 文における PostgreSQL JSON 関数のサポートを追加 (#4590 by @MariusVolkhart)
 - [PostgreSQLダイアレクト] `generate_series` PostgreSQL 関数を追加 (#4717 by @griffio)
 - [PostgreSQLダイアレクト] 追加の Postgres 文字列関数の定義を追加 (#4752 by @MariusVolkhart)
@@ -516,7 +518,7 @@ sqldelight {
 - [IDEプラグイン] `ALTER TABLE` 文における新しいテーブル名の使用箇所を検索する際のクラッシュを修正 (#3106)
 - [IDEプラグイン] インスペクタを最適化し、期待される例外タイプについては警告なしで失敗できるように変更 (#3121)
 - [IDEプラグイン] 生成ディレクトリであるべきファイルを削除 (#3198)
-- [IDEプラグイン] 安全でない演算子呼び出しを修正
+- [IDEプラグイン] 非安全な演算子呼び出しを修正
 - [コンパイラ] `RETURNING` 文を伴う更新および削除でクエリが確実に実行されるように修正 (#3084)
 - [コンパイラ] 複合セレクトにおける引数型を正しく推論するように修正 (#3096)
 - [コンパイラ] 共通テーブルはデータクラスを生成しないため、それらを返さないように修正 (#3097)
@@ -740,7 +742,7 @@ sqldelight {
 - [IDEプラグイン] テーブルが見つからない場合の `CreateTriggerMixin` における例外を修正 (by @aperfilyev)
 - [コンパイラ] テーブル作成文をトポロジカルソート
 - [コンパイラ] ディレクトリに対して `forDatabaseFiles` コールバックを呼び出すのを停止 (#2532)
-- [Gradleプラグイン] `generateDatabaseInterface` タスク of 依存関係を潜在的な消費者に伝搬 (#2518 by @martinbonnin)
+- [Gradleプラグイン] `generateDatabaseInterface` タスクの依存関係を潜在的な消費者に伝搬 (#2518 by @martinbonnin)
 
 ## [1.5.1] - 2021-07-16
 [1.5.1]: https://github.com/sqldelight/sqldelight/releases/tag/1.5.1
@@ -1227,7 +1229,7 @@ SQLDelight のインフラ改善に多大な貢献をした @3flex に感謝し�
  * 新機能: Kotlin 1.0 final にアップデート。
  * 修正: 'sqldelight' フォルダ構造の問題を、ビルドを失敗させない方法で報告するように修正。
  * 修正: `table_name` という名前のカラムを禁止。それらから生成された定数がテーブル名定数と衝突するためです。
- * 修正: `.sq` ファイルが開かれているかどうかにかかわらず、IDE プラグインがモデルクラスを即座に生成することを保証するように修正。
+ * 修正: `.sq` ファイルが開かれているかどうかにかかわらず、IDE プラグインがモデルクラスを即座に生成することを保証するように修正.
  * 修正: IDE と Gradle プラグインの両方で Windows パスをサポート。
 
 ## [0.1.2] - 2016-02-13

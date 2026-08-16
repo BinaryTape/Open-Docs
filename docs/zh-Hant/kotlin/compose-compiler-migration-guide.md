@@ -16,38 +16,38 @@ Compose 編譯器由 Gradle 外掛程式提供補充，該外掛程式簡化了�
 
 1. 將 Compose 編譯器 Gradle 外掛程式新增至 [Gradle 版本目錄 (version catalog)](https://docs.gradle.org/current/userguide/platforms.html#sub:conventional-dependencies-toml)：
 
- ```toml
- [versions]
- # ...
- kotlin = "%kotlinVersion%"
- 
- [plugins]
- # ...
- org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
- compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
- ```
-
-> 如果您使用的是 AGP 9.0.0 或更新版本，則不再需要 `org-jetbrains-kotlin-android` 外掛程式，因為 AGP 已內建 Kotlin 支援。
-> 
-{style ="note"}
+     ```toml
+     [versions]
+     # ...
+     kotlin = "%kotlinVersion%"
+     
+     [plugins]
+     # ...
+     org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+     compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+     ```
+    
+    > 如果您使用的是 AGP 9.0.0 或更新版本，則不再需要 `org-jetbrains-kotlin-android` 外掛程式，因為 AGP 已內建 Kotlin 支援。
+    > 
+    {style ="note"}
 
 2. 將 Gradle 外掛程式新增至根目錄的 `build.gradle.kts` 檔案：
 
- ```kotlin
- plugins {
-     // ...
-     alias(libs.plugins.compose.compiler) apply false
- }
- ```
+     ```kotlin
+     plugins {
+         // ...
+         alias(libs.plugins.compose.compiler) apply false
+     }
+     ```
 
 3. 將外掛程式套用於每個使用 Jetpack Compose 的模組：
 
- ```kotlin
- plugins {
-     // ...
-     alias(libs.plugins.compose.compiler)
- }
- ```
+     ```kotlin
+     plugins {
+         // ...
+         alias(libs.plugins.compose.compiler)
+     }
+     ```
 
 4. 如果您正在為 Jetpack Compose 編譯器使用編譯器選項，請在 `composeCompiler {}` 區塊中進行設定。請參閱[編譯器選項清單](compose-compiler-options.md)以供參考。
 

@@ -43,7 +43,7 @@ fun main() {
     val oddNumbers = generateSequence(1) { it + 2 } // `it` 是上一个元素
     println(oddNumbers.take(5).toList())
     //println(oddNumbers.count())     // 错误：序列是无限的
-//End
+//sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
@@ -56,7 +56,7 @@ fun main() {
 //sampleStart
     val oddNumbersLessThan10 = generateSequence(1) { if (it < 8) it + 2 else null }
     println(oddNumbersLessThan10.count())
-//End
+//sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
@@ -77,7 +77,7 @@ fun main() {
         yieldAll(generateSequence(7) { it + 2 })
     }
     println(oddNumbers.take(5).toList())
-//End
+//sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
@@ -113,7 +113,7 @@ fun main() {
 
     println("Lengths of first 4 words longer than 3 chars:")
     println(lengthsList)
-//End
+//sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
@@ -143,7 +143,7 @@ fun main() {
     println("Lengths of first 4 words longer than 3 chars")
     // 终端操作：将结果获取为列表
     println(lengthsSequence.toList())
-//End
+//sampleEnd
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}

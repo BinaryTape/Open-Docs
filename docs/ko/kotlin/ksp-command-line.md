@@ -77,19 +77,19 @@ path/to/processor.jar
 
 | 옵션                          | 설명                                                                                                                              |
 |-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
-| `-language-version=<version>` | 프로젝트에서 사용되는 [Kotlin 언어 버전](https://kotlinlang.org/docs/compiler-reference.html#language-version-version).           |
-| `-api-version=<version>`      | [Kotlin API 버전](https://kotlinlang.org/docs/compiler-reference.html#api-version-version).                                       |
-| `-jvm-target=<version>`       | 타겟 JVM 버전.                                                                                                                    |
-| `-module-name=<name>`         | 모듈 이름.                                                                                                                        |
-| `-source-roots=<paths>`       | 소스 루트 디렉터리. 여러 디렉터리를 지정하려면 콜론(colon)으로 구분된 목록을 사용하세요.                                          |
-| `-project-base-dir=<path>`    | 프로젝트 루트 디렉터리.                                                                                                           |
-| `-output-base-dir=<path>`     | KSP 출력의 기본 디렉터리.                                                                                                         |
-| `-caches-dir=<path>`          | KSP 캐시 디렉터리.                                                                                                                |
-| `-java-output-dir=<path>`     | 생성된 Java 파일용 디렉터리.                                                                                                      |
-| `-class-output-dir=<path>`    | 생성된 클래스 파일용 디렉터리.                                                                                                    |
-| `-kotlin-output-dir=<path>`   | 생성된 Kotlin 파일용 디렉터리.                                                                                                    |
-| `-resource-output-dir=<path>` | 생성된 리소스용 디렉터리.                                                                                                         |
-| `<processor>`                 | 프로세서 클래스패스.                                                                                                              |
+| `-language-version=<version>` | 프로젝트에서 사용되는 [Kotlin 언어 버전](https://kotlinlang.org/docs/compiler-reference.html#language-version-version)입니다.      |
+| `-api-version=<version>`      | [Kotlin API 버전](https://kotlinlang.org/docs/compiler-reference.html#api-version-version)입니다.                                 |
+| `-jvm-target=<version>`       | 타겟 JVM 버전입니다.                                                                                                              |
+| `-module-name=<name>`         | 모듈 이름입니다.                                                                                                                  |
+| `-source-roots=<paths>`       | 소스 루트 디렉터리입니다. 여러 디렉터리를 지정하려면 콜론(colon)으로 구분된 목록을 사용하세요.                                    |
+| `-project-base-dir=<path>`    | 프로젝트 루트 디렉터리입니다.                                                                                                     |
+| `-output-base-dir=<path>`     | KSP 출력의 기본 디렉터리입니다.                                                                                                   |
+| `-caches-dir=<path>`          | KSP 캐시 디렉터리입니다.                                                                                                          |
+| `-java-output-dir=<path>`     | 생성된 Java 파일용 디렉터리입니다.                                                                                                |
+| `-class-output-dir=<path>`    | 생성된 클래스 파일용 디렉터리입니다.                                                                                              |
+| `-kotlin-output-dir=<path>`   | 생성된 Kotlin 파일용 디렉터리입니다.                                                                                              |
+| `-resource-output-dir=<path>` | 생성된 리소스용 디렉터리입니다.                                                                                                   |
+| `<processor>`                 | 프로세서 클래스패스입니다.                                                                                                        |
 
 ### 기타 유용한 옵션들
 

@@ -279,7 +279,7 @@ kotlinc -Xwarning-level=DIAGNOSTIC_NAME:(error|warning|disabled)
 ### @argfile
 
 從指定檔案讀取編譯器選項。此類檔案可以包含編譯器選項及其值，
-以及原始碼檔案的路徑。選項 and 路徑應以空白字元分隔。例如：
+以及原始碼檔案的路徑。選項和路徑應以空白字元分隔。例如：
 
 ```
 -include-runtime -d hello.jar hello.kt
@@ -348,7 +348,7 @@ Kotlin 到 JVM 編譯的命令列工具是 `kotlinc` 和 `kotlinc-jvm`。
 |--------------------|-----------------------------------------------------------------------------------------------------------------------------------|
 | `enable` | 在介面中產生預設實作，並在子類別和 `DefaultImpls` 類別中包含橋接函式。（預設） |
 | `no-compatibility` | 僅在介面中產生預設實作，跳過相容性橋接器和 `DefaultImpls` 類別。 |
-| `disable` | 僅產生相容性橋接器 and `DefaultImpls` 類別，跳過預設方法。 |
+| `disable` | 僅產生相容性橋接器和 `DefaultImpls` 類別，跳過預設方法。 |
 
 ### -jvm-target _版本_
 

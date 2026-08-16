@@ -354,7 +354,7 @@ fun <T> copyWhenGreater(list: List<T>, threshold: T): List<String>
 ## 絕對不可為 null 型別 (Definitely non-nullable types)
 
 為了讓與泛型 Java 類別和介面的互通更加容易，Kotlin 支援將泛型型別參數宣告為
-**絕對不可為 null**。
+**絕對不可為 null**。 
 
 要將泛型型別 `T` 宣告為絕對不可為 null，請使用 `& Any` 宣告該型別。例如：`T & Any`。
 
@@ -382,7 +382,7 @@ interface ArcadeGame<T1> : Game<T1> {
 }
 ```
 
-當僅使用 Kotlin 開發時，你不太需要顯式宣告絕對不可為 null 型別，因為
+當僅使用 Kotlin 開發時，你不太需要顯式宣告絕對不可為 null 型別，因為 
 Kotlin 的型別推論會為你處理好這一切。
 
 ## 型別擦除 (Type erasure)
@@ -418,7 +418,7 @@ fun handleStrings(list: MutableList<String>) {
 
 省略型別引數的相同語法也可用於不考慮型別引數的轉換：`list as ArrayList`。
 
-泛型函式呼叫的型別引數也僅在編譯期檢查。在函式體內部，
+泛型函式呼稱的型別引數也僅在編譯期檢查。在函式體內部，
 型別參數不能用於型別檢查，且轉換為型別參數的型別轉換 (`foo as T`) 是未經檢查的。
 唯一的例外是帶有[具現化型別參數](inline-functions.md#reified-type-parameters)的內嵌函式，
 它們的實際型別引數會在每個呼叫處被內嵌。這使得針對型別參數的型別檢查與轉換成為可能。

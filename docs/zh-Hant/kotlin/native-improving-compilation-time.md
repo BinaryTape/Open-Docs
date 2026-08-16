@@ -99,7 +99,7 @@ Gradle [設定快取](https://docs.gradle.org/current/userguide/configuration_ca
 
 要使用 Gradle 設定快取，請將 `org.gradle.configuration-cache=true` 屬性新增到您的 `gradle.properties` 檔案中。
 
-> 設定快取還允許並行執行 `link*` 任務，這可能會使機器負擔沉重，特別是在具有大量 CPU 核心的情況下。此問題將在 [KT-70915](https://youtrack.jetbrains.com/issue/KT-70915) 中修復。
+> 設定快取還允許並行執行 `link*` 任務，這可能會使機器負擔沈重，特別是在具有大量 CPU 核心的情況下。此問題將在 [KT-70915](https://youtrack.jetbrains.com/issue/KT-70915) 中修復。
 >
 {style="note"}
 
@@ -113,10 +113,17 @@ Gradle [設定快取](https://docs.gradle.org/current/userguide/configuration_ca
 如果您以前在使用這些功能時遇到問題並將這些行新增到 `gradle.properties` 檔案或 Gradle 建置檔案中，請將其移除並檢查建置是否成功完成。這些屬性可能是以前為了避開已修復的問題而新增的。
 
 ### 嘗試 klib 構件的增量編譯
+<primary-label ref="experimental-opt-in"/>
 
 使用增量編譯，如果專案模組產生的 `klib` 構件僅有一部分發生變更，則只有該 `klib` 的一部分會被進一步重新編譯為二進位檔。
 
-此功能是 [實驗功能](components-stability.md#stability-levels-explained)。要啟用它，請將 `kotlin.incremental.native=true` 選項新增到您的 `gradle.properties` 檔案中。如果您遇到任何問題，請在 [YouTrack 中建立問題](https://kotl.in/issue)。
+此功能是 [實驗功能](components-stability.md#stability-levels-explained)。要啟用它，請將以下選項新增到您的 `gradle.properties` 檔案中：
+
+```properties
+kotlin.incremental.native=true
+```
+
+如果您遇到任何問題，請在 [YouTrack 中建立問題](https://kotl.in/issue)。
 
 ## Windows 設定
 

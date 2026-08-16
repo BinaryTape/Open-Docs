@@ -13,7 +13,7 @@ Web開発を簡素化する、利用可能なKotlin/JavaScriptフレームワー
 
 Kobwebは、SEOや自動検索インデックス作成のためにページのスナップショットを生成するサイトエクスポートもサポートしています。さらに、状態の変化に応じて効率的に更新されるDOMベースのUIの作成を可能にします。
 
-ドキュメントと例については、[Kobweb의 ドキュメント](https://kobweb.varabyte.com/docs/getting-started/what-is-kobweb)サイトを参照してください。
+ドキュメントと例については、[Kobwebのドキュメント](https://kobweb.varabyte.com/docs/getting-started/what-is-kobweb)サイトを参照してください。
 
 フレームワークに関する更新や議論については、[Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)の [#kobweb](https://kotlinlang.slack.com/archives/C04RTD72RQ8) および [#compose-web](https://kotlinlang.slack.com/archives/C01F2HV7868) チャンネルに参加してください。
 
@@ -25,15 +25,31 @@ Kiluaは、宣言的なUIコンポーネントを作成し、その状態を管�
 
 Kiluaは[KVision](https://kvision.io)フレームワークの後継です。Kiluaは、Composeユーザー（`@Composable`関数、状態管理、コルーチン/flowの統合）と、KVisionユーザー（UIコンポーネントとの命令的な相互作用を可能にするコンポーネントベースのAPI）の両方にとって親しみやすいように設計されています。
 
-ドキュメントと例については、GitHubの [Kiluaリポジトリ](https://github.com/rjaros/kilua?tab=readme-ov-file#building-and-running-the-examples)を参照してください。
+ドキュメントと例については、[Kiluaのドキュメント](https://kilua.dev/introduction)を参照してください。
 
 フレームワークに関する更新や議論については、[Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)の [#kilua](https://kotlinlang.slack.com/archives/C06UAH52PA7) チャンネルに参加してください。
+
+## Summon
+
+[Summon](https://summon.yousef.codes/)は、JVM、Kotlin/JS、およびKotlin/Wasmにわたって高パフォーマンスなアプリケーションを構築するための、Kotlinマルチプラットフォームフロントエンドフレームワークです。コンポーネントベースのUI開発、HTMLストリーミングによるファーストクラスのサーバーサイドレンダリング (SSR)、およびクリーンなCSSにコンパイルされるモディファイア駆動のスタイリングをサポートしています。
+
+また、Summonは、プラットフォーム間で統一されたコードベースを維持しながら、アクセシビリティや高度な動作のためのランタイムを認識するコンポーネント (runtime-aware components) にも焦点を当てています。
+
+ドキュメントと例については、[Summonのドキュメント](https://summon.yousef.codes/docs)を参照してください。
+
+## Kinetica
+
+[Kinetica](https://kinetica.heapy.io/)は、Webアプリの実用的な成果に焦点を当てたKotlin UIフレームワークです。サーバーレンダリングによる高速な初期ページ配信、SEOフレンドリーなHTML出力、およびページ読み込み後のインタラクティブなクライアントサイドUIへのスムーズなハンドオフを実現します。また、ヘッドレス・テスト (headless testing) をサポートしており、フルブラウザ環境に依存することなく、UIの動作を迅速かつ確実にテストするのに役立ちます。
+
+標準機能として、Kineticaにはルーティング、フォーム、永続化モジュールが含まれているため、一般的なアプリ機能をより迅速にリリースできます。その更新モデルは最小限のDOMパッチを適用するため、状態の変化に応じてレスポンシブなインタラクションを維持でき、その一貫したリアクティブモデルは大規模なアプリでの予期しない動作を減らすように設計されています。
+
+ドキュメントと例については、[Kineticaのドキュメント](https://kinetica.heapy.io/docs/getting-started)を参照してください。
 
 ## Kotlin React
 
 [React](https://react.dev/)は、Webやネイティブのユーザーインターフェースで広く使用されているコンポーネントベースのライブラリです。豊富なコンポーネントのエコシステム、学習資料、そして活発なコミュニティを提供しています。
 
-[Kotlin React](https://github.com/JetBrains/kotlin-wrappers/blob/master/docs/guide/react.md)は、ReactのエコシステムとKotlin의 型安全性および表現力を組み合わせた、React用のKotlinラッパーです。
+[Kotlin React](https://github.com/JetBrains/kotlin-wrappers/blob/e874e48396217cbe4d4f3b706ee4e4441724a6ba/docs/guide/react.md)は、ReactのエコシステムとKotlinの型安全性および表現力を組み合わせた、React用のKotlinラッパーです。
 
 ライブラリに関する更新や議論については、[Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)の [#react](https://kotlinlang.slack.com/messages/react) および [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) チャンネルに参加してください。
 
@@ -43,7 +59,7 @@ Kiluaは[KVision](https://kvision.io)フレームワークの後継です。Kilu
 
 このフレームワークを使用すると、リアクティブ（reactive）と命令的（imperative）の両方のプログラミングモデルを使用してフロントエンドを構築できます。また、KtorやSpring Boot、その他のフレームワーク用のコネクタを使用して、サーバーサイドアプリケーションと統合することもできます。さらに、[Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html)を使用してコードを共有することも可能です。
 
-ドキュメント、チュートリアル、例については、[KVisionのドキュメント](https://kvision.io/#docs)サイトを参照してください。
+詳細な情報、チュートリアル、例については、[KVisionのドキュメント](https://kvision.gitbook.io/kvision-guide)サイトを参照してください。
 
 フレームワークに関する更新や議論については、[Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)の [#kvision](https://kotlinlang.slack.com/messages/kvision) および [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) チャンネルに参加してください。
 
@@ -53,7 +69,7 @@ Kiluaは[KVision](https://kvision.io)フレームワークの後継です。Kilu
 
 標準機能として、fritz2は状態管理、バリデーション、ルーティングなどを提供します。また、Kotlin Multiplatformプロジェクトとも統合できます。
 
-ドキュメント、チュートリアル、例については、[fritz2のドキュメント](https://www.fritz2.dev/docs/)サイトを参照してください。
+詳細な情報、チュートリアル、例については、[fritz2のドキュメント](https://www.fritz2.dev/docs/)サイトを参照してください。
 
 フレームワークに関する更新や議論については、[Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)の [#fritz2](https://kotlinlang.slack.com/messages/fritz2) および [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) チャンネルに参加してください。
 
@@ -61,6 +77,6 @@ Kiluaは[KVision](https://kvision.io)フレームワークの後継です。Kilu
 
 [Doodle](https://nacular.github.io/doodle/)は、Kotlin/JS用のベクトルベースのUIフレームワークです。Doodleアプリケーションは、DOM、CSS、またはJavaScriptに依存するのではなく、ブラウザのグラフィック機能を使用してユーザーインターフェースを描画します。このアプローチにより、任意のUI要素、ベクターシェイプ、グラデーション、カスタムビジュアライゼーションのレンダリングを制御できるようになります。
 
-ドキュメント、チュートリアル、例については、[Doodleのドキュメント](https://nacular.github.io/doodle/docs/introduction/)サイトを参照してください。
+詳細な情報、チュートリアル、例については、[Doodleのドキュメント](https://nacular.github.io/doodle/docs/introduction/)サイトを参照してください。
 
 フレームワークに関する更新や議論については、[Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)の [#doodle](https://kotlinlang.slack.com/messages/doodle) および [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) チャンネルに参加してください。

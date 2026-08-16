@@ -1,6 +1,6 @@
 [//]: # (title: 编写 Kotlin 代码文档：KDoc)
 
-用于为 Kotlin 代码编写文档的语言（相当于 Java 的 Javadoc）被称为 **KDoc**。从本质上讲，KDoc 结合了 Javadoc 的块标记语法（经过扩展以支持 Kotlin 的特定结构）和 Markdown 的内联标记。
+用于为 Kotlin 代码编写文档的语言（相当于 Java 的 Javadoc）被称为 **KDoc**。从本质上讲，KDoc 结合了 Javadoc 的块标记语法（经过扩展以支持 Kotlin 的特定构造）和 Markdown 的内联标记。
 
 > Kotlin 的文档引擎：Dokka，能够识别 KDoc，并可用于生成各种格式的文档。
 > 欲了解更多信息，请阅读我们的 [Dokka 文档](dokka-introduction.md)。

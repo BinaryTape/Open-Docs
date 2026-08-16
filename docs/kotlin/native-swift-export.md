@@ -89,7 +89,7 @@ Swift 导出目前仅适用于使用[直接集成](https://kotlinlang.org/docs/m
 * 导出到 Swift 时，Kotlin 泛型类型形参会被类型擦除为其上界。
 * 不支持跨语言继承，因此 Swift 类不能直接继承自 Kotlin 导出的类或接口。
 * 目前没有 IDE 迁移提示或自动化工具可用。
-* 使用需要选择性加入 (opt-in) 的声明时，必须在 Gradle 构建文件的“模块级别”添加显式的 `optIn` 编译器选项。例如，对于 `kotlinx.datetime`库：
+* 使用需要选择性加入 (opt-in) 的声明时，必须在 Gradle 构建文件的“模块级别”添加显式的 `optIn` 编译器选项。例如，对于 `kotlinx.datetime` 库：
 
   ```kotlin
   swiftExport {
@@ -111,33 +111,33 @@ Swift 导出目前仅适用于使用[直接集成](https://kotlinlang.org/docs/m
 
 下表展示了 Kotlin 概念如何映射到 Swift。
 
-| Kotlin                                     | Swift                          |
-|--------------------------------------------|--------------------------------|
-| [`class`](#classes)                        | `class`                        |
-| [`object`](#objects)                       | 带有 `shared` 属性的 `class` |
-| [`enum class`](#enums)                     | `enum`                         |
-| [`typealias`](#type-aliases)               | `typealias`                    |
+| Kotlin                                 | Swift                          |
+|----------------------------------------|--------------------------------|
+| [`class`](#classes)                    | `class`                        |
+| [`object`](#objects)                   | 带有 `shared` 属性的 `class` |
+| [`enum class`](#enums)                 | `enum`                         |
+| [`typealias`](#type-aliases)           | `typealias`                    |
 | [函数](#functions)                     | 函数                       |
 | [`挂起函数`](#suspending-functions)     | `async`                        |
 | [`kotlinx.coroutines` flow](#flows) | `AsyncSequence`                |
 | [属性](#properties)                    | 属性                       |
 | [构造函数](#constructors)               | 初始值设定项                    |
 | [软件包](#packages)                       | 嵌套枚举                    |
-| `Boolean`                                  | `Bool`                         |
-| `Char`                                     | `Unicode.UTF16.CodeUnit`       |
-| `Byte`                                     | `Int8`                         |
-| `Short`                                    | `Int16`                        |
-| `Int`                                      | `Int32`                        |
-| `Long`                                     | `Int64`                        |
-| `UByte`                                    | `UInt8`                        |
-| `UShort`                                   | `UInt16`                       |
-| `UInt`                                     | `UInt32`                       |
-| `ULong`                                    | `UInt64`                       |
-| `Float`                                    | `Float`                        |
-| `Double`                                   | `Double`                       |
-| `Any`                                      | `KotlinBase` 类             |
-| `Unit`                                     | `Void`                         |
-| [`Nothing`](#kotlin-nothing)               | `Never`                        |
+| `Boolean`                              | `Bool`                         |
+| `Char`                                 | `Unicode.UTF16.CodeUnit`       |
+| `Byte`                                 | `Int8`                         |
+| `Short`                                | `Int16`                        |
+| `Int`                                  | `Int32`                        |
+| `Long`                                 | `Int64`                        |
+| `UByte`                                | `UInt8`                        |
+| `UShort`                               | `UInt16`                       |
+| `UInt`                                 | `UInt32`                       |
+| `ULong`                                | `UInt64`                       |
+| `Float`                                | `Float`                        |
+| `Double`                               | `Double`                       |
+| `Any`                                  | `KotlinBase` 类             |
+| `Unit`                                 | `Void`                         |
+| [`Nothing`](#kotlin-nothing)           | `Never`                        |
 
 ### 声明
 

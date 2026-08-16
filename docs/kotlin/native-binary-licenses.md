@@ -26,7 +26,7 @@
         <td><a href="https://kotlinlang.org/">Kotlin</a></td>
         <td rowspan="4">
          <list>
-            <li><a href="https://github.com/JetBrains/kotlin/blob/master/license/LICENSE.txt">Apache license 2.0</a></li>
+            <li><a href="https://github.com/JetBrains/kotlin/blob/master/license/LICENSE.txt">Apache License 2.0</a></li>
             <li><a href="https://github.com/JetBrains/kotlin/blob/master/kotlin-native/licenses/third_party/harmony_NOTICE.txt">Apache Harmony 版权声明</a></li>
          </list>
         </td>

@@ -29,7 +29,7 @@
 
 ## 依存関係のアップデート
 
-<deflist style="medium">
+<deflist type="medium">
     <def title="kotlinx.coroutines">
         <p>バージョン 1.6.0 以降にアップデートしてください。<code>native-mt</code> サフィックスが付いたバージョンは使用しないでください。</p>
         <p>新しいメモリマネージャーに関して、留意すべきいくつかの特記事項もあります：</p>

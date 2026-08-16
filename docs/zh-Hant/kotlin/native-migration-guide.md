@@ -29,15 +29,15 @@
 
 ## 更新相依性
 
-<deflist style="medium">
+<deflist type="medium">
     <def title="kotlinx.coroutines">
         <p>更新至 1.6.0 或更高版本。請勿使用帶有 <code>native-mt</code> 字尾的版本。</p>
         <p>關於新的記憶體管理員，還有一些細節您應該留意：</p>
         <list>
-            <li>由於不再需要凍結，每個通用基本型別（channels、flows、coroutines）都能跨 Worker 邊界運作。</li>
+            <li>由於不再需要凍結，每個通用基本型別（channels、flows、協同程式）都能跨 Worker 邊界運作。</li>
             <li><code>Dispatchers.Default</code> 在 Linux 和 Windows 上由 Worker 池支援，在 Apple 目標平台上則由全域佇列支援。</li>
-            <li>使用 <code>newSingleThreadContext</code> 來建立由 Worker 支援的協程分派器（coroutine dispatcher）。</li>
-            <li>使用 <code>newFixedThreadPoolContext</code> 來建立由 <code>N</code> 個 Worker 组成的池所支援的協程分派器。</li>
+            <li>使用 <code>newSingleThreadContext</code> 來建立由 Worker 支援的協同程式分派器（coroutine dispatcher）。</li>
+            <li>使用 <code>newFixedThreadPoolContext</code> 來建立由 <code>N</code> 個 Worker 组成的池所支援的協同程式分派器。</li>
             <li><code>Dispatchers.Main</code> 在 Darwin 上由主佇列支援，在其他平台上則由獨立的 Worker 支援。</li>
         </list>
     </def>
@@ -73,4 +73,4 @@
 
 * [進一步了解新的記憶體管理員](native-memory-manager.md)
 * [查看與 Swift/Objective-C ARC 整合的細節](native-arc-integration.md)
-* [了解如何從不同的協程安全地參照物件](native-faq.md#how-do-i-reference-objects-safely-from-different-coroutines)
+* [了解如何從不同的協同程式安全地參照物件](native-faq.md#how-do-i-reference-objects-safely-from-different-coroutines)

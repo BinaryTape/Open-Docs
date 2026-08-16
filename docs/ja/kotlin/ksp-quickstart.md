@@ -145,7 +145,6 @@ dependencies {
 ### プロセッサーを作成して登録する
 
 1. プロジェクトのルートに **processor** という名前の別のモジュールを作成します。
-
 2. モジュールの `build.gradle(.kts)` ファイルに、KSP API と宣言したアノテーションを依存関係として追加します。
 
     <tabs group="build-script">
@@ -182,7 +181,6 @@ dependencies {
 
     </tab>
     </tabs>
-
 3. processor モジュール内に新しい `HelloWorldProcessor.kt` ファイルを作成し、以下のコードを追加します。
 
     ```kotlin
@@ -252,27 +250,25 @@ dependencies {
     import java.io.OutputStream
     ```
     {collapsible="true" collapsed-title="インポート文"}
-   
 
-    コードの内容を見ていきましょう：
-    
+   コードの内容を見ていきましょう：
+
     * 1️⃣ `process()` 関数にはプロセッサーのメインロジックが含まれています。`HelloWorldAnnotation` でアノテーションされたすべてのシンボルを取得し、それぞれに対して `HelloWorldVisitor` を呼び出します。
-    
-        `process()` 関数は、後のラウンドで処理するために、未処理のシンボルのリストを返します。この例では、安全に `emptyList()` を返しています。詳細については、[複数ラウンドの処理](ksp-multi-round.md)を参照してください。
-    
+
+       `process()` 関数は、後のラウンドで処理するために、未処理のシンボルのリストを返します。この例では、安全に `emptyList()` を返しています。詳細については、[複数ラウンドの処理](ksp-multi-round.md)を参照してください。
+
     * 2️⃣ プロセッサーは、ビジターを使用して KSP が提供する Kotlin 抽象構文木 (AST) のビューをトラバースします。`HelloWorldProcessor` クラスの中にある `HelloWorldVisitor` クラスがそのビジターです。`HelloWorldAnnotation` は関数にのみ使用されるため、`visitFunctionDeclaration()` のみをオーバーライドしています。
-    
-        > `KSVisitorVoid` は KSP が提供するビジタークラスの 1 つで、オーバーライドして調整できます。
-        > [`KSVisitor<D, R>` インターフェース](https://github.com/google/ksp/blob/main/api/src/main/kotlin/com/google/devtools/ksp/symbol/KSVisitor.kt)を実装して、独自のビジターを作成することもできます。
-        > 
-        {style="tip"}
-    
+   
+       > `KSVisitorVoid` は KSP が提供するビジタークラスの 1 つで、オーバーライドして調整できます。
+       > [`KSVisitor<D, R>` インターフェース](https://github.com/google/ksp/blob/main/api/src/main/kotlin/com/google/devtools/ksp/symbol/KSVisitor.kt)を実装して、独自のビジターを作成することもできます。
+       >
+       {style="tip"}
+
     * 3️⃣ `createNewFileFrom()` は、KSP がコードを生成するファイルを作成します。`createDependencyOn()` は、生成された出力ファイルが、アノテーションが使用されているソースファイルに依存するようにします。
 
-        > KSP がファイルを生成・管理する方法について詳しく知るには、[`CodeGenerator` インターフェース](https://github.com/google/ksp/blob/main/api/src/main/kotlin/com/google/devtools/ksp/processing/CodeGenerator.kt)のソースコードを参照してください。
-        > 
-        {style="tip"} 
-
+       > KSP がファイルを生成・管理する方法について詳しく知るには、[`CodeGenerator` インターフェース](https://github.com/google/ksp/blob/main/api/src/main/kotlin/com/google/devtools/ksp/processing/CodeGenerator.kt)のソースコードを参照してください。
+       >
+       {style="tip"}
 4. `HelloWorldProcessorProvider.kt` ファイルを作成します。その中で、`SymbolProcessorProvider` を継承する `HelloWorldProcessorProvider` クラスを宣言します。
 
     ```kotlin
@@ -288,7 +284,6 @@ dependencies {
         }  
     }
     ```
-
 5. プロセッサープロバイダーを登録します。`resources/META-INF/services` ディレクトリに `com.google.devtools.ksp.processing.SymbolProcessorProvider` という名前のファイルを作成し、プロバイダーの完全修飾名を追加します。
 
     ```text

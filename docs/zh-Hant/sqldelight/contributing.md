@@ -1,14 +1,29 @@
 # 貢獻
 
+我們對於此專案的目標是建立一個您可以信賴的簡單、快速且安全的組件。我們特意規劃了專案範疇，以便輕鬆處理常見的使用案例，並使其具備擴充性，因此它也能處理特殊的使用案例。
+
+## 不使用生成式工具
+
+我們不在原始碼或文件中使用 LLM 或生成式工具。我們也不會在提交 (commit)、問題 (issue) 和提取要求 (pull request) 中的人際溝通中使用它們。我們相信寫作即思考，並希望我們的工作是經過深思熟慮的。
+
+我們要求所有貢獻者也這樣做。當每個人都付出努力時，建置 (Building) 會更有趣。
+
+為了保護我們專案的文化，我們將立即拒絕 LLM 產生的貢獻。我們禁止重複違規者。
+
+此政策的一些窄小例外情況：
+
+*   非英語母語人士如果揭露其行為，可以使用機器翻譯工具。
+*   本機自動補全 (auto-complete)。（避免使用以權杖 (token) 計費的工具。）
+
+編碼 (Coding) 是很有趣的。
+
+## 程式碼貢獻
+
 如果您想為此專案貢獻程式碼，可以透過 GitHub 分支 (fork) 存儲庫並發送提取要求 (pull request)。
 
 提交程式碼時，請盡力遵循現有的慣例與風格，以保持程式碼盡可能具備可讀性。
 
-在您的程式碼被專案接受之前，您還必須簽署 [個人貢獻者授權協議 (Individual Contributor License Agreement, CLA)][1]。
-
- [1]: https://spreadsheets.google.com/spreadsheet/viewform?formkey=dDViT2xzUHAwRkI3X3k5Z0lQM091OGc6MQ&ndplr=1
- 
-## SQLDelight 
+## SQLDelight
 
 如果您正想開始嘗試貢獻，請根據您想貢獻的 SQLDelight 部分參閱下方的特定指南。如果您仍不確定，請在您關注的問題 (issue) 中留言說明您卡住的地方，我們會在該處回覆，或者為您想做的事情建立一個問題並開始討論。
 
@@ -44,7 +59,7 @@ SQLDelight 的編譯器有多個層級——如果您僅對程式碼產生 (code
 
 在下一節中，我們將介紹如何貢獻至剖析器與 PSI 層，但在執行此操作之前，您應該閱讀一篇關於 [多種方言 (multiple dialects)](https://www.alecstrong.com/posts/multiple-dialects/) 的部落格文章，以了解 [sql-psi](https://github.com/AlecStrong/sql-psi) 中各個動態組件。與 SQLDelight 一樣，如果您遇到問題但不知道如何貢獻修復或需要協助，請在 GitHub 問題中留言或建立一個新問題來開始討論。
 
-對於 SQL-PSI 中的任何變更，您需要將測試夾具加入對應的 `core/src/test/fixtures_*` 資料夾中。`fixtures` 資料夾（無字尾）適用於所有方言。在您的變更合併到 sql-psi 之後，如果 SQLDelight 中也需要進行變更，請檢出 SQLDelight 上的 `sql-psi-dev` 分支並針對該分支提交 PR。它使用 sql-psi 的快照版本，因此您可以在 sql-psi 變更合併大約 10 分鐘後建置您的 SQLDelight 變更。
+對於 SQL-PSI 中的任何變更，您需要將測試夾具加入對應的 `core/src/test/fixtures_*` 資料夾中。`fixtures` 資料夾（無字尾）適用於所有方言。在您的變更合併到 sql-psi 之後，如果 SQLDelight 中也需要進行變更，請檢出 SQLDelight 上的 `sql-psi-dev` 分支並針對該分支提交 PR。它使用 sql-psi 的快照 (snapshot) 版本，因此您可以在 sql-psi 變更合併大約 10 分鐘後建置您的 SQLDelight 變更。
 
 ### 語法 (Grammar)
 
@@ -58,7 +73,7 @@ my_rule ::= SOME_TOKEN {
 }
 ```
 
-您的規則定義應從完全複製/貼上 ANSI-SQL 中的規則開始。若要參照來自 ANSI-SQL 的規則，您需要用 `{}` 將其包圍，因此您應該在覆寫規則中用 `{}` 包圍所有外部規則：
+您的規則定義應從完全複製/貼上 ANSI-SQL 中的規則開始。若要參照來自 ANSI-SQL 的規則，您需要用花括號 `{}` 將其包圍，因此您應該在覆寫規則中用花括號 `{}` 包圍所有外部規則：
 
 ```bnf
 my_rule ::= internal_rule {external_rule} {
@@ -85,7 +100,7 @@ delete ::= DELETE FROM {table_name} {
 }
 ```
 
-方言不能加入自己的標記，但您可以透過用 `""` 包圍來要求確切的文字：
+方言不能加入自己的標記，但您可以透過用雙引號 `""` 包圍來要求確切的文字：
 
 ```bnf
 my_rule ::= "SOME_TOKEN"
@@ -130,8 +145,8 @@ class MyRule(
 }
 ```
 
-例如，[DropIndexMixin](https://github.com/AlecStrong/sql-psi/blob/f1137ff82dd0aa77f741a09d88855fbf9b751c00/core/src/main/kotlin/com/alecstrong/sql/psi/core/psi/mixins/DropIndexMixin.kt) 會驗證正在刪除的索引是否存在於結構 (schema) 中。
+例如，[DropIndexMixin](https://github.com/AlecStrong/sql-psi/blob/f1137ff82dd0aa77f741a09d88855fbf9b751c00/core/src/main/kotlin/com/alecstrong/sql/psi/core/psi/mixins/DropIndexMixin.kt) 會驗證正在刪除的索引是否存在於架構 (schema) 中。
 
 ---
 
-如果您對本文件未涵蓋的貢獻有任何疑問，請隨時在 SqlDelight 上建立問題或開啟 PR，以便我們改進！
+如果您對本文件未涵蓋的貢獻有任何疑問，請隨時在 SQLDelight 上建立問題或開啟 PR，以便我們改進！

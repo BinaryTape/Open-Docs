@@ -54,7 +54,8 @@ fun main() {
 
 ![Collection interfaces hierarchy](collections-diagram.png){width="500"}
 
-인터페이스와 그 구현체들을 살펴보겠습니다. `Collection`에 대해 알아보려면 아래 섹션을 읽어보세요. `List`, `Set`, `Map`에 대해 알아보려면 해당 섹션을 읽거나 Kotlin Developer Advocate인 Sebastian Aigner의 영상을 시청하세요.
+인터페이스와 그 구현체들을 살펴보겠습니다. `Collection`에 대해 알아보려면 아래 섹션을 읽어보세요. 
+`List`, `Set`, `Map`에 대해 알아보려면 해당 섹션을 읽거나 Kotlin Developer Advocate인 Sebastian Aigner의 영상을 시청하세요.
 
 <video src="https://www.youtube.com/v/F8jj7e-_jFA" title="Kotlin Collections Overview"/>
 

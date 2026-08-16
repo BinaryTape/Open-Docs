@@ -17,11 +17,11 @@ _[發佈日期：%kotlinEapReleaseDate%](eap.md#build-details)_
 Kotlin %kotlinEapVersion% 版本已發佈！以下是此 EAP 版本的一些詳細資訊：
 
 * **標準函式庫**：[支援協同程式堆疊追蹤恢復，以及用於檢查集合元素相等性和唯一性的新功能](#standard-library)
-* **Kotlin/Native**：[`klib` 構件預設啟用增量編譯，以及新的 Swift 匯出功能](#kotlin-native)
+* **Kotlin/Native**：[新的 Swift 匯出功能，以及為 SwiftPM 相依性自動產生的 `Package.swift` 檔案](#kotlin-native)
 * **Kotlin/Wasm**：[針對 `@JsFun` 宣告中頂層 `require()` 呼叫的變更、改進的伴隨物件初始化順序，以及 Kotlin Gradle 外掛程式對 Wasmtime 的支援](#kotlin-wasm)
 * **Kotlin/JS**：[用於瀏覽器測試的新 DSL，以及支援將 suspend lambda 匯出為 async 函式](#kotlin-js)
 * **建置工具 API**：[支援新目標：Kotlin/JS、Kotlin/Wasm 以及 Kotlin 元資料](#build-tools-api)
-* **Kotlin 編譯器**：[原生映像（native image）的實驗性版本](#kotlin-compiler-native-image)
+* **Kotlin 編譯器**：[原生映像（native image）的實驗性發佈版本](#kotlin-compiler-native-image)
 
 > 有關 Kotlin 發佈週期的資訊，請參閱 [Kotlin 發佈程序](releases.md)。
 >
@@ -40,9 +40,9 @@ Kotlin %kotlinEapVersion% 版本已發佈！以下是此 EAP 版本的一些詳�
 
 * [標準函式庫：支援協同程式堆疊追蹤恢復](#support-for-coroutine-stack-trace-recovery)
 * [標準函式庫：用於檢查集合元素相等性和唯一性的新函式](#new-functions-to-check-collection-elements-for-equality-and-uniqueness)
-* [Kotlin/Native：獨立的 Kotlin 編譯器映像](#kotlin-compiler-native-image)
-* [Kotlin/JS：用於瀏覽器測試的新 DSL](#new-dsl-for-browser-testing)
+* [Kotlin/JS：用於瀏覽器測試的新 DSL](#a-new-dsl-for-browser-testing)
 * [建置工具 API：支援 Kotlin/JS、Kotlin/Wasm 和 Kotlin 元資料](#build-tools-api)
+* [Kotlin 編譯器：獨立的 Kotlin 編譯器映像](#kotlin-compiler-native-image)
 
 ## 標準函式庫
 
@@ -72,7 +72,7 @@ Kotlin %kotlinEapVersion% 在標準函式庫中新增了 `StackTraceRecoverable`
 
 ```kotlin
 import kotlin.coroutines.ExperimentalStdlibCoroutineSupportApi
-import kotlin.coroutines.StackTraceRecoverable
+import kotlin.coroutines.debug.StackTraceRecoverable
 
 @OptIn(ExperimentalStdlibCoroutineSupportApi::class)
 class FileEditException
@@ -93,9 +93,11 @@ private constructor(
         FileEditException(line, detail, this)
     }
 
-@OptIn(ExperimentalStdlibCoroutineSupportApi::class) 
 fun main() {
     val original = FileEditException(15, "Unexpected token")
+    
+    // 通常情況下，您不需要直接呼叫此函式，除非您正在測試其行為
+    // kotlinx.coroutines 程式庫會在堆疊追蹤恢復期間自動叫用它
     val copy = original.copyForStackTraceRecovery()
 
     println(copy.message)
@@ -105,8 +107,11 @@ fun main() {
     // true
 }
 ```
+{kotlin-runnable="true" kotlin-min-compiler-version="2.4.20-Beta2"}
 
-如需更多資訊，請參閱該功能的 [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/stdlib/KEEP-0461-stacktrace-recoverable.md)。我們歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-86595) 中向我們提供回饋。
+如需更多資訊，請參閱該功能的 [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/stdlib/KEEP-0461-stacktrace-recoverable.md)。
+
+我們歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-86595) 中向我們提供回饋。
 
 ### 用於檢查集合元素相等性和唯一性的新函式
 <primary-label ref="experimental-opt-in"/>
@@ -170,26 +175,7 @@ fun main() {
 
 ## Kotlin/Native
 
-Kotlin %kotlinEapVersion% 預設啟用了 `klib` 構件的增量編譯，帶來了新的 Swift 匯出功能（包括對密封類別和跨語言繼承的支援），並推出了 Kotlin 編譯器原生映像的第一個發佈版本。
-
-### 預設啟用增量編譯
-<secondary-label ref="native"/>
-
-從 %kotlinEapVersion% 開始，`klib` 構件的增量編譯已預設啟用。
-
-透過增量編譯，如果專案模組產生的 `klib` 構件僅有一部分發生變更，則只有 `klib` 中受影響的部分會進一步重新編譯為二進位檔案。
-
-此最佳化最初是在 [Kotlin 1.9.20](whatsnew1920.md#incremental-compilation-of-klib-artifacts) 中引入的，並已證明能大幅縮短偵錯組建的編譯時間。
-
-請注意，在某些情況下，此最佳化可能會對全新組建（clean build）產生效能開銷。
-
-如果您在使用此功能時遇到意外問題，可以手動將其停用。若要停用，請在您的 `gradle.properties` 檔案中設定以下選項：
-
-```none
-kotlin.incremental.native=false
-```
-
-請在我們的問題追蹤器 [YouTrack](https://kotl.in/issue) 回報任何問題。如需更多關於縮短編譯時間的提示，請參閱我們的[文件](native-improving-compilation-time.md)。
+Kotlin %kotlinEapVersion% 帶來了新的 Swift 匯出功能（包括對密封類別和跨語言繼承的支援），以及為 SwiftPM 相依性自動產生的 `Package.swift` 檔案。
 
 ### 新的 Swift 匯出功能
 <secondary-label ref="native"/>
@@ -285,7 +271,7 @@ print(processHash(provider: provider, input: "Hello, world!"))
 
 ## Kotlin/Wasm
 
-Kotlin %kotlinEapVersion% 更改了 Kotlin/Wasm 處理 `@JsFun` 宣告中頂層 `require()` 呼叫的方式，使伴隨物件的初始化順序與 JVM 行為一致，並在 Kotlin Gradle 外掛程式中新增了對 Wasmtime 作為 `wasmWasi` 目標執行階段的支援。
+Kotlin %kotlinEapVersion% 更改了 Kotlin/Wasm 處理 `@JsFun` 宣告中頂層 `require()` 呼考的方式，使伴隨物件的初始化順序與 JVM 行為一致，並在 Kotlin Gradle 外掛程式中新增了對 Wasmtime 作為 `wasmWasi` 目標執行階段的支援。
 
 ### 針對 `@JsFun` 宣告中頂層 `require()` 呼叫的變更
 <secondary-label ref="wasm"/>
@@ -435,9 +421,9 @@ kotlin {
 ### 支援將 suspend lambda 匯出為 async 函式
 <secondary-label ref="js"/>
 
-在 Kotlin %kotlinEapVersion% 中，您現在可以將 suspend lambda 匯出為 JavaScript async 函式。
+在 Kotlin %kotlinEapVersion% 中，您現在可以將 suspend [Lambda 運算式](lambdas.md#lambda-expressions-and-anonymous-functions)匯出為 JavaScript `async` 函式。
 
-先前，無法從 Kotlin/JS 程式庫中匯出包含 suspend lambda 的宣告。現在 Kotlin 編譯器會自動處理 Kotlin 的 suspend 函式與原生 JavaScript 的 [async/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) 模型之間的橋接，這對於混合 Kotlin/TypeScript 的程式碼庫非常有用。
+先前，無法從 Kotlin/JS 程式庫中匯出包含 suspend lambda 的宣告。現在 Kotlin 編譯器會自動處理 Kotlin 的 `suspend` 函式與原生 JavaScript 的 [`async`/`await`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) 模型之間的橋接，這對於混合 Kotlin/TypeScript 的程式碼庫非常有用。
 
 若要啟用此功能，請在您的 `build.gradle.kts` 檔案中新增以下編譯器選項：
 
@@ -467,7 +453,7 @@ class TaskRunner {
 }
 ```
 
-在 TypeScript 端，suspend lambda 會顯示為一般的 async 函式：
+在 TypeScript 端，suspend lambda 會顯示為一般的 `async` 函式：
 
 ```typescript
 // TypeScript
@@ -492,22 +478,19 @@ console.log(result); // "done"
 
 BTA 是一個通用 API，充當建置系統與 Kotlin 編譯器生態系統之間的抽象層。它有助於在現有的建置工具中支援 Kotlin 功能以及與 Kotlin 編譯器的相容性。
 
-我們計劃在 Kotlin Gradle 外掛程式中逐步推出對新目標的 BTA 支援：
+在 Kotlin %kotlinEapVersion% 中，BTA 在新目標中作為選擇加入功能提供。若要嘗試，請在您的 `gradle.properties` 檔案中設定對應屬性：
 
-* 在 Kotlin 2.4.20-Beta1 中，BTA 在 Kotlin/JS、Kotlin/Wasm 和 Kotlin 元資料中預設啟用以收集回饋。專案不需要進行額外的變更。
-* 在 Kotlin 2.4.20-Beta2 與最終的 Kotlin 2.4.20 版本之間，新目標中的 BTA 將作為選擇加入功能提供。若要嘗試，請在您的 `gradle.properties` 檔案中設定對應屬性：
+```properties
+kotlin.wasm.runViaBuildToolsApi=true
+kotlin.js.runViaBuildToolsApi=true
+kotlin.metadata.runViaBuildToolsApi=true
+```
 
-  ```kotlin
-  kotlin.wasm.runViaBuildToolsApi = true
-  kotlin.js.runViaBuildToolsApi = true
-  kotlin.metadata.runViaBuildToolsApi = true
-  ```
-
-* 從 Kotlin 2.5.0 開始，BTA 將再次在 Kotlin/JS、Kotlin/Wasm 和 Kotlin 元資料中預設啟用。
+從 Kotlin 2.5.0 開始，我們計劃在 Kotlin/JS、Kotlin/Wasm 和 Kotlin 元資料中預設啟用 BTA。
 
 如果您對 BTA 提案感興趣或想分享您的回饋，請參閱此 [KEEP](https://github.com/Kotlin/KEEP/blob/build-tools-api/proposals/extensions/build-tools-api.md)。
 
-### Kotlin 編譯器：原生映像
+## Kotlin 編譯器：原生映像
 <primary-label ref="experimental-general"/>
 <secondary-label ref="compiler"/>
 

@@ -13,7 +13,7 @@ dependencies {
 }
 ```
 
-由于 JavaScript 模块通常是动态类型的，而 Kotlin 是静态类型语言，因此您需要提供一种适配器。在 Kotlin 中，此类适配器被称为外部声明 (external declaration)。对于仅提供一个函数的 `is-sorted` 软件包，编写该声明非常简单。在源文件夹内，创建一个名为 `is-sorted.kt` 的新文件，并填入以下内容：
+由于 JavaScript 模块通常是动态类型的，而 Kotlin 是静态类型语言，因此您需要提供一种适配器。在 Kotlin 中，此类适配器被称为_外部声明_。对于仅提供一个函数的 `is-sorted` 软件包，编写该声明非常简单。在源文件夹内，创建一个名为 `is-sorted.kt` 的新文件，并填入以下内容：
 
 ```kotlin
 @JsModule("is-sorted")

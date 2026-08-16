@@ -21,11 +21,11 @@ Kotlin 同时具有面向对象和函数式构造。您可以以 OO（面向对�
 
 ### 与 Java 编程语言相比，Kotlin 有哪些优势？
 
-Kotlin 更加简洁。据粗略估计，代码行数减少了约 40%。它也更加类型安全——例如，对非空类型的支持使得应用程序更不容易出现 NPE（空指针异常）。其他功能包括智能转换 (smart casting)、高阶函数、扩展函数和带接收者的 lambda表达式，这些功能提供了编写更具表达力代码的能力，并有助于创建 DSL（领域专用语言）。
+Kotlin 更加简洁。据粗略估计，代码行数减少了约 40%。它也更加类型安全——例如，对非空类型的支持使得应用程序更不容易出现 NPE（空指针异常）。其他功能包括智能转换、高阶函数、扩展函数和带接收者的 lambda表达式，这些功能提供了编写更具表达力代码的能力，并有助于创建 DSL（领域专用语言）。
  
 ### Kotlin 是否与 Java 编程语言兼容？
 
-是的。Kotlin 与 Java 编程语言 100% 互操作，我们非常重视确保您现有的代码库可以与 Kotlin 正确交互。您可以轻松地[从 Java 调用 Kotlin 代码](java-to-kotlin-interop.md)以及[从 Kotlin 调用 Java 代码](java-interop.md)。这使得采用 Kotlin 变得更加容易且风险更低。IDE 中还内置了自动化的 [Java 到 Kotlin 转换器](mixing-java-kotlin-intellij.md#convert-java-files-to-kotlin)，可简化现有代码的迁移。
+是的。Kotlin 与 Java 编程语言 100% 互操作，我们非常重视确保您现有的代码库可以与 Kotlin 正确交互。您可以轻松地[从 Java 调用 Kotlin 代码](java-to-kotlin-interop.md)以及[从 Kotlin 调用 Java 代码](java-interop.md)。这使得采用 Kotlin 变得更加容易且风险更低。 IDE 中还内置了自动化的 [Java 到 Kotlin 转换器](mixing-java-kotlin-intellij.md#convert-java-files-to-kotlin)，可简化现有代码的迁移。
 
 ### 我可以使用 Kotlin 做什么？
 
@@ -83,7 +83,7 @@ Kotlin 允许您选择用于执行的 JVM 版本。默认情况下，Kotlin/JVM 
 Kotlin 受到 Java、C#、JavaScript、Scala 和 Groovy 等现有语言的启发。我们努力确保 Kotlin 易于学习，以便人们可以在几天内轻松上手，阅读和编写 Kotlin 代码。学习惯用 (idiomatic) 的 Kotlin 并使用其一些更高级的功能可能需要更长的时间，但总的来说，它不是一种复杂的语言。  
 要了解更多信息，请参阅我们的[学习材料](learning-materials-overview.md)。
  
-### 哪些 company 在使用 Kotlin？
+### 哪些公司在使用 Kotlin？
  
 使用 Kotlin 的公司太多，无法一一列举，但一些公开宣布使用 Kotlin 的知名公司（通过博客文章、GitHub 仓库或演讲）包括 [Square](https://medium.com/square-corner-blog/square-open-source-loves-kotlin-c57c21710a17)、 [Pinterest](https://www.youtube.com/watch?v=mDpnc45WwlI) 和 [Basecamp](https://signalvnoise.com/svn3/using-kotlin-to-make-android-apis-fun-again/)。
  
@@ -115,13 +115,13 @@ Kotlin 由 [JetBrains (目前团队规模超过 100 人)](https://www.jetbrains.
 
 ### 有 Kotlin 活动吗？
  
-是的！现在有许多专门关注 Kotlin 的用户组 (User Group) 和聚会 (Meetup)。您可以在[网站上找到列表](https://kotlinlang.org/user-groups/user-group-list.html)。此外，世界各地还有社区组织的 [Kotlin Nights](https://kotlinlang.org/community/events.html) 活动。
+是的！现在有许多专门关注 Kotlin 的用户组和聚会 (Meetup)。您可以在[网站上找到列表](https://kotlinlang.org/user-groups/user-group-list.html)。此外，世界各地还有社区组织的 [Kotlin Nights](https://kotlinlang.org/community/events.html) 活动。
 
 ### 有 Kotlin 会议吗？
 
 是的！[KotlinConf](https://kotlinconf.com/) 是由 JetBrains 主办的年度会议，它汇集了来自世界各地的开发者、爱好者和专家，分享他们在 Kotlin 方面的知识和经验。
 
-除了技术演讲和研讨会，KotlinConf 还提供社交机会、社区互动和社交活动，与会者可以在这些活动中与其他 Kotliner 建立联系并交流想法。它是促进 Kotlin 生态系统内协作和社区建设的平台。
+除了技术演讲和研讨会， KotlinConf 还提供社交机会、社区互动和社交活动，与会者可以在这些活动中与其他 Kotliner 建立联系并交流想法。它是促进 Kotlin 生态系统内协作和社区建设的平台。
 
 全球各地的不同会议也涵盖了 Kotlin。您可以在[网站上找到即将举行的演讲列表](https://kotlinlang.org/community/talks.html?time=upcoming)。
 

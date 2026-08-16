@@ -1034,7 +1034,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-64654](https://youtrack.jetbrains.com/issue/KT-64654) | K2: 사용자 지정 어노테이션과 컴파일러 요구 어노테이션 간의 모호성 발생 |
 | [KT-64527](https://youtrack.jetbrains.com/issue/KT-64527) | 열거형 값의 어노테이션이 열거형 값 클래스로 복사되지 않아야 함 |
 | [KT-63389](https://youtrack.jetbrains.com/issue/KT-63389) | K2: `()?`로 감싸진 타입의 호환되지 않는 어노테이션에 대해 `WRONG_ANNOTATION_TARGET` 보고 |
-| [KT-63388](https://youtrack.jetbrains.com/issue/KT-63388) | K2: catch 파라미터 타입의 어노테이션에 대해 `WRONG_ANNOTATION_TARGET` 보고 |
+| [KT-63388](https://youtrack.jetbrains.com/issue/KT-63388) | K2: `WRONG_ANNOTATION_TARGET`이 catch 파라미터 타입의 어노테이션에 대해 보고됨 |
 
 #### 널 안전성 (Null safety) {initial-collapse-state="collapsed" collapsible="true"}
 

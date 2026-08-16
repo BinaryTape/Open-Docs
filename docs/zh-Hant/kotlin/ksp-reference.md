@@ -2,61 +2,61 @@
 
 ## 程式元素
 
-| **Java** | **KSP 中最接近的設施** | **備註** |
-| -------- | --------------------------- | --------- |
-| `AnnotationMirror` | `KSAnnotation` | |
-| `AnnotationValue` | `KSValueArguments` | |
-| `Element` | `KSDeclaration` / `KSDeclarationContainer` | |
-| `ExecutableElement` | `KSFunctionDeclaration` | |
-| `PackageElement` | `KSFile` | KSP 不會將套件建模為程式元素 |
-| `Parameterizable` | `KSDeclaration` | |
-| `QualifiedNameable` | `KSDeclaration` | |
-| `TypeElement` | `KSClassDeclaration` | |
-| `TypeParameterElement` | `KSTypeParameter` | |
-| `VariableElement` | `KSValueParameter` / `KSPropertyDeclaration` | |
+| **Java**               | **KSP 中最接近的設施**                  | **備註**                                      |
+|------------------------|----------------------------------------------|------------------------------------------------|
+| `AnnotationMirror`     | `KSAnnotation`                               |                                                |
+| `AnnotationValue`      | `KSValueArguments`                           |                                                |
+| `Element`              | `KSDeclaration` / `KSDeclarationContainer`   |                                                |
+| `ExecutableElement`    | `KSFunctionDeclaration`                      |                                                |
+| `PackageElement`       | `KSFile`                                     | KSP 不會將套件建模為程式元素 |
+| `Parameterizable`      | `KSDeclaration`                              |                                                |
+| `QualifiedNameable`    | `KSDeclaration`                              |                                                |
+| `TypeElement`          | `KSClassDeclaration`                         |                                                |
+| `TypeParameterElement` | `KSTypeParameter`                            |                                                |
+| `VariableElement`      | `KSValueParameter` / `KSPropertyDeclaration` |                                                |
 
 ## 型別
 
 KSP 需要明確的型別解析，因此 Java 中的某些功能只能由 `KSType` 和解析前的對應元素來執行。
 
-| **Java** | **KSP 中最接近的設施** | **備註** |
-| -------- | --------------------------- | --------- |
-| `ArrayType` | `KSBuiltIns.arrayType` | |
-| `DeclaredType` | `KSType` / `KSClassifierReference` | |
-| `ErrorType` | `KSType.isError` | |
-| `ExecutableType` | `KSType` / `KSCallableReference` | |
-| `IntersectionType` | `KSType` / `KSTypeParameter` | |
-| `NoType` | `KSType.isError` | 在 KSP 中不適用 |
-| `NullType` | | 在 KSP 中不適用 |
-| `PrimitiveType` | `KSBuiltIns` | 與 Java 中的基本型別不完全相同 |
-| `ReferenceType` | `KSTypeReference` | |
-| `TypeMirror` | `KSType` | |
-| `TypeVariable` | `KSTypeParameter` | |
-| `UnionType` | 不適用 | Kotlin 每個 catch 區塊只有一種型別。`UnionType` 甚至對於 Java 註解處理器也是不可見的 |
-| `WildcardType` | `KSType` / `KSTypeArgument` | |
+| **Java**           | **KSP 中最接近的設施**        | **備註**                                                                                                       |
+|--------------------|------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| `ArrayType`        | `KSBuiltIns.arrayType`             |                                                                                                                 |
+| `DeclaredType`     | `KSType` / `KSClassifierReference` |                                                                                                                 |
+| `ErrorType`        | `KSType.isError`                   |                                                                                                                 |
+| `ExecutableType`   | `KSType` / `KSCallableReference`   |                                                                                                                 |
+| `IntersectionType` | `KSType` / `KSTypeParameter`       |                                                                                                                 |
+| `NoType`           | `KSType.isError`                   | 在 KSP 中不適用                                                                                                      |
+| `NullType`         |                                    | 在 KSP 中不適用                                                                                                      |
+| `PrimitiveType`    | `KSBuiltIns`                       | 與 Java 中的基本型別不完全相同                                                                      |
+| `ReferenceType`    | `KSTypeReference`                  |                                                                                                                 |
+| `TypeMirror`       | `KSType`                           |                                                                                                                 |
+| `TypeVariable`     | `KSTypeParameter`                  |                                                                                                                 |
+| `UnionType`        | 不適用                                | Kotlin 每個 catch 區塊只有一種型別。`UnionType` 甚至對於 Java 註解處理器也是不可見的 |
+| `WildcardType`     | `KSType` / `KSTypeArgument`        |                                                                                                                 |
 
 ## 其他
 
-| **Java** | **KSP 中最接近的設施** | **備註** |
-| -------- | --------------------------- | --------- |
-| `Name` | `KSName` | |
-| `ElementKind` | `ClassKind` / `FunctionKind` | |
-| `Modifier` | `Modifier` | |
-| `NestingKind` | `ClassKind` / `FunctionKind` | |
-| `AnnotationValueVisitor` |  | |
-| `ElementVisitor` | `KSVisitor` | |
-| `AnnotatedConstruct` | `KSAnnotated` | |
-| `TypeVisitor` |  | |
-| `TypeKind` | `KSBuiltIns` | 有些可以在內建功能中找到，否則請檢查 `KSClassDeclaration` 以獲取 `DeclaredType` |
-| `ElementFilter` | `Collection.filterIsInstance` | |
-| `ElementKindVisitor` | `KSVisitor` | |
-| `ElementScanner` | `KSTopDownVisitor` | |
-| `SimpleAnnotationValueVisitor` |  | 在 KSP 中不需要 |
-| `SimpleElementVisitor` | `KSVisitor` | |
-| `SimpleTypeVisitor` |  | |
-| `TypeKindVisitor` |  | |
-| `Types` | `Resolver` / `utils` | 某些 `utils` 也整合到了符號介面中 |
-| `Elements` | `Resolver` / `utils` | |
+| **Java**                       | **KSP 中最接近的設施**   | **備註**                                                                              |
+|--------------------------------|-------------------------------|----------------------------------------------------------------------------------------|
+| `Name`                         | `KSName`                      |                                                                                        |
+| `ElementKind`                  | `ClassKind` / `FunctionKind`  |                                                                                        |
+| `Modifier`                     | `Modifier`                    |                                                                                        |
+| `NestingKind`                  | `ClassKind` / `FunctionKind`  |                                                                                        |
+| `AnnotationValueVisitor`       |                               |                                                                                        |
+| `ElementVisitor`               | `KSVisitor`                   |                                                                                        |
+| `AnnotatedConstruct`           | `KSAnnotated`                 |                                                                                        |
+| `TypeVisitor`                  |                               |                                                                                        |
+| `TypeKind`                     | `KSBuiltIns`                  | 有些可以在內建功能中找到，否則請檢查 `KSClassDeclaration` 以獲取 `DeclaredType` |
+| `ElementFilter`                | `Collection.filterIsInstance` |                                                                                        |
+| `ElementKindVisitor`           | `KSVisitor`                   |                                                                                        |
+| `ElementScanner`               | `KSTopDownVisitor`            |                                                                                        |
+| `SimpleAnnotationValueVisitor` |                               | 在 KSP 中不需要                                                                      |
+| `SimpleElementVisitor`         | `KSVisitor`                   |                                                                                        |
+| `SimpleTypeVisitor`            |                               |                                                                                        |
+| `TypeKindVisitor`              |                               |                                                                                        |
+| `Types`                        | `Resolver` / `utils`          | 某些 `utils` 也整合到了符號介面中                         |
+| `Elements`                     | `Resolver` / `utils`          |                                                                                        |
 
 ## 詳細資訊
 
@@ -64,54 +64,54 @@ KSP 需要明確的型別解析，因此 Java 中的某些功能只能由 `KSTyp
 
 ### AnnotationMirror
 
-| **Java** | **KSP 對應項目** |
-| -------- | ------------------ |
+| **Java**            | **KSP 對應項目**            |
+|---------------------|-------------------------------|
 | `getAnnotationType` | `ksAnnotation.annotationType` |
-| `getElementValues` | `ksAnnotation.arguments` |
+| `getElementValues`  | `ksAnnotation.arguments`      |
 
 ### AnnotationValue
 
-| **Java** | **KSP 對應項目** |
-| -------- | ------------------ |
+| **Java**   | **KSP 對應項目**      |
+|------------|-------------------------|
 | `getValue` | `ksValueArgument.value` |
 
 ### Element
 
-| **Java** | **KSP 對應項目** |
-| -------- | ------------------ |
-| `asType` | `ksClassDeclaration.asType(...)` 僅適用於 `KSClassDeclaration`。需要提供型別引數。 |
-| `getAnnotation` | 待實作 |
-| `getAnnotationMirrors` | `ksDeclaration.annotations` |
-| `getEnclosedElements` | `ksDeclarationContainer.declarations` |
-| `getEnclosingElements` | `ksDeclaration.parentDeclaration` |
-| `getKind` | 根據 `ClassKind` 或 `FunctionKind` 進行型別檢查與轉型 |
-| `getModifiers` | `ksDeclaration.modifiers` |
-| `getSimpleName` | `ksDeclaration.simpleName` |
+| **Java**               | **KSP 對應項目**                                                                                               |
+|------------------------|------------------------------------------------------------------------------------------------------------------|
+| `asType`               | `ksClassDeclaration.asType(...)` 僅適用於 `KSClassDeclaration`。需要提供型別引數。 |
+| `getAnnotation`        | 待實作                                                                                                |
+| `getAnnotationMirrors` | `ksDeclaration.annotations`                                                                                      |
+| `getEnclosedElements`  | `ksDeclarationContainer.declarations`                                                                            |
+| `getEnclosingElements` | `ksDeclaration.parentDeclaration`                                                                                |
+| `getKind`              | 根據 `ClassKind` 或 `FunctionKind` 進行型別檢查與轉型                                                      |
+| `getModifiers`         | `ksDeclaration.modifiers`                                                                                        |
+| `getSimpleName`        | `ksDeclaration.simpleName`                                                                                       |
 
 ### ExecutableElement
 
-| **Java** | **KSP 對應項目** |
-| -------- | ------------------ |
-| `getDefaultValue` | 待實作 |
-| `getParameters` | `ksFunctionDeclaration.parameters` |
-| `getReceiverType` | `ksFunctionDeclaration.parentDeclaration` |
-| `getReturnType` | `ksFunctionDeclaration.returnType` |
-| `getSimpleName` | `ksFunctionDeclaration.simpleName` |
-| `getThrownTypes` | 在 Kotlin 中不需要 |
-| `getTypeParameters` | `ksFunctionDeclaration.typeParameters` |
-| `isDefault` | 檢查父級宣告是否為介面 |
-| `isVarArgs` | `ksFunctionDeclaration.parameters.any { it.isVarArg }` |
+| **Java**            | **KSP 對應項目**                                      |
+|---------------------|---------------------------------------------------------|
+| `getDefaultValue`   | 待實作                                       |
+| `getParameters`     | `ksFunctionDeclaration.parameters`                      |
+| `getReceiverType`   | `ksFunctionDeclaration.parentDeclaration`               |
+| `getReturnType`     | `ksFunctionDeclaration.returnType`                      |
+| `getSimpleName`     | `ksFunctionDeclaration.simpleName`                      |
+| `getThrownTypes`    | 在 Kotlin 中不需要                                    |
+| `getTypeParameters` | `ksFunctionDeclaration.typeParameters`                  |
+| `isDefault`         | 檢查父級宣告是否為介面 |
+| `isVarArgs`         | `ksFunctionDeclaration.parameters.any { it.isVarArg }`  |
 
 ### Parameterizable
 
-| **Java** | **KSP 對應項目** |
-| -------- | ------------------ |
+| **Java**            | **KSP 對應項目**                     |
+|---------------------|----------------------------------------|
 | `getTypeParameters` | `ksFunctionDeclaration.typeParameters` |
 
 ### QualifiedNameable
 
-| **Java** | **KSP 對應項目** |
-| -------- | ------------------ |
+| **Java**           | **KSP 對應項目**            |
+|--------------------|-------------------------------|
 | `getQualifiedName` | `ksDeclaration.qualifiedName` |
 
 ### TypeElement
@@ -175,33 +175,33 @@ ksClassDeclaration.superTypes
 
 ### TypeParameterElement
 
-| **Java** | **KSP 對應項目** |
-| -------- | ------------------ |
-| `getBounds` | `ksTypeParameter.bounds` |
+| **Java**              | **KSP 對應項目**                  |
+|-----------------------|-------------------------------------|
+| `getBounds`           | `ksTypeParameter.bounds`            |
 | `getEnclosingElement` | `ksTypeParameter.parentDeclaration` |
-| `getGenericElement` | `ksTypeParameter.parentDeclaration` |
+| `getGenericElement`   | `ksTypeParameter.parentDeclaration` |
 
 ### VariableElement
 
-| **Java** | **KSP 對應項目** |
-| -------- | ------------------ |
-| `getConstantValue` | 待實作 |
+| **Java**              | **KSP 對應項目**                   |
+|-----------------------|--------------------------------------|
+| `getConstantValue`    | 待實作                    |
 | `getEnclosingElement` | `ksValueParameter.parentDeclaration` |
-| `getSimpleName` | `ksValueParameter.simpleName` |
+| `getSimpleName`       | `ksValueParameter.simpleName`        |
 
 ### ArrayType
 
-| **Java** | **KSP 對應項目** |
-| -------- | ------------------ |
+| **Java**           | **KSP 對應項目**         |
+|--------------------|----------------------------|
 | `getComponentType` | `ksType.arguments.first()` |
 
 ### DeclaredType
 
-| **Java** | **KSP 對應項目** |
-| -------- | ------------------ |
-| `asElement` | `ksType.declaration` |
+| **Java**           | **KSP 對應項目**                     |
+|--------------------|----------------------------------------|
+| `asElement`        | `ksType.declaration`                   |
 | `getEnclosingType` | `ksType.declaration.parentDeclaration` |
-| `getTypeArguments` | `ksType.arguments` |
+| `getTypeArguments` | `ksType.arguments`                     |
 
 ### ExecutableType
 
@@ -209,33 +209,33 @@ ksClassDeclaration.superTypes
 >
 {style="note"}
 
-| **Java** | **KSP 對應項目** |
-| -------- | ------------------ |
+| **Java**            | **KSP 對應項目**                                                                      |
+|---------------------|-----------------------------------------------------------------------------------------|
 | `getParameterTypes` | `ksType.declaration.typeParameters`, `ksFunctionDeclaration.parameters.map { it.type }` |
-| `getReceiverType` | `ksFunctionDeclaration.parentDeclaration.asType(...)` |
-| `getReturnType` | `ksType.declaration.typeParameters.last()` |
-| `getThrownTypes` | 在 Kotlin 中不需要 |
-| `getTypeVariables` | `ksFunctionDeclaration.typeParameters` |
+| `getReceiverType`   | `ksFunctionDeclaration.parentDeclaration.asType(...)`                                   |
+| `getReturnType`     | `ksType.declaration.typeParameters.last()`                                              |
+| `getThrownTypes`    | 在 Kotlin 中不需要                                                                    |
+| `getTypeVariables`  | `ksFunctionDeclaration.typeParameters`                                                  |
 
 ### IntersectionType
 
-| **Java** | **KSP 對應項目** |
-| -------- | ------------------ |
+| **Java**    | **KSP 對應項目**       |
+|-------------|--------------------------|
 | `getBounds` | `ksTypeParameter.bounds` |
 
 ### TypeMirror
 
-| **Java** | **KSP 對應項目** |
-| -------- | ------------------ |
+| **Java**  | **KSP 對應項目**                                                                            |
+|-----------|-----------------------------------------------------------------------------------------------|
 | `getKind` | 對於基本型別、`Unit` 型別，與 `KSBuiltIns` 中的型別進行比較，否則為宣告型別 |
 
 ### TypeVariable
 
-| **Java** | **KSP 對應項目** |
-| -------- | ------------------ |
-| `asElement` | `ksType.declaration` |
+| **Java**        | **KSP 對應項目**                                                                       |
+|-----------------|------------------------------------------------------------------------------------------|
+| `asElement`     | `ksType.declaration`                                                                     |
 | `getLowerBound` | 待定。僅在提供擷取並需要進行明確邊界檢查時才需要。 |
-| `getUpperBound` | `ksTypeParameter.bounds` |
+| `getUpperBound` | `ksTypeParameter.bounds`                                                                 |
 
 ### WildcardType
 
@@ -342,23 +342,23 @@ KsDeclaration.annotations.any {
 ### Types
 {id="type-operations"}
 
-| **Java** | **KSP 對應項目** |
-| -------- | ------------------ |
-| `asElement` | `ksType.declaration` |
-| `asMemberOf` | `resolver.asMemberOf` |
-| `boxedClass` | 不需要 |
-| `capture` | 待定 |
-| `contains` | `KSType.isAssignableFrom` |
-| `directSuperTypes` | `(ksType.declaration as KSClassDeclaration).superTypes` |
-| `erasure` | `ksType.starProjection()` |
-| `getArrayType` | `ksBuiltIns.arrayType.replace(...)` |
-| `getDeclaredType` | `ksClassDeclaration.asType` |
-| `getNoType` | `ksBuiltIns.nothingType` / `null` |
-| `getNullType` | 根據上下文，`KSType.markNullable` 可能很有用 |
-| `getPrimitiveType` | 不需要，請檢查 `KSBuiltins` |
-| `getWildcardType` | 在預期 `KSTypeArgument` 的地方使用 `Variance` |
-| `isAssignable` | `ksType.isAssignableFrom` |
-| `isSameType` | `ksType.equals` |
-| `isSubsignature` | `functionTypeA == functionTypeB` / `functionTypeA == functionTypeB.starProjection()` |
-| `isSubtype` | `ksType.isAssignableFrom` |
-| `unboxedType` | 不需要 |
+| **Java**           | **KSP 對應項目**                                                                   |
+|--------------------|--------------------------------------------------------------------------------------|
+| `asElement`        | `ksType.declaration`                                                                 |
+| `asMemberOf`       | `resolver.asMemberOf`                                                                |
+| `boxedClass`       | 不需要                                                                           |
+| `capture`          | 待定                                                                        |
+| `contains`         | `KSType.isAssignableFrom`                                                            |
+| `directSuperTypes` | `(ksType.declaration as KSClassDeclaration).superTypes`                              |
+| `erasure`          | `ksType.starProjection()`                                                            |
+| `getArrayType`     | `ksBuiltIns.arrayType.replace(...)`                                                  |
+| `getDeclaredType`  | `ksClassDeclaration.asType`                                                          |
+| `getNoType`        | `ksBuiltIns.nothingType` / `null`                                                    |
+| `getNullType`      | 根據上下文，`KSType.markNullable` 可能很有用                      |
+| `getPrimitiveType` | 不需要，請檢查 `KSBuiltins`                                                   |
+| `getWildcardType`  | 在預期 `KSTypeArgument` 的地方使用 `Variance`                                  |
+| `isAssignable`     | `ksType.isAssignableFrom`                                                            |
+| `isSameType`       | `ksType.equals`                                                                      |
+| `isSubsignature`   | `functionTypeA == functionTypeB` / `functionTypeA == functionTypeB.starProjection()` |
+| `isSubtype`        | `ksType.isAssignableFrom`                                                            |
+| `unboxedType`      | 不需要                                                                           |

@@ -132,4 +132,4 @@ KDoc構文の詳細については、[KDoc](<example-URL>)を参照してくだ�
 
 ## 次のステップ
 
-Kotlinのドキュメント生成ツールの使い方を学ぶ: [Dokka](dokka-introduction.md)。
+Kotlin's documentation generation toolの使い方を学ぶ: [Dokka](dokka-introduction.md)。

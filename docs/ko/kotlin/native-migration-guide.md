@@ -29,7 +29,7 @@
 
 ## 종속성 업데이트
 
-<deflist style="medium">
+<deflist type="medium">
     <def title="kotlinx.coroutines">
         <p>1.6.0 이상의 버전으로 업데이트하세요. <code>native-mt</code> 접미사가 붙은 버전은 사용하지 마세요.</p>
         <p>새로운 메모리 관리자에서 염두에 두어야 할 몇 가지 구체적인 사항도 있습니다:</p>

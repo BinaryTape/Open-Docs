@@ -22,6 +22,7 @@
 - [Gradle 插件] 实现了更严格的 `MigrationFile` 版本控制 (#5730 由 @madisp 贡献)
 - [Gradle 插件] 将最低支持的 Gradle 版本提高到 8.2.1 (#6217 由 @maxsav 贡献)
 - [Gradle 插件] 支持 Gradle 隔离项目 (isolated projects) (#6217 由 @maxsav 贡献)
+- [IntelliJ 插件] 最低版本要求为 2023.3 / Android Studio Jellyfish
 
 ### 已修复
 - [编译器] 抑制生成代码中的 Kotlin 额外警告 (#6208 由 @eyupcanakman 贡献)
@@ -43,6 +44,7 @@
 - [PostgreSQL 方言] 修复了使用嵌套函数调用时的 JSON 聚合函数问题 (#6281 由 @griffio 贡献)
 - [Paging3 扩展] 修复了数据库为空时 `KeyedQueryPagingSource` 崩溃的问题 (#6284 由 @woods-marshes 贡献)
 - [编译器] 修复了当变更器语句与 `COALESCE` 等封装函数一起使用时出现的 Java 类型适配器问题 (#6292 由 @griffio 贡献)
+- [编译器] 修复了模块名称大写时，生成的代码包名也大写的问题 (#6316 由 @griffio 贡献)
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -172,7 +174,7 @@
 - [运行时] 修复了当真实驱动程序为 `Async` 时 `LogSqliteDriver` 中的崩溃问题 (#5723 由 @edenman 贡献)
 - [运行时] 修复了 `StringBuilder` 容量问题 (#5192 由 @janbina 贡献)
 - [PostgreSQL 方言] PostgreSQL 创建或替换视图 (#5407 由 @griffio 贡献)
-- [PostgreSQL 方言] PostgreSQL `TO_JSON` (#5606 由 @griffio 贡献)
+- [PostgreSQL 方言] PostgreSQL `to_json` (#5606 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSQL 数字解析器 (#5399 由 @griffio 贡献)
 - [PostgreSQL 方言] SQLite 窗口函数 (#2799 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSQL `SELECT DISTINCT ON` (#5345 由 @griffio 贡献)
@@ -180,7 +182,7 @@
 - [PostgreSQL 方言] PostgreSQL 异步绑定参数 (#5313 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSQL 布尔字面量 (#5262 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSQL 窗口函数 (#5155 由 @griffio 贡献)
-- [PostgreSQL 方言] PostgreSQL `ISNULL` `ISNOTNULL` 类型 (#5173 由 @griffio 贡献)
+- [PostgreSQL 方言] PostgreSQL `isNull` `isNotNull` 类型 (#5173 由 @griffio 贡献)
 - [PostgreSQL 方言] PostgreSQL `SELECT DISTINCT` (#5172 由 @griffio 贡献)
 - [Paging 扩展] 分页刷新初始加载修复 (#5615 由 @evant 贡献)
 - [Paging 扩展] 添加了 macOS 原生目标 (#5324 由 @vitorhugods 贡献)
@@ -236,7 +238,7 @@
 - [PostgreSQL 方言] 添加了对二进制表达式和求和的 PostgreSQL 类型的支持 (#4539 由 @Adriel-M 贡献)
 - [PostgreSQL 方言] 添加了对 PostgreSQL `SELECT DISTINCT ON` 语法的支持 (#4584 由 @griffio 贡献)
 - [PostgreSQL 方言] 添加了对 `SELECT` 语句中 PostgreSQL JSON 函数的支持 (#4590 由 @MariusVolkhart 贡献)
-- [PostgreSQL 方言] 添加了 `GENERATE_SERIES` PostgreSQL 函数 (#4717 由 @griffio 贡献)
+- [PostgreSQL 方言] 添加了 `generate_series` PostgreSQL 函数 (#4717 由 @griffio 贡献)
 - [PostgreSQL 方言] 添加了额外的 Postgres 字符串函数定义 (#4752 由 @MariusVolkhart 贡献)
 - [PostgreSQL 方言] 在 `MIN` 和 `MAX` 聚合函数中添加了 `DATE` PostgreSQL 类型 (#4816 由 @anddani 贡献)
 - [PostgreSQL 方言] 在 `SqlBinaryExpr` 中添加了 PostgreSQL 时间类型 (#4657 由 @griffio 贡献)
@@ -628,7 +630,7 @@ sqldelight {
 - [IDE 插件] 基础建议迁移 (由 @aperfilyev 贡献)
 - [IDE 插件] 添加了导入提示操作 (由 @aperfilyev 贡献)
 - [IDE 插件] 添加了 Kotlin 类补全 (由 @aperfilyev 贡献)
-- [Gradle 插件] 为 Gradle 类型安全项目访问器添加了快捷方式 (由 @hfhbd 贡献)
+- [Gradle 插件] 为 Gradle 类型安全的项目访问器添加了快捷方式 (由 @hfhbd 贡献)
 - [编译器] 根据方言自定义代码生成 (由 @MariusVolkhart 贡献)
 - [JDBC 驱动程序] 向 `JdbcDriver` 添加了通用类型 (由 @MariusVolkhart 贡献)
 - [SQLite] 添加了对 SQLite 3.35 的支持 (由 @eygraber 贡献)
@@ -1228,7 +1230,7 @@ sqldelight {
  * 已修复：以非失败方式报告 'sqldelight' 文件夹结构问题。
  * 已修复：禁止列名为 `table_name`。它们生成的常量会与表名常量冲突。
  * 已修复：确保 IDE 插件立即生成模型类，无论是否打开了 `.sq` 文件。
- * 已修复：支持 IDE 和 Gradle 插件中的 Windows 路径。
+ * 已修复：支持 Windows paths 在 both the IDE 和 Gradle 插件。
 
 ## [0.1.2] - 2016-02-13
 [0.1.2]: https://github.com/sqldelight/sqldelight/releases/tag/0.1.2

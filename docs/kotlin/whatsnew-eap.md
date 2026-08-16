@@ -18,7 +18,7 @@ _[发布日期：%kotlinEapReleaseDate%](eap.md#build-details)_
 Kotlin %kotlinEapVersion% 版本已发布！以下是此 EAP 版本的一些详细信息：
 
 * **标准库：** [支持协程堆栈跟踪恢复，以及用于检查集合元素相等性和唯一性的新功能](#standard-library)
-* **Kotlin/Native：** [默认启用 `klib` 构件的增量编译以及新的 Swift 导出功能](#kotlin-native)
+* **Kotlin/Native：** [新的 Swift 导出功能以及为 SwiftPM 依赖项自动生成的 `Package.swift` 文件](#kotlin-native)
 * **Kotlin/Wasm：** [`@JsFun` 声明中顶层 `require()` 调用的更改、改进的伴生对象初始化顺序，以及 Kotlin Gradle 插件对 Wasmtime 的支持](#kotlin-wasm)
 * **Kotlin/JS：** [用于浏览器测试的新 DSL 以及支持将挂起 lambda 导出为 JavaScript 异步函数](#kotlin-js)
 * **构建工具 API：** [支持新目标：Kotlin/JS、Kotlin/Wasm 和 Kotlin 元数据](#build-tools-api)
@@ -41,9 +41,9 @@ Kotlin %kotlinEapVersion% 版本已发布！以下是此 EAP 版本的一些详�
 
 * [标准库：支持协程堆栈跟踪恢复](#support-for-coroutine-stack-trace-recovery)
 * [标准库：用于检查集合元素相等性和唯一性的新函数](#new-functions-to-check-collection-elements-for-equality-and-uniqueness)
-* [Kotlin/Native：独立的 Kotlin 编译器镜像](#kotlin-compiler-native-image)
-* [Kotlin/JS：用于浏览器测试的新 DSL](#new-dsl-for-browser-testing)
+* [Kotlin/JS：用于浏览器测试的新 DSL](#a-new-dsl-for-browser-testing)
 * [构建工具 API：支持 Kotlin/JS、Kotlin/Wasm 和 Kotlin 元数据](#build-tools-api)
+* [Kotlin 编译器：独立的 Kotlin 编译器镜像](#kotlin-compiler-native-image)
 
 ## 标准库
 
@@ -53,18 +53,15 @@ Kotlin %kotlinEapVersion% 添加了对协程堆栈跟踪恢复的支持，并引
 <primary-label ref="experimental-opt-in"/>
 <secondary-label ref="standard-library"/>
 
-Kotlin %kotlinEapVersion% 在标准库中添加了 `StackTraceRecoverable` 接口。
-这改进了与 `kotlinx.coroutines` 库的集成，因为它允许您定义如何为堆栈跟踪恢复创建新的异常实例，而无需添加对 `kotlinx.coroutines` 的依赖。
+Kotlin %kotlinEapVersion% 在标准库中添加了 `StackTraceRecoverable` 接口。这改进了与 `kotlinx.coroutines` 库的集成，因为它允许您定义如何为堆栈跟踪恢复创建新的异常实例，而无需添加对 `kotlinx.coroutines` 的依赖。
 
-当一个协程抛出异常而另一个协程重新抛出该异常时，堆栈跟踪恢复有助于调试。
-它可以让您看到异常源自何处以及另一个协程在何处重新抛出了它。
+当一个协程抛出异常而另一个协程重新抛出该异常时，堆栈跟踪恢复有助于调试。它可以让您看到异常源自何处以及另一个协程在何处重新抛出了它。
 
-`kotlinx.coroutines` 库通过创建一个包含额外协程堆栈跟踪信息的新异常实例来执行堆栈跟踪恢复。
-对于构造函数仅接受异常消息、原因 (cause)、两者皆有或不带参数的异常，这是自动发生的。
+`kotlinx.coroutines` 库通过创建一个包含额外协程堆栈跟踪信息的新异常实例来执行堆栈跟踪恢复。对于构造函数仅接受异常消息、原因 (cause)、两者皆有或不带参数的异常，这是自动发生的。
 
 如果异常构造函数具有额外的必需参数（例如行号或错误代码），请实现 `StackTraceRecoverable` 接口以定义 `kotlinx.coroutines` 库如何创建该异常的新实例。
 
-为此，请重写 `copyForStackTraceRecovery()` 函数。此函数返回用于堆栈跟踪恢复的新异常实例，如果您不希望 `kotlinx.coroutines` 库复制该异常，则返回 `null`。
+要实现该接口，请重写 `copyForStackTraceRecovery()` 函数。在此重写中，返回用于堆栈跟踪恢复的新异常实例，如果您不希望 `kotlinx.coroutines` 库复制该异常，则返回 `null`。
 
 > `StackTraceRecoverable` 接口在所有目标平台上都可用，但 `kotlinx.coroutines` 库仅在 JVM 上将其用于堆栈跟踪恢复。
 >
@@ -76,7 +73,7 @@ Kotlin %kotlinEapVersion% 在标准库中添加了 `StackTraceRecoverable` 接�
 
 ```kotlin
 import kotlin.coroutines.ExperimentalStdlibCoroutineSupportApi
-import kotlin.coroutines.StackTraceRecoverable
+import kotlin.coroutines.debug.StackTraceRecoverable
 
 @OptIn(ExperimentalStdlibCoroutineSupportApi::class)
 class FileEditException
@@ -97,9 +94,11 @@ private constructor(
         FileEditException(line, detail, this)
     }
 
-@OptIn(ExperimentalStdlibCoroutineSupportApi::class) 
 fun main() {
     val original = FileEditException(15, "Unexpected token")
+    
+    // 通常情况下，除非您正在测试其行为，否则无需直接调用此函数
+    // kotlinx.coroutines 库会在堆栈跟踪恢复期间自动调用它
     val copy = original.copyForStackTraceRecovery()
 
     println(copy.message)
@@ -109,8 +108,10 @@ fun main() {
     // true
 }
 ```
+{kotlin-runnable="true" kotlin-min-compiler-version="2.4.20-Beta2"}
 
 欲了解更多信息，请参阅该功能的 [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/stdlib/KEEP-0461-stacktrace-recoverable.md)。
+
 我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-86595) 中提供反馈。
 
 ### 用于检查集合元素相等性和唯一性的新函数
@@ -175,26 +176,7 @@ fun main() {
 
 ## Kotlin/Native
 
-Kotlin %kotlinEapVersion% 默认启用了 `klib` 构件的增量编译，带来了新的 Swift 导出功能（包括对密封类和跨语言继承的支持），并推出了 Kotlin 编译器原生镜像的首个版本。
-
-### 默认启用增量编译
-<secondary-label ref="native"/>
-
-从 %kotlinEapVersion% 开始，默认启用 `klib` 构件的增量编译。
-
-通过增量编译，如果项目模块生成的 `klib` 构件只有一部分发生变化，则只有 `klib` 中受影响的部分会被进一步重新编译为二进制文件。
-
-此优化最初在 [Kotlin 1.9.20](whatsnew1920.md#incremental-compilation-of-klib-artifacts) 中引入，并已证明能显著减少调试构建的编译时间。
-
-请注意，在某些情况下，此优化可能会给全新构建带来性能开销。
-
-如果您遇到此功能的意外问题，可以手动将其禁用。为此，请在您的 `gradle.properties` 文件中设置以下选项：
-
-```none
-kotlin.incremental.native=false
-```
-
-请在我们的问题跟踪器 [YouTrack](https://kotl.in/issue) 中报告任何问题。有关缩短编译时间的更多提示，请参阅我们的[文档](native-improving-compilation-time.md)。
+Kotlin %kotlinEapVersion% 带来了新的 Swift 导出功能，包括对密封类和跨语言继承的支持，以及为 SwiftPM 依赖项自动生成的 `Package.swift` 文件。
 
 ### 新的 Swift 导出功能
 <secondary-label ref="native"/>
@@ -299,7 +281,7 @@ Kotlin %kotlinEapVersion% 更改了 Kotlin/Wasm 处理 `@JsFun` 声明中顶层 
 
 此前，编译器在 `import-object.mjs` 文件中生成一个 `require` 变量，允许 `@JsFun` 声明调用 `require()`。
 
-这种行为无意中暴露了编译器的实现细节。为了支持从此行为迁移，Kotlin/Wasm 移除了这个生成的 `require` 声明，且编译器现在会针对此类调用报告错误。例如：
+这种行为无意中暴露了编译器的实现细节向。为了支持从此行为迁移，Kotlin/Wasm 移除了这个生成的 `require` 声明，且编译器现在会针对此类调用报告错误。例如：
 
 ```kotlin
 // 报告错误
@@ -318,8 +300,7 @@ external interface Module {
 }
 ```
 
-对于动态模块加载，请改用 `import()` 表达式。
-添加 `/* webpackIgnore: true */` 魔法注释以防止 webpack 解析动态导入：
+对于动态模块加载，请改用 `import()` 表达式。添加 `/* webpackIgnore: true */` 魔法注释以防止 webpack 解析动态导入：
 
 ```kotlin
 @JsFun("""
@@ -360,11 +341,9 @@ external fun defineRequire()
 ### 改进的伴生对象初始化顺序
 <secondary-label ref="wasm"/>
 
-Kotlin/Wasm 现在在子类伴生对象之前初始化超类伴生对象，这与 JVM 行为一致。
-此前，初始化顺序可能会颠倒，导致不同平台之间的行为不一致。
+Kotlin/Wasm 现在在子类伴生对象之前初始化超类伴生对象，这与 JVM 行为一致。此前，初始化顺序可能会颠倒，导致不同平台之间的行为不一致。
 
-此更新提高了跨平台的一致性，并减少了类初始化行为中平台特定的差异。
-它还能够正确处理更深层继承层次结构中的伴生对象初始化，包括中间类未声明伴生对象的情况。
+此更新提高了跨平台的一致性，并减少了类初始化行为中平台特定的差异。它还能够正确处理更深层继承层次结构中的伴生对象初始化，包括中间类未声明伴生对象的情况。
 
 ### Kotlin Gradle 插件对 Wasmtime 的支持
 <secondary-label ref="wasm"/>
@@ -443,9 +422,9 @@ kotlin {
 ### 支持将挂起 lambda 导出为异步函数
 <secondary-label ref="js"/>
 
-在 Kotlin %kotlinEapVersion% 中，您现在可以将挂起 lambda 导出为 JavaScript 异步函数。
+在 Kotlin %kotlinEapVersion% 中，您现在可以将挂起 [lambda 表达式](lambdas.md#lambda-expressions-and-anonymous-functions)导出为 JavaScript `async` 函数。
 
-此前，无法从 Kotlin/JS 库中导出包含挂起 lambda 的声明。现在，Kotlin 编译器会自动处理 Kotlin 挂起函数与原生 JavaScript [async/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) 模型之间的桥接，这对于 Kotlin/TypeScript 混合代码库非常有用。
+此前，无法从 Kotlin/JS 库中导出包含挂起 lambda 的声明。现在，Kotlin 编译器会自动处理 Kotlin 挂起函数与原生 JavaScript [`async`/`await`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) 模型之间的桥接，这对于 Kotlin/TypeScript 混合代码库非常有用。
 
 要启用此功能，请将以下编译器选项添加到您的 `build.gradle.kts` 文件中：
 
@@ -475,7 +454,7 @@ class TaskRunner {
 }
 ```
 
-在 TypeScript 端，挂起 lambda 显示为常规异步函数：
+在 TypeScript 端，挂起 lambda 显示为常规 `async` 函数：
 
 ```typescript
 // TypeScript
@@ -498,27 +477,21 @@ console.log(result); // "done"
 
 这使得 Kotlin Gradle 插件与编译器的交互更加一致。在某些情况下，您还可以从更快、更稳定的编译中受益。
 
-BTA 是一个通用 API，充当构建系统与 Kotlin 编译器生态系统之间的抽象层。
-它有助于支持构建工具中可用的 Kotlin 功能以及与 Kotlin 编译器的兼容性。
+BTA 是一个通用 API，充当构建系统与 Kotlin 编译器生态系统之间的抽象层。它有助于支持构建工具中可用的 Kotlin 功能以及与 Kotlin 编译器的兼容性。
 
-我们计划在 Kotlin Gradle 插件中逐步推出对新目标的 BTA 支持：
+在 Kotlin %kotlinEapVersion% 中，BTA 在新目标中作为显式启用功能提供。要试用它，请将相应的属性添加到您的 `gradle.properties` 文件中：
 
-* 在 Kotlin 2.4.20-Beta1 中，BTA 在 Kotlin/JS、Kotlin/Wasm 和 Kotlin 元数据中默认启用，以收集反馈。
-  无需在项目中进行额外更改。
-* 在 Kotlin 2.4.20-Beta2 与 Kotlin 2.4.20 正式版之间，新目标中的 BTA 将作为显式启用功能提供。
-  要试用它，请将相应的属性添加到您的 `gradle.properties` 文件中：
+```properties
+kotlin.wasm.runViaBuildToolsApi=true
+kotlin.js.runViaBuildToolsApi=true
+kotlin.metadata.runViaBuildToolsApi=true
+```
 
-  ```kotlin
-  kotlin.wasm.runViaBuildToolsApi = true
-  kotlin.js.runViaBuildToolsApi = true
-  kotlin.metadata.runViaBuildToolsApi = true
-  ```
-
-* 从 Kotlin 2.5.0 开始，BTA 将再次在 Kotlin/JS、Kotlin/Wasm 和 Kotlin 元数据中默认启用。
+从 Kotlin 2.5.0 开始，我们计划在 Kotlin/JS、Kotlin/Wasm 和 Kotlin 元数据中默认启用 BTA。
 
 如果您对 BTA 提案感兴趣或想分享反馈，请参阅此 [KEEP](https://github.com/Kotlin/KEEP/blob/build-tools-api/proposals/extensions/build-tools-api.md)。
 
-### Kotlin 编译器：原生镜像
+## Kotlin 编译器：原生镜像
 <primary-label ref="experimental-general"/>
 <secondary-label ref="compiler"/>
 

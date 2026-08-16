@@ -10,7 +10,7 @@ JavaとKotlinの混合プロジェクトおよび純粋なKotlinプロジェク�
 
 `<extensions>`を使用してKotlin Mavenプラグインを適用するには、`pom.xml`ビルドファイルを次のように更新します。
 
-1. `<properties>`セクションで、使用するKotlinのバージョンとJVMのターゲットバージョンを定義します。
+1. `<properties>`セクションで、KotlinとJVMのターゲットバージョンを定義します。
 
    ```xml
    <properties>
@@ -176,9 +176,9 @@ Kotlin Mavenプラグインを適用するには、`pom.xml`ビルドファイ�
                     </goals>
                     <configuration>
                         <sourceDirs>
-                            <sourceDir>src/main/kotlin</sourceDir>
+                            <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
                             <!-- KotlinコードがJavaコードを参照できるようにする -->
-                            <sourceDir>src/main/java</sourceDir>
+                            <sourceDir>${project.basedir}/src/main/java</sourceDir>
                         </sourceDirs>
                     </configuration>
                 </execution>
@@ -190,8 +190,8 @@ Kotlin Mavenプラグインを適用するには、`pom.xml`ビルドファイ�
                     </goals>
                     <configuration>
                         <sourceDirs>
-                            <sourceDir>src/test/kotlin</sourceDir>
-                            <sourceDir>src/test/java</sourceDir>
+                            <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
+                            <sourceDir>${project.basedir}/src/test/java</sourceDir>
                         </sourceDirs>
                     </configuration>
                 </execution>
@@ -334,6 +334,31 @@ graph TD
 > 現在、特定のJDKバージョンを使用するように `maven-toolchains-plugin` を設定しても、`kotlin-maven-plugin` の [`kapt` および `test-kapt` ゴールには影響しません](https://youtrack.jetbrains.com/issue/KT-79897)。代わりに、`JAVA_HOME` パスに必要なバージョンを設定してください。
 >
 {style="note"}
+
+## Javaモジュール（JPMS）の設定
+
+Kotlin Mavenプラグインは [Javaプラットフォームモジュールシステム (JPMS)](https://dev.java/learn/modules/) をサポートしているため、`module-info.java` 記述子とともにKotlinコードをコンパイルし、生成されたモジュールを他のJavaモジュールと同様に使用できます。
+
+ビルドファイルにJPMS固有の特別なオプションを追加する必要はありません。単にMavenの前にKotlinコンパイラが実行されるように設定するだけです。
+
+`module-info.java` 記述子が存在する場合、Kotlinコンパイラはそれをソースファイルとして使用し、クラスパスではなくモジュールパスに対してコンパイルします。Kotlinコンパイラは記述子を読み取ってモジュールグラフを解決し、その後Mavenコンパイラがそれを `module-info.class` ファイルにコンパイルします。
+
+Javaモジュールを設定するには、`${project.basedir}/src/main/java` ディレクトリに `module-info.java` ファイルを作成します。モジュール記述子では、モジュールが必要とするすべての依存関係と、エクスポートするパッケージを宣言します。例えば：
+
+```java
+module org.example.myapp {
+    requires transitive kotlin.stdlib;
+    requires java.net.http;
+    
+    exports org.example.myapp;
+}
+```
+
+以下の点に注意してください：
+
+* Javaモジュールは、宣言したものだけを使用できます。コンパイルにはクラスパスではなくモジュールパスが使用されるため、記述子には標準ライブラリ、JDKモジュール（`java.base` を除く）、およびその他のライブラリなど、Kotlinコードが使用するすべての依存関係を含める必要があります。そうしないと、`Unresolved reference` エラーが発生する可能性があります。
+* モジュールの場合、`Package is empty or does not exist` ビルドエラーを避けるために、Kotlinファイルのパッケージ名は `module-info.java` のパッケージ名と一致している必要があります。
+* `pom.xml` ビルドファイルは、[KotlinがJavaの前にコンパイルされるように](#kotlinとjavaソースのコンパイル)設定されている必要があります。[プロジェクトの自動設定](#自動設定)を使用している場合、`<extensions>` オプションによってこれが既に保証されています。
 
 ## 次のステップ
 

@@ -210,7 +210,7 @@ fun main() {
 
 ### 将时长拆分为组件
 
-要将 `Duration` 拆分为其时间组件并执行进一步操作，请使用 [`toComponents()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/to-components.html) 函数的重载版本。将所需的操作作为函数或 lambda 表达式作为函数形参添加。
+要将 `Duration` 拆分为其时间组件并执行进一步操作，请使用 [`toComponents()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/to-components.html) 函数的重载版本。将所需的操作作为函数或 lambda表达式作为函数形参添加。
 
 例如：
 
@@ -228,7 +228,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-time-duration-components"}
 
-在此示例中，lambda 表达式将 `hours` 和 `minutes` 作为函数形参，并对未使用的 `seconds` 和 `nanoseconds` 形参使用下划线 (`_`)。该表达式使用[字符串模板](strings.md#string-templates)返回一个串联字符串，以获取所需的 `hours` 和 `minutes` 输出格式。
+在此示例中，lambda表达式将 `hours` 和 `minutes` 作为函数形参，并对未使用的 `seconds` 和 `nanoseconds` 形参使用下划线 (`_`)。该表达式使用[字符串模板](strings.md#string-templates)返回一个串联字符串，以获取所需的 `hours` 和 `minutes` 输出格式。
 
 ## 测量时间
 

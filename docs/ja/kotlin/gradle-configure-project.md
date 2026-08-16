@@ -465,7 +465,7 @@ integrationTestCompilation {
 
 ### Java モジュール (JPMS) を有効にした構成
 
-Kotlin Gradle プラグインを [Java モジュール (Java Modules)](https://www.oracle.com/corporate/features/understanding-java-9-modules.html) で動作させるには、ビルドスクリプトに以下の行を追加し、`YOUR_MODULE_NAME` を JPMS モジュールへの参照（例：`org.company.module`）に置き換えます。
+Kotlin Gradle プラグインを [Java モジュール (Java Modules)](https://dev.java/learn/modules/) で動作させるには、ビルドスクリプトに以下の行を追加し、`YOUR_MODULE_NAME` を JPMS モジュールへの参照（例：`org.company.module`）に置き換えます。
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">

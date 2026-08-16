@@ -145,7 +145,6 @@ dependencies {
 ### 建立並註冊處理器
 
 1. 在專案根目錄建立另一個名為 **processor** 的模組。
-
 2. 在該模組的 `build.gradle(.kts)` 檔案中，將 KSP API 和你宣告的註解新增為相依性：
 
     <tabs group="build-script">
@@ -182,7 +181,6 @@ dependencies {
 
     </tab>
     </tabs>
-
 3. 在 processor 模組中，建立一個新的 `HelloWorldProcessor.kt` 檔案並新增以下程式碼：
 
     ```kotlin
@@ -243,7 +241,7 @@ dependencies {
    
     import com.google.devtools.ksp.processing.CodeGenerator
     import com.google.devtools.ksp.processing.Dependencies
-    import com.google.devtools.ksp.processing.開源
+    import com.google.devtools.ksp.processing.Resolver
     import com.google.devtools.ksp.processing.SymbolProcessor
     import com.google.devtools.ksp.symbol.KSAnnotated
     import com.google.devtools.ksp.symbol.KSFunctionDeclaration
@@ -252,26 +250,25 @@ dependencies {
     import java.io.OutputStream
     ```
     {collapsible="true" collapsed-title="匯入陳述式"}
-   
 
-    讓我們來看看這段程式碼：
-    
+   讓我們來看看這段程式碼：
+
     * 1️⃣ `process()` 函式包含處理器的主要邏輯。它會取得所有被 `HelloWorldAnnotation` 標註的符號，並為每個符號呼叫 `HelloWorldVisitor`。
-    
-        `process()` 函式會傳回一個未處理符號清單，以便在下一輪中處理。在本範例中，它安全地傳回 `emptyList()`。如需更多資訊，請參閱[多輪處理](ksp-multi-round.md)。
-    
+
+       `process()` 函式會傳回一個未處理符號清單，以便在下一輪中處理。在本範例中，它安全地傳回 `emptyList()`。如需更多資訊，請參閱[多輪處理](ksp-multi-round.md)。
+
     * 2️⃣ 處理器使用訪問者遍歷 KSP 的 Kotlin 抽象語法樹 (AST) 檢視。在 `HelloWorldProcessor` 類別中，`HelloWorldVisitor` 類別即為訪問者。由於 `HelloWorldAnnotation` 僅用於函式，因此僅覆寫了 `visitFunctionDeclaration()`。
-    
-        > `KSVisitorVoid` 是 KSP 提供的訪問者類別之一，你可以對其進行覆寫和調整。你也可以透過實作 [`KSVisitor<D, R>` 介面](https://github.com/google/ksp/blob/main/api/src/main/kotlin/com/google/devtools/ksp/symbol/KSVisitor.kt) 來建立自己的訪問者。
-        > 
-        {style="tip"}
-    
+   
+       > `KSVisitorVoid` 是 KSP 提供的訪問者類別之一，你可以對其進行覆寫和調整。
+       > 你也可以透過實作 [`KSVisitor<D, R>` 介面](https://github.com/google/ksp/blob/main/api/src/main/kotlin/com/google/devtools/ksp/symbol/KSVisitor.kt) 來建立自己的訪問者。
+       >
+       {style="tip"}
+
     * 3️⃣ `createNewFileFrom()` 會建立 KSP 產生程式碼的檔案。`createDependencyOn()` 使輸出檔案相依於使用該註解的原始碼檔案。
 
-        > 若要進一步了解 KSP 如何建立和管理檔案，請造訪 [`CodeGenerator` 介面](https://github.com/google/ksp/blob/main/api/src/main/kotlin/com/google/devtools/ksp/processing/CodeGenerator.kt) 的原始碼。
-        > 
-        {style="tip"} 
-
+       > 若要進一步了解 KSP 如何建立和管理檔案，請造訪 [`CodeGenerator` 介面](https://github.com/google/ksp/blob/main/api/src/main/kotlin/com/google/devtools/ksp/processing/CodeGenerator.kt) 的原始碼。
+       >
+       {style="tip"}
 4. 建立 `HelloWorldProcessorProvider.kt` 檔案。在其中宣告一個繼承自 `SymbolProcessorProvider` 的 `HelloWorldProcessorProvider` 類別：
 
     ```kotlin
@@ -287,7 +284,6 @@ dependencies {
         }  
     }
     ```
-
 5. 註冊處理器提供者。在 `resources/META-INF/services` 目錄中，建立一個 `com.google.devtools.ksp.processing.SymbolProcessorProvider` 檔案，並新增提供者的完全限定名稱：
 
     ```text

@@ -77,7 +77,7 @@ KSP는 프로세서 인스턴스를 한 번만 생성합니다. 프로세서 인
 
 프로세서는 `KSPLogger.error()`를 호출하여 에러를 보고합니다.
 
-프로세서가 에러를 보고하면 KSP는 `SymbolProcessor.finish()` 대신 `SymbolProcessor.onError()`를 호출합니다. 처리는 현재 라운드가 완료된 후 중단됩니다.
+프로세서가 에러를 보고하면 KSP는 `SymbolProcessor.finish()` 대신 `SymbolProcessor.onError()` 호출합니다. 처리는 현재 라운드가 완료된 후 중단됩니다.
 
 해당 라운드 동안 다른 프로세서들은 정상적으로 처리를 계속합니다. KSP는 모든 프로세서가 현재 라운드를 마친 후에만 에러를 처리합니다.
 

@@ -20,7 +20,7 @@ Kotlin 컴파일러에는 컴파일 프로세스를 조정하기 위한 여러 �
 * IntelliJ IDEA에서는 **Settings/Preferences** | **Build, Execution, Deployment** | **Compiler** | **Kotlin Compiler**의 **Additional command line parameters** 텍스트 상자에 컴파일러 인자를 작성합니다.
 * Gradle을 사용하는 경우, Kotlin 컴파일 작업의 `compilerOptions` 속성에 컴파일러 인자를 지정합니다.
 자세한 내용은 [Gradle 컴파일러 옵션](gradle-compiler-options.md#how-to-define-options)을 참조하세요.
-* Maven을 사용하는 경우, Maven 플러그인 노드의 `<configuration>` 요소에 컴파일러 인자를 지정합니다.
+* Maven을 사용하는 경우, Maven 플러그인 노드의 `<configuration>` 요소에 컴파일러 인자가 지정됩니다.
 자세한 내용은 [Maven](maven-kotlin-compiler.md#specify-compiler-options)을 참조하세요.
 * 커맨드 라인 컴파일러를 실행하는 경우, 유틸리티 호출 시 컴파일러 인자를 직접 추가하거나 [argfile](#argfile)에 작성합니다.
 

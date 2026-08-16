@@ -19,38 +19,38 @@ Androidモジュールの場合：
 
 1. ComposeコンパイラGradleプラグインを[Gradleバージョンカタログ](https://docs.gradle.org/current/userguide/platforms.html#sub:conventional-dependencies-toml)に追加します。
 
- ```toml
- [versions]
- # ...
- kotlin = "%kotlinVersion%"
- 
- [plugins]
- # ...
- org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
- compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
- ```
-
-> AGP 9.0.0以降を使用している場合、AGPにはKotlinのサポートが組み込まれているため、`org-jetbrains-kotlin-android` プラグインは不要になります。
-> 
-{style ="note"}
+     ```toml
+     [versions]
+     # ...
+     kotlin = "%kotlinVersion%"
+     
+     [plugins]
+     # ...
+     org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+     compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+     ```
+    
+    > AGP 9.0.0以降を使用している場合、AGPにはKotlinのサポートが組み込まれているため、`org-jetbrains-kotlin-android` プラグインは不要になります。
+    > 
+    {style ="note"}
 
 2. ルートの `build.gradle.kts` ファイルにGradleプラグインを追加します。
 
- ```kotlin
- plugins {
-     // ...
-     alias(libs.plugins.compose.compiler) apply false
- }
- ```
+     ```kotlin
+     plugins {
+         // ...
+         alias(libs.plugins.compose.compiler) apply false
+     }
+     ```
 
 3. Jetpack Composeを使用するすべてのモジュールにプラグインを適用します。
 
- ```kotlin
- plugins {
-     // ...
-     alias(libs.plugins.compose.compiler)
- }
- ```
+     ```kotlin
+     plugins {
+         // ...
+         alias(libs.plugins.compose.compiler)
+     }
+     ```
 
 4. Jetpack Composeコンパイラのコンパイラオプションを使用している場合は、`composeCompiler {}` ブロックで設定してください。詳細は [コンパイラオプションの一覧](compose-compiler-options.md) を参照してください。
 

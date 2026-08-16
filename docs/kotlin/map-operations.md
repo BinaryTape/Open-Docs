@@ -213,7 +213,7 @@ fun main() {
 * `getOrPutIfNull()` 的行为与 `getOrPut()` 类似，如果键缺失或具有 `null` 值，则使用默认值。
 * `getOrPutIfMissing()` 仅在键缺失时才使用默认值。
 
-`getOrPutIfNull()` 和 `getOrPutIfMissing()` 函数处于[实验性阶段](components-stability.md#stability-levels-explained)。要启用，请使用 `@OptIn(ExperimentalStdlibApi::class)` 注解。
+`getOrPutIfNull()` 和 `getOrPutIfMissing()` 函数处于[实验性](components-stability.md#stability-levels-explained)阶段。要启用，请使用 `@OptIn(ExperimentalStdlibApi::class)` 注解。
 
 以下是一个示例：
 

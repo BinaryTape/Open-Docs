@@ -112,7 +112,7 @@ Glob 应用于相对于相应 include 路径元素的头文件路径，
 headerFilter = SomeLibrary/**
 ```
 
-如果未提供 `headerFilter`，则包含所有头文件制。但是，我们鼓励您使用 `headerFilter`
+如果未提供 `headerFilter`，则包含所有头文件。但是，我们鼓励您使用 `headerFilter`
 并尽可能精确地指定 glob。在这种情况下，生成的库仅包含必要的声明。
 这有助于避免在升级开发环境中的 Kotlin 或工具时出现各种问题。
 
@@ -194,7 +194,7 @@ libraryPaths = /opt/local/lib /usr/local/opt/curl/lib
 
 ### 允许调用非指定初始化器
 
-默认情况下，Kotlin/Native 编译器不允许将 non-designated Objective-C 初始化器作为 `super()`
+默认情况下，Kotlin/Native 编译器不允许将非指定的 Objective-C 初始化器作为 `super()`
 构造函数调用。如果库中未正确标记指定的 Objective-C 初始化器，此行为可能会带来不便。
 要禁用这些编译器检查，请使用 `disableDesignatedInitializerChecks` 属性。
 
@@ -204,7 +204,7 @@ libraryPaths = /opt/local/lib /usr/local/opt/curl/lib
 Kotlin 代码，程序将会崩溃。
 
 要将 Objective-C 异常传播到 Kotlin，请通过 `foreignExceptionMode = objc-wrap` 属性启用包装。
-在这种情况下， Objective-C 异常会被转换为获得 `ForeignException` 类型的 Kotlin 异常。
+在这种情况下，Objective-C 异常会被转换为获得 `ForeignException` 类型的 Kotlin 异常。
 
 ### 帮助解决链接器错误
 

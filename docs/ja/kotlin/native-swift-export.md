@@ -11,7 +11,7 @@ Swift exportにより、Appleターゲット向けのマルチプラットフォ
 * **マルチモジュール対応**。各Kotlinモジュールは個別のSwiftモジュールとしてエクスポートされるため、関数呼び出しが簡素化されます。
 * **パッケージのサポート**。Kotlinのパッケージはエクスポート中も明示的に保持され、生成されたSwiftコード内での名前の衝突を回避します。
 * **型エイリアス**。Kotlinの型エイリアスはエクスポートされSwiftでも保持されるため、可読性が向上します。
-* **プリミティブに対する強化されたNull許容性**。Null許容性を保持するために`Int?`のような型を`KotlinInt`のようなラッッパーにボクシングする必要があったObjective-C相互運用とは異なり、Swift exportはNull許容性の情報を直接変換します。
+* **プリミティブに対する強化されたNull許容性**。Null許容性を保持するために`Int?`のような型を`KotlinInt`のようなラッパーにボクシングする必要があったObjective-C相互運用とは異なり、Swift exportはNull許容性の情報を直接変換します。
 * **オーバーロード**。Kotlinのオーバーロードされた関数を、曖昧さなくSwiftで呼び出すことができます。
 * **パッケージ構造のフラット化**。KotlinのパッケージをSwiftのenumに変換し、生成されたSwiftコードからパッケージプレフィックスを削除できます。
 * **モジュール名のカスタマイズ**。KotlinプロジェクトのGradle設定で、生成されるSwiftモジュール名をカスタマイズできます。
@@ -113,33 +113,33 @@ Swift exportは現在、iOSフレームワークをXcodeプロジェクトに接
 
 以下の表は、Kotlinの概念がSwiftにどのようにマッピングされるかを示しています。
 
-| Kotlin                                     | Swift                          |
-|--------------------------------------------|--------------------------------|
-| [`class`](#classes)                        | `class`                        |
-| [`object`](#objects)                       | `shared`プロパティを持つ`class` |
-| [`enum class`](#enums)                     | `enum`                         |
-| [`typealias`](#type-aliases)               | `typealias`                    |
-| [関数](#functions)                         | 関数                           |
-| [`suspend fun`](#suspending-functions)     | `async`                        |
-| [`kotlinx.coroutines` flows](#flows) | `AsyncSequence`                |
-| [プロパティ](#properties)                  | プロパティ                     |
-| [コンストラクタ](#constructors)            | イニシャライザ                 |
-| [パッケージ](#packages)                    | ネストされたenum               |
-| `Boolean`                                  | `Bool`                         |
-| `Char`                                     | `Unicode.UTF16.CodeUnit`       |
-| `Byte`                                     | `Int8`                         |
-| `Short`                                    | `Int16`                        |
-| `Int`                                      | `Int32`                        |
-| `Long`                                     | `Int64`                        |
-| `UByte`                                    | `UInt8`                        |
-| `UShort`                                   | `UInt16`                       |
-| `UInt`                                     | `UInt32`                       |
-| `ULong`                                    | `UInt64`                       |
-| `Float`                                    | `Float`                        |
-| `Double`                                   | `Double`                       |
-| `Any`                                      | `KotlinBase` クラス            |
-| `Unit`                                     | `Void`                         |
-| [`Nothing`](#kotlin-nothing)               | `Never`                        |
+| Kotlin                                 | Swift                          |
+|----------------------------------------|--------------------------------|
+| [`class`](#classes)                    | `class`                        |
+| [`object`](#objects)                   | `shared`プロパティを持つ`class` |
+| [`enum class`](#enums)                 | `enum`                         |
+| [`typealias`](#type-aliases)           | `typealias`                    |
+| [関数](#functions)                     | 関数                           |
+| [`suspend fun`](#suspending-functions) | `async`                        |
+| [`kotlinx.coroutines` flows](#flows)   | `AsyncSequence`                |
+| [プロパティ](#properties)              | プロパティ                     |
+| [コンストラクタ](#constructors)        | イニシャライザ                 |
+| [パッケージ](#packages)                | ネストされたenum               |
+| `Boolean`                              | `Bool`                         |
+| `Char`                                 | `Unicode.UTF16.CodeUnit`       |
+| `Byte`                                 | `Int8`                         |
+| `Short`                                | `Int16`                        |
+| `Int`                                  | `Int32`                        |
+| `Long`                                 | `Int64`                        |
+| `UByte`                                | `UInt8`                        |
+| `UShort`                               | `UInt16`                       |
+| `UInt`                                 | `UInt32`                       |
+| `ULong`                                | `UInt64`                       |
+| `Float`                                | `Float`                        |
+| `Double`                               | `Double`                       |
+| `Any`                                  | `KotlinBase` クラス            |
+| `Unit`                                 | `Void`                         |
+| [`Nothing`](#kotlin-nothing)           | `Never`                        |
 
 ### 宣言
 
@@ -282,7 +282,7 @@ public func log(messages: Swift.String...)
 ```
 
 > * [`operator` 修飾子](operator-overloading.md)を持つ関数のサポートは、現在制限されています。
-> * ジェネリック型は一般的​​にサポートされていません。
+> * ジェネリック型は一般的にサポートされていません。
 >
 {style="note"}
 

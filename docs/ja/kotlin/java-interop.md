@@ -475,7 +475,7 @@ package test;
 * `MigrationStatus.WARN`: 不適切な使用はエラーではなくコンパイル警告として報告されますが、アノテーションされた宣言の型はプラットフォーム型のままになります。
 * `MigrationStatus.IGNORE`: コンパイラにNull許容性アノテーションを完全に無視させます。
 
-ライブラリメンテナは、型クオリファイア의 ニックネームと型クオリファイアのデフォルトの両方に `@UnderMigration` ステータスを追加できます：
+ライブラリメンテナは、型クオリファイアのニックネームと型クオリファイアのデフォルトの両方に `@UnderMigration` ステータスを追加できます：
 
 ```java
 @Nonnull(when = When.ALWAYS)
@@ -538,45 +538,45 @@ Javaのプリミティブ型は、対応するKotlinの型にマップされま�
 
 プリミティブでない一部の組み込みクラスもマップされます：
 
-| **Javaの型** | **Kotlinの型**  |
-|---------------|------------------|
-| `java.lang.Object`       | `kotlin.Any!`    |
-| `java.lang.Cloneable`    | `kotlin.Cloneable!`    |
-| `java.lang.Comparable`   | `kotlin.Comparable!`    |
-| `java.lang.Enum`         | `kotlin.Enum!`    |
-| `java.lang.annotation.Annotation`   | `kotlin.Annotation!`    |
-| `java.lang.CharSequence` | `kotlin.CharSequence!`   |
-| `java.lang.String`       | `kotlin.String!`   |
-| `java.lang.Number`       | `kotlin.Number!`     |
-| `java.lang.Throwable`    | `kotlin.Throwable!`    |
+| **Javaの型**                     | **Kotlinの型**        |
+|-----------------------------------|------------------------|
+| `java.lang.Object`                | `kotlin.Any!`          |
+| `java.lang.Cloneable`             | `kotlin.Cloneable!`    |
+| `java.lang.Comparable`            | `kotlin.Comparable!`   |
+| `java.lang.Enum`                  | `kotlin.Enum!`         |
+| `java.lang.annotation.Annotation` | `kotlin.Annotation!`   |
+| `java.lang.CharSequence`          | `kotlin.CharSequence!` |
+| `java.lang.String`                | `kotlin.String!`       |
+| `java.lang.Number`                | `kotlin.Number!`       |
+| `java.lang.Throwable`             | `kotlin.Throwable!`    |
 
 Javaのプリミティブ型のラッパークラスは、Null許容のKotlin型にマップされます：
 
-| **Javaの型**           | **Kotlinの型**  |
-|-------------------------|------------------|
-| `java.lang.Byte`        | `kotlin.Byte?`   |
-| `java.lang.Short`       | `kotlin.Short?`  |
-| `java.lang.Integer`     | `kotlin.Int?`    |
-| `java.lang.Long`        | `kotlin.Long?`   |
-| `java.lang.Character`   | `kotlin.Char?`   |
-| `java.lang.Float`       | `kotlin.Float?`  |
-| `java.lang.Double`      | `kotlin.Double?`  |
-| `java.lang.Boolean`     | `kotlin.Boolean?` |
+| **Javaの型**         | **Kotlinの型**   |
+|-----------------------|-------------------|
+| `java.lang.Byte`      | `kotlin.Byte?`    |
+| `java.lang.Short`     | `kotlin.Short?`   |
+| `java.lang.Integer`   | `kotlin.Int?`     |
+| `java.lang.Long`      | `kotlin.Long?`    |
+| `java.lang.Character` | `kotlin.Char?`    |
+| `java.lang.Float`     | `kotlin.Float?`   |
+| `java.lang.Double`    | `kotlin.Double?`  |
+| `java.lang.Boolean`   | `kotlin.Boolean?` |
 
 なお、型パラメータとして使用されるラッパープリミティブ型はプラットフォーム型にマップされます。例えば、`List<java.lang.Integer>` はKotlinでは `List<Int!>` になります。
 
 Kotlinのコレクション型は読み取り専用またはミュータブルである可能性があるため、Javaのコレクションは次のようにマップされます（この表のすべてのKotlin型は `kotlin.collections` パッケージに属します）：
 
-| **Javaの型** | **Kotlin読み取り専用型**  | **Kotlinミュータブル型** | **ロードされたプラットフォーム型** |
-|---------------|----------------------------|-------------------------|--------------------------|
-| `Iterator<T>`        | `Iterator<T>`        | `MutableIterator<T>`            | `(Mutable)Iterator<T>!`            |
-| `Iterable<T>`        | `Iterable<T>`        | `MutableIterable<T>`            | `(Mutable)Iterable<T>!`            |
-| `Collection<T>`      | `Collection<T>`      | `MutableCollection<T>`          | `(Mutable)Collection<T>!`          |
-| `Set<T>`             | `Set<T>`             | `MutableSet<T>`                 | `(Mutable)Set<T>!`                 |
-| `List<T>`            | `List<T>`            | `MutableList<T>`                | `(Mutable)List<T>!`                |
-| `ListIterator<T>`    | `ListIterator<T>`    | `MutableListIterator<T>`        | `(Mutable)ListIterator<T>!`        |
-| `Map<K, V>`          | `Map<K, V>`          | `MutableMap<K, V>`              | `(Mutable)Map<K, V>!`              |
-| `Map.Entry<K, V>`    | `Map.Entry<K, V>`    | `MutableMap.MutableEntry<K,V>` | `(Mutable)Map.(Mutable)Entry<K, V>!` |
+| **Javaの型**     | **Kotlin読み取り専用型** | **Kotlinミュータブル型**        | **ロードされたプラットフォーム型**             |
+|-------------------|---------------------------|--------------------------------|--------------------------------------|
+| `Iterator<T>`     | `Iterator<T>`             | `MutableIterator<T>`           | `(Mutable)Iterator<T>!`              |
+| `Iterable<T>`     | `Iterable<T>`             | `MutableIterable<T>`           | `(Mutable)Iterable<T>!`              |
+| `Collection<T>`   | `Collection<T>`           | `MutableCollection<T>`         | `(Mutable)Collection<T>!`            |
+| `Set<T>`          | `Set<T>`                  | `MutableSet<T>`                | `(Mutable)Set<T>!`                   |
+| `List<T>`         | `List<T>`                 | `MutableList<T>`               | `(Mutable)List<T>!`                  |
+| `ListIterator<T>` | `ListIterator<T>`         | `MutableListIterator<T>`       | `(Mutable)ListIterator<T>!`          |
+| `Map<K, V>`       | `Map<K, V>`               | `MutableMap<K, V>`             | `(Mutable)Map<K, V>!`                |
+| `Map.Entry<K, V>` | `Map.Entry<K, V>`         | `MutableMap.MutableEntry<K,V>` | `(Mutable)Map.(Mutable)Entry<K, V>!` |
 
 Javaの配列は[後述](#java-arrays)の通りマップされます：
 
@@ -625,7 +625,7 @@ int配列のインデックスを受け取るJavaメソッドがあるとしま�
 ``` java
 public class JavaArrayExample {
     public void removeIndices(int[] indices) {
-        // code here...
+        // ここにコード...
     }
 }
 ```
@@ -672,7 +672,7 @@ Javaクラスでは、可変長引数（varargs）を使用したメソッド宣
 public class JavaArrayExample {
 
     public void removeIndicesVarArg(int... indices) {
-        // code here...
+        // ここにコード...
     }
 }
 ```

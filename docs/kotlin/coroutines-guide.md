@@ -13,11 +13,11 @@ Kotlin 在其标准库中仅提供了最基本的低级 API，以便其他库能
 ## 目录
 
 * [协程基础](coroutines-basics.md)
-* [教程：协程与通道简介](coroutines-and-channels.md)
 * [取消与超时](coroutines-cancellation.md)
+* [异步流](coroutines-flow.md)
+* [教程：协程与通道简介](coroutines-and-channels.md)
 * [组合挂起函数](composing-suspending-functions.md)
 * [协程上下文与调度器](coroutine-context-and-dispatchers.md)
-* [异步流](coroutines-flow.md)
 * [通道](channels.md)
 * [协程异常处理](exception-handling.md)
 * [共享可变状态与并发](shared-mutable-state-and-concurrency.md)

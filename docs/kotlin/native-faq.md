@@ -81,7 +81,7 @@ kotlin {
 ## 如何重命名 iOS 框架？
 
 iOS 框架的默认名称为 `<项目名称>.framework`。
-要设置自定义名称，请使用 `baseName` option。这也会同时设置模块名称。
+要设置自定义名称，请使用 `baseName` 选项。这也会同时设置模块名称。
 
 ```kotlin
 kotlin {

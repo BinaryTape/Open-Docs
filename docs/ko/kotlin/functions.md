@@ -500,7 +500,7 @@ class MyStringCollection {
 
 fun main() {
     val myStrings = MyStringCollection()
-    // 리스트에 "first"와 "second"를 두 번 추가합니다.
+    // 리스트에 "first"와 "second"를 추가합니다.
     myStrings.build()
       
     myStrings.printAll()

@@ -13,7 +13,8 @@ fun main() {
 
 ## 运行 Node.js 目标
 
-当使用 Kotlin/JS 以 Node.js 为目标时，你可以直接执行 `jsNodeDevelopmentRun` Gradle 任务。例如，可以通过命令行使用 Gradle 包装器来完成：
+当使用 Kotlin/JS 以 Node.js 为目标时，你可以直接执行 `jsNodeDevelopmentRun` Gradle 任务。
+例如，可以通过命令行使用 Gradle 包装器来完成：
 
 ```bash
 ./gradlew jsNodeDevelopmentRun

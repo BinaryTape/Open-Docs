@@ -4,13 +4,13 @@
 
 [競賽程式設計](https://en.wikipedia.org/wiki/Competitive_programming)是一項智力運動，參賽者需在嚴格的限制下編寫程式來解決精確指定的演算法問題。問題的範圍從任何軟體開發者都能解決且只需少量程式碼即可獲得正確解的簡單問題，到需要特殊演算法、資料結構知識和大量練習的複雜問題皆有。雖然 Kotlin 並非專門為競賽程式設計而設計，但它意外地非常適合此領域，它減少了程式設計師在處理程式碼時通常需要編寫和閱讀的樣板程式碼數量，幾乎達到了動態語言指令碼語言提供的程度，同時又具備靜態型別語言的工具支援和效能。
 
-有關如何在 IntelliJ IDEA 中建立 Kotlin 專案的更多資訊，請參閱[建立主控台應用程式](jvm-get-started.md)教學。在競賽程式設計中，通常會建立一個專案，並將每個問題的解法寫在單個程式碼檔案中。
+有關如何在 IntelliJ IDEA 中建立 Kotlin 專案的更多資訊，請參閱[建立主控台應用程式](jvm-get-started.md)教學。在競賽程式設計中，通常會建立一個專案，並將每個問題的解法寫在單個原始碼檔案中。
 
 ## 簡單範例：Reachable Numbers 問題
 
 讓我們來看一個具體的例子。
 
-[Codeforces](https://codeforces.com/) 第 555 輪（Round 555）是針對 Division 3 舉行的，這意味著其中的問題適合任何開發人員嘗試。你可以使用[此連結](https://codeforces.com/contest/1157)來閱讀這些問題。該題目集中最簡單的問題是 [Problem A: Reachable Numbers](https://codeforces.com/contest/1157/problem/A)。它要求實作問題敘述中描述的一個簡單演算法。
+[Codeforces](https://codeforces.com/) 第 555 輪（Round 555）於 4 月 26 日針對 Division 3 舉行，這意味著其中的問題適合任何開發人員嘗試。你可以使用[此連結](https://codeforces.com/contest/1157)來閱讀這些問題。該題目集中最簡單的問題是 [Problem A: Reachable Numbers](https://codeforces.com/contest/1157/problem/A)。它要求實作問題敘述中描述的一個簡單演算法。
 
 我們首先建立一個任意名稱的 Kotlin 原始碼檔案來開始解決它，例如 `A.kt`。首先，你需要實作問題敘述中指定的函式：
 
@@ -156,7 +156,7 @@ fun main() {
 </tab>
 </tabs>
 
-在這段精簡的程式碼中，除了集合轉換之外，你還可以看到諸如區域函式和 [elvis 運算子](null-safety.md#elvis-operator) `?:` 等便利的 Kotlin 特性，它們允許使用簡潔且具備可讀性的運算式（如 `.takeIf { it >= 0 } ?: s.length`）來表達像「如果是正數則取該值，否則使用長度」之類的 `idioms`。不過，在 Kotlin 中建立額外的可變變數並以命令式風格表達相同的程式碼也完全沒有問題。
+在這段精簡的程式碼中，除了集合轉換之外，你還可以看到諸如區域函式和 [elvis 運算子](null-safety.md#elvis-operator) `?:` 等便利的 Kotlin 特性，它們允許使用簡潔且具備可讀性的運算式（如 `.takeIf { it >= 0 } ?: s.length`）來表達像「如果是正數則取該值，否則使用長度」之類的 [idioms](idioms.md)。不過，在 Kotlin 中建立額外的可變變數並以命令式風格表達相同的程式碼也完全沒有問題。
 
 為了讓讀取這類競賽程式設計任務中的輸入更加簡潔，你可以使用以下輔助輸入讀取函式列表：
 

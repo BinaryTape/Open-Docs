@@ -112,7 +112,8 @@ graph TD
 
 #### Maven 編譯器版本
 
-* 如果既未設定 `kotlin.compiler.jdkRelease` 也未設定 `kotlin.compiler.jvmTarget` 選項，外掛程式將採用 `maven.compiler.release` 版本。
+* If neither the `kotlin.compiler.jdkRelease` nor the `kotlin.compiler.jvmTarget` option is set, the plugin takes
+  the `maven.compiler.release` version.
 
   `maven.compiler.release` 版本可以定義為專案屬性，也可以在 `maven-compiler-plugin` 配置中定義。
 * 如果未設定 Maven 的 release 版本，外掛程式將採用 `maven.compiler.target` 版本。
@@ -176,9 +177,9 @@ Maven 根據兩個主要因素決定外掛程式執行順序：
                     </goals>
                     <configuration>
                         <sourceDirs>
-                            <sourceDir>src/main/kotlin</sourceDir>
+                            <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
                             <!-- Ensure Kotlin code can reference Java code -->
-                            <sourceDir>src/main/java</sourceDir>
+                            <sourceDir>${project.basedir}/src/main/java</sourceDir>
                         </sourceDirs>
                     </configuration>
                 </execution>
@@ -190,8 +191,8 @@ Maven 根據兩個主要因素決定外掛程式執行順序：
                     </goals>
                     <configuration>
                         <sourceDirs>
-                            <sourceDir>src/test/kotlin</sourceDir>
-                            <sourceDir>src/test/java</sourceDir>
+                            <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
+                            <sourceDir>${project.basedir}/src/test/java</sourceDir>
                         </sourceDirs>
                     </configuration>
                 </execution>
@@ -326,7 +327,7 @@ graph TD
     B --> C
 ```
 
-* 在 `kotlin-maven-plugin` 配置的 `jdkHome` 選項中設定的 JDK 版本，其優先權始終高於工具鏈版本。
+* 在 `kotlin-maven-plugin` 配置的 `jdkHome` 選項中設定的 JDK 版本，其優先權始終 high 於工具鏈版本。
 * `maven-toolchains-plugin` 中的 JDK 版本會覆蓋 `JAVA_HOME` 路徑中設定的 JDK 版本。
 
 您也可以使用外掛程式專用的 `<jdkToolchain>` 選項，直接在 `kotlin-maven-plugin` 的工具鏈中設定 JDK 版本。與使用 `maven-toolchains-plugin` 相比，此參數僅影響 Kotlin 編譯，對組建中的其他外掛程式沒有影響。
@@ -334,6 +335,31 @@ graph TD
 > 目前，配置 `maven-toolchains-plugin` 以使用特定 JDK 版本[不會影響 `kotlin-maven-plugin` 的 `kapt` 與 `test-kapt` 目標](https://youtrack.jetbrains.com/issue/KT-79897)。請改在 `JAVA_HOME` 路徑中設定所需的版本。
 >
 {style="note"}
+
+## 配置 Java 模組 (JPMS)
+
+Kotlin Maven 外掛程式支援 [Java 平台模組系統 (JPMS)](https://dev.java/learn/modules/)，因此您可以將 Kotlin 程式碼與 `module-info.java` 描述符一起編譯，並像其他 Java 模組一樣使用產生的模組。
+
+您不需要在建置檔案中新增任何額外的 JPMS 專屬選項。只需在 Maven 之前配置 Kotlin 編譯器即可。
+
+當存在 `module-info.java` 描述符時，Kotlin 編譯器會將其作為原始碼檔案使用，並針對其模組路徑而非類別路徑進行編譯。Kotlin 編譯器讀取描述符以解析模組圖，然後 Maven 編譯器將其編譯為 `module-info.class` 檔案。
+
+若要配置 Java 模組，請在 `${project.basedir}/src/main/java` 目錄中建立 `module-info.java` 檔案。在模組描述符中，宣告您的模組所需的所有相依性及其匯出的封裝。例如：
+
+```java
+module org.example.myapp {
+    requires transitive kotlin.stdlib;
+    requires java.net.http;
+    
+    exports org.example.myapp;
+}
+```
+
+請記住：
+
+* 您的 Java 模組只能使用您宣告的內容。由於編譯使用的是模組路徑而非類別路徑，描述符應包含您的 Kotlin 程式碼使用的所有相依性：標準庫、JDK 模組（`java.base` 除外）以及其他程式庫。否則，您可能會遇到 `Unresolved reference` 錯誤。
+* 對於模組，Kotlin 檔案中的封裝名稱必須與 `module-info.java` 中的封裝名稱相符，以避免 `Package is empty or does not exist` 組建失敗。
+* `pom.xml` 建置檔案應配置為 [Kotlin 在 Java 之前編譯](#compile-kotlin-and-java-sources)。如果您使用 [自動專案配置](#automatic-configuration)，`<extensions>` 選項已經確保了這一點。
 
 ## 接下來要做什麼？
 

@@ -361,7 +361,7 @@ fun main() {
 이 표는 각 플랫폼에 대한 단조 시간의 기본 소스를 설명합니다:
 
 | 플랫폼 | 소스 |
-|---------------------|---|
+|---------------------|---------------------------------------------------------------------|
 | Kotlin/JVM | `System.nanoTime()` |
 | Kotlin/JS (Node.js) | `process.hrtime()` |
 | Kotlin/JS (browser) | `window.performance.now()` 또는 `Date.now()` |

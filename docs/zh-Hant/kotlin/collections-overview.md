@@ -24,7 +24,7 @@ Kotlin 讓您可以獨立於儲存物件的具體型別來操作集合。換句�
 
 Kotlin 標準函式庫提供了基本集合型別的實作：Set、List 與 Map。每一種集合型別都由一對介面代表：
 
-* 一個 _唯讀_ (read-only) 介面，提供存取集合操作的操作。
+* 一個 _唯讀_ (read-only) 介面，提供存取集合元素的操作。
 * 一個 _可變_ (mutable) 介面，擴充了相應的唯讀介面，並增加寫入操作：加入、移除與更新其元素。
 
 請注意，可變集合不一定要指派給 [`var`](basic-syntax.md#variables)。即使將可變集合指派給 `val`，仍然可以進行寫入操作。將可變集合指派給 `val` 的好處是，您可以保護該可變集合的參照不被修改。隨著時間推移，當您的程式碼增長並變得更加複雜時，防止參照被意外修改變得更加重要。盡可能使用 `val` 以編寫更安全、更健壯的程式碼。如果您嘗試重新指派一個 `val` 集合，將會產生編譯錯誤：
@@ -56,7 +56,7 @@ fun main() {
 
 ### Collection
 
-[`Collection<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/index.html) 是集合階層結構的根。此介面代表了唯讀集合的共同行為：檢索大小、檢查成員是否存在等等。`Collection` 繼承自 `Iterable<T>` 介面，該介面定義了反覆運算元素的運作。您可以將 `Collection` 作為適用於不同集合型別的函式參數。對於更具體的情況，請使用 `Collection` 的繼承者：[`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html) 和 [`Set`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/index.html)。
+[`Collection<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/index.html) 是集合階層結構的根。此介面代表了唯讀集合的共同行為：檢索大小、檢查項目成員是否存在等等。`Collection` 繼承自 `Iterable<T>` 介面，該介面定義了反覆運算元素的運作。您可以將 `Collection` 作為適用於不同集合型別的函式參數。對於更具體的情況，請使用 `Collection` 的繼承者：[`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html) 和 [`Set`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/index.html)。
 
 ```kotlin
 fun printAll(strings: Collection<String>) {

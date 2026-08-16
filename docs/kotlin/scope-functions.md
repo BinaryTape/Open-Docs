@@ -54,13 +54,13 @@ fun main() {
 为了帮助你根据目的选择正确的作用域函数，我们提供了下表，总结了它们之间的关键差异。
 
 | 函数 | 对象引用 | 返回值 | 是否为扩展函数 |
-|---|---|---|---|
-| [`let`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/let.html) | `it` | Lambda 结果 | 是 |
-| [`run`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/run.html) | `this` | Lambda 结果 | 是 |
-| [`run`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/run.html) | - | Lambda 结果 | 否：不带上下文对象调用 |
-| [`with`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/with.html) | `this` | Lambda 结果 | 否：将上下文对象作为实参接收 |
-| [`apply`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/apply.html) | `this` | 上下文对象 | 是 |
-| [`also`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/also.html) | `it` | 上下文对象 | 是 |
+|---------------------------------------------------------------------------|------------------|----------------|----------------------------------------------|
+| [`let`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/let.html)     | `it`             | Lambda 结果  | 是                                          |
+| [`run`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/run.html)     | `this`           | Lambda 结果  | 是                                          |
+| [`run`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/run.html)     | -                | Lambda 结果  | 否：不带上下文对象调用        |
+| [`with`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/with.html)   | `this`           | Lambda 结果  | 否：将上下文对象作为实参接收 |
+| [`apply`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/apply.html) | `this`           | 上下文对象 | 是                                          |
+| [`also`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/also.html)   | `it`             | 上下文对象 | 是                                          |
 
 有关这些函数的详细信息，请参阅下文的专门章节。
 

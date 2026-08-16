@@ -18,7 +18,7 @@ Kotlin で `null + null` を加算すると何が起こり、何を返すので�
 
 ## suspend と inline の謎
 
-`repeat()`、`map()`、`filter()` のような関数は、シグネチャがコルーチンに対応していないにもかかわらず、なぜラムダ内でサスペンド関数を受け入れることができるのでしょうか？今回の Kotlin Tips では、Sebastian Aigner がその謎を解き明かします。それには `inline` 修飾子が関係しています。
+[`repeat()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/repeat.html)、[`map()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map.html)、[`filter()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter.html) のような関数は、シグネチャがコルーチンに対応していないにもかかわらず、なぜラムダ内でサスペンド関数を受け入れることができるのでしょうか？今回の Kotlin Tips では、Sebastian Aigner がその謎を解き明かします。それには `inline` 修飾子が関係しています。
 
 <video width="560" height="315" src="https://www.youtube.com/v/R2395u7SdcI" title="Kotlin Tips: The Suspend and Inline Mystery"/>
 

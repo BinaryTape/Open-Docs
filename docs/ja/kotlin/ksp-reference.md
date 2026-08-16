@@ -43,18 +43,18 @@ KSP では明示的な型解決（type resolution）が必要なため、Java �
 | `ElementKind` | `ClassKind` / `FunctionKind` | |
 | `Modifier` | `Modifier` | |
 | `NestingKind` | `ClassKind` / `FunctionKind` | |
-| `AnnotationValueVisitor` |  | |
+| `AnnotationValueVisitor` | | |
 | `ElementVisitor` | `KSVisitor` | |
 | `AnnotatedConstruct` | `KSAnnotated` | |
-| `TypeVisitor` |  | |
+| `TypeVisitor` | | |
 | `TypeKind` | `KSBuiltIns` | 一部は builtins にあります。それ以外は `DeclaredType` について `KSClassDeclaration` を確認してください |
 | `ElementFilter` | `Collection.filterIsInstance` | |
 | `ElementKindVisitor` | `KSVisitor` | |
 | `ElementScanner` | `KSTopDownVisitor` | |
-| `SimpleAnnotationValueVisitor` |  | KSP では不要です |
+| `SimpleAnnotationValueVisitor` | | KSP では不要です |
 | `SimpleElementVisitor` | `KSVisitor` | |
-| `SimpleTypeVisitor` |  | |
-| `TypeKindVisitor` |  | |
+| `SimpleTypeVisitor` | | |
+| `TypeKindVisitor` | | |
 | `Types` | `Resolver` / `utils` | `utils` の一部はシンボルインターフェースにも統合されています |
 | `Elements` | `Resolver` / `utils` | |
 

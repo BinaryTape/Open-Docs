@@ -17,23 +17,23 @@
         <a href="kotlin-tour-intermediate-extension-functions.md" as="button" icon="arrow-right" icon-position="right">중급(Intermediate)</a>
     </li>
     <li>
-        <p><img src="icon-1.svg" width="20" /> <a href="kotlin-tour-hello-world.md">Hello world</a></p>
-        <p><img src="icon-2.svg" width="20" /> <a href="kotlin-tour-basic-types.md">기본 타입(Basic types)</a></p>
-        <p><img src="icon-3.svg" width="20" /> <a href="kotlin-tour-collections.md">컬렉션(Collections)</a></p>
-        <p><img src="icon-4.svg" width="20" /> <a href="kotlin-tour-control-flow.md">제어 흐름(Control flow)</a></p>
-        <p><img src="icon-5.svg" width="20" /> <a href="kotlin-tour-functions.md">함수(Functions)</a></p>
-        <p><img src="icon-6.svg" width="20" /> <a href="kotlin-tour-classes.md">클래스(Classes)</a></p>
-        <p><img src="icon-7.svg" width="20" /> <a href="kotlin-tour-null-safety.md">Null 안정성(Null safety)</a></p>
+        <p><img src="icon-1.svg" width="20" alt="Step 1"/> <a href="kotlin-tour-hello-world.md">Hello world</a></p>
+        <p><img src="icon-2.svg" width="20" alt="Step 2"/> <a href="kotlin-tour-basic-types.md">기본 타입(Basic types)</a></p>
+        <p><img src="icon-3.svg" width="20" alt="Step 3"/> <a href="kotlin-tour-collections.md">컬렉션(Collections)</a></p>
+        <p><img src="icon-4.svg" width="20" alt="Step 4"/> <a href="kotlin-tour-control-flow.md">제어 흐름(Control flow)</a></p>
+        <p><img src="icon-5.svg" width="20" alt="Step 5"/> <a href="kotlin-tour-functions.md">함수(Functions)</a></p>
+        <p><img src="icon-6.svg" width="20" alt="Step 6"/> <a href="kotlin-tour-classes.md">클래스(Classes)</a></p>
+        <p><img src="icon-7.svg" width="20" alt="Step 7"/> <a href="kotlin-tour-null-safety.md">Null 안정성(Null safety)</a></p>
     </li>
     <li>
-        <p><img src="icon-1.svg" width="20" /> <a href="kotlin-tour-intermediate-extension-functions.md">확장 함수(Extension functions)</a></p>
-        <p><img src="icon-2.svg" width="20" /> <a href="kotlin-tour-intermediate-scope-functions.md">스코프 함수(Scope functions)</a></p>
-        <p><img src="icon-3.svg" width="20" /> <a href="kotlin-tour-intermediate-lambdas-receiver.md">수신 객체가 있는 람다 식(Lambda expressions with receiver)</a></p>
-        <p><img src="icon-4.svg" width="20" /> <a href="kotlin-tour-intermediate-classes-interfaces.md">클래스 및 인터페이스(Classes and interfaces)</a></p>
-        <p><img src="icon-5.svg" width="20" /> <a href="kotlin-tour-intermediate-objects.md">객체(Objects)</a></p>
-        <p><img src="icon-6.svg" width="20" /> <a href="kotlin-tour-intermediate-open-special-classes.md">Open 및 특수 클래스(Open and special classes)</a></p>
-        <p><img src="icon-7.svg" width="20" /> <a href="kotlin-tour-intermediate-properties.md">프로퍼티(Properties)</a></p>
-        <p><img src="icon-8.svg" width="20" /> <a href="kotlin-tour-intermediate-null-safety.md">Null 안정성(Null safety)</a></p>
-        <p><img src="icon-9.svg" width="20" /> <a href="kotlin-tour-intermediate-libraries-and-apis.md">라이브러리 및 API(Libraries and APIs)</a></p>
+        <p><img src="icon-1.svg" width="20" alt="Step 1"/> <a href="kotlin-tour-intermediate-extension-functions.md">확장 함수(Extension functions)</a></p>
+        <p><img src="icon-2.svg" width="20" alt="Step 2"/> <a href="kotlin-tour-intermediate-scope-functions.md">스코프 함수(Scope functions)</a></p>
+        <p><img src="icon-3.svg" width="20" alt="Step 3"/> <a href="kotlin-tour-intermediate-lambdas-receiver.md">수신 객체가 있는 람다 식(Lambda expressions with receiver)</a></p>
+        <p><img src="icon-4.svg" width="20" alt="Step 4"/> <a href="kotlin-tour-intermediate-classes-interfaces.md">클래스 및 인터페이스(Classes and interfaces)</a></p>
+        <p><img src="icon-5.svg" width="20" alt="Step 5"/> <a href="kotlin-tour-intermediate-objects.md">객체(Objects)</a></p>
+        <p><img src="icon-6.svg" width="20" alt="Step 6"/> <a href="kotlin-tour-intermediate-open-special-classes.md">Open 및 특수 클래스(Open and special classes)</a></p>
+        <p><img src="icon-7.svg" width="20" alt="Step 7"/> <a href="kotlin-tour-intermediate-properties.md">프로퍼티(Properties)</a></p>
+        <p><img src="icon-8.svg" width="20" alt="Step 8"/> <a href="kotlin-tour-intermediate-null-safety.md">Null 안정성(Null safety)</a></p>
+        <p><img src="icon-9.svg" width="20" alt="Step 9"/> <a href="kotlin-tour-intermediate-libraries-and-apis.md">라이브러리 및 API(Libraries and APIs)</a></p>
     </li>
 </list>

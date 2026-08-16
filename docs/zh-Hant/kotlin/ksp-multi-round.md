@@ -25,9 +25,9 @@ override fun process(resolver: Resolver): List<KSAnnotated> {
 
 僅在以下情況延遲符號：
 
-*   在處理符號之前需要額外資訊。
+* 在處理符號之前需要額外資訊。
 
-*   符號源自原始碼。
+* 符號源自原始碼。
 
     > 絕對不要延遲來自類別路徑 (classpath) 的符號。KSP 會自動過濾掉類別路徑符號。
     > 
@@ -53,9 +53,9 @@ override fun process(resolver: Resolver): List<KSAnnotated> {
 
 KSP 提供了兩個用於存取檔案的 API：
 
-*   `Resolver.getAllFiles()` 傳回先前存在的檔案與新產生檔案的清單。
+* `Resolver.getAllFiles()` 傳回先前存在的檔案與新產生檔案的清單。
 
-*   `Resolver.getNewFiles()` 僅傳回在上一輪中產生的檔案。
+* `Resolver.getNewFiles()` 僅傳回在上一輪中產生的檔案。
 
 使用 `Resolver.getSymbolsWithAnnotation()` 作為獲取相關符號的主要入口點。
 

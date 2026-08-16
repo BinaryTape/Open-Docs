@@ -13,11 +13,11 @@ Kotlinは、他のライブラリがコルーチンを利用できるように�
 ## 目次
 
 * [コルーチンの基本](coroutines-basics.md)
-* [チュートリアル：コルーチンとチャネルの概要](coroutines-and-channels.md)
 * [キャンセルとタイムアウト](coroutines-cancellation.md)
+* [Flow](coroutines-flow.md)
+* [チュートリアル：コルーチンとチャネルの概要](coroutines-and-channels.md)
 * [中断関数の構成](composing-suspending-functions.md)
 * [コルーチンのコンテキストとディスパッチャ](coroutine-context-and-dispatchers.md)
-* [Flow](coroutines-flow.md)
 * [チャネル](channels.md)
 * [コルーチンの例外処理](exception-handling.md)
 * [共有ミュータブル状態と並行性](shared-mutable-state-and-concurrency.md)

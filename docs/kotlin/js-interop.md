@@ -47,7 +47,7 @@ fun runSumExample() {
 >
 {style="note"}
 
-## external 修饰符
+## `external` 修饰符
 
 为了告诉 Kotlin 某个声明是用纯 JavaScript 编写的，你应该使用 `external` 修饰符对其进行标记。当编译器看到这样的声明时，它会假定相应类、函数或属性的实现是由外部提供的（由开发者提供或通过 [npm 依赖项](js-project-setup.md#npm-dependencies)提供），因此不会尝试从该声明生成任何 JavaScript 代码。这也是为什么 `external` 声明不能有函数体的原因。例如：
 

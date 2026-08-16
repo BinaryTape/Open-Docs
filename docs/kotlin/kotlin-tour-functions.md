@@ -65,7 +65,7 @@ fun printMessageWithPrefix(message: String, prefix: String) {
 }
 
 fun main() {
-    // 使用具名实参并交换了实参顺序
+    // 使用具名实参并交换了参数顺序
     printMessageWithPrefix(prefix = "Log", message = "Hello")
     // [Log] Hello
 }
@@ -82,11 +82,11 @@ fun printMessageWithPrefix(message: String, prefix: String = "Info") {
 }
 
 fun main() {
-    // 调用函数时带有两个实参
+    // 调用函数时带有两个参数
     printMessageWithPrefix("Hello", "Log") 
     // [Log] Hello
     
-    // 调用函数时仅带有 message 实参
+    // 调用函数时仅带有 message 参数
     printMessageWithPrefix("Hello")        
     // [Info] Hello
     
@@ -193,7 +193,7 @@ fun main() {
 
 ### 练习 1 {initial-collapse-state="collapsed" collapsible="true" id="functions-exercise-1"}
 
-编写一个名为 `circleArea` 的函数，该函数接收圆的半径（整数格式）作为参数并输出该圆的面积。
+编写一个名为 `circleArea` 的函数，该函数接收圆的半径（整数格式）作为形参并输出该圆的面积。
 
 > 在这个练习中，你需要导入一个包，以便你可以通过 `PI` 访问 <math>π</math> 的值。有关导入包的更多信息，请参阅[包和导入](packages.md)。
 >
@@ -337,7 +337,7 @@ lambda表达式 乍一看可能很难理解，所以让我们拆解一下。lamb
 * 通过像使用函数一样使用变量 `upperCaseString` 并将字符串 `"hello"` 作为形参来调用 lambda表达式。
 * `println()` 函数打印结果。
 
-> 如果你声明一个不带参数的 lambda，则不需要使用 `->`。例如：
+> 如果你声明一个不带形参的 lambda，则不需要使用 `->`。例如：
 > ```kotlin
 > { println("Log message") }
 > ```
@@ -443,7 +443,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-lambda-function-type"}
 
-如果你的 lambda表达式 没有参数，则圆括号 `()` 为空。例如：`() -> Unit`
+如果你的 lambda表达式 没有形参，则圆括号 `()` 为空。例如：`() -> Unit`
 
 > 你必须在 lambda表达式 中或作为函数类型声明形参和返回值类型。否则，编译器将无法知道你的 lambda表达式 是什么类型。
 > 

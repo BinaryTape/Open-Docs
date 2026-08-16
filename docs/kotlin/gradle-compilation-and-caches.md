@@ -14,7 +14,7 @@
 ## 增量编译
 
 Kotlin Gradle 插件支持增量编译，该功能对 Kotlin/JVM 和 Kotlin/JS 项目默认启用。
-增量编译会跟踪构建之间类路径（classpath）中文件的更改，从而仅编译受这些更改影响的文件。
+增量编译会跟踪构建之间类路径中文件的更改，从而仅编译受这些更改影响的文件。
 此方法可与 [Gradle 构建缓存](#gradle-build-cache-support)配合使用，并支持[编译回避](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_compile_avoidance)。
 
 对于 Kotlin/JVM，增量编译依赖于类路径快照，
@@ -307,7 +307,7 @@ kotlin.build.report.label=some_label
 # 必填。发布基于 HTTP(S) 的报告的位置
 kotlin.build.report.http.url=http://127.0.0.1:8080
 
-# 可选。如果 HTTP 端点需要身份验证，则提供用户名和密码
+# 可选。如果 HTTP 端点需要身份验证，则提供用户名 and 密码
 kotlin.build.report.http.user=someUser
 kotlin.build.report.http.password=somePassword
 

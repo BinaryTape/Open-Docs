@@ -15,7 +15,7 @@ Kotlin 멀티플랫폼 Gradle 플러그인은 프로젝트 빌드 시 소스 맵
 2. 브라우저에서 해당 페이지로 이동하여 개발자 도구를 실행합니다 (예: 마우스 오른쪽 버튼을 클릭하고 **검사(Inspect)** 동작 선택). 주요 브라우저에서 [개발자 도구를 찾는 방법](https://balsamiq.com/support/faqs/browserconsole/)을 알아보세요.
 3. 프로그램이 콘솔에 정보를 기록하고 있다면, **콘솔(Console)** 탭으로 이동하여 출력을 확인하세요. 브라우저에 따라 이러한 로그는 해당 로그가 생성된 Kotlin 소스 파일과 줄 번호를 참조할 수 있습니다.
 
-![Chrome 개발자 도구 콘솔](devtools-console.png){width="600"}
+    ![Chrome 개발자 도구 콘솔](devtools-console.png){width="600"}
 
 4. 오른쪽에 있는 파일 참조를 클릭하여 해당 코드 줄로 이동합니다.
    또는 **소스(Sources)** 탭으로 직접 전환하여 파일 트리에서 필요한 파일을 찾을 수 있습니다. Kotlin 파일로 이동하면 축소된 JavaScript가 아닌 일반적인 Kotlin 코드가 표시됩니다.
@@ -35,7 +35,7 @@ IntelliJ IDEA에서 Kotlin/JS를 디버깅하려면 **JavaScript Debug** 구성�
 2. **+**를 클릭하고 **JavaScript Debug**를 선택합니다.
 3. 구성의 **Name**을 지정하고 프로젝트가 실행되는 **URL**을 입력합니다 (기본값은 `http://localhost:8080`).
 
-![JavaScript 디버그 구성](debug-config.png){width=700}
+    ![JavaScript 디버그 구성](debug-config.png){width=700}
 
 4. 구성을 저장합니다.
 
@@ -47,11 +47,11 @@ IntelliJ IDEA에서 Kotlin/JS를 디버깅하려면 **JavaScript Debug** 구성�
    [Kotlin/JS 실행](running-kotlin-js.md#run-the-browser-target)에 대해 자세히 알아보세요.
 2. 이전에 생성한 JavaScript 디버그 구성을 실행하여 디버깅 세션을 시작합니다:
 
-![JavaScript 디버그 구성 실행](debug-config-run.png){width=700}
+    ![JavaScript 디버그 구성 실행](debug-config-run.png){width=700}
 
 3. IntelliJ IDEA의 **Debug** 창에서 프로그램의 콘솔 출력을 볼 수 있습니다. 출력 항목은 해당 항목이 생성된 Kotlin 소스 파일과 줄 번호를 참조합니다.
 
-![IDE에서의 JavaScript 디버그 출력](ide-console-output.png){width=700}
+    ![IDE에서의 JavaScript 디버그 출력](ide-console-output.png){width=700}
 
 4. 오른쪽에 있는 파일 참조를 클릭하여 해당 코드 줄로 이동합니다.
 

@@ -115,7 +115,6 @@ graph TD
 * 如果既未设置 `kotlin.compiler.jdkRelease` 也未设置 `kotlin.compiler.jvmTarget` 选项，则插件将采用 `maven.compiler.release` 版本。
 
   `maven.compiler.release` 版本既可以定义为项目属性，也可以在 `maven-compiler-plugin` 配置中定义。
-* If the Maven release version isn't set, the plugin takes the `maven.compiler.target` version.
 * 如果未设置 Maven release 版本，则插件将采用 `maven.compiler.target` 版本。
 
   它既可以定义为项目属性，也可以在 `maven-compiler-plugin` 配置中定义。
@@ -148,7 +147,6 @@ Maven 根据两个主要因素确定插件执行顺序：
 * `pom.xml` 文件中插件声明的顺序。
 * 内置的默认执行，例如 `default-compile` 和 `default-testCompile`，无论它们在 `pom.xml` 文件中的位置如何，它们始终在用户定义的执行之前运行。
 
-To control the execution order:
 要控制执行顺序：
 
 * 在 `maven-compiler-plugin` 之前声明 `kotlin-maven-plugin`。
@@ -178,9 +176,9 @@ To control the execution order:
                     </goals>
                     <configuration>
                         <sourceDirs>
-                            <sourceDir>src/main/kotlin</sourceDir>
+                            <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
                             <!-- 确保 Kotlin 代码可以引用 Java 代码 -->
-                            <sourceDir>src/main/java</sourceDir>
+                            <sourceDir>${project.basedir}/src/main/java</sourceDir>
                         </sourceDirs>
                     </configuration>
                 </execution>
@@ -192,8 +190,8 @@ To control the execution order:
                     </goals>
                     <configuration>
                         <sourceDirs>
-                            <sourceDir>src/test/kotlin</sourceDir>
-                            <sourceDir>src/test/java</sourceDir>
+                            <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
+                            <sourceDir>${project.basedir}/src/test/java</sourceDir>
                         </sourceDirs>
                     </configuration>
                 </execution>
@@ -336,6 +334,31 @@ graph TD
 > 目前，将 `maven-toolchains-plugin` 设置为使用特定 JDK 版本 [不会影响 `kotlin-maven-plugin` 的 `kapt` 和 `test-kapt` 目标](https://youtrack.jetbrains.com/issue/KT-79897)。请改为在 `JAVA_HOME` 路径中设置必要的版本。
 >
 {style="note"}
+
+## 配置 Java 模块 (JPMS)
+
+Kotlin Maven 插件支持 [Java 平台模块系统 (JPMS)](https://dev.java/learn/modules/)，因此您可以将 Kotlin 代码与 `module-info.java` 描述符一起编译，并像其他 Java 模块一样使用生成的模块。
+
+您不需要在构建文件中添加任何额外的 JPMS 特定选项。只需在 Maven 之前配置 Kotlin 编译器即可。
+
+当存在 `module-info.java` 描述符时，Kotlin 编译器将其视为源文件，并针对其模块路径而非类路径进行编译。Kotlin 编译器读取描述符以解析模块图，然后 Maven 编译器将其编译为 `module-info.class` 文件。
+
+要配置 Java 模块，请在 `${project.basedir}/src/main/java` 目录中创建 `module-info.java` 文件。在模块描述符中，声明模块所需的所有依赖项及其导出的软件包。例如：
+
+```java
+module org.example.myapp {
+    requires transitive kotlin.stdlib;
+    requires java.net.http;
+    
+    exports org.example.myapp;
+}
+```
+
+请记住：
+
+* 您的 Java 模块只能使用您声明的内容。由于编译使用的是模块路径而非类路径，因此描述符应包含您的 Kotlin 代码使用的所有依赖项：标准库、JDK 模块（`java.base` 除外）以及其他库。否则，您可能会收到 `未解析的引用` (Unresolved reference) 错误。
+* 对于模块，Kotlin 文件中的软件包名称必须与 `module-info.java` 中的软件包名称匹配，以避免 `软件包为空或不存在` (Package is empty or does not exist) 的构建失败。
+* `pom.xml` 构建文件应配置为[先编译 Kotlin 后编译 Java](#编译-kotlin-和-java-源代码)。如果您使用[项目自动配置](#自动配置)，`<extensions>` 选项已经确保了这一点。
 
 ## 下一步？
 

@@ -1,13 +1,13 @@
 [//]: # (title: 貢献)
 
 Kotlinは[Apache 2.0ライセンス](https://github.com/JetBrains/kotlin/blob/master/license/LICENSE.txt)の下で公開されているオープンソースプロジェクトです。
-ソースコード、ツール、ドキュメント、さらにはこのウェブサイトも[GitHub](https://github.com/jetbrains/kotlin)上で管理されています。
+ソースコード、ツール、ドキュメント、さらにはこのウェブサイトも[GitHub](https://github.com/jetbrains/kotlin)上で管理されています。 
 KotlinはJetBrainsによって開発されていますが、私たちは常に協力してくれる人々を求めています。
 
 ## Early Access Previewへの参加
 
 [Kotlin Early Access Preview（EAP）に参加](eap.md)し、貴重なフィードバックを提供することで、Kotlinの改善に協力いただけます。
-
+ 
 リリースごとに、Kotlinは最新機能をプロダクション環境への導入前に試せるプレビュービルドをいくつか提供しています。
 発見したバグは課題トラッカーの[YouTrack](https://kotl.in/issue)に報告してください。正式リリース前に修正するよう努めます。これにより、標準のKotlinリリースサイクルよりも早くバグ修正を受け取ることができます。
 
@@ -26,7 +26,7 @@ Kotlin IDEプラグインに貢献するには、[IntelliJ IDEAリポジトリ](
 
 ## その他のKotlinライブラリおよびツールへの貢献
 
-コア機能を提供する標準ライブラリの他に、Kotlinには機能を拡張するための追加の（kotlinx）ライブラリが多数あります。
+コア機能を提供する標準ライブラリの他に、Kotlinには機能を拡張するための追加の（kotlinx）ライブラリが多数あります。 
 各kotlinxライブラリは個別のリポジトリで開発されており、独自のバージョニングとリリースサイクルを持っています。
 
 kotlinxライブラリ（[kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines)や[kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization)など）やツールに貢献したい場合は、[Kotlin GitHub](https://github.com/Kotlin)にアクセスし、興味のあるリポジトリを選択してクローンしてください。
@@ -47,8 +47,9 @@ Kotlinのドキュメントに問題を見つけた場合は、お気軽に[GitH
 Kotlinのドキュメントを自身の言語に翻訳し、あなたのウェブサイトで公開することを歓迎します。
 ただし、メインのリポジトリで翻訳をホストしたり、[kotlinlang.org](https://kotlinlang.org/)で公開したりすることはできません。
 
-このサイトは言語の公式ドキュメントであり、ここにあるすべての情報が正確で最新であることを保証しています。残念ながら、他の言語のドキュメントをレビューすることはできません。
+このサイトは言語の公式ドキュメントであり、ここにあるすべての情報が正確で最新であることを保証しています。残念ながら、他の言語のドキュメントをレビューすることはできません。 
 
 ## イベントやプレゼンテーションの開催
 
-Kotlinに関するプレゼンテーションを行ったり、イベントを開催したりした（または計画している）場合は、[こちらのフォーム](https://surveys.jetbrains.com/s3/Submit-a-Kotlin-Talk)に記入してください。[イベントリスト](https://kotlinlang.org/docs/events.html)で紹介させていただきます。
+Kotlinに関するプレゼンテーションを行ったり、イベントを開催したりした（または計画している）場合は、[こちらのフォーム](https://surveys.jetbrains.com/s3/Submit-a-Kotlin-Talk)に記入してください。
+[イベントリスト](https://kotlinlang.org/docs/events.html)で紹介させていただきます。

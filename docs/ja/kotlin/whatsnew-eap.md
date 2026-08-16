@@ -17,7 +17,7 @@ _[リリース日: %kotlinEapReleaseDate%](eap.md#build-details)_
 Kotlin %kotlinEapVersion% がリリースされました！この EAP リリースの主な内容は以下の通りです。
 
 * **標準ライブラリ**: [コルーチンのスタックトレース復元のサポートと、コレクション要素の等価性と一意性をチェックするための新機能](#standard-library)
-* **Kotlin/Native**: [`klib` アーティファクトに対するデフォルトのインクリメンタルコンパイルと、新しい Swift export 機能](#kotlin-native)
+* **Kotlin/Native**: [新しい Swift export 機能と、SwiftPM 依存関係用の `Package.swift` ファイルの自動生成](#kotlin-native)
 * **Kotlin/Wasm**: [`@JsFun` 宣言におけるトップレベルの `require()` 呼び出しの変更、コンパニオンオブジェクトの初期化順序の改善、および Kotlin Gradle プラグインにおける Wasmtime のサポート](#kotlin-wasm)
 * **Kotlin/JS**: [ブラウザテスト用の新しい DSL と、suspend ラムダを async 関数としてエクスポートする機能のサポート](#kotlin-js)
 * **ビルドツール API**: [新しいターゲット（Kotlin/JS、Kotlin/Wasm、および Kotlin メタデータ）のサポート](#build-tools-api)
@@ -40,9 +40,9 @@ Kotlin %kotlinEapVersion% がリリースされました！この EAP リリー�
 
 * [標準ライブラリ: コルーチンのスタックトレース復元のサポート](#support-for-coroutine-stack-trace-recovery)
 * [標準ライブラリ: コレクション要素の等価性と一意性をチェックするための新関数](#new-functions-to-check-collection-elements-for-equality-and-uniqueness)
-* [Kotlin/Native: 分離された Kotlin コンパイライメージ](#kotlin-compiler-native-image)
-* [Kotlin/JS: ブラウザテスト用の新しい DSL](#new-dsl-for-browser-testing)
+* [Kotlin/JS: ブラウザテスト用の新しい DSL](#a-new-dsl-for-browser-testing)
 * [ビルドツール API: Kotlin/JS、Kotlin/Wasm、および Kotlin メタデータのサポート](#build-tools-api)
+* [Kotlin コンパイラ: 分離された Kotlin コンパイライメージ](#kotlin-compiler-native-image)
 
 ## 標準ライブラリ
 
@@ -72,7 +72,7 @@ Kotlin %kotlinEapVersion% では、標準ライブラリに `StackTraceRecoverab
 
 ```kotlin
 import kotlin.coroutines.ExperimentalStdlibCoroutineSupportApi
-import kotlin.coroutines.StackTraceRecoverable
+import kotlin.coroutines.debug.StackTraceRecoverable
 
 @OptIn(ExperimentalStdlibCoroutineSupportApi::class)
 class FileEditException
@@ -93,9 +93,11 @@ private constructor(
         FileEditException(line, detail, this)
     }
 
-@OptIn(ExperimentalStdlibCoroutineSupportApi::class) 
 fun main() {
     val original = FileEditException(15, "Unexpected token")
+    
+    // 通常、その動作をテストする場合を除き、この関数を直接呼び出す必要はありません
+    // kotlinx.coroutines ライブラリがスタックトレース復元の際に自動的に呼び出します
     val copy = original.copyForStackTraceRecovery()
 
     println(copy.message)
@@ -105,8 +107,11 @@ fun main() {
     // true
 }
 ```
+{kotlin-runnable="true" kotlin-min-compiler-version="2.4.20-Beta2"}
 
-詳細については、この機能の [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/stdlib/KEEP-0461-stacktrace-recoverable.md) を参照してください。フィードバックを [YouTrack](https://youtrack.jetbrains.com/issue/KT-86595) でお待ちしております。
+詳細については、この機能の [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/stdlib/KEEP-0461-stacktrace-recoverable.md) を参照してください。
+
+フィードバックを [YouTrack](https://youtrack.jetbrains.com/issue/KT-86595) でお待ちしております。
 
 ### コレクション要素の等価性と一意性をチェックするための新関数
 <primary-label ref="experimental-opt-in"/>
@@ -170,26 +175,7 @@ fun main() {
 
 ## Kotlin/Native
 
-Kotlin %kotlinEapVersion% では、`klib` アーティファクトのインクリメンタルコンパイルがデフォルトで有効になり、シールドクラスのサポートや言語を跨いだ継承（cross-language inheritance）を含む新しい Swift export 機能が導入され、Kotlin コンパイラネイティブイメージの最初のリリースが行われました。
-
-### インクリメンタルコンパイルのデフォルト有効化
-<secondary-label ref="native"/>
-
-%kotlinEapVersion% 以降、`klib` アーティファクトのインクリメンタルコンパイルがデフォルトで有効になりました。
-
-インクリメンタルコンパイルを使用すると、プロジェクトモジュールによって生成された `klib` アーティファクトの一部のみが変更された場合、その `klib` の影響を受ける部分のみがさらにバイナリへと再コンパイルされます。
-
-この最適化は [Kotlin 1.9.20](whatsnew1920.md#incremental-compilation-of-klib-artifacts) で初めて導入され、デバッグビルドのコンパイル時間を大幅に短縮することが実証されています。
-
-一部のケースでは、この最適化によってクリーンビルドのパフォーマンスが低下する可能性があることに注意してください。
-
-この機能で予期しない問題が発生した場合は、手動で無効にすることができます。無効にするには、`gradle.properties` ファイルに以下のオプションを設定してください。
-
-```none
-kotlin.incremental.native=false
-```
-
-問題が発生した場合は、イシュートラッカー [YouTrack](https://kotl.in/issue) で報告してください。コンパイル時間の改善に関するその他のヒントについては、[ドキュメント](native-improving-compilation-time.md) を参照してください。
+Kotlin %kotlinEapVersion% では、シールドクラスのサポートや言語を跨いだ継承（cross-language inheritance）を含む新しい Swift export 機能が導入され、SwiftPM 依存関係用の `Package.swift` ファイルが自動生成されるようになりました。
 
 ### 新しい Swift export 機能
 <secondary-label ref="native"/>
@@ -351,7 +337,7 @@ external fun defineRequire()
 
 問題が発生した場合は、[イシュートラッカー](https://youtrack.jetbrains.com/projects/KT/issues/KT-86192) でフィードバックを共有してください。
 
-### コンパニオンオブジェクトの初期化順序の改善
+### コンパニオンオブジェクト의 初期化順序の改善
 <secondary-label ref="wasm"/>
 
 Kotlin/Wasm は、JVM の動作に合わせて、サブクラスのコンパニオンオブジェクトよりも先にスーパークラスのコンパニオンオブジェクトを初期化するようになりました。以前は、初期化が逆になる可能性があり、プラットフォーム間で動作が一致していませんでした。
@@ -417,7 +403,7 @@ kotlin {
                 }
                 // Firefox テストランナーを有効にします
                 firefox()
-                // WebKit テストランナーを有効にします
+                // Enable WebKit test runner
                 webkit { }
                 // 追加の WebKit テストランナーを有効にし構成します
                 webkit("noheadless") {
@@ -435,9 +421,9 @@ kotlin {
 ### suspend ラムダを async 関数としてエクスポートする機能のサポート
 <secondary-label ref="js"/>
 
-Kotlin %kotlinEapVersion% では、suspend ラムダを JavaScript の async 関数としてエクスポートできるようになりました。
+Kotlin %kotlinEapVersion% では、suspend [ラムダ式](lambdas.md#lambda-expressions-and-anonymous-functions) を JavaScript の `async` 関数としてエクスポートできるようになりました。
 
-以前は、suspend ラムダを含む宣言を Kotlin/JS ライブラリからエクスポートする方法がありませんでした。今回のアップデートにより、Kotlin コンパイラは Kotlin の suspend 関数とネイティブ JavaScript の [async/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) モデルの間のブリッジ（連携）を自動的に処理するようになり、Kotlin と TypeScript が混在するコードベースで便利に使用できます。
+以前は、suspend ラムダを含む宣言を Kotlin/JS ライブラリからエクスポートする方法がありませんでした。今回のアップデートにより、Kotlin コンパイラは Kotlin の `suspend` 関数とネイティブ JavaScript の [`async`/`await`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) モデルの間のブリッジ（連携）を自動的に処理するようになり、Kotlin と TypeScript が混在するコードベースで便利に使用できます。
 
 この機能を有効にするには、`build.gradle.kts` ファイルに以下のコンパイラオプションを追加してください。
 
@@ -467,7 +453,7 @@ class TaskRunner {
 }
 ```
 
-TypeScript 側からは、suspend ラムダは通常の async 関数として見えます。
+TypeScript 側からは、suspend ラムダは通常の `async` 関数として見えます。
 
 ```typescript
 // TypeScript
@@ -492,22 +478,19 @@ console.log(result); // "done"
 
 BTA は、ビルドシステムと Kotlin コンパイラエコシステムの間の抽象化レイヤーとして機能するユニバーサルな API です。これは、利用可能なビルドツールにおいて、Kotlin の機能のサポートと Kotlin コンパイラとの互換性を確保するのに役立ちます。
 
-Kotlin Gradle プラグインにおける新しいターゲットへの BTA サポートを段階的に展開する予定です。
+Kotlin %kotlinEapVersion% では、新しいターゲットでの BTA はオプトインとして利用可能になります。試すには、`gradle.properties` ファイルに対応するプロパティを追加してください。
 
-* Kotlin 2.4.20-Beta1 では、フィードバックを収集するために、Kotlin/JS、Kotlin/Wasm、および Kotlin メタデータで BTA がデフォルトで有効になっています。プロジェクトでの追加の変更は必要ありません。
-* Kotlin 2.4.20-Beta2 から最終的な Kotlin 2.4.20 リリースの間は、新しいターゲットでの BTA はオプトインとして利用可能になります。試すには、`gradle.properties` ファイルに対応するプロパティを追加してください。
+```properties
+kotlin.wasm.runViaBuildToolsApi=true
+kotlin.js.runViaBuildToolsApi=true
+kotlin.metadata.runViaBuildToolsApi=true
+```
 
-  ```kotlin
-  kotlin.wasm.runViaBuildToolsApi = true
-  kotlin.js.runViaBuildToolsApi = true
-  kotlin.metadata.runViaBuildToolsApi = true
-  ```
-
-* Kotlin 2.5.0 以降、BTA は Kotlin/JS、Kotlin/Wasm、および Kotlin メタデータで再びデフォルトで有効になります。
+Kotlin 2.5.0 以降、Kotlin/JS、Kotlin/Wasm、および Kotlin メタデータで BTA をデフォルトで有効にする予定です。
 
 BTA の提案について詳しく知りたい、またはフィードバックを共有したい場合は、この [KEEP](https://github.com/Kotlin/KEEP/blob/build-tools-api/proposals/extensions/build-tools-api.md) を参照してください。
 
-### Kotlin コンパイラ: ネイティブイメージ
+## Kotlin コンパイラ: ネイティブイメージ
 <primary-label ref="experimental-general"/>
 <secondary-label ref="compiler"/>
 

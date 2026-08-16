@@ -1,6 +1,6 @@
 [//]: # (title: 集合寫入操作)
 
-[可變集合](collections-overview.md#collection-types) 支援更改集合內容的操作，例如新增或移除元素。
+[可變集合](collections-overview.md#collection-types) 支援變更集合內容的操作，例如新增或移除元素。
 在此頁面中，我們將介紹適用於所有 `MutableCollection` 實作的寫入操作。
 關於 `List` 與 `Map` 特有的操作，請分別參閱 [List 特有操作](list-operations.md) 與 [Map 特有操作](map-operations.md)。
 

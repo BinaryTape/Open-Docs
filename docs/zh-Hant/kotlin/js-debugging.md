@@ -15,7 +15,7 @@ Kotlin Multiplatform Gradle 外掛程式會自動為專案組建產生原始碼�
 2. 在瀏覽器中導航至該頁面並啟動其開發者工具（例如透過點擊右鍵並選取 **檢查** 操作）。了解如何在熱門瀏覽器中 [尋找開發者工具](https://balsamiq.com/support/faqs/browserconsole/)。
 3. 如果您的程式正在將資訊記錄到主控台，請導航至 **主控台** 索引標籤以查看此輸出。根據您的瀏覽器，這些記錄可以參照其來源的 Kotlin 原始碼檔案和行號：
 
-![Chrome DevTools console](devtools-console.png){width="600"}
+    ![Chrome DevTools console](devtools-console.png){width="600"}
 
 4. 點擊右側的檔案參照以導航至對應的程式碼行。
    或者，您可以手動切換到 **Sources** 索引標籤，並在檔案樹中找到您需要的檔案。導航至 Kotlin 檔案會向您顯示一般的 Kotlin 程式碼（而非縮減後的 JavaScript）：
@@ -35,7 +35,7 @@ Kotlin Multiplatform Gradle 外掛程式會自動為專案組建產生原始碼�
 2. 點擊 **+** 並選取 **JavaScript Debug**。
 3. 指定配置 **名稱** 並提供專案執行的 **URL**（預設為 `http://localhost:8080`）。
 
-![JavaScript debug configuration](debug-config.png){width=700}
+    ![JavaScript debug configuration](debug-config.png){width=700}
 
 4. 儲存配置。
 
@@ -47,11 +47,11 @@ Kotlin Multiplatform Gradle 外掛程式會自動為專案組建產生原始碼�
    [進一步了解執行 Kotlin/JS](running-kotlin-js.md#run-the-browser-target)。
 2. 透過執行您先前建立的 JavaScript 偵錯配置來啟動偵錯工作階段：
 
-![JavaScript debug configuration](debug-config-run.png){width=700}
+    ![JavaScript debug configuration](debug-config-run.png){width=700}
 
 3. 您可以在 IntelliJ IDEA 的 **Debug** 視窗中查看程式的主控台輸出。輸出項目會參照其來源的 Kotlin 原始碼檔案和行號：
 
-![JavaScript debug output in the IDE](ide-console-output.png){width=700}
+    ![JavaScript debug output in the IDE](ide-console-output.png){width=700}
 
 4. 點擊右側的檔案參照以導航至對應的程式碼行。
 

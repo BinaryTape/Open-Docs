@@ -43,18 +43,18 @@ KSP는 명시적인 타입 해석(type resolution)이 필요하므로, Java의 �
 | `ElementKind` | `ClassKind` / `FunctionKind` | |
 | `Modifier` | `Modifier` | |
 | `NestingKind` | `ClassKind` / `FunctionKind` | |
-| `AnnotationValueVisitor` |  | |
+| `AnnotationValueVisitor` | | |
 | `ElementVisitor` | `KSVisitor` | |
 | `AnnotatedConstruct` | `KSAnnotated` | |
-| `TypeVisitor` |  | |
+| `TypeVisitor` | | |
 | `TypeKind` | `KSBuiltIns` | 일부는 빌트인(builtins)에서 찾을 수 있으며, 그렇지 않으면 `DeclaredType`에 대해 `KSClassDeclaration`을 확인 |
 | `ElementFilter` | `Collection.filterIsInstance` | |
 | `ElementKindVisitor` | `KSVisitor` | |
 | `ElementScanner` | `KSTopDownVisitor` | |
-| `SimpleAnnotationValueVisitor` |  | KSP에서 필요하지 않음 |
+| `SimpleAnnotationValueVisitor` | | KSP에서 필요하지 않음 |
 | `SimpleElementVisitor` | `KSVisitor` | |
-| `SimpleTypeVisitor` |  | |
-| `TypeKindVisitor` |  | |
+| `SimpleTypeVisitor` | | |
+| `TypeKindVisitor` | | |
 | `Types` | `Resolver` / `utils` | 일부 `utils`는 심볼 인터페이스에 통합됨 |
 | `Elements` | `Resolver` / `utils` | |
 

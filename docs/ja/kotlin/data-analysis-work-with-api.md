@@ -74,7 +74,7 @@ API キーは [認証情報タブ](https://console.cloud.google.com/apis/credent
    ```
 
 4. 以前に定義した `load()` 関数を使用してデータを取得し、新しいコードセルで DataFrame を作成します。
-この例では、Kotlin に関連するデータ（この場合は動画）を取得し、1 ページあたり最大 50 件の結果を最大 5 ページまで取得します。
+この例では、Kotlin に関連するデータ（この場合は動画）を取得し、1 ページあたり最大 50 件の結果を最大 5 ページまで取得します。 
 結果は `df` 変数に格納されます：
 
    ```kotlin
@@ -129,15 +129,15 @@ API キーは [認証情報タブ](https://console.cloud.google.com/apis/credent
    joined
    ```
 
-この例は、Kotlin DataFrame のさまざまな関数を使用して、データセットをクリーニング、再構成、および強化する方法を示しています。
+この例は、Kotlin DataFrame のさまざまな関数を使用して、データセットをクリーニング、再構成、および強化する方法を示しています。 
 各ステップはデータを精製するように設計されており、[詳細な分析](#analyze-data-in-kotlin-notebook) に適した状態にします。
 
 ## Kotlin Notebook でデータを分析する
 
 [Kotlin DataFrame ライブラリ](https://kotlin.github.io/dataframe/home.html) の関数を使用して、[データの取得](#fetch-data-from-an-api) と [データのクリーニングと精製](#clean-and-refine-data) が正常に完了したら、次のステップはこの準備されたデータセットを分析して、有意義な洞察を引き出すことです。
 
-データをカテゴリ分けするための [`groupBy`](https://kotlin.github.io/dataframe/groupby.html)、[要約統計量](https://kotlin.github.io/dataframe/summarystatistics.html) のための [`sum`](https://kotlin.github.io/dataframe/sum.html) や [`maxBy`](https://kotlin.github.io/dataframe/maxby.html)、データを並べ替えるための [`sortBy`](https://kotlin.github.io/dataframe/sortby.html) といったメソッドが特に便利です。
-これらのツールを使用すると、複雑なデータ分析タスクを効率的に実行できます。
+データをカテゴリ分けするための [`groupBy`](https://kotlin.github.io/dataframe/groupby.html)、[要約統計量](https://kotlin.github.io/dataframe/summarystatistics.html) のための [`sum`](https://kotlin.github.io/dataframe/sum.html) や [`maxBy`](https://kotlin.github.io/dataframe/maxby.html)、データを並べ替えるための [`sortBy`](https://kotlin.github.io/dataframe/sortby.html) といったメソッドが特に便利です。 
+これらのツールを使用すると、複雑なデータ分析タスクを効率的に実行できます。 
 
 `groupBy` を使用して動画をチャンネルごとにカテゴリ分けし、`sum` を使用してカテゴリごとの総視聴回数を計算し、`maxBy` を使用して各グループ内の最新または最も視聴された動画を見つける例を見てみましょう：
 
@@ -153,13 +153,13 @@ API キーは [認証情報タブ](https://console.cloud.google.com/apis/credent
    val channels = joined.groupBy { channel }.sortByCount()
    ```
 
-生成されたテーブルでは、対話的にデータを探索できます。チャンネルに対応する行の `group` フィールドをクリックすると、その行が展開され、そのチャンネルの動画に関する詳細が表示されます。
-
-![行を展開して詳細を表示](results-of-expanding-group-data-analysis.png){width=700}
-
-左下のテーブルアイコンをクリックすると、グループ化されたデータセットに戻ることができます。
-
-![左下のテーブルアイコンをクリックして戻る](return-to-grouped-dataset.png){width=700}
+    生成されたテーブルでは、対話的にデータを探索できます。チャンネルに対応する行の `group` フィールドをクリックすると、その行が展開され、そのチャンネルの動画に関する詳細が表示されます。
+    
+    ![行を展開して詳細を表示](results-of-expanding-group-data-analysis.png){width=700}
+    
+    左下のテーブルアイコンをクリックすると、グループ化されたデータセットに戻ることができます。
+    
+    ![左下のテーブルアイコンをクリックして戻る](return-to-grouped-dataset.png){width=700}
 
 3. `aggregate`、`sum`、`maxBy`、`flatten` を使用して、各チャンネルの総視聴回数と、その最新または最も視聴された動画の詳細をまとめた DataFrame を作成します：
 

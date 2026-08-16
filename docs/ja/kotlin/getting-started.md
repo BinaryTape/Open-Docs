@@ -1,7 +1,7 @@
 [//]: # (title: Kotlinをはじめよう)
 
 <tldr>
-<p>Kotlinの最新リリース:<b> <a href="%kotlinLatestWhatsnew%">%kotlinVersion%</a></b></p>
+<p>Kotlinの最新リリース: <b><a href="%kotlinLatestWhatsnew%">%kotlinVersion%</a></b></p>
 </tldr>
 
 Kotlinは、簡潔でマルチプラットフォームに対応し、Javaや他の言語との相互運用性を備えたモダンな言語です。
@@ -23,9 +23,9 @@ Kotlinを使い始めるには、これらのIDEのいずれかをダウンロ�
 
 ここでは、コンソールアプリケーションの開発方法と、Kotlinでのユニットテストの作成方法を学びます。
 
-1. **[IntelliJ IDEAプロジェクトウィザードで基本的なJVMアプリケーションを作成する](jvm-get-started.md)**。
+1. **[IntelliJ IDEAプロジェクトウィザードで基本的なJVMアプリケーションを作成する](jvm-get-started.md)。**
 
-2. **[初めてのユニットテストを作成する](jvm-test-using-junit.md)**。
+2. **[初めてのユニットテストを作成する](jvm-test-using-junit.md)。**
 
 </tab>
 
@@ -49,7 +49,7 @@ Kotlinを使い始めるには、これらのIDEのいずれかをダウンロ�
 
 ここでは、[Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html)を使用してクロスプラットフォームアプリケーションを開発する方法を学びます。
 
-1. **[クロスプラットフォーム開発のための環境構築](https://kotlinlang.org/docs/multiplatform/quickstart.html)**。
+1. **[クロスプラットフォーム開発のための環境構築](https://kotlinlang.org/docs/multiplatform/quickstart.html)。**
 
 2. **iOSおよびAndroid向けの初めてのアプリケーションを作成する:**
 

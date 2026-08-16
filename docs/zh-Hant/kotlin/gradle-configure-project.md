@@ -252,7 +252,7 @@ plugins {
 </tab>
 </tabs>
 
-當組建指令碼中沒有關於 `jvmTarget` 值的明確資訊時，其預設值為 `null`，編譯器將其轉換為預設值 `1.8`。`targetCompatibility` 等於目前 Gradle 的 JDK 版本，這等於您的 JDK 版本（除非您使用 [Java 工具鏈方法](gradle-configure-project.md#gradle-java-toolchains-support)）。假設您的 JDK 版本為 `%jvmLTSVersionSupportedByKotlin%`，您發佈的程式庫構件將 [宣告其與 JDK %jvmLTSVersionSupportedByKotlin%+ 相容](https://docs.gradle.org/current/userguide/publishing_gradle_module_metadata.html)：`org.gradle.jvm.version=%jvmLTSVersionSupportedByKotlin%`，這是錯誤的。在這種情況下，您必須在主專案中使用 Java %jvmLTSVersionSupportedByKotlin% 才能新增此程式庫，即使位元組碼的版本是 `1.8`。請 [配置工具鏈](gradle-configure-project.md#gradle-java-toolchains-support) 來解決此問題。
+當組建指令碼中沒有關於 `jvmTarget` 值的明確資訊時，其預設值為 `null`，編編譯器將其轉換為預設值 `1.8`。`targetCompatibility` 等於目前 Gradle 的 JDK 版本，這等於您的 JDK 版本（除非您使用 [Java 工具鏈方法](gradle-configure-project.md#gradle-java-toolchains-support)）。假設您的 JDK 版本為 `%jvmLTSVersionSupportedByKotlin%`，您發佈的程式庫構件將 [宣告其與 JDK %jvmLTSVersionSupportedByKotlin%+ 相容](https://docs.gradle.org/current/userguide/publishing_gradle_module_metadata.html)：`org.gradle.jvm.version=%jvmLTSVersionSupportedByKotlin%`，這是錯誤的。在這種情況下，您必須在主專案中使用 Java %jvmLTSVersionSupportedByKotlin% 才能新增此程式庫，即使位元組碼的版本是 `1.8`。請 [配置工具鏈](gradle-configure-project.md#gradle-java-toolchains-support) 來解決此問題。
 
 ### Gradle Java 工具鏈支援
 
@@ -473,7 +473,7 @@ integrationTestCompilation {
 
 ### 在啟用 Java 模組 (JPMS) 的情況下配置
 
-若要讓 Kotlin Gradle 外掛程式與 [Java 模組](https://www.oracle.com/corporate/features/understanding-java-9-modules.html) 搭配運作，
+若要讓 Kotlin Gradle 外掛程式與 [Java 模組](https://dev.java/learn/modules/) 搭配運作，
 請將以下幾行新增至您的組建指令碼，並將 `YOUR_MODULE_NAME` 替換為您的 JPMS 模組參考，例如 `org.company.module`：
 
 <tabs group="build-script">

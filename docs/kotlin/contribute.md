@@ -1,7 +1,7 @@
 [//]: # (title: 贡献)
 
 Kotlin 是一个在 [Apache 2.0 许可证](https://github.com/JetBrains/kotlin/blob/master/license/LICENSE.txt) 下发布的开源项目。
-源代码、工具、文档，甚至这个网站都在 [GitHub](https://github.com/jetbrains/kotlin) 上维护。
+源代码、工具、文档，甚至这个网站都在 [GitHub](https://github.com/jetbrains/kotlin) 上维护。 
 Kotlin 由 JetBrains 开发，但我们始终在寻找更多人来帮助我们。
 
 ## 参与抢先体验计划
