@@ -29,6 +29,25 @@
 
 **동작 호환성(Behavioral compatibility)**은 라이브러리의 새 버전이 버그 수정을 제외하고는 기존 기능을 수정하지 않음을 의미합니다. 동일한 기능이 포함되며 동일한 시맨틱(semantics)을 갖습니다.
 
+## 호환 가능한 언어 및 API 버전 선택
+
+라이브러리를 배포할 때는 컴파일 타임(compile-time) 및 런타임(runtime) 호환성을 모두 고려하십시오.
+
+* [언어 버전(language version)](compiler-reference.md#language-version-version)은 라이브러리를 직접 사용하는 코드를 컴파일할 수 있는 Kotlin 컴파일러 버전을 결정합니다.
+* [API 버전(API version)](compiler-reference.md#api-version-version)은 런타임에 필요한 최소 Kotlin 표준 라이브러리 버전을 결정합니다.
+  
+대부분의 경우 동일한 언어 및 API 버전을 사용하십시오.
+
+라이브러리에 더 최신 언어 버전을 설정하면 사용자가 더 최신 버전의 Kotlin 컴파일러를 사용해야 합니다.
+
+* JVM에서 사용자는 이전 언어 버전부터 그 이후의 모든 컴파일러 버전을 사용할 수 있습니다. 예를 들어, 라이브러리가 언어 버전 2.2를 사용하는 경우 사용자는 컴파일러 버전 2.1.x, 2.2.x 또는 그 이후 버전을 사용할 수 있습니다.
+* 다른 플랫폼에서 사용자는 라이브러리에 설정된 언어 버전과 동일하거나 그 이후의 컴파일러 버전을 사용해야 합니다. 이러한 요구 사항은 사용자가 컴파일러를 즉시 업그레이드할 수 없는 경우 라이브러리의 새 버전으로 업그레이드하는 것을 지연시킬 수 있습니다.
+
+또한 사용자는 라이브러리에 설정된 API 버전보다 최소한 같거나 더 최신인 Kotlin 표준 라이브러리 버전을 제공해야 합니다.
+런타임 환경이 사용자의 제어를 벗어나 Gradle 또는 IDE 플러그인과 같이 더 최신 표준 라이브러리 버전을 제공하기 어려운 경우 업그레이드가 더 어려워질 수 있습니다.
+
+라이브러리에 가장 적합한 언어 및 API 버전을 선택하십시오. 최신 버전은 최신 Kotlin 기능을 도입할 수 있게 해주며, 이전 버전은 더 많은 사용자가 라이브러리를 사용할 수 있도록 돕습니다. 최선의 선택은 라이브러리의 사용 사례와 라이브러리에 의존하는 사용자 수에 따라 달라집니다.
+
 ## Binary compatibility validator 사용
 
 JetBrains는 API의 여러 버전 간에 바이너리 호환성을 보장하는 데 사용할 수 있는 [Binary compatibility validator](https://github.com/Kotlin/binary-compatibility-validator) 도구를 제공합니다.
@@ -238,7 +257,7 @@ public final User copy(java.lang.String, java.lang.String)
 public final User copy(java.lang.String, java.lang.String, boolean)
 ```
 
-생성자와 마찬가지로 이는 바이너리 호환성을 깨뜨립니다.
+생성자와 마찬가지로 이는 바이너리 호환성이 깨집니다.
 
 보조 생성자를 수동으로 작성하고 `copy` 메서드를 오버라이드하여 이러한 문제를 해결할 수는 있습니다. 하지만 여기에 들어가는 노력은 데이터 클래스를 사용하는 편의성을 상쇄합니다.
 

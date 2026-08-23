@@ -82,9 +82,7 @@ dependencies {
 
 如果您使用的程式庫依賴於 [kapt](kapt.md) 編譯器外掛程式，請檢查是否可以改為使用 [Kotlin Symbol Processing (KSP) API](ksp-overview.md)。KSP API 透過減少註解處理時間來提高組建效能。KSP 比 kapt 更快且更有效率，因為它直接處理原始碼，而不需要產生中間的 Java 虛設常式。
 
-如需遷移步驟的指導，請參閱 Google 的[遷移指南](https://developer.android.com/build/migrate-to-ksp)。
-
-若要進一步了解 KSP 與 kapt 的比較，請查看[為什麼選擇 KSP](ksp-why-ksp.md)。
+如需遷移步驟的指導，請參閱[遷移指南](ksp-kapt-migration.md)。
 
 ### 使用模組化
 
@@ -94,7 +92,7 @@ dependencies {
 >
 {style="note"}
 
-使用模組化的專案結構來提高組建速度並實現更輕鬆的並行開發。將您的專案結構化為一個根專案和一個或多個子專案。如果變更僅影響其中一個子專案，Gradle 只會重新組建該特定子專案。
+使用模組化的專案結構來提高組建速度並實現更輕鬆的並行開發。將您的專案結構化為一個根專案和一個或多個子專案。如果變更僅影響其中一個子專案， Gradle 只會重新組建該特定子專案。
 
 ```none
 .

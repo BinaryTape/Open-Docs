@@ -683,9 +683,10 @@
   "kotlin.jvm-code-analysis": "コード解析ツールを使用する",
   "kotlin.ksp-command-line": "コマンドラインからのKSP",
   "coroutines.coroutines-cancellation": "キャンセル",
-  "lincheck.testing-data-structures": "データ構造のテスト",
+  "lincheck.testing-data-structures": "データ構造의テスト",
   "kmp.kmp-for-ios": "iOS向けKotlin Multiplatform",
   "koog.cloud-platform-integrations": "クラウドプラットフォームの統合",
   "koog.amazon-bedrock-agentcore": "Amazon Bedrock AgentCore",
-  "kmp.ios-ci-cd-teamcity": "iOS 配信パイプラインの設定"
+  "kmp.ios-ci-cd-teamcity": "iOS 配信パイプラインの設定",
+  "koog.skills": "スキル"
 }

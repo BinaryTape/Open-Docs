@@ -280,6 +280,14 @@
             "link": "compose-desktop-context-menus"
           },
           {
+            "text": "kmp.compose-desktop-tray",
+            "link": "compose-desktop-tray"
+          },
+          {
+            "text": "kmp.compose-desktop-menu-bar",
+            "link": "compose-desktop-menu-bar"
+          },
+          {
             "text": "kmp.compose-desktop-mouse-events",
             "link": "compose-desktop-mouse-events"
           },

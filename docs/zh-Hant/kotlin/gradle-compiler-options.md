@@ -559,7 +559,7 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 ### 常用屬性
 
 | 名稱 | 描述 | 可能的值 | 預設值 |
-|-------------------|------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|---------------|
+|-------------------|----------------------------------------------------------------------------------------------------------------------------------------|---------------------------|---------------|
 | `optIn` | 用於配置 [加入編譯器引數](opt-in-requirements.md) 列表的屬性 | `listOf( /* opt-ins */ )` | `emptyList()` |
 | `progressiveMode` | 啟用 [漸進式編譯器模式](whatsnew13.md#progressive-mode) | `true`, `false` | `false` |
 | `extraWarnings` | 如果為 true，則啟用 [額外的宣告、運算式和型別編譯器檢查](whatsnew21.md#extra-compiler-checks)，這些檢查會發出警告 | `true`, `false` | `false` |
@@ -582,8 +582,8 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 | `suppressWarnings` | 不要產生警告 | | false |
 | `verbose` | 啟用詳細的記錄輸出。僅在 [啟用 Gradle 偵錯記錄層級](https://docs.gradle.org/current/userguide/logging.html) 時有效 | | false |
 | `freeCompilerArgs` | 額外編譯器引數的列表。您也可以在此處使用實驗性的 `-X` 引數。請參閱 [範例](#example-of-additional-arguments-usage-via-freecompilerargs) | | [] |
-| `apiVersion` | 限制宣告的使用僅限於指定的隨附程式庫版本 | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (實驗性) | |
-| `languageVersion` | 提供與指定 Kotlin 版本的原始碼相容性 | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (實驗性) | |
+| `apiVersion` | 限制宣告的使用僅限於指定的隨附程式庫版本。如需更多資訊，請參閱 [`-api-version`](compiler-reference.md#api-version-version)。 | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (實驗性) | |
+| `languageVersion` | 提供與指定 Kotlin 版本的原始碼相容性。如需更多資訊，請參閱 [`-language-version`](compiler-reference.md#language-version-version)。 | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (實驗性) | |
 
 > 我們將在未來的版本中棄用 `freeCompilerArgs` 屬性。如果您在 Kotlin Gradle DSL 中缺少某些選項，請[提交問題 (Issue)](https://youtrack.jetbrains.com/newissue?project=kt)。
 >
@@ -691,7 +691,7 @@ tasks
 ### JavaScript 特定屬性
 
 | 名稱 | 描述 | 可能的值 | 預設值 |
-|---|---|---|---|
+|-------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------|
 | `friendModulesDisabled` | 停用內部宣告匯出 | | `false` |
 | `main` | 指定執行時是否應呼叫 `main` 函式 | `JsMainFunctionExecutionMode.CALL`, `JsMainFunctionExecutionMode.NO_CALL` | `JsMainFunctionExecutionMode.CALL` |
 | `moduleKind` | 編譯器產生的 JS 模組類型 | `JsModuleKind.MODULE_AMD`, `JsModuleKind.MODULE_PLAIN`, `JsModuleKind.MODULE_ES`, `JsModuleKind.MODULE_COMMONJS`, `JsModuleKind.MODULE_UMD` | `null` |

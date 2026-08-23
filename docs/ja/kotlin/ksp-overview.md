@@ -136,7 +136,6 @@ class HelloFunctionFinderProcessor : SymbolProcessor() {
 ## リソース
 
 * [クイックスタート](ksp-quickstart.md)
-* [なぜ KSP を使うのか？](ksp-why-ksp.md)
 * [例 (Examples)](ksp-examples.md)
 * [KSP がどのように Kotlin コードをモデル化するか](ksp-additional-details.md)
 * [Java アノテーションプロセッサ作成者のためのリファレンス](ksp-reference.md)

@@ -76,15 +76,13 @@ dependencies {
 
 特定のプラットフォームをアクティブに開発およびテストしている場合は、代わりに対応する `linkDebug*` タスクを実行してください。
 
-詳細については、[コンパイル時間を改善するためのヒント](native-improving-compilation-time.md#gradle-configuration) を参照してください。
+詳細については、 [コンパイル時間を改善するためのヒント](native-improving-compilation-time.md#gradle-configuration) を参照してください。
 
 ### kapt から KSP への移行
 
 [kapt](kapt.md) コンパイラプラグインに依存しているライブラリを使用している場合は、代わりに [Kotlin Symbol Processing (KSP) API](ksp-overview.md) の使用に切り替えられるか確認してください。KSP API は、アノテーション処理時間を短縮することでビルドパフォーマンスを向上させます。KSP は、中間的な Java スタブを生成せずにソースコードを直接処理するため、kapt よりも高速で効率的です。
 
-移行手順のガイダンスについては、Google の [移行ガイド](https://developer.android.com/build/migrate-to-ksp) を参照してください。
-
-KSP と kapt の比較については、[なぜ KSP なのか (why KSP)](ksp-why-ksp.md) を確認してください。
+移行手順のガイダンスについては、[移行ガイド](ksp-kapt-migration.md) を参照してください。
 
 ### モジュール化の使用
 

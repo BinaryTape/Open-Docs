@@ -686,5 +686,6 @@
   "kmp.kmp-for-ios": "适用于 iOS 的 Kotlin Multiplatform",
   "koog.cloud-platform-integrations": "云平台集成",
   "koog.amazon-bedrock-agentcore": "Amazon Bedrock AgentCore",
-  "kmp.ios-ci-cd-teamcity": "配置 iOS 交付流水线"
+  "kmp.ios-ci-cd-teamcity": "配置 iOS 交付流水线",
+  "koog.skills": "Skills"
 }

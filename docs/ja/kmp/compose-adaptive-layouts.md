@@ -28,9 +28,13 @@ commonMain.dependencies {
 `WindowSizeClass` APIを使用すると、利用可能な表示スペースに基づいてアプリのレイアウトを変更できます。たとえば、ウィンドウの高さに応じてトップアプリバーの表示/非表示を管理できます。
 
 ```kotlin
+import androidx.window.core.layout.WindowSizeClass
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfoV2
+...
+
 @Composable
 fun MyApp(
-    windowSizeClass: WindowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
+    windowSizeClass: WindowSizeClass = currentWindowAdaptiveInfoV2().windowSizeClass
 ) {
     // トップアプリバーを表示するかどうかを決定します
     val showTopAppBar = windowSizeClass.isHeightAtLeastBreakpoint(WindowSizeClass.HEIGHT_DP_MEDIUM_LOWER_BOUND)

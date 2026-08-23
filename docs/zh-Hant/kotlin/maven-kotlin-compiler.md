@@ -5,7 +5,7 @@
 
 ## 指定編譯器選項
 
-您可以在 Kotlin Maven 外掛程式節點的 `<configuration>` 區段中，將額外的選項與引數指定為元素：
+您可以在 Kotlin Maven 外掛程式節點的 `<configuration>` 區段中，將編譯器的額外選項與引數指定為元素：
 
 ```xml
 <plugin>
@@ -41,8 +41,8 @@
 | 名稱 | 屬性名稱 | 說明 | 可能的值 | 預設值 |
 |-------------------|-----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|-----------------------------|
 | `nowarn`          |                                   | 不產生警告 | true, false                                             | false                       |
-| `languageVersion` | `kotlin.compiler.languageVersion` | 提供與指定 Kotlin 版本的原始碼相容性 | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" （實驗性） |                             |
-| `apiVersion`      | `kotlin.compiler.apiVersion`      | 僅允許使用來自指定版本隨附程式庫的宣告 | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" （實驗性） |                             |
+| `languageVersion` | `kotlin.compiler.languageVersion` | 控制編譯期間可用的 Kotlin 語言特性與語法。如需更多資訊，請參閱 [`-language-version`](compiler-reference.md#language-version-version)。 | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" （實驗性） |                             |
+| `apiVersion`      | `kotlin.compiler.apiVersion`      | 控制您的程式碼可以使用的 Kotlin API。如需更多資訊，請參閱 [`-api-version`](compiler-reference.md#api-version-version)。 | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" （實驗性） |                             |
 | `sourceDirs`      |                                   | 包含要編譯的原始碼檔案目錄 |                                                         | 專案原始碼根目錄 |
 | `compilerPlugins` |                                   | 啟用的編譯器外掛程式 |                                                         | []                          |
 | `pluginOptions`   |                                   | 編譯器外掛程式的選項 |                                                         | []                          |

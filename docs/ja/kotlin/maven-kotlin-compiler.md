@@ -41,8 +41,8 @@ Kotlin Maven プラグインノードの `<configuration>` セクションの要
 | 名前 | プロパティ名 | 説明 | 設定可能な値 | デフォルト値 |
 |-------------------|-----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|-----------------------------|
 | `nowarn`          |                                   | 警告を生成しない | true, false                                             | false                       |
-| `languageVersion` | `kotlin.compiler.languageVersion` | 指定されたバージョンの Kotlin とのソース互換性を提供 | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (EXPERIMENTAL) |                             |
-| `apiVersion`      | `kotlin.compiler.apiVersion`      | 同梱されているライブラリの指定されたバージョンからの宣言のみを使用可能にする | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (EXPERIMENTAL) |                             |
+| `languageVersion` | `kotlin.compiler.languageVersion` | コンパイル時にどの Kotlin 言語機能と構文を使用できるかを制御します。詳細については、[`-language-version`](compiler-reference.md#language-version-version) を参照してください。 | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (EXPERIMENTAL) |                             |
+| `apiVersion`      | `kotlin.compiler.apiVersion`      | コードで使用できる Kotlin API を制御します。詳細については、[`-api-version`](compiler-reference.md#api-version-version) を参照してください。 | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (EXPERIMENTAL) |                             |
 | `sourceDirs`      |                                   | コンパイルするソースファイルが含まれるディレクトリ |                                                         | プロジェクトのソースルート |
 | `compilerPlugins` |                                   | 有効にするコンパイラプラグイン |                                                         | []                          |
 | `pluginOptions`   |                                   | コンパイラプラグインのオプション |                                                         | []                          |

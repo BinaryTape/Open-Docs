@@ -1,6 +1,6 @@
 [//]: # (title: Kotlin 심볼 프로세싱 API)
 
-Kotlin Symbol Processing(_KSP_)은 코틀린을 위한 소스 코드 생성 프레임워크입니다. KSP API를 사용하면 소스 코드의 [어노테이션](annotations.md)을 기반으로 코드를 생성하는 프로세서를 만들 수 있습니다.
+Kotlin Symbol Processing(KSP)은 코틀린을 위한 소스 코드 생성 프레임워크입니다. KSP API를 사용하면 소스 코드의 [어노테이션](annotations.md)을 기반으로 코드를 생성하는 프로세서를 만들 수 있습니다.
 
 KSP는 경량 컴파일러 플러그인을 더 쉽게 만들 수 있도록 하는 것을 목표로 합니다. 잘 정의된 API는 컴파일러의 변경 사항을 숨겨주므로, 프로세서 유지 보수에 큰 노력을 들일 필요가 없습니다. 하지만 이 방식에는 트레이드오프가 있습니다. 예를 들어, KSP 기반 프로세서는 표현식(expressions)이나 문(statements)을 검사할 수 없으며, 소스 코드를 수정할 수 없습니다.
 
@@ -136,7 +136,6 @@ class HelloFunctionFinderProcessor : SymbolProcessor() {
 ## 리소스
 
 * [빠른 시작](ksp-quickstart.md)
-* [왜 KSP를 사용하는가?](ksp-why-ksp.md)
 * [예제](ksp-examples.md)
 * [KSP가 코틀린 코드를 모델링하는 방법](ksp-additional-details.md)
 * [자바 어노테이션 프로세서 작성자를 위한 참조 가이드](ksp-reference.md)

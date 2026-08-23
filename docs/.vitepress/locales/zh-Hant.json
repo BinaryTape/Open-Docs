@@ -591,7 +591,7 @@
   "kmp.compose-multiplatform-jetpack-libraries": "Compose 程式庫的多平台構件",
   "koog.custom-tools-schema": "自訂工具模式",
   "kmp.migrate-from-android": "將進階 Android 應用程式遷移至 KMP",
-  "coroutines.cancellation-and-timeouts": "取消",
+  "coroutines.cancellation-and-timeouts": "取消與逾時",
   "kotlin.whatsnew23": "Kotlin 2.3.0",
   "kotlin.compatibility-guide-23": "相容性指南",
   "kotlin.native-lib-import-stability": "外部程式庫匯入",
@@ -690,5 +690,6 @@
   "kmp.kmp-for-ios": "適用於 iOS 的 Kotlin Multiplatform",
   "koog.cloud-platform-integrations": "雲端平台整合",
   "koog.amazon-bedrock-agentcore": "Amazon Bedrock AgentCore",
-  "kmp.ios-ci-cd-teamcity": "配置 iOS 交付管線"
+  "kmp.ios-ci-cd-teamcity": "配置 iOS 交付管線",
+  "koog.skills": "Skills"
 }

@@ -655,5 +655,6 @@
   "kmp.kmp-for-ios": "Kotlin Multiplatform for iOS",
   "koog.cloud-platform-integrations": "Cloud platform integrations",
   "koog.amazon-bedrock-agentcore": "Amazon Bedrock AgentCore",
-  "kmp.ios-ci-cd-teamcity": "Configure iOS delivery pipeline"
+  "kmp.ios-ci-cd-teamcity": "Configure iOS delivery pipeline",
+  "koog.skills": "Skills"
 }

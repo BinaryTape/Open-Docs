@@ -1,6 +1,6 @@
 <topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
-   id="api-references" title="APIリファレンス">
+       xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+       id="api-references" title="APIリファレンス">
 <p>Kotlin APIリファレンスページへようこそ。ここでは、公式のKotlinライブラリおよびツールのAPIドキュメントへのリンクを確認できます。</p>
 <tip>Kotlin Multiplatformライブラリをお探しの場合は、<a href="https://klibs.io"><b>klibs.io</b></a>でそれらをご覧ください。</tip>
 <list columns="2">
@@ -44,6 +44,13 @@
         <br/>
         <p>カレンダーベースの計算のためのマルチプラットフォームライブラリです。日付値の表現を提供し、タイムゾーン固有の操作をサポートします。</p>
         <img src="github.svg" width="18" alt="GitHub"/> <a href="https://github.com/Kotlin/kotlinx-datetime">kotlinx-datetime</a>
+        <br/>
+    </li>
+    <li>
+        <a href="https://kotlinlang.org/api/kotlinx.collections.immutable/"><b>不変コレクション (kotlinx.collections.immutable)</b></a>
+        <br/>
+        <p>不変（immutable）および永続（persistent）コレクションのインターフェースと実装を提供するマルチプラットフォームライブラリです。バージョン間で構造を共有する効率的なコピーオンライト（copy-on-write）操作を提供するため、コレクションを更新しても全体がコピーされることはありません。</p>
+        <img src="github.svg" width="18" alt="GitHub"/> <a href="https://github.com/Kotlin/kotlinx.collections.immutable">kotlinx.collections.immutable</a>
         <br/>
     </li>
     <li>

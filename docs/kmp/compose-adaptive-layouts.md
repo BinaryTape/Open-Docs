@@ -8,7 +8,7 @@
 
 *   优先使用[规范布局](https://developer.android.com/develop/ui/compose/layouts/adaptive/canonical-layouts)模式，例如列表-详情、Feed 流以及辅助面板。
 *   通过为内边距、排版和其他设计元素重复使用共享样式来保持一致性。在遵循平台特定指南的同时，保持各设备间的导航模式一致。
-*   将复杂的布局分解为可重用的可组合项 (composables)，以提高灵活性和模块化程度。
+*   将复杂的布局分解为可重用的可组合项 (composables) ，以提高灵活性和模块化程度。
 *   针对屏幕密度和方向进行调整。
 
 ## 使用窗口大小类别
@@ -28,9 +28,13 @@ commonMain.dependencies {
 `WindowSizeClass` API 允许你根据可用的显示空间更改应用的布局。例如，你可以根据窗口高度来管理顶部应用栏的可见性：
 
 ```kotlin
+import androidx.window.core.layout.WindowSizeClass
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfoV2
+...
+
 @Composable
 fun MyApp(
-    windowSizeClass: WindowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
+    windowSizeClass: WindowSizeClass = currentWindowAdaptiveInfoV2().windowSizeClass
 ) {
     // 确定是否应显示顶部应用栏
     val showTopAppBar = windowSizeClass.isHeightAtLeastBreakpoint(WindowSizeClass.HEIGHT_DP_MEDIUM_LOWER_BOUND)
@@ -48,11 +52,11 @@ fun MyApp(
 
 我们有三种不同的 @Preview：
 
-* Android 专用，用于 `androidMain`，来自 Android Studio。
+* Android 专用，用于 androidMain，来自 Android Studio。
 * 带有我们自己实现的独立桌面注解插件（仅用于桌面源集）+ uiTooling 插件。
 * 通用注解，Android Studio 也支持，仅适用于 Android，但来自通用代码。
 -->
 
 ## 下一步
 
-要在 [Jetpack Compose 文档](https://developer.android.com/develop/ui/compose/layouts/adaptive)中详细了解自适应布局。
+在 [Jetpack Compose 文档](https://developer.android.com/develop/ui/compose/layouts/adaptive)中详细了解自适应布局。

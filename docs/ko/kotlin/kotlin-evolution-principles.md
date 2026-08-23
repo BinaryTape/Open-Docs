@@ -95,7 +95,7 @@ Kotlin 언어 기능은 다음 상태 중 하나를 가질 수 있습니다:
 
 ### 다양한 컴포넌트의 상태
 
-Kotlin/JVM, JS, Native 컴파일러 및 다양한 라이브러리와 같은 [Kotlin의 다양한 컴포넌트의 안정성 상태](components-stability.md)에 대해 자세히 알아보세요.
+[Kotlin의 다양한 컴포넌트의 안정성 상태](components-stability.md)에 대해 자세히 알아보세요. 예를 들어 Kotlin/JVM, JS, Native 컴파일러 및 다양한 라이브러리가 있습니다.
 
 ## 라이브러리
 
@@ -128,14 +128,16 @@ Kotlin/JVM, JS, Native 컴파일러 및 다양한 라이브러리와 같은 [Kot
 
 우리는 새로운 Kotlin 버전이 호환성을 목적으로 이전 버전의 동작을 에뮬레이트하도록 하는 호환성 옵션을 제공합니다:
 
-* `-language-version X.Y` - Kotlin 언어 버전 X.Y에 대한 호환성 모드로, 이후에 나온 모든 언어 기능에 대해 오류를 보고합니다.
-* `-api-version X.Y` - Kotlin API 버전 X.Y에 대한 호환성 모드로, Kotlin 표준 라이브러리의 최신 API(컴파일러가 생성한 코드 포함)를 사용하는 모든 코드에 대해 오류를 보고합니다.
+* `-language-version X.Y` – Kotlin 언어 버전 X.Y에 대한 호환성 모드입니다. 컴파일러는 이후 버전에 도입된 언어 기능을 코드가 사용할 때 오류를 보고합니다.
+* `-api-version X.Y` – Kotlin API 버전 X.Y에 대한 호환성 모드입니다. 컴파일러는 컴파일러가 생성한 코드에서 참조하는 API를 포함하여, 이후 버전에 도입된 Kotlin 표준 라이브러리 API를 사용하는 선언을 무시합니다.
 
-마이그레이션 시간을 더 드리기 위해, 최신 안정화 버전 외에도 최소 3개 이전 언어 및 API 버전에 대한 개발을 지원합니다.
+마이그레이션 시간을 더 드리기 위해, JVM에서는 최신 안정화 버전 외에도 최소 3개 이전 언어 및 API 버전에 대한 개발을 지원합니다. 이를 통해 라이브러리 제작자는 이전 버전의 컴파일러를 사용하는 사용자와의 호환성을 유지하면서 최신 컴파일러 릴리스를 채택할 수 있습니다. 다른 플랫폼에서도 이전 언어 및 API 버전을 설정할 수 있지만, JVM과 달리 사용자는 여전히 최신 컴파일러 버전을 사용해야 합니다.
 
-활발히 유지 관리되는 코드베이스는 전체 지원 중단 사이클이 완료되기를 기다리지 않고 가능한 한 빨리 버그 수정을 받는 것이 유익할 수 있습니다. 현재 이러한 프로젝트는 `-progressive` 옵션을 활성화하여 도구 릴리스에서도 이러한 수정을 활성화할 수 있습니다.
+대부분의 프로젝트에서는 두 옵션을 모두 동일한 버전으로 설정하세요. 더 낮은 API 버전은 주로 이전 버전의 Kotlin 표준 라이브러리와 호환성을 유지해야 할 때 유용합니다.
 
-모든 옵션은 IDE, 명령줄뿐만 아니라 [Gradle](gradle-compiler-options.md) 및 [Maven](maven-kotlin-compiler.md#specify-compiler-options)에서도 사용할 수 있습니다.
+활발히 유지 관리되는 코드베이스는 전체 지원 중단 사이클이 완료되기를 기다리지 않고 가능한 한 빨리 버그 수정을 받는 것이 유익할 수 있습니다. 이러한 프로젝트는 [`-progressive` 옵션](compiler-reference.md#progressive)을 활성화하여 해당 변경 사항이 기본값이 되기 전에 도구 릴리스에서 채택할 수 있습니다.
+
+이러한 옵션은 [명령줄](compiler-reference.md#common-options)이나 [Gradle](gradle-compiler-options.md#attributes-common-to-jvm-and-javascript) 또는 [Maven](maven-kotlin-compiler.md#specify-compiler-options) 빌드 도구에서 설정할 수 있습니다.
 
 ### 바이너리 형식의 진화
 

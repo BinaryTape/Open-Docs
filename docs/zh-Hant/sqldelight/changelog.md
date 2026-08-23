@@ -25,6 +25,7 @@
 - [IntelliJ 外掛程式] 最低版本需求為 2023.3 / Android Studio Jellyfish
 
 ### 修復
+- [Gradle 外掛程式] 抑制 JDK 24+ 上來自編譯器工作程序 (compiler worker) 的 `sun.misc.Unsafe` 棄用警告（#6321）
 - [編譯器] 抑制產生的程式碼中的 Kotlin 額外警告（#6208 由 @eyupcanakman 提供）
 - [編譯器] 非群組聚合結果集中的其他列一律為可 null
 - [PostgreSQL 方言] 正確解析 `coalesce` 與 `ifnull` 的可 null 性
@@ -41,10 +42,11 @@
 - [Gradle 外掛程式] 將 AGP 的變體解析 (variant resolution) 用於專案相依項（#6217 由 @maxsav 提供）
 - [Gradle 外掛程式] 修復當不同組建間的 AGP 變體清單不一致時，`generateDatabaseInterface` 的組建快取未命中問題
 - [Gradle 外掛程式] 修復當套用外掛程式但未配置任何資料庫時，IDE 同步當機的問題（#6088）
-- [PostgreSQL 方言] 修復使用巢狀函式呼稱時的 JSON 聚合函式問題（#6281 由 @griffio 提供）
+- [PostgreSQL 方言] 修復使用巢狀函式呼叫時的 JSON 聚合函式問題（#6281 由 @griffio 提供）
 - [分頁 3 擴充套件] 修復 `KeyedQueryPagingSource` 在空資料庫上當機的問題（#6284 由 @woods-marshes 提供）
 - [編譯器] 修復當變動器陳述式與 `COALESCE` 等封裝函式搭配使用時的 Java 型別配接器問題（#6292 由 @griffio 提供）
-- [編譯器] 修復當模組名稱為大寫時，產生的程式碼封裝名稱也會變為大寫的問題（#6316 由 @griffio 提供）
+- [編譯器] 修復當模組名稱為大寫時，產生的程式碼套件名稱也會被變更為大寫的問題（#6316 由 @griffio 提供）
+- [PostgreSQL 方言] 允許日期資料型別不區分大小寫（#6328 由 @griffio 提供）
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -127,7 +129,7 @@
 ## [2.2.0] - 2025-11-13
 [2.2.0]: https://github.com/sqldelight/sqldelight/releases/tag/2.2.0
 
-發佈失敗，僅部分成品發佈。請使用 2.2.1！
+發佈失敗，僅部分產物發佈。請使用 2.2.1！
 
 ## [2.1.0] - 2025-05-16
 [2.1.0]: https://github.com/sqldelight/sqldelight/releases/tag/2.1.0
@@ -201,7 +203,7 @@
 - [PostgreSQL 方言] 為 GIN 新增語法（#5027 由 @griffio 提供）
 
 ### 變更
-- [IDE 外掛程式] 最低版本為 2023.1 / Android Studio Iguana
+- [IDE 外掛程式] 最低版本需求為 2023.1 / Android Studio Iguana
 - [編譯器] 允許在 `encapsulatingType` 中覆寫型別的可 null 性（#4882 由 @eygraber 提供）
 - [編譯器] 為 SELECT * 內嵌列名
 - [Gradle 外掛程式] 切換至 processIsolation (#5068 由 @nwagu 提供)
@@ -263,7 +265,7 @@
 - [編譯器] 修復無參數且有傳回值的群組陳述式的編譯（#4699 由 @griffio 提供）
 - [編譯器] 使用 SqlBinaryExpr 繫結引數（#4604 由 @griffio 提供）
 - [IDE 外掛程式] 如果已設定，則使用 IDEA 專案 JDK (#4689 由 @griffio 提供)
-- [IDE 外掛程式] 修復 「Unknown element type: TYPE_NAME」 錯誤（#4727）
+- [IDE 外掛程式] 修復在 IDEA 2023.2 或更高版本中的 「Unknown element type: TYPE_NAME」 錯誤（#4727）
 - [IDE 外掛程式] 修復了一些與 2023.2 的相容性問題
 - [Gradle 外掛程式] 修正 `verifyMigrationTask` Gradle 任務的文件（#4713 由 @joshfriend 提供）
 - [Gradle 外掛程式] 新增 Gradle 任務輸出訊息，以協助使用者在驗證資料庫前先產生資料庫（#4684 由 @jingwei99 提供）
@@ -300,7 +302,7 @@
 - [IDE 外掛程式] 在執行搜尋前等待索引就緒（#4419）
 - [IDE 外掛程式] 如果索引不可用，則不執行跳轉（#4420）
 - [編譯器] 修復群組陳述式的結果運算式（#4378）
-- [編譯器] 不要為虛擬表產生型別 (#4427 由 @hfhbd 提供)
+- [編譯器] 不要為虛擬表產生介面型別 (#4427 由 @hfhbd 提供)
 
 ## [2.0.0-rc02] - 2023-06-27
 [2.0.0-rc02]: https://github.com/sqldelight/sqldelight/releases/tag/2.0.0-rc02
@@ -1160,7 +1162,7 @@ sqldelight {
  * 修復：產生的檢視模型包含可 null 性註解。
  * 修復：產生的程式碼具有正確的型別與可 null 性，以支援所有可能的列。
  * 修復：sum 與 round SQLite 函式在產生的程式碼中具有正確型別。
- * 修復：CAST、內部 select 的修復。
+ * 修復：CAST's、內部 select 的修復。
  * 修復：自動補全在 CREATE TABLE 陳述式中。
  * 修復：SQLite 關鍵字可用於套件。
 
@@ -1212,14 +1214,14 @@ sqldelight {
 ## [0.2.2] - 2016-03-07
 [0.2.2]: https://github.com/sqldelight/sqldelight/releases/tag/0.2.2
 
- * 新功能：編譯時驗證插入、更新、刪除、索引與觸發器陳述式所使用的列。
+ * 新功能：對 insert、update、delete、index 與 trigger 陳述式所使用的列進行編譯期驗證。
  * 修復：在檔案移動/建立時不會使 IDE 外掛程式當機。
 
 ## [0.2.1] - 2016-03-07
 [0.2.1]: https://github.com/sqldelight/sqldelight/releases/tag/0.2.1
 
  * 新功能：Ctrl+`/`（OSX 上為 Cmd+`/`）切換所選行的註解。
- * 新功能：對 SQL 查詢所使用的列進行編譯時驗證。
+ * 新功能：對 SQL 查詢所使用的列進行編譯期驗證。
  * 修復：在 IDE 與 Gradle 外掛程式中均支援 Windows 路徑。
 
 ## [0.2.0] - 2016-02-29
@@ -1230,7 +1232,7 @@ sqldelight {
  * 修復：以不導致失敗的方式回報 「sqldelight」 資料夾結構問題。
  * 修復：禁止命名為 `table_name` 的列。其產生的常數會與資料表名稱常數發生衝突。
  * 修復：確保 IDE 外掛程式立即產生模型類別，且不論是否開啟 `.sq` 檔案。
- * 修復：支援 Windows 路徑在於 IDE 與 Gradle 外掛程式。
+ * 修復：在 IDE 與 Gradle 外掛程式中均支援 Windows 路徑。
 
 ## [0.1.2] - 2016-02-13
 [0.1.2]: https://github.com/sqldelight/sqldelight/releases/tag/0.1.2

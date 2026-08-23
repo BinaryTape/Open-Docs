@@ -82,9 +82,7 @@ dependencies {
 
 如果您使用的库依赖于 [kapt](kapt.md) 编译器插件，请检查是否可以切换到使用 [Kotlin 符号处理 (KSP) API](ksp-overview.md)。KSP API 通过减少注解处理时间来提高构建性能。KSP 比 kapt 更快、更高效，因为它直接处理源代码而不生成中间 Java 存根。
 
-有关迁移步骤的指导，请参阅 Google 的[迁移指南](https://developer.android.com/build/migrate-to-ksp)。
-
-要详细了解 KSP 与 kapt 的对比，请查看[为什么选择 KSP](ksp-why-ksp.md)。
+有关迁移步骤的指导，请参阅[迁移指南](ksp-kapt-migration.md)。
 
 ### 使用模块化
 

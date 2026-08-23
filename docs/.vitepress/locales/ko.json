@@ -324,7 +324,7 @@
   "kmp.multiplatform-privacy-manifest": "App Store 개인정보 처리방침 매니페스트",
   "kmp.tools": "도구",
   "kmp.multiplatform-dsl-reference": "Multiplatform Gradle DSL",
-  "kmp.amper": "Kotlin Toolchain",
+  "kmp.amper": "Kotlin 툴체인",
   "kmp.compatibility": "호환성",
   "kmp.multiplatform-compatibility-guide": "호환성 가이드",
   "kmp.multiplatform-journal": "멀티플랫폼 저널",
@@ -675,7 +675,7 @@
   "koog.http-clients": "HTTP 클라이언트",
   "coroutines.flows": "Flow",
   "coroutines.coroutines-flow": "개요",
-  "kmp.kotlin-toolchain": "Kotlin Toolchain",
+  "kmp.kotlin-toolchain": "Kotlin 툴체인",
   "kmp.whats-new-compose-112": "Compose Multiplatform %org.jetbrains.compose-eap%",
   "kotlin.take-kotlin-tour": "Kotlin tour 시작하기",
   "kotlin.beginner": "초급",
@@ -688,5 +688,6 @@
   "kmp.kmp-for-ios": "iOS용 Kotlin Multiplatform",
   "koog.cloud-platform-integrations": "클라우드 플랫폼 통합",
   "koog.amazon-bedrock-agentcore": "Amazon Bedrock AgentCore",
-  "kmp.ios-ci-cd-teamcity": "iOS 배포 파이프라인 구성"
+  "kmp.ios-ci-cd-teamcity": "iOS 배포 파이프라인 구성",
+  "koog.skills": "스킬"
 }

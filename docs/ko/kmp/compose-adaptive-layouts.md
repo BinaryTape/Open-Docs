@@ -28,9 +28,13 @@ commonMain.dependencies {
 `WindowSizeClass` API를 사용하면 사용 가능한 디스플레이 공간에 따라 앱의 레이아웃을 변경할 수 있습니다. 예를 들어, 창 높이에 따라 상단 앱 바(top app bar)의 가시성을 관리할 수 있습니다:
 
 ```kotlin
+import androidx.window.core.layout.WindowSizeClass
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfoV2
+...
+
 @Composable
 fun MyApp(
-    windowSizeClass: WindowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
+    windowSizeClass: WindowSizeClass = currentWindowAdaptiveInfoV2().windowSizeClass
 ) {
     // 상단 앱 바를 표시할지 여부를 결정합니다.
     val showTopAppBar = windowSizeClass.isHeightAtLeastBreakpoint(WindowSizeClass.HEIGHT_DP_MEDIUM_LOWER_BOUND)

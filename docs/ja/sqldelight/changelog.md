@@ -25,6 +25,7 @@
 - [IntelliJプラグイン] 最小バージョンを 2023.3 / Android Studio Jellyfish に変更
 
 ### Fixed
+- [Gradleプラグイン] JDK 24+ において、コンパイラワーカーからの `sun.misc.Unsafe` 非推奨警告を抑制 (#6321)
 - [コンパイラ] 生成されたコードにおける Kotlin の追加の警告を抑制 (#6208 by @eyupcanakman)
 - [コンパイラ] グループ化されていない集計結果セット内の他のカラムが、常に Null 許容になるように修正
 - [PostgreSQLダイアレクト] `coalesce` および `ifnull` の Null 許容性を正しく解決するように修正
@@ -45,6 +46,7 @@
 - [Paging3拡張] データベースが空の場合の `KeyedQueryPagingSource` のクラッシュを修正 (#6284 by @woods-marshes)
 - [コンパイラ] `COALESCE` のようなカプセル化関数でミューテータ文が使用される際の Java 型アダプタの問題を修正 (#6292 by @griffio)
 - [コンパイラ] モジュール名が大文字の場合に、生成されたコードのパッケージ名も大文字になってしまう問題を修正 (#6316 by @griffio)
+- [PostgreSQLダイアレクト] 日付データ型において大文字小文字を区別しないように修正 (#6328 by @griffio)
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -236,7 +238,7 @@
 - [PostgreSQLダイアレクト] PostgreSQL `CREATE INDEX CONCURRENTLY` のサポートを追加 (#4531 by @griffio)
 - [PostgreSQLダイアレクト] PostgreSQL CTE の補助ステートメントが相互に参照可能になるようサポート (#4493 by @griffio)
 - [PostgreSQLダイアレクト] バイナリ式 (binary expr) および `sum` における PostgreSQL 型のサポートを追加 (#4539 by @Adriel-M)
-- [PostgreSQLダイアレクト] PostgreSQL `SELECT DISTINCT ON` 構文의 サポートを追加 (#4584 by @griffio)
+- [PostgreSQLダイアレクト] PostgreSQL `SELECT DISTINCT ON` 構文のサポートを追加 (#4584 by @griffio)
 - [PostgreSQLダイアレクト] `SELECT` 文における PostgreSQL JSON 関数のサポートを追加 (#4590 by @MariusVolkhart)
 - [PostgreSQLダイアレクト] `generate_series` PostgreSQL 関数を追加 (#4717 by @griffio)
 - [PostgreSQLダイアレクト] 追加の Postgres 文字列関数の定義を追加 (#4752 by @MariusVolkhart)
@@ -742,7 +744,7 @@ sqldelight {
 - [IDEプラグイン] テーブルが見つからない場合の `CreateTriggerMixin` における例外を修正 (by @aperfilyev)
 - [コンパイラ] テーブル作成文をトポロジカルソート
 - [コンパイラ] ディレクトリに対して `forDatabaseFiles` コールバックを呼び出すのを停止 (#2532)
-- [Gradleプラグイン] `generateDatabaseInterface` タスクの依存関係を潜在的な消費者に伝搬 (#2518 by @martinbonnin)
+- [Gradleプラグイン] `generateDatabaseInterface` タスク의 依存関係を潜在的な消費者に伝搬 (#2518 by @martinbonnin)
 
 ## [1.5.1] - 2021-07-16
 [1.5.1]: https://github.com/sqldelight/sqldelight/releases/tag/1.5.1
@@ -847,8 +849,6 @@ sqldelight {
 - [Gradleプラグイン] マイグレーションファイルのみが存在する場合でもデータベースを書き出すように修正 (#2094)
 - [Gradleプラグイン] 最終的なコンパイルユニットでダイヤモンド依存関係が 1 回だけ取得されるように修正 (#1455)
 
-SQLDelight のインフラ改善に多大な貢献をした @3flex に感謝します。
-
 ## [1.4.4] - 2020-10-08
 [1.4.4]: https://github.com/sqldelight/sqldelight/releases/tag/1.4.4
 
@@ -933,7 +933,7 @@ SQLDelight のインフラ改善に多大な貢献をした @3flex に感謝し�
 - [SQLiteダイアレクト] sqlite FTS5 補助関数 `highlight`、`snippet`、および `bm25` のサポートを追加 (by @drampelt)
 - [MySQLダイアレクト] MySQL `bit` データ型をサポート
 - [MySQLダイアレクト] MySQL バイナリリテラルをサポート
-- [PostgreSQLダイアレクト] `sql-psi` から `SERIAL` を公開 (by @veyndan)
+- [PostgreSQLダイアレクト] `SERIAL` を公開 (by @veyndan)
 - [PostgreSQLダイアレクト] `BOOLEAN` データ型を追加 (by @veyndan)
 - [PostgreSQLダイアレクト] `NULL` カラム制約を追加 (by @veyndan)
 - [HSQLダイアレクト] HSQL に `AUTO_INCREMENT` サポートを追加 (by @rharter)
@@ -1229,7 +1229,7 @@ SQLDelight のインフラ改善に多大な貢献をした @3flex に感謝し�
  * 新機能: Kotlin 1.0 final にアップデート。
  * 修正: 'sqldelight' フォルダ構造の問題を、ビルドを失敗させない方法で報告するように修正。
  * 修正: `table_name` という名前のカラムを禁止。それらから生成された定数がテーブル名定数と衝突するためです。
- * 修正: `.sq` ファイルが開かれているかどうかにかかわらず、IDE プラグインがモデルクラスを即座に生成することを保証するように修正.
+ * 修正: `.sq` ファイルが開かれているかどうかにかかわらず、IDE プラグインがモデルクラスを即座に生成することを保証するように修正。
  * 修正: IDE と Gradle プラグインの両方で Windows パスをサポート。
 
 ## [0.1.2] - 2016-02-13

@@ -18,7 +18,7 @@ Kotlin コンパイラには、コンパイルプロセスをカスタマイズ�
 
 コンパイラオプションとその値（*コンパイラ引数*）を設定するには、いくつかの方法があります：
 * IntelliJ IDEA の場合：**Settings/Preferences** | **Build, Execution, Deployment** | **Compiler** | **Kotlin Compiler** の **Additional command line parameters** テキストボックスにコンパイラ引数を入力します。
-* Gradle を使用している場合：Kotlin コンパイルタスクの `compilerOptions` プロパティでコンパイラ引数を指定します。
+* Gradle を使用している場合：Kotlin コンパイルタスクの `compilerOptions` プロパティでコンパイラ引数を選択します。
 詳細は [Gradle コンパイラオプション](gradle-compiler-options.md#how-to-define-options)を参照してください。
 * Maven を使用している場合：Maven プラグインノードの `<configuration>` 要素内でコンパイラ引数を指定します。
 詳細は [Maven](maven-kotlin-compiler.md#specify-compiler-options) を参照してください。
@@ -46,7 +46,13 @@ Kotlin コンパイラには、コンパイルプロセスをカスタマイズ�
 
 ### -api-version _version_
 
-バンドルされた Kotlin ライブラリの指定されたバージョンからの宣言のみを使用できるようにします。
+実行時にコードが使用できる Kotlin API を制御するための API バージョンを設定します。例えば、Kotlin コンパイラバージョン 2.4.0 で `-api-version=2.1` を使用すると、コードは Kotlin 標準ライブラリ 2.1.0 との互換性を維持します。
+
+`-api-version` の値を `-language-version` の値より高く設定することはできません。
+
+ほとんどの場合、API バージョンと[言語バージョン](#language-version-version)は同じである必要があります。例外の 1 つは、古いバージョンの Kotlin 標準ライブラリを実行する必要がある利用者向けのライブラリを開発する場合です。その場合は、それらの利用者が利用できない API を誤って使用しないように、古い API バージョンを設定します。
+
+API バージョンが互換性にどのように影響するかについての詳細は、[ライブラリ作成者のための後方互換性ガイドライン](api-guidelines-backward-compatibility.md#choose-compatible-language-and-api-versions)を参照してください。
 
 ### -help (-h)
 
@@ -59,7 +65,18 @@ Kotlin コンパイラには、コンパイルプロセスをカスタマイズ�
 
 ### -language-version _version_
 
-指定された言語バージョンに従って、サポートされる構文とセマンティクスを設定します。例えば、Kotlin コンパイラバージョン 2.4.0 で `-language-version=2.2` を使用すると、バージョン 2.2 以前の言語機能と標準ライブラリ API のみを使用できるようになります。これは、新しい Kotlin バージョンへの段階的な移行に役立ちます。
+コンパイル中に使用可能な Kotlin 言語機能を制御するための言語バージョンを設定します。
+
+例えば、コンパイラの動作を変更せずに新しいコンパイルパフォーマンスの向上を享受したい場合は、新しいコンパイラバージョンを古い言語バージョンで使用できます。古い言語バージョンを使用すると、新しい言語機能は使用できなくなりますが、そのバージョン以降に導入された新しいエラーや非推奨（deprecation）も表示されなくなります。このアプローチは、古い Kotlin バージョンとの互換性を維持する必要があるライブラリ作成者にとって特に有用です。詳細は[ライブラリ作成者のための後方互換性ガイドライン](api-guidelines-backward-compatibility.md#choose-compatible-language-and-api-versions)を参照してください。
+
+最新の 3 つの安定バージョンのうちの 1 つを言語バージョンとして構成できます。例えば、Kotlin 2.5.0 は 2.2 までの言語バージョンをサポートしています。
+
+古い言語バージョンを使用する場合は、古い API バージョンも使用する必要があります。
+詳細は [](#api-version-version) を参照してください。
+
+> 技術的には、安定化される前に今後の言語機能を試すために、より新しい言語バージョンを構成することも可能です。ただし、個別の機能については、それぞれの専用の手順に従って有効にすることをお勧めします。
+> 
+{style="tip"}
 
 ### -opt-in _annotation_
 
@@ -389,7 +406,7 @@ Kotlin/JVM 標準ライブラリ（`kotlin-stdlib.jar`）および Kotlin リフ
 
 サポートされているアノテーションと構成オプションの全リストについては、[Null 許容性アノテーション](java-interop.md#nullability-annotations)を参照してください。
 
-## Kotlin/JS compiler options
+## Kotlin/JS コンパイラオプション
 
 JS 用の Kotlin コンパイラは、Kotlin ソースファイルを JavaScript コードにコンパイルします。
 Kotlin から JS へのコンパイル用のコマンドラインツールは `kotlinc-js` です。

@@ -47,6 +47,13 @@
             <br/>
         </li>
         <li>
+            <a href="https://kotlinlang.org/api/kotlinx.collections.immutable/"><b>不可變集合 (kotlinx.collections.immutable)</b></a>
+            <br/>
+            <p>一款提供不可變與持久化 (persistent) 集合介面與實作的多平台程式庫。它提供高效的寫入時複製 (copy-on-write) 操作，可在不同版本之間共用結構，因此更新集合時不會複製整個內容。</p>
+            <img src="github.svg" width="18" alt="GitHub"/> <a href="https://github.com/Kotlin/kotlinx.collections.immutable">kotlinx.collections.immutable</a>
+            <br/>
+        </li>
+        <li>
             <a href="https://kotlinlang.org/api/kotlin-gradle-plugin/"><b>Kotlin Gradle 外掛程式 (kotlin-gradle-plugin)</b></a>
             <br/>
             <p>用於編譯、測試與封裝 Kotlin 程式碼的 Kotlin Gradle 外掛程式。這些外掛程式簡化了 JVM 與多平台組建，管理相依性，並與 IDE 和 CI 系統整合。</p>

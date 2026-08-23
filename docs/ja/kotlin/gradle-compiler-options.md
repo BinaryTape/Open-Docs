@@ -581,8 +581,8 @@ Gradle コンパイラのオプションの完全なリストは以下のとお�
 | `suppressWarnings`    | 警告を生成しません | | false |
 | `verbose`             | 詳細なロギング出力を有効にします。[Gradle のデバッグログレベルが有効](https://docs.gradle.org/current/userguide/logging.html)な場合にのみ機能します | | false |
 | `freeCompilerArgs`    | 追加のコンパイラ引数のリスト。ここでは実験的な `-X` 引数も使用できます。[freeCompilerArgs を介した追加引数の使用例](#example-of-additional-arguments-usage-via-freecompilerargs)を参照してください | | [] |
-| `apiVersion`          | 宣言の使用を、同梱されているライブラリの指定されたバージョンからのものに制限します | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (実験的) | |
-| `languageVersion`     | 指定されたバージョンの Kotlin とのソース互換性を提供します | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (実験的) | |
+| `apiVersion`          | コードで使用できる Kotlin API を制御します。詳細については、[`-api-version`](compiler-reference.md#api-version-version) を参照してください。 | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (実験的) | |
+| `languageVersion`     | コンパイル中に使用可能な Kotlin 言語機能と構文を制御します。詳細については、[`-language-version`](compiler-reference.md#language-version-version) を参照してください。 | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (実験的) | |
 
 > 将来のリリースで `freeCompilerArgs` 属性を非推奨にする予定です。Kotlin Gradle DSL に不足しているオプションがある場合は、[問題を報告](https://youtrack.jetbrains.com/newissue?project=kt)してください。
 >

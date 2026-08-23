@@ -29,6 +29,25 @@
 
 **行为兼容性**意味着库的新版本不会修改现有功能（修复错误除外）。涉及相同的功能，并且它们具有相同的语义。
 
+## 选择兼容的语言和 API 版本
+
+发布库时，请同时考虑其编译时和运行时兼容性：
+
+* [语言版本](compiler-reference.md#language-version-version)决定了哪些版本的 Kotlin 编译器可以编译直接使用你库的代码。
+* [API 版本](compiler-reference.md#api-version-version)决定了运行时所需的最低 Kotlin 标准库版本。
+  
+在大多数情况下，请使用相同的语言和 API 版本。
+
+为你的库设置较新的语言版本会要求你的用户使用较新的 Kotlin 编译器版本：
+
+* 在 JVM 上，用户可以使用从上一个语言版本开始的任何编译器版本。例如，如果你的库使用语言版本 2.2，则用户可以使用编译器版本 2.1.x、2.2.x 或更高版本。
+* 在其他平台上，用户必须使用与库配置的语言版本相同或更高版本的编译器。如果用户无法立即升级其编译器，这一要求可能会延迟用户升级到你的新版本库。
+
+你的用户还需要提供一个至少与你库配置的 API 版本一样新的 Kotlin 标准库版本。
+当运行时环境不受他们控制且难以提供较新标准库版本时（例如在 Gradle 或 IDE 插件中），这可能会使升级变得更加困难。
+
+请选择最适合你库的语言和 API 版本。较新的版本允许你采用最新的 Kotlin 功能，而较旧的版本则有助于更多用户使用你的库。最佳选择取决于库的用例以及依赖该库的用户数量。
+
 ## 使用 Binary compatibility validator
 
 JetBrains 提供了一个 [Binary compatibility validator](https://github.com/Kotlin/binary-compatibility-validator) 工具，可用于确保 API 不同版本之间的二进制兼容性。
@@ -40,7 +59,7 @@ JetBrains 提供了一个 [Binary compatibility validator](https://github.com/Ko
 
 `apiCheck` 任务在构建时由标准的 Gradle `check` 任务调用。
 当兼容性被破坏时，构建会失败。此时，你应该手动运行 `apiDump` 任务并对比新旧版本之间的差异。
-如果你对更改感到满意，可以更新位于版本控制系统中的现有 `.api` 文件。
+如果你对更改感到满意，可以更新位于版本控制系统（VCS）中的现有 `.api` 文件。
 
 该验证器对多平台库生成的 [KLib 验证提供实验性支持](https://github.com/Kotlin/binary-compatibility-validator?tab=readme-ov-file#experimental-klib-abi-validation-support)。
 
@@ -279,7 +298,7 @@ class User {
 }
 ```
 
-这是因为 [Kotlin 编译器在选择 `field` 目标之前会优先选择 `property` 目标](annotations.md#defaults-when-no-use-site-targets-are-specified)。只有在 `property` 不适用时才会使用 `field` 目标。
+这是因为 [Kotlin 编译器在选择 `property` 目标之前会优先选择 `field` 目标](annotations.md#defaults-when-no-use-site-targets-are-specified)。只有在 `property` 不适用时才会使用 `field` 目标。
 
 这可能会破坏依赖于特定生成元素上注解的工具和框架的兼容性。特别地，`property` 目标对 Java 是不可见的。
 如果 Java 反射或 Java 注解处理器需要在支持字段上找到该注解，则用户必须显式指定 `field` 使用点目标：
@@ -328,7 +347,7 @@ Kotlin 标准库[提供了选择入机制](opt-in-requirements.md)，要求用�
 如果你选择使用此机制，我们建议遵循以下最佳做法：
 
 * 使用选择入机制为 API 的不同部分提供不同的保证。例如，你可以将功能标记为 _Preview_、_Experimental_ 和 _Delicate_。每个类别都应在你的文档和 [KDoc 注释](kotlin-doc.md)中明确说明，并附带适当的警告消息。
-* 如果你的库使用了实验性 API，请将[该注解传播](opt-in-requirements.md#propagate-opt-in-requirements)给你自己的用户。这可确保你的用户意识到你具有仍在演进中的依赖项。
+* If your library uses an experimental API, [propagate the annotation](opt-in-requirements.md#propagate-opt-in-requirements) to your own users. This ensures your users are aware that you have dependencies which are still evolving.
 * 避免使用选择入机制来弃用库中已经存在的声明。请改用 `@Deprecated`，如[务实地演进 API](#evolve-apis-pragmatically) 部分所述。
 
 ## 下一步

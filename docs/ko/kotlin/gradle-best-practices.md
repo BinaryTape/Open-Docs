@@ -82,9 +82,7 @@ Gradle 문서의 [빌드 캐시(Build cache)](https://docs.gradle.org/current/us
 
 [kapt](kapt.md) 컴파일러 플러그인에 의존하는 라이브러리를 사용 중이라면, 대신 [Kotlin Symbol Processing (KSP) API](ksp-overview.md) 사용으로 전환할 수 있는지 확인하세요. KSP API는 어노테이션 처리 시간을 줄여 빌드 성능을 향상시킵니다. KSP는 중간 Java 스텁(stub)을 생성하지 않고 소스 코드를 직접 처리하므로 kapt보다 빠르고 효율적입니다.
 
-마이그레이션 단계에 대한 안내는 Google의 [마이그레이션 가이드](https://developer.android.com/build/migrate-to-ksp)를 참조하세요.
-
-KSP와 kapt의 비교에 대해 자세히 알아보려면 [왜 KSP인가(why KSP)](ksp-why-ksp.md)를 확인하세요.
+마이그레이션 단계에 대한 안내는 [마이그레이션 가이드](ksp-kapt-migration.md)를 참조하세요.
 
 ### 모듈화 사용
 

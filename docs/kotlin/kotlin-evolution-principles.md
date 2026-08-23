@@ -128,14 +128,16 @@ Kotlin 语言功能可以处于以下状态之一：
 
 我们提供兼容性选项，使新的 Kotlin 版本能够为了兼容性而模拟旧版本的行为：
 
-* `-language-version X.Y`：Kotlin 语言版本 X.Y 的兼容模式，对之后出现的所有语言功能报告错误。
-* `-api-version X.Y`：Kotlin API 版本 X.Y 的兼容模式，对所有使用 Kotlin 标准库中较新 API 的代码（包括编译器生成的代码）报告错误。
+* `-language-version X.Y` – Kotlin 语言版本 X.Y 的兼容模式。当你的代码使用后续版本中引入的语言功能时，编译器会报告错误。
+* `-api-version X.Y` – Kotlin API 版本 X.Y 的兼容模式。编译器会忽略使用后续版本中引入的 Kotlin 标准库 API 的声明，包括由编译器生成的代码所引用的 API。
 
-为了给你留出更多时间进行迁移，除了最新的稳定版本外，我们还支持至少三个之前的语言和 API 版本的开发。
+为了给你留出更多时间进行迁移，在 JVM 上，除了最新的稳定版本外，我们还支持至少三个之前的语言和 API 版本。这让库作者能够采用较新的编译器版本，同时保持与使用旧版本编译器的消费者的兼容性。在其他平台上，你也可以配置旧的语言和 API 版本，但与 JVM 不同，消费者仍需使用最新的编译器版本。
 
-积极维护的代码库可以受益于尽快获得错误修复，而无需等待完整的弃用周期完成。目前，此类项目可以启用 `-progressive` 选项，即使在工具版本中也能启用此类修复。
+在大多数项目中，请将这两个选项设置为相同的版本。较低的 API 版本主要在你需要与旧版本的 Kotlin 标准库保持兼容时有用。
 
-所有选项都可以在 IDE、命令行以及 [Gradle](gradle-compiler-options.md) 和 [Maven](maven-kotlin-compiler.md#specify-compiler-options) 中使用。
+积极维护的代码库可以受益于尽快获得错误修复，而无需等待完整的弃用周期完成。这些项目可以启用 [`-progressive` 选项](compiler-reference.md#progressive)，以便在这些更改成为默认行为之前，就在工具版本中采用它们。
+
+你可以在[命令行](compiler-reference.md#common-options)中配置这些选项，或者使用 [Gradle](gradle-compiler-options.md#attributes-common-to-jvm-and-javascript) 或 [Maven](maven-kotlin-compiler.md#specify-compiler-options) 构建工具进行配置。
 
 ### 演进二进制格式
 

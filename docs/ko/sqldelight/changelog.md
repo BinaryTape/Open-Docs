@@ -25,6 +25,7 @@
 - [IntelliJ 플러그인] 최소 버전 2023.3 / Android Studio Jellyfish
 
 ### 수정됨
+- [Gradle 플러그인] JDK 24+에서 컴파일러 워커(compiler worker)의 `sun.misc.Unsafe` 지원 중단 경고(deprecation warnings) 억제 (#6321)
 - [컴파일러] 생성된 코드에서 Kotlin 추가 경고(extra warnings) 억제 (#6208 by @eyupcanakman)
 - [컴파일러] 그룹화되지 않은 집계 결과 집합(non-grouped aggregate result set)의 다른 컬럼들은 항상 널 허용(nullable)임
 - [PostgreSQL 다이얼렉트] `coalesce` 및 `ifnull`에 대한 널 허용 여부(nullability)를 올바르게 해결
@@ -39,13 +40,13 @@
 - [컴파일러] 어댑터를 사용한 데이터 클래스 바인딩 및 널 허용 여부(nullability)를 변경하는 마이그레이션이 포함된 insert values 수정 (#6269 by @griffio)
 - [컴파일러] 널 안전 연산자(null safe operators, `IS` 및 `IS DISTINCT FROM`)와 함께 널 허용(nullable) 바인드 인자 사용 (#6265 by @griffio)
 - [Gradle 플러그인] 프로젝트 의존성에 대해 AGP의 변형 해결(variant resolution) 사용 (#6217 by @maxsav)
-- [Gradle 플러그인] 빌드 캐시 미스 수정 (#6217)
 - [Gradle 플러그인] 빌드 간에 AGP 변형 목록이 다를 때 `generateDatabaseInterface`의 빌드 캐시 미스 수정
 - [Gradle 플러그인] 데이터베이스를 구성하지 않고 플러그인을 적용했을 때 발생하는 IDE 동기화 크래시 수정 (#6088)
 - [PostgreSQL 다이얼렉트] 중첩된 함수 호출을 사용할 때의 JSON 집계 함수 수정 (#6281 by @griffio)
 - [Paging3 확장] 빈 데이터베이스에서 `KeyedQueryPagingSource`가 크래시되는 현상 수정 (#6284 by @woods-marshes)
 - [컴파일러] `COALESCE`와 같은 캡슐화 함수(encapsulating functions)와 함께 뮤테이터 문(mutator statements)을 사용할 때 발생하는 Java 타입 어댑터 문제 수정 (#6292 by @griffio)
 - [컴파일러] 모듈 이름이 대문자로 시작할 때 생성된 코드의 패키지 이름도 대문자로 시작하던 문제 수정 (#6316 by @griffio)
+- [PostgreSQL 다이얼렉트] 날짜 데이터 타입이 대소문자를 구분하지 않도록 허용 (#6328 by @griffio)
 
 ## [2.3.2] - 2026-03-16
 [2.3.2]: https://github.com/sqldelight/sqldelight/releases/tag/2.3.2
@@ -971,8 +972,7 @@ sqldelight {
 - [컴파일러] 인덱스 생성 시 누락된 테이블/컬럼에 대해 더 나은 에러 제공 (#1372)
 - [컴파일러] 조인 제약 조건에서 외부 쿼리의 프로젝션 사용 활성화 (#1346)
 - [Native 드라이버] `execute`가 `transationPool`을 사용하도록 수정 (by @benasher44)
-- [JDBC 드라이버] JDBC 드라이버가 `autoCommit`을 true로 가정하던 문제 수정 (#2041)
-- [JDBC 드라이버] 예외 발생 시 커넥션을 닫도록 보장 (#2306)
+- [JDBC 드라이버] `JdbcSqliteDriver`가 실제 SQLite 드라이버와 호환되도록 수정
 - [IDE] 가상 파일 참조가 항상 원본 파일이 되도록 보장 (#1782)
 - [IDE] Bugsnag에 에러 보고 시 올바른 throwable 사용 (#1262)
 - [페이징 확장] 누수되는 `DataSource` 수정 (#1628)

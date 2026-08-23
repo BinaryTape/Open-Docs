@@ -46,7 +46,13 @@ Kotlin 컴파일러에는 컴파일 프로세스를 조정하기 위한 여러 �
 
 ### -api-version _version_
 
-지정된 버전의 Kotlin 번들 라이브러리에 포함된 선언만 사용할 수 있도록 허용합니다.
+런타임 시 코드에서 사용할 수 있는 Kotlin API를 제어하기 위해 API 버전을 설정합니다. 예를 들어, Kotlin 컴파일러 버전 2.4.0을 사용하면서 `-api-version=2.1`을 설정하면 코드는 Kotlin 표준 라이브러리 2.1.0과 호환성을 유지합니다.
+
+`-api-version` 값을 `-language-version` 값보다 높게 설정할 수 없습니다.
+
+대부분의 경우 API 버전과 [언어 버전](#language-version-version)은 동일해야 합니다. 예외적인 경우는 이전 버전의 Kotlin 표준 라이브러리를 실행해야 하는 사용자를 위해 라이브러리를 개발하는 경우입니다. 이 경우 해당 사용자가 사용할 수 없는 API를 실수로 사용하는 것을 방지하기 위해 더 낮은 API 버전을 설정하세요.
+
+API 버전이 호환성에 미치는 영향에 대한 자세한 내용은 [라이브러리 작성자를 위한 하위 호환성 가이드](api-guidelines-backward-compatibility.md#choose-compatible-language-and-api-versions)를 참조하세요.
 
 ### -help (-h)
 
@@ -59,7 +65,17 @@ Kotlin 컴파일러에는 컴파일 프로세스를 조정하기 위한 여러 �
 
 ### -language-version _version_
 
-이 옵션은 지정된 언어 버전에 따라 지원되는 구문 및 의미론(semantics)을 설정합니다. 예를 들어, Kotlin 컴파일러 버전 2.4.0을 사용하면서 `-language-version=2.2`를 설정하면 2.2 이전 버전의 언어 기능과 표준 라이브러리 API만 사용할 수 있습니다. 이는 최신 Kotlin 버전으로의 단계적인 마이그레이션에 도움이 될 수 있습니다.
+컴파일 중에 사용할 수 있는 Kotlin 언어 기능을 제어하기 위해 언어 버전을 설정합니다.
+
+예를 들어, 컴파일러의 동작을 변경하지 않고 새로운 컴파일 성능 향상의 이점을 얻으려는 경우, 최신 컴파일러 버전과 함께 이전 언어 버전을 사용할 수 있습니다. 이전 언어 버전을 사용하면 최신 언어 기능을 사용할 수는 없지만, 해당 버전 이후에 도입된 새로운 오류나 사용 중단(deprecation) 알림도 발생하지 않습니다. 이 접근 방식은 이전 Kotlin 버전과의 호환성을 유지해야 하는 라이브러리 작성자에게 특히 유용합니다. 자세한 내용은 [라이브러리 작성자를 위한 하위 호환성 가이드](api-guidelines-backward-compatibility.md#choose-compatible-language-and-api-versions)를 참조하세요.
+
+최신 세 개의 안정적인 Kotlin 버전 중 하나를 언어 버전으로 구성할 수 있습니다. 예를 들어 Kotlin 2.5.0은 2.2 버전까지의 언어 버전을 지원합니다.
+
+이전 언어 버전을 사용하는 경우 이전 API 버전도 함께 사용해야 합니다. 자세한 내용은 [여기](#api-version-version)를 참조하세요.
+
+> 기술적으로는 향후 안정화될 언어 기능을 미리 사용해 보기 위해 더 최신 언어 버전을 구성할 수도 있습니다. 하지만 개별 기능을 활성화할 때는 각 기능의 전용 지침을 따르는 것이 좋습니다.
+> 
+{style="tip"}
 
 ### -opt-in _annotation_
 
@@ -346,7 +362,7 @@ Kotlin to JVM 컴파일을 위한 커맨드 라인 도구는 `kotlinc` 및 `kotl
 ### -jvm-target _version_
 
 생성된 JVM 바이트코드의 타겟 버전을 지정합니다. 가능한 값은 `1.8`, `9`, `10`, ..., `26`입니다.
-기본값은 `%defaultJvmTargetVersion%`입니다.
+기본값은 `%defaultJvmTargetVersion%`.
 
 ### -java-parameters
 

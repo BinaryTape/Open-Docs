@@ -17,6 +17,8 @@ Kotlin Language Server 为 [Visual Studio Code](https://code.visualstudio.com/) 
 
 如果您使用 Visual Studio Code 进行 Kotlin 开发，请从 Visual Studio Marketplace 安装官方的 [Kotlin by JetBrains](https://marketplace.visualstudio.com/items?itemName=JetBrains.kotlin-server) 扩展程序。
 
+对于兼容 VS Code 的编辑器（如 Cursor 或 VSCodium），请从 [Open VSX Registry](https://open-vsx.org/extension/JetBrains/kotlin-server) 安装该扩展程序。
+
 要激活 **Kotlin by JetBrains** 扩展程序，请在 Visual Studio Code 中打开一个 Kotlin 项目，然后打开任意 Kotlin 文件。
 
 ## 支持的功能

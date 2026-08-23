@@ -47,6 +47,13 @@
             <br/>
         </li>
         <li>
+            <a href="https://kotlinlang.org/api/kotlinx.collections.immutable/"><b>불변 컬렉션 (kotlinx.collections.immutable)</b></a>
+            <br/>
+            <p>불변 및 영속적(persistent) 컬렉션 인터페이스와 구현을 제공하는 멀티플랫폼 라이브러리입니다. 버전 간에 구조를 공유하는 효율적인 copy-on-write 연산을 제공하므로, 컬렉션을 업데이트할 때 전체를 복사하지 않습니다.</p>
+            <img src="github.svg" width="18" alt="GitHub"/> <a href="https://github.com/Kotlin/kotlinx.collections.immutable">kotlinx.collections.immutable</a>
+            <br/>
+        </li>
+        <li>
             <a href="https://kotlinlang.org/api/kotlin-gradle-plugin/"><b>Kotlin Gradle 플러그인 (kotlin-gradle-plugin)</b></a>
             <br/>
             <p>Kotlin 코드의 컴파일, 테스트 및 패키징을 위한 Kotlin Gradle 플러그인입니다. 이 플러그인들은 JVM 및 멀티플랫폼 빌드를 간소화하고, 의존성을 관리하며, IDE 및 CI 시스템과 통합됩니다.</p>

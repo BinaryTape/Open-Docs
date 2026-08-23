@@ -41,8 +41,8 @@
 | 名称 | 属性名称 | 描述 | 可能的值 | 默认值 |
 |-------------------|-----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|-----------------------------|
 | `nowarn`          |                                   | 不产生警告 | true, false                                             | false                       |
-| `languageVersion` | `kotlin.compiler.languageVersion` | 提供与指定 Kotlin 版本的源代码兼容性 | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (实验性) |                             |
-| `apiVersion`      | `kotlin.compiler.apiVersion`      | 仅允许使用指定版本捆绑库中的声明 | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (实验性) |                             |
+| `languageVersion` | `kotlin.compiler.languageVersion` | 控制在编译期间可用的 Kotlin 语言功能和语法。有关更多信息，请参阅 [`-language-version`](compiler-reference.md#language-version-version)。 | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (实验性) |                             |
+| `apiVersion`      | `kotlin.compiler.apiVersion`      | 控制您的代码可以使用哪些 Kotlin API。有关更多信息，请参阅 [`-api-version`](compiler-reference.md#api-version-version)。 | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (实验性) |                             |
 | `sourceDirs`      |                                   | 包含要编译的源文件的目录 |                                                         | 项目源根目录 |
 | `compilerPlugins` |                                   | 已启用的编译器插件 |                                                         | []                          |
 | `pluginOptions`   |                                   | 编译器插件选项 |                                                         | []                          |

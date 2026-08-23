@@ -48,7 +48,13 @@ Kotlin 编译器具有许多用于定制编译过程的选项。
 
 ### -api-version _版本_
 
-仅允许使用来自指定版本的 Kotlin 捆绑库的声明。
+设置 API 版本以控制您的代码在运行时可以使用哪些 Kotlin API。例如，如果您使用 Kotlin 编译器版本 2.4.0 并配合 `-api-version=2.1`，您的代码将保持与 Kotlin 标准库 2.1.0 的兼容。
+
+您不能将 `-api-version` 的值设置为高于 [`-language-version`](#language-version-version) 的值。
+
+在大多数情况下，API 版本和语言版本应当相同。一个例外情况是：当您为必须运行旧版本 Kotlin 标准库的使用者开发库时。在这种情况下，请设置较旧的 API 版本，以避免意外使用这些使用者无法获取的 API。
+
+有关 API 版本如何影响兼容性的更多信息，请参阅[库作者的向后兼容性指南](api-guidelines-backward-compatibility.md#choose-compatible-language-and-api-versions)。
 
 ### -help (-h)
 
@@ -61,7 +67,19 @@ Kotlin 编译器具有许多用于定制编译过程的选项。
 
 ### -language-version _版本_
 
-此选项根据指定的语言版本设置支持的语法和语义。例如，使用 Kotlin 编译器版本 2.4.0 并配合 `-language-version=2.2`，可以让您仅使用 2.2 或更早版本的语言功能和标准库 API。这有助于逐步迁移到较新的 Kotlin 版本。
+设置语言版本以控制在编译期间哪些 Kotlin 语言功能可用。
+
+例如，如果您希望在不改变编译器行为的情况下受益于新的编译性能改进，可以使用较新的编译器版本配合较旧的语言版本。使用较旧的语言版本时，您无法使用较新的语言功能，但也不会看到该版本之后引入的新错误和弃用。这种方法对于需要保持与旧版本 Kotlin 兼容性的库作者特别有用。欲了解更多信息，请参阅[库作者的向后兼容性指南](api-guidelines-backward-compatibility.md#choose-compatible-language-and-api-versions)。
+
+您可以将最近的三个稳定版本之一配置为语言版本。例如，Kotlin 2.5.0 支持低至 2.2 的语言版本。
+
+如果您使用较旧的语言版本，还需要使用较旧的 API 版本。
+有关详细信息，请参阅 [ api-version](#api-version-version)。
+
+> 从技术上讲，您可以配置较新的语言版本，以便在即将推出的语言功能稳定之前进行尝试。
+> 但是，我们建议按照各功能的专门说明来启用各个功能。
+> 
+{style="tip"}
 
 ### -opt-in _注解_
 
@@ -529,7 +547,7 @@ Kotlin/Native 编译器将 Kotlin 源文件编译为针对[受支持平台](nati
     
 ### -list-targets
 
-列出可用的硬件目标。
+列出可用的 hardware 目标。
 
 ### -manifest _路径_
 

@@ -581,8 +581,8 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 | `suppressWarnings` | 경고를 생성하지 않습니다. | | false |
 | `verbose` | 상세 로깅 출력을 활성화합니다. [Gradle 디버그 로그 레벨이 활성화된](https://docs.gradle.org/current/userguide/logging.html) 경우에만 작동합니다. | | false |
 | `freeCompilerArgs` | 추가 컴파일러 인자 목록입니다. 실험적인 `-X` 인자도 여기서 사용할 수 있습니다. [freeCompilerArgs를 통한 추가 인자 사용 예시](#example-of-additional-arguments-usage-via-freecompilerargs)를 참고하세요. | | [] |
-| `apiVersion` | 번들 라이브러리의 지정된 버전 선언으로만 사용을 제한합니다. | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (EXPERIMENTAL) | |
-| `languageVersion` | 지정된 버전의 Kotlin과 소스 호환성을 제공합니다. | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (EXPERIMENTAL) | |
+| `apiVersion` | 코드에서 사용할 수 있는 Kotlin API를 제어합니다. 자세한 내용은 [`-api-version`](compiler-reference.md#api-version-version)을 참고하세요. | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (EXPERIMENTAL) | |
+| `languageVersion` | 컴파일 중에 사용할 수 있는 Kotlin 언어 기능과 구문을 제어합니다. 자세한 내용은 [`-language-version`](compiler-reference.md#language-version-version)을 참고하세요. | "2.0", "2.1", "2.2", "2.3", "2.4", "2.5" (EXPERIMENTAL) | |
 
 > 향후 릴리스에서 `freeCompilerArgs` 속성을 지원 중단(deprecate)할 예정입니다. Kotlin Gradle DSL에 누락된 옵션이 있다면 [이슈를 제기](https://youtrack.jetbrains.com/newissue?project=kt)해 주세요.
 >

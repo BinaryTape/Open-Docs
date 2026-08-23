@@ -28,9 +28,13 @@ commonMain.dependencies {
 `WindowSizeClass` API 允許您根據可用的顯示空間來變更應用程式配置。例如，您可以根據視窗高度來管理頂部應用程式列的可見性：
 
 ```kotlin
+import androidx.window.core.layout.WindowSizeClass
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfoV2
+...
+
 @Composable
 fun MyApp(
-    windowSizeClass: WindowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
+    windowSizeClass: WindowSizeClass = currentWindowAdaptiveInfoV2().windowSizeClass
 ) {
     // 決定是否應顯示頂部應用程式列
     val showTopAppBar = windowSizeClass.isHeightAtLeastBreakpoint(WindowSizeClass.HEIGHT_DP_MEDIUM_LOWER_BOUND)
