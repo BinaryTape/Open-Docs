@@ -9,13 +9,13 @@ Compose Multiplatform は Kotlin Multiplatform 上に構築されているため
 
 Compose Multiplatform %org.jetbrains.compose% は以下のプラットフォームをサポートしています。
 
-| プラットフォーム | 最小バージョン                                                                                             |
+| プラットフォーム | 最小バージョン |
 |----------|-----------------------------------------------------------------------------------------------------|
-| Android  | Android 5.0 (API レベル 21)                                                                          |
-| iOS      | iOS 14                                                                                              |
-| macOS    | macOS 13 arm64                                                                                      |
-| Windows  | Windows 10 (x86-64, arm64)                                                                          |
-| Linux    | Ubuntu 20.04 (x86-64, arm64)                                                                        |
+| Android  | Android 5.0 (API レベル 21) |
+| iOS      | iOS 14 |
+| macOS    | macOS 13 arm64 |
+| Windows  | Windows 10 (x86-64, arm64) |
+| Linux    | Ubuntu 20.04 (x86-64, arm64) |
 | Web      | [WasmGC サポート](https://kotlinlang.org/docs/wasm-configuration.html#browser-versions)のあるブラウザ |
 
 > すべての Compose Multiplatform リリースは 64 ビットプラットフォームのみをサポートしています。
@@ -78,8 +78,9 @@ Android 向けにアプリケーションをビルドする場合、Compose Mult
 
 以下の表は、Compose Multiplatform の各バージョンで使用されている Jetpack Compose アーティファクトのバージョンを示しています。
 
-| Compose Multiplatform バージョン                                                     | Jetpack Compose バージョン |
+| Compose Multiplatform バージョン | Jetpack Compose バージョン |
 |-----------------------------------------------------------------------------------|-------------------------|
+| [1.12.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.12.0) | 1.12.0                  |
 | [1.11.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.11.0) | 1.11.2                  |
 | [1.10.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.10.3) | 1.10.5                  |
 | [1.9.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.3)   | 1.9.4                   |

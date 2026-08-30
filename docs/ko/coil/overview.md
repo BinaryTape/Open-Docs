@@ -16,8 +16,8 @@ Coil은 **Co**routine **I**mage **L**oader의 약자입니다.
 Compose 라이브러리와 [네트워킹 라이브러리](https://coil-kt.github.io/coil/network/)를 추가합니다:
 
 ```kotlin
-implementation("io.coil-kt.coil3:coil-compose:3.5.0")
-implementation("io.coil-kt.coil3:coil-network-okhttp:3.5.0")
+implementation("io.coil-kt.coil3:coil-compose:3.6.0")
+implementation("io.coil-kt.coil3:coil-network-okhttp:3.6.0")
 ```
 
 이미지를 로드하려면 `AsyncImage` 컴포저블(composable)을 사용하세요:

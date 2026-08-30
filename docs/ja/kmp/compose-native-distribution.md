@@ -193,7 +193,7 @@ compose.desktop {
               pkgPackageBuildVersion = "..." 
             }
             windows {
-              // すべての Windows パッケージのバージョン
+              // すべて babys Windows パッケージのバージョン
               packageVersion = "..."  
               // msi パッケージのみのバージョン
               msiPackageVersion = "..."
@@ -244,7 +244,7 @@ compose.desktop {
         <td>
             <ul>
                 <li><code>MAJOR</code> は 255 以下の非負の整数</li>
-                <li><code>MINOR</code> は 255 以下の非負の整数</li>
+                <li><code>MINOR</code> は 255 以下の非負의 整数</li>
                 <li><code>BUILD</code> は 65535 以下の非負の整数</li>
             </ul>
         </td>
@@ -813,7 +813,7 @@ compose.desktop {
     
 <tr>
 <td><code>infoPlist</code></td>
-        <td><a href="#macos-固有の設定-idmacos-specific-configuration">macOS での <code>Info.plist</code></a> セクションを参照してください。</td>
+        <td><a href="#information-property-list-on-macos">macOS での <code>Info.plist</code></a> セクションを参照してください。</td>
 </tr>
 
         
@@ -960,7 +960,7 @@ ProGuard は、コードのミニファイ（縮小化）と難読化のため�
   
 <tr>
 <td width="400">Gradle タスク</td>
-    <td>説明</td>
+    <td>Description</td>
 </tr>
 
   
@@ -1097,9 +1097,7 @@ ProGuard 処理後にのみ発生する問題に遭遇した場合は、カス�
     ```
     {initial-collapse-state="collapsed" collapsible="true" collapsed-title="joinOutputJars.set(true)"}
 
-[//]: # (TODO update version for stable release)
-
-* `version` は特定の ProGuard バージョンを設定します。JDK 25 には少なくとも ProGuard 7.8.0 が必要で、これは Compose Multiplatform 1.12.0-beta01 以降のデフォルトです。それ以前のバージョンの Compose Multiplatform を使用し、JDK 25 でビルドする場合は、このプロパティを明示的に `7.8.0` に設定してください。
+* `version` は特定の ProGuard バージョンを設定します。JDK 25 には少なくとも ProGuard 7.8.0 が必要で、これは Compose Multiplatform 1.12.0 以降のデフォルトです。それ以前のバージョンの Compose Multiplatform を使用し、JDK 25 でビルドする場合は、このプロパティを明示的に `7.8.0` に設定してください。
     ```kotlin
     compose.desktop {
         application {

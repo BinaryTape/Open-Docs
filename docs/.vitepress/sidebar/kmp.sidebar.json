@@ -52,16 +52,16 @@
         "text": "kmp.what-s-new",
         "items": [
           {
-            "text": "kmp.whats-new-compose-111",
-            "link": "whats-new-compose-111"
-          },
-          {
             "text": "kmp.whats-new-compose-112",
             "link": "whats-new-compose-112"
           },
           {
             "text": "kmp.earlier-versions",
             "items": [
+              {
+                "text": "kmp.whats-new-compose-111",
+                "link": "whats-new-compose-111"
+              },
               {
                 "text": "kmp.whats-new-compose-110",
                 "link": "whats-new-compose-110"

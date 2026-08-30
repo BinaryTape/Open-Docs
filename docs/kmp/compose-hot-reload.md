@@ -116,8 +116,8 @@ Compose Hot Reload 帮助你在开发 Compose Multiplatform 项目时，实时�
     }
    ```
 
-4. 打开 `main.kt` 文件，点击装订区域中的 **Run** 图标。
-   选择 **Run 'desktopApp' with Compose Hot Reload**。
+4.  打开 `main.kt` 文件，点击装订区域中的 **Run** 图标。 
+    选择 **Run 'desktopApp' with Compose Hot Reload**。
 
     ![从装订区域运行 Compose Hot Reload](compose-hot-reload-gutter-run.png){width=350 border-effect="line"}
 
@@ -135,9 +135,7 @@ Compose Hot Reload 帮助你在开发 Compose Multiplatform 项目时，实时�
 ## 适用于 AI 代理的 MCP 服务器
 <primary-label ref="Experimental"/>
 
-[//]: # (TODO update version for stable release)
-
-从 Compose Multiplatform 1.2.0-beta01 开始，Compose Hot Reload 包含一个内置的 [模型上下文协议 (MCP)](https://modelcontextprotocol.io/) 服务器。
+从 Compose Multiplatform 1.12.0 开始，Compose Hot Reload 包含一个内置的 [模型上下文协议 (MCP)](https://modelcontextprotocol.io/) 服务器。
 MCP 服务器允许 AI 编码代理与正在运行的 Compose 应用程序进行交互：触发 Compose Hot Reload、查看渲染后的 UI、检查语义结构、模拟用户输入以及读取运行时日志。
 对于包含多个窗口的应用程序，代理可以列出窗口并针对其中任何一个进行操作。
 

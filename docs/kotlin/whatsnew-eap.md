@@ -178,7 +178,7 @@ fun main() {
 
 Kotlin %kotlinEapVersion% 带来了新的 Swift 导出功能，包括对密封类和跨语言继承的支持，以及为 SwiftPM 依赖项自动生成的 `Package.swift` 文件。
 
-### 新的 Swift 导出功能
+### 新管 Swift 导出功能
 <secondary-label ref="native"/>
 
 #### 密封类
@@ -225,39 +225,41 @@ let name = switch shape.sealedType() {
 
 Kotlin %kotlinEapVersion% 在 Swift 导出中引入了跨语言继承支持。
 
-此功能的一个常见用例是[反向导入](native-lib-import-stability.md#swift-library-import)模式，即在 Kotlin 中定义契约，并在 Swift 端提供平台特定的实现。
+此功能的一个常见用例是[反向导入](native-lib-import-stability.md#swift-library-import)模式，即在 Kotlin 中定义契约，并在 Swift 端提供平台特定的实现。当您需要使用无法直接导入到 Kotlin 的纯 Swift 库时，这尤其有用。
 
-例如，您可以声明一个 Kotlin 接口，在 Swift 中实现它，然后将 Swift 对象传递给接受该接口的 Kotlin 函数。当您需要使用无法直接导入到 Kotlin 的纯 Swift 库时，这尤其有用。
+要实现此模式，请声明一个供 Swift 实现继承的 Kotlin 超类和一个 Kotlin 接口。然后在 Swift 中实现该接口，并将 Swift 对象传递给接受该接口的 Kotlin 函数。例如，对于 CryptoKit 库：
 
-例如，声明一个 Kotlin 接口及其接受函数：
+1. 在 Kotlin 端，声明一个 `open` 基类和一个包含接受该接口的函数的 Kotlin 接口：
 
-```kotlin
-// Kotlin
-interface CryptoProvider {
-   fun hashMD5(input: String): String
-}
-
-fun processHash(provider: CryptoProvider, input: String): String = provider.hashMD5(input)
-```
-
-在 Swift 端，使用纯 Swift 库实现此接口并将其传回 Kotlin：
-
-```swift
-// Swift
-import CryptoKit
-
-class IosCryptoProvider: KotlinBase & CryptoProvider {
-   func hashMD5(input: String) -> String {
-       guard let data = input.data(using: .utf8) else { return "failed" }
-       return Insecure.MD5.hash(data: data).description
+   ```kotlin
+   // Kotlin
+   interface CryptoProvider {
+      fun hashMD5(input: String): String
    }
-}
 
-let provider = IosCryptoProvider()
+   fun processHash(provider: CryptoProvider, input: String): String = provider.hashMD5(input)
 
-// 调用被调度到 Swift 实现
-print(processHash(provider: provider, input: "Hello, world!"))
-```
+   open class SwiftBase 
+   ```
+
+2. 在 Swift 端，继承导出的 `SwiftBase` 类，使用纯 Swift 库实现该接口，并将对象传回 Kotlin：
+
+   ```swift
+   // Swift
+   import CryptoKit
+
+   final class IosCryptoProvider: SwiftBase, CryptoProvider {
+      func hashMD5(input: String) -> String {
+          guard let data = input.data(using: .utf8) else { return "failed" }
+          return Insecure.MD5.hash(data: data).description
+      }
+   }
+
+   let provider = IosCryptoProvider()
+
+   // 调用被调度到 Swift 实现
+   print(processHash(provider: provider, input: "Hello, world!"))
+   ```
 
 当 Kotlin 接收到 Swift 对象时，会将其视为常规接口的实现，并执行 Swift 代码。
 
@@ -281,7 +283,7 @@ Kotlin %kotlinEapVersion% 更改了 Kotlin/Wasm 处理 `@JsFun` 声明中顶层 
 
 此前，编译器在 `import-object.mjs` 文件中生成一个 `require` 变量，允许 `@JsFun` 声明调用 `require()`。
 
-这种行为无意中暴露了编译器的实现细节向。为了支持从此行为迁移，Kotlin/Wasm 移除了这个生成的 `require` 声明，且编译器现在会针对此类调用报告错误。例如：
+这种行为无意中暴露了编译器的实现细节。为了支持从此行为迁移，Kotlin/Wasm 移除了这个生成的 `require` 声明，且编译器现在会针对此类调用报告错误。例如：
 
 ```kotlin
 // 报告错误
@@ -385,27 +387,33 @@ Kotlin %kotlinEapVersion% 引入了一个新的实验性 DSL，用于在浏览�
 要试用新的测试 DSL，请在 Kotlin/JS 目标的 `browser{}` 块内添加显式启用的 `test{}` 块：
 
 ```kotlin
+import org.jetbrains.kotlin.gradle.ExperimentalJsTestDsl
+import kotlin.time.Duration.Companion.seconds
+
 kotlin {
     js {
         browser {
             @OptIn(ExperimentalJsTestDsl::class)
             // 添加并配置新的 test{} 块
             test {
-                // 设置适用于所有浏览器的通用选项
-                browserDefaults {
-                    timeout = Duration.ofSeconds(2)
-                    headless = true
-                }
-                // 启用 Chromium 测试运行程序
+                // 为所有运行程序配置默认超时
+                timeout = 2.seconds
+                // 使用 Gradle provider 配置无头模式
+                headless = providers
+                    .environmentVariable("IS_IN_CI")
+                    .map { it.toBoolean() }
+                    .orElse(false)
+                // 启用并配置 Chromium 测试运行程序
                 chromium {
                     // 重写通用超时选项
-                    timeout = Duration.ofSeconds(5)
+                    timeout = 5.seconds
+                    // 添加额外的启动参数
                     launchArgs.add("--no-sandbox")
                 }
                 // 启用 Firefox 测试运行程序
                 firefox()
                 // 启用 WebKit 测试运行程序
-                webkit { }
+                webkit()
                 // 启用并配置额外的 WebKit 测试运行程序
                 webkit("noheadless") {
                     // 设置自定义选项

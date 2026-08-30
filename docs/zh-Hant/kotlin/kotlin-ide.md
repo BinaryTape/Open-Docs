@@ -9,7 +9,7 @@ JetBrains 為以下 IDE 與程式碼編輯器提供官方 Kotlin 支援：[Intel
 
 ## IntelliJ IDEA
 
-[IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 是專為 JVM 語言（如 Kotlin 與 Java）設計的 IDE，旨在極大化開發者生產力。
+[IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 是一款專為 JVM 語言（如 Kotlin 與 Java）設計的 IDE，旨在極大化開發者生產力。
 它透過提供智慧的程式碼補全、靜態程式碼分析與重構作業，為您處理常規且重複性的任務。
 它讓您專注於軟體開發中充滿趣味的一面，不僅提高效率，還能帶來愉悅的體驗。
 
@@ -42,7 +42,7 @@ Kotlin 外掛程式隨每個 Android Studio 版本一併提供。
 JetBrains 不為其他 IDE 提供官方 Kotlin 外掛程式。
 您可以在其他程式碼編輯器中使用 [Kotlin 語言伺服器](kotlin-lsp.md)。
 
-若要在沒有 IDE 相關功能（例如程式碼格式化、偵錯工具、重構）的文字編輯器中使用 Kotlin，您可以從 Kotlin [GitHub Releases](%kotlinLatestUrl%) 下載最新的 Kotlin 命令列編譯器 (`kotlin-compiler-%kotlinVersion%.zip`) 並[手動安裝](command-line.md#manual-install)。此外，您也可以使用封裝管理員，例如 [Homebrew](command-line.md#homebrew)、[SDKMAN!](command-line.md#sdkman) 與 [Snap package](command-line.md#snap-package)。
+若要在沒有 IDE 相關功能（例如程式碼格式化、偵錯工具、重構）的文字編輯器中使用 Kotlin，您可以從 Kotlin [GitHub Releases](%kotlinLatestUrl%) 下載最新的 Kotlin 命令列編譯器 (`kotlin-compiler-%kotlinVersion%.zip`) 並[手動安裝](command-line.md#manual-install)。此外，您也可以使用封裝管理員，例如 [Homebrew](command-line.md#homebrew)、 [SDKMAN!](command-line.md#sdkman) 與 [Snap package](command-line.md#snap-package)。
 
 ## 與 Kotlin 語言版本的相容性
 
@@ -53,4 +53,4 @@ JetBrains 不為其他 IDE 提供官方 Kotlin 外掛程式。
 ## 下一步？
 
 * [在 IntelliJ IDEA 中建立主控台應用程式](jvm-get-started.md)
-* [使用 Android Studio 建立您的第一個跨平台行動應用程式](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)
+* [使用 IntelliJ IDEA 或 Android Studio 建立您的第一個跨平台行動應用程式](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)

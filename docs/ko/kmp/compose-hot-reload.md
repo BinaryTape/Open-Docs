@@ -52,7 +52,7 @@ Compose Multiplatform 버전을 1.10.0 이상으로 업그레이드하여 별도
 
 1. 데스크톱 타겟 도입: `desktopApp` 디렉토리를 생성하고, `main()` 함수를 정의하며,
    `actual` 구현을 제공합니다.
-   이미 프로젝트에 데스크톱 타겟이 포함되어 있다면 이 단계를 건너끌 수 있습니다.
+   이미 프로젝트에 데스크톱 타겟이 포함되어 있다면 이 단계를 건너뛸 수 있습니다.
    참고를 위해 [JVM 진입점 추가](migrate-from-android.md#optional-add-a-jvm-entry-point)의 샘플을 확인하세요.
  
 2. 최신 버전의 Compose Hot Reload로 버전 카탈로그를 업데이트합니다([릴리스](https://github.com/JetBrains/compose-hot-reload/releases) 참조).
@@ -149,9 +149,7 @@ Compose Multiplatform 버전을 1.10.0 이상으로 업그레이드하여 별도
 ## AI 에이전트를 위한 MCP 서버
 <primary-label ref="Experimental"/>
 
-[//]: # (TODO update version for stable release)
-
-Compose Multiplatform 1.2.0-beta01부터 Compose Hot Reload는 내장된 [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) 서버를 포함합니다. 
+Compose Multiplatform 1.12.0부터 Compose Hot Reload는 내장된 [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) 서버를 포함합니다. 
 MCP 서버를 통해 AI 코딩 에이전트는 실행 중인 Compose 애플리케이션과 상호작용할 수 있습니다. 예를 들어, Compose Hot Reload를 트리거하고, 렌더링된 UI를 확인하며, 시맨틱(semantic) 구조를 조사하고, 사용자 입력을 시뮬레이션하며, 런타임 로그를 읽을 수 있습니다.
 창이 여러 개인 애플리케이션의 경우, 에이전트는 창 목록을 나열하고 그중 하나를 타겟으로 지정할 수 있습니다.
 

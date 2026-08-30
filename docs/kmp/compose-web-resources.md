@@ -4,7 +4,7 @@
   
 ## Web 目标的资源预加载
 
-字体和图片等 Web 资源是使用 [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) 异步加载的。在初始加载期间或网络连接较慢的情况下，提取资源可能会导致视觉瑕疵，例如 [FOUT](https://fonts.google.com/knowledge/glossary/fout) 或显示占位符而非图片。
+字体和图片等 Web 资源是使用 [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) 异步加载的。在初始加载期间或网络连接较慢的情况下，资源提取可能会导致视觉瑕疵，例如 [FOUT](https://fonts.google.com/knowledge/glossary/fout) 或显示占位符而非图片。
 
 此问题的一个典型示例是：当 `Text()` 组件包含使用自定义字体的文本，但包含必要字形的字体仍在加载时。在这种情况下，用户可能会暂时看到默认字体的文本，甚至看到空框和问号而非字符。类似地，对于图片或可绘制资源，用户可能会观察到诸如空白或黑色方块之类的占位符，直到资源完全加载。
 
@@ -71,9 +71,7 @@ fun MainScreen() {
 
 默认情况下，应用程序已加载字体未涵盖的字符将显示为替代字形（□，被称为“[tofu](https://fonts.google.com/knowledge/glossary/tofu)”）。
 
-[//]: # (TODO update version for stable release)
-
-从 1.12.0-beta01 版本开始，Compose Multiplatform 会在渲染期间监控未解析的字符，并根据需要按需下载所需的 Noto 字体子集。Noto 这个名字是“no tofu”的缩写，因为这些字体的设计初衷是消除豆腐块字形。
+从 1.12.0 版本开始，Compose Multiplatform 会在渲染期间监控未解析的字符，并根据需要按需下载所需的 Noto 字体子集。Noto 这个名字是“no tofu”的缩写，因为这些字体的设计初衷是消除豆腐块字形。
 
 一旦字体可用，受影响的文本将进行重组。请注意，在下载期间可能会短暂出现豆腐块。
 

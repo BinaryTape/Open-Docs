@@ -85,7 +85,7 @@
   "kotlin.kotlin-overview": "Kotlin 概覽",
   "kotlin.what-s-new-in-kotlin": "Kotlin 新功能",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.4.20-RC",
+  "kotlin.whatsnew-eap": "Kotlin 2.4.20-RC2",
   "kotlin.earlier-versions": "更早版本",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -678,7 +678,7 @@
   "coroutines.flows": "Flow",
   "coroutines.coroutines-flow": "概覽",
   "kmp.kotlin-toolchain": "Kotlin 工具鏈",
-  "kmp.whats-new-compose-112": "Compose Multiplatform %org.jetbrains.compose-eap%",
+  "kmp.whats-new-compose-112": "Compose Multiplatform 1.12.0",
   "kotlin.take-kotlin-tour": "開始 Kotlin 之旅",
   "kotlin.beginner": "初學者",
   "kotlin.intermediate": "中級",
@@ -691,5 +691,5 @@
   "koog.cloud-platform-integrations": "雲端平台整合",
   "koog.amazon-bedrock-agentcore": "Amazon Bedrock AgentCore",
   "kmp.ios-ci-cd-teamcity": "配置 iOS 交付管線",
-  "koog.skills": "Skills"
+  "koog.skills": "技能"
 }

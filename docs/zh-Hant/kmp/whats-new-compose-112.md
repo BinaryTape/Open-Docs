@@ -1,12 +1,12 @@
-[//]: # (title: Compose Multiplatform 有哪些新變化 %org.jetbrains.compose-eap%)
+[//]: # (title: Compose Multiplatform 1.12.0 有哪些新變化)
 
-以下是此 EAP 版本的亮點：
+以下是此功能版本的亮點：
 
  * [Web 版自動字型回退](#automatic-font-fallback)
  * [Compose Hot Reload 中適用於 AI 代理的 MCP 伺服器](#mcp-server-for-ai-agents-in-compose-hot-reload)
  * [Desktop 版 Window 與對話方塊 API v2](#window-and-dialog-api-v2)
 
-您可以在 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.12.0-beta01) 上找到此版本的完整變更清單。
+您可以在 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.12.0) 上找到此版本的完整變更清單。
 有關特定組件版本的詳細資訊，請參閱 [相依性](#dependencies) 章節。
 
 ## 跨平台
@@ -57,7 +57,7 @@ v2 API 可在 `androidx.compose.ui.window.v2` 子套件中使用。
 
 v2 API 讓您能更精確地控制視窗與對話方塊的放置與大小。您可以：
 * 選擇視窗顯示的螢幕
-* 提供自訂的定位與大小調整邏輯，包括基於內容固有尺寸（intrinsic size）的邏輯
+* 提供自訂的定位與大小調整邏輯，包括基於內容固有尺寸 (intrinsic size) 的邏輯
 * 設定視窗的最小與最大尺寸
 * 相對於父視窗定位對話方塊
 
@@ -103,10 +103,10 @@ v2 API 還解鎖了以前無法實現的場景，例如根據內容大小調整�
 
 | 程式庫 | Maven 座標 | 基於 Jetpack 版本 |
 |--------------------|------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
-| Runtime            | `org.jetbrains.compose.runtime:runtime*:1.12.0-rc01`                   | [Runtime 1.12.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.12.0-rc01)                         |
-| UI                 | `org.jetbrains.compose.ui:ui*:1.12.0-rc01`                             | [UI 1.12.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.12.0-rc01)                                   |
-| Foundation         | `org.jetbrains.compose.foundation:foundation*:1.12.0-rc01`             | [Foundation 1.12.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.12.0-rc01)                   |
-| Material           | `org.jetbrains.compose.material:material*:1.12.0-rc01`                 | [Material 1.12.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-material#1.12.0-rc01)                       |
+| Runtime            | `org.jetbrains.compose.runtime:runtime*:1.12.0`                        | [Runtime 1.12.0](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.12.0)                                   |
+| UI                 | `org.jetbrains.compose.ui:ui*:1.12.0`                                  | [UI 1.12.0](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.12.0)                                             |
+| Foundation         | `org.jetbrains.compose.foundation:foundation*:1.12.0`                  | [Foundation 1.12.0](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.12.0)                             |
+| Material           | `org.jetbrains.compose.material:material*:1.12.0`                      | [Material 1.12.0](https://developer.android.com/jetpack/androidx/releases/compose-material#1.12.0)                                 |
 | Material3          | `org.jetbrains.compose.material3:material3*:1.12.0-alpha03`            | [Material3 1.5.0-alpha22](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha22)                 |
 | Material3 Adaptive | `org.jetbrains.compose.material3.adaptive:adaptive*:1.3.0-beta02`      | [Material3 Adaptive 1.3.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.3.0-beta02) |
 | Lifecycle          | `org.jetbrains.androidx.lifecycle:lifecycle-*:2.11.0`                  | [Lifecycle 2.11.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.11.0)                                       |

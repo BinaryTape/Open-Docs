@@ -1,12 +1,12 @@
-[//]: # (title: Compose Multiplatform %org.jetbrains.compose-eap%의 새로운 기능)
+[//]: # (title: Compose Multiplatform 1.12.0의 새로운 기능)
 
-이번 EAP 릴리스의 주요 변경 사항은 다음과 같습니다.
+이번 기능 릴리스의 주요 변경 사항은 다음과 같습니다.
 
  * [웹을 위한 자동 폰트 폴백(font fallback)](#automatic-font-fallback)
  * [Compose Hot Reload의 AI 에이전트를 위한 MCP 서버](#mcp-server-for-ai-agents-in-compose-hot-reload)
  * [데스크톱을 위한 Window 및 Dialog API v2](#window-and-dialog-api-v2)
 
-이번 릴리스의 전체 변경 사항 목록은 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.12.0-beta01)에서 확인할 수 있습니다.
+이번 릴리스의 전체 변경 사항 목록은 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.12.0)에서 확인할 수 있습니다.
 특정 컴포넌트 버전에 대한 자세한 내용은 [의존성](#dependencies) 섹션을 참고하세요.
 
 ## 플랫폼 공통
@@ -103,10 +103,10 @@ v2 API는 이전에는 불가능했던 시나리오도 가능하게 합니다. �
 
 | 라이브러리 | Maven 좌표 | Jetpack 버전 기반 |
 |--------------------|------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
-| Runtime            | `org.jetbrains.compose.runtime:runtime*:1.12.0-rc01`                   | [Runtime 1.12.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.12.0-rc01)                         |
-| UI                 | `org.jetbrains.compose.ui:ui*:1.12.0-rc01`                             | [UI 1.12.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.12.0-rc01)                                   |
-| Foundation         | `org.jetbrains.compose.foundation:foundation*:1.12.0-rc01`             | [Foundation 1.12.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.12.0-rc01)                   |
-| Material           | `org.jetbrains.compose.material:material*:1.12.0-rc01`                 | [Material 1.12.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-material#1.12.0-rc01)                       |
+| Runtime            | `org.jetbrains.compose.runtime:runtime*:1.12.0`                        | [Runtime 1.12.0](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.12.0)                                   |
+| UI                 | `org.jetbrains.compose.ui:ui*:1.12.0`                                  | [UI 1.12.0](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.12.0)                                             |
+| Foundation         | `org.jetbrains.compose.foundation:foundation*:1.12.0`                  | [Foundation 1.12.0](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.12.0)                             |
+| Material           | `org.jetbrains.compose.material:material*:1.12.0`                      | [Material 1.12.0](https://developer.android.com/jetpack/androidx/releases/compose-material#1.12.0)                                 |
 | Material3          | `org.jetbrains.compose.material3:material3*:1.12.0-alpha03`            | [Material3 1.5.0-alpha22](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha22)                 |
 | Material3 Adaptive | `org.jetbrains.compose.material3.adaptive:adaptive*:1.3.0-beta02`      | [Material3 Adaptive 1.3.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.3.0-beta02) |
 | Lifecycle          | `org.jetbrains.androidx.lifecycle:lifecycle-*:2.11.0`                  | [Lifecycle 2.11.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.11.0)                                       |

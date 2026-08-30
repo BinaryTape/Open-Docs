@@ -225,38 +225,41 @@ let name = switch shape.sealedType() {
 Kotlin %kotlinEapVersion% では、Swift export に言語を跨いだ継承（cross-language inheritance）のサポートが導入されました。
 
 この機能の一般的なユースケースは、[リバースインポート](native-lib-import-stability.md#swift-library-import) パターンです。これは、Kotlin でコントラクト（規約）を定義し、Swift 側でプラットフォーム固有の実装を提供する場合です。
+これは、Kotlin に直接インポートできない純粋な Swift ライブラリを使用する必要がある場合に特に便利です。
 
-例えば、Kotlin のインターフェースを宣言し、それを Swift で実装して、そのインターフェースを受け入れる Kotlin 関数に Swift オブジェクトを渡すことができます。これは、Kotlin に直接インポートできない純粋な Swift ライブラリを使用する必要がある場合に特に便利です。
+このパターンを実装するには、Swift の実装が継承するための Kotlin スーパークラスと、Kotlin インターフェースを宣言します。次に、そのインターフェースを Swift で実装し、そのインターフェースを受け入れる Kotlin 関数に Swift オブジェクトを渡します。例えば、CryptoKit ライブラリの場合：
 
-例として、Kotlin インターフェースと、それを受け取る関数を宣言します。
+1. Kotlin 側で、`open` なベースクラスと、それを受け入れる関数を持つ Kotlin インターフェースを宣言します。
 
-```kotlin
-// Kotlin
-interface CryptoProvider {
-   fun hashMD5(input: String): String
-}
-
-fun processHash(provider: CryptoProvider, input: String): String = provider.hashMD5(input)
-```
-
-Swift 側で、純粋な Swift ライブラリを使用してこのインターフェースを実装し、Kotlin に渡します。
-
-```swift
-// Swift
-import CryptoKit
-
-class IosCryptoProvider: KotlinBase & CryptoProvider {
-   func hashMD5(input: String) -> String {
-       guard let data = input.data(using: .utf8) else { return "failed" }
-       return Insecure.MD5.hash(data: data).description
+   ```kotlin
+   // Kotlin
+   interface CryptoProvider {
+      fun hashMD5(input: String): String
    }
-}
 
-let provider = IosCryptoProvider()
+   fun processHash(provider: CryptoProvider, input: String): String = provider.hashMD5(input)
 
-// 呼び出しは Swift の実装にディスパッチされます
-print(processHash(provider: provider, input: "Hello, world!"))
-```
+   open class SwiftBase 
+   ```
+
+2. Swift 側で、エクスポートされた `SwiftBase` クラスを継承し、純粋な Swift ライブラリを使用してインターフェースを実装し、そのオブジェクトを Kotlin に渡します。
+
+   ```swift
+   // Swift
+   import CryptoKit
+
+   final class IosCryptoProvider: SwiftBase, CryptoProvider {
+      func hashMD5(input: String) -> String {
+          guard let data = input.data(using: .utf8) else { return "failed" }
+          return Insecure.MD5.hash(data: data).description
+      }
+   }
+
+   let provider = IosCryptoProvider()
+
+   // 呼び出しは Swift の実装にディスパッチされます
+   print(processHash(provider: provider, input: "Hello, world!"))
+   ```
 
 Kotlin が Swift オブジェクトを受け取ると、それを通常のインターフェースの実装として扱い、Swift コードを実行します。
 
@@ -337,7 +340,7 @@ external fun defineRequire()
 
 問題が発生した場合は、[イシュートラッカー](https://youtrack.jetbrains.com/projects/KT/issues/KT-86192) でフィードバックを共有してください。
 
-### コンパニオンオブジェクト의 初期化順序の改善
+### コンパニオンオブジェクトの初期化順序の改善
 <secondary-label ref="wasm"/>
 
 Kotlin/Wasm は、JVM の動作に合わせて、サブクラスのコンパニオンオブジェクトよりも先にスーパークラスのコンパニオンオブジェクトを初期化するようになりました。以前は、初期化が逆になる可能性があり、プラットフォーム間で動作が一致していませんでした。
@@ -384,27 +387,33 @@ Kotlin %kotlinEapVersion% では、ブラウザ環境で Kotlin/JS テストを�
 新しいテスト用 DSL を試すには、Kotlin/JS ターゲット内の `browser{}` ブロックにオプトインの `test{}` ブロックを追加してください。
 
 ```kotlin
+import org.jetbrains.kotlin.gradle.ExperimentalJsTestDsl
+import kotlin.time.Duration.Companion.seconds
+
 kotlin {
     js {
         browser {
             @OptIn(ExperimentalJsTestDsl::class)
             // 新しい test{} ブロックを追加し構成します
             test {
-                // すべてのブラウザに共通のオプションを設定します
-                browserDefaults {
-                    timeout = Duration.ofSeconds(2)
-                    headless = true
-                }
-                // Chromium テストランナーを有効にします
+                // すべてのランナーに共通のタイムアウトを設定します
+                timeout = 2.seconds
+                // Gradle プロバイダーを使用してヘッドレスモードを構成します
+                headless = providers
+                    .environmentVariable("IS_IN_CI")
+                    .map { it.toBoolean() }
+                    .orElse(false)
+                // Chromium テストランナーを有効にし構成します
                 chromium {
                     // 共通のタイムアウトオプションをオーバーライドします
-                    timeout = Duration.ofSeconds(5)
+                    timeout = 5.seconds
+                    // 追加の起動引数を追加します
                     launchArgs.add("--no-sandbox")
                 }
                 // Firefox テストランナーを有効にします
                 firefox()
-                // Enable WebKit test runner
-                webkit { }
+                // WebKit テストランナーを有効にします
+                webkit()
                 // 追加の WebKit テストランナーを有効にし構成します
                 webkit("noheadless") {
                     // カスタムオプションを設定します

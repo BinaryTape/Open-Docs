@@ -53,4 +53,4 @@ IntelliJ IDEA 및 Android Studio의 경우, Kotlin 플러그인은 각 릴리스
 ## 다음 단계
 
 * [IntelliJ IDEA에서 콘솔 애플리케이션 만들기](jvm-get-started.md)
-* [Android Studio를 사용하여 첫 번째 크로스 플랫폼 모바일 앱 만들기](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)
+* [IntelliJ IDEA 또는 Android Studio를 사용하여 첫 번째 크로스 플랫폼 모바일 앱 만들기](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)

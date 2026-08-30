@@ -1,6 +1,6 @@
 [//]: # (title: 原生發行版本)
 
-在這裡，你將了解原生發行版本：如何為所有支援的系統建立安裝程式和軟件包，以及如何以與發行版本相同的設定在本機執行應用程式。
+在這裡，你將了解原生發行版本：如何為所有支援的系統建立安裝程式和軟體包，以及如何以與發行版本相同的設定在本機執行應用程式。
 
 請繼續閱讀以下主題的詳細資訊：
 
@@ -36,7 +36,7 @@ Compose Multiplatform Gradle 外掛程式中的基本可配置單元是 `applica
 * **Windows**：`.exe` (`TargetFormat.Exe`)、`.msi` (`TargetFormat.Msi`)
 * **Linux**：`.deb` (`TargetFormat.Deb`)、`.rpm` (`TargetFormat.Rpm`)
 
-以下是具有基本桌面組態的 `build.gradle.kts` 檔案範例：
+以下是具有基本桌面配置的 `build.gradle.kts` 檔案範例：
 
 ```kotlin
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
@@ -994,7 +994,7 @@ Compose Multiplatform Gradle 外掛程式包含對 [ProGuard](https://www.guards
 
 你可以使用 Gradle DSL 在 `buildTypes.release.proguard` 區塊中配置 ProGuard，選項如下：
 
-* `configurationFiles` 指定自訂的 ProGuard 組態檔案。
+* `configurationFiles` 指定自訂的 ProGuard 配置檔案。
     ```kotlin
     compose.desktop {
         application {
@@ -1042,9 +1042,7 @@ Compose Multiplatform Gradle 外掛程式包含對 [ProGuard](https://www.guards
     ```
     {initial-collapse-state="collapsed" collapsible="true" collapsed-title="joinOutputJars.set(true)"}
 
-[//]: # (TODO update version for stable release)
-
-* `version` 設定特定的 ProGuard 版本。JDK 25 至少需要 ProGuard 7.8.0，這是從 Compose Multiplatform 1.12.0-beta01 開始的預設版本。如果你使用較早版本的 Compose Multiplatform 並使用 JDK 25 進行建置，請明確將此屬性設為 `7.8.0`：
+* `version` 設定特定的 ProGuard 版本。JDK 25 至少需要 ProGuard 7.8.0，這是從 Compose Multiplatform 1.12.0 開始的預設版本。如果你使用較早版本的 Compose Multiplatform 並使用 JDK 25 進行建置，請明確將此屬性設為 `7.8.0`：
     ```kotlin
     compose.desktop {
         application {

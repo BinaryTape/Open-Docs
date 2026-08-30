@@ -119,7 +119,7 @@ Compose Multiplatform 1.10.0 以降、Compose Hot Reload プラグインは[同�
     }
    ```
 
-4.  `main.kt` ファイルを開き、ガターにある **Run** アイコンをクリックします。
+4.  `main.kt` ファイルを開き、ガターにある **Run** アイコンをクリックします。 
     **Run 'desktopApp' with Compose Hot Reload** を選択します。
 
     ![Run Compose Hot Reload from gutter](compose-hot-reload-gutter-run.png){width=350 border-effect="line"}
@@ -138,9 +138,7 @@ Compose Multiplatform 1.10.0 以降、Compose Hot Reload プラグインは[同�
 ## AI エージェント用 MCP サーバー
 <primary-label ref="Experimental"/>
 
-[//]: # (TODO update version for stable release)
-
-Compose Multiplatform 1.2.0-beta01 以降、Compose Hot Reload には組み込みの [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) サーバーが含まれています。
+Compose Multiplatform 1.12.0 以降、Compose Hot Reload には組み込みの [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) サーバーが含まれています。
 MCP サーバーを使用すると、AI コーディングエージェントが実行中の Compose アプリケーションと対話できるようになります。具体的には、Compose Hot Reload のトリガー、レンダリングされた UI の確認、セマンティック構造の検査、ユーザー入力のシミュレート、および実行時ログの読み取りが可能です。
 複数のウィンドウを持つアプリケーションの場合、エージェントはウィンドウを一覧表示し、そのいずれかをターゲットに指定できます。
 

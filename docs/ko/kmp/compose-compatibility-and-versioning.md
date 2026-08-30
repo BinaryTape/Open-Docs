@@ -81,6 +81,7 @@ Android용 애플리케이션을 빌드할 때 Compose Multiplatform은 Google�
 
 | Compose Multiplatform 버전 | Jetpack Compose 버전 |
 |-----------------------------------------------------------------------------------|-------------------------|
+| [1.12.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.12.0) | 1.12.0 |
 | [1.11.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.11.0) | 1.11.2 |
 | [1.10.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.10.3) | 1.10.5 |
 | [1.9.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.3) | 1.9.4 |

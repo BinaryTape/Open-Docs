@@ -157,7 +157,7 @@ compose.desktop {
 * `nativeDistributions.<os>.packageVersion`: 단일 대상 OS에 대한 버전을 지정합니다.
 * `nativeDistributions.packageVersion`: 모든 패키지에 대한 버전을 지정합니다.
 
-macOS에서는 다음 DSL 속성들을 사용하여 빌드 버전을 지정할 수도 있습니다 (우선순위 높은 순서대로 나열됨):
+macOS에서는 다음 DSL 속성들을 사용하여 빌드 버전을 지정할 수도 있습니다 (마찬가지로 우선순위가 높은 순서대로 나열됨):
 
 * `nativeDistributions.macOS.<packageFormat>PackageBuildVersion`: 단일 패키지 형식에 대한 빌드 버전을 지정합니다.
 * `nativeDistributions.macOS.packageBuildVersion`: 모든 macOS 패키지에 대한 빌드 버전을 지정합니다.
@@ -1090,9 +1090,7 @@ ProGuard 처리 후에만 발생하는 문제가 있다면 커스텀 규칙을 �
     ```
     {initial-collapse-state="collapsed" collapsible="true" collapsed-title="joinOutputJars.set(true)"}
 
-[//]: # (TODO update version for stable release)
-
-* `version`: 특정 ProGuard 버전을 설정합니다. JDK 25에는 최소 ProGuard 7.8.0이 필요하며, 이는 Compose Multiplatform 1.12.0-beta01부터 기본값으로 사용됩니다.
+* `version`: 특정 ProGuard 버전을 설정합니다. JDK 25에는 최소 ProGuard 7.8.0이 필요하며, 이는 Compose Multiplatform 1.12.0부터 기본값으로 사용됩니다.
   이전 버전의 Compose Multiplatform을 사용하면서 JDK 25로 빌드하는 경우, 이 속성을 명시적으로 `7.8.0`으로 설정하세요:
     ```kotlin
     compose.desktop {

@@ -44,7 +44,7 @@ Kotlin %kotlinEapVersion% 버전이 출시되었습니다! 이번 EAP 릴리스�
 * [빌드 도구 API: Kotlin/JS, Kotlin/Wasm 및 Kotlin 메타데이터 지원](#build-tools-api)
 * [Kotlin 컴파일러: 별도의 Kotlin 컴파일러 이미지](#kotlin-compiler-native-image)
 
-## 표준 라이브러리
+## 표준 라이브러이
 
 Kotlin %kotlinEapVersion%은 코루틴 스택 추적 복구 지원을 추가하고, 컬렉션 요소의 동등성과 고유성을 확인하기 위한 새로운 함수를 도입합니다.
 
@@ -224,39 +224,41 @@ let name = switch shape.sealedType() {
 
 Kotlin %kotlinEapVersion%은 Swift 익스포트에 언어 간 상속(cross-language inheritance) 지원을 도입합니다.
 
-이 기능의 일반적인 사용 사례는 [역임포트(reverse import)](native-lib-import-stability.md#swift-library-import) 패턴으로, Kotlin에서 계약(contract)을 정의하고 Swift 측에서 플랫폼별 구현을 제공하는 방식입니다.
+이 기능의 일반적인 사용 사례는 [역임포트(reverse import)](native-lib-import-stability.md#swift-library-import) 패턴으로, Kotlin에서 계약(contract)을 정의하고 Swift 측에서 플랫폼별 구현을 제공하는 방식입니다. 이는 Kotlin으로 직접 임포트할 수 없는 순수 Swift 라이브러리를 사용해야 할 때 특히 유용합니다.
 
-예를 들어, Kotlin 인터페이스를 선언하고 Swift에서 이를 구현한 다음, 해당 인터페이스를 받는 Kotlin 함수에 Swift 객체를 전달할 수 있습니다. 이는 Kotlin으로 직접 임포트할 수 없는 순수 Swift 라이브러리를 사용해야 할 때 특히 유용합니다.
+이 패턴을 구현하려면 Swift 구현이 상속받을 Kotlin 상위 클래스(superclass)와 Kotlin 인터페이스를 선언합니다. 그런 다음 Swift에서 인터페이스를 구현하고 해당 인터페이스를 받는 Kotlin 함수에 Swift 객체를 전달합니다. 예를 들어 CryptoKit 라이브러리의 경우:
 
-예를 들어, Kotlin 인터페이스와 이를 인자로 받는 함수를 선언합니다:
+1. Kotlin 측에서 `open` 베이스 클래스와 인터페이스, 그리고 이를 인자로 받는 함수를 선언합니다:
 
-```kotlin
-// Kotlin
-interface CryptoProvider {
-   fun hashMD5(input: String): String
-}
-
-fun processHash(provider: CryptoProvider, input: String): String = provider.hashMD5(input)
-```
-
-Swift 측에서 순수 Swift 라이브러리를 사용하여 이 인터페이스를 구현하고 다시 Kotlin으로 전달합니다:
-
-```swift
-// Swift
-import CryptoKit
-
-class IosCryptoProvider: KotlinBase & CryptoProvider {
-   func hashMD5(input: String) -> String {
-       guard let data = input.data(using: .utf8) else { return "failed" }
-       return Insecure.MD5.hash(data: data).description
+   ```kotlin
+   // Kotlin
+   interface CryptoProvider {
+      fun hashMD5(input: String): String
    }
-}
 
-let provider = IosCryptoProvider()
+   fun processHash(provider: CryptoProvider, input: String): String = provider.hashMD5(input)
 
-// 호출이 Swift 구현으로 전달됩니다
-print(processHash(provider: provider, input: "Hello, world!"))
-```
+   open class SwiftBase 
+   ```
+
+2. Swift 측에서 익스포트된 `SwiftBase` 클래스를 상속받고, 순수 Swift 라이브러리를 사용하여 인터페이스를 구현한 다음 객체를 다시 Kotlin으로 전달합니다:
+
+   ```swift
+   // Swift
+   import CryptoKit
+
+   final class IosCryptoProvider: SwiftBase, CryptoProvider {
+      func hashMD5(input: String) -> String {
+          guard let data = input.data(using: .utf8) else { return "failed" }
+          return Insecure.MD5.hash(data: data).description
+      }
+   }
+
+   let provider = IosCryptoProvider()
+
+   // 호출이 Swift 구현으로 전달됩니다
+   print(processHash(provider: provider, input: "Hello, world!"))
+   ```
 
 Kotlin이 Swift 객체를 받으면 이를 일반 인터페이스의 구현처럼 취급하여 Swift 코드를 실행합니다.
 
@@ -365,7 +367,7 @@ kotlin {
 
 ## Kotlin/JS
 
-Kotlin %kotlinEapVersion%은 브라우저 테스트를 위한 새로운 실험적 DSL을 도입하고 서스펜드 람다(suspend lambdas)를 JavaScript 비동기 함수(async functions)로 익스포트하는 지원을 추가합니다.
+Kotlin %kotlinEapVersion%은 브라우저 테스트를 위한 새로운 실험적 DSL을 도입하고 서스펜드 람다(suspending lambdas)를 JavaScript 비동기 함수(async functions)로 익스포트하는 지원을 추가합니다.
 
 ### 브라우저 테스트를 위한 새로운 DSL
 <primary-label ref="experimental-opt-in"/>
@@ -384,27 +386,33 @@ Kotlin %kotlinEapVersion%은 브라우저 환경에서 Kotlin/JS 테스트를 �
 새로운 테스트 DSL을 사용해 보려면 Kotlin/JS 타겟의 `browser{}` 블록 안에 옵트인이 필요한 `test{}` 블록을 추가하세요:
 
 ```kotlin
+import org.jetbrains.kotlin.gradle.ExperimentalJsTestDsl
+import kotlin.time.Duration.Companion.seconds
+
 kotlin {
     js {
         browser {
             @OptIn(ExperimentalJsTestDsl::class)
             // 새로운 test{} 블록 추가 및 구성
             test {
-                // 모든 브라우저에 공통적인 옵션 설정
-                browserDefaults {
-                    timeout = Duration.ofSeconds(2)
-                    headless = true
-                }
-                // Chromium 테스트 러너 활성화
+                // 모든 러너에 대한 기본 타임아웃 설정
+                timeout = 2.seconds
+                // Gradle 프로바이더를 사용하여 헤드리스 모드 구성
+                headless = providers
+                    .environmentVariable("IS_IN_CI")
+                    .map { it.toBoolean() }
+                    .orElse(false)
+                // Chromium 테스트 러너 활성화 및 구성
                 chromium {
                     // 공통 타임아웃 옵션 오버라이드
-                    timeout = Duration.ofSeconds(5)
+                    timeout = 5.seconds
+                    // 추가 실행 인자 추가
                     launchArgs.add("--no-sandbox")
                 }
                 // Firefox 테스트 러너 활성화
                 firefox()
                 // WebKit 테스트 러너 활성화
-                webkit { }
+                webkit()
                 // 추가적인 WebKit 테스트 러너 활성화 및 구성
                 webkit("noheadless") {
                     // 커스텀 옵션 설정
@@ -509,4 +517,4 @@ Kotlin %kotlinEapVersion%은 Kotlin 컴파일러 네이티브 이미지(native i
 * [Lombok](lombok.md)
 * [Power-assert](power-assert.md)
 
-Kotlin 컴파일러 네이티브 이미지에 대한 자세한 내용은 [README](https://github.com/JetBrains/kotlin/blob/master/prepare/compiler-native-image/README.md)를 참조하세요.
+Kotlin 컴파일러 네이티브 이미지에 대한 자세한 내용은 해당 [README](https://github.com/JetBrains/kotlin/blob/master/prepare/compiler-native-image/README.md)를 참조하세요.

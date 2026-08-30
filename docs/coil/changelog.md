@@ -1,5 +1,22 @@
 # 更新日志
 
+## [3.6.0] - 2026年8月26日
+
+- **新增**：添加对在 JS/WASM 上加载 `blob:` URL（对象 URL）的支持。([#3504](https://github.com/coil-kt/coil/pull/3504))
+- **新增**：添加 `ImageRequest.Builder.allowPartialImage` 和 `ImageLoader.Builder.allowPartialImage` 以配置 Android 上的 `StaticImageDecoder` 是否接受部分图像。此功能默认启用，与之前 Coil 版本的行为一致。([#3494](https://github.com/coil-kt/coil/pull/3494))
+- 修复 `AsyncImage` 在使用反向约束测量时发生崩溃的问题。([#3470](https://github.com/coil-kt/coil/pull/3470))
+- 修复 Compose `filterQuality` 未应用于以 drawable 为后端的图像（包括 GIF）的问题。([#3469](https://github.com/coil-kt/coil/pull/3469))
+- 修复一个 JS/WASM 图像解码器内存泄漏问题。([#3503](https://github.com/coil-kt/coil/pull/3503))
+- 修复图像在 R8 9.0+ 优化构建中无法使用 `GenericViewTarget` 渲染的问题。([#3518](https://github.com/coil-kt/coil/pull/3518))
+- 使用 `Runtime.maxMemory()` 确定 JVM 上的最大内存缓存大小，而不是假设 512 MB 的可用内存。([#3458](https://github.com/coil-kt/coil/pull/3458))
+- 将 ProGuard 规则与非 Android JVM 构件打包在一起。([#3476](https://github.com/coil-kt/coil/pull/3476))
+- 更新 Android 编译 SDK 至 37。
+- 更新 Kotlin 至 2.4.10。
+- 更新 Compose 至 1.12.0。
+- 更新 Okio 至 3.18.1。
+- 更新 Skiko 至 0.150.1。
+- 更新 `kotlinx-io-okio` 至 0.9.1。
+
 ## [3.5.0] - 2026年6月10日
 
 自 `3.4.0` 以来的变更：
@@ -296,7 +313,7 @@ AsyncImage(
 - 修复将全局 `ImageLoader` extras 传递给 `Options` 的问题。([#2223](https://github.com/coil-kt/coil/pull/2223))
 - 修复 `crossfade(false)` 在非 Android 目标上不起作用的问题。
 - 修复 VP8X 功能标志字节偏移 ([#2199](https://github.com/coil-kt/coil/pull/2199))。
-- 将非 Android 目标上的 `SvgDecoder` 转换为渲染到位图，而不是在绘制时渲染图像。这提升了性能。
+- 将 非 Android 目标上的 `SvgDecoder` 转换为渲染到位图，而不是在绘制时渲染图像。这提升了性能。
     - 此行为可以使用 `SvgDecoder(renderToBitmap)` 进行控制。
 - 将 `ScaleDrawable` 从 `coil-gif` 移动到 `coil-core`。
 - 更新 Kotlin 至 2.0.0。
@@ -495,7 +512,7 @@ AsyncImage(
 - **新增**：引入公开的 `DiskCache` API。
     - 使用 `ImageLoader.Builder.diskCache` 和 `DiskCache.Builder` 配置磁盘缓存。
     - 您不应在 Coil 2.0 中使用 OkHttp 的 `Cache`。有关更多信息，请参阅[此处](https://coil-kt.github.io/coil/upgrading_to_coil2/#disk-cache)。
-    - 仍支持 `Cache-Control` 和其他缓存标头——除了 `Vary` 标头，因为缓存仅检查 URL 是否匹配。此外，仅缓存响应代码在 [200..300) 范围内的响应。
+    - `Cache-Control` 和其他缓存标头仍支持——除了 `Vary` 标头，因为缓存仅检查 URL 是否匹配。此外，仅缓存响应代码在 [200..300) 范围内的响应。
     - 升级到 2.0 时将清除现有的磁盘缓存。
 - 最低支持的 API 现在为 21。
 - `ImageRequest` 的默认 `Scale` 现在为 `Scale.FIT`。
@@ -563,7 +580,7 @@ AsyncImage(
 - Coil 2.0 拥有自己的磁盘缓存实现，不再依赖 OkHttp 进行磁盘缓存。
     - 使用 `ImageLoader.Builder.diskCache` 和 `DiskCache.Builder` 配置磁盘缓存。
     - 您**不应该**在 Coil 2.0 中使用 OkHttp 的 `Cache`，因为如果在向其写入时线程被中断，缓存可能会损坏。
-    - 仍支持 `Cache-Control` 和其他缓存标头——除了 `Vary` 标头，因为缓存仅检查 URL 是否匹配。此外，仅缓存响应代码在 [200..300) 范围内的响应。
+    - `Cache-Control` 和其他缓存标头仍支持——除了 `Vary` 标头，因为缓存仅检查 URL 是否匹配。此外，仅缓存响应代码在 [200..300) 范围内的响应。
     - 升级到 2.0 时将清除现有的磁盘缓存。
 - `ImageRequest` 的默认 `Scale` 现在为 `Scale.FIT`。
     - 更改此设置是为了使 `ImageRequest.scale` 与具有默认 `Scale` 的其他类保持一致。
@@ -761,7 +778,7 @@ Coil 2.0.0 是该库的下一个主要迭代，具有新功能、性能改进、
         - 支持暴露由 `File` 支持的 `ImageSource`。这避免了在 Android API 需要 `File` 进行解码（例如 `MediaMetadataRetriever`）时不必要的复制。
         - 支持直接读取/写入磁盘缓存文件。
     - 使用 `ImageLoader.Builder.diskCache` 和 `DiskCache.Builder` 配置磁盘缓存。
-    - 您**不应该**在 Coil 2.0 中使用 OkHttp 的 `Cache`，因为它在写入过程中被中断可能会损坏。
+    - 您**不应该**在 Coil 2.0 中使用 OkHttp's `Cache`，因为它在写入过程中被中断可能会损坏。
     - 仍支持 `Cache-Control` 和其他缓存标头——除了 `Vary` 标头，因为缓存仅检查 URL 是否匹配。此外，仅缓存响应代码在 [200..300) 范围内的响应。
     - 使用 `ImageLoader.Builder.respectCacheHeaders` 可以启用或禁用对缓存标头的支持。
     - 升级到 2.0 时，现有的磁盘缓存将被清除并重建。
@@ -776,7 +793,7 @@ Coil 2.0.0 是该库的下一个主要迭代，具有新功能、性能改进、
     - 它在 <= API 23 上最有效，但在较新的 Android 版本中效果已降低。
     - 移除位图池化允许 Coil 使用不可变位图，这具有性能优势。
     - 管理位图池存在运行时开销。
-    - 位图池化在 Coil 的 API 上产生了设计限制，因为它需要跟踪位图是否符合池化条件。移除位图池化允许 Coil 在更多地方（例如 `Listener`、`Disposable`）公开结果 `Drawable`。此外，这意味着 Coil 不必清除 `ImageView`，这可能会导致 [问题](https://github.com/coil-kt/coil/issues/650)。
+    - 位图池化在 Coil 的 API 上产生了设计限制，因为它需要跟踪位图是否符合池化条件。移除位图池化允许 Coil 在更多地方（例如 `Listener`、`Disposable`）公开结果 `Drawable`。此外，这意味着 Coil 不必清除 `ImageView`s，这可能会导致 [问题](https://github.com/coil-kt/coil/issues/650)。
     - 位图池化[容易出错](https://github.com/coil-kt/coil/issues/546)。分配一个新位图比尝试重新使用可能仍在使用的位图要安全得多。
 - `MemoryCache` 已重构为更加灵活。
 - 禁用生成运行时非空断言。
@@ -1302,7 +1319,7 @@ Coil 2.0.0 是该库的下一个主要迭代，具有新功能、性能改进、
 - 修复：使 `CoilContentProvider` 对测试可见。
 - 修复：在资源缓存键中包含夜间模式。
 - 修复：通过暂时将源写入磁盘来规避 `ImageDecoder` 原生崩溃问题。
-- 修复：正确处理联系人显示照片 URI。
+- 修复：正确 handle 联系人显示照片 URI。
 - 修复：到着色（tint）传递给 `CrossfadeDrawable` 的子项。
 - 修复：修复了几处未关闭源的情况。
 - 修复：添加了具有损坏/不完整硬件位图实现的设备黑名单。

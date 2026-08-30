@@ -18,7 +18,7 @@ Kotlin コンパイラには、コンパイルプロセスをカスタマイズ�
 
 コンパイラオプションとその値（*コンパイラ引数*）を設定するには、いくつかの方法があります：
 * IntelliJ IDEA の場合：**Settings/Preferences** | **Build, Execution, Deployment** | **Compiler** | **Kotlin Compiler** の **Additional command line parameters** テキストボックスにコンパイラ引数を入力します。
-* Gradle を使用している場合：Kotlin コンパイルタスクの `compilerOptions` プロパティでコンパイラ引数を選択します。
+* Gradle を使用している場合：Kotlin コンパイルタスクの `compilerOptions` プロパティでコンパイラ引数を指定します。
 詳細は [Gradle コンパイラオプション](gradle-compiler-options.md#how-to-define-options)を参照してください。
 * Maven を使用している場合：Maven プラグインノードの `<configuration>` 要素内でコンパイラ引数を指定します。
 詳細は [Maven](maven-kotlin-compiler.md#specify-compiler-options) を参照してください。

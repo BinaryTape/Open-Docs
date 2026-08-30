@@ -74,9 +74,7 @@ fun MainScreen() {
 
 기본적으로 애플리케이션에 로드된 폰트에서 지원하지 않는 문자는 대체 글리프(□, "[토푸(tofu)](https://fonts.google.com/knowledge/glossary/tofu)"라고도 함)로 표시됩니다.
 
-[//]: # (TODO update version for stable release)
-
-버전 1.12.0-beta01부터 Compose Multiplatform은 렌더링 중에 확인되지 않은 문자를 모니터링하고 필요한 Noto 폰트 서브셋을 필요에 따라 다운로드합니다. Noto라는 이름은 "no tofu"의 약자로, 이 폰트들은 토푸 글리프를 없애기 위해 설계되었습니다.
+버전 1.12.0부터 Compose Multiplatform은 렌더링 중에 확인되지 않은 문자를 모니터링하고 필요한 Noto 폰트 서브셋을 필요에 따라 다운로드합니다. Noto라는 이름은 "no tofu"의 약자로, 이 폰트들은 토푸 글리프를 없애기 위해 설계되었습니다.
 
 폰트를 사용할 수 있게 되면 해당 텍스트는 리컴포지션(recomposition)됩니다. 다운로드 중에 토푸가 잠시 나타날 수 있습니다.
 

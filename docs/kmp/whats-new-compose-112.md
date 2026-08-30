@@ -1,12 +1,12 @@
-[//]: # (title: Compose Multiplatform 中的最新变化 %org.jetbrains.compose-eap%)
+[//]: # (title: Compose Multiplatform 1.12.0 中的最新变化)
 
-以下是此抢先体验计划 (EAP) 版本的亮点：
+以下是此功能版本的亮点：
 
  * [适用于 Web 的自动字体回退](#automatic-font-fallback)
  * [Compose Hot Reload 中适用于 AI 代理的 MCP 服务器](#mcp-server-for-ai-agents-in-compose-hot-reload)
  * [适用于桌面端的窗口和对话框 API v2](#window-and-dialog-api-v2)
 
-您可以在 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.12.0-beta01) 上找到此版本的完整变更列表。
+您可以在 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.12.0) 上找到此版本的完整变更列表。
 有关特定组件版本的详细信息，请参阅[依赖项](#dependencies)部分。
 
 ## 跨平台
@@ -103,10 +103,10 @@ v2 API 还解锁了以前无法实现的场景，例如根据内容大小调整�
 
 | 库 | Maven 坐标 | 基于 Jetpack 版本 |
 |--------------------|------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
-| Runtime | `org.jetbrains.compose.runtime:runtime*:1.12.0-rc01` | [Runtime 1.12.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.12.0-rc01) |
-| UI | `org.jetbrains.compose.ui:ui*:1.12.0-rc01` | [UI 1.12.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.12.0-rc01) |
-| Foundation | `org.jetbrains.compose.foundation:foundation*:1.12.0-rc01` | [Foundation 1.12.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.12.0-rc01) |
-| Material | `org.jetbrains.compose.material:material*:1.12.0-rc01` | [Material 1.12.0-rc01](https://developer.android.com/jetpack/androidx/releases/compose-material#1.12.0-rc01) |
+| Runtime | `org.jetbrains.compose.runtime:runtime*:1.12.0` | [Runtime 1.12.0](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.12.0) |
+| UI | `org.jetbrains.compose.ui:ui*:1.12.0` | [UI 1.12.0](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.12.0) |
+| Foundation | `org.jetbrains.compose.foundation:foundation*:1.12.0` | [Foundation 1.12.0](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.12.0) |
+| Material | `org.jetbrains.compose.material:material*:1.12.0` | [Material 1.12.0](https://developer.android.com/jetpack/androidx/releases/compose-material#1.12.0) |
 | Material3 | `org.jetbrains.compose.material3:material3*:1.12.0-alpha03` | [Material3 1.5.0-alpha22](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-alpha22) |
 | Material3 Adaptive | `org.jetbrains.compose.material3.adaptive:adaptive*:1.3.0-beta02` | [Material3 Adaptive 1.3.0-beta02](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.3.0-beta02) |
 | Lifecycle | `org.jetbrains.androidx.lifecycle:lifecycle-*:2.11.0` | [Lifecycle 2.11.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.11.0) |

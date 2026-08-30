@@ -150,9 +150,7 @@ Compose Hot Reload 外掛程式已[內建](whats-new-compose-110.md#compose-hot-
 ## AI 代理的 MCP 伺服器
 <primary-label ref="Experimental"/>
 
-[//]: # (TODO update version for stable release)
-
-從 Compose Multiplatform 1.2.0-beta01 開始，Compose Hot Reload 包含一個內建的 
+從 Compose Multiplatform 1.12.0 開始，Compose Hot Reload 包含一個內建的 
 [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) 伺服器。
 MCP 伺服器讓 AI 編碼代理與您執行中的 Compose 應用程式互動：
 觸發 Compose Hot Reload、查看渲染出的 UI、檢查語意結構、模擬使用者輸入以及讀取執行階段日誌。

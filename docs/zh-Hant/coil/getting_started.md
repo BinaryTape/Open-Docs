@@ -5,8 +5,8 @@
 一個典型的 Compose UI 專案會需要匯入：
 
 ```kotlin
-implementation("io.coil-kt.coil3:coil-compose:3.5.0")
-implementation("io.coil-kt.coil3:coil-network-okhttp:3.5.0")
+implementation("io.coil-kt.coil3:coil-compose:3.6.0")
+implementation("io.coil-kt.coil3:coil-network-okhttp:3.6.0")
 ```
 
 匯入之後，您可以使用 `AsyncImage` 從網路載入圖片：
@@ -26,8 +26,8 @@ AsyncImage(
 如果您使用 Android Views 而非 Compose UI，請匯入：
 
 ```kotlin
-implementation("io.coil-kt.coil3:coil:3.5.0")
-implementation("io.coil-kt.coil3:coil-network-okhttp:3.5.0")
+implementation("io.coil-kt.coil3:coil:3.6.0")
+implementation("io.coil-kt.coil3:coil-network-okhttp:3.6.0")
 ```
 
 匯入之後，您可以使用 `ImageView.load` 擴充函式從網路載入圖片：
@@ -75,7 +75,7 @@ SingletonImageLoader.setSafe { context ->
 ```
 
 !!! Note
-    如果您正在編寫依賴於 Coil 的程式庫，則**不應**取得或設定單例 `ImageLoader`。相反地，您應該依賴 `io.coil-kt.coil3:coil-core`，建立您自己的 `ImageLoader`並手動傳遞。如果您在程式庫中設定了單例 `ImageLoader`，若使用您程式庫的應用程式也使用了 Coil，您可能會覆寫該應用程式設定的 `ImageLoader`。
+    如果您正在編寫依賴於 Coil 的程式庫，則**不應**取得或設定單例 `ImageLoader`。相反地，您應該依賴 `io.coil-kt.coil3:coil-core`，建立您自己的 `ImageLoader` 並手動傳遞。如果您在程式庫中設定了單例 `ImageLoader`，若使用您程式庫的應用程式也使用了 Coil，您可能會覆寫該應用程式設定的 `ImageLoader`。
 
 ## 圖片
 
@@ -116,6 +116,6 @@ val painter = image.asPainter()
 * `io.coil-kt.coil3:coil-network-cache-control`：包含支援在從網路擷取圖片時遵循 [`Cache-Control` 標頭](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control) 的功能。
 * `io.coil-kt.coil3:coil-gif`：包含兩個[解碼器](/coil/api/coil-core/coil3.decode/-decoder)以支援解碼 GIF。詳情請參閱 [GIFs](gifs.md)。
 * `io.coil-kt.coil3:coil-svg`：包含一個[解碼器](/coil/api/coil-core/coil3.decode/-decoder)以支援解碼 SVG。詳情請參閱 [SVGs](svgs.md)。
-* `io.coil-kt.coil3:coil-video`：包含一個[解碼器](/coil/api/coil-core/coil3.decode/-decoder)以支援從 [Android 支援的任何影片格式](https://developer.android.com/guide/topics/media/media-formats#video-codecs)中解碼影格。詳情請參閱 [videos](videos.md)。
+* `io.coil-kt.coil3:coil-video`：包含一個[解碼器](/coil/api/coil-core/coil3.decode/-decoder)以支援從 [Android 支援的任何影片格式](https://developer.android.com/guide/topics/media/media-formats#video-codecs) 中解碼影格。詳情請參閱 [videos](videos.md)。
 * `io.coil-kt.coil3:coil-test`：包含支援測試的類別。詳情請參閱[測試](testing.md)。
 * `io.coil-kt.coil3:coil-bom`：包含 [BOM (物料清單)](https://docs.gradle.org/7.2/userguide/platforms.html#sub:bom_import)。匯入 `coil-bom` 讓您可以在不指定版本的情況下依賴其他 Coil 構件。

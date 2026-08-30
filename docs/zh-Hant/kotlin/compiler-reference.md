@@ -40,7 +40,7 @@ Kotlin 編譯器有許多用於自訂編譯過程的選項。
 
 ## 編譯器選項的結構
 
-所有編譯器選項的通用結構以 JAR 構件的形式發佈在 [`org.jetbrains.kotlin:kotlin-compiler-arguments-description`](https://central.sonatype.com/artifact/org.jetbrains.kotlin/kotlin-compiler-arguments-description) 下。此構件包含所有編譯器選項說明的程式碼表示形式和 JSON 等效形式（供非 Kotlin 使用者使用）。此外還包含元資料，例如每個選項引入或穩定化的版本。
+所有編譯器選項的通用結構以 JAR 構件的形式發佈在 [`org.jetbrains.kotlin:kotlin-compiler-arguments-description`](https://central.sonatype.com/artifact/org.jetbrains.kotlin:kotlin-compiler-arguments-description) 下。此構件包含所有編譯器選項說明的程式碼表示形式和 JSON 等效形式（供非 Kotlin 使用者使用）。此外還包含元資料，例如每個選項引入或穩定化的版本。
 
 ## 通用選項
 
@@ -74,7 +74,7 @@ Kotlin 編譯器有許多用於自訂編譯過程的選項。
 你可以將最近三個穩定版本之一的 Kotlin 設定為語言版本。例如，Kotlin 2.5.0 支援低至 2.2 的語言版本。
 
 如果你使用較舊的語言版本，你也需要使用較舊的 API 版本。
-如需詳細資訊，請參閱 [api-version](#api-version-version)。
+如需詳細資訊，請參閱 [](#api-version-version)。
 
 > 技術上，你可以配置較新的語言版本，以便在即將推出的語言特性穩定之前對其進行測試。
 > 然而，我們建議按照各自的專用說明來啟用個別特性。
@@ -116,7 +116,7 @@ Kotlin 編譯器有許多用於自訂編譯過程的選項。
 <primary-label ref="experimental-general"/>
 
 顯示關於進階選項的資訊並結束。這些選項目前不穩定：
-其名稱和行為可能會在不經通知的情況下發生變更。
+其名稱 and 行為可能會在不經通知的情況下發生變更。
 
 ### Kotlin 合約選項
 <primary-label ref="experimental-general"/>
@@ -478,7 +478,7 @@ Kotlin 到 JS 編譯的命令列工具是 `kotlinc-js`。
 將你在 Kotlin 程式碼中宣告的變數和函式名稱新增到原始碼對應檔中。
 
 | 設定 | 說明 | 輸出範例 |
-|---|---|---|
+|-------------------------|---------------------------------------------------------------|-----------------------------------|
 | `simple-names` | 新增變數名稱和簡單函式名稱。（預設） | `main` |
 | `fully-qualified-names` | 新增變數名稱和完全限定函式名稱。 | `com.example.kjs.playground.main` |
 | `no` | 不新增變數或函式名稱。 | N/A |
@@ -530,7 +530,7 @@ Kotlin/Native 編譯的命令列工具是 `kotlinc-native`。
 
 ### -include-binary _路徑_ (-ib _路徑_)
 
-在產生的 klib 檔案中封裝外部二進位檔。
+在產生的 klib 檔案中封裝外部二認位檔。
 
 ### -library _路徑_ (-l _路徑_)
 

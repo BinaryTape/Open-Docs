@@ -60,7 +60,7 @@ fun App() {
 
 @Composable
 fun MainScreen() {
-    // 圖片從快取中載入
+    // 圖示從快取中載入
     Image(painter = painterResource(Res.drawable.heavy_vector_icon), contentDescription = null)
 }
 ```
@@ -71,9 +71,7 @@ fun MainScreen() {
 
 預設情況下，應用程式已載入字型未涵蓋的字元會顯示為替代字符 (□，即所謂的「[tofu](https://fonts.google.com/knowledge/glossary/tofu)」)。
 
-[//]: # (TODO update version for stable release)
-
-從 1.12.0-beta01 版本開始，Compose Multiplatform 會在渲染期間監控未解決的字元，並根據需求下載必要的 Noto 字型子集。Noto 這個名稱是「no tofu」的縮寫，因為這些字型旨在消除 tofu 字符。
+從 1.12.0 版本開始，Compose Multiplatform 會在渲染期間監控未解決的字元，並根據需求下載必要的 Noto 字型子集。Noto 這個名稱是「no tofu」的縮寫，因為這些字型旨在消除 tofu 字符。
 
 一旦字型可用，受影響的文字將會重新組合 (recomposed)。請注意，在下載過程中，tofu 可能會短暫出現。
 
@@ -84,9 +82,9 @@ fun MainScreen() {
 
 Compose Multiplatform 使用 [Web Cache API](https://developer.mozilla.org/en-US/docs/Web/API/Cache) 來快取成功的回應，並避免瀏覽器預設快取機制通常會執行的冗餘 HTTP 重新驗證。
 
-快取在每次應用程式啟動和頁面重新整理時都會全域清除。在此階段重設快取可確保資源一致性，因為在多個工作階段中重複使用快取可能會導致資源過時或不相容，進而導致應用程式當機或邏輯不一致。
+快取在每次應用程式啟動和頁面重新整理時都會全域清除。在此階段重設快取可確保資源一致性，因為在多個工作階段 (sessions) 中重複使用快取可能會導致資源過時或不相容，進而導致應用程式當機或邏輯不一致。
 
-為了防止對同一資源進行冗餘的並行擷取，實作中使用了資源特定鎖定。每個請求都由每個資源的互斥鎖 (mutex) 保護，在允許對不同資源進行平行請求的同時，對相同路徑的重複請求進行序列化處理。這種設計最小化了不必要的網路流量，並消除了快取填充期間的競爭條件。
+為了防止對同一資源進行冗餘的並行擷取，實作中使用了資源特定鎖定。每個請求都由每個資源的互斥鎖 (mutex) 保護，在允許對不同資源進行平行請求的同時，對相同路徑的重複請求進行序列化處理。這種設計最小化了不必要的網路流量，並消除了快取填充期間的競爭條件 (race conditions)。
 
 ## 接續步驟
 

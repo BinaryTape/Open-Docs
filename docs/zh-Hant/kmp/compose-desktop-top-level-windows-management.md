@@ -144,7 +144,7 @@ fun main() = application {
 
 ## 建立單一視窗應用程式
 
-對於只有一個頂層視窗的簡單應用程式，你不需要使用包含 `Window()` 可組合項的完整 `application` 進入點——`singleWindowApplication()` 函式將兩者封裝在單次呼叫中：
+對於只有一個頂層視窗的簡單應用程式，你不需要使用包含 `Window()` 可組合項的完整 `application` 入口點——`singleWindowApplication()` 函式將兩者封裝在單次呼叫中：
 
 ```kotlin
 import androidx.compose.ui.window.singleWindowApplication
@@ -154,11 +154,12 @@ fun main() = singleWindowApplication {
 }
 ```
 
-若需要多個頂層視窗、自訂關閉邏輯或在執行時變更視窗屬性，請在 `application` 進入點中使用 [`Window()` 可組合項](#開啟與關閉視窗)。
+若需要多個頂層視窗、自訂關閉邏輯或在執行時變更視窗屬性，請在 `application` 入口點中使用 [`Window()` 可組合項](#開啟與關閉視窗)。
 
 ## 管理視窗狀態
 
-`WindowState` 類別持有視窗配置、當前位置和大小。配置屬性允許你指定視窗在螢幕上的放置方式：
+`WindowState` 類別持有視窗配置、當前位置和大小。
+配置屬性允許你指定視窗在螢幕上的放置方式：
 浮動、最大化/最小化或全螢幕。
 狀態的任何變更都會觸發自動重組。要變更視窗狀態，請使用回呼或在可組合項中觀察它：
 
@@ -471,7 +472,8 @@ fun main() = application {
 預設情況下，關閉視窗會結束應用程式。若要改為將視窗隱藏至系統匣或功能表列，
 你可以攔截 `onCloseRequest` 來變更視窗的可見性狀態。
 
-在下方的範例中，關閉視窗會將 `isVisible` 設定為 `false`，這會隱藏視窗並顯示系統匣圖示。
+在下方的範例中，關閉視窗會將 `isVisible` 設定為 `false`，
+這會隱藏視窗並顯示系統匣圖示。
 點擊系統匣圖示會恢復視窗。
 
 ```kotlin
@@ -736,9 +738,7 @@ private fun FileDialog(
 ## 視窗與對話方塊 API v2
 <primary-label ref="Experimental"/>
 
-[//]: # (TODO update version for stable release)
-
-從 Compose Multiplatform 1.12.0-beta02 開始，重新設計的 `WindowState` 和 `DialogState` 類別可在 `androidx.compose.ui.window.v2` 子套件中使用。
+從 Compose Multiplatform 1.12.0 開始，重新設計的 `WindowState` 和 `DialogState` 類別可在 `androidx.compose.ui.window.v2` 子套件中使用。
 
 v2 視窗與對話方塊 API 將請求狀態與觀察視窗管理員實際套用的狀態分開。
 它還解鎖了以前無法實現的情境，例如根據內容的首選大小調整視窗大小，同時在視窗變大時仍允許內容擴展（透過 `fillMaxSize()` 等修飾符）。
@@ -916,4 +916,4 @@ DialogWindow(
 
 ## 下一步
 
-探索關於 [其他桌面組件](compose-desktop-components.md) 的教學。
+探索關於 [其他桌面元件](compose-desktop-components.md) 的教學。

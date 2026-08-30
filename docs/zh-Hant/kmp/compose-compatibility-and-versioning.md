@@ -26,7 +26,7 @@ Compose Multiplatform %org.jetbrains.compose% 支援以下平台：
 
 最新版本的 Compose Multiplatform 始終與最新版本的 Kotlin 相容。
 無需手動對齊它們的版本。
-請記住，使用任一產品的早期體驗體計劃 (EAP) 版本仍可能不穩定。
+請記住，使用任一產品的早期體驗計劃 (EAP) 版本仍可能不穩定。
 
 Compose Multiplatform 要求套用的 Compose 編譯器 Gradle 外掛程式版本必須與 Kotlin Multiplatform 外掛程式版本一致。
 詳情請參閱 [undefined](compose-compiler.md#migrating-a-compose-multiplatform-project)。
@@ -82,6 +82,7 @@ maven("https://redirector.kotlinlang.org/maven/compose-dev")
 
 | Compose Multiplatform 版本 | Jetpack Compose 版本 |
 |-----------------------------------------------------------------------------------|-------------------------|
+| [1.12.0](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.12.0) | 1.12.0                  |
 | [1.11.1](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.11.0) | 1.11.2                  |
 | [1.10.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.10.3) | 1.10.5                  |
 | [1.9.3](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.3)   | 1.9.4                   |

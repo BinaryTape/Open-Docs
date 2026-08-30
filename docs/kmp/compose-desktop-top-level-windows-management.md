@@ -731,9 +731,7 @@ private fun FileDialog(
 ## 窗口与对话框 API v2
 <primary-label ref="Experimental"/>
 
-[//]: # (TODO update version for stable release)
-
-从 Compose Multiplatform 1.12.0-beta02 开始，重新设计的 `WindowState` 和 `DialogState` 类可在 `androidx.compose.ui.window.v2` 子包中使用。
+从 Compose Multiplatform 1.12.0 开始，重新设计的 `WindowState` 和 `DialogState` 类可在 `androidx.compose.ui.window.v2` 子包中使用。
 
 v2 窗口和对话框 API 将请求状态与观察窗口管理器实际应用的状态分离开来。
 它还解锁了以前无法实现的场景，例如根据内容的首选尺寸设置窗口大小，同时在窗口变大时仍允许内容扩展（通过 `fillMaxSize()` 等修饰符）。
@@ -889,7 +887,7 @@ WindowBoundsProvider(
 ```
 
 v2 版本的 `Window()` 和 `DialogWindow()` 可组合项接受 `minSize` 和 `maxSize` 参数。
-在底层窗口管理器支持的情况下，用户将无法调整窗口大小超出这些边界：
+在底层窗口管理器支持的情况下，用户将无法调整窗口大小超出 these 边界：
 
 ```kotlin
 DialogWindow(

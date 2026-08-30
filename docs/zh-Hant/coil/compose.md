@@ -3,7 +3,7 @@
 若要新增對 [Compose UI](https://www.jetbrains.com/compose-multiplatform/) 的支援，請匯入擴充程式庫：
 
 ```kotlin
-implementation("io.coil-kt.coil3:coil-compose:3.5.0")
+implementation("io.coil-kt.coil3:coil-compose:3.6.0")
 ```
 
 接著使用 `AsyncImage` 可組合項 (composable) 來載入並顯示圖片：
@@ -19,7 +19,7 @@ AsyncImage(
 
 ## AsyncImage
 
-`AsyncImage` 是一個非同步執行圖片請求並渲染結果的可組合項。它支援與標準 `Image` 可組合項相同的引數 (arguments)，此外還支援設定 `placeholder`/`error`/`fallback` painter 以及 `onLoading`/`onSuccess`/`onError` 回呼 (callbacks)。以下是載入具有圓形裁剪 (circle crop)、淡入淡出 (crossfade) 並設定佔位符 (placeholder) 的圖片範例：
+`AsyncImage` 是一個非同步執行圖片請求並渲染結果的可組合項。它支援與標準 `Image` 可組合項相同的引數 (arguments)，此外還支援設定 `placeholder`/`error`/`fallback` painter 以及 `onLoading`/`onSuccess`/`onError` 回呼 (callbacks)。以下是載入具有圓形裁剪 (circle crop)、淡入淡出 (crossfade) 並設定占位符號 (placeholder) 的圖片範例：
 
 ```kotlin
 AsyncImage(
@@ -70,7 +70,7 @@ Image(
 )
 ```
 
-另一個缺點是，使用 `rememberAsyncImagePainter` 時，對於首次組合 (composition)，`AsyncImagePainter.state` 將始終為 `AsyncImagePainter.State.Empty` — 即使圖片存在於記憶體快取 (memory cache) 中且會在第一幀 (first frame) 繪製。
+另一項缺點是，使用 `rememberAsyncImagePainter` 時，對於首次組合 (composition)，`AsyncImagePainter.state` 將始終為 `AsyncImagePainter.State.Empty` — 即使圖片存在於記憶體快取 (memory cache) 中且會在第一幀 (first frame) 繪製。
 
 ## SubcomposeAsyncImage
 

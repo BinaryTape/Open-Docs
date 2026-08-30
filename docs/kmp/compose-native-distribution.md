@@ -974,7 +974,7 @@ ProGuard 是一款用于代码压缩和混淆的[开源工具](https://github.co
         <p>默认：<code>run</code></p>
         <p>Release：<code>runRelease</code></p>
     </td>
-    <td>使用 Gradle JDK 运行非打包的应用程序 <code>.jar</code>。</td>
+    <td>运行非打包的应用程序 <code>.jar</code>，使用 Gradle JDK。</td>
 </tr>
 
   
@@ -1085,10 +1085,8 @@ ProGuard 是一款用于代码压缩和混淆的[开源工具](https://github.co
     ```
     {initial-collapse-state="collapsed" collapsible="true" collapsed-title="joinOutputJars.set(true)"}
 
-[//]: # (TODO update version for stable release)
-
 * `version` 设置特定的 ProGuard 版本。JDK 25 至少需要 ProGuard 7.8.0， 
-  这是从 Compose Multiplatform 1.12.0-beta01 开始的默认版本。
+  这是从 Compose Multiplatform 1.12.0 开始的默认版本。
   如果您使用较早版本的 Compose Multiplatform 并且使用 JDK 25 进行构建，请将此属性显式设置为 `7.8.0`：
     ```kotlin
     compose.desktop {

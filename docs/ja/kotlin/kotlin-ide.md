@@ -55,4 +55,4 @@ IntelliJ IDEA と Android Studio では、Kotlin プラグインが各リリー�
 ## 次のステップ
 
 * [IntelliJ IDEA でコンソールアプリケーションを作成する](jvm-get-started.md)
-* [Android Studio を使用して初めてのクロスプラットフォームモバイルアプリを作成する](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)
+* [IntelliJ IDEA または Android Studio を使用して初めてのクロスプラットフォームモバイルアプリを作成する](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)

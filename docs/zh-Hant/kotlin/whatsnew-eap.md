@@ -225,38 +225,41 @@ let name = switch shape.sealedType() {
 Kotlin %kotlinEapVersion% 在 Swift 匯出中引入了跨語言繼承支援。
 
 此功能的一個常見使用案例是[反向匯入](native-lib-import-stability.md#swift-library-import)模式，即您在 Kotlin 中定義合約，並在 Swift 端提供平台特定的實作。
+當您需要使用無法直接匯入 Kotlin 的純 Swift 程式庫時，這特別有用。
 
-例如，您可以宣告一個 Kotlin 介面，在 Swift 中實作它，然後將 Swift 物件傳遞給接受該介面的 Kotlin 函式。當您需要使用無法直接匯入 Kotlin 的純 Swift 程式庫時，這特別有用。
+若要實作此模式，請宣告一個供 Swift 實作繼承的 Kotlin `open` 基底類別以及一個 Kotlin 介面。然後在 Swift 中實作該介面，並將 Swift 物件傳遞給接受該介面的 Kotlin 函式。例如，針對 CryptoKit 程式庫：
 
-例如，宣告一個 Kotlin 介面和一個接受它的函式：
+1. 在 Kotlin 端，宣告一個 `open` 基底類別以及一個 Kotlin 介面，並包含一個接受它的函式：
 
-```kotlin
-// Kotlin
-interface CryptoProvider {
-   fun hashMD5(input: String): String
-}
-
-fun processHash(provider: CryptoProvider, input: String): String = provider.hashMD5(input)
-```
-
-在 Swift 端，使用純 Swift 程式庫實作此介面並將其傳回 Kotlin：
-
-```swift
-// Swift
-import CryptoKit
-
-class IosCryptoProvider: KotlinBase & CryptoProvider {
-   func hashMD5(input: String) -> String {
-       guard let data = input.data(using: .utf8) else { return "failed" }
-       return Insecure.MD5.hash(data: data).description
+   ```kotlin
+   // Kotlin
+   interface CryptoProvider {
+      fun hashMD5(input: String): String
    }
-}
 
-let provider = IosCryptoProvider()
+   fun processHash(provider: CryptoProvider, input: String): String = provider.hashMD5(input)
 
-// 呼叫被分派到 Swift 實作
-print(processHash(provider: provider, input: "Hello, world!"))
-```
+   open class SwiftBase 
+   ```
+
+2. 在 Swift 端，繼承自匯出的 `SwiftBase` 類別，使用純 Swift 程式庫實作該介面，並將物件傳回 Kotlin：
+
+   ```swift
+   // Swift
+   import CryptoKit
+
+   final class IosCryptoProvider: SwiftBase, CryptoProvider {
+      func hashMD5(input: String) -> String {
+          guard let data = input.data(using: .utf8) else { return "failed" }
+          return Insecure.MD5.hash(data: data).description
+      }
+   }
+
+   let provider = IosCryptoProvider()
+
+   // 呼叫被分派到 Swift 實作
+   print(processHash(provider: provider, input: "Hello, world!"))
+   ```
 
 當 Kotlin 接收到 Swift 物件時，會將其視為一般介面的實作，並執行 Swift 程式碼。
 
@@ -271,7 +274,7 @@ print(processHash(provider: provider, input: "Hello, world!"))
 
 ## Kotlin/Wasm
 
-Kotlin %kotlinEapVersion% 更改了 Kotlin/Wasm 處理 `@JsFun` 宣告中頂層 `require()` 呼考的方式，使伴隨物件的初始化順序與 JVM 行為一致，並在 Kotlin Gradle 外掛程式中新增了對 Wasmtime 作為 `wasmWasi` 目標執行階段的支援。
+Kotlin %kotlinEapVersion% 更改了 Kotlin/Wasm 處理 `@JsFun` 宣告中頂層 `require()` 呼叫的方式，使伴隨物件的初始化順序與 JVM 行為一致，並在 Kotlin Gradle 外掛程式中新增了對 Wasmtime 作為 `wasmWasi` 目標執行階段的支援。
 
 ### 針對 `@JsFun` 宣告中頂層 `require()` 呼叫的變更
 <secondary-label ref="wasm"/>
@@ -384,27 +387,33 @@ Kotlin %kotlinEapVersion% 引入了一種新的實驗性 DSL，用於在瀏覽�
 若要嘗試新的測試 DSL，請在 Kotlin/JS 目標的 `browser{}` 區塊內新增選擇啟用的 `test{}` 區塊：
 
 ```kotlin
+import org.jetbrains.kotlin.gradle.ExperimentalJsTestDsl
+import kotlin.time.Duration.Companion.seconds
+
 kotlin {
     js {
         browser {
             @OptIn(ExperimentalJsTestDsl::class)
             // 新增並設定新的 test{} 區塊
             test {
-                // 設定所有瀏覽器通用的選項
-                browserDefaults {
-                    timeout = Duration.ofSeconds(2)
-                    headless = true
-                }
-                // 啟用 Chromium 測試執行器
+                // 設定所有執行器的預設逾時
+                timeout = 2.seconds
+                // 使用 Gradle 提供者設定無頭模式（headless mode）
+                headless = providers
+                    .environmentVariable("IS_IN_CI")
+                    .map { it.toBoolean() }
+                    .orElse(false)
+                // 啟用並設定 Chromium 測試執行器
                 chromium {
                     // 覆寫通用的逾時選項
-                    timeout = Duration.ofSeconds(5)
+                    timeout = 5.seconds
+                    // 新增額外的啟動參數
                     launchArgs.add("--no-sandbox")
                 }
                 // 啟用 Firefox 測試執行器
                 firefox()
                 // 啟用 WebKit 測試執行器
-                webkit { }
+                webkit()
                 // 啟用並設定額外的 WebKit 測試執行器
                 webkit("noheadless") {
                     // 設定自訂選項

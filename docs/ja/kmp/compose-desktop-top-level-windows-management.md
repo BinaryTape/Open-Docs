@@ -728,9 +728,7 @@ private fun FileDialog(
 ## ウィンドウとダイアログ API v2
 <primary-label ref="Experimental"/>
 
-[//]: # (TODO update version for stable release)
-
-Compose Multiplatform 1.12.0-beta02 から、再設計された `WindowState` および `DialogState` クラスが `androidx.compose.ui.window.v2` サブパッケージで利用可能になりました。
+Compose Multiplatform 1.12.0 から、再設計された `WindowState` および `DialogState` クラスが `androidx.compose.ui.window.v2` サブパッケージで利用可能になりました。
 
 v2 ウィンドウおよびダイアログ API は、状態のリクエストと、ウィンドウマネージャーによって実際に適用された状態の監視を分離します。また、以前は不可能だったシナリオ、たとえばウィンドウをコンテンツの優先サイズに合わせつつ、ウィンドウがより大きい場合にはコンテンツを（`fillMaxSize()` などの修飾子を介して）拡張させる、といったことが可能になります。詳細は [サイズの指定](#サイズの指定) を参照してください。
 
@@ -793,7 +791,8 @@ windowState.requestBounds(
 )
 ```
 
-リクエストの適用は非同期です。ウィンドウシステムがリクエストされた状態を調整する場合があり、実際の状態は、たとえばウィンドウを移動またはリサイズしたときなどに後で変更される可能性があります。ウィンドウの実際の状態は、`WindowState.screenId` および `WindowState.bounds` を介して監視してください。
+リクエストの適用は非同期です。ウィンドウシステムがリクエストされた状態を調整する場合があり、実際の状態は、たとえばウィンドウを移動またはリサイズしたときなどに後で変更される可能性があります。
+ウィンドウの実際の状態は、`WindowState.screenId` および `WindowState.bounds` を介して監視してください。
 
 ```kotlin
 if (windowState.isInitialized) {
@@ -806,7 +805,8 @@ if (windowState.isInitialized) {
 
 ### 画面の選択
 
-ウィンドウが表示されるべき画面のリクエストは、`rememberWindowState()` に `initialScreenProvider` を渡すか、後で `WindowState.requestScreen()` を呼び出すことで行えます。ウィンドウが実際に配置されている画面は、`WindowState.screenId` を介して監視可能です。
+ウィンドウが表示されるべき画面のリクエストは、`rememberWindowState()` に `initialScreenProvider` を渡すか、後で `WindowState.requestScreen()` を呼び出すことで行えます。
+ウィンドウが実際に配置されている画面は、`WindowState.screenId` を介して監視可能です。
 
 たとえば、利用可能な幅が少なくとも `1024.dp` ある画面にウィンドウを配置するようにリクエストし、見つからない場合はデフォルトの画面を使用するようにできます。
 
@@ -819,7 +819,8 @@ windowState.requestScreen {
 
 ### 位置の指定
 
-ウィンドウの位置を変更するには、`rememberWindowState()` に `initialBoundsProvider` を渡すか、後で `WindowState.requestBounds()` を呼び出します。ウィンドウの実際の境界（bounds）は `WindowState.bounds` を介して監視可能です。
+ウィンドウの位置を変更するには、`rememberWindowState()` に `initialBoundsProvider` を渡すか、後で `WindowState.requestBounds()` を呼び出します。
+ウィンドウの実際の境界（bounds）は `WindowState.bounds` を介して監視可能です。
 
 v2 API は `WindowPositionProvider` を使用して、画面および親ウィンドウのジオメトリに関する情報を取得します。
 
@@ -852,7 +853,7 @@ v2 API は `WindowPositionProvider` を使用して、画面および親ウィ�
 
 ### サイズの指定
 
-サイズの指定もウィンドウ境界（bounds）の一部であるため、同じ `initialBoundsProvider` / `WindowState.requestBounds()` の仕組みを通じて構成されます。
+サイズの指定もウィンドウ境界（bounds）の一部であるため、同じ `initialBoundsProvider`/`WindowState.requestBounds()` の仕組みを通じて構成されます。
 
 v2 API は `WindowSizeProvider` を使用して画面および親ウィンドウのサイズに関する情報を取得するほか、ウィンドウのコンテンツに対してその固有のサイズを照会します。
 
@@ -867,7 +868,10 @@ WindowSizeProvider {
 }
 ```
 
-v2 API は、よくリクエストされるシナリオを可能にします。それは、ウィンドウのサイズをコンテンツの優先サイズに合わせつつ、ユーザーがウィンドウを大きくしたときにはコンテンツがウィンドウいっぱいに広がるように設定することです。`WindowSizeProvider.Unconstrained` は、コンテンツのサイズを計算し、ウィンドウのインセットを追加し、その結果を利用可能な画面サイズで制限します。サイズ指定はレイアウトから切り離されているため、`fillMaxSize()` を使用するコンテンツは、ユーザーがウィンドウをリサイズした場合でも、ウィンドウいっぱいに広がるように拡張されます。
+v2 API は、よくリクエストされるシナリオを可能にします。
+それは、ウィンドウのサイズをコンテンツの優先サイズに合わせつつ、ユーザーがウィンドウを大きくしたときにはコンテンツがウィンドウいっぱいに広がるように設定することです。
+`WindowSizeProvider.Unconstrained` は、コンテンツのサイズを計算し、ウィンドウのインセットを追加し、その結果を利用可能な画面サイズで制限します。
+サイズ指定はレイアウトから切り離されているため、`fillMaxSize()` を使用するコンテンツは、ユーザーがウィンドウをリサイズした場合でも、ウィンドウいっぱいに広がるように拡張されます。
 
 ```kotlin
 WindowBoundsProvider(
@@ -876,7 +880,8 @@ WindowBoundsProvider(
 )
 ```
 
-v2 バージョンの `Window()` および `DialogWindow()` コンポーザブルは、`minSize` および `maxSize` パラメータを受け取ります。基盤となるウィンドウマネージャーがサポートしている場合、ユーザーはこれらの境界を超えてウィンドウをリサイズすることができなくなります。
+v2 バージョンの `Window()` および `DialogWindow()` コンポーザブルは、`minSize` および `maxSize` パラメータを受け取ります。
+基盤となるウィンドウマネージャーがサポートしている場合、ユーザーはこれらの境界を超えてウィンドウをリサイズすることができなくなります。
 
 ```kotlin
 DialogWindow(

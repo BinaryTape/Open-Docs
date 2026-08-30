@@ -6,34 +6,18 @@
 > 
 { style = "note" }
 
-투어를 통해 Kotlin 프로그래밍 언어의 핵심을 빠르게 배워보세요. 초급(Beginner) 투어로 기초를 다지고, 중급(Intermediate) 투어로 이해를 넓힐 수 있습니다.
+투어를 통해 Kotlin 프로그래밍 언어의 핵심을 빠르게 배워보세요.
 
-<p></p> <!-- workaround for MRK057: Paragraph can only contain inline elements-->
-<list columns="2" id="kotlin-tour-starting-page">
-    <li>
-        <a href="kotlin-tour-hello-world.md" as="button" icon="arrow-right" icon-position="right">초급(Beginner)</a>
-    </li>
-    <li>
-        <a href="kotlin-tour-intermediate-extension-functions.md" as="button" icon="arrow-right" icon-position="right">중급(Intermediate)</a>
-    </li>
-    <li>
-        <p><img src="icon-1.svg" width="20" alt="Step 1"/> <a href="kotlin-tour-hello-world.md">Hello world</a></p>
-        <p><img src="icon-2.svg" width="20" alt="Step 2"/> <a href="kotlin-tour-basic-types.md">기본 타입(Basic types)</a></p>
-        <p><img src="icon-3.svg" width="20" alt="Step 3"/> <a href="kotlin-tour-collections.md">컬렉션(Collections)</a></p>
-        <p><img src="icon-4.svg" width="20" alt="Step 4"/> <a href="kotlin-tour-control-flow.md">제어 흐름(Control flow)</a></p>
-        <p><img src="icon-5.svg" width="20" alt="Step 5"/> <a href="kotlin-tour-functions.md">함수(Functions)</a></p>
-        <p><img src="icon-6.svg" width="20" alt="Step 6"/> <a href="kotlin-tour-classes.md">클래스(Classes)</a></p>
-        <p><img src="icon-7.svg" width="20" alt="Step 7"/> <a href="kotlin-tour-null-safety.md">Null 안정성(Null safety)</a></p>
-    </li>
-    <li>
-        <p><img src="icon-1.svg" width="20" alt="Step 1"/> <a href="kotlin-tour-intermediate-extension-functions.md">확장 함수(Extension functions)</a></p>
-        <p><img src="icon-2.svg" width="20" alt="Step 2"/> <a href="kotlin-tour-intermediate-scope-functions.md">스코프 함수(Scope functions)</a></p>
-        <p><img src="icon-3.svg" width="20" alt="Step 3"/> <a href="kotlin-tour-intermediate-lambdas-receiver.md">수신 객체가 있는 람다 식(Lambda expressions with receiver)</a></p>
-        <p><img src="icon-4.svg" width="20" alt="Step 4"/> <a href="kotlin-tour-intermediate-classes-interfaces.md">클래스 및 인터페이스(Classes and interfaces)</a></p>
-        <p><img src="icon-5.svg" width="20" alt="Step 5"/> <a href="kotlin-tour-intermediate-objects.md">객체(Objects)</a></p>
-        <p><img src="icon-6.svg" width="20" alt="Step 6"/> <a href="kotlin-tour-intermediate-open-special-classes.md">Open 및 특수 클래스(Open and special classes)</a></p>
-        <p><img src="icon-7.svg" width="20" alt="Step 7"/> <a href="kotlin-tour-intermediate-properties.md">프로퍼티(Properties)</a></p>
-        <p><img src="icon-8.svg" width="20" alt="Step 8"/> <a href="kotlin-tour-intermediate-null-safety.md">Null 안정성(Null safety)</a></p>
-        <p><img src="icon-9.svg" width="20" alt="Step 9"/> <a href="kotlin-tour-intermediate-libraries-and-apis.md">라이브러리 및 API(Libraries and APIs)</a></p>
-    </li>
-</list>
+<p></p> <!-- workaround for MRK057: Paragraph can only contain inline elements -->
+<panels columns="2" id="kotlin-tour-starting-page">
+    <panel>
+        <title>초급(Beginner)</title>
+        <p>기초를 다져보세요.</p>
+        <a href="kotlin-tour-hello-world.md" as="button" icon="arrow-right" icon-position="right" progress-aware="true" id="kotlin-tour-start-beginner">시작하기</a>
+    </panel>
+    <panel>
+        <title>중급(Intermediate)</title>
+        <p>Kotlin에 대한 이해를 한 단계 더 넓혀보세요.</p>
+        <a href="kotlin-tour-intermediate-extension-functions.md" as="button" icon="arrow-right" icon-position="right" progress-aware="true" id="kotlin-tour-start-intermediate">시작하기</a>
+    </panel>
+</panels>

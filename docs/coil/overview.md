@@ -16,8 +16,8 @@ Coil 是 **Co**routine **I**mage **L**oader（协程图片加载器）的首字�
 导入 Compose 库和一个 [网络库](https://coil-kt.github.io/coil/network/)：
 
 ```kotlin
-implementation("io.coil-kt.coil3:coil-compose:3.5.0")
-implementation("io.coil-kt.coil3:coil-network-okhttp:3.5.0")
+implementation("io.coil-kt.coil3:coil-compose:3.6.0")
+implementation("io.coil-kt.coil3:coil-network-okhttp:3.6.0")
 ```
 
 要加载图片，请使用 `AsyncImage` 可组合项：
