@@ -252,7 +252,7 @@ val stream = client.executeStreaming(prompt, OpenAIModels.Chat.GPT4o)
 ```
 <!--- KNIT example-handling-failures-06.kt -->
 
-!!!note
+!!! note
     串流重試僅適用於接收到第一個 token 之前發生的連線失敗。
     一旦串流開始，重試邏輯就會停用。
     如果串流過程中發生錯誤，該作業將會終止。

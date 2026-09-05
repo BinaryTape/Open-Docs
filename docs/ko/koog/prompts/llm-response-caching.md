@@ -118,7 +118,7 @@ Second execution took: 1ms
 ```
 두 번째 응답은 캐시에서 가져왔으며, 단 1ms밖에 걸리지 않았습니다.
 
-!!!note
+!!! note
     * 캐싱된 프롬프트 실행기에서 Kotlin의 `executeStreaming()` 또는 Java의 `executeStreamingWithPublisher()`를 호출하면 응답이 단일 청크(single chunk)로 생성됩니다.
     * Kotlin 또는 Java에서 캐싱된 프롬프트 실행기로 `moderate()`를 호출하면 요청을 내포된(nested) 프롬프트 실행기로 전달하며 캐시를 사용하지 않습니다.
     * Kotlin과 Java 모두에서 객관식 응답(`executeMultipleChoices()`)의 캐싱은 지원되지 않습니다.

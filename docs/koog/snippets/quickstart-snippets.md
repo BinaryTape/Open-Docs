@@ -4,7 +4,7 @@ exclude: true
 ---
 
 # --8<-- [start:prerequisites]
-确保您的环境和项目符合以下要求：
+确保您的开发环境和项目满足以下要求：
 
 - JDK 17+
 - Kotlin 2.2.0+
@@ -12,7 +12,7 @@ exclude: true
 # --8<-- [end:prerequisites]
 
 # --8<-- [start:dependencies]
-将 [Koog 软件包](https://central.sonatype.com/artifact/ai.koog/koog-agents/) 添加为依赖项：
+添加 [Koog](https://central.sonatype.com/artifact/ai.koog/koog-agents/) 依赖项：
 
 === "Gradle (Kotlin)"
 
@@ -60,6 +60,6 @@ exclude: true
 # --8<-- [end:dependencies]
 
 # --8<-- [start:api-key]
-从 LLM 提供商处获取 API 密钥，或者通过 Ollama 运行本地 LLM。
-要了解更多信息，请参阅 [快速入门](../quickstart.md)。
+从 LLM 提供商处获取 API 密钥，或者通过 Ollama 在本地运行 LLM。
+有关详细信息，请参阅[快速入门](../quickstart.md)。
 # --8<-- [end:api-key]

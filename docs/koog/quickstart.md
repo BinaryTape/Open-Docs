@@ -1,6 +1,6 @@
 # 快速入门
 
-本指南将帮助您开始在项目中使用 Koog。
+本指南将帮助您在项目中快速上手 Koog。
 
 ## 前提条件
 
@@ -10,34 +10,34 @@
 
 --8<-- "quickstart-snippets.md:dependencies"
 
-??? tip "模块版本化"
+??? tip "模块版本控制"
 
-    Koog 遵循语义化版本 (`X.Y.Z`)。稳定模块（例如 `1.0.0`）具有保证的 API，而 beta 模块（例如 `1.0.0-beta`）是实验性的，可能会在版本之间发生变化。
+    Koog 遵循语义化版本控制 (`X.Y.Z`)。稳定模块（例如 `1.0.0`）提供 API 稳定性保证；Beta 模块（例如 `1.0.0-beta`）则属于实验性模块，其 API 可能在不同版本间发生变化。
 
-    有关详细信息，请参阅[模块版本化](module-versioning.md)。
+    有关详细信息，请参阅[模块版本控制](module-versioning.md)。
 
-??? tip "每夜构建"
+??? tip "Nightly 构建"
 
-    来自 develop 分支的每夜构建已发布到 [JetBrains Grazie Maven](https://packages.jetbrains.team/maven/p/grazi/grazie-platform-public) 仓库。
+    develop 分支的 Nightly 构建会发布到 [JetBrains Grazie Maven](https://packages.jetbrains.team/maven/p/grazi/grazie-platform-public) 仓库。
     
-    要使用每夜构建，请将以下仓库添加到您的构建配置中：
+    要使用 Nightly 构建，请将以下仓库添加到您的构建配置中：
     `https://packages.jetbrains.team/maven/p/grazi/grazie-platform-public`。
     
-    然后将您的 Koog 依赖项更新为所需的每夜版本。每夜版本的格式如下：
+    然后将 Koog 依赖项更新为所需的 Nightly 版本。Nightly 版本采用以下格式：
     `[next-major-version]-develop-[date]-[time]`。
     
-    您可以[在此处](https://packages.jetbrains.team/maven/p/grazi/grazie-platform-public/ai/koog/koog-agents/)浏览可用的每夜构建。
+    您可以[在此处](https://packages.jetbrains.team/maven/p/grazi/grazie-platform-public/ai/koog/koog-agents/)浏览可用的 Nightly 构建。
 
 ## 设置 API 密钥
 
-Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥或本地运行的 LLM。
+要使用 Koog，您需要受支持的 [LLM 提供商](llm-providers.md)所提供的 API 密钥，或者一个在本地运行的 LLM。
 
 !!! warning
-    避免在源代码中硬编码 API 密钥。使用环境变量存储 API 密钥。
+    请勿在源代码中硬编码 API 密钥。请使用环境变量存储 API 密钥。
 
 === "OpenAI"
 
-    获取您的 [OpenAI API 密钥](https://platform.openai.com/api-keys) 并将其分配给 `OPENAI_API_KEY` 环境变量。
+    获取您的 [OpenAI API 密钥](https://platform.openai.com/api-keys)，并将其设置为 `OPENAI_API_KEY` 环境变量的值。
     
     === "Linux/macOS"
 
@@ -53,7 +53,7 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
 
 === "Anthropic"
 
-    获取您的 [Anthropic API key](https://console.anthropic.com/settings/keys) 并将其分配给 `ANTHROPIC_API_KEY` 环境变量。
+    获取您的 [Anthropic API 密钥](https://console.anthropic.com/settings/keys)，并将其设置为 `ANTHROPIC_API_KEY` 环境变量的值。
 
     === "Linux/macOS"
 
@@ -69,7 +69,7 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
 
 === "Google β"
 
-    获取您的 [Gemini API 密钥](https://aistudio.google.com/app/api-keys) 并将其分配给 `GOOGLE_API_KEY` 环境变量。
+    获取您的 [Gemini API 密钥](https://aistudio.google.com/app/api-keys)，并将其设置为 `GOOGLE_API_KEY` 环境变量的值。
 
     === "Linux/macOS"
 
@@ -85,7 +85,7 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
 
 === "DeepSeek β"
 
-    获取您的 [DeepSeek API 密钥](https://platform.deepseek.com/api_keys) 并将其分配给 `DEEPSEEK_API_KEY` 环境变量。
+    获取您的 [DeepSeek API 密钥](https://platform.deepseek.com/api_keys)，并将其设置为 `DEEPSEEK_API_KEY` 环境变量的值。
 
     === "Linux/macOS"
 
@@ -101,7 +101,7 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
 
 === "OpenRouter"
 
-    获取您的 [OpenRouter API 密钥](https://openrouter.ai/keys) 并将其分配给 `OPENROUTER_API_KEY` 环境变量。
+    获取您的 [OpenRouter API 密钥](https://openrouter.ai/keys)，并将其设置为 `OPENROUTER_API_KEY` 环境变量的值。
 
     === "Linux/macOS"
 
@@ -117,7 +117,7 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
 
 === "Bedrock"
 
-    [生成 Amazon Bedrock API 密钥](https://docs.aws.amazon.com/bedrock/latest/userguide/api-keys.html) 并将其分配给 `BEDROCK_API_KEY` 环境变量。
+    [生成 Amazon Bedrock API 密钥](https://docs.aws.amazon.com/bedrock/latest/userguide/api-keys.html)，并将其设置为 `BEDROCK_API_KEY` 环境变量的值。
 
     === "Linux/macOS"
 
@@ -133,7 +133,7 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
 
 === "Mistral β"
 
-    获取您的 [Mistral API 密钥](https://console.mistral.ai/api-keys) 并将其分配给 `MISTRAL_API_KEY` 环境变量。
+    获取您的 [Mistral API 密钥](https://console.mistral.ai/api-keys)，并将其设置为 `MISTRAL_API_KEY` 环境变量的值。
 
     === "Linux/macOS"
 
@@ -150,7 +150,7 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
 
 === "Ollama"
 
-    按照 [Ollama 文档](https://docs.ollama.com/quickstart) 中的说明在 Ollama 中运行本地 LLM。
+    按照 [Ollama 文档](https://docs.ollama.com/quickstart)中的说明，通过 Ollama 在本地运行 LLM。
 
 ## 创建您的第一个 Koog 智能体
 
@@ -718,7 +718,7 @@ Koog 需要 [受支持的 LLM 提供者](llm-providers.md) 提供的 API 密钥�
 
 === "Ollama"
 
-    以下示例演示了如何使用通过 Ollama 本地运行的 [`llama3.2`](https://ollama.com/library/llama3.2) 模型创建并运行一个简单的 Koog 智能体。
+    以下示例演示了如何使用通过 Ollama 在本地运行的 [`llama3.2`](https://ollama.com/library/llama3.2) 模型，创建并运行一个简单的 Koog 智能体。
 
     === "Kotlin"
 

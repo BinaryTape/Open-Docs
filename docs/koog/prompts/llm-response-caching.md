@@ -118,7 +118,7 @@ Second execution took: 1ms
 ```
 第二个响应是从缓存中检索的，仅耗时 1 ms。
 
-!!!note
+!!! note
     * 如果您对 Kotlin 中的 `executeStreaming()` 或 Java 中的 `executeStreamingWithPublisher()` 调用缓存的 prompt executor，它会以单个块 (chunk) 的形式产生响应。
     * 如果您在 Kotlin 或 Java 中对缓存的 prompt executor 调用 `moderate()`，它会将请求转发到嵌套的 prompt executor，且不使用缓存。
     * Kotlin 和 Java 均不支持多项选择响应 (`executeMultipleChoices()`) 的缓存。

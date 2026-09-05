@@ -248,7 +248,7 @@ val stream = client.executeStreaming(prompt, OpenAIModels.Chat.GPT4o)
 ```
 <!--- KNIT example-handling-failures-06.kt -->
 
-!!!note
+!!! note
     스트리밍 재시도는 첫 번째 토큰을 받기 전에 발생하는 연결 실패에만 적용됩니다.
     스트리밍이 시작되면 재시도 로직이 비활성화됩니다.
     스트리밍 도중 오류가 발생하면 작업이 종료됩니다.
