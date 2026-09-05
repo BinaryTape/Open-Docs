@@ -4,10 +4,8 @@
     "items": [
       {
         "text": "koog.overview",
+        "link": "index",
         "items": [
-          {
-            "text": "koog._0"
-          },
           {
             "text": "koog.key-features",
             "link": "key-features"
@@ -33,10 +31,8 @@
       },
       {
         "text": "koog.agents",
+        "link": "agents/index",
         "items": [
-          {
-            "text": "koog._0"
-          },
           {
             "text": "koog.basic-agents",
             "link": "agents/basic-agents"
@@ -51,10 +47,8 @@
           },
           {
             "text": "koog.planner-agents",
+            "link": "agents/planner-agents/index",
             "items": [
-              {
-                "text": "koog._0"
-              },
               {
                 "text": "koog.llm-based-planners",
                 "link": "agents/planner-agents/llm-based-planners"
@@ -71,16 +65,12 @@
       },
       {
         "text": "koog.prompts",
+        "link": "prompts/index",
         "items": [
           {
-            "text": "koog._0"
-          },
-          {
             "text": "koog.creating-prompts",
+            "link": "prompts/prompt-creation/index",
             "items": [
-              {
-                "text": "koog._0"
-              },
               {
                 "text": "koog.multimodal-content",
                 "link": "prompts/prompt-creation/multimodal-content"
@@ -153,10 +143,8 @@
       },
       {
         "text": "koog.tools",
+        "link": "tools/index",
         "items": [
-          {
-            "text": "koog._0"
-          },
           {
             "text": "koog.built-in-tools",
             "link": "tools/built-in-tools"
@@ -178,10 +166,8 @@
       },
       {
         "text": "koog.features",
+        "link": "features/index",
         "items": [
-          {
-            "text": "koog._0"
-          },
           {
             "text": "koog.event-handlers",
             "link": "features/agent-event-handlers"
@@ -192,10 +178,8 @@
           },
           {
             "text": "koog.chat-memory",
+            "link": "features/chat-memory/index",
             "items": [
-              {
-                "text": "koog._0"
-              },
               {
                 "text": "koog.chat-agent-with-memory",
                 "link": "features/chat-memory/chat-agent-with-memory"
@@ -217,10 +201,8 @@
           },
           {
             "text": "koog.opentelemetry",
+            "link": "features/open-telemetry/index",
             "items": [
-              {
-                "text": "koog._0"
-              },
               {
                 "text": "koog.datadog-exporter",
                 "link": "features/open-telemetry/opentelemetry-datadog-exporter"
@@ -253,10 +235,8 @@
       },
       {
         "text": "koog.a2a-protocol",
+        "link": "a2a/index",
         "items": [
-          {
-            "text": "koog._0"
-          },
           {
             "text": "koog.a2a-server-implementation",
             "link": "a2a/a2a-server"
@@ -343,9 +323,6 @@
             "text": "koog.subgraphs",
             "items": [
               {
-                "text": "koog._0"
-              },
-              {
                 "text": "koog.custom-subgraphs",
                 "link": "custom-subgraphs"
               }
@@ -381,9 +358,6 @@
   {
     "text": "koog.examples",
     "items": [
-      {
-        "text": "koog._0"
-      },
       {
         "text": "koog.attachments",
         "link": "examples/Attachments"
