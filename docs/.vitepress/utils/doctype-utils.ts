@@ -1,4 +1,4 @@
-import { DOCS_TYPES } from '../docs.config'
+import { DOCS_TYPES, DocsTypeConfig } from '../docs.config'
 
 /**
  * Get document type from environment object
@@ -48,7 +48,8 @@ export function isWritersideDoc(env: any): boolean {
  * @returns whether it is MkDocs type
  */
 export function isMkDocsDoc(env: any): boolean {
-    return isDocType(env, 'sqldelight')
+    const docType = getDocType(env)
+    return docType !== null && DocsTypeConfig[docType]?.framework === 'MKDocs'
 }
 
 /**

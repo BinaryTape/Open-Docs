@@ -30,6 +30,7 @@ import markdownItRemoveScript from "../plugins/markdown/common/markdown-it-remov
 import markdownItRemoveContributeUrl from "../plugins/markdown/common/markdown-it-remove-contribute-url"
 import { markdownItCollapsed } from "../plugins/markdown/common/markdownItCollapsed.mts"
 import markdownItAutoTitle from "../plugins/markdown/common/markdown-it-auto-title"
+import { isDocType } from '../utils/doctype-utils'
 
 // Re-export plugins that are used directly in config.mts
 export { default as markdownItMkLiquidCondition } from "../plugins/markdown/mkdocs/markdown-it-mk-liquid-condition"
@@ -64,6 +65,17 @@ export function registerMarkdownPlugins(md: any) {
   // CommonMark-style footnotes must be registered before the source-specific
   // link rewriters so definitions are not mistaken for URL reference targets.
   md.use(markdownItFootnote)
+  // Material for MkDocs displays repeated references to one footnote with the
+  // same caption (for example, every Koog capability note is shown as [1]).
+  // Keep markdown-it-footnote's unique ref ids/backlinks, but omit its internal
+  // `:subId` suffix from the user-facing caption.
+  const defaultFootnoteCaption = md.renderer.rules.footnote_caption
+  md.renderer.rules.footnote_caption = (...args: any[]) => {
+    const [tokens, idx, _options, env] = args
+    return isDocType(env, 'koog')
+      ? `[${Number(tokens[idx].meta.id) + 1}]`
+      : defaultFootnoteCaption(...args)
+  }
 
   // Writerside plugins
   md.use(markdownItWsClassstyles)
