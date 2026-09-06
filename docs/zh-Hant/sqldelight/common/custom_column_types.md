@@ -61,3 +61,4 @@ val queryWrapper: Database = Database(
 CREATE TABLE hockeyPlayer (
   id INT AS VALUE
 );
+```

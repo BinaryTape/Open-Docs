@@ -1119,11 +1119,13 @@ JetBrains는 실용적인 디자인을 바탕으로 [Kotlin 언어 진화 원칙
 
 </td>
 </tr>
+</table>
 
-<!-- END OF STABLE BLOCK -->
+</tab>
 
-<!-- REVOKED BLOCK -->
+<tab id="revoked" title="취소됨">
 
+<table>
 <tr filter="revoked">
 <td width="200">
 
@@ -1156,11 +1158,7 @@ JetBrains는 실용적인 디자인을 바탕으로 [Kotlin 언어 진화 원칙
 
 </td>
 </tr>
-
 </table>
-</snippet>
-
-<!-- END OF REVOKED BLOCK -->
 
 </tab>
 </tabs>

@@ -103,8 +103,9 @@ const PROJECTS = [
 const LANGUAGES = config.targetLanguages;
 const LANGUAGE_NAMES = config.languageNames;
 const MODELS = [
-  { id: 'gemini-2.5-flash', name: 'Gemini 2.5 Flash' },
+  { id: 'gemini-3.8-flash', name: 'Gemini 3.8 Flash' },
   { id: 'gemini-3-flash-preview', name: 'Gemini 3.0 Flash' },
+  { id: 'gemini-2.5-flash', name: 'Gemini 2.5 Flash' },
 ];
 
 // ─── GenAI Client ───────────────────────────────────────────────────────────
@@ -578,7 +579,7 @@ app.post('/api/translate', async (req, res) => {
     const prompt = fillPromptTemplate(promptTemplate, targetLang, content, terms, prevTranslation);
 
     const response = await ai.models.generateContent({
-      model: model || 'gemini-2.5-flash',
+      model: model || 'gemini-3.8-flash',
       contents: prompt,
       config: { temperature: 1 },
     });
@@ -599,7 +600,7 @@ app.post('/api/queue/add', (req, res) => {
   translationQueue.push({
     id, fileName, sourceContent, projectName,
     targetLang: targetLang || 'zh-Hans',
-    model: model || 'gemini-2.5-flash',
+    model: model || 'gemini-3.8-flash',
     options: options || {},
     status: 'pending', result: null, error: null,
     createdAt: new Date().toISOString(),

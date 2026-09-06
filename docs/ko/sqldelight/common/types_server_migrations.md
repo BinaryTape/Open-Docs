@@ -32,3 +32,4 @@ import kotlin.collection.List;
 
 ALTER TABLE my_table
   ADD COLUMN new_column VARCHAR(8) AS List<String>;
+```

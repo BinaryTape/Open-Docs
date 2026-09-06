@@ -22,3 +22,4 @@ FROM hockeyPlayer;
 val selectAllNames = playerQueries.selectNames()
 println(selectAllNames.executeAsList())
 // ["RYAN GETZLAF", "COREY PERRY"] を出力します
+```

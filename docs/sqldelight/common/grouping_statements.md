@@ -12,3 +12,4 @@ upsert {
   INSERT OR IGNORE INTO myTable (id, column1, column2)
   VALUES (:id, :column1, :column2);
 }
+```

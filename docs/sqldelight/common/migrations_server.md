@@ -19,3 +19,4 @@ sqldelight {
 compileKotlin.configure {
   dependsOn "generateMainDatabaseMigrations"
 }
+```

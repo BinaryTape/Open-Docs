@@ -61,3 +61,4 @@ SQLDelight는 요청 시 기본 데이터베이스 타입을 래핑하는 컬럼
 CREATE TABLE hockeyPlayer (
   id INT AS VALUE
 );
+```

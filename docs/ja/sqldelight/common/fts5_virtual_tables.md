@@ -18,3 +18,4 @@ SELECT
 FROM data
 WHERE data MATCH ?
 ORDER BY rank;
+```

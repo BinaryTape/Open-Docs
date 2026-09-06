@@ -122,7 +122,7 @@ Android, iOS, 데스크톱 및 웹에서 실행되며 지도 및 카메라와 �
 상수와 같은 간단한 요소부터 시작하여 이메일 유효성 검사와 같은 공통 유틸리티를 점진적으로 마이그레이션하며 시작할 수 있습니다. 또한 트랜잭션 프로세스나 사용자 인증과 같은 비즈니스 로직을 작성하거나 마이그레이션할 수도 있습니다.
 
 > Google 팀과 협력하여 Jetcaster를 예로 들어 실용적인 마이그레이션 가이드를 만들었습니다. 각 커밋이 작동하는 상태를 나타내는 레포지토리가 포함되어 있습니다.
-> [Android에서 Kotlin Multiplatform으로 점진적으로 이동하는 방법 확인하기](migrate-android.md).
+> [Android에서 Kotlin Multiplatform으로 점진적으로 이동하는 방법 확인하기](migrate-from-android.md).
 {style="note"}
 
 ### 8. Kotlin Multiplatform은 이미 글로벌 기업에서 사용되고 있습니다

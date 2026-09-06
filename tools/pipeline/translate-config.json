@@ -8,19 +8,19 @@
     "modelConfigs": {
         "zh-Hans": {
             "provider": "google",
-            "model": "gemini-3-flash-preview"
+            "model": "gemini-3.8-flash"
         },
         "zh-Hant": {
             "provider": "google",
-            "model": "gemini-3-flash-preview"
+            "model": "gemini-3.8-flash"
         },
         "ko": {
             "provider": "google",
-            "model": "gemini-3-flash-preview"
+            "model": "gemini-3.8-flash"
         },
         "ja": {
             "provider": "google",
-            "model": "gemini-3-flash-preview"
+            "model": "gemini-3.8-flash"
         }
     },
     "terminologyPath": "tools/pipeline/terminology.json",

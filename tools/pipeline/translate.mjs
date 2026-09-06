@@ -124,10 +124,12 @@ export function fillPromptTemplate(template, targetLang, sourceText, terms, refe
   const noTerms = (targetLang === "ja" || targetLang === "ko") ? "No relevant terms" : "无相关术语";
   const noRefs = (targetLang === "ja" || targetLang === "ko") ? "No reference translations" : "无参考翻译";
 
+  // Use split/join so `$` in source Markdown (e.g. `` `$` ``) is not treated as
+  // a String.prototype.replace substitution pattern (`$``, `$'`, `$&`, `$n`).
   return template
-    .replace("{RELEVANT_TERMS}", terms || noTerms)
-    .replace("{TRANSLATION_REFERENCES}", references || noRefs)
-    .replace("{SOURCE_TEXT}", sourceText);
+    .split("{RELEVANT_TERMS}").join(terms || noTerms)
+    .split("{TRANSLATION_REFERENCES}").join(references || noRefs)
+    .split("{SOURCE_TEXT}").join(sourceText);
 }
 
 export function getLocalePromptTemplate(langDisplayName) {

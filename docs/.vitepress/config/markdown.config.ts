@@ -14,6 +14,7 @@ import markdownItWsRenderInline from "../plugins/markdown/writerside/markdown-it
 import markdownItWsRename from "../plugins/markdown/writerside/markdown-it-ws-rename"
 import markdownItWsTopicTitle from "../plugins/markdown/writerside/markdown-it-ws-topicTitle"
 import markdownItWsRemoveCodeAttr from "../plugins/markdown/writerside/markdown-it-ws-remove-code-attr"
+import markdownItWsCodeblockCdata from "../plugins/markdown/writerside/markdown-it-ws-codeblock-cdata"
 import { markdownItRewriteLinks } from '../plugins/markdown/writerside/markdown-it-ws-inline-link'
 
 // ===== MkDocs plugins =====
@@ -78,6 +79,7 @@ export function registerMarkdownPlugins(md: any) {
   }
 
   // Writerside plugins
+  md.use(markdownItWsCodeblockCdata)
   md.use(markdownItWsClassstyles)
   md.use(markdownItRewriteLinks)
   md.use(markdownItWsCodeClean)

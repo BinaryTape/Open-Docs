@@ -259,7 +259,38 @@ export async function processTopicContentAsync(currentFilePath, docsPath, topicC
         }
     );
 
-    topicContent = topicContent.replace(
+    return normalizeWritersideCodeBlocks(topicContent);
+}
+
+/**
+ * Convert Writerside <code-block> bodies (including XML CDATA) into a Vue-safe
+ * self-closing tag. Idempotent for blocks that already have a `code` attribute.
+ */
+export function normalizeWritersideCodeBlocks(content) {
+    content = content.replace(
+        /<code-block\b(?![^>]*\/>)\s*([^>]*)>([\s\S]*?)<\/code-block>/gi,
+        (match, rawAttrs, inner) => {
+            if (/\s+code="[\s\S]*?"/.test(rawAttrs)) {
+                return match;
+            }
+            if (/\bsrc=/i.test(rawAttrs)) {
+                return match;
+            }
+
+            let rawCode = inner.replace(/^\s*<!\[CDATA\[/, '').replace(/\]\]>\s*$/, '');
+            rawCode = rawCode.replace(/^\s*\n/, '').replace(/\n\s*$/, '');
+            const escaped = rawCode
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/\n/g, '&#10;');
+            const space = rawAttrs ? ' ' : '';
+            return `<code-block${space}${rawAttrs} code="${escaped}"/>`;
+        }
+    );
+
+    return content.replace(
         /<!\[CDATA\[([\s\S]*?)]]>/g,
         (match, inner) => {
             return inner
@@ -269,9 +300,7 @@ export async function processTopicContentAsync(currentFilePath, docsPath, topicC
                 .replace(/"/g, '&quot;')
                 .replace(/\n/g, '&#10;');
         }
-    )
-
-    return topicContent;
+    );
 }
 
 export function replaceInclude(source, docsPath) {

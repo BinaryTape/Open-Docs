@@ -82,7 +82,13 @@ export const kotlinStrategy = {
 
             content = content.replace(includeFilterRe, (match, elementId, filterMatch, from) => {
                 const filter = filterMatch.split(',')[1]
-                const trMatch = content.match(new RegExp(`<tr\\s+filter="${filter}">([\\s\\S]*?)<\\/tr>`, 'g'));
+                const snippetRe = new RegExp(
+                    `<snippet\\b[^>]*\\bid="${elementId}"[^>]*>([\\s\\S]*?)</snippet>`,
+                    'i'
+                );
+                const snippetMatch = content.match(snippetRe);
+                const source = snippetMatch ? snippetMatch[1] : content;
+                const trMatch = source.match(new RegExp(`<tr\\s+filter="${filter}">([\\s\\S]*?)<\\/tr>`, 'g'));
                 if (!trMatch) return '';
 
                 const tr = trMatch.join('\n\n');

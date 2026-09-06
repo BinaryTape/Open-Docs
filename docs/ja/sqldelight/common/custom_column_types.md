@@ -61,3 +61,4 @@ SQLDelight は、リクエストに応じて、基になるデータベースの
 CREATE TABLE hockeyPlayer (
   id INT AS VALUE
 );
+```
