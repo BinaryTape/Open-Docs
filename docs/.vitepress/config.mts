@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import { availableParallelism } from 'node:os'
 import { resolve } from 'node:path'
 import { readFileSync } from 'node:fs'
 
@@ -18,6 +19,17 @@ import liquidIncludePlugin from "./plugins/vite/vite-liquid-include"
 const mkDiffGrammarPath = resolve(__dirname, './plugins/shiki/shiki-mk-diff.json')
 const mkDiffGrammar = JSON.parse(readFileSync(mkDiffGrammarPath, 'utf-8'))
 
+/**
+ * VitePress defaults to 64 concurrent SSR renders. On Cloudflare Pages
+ * (2–4 vCPU, 8 GB) that keeps too many large pages in the heap and GC-thrashes.
+ */
+function resolveBuildConcurrency(): number {
+  const fromEnv = Number(process.env.DOCS_BUILD_CONCURRENCY)
+  if (Number.isFinite(fromEnv) && fromEnv > 0) return Math.floor(fromEnv)
+  if (process.env.CF_PAGES === '1') return 4
+  return Math.max(4, availableParallelism())
+}
+
 // ===== Main configuration =====
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -28,6 +40,7 @@ export default defineConfig({
   // dead links remain build-breaking.
   ignoreDeadLinks: 'localhostLinks',
   metaChunk: true,
+  buildConcurrency: resolveBuildConcurrency(),
   // Default content locale is zh-Hans (root; no URL prefix). See shared/locales.ts.
   lang: 'zh-Hans',
   title: 'Open AIDoc',
@@ -52,7 +65,11 @@ export default defineConfig({
     resolve: {
       alias: { '@': resolve(__dirname, '../.vitepress') }
     },
-    plugins: [liquidIncludePlugin()]
+    plugins: [liquidIncludePlugin()],
+    build: {
+      // Gzipping ~8k page chunks just to print sizes is minutes on 2 vCPU CI.
+      reportCompressedSize: false,
+    },
   },
 
   // Global theme configuration
