@@ -17,10 +17,16 @@ const criticalPages = new Map([
 ])
 
 const htmlFiles = await listFiles(distDir, '.html')
+let renderedKoogDependency = false
 for (const file of htmlFiles) {
   const relativeFile = relative(distDir, file)
   const html = await readFile(file, 'utf8')
   const bodyHtml = html.slice(html.indexOf('</head>') + '</head>'.length)
+
+  if (isKoogOutput(relativeFile)) {
+    assertNoRawMkDocsSyntax(bodyHtml, relativeFile)
+    if (bodyHtml.includes('ai.koog:koog-agents')) renderedKoogDependency = true
+  }
 
   if (bodyHtml.includes('<title>')) {
     errors.push(`${relativeFile}: contains an invalid <title> element in the page body`)
@@ -38,6 +44,10 @@ for (const file of htmlFiles) {
       `${relativeFile}: missing x-default language alternate`
     )
   }
+}
+
+if (!renderedKoogDependency) {
+  errors.push('Koog pages: the quickstart dependency snippet was not rendered')
 }
 
 for (const [relativeFile, canonicalUrl] of criticalPages) {
@@ -102,6 +112,27 @@ console.log(
 
 function assertIncludes(value, expected, message) {
   if (!value.includes(expected)) errors.push(message)
+}
+
+function isKoogOutput(relativeFile) {
+  return /^(?:(?:zh-Hant|ja|ko)\/)?koog\//.test(relativeFile) &&
+    !relativeFile.includes('/snippets/')
+}
+
+function assertNoRawMkDocsSyntax(html, relativeFile) {
+  const sentinels = [
+    ['--8&lt;--', 'snippet include'],
+    ['<p>!!!', 'admonition'],
+    ['??? ', 'collapsible admonition'],
+    ['???+ ', 'expanded collapsible admonition'],
+    ['=== &quot;', 'content tab'],
+  ]
+
+  for (const [sentinel, label] of sentinels) {
+    if (html.includes(sentinel)) {
+      errors.push(`${relativeFile}: contains unrendered MkDocs ${label} syntax`)
+    }
+  }
 }
 
 async function listFiles(directory, extension) {

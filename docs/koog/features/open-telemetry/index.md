@@ -99,7 +99,7 @@ Koog 中的 OpenTelemetry 功能会自动为各种智能体事件创建 span，�
 | `tracer`         | `Tracer` |               | 用于创建 span 的 OpenTelemetry tracer 实例。 |
 
 !!! note
-`tracer` 属性是一个您可以访问的公共属性，但它是根据您提供的导出器和资源特性自动配置的。
+    `tracer` 属性是一个您可以访问的公共属性，但它是根据您提供的导出器和资源特性自动配置的。
 
 `OpenTelemetryConfig` 类还包含代表不同配置项相关操作的方法。以下是使用基础配置项集安装 OpenTelemetry 功能的示例：
 
@@ -521,7 +521,7 @@ Koog 支持一系列预定义特性，这些特性遵循 OpenTelemetry 的 [生�
 以下部分提供了有关一些最常用导出器的信息。Koog 接受 Kotlin SDK 和 Java SDK 的导出器 — Java SDK 导出器会通过兼容桥接自动进行转换。
 
 !!! note
-如果您不配置任何自定义导出器，Koog 默认将使用控制台 stdout 导出器。这有助于本地开发和调试。
+    如果您不配置任何自定义导出器，Koog 默认将使用控制台 stdout 导出器。这有助于本地开发和调试。
 
 ### Logging 导出器
 

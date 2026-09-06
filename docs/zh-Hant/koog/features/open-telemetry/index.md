@@ -99,7 +99,7 @@ Koog 中的 OpenTelemetry 特性會自動為各種代理事件建立 Span，包�
 | `tracer`         | `Tracer`  |                              | 用於建立 Span 的 OpenTelemetry tracer 執行個體。                   |
 
 !!! note
-`tracer` 屬性是您可以存取的公開屬性，但它是根據您提供的匯出器和資源屬性自動配置的。
+    `tracer` 屬性是您可以存取的公開屬性，但它是根據您提供的匯出器和資源屬性自動配置的。
 
 `OpenTelemetryConfig` 類別還包含代表與不同配置項目相關之操作的方法。以下是安裝具有基本配置項目集的 OpenTelemetry 特性範例：
 
@@ -521,7 +521,7 @@ Koog 支援一組預定義屬性，這些屬性遵循 OpenTelemetry 的 [產生�
 以下章節提供有關 `opentelemetry-java` SDK 中一些最常用匯出器的資訊。Koog 接受 Kotlin SDK 和 Java SDK 匯出器 — Java SDK 匯出器會透過相容性橋接器自動轉換。
 
 !!! note
-如果您不配置任何自訂匯出器，Koog 預設將使用主控台 stdout 匯出器。這有助於在本機開發和偵錯期間使用。
+    如果您不配置任何自訂匯出器，Koog 預設將使用主控台 stdout 匯出器。這有助於在本機開發和偵錯期間使用。
 
 ### Logging 匯出器
 

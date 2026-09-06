@@ -118,7 +118,7 @@ Second execution took: 1ms
 ```
 第二次回應是從快取中檢索的，僅耗時 1 ms。
 
-!!!note
+!!! note
     * 如果您在 Kotlin 中呼叫 `executeStreaming()` 或在 Java 中呼叫 `executeStreamingWithPublisher()` 並使用快取提示詞執行器，它會以單一區塊 (chunk) 的形式產生回應。
     * 如果您在 Kotlin 或 Java 中使用快取提示詞執行器呼叫 `moderate()`，它會將請求轉發到巢狀提示詞執行器，且不會使用快取。
     * 在 Kotlin 或 Java 中均不支援多選回應 (`executeMultipleChoices()`) 的快取。

@@ -249,7 +249,7 @@ val stream = client.executeStreaming(prompt, OpenAIModels.Chat.GPT4o)
 ```
 <!--- KNIT example-handling-failures-06.kt -->
 
-!!!note
+!!! note
     流式重试仅适用于接收到第一个令牌 (token) 之前发生的连接失败。
     流式传输一旦开始，重试逻辑就会被禁用。
     如果在流式传输过程中发生错误，操作将终止。

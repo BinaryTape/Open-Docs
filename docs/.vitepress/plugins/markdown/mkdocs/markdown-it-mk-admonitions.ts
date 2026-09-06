@@ -1,85 +1,139 @@
-// Process Material MKDocs flavored admonition
+import { isMkDocsDoc } from '../../../utils/doctype-utils'
 
-export default function markdownItMkAdmonition(md) {
-  function transformAdmonitions(state) {
-    let src = state.src;
-    const lines = src.split('\n');
-    const newLines = [];
-    let i = 0;
-
-    // Regex to find the start of an MKDocs admonition
-    // ^(\s*)!!!             - Start of line, optional leading whitespace (capture 1), then !!!
-    // \s+                   - One or more spaces
-    // (\w+)                 - The admonition type (e.g., note, warning) (capture 2)
-    // (?:\s+"([^"]*)")?     - Optional: space, then a quoted title (capture 3 is the title content)
-    // \s*$                  - Optional trailing whitespace, end of line
-    const admonitionStartRegex = /^(\s*)!!!\s+(\w+)(?:\s+"([^"]*)")?\s*$/;
-
-    while (i < lines.length) {
-      const currentLine = lines[i];
-      const match = currentLine.match(admonitionStartRegex);
-
-      if (match) {
-        const leadingWhitespace = match[1] || ''; // Whitespace before !!!
-        const type = match[2];
-        const title = match[3] || ''; // Title content, or empty string if not present
-
-        const content = [];
-        let admonitionContentStartIndex = i + 1;
-        let hasActualContent = false;
-
-        // Determine the expected indentation for content lines.
-        // MKDocs admonition content is typically indented by 4 spaces
-        // relative to the '!!!' line's indentation.
-        const expectedContentIndent = leadingWhitespace + '    ';
-
-        // Find content lines
-        for (let j = admonitionContentStartIndex; j < lines.length; j++) {
-          const contentLine = lines[j];
-          // Check if the line has the expected indentation for content
-          if (contentLine.startsWith(expectedContentIndent)) {
-            content.push(contentLine.substring(expectedContentIndent.length));
-            hasActualContent = true;
-          }
-          // Empty or whitespace-only line
-          else if (contentLine.trim() === '' && contentLine.startsWith(leadingWhitespace)) {
-            // Check if the next line continues the admonition or if this is an empty line at the end.
-            if (j + 1 < lines.length && lines[j + 1].startsWith(expectedContentIndent)) {
-              content.push(''); // Preserve blank line within content
-              hasActualContent = true;
-            } else if (hasActualContent) {
-              content.push('');
-            } else {
-              break;
-            }
-          }
-          else {
-            break;
-          }
-          admonitionContentStartIndex = j + 1; // Update line counter
-        }
-
-        if (hasActualContent) {
-          // Construct VitePress container
-          newLines.push(`${leadingWhitespace}::: ${type}${title ? ' ' + title.trim() : ''}`);
-          newLines.push(...content.map(line => {
-            return line;
-          }));
-          newLines.push(`${leadingWhitespace}:::`);
-          i = admonitionContentStartIndex; // Move master index past processed admonition
-        } else {
-          // No valid content found, treat as regular line
-          newLines.push(currentLine);
-          i++;
-        }
-      } else {
-        // Not an admonition start, keep line as is
-        newLines.push(currentLine);
-        i++;
-      }
-    }
-    state.src = newLines.join('\n');
+// Process Material for MkDocs admonitions, including collapsible `???` blocks.
+export default function markdownItMkAdmonition(md: any) {
+  function transformAdmonitions(state: any) {
+    if (!isMkDocsDoc(state.env)) return
+    state.src = transformLines(state.src.split('\n')).join('\n')
   }
 
-  md.core.ruler.before('normalize', 'ws_admonition_transform', transformAdmonitions);
+  function transformLines(lines: string[]): string[] {
+    const output: string[] = []
+    let index = 0
+    let fence: string | null = null
+
+    while (index < lines.length) {
+      const line = lines[index]
+      const fenceMatch = line.match(/^\s*(`{3,}|~{3,})/)
+      if (fenceMatch) {
+        const marker = fenceMatch[1][0]
+        fence = fence === marker ? null : (fence ?? marker)
+        output.push(line)
+        index++
+        continue
+      }
+
+      const match = !fence && line.match(
+        /^(\s*)(!!!|\?\?\?\+?)\s+(?:([\w-]+)\s*)?(?:"([^"]*)")?\s*$/
+      )
+      if (!match) {
+        output.push(line)
+        index++
+        continue
+      }
+
+      const leading = match[1]
+      const marker = match[2]
+      const originalType = match[3] || 'note'
+      const type = normalizeType(originalType)
+      const title = match[4] || defaultTitle(originalType)
+      const contentIndent = leading + '    '
+      const content: string[] = []
+      let cursor = index + 1
+      let contentFence: string | null = null
+
+      while (cursor < lines.length) {
+        const contentLine = lines[cursor]
+        const strippedLine = contentLine.startsWith(contentIndent)
+          ? contentLine.slice(contentIndent.length)
+          : contentLine
+        const contentFenceMatch = strippedLine.match(/^\s*(`{3,}|~{3,})/)
+
+        if (contentFence) {
+          content.push(strippedLine)
+          if (
+            contentFenceMatch?.[1][0] === contentFence[0] &&
+            contentFenceMatch[1].length >= contentFence.length
+          ) contentFence = null
+          cursor++
+          continue
+        }
+        if (contentLine.startsWith(contentIndent)) {
+          content.push(strippedLine)
+          if (contentFenceMatch) contentFence = contentFenceMatch[1]
+          cursor++
+          continue
+        }
+        if (contentLine.trim() === '') {
+          content.push('')
+          cursor++
+          continue
+        }
+        break
+      }
+
+      if (contentFence) content.push(contentFence)
+
+      while (content.at(-1) === '') content.pop()
+      if (content.length === 0) {
+        output.push(line)
+        index++
+        continue
+      }
+
+      const transformedContent = transformLines(content)
+        .map((contentLine) => contentLine ? leading + contentLine : '')
+
+      if (marker === '!!!') {
+        output.push(`${leading}::: ${type} ${title}`.trimEnd())
+        output.push(...transformedContent)
+        output.push(`${leading}:::`)
+      } else {
+        const open = marker === '???+' ? ' open' : ''
+        output.push(`${leading}<details${open} class="custom-block ${type}">`)
+        output.push(`${leading}<summary>${md.utils.escapeHtml(title)}</summary>`)
+        output.push('')
+        output.push(...transformedContent)
+        output.push('')
+        output.push(`${leading}</details>`)
+        // A blank line is required to prevent Markdown following this raw HTML
+        // block from being consumed as unparsed details content.
+        output.push('')
+      }
+
+      index = cursor
+    }
+
+    return output
+  }
+
+  md.core.ruler.before('normalize', 'mkdocs_admonition_transform', transformAdmonitions)
+}
+
+function normalizeType(type: string): string {
+  const aliases: Record<string, string> = {
+    abstract: 'info',
+    attention: 'warning',
+    beta: 'warning',
+    bug: 'danger',
+    caution: 'warning',
+    danger: 'danger',
+    error: 'danger',
+    example: 'info',
+    failure: 'danger',
+    hint: 'tip',
+    important: 'warning',
+    info: 'info',
+    note: 'info',
+    question: 'info',
+    quote: 'info',
+    success: 'tip',
+    tip: 'tip',
+    warning: 'warning',
+  }
+  return aliases[type.toLowerCase()] || 'info'
+}
+
+function defaultTitle(type: string): string {
+  return type.charAt(0).toUpperCase() + type.slice(1)
 }

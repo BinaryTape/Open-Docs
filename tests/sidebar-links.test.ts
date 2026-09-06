@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import {
   ROOT_SIDEBAR_DOC_TYPES,
@@ -73,6 +74,23 @@ describe('sidebar JSON inventory', () => {
 
     // No external hrefs should appear as link refs
     expect(links.every((l) => !/^https?:/i.test(l.link))).toBe(true)
+  })
+
+  it('does not expose empty Koog leaf items', () => {
+    const sidebar = JSON.parse(
+      readFileSync(resolve(sidebarDir, 'koog.sidebar.json'), 'utf8')
+    )
+    const emptyLeaves: string[] = []
+
+    function visit(items: any[]) {
+      for (const item of items) {
+        if (!item.link && !item.href && !item.items) emptyLeaves.push(item.text)
+        if (item.items) visit(item.items)
+      }
+    }
+
+    visit(sidebar)
+    expect(emptyLeaves).toEqual([])
   })
 })
 

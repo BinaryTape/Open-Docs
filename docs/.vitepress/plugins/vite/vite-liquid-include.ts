@@ -2,6 +2,7 @@
 import { Plugin } from 'vite';
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
+import { expandMkDocsSnippets } from './mkdocs-snippets';
 
 export default function liquidIncludePlugin(): Plugin {
   return {
@@ -15,7 +16,10 @@ export default function liquidIncludePlugin(): Plugin {
       }
 
       // Process includes recursively
-      return processIncludes(code, id);
+      const withLiquidIncludes = processIncludes(code, id);
+      return expandMkDocsSnippets(withLiquidIncludes, id, {
+        onDependency: (file) => this.addWatchFile(file)
+      });
     }
   };
 }

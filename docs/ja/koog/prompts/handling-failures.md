@@ -249,7 +249,7 @@ val stream = client.executeStreaming(prompt, OpenAIModels.Chat.GPT4o)
 ```
 <!--- KNIT example-handling-failures-06.kt -->
 
-!!!note
+!!! note
     ストリーミングのリトライは、最初のトークンを受信する前に発生した接続失敗にのみ適用されます。
     ストリーミングが開始されると、リトライロジックは無効になります。
     ストリーミング中にエラーが発生した場合、操作は終了します。

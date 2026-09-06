@@ -118,7 +118,7 @@ Second execution took: 1ms
 ```
 2回目のレスポンスはキャッシュから取得されたため、わずか1msしかかかりませんでした。
 
-!!!note
+!!! note
     * Kotlinで `executeStreaming()`、またはJavaで `executeStreamingWithPublisher()` をキャッシュされたプロンプトエグゼキューターで呼び出すと、レスポンスは単一のチャンク（chunk）として生成されます。
     * KotlinまたはJavaのいずれかで、キャッシュされたプロンプトエグゼキューターで `moderate()` を呼び出すと、リクエストはネストされたプロンプトエグゼキューターに転送され、キャッシュは使用されません。
     * KotlinまたはJavaのいずれにおいても、選択肢形式のレスポンス（`executeMultipleChoices()`）のキャッシュはサポートされていません。
