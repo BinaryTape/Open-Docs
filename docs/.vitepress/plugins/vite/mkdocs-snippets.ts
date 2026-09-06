@@ -1,5 +1,6 @@
 import { existsSync, readFileSync, statSync } from 'node:fs'
 import { dirname, isAbsolute, relative, resolve, sep } from 'node:path'
+import { rebaseSnippetLinks } from './mkdocs-snippet-links'
 
 const snippetDirective = /^(\s*)--8<--\s+["']([^"']+)["']\s*$/gm
 const snippetBlockDelimiter = /^(\s*)--8<--\s*$/
@@ -87,7 +88,9 @@ function expandTarget(
   const selected = region ? extractRegion(source, region, snippetFile) : stripFrontmatter(source)
   const expanded = expandMkDocsSnippets(selected, snippetFile, options, stack)
 
-  return expanded
+  // Nested includes have already been rebased to this snippet's directory.
+  // Move their links, and this snippet's own links, to the caller's directory.
+  return rebaseSnippetLinks(expanded, snippetFile, currentFile)
     .split('\n')
     .map((line) => line.length > 0 ? indent + line : '')
     .join('\n')

@@ -1,4 +1,4 @@
-import { mkdtempSync, mkdirSync, writeFileSync } from 'node:fs'
+import { mkdtempSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import MarkdownIt from 'markdown-it'
@@ -7,8 +7,59 @@ import { registerMarkdownPlugins } from '../docs/.vitepress/config/markdown.conf
 import markdownItMkAdmonition from '../docs/.vitepress/plugins/markdown/mkdocs/markdown-it-mk-admonitions'
 import markdownItMkCodeTabs from '../docs/.vitepress/plugins/markdown/mkdocs/markdown-it-mk-code-tabs'
 import { expandMkDocsSnippets } from '../docs/.vitepress/plugins/vite/mkdocs-snippets'
+import { rebaseSnippetLinks } from '../docs/.vitepress/plugins/vite/mkdocs-snippet-links'
 
 const koogEnv = { relativePath: 'koog/example.md' }
+
+describe('Koog snippet link context', () => {
+  it('rebases links and reference destinations while preserving code and absolute URLs', () => {
+    const source = [
+      '[Guide](../quickstart.md#install "Read more")',
+      '![Image](../images/example.png)',
+      '[Named][guide]',
+      '[guide]: ../quickstart.md?mode=example#install',
+      '[External](https://example.com/guide) [Root](/koog/quickstart.md) [Anchor](#install)',
+      '`[Code](../quickstart.md)`',
+      '    ```markdown',
+      '    [Example](../quickstart.md)',
+      '    ```',
+      '[Parenthesized](../guide(test).md)',
+    ].join('\n')
+    const result = rebaseSnippetLinks(source, '/docs/koog/snippets/shared.md', '/docs/koog/features/chat-memory/page.md')
+
+    expect(result).toContain('[Guide](<../../quickstart.md#install> "Read more")')
+    expect(result).toContain('![Image](<../../images/example.png>)')
+    expect(result).toContain('[guide]: <../../quickstart.md?mode=example#install>')
+    expect(result).toContain('[Parenthesized](<../../guide(test).md>)')
+    expect(result).toContain('[External](https://example.com/guide) [Root](/koog/quickstart.md) [Anchor](#install)')
+    expect(result).toContain('`[Code](../quickstart.md)`')
+    expect(result).toContain('    ```markdown\n    [Example](../quickstart.md)\n    ```')
+  })
+
+  it('rebases a nested include exactly once at each directory boundary', () => {
+    const root = mkdtempSync(join(tmpdir(), 'open-aidoc-koog-'))
+    const koogRoot = join(root, 'koog')
+    mkdirSync(join(koogRoot, 'snippets', 'nested'), { recursive: true })
+    writeFileSync(join(koogRoot, 'snippets', 'parent.md'), '--8<-- "nested/child.md"')
+    writeFileSync(join(koogRoot, 'snippets', 'nested', 'child.md'), '[Guide](../../quickstart.md)')
+
+    const expanded = expandMkDocsSnippets('--8<-- "parent.md"', join(koogRoot, 'features', 'memory', 'page.md'))
+    expect(expanded).toBe('[Guide](<../../quickstart.md>)')
+  })
+
+  it.each(['', 'zh-Hant/', 'ja/', 'ko/'])('resolves the real chat-memory quickstart link for locale %s', (locale) => {
+    const relativePath = `${locale}koog/features/chat-memory/chat-agent-with-memory.md`
+    const page = join(process.cwd(), 'docs', relativePath)
+    const expanded = expandMkDocsSnippets(readFileSync(page, 'utf8'), page)
+    const md = new MarkdownIt({ html: true })
+    registerMarkdownPlugins(md)
+    const html = md.render(expanded, { relativePath })
+
+    expect(html).toContain(`href="/${locale}koog/quickstart"`)
+    expect(html).not.toContain('href="../quickstart.md"')
+    expect(html).not.toContain('/koog/features/quickstart')
+  })
+})
 
 describe('Koog repeated footnotes', () => {
   it('uses the official caption for every reference while preserving unique backlinks', () => {
@@ -188,6 +239,43 @@ describe('Koog MkDocs admonitions', () => {
 
 describe('Koog MkDocs content tabs', () => {
   const md = new MarkdownIt({ html: true }).use(markdownItMkCodeTabs)
+
+  it.each(['koog', 'sqldelight'])('keeps following standalone code outside %s tabs with its indentation intact', (docType) => {
+    const source = [
+      '=== "Kotlin"',
+      '    ```kotlin',
+      '    kotlinDependency()',
+      '    ```',
+      '=== "Groovy"',
+      '    ```groovy',
+      '    groovyDependency()',
+      '    ```',
+      '',
+      '```kotlin',
+      'fun before() {',
+      '  initializeDriver()',
+      '}',
+      '```',
+    ].join('\n')
+    const html = md.render(source, { relativePath: `${docType}/example.md` })
+
+    expect(html).toContain('</Tabs>\n<pre><code class="language-kotlin">fun before() {\n  initializeDriver()')
+    expect(html.slice(0, html.indexOf('</Tabs>'))).not.toContain('initializeDriver')
+  })
+
+  it.each([
+    ['android_sqlite/testing.md', '@Before'],
+    ['common/rxjava.md', 'val players:'],
+    ['common/index_server.md', 'val driver:'],
+  ])('keeps the shared example visible after tabs in SQLDelight %s', (file, example) => {
+    const relativePath = `sqldelight/${file}`
+    const source = readFileSync(join(process.cwd(), 'docs', relativePath), 'utf8')
+    const html = md.render(source, { relativePath })
+    const exampleIndex = html.indexOf(example)
+
+    expect(exampleIndex).toBeGreaterThan(0)
+    expect(html.lastIndexOf('</Tabs>', exampleIndex)).toBeGreaterThan(html.lastIndexOf('<Tabs>', exampleIndex))
+  })
 
   it('renders prose, code, and nested content tabs', () => {
     const source = [

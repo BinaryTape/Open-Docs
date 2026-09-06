@@ -99,6 +99,9 @@ function parseGroup(lines: string[], startIndex: number): ParsedGroup | null {
         cursor++
         continue
       }
+      // Only an already-open fence may contain de-indented translated lines.
+      // A new fence at the tab header's level belongs to the following page.
+      if (line.trim() !== '' && indentation(line) <= indent.length) break
       if (fenceMatch) {
         fence = fenceMatch[1]
         rawContent.push(line)
@@ -108,7 +111,6 @@ function parseGroup(lines: string[], startIndex: number): ParsedGroup | null {
 
       const nextHeader = line.match(/^(\s*)===\s+"([^"]+)"\s*$/)
       if (nextHeader && nextHeader[1] === indent) break
-      if (line.trim() !== '' && indentation(line) <= indent.length) break
       rawContent.push(line)
       cursor++
     }
