@@ -7,14 +7,6 @@
 >
 {style="note"}
 
-<tldr>
-   <p>이 문서는 <strong>Kotlin Notebook 시작하기</strong> 튜토리얼의 첫 번째 파트입니다:</p>
-   <p><img src="icon-1.svg" width="20" alt="첫 번째 단계"/> <strong>환경 설정하기</strong><br/>
-      <img src="icon-2-todo.svg" width="20" alt="두 번째 단계"/> Kotlin Notebook 만들기<br/>
-      <img src="icon-3-todo.svg" width="20" alt="세 번째 단계"/> Kotlin Notebook에 종속성 추가하기<br/>
-  </p>
-</tldr>
-
 첫 번째 [Kotlin Notebook](kotlin-notebook-overview.md)을 만들기 전에 환경을 설정해야 합니다.
 
 ## 환경 설정
@@ -36,4 +28,8 @@ Kotlin Notebook 기능을 사용할 수 없는 경우, 플러그인이 활성화
 
 튜토리얼의 다음 파트에서는 Kotlin Notebook을 만드는 방법에 대해 알아봅니다.
 
-**[다음 장으로 이동](kotlin-notebook-create.md)**
+<list id="tour-nav">
+  <li>
+    <a as="button" href="kotlin-notebook-create.md" mode="classic" icon="arrow-right" icon-position="right">다음 단계</a>
+  </li>
+</list>

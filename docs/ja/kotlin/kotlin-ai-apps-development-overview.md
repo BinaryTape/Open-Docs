@@ -28,7 +28,7 @@ fun main() {
 }
 ```
 
-<a href="https://docs.koog.ai/quickstart/"><img src="get-started-with-koog.svg" width="700" alt="Get started with Koog" style="block"/></a>
+<a href="https://docs.koog.ai/quickstart/" as="button" mode="rock" icon="arrow-right" icon-position="right">Koog を使ってみる</a>
 
 ### 主な機能
 
@@ -38,7 +38,7 @@ fun main() {
 * **エンタープライズ対応の統合**。Koog は、[Spring Boot](https://spring.io/projects/spring-boot) や [Ktor](https://ktor.io) などの人気のある JVM フレームワークと統合します。
 * **OpenTelemetry エクスポーターによるオブザーバビリティ**。Koog は、AI アプリケーションの監視とデバッグのために、W&B Weave や Langfuse などの主要なオブザーバビリティプロバイダーとのすぐに使える統合機能を提供します。
 * **LLM の切り替えとシームレスな履歴適応**。Koog では、既存の会話履歴を失うことなく、任意の時点で新しいツールセットを持つ別の LLM に切り替えることができます。また、OpenAI、Anthropic、Google など、複数の LLM プロバイダー間の再ルーティングも可能です。Koog と Ollama の統合により、ローカルモデルを使用してローカルでエージェントを実行することもできます。
-* **JVM および Kotlin アプリケーションとの統合**。Koog は、JVM および Kotlin 開発者向けに特別に設計された、慣用的で型安全な DSL を提供します。
+* **JVM および Kotlin アプリケーションとの統合**。Koog は、JVM および Kotlin 開発者向けに特別に設計された、慣式的で型安全な DSL を提供します。
 * **Model Context Protocol (MCP) との統合**。Koog では、エージェントで MCP ツールを使用できます。
 * **知識の検索とメモリ**。エンベディング、ランク付けされたドキュメントストレージ、共有エージェントメモリにより、Koog 自体が会話を通じて能動的に知識を保持します。
 * **ストリーミング機能**。Koog は、ストリーミングサポートとツールの並列呼び出しにより、開発者がレスポンスをリアルタイムで処理できるようにします。

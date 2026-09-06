@@ -5,11 +5,11 @@ Kotlin/Nativeには、[LLVM](https://llvm.org/)ベースのKotlinコンパイラ
 
 ## なぜKotlin/Nativeなのか？
 
-Kotlin/Nativeは、主に、組み込みデバイスやiOSのように、仮想マシンが望ましくない、あるいは不可能なプラットフォーム向けにコンパイルできるように設計されています。追加のランタイムや仮想マシンを必要としない、自己完結型（self-contained）のプログラムを作成する必要がある状況に最適です。
+Kotlin/Nativeは、主に、組み込みデバイスやiOSのように、仮想マシン（_virtual machines_）が望ましくない、あるいは不可能なプラットフォーム向けにコンパイルできるように設計されています。追加のランタイムや仮想マシンを必要としない、自己完結型（self-contained）のプログラムを作成する必要がある状況に最適です。
 
 コンパイルされたKotlinコードを、C、C++、Swift、Objective-C、およびその他の言語で書かれた既存のプロジェクトに含めるのは簡単です。また、既存のネイティブコード、静的または動的Cライブラリ、Swift/Objective-Cフレームワーク、グラフィカルエンジン、その他あらゆるものをKotlin/Nativeから直接使用することもできます。
 
-<a href="native-get-started.md"><img src="native-get-started-button.svg" width="350" alt="Get started with Kotlin/Native" style="block"/></a>
+<a href="native-get-started.md" as="button" mode="rock" icon="arrow-right" icon-position="right">Kotlin/Nativeを始める</a>
 
 ## ターゲットプラットフォーム
 
@@ -44,7 +44,7 @@ Kotlin/Nativeは[Cとの相互運用性](native-c-interop.md)を提供します�
 
 Kotlin/Nativeは、[Objective-Cを介したSwiftとの相互運用性](native-objc-interop.md)を提供します。macOSおよびiOS上のSwift/Objective-CアプリケーションからKotlinコードを直接使用できます。
 
-詳細については、[AppleフレームワークとしてのKotlin/Native](apple-framework.md)チュートリアルを確認してください。
+詳細については、[AppleフレームワークとしてのKotlin/Native](apple-framework.md)チュートリアルを完了してください。
 
 ## プラットフォーム間でのコード共有
 

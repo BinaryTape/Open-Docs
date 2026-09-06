@@ -28,7 +28,7 @@ fun main() {
 }
 ```
 
-<a href="https://docs.koog.ai/quickstart/"><img src="get-started-with-koog.svg" width="700" alt="Koog 快速入门" style="block"/></a>
+<a href="https://docs.koog.ai/quickstart/" as="button" mode="rock" icon="arrow-right" icon-position="right">Koog 快速入门</a>
 
 ### 关键功能
 

@@ -24,7 +24,7 @@
   "homepage.banner.description": "上記の技術スタックのいずれかを選択して、詳細なドキュメントと例を探索してください",
   "homepage.ad.description": "革新的なコンサルティングとソリューションを通じて、世界のテクノロジーコミュニティとアジアを結びつけ、モバイルインフラストラクチャと新興AIの専門知識を活用して、グローバルなオープンソースコラボレーションを促進します。",
   "homepage.ad.contact": "お問い合わせ：hi@binarytape.com",
-  "homepage.ad.sponsor": "Open AIDocはBinaryTape의協賛により提供されています",
+  "homepage.ad.sponsor": "Open AIDocはBinaryTapeの協賛により提供されています",
   "koin.setup": "セットアップ",
   "koin.tutorial": "チュートリアル",
   "koin.core.test": "コアとテスト",
@@ -85,7 +85,7 @@
   "kotlin.kotlin-overview": "Kotlinの概要",
   "kotlin.what-s-new-in-kotlin": "Kotlinの新機能",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.4.20-RC2",
+  "kotlin.whatsnew-eap": "Kotlin 2.4.20-RC3",
   "kotlin.earlier-versions": "以前のバージョン",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -687,5 +687,11 @@
   "koog.cloud-platform-integrations": "クラウドプラットフォームの統合",
   "koog.amazon-bedrock-agentcore": "Amazon Bedrock AgentCore",
   "kmp.ios-ci-cd-teamcity": "iOS 配信パイプラインの設定",
-  "koog.skills": "スキル"
+  "koog.skills": "スキル",
+  "kotlin.mapping-kotlin-and-c": "KotlinとCのマッピング",
+  "kotlin.mapping-primitive-data-types-from-c": "プリミティブデータ型",
+  "kotlin.mapping-struct-union-types-from-c": "構造体と共用体",
+  "kotlin.mapping-function-pointers-from-c": "関数ポインタ",
+  "kotlin.mapping-strings-from-c": "文字列",
+  "kmp.compose-desktop-tabbing": "タブナビゲーション"
 }

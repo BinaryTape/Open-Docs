@@ -144,8 +144,7 @@ open class Shape {
 
 class Rectangle : Shape() {
     // 此处不允许指定默认值
-    // 但此函数默认情况下
-    // 也会为 'width' 使用 10，为 'height' 使用 5。
+    // 但此函数默认情况下也会为 'width' 使用 10，为 'height' 使用 5。
     override fun draw(width: Int, height: Int) { /*...*/ }
 }
 ```
@@ -315,6 +314,13 @@ fun double(x: Int) = x * 2
 在上面的示例中，如果你希望 `double()` 函数返回 `Number` 而不是 `Int`，
 则必须显式声明这一点。
 
+如果你在表达式体内使用 `return` 语句，则必须显式指定返回值类型：
+
+```kotlin
+fun getDisplayNameOrDefault(userId: String?): String =
+    getDisplayName(userId ?: return "default")
+```
+
 ### 返回 Unit 的函数
 
 如果函数具有代码块体（花括号 `{}` 内的指令）并且不返回有用的值，
@@ -381,13 +387,6 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="return-unit-explicit"}
 
-如果显式指定了函数的返回值类型，你可以在表达式体内使用 `return` 语句：
-
-```kotlin
-fun getDisplayNameOrDefault(userId: String?): String =
-    getDisplayName(userId ?: return "default")
-```
-
 ### 可变数量实参 (varargs)
 
 要向函数传递可变数量的实参，你可以用 `vararg` 修饰符标记其形参之一
@@ -453,8 +452,8 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="varargs-aslist-with-array"}
 
-如果你想将[原生类型数组](arrays.md#primitive-type-arrays)
-作为 `vararg` 传递，你需要使用 [`.toTypedArray()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/to-typed-array.html) 函数将其转换为常规（类型化）数组：
+如果你想将[原生类型数组](arrays.md#primitive-type-arrays)作为 `vararg` 传递，
+你需要使用 [`.toTypedArray()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/to-typed-array.html) 函数将其转换为常规（类型化）数组：
 
 ```kotlin
 // 'a' 是一个 IntArray，它是一个原生类型数组

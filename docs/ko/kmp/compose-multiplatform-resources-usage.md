@@ -102,6 +102,31 @@ Image(
 )
 ```
 
+#### 캔버스에 이미지 그리기
+
+`Image()` 컴포저블을 사용하여 표시하는 대신 리소스 이미지를 직접 그리려면, `ImageBitmap` 또는 `ImageVector`로 로드한 후 `DrawScope`에서 사용하세요:
+
+* `ImageBitmap`을 그리려면 `DrawScope.drawImage()`를 사용하세요.
+* `ImageVector`를 그리려면 `rememberVectorPainter()`로 `Painter`를 생성하고 `Painter.draw()`를 사용하세요.
+
+`DrawScope`에서 오프셋과 크기를 픽셀 단위로 지정하세요:
+
+```kotlin
+val myImageRaster = imageResource(Res.drawable.my_image_raster)
+val myImageVectorPainter = rememberVectorPainter(vectorResource(Res.drawable.my_image_vector))
+
+Canvas(modifier = Modifier.fillMaxSize()) {
+    // 람다 내부에서 `this`는 `drawImage()` 및 `translate()`를 제공하는 `DrawScope`의 인스턴스입니다.
+    drawImage(image = myImageRaster, topLeft = Offset(20f, 20f))
+    translate(left = 20f, top = myImageRaster.height + 40f) {
+        // `Painter.draw()` 함수는 `DrawScope`와 `Painter` 모두를 수신 객체(receiver)로 사용합니다.
+        with(myImageVectorPainter) {
+            draw(Size(200f, 200f))
+        }
+    }
+}
+```
+
 ### 아이콘 (Icons)
 
 Material Symbols 라이브러리의 벡터 Android XML 아이콘을 사용할 수 있습니다:
@@ -617,6 +642,10 @@ Android 전용 용도의 경우, 멀티플랫폼 리소스는 [Android 에셋으
 * [Compose ImageLoader](https://github.com/qdsfdhvh/compose-imageloader)
 * [Kamel](https://github.com/Kamel-Media/Kamel)
 * [Ktor client](https://ktor.io/)
+
+이미지를 직접 다운로드하거나 바이트를 읽는 경우, 리소스 라이브러리의 [디코딩 함수](#convert-byte-arrays-into-images)를 사용하여 변환하세요. 데스크톱 앱에서 네트워크 이미지를 로드하는 예시는 [데스크톱용 Compose Multiplatform에서 이미지 사용하기](compose-desktop-images.md#loading-images-from-the-file-system-or-the-network)를 참조하세요.
+
+이미지를 직접 다운로드하거나 바이트를 읽는 경우, 리소스 라이브러리의 [디코딩 함수](#convert-byte-arrays-into-images)를 사용하여 이미지로 변환하세요. 데스크톱 애플리케이션에서 네트워크 이미지를 로드하는 예시는 [데스크톱용 Compose Multiplatform에서 이미지 사용하기](compose-desktop-images.md#loading-images-from-the-file-system-or-the-network) 튜토리얼을 참조하세요.
 
 ### Java 리소스 사용하기
 

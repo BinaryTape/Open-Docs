@@ -2,11 +2,6 @@
 
 <web-summary>為 Spring Boot 專案新增 Kotlin data class。</web-summary>
 
-<tldr>
-    <p>這是 <strong>Spring Boot 與 Kotlin 入門</strong>教學的第二部分。在繼續之前，請確保您已完成先前的步驟：</p><br/>
-    <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <a href="jvm-create-project-with-spring-boot.md">使用 Kotlin 建立 Spring Boot 專案</a><br/><img src="icon-2.svg" width="20" alt="第二步"/> <strong>為 Spring Boot 專案新增 data class</strong><br/><img src="icon-3-todo.svg" width="20" alt="第三步"/> 為 Spring Boot 專案新增資料庫支援<br/><img src="icon-4-todo.svg" width="20" alt="第四步"/> 使用 Spring Data CrudRepository 存取資料庫</p>
-</tldr>
-
 在此部分教學中，您將為應用程式新增更多功能，並探索更多 Kotlin 語言特性，例如 data class。
 這需要修改 `MessageController` 類別，使其回傳包含序列化物件集合的 JSON 文件。
 
@@ -103,7 +98,7 @@
 `MessageController` 的回應現在將是一個包含 `Message` 物件集合的 JSON 文件。
 
 > 如果類別路徑中包含 Jackson 函式庫，Spring 應用程式中的任何控制器預設都會呈現 JSON 回應。
-> 由於您[在 `build.gradle.kts` 檔案中指定了 `spring-boot-starter-webmvc` 相依性](jvm-create-project-with-spring-boot.md#explore-the-project-gradle-build-file)，Jackson 會作為 *遞移* 相依性被引入。
+> 由於您[在 `build.gradle.kts` 檔案中指定了 `spring-boot-starter-webmvc` 相依性](jvm-create-project-with-spring-boot.md#explore-the-project-gradle-build-file), Jackson 會作為 *遞移* 相依性被引入。
 > 因此，如果端點回傳一個可以序列化為 JSON 的資料結構，應用程式就會以 JSON 文件進行回應。
 >
 {style="note"}
@@ -175,4 +170,11 @@ Spring 應用程式已準備好執行：
 
 在教學的下一部分中，您將為專案新增並配置資料庫，並發送 HTTP 請求。
 
-**[前往下一章節](jvm-spring-boot-add-db-support.md)**
+<list columns="2" id="tour-nav">
+  <li>
+    <a as="button" href="jvm-create-project-with-spring-boot.md" mode="outline" icon="arrow-left" icon-position="left">上一步</a>
+  </li>
+  <li>
+    <a as="button" href="jvm-spring-boot-add-db-support.md" mode="classic" icon="arrow-right" icon-position="right">下一步</a>
+  </li>
+</list>

@@ -115,7 +115,7 @@ Gradle 도구 창의 **kotlin-wasm-wasi-example** | **Tasks** | **verification**
 
 Kotlin Slack에서 Kotlin/Wasm 커뮤니티에 참여하세요:
 
-<a href="https://slack-chats.kotlinlang.org/c/webassembly"><img src="join-slack-channel.svg" width="500" alt="Kotlin/Wasm 커뮤니티 참여하기" style="block"/></a>
+<a href="https://slack-chats.kotlinlang.org/c/webassembly" as="button" mode="rock" icon="arrow-right" icon-position="right">Kotlin/Wasm 커뮤니티 참여하기</a>
 
 더 많은 Kotlin/Wasm 예제를 시도해 보세요:
 

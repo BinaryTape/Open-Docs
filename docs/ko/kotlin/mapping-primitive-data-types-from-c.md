@@ -1,14 +1,5 @@
 [//]: # (title: C 언어의 기본 데이터 타입 매핑 – 튜토리얼)
 
-<tldr>
-    <p>이 문서는 <strong>Kotlin과 C 매핑</strong> 튜토리얼 시리즈의 첫 번째 파트입니다.</p>
-    <p><img src="icon-1.svg" width="20" alt="First step"/> <strong>C 언어의 기본 데이터 타입 매핑</strong><br/>
-       <img src="icon-2-todo.svg" width="20" alt="Second step"/> <a href="mapping-struct-union-types-from-c.md">C 언어의 구조체 및 공용체 타입 매핑</a><br/>
-       <img src="icon-3-todo.svg" width="20" alt="Third step"/> <a href="mapping-function-pointers-from-c.md">C 언어의 함수 포인터 매핑</a><br/>
-       <img src="icon-4-todo.svg" width="20" alt="Fourth step"/> <a href="mapping-strings-from-c.md">C 언어의 문자열 매핑</a><br/>
-    </p>
-</tldr>
-
 > C 라이브러리 임포트 기능은 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 단계입니다. cinterop 도구에 의해 C 라이브러리로부터 생성된 모든 Kotlin 선언에는 `@ExperimentalForeignApi` 어노테이션이 추가되어야 합니다.
 >
 > Kotlin/Native와 함께 제공되는 네이티브 플랫폼 라이브러리(Foundation, UIKit, POSIX 등)는 일부 API에 대해서만 명시적 동의(opt-in)가 필요합니다.
@@ -23,7 +14,7 @@
 * [내보내기(export) 시 해당 타입들을 사용하는 C 라이브러리 만들기](#create-a-c-library)
 * [C 라이브러리로부터 생성된 Kotlin API 검사하기](#inspect-generated-kotlin-apis-for-a-c-library)
 
-명령줄을 사용하여 직접 또는 스크립체 파일(`.sh` 또는 `.bat` 파일)을 통해 Kotlin 라이브러리를 생성할 수 있습니다. 하지만 이 방식은 수백 개의 파일과 라이브러리가 있는 대규모 프로젝트에는 적합하지 않습니다. 빌드 시스템을 사용하면 전이 의존성(transitive dependencies)이 포함된 Kotlin/Native 컴파일러 바이너리와 라이브러리를 다운로드하고 캐싱하며, 컴파일러와 테스트를 실행하는 과정을 간소화할 수 있습니다. Kotlin/Native는 [Kotlin 멀티플랫폼 플러그인](gradle-configure-project.md#targeting-multiple-platforms)을 통해 [Gradle](https://gradle.org) 빌드 시스템을 사용할 수 있습니다.
+명령줄을 사용하여 직접 또는 스크립트 파일(`.sh` 또는 `.bat` 파일)을 통해 Kotlin 라이브러리를 생성할 수 있습니다. 하지만 이 방식은 수백 개의 파일과 라이브러리가 있는 대규모 프로젝트에는 적합하지 않습니다. 빌드 시스템을 사용하면 전이 의존성(transitive dependencies)이 포함된 Kotlin/Native 컴파일러 바이너리와 라이브러리를 다운로드하고 캐싱하며, 컴파일러와 테스트를 실행하는 과정을 간소화할 수 있습니다. Kotlin/Native는 [Kotlin 멀티플랫폼 플러그인](gradle-configure-project.md#targeting-multiple-platforms)을 통해 [Gradle](https://gradle.org) 빌드 시스템을 사용할 수 있습니다.
 
 ## C 언어의 타입
 
@@ -255,7 +246,11 @@ fun main() {
 
 시리즈의 다음 파트에서는 구조체와 공용체 타입이 Kotlin과 C 사이에 어떻게 매핑되는지 학습합니다:
 
-**[다음 파트로 진행하기](mapping-struct-union-types-from-c.md)**
+<list id="tour-nav">
+  <li>
+    <a as="button" href="mapping-struct-union-types-from-c.md" mode="classic" icon="arrow-right" icon-position="right">다음 단계</a>
+  </li>
+</list>
 
 ### 참고 항목
 

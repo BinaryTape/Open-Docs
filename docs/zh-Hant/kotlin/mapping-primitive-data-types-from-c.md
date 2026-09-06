@@ -1,14 +1,5 @@
 [//]: # (title: 對應來自 C 的基本資料型別 – 教學)
 
-<tldr>
-    <p>這是 <strong>Mapping Kotlin and C</strong> 教學系列的第一部分。</p>
-    <p><img src="icon-1.svg" width="20" alt="第一步"/> <strong>對應來自 C 的基本資料型別</strong><br/>
-       <img src="icon-2-todo.svg" width="20" alt="第二步"/> <a href="mapping-struct-union-types-from-c.md">對應來自 C 的結構與等位型別</a><br/>
-       <img src="icon-3-todo.svg" width="20" alt="第三步"/> <a href="mapping-function-pointers-from-c.md">對應來自 C 的函式指標</a><br/>
-       <img src="icon-4-todo.svg" width="20" alt="第四步"/> <a href="mapping-strings-from-c.md">對應來自 C 的字串</a><br/>
-    </p>
-</tldr>
-
 > C 程式庫匯入目前處於 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 階段。所有由 cinterop 工具從 C 程式庫產生的 Kotlin 宣告都應具有 `@ExperimentalForeignApi` 註解。
 >
 > 隨 Kotlin/Native 提供的原生平台程式庫（如 Foundation、UIKit 和 POSIX）僅針對部分 API 需要進行選擇性加入 (opt-in)。
@@ -259,7 +250,11 @@ fun main() {
 
 在本系列的下一部分中，你將學習如何在 Kotlin 和 C 之間對應結構與等位型別：
 
-**[繼續閱讀下一部分](mapping-struct-union-types-from-c.md)**
+<list id="tour-nav">
+  <li>
+    <a as="button" href="mapping-struct-union-types-from-c.md" mode="classic" icon="arrow-right" icon-position="right">下一步</a>
+  </li>
+</list>
 
 ### 另請參閱
 

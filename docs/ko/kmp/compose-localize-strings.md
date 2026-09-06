@@ -22,6 +22,8 @@ commonMain/composeResources/
 └── ... (기타 로케일 디렉터리)
 ```
 
+만약 한 언어가 여러 개의 스크립트(예: 중국어 또는 세르비아어)를 사용하는 경우, 특정 스크립트를 지정한 디렉터리(`values-b+zh+Hans`, `values-b+zh+Hant`) 외에도 스크립트가 없는 디렉터리(`values-zh`)를 추가하세요. 그렇지 않으면 시스템이 스크립트 없이 로케일을 보고할 때 리소스를 찾지 못할 수 있습니다. 자세한 내용은 [언어 및 지역 한정자(Language and regional qualifiers)](compose-multiplatform-resources-setup.md#language-and-regional-qualifiers)를 참고하세요.
+
 `values` 디렉터리와 로컬라이징된 변체 디렉터리 내의 `strings.xml` 파일에 키-값 쌍(key-value pairs)을 사용하여 문자열 리소스를 정의합니다.
 예를 들어, `commonMain/composeResources/values/strings.xml`에 영어 텍스트를 추가합니다:
 

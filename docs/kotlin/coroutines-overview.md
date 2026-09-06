@@ -15,7 +15,7 @@
 如果你是 Kotlin 协程的新手，请在深入研究更复杂的主题之前，先从 [协程基础](coroutines-basics.md) 指南开始。
 本指南通过简单的示例介绍了挂起函数、协程构建器和结构化并发的核心概念：
 
-<a href="coroutines-basics.md"><img src="get-started-coroutines.svg" width="700" alt="开始使用协程" style="block"/></a>
+<a href="coroutines-basics.md" as="button" mode="rock" icon="arrow-right" icon-position="right">开始使用协程</a>
 
 > 查看 [KotlinConf 应用](https://github.com/JetBrains/kotlinconf-app) 示例项目，了解协程在实践中是如何使用的。
 > 

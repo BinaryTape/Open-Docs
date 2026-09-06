@@ -10,7 +10,7 @@ Kotlin 支持将大型代码库从 Java 逐步迁移到 Kotlin。您可以开始
 
 配置您的 Java 项目以使用 Kotlin，并利用 IntelliJ IDEA 中包含的自动 Java 到 Kotlin 转换器：
 
-<a href="mixing-java-kotlin-intellij.md"><img src="backend-get-started-button.svg" alt="将 Kotlin 引入您的 Java 项目" style="block"/></a>
+<a href="mixing-java-kotlin-intellij.md" as="button" mode="rock" icon="arrow-right" icon-position="right">将 Kotlin 引入您的 Java 项目</a>
 
 ## 探索框架
 
@@ -21,14 +21,14 @@ Kotlin 与所有基于 Java 的框架完全兼容，因此您可以在沿用熟�
 [Spring](https://spring.io) 利用 Kotlin 的语言功能提供更简洁的 API。
 [在线项目生成器](https://start.spring.io/#!language=kotlin)允许您快速生成一个新的 Kotlin 项目。
 
-<a href="jvm-get-started-spring-boot.md"><img src="spring-get-started-button.svg" alt="开始使用 Spring Boot 和 Kotlin" style="block"/></a>
+<a href="jvm-get-started-spring-boot.md" as="button" mode="rock" icon="arrow-right" icon-position="right">开始使用 Spring Boot 和 Kotlin</a>
 
 ### Ktor
 
 [Ktor](https://github.com/kotlin/ktor) 是由 JetBrains 构建的框架，用于在 Kotlin 中创建 Web 应用程序。
 它利用协程实现高可扩展性，并提供易于使用且惯用的 API。
 
-<a href="https://ktor.io/docs/server-create-a-new-project.html"><img src="ktor-get-started-button.svg" alt="创建一个新的 Ktor 项目" style="block"/></a>
+<a href="https://ktor.io/docs/server-create-a-new-project.html" as="button" mode="rock" icon="arrow-right" icon-position="right">创建一个新的 Ktor 项目</a>
 
 ### 其他框架
 
@@ -50,6 +50,12 @@ Kotlin 应用程序可以部署到任何支持 Java Web 应用程序的主机，
 * **AWS** 提供了一个专门的 [Kotlin SDK](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/home.html) 以与其服务进行交互。对于无服务器部署，您可以参考 [Kotlin 的 AWS Lambda 代码示例](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/kotlin_lambda_code_examples.html)。
 * **Ktor** 允许您将 Kotlin 应用程序发布到各种云提供商。例如，您可以按照 Ktor 教程详细了解如何部署到 [Google App Engine](https://ktor.io/docs/google-app-engine.html) 和其他服务。
 * **Spring** 应用程序也与大多数主流云提供商兼容。请参阅[官方 Spring 文档](https://docs.spring.io/spring-boot/how-to/deployment/cloud.html)中关于如何将 Spring Boot 应用程序部署到云端的内容。
+
+## 加入社区
+
+* ![Slack](slack.svg){width=25}{type="joined"} **Kotlin Slack**: [获取邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)并加入 [#spring](https://kotlinlang.slack.com/archives/C0B8ZTWE4) 和 [#server](https://kotlinlang.slack.com/archives/C0B8RC352) 频道
+* ![Stack Overflow](stackoverflow.svg){width=25}{type="joined"} **Stack Overflow**: 订阅 [“kotlin”](https://stackoverflow.com/questions/tagged/kotlin)、[“spring-kotlin”](https://stackoverflow.com/questions/tagged/spring-kotlin) 或 [“ktor”](https://stackoverflow.com/questions/tagged/ktor) 标签
+* ![YouTube](youtube.svg){width=25}{type="joined"} **Kotlin YouTube 频道**: 订阅并观看关于 [Kotlin 与 Spring](https://www.youtube.com/playlist?list=PLlFc5cFwUnmxOJL0GSSZ1Vot4KL2Vwe7x) 的视频
 
 ## 下一步
 

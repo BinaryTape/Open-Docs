@@ -41,7 +41,7 @@
 
 ### 自定义资源目录
 
-在 `build.gradle.kts` 文件的 `compose.resources {}`块中，您可以为每个源集指定自定义资源目录。每个自定义目录也应以与默认 `composeResources` 相同的方式包含文件：使用 `drawable` 子目录存放图像，使用 `font` 子目录存放字体，依此类推。
+在 `build.gradle.kts` 文件的 `compose.resources {}` 块中，您可以为每个源集指定自定义资源目录。每个自定义目录也应以与默认 `composeResources` 相同的方式包含文件：使用 `drawable` 子目录存放图像，使用 `font` 子目录存放字体，依此类推。
 
 一个简单的示例是指向特定文件夹：
 
@@ -133,7 +133,25 @@ kotlin {
 * 语言由双字母 (ISO 639-1) 或三字母 (ISO 639-2) [语言代码](https://www.loc.gov/standards/iso639-2/php/code_list.php) 定义。
 * 您可以在语言代码中添加双字母 [ISO 3166-1-alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) 区域代码。区域代码必须带有小写 `r` 前缀，例如：`drawable-spa-rMX`。
 
-语言和区域代码区分大小写。在 [本地化](compose-regional-format.md) 中详细了解如何使用特定于区域的格式。
+语言和区域代码区分大小写。
+
+要指定脚本或任何其他 BCP 47 子标签，请使用 `b+` 前缀，并将所有后续子标签连字符 (`-`) 替换为 `+` 符号，例如：`values-b+zh+Hans` 和 `values-b+zh+Hant`。
+
+在 [本地化](compose-regional-format.md) 中详细了解如何使用特定于区域的格式。
+
+#### 具有多种脚本的语言的回退机制
+
+在 Android 和桌面端，系统可能会请求脚本为空的语言区域，例如，请求脚本为空的 `zh` 而非具体的 `zh-Hans` 或 `zh-Hant`。如果您仅提供特定脚本的资源，则所有这些资源都会匹配此类不含脚本的请求，导致资源无法解析，从而使应用抛出异常。为避免歧义，请为每种包含特定脚本资源的语言添加一个不含脚本的目录：
+
+```
+commonMain/composeResources/
+├── values/                 # 默认资源
+├── values-zh/              # 不带脚本的 zh 资源
+├── values-b+zh+Hans/
+└── values-b+zh+Hant/
+```
+
+这同样适用于所有具有多种脚本的语言，例如塞尔维亚语 (`sr-Cyrl`、`sr-Latn`) 或乌兹别克语 (`uz-Cyrl`、`uz-Latn`)。
 
 ### 主题限定符
 

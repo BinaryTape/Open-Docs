@@ -27,7 +27,7 @@ Kotlin을 사용하면 Compose Multiplatform 및 Kotlin/Wasm을 통해 웹 프�
 
 직접 시도해 보시겠습니까?
 
-<a href="wasm-get-started.md"><img src="wasm-get-started-button.svg" width="600" alt="Get started with Kotlin/Wasm" style="block"/></a>
+<a href="wasm-get-started.md" as="button" mode="rock" icon="arrow-right" icon-position="right">Kotlin/Wasm 시작하기</a>
 
 ## Kotlin/Wasm 및 WASI
 

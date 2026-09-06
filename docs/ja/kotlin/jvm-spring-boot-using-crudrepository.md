@@ -2,11 +2,6 @@
 
 <web-summary>Kotlin で記述された Spring Boot プロジェクトで Spring Data インターフェースを使用します。</web-summary>
 
-<tldr>
-    <p>これは <strong>Spring Boot と Kotlin を使ってみる</strong> チュートリアルの最終パートです。先に進む前に、前の手順を完了していることを確認してください：</p><br/>
-    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="jvm-create-project-with-spring-boot.md">Kotlin で Spring Boot プロジェクトを作成する</a><br/><img src="icon-2-done.svg" width="20" alt="Second step"/> <a href="jvm-spring-boot-add-data-class.md">Spring Boot プロジェクトにデータクラスを追加する</a><br/><img src="icon-3-done.svg" width="20" alt="Third step"/> <a href="jvm-spring-boot-add-db-support.md">Spring Boot プロジェクトにデータベースサポートを追加する</a><br/><img src="icon-4.svg" width="20" alt="Fourth step"/> <strong>データベースアクセスに Spring Data CrudRepository を使用する</strong></p>
-</tldr>
-
 このパートでは、データベースアクセスに `JdbcTemplate` の代わりに [Spring Data](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html) の `CrudRepository` を使用するようにサービスレイヤーを移行します。
 `CrudRepository` は、特定の型のリポジトリに対して一般的な [CRUD](https://ja.wikipedia.org/wiki/CRUD) 操作を行うための Spring Data インターフェースです。
 データベースを操作するためのいくつかのメソッドを標準で提供しています。
@@ -210,13 +205,17 @@ class MessageController(private val service: MessageService) {
 
 これで、`requests.http` ファイルから [POST および GET HTTP リクエストを実行](jvm-spring-boot-add-db-support.md#add-messages-to-database-via-http-request)して、同じ結果を得ることができます。
 
+<list id="tour-nav">
+  <li>
+    <a as="button" href="jvm-spring-boot-add-db-support.md" mode="outline" icon="arrow-left" icon-position="left">前の手順</a>
+  </li>
+</list>
+
 ## 次のステップ
 
 Kotlin の機能を把握し、言語の学習進捗を追跡するのに役立つ、あなた専用の言語マップを入手してください：
 
-<a href="https://resources.jetbrains.com/storage/products/kotlin/docs/Kotlin_Language_Features_Map.pdf">
-   <img src="get-kotlin-language-map.png" width="700" alt="Kotlin 言語マップを入手する" style="block"/>
-</a>
+<a as="button" href="https://resources.jetbrains.com/storage/products/kotlin/docs/Kotlin_Language_Features_Map.pdf" mode="rock" icon="arrow-right" icon-position="right">Kotlin 言語マップを入手する</a>
 
 * [Spring Framework](https://docs.spring.io/spring-framework/reference/) のドキュメントを確認してください。
 * [Securing a web application](https://spring.io/guides/gs/securing-web) チュートリアルで、保護されたリソースを持つシンプルな Web アプリケーションを作成します。

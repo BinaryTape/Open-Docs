@@ -763,20 +763,26 @@
                 "link": "native-c-interop"
               },
               {
-                "text": "kotlin.mapping-primitive-data-types-from-c",
-                "link": "mapping-primitive-data-types-from-c"
-              },
-              {
-                "text": "kotlin.mapping-struct-union-types-from-c",
-                "link": "mapping-struct-union-types-from-c"
-              },
-              {
-                "text": "kotlin.mapping-function-pointers-from-c",
-                "link": "mapping-function-pointers-from-c"
-              },
-              {
-                "text": "kotlin.mapping-strings-from-c",
-                "link": "mapping-strings-from-c"
+                "text": "kotlin.mapping-kotlin-and-c",
+                "items": [
+                  {
+                    "text": "kotlin.mapping-primitive-data-types-from-c",
+                    "link": "mapping-primitive-data-types-from-c"
+                  },
+                  {
+                    "text": "kotlin.mapping-struct-union-types-from-c",
+                    "link": "mapping-struct-union-types-from-c"
+                  },
+                  {
+                    "text": "kotlin.mapping-function-pointers-from-c",
+                    "link": "mapping-function-pointers-from-c"
+                  },
+                  {
+                    "text": "kotlin.mapping-strings-from-c",
+                    "link": "mapping-strings-from-c"
+                  }
+                ],
+                "collapsed": true
               },
               {
                 "text": "kotlin.native-dynamic-libraries",

@@ -9,7 +9,7 @@ Kotlin AI 스킬은 AI 에이전트가 Kotlin 관련 작업을 더 안정적으�
 Kotlin AI 스킬은 에이전트가 더 정확한 결과를 생성하도록 돕고, 사용자가 직접 작업을 설명하는 데 드는 시간을 줄여줍니다. 
 팀의 경우, 스킬은 공통 작업에 대한 공유 프레임워크를 제공하여 모든 구성원이 일관된 결과를 얻을 수 있게 합니다.
 
-<a href="https://github.com/Kotlin/kotlin-agent-skills"><img src="kotlin-ai-skills.svg" alt="Explore Kotlin AI skills" type="block"/></a>
+<a href="https://github.com/Kotlin/kotlin-agent-skills" as="button" mode="rock" icon="arrow-right" icon-position="right">Kotlin AI 스킬 살펴보기</a>
 
 Kotlin AI 스킬은 [Agent Skills 표준](https://agentskills.io/home)을 따르므로, [Junie](https://www.jetbrains.com/junie/), Claude Code, OpenAI Codex, Google Gemini, GitHub Copilot 등 호환되는 AI 에이전트와 함께 사용할 수 있습니다.
 

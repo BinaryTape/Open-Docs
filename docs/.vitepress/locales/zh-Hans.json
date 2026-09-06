@@ -85,7 +85,7 @@
   "kotlin.kotlin-overview": "Kotlin 概览",
   "kotlin.what-s-new-in-kotlin": "Kotlin 最新变化",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.4.20-RC2",
+  "kotlin.whatsnew-eap": "Kotlin 2.4.20-RC3",
   "kotlin.earlier-versions": "更早版本",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -686,5 +686,11 @@
   "koog.cloud-platform-integrations": "云平台集成",
   "koog.amazon-bedrock-agentcore": "Amazon Bedrock AgentCore",
   "kmp.ios-ci-cd-teamcity": "配置 iOS 交付流水线",
-  "koog.skills": "技能"
+  "koog.skills": "技能",
+  "kotlin.mapping-kotlin-and-c": "Kotlin 与 C 的映射",
+  "kotlin.mapping-primitive-data-types-from-c": "基本数据类型",
+  "kotlin.mapping-struct-union-types-from-c": "结构体与联合体类型",
+  "kotlin.mapping-function-pointers-from-c": "函数指针",
+  "kotlin.mapping-strings-from-c": "字符串",
+  "kmp.compose-desktop-tabbing": "Tab 键导航"
 }

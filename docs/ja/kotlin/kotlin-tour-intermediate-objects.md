@@ -275,49 +275,74 @@ fun main() {
 
 ### 練習問題 3 {initial-collapse-state="collapsed" collapsible="true" id="objects-exercise-3"}
 
-気温を記録したいアプリがあります。クラス自体は情報を摂氏（Celsius）で保存しますが、華氏（Fahrenheit）でも簡単にインスタンスを作成できる方法を提供したいと考えています。`main()` 関数のコードが正常に実行されるように、データクラスを完成させてください。
+アプリのユーザー登録モジュールを作成しています。メールアドレスのバリデーション（検証）を `User` クラスに関連付けたいと考えていますが、メールアドレスが無効な場合に不要な `User` インスタンスを作成したくありません。
+
+この練習問題では、メールアドレスに `@` と `.` の両方が含まれている場合に有効であるとみなします。`main()` 関数のコードが正常に実行されるように、データクラスを完成させてください。
 
 <deflist collapsible="true">
     <def title="ヒント">
-        コンパニオンオブジェクトを使用してください。
+        `User` クラスのコンパニオンオブジェクトにメールバリデーション関数を追加することで、`User` に対して直接関数を呼び出せるようにしてください。
     </def>
 </deflist>
 
 |---|---|
 ```kotlin
-data class Temperature(val celsius: Double) {
-    val fahrenheit: Double = celsius * 9 / 5 + 32
-
+data class User(val name: String, val email: String) {
     // ここにコードを書いてください
 }
 
 fun main() {
-    val fahrenheit = 90.0
-    val temp = Temperature.fromFahrenheit(fahrenheit)
-    println("${temp.celsius}°C is $fahrenheit °F")
-    // 32.22222222222222°C is 90.0 °F
+    val candidates = listOf(
+        Pair("Alice", "alice@example.com"),
+        Pair("Bob", "bob2example-com")
+    )
+
+    for ((name, email) in candidates) {
+        if (User.isValidEmail(email)) {
+            val user = User(name, email)
+            println("Registered: ${user.name}, ${user.email}")
+            // Registered: Alice, alice@example.com
+        } else {
+            println("Error: '${email}' is not valid. The email should contain '@' and '.'")
+            // Error: 'bob2example-com' is not valid. The email should contain '@' and '.'
+        }
+    }
 }
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-objects-exercise-3"}
 
 |---|---|
 ```kotlin
-data class Temperature(val celsius: Double) {
-    val fahrenheit: Double = celsius * 9 / 5 + 32
-
+data class User(val name: String, val email: String) {
     companion object {
-        fun fromFahrenheit(fahrenheit: Double): Temperature = Temperature((fahrenheit - 32) * 5 / 9)
+        fun isValidEmail(email: String): Boolean =
+            email.contains('@') && email.contains('.')
     }
 }
 
 fun main() {
-    val fahrenheit = 90.0
-    val temp = Temperature.fromFahrenheit(fahrenheit)
-    println("${temp.celsius}°C is $fahrenheit °F")
-    // 32.22222222222222°C is 90.0 °F
+    val candidates = listOf(
+        Pair("Alice", "alice@example.com"),
+        Pair("Bob", "bob2example-com")
+    )
+
+    for ((name, email) in candidates) {
+        if (User.isValidEmail(email)) {
+            val user = User(name, email)
+            println("Registered: ${user.name}, ${user.email}")
+            // Registered: Alice, alice@example.com
+        } else {
+            println("Error: '${email}' is not valid. The email should contain '@' and '.'")
+            // Error: 'bob2example-com' is not valid. The email should contain '@' and '.'
+        }
+    }
 }
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="解答例" id="kotlin-tour-objects-solution-3"}
+
+> この練習問題の発展として、コンパニオンオブジェクト内の関数を、クラスのインスタンスを構築するためのファクトリメソッドとして使用してみてください。このパターンの例と詳細については、[](object-declarations.md#companion-objects) を参照してください。
+>
+{style="tip"}
 
 <seealso></seealso>
 

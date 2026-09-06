@@ -26,7 +26,7 @@
 5. **Web** 타겟과 **Share UI** 탭을 선택합니다. 다른 옵션이 선택되지 않았는지 확인하세요.
 6. **Create**를 클릭합니다.
 
-   ![Kotlin Multiplatform 마법사](wasm-kmp-wizard.png){width=600}
+   ![Kotlin Multiplatform wizard](wasm-kmp-wizard.png){width=600}
 
 ## 애플리케이션 실행하기
 
@@ -73,7 +73,7 @@
 
 생성된 아티팩트를 사용하여 Kotlin/Wasm 애플리케이션을 배포하세요. 선호하는 게시 옵션을 선택하고 안내에 따라 아티팩트를 배포합니다.
 
-* [GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#creating-your-site)
+* [GitHub pages](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#creating-your-site)
 * [Cloudflare](https://developers.cloudflare.com/workers/)
 * [Apache HTTP Server](https://httpd.apache.org/docs/2.4/getting-started.html)
 
@@ -88,12 +88,12 @@
 * [Compose Multiplatform을 사용하여 iOS와 Android 간에 UI를 공유하는 방법 알아보기](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-create-first-app.html)
 * 더 많은 Kotlin/Wasm 예제 살펴보기:
 
-  * [KotlinConf 애플리케이션](https://github.com/JetBrains/kotlinconf-app)
-  * [Compose 이미지 뷰어](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/imageviewer)
-  * [Node.js 예제](https://github.com/Kotlin/kotlin-wasm-nodejs-template)
-  * [WASI 예제](https://github.com/Kotlin/kotlin-wasm-wasi-template)
-  * [Compose 예제](https://github.com/Kotlin/kotlin-wasm-compose-template)
+  * [KotlinConf application](https://github.com/JetBrains/kotlinconf-app)
+  * [Compose image viewer](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/imageviewer)
+  * [Node.js example](https://github.com/Kotlin/kotlin-wasm-nodejs-template)
+  * [WASI example](https://github.com/Kotlin/kotlin-wasm-wasi-template)
+  * [Compose example](https://github.com/Kotlin/kotlin-wasm-compose-template)
 
 * Kotlin Slack의 Kotlin/Wasm 커뮤니티에 참여하세요:
 
-  <a href="https://slack-chats.kotlinlang.org/c/webassembly"><img src="join-slack-channel.svg" width="500" alt="Kotlin/Wasm 커뮤니티 참여하기" style="block"/></a>
+  <a href="https://slack-chats.kotlinlang.org/c/webassembly" as="button" mode="rock" icon="arrow-right" icon-position="right">Kotlin/Wasm 커뮤니티 참여하기</a>

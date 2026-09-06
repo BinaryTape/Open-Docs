@@ -96,4 +96,4 @@
 
 * 在 Kotlin Slack 中加入 Kotlin/Wasm 社区：
 
-  <a href="https://slack-chats.kotlinlang.org/c/webassembly"><img src="join-slack-channel.svg" width="500" alt="加入 Kotlin/Wasm 社区" style="block"/></a>
+  <a href="https://slack-chats.kotlinlang.org/c/webassembly" as="button" mode="rock" icon="arrow-right" icon-position="right">加入 Kotlin/Wasm 社区</a>

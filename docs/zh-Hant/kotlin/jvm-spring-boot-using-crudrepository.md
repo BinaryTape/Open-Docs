@@ -2,11 +2,6 @@
 
 <web-summary>在以 Kotlin 編寫的 Spring Boot 專案中處理 Spring Data 介面。</web-summary>
 
-<tldr>
-    <p>這是<strong>開始使用 Spring Boot 與 Kotlin</strong> 教學的最後一部分。在繼續之前，請確保您已完成先前的步驟：</p><br/>
-    <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <a href="jvm-create-project-with-spring-boot.md">使用 Kotlin 建立 Spring Boot 專案</a><br/><img src="icon-2-done.svg" width="20" alt="第二步"/> <a href="jvm-spring-boot-add-data-class.md">為 Spring Boot 專案加入資料類別</a><br/><img src="icon-3-done.svg" width="20" alt="第三步"/> <a href="jvm-spring-boot-add-db-support.md">為 Spring Boot 專案加入資料庫支援</a><br/><img src="icon-4.svg" width="20" alt="第四步"/> <strong>使用 Spring Data CrudRepository 進行資料庫存取</strong></p>
-</tldr>
-
 在這一部分中，您將遷移服務層，改為使用 [Spring Data](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html) `CrudRepository` 而非 `JdbcTemplate` 進行資料庫存取。
 `CrudRepository` 是一個 Spring Data 介面，用於對特定類型的存儲庫進行通用的 [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) 操作。
 它隨附提供了多個用於與資料庫互動的現成方法。
@@ -33,7 +28,7 @@
     data class Message(@Id val id: String?, val text: String)
     ```
 
-    此外，為了讓 `Message` 類別的使用更符合慣例（idiomatic），
+    此外，為了讓 `Message` 類別的使用更符合慣例 (idiomatic)，
     您可以將 `id` 屬性的預設值設定為 null，並翻轉資料類別屬性的順序： 
 
     ```kotlin
@@ -83,7 +78,7 @@
        </def>
        <def title="CrudRepository save() 函式">
           <p><a href="https://docs.spring.io/spring-data/relational/reference/#jdbc.entity-persistence">此函式的工作</a>前提是新物件在資料庫中沒有 id。因此，對於插入操作，id <b>應為 null</b>。</p>
-          <p> 如果 id 不是 <i>null</i>，<code>CrudRepository</code> 會假設該物件已存在於資料庫中，並將其視為<i>更新（update）</i>操作而非<i>插入（insert）</i>操作。在插入操作之後，<code>id</code> 將由資料存儲產生並回填至 <code>Message</code> 執行個體中。</p>
+          <p> 如果 id 不是 <i>null</i>，<code>CrudRepository</code> 會假設該物件已存在於資料庫中，並將其視為<i>更新 (update)</i> 操作而非<i>插入 (insert)</i> 操作。在插入操作之後，<code>id</code> 將由資料存儲產生並回填至 <code>Message</code> 執行個體中。</p>
           <p></p>
        </def>
     </deflist>
@@ -211,13 +206,17 @@ class MessageController(private val service: MessageService) {
 
 您現在可以從 `requests.http` 檔案中[執行 POST 與 GET HTTP 請求](jvm-spring-boot-add-db-support.md#add-messages-to-database-via-http-request)，並獲得相同的結果。
 
+<list id="tour-nav">
+  <li>
+    <a as="button" href="jvm-spring-boot-add-db-support.md" mode="outline" icon="arrow-left" icon-position="left">上一步</a>
+  </li>
+</list>
+
 ## 下一步
 
 獲取您的個人語言地圖，協助您探索 Kotlin 特性並追蹤學習進度：
 
-<a href="https://resources.jetbrains.com/storage/products/kotlin/docs/Kotlin_Language_Features_Map.pdf">
-   <img src="get-kotlin-language-map.png" width="700" alt="獲取 Kotlin 語言地圖" style="block"/>
-</a>
+<a as="button" href="https://resources.jetbrains.com/storage/products/kotlin/docs/Kotlin_Language_Features_Map.pdf" mode="rock" icon="arrow-right" icon-position="right">獲取 Kotlin 語言地圖</a>
 
 * 參閱 [Spring 架構](https://docs.spring.io/spring-framework/reference/)文件。
 * 在[保護 Web 應用程式](https://spring.io/guides/gs/securing-web)教學中建立一個具有受保護資源的簡單 Web 應用程式。

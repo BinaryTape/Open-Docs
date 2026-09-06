@@ -1,14 +1,5 @@
 [//]: # (title: 映射来自 C 的函数指针 – 教程)
 
-<tldr>
-    <p>这是<strong>映射 Kotlin 与 C</strong> 教程系列的第三部分。在继续之前，请确保您已完成之前的步骤。</p>
-    <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <a href="mapping-primitive-data-types-from-c.md">映射来自 C 的基本数据类型</a><br/>
-        <img src="icon-2-done.svg" width="20" alt="第二步"/> <a href="mapping-struct-union-types-from-c.md">映射来自 C 的结构与联合类型</a><br/>
-        <img src="icon-3.svg" width="20" alt="第三步"/> <strong>映射来自 C 的函数指针</strong><br/>
-        <img src="icon-4-todo.svg" width="20" alt="第四步"/> <a href="mapping-strings-from-c.md">映射来自 C 的字符串</a><br/>
-    </p>
-</tldr>
-
 > C 库导入目前处于 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 阶段。由 cinterop 工具从 C 库生成的所有 Kotlin 声明都应包含 `@ExperimentalForeignApi` 注解。
 >
 > 随 Kotlin/Native 提供的原生平台库（如 Foundation、UIKit 和 POSIX）仅对某些 API 要求选择性使用（opt-in）。
@@ -151,7 +142,14 @@ fun main() {
 
 在本系列的下一部分中，您将学习如何在 Kotlin 和 C 之间映射字符串：
 
-**[继续下一步](mapping-strings-from-c.md)**
+<list columns="2" id="tour-nav">
+  <li>
+    <a as="button" href="mapping-struct-union-types-from-c.md" mode="outline" icon="arrow-left" icon-position="left">上一步</a>
+  </li>
+  <li>
+    <a as="button" href="mapping-strings-from-c.md" mode="classic" icon="arrow-right" icon-position="right">下一步</a>
+  </li>
+</list>
 
 ### 另请参阅
 

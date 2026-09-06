@@ -7,14 +7,6 @@
 >
 {style="note"}
 
-<tldr>
-   <p>これは <strong>Kotlin Notebook を使い始める</strong> チュートリアルの第 2 部です。続行する前に、前のステップを完了していることを確認してください。</p>
-   <p><img src="icon-1-done.svg" width="20" alt="第 1 ステップ"/> <a href="kotlin-notebook-set-up-env.md">環境のセットアップ</a><br/>
-      <img src="icon-2.svg" width="20" alt="第 2 ステップ"/> <strong>Kotlin Notebook を作成する</strong><br/>
-      <img src="icon-3-todo.svg" width="20" alt="第 3 ステップ"/> Kotlin Notebook に依存関係を追加する<br/>
-  </p>
-</tldr>
-
 [Kotlin Notebook](kotlin-notebook-overview.md) の使用を開始するには、主に 3 つの方法があります：
 
 * [Kotlin Notebook を含む新しいプロジェクトを作成する](#create-a-new-project) 
@@ -112,4 +104,11 @@ Kotlin Notebook を含む新しいプロジェクトを作成するには：
 
 チュートリアルの次のパートでは、Kotlin Notebook に依存関係を追加する方法を学びます。
 
-**[次の章に進む](kotlin-notebook-add-dependencies.md)**
+<list columns="2" id="tour-nav">
+  <li>
+    <a as="button" href="kotlin-notebook-set-up-env.md" mode="outline" icon="arrow-left" icon-position="left">前のステップ</a>
+  </li>
+  <li>
+    <a as="button" href="kotlin-notebook-add-dependencies.md" mode="classic" icon="arrow-right" icon-position="right">次のステップ</a>
+  </li>
+</list>

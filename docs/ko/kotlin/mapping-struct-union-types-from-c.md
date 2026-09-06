@@ -1,14 +1,5 @@
 [//]: # (title: C의 구조체 및 공용체 타입 매핑하기 – 튜토리얼)
 
-<tldr>
-    <p>이 문서는 <strong>Kotlin과 C 매핑하기</strong> 튜토리얼 시리즈의 두 번째 파트입니다. 계속하기 전에 이전 단계를 완료했는지 확인하세요.</p>
-    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="mapping-primitive-data-types-from-c.md">C의 원시 데이터 타입 매핑하기</a><br/>
-       <img src="icon-2.svg" width="20" alt="Second step"/> <strong>C의 구조체 및 공용체 타입 매핑하기</strong><br/>
-       <img src="icon-3-todo.svg" width="20" alt="Third step"/> <a href="mapping-function-pointers-from-c.md">C의 함수 포인터 매핑하기</a><br/>
-       <img src="icon-4-todo.svg" width="20" alt="Fourth step"/> <a href="mapping-strings-from-c.md">C의 문자열 매핑하기</a><br/>
-    </p>
-</tldr>
-
 > C 라이브러리 임포트는 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 단계입니다. cinterop 툴을 통해 C 라이브러리에서 생성된 모든 Kotlin 선언에는 `@ExperimentalForeignApi` 어노테이션이 추가되어야 합니다.
 >
 > Kotlin/Native와 함께 제공되는 네이티브 플랫폼 라이브러리(Foundation, UIKit, POSIX 등)는 일부 API에 대해서만 명시적 동의(opt-in)가 필요합니다.
@@ -325,7 +316,14 @@ fun main() {
 
 이 시리즈의 다음 파트에서는 Kotlin과 C 사이에서 함수 포인터가 어떻게 매핑되는지 배울 것입니다:
 
-**[다음 파트로 진행하기](mapping-function-pointers-from-c.md)**
+<list columns="2" id="tour-nav">
+  <li>
+    <a as="button" href="mapping-primitive-data-types-from-c.md" mode="outline" icon="arrow-left" icon-position="left">이전 단계</a>
+  </li>
+  <li>
+    <a as="button" href="mapping-function-pointers-from-c.md" mode="classic" icon="arrow-right" icon-position="right">다음 단계</a>
+  </li>
+</list>
 
 ### 더 보기
 

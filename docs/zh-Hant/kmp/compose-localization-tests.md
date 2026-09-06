@@ -68,3 +68,4 @@ java.util.Locale.setDefault(java.util.Locale("es_ES"))
 
 * 測試[特定地區的格式化](compose-regional-format.md)，例如日期格式（`MM/dd/yyyy` 與 `dd/MM/yyyy`）和數字格式。
 * 驗證 [RTL 和 LTR 行為](compose-rtl.md)，確保阿拉伯語和希伯來語等從右到左的語言能正確顯示字串、配置和對齊方式。
+* 測試具有多種書寫系統的語言：將地區設定為 `zh-Hans`、`zh-Hant` 與 `zh`，並驗證每個地區都能解析為一個資源。

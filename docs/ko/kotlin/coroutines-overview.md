@@ -6,7 +6,7 @@
 작업을 동시에 실행하는 가장 일반적인 방법은 운영 체제에서 관리하는 독립적인 실행 경로인 스레드(thread)를 사용하는 것입니다.
 하지만 스레드는 상대적으로 무거우며, 스레드를 많이 생성하면 성능 문제가 발생할 수 있습니다.
 
-효율적인 동시성을 지원하기 위해 코틀린은 코루틴(coroutine)을 기반으로 구축된 비동기 프로그래밍을 사용합니다. 이를 통해 일시 중단 함수(suspending functions)를 사용하여 자연스럽고 순차적인 스타일로 비동기 코드를 작성할 수 있습니다.
+효율적인 동시성을 지원하기 위해 코틀린은 코루틴(_coroutine_)을 기반으로 구축된 비동기 프로그래밍을 사용합니다. 이를 통해 일시 중단 함수(suspending functions)를 사용하여 자연스럽고 순차적인 스타일로 비동기 코드를 작성할 수 있습니다.
 코루틴은 스레드에 대한 가벼운 대안입니다.
 시스템 리소스를 차단하지 않고 일시 중단할 수 있으며 리소스 친화적이므로, 미세한 단위의 동시성(fine-grained concurrency)에 더 적합합니다.
 
@@ -16,7 +16,7 @@
 코틀린의 코루틴이 처음이라면 더 복잡한 주제를 다루기 전에 [코루틴 기초](coroutines-basics.md) 가이드를 먼저 시작해 보세요.
 이 가이드는 간단한 예제를 통해 일시 중단 함수, 코루틴 빌더, 구조화된 동시성(structured concurrency)의 핵심 개념을 소개합니다.
 
-<a href="coroutines-basics.md"><img src="get-started-coroutines.svg" width="700" alt="Get started with coroutines" style="block"/></a>
+<a href="coroutines-basics.md" as="button" mode="rock" icon="arrow-right" icon-position="right">코루틴 시작하기</a>
 
 > 코루틴이 실제 실무에서 어떻게 사용되는지 확인하려면 [KotlinConf 앱](https://github.com/JetBrains/kotlinconf-app) 샘플 프로젝트를 살펴보세요.
 > 

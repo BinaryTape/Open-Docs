@@ -13,14 +13,13 @@
 
 透過完成以下步驟來了解 Kotlin Notebook：
 
-![First step](icon-1.svg){width=25}{type="joined"} [設定 Kotlin Notebook 的工作環境](kotlin-notebook-set-up-env.md)
-
-![Second step](icon-2.svg){width=25}{type="joined"} [建立您的第一個 Notebook 並執行一些簡單操作](kotlin-notebook-create.md)
-
-![Third step](icon-3.svg){width=25}{type="joined"} [為您的 Kotlin Notebook 新增相依性](kotlin-notebook-add-dependencies.md)
+<p><img src="icon-1.svg" width="20" alt="第一步"/> <a href="kotlin-notebook-set-up-env.md">設定 Kotlin Notebook 的工作環境</a><br/>
+   <img src="icon-2.svg" width="20" alt="第二步"/> <a href="kotlin-notebook-create.md">建立您的第一個 Notebook 並執行一些簡單操作</a><br/>
+   <img src="icon-3.svg" width="20" alt="第三步"/> <a href="kotlin-notebook-add-dependencies.md">為您的 Kotlin Notebook 新增相依性</a><br/>
+</p>
 
 ## 下一步
 
 從設定 Kotlin Notebook 的工作環境開始：
 
-**[前往下一部分](kotlin-notebook-set-up-env.md)**
+<a href="kotlin-notebook-set-up-env.md" as="button" mode="classic" icon="arrow-right" icon-position="right">開始</a>

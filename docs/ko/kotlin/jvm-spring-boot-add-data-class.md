@@ -2,11 +2,6 @@
 
 <web-summary>Spring Boot 프로젝트에 Kotlin 데이터 클래스를 추가합니다.</web-summary>
 
-<tldr>
-    <p>이것은 <strong>Spring Boot와 Kotlin 시작하기</strong> 튜토리얼의 두 번째 파트입니다. 계속하기 전에 이전 단계들을 완료했는지 확인하세요:</p><br/>
-    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="jvm-create-project-with-spring-boot.md">Kotlin으로 Spring Boot 프로젝트 만들기</a><br/><img src="icon-2.svg" width="20" alt="Second step"/> <strong>Spring Boot 프로젝트에 데이터 클래스 추가하기</strong><br/><img src="icon-3-todo.svg" width="20" alt="Third step"/> Spring Boot 프로젝트에 데이터베이스 지원 추가하기<br/><img src="icon-4-todo.svg" width="20" alt="Fourth step"/> 데이터베이스 액세스를 위해 Spring Data CrudRepository 사용하기</p>
-</tldr>
-
 이 튜토리얼의 이번 파트에서는 애플리케이션에 기능을 더 추가하고 데이터 클래스와 같은 Kotlin 언어 기능을 더 알아봅니다.
 `MessageController` 클래스가 직렬화된 객체 컬렉션을 포함하는 JSON 문서로 응답하도록 수정해야 합니다.
 
@@ -175,4 +170,11 @@ Spring 애플리케이션을 실행할 준비가 되었습니다:
 
 튜토리얼의 다음 파트에서는 프로젝트에 데이터베이스를 추가 및 설정하고 HTTP 요청을 만들어 보겠습니다.
 
-**[다음 장으로 진행하기](jvm-spring-boot-add-db-support.md)**
+<list columns="2" id="tour-nav">
+  <li>
+    <a as="button" href="jvm-create-project-with-spring-boot.md" mode="outline" icon="arrow-left" icon-position="left">이전 단계</a>
+  </li>
+  <li>
+    <a as="button" href="jvm-spring-boot-add-db-support.md" mode="classic" icon="arrow-right" icon-position="right">다음 단계</a>
+  </li>
+</list>

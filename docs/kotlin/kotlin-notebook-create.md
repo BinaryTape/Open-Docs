@@ -7,14 +7,6 @@
 >
 {style="note"}
 
-<tldr>
-   <p>这是 <strong>Kotlin Notebook 入门</strong>教程的第二部分。在继续之前，请确保您已完成上一步。</p>
-   <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <a href="kotlin-notebook-set-up-env.md">设置环境</a><br/>
-      <img src="icon-2.svg" width="20" alt="第二步"/> <strong>创建 Kotlin Notebook</strong><br/>
-      <img src="icon-3-todo.svg" width="20" alt="第三步"/> 向 Kotlin Notebook 添加依赖项<br/>
-  </p>
-</tldr>
-
 您可以通过以下三种主要方式开始使用 [Kotlin Notebook](kotlin-notebook-overview.md)：
 
 * [创建包含 Kotlin Notebook 的新项目](#create-a-new-project) 
@@ -113,4 +105,11 @@
 
 在本教程的下一部分中，您将学习如何向 Kotlin Notebook 添加依赖项。
 
-**[前往下一章](kotlin-notebook-add-dependencies.md)**
+<list columns="2" id="tour-nav">
+  <li>
+    <a as="button" href="kotlin-notebook-set-up-env.md" mode="outline" icon="arrow-left" icon-position="left">上一步</a>
+  </li>
+  <li>
+    <a as="button" href="kotlin-notebook-add-dependencies.md" mode="classic" icon="arrow-right" icon-position="right">下一步</a>
+  </li>
+</list>

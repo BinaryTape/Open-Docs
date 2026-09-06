@@ -103,6 +103,31 @@ Image(
 )
 ```
 
+#### キャンバスへの画像の描画
+
+`Image()` コンポーザブルで表示する代わりに、リソース画像を自分で描画するには、それを `ImageBitmap` または `ImageVector` としてロードし、`DrawScope` で使用します。
+
+* `ImageBitmap` を描画するには、`DrawScope.drawImage()` を使用します。
+* `ImageVector` を描画するには、`rememberVectorPainter()` で `Painter` を作成し、`Painter.draw()` を使用します。
+
+`DrawScope` 内でオフセットとサイズをピクセル単位で指定します。
+
+```kotlin
+val myImageRaster = imageResource(Res.drawable.my_image_raster)
+val myImageVectorPainter = rememberVectorPainter(vectorResource(Res.drawable.my_image_vector))
+
+Canvas(modifier = Modifier.fillMaxSize()) {
+    // ラムダ内では、`this` は `DrawScope` のインスタンスであり、`drawImage()` と `translate()` を提供します
+    drawImage(image = myImageRaster, topLeft = Offset(20f, 20f))
+    translate(left = 20f, top = myImageRaster.height + 40f) {
+        // `Painter.draw()` 関数は、`DrawScope` と `Painter` の両方をレシーバーとして使用します
+        with(myImageVectorPainter) {
+            draw(Size(200f, 200f))
+        }
+    }
+}
+```
+
 ### アイコン
 
 Material Symbols ライブラリのベクター Android XML アイコンを使用できます。
@@ -619,6 +644,10 @@ Android 固有の使用法については、マルチプラットフォームリ
 * [Compose ImageLoader](https://github.com/qdsfdhvh/compose-imageloader)
 * [Kamel](https://github.com/Kamel-Media/Kamel)
 * [Ktor client](https://ktor.io/)
+
+画像を手動でダウンロードしたり、そのバイトを読み取ったりする場合は、リソースライブラリの[デコード関数](#convert-byte-arrays-into-images)を使用して変換してください。デスクトップアプリでのネットワーク画像の読み込み例については、[デスクトップ用 Compose Multiplatform での画像の使用](compose-desktop-images.md#loading-images-from-the-file-system-or-the-network)を参照してください。
+
+画像を手動でダウンロードしたり、バイトを読み取ったりした場合は、リソースライブラリの[デコード関数](#convert-byte-arrays-into-images)を使用して画像に変換してください。デスクトップアプリケーションでのネットワークからの画像の読み込み例については、[デスクトップ用 Compose Multiplatform での画像の使用](compose-desktop-images.md#loading-images-from-the-file-system-or-the-network)のチュートリアルを参照してください。
 
 ### Java リソースの使用
 

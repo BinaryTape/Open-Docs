@@ -112,7 +112,7 @@
 
 在 Kotlin Slack 加入 Kotlin/Wasm 社群：
 
-<a href="https://slack-chats.kotlinlang.org/c/webassembly"><img src="join-slack-channel.svg" width="500" alt="加入 Kotlin/Wasm 社群" style="block"/></a>
+<a href="https://slack-chats.kotlinlang.org/c/webassembly" as="button" mode="rock" icon="arrow-right" icon-position="right">加入 Kotlin/Wasm 社群</a>
 
 嘗試更多 Kotlin/Wasm 範例：
 

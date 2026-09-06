@@ -9,7 +9,7 @@ Kotlin AI スキルは、AI エージェントが Kotlin 特有のタスクを�
 Kotlin AI スキルは、エージェントがより正確な結果を生成するのを助け、ユーザー自身がタスクを説明するのに費やす時間を短縮します。
 チームにとって、スキルは共通タスクのための共有フレームワークも提供するため、全員が一致した結果を得ることができます。
 
-<a href="https://github.com/Kotlin/kotlin-agent-skills"><img src="kotlin-ai-skills.svg" alt="Kotlin AI スキルを探索する" type="block"/></a>
+<a href="https://github.com/Kotlin/kotlin-agent-skills" as="button" mode="rock" icon="arrow-right" icon-position="right">Kotlin AI スキルを探索する</a>
 
 Kotlin AI スキルは [Agent Skills 標準](https://agentskills.io/home)に従っているため、[Junie](https://www.jetbrains.com/junie/)、Claude Code、OpenAI Codex、Google Gemini、GitHub Copilot などの互換性のある AI エージェントで使用できます。
 

@@ -102,6 +102,31 @@ Image(
 )
 ```
 
+#### 在畫布上繪製圖像
+
+若要自行繪製資源圖像，而不是使用 `Image()` 可組合項顯示它，請將其載入為 `ImageBitmap` 或 `ImageVector` 並在 `DrawScope` 中使用：
+
+* 要繪製 `ImageBitmap`，請使用 `DrawScope.drawImage()`。
+* 要繪製 `ImageVector`，請使用 `rememberVectorPainter()` 建立一個 `Painter` 並使用 `Painter.draw()`。
+
+在 `DrawScope` 中以像素為單位指定位移和大小：
+
+```kotlin
+val myImageRaster = imageResource(Res.drawable.my_image_raster)
+val myImageVectorPainter = rememberVectorPainter(vectorResource(Res.drawable.my_image_vector))
+
+Canvas(modifier = Modifier.fillMaxSize()) {
+    // 在 Lambda 內部，`this` 是 `DrawScope` 的執行個體，提供 `drawImage()` 和 `translate()`
+    drawImage(image = myImageRaster, topLeft = Offset(20f, 20f))
+    translate(left = 20f, top = myImageRaster.height + 40f) {
+        // `Painter.draw()` 函式同時將 `DrawScope` 和 `Painter` 作為接收器
+        with(myImageVectorPainter) {
+            draw(Size(200f, 200f))
+        }
+    }
+}
+```
+
 ### 圖示
 
 您可以使用來自 Material Symbols 程式庫的向量 Android XML 圖示：
@@ -319,7 +344,7 @@ coroutineScope.launch {
 > <string-array name="test">
 >    <item>Hello</item>
 >    <item>Hello</item>
-> </string-array>
+ > </string-array>
 > ```
 >
 {style="note"}
@@ -618,6 +643,10 @@ val uri = Res.getUri("files/my_video.mp4")
 * [Compose ImageLoader](https://github.com/qdsfdhvh/compose-imageloader)
 * [Kamel](https://github.com/Kamel-Media/Kamel)
 * [Ktor client](https://ktor.io/)
+
+如果您手動下載圖像或讀取其位元組，請使用資源庫的 [解碼函式](#convert-byte-arrays-into-images) 進行轉換。如需桌面應用程式中載入網路圖像的範例，請參閱 [在桌面版 Compose Multiplatform 中使用圖像](compose-desktop-images.md#loading-images-from-the-file-system-or-the-network)。
+
+如果您自行下載或讀取圖像的位元組，請使用資源庫的 [解碼函式](#convert-byte-arrays-into-images) 將其轉換為圖像。如需在桌面應用程式中從網路載入圖像的範例，請參閱 [桌面版 Compose Multiplatform 使用圖像教學](compose-desktop-images.md#loading-images-from-the-file-system-or-the-network)。
 
 ### 使用 Java 資源
 

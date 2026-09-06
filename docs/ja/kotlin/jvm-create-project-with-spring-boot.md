@@ -2,11 +2,6 @@
 
 <web-summary>IntelliJ IDEAを使用して、KotlinでSpring Bootアプリケーションを作成します。</web-summary>
 
-<tldr>
-    <p>これは <strong>Spring BootとKotlinをはじめよう</strong> チュートリアルの第1パートです：</p><br/>
-    <p><img src="icon-1.svg" width="20" alt="ステップ1"/> <strong>KotlinでSpring Bootプロジェクトを作成する</strong><br/><img src="icon-2-todo.svg" width="20" alt="ステップ2"/> Spring Bootプロジェクトにデータクラスを追加する<br/><img src="icon-3-todo.svg" width="20" alt="ステップ3"/> Spring Bootプロジェクトにデータベースのサポートを追加する<br/><img src="icon-4-todo.svg" width="20" alt="ステップ4"/> データベースアクセスにSpring Data CrudRepositoryを使用する<br/></p>
-</tldr>
-
 このチュートリアルの第1パートでは、IntelliJ IDEAのプロジェクトウィザードを使用して、Gradleを用いたSpring Bootプロジェクトを作成する方法を説明します。
 
 > このチュートリアルでは、ビルドシステムとしてGradleを使用することは必須ではありません。Mavenを使用する場合でも、同じ手順に従うことができます。
@@ -135,7 +130,7 @@ tasks.withType<Test> {
 
 1. `plugins` ブロックには、2つのKotlin成果物があります。
 
-   * `kotlin("jvm")` プラグインは、プロジェクトで使用されるKotlinのバージョンを定義します。
+   * `kotlin("jvm")` プラグインは、プロジェクトで使用されるKotlin의 バージョンを定義します。
    * Kotlin Springコンパイラプラグイン `kotlin("plugin.spring")` は、Kotlinクラスに `open` 修飾子を追加し、Spring Frameworkの機能との互換性を持たせます。
 
 2. `dependencies` ブロックには、いくつかのKotlin関連モジュールがリストされています。
@@ -234,7 +229,7 @@ class MessageController {
       <p><code>Hello, $name!</code> 式の型は <code>String</code> であるため、関数の戻り値の型も <code>String</code> になります。</p>
    </def>
    <def title="文字列テンプレート – $name">
-      <p><code>Hello, $name!</code> という式は、Kotlinでは <a href="strings.md#string-templates"><i>文字列テンプレート（String template）</i></a> と呼ばれます。</p>
+      <p><code>Hello, $name!</code> という式は、Kotlinでは <a href="strings.md#string-templates"><i>文字列テンプレート（String template）</i></a> と呼ばります。</p>
       <p>文字列テンプレートは、埋め込み式を含む文字列リテラルです。</p>
       <p>これは、文字列結合操作の便利な代替手段です。</p>
    </def>
@@ -268,4 +263,8 @@ Springアプリケーションを実行する準備が整いました。
 
 チュートリアルの次のパートでは、Kotlinのデータクラスと、それをアプリケーションでどのように使用できるかについて学びます。
 
-**[次の章に進む](jvm-spring-boot-add-data-class.md)**
+<list id="tour-nav">
+  <li>
+    <a as="button" href="jvm-spring-boot-add-data-class.md" mode="classic" icon="arrow-right" icon-position="right">次のステップ</a>
+  </li>
+</list>

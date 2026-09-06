@@ -112,7 +112,7 @@ Gradle ツールウィンドウの **kotlin-wasm-wasi-example** | **Tasks** | **
 
 Kotlin Slack の Kotlin/Wasm コミュニティに参加しましょう：
 
-<a href="https://slack-chats.kotlinlang.org/c/webassembly"><img src="join-slack-channel.svg" width="500" alt="Join the Kotlin/Wasm community" style="block"/></a>
+<a href="https://slack-chats.kotlinlang.org/c/webassembly" as="button" mode="rock" icon="arrow-right" icon-position="right">Kotlin/Wasm コミュニティに参加する</a>
 
 他の Kotlin/Wasm の例も試してみてください：
 

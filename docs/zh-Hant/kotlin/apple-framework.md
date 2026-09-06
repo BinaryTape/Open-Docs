@@ -372,7 +372,7 @@ int main(int argc, const char * argv[]) {
 
 您產生的框架具有輔助屬性，使其更容易與 Swift 配合使用。讓我們將[之前的 Objective-C 範例](#use-code-from-objective-c)轉換為 Swift。
 
-In the framework directory, create the `main.swift` file with the following code:
+在框架目錄中，建立具有以下程式碼的 `main.swift` 檔案：
 
 ```swift
 import Foundation
@@ -404,7 +404,7 @@ Kotlin 的 函式和屬性名稱被照原樣轉譯。Kotlin 的 `String` 被轉�
 
 現在您可以將產生的框架作為相依性連接到您的 iOS 專案。有多種方法可以設定和自動化此過程，請選擇最適合您的方法：
 
-<a href="https://kotlinlang.org/docs/multiplatform/multiplatform-ios-integration-overview.html"><img src="choose-ios-integration.svg" width="700" alt="選擇 iOS 整合方法" style="block"/></a>
+<a href="https://kotlinlang.org/docs/multiplatform/multiplatform-ios-integration-overview.html" as="button" mode="rock" icon="arrow-right" icon-position="right">選擇 iOS 整合方法</a>
 
 ## 下一步
 

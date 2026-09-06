@@ -3,6 +3,21 @@
 ## Unreleased
 
 ### Added
+
+- まだありません！
+
+### Changed
+
+- まだありません！
+
+### Fixed
+
+- [PostgreSQLダイアレクト] `string_agg` 関数が Null 許容になるように修正 (#6340 by @griffio)
+
+## [2.4.0-rc1] - 2026-09-01
+[2.4.0-rc1]: https://github.com/sqldelight/sqldelight/releases/tag/2.4.0-rc1
+
+### Added
 - [Nativeドライバ] `inMemoryDriver` に `extendedConfig` パラメータを追加 (#5539 by @GuilhE)
 - [PostgreSQLダイアレクト] 暗黙的に定義されたシステムカラム (System Columns) のクエリサポートを追加 (#5834 by @griffio)
 - [PostgreSQLダイアレクト] 基本的な配列リテラル (Array literal) のサポートを追加 (#5997 by @griffio)
@@ -238,7 +253,7 @@
 - [PostgreSQLダイアレクト] PostgreSQL `CREATE INDEX CONCURRENTLY` のサポートを追加 (#4531 by @griffio)
 - [PostgreSQLダイアレクト] PostgreSQL CTE の補助ステートメントが相互に参照可能になるようサポート (#4493 by @griffio)
 - [PostgreSQLダイアレクト] バイナリ式 (binary expr) および `sum` における PostgreSQL 型のサポートを追加 (#4539 by @Adriel-M)
-- [PostgreSQLダイアレクト] PostgreSQL `SELECT DISTINCT ON` 構文のサポートを追加 (#4584 by @griffio)
+- [PostgreSQLダイアレクト] PostgreSQL `SELECT DISTINCT ON` 構文의 サポートを追加 (#4584 by @griffio)
 - [PostgreSQLダイアレクト] `SELECT` 文における PostgreSQL JSON 関数のサポートを追加 (#4590 by @MariusVolkhart)
 - [PostgreSQLダイアレクト] `generate_series` PostgreSQL 関数を追加 (#4717 by @griffio)
 - [PostgreSQLダイアレクト] 追加の Postgres 文字列関数の定義を追加 (#4752 by @MariusVolkhart)
@@ -385,8 +400,8 @@
 ### Added
 - [Paging] マルチプラットフォーム Paging 拡張 (by @jeffdgr8)
 - [ランタイム] `Listener` インターフェースに `fun` 修飾子を追加。
-- [SQLiteダイアレクト] SQLite 3.33 サポート (`UPDATE FROM`) を追加 (by @eygraber)
-- [PostgreSQLダイアレクト] PostgreSQL における `UPDATE FROM` をサポート (by @eygraber)
+- [SQLiteダイアレクト] SQLite 3.33 サポート (`UPDATE FROM`) を追加 (by @eygraber))
+- [PostgreSQLダイアレクト] PostgreSQL における `UPDATE FROM` をサポート (by @eygraber))
 
 ### Changed
 - [RDBCドライバ] コネクションを公開 (by @hfhbd)
@@ -744,7 +759,7 @@ sqldelight {
 - [IDEプラグイン] テーブルが見つからない場合の `CreateTriggerMixin` における例外を修正 (by @aperfilyev)
 - [コンパイラ] テーブル作成文をトポロジカルソート
 - [コンパイラ] ディレクトリに対して `forDatabaseFiles` コールバックを呼び出すのを停止 (#2532)
-- [Gradleプラグイン] `generateDatabaseInterface` タスク의 依存関係を潜在的な消費者に伝搬 (#2518 by @martinbonnin)
+- [Gradleプラグイン] `generateDatabaseInterface` タスクの依存関係を潜在的な消費者に伝搬 (#2518 by @martinbonnin)
 
 ## [1.5.1] - 2021-07-16
 [1.5.1]: https://github.com/sqldelight/sqldelight/releases/tag/1.5.1
@@ -900,7 +915,7 @@ sqldelight {
 - [IDEプラグイン] IDE プラグインのデーモン肥大化と UI スレッドの停滞を修正 (#1916)
 - [IDEプラグイン] モジュールが null のシナリオを処理 (#1902)
 - [IDEプラグイン] 未設定の sq ファイルにおいてパッケージ名として空文字列を返すように修正 (#1920)
-- [IDEプラグイン] グループ化されたステートメントを修正し、それらの統合テストを追加 (#1820)
+- [IDEプラグイン] Fix grouped statements and add an integration test for them (#1820)
 - [IDEプラグイン] 要素のモジュールを見つけるために内蔵の `ModuleUtil` を使用するように修正 (#1854)
 - [IDEプラグイン] ルックアップに有効な要素のみを追加するように修正 (#1909)
 - [IDEプラグイン] 親要素が null になり得る問題を修正 (#1857)

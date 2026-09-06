@@ -8,7 +8,7 @@ Kotlin 是一种现代编程语言，具有简洁、多平台以及与 Java 和�
 
 刚接触 Kotlin？参加我们的导览，直接在浏览器中学习基础知识。
 
-<a href="kotlin-tour-welcome.md"><img src="start-kotlin-tour.svg" width="700" alt="开始 Kotlin 导览" style="block"/></a>
+<a href="kotlin-tour-welcome.md" as="button" mode="classic" icon="arrow-right" icon-position="right">开始 Kotlin 导览</a>
 
 ## 安装 Kotlin
 
@@ -31,7 +31,7 @@ Kotlin 是一种现代编程语言，具有简洁、多平台以及与 Java 和�
 
 <tab id="backend" title="后端">
 
-在这里，你将学习如何使用 Kotlin 进行服务器端开发后端应用程序。
+在这里，你将学习如何使用 Kotlin 在服务器端开发后端应用程序。
 
 * **将 Kotlin 引入你的 Java 项目：**
 

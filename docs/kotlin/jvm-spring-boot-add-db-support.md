@@ -2,11 +2,6 @@
 
 <web-summary>使用 JDBC 模板为使用 Kotlin 编写的 Spring Boot 项目添加数据库支持。</web-summary>
 
-<tldr>
-    <p>这是<strong>使用 Spring Boot 和 Kotlin 入门</strong>教程的第三部分。在继续之前，请确保您已完成之前的步骤：</p><br/>
-    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="jvm-create-project-with-spring-boot.md">使用 Kotlin 创建 Spring Boot 项目</a><br/><img src="icon-2-done.svg" width="20" alt="Second step"/> <a href="jvm-spring-boot-add-data-class.md">为 Spring Boot 项目添加数据类</a><br/><img src="icon-3.svg" width="20" alt="Third step"/> <strong>为 Spring Boot 项目添加数据库支持</strong><br/><img src="icon-4-todo.svg" width="20" alt="Fourth step"/> 使用 Spring Data CrudRepository 进行数据库访问</p>
-</tldr>
-
 在本部分教程中，您将使用 *Java Database Connectivity* (JDBC) 为项目添加并配置数据库。
 在 JVM 应用程序中，您可以使用 JDBC 与数据库进行交互。
 为了方便起见，Spring 框架提供了 `JdbcTemplate` 类，它可以简化 JDBC 的使用并有助于避免常见错误。
@@ -53,7 +48,7 @@ class MessageService(private val db: JdbcTemplate) {
       </code-block>
   </def>
    <def title="尾随 Lambda 与 SAM 转换">
-      <p><code>findMessages()</code> 函数调用 <code>JdbcTemplate</code> 类的 <code>query()</code> 函数。<code>query()</code> 函数接收两个实参：一个作为字符串实例的 SQL 查询，以及一个将每行映射为一个对象的毁调函数：</p>
+      <p><code>findMessages()</code> 函数调用 <code>JdbcTemplate</code> 类的 <code>query()</code> 函数。<code>query()</code> 函数接收两个实参：一个作为字符串实例的 SQL 查询，以及一个将每行映射为一个对象的回调函数：</p>
       <code-block lang="sql">
       db.query("...", RowMapper { ... } )
       </code-block><br/>
@@ -113,7 +108,7 @@ class MessageController(private val service: MessageService) {
    </def>
    <def title="ResponseEntity">
       <p><code>ResponseEntity</code> 代表整个 HTTP 响应：状态码、标头和主体。</p>
-      <p>使用 <code>created()</code> 方法，您可以配置响应状态码 (201) 并设置位置标头，指示所创建资源的上下文路径。</p>
+      <p> 使用 <code>created()</code> 方法，您可以配置响应状态码 (201) 并设置位置标头，指示所创建资源的上下文路径。</p>
    </def>
 </deflist>
 
@@ -306,7 +301,7 @@ curl -X GET --location "http://localhost:8080"
         <p><code>query()</code> 函数的第二个形参被声明为<i>可变实参</i> (<code>vararg</code>)。在 Kotlin 中，可变实参形参的位置并不要求位于参数列表的最后。</p>
     </def>
     <def title="singleOrNull() 函数">
-       <p><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/single-or-null.html"><code>singleOrNull()</code></a> 函数返回单个元素，如果数组为空或具有多个相同值的元素，则返回 <code>null</code>。</p>
+       <p> <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/single-or-null.html"><code>singleOrNull()</code></a> 函数返回单个元素，如果数组为空或具有多个相同值的元素，则返回 <code>null</code>。</p>
     </def>
    </deflist>
     
@@ -493,4 +488,11 @@ Spring 应用程序已准备好运行：
 
 最后一步将向您展示如何使用 Spring Data 以更流行的方式连接到数据库。 
 
-**[继续阅读下一章](jvm-spring-boot-using-crudrepository.md)**
+<list columns="2" id="tour-nav">
+  <li>
+    <a as="button" href="jvm-spring-boot-add-data-class.md" mode="outline" icon="arrow-left" icon-position="left">上一步</a>
+  </li>
+  <li>
+    <a as="button" href="jvm-spring-boot-using-crudrepository.md" mode="classic" icon="arrow-right" icon-position="right">下一步</a>
+  </li>
+</list>

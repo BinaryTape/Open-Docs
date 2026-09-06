@@ -275,49 +275,74 @@ fun main() {
 
 ### 연습 문제 3 {initial-collapse-state="collapsed" collapsible="true" id="objects-exercise-3"}
 
-기온을 기록하려는 앱이 있습니다. 클래스 자체는 정보를 섭씨(Celsius)로 저장하지만, 화씨(Fahrenheit)로도 인스턴스를 쉽게 생성할 수 있는 방법을 제공하고 싶습니다. `main()` 함수의 코드가 성공적으로 실행되도록 데이터 클래스를 완성하세요.
+앱의 사용자 등록 모듈을 구축하고 있습니다. 이메일 유효성 검사를 `User` 클래스와 연관 지어 유지하고 싶지만, 이메일 주소가 유효하지 않은 경우 불필요한 `User` 인스턴스를 생성하고 싶지 않습니다.
+
+이 연습 문제에서는 `@`와 `.`이 모두 포함된 경우에만 이메일 주소가 유효하다고 가정합니다. `main()` 함수의 코드가 성공적으로 실행되도록 데이터 클래스를 완성하세요.
 
 <deflist collapsible="true">
     <def title="힌트">
-        컴패니언 객체를 사용하세요.
+        `User` 클래스의 컴패니언 객체에 이메일 유효성 검사 함수를 추가하여 `User`에서 직접 함수를 호출할 수 있도록 하세요.
     </def>
 </deflist>
 
 |---|---|
 ```kotlin
-data class Temperature(val celsius: Double) {
-    val fahrenheit: Double = celsius * 9 / 5 + 32
-
+data class User(val name: String, val email: String) {
     // 코드를 여기에 작성하세요
 }
 
 fun main() {
-    val fahrenheit = 90.0
-    val temp = Temperature.fromFahrenheit(fahrenheit)
-    println("${temp.celsius}°C is $fahrenheit °F")
-    // 32.22222222222222°C is 90.0 °F
+    val candidates = listOf(
+        Pair("Alice", "alice@example.com"),
+        Pair("Bob", "bob2example-com")
+    )
+
+    for ((name, email) in candidates) {
+        if (User.isValidEmail(email)) {
+            val user = User(name, email)
+            println("Registered: ${user.name}, ${user.email}")
+            // Registered: Alice, alice@example.com
+        } else {
+            println("Error: '${email}' is not valid. The email should contain '@' and '.'")
+            // Error: 'bob2example-com' is not valid. The email should contain '@' and '.'
+        }
+    }
 }
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-objects-exercise-3"}
 
 |---|---|
 ```kotlin
-data class Temperature(val celsius: Double) {
-    val fahrenheit: Double = celsius * 9 / 5 + 32
-
+data class User(val name: String, val email: String) {
     companion object {
-        fun fromFahrenheit(fahrenheit: Double): Temperature = Temperature((fahrenheit - 32) * 5 / 9)
+        fun isValidEmail(email: String): Boolean =
+            email.contains('@') && email.contains('.')
     }
 }
 
 fun main() {
-    val fahrenheit = 90.0
-    val temp = Temperature.fromFahrenheit(fahrenheit)
-    println("${temp.celsius}°C is $fahrenheit °F")
-    // 32.22222222222222°C is 90.0 °F
+    val candidates = listOf(
+        Pair("Alice", "alice@example.com"),
+        Pair("Bob", "bob2example-com")
+    )
+
+    for ((name, email) in candidates) {
+        if (User.isValidEmail(email)) {
+            val user = User(name, email)
+            println("Registered: ${user.name}, ${user.email}")
+            // Registered: Alice, alice@example.com
+        } else {
+            println("Error: '${email}' is not valid. The email should contain '@' and '.'")
+            // Error: 'bob2example-com' is not valid. The email should contain '@' and '.'
+        }
+    }
 }
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="모범 답안" id="kotlin-tour-objects-solution-3"}
+
+> 이 연습 문제의 확장으로, 컴패니언 객체의 함수를 클래스 인스턴스를 생성하는 팩토리 메서드(factory methods)로 사용해 보세요. 이 패턴에 대한 예제와 자세한 정보는 [](object-declarations.md#companion-objects)를 참조하세요.
+>
+{style="tip"}
 
 <seealso></seealso>
 

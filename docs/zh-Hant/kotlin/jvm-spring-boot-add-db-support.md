@@ -2,11 +2,6 @@
 
 <web-summary>為使用 Kotlin 編寫並採用 JDBC 範本的 Spring Boot 專案新增資料庫支援。</web-summary>
 
-<tldr>
-    <p>這是 <strong>開始使用 Spring Boot 與 Kotlin</strong> 教學的第三部分。在繼續之前，請確保你已完成之前的步驟：</p><br/>
-    <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <a href="jvm-create-project-with-spring-boot.md">使用 Kotlin 建立 Spring Boot 專案</a><br/><img src="icon-2-done.svg" width="20" alt="第二步"/> <a href="jvm-spring-boot-add-data-class.md">為 Spring Boot 專案新增資料類別</a><br/><img src="icon-3.svg" width="20" alt="第三步"/> <strong>為 Spring Boot 專案新增資料庫支援</strong><br/><img src="icon-4-todo.svg" width="20" alt="第四步"/> 使用 Spring Data CrudRepository 進行資料庫存取</p>
-</tldr>
-
 在本部分教學中，你將使用 _Java Database Connectivity_ (JDBC) 為專案新增並配置資料庫。
 在 JVM 應用程式中，你會使用 JDBC 與資料庫進行互動。
 為了方便起見，Spring Framework 提供了 `JdbcTemplate` 類別，可簡化 JDBC 的使用並協助避免常見錯誤。
@@ -306,7 +301,7 @@ curl -X GET --location "http://localhost:8080"
         <p><code>query()</code> 函式的第二個參數被宣告為<i>可變參數</i> (<code>vararg</code>)。在 Kotlin 中，可變參數不一定要放在參數清單的最後一個位置。</p>
     </def>
     <def title="singleOrNull() 函式">
-       <p><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/single-or-null.html"><code>singleOrNull()</code></a> 函式會傳回單一元素，如果陣列為空或具有多個相同值的元素，則傳回 <code>null</code>。</p>
+       <p>《<a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/single-or-null.html"><code>singleOrNull()</code></a> 函式會傳回單一元素，如果陣列為空或具有多個相同值的元素，則傳回 <code>null</code>。</p>
     </def>
    </deflist>
     
@@ -491,6 +486,13 @@ Spring 應用程式已準備好執行：
 
 ## 下一步
 
-最後一個步驟將向你展示如何使用 Spring Data 與資料庫進行更常見的連線。
+最後一個步驟將向你展示如何使用 Spring Data 與資料庫進行更常見的連線。 
 
-**[繼續閱讀下一章節](jvm-spring-boot-using-crudrepository.md)**
+<list columns="2" id="tour-nav">
+  <li>
+    <a as="button" href="jvm-spring-boot-add-data-class.md" mode="outline" icon="arrow-left" icon-position="left">上一步</a>
+  </li>
+  <li>
+    <a as="button" href="jvm-spring-boot-using-crudrepository.md" mode="classic" icon="arrow-right" icon-position="right">下一步</a>
+  </li>
+</list>

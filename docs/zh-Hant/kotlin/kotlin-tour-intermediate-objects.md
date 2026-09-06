@@ -275,49 +275,74 @@ fun main() {
 
 ### 練習 3 {initial-collapse-state="collapsed" collapsible="true" id="objects-exercise-3"}
 
-您有一個想要記錄溫度的應用程式。類別本身以攝氏 (Celsius) 儲存資訊，但您也希望提供一種輕鬆建立華氏 (Fahrenheit) 執行個體的方法。完成該資料類別，使 `main()` 函式中的以下程式碼能成功執行：
+您正在為應用程式建置一個使用者註冊模組。您希望將電子郵件驗證與 `User` 類別關聯起來，但如果電子郵件地址無效，則不希望建立不必要的 `User` 執行個體。
+
+在此練習中，如果電子郵件地址同時包含 `@` 和 `.`，則視為有效。完成該資料類別，使 `main()` 函式中的以下程式碼能成功執行：
 
 <deflist collapsible="true">
     <def title="提示">
-        使用伴隨物件。
+        在 `User` 類別的伴隨物件中加入一個電子郵件驗證函式，以便您可以直接在 `User` 上呼叫該函式。
     </def>
 </deflist>
 
 |---|---|
 ```kotlin
-data class Temperature(val celsius: Double) {
-    val fahrenheit: Double = celsius * 9 / 5 + 32
-
+data class User(val name: String, val email: String) {
     // 在此處編寫您的程式碼
 }
 
 fun main() {
-    val fahrenheit = 90.0
-    val temp = Temperature.fromFahrenheit(fahrenheit)
-    println("${temp.celsius}°C is $fahrenheit °F")
-    // 32.22222222222222°C is 90.0 °F
+    val candidates = listOf(
+        Pair("Alice", "alice@example.com"),
+        Pair("Bob", "bob2example-com")
+    )
+
+    for ((name, email) in candidates) {
+        if (User.isValidEmail(email)) {
+            val user = User(name, email)
+            println("Registered: ${user.name}, ${user.email}")
+            // Registered: Alice, alice@example.com
+        } else {
+            println("Error: '${email}' is not valid. The email should contain '@' and '.'")
+            // Error: 'bob2example-com' is not valid. The email should contain '@' and '.'
+        }
+    }
 }
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-objects-exercise-3"}
 
 |---|---|
 ```kotlin
-data class Temperature(val celsius: Double) {
-    val fahrenheit: Double = celsius * 9 / 5 + 32
-
+data class User(val name: String, val email: String) {
     companion object {
-        fun fromFahrenheit(fahrenheit: Double): Temperature = Temperature((fahrenheit - 32) * 5 / 9)
+        fun isValidEmail(email: String): Boolean =
+            email.contains('@') && email.contains('.')
     }
 }
 
 fun main() {
-    val fahrenheit = 90.0
-    val temp = Temperature.fromFahrenheit(fahrenheit)
-    println("${temp.celsius}°C is $fahrenheit °F")
-    // 32.22222222222222°C is 90.0 °F
+    val candidates = listOf(
+        Pair("Alice", "alice@example.com"),
+        Pair("Bob", "bob2example-com")
+    )
+
+    for ((name, email) in candidates) {
+        if (User.isValidEmail(email)) {
+            val user = User(name, email)
+            println("Registered: ${user.name}, ${user.email}")
+            // Registered: Alice, alice@example.com
+        } else {
+            println("Error: '${email}' is not valid. The email should contain '@' and '.'")
+            // Error: 'bob2example-com' is not valid. The email should contain '@' and '.'
+        }
+    }
 }
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="範例解答" id="kotlin-tour-objects-solution-3"}
+
+> 作為本練習的擴展，請嘗試將伴隨物件中的函式作為工廠方法來建構類別的執行個體。如需此模式的範例和更多資訊，請參閱 [](object-declarations.md#companion-objects)。
+>
+{style="tip"}
 
 <seealso></seealso>
 

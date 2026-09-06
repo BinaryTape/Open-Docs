@@ -148,7 +148,7 @@ val fileSize = memScoped {
 
 ### 將指標傳遞給繫結
 
-雖然 C 指標對應到 `CPointer<T>` 型別，但 C 函式的指標型型別參數會對應到 `CValuesRef<T>`。當傳遞 `CPointer<T>` 作為此類參數的值時，它會原樣傳遞給 C 函式。然而，可以傳遞一系列值來代替指標。在這種情況下，該序列會「按值」傳遞，也就是說，C 函式會接收到該序列臨時副本的指標，該指標僅在函式回傳前有效。
+雖然 C 指標對應到 `CPointer<T>` 型別，但 C 函式的指標型別參數會對應到 `CValuesRef<T>`。當傳遞 `CPointer<T>` 作為此類參數的值時，它會原樣傳遞給 C 函式。然而，可以傳遞一系列值來代替指標。在這種情況下，該序列會「按值」傳遞，也就是說，C 函式會接收到該序列臨時副本的指標，該指標僅在函式回傳前有效。
 
 指標參數的 `CValuesRef<T>` 表示方式旨在支援無需明確原生記憶體分配的 C 陣列常值。為了建構不可變的獨立 C 值序列，提供了以下方法：
 
@@ -187,7 +187,7 @@ foo(cValuesOf(1, 2, 3), 3)
 val cString = kotlinString.cstr.getPointer(nativeHeap)
 ```
 
-在所有情況下，C 字串都應該以 UTF-8 編碼。
+在所有情況下， C 字串都應該以 UTF-8 編碼。
 
 若要跳過自動轉換並確保在繫結中使用原始指標，請將 [`noStringConversion` 屬性](native-definition-file.md#set-up-string-conversion)新增到 `.def` 檔案中：
 
@@ -298,7 +298,7 @@ int foo(int);
 
 在這種情況下，`FOO` 在 Kotlin 中可用。
 
-為了支援其他巨集，你可以透過將它們包裝在支援的宣告中來手動公開它們。例如，透過在程式庫中[新增自訂宣告](native-definition-file.md#add-custom-declarations)，類函式巨集 `FOO` 可以作為函式 `foo()` 公開：
+為了支援其他巨集，你可以透過將它們包裝在支援的宣告中來手動公開它們。例如，類函式巨集 `FOO` 可以作為函式 `foo()` 公開，方法是在程式庫中[新增自訂宣告](native-definition-file.md#add-custom-declarations)：
 
 ```c
 headers = library/base.h
@@ -407,7 +407,7 @@ void consumeStruct(struct ForwardDeclaredStruct* s) {
 
 ```C
 // 第二個 C 程式庫
-// 標頭檔：
+// 頁首：
 #include <stdlib.h>
 
 struct ForwardDeclaredStruct {
@@ -435,7 +435,10 @@ fun test() {
 
 透過完成以下教學，了解型別、函式和字串如何在 Kotlin 和 C 之間對應：
 
-* [對應來自 C 的基本資料型別](mapping-primitive-data-types-from-c.md)
-* [對應來自 C 的結構和聯合型別](mapping-struct-union-types-from-c.md)
-* [對應來自 C 的函式指標](mapping-function-pointers-from-c.md)
-* [對應來自 C 的字串](mapping-strings-from-c.md)
+<p><img src="icon-1.svg" width="20" alt="第一步"/> <a href="mapping-primitive-data-types-from-c.md">對應來自 C 的基本資料型別</a><br/>
+   <img src="icon-2.svg" width="20" alt="第二步"/> <a href="mapping-struct-union-types-from-c.md">對應來自 C 的結構和聯合型別</a><br/>
+   <img src="icon-3.svg" width="20" alt="第三步"/> <a href="mapping-function-pointers-from-c.md">對應來自 C 的函式指標</a><br/>
+   <img src="icon-4.svg" width="20" alt="第四步"/> <a href="mapping-strings-from-c.md">對應來自 C 的字串</a><br/>
+</p>
+
+<a href="mapping-primitive-data-types-from-c.md" as="button" mode="classic" icon="arrow-right" icon-position="right">開始</a>

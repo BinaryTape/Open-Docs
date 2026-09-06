@@ -2,11 +2,6 @@
 
 <web-summary>IntelliJ IDEA를 사용하여 Kotlin으로 Spring Boot 애플리케이션을 생성합니다.</web-summary>
 
-<tldr>
-    <p>이것은 <strong>Spring Boot와 Kotlin 시작하기</strong> 튜토리얼의 첫 번째 부분입니다:</p><br/>
-    <p><img src="icon-1.svg" width="20" alt="첫 번째 단계"/> <strong>Kotlin으로 Spring Boot 프로젝트 생성하기</strong><br/><img src="icon-2-todo.svg" width="20" alt="두 번째 단계"/> Spring Boot 프로젝트에 데이터 클래스 추가하기<br/><img src="icon-3-todo.svg" width="20" alt="세 번째 단계"/> Spring Boot 프로젝트에 데이터베이스 지원 추가하기<br/><img src="icon-4-todo.svg" width="20" alt="네 번째 단계"/> 데이터베이스 액세스를 위해 Spring Data CrudRepository 사용하기<br/></p>
-</tldr>
-
 이 튜토리얼의 첫 번째 부분에서는 IntelliJ IDEA의 프로젝트 위저드(Project Wizard)를 사용하여 Gradle 기반의 Spring Boot 프로젝트를 생성하는 방법을 설명합니다.
 
 > 이 튜토리얼에서 빌드 시스템으로 Gradle을 반드시 사용할 필요는 없습니다. Maven을 사용하는 경우에도 동일한 단계를 따를 수 있습니다.
@@ -274,4 +269,8 @@ class MessageController {
 
 튜토리얼의 다음 부분에서는 Kotlin 데이터 클래스와 이를 애플리케이션에서 사용하는 방법에 대해 알아봅니다.
 
-**[다음 장으로 진행하기](jvm-spring-boot-add-data-class.md)**
+<list id="tour-nav">
+  <li>
+    <a as="button" href="jvm-spring-boot-add-data-class.md" mode="classic" icon="arrow-right" icon-position="right">다음 단계</a>
+  </li>
+</list>

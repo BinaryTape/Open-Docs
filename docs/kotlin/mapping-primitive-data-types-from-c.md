@@ -1,14 +1,5 @@
 [//]: # (title: 映射 C 语言中的原生数据类型 – 教程)
 
-<tldr>
-    <p>这是 <strong>Kotlin 与 C 映射</strong> 教程系列的第一部分。</p>
-    <p><img src="icon-1.svg" width="20" alt="第一步"/> <strong>映射 C 语言中的原生数据类型</strong><br/>
-       <img src="icon-2-todo.svg" width="20" alt="第二步"/> <a href="mapping-struct-union-types-from-c.md">映射 C 语言中的结构与联合类型</a><br/>
-       <img src="icon-3-todo.svg" width="20" alt="第三步"/> <a href="mapping-function-pointers-from-c.md">映射 C 语言中的函数指针</a><br/>
-       <img src="icon-4-todo.svg" width="20" alt="第四步"/> <a href="mapping-strings-from-c.md">映射 C 语言中的字符串</a><br/>
-    </p>
-</tldr>
-
 > C 库导入目前处于 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 阶段。由 cinterop 工具从 C 库生成的所有 Kotlin 声明都应带有 `@ExperimentalForeignApi` 注解。
 >
 > 随 Kotlin/Native 提供的原生平台库（如 Foundation、UIKit 和 POSIX）仅对部分 API 要求显式启用。
@@ -150,7 +141,7 @@ cinterop 工具会为每组 `.h` 文件生成一个 Kotlin/Native 库（一个 `
     }
 
     kotlin {
-        macosArm64()    // Apple 芯片上的 macOS
+        macosArm64()    // Apple 芯片 macOS
         // linuxArm64() // ARM64 平台上的 Linux
         // linuxX64()   // x86_64 平台上的 Linux
         // mingwX64()   // Windows
@@ -256,7 +247,11 @@ fun main() {
 
 在本系列的下一部分中，你将学习结构和联合类型如何在 Kotlin 和 C 之间进行映射：
 
-**[继续下一步](mapping-struct-union-types-from-c.md)**
+<list id="tour-nav">
+  <li>
+    <a as="button" href="mapping-struct-union-types-from-c.md" mode="classic" icon="arrow-right" icon-position="right">下一步</a>
+  </li>
+</list>
 
 ### 另请参阅
 

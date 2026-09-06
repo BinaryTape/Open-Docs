@@ -2,11 +2,6 @@
 
 <web-summary>Kotlin으로 작성된 Spring Boot 프로젝트에 JDBC 템플릿을 사용하여 데이터베이스 지원을 추가합니다.</web-summary>
 
-<tldr>
-    <p>이 문서는 <strong>Spring Boot와 Kotlin 시작하기</strong> 자습서의 세 번째 파트입니다. 계속 진행하기 전에 이전 단계들을 완료했는지 확인하세요.</p><br/>
-    <p><img src="icon-1-done.svg" width="20" alt="첫 번째 단계"/> <a href="jvm-create-project-with-spring-boot.md">Kotlin으로 Spring Boot 프로젝트 생성</a><br/><img src="icon-2-done.svg" width="20" alt="두 번째 단계"/> <a href="jvm-spring-boot-add-data-class.md">Spring Boot 프로젝트에 데이터 클래스 추가</a><br/><img src="icon-3.svg" width="20" alt="세 번째 단계"/> <strong>Spring Boot 프로젝트에 데이터베이스 지원 추가</strong><br/><img src="icon-4-todo.svg" width="20" alt="네 번째 단계"/> 데이터베이스 액세스를 위해 Spring Data CrudRepository 사용</p>
-</tldr>
-
 이 자습서 파트에서는 _Java Database Connectivity_(JDBC)를 사용하여 프로젝트에 데이터베이스를 추가하고 구성합니다.
 JVM 애플리케이션에서는 JDBC를 사용하여 데이터베이스와 상호 작용합니다.
 편의를 위해 Spring 프레임워크는 JDBC 사용을 단순화하고 일반적인 오류를 방지하는 데 도움이 되는 `JdbcTemplate` 클래스를 제공합니다.
@@ -194,7 +189,7 @@ class MessageService(private val db: JdbcTemplate) {
    spring.sql.init.mode=always
    ```
 
-   이 설정들은 Spring Boot 애플리케이션에서 데이터베이스를 활성화합니다.
+   이 설정들은 Spring Boot 애플리케이션에서 데이터베이스를 활성화합니다.  
    공통 애플리케이션 속성의 전체 목록은 [Spring 문서](https://docs.spring.io/spring-boot/appendix/application-properties/index.html)를 참조하세요.
 
 ## HTTP 요청을 통해 데이터베이스에 메시지 추가
@@ -493,4 +488,11 @@ Spring 애플리케이션을 실행할 준비가 되었습니다.
 
 마지막 단계에서는 Spring Data를 사용하여 더 대중적인 방식으로 데이터베이스에 연결하는 방법을 보여줍니다. 
 
-**[다음 장으로 진행하기](jvm-spring-boot-using-crudrepository.md)**
+<list columns="2" id="tour-nav">
+  <li>
+    <a as="button" href="jvm-spring-boot-add-data-class.md" mode="outline" icon="arrow-left" icon-position="left">이전 단계</a>
+  </li>
+  <li>
+    <a as="button" href="jvm-spring-boot-using-crudrepository.md" mode="classic" icon="arrow-right" icon-position="right">다음 단계</a>
+  </li>
+</list>

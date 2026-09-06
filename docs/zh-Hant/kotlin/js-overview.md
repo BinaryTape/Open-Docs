@@ -29,7 +29,7 @@ Kotlin Multiplatform Gradle 外掛程式讓您可以存取各種功能，例如�
      * 如果您熟悉 Android 開發，可以使用基於 Compose 的架構來建構 Web 應用程式，例如 [Kobweb](https://kobweb.varabyte.com/) 或 [Kilua](https://kilua.dev/)。
      * 使用 JetBrains 提供的 [JavaScript 常用程式庫的 Kotlin 包裝函式](https://github.com/JetBrains/kotlin-wrappers)，透過 Kotlin/JS 建構完全型別安全的 React 應用程式。Kotlin 包裝函式 (`kotlin-wrappers`) 為 React 與其他 JavaScript 架構提供了抽象與整合。
        
-       這些包裝函式還支援補充性程式庫，例如 [React Redux](https://react-redux.js.org/)、[React Router](https://reactrouter.com/) 與 [styled-components](https://styled-components.com/)。您也可以透過與 JavaScript 生態系統的互通性，使用第三方 React 組件與組件庫。
+       這些包裝函式還支援補充性程式庫，例如 [React Redux](https://react-redux.js.org/)、[React Router](https://reactrouter.com/) 與 [styled-components](https://styled-components.com/)。您也可以透過與 JavaScript 生態系統的互通性，使用第三方 React 元件與元件庫。
   
      * 使用 [Kotlin/JS 架構](js-frameworks.md)，這些架構與 Kotlin 生態系統整合，並支援簡潔且具表現力的程式碼。
 
@@ -63,7 +63,7 @@ Kotlin/JS 也與最常見的模組系統相容：[ESM](https://tc39.es/ecma262/#
 
 想要親自嘗試 Kotlin/JS 嗎？
 
-<a href="js-get-started.md"><img src="js-get-started-button.svg" width="500" alt="開始使用 Kotlin/JS" style="block"/></a>
+<a href="js-get-started.md" as="button" mode="rock" icon="arrow-right" icon-position="right">開始使用 Kotlin/JS</a>
 
 ## Kotlin/JS 範例專案
 
@@ -79,7 +79,7 @@ Kotlin/JS 也與最常見的模組系統相容：[ESM](https://tc39.es/ecma262/#
 
 ## Kotlin/JS 架構
 
-Kotlin/JS 架構透過提供立即可用的組件、路由、狀態管理以及其他工具來簡構建現代 Web 應用程式，從而簡化 Web 開發。
+Kotlin/JS 架構透過提供立即可用的元件、路由、狀態管理以及其他工具來建構現代 Web 應用程式，從而簡化 Web 開發。
 
 [查看由不同作者編寫的可用 Kotlin/JS 架構](js-frameworks.md)。
 

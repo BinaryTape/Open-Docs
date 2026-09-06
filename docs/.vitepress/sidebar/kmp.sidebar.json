@@ -264,6 +264,10 @@
             "link": "compose-desktop-components"
           },
           {
+            "text": "kmp.compose-desktop-images",
+            "link": "compose-desktop-images"
+          },
+          {
             "text": "kmp.compose-desktop-top-level-windows-management",
             "link": "compose-desktop-top-level-windows-management"
           },
@@ -294,6 +298,10 @@
           {
             "text": "kmp.compose-desktop-keyboard",
             "link": "compose-desktop-keyboard"
+          },
+          {
+            "text": "kmp.compose-desktop-tabbing",
+            "link": "compose-desktop-tabbing"
           },
           {
             "text": "kmp.compose-native-distribution",
@@ -621,6 +629,10 @@
           }
         ],
         "collapsed": true
+      },
+      {
+        "text": "kmp.klibs-io",
+        "link": "klibs-io"
       }
     ],
     "collapsed": true

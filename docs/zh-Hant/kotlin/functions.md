@@ -65,7 +65,7 @@ fun powerOf(
 ) { /*...*/ }
 ```
 
-尾隨逗號有助於重構與程式碼維護：
+尾隨逗號有助於重構作業與程式碼維護：
 您可以移動宣告中的參數，而不必擔心哪一個會變成最後一個。
 
 > Kotlin 函式可以接收其他函式作為參數，也可以作為引數傳遞。
@@ -315,6 +315,13 @@ fun double(x: Int) = x * 2
 在上面的例子中，如果您希望 `double()` 函式傳回 `Number` 而非 `Int`，
 您必須明確宣告。
 
+如果函式的傳回型別已明確指定，您可以在運算式主體中使用 `return` 陳述式：
+
+```kotlin
+fun getDisplayNameOrDefault(userId: String?): String =
+    getDisplayName(userId ?: return "default")
+```
+
 ### 傳回 Unit 的函式
 
 如果函式具有區塊主體（花括號 `{}` 內的指令）且不傳回有用的值，
@@ -327,7 +334,7 @@ fun double(x: Int) = x * 2
 例如，您可以宣告 `printHello()` 函式而不傳回 `Unit`：
 
 ```kotlin
-// 函式型別參數 ('action') 的宣告仍然
+// 函式型別參數 ('action') 的宣告仍然 
 // 需要明確的傳回型別
 fun printHello(name: String?, action: () -> Unit) {
     if (name != null)
@@ -381,13 +388,6 @@ fun main() {
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="return-unit-explicit"}
-
-如果函式的傳回型別已明確指定，您可以在運算式主體中使用 `return` 陳述式：
-
-```kotlin
-fun getDisplayNameOrDefault(userId: String?): String =
-    getDisplayName(userId ?: return "default")
-```
 
 ### 可變參數 (varargs)
 
@@ -471,7 +471,7 @@ val list = asList(-1, 0, *a.toTypedArray(), 4)
 ```kotlin
 infix fun Int.shl(x: Int): Int { /*...*/ }
 
-// 使用一般表示法呼叫函式
+// 使用一般表示法呼叫函式 
 1.shl(2)
 
 // 使用 infix 表示法呼叫函式

@@ -49,7 +49,7 @@ fun main() {
 >     val shapes: MutableList<String> = mutableListOf("triangle", "square", "circle")
 >     val shapesLocked: List<String> = shapes
 > ```
-> これは**キャスト（casting）**とも呼ばわれます。
+> これは**キャスト（casting）**とも呼ばれます。
 > 
 {style="tip"}
 
@@ -237,7 +237,7 @@ fun main() {
 可変マップ ([`MutableMap`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/)) を作成するには、
 [`mutableMapOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-map-of.html) 関数を使用します。
 
-マップを作成する際、Kotlinは保存されている項目の型を推論できます。型を明示的に宣言するには、マップ宣言の後の山括弧 `<>` 内にキーと値の型を追加します。例えば、`MutableMap<String, Int>` のようになります。この場合、キーの型は `String` で、値の型は `Int` です。
+マップを作成する際、Kotlinは保存されている項目の型を推論できます。型を明示的に宣言するには、マップ宣言の後の山括弧 `<>` 内にキーと値の型を追加します。例えば、`MutableMap<String, Int>` のようになります。キーの型は `String` で、値の型は `Int` です。
 
 マップを作成する最も簡単な方法は、各キーとそれに関連する値の間に [`to`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/to.html) を使用することです：
 
@@ -483,7 +483,7 @@ fun main() {
 fun main() {
     val number2word = mapOf(1 to "one", 2 to "two", 3 to "three")
     val n = 2
-    println("$n is spelt as '${number2word[n]}'")
+    println("$n is spelled as '${number2word[n]}'")
 }
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="解答例" id="kotlin-tour-collections-solution-3"}

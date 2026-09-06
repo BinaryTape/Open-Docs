@@ -16,7 +16,7 @@
 * **桌面**: [`Locale.getDefault()`](https://developer.android.com/reference/java/util/Locale#getDefault(java.util.Locale.Category))
 * **Web**: [`window.navigator.languages`](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/languages)
 
-1. 在 `common` 原始碼集中，使用 `expect` 關鍵字定義預期的 `LocalAppLocale` 物件：
+1. 在 `common` 原始碼集中，使用 `expect` 關鍵字定義預期的 `LocalAppLocale` 物件。地區設定指定為 BCP 47 語言標籤，例如 `es`、`es-ES` 或 `zh-Hans`。將 `customAppLocale` 設定為 `null` 以使用系統地區設定：
 
     ```kotlin
     var customAppLocale by mutableStateOf<String?>(null)
@@ -174,7 +174,7 @@ Compose Multiplatform 透過 `isSystemInDarkTheme()` 定義目前的佈景主題
     ```
 * iOS、桌面與 Web 平台使用 `LocalSystemTheme.current`。
 
-作為臨時解決方案，在實作通用的公開 API 之前，您可以使用 `expect-actual` 機制來管理平台特定的佈景主題自訂：
+作為臨時解決方案，在實作通用的公開 API 之前，您可以使用 `expect-actual` 機制來管理平台特定的佈景主題自訂，以處理這些差異：
 
 1. 在共用程式碼中，使用 `expect` 關鍵字定義預期的 `LocalAppTheme` 物件：
  
@@ -273,5 +273,5 @@ fun AppEnvironment(content: @Composable () -> Unit) {
 
 ## 接下來？
 
-* 了解更多關於[資源限定詞](compose-multiplatform-resources-setup.md#qualifiers)的詳細資訊。
+* 進一步了解[資源限定詞](compose-multiplatform-resources-setup.md#qualifiers)的詳細資訊。
 * 了解如何[在地化資源](compose-localize-strings.md)。

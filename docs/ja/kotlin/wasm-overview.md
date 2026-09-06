@@ -27,7 +27,7 @@ Webプラットフォーム向けには、Compose Multiplatformはコンパイ�
 
 実際に試してみませんか？
 
-<a href="wasm-get-started.md"><img src="wasm-get-started-button.svg" width="600" alt="Get started with Kotlin/Wasm" style="block"/></a>
+<a href="wasm-get-started.md" as="button" mode="rock" icon="arrow-right" icon-position="right">Kotlin/Wasm を使い始める</a>
 
 ## Kotlin/Wasm と WASI
 

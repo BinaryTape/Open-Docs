@@ -7,58 +7,58 @@ Kotlin を使用した一連のハンズオンチュートリアルです。さ�
 
 Spring Boot と Kotlin を使用してデータベース機能を備えたシンプルなアプリケーションを構築し、構文の観点からバックエンド開発に Kotlin を使用する利点について学びます。
 
-[**Start**](jvm-get-started-spring-boot.md)
+<a href="jvm-get-started-spring-boot.md" as="button" mode="classic" icon="arrow-right" icon-position="right">Start</a>
 
 ## React と Kotlin/JS を使用した Web アプリケーションの構築
 
 Kotlin/JS を使用して React アプリケーションを作成し、Kotlin の型システム、ライブラリのエコシステム、および相互運用性の機能をどのように活用できるかを確認します。
 
-[**Start**](js-react.md)
+<a href="js-react.md" as="button" mode="classic" icon="arrow-right" icon-position="right">Start</a>
 
 ## Spring Boot と Kotlin を使用した Web アプリケーションの構築
 
 Spring Boot と Kotlin のパワーを組み合わせて、シンプルなブログアプリケーションを構築します。
 
-[**Start**](https://spring.io/guides/tutorials/spring-boot-kotlin/)
+<a href="https://spring.io/guides/tutorials/spring-boot-kotlin/" as="button" mode="classic" icon="arrow-right" icon-position="right">Start</a>
 
 ## Ktor による HTTP API の作成
 
 HTTP リクエストに応答するアプリケーションのバックエンド API を作成します。
 
-[**Start**](https://ktor.io/docs/creating-http-apis.html)
+<a href="https://ktor.io/docs/creating-http-apis.html" as="button" mode="classic" icon="arrow-right" icon-position="right">Start</a>
 
 ## Ktor による WebSocket チャットの作成
 
 JVM サーバーと JVM クライアントの両方を含む、シンプルなチャットアプリケーションを Ktor を使用して作成します。
 
-[**Start**](https://ktor.io/docs/creating-web-socket-chat.html)
+<a href="https://ktor.io/docs/creating-web-socket-chat.html" as="button" mode="classic" icon="arrow-right" icon-position="right">Start</a>
 
 ## Ktor による interactive な Web サイトの作成
 
 ファイルの配信、Freemarker などのテンプレートエンジンや kotlinx.html DSL の使用方法、Ktor でのフォーム入力の処理方法について学びます。
 
-[**Start**](https://ktor.io/docs/creating-interactive-website.html)
+<a href="https://ktor.io/docs/creating-interactive-website.html" as="button" mode="classic" icon="arrow-right" icon-position="right">Start</a>
 
 ## Kotlin コルーチンとチャネルの紹介
 
 Kotlin のコルーチンと、チャネル（channels）を使用してコルーチン間で通信する方法について学びます。
 
-[**Start**](coroutines-and-channels.md)
+<a href="coroutines-and-channels.md" as="button" mode="classic" icon="arrow-right" icon-position="right">Start</a>
 
 ## Kotlin/Native 入門
 
 Kotlin/Native と libcurl を使用して、複数のプラットフォームでネイティブに動作するシンプルな HTTP クライアントを作成します。
 
-[**Start**](native-app-with-c-and-libcurl.md)
+<a href="native-app-with-c-and-libcurl.md" as="button" mode="classic" icon="arrow-right" icon-position="right">Start</a>
 
 ## Kotlin Multiplatform: ネットワークとデータストレージ
 
 Kotlin Multiplatform と Ktor、SQLDelight を使用して、Android および iOS 用のモバイルアプリケーションを作成する方法を学びます。
 
-[**Start**](https://kotlinlang.org/docs/multiplatform/multiplatform-ktor-sqldelight.html)
+<a href="https://kotlinlang.org/docs/multiplatform/multiplatform-ktor-sqldelight.html" as="button" mode="classic" icon="arrow-right" icon-position="right">Start</a>
 
 ## Kotlin Multiplatform による iOS および Android への対応
 
 Kotlin Multiplatform を使用して、iOS と Android の両方をターゲットにできるモバイルアプリケーションを作成する方法を学びます。
 
-[**Start**](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)
+<a href="https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html" as="button" mode="classic" icon="arrow-right" icon-position="right">Start</a>

@@ -16,7 +16,7 @@
 * **桌面**：[`Locale.getDefault()`](https://developer.android.com/reference/java/util/Locale#getDefault(java.util.Locale.Category))
 * **Web**：[`window.navigator.languages`](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/languages)
 
-1. 在通用源集中，使用 `expect` 关键字定义预期的 `LocalAppLocale` 对象：
+1. 在通用源集中，使用 `expect` 关键字定义预期的 `LocalAppLocale` 对象。区域性被指定为 BCP 47 语言标签，例如 `es`、`es-ES` 或 `zh-Hans`。将 `customAppLocale` 设置为 `null` 以使用系统区域性：
 
     ```kotlin
     var customAppLocale by mutableStateOf<String?>(null)

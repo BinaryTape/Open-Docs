@@ -1,14 +1,5 @@
 [//]: # (title: 對應來自 C 的函式指標 – 教學)
 
-<tldr>
-    <p>這是<strong>對應 Kotlin 與 C</strong> 教學系列的第三部分。在繼續之前，請確保你已完成之前的步驟。</p>
-    <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <a href="mapping-primitive-data-types-from-c.md">對應來自 C 的原始資料型別</a><br/>
-        <img src="icon-2-done.svg" width="20" alt="第二步"/> <a href="mapping-struct-union-types-from-c.md">對應來自 C 的結構 (struct) 與等位 (union) 型別</a><br/>
-        <img src="icon-3.svg" width="20" alt="第三步"/> <strong>對應來自 C 的函式指標</strong><br/>
-        <img src="icon-4-todo.svg" width="20" alt="第四步"/> <a href="mapping-strings-from-c.md">對應來自 C 的字串</a><br/>
-    </p>
-</tldr>
-
 > C 程式庫匯入目前處於 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 階段。所有由 cinterop 工具從 C 程式庫產生的 Kotlin 宣告都應具有 `@ExperimentalForeignApi` 註解。
 >
 > 隨 Kotlin/Native 提供的原生平台程式庫（如 Foundation、UIKit 和 POSIX）僅針對部分 API 需要選擇性加入 (opt-in)。
@@ -24,7 +15,7 @@
 
 ## 對應來自 C 的函式指標型別
 
-為了理解 Kotlin 與 C 之間的對應關係，我們宣告兩個函式：一個接受函式指標作為參數，另一個則回傳函式指標。
+為了理解 Kotlin 與 C 之間的對應關係，讓我們宣告兩個函式：一個接受函式指標作為參數，另一個則回傳函式指標。
 
 在[本系列的第一部分](mapping-primitive-data-types-from-c.md)中，你已經建立了一個包含必要檔案的 C 程式庫。在此步驟中，請更新 `interop.def` 檔案中 `---` 分隔線後的宣告：
 
@@ -76,7 +67,7 @@ MyFun supply_fun() {
    fun supply_fun(): kotlinx.cinterop.CPointer<kotlinx.cinterop.CFunction<(kotlin.Int) -> kotlin.Int>>? /* from: interop.MyFun? */
    ```
 
-如你所見，C 函式指標在 Kotlin 中使用 `CPointer<CFunction<...>>` 來表示。`accept_fun()` 函式接受一個可為 null 的函式指標作為參數，而 `supply_fun()` 則回傳一個函式指標。
+如你所見，C 函式指標在 Kotlin 中使用 `CPointer<CFunction<...>>` 來表示。`accept_fun()` 函式接受一個選用的函式指標作為參數，而 `supply_fun()` 則回傳一個函式指標。
 
 `CFunction<(Int) -> Int>` 代表函式簽章，而 `CPointer<CFunction<...>>?` 代表一個可為 null 的函式指標。所有 `CPointer<CFunction<...>>` 型別都有一個可用的 [`.invoke()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/invoke.html) 運算子擴充方法，讓你可以像呼叫一般 Kotlin 函式一樣呼叫函式指標。
 
@@ -140,7 +131,7 @@ fun main() {
 }
 ```
 
-要驗證一切是否如預期運作，請[在你的 IDE 中](native-get-started.md#build-and-run-the-application)執行 `runDebugExecutable<YourTargetName>` Gradle 任務，或在此範例中使用終端機指令：
+要驗證一切是否如預期運作，請[在你的 IDE 中](native-get-started.md#build-and-run-the-application)執行 `runDebugExecutable<YourTargetName>` Gradle 任務，或在此範例中使用終端機的主控台指令：
 
 ```bash
 ./gradlew runDebugExecutableMacosArm64
@@ -150,7 +141,14 @@ fun main() {
 
 在本系列的下一部分中，你將學習如何在 Kotlin 和 C 之間對應字串：
 
-**[繼續前往下一部分](mapping-strings-from-c.md)**
+<list columns="2" id="tour-nav">
+  <li>
+    <a as="button" href="mapping-struct-union-types-from-c.md" mode="outline" icon="arrow-left" icon-position="left">上一步</a>
+  </li>
+  <li>
+    <a as="button" href="mapping-strings-from-c.md" mode="classic" icon="arrow-right" icon-position="right">下一步</a>
+  </li>
+</list>
 
 ### 延伸閱讀
 

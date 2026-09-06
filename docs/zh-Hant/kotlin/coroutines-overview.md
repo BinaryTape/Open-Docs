@@ -16,7 +16,7 @@
 如果您是初次接觸 Kotlin 中的協同程式，在深入探討更複雜的主題之前，請先從 [協同程式基礎](coroutines-basics.md) 指南開始。
 本指南透過簡單的範例介紹了暫停函式、協同程式建立器和結構化並行（structured concurrency）等核心概念：
 
-<a href="coroutines-basics.md"><img src="get-started-coroutines.svg" width="700" alt="協同程式快速入門" style="block"/></a>
+<a href="coroutines-basics.md" as="button" mode="rock" icon="arrow-right" icon-position="right">協同程式快速入門</a>
 
 > 參考 [KotlinConf app](https://github.com/JetBrains/kotlinconf-app) 範例專案，了解協同程式在實務中如何使用。
 > 
@@ -62,7 +62,7 @@ Kotlin 提供了多種讓協同程式進行通訊的方式。
 如果沒有協調，這可能會導致資料競爭（race condition），即各項操作以不可預測的方式互相干擾。
 為了安全地管理共用可變狀態，請使用 [`StateFlow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-state-flow/#) 來封裝共用資料。
 接著，您可以從一個協同程式更新它，並從其他協同程式收集其最新值。
-<!-- 進一步了解 [共用可變狀態與並行](shared-mutable-state-and-concurrency.md)。 -->
+<!-- 若要進一步了解，請參閱 [共用可變狀態與並行](shared-mutable-state-and-concurrency.md)。 -->
 
 如需更多資訊，請參閱 [非同步流](coroutines-flow.md)、[通道 (Channels)](channels.md) 以及 [協同程式與通道教學](coroutines-and-channels.md)。
 

@@ -21,7 +21,7 @@ Kotlin/Native 附带了一组预导入的系统框架；也可以导入现有框
 你可以使用命令行直接或通过脚本文件（例如 `.sh` 或 `.bat` 文件）生成 Kotlin 框架。
 然而，这种方法对于拥有数百个文件和库的大型项目来说扩展性不佳。
 使用构建系统可以简化流程，它可以下载和缓存带有传递依赖的 Kotlin/Native 编译器二进制文件和库，并运行编译器和测试。
-Kotlin/Native 可以通过 [Kotlin Multiplatform 插件](gradle-configure-project.md#targeting-multiple-platforms)使用 [Gradle](https://gradle.org) 构建系统。
+Kotlin/Native 可以通过 [Kotlin 多平台插件](gradle-configure-project.md#targeting-multiple-platforms)使用 [Gradle](https://gradle.org) 构建系统。
 
 > 如果你使用 Mac 并希望为 iOS 或其他 Apple 目标创建和运行应用程序，你还需要首先安装 [Xcode 命令行工具](https://developer.apple.com/download/)，启动它并接受许可条款。
 >
@@ -142,7 +142,7 @@ Kotlin/Native 编译器可以根据 Kotlin 代码为 macOS 和 iOS 生成框架�
 
     Kotlin/Native 支持 iOS 的 `iosArm64` 和 `iosSimulatorArm64` 目标，以及 macOS 的 `macosArm64` 目标。因此，你可以根据你的目标平台将 `iosArm64()` 替换为相应的 Gradle 函数：
 
-    | 目标平台/设备 | Gradle 函数 |
+    | 目标/设备 | Gradle 函数 |
     |------------------------|-----------------------|
     | macOS ARM64            | `macosArm64()`        |
     | iOS ARM64              | `iosArm64()`          |
@@ -394,7 +394,7 @@ Kotlin 函数和属性名称按原样转换。Kotlin 的 `String` 被转换为 S
 
 现在，你可以将生成的框架作为依赖项连接到你的 iOS 项目。有多种方式来设置并自动化此过程，请选择最适合你的方法：
 
-<a href="https://kotlinlang.org/docs/multiplatform/multiplatform-ios-integration-overview.html"><img src="choose-ios-integration.svg" width="700" alt="选择 iOS 集成方法" style="block"/></a>
+<a href="https://kotlinlang.org/docs/multiplatform/multiplatform-ios-integration-overview.html" as="button" mode="rock" icon="arrow-right" icon-position="right">选择 iOS 集成方法</a>
 
 ## 下一步
 

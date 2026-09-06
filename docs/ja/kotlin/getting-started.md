@@ -8,7 +8,7 @@ Kotlinは、簡潔でマルチプラットフォームに対応し、Javaや他�
 
 Kotlinが初めてですか？ブラウザ上で直接基本を学べるツアーに参加しましょう。
 
-<a href="kotlin-tour-welcome.md"><img src="start-kotlin-tour.svg" width="700" alt="Kotlinツアーを開始する" style="block"/></a>
+<a href="kotlin-tour-welcome.md" as="button" mode="classic" icon="arrow-right" icon-position="right">Kotlinツアーを開始する</a>
 
 ## Kotlinのインストール
 

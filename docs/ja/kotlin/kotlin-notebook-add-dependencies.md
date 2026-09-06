@@ -7,14 +7,6 @@
 >
 {style="note"}
 
-<tldr>
-   <p>これは <strong>Kotlin Notebook を使ってみる</strong> チュートリアルの第 3 部です。先に進む前に、前のステップを完了していることを確認してください。</p>
-   <p><img src="icon-1-done.svg" width="20" alt="第 1 ステップ"/> <a href="kotlin-notebook-set-up-env.md">環境をセットアップする</a><br/>
-      <img src="icon-2-done.svg" width="20" alt="第 2 ステップ"/> <a href="kotlin-notebook-create.md">Kotlin Notebook を作成する</a><br/>
-      <img src="icon-3.svg" width="20" alt="第 3 ステップ"/> <strong>Kotlin Notebook に依存関係を追加する</strong><br/>
-  </p>
-</tldr>
-
 最初の [Kotlin Notebook](kotlin-notebook-overview.md) を作成できましたね！次に、高度な機能を利用するために必要な、ライブラリへの依存関係を追加する方法を学びましょう。
 
 > Kotlin 標準ライブラリはそのまま使用できるため、インポートする必要はありません。
@@ -124,6 +116,12 @@ Kotlin Notebook の自動補完機能を使用して、利用可能なライブ�
 
 Kotlin Notebook でのこれらのライブラリの追加と活用、おめでとうございます！
 これは Kotlin Notebook とその [サポートされているライブラリ](data-analysis-libraries.md) で実現できることのほんの一部にすぎません。
+
+<list id="tour-nav">
+  <li>
+    <a as="button" href="kotlin-notebook-create.md" mode="outline" icon="arrow-left" icon-position="left">前のステップ</a>
+  </li>
+</list>
 
 ## 次のステップ
 

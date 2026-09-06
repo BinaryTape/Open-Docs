@@ -133,7 +133,25 @@ kotlin {
 * 語言由兩字母 (ISO 639-1) 或三字母 (ISO 639-2) [語言代碼](https://www.loc.gov/standards/iso639-2/php/code_list.php) 定義。
 * 您可以在語言代碼中新增兩字母的 [ISO 3166-1-alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) 地區代碼。地區代碼必須帶有小寫 `r` 前綴，例如：`drawable-spa-rMX`。
 
-語言和地區代碼區分大小寫。在 [在地化](compose-regional-format.md) 中進一步了解如何處理特定地區的格式。
+語言和地區代碼區分大小寫。
+
+若要指定書寫體 (script) 或任何其他 BCP 47 子標籤，請使用 `b+` 前綴，並將所有後續子標籤連字號 (`-`) 替換為 `+` 符號，例如：`values-b+zh+Hans` 和 `values-b+zh+Hant`。
+
+在 [在地化](compose-regional-format.md) 中進一步了解如何處理特定地區的格式。
+
+#### 具有多種書寫體語言的備援 (Fallback)
+
+在 Android 和桌面平台上，系統可能會請求不含書寫體的地區設定 (locale)，例如，不含特定 `zh-Hans` 或 `zh-Hant` 的 `zh`。如果您僅提供特定書寫體的資源，所有這些資源都會匹配此類不含書寫體的請求，且資源將無法解析，導致應用程式拋出例外。為避免歧義，請為每種具有特定書寫體資源的語言新增一個不含書寫體的目錄：
+
+```
+commonMain/composeResources/
+├── values/                 # 預設資源
+├── values-zh/              # 不含書寫體的 `zh` 資源
+├── values-b+zh+Hans/
+└── values-b+zh+Hant/
+```
+
+這同樣適用於所有具有一種以上書寫體的語言，例如塞爾維亞語 (`sr-Cyrl`, `sr-Latn`) 或烏茲別克語 (`uz-Cyrl`, `uz-Latn`)。
 
 ### 佈景主題限定詞
 

@@ -7,7 +7,7 @@ Kotlin AI 技能是可重用的指令，可帮助 AI 代理更可靠地执行特
 
 Kotlin AI 技能可帮助代理产出更准确的结果，并减少您亲自解释任务所花费的时间。对于团队而言，技能还为常见任务提供了共享框架，从而让每个人都能获得一致的结果。
 
-<a href="https://github.com/Kotlin/kotlin-agent-skills"><img src="kotlin-ai-skills.svg" alt="Explore Kotlin AI skills" type="block"/></a>
+<a href="https://github.com/Kotlin/kotlin-agent-skills" as="button" mode="rock" icon="arrow-right" icon-position="right">探索 Kotlin AI 技能</a>
 
 Kotlin AI 技能遵循 [Agent Skills 标准](https://agentskills.io/home)，因此您可以将它们用于兼容的 AI 代理，例如 [Junie](https://www.jetbrains.com/junie/)、Claude Code、OpenAI Codex、Google Gemini 和 GitHub Copilot。
 

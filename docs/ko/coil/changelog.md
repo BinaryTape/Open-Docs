@@ -1,5 +1,14 @@
 # 변경 로그
 
+## [3.6.2] - 2026년 9월 4일
+
+- 대기 중인 요청이 취소될 경우 특정 키에 대한 요청이 중단(hanging)되던 `DeDupeConcurrentRequestStrategy` 문제를 수정했습니다. ([#3566](https://github.com/coil-kt/coil/pull/3566))
+- Compose Multiplatform 1.13을 사용할 때 JS/WASM 링킹 에러가 발생하던 문제를 수정했습니다. ([#3568](https://github.com/coil-kt/coil/pull/3568))
+
+## [3.6.1] - 2026년 9월 1일
+
+- ES 모듈이 활성화되었을 때 JS 빌드가 실패하던 문제를 수정했습니다. ([#3558](https://github.com/coil-kt/coil/pull/3558))
+
 ## [3.6.0] - 2026년 8월 26일
 
 - **신규**: JS/WASM에서 `blob:` URL(객체 URL) 로딩 지원을 추가했습니다. ([#3504](https://github.com/coil-kt/coil/pull/3504))
@@ -180,40 +189,40 @@
 
 ## [3.0.4] - 2024년 11월 25일
 
-- Fix vector drawables not rendering in the Android Studio preview.
-- Fix potential memory cache miss for requests whose size exceeds `maxBitmapSize`.
-- Fix `FakeImage` not rendering on Android.
-- Fix not launching a new image request when the request's `Transformation`s change when used with `AsyncImage`/`rememberAsyncImagePainter`/`SubcomposeAsyncImage`.
-- Fix `ScaleDrawable` and `CrossfadeDrawable` not respecting tint states.
-- Allow `ImageDecoder` to decode partial image sources. This matches the behavior in `BitmapFactory`.
-- Fix `Bitmap.prepareToDraw()` not being called after decoding.
-- `SvgDecoder` should not return `isSampled = true` for non-rasterized images.
-- Fall back to `Dispatchers.Unconfined` in Compose if an immediate main dispatcher is unavailable. This is only used in preview/test environments.
-- Update Ktor 2 to `2.3.13`.
+- Android Studio 미리보기에서 벡터 드로어블이 렌더링되지 않던 문제를 수정했습니다.
+- 요청 크기가 `maxBitmapSize`를 초과할 때 발생할 수 있던 잠재적인 메모리 캐시 미스 문제를 수정했습니다.
+- Android에서 `FakeImage`가 렌더링되지 않던 문제를 수정했습니다.
+- `AsyncImage`/`rememberAsyncImagePainter`/`SubcomposeAsyncImage` 사용 시 요청의 `Transformation`이 변경되어도 새로운 이미지 요청을 시작하지 않던 문제를 수정했습니다.
+- `ScaleDrawable` 및 `CrossfadeDrawable`이 틴트 상태를 반영하지 않던 문제를 수정했습니다.
+- `ImageDecoder`가 부분적인 이미지 소스를 디코딩할 수 있도록 허용했습니다. 이는 `BitmapFactory`의 동작과 일치합니다.
+- 디코딩 후 `Bitmap.prepareToDraw()`가 호출되지 않던 문제를 수정했습니다.
+- `SvgDecoder`가 비-래스터화(non-rasterized) 이미지에 대해 `isSampled = true`를 반환하지 않도록 수정했습니다.
+- 즉시 메인 디스패처를 사용할 수 없는 경우 Compose에서 `Dispatchers.Unconfined`로 폴백합니다. 이는 미리보기/테스트 환경에서만 사용됩니다.
+- Ktor 2를 `2.3.13`으로 업데이트했습니다.
 
 ## [3.0.3] - 2024년 11월 14일
 
-- Fix setting `ImageRequest.scale` based on an `ImageView`'s `ScaleType`.
-- Fix edge case where `DiskCache` would not track removal of an entry after deleting its files.
-- Pass throwable to `Logger` when logging errors.
-- Don't replace `kotlin-stdlib-jdk7` and `kotlin-stdlib-jdk8` with `kotlin-stdlib`.
+- `ImageView`의 `ScaleType`에 따라 `ImageRequest.scale`이 설정되도록 수정했습니다.
+- `DiskCache`가 파일을 삭제한 후에도 항목의 제거를 추적하지 못하던 엣지 케이스를 수정했습니다.
+- 에러 로깅 시 `Logger`에 throwable을 전달합니다.
+- `kotlin-stdlib-jdk7` 및 `kotlin-stdlib-jdk8`을 `kotlin-stdlib`로 교체하지 않습니다.
 
 ## [3.0.2] - 2024년 11월 9일
 
-- Fix crash when invoking `OkHttpNetworkFetcherFactory` with a custom `CacheStrategy` on Android.
-- Fix `CacheControlCacheStrategy` computing the age of a cache entry incorrectly.
-- Fix case where `ImageRequest.bitmapConfig` would only be respected on >= API 28 if it was `ARGB_8888` or `HARDWARE`.
+- Android에서 커스텀 `CacheStrategy`와 함께 `OkHttpNetworkFetcherFactory`를 호출할 때 발생하던 크래시를 수정했습니다.
+- `CacheControlCacheStrategy`가 캐시 항목의 보존 기간(age)을 잘못 계산하던 문제를 수정했습니다.
+- API 28 이상에서 `ImageRequest.bitmapConfig`가 `ARGB_8888` 또는 `HARDWARE`인 경우에만 적용되던 문제를 수정했습니다.
 
 ## [3.0.1] - 2024년 11월 7일
 
-- Fix crash when calling `Image.toBitmap` with a hardware bitmap-backed `BitmapImage`.
-- Fix `AsyncImageModelEqualityDelegate.Default` comparing equality incorrectly for non-`ImageRequest` models.
+- 하드웨어 비트맵 기반의 `BitmapImage`로 `Image.toBitmap`을 호출할 때 발생하던 크래시를 수정했습니다.
+- `AsyncImageModelEqualityDelegate.Default`가 `ImageRequest`가 아닌 모델에 대해 동등성을 잘못 비교하던 문제를 수정했습니다.
 
 ## [3.0.0] - 2024년 11월 4일
 
-Coil 3.0.0은 [Compose Multiplatform](https://www.jetbrains.com/compose-multiplatform/)을 완벽하게 지원하는 다음 메이저 릴리스입니다.
+Coil 3.0.0은 [Compose Multiplatform](https://www.jetbrains.com/compose-multiplatform/)을 완벽하게 지원하는 Coil의 다음 메이저 릴리스입니다.
 
-[3.0.0의 전체 개선 사항 및 중요 변경 목록은 업그레이드 가이드를 확인하세요](https://coil-kt.github.io/coil/upgrading_to_coil3/).
+[3.0.0의 모든 개선 사항 및 중요 변경 목록은 업그레이드 가이드를 확인하세요](https://coil-kt.github.io/coil/upgrading_to_coil3/).
 
 `3.0.0-rc02` 이후 변경 사항:
 
@@ -221,22 +230,22 @@ Coil 3.0.0은 [Compose Multiplatform](https://www.jetbrains.com/compose-multipla
 
 ## [3.0.0-rc02] - 2024년 10월 28일
 
-[3.x의 전체 개선 사항 및 중요 변경 목록은 업그레이드 가이드를 확인하세요](https://coil-kt.github.io/coil/upgrading_to_coil3/). `3.0.0-rc01` 이후 변경 사항:
+[3.x의 모든 개선 사항 및 중요 변경 목록은 업그레이드 가이드를 확인하세요](https://coil-kt.github.io/coil/upgrading_to_coil3/). `3.0.0-rc01` 이후 변경 사항:
 
 - `BlackholeDecoder`를 추가했습니다. 이는 [디스크 캐시 전용 프리로딩](https://coil-kt.github.io/coil/faq/#how-do-i-preload-an-image)을 간소화합니다.
 - `ConstraintsSizeResolver` 및 `DrawScopeSizeResolver`를 위한 `remember` 함수를 추가했습니다.
 - `AsyncImage`의 파라미터에서 `EqualityDelegate`를 제거했습니다. 대신 `LocalAsyncImageModelEqualityDelegate`를 통해 설정해야 합니다.
 - 부모 컴포저블이 `IntrinsicSize`를 사용할 때 `AsyncImage`가 렌더링되지 않던 문제를 수정했습니다.
-- `AsyncImagePainter`에 자식 페인터가 없을 때 `AsyncImage`가 가용 제약 조건(constraints)을 가득 채우던 문제를 수정했습니다.
+- `AsyncImagePainter`에 자식 페인터가 없을 때 `AsyncImage`가 가용 제약 조건을 가득 채우던 문제를 수정했습니다.
 - `EqualityDelegate`가 무시되어 상태가 관찰될 때 `rememberAsyncImagePainter`가 무한히 재구성(recompose)되던 문제를 수정했습니다.
-- 특수 문자가 포함된 `File`/`Path` 경로 분석을 수정했습니다.
+- 특수 문자가 포함된 `File`/`Path` 경로 파싱을 수정했습니다.
 - `VideoFrameDecoder`에서 커스텀 `FileSystem` 구현을 사용할 수 있도록 수정했습니다.
 - Ktor를 `3.0.0`으로 업데이트했습니다.
 - `androidx.annotation`을 `1.9.0`으로 업데이트했습니다.
 
 ## [3.0.0-rc01] - 2024년 10월 8일
 
-[3.x의 전체 개선 사항 및 중요 변경 목록은 업그레이드 가이드를 확인하세요](https://coil-kt.github.io/coil/upgrading_to_coil3/). `3.0.0-alpha10` 이후 변경 사항:
+[3.x의 모든 개선 사항 및 중요 변경 목록은 업그레이드 가이드를 확인하세요](https://coil-kt.github.io/coil/upgrading_to_coil3/). `3.0.0-alpha10` 이후 변경 사항:
 
 - **파괴적 변경**: `addLastModifiedToFileCacheKey`를 기본적으로 비활성화하고 요청별로 설정할 수 있게 변경했습니다. 이전 동작은 동일한 플래그로 다시 활성화할 수 있습니다.
 - **신규**: [`Cache-Control` 헤더](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control) 지원을 구현하는 새로운 `coil-network-cache-control` 아티팩트를 도입했습니다.
@@ -255,7 +264,7 @@ Coil 3.0.0은 [Compose Multiplatform](https://www.jetbrains.com/compose-multipla
 
 - **파괴적 변경**: `ImageLoader.Builder.networkObserverEnabled`를 `NetworkFetcher`를 위한 `ConnectivityChecker` 인터페이스로 교체했습니다.
     - 네트워크 옵저버를 비활성화하려면 `KtorNetworkFetcherFactory`/`OkHttpNetworkFetcherFactory` 생성자에 `ConnectivityChecker.ONLINE`을 전달하세요.
-- **신규**: 모든 플랫폼에서 [Compose Multiplatform 리소스](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-images-resources.html) 로딩을 지원합니다. 리소스를 로드하려면 `Res.getUri`를 사용하세요:
+- **신규**: 모든 플랫폼에서 [Compose 멀티플랫폼 리소스](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-images-resources.html) 로딩을 지원합니다. 리소스를 로드하려면 `Res.getUri`를 사용하세요:
 
 ```kotlin
 AsyncImage(
@@ -265,7 +274,7 @@ AsyncImage(
 ```
 
 - `ImageLoader` 및 `ImageRequest`에 `maxBitmapSize` 속성을 추가했습니다.
-    - 이 속성은 기본값이 4096x4096이며 할당된 비트맵 치수의 안전한 상한선을 제공합니다. 이는 실수로 `Size.ORIGINAL`로 매우 큰 이미지를 로드하여 메모리 캐시 부족 예외(OOM)가 발생하는 것을 방지하는 데 도움이 됩니다.
+    - 이 속성은 기본값이 4096x4096이며 할당된 비트맵 치수의 안전한 상한선을 제공합니다. 이는 실수로 `Size.ORIGINAL`로 매우 큰 이미지를 로드하여 메모리 부족 예외(OOM)가 발생하는 것을 방지하는 데 도움이 됩니다.
 - 커스텀 정책 지원을 위해 `ExifOrientationPolicy`를 인터페이스로 변환했습니다.
 - Windows 파일 경로의 `Uri` 처리를 수정했습니다.
 - `Image` API에서 `@ExperimentalCoilApi`를 제거했습니다.
@@ -317,9 +326,9 @@ AsyncImage(
     - 이 동작은 `SvgDecoder(renderToBitmap)`을 사용하여 제어할 수 있습니다.
 - `ScaleDrawable`을 `coil-gif`에서 `coil-core`로 이동했습니다.
 - Kotlin을 2.0.0으로 업데이트했습니다.
-- Compose를 1.6.11으로 업데이트했습니다.
-- Okio를 3.9.0으로 업데이트했습니다.
-- Skiko를 0.8.4으로 업데이트했습니다.
+- Update Compose to 1.6.11.
+- Update Okio to 3.9.0.
+- Update Skiko to 0.8.4.
 - [3.x의 중요 변경 사항 전체 목록은 업그레이드 가이드를 확인하세요.](https://coil-kt.github.io/coil/upgrading_to_coil3/)
 
 ## [3.0.0-alpha06] - 2024년 2월 29일
@@ -334,7 +343,7 @@ AsyncImage(
     - `Image` API는 실험적이며 알파 릴리스 사이에서 변경될 수 있습니다.
 - `Modifier.Node`를 구현하도록 `ContentPainterModifier`를 업데이트했습니다.
 - 수정: 컴포넌트 콜백 및 네트워크 옵저버를 백그라운드 스레드에서 지연 등록합니다. 이는 일반적으로 메인 스레드에서 발생하던 느린 초기화 문제를 해결합니다.
-- 수정: `ImageLoader.Builder.placeholder/error/fallback`이 사용되지 않던 문제를 수정했습니다.
+- 수정: `ImageLoader.Builder.placeholder/error/fallback`이 `ImageRequest`에서 사용되지 않던 문제를 수정했습니다.
 - 업데이트 Compose to 1.6.0.
 - 업데이트 Coroutines to 1.8.0.
 - 업데이트 Okio to 3.8.0.
@@ -343,11 +352,11 @@ AsyncImage(
 
 ## [2.6.0] - 2024년 2월 23일
 
-- `rememberAsyncImagePainter`, `AsyncImage`, `SubcomposeAsyncImage`를 [재시작 가능(restartable) 및 건너뛰기 가능(skippable)](https://developer.android.com/jetpack/compose/performance/stability#functions)하도록 만들었습니다. 이는 컴포저블의 인자 중 하나가 변경되지 않는 한 재구성을 피함으로써 성능을 향상시킵니다.
-    - `model`이 재구성을 트리거할지 여부를 제어하기 위해 `rememberAsyncImagePainter`, `AsyncImage`, `SubcomposeAsyncImage`에 선택적 `modelEqualityDelegate` 인자를 추가했습니다.
+- `rememberAsyncImagePainter`, `AsyncImage`, 및 `SubcomposeAsyncImage`를 [재시작 가능(restartable) 및 건너뛰기 가능(skippable)](https://developer.android.com/jetpack/compose/performance/stability#functions)하도록 만들었습니다. 이는 컴포저블의 인자 중 하나가 변경되지 않는 한 재구성을 피함으로써 성능을 향상시킵니다.
+    - `model`이 재구성을 트리거할지 여부를 제어하기 위해 `rememberAsyncImagePainter`, `AsyncImage`, 및 `SubcomposeAsyncImage`에 선택적 `modelEqualityDelegate` 인자를 추가했습니다.
 - `Modifier.Node`를 구현하도록 `ContentPainterModifier`를 업데이트했습니다.
 - 수정: 컴포넌트 콜백 및 네트워크 옵저버를 백그라운드 스레드에서 지연 등록합니다. 이는 일반적으로 메인 스레드에서 발생하던 느린 초기화 문제를 해결합니다.
-- 수정: `ImageRequest.listener` 또는 `ImageRequest.target`이 변경되어도 `rememberAsyncImagePainter`, `AsyncImage`, `SubcomposeAsyncImage`에서 새로운 이미지 요청을 다시 시작하지 않도록 수정했습니다.
+- 수정: `ImageRequest.listener` 또는 `ImageRequest.target`이 변경되어도 `rememberAsyncImagePainter`, `AsyncImage`, 및 `SubcomposeAsyncImage`에서 새로운 이미지 요청을 다시 시작하지 않도록 수정했습니다.
 - 수정: `AsyncImagePainter`에서 이미지 요청을 두 번 관찰하지 않도록 수정했습니다.
 - 업데이트 Kotlin to 1.9.22.
 - 업데이트 Compose to 1.6.1.
@@ -359,7 +368,7 @@ AsyncImage(
 
 - **파괴적 변경**: `OkHttpNetworkFetcherFactory` 및 `KtorNetworkFetcherFactory`의 공개 API에서 `Lazy`를 제거했습니다.
 - `OkHttpNetworkFetcherFactory`에서 `OkHttpClient` 대신 `Call.Factory`를 노출합니다.
-- `ByteString`을 래핑하도록 `NetworkResponseBody`를 변환했습니다.
+- `NetworkResponseBody`가 `ByteString`을 래핑하도록 변환했습니다.
 - Compose를 1.5.12로 다운그레이드했습니다.
 - [중요 변경 사항 전체 목록은 업그레이드 가이드를 확인하세요.](https://coil-kt.github.io/coil/upgrading_to_coil3/)
 
@@ -386,7 +395,7 @@ AsyncImage(
 
 ## [3.0.0-alpha01] - 2023년 12월 30일
 
-- **신규**: [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 지원. Coil은 이제 Android, JVM, iOS, macOS, 및 Javascript를 지원하는 Kotlin Multiplatform 라이브러리입니다.
+- **신규**: [Compose 멀티플랫폼](https://www.jetbrains.com/lp/compose-multiplatform/) 지원. Coil은 이제 Android, JVM, iOS, macOS, 및 Javascript를 지원하는 Kotlin 멀티플랫폼 라이브러리입니다.
 - Coil의 Maven 좌표가 `io.coil-kt.coil3`로 업데이트되었으며 임포트 경로가 `coil3`로 업데이트되었습니다. 이를 통해 Coil 3은 바이너리 호환성 문제 없이 Coil 2와 공존할 수 있습니다. 예를 들어, `io.coil-kt:coil:[version]`은 이제 `io.coil-kt.coil3:coil:[version]`이 됩니다.
 - `coil-base` 및 `coil-compose-base` 아티팩트가 Coroutines, Ktor, 및 AndroidX에서 사용하는 명명 규칙에 맞춰 각각 `coil-core` 및 `coil-compose-core`로 이름이 변경되었습니다.
 - [중요 변경 사항 전체 목록은 업그레이드 가이드를 확인하세요.](https://coil-kt.github.io/coil/upgrading_to_coil3/)
@@ -430,7 +439,7 @@ AsyncImage(
 - **신규**: `FakeImageLoaderEngine`을 포함하는 새로운 `coil-test` 아티팩트를 도입했습니다. 이 클래스는 테스트에서 일관되고 동기적인(메인 스레드로부터의) 응답을 보장하기 위해 이미지 로더 응답을 하드코딩하는 데 유용합니다. 자세한 내용은 [여기](https://coil-kt.github.io/coil/testing)를 참조하세요.
 - **신규**: `coil-base`(`coil`의 하위 모듈) 및 `coil-compose-base`(`coil-compose`의 하위 모듈)에 [기준 프로필(baseline profiles)](https://developer.android.com/topic/performance/baselineprofiles/overview)을 추가했습니다.
     - 이는 Coil의 런타임 성능을 개선하며 앱에서 Coil을 사용하는 방식에 따라 [더 나은 프레임 타이밍](https://github.com/coil-kt/coil/tree/main/coil-benchmark/benchmark_output.md)을 제공할 것입니다.
-- 수정: 인코딩된 데이터가 포함된 `file://` URI 분석을 수정했습니다. [#1601](https://github.com/coil-kt/coil/pull/1601)
+- 수정: 인코딩된 데이터가 포함된 `file://` URI 파싱을 수정했습니다. [#1601](https://github.com/coil-kt/coil/pull/1601)
 - 수정: `DiskCache`에 존재하지 않는 디렉토리가 전달되었을 때 최대 크기를 올바르게 계산하도록 수정했습니다. [#1620](https://github.com/coil-kt/coil/pull/1620)
 - `Coil.reset`을 공개 API로 전환했습니다. [#1506](https://github.com/coil-kt/coil/pull/1506)
 - Java 기본 메서드 생성을 활성화했습니다. [#1491](https://github.com/coil-kt/coil/pull/1491)
@@ -448,7 +457,7 @@ AsyncImage(
 
 - 이미지 로더가 시스템 콜백을 등록하기 전에 완전히 초기화되도록 보장합니다. [#1465](https://github.com/coil-kt/coil/pull/1465)
 - API 30 이상에서 `VideoFrameDecoder`에서 선호하는 비트맵 설정을 설정하여 밴딩(banding) 현상을 방지합니다. [#1487](https://github.com/coil-kt/coil/pull/1487)
-- `FileUriMapper`에서 `#`이 포함된 경로 분석을 수정했습니다. [#1466](https://github.com/coil-kt/coil/pull/1466)
+- `FileUriMapper`에서 `#`이 포함된 경로 파싱을 수정했습니다. [#1466](https://github.com/coil-kt/coil/pull/1466)
 - 디스크 캐시에서 비 ASCII 헤더가 포함된 응답을 읽는 문제를 수정했습니다. [#1468](https://github.com/coil-kt/coil/pull/1468)
 - 에셋 하위 폴더 내의 비디오 디코딩 문제를 수정했습니다. [#1489](https://github.com/coil-kt/coil/pull/1489)
 - 업데이트 `androidx.annotation` to 1.5.0.
@@ -1345,7 +1354,7 @@ val imageLoader = ImageLoader(context) {
 }
 ```
 
-- **파괴적 변경**: `Fetcher.key`가 더 이상 기본 구현을 가지지 않습니다.
+- **파괴적 변경**: `Fetcher.key`가 더 이상 기본 구현을 갖지 않습니다.
 - **파괴적 변경**: 이전에는 적용 가능한 첫 번째 `Mapper`만 호출되었습니다. 이제는 적용 가능한 모든 `Mapper`가 호출됩니다. API 변경은 없습니다.
 - **파괴적 변경**: 소소한 명명 변경: `url` -> `uri`, `factory` -> `initializer`.
 

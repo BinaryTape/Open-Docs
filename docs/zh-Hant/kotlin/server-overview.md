@@ -10,7 +10,7 @@ Kotlin 支援將大型程式碼庫從 Java 逐漸遷移到 Kotlin。您可以開
 
 設定您的 Java 專案以搭配 Kotlin 使用，並利用 IntelliJ IDEA 中內建的自動 Java 轉 Kotlin 轉換器：
 
-<a href="mixing-java-kotlin-intellij.md"><img src="backend-get-started-button.svg" alt="將 Kotlin 引入您的 Java 專案" style="block"/></a>
+<a href="mixing-java-kotlin-intellij.md" as="button" mode="rock" icon="arrow-right" icon-position="right">將 Kotlin 引入您的 Java 專案</a>
 
 ## 探索架構
 
@@ -20,13 +20,13 @@ Kotlin 與所有基於 Java 的架構完全相容，因此您可以在享受 Kot
 
 [Spring](https://spring.io) 利用 Kotlin 的語言特性來提供更簡潔的 API。[線上專案產生器](https://start.spring.io/#!language=kotlin) 讓您能快速產生新的 Kotlin 專案。
 
-<a href="jvm-get-started-spring-boot.md"><img src="spring-get-started-button.svg" alt="開始使用 Spring Boot 和 Kotlin" style="block"/></a>
+<a href="jvm-get-started-spring-boot.md" as="button" mode="rock" icon="arrow-right" icon-position="right">開始使用 Spring Boot 和 Kotlin</a>
 
 ### Ktor
 
 [Ktor](https://github.com/kotlin/ktor) 是由 JetBrains 建置的架構，用於在 Kotlin 中建立 Web 應用程式。它利用協同程式實現高擴充性，並提供易於使用且慣用的 API。
 
-<a href="https://ktor.io/docs/server-create-a-new-project.html"><img src="ktor-get-started-button.svg" alt="建立新的 Ktor 專案" style="block"/></a>
+<a href="https://ktor.io/docs/server-create-a-new-project.html" as="button" mode="rock" icon="arrow-right" icon-position="right">建立新的 Ktor 專案</a>
 
 ### 其他架構
 
@@ -48,6 +48,12 @@ Kotlin 應用程式可以部署到任何支援 Java Web 應用程式的主機，
 * **AWS** 提供了專屬的 [Kotlin SDK](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/home.html) 以與其服務互動。對於無伺服器部署，您可以參考 [AWS Lambda 的 Kotlin 程式碼範例](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/kotlin_lambda_code_examples.html)。
 * **Ktor** 允許您將 Kotlin 應用程式發佈到各種雲端供應商。例如，您可以參考 Ktor 教學以進一步了解如何部署到 [Google App Engine](https://ktor.io/docs/google-app-engine.html) 和其他服務。
 * **Spring** 應用程式也與大多數熱門的雲端供應商相容。請參閱 [Spring 官方文件](https://docs.spring.io/spring-boot/how-to/deployment/cloud.html) 以了解如何將 Spring Boot 應用程式部署到雲端。
+
+## 加入社群
+
+* ![Slack](slack.svg){width=25}{type="joined"} **Kotlin Slack**：[獲取邀請](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 並加入 [#spring](https://kotlinlang.slack.com/archives/C0B8ZTWE4) 與 [#server](https://kotlinlang.slack.com/archives/C0B8RC352) 頻道
+* ![Stack Overflow](stackoverflow.svg){width=25}{type="joined"} **Stack Overflow**：訂閱 ["kotlin"](https://stackoverflow.com/questions/tagged/kotlin)、["spring-kotlin"](https://stackoverflow.com/questions/tagged/spring-kotlin) 或 ["ktor"](https://stackoverflow.com/questions/tagged/ktor) 標籤
+* ![YouTube](youtube.svg){width=25}{type="joined"} **Kotlin YouTube 頻道**：訂閱並觀看關於 [Kotlin 與 Spring](https://www.youtube.com/playlist?list=PLlFc5cFwUnmxOJL0GSSZ1Vot4KL2Vwe7x) 的影片
 
 ## 後續步驟
 

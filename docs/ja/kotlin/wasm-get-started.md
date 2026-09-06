@@ -19,7 +19,9 @@
    * **Name:** WasmDemo
    * **Project ID:** wasm.project.demo
 
-   > このチュートリアルでは、一貫性のために Project ID として `wasm.project.demo` を使用します。ただし、通常は `org.example` のような独自のグループ ID を使用することをお勧めします。ここに入力した内容は、今後のプロジェクトでデフォルトとして提案されます。
+   > このチュートリアルでは、一貫性のために Project ID として `wasm.project.demo` を使用します。
+   > ただし、通常は `org.example` のような独自のグループ ID を使用することをお勧めします。
+   > ここに入力した内容は、今後のプロジェクトでデフォルトとして提案されます。
    >
    {style="note"}
 
@@ -34,7 +36,8 @@
 
     ![Run the Compose Multiplatform app on web](compose-run-web-light.png){width=300}
     
-    ウェブアプリケーションがブラウザで自動的に開きます。あるいは、ビルドが完了した後にブラウザで以下の URL を手動で開くこともできます。
+    ウェブアプリケーションがブラウザで自動的に開きます。
+    あるいは、ビルドが完了した後にブラウザで以下の URL を手動で開くこともできます。
     
     ```shell
        http://localhost:8080/
@@ -54,7 +57,8 @@
 1. **View** | **Tool Windows** | **Gradle** を選択して、**Gradle** ツールウィンドウを開きます。
 2. **WasmDemo** | **Tasks** | **kotlin browser** で、**wasmJsBrowserDistribution** タスクを選択して実行します。
 
-   > タスクを正常にロードするには、Gradle JVM として少なくとも Java 11 が必要です。一般的な Compose Multiplatform プロジェクトでは、Java 17 以上を推奨します。
+   > タスクを正常にロードするには、Gradle JVM として少なくとも Java 11 が必要です。
+   > 一般的な Compose Multiplatform プロジェクトでは、Java 17 以上を推奨します。
    >
    {style="note"}
 
@@ -66,15 +70,15 @@
     ./gradlew wasmJsBrowserDistribution
     ```
 
-タスクが完了すると、生成されたアーティファクトを `webApp/build/dist/wasmJs/productionExecutable` ディレクトリで見つけることができます。
+タスクが完了すると、生成されたアーティファクトを `webApp/build/dist/wasmJs/productionExecutable`
+ディレクトリで見つけることができます。
 
 ![Artifacts directory](wasm-composeapp-directory.png){width=400}
 
 ## アプリケーションの公開
 
-生成されたアーティファクトを使用して、Kotlin/Wasm アプリケーションをデプロイします。 
-お好みの公開オプションを選択し、手順に従ってアーティファクトをデプロイしてください。 
-いくつかの選択肢を以下に示します。
+生成されたアーティファクトを使用して、Kotlin/Wasm アプリケーションをデプロイします。
+お好みの公開オプションを選択し、手順に従ってアーティファクトをデプロイしてください。
 
 * [GitHub pages](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#creating-your-site)
 * [Cloudflare](https://developers.cloudflare.com/workers/)
@@ -99,4 +103,4 @@
 
 * Kotlin Slack の Kotlin/Wasm コミュニティに参加する:
 
-  <a href="https://slack-chats.kotlinlang.org/c/webassembly"><img src="join-slack-channel.svg" width="500" alt="Join the Kotlin/Wasm community" style="block"/></a>
+  <a href="https://slack-chats.kotlinlang.org/c/webassembly" as="button" mode="rock" icon="arrow-right" icon-position="right">Kotlin/Wasm コミュニティに参加する</a>

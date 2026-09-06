@@ -85,7 +85,7 @@ JetBrains는 실용적인 디자인을 바탕으로 [Kotlin 언어 진화 원칙
 
 **Kotlin 정적 멤버 및 정적 확장 (Kotlin statics and static extensions)**
 
-* KEEP 제안: [statics.md](https://github.com/Kotlin/KEEP/blob/static-scope/proposals/static-member-type-extension.md)
+* KEEP 제안: [companion-blocks.md](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0449-companions-block-extension.md)
 * YouTrack 이슈: [KT-11968](https://youtrack.jetbrains.com/issue/KT-11968)
 
 </td>
@@ -656,7 +656,7 @@ JetBrains는 실용적인 디자인을 바탕으로 [Kotlin 언어 진화 원칙
 
 **Kotlin 정적 멤버 및 정적 확장 (Kotlin statics and static extensions)**
 
-* KEEP 제안: [statics.md](https://github.com/Kotlin/KEEP/blob/static-scope/proposals/static-member-type-extension.md)
+* KEEP 제안: [companion-blocks.md](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0449-companions-block-extension.md)
 * YouTrack 이슈: [KT-11968](https://youtrack.jetbrains.com/issue/KT-11968)
 
 </td>
@@ -1119,13 +1119,11 @@ JetBrains는 실용적인 디자인을 바탕으로 [Kotlin 언어 진화 원칙
 
 </td>
 </tr>
-</table>
 
-</tab>
+<!-- END OF STABLE BLOCK -->
 
-<tab id="revoked" title="취소됨">
+<!-- REVOKED BLOCK -->
 
-<table>
 <tr filter="revoked">
 <td width="200">
 
@@ -1158,7 +1156,11 @@ JetBrains는 실용적인 디자인을 바탕으로 [Kotlin 언어 진화 원칙
 
 </td>
 </tr>
+
 </table>
+</snippet>
+
+<!-- END OF REVOKED BLOCK -->
 
 </tab>
 </tabs>

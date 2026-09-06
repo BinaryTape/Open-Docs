@@ -8,7 +8,7 @@ Kotlin 是一門現代化語言，具有簡潔、多平台以及可與 Java 和�
 
 剛接觸 Kotlin 嗎？參加我們的導覽，直接在瀏覽器中學習基礎知識。
 
-<a href="kotlin-tour-welcome.md"><img src="start-kotlin-tour.svg" width="700" alt="開始 Kotlin 導覽" style="block"/></a>
+<a href="kotlin-tour-welcome.md" as="button" mode="classic" icon="arrow-right" icon-position="right">開始 Kotlin 導覽</a>
 
 ## 安裝 Kotlin
 
@@ -47,17 +47,17 @@ Kotlin 已包含在每個 [IntelliJ IDEA](https://www.jetbrains.com/idea/downloa
 
 <tab id="cross-platform-mobile" title="跨平台">
 
-在這裡，您將學習如何使用 [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html) 開發多平台應用程式。
+在這裡，您將學習如何使用 [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html) 開發跨平台應用程式。
 
-1. **[為多平台開發設定您的環境](https://kotlinlang.org/docs/multiplatform/quickstart.html)**。
+1. **[為跨平台開發設定您的環境](https://kotlinlang.org/docs/multiplatform/quickstart.html)**。
 
 2. **建立您的第一個 iOS 和 Android 應用程式：**
 
-   * 從頭開始建立多平台應用程式，並且：
+   * 從頭開始建立跨平台應用程式，並且：
      * [在共享商業邏輯的同時保持原生 UI](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)
      * [共享商業邏輯與 UI](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-create-first-app.html)
    * [讓您現有的 Android 應用程式能在 iOS 上執行](https://kotlinlang.org/docs/multiplatform/multiplatform-integrate-in-existing-app.html)
-   * [使用 Ktor 和 SQLdelight 建立多平台應用程式](https://kotlinlang.org/docs/multiplatform/multiplatform-ktor-sqldelight.html)
+   * [使用 Ktor 和 SQLdelight 建立跨平台應用程式](https://kotlinlang.org/docs/multiplatform/multiplatform-ktor-sqldelight.html)
 
 3. **探索 [範例專案](https://kotlinlang.org/docs/multiplatform/multiplatform-samples.html)**。
 

@@ -5,7 +5,7 @@
 Kotlin/Wasm 有能力將您的 Kotlin 程式碼編譯為 [WebAssembly (Wasm)](https://webassembly.org/) 格式。 
 透過 Kotlin/Wasm，您可以建立可在支援 Wasm 且符合 Kotlin 需求的各種環境與裝置上執行的應用程式。
 
-Wasm 是一種用於堆疊式虛擬機的二進制指令格式。由於它在自己的虛擬機上執行，因此這種格式與平台無關。Wasm 為 Kotlin 和其他語言提供了一個編譯目標。 
+Wasm 是一種用於堆疊式虛擬機的二進位指令格式。由於它在自己的虛擬機上執行，因此這種格式與平台無關。Wasm 為 Kotlin 和其他語言提供了一個編譯目標。 
 
 您可以在不同的目標環境中使用 Kotlin/Wasm，例如在瀏覽器中使用 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 開發 Web 應用程式，或是於瀏覽器外在獨立的 Wasm 虛擬機中執行。在瀏覽器外的案例中，[WebAssembly System Interface (WASI)](https://wasi.dev/) 提供了可供您利用的平台 API 存取權限。
 
@@ -27,11 +27,11 @@ Wasm 是一種用於堆疊式虛擬機的二進制指令格式。由於它在自
 
 您想親自嘗試嗎？
 
-<a href="wasm-get-started.md"><img src="wasm-get-started-button.svg" width="600" alt="開始使用 Kotlin/Wasm" style="block"/></a>
+<a href="wasm-get-started.md" as="button" mode="rock" icon="arrow-right" icon-position="right">開始使用 Kotlin/Wasm</a>
 
 ## Kotlin/Wasm 與 WASI
 
-Kotlin/Wasm 將 [WebAssembly System Interface (WASI)](https://wasi.dev/) 用於伺服器端應用程式。
+Kotlin/Wasm 將 [WebAssembly System Interface (WASI)](https://wasi.dev/) 用於後端應用程式。
 使用 Kotlin/Wasm 和 WASI 建置的應用程式使用 Wasm-WASI 目標，允許您呼叫 WASI API 並在瀏覽器環境之外執行應用程式。
 
 Kotlin/Wasm 利用 WASI 抽象化平台特定的細節，允許相同的 Kotlin 程式碼在不同平台上執行。這擴展了 Kotlin/Wasm 的觸角，使其超越 Web 應用程式，且不需要為每個執行時 (runtime) 進行自訂處理。
@@ -62,7 +62,7 @@ WASI 0.2 建基於 [WebAssembly 元件模型 (WebAssembly Component Model)](http
 ## 瀏覽器 API 支援
 
 Kotlin/Wasm 標準函式庫提供了瀏覽器 API 的宣告，包括 DOM API。
-透過這些宣告，您可以直接使用 Kotlin API 來存取並利用各種瀏覽器功能。 
+透過這些宣告，您可以直接使用 Kotlin API 來存替並利用各種瀏覽器功能。 
 例如，在您的 Kotlin/Wasm 應用程式中，您可以對 DOM 元素進行操作或呼叫 fetch API，而無需從頭開始定義這些宣告。若要了解更多，請參閱我們的 [Kotlin/Wasm 瀏覽器範例](https://github.com/Kotlin/kotlin-wasm-browser-template)。
 
 瀏覽器 API 支援的宣告是使用 JavaScript [互通性功能 (interoperability)](wasm-js-interop.md) 定義的。 

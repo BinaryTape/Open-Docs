@@ -29,7 +29,7 @@ Kotlin Multiplatform Gradle 플러그인을 사용하면 애플리케이션의 �
      * Android 개발에 익숙하다면, [Kobweb](https://kobweb.varabyte.com/)이나 [Kilua](https://kilua.dev/)와 같은 Compose 기반 프레임워크로 웹 애플리케이션을 빌드할 수 있습니다.
      * JetBrains에서 제공하는 [공통 자바스크립트 라이브러리용 코틀린 래퍼(Kotlin wrappers)](https://github.com/JetBrains/kotlin-wrappers)를 사용하여 Kotlin/JS로 완전한 타입 안정성이 보장되는 React 애플리케이션을 빌드하세요. 코틀린 래퍼(`kotlin-wrappers`)는 React 및 기타 자바스크립트 프레임워크에 대한 추상화 및 통합을 제공합니다.
        
-       이러한 래퍼는 [React Redux](https://react-redux.js.org/), [React Router](https://reactrouter.com/), [styled-components](https://styled-components.com/)와 같은 보조 라이브러리도 지원합니다. 또한 자바스크립트 생태계와의 상호 운용성(interoperability)을 통해 서드파티 React 컴포넌트 및 컴포넌트 라이브러리를 사용할 수 있습니다.
+       이러한 래퍼는 [React Redux](https://react-redux.js.org/), [React Router](https://reactrouter.com/), [styled-components](https://styled-components.com/)와 같은 보조 라이브러도 지원합니다. 또한 자바스크립트 생태계와의 상호 운용성(interoperability)을 통해 서드파티 React 컴포넌트 및 컴포넌트 라이브러리를 사용할 수 있습니다.
   
      * 코틀린 생태계와 통합되고 간결하며 표현력이 풍부한 코드를 지원하는 [Kotlin/JS 프레임워크](js-frameworks.md)를 사용하세요.
 
@@ -49,7 +49,7 @@ Kotlin/JS는 [ESM](https://tc39.es/ecma262/#sec-modules), [CommonJS](https://nod
 
 ### 여러분의 사용 사례를 공유해 주세요
 
-[Kotlin/JS 활용 사례](#kotlinjs-활용-사례)의 목록이 모든 것을 담고 있지는 않습니다. 다양한 접근 방식을 시도해 보고 여러분의 프로젝트에 가장 적합한 방식을 찾아보세요.
+[Kotlin/JS 활용 사례](#use-cases-for-kotlin-js)의 목록이 모든 것을 담고 있지는 않습니다. 다양한 접근 방식을 시도해 보고 여러분의 프로젝트에 가장 적합한 방식을 찾아보세요.
 
 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)의 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 채널에서 Kotlin/JS 커뮤니티와 여러분의 사용 사례, 경험 및 질문을 공유해 주세요.
 
@@ -58,12 +58,12 @@ Kotlin/JS는 [ESM](https://tc39.es/ecma262/#sec-modules), [CommonJS](https://nod
 Kotlin/JS 작업을 시작하기 위한 기본 개념과 초기 단계를 살펴보세요:
 
 * 코틀린이 처음이라면 [기본 문법](basic-syntax.md)을 검토하고 [Kotlin 투어](kotlin-tour-welcome.md)를 살펴보는 것부터 시작하세요.
-* 영감을 얻기 위해 [Kotlin/JS 샘플 프로젝트](#kotlinjs-샘플-프로젝트) 목록을 확인해 보세요. 이 샘플들에는 프로젝트 시작에 도움이 되는 유용한 코드 스니펫과 패턴이 포함되어 있습니다.
+* 영감을 얻기 위해 [Kotlin/JS 샘플 프로젝트](#sample-projects-for-kotlin-js) 목록을 확인해 보세요. 이 샘플들에는 프로젝트 시작에 도움이 되는 유용한 코드 스니펫과 패턴이 포함되어 있습니다.
 * Kotlin/JS가 처음이라면 더 고급 주제를 살펴보기 전에 [설정 가이드](js-project-setup.md)부터 시작하세요.
 
 Kotlin/JS를 직접 시도해 보시겠습니까?
 
-<a href="js-get-started.md"><img src="js-get-started-button.svg" width="500" alt="Kotlin/JS 시작하기" style="block"/></a>
+<a href="js-get-started.md" as="button" mode="rock" icon="arrow-right" icon-position="right">Kotlin/JS 시작하기</a>
 
 ## Kotlin/JS 샘플 프로젝트
 

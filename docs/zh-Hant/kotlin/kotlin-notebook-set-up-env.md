@@ -7,14 +7,6 @@
 >
 {style="note"}
 
-<tldr>
-   <p>這是 <strong>Kotlin Notebook 快速入門</strong> 教學的第一部分：</p>
-   <p><img src="icon-1.svg" width="20" alt="First step"/> <strong>設定環境</strong><br/>
-      <img src="icon-2-todo.svg" width="20" alt="Second step"/> 建立 Kotlin Notebook<br/>
-      <img src="icon-3-todo.svg" width="20" alt="Third step"/> 為 Kotlin Notebook 新增相依性<br/>
-  </p>
-</tldr>
-
 在建立您的第一個 [Kotlin Notebook](kotlin-notebook-overview.md) 之前，您需要先設定環境。
 
 ## 設定環境
@@ -36,4 +28,8 @@ Kotlin Notebook 依賴 [Kotlin Notebook 外掛程式](https://plugins.jetbrains.
 
 在教學的下一部分中，您將學習如何建立 Kotlin Notebook。
 
-**[前往下一章](kotlin-notebook-create.md)**
+<list id="tour-nav">
+  <li>
+    <a as="button" href="kotlin-notebook-create.md" mode="classic" icon="arrow-right" icon-position="right">下一步</a>
+  </li>
+</list>

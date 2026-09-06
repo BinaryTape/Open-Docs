@@ -2,11 +2,6 @@
 
 <web-summary>使用 IntelliJ IDEA 並透過 Kotlin 建立 Spring Boot 應用程式。</web-summary>
 
-<tldr>
-    <p>這是<strong>開始使用 Spring Boot 與 Kotlin</strong> 教學的第一部分：</p><br/>
-    <p><img src="icon-1.svg" width="20" alt="第一步"/> <strong>使用 Kotlin 建立 Spring Boot 專案</strong><br/><img src="icon-2-todo.svg" width="20" alt="第二步"/> 為 Spring Boot 專案新增資料類別<br/><img src="icon-3-todo.svg" width="20" alt="第三步"/> 為 Spring Boot 專案新增資料庫支援<br/><img src="icon-4-todo.svg" width="20" alt="第四步"/> 使用 Spring Data CrudRepository 進行資料庫存取<br/></p>
-</tldr>
-
 本教學的第一部分將展示如何在 IntelliJ IDEA 中透過專案產生器，使用 Gradle 建立 Spring Boot 專案。
 
 > 本教學不強制要求使用 Gradle 作為建置系統。如果您使用 Maven，也可以遵循相同的步驟。
@@ -274,4 +269,8 @@ Spring 應用程式現在已準備好執行：
 
 在本教學的下一部分中，您將學習 Kotlin 資料類別以及如何在應用程式中使用它們。
 
-**[繼續閱讀下一章節](jvm-spring-boot-add-data-class.md)**
+<list id="tour-nav">
+  <li>
+    <a as="button" href="jvm-spring-boot-add-data-class.md" mode="classic" icon="arrow-right" icon-position="right">下一步</a>
+  </li>
+</list>

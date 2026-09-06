@@ -2,11 +2,6 @@
 
 <web-summary>向 Spring Boot 项目添加 Kotlin 数据类。</web-summary>
 
-<tldr>
-    <p>这是 <strong>Spring Boot 与 Kotlin 入门</strong>教程的第二部分。在继续之前，请确保您已完成之前的步骤：</p><br/>
-    <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <a href="jvm-create-project-with-spring-boot.md">使用 Kotlin 创建 Spring Boot 项目</a><br/><img src="icon-2.svg" width="20" alt="第二步"/> <strong>向 Spring Boot 项目添加数据类</strong><br/><img src="icon-3-todo.svg" width="20" alt="第三步"/> 为 Spring Boot 项目添加数据库支持<br/><img src="icon-4-todo.svg" width="20" alt="第四步"/> 使用 Spring Data CrudRepository 进行数据库访问</p>
-</tldr>
-
 在本教程的这一部分中，您将为应用程序添加更多功能，并了解更多 Kotlin 语言特性，例如数据类。
 这需要修改 `MessageController` 类，使其返回包含序列化对象集合的 JSON 文档。
 
@@ -175,4 +170,11 @@ Spring 应用程序已准备好运行：
 
 在教程的下一部分中，您将为项目添加并配置数据库，并发送 HTTP 请求。
 
-**[转到下一章](jvm-spring-boot-add-db-support.md)**
+<list columns="2" id="tour-nav">
+  <li>
+    <a as="button" href="jvm-create-project-with-spring-boot.md" mode="outline" icon="arrow-left" icon-position="left">上一步</a>
+  </li>
+  <li>
+    <a as="button" href="jvm-spring-boot-add-db-support.md" mode="classic" icon="arrow-right" icon-position="right">下一步</a>
+  </li>
+</list>

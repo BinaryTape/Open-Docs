@@ -1,14 +1,5 @@
 [//]: # (title: 映射来自 C 的字符串 – 教程)
 
-<tldr>
-    <p>这是<strong>映射 Kotlin 和 C</strong> 教程系列的最后一部分。在继续之前，请确保您已完成之前的步骤。</p>
-    <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <a href="mapping-primitive-data-types-from-c.md">映射来自 C 的基元数据类型</a><br/>
-        <img src="icon-2-done.svg" width="20" alt="第二步"/> <a href="mapping-struct-union-types-from-c.md">映射来自 C 的结构和联合类型</a><br/>
-      <img src="icon-3-done.svg" width="20" alt="第三步"/> <a href="mapping-function-pointers-from-c.md">映射来自 C 的函数指针</a><br/>
-      <img src="icon-4.svg" width="20" alt="第四步"/> <strong>映射来自 C 的字符串</strong><br/>
-    </p>
-</tldr>
-
 > C 库导入目前处于 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 阶段。由 cinterop 工具从 C 库生成的所有 Kotlin 声明都应带有 `@ExperimentalForeignApi` 注解。
 >
 > 随 Kotlin/Native 提供的原生平台库（如 Foundation、UIKit 和 POSIX）仅对部分 API 需要选择性加入。
@@ -210,6 +201,12 @@ fun main() {
 ```bash
 ./gradlew runDebugExecutableMacosArm64
 ```
+
+<list id="tour-nav">
+  <li>
+    <a as="button" href="mapping-function-pointers-from-c.md" mode="outline" icon="arrow-left" icon-position="left">上一步</a>
+  </li>
+</list>
 
 ## 下一步
 

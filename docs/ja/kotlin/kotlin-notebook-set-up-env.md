@@ -7,14 +7,6 @@
 >
 {style="note"}
 
-<tldr>
-   <p>これは<strong>Kotlin Notebook入門</strong>チュートリアルの最初のパートです：</p>
-   <p><img src="icon-1.svg" width="20" alt="最初のステップ"/> <strong>環境のセットアップ</strong><br/>
-      <img src="icon-2-todo.svg" width="20" alt="2番目のステップ"/> Kotlin Notebookの作成<br/>
-      <img src="icon-3-todo.svg" width="20" alt="3番目のステップ"/> Kotlin Notebookへの依存関係の追加<br/>
-  </p>
-</tldr>
-
 最初の [Kotlin Notebook](kotlin-notebook-overview.md) を作成する前に、環境をセットアップする必要があります。
 
 ## 環境のセットアップ
@@ -36,4 +28,8 @@ Kotlin Notebook の機能が利用できない場合は、プラグインが有�
 
 チュートリアルの次のパートでは、Kotlin Notebook を作成する方法を学びます。
 
-**[次の章に進む](kotlin-notebook-create.md)**
+<list id="tour-nav">
+  <li>
+    <a as="button" href="kotlin-notebook-create.md" mode="classic" icon="arrow-right" icon-position="right">次のステップ</a>
+  </li>
+</list>

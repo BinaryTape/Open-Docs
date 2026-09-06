@@ -2,7 +2,7 @@
 
 > C 库导入目前处于 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 阶段。所有由 cinterop 工具从 C 库生成的 Kotlin 声明都应带有 `@ExperimentalForeignApi` 注解。
 >
-> 随 Kotlin/Native 提供的原生平台库（如 Foundation、UIKit 和 POSIX）仅对部分 API 要求显式选择（opt-in）。
+> 随 Kotlin/Native 提供的原生平台库（如 Foundation、UIKit 和 POSIX）仅对部分 API 要求显式选择 (opt-in)。
 >
 {style="note"}
 
@@ -18,7 +18,7 @@
 
 以下是使用需要使用 C 库的项目时的通用工作流程：
 
-1. 创建并配置一个[定义文件](native-definition-file.md)。它描述了 cinterop 工具应该在 Kotlin [绑定](#绑定)中包含哪些内容。
+1. 创建并配置一个[定义文件](native-definition-file.md)。它描述了 cinterop 工具应该在 Kotlin [绑定](#bindings)中包含哪些内容。
 2. 配置你的 Gradle 构建文件，将 cinterop 包含在构建过程中。
 3. 编译并运行项目以生成最终的可执行文件。
 
@@ -37,10 +37,10 @@
 * 有符号、无符号整型和浮点类型映射到其宽度相同的 Kotlin 对应类型。
 * 指针和数组映射到 `CPointer<T>?`。
 * 枚举可以映射为 Kotlin 枚举或整型值，具体取决于启发式算法和[定义文件设置](native-definition-file.md#configure-enums-generation)。
-* 结构体（struct）和联合体（union）映射为可以通过点表示法访问字段的类型，即 `someStructInstance.field1`。
+* 结构体 (struct) 和联合体 (union) 映射为可以通过点表示法访问字段的类型，即 `someStructInstance.field1`。
 * `typedef` 表示为 `typealias`。
 
-此外，任何 C 类型都有对应的 Kotlin 类型来表示该类型的左值（lvalue），即位于内存中的值，而不是简单的不可变自包含值。你可以将 C++ 引用视为类似的概念。对于结构体（以及结构体的 `typedef`），这种表示是主要的表示形式，并且与结构体本身同名。对于 Kotlin 枚举，它被命名为 `${type}.Var`；对于 `CPointer<T>`，它是 `CPointerVar<T>`；对于大多数其他类型，它是 `${type}Var`。
+此外，任何 C 类型都有对应的 Kotlin 类型来表示该类型的左值 (lvalue)，即位于内存中的值，而不是简单的不可变自包含值。你可以将 C++ 引用视为类似的概念。对于结构体（以及结构体的 `typedef`），这种表示是主要的表示形式，并且与结构体本身同名。对于 Kotlin 枚举，它被命名为 `${type}.Var`；对于 `CPointer<T>`，它是 `CPointerVar<T>`；对于大多数其他类型，它是 `${type}Var`。
 
 对于同时具有两种表示形式的类型，具有左值的类型有一个可变的 `.value` 属性用于访问该值。
 
@@ -130,7 +130,7 @@ fun main() {
 
 `nativeHeap` 要求手动释放内存。然而，通常将内存分配在与词法作用域绑定的生命周期内会更有用。如果此类内存能自动释放，将会非常有帮助。
 
-为了解决这个问题，你可以使用 `memScoped { }`。在花括号内，临时放置（placement）作为隐式接收者可用，因此可以使用 `alloc` 和 `allocArray` 分配原生内存，并且分配的内存在离开作用域后将自动释放。
+为了解决这个问题，你可以使用 `memScoped { }`。在花括号内，临时放置 (placement) 作为隐式接收者可用，因此可以使用 `alloc` 和 `allocArray` 分配原生内存，并且分配的内存在离开作用域后将自动释放。
 
 例如，一个通过指针参数返回值的 C 函数可以这样使用：
 
@@ -223,7 +223,7 @@ memScoped {
 }
 ```
 
-在此示例中，传递给 C API `new_menu()` 的所有值都具有其所属的最内层 `memScope` 的生命周期。一旦控制流离开 `memScoped` 作用域，C 指针就会失效。
+在此示例中，传递给 C API `new_menu()` 的所有值都具有其所属的最内层 `memScope` 的生命周期。一旦控制流离开 `memScoped` 作用域， C 指针就会失效。
 
 ### 按值传递和接收结构体
 
@@ -338,7 +338,7 @@ fun zeroMemory(buffer: COpaquePointer, size: Int) {
 
 ### 对象固定
 
-Kotlin 对象可以被固定（pinning），即保证它们在内存中的位置在解除固定之前保持稳定，并且可以将指向此类对象内部数据的指针传递给 C 函数。
+Kotlin 对象可以被固定 (pinning)，即保证它们在内存中的位置在解除固定之前保持稳定，并且可以将指向此类对象内部数据的指针传递给 C 函数。
 
 你可以采取几种方法：
 
@@ -435,7 +435,10 @@ fun test() {
 
 通过完成以下教程，了解类型、函数和字符串如何在 Kotlin 和 C 之间进行映射：
 
-* [映射来自 C 的原始数据类型](mapping-primitive-data-types-from-c.md)
-* [映射来自 C 的结构体和联合体类型](mapping-struct-union-types-from-c.md)
-* [映射来自 C 的函数指针](mapping-function-pointers-from-c.md)
-* [映射来自 C 的字符串](mapping-strings-from-c.md)
+<p><img src="icon-1.svg" width="20" alt="第一步"/> <a href="mapping-primitive-data-types-from-c.md">映射来自 C 的原始数据类型</a><br/>
+   <img src="icon-2.svg" width="20" alt="第二步"/> <a href="mapping-struct-union-types-from-c.md">映射来自 C 的结构体和联合体类型</a><br/>
+   <img src="icon-3.svg" width="20" alt="第三步"/> <a href="mapping-function-pointers-from-c.md">映射来自 C 的函数指针</a><br/>
+   <img src="icon-4.svg" width="20" alt="第四步"/> <a href="mapping-strings-from-c.md">映射来自 C 的字符串</a><br/>
+</p>
+
+<a href="mapping-primitive-data-types-from-c.md" as="button" mode="classic" icon="arrow-right" icon-position="right">开始</a>

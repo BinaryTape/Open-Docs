@@ -336,7 +336,7 @@ fun zeroMemory(buffer: COpaquePointer, size: Int) {
 
 また、型パラメータは自動的に推論されることがあるため、場合によっては省略可能です。
 
-### オブジェクトのピン留め（Object pinning）
+### オブジェクトのピン留め (Object pinning)
 
 Kotlinオブジェクトを「ピン留め」することができます。つまり、アンピンされるまでメモリ内での位置が安定していることが保証され、そのようなオブジェクトの内部データへのポインタをC関数に渡すことができます。
 
@@ -435,7 +435,10 @@ fun test() {
 
 以下のチュートリアルを完了して、KotlinとCの間で型、関数、および文字列がどのようにマッピングされるかを学びましょう：
 
-* [Cからのプリミティブデータ型のマッピング](mapping-primitive-data-types-from-c.md)
-* [Cからの構造体および共用体型のマッピング](mapping-struct-union-types-from-c.md)
-* [Cからの関数ポインタのマッピング](mapping-function-pointers-from-c.md)
-* [Cからの文字列のマッピング](mapping-strings-from-c.md)
+<p><img src="icon-1.svg" width="20" alt="ステップ1"/> <a href="mapping-primitive-data-types-from-c.md">Cからのプリミティブデータ型のマッピング</a><br/>
+   <img src="icon-2.svg" width="20" alt="ステップ2"/> <a href="mapping-struct-union-types-from-c.md">Cからの構造体および共用体型のマッピング</a><br/>
+   <img src="icon-3.svg" width="20" alt="ステップ3"/> <a href="mapping-function-pointers-from-c.md">Cからの関数ポインタのマッピング</a><br/>
+   <img src="icon-4.svg" width="20" alt="ステップ4"/> <a href="mapping-strings-from-c.md">Cからの文字列のマッピング</a><br/>
+</p>
+
+<a href="mapping-primitive-data-types-from-c.md" as="button" mode="classic" icon="arrow-right" icon-position="right">開始</a>

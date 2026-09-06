@@ -7,14 +7,6 @@
 >
 {style="note"}
 
-<tldr>
-   <p>이 문서는 <strong>Kotlin Notebook 시작하기</strong> 튜토리얼의 두 번째 파트입니다. 진행하기 전에 이전 단계를 완료했는지 확인하세요.</p>
-   <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="kotlin-notebook-set-up-env.md">환경 설정</a><br/>
-      <img src="icon-2.svg" width="20" alt="Second step"/> <strong>Kotlin Notebook 만들기</strong><br/>
-      <img src="icon-3-todo.svg" width="20" alt="Third step"/> Kotlin Notebook에 의존성 추가하기<br/>
-  </p>
-</tldr>
-
 [Kotlin Notebook](kotlin-notebook-overview.md)을 시작하는 세 가지 주요 방법이 있습니다.
 
 * [Kotlin Notebook을 포함하는 새 프로젝트 생성하기](#create-a-new-project) 
@@ -113,4 +105,11 @@ Kotlin Notebook을 포함하는 새 프로젝트를 생성하려면:
 
 튜토리얼의 다음 파트에서는 Kotlin Notebook에 의존성을 추가하는 방법을 배웁니다.
 
-**[다음 장으로 진행하기](kotlin-notebook-add-dependencies.md)**
+<list columns="2" id="tour-nav">
+  <li>
+    <a as="button" href="kotlin-notebook-set-up-env.md" mode="outline" icon="arrow-left" icon-position="left">이전 단계</a>
+  </li>
+  <li>
+    <a as="button" href="kotlin-notebook-add-dependencies.md" mode="classic" icon="arrow-right" icon-position="right">다음 단계</a>
+  </li>
+</list>

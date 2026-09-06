@@ -4,7 +4,7 @@ Compose Multiplatform을 사용하여 macOS, Linux 및 Windows 데스크톱 애�
 
 ## 컴포넌트
 
-<!-- * [Images and icons](#images-and-icons) -->
+* [이미지 및 앱 아이콘](compose-desktop-images.md)
 * [창 및 대화 상자(Windows and dialogs)](compose-desktop-top-level-windows-management.md)
 * [컨텍스트 메뉴(Context menus)](compose-desktop-context-menus.md)
 * [트레이 및 알림(Tray and notifications)](compose-desktop-tray.md)
@@ -12,101 +12,11 @@ Compose Multiplatform을 사용하여 macOS, Linux 및 Windows 데스크톱 애�
 * [스크롤바(Scrollbars)](compose-desktop-scrollbars.md)
 * [툴팁(Tooltips)](compose-desktop-tooltips.md)
 
-<!-- ### Images and icons
-
-You can use the `Image` composable and the `painterResource()` function to display images stored as resources in your
-application:
-
-```kotlin
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.window.singleWindowApplication
-
-fun main() = singleWindowApplication {
-    Image(
-        painter = painterResource("sample.png"),
-        contentDescription = "Sample",
-        modifier = Modifier.fillMaxSize()
-    )
-}
-```
-
-`painterResource()` supports rasterized image formats, such as `.png`, `.jpg`, `.bmp`, `.webp`, and the Android XML vector
-drawable format. You can also use images stored in the device memory, load images from the network,
-or create them in your project using `Canvas()`.
-
-With Compose Multiplatform, you can set the application window icon and the application tray icon as well.
-
-* For more information on working with images using Compose Multiplatform in desktop projects, see
-  the [Image and in-app icon manipulations](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials/Image_And_Icons_Manipulations)
-  tutorial.
-* For more information on using resources in common code in Compose Multiplatform projects, see [Images and resources](compose-multiplatform-resources.md). -->
-
 ## 이벤트
 
 * [마우스 이벤트](compose-desktop-mouse-events.md)
 * [키보드 이벤트](compose-desktop-keyboard.md)
-* [탭 탐색(Tabbing navigation)](#tabbing-navigation-between-components)
-
-### 컴포넌트 간 탭 탐색
-
-키보드 단축키 <shortcut>Tab</shortcut>을 사용하여 다음 컴포넌트로 이동하고, <shortcut>⇧ + Tab</shortcut>을 사용하여 이전 컴포넌트로 이동하도록 탐색을 설정할 수 있습니다.
-
-기본적으로 탭 탐색은 포커스 가능한 컴포넌트들 사이에서 나타나는 순서대로 이동할 수 있게 해줍니다. 포커스 가능한 컴포넌트에는 `TextField`, `OutlinedTextField`, `BasicTextField` 컴포저블뿐만 아니라 `Button`, `IconButton`, `MenuItem`과 같이 `Modifier.clickable`을 사용하는 컴포넌트들이 포함됩니다.
-
-예를 들어, 다음은 표준 단축키를 사용하여 사용자가 5개의 텍스트 필드 사이를 탐색할 수 있는 창입니다.
-
-```kotlin
-import androidx.compose.ui.window.application
-import androidx.compose.ui.window.Window
-import androidx.compose.ui.window.WindowState
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.DpSize
-import androidx.compose.ui.unit.dp
-
-fun main() = application {
-    Window(
-        state = WindowState(size = DpSize(350.dp, 500.dp)),
-        onCloseRequest = ::exitApplication
-    ) {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Column(
-                modifier = Modifier.padding(50.dp)
-            ) {
-                for (x in 1..5) {
-                    val text = remember { mutableStateOf("") }
-                    OutlinedTextField(
-                        value = text.value,
-                        singleLine = true,
-                        onValueChange = { text.value = it }
-                    )
-                    Spacer(modifier = Modifier.height(20.dp))
-                }
-            }
-        }
-    }
-}
-```
-{initial-collapse-state="collapsed" collapsible="true" collapsed-title="Column() { for (x in 1..5) { OutlinedTextField("}
-
-또한 포커스가 불가능한 컴포넌트를 포커스 가능하게 만들거나, 탭 탐색 순서를 커스텀하고, 컴포넌트에 포커스를 직접 줄 수도 있습니다.
-
-자세한 내용은 [Tabbing navigation and keyboard focus](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials/Tab_Navigation) 튜토리얼을 참조하세요.
+* [탭 탐색(Tabbing navigation)](compose-desktop-tabbing.md)
 
 ## 다음 단계
 

@@ -7,14 +7,6 @@
 >
 {style="note"}
 
-<tldr>
-   <p>这是<strong> Kotlin Notebook 入门</strong>教程的第三部分。在继续之前，请确保您已完成之前的步骤。</p>
-   <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <a href="kotlin-notebook-set-up-env.md">设置环境</a><br/>
-      <img src="icon-2-done.svg" width="20" alt="第二步"/> <a href="kotlin-notebook-create.md">创建 Kotlin Notebook</a><br/>
-      <img src="icon-3.svg" width="20" alt="第三步"/> <strong>向 Kotlin Notebook 添加依赖项</strong><br/>
-  </p>
-</tldr>
-
 您已经创建了您的第一个 [Kotlin Notebook](kotlin-notebook-overview.md)！现在让我们学习如何添加库的依赖项，这是解锁高级功能的必要步骤。
 
 > Kotlin 标准库可以开箱即用，因此您无需导入它。
@@ -124,6 +116,12 @@
 
 恭喜您已成功在 Kotlin Notebook 中添加并利用了这些库！
 这只是您使用 Kotlin Notebook 及其[支持的库](data-analysis-libraries.md)所能实现的功能的冰山一角。
+
+<list id="tour-nav">
+  <li>
+    <a as="button" href="kotlin-notebook-create.md" mode="outline" icon="arrow-left" icon-position="left">上一步</a>
+  </li>
+</list>
 
 ## 下一步
 

@@ -25,6 +25,8 @@ commonMain/composeResources/
 └── ... (其他地區設定目錄)
 ```
 
+如果某種語言有一種以上的書寫系統（例如中文或塞爾維亞文），除了特定書寫系統的目錄（`values-b+zh+Hans`、`values-b+zh+Hant`）之外，還要新增一個不含書寫系統的目錄（`values-zh`）。否則，當系統回報不含書寫系統的地區設定時，將無法解析該資源。詳情請參閱 [語言與地區限定詞](compose-multiplatform-resources-setup.md#language-and-regional-qualifiers)。
+
 在 `values` 目錄及其在地化變體中，使用 `strings.xml` 檔案透過鍵值對定義字串資源。
 例如，將英文文字新增至 `commonMain/composeResources/values/strings.xml`：
 

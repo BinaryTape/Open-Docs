@@ -16,7 +16,7 @@
 Kotlinのコルーチンを初めて使用する場合は、より複雑なトピックに進む前に [コルーチンの基本](coroutines-basics.md) ガイドから始めてください。
 このガイドでは、サスペンド関数、コルーチンビルダー、構造化された並行処理（structured concurrency）の主要な概念を、シンプルな例を通して紹介します。
 
-<a href="coroutines-basics.md"><img src="get-started-coroutines.svg" width="700" alt="Get started with coroutines" style="block"/></a>
+<a href="coroutines-basics.md" as="button" mode="rock" icon="arrow-right" icon-position="right">コルーチンを始める</a>
 
 > 実際のプロジェクトでコルーチンがどのように使用されているかを確認するためのサンプルプロジェクトとして、[KotlinConf アプリ](https://github.com/JetBrains/kotlinconf-app)をチェックしてください。
 > 
@@ -45,7 +45,7 @@ Kotlinのコルーチンはサスペンド関数（suspending functions）に基
 * [`CoroutineDispatcher`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/) は、バックグラウンドスレッドやUIアプリケーションのメインスレッドなど、コルーチンが実行される場所を制御します。
 * [`CoroutineExceptionHandler`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-exception-handler/) は、キャッチされなかった例外を処理します。
 
-これらは他の要素とともに、デフォルトで親コルーチンから継承される「[コルーチンコンテキスト（coroutine context）](coroutine-context-and-dispatchers.md)」を構成します。
+これらは他の要素とともに、デフォルトで親コルーチンから継承される「[_コルーチンコンテキスト（coroutine context）_](coroutine-context-and-dispatchers.md)」を構成します。
 このコンテキストは階層構造を形成し、関連するコルーチンをまとめて[キャンセル](coroutines-cancellation.md)したり、グループとして[例外を処理](exception-handling.md)したりできる「構造化された並行処理」を実現します。
 
 ### 非同期フローと共有ミュータブル状態

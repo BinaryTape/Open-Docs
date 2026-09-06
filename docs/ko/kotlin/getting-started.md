@@ -8,7 +8,7 @@ Kotlin은 간결하고 멀티플랫폼을 지원하며, Java 및 다른 언어�
 
 Kotlin이 처음이신가요? 브라우저에서 직접 기초를 배울 수 있는 Kotlin 투어를 시작해 보세요.
 
-<a href="kotlin-tour-welcome.md"><img src="start-kotlin-tour.svg" width="700" alt="Start the Kotlin tour" style="block"/></a>
+<a href="kotlin-tour-welcome.md" as="button" mode="classic" icon="arrow-right" icon-position="right">Kotlin 투어 시작하기</a>
 
 ## Kotlin 설치하기
 

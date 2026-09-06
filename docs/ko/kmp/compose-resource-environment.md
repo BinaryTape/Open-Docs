@@ -16,7 +16,9 @@
 * **데스크톱(desktop)**: [`Locale.getDefault()`](https://developer.android.com/reference/java/util/Locale#getDefault(java.util.Locale.Category))
 * **웹(web)**: [`window.navigator.languages`](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/languages)
 
-1. 공통(common) 소스 세트에서 `expect` 키워드를 사용하여 기대되는 `LocalAppLocale` 객체를 정의합니다:
+1. 공통(common) 소스 세트에서 `expect` 키워드를 사용하여 기대되는 `LocalAppLocale` 객체를 정의합니다.
+   로캘은 `es`, `es-ES` 또는 `zh-Hans`와 같은 BCP 47 언어 태그로 지정됩니다. 
+   시스템 로캘을 사용하려면 `customAppLocale`을 `null`로 설정하세요:
 
     ```kotlin
     var customAppLocale by mutableStateOf<String?>(null)
@@ -172,7 +174,7 @@ Compose Multiplatform은 `isSystemInDarkTheme()`을 통해 현재 테마를 정�
     ```kotlin
         Resources.getConfiguration().uiMode and Configuration.UI_MODE_NIGHT_MASK
     ```
-* iOS, 데스크톱, 웹 플랫폼은 `LocalSystemTheme.current`를 사용합니다.
+* iOS, 데스크톱(desktop) 및 웹(web) 플랫폼은 `LocalSystemTheme.current`를 사용합니다.
 
 공통 퍼블릭 API가 구현될 때까지의 임시 해결책으로, `expect-actual` 메커니즘을 사용하여 플랫폼별 테마 커스터마이징을 관리함으로써 이러한 차이를 해결할 수 있습니다:
 

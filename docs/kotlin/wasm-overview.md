@@ -27,7 +27,7 @@ Wasm 是一种基于栈的虚拟机的二进制指令格式。这种格式与平
 
 想要亲自尝试吗？
 
-<a href="wasm-get-started.md"><img src="wasm-get-started-button.svg" width="600" alt="Kotlin/Wasm 快速入门" style="block"/></a>
+<a href="wasm-get-started.md" as="button" mode="rock" icon="arrow-right" icon-position="right">Kotlin/Wasm 快速入门</a>
 
 ## Kotlin/Wasm 与 WASI
 

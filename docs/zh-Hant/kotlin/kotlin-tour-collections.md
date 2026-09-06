@@ -22,7 +22,7 @@ List 按項目新增的順序儲存項目，並允許重複的項目。
 
 要建立可變 List（[`MutableList`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list.html)），請使用 [`mutableListOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-list-of.html) 函式。
 
-建立 List 時，Kotlin 可以推論所儲存項目的型別。若要明確宣告型別，請在 List 宣告後的尖括號 `<>` 內加上型別：
+建立 List時，Kotlin 可以推論所儲存項目的型別。若要明確宣告型別，請在 List 宣告後的尖括號 `<>` 內加上型別：
 
 ```kotlin
 fun main() { 
@@ -213,7 +213,7 @@ fun main() {
 
 ## Map
 
-Map 以鍵值對的形式儲存項目。您可以透過引用鍵（key）來存取值（value）。您可以將 Map 想像成菜單。您可以透過找到想吃的食物（鍵）來找到對應的價格（值）。如果您想在不使用數字索引（如 List）的情況下查找值， Map 就非常有用。
+Map 以鍵值對的形式儲存項目。您可以透過引用鍵（key）來存取值（value）。您可以將 Map 想像成菜單。您可以透過找到想吃的食物（鍵）來找到對應的價格（值）。如果您想在不使用數字索引（如 List）的情況下查找值，Map 就非常有用。
 
 > * Map 中的每個鍵都必須是唯一的，這樣 Kotlin 才能識別您想要取得哪個值。 
 > * Map 中可以有重複的值。
@@ -464,7 +464,7 @@ fun main() {
 fun main() {
     val number2word = mapOf(1 to "one", 2 to "two", 3 to "three")
     val n = 2
-    println("$n is spelt as '${number2word[n]}'")
+    println("$n is spelled as '${number2word[n]}'")
 }
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="範例解答" id="kotlin-tour-collections-solution-3"}

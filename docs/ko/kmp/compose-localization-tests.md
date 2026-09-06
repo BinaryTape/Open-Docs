@@ -71,3 +71,4 @@ java.util.Locale.setDefault(java.util.Locale("es_ES"))
 
 * 날짜 형식(`MM/dd/yyyy` 대 `dd/MM/yyyy`) 및 숫자 형식과 같은 [로캘별 포맷팅](compose-regional-format.md)을 테스트합니다.
 * [RTL 및 LTR 동작](compose-rtl.md)을 검증하여 아랍어나 히브리어와 같이 오른쪽에서 왼쪽으로 쓰는 언어에서 문자열, 레이아웃, 정렬이 제대로 표시되는지 확인합니다.
+* 둘 이상의 스크립트(script)가 있는 언어를 테스트합니다. 로캘을 `zh-Hans`, `zh-Hant`, `zh`로 설정하고 각각의 로캘이 리소스에 제대로 매칭되는지 확인합니다.

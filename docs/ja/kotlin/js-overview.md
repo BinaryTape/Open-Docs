@@ -63,7 +63,7 @@ Kotlin/JSでの開発を始めるための基本事項と最初のステップ�
 
 Kotlin/JSを自分で試してみませんか？
 
-<a href="js-get-started.md"><img src="js-get-started-button.svg" width="500" alt="Kotlin/JSを始める" style="block"/></a>
+<a href="js-get-started.md" as="button" mode="rock" icon="arrow-right" icon-position="right">Kotlin/JSを始める</a>
 
 ## Kotlin/JSのサンプルプロジェクト
 

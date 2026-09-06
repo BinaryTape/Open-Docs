@@ -1,14 +1,5 @@
 [//]: # (title: Cからの文字列のマッピング – チュートリアル)
 
-<tldr>
-    <p>これは <strong>KotlinとCのマッピング</strong> チュートリアルシリーズの最終パートです。次に進む前に、前のステップを完了していることを確認してください。</p>
-    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="mapping-primitive-data-types-from-c.md">Cからのプリミティブデータ型のマッピング</a><br/>
-        <img src="icon-2-done.svg" width="20" alt="Second step"/> <a href="mapping-struct-union-types-from-c.md">Cからの構造体および共用体型のマッピング</a><br/>
-      <img src="icon-3-done.svg" width="20" alt="Third step"/> <a href="mapping-function-pointers-from-c.md">Cからの関数ポインタのマッピング</a><br/>
-      <img src="icon-4.svg" width="20" alt="Fourth step"/> <strong>Cからの文字列のマッピング</strong><br/>
-    </p>
-</tldr>
-
 > Cライブラリのインポートは[ベータ](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import)段階です。cinteropツールによってCライブラリから生成されるすべてのKotlin宣言には、`@ExperimentalForeignApi` アノテーションが付与されます。
 >
 > Kotlin/Nativeに同梱されているネイティブプラットフォームライブラリ（Foundation、UIKit、POSIXなど）は、一部のAPIでのみオプトインが必要です。
@@ -151,7 +142,7 @@ fun CPointer<IntVarOf<Int>>.toKStringFromUtf32(): String // UTF-32エンコー�
 
 ## Cの文字列バイトをKotlinの文字列として受け取る
 
-今回は、`copy_string()` C関数を使用して、指定されたバッファにCの文字列を書き込みます。この関数は2つの引数を取ります：文字列が書き込まれるメモリ位置へのポインタと、許可されるバッファサイズです。
+今回は、`copy_string()` C関数を使用して、指定されたバッファにC의 文字列を書き込みます。この関数は2つの引数を取ります：文字列が書き込まれるメモリ位置へのポインタと、許可されるバッファサイズです。
 
 関数は、成功したか失敗したかを示す値も返す必要があります。ここでは `0` が成功を意味し、提供されたバッファが十分な大きさであったと仮定します：
 
@@ -210,6 +201,12 @@ fun main() {
 ```bash
 ./gradlew runDebugExecutableMacosArm64
 ```
+
+<list id="tour-nav">
+  <li>
+    <a as="button" href="mapping-function-pointers-from-c.md" mode="outline" icon="arrow-left" icon-position="left">前のステップ</a>
+  </li>
+</list>
 
 ## 次のステップ
 

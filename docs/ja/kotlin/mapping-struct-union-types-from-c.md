@@ -1,14 +1,5 @@
 [//]: # (title: Cの構造体（struct）および共用体（union）型のマッピング – チュートリアル)
 
-<tldr>
-    <p>これは<strong>KotlinとCのマッピング</strong>チュートリアルシリーズの第2部です。次に進む前に、前のステップを完了していることを確認してください。</p>
-    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="mapping-primitive-data-types-from-c.md">Cのプリミティブデータ型のマッピング</a><br/>
-       <img src="icon-2.svg" width="20" alt="Second step"/> <strong>Cの構造体（struct）および共用体（union）型のマッピング</strong><br/>
-       <img src="icon-3-todo.svg" width="20" alt="Third step"/> <a href="mapping-function-pointers-from-c.md">Cの関数ポインタのマッピング</a><br/>
-       <img src="icon-4-todo.svg" width="20" alt="Fourth step"/> <a href="mapping-strings-from-c.md">Cの文字列のマッピング</a><br/>
-    </p>
-</tldr>
-
 > Cライブラリのインポートは[ベータ版](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import)です。cinteropツールによってCライブラリから生成されたすべてのKotlin宣言には、`@ExperimentalForeignApi`アノテーションが付与されます。
 >
 > Kotlin/Nativeに同梱されているネイティブプラットフォームライブラリ（Foundation、UIKit、POSIXなど）では、一部のAPIについてのみオプトインが必要です。
@@ -325,7 +316,14 @@ fun main() {
 
 シリーズの次のパートでは、KotlinとCの間で関数ポインタがどのようにマッピングされるかを学びます：
 
-**[次のパートへ進む](mapping-function-pointers-from-c.md)**
+<list columns="2" id="tour-nav">
+  <li>
+    <a as="button" href="mapping-primitive-data-types-from-c.md" mode="outline" icon="arrow-left" icon-position="left">前のステップ</a>
+  </li>
+  <li>
+    <a as="button" href="mapping-function-pointers-from-c.md" mode="classic" icon="arrow-right" icon-position="right">次のステップ</a>
+  </li>
+</list>
 
 ### 関連項目
 

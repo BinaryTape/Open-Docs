@@ -301,6 +301,13 @@ fun double(x: Int) = x * 2
 추론된 반환 타입을 사용할 때는 컴파일러가 덜 유용한 타입을 추론할 수 있으므로 실제 결과를 반드시 확인해야 합니다.
 위의 예에서 `double()` 함수가 `Int` 대신 `Number`를 반환하도록 하려면 이를 명시적으로 선언해야 합니다.
 
+표현식 본문 내에서 `return` 문을 사용하는 경우 반환 타입을 명시적으로 지정해야 합니다:
+
+```kotlin
+fun getDisplayNameOrDefault(userId: String?): String =
+    getDisplayName(userId ?: return "default")
+```
+
 ### Unit을 반환하는 함수
 
 함수가 블록 본문(중괄호 `{}` 안의 명령문)을 가지고 있고 유용한 값을 반환하지 않는 경우, 컴파일러는 반환 타입을 `Unit`으로 간주합니다.
@@ -365,13 +372,6 @@ fun main() {
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="return-unit-explicit"}
-
-함수의 반환 타입이 명시적으로 지정된 경우 표현식 본문 내에서 `return` 문을 사용할 수 있습니다:
-
-```kotlin
-fun getDisplayNameOrDefault(userId: String?): String =
-    getDisplayName(userId ?: return "default")
-```
 
 ### 가변 인자 (varargs)
 
@@ -617,7 +617,7 @@ fun <T> singletonList(item: T): List<T> { /*...*/ }
 
 Kotlin은 [꼬리 재귀(tail recursion)](https://en.wikipedia.org/wiki/Tail_call)라고 알려진 함수형 프로그래밍 스타일을 지원합니다.
 보통 루프를 사용하는 일부 알고리즘의 경우, 스택 오버플로의 위험 없이 재귀 함수를 대신 사용할 수 있습니다.
-함수가 `tailrec` 수정자로 표시되고 필요한 공식 조건을 충족하면, 컴파일러는 재귀를 제거하고 빠르고 효율적인 루프 기반 버전으로 최적화합니다:
+함수가 `tailrec` 수정자로 표시되고 필요한 공식 조건을 충족하면, 컴파일러는 재귀을 제거하고 빠르고 효율적인 루프 기반 버전으로 최적화합니다:
 
 ```kotlin
 import kotlin.math.cos

@@ -385,7 +385,7 @@ if (ret != nil) {
 }
 ``` 
 
-元のKotlinコードとそのSwift版の間には、いくつかの小さな違いがあります。Kotlinでは、あらゆる `object` 宣言は1つのインスタンスしか持ちません。この単一のインスタンスにアクセスするために `Object.shared` 構文が使用されます。
+元のKotlinコードとその Swift 版の間には、いくつかの小さな違いがあります。Kotlinでは、あらゆる `object` 宣言は1つのインスタンスしか持ちません。この単一のインスタンスにアクセスするために `Object.shared` 構文が使用されます。
 
 Kotlinの関数名とプロパティ名はそのまま翻訳されます。Kotlinの `String` はSwiftの `String` に変換されます。Swiftでは `NSNumber*` のボクシングも隠蔽されます。また、SwiftのクロージャをKotlinに渡したり、SwiftからKotlinのラムダ関数を呼び出したりすることも可能です。
 
@@ -395,7 +395,7 @@ Kotlinの関数名とプロパティ名はそのまま翻訳されます。Kotli
 
 生成されたフレームワークを依存関係としてiOSプロジェクトに接続できるようになりました。これをセットアップしプロセスを自動化する方法はいくつかあります。自分に最適な方法を選択してください：
 
-<a href="https://kotlinlang.org/docs/multiplatform/multiplatform-ios-integration-overview.html"><img src="choose-ios-integration.svg" width="700" alt="iOS統合方法の選択" style="block"/></a>
+<a href="https://kotlinlang.org/docs/multiplatform/multiplatform-ios-integration-overview.html" as="button" mode="rock" icon="arrow-right" icon-position="right">iOS統合方法の選択</a>
 
 ## 次のステップ
 

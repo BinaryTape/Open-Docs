@@ -9,7 +9,7 @@ Kotlin/Native는 주로 임베디드 장치나 iOS와 같이 가상 머신을 �
 
 C, C++, Swift, Objective-C 및 기타 언어로 작성된 기존 프로젝트에 컴파일된 Kotlin 코드를 쉽게 포함할 수 있습니다. 또한 기존 네이티브 코드, 정적 또는 동적 C 라이브러리, Swift/Objective-C 프레임워크(frameworks), 그래픽 엔진 등을 Kotlin/Native에서 직접 사용할 수도 있습니다.
 
-<a href="native-get-started.md"><img src="native-get-started-button.svg" width="350" alt="Get started with Kotlin/Native" style="block"/></a>
+<a href="native-get-started.md" as="button" mode="rock" icon="arrow-right" icon-position="right">Kotlin/Native 시작하기</a>
 
 ## 대상 플랫폼
 

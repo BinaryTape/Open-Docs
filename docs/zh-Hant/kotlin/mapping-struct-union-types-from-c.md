@@ -1,14 +1,5 @@
 [//]: # (title: 對應來自 C 的結構與聯合型別 – 教學)
 
-<tldr>
-    <p>這是 <strong>對應 Kotlin 與 C</strong> 教學系列的第二部分。在繼續之前，請確保您已完成上一步。</p>
-    <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <a href="mapping-primitive-data-types-from-c.md">對應來自 C 的基本資料型別</a><br/>
-       <img src="icon-2.svg" width="20" alt="第二步"/> <strong>對應來自 C 的結構與聯合型別</strong><br/>
-       <img src="icon-3-todo.svg" width="20" alt="第三步"/> <a href="mapping-function-pointers-from-c.md">對應來自 C 的函式指標</a><br/>
-       <img src="icon-4-todo.svg" width="20" alt="第四步"/> <a href="mapping-strings-from-c.md">對應來自 C 的字串</a><br/>
-    </p>
-</tldr>
-
 > C 程式庫匯入目前處於 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 階段。所有由 cinterop 工具從 C 程式庫產生的 Kotlin 宣告都應具有 `@ExperimentalForeignApi` 註解。
 >
 > 隨 Kotlin/Native 提供的原生平台程式庫（如 Foundation、UIKit 和 POSIX）僅對某些 API 需要選擇性同意（opt-in）。
@@ -325,7 +316,14 @@ fun main() {
 
 在本系列的下一部分中，您將學習函式指標如何在 Kotlin 與 C 之間進行對應：
 
-**[前進至下一部分](mapping-function-pointers-from-c.md)**
+<list columns="2" id="tour-nav">
+  <li>
+    <a as="button" href="mapping-primitive-data-types-from-c.md" mode="outline" icon="arrow-left" icon-position="left">上一步</a>
+  </li>
+  <li>
+    <a as="button" href="mapping-function-pointers-from-c.md" mode="classic" icon="arrow-right" icon-position="right">下一步</a>
+  </li>
+</list>
 
 ### 延伸閱讀
 

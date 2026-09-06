@@ -85,7 +85,7 @@
   "kotlin.kotlin-overview": "Kotlin 개요",
   "kotlin.what-s-new-in-kotlin": "Kotlin의 새로운 기능",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.4.20-RC2",
+  "kotlin.whatsnew-eap": "Kotlin 2.4.20-RC3",
   "kotlin.earlier-versions": "이전 버전",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -688,5 +688,11 @@
   "koog.cloud-platform-integrations": "클라우드 플랫폼 통합",
   "koog.amazon-bedrock-agentcore": "Amazon Bedrock AgentCore",
   "kmp.ios-ci-cd-teamcity": "iOS 배포 파이프라인 구성",
-  "koog.skills": "스킬"
+  "koog.skills": "스킬",
+  "kotlin.mapping-kotlin-and-c": "Kotlin과 C 매핑",
+  "kotlin.mapping-primitive-data-types-from-c": "기본 데이터 타입",
+  "kotlin.mapping-struct-union-types-from-c": "구조체 및 공용체 타입",
+  "kotlin.mapping-function-pointers-from-c": "함수 포인터",
+  "kotlin.mapping-strings-from-c": "문자열",
+  "kmp.compose-desktop-tabbing": "탭 내비게이션"
 }

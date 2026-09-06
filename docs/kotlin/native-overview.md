@@ -9,7 +9,7 @@ Kotlin/Native 主要旨在允许为不希望或无法使用*虚拟机*的平台�
 
 在用 C、C++、Swift、Objective-C 以及其他语言编写的现有项目中包含已编译的 Kotlin 代码非常容易。您也可以直接在 Kotlin/Native 中使用现有的原生代码、静态或动态 C 库、Swift/Objective-C 框架、图形引擎以及任何其他内容。
 
-<a href="native-get-started.md"><img src="native-get-started-button.svg" width="350" alt="Get started with Kotlin/Native" style="block"/></a>
+<a href="native-get-started.md" as="button" mode="rock" icon="arrow-right" icon-position="right">Kotlin/Native 快速入门</a>
 
 ## 目标平台
 

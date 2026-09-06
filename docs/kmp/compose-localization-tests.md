@@ -48,7 +48,7 @@ java.util.Locale.setDefault(java.util.Locale("es_ES"))
 为了进行快速检查，你可以更改浏览器偏好设置中的语言设置。
 对于自动化测试，Selenium 或 Puppeteer 等浏览器自动化工具可以模拟区域设置更改。 
 
-或者，你可以尝试绕过 `window.navigator.languages` 属性的只读限制，以引入自定义区域设置。在 [](compose-resource-environment.md) 教程中了解详情。
+或者，你可以在尝试绕过 `window.navigator.languages` 属性的只读限制以引入自定义区域设置。在 [](compose-resource-environment.md) 教程中了解详情。
 
 ## 关键测试场景
 
@@ -70,3 +70,4 @@ java.util.Locale.setDefault(java.util.Locale("es_ES"))
 
 * 测试 [区域特定格式设置](compose-regional-format.md)，例如日期格式设置 (`MM/dd/yyyy` 与 `dd/MM/yyyy`) 和数字格式设置。
 * 验证 [RTL 和 LTR 行为](compose-rtl.md)，确保像阿拉伯语和希伯来语这类从右到左的语言能正确显示字符串、布局和对齐。
+* 测试拥有多种脚本的语言：将区域设置设置为 `zh-Hans`、`zh-Hant` 和 `zh`，并验证每一种设置都能解析为对应的资源。

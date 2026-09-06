@@ -1,14 +1,5 @@
 [//]: # (title: C 문자열 매핑 – 튜토리얼)
 
-<tldr>
-    <p>이것은 <strong>Kotlin과 C 매핑</strong> 튜토리얼 시리즈의 마지막 부분입니다. 진행하기 전에 이전 단계들을 완료했는지 확인하세요.</p>
-    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="mapping-primitive-data-types-from-c.md">C 기본 데이터 타입 매핑</a><br/>
-        <img src="icon-2-done.svg" width="20" alt="Second step"/> <a href="mapping-struct-union-types-from-c.md">C 구조체 및 공용체 타입 매핑</a><br/>
-      <img src="icon-3-done.svg" width="20" alt="Third step"/> <a href="mapping-function-pointers-from-c.md">C 함수 포인터 매핑</a><br/>
-      <img src="icon-4.svg" width="20" alt="Fourth step"/> <strong>C 문자열 매핑</strong><br/>
-    </p>
-</tldr>
-
 > C 라이브러리 임포트는 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 상태입니다. cinterop 도구가 C 라이브러리로부터 생성한 모든 Kotlin 선언에는 `@ExperimentalForeignApi` 어노테이션이 추가됩니다.
 >
 > Kotlin/Native와 함께 제공되는 네이티브 플랫폼 라이브러리(Foundation, UIKit, POSIX 등)는 일부 API에 대해서만 opt-in이 필요합니다.
@@ -210,6 +201,12 @@ fun main() {
 ```bash
 ./gradlew runDebugExecutableMacosArm64
 ```
+
+<list id="tour-nav">
+  <li>
+    <a as="button" href="mapping-function-pointers-from-c.md" mode="outline" icon="arrow-left" icon-position="left">이전 단계</a>
+  </li>
+</list>
 
 ## 다음 단계
 

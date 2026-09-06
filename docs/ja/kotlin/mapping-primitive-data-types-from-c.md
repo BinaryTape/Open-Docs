@@ -1,14 +1,5 @@
 [//]: # (title: Cからのプリミティブデータ型のマッピング – チュートリアル)
 
-<tldr>
-    <p>これは <strong>Mapping Kotlin and C</strong>（KotlinとCのマッピング）チュートリアルシリーズの第1部です。</p>
-    <p><img src="icon-1.svg" width="20" alt="First step"/> <strong>Cからのプリミティブデータ型のマッピング</strong><br/>
-       <img src="icon-2-todo.svg" width="20" alt="Second step"/> <a href="mapping-struct-union-types-from-c.md">Cからの構造体（struct）型と共用体（union）型のマッピング</a><br/>
-       <img src="icon-3-todo.svg" width="20" alt="Third step"/> <a href="mapping-function-pointers-from-c.md">Cからの関数ポインタのマッピング</a><br/>
-       <img src="icon-4-todo.svg" width="20" alt="Fourth step"/> <a href="mapping-strings-from-c.md">Cからの文字列のマッピング</a><br/>
-    </p>
-</tldr>
-
 > Cライブラリのインポートは[ベータ版](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import)です。cinteropツールによってCライブラリから生成されたすべてのKotlin宣言には、`@ExperimentalForeignApi` アノテーションが付与されます。
 >
 > Kotlin/Nativeに同梱されているネイティブプラットフォームライブラリ（Foundation、UIKit、POSIXなど）では、一部のAPIについてのみオプトインが必要です。
@@ -208,7 +199,7 @@ Cのプリミティブ型の宣言がKotlin側からどのように見えるか�
 
 Cのプリミティブ型がKotlin/Nativeにどのようにマッピングされるかを確認し、それに応じてサンプルプロジェクトを更新しましょう。
 
-IntelliJ IDEAの [宣言へ移動（Go to declaration）](https://www.jetbrains.com/help/rider/Navigation_and_Search__Go_to_Declaration.html) コマンド（<shortcut>Cmd + B</shortcut>/<shortcut>Ctrl + B</shortcut>) を使用して、C関数に対して生成された以下のAPIに移動します：
+IntelliJ IDEAの [宣言へ移動（Go to declaration）](https://www.jetbrains.com/help/rider/Navigation_and_Search__Go_to_Declaration.html) コマンド（<shortcut>Cmd + B</shortcut>/<shortcut>Ctrl + B</shortcut>）を使用して、C関数に対して生成された以下のAPIに移動します：
 
 ```kotlin
 fun ints(c: kotlin.Byte, d: kotlin.Short, e: kotlin.Int, f: kotlin.Long)
@@ -259,7 +250,11 @@ fun main() {
 
 シリーズの次のパートでは、構造体（struct）型と共用体（union）型がKotlinとCの間でどのようにマッピングされるかを学びます：
 
-**[次のパートに進む](mapping-struct-union-types-from-c.md)**
+<list id="tour-nav">
+  <li>
+    <a as="button" href="mapping-struct-union-types-from-c.md" mode="classic" icon="arrow-right" icon-position="right">次のパートに進む</a>
+  </li>
+</list>
 
 ### 関連項目
 

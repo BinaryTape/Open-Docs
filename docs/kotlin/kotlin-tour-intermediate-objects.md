@@ -275,49 +275,74 @@ fun main() {
 
 ### 习题 3 {initial-collapse-state="collapsed" collapsible="true" id="objects-exercise-3"}
 
-你有一个应用需要记录温度。该类本身以摄氏度存储信息，但你希望提供一种也能够以华氏度创建实例的简便方法。完成该数据类，以便 `main()` 函数中的后续代码能成功运行：
+你正在为一款应用构建用户注册模块。你希望将电子邮件验证与 `User` 类关联，但如果电子邮件地址无效，则不希望创建不必要的 `User` 实例。
+
+在本习题中，如果电子邮件地址同时包含 `@` 和 `.`，则认为其有效。完成该数据类，以便 `main()` 函数中的后续代码能成功运行：
 
 <deflist collapsible="true">
     <def title="提示">
-        使用伴生对象。
+        在 `User` 类的伴生对象中添加一个电子邮件验证函数，以便你可以直接在 `User` 上调用该函数。
     </def>
 </deflist>
 
 |---|---|
 ```kotlin
-data class Temperature(val celsius: Double) {
-    val fahrenheit: Double = celsius * 9 / 5 + 32
-
+data class User(val name: String, val email: String) {
     // 在此处编写你的代码
 }
 
 fun main() {
-    val fahrenheit = 90.0
-    val temp = Temperature.fromFahrenheit(fahrenheit)
-    println("${temp.celsius}°C is $fahrenheit °F")
-    // 32.22222222222222°C is 90.0 °F
+    val candidates = listOf(
+        Pair("Alice", "alice@example.com"),
+        Pair("Bob", "bob2example-com")
+    )
+
+    for ((name, email) in candidates) {
+        if (User.isValidEmail(email)) {
+            val user = User(name, email)
+            println("Registered: ${user.name}, ${user.email}")
+            // Registered: Alice, alice@example.com
+        } else {
+            println("Error: '${email}' is not valid. The email should contain '@' and '.'")
+            // Error: 'bob2example-com' is not valid. The email should contain '@' and '.'
+        }
+    }
 }
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-objects-exercise-3"}
 
 |---|---|
 ```kotlin
-data class Temperature(val celsius: Double) {
-    val fahrenheit: Double = celsius * 9 / 5 + 32
-
+data class User(val name: String, val email: String) {
     companion object {
-        fun fromFahrenheit(fahrenheit: Double): Temperature = Temperature((fahrenheit - 32) * 5 / 9)
+        fun isValidEmail(email: String): Boolean =
+            email.contains('@') && email.contains('.')
     }
 }
 
 fun main() {
-    val fahrenheit = 90.0
-    val temp = Temperature.fromFahrenheit(fahrenheit)
-    println("${temp.celsius}°C is $fahrenheit °F")
-    // 32.22222222222222°C is 90.0 °F
+    val candidates = listOf(
+        Pair("Alice", "alice@example.com"),
+        Pair("Bob", "bob2example-com")
+    )
+
+    for ((name, email) in candidates) {
+        if (User.isValidEmail(email)) {
+            val user = User(name, email)
+            println("Registered: ${user.name}, ${user.email}")
+            // Registered: Alice, alice@example.com
+        } else {
+            println("Error: '${email}' is not valid. The email should contain '@' and '.'")
+            // Error: 'bob2example-com' is not valid. The email should contain '@' and '.'
+        }
+    }
 }
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="示例解决方案" id="kotlin-tour-objects-solution-3"}
+
+> 作为本习题的扩展，尝试将伴生对象中的函数用作工厂方法来构造类的实例。有关此模式的示例和更多信息，请参阅 [](object-declarations.md#companion-objects)。
+>
+{style="tip"}
 
 <seealso></seealso>
 

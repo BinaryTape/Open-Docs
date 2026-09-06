@@ -19,8 +19,12 @@ commonMain/composeResources/
 │   └── strings.xml
 ├── values-fr/
 │   └── strings.xml
-└── ... (其他区域性目录)
+└── ... (其他语言区域目录)
 ```
+
+如果某种语言有多种书写方式（例如中文或塞尔维亚语），请在特定于书写方式的目录（`values-b+zh+Hans`、`values-b+zh+Hant`）之外，添加一个不含书写方式的目录（`values-zh`）。
+否则，当系统报告不含书写方式的语言区域时，将无法解析该资源。
+有关详细信息，请参阅[语言和区域限定符](compose-multiplatform-resources-setup.md#language-and-regional-qualifiers)。
 
 在 `values` 目录及其本地化变体中，使用键值对在 `strings.xml` 文件中定义字符串资源。
 例如，将英文文本添加到 `commonMain/composeResources/values/strings.xml`：

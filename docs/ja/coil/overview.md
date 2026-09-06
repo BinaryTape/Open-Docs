@@ -16,8 +16,8 @@ Coil は **Co**routine **I**mage **L**oader の略称です。
 Compose ライブラリと [ネットワークライブラリ](https://coil-kt.github.io/coil/network/) をインポートします：
 
 ```kotlin
-implementation("io.coil-kt.coil3:coil-compose:3.6.0")
-implementation("io.coil-kt.coil3:coil-network-okhttp:3.6.0")
+implementation("io.coil-kt.coil3:coil-compose:3.6.2")
+implementation("io.coil-kt.coil3:coil-network-okhttp:3.6.2")
 ```
 
 画像を読み込むには、`AsyncImage` コンポーザブルを使用します：

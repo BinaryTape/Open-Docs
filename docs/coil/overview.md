@@ -9,15 +9,15 @@
 
 Coil 是 **Co**routine **I**mage **L**oader（协程图片加载器）的首字母缩写。
 
-翻译：[日本語](README-ja.md), [한국어](README-ko.md), [Русский](README-ru.md), [Svenska](README-sv.md), [Türkçe](README-tr.md), [中文](README-zh.md), [پارسی](README-fa.md), [O'zbekcha](README-uz.md)
+翻译：[日本語](README-ja.md), [한국语](README-ko.md), [Русский](README-ru.md), [Svenska](README-sv.md), [Türkçe](README-tr.md), [中文](README-zh.md), [پارسی](README-fa.md), [O'zbekcha](README-uz.md)
 
 ## 快速入门
 
 导入 Compose 库和一个 [网络库](https://coil-kt.github.io/coil/network/)：
 
 ```kotlin
-implementation("io.coil-kt.coil3:coil-compose:3.6.0")
-implementation("io.coil-kt.coil3:coil-network-okhttp:3.6.0")
+implementation("io.coil-kt.coil3:coil-compose:3.6.2")
+implementation("io.coil-kt.coil3:coil-network-okhttp:3.6.2")
 ```
 
 要加载图片，请使用 `AsyncImage` 可组合项：

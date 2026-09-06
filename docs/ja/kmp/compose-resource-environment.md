@@ -16,7 +16,8 @@
 * **desktop**: [`Locale.getDefault()`](https://developer.android.com/reference/java/util/Locale#getDefault(java.util.Locale.Category))
 * **web**: [`window.navigator.languages`](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/languages)
 
-1. 共通（common）ソースセットで、`expect` キーワードを使用して期待される `LocalAppLocale` オブジェクトを定義します：
+1. 共通（common）ソースセットで、`expect` キーワードを使用して期待される `LocalAppLocale` オブジェクトを定義します。
+   ロケールは、`es`、`es-ES`、`zh-Hans` などの BCP 47 言語タグとして指定されます。システムロケールを使用するには、`customAppLocale` を `null` に設定します：
 
     ```kotlin
     var customAppLocale by mutableStateOf<String?>(null)

@@ -3,6 +3,18 @@
 ## 미출시(Unreleased)
 
 ### 추가됨
+- 아직 없음!
+
+### 변경됨
+- 아직 없음!
+
+### 수정됨
+- [PostgreSQL 다이얼렉트] `string_agg` 함수가 널 허용(nullable)이 되도록 수정 (#6340 by @griffio)
+
+## [2.4.0-rc1] - 2026-09-01
+[2.4.0-rc1]: https://github.com/sqldelight/sqldelight/releases/tag/2.4.0-rc1
+
+### 추가됨
 - [Native 드라이버] `inMemoryDriver`에 `extendedConfig` 파라미터 추가 (#5539 by @GuilhE)
 - [PostgreSQL 다이얼렉트] 암시적으로 정의된 시스템 컬럼(implicitly defined System Columns)에 대한 쿼리 지원 추가 (#5834 by @griffio)
 - [PostgreSQL 다이얼렉트] 기본적인 배열 리터럴(Array literal) 지원 추가 (#5997 by @griffio)
@@ -226,7 +238,6 @@
 - [SQLite 다이얼렉트] 4897 sqlite `alter table rename column` 수정 (#4899 by @griffio)
 - [IDE 플러그인] 에러 핸들러 크래시 수정 (#4988 by @aperfilyev)
 - [IDE 플러그인] IDEA 2023.3에서 BugSnag 초기화 실패 수정 (by @aperfilyev)
-- [IDE 플러그인] 플러그인을 통해 IntelliJ에서 .sq 파일을 열 때 발생하는 `PluginException` 수정 (by @aperfilyev)
 - [IDE 플러그인] 이미 플러그인 의존성이므로 kotlin 라이브러리를 IntelliJ 플러그인에 묶지 않도록 수정 (#5126)
 - [IDE 플러그인] 스트림 대신 확장 배열을 사용하도록 수정 (#5127)
 
@@ -972,7 +983,7 @@ sqldelight {
 - [컴파일러] 인덱스 생성 시 누락된 테이블/컬럼에 대해 더 나은 에러 제공 (#1372)
 - [컴파일러] 조인 제약 조건에서 외부 쿼리의 프로젝션 사용 활성화 (#1346)
 - [Native 드라이버] `execute`가 `transationPool`을 사용하도록 수정 (by @benasher44)
-- [JDBC 드라이버] `JdbcSqliteDriver`가 실제 SQLite 드라이버와 호환되도록 수정
+- [JDBC 드라이버] 실제 SQLite 드라이버와 호환되도록 수정
 - [IDE] 가상 파일 참조가 항상 원본 파일이 되도록 보장 (#1782)
 - [IDE] Bugsnag에 에러 보고 시 올바른 throwable 사용 (#1262)
 - [페이징 확장] 누수되는 `DataSource` 수정 (#1628)
@@ -1127,7 +1138,7 @@ sqldelight {
 ## [0.5.1] - 2016-10-24
 [0.5.1]: https://github.com/sqldelight/sqldelight/releases/tag/0.5.1
 
- * 신규: 컴파일된 statement가 추상 타입을 확장함.
+ * 신규: Compiled statements extend an abstract type.
  * 수정: 파라미터의 원시 타입이 널 허용일 경우 박싱됨.
  * 수정: 바인드 인자를 위해 필요한 모든 팩토리가 팩토리 메서드에 존재함.
  * 수정: 이스케이프된 컬럼 이름이 적절히 마샬링됨.

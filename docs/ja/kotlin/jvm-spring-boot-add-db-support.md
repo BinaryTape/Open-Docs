@@ -2,11 +2,6 @@
 
 <web-summary>JDBCテンプレートを使用して、Kotlinで記述されたSpring Bootプロジェクトにデータベース・サポートを追加します。</web-summary>
 
-<tldr>
-    <p>これは、『KotlinによるSpring Boot入門』チュートリアルの第3パートです。続行する前に、前の手順を完了していることを確認してください：</p><br/>
-    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="jvm-create-project-with-spring-boot.md">KotlinでSpring Bootプロジェクトを作成する</a><br/><img src="icon-2-done.svg" width="20" alt="Second step"/> <a href="jvm-spring-boot-add-data-class.md">Spring Bootプロジェクトにデータ・クラスを追加する</a><br/><img src="icon-3.svg" width="20" alt="Third step"/> <strong>Spring Bootプロジェクトにデータベース・サポートを追加する</strong><br/><img src="icon-4-todo.svg" width="20" alt="Fourth step"/> データベース・アクセスにSpring Data CrudRepositoryを使用する</p>
-</tldr>
-
 チュートリアルのこのパートでは、_Java Database Connectivity_ (JDBC) を使用して、プロジェクトにデータベースを追加および構成します。
 JVMアプリケーションでは、JDBCを使用してデータベースとやり取りします。
 便宜上、Spring FrameworkはJDBCの使用を簡素化し、一般的なエラーの回避に役立つ `JdbcTemplate` クラスを提供しています。
@@ -493,4 +488,11 @@ Springアプリケーションの実行準備が整いました：
 
 最後の手順では、Spring Dataを使用して、より一般的なデータベース接続方法を使用する方法について説明します。 
 
-**[次の章へ進む](jvm-spring-boot-using-crudrepository.md)**
+<list columns="2" id="tour-nav">
+  <li>
+    <a as="button" href="jvm-spring-boot-add-data-class.md" mode="outline" icon="arrow-left" icon-position="left">前の手順</a>
+  </li>
+  <li>
+    <a as="button" href="jvm-spring-boot-using-crudrepository.md" mode="classic" icon="arrow-right" icon-position="right">次の手順</a>
+  </li>
+</list>

@@ -1,14 +1,5 @@
 [//]: # (title: 從 C 對應字串 – 教學)
 
-<tldr>
-    <p>這是<strong>對應 Kotlin 與 C</strong> 教學系列的最後一部分。在繼續之前，請確保您已完成先前的步驟。</p>
-    <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <a href="mapping-primitive-data-types-from-c.md">從 C 對應基本資料型別</a><br/>
-        <img src="icon-2-done.svg" width="20" alt="第二步"/> <a href="mapping-struct-union-types-from-c.md">從 C 對應結構與聯合型別</a><br/>
-      <img src="icon-3-done.svg" width="20" alt="第三步"/> <a href="mapping-function-pointers-from-c.md">從 C 對應函式指標</a><br/>
-      <img src="icon-4.svg" width="20" alt="第四步"/> <strong>從 C 對應字串</strong><br/>
-    </p>
-</tldr>
-
 > C 程式庫匯入目前處於 [Beta](native-lib-import-stability.md#stability-of-c-and-objective-c-library-import) 階段。所有由 cinterop 工具從 C 程式庫產生的 Kotlin 宣告都應具有 `@ExperimentalForeignApi` 註解。
 >
 > 隨 Kotlin/Native 提供的原生平台程式庫（如 Foundation、UIKit 和 POSIX）僅針對部分 API 需要選擇加入（opt-in）。
@@ -205,11 +196,17 @@ fun main() {
 }
 ```
 
-要驗證一切是否如預期運作，請[在您的 IDE 中](native-get-started.md#build-and-run-the-application)執行 `runDebugExecutable<YourTargetName>` Gradle 任務，或在您的終端機中使用命令列指令，在此範例中為：
+要驗證一切是否如預期運作，請[在您的 IDE 中](native-get-started.md#build-and-run-the-application)執行 `runDebugExecutable<YourTargetName>` Gradle 任務，或在您的終端機中使用主控台指令，在此範例中為：
 
 ```bash
 ./gradlew runDebugExecutableMacosArm64
 ```
+
+<list id="tour-nav">
+  <li>
+    <a as="button" href="mapping-function-pointers-from-c.md" mode="outline" icon="arrow-left" icon-position="left">上一步</a>
+  </li>
+</list>
 
 ## 下一步
 

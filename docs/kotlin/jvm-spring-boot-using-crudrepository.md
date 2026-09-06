@@ -2,11 +2,6 @@
 
 <web-summary>在用 Kotlin 编写的 Spring Boot 项目中使用 Spring Data 接口。</web-summary>
 
-<tldr>
-    <p>这是<strong>使用 Spring Boot 和 Kotlin 入门</strong>教程的最后一部分。在继续之前，请确保您已完成之前的步骤：</p><br/>
-    <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <a href="jvm-create-project-with-spring-boot.md">使用 Kotlin 创建 Spring Boot 项目</a><br/><img src="icon-2-done.svg" width="20" alt="第二步"/> <a href="jvm-spring-boot-add-data-class.md">向 Spring Boot 项目添加数据类</a><br/><img src="icon-3-done.svg" width="20" alt="第三步"/> <a href="jvm-spring-boot-add-db-support.md">为 Spring Boot 项目添加数据库支持</a><br/><img src="icon-4.svg" width="20" alt="第四步"/> <strong>使用 Spring Data CrudRepository 进行数据库访问</strong></p>
-</tldr>
-
 在这一部分中，您将迁移服务层，使用 [Spring Data](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html) 的 `CrudRepository` 而非 `JdbcTemplate` 进行数据库访问。
 _CrudRepository_ 是一个 Spring Data 接口，用于对特定类型的仓库进行通用的 [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) 操作。
 它开箱即用地提供了多个与数据库交互的方法。
@@ -210,15 +205,19 @@ class MessageController(private val service: MessageService) {
 恭喜！应用程序已准备好再次运行。
 将 `JdbcTemplate` 替换为 `CrudRepository` 后，功能保持不变，因此应用程序的运行方式与之前完全相同。
 
-您现在可以从 `requests.http` 文件中[运行 POST 和 GET HTTP 请求](jvm-spring-boot-add-db-support.md#add-messages-to-database-via-http-request)，并获得相同的结果。
+您现在可以从 `requests.http` 文件中[运行 POST 和 GET HTTP 请求](jvm-spring-boot-add-db-support.md#add-messages-to-database-via-http-request)并获得相同的结果。
+
+<list id="tour-nav">
+  <li>
+    <a as="button" href="jvm-spring-boot-add-db-support.md" mode="outline" icon="arrow-left" icon-position="left">上一步</a>
+  </li>
+</list>
 
 ## 下一步
 
 获取您的个人语言路线图，帮助您了解 Kotlin 功能并跟踪您的语言学习进度：
 
-<a href="https://resources.jetbrains.com/storage/products/kotlin/docs/Kotlin_Language_Features_Map.pdf">
-   <img src="get-kotlin-language-map.png" width="700" alt="获取 Kotlin 语言路线图" style="block"/>
-</a>
+<a as="button" href="https://resources.jetbrains.com/storage/products/kotlin/docs/Kotlin_Language_Features_Map.pdf" mode="rock" icon="arrow-right" icon-position="right">获取 Kotlin 语言路线图</a>
 
 * 查看 [Spring Framework](https://docs.spring.io/spring-framework/reference/) 文档。
 * 在 [保护 Web 应用程序](https://spring.io/guides/gs/securing-web)教程中创建一个带有受保护资源的简单 Web 应用程序。

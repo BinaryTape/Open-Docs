@@ -102,6 +102,31 @@ Image(
 )
 ```
 
+#### 在画布上绘制图像
+
+要在画布上自行绘制资源图像，而不是通过 `Image()` 可组合项显示它，请将其加载为 `ImageBitmap` 或 `ImageVector` 并将其用于 `DrawScope` 中：
+
+* 要绘制 `ImageBitmap`，请使用 `DrawScope.drawImage()`。
+* 要绘制 `ImageVector`，请使用 `rememberVectorPainter()` 创建一个 `Painter` 并使用 `Painter.draw()`。
+
+在 `DrawScope` 中以像素为单位指定偏移量和大小：
+
+```kotlin
+val myImageRaster = imageResource(Res.drawable.my_image_raster)
+val myImageVectorPainter = rememberVectorPainter(vectorResource(Res.drawable.my_image_vector))
+
+Canvas(modifier = Modifier.fillMaxSize()) {
+    // 在 lambda 内部，`this` 是 `DrawScope` 的一个实例，它提供了 `drawImage()` 和 `translate()`
+    drawImage(image = myImageRaster, topLeft = Offset(20f, 20f))
+    translate(left = 20f, top = myImageRaster.height + 40f) {
+        // `Painter.draw()` 函数同时使用 `DrawScope` 和 `Painter` 作为接收器
+        with(myImageVectorPainter) {
+            draw(Size(200f, 200f))
+        }
+    }
+}
+```
+
 ### 图标
 
 你可以使用来自 Material Symbols 库的矢量 Android XML 图标：
@@ -230,9 +255,7 @@ coroutineScope.launch {
 
 #### 字符串模板
 
-目前，参数对字符串资源提供基本支持。
-创建模板时，使用 `%<number>` 格式在字符串中放置参数，并包含 `$d` 或 `$s` 后缀以指示它是变量占位符而非简单文本。
-例如：
+目前，参数对字符串资源提供基本支持。创建模板时，使用 `%<number>` 格式在字符串中放置参数，并包含 `$d` 或 `$s` 后缀以指示它是变量占位符而非简单文本。例如：
 
 ```XML
 <resources>
@@ -246,8 +269,7 @@ coroutineScope.launch {
 Text(stringResource(Res.string.str_template, 100, "User_name"))
 ```
 
-`$s` 和 `$d` 后缀之间没有区别，且不支持其他后缀。
-你可以在资源字符串中放入 `%1$s` 占位符，并使用它来显示小数，例如：
+`$s` 和 `$d` 后缀之间没有区别，且不支持其他后缀。你可以在资源字符串中放入 `%1$s` 占位符，并使用它来显示小数，例如：
 
 ```kotlin
 Text(stringResource(Res.string.str_template, "User_name", 100.1f))
@@ -308,7 +330,7 @@ coroutineScope.launch {
 </TabItem>
 </Tabs>
 
-> 你可以使用类 Emmet 的语法快速定义字符串数组。使用 `string-array`、`sa` 或 `>` 运算符生成空的数组模板。对于具有预定义项目数量和起始文本的命名数组，请输入 `test>2{Hello}` 并按 **Tab** 键：
+> 你可以使用类 Emmet 的语法快速定义字符串数组。使用 `string-array`、`sa` 或 `>` 运算符生成空的数组模板。对于具有预定义项目数量和起始文本的命名数组，请输入 `test>2{Hello}` and press **Tab**:
 > ```xml
 > <string-array name="test">
 >    <item>Hello</item>
@@ -322,15 +344,12 @@ coroutineScope.launch {
 
 当你的 UI 显示某物的数量时，你可能希望支持对同一事物的不同数量进行语法一致性处理（例如：one _book_，many _books_ 等），而无需以编程方式创建不相关的字符串。
 
-Compose Multiplatform 中的概念和基础实现与 Android 上的数量字符串相同。
-有关在项目中使用复数的最佳做法和细微差别的更多信息，请参阅 [Android 文档](https://developer.android.com/guide/topics/resources/string-resource#Plurals)。
+Compose Multiplatform 中的概念和基础实现与 Android 上的数量字符串相同。有关在项目中使用复数的最佳做法和细微差别的更多信息，请参阅 [Android 文档](https://developer.android.com/guide/topics/resources/string-resource#Plurals)。
 
 * 支持的变体包括 `zero`、`one`、`two`、`few`、`many` 和 `other`。请注意，并非每种语言都会考虑所有变体：例如，英语会忽略 `zero`，因为它与除 1 以外的任何其他复数相同。请依靠语言专家来了解语言实际要求的区别。
 * 通常可以通过使用数量中性的表述（如 "Books: 1"）来避免使用数量字符串。如果这不会降低用户体验。
 
-要定义复数，请在 `composeResources/values` 目录下的任何 `.xml` 文件中添加 `<plurals>` 元素。
-`plurals` 集合是使用 name 特性（而不是 XML 文件的名称）引用的简单资源。
-因此，你可以在一个 XML 文件中的一个 `<resources>` 元素下将 `plurals` 资源与其他简单资源组合在一起：
+要定义复数，请在 `composeResources/values` 目录下的任何 `.xml` 文件中添加 `<plurals>` 元素。`plurals` 集合是使用 name 特性（而不是 XML 文件的名称）引用的简单资源。因此，你可以在一个 XML 文件中的一个 `<resources>` 元素下将 `plurals` 资源与其他简单资源组合在一起：
 
 ```xml
 <resources>
@@ -387,16 +406,14 @@ coroutineScope.launch {
 > <plurals name="test">
 >     <item quantity="one"></item>
 >     <item quantity="other"></item>
- > </plurals>
- > ```
- >
- {style="note"}
+> </plurals>
+> ```
+>
+{style="note"}
 
 ### 字体
 
-将自定义字体存储在 `composeResources/font` 目录中。
-Compose Multiplatform 在所有平台上均支持 TTF、OTF、TTC 和可变字体格式。
-WOFF 和 WOFF2 仅在 Web 和 macOS 上可用。
+将自定义字体存储在 `composeResources/font` 目录中。Compose Multiplatform 在所有平台上均支持 TTF、OTF、TTC 和可变字体格式。WOFF 和 WOFF2 仅在 Web 和 macOS 上可用。
 
 要将字体作为 `Font` 类型加载，请使用 `Font()` 可组合函数：
 
@@ -589,8 +606,7 @@ fun App() {
 
 ### 访问来自外部库的多平台资源
 
-如果你想使用项目中包含的其他库来处理多平台资源，可以将平台特定的文件路径传递给这些其他 API。
-要获取平台特定的路径，请使用资源的项项目路径调用 `Res.getUri()` 函数：
+如果你想使用项目中包含的其他库来处理多平台资源，可以将平台特定的文件路径传递给这些其他 API。要获取平台特定的路径，请使用资源的项项目路径调用 `Res.getUri()` 函数：
 
 ```kotlin
 val uri = Res.getUri("files/my_video.mp4")
@@ -609,6 +625,10 @@ val uri = Res.getUri("files/my_video.mp4")
 * [Compose ImageLoader](https://github.com/qdsfdhvh/compose-imageloader)
 * [Kamel](https://github.com/Kamel-Media/Kamel)
 * [Ktor client](https://ktor.io/)
+
+如果你手动下载图像或读取其字节，请使用资源库的 [解码函数](#convert-byte-arrays-into-images) 进行转换。有关在桌面应用中加载网络图像的示例，请参阅[在 Compose Multiplatform for Desktop 中使用图像](compose-desktop-images.md#loading-images-from-the-file-system-or-the-network)。
+
+如果你自行下载或读取图像字节，请使用资源库的 [解码函数](#convert-byte-arrays-into-images) 将其转换为图像。有关在桌面应用程序中从网络加载图像的示例，请参阅[在 Compose Multiplatform for Desktop 中使用图像](compose-desktop-images.md#loading-images-from-the-file-system-or-the-network)教程。
 
 ### 使用 Java 资源
 

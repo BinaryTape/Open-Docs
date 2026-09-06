@@ -7,14 +7,6 @@
 >
 {style="note"}
 
-<tldr>
-   <p>이것은 <strong>Kotlin Notebook 시작하기</strong> 튜토리얼의 세 번째 파트입니다. 계속 진행하기 전에 이전 단계를 완료했는지 확인하세요.</p>
-   <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="kotlin-notebook-set-up-env.md">환경 설정</a><br/>
-      <img src="icon-2-done.svg" width="20" alt="Second step"/> <a href="kotlin-notebook-create.md">Kotlin Notebook 만들기</a><br/>
-      <img src="icon-3.svg" width="20" alt="Third step"/> <strong>Kotlin Notebook에 종속성 추가하기</strong><br/>
-  </p>
-</tldr>
-
 첫 번째 [Kotlin Notebook](kotlin-notebook-overview.md)을 이미 만드셨군요! 이제 고급 기능을 활용하는 데 필요한 라이브러리 종속성(dependency)을 추가하는 방법을 배워보겠습니다.
 
 > Kotlin 표준 라이브러리는 별도의 설정 없이 즉시 사용할 수 있으므로 따로 임포트할 필요가 없습니다.
@@ -122,6 +114,12 @@ Kotlin Notebook에 두 개의 인기 있는 Kotlin 라이브러리 종속성을 
 
 Kotlin Notebook에서 이러한 라이브러리들을 성공적으로 추가하고 활용하신 것을 축하합니다!
 이것은 Kotlin Notebook과 [지원되는 라이브러리](data-analysis-libraries.md)로 달성할 수 있는 것들의 일부에 불과합니다.
+
+<list id="tour-nav">
+  <li>
+    <a as="button" href="kotlin-notebook-create.md" mode="outline" icon="arrow-left" icon-position="left">이전 단계</a>
+  </li>
+</list>
 
 ## 다음 단계
 

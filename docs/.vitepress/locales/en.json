@@ -51,7 +51,7 @@
   "kotlin.kotlin-overview": "Kotlin overview",
   "kotlin.what-s-new-in-kotlin": "What's new in Kotlin",
   "kotlin.whatsnew22": "Kotlin 2.2.0",
-  "kotlin.whatsnew-eap": "Kotlin 2.4.20-RC2",
+  "kotlin.whatsnew-eap": "Kotlin 2.4.20-RC3",
   "kotlin.earlier-versions": "Earlier versions",
   "kotlin.whatsnew2120": "Kotlin 2.1.20",
   "kotlin.whatsnew21": "Kotlin 2.1.0",
@@ -655,5 +655,11 @@
   "koog.cloud-platform-integrations": "Cloud platform integrations",
   "koog.amazon-bedrock-agentcore": "Amazon Bedrock AgentCore",
   "kmp.ios-ci-cd-teamcity": "Configure iOS delivery pipeline",
-  "koog.skills": "Skills"
+  "koog.skills": "Skills",
+  "kotlin.mapping-kotlin-and-c": "Mapping Kotlin and C",
+  "kotlin.mapping-primitive-data-types-from-c": "Primitive data types",
+  "kotlin.mapping-struct-union-types-from-c": "Struct and union types",
+  "kotlin.mapping-function-pointers-from-c": "Function pointers",
+  "kotlin.mapping-strings-from-c": "Strings",
+  "kmp.compose-desktop-tabbing": "Tab navigation"
 }

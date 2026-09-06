@@ -7,14 +7,6 @@
 >
 {style="note"}
 
-<tldr>
-   <p>這是 <strong>Kotlin Notebook 快速入門</strong>教學的第二部分。在繼續之前，請確保您已完成上一個步驟。</p>
-   <p><img src="icon-1-done.svg" width="20" alt="第一步"/> <a href="kotlin-notebook-set-up-env.md">設定環境</a><br/>
-      <img src="icon-2.svg" width="20" alt="第二步"/> <strong>建立 Kotlin Notebook</strong><br/>
-      <img src="icon-3-todo.svg" width="20" alt="第三步"/> 將相依性新增至 Kotlin Notebook<br/>
-  </p>
-</tldr>
-
 您可以透過以下三種主要方式開始使用您的 [Kotlin Notebook](kotlin-notebook-overview.md)：
 
 * [建立包含 Kotlin Notebook 的新專案](#create-a-new-project) 
@@ -113,4 +105,11 @@
 
 在教學的下一部分中，您將學習如何將相依性新增至 Kotlin Notebook。
 
-**[繼續閱讀下一章節](kotlin-notebook-add-dependencies.md)**
+<list columns="2" id="tour-nav">
+  <li>
+    <a as="button" href="kotlin-notebook-set-up-env.md" mode="outline" icon="arrow-left" icon-position="left">上一步</a>
+  </li>
+  <li>
+    <a as="button" href="kotlin-notebook-add-dependencies.md" mode="classic" icon="arrow-right" icon-position="right">下一步</a>
+  </li>
+</list>

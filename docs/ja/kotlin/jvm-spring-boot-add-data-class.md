@@ -2,11 +2,6 @@
 
 <web-summary>Spring BootプロジェクトにKotlinのデータクラスを追加します。</web-summary>
 
-<tldr>
-    <p>これは <strong>Spring BootとKotlinを使い始める</strong> チュートリアルの第2部です。先に進む前に、前のステップを完了していることを確認してください。</p><br/>
-    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="jvm-create-project-with-spring-boot.md">KotlinでSpring Bootプロジェクトを作成する</a><br/><img src="icon-2.svg" width="20" alt="Second step"/> <strong>Spring Bootプロジェクトにデータクラスを追加する</strong><br/><img src="icon-3-todo.svg" width="20" alt="Third step"/> Spring Bootプロジェクトにデータベースのサポートを追加する<br/><img src="icon-4-todo.svg" width="20" alt="Fourth step"/> データベースアクセスにSpring Data CrudRepositoryを使用する</p>
-</tldr>
-
 このチュートリアルでは、アプリケーションに機能を追加し、データクラスなどのKotlin言語のさらなる機能について学びます。
 これには、シリアル化されたオブジェクトのコレクションを含むJSONドキュメントを応答するように `MessageController` クラスを変更する必要があります。
 
@@ -175,4 +170,11 @@ Springアプリケーションを実行する準備が整いました。
 
 チュートリアルの次のパートでは、プロジェクトにデータベースを追加して設定し、HTTPリクエストを実行します。
 
-**[次の章に進む](jvm-spring-boot-add-db-support.md)**
+<list columns="2" id="tour-nav">
+  <li>
+    <a as="button" href="jvm-create-project-with-spring-boot.md" mode="outline" icon="arrow-left" icon-position="left">前のステップ</a>
+  </li>
+  <li>
+    <a as="button" href="jvm-spring-boot-add-db-support.md" mode="classic" icon="arrow-right" icon-position="right">次のステップ</a>
+  </li>
+</list>

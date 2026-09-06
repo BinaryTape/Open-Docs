@@ -4,29 +4,29 @@
 
 Kotlinは、サーバーサイドアプリケーションの開発に非常に適しています。Kotlinを使用すると、既存のJavaベースのテクノロジースタックとの完全な互換性を維持しながら、簡潔で表現力豊かなコードを書くことができます。
 
-## ははじめに
+## はじめに
 
 Kotlinは、JavaからKotlinへの大規模なコードベースの段階的な移行をサポートしています。プロジェクトの他の部分はJavaのままにして、テストや新しいプロダクションコードをKotlinで書き始めることができます。
 
 JavaプロジェクトをKotlinで動作するように構成し、IntelliJ IDEAに含まれる自動Java-to-Kotlinコンバーターを活用しましょう。
 
-<a href="mixing-java-kotlin-intellij.md"><img src="backend-get-started-button.svg" alt="Introduce Kotlin to your Java project" style="block"/></a>
+<a href="mixing-java-kotlin-intellij.md" as="button" mode="rock" icon="arrow-right" icon-position="right">Java プロジェクトに Kotlin を導入する</a>
 
 ## フレームワークを探索する
 
-KotlinはすべてのJavaベースのフレームワークと完全に互換性があるため、使い慣れたテクノロジースタックをそのまま使用しながら、Kotlinの構文のメリットを享受できます。優れたIDEサポートに加え、IntelliJ IDEA UltimateにおけるSpringやKtorのサポートなど、特定のフレームワーク向けのツールも提供されています。
+KotlinはすべてのJavaベースのフレームワークと完全に互換性があるため、使い慣れたテクノロジースタックをそのまま使用しながら、Kotlinの構文のメリットを享受できます。優れたIDEサポートに加え、Kotlinは、IntelliJ IDEA UltimateにおけるSpringやKtorのサポートなど、特定のフレームワーク向けのツールも提供しています。
 
 ### Spring
 
 [Spring](https://spring.io)は、Kotlinの言語機能を活用して、より簡潔なAPIを提供しています。[オンラインプロジェクトジェネレーター](https://start.spring.io/#!language=kotlin)を使用すると、Kotlinの新しいプロジェクトを素早く生成できます。
 
-<a href="jvm-get-started-spring-boot.md"><img src="spring-get-started-button.svg" alt="Get started with Spring Boot and Kotlin" style="block"/></a>
+<a href="jvm-get-started-spring-boot.md" as="button" mode="rock" icon="arrow-right" icon-position="right">Spring Boot と Kotlin を使ってみる</a>
 
 ### Ktor
 
 [Ktor](https://github.com/kotlin/ktor)は、KotlinでWebアプリケーションを作成するためのJetBrains製フレームワークです。高いスケーラビリティのためにコルーチンを利用し、使いやすく慣用的な（idiomatic）APIを提供します。
 
-<a href="https://ktor.io/docs/server-create-a-new-project.html"><img src="ktor-get-started-button.svg" alt="Create a new Ktor project" style="block"/></a>
+<a href="https://ktor.io/docs/server-create-a-new-project.html" as="button" mode="rock" icon="arrow-right" icon-position="right">Ktor プロジェクトを新しく作成する</a>
 
 ### その他のフレームワーク
 
@@ -48,6 +48,12 @@ Kotlinアプリケーションは、Amazon Web Services（AWS）、Google Cloud 
 * **AWS** は、サービスとやり取りするための専用の [Kotlin用SDK](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/home.html) を提供しています。サーバーレスデプロイについては、[AWS Lambda の Kotlin コード例](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/kotlin_lambda_code_examples.html)を参照してください。
 * **Ktor** を使用すると、Kotlinアプリケーションをさまざまなクラウドプロバイダーに公開できます。たとえば、Ktorのチュートリアルに従って、[Google App Engine](https://ktor.io/docs/google-app-engine.html) やその他のサービスへのデプロイについて詳しく学ぶことができます。
 * **Spring** アプリケーションも、ほとんどの主要なクラウドプロバイダーと互換性があります。Spring Bootアプリケーションをクラウドにデプロイする方法については、[Spring公式ドキュメント](https://docs.spring.io/spring-boot/how-to/deployment/cloud.html)を参照してください。
+
+## コミュニティに参加する
+
+* ![Slack](slack.svg){width=25}{type="joined"} **Kotlin Slack**: [招待を受ける](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) か、[#spring](https://kotlinlang.slack.com/archives/C0B8ZTWE4) や [#server](https://kotlinlang.slack.com/archives/C0B8RC352) チャンネルに参加してください。
+* ![Stack Overflow](stackoverflow.svg){width=25}{type="joined"} **Stack Overflow**: [「kotlin」](https://stackoverflow.com/questions/tagged/kotlin)、[「spring-kotlin」](https://stackoverflow.com/questions/tagged/spring-kotlin)、[「ktor」](https://stackoverflow.com/questions/tagged/ktor) タグを購読してください。
+* ![YouTube](youtube.svg){width=25}{type="joined"} **Kotlin YouTube チャンネル**: チャンネル登録して [Kotlin と Spring に関する動画](https://www.youtube.com/playlist?list=PLlFc5cFwUnmxOJL0GSSZ1Vot4KL2Vwe7x) を視聴しましょう。
 
 ## 次のステップ
 

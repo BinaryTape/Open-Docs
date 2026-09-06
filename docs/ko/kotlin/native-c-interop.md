@@ -46,7 +46,7 @@ C 라이브러리를 사용해야 하는 프로젝트를 작업할 때의 일반
 
 #### 포인터 타입
 
-`CPointer<T>`의 타입 인자 `T`는 위에서 설명한 lvalue 타입 중 하나여야 합니다. 예를 들어, C 타입 `struct S*`는 `CPointer<S>`로 매핑되고, `int8_t*`는 `CPointer<int_8tVar>`로, `char**`는 `CPointer<CPointerVar<ByteVar>>`로 매핑됩니다.
+`CPointer<T>`의 타입 인자 `T`는 위에서 설명한 lvalue 타입 중 하나여야 합니다. 예를 들어, C 타입 `struct S*`는 `CPointer<S>`로 매핑되고, `int8_t*`는 `CPointer<int_8tVar>`, `char**`는 `CPointer<CPointerVar<ByteVar>>`로 매핑됩니다.
 
 C의 null 포인터는 Kotlin의 `null`로 표현되며, 포인터 타입 `CPointer<T>`는 null을 허용하지 않지만 `CPointer<T>?`는 허용합니다. 이 타입의 값은 Kotlin의 `null` 처리와 관련된 모든 연산(예: `?:`, `?.`, `!!` 등)을 지원합니다:
 
@@ -435,7 +435,10 @@ fun test() {
 
 다음 튜토리얼을 통해 Kotlin과 C 간에 타입, 함수 및 문자열이 어떻게 매핑되는지 자세히 알아보세요:
 
-* [C의 프리미티브 데이터 타입 매핑](mapping-primitive-data-types-from-c.md)
-* [C의 구조체 및 공용체 타입 매핑](mapping-struct-union-types-from-c.md)
-* [C의 함수 포인터 매핑](mapping-function-pointers-from-c.md)
-* [C의 문자열 매핑](mapping-strings-from-c.md)
+<p><img src="icon-1.svg" width="20" alt="First step"/> <a href="mapping-primitive-data-types-from-c.md">C의 프리미티브 데이터 타입 매핑</a><br/>
+   <img src="icon-2.svg" width="20" alt="Second step"/> <a href="mapping-struct-union-types-from-c.md">C의 구조체 및 공용체 타입 매핑</a><br/>
+   <img src="icon-3.svg" width="20" alt="Third step"/> <a href="mapping-function-pointers-from-c.md">C의 함수 포인터 매핑</a><br/>
+   <img src="icon-4.svg" width="20" alt="Fourth step"/> <a href="mapping-strings-from-c.md">C의 문자열 매핑</a><br/>
+</p>
+
+<a href="mapping-primitive-data-types-from-c.md" as="button" mode="classic" icon="arrow-right" icon-position="right">시작하기</a>

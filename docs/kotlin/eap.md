@@ -8,7 +8,7 @@
 您可以参与 Kotlin 抢先体验预览 (EAP)，在最新的 Kotlin 功能发布之前对其进行试用。
 
 在每个语言 (_2.x.0_) 和工具 (_2.x.20_) 版本发布之前，我们都会发布抢先体验预览 (EAP) 构建版本，供您在真实项目中进行测试并分享早期反馈。
-Kotlin EAP 构建通常包括以下阶段：
+Kotlin EAP 构建版本通常包括以下阶段：
 
 | EAP 构建版本 | 描述 |
 |-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -53,13 +53,13 @@ _目前没有可用的预览版本。_
         <th>构建亮点</th>
     </tr>
     <tr>
-        <td><strong>2.4.20-RC2</strong>
-            <p>发布日期：<strong>2026 年 8 月 26 日</strong></p>
-            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.20-RC2" target="_blank">GitHub 上的发布版本</a></p>
+        <td><strong>2.4.20-RC3</strong>
+            <p>发布日期：<strong>2026 年 9 月 2 日</strong></p>
+            <p><a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.20-RC3" target="_blank">GitHub 上的发布版本</a></p>
         </td>
         <td>
             <p>这是一个工具版本，包含性能改进、错误修复和工具更新。</p>
-            <p>有关更多详细信息，请参阅<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.20-RC2">变更日志</a>或<a href="whatsnew-eap.md">Kotlin 2.4.20-RC2 中的最新变化</a>。</p>
+            <p>有关更多详细信息，请参阅<a href="https://github.com/JetBrains/kotlin/releases/tag/v2.4.20-RC3">变更日志</a>或<a href="whatsnew-eap.md">Kotlin 2.4.20-RC3 中的最新变化</a>。</p>
         </td>
     </tr>
 </table>

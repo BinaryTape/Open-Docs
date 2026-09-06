@@ -2,11 +2,6 @@
 
 <web-summary>Kotlin으로 작성된 Spring Boot 프로젝트에서 Spring Data 인터페이스를 사용합니다.</web-summary>
 
-<tldr>
-    <p>이 섹션은 <strong>Spring Boot와 Kotlin 시작하기</strong> 튜토리얼의 마지막 부분입니다. 계속 진행하기 전에 이전 단계들을 완료했는지 확인하세요:</p><br/>
-    <p><img src="icon-1-done.svg" width="20" alt="First step"/> <a href="jvm-create-project-with-spring-boot.md">Kotlin으로 Spring Boot 프로젝트 생성하기</a><br/><img src="icon-2-done.svg" width="20" alt="Second step"/> <a href="jvm-spring-boot-add-data-class.md">Spring Boot 프로젝트에 데이터 클래스 추가하기</a><br/><img src="icon-3-done.svg" width="20" alt="Third step"/> <a href="jvm-spring-boot-add-db-support.md">Spring Boot 프로젝트에 데이터베이스 지원 추가하기</a><br/><img src="icon-4.svg" width="20" alt="Fourth step"/> <strong>데이터베이스 액세스를 위해 Spring Data CrudRepository 사용하기</strong></p>
-</tldr>
-
 이번 파트에서는 데이터베이스 액세스를 위해 `JdbcTemplate` 대신 [Spring Data](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html) `CrudRepository`를 사용하도록 서비스 레이어를 마이그레이션합니다.
 _CrudRepository_는 특정 타입의 저장소(repository)에 대한 일반적인 [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) 작업을 위한 Spring Data 인터페이스입니다.
 이 인터페이스는 데이터베이스와 상호작용하기 위한 여러 메서드를 기본으로 제공합니다.
@@ -40,7 +35,7 @@ _CrudRepository_는 특정 타입의 저장소(repository)에 대한 일반적�
     data class Message(val text: String, @Id val id: String? = null)
     ```
  
-    이제 `Message` 클래스의 새 인스턴스를 생성할 때 `text` 속성만 파라미터로 지정할 수 있습니다:
+    이제 `Message` 클래스의 새 인스턴스를 생성할 때 `text` 속만 파라미터로 지정할 수 있습니다:
 
     ```kotlin
     val message = Message("Hello") // id는 null이 됩니다.
@@ -210,13 +205,17 @@ class MessageController(private val service: MessageService) {
 
 이제 `requests.http` 파일에서 [POST 및 GET HTTP 요청을 실행](jvm-spring-boot-add-db-support.md#add-messages-to-database-via-http-request)하여 동일한 결과를 확인할 수 있습니다.
 
+<list id="tour-nav">
+  <li>
+    <a as="button" href="jvm-spring-boot-add-db-support.md" mode="outline" icon="arrow-left" icon-position="left">이전 단계</a>
+  </li>
+</list>
+
 ## 다음 단계
 
 Kotlin 기능을 탐색하고 언어 학습 진행 상황을 추적하는 데 도움이 되는 개인 언어 지도를 받아보세요:
 
-<a href="https://resources.jetbrains.com/storage/products/kotlin/docs/Kotlin_Language_Features_Map.pdf">
-   <img src="get-kotlin-language-map.png" width="700" alt="Get the Kotlin language map" style="block"/>
-</a>
+<a as="button" href="https://resources.jetbrains.com/storage/products/kotlin/docs/Kotlin_Language_Features_Map.pdf" mode="rock" icon="arrow-right" icon-position="right">Kotlin 언어 지도 받기</a>
 
 * [Spring Framework](https://docs.spring.io/spring-framework/reference/) 문서를 확인해 보세요.
 * [웹 애플리케이션 보안 설정](https://spring.io/guides/gs/securing-web) 튜토리얼에서 보호된 리소스가 있는 간단한 웹 애플리케이션을 만들어 보세요.

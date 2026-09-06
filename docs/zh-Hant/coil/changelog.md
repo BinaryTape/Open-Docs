@@ -1,12 +1,21 @@
 # 更新日誌
 
+## [3.6.2] - 2026 年 9 月 4 日
+
+- 修正若等待請求被取消時，`DeDupeConcurrentRequestStrategy` 導致特定金鑰的請求掛起的問題。([#3566](https://github.com/coil-kt/coil/pull/3566))
+- 修正搭配 Compose Multiplatform 1.13 使用時發生的 JS/WASM 連結錯誤。([#3568](https://github.com/coil-kt/coil/pull/3568))
+
+## [3.6.1] - 2026 年 9 月 1 日
+
+- 修正啟用 ES 模組時 JS 組建失敗的問題。([#3558](https://github.com/coil-kt/coil/pull/3558))
+
 ## [3.6.0] - 2026 年 8 月 26 日
 
 - **新增**：在 JS/WASM 上加入對載入 `blob:` URL（物件 URL）的支援。([#3504](https://github.com/coil-kt/coil/pull/3504))
 - **新增**：加入 `ImageRequest.Builder.allowPartialImage` 與 `ImageLoader.Builder.allowPartialImage` 以設定 Android 上的 `StaticImageDecoder` 是否接受部分影像。此功能預設為啟用，與先前 Coil 版本的行為一致。([#3494](https://github.com/coil-kt/coil/pull/3494))
 - 修正 `AsyncImage` 在使用反向限制測量時發生崩潰的問題。([#3470](https://github.com/coil-kt/coil/pull/3470))
 - 修正 Compose `filterQuality` 未套用至由可繪製物件支援的影像（包括 GIF）的問題。([#3469](https://github.com/coil-kt/coil/pull/3469))
-- 修正 JS/WASM 影像剖析器的記憶體洩漏問題。([#3503](https://github.com/coil-kt/coil/pull/3503))
+- 修正 JS/WASM 影像解碼器的記憶體洩漏問題。([#3503](https://github.com/coil-kt/coil/pull/3503))
 - 修正使用 R8 9.0+ 最佳化組建時，影像無法透過 `GenericViewTarget` 渲染的問題。([#3518](https://github.com/coil-kt/coil/pull/3518))
 - 在 JVM 上使用 `Runtime.maxMemory()` 來判定最大記憶體快取大小，而非假設有 `512 MB` 的可用記憶體。([#3458](https://github.com/coil-kt/coil/pull/3458))
 - 將 ProGuard 規則隨附於非 Android JVM 構件中。([#3476](https://github.com/coil-kt/coil/pull/3476))
@@ -102,7 +111,7 @@
 - 修正 Java 無法存取 `ImageLoaders.executeBlocking` 的問題。
 - 在 `coil-network-ktor3` 中使用 `kotlinx.io` 的 Okio 互操作模組。
 - 更新 `kotlinx-datetime` 至 `0.7.1`。
-    - 此版本包含僅影響 `coil-network-cache-control` 模組的二進制不相容變更。詳情請參閱[此處](https://github.com/Kotlin/kotlinx-datetime?tab=readme-ov-file#deprecation-of-instant)。
+    - 此版本包含僅影響 `coil-network-cache-control` 模組的二進制不相容變更。詳情請見[此處](https://github.com/Kotlin/kotlinx-datetime?tab=readme-ov-file#deprecation-of-instant)。
 - 更新 Kotlin 至 2.2.0。
 - 更新 Compose 至 1.8.2。
 - 更新 Okio 至 3.15.0。
@@ -584,7 +593,7 @@ AsyncImage(
     - 升級至 2.0 時，現有的磁碟快取將被清除。
 - `ImageRequest` 的預設 `Scale` 現在為 `Scale.FIT`。
     - 此變更旨在使 `ImageRequest.scale` 與其他具有預設 `Scale` 的類別保持一致。
-    - 具有 `ImageViewTarget` 的請求仍會自動偵測其 `Scale`。
+    - 具有 `ImageViewTarget` 的請求仍會自動偵測其比例。
 - `ImageRequest` 的預設大小現在為 `Size.ORIGINAL`。
 - 重構影像管線類別：
     - `Mapper`、`Fetcher` 與 `Decoder` 已重構以提供更大的靈活性。
@@ -670,7 +679,7 @@ AsyncImage(
 
 - **重要**：重構 `Size` 以支援在任一維度使用影像的原始大小。
     - `Size` 現在由寬度與高度的兩個 `Dimension` 值組成。`Dimension` 可以是正像素值或 `Dimension.Original`。
-    - 此變更是為了在一個維度為固定像素值時，更好地支援無界寬度/高度值（例如 `wrap_content`、`Constraints.Infinity`）。
+    - 此變則是為了在一個維度為固定像素值時，更好地支援無界寬度/高度值（例如 `wrap_content`、`Constraints.Infinity`）。
 - 修正：為 `AsyncImage` 支援檢查模式 (inspection mode)（預覽）。
 - 修正：若 `imageLoader.memoryCache` 為 null，則 `SuccessResult.memoryCacheKey` 應始終為 `null`。
 - 將 `ImageLoader`、`SizeResolver` 與 `ViewSizeResolver` 類建構函式的 `invoke` 函式轉換為頂層函式。
@@ -756,7 +765,7 @@ AsyncImage(
 
 ## [2.0.0-alpha02] - 2021 年 10 月 24 日
 
-- 加入新的 `coil-bom` 構件，其中包含 [物料清單 (bill of materials)](https://docs.gradle.org/7.2/userguide/platforms.html#sub:bom_import)。
+- 加入新的 `coil-bom` 構件，其中包含 [物料清單 (BOM)](https://docs.gradle.org/7.2/userguide/platforms.html#sub:bom_import)。
     - 匯入 `coil-bom` 允許您依賴其他 Coil 構件而無需指定版本。
 - 修正使用 `ExecuteCallback.Immediate` 時影像載入失敗的問題。
 - 更新 Okio 至 3.0.0-alpha.11。
@@ -782,7 +791,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
     - 仍支援 `Cache-Control` 與其他快取標頭——除了 `Vary` 標頭，因為快取僅檢查 URL 是否相符。此外，僅快取回應代碼在 [200..300) 範圍內的回應。
     - 支援快取標頭的功能可透過 `ImageLoader.Builder.respectCacheHeaders` 啟用或停用。
     - 升級至 2.0 時，現有的磁碟快取將被清除並重新建置。
-- **重要**：`ImageRequest` 的預設 `Scale` 現在為 `Scale.FIT`。
+- **重要**：`ImageRequest` 的預設 `Scale` 現在為 `Scale.FIT`
     - 此變更旨在使 `ImageRequest.scale` 與其他具有預設 `Scale` 的類別保持一致。
     - 具有 `ImageViewTarget` 的請求仍會自動偵測其比例。
 - 影像管線類別的重大變更：
@@ -804,7 +813,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 - 加入對 `interceptorDispatcher`、`fetcherDispatcher`、`decoderDispatcher` 與 `transformationDispatcher` 的支援。
 - `Disposable` 已重構並公開底層 `ImageRequest` 的工作 (job)。
 - 將 `Transition.transition` 變更為 non-suspending 函式，因為不再需要暫停轉換直至完成。
-- 加入 `GenericViewTarget`，處理通用的 `ViewTarget` 邏輯。
+- 加入 `GenericViewTarget`處理通用的 `ViewTarget` 邏輯。
 - 已從程式庫中移除 [`BlurTransformation`](https://github.com/coil-kt/coil/blob/845f39383f332428077c666e3567b954675ce248/coil-core/src/main/java/coil/transform/BlurTransformation.kt) 與 [`GrayscaleTransformation`](https://github.com/coil-kt/coil/blob/845f39383f332428077c666e3567b954675ce248/coil-core/src/main/java/coil/transform/GrayscaleTransformation.kt)。
     - 若您仍需使用它們，可以將其程式碼複製到您的專案中。
 - `ImageRequest.error` 為 null，則現在會在 `Target` 上設定 `ImageRequest.error`。
@@ -888,8 +897,8 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 - 修正剖析 HEIF/HEIC 檔案的 EXIF 資料。([#664](https://github.com/coil-kt/coil/pull/664))
 - 修正停用位元圖池化時未使用 `EmptyBitmapPool` 實作的問題。([#638](https://github.com/coil-kt/coil/pull/638))
     - 若無此修正，位元圖池化雖仍能正確停用，但會使用較重的 `BitmapPool` 實作。
-- 修正 `MovieDrawable.getOpacity` 錯誤傳回透明的情況。([#682](https://github.com/coil-kt/coil/pull/682))
-- 防范預設暫存目錄不存在的情況。([#683](https://github.com/coil-kt/coil/pull/683))
+- 修正當 `MovieDrawable.getOpacity` 錯誤傳回透明的情況。([#682](https://github.com/coil-kt/coil/pull/682))
+- 防範預設暫存目錄不存在的情況。([#683](https://github.com/coil-kt/coil/pull/683))
 
 ---
 
@@ -938,7 +947,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 - 若先前的單例影像載入器被替換，不要將其關閉。[#533](https://github.com/coil-kt/coil/pull/533)
 
 自 `1.0.0-rc3` 以來的變更：
-- 修正：防范遺失/無效的 ActivityManager。([#541](https://github.com/coil-kt/coil/pull/541))
+- 修正：防範遺失/無效的 ActivityManager。([#541](https://github.com/coil-kt/coil/pull/541))
 - 修正：允許 OkHttp 快取失敗的回應。([#551](https://github.com/coil-kt/coil/pull/551))
 - 更新 Kotlin 至 1.4.10。
 - 更新 Okio 至 2.9.0。
@@ -1283,7 +1292,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 - 修正：確保 `Parameters` 的疊代順序是確定的。
 - 修正：建立 `Parameters` 與 `ComponentRegistry` 時進行防禦性拷貝。
 - 修正：確保 `RealBitmapPool` 的 `maxSize` >= 0。
-- 修正：若 `CrossfadeDrawable` 未在動畫中或已完成，則顯示起始可繪製對象。
+- 修正：顯示起始可繪製對象。
 - 修正：調整 `CrossfadeDrawable` 以考慮具有未定義原生大小的子項。
 - 修正：修正 `MovieDrawable` 縮放不正確的問題。
 
@@ -1318,7 +1327,7 @@ Coil 2.0.0 是程式庫的下一個主要疊代版本，包含新功能、效能
 
 - 修正：讓 `CoilContentProvider` 在測試中可見。
 - 修正：在資源快取金鑰中包含深色模式。
-- 修正：透過暫時將來源寫入磁碟來避開 `ImageDecoder` 原生崩潰。
+- 修正：透過暫時將來源寫入磁碟來避開 `ImageDecoder` 原生崩貫。
 - 修正：正確處理聯絡人顯示相片 URI。
 - 修正：將色調 (tint) 傳遞給 `CrossfadeDrawable` 的子項。
 - 修正：修正多個未關閉來源的案例。
@@ -1356,7 +1365,7 @@ val imageLoader = ImageLoader(context) {
 - **新增**：重構 `ImageLoader` 以使用 `Call.Factory` 取代 `OkHttpClient`。這允許使用 `ImageLoaderBuilder.okHttpClient { OkHttpClient() }` 延遲初始化網路資源。感謝 @ZacSweers。
 - **新增**：`RequestBuilder.decoder` 用於明確設定請求的解碼器。
 - **新增**：`ImageLoaderBuilder.allowHardware` 用於為 `ImageLoader` 預設啟用/停用硬體位元圖。
-- **新增**：支援在 ImageDecoderDecoder 中軟體渲染。
+- **新增**：支援軟體渲染在 ImageDecoderDecoder。
 
 ---
 

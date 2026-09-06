@@ -22,6 +22,8 @@ commonMain/composeResources/
 └── ... (その他のロケールディレクトリ)
 ```
 
+ある言語に複数の文字体系（スクリプト）がある場合（例えば、中国語やセルビア語など）、特定の文字体系を指定したディレクトリ（`values-b+zh+Hans`、`values-b+zh+Hant`）に加えて、文字体系を指定しないディレクトリ（`values-zh`）を追加してください。そうしないと、システムが文字体系なしでロケールを報告した際に、リソースを解決できなくなります。詳細は[言語と地域の修飾子](compose-multiplatform-resources-setup.md#language-and-regional-qualifiers)を参照してください。
+
 `values` ディレクトリとそのローカライズ版バリアント内で、キーと値のペアを使用して `strings.xml` ファイルに文字列リソースを定義します。
 例えば、英語のテキストを `commonMain/composeResources/values/strings.xml` に追加します：
 
