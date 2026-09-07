@@ -11,16 +11,27 @@ type ParsedGroup = {
   indent: string
 }
 
-// Convert Material for MkDocs content tabs to the site's generic Vue tabs.
-// Unlike VitePress code groups, these tabs may contain prose, admonitions,
-// multiple code blocks, or another nested tab group.
+// Convert Material for MkDocs content tabs to static tab markup. Unlike
+// VitePress code groups, these tabs may contain prose, admonitions, multiple
+// code blocks, or another nested tab group.
+//
+// The markup is deliberately plain HTML rather than the `<Tabs>` component used
+// by the Writerside sources: `Tabs.vue` inspects its slot vnodes and re-renders
+// them through `<component :is>`, which drops Vue's compiled SSR string path
+// and materialises a vnode tree for every tab body. Koog contributes ~3.1k tab
+// groups, and that was enough to exhaust an 8 GB heap while rendering pages.
+// Radio inputs plus sibling selectors give the same behaviour with no component
+// at all; see `.ws-tabs-static` in theme/style.css.
 export default function markdownItMkCodeTabs(md: any) {
   function transformContentTabs(state: any) {
     if (!isMkDocsDoc(state.env)) return
-    state.src = transformLines(state.src.split('\n')).join('\n')
+    // Group names only have to be unique within one page, and a per-document
+    // counter keeps them stable across builds.
+    const groupName = groupNamer()
+    state.src = transformLines(state.src.split('\n'), groupName).join('\n')
   }
 
-  function transformLines(lines: string[]): string[] {
+  function transformLines(lines: string[], groupName: () => string): string[] {
     const output: string[] = []
     let index = 0
     let fence: string | null = null
@@ -43,21 +54,43 @@ export default function markdownItMkCodeTabs(md: any) {
         continue
       }
 
-      output.push(`${group.indent}<Tabs>`)
+      const name = groupName()
+
+      // The radios are direct children of the container, ahead of both the tab
+      // bar and the bodies, so plain `input:checked ~ …` sibling selectors
+      // reach everything that has to react — no `:has()`, and no JavaScript.
+      // Keep this as one HTML block: no blank lines until the bar is closed.
+      output.push(`${group.indent}<div class="ws-tabs-container ws-tabs-static">`)
+      group.tabs.forEach((_tab, tabIndex) => {
+        const checked = tabIndex === 0 ? ' checked' : ''
+        output.push(`${group.indent}<input type="radio" name="${name}" id="${name}-${tabIndex}"${checked}>`)
+      })
+      output.push(`${group.indent}<div class="ws-tablist">`)
+      group.tabs.forEach((tab, tabIndex) => {
+        const title = escapeAttribute(tab.title)
+        output.push(
+          `${group.indent}<label class="ws-tab" data-title="${title}" for="${name}-${tabIndex}">${title}</label>`
+        )
+      })
+      output.push(`${group.indent}</div>`)
+      output.push('')
+      output.push(`${group.indent}<div class="ws-tabcontents">`)
       output.push('')
       for (const tab of group.tabs) {
-        output.push(`${group.indent}<TabItem title="${escapeAttribute(tab.title)}">`)
+        output.push(`${group.indent}<div class="ws-tabcontent">`)
         output.push('')
-        const transformed = transformLines(tab.content)
+        const transformed = transformLines(tab.content, groupName)
         output.push(...transformed.map((contentLine) => contentLine ? group.indent + contentLine : ''))
         output.push('')
-        output.push(`${group.indent}</TabItem>`)
+        output.push(`${group.indent}</div>`)
         output.push('')
       }
-      output.push(`${group.indent}</Tabs>`)
+      output.push(`${group.indent}</div>`)
+      output.push('')
+      output.push(`${group.indent}</div>`)
       // Keep following Markdown outside the generated HTML block. parseGroup
       // consumes trailing blank lines from the final tab, so restore the block
-      // boundary explicitly after the closing component tag.
+      // boundary explicitly after the closing tag.
       output.push('')
       index = group.nextIndex
     }
@@ -148,6 +181,14 @@ function dedentTabContent(lines: string[], parentIndent: string): string[] {
 
 function indentation(line: string): number {
   return line.match(/^\s*/)?.[0].length ?? 0
+}
+
+// Group names double as the `id` prefix for the radios. VitePress inlines
+// `@include` directives and the MkDocs snippet transform runs in the Vite
+// layer, so one counter per document covers everything that ends up on a page.
+function groupNamer(): () => string {
+  let next = 0
+  return () => `ws-tabs-${next++}`
 }
 
 function escapeAttribute(value: string): string {

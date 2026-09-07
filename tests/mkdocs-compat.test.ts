@@ -239,6 +239,10 @@ describe('Koog MkDocs admonitions', () => {
 
 describe('Koog MkDocs content tabs', () => {
   const md = new MarkdownIt({ html: true }).use(markdownItMkCodeTabs)
+  // A tab group closes with three `</div>` lines: the last body, the bodies
+  // wrapper, and the container.
+  const groupEnd = '</div>\n</div>\n</div>'
+  const groupStart = '<div class="ws-tabs-container ws-tabs-static">'
 
   it.each(['koog', 'sqldelight'])('keeps following standalone code outside %s tabs with its indentation intact', (docType) => {
     const source = [
@@ -259,8 +263,8 @@ describe('Koog MkDocs content tabs', () => {
     ].join('\n')
     const html = md.render(source, { relativePath: `${docType}/example.md` })
 
-    expect(html).toContain('</Tabs>\n<pre><code class="language-kotlin">fun before() {\n  initializeDriver()')
-    expect(html.slice(0, html.indexOf('</Tabs>'))).not.toContain('initializeDriver')
+    expect(html).toContain(`${groupEnd}\n<pre><code class="language-kotlin">fun before() {\n  initializeDriver()`)
+    expect(html.slice(0, html.indexOf(groupEnd))).not.toContain('initializeDriver')
   })
 
   it.each([
@@ -274,7 +278,7 @@ describe('Koog MkDocs content tabs', () => {
     const exampleIndex = html.indexOf(example)
 
     expect(exampleIndex).toBeGreaterThan(0)
-    expect(html.lastIndexOf('</Tabs>', exampleIndex)).toBeGreaterThan(html.lastIndexOf('<Tabs>', exampleIndex))
+    expect(html.lastIndexOf(groupEnd, exampleIndex)).toBeGreaterThan(html.lastIndexOf(groupStart, exampleIndex))
   })
 
   it('renders prose, code, and nested content tabs', () => {
@@ -302,12 +306,17 @@ describe('Koog MkDocs content tabs', () => {
     ].join('\n')
     const html = md.render(source, koogEnv)
 
-    expect(html).toContain('<Tabs>')
-    expect(html).toContain('<TabItem title="OpenAI">')
-    expect(html).toContain('<TabItem title="Linux/macOS">')
+    expect(html).toContain(groupStart)
+    expect(html).toContain('data-title="OpenAI"')
+    expect(html).toContain('data-title="Linux/macOS"')
     expect(html).toContain('export API_KEY=value')
-    expect(html).toContain('<TabItem title="Ollama">')
+    expect(html).toContain('data-title="Ollama"')
     expect(html).not.toContain('=== &quot;')
+
+    // A nested group needs its own radio name, or selecting a tab in the inner
+    // group would clear the outer one.
+    const names = [...html.matchAll(/name="([^"]+)"/g)].map((match) => match[1])
+    expect(new Set(names).size).toBe(2)
   })
 
   it('closes a truncated final code fence before generated Vue tags', () => {
@@ -320,8 +329,29 @@ describe('Koog MkDocs content tabs', () => {
     const html = md.render(source, koogEnv)
 
     expect(html).toContain('</code></pre>')
-    expect(html).toContain('</TabItem>')
-    expect(html).toContain('</Tabs>')
+    expect(html).toContain(groupEnd)
+  })
+
+  it('checks the first tab and pairs every label with its own radio', () => {
+    const source = [
+      '=== "Kotlin"',
+      '    ```kotlin',
+      '    first()',
+      '    ```',
+      '=== "Groovy"',
+      '    ```groovy',
+      '    second()',
+      '    ```',
+    ].join('\n')
+    const html = md.render(source, koogEnv)
+
+    expect(html).toContain('<input type="radio" name="ws-tabs-0" id="ws-tabs-0-0" checked>')
+    expect(html).toContain('<input type="radio" name="ws-tabs-0" id="ws-tabs-0-1">')
+    expect(html).toContain('<label class="ws-tab" data-title="Kotlin" for="ws-tabs-0-0">Kotlin</label>')
+    expect(html).toContain('<label class="ws-tab" data-title="Groovy" for="ws-tabs-0-1">Groovy</label>')
+    // The radios must precede the tab bar and the bodies: the stylesheet
+    // reaches both with `input:checked ~ …`.
+    expect(html.indexOf('<input type="radio"')).toBeLessThan(html.indexOf('<div class="ws-tablist">'))
   })
 
   it('keeps Markdown after a tab group outside the generated HTML block', () => {
@@ -340,7 +370,7 @@ describe('Koog MkDocs content tabs', () => {
     ].join('\n')
     const html = md.render(source, koogEnv)
 
-    expect(html).toContain('</Tabs>\n<h2>Following heading</h2>')
+    expect(html).toContain(`${groupEnd}\n<h2>Following heading</h2>`)
     expect(html).toContain('<code class="language-mermaid">graph TD')
     expect(html).not.toContain('```mermaid')
   })

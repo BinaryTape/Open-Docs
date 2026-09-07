@@ -395,3 +395,133 @@ img[type="joined"] {
     color: var(--vp-button-brand-text) !important;
     background-color: var(--vp-button-brand-bg);
 }
+
+/**
+ * ===== Tabbed content =====
+ *
+ * Two producers share this markup:
+ *
+ *  - `Tabs.vue`, for the Writerside `<tabs>` sources. It tracks the active tab
+ *    in Vue and toggles `.ws-tabcontent.active`.
+ *  - the MkDocs content-tab transform, which emits `.ws-tabs-static` markup:
+ *    one radio per tab, switched entirely by CSS. It exists because rendering
+ *    thousands of tab groups through the component exhausts the build heap —
+ *    see plugins/markdown/mkdocs/markdown-it-mk-code-tabs.ts.
+ *
+ * The styles below used to live in `Tabs.vue` as scoped CSS; they are global so
+ * both producers stay visually identical.
+ */
+.ws-tabs-container .ws-tablist input {
+    position: fixed;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ws-tabs-container .ws-tablist label::after {
+    position: absolute;
+    right: 8px;
+    bottom: -1px;
+    left: 8px;
+    z-index: 1;
+    height: 2px;
+    border-radius: 2px;
+    content: "";
+    background-color: #BABABA;
+    transition: background-color 0.25s;
+}
+
+.ws-tabs-container .ws-tablist label:hover {
+    color: var(--vp-code-tab-hover-text-color);
+}
+
+.ws-tabs-container input:checked + label {
+    color: var(--vp-code-tab-active-text-color);
+}
+
+.ws-tabs-container input:checked + label::after {
+    background-color: var(--vp-code-tab-active-bar-color);
+}
+
+.ws-tab {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px solid transparent;
+    padding: 0 12px;
+    line-height: 48px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--vp-code-tab-text-color);
+    white-space: nowrap;
+    transition: color 0.25s;
+}
+
+.ws-tabcontents {
+    padding: 0 12px;
+}
+
+.ws-tabs-container .ws-tabcontents .ws-tabcontent {
+    display: none;
+    margin-top: 0 !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}
+
+/* Vue-driven tabs (Writerside). */
+.ws-tabs-container .ws-tabcontents .ws-tabcontent.active {
+    display: block;
+}
+
+/* CSS-only tabs (MkDocs). The radios sit directly inside the container, ahead
+   of the tab bar and the bodies, so a plain `~` reaches both. Nine tabs is the
+   current maximum (docs/zh-Hant/koog/llm-parameters.md); twelve leaves room. */
+.ws-tabs-static > input {
+    position: fixed;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ws-tabs-static > input:nth-of-type(1):checked ~ .ws-tablist > label:nth-of-type(1),
+.ws-tabs-static > input:nth-of-type(2):checked ~ .ws-tablist > label:nth-of-type(2),
+.ws-tabs-static > input:nth-of-type(3):checked ~ .ws-tablist > label:nth-of-type(3),
+.ws-tabs-static > input:nth-of-type(4):checked ~ .ws-tablist > label:nth-of-type(4),
+.ws-tabs-static > input:nth-of-type(5):checked ~ .ws-tablist > label:nth-of-type(5),
+.ws-tabs-static > input:nth-of-type(6):checked ~ .ws-tablist > label:nth-of-type(6),
+.ws-tabs-static > input:nth-of-type(7):checked ~ .ws-tablist > label:nth-of-type(7),
+.ws-tabs-static > input:nth-of-type(8):checked ~ .ws-tablist > label:nth-of-type(8),
+.ws-tabs-static > input:nth-of-type(9):checked ~ .ws-tablist > label:nth-of-type(9),
+.ws-tabs-static > input:nth-of-type(10):checked ~ .ws-tablist > label:nth-of-type(10),
+.ws-tabs-static > input:nth-of-type(11):checked ~ .ws-tablist > label:nth-of-type(11),
+.ws-tabs-static > input:nth-of-type(12):checked ~ .ws-tablist > label:nth-of-type(12) {
+    color: var(--vp-code-tab-active-text-color);
+}
+
+.ws-tabs-static > input:nth-of-type(1):checked ~ .ws-tablist > label:nth-of-type(1)::after,
+.ws-tabs-static > input:nth-of-type(2):checked ~ .ws-tablist > label:nth-of-type(2)::after,
+.ws-tabs-static > input:nth-of-type(3):checked ~ .ws-tablist > label:nth-of-type(3)::after,
+.ws-tabs-static > input:nth-of-type(4):checked ~ .ws-tablist > label:nth-of-type(4)::after,
+.ws-tabs-static > input:nth-of-type(5):checked ~ .ws-tablist > label:nth-of-type(5)::after,
+.ws-tabs-static > input:nth-of-type(6):checked ~ .ws-tablist > label:nth-of-type(6)::after,
+.ws-tabs-static > input:nth-of-type(7):checked ~ .ws-tablist > label:nth-of-type(7)::after,
+.ws-tabs-static > input:nth-of-type(8):checked ~ .ws-tablist > label:nth-of-type(8)::after,
+.ws-tabs-static > input:nth-of-type(9):checked ~ .ws-tablist > label:nth-of-type(9)::after,
+.ws-tabs-static > input:nth-of-type(10):checked ~ .ws-tablist > label:nth-of-type(10)::after,
+.ws-tabs-static > input:nth-of-type(11):checked ~ .ws-tablist > label:nth-of-type(11)::after,
+.ws-tabs-static > input:nth-of-type(12):checked ~ .ws-tablist > label:nth-of-type(12)::after {
+    background-color: var(--vp-code-tab-active-bar-color);
+}
+
+.ws-tabs-static > input:nth-of-type(1):checked ~ .ws-tabcontents > .ws-tabcontent:nth-of-type(1),
+.ws-tabs-static > input:nth-of-type(2):checked ~ .ws-tabcontents > .ws-tabcontent:nth-of-type(2),
+.ws-tabs-static > input:nth-of-type(3):checked ~ .ws-tabcontents > .ws-tabcontent:nth-of-type(3),
+.ws-tabs-static > input:nth-of-type(4):checked ~ .ws-tabcontents > .ws-tabcontent:nth-of-type(4),
+.ws-tabs-static > input:nth-of-type(5):checked ~ .ws-tabcontents > .ws-tabcontent:nth-of-type(5),
+.ws-tabs-static > input:nth-of-type(6):checked ~ .ws-tabcontents > .ws-tabcontent:nth-of-type(6),
+.ws-tabs-static > input:nth-of-type(7):checked ~ .ws-tabcontents > .ws-tabcontent:nth-of-type(7),
+.ws-tabs-static > input:nth-of-type(8):checked ~ .ws-tabcontents > .ws-tabcontent:nth-of-type(8),
+.ws-tabs-static > input:nth-of-type(9):checked ~ .ws-tabcontents > .ws-tabcontent:nth-of-type(9),
+.ws-tabs-static > input:nth-of-type(10):checked ~ .ws-tabcontents > .ws-tabcontent:nth-of-type(10),
+.ws-tabs-static > input:nth-of-type(11):checked ~ .ws-tabcontents > .ws-tabcontent:nth-of-type(11),
+.ws-tabs-static > input:nth-of-type(12):checked ~ .ws-tabcontents > .ws-tabcontent:nth-of-type(12) {
+    display: block;
+}
